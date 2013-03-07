@@ -7,7 +7,10 @@
 
 --->
 <cfoutput>
-	<cfquery name="new" datasource="uam_god">
+	<!---
+
+	--->
+	<cfquery name="newOrStale" datasource="uam_god">
 		select
 			coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
 			coll_obj_other_id_num.ID_REFERENCES,
@@ -25,61 +28,7 @@
 				select COLL_OBJ_OTHER_ID_NUM_ID from cf_relations_cache
 			) and
 			rownum<1000
-	</cfquery>
-	<cfloop query="new">
-		<!--- this should be a web fetch, but see above. Try to be nice about encumbrances, get only public data, etc. --->
-		<cfquery name="fetch" datasource="uam_god">
-			select
-				HIGHER_GEOG || ': ' || SPEC_LOCALITY locality,
-				SCIENTIFIC_NAME,
-				FAMILY
-			from
-				filtered_flat
-			where guid='#OTHER_ID_TYPE#:#DISPLAY_VALUE#'
-		</cfquery>
-		<cfif len(fetch.locality) gt 0>
-			<cfquery name="ins" datasource="uam_god">
-					insert into cf_relations_cache (
-						COLL_OBJ_OTHER_ID_NUM_ID,
-						TERM,
-						VALUE
-					) values (
-						#new.COLL_OBJ_OTHER_ID_NUM_ID#,
-						'locality',
-						'#fetch.locality#'
-					)
-				</cfquery>
-			</cfif>
-			<cfif len(fetch.SCIENTIFIC_NAME) gt 0>
-				<cfquery name="ins" datasource="uam_god">
-					insert into cf_relations_cache (
-						COLL_OBJ_OTHER_ID_NUM_ID,
-						TERM,
-						VALUE
-					) values (
-						#new.COLL_OBJ_OTHER_ID_NUM_ID#,
-						'identification',
-						'#fetch.SCIENTIFIC_NAME#'
-					)
-				</cfquery>
-			</cfif>
-			<cfif len(fetch.FAMILY) gt 0>
-				<cfquery name="ins" datasource="uam_god">
-					insert into cf_relations_cache (
-						COLL_OBJ_OTHER_ID_NUM_ID,
-						TERM,
-						VALUE
-					) values (
-						#new.COLL_OBJ_OTHER_ID_NUM_ID#,
-						'family',
-						'#fetch.FAMILY#'
-					)
-				</cfquery>
-			</cfif>
-	</cfloop>
-
-
-	<cfquery name="stale" datasource="uam_god">
+		UNION
 		select
 			coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
 			coll_obj_other_id_num.ID_REFERENCES,
@@ -98,9 +47,8 @@
 			sysdate-CACHEDATE > 30 and
 			rownum<1000
 	</cfquery>
-
-	<cfdump var=#stale#>
-	<cfloop query="stale">
+	<cfloop query="newOrStale">
+		<!--- this should be a web fetch, but see above. Try to be nice about encumbrances, get only public data, etc. --->
 		<cfquery name="fetch" datasource="uam_god">
 			select
 				HIGHER_GEOG || ': ' || SPEC_LOCALITY locality,
@@ -117,6 +65,10 @@
 			That is, do nothing
 		---->
 		<cfif fetch.recordcount is 1>
+			<!---
+				if this becomes something more than SQL, we'll need to alter this to only delete the things
+				that we're going to rebuild
+			---->
 			<cfquery name="ins" datasource="uam_god">
 				delete from cf_relations_cache where COLL_OBJ_OTHER_ID_NUM_ID=#stale.COLL_OBJ_OTHER_ID_NUM_ID#
 			</cfquery>
@@ -127,7 +79,7 @@
 						TERM,
 						VALUE
 					) values (
-						#new.COLL_OBJ_OTHER_ID_NUM_ID#,
+						#newOrStale.COLL_OBJ_OTHER_ID_NUM_ID#,
 						'locality',
 						'#fetch.locality#'
 					)
@@ -140,7 +92,7 @@
 						TERM,
 						VALUE
 					) values (
-						#new.COLL_OBJ_OTHER_ID_NUM_ID#,
+						#newOrStale.COLL_OBJ_OTHER_ID_NUM_ID#,
 						'identification',
 						'#fetch.SCIENTIFIC_NAME#'
 					)
@@ -153,7 +105,7 @@
 						TERM,
 						VALUE
 					) values (
-						#new.COLL_OBJ_OTHER_ID_NUM_ID#,
+						#newOrStale.COLL_OBJ_OTHER_ID_NUM_ID#,
 						'family',
 						'#fetch.FAMILY#'
 					)
@@ -162,4 +114,3 @@
 		</cfif>
 	</cfloop>
 </cfoutput>
-
