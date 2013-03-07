@@ -65,7 +65,7 @@ CTCOLL_OTHER_ID_TYPE.BASE_URL
 					)
 				</cfquery>
 			</cfif>
-			<cfif len(SCIENTIFIC_NAME) gt 0>
+			<cfif len(FAMILY) gt 0>
 				<cfquery name="ins" datasource="uam_god">
 					insert into cf_relations_cache (
 						COLL_OBJ_OTHER_ID_NUM_ID,
