@@ -407,9 +407,9 @@
 			<td class="srch">
 				<select name="id_references" id="id_references" size="1">
 					<option value=""></option>
-					<cfoutput query="ctid_references">
+					<cfloop query="ctid_references">
 						<option value="#ctid_references.id_references#">#ctid_references.id_references#</option>
-					</cfoutput>
+					</cfloop>
 				</select>
 			</td>
 		</tr>
