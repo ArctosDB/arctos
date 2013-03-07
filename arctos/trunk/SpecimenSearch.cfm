@@ -387,7 +387,9 @@
 	</table>
 	<div id="e_usage"></div>
 </div>
-
+<cfquery name="ctid_references" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select id_references from ctid_references where id_references != 'self' order by id_references
+</cfquery>
 
 <div class="secDiv">
 	<table class="ssrch">
@@ -397,25 +399,23 @@
 				<span class="secControl" id="c_relationships" onclick="showHide('relationships',1)">Show More Options</span>
 			</td>
 		</tr>
+
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="_type_status">Basis of Citation:</span>
+				<span class="helpLink" id="id_references">Relationship:</span>
 			</td>
 			<td class="srch">
-				<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select type_status from ctcitation_type_status
-				</cfquery>
-				<select name="type_status" id="type_status" size="1">
+				<select name="id_references" id="id_references" size="1">
 					<option value=""></option>
-					<option value="any">Any</option>
-					<option value="type">Any TYPE</option>
-					<cfloop query="ctTypeStatus">
-						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
-					</cfloop>
+					<cfoutput query="ctid_references">
+						<option value="#ctid_references.id_references#">#ctid_references.id_references#</option>
+					</cfoutput>
 				</select>
-				<span class="infoLink" onclick="getCtDoc('ctcitation_type_status', SpecData.type_status.value);">Define</span>
 			</td>
 		</tr>
+
+
+
 	</table>
 	<div id="e_relationships"></div>
 </div>
