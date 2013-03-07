@@ -39,39 +39,45 @@ CTCOLL_OTHER_ID_TYPE.BASE_URL
 			where guid='#OTHER_ID_TYPE#:#DISPLAY_VALUE#'
 		</cfquery>
 		<cfloop query="fetch">
+			<cfif len(locality) gt 0>
 			<cfquery name="ins" datasource="uam_god">
-				insert into cf_relations_cache (
-					COLL_OBJ_OTHER_ID_NUM_ID,
-					TERM,
-					VALUE
-				) values (
-					#new.COLL_OBJ_OTHER_ID_NUM_ID#,
-					'locality',
-					'#locality#'
-				)
-			</cfquery>
-			<cfquery name="ins" datasource="uam_god">
-				insert into cf_relations_cache (
-					COLL_OBJ_OTHER_ID_NUM_ID,
-					TERM,
-					VALUE
-				) values (
-					#new.COLL_OBJ_OTHER_ID_NUM_ID#,
-					'current ID',
-					'#SCIENTIFIC_NAME#'
-				)
-			</cfquery>
-			<cfquery name="ins" datasource="uam_god">
-				insert into cf_relations_cache (
-					COLL_OBJ_OTHER_ID_NUM_ID,
-					TERM,
-					VALUE
-				) values (
-					#new.COLL_OBJ_OTHER_ID_NUM_ID#,
-					'current family',
-					'#FAMILY#'
-				)
-			</cfquery>
+					insert into cf_relations_cache (
+						COLL_OBJ_OTHER_ID_NUM_ID,
+						TERM,
+						VALUE
+					) values (
+						#new.COLL_OBJ_OTHER_ID_NUM_ID#,
+						'locality',
+						'#locality#'
+					)
+				</cfquery>
+			</cfif>
+			<cfif len(SCIENTIFIC_NAME) gt 0>
+				<cfquery name="ins" datasource="uam_god">
+					insert into cf_relations_cache (
+						COLL_OBJ_OTHER_ID_NUM_ID,
+						TERM,
+						VALUE
+					) values (
+						#new.COLL_OBJ_OTHER_ID_NUM_ID#,
+						'current ID',
+						'#SCIENTIFIC_NAME#'
+					)
+				</cfquery>
+			</cfif>
+			<cfif len(SCIENTIFIC_NAME) gt 0>
+				<cfquery name="ins" datasource="uam_god">
+					insert into cf_relations_cache (
+						COLL_OBJ_OTHER_ID_NUM_ID,
+						TERM,
+						VALUE
+					) values (
+						#new.COLL_OBJ_OTHER_ID_NUM_ID#,
+						'current family',
+						'#FAMILY#'
+					)
+				</cfquery>
+			</cfif>
 		</cfloop>
 		<cfdump var=#fetch#>
 	</cfloop>
