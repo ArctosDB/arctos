@@ -47,7 +47,7 @@ CTCOLL_OTHER_ID_TYPE.BASE_URL
 				) values (
 					#new.COLL_OBJ_OTHER_ID_NUM_ID#,
 					'locality',
-					'#HIGHER_GEOG#'
+					'#locality#'
 				)
 			</cfquery>
 			<cfquery name="ins" datasource="uam_god">
