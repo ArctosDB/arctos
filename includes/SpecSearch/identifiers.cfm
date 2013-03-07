@@ -1,8 +1,5 @@
 <table id="t_identifiers" class="ssrch">
 	<cfoutput>
-		<cfquery name="ctid_references" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select id_references from ctid_references where id_references != 'self' order by id_references
-		</cfquery>
 		<cfif isdefined("session.portal_id") and session.portal_id gt 0>
 			<cftry>
 				<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -60,20 +57,6 @@
 			</cfif>
 		</td>
 	</tr>
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="id_references">Relationship:</span>
-		</td>
-		<td class="srch">
-			<select name="id_references" id="id_references" size="1">
-				<option value=""></option>
-				<cfoutput query="ctid_references">
-					<option value="#ctid_references.id_references#">#ctid_references.id_references#</option>
-				</cfoutput>
-			</select>
-		</td>
-	</tr>
-
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_accn_number">Accession:</span>
