@@ -989,9 +989,27 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND otherIdRefSearch.id_references = '#id_references#'">
 </cfif>
+<cfif isdefined("related_term_1") AND len(related_term_1) gt 0>
+	<cfset mapurl = "#mapurl#&related_term_1=#related_term_1#">
+	<cfif basJoin does not contain " otherIdRefSearch ">
+		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdRefSearch ON (#session.flatTableName#.collection_object_id = otherIdRefSearch.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " otherIdRefRelTerms1 ">
+		<cfset basJoin = " #basJoin# INNER JOIN cf_relations_cache otherIdRefRelTerms1 ON (otherIdRefSearch.COLL_OBJ_OTHER_ID_NUM_ID = otherIdRefRelTerms1.COLL_OBJ_OTHER_ID_NUM_ID)">
+	</cfif>
+	<cfset basQual = " #basQual# AND otherIdRefRelTerms1.term='#related_term_1#'">
+</cfif>
 
-
-
+<cfif isdefined("related_term_val_1") AND len(related_term_val_1) gt 0>
+	<cfset mapurl = "#mapurl#&related_term_val_1=#related_term_val_1#">
+	<cfif basJoin does not contain " otherIdRefSearch ">
+		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdRefSearch ON (#session.flatTableName#.collection_object_id = otherIdRefSearch.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " otherIdRefRelTerms1 ">
+		<cfset basJoin = " #basJoin# INNER JOIN cf_relations_cache otherIdRefRelTerms1 ON (otherIdRefSearch.COLL_OBJ_OTHER_ID_NUM_ID = otherIdRefRelTerms1.COLL_OBJ_OTHER_ID_NUM_ID)">
+	</cfif>
+	<cfset basQual = " #basQual# AND upper(otherIdRefRelTerms1.VALUE) like '%#ucase(related_term_val_1)#%'">
+</cfif>
 
 <cfif isdefined("OIDNum") and len(OIDNum) gt 0>
 	<cfif not isdefined("oidOper") OR len(oidOper) is 0>
