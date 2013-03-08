@@ -43,9 +43,9 @@
 <cfif action is "search">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				*
-			from 
+			from
 				redirect
 			where
 				1=1
@@ -55,22 +55,36 @@
 				<cfif len(new_path) gt 0>
 					AND upper(new_path) like '%#ucase(new_path)#%'
 				</cfif>
-			ORDER BY 
+			ORDER BY
 				old_path,
 				new_path
 		</cfquery>
+		<form name="x" method="post" action="redirect.cfm">
+		<input type="hidden" name="action" value="delete">
 		<table border id="t" class="sortable">
 		<tr>
 			<th>old_path</th>
 			<th>new_path</th>
+			<th>delete</th>
 		</tr>
 		<cfloop query="d">
 			<tr>
 				<td><a href="#old_path#">#old_path#</a></td>
 				<td><a href="#new_path#">#new_path#</a></td>
+				<td>
+					<input type="checkbox" name="redirect_id" value="#redirect_id#">
 			</tr>
 		</cfloop>
 	</table>
+	<input type="submit" value="delete checked records">
+	</form>
 	</cfoutput>
 </cfif>
+<cfif action is "delete">
+	<cfoutput>
+		delete from redirect where redirect_id in (#redirect_id#)
+	</cfoutput>
+
+</cfif>
+
 <cfinclude template="/includes/_footer.cfm">
