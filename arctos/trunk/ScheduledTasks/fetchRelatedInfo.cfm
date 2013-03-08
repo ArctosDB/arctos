@@ -47,9 +47,6 @@
 			sysdate-CACHEDATE > 30 and
 			rownum<1000
 	</cfquery>
-
-
-		<cfdump var=#newOrStale#>
 	<cfloop query="newOrStale">
 		<!--- this should be a web fetch, but see above. Try to be nice about encumbrances, get only public data, etc. --->
 		<cfquery name="fetch" datasource="uam_god">
@@ -61,7 +58,6 @@
 				filtered_flat
 			where guid='#OTHER_ID_TYPE#:#DISPLAY_VALUE#'
 		</cfquery>
-		<cfdump var=#fetch#>
 		<!---
 			if we get something, update (via delete and insert)
 			if we do NOT get anything, assume the "other system"

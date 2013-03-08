@@ -5,7 +5,7 @@
 	<table id="t_relationships" class="ssrch">
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="_related_term_1">Term:</span>
+				<span class="helpLink" id="_related_term">Term:</span>
 			</td>
 			<td class="srch">
 				<select name="related_term_1" id="related_term_1" size="1">
@@ -18,7 +18,7 @@
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="_related_term_val_1">Value:</span>
+				<span class="helpLink" id="_related_term_val">Value:</span>
 			</td>
 			<td class="srch">
 				<input type="text" name="related_term_val_1" id="related_term_val_1" size="60">
