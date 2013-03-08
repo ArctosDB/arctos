@@ -82,7 +82,15 @@
 </cfif>
 <cfif action is "delete">
 	<cfoutput>
-		delete from redirect where redirect_id in (#redirect_id#)
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from redirect where redirect_id in (#redirect_id#)
+		</cfquery>
+		ran sql
+
+		<p>
+delete from redirect where redirect_id in (#redirect_id#)
+		</p>
+
 	</cfoutput>
 
 </cfif>
