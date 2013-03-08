@@ -58,10 +58,10 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 <cfif action is "makeTemplate">
 	<cfset header="old_path,new_path">
 	<cffile action = "write"
-    file = "#Application.webDirectory#/download/BulkRedirect.csv"
+    file = "#Application.webDirectory#/download/BulkloadRedirect.csv"
     output = "#header#"
     addNewLine = "no">
-	<cflocation url="/download.cfm?file=BulkRedirect.csv" addtoken="false">
+	<cflocation url="/download.cfm?file=BulkloadRedirect.csv" addtoken="false">
 </cfif>
 
 
@@ -69,7 +69,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	Step 1: Upload a comma-delimited text file (csv).
 	Include CSV column headings.
 	<ul>
-		<li><a href="BulkRedirect.cfm?action=makeTemplate">Get a template</a></li>
+		<li><a href="BulkloadRedirect.cfm?action=makeTemplate">Get a template</a></li>
 	</ul>
 
 	This app just loads stuff to the table. There's minimal checking, and failures will fail entirely - fix your CSV and try again.
