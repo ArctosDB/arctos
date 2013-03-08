@@ -133,6 +133,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		</cfif>
 	</cfloop>
 	all done
+	<a href="/Admin/redirect.cfm">Manage Redirects</a>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
