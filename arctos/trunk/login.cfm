@@ -1,4 +1,3 @@
-<cfinclude template = "includes/_header.cfm">
 <cfif isdefined("session.username") and len(session.username) gt 0 and action neq "signOut">
 	<cflocation url="myArctos.cfm" addtoken="false">
 </cfif>
@@ -51,7 +50,7 @@
 				sysdate
 			)
 		</cfquery>
-		<cflocation url="login.cfm?action=signIn&username=#username#&password=#password#" addtoken="false">
+		<cflocation url="/login.cfm?action=signIn&username=#username#&password=#password#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------>
@@ -187,7 +186,7 @@
 </cfif>
 <!-------------------------------------------------------------------------------------->
 <cfif action is "lostPass">
-	<cflocation url="ChangePassword.cfm" addtoken="false">
+	<cflocation url="/ChangePassword.cfm" addtoken="false">
 </cfif>
 <!-------------------------------------------------------------------------------------->
 <cfinclude template = "includes/_footer.cfm">
