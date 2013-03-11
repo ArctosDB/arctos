@@ -88,7 +88,7 @@
 		ran sql
 
 		<p>
-delete from redirect where redirect_id in (#redirect_id#)
+			delete from redirect where redirect_id in (#redirect_id#)
 		</p>
 
 	</cfoutput>
