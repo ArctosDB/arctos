@@ -746,7 +746,8 @@
 
 		<div style="border:1px dashed red; padding:1em;background-color:lightgray;">
 		<strong>Webservice Lookup Data</strong>
-		<div style="font-size:small;font-style:italic;">
+		<div style="font-size:small;font-style:italic; max-height:3em;overflow:auto;border:2px solid red;">
+			<p style="font-style:bold;font-size:large;">READ THIS!</p>
 			Data in this box come from various webservices. They are NOT "specimen data" and come with no guarantees.
 			<p>Not seeing anything here, or seeing old data? Try waiting a couple minutes and reloading ONCE -
 				webservice data are refreshed when this page loads, but can take a few minutes to find their way here.
@@ -756,7 +757,7 @@
 			</p>
 			<p>
 				There's a link to add the generated coordinates to the edit form, but you'll
-				manually calculate error (or use GeoLocate) and save to keep them; the link just copies.
+				need to manually calculate error (or use GeoLocate) and save to keep them; the link just copies.
 			</p>
 			<p>
 				Distance between points is an estimate calculated using the
