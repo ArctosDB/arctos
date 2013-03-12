@@ -96,12 +96,23 @@
                 shadow: pinShadow
             });
 
+ var pinColor = "green";
+    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34));
+    var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+        new google.maps.Size(40, 37),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(12, 35));
 
 
             var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
             var marker2 = new google.maps.Marker({
                 position: latLng2,
-                map: map
+                map: map,
+                icon: pinImage,
+                shadow: pinShadow
             });
             bounds.extend(latLng1);
             bounds.extend(latLng2);
