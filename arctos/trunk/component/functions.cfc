@@ -461,7 +461,6 @@
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="googleSignURL" access="public">
-<cfoutput>
 	<cfargument name="urlPath" type="string" required="yes">
 	<cfargument name="urlParams" type="string" required="yes">
 	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -487,7 +486,6 @@
 	  	theFinalURL=fullURL & "&signature=" & signatureModified;
 		return theFinalURL;
 	</cfscript>
-</cfoutput>
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getLocalityContents" access="public">
