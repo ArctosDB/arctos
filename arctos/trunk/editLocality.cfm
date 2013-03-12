@@ -50,7 +50,7 @@
 
 		var p1 = new google.maps.LatLng($("#dec_lat").val(),$("#dec_long").val());
 
-		var p = new google.maps.LatLng($("#s_dollar_dec_lat").val(),$("#s_dollar_dec_long").val());
+		var p2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(),$("#s_dollar_dec_long").val());
 
 		var tdis=distHaversine(p1,p2);
 
