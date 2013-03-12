@@ -62,13 +62,23 @@
  		var map;
 		function initialize() {
         var mapOptions = {
-          //center: new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val()),
-         // zoom: 8,
+          center: new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val()),
+          zoom: 8,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
       }
+
+
+	function autoCenter(){
+	    var limits = new google.maps.LatLngBounds();
+	    $.each(arrayMarkers, function (index, marker){
+	        limites.extend(marker.position);
+	    });
+	    map.fitBounds(limits);
+	}
+
 
 		initialize();
 
@@ -77,6 +87,16 @@
                 position: latLng,
                 map: map
             });
+
+            var latLng = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
+            var marker = new google.maps.Marker({
+                position: latLng,
+                map: map
+            });
+
+            autoCenter();
+
+
 		console.log('did map thingee');
 
 
