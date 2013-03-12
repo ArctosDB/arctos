@@ -256,6 +256,14 @@
 	<cfargument name="media_id" type="any" required="no" default="">
 	<cfargument name="showCaption" type="boolean" required="no" default="true">
 	<cfargument name="forceOverrideCache" type="boolean" required="no" default="false">
+
+	<cfmail to="arctos.database@gmail.com" subject="thread: get webservice locality EXISTS" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
+<cfoutput>
+						starting for locality_id=#d.locality_id#
+						</cfoutput>
+					</cfmail>
+
+
 	<!----
 	<cftry>
 
