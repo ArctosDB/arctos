@@ -82,16 +82,10 @@
 		} else {
 			window.attachEvent("onmessage", getGeolocate);
 		}
-
 		var p1 = new google.maps.LatLng($("#dec_lat").val(),$("#dec_long").val());
-
 		var p2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(),$("#s_dollar_dec_long").val());
-
 		var tdis=distHaversine(p1,p2);
-
 		$("#distanceBetween").val(tdis);
-
-
 	});
 
 	function useAutoCoords(){
@@ -765,6 +759,9 @@
 			<cfelseif  locDet.min_elev_in_m lte locDet.s$elevation and locDet.s$elevation lte locDet.max_elev_in_m>
 				Automated georeference is within the curatorially-supplied elevation range.
 			</cfif>
+		</p>
+		<p>Automated Reverse-georeference:
+			#locDet.s$geography#
 		</p>
 
 
