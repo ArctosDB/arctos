@@ -354,8 +354,12 @@
 		<cfelse>
 			<cfreturn 'not_enough_info'>
 		</cfif>
-		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and len(d.S$DEC_LAT) is 0 and len(d.S$DEC_LONG) is 0 and len(d.spec_locality) gt 0>
+		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and  len(d.spec_locality) gt 0>
 			<!---
+				 take this out so it always runs for debugging
+				len(d.S$DEC_LAT) is 0 and len(d.S$DEC_LONG) is 0 and
+
+
 				got spec_locality - there is no service-supplied coordinates - get them
 			---->
 			pullling coordinates
