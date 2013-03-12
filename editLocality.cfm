@@ -696,7 +696,7 @@
 		<cfset params=params & '&maptype=roadmap&zoom=2&size=300x300'>
 		<cfset obj = CreateObject("component","component.functions")>
 		<cfset signedURL = obj.googleSignURL(
-			urlPath="/maps/api/geocode/json",
+			urlPath="/maps/api/staticmap",
 			urlParams="#params#")>
 		<img src="#signedURL#">
 
