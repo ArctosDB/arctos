@@ -58,6 +58,12 @@
 
 
 	});
+
+	function useAutoCoords(){
+		$("#dec_lat").val($("#s_dollar_dec_lat").val());
+		$("#dec_long").val($("#s_dollar_dec_long").val());
+	}
+
 	function geolocate(method) {
 		alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
 		var guri='http://www.museum.tulane.edu/geolocate/web/webgeoreflight.aspx?georef=run';
@@ -693,6 +699,9 @@
 		Automatic georeferencing from the locality and geography strings:
 		<input type="text" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#">
 		<input type="text" id="s_dollar_dec_long" value="#locDet.s$dec_long#">
+		<br>
+		<span class="likeLink" onclick="useAutoCoords()">Copy these coordinates to the form</span>. You'll have to
+			manually calculate error (or use GeoLocate) and save to actually use the coordiantes.
 		<p>Distance between the automated georeference and the curatorially-supplied georeference (km):
 			<input type="text" id="distanceBetween">
 		</p>
