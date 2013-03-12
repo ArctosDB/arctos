@@ -1,3 +1,4 @@
+<cfinclude template="/includes/_header.cfm">
 
 	<!DOCTYPE html>
 	<html>
