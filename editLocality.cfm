@@ -50,7 +50,7 @@
 
 		var p1 = new google.maps.LatLng($("#dec_lat").val(),$("#dec_long").val());
 
-		var p = new google.maps.LatLng($("#s$dec_lat").val(),$("#s$dec_long").val());
+		var p = new google.maps.LatLng($("#s_dollar_dec_lat").val(),$("#s_dollar_dec_long").val());
 
 		var tdis=distHaversine(p1,p2);
 
@@ -684,8 +684,8 @@
 		<div style="font-size:small">
 			Data in this box come from various webservices. They are NOT "specimen data" and come with no guarantees.
 		</div>
-		<input type="hidden" id="s$dec_lat" value="#locDet.s$dec_lat#">
-		<input type="hidden" id="s$dec_long" value="#locDet.s$dec_long#">
+		<input type="hidden" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#">
+		<input type="hidden" id="s_dollar_dec_long" value="#locDet.s$dec_long#">
 
 <!----
 					<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
