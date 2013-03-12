@@ -257,7 +257,7 @@
 	<cfargument name="showCaption" type="boolean" required="no" default="true">
 	<cftry>
 		<cfif len(locality_id) gt 0>
-			<cfquery name="d" datasource="uam_god">
+			<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select
 					locality.locality_id,
 					locality.DEC_LAT,
