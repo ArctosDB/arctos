@@ -387,7 +387,18 @@
 
 			<cftry>
 
-				<cfthrow detail="sometjnbskdjs">
+				<cfif len(d.s$lastdate) is 0>
+				<cfset daysSinceLast=9000>
+			<cfelse>
+				<cfset daysSinceLast=DateDiff("d", "#d.s$lastdate#","#dateformat(now(),'yyyy-mm-dd')#")>
+			</cfif>
+
+
+
+
+
+
+
 				<cfcatch>
 				<cfmail to="dustymc@gmail.com" subject="threademail" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
 
