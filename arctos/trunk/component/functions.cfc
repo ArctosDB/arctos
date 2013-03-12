@@ -401,7 +401,9 @@
 					<cfset elevRslt=''>
 					<cfif len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
 						<!--- geography data from curatorial coordinates ---->
-						<cfset signedURL = obj.googleSignURL(urlPath="/maps/api/geocode/json",urlParams="latlng=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#")>
+						<cfset signedURL = obj.googleSignURL(
+							urlPath="/maps/api/geocode/json",
+							urlParams="latlng=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#")>
 						<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 						<cfif cfhttp.responseHeader.Status_Code is 200>
 							<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
@@ -419,7 +421,6 @@
 					</cfif>
 				</cfif>
 
-			<!-----------------
 
 
 
@@ -427,10 +428,10 @@
 
 
 				<cfif len(d.spec_locality) gt 0 and len(d.higher_geog) gt 0>
-					<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
-						<cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
-						<cfinvokeargument name="urlParams" value="address=#URLEncodedFormat('#d.spec_locality#, #d.higher_geog#')#">
-					</cfinvoke>
+
+					<cfset signedURL = obj.googleSignURL(
+						urlPath="/maps/api/geocode/json",
+						urlParams="address=#URLEncodedFormat('#d.spec_locality#, #d.higher_geog#')#")>
 					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 					<cfif cfhttp.responseHeader.Status_Code is 200>
 						<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
@@ -452,20 +453,16 @@
 				</cfif>
 
 				<cfif len(d.S$ELEVATION) is 0 and len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
-					<cftry>
-			  			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
-							<cfinvokeargument name="urlPath" value="/maps/api/elevation/json">
-							<cfinvokeargument name="urlParams" value="locations=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#">
-						</cfinvoke>
-						<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-						<cfif cfhttp.responseHeader.Status_Code is 200>
-							<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
-							<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-								<cfset elevRslt=round(elevResult.results[1].elevation)>
-							</cfif>
+					<cfset signedURL = obj.googleSignURL(
+						urlPath="/maps/api/elevation/json",
+						urlParams="locations=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#")>
+					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+					<cfif cfhttp.responseHeader.Status_Code is 200>
+						<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
+						<cfif isdefined("elevResult.status") and elevResult.status is "OK">
+							<cfset elevRslt=round(elevResult.results[1].elevation)>
 						</cfif>
-					<cfcatch><!--- whatever ---></cfcatch>
-					</cftry>
+					</cfif>
 				</cfif>
 				<!---- update cache ---->
 				<cfif len(elevRslt) is 0>
@@ -495,29 +492,20 @@
 				</cfquery>
 			</cfif><!--- end service call --->
 
------------------->
-
-<cfoutput>
-
-
-					<cfset objMethod = obj.googleSignURL(urlPath="/maps/api/geocode/json",urlParams="latlng=#URLEncodedFormat('12,34')#")>
-
-
-<!----
-
-
-					<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
-						<cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
-						<cfinvokeargument name="urlParams" value="latlng=#URLEncodedFormat('12,34')#">
-					</cfinvoke>
----->
-
-				</cfoutput>
-
-
 
 				<cfmail to="dustymc@gmail.com" subject="threademail" from="threadlives" type="html">
-	<cfdump var=#objMethod#>
+	<cfoutput>
+			update locality set
+									S$ELEVATION=#elevRslt#,
+									S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
+									S$DEC_LAT=#slat#,
+									S$DEC_LONG=#slon#,
+									S$LASTDATE=sysdate
+								where locality_id=#d.locality_id#
+
+
+
+	</cfoutput>
 
 				</cfmail>
 
