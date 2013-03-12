@@ -787,8 +787,10 @@
 		for supplied. (Sorry, no mechanism for clicking to both on the same map!)
 
 		------------->
-				  <div id="map-canvas"></div>
+
 	</td></tr></table>
+
+				<div id="map-canvas"></div>
 	</span>
 	<hr>
 	<strong>Geology Attributes</strong>
