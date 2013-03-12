@@ -95,7 +95,7 @@
                 map: map
             });
 
-            //autoCenter();
+           autoCenter();
 
 
 		console.log('did map thingee');
