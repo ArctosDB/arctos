@@ -443,7 +443,7 @@
 			<cftry>
 				<!--- for some strange reason, this must be mapped like zo.... ----->
 				<cfset obj = CreateObject("component","functions")>
-				<cfif forceRefreshCache or len(d.s$lastdate) is 0>
+				<cfif forceRefreshCache is "true" or len(d.s$lastdate) is 0>
 					<cfset daysSinceLast=9000>
 				<cfelse>
 					<cfset daysSinceLast=DateDiff("d", "#d.s$lastdate#","#dateformat(now(),'yyyy-mm-dd')#")>
