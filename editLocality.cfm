@@ -617,11 +617,7 @@
 
 
 		<br>
-		<cfset slat=locDet.s$dec_lat>
-		<cfset slon=locDet.s$dec_long>
-		<cfset sgeo=locDet.s$geography>
-		<cfset sele=locDet.s$elevation>
-			slat: #slat#
+
 
 			<!--------
 		<!----
@@ -755,6 +751,22 @@
 		<div style="font-size:small">
 			Data in this box come from various webservices. They are NOT specimen data and come with no guarantees.
 		</div>
+
+
+					<cfset slat=locDet.s$dec_lat>
+						<cfset slon=locDet.s$dec_long>
+						<cfset sgeo=locDet.s$geography>
+						<cfset sele=locDet.s$elevation>
+							slat: #slat#
+
+
+						<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
+						<script>
+							var p1="#s$dec_lat#,#s$dec_long#";
+							var p2="#dec_lat#,#dec_long#";
+							var distanceBetween=(google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
+							console.log(distanceBetween);
+						</script>
 
 		<!-------
 		<cfif len(slat) gt 0>
