@@ -67,6 +67,23 @@
 
 
 	jQuery(document).ready(function() {
+
+
+
+		var myLatLng = new google.maps.LatLng(-33.890542, 151.274856);
+
+		  var image = 'beachflag.png';
+
+		  var beachMarker = new google.maps.Marker({
+		      position: myLatLng,
+		      map: map,
+		      icon: image
+		  });
+
+
+		console.log('did map thingee');
+
+
 		$("select[id^='geology_attribute_']").each(function(e){
 			populateGeology(this.id);
 		});
