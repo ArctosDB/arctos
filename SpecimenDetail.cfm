@@ -154,7 +154,7 @@ font-weight:bold;
 	#preservesinglequotes(detSelect)#
 </cfquery>
 <cfoutput>
-
+<!----
 	<cfquery name="hasRG" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			S$DEC_LAT,
@@ -168,7 +168,7 @@ font-weight:bold;
 	</cfquery>
 	<cfdump var=#hasRG#>
 
-
+---->
 	<cfif detail.recordcount lt 1>
 		<div class="error">
 			Oops! No specimen was found for that URL.
