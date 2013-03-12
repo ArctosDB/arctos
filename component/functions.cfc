@@ -496,11 +496,19 @@
 ------------------>
 
 <cfoutput>
+
+					<cfset obj = CreateObject("component","component.functions")>
+					<cfset objMethod = obj.googleSignURL(urlPath="/maps/api/geocode/json",urlParams="latlng=#URLEncodedFormat('12,34')#")>
+
+
+<!----
+
+
 					<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
 						<cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
 						<cfinvokeargument name="urlParams" value="latlng=#URLEncodedFormat('12,34')#">
 					</cfinvoke>
-
+---->
 
 				</cfoutput>
 
