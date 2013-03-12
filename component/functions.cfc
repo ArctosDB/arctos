@@ -512,14 +512,17 @@
 		<!--- build and return a HTML block for a map ---->
 		<cfoutput>
   			<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
+	<!--- code to send second marker
 			<cfset params=params & '&markers=color:green|label:A|size:tiny|#URLEncodedFormat("12,12")#'>
+
+			---->
 <cfset params=params & '&center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
 
 
 
 
 
-			<cfset params=params & '&maptype=#maptype#&zoom=1&size=#size#'>
+			<cfset params=params & '&maptype=#maptype#&zoom=2&size=#size#'>
   			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
 				<cfinvokeargument name="urlPath" value="/maps/api/staticmap">
 				<cfinvokeargument name="urlParams" value="#params#">
