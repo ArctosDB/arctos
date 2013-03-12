@@ -720,43 +720,32 @@
 		</p>
 
 
+				  <div id="map"></div>
 
 
 				      <script type="text/javascript">
 
-				        var map;
-				        var markers = [];
-
-				        initialize();
-
-				        function initialize() {
-				          var myOptions = {
-				            zoom: 10,
-				            center: new google.maps.LatLng(100.090, -100.536),
-				            mapTypeId: google.maps.MapTypeId.ROADMAP
-				          }
-				          map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-				          addMarker(new google.maps.LatLng(100.0747, -100.6274), "Alien");
-				          addMarker(new google.maps.LatLng(100.0758, -100.6254), "Zombie");
-				          addMarker(new google.maps.LatLng(100.0721, -100-6292), "Vampire");
-
-				        }
-
-				        function addMarker(latlng, myTitle) {
-				          markers.push(new google.maps.Marker({
-				            position: latlng,
-				            map: map,
-				            title: myTitle,
-				            icon: "http://maps.google.com/mapfiles/marker" + String.fromCharCode(markers.length + 65) + ".png"
-				          }));
-				        }
+				       jQuery(document.body).unload(function() {
+		GUnload();
+	});
+	var map = new GMap2(document.getElementById("map"));
+	map.addControl(new GLargeMapControl());
+	map.addControl(new GMapTypeControl());
+	map.addMapType(G_PHYSICAL_MAP);
+	map.addControl(new GScaleControl());
+	map.addControl(new ToggleZoomControl());
+	map.enableGoogleBar();
+	map.enableScrollWheelZoom();
+	map.setCenter(new GLatLng(55, -135), 3);
+	setDiv();
+	GEvent.addListener(map, "moveend", function() {
+		whurUB();
+	});
 
 				      </script>
 
 
 
-				  <div id="map_canvas"></div>
 
 		<cfset params='markers=color:green|size:tiny|label:X|#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#'>
 		<cfset params=params & '&markers=color:red|size:tiny|label:A|#URLEncodedFormat("#locDet.dec_lat#,#locDet.dec_long#")#'>
