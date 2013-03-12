@@ -382,7 +382,11 @@
 		</cfif>
 
 
-
+		<!----
+			fire service lookups off in a thread for performance reasons
+			the results will not be available to the current user,
+			but will be cached for subsequent calls
+		---->
 		<cfthread action="run" name="EsDollar#d.locality_id#">
 			<cftry>
 				<!--- for some strange reason, this must be mapped like zo.... ----->
@@ -418,15 +422,7 @@
 							</cfloop>
 						</cfif>
 					</cfif>
-
-
-
-
-
-
-
 					<cfif len(d.spec_locality) gt 0 and len(d.higher_geog) gt 0>
-
 						<cfset signedURL = obj.googleSignURL(
 							urlPath="/maps/api/geocode/json",
 							urlParams="address=#URLEncodedFormat('#d.spec_locality#, #d.higher_geog#')#")>
@@ -449,7 +445,6 @@
 							</cfif>
 						</cfif>
 					</cfif>
-
 					<cfif len(d.S$ELEVATION) is 0 and len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
 						<cfset signedURL = obj.googleSignURL(
 							urlPath="/maps/api/elevation/json",
@@ -462,7 +457,7 @@
 							</cfif>
 						</cfif>
 					</cfif>
-				<!---- update cache ---->
+					<!---- update cache ---->
 					<cfquery name="upEsDollar" datasource="uam_god">
 						update locality set
 							S$ELEVATION=<cfif len(elevRslt) is 0>NULL<cfelse>#elevRslt#</cfif>,
@@ -473,6 +468,7 @@
 						where locality_id=#d.locality_id#
 					</cfquery>
 
+<!----------------- clean up for prod ----------------------->
 					<cfmail to="arctos.database@gmail.com" subject="thread: get webservice locality LIVES" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
 
 						<cfoutput>
@@ -487,6 +483,7 @@
 					</cfmail>
 				</cfif><!--- end service call --->
 
+<!----------------- clean up for prod ----------------------->
 
 				<cfmail to="arctos.database@gmail.com" subject="thread: get webservice locality DIDNOTHING" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
 
@@ -496,6 +493,8 @@
 
 
 			<cfcatch>
+<!----------------- clean up for prod ----------------------->
+
 				<cfmail to="arctos.database@gmail.com" subject="thread: get webservice locality died" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
 
 					thread died
@@ -513,6 +512,8 @@
 		<!--- build and return a HTML block for a map ---->
 		<cfoutput>
   			<cfset params='markers=color:red|size:tiny|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
+			<cfset params=params & '|markers=color:green|size:tiny|#URLEncodedFormat("12,12")#'>
+
 			<cfset params=params & '&maptype=#maptype#&zoom=2&size=#size#'>
   			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
 				<cfinvokeargument name="urlPath" value="/maps/api/staticmap">
