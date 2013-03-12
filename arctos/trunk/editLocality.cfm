@@ -79,6 +79,7 @@
 		var latLng1 = new google.maps.LatLng($("#dec_lat").val(), $("#dec_long").val());
             var marker1 = new google.maps.Marker({
                 position: latLng1,
+                icon:blueIcon,
                 map: map
             });
 
