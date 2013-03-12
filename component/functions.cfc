@@ -495,12 +495,7 @@
 
 ------------------>
 
-
-
-
-				<cfmail to="dustymc@gmail.com" subject="threademail" from="threadlives" type="html">
-
-				<cfoutput>
+<cfoutput>
 					<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
 						<cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
 						<cfinvokeargument name="urlParams" value="latlng=#URLEncodedFormat('12,34')">
@@ -508,6 +503,11 @@
 
 
 				</cfoutput>
+
+
+
+				<cfmail to="dustymc@gmail.com" subject="threademail" from="threadlives" type="html">
+	success
 
 				</cfmail>
 
