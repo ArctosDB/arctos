@@ -361,7 +361,7 @@
 		</cfif>
 
 		<!--- do we have enough information to fetch and a need for service-supplies geography strings? --->
-		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and and len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
+		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
 			<!--- remove for debug
 			and len(d.s$geography) is 0
 			--->
