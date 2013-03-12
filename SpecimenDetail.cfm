@@ -121,6 +121,7 @@ font-weight:bold;
 	SELECT
 		#session.flatTableName#.collection,
 		#session.flatTableName#.collection_id,
+		#session.flatTableName#.locality_id,
 		web_link,
 		web_link_text,
 		#session.flatTableName#.cat_num,
@@ -153,6 +154,21 @@ font-weight:bold;
 	#preservesinglequotes(detSelect)#
 </cfquery>
 <cfoutput>
+
+	<cfquery name="hasRG" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			S$DEC_LAT,
+			S$DEC_LONG,
+			s$S$ELEVATION,
+			S$GEOGRAPHY
+		from
+			locality
+		where
+			locality_id=#detail.locality_id#
+	</cfquery>
+	<cfdump var=#hasRG#>
+
+
 	<cfif detail.recordcount lt 1>
 		<div class="error">
 			Oops! No specimen was found for that URL.
