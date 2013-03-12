@@ -437,7 +437,7 @@
 					<cfif cfhttp.responseHeader.Status_Code is 200>
 						<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
 						<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-							<cfset elevRslt=round(elevResult.results[1].elevation>
+							<cfset elevRslt=round(elevResult.results[1].elevation)>
 							<!-----------
 							<cfquery name="upelev" datasource="uam_god">
 								update locality set S$ELEVATION=#round(elevResult.results[1].elevation)# where locality_id=#d.locality_id#
