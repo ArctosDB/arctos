@@ -695,7 +695,8 @@
 		<div style="font-size:small">
 			Data in this box come from various webservices. They are NOT "specimen data" and come with no guarantees.
 		</div>
-
+		<p>Not seeing anything here? Try reloading ONCE - webservice data are cached when the map is loaded, and refreshed
+		every 6 months (as the map is loaded).</p>
 		Automatic georeferencing from the locality and geography strings:
 		<input type="text" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#">
 		<input type="text" id="s_dollar_dec_long" value="#locDet.s$dec_long#">
