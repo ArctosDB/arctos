@@ -63,7 +63,7 @@
 		function initialize() {
         var mapOptions = {
         	center: new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val()),
-          	maxZoom: 2,
+          	maxZoom: 4,
          	mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
