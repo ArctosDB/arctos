@@ -383,10 +383,6 @@
 		<cfelse>
 			<cfset daysSinceLast=DateDiff("d", "#d.s$lastdate#","#dateformat(now(),'yyyy-mm-dd')#")>
 		</cfif>
-		<p>
-
-			s$lastdate is <cfdump var=#daysSinceLast#> old
-		</p>
 		<!--- if we got some sort of response AND it's been a while....--->
 		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and daysSinceLast gt 180>
 			<cfinclude template="/includes/functionLib.cfm">
@@ -492,21 +488,6 @@
 				<p>elevRslt: ##</p>
 			</cfoutput>
 		</cfif><!--- end service call --->
-
-		<!--- do we have enough information to fetch and a need for service-supplies geography strings? --->
-
-			<!--- remove for debug
-			and len(d.s$geography) is 0
-			--->
-			pulling geography
-
-
-
-
-
-
-		<!--- do we have enough information to fetch and a need for service-supplies elevation? --->
-
 
 		<!--- build and return a HTML block for a map ---->
 		<cfoutput>
