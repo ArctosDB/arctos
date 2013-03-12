@@ -265,7 +265,8 @@
 					locality.S$ELEVATION,
 					locality.spec_locality,
 					S$DEC_LAT,
-					S$DEC_LONG
+					S$DEC_LONG,
+					s$geography
 				from
 					locality
 				where
@@ -280,7 +281,8 @@
 					locality.S$ELEVATION,
 					locality.spec_locality,
 					S$DEC_LAT,
-					S$DEC_LONG
+					S$DEC_LONG,
+					s$geography
 				from
 					locality,
 					collecting_event
@@ -297,7 +299,8 @@
 					locality.S$ELEVATION,
 					locality.spec_locality,
 					S$DEC_LAT,
-					S$DEC_LONG
+					S$DEC_LONG,
+					s$geography
 				from
 					locality,
 					collecting_event,
@@ -316,7 +319,8 @@
 					locality.S$ELEVATION,
 					locality.spec_locality,
 					S$DEC_LAT,
-					S$DEC_LONG
+					S$DEC_LONG,
+					s$geography
 				from
 					locality,
 					collecting_event,
@@ -347,55 +351,86 @@
 						'' as spec_locality,
 						'' as S$ELEVATION,
 						'' as S$DEC_LAT,
-						'' as S$DEC_LONG
+						'' as S$DEC_LONG,
+						'' as s$geography
 					from
 						d
 				</cfquery>
 		<cfelse>
 			<cfreturn 'not_enough_info'>
 		</cfif>
-		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and  len(d.spec_locality) gt 0>
+
+		<!--- do we have enough information to fetch and a need for service-supplies geography strings? --->
+		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and and len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
+			<!--- remove for debug
+			and len(d.s$geography) is 0
+			--->
+			pulling geography
+			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
+				<cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
+				<cfinvokeargument name="urlParams" value="latlng=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#">
+			</cfinvoke>
+			<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+			<cfdump var=#cfhttp#>
+			<cfif cfhttp.responseHeader.Status_Code is 200>
+				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+				<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
+					<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
+						<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
+							<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
+						</cfif>
+						<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
+							<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
+						</cfif>
+					</cfloop>
+				</cfloop>
+				geolist: <cfdump var=#geolist#>
+			</cfif>
+
+		</cfif>
+
+		<!--- do we have enough information to fetch and a need for service-supplies coordinates? --->
+		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and  len(d.spec_locality) gt 0 and len(d.s$geography) is 0>
 			<!---
 				 take this out so it always runs for debugging
 				len(d.S$DEC_LAT) is 0 and len(d.S$DEC_LONG) is 0 and
-
-
-				got spec_locality - there is no service-supplied coordinates - get them
 			---->
 			pullling coordinates
+
+
 		</cfif>
 
+		<!--- do we have enough information to fetch and a need for service-supplies elevation? --->
 		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and len(d.S$ELEVATION) is 0 and len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
-			<!---
-				got coordinates - there is no service-elevation - get and add one
-			---->
 			<cftry>
-			pulling elevation.....
-  			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
-				<cfinvokeargument name="urlPath" value="/maps/api/elevation/json">
-				<cfinvokeargument name="urlParams" value="locations=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#">
-			</cfinvoke>
-			<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-			<cfif cfhttp.responseHeader.Status_Code is 200>
-				<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
-				<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-					<cfquery name="upelev" datasource="uam_god">
-						update locality set S$ELEVATION=#round(elevResult.results[1].elevation)# where locality_id=#d.locality_id#
-					</cfquery>
-					<cfquery name="d" dbtype="query">
-						select
-							locality_id,
-							DEC_LAT,
-							DEC_LONG,
-							#round(elevResult.results[1].elevation)# as S$ELEVATION
-						from
-							d
-					</cfquery>
+				pulling elevation.....
+	  			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
+					<cfinvokeargument name="urlPath" value="/maps/api/elevation/json">
+					<cfinvokeargument name="urlParams" value="locations=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#">
+				</cfinvoke>
+				<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+				<cfif cfhttp.responseHeader.Status_Code is 200>
+					<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
+					<cfif isdefined("elevResult.status") and elevResult.status is "OK">
+						<cfquery name="upelev" datasource="uam_god">
+							update locality set S$ELEVATION=#round(elevResult.results[1].elevation)# where locality_id=#d.locality_id#
+						</cfquery>
+						<cfquery name="d" dbtype="query">
+							select
+								locality_id,
+								DEC_LAT,
+								DEC_LONG,
+								#round(elevResult.results[1].elevation)# as S$ELEVATION
+							from
+								d
+						</cfquery>
+					</cfif>
 				</cfif>
-			</cfif>
 			<cfcatch><!--- whatever ---></cfcatch>
 			</cftry>
 		</cfif>
+
+		<!--- build and return a HTML block for a map ---->
 		<cfoutput>
   			<cfset params='markers=color:red|size:tiny|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
 			<cfset params=params & '&maptype=#maptype#&zoom=2&size=#size#'>
