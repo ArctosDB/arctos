@@ -52,20 +52,21 @@
 
 
 
-	function initialize() {
+	 function initialize() {
+        var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
         var mapOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8,
+          zoom: 4,
+          center: myLatlng,
           mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
-            mapOptions);
+        }
+        var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'Hello World!'
+        });
       }
-      google.maps.event.addDomListener(window, 'load', initialize);
-
-
-
-
 	jQuery(document).ready(function() {
 		$("select[id^='geology_attribute_']").each(function(e){
 			populateGeology(this.id);
