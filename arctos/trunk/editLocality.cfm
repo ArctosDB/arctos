@@ -785,8 +785,8 @@
 								  return d.toFixed(3);
 								}
 
-var p1 = new GLatLng(52.5773139, 1.3712427);
-var p2 = new GLatLng(52.4788314, 1.7577444);
+var p1 = new google.maps.LatLng(52.5773139, 1.3712427);
+var p2 = new google.maps.LatLng(52.4788314, 1.7577444);
 
 //var p1="#locDet.s$dec_lat#,#locDet.s$dec_long#";
 //var p2="#locDet.dec_lat#,#locDet.dec_long#";
