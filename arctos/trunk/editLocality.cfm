@@ -763,18 +763,30 @@
 
 
 							-----#locDet.dec_lat#,#locDet.dec_long#--------
-						<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
 						<script>
+								rad = function(x) {return x*Math.PI/180;}
+
+								distHaversine = function(p1, p2) {
+								  var R = 6371; // earth's mean radius in km
+								  var dLat  = rad(p2.lat() - p1.lat());
+								  var dLong = rad(p2.lng() - p1.lng());
+
+								  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+								          Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) * Math.sin(dLong/2) * Math.sin(dLong/2);
+								  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+								  var d = R * c;
+
+								  return d.toFixed(3);
+								}
 
 
-							 var loc1 = new GLatLng(52.5773139, 1.3712427);
+var tdis=distHaversine(p1,p2);
+console.log(tdis);
 
 
 
-							var p1=new GLatLng(#locDet.s$dec_lat#,#locDet.s$dec_long#);
-							var p2=new GLatLng(#locDet.dec_lat#,#locDet.dec_long#);
-							var distanceBetween=(google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
-							console.log(distanceBetween);
+
+
 						</script>
 
 		<!-------
