@@ -480,7 +480,6 @@
 					DEC_LAT,
 					DEC_LONG,
 					#elevRslt# as S$ELEVATION
-				where locality_id=#d.locality_id#
 				from
 					d
 			</cfquery>
