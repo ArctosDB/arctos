@@ -267,7 +267,8 @@
 					locality.S$DEC_LAT,
 					locality.S$DEC_LONG,
 					locality.s$geography,
-					geog_auth_rec.higher_geog
+					geog_auth_rec.higher_geog,
+					locality.s$lastdate
 				from
 					locality,
 					geog_auth_rec
@@ -286,7 +287,8 @@
 					S$DEC_LAT,
 					S$DEC_LONG,
 					s$geography,
-					geog_auth_rec.higher_geog
+					geog_auth_rec.higher_geog,
+					locality.s$lastdate
 				from
 					locality,
 					collecting_event,
@@ -307,7 +309,8 @@
 					S$DEC_LAT,
 					S$DEC_LONG,
 					s$geography,
-					geog_auth_rec.higher_geog
+					geog_auth_rec.higher_geog,
+					locality.s$lastdate
 				from
 					locality,
 					collecting_event,
@@ -330,7 +333,8 @@
 					S$DEC_LAT,
 					S$DEC_LONG,
 					s$geography,
-					geog_auth_rec.higher_geog
+					geog_auth_rec.higher_geog,
+					locality.s$lastdate
 				from
 					locality,
 					collecting_event,
@@ -366,12 +370,19 @@
 					'' as S$DEC_LONG,
 					'' as s$geography,
 					'' as higher_geog
+					'#dateformat(now(),"yyyy-mm-dd")# as s$lastdate
 				from
 					d
 			</cfquery>
 		<cfelse>
 			<cfreturn 'not_enough_info'>
 		</cfif>
+
+		<cfset daysSinceLast=DateDiff("d", "#dateformat(now(),"yyyy-mm-dd")#", "#d.s$lastdate#")>
+		<p>
+
+			s$lastdate is #daysSinceLast# old
+		</p>
 		<!--- if we got some sort of response AND we're missing any of the service-supplied data....--->
 		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and (
 				len(d.S$ELEVATION) is 0 or len(d.S$DEC_LAT) is 0 or len(d.S$DEC_LONG) is 0 or len(d.s$geography) is 0)>
