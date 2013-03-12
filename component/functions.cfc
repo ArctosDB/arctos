@@ -388,7 +388,7 @@
 			s$lastdate is <cfdump var=#daysSinceLast#> old
 		</p>
 		<!--- if we got some sort of response AND we're missing any of the service-supplied data....--->
-		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and (
+		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and daysSinceLast gt 180 and (
 				len(d.S$ELEVATION) is 0 or len(d.S$DEC_LAT) is 0 or len(d.S$DEC_LONG) is 0 or len(d.s$geography) is 0)>
 			<cfset geoList="">
 			<cfset slat="">
