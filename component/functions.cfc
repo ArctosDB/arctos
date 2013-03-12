@@ -421,7 +421,6 @@
 					<cfinvokeargument name="urlParams" value="address=#URLEncodedFormat('#d.spec_locality#, #d.higher_geog#')#">
 				</cfinvoke>
 				<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-				<cfdump var=#cfhttp#>
 				<cfif cfhttp.responseHeader.Status_Code is 200>
 					<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 					<cfif llresult.status is "OK">
