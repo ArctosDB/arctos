@@ -72,7 +72,11 @@
 
 		initialize();
 
-
+		var latLng = new google.maps.LatLng($("#dec_lat").val(), $("#dec_long").val());
+            var marker = new google.maps.Marker({
+                position: latLng,
+                map: map
+            });
 		console.log('did map thingee');
 
 
