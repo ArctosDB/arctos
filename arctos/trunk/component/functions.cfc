@@ -351,12 +351,14 @@
 				<cfinvokeargument name="urlParams" value="locations=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#">
 			</cfinvoke>
 <br>
-			signedURL=#signedURL#
+			signedURL=<cfdump var=#signedURL#>
 <br>
 			#d.DEC_LAT#,#d.DEC_LONG#
 
 
 			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?&sensor=false" timeout="1"></cfhttp>
+
+			<cfdump var=#cfhttp#>
 			<cfif cfhttp.responseHeader.Status_Code is 200>
 				<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
 				<cfif isdefined("elevResult.status") and elevResult.status is "OK">
