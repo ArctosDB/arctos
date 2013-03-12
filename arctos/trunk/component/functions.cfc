@@ -513,7 +513,7 @@
 		<cfoutput>
   			<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
 			<cfset params=params & '&markers=color:green|label:A|size:tiny|#URLEncodedFormat("12,12")#'>
-
+<cfset params=params & '&center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
 
 
 
