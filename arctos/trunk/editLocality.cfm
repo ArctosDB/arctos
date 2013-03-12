@@ -100,8 +100,10 @@
                 position: latLng2,
                 map: map
             });
+            bounds.extend(latLng1);
+            bounds.extend(latLng2);
 
-           autoCenter();
+          // autoCenter();
 
 
 		console.log('did map thingee');
