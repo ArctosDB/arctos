@@ -86,12 +86,8 @@
         new google.maps.Point(0, 0),
         new google.maps.Point(12, 35));
 
-         var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(0,0),
-                map: map,
-                icon: pinImage,
-                shadow: pinShadow
-            });
+
+
 
 		var latLng1 = new google.maps.LatLng($("#dec_lat").val(), $("#dec_long").val());
             var marker1 = new google.maps.Marker({
