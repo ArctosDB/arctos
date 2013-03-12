@@ -3,7 +3,7 @@
 	jQuery(document).ready(function() {
 		jQuery("#made_date_after").datepicker();
 		jQuery("#made_date_before").datepicker();
-		jQuery("#expiration_date_after").datepicker();	
+		jQuery("#expiration_date_after").datepicker();
 		jQuery("#made_date").datepicker();
 		jQuery("#expiration_date_before").datepicker();
 		jQuery("#expiration_date").datepicker();
@@ -31,7 +31,7 @@
 			<input type="text" name="encumberingAgent" id="encumberingAgent" class="reqdClr"
 				onchange="getAgent('encumberingAgentId','encumberingAgent','encumber',this.value); return false;"
 			  	onKeyPress="return noenter(event);">
-			<input type="hidden" name="encumberingAgentId" id="encumberingAgentId"> 
+			<input type="hidden" name="encumberingAgentId" id="encumberingAgentId">
 			<label for="made_date">Made Date</label>
 			<input type="text" name="made_date" id="made_date" class="reqdClr">
 			<label for="expiration_date" class="likeLink" onclick="getDocs('encumbrance','expiration')">
@@ -114,16 +114,16 @@
 				ENCUMBRANCE,
 				ENCUMBRANCE_ACTION
 				<cfif len(#expiration_date#) gt 0>
-					,EXPIRATION_DATE	
+					,EXPIRATION_DATE
 				</cfif>
 				<cfif len(#EXPIRATION_EVENT#) gt 0>
-					,EXPIRATION_EVENT	
+					,EXPIRATION_EVENT
 				</cfif>
 				<cfif len(#MADE_DATE#) gt 0>
-					,MADE_DATE	
+					,MADE_DATE
 				</cfif>
 				<cfif len(#REMARKS#) gt 0>
-					,REMARKS	
+					,REMARKS
 				</cfif>
 			) VALUES (
 				#nextEncumbrance.nextEncumbrance#,
@@ -153,7 +153,7 @@
 	<a href="Encumbrances.cfm">Back to Search Encumbrances</a>
 	<br>
 	<cfoutput>
-		<cfset s="select 
+		<cfset s="select
 				encumbrance.encumbrance_id,
 				encumbrance.encumbrance,
 				encumbrance.encumbrance_action,
@@ -162,8 +162,8 @@
 				encumbrance.expiration_date,
 				encumbrance.expiration_event,
 				encumbrance.remarks
-			from 
-				encumbrance, 
+			from
+				encumbrance,
 				preferred_agent_name">
 		<cfset q = "
 			WHERE
@@ -172,31 +172,31 @@
 		<cfif isdefined("encumberingAgent") and len(encumberingAgent) gt 0>
 			<cfset s=s & ",agent_name">
 			<cfset q=q & " AND agent_name.agent_id=encumbrance.encumbering_agent_id ">
-			<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#ucase(encumberingAgent)#%'">	
+			<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#ucase(encumberingAgent)#%'">
 		</cfif>
 		<cfif isdefined("made_date_after") and len(#made_date_after#) gt 0>
-			<cfset sql = "#sql# AND made_date >= to_date('#made_date_after#')">	
+			<cfset sql = "#sql# AND made_date >= to_date('#made_date_after#')">
 		</cfif>
 		<cfif isdefined("made_date_before") and len(#made_date_before#) gt 0>
-			<cfset sql = "#sql# AND made_date <= to_date('#made_date_before#')">	
+			<cfset sql = "#sql# AND made_date <= to_date('#made_date_before#')">
 		</cfif>
 		<cfif isdefined("expiration_date_after") and len(#expiration_date_after#) gt 0>
-			<cfset sql = "#sql# AND expiration_date >= to_date('#expiration_date_after#')">	
+			<cfset sql = "#sql# AND expiration_date >= to_date('#expiration_date_after#')">
 		</cfif>
 		<cfif isdefined("expiration_date_before") and len(#expiration_date_before#) gt 0>
-			<cfset sql = "#sql# AND expiration_date <= to_date('#expiration_date_before#')">	
+			<cfset sql = "#sql# AND expiration_date <= to_date('#expiration_date_before#')">
 		</cfif>
 		<cfif isdefined("encumbrance_id") and len(encumbrance_id) gt 0>
-			<cfset sql = "#sql# AND encumbrance_id = #encumbrance_id#">	
+			<cfset sql = "#sql# AND encumbrance_id = #encumbrance_id#">
 		</cfif>
 		<cfif isdefined("encumbrance") and len(encumbrance) gt 0>
-			<cfset sql = "#sql# AND upper(encumbrance) like '%#ucase(encumbrance)#%'">	
+			<cfset sql = "#sql# AND upper(encumbrance) like '%#ucase(encumbrance)#%'">
 		</cfif>
 		<cfif isdefined("encumbrance_action") and len(encumbrance_action) gt 0>
-			<cfset sql = "#sql# AND encumbrance_action = '#encumbrance_action#'">	
+			<cfset sql = "#sql# AND encumbrance_action = '#encumbrance_action#'">
 		</cfif>
 		<cfif isdefined("remarks") and len(remarks) gt 0>
-			<cfset sql = "#sql# AND upper(remarks) like '%#ucase(remarks)#%'">	
+			<cfset sql = "#sql# AND upper(remarks) like '%#ucase(remarks)#%'">
 		</cfif>
 		<cfset sql=s & q & sql & " group by encumbrance.encumbrance_id,
 				encumbrance.encumbrance,
@@ -254,25 +254,24 @@
 	<cfif len(table_name) is 0>
 		Didn't get specimens - abort<cfabort>
 	</cfif>
-	
+
 	<cfquery name="encSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		DELETE FROM coll_object_encumbrance
 		WHERE
 		encumbrance_id = #encumbrance_id# AND
-		collection_object_id in 
+		collection_object_id in
 		<cfif len(table_name) gt 0>
 			(select collection_object_id from #table_name#)
 		<cfelse>
 			(#collection_object_id#)
 		</cfif>
 	</cfquery>
-	
-	
+
 	<p>
 		All items listed below have been removed from this encumbrance.
 		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#&table_name=#table_name#&collection_object_id=#collection_object_id#">Return to Encumbrance.</a>
 	</p>
-</cfoutput>	
+</cfoutput>
 </cfif>
 
 
@@ -285,11 +284,11 @@
 Edit Encumbrance:
 <cfquery name="encDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
-		 * 
+		 *
 	FROM
-		encumbrance, 
-		preferred_agent_name 
-	WHERE 
+		encumbrance,
+		preferred_agent_name
+	WHERE
 	encumbering_agent_id = agent_id AND
 	encumbrance_id = #encumbrance_id#
 </cfquery>
@@ -298,16 +297,16 @@ Edit Encumbrance:
 <form name="updateEncumbrance" method="post" action="Encumbrances.cfm">
 	<input type="hidden" name="Action" value="updateEncumbrance2">
 	<input name="encumbrance_id" value="#encumbrance_id#" type="hidden">
-	
+
 	<table border="1">
 		<tr>
 			<td align="right">
-			<a href="javascript:void(0);" 
-				class="novisit" 
+			<a href="javascript:void(0);"
+				class="novisit"
 				onClick="getDocs('encumbrance','encumbrancer')">Encumbering Agent:</a></td>
 				</td>
 			<td><input type="hidden" name="encumberingAgentId" id="encumberingAgentId" value="#encumbering_agent_id#">
-			
+
 		<input type="text" name="encumberingAgent" class="reqdClr" value="#agent_name#"
 		 onchange="getAgent('encumberingAgentId','encumberingAgent','updateEncumbrance',this.value); return false;"
 		  onKeyPress="return noenter(event);">
@@ -319,22 +318,22 @@ Edit Encumbrance:
 		</tr>
 		<tr>
 			<td align="right">
-			<a href="javascript:void(0);" 
-				class="novisit" 
+			<a href="javascript:void(0);"
+				class="novisit"
 				onClick="getDocs('encumbrance','expiration')">Expiration Date:</a>
 				</td>
 			<td><input type="text" name="expiration_date" id="expiration_date"  value="#dateformat(expiration_date,'yyyy-mm-dd')#"></td>
 			<td align="right">
-			<a href="javascript:void(0);" 
-				class="novisit" 
+			<a href="javascript:void(0);"
+				class="novisit"
 				onClick="getDocs('encumbrance','expiration')">Expiration Event:</a>
 			</td>
 			<td><input type="text" name="expiration_event" value="#expiration_event#"></td>
 		</tr>
 		<tr>
 			<td align="right">
-			<a href="javascript:void(0);" 
-				class="novisit" 
+			<a href="javascript:void(0);"
+				class="novisit"
 				onClick="getDocs('encumbrance','encumbrance_name')">Encumbrance:</a>
 				</td>
 			<td><input type="text" name="encumbrance" value="#encumbrance#"></td>
@@ -342,10 +341,10 @@ Edit Encumbrance:
 			<td>
 			<select name="encumbrance_action" size="1">
 				<cfloop query="ctEncAct">
-					<option 
+					<option
 						<cfif #ctEncAct.encumbrance_action# is "#encDetails.encumbrance_action#"> selected </cfif> value="#ctEncAct.encumbrance_action#">#ctEncAct.encumbrance_action#</option>
 				</cfloop>
-			
+
 			</select>
 			</td>
 		</tr>
@@ -355,21 +354,21 @@ Edit Encumbrance:
 		</tr>
 		<tr>
 			<td colspan="4" align="center">
-			
-			<input type="submit" 
-		value="Save Edits" 
+
+			<input type="submit"
+		value="Save Edits"
 		class="savBtn"
 		onmouseover="this.className='savBtn btnhov'"
 		onmouseout="this.className='savBtn'">
-		
-		<input type="button" 
-		value="Quit" 
+
+		<input type="button"
+		value="Quit"
 		class="qutBtn"
 		onmouseover="this.className='qutBtn btnhov'"
 		onmouseout="this.className='qutBtn'"
 		onClick="document.location='Encumbrances.cfm'">
-		
-		
+
+
 		</td>
 		</tr>
 	</table>
@@ -379,33 +378,33 @@ Edit Encumbrance:
 </cfif>
 <!-------------------------------------------------------------------------------------------->
 <cfif #Action# is "updateEncumbrance2">
-	
+
 	<cfoutput>
 
 
 <cfquery name="newEncumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 UPDATE encumbrance SET
 	encumbrance_id = #encumbrance_id#
-	,ENCUMBERING_AGENT_ID = #encumberingAgentId#	
+	,ENCUMBERING_AGENT_ID = #encumberingAgentId#
 	,ENCUMBRANCE = '#ENCUMBRANCE#'
 	,ENCUMBRANCE_ACTION = '#ENCUMBRANCE_ACTION#'
 	<cfif len(expiration_date) gt 0>
-		,EXPIRATION_DATE = '#dateformat(EXPIRATION_DATE,"yyyy-mm-dd")#'	
+		,EXPIRATION_DATE = '#dateformat(EXPIRATION_DATE,"yyyy-mm-dd")#'
 	<cfelse>
 		,expiration_date=null
 	</cfif>
-	,EXPIRATION_EVENT = '#EXPIRATION_EVENT#'	
+	,EXPIRATION_EVENT = '#EXPIRATION_EVENT#'
 	<cfif len(#MADE_DATE#) gt 0>
-		,MADE_DATE = '#dateformat(MADE_DATE,'yyyy-mm-dd')#'	
+		,MADE_DATE = '#dateformat(MADE_DATE,'yyyy-mm-dd')#'
 	</cfif>
-	,REMARKS = '#REMARKS#'	
+	,REMARKS = '#REMARKS#'
 	where encumbrance_id = #encumbrance_id#
 </cfquery>
 
 	 <cflocation url="Encumbrances.cfm?Action=updateEncumbrance&encumbrance_id=#encumbrance_id#">
 	 </cfoutput>
 
-	 	
+
 </cfif>
 <!-------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------->
@@ -423,12 +422,12 @@ UPDATE encumbrance SET
 	<cfquery name="deleteEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		DELETE FROM encumbrance WHERE encumbrance_id = #encumbrance_id#
 	</cfquery>
-	
-	Deleted. 
-	
+
+	Deleted.
+
 	<a href="Encumbrances.cfm">Return to Encumbrances</a>
 
-</cfoutput>	
+</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------->
 
@@ -443,21 +442,52 @@ UPDATE encumbrance SET
 		Didn't get specimens<cfabort>
 	</cfif>
 
-	
-	<cfquery name="encSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		INSERT INTO coll_object_encumbrance (encumbrance_id, collection_object_id)
-			<cfif len(table_name) gt 0>
-			(select #encumbrance_id#, collection_object_id from #table_name#)
-			<cfelse>
-				(select #encumbrance_id#, collection_object_id from cataloged_item where collection_object_id in ( #collection_object_id# ))
-			</cfif>
-		</cfquery>
+	<cfquery name="unencumberedSpecimens" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfif len(table_name) gt 0>
+			select
+				collection_object_id
+			from
+				#table_name#
+			where
+				collection_object_id not in (
+					select
+						collection_object_id
+					from
+						coll_object_encumbrance
+					where
+						encumbrance_id=#encumbrance_id#
+				)
+		<cfelse>
+			select
+				collection_object_id
+			from
+				cataloged_item
+			where
+				collection_object_id in ( #collection_object_id# ) and
+				collection_object_id not in (
+					select collection_object_id from coll_object_encumbrance where encumbrance_id=#encumbrance_id#
+				)
+		</cfif>
+	</cfquery>
+	<cfif unencumberedSpecimens.recordcount gt 1000>
+		1000 record limit on creating encumbrances
+		<cfabort>
+	</cfif>
+	<cftransaction>
+		<cfloop query="unencumberedSpecimens">
+			<cfquery name="encSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				INSERT INTO coll_object_encumbrance (encumbrance_id, collection_object_id) values (
+					#encumbrance_id#,#unencumberedSpecimens.collection_object_id#)
+			</cfquery>
+		</cfloop>
+	</cftransaction>
+
 
 	<p>
 		All items listed below have been encumbered.
 		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#&table_name=#table_name#&collection_object_id=#collection_object_id#">Return to Encumbrance.</a>
 	</p>
-</cfoutput>	
+</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------->
@@ -466,41 +496,40 @@ UPDATE encumbrance SET
 	<Cfset title = "Encumber these specimens">
 		<cfoutput>
 			<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				 SELECT 
+				 SELECT
 					flat.collection_object_id,
 					flat.guid,
-					flat.cat_num, 
+					flat.cat_num,
 					concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-					flat.scientific_name, 
-					flat.higher_geog, 
-					flat.collection, 
-					flat.parts, 
-					getPreferredAgentName(encumbering_agent_id) encumbering_agent, 
-					expiration_date, 
-					expiration_event, 
-					encumbrance, 
-					encumbrance.made_date AS encumbered_date, 
-					encumbrance.remarks AS remarks, 
-					encumbrance_action, 
-					encumbrance.encumbrance_id 
-				FROM 
-					flat, 
-					coll_object_encumbrance, 
+					flat.scientific_name,
+					flat.higher_geog,
+					flat.collection,
+					flat.parts,
+					getPreferredAgentName(encumbering_agent_id) encumbering_agent,
+					expiration_date,
+					expiration_event,
+					encumbrance,
+					encumbrance.made_date AS encumbered_date,
+					encumbrance.remarks AS remarks,
+					encumbrance_action,
+					encumbrance.encumbrance_id
+				FROM
+					flat,
+					coll_object_encumbrance,
 					encumbrance
-				WHERE 
-					flat.collection_object_id=coll_object_encumbrance.collection_object_id (+) AND 
-					coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND 
-					coll_object_encumbrance.collection_object_id IN (
+				WHERE
+					flat.collection_object_id=coll_object_encumbrance.collection_object_id (+) AND
+					coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND
+					flat.collection_object_id IN (
 						<cfif len(table_name) gt 0>
 							(select collection_object_id from #table_name#)
 						<cfelse>
 							( #collection_object_id# )
 						</cfif>
 					)
-				ORDER BY 
+				ORDER BY
 					flat.collection_object_id
 			</cfquery>
-
 		<hr>
 		<br><strong>Cataloged Items being encumbered:</strong>
 			<table width="95%" border="1">
@@ -526,7 +555,7 @@ UPDATE encumbrance SET
 				</td>
 				<td>
 					<cfquery name="encs" dbtype="query">
-						select 
+						select
 							collection_object_id,
 							encumbrance_id,
 							encumbrance,
@@ -537,7 +566,7 @@ UPDATE encumbrance SET
 							expiration_event,
 							remarks
 						FROM getData
-						WHERE 
+						WHERE
 							collection_object_id = #collection_object_id#
 						GROUP BY
 							collection_object_id,
@@ -552,23 +581,23 @@ UPDATE encumbrance SET
 					</cfquery>
 					<cfset e=1>
 					<cfloop query="encs">
-					
+
 					<cfif len(#encumbrance#) gt 0>
-						#encumbrance# (#encumbrance_action#) 
-						by #encumbering_agent# made 
-						#dateformat(encumbered_date,"yyyy-mm-dd")#, 
-						expires #dateformat(expiration_date,"yyyy-mm-dd")# 
+						#encumbrance# (#encumbrance_action#)
+						by #encumbering_agent# made
+						#dateformat(encumbered_date,"yyyy-mm-dd")#,
+						expires #dateformat(expiration_date,"yyyy-mm-dd")#
 						#expiration_event# #remarks#<br>
 						<form name="nothing#e#">
-							<input type="button" 
-								value="Remove This Encumbrance" 
+							<input type="button"
+								value="Remove This Encumbrance"
 								class="delBtn"
 								onClick="deleteEncumbrance(#encumbrance_id#,#encs.collection_object_id#);">
-		
+
 						</form>
 					<cfelse>
 						None
-					</cfif> 
+					</cfif>
 						<cfset e=#e#+1>
 					</cfloop>
 				</td>
@@ -576,6 +605,6 @@ UPDATE encumbrance SET
 		</cfoutput>
 	</table>
 </cfif>
-<!------------------------------------------------------------------------------------------------------->	
+<!------------------------------------------------------------------------------------------------------->
 <cfinclude template = "includes/_footer.cfm">
 <cf_customizeIFrame>
