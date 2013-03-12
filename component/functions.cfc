@@ -498,7 +498,7 @@
 <cfoutput>
 					<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
 						<cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
-						<cfinvokeargument name="urlParams" value="latlng=#URLEncodedFormat('12,34')">
+						<cfinvokeargument name="urlParams" value="latlng=#URLEncodedFormat('12,34')#">
 					</cfinvoke>
 
 
