@@ -70,22 +70,11 @@
       }
 
 
-	function autoCenter(){
-	    var bounds = new google.maps.LatLngBounds();
-
-
-	    for (var index in marker_array) {
-	        var lat = marker_array[index].lat;
-	        var lng = marker_array[index].lng;
-	        var latlng = new google.maps.LatLng(lat, lng);
-	        bounds.extend(latlng);
-	    }
-
-
-	}
 
 
 		initialize();
+
+ var bounds = new google.maps.LatLngBounds();
 
 		var latLng1 = new google.maps.LatLng($("#dec_lat").val(), $("#dec_long").val());
             var marker1 = new google.maps.Marker({
