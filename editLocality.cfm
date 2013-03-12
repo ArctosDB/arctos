@@ -746,8 +746,8 @@
 
 		<div style="border:1px dashed red; padding:1em;background-color:lightgray;">
 		<strong>Webservice Lookup Data</strong>
-		<div style="font-size:small;font-style:italic; max-height:4em;overflow:auto;border:2px solid red;">
-			<p style="font-style:bold;font-size:large;">READ THIS!</p>
+		<div style="font-size:small;font-style:italic; max-height:6em;overflow:auto;border:2px solid red;">
+			<p style="font-style:bold;font-size:large;text-align:center;">READ THIS!</p>
 			Data in this box come from various webservices. They are NOT "specimen data" and come with no guarantees.
 			<p>Not seeing anything here, or seeing old data? Try waiting a couple minutes and reloading ONCE -
 				webservice data are refreshed when this page loads, but can take a few minutes to find their way here.
@@ -774,11 +774,11 @@
 				Use the Contact link in the footer if it's horrendously wrong somewhere - let us know the locality_id.
 			</p>
 		</div>
-
-		Automatic georeferencing:
-		<input type="text" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#">
-		<input type="text" id="s_dollar_dec_long" value="#locDet.s$dec_long#">
-		<br>
+		<p>
+			Automatic georeferencing:
+			<input type="text" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#">
+			<input type="text" id="s_dollar_dec_long" value="#locDet.s$dec_long#">
+		</p>
 		<span class="likeLink" onclick="useAutoCoords()">Copy these coordinates to the form</span>.
 		<p>Distance between the automated georeference and the curatorially-supplied georeference (km):
 			<input type="text" id="distanceBetween">
