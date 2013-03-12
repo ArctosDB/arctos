@@ -387,34 +387,8 @@
 
 			<cftry>
 
-				<cfif len(d.s$lastdate) is 0>
-				<cfset daysSinceLast=9000>
-			<cfelse>
-				<cfset daysSinceLast=DateDiff("d", "#d.s$lastdate#","#dateformat(now(),'yyyy-mm-dd')#")>
-			</cfif>
 
 
-
-<cfmail to="dustymc@gmail.com" subject="threademail" from="threadlives" type="html">
-
-				tdaysSinceLast
-
-				<cfdump var=#daysSinceLast#>
-				</cfmail>
-
-
-
-				<cfcatch>
-				<cfmail to="dustymc@gmail.com" subject="threademail" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
-
-				thread died
-
-				<cfdump var=#cfcatch#>
-				</cfmail>
-				</cfcatch>
-			</cftry>
-
-			<!----
 			<cfif len(d.s$lastdate) is 0>
 				<cfset daysSinceLast=9000>
 			<cfelse>
@@ -519,8 +493,39 @@
 			</cfif><!--- end service call --->
 
 
-			---->
-		</cfthread>
+
+
+
+
+				<cfmail to="dustymc@gmail.com" subject="threademail" from="threadlives" type="html">
+
+				<cfoutput>
+
+				update locality set
+						S$ELEVATION=#elevRslt#,
+						S$GEOGRAPHY='#escapeQuotes(geoList)#',
+						S$DEC_LAT=#slat#,
+						S$DEC_LONG=#slon#,
+						S$LASTDATE=sysdate
+					where locality_id=#d.locality_id#
+
+
+
+				</cfoutput>
+
+				</cfmail>
+
+
+
+				<cfcatch>
+				<cfmail to="dustymc@gmail.com" subject="threademail" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
+
+				thread died
+
+				<cfdump var=#cfcatch#>
+				</cfmail>
+				</cfcatch>
+			</cftry>		</cfthread>
 
 
 
