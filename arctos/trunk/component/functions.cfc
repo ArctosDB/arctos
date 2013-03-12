@@ -497,7 +497,7 @@
 
 <cfoutput>
 
-					<cfset obj = CreateObject("component","component.functions")>
+					<cfset obj = CreateObject("component","functions")>
 					<cfset objMethod = obj.googleSignURL(urlPath="/maps/api/geocode/json",urlParams="latlng=#URLEncodedFormat('12,34')#")>
 
 
