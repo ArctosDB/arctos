@@ -729,7 +729,8 @@
 		<a href="https://maps.google.com/?q=#URLEncodedFormat('#locDet.s$dec_lat#,#locDet.s$dec_long#')#">
 			<img src="#signedURL#">
 		</a>
-		<br>RED marker is calculated coordinates. GREEN marker is supplied coordinates.
+		<br>RED marker is calculated coordinates. GREEN marker is supplied coordinates. CLICK opens calculated coordinates; click the map above
+		for supplied. (Sorry, no mechanism for clicking to both on the same map!)
 	</form>
 	</td></tr></table>
 	</span>
