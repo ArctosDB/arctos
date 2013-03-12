@@ -292,7 +292,6 @@
 
 
 
-<!------------------------------
 <cfoutput>
 	<cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     	select
@@ -765,7 +764,6 @@
 		</p>
 
 
-				  <div id="map-canvas"></div>
 
 
 
@@ -874,7 +872,6 @@
 
 
 
--------------------->
 
 
 
