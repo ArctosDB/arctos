@@ -263,30 +263,54 @@
 		<cfif len(locality_id) gt 0>
 			<cfif forceOverrideCache>
 				<cfquery name="d" datasource="uam_god">
+					select
+						locality.locality_id,
+						locality.DEC_LAT,
+						locality.DEC_LONG,
+						locality.S$ELEVATION,
+						locality.spec_locality,
+						locality.S$DEC_LAT,
+						locality.S$DEC_LONG,
+						locality.s$geography,
+						geog_auth_rec.higher_geog,
+						locality.s$lastdate,
+						to_meters(locality.minimum_elevation,
+			    			locality.orig_elev_units) min_elev_in_m,
+						to_meters(locality.maximum_elevation,
+			    			locality.orig_elev_units) max_elev_in_m
+					from
+						locality,
+						geog_auth_rec
+					where
+						locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+						locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
+				</cfquery>
 			<cfelse>
 				<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+					select
+						locality.locality_id,
+						locality.DEC_LAT,
+						locality.DEC_LONG,
+						locality.S$ELEVATION,
+						locality.spec_locality,
+						locality.S$DEC_LAT,
+						locality.S$DEC_LONG,
+						locality.s$geography,
+						geog_auth_rec.higher_geog,
+						locality.s$lastdate,
+						to_meters(locality.minimum_elevation,
+			    			locality.orig_elev_units) min_elev_in_m,
+						to_meters(locality.maximum_elevation,
+			    			locality.orig_elev_units) max_elev_in_m
+					from
+						locality,
+						geog_auth_rec
+					where
+						locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+						locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
+				</cfquery>
 			</cfif>
-				select
-					locality.locality_id,
-					locality.DEC_LAT,
-					locality.DEC_LONG,
-					locality.S$ELEVATION,
-					locality.spec_locality,
-					locality.S$DEC_LAT,
-					locality.S$DEC_LONG,
-					locality.s$geography,
-					geog_auth_rec.higher_geog,
-					locality.s$lastdate,
-					to_meters(locality.minimum_elevation,
-		    			locality.orig_elev_units) min_elev_in_m,
-					to_meters(locality.maximum_elevation,
-		    			locality.orig_elev_units) max_elev_in_m
-				from
-					locality,
-					geog_auth_rec
-				where
-					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
-					locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
+
 			</cfquery>
 		<cfelseif len(collecting_event_id) gt 0>
 			<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
