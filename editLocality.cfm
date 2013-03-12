@@ -615,13 +615,15 @@
 		</select>
 
 
-		<!--------
+
 		<br>
 		<cfset slat=locDet.s$dec_lat>
 		<cfset slon=locDet.s$dec_long>
 		<cfset sgeo=locDet.s$geography>
 		<cfset sele=locDet.s$elevation>
+			slat: #slat#
 
+			<!--------
 		<!----
 			get calculated coordinates and political stuff from the descriptive data
 		---->
