@@ -311,7 +311,6 @@
 				</cfquery>
 			</cfif>
 
-			</cfquery>
 		<cfelseif len(collecting_event_id) gt 0>
 			<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select
