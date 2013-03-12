@@ -501,15 +501,10 @@
 				<cfmail to="dustymc@gmail.com" subject="threademail" from="threadlives" type="html">
 
 				<cfoutput>
-
-				update locality set
-						S$ELEVATION=#elevRslt#,
-						S$GEOGRAPHY='#escapeQuotes(geoList)#',
-						S$DEC_LAT=#slat#,
-						S$DEC_LONG=#slon#,
-						S$LASTDATE=sysdate
-					where locality_id=#d.locality_id#
-
+					<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
+						<cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
+						<cfinvokeargument name="urlParams" value="latlng=#URLEncodedFormat('12,34')">
+					</cfinvoke>
 
 
 				</cfoutput>
