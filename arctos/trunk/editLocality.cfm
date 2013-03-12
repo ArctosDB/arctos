@@ -717,15 +717,16 @@
 			</cfif>
 		</p>
 
-		<cfset params='markers=color:red|size:tiny|#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#'>
-		<cfset params=params & '&markers=color:green|size:tiny|#URLEncodedFormat("#locDet.dec_lat#,#locDet.dec_long#")#'>
+		<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#'>
+		<cfset params=params & '&markers=color:green|size:tiny|label:A|#URLEncodedFormat("#locDet.dec_lat#,#locDet.dec_long#")#'>
+		<cfset params=params & '&center=#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#'>
 
 		<cfset params=params & '&maptype=roadmap&zoom=2&size=300x300'>
 		<cfset obj = CreateObject("component","component.functions")>
 		<cfset signedURL = obj.googleSignURL(
 			urlPath="/maps/api/staticmap",
 			urlParams="#params#")>
-		<a href="https://maps.google.com/?q=#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#|#URLEncodedFormat("#locDet.dec_lat#,#locDet.dec_long#")#">
+		<a href="https://maps.google.com/?q=#URLEncodedFormat('#locDet.s$dec_lat#,#locDet.s$dec_long#')#">
 			<img src="#signedURL#">
 		</a>
 		<br>RED marker is calculated coordinates. GREEN marker is supplied coordinates.
