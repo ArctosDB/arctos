@@ -386,16 +386,17 @@
 		<cfthread action="run" name="EsDollar#d.locality_id#">
 
 			<cftry>
-
-
+				<!--- for some strange reason, this must be mapped like zo.... ----->
+				<cfset obj = CreateObject("component","functions")>
+				<cfif len(d.s$lastdate) is 0>
+					<cfset daysSinceLast=9000>
+				<cfelse>
+					<cfset daysSinceLast=DateDiff("d", "#d.s$lastdate#","#dateformat(now(),'yyyy-mm-dd')#")>
+				</cfif>
 
 			<!-----------------
 
-			<cfif len(d.s$lastdate) is 0>
-				<cfset daysSinceLast=9000>
-			<cfelse>
-				<cfset daysSinceLast=DateDiff("d", "#d.s$lastdate#","#dateformat(now(),'yyyy-mm-dd')#")>
-			</cfif>
+
 			<!--- if we got some sort of response AND it's been a while....--->
 			<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and daysSinceLast gt 180>
 				<cfset geoList="">
@@ -497,7 +498,7 @@
 
 <cfoutput>
 
-					<cfset obj = CreateObject("component","functions")>
+
 					<cfset objMethod = obj.googleSignURL(urlPath="/maps/api/geocode/json",urlParams="latlng=#URLEncodedFormat('12,34')#")>
 
 
