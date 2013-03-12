@@ -759,14 +759,14 @@
 						<cfset sele=locDet.s$elevation>
 							slat: #slat#
 
-							==========#s$dec_lat#,#s$dec_long#==========
+							==========#locDet.s$dec_lat#,#locDet.s$dec_long#==========
 
 
-							-----#dec_lat#,#dec_long9#--------
+							-----#locDet.dec_lat#,#locDet.dec_long9#--------
 						<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
 						<script>
-							var p1="#s$dec_lat#,#s$dec_long#";
-							var p2="#dec_lat#,#dec_long#";
+							var p1="#locDet.s$dec_lat#,#locDet.s$dec_long#";
+							var p2="#locDet.dec_lat#,#locDet.dec_long#";
 							var distanceBetween=(google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
 							console.log(distanceBetween);
 						</script>
