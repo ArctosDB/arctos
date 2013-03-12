@@ -1,10 +1,7 @@
 <cfinclude template="includes/_header.cfm">
-
-	  <style type="text/css">
-		      #map-canvas { height: 300px;width:300px; }
-		    </style>
-
-
+<style type="text/css">
+	#map-canvas { height: 300px;width:300px; }
+</style>
 <cfoutput>
 	<script>
 		function useGL(glat,glon,gerr){
@@ -19,21 +16,18 @@
 		}
 	</script>
 </cfoutput>
-
 <cfif action is "nothing">
-
-
 	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			google_client_id,
 			google_private_key
 		from cf_global_settings
 	</cfquery>
-<cfset title="Edit Locality">
-<script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
-<cfoutput>
-	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=geometry" type="text/javascript"></script>'>
-</cfoutput>
+	<cfset title="Edit Locality">
+	<script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
+	<cfoutput>
+		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=geometry" type="text/javascript"></script>'>
+	</cfoutput>
 
 <script language="javascript" type="text/javascript">
 	rad = function(x) {return x*Math.PI/180;}
@@ -41,82 +35,41 @@
 	  var R = 6371; // earth's mean radius in km
 	  var dLat  = rad(p2.lat() - p1.lat());
 	  var dLong = rad(p2.lng() - p1.lng());
-
-	  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-	          Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) * Math.sin(dLong/2) * Math.sin(dLong/2);
+	  var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) * Math.sin(dLong/2) * Math.sin(dLong/2);
 	  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 	  var d = R * c;
-
 	  return d.toFixed(3);
 	}
-
-
-
-
-      //google.maps.event.addDomListener(window, 'load', initialize);
-
-
-
-
 	jQuery(document).ready(function() {
+ 		// add inline google map for service suggestions
  		var map;
-		function initialize() {
-        var mapOptions = {
+ 		var mapOptions = {
         	center: new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val()),
           	maxZoom: 4,
          	mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-      }
-
-
-
-
+        var bounds = new google.maps.LatLngBounds();
+		function initialize() {
+        	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+      	}
 		initialize();
-
- var bounds = new google.maps.LatLngBounds();
-
- var pinColor = "FE7569";
-    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
-        new google.maps.Size(21, 34),
-        new google.maps.Point(0,0),
-        new google.maps.Point(10, 34));
-    var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
-        new google.maps.Size(40, 37),
-        new google.maps.Point(0, 0),
-        new google.maps.Point(12, 35));
-
-
-
-
 		var latLng1 = new google.maps.LatLng($("#dec_lat").val(), $("#dec_long").val());
-            var marker1 = new google.maps.Marker({
-                position: latLng1,
-                map: map,
-                icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-            });
-
-
-
-            var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
-            var marker2 = new google.maps.Marker({
-                position: latLng2,
-                map: map,
-                icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-            });
-
-
-
-            bounds.extend(latLng1);
-            bounds.extend(latLng2);
-
-
+		var marker1 = new google.maps.Marker({
+		    position: latLng1,
+		    map: map,
+		    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+		});
+		var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
+		var marker2 = new google.maps.Marker({
+		    position: latLng2,
+		    map: map,
+		    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+		});
+		bounds.extend(latLng1);
+        bounds.extend(latLng2);
 		map.fitBounds(bounds);
-          // autoCenter();
 
-
-		console.log('did map thingee');
-
+		// end map setup
 
 		$("select[id^='geology_attribute_']").each(function(e){
 			populateGeology(this.id);
@@ -816,6 +769,9 @@
 
 
 				<div id="map-canvas"></div>
+				<p>
+					If there are multiple markers on the map, RED is service-suggested, GREEN is curatorially-asserted.
+				</p>
 
 <!----------
 
