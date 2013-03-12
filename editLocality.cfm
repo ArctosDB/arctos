@@ -92,7 +92,8 @@
 		var latLng1 = new google.maps.LatLng($("#dec_lat").val(), $("#dec_long").val());
             var marker1 = new google.maps.Marker({
                 position: latLng1,
-                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                map: map,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
             });
 
 
@@ -101,7 +102,7 @@
             var marker2 = new google.maps.Marker({
                 position: latLng2,
                 map: map,
-                icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+                icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
             });
 
 
