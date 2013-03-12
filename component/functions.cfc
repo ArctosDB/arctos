@@ -264,12 +264,15 @@
 					locality.DEC_LONG,
 					locality.S$ELEVATION,
 					locality.spec_locality,
-					S$DEC_LAT,
-					S$DEC_LONG,
-					s$geography
+					locality.S$DEC_LAT,
+					locality.S$DEC_LONG,
+					locality.s$geography,
+					geog_auth_rec.highher_geog
 				from
-					locality
+					locality,
+					geog_auth_rec
 				where
+					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 					locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
 			</cfquery>
 		<cfelseif len(collecting_event_id) gt 0>
@@ -282,11 +285,13 @@
 					locality.spec_locality,
 					S$DEC_LAT,
 					S$DEC_LONG,
-					s$geography
+					s$geography,
+					geog_auth_rec.highher_geog
 				from
 					locality,
 					collecting_event
 				where
+					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 					locality.locality_id=collecting_event.locality_id and
 					collecting_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
 			</cfquery>
@@ -300,12 +305,14 @@
 					locality.spec_locality,
 					S$DEC_LAT,
 					S$DEC_LONG,
-					s$geography
+					s$geography,
+					geog_auth_rec.highher_geog
 				from
 					locality,
 					collecting_event,
 					specimen_event
 				where
+					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 					locality.locality_id=collecting_event.locality_id and
 					collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 					specimen_event.specimen_event_id=<cfqueryparam value = "#specimen_event_id#" CFSQLType = "CF_SQL_INTEGER">
@@ -320,12 +327,14 @@
 					locality.spec_locality,
 					S$DEC_LAT,
 					S$DEC_LONG,
-					s$geography
+					s$geography,
+					geog_auth_rec.highher_geog
 				from
 					locality,
 					collecting_event,
 					specimen_event
 				where
+					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 					locality.locality_id=collecting_event.locality_id and
 					collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 					specimen_event.collection_object_id=<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
@@ -352,7 +361,8 @@
 						'' as S$ELEVATION,
 						'' as S$DEC_LAT,
 						'' as S$DEC_LONG,
-						'' as s$geography
+						'' as s$geography,
+						'' as highher_geog
 					from
 						d
 				</cfquery>
@@ -361,32 +371,64 @@
 		</cfif>
 
 		<!--- do we have enough information to fetch and a need for service-supplies geography strings? --->
-		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
+		<cfif d.recordcount is 1 and len(d.locality_id) gt 0>
 			<!--- remove for debug
 			and len(d.s$geography) is 0
 			--->
 			pulling geography
 			<cfset geoList="">
+			<cfif len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
+				<!--- geography data from curatorial coordinates ---->
+				<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
+					<cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
+					<cfinvokeargument name="urlParams" value="latlng=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#">
+				</cfinvoke>
+				<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+				<cfdump var=#cfhttp#>
+				<cfif cfhttp.responseHeader.Status_Code is 200>
+					<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+					<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
+						<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
+							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
+								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
+							</cfif>
+							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
+								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
+							</cfif>
+						</cfloop>
+					</cfloop>
+					geography data from curatorial coordinate: <cfdump var=#geolist#>
+				</cfif>
+			</cfif>
+
+		<cfif len(locDet.spec_locality) gt 0 and len(d.higher_geog) gt 0>
 			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
 				<cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
-				<cfinvokeargument name="urlParams" value="latlng=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#">
+				<cfinvokeargument name="urlParams" value="address=#URLEncodedFormat('#d.spec_locality#, #d.higher_geog#')#">
 			</cfinvoke>
 			<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 			<cfdump var=#cfhttp#>
+
 			<cfif cfhttp.responseHeader.Status_Code is 200>
 				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-				<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
-					<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
-						<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
-							<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
-						</cfif>
-						<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
-							<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
-						</cfif>
+				<cfif llresult.status is "OK">
+					<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
+						<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
+							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
+								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
+							</cfif>
+							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
+								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
+							</cfif>
+						</cfloop>
 					</cfloop>
-				</cfloop>
-				geolist: <cfdump var=#geolist#>
+					<cfset slat=llresult.results[1].geometry.location.lat>
+					<cfset slon=llresult.results[1].geometry.location.lng>
+				</cfif>
+									geography data from curatorial geog: <cfdump var=#geolist#>
+
 			</cfif>
+		</cfif>
 
 		</cfif>
 
