@@ -384,7 +384,6 @@
 
 
 		<cfthread action="run" name="EsDollar#d.locality_id#">
-
 			<cftry>
 				<!--- for some strange reason, this must be mapped like zo.... ----->
 				<cfset obj = CreateObject("component","functions")>
@@ -419,7 +418,6 @@
 							</cfloop>
 						</cfif>
 					</cfif>
-				</cfif>
 
 
 
