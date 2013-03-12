@@ -261,7 +261,11 @@
 
 	---->
 		<cfif len(locality_id) gt 0>
-			<cfquery name="d" datasource="uam_god" <cfif forceOverrideCache is false>cachedwithin="#createtimespan(0,0,60,0)#"</cfif>>
+			<cfif forceOverrideCache>
+				<cfquery name="d" datasource="uam_god">
+			<cfelse>
+				<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			</cfif>
 				select
 					locality.locality_id,
 					locality.DEC_LAT,
