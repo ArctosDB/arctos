@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 
-	  <head>
+
 	    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	    <style type="text/css">
 	      html { height: 100% }
@@ -21,7 +21,7 @@
 	      }
 	      google.maps.event.addDomListener(window, 'load', initialize);
 	    </script>
-	  </head>
+
 	  <body>
 	    <div id="map-canvas"/>
 	  </body>
