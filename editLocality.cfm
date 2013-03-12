@@ -92,6 +92,8 @@
             bounds.extend(latLng1);
             bounds.extend(latLng2);
 
+
+		map.fitBounds(bounds);
           // autoCenter();
 
 
