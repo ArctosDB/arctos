@@ -384,10 +384,20 @@
 
 
 		<cfthread action="run" name="EsDollar#d.locality_id#">
-			<cfmail to="dustymc@gmail.com" subject="threademail" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
+
+			<cftry>
+
+				<cfset 1=2>
+				<cfcatch>
+				<cfmail to="dustymc@gmail.com" subject="threademail" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
 
 				thread died
+
+				<cfdump var=#cfcatch#>
 				</cfmail>
+				</cfcatch>
+			</cftry>
+
 			<!----
 			<cfif len(d.s$lastdate) is 0>
 				<cfset daysSinceLast=9000>
