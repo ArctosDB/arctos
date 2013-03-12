@@ -346,7 +346,17 @@
 		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and len(d.S$ELEVATION) is 0>
 			<cftry>
 			pulling elevation.....
-			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#d.DEC_LAT#,#d.DEC_LONG#&sensor=false" timeout="1"></cfhttp>
+  			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
+				<cfinvokeargument name="urlPath" value="/maps/api/elevation/json">
+				<cfinvokeargument name="urlParams" value="locations=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#">
+			</cfinvoke>
+<br>
+			signedURL=#signedURL#
+<br>
+			#d.DEC_LAT#,#d.DEC_LONG#
+
+
+			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?&sensor=false" timeout="1"></cfhttp>
 			<cfif cfhttp.responseHeader.Status_Code is 200>
 				<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
 				<cfif isdefined("elevResult.status") and elevResult.status is "OK">
@@ -375,7 +385,7 @@
 		</cfquery>
 		<cfoutput>
   			<cfset params='markers=color:red|size:tiny|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
-			<cfset params=params & '&sensor=false&maptype=#maptype#&zoom=2&size=#size#'>
+			<cfset params=params & '&maptype=#maptype#&zoom=2&size=#size#'>
   			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
 				<cfinvokeargument name="urlPath" value="/maps/api/staticmap">
 				<cfinvokeargument name="urlParams" value="#params#">
@@ -398,60 +408,6 @@
 				 rVal &= "</figure>";
 				 return rVal;
 			</cfscript>
-
-			<!----------
-			<cfscript>
-				baseURL = "http://maps.googleapis.com";
-				remainingURL="/maps/api/staticmap";
-				parameters = 'markers=color:red|size:tiny|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#';
-					parameters&='&sensor=false&maptype=#maptype#&zoom=2&size=#size#&';
-					parameters&='client=#cf_global_settings.google_client_id#';
-				fullURL = baseURL & remainingURL & "?" & parameters;
-				urlToSign=remainingURL & "?" & parameters;
-				privatekey = cf_global_settings.google_private_key;
-				privatekeyBase64 = Replace(Replace(privatekey,"-","+","all"),"_","/","all");
-				decodedKeyBinary = BinaryDecode(privatekeyBase64,"base64");
-				secretKeySpec = CreateObject("java","javax.crypto.spec.SecretKeySpec").init(decodedKeyBinary,"HmacSHA1");
-  				Hmac=CreateObject("java","javax.crypto.Mac").getInstance("HmacSHA1");
-				Hmac.init(secretKeySpec);
-				encryptedBytes = Hmac.doFinal(toBinary(toBase64(urlToSign)));
-	  			signature = BinaryEncode(encryptedBytes, "base64");
-	  			signatureModified = Replace(Replace(signature,"+","-","all"),"/","_","all");
-	  			theFinalURL=fullURL & "&signature=" & signatureModified;
-
-	  			<cfset params='markers=color:red|size:tiny|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
-				<cfset params=params & '&sensor=false&maptype=#maptype#&zoom=2&size=#size#'>
-	  			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
-					<cfinvokeargument name="urlPath" value="/maps/api/staticmap">
-					<cfinvokeargument name="urlParams" value="#params#">
-				</cfinvoke>
-
-
-	  			mapImage='<img src="#signedURL#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">';
-	  			rVal='<figure>';
-	  			if (len(d.locality_id) gt 0) {
-	  				rVal &= '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#valuelist(d.locality_id)#" target="_blank">' & mapImage & '</a>';
-	  			} else {
-	  				rVal &= mapImage;
-	  			}
-	  			if (showCaption) {
-					rVal&='<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#';
-					if (len(d.S$ELEVATION) gt 0) {
-						rVal&='; Elev. #d.S$ELEVATION# m';
-					}
-					rVal&='</figcaption>';
-				}
-				 rVal &= "</figure>";
-				 return rVal;
-			</cfscript>
-
-
-
-
-
-
-
-			----------->
 		</cfoutput>
 	<cfcatch>
 		<cfdump var=#cfcatch#>
@@ -471,7 +427,7 @@
 	</cfquery>
 	<cfscript>
 		baseURL = "http://maps.googleapis.com";
-		urlParams &= '&client=' & cf_global_settings.google_client_id;
+		urlParams &= '&sensor=false&client=' & cf_global_settings.google_client_id;
 		fullURL = baseURL & urlPath & "?" & urlParams;
 		urlToSign=urlPath & "?" & urlParams;
 		privatekey = cf_global_settings.google_private_key;
