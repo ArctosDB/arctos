@@ -700,7 +700,7 @@
 		<p>Automated Georeference Elevation (m):
 			<input type="text" id="s_dollar_elev" value="#locDet.s$elevation#">
 			<cfif len(locDet.min_elev_in_m) gt 0>
-				<cfif locDet.s$elevation is not between  locDet.min_elev_in_m and locDet.max_elev_in_m>
+				<cfif locDet.min_elev_in_m gt locDet.s$elevation or locDet.s$elevation gt locDet.max_elev_in_m>
 					Automated georeference is outside the curatorially-supplied elevation range.
 				</cfif>
 			</cfif>
