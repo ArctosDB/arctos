@@ -790,9 +790,13 @@
 
 	</td></tr></table>
 			</form>
-				<div id="map-canvas"></div>
+
 	</span>
 	<hr>
+
+				<div id="map-canvas"></div>
+
+
 	<strong>Geology Attributes</strong>
 	<cfif geolDet.recordcount gt 0>
 		<form name="editGeolAtt" method="post" action="editLocality.cfm">
