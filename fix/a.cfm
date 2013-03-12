@@ -1,7 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
 
-	<!DOCTYPE html>
-	<html>
 	  <head>
 	    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	    <style type="text/css">
@@ -27,7 +25,7 @@
 	  <body>
 	    <div id="map-canvas"/>
 	  </body>
-	</html>
 
 
+	<cfinclude template="/includes/_footer.cfm">
 
