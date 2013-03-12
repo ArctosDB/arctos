@@ -734,7 +734,7 @@
 
 		<div style="border:1px dashed red; padding:1em;background-color:lightgray;">
 		<strong>Webservice Lookup Data</strong>
-		<div style="font-size:small">
+		<div style="font-size:small;font-style:italic;">
 			Data in this box come from various webservices. They are NOT "specimen data" and come with no guarantees.
 			<p>Not seeing anything here? Try reloading ONCE - webservice data are cached when the map is loaded, and refreshed
 			every 6 months (as the map is loaded).</p>
