@@ -1,3 +1,4 @@
+		<cfinclude template="/includes/_header.cfm">
 <cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select
 		google_client_id,
