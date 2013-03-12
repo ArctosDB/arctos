@@ -717,8 +717,8 @@
 			</cfif>
 		</p>
 
-		<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#'>
-		<cfset params=params & '&markers=color:green|size:tiny|label:A|#URLEncodedFormat("#locDet.dec_lat#,#locDet.dec_long#")#'>
+		<cfset params='markers=color:green|size:tiny|label:X|#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#'>
+		<cfset params=params & '&markers=color:red|size:tiny|label:A|#URLEncodedFormat("#locDet.dec_lat#,#locDet.dec_long#")#'>
 		<cfset params=params & '&center=#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#'>
 
 		<cfset params=params & '&maptype=roadmap&zoom=2&size=300x300'>
@@ -729,7 +729,7 @@
 		<a href="https://maps.google.com/?q=#URLEncodedFormat('#locDet.s$dec_lat#,#locDet.s$dec_long#')#">
 			<img src="#signedURL#">
 		</a>
-		<br>RED marker is calculated coordinates. GREEN marker is supplied coordinates. CLICK opens calculated coordinates; click the map above
+		<br>GREEN marker is calculated coordinates. RED marker is supplied coordinates. CLICK opens calculated coordinates; click the map above
 		for supplied. (Sorry, no mechanism for clicking to both on the same map!)
 	</form>
 	</td></tr></table>
