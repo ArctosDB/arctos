@@ -762,7 +762,7 @@
 							==========#locDet.s$dec_lat#,#locDet.s$dec_long#==========
 
 
-							-----#locDet.dec_lat#,#locDet.dec_long9#--------
+							-----#locDet.dec_lat#,#locDet.dec_long#--------
 						<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
 						<script>
 							var p1="#locDet.s$dec_lat#,#locDet.s$dec_long#";
