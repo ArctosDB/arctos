@@ -289,7 +289,8 @@
 					geog_auth_rec.higher_geog
 				from
 					locality,
-					collecting_event
+					collecting_event,
+					geog_auth_rec
 				where
 					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 					locality.locality_id=collecting_event.locality_id and
@@ -310,7 +311,8 @@
 				from
 					locality,
 					collecting_event,
-					specimen_event
+					specimen_event,
+					geog_auth_rec
 				where
 					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 					locality.locality_id=collecting_event.locality_id and
@@ -332,7 +334,8 @@
 				from
 					locality,
 					collecting_event,
-					specimen_event
+					specimen_event,
+					geog_auth_rec
 				where
 					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 					locality.locality_id=collecting_event.locality_id and
