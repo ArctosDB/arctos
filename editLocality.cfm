@@ -289,6 +289,23 @@
 
 
 <cfoutput>
+
+
+	<!----
+		BEFORE getting the SQL to build this page,
+		fetch the static image with forceOverrideCache=true
+		to reset the stuff from the webservice
+
+		shouldn't get too much traffic here, at edit locality,
+		and this will keep things less confusing when
+		folks are actively editing
+
+	---->
+	<cfset obj = CreateObject("component","component.functions")>
+	<cfset staticImageMap = obj.getMap(
+		locality_id="#locality_id#",
+		forceOverrideCache=true)>
+
 	<cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     	select
 			locality.locality_id,
@@ -709,16 +726,11 @@
 	</td>
 
 
-	<cfset obj = CreateObject("component","component.functions")>
 	<td valign="top">
 		<cfif len(locDet.dec_lat) gt 0>
-			<cfset contents = obj.getMap(
-					locality_id="#locality_id#",
-					forceOverrideCache=true)>
-
 			<table>
 				<tr>
-					<td>#contents#</td>
+					<td>#staticImageMap#</td>
 					<td>
 						<div style="font-size:smaller;font-weight:bold;">
 							Click the map to open BerkeleyMapper. This won't work if you do not have database permission for at least one specimen
@@ -770,26 +782,7 @@
 					If there are multiple markers on the map, RED is service-suggested, GREEN is curatorially-asserted.
 				</p>
 
-<!----------
 
-
-
-		<cfset params='markers=color:green|size:tiny|label:X|#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#'>
-		<cfset params=params & '&markers=color:red|size:tiny|label:A|#URLEncodedFormat("#locDet.dec_lat#,#locDet.dec_long#")#'>
-		<cfset params=params & '&center=#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#'>
-
-		<cfset params=params & '&maptype=roadmap&zoom=2&size=300x300'>
-		<cfset obj = CreateObject("component","component.functions")>
-		<cfset signedURL = obj.googleSignURL(
-			urlPath="/maps/api/staticmap",
-			urlParams="#params#")>
-		<a href="https://maps.google.com/?q=#URLEncodedFormat('#locDet.s$dec_lat#,#locDet.s$dec_long#')#">
-			<img src="#signedURL#">
-		</a>
-		<br>GREEN marker is calculated coordinates. RED marker is supplied coordinates. CLICK opens calculated coordinates; click the map above
-		for supplied. (Sorry, no mechanism for clicking to both on the same map!)
-
-		------------->
 
 	</td></tr></table>
 			</form>
