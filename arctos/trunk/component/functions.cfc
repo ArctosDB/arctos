@@ -377,6 +377,10 @@
 		<cfelse>
 			<cfreturn 'not_enough_info'>
 		</cfif>
+
+		<cfthrow detail="i am dead before thread">
+
+
 		<cfthread action="run" name="EsDollar#d.locality_id#">
 			<cfthrow detail="i am dead thread">
 			<!----
