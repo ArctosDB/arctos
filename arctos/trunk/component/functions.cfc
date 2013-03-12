@@ -401,7 +401,7 @@
 				</cfif>
 			</cfif>
 
-		<cfif len(locDet.spec_locality) gt 0 and len(d.higher_geog) gt 0>
+		<cfif len(d.spec_locality) gt 0 and len(d.higher_geog) gt 0>
 			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
 				<cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
 				<cfinvokeargument name="urlParams" value="address=#URLEncodedFormat('#d.spec_locality#, #d.higher_geog#')#">
