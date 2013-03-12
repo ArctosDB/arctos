@@ -764,6 +764,7 @@
 		</p>
 
 
+				<div id="map-canvas"></div>
 
 <!----------
 
@@ -792,7 +793,6 @@
 	</span>
 	<hr>
 
-				<div id="map-canvas"></div>
 
 
 	<strong>Geology Attributes</strong>
