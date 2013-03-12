@@ -267,7 +267,7 @@
 					locality.S$DEC_LAT,
 					locality.S$DEC_LONG,
 					locality.s$geography,
-					geog_auth_rec.highher_geog
+					geog_auth_rec.higher_geog
 				from
 					locality,
 					geog_auth_rec
@@ -286,7 +286,7 @@
 					S$DEC_LAT,
 					S$DEC_LONG,
 					s$geography,
-					geog_auth_rec.highher_geog
+					geog_auth_rec.higher_geog
 				from
 					locality,
 					collecting_event
@@ -306,7 +306,7 @@
 					S$DEC_LAT,
 					S$DEC_LONG,
 					s$geography,
-					geog_auth_rec.highher_geog
+					geog_auth_rec.higher_geog
 				from
 					locality,
 					collecting_event,
@@ -328,7 +328,7 @@
 					S$DEC_LAT,
 					S$DEC_LONG,
 					s$geography,
-					geog_auth_rec.highher_geog
+					geog_auth_rec.higher_geog
 				from
 					locality,
 					collecting_event,
@@ -362,7 +362,7 @@
 						'' as S$DEC_LAT,
 						'' as S$DEC_LONG,
 						'' as s$geography,
-						'' as highher_geog
+						'' as higher_geog
 					from
 						d
 				</cfquery>
