@@ -92,28 +92,21 @@
 		var latLng1 = new google.maps.LatLng($("#dec_lat").val(), $("#dec_long").val());
             var marker1 = new google.maps.Marker({
                 position: latLng1,
-                icon: pinImage,
-                shadow: pinShadow
+                                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+
             });
 
- var pinColor = "green";
-    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
-        new google.maps.Size(21, 34),
-        new google.maps.Point(0,0),
-        new google.maps.Point(10, 34));
-    var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
-        new google.maps.Size(40, 37),
-        new google.maps.Point(0, 0),
-        new google.maps.Point(12, 35));
 
 
             var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
             var marker2 = new google.maps.Marker({
                 position: latLng2,
                 map: map,
-                icon: pinImage,
-                shadow: pinShadow
+                icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
             });
+
+
+
             bounds.extend(latLng1);
             bounds.extend(latLng2);
 
