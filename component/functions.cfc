@@ -255,7 +255,10 @@
 	<cfargument name="specimen_event_id" type="any" required="no" default="">
 	<cfargument name="media_id" type="any" required="no" default="">
 	<cfargument name="showCaption" type="boolean" required="no" default="true">
+	<!----
 	<cftry>
+
+	---->
 		<cfif len(locality_id) gt 0>
 			<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select
@@ -522,11 +525,13 @@
 				 return rVal;
 			</cfscript>
 		</cfoutput>
+		<!----
 	<cfcatch>
 		<cfdump var=#cfcatch#>
 		<cfreturn "try_fail">
 	</cfcatch>
 	</cftry>
+	---->
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="googleSignURL" access="public">
