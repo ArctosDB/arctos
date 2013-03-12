@@ -765,7 +765,7 @@
 							-----#locDet.dec_lat#,#locDet.dec_long#--------
 
 							<script type="text/javascript"
-							  src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places&sensor=true_or_false">
+							  src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places&sensor=false">
 							</script>
 
 
