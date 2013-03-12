@@ -377,7 +377,7 @@
 		<cfelse>
 			<cfreturn 'not_enough_info'>
 		</cfif>
-<!-------------
+		<cfthread action="run" name="EsDollar#d.locality_id#">
 
 		<cfif len(d.s$lastdate) is 0>
 			<cfset daysSinceLast=9000>
@@ -481,12 +481,11 @@
 					d
 			</cfquery>
 		</cfif><!--- end service call --->
+</cfthread>
 
 
 
 
-
---------------->
 
 		<!--- build and return a HTML block for a map ---->
 		<cfoutput>
