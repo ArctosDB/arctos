@@ -17,7 +17,24 @@
 <cfif action is "nothing">
 <cfset title="Edit Locality">
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
+
+
+
 <script language="javascript" type="text/javascript">
+	rad = function(x) {return x*Math.PI/180;}
+	distHaversine = function(p1, p2) {
+	  var R = 6371; // earth's mean radius in km
+	  var dLat  = rad(p2.lat() - p1.lat());
+	  var dLong = rad(p2.lng() - p1.lng());
+
+	  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+	          Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) * Math.sin(dLong/2) * Math.sin(dLong/2);
+	  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	  var d = R * c;
+
+	  return d.toFixed(3);
+	}
 	jQuery(document).ready(function() {
 		$("select[id^='geology_attribute_']").each(function(e){
 			populateGeology(this.id);
@@ -30,6 +47,15 @@
 		} else {
 			window.attachEvent("onmessage", getGeolocate);
 		}
+
+		var p1 = new google.maps.LatLng($("#dec_lat").val(),$("#dec_long").val());
+
+		var p = new google.maps.LatLng($("#s$dec_lat").val(),$("#s$dec_long").val());
+
+		var tdis=distHaversine(p1,p2);
+
+		console.log(tdis);
+
 	});
 	function geolocate(method) {
 		alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
@@ -481,98 +507,98 @@
 			<tr>
 				<td colspan="2">
 	                    		<label for="dmsdiv">Convert to decimal degrees</label>
-	                    											<div id="dmsdiv" style="border:1px solid black;padding-left:1.5em;background-color:LightGray;">
-	                    												<table>
-	                    													<tr>
-	                    														<td>
-	                    															<label for="lat_deg">LatDeg</label>
-	                    															<input type="text" name="lat_deg" id="lat_deg" size="2">
-	                    														</td>
-	                    														<td>
-	                    															<label for="lat_min">LatMin</label>
-	                    															<input type="text" name="lat_min" id="lat_min" size="2">
-	                    														</td>
-	                    														<td>
-	                    															<label for="lat_sec">LatDec</label>
-	                    															<input type="text" name="lat_sec" id="lat_sec" size="2">
-	                    														</td>
-	                    														<td>
-	                    															<label for="lat_dir">LatDir</label>
-	                    															<select name="dms_latdir" id="dms_latdir">
-	                    																<option value="N">N</option>
-	                    																<option value="S">S</option>
-	                    															</select>
-	                    														</td>
-	                    														<td rowspan="2" style="vertical-align: middle;">
-	                    															<button class="lnkBtn" onclick="convertToDD('dms');">
-	                    															convert to decimal</span>
-	                    														</td>
-	                    													</tr>
-	                    													<tr>
-	                    														<td>
-	                    															<label for="long_deg">LongDeg</label>
-	                    															<input type="text" name="long_deg" id="long_deg" size="2">
-	                    														</td>
-	                    														<td>
-	                    															<label for="long_min">LongMin</label>
-	                    															<input type="text" name="long_min" id="long_min" size="2">
-	                    														</td>
-	                    														<td>
-	                    															<label for="long_sec">LongSec</label>
-	                    															<input type="text" name="long_sec" id="long_sec" size="2">
-	                    														</td>
-	                    														<td>
-	                    															<label for="dms_longdir">LongDir</label>
-	                    															<select name="dms_longdir" id="dms_longdir">
-	                    																<option value="E">E</option>
-	                    																<option value="W">W</option>
-	                    															</select>
-	                    														</td>
-	                    													</tr>
-	                    												</table>
-	                    											</div>
-	                    											<div style="border:1px solid black;padding-left:1.5em;background-color:LightGray;">
-	                    												<table>
-	                    													<tr>
-	                    														<td>
-	                    															<label for="dec_lat_deg">LatDeg</label>
-	                    															<input type="text" name="dec_lat_deg" id="dec_lat_deg" size="2">
-	                    														</td>
-	                    														<td>
-	                    															<label for="dec_lat_min">DecLatMin</label>
-	                    															<input type="text" name="dec_lat_min" id="dec_lat_min" size="4">
-	                    														</td>
-	                    														<td>
-	                    															<label for="dm_latdir">LatDir</label>
-	                    															<select name="dm_latdir" id="dm_latdir">
-	                    																<option value="N">N</option>
-	                    																<option value="S">S</option>
-	                    															</select>
-	                    														</td>
-	                    														<td rowspan="2" style="vertical-align: middle;">
-	                    															<button class="lnkBtn" onclick="convertToDD('dm');">
-	                    															convert to decimal</span>
-	                    														</td>
-	                    													</tr>
-	                    													<tr>
-	                    														<td>
-	                    															<label for="dec_long_deg">LongDeg</label>
-	                    															<input type="text" name="dec_long_deg" id="dec_long_deg" size="2">
-	                    														</td>
-	                    														<td>
-	                    															<label for="dec_long_min">DecLongMin</label>
-	                    															<input type="text" name="dec_long_min" id="dec_long_min" size="2">
-	                    														</td>
-	                    														<td>
-	                    															<label for="dm_longdir">LongDir</label>
-	                    															<select name="dm_longdir" id="dm_longdir">
-	                    																<option value="E">E</option>
-	                    																<option value="W">W</option>
-	                    															</select>
-	                    														</td>
-	                    													</tr>
-	                    												</table>
-	                    											</div>
+					<div id="dmsdiv" style="border:1px solid black;padding-left:1.5em;background-color:LightGray;">
+						<table>
+							<tr>
+								<td>
+									<label for="lat_deg">LatDeg</label>
+									<input type="text" name="lat_deg" id="lat_deg" size="2">
+								</td>
+								<td>
+									<label for="lat_min">LatMin</label>
+									<input type="text" name="lat_min" id="lat_min" size="2">
+								</td>
+								<td>
+									<label for="lat_sec">LatDec</label>
+									<input type="text" name="lat_sec" id="lat_sec" size="2">
+								</td>
+								<td>
+									<label for="lat_dir">LatDir</label>
+									<select name="dms_latdir" id="dms_latdir">
+										<option value="N">N</option>
+										<option value="S">S</option>
+									</select>
+								</td>
+								<td rowspan="2" style="vertical-align: middle;">
+									<button class="lnkBtn" onclick="convertToDD('dms');">
+									convert to decimal</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="long_deg">LongDeg</label>
+									<input type="text" name="long_deg" id="long_deg" size="2">
+								</td>
+								<td>
+									<label for="long_min">LongMin</label>
+									<input type="text" name="long_min" id="long_min" size="2">
+								</td>
+								<td>
+									<label for="long_sec">LongSec</label>
+									<input type="text" name="long_sec" id="long_sec" size="2">
+								</td>
+								<td>
+									<label for="dms_longdir">LongDir</label>
+									<select name="dms_longdir" id="dms_longdir">
+										<option value="E">E</option>
+										<option value="W">W</option>
+									</select>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div style="border:1px solid black;padding-left:1.5em;background-color:LightGray;">
+						<table>
+							<tr>
+								<td>
+									<label for="dec_lat_deg">LatDeg</label>
+									<input type="text" name="dec_lat_deg" id="dec_lat_deg" size="2">
+								</td>
+								<td>
+									<label for="dec_lat_min">DecLatMin</label>
+									<input type="text" name="dec_lat_min" id="dec_lat_min" size="4">
+								</td>
+								<td>
+									<label for="dm_latdir">LatDir</label>
+									<select name="dm_latdir" id="dm_latdir">
+										<option value="N">N</option>
+										<option value="S">S</option>
+									</select>
+								</td>
+								<td rowspan="2" style="vertical-align: middle;">
+									<button class="lnkBtn" onclick="convertToDD('dm');">
+									convert to decimal</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="dec_long_deg">LongDeg</label>
+									<input type="text" name="dec_long_deg" id="dec_long_deg" size="2">
+								</td>
+								<td>
+									<label for="dec_long_min">DecLongMin</label>
+									<input type="text" name="dec_long_min" id="dec_long_min" size="2">
+								</td>
+								<td>
+									<label for="dm_longdir">LongDir</label>
+									<select name="dm_longdir" id="dm_longdir">
+										<option value="E">E</option>
+										<option value="W">W</option>
+									</select>
+								</td>
+							</tr>
+						</table>
+					</div>
 				</td>
 			</tr>
 		</table>
@@ -618,99 +644,6 @@
 
 		<br>
 
-
-			<!--------
-		<!----
-			get calculated coordinates and political stuff from the descriptive data
-		---->
-		<cfset geoList="">
-		<cfif len(locDet.s$dec_lat) is 0>
-			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?address=#locDet.spec_locality#, #locDet.higher_geog#&sensor=false" timeout="1"></cfhttp>
-			<cfif cfhttp.responseHeader.Status_Code is 200>
-				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-				<cfif llresult.status is "OK">
-					<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
-						<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
-							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
-								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
-							</cfif>
-							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
-								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
-							</cfif>
-						</cfloop>
-					</cfloop>
-					<cfset slat=llresult.results[1].geometry.location.lat>
-					<cfset slon=llresult.results[1].geometry.location.lng>
-				</cfif>
-			</cfif>
-		</cfif>
-		<!--- see if we can get better political data from the coordinates ---->
-		<cfif len(locDet.s$geography) is 0>
-			<cfif len(locDet.dec_lat) gt 0>
-				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=#locDet.dec_lat#,#locDet.dec_long#&sensor=false" timeout="1"></cfhttp>
-				<cfif cfhttp.responseHeader.Status_Code is 200>
-					<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-					<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
-						<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
-							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
-								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
-							</cfif>
-							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
-								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
-							</cfif>
-						</cfloop>
-					</cfloop>
-				</cfif>
-			</cfif>
-			<cfif len(locDet.s$dec_lat) gt 0>
-				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?latlng=#locDet.s$dec_lat#,#locDet.s$dec_long#&sensor=false" timeout="1"></cfhttp>
-				<cfif cfhttp.responseHeader.Status_Code is 200>
-					<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-					<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
-						<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
-							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
-								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
-							</cfif>
-							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
-								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
-							</cfif>
-						</cfloop>
-					</cfloop>
-				</cfif>
-			</cfif>
-		</cfif>
-		<cfif len(locDet.s$elevation) is 0>
-			<cfif len(locDet.dec_lat) gt 0>
-				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#locDet.DEC_LAT#,#locDet.DEC_LONG#&sensor=false" timeout="1"></cfhttp>
-				<cfif cfhttp.responseHeader.Status_Code is 200>
-					<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
-					<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-						<cfset sele=round(elevResult.results[1].elevation)>
-					</cfif>
-				</cfif>
-			<cfelseif len(locDet.s$dec_lat) gt 0>
-				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#locDet.s$dec_lat#,#locDet.s$dec_long#&sensor=false" timeout="1"></cfhttp>
-				<cfif cfhttp.responseHeader.Status_Code is 200>
-					<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
-					<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-						<cfset sele=round(elevResult.results[1].elevation)>
-					</cfif>
-				</cfif>
-			<cfelseif len(slat) gt 0>
-				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#slat#,#slon#&sensor=false" timeout="1"></cfhttp>
-				<cfif cfhttp.responseHeader.Status_Code is 200>
-					<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
-					<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-						<cfset sele=round(elevResult.results[1].elevation)>
-					</cfif>
-				</cfif>
-			</cfif>
-		</cfif>
-		<cfif len(geoList) gt 0>
-			<cfset sgeo=geoList>
-		</cfif>
-
-		------------->
 		<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
 		<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
@@ -749,55 +682,49 @@
 		<div style="border:1px dashed red; padding:1em;background-color:lightgray;">
 		<strong>Webservice Lookup Data</strong>
 		<div style="font-size:small">
-			Data in this box come from various webservices. They are NOT specimen data and come with no guarantees.
+			Data in this box come from various webservices. They are NOT "specimen data" and come with no guarantees.
 		</div>
+		<input type="hidden" id="s$dec_lat" value="#locDet.s$dec_lat#">
+		<input type="hidden" id="s$dec_long" value="#locDet.s$dec_long#">
 
+<!----
+					<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
+				<!--- code to send second marker
+						<cfset params=params & '&markers=color:green|label:A|size:tiny|#URLEncodedFormat("12,12")#'>
 
-					<cfset slat=locDet.s$dec_lat>
-						<cfset slon=locDet.s$dec_long>
-						<cfset sgeo=locDet.s$geography>
-						<cfset sele=locDet.s$elevation>
-							slat: #slat#
-
-							==========#locDet.s$dec_lat#,#locDet.s$dec_long#==========
-
-
-							-----#locDet.dec_lat#,#locDet.dec_long#--------
-
-					<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
-
-
-
-
-						<script>
-								rad = function(x) {return x*Math.PI/180;}
-
-								distHaversine = function(p1, p2) {
-								  var R = 6371; // earth's mean radius in km
-								  var dLat  = rad(p2.lat() - p1.lat());
-								  var dLong = rad(p2.lng() - p1.lng());
-
-								  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-								          Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) * Math.sin(dLong/2) * Math.sin(dLong/2);
-								  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-								  var d = R * c;
-
-								  return d.toFixed(3);
-								}
-
-var p1 = new google.maps.LatLng(52.5773139, 1.3712427);
-var p2 = new google.maps.LatLng(52.4788314, 1.7577444);
-
-//var p1="#locDet.s$dec_lat#,#locDet.s$dec_long#";
-//var p2="#locDet.dec_lat#,#locDet.dec_long#";
-var tdis=distHaversine(p1,p2);
-console.log(tdis);
+						---->
+						<cfset params=params & '&center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
 
 
 
 
 
-						</script>
+						<cfset params=params & '&maptype=#maptype#&zoom=2&size=#size#'>
+			  			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
+							<cfinvokeargument name="urlPath" value="/maps/api/staticmap">
+							<cfinvokeargument name="urlParams" value="#params#">
+						</cfinvoke>
+						<cfscript>
+							mapImage='<img src="#signedURL#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">';
+				  			rVal='<figure>';
+				  			if (len(d.locality_id) gt 0) {
+				  				rVal &= '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#valuelist(d.locality_id)#" target="_blank">' & mapImage & '</a>';
+				  			} else {
+				  				rVal &= mapImage;
+				  			}
+				  			if (showCaption) {
+								rVal&='<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#';
+								rVal&='; Elev. #elevation#';
+								rVal&='</figcaption>';
+							}
+							 rVal &= "</figure>";
+							 return rVal;
+						</cfscript>
+					</cfoutput>
+
+					---->
+
+
 
 		<!-------
 		<cfif len(slat) gt 0>
