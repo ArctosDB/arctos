@@ -488,42 +488,16 @@
 						from
 							d
 					</cfquery>
-
-					<cfmail to="dustymc@gmail.com" subject="threademail" from="threadlives" type="html">
-	<cfoutput>
-			update locality set
-									S$ELEVATION=#elevRslt#,
-									S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
-									S$DEC_LAT=#slat#,
-									S$DEC_LONG=#slon#,
-									S$LASTDATE=sysdate
-								where locality_id=#d.locality_id#
-
-
-
-	</cfoutput>
-
-				</cfmail>
-
 				</cfif><!--- end service call --->
+			<cfcatch>
+				<cfmail to="arctos.database@gmail.com" subject="thread: get webservice locality died" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
 
+					thread died
 
-
-
-
-
-				<cfcatch>
-				<cfmail to="dustymc@gmail.com" subject="threademail" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
-
-				thread died
-
-				<cfdump var=#cfcatch#>
+					<cfdump var=#cfcatch#>
 				</cfmail>
-				</cfcatch>
+			</cfcatch>
 			</cftry>
-
-
-
 		</cfthread>
 
 
