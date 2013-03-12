@@ -780,6 +780,9 @@
 								}
 
 
+
+var p1="#locDet.s$dec_lat#,#locDet.s$dec_long#";
+var p2="#locDet.dec_lat#,#locDet.dec_long#";
 var tdis=distHaversine(p1,p2);
 console.log(tdis);
 
