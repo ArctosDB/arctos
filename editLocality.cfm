@@ -765,7 +765,7 @@
 
 
 
-
+<!----------
 
 
 
@@ -783,6 +783,9 @@
 		</a>
 		<br>GREEN marker is calculated coordinates. RED marker is supplied coordinates. CLICK opens calculated coordinates; click the map above
 		for supplied. (Sorry, no mechanism for clicking to both on the same map!)
+
+		------------->
+				  <div id="map-canvas"></div>
 	</form>
 	</td></tr></table>
 	</span>
@@ -875,7 +878,6 @@
 
 
 
-				  <div id="map-canvas"></div>
 
 
 
