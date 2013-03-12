@@ -82,22 +82,20 @@
 
 		initialize();
 
-		var latLng = new google.maps.LatLng($("#dec_lat").val(), $("#dec_long").val());
-            var marker = new google.maps.Marker({
-                position: latLng,
+		var latLng1 = new google.maps.LatLng($("#dec_lat").val(), $("#dec_long").val());
+            var marker1 = new google.maps.Marker({
+                position: latLng1,
                 map: map
             });
 
 
-addMarker(marker);
 
-            var latLng = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
-            var marker = new google.maps.Marker({
-                position: latLng,
+            var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
+            var marker2 = new google.maps.Marker({
+                position: latLng2,
                 map: map
             });
 
-addMarker(marker);
             //autoCenter();
 
 
