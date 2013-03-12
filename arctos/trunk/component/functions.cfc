@@ -366,6 +366,7 @@
 			and len(d.s$geography) is 0
 			--->
 			pulling geography
+			<cfset geoList="">
 			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
 				<cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
 				<cfinvokeargument name="urlParams" value="latlng=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#">
