@@ -255,7 +255,6 @@
 	<cfargument name="specimen_event_id" type="any" required="no" default="">
 	<cfargument name="media_id" type="any" required="no" default="">
 	<cfargument name="showCaption" type="boolean" required="no" default="true">
-	<cfargument name="forceRefreshServiceCache" type="boolean" required="no" default="false">
 	<cfargument name="forceOverrideCache" type="boolean" required="no" default="false">
 	<!----
 	<cftry>
@@ -444,7 +443,7 @@
 			<cftry>
 				<!--- for some strange reason, this must be mapped like zo.... ----->
 				<cfset obj = CreateObject("component","functions")>
-				<cfif forceRefreshServiceCache is "true" or len(d.s$lastdate) is 0>
+				<cfif forceOverrideCache is "true" or len(d.s$lastdate) is 0>
 					<cfset daysSinceLast=9000>
 				<cfelse>
 					<cfset daysSinceLast=DateDiff("d", "#d.s$lastdate#","#dateformat(now(),'yyyy-mm-dd')#")>
