@@ -23,11 +23,9 @@
 	</cfquery>
 <cfset title="Edit Locality">
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
 <cfoutput>
-				<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=geometry"
-				  type="text/javascript"></script>
-	</cfoutput>
+	<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=geometry" type="text/javascript"></script>
+</cfoutput>
 
 <script language="javascript" type="text/javascript">
 	rad = function(x) {return x*Math.PI/180;}
