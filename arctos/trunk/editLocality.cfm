@@ -71,11 +71,17 @@
 
 
 	function autoCenter(){
-	    var limits = new google.maps.LatLngBounds();
-	    $.each(arrayMarkers, function (index, marker){
-	        limites.extend(marker.position);
-	    });
-	    map.fitBounds(limits);
+	    var bounds = new google.maps.LatLngBounds();
+
+
+	    for (var index in marker_array) {
+	        var lat = marker_array[index].lat;
+	        var lng = marker_array[index].lng;
+	        var latlng = new google.maps.LatLng(lat, lng);
+	        bounds.extend(latlng);
+	    }
+
+
 	}
 
 
