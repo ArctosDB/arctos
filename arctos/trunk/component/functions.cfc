@@ -378,7 +378,7 @@
 			<cfreturn 'not_enough_info'>
 		</cfif>
 
-		<cfset daysSinceLast=DateDiff("d", "#dateformat(now(),"yyyy-mm-dd")#", "#d.s$lastdate#")>
+		<cfset daysSinceLast=DateDiff("d", "#d.s$lastdate#","#dateformat(now(),'yyyy-mm-dd')#")>
 		<p>
 
 			s$lastdate is <cfdump var=#daysSinceLast#> old
