@@ -659,11 +659,12 @@
 		<a href="http://manisnet.org/gci2.html" target="_blank" class="external">[ Georef Calculator ]</a>
 		<span class="likeLink" onClick="getDocs('lat_long')">[ lat_long help ]</span>
 	</td>
+	<cfset obj = CreateObject("component","component.functions")>
 	<td valign="top">
 		<cfif len(locDet.dec_lat) gt 0>
-			<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
-				<cfinvokeargument name="locality_id" value="#locality_id#">
-			</cfinvoke>
+			<cfset contents = obj.getMap(
+					locality_id="#locality_id#")>
+
 			<table>
 				<tr>
 					<td>#contents#</td>
@@ -673,6 +674,7 @@
 							 in the locality -
 							try <a href="https://maps.google.com/?q=#locDet.dec_lat#,#locDet.dec_long#">Google Maps</a> (caution: no uncertainty!) or one of the
 							GeoLocate options to the left.
+							<p>CAUTION: THIS IMAGE MAY BE CACHED!</p>
 						</div>
 					</td>
 				</tr>
