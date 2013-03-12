@@ -671,7 +671,8 @@
 	<td valign="top">
 		<cfif len(locDet.dec_lat) gt 0>
 			<cfset contents = obj.getMap(
-					locality_id="#locality_id#")>
+					locality_id="#locality_id#",
+					forceOverrideCache=true)>
 
 			<table>
 				<tr>
@@ -682,7 +683,6 @@
 							 in the locality -
 							try <a href="https://maps.google.com/?q=#locDet.dec_lat#,#locDet.dec_long#">Google Maps</a> (caution: no uncertainty!) or one of the
 							GeoLocate options to the left.
-							<p>CAUTION: THIS IMAGE MAY BE CACHED!</p>
 						</div>
 					</td>
 				</tr>
