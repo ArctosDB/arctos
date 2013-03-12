@@ -475,7 +475,7 @@
 				<cfquery name="upEsDollar" datasource="uam_god">
 					update locality set
 						S$ELEVATION=#elevRslt#,
-						S$GEOGRAPHY='#escapeQuotes(geoList)#',
+						S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
 						S$DEC_LAT=#slat#,
 						S$DEC_LONG=#slon#,
 						S$LASTDATE=sysdate
