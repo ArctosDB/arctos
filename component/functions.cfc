@@ -393,12 +393,15 @@
 				<cfelse>
 					<cfset daysSinceLast=DateDiff("d", "#d.s$lastdate#","#dateformat(now(),'yyyy-mm-dd')#")>
 				</cfif>
+				<!--- if we got some sort of response AND it's been a while....--->
+				<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and daysSinceLast gt 180>
+					spiffy
+				</cfif>
 
 			<!-----------------
 
 
-			<!--- if we got some sort of response AND it's been a while....--->
-			<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and daysSinceLast gt 180>
+
 				<cfset geoList="">
 				<cfset slat="">
 				<cfset slon="">
