@@ -259,7 +259,7 @@
 
 	<cfmail to="arctos.database@gmail.com" subject="thread: get webservice locality EXISTS" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
 <cfoutput>
-						starting for locality_id=#d.locality_id#
+						starting for locality_id=#locality_id#
 						</cfoutput>
 					</cfmail>
 
