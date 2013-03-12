@@ -698,7 +698,9 @@
 		<cfset signedURL = obj.googleSignURL(
 			urlPath="/maps/api/staticmap",
 			urlParams="#params#")>
-		<img src="#signedURL#">
+		<a href="https://maps.google.com/?q=#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#">
+			<img src="#signedURL#">
+		</a>
 
 <!----
 
