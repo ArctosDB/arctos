@@ -387,9 +387,8 @@
 
 			s$lastdate is <cfdump var=#daysSinceLast#> old
 		</p>
-		<!--- if we got some sort of response AND we're missing any of the service-supplied data....--->
-		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and daysSinceLast gt 180 and (
-				len(d.S$ELEVATION) is 0 or len(d.S$DEC_LAT) is 0 or len(d.S$DEC_LONG) is 0 or len(d.s$geography) is 0)>
+		<!--- if we got some sort of response AND it's been a while....--->
+		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and daysSinceLast gt 180>
 			<cfset geoList="">
 			<cfset slat="">
 			<cfset slon="">
@@ -453,30 +452,45 @@
 						<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
 						<cfif isdefined("elevResult.status") and elevResult.status is "OK">
 							<cfset elevRslt=round(elevResult.results[1].elevation)>
-							<!-----------
-							<cfquery name="upelev" datasource="uam_god">
-								update locality set S$ELEVATION=#round(elevResult.results[1].elevation)# where locality_id=#d.locality_id#
-							</cfquery>
-							<cfquery name="d" dbtype="query">
-								select
-									locality_id,
-									DEC_LAT,
-									DEC_LONG,
-									#round(elevResult.results[1].elevation)# as S$ELEVATION
-								from
-									d
-							</cfquery>
-							------------->
 						</cfif>
 					</cfif>
 				<cfcatch><!--- whatever ---></cfcatch>
 				</cftry>
 			</cfif>
+			<!---- update cache ---->
+			<cfif len(elevRslt) is 0>
+				<cfset elevRslt="NULL">
+			</cfif>
+			<cfif len(slat) is 0 or len(slon) is 0>
+				<cfset slat="NULL">
+				<cfset slon="NULL">
+			</cfif>
+			<cfquery name="upEsDollar" datasource="uam_god">
+				update locality set
+					S$ELEVATION=#elevRslt#,
+					S$GEOGRAPHY='#escapeQuotes(geoList)#',
+					S$DEC_LAT=#slat#,
+					S$DEC_LONG=#slon#,
+					S$LASTDATE=sysdate
+				where locality_id=#d.locality_id#
+			</cfquery>
+			<cfquery name="d" dbtype="query">
+				select
+					locality_id,
+					DEC_LAT,
+					DEC_LONG,
+					#elevRslt# as S$ELEVATION
+				where locality_id=#d.locality_id#
+				from
+					d
+			</cfquery>
+
+
 			<cfoutput>
 				<p>geoList: #geoList#</p>
 				<p>slat: #slat#</p>
 				<p>slon: #slon#</p>
-				<p>elevRslt: #elevRslt#</p>
+				<p>elevRslt: ##</p>
 			</cfoutput>
 		</cfif><!--- end service call --->
 
