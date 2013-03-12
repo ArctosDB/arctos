@@ -472,15 +472,6 @@
 							S$LASTDATE=sysdate
 						where locality_id=#d.locality_id#
 					</cfquery>
-					<cfquery name="d" dbtype="query">
-						select
-							locality_id,
-							DEC_LAT,
-							DEC_LONG,
-							#elevRslt# as S$ELEVATION
-						from
-							d
-					</cfquery>
 				</cfif><!--- end service call --->
 			<cfcatch>
 				<cfmail to="arctos.database@gmail.com" subject="thread: get webservice locality died" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
