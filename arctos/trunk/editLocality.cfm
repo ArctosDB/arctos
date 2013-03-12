@@ -693,7 +693,7 @@
 			<input type="text" id="distanceBetween">
 		</p>
 		<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#'>
-		<cfset params=params & '&maptype=#maptype#&zoom=2&size=#size#'>
+		<cfset params=params & '&maptype=roadmap&zoom=2&size=300x300'>
 		<cfset obj = CreateObject("component","component.functions")>
 		<cfset signedURL = obj.googleSignURL(
 			urlPath="/maps/api/geocode/json",
