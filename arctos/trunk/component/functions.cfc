@@ -381,7 +381,7 @@
 		<cfset daysSinceLast=DateDiff("d", "#dateformat(now(),"yyyy-mm-dd")#", "#d.s$lastdate#")>
 		<p>
 
-			s$lastdate is #daysSinceLast# old
+			s$lastdate is <cfdump var=#daysSinceLast#> old
 		</p>
 		<!--- if we got some sort of response AND we're missing any of the service-supplied data....--->
 		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and (
