@@ -262,11 +262,13 @@
 					locality.locality_id,
 					locality.DEC_LAT,
 					locality.DEC_LONG,
-					locality.S$ELEVATION
+					locality.S$ELEVATION,
+					locality.spec_locality,
+					S$DEC_LAT,
+					S$DEC_LONG
 				from
 					locality
 				where
-					locality.DEC_LAT is not null and
 					locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
 			</cfquery>
 		<cfelseif len(collecting_event_id) gt 0>
@@ -275,12 +277,14 @@
 					locality.locality_id,
 					locality.DEC_LAT,
 					locality.DEC_LONG,
-					locality.S$ELEVATION
+					locality.S$ELEVATION,
+					locality.spec_locality,
+					S$DEC_LAT,
+					S$DEC_LONG
 				from
 					locality,
 					collecting_event
 				where
-					locality.DEC_LAT is not null and
 					locality.locality_id=collecting_event.locality_id and
 					collecting_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
 			</cfquery>
@@ -290,13 +294,15 @@
 					locality.locality_id,
 					locality.DEC_LAT,
 					locality.DEC_LONG,
-					locality.S$ELEVATION
+					locality.S$ELEVATION,
+					locality.spec_locality,
+					S$DEC_LAT,
+					S$DEC_LONG
 				from
 					locality,
 					collecting_event,
 					specimen_event
 				where
-					locality.DEC_LAT is not null and
 					locality.locality_id=collecting_event.locality_id and
 					collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 					specimen_event.specimen_event_id=<cfqueryparam value = "#specimen_event_id#" CFSQLType = "CF_SQL_INTEGER">
@@ -307,13 +313,15 @@
 					locality.locality_id,
 					locality.DEC_LAT,
 					locality.DEC_LONG,
-					locality.S$ELEVATION
+					locality.S$ELEVATION,
+					locality.spec_locality,
+					S$DEC_LAT,
+					S$DEC_LONG
 				from
 					locality,
 					collecting_event,
 					specimen_event
 				where
-					locality.DEC_LAT is not null and
 					locality.locality_id=collecting_event.locality_id and
 					collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 					specimen_event.collection_object_id=<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
@@ -336,29 +344,34 @@
 						'' as locality_id,
 						#listgetat(d.coordinates,1)# as DEC_LAT,
 						#listgetat(d.coordinates,2)# as DEC_LONG,
-						'' as S$ELEVATION
+						'' as spec_locality,
+						'' as S$ELEVATION,
+						'' as S$DEC_LAT,
+						'' as S$DEC_LONG
 					from
 						d
 				</cfquery>
 		<cfelse>
 			<cfreturn 'not_enough_info'>
 		</cfif>
-		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and len(d.S$ELEVATION) is 0>
+		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and len(d.S$DEC_LAT) is 0 and len(d.S$DEC_LONG) is 0 and len(d.spec_locality) gt 0>
+			<!---
+				got spec_locality - there is no service-supplied coordinates - get them
+			---->
+			pullling coordinates
+		</cfif>
+
+		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and len(d.S$ELEVATION) is 0 and len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
+			<!---
+				got coordinates - there is no service-elevation - get and add one
+			---->
 			<cftry>
 			pulling elevation.....
   			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
 				<cfinvokeargument name="urlPath" value="/maps/api/elevation/json">
-				<cfinvokeargument name="urlParams" value="locations=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#">
+				<cfinvokeargument name="urlParams" value="locations=#URLEncodedFormat(#d.DEC_LAT#,#d.DEC_LONG#)#">
 			</cfinvoke>
-<br>
-			signedURL=<cfdump var=#signedURL#>
-<br>
-			#d.DEC_LAT#,#d.DEC_LONG#
-
-
 			<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-
-			<cfdump var=#cfhttp#>
 			<cfif cfhttp.responseHeader.Status_Code is 200>
 				<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
 				<cfif isdefined("elevResult.status") and elevResult.status is "OK">
@@ -379,12 +392,6 @@
 			<cfcatch><!--- whatever ---></cfcatch>
 			</cftry>
 		</cfif>
-		<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select
-				google_client_id,
-				google_private_key
-			from cf_global_settings
-		</cfquery>
 		<cfoutput>
   			<cfset params='markers=color:red|size:tiny|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
 			<cfset params=params & '&maptype=#maptype#&zoom=2&size=#size#'>
