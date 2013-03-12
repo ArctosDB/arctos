@@ -764,9 +764,7 @@
 
 							-----#locDet.dec_lat#,#locDet.dec_long#--------
 
-							<script type="text/javascript"
-							  src="https://maps.googleapis.com/maps/api/js?libraries=geometry,places&sensor=false">
-							</script>
+					<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
 
 
 
@@ -787,10 +785,11 @@
 								  return d.toFixed(3);
 								}
 
+var p1 = new GLatLng(52.5773139, 1.3712427);
+var p2 = new GLatLng(52.4788314, 1.7577444);
 
-
-var p1="#locDet.s$dec_lat#,#locDet.s$dec_long#";
-var p2="#locDet.dec_lat#,#locDet.dec_long#";
+//var p1="#locDet.s$dec_lat#,#locDet.s$dec_long#";
+//var p2="#locDet.dec_lat#,#locDet.dec_long#";
 var tdis=distHaversine(p1,p2);
 console.log(tdis);
 
