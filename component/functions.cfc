@@ -395,7 +395,12 @@
 
 
 
+<cfmail to="dustymc@gmail.com" subject="threademail" from="threadlives" type="html">
 
+				tdaysSinceLast
+
+				<cfdump var=#daysSinceLast#>
+				</cfmail>
 
 
 
