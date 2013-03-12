@@ -387,7 +387,7 @@
 
 			<cftry>
 
-				<cfset 1=2>
+				<cfthrow detail="sometjnbskdjs">
 				<cfcatch>
 				<cfmail to="dustymc@gmail.com" subject="threademail" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
 
