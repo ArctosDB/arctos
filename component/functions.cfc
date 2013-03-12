@@ -369,7 +369,7 @@
 			pulling elevation.....
   			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
 				<cfinvokeargument name="urlPath" value="/maps/api/elevation/json">
-				<cfinvokeargument name="urlParams" value="locations=#URLEncodedFormat(#d.DEC_LAT#,#d.DEC_LONG#)#">
+				<cfinvokeargument name="urlParams" value="locations=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#">
 			</cfinvoke>
 			<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 			<cfif cfhttp.responseHeader.Status_Code is 200>
