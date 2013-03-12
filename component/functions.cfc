@@ -396,7 +396,6 @@
 			</cfif>
 			<!--- if we got some sort of response AND it's been a while....--->
 			<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and daysSinceLast gt 180>
-				<cfinclude template="/includes/functionLib.cfm">
 				<cfset geoList="">
 				<cfset slat="">
 				<cfset slon="">
