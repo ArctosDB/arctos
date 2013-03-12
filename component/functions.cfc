@@ -377,6 +377,7 @@
 		<cfelse>
 			<cfreturn 'not_enough_info'>
 		</cfif>
+<!-------------
 
 		<cfif len(d.s$lastdate) is 0>
 			<cfset daysSinceLast=9000>
@@ -480,6 +481,12 @@
 					d
 			</cfquery>
 		</cfif><!--- end service call --->
+
+
+
+
+
+--------------->
 
 		<!--- build and return a HTML block for a map ---->
 		<cfoutput>
