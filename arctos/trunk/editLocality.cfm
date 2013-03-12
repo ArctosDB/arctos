@@ -54,7 +54,8 @@
 
 		var tdis=distHaversine(p1,p2);
 
-		console.log(tdis);
+		$("#distanceBetween").val(tdis);
+
 
 	});
 	function geolocate(method) {
@@ -684,11 +685,23 @@
 		<div style="font-size:small">
 			Data in this box come from various webservices. They are NOT "specimen data" and come with no guarantees.
 		</div>
-		<input type="hidden" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#">
-		<input type="hidden" id="s_dollar_dec_long" value="#locDet.s$dec_long#">
+
+		Automatic georeferencing from the locality and geography strings:
+		<input type="text" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#">
+		<input type="text" id="s_dollar_dec_long" value="#locDet.s$dec_long#">
+		<p>Distance between the automated georeference and the curatorially-supplied georeference (km):
+			<input type="text" id="distanceBetween">
+		</p>
+		<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#'>
+		<cfset params=params & '&maptype=#maptype#&zoom=2&size=#size#'>
+		<cfset obj = CreateObject("component","component.functions")>
+		<cfset signedURL = obj.googleSignURL(
+			urlPath="/maps/api/geocode/json",
+			urlParams="#params#")>
+		<img src="#signedURL#">
 
 <!----
-					<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
+
 				<!--- code to send second marker
 						<cfset params=params & '&markers=color:green|label:A|size:tiny|#URLEncodedFormat("12,12")#'>
 
@@ -699,7 +712,7 @@
 
 
 
-						<cfset params=params & '&maptype=#maptype#&zoom=2&size=#size#'>
+
 			  			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
 							<cfinvokeargument name="urlPath" value="/maps/api/staticmap">
 							<cfinvokeargument name="urlParams" value="#params#">
