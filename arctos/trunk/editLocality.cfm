@@ -613,6 +613,9 @@
 					value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
 			</cfloop>
 		</select>
+
+
+		<!--------
 		<br>
 		<cfset slat=locDet.s$dec_lat>
 		<cfset slon=locDet.s$dec_long>
@@ -708,6 +711,8 @@
 		<cfif len(geoList) gt 0>
 			<cfset sgeo=geoList>
 		</cfif>
+
+		------------->
 		<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
 		<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
@@ -748,6 +753,8 @@
 		<div style="font-size:small">
 			Data in this box come from various webservices. They are NOT specimen data and come with no guarantees.
 		</div>
+
+		<!-------
 		<cfif len(slat) gt 0>
 			<figure>
 				<img src="http://maps.google.com/maps/api/staticmap?center=#slat#,#slon#&markers=color:red|size:tiny|#slat#,#slon#&sensor=false&size=80x80&zoom=2&maptype=roadmap" alt="[ Google Map of #slat#,#slon# ]">
@@ -765,6 +772,8 @@
 		<input type="hidden" name="s$dec_long" value="#slon#" id="s$dec_long">
 		<input type="hidden" name="s$elevation" value="#sele#" id="s$elevation">
 		<input type="hidden" name="s$geography" value="#sgeo#" id="s$geography">
+
+		-------------->
 	</form>
 
 	</td></tr></table>
@@ -1028,27 +1037,6 @@
 		<cfset sql = "#sql#,LOCALITY_REMARKS = '#escapeQuotes(LOCALITY_REMARKS)#'">
 	<cfelse>
 		<cfset sql = "#sql#,LOCALITY_REMARKS = null">
-	</cfif>
-	<cfif len(s$geography) gt 0>
-		<cfset sql = "#sql#,s$geography = '#escapeQuotes(s$geography)#'">
-	<cfelse>
-		<cfset sql = "#sql#,s$geography = null">
-	</cfif>
-
-	<cfif len(s$elevation) gt 0>
-		<cfset sql = "#sql#,s$elevation = #s$elevation#">
-	<cfelse>
-		<cfset sql = "#sql#,s$elevation = null">
-	</cfif>
-	<cfif len(s$dec_lat) gt 0>
-		<cfset sql = "#sql#,s$dec_lat = #s$dec_lat#">
-	<cfelse>
-		<cfset sql = "#sql#,s$dec_lat = null">
-	</cfif>
-	<cfif len(s$dec_long) gt 0>
-		<cfset sql = "#sql#,s$dec_long = #s$dec_long#">
-	<cfelse>
-		<cfset sql = "#sql#,s$dec_long = null">
 	</cfif>
 
 	<cfset sql = "#sql# where locality_id = #locality_id#">
