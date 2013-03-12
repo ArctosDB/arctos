@@ -447,7 +447,7 @@
 			the results will not be available to the current user,
 			but will be cached for subsequent calls
 		---->
-		<cfthread action="run" name="EsDollar#d.locality_id#">
+		<cfthread action="run" name="EsDollar#d.locality_id#" forceOverrideCache="#forceOverrideCache#">
 			<cftry>
 				<!--- for some strange reason, this must be mapped like zo.... ----->
 				<cfset obj = CreateObject("component","functions")>
