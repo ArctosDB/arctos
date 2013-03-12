@@ -67,7 +67,13 @@
             title: 'Hello World!'
         });
       }
+
+
 	jQuery(document).ready(function() {
+
+		initialize();
+
+
 		$("select[id^='geology_attribute_']").each(function(e){
 			populateGeology(this.id);
 		});
