@@ -88,12 +88,16 @@
                 map: map
             });
 
+
+addMarker(marker);
+
             var latLng = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
             var marker = new google.maps.Marker({
                 position: latLng,
                 map: map
             });
 
+addMarker(marker);
             //autoCenter();
 
 
