@@ -272,7 +272,9 @@
 			s$elevation,
 			s$geography,
 			s$dec_lat,
-			s$dec_long
+			s$dec_long,
+			to_meters(locality.minimum_elevation,locality.orig_elev_units) min_elev_in_m,
+			to_meters(locality.maximum_elevation,locality.orig_elev_units) max_elev_in_m
 		from
 			locality,
 			geog_auth_rec
@@ -692,11 +694,18 @@
 		<input type="text" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#">
 		<input type="text" id="s_dollar_dec_long" value="#locDet.s$dec_long#">
 		<p>Distance between the automated georeference and the curatorially-supplied georeference (km):
-			<input type="text" id="s_dollar_elev" value="#locDet.s$elevation#">
-		</p>
-		<p>Automated georeference (m):
 			<input type="text" id="distanceBetween">
 		</p>
+
+		<p>Automated Georeference Elevation (m):
+			<input type="text" id="s_dollar_elev" value="#locDet.s$elevation#">
+			<cfif len(locDet.min_elev_in_m) gt 0>
+				<cfif locDet.s$elevation is not between  locDet.min_elev_in_m and locDet.max_elev_in_m>
+					Automated georeference is outside the curatorially-supplied elevation range.
+				</cfif>
+			</cfif>
+		</p>
+
 		<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#'>
 		<cfset params=params & '&maptype=roadmap&zoom=2&size=300x300'>
 		<cfset obj = CreateObject("component","component.functions")>
