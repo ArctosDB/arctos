@@ -748,16 +748,37 @@
 		<strong>Webservice Lookup Data</strong>
 		<div style="font-size:small;font-style:italic;">
 			Data in this box come from various webservices. They are NOT "specimen data" and come with no guarantees.
-			<p>Not seeing anything here? Try reloading ONCE - webservice data are cached when the map is loaded, and refreshed
-			every 6 months (as the map is loaded).</p>
+			<p>Not seeing anything here, or seeing old data? Try waiting a couple minutes and reloading ONCE -
+				webservice data are refreshed when this page loads, but can take a few minutes to find their way here.
+			</p>
+			<p>
+				Georeferencing comes from higher geography and locality. There are no indications of error.
+			</p>
+			<p>
+				There's a link to add the generated coordinates to the edit form, but you'll
+				manually calculate error (or use GeoLocate) and save to keep them; the link just copies.
+			</p>
+			<p>
+				Distance between points is an estimate calculated using the
+				<a href="http://goo.gl/Pwhm0" class="external" target="_blank">Haversine formula</a>.
+				If it's a large value, careful scrutiny of coordinates and locality information is warranted.
+			</p>
+			<p>
+				Elevation is retrieved for the point given by the asserted coordinates. It can be very "wrong" (but still correct)
+				if, for example, the coordinates describe a large area (=large error) in Peru.
+			</p>
+			<p>
+				Reverse-georeference Geography string is for both the coordinates and the spec locality (including higher geog).
+				It's used for searching.
+				Use the Contact link in the footer if it's horrendously wrong somewhere - let us know the locality_id.
+			</p>
 		</div>
 
-		Automatic georeferencing from the locality and geography strings:
+		Automatic georeferencing:
 		<input type="text" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#">
 		<input type="text" id="s_dollar_dec_long" value="#locDet.s$dec_long#">
 		<br>
-		<span class="likeLink" onclick="useAutoCoords()">Copy these coordinates to the form</span>. You'll have to
-			manually calculate error (or use GeoLocate) and save to actually use the coordiantes.
+		<span class="likeLink" onclick="useAutoCoords()">Copy these coordinates to the form</span>.
 		<p>Distance between the automated georeference and the curatorially-supplied georeference (km):
 			<input type="text" id="distanceBetween">
 		</p>
@@ -775,23 +796,14 @@
 		<p>Automated Reverse-georeference:
 			#locDet.s$geography#
 		</p>
-
-
-				<div id="map-canvas"></div>
-				<p>
-					If there are multiple markers on the map, RED is service-suggested, GREEN is curatorially-asserted.
-				</p>
-
-
-
+		<div id="map-canvas"></div>
+		<p>
+			If there are multiple markers on the map, RED is service-suggested, GREEN is curatorially-asserted.
+		</p>
 	</td></tr></table>
-			</form>
-
+	</form>
 	</span>
 	<hr>
-
-
-
 	<strong>Geology Attributes</strong>
 	<cfif geolDet.recordcount gt 0>
 		<form name="editGeolAtt" method="post" action="editLocality.cfm">
