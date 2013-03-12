@@ -389,6 +389,8 @@
 
 
 
+			<!-----------------
+
 			<cfif len(d.s$lastdate) is 0>
 				<cfset daysSinceLast=9000>
 			<cfelse>
@@ -491,7 +493,7 @@
 				</cfquery>
 			</cfif><!--- end service call --->
 
-
+------------------>
 
 
 
