@@ -711,6 +711,8 @@
 		<a href="http://manisnet.org/gci2.html" target="_blank" class="external">[ Georef Calculator ]</a>
 		<span class="likeLink" onClick="getDocs('lat_long')">[ lat_long help ]</span>
 	</td>
+			</form>
+
 	<cfset obj = CreateObject("component","component.functions")>
 	<td valign="top">
 		<cfif len(locDet.dec_lat) gt 0>
@@ -786,7 +788,6 @@
 
 		------------->
 				  <div id="map-canvas"></div>
-	</form>
 	</td></tr></table>
 	</span>
 	<hr>
