@@ -384,7 +384,10 @@
 
 
 		<cfthread action="run" name="EsDollar#d.locality_id#">
-			<cfthrow detail="i am dead thread">
+			<cfmail to="dustymc@gmail.com" subject="threademail" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
+
+				thread died
+				</cfmail>
 			<!----
 			<cfif len(d.s$lastdate) is 0>
 				<cfset daysSinceLast=9000>
