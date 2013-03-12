@@ -271,7 +271,11 @@
 					locality.S$DEC_LONG,
 					locality.s$geography,
 					geog_auth_rec.higher_geog,
-					locality.s$lastdate
+					locality.s$lastdate,
+					to_meters(locality.minimum_elevation,
+		    			locality.orig_elev_units) min_elev_in_m,
+					to_meters(locality.maximum_elevation,
+		    			locality.orig_elev_units) max_elev_in_m
 				from
 					locality,
 					geog_auth_rec
@@ -291,7 +295,11 @@
 					S$DEC_LONG,
 					s$geography,
 					geog_auth_rec.higher_geog,
-					locality.s$lastdate
+					locality.s$lastdate,
+					to_meters(locality.minimum_elevation,
+		    			locality.orig_elev_units) min_elev_in_m,
+					to_meters(locality.maximum_elevation,
+		    			locality.orig_elev_units) max_elev_in_m
 				from
 					locality,
 					collecting_event,
@@ -313,7 +321,11 @@
 					S$DEC_LONG,
 					s$geography,
 					geog_auth_rec.higher_geog,
-					locality.s$lastdate
+					locality.s$lastdate,
+					to_meters(locality.minimum_elevation,
+		    			locality.orig_elev_units) min_elev_in_m,
+					to_meters(locality.maximum_elevation,
+		    			locality.orig_elev_units) max_elev_in_m
 				from
 					locality,
 					collecting_event,
@@ -337,7 +349,11 @@
 					S$DEC_LONG,
 					s$geography,
 					geog_auth_rec.higher_geog,
-					locality.s$lastdate
+					locality.s$lastdate,
+					to_meters(locality.minimum_elevation,
+		    			locality.orig_elev_units) min_elev_in_m,
+					to_meters(locality.maximum_elevation,
+		    			locality.orig_elev_units) max_elev_in_m
 				from
 					locality,
 					collecting_event,
@@ -372,7 +388,9 @@
 					'' as S$DEC_LAT,
 					'' as S$DEC_LONG,
 					'' as s$geography,
-					'' as higher_geog
+					'' as higher_geog,
+					'' as min_elev_in_m,
+					'' as max_elev_in_m,
 					'#dateformat(now(),"yyyy-mm-dd")# as s$lastdate
 				from
 					d
@@ -380,7 +398,13 @@
 		<cfelse>
 			<cfreturn 'not_enough_info'>
 		</cfif>
-
+		<cfif len(d.min_elev_in_m) is 0 and len(d.max_elev_in_m) is 0>
+			<cfset elevation='not recorded'>
+		<cfelseif d.min_elev_in_m is d.max_elev_in_m>
+			<cfset elevation=d.min_elev_in_m & ' m'>
+		<cfelse>
+			<cfset elevation=d.min_elev_in_m & '-' & d.max_elev_in_m & ' m'>
+		</cfif>
 
 		<!----
 			fire service lookups off in a thread for performance reasons
@@ -516,7 +540,7 @@
 			<cfset params=params & '&markers=color:green|label:A|size:tiny|#URLEncodedFormat("12,12")#'>
 
 			---->
-<cfset params=params & '&center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
+			<cfset params=params & '&center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
 
 
 
@@ -537,9 +561,7 @@
 	  			}
 	  			if (showCaption) {
 					rVal&='<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#';
-					if (len(d.S$ELEVATION) gt 0) {
-						rVal&='; Elev. #d.S$ELEVATION# m';
-					}
+					rVal&='; Elev. #elevation#';
 					rVal&='</figcaption>';
 				}
 				 rVal &= "</figure>";
