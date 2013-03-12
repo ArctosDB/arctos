@@ -479,14 +479,6 @@
 				from
 					d
 			</cfquery>
-
-
-			<cfoutput>
-				<p>geoList: #geoList#</p>
-				<p>slat: #slat#</p>
-				<p>slon: #slon#</p>
-				<p>elevRslt: ##</p>
-			</cfoutput>
 		</cfif><!--- end service call --->
 
 		<!--- build and return a HTML block for a map ---->
