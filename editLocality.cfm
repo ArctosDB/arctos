@@ -3,7 +3,7 @@
 	  <style type="text/css">
 		      html { height: 100% }
 		      body { height: 100%; margin: 0; padding: 0 }
-		      #map-canvas { height: 100% }
+		      #map-canvas { height: 300px; }
 		    </style>
 
 
