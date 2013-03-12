@@ -692,6 +692,9 @@
 		<input type="text" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#">
 		<input type="text" id="s_dollar_dec_long" value="#locDet.s$dec_long#">
 		<p>Distance between the automated georeference and the curatorially-supplied georeference (km):
+			<input type="text" id="s_dollar_elev" value="#locDet.s$elevation#">
+		</p>
+		<p>Automated georeference (m):
 			<input type="text" id="distanceBetween">
 		</p>
 		<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#'>
@@ -703,68 +706,7 @@
 		<a href="https://maps.google.com/?q=#URLEncodedFormat("#locDet.s$dec_lat#,#locDet.s$dec_long#")#">
 			<img src="#signedURL#">
 		</a>
-
-<!----
-
-				<!--- code to send second marker
-						<cfset params=params & '&markers=color:green|label:A|size:tiny|#URLEncodedFormat("12,12")#'>
-
-						---->
-						<cfset params=params & '&center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
-
-
-
-
-
-
-			  			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
-							<cfinvokeargument name="urlPath" value="/maps/api/staticmap">
-							<cfinvokeargument name="urlParams" value="#params#">
-						</cfinvoke>
-						<cfscript>
-							mapImage='<img src="#signedURL#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">';
-				  			rVal='<figure>';
-				  			if (len(d.locality_id) gt 0) {
-				  				rVal &= '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#valuelist(d.locality_id)#" target="_blank">' & mapImage & '</a>';
-				  			} else {
-				  				rVal &= mapImage;
-				  			}
-				  			if (showCaption) {
-								rVal&='<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#';
-								rVal&='; Elev. #elevation#';
-								rVal&='</figcaption>';
-							}
-							 rVal &= "</figure>";
-							 return rVal;
-						</cfscript>
-					</cfoutput>
-
-					---->
-
-
-
-		<!-------
-		<cfif len(slat) gt 0>
-			<figure>
-				<img src="http://maps.google.com/maps/api/staticmap?center=#slat#,#slon#&markers=color:red|size:tiny|#slat#,#slon#&sensor=false&size=80x80&zoom=2&maptype=roadmap" alt="[ Google Map of #slat#,#slon# ]">
-				<figcaption>#numberformat(slat,"__.___")#,#numberformat(slon,"___.___")#</figcaption>
-			</figure>
-		<cfelse>
-			<br>--Coordinates not found--<br>
-		</cfif>
-		<cfset sgeo=replace(sgeo,",",", ","all")>
-		<strong>Elevation:</strong> #sele# m
-		<br><strong>Descriptive:</strong> #sgeo#
-		</div>
-
-		<input type="hidden" name="s$dec_lat" value="#slat#">
-		<input type="hidden" name="s$dec_long" value="#slon#" id="s$dec_long">
-		<input type="hidden" name="s$elevation" value="#sele#" id="s$elevation">
-		<input type="hidden" name="s$geography" value="#sgeo#" id="s$geography">
-
-		-------------->
 	</form>
-
 	</td></tr></table>
 	</span>
 	<hr>
