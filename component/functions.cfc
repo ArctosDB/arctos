@@ -472,7 +472,29 @@
 							S$LASTDATE=sysdate
 						where locality_id=#d.locality_id#
 					</cfquery>
+
+					<cfmail to="arctos.database@gmail.com" subject="thread: get webservice locality LIVES" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
+
+						<cfoutput>
+							update locality set
+								S$ELEVATION=<cfif len(elevRslt) is 0>NULL<cfelse>#elevRslt#</cfif>,
+								S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
+								S$DEC_LAT=<cfif len(slat) is 0>NULL<cfelse>#slat#</cfif>,
+								S$DEC_LONG=<cfif len(slon) is 0>NULL<cfelse>#slon#</cfif>,
+								S$LASTDATE=sysdate
+							where locality_id=#d.locality_id#
+						</cfoutput>
+					</cfmail>
 				</cfif><!--- end service call --->
+
+
+				<cfmail to="arctos.database@gmail.com" subject="thread: get webservice locality DIDNOTHING" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
+
+						outside the call for locality
+					</cfmail>
+
+
+
 			<cfcatch>
 				<cfmail to="arctos.database@gmail.com" subject="thread: get webservice locality died" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
 
