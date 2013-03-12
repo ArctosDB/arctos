@@ -515,7 +515,7 @@
 
 
 				<cfmail to="dustymc@gmail.com" subject="threademail" from="threadlives" type="html">
-	success
+	<cfdump var=#objMethod#>
 
 				</cfmail>
 
