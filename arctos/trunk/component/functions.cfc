@@ -1,4 +1,23 @@
 <cfcomponent>
+<cffunction name="reverseGeocode" access="remote" returnformat="json">
+	<cfreturn "ok">
+
+	<!--------
+	<cfquery name="hasRG" datasource="uam_god" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			S$DEC_LAT,
+			S$DEC_LONG,
+			s$S$ELEVATION,
+			S$GEOGRAPHY
+		from
+			locality
+		where
+			locality_id=#detail.locality_id#
+	</cfquery>
+	<cfdump var=#hasRG#>
+--------->
+</cffunction>
+
 <cffunction name="ac_georeference_source" access="remote" returnformat="json">
    	<cfargument name="term" required="true" type="string">
 	<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -325,6 +344,7 @@
 			<cfreturn 'not_enough_info'>
 		</cfif>
 		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and len(d.S$ELEVATION) is 0>
+			pulling elevation.....
 			<cftry>
 			<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=#d.DEC_LAT#,#d.DEC_LONG#&sensor=false" timeout="1"></cfhttp>
 			<cfif cfhttp.responseHeader.Status_Code is 200>
