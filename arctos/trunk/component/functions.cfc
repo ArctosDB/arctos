@@ -401,14 +401,52 @@
 				</cfif>
 			</cfif>
 
-		<cfif len(d.spec_locality) gt 0 and len(d.higher_geog) gt 0>
+			<cfif len(d.spec_locality) gt 0 and len(d.higher_geog) gt 0>
+				<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
+					<cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
+					<cfinvokeargument name="urlParams" value="address=#URLEncodedFormat('#d.spec_locality#, #d.higher_geog#')#">
+				</cfinvoke>
+				<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+				<cfdump var=#cfhttp#>
+				<cfif cfhttp.responseHeader.Status_Code is 200>
+					<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+					<cfif llresult.status is "OK">
+						<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
+							<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
+								<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
+									<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
+								</cfif>
+								<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
+									<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
+								</cfif>
+							</cfloop>
+						</cfloop>
+						<cfset slat=llresult.results[1].geometry.location.lat>
+						<cfset slon=llresult.results[1].geometry.location.lng>
+					</cfif>
+										geography data from curatorial geog: <cfdump var=#geolist#>
+											<br>coords:<cfdump var=#slat#><cfdump var=#slon#>
+
+				</cfif>
+			</cfif>
+
+		</cfif>
+
+		<!--- do we have enough information to fetch and a need for service-supplies coordinates? --->
+		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and  len(d.spec_locality) gt 0 and len(d.s$geography) is 0>
+			<!---
+				 take this out so it always runs for debugging
+				len(d.S$DEC_LAT) is 0 and len(d.S$DEC_LONG) is 0 and
+			---->
+			pullling coordinates
 			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
 				<cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
 				<cfinvokeargument name="urlParams" value="address=#URLEncodedFormat('#d.spec_locality#, #d.higher_geog#')#">
 			</cfinvoke>
 			<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-			<cfdump var=#cfhttp#>
 
+
+				<cfhttp method="get" url="http://maps.googleapis.com/maps/api/geocode/json?address=#locDet.spec_locality#, #locDet.higher_geog#&sensor=false" timeout="1"></cfhttp>
 			<cfif cfhttp.responseHeader.Status_Code is 200>
 				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 				<cfif llresult.status is "OK">
@@ -425,22 +463,6 @@
 					<cfset slat=llresult.results[1].geometry.location.lat>
 					<cfset slon=llresult.results[1].geometry.location.lng>
 				</cfif>
-									geography data from curatorial geog: <cfdump var=#geolist#>
-
-			</cfif>
-		</cfif>
-
-		</cfif>
-
-		<!--- do we have enough information to fetch and a need for service-supplies coordinates? --->
-		<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and  len(d.spec_locality) gt 0 and len(d.s$geography) is 0>
-			<!---
-				 take this out so it always runs for debugging
-				len(d.S$DEC_LAT) is 0 and len(d.S$DEC_LONG) is 0 and
-			---->
-			pullling coordinates
-
-
 		</cfif>
 
 		<!--- do we have enough information to fetch and a need for service-supplies elevation? --->
