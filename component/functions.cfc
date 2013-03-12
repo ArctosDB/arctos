@@ -395,38 +395,36 @@
 				</cfif>
 				<!--- if we got some sort of response AND it's been a while....--->
 				<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and daysSinceLast gt 180>
-					spiffy
+					<cfset geoList="">
+					<cfset slat="">
+					<cfset slon="">
+					<cfset elevRslt=''>
+					<cfif len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
+						<!--- geography data from curatorial coordinates ---->
+						<cfset signedURL = obj.googleSignURL(urlPath="/maps/api/geocode/json",urlParams="latlng=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#")>
+						<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+						<cfif cfhttp.responseHeader.Status_Code is 200>
+							<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+							<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
+								<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
+									<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
+										<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
+									</cfif>
+									<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
+										<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
+									</cfif>
+								</cfloop>
+							</cfloop>
+						</cfif>
+					</cfif>
 				</cfif>
 
 			<!-----------------
 
 
 
-				<cfset geoList="">
-				<cfset slat="">
-				<cfset slon="">
-				<cfset elevRslt=''>
-				<cfif len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
-					<!--- geography data from curatorial coordinates ---->
-					<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
-						<cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
-						<cfinvokeargument name="urlParams" value="latlng=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#">
-					</cfinvoke>
-					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-					<cfif cfhttp.responseHeader.Status_Code is 200>
-						<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-						<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
-							<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
-								<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
-									<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
-								</cfif>
-								<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
-									<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
-								</cfif>
-							</cfloop>
-						</cfloop>
-					</cfif>
-				</cfif>
+
+
 
 				<cfif len(d.spec_locality) gt 0 and len(d.higher_geog) gt 0>
 					<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
