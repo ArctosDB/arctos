@@ -298,6 +298,16 @@
 
 
 ---->
+
+
+
+
+
+
+
+
+
+<!------------------------------
 <cfoutput>
 	<cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     	select
@@ -876,6 +886,18 @@
 		</tr>
 	</table>
 </cfoutput>
+
+
+
+-------------------->
+
+
+
+				  <div id="map-canvas"></div>
+
+
+
+
 <cfinclude template="/includes/_footer.cfm">
 </cfif>
 <!------------------------------------------------------------------------------------------------------>
