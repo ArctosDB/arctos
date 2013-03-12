@@ -519,7 +519,7 @@
 
 
 
-			<cfset params=params & '&maptype=#maptype#&zoom=2&size=#size#'>
+			<cfset params=params & '&maptype=#maptype#&zoom=1&size=#size#'>
   			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
 				<cfinvokeargument name="urlPath" value="/maps/api/staticmap">
 				<cfinvokeargument name="urlParams" value="#params#">
