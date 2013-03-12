@@ -377,6 +377,8 @@
 			--->
 			pulling geography
 			<cfset geoList="">
+			<cfset slat="">
+			<cfset slon="">
 			<cfif len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
 				<!--- geography data from curatorial coordinates ---->
 				<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
