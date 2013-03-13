@@ -54,9 +54,7 @@
 	  var d = R * c;
 	  return d.toFixed(3);
 	}
-
 	jQuery(document).ready(function() {
- 		// add inline google map for service suggestions
  		var map;
  		var mapOptions = {
         	center: new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val()),
@@ -289,20 +287,7 @@
 	}
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
 <cfoutput>
-
-
 	<!----
 		BEFORE getting the SQL to build this page,
 		fetch the static image with forceOverrideCache=true
@@ -311,13 +296,11 @@
 		shouldn't get too much traffic here, at edit locality,
 		and this will keep things less confusing when
 		folks are actively editing
-
 	---->
 	<cfset obj = CreateObject("component","component.functions")>
 	<cfset staticImageMap = obj.getMap(
 		locality_id="#locality_id#",
 		forceOverrideCache=true)>
-
 	<cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     	select
 			locality.locality_id,
@@ -391,9 +374,7 @@
 	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VerificationStatus from ctVerificationStatus order by VerificationStatus
 	</cfquery>
-	<cfinvoke component="component.functions" method="getLocalityContents" returnvariable="contents">
-	    <cfinvokeargument name="locality_id" value="#locality_id#">
-	</cfinvoke>
+	<cfset contents = obj.getLocalityContents(locality_id="#locality_id#">
 	#contents#
 	<br>
    	<div style="border:5px solid red; background-color:red;">
