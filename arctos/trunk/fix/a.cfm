@@ -33,7 +33,7 @@
 
 
 
-function getBounds() {
+				function getBounds() {
 				var x=map.getBounds();
 				console.log('x='+x);
 				}
