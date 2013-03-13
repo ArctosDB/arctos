@@ -31,8 +31,12 @@ function addARectangle(){
 	var swla=SWLat+(latrange*.4);
 
 	if (NELong>0){
+
+		var longrange=NELong-SWLong;
 		var nelo=NELong+(longrange*.4);
 	} else {
+
+		var longrange=SWLong-NELong;
 		var nelo=NELong-(longrange*.4);
 	}
 
