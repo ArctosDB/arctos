@@ -729,9 +729,11 @@
 					<td>#staticImageMap#</td>
 					<td>
 						<div style="font-size:smaller;font-weight:bold;">
-							Click the map to open BerkeleyMapper. This won't work if you do not have database permission for at least one specimen
+							Click the map to open BerkeleyMapper. This won't work if you do not have database permission for at
+							least one specimen
 							 in the locality -
-							try <a href="https://maps.google.com/?q=#locDet.dec_lat#,#locDet.dec_long#">Google Maps</a> (caution: no uncertainty!) or one of the
+							try <a href="https://maps.google.com/?q=#locDet.dec_lat#,#locDet.dec_long#">Google Maps</a>
+							(scroll down a bit for a map with uncertainty) or one of the
 							GeoLocate options to the left.
 						</div>
 					</td>
@@ -752,12 +754,14 @@
 				every 6 months.
 			</p>
 			<p>
-				Georeferencing comes from higher geography and locality. There are no indications of error. Error is displayed with the
-				curatorially-asserted point. The automated georeferencing is hugely variable - use it as a tool and make no assumptions.
+				Automated georeferencing comes from higher geography and locality, and contains no indications of error.
+				Curatorially-supplied error is displayed with the
+				curatorially-asserted point. The accuracy of the automated georeferencing is hugely variable -
+				use it as a tool and make no assumptions.
 			</p>
 			<p>
 				There's a link to add the generated coordinates to the edit form. It copies only; you'll
-				need to manually calculate error (or use GeoLocate) and save to keep them.
+				need to manually calculate error (or use GeoLocate) and save to keep the copied data.
 			</p>
 			<p>
 				Distance between points is an estimate calculated using the
@@ -765,7 +769,7 @@
 				If it's a large value, careful scrutiny of coordinates and locality information is warranted.
 			</p>
 			<p>
-				Elevation is retrieved for the point given by the asserted coordinates.
+				Elevation is retrieved for the <strong>point</strong> given by the asserted coordinates.
 			</p>
 			<p>
 				Reverse-georeference Geography string is for both the coordinates and the spec locality (including higher geog).
