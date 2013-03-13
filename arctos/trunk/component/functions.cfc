@@ -488,7 +488,10 @@
 						<cfset signedURL = obj.googleSignURL(
 							urlPath="/maps/api/geocode/json",
 							urlParams="address=#URLEncodedFormat('#d.spec_locality#, #d.higher_geog#')#")>
+						fetching for #d.spec_locality#, #d.higher_geog#
 						<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+
+
 						<cfdump var=#cfhttp#>
 						<cfif cfhttp.responseHeader.Status_Code is 200>
 							<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
