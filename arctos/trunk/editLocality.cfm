@@ -776,7 +776,7 @@
 				Automated georeference is within the curatorially-supplied elevation range.
 			</cfif>
 		</p>
-		<p>Automated Reverse-georeference:
+		<p>Tags:
 			<span style="font-weight:bold;">#locDet.s$geography#</span>
 		</p>
 		<div id="map-canvas"></div>
