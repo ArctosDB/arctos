@@ -617,8 +617,7 @@ if (format=='dms'){
 									</select>
 								</td>
 								<td rowspan="2" style="vertical-align: middle;">
-									<input type="button" class="lnkBtn" onclick="convertToDD('dms');">
-									convert to decimal</span>
+									<input type="button" class="lnkBtn" onclick="convertToDD('dms');" value="convert to decimal">
 								</td>
 							</tr>
 							<tr>
@@ -663,8 +662,7 @@ if (format=='dms'){
 									</select>
 								</td>
 								<td rowspan="2" style="vertical-align: middle;">
-									<input type="button" class="lnkBtn" onclick="convertToDD('dm');">
-									convert to decimal</span>
+									<input type="button" class="lnkBtn" onclick="convertToDD('dm');" value="convert to decimal">
 								</td>
 							</tr>
 							<tr>
