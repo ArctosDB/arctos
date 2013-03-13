@@ -33,12 +33,17 @@
 
         var rectangle = new google.maps.Rectangle({
           bounds: bounds,
-          editable: true
+          editable: true,
+          draggable: true
         });
 
         rectangle.setMap(map);
 
       }
+
+//bounds_changed
+
+
 
       google.maps.event.addDomListener(window, 'load', initialize);
 
