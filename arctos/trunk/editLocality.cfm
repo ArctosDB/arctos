@@ -445,7 +445,7 @@
 	<span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<table width="100%"><tr><td valign="top">
 	<p><strong>Locality</strong></p>
-	<form name="locality" method="post" action="editLocality.cfm">
+	<form name="locality" method="post" action="editLocality.cfm" onSubmit="return noenter(event);">
         <input type="hidden" id="state_prov" name="state_prov" value="#locDet.state_prov#">
         <input type="hidden" id="country" name="country" value="#locDet.country#">
         <input type="hidden" id="county" name="county" value="#locDet.county#">
