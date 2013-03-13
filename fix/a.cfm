@@ -24,11 +24,26 @@ function addARectangle(){
 	var SWLat=map.getBounds().getSouthWest().lat();
 	var SWLong=map.getBounds().getSouthWest().lng();
 
+	// latitude is easy.....
 	var latrange=NELat-SWLat;
-	var longrange=NELong-SWLong;
-
 	var nela=NELat-(latrange*.4);
 	var swla=SWLat+(latrange*.4);
+
+	// if longitudes are same sign....
+	if ((NELong>0 and SWLong>0) or (NELong<0 and SWLong<0)){
+		console.log('long same sign');
+		var longrange=NELong-SWLong;
+		var nelo=NELong+(longrange*.4);
+		var swlo=SWLong+(longrange*.4);
+	} else {
+		console.log('longs diff - aborting.....');
+		return false;
+	}
+
+	/*
+	var longrange=NELong-SWLong;
+
+
 
 	if (NELong>0){
 
@@ -46,7 +61,7 @@ function addARectangle(){
 		var swlo=SWLong-(longrange*.4);
 	}
 
-
+*/
 
 	console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
 
