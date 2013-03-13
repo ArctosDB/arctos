@@ -23,12 +23,14 @@
 			draggable: true
 		});
 
+		rectangle.setMap(map);
+
 /*
 
 
 
 
-		rectangle.setMap(map);
+
 		*/
 
 	}
