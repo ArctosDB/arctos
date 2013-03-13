@@ -54,15 +54,19 @@ function addARectangle(){
 		});
 
 		rectangle.setMap(map);
+whereIsTheRectangle();
 
-		google.maps.event.addListener(rectangle,'bounds_changed',sdas);
+
+		google.maps.event.addListener(rectangle,'bounds_changed',whereIsTheRectangle);
+
+
 	}
 
 function dieRectangleDie(){
 	rectangle.setMap();
 	}
 
-	function sdas () {
+	function whereIsTheRectangle () {
 		var NELat=rectangle.getBounds().getNorthEast().lat();
 		var NELong=rectangle.getBounds().getNorthEast().lng();
 		var SWLat=rectangle.getBounds().getSouthWest().lat();
