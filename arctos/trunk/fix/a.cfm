@@ -12,7 +12,7 @@
 
 
 			jQuery(document).ready(function() {
-				//var map;
+				var map;
 
 
 
