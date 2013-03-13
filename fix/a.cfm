@@ -12,13 +12,13 @@
 			jQuery(document).ready(function() {
 			 		var map;
 			 		var mapOptions = {
+			        	center: new google.maps.LatLng(55, -135),
 			         	mapTypeId: google.maps.MapTypeId.ROADMAP
 			        };
 					function initialize() {
 			        	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 			      	}
 					initialize();
-
 
 
 
