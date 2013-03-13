@@ -45,7 +45,7 @@
  		var map;
  		var mapOptions = {
         	center: new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val()),
-          	zoom: 2,
+          	zoom: 0,
          	mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var bounds = new google.maps.LatLngBounds();
