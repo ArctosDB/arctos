@@ -44,13 +44,13 @@ function addARectangle(){
 
 
 
-	//console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
+	console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
 
-	console.log('latrange='+latrange);
+	console.log('longrange='+longrange);
 
-	console.log('nela='+nela);
+	console.log('nelo='+nelo);
 
-	console.log('swla='+swla);
+	console.log('swlo='+swlo);
 
 	console.log('NELat='+NELat);
 	bounds = new google.maps.LatLngBounds(
