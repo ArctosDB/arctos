@@ -31,16 +31,30 @@
 
         		rectangle.setMap(map);
 
-			});
 
-			function getBounds() {
+
+function getBounds() {
 				var x=map.getBounds();
 				console.log('x='+x);
 				}
+
+				function getBounds2() {
+				var x=rectangle.getBounds();
+				console.log('x='+x);
+				}
+			});
+
+
 	    </script>
 
 	  <body>
 <span onclick="getBounds()">getBounds</span>
+
+
+	<span onclick="getBounds2()">getBounds2</span>
+
+
+
 		  <div id="rslt"></div>
 	    <div id="map-canvas"/>
 	  </body>
