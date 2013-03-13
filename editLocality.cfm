@@ -730,7 +730,7 @@
 		<strong>Webservice Lookup Data</strong>
 		<div style="font-size:small;font-style:italic; max-height:6em;overflow:auto;border:2px solid red;">
 			<p style="font-style:bold;font-size:large;text-align:center;">READ THIS!</p>
-			Data in this box come from various webservices. They are NOT "specimen data" and come with no guarantees.
+			Data in this box come from various webservices. They are NOT "specimen data," are entirely automated, and come with no guarantees.
 			<p>Not seeing anything here, or seeing old data? Try waiting a couple minutes and reloading ONCE -
 				webservice data are refreshed when this page loads, but can take a few minutes to find their way here.
 			</p>
@@ -757,17 +757,17 @@
 			</p>
 		</div>
 		<p>
-			Automatic georeferencing:
-			<input type="text" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#">
-			<input type="text" id="s_dollar_dec_long" value="#locDet.s$dec_long#">
+			Coordinates:
+			<input type="text" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#" size="6">
+			<input type="text" id="s_dollar_dec_long" value="#locDet.s$dec_long#" size="6">
+			<span class="likeLink" onclick="useAutoCoords()">Copy these coordinates to the form</span>
 		</p>
-		<span class="likeLink" onclick="useAutoCoords()">Copy these coordinates to the form</span>.
-		<p>Distance between the automated georeference and the curatorially-supplied georeference (km):
-			<input type="text" id="distanceBetween">
+		<p>Distance between asserted and lookup coordinates (km):
+			<input type="text" id="distanceBetween" size="6">
 		</p>
 
-		<p>Automated Georeference Elevation (m):
-			<input type="text" id="s_dollar_elev" value="#locDet.s$elevation#">
+		<p>Elevation (m):
+			<input type="text" id="s_dollar_elev" value="#locDet.s$elevation#" size="6">>
 			<cfif len(locDet.min_elev_in_m) is 0>
 				There is no curatorially-supplied elevation.
 			<cfelseif locDet.min_elev_in_m gt locDet.s$elevation or locDet.s$elevation gt locDet.max_elev_in_m>
@@ -777,7 +777,7 @@
 			</cfif>
 		</p>
 		<p>Automated Reverse-georeference:
-			#locDet.s$geography#
+			<span style="font-weight:bold;">#locDet.s$geography#</span>
 		</p>
 		<div id="map-canvas"></div>
 		<p>
