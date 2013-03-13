@@ -70,36 +70,32 @@
 			<cflocation url="#u#" addtoken="false">
 		</cfif>
 			gotopage: #gotopage#
-		<cfif not isdefined("gotopage") or len(gotopage) is 0>
-no gotopage:
-
-			<cfif len(request.rdurl) gt 0>
-				request.rdurl: #request.rdurl#
-				<cfset gotopage=request.rdurl>
-				<cfset junk="session.sessionKey">
-				<cfloop list="#gotopage#" index="e" delimiters="?&">
-					<cfloop list="#junk#" index="j">
-						<cfif left(e,len(j)) is j>
-							<cfset rurl=replace(gotopage,e,'','all')>
-						</cfif>
-					</cfloop>
-				</cfloop>
-				<cfset t=1>
-				<cfset rurl=replace(gotopage,"?&","?","all")>
-				<cfset rurl=replace(gotopage,"&&","&","all")>
-				<cfset nogo="login.cfm,errors/">
-				<cfloop list="#nogo#" index="n">
-					<cfif gotopage contains n>
-						<cfset gotopage = "/SpecimenSearch.cfm">
-					</cfif>
-				</cfloop>
-			<cfelse>
+		<cfif (not isdefined("gotopage") or len(gotopage) is 0) and len(request.rdurl) gt 0>
+			<cfset gotopage=request.rdurl>
+		</cfif>
+		<cfset junk="session.sessionKey,badPW,username">
+		<cfloop list="#gotopage#" index="e" delimiters="?&">
+			<cfloop list="#junk#" index="j">
+				<cfif left(e,len(j)) is j>
+					<cfset rurl=replace(gotopage,e,'','all')>
+				</cfif>
+			</cfloop>
+		</cfloop>
+		<cfset t=1>
+		<cfset rurl=replace(gotopage,"?&","?","all")>
+		<cfset rurl=replace(gotopage,"&&","&","all")>
+		<cfset nogo="login.cfm,errors/">
+		<cfloop list="#nogo#" index="n">
+			<cfif gotopage contains n>
 				<cfset gotopage = "/SpecimenSearch.cfm">
 			</cfif>
-		</cfif>
+		</cfloop>
 
+
+
+			<p>
 			after adjust: gotopage: #gotopage#
-
+					</p>
 			<cfabort>
 
 
