@@ -159,7 +159,7 @@
 	</cfif>
 	<form action="login.cfm" method="post" name="signIn">
 		<input name="action" value="signIn" type="hidden">
-		<input name="gotopage" value="#gotopage#" type="hidden">
+		<input name="gotopage" value="#gotopage#" type="text">
 		<label for="username">Username</label>
 		<input name="username" type="text" tabindex="1" value="#username#" id="username">
 		<label for="password">Password</label>
