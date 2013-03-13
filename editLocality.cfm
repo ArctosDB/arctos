@@ -71,6 +71,17 @@
 		    map: map,
 		    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
 		});
+
+		var circleOptions = {
+  			center: latLng1,
+  			radius: $("#error_in_meters").val(),
+  			map: map,
+  			editable: false
+		};
+		var circle = new google.maps.Circle(circleOptions);
+
+
+
 		var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
 		var marker2 = new google.maps.Marker({
 		    position: latLng2,
