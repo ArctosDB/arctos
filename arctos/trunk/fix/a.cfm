@@ -6,8 +6,8 @@
 	var rectangle;
 	function initialize() {
 		var mapOptions = {
-			zoom: 8,
-		    center: new google.maps.LatLng(44.490, -78.649),
+			zoom: 3,
+		    center: new google.maps.LatLng(55, -135),
 		    mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 
