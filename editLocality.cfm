@@ -291,7 +291,7 @@ if (format=='dms'){
 
 	function convertToDD(format){
 		console.log('convertToDD');
-		return;
+		//return;
 
 
 
