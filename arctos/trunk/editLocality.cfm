@@ -213,7 +213,7 @@
 
 	function convertToDD(format){
 		console.log('convertToDD');
-		return false;
+		return;
 
 		if (format=='dms'){
 			var lat_deg=$("#lat_deg").val();
