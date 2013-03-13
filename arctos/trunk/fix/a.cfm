@@ -18,56 +18,6 @@
 
 
 
-			 	function mapsInitialize()
-{
-    startPoint = new google.maps.LatLng(lat,lon);
-    options = { zoom: 16, center: startPoint, mapTypeId: google.maps.MapTypeId.HYBRID};
-    map = new google.maps.Map(document.getElementById("map_canvas"), options);
-
-
-    google.maps.event.addListener(map, 'click', function(event) {
-        if (drawing == true){
-            placeMarker(event.latLng);
-            if (bottomLeft == null) {
-                bottomLeft = new google.maps.LatLng(event.latLng.Oa, event.latLng.Pa);
-            }
-            else if (topRight == null){
-                topRight = new google.maps.LatLng(event.latLng.Oa, event.latLng.Pa);
-                drawing = false;
-                rectangle = new google.maps.Rectangle();
-
-                var bounds = new google.maps.LatLngBounds(bottomLeft, topRight);
-
-                var rectOptions = {
-                    strokeColor: "#FF0000",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#FF0000",
-                    fillOpacity: 0.35,
-                    map: map,
-                    bounds: bounds
-                };
-                rectangle.setOptions(rectOptions);
-            }
-        }
-    });
-}
-
-function placeMarker(location) {
-  var marker = new google.maps.Marker({
-      position: location,
-      map: map
-  });
-
-
-
-  mapsInitialize();
-}
-
-
-/*
-
-
 
 
 
@@ -112,7 +62,6 @@ function placeMarker(location) {
 
 
 
-				*/
 			});
 
 
