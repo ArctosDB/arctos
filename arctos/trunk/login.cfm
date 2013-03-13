@@ -99,6 +99,10 @@ no gotopage:
 		</cfif>
 
 			after adjust: gotopage: #gotopage#
+
+			<cfabort>
+
+
 		<cfif session.roles contains "coldfusion_user">
 			<cfquery name="getUserData" datasource="cf_dbuser">
 				SELECT
