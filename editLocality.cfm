@@ -69,7 +69,10 @@
 		// cente the map on the points
 		map.fitBounds(bounds);
 		// and zoom back out
-		map.setZoom(0);
+		var listener = google.maps.event.addListener(map, "idle", function() {
+  if (map.getZoom() > 16) map.setZoom(16);
+  google.maps.event.removeListener(listener);
+});
 
 		// end map setup
 
