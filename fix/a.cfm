@@ -35,7 +35,7 @@ function addARectangle(){
 
 	console.log('NELat='+NELat);
 	bounds = new google.maps.LatLngBounds(
-	   		new google.maps.LatLng(nela, NELong),
+	   		new google.maps.LatLng(NELat, NELong),
 			new google.maps.LatLng(SWLat, SWLong)
 		);
 		rectangle = new google.maps.Rectangle({
