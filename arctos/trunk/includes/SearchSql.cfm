@@ -1256,7 +1256,7 @@
 
 	<cfset basQual = " #basQual# AND
 		upper(#session.flatTableName#.higher_geog) || ' ' || upper(#session.flatTableName#.spec_locality)
-			|| ' ' || upper(#session.flatTableName#.verbatim_locality) ' ' || upper(locality.v$geog)  LIKE '%#ucase(escapeQuotes(any_geog))#%'">
+			|| ' ' || upper(#session.flatTableName#.verbatim_locality) || ' ' || upper(locality.v$geog)  LIKE '%#ucase(escapeQuotes(any_geog))#%'">
 </cfif>
 <cfif isdefined("geog_auth_rec_id") AND len(geog_auth_rec_id) gt 0>
 	<cfset basQual = " #basQual# AND #session.flatTableName#.geog_auth_rec_id=#geog_auth_rec_id#">
