@@ -154,7 +154,7 @@ font-weight:bold;
 	#preservesinglequotes(detSelect)#
 </cfquery>
 <cfoutput>
-	
+
 
 	<cfif detail.recordcount lt 1>
 		<div class="error">
@@ -410,7 +410,7 @@ font-weight:bold;
 				var links='<ul id="navbar">';
 				links+='<li><span onclick="loadEditApp(\'editIdentification\')" class="likeLink" id="BTN_editIdentification">Identification</span></li>';
 				links+='<li><span onclick="loadEditApp(\'addAccn\')" class="likeLink" id="BTN_addAccn">Accession</span></li>';
-				links+='<li><span onclick="loadEditApp(\'specLocality\')" class="likeLink" id="BTN_specLocality">Collecting Event</span></li>';
+				links+='<li><span onclick="loadEditApp(\'specLocality\')" class="likeLink" id="BTN_specLocality">Locality</span></li>';
 				links+='<li><span onclick="loadEditApp(\'editColls\')" class="likeLink" id="BTN_editColls">Agent</span></li>';
 				links+='<li><span onclick="loadEditApp(\'editParts\')" class="likeLink" id="BTN_editParts">Parts</span></li>';
 				links+='<li><span onclick="loadEditApp(\'findContainer\')" class="likeLink" id="BTN_findContainer">Part Location</span></li>';
