@@ -36,10 +36,10 @@
 
 
 	google.maps.event.addDomListener(window, 'load', initialize);
-	google.maps.event.addListener(rectangle, 'bounds_changed', function() {
+	google.maps.event.addListener(map, 'bounds_changed', function() {
 		console.log('bounds_changed');
 	});
-	google.maps.event.addListener(rectangle, 'click', function() {
+	google.maps.event.addListener(map, 'click', function() {
 		console.log('click');
 	});
 
