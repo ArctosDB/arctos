@@ -70,7 +70,7 @@
 		map.fitBounds(bounds);
 		// and zoom back out
 		var listener = google.maps.event.addListener(map, "idle", function() {
-  if (map.getZoom() > 16) map.setZoom(16);
+  if (map.getZoom() > 2) map.setZoom(2);
   google.maps.event.removeListener(listener);
 });
 
