@@ -66,7 +66,7 @@
 			var circle = new google.maps.Circle(circleOptions);
 		}
 		var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
-		if ($("#s_dollar_dec_lat").val().length>0{
+		if ($("#s_dollar_dec_lat").val().length>0){
 			var marker2 = new google.maps.Marker({
 			    position: latLng2,
 			    map: map,
