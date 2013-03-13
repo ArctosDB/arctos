@@ -1252,7 +1252,7 @@
 </cfif>
 <cfif isdefined("any_geog") AND len(any_geog) gt 0>
 	<cfset mapurl = "#mapurl#&any_geog=#any_geog#">
-	<cfset basJoin = " #basJoin# INNER JOIN locality ON (#session.flatTableName#.locality_id = locality.locality)">
+	<cfset basJoin = " #basJoin# INNER JOIN locality ON (#session.flatTableName#.locality_id = locality.locality_id)">
 
 	<cfset basQual = " #basQual# AND
 		upper(#session.flatTableName#.higher_geog) || ' ' || upper(#session.flatTableName#.spec_locality)
