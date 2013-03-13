@@ -35,7 +35,7 @@
 
 
 	google.maps.event.addDomListener(window, 'load', initialize);
-	maps.event.addListener(rectangle, 'bounds_changed', function() {
+	google.maps.event.addListener(rectangle, 'bounds_changed', function() {
 		console.log('bounds_changed');
 	});
 
