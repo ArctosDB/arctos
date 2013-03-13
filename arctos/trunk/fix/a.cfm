@@ -29,14 +29,7 @@
 	    </script>
 
 	  <body>
-<span onclick="getBounds()">getBounds</span>
 
-
-	<span onclick="getBounds2()">getBounds2</span>
-
-
-
-		  <div id="rslt"></div>
 	    <div id="map_canvas"></div>
 	  </body>
 
