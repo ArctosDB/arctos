@@ -489,11 +489,7 @@
 						<cfset signedURL = obj.googleSignURL(
 							urlPath="/maps/api/geocode/json",
 							urlParams="address=#URLEncodedFormat('#d.spec_locality#, #d.higher_geog#')#")>
-						fetching for #d.spec_locality#, #d.higher_geog#
 						<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-
-
-						<cfdump var=#cfhttp#>
 						<cfif cfhttp.responseHeader.Status_Code is 200>
 							<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 							<cfdump var=#llresult#>
@@ -515,11 +511,9 @@
 								<cfset signedURL = obj.googleSignURL(
 									urlPath="/maps/api/geocode/json",
 									urlParams="address=#URLEncodedFormat('#d.higher_geog#')#")>
-								fetching for #d.spec_locality#, #d.higher_geog#
 								<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 								<cfif cfhttp.responseHeader.Status_Code is 200>
 									<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-									<cfdump var=#llresult#>
 									<cfif llresult.status is "OK">
 										<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 											<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
@@ -538,8 +532,6 @@
 							</cfif>
 						</cfif>
 					</cfif>
-
-											</cfoutput>
 					<cfif len(d.S$ELEVATION) is 0 and len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
 						<cfset signedURL = obj.googleSignURL(
 							urlPath="/maps/api/elevation/json",
