@@ -34,9 +34,9 @@
 	function sdas () {
 		console.log('bounds_changed');
 		var NELat=rectangle.getBounds().getNorthEast().lat();
-		var NELong=rectangle.getBounds().getNorthEast().lon();
+		var NELong=rectangle.getBounds().getNorthEast().lng();
 		var SWLat=rectangle.getBounds().getSouthWest().lat();
-		var SWLong=rectangle.getBounds().getSouthWest().lon();
+		var SWLong=rectangle.getBounds().getSouthWest().lng();
 		console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
 		}
 
