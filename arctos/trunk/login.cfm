@@ -69,9 +69,12 @@
 			</cfif>
 			<cflocation url="#u#" addtoken="false">
 		</cfif>
-
+			gotopage: #gotopage#
 		<cfif not isdefined("gotopage") or len(gotopage) is 0>
+no gotopage:
+
 			<cfif len(request.rdurl) gt 0>
+				request.rdurl: #request.rdurl#
 				<cfset gotopage=request.rdurl>
 				<cfset junk="session.sessionKey">
 				<cfloop list="#gotopage#" index="e" delimiters="?&">
@@ -94,6 +97,8 @@
 				<cfset gotopage = "/SpecimenSearch.cfm">
 			</cfif>
 		</cfif>
+
+			after adjust: gotopage: #gotopage#
 		<cfif session.roles contains "coldfusion_user">
 			<cfquery name="getUserData" datasource="cf_dbuser">
 				SELECT
@@ -159,7 +164,7 @@
 	</cfif>
 	<form action="login.cfm" method="post" name="signIn">
 		<input name="action" value="signIn" type="hidden">
-		<input name="gotopage" value="#gotopage#" type="text">
+		<input name="gotopage" value="#gotopage#" type="hidden">
 		<label for="username">Username</label>
 		<input name="username" type="text" tabindex="1" value="#username#" id="username">
 		<label for="password">Password</label>
