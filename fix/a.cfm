@@ -53,6 +53,11 @@ google.maps.event.addListener(rectangle, 'bounds_changed', function() {
   console.log('bounds_changed');
 });
 
+	google.maps.event.addListener(rectangle, 'click', function() {
+  console.log('click');
+});
+
+
 	    </script>
 
 	  <body>
