@@ -496,6 +496,7 @@
 						<cfdump var=#cfhttp#>
 						<cfif cfhttp.responseHeader.Status_Code is 200>
 							<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+							<cfdump var=#llresult#>
 							<cfif llresult.status is "OK">
 								<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 									<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
