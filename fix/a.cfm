@@ -20,7 +20,9 @@
 
 
 function addARectangle(){
+	var NELat=map.getBounds().getNorthEast().lat();
 
+	console.log('NELat='+NELat);
 	bounds = new google.maps.LatLngBounds(
 	   		new google.maps.LatLng(44.490, -78.649),
 			new google.maps.LatLng(44.599, -78.443)
