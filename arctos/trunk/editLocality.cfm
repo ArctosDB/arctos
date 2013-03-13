@@ -79,9 +79,6 @@
   			editable: false
 		};
 		var circle = new google.maps.Circle(circleOptions);
-
-
-
 		var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
 		var marker2 = new google.maps.Marker({
 		    position: latLng2,
@@ -94,10 +91,18 @@
 		map.fitBounds(bounds);
 		// and zoom back out a bit, if the points will still fit
 		// because the centering zooms WAY in if the points are close together
-		var listener = google.maps.event.addListener(map, "idle", function() {
-			if (map.getZoom() > 4) map.setZoom(4);
-			google.maps.event.removeListener(listener);
-		});
+		var p1 = new google.maps.LatLng($("#dec_lat").val(),$("#dec_long").val());
+		var p2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(),$("#s_dollar_dec_long").val());
+		var tdis=distHaversine(p1,p2);
+		$("#distanceBetween").val(tdis);
+
+		if (tdis < 50) {
+			// if hte points are close together autozoom goes too far
+			var listener = google.maps.event.addListener(map, "idle", function() {
+				if (map.getZoom() > 4) map.setZoom(4);
+				google.maps.event.removeListener(listener);
+			});
+		}
 		// end map setup
 
 		$("select[id^='geology_attribute_']").each(function(e){
@@ -111,10 +116,6 @@
 		} else {
 			window.attachEvent("onmessage", getGeolocate);
 		}
-		var p1 = new google.maps.LatLng($("#dec_lat").val(),$("#dec_long").val());
-		var p2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(),$("#s_dollar_dec_long").val());
-		var tdis=distHaversine(p1,p2);
-		$("#distanceBetween").val(tdis);
 	});
 
 	function useAutoCoords(){
