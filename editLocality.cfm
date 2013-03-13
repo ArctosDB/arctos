@@ -68,11 +68,11 @@
         bounds.extend(latLng2);
 		// cente the map on the points
 		map.fitBounds(bounds);
-		// and zoom back out
+		// and zoom back out a bit
 		var listener = google.maps.event.addListener(map, "idle", function() {
-  if (map.getZoom() > 2) map.setZoom(2);
-  google.maps.event.removeListener(listener);
-});
+		  if (map.getZoom() > 4) map.setZoom(4);
+		  google.maps.event.removeListener(listener);
+		});
 
 		// end map setup
 
