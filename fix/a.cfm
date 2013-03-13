@@ -13,7 +13,15 @@
 
 		map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 
-		bounds = new google.maps.LatLngBounds(
+
+
+
+	}
+
+
+function addARectangle(){
+
+	bounds = new google.maps.LatLngBounds(
 	   		new google.maps.LatLng(44.490, -78.649),
 			new google.maps.LatLng(44.599, -78.443)
 		);
@@ -26,29 +34,8 @@
 		rectangle.setMap(map);
 
 		google.maps.event.addListener(rectangle,'bounds_changed',sdas);
-
-
-
-
-		var drawingManager = new google.maps.drawing.DrawingManager({
-				drawingMode : null,
-				drawingControl : true,
-				drawingControlOptions : {
-					position : google.maps.ControlPosition.TOP_CENTER,
-					drawingModes : [google.maps.drawing.OverlayType.RECTANGLE]
-				},
-				polygonOptions : {
-					strokeColor : "#FF0000",
-					strokeOpacity : 0.8,
-					strokeWeight : 2,
-					fillColor : "#FF0000",
-					fillOpacity : 0.35
-				}
-			});
-			drawingManager.setMap(map);
-
-
 	}
+
 
 	function sdas () {
 		var NELat=rectangle.getBounds().getNorthEast().lat();
@@ -71,6 +58,9 @@
 
 </script>
 <body>
+
+
+	<span onclick="addARectangle()">addARectangle</span>
 	<div id="map_canvas"></div>
 </body>
 <cfinclude template="/includes/_footer.cfm">
