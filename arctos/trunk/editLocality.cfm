@@ -742,9 +742,10 @@
 				every 6 months.
 			</p>
 			<p>
-				Automated georeferencing comes from higher geography and locality, and contains no indications of error.
+				Automated georeferencing comes from higher geography and locality, or higher geography alone if the inclusion of
+				specific locality results in no results, and contains no indication of error.
 				Curatorially-supplied error is displayed with the
-				curatorially-asserted point. The accuracy of the automated georeferencing is hugely variable -
+				curatorially-asserted point on the map below. The accuracy and usefulness of the automated georeferencing is hugely variable -
 				use it as a tool and make no assumptions.
 			</p>
 			<p>
