@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <style type="text/css"> html { height: 100% } body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:600px; } </style>
-<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false" type="text/javascript"></script> <script type="text/javascript">
+<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=drawing" type="text/javascript"></script> <script type="text/javascript">
 	var map;
 	var bounds;
 	var rectangle;
@@ -29,10 +29,28 @@
 
 
 
+
+		var drawingManager = new google.maps.drawing.DrawingManager({
+				drawingMode : null,
+				drawingControl : true,
+				drawingControlOptions : {
+					position : google.maps.ControlPosition.TOP_CENTER,
+					drawingModes : [google.maps.drawing.OverlayType.POLYGON]
+				},
+				polygonOptions : {
+					strokeColor : "#FF0000",
+					strokeOpacity : 0.8,
+					strokeWeight : 2,
+					fillColor : "#FF0000",
+					fillOpacity : 0.35
+				}
+			});
+			drawingManager.setMap(map);
+
+
 	}
 
 	function sdas () {
-		console.log('bounds_changed');
 		var NELat=rectangle.getBounds().getNorthEast().lat();
 		var NELong=rectangle.getBounds().getNorthEast().lng();
 		var SWLat=rectangle.getBounds().getSouthWest().lat();
