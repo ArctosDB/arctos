@@ -13,15 +13,6 @@
 
 		map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 
-		var drawingManager = new google.maps.drawing.DrawingManager({
-				drawingMode : null,
-				drawingControl : true,
-				drawingControlOptions : {
-					position : google.maps.ControlPosition.TOP_CENTER,
-					drawingModes : [google.maps.drawing.OverlayType.RECTANGLE]
-				}
-			});
-			drawingManager.setMap(map);
 
 
 	}
@@ -42,8 +33,8 @@ function addARectangle(){
 
 	console.log('NELat='+NELat);
 	bounds = new google.maps.LatLngBounds(
-	   		new google.maps.LatLng(44.490, -78.649),
-			new google.maps.LatLng(44.599, -78.443)
+	   		new google.maps.LatLng(NELat, NELong),
+			new google.maps.LatLng(SWLat, SWLong)
 		);
 		rectangle = new google.maps.Rectangle({
 			bounds: bounds,
