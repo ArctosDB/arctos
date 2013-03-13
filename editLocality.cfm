@@ -30,6 +30,7 @@
 	</cfoutput>
 
 <script language="javascript" type="text/javascript">
+	/*
 	rad = function(x) {return x*Math.PI/180;}
 	distHaversine = function(p1, p2) {
 	  var R = 6371; // earth's mean radius in km
@@ -40,6 +41,7 @@
 	  var d = R * c;
 	  return d.toFixed(3);
 	}
+	*/
 	jQuery(document).ready(function() {
  		// add inline google map for service suggestions
  		var map;
