@@ -66,14 +66,14 @@
 		});
 		bounds.extend(latLng1);
         bounds.extend(latLng2);
-		// cente the map on the points
+		// center the map on the points
 		map.fitBounds(bounds);
-		// and zoom back out a bit
+		// and zoom back out a bit, if the points will still fit
+		// because the centering zooms WAY in if the points are close together
 		var listener = google.maps.event.addListener(map, "idle", function() {
-		  if (map.getZoom() > 4) map.setZoom(4);
-		  google.maps.event.removeListener(listener);
+			if (map.getZoom() > 4) map.setZoom(4);
+			google.maps.event.removeListener(listener);
 		});
-
 		// end map setup
 
 		$("select[id^='geology_attribute_']").each(function(e){
@@ -206,6 +206,9 @@
 
 
 	function convertToDD(format){
+		console.log('convertToDD');
+		return false;
+
 		if (format=='dms'){
 			var lat_deg=$("#lat_deg").val();
 			if(lat_deg==''){
