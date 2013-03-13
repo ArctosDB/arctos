@@ -441,11 +441,11 @@
 			the results will not be available to the current user,
 			but will be cached for subsequent calls
 
-		<cfthread action="run" name="EsDollar#d.locality_id#" forceOverrideCache="#forceOverrideCache#">
 
 
 
 		---->
+		<cfthread action="run" name="EsDollar#d.locality_id#" forceOverrideCache="#forceOverrideCache#">
 			<cftry>
 				<!--- for some strange reason, this must be mapped like zo.... ----->
 				<cfset obj = CreateObject("component","functions")>
@@ -457,7 +457,6 @@
 				<!--- if we got some sort of response AND it's been a while....--->
 				<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and daysSinceLast gt 180>
 
-				going
 
 
 					<cfset geoList="">
@@ -491,7 +490,6 @@
 						<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 						<cfif cfhttp.responseHeader.Status_Code is 200>
 							<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-							<cfdump var=#llresult#>
 							<cfif llresult.status is "OK">
 								<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 									<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
@@ -591,10 +589,10 @@
 			</cftry>
 
 			<!----
-		</cfthread>
 ---->
 
 
+		</cfthread>
 
 
 		<!--- build and return a HTML block for a map ---->
