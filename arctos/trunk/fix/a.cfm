@@ -29,7 +29,9 @@
 
 	}
 
-
+	function sdas () {
+		console.log('bounds_changed');
+		}
 
 
 
@@ -41,9 +43,7 @@ google.maps.event.addListener(rectangle, 'bounds_changed', sdas);
 
 
 
-	fucntion sdas () {
-		console.log('bounds_changed');
-		}
+
 	/*
 
 
