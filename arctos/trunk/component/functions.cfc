@@ -510,7 +510,7 @@
 								</cfloop>
 								<cfset slat=llresult.results[1].geometry.location.lat>
 								<cfset slon=llresult.results[1].geometry.location.lng>
-							<cfelseif <cfif llresult.status is "ZERO_RESULTS">
+							<cfelseif llresult.status is "ZERO_RESULTS">
 								<!--- try without specloc ---->
 								<cfset signedURL = obj.googleSignURL(
 									urlPath="/maps/api/geocode/json",
