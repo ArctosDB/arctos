@@ -13,7 +13,7 @@
 
       		var rectangle;
 
-
+var bounds;
 
 
       function initialize() {
@@ -24,7 +24,7 @@
         };
         map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 
-        var bounds = new google.maps.LatLngBounds(
+         bounds = new google.maps.LatLngBounds(
           new google.maps.LatLng(44.490, -78.649),
           new google.maps.LatLng(44.599, -78.443)
         );
@@ -44,7 +44,7 @@
 
       google.maps.event.addDomListener(window, 'load', initialize);
 
-rectangle = new google.maps.Rectangle();
+//rectangle = new google.maps.Rectangle();
 
 
 google.maps.event.addListener(rectangle, 'bounds_changed', function() {
