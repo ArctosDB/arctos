@@ -29,7 +29,7 @@
           			mapTypeId: google.maps.MapTypeId.ROADMAP
         		};
 				function initialize() {
-			       	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+			       	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 			    }
 				initialize();
 				var bounds = new google.maps.LatLngBounds(
@@ -38,9 +38,8 @@
         		);
 				var rectangle = new google.maps.Rectangle({
           			bounds: bounds,
-          			editable: true,
-          			//setDraggable: true,
-          			bounds_changed: logBounds
+          			editable: true
+
         		});
 
         		rectangle.setMap(map);
