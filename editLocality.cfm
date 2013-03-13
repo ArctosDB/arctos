@@ -28,21 +28,6 @@
 	<cfoutput>
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=geometry" type="text/javascript"></script>'>
 	</cfoutput>
-<!-----------
-
-
-
-
-
-
-
-
-
-
-
-
-
--------------->
 <script language="javascript" type="text/javascript">
 	rad = function(x) {return x*Math.PI/180;}
 	distHaversine = function(p1, p2) {
@@ -66,25 +51,28 @@
       	}
 		initialize();
 		var latLng1 = new google.maps.LatLng($("#dec_lat").val(), $("#dec_long").val());
-		var marker1 = new google.maps.Marker({
-		    position: latLng1,
-		    map: map,
-		    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-		});
-
-		var circleOptions = {
-  			center: latLng1,
-  			radius: Math.round($("#error_in_meters").val()),
-  			map: map,
-  			editable: false
-		};
-		var circle = new google.maps.Circle(circleOptions);
+		if ($("#dec_lat").val().length>0){
+			var marker1 = new google.maps.Marker({
+			    position: latLng1,
+			    map: map,
+			    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+			});
+			var circleOptions = {
+	  			center: latLng1,
+	  			radius: Math.round($("#error_in_meters").val()),
+	  			map: map,
+	  			editable: false
+			};
+			var circle = new google.maps.Circle(circleOptions);
+		}
 		var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
-		var marker2 = new google.maps.Marker({
-		    position: latLng2,
-		    map: map,
-		    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-		});
+		if ($("#s_dollar_dec_lat").val().length>0{
+			var marker2 = new google.maps.Marker({
+			    position: latLng2,
+			    map: map,
+			    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+			});
+		}
 		bounds.extend(latLng1);
         bounds.extend(latLng2);
 		// center the map on the points
