@@ -33,10 +33,15 @@
 
 			});
 
-
+			function getBounds() {
+				var x=rectangle.getBounds();
+				console.log('x='+x);
+				}
 	    </script>
 
 	  <body>
+<span onclick="getBounds()">getBounds</span>
+		  <div id="rslt"></div>
 	    <div id="map-canvas"/>
 	  </body>
 
