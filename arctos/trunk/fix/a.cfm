@@ -33,6 +33,8 @@
 
 	function sdas () {
 		console.log('bounds_changed');
+		var x=rectangle.getBounds();
+		console.log(x);
 		}
 
 
