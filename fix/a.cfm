@@ -33,7 +33,7 @@ function addARectangle(){
 	if ((NELong>0 && SWLong>0) || (NELong<0 && SWLong<0)){
 		console.log('long same sign');
 		var longrange=NELong-SWLong;
-		var nelo=NELong+(longrange*.4);
+		var nelo=NELong-(longrange*.4);
 		var swlo=SWLong+(longrange*.4);
 	} else {
 		console.log('longs diff - aborting.....');
