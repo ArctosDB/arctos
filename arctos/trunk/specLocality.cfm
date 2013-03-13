@@ -22,8 +22,6 @@
 		}
 	});
 
-
-
 	function populateGeology(id) {
 		if (id.indexOf('__') > -1) {
 			var idNum=id.replace('geology_attribute__','');
@@ -559,6 +557,7 @@ function useGL(glat,glon,gerr){
 			<input type="button" value="Delete this Specimen/Event" class="delBtn" onclick="loc#f#.action.value='delete';confirmDelete('loc#f#');">
 
 	</cfform>
+	<cfset obj = CreateObject("component","component.functions")>
 	</td><td valign="top">
 		<h4>Geography</h4>
 			<ul>
@@ -568,22 +567,24 @@ function useGL(glat,glon,gerr){
 				Locality
 				<a style="font-size:small;" href="/editLocality.cfm?locality_id=#locality_id#" target="_top">[ Edit Locality ]</a>
 			</h4>
-			<cfinvoke component="component.functions" method="getLocalityContents" returnvariable="contents">
-			    <cfinvokeargument name="locality_id" value="#locality_id#">
-			</cfinvoke>
-			#contents#
+			<cfset localityContents = obj.getLocalityContents(locality_id="#locality_id#")>
+
+			#localityContents#
 			<ul>
 				<cfif len(locality_name) gt 0>
 					<li>Locality Name: #locality_name#</li>
 				</cfif>
 				<cfif len(DEC_LAT) gt 0>
 					<li>
+						<cfset getMap = obj.getMap(locality_id="#locality_id#")>
+						<!-------
 						<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
 							<cfinvokeargument name="lat" value="#DEC_LAT#">
-							<cfinvokeargument name="long" value="#DEC_LONG#">
+							<cfinvokeargument name="" value="#DEC_LONG#">
 							<cfinvokeargument name="locality_id" value="#locality_id#">
 						</cfinvoke>
-						#contents#
+						--->
+						#getMap#
 						<span style="font-size:small;">
 							<br>#DEC_LAT# / #DEC_LONG#
 							<br>Datum: #DATUM#
