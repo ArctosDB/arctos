@@ -3,6 +3,7 @@
 <script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false" type="text/javascript"></script> <script type="text/javascript">
 	var map;
 	var bounds;
+	var rectangle;
 	function initialize() {
 		var mapOptions = {
 			zoom: 8,
@@ -17,7 +18,7 @@
 			new google.maps.LatLng(44.599, -78.443)
 		);
 
-		var rectangle = new google.maps.Rectangle({
+		rectangle = new google.maps.Rectangle({
 			bounds: bounds,
 			editable: true,
 			draggable: true
