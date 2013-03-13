@@ -34,7 +34,7 @@ function addARectangle(){
 	var nelo=NELong-(longrange*.2);
 	var swlo=SWLong+(longrange*.2);
 
-	console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
+	//console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
 
 	console.log('latrange='+latrange);
 
