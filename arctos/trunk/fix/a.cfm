@@ -21,6 +21,13 @@
 
 function addARectangle(){
 	var NELat=map.getBounds().getNorthEast().lat();
+	var NELong=map.getBounds().getNorthEast().lng();
+	var SWLat=map.getBounds().getSouthWest().lat();
+	var SWLong=map.getBounds().getSouthWest().lng();
+
+	var latrange=NELat-SWLat;
+
+	console.log('latrange='+latrange);
 
 	console.log('NELat='+NELat);
 	bounds = new google.maps.LatLngBounds(
