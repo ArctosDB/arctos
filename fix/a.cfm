@@ -25,18 +25,11 @@
 
 		rectangle.setMap(map);
 
-/*
 
-
-
-
-
-		*/
 
 	}
 
 
-	//rectangle = new google.maps.Rectangle();
 
 
 
@@ -44,10 +37,15 @@
 
 	google.maps.event.addDomListener(window, 'load', initialize);
 
-	/*
-	google.maps.event.addListener(rectangle, 'bounds_changed', function() {
+google.maps.event.addListener(rectangle, 'bounds_changed', sdas);
+
+
+
+	fucntion sdas () {
 		console.log('bounds_changed');
-	});
+		}
+	/*
+
 
 	*/
 
