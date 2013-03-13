@@ -69,7 +69,7 @@
 		// cente the map on the points
 		map.fitBounds(bounds);
 		// and zoom back out
-		map.zoom(0);
+		map.setZoom(1);
 
 		// end map setup
 
