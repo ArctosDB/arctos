@@ -36,6 +36,9 @@ function addARectangle(){
 		google.maps.event.addListener(rectangle,'bounds_changed',sdas);
 	}
 
+function dieRectangleDie(){
+	rectangle.setMap();
+	}
 
 	function sdas () {
 		var NELat=rectangle.getBounds().getNorthEast().lat();
@@ -61,6 +64,7 @@ function addARectangle(){
 
 
 	<span onclick="addARectangle()">addARectangle</span>
+	<span onclick="dieRectangleDie()">dieRectangleDie</span>
 	<div id="map_canvas"></div>
 </body>
 <cfinclude template="/includes/_footer.cfm">
