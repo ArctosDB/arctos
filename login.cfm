@@ -75,8 +75,11 @@
 		</cfif>
 		<cfset junk="session.sessionKey,badPW,username">
 		<cfloop list="#gotopage#" index="e" delimiters="?&">
-			<cfloop list="#junk#" index="j">
+			<br>e: #e#
+			<cfloop list="#junk#" index="j" delimiters=",">
+				<br>j: #j#
 				<cfif left(e,len(j)) is j>
+					<br>it is
 					<cfset rurl=replace(gotopage,e,'','all')>
 				</cfif>
 			</cfloop>
