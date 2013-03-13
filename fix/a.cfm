@@ -75,7 +75,7 @@
 
 
 		  <div id="rslt"></div>
-	    <div id="map_canvas"/>
+	    <div id="map_canvas"></div>
 	  </body>
 
 
