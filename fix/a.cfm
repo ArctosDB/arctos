@@ -40,12 +40,6 @@
 		console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
 		}
 
-<input id="nwLat" type="hidden" name="nwLat" value="67.474922384787">
-<input id="nwlong" type="hidden" name="nwlong" value="-162.421875">
-<input id="selat" type="hidden" name="selat" value="59.355596110016315">
-<input id="selong" type="hidden" name="selong" value="-14
-
-
 	google.maps.event.addDomListener(window, 'load', initialize);
 
 
