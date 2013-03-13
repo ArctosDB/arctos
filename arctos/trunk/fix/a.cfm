@@ -17,7 +17,7 @@
 		        };
 		        var bounds = new google.maps.LatLngBounds();
 				function initialize() {
-		        	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+		        	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 		      	}
 				initialize();
 
