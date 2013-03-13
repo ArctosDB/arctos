@@ -30,7 +30,7 @@ function addARectangle(){
 	var swla=SWLat+(latrange*.4);
 
 	// if longitudes are same sign....
-	if ((NELong>0 and SWLong>0) or (NELong<0 and SWLong<0)){
+	if ((NELong>0 && SWLong>0) || (NELong<0 && SWLong<0)){
 		console.log('long same sign');
 		var longrange=NELong-SWLong;
 		var nelo=NELong+(longrange*.4);
