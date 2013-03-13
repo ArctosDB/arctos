@@ -9,22 +9,18 @@
 	<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false" type="text/javascript"></script>
 
 	    <script type="text/javascript">
-			jQuery(document).ready(function() {
-		 		var map;
-		 		var mapOptions = {
-		        	center: new google.maps.LatLng(32.321384, -64.75737),
-		         	mapTypeId: google.maps.MapTypeId.ROADMAP
-		        };
+			   var map;
+      function initialize() {
+        var mapOptions = {
+          zoom: 8,
+          center: new google.maps.LatLng(-34.397, 150.644),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById('map_canvas'),
+            mapOptions);
+      }
 
-				function initialize() {
-		        	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-		      	}
-				initialize();
-
-
-			});
-
-
+      google.maps.event.addDomListener(window, 'load', initialize);
 	    </script>
 
 	  <body>
