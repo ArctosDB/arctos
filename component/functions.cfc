@@ -510,6 +510,16 @@
 								</cfloop>
 								<cfset slat=llresult.results[1].geometry.location.lat>
 								<cfset slon=llresult.results[1].geometry.location.lng>
+							<cfelseif <cfif llresult.status is "ZERO_RESULTS">
+								<!--- try without specloc ---->
+								<cfset signedURL = obj.googleSignURL(
+									urlPath="/maps/api/geocode/json",
+									urlParams="address=#URLEncodedFormat('#d.higher_geog#')#")>
+								fetching for #d.spec_locality#, #d.higher_geog#
+								<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+
+
+									<cfdump var=#cfhttp#>
 							</cfif>
 						</cfif>
 					</cfif>
