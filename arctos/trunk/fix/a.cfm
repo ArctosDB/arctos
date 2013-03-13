@@ -58,6 +58,10 @@ function placeMarker(location) {
       position: location,
       map: map
   });
+
+
+
+  mapsInitialize();
 }
 
 
