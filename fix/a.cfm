@@ -11,9 +11,7 @@
 	    <script type="text/javascript">
 			   var map;
 
-			   var marker1;
-      var marker2;
-      var rectangle;
+      		var rectangle;
 
 
 
@@ -31,7 +29,7 @@
           new google.maps.LatLng(44.599, -78.443)
         );
 
-        var rectangle = new google.maps.Rectangle({
+        rectangle = new google.maps.Rectangle({
           bounds: bounds,
           editable: true,
           draggable: true
