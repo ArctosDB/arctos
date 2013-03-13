@@ -27,7 +27,7 @@ function addARectangle(){
 	var latrange=NELat-SWLat;
 	var longrange=NELong-SWLong;
 
-	var nela=NELat-(latrange*.8);
+	var nela=NELat-(latrange*.2);
 
 	console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
 
