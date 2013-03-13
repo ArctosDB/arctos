@@ -560,7 +560,6 @@
 					</table>
 					<input type="button" value="Update all events to use locality coordinates" class="lnkBtn"
 						onclick="document.location='/Locality.cfm?action=massEditCollEvent&locality_id=#locDet.locality_id#'">
-
 				</td>
 			</tr>
 			<tr>
@@ -696,11 +695,7 @@
 					value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
 			</cfloop>
 		</select>
-
-
-
 		<br>
-
 		<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
 		<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
@@ -715,8 +710,6 @@
 		<a href="http://manisnet.org/gci2.html" target="_blank" class="external">[ Georef Calculator ]</a>
 		<span class="likeLink" onClick="getDocs('lat_long')">[ lat_long help ]</span>
 	</td>
-
-
 	<td valign="top">
 		<cfif len(locDet.dec_lat) gt 0>
 			<table>
@@ -733,9 +726,7 @@
 				</tr>
 			</table>
 		</cfif>
-
-
-		<div style="border:1px dashed red; padding:1em;background-color:lightgray;">
+		<div style="border:1px dashed red; padding:1em;background-color:lightgray;font-size:small;">
 		<strong>Webservice Lookup Data</strong>
 		<div style="font-size:small;font-style:italic; max-height:6em;overflow:auto;border:2px solid red;">
 			<p style="font-style:bold;font-size:large;text-align:center;">READ THIS!</p>
