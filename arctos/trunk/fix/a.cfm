@@ -25,6 +25,8 @@
 
 		rectangle.setMap(map);
 
+		google.maps.event.addListener(rectangle,'bounds_changed',sdas);
+
 
 
 	}
@@ -40,7 +42,6 @@
 
 
 
-google.maps.event.addListener(rectangle,'bounds_changed',sdas);
 
 
 
