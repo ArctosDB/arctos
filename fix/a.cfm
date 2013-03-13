@@ -13,31 +13,30 @@
       		var rectangle;
 			var bounds;
 
-	      function initialize() {
-	      	var mapOptions = {
-        	  zoom: 8,
-          center: new google.maps.LatLng(44.490, -78.649),
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
+		      function initialize() {
+		      	var mapOptions = {
+	        	  zoom: 8,
+	          center: new google.maps.LatLng(44.490, -78.649),
+	          mapTypeId: google.maps.MapTypeId.ROADMAP
+	        };
 
-        map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
+      		  map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 
-         bounds = new google.maps.LatLngBounds(
-          new google.maps.LatLng(44.490, -78.649),
-          new google.maps.LatLng(44.599, -78.443)
-        );
+	         bounds = new google.maps.LatLngBounds(
+	          new google.maps.LatLng(44.490, -78.649),
+	          new google.maps.LatLng(44.599, -78.443)
+	        );
 
-        rectangle = new google.maps.Rectangle({
-          bounds: bounds,
-          editable: true,
-          draggable: true
-        });
+	        rectangle = new google.maps.Rectangle({
+	          bounds: bounds,
+	          editable: true,
+	          draggable: true
+	        });
 
-        rectangle.setMap(map);
+        	rectangle.setMap(map);
 
 
 
- 		initialize();
 
 //rectangle = new google.maps.Rectangle();
 
@@ -45,9 +44,8 @@
 
 
 
-      }
 
-
+      google.maps.event.addDomListener(window, 'load', initialize);
 
       google.maps.event.addListener(rectangle, 'bounds_changed', function() {
   console.log('bounds_changed');
