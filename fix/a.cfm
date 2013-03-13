@@ -12,11 +12,15 @@
 		};
 
 		map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
-/*
+
 		bounds = new google.maps.LatLngBounds(
 	   		new google.maps.LatLng(44.490, -78.649),
 			new google.maps.LatLng(44.599, -78.443)
 		);
+
+
+/*
+
 
 		rectangle = new google.maps.Rectangle({
 			bounds: bounds,
