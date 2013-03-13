@@ -767,14 +767,16 @@
 		</p>
 
 		<p>Elevation (m):
-			<input type="text" id="s_dollar_elev" value="#locDet.s$elevation#" size="6">>
-			<cfif len(locDet.min_elev_in_m) is 0>
-				There is no curatorially-supplied elevation.
-			<cfelseif locDet.min_elev_in_m gt locDet.s$elevation or locDet.s$elevation gt locDet.max_elev_in_m>
-				Automated georeference is outside the curatorially-supplied elevation range.
-			<cfelseif  locDet.min_elev_in_m lte locDet.s$elevation and locDet.s$elevation lte locDet.max_elev_in_m>
-				Automated georeference is within the curatorially-supplied elevation range.
-			</cfif>
+			<input type="text" id="s_dollar_elev" value="#locDet.s$elevation#" size="6">
+			<span style="font-style:italic;">
+				<cfif len(locDet.min_elev_in_m) is 0>
+					There is no curatorially-supplied elevation.
+				<cfelseif locDet.min_elev_in_m gt locDet.s$elevation or locDet.s$elevation gt locDet.max_elev_in_m>
+					Automated georeference is outside the curatorially-supplied elevation range.
+				<cfelseif  locDet.min_elev_in_m lte locDet.s$elevation and locDet.s$elevation lte locDet.max_elev_in_m>
+					Automated georeference is within the curatorially-supplied elevation range.
+				</cfif>
+			</span>
 		</p>
 		<p>Tags:
 			<span style="font-weight:bold;">#locDet.s$geography#</span>
