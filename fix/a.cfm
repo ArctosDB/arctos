@@ -10,47 +10,18 @@
 
 	    <script type="text/javascript">
 			jQuery(document).ready(function() {
-				var map;
-
-			 	var mapOptions = {
-          			center: new google.maps.LatLng(44.5452, -78.5389),
-          			zoom: 9,
-          			mapTypeId: google.maps.MapTypeId.ROADMAP
-        		};
+		 		var map;
+		 		var mapOptions = {
+		        	center: new google.maps.LatLng(55,55),
+		         	mapTypeId: google.maps.MapTypeId.ROADMAP
+		        };
+		        var bounds = new google.maps.LatLngBounds();
 				function initialize() {
-			       	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-			    }
+		        	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+		      	}
 				initialize();
 
-				/*
-				var bounds = new google.maps.LatLngBounds(
-          			new google.maps.LatLng(44.490, -78.649),
-          			new google.maps.LatLng(44.599, -78.443)
-        		);
-				var rectangle = new google.maps.Rectangle({
-          			bounds: bounds,
-          			editable: true
 
-        		});
-
-        		rectangle.setMap(map);
-
-				function logBounds(){
-					console.log('i am logBounds');
-					}
-
-
-				function getBounds() {
-				var x=map.getBounds();
-				console.log('x='+x);
-				}
-
-				function getBounds2() {
-				var x=rectangle.getBounds();
-				console.log('x='+x);
-				}
-
-*/
 
 			});
 
