@@ -484,7 +484,6 @@
 							</cfloop>
 						</cfif>
 					</cfif>
-					<cfoutput>
 					<cfif len(d.spec_locality) gt 0 and len(d.higher_geog) gt 0>
 						<cfset signedURL = obj.googleSignURL(
 							urlPath="/maps/api/geocode/json",
