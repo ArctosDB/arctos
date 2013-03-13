@@ -208,14 +208,12 @@
 
 
 
--------------->
-<script language="javascript" type="text/javascript">
 
-	function convertToDD(format){
-		console.log('convertToDD');
-		return;
 
-		if (format=='dms'){
+
+
+
+if (format=='dms'){
 			var lat_deg=$("#lat_deg").val();
 			if(lat_deg==''){
 				lat_deg=0;
@@ -287,6 +285,15 @@
 
 	           $("#dec_lat").val(dec_lat);
 	           $("#dec_long").val(dec_long);
+
+-------------->
+<script language="javascript" type="text/javascript">
+
+	function convertToDD(format){
+		console.log('convertToDD');
+		return;
+
+
 
 	}
 
