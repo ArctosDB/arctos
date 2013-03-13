@@ -28,13 +28,14 @@ function addARectangle(){
 	var longrange=NELong-SWLong;
 
 	var nela=NELat-(latrange*.2);
-	var swla=SWLat-(latrange*1.2);
+	var swla=SWLat+(latrange*.2);
 
 	console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
 
 	console.log('latrange='+latrange);
 
 	console.log('nela='+nela);
+
 	console.log('swla='+swla);
 
 	console.log('NELat='+NELat);
