@@ -39,7 +39,7 @@
 				var rectangle = new google.maps.Rectangle({
           			bounds: bounds,
           			editable: true,
-          			setDraggable: true,
+          			//setDraggable: true,
           			bounds_changed: logBounds
         		});
 
