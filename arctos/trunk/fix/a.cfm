@@ -13,7 +13,22 @@
 
 		map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 
-
+		var drawingManager = new google.maps.drawing.DrawingManager({
+				drawingMode : null,
+				drawingControl : true,
+				drawingControlOptions : {
+					position : google.maps.ControlPosition.TOP_CENTER,
+					drawingModes : [google.maps.drawing.OverlayType.RECTANGLE]
+				},
+				polygonOptions : {
+					strokeColor : "#FF0000",
+					strokeOpacity : 0.8,
+					strokeWeight : 2,
+					fillColor : "#FF0000",
+					fillOpacity : 0.35
+				}
+			});
+			drawingManager.setMap(map);
 
 
 	}
@@ -26,6 +41,9 @@ function addARectangle(){
 	var SWLong=map.getBounds().getSouthWest().lng();
 
 	var latrange=NELat-SWLat;
+	var longrange=NELong-SWLong;
+
+
 
 	console.log('latrange='+latrange);
 
