@@ -2,7 +2,6 @@
 <style type="text/css"> html { height: 100% } body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:600px; } </style>
 <script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false" type="text/javascript"></script> <script type="text/javascript">
 	var map;
-	var rectangle;
 	var bounds;
 	function initialize() {
 		var mapOptions = {
@@ -18,7 +17,7 @@
 			new google.maps.LatLng(44.599, -78.443)
 		);
 
-		rectangle = new google.maps.Rectangle({
+		var rectangle = new google.maps.Rectangle({
 			bounds: bounds,
 			editable: true,
 			draggable: true
@@ -36,12 +35,10 @@
 
 
 	google.maps.event.addDomListener(window, 'load', initialize);
-	google.maps.event.addListener(map, 'bounds_changed', function() {
+	maps.event.addListener(rectangle, 'bounds_changed', function() {
 		console.log('bounds_changed');
 	});
-	google.maps.event.addListener(map, 'click', function() {
-		console.log('click');
-	});
+
 
 
 
