@@ -45,7 +45,6 @@
  		var map;
  		var mapOptions = {
         	center: new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val()),
-          	zoom: 0,
          	mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var bounds = new google.maps.LatLngBounds();
@@ -67,7 +66,10 @@
 		});
 		bounds.extend(latLng1);
         bounds.extend(latLng2);
+		// cente the map on the points
 		map.fitBounds(bounds);
+		// and zoom back out
+		map.zoom(0);
 
 		// end map setup
 
