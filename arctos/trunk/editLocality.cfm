@@ -289,7 +289,7 @@ if (format=='dms'){
 -------------->
 <script language="javascript" type="text/javascript">
 
-	function convertToDD(format){
+	function convertFasdfasdToDD(format){
 		console.log('convertToDD');
 		//return;
 
