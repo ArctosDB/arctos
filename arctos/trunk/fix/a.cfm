@@ -12,15 +12,14 @@
 			jQuery(document).ready(function() {
 		 		var map;
 		 		var mapOptions = {
-		        	center: new google.maps.LatLng(55,55),
+		        	center: new google.maps.LatLng(32.321384, -64.75737),
 		         	mapTypeId: google.maps.MapTypeId.ROADMAP
 		        };
-		        var bounds = new google.maps.LatLngBounds();
+
 				function initialize() {
 		        	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 		      	}
 				initialize();
-
 
 
 			});
