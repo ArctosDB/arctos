@@ -33,6 +33,8 @@ function addARectangle(){
 
 	console.log('latrange='+latrange);
 
+	console.log('nela='+nela);
+
 	console.log('NELat='+NELat);
 	bounds = new google.maps.LatLngBounds(
 	   		new google.maps.LatLng(nela, SWLong ),
