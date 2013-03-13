@@ -4,7 +4,7 @@
 	    <style type="text/css">
 	      html { height: 100% }
 	      body { height: 100%; margin: 0; padding: 0 }
-	      #map-canvas { height: 500px;width:600px; }
+	      #map_canvas { height: 500px;width:600px; }
 	    </style>
 	<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false" type="text/javascript"></script>
 
