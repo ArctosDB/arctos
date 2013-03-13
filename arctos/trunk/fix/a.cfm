@@ -9,19 +9,17 @@
 	<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false" type="text/javascript"></script>
 
 	    <script type="text/javascript">
-			   var map;
-
+		    var map;
       		var rectangle;
+			var bounds;
 
-var bounds;
-
-
-      function initialize() {
-        var mapOptions = {
-          zoom: 8,
+	      function initialize() {
+	      	var mapOptions = {
+        	  zoom: 8,
           center: new google.maps.LatLng(44.490, -78.649),
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
+
         map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 
          bounds = new google.maps.LatLngBounds(
@@ -37,12 +35,9 @@ var bounds;
 
         rectangle.setMap(map);
 
-      }
-
-//bounds_changed
 
 
-      google.maps.event.addDomListener(window, 'load', initialize);
+ google.maps.event.addDomListener(window, 'load', initialize);
 
 //rectangle = new google.maps.Rectangle();
 
@@ -54,6 +49,15 @@ google.maps.event.addListener(rectangle, 'bounds_changed', function() {
 	google.maps.event.addListener(rectangle, 'click', function() {
   console.log('click');
 });
+
+
+
+
+
+      }
+
+//bounds_changed
+
 
 
 	    </script>
