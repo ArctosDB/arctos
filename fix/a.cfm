@@ -33,7 +33,7 @@
 
 	function sdas () {
 		console.log('bounds_changed');
-		var x=rectangle.getBounds();
+		var x=rectangle.getBounds().getNorthEast();
 		console.log(x);
 		}
 
