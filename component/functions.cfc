@@ -256,11 +256,6 @@
 	<cfargument name="showCaption" type="boolean" required="no" default="true">
 	<cfargument name="forceOverrideCache" type="boolean" required="no" default="false">
 
-	<cfmail to="arctos.database@gmail.com" subject="thread: get webservice locality EXISTS" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
-<cfoutput>
-						starting for locality_id=#locality_id#
-						</cfoutput>
-					</cfmail>
 
 
 	<!----
@@ -445,8 +440,12 @@
 			fire service lookups off in a thread for performance reasons
 			the results will not be available to the current user,
 			but will be cached for subsequent calls
-		---->
+
 		<cfthread action="run" name="EsDollar#d.locality_id#" forceOverrideCache="#forceOverrideCache#">
+
+
+
+		---->
 			<cftry>
 				<!--- for some strange reason, this must be mapped like zo.... ----->
 				<cfset obj = CreateObject("component","functions")>
@@ -457,6 +456,10 @@
 				</cfif>
 				<!--- if we got some sort of response AND it's been a while....--->
 				<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and daysSinceLast gt 180>
+
+				going
+
+
 					<cfset geoList="">
 					<cfset slat="">
 					<cfset slon="">
@@ -562,8 +565,10 @@
 				</cfmail>
 			</cfcatch>
 			</cftry>
-		</cfthread>
 
+			<!----
+		</cfthread>
+---->
 
 
 
