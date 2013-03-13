@@ -74,7 +74,7 @@
 
 		var circleOptions = {
   			center: latLng1,
-  			radius: $("#error_in_meters").val(),
+  			radius: 25000, //$("#error_in_meters").val(),
   			map: map,
   			editable: false
 		};
