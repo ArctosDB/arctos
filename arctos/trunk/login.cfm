@@ -1,8 +1,4 @@
 <cfinclude template = "/includes/_header.cfm">
-<cfoutput>
-	#action#
-</cfoutput>
-
 <cfif isdefined("session.username") and len(session.username) gt 0 and action neq "signOut">
 	<cflocation url="myArctos.cfm" addtoken="false">
 </cfif>
@@ -69,17 +65,13 @@
 			</cfif>
 			<cflocation url="#u#" addtoken="false">
 		</cfif>
-			gotopage: #gotopage#
 		<cfif (not isdefined("gotopage") or len(gotopage) is 0) and len(request.rdurl) gt 0>
 			<cfset gotopage=request.rdurl>
 		</cfif>
 		<cfset junk="session.sessionKey,badPW,username">
 		<cfloop list="#gotopage#" index="e" delimiters="?&">
-			<br>e: #e#
 			<cfloop list="#junk#" index="j" delimiters=",">
-				<br>j: #j#
 				<cfif left(e,len(j)) is j>
-					<br>it is
 					<cfset gotopage=replace(gotopage,e,'','all')>
 				</cfif>
 			</cfloop>
@@ -99,14 +91,6 @@
 		<cfif len(gotopage) is 0>
 			<cfset gotopage = "/SpecimenSearch.cfm">
 		</cfif>
-
-
-			<p>
-			after adjust: gotopage: #gotopage#
-					</p>
-			<cfabort>
-
-
 		<cfif session.roles contains "coldfusion_user">
 			<cfquery name="getUserData" datasource="cf_dbuser">
 				SELECT
