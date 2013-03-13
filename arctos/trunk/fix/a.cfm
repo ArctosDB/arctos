@@ -27,13 +27,14 @@ function addARectangle(){
 	var latrange=NELat-SWLat;
 	var longrange=NELong-SWLong;
 
+	var nela=NELat-(latrange*.8);
 
 
 	console.log('latrange='+latrange);
 
 	console.log('NELat='+NELat);
 	bounds = new google.maps.LatLngBounds(
-	   		new google.maps.LatLng(NELat, NELong),
+	   		new google.maps.LatLng(nela, NELong),
 			new google.maps.LatLng(SWLat, SWLong)
 		);
 		rectangle = new google.maps.Rectangle({
