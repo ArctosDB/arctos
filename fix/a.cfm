@@ -37,7 +37,7 @@
 
 
 
- google.maps.event.addDomListener(window, 'load', initialize);
+ 		initialize();
 
 //rectangle = new google.maps.Rectangle();
 
