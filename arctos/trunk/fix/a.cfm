@@ -43,20 +43,6 @@ google.maps.event.addListener(rectangle, 'bounds_changed', sdas);
 
 
 
-
-	/*
-
-
-	*/
-
-
-
-
-
-	//bounds_changed
-
-
-
 </script>
 <body>
 	<div id="map_canvas"></div>
