@@ -511,15 +511,30 @@
 								<cfset slat=llresult.results[1].geometry.location.lat>
 								<cfset slon=llresult.results[1].geometry.location.lng>
 							<cfelseif llresult.status is "ZERO_RESULTS">
-								<!--- try without specloc ---->
+								<!--- try without specloc, which is user-supplied and often wonky ---->
 								<cfset signedURL = obj.googleSignURL(
 									urlPath="/maps/api/geocode/json",
 									urlParams="address=#URLEncodedFormat('#d.higher_geog#')#")>
 								fetching for #d.spec_locality#, #d.higher_geog#
 								<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-
-
-									<cfdump var=#cfhttp#>
+								<cfif cfhttp.responseHeader.Status_Code is 200>
+									<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+									<cfdump var=#llresult#>
+									<cfif llresult.status is "OK">
+										<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
+											<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
+												<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
+													<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
+												</cfif>
+												<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
+													<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
+												</cfif>
+											</cfloop>
+										</cfloop>
+										<cfset slat=llresult.results[1].geometry.location.lat>
+										<cfset slon=llresult.results[1].geometry.location.lng>
+									</cfif>
+								</cfif>
 							</cfif>
 						</cfif>
 					</cfif>
