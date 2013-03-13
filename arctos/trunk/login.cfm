@@ -80,13 +80,13 @@
 				<br>j: #j#
 				<cfif left(e,len(j)) is j>
 					<br>it is
-					<cfset rurl=replace(gotopage,e,'','all')>
+					<cfset gotopage=replace(gotopage,e,'','all')>
 				</cfif>
 			</cfloop>
 		</cfloop>
 		<cfset t=1>
-		<cfset rurl=replace(gotopage,"?&","?","all")>
-		<cfset rurl=replace(gotopage,"&&","&","all")>
+		<cfset gotopage=replace(gotopage,"?&","?","all")>
+		<cfset gotopage=replace(gotopage,"&&","&","all")>
 		<cfset nogo="login.cfm,errors/">
 		<cfloop list="#nogo#" index="n">
 			<cfif gotopage contains n>
