@@ -93,7 +93,12 @@
 				<cfset gotopage = "/SpecimenSearch.cfm">
 			</cfif>
 		</cfloop>
-
+		<cfif trim(gotopage) is "&" or trim(gotopage) is "=">
+			<cfset gotopage = "/SpecimenSearch.cfm">
+		</cfif>
+		<cfif len(gotopage) is 0>
+			<cfset gotopage = "/SpecimenSearch.cfm">
+		</cfif>
 
 
 			<p>
