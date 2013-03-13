@@ -374,7 +374,7 @@
 	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VerificationStatus from ctVerificationStatus order by VerificationStatus
 	</cfquery>
-	<cfset contents = obj.getLocalityContents(locality_id="#locality_id#">
+	<cfset contents = obj.getLocalityContents(locality_id="#locality_id#")>
 	#contents#
 	<br>
    	<div style="border:5px solid red; background-color:red;">
