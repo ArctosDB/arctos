@@ -742,16 +742,22 @@
 		<strong>Webservice Lookup Data</strong>
 		<div style="font-size:small;font-style:italic; max-height:6em;overflow:auto;border:2px solid red;">
 			<p style="font-style:bold;font-size:large;text-align:center;">READ THIS!</p>
-			Data in this box come from various webservices. They are NOT "specimen data," are entirely automated, and come with no guarantees.
+			<span style="font-style:bold;">
+				Data in this box come from various webservices. They are NOT "specimen data," are derived from entirely automated processes,
+				 and come with no guarantees.
+			</span>
 			<p>Not seeing anything here, or seeing old data? Try waiting a couple minutes and reloading ONCE -
 				webservice data are refreshed when this page loads, but can take a few minutes to find their way here.
+				Webservice data are created (asynchronously) when users load maps, and (lacking locality edits) refreshed
+				every 6 months.
 			</p>
 			<p>
-				Georeferencing comes from higher geography and locality. There are no indications of error.
+				Georeferencing comes from higher geography and locality. There are no indications of error. Error is displayed with the
+				curatorially-asserted point. The automated georeferencing is hugely variable - use it as a tool and make no assumptions.
 			</p>
 			<p>
-				There's a link to add the generated coordinates to the edit form, but you'll
-				need to manually calculate error (or use GeoLocate) and save to keep them; the link just copies.
+				There's a link to add the generated coordinates to the edit form. It copies only; you'll
+				need to manually calculate error (or use GeoLocate) and save to keep them.
 			</p>
 			<p>
 				Distance between points is an estimate calculated using the
@@ -759,12 +765,11 @@
 				If it's a large value, careful scrutiny of coordinates and locality information is warranted.
 			</p>
 			<p>
-				Elevation is retrieved for the point given by the asserted coordinates. It can be very "wrong" (but still correct)
-				if, for example, the coordinates describe a large area (=large error) in Peru.
+				Elevation is retrieved for the point given by the asserted coordinates.
 			</p>
 			<p>
 				Reverse-georeference Geography string is for both the coordinates and the spec locality (including higher geog).
-				It's used for searching.
+				It's used for searching, and can mostly be ignored.
 				Use the Contact link in the footer if it's horrendously wrong somewhere - let us know the locality_id.
 			</p>
 		</div>
