@@ -484,6 +484,7 @@
 							</cfloop>
 						</cfif>
 					</cfif>
+					<cfoutput>
 					<cfif len(d.spec_locality) gt 0 and len(d.higher_geog) gt 0>
 						<cfset signedURL = obj.googleSignURL(
 							urlPath="/maps/api/geocode/json",
@@ -511,6 +512,8 @@
 							</cfif>
 						</cfif>
 					</cfif>
+
+											</cfoutput>
 					<cfif len(d.S$ELEVATION) is 0 and len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
 						<cfset signedURL = obj.googleSignURL(
 							urlPath="/maps/api/elevation/json",
