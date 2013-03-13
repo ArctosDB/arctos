@@ -26,48 +26,23 @@
         };
         map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 
-         marker1 = new google.maps.Marker({
-          map: map,
-          position: new google.maps.LatLng(65, -10),
-          draggable: true,
-          title: 'Drag me!'
-        });
-        marker2 = new google.maps.Marker({
-          map: map,
-          position: new google.maps.LatLng(71, 10),
-          draggable: true,
-          title: 'Drag me!'
+        var bounds = new google.maps.LatLngBounds(
+          new google.maps.LatLng(44.490, -78.649),
+          new google.maps.LatLng(44.599, -78.443)
+        );
+
+        var rectangle = new google.maps.Rectangle({
+          bounds: bounds,
+          editable: true
         });
 
-        // Allow user to drag each marker to resize the size of the Rectangle.
-        google.maps.event.addListener(marker1, 'drag', redraw);
-        google.maps.event.addListener(marker2, 'drag', redraw);
-
-        // Create a new Rectangle overlay and place it on the map.  Size
-        // will be determined by the LatLngBounds based on the two Marker
-        // positions.
-        rectangle = new google.maps.Rectangle({
-          map: map
-        });
-        redraw();
-
-
+        rectangle.setMap(map);
 
       }
 
       google.maps.event.addDomListener(window, 'load', initialize);
 
-
- function redraw() {
-        var latLngBounds = new google.maps.LatLngBounds(
-          marker1.getPosition(),
-          marker2.getPosition()
-        );
-        rectangle.setBounds(latLngBounds);
-      }
-
-
-
+rectangle = new google.maps.Rectangle();
 
 
 	    </script>
