@@ -26,11 +26,16 @@
         		);
 				var rectangle = new google.maps.Rectangle({
           			bounds: bounds,
-          			editable: true
+          			editable: true,
+          			setDraggable: true,
+          			bounds_changed: logBounds
         		});
 
         		rectangle.setMap(map);
 
+				function logBounds(){
+					console.log('i am logBounds');
+					}
 
 
 				function getBounds() {
