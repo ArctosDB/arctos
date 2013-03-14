@@ -15,9 +15,6 @@
 
 
 		map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
-
-
-/*
 var mcd = document.createElement('div');
 mcd.id='mcd';
 mcd.style.cursor="pointer";
@@ -27,6 +24,9 @@ mcd.appendChild(cImg);
 
 
 map.controls[google.maps.ControlPosition.TOP_LEFT].push(mcd);
+
+/*
+
 
 
 google.maps.event.addDomListener(mcd, 'click', function() {
