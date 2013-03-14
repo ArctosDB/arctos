@@ -1,3 +1,8 @@
+#gmapsrchtarget {
+	width: 345px;
+}
+#map_canvas { height: 500px;width:600px; }
+
 .relCacheDiv {
 	border:1px dashed green;
 	padding:.1em;

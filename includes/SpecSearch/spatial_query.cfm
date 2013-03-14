@@ -1,35 +1,20 @@
-<script type='text/javascript' src='/includes/gmaps.min.js'></script>
-<div class="divlayer" id="zoomLayer" title="Drag to Move">
-	<div id="Bar" class="Bar" title="Drag to Move"></div>
-	<div id="ZoomBtn" class="ZoomBtn" title="Click to Zoom"></div>
-	<div id="ResBtn" class="ResBtn" title="Drag to Resize"></div>
-</div>
+<script type='text/javascript' src='/includes/gmaps.js'></script>
 <label for="map">
-	Click <img src="/images/selector.png"> (on the map by the pan tool) to open spatial query tool. Click it again to cancel.
-	<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
-	<br>Click the Arctos Search button (at the top or bottom of the page), NOT the Google Search button on the map, to run your query.
-</label>
-<input type="text" style="font-weight:bold;border:none;width:100%;color:red;" id="selectedCoords" name="selectedCoords">
-<input type="hidden" name="nwLat" id="nwLat">
-<input type="hidden" name="nwlong" id="nwlong">
-<input type="hidden" name="selat" id="selat">
-<input type="hidden" name="selong" id="selong">
-<div id="map" style="width: 100%; height: 400px;"></div>
-<script language="javascript" type="text/javascript">
-	jQuery(document.body).unload(function() {
-		GUnload();
-	});
-	var map = new GMap2(document.getElementById("map"));
-	map.addControl(new GLargeMapControl());
-	map.addControl(new GMapTypeControl());
-	map.addMapType(G_PHYSICAL_MAP);
-	map.addControl(new GScaleControl());
-	map.addControl(new ToggleZoomControl());
-	map.enableGoogleBar();
-	map.enableScrollWheelZoom();
-	map.setCenter(new GLatLng(55, -135), 3);
-	setDiv();
-	GEvent.addListener(map, "moveend", function() {
-		whurUB();
-	});
-</script>
+		Click <img src="/images/selector.png"> (on the map!) to open spatial query tool, click <img src="/images/del.gif"> to cancel.
+		<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
+		<br>Click the Arctos Search button (at the top or bottom of the page), NOT the Google Search button on the map, to run your query.
+	</label>
+	<div id="search-panel">
+		<input id="gmapsrchtarget" type="text" placeholder="Search the Map">
+	</div>
+	<input type="text" style="font-weight:bold;border:none;width:100%;color:red;"
+		id="selectedCoords" name="selectedCoords" placeholder="NE coordinates; SW coordinates">
+	<div id="map_canvas"></div>
+
+	<form method="get" action="/SpecimenResults.cfm" target="_blank">
+	NELat<input type="text" name="NELat" size="6" id="NELat">
+	NELong<input type="text" name="NELong" size="6" id="NELong">
+	SWLat<input type="text" name="SWLat" size="6" id="SWLat">
+	SWLong<input type="text" name="SWLong" size="6" id="SWLong">
+		<input type="submit">
+	</form>

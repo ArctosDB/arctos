@@ -3,7 +3,7 @@
 html { height: 100% }
 body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:600px; }
 
-      #target {
+      #gmapsrchtarget {
         width: 345px;
       }
 </style>
@@ -277,7 +277,7 @@ function dieRectangleDie(){
 		<br>Click the Arctos Search button (at the top or bottom of the page), NOT the Google Search button on the map, to run your query.
 	</label>
 	<div id="search-panel">
-		<input id="target" type="text" placeholder="Search the Map">
+		<input id="gmapsrchtarget" type="text" placeholder="Search the Map">
 	</div>
 	<input type="text" style="font-weight:bold;border:none;width:100%;color:red;"
 		id="selectedCoords" name="selectedCoords" placeholder="NE coordinates; SW coordinates">

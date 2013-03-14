@@ -1,5 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
-<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
+<!----
+<cfset obj = CreateObject("component","component.functions")>
+<cfset signedURL = obj.googleSignURL(
+								urlPath="/maps/api/geocode/json",
+								urlParams="latlng=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#")>
+---->
+<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places" type="text/javascript"></script>'>
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <cfset title="Specimen Search">
 <cfset metaDesc="Search for museum specimens and observations by taxonomy, identifications, specimen attributes, and usage history.">
