@@ -255,13 +255,7 @@
 	<cfargument name="media_id" type="any" required="no" default="">
 	<cfargument name="showCaption" type="boolean" required="no" default="true">
 	<cfargument name="forceOverrideCache" type="boolean" required="no" default="false">
-
-
-
-	<!----
 	<cftry>
-
-	---->
 		<cfif len(locality_id) gt 0>
 			<cfif forceOverrideCache>
 				<cfquery name="d" datasource="uam_god">
@@ -312,7 +306,6 @@
 						locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
 				</cfquery>
 			</cfif>
-
 		<cfelseif len(collecting_event_id) gt 0>
 			<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select
@@ -435,42 +428,53 @@
 		<cfelse>
 			<cfset elevation=d.min_elev_in_m & '-' & d.max_elev_in_m & ' m'>
 		</cfif>
-
 		<!----
 			fire service lookups off in a thread for performance reasons
 			the results will not be available to the current user,
 			but will be cached for subsequent calls
-
-
-
-
 		---->
 		<cfthread action="run" name="EsDollar#d.locality_id#" forceOverrideCache="#forceOverrideCache#">
-			<cftry>
-				<!--- for some strange reason, this must be mapped like zo.... ----->
-				<cfset obj = CreateObject("component","functions")>
-				<cfif forceOverrideCache is "true" or len(d.s$lastdate) is 0>
-					<cfset daysSinceLast=9000>
-				<cfelse>
-					<cfset daysSinceLast=DateDiff("d", "#d.s$lastdate#","#dateformat(now(),'yyyy-mm-dd')#")>
+			<!--- for some strange reason, this must be mapped like zo.... ----->
+			<cfset obj = CreateObject("component","functions")>
+			<cfif forceOverrideCache is "true" or len(d.s$lastdate) is 0>
+				<cfset daysSinceLast=9000>
+			<cfelse>
+				<cfset daysSinceLast=DateDiff("d", "#d.s$lastdate#","#dateformat(now(),'yyyy-mm-dd')#")>
+			</cfif>
+			<!--- if we got some sort of response AND it's been a while....--->
+			<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and daysSinceLast gt 180>
+				<cfset geoList="">
+				<cfset slat="">
+				<cfset slon="">
+				<cfset elevRslt=''>
+				<cfif len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
+					<!--- geography data from curatorial coordinates ---->
+					<cfset signedURL = obj.googleSignURL(
+						urlPath="/maps/api/geocode/json",
+						urlParams="latlng=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#")>
+					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+					<cfif cfhttp.responseHeader.Status_Code is 200>
+						<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+						<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
+							<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
+								<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
+									<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
+								</cfif>
+								<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
+									<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
+								</cfif>
+							</cfloop>
+						</cfloop>
+					</cfif>
 				</cfif>
-				<!--- if we got some sort of response AND it's been a while....--->
-				<cfif d.recordcount is 1 and len(d.locality_id) gt 0 and daysSinceLast gt 180>
-
-
-
-					<cfset geoList="">
-					<cfset slat="">
-					<cfset slon="">
-					<cfset elevRslt=''>
-					<cfif len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
-						<!--- geography data from curatorial coordinates ---->
-						<cfset signedURL = obj.googleSignURL(
-							urlPath="/maps/api/geocode/json",
-							urlParams="latlng=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#")>
-						<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-						<cfif cfhttp.responseHeader.Status_Code is 200>
-							<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+				<cfif len(d.spec_locality) gt 0 and len(d.higher_geog) gt 0>
+					<cfset signedURL = obj.googleSignURL(
+						urlPath="/maps/api/geocode/json",
+						urlParams="address=#URLEncodedFormat('#d.spec_locality#, #d.higher_geog#')#")>
+					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+					<cfif cfhttp.responseHeader.Status_Code is 200>
+						<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+						<cfif llresult.status is "OK">
 							<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 								<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
 									<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
@@ -481,162 +485,85 @@
 									</cfif>
 								</cfloop>
 							</cfloop>
-						</cfif>
-					</cfif>
-					<cfif len(d.spec_locality) gt 0 and len(d.higher_geog) gt 0>
-						<cfset signedURL = obj.googleSignURL(
-							urlPath="/maps/api/geocode/json",
-							urlParams="address=#URLEncodedFormat('#d.spec_locality#, #d.higher_geog#')#")>
-						<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-						<cfif cfhttp.responseHeader.Status_Code is 200>
-							<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-							<cfif llresult.status is "OK">
-								<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
-									<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
-										<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
-											<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
-										</cfif>
-										<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
-											<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
-										</cfif>
-									</cfloop>
-								</cfloop>
-								<cfset slat=llresult.results[1].geometry.location.lat>
-								<cfset slon=llresult.results[1].geometry.location.lng>
-							<cfelseif llresult.status is "ZERO_RESULTS">
-								<!--- try without specloc, which is user-supplied and often wonky ---->
-								<cfset signedURL = obj.googleSignURL(
-									urlPath="/maps/api/geocode/json",
-									urlParams="address=#URLEncodedFormat('#d.higher_geog#')#")>
-								<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-								<cfif cfhttp.responseHeader.Status_Code is 200>
-									<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-									<cfif llresult.status is "OK">
-										<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
-											<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
-												<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
-													<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
-												</cfif>
-												<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
-													<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
-												</cfif>
-											</cfloop>
+							<cfset slat=llresult.results[1].geometry.location.lat>
+							<cfset slon=llresult.results[1].geometry.location.lng>
+						<cfelseif llresult.status is "ZERO_RESULTS">
+							<!--- try without specloc, which is user-supplied and often wonky ---->
+							<cfset signedURL = obj.googleSignURL(
+								urlPath="/maps/api/geocode/json",
+								urlParams="address=#URLEncodedFormat('#d.higher_geog#')#")>
+							<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+							<cfif cfhttp.responseHeader.Status_Code is 200>
+								<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+								<cfif llresult.status is "OK">
+									<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
+										<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
+											<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
+												<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
+											</cfif>
+											<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
+												<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
+											</cfif>
 										</cfloop>
-										<cfset slat=llresult.results[1].geometry.location.lat>
-										<cfset slon=llresult.results[1].geometry.location.lng>
-									</cfif>
+									</cfloop>
+									<cfset slat=llresult.results[1].geometry.location.lat>
+									<cfset slon=llresult.results[1].geometry.location.lng>
 								</cfif>
 							</cfif>
 						</cfif>
 					</cfif>
-					<cfif len(d.S$ELEVATION) is 0 and len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
-						<cfset signedURL = obj.googleSignURL(
-							urlPath="/maps/api/elevation/json",
-							urlParams="locations=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#")>
-						<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-						<cfif cfhttp.responseHeader.Status_Code is 200>
-							<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
-							<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-								<cfset elevRslt=round(elevResult.results[1].elevation)>
-							</cfif>
+				</cfif>
+				<cfif len(d.S$ELEVATION) is 0 and len(d.DEC_LAT) gt 0 and len(d.DEC_LONG) gt 0>
+					<cfset signedURL = obj.googleSignURL(
+						urlPath="/maps/api/elevation/json",
+						urlParams="locations=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#")>
+					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+					<cfif cfhttp.responseHeader.Status_Code is 200>
+						<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
+						<cfif isdefined("elevResult.status") and elevResult.status is "OK">
+							<cfset elevRslt=round(elevResult.results[1].elevation)>
 						</cfif>
 					</cfif>
-					<!---- update cache ---->
-					<cfquery name="upEsDollar" datasource="uam_god">
-						update locality set
-							S$ELEVATION=<cfif len(elevRslt) is 0>NULL<cfelse>#elevRslt#</cfif>,
-							S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
-							S$DEC_LAT=<cfif len(slat) is 0>NULL<cfelse>#slat#</cfif>,
-							S$DEC_LONG=<cfif len(slon) is 0>NULL<cfelse>#slon#</cfif>,
-							S$LASTDATE=sysdate
-						where locality_id=#d.locality_id#
-					</cfquery>
-
-<!----------------- clean up for prod ----------------------->
-					<cfmail to="arctos.database@gmail.com" subject="thread: get webservice locality LIVES" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
-
-						<cfoutput>
-							update locality set
-								S$ELEVATION=<cfif len(elevRslt) is 0>NULL<cfelse>#elevRslt#</cfif>,
-								S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
-								S$DEC_LAT=<cfif len(slat) is 0>NULL<cfelse>#slat#</cfif>,
-								S$DEC_LONG=<cfif len(slon) is 0>NULL<cfelse>#slon#</cfif>,
-								S$LASTDATE=sysdate
-							where locality_id=#d.locality_id#
-						</cfoutput>
-					</cfmail>
-				</cfif><!--- end service call --->
-
-<!----------------- clean up for prod ----------------------->
-
-				<cfmail to="arctos.database@gmail.com" subject="thread: get webservice locality DIDNOTHING" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
-
-						outside the call for locality
-					</cfmail>
-
-
-
-			<cfcatch>
-<!----------------- clean up for prod ----------------------->
-
-				<cfmail to="arctos.database@gmail.com" subject="thread: get webservice locality died" from="threadDeath@arctos-test.tacc.utexas.edu" type="html">
-
-					thread died
-
-					<cfdump var=#cfcatch#>
-				</cfmail>
-			</cfcatch>
-			</cftry>
-
-			<!----
----->
-
-
+				</cfif>
+				<!---- update cache ---->
+				<cfquery name="upEsDollar" datasource="uam_god">
+					update locality set
+						S$ELEVATION=<cfif len(elevRslt) is 0>NULL<cfelse>#elevRslt#</cfif>,
+						S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
+						S$DEC_LAT=<cfif len(slat) is 0>NULL<cfelse>#slat#</cfif>,
+						S$DEC_LONG=<cfif len(slon) is 0>NULL<cfelse>#slon#</cfif>,
+						S$LASTDATE=sysdate
+					where locality_id=#d.locality_id#
+				</cfquery>
+			</cfif><!--- end service call --->
 		</cfthread>
-
-
 		<!--- build and return a HTML block for a map ---->
-		<cfoutput>
-  			<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
-	<!--- code to send second marker
-			<cfset params=params & '&markers=color:green|label:A|size:tiny|#URLEncodedFormat("12,12")#'>
-
-			---->
-			<cfset params=params & '&center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
-
-
-
-
-
-			<cfset params=params & '&maptype=#maptype#&zoom=2&size=#size#'>
-  			<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
-				<cfinvokeargument name="urlPath" value="/maps/api/staticmap">
-				<cfinvokeargument name="urlParams" value="#params#">
-			</cfinvoke>
-			<cfscript>
-				mapImage='<img src="#signedURL#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">';
-	  			rVal='<figure>';
-	  			if (len(d.locality_id) gt 0) {
-	  				rVal &= '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#valuelist(d.locality_id)#" target="_blank">' & mapImage & '</a>';
-	  			} else {
-	  				rVal &= mapImage;
-	  			}
-	  			if (showCaption) {
-					rVal&='<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#';
-					rVal&='; Elev. #elevation#';
-					rVal&='</figcaption>';
-				}
-				 rVal &= "</figure>";
-				 return rVal;
-			</cfscript>
-		</cfoutput>
-		<!----
+ 		<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
+		<cfset params=params & '&center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
+		<cfset params=params & '&maptype=#maptype#&zoom=2&size=#size#'>
+		<cfset signedURL = obj.googleSignURL(
+			urlPath="/maps/api/staticmap",
+			urlParams="#params#")>
+		<cfscript>
+			mapImage='<img src="#signedURL#" alt="[ Google Map of #d.DEC_LAT#,#d.DEC_LONG# ]">';
+  			rVal='<figure>';
+  			if (len(d.locality_id) gt 0) {
+  				rVal &= '<a href="/bnhmMaps/bnhmMapData.cfm?locality_id=#valuelist(d.locality_id)#" target="_blank">' & mapImage & '</a>';
+  			} else {
+  				rVal &= mapImage;
+  			}
+  			if (showCaption) {
+				rVal&='<figcaption>#numberformat(d.DEC_LAT,"__.___")#,#numberformat(d.DEC_LONG,"___.___")#';
+				rVal&='; Elev. #elevation#';
+				rVal&='</figcaption>';
+			}
+			 rVal &= "</figure>";
+			 return rVal;
+		</cfscript>
 	<cfcatch>
-		<cfdump var=#cfcatch#>
-		<cfreturn "try_fail">
+		<cfreturn 'map error'>
 	</cfcatch>
 	</cftry>
-	---->
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="googleSignURL" access="remote">
