@@ -59,7 +59,7 @@ cImg.src='/images/selector.png';
 mcd.appendChild(cImg);
 
 
-map.controls[google.maps.ControlPosition.LEFT_TOP].push(mcd);
+map.controls[google.maps.ControlPosition.TOP_LEFT].push(mcd);
 
 
 google.maps.event.addDomListener(mcd, 'click', function() {
@@ -263,9 +263,11 @@ function dieRectangleDie(){
 <body>
 
 
-<div id="bbControl">
-	<img src="/images/selector.png">
-</div>
+	<label for="map">
+		Click <img src="/images/selector.png"> (on the map!) to open spatial query tool, click <img src="/images/del.gif"> cancel.
+		<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
+		<br>Click the Arctos Search button (at the top or bottom of the page), NOT the Google Search button on the map, to run your query.
+	</label>
 	<div id="search-panel">
 		<input id="target" type="text" placeholder="Search the Map">
 	</div>
