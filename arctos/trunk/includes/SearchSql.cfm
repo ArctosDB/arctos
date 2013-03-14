@@ -1161,16 +1161,19 @@
 	OR (isdefined("SWLong") and len(SWLong) gt 0)>
 	<!--- got at least one point, see if we got enough to run ---->
 	<cfif (isdefined("NELat") and isnumeric(NELat))
-		AND (isdefined("NELat") and isnumeric(NELat))
 		AND (isdefined("SWLat") and isnumeric(SWLat))
+		AND (isdefined("NELong") and isnumeric(NELong))
 		AND (isdefined("SWLong") and isnumeric(SWLong))>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
-		<cfif NELat gt 0 and SWLong lt 0>
-			<cfset basQual = " #basQual# AND (#session.flatTableName#.dec_long between #NELong# and 180 OR
-				#session.flatTableName#.dec_long between -180 and #SWLong#)">
+
+
+		<cfif NELong lt 0 and SWLong gt 0>
+			<cfset basQual = " #basQual# AND (#session.flatTableName#.dec_long between #SWLong# and 180 OR
+				#session.flatTableName#.dec_long between -180 and #NELong#)">
 		<cfelse>
-			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_long BETWEEN #NELat# AND #SWLong#">
+			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_long BETWEEN #NELong# AND #SWLong#">
 		</cfif>
+
 		<cfset mapurl = "#mapurl#&NELat=#NELat#&NELong=#NELong#&SWLat=#SWLat#&SWLong=#SWLong#">
 	<cfelse>
 		<div class="error">
