@@ -255,9 +255,7 @@
 	<cfargument name="media_id" type="any" required="no" default="">
 	<cfargument name="showCaption" type="boolean" required="no" default="true">
 	<cfargument name="forceOverrideCache" type="boolean" required="no" default="false">
-	<!----
 	<cftry>
-	---->
 		<cfif len(locality_id) gt 0>
 			<cfif forceOverrideCache>
 				<cfquery name="d" datasource="uam_god">
@@ -563,12 +561,10 @@
 			 rVal &= "</figure>";
 			 return rVal;
 		</cfscript>
-		<!----
 	<cfcatch>
 		<cfreturn #cfcatch.detail#>
 	</cfcatch>
 	</cftry>
-	---->
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="googleSignURL" access="remote">
