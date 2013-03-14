@@ -130,7 +130,7 @@ function dieRectangleDie(){
 
 
 	<span id="addARectangle" onclick="addARectangle()">addARectangle</span>
-	<span id="dieRectangleDie" style="visibility:none;" onclick="dieRectangleDie()">dieRectangleDie</span>
+	<span id="dieRectangleDie" style="visibility:hidden;" onclick="dieRectangleDie()">dieRectangleDie</span>
 	<div id="map_canvas"></div>
 </body>
 <cfinclude template="/includes/_footer.cfm">
