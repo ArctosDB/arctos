@@ -191,7 +191,7 @@ function dieRectangleDie(){
 		$("#NELong").val(NELong);
 		$("#SWLat").val(SWLat);
 		$("#SWLong").val(SWLong);
-		$("#selectedCoords").val(NELat + ',' + NELong + ';' + SWLat + ',' + SWLong);
+		$("#selectedCoords").val(NELat + ', ' + NELong + '; ' + SWLat + ', ' + SWLong);
 
 	}
 
@@ -216,7 +216,7 @@ function dieRectangleDie(){
 	</div>
 	<span id="addARectangle" class="likeLink" onclick="addARectangle()">[ add bounding box tool ]</span>
 	<span id="dieRectangleDie" class="likeLink" style="display: none;" onclick="dieRectangleDie()">[ remove bounding box tool ]</span>
-	<input type="text" style="font-weight:bold;border:none;width:100%;color:red;" id="selectedCoords" name="selectedCoords">
+	<input type="text" style="font-weight:bold;border:none;width:100%;color:red;" id="selectedCoords" name="selectedCoords" placeholder="NE coordinates; SW coordinates">
 	<div id="map_canvas"></div>
 
 	<form method="get" action="/SpecimenResults.cfm" target="_blank">
