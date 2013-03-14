@@ -142,10 +142,10 @@ function dieRectangleDie(){
 	<div id="map_canvas"></div>
 
 	<form method="get" action="/SpecimenResults.cfm" target="_blank">
-		<input type="text" name="NELat" size="6" id="NELat">
-		<input type="text" name="NELong" size="6" id="NELong">
-		<input type="text" name="SWLat" size="6" id="SWLat">
-		<input type="text" name="SWLong" size="6" id="SWLong">
+	NELat<input type="text" name="NELat" size="6" id="NELat">
+	NELong<input type="text" name="NELong" size="6" id="NELong">
+	SWLat<input type="text" name="SWLat" size="6" id="SWLat">
+	SWLong<input type="text" name="SWLong" size="6" id="SWLong">
 		<input type="submit">
 	</form>
 </body>
