@@ -44,12 +44,18 @@ body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:6
 		};
 
 
+
+
+		map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
+
+
+
 		var controlDiv = document.getElementById('bbControl');
 		var myControl = new MyControl(controlDiv);
 
 		map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
 
-		map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
+
 
 var input = document.getElementById('target');
         var searchBox = new google.maps.places.SearchBox(input);
