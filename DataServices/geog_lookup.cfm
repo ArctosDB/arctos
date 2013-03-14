@@ -1,3 +1,9 @@
+<style>
+	.possiblesTable {
+		max-height:20em;
+		overflow:auto;
+	}
+</style>
 <script>
 	function useThisOne(pkey,geog) {
 		$.getJSON("/component/DSFunctions.cfc",
@@ -17,7 +23,7 @@
 <!---
 drop table ds_temp_geog;
 
-create table ds_temp_geog (  
+create table ds_temp_geog (
 	pkey number not null,
 	CONTINENT_OCEAN  varchar2(255),
 	COUNTRY  varchar2(255),
@@ -42,14 +48,14 @@ create or replace public synonym ds_temp_geog for ds_temp_geog;
 grant all on ds_temp_geog to coldfusion_user;
 grant select on ds_temp_geog to public;
 
- CREATE OR REPLACE TRIGGER ds_temp_geog_key                                         
+ CREATE OR REPLACE TRIGGER ds_temp_geog_key
  before insert  ON ds_temp_geog
- for each row 
-    begin     
-    	if :NEW.pkey is null then                                                                                      
+ for each row
+    begin
+    	if :NEW.pkey is null then
     		select somerandomsequence.nextval into :new.pkey from dual;
-    	end if;                                
-    end;                                                                                            
+    	end if;
+    end;
 /
 sho err
 
@@ -64,7 +70,7 @@ FEATURE,
 ISLAND,
 ISLAND_GROUP,
 SEA)
-(select 
+(select
 CONTINENT_OCEAN,
 COUNTRY,
 STATE_PROV,
@@ -87,7 +93,7 @@ FEATURE,
 ISLAND,
 ISLAND_GROUP,
 SEA)
-(select 
+(select
 CONTINENT_OCEAN,
 COUNTRY,
 STATE_PROV,
@@ -120,8 +126,8 @@ from geog_auth_rec where rownum<10
 		<li>ISLAND_GROUP</li>
 		<li>SEA</li>
 	</ul>
-	
-	
+
+
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
@@ -154,7 +160,7 @@ from geog_auth_rec where rownum<10
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(colVals) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfif numColsRec lt numberOfColumns>
@@ -164,7 +170,7 @@ from geog_auth_rec where rownum<10
 				</cfloop>
 			</cfif>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into ds_temp_geog (#colNames#) values (#preservesinglequotes(colVals)#)				
+				insert into ds_temp_geog (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
 	</cfloop>
@@ -182,20 +188,20 @@ from geog_auth_rec where rownum<10
 	<br>full_component_match > componentMatch_noCont > componentMatch_noSea > componentMatch_noCountry > componentMatch_JustIsland
 	<br>Manually select suggestions; the more you do here, the fewer problems later.
 	<br><a href="geog_lookup.cfm?action=csv">download CSV</a>
-	<br><a href="/contact.cfm">contact us</a> if we could make something unstoopider	
+	<br><a href="/contact.cfm">contact us</a> if we could make something unstoopider
 	<hr>
-	
-		
-		
+
+
+
 	<cfquery name="qdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_geog
 	</cfquery>
 	<cfset isNotNullBS='none'>
 
 	<cfset result = QueryNew("method,higher_geog")>
-	
 
-			
+
+
 	<cfloop query="qdata">
 		<cfquery name="result" dbtype="query">
 			select * from result where 1=2
@@ -229,21 +235,21 @@ from geog_auth_rec where rownum<10
 		---->
 		<cfset thisStatus="">
 		<cfset fhg=''>
-		
+
 		<cfset thiscontinent=continent_ocean>
 		<cfloop list="#isNotNullBS#" index="i">
 			<cfif thiscontinent is i>
 				<cfset thisContinent=''>
 			</cfif>
 		</cfloop>
-		
+
 		<cfset thisSea=sea>
 		<cfloop list="#isNotNullBS#" index="i">
 			<cfif thisSea is i>
 				<cfset thisSea=''>
 			</cfif>
 		</cfloop>
-		
+
 		<cfset thisCountry=country>
 		<cfloop list="#isNotNullBS#" index="i">
 			<cfif thisCountry is i>
@@ -253,14 +259,14 @@ from geog_auth_rec where rownum<10
 		<cfif len(thisCountry) gt 0>
 			<cfset thisCountry=replace(thisCountry,'USA',"United States")>
 		</cfif>
-		
+
 		<cfset thisState=state_prov>
 		<cfloop list="#isNotNullBS#" index="i">
 			<cfif thisState is i>
 				<cfset thisState=''>
 			</cfif>
 		</cfloop>
-		
+
 		<cfif len(thisState) gt 0>
 			<cfset thisState=replace(thisState,'Prov.',"")>
 			<cfset thisState=replace(thisState,'Community',"")>
@@ -276,43 +282,43 @@ from geog_auth_rec where rownum<10
 			<cfset thisState=replace(thisState,'Pref.',"")>
 			<cfset thisState=replace(thisState,'City',"")>
 			<cfset thisState=replace(thisState,'Depto.',"")>
-			
+
 			<cfset thisState=rereplace(thisState,'\(.*\)','')>
-			
-				
+
+
 			<cfset thisState=trim(thisState)>
 		</cfif>
-		
+
 		<cfset thisQuad=quad>
 		<cfloop list="#isNotNullBS#" index="i">
 			<cfif thisQuad is i>
 				<cfset thisQuad=''>
 			</cfif>
 		</cfloop>
-		
-		
+
+
 		<cfset thisFeature=feature>
 		<cfloop list="#isNotNullBS#" index="i">
 			<cfif thisFeature is i>
 				<cfset thisFeature=''>
 			</cfif>
 		</cfloop>
-		
-		
+
+
 		<cfset thisIslandGroup=island_group>
 		<cfloop list="#isNotNullBS#" index="i">
 			<cfif thisIslandGroup is i>
 				<cfset thisIslandGroup=''>
 			</cfif>
 		</cfloop>
-		
+
 		<cfif len(thisIslandGroup) gt 0>
 			<cfset thisIslandGroup=replace(thisIslandGroup,' IS.','','all')>
 			<cfset thisIslandGroup=replace(thisIslandGroup,' ISL.','','all')>
 			<cfset thisIslandGroup=replace(thisIslandGroup,' IS','','all')>
 			<cfset thisIslandGroup=replace(thisIslandGroup,' ISL','','all')>
 		</cfif>
-		
+
 		<cfset thisIsland=island>
 		<cfloop list="#isNotNullBS#" index="i">
 			<cfif thisIsland is i>
@@ -325,8 +331,8 @@ from geog_auth_rec where rownum<10
 			<cfset thisIsland=replace(thisIsland,' IS','','all')>
 			<cfset thisIsland=replace(thisIsland,' ISL','','all')>
 		</cfif>
-		
-		
+
+
 		<cfset thisCounty=county>
 		<cfloop list="#isNotNullBS#" index="i">
 			<cfif thisCounty is i>
@@ -349,8 +355,8 @@ from geog_auth_rec where rownum<10
 		</cfif>
 		<br>RawData==#CONTINENT_OCEAN#:#SEA#:#COUNTRY#:#STATE_PROV#:#COUNTY#:#QUAD#:#FEATURE#:#ISLAND#:#ISLAND_GROUP#
 		<br>InterpretedData==#thiscontinent#:#thisSea#:#thisCountry#:#thisState#:#thisCounty#:#thisQuad#:#thisFeature#:#thisIsland#:#thisIslandGroup#:
-		
-		
+
+
 		<cfset thisMethod="full_component_match">
 		<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select HIGHER_GEOG from geog_auth_rec where
@@ -398,7 +404,7 @@ from geog_auth_rec where rownum<10
 			<cfif len(thisCounty) gt 0>
 				upper(trim(replace(replace(replace(replace(replace(county,'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
 			<cfelse>
-				county is null 
+				county is null
 			</cfif>
 		</cfquery>
 		<cfloop query="componentMatch">
@@ -450,7 +456,7 @@ from geog_auth_rec where rownum<10
 				<cfif len(thisCounty) gt 0>
 					upper(trim(replace(replace(replace(replace(replace(county,'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
 				<cfelse>
-					county is null 
+					county is null
 				</cfif>
 			</cfquery>
 			<cfloop query="componentMatch">
@@ -498,7 +504,7 @@ from geog_auth_rec where rownum<10
 				<cfif len(thisCounty) gt 0>
 					upper(trim(replace(replace(replace(replace(replace(county,'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
 				<cfelse>
-					county is null 
+					county is null
 				</cfif>
 			</cfquery>
 			<cfloop query="componentMatch">
@@ -508,7 +514,7 @@ from geog_auth_rec where rownum<10
 				<cfset n=n+1>
 			</cfloop>
 		</cfif>
-			
+
 		<cfif n eq 1>
 			<cfset thisMethod="componentMatch_noCountry">
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -542,7 +548,7 @@ from geog_auth_rec where rownum<10
 				<cfif len(thisCounty) gt 0>
 					upper(trim(replace(replace(replace(replace(replace(county,'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
 				<cfelse>
-					county is null 
+					county is null
 				</cfif>
 			</cfquery>
 			<cfloop query="componentMatch">
@@ -552,7 +558,7 @@ from geog_auth_rec where rownum<10
 				<cfset n=n+1>
 			</cfloop>
 		</cfif>
-			
+
 		<cfif n eq 1 and len(thisIsland) gt 0>
 			<cfset thisMethod="componentMatch_JustIsland">
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -580,21 +586,26 @@ from geog_auth_rec where rownum<10
 			</cfquery>
 			<br>found one - autoupdate
 		<cfelseif result.recordcount gt 1>
-			<table border id="chooseTab_#qdata.pkey#">
-				<tr>
-					<th>Method</th>
-					<th>Geog</th>
-					<th>x</th>
-				</tr>
-				<cfloop query="result">
+			<cfquery name="result" dbtype="query">
+				select * from result order by higher_geog
+			</cfquery>
+			<div class="possiblesTable">
+				<table border id="chooseTab_#qdata.pkey#">
 					<tr>
-						<td>#method#</td>
-						<td>#higher_geog#</td>
-						<td><span class="likeLink" onclick="useThisOne('#qdata.pkey#','#higher_geog#');">[ use this ]</span></td>
+						<th>Method</th>
+						<th>Geog</th>
+						<th>x</th>
 					</tr>
-				</cfloop>
-			
-			</table>
+					<cfloop query="result">
+						<tr>
+							<td>#method#</td>
+							<td>#higher_geog#</td>
+							<td><span class="likeLink" onclick="useThisOne('#qdata.pkey#','#higher_geog#');">[ use this ]</span></td>
+						</tr>
+					</cfloop>
+
+				</table>
+			</div>
 		<cfelse>
 			<br>found nothing
 		</cfif>
@@ -620,7 +631,7 @@ from geog_auth_rec where rownum<10
 	<cfset header=trim(ac)>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(header); 
+		variables.joFileWriter.writeLine(header);
 	</cfscript>
 	<cfloop query="getData">
 		<cfset oneLine = "">
@@ -638,7 +649,7 @@ from geog_auth_rec where rownum<10
 			variables.joFileWriter.writeLine(oneLine);
 		</cfscript>
 	</cfloop>
-	<cfscript>	
+	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
 	<cfoutput>
