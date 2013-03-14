@@ -32,12 +32,12 @@ body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:6
 			zoom: 3,
 		    center: new google.maps.LatLng(55, -135),
 		    mapTypeId: google.maps.MapTypeId.ROADMAP,
-		     panControl: true,
-  zoomControl: true,
-  mapTypeControl: true,
-  scaleControl: true,
-  streetViewControl: true,
-  overviewMapControl: true
+		     panControl: true
+ // zoomControl: true,
+ // mapTypeControl: true,
+ // scaleControl: true,
+//  streetViewControl: true,
+ // overviewMapControl: true
 		};
 
 		map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
