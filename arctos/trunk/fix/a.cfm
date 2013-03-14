@@ -103,8 +103,11 @@ function addARectangle(){
 function dieRectangleDie(){
 	$("#addARectangle").hide();
 	$("#dieRectangleDie").show();
-	rectangle.setMap();
-	}
+	try {
+		rectangle.setMap();
+	} catch(){}
+
+}
 
 	function whereIsTheRectangle () {
 		var NELat=rectangle.getBounds().getNorthEast().lat();
