@@ -2,7 +2,14 @@
 <style type="text/css">
 html { height: 100% }
 body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:600px; }
-  #search-panel {
+
+      #target {
+        width: 345px;
+      }
+</style>
+
+<!----------------
+#search-panel {
         position: absolute;
         top: 5px;
         left: 50%;
@@ -13,10 +20,8 @@ body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:6
         padding: 5px;
         border: 1px solid #999;
       }
-      #target {
-        width: 345px;
-      }
-</style>
+
+--------------->
 <script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places" type="text/javascript"></script> <script type="text/javascript">
 	var map;
 	var bounds;
