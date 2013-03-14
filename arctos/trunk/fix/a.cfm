@@ -122,11 +122,11 @@ function selectControlClicked(){
  	// get rid of the select tool
  	// add select tool
 	$("#mcd").html('').append('<img src="/images/selector.png">');
-	addARectangle();
+ 	dieRectangleDie();
  } else {
 
 	$("#mcd").html('').append('<img src="/images/del.gif">');
- 	dieRectangleDie();
+	addARectangle();
 
 	}
 
