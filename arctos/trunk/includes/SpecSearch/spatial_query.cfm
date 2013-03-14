@@ -25,13 +25,15 @@ mcd.appendChild(cImg);
 
 map.controls[google.maps.ControlPosition.TOP_LEFT].push(mcd);
 
-/*
-
-
 
 google.maps.event.addDomListener(mcd, 'click', function() {
   selectControlClicked();
 });
+
+/*
+
+
+
 
 
 var input = document.getElementById('target');
