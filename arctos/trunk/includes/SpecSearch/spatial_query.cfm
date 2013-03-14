@@ -4,10 +4,10 @@
 	var rectangle;
 	function initialize() {
 		var mapTypeControlOpts = {
-    mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.HYBRID],
+    	var mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.HYBRID],
            position: google.maps.ControlPosition.BOTTOM,
-    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-};
+    		style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+		};
 		var mapOptions = {
 			zoom: 3,
 		    center: new google.maps.LatLng(55, -135),
@@ -15,7 +15,6 @@
 		    panControl: true,
 		    scaleControl: true,
 		    mapTypeControlOptions: mapTypeControlOpts
-};
 		};
 		map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 		var mcd = document.createElement('div');
