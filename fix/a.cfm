@@ -92,7 +92,7 @@ function addARectangle(){
 		});
 
 		rectangle.setMap(map);
-		whereIsTheRectangle();
+		//whereIsTheRectangle();
 
 
 		google.maps.event.addListener(rectangle,'bounds_changed',whereIsTheRectangle);
