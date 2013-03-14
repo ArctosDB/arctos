@@ -133,7 +133,8 @@
 	});
 </script>
 <label for="map">
-	Click <img src="/images/selector.png"> (on the map!) to open spatial query tool, click <img src="/images/del.gif"> to cancel.
+	Click <img src="/images/selector.png" class="likeLink" onclick="selectControlClicked();"> to open spatial query tool,
+	click <img src="/images/del.gif" class="likeLink" onclick="selectControlClicked();"> to cancel.
 	<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
 	<br>Click the Arctos Search button (at the top or bottom of the page), NOT the Google Search button on the map, to run your query.
 </label>
