@@ -23,7 +23,9 @@ body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:6
 
 --------------->
 <script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places"
-		type="text/javascript"></script> <script type="text/javascript">
+		type="text/javascript"></script>
+
+<script type="text/javascript">
 	var map;
 	var bounds;
 	var rectangle;
@@ -40,6 +42,12 @@ body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:6
 //  streetViewControl: true,
  // overviewMapControl: true
 		};
+
+
+		var controlDiv = document.getElementById('bbControl');
+		var myControl = new MyControl(controlDiv);
+
+		map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
 
 		map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 
