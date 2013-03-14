@@ -26,20 +26,20 @@ function addARectangle(){
 
 	// latitude is easy.....
 	var latrange=NELat-SWLat;
-	var nela=NELat-(latrange*.5);
-	var swla=SWLat+(latrange*.5);
+	var nela=NELat-(latrange*.3);
+	var swla=SWLat+(latrange*.3);
 
 	// if longitudes are same sign....
 	if ((NELong>0 && SWLong>0) || (NELong<0 && SWLong<0)){
 		console.log('long same sign');
 		var longrange=NELong-SWLong;
-		var nelo=NELong-(longrange*.4);
-		var swlo=SWLong+(longrange*.4);
+		var nelo=NELong-(longrange*.3);
+		var swlo=SWLong+(longrange*.3);
 	} else if (NELong<0 && SWLong>0) {
 		console.log('NELong<0 && SWLong>0');
 		var longrange=NELong+SWLong;
-		var nelo=NELong-(longrange*.4);
-		var swlo=SWLong+(longrange*.4);
+		var nelo=NELong-(longrange*.3);
+		var swlo=SWLong+(longrange*.3);
 	} else {
 		console.log('this should never happen - aborting.....');
 		return false;
