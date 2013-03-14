@@ -7,10 +7,12 @@
 		var mapOptions = {
 			zoom: 3,
 		    center: new google.maps.LatLng(55, -135),
-		   // mapTypeId: google.maps.MapTypeId.ROADMAP,
+		    mapTypeId: google.maps.MapTypeId.ROADMAP,
 		    panControl: true,
 		    scaleControl: true,
-		     mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.HYBRID,google.maps.MapTypeId.TERRAIN]
+		     mapTypeControlOptions: {
+             mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.HYBRID,google.maps.MapTypeId.TERRAIN]
+         }
 		};
 		map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 		var mcd = document.createElement('div');
