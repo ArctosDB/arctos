@@ -80,10 +80,11 @@ function addARectangle(){
 	$("#addARectangle").hide();
 	$("#dieRectangleDie").show();
 
-	var NELat=map.getBounds().getNorthEast().lat();
-	var NELong=map.getBounds().getNorthEast().lng();
-	var SWLat=map.getBounds().getSouthWest().lat();
-	var SWLong=map.getBounds().getSouthWest().lng();
+	var theBounds=map.getBounds();
+	var NELat=theBounds.getNorthEast().lat();
+	var NELong=theBounds.getNorthEast().lng();
+	var SWLat=theBounds.getSouthWest().lat();
+	var SWLong=theBounds.getSouthWest().lng();
 
 	console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
 
@@ -174,10 +175,12 @@ function dieRectangleDie(){
 }
 
 	function whereIsTheRectangle () {
-		var NELat=rectangle.getBounds().getNorthEast().lat();
-		var NELong=rectangle.getBounds().getNorthEast().lng();
-		var SWLat=rectangle.getBounds().getSouthWest().lat();
-		var SWLong=rectangle.getBounds().getSouthWest().lng();
+		var theBounds=rectangle.getBounds();
+
+		var NELat=theBounds.getNorthEast().lat();
+		var NELong=theBounds.getNorthEast().lng();
+		var SWLat=theBounds.getSouthWest().lat();
+		var SWLong=theBounds.getSouthWest().lng();
 		console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
 		$("#NELat").val(NELat);
 		$("#NELong").val(NELong);
