@@ -17,7 +17,7 @@
 		var cImg=document.createElement("img");
 		cImg.src='/images/selector.png';
 		mcd.appendChild(cImg);
-		map.controls[google.maps.ControlPosition.TOP_LEFT].push(mcd);
+		map.controls[google.maps.ControlPosition.TOP_CENTER].push(mcd);
 		google.maps.event.addDomListener(mcd, 'click', function() {
 		  selectControlClicked();
 		});
