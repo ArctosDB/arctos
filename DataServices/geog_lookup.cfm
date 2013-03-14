@@ -608,7 +608,7 @@ from geog_auth_rec where rownum<10
 			<cfquery name="result" dbtype="query">
 				select * from result order by higher_geog
 			</cfquery>
-			<span class="possiblesTable">
+			<div class="possiblesTable">
 				<table border id="chooseTab_#qdata.pkey#">
 					<tr>
 						<th>Method</th>
@@ -624,7 +624,7 @@ from geog_auth_rec where rownum<10
 					</cfloop>
 
 				</table>
-			</span>
+			</div>
 		<cfelse>
 			<div class="r_status">
 				found nothing
