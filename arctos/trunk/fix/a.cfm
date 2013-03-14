@@ -114,7 +114,7 @@ function selectControlClicked(){
 
  var theImage=$("#mcd").children('img').attr('src');
 
-console.log('current image is ' + theImage;
+console.log('current image is ' + theImage);
 
 /*
 $('div.explorer_icon').dblclick(function(){
