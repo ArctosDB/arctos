@@ -60,6 +60,10 @@ mcd.appendChild(cImg);
 map.controls[google.maps.ControlPosition.TOP_CENTER].push(mcd);
 
 
+google.maps.event.addDomListener(mcd, 'click', function() {
+  selectControlClicked();
+});
+
 
 var input = document.getElementById('target');
         var searchBox = new google.maps.places.SearchBox(input);
@@ -103,6 +107,11 @@ var input = document.getElementById('target');
           searchBox.setBounds(bounds);
         });
 
+	}
+
+function selectControlClicked(){
+
+	console.log('selectControlClicked');
 	}
 
 
