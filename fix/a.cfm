@@ -203,12 +203,14 @@ function dieRectangleDie(){
 </script>
 <body>
 
-	 <div id="search-panel">
-	      <input id="target" type="text" placeholder="Search Box">
-	    </div>
+
 	<span id="addARectangle" onclick="addARectangle()">Add search tool (wonky at large scales)</span>
 	<span id="dieRectangleDie" style="display: none;" onclick="dieRectangleDie()">Remove Search Tool</span>
-	<div id="map_canvas"></div>
+	<div id="map_canvas">
+		<div id="search-panel">
+			<input id="target" type="text" placeholder="Search Box">
+		</div>
+	</div>
 
 	<form method="get" action="/SpecimenResults.cfm" target="_blank">
 	NELat<input type="text" name="NELat" size="6" id="NELat">
