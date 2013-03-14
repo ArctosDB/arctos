@@ -539,6 +539,7 @@
 				</cfquery>
 			</cfif><!--- end service call --->
 		</cfthread>
+		<cfset obj = CreateObject("component","functions")>
 		<!--- build and return a HTML block for a map ---->
  		<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
 		<cfset params=params & '&center=#URLEncodedFormat("#d.DEC_LAT#,#d.DEC_LONG#")#'>
