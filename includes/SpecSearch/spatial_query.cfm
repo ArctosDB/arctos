@@ -1,5 +1,5 @@
 <script>
-var map;
+	var map;
 	var bounds;
 	var rectangle;
 	function initialize() {
@@ -9,11 +9,6 @@ var map;
 		    mapTypeId: google.maps.MapTypeId.ROADMAP,
 		     panControl: true,
 		     scaleControl: true
- // zoomControl: true,
- // mapTypeControl: true,
- //,
-//  streetViewControl: true,
- // overviewMapControl: true
 		};
 
 
@@ -27,7 +22,6 @@ var mcd = document.createElement('div');
 mcd.id='mcd';
 mcd.style.cursor="pointer";
 var cImg=document.createElement("img");
-//cImg.src='/images/selector.png';
 cImg.src='/images/selector.png';
 mcd.appendChild(cImg);
 
@@ -101,8 +95,6 @@ $("#SWLong").val('');
 
 
  if (theImage=='/images/del.gif') {
- 	// get rid of the select tool
- 	// add select tool
 	$("#mcd").html('').append('<img src="/images/selector.png">');
  	dieRectangleDie();
  } else {
@@ -154,28 +146,6 @@ function addARectangle(){
 		return false;
 	}
 
-	/*
-	var longrange=NELong-SWLong;
-
-
-
-	if (NELong>0){
-
-		var longrange=NELong-SWLong;
-		var nelo=NELong+(longrange*.4);
-	} else {
-
-		var longrange=SWLong-NELong;
-		var nelo=NELong-(longrange*.4);
-	}
-
-	if (SWLong>0){
-		var swlo=SWLong+(longrange*.4);
-	} else {
-		var swlo=SWLong-(longrange*.4);
-	}
-
-*/
 
 	console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
 
@@ -236,7 +206,6 @@ function dieRectangleDie(){
 
 
 
-//google.maps.event.addListener(rectangle, 'bounds_changed', sdas);
 
 
 </script>
