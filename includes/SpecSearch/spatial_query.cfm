@@ -3,7 +3,6 @@
 	var bounds;
 	var rectangle;
 	function initialize() {
-		var mapTypeControlOpts = {
 
 		var mapOptions = {
 			zoom: 3,
