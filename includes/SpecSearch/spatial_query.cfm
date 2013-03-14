@@ -98,9 +98,6 @@
 			alert('ERROR: long_combo_not_found: use the Contact link in the footer, include this message - aborting');
 			return false;
 		}
-
-		//southWest,northEast);
-
 		bounds = new google.maps.LatLngBounds(
 			new google.maps.LatLng(swla , swlo ),
 			new google.maps.LatLng(nela, nelo)
@@ -119,11 +116,8 @@
 			rectangle.setMap();
 		} catch(e){}
 	}
-
 	function whereIsTheRectangle () {
 		var theBounds=rectangle.getBounds();
-
-		console.log(theBounds);
 		var NELat=theBounds.getNorthEast().lat();
 		var NELong=theBounds.getNorthEast().lng();
 		var SWLat=theBounds.getSouthWest().lat();
@@ -134,12 +128,8 @@
 		$("#SWLong").val(SWLong);
 		$("#selectedCoords").val(NELat + ', ' + NELong + '; ' + SWLat + ', ' + SWLong);
 	}
-
-
 	jQuery(document).ready(function() {
 	  	initialize();
-
-
 	});
 </script>
 <label for="map">
