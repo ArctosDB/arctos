@@ -50,7 +50,8 @@ body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:6
 
 
 
-		var controlDiv = document.getElementById('bbControl');
+
+		var controlDiv = document.createElement('div');
 		var myControl = new MyControl(controlDiv);
 
 		map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
