@@ -98,9 +98,12 @@
 			alert('ERROR: long_combo_not_found: use the Contact link in the footer, include this message - aborting');
 			return false;
 		}
+
+		//southWest,northEast);
+
 		bounds = new google.maps.LatLngBounds(
-			new google.maps.LatLng(nela, swlo ),
-			new google.maps.LatLng(swla, nelo)
+			new google.maps.LatLng(swla , swlo ),
+			new google.maps.LatLng(nela, nelo)
 		);
 		rectangle = new google.maps.Rectangle({
 			bounds: bounds,
