@@ -105,7 +105,7 @@ function dieRectangleDie(){
 	$("#dieRectangleDie").show();
 	try {
 		rectangle.setMap();
-	} catch(){}
+	} catch(e){}
 
 }
 
