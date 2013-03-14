@@ -4,17 +4,14 @@
 	var rectangle;
 	function initialize() {
 		var mapTypeControlOpts = {
-    	var mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.HYBRID],
-           position: google.maps.ControlPosition.BOTTOM,
-    		style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-		};
+
 		var mapOptions = {
 			zoom: 3,
 		    center: new google.maps.LatLng(55, -135),
 		    mapTypeId: google.maps.MapTypeId.ROADMAP,
 		    panControl: true,
 		    scaleControl: true,
-		    mapTypeControlOptions: mapTypeControlOpts
+		     mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.HYBRID]
 		};
 		map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 		var mcd = document.createElement('div');
