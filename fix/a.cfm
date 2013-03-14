@@ -112,6 +112,14 @@ var input = document.getElementById('target');
 	}
 
 function selectControlClicked(){
+// clear everything out
+
+$("#selectedCoords").val('');
+$("#NELat").val('');
+$("#NELong").val('');
+$("#SWLat").val('');
+$("#SWLong").val('');
+
 
 	console.log('selectControlClicked');
  var theImage=$("#mcd").children('img').attr('src');
@@ -264,7 +272,7 @@ function dieRectangleDie(){
 
 
 	<label for="map">
-		Click <img src="/images/selector.png"> (on the map!) to open spatial query tool, click <img src="/images/del.gif"> cancel.
+		Click <img src="/images/selector.png"> (on the map!) to open spatial query tool, click <img src="/images/del.gif"> to cancel.
 		<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
 		<br>Click the Arctos Search button (at the top or bottom of the page), NOT the Google Search button on the map, to run your query.
 	</label>
