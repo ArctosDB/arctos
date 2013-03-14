@@ -54,7 +54,7 @@ var mcd = document.createElement('div');
 mcd.id='mcd';
 var cImg=document.createElement("img");
 //cImg.src='/images/selector.png';
-cImg.src='/images/del.gif';
+cImg.src='/images/selector.png';
 mcd.appendChild(cImg);
 
 
@@ -112,7 +112,12 @@ var input = document.getElementById('target');
 
 function selectControlClicked(){
 
+	console.log('selectControlClicked');
  var theImage=$("#mcd").children('img').attr('src');
+
+ 	console.log(theImage);
+
+
  if (theImage=='/images/del.gif') {
  	// get rid of the select tool
  	$("#mcd").html('<img src="/images/del.gif">');
@@ -145,7 +150,7 @@ google.maps.event.addDomListener(mcd, 'click', function() {
 
 */
 
-	console.log('selectControlClicked');
+
 	}
 
 
