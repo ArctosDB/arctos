@@ -47,7 +47,14 @@ var input = document.getElementById('target');
         var searchBox = new google.maps.places.SearchBox(input);
         var markers = [];
 
-        google.maps.event.addListener(searchBox, 'places_changed', function() {
+
+
+/*
+
+
+
+
+ google.maps.event.addListener(searchBox, 'places_changed', function() {
           var places = searchBox.getPlaces();
 
           for (var i = 0, marker; marker = markers[i]; i++) {
@@ -79,13 +86,6 @@ var input = document.getElementById('target');
 
           map.fitBounds(bounds);
         });
-
-/*
-
-
-
-
-
 
         google.maps.event.addListener(map, 'bounds_changed', function() {
           var bounds = map.getBounds();
