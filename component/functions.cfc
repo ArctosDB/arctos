@@ -561,7 +561,7 @@
 			 return rVal;
 		</cfscript>
 	<cfcatch>
-		<cfreturn 'map error'>
+		<cfreturn cfcatch>
 	</cfcatch>
 	</cftry>
 </cffunction>
