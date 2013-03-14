@@ -46,8 +46,8 @@ function addARectangle(){
 		var longrange=NELong+SWLong;
 		var nelo=NELong-(longrange*.3);
 		var swlo=SWLong+(longrange*.3);
-	} else if (NELong>0 && SWLong<0)
-		console.log('NELong<0 && SWLong>0');
+	} else if (NELong>0 && SWLong<0) {
+		console.log('NELong>0 && SWLong<0');
 		var longrange=NELong+SWLong;
 		var nelo=NELong-(longrange*.3);
 		var swlo=SWLong+(longrange*.3);
