@@ -1166,7 +1166,7 @@
 		AND (isdefined("SWLong") and isnumeric(SWLong))>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
 		<cfif NELat gt 0 and SWLong lt 0>
-			<cfset basQual = " #basQual# AND (#session.flatTableName#.dec_long between #NELat# and 180 OR
+			<cfset basQual = " #basQual# AND (#session.flatTableName#.dec_long between #NELong# and 180 OR
 				#session.flatTableName#.dec_long between -180 and #SWLong#)">
 		<cfelse>
 			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_long BETWEEN #NELat# AND #SWLong#">
