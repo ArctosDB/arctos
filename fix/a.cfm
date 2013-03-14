@@ -22,7 +22,8 @@ body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:6
       }
 
 --------------->
-<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places" type="text/javascript"></script> <script type="text/javascript">
+<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places"
+		type="text/javascript"></script> <script type="text/javascript">
 	var map;
 	var bounds;
 	var rectangle;
@@ -30,7 +31,13 @@ body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:6
 		var mapOptions = {
 			zoom: 3,
 		    center: new google.maps.LatLng(55, -135),
-		    mapTypeId: google.maps.MapTypeId.ROADMAP
+		    mapTypeId: google.maps.MapTypeId.ROADMAP,
+		     panControl: true,
+  zoomControl: true,
+  mapTypeControl: true,
+  scaleControl: true,
+  streetViewControl: true,
+  overviewMapControl: true
 		};
 
 		map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
@@ -216,7 +223,8 @@ function dieRectangleDie(){
 	</div>
 	<span id="addARectangle" class="likeLink" onclick="addARectangle()">[ add bounding box tool ]</span>
 	<span id="dieRectangleDie" class="likeLink" style="display: none;" onclick="dieRectangleDie()">[ remove bounding box tool ]</span>
-	<input type="text" style="font-weight:bold;border:none;width:100%;color:red;" id="selectedCoords" name="selectedCoords" placeholder="NE coordinates; SW coordinates">
+	<input type="text" style="font-weight:bold;border:none;width:100%;color:red;"
+		id="selectedCoords" name="selectedCoords" placeholder="NE coordinates; SW coordinates">
 	<div id="map_canvas"></div>
 
 	<form method="get" action="/SpecimenResults.cfm" target="_blank">
