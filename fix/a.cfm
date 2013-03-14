@@ -59,7 +59,7 @@ cImg.src='/images/selector.png';
 mcd.appendChild(cImg);
 
 
-map.controls[google.maps.ControlPosition.TOP_LEFT].push(mcd);
+map.controls[google.maps.ControlPosition.LEFT_TOP].push(mcd);
 
 
 google.maps.event.addDomListener(mcd, 'click', function() {
@@ -131,35 +131,13 @@ function selectControlClicked(){
 
 	}
 
-/*
-$('div.explorer_icon').dblclick(function(){
-  editor($(this).children('img').attr('src'));
-});
-var mcd = document.createElement('div');
-var cImg=document.createElement("img");
-//cImg.src='/images/selector.png';
-cImg.src='/images/del.gif';
-mcd.appendChild(cImg);
-
-
-map.controls[google.maps.ControlPosition.TOP_CENTER].push(mcd);
-
-
-google.maps.event.addDomListener(mcd, 'click', function() {
-  selectControlClicked();
-});
-
-
-*/
-
 
 	}
 
 
 function addARectangle(){
 	dieRectangleDie();
-	$("#addARectangle").hide();
-	$("#dieRectangleDie").show();
+
 
 	var theBounds=map.getBounds();
 	var NELat=theBounds.getNorthEast().lat();
@@ -247,8 +225,7 @@ function addARectangle(){
 	}
 
 function dieRectangleDie(){
-	$("#addARectangle").show();
-	$("#dieRectangleDie").hide();
+
 	try {
 		rectangle.setMap();
 	} catch(e){}
@@ -292,8 +269,6 @@ function dieRectangleDie(){
 	<div id="search-panel">
 		<input id="target" type="text" placeholder="Search the Map">
 	</div>
-	<span id="addARectangle" class="likeLink" onclick="addARectangle()">[ add bounding box tool ]</span>
-	<span id="dieRectangleDie" class="likeLink" style="display: none;" onclick="dieRectangleDie()">[ remove bounding box tool ]</span>
 	<input type="text" style="font-weight:bold;border:none;width:100%;color:red;"
 		id="selectedCoords" name="selectedCoords" placeholder="NE coordinates; SW coordinates">
 	<div id="map_canvas"></div>
