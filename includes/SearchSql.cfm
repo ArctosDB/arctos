@@ -1154,6 +1154,37 @@
 					)
 					<= #chronological_extent#">
 </cfif>
+
+<cfif (isdefined("NELat") and len(NELat) gt 0)
+	OR (isdefined("NELong") and len(NELong) gt 0)
+	OR (isdefined("SWLat") and len(SWLat) gt 0)
+	OR (isdefined("SWLong") and len(SWLong) gt 0)>
+	<!--- got at least one point, see if we got enough to run ---->
+	<cfif (isdefined("NELat") and isnumeric(NELat))
+		AND (isdefined("NELat") and isnumeric(NELat))
+		AND (isdefined("SWLat") and isnumeric(SWLat))
+		AND (isdefined("SWLong") and isnumeric(SWLong))>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
+		<cfif NELat gt 0 and SWLong lt 0>
+			<cfset basQual = " #basQual# AND (#session.flatTableName#.dec_long between #NELat# and 180 OR
+				#session.flatTableName#.dec_long between -180 and #SWLong#)">
+		<cfelse>
+			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_long BETWEEN #NELat# AND #SWLong#">
+		</cfif>
+		<cfset mapurl = "#mapurl#&NELat=#NELat#&NELong=#NELong#&SWLat=#SWLat#&SWLong=#SWLong#">
+	<cfelse>
+		<div class="error">
+			You entered at least one bounding box point, but didn't enter sufficient
+			information to finish the query. To search by bounding box, you must specify 2 coordinate sets
+			in decimal latitude format.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+</cfif>
+
+
+
 <cfif (isdefined("NWLat") and len(NWLat) gt 0)
 	OR (isdefined("NWLong") and len(NWLong) gt 0)
 	OR (isdefined("SELat") and len(SELat) gt 0)
