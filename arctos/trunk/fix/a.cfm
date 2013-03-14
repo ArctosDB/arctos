@@ -17,7 +17,7 @@ body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:6
         width: 345px;
       }
 </style>
-<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=drawing" type="text/javascript"></script> <script type="text/javascript">
+<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places" type="text/javascript"></script> <script type="text/javascript">
 	var map;
 	var bounds;
 	var rectangle;
