@@ -52,8 +52,8 @@ body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:6
 
 var mcd = document.createElement('div');
 var cImg=document.createElement("img");
-cImg.src='/images/selector.png';
-
+//cImg.src='/images/selector.png';
+cImg.src='/images/del.gif';
 mcd.appendChild(cImg);
 
 
