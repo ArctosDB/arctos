@@ -209,11 +209,13 @@ function dieRectangleDie(){
 <body>
 
 
-	<span id="addARectangle" onclick="addARectangle()">Add search tool (wonky at large scales)</span>
-	<span id="dieRectangleDie" style="display: none;" onclick="dieRectangleDie()">Remove Search Tool</span>
+
 	<div id="search-panel">
-		<input id="target" type="text" placeholder="Search Box">
+		<input id="target" type="text" placeholder="Search the Map">
 	</div>
+	<span id="addARectangle" class="likeLink" onclick="addARectangle()">[ add bounding box tool ]</span>
+	<span id="dieRectangleDie" class="likeLink" style="display: none;" onclick="dieRectangleDie()">[ remove bounding box tool ]</span>
+	<input type="text" style="font-weight:bold;border:none;width:100%;color:red;" id="selectedCoords" name="selectedCoords">
 	<div id="map_canvas"></div>
 
 	<form method="get" action="/SpecimenResults.cfm" target="_blank">
