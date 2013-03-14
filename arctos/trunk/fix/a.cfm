@@ -101,8 +101,8 @@ function addARectangle(){
 	}
 
 function dieRectangleDie(){
-	$("#addARectangle").hide();
-	$("#dieRectangleDie").show();
+	$("#addARectangle").show();
+	$("#dieRectangleDie").hide();
 	try {
 		rectangle.setMap();
 	} catch(e){}
