@@ -45,14 +45,14 @@ google.maps.event.addDomListener(mcd, 'click', function() {
 
 var input = document.getElementById('target');
         var searchBox = new google.maps.places.SearchBox(input);
-        var markers = [];
+
 
 
 
 /*
 
 
-
+ var markers = [];
 
  google.maps.event.addListener(searchBox, 'places_changed', function() {
           var places = searchBox.getPlaces();
