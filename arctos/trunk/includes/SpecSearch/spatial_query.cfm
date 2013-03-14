@@ -45,12 +45,7 @@ google.maps.event.addDomListener(mcd, 'click', function() {
 
 var input = document.getElementById('gmapsrchtarget');
 
-
-
-
-/*
-
-        var searchBox = new google.maps.places.SearchBox(input);
+   var searchBox = new google.maps.places.SearchBox(input);
 
  var markers = [];
 
@@ -91,6 +86,11 @@ var input = document.getElementById('gmapsrchtarget');
           var bounds = map.getBounds();
           searchBox.setBounds(bounds);
         });
+
+
+/*
+
+
 */
 	}
 /*
