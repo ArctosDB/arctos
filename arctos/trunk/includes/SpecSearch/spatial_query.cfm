@@ -143,7 +143,7 @@
 	<br>Click the Arctos Search button (at the top or bottom of the page), NOT the Google Search button on the map, to run your query.
 </label>
 <div id="search-panel">
-	<input id="gmapsrchtarget" type="text" placeholder="Search the Map">
+	<input id="gmapsrchtarget" type="text" placeholder="Search the Map" onKeyPress="return noenter(event);">
 </div>
 <input type="text" style="font-weight:bold;border:none;width:100%;color:red;" id="selectedCoords" name="selectedCoords" placeholder="NE coordinates; SW coordinates">
 <div id="map_canvas"></div>
