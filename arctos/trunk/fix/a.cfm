@@ -19,6 +19,10 @@
 
 
 function addARectangle(){
+	dieRectangleDie();
+	$("#addARectangle").hide();
+	$("#dieRectangleDie").show();
+
 	var NELat=map.getBounds().getNorthEast().lat();
 	var NELong=map.getBounds().getNorthEast().lng();
 	var SWLat=map.getBounds().getSouthWest().lat();
@@ -88,7 +92,7 @@ function addARectangle(){
 		});
 
 		rectangle.setMap(map);
-whereIsTheRectangle();
+		whereIsTheRectangle();
 
 
 		google.maps.event.addListener(rectangle,'bounds_changed',whereIsTheRectangle);
@@ -97,6 +101,8 @@ whereIsTheRectangle();
 	}
 
 function dieRectangleDie(){
+	$("#addARectangle").hide();
+	$("#dieRectangleDie").show();
 	rectangle.setMap();
 	}
 
@@ -123,8 +129,8 @@ function dieRectangleDie(){
 <body>
 
 
-	<span onclick="addARectangle()">addARectangle</span>
-	<span onclick="dieRectangleDie()">dieRectangleDie</span>
+	<span id="addARectangle" onclick="addARectangle()">addARectangle</span>
+	<span id="dieRectangleDie" style="visibility:none;" onclick="dieRectangleDie()">dieRectangleDie</span>
 	<div id="map_canvas"></div>
 </body>
 <cfinclude template="/includes/_footer.cfm">
