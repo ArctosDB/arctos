@@ -88,12 +88,8 @@ var input = document.getElementById('gmapsrchtarget');
         });
 
 
-/*
 
-
-*/
 	}
-/*
 
 
 function selectControlClicked(){
@@ -218,7 +214,7 @@ function dieRectangleDie(){
 	}
 
 
-*/
+
 	google.maps.event.addDomListener(window, 'load', initialize);
 
 
