@@ -144,8 +144,8 @@ function dieRectangleDie(){
 <body>
 
 
-	<span id="addARectangle" onclick="addARectangle()">addARectangle</span>
-	<span id="dieRectangleDie" style="display: none;" onclick="dieRectangleDie()">dieRectangleDie</span>
+	<span id="addARectangle" onclick="addARectangle()">Add search tool (wonky at large scales)</span>
+	<span id="dieRectangleDie" style="display: none;" onclick="dieRectangleDie()">Remove Search Tool</span>
 	<div id="map_canvas"></div>
 
 	<form method="get" action="/SpecimenResults.cfm" target="_blank">
