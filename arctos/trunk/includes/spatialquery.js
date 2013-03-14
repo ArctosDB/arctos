@@ -8,10 +8,7 @@ function initialize() {
 	    center: new google.maps.LatLng(55, -135),
 	    mapTypeId: google.maps.MapTypeId.ROADMAP,
 	    panControl: true,
-	    scaleControl: true,
-	     mapTypeControlOptions: {
-         mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.HYBRID,google.maps.MapTypeId.TERRAIN]
-     }
+	    scaleControl: true
 	};
 	map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 	var mcd = document.createElement('div');
