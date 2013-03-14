@@ -141,7 +141,7 @@ function dieRectangleDie(){
 	<span id="dieRectangleDie" style="display: none;" onclick="dieRectangleDie()">dieRectangleDie</span>
 	<div id="map_canvas"></div>
 
-	<form method="post" action="/SpecimenResults.cfm" target="_blank">
+	<form method="get" action="/SpecimenResults.cfm" target="_blank">
 		<input type="text" size="6" id="NELat">
 		<input type="text" size="6" id="NELong">
 		<input type="text" size="6" id="SWLat">
