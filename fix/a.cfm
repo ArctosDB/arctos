@@ -191,6 +191,7 @@ function dieRectangleDie(){
 		$("#NELong").val(NELong);
 		$("#SWLat").val(SWLat);
 		$("#SWLong").val(SWLong);
+		$("#selectedCoords").val(NELat + ',' + NELong + ';' + SWLat + ',' + SWLong);
 
 	}
 
