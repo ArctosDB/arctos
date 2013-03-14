@@ -107,7 +107,7 @@ $("#SWLong").val('');
 
 	}
 
-
+/*
 function addARectangle(){
 	dieRectangleDie();
 
@@ -199,6 +199,8 @@ function dieRectangleDie(){
 
 	}
 
+
+*/
 	google.maps.event.addDomListener(window, 'load', initialize);
 
 
