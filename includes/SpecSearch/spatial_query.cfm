@@ -119,6 +119,8 @@
 
 	function whereIsTheRectangle () {
 		var theBounds=rectangle.getBounds();
+
+		console.log(theBounds);
 		var NELat=theBounds.getNorthEast().lat();
 		var NELong=theBounds.getNorthEast().lng();
 		var SWLat=theBounds.getSouthWest().lat();
