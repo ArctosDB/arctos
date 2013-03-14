@@ -26,8 +26,8 @@ function addARectangle(){
 
 	// latitude is easy.....
 	var latrange=NELat-SWLat;
-	var nela=NELat-(latrange*.4);
-	var swla=SWLat+(latrange*.4);
+	var nela=NELat-(latrange*.5);
+	var swla=SWLat+(latrange*.5);
 
 	// if longitudes are same sign....
 	if ((NELong>0 && SWLong>0) || (NELong<0 && SWLong<0)){
