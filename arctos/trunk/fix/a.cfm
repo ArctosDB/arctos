@@ -113,8 +113,16 @@ var input = document.getElementById('target');
 function selectControlClicked(){
 
  var theImage=$("#mcd").children('img').attr('src');
-
-console.log('current image is ' + theImage);
+ if (theImage=='/images/del.gif') {
+ 	// get rid of the select tool
+ 	$("#mcd").html('<img src="/images/del.gif">');
+ 	dieRectangleDie();
+ } else {
+	// add select tool
+	$("#mcd").html('<img src="/images/selector.png">');
+	addARectangle();
+	console.log('current image is ' + theImage);
+	}
 
 /*
 $('div.explorer_icon').dblclick(function(){
