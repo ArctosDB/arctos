@@ -115,7 +115,12 @@ function dieRectangleDie(){
 		var SWLat=rectangle.getBounds().getSouthWest().lat();
 		var SWLong=rectangle.getBounds().getSouthWest().lng();
 		console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
-		}
+		$("#NELat").val(NELat);
+		$("#NELong").val(NELong);
+		$("#SWLat").val(SWLat);
+		$("#SWLong").val(SWLong);
+
+	}
 
 	google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -135,5 +140,13 @@ function dieRectangleDie(){
 	<span id="addARectangle" onclick="addARectangle()">addARectangle</span>
 	<span id="dieRectangleDie" style="display: none;" onclick="dieRectangleDie()">dieRectangleDie</span>
 	<div id="map_canvas"></div>
+
+	<form method="post" action="/SpecimenResults.cfm" target="_blank">
+		<input type="text" size="6" id="NELat">
+		<input type="text" size="6" id="NELong">
+		<input type="text" size="6" id="SWLat">
+		<input type="text" size="6" id="SWLong">
+		<input type="submit">
+	</form>
 </body>
 <cfinclude template="/includes/_footer.cfm">
