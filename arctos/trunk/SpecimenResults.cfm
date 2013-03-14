@@ -1,7 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-
-<cfset debug=1>
-
 <script type='text/javascript' language="javascript" src='/includes/SpecimenResults.min.js'></script>
 <cfif len(session.displayrows) is 0>
 	<cfset session.displayrows=20>
