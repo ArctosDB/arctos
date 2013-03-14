@@ -30,7 +30,14 @@ google.maps.event.addDomListener(mcd, 'click', function() {
   selectControlClicked();
 });
 
-/*
+
+
+
+
+
+
+
+
 
 
 
@@ -72,6 +79,13 @@ var input = document.getElementById('target');
 
           map.fitBounds(bounds);
         });
+
+/*
+
+
+
+
+
 
         google.maps.event.addListener(map, 'bounds_changed', function() {
           var bounds = map.getBounds();
