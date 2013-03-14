@@ -50,11 +50,13 @@ body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:6
 
 
 
+var myTitle = document.createElement('h1');
+myTitle.style.color = 'white';
+myTitle.innerHTML = 'Hello World';
+var myTextDiv = document.createElement('div');
+myTextDiv.appendChild(myTitle);
 
-		var controlDiv = document.createElement('div');
-		var myControl = new MyControl(controlDiv);
-
-		map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
+map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myTextDiv);
 
 
 
