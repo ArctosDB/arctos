@@ -52,13 +52,14 @@ body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:6
 
 var mcd = document.createElement('div');
 mcd.id='mcd';
+mcd.style.cursor="pointer";
 var cImg=document.createElement("img");
 //cImg.src='/images/selector.png';
 cImg.src='/images/selector.png';
 mcd.appendChild(cImg);
 
 
-map.controls[google.maps.ControlPosition.TOP_CENTER].push(mcd);
+map.controls[google.maps.ControlPosition.TOP_LEFT].push(mcd);
 
 
 google.maps.event.addDomListener(mcd, 'click', function() {
