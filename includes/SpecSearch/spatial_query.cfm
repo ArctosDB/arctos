@@ -43,14 +43,14 @@ google.maps.event.addDomListener(mcd, 'click', function() {
 
 
 
-var input = document.getElementById('target');
-        var searchBox = new google.maps.places.SearchBox(input);
+var input = document.getElementById('gmapsrchtarget');
 
 
 
 
 /*
 
+        var searchBox = new google.maps.places.SearchBox(input);
 
  var markers = [];
 
@@ -230,8 +230,6 @@ function dieRectangleDie(){
 
 </script>
 
-<div id="map_canvas"></div>
-<!----
 
 
 <label for="map">
@@ -250,4 +248,3 @@ function dieRectangleDie(){
 	NELong<input type="text" name="NELong" size="6" id="NELong">
 	SWLat<input type="text" name="SWLat" size="6" id="SWLat">
 	SWLong<input type="text" name="SWLong" size="6" id="SWLong">
----->
