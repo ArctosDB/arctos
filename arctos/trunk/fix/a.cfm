@@ -32,10 +32,11 @@ body { height: 100%; margin: 0; padding: 0 } #map_canvas { height: 500px;width:6
 			zoom: 3,
 		    center: new google.maps.LatLng(55, -135),
 		    mapTypeId: google.maps.MapTypeId.ROADMAP,
-		     panControl: true
+		     panControl: true,
+		     scaleControl: true
  // zoomControl: true,
  // mapTypeControl: true,
- // scaleControl: true,
+ //,
 //  streetViewControl: true,
  // overviewMapControl: true
 		};
@@ -217,7 +218,9 @@ function dieRectangleDie(){
 <body>
 
 
-
+<div id="bbControl">
+	<img src="/images/selector.png">
+</div>
 	<div id="search-panel">
 		<input id="target" type="text" placeholder="Search the Map">
 	</div>
