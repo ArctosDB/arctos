@@ -28,6 +28,8 @@ function addARectangle(){
 	var SWLat=map.getBounds().getSouthWest().lat();
 	var SWLong=map.getBounds().getSouthWest().lng();
 
+	console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
+
 	// latitude is easy.....
 	var latrange=NELat-SWLat;
 	var nela=NELat-(latrange*.3);
