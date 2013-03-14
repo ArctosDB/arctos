@@ -120,11 +120,11 @@ function selectControlClicked(){
 
  if (theImage=='/images/del.gif') {
  	// get rid of the select tool
- 	$("#mcd").html('<img src="/images/del.gif">');
+ 	$("#mcd").html('').append('<img src="/images/del.gif">');
  	dieRectangleDie();
  } else {
 	// add select tool
-	$("#mcd").html('<img src="/images/selector.png">');
+	$("#mcd").html('').append('<img src="/images/selector.png">');
 	addARectangle();
 	console.log('current image is ' + theImage);
 	}
