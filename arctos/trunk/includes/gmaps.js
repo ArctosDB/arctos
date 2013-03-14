@@ -1,151 +1,239 @@
-var fen1;
-var gpstart, gpend;
-window.onunload = function(){
-	fen1.onunload();
-}
-function xFenster(eleId, iniX, iniY, barId, resBtnId, zoomBtnId){
-  var me = this;
-  var ele = xGetElementById(eleId);
-  var rBtn = xGetElementById(resBtnId);  
-  var zBtn = xGetElementById(zoomBtnId);
-  this.onunload = function(){
-    if (xIE4Up) { // clear cir refs
-      xDisableDrag(barId);
-      xDisableDrag(rBtn);
-      zBtn.onclick = ele.onmousedown = null;
-      me = ele = rBtn = zBtn = null;
-    }
-  }
+var map;
+	var bounds;
+	var rectangle;
+	function initialize() {
+		var mapOptions = {
+			zoom: 3,
+		    center: new google.maps.LatLng(55, -135),
+		    mapTypeId: google.maps.MapTypeId.ROADMAP,
+		     panControl: true,
+		     scaleControl: true
+ // zoomControl: true,
+ // mapTypeControl: true,
+ //,
+//  streetViewControl: true,
+ // overviewMapControl: true
+		};
 
-  this.paint = function()
-  {
-    xMoveTo(rBtn, xWidth(ele) - xWidth(rBtn) - 2, xHeight(ele) - xHeight(rBtn) - 2);
-    xMoveTo(zBtn, 0, xHeight(ele) - xHeight(zBtn) - 2);
-  }
 
-  function barOnDrag(e, mdx, mdy)
-  {
-    xMoveTo(ele, xLeft(ele) + mdx, xTop(ele) + mdy);
-    whurUB();
-  }
 
-  function resOnDrag(e, mdx, mdy)
-  {
-    xResizeTo(ele, xWidth(ele) + mdx, xHeight(ele) + mdy);
-    me.paint();
-    whurUB();
-  }
 
-  function fenOnMousedown()
-  {
-    xZIndex(ele, xFenster.z++);
-  }
-  
-  function ZoomOnClick()
-  {
-  	gpstart=getLatLonFromPixel(xLeft(ele),xTop(ele));
-  	gpend=getLatLonFromPixel(xLeft(ele)+xWidth(ele),xTop(ele)+xHeight(ele));
-        var bounds = new GLatLngBounds();
-        var tlpoint = new GLatLng(gpstart.lat(), gpstart.lng());
-        bounds.extend(tlpoint);
-        var brpoint = new GLatLng(gpend.lat(), gpend.lng());
-        bounds.extend(brpoint);
-          map.setZoom(map.getBoundsZoomLevel(bounds));
-          var clat = (bounds.getNorthEast().lat() + bounds.getSouthWest().lat()) /2;
-          var clng = (bounds.getNorthEast().lng() + bounds.getSouthWest().lng()) /2;
-          map.setCenter(new GLatLng(clat,clng));
-          whurUB();
-  }
+		map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 
-  xFenster.z++;
-  this.paint();
-  xEnableDrag(barId, null, barOnDrag, null);
-  xEnableDrag(rBtn, null, resOnDrag, null);
-  zBtn.onclick = ZoomOnClick;
-  ele.onmousedown = fenOnMousedown;
-  xShow(ele);
-} // end xFenster object prototype
 
-xFenster.z = 1000; // xFenster static property
 
-function getLatLonFromPixel(x,y) {
-	var swpixel = map.getCurrentMapType().getProjection().fromLatLngToPixel(map.getBounds().getSouthWest(),map.getZoom());
-	var nepixel = map.getCurrentMapType().getProjection().fromLatLngToPixel(map.getBounds().getNorthEast(),map.getZoom());
-	return map.getCurrentMapType().getProjection().fromPixelToLatLng(new GPoint(swpixel.x + x,nepixel.y + y),map.getZoom());
-}
+var mcd = document.createElement('div');
+mcd.id='mcd';
+mcd.style.cursor="pointer";
+var cImg=document.createElement("img");
+//cImg.src='/images/selector.png';
+cImg.src='/images/selector.png';
+mcd.appendChild(cImg);
 
-function whurUB(){
-	var ele = xGetElementById('zoomLayer');
-  	gpstart=getLatLonFromPixel(xLeft(ele),xTop(ele));
-  	gpend=getLatLonFromPixel(xLeft(ele)+xWidth(ele),xTop(ele)+xHeight(ele));
-  	var selectedCoords=gpstart.lat() + ", " + gpstart.lng() + "; " + gpend.lat() + ", " + gpend.lng();
-  	document.getElementById('selectedCoords').value=selectedCoords;
-  	document.getElementById('nwLat').value=gpstart.lat();
-  	document.getElementById('nwlong').value=gpstart.lng();
-  	document.getElementById('selat').value=gpend.lat();
-  	document.getElementById('selong').value=gpend.lng();
-  }
 
-function ubGone() {
-	document.getElementById('selectedCoords').value='';
-  	document.getElementById('nwLat').value='';
-  	document.getElementById('nwlong').value='';
-  	document.getElementById('selat').value='';
-  	document.getElementById('selong').value='';
-}
+map.controls[google.maps.ControlPosition.TOP_LEFT].push(mcd);
 
-function setDiv() {
-	fen1 = new xFenster('zoomLayer', 0, 0, 'zoomLayer', 'ResBtn', 'ZoomBtn');
-	pos = new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(47,73));
-	pos.apply(document.getElementById("zoomLayer"));
-	map.getContainer().appendChild(document.getElementById("zoomLayer"));
-	document.getElementById("zoomLayer").style.visibility = 'hidden'
-}
 
-function ToggleZoomControl() {
-}
-ToggleZoomControl.prototype = new GControl();
+google.maps.event.addDomListener(mcd, 'click', function() {
+  selectControlClicked();
+});
 
-ToggleZoomControl.prototype.initialize = function(map) {
-	var container = document.createElement("div");
-	var zoomToggle = document.createElement("img");
-  	this.setImageStyle_(zoomToggle);
-  	container.appendChild(zoomToggle);
 
-  	GEvent.addDomListener(zoomToggle, "click", function() {
-  		ToggleDisplay('zoomLayer');
-  	});
+var input = document.getElementById('target');
+        var searchBox = new google.maps.places.SearchBox(input);
+        var markers = [];
 
-	map.getContainer().appendChild(container);
-	return container;
-}
+        google.maps.event.addListener(searchBox, 'places_changed', function() {
+          var places = searchBox.getPlaces();
 
-ToggleZoomControl.prototype.getDefaultPosition = function() {
-  return new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(47, 47));
-}
+          for (var i = 0, marker; marker = markers[i]; i++) {
+            marker.setMap(null);
+          }
 
-ToggleZoomControl.prototype.setImageStyle_ = function(img) {
-	img.src = "/images/selector.png";
-	img.style.cursor = "pointer";
-	img.alt = "Show/Hide Selector Box";
-}
+          markers = [];
+          var bounds = new google.maps.LatLngBounds();
+          for (var i = 0, place; place = places[i]; i++) {
+            var image = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
 
-function ToggleDisplay(id){
-	var elem = document.getElementById(id);
-	if (elem){
-		if (elem.style.display != 'block'){
-			elem.style.display = 'block';
-			elem.style.visibility = 'visible';
-			whurUB();
-		}
-		else{
-			elem.style.display = 'none';
-			elem.style.visibility = 'hidden';
-			ubGone();
-		}
+            var marker = new google.maps.Marker({
+              map: map,
+              icon: image,
+              title: place.name,
+              position: place.geometry.location
+            });
+
+            markers.push(marker);
+
+            bounds.extend(place.geometry.location);
+          }
+
+          map.fitBounds(bounds);
+        });
+
+        google.maps.event.addListener(map, 'bounds_changed', function() {
+          var bounds = map.getBounds();
+          searchBox.setBounds(bounds);
+        });
+
 	}
+
+function selectControlClicked(){
+// clear everything out
+
+$("#selectedCoords").val('');
+$("#NELat").val('');
+$("#NELong").val('');
+$("#SWLat").val('');
+$("#SWLong").val('');
+
+
+	console.log('selectControlClicked');
+ var theImage=$("#mcd").children('img').attr('src');
+
+ 	console.log(theImage);
+
+
+ if (theImage=='/images/del.gif') {
+ 	// get rid of the select tool
+ 	// add select tool
+	$("#mcd").html('').append('<img src="/images/selector.png">');
+ 	dieRectangleDie();
+ } else {
+
+	$("#mcd").html('').append('<img src="/images/del.gif">');
+	addARectangle();
+
+	}
+
+
+	}
+
+
+function addARectangle(){
+	dieRectangleDie();
+
+
+	var theBounds=map.getBounds();
+	var NELat=theBounds.getNorthEast().lat();
+	var NELong=theBounds.getNorthEast().lng();
+	var SWLat=theBounds.getSouthWest().lat();
+	var SWLong=theBounds.getSouthWest().lng();
+
+	console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
+
+	// latitude is easy.....
+	var latrange=NELat-SWLat;
+	var nela=NELat-(latrange*.3);
+	var swla=SWLat+(latrange*.3);
+
+	// if longitudes are same sign....
+	if ((NELong>0 && SWLong>0) || (NELong<0 && SWLong<0)){
+		console.log('long same sign');
+		var longrange=NELong-SWLong;
+		var nelo=NELong-(longrange*.3);
+		var swlo=SWLong+(longrange*.3);
+	} else if (NELong<0 && SWLong>0) {
+		console.log('NELong<0 && SWLong>0');
+		var longrange=NELong+SWLong;
+		var nelo=NELong-(longrange*.3);
+		var swlo=SWLong+(longrange*.3);
+	} else if (NELong>0 && SWLong<0) {
+		console.log('NELong>0 && SWLong<0');
+		var longrange=NELong+SWLong;
+		var nelo=NELong-(longrange*.3);
+		var swlo=SWLong+(longrange*.3);
+	} else {
+		console.log('this should never happen - aborting.....');
+		return false;
+	}
+
+	/*
+	var longrange=NELong-SWLong;
+
+
+
+	if (NELong>0){
+
+		var longrange=NELong-SWLong;
+		var nelo=NELong+(longrange*.4);
+	} else {
+
+		var longrange=SWLong-NELong;
+		var nelo=NELong-(longrange*.4);
+	}
+
+	if (SWLong>0){
+		var swlo=SWLong+(longrange*.4);
+	} else {
+		var swlo=SWLong-(longrange*.4);
+	}
+
+*/
+
+	console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
+
+	console.log('longrange='+longrange);
+
+	console.log('nelo='+nelo);
+
+	console.log('swlo='+swlo);
+
+	console.log('NELat='+NELat);
+	bounds = new google.maps.LatLngBounds(
+	   		new google.maps.LatLng(nela, swlo ),
+			new google.maps.LatLng(swla, nelo)
+		);
+		rectangle = new google.maps.Rectangle({
+			bounds: bounds,
+			editable: true,
+			draggable: true
+		});
+
+		rectangle.setMap(map);
+
+
+
+		google.maps.event.addListener(rectangle,'bounds_changed',whereIsTheRectangle);
+
+		whereIsTheRectangle();
+	}
+
+function dieRectangleDie(){
+
+	try {
+		rectangle.setMap();
+	} catch(e){}
+
 }
 
+	function whereIsTheRectangle () {
+		var theBounds=rectangle.getBounds();
+
+		var NELat=theBounds.getNorthEast().lat();
+		var NELong=theBounds.getNorthEast().lng();
+		var SWLat=theBounds.getSouthWest().lat();
+		var SWLong=theBounds.getSouthWest().lng();
+		console.log(NELat + ' ' + NELong + ' ' +  SWLat   + ' ' + SWLong);
+		$("#NELat").val(NELat);
+		$("#NELong").val(NELong);
+		$("#SWLat").val(SWLat);
+		$("#SWLong").val(SWLong);
+		$("#selectedCoords").val(NELat + ', ' + NELong + '; ' + SWLat + ', ' + SWLong);
+
+	}
+
+	google.maps.event.addDomListener(window, 'load', initialize);
 
 
-					
+
+
+
+
+//google.maps.event.addListener(rectangle, 'bounds_changed', sdas);
+
