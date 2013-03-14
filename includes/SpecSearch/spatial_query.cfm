@@ -129,7 +129,13 @@
 		$("#SWLong").val(SWLong);
 		$("#selectedCoords").val(NELat + ', ' + NELong + '; ' + SWLat + ', ' + SWLong);
 	}
-	google.maps.event.addDomListener(window, 'load', initialize);
+
+
+	jQuery(document).ready(function() {
+	  	initialize();
+
+
+	});
 </script>
 <label for="map">
 	Click <img src="/images/selector.png"> (on the map!) to open spatial query tool, click <img src="/images/del.gif"> to cancel.
