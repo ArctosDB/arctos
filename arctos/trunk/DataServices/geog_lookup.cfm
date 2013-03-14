@@ -3,6 +3,19 @@
 		max-height:20em;
 		overflow:auto;
 	}
+	.rawdata {
+		font-size:small;
+	}
+	.interpreteddata {
+		font-size:small;
+		padding-left:1em;
+	}
+	.r_status {
+		font-size:small;
+		padding-left:1em;
+		font-style:bold;
+	}
+
 </style>
 <script>
 	function useThisOne(pkey,geog) {
@@ -353,8 +366,12 @@ from geog_auth_rec where rownum<10
 			<cfset thisCounty=replace(thiscounty,' DIST','','all')>
 			<cfset thisCounty=replace(thiscounty,' TERR','','all')>
 		</cfif>
-		<br>RawData==#CONTINENT_OCEAN#:#SEA#:#COUNTRY#:#STATE_PROV#:#COUNTY#:#QUAD#:#FEATURE#:#ISLAND#:#ISLAND_GROUP#
-		<br>InterpretedData==#thiscontinent#:#thisSea#:#thisCountry#:#thisState#:#thisCounty#:#thisQuad#:#thisFeature#:#thisIsland#:#thisIslandGroup#:
+		<div class="rawdata">
+			RawData==#CONTINENT_OCEAN#:#SEA#:#COUNTRY#:#STATE_PROV#:#COUNTY#:#QUAD#:#FEATURE#:#ISLAND#:#ISLAND_GROUP#
+		</div>
+		<div class="interpreteddata">
+			InterpretedData==#thiscontinent#:#thisSea#:#thisCountry#:#thisState#:#thisCounty#:#thisQuad#:#thisFeature#:#thisIsland#:#thisIslandGroup#:
+		</div>
 
 
 		<cfset thisMethod="full_component_match">
@@ -584,7 +601,9 @@ from geog_auth_rec where rownum<10
 				where
 					pkey=#qdata.pkey#
 			</cfquery>
-			<br>found one - autoupdate
+			<div class="r_status">
+				found one - autoupdate
+			</div>
 		<cfelseif result.recordcount gt 1>
 			<cfquery name="result" dbtype="query">
 				select * from result order by higher_geog
@@ -607,7 +626,9 @@ from geog_auth_rec where rownum<10
 				</table>
 			</div>
 		<cfelse>
-			<br>found nothing
+			<div class="r_status">
+				found nothing
+			</div>
 		</cfif>
 	</cfloop>
 </cfoutput>
