@@ -77,6 +77,8 @@ var input = document.getElementById('target');
         });
 
 	}
+/*
+
 
 function selectControlClicked(){
 // clear everything out
@@ -107,7 +109,7 @@ $("#SWLong").val('');
 
 	}
 
-/*
+
 function addARectangle(){
 	dieRectangleDie();
 
