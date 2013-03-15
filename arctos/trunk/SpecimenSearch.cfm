@@ -634,15 +634,12 @@
 	}
 	function setPrevSearch(){
 		var schParam=get_cookie ('schParams');
-		console.log(schParam);
 		var pAry=schParam.split("|");
 	 	for (var i=0; i<pAry.length; i++) {
 	 		var eAry=pAry[i].split("::");
 	 		var eName=eAry[0];
 	 		var eVl=eAry[1];
 	 		if (document.getElementById(eName)){
-	 			console.log('setting ' + eName + ' to ' + eVl);
-
 				document.getElementById(eName).value=eVl;
 				if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
 					changeTarget(eName,eVl);
