@@ -7,9 +7,6 @@
 
 --->
 <cfoutput>
-	<!---
-
-	--->
 	<cfquery name="newOrStale" datasource="uam_god">
 		select
 			coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
