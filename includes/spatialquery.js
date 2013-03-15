@@ -67,6 +67,7 @@ function setPreviousMap() {
 	var SWLat=$("#SWLat").val();
 	var SWLong=$("SWLong").val();
 	if (NELat.length>0 && NELong.length>0 && SWLat.length>0 && SWLong.length>0) {
+		console.log('setPreviousMap');
 		// from last search
 		bounds = new google.maps.LatLngBounds(
 			new google.maps.LatLng(SWLat , SWLong ),
