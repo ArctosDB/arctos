@@ -845,7 +845,7 @@ function getFormValues() {
 	var schParam=get_cookie ('schParams');
 	
 	console.log('cookie: ' + schParam)
-	return false;
+	//return false;
 	
 	
  }
