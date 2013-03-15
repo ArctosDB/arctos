@@ -2,7 +2,6 @@ var map;
 var bounds;
 var rectangle;
 function initialize() {
-
 	var mapOptions = {
 		zoom: 3,
 	    center: new google.maps.LatLng(55, -135),
@@ -60,6 +59,28 @@ function initialize() {
 		var bounds = map.getBounds();
 		searchBox.setBounds(bounds);
 	});
+	setPreviousMap();
+}
+function setPreviousMap() {
+	var NELat=$("#NELat").val();
+	var NELong=$("#NELong").val();
+	var SWLat=$("#SWLat").val();
+	var SWLong=$("SWLong").val();
+	if (NELat.length>0 && NELong.length>0 && SWLat.length>0 && SWLong.length>0) {
+		// from last search
+		bounds = new google.maps.LatLngBounds(
+			new google.maps.LatLng(SWLat , SWLong ),
+			new google.maps.LatLng(NELat, NELong)
+		);
+		rectangle = new google.maps.Rectangle({
+			bounds: bounds,
+			editable: true,
+			draggable: true
+		});
+		rectangle.setMap(map);
+		google.maps.event.addListener(rectangle,'bounds_changed',whereIsTheRectangle);
+	}
+	
 }
 function selectControlClicked(){
 	$("#selectedCoords").val('');
