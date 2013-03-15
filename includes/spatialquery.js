@@ -62,15 +62,12 @@ function initialize() {
 }
 function setPreviousMap() {
 	
-	console.log('setPreviousMapstart');
 
 	var NELat=$("#NELat").val();
 	var NELong=$("#NELong").val();
 	var SWLat=$("#SWLat").val();
 	var SWLong=$("#SWLong").val();
-	console.log(NELong);
 	if (NELat.length>0 && NELong.length>0 && SWLat.length>0 && SWLong.length>0) {
-		console.log('setPreviousMap');
 		// from last search
 		bounds = new google.maps.LatLngBounds(
 			new google.maps.LatLng(SWLat , SWLong ),

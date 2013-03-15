@@ -805,49 +805,19 @@ function getFormValues() {
  	var theForm=document.getElementById('SpecData');
  	var nval=theForm.length;
  	var spAry = new Array();
- 	//var thisPair='NELat::-177.78515625';
- 	//spAry.push(thisPair);
  	for (var i=0; i<nval; i++) {
 		var theElement = theForm.elements[i];
 		var element_name = theElement.name;
 		var element_value = theElement.value;
 		if (element_name.length>0 && element_value.length>0 && element_name !='selectedCoords') {
-			console.log(' setting ' + element_name + ' to ' + String(element_value));
-			
 			var thisPair=element_name + '::' + String(element_value);
-			console.log(thisPair);
 			if (spAry.indexOf(thisPair)==-1) {
 				spAry.push(thisPair);
-				console.log('pushed to cookie');
-			} else {
-				console.log('already got on');
 			}
 		}
-	}
- 	
- 	
- 	//var thisPair='isnotanumber::boogity';
- 	//spAry.push(thisPair);
- 	
- 	//var thisPair='NELat::-177.78515625';
- 	//spAry.push(thisPair);
- 	
- 	
+	} 	
 	var str=spAry.join("|");
-
-
-	console.log('writing to cookie: ' + str);
-	
-	
 	document.cookie = 'schParams=' + str;
-	
-	
-	var schParam=get_cookie ('schParams');
-	
-	console.log('cookie: ' + schParam)
-	//return false;
-	
-	
  }
 function nada(){
 	return false;
