@@ -62,6 +62,9 @@ function initialize() {
 	setPreviousMap();
 }
 function setPreviousMap() {
+	
+	console.log('setPreviousMapstart');
+
 	var NELat=$("#NELat").val();
 	var NELong=$("#NELong").val();
 	var SWLat=$("#SWLat").val();
