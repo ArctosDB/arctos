@@ -824,7 +824,7 @@ function getFormValues() {
 	}
  	
  	
- 	var thisPair='NELat::57.83318878445575';
+ 	var thisPair='NELat::boogity';
  	spAry.push(thisPair);
  	
  	
