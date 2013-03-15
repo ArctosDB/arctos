@@ -542,24 +542,26 @@
 								COLLECTING_EVENT_NAME
 					</cfquery>
 					<label for="et">Events using this Locality</label>
-					<table id="et" border>
-						<tr>
-							<th>Count</th>
-							<th>Nickname</th>
-							<th>Date</th>
-							<th>Coordinates</th>
-						</tr>
-						<cfloop query="events">
+					<div style="max-height:200px;overflow:auto;">
+						<table id="et" border>
 							<tr>
-								<td>#c#</td>
-								<td>#COLLECTING_EVENT_NAME#</td>
-								<td>#VERBATIM_DATE#</td>
-								<td>#verbatim_coordinates#</td>
+								<th>Count</th>
+								<th>Nickname</th>
+								<th>Date</th>
+								<th>Coordinates</th>
 							</tr>
-						</cfloop>
-					</table>
-					<input type="button" value="Update all events to use locality coordinates" class="lnkBtn"
-						onclick="document.location='/Locality.cfm?action=massEditCollEvent&locality_id=#locDet.locality_id#'">
+							<cfloop query="events">
+								<tr>
+									<td>#c#</td>
+									<td>#COLLECTING_EVENT_NAME#</td>
+									<td>#VERBATIM_DATE#</td>
+									<td>#verbatim_coordinates#</td>
+								</tr>
+							</cfloop>
+						</table>
+						<input type="button" value="Update all events to use locality coordinates" class="lnkBtn"
+							onclick="document.location='/Locality.cfm?action=massEditCollEvent&locality_id=#locDet.locality_id#'">
+	            		</div>
 				</td>
 			</tr>
 			<tr>
@@ -736,14 +738,14 @@
 				Data in this box come from various webservices. They are NOT "specimen data," are derived from entirely automated processes,
 				 and come with no guarantees.
 			</span>
-			<p>Not seeing anything here, or seeing old data? Try waiting a couple minutes and reloading ONCE -
-				webservice data are refreshed when this page loads, but can take a few minutes to find their way here.
-				Webservice data are created (asynchronously) when users load maps, and (lacking locality edits) refreshed
-				every 6 months.
+			<p>Not seeing anything here, or seeing old data? Try waiting a couple minutes and reloading -
+				webservice data are asynchronously refreshed when this page loads, but can take a few minutes to find their way here.
+				(Webservice data are otherwise created when users load maps and refreshed
+				every 6 months.)
 			</p>
 			<p>
-				Automated georeferencing comes from higher geography and locality, or higher geography alone if the inclusion of
-				specific locality results in no results, and contains no indication of error.
+				Automated georeferencing comes from either higher geography and locality or higher geography alone, and
+				contains no indication of error.
 				Curatorially-supplied error is displayed with the
 				curatorially-asserted point on the map below. The accuracy and usefulness of the automated georeferencing is hugely variable -
 				use it as a tool and make no assumptions.

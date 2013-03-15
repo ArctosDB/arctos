@@ -5,6 +5,15 @@
 <cfloop index="i" from="1" to="#numberOtasks#">
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
+<!-----------------------------------   related specimens cache    ------------------------------------------>
+<cfschedule action = "update"
+    task = "fetchRelatedInfo"
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/fetchRelatedInfo.cfm"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "05:51 AM"
+    interval = "daily"
+    requestTimeOut = "600">
 <!-----------------------------------   Agent merge/delete    ------------------------------------------>
 <cfschedule action = "update"
     task = "duplicate_agents_findDups"
