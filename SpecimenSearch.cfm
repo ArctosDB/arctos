@@ -646,6 +646,9 @@
 				}
 			}
 	 	}
+	 	//try {
+			setPreviousMap.setMap();
+		//}
 	}
 </script>
 <cfinclude template = "includes/_footer.cfm">
