@@ -805,8 +805,8 @@ function getFormValues() {
  	var theForm=document.getElementById('SpecData');
  	var nval=theForm.length;
  	var spAry = new Array();
- 	var thisPair='NELat::-177.78515625';
- 	spAry.push(thisPair);
+ 	//var thisPair='NELat::-177.78515625';
+ 	//spAry.push(thisPair);
  	for (var i=0; i<nval; i++) {
 		var theElement = theForm.elements[i];
 		var element_name = theElement.name;
@@ -826,11 +826,11 @@ function getFormValues() {
 	}
  	
  	
- 	var thisPair='isnotanumber::boogity';
- 	spAry.push(thisPair);
+ 	//var thisPair='isnotanumber::boogity';
+ 	//spAry.push(thisPair);
  	
- 	var thisPair='NELat::-177.78515625';
- 	spAry.push(thisPair);
+ 	//var thisPair='NELat::-177.78515625';
+ 	//spAry.push(thisPair);
  	
  	
 	var str=spAry.join("|");
@@ -839,7 +839,7 @@ function getFormValues() {
 	console.log('writing to cookie: ' + str);
 	
 	
-	document.cookie = 'schParams=' + 'NELat::-177.78515625|Reset::Clear Form|Previous::Use Last Values|next1::colorByCollection|method1::download|includeTimeSpan1::0|showErrors1::0|is_tissue::1|Action::nothing|taxon_scope::currentID_like|selectedCoords::57.83318878445575, -92.21484375; 37.15870896541885, -177.78515625|NELat::57.83318878445575|NELong::-92.21484375|SWLat::37.15870896541885|SWLong::-177.78515625|next::colorByCollection|method::download|includeTimeSpan::0|showErrors::0|newQuery::1|isnotanumber::boogity|NELat::-177.78515625';
+	document.cookie = 'schParams=' + str;
 	
 	
 	var schParam=get_cookie ('schParams');
