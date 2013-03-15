@@ -827,6 +827,11 @@ function getFormValues() {
  	
  	
 	var str=spAry.join("|");
+
+
+	console.log('writing to cookie: ' + str);
+	
+	
 	document.cookie = 'schParams=' + str;
 	
 	
