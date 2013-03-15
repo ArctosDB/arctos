@@ -69,6 +69,7 @@ function setPreviousMap() {
 	var NELong=$("#NELong").val();
 	var SWLat=$("#SWLat").val();
 	var SWLong=$("SWLong").val();
+	console.log(NELong);
 	if (NELat.length>0 && NELong.length>0 && SWLat.length>0 && SWLong.length>0) {
 		console.log('setPreviousMap');
 		// from last search
