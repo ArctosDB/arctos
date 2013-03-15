@@ -15,7 +15,7 @@
 </div>
 <input type="text" style="font-weight:bold;border:none;width:100%;color:red;" id="selectedCoords" name="selectedCoords" placeholder="NE coordinates; SW coordinates">
 <div id="map_canvas"></div>
-<input type="hidden" name="NELat" size="6" id="NELat">
-<input type="hidden" name="NELong" size="6" id="NELong">
-<input type="hidden" name="SWLat" size="6" id="SWLat">
-<input type="hidden" name="SWLong" size="6" id="SWLong">
+<input type="hidden" name="NELat" size="6" id="NELat" value="">
+<input type="hidden" name="NELong" size="6" id="NELong" value="">
+<input type="hidden" name="SWLat" size="6" id="SWLat" value="">
+<input type="hidden" name="SWLong" size="6" id="SWLong" value="">
