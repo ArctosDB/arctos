@@ -60,7 +60,7 @@
 		</td>
 	</tr>
 </table>
-<form method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues()">
+<form method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues();return false;">
 <table>
 	<tr>
 		<td valign="top">
