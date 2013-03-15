@@ -59,7 +59,6 @@ function initialize() {
 		var bounds = map.getBounds();
 		searchBox.setBounds(bounds);
 	});
-	setPreviousMap();
 }
 function setPreviousMap() {
 	
