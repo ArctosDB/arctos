@@ -816,6 +816,9 @@ function getFormValues() {
 			console.log(thisPair);
 			if (spAry.indexOf(thisPair)==-1) {
 				spAry.push(thisPair);
+				console.log('pushed to cookie');
+			} else {
+				console.log('already got on');
 			}
 		}
 	}
