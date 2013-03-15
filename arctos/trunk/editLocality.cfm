@@ -789,7 +789,7 @@
 		<br>Tags:
 			<span style="font-weight:bold;">#locDet.s$geography#</span>
 		<div id="map-canvas"></div>
-		If there are multiple markers on the map, RED is service-suggested, GREEN is curatorially-asserted.
+		<img src="http://maps.google.com/mapfiles/ms/micons/red-dot.png"> is service-suggested, <img src="http://maps.google.com/mapfiles/ms/micons/green-dot.png"> is curatorially-asserted.
 	</td></tr></table>
 	</form>
 	</span>
