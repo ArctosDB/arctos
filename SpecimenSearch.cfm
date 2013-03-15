@@ -67,7 +67,7 @@
 			<input type="submit" value="Search" class="schBtn">
 		</td>
 		<td valign="top">
-			<input type="reset" name="Reset" value="Clear Form" class="clrBtn">
+			<input type="button" name="Reset" value="Clear Form" class="clrBtn" onclick="resetSSForm();">
 		</td>
 		<td valign="top">
 			<input type="button" name="Previous" value="Use Last Values" class="lnkBtn"	onclick="setPrevSearch()">
@@ -454,7 +454,7 @@
 			<input type="submit" value="Search" class="schBtn">
 		</td>
 		<td valign="top">
-			<input type="reset" name="Reset" value="Clear Form" class="clrBtn">
+			<input type="button" name="Reset" value="Clear Form" class="clrBtn" onclick="resetSSForm();">
 		</td>
 		<td valign="top">
 			<input type="button" name="Previous" value="Use Last Values" class="lnkBtn"	onclick="setPrevSearch()">
@@ -574,6 +574,10 @@
 		minChars: 1,
 		selectFirst:false
 	});
+	function resetSSForm(){
+		document.getElementById('SpecData').reset();
+		initialize();
+	}
 	function r_getSpecSrchPref (result){
 		var j=result.split(',');
 		for (var i = 0; i < j.length; i++) {
