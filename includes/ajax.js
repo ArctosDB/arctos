@@ -811,7 +811,7 @@ function getFormValues() {
 		var theElement = theForm.elements[i];
 		var element_name = theElement.name;
 		var element_value = theElement.value;
-		if (element_name.length>0 && element_value.length>0) {
+		if (element_name.length>0 && element_value.length>0 && element_name !='selectedCoords') {
 			console.log(' setting ' + element_name + ' to ' + String(element_value));
 			
 			var thisPair=element_name + '::' + String(element_value);
