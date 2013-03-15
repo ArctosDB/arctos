@@ -813,6 +813,7 @@ function getFormValues() {
 			console.log(' setting ' + element_name + ' to ' + element_value);
 			
 			var thisPair=element_name + '::' + element_value;
+			console.log(thisPair);
 			if (spAry.indexOf(thisPair)==-1) {
 				spAry.push(thisPair);
 			}
@@ -825,6 +826,10 @@ function getFormValues() {
 	var str=spAry.join("|");
 	document.cookie = 'schParams=' + str;
 	
+	
+	var schParam=get_cookie ('schParams');
+	
+	console.log('cookie: ' + schParam)
 	return false;
 	
 	
