@@ -810,6 +810,8 @@ function getFormValues() {
 		var element_name = theElement.name;
 		var element_value = theElement.value;
 		if (element_name.length>0 && element_value.length>0) {
+			console.log(' setting ' + element_name + ' to ' + element_value);
+			
 			var thisPair=element_name + '::' + element_value;
 			if (spAry.indexOf(thisPair)==-1) {
 				spAry.push(thisPair);
