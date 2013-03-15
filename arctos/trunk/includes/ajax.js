@@ -829,6 +829,9 @@ function getFormValues() {
  	var thisPair='isnotanumber::boogity';
  	spAry.push(thisPair);
  	
+ 	var thisPair='NELat::-177.78515625';
+ 	spAry.push(thisPair);
+ 	
  	
 	var str=spAry.join("|");
 
