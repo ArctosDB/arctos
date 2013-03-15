@@ -1,8 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
+<script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script>
 <cfoutput>
 	<cfset stuffToNotPlay="audio/x-wav">
         <cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-                select 
+                select
                        media.media_id,
                        media.media_uri,
                        media.mime_type,
@@ -10,11 +11,11 @@
                        media.preview_uri,
                        ctmedia_license.uri,
                        ctmedia_license.display
-                from 
+                from
                         media,
                         ctmedia_license
-                where 
-                        media.media_license_id=ctmedia_license.media_license_id (+) and 
+                where
+                        media.media_license_id=ctmedia_license.media_license_id (+) and
                         media.media_id = #media_id#
         </cfquery>
         <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
@@ -28,7 +29,7 @@
                 </cfif>
                 <a href="#h#">[ Create media ]</a>
         </cfif>
-        
+
 
         <cfquery name="labels_raw"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                 select
@@ -53,18 +54,18 @@
                         <cfset title = desc.label_value>
                         <cfset alt=desc.label_value>
         </cfif>
-        
+
         <cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="mp">
 			<cfinvokeargument name="preview_uri" value="#findIDs.preview_uri#">
 			<cfinvokeargument name="media_type" value="#findIDs.media_type#">
 		</cfinvoke>
-						
-						
+
+
 									<cfset addThisClass=''>
 						<cfif listfind(stuffToNotPlay,findIDs.mime_type)>
 							<cfset addThisClass="noplay">
 						</cfif>
-						
+
 
         <table>
                 <tr>
@@ -105,7 +106,7 @@
 								<ul>
 									<cfloop query="mrel">
 										<li>
-											#media_relationship#  
+											#media_relationship#
 											<cfif len(link) gt 0>
 												<a href="#link#" target="_blank">#summary#</a>
 											<cfelse>
@@ -135,27 +136,27 @@
                         </td>
                 </tr>
                         <cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-                                select 
-                                        media.media_id, 
-                                        media.media_type, 
-                                        media.mime_type, 
-                                        media.preview_uri, 
-                                        media.media_uri 
-                                from 
-                                        media, 
-                                        media_relations 
-                                where 
+                                select
+                                        media.media_id,
+                                        media.media_type,
+                                        media.mime_type,
+                                        media.preview_uri,
+                                        media.media_uri
+                                from
+                                        media,
+                                        media_relations
+                                where
                                         media.media_id=media_relations.related_primary_key and
-                                        media_relationship like '% media' 
+                                        media_relationship like '% media'
                                         and media_relations.media_id =#media_id#
                                         and media.media_id != #media_id#
                                 UNION
                                 select media.media_id, media.media_type,
-                                        media.mime_type, media.preview_uri, media.media_uri 
-                                from media, media_relations 
-                                where 
+                                        media.mime_type, media.preview_uri, media.media_uri
+                                from media, media_relations
+                                where
                                         media.media_id=media_relations.media_id and
-                                        media_relationship like '% media' and 
+                                        media_relationship like '% media' and
                                         media_relations.related_primary_key=#media_id#
                                          and media.media_id != #media_id#
                         </cfquery>
@@ -166,7 +167,7 @@
                                         <div class="thumbs">
                                                 <div class="thumb_spcr">&nbsp;</div>
                                                 <cfloop query="relM">
-													
+
 													<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
 														<cfinvokeargument name="preview_uri" value="#preview_uri#">
 														<cfinvokeargument name="media_type" value="#media_type#">
@@ -175,7 +176,7 @@
 						<cfif listfind(stuffToNotPlay,mime_type)>
 							<cfset addThisClass="noplay">
 						</cfif>
-						
+
                                         <cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                                                                 select
                                                                         media_label,
@@ -193,7 +194,7 @@
                                                                 <cfset alt=desc.label_value>
                                                         </cfif>
                                        <div class="one_thumb">
-									
+
                                                <a href="#media_uri#" class="#addThisClass#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
                                                 <p>
                                                                         #media_type# (#mime_type#)
