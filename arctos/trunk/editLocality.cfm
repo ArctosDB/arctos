@@ -561,7 +561,7 @@
 						</table>
 						<input type="button" value="Update all events to use locality coordinates" class="lnkBtn"
 							onclick="document.location='/Locality.cfm?action=massEditCollEvent&locality_id=#locDet.locality_id#'">
-	            		</div>
+	            	</div>
 				</td>
 			</tr>
 			<tr>
@@ -768,17 +768,14 @@
 				Use the Contact link in the footer if it's horrendously wrong somewhere - let us know the locality_id.
 			</p>
 		</div>
-		<p>
+		<br>
 			Coordinates:
 			<input type="text" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#" size="6">
 			<input type="text" id="s_dollar_dec_long" value="#locDet.s$dec_long#" size="6">
 			<span class="likeLink" onclick="useAutoCoords()">Copy these coordinates to the form</span>
-		</p>
-		<p>Distance between asserted and lookup coordinates (km):
+		<br>Distance between asserted and lookup coordinates (km):
 			<input type="text" id="distanceBetween" size="6">
-		</p>
-
-		<p>Elevation (m):
+		<br>Elevation (m):
 			<input type="text" id="s_dollar_elev" value="#locDet.s$elevation#" size="6">
 			<span style="font-style:italic;">
 				<cfif len(locDet.min_elev_in_m) is 0>
@@ -789,14 +786,10 @@
 					Automated georeference is within the curatorially-supplied elevation range.
 				</cfif>
 			</span>
-		</p>
-		<p>Tags:
+		<br>Tags:
 			<span style="font-weight:bold;">#locDet.s$geography#</span>
-		</p>
 		<div id="map-canvas"></div>
-		<p>
-			If there are multiple markers on the map, RED is service-suggested, GREEN is curatorially-asserted.
-		</p>
+		If there are multiple markers on the map, RED is service-suggested, GREEN is curatorially-asserted.
 	</td></tr></table>
 	</form>
 	</span>
