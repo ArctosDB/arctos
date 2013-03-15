@@ -805,6 +805,8 @@ function getFormValues() {
  	var theForm=document.getElementById('SpecData');
  	var nval=theForm.length;
  	var spAry = new Array();
+ 	var thisPair='NELat::boogity';
+ 	spAry.push(thisPair);
  	for (var i=0; i<nval; i++) {
 		var theElement = theForm.elements[i];
 		var element_name = theElement.name;
@@ -824,8 +826,7 @@ function getFormValues() {
 	}
  	
  	
- 	var thisPair='NELat::boogity';
- 	spAry.push(thisPair);
+ 	
  	
  	
 	var str=spAry.join("|");
