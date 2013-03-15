@@ -576,7 +576,9 @@
 	});
 	function resetSSForm(){
 		document.getElementById('SpecData').reset();
-		initialize();
+		try {
+			initialize();
+		} catch(e){}
 	}
 	function r_getSpecSrchPref (result){
 		var j=result.split(',');
@@ -650,9 +652,9 @@
 				}
 			}
 	 	}
-	 	//try {
+	 	try {
 			setPreviousMap();
-		//}
+		} catch(e){}
 	}
 </script>
 <cfinclude template = "includes/_footer.cfm">
