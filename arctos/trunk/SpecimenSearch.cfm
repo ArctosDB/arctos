@@ -647,7 +647,7 @@
 			}
 	 	}
 	 	//try {
-			setPreviousMap.setMap();
+			setPreviousMap();
 		//}
 	}
 </script>
