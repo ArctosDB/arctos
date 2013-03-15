@@ -818,12 +818,16 @@ function getFormValues() {
 			}
 		}
 	}
- 	return false;
+ 	
  	
  	
  	
 	var str=spAry.join("|");
 	document.cookie = 'schParams=' + str;
+	
+	return false;
+	
+	
  }
 function nada(){
 	return false;
