@@ -1,4 +1,4 @@
-<script type='text/javascript' language="javascript" src='/includes/spatialquery.js'></script>
+<script type='text/javascript' language="javascript" src='/includes/spatialquery.min.js'></script>
 <script>
 	jQuery(document).ready(function() {
 	  	initialize();
