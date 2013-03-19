@@ -27,7 +27,7 @@
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfset ShowObservations = "true">
 	</cfif>
-	<cfset basSelect = "SELECT DISTINCT 
+	<cfset basSelect = "SELECT DISTINCT
 		#flatTableName#.collection,
 		#flatTableName#.guid,
 		#flatTableName#.collection_id,
@@ -46,13 +46,16 @@
 	<cfset basJoin = " INNER JOIN specimen_event ON (#flatTableName#.collection_object_id=specimen_event.collection_object_id)
 			INNER JOIN collecting_event ON (specimen_event.collecting_event_id =collecting_event.collecting_event_id)
 			INNER JOIN locality ON (collecting_event.locality_id=locality.locality_id)">
-	<cfset basWhere = " WHERE locality.dec_lat is not null ">		
+	<cfset basWhere = " WHERE locality.dec_lat is not null ">
 	<cfset basQual = "">
 	<cfif not isdefined("basJoin")>
 		<cfset basJoin = "">
 	</cfif>
 	<cfinclude template="/includes/SearchSql.cfm">
-	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">	
+	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
+
+	<cfdump var=#SqlString#>
+	<cfabort>
 	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
@@ -73,20 +76,20 @@
 <cfoutput>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
-		a='<berkeleymapper>' & chr(10) & 
-			chr(9) & '<colors method="dynamicfield" fieldname="darwin:collectioncode" label="Collection"></colors>' & chr(10) & 
-			chr(9) & '<concepts>' & chr(10) & 
-			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:relatedinformation" alias="Related Information"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:scientificname" alias="Scientific Name"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="3" viewlist="1" datatype="char120:2" alias="Event Type"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept viewlist="1" datatype="char120:3" alias="Verbatim Date"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:locality" alias="Specific Locality"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:coordinateuncertaintyinmeters" alias="Error (m)"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:horizontaldatum" alias="Datum"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>' & chr(10) & 
-			chr(9) & '</concepts>' & chr(10); 
+		a='<berkeleymapper>' & chr(10) &
+			chr(9) & '<colors method="dynamicfield" fieldname="darwin:collectioncode" label="Collection"></colors>' & chr(10) &
+			chr(9) & '<concepts>' & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:relatedinformation" alias="Related Information"/>' & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:scientificname" alias="Scientific Name"/>' & chr(10) &
+			chr(9) & chr(9) & '<concept order="3" viewlist="1" datatype="char120:2" alias="Event Type"/>' & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="char120:3" alias="Verbatim Date"/>' & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:locality" alias="Specific Locality"/>' & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>' & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>' & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:coordinateuncertaintyinmeters" alias="Error (m)"/>' & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="1" datatype="darwin:horizontaldatum" alias="Datum"/>' & chr(10) &
+			chr(9) & chr(9) & '<concept viewlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>' & chr(10) &
+			chr(9) & '</concepts>' & chr(10);
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
 	<cfif isdefined("showRangeMaps") and showRangeMaps is true>
@@ -96,7 +99,7 @@
 		<cfquery name="getClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select phylclass,genus,species,genus || ' ' || species scientific_name from taxonomy where scientific_name in
 			 (#ListQualify(valuelist(species.scientific_name), "'")#)
-			 group by 
+			 group by
 			 phylclass,genus || ' ' || species,genus,species
 		</cfquery>
 		<cfif getClass.recordcount is not 1 or (
@@ -115,7 +118,7 @@
 			<cfabort>
 		</cfif>
 		<cfscript>
-			a=chr(9) & '<gisdata>' & chr(10) & 
+			a=chr(9) & '<gisdata>' & chr(10) &
 			chr(9) & chr(9) & '<layer title="#getClass.genus# #getClass.species#" name="mamm" location="#getClass.genus# #getClass.species#" legend="1" active="1" url="">' & chr(10);
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
@@ -137,28 +140,28 @@
 			</cfscript>
 		</cfif>
 		<cfscript>
-			a = chr(9) & chr(9) & '</layer>' & chr(10) & 
+			a = chr(9) & chr(9) & '</layer>' & chr(10) &
 			chr(9) & '</gisdata>' & chr(10);
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfif>
 	<cfscript>
-		a = chr(9) & '<logos>' & chr(10) & 
-			chr(9) & chr(9) & '<logo img="http://arctos.database.museum/images/genericHeaderIcon.gif" url="http://arctos.database.museum/"/>' & chr(10) & 
+		a = chr(9) & '<logos>' & chr(10) &
+			chr(9) & chr(9) & '<logo img="http://arctos.database.museum/images/genericHeaderIcon.gif" url="http://arctos.database.museum/"/>' & chr(10) &
 			chr(9) & '</logos>' & chr(10) &
 			'</berkeleymapper>';
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localTabFile, variables.encoding, 32768);
-	</cfscript>	
+	</cfscript>
 	<cfloop query="getMapData">
 		<cfscript>
-			a='<a href="#Application.serverRootUrl#/guid/#guid#" target="_blank">' & guid & '</a>' & 
+			a='<a href="#Application.serverRootUrl#/guid/#guid#" target="_blank">' & guid & '</a>' &
 				chr(9) & scientific_name &
 				chr(9) & specimen_event_type &
-				chr(9) & verbatim_date & 
-				chr(9) & spec_locality & 
-				chr(9) & dec_lat & 
+				chr(9) & verbatim_date &
+				chr(9) & spec_locality &
+				chr(9) & dec_lat &
 				chr(9) & dec_long &
 				chr(9) & COORDINATEUNCERTAINTYINMETERS &
 				chr(9) & datum &
@@ -166,12 +169,12 @@
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfloop>
-	<cfscript>		
+	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
 	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#">
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
-	 <noscript>BerkeleyMapper reqiures JavaScript.</noscript> 
+	 <noscript>BerkeleyMapper reqiures JavaScript.</noscript>
 </cfoutput>
