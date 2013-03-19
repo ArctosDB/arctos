@@ -53,9 +53,6 @@
 	</cfif>
 	<cfinclude template="/includes/SearchSql.cfm">
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
-
-	<cfdump var=#SqlString#>
-	<cfabort>
 	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
