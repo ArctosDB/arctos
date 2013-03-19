@@ -1286,8 +1286,9 @@
 </cfif>
 <cfif isdefined("any_geog") AND len(any_geog) gt 0>
 	<cfset mapurl = "#mapurl#&any_geog=#any_geog#">
-	<cfset basJoin = " #basJoin# INNER JOIN locality ON (#session.flatTableName#.locality_id = locality.locality_id)">
-
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (#session.flatTableName#.locality_id = locality.locality_id)">
+	</cfif>
 	<cfset basQual = " #basQual# AND
 		upper(#session.flatTableName#.higher_geog) || ' ' || upper(#session.flatTableName#.spec_locality)
 			|| ' ' || upper(#session.flatTableName#.verbatim_locality) || ' ' || upper(locality.S$GEOGRAPHY)  LIKE '%#ucase(escapeQuotes(any_geog))#%'">
