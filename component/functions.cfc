@@ -414,7 +414,7 @@
 					'' as higher_geog,
 					'' as min_elev_in_m,
 					'' as max_elev_in_m,
-					'#dateformat(now(),"yyyy-mm-dd")# as s$lastdate
+					'#dateformat(now(),"yyyy-mm-dd")#' as s$lastdate
 				from
 					d
 			</cfquery>
