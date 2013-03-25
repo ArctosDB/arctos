@@ -61,10 +61,11 @@ Documentation: http://n2t.net/ezid/doc/apidoc.html
 		-------------->
 https://n2t.net/ezid/id/
 		<cfhttp username="apitest" password="apitest" method="put" url="https://n2t.net/ezid/shoulder/doi:10.5072/FK2">
-			<cfhttpparam type = "header" name = "dc.creator" value = "the creator is MVZ">
-			<cfhttpparam type = "header" name = "dc.title" value = "this is a title">
-			<cfhttpparam type = "header" name = "dc.publisher" value = "this is hte publisher">
-			<cfhttpparam type = "header" name = "dc.date" value = "1842">
+			<cfhttpparam type = "header" name = "datacite.creator" value = "the creator is MVZ">
+			<cfhttpparam type = "header" name = "datacite.title" value = "this is a title">
+			<cfhttpparam type = "header" name = "datacite.publisher" value = "this is hte publisher">
+			<cfhttpparam type = "header" name = "datacite.publicationyear" value = "1842">
+			<cfhttpparam type = "header" name = "datacite.resourcetype" value = "Image">
 			<cfhttpparam type = "header" name = "_target" value = "http://arctos-test.tacc.utexas.edu/media/10219911">
 		</cfhttp>
 
