@@ -65,6 +65,8 @@ https://n2t.net/ezid/id/
 			<cfhttpparam type = "header" name = "dc.title" value = "this is a title">
 			<cfhttpparam type = "header" name = "dc.publisher" value = "this is hte publisher">
 			<cfhttpparam type = "header" name = "dc.date" value = "1842">
+				<cfhttpparam type = "header" name = "_target" value = "http://arctos-test.tacc.utexas.edu/media/10219911">
+
 
 		</cfhttp>
 
