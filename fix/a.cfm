@@ -82,7 +82,7 @@ https://n2t.net/ezid/id/
 
 
 
-			<cfhttpparam type = "boxy"  value = "#x#">
+			<cfhttpparam type = "BODY"  value = "#x#">
 			<cfhttpparam type = "header" name = "_target" value = "http://arctos-test.tacc.utexas.edu/media/10219911">
 		</cfhttp>
 
