@@ -68,11 +68,11 @@ Documentation: http://n2t.net/ezid/doc/apidoc.html
 		-------------->
 https://n2t.net/ezid/id/
 
-<cfset x="datacite.creator: Arctos,
-		datacite.title: this is a title,
-		datacite.publisher: this is hte publisher,
-		datacite.publicationyear: 1842,
-		datacite.resourcetype: Image">
+<cfset x="creator: Arctos,
+		title: this is a title,
+		publisher: this is hte publisher,
+		publicationyear: 1842,
+		resourcetype: Image">
 
 
 		<cfhttp username="apitest" password="apitest" method="POST" url="https://n2t.net/ezid/shoulder/doi:10.5072/FK2">
