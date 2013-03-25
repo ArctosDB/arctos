@@ -57,7 +57,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 
 <cfif action is "makeTemplate">
 	<cfset header="FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,USE_PUB_AUTHORS,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
-	<cffile action = "write" 
+	<cffile action = "write"
     file = "#Application.webDirectory#/download/BulkCitationsTemplate.csv"
     output = "#header#"
     addNewLine = "no">
@@ -74,7 +74,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	<cfset variables.fileName="#Application.webDirectory#/download/BulkCitationsDown.csv">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(header); 
+		variables.joFileWriter.writeLine(header);
 	</cfscript>
 	<cfloop query="mine">
 		<cfset d=''>
@@ -83,10 +83,10 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<cfset d=listappend(d,t,",")>
 		</cfloop>
 		<cfscript>
-			variables.joFileWriter.writeLine(d); 
+			variables.joFileWriter.writeLine(d);
 		</cfscript>
 	</cfloop>
-	<cfscript>	
+	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
 	<cflocation url="/download.cfm?file=BulkCitationsDown.csv" addtoken="false">
@@ -94,14 +94,14 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 </cfif>
 
 <cfif action is "nothing">
-	Step 1: Upload a comma-delimited text file (csv). 
-	Include CSV column headings. 
+	Step 1: Upload a comma-delimited text file (csv).
+	Include CSV column headings.
 	<ul>
 		<li><a href="BulkloadCitations.cfm?action=makeTemplate">Get a template</a></li>
 		<li><a target="_blank" class="external" href="http://arctosdb.org/documentation/publications/specimen-citations/">Citations documentation</a></li>
 	</ul>
-	
-	
+
+
 	<table border>
 		<tr>
 			<th>ColumnName</th>
@@ -183,17 +183,20 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		</tr>
 		<tr>
 			<td>use_pub_authors</td>
-			<td>no</td>
+			<td>conditionally</td>
 			<td>
-				1==>Ignore anything that might be in the author fields and use the publication author-agents as determiners. 
-				<br>0==>require and use the information provided in the identifier_x fields for identifier
+				1==>Ignore anything that might be in the author fields and use the publication author-agents as determiners.
+				<br>0==>require and use the information provided in the identifier_x fields for identifier. Required if
+				identifier_1 is not given.
 			</td>
 			<td>0 or 1 - <a target="_blank" class="external"  href="http://arctosdb.org/documentation/publications/#author">authors</a></td>
 		</tr>
 		<tr>
 			<td>identifier_1</td>
-			<td>no</td>
-			<td>First agent responsible for the identification</td>
+			<td>conditionally</td>
+			<td>First agent responsible for the identification.
+				Required if use_pub_authors is not given; ignored if use_pub_authors is given.
+			</td>
 			<td></td>
 		</tr>
 		<tr>
@@ -232,7 +235,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
-	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />	
+	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
@@ -246,7 +249,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -288,7 +291,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	<cfloop query="data">
 		<cfset problem="">
 		<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				cataloged_item.COLLECTION_OBJECT_ID
 			from
 				cataloged_item,
@@ -338,7 +341,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		<cfset problem = listappend(problem,a.status,";")>
 		<cfset aid3=a.agent_id>
 		<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			UPDATE cf_temp_citation SET 
+			UPDATE cf_temp_citation SET
 				collection_object_id = #thisColObjId#,
 				publication_id=#thisPubId#
 				<cfif len(aid1) gt 0>
@@ -363,10 +366,10 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		</cfquery>
 	</cfloop>
 	<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_citation set status='duplicate' where key in (				
+		update cf_temp_citation set status='duplicate' where key in (
 			select distinct k from cf_temp_citation a,
-			 (select min(key) k, collection_object_id,publication_id  
-			from cf_temp_citation having count(*) >  1 group by 
+			 (select min(key) k, collection_object_id,publication_id
+			from cf_temp_citation having count(*) >  1 group by
 			collection_object_id,publication_id) b
 			where a.collection_object_id = b.collection_object_id and
 			a.publication_id = b.publication_id
@@ -406,7 +409,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 </cfif>
 <!------------------------------------------------------->
 <cfif #action# is "loadData">
-<cfoutput>	
+<cfoutput>
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_citation
 	</cfquery>
@@ -450,7 +453,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 					insert into identification_agent (
 						identification_id,
 						agent_id,
-						identifier_order) 
+						identifier_order)
 					values (
 						sq_identification_id.currval,
 						#AGENT_ID#,
@@ -464,7 +467,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				insert into identification_agent (
 					identification_id,
 					agent_id,
-					identifier_order) 
+					identifier_order)
 				values (
 					sq_identification_id.currval,
 					#agentid1#,
@@ -476,7 +479,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 					insert into identification_agent (
 						identification_id,
 						agent_id,
-						identifier_order) 
+						identifier_order)
 					values (
 						sq_identification_id.currval,
 						#agentid2#,
@@ -489,7 +492,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 					insert into identification_agent (
 						identification_id,
 						agent_id,
-						identifier_order) 
+						identifier_order)
 					values (
 						sq_identification_id.currval,
 						#agentid1#,
@@ -525,7 +528,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				publication_id,
 				collection_object_id,
 				cit_current_fg,
-				identification_id			
+				identification_id
 				<cfif len(occurs_page_number) gt 0>
 					,occurs_page_number
 				</cfif>
@@ -549,10 +552,10 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				<cfif len(citation_remarks) gt 0>
 					,'#citation_remarks#'
 				</cfif>
-			) 
+			)
 		</cfquery>
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_citation set status='loaded' where key=#key#			
+			update cf_temp_citation set status='loaded' where key=#key#
 		</cfquery>
 	</cfloop>
 	</cftransaction>
@@ -563,7 +566,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 <cfif #action# is "allDone">
 	<cfoutput>
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select publication_id,full_citation,status from cf_temp_citation group by publication_id,full_citation,status 	
+			select publication_id,full_citation,status from cf_temp_citation group by publication_id,full_citation,status
 		</cfquery>
 		<cfif #getTempData.recordcount# is 0>
 			something very strange happened. Contact a sysadmin.
