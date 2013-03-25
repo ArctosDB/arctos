@@ -81,7 +81,7 @@ https://n2t.net/ezid/id/
 			<cfhttpparam type = "header" name = "Accept" value = "text/plain">
 			<cfhttpparam type = "header" name = "Content-Type" value = "text/plain; charset=UTF-8">
 
-			<cfhttpparam type = "formField" name = "datacite.creator" value = "Arctos">
+			<cfhttpparam type = "formField" name = "creator" value = "Arctos">
 
 
 
