@@ -18,11 +18,10 @@
 
 		<cfhttp
 		    url = "https://n2t.net/"
-		    method = "put"
+		    method = "PUT"
 		    password = "apitest"
 		    path = "ezid/id/"
-		    username = "apitest"
-		    userAgent = "user agent">
+		    username = "apitest">
 
 
 
