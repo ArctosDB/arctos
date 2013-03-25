@@ -45,7 +45,7 @@ Documentation: http://n2t.net/ezid/doc/apidoc.html
 
 		<cfhttp url="https://n2t.net"
 			method="get"
-			path="/ezid/id/"
+			path="ezid/id/"
 			username="apitest"
 			password="apitest">
 			<cfhttpparam
