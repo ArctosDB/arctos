@@ -61,7 +61,7 @@ Documentation: http://n2t.net/ezid/doc/apidoc.html
 		-------------->
 https://n2t.net/ezid/id/
 		<cfhttp username="apitest" method="put"
-			password="apitest"  url="http://n2t.net/ezid/id/">
+			password="apitest"  url="https://n2t.net/ezid/id/">
 
 		</cfhttp>
 
