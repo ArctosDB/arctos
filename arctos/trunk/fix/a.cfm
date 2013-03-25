@@ -42,12 +42,13 @@ Documentation: http://n2t.net/ezid/doc/apidoc.html
 
 
 		-------------->
-
+https://n2t.net/ezid/id/
 		<cfhttp url="https://n2t.net"
 			method="get"
 			path="ezid/id/"
 			username="apitest"
-			password="apitest">
+			password="apitest"
+				port="443">
 			<cfhttpparam
 			    type = "header"
 			    name = "Accept"
