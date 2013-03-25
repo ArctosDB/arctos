@@ -67,6 +67,14 @@ Documentation: http://n2t.net/ezid/doc/apidoc.html
 
 		-------------->
 https://n2t.net/ezid/id/
+
+<cfset x="datacite.creator: Arctos,
+		datacite.title: this is a title,
+		datacite.publisher: this is hte publisher,
+		datacite.publicationyear: 1842,
+		datacite.resourcetype: Image">
+
+
 		<cfhttp username="apitest" password="apitest" method="POST" url="https://n2t.net/ezid/shoulder/doi:10.5072/FK2">
 			<cfhttpparam type = "header" name = "Accept" value = "text/plain">
 			<cfhttpparam type = "header" name = "Content-Type" value = "text/plain; charset=UTF-8">
@@ -74,11 +82,7 @@ https://n2t.net/ezid/id/
 
 
 
-			<cfhttpparam type = "header" name = "datacite.creator" value = "Arctos">
-			<cfhttpparam type = "header" name = "datacite.title" value = "this is a title">
-			<cfhttpparam type = "header" name = "datacite.publisher" value = "this is hte publisher">
-			<cfhttpparam type = "header" name = "datacite.publicationyear" value = "1842">
-			<cfhttpparam type = "header" name = "datacite.resourcetype" value = "Image">
+			<cfhttpparam type = "boxy"  value = "#x#">
 			<cfhttpparam type = "header" name = "_target" value = "http://arctos-test.tacc.utexas.edu/media/10219911">
 		</cfhttp>
 
