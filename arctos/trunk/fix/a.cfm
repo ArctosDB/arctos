@@ -59,7 +59,6 @@ Documentation: http://n2t.net/ezid/doc/apidoc.html
 
 
 
-			<cfhttpparam type = "formField" name = "datacite.creator" value = "Arctos">
 			<cfhttpparam type = "formField" name = "datacite.title" value = "this is a title">
 			<cfhttpparam type = "formField" name = "datacite.publisher" value = "this is hte publisher">
 			<cfhttpparam type = "formField" name = "datacite.publicationyear" value = "1842">
@@ -70,6 +69,9 @@ Documentation: http://n2t.net/ezid/doc/apidoc.html
 		publicationyear: 1842,
 		resourcetype: Image
 https://n2t.net/ezid/id/
+
+
+			<cfhttpparam type = "BODY"  value = "#x#">
 		-------------->
 
 <cfset x="datacitecreator: Arctos">
@@ -79,10 +81,10 @@ https://n2t.net/ezid/id/
 			<cfhttpparam type = "header" name = "Accept" value = "text/plain">
 			<cfhttpparam type = "header" name = "Content-Type" value = "text/plain; charset=UTF-8">
 
+			<cfhttpparam type = "formField" name = "datacite.creator" value = "Arctos">
 
 
 
-			<cfhttpparam type = "BODY"  value = "#x#">
 			<cfhttpparam type = "header" name = "_target" value = "http://arctos-test.tacc.utexas.edu/media/10219911">
 		</cfhttp>
 
