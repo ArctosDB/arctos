@@ -1,4 +1,6 @@
-	Documentation: http://n2t.net/ezid/doc/apidoc.html
+
+<!--------------
+Documentation: http://n2t.net/ezid/doc/apidoc.html
 
 	Username: apitest
 
@@ -36,5 +38,16 @@
 	}'>
 
 		<cfhttp attributecollection="#params#"></cfhttp>
+
+
+
+		-------------->
+
+		<cfhttp url="https://n2t.net"
+				method="get"
+					path="/ezid/id/"></cfhttp>
+
+
+
 
 		<cfdump var=#cfhttp#>
