@@ -74,7 +74,12 @@ https://n2t.net/ezid/id/
 			<cfhttpparam type = "BODY"  value = "#x#">
 		-------------->
 
-<cfset x="datacite.creator: Arctos#chr(10)#datacite.title: this is a title">
+<cfset x="datacite.creator: Arctos">
+<cfset x=x & chr(10) & "datacite.title: this is a title">
+<cfset x=x & chr(10) & "datacite.publisher: this is hte publisher">
+<cfset x=x & chr(10) & "datacite.publicationyear: 1846">
+<cfset x=x & chr(10) & "datacite.resourcetype: Image">
+
 
 
 		<cfhttp username="apitest" password="apitest" method="POST" url="https://n2t.net/ezid/shoulder/doi:10.5072/FK2">
