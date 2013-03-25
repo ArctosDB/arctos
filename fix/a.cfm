@@ -64,15 +64,15 @@ Documentation: http://n2t.net/ezid/doc/apidoc.html
 			<cfhttpparam type = "formField" name = "datacite.publisher" value = "this is hte publisher">
 			<cfhttpparam type = "formField" name = "datacite.publicationyear" value = "1842">
 			<cfhttpparam type = "formField" name = "datacite.resourcetype" value = "Image">
-
-		-------------->
-https://n2t.net/ezid/id/
-
-<cfset x="creator: Arctos,
+,
 		title: this is a title,
 		publisher: this is hte publisher,
 		publicationyear: 1842,
-		resourcetype: Image">
+		resourcetype: Image
+https://n2t.net/ezid/id/
+		-------------->
+
+<cfset x="datacitecreator: Arctos">
 
 
 		<cfhttp username="apitest" password="apitest" method="POST" url="https://n2t.net/ezid/shoulder/doi:10.5072/FK2">
