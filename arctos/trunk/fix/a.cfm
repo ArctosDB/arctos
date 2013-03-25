@@ -60,7 +60,7 @@ Documentation: http://n2t.net/ezid/doc/apidoc.html
 
 		-------------->
 https://n2t.net/ezid/id/
-		<cfhttp username="apitest" password="apitest" method="put" url="https://n2t.net/ezid/shoulder/FK2">
+		<cfhttp username="apitest" password="apitest" method="put" url="https://n2t.net/ezid/shoulder/doi:10.5072/FK2">
 			<cfhttpparam type = "header" name = "dc.creator" value = "the creator is MVZ">
 			<cfhttpparam type = "header" name = "dc.title" value = "this is a title">
 			<cfhttpparam type = "header" name = "dc.publisher" value = "this is hte publisher">
