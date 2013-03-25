@@ -1,14 +1,22 @@
-<!--- replace with "someone made a link to your stuff" ---->
-
-<cfabort>
-
-
 <cfinclude template="/includes/_header.cfm">
+<!----
 	<cfif dateformat(now(),"dd") is not 1>
 		This only runs on the first day of the month.
 		<cfabort>
 	</cfif>
+	---->
+
+
 	<cfoutput>
+
+
+		<cfquery name="contacts" datasource="uam_god">
+			select
+				count(*) from
+
+		</cfquery>
+		<!-------
+
 		<!--- pending relationships that have been in the table for >30d ---->
 		<cfquery name="contacts" datasource="uam_god">
 			select
@@ -44,5 +52,7 @@
 				See #application.serverRootUrl#/tools/pendingRelations.cfm?action=showStatus for more detail.
 			</cfmail>
 		</cfloop>
+
+		--->
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
