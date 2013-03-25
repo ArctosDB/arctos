@@ -41,9 +41,6 @@ Documentation: http://n2t.net/ezid/doc/apidoc.html
 
 
 
-		-------------->
-https://n2t.net/ezid/id/
-		<cfhttp url="https://n2t.net"
 			method="get"
 			path="ezid/id/"
 			username="apitest"
@@ -58,6 +55,12 @@ https://n2t.net/ezid/id/
 							    type = "header"
 							    name = "ark"
 							    value = "/99999/fk4cz3dh0">
+
+
+
+		-------------->
+https://n2t.net/ezid/id/
+		<cfhttp url="http://n2t.net/ezid/id/doi:10.5072/FK2C82JD2">
 		</cfhttp>
 
 
