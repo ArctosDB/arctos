@@ -16,18 +16,24 @@
 
 		r.add_header("Authorization", "Basic " + base64.b64encode("username:password"))
 
-	<cfset params="{
+	<cfset title=URLEncodedFormat('ALA V122164: Draba palanderiana Kjellman')>
+	<cfset creator=URLEncodedFormat('this is a test')>
+
+	<cfset publisher=URLEncodedFormat('MVZ')>
+	<cfset pyear=	URLEncodedFormat('2013')>
+	<cfset dURL=URLEncodedFormat('http://arctos-test.tacc.utexas.edu/media/56925')>
+	<cfset params='{
 		url = "https://n2t.net/",
 		method = "PUT",
 		password = "apitest",
 		path = "ezid/id/",
 		username = "apitest",
-		title="#URLEncodedFormat('ALA V122164: Draba palanderiana Kjellman')#",
-		creator="#URLEncodedFormat('this is a test')#",
-		publisher="#URLEncodedFormat('MVZ')#",
-		publication year="#URLEncodedFormat('2013')#",
-		url="#URLEncodedFormat('http://arctos-test.tacc.utexas.edu/media/56925')#"
-	}">
+		title="#title#",
+		creator="#creator#",
+		publisher="#publisher#",
+		publication year="#pyear#",
+		url="#dURL#"
+	}'>
 
 		<cfhttp attributecollection="#params#"></cfhttp>
 
