@@ -16,26 +16,19 @@
 
 		r.add_header("Authorization", "Basic " + base64.b64encode("username:password"))
 
-		<cfhttp
-		    url = "https://n2t.net/"
-		    method = "PUT"
-		    password = "apitest"
-		    path = "ezid/id/"
-		    username = "apitest">
+	<cfset params="{
+		url = "https://n2t.net/",
+		method = "PUT",
+		password = "apitest",
+		path = "ezid/id/",
+		username = "apitest",
+		title="#URLEncodedFormat('ALA V122164: Draba palanderiana Kjellman')#",
+		creator="#URLEncodedFormat('this is a test')#",
+		publisher="#URLEncodedFormat('MVZ')#",
+		publication year="#URLEncodedFormat('2013')#",
+		url="#URLEncodedFormat('http://arctos-test.tacc.utexas.edu/media/56925')#"
+	}">
 
-
-
-			<cfhttpparam
-			    type = "body"
-			    encoded = "yes"
-			    name = "title"
-			    value = "#URLEncodedFormat('ALA V122164: Draba palanderiana Kjellman')#">
-			<cfhttpparam type = "body" encoded = "yes" name = "creator" value = "#URLEncodedFormat('this is a test')#">
-			<cfhttpparam type = "body" encoded = "yes" name = "publisher" value = "#URLEncodedFormat('MVZ')#">
-			<cfhttpparam type = "body" encoded = "yes" name = "publication year" value = "#URLEncodedFormat('2013')#">
-			<cfhttpparam type = "body" encoded = "yes" name = "url" value = "#URLEncodedFormat('http://arctos-test.tacc.utexas.edu/media/56925')#">
-
-
-		</cfhttp>
+		<cfhttp attributecollection="#params#"></cfhttp>
 
 		<cfdump var=#cfhttp#>
