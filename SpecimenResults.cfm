@@ -108,6 +108,21 @@ function removeHelpDiv() {
 		'#session.CustomOtherIdentifier#' as myCustomIdType,
 		to_number(ConcatSingleOtherIdInt(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
 </cfif>
+
+
+	<!----
+
+	<cfif session.username is "dlm">
+		<cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_spec_res_cols
+			where column_name in ('dec_lat','dec_long','collection','cat_num','scientific_name','othercatalognumbers')
+			order by disp_order
+		</cfquery>
+	</cfif>
+	---->
+
+
+
 <cfloop query="r_d">
 	<cfif left(column_name,1) is not "_" and (
 		ListContainsNoCase(session.resultColumnList,column_name) OR category is 'required')>
