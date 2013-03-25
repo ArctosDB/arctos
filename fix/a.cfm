@@ -44,10 +44,20 @@ Documentation: http://n2t.net/ezid/doc/apidoc.html
 		-------------->
 
 		<cfhttp url="https://n2t.net"
-				method="get"
-					path="/ezid/id/"
+			method="get"
+			path="/ezid/id/"
 			username="apitest"
-			password="apitest"></cfhttp>
+			password="apitest">
+			<cfhttpparam
+			    type = "header"
+			    name = "Accept"
+			    value = "text/plain">
+
+				<cfhttpparam
+							    type = "header"
+							    name = "ark"
+							    value = "/99999/fk4cz3dh0">
+		</cfhttp>
 
 
 
