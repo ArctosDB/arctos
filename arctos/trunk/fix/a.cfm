@@ -26,14 +26,14 @@
 
 
 			<cfhttpparam
-			    type = "header"
+			    type = "body"
 			    encoded = "yes"
 			    name = "title"
 			    value = "#URLEncodedFormat('ALA V122164: Draba palanderiana Kjellman')#">
-			<cfhttpparam type = "header" encoded = "yes" name = "creator" value = "#URLEncodedFormat('this is a test')#">
-			<cfhttpparam type = "header" encoded = "yes" name = "publisher" value = "#URLEncodedFormat('MVZ')#">
-			<cfhttpparam type = "header" encoded = "yes" name = "publication year" value = "#URLEncodedFormat('2013')#">
-			<cfhttpparam type = "header" encoded = "yes" name = "url" value = "#URLEncodedFormat('http://arctos-test.tacc.utexas.edu/media/56925')#">
+			<cfhttpparam type = "body" encoded = "yes" name = "creator" value = "#URLEncodedFormat('this is a test')#">
+			<cfhttpparam type = "body" encoded = "yes" name = "publisher" value = "#URLEncodedFormat('MVZ')#">
+			<cfhttpparam type = "body" encoded = "yes" name = "publication year" value = "#URLEncodedFormat('2013')#">
+			<cfhttpparam type = "body" encoded = "yes" name = "url" value = "#URLEncodedFormat('http://arctos-test.tacc.utexas.edu/media/56925')#">
 
 
 		</cfhttp>
