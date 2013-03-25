@@ -60,11 +60,9 @@ Documentation: http://n2t.net/ezid/doc/apidoc.html
 
 		-------------->
 https://n2t.net/ezid/id/
-		<cfhttp username="apitest"
-			password="apitest" path="ezid/id/" url="http://n2t.net/"><cfhttpparam
-    type = "header"
-    name = "identifier"
-    value = "doi:10.5072/FK2C82JD2">
+		<cfhttp username="apitest" method="put"
+			password="apitest"  url="http://n2t.net/ezid/id/">
+
 		</cfhttp>
 
 
