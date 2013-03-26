@@ -14,6 +14,7 @@
 			<cfabort>
 		</cfif>
 		<cfif d.media_id gt 0>
+			<cfset media_id=d.media_id>
 			<cfinclude template="/MediaDetail.cfm">
 		<cfelse>
 			no DOI link found
