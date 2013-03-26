@@ -1,29 +1,20 @@
 <cfif listfindnocase(request.rdurl,'doi',"/")>
 	<cftry>
-
 		<cfset gPos=listfindnocase(request.rdurl,"doi","/")>
-		<cfdump var=#gPos#>
-
 		<cfset doi = listgetat(request.rdurl,gPos+1,"/")>
 		<cfquery name="d" datasource="cf_dbuser">
 			select * from doi where upper(doi)='#ucase(doi)#'
 		</cfquery>
-		<cfdump var=#d#>
 		<cfif d.recordcount is 0>
 			<cfinclude template="/errors/404.cfm">
-			<cfabort>
 		</cfif>
 		<cfif d.media_id gt 0>
 			<cfset media_id=d.media_id>
 			<cfinclude template="/MediaDetail.cfm">
 		<cfelse>
-			no DOI link found
 			<cfinclude template="/errors/404.cfm">
 		</cfif>
 	<cfcatch>
-		<cfdump var=#cfcatch#>
-
-
 		<cfinclude template="/errors/404.cfm">
 	</cfcatch>
 	</cftry>
