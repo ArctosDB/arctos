@@ -15,6 +15,9 @@
 			no DOI link found
 			<cfinclude template="/errors/404.cfm">
 		</cfif>
+	<cfcatch>
+		<cfinclude template="/errors/404.cfm">
+	</cfcatch>
 	</cftry>
 <cfelseif listfindnocase(request.rdurl,'specimen',"/")>
 	<cftry>
