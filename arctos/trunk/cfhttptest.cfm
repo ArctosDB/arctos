@@ -1,19 +1,20 @@
-<cfset strBaseURL = "http://arctos.database.museum">
+<cfoutput>
 
 <!--- Get the starting time. --->
 
 <cfset intStartTime = GetTickCount() />
 
-<cfhttp method="GET" url="#strBaseURL#"/>
+<cfhttp method="GET" url="http://arctos.database.museum"/>
 
-<cfoutput>
 
-          Single request: Results in
+          Single request GET of http://arctos.database.museum: Results in
 
           #NumberFormat(((GetTickCount() - intStartTime) / 1000),",.00")#
 
 </cfoutput>
 
+
+<!----
 <cfset intStartTime = GetTickCount() />
 
 <cfloop index="intGet" from="1" to="10" step="1">
@@ -42,7 +43,6 @@
 
 
 
-<cfoutput>
 
           <!--- Output retrieval times. --->
 
@@ -53,3 +53,5 @@
                seconds using CFHttp and CFThread</p>
 
 </cfoutput>
+
+---->
