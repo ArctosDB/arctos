@@ -1,3 +1,21 @@
+<cfif listfindnocase(request.rdurl,'doi',"/")>
+	<cftry>
+		<cfset gPos=listfindnocase(request.rdurl,"name","/")>
+		<cfset doi = listgetat(request.rdurl,gPos+1,"/")>
+		<cfquery name="d" datasource="cf_dbuser">
+			select * from doi where upper(doi)='#ucase(doi)#'
+		</cfquery>
+		<cfif d.recordcount is 0>
+			<cfinclude template="/errors/404.cfm">
+			<cfabort>
+		</cfif>
+		<cfif d.media_id gt 0>
+			<cfinclude template="/MediaDetail.cfm">
+		<cfelse>
+			no DOI link found
+			<cfinclude template="/errors/404.cfm">
+		</cfif>
+	</cftry>
 <cfif listfindnocase(request.rdurl,'specimen',"/")>
 	<cftry>
 		<cfset gPos=listfindnocase(request.rdurl,"specimen","/")>
