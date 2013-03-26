@@ -1,5 +1,6 @@
 <cfif listfindnocase(request.rdurl,'doi',"/")>
 	<cftry>
+
 		<cfset gPos=listfindnocase(request.rdurl,"doi","/")>
 		<cfdump var=#gPos#>
 
@@ -19,6 +20,9 @@
 			<cfinclude template="/errors/404.cfm">
 		</cfif>
 	<cfcatch>
+		<cfdump var=#cfcatch#>
+
+
 		<cfinclude template="/errors/404.cfm">
 	</cfcatch>
 	</cftry>
