@@ -5,6 +5,7 @@
 		<cfquery name="d" datasource="cf_dbuser">
 			select * from doi where upper(doi)='#ucase(doi)#'
 		</cfquery>
+		<cfdump var=#d#>
 		<cfif d.recordcount is 0>
 			<cfinclude template="/errors/404.cfm">
 			<cfabort>
