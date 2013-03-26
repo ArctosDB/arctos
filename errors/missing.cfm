@@ -1,6 +1,8 @@
 <cfif listfindnocase(request.rdurl,'doi',"/")>
 	<cftry>
-		<cfset gPos=listfindnocase(request.rdurl,"name","/")>
+		<cfset gPos=listfindnocase(request.rdurl,"doi","/")>
+		<cfdump var=#gPos#>
+
 		<cfset doi = listgetat(request.rdurl,gPos+1,"/")>
 		<cfquery name="d" datasource="cf_dbuser">
 			select * from doi where upper(doi)='#ucase(doi)#'
