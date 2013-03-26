@@ -73,27 +73,23 @@ https://n2t.net/ezid/id/
 
 			<cfhttpparam type = "BODY"  value = "#x#">
 		-------------->
+<cfoutput>
+<cfquery name="d" datasource="uam_god">
+		select
+			locality.LOCALITY_ID,
+			higher_geog,
+			SPEC_LOCALITY,
+			DEC_LAT,
+			DEC_LONG
+		from
+		locality,geog_auth_rec where
+		locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+		 S$LASTDATE is null and rownum<20
+	</cfquery>
+	<cfset obj = CreateObject("component","component.functions")>
 
-<cfset x="datacite.creator: Arctos">
-<cfset x=x & chr(10) & "datacite.title: this is a title">
-<cfset x=x & chr(10) & "datacite.publisher: this is hte publisher">
-<cfset x=x & chr(10) & "datacite.publicationyear: 1846">
-<cfset x=x & chr(10) & "datacite.resourcetype: Image">
-
-
-
-		<cfhttp username="apitest" password="apitest" method="POST" url="https://n2t.net/ezid/shoulder/doi:10.5072/FK2">
-			<cfhttpparam type = "header" name = "Accept" value = "text/plain">
-			<cfhttpparam type = "header" name = "Content-Type" value = "text/plain; charset=UTF-8">
-
-			<cfhttpparam type = "body" value = "#x#">
-
-
-
-			<cfhttpparam type = "header" name = "_target" value = "http://arctos-test.tacc.utexas.edu/media/10219911">
-		</cfhttp>
-
-
-
-
-		<cfdump var=#cfhttp#>
+	<cfloop query="d">
+		<cfset x=obj.getMap(locality_id=#locality_id#,forceOverrideCache=false)>
+		back for #locality_id#<br>
+	</cfloop>
+</cfoutput>
