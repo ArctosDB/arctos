@@ -466,6 +466,17 @@
 							</cfloop>
 						</cfloop>
 					</cfif>
+					<!--- and elevation while we're in here ---->
+					<cfset signedURL = obj.googleSignURL(
+						urlPath="/maps/api/elevation/json",
+						urlParams="locations=#URLEncodedFormat('#d.DEC_LAT#,#d.DEC_LONG#')#")>
+					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+					<cfif cfhttp.responseHeader.Status_Code is 200>
+						<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
+						<cfif isdefined("elevResult.status") and elevResult.status is "OK">
+							<cfset elevRslt=round(elevResult.results[1].elevation)>
+						</cfif>
+					</cfif>
 				</cfif>
 				<cfif len(d.spec_locality) gt 0 and len(d.higher_geog) gt 0>
 					<cfset signedURL = obj.googleSignURL(
