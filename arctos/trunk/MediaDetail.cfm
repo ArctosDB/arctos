@@ -10,12 +10,15 @@
                        media.media_type,
                        media.preview_uri,
                        ctmedia_license.uri,
-                       ctmedia_license.display
+                       ctmedia_license.display,
+						doi
                 from
                         media,
-                        ctmedia_license
+                        ctmedia_license,
+						doi
                 where
                         media.media_license_id=ctmedia_license.media_license_id (+) and
+						media.media_id=doi.media_id (+) and
                         media.media_id = #media_id#
         </cfquery>
         <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
@@ -91,6 +94,10 @@
 							</cfif>
                         </td>
                         <td>
+
+										<cfif len(findIDs.doi) gt 0>
+											<ul><li>DOI:#findIDs.findIDs#</li></ul>
+										</cfif>
 							<cfif len(desc.label_value) gt 0>
 								<ul><li>#desc.label_value#</li></ul>
 							</cfif>
