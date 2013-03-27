@@ -53,6 +53,19 @@
 										</cfloop>
 									</cfloop>
 								</cfif>
+
+								<cfset signedURL = obj.googleSignURL(
+									urlPath="/maps/api/elevation/json",
+									urlParams="locations=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#")>
+								<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+								<cfif cfhttp.responseHeader.Status_Code is 200>
+									<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
+									<cfif isdefined("elevResult.status") and elevResult.status is "OK">
+										<cfset elevRslt=round(elevResult.results[1].elevation)>
+									</cfif>
+								</cfif>
+
+
 							</cfif>
 							<cfif len(spec_locality) gt 0 and len(higher_geog) gt 0>
 								<cfset signedURL = obj.googleSignURL(
@@ -100,18 +113,7 @@
 									</cfif>
 								</cfif>
 							</cfif>
-							<cfif len(S_ELEVATION) is 0 and len(DEC_LAT) gt 0 and len(DEC_LONG) gt 0>
-								<cfset signedURL = obj.googleSignURL(
-									urlPath="/maps/api/elevation/json",
-									urlParams="locations=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#")>
-								<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-								<cfif cfhttp.responseHeader.Status_Code is 200>
-									<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
-									<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-										<cfset elevRslt=round(elevResult.results[1].elevation)>
-									</cfif>
-								</cfif>
-							</cfif>
+
 							<!---- update cache ---->
 							<cfquery name="upEsDollar" datasource="uam_god">
 								update locality set
