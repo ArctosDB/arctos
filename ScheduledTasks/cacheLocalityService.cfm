@@ -36,7 +36,7 @@
 					#signedURL#
 			<br>
 			---->
-			<cfhttp result="x" method="GET" url="#signedURL#"/>
+			<cfhttp result="x" method="GET" url="#signedURL#" timeout="20" />
 
 
 
@@ -65,7 +65,7 @@
 
 			<cfset signedURL = obj.googleSignURL(urlPath="/maps/api/elevation/json",urlParams="locations=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#")>
 
-			<cfhttp result="x" method="GET" url="#signedURL#"/>
+			<cfhttp result="x" method="GET" url="#signedURL#" timeout="20" />
 <!---
 
 			<hr>
@@ -86,7 +86,7 @@
 			<cfset signedURL = obj.googleSignURL(
 				urlPath="/maps/api/geocode/json",
 				urlParams="address=#URLEncodedFormat('#spec_locality#, #higher_geog#')#")>
-			<cfhttp result="x" method="GET" url="#signedURL#"/>
+			<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
 		<!----
 			<hr>
 
@@ -115,7 +115,7 @@
 					urlPath="/maps/api/geocode/json",
 					urlParams="address=#URLEncodedFormat('#higher_geog#')#")>
 
-				<cfhttp result="x" method="GET" url="#signedURL#"/>
+				<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
 			<!----
 				<hr>
 
