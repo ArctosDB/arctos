@@ -133,17 +133,18 @@
 					<cfset slon=llresult.results[1].geometry.location.lng>
 				</cfif>
 			</cfif>
+		</cfif>
 
-							<!---- update cache ---->
-							<cfquery name="upEsDollar" datasource="uam_god">
-								update locality set
-									S$ELEVATION=<cfif len(elevRslt) is 0>NULL<cfelse>#elevRslt#</cfif>,
-									S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
-									S$DEC_LAT=<cfif len(slat) is 0>NULL<cfelse>#slat#</cfif>,
-									S$DEC_LONG=<cfif len(slon) is 0>NULL<cfelse>#slon#</cfif>,
-									S$LASTDATE=sysdate
-								where locality_id=#locality_id#
-							</cfquery>
+		<!---- update cache ---->
+		<cfquery name="upEsDollar" datasource="uam_god">
+			update locality set
+				S$ELEVATION=<cfif len(elevRslt) is 0>NULL<cfelse>#elevRslt#</cfif>,
+				S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
+				S$DEC_LAT=<cfif len(slat) is 0>NULL<cfelse>#slat#</cfif>,
+				S$DEC_LONG=<cfif len(slon) is 0>NULL<cfelse>#slon#</cfif>,
+				S$LASTDATE=sysdate
+			where locality_id=#locality_id#
+		</cfquery>
 
 <!----
 						<cfmail subject="threadreport" to="dustymc@gmail.com" from="threadreport@#Application.fromEmail#" type="html">
@@ -152,15 +153,15 @@
 						----->
 		<hr>
 
-							finished a thread in  #NumberFormat(((GetTickCount() - intStartTime) / 1000),",.00")#
-							<hr>
-							update locality set
-									S$ELEVATION=<cfif len(elevRslt) is 0>NULL<cfelse>#elevRslt#</cfif>,
-									S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
-									S$DEC_LAT=<cfif len(slat) is 0>NULL<cfelse>#slat#</cfif>,
-									S$DEC_LONG=<cfif len(slon) is 0>NULL<cfelse>#slon#</cfif>,
-									S$LASTDATE=sysdate
-								where locality_id=#locality_id#
+		finished a thread in  #NumberFormat(((GetTickCount() - intStartTime) / 1000),",.00")#
+		<hr>
+		update locality set
+				S$ELEVATION=<cfif len(elevRslt) is 0>NULL<cfelse>#elevRslt#</cfif>,
+				S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
+				S$DEC_LAT=<cfif len(slat) is 0>NULL<cfelse>#slat#</cfif>,
+				S$DEC_LONG=<cfif len(slon) is 0>NULL<cfelse>#slon#</cfif>,
+				S$LASTDATE=sysdate
+			where locality_id=#locality_id#
 
 
 	</cfloop>
