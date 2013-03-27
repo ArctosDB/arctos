@@ -96,7 +96,7 @@
                         <td>
 
 										<cfif len(findIDs.doi) gt 0>
-											<ul><li>DOI:#findIDs.findIDs#</li></ul>
+											<ul><li>DOI:#findIDs.doi#</li></ul>
 										</cfif>
 							<cfif len(desc.label_value) gt 0>
 								<ul><li>#desc.label_value#</li></ul>
