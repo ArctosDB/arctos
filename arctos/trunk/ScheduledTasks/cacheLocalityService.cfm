@@ -38,7 +38,7 @@
 			---->
 			<cfhttp result="x" method="GET" url="#signedURL#"/>
 
-	<cfdump var=#x#>
+
 
 <!----
 			<hr>
@@ -46,7 +46,7 @@
 			back from call with this:
 
 			<hr>
-
+<cfdump var=#x#>
 
 
 			<hr>
