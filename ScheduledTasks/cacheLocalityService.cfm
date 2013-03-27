@@ -44,7 +44,7 @@
 								<br>
 										#signedURL#
 								<br>
-								<cfsavecontent variable="X">
+								<cfsavecontent variable="x">
 									<cfexecute name = "/usr/bin/curl" arguments = "#signedURL#"></cfexecute>
 								</cfsavecontent>
 
