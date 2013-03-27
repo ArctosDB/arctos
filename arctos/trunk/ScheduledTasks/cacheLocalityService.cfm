@@ -136,7 +136,7 @@
 		</cfif>
 
 		<!---- update cache ---->
-		<cfquery name="upEsDollar" datasource="uam_god">
+		<cfquery name="upEsDollar" datasource="prod">
 			update locality set
 				S$ELEVATION=<cfif len(elevRslt) is 0>NULL<cfelse>#elevRslt#</cfif>,
 				S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
