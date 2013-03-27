@@ -11,4 +11,18 @@
 
 	          #NumberFormat(((GetTickCount() - intStartTime) / 1000),",.00")#
 
+
+
+
+		<cfexecute name = "/usr/bin/curl"
+		arguments = "http://www.tacc.utexas.edu/"
+		timeout = "20">
+		</cfexecute>
+		done page grab!	          #NumberFormat(((GetTickCount() - intStartTime) / 1000),",.00")#
+
+
+<cfdump var=#cfexecte#>
+
+
+
 	</cfoutput>
