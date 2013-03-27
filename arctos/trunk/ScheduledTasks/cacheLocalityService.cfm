@@ -39,6 +39,11 @@
 								<cfset signedURL = obj.googleSignURL(
 									urlPath="/maps/api/geocode/json",
 									urlParams="latlng=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#")>
+
+								<br>going to get
+								<br>
+										#signedURL#
+								<br>
 								<cfsavecontent variable="X">
 									<cfexecute name = "/usr/bin/curl" arguments = "#signedURL#"></cfexecute>
 								</cfsavecontent>
