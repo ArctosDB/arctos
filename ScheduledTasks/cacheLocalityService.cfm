@@ -75,7 +75,7 @@
 			<hr>
 
 ---->
-			<cfset elevResult=DeserializeJSON(x)>
+			<cfset elevResult=DeserializeJSON(x.filecontent)>
 			<cfif isdefined("elevResult.status") and elevResult.status is "OK">
 				<cfset elevRslt=round(elevResult.results[1].elevation)>
 			</cfif>
@@ -95,7 +95,7 @@
 			<hr>
 ---->
 
-			<cfset llresult=DeserializeJSON(x)>
+			<cfset llresult=DeserializeJSON(x.filecontent)>
 			<cfif llresult.status is "OK">
 				<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 					<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
@@ -124,7 +124,7 @@
 				<hr>
 ---->
 
-				<cfset llresult=DeserializeJSON(x)>
+				<cfset llresult=DeserializeJSON(x.filecontent)>
 				<cfif llresult.status is "OK">
 					<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 						<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
