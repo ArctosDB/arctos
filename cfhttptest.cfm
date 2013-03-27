@@ -13,13 +13,17 @@
 
 
 
-
+<cfsavecontent variable="X">
 		<cfexecute name = "/usr/bin/curl"
 		arguments = "http://www.tacc.utexas.edu/"
 		timeout = "20">
 		</cfexecute>
+		</cfsavecontent>
 		done page grab!	          #NumberFormat(((GetTickCount() - intStartTime) / 1000),",.00")#
 
+here's x
+
+<cfdump var=#x#>
 <!----
 
 <cfdump var=#cfexecte#>
