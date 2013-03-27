@@ -9,7 +9,7 @@
 		from
 		locality,geog_auth_rec where
 		locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
-		 S$LASTDATE is null and rownum<20
+		 S$LASTDATE is null and rownum<2
 	</cfquery>
 	<cfset obj = CreateObject("component","component.functions")>
 
@@ -39,9 +39,12 @@
 								<cfset signedURL = obj.googleSignURL(
 									urlPath="/maps/api/geocode/json",
 									urlParams="latlng=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#")>
-								<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-								<cfif cfhttp.responseHeader.Status_Code is 200>
-									<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+								<cfsavecontent variable="X">
+									<cfexecute name = "/usr/bin/curl" arguments = "#signedURL#"></cfexecute>
+								</cfsavecontent>
+
+
+									<cfset llresult=DeserializeJSON(x)>
 									<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 										<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
 											<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
@@ -52,18 +55,18 @@
 											</cfif>
 										</cfloop>
 									</cfloop>
-								</cfif>
 
 								<cfset signedURL = obj.googleSignURL(
 									urlPath="/maps/api/elevation/json",
 									urlParams="locations=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#")>
-								<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-								<cfif cfhttp.responseHeader.Status_Code is 200>
-									<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
+									<cfsavecontent variable="X">
+										<cfexecute name = "/usr/bin/curl" arguments = "#signedURL#"></cfexecute>
+									</cfsavecontent>
+
+									<cfset elevResult=DeserializeJSON(x.fileContent)>
 									<cfif isdefined("elevResult.status") and elevResult.status is "OK">
 										<cfset elevRslt=round(elevResult.results[1].elevation)>
 									</cfif>
-								</cfif>
 
 
 							</cfif>
