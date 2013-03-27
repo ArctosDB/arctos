@@ -25,7 +25,7 @@
 						<cfset intStartTime = GetTickCount() />
 
 						<!--- for some strange reason, this must be mapped like zo.... ----->
-						<cfset obj = CreateObject("component","functions")>
+						<cfset obj = CreateObject("component","component.functions")>
 
 
 
