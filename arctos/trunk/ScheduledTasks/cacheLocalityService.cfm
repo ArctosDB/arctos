@@ -14,7 +14,6 @@
 	<cfset obj = CreateObject("component","component.functions")>
 
 	<cfloop query="d">
-			<cfthread
 						action="run"
 						name="EsDollar#d.locality_id#"
 						locality_id="#d.locality_id#"
@@ -124,8 +123,13 @@
 								where locality_id=#locality_id#
 							</cfquery>
 
-
+<!----
 						<cfmail subject="threadreport" to="dustymc@gmail.com" from="threadreport@#Application.fromEmail#" type="html">
+
+</cfmail>
+						----->
+		<hr>
+
 							finished a thread in  #NumberFormat(((GetTickCount() - intStartTime) / 1000),",.00")#
 							<hr>
 							update locality set
@@ -135,8 +139,7 @@
 									S$DEC_LONG=<cfif len(slon) is 0>NULL<cfelse>#slon#</cfif>,
 									S$LASTDATE=sysdate
 								where locality_id=#locality_id#
-						</cfmail>
 
-					</cfthread>
+
 	</cfloop>
 </cfoutput>
