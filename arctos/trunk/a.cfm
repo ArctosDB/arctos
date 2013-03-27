@@ -1,4 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
+	<cfexecute name = "C:\curl7_18_0\curl.exe"
+	arguments = " http://www.adobe.com/"
+	outputfile="C:\curl7_18_0\adobePage.html"
+	timeout = "20">
+	</cfexecute>
+	done page grab!
 
 <cfoutput>
 	HI
