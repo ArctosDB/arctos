@@ -51,7 +51,7 @@
 
 			<hr>
 			---->
-			<cfset llresult=DeserializeJSON(x)>
+			<cfset llresult=DeserializeJSON(x.filecontent)>
 			<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 				<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
 					<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
