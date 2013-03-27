@@ -9,7 +9,7 @@
 		from
 		locality,geog_auth_rec where
 		locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
-		 S$LASTDATE is null and rownum<200
+		 S$LASTDATE is null and rownum<20
 	</cfquery>
 	<cfset obj = CreateObject("component","component.functions")>
 
