@@ -22,15 +22,16 @@
 		<cfset elevRslt=''>
 		<cfif len(DEC_LAT) gt 0 and len(DEC_LONG) gt 0>
 			<cfset signedURL = obj.googleSignURL(urlPath="/maps/api/geocode/json",urlParams="latlng=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#")>
-
+<!----
 			<br>going to get
 			<br>
 					#signedURL#
 			<br>
+			---->
 			<cfsavecontent variable="x">
 				<cfexecute name = "/usr/bin/curl" arguments = "#signedURL#" timeout="20"></cfexecute>
 			</cfsavecontent>
-
+<!----
 			<hr>
 
 			back from call with this:
@@ -40,6 +41,7 @@
 			<cfdump var=#x#>
 
 			<hr>
+			---->
 			<cfset llresult=DeserializeJSON(x)>
 			<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 				<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
@@ -56,7 +58,7 @@
 			<cfsavecontent variable="x">
 				<cfexecute name = "/usr/bin/curl" arguments = "#signedURL#" timeout="20"></cfexecute>
 			</cfsavecontent>
-
+<!---
 
 			<hr>
 
@@ -64,7 +66,7 @@
 
 			<hr>
 
-
+---->
 			<cfset elevResult=DeserializeJSON(x)>
 			<cfif isdefined("elevResult.status") and elevResult.status is "OK">
 				<cfset elevRslt=round(elevResult.results[1].elevation)>
@@ -79,12 +81,13 @@
 			<cfsavecontent variable="x">
 				<cfexecute name = "/usr/bin/curl" arguments = "#signedURL#" timeout="20"></cfexecute>
 			</cfsavecontent>
+		<!----
 			<hr>
 
 			<cfdump var=#x#>
 
 			<hr>
-
+---->
 
 			<cfset llresult=DeserializeJSON(x)>
 			<cfif llresult.status is "OK">
@@ -110,12 +113,13 @@
 
 				<cfexecute name = "/usr/bin/curl" arguments = "#signedURL#" timeout="20"></cfexecute>
 				</cfsavecontent>
+			<!----
 				<hr>
 
 				<cfdump var=#x#>
 
 				<hr>
-
+---->
 
 				<cfset llresult=DeserializeJSON(x)>
 				<cfif llresult.status is "OK">
@@ -162,6 +166,7 @@
 				S$DEC_LONG=<cfif len(slon) is 0>NULL<cfelse>#slon#</cfif>,
 				S$LASTDATE=sysdate
 			where locality_id=#locality_id#
+	<hr>
 
 
 	</cfloop>
