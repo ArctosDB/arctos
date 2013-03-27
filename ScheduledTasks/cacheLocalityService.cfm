@@ -43,7 +43,15 @@
 									<cfexecute name = "/usr/bin/curl" arguments = "#signedURL#"></cfexecute>
 								</cfsavecontent>
 
+<hr>
 
+back from call with this:
+
+<hr>
+
+<cfdump var=#x#>
+
+<hr>
 									<cfset llresult=DeserializeJSON(x)>
 									<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
 										<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
