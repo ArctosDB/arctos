@@ -38,7 +38,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 <script type='text/javascript' src='/includes/loadLoanPart.js'></script>
 <cfif action is "makeTemplate">
 	<cfset header="BARCODE,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,PART_NAME,PART_DISPOSITION,PART_CONDITION,ITEM_DESCRIPTION,ITEM_REMARKS,SUBSAMPLE,LOAN_NUMBER">
-	<cffile action = "write" 
+	<cffile action = "write"
     file = "#Application.webDirectory#/download/BulkLoanItemTemplate.csv"
     output = "#header#"
     addNewLine = "no">
@@ -61,7 +61,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 </cfoutput>
 	Step 1: Upload a file comma-delimited text file (CSV). Include column headers.
 	<br>
-	<a href="loanBulkload.cfm?action=makeTemplate">[ get a template ]</a> 
+	<a href="loanBulkload.cfm?action=makeTemplate">[ get a template ]</a>
 	<table border>
 		<tr>
 			<th>ColumnName</th>
@@ -73,7 +73,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 			<td>barcode</td>
 			<td>yes (or specimen+part)</td>
 			<td>
-				Part's immediate parent container - the cryovial holding a tissue sample, for example. 
+				Part's immediate parent container - the cryovial holding a tissue sample, for example.
 				Used preferentially instead of cataloged item + part information.
 			</td>
 			<td><a  target="_blank" class="external" href="http://arctosdb.org/documentation/container/">docs</a></td>
@@ -107,7 +107,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 			<td>yes</td>
 			<td>update the part to this disposition - generally "on loan"</td>
 			<td><a target="_blank" href="/info/ctDocumentation.cfm?table=CTCOLL_OBJ_DISP">CTCOLL_OBJ_DISP</a></td>
-		</tr>		
+		</tr>
 		<tr>
 			<td>PART_CONDITION</td>
 			<td>no</td>
@@ -153,7 +153,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
-	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />	
+	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
@@ -167,7 +167,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -185,20 +185,20 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 <cfoutput>
 <cftransaction>
 	<cfquery name="loanID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			cf_temp_loan_item 
-		set 
-			(guid_prefix) 
+		update
+			cf_temp_loan_item
+		set
+			(guid_prefix)
 		= (select
-				collection.guid_prefix 
-			from 
+				collection.guid_prefix
+			from
 				collection,
 				cataloged_item,
 				specimen_part,
-				coll_obj_cont_hist, 
-				container partcontainer, 
+				coll_obj_cont_hist,
+				container partcontainer,
 				container barcodecontainer
-			where 
+			where
 				collection.collection_id=cataloged_item.collection_id and
 				cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
 				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
@@ -206,20 +206,20 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 				partcontainer.parent_container_id=barcodecontainer.container_id and
 				barcodecontainer.barcode=cf_temp_loan_item.barcode
 			)
-			where 
+			where
 				guid_prefix is null and
 				barcode is not null
 	</cfquery>
 	<cfquery name="loanID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			cf_temp_loan_item 
-		set 
-			(transaction_id) 
+		update
+			cf_temp_loan_item
+		set
+			(transaction_id)
 		= (select
-				loan.transaction_id 
-			from 
+				loan.transaction_id
+			from
 				trans,loan,collection
-			where 
+			where
 				trans.transaction_id = loan.transaction_id and
 				trans.collection_id = collection.collection_id and
 				upper(collection.guid_prefix)=upper(cf_temp_loan_item.guid_prefix) and
@@ -230,22 +230,22 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 		update cf_temp_loan_item set status = 'loan not found' where transaction_id is null
 	</cfquery>
 	<cfquery name="missedMe2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			cf_temp_loan_item 
-		set 
-			status = 'disposition not found' 
+		update
+			cf_temp_loan_item
+		set
+			status = 'disposition not found'
 		where
-			PART_DISPOSITION is not null and 
+			PART_DISPOSITION is not null and
 			PART_DISPOSITION not in (select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP)
 	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_loan_item where status is null
-	</cfquery>  
+	</cfquery>
 		<cfloop query="data">
 			<cfset msg="spiffy">
 			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					specimen_part.collection_object_id 
+				select
+					specimen_part.collection_object_id
 				from
 					cataloged_item,
 					collection,
@@ -253,8 +253,8 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 					coll_object,
 					coll_obj_other_id_num
 					<cfif len(barcode) gt 0>
-						,coll_obj_cont_hist, 
-						container partcontainer, 
+						,coll_obj_cont_hist,
+						container partcontainer,
 						container barcodecontainer
 					</cfif>
 				where
@@ -282,11 +282,11 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 				group by
 					specimen_part.collection_object_id
 			</cfquery>
-			
-			
-			
-			select 
-					specimen_part.collection_object_id 
+
+
+
+			select
+					specimen_part.collection_object_id
 				from
 					cataloged_item,
 					collection,
@@ -294,8 +294,8 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 					coll_object,
 					coll_obj_other_id_num
 					<cfif len(barcode) gt 0>
-						,coll_obj_cont_hist, 
-						container partcontainer, 
+						,coll_obj_cont_hist,
+						container partcontainer,
 						container barcodecontainer
 					</cfif>
 				where
@@ -322,9 +322,9 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 					</cfif>
 				group by
 					specimen_part.collection_object_id
-					
-					
-					
+
+
+
 			<cfif collObj.recordcount is not 1>
 				<cfset msg="coll object found #collObj.recordcount# times">
 			</cfif>
@@ -333,16 +333,16 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 					cf_temp_loan_item
 				set
 					status='#msg#',
-					partID = #collObj.collection_object_id#
+					partID = <cfif len(collObj.collection_object_id) gt 0>#collObj.collection_object_id#<cfelse>NULL</cfif>
 				where
 					key=#key#
 			</cfquery>
 		</cfloop>
 		<cfquery name="defDescr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_loan_item 
+			update
+				cf_temp_loan_item
 			set (ITEM_DESCRIPTION) = (
-				select 
+				select
 					collection.collection || ' ' || cataloged_item.cat_num || ' ' || specimen_part.part_name
 				from
 					cataloged_item,
@@ -385,7 +385,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 		Something isn't happy. Check the status column in the above table, fix your data, and try again.
 		<br> Duplicate parts? <a href="loanBulkload.cfm?action=pickPart">You can pick them</a>.
 	</cfif>
-	
+
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
@@ -442,8 +442,8 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 			</cfquery>
 			<cfif len(lData.ITEM_DESCRIPTION) is 0>
 				<cfquery name="defDescr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update 
-						cf_temp_loan_item 
+					update
+						cf_temp_loan_item
 						set (ITEM_DESCRIPTION)
 						= (
 							select collection.collection || ' ' || cat_num || ' ' || part_name
@@ -457,8 +457,8 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 							cataloged_item.collection_id = collection.collection_id
 					)
 					where ITEM_DESCRIPTION is null and key=#thisKey#
-				</cfquery>				
-			</cfif>			
+				</cfquery>
+			</cfif>
 		</cfif>
 	</cfloop>
 	<cflocation url="loanBulkload.cfm?action=verify">
@@ -546,13 +546,13 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 					)
 			</cfquery>
 			<cfquery name="usp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update 
-					coll_object 
+				update
+					coll_object
 				set
 					COLL_OBJ_DISPOSITION='#PART_DISPOSITION#'
 					<cfif len(PART_CONDITION) gt 0>
 						condition='#PART_CONDITION#'
-					</cfif> 
+					</cfif>
 				where
 					collection_object_id=#partID#
 			</cfquery>

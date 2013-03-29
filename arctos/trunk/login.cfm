@@ -55,7 +55,7 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------>
-<CFIF  action is "signIn">
+<CFIF action is "signIn">
 	<cfoutput>
 		<cfset initSession('#username#','#password#')>
 		<cfif len(session.username) is 0>
