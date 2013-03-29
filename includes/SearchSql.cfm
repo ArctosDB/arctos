@@ -53,7 +53,7 @@
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND upper(specimen_event.collecting_method) like '#ucase(escapeQuotes(collecting_method))#'">
+	<cfset basQual = " #basQual# AND upper(specimen_event.collecting_method) like '%#ucase(escapeQuotes(collecting_method))#%'">
 </cfif>
 <cfif isdefined("collecting_source") AND len(collecting_source) gt 0>
 	<cfset mapurl = "#mapurl#&collecting_source=#collecting_source#">

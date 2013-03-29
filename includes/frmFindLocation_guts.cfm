@@ -383,11 +383,11 @@
 											<table>
 												<tr>
 													<td>
-														<label for="dec_lat">DecLat (negative is east)</label>
+														<label for="dec_lat">DecLat (negative is south)</label>
 														<input type="text" name="dec_lat" id="dec_lat">
 													</td>
 													<td>
-														<label for="dec_long">DecLong (negative is south)</label>
+														<label for="dec_long">DecLong (negative is west)</label>
 														<input type="text" name="dec_long" id="dec_long">
 													</td>
 													<td>
