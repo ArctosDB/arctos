@@ -1363,6 +1363,9 @@
 			c.parent_container_id=p.container_id and
 			cataloged_item.collection_object_id=#collection_object_id#
 		</cfquery>
+		<cfif session.username is "dlm">
+			<cfdump var=#barcode#>
+		</cfif>
 		<cfloop query="barcode">
 			<cfquery name="ocr" datasource="taccocr">
 				select label from output where barcode = '#barcode#'
