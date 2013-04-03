@@ -109,7 +109,7 @@
 		<cfset d = querynew("STATUS,CREATOR,PUBLISHER,PUBLICATIONYEAR,RESOURCETYPE")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "STATUS", STATUS, 1)>
-		<cfset temp = QuerySetCell(d, "CREATOR", 'createdby.agent_name', 1)>
+		<cfset temp = QuerySetCell(d, "CREATOR", createdby.agent_name, 1)>
 		<!--- no great resolution here - figure it out on the other end --->
 		<cfset temp = QuerySetCell(d, "PUBLISHER", '', 1)>
 		<cfset temp = QuerySetCell(d, "PUBLICATIONYEAR", publicationyear, 1)>
