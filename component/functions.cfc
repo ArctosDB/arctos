@@ -1,4 +1,137 @@
 <cfcomponent>
+	<cffunction name="getDOIMeta" access="remote" returnformat="json">
+   	<cfargument name="media_id" required="false" type="numeric">
+	<cfif isdefined("media_id") and len(media_id) gt 0>
+		<!--- get the basic stuff ---->
+		<cfquery name="media" datasource="uam_god">
+			select
+				media.MEDIA_URI,
+				media.MEDIA_TYPE
+			from
+				media
+			where
+				media_id=#media_id#
+		</cfquery>
+		<cfquery name="createdby" datasource="uam_god">
+			select
+				agent_name
+			from
+				preferred_agent_name,
+				media_relations
+			where
+				media_relations.MEDIA_RELATIONSHIP='created by agent' and
+				media_relations.RELATED_PRIMARY_KEY=preferred_agent_name.agent_id and
+				media_relations.media_id=#media_id#
+		</cfquery>
+		<cfquery name="description" datasource="uam_god">
+			select
+				LABEL_VALUE
+			from
+				media_labels
+			where
+				MEDIA_LABEL='description' and
+				media_id=#media_id#
+		</cfquery>
+		<!--- try to get "published year" from collecting event ---->
+		<cfquery name="pyear" datasource="uam_god">
+			select
+				began_date publisheddateraw
+			from
+				media_relations,
+				collecting_event
+			where
+				media_relations.media_relationship='created from collecting_event' and
+				media_relations.RELATED_PRIMARY_KEY=collecting_event.collecting_event_id and
+				media_relations.media_id=#media_id#
+		</cfquery>
+		<cfif pyear.recordcount neq 1>
+			<!--- no "published year" from collecting event available - try locality ---->
+			<cfquery name="pyear" datasource="uam_god">
+				select
+					began_date publisheddateraw
+				from
+					media_relations,
+					collecting_event,
+					locality
+				where
+					media_relations.media_relationship='shows locality' and
+					media_relations.RELATED_PRIMARY_KEY=locality.locality_id and
+					locality.locality_id=collecting_event.collecting_event_id and
+					media_relations.media_id=#media_id#
+			</cfquery>
+			<cfif pyear.recordcount neq 1>
+				<!--- no "published year" from locality available - try label 'published year' ---->
+				<cfquery name="pyear" datasource="uam_god">
+					select
+						LABEL_VALUE publisheddateraw
+					from
+						media_labels
+					where
+						MEDIA_LABEL='published year' and
+						media_id=#media_id#
+				</cfquery>
+				<cfif pyear.recordcount neq 1>
+					<!--- no "published year" from label 'published year' available - try label 'made date' ---->
+					<cfquery name="pyear" datasource="uam_god">
+						select
+							LABEL_VALUE publisheddateraw
+						from
+							media_labels
+						where
+							MEDIA_LABEL='made date' and
+							media_id=#media_id#
+					</cfquery>
+				</cfif>
+			</cfif>
+		</cfif>
+		<!--- see if we got something that looks like a date --->
+		<cfif isdate(pyear.publisheddateraw)>
+			<cfset publicationyear=dateformat(pyear.publisheddateraw,"yyyy")>
+		<cfelse>
+			<!---- no dates anywhere - fall back to now ---->
+			<cfset publicationyear=dateformat(now(),"yyyy")>
+		</cfif>
+		<cfset status="success">
+		<cfif len(media.MEDIA_URI) is 0>
+			<cfset status='media not found'>
+		</cfif>
+		<cfif media.MEDIA_TYPE is 'image'>
+			<cfset resourcetype='Image'>
+		<cfelse>
+			<cfset status='invalid resourcetype'>
+		</cfif>
+		<cfif len(createdby.agent_name) is 0>
+			<cfset status='created by agent not found'>
+		</cfif>
+		<cfif len(description.LABEL_VALUE) is 0>
+			<cfset status='description not found'>
+		</cfif>
+		<cfset d = querynew("STATUS,CREATOR,PUBLISHER,PUBLICATIONYEAR,RESOURCETYPE">
+		<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "STATUS", STATUS, 1)>
+		<cfset temp = QuerySetCell(d, "CREATOR", 'createdby.agent_name', 1)>
+		<!--- no great resolution here - figure it out on the other end --->
+		<cfset temp = QuerySetCell(d, "PUBLISHER", '', 1)>
+		<cfset temp = QuerySetCell(d, "PUBLICATIONYEAR", publicationyear, 1)>
+		<cfset temp = QuerySetCell(d, "RESOURCETYPE", resourcetype, 1)>
+
+	<cfelse><!---- no pkey that we can deal with --->
+		<cfset d = querynew("STATUS,CREATOR,PUBLISHER,PUBLICATIONYEAR,RESOURCETYPE">
+		<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "STATUS", 'no useful primary key passed in', 1)>
+	</cfif>
+
+	<cfreturn d>
+</cffunction>
+
+
+
+
+
+
+
+
+
 <cffunction name="reverseGeocode" access="remote" returnformat="json">
 	<cfreturn "ok">
 
