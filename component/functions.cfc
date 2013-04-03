@@ -161,7 +161,7 @@
 		<cfset newDOI=replace(cfhttp.filecontent,'success:','')>
 		<cfset newDOI=listgetat(newDOI,1,"|")>
 		<cfset newDOI=replace(newDOI,'doi:','')>
-		<cfreturn 'success|#newDOI#'>
+		<cfreturn 'success|#trim(newDOI)#'>
 	<cfelse>
 		<cfreturn 'failure|#cfhttp.Statuscode#'>
 	</cfif>

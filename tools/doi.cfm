@@ -18,9 +18,23 @@ group by media.media_id
 	<cfset thisMeta = obj.getDOI(media_id=#tehMedia.media_id#,publisher="Museum of Vertabrate Zoology")>
 
 
+
+<cfset status=listgetat(thisMeta,1,"|")>
+<cfif status is "success">
+	<cfset doi=listgetat(thisMeta,2,"|")>
+	<cfquery name="saveit" datasource="uam_god">
+		insert into doi (media_id,doi) values (#tehMedia.media_id#,#doi#)
+	</cfquery>
+	<br>did this:
+	<br>insert into doi (media_id,doi) values (#tehMedia.media_id#,#doi#)
+<cfelse>
+	soemthing broke:
+
 	<cfdump var=#thisMeta#>
 
 
+
+</cfif>
 
 	</cfloop>
 
