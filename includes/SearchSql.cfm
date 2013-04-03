@@ -238,6 +238,8 @@
 		</cfif>
 	<cfelse>
 	<hr>
+
+	<cfoutput>
 	catnum: #catnum#
 	<hr>
 
@@ -245,7 +247,7 @@
 					<hr>
 						catnum: #catnum#
 						<hr>
-
+					</cfoutput>
 
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(catnum,'''')# ) " >
 	</cfif>
