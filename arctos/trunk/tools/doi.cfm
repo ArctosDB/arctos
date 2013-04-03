@@ -1,4 +1,4 @@
-
+<cfoutput>
 <cfset x="datacite.creator: Arctos">
 <cfset x=x & chr(10) & "datacite.title: this is a title">
 <cfset x=x & chr(10) & "datacite.publisher: this is hte publisher">
@@ -27,4 +27,6 @@
 		error: <cfdump var=#cfhttp#>
 	</cfif>
 
-		<cfdump var=#cfhttp#>
+	</cfoutput>
+
+			<cfdump var=#cfhttp#>
