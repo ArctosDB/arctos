@@ -238,7 +238,7 @@
 		</cfif>
 	<cfelse>
 	<hr>
-
+<cfdump var=#form#>
 	<cfoutput>
 	catnum: #catnum#
 	<hr>
