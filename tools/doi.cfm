@@ -4,7 +4,7 @@
 	<cfquery name="tehMedia" datasource="uam_god">
 		select media.media_id from media,media_labels where
 media.media_id=media_labels.media_id and
-label_value='image number' and
+MEDIA_LABEL='image number' and
 media.media_id not in (select media_id from doi) and
 rownum<2
 group by media.media_id
