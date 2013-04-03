@@ -92,6 +92,8 @@
 			<cfset madedate=dateformat(now(),"yyyy")>
 		</cfif>
 
+		<br>madedate: #madedate#
+
 
 
 
