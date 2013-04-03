@@ -1,12 +1,26 @@
 <cfoutput>
+	<!--- for right now, this page is very specialized - generalize it plox ---->
+
+	<cfquery name="tehMedia" datasource="uam_god">
+		select media_id from media,media_labels where
+media.media_id=media_labels.media_id and
+label_value='image number' and
+media_id not in (select media_id from doi) and
+rownum=1
+	</cfquery>
+
+
+<cfdump var=#tehMedia#>
+
+	<cfloop query="tehMedia">
 	<cfset obj = CreateObject("component","component.functions")>
-	<cfset thisMeta = obj.getDOIMeta(media_id=#media_id#)>
+	<cfset thisMeta = obj.getDOIMeta(media_id=#tehMedia.media_id#)>
 
 
 
 	<cfdump var=#thisMeta#>
 
-
+	</cfloop>
 
 <!----------
 
