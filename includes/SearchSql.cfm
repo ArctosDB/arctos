@@ -247,6 +247,9 @@
 
 		<hr>
 					rerep--	catnum: #catnum#
+						<cfset catnum=replace(catnum,' ','iamspace','all')>
+		catnum: #catnum#
+		<hr>
 							<hr>
 	<cfset catnum=replace(catnum,chr(10),'iamchr10','all')>
 			<hr>
