@@ -19,6 +19,12 @@
 		</cfhttp>
 
 
+	<cfif cfhttp.Statuscode is "201 CREATED">
+		<cfset newDOI=replace(litgetat(listgetat(cfhttp.filecontent,2,":"),1,"|"),"doi:","")>
+		got doi #newDOI#
 
+	<cfelse>
+		error: <cfdump var=#cfhttp#>
+	</cfif>
 
 		<cfdump var=#cfhttp#>

@@ -238,7 +238,6 @@
 	<cfelse>
 		<cfset catnum=replace(catnum,' ',',','all')>
 		<cfset catnum=replace(catnum,';',',','all')>
-
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(catnum,'''')# ) " >
 	</cfif>
 </cfif>
