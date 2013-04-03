@@ -1526,10 +1526,11 @@ INSERT INTO geog_auth_rec (
 <cfif action is "findCollEvent">
 	<cfoutput>
 		<form name="tools" method="post" action="Locality.cfm">
-			<input type="hidden" name="action" value="massMoveCollEvent" />
+			<input type="hidden" name="action" value="" />
 			<cf_findLocality type="event">
 
 			Found #localityResults.recordcount# records
+			<span class="likeLink" onclick="tools.action.value='csvCollEvent';tools.submit();">[ csv ]</span>
 <table border>
 	<tr>
 		<td><b>Geog</b></td>
@@ -1588,8 +1589,101 @@ INSERT INTO geog_auth_rec (
 		</tr>
 	</cfloop>
 </table>
-			<input type="submit" value="Move These Collecting Events to new Locality" class="savBtn">
+			<input type="button" value="Move These Collecting Events to new Locality" class="savBtn"
+				onclick="tools.action.value='massMoveCollEvent';tools.submit();">
 		</form>
+	</cfoutput>
+</cfif>
+
+
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "csvCollEvent">
+	<cfoutput>
+		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				collecting_event.COLLECTING_EVENT_ID,
+				VERBATIM_DATE,
+				VERBATIM_LOCALITY,
+				COLL_EVENT_REMARKS,
+				BEGAN_DATE,
+				ENDED_DATE,
+				VERBATIM_COORDINATES,
+				COLLECTING_EVENT_NAME,
+				locality.locality_id,
+				SPEC_LOCALITY,
+				DEC_LAT,
+				DEC_LONG,
+				MINIMUM_ELEVATION,
+				MAXIMUM_ELEVATION,
+				ORIG_ELEV_UNITS,
+				MIN_DEPTH,
+				MAX_DEPTH,
+				DEPTH_UNITS,
+				MAX_ERROR_DISTANCE,
+				MAX_ERROR_UNITS,
+				DATUM,
+				LOCALITY_REMARKS,
+				GEOREFERENCE_SOURCE,
+				GEOREFERENCE_PROTOCOL,
+				LOCALITY_NAME,
+				S$ELEVATION,
+				S$GEOGRAPHY,
+				S$DEC_LAT,
+				S$DEC_LONG,
+				S$LASTDATE,
+				geog_auth_rec.GEOG_AUTH_REC_ID,
+				CONTINENT_OCEAN,
+				COUNTRY,
+				STATE_PROV,
+				COUNTY,
+				QUAD,
+				FEATURE,
+				ISLAND,
+				ISLAND_GROUP,
+				SEA,
+				VALID_CATALOG_TERM_FG,
+				SOURCE_AUTHORITY,
+				HIGHER_GEOG
+			from
+				collecting_event,
+				locality,
+				geog_auth_rec
+			where
+				collecting_event.locality_id=locality.locality_id and
+				locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+				collecting_event.collecting_event_id in (#collecting_event#)
+		</cfquery>
+		<cfset clist="COLLECTING_EVENT_ID,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,VERBATIM_COORDINATES,COLLECTING_EVENT_NAME,LOCALITY_ID,SPEC_LOCALITY,DEC_LAT,DEC_LONG,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,DATUM,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL,LOCALITY_NAME,S$ELEVATION,S$GEOGRAPHY,S$DEC_LAT,S$DEC_LONG,S$LASTDATE,GEOG_AUTH_REC_ID,CONTINENT_OCEAN,COUNTRY,STATE_PROV,COUNTY,QUAD,FEATURE,ISLAND,ISLAND_GROUP,SEA,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,HIGHER_GEOG">
+
+		<cfset fileDir = "#Application.webDirectory#">
+		<cfset variables.encoding="UTF-8">
+		<cfset fname = "downloadCollectingEvent.csv">
+		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine(ListQualify(clist,'"'));
+		</cfscript>
+		<cfloop query="getData">
+			<cfset oneLine = "">
+			<cfloop list="#clist#" index="c">
+				<cfset thisData = evaluate("getData." & c)>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfif len(oneLine) is 0>
+					<cfset oneLine = '"#thisData#"'>
+				<cfelse>
+					<cfset oneLine = '#oneLine#,"#thisData#"'>
+				</cfif>
+			</cfloop>
+			<cfset oneLine = trim(oneLine)>
+			<cfscript>
+				variables.joFileWriter.writeLine(oneLine);
+			</cfscript>
+		</cfloop>
+		<cfscript>
+			variables.joFileWriter.close();
+		</cfscript>
+		<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+		<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
