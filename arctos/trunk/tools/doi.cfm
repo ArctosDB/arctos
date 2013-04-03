@@ -73,11 +73,7 @@ uam@ARCTOSPROD> desc media_relations
  RELATED_PRIMARY_KEY						   NOT NULL NUMBER
 
 </cfif>
------------>
 
-
-
-<!--------------
 <cfset x="datacite.creator: Arctos">
 <cfset x=x & chr(10) & "datacite.title: this is a title">
 <cfset x=x & chr(10) & "datacite.publisher: this is hte publisher">
