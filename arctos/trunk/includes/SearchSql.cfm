@@ -247,7 +247,7 @@
 						<hr>
 
 
-		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(ListChangeDelims(catnum,',',',#chr(10#'),'''')# ) " >
+		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(catnum),'''')# ) " >
 	</cfif>
 </cfif>
 <cfif isdefined("geology_attribute") AND len(geology_attribute) gt 0>
