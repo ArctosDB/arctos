@@ -241,7 +241,7 @@
 	catnum: #catnum#
 	<hr>
 
-	<cfset catnum=ListChangeDelims(catnum,",",",">
+	<cfset catnum=ListChangeDelims(catnum,",",",#chr(13)##chr(10)#;")>
 					<hr>
 						catnum: #catnum#
 						<hr>
