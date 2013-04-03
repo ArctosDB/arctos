@@ -236,30 +236,8 @@
 			</cfif>
 		</cfif>
 	<cfelse>
-	<hr>
-<cfdump var=#form#>
-	<cfoutput>
-	catnum: #catnum#
-	<hr>
-
-
-
-		<hr>
-					rerep--	catnum: #catnum#
-						<cfset catnum=replace(catnum,' ','iamspace','all')>
-		catnum: #catnum#
-		<hr>
-							<hr>
-	<cfset catnum=replace(catnum,chr(10),'iamchr10','all')>
-			<hr>
-									catnum: #catnum#
-									<hr>
-		<cfset catnum=replace(catnum,chr(13),'iamchr13','all')>
-
-					<hr>
-						catnum: #catnum#
-						<hr>
-					</cfoutput>
+		<cfset catnum=replace(catnum,' ',',','all')>
+		<cfset catnum=replace(catnum,';',',','all')>
 
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(catnum,'''')# ) " >
 	</cfif>
