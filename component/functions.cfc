@@ -1,9 +1,8 @@
 <cfcomponent>
 
 
-
 <!--------------------------------------------------------------------------------------->
-	<cffunction name="getDOI" access="remote" returnformat="json">
+<cffunction name="getDOI" access="remote" returnformat="json">
    	<cfargument name="media_id" required="false" type="numeric">
 	<cfargument name="publisher" required="true" type="string">
 
@@ -130,9 +129,7 @@
 	<cfif len(publicationyear) is 0>
 		<cfreturn 'failure|publicationyear could not be determined'>
 	</cfif>
-	<cfif len(<cfset target="">) is 0>
-		<cfreturn 'failure|<cfset target=""> could not be determined'>
-	</cfif>
+
 	<cfif len(resourcetype) is 0>
 		<cfreturn 'failure|resourcetype could not be determined'>
 	</cfif>
