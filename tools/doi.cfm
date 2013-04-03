@@ -23,10 +23,10 @@ group by media.media_id
 <cfif status is "success">
 	<cfset doi=listgetat(thisMeta,2,"|")>
 	<cfquery name="saveit" datasource="uam_god">
-		insert into doi (media_id,doi) values (#tehMedia.media_id#,#doi#)
+		insert into doi (media_id,doi) values (#tehMedia.media_id#,'#doi#')
 	</cfquery>
 	<br>did this:
-	<br>insert into doi (media_id,doi) values (#tehMedia.media_id#,#doi#)
+	<br>insert into doi (media_id,doi) values (#tehMedia.media_id#,'#doi#')
 <cfelse>
 	soemthing broke:
 
