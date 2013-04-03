@@ -243,7 +243,6 @@
 	<hr>
 
 
-					<cfset catnum=REReplace(catnum,"[^0-9]","_","all")>
 
 		<hr>
 					rerep--	catnum: #catnum#
