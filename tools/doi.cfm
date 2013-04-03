@@ -21,6 +21,12 @@ group by media.media_id
 
 	<cfdump var=#thisMeta#>
 
+	<cfif thisMeta.status is "success">
+		got some useful metadata
+	</cfif>
+
+
+
 	</cfloop>
 
 <!----------
