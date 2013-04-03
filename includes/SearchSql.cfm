@@ -212,7 +212,6 @@
 		collection_object_id from attributes where attribute_type='image confirmed' and attribute_value='yes')" >
 </cfif>
 <cfif isdefined("catnum") and len(catnum) gt 0>
-	<cfset catnum=replace(catnum," ","","all")>
 	<cfset mapurl = "#mapurl#&catnum=#catnum#">
 	<cfif catnum contains "-">
 		<cfset hyphenPosition=find("-",catnum)>
