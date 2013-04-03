@@ -33,7 +33,7 @@
 		<!--- try to get "published year" from collecting event ---->
 		<cfquery name="pyear" datasource="uam_god">
 			select
-				began_year publisheddateraw
+				began_date publisheddateraw
 			from
 				media_relations,
 				collecting_event
@@ -46,7 +46,7 @@
 			<!--- no "published year" from collecting event available - try locality ---->
 			<cfquery name="pyear" datasource="uam_god">
 				select
-					began_year publisheddateraw
+					began_date publisheddateraw
 				from
 					media_relations,
 					collecting_event,
