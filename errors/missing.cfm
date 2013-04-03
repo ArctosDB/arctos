@@ -4,12 +4,9 @@
 		<cfset doi = listgetat(request.rdurl,gPos+1,"/")>
 		<!--- dois have slashies in them.... --->
 		<cfif listlen(request.rdurl,"/") is gPos+2>
-			<cfset doi2=listgetat(request.rdurl,gPos+2,"/")>
-				<cfdump var=#doi2#>
-
+			<cfset doi=doi & "/" & 	listgetat(request.rdurl,gPos+2,"/")>
 		</cfif>
 
-		<cfdump var=#doi#>
 		<cfquery name="d" datasource="cf_dbuser">
 			select * from doi where upper(doi)='#ucase(doi)#'
 		</cfquery>
