@@ -237,6 +237,16 @@
 			</cfif>
 		</cfif>
 	<cfelse>
+	<hr>
+	catnum: #catnum#
+	<hr>
+
+	<cfset catnum=ListChangeDelims(catnum,',',',#chr(10#)'>
+					<hr>
+						catnum: #catnum#
+						<hr>
+
+
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(ListChangeDelims(catnum,',',',#chr(10#'),'''')# ) " >
 	</cfif>
 </cfif>
