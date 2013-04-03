@@ -106,7 +106,7 @@
 		<cfif len(description.LABEL_VALUE) is 0>
 			<cfset status='description not found'>
 		</cfif>
-		<cfset d = querynew("STATUS,CREATOR,PUBLISHER,PUBLICATIONYEAR,RESOURCETYPE)">
+		<cfset d = querynew("STATUS,CREATOR,PUBLISHER,PUBLICATIONYEAR,RESOURCETYPE")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "STATUS", STATUS, 1)>
 		<cfset temp = QuerySetCell(d, "CREATOR", 'createdby.agent_name', 1)>
