@@ -15,15 +15,10 @@ group by media.media_id
 
 	<cfloop query="tehMedia">
 	<cfset obj = CreateObject("component","component.functions")>
-	<cfset thisMeta = obj.getDOIMeta(media_id=#tehMedia.media_id#)>
-
+	<cfset thisMeta = obj.getDOI(media_id=#tehMedia.media_id#,publisher="Museum of Vertabrate Zoology")>
 
 
 	<cfdump var=#thisMeta#>
-
-	<cfif thisMeta.status is "success">
-		got some useful metadata
-	</cfif>
 
 
 
@@ -31,11 +26,7 @@ group by media.media_id
 
 <!----------
 
-		<cfset x="datacite.creator: Arctos">
-		<cfset x=x & chr(10) & "datacite.title: this is a title">
-		<cfset x=x & chr(10) & "datacite.publisher: this is hte publisher">
-		<cfset x=x & chr(10) & "datacite.publicationyear: 1846">
-		<cfset x=x & chr(10) & "datacite.resourcetype: Image">
+
 
 		associated with project
 describes taxonomy
@@ -95,11 +86,6 @@ uam@ARCTOSPROD> desc media_relations
 
 </cfif>
 
-<cfset x="datacite.creator: Arctos">
-<cfset x=x & chr(10) & "datacite.title: this is a title">
-<cfset x=x & chr(10) & "datacite.publisher: this is hte publisher">
-<cfset x=x & chr(10) & "datacite.publicationyear: 1846">
-<cfset x=x & chr(10) & "datacite.resourcetype: Image">
 
 
 
