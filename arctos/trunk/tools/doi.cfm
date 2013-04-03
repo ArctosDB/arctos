@@ -83,7 +83,12 @@
 			</cfif>
 		</cfif>
 		<hr>pyear.publisheddateraw: #pyear.publisheddateraw#
+		<cfif isdate(pyear.publisheddateraw)>
+			<br>isdate
+			<cfset madedate=dateformat(pyear.publisheddateraw,"yyyy")>
+		</cfif>
 		<cfif len(pyear.publisheddateraw) is 0>
+			is null
 			<cfset madedate=dateformat(now(),"yyyy")>
 		</cfif>
 
