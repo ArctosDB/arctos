@@ -2,6 +2,12 @@
 	<cftry>
 		<cfset gPos=listfindnocase(request.rdurl,"doi","/")>
 		<cfset doi = listgetat(request.rdurl,gPos+1,"/")>
+		<!--- dois have slashies in them.... --->
+		<cfif listlen(request.rdurl,"/") is gPos+2>
+			<cfset doi2=listgetat(request.rdurl,gPos+2,"/")>
+				<cfdump var=#doi2#>
+
+		</cfif>
 
 		<cfdump var=#doi#>
 		<cfquery name="d" datasource="cf_dbuser">
