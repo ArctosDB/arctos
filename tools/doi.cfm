@@ -5,7 +5,7 @@
 		select media.media_id from media,media_labels where
 media.media_id=media_labels.media_id and
 label_value='image number' and
-media_id not in (select media_id from doi) and
+media.media_id not in (select media_id from doi) and
 rownum=1
 group by media.media_id
 	</cfquery>
