@@ -116,7 +116,7 @@
 		<cfset temp = QuerySetCell(d, "RESOURCETYPE", resourcetype, 1)>
 
 	<cfelse><!---- no pkey that we can deal with --->
-		<cfset d = querynew("STATUS,CREATOR,PUBLISHER,PUBLICATIONYEAR,RESOURCETYPE">
+		<cfset d = querynew("STATUS,CREATOR,PUBLISHER,PUBLICATIONYEAR,RESOURCETYPE")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "STATUS", 'no useful primary key passed in', 1)>
 	</cfif>
