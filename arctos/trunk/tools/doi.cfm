@@ -20,7 +20,7 @@
 
 
 	<cfif cfhttp.Statuscode is "201 CREATED">
-		<cfset newDOI=replace(litgetat(listgetat(cfhttp.filecontent,2,":"),1,"|"),"doi:","")>
+		<cfset newDOI=replace(listgetat(listgetat(cfhttp.filecontent,2,":"),1,"|"),"doi:","")>
 		got doi #newDOI#
 
 	<cfelse>
