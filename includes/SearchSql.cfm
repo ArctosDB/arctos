@@ -243,7 +243,12 @@
 	catnum: #catnum#
 	<hr>
 
-	<cfset catnum=ListChangeDelims(catnum,",",",#chr(13)##chr(10)#;")>
+	<cfset catnum=replace(catnum,chr(10),'iamchr10','all')>
+			<hr>
+									catnum: #catnum#
+									<hr>
+		<cfset catnum=replace(catnum,chr(13),'iamchr13','all')>
+
 					<hr>
 						catnum: #catnum#
 						<hr>
