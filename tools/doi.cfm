@@ -92,9 +92,8 @@
 
 
 
+<!----------
 
-
-		<cfabort>
 		associated with project
 describes taxonomy
 derived from media
@@ -152,10 +151,11 @@ uam@ARCTOSPROD> desc media_relations
  RELATED_PRIMARY_KEY						   NOT NULL NUMBER
 
 
-		</cfquery>
-
+----------->
 	</cfif>
 
+
+<!--------------
 <cfset x="datacite.creator: Arctos">
 <cfset x=x & chr(10) & "datacite.title: this is a title">
 <cfset x=x & chr(10) & "datacite.publisher: this is hte publisher">
@@ -195,6 +195,7 @@ uam@ARCTOSPROD> desc media_relations
 		error: <cfdump var=#cfhttp#>
 	</cfif>
 
+<cfdump var=#cfhttp#>
+----------->
 	</cfoutput>
 
-			<cfdump var=#cfhttp#>
