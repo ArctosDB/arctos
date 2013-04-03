@@ -243,6 +243,12 @@
 	catnum: #catnum#
 	<hr>
 
+
+					<cfset catnum=REReplace(catnum,"[^A-Za-z0-9_$]","_","all")>
+
+		<hr>
+					rerep--	catnum: #catnum#
+							<hr>
 	<cfset catnum=replace(catnum,chr(10),'iamchr10','all')>
 			<hr>
 									catnum: #catnum#
