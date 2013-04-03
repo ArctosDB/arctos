@@ -1528,6 +1528,8 @@ INSERT INTO geog_auth_rec (
 		<form name="tools" method="post" action="Locality.cfm">
 			<input type="hidden" name="action" value="massMoveCollEvent" />
 			<cf_findLocality type="event">
+
+			Found #localityResults.recordcount# records
 <table border>
 	<tr>
 		<td><b>Geog</b></td>
