@@ -42,6 +42,7 @@
 				select * from bulkloader where collection_object_id = #collection_id#
 			</cfquery>
 			<cfif isBl.recordcount is 0>
+				<!--- use this to set up DEFAULTS and "prime" the bulkloader ---->
 				<cfquery name="prime" datasource="uam_god">
 					insert into bulkloader (
 						collection_object_id,
@@ -49,14 +50,16 @@
 						collection_cde,
 						loaded,
 						collection_id,
-						entered_agent_id
+						entered_agent_id,
+						verificationstatus
 					) VALUES (
 						#collection_id#,
 						'#institution_acronym#',
 						'#collection_cde#',
 						'#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE',
 						#collection_id#,
-						0
+						0,
+						'unverified'
 					)
 				</cfquery>
 			<cfelseif isBL.loaded is not "#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE">
