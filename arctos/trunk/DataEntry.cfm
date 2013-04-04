@@ -513,7 +513,7 @@
 									<tr>
 										<td align="right"><span class="f11a">VerificationStatus</span></td>
 										<td>
-											<select name="verificationstatus" size="1" class="reqdClr" id="verificationstatus" autocomplete="off">
+											<select name="verificationstatus" size="1" class="reqdClr" id="verificationstatus">
 												<cfloop query="ctverificationstatus">
 													<option <cfif ctverificationstatus.verificationstatus is "unverified"> selected="selected" </cfif>value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
 												</cfloop>
