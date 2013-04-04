@@ -316,7 +316,7 @@
 		<cfset basQual = "#basQual# and #session.flatTableName#.collection_object_id in (
 			select collection_object_id from specimen_event,collecting_event, media_relations where
 			specimen_event.collecting_event_id=collecting_event.collecting_event_id and
-			collecting_event_id.locality_id=media_relations.related_primary_key and
+			collecting_event.locality_id=media_relations.related_primary_key and
 			media_relations.media_relationship like '% locality%' ) ">
 	</cfif>
 	<cfif listcontains(spec_media_relation,"collecting_event",",")>
