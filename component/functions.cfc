@@ -1,20 +1,13 @@
 <cfcomponent>
-
-
 <!--------------------------------------------------------------------------------------->
 <cffunction name="getDOI" access="remote" returnformat="json">
    	<cfargument name="media_id" required="false" type="numeric">
 	<cfargument name="publisher" required="true" type="string">
-
 	<cfset publicationyear="">
 	<cfset target="">
 	<cfset resourcetype="">
 	<cfset creator="">
 	<cfset title="">
-
-
-
-
 	<cfif isdefined("media_id") and len(media_id) gt 0>
 		<!--- get the basic stuff ---->
 		<cfquery name="media" datasource="uam_god">
@@ -30,7 +23,6 @@
 			<cfreturn 'failure|media not found'>
 		</cfif>
 		<!--- formula for URI to Media --->
-
 		<cfset target="#Application.serverRootUrl#/media/#media_id#">
 		<cfquery name="createdby" datasource="uam_god">
 			select
@@ -111,25 +103,17 @@
 			<!---- no dates anywhere - fall back to now ---->
 			<cfset publicationyear=dateformat(now(),"yyyy")>
 		</cfif>
-		<cfset target=media.MEDIA_URI>
 		<cfif media.MEDIA_TYPE is 'image'>
 			<cfset resourcetype='Image'>
 		</cfif>
 		<cfset creator=createdby.agent_name>
 		<cfset title=description.LABEL_VALUE>
-
-
-
 	<cfelse><!---- no pkey that we can deal with --->
 		<cfreturn 'failure|no useful primary key passed in'>
 	</cfif>
-
-
-
 	<cfif len(publicationyear) is 0>
 		<cfreturn 'failure|publicationyear could not be determined'>
 	</cfif>
-
 	<cfif len(resourcetype) is 0>
 		<cfreturn 'failure|resourcetype could not be determined'>
 	</cfif>
@@ -139,15 +123,13 @@
 	<cfif len(title) is 0>
 		<cfreturn 'failure|title could not be determined'>
 	</cfif>
-
 	<!--- create DOI ---->
-
 	<cfset x="datacite.creator: #creator#">
 	<cfset x=x & chr(10) & "datacite.title: #title#">
 	<cfset x=x & chr(10) & "datacite.publisher: #publisher#">
 	<cfset x=x & chr(10) & "datacite.publicationyear: #publicationyear#">
 	<cfset x=x & chr(10) & "datacite.resourcetype: #resourcetype#">
-
+	<cfset x=x & chr(10) & "_target: #target#">
 	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			ezid_username,
@@ -155,13 +137,10 @@
 		from cf_global_settings
 	</cfquery>
 	<cfhttp username="#cf_global_settings.ezid_username#" password="#cf_global_settings.ezid_password#" method="POST" url="https://n2t.net/ezid/shoulder/doi:10.7299/X7">
-		<cfhttpparam type = "header" name = "Accept" value = "text/plain">
-		<cfhttpparam type = "header" name = "Content-Type" value = "text/plain; charset=UTF-8">
-		<cfhttpparam type = "body" value = "#x#">
-		<cfhttpparam type = "header" name = "_target" value = "#target#">
+		<cfhttpparam type="header" name="Accept" value="text/plain">
+		<cfhttpparam type="header" name="Content-Type" value="text/plain; charset=UTF-8">
+		<cfhttpparam type="body" value="#x#">
 	</cfhttp>
-
-
 	<cfif cfhttp.Statuscode is "201 CREATED">
 		<cfset newDOI=replace(cfhttp.filecontent,'success:','')>
 		<cfset newDOI=listgetat(newDOI,1,"|")>
@@ -170,7 +149,6 @@
 	<cfelse>
 		<cfreturn 'failure|#cfhttp.Statuscode#'>
 	</cfif>
-
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="reverseGeocode" access="remote" returnformat="json">

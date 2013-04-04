@@ -144,13 +144,6 @@
 		</cfloop>
 	</select>
 	&nbsp;&nbsp;&nbsp;<span class="helpLink" id="_is_tissue">Require&nbsp;Tissues?</span><input type="checkbox" name="is_tissue" id="is_tissue" value="1">
-	&nbsp;&nbsp;&nbsp;<span class="helpLink" id="_media_type">Require&nbsp;Media</span>:<select name="media_type" id="media_type" size="1">
-				<option value=""></option>
-                <option value="any">Any</option>
-				<cfloop query="ctmedia_type">
-					<option value="#ctmedia_type.media_type#">#ctmedia_type.media_type#</option>
-				</cfloop>
-			</select>
 </div>
 <input type="hidden" name="Action" value="#Action#">
 <div class="secDiv">
@@ -393,6 +386,33 @@
 	</table>
 	<div id="e_usage"></div>
 </div>
+<div class="secDiv">
+	<table class="ssrch">
+		<tr>
+			<td colspan="2" class="secHead">
+				<span class="secLabel">Media</span>
+				<span class="secControl" id="c_media" onclick="showHide('media',1)">Show More Options</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="lbl">
+				<span class="helpLink" id="_media_type">Media Type:</span>
+			</td>
+			<td class="srch">
+				<select name="media_type" id="media_type" size="1">
+					<option value=""></option>
+	                <option value="any">Any</option>
+					<cfloop query="ctmedia_type">
+						<option value="#ctmedia_type.media_type#">#ctmedia_type.media_type#</option>
+					</cfloop>
+				</select>
+				<span class="infoLink" onclick="getCtDoc('ctmedia_type', SpecData.media_type.value);">Define</span>
+			</td>
+		</tr>
+	</table>
+	<div id="e_media"></div>
+</div>
+
 <cfquery name="ctid_references" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select id_references from ctid_references where id_references != 'self' order by id_references
 </cfquery>
