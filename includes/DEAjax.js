@@ -496,7 +496,7 @@ function loadRecordEdit (collection_object_id) {
 						var cVal=eval("r.DATA." + columns[i]);
 						var eName=cName.toLowerCase();
 						$("#" + eName).val(cVal);
-						console.log(eName + '-->' + cVal);
+						//console.log(eName + '-->' + cVal);
 					}
 
 					// deal with retarded coordinates, where the ID can't match the data column name
@@ -551,6 +551,9 @@ function loadRecordEnter(collection_object_id){
 					var cName=columns[i];
 					var cVal=eval("r.DATA." + columns[i]);
 					var eName=cName.toLowerCase();
+					
+					console.log(eName + '-->' + cVal);
+					
 					$("#" + eName).val(cVal);
 				}
 				// default stuff for new records
