@@ -148,8 +148,13 @@
 	<cfset x=x & chr(10) & "datacite.publicationyear: #publicationyear#">
 	<cfset x=x & chr(10) & "datacite.resourcetype: #resourcetype#">
 
-
-	<cfhttp username="apitest" password="apitest" method="POST" url="https://n2t.net/ezid/shoulder/doi:10.5072/FK2">
+	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select
+			ezid_username,
+			ezid_password
+		from cf_global_settings
+	</cfquery>
+	<cfhttp username="#cf_global_settings.ezid_username#" password="#cf_global_settings.ezid_password#" method="POST" url="https://n2t.net/ezid/shoulder/doi:10.7299/X7">
 		<cfhttpparam type = "header" name = "Accept" value = "text/plain">
 		<cfhttpparam type = "header" name = "Content-Type" value = "text/plain; charset=UTF-8">
 		<cfhttpparam type = "body" value = "#x#">
