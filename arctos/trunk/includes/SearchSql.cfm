@@ -287,10 +287,10 @@
 	<cfset basQual = "#basQual#  AND upper(entered_agent.agent_name) like '%#ucase(entered_by)#%'" >
 </cfif>
 
-	spec_media_relation
+
 	<!----
-		options:
-			cataloged_item 
+		spec_media_relation options:
+			cataloged_item
 				flat-->media_relations
 				media_relationship like '% cataloged_item%'
 			locality
@@ -300,13 +300,39 @@
 				locality-->media_relations
 				media_relationship like '% locality%'
 	--->
-	
+
+<!---  if any media stuff is defined, we need to set a default "relationship" ---->
+
+<cfif isdefined("spec_media_relation") AND len(spec_media_relation) gt 0>
+	<cfset mapurl = "#mapurl#&spec_media_relation=#spec_media_relation#">
+
+
+
+	<cfif listcontains(spec_media_relation,"cataloged_item",",")>
+		<cfset basQual = "#basQual# and #session.flatTableName#.collection_object_id in (">
+		<cfset basQual = "#basQual#  select related_primary_key from media_relations where media_relationship like '% cataloged_item%' )" >
+	</cfif>
+	<cfif listcontains(spec_media_relation,"locality",",")>
+		<cfset basQual = "#basQual# and #session.flatTableName#.collection_object_id in (
+			select collection_object_id from specimen_event,collecting_event, media_relations where
+			specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+			collecting_event_id.locality_id=media_relations.related_primary_key and
+			media_relations.media_relationship like '% locality%' ) ">
+	</cfif>
+	<cfif listcontains(spec_media_relation,"collecting_event",",")>
+		<cfset basQual = "#basQual# and #session.flatTableName#.collection_object_id in ( ">
+		<cfset basQual = "#basQual# select collection_object_id from specimen_event,media_relations where specimen_event.collecting_event_id=media_relations.related_primary_key ">
+		<cfset basQual = "#basQual# and media_relations.media_relationship like '% collecting_event%' ) ">
+	</cfif>
+</cfif>
+
+
 <cfif isdefined("media_type") AND len(media_type) gt 0>
 	<cfset mapurl = "#mapurl#&media_type=#media_type#">
 	<cfif basJoin does not contain "media_relations">
 		<cfset basJoin = " #basJoin# INNER JOIN media_relations ON (#session.flatTableName#.collection_object_id = media_relations.related_primary_key)">
 	</cfif>
-	<cfset basQual = "#basQual#  AND media_relations.media_relationship like '% cataloged_item%'" >
+
     <cfif media_type is not "any">
         <cfset basJoin = " #basJoin# INNER JOIN media ON (media_relations.media_id = media.media_id)">
         <cfset basQual = "#basQual#  AND media.media_type = '#media_type#'" >
