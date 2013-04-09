@@ -357,9 +357,6 @@
 								<td id="SDCellLeft" class="innerDetailLabel">Specific Locality:</td>
 								<td id="SDCellRight">
 									#spec_locality#
-									<cfif localityMedia.recordcount gt 0>
-										<a class="infoLink" target="_blank" href="/MediaSearch.cfm?action=search&media_id=#valuelist(localityMedia.media_id)#">Media</a>
-									</cfif>
 								</td>
 							</tr>
 						</cfif>
