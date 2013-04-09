@@ -26,7 +26,6 @@
 		});
 	</script>
 </cfoutput>
-<cftry>
 <cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
 		collection_object_id,
@@ -51,12 +50,6 @@
 	WHERE
 		#session.flatTableName#.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
-<cfcatch>
-
-	<cfdump var=#cfcatch#>
-</cfcatch>
-
-</cftry>
 <cfquery name="attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		attributes.attribute_type,
@@ -73,8 +66,6 @@
 		attributes.determined_by_agent_id = attribute_determiner.agent_id and
 		attributes.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
-
-<cftry>
 <cfquery name="event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		specimen_event.SPECIMEN_EVENT_ID,
@@ -142,14 +133,6 @@
 	order by
 		specimen_event_type
 </cfquery>
-
-<cfdump var=#event#>
-
-<cfcatch>
-	<cfdump var=#cfcatch#>
-</cfcatch>
-			</cftry>
-<cfabort>
 <style>
 	.acceptedIdDiv {
 		border:1px dotted green;
