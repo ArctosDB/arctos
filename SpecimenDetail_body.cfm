@@ -73,7 +73,6 @@
 		attributes.determined_by_agent_id = attribute_determiner.agent_id and
 		attributes.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
-	encumbrances
 <cfquery name="event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		specimen_event.SPECIMEN_EVENT_ID,
@@ -141,6 +140,8 @@
 	order by
 		specimen_event_type
 </cfquery>
+
+<cfdump var=#event#>
 <style>
 	.acceptedIdDiv {
 		border:1px dotted green;
