@@ -19,19 +19,13 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
 	</cfif>
-
-		<script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script>
-
-				<script>
-						jQuery(document).ready(function(){
-							//var elemsToLoad='specTaxMedia,taxRelatedNames,mapTax';
-							getMedia('collecting_event','#collection_object_id#','colEventMedia','2','1');
-
-						});
-
-					</script>
+	<script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script>
+	<script>
+		jQuery(document).ready(function(){
+			getMedia('collecting_event','#collection_object_id#','colEventMedia','2','1');
+		});
+	</script>
 </cfoutput>
-
 <cftry>
 <cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
@@ -79,6 +73,7 @@
 		attributes.determined_by_agent_id = attribute_determiner.agent_id and
 		attributes.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
+	encumbrances
 <cfquery name="event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		specimen_event.SPECIMEN_EVENT_ID,
@@ -99,10 +94,22 @@
 		COLL_EVENT_REMARKS,
 		BEGAN_DATE,
 		ENDED_DATE,
-		verbatim_coordinates,
+		CASE
+            WHEN one.ncumbrances LIKE '%mask coordinates%'
+            THEN NULL
+            ELSE verbatim_coordinates
+        END verbatim_coordinates,
 		collecting_event_name,
-		locality.DEC_LAT,
-		locality.DEC_LONG,
+		CASE
+            WHEN one.ncumbrances LIKE '%mask coordinates%'
+            THEN NULL
+            ELSE locality.DEC_LAT
+        END DEC_LAT,
+		CASE
+            WHEN one.ncumbrances LIKE '%mask coordinates%'
+            THEN NULL
+            ELSE locality.DEC_LONG
+        END DEC_LONG,
 		collecting_event.DATUM,
 		collecting_event.ORIG_LAT_LONG_UNITS,
 		geog_auth_rec.GEOG_AUTH_REC_ID,
