@@ -1,7 +1,6 @@
 <cfif not isdefined("toProperCase")>
 	<cfinclude template="/includes/_frameHeader.cfm">
 </cfif>
-<script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script>
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
@@ -20,6 +19,17 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
 	</cfif>
+
+		<script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script>
+
+				<script>
+						jQuery(document).ready(function(){
+							//var elemsToLoad='specTaxMedia,taxRelatedNames,mapTax';
+							getMedia('collecting_event','#collection_object_id#','colEventMedia','10','1');
+
+						});
+
+					</script>
 </cfoutput>
 
 <cftry>
@@ -287,15 +297,6 @@
 					</cfif>
 				</div>
 				<cfloop query="event">
-					<cfquery name="localityMedia"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select
-							media_id
-						from
-							media_relations
-						where
-							RELATED_PRIMARY_KEY=#locality_id# and
-							MEDIA_RELATIONSHIP like '% locality'
-					</cfquery>
 					<cfquery name="collEventMedia"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select
 							media_id
@@ -329,6 +330,7 @@
 								<tr class="detailData">
 									<td id="SDCellLeft" class="innerDetailLabel">Verbatim Locality:</td>
 									<td id="SDCellRight">#verbatim_locality#
+										<div id="colEventMedia"></div>
 										<cfif collEventMedia.recordcount gt 0>
 											<a class="infoLink" target="_blank"	href="/MediaSearch.cfm?action=search&media_id=#valuelist(collEventMedia.media_id)#">Media</a>
 										</cfif>
