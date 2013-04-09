@@ -142,6 +142,8 @@
 </cfquery>
 
 <cfdump var=#event#>
+
+<cfabort>
 <style>
 	.acceptedIdDiv {
 		border:1px dotted green;
