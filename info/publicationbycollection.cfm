@@ -32,7 +32,7 @@
 </form>
 
 <cfif len(collection_id) gt 0>
-	<cfif not isnumeric("citation_id") or citation_id lt 0>
+	<cfif not isnumeric("collection_id") or collection_id lt 0>
 		<cfinclude template="/errors/autoblacklist.cfm">
 	</cfif>
 	<cfquery name="citations" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
