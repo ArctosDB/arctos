@@ -297,16 +297,6 @@
 					</cfif>
 				</div>
 				<cfloop query="event">
-					<cfquery name="collEventMedia"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select
-							media_id
-						from
-							media_relations
-						where
-							RELATED_PRIMARY_KEY=#collecting_event_id# and
-							MEDIA_RELATIONSHIP like '% collecting_event'
-					</cfquery>
-
 
 					<div style="border:1px solid green; margin:1em;">
 
@@ -331,9 +321,6 @@
 									<td id="SDCellLeft" class="innerDetailLabel">Verbatim Locality:</td>
 									<td id="SDCellRight">#verbatim_locality#
 										<div id="colEventMedia"></div>
-										<cfif collEventMedia.recordcount gt 0>
-											<a class="infoLink" target="_blank"	href="/MediaSearch.cfm?action=search&media_id=#valuelist(collEventMedia.media_id)#">Media</a>
-										</cfif>
 									</td>
 								</tr>
 							</cfif>
