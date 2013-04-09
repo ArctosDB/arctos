@@ -24,7 +24,7 @@
 				     media_type,
 				     preview_uri
 				from (
-			   		select  
+			   		select
 				        media.media_id,
 				        media.media_uri,
 				        media.mime_type,
@@ -44,7 +44,7 @@
 				        --media.preview_uri is not null and
 				        identification_taxonomy.taxon_name_id=#q#
 				    UNION
-				    select 
+				    select
 				        media.media_id,
 				        media.media_uri,
 				        media.mime_type,
@@ -63,7 +63,7 @@
 				    mime_type,
 				    media_type,
 				    preview_uri
-			) 
+			)
 			--where rownum <= 500">
 	<cfelseif typ is "accn">
 		<cfset sql="
@@ -73,7 +73,7 @@
 			        media.mime_type,
 			        media.media_type,
 			        media.preview_uri
-				from 
+				from
 					media,
 					media_relations
 				where
@@ -87,6 +87,30 @@
 			        media.media_type,
 			        media.preview_uri
 			">
+	<cfelseif typ is "collecting_event">
+	<cfset sql="
+		   	select
+		   		media.media_id,
+		        media.media_uri,
+		        media.mime_type,
+		        media.media_type,
+		        media.preview_uri
+			from
+				media,
+				media_relations,
+				specimen_event
+			where
+				 media.media_id=media_relations.media_id and
+			     media_relations.media_relationship like '% collecting_event' and
+			     media_relations.related_primary_key=specimen_event.collecting_event_id and
+				specimen_event.collection_object_id=#q#
+			group by
+			 	media.media_id,
+		        media.media_uri,
+		        media.mime_type,
+		        media.media_type,
+		        media.preview_uri
+		">
 	<cfelse>
 		<cfabort>
 	</cfif>
@@ -111,10 +135,10 @@
 	<cfset np=pg+1>
 	<cfset pp=pg-1>
 	<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
-		Showing Media results #start# - <cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt# 
-		<cfif cnt GT rpp> 
-			<br> 
-			<cfif (pg*rpp) GT rpp> 
+		Showing Media results #start# - <cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt#
+		<cfif cnt GT rpp>
+			<br>
+			<cfif (pg*rpp) GT rpp>
 				<span class="likeLink" onclick="getMedia('#typ#','#q#','#tgt#','#rpp#','#pp#');"> &lt;&lt;Previous </span>
 			</cfif>
 			<cfif stop lt cnt>
