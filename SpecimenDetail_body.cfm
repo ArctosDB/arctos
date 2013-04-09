@@ -25,7 +25,7 @@
 				<script>
 						jQuery(document).ready(function(){
 							//var elemsToLoad='specTaxMedia,taxRelatedNames,mapTax';
-							getMedia('collecting_event','#collection_object_id#','colEventMedia','10','1');
+							getMedia('collecting_event','#collection_object_id#','colEventMedia','2','1');
 
 						});
 
