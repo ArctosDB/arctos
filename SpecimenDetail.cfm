@@ -153,6 +153,10 @@ font-weight:bold;
 <cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
+<cfquery name="doi" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select doi from doi where COLLECTION_OBJECT_ID=#collection_object_id#
+</cfquery>
+
 <cfoutput>
 
 
@@ -209,6 +213,13 @@ font-weight:bold;
 										<a href="/SpecimenResults.cfm?#session.mapURL#"><< Return&nbsp;to&nbsp;results</a>
 									</cfif>
 								</div>
+								<cfif len(doi.doi) gt 0>
+									doi:#doi.doi#
+								<cfelse>
+									<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
+										<a href="/tools/doi.cfm?collection_object_id=#collection_object_id#">get a DOI</a>
+									</cfif>
+								</cfif>
 							</div>
 						</td>
 					</tr>
