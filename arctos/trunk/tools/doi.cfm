@@ -212,10 +212,10 @@
 			<input type="hidden" name="columname" value="#columname#">
 			<input type="hidden" name="pkeyval" value="#pkeyval#">
 
-			<label for="target">target</label>
+			<label for="target">target: the URL of the object in Arctos</label>
 			<input type="text" name="target" id="target" value="#target#" size="80">
 			<a href="#target#" target="_blank" class="infoLink">[ open in new window ]</a>
-			<label for="publicationyear">publicationyear</label>
+			<label for="publicationyear">publicationyear: 4-digit year in which the data was "published"</label>
 			<input type="text" name="publicationyear" id="publicationyear" value="#publicationyear#">
 			<label for="resourcetype">resourcetype</label>
 			<select name="resourcetype" id="resourcetype" size="1">
@@ -232,9 +232,9 @@
 			</select>
 
 
-			<label for="creator">creator</label>
+			<label for="creator">creator <a href="http://n2t.net/ezid/doc/apidoc.html#profile-datacite" target="_blank" class="external">[ more info ]</a></label>
 			<input type="text" name="creator" id="creator" value="#creator#" size="80">
-			<label for="title">title</label>
+			<label for="title">title <a href="http://n2t.net/ezid/doc/apidoc.html#profile-datacite" target="_blank" class="external">[ more info ]</a></label>
 			<input type="text" name="title" id="title" value="#title#" size="80">
 			<br>
 			<input type="submit" value="create DOI">
