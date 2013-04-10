@@ -9,6 +9,8 @@
 		<cfset publisher="">
 
 		<cfif isdefined("media_id") and len(media_id) gt 0>
+
+		--- we got a media ID ----
 			<cfquery name="media" datasource="uam_god">
 				select
 					media.MEDIA_URI,
