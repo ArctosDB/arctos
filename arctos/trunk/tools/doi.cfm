@@ -22,6 +22,9 @@
 			</cfif>
 			<!--- formula for URI to Media --->
 			<cfset target="#Application.serverRootUrl#/media/#media_id#">
+			<cfset columname="media_id">
+			<cfset pkeyval=media_id>
+
 			<cfquery name="createdby" datasource="uam_god">
 				select
 					agent_name
@@ -117,6 +120,8 @@
 		<cfset rtl="Collection,Dataset,Event,,Image,InteractiveResource,Model,PhysicalObject,Service,Software,Sound,Text">
 		<form name="doi" method="post" action="doi.cfm">
 			<input type="hidden" name="action" value="createDOI">
+			<input type="hidden" name="columname" value="#columname#">
+			<input type="hidden" name="pkeyval" value="#pkeyval#">
 
 			<label for="target">target</label>
 			<input type="text" name="target" id="target" value="#target#" size="80">
@@ -132,9 +137,70 @@
 			<input type="text" name="creator" id="creator" value="#creator#" size="80">
 			<label for="title">title</label>
 			<input type="text" name="title" id="title" value="#title#" size="80">
+			<br>
 			<input type="submit" value="create DOI">
 		</form>
 	</cfif>
+	<cfif action is "createDOI">
+		<cfif len(publicationyear) is 0>
+			<div class="error">publicationyear is required</div>
+			<cfabort>
+		</cfif>
+		<cfif len(resourcetype) is 0>
+			<div class="error">resourcetype is required</div>
+			<cfabort>
+		</cfif>
+		<cfif len(creator) is 0>
+			<div class="error">creator is required</div>
+			<cfabort>
+		</cfif>
+		<cfif len(title) is 0>
+			<div class="error">title is required</div>
+			<cfabort>
+		</cfif>
+		<!--- create DOI ---->
+		<cfset x="datacite.creator: #creator#">
+		<cfset x=x & chr(10) & "datacite.title: #title#">
+		<cfset x=x & chr(10) & "datacite.publisher: #publisher#">
+		<cfset x=x & chr(10) & "datacite.publicationyear: #publicationyear#">
+		<cfset x=x & chr(10) & "datacite.resourcetype: #resourcetype#">
+		<cfset x=x & chr(10) & "_target: #target#">
+		<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select
+				ezid_username,
+				ezid_password,
+				ezid_shoulder
+			from cf_global_settings
+		</cfquery>
+		<cfhttp
+			username="#cf_global_settings.ezid_username#"
+			password="#cf_global_settings.ezid_password#"
+			method="POST"
+			url="https://n2t.net/ezid/shoulder/doi:#cf_global_settings.ezid_shoulder#">
+			<cfhttpparam type="header" name="Accept" value="text/plain">
+			<cfhttpparam type="header" name="Content-Type" value="text/plain; charset=UTF-8">
+			<cfhttpparam type="body" value="#x#">
+		</cfhttp>
+		<cfif cfhttp.Statuscode is "201 CREATED">
+			<cfset newDOI=replace(cfhttp.filecontent,'success:','')>
+			<cfset newDOI=listgetat(newDOI,1,"|")>
+			<cfset newDOI=trim(replace(newDOI,'doi:',''))>
+
+				<cfquery name="saveit" datasource="uam_god">
+					insert into doi (#columname#,doi) values (#pkeyval#,'#doi#')
+				</cfquery>
+				You've created a DOI!
+				<br>
+				Arctos URL: #target#
+				<br>
+				DOI: #newDOI#
+				<br>DOI resolver (will take a few minutes to work): <a href="http://dx.doi.org/#newDOI#">http://dx.doi.org/#newDOI#</a>
+		<cfelse>
+			DOI creation failed.
+			<cfdump var=#cfhttp#>
+		</cfif>
+	</cfif>
+
 
 
 

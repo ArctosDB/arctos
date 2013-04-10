@@ -1,6 +1,6 @@
 <cfcomponent>
 <!--------------------------------------------------------------------------------------->
-<cffunction name="getDOI" access="remote" returnformat="json">
+<cffunction name="getDOI__oldInitMVZCreate" access="remote" returnformat="json">
    	<cfargument name="media_id" required="false" type="numeric">
 	<cfargument name="publisher" required="true" type="string">
 	<cfset publicationyear="">
