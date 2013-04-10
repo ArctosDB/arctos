@@ -121,7 +121,7 @@
 			<cfset creator=createdby.agent_name>
 			<cfset title=description.LABEL_VALUE>
 		</cfif><!--- end Media --->
-		<cfif isdefined("") and len() gt 0>
+		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 
 		</cfif>
 		<cfif not isdefined("columname")>
