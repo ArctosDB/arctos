@@ -196,16 +196,13 @@
 			<cfset newDOI=replace(cfhttp.filecontent,'success:','')>
 			<cfset newDOI=listgetat(newDOI,1,"|")>
 			<cfset newDOI=trim(replace(newDOI,'doi:',''))>
-
-				<cfquery name="saveit" datasource="uam_god">
-					insert into doi (#columname#,doi) values (#pkeyval#,'#newDOI#')
-				</cfquery>
-				You've created a DOI!
-				<br>
-				Arctos URL: #target#
-				<br>
-				DOI: #newDOI#
-				<br>DOI resolver (will take a few minutes to work): <a href="http://dx.doi.org/#newDOI#">http://dx.doi.org/#newDOI#</a>
+			<cfquery name="saveit" datasource="uam_god">
+				insert into doi (#columname#,doi) values (#pkeyval#,'#newDOI#')
+			</cfquery>
+			You've created a DOI!
+			<p>Arctos URL: #target#</p>
+			<p>DOI: #newDOI#</p>
+			<p>DOI resolver (will take a few minutes to work): <a href="http://dx.doi.org/#newDOI#">http://dx.doi.org/#newDOI#</a></p>
 		<cfelse>
 			DOI creation failed.
 			<cfdump var=#cfhttp#>
