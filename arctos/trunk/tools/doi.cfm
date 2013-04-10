@@ -122,12 +122,45 @@
 			<cfset title=description.LABEL_VALUE>
 		</cfif><!--- end Media --->
 		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
-
+			<cfquery name="d" datasource="uam_god">
+				select
+					guid,
+					YEAR,
+					institution_acronym,
+					collectors,
+					CATALOGED_ITEM_TYPE,
+					scientific_name
+				from
+					flat
+				where
+					collection_object_id=#collection_object_id#
+			</cfquery>
+			<cfif d.recordcount is not 1>
+				<div class="error">Item not found</div><cfabort>
+			</cfif>
+			<cfset columname="collection_object_id">
+			<cfset pkeyval=collection_object_id>
+			<cfset target="#Application.serverRootUrl#/guid/#d.guid#">
+			<cfset publicationyear=d.year>
+			<cfif d.CATALOGED_ITEM_TYPE is "specimen">
+				<cfset resourcetype="PhysicalObject">
+			<cfelse>
+				<cfset resourcetype="Event">
+			</cfif>
+			<cfif d.institution_acronym is "UAM">
+				<cfset publisher='University of Alaska Museum'>
+			<cfelseif d.institution_acronym is "MSB">
+				<cfset publisher='Museum of Southwestern Biology'>
+			<cfelseif d.institution_acronym is "MVZ">
+				<cfset publisher="Museum of Vertebrate Zoology">
+			</cfif>
+			<cfset creator=listgetat(d.collectors,1)>
+			<cfset title=d.guid & ' - ' & d.scientific_name>
 		</cfif>
 		<cfif not isdefined("columname")>
 			<div class="error">Improper Call</div><cfabort>
 		</cfif>
-		<cfset rtl="Collection,Dataset,Event,,Image,InteractiveResource,Model,PhysicalObject,Service,Software,Sound,Text">
+		<cfset rtl="Collection,Dataset,Event,Image,InteractiveResource,Model,PhysicalObject,Service,Software,Sound,Text">
 		<form name="doi" method="post" action="doi.cfm">
 			<input type="hidden" name="action" value="createDOI">
 			<input type="hidden" name="columname" value="#columname#">
