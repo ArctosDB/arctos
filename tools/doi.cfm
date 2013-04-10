@@ -26,6 +26,7 @@
 			<blockquote>
 				<a href="http://n2t.net/ezid/id/doi:10.7299/X7WS8R7J" class="external" target="_blank">http://n2t.net/ezid/id/doi:10.7299/X7WS8R7J</a>
 			</blockquote>
+			DOI metadata is maintained at <a href="http://datacite.org/" class="external" target="_blank">DataCite</a>
 		</p>
 
 		<cfset publicationyear="">
