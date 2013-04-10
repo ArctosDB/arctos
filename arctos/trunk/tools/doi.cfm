@@ -1,6 +1,33 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfif action is "nothing">
+		<p>
+			This form will assign DOIs to individual items. Use the contact link in the footer if you need
+			many DOIs.
+		</p>
+		<p>
+			DOIs are stable identifiers, intended to "follow" the object to which they are attached (eg,
+			specimen in a museum or an image-with-metadata entry). DOIs come with a maintenance cost:
+			They must be updated if the assigned URI changes (eg, a specimen leaves Arctos) and DOI
+			metadata should be updated when something significant about the object changes.
+		</p>
+		<p>
+			All fields in the form below are required. We'll try to find appropriate values from the data,
+			but initial values should be viewed as suggestions only.
+		</p>
+		<p>
+			More about DOIs can be found at the <a href="http://www.doi.org/hb.html" class="external" target="_blank">DOI Handbook</a>
+			or the <a href="http://n2t.net/ezid/" class="external" target="_blank">EZID homepage.</a>
+		</p>
+		<p>
+			All Arctos DOIs are (currently) provided by EZID, and metadata (including QR codes) may be viewed by appending the DOI onto
+			<blockquote>http://n2t.net/ezid/id/doi:</blockquote>
+			to form URLs of the form
+			<blockquote>
+				<a href="http://n2t.net/ezid/id/doi:10.7299/X7WS8R7J" class="external" target="_blank">http://n2t.net/ezid/id/doi:10.7299/X7WS8R7J</a>
+			</blockquote>
+		</p>
+
 		<cfset publicationyear="">
 		<cfset target="">
 		<cfset resourcetype="">
@@ -9,8 +36,16 @@
 		<cfset publisher="">
 
 		<cfif isdefined("media_id") and len(media_id) gt 0>
-
-		--- we got a media ID ----
+			<cfquery name="alreadyGotOne" datasource="uam_god">
+				select doi from doi where media_id=#media_id#
+			</cfquery>
+			<cfif len(alreadyGotOne.doi) gt 0>
+				That record already has a DOI
+				<p>
+					#alreadyGotOne.doi#
+				</p>
+				<cfabort>
+			</cfif>
 			<cfquery name="media" datasource="uam_god">
 				select
 					media.MEDIA_URI,
@@ -122,6 +157,16 @@
 			<cfset title=description.LABEL_VALUE>
 		</cfif><!--- end Media --->
 		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
+			<cfquery name="alreadyGotOne" datasource="uam_god">
+				select doi from doi where collection_object_id=#collection_object_id#
+			</cfquery>
+			<cfif len(alreadyGotOne.doi) gt 0>
+				That record already has a DOI
+				<p>
+					#alreadyGotOne.doi#
+				</p>
+				<cfabort>
+			</cfif>
 			<cfquery name="d" datasource="uam_god">
 				select
 					guid,
