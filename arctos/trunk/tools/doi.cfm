@@ -6,6 +6,8 @@
 		<cfset resourcetype="">
 		<cfset creator="">
 		<cfset title="">
+		<cfset publisher="">
+
 		<cfif isdefined("media_id") and len(media_id) gt 0>
 			<cfquery name="media" datasource="uam_god">
 				select
