@@ -198,7 +198,7 @@
 			<cfset newDOI=trim(replace(newDOI,'doi:',''))>
 
 				<cfquery name="saveit" datasource="uam_god">
-					insert into doi (#columname#,doi) values (#pkeyval#,'#doi#')
+					insert into doi (#columname#,doi) values (#pkeyval#,'#newDOI#')
 				</cfquery>
 				You've created a DOI!
 				<br>
