@@ -128,7 +128,7 @@
 			<label for="publicationyear">publicationyear</label>
 			<input type="text" name="publicationyear" id="publicationyear" value="#publicationyear#">
 			<label for="resourcetype">resourcetype</label>
-			<select name="c" id="resourcetype" size="1">
+			<select name="resourcetype" id="resourcetype" size="1">
 				<cfloop list="#rtl#" index="i">
 					<option value="#i#" <cfif resourcetype is i> selected="selected" </cfif> >#i#</option>
 				</cfloop>
