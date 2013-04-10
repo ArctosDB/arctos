@@ -232,9 +232,9 @@
 			</select>
 
 
-			<label for="creator">creator <a href="http://n2t.net/ezid/doc/apidoc.html#profile-datacite" target="_blank" class="external">[ more info ]</a></label>
+			<label for="creator">creator <a href="http://n2t.net/ezid/doc/apidoc.html##profile-datacite" target="_blank" class="external">[ more info ]</a></label>
 			<input type="text" name="creator" id="creator" value="#creator#" size="80">
-			<label for="title">title <a href="http://n2t.net/ezid/doc/apidoc.html#profile-datacite" target="_blank" class="external">[ more info ]</a></label>
+			<label for="title">title <a href="http://n2t.net/ezid/doc/apidoc.html##profile-datacite" target="_blank" class="external">[ more info ]</a></label>
 			<input type="text" name="title" id="title" value="#title#" size="80">
 			<br>
 			<input type="submit" value="create DOI">
