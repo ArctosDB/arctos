@@ -214,6 +214,7 @@
 
 			<label for="target">target</label>
 			<input type="text" name="target" id="target" value="#target#" size="80">
+			<a href="#target#" target="_blank" class="infoLink">[ open in new window ]</a>
 			<label for="publicationyear">publicationyear</label>
 			<input type="text" name="publicationyear" id="publicationyear" value="#publicationyear#">
 			<label for="resourcetype">resourcetype</label>
