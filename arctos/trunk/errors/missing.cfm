@@ -16,6 +16,9 @@
 		<cfif d.media_id gt 0>
 			<cfset media_id=d.media_id>
 			<cfinclude template="/MediaDetail.cfm">
+		<cfelseif d.collection_object_id gt 0>
+			<cfset collection_object_id=d.collection_object_id>
+			<cfinclude template="/SpecimenDetail.cfm">
 		<cfelse>
 			<cfinclude template="/errors/404.cfm">
 		</cfif>
