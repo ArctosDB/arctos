@@ -133,6 +133,15 @@
 					<option value="#i#" <cfif resourcetype is i> selected="selected" </cfif> >#i#</option>
 				</cfloop>
 			</select>
+			<cfset pblst="Museum of Vertebrate Zoology|University of Alaska Museum|Museum of Southwestern Biology">
+			<label for="publisher">publisher</label>
+			<select name="publisher" id="publisher" size="1">
+				<cfloop list="#pblst#" index="i" delimiters="|">
+					<option value="#i#" <cfif publisher is i> selected="selected" </cfif> >#i#</option>
+				</cfloop>
+			</select>
+
+
 			<label for="creator">creator</label>
 			<input type="text" name="creator" id="creator" value="#creator#" size="80">
 			<label for="title">title</label>
