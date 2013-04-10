@@ -15,7 +15,6 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="media_keywords" id="media_keywords">
-
 		</td>
 	</tr>
 </table>

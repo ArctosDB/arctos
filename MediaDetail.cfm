@@ -92,6 +92,10 @@
 				<td>
 					<cfif len(findIDs.doi) gt 0>
 						<ul><li>Stable URI to this object: dx.doi.org/#findIDs.doi#</li></ul>
+					<cfelse>
+						<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
+							<a href="/tools/doi.cfm?media_id=#media_id#">get a DOI</a>
+						</cfif>
 					</cfif>
 					<cfif len(desc.label_value) gt 0>
 						<ul><li>#desc.label_value#</li></ul>
