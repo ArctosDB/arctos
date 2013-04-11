@@ -8,5 +8,5 @@
 <script type="text/javascript">
     // set up Y-player stuff; include the JS only where necessary
 	var YWPParams={termDetection:"on",theme:"silver"};
-    $.datepicker.setDefaults({ dateFormat: 'yy-mm-ddThh:mm:ss',changeMonth: true, changeYear: true });
+    $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd',changeMonth: true, changeYear: true, constrainInput: false });
 </script>
