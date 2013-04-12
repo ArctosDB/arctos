@@ -535,6 +535,9 @@
 			where
 				COLLECTING_EVENT_ID='#COLLECTING_EVENT_ID#' and
 				COLLECTION_OBJECT_ID in (select COLLECTION_OBJECT_ID from cataloged_item) -- keep things on the right side of the VPD
+				<cfif isdefined("VerificationStatusIs") and len(VerificationStatusIs) gt 0>
+					and VerificationStatus='#VerificationStatusIs#'
+				</cfif>
 		</cfquery>
 		<cflocation addtoken="false" url="Locality.cfm?action=editCollEvnt&collecting_event_id=#collecting_event_id#">
 	</cfoutput>
@@ -641,13 +644,26 @@
 		<form name="x" method="post" action="Locality.cfm">
 		    <input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
 	    	<input type="hidden" name="action" value="updateAllVerificationStatus">
-			<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Update Verification Status for ALL specimen_events in this collecting event to....</label>
+	    	<span class="likeLink" onClick="getDocs('lat_long','verification_status')">[ verificationstatus documentation ]</span>
+			<label for="VerificationStatus">
+				Mass-update specimen-events in this collecting event to.....
+			</label>
 			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 				<option value=""></option>
 				<cfloop query="ctVerificationStatus">
 					<option value="#VerificationStatus#">#VerificationStatus#</option>
 				</cfloop>
 			</select>
+			<label for="VerificationStatusIs">
+				.....where current verificationstatus IS (leave blank to get everything)
+			</label>
+			<select name="VerificationStatusIs" id="VerificationStatusIs" size="1" class="reqdClr">
+				<option value=""></option>
+				<cfloop query="ctVerificationStatus">
+					<option value="#VerificationStatus#">#VerificationStatus#</option>
+				</cfloop>
+			</select>
+			where
 			<br>
 			<input type="submit" class="lnkBtn" value="Update Verification Status for all of your specimen_events in this collecting event to value in pick above">
 		</form>
