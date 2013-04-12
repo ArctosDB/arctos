@@ -314,9 +314,6 @@
 							<td id="SDCellLeft" class="innerDetailLabel">Higher Geography:</td>
 							<td id="SDCellRight">#higher_geog#</td>
 						</tr>
-						<tr>
-							<td><div id="colEventMedia"></div></td>
-						</tr>
 						<cfif verbatim_locality is not spec_locality>
 							<cfif len(verbatim_locality) gt 0>
 								<tr class="detailData">
@@ -482,6 +479,10 @@
 											</cfif>
 										</td>
 									</tr>
+
+												<tr>
+											 	<td valign="top" align="right"><!---- map here ---><div id="colEventMedia"></div></td>
+												</tr>
 								</table>
 							</td>
 						</tr>
