@@ -479,10 +479,9 @@
 											</cfif>
 										</td>
 									</tr>
-
-												<tr>
-											 	<td valign="top" align="right"><!---- map here ---><div id="colEventMedia"></div></td>
-												</tr>
+									<tr>
+										<td valign="top" align="right"><!---- map here ---><div id="colEventMedia"></div></td>
+									</tr>
 								</table>
 							</td>
 						</tr>
