@@ -665,7 +665,7 @@
 			</select>
 			where
 			<br>
-			<input type="submit" class="lnkBtn" value="Update Verification Status for all of your specimen_events in this collecting event to value in pick above">
+			<input type="submit" class="lnkBtn" value="Mass-update specimen-events">
 		</form>
 	</div>
 	<cfform name="locality" method="post" action="Locality.cfm">
