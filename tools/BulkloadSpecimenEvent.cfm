@@ -1,5 +1,7 @@
 <!-----
 
+drop table cf_temp_specevent;
+
 
 create table cf_temp_specevent (
 	key number not null,
@@ -55,7 +57,7 @@ create table cf_temp_specevent (
 	HIGHER_GEOG varchar2(255)
 );
 
-create public synonym cf_temp_specevent for cf_temp_specevent;
+create or replace public synonym cf_temp_specevent for cf_temp_specevent;
 
 grant all on cf_temp_specevent to coldfusion_user;
 
@@ -394,14 +396,6 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		update cf_temp_specevent set status='COLLECTING_SOURCE not found'
 		where COLLECTING_SOURCE NOT IN (select COLLECTING_SOURCE from CTCOLLECTING_SOURCE)
 	</cfquery>
-	<cfquery name="VERIFICATIONSTATUS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_specevent set status='VERIFICATIONSTATUS not found'
-		where VERIFICATIONSTATUS NOT IN (select VERIFICATIONSTATUS from CTVERIFICATIONSTATUS)
-	</cfquery>
-	<cfquery name="VERIFICATIONSTATUS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_specevent set status='VERIFICATIONSTATUS not found'
-		where VERIFICATIONSTATUS NOT IN (select VERIFICATIONSTATUS from CTVERIFICATIONSTATUS)
-	</cfquery>
 
 
 
@@ -413,7 +407,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		<cfset checkEvent=true>
 		<cfset checkLocality=true>
 		<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select is_iso8601(ASSIGNED_DATE) isdate from dual
+			select is_iso8601('#ASSIGNED_DATE#') isdate from dual
 		</cfquery>
 		<cfif dd.isdate is not "valid">
 			<cfset s=listappend(s,'ASSIGNED_DATE not a valid date',';')>
