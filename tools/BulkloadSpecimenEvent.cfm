@@ -528,7 +528,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</cfif>
 		<cfif checkLocality is true>
 			<cfif len(SPEC_LOCALITY) is 0>
-				<cfset s=listappend(s,'SPEC_LOCALITY not required',';')>
+				<cfset s=listappend(s,'SPEC_LOCALITY is required',';')>
 			</cfif>
 			<cfif len(ORIG_ELEV_UNITS) gt 0>
 				<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -572,14 +572,15 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				<cfif dd.c is not 1>
 					<cfset s=listappend(s,'GEOG_AUTH_REC_ID is not valid',';')>
 				</cfif>
-			</cfif>
-			<cfif len(HIGHER_GEOG) gt 0>
+			<cfelseif len(HIGHER_GEOG) gt 0>
 				<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 					select count(*) c from GEOG_AUTH_REC where HIGHER_GEOG='#HIGHER_GEOG#'
 				</cfquery>
 				<cfif dd.c is not 1>
 					<cfset s=listappend(s,'HIGHER_GEOG is not valid',';')>
 				</cfif>
+			<cfelse>
+				<cfset s=listappend(s,'Either HIGHER_GEOG or GEOG_AUTH_REC_ID is required.',';')>
 			</cfif>
 		</cfif>
 		<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
