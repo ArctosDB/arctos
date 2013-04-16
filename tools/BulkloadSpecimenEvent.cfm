@@ -589,6 +589,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 	<cflocation url="BulkloadSpecimenEvent.cfm?action=beenValidated" addtoken="false">
 </cfif>
 <cfif action is "beenValidated">
+	<cfoutput>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_specevent
 	</cfquery>
@@ -607,6 +608,5 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			</tr>
 		</cfloop>
 	</table>
-		thecolumns
-	<cfdump var=#data#>
+	</cfoutput>
 </cfif>
