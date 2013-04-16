@@ -46,7 +46,7 @@
 	<cfset basJoin = " INNER JOIN specimen_event ON (#flatTableName#.collection_object_id=specimen_event.collection_object_id)
 			INNER JOIN collecting_event ON (specimen_event.collecting_event_id =collecting_event.collecting_event_id)
 			INNER JOIN locality ON (collecting_event.locality_id=locality.locality_id)">
-	<cfset basWhere = " WHERE locality.dec_lat is not null ">
+	<cfset basWhere = " WHERE locality.dec_lat is not null AND specimen_event.specimen_event_type != 'unaccepted place of collection'">
 	<cfset basQual = "">
 	<cfif not isdefined("basJoin")>
 		<cfset basJoin = "">
