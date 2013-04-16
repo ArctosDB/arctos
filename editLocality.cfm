@@ -216,7 +216,7 @@
 			document.location=rurl;
 		}
 	}
-	function convertFasdfasdToDD(format){
+	function convertToDD(format){
 		if (format=='dms'){
 		var lat_deg=$("#lat_deg").val();
 		if(lat_deg==''){
