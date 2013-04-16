@@ -81,7 +81,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 	<cflocation url="/download.cfm?file=BulkloadSpecimenEvent.csv" addtoken="false">
 </cfif>
 <cfif action is  "nothing">
-	Upload specimen-events
+	Use this form to ADD specimen-events.
 	<p>
 		<a href="BulkloadSpecimenEvent.cfm?action=makeTemplate">download a CSV template</a>
 	</p>
@@ -459,13 +459,13 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				<cfset s=listappend(s,'VERBATIM_LOCALITY is required',';')>
 			</cfif>
 			<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select is_iso8601(BEGAN_DATE) isdate from dual
+				select is_iso8601('#BEGAN_DATE#') isdate from dual
 			</cfquery>
 			<cfif dd.isdate is not "valid">
 				<cfset s=listappend(s,'BEGAN_DATE is not a valid date',';')>
 			</cfif>
 			<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select is_iso8601(ENDED_DATE) isdate from dual
+				select is_iso8601('#ENDED_DATE#') isdate from dual
 			</cfquery>
 			<cfif dd.isdate is not "valid">
 				<cfset s=listappend(s,'ENDED_DATE is not a valid date',';')>
