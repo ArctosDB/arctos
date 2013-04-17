@@ -635,7 +635,6 @@
 	<cfparam name="fluid_remarks" default="">
 	<cfparam name="container_type" default="">
 	
-	<cfdump var=#form#>
 	<cfoutput>
 		<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct(institution_acronym) institution_acronym from collection order by institution_acronym
@@ -658,7 +657,7 @@
 				<option value=""></option>
 				<cfloop query="ContType"> 
 					 <cfif ContType.container_type is not "collection object">
-			            <option <cfif form.container_type is ContType.container_type> selected="selected" </cfif>value="#ContType.container_type#">#ContType.container_type#</option>
+			            <option <cfif container_type is ContType.container_type> selected="selected" </cfif>value="#ContType.container_type#">#ContType.container_type#</option>
 					</cfif>
           		</cfloop> 
 			</select>
@@ -704,7 +703,7 @@
 				<select name="Fluid_Type" size="1" class="reqdClr" id="fluid_type">
 					<option value=""></option>
 		          	<cfloop query="FluidType"> 
-        		    	<option <cfif form.fluid_type is FluidType.Fluid_Type> <selected="selected"> </cfif>value="#FluidType.Fluid_Type#">#FluidType.Fluid_Type#</option>
+        		    	<option <cfif fluid_type is FluidType.Fluid_Type> <selected="selected"> </cfif>value="#FluidType.Fluid_Type#">#FluidType.Fluid_Type#</option>
 		          	</cfloop>
 				</select>
 				<label for="checked_date">Fluid Checked Date</label>
