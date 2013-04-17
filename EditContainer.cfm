@@ -633,10 +633,10 @@
 	<cfparam name="Fluid_Type" default="">
 	<cfparam name="concentration" default="">
 	<cfparam name="fluid_remarks" default="">
-	<cfif isdefined("container_type">
+	<cfif isdefined("container_type")>
 		<cfset ctype=container_type>
 	</cfif>
-	<cfif isdefined("fluid_type">
+	<cfif isdefined("fluid_type")>
 		<cfset ftype=fluid_type>
 	</cfif>
 	<cfoutput>
