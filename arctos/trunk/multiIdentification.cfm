@@ -199,11 +199,11 @@
 	FROM 
 		flat
 		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
-			,#session.flatTableName#
+			,#session.SpecSrchTab#
 		</cfif>
 	WHERE 
 		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
-			flat.collection_object_id=#session.flatTableName#.collection_object_id
+			flat.collection_object_id=#session.SpecSrchTab#.collection_object_id
 		<cfelse>
 				flat.collection_object_id IN (#collection_object_id#)
 		</cfif>
