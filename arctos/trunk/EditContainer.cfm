@@ -658,7 +658,7 @@
 				<option value=""></option>
 				<cfloop query="ContType"> 
 					 <cfif ContType.container_type is not "collection object">
-			            <option <cfif variables.container_type is ContType.container_type> selected="selected" </cfif>value="#ContType.container_type#">#ContType.container_type#</option>
+			            <option <cfif form.container_type is ContType.container_type> selected="selected" </cfif>value="#ContType.container_type#">#ContType.container_type#</option>
 					</cfif>
           		</cfloop> 
 			</select>
@@ -704,7 +704,7 @@
 				<select name="Fluid_Type" size="1" class="reqdClr" id="fluid_type">
 					<option value=""></option>
 		          	<cfloop query="FluidType"> 
-        		    	<option <cfif variables.fluid_type is FluidType.Fluid_Type> <selected="selected"> </cfif>value="#FluidType.Fluid_Type#">#FluidType.Fluid_Type#</option>
+        		    	<option <cfif form.fluid_type is FluidType.Fluid_Type> <selected="selected"> </cfif>value="#FluidType.Fluid_Type#">#FluidType.Fluid_Type#</option>
 		          	</cfloop>
 				</select>
 				<label for="checked_date">Fluid Checked Date</label>
