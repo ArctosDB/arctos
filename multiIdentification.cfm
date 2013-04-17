@@ -289,10 +289,14 @@
 			<cfset colobjidlist=collection_object_id>
 		</cfif>
 
+looping for #len(colobjidlist)#
 		
 		
 	<cftransaction>
 		<cfloop list="#colobjidlist#" index="i">
+		#i#
+		
+		
 		<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #i#
 		</cfquery>
@@ -385,8 +389,11 @@
 			 </cfif>
 </cfloop>
 	</cftransaction>
-	<cflocation url="multiIdentification.cfm?collection_object_id=#collection_object_id#" addtoken="no">
 	
+	<!----
+	<cflocation url="multiIdentification.cfm?collection_object_id=#collection_object_id#" addtoken="no">
+	----->
+	all done
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
