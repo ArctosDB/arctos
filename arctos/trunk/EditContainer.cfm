@@ -634,6 +634,8 @@
 	<cfparam name="concentration" default="">
 	<cfparam name="fluid_remarks" default="">
 	<cfparam name="container_type" default="">
+	
+	<cfdump var=#variables#>
 	<cfoutput>
 		<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct(institution_acronym) institution_acronym from collection order by institution_acronym
