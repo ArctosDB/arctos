@@ -22,7 +22,6 @@
   <table>
   <form name="newID" method="post" action="multiIdentification.cfm">
             <input type="hidden" name="Action" value="createManyNew">
-            <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
     		<tr>
 				<td>
 				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_formula')">ID Formula:</a></td>
@@ -197,16 +196,9 @@
 		flat.quad,
 		flat.collection
 	FROM 
-		flat
-		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
-			,#session.SpecSrchTab#
-		</cfif>
+		flat,#session.SpecSrchTab#
 	WHERE 
-		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
-			flat.collection_object_id=#session.SpecSrchTab#.collection_object_id
-		<cfelse>
-				flat.collection_object_id IN (#collection_object_id#)
-		</cfif>
+		flat.collection_object_id=#session.SpecSrchTab#.collection_object_id
 	ORDER BY 
 		flat.collection_object_id
 </cfquery>
@@ -280,14 +272,11 @@
 	<cfabort>
 </cfif>
 <!--- looop through the collection_object_list and update things one at a time--->
-		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
 			<cfquery name="theList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select collection_object_id from #session.SpecSrchTab#
 			</cfquery>
 			<cfset colobjidlist=theList.collection_object_id>
-		<cfelse>
-			<cfset colobjidlist=collection_object_id>
-		</cfif>
+		
 
 looping for #len(colobjidlist)#
 		
@@ -391,7 +380,7 @@ looping for #len(colobjidlist)#
 	</cftransaction>
 	
 	<!----
-	<cflocation url="multiIdentification.cfm?collection_object_id=#collection_object_id#" addtoken="no">
+	<cflocation url="multiIdentification.cfm" addtoken="no">
 	----->
 	all done
 </cfoutput>
