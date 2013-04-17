@@ -3,26 +3,26 @@
 alter table cf_temp_attributes add status varchar2(255);
 
 
- CREATE OR REPLACE TRIGGER cf_temp_attributes_key                                         
- before insert  ON cf_temp_attributes  
- for each row 
-    begin     
-    	if :NEW.key is null then                                                                                      
+ CREATE OR REPLACE TRIGGER cf_temp_attributes_key
+ before insert  ON cf_temp_attributes
+ for each row
+    begin
+    	if :NEW.key is null then
     		select somerandomsequence.nextval into :new.key from dual;
-    	end if;                                
-    end;                                                                                            
+    	end if;
+    end;
 /
 sho err
 --->
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# is "nothing">
-Step 1: Upload a comma-delimited text file (csv). 
-Include column headings, spelled exactly as below. 
+Step 1: Upload a comma-delimited text file (csv).
+Include column headings, spelled exactly as below.
 <br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
 	<div id="template" style="display:none;">
 		<label for="t">Copy the existing code and save as a .csv file</label>
 		<textarea rows="2" cols="80" id="t">OTHER_ID_TYPE,OTHER_ID_NUMBER,ATTRIBUTE,ATTRIBUTE_VALUE,ATTRIBUTE_UNITS,ATTRIBUTE_DATE,ATTRIBUTE_METH,DETERMINER,REMARKS,COLLECTION_CDE,INSTITUTION_ACRONYM</textarea>
-	</div> 
+	</div>
 <p></p>
 
 
@@ -40,7 +40,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<li>ATTRIBUTE_DATE</li>
 	<li>ATTRIBUTE_METH</li>
 	<li style="color:red">DETERMINER</li>
-	<li>REMARKS</li>				 
+	<li>REMARKS</li>
 </ul>
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
@@ -50,7 +50,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		   size="45" onchange="checkCSV(this);">
 			 <input type="submit" value="Upload this file"
 		class="savBtn"
-		onmouseover="this.className='savBtn btnhov'" 
+		onmouseover="this.className='savBtn btnhov'"
 		onmouseout="this.className='savBtn'">
   </cfform>
 
@@ -81,7 +81,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -116,13 +116,13 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		<cfif len(#attribute#) is 0>
 			<cfset stat=listappend(stat,"You must specify an attribute",";")>
 		</cfif>
-		<cfif len(#determiner#) is 0>
+		<cfif len(trim(determiner)) is 0>
 			<cfset stat=listappend(stat,"You must specify an determiner",";")>
 		</cfif>
 		<cfif stat is "">
 			<cfif #other_id_type# is "catalog number">
 				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					SELECT 
+					SELECT
 						collection_object_id
 					FROM
 						cataloged_item,
@@ -135,7 +135,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 				</cfquery>
 			<cfelse>
 				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					SELECT 
+					SELECT
 						coll_obj_other_id_num.collection_object_id
 					FROM
 						coll_obj_other_id_num,
@@ -155,15 +155,15 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			<cfelse>
 				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE cf_temp_attributes SET collection_object_id = #collObj.collection_object_id# where key = #key#
-				</cfquery>			
+				</cfquery>
 			</cfif>
 			<cfquery name="isAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select attribute_type from ctattribute_type where attribute_type='#attribute#'
 				AND collection_cde='#collection_cde#'
 			</cfquery>
-			<cfif isAtt.recordcount is not 1>					
+			<cfif isAtt.recordcount is not 1>
 				<cfset stat=listappend(stat,"Attribute (#attribute#) does not match code table values for collection #collection_cde#",";")>
-			</cfif>	
+			</cfif>
 			<!---- see if it  should be code-table controlled ---->
 			<cfquery name="isValCt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT value_code_table FROM ctattribute_code_tables WHERE
@@ -172,7 +172,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			<cfif isdefined("isValCt.value_code_table") and len(#isValCt.value_code_table#) gt 0>
 				<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select * from #isValCt.value_code_table#
-				</cfquery>			
+				</cfquery>
 					<!---- get column names --->
 				<cfquery name="getCols" datasource="uam_god">
 					select column_name from sys.user_tab_columns where table_name='#ucase(isValCt.value_code_table)#'
@@ -207,7 +207,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						<cfset GoodValueFlag = "'something that's longer than nothing'">
 					</cfif>
 				</cfloop>
-				<cfif len(#GoodValueFlag#) is 0>									
+				<cfif len(#GoodValueFlag#) is 0>
 					<cfset stat=listappend(stat,"Attribute Value (#attribute_value#) is code table controlled and does not match code table values",";")>
 				</cfif>
 			</cfif>
@@ -246,7 +246,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					<cfset thisAttUnit = #attribute_units#>
 					<cfset AttUnitBsdFlag = "">
 					<cfloop query="unitCodes">
-						<cfif #unitCodes.unitCodes# is "#thisAttUnit#"> 
+						<cfif #unitCodes.unitCodes# is "#thisAttUnit#">
 							<cfset AttUnitBsdFlag = "something">
 						</cfif>
 					</cfloop>
@@ -284,7 +284,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			  	<cfset stat=listappend(stat,"Attribute Date is required",";")>
 			</cfif>
 			<cfquery name="attDet1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				SELECT agent_id FROM agent_name WHERE agent_name = '#determiner#'
+				SELECT agent_id FROM agent_name WHERE agent_name = '#escapeQuotes(determiner)#'
 			</cfquery>
 			<cfif #attDet1.recordcount# is not 1>
 				<cfset stat=listappend(stat,"Attribute Determiner (#determiner#) was not found or has multiple matches",";")>
@@ -292,7 +292,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 				<cfquery name="gotDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE cf_temp_attributes SET determined_by_agent_id = #attDet1.agent_id#
 					where key=#key#
-				</cfquery>							
+				</cfquery>
 			</cfif>
 			<cfif len(stat) gt 0>
 				<cfif len(stat) gte 255>
@@ -300,7 +300,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 				</cfif>
 				<cfquery name="gotDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update cf_temp_attributes set status='#stat#'
-				</cfquery>						
+				</cfquery>
 			</cfif>
 		</cfif><!--- end goteverything check --->
 	</cfloop>
@@ -313,7 +313,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfif pf.l is 0>
 		Oops - something's hinky. Review the table below and try again.
 	<cfelse>
-		Your data should load. Review the table below and <a href="BulkloadAttributes.cfm?action=loadData">click to continue</a>.		
+		Your data should load. Review the table below and <a href="BulkloadAttributes.cfm?action=loadData">click to continue</a>.
 	</cfif>
 	<cfdump var=#datadump#>
 </cfoutput>
@@ -322,8 +322,8 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfif #action# is "loadData">
 
 <cfoutput>
-	
-		
+
+
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_attributes
 	</cfquery>

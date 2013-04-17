@@ -54,7 +54,11 @@ create table cf_temp_specevent (
 	GEOREFERENCE_PROTOCOL varchar2(255),
 	LOCALITY_NAME varchar2(255),
 	GEOG_AUTH_REC_ID NUMBER,
-	HIGHER_GEOG varchar2(255)
+	HIGHER_GEOG varchar2(255),
+	l_collection_object_id number,
+	l_collecting_event_id number,
+	l_locality_id number,
+	l_geog_auth_rec_id number
 );
 
 create or replace public synonym cf_temp_specevent for cf_temp_specevent;
@@ -407,6 +411,18 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		<cfset s=''>
 		<cfset checkEvent=true>
 		<cfset checkLocality=true>
+		<cfset l_collection_object_id = 0>
+		<cfset l_collecting_event_id = 0>
+		<cfset l_locality_id = 0>
+		<cfset l_geog_auth_rec_id = 0>
+
+		<cfquery name="getCatItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select nvl(collection_object_id,0) collection_object_id from flat where guid='#guid#'
+		</cfquery>
+		<cfset l_collection_object_id=getCatItem.collection_object_id>
+		<cfif getCatItem.collection_object_id is 0>
+			<cfset s=listappend(s,'guid not found',';')>
+		</cfif>
 		<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select is_iso8601('#ASSIGNED_DATE#') isdate from dual
 		</cfquery>
@@ -416,38 +432,42 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		<cfif len(collecting_event_id) gt 0>
 			<cfset checkEvent=false>
 			<cfset checkLocality=false>
-			<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select count(*) c from collecting_event where collecting_event_id=#collecting_event_id#
+			<cfquery name="collecting_event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select nvl(collecting_event_id,0) collecting_event_id from collecting_event where collecting_event_id=#collecting_event_id#
 			</cfquery>
-			<cfif dd.c is not 1>
+			<cfset l_collecting_event_id=collecting_event.collecting_event_id>
+			<cfif collecting_event.collecting_event_id is 0>
 				<cfset s=listappend(s,'not a valid collecting_event_id',';')>
 			</cfif>
 		</cfif>
 		<cfif len(collecting_event_name) gt 0>
 			<cfset checkEvent=false>
 			<cfset checkLocality=false>
-			<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select count(*) c from collecting_event where collecting_event_name='#collecting_event_name#'
+			<cfquery name="collecting_event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select nvl(collecting_event_id,0) collecting_event_id from collecting_event where collecting_event_name='#collecting_event_name#'
 			</cfquery>
-			<cfif dd.c is not 1>
+			<cfset l_collecting_event_id=collecting_event.collecting_event_id>
+			<cfif collecting_event.collecting_event_id is 0>
 				<cfset s=listappend(s,'not a valid collecting_event_name',';')>
 			</cfif>
 		</cfif>
 		<cfif len(LOCALITY_ID) gt 0>
 			<cfset checkLocality=false>
-			<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select count(*) c from LOCALITY where LOCALITY_ID=#LOCALITY_ID#
+			<cfquery name="LOCALITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select nvl(LOCALITY_ID,0) LOCALITY_ID from LOCALITY where LOCALITY_ID=#LOCALITY_ID#
 			</cfquery>
-			<cfif dd.c is not 1>
+			<cfset l_locality_id=LOCALITY.LOCALITY_ID>
+			<cfif LOCALITY.LOCALITY_ID is 0>
 				<cfset s=listappend(s,'not a valid LOCALITY_ID',';')>
 			</cfif>
 		</cfif>
 		<cfif len(LOCALITY_NAME) gt 0>
 			<cfset checkLocality=false>
-			<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select count(*) c from LOCALITY where LOCALITY_NAME='#LOCALITY_NAME#'
+			<cfquery name="LOCALITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				selectnvl(LOCALITY_ID,0) LOCALITY_ID from LOCALITY where LOCALITY_NAME='#LOCALITY_NAME#'
 			</cfquery>
-			<cfif dd.c is not 1>
+			<cfset l_locality_id=LOCALITY.LOCALITY_ID>
+			<cfif LOCALITY.LOCALITY_ID is 0>
 				<cfset s=listappend(s,'not a valid LOCALITY_NAME',';')>
 			</cfif>
 		</cfif>
@@ -566,17 +586,19 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				</cfif>
 			</cfif>
 			<cfif len(GEOG_AUTH_REC_ID) gt 0>
-				<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select count(*) c from GEOG_AUTH_REC where GEOG_AUTH_REC_ID=#GEOG_AUTH_REC_ID#
+				<cfquery name="GEOG_AUTH_REC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+					select nvl(GEOG_AUTH_REC_ID,0) GEOG_AUTH_REC_ID from GEOG_AUTH_REC where GEOG_AUTH_REC_ID=#GEOG_AUTH_REC_ID#
 				</cfquery>
-				<cfif dd.c is not 1>
+				<cfset l_geog_auth_rec_id=GEOG_AUTH_REC.GEOG_AUTH_REC_ID)>
+				<cfif GEOG_AUTH_REC.GEOG_AUTH_REC_ID is 0>
 					<cfset s=listappend(s,'GEOG_AUTH_REC_ID is not valid',';')>
 				</cfif>
 			<cfelseif len(HIGHER_GEOG) gt 0>
-				<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select count(*) c from GEOG_AUTH_REC where HIGHER_GEOG='#HIGHER_GEOG#'
+				<cfquery name="GEOG_AUTH_REC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+					select nvl(GEOG_AUTH_REC_ID,0) GEOG_AUTH_REC_ID  from GEOG_AUTH_REC where HIGHER_GEOG='#HIGHER_GEOG#'
 				</cfquery>
-				<cfif dd.c is not 1>
+				<cfset l_geog_auth_rec_id=GEOG_AUTH_REC.GEOG_AUTH_REC_ID)>
+				<cfif GEOG_AUTH_REC.GEOG_AUTH_REC_ID is 0>
 					<cfset s=listappend(s,'HIGHER_GEOG is not valid',';')>
 				</cfif>
 			<cfelse>
@@ -584,16 +606,26 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			</cfif>
 		</cfif>
 		<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_specevent set status='#s#' where key=#key#
+			update cf_temp_specevent set l_collection_object_id=#getCatItem.collection_object_id#, status='#s#' where key=#key#
 		</cfquery>
 	</cfloop>
 	<cflocation url="BulkloadSpecimenEvent.cfm?action=beenValidated" addtoken="false">
 </cfif>
+
+
 <cfif action is "beenValidated">
 	<cfoutput>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_specevent
 	</cfquery>
+	<cfquery name="willload" dbtype="query">
+		select count(*) c from data where status is not null
+	</cfquery>
+	<cfif willload.c os 0>
+		<a href="BulkloadSpecimenEvent.cfm?action=load">continue to load</a>
+	<cfelse>
+		fix errors and reload
+	</cfif>
 	<cfset clist=listprepend(thecolumns,'status')>
 	<table border>
 		<tr>
@@ -609,5 +641,78 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			</tr>
 		</cfloop>
 	</table>
+	</cfoutput>
+</cfif>
+<cfif action is "load">
+	<cfoutput>
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_specevent
+		</cfquery>
+		
+			l_collection_object_id number,
+				l_collecting_event_id number,
+				l_locality_id number,
+				 
+				
+				
+		<cfloop query="data">
+			<cfif len(l_collecting_event_id) is 0>
+				<!--- we'll have to find or build an event - see about locality ---->
+					<cfif len(l_locality_id) is 0>
+						<!--- we'll have to find or build a locality ---->
+						<!--- coordinates? --->
+						<cfif orig_lat_long_units is 'deg. min. sec.'>
+							<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								select  dms_to_string ('#latdeg#','#latmin#','#latsec#','#latdir#','#longdeg#','#longmin#','#longsec#','#longdir#') vc from dual
+							</cfquery>
+							<cfset verbatimcoordinates=data.vc>
+						<cfelseif orig_lat_long_units is 'degrees dec. minutes'>
+							<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								select  dm_to_string ('#latdeg#','#dec_lat_min#','#latdir#','#longdeg#','#dec_long_min#''#longdir#') vc from dual
+							</cfquery>
+							<cfset verbatimcoordinates=data.vc>
+						<cfelseif orig_lat_long_units is 'decimal degrees'>
+							<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								select  dd_to_string ('#DEC_LAT#','#DEC_LONG#') vc from dual
+							</cfquery>
+							<cfset verbatimcoordinates=data.vc>
+						<cfelseif orig_lat_long_units is 'UTM'>
+							<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								select  utm_to_string ('#UTM_NS#','#UTM_EW#','#UTM_ZONE#') vc from dual
+							</cfquery>
+							<cfset verbatimcoordinates=data.vc>
+						<cfelse>
+							<cfset verbatimcoordinates=''>
+						</cfif>
+						<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							select nvl(min(locality.locality_id),-1)
+				            FROM 
+				            	locality
+				            WHERE
+				                geog_auth_rec_id = #l_geog_auth_rec_id# AND
+				                NVL(MAXIMUM_ELEVATION,-1) = NVL(#maximum_elevation#,-1) AND
+				            	NVL(MINIMUM_ELEVATION,-1) = NVL(#minimum_elevation#,-1) AND
+				            	NVL(ORIG_ELEV_UNITS,'NULL') = NVL('#orig_elev_units#','NULL') AND
+				            	NVL(MIN_DEPTH,-1) = nvl(#min_depth#,-1) AND
+				            	NVL(MAX_DEPTH,-1) = nvl(#max_depth#,-1) AND
+				            	NVL(SPEC_LOCALITY,'NULL') = NVL('#spec_locality#','NULL') AND
+				            	NVL(LOCALITY_REMARKS,'NULL') = NVL('#locality_remarks#','NULL') AND
+				            	NVL(DEPTH_UNITS,'NULL') = NVL('#depth_units#','NULL') AND
+				            	dec_lat IS NULL AND -- because we didnt get event coordinates - assume for other coordinate info
+				            	locality_name IS NULL AND -- because we tested that above and will use it if it exists
+				                nvl(concatGeologyAttributeDetail(locality.locality_id),'NULL') = nvl(b_concatGeologyAttributeDetail(aRec.collection_object_id),'NULL')
+            ;
+					</cfquery>	
+					</cfif>
+				<
+				<!--- see if we can get it from collecting_event_name ---->
+				<cfif len(collecting_event_name) gt 0>
+					<cfquery name="ce" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select collecting_event_id from collecting_event where collecting_event_name='#collecting_event_name#'
+					</cfquery>
+
+				</cfif>
+			</cfif>
+		</cfloop>
 	</cfoutput>
 </cfif>
