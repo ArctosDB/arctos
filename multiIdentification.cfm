@@ -203,9 +203,10 @@
 		</cfif>
 	WHERE 
 		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
-			flat.collection_object_id=#session.flatTableName# and
+			flat.collection_object_id=#session.flatTableName#
+		<cfelse>
+				flat.collection_object_id IN (#collection_object_id#)
 		</cfif>
-		flat.collection_object_id IN (#collection_object_id#)
 	ORDER BY 
 		flat.collection_object_id
 </cfquery>
