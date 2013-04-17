@@ -187,21 +187,27 @@
 
 <cfquery name="specimenList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	 SELECT 
-	 	collection_object_id, 
-		cat_num,
+	 	flat.collection_object_id, 
+		flat.cat_num,
 		concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-		scientific_name,
-		country,
-		state_prov,
-		county,
-		quad,
-		collection
+		flat.scientific_name,
+		flat.country,
+		flat.state_prov,
+		flat.county,
+		flat.quad,
+		flat.collection
 	FROM 
 		flat
+		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
+			,#session.flatTableName#
+		</cfif>
 	WHERE 
+		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
+			flat.collection_object_id=#session.flatTableName# and
+		</cfif>
 		flat.collection_object_id IN (#collection_object_id#)
 	ORDER BY 
-		collection_object_id
+		flat.collection_object_id
 </cfquery>
 <br><b>#specimenList.recordcount# Specimens Being Re-Identified:</b>
 
