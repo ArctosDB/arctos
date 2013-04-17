@@ -249,7 +249,7 @@
 </cfif>
 <!----------------------------------------------------------------------------------->
 <!----------------------------------------------------------------------------------->
-<cfif #Action# is "createManyNew">
+<cfif Action is "createManyNew">
 
 <cfoutput>
 
@@ -280,8 +280,19 @@
 	<cfabort>
 </cfif>
 <!--- looop through the collection_object_list and update things one at a time--->
+		<cfif not isdefined("collection_object_id") or len(collection_object_id) is 0>
+			<cfquery name="theList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select collection_object_id from #session.SpecSrchTab#
+			</cfquery>
+			<cfset colobjidlist=theList.collection_object_id>
+		<cfelse>
+			<cfset colobjidlist=collection_object_id>
+		</cfif>
+
+		
+		
 	<cftransaction>
-		<cfloop list="#collection_object_id#" index="i">
+		<cfloop list="#colobjidlist#" index="i">
 		<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #i#
 		</cfquery>
