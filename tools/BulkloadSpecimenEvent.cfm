@@ -857,8 +857,8 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				    			UTM_NS,
 				    			ORIG_LAT_LONG_UNITS
 				    		) values (
-				    			#lcl_collecting_event_id#',
-				    			#lcl_locality_id#',
+				    			#lcl_collecting_event_id#,
+				    			#lcl_locality_id#,
 				    			'#verbatim_date#',
 				    			'#VERBATIM_LOCALITY#',
 				    			'#began_date#',			
