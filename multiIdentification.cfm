@@ -186,8 +186,7 @@
 
 <cfquery name="specimenList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	 SELECT 
-	 	flat.collection_object_id, 
-		flat.cat_num,
+	 	flat.guid,
 		concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		flat.scientific_name,
 		flat.country,
@@ -205,10 +204,10 @@
 <br><b>#specimenList.recordcount# Specimens Being Re-Identified:</b>
 
 </cfoutput>
-
+*Changes can take a few minutes to show up in this table and in specimenresults.
 <table width="95%" border="1">
 <tr>
-	<td><strong>Catalog Number</strong></td>
+	<td><strong>GUID</strong></td>
 	<td><strong><cfoutput>#session.CustomOtherIdentifier#</cfoutput></strong></td>
 	<td><strong>Accepted Scientific Name</strong></td>
 	<td><strong>Country</strong></td>
@@ -219,7 +218,7 @@
  <cfoutput query="specimenList" group="collection_object_id">
     <tr>
 	  <td>
-	  	#collection#&nbsp;#cat_num#
+	  	<a href="/guid/#guid#">#guid</a>
 	  </td>
 	<td>
 		#CustomID#&nbsp;
