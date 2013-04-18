@@ -275,20 +275,16 @@
 			<cfquery name="theList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select collection_object_id from #session.SpecSrchTab#
 			</cfquery>
-			<cfdump var=#theList#>
-			<cfset colobjidlist=theList.collection_object_id>
 		
 
-looping for #len(colobjidlist)#
 		
 		
 	<cftransaction>
-		<cfloop list="#colobjidlist#" index="i">
-		#i#
+		<cfloop query="theList">
 		
 		
 		<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #i#
+			UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
 		</cfquery>
 		<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO identification (
@@ -306,7 +302,7 @@ looping for #len(colobjidlist)#
 				,scientific_name)
 			VALUES (
 				sq_identification_id.nextval,
-				#i#
+				#collection_object_id#
 				<cfif len(#MADE_DATE#) gt 0>
 					,'#MADE_DATE#'
 				</cfif>
