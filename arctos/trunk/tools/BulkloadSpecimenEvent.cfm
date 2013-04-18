@@ -601,7 +601,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 					<cfquery name="GEOG_AUTH_REC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 						select nvl(GEOG_AUTH_REC_ID,0) GEOG_AUTH_REC_ID  from GEOG_AUTH_REC where HIGHER_GEOG='#HIGHER_GEOG#'
 					</cfquery>
-					<cfset l_geog_auth_rec_id=GEOG_AUTH_REC.GEOG_AUTH_REC_ID)>
+					<cfset l_geog_auth_rec_id=GEOG_AUTH_REC.GEOG_AUTH_REC_ID>
 					<cfif GEOG_AUTH_REC.GEOG_AUTH_REC_ID is 0>
 						<cfset s=listappend(s,'HIGHER_GEOG is not valid',';')>
 					</cfif>
