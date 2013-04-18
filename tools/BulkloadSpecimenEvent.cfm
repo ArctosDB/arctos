@@ -712,16 +712,16 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				            	locality
 				            WHERE
 				                geog_auth_rec_id = #l_geog_auth_rec_id# AND
-				                NVL(MAXIMUM_ELEVATION,-1) = NVL(#maximum_elevation#,-1) AND
-				            	NVL(MINIMUM_ELEVATION,-1) = NVL(#minimum_elevation#,-1) AND
+				                NVL(MAXIMUM_ELEVATION,-1) = NVL('#maximum_elevation#',-1) AND
+				            	NVL(MINIMUM_ELEVATION,-1) = NVL('#minimum_elevation#',-1) AND
 				            	NVL(ORIG_ELEV_UNITS,'NULL') = NVL('#orig_elev_units#','NULL') AND
-				            	NVL(MIN_DEPTH,-1) = nvl(#min_depth#,-1) AND
-				            	NVL(MAX_DEPTH,-1) = nvl(#max_depth#,-1) AND
+				            	NVL(MIN_DEPTH,-1) = nvl('#min_depth#',-1) AND
+				            	NVL(MAX_DEPTH,-1) = nvl('#max_depth#',-1) AND
 				            	NVL(SPEC_LOCALITY,'NULL') = NVL('#spec_locality#','NULL') AND
 				            	NVL(LOCALITY_REMARKS,'NULL') = NVL('#locality_remarks#','NULL') AND
 				            	NVL(DEPTH_UNITS,'NULL') = NVL('#depth_units#','NULL') AND
-				            	NVL(dec_lat,-1) = nvl(#dec_lat#,-1) AND
-				            	NVL(dec_long,-1) = nvl(#dec_long#,-1) AND
+				            	NVL(dec_lat,-1) = nvl('#dec_lat#',-1) AND
+				            	NVL(dec_long,-1) = nvl('#dec_long#',-1) AND
 				            	locality_name IS NULL AND -- because we tested that above and will use it if it exists
 				                locality_id not in (select locality_id from geology_attributes)
 						</cfquery>
