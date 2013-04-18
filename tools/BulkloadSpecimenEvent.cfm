@@ -910,7 +910,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 								<cfelse>
 									NULL
 								</cfif>,
-				    			'#ORIG_LAT_LONG_UNITS
+				    			'#ORIG_LAT_LONG_UNITS#'
 				    		)
     					</cfquery>
 					</cfif>
