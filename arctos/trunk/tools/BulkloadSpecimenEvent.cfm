@@ -159,13 +159,13 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</tr>
 		<tr>
 			<td>VERBATIM_DATE</td>
-			<td>conditionally</td>
 			<td>required if COLLECTING_EVENT_ID or COLLECTING_EVENT_NAME is not given</td>
+			<td>text</td>
 		</tr>
 		<tr>
 			<td>VERBATIM_LOCALITY</td>
-			<td>conditionally</td>
 			<td>required if COLLECTING_EVENT_ID or COLLECTING_EVENT_NAME is not given</td>
+			<td></td>
 		</tr>
 		<tr>
 			<td>COLL_EVENT_REMARKS</td>
@@ -174,13 +174,13 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</tr>
 		<tr>
 			<td>BEGAN_DATE</td>
-			<td>conditionally</td>
 			<td>required if COLLECTING_EVENT_ID or COLLECTING_EVENT_NAME is not given</td>
+			<td>ISO8601</td>
 		</tr>
 		<tr>
 			<td>ENDED_DATE</td>
-			<td>conditionally</td>
 			<td>required if COLLECTING_EVENT_ID or COLLECTING_EVENT_NAME is not given</td>
+			<td>ISO8601</td>
 		</tr>
 		<tr>
 			<td>ORIG_LAT_LONG_UNITS</td>
@@ -189,83 +189,83 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</tr>
 		<tr>
 			<td>LAT_DEG</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec." or "degrees dec. minutes"</td>
+			<td>integer, 0-90</td>
 		</tr>
 		<tr>
 			<td>DEC_LAT_MIN</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is "degrees dec. minutes"</td>
+			<td>number, 0-60</td>
 		</tr>
 		<tr>
 			<td>LAT_MIN</td>
-			<td><conditionally/td>
 			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec."</td>
+			<td>number, 0-60</td>
 		</tr>
 		<tr>
 			<td>LAT_SEC</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec."</td>
+			<td>number, 0-60</td>
 		</tr>
 		<tr>
 			<td>LAT_DIR</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec." or "degrees dec. minutes"</td>
+			<td>N or S</td>
 		</tr>
 		<tr>
 			<td>LONG_DEG</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec." or "degrees dec. minutes"</td>
+			<td>integer, -180 - 180</td>
 		</tr>
 		<tr>
 			<td>DEC_LONG_MIN</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is "degrees dec. minutes"</td>
+			<td>number, 0-60</td>
 		</tr>
 		<tr>
 			<td>LONG_MIN</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec."</td>
+			<td>number, 0-60</td>
 		</tr>
 		<tr>
 			<td>LONG_SEC</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec."</td>
+			<td>number, 0-60</td>
 		</tr>
 		<tr>
 			<td>LONG_DIR</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec." or "degrees dec. minutes"</td>
+			<td>E or W</td>
 		</tr>
 		<tr>
 			<td>DEC_LAT</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is "decimal degrees"</td>
+			<td>number, -90-90</td>
 		</tr>
 		<tr>
 			<td>DEC_LONG</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is "decimal degrees"</td>
+			<td>number, -180-180</td>
 		</tr>
 		<tr>
 			<td>DATUM</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is given</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTDATUM">CTDATUM</a></td>
 		</tr>
 		<tr>
 			<td>UTM_ZONE</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is "UTM"</td>
+			<td>char</td>
 		</tr>
 		<tr>
 			<td>UTM_EW</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is "UTM"</td>
+			<td>number</td>
 		</tr>
 		<tr>
 			<td>UTM_NS</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is "UTM"</td>
+			<td>number</td>
 		</tr>
 		<tr>
 			<td>LOCALITY_ID</td>
@@ -279,18 +279,18 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</tr>
 		<tr>
 			<td>SPEC_LOCALITY</td>
-			<td>conditionally</td>
 			<td>required if locality/event name/id not given</td>
+			<td></td>
 		</tr>
 		<tr>
 			<td>MINIMUM_ELEVATION</td>
-			<td>conditionally</td>
 			<td>required if ORIG_ELEV_UNITS given</td>
+			<td>number</td>
 		</tr>
 		<tr>
 			<td>MAXIMUM_ELEVATION</td>
-			<td>conditionally</td>
 			<td>required if ORIG_ELEV_UNITS given</td>
+			<td>number</td>
 		</tr>
 		<tr>
 			<td>ORIG_ELEV_UNITS</td>
@@ -299,13 +299,13 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</tr>
 		<tr>
 			<td>MIN_DEPTH</td>
-			<td>conditionally</td>
 			<td>required if DEPTH_UNITS given</td>
+			<td>number</td>
 		</tr>
 		<tr>
 			<td>MAX_DEPTH</td>
-			<td>conditionally</td>
 			<td>required if DEPTH_UNITS given</td>
+			<td>number</td>
 		</tr>
 		<tr>
 			<td>DEPTH_UNITS</td>
@@ -314,8 +314,8 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</tr>
 		<tr>
 			<td>MAX_ERROR_DISTANCE</td>
-			<td>conditionally</td>
 			<td>required if MAX_ERROR_UNITS given</td>
+			<td>number</td>
 		</tr>
 		<tr>
 			<td>MAX_ERROR_UNITS</td>
@@ -329,8 +329,8 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</tr>
 		<tr>
 			<td>GEOREFERENCE_SOURCE</td>
-			<td>conditionally</td>
 			<td>required if ORIG_LAT_LONG_UNITS is given</td>
+			<td>text</td>
 		</tr>
 		<tr>
 			<td>GEOREFERENCE_PROTOCOL</td>
@@ -339,13 +339,13 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</tr>
 		<tr>
 			<td>GEOG_AUTH_REC_ID</td>
-			<td>conditionally</td>
 			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if event/locality name/id is not given</td>
+			<td></td>
 		</tr>
 		<tr>
 			<td>HIGHER_GEOG</td>
-			<td>conditionally</td>
 			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if event/locality name/id is not given</td>
+			<td></td>
 		</tr>
 	</table>
 
