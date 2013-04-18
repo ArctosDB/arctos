@@ -864,8 +864,8 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				    			'#began_date#',			
 				    			'#ended_date#',
 				    			'#coll_event_remarks#',
-				    			<cfif len(LATDEG) gt 0>
-									LATDEG
+				    			<cfif len(LAT_DEG) gt 0>
+									LAT_DEG
 								<cfelse>
 									NULL
 								</cfif>,
@@ -874,19 +874,19 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 								<cfelse>
 									NULL
 								</cfif>,
-				    			<cfif len(LATMIN) gt 0>
-									LATMIN
+				    			<cfif len(LAT_MIN) gt 0>
+									LAT_MIN
 								<cfelse>
 									NULL
 								</cfif>,
-				    			<cfif len(LATSEC) gt 0>
-									LATSEC
+				    			<cfif len(LAT_SEC) gt 0>
+									LAT_SEC
 								<cfelse>
 									NULL
 								</cfif>,
-				    			'#LATDIR#',
-				    			<cfif len(LONGDEG) gt 0>
-									LONGDEG
+				    			'#LAT_DIR#',
+				    			<cfif len(LONG_DEG) gt 0>
+									LONG_DEG
 								<cfelse>
 									NULL
 								</cfif>,
@@ -895,13 +895,13 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 								<cfelse>
 									NULL
 								</cfif>,
-				    			<cfif len(LONGMIN) gt 0>
-									LONGMIN
+				    			<cfif len(LONG_MIN) gt 0>
+									LONG_MIN
 								<cfelse>
 									NULL
 								</cfif>,
-				    			<cfif len(LONGSEC) gt 0>
-									LONGSEC
+				    			<cfif len(LONG_SEC) gt 0>
+									LONG_SEC
 								<cfelse>
 									NULL
 								</cfif>,
