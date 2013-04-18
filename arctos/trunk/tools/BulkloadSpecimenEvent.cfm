@@ -415,15 +415,15 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			<cfset s=''>
 			<cfset checkEvent=true>
 			<cfset checkLocality=true>
-			<cfset l_collection_object_id = 0>
-			<cfset l_collecting_event_id = 0>
-			<cfset l_locality_id = 0>
-			<cfset l_geog_auth_rec_id = 0>
+			<cfset lcl_collection_object_id = 0>
+			<cfset lcl_collecting_event_id = 0>
+			<cfset lcl_locality_id = 0>
+			<cfset lcl_geog_auth_rec_id = 0>
 	
 			<cfquery name="getCatItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select nvl(collection_object_id,0) collection_object_id from flat where guid='#guid#'
 			</cfquery>
-			<cfset l_collection_object_id=getCatItem.collection_object_id>
+			<cfset lcl_collection_object_id=getCatItem.collection_object_id>
 			<cfif getCatItem.collection_object_id is 0>
 				<cfset s=listappend(s,'guid not found',';')>
 			</cfif>
@@ -439,7 +439,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				<cfquery name="collecting_event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 					select nvl(collecting_event_id,0) collecting_event_id from collecting_event where collecting_event_id=#collecting_event_id#
 				</cfquery>
-				<cfset l_collecting_event_id=collecting_event.collecting_event_id>
+				<cfset lcl_collecting_event_id=collecting_event.collecting_event_id>
 				<cfif collecting_event.collecting_event_id is 0>
 					<cfset s=listappend(s,'not a valid collecting_event_id',';')>
 				</cfif>
@@ -450,7 +450,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				<cfquery name="collecting_event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 					select nvl(collecting_event_id,0) collecting_event_id from collecting_event where collecting_event_name='#collecting_event_name#'
 				</cfquery>
-				<cfset l_collecting_event_id=collecting_event.collecting_event_id>
+				<cfset lcl_collecting_event_id=collecting_event.collecting_event_id>
 				<cfif collecting_event.collecting_event_id is 0>
 					<cfset s=listappend(s,'not a valid collecting_event_name',';')>
 				</cfif>
@@ -460,7 +460,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				<cfquery name="LOCALITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 					select nvl(LOCALITY_ID,0) LOCALITY_ID from LOCALITY where LOCALITY_ID=#LOCALITY_ID#
 				</cfquery>
-				<cfset l_locality_id=LOCALITY.LOCALITY_ID>
+				<cfset lcl_locality_id=LOCALITY.LOCALITY_ID>
 				<cfif LOCALITY.LOCALITY_ID is 0>
 					<cfset s=listappend(s,'not a valid LOCALITY_ID',';')>
 				</cfif>
@@ -470,7 +470,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				<cfquery name="LOCALITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 					selectnvl(LOCALITY_ID,0) LOCALITY_ID from LOCALITY where LOCALITY_NAME='#LOCALITY_NAME#'
 				</cfquery>
-				<cfset l_locality_id=LOCALITY.LOCALITY_ID>
+				<cfset lcl_locality_id=LOCALITY.LOCALITY_ID>
 				<cfif LOCALITY.LOCALITY_ID is 0>
 					<cfset s=listappend(s,'not a valid LOCALITY_NAME',';')>
 				</cfif>
@@ -593,7 +593,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 					<cfquery name="GEOG_AUTH_REC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 						select nvl(GEOG_AUTH_REC_ID,0) GEOG_AUTH_REC_ID from GEOG_AUTH_REC where GEOG_AUTH_REC_ID=#GEOG_AUTH_REC_ID#
 					</cfquery>
-					<cfset l_geog_auth_rec_id=GEOG_AUTH_REC.GEOG_AUTH_REC_ID>
+					<cfset lcl_geog_auth_rec_id=GEOG_AUTH_REC.GEOG_AUTH_REC_ID>
 					<cfif GEOG_AUTH_REC.GEOG_AUTH_REC_ID is 0>
 						<cfset s=listappend(s,'GEOG_AUTH_REC_ID is not valid',';')>
 					</cfif>
@@ -601,7 +601,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 					<cfquery name="GEOG_AUTH_REC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 						select nvl(GEOG_AUTH_REC_ID,0) GEOG_AUTH_REC_ID  from GEOG_AUTH_REC where HIGHER_GEOG='#HIGHER_GEOG#'
 					</cfquery>
-					<cfset l_geog_auth_rec_id=GEOG_AUTH_REC.GEOG_AUTH_REC_ID>
+					<cfset lcl_geog_auth_rec_id=GEOG_AUTH_REC.GEOG_AUTH_REC_ID>
 					<cfif GEOG_AUTH_REC.GEOG_AUTH_REC_ID is 0>
 						<cfset s=listappend(s,'HIGHER_GEOG is not valid',';')>
 					</cfif>
@@ -614,9 +614,9 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 					cf_temp_specevent 
 				set 
 					l_collection_object_id=#getCatItem.collection_object_id#,
-					l_collecting_event_id=#l_collecting_event_id#,
-					l_locality_id=#l_locality_id#,
-					l_geog_auth_rec_id=#l_geog_auth_rec_id#,
+					l_collecting_event_id=#lcl_collecting_event_id#,
+					l_locality_id=#lcl_locality_id#,
+					l_geog_auth_rec_id=#lcl_geog_auth_rec_id#,
 					status='#s#' where key=#key#
 			</cfquery>
 		</cfloop>
@@ -659,9 +659,13 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				select * from cf_temp_specevent
 			</cfquery>
 			<cfloop query="data">
-				<cfif len(l_collecting_event_id) is 0>
+				<cfset lcl_locality_id=l_locality_id>
+				<cfset lcl_collecting_event_id=l_collecting_event_id>
+		
+					
+				<cfif len(lcl_collecting_event_id) is 0>
 					<!--- we'll have to find or build an event - see about locality ---->
-					<cfif len(l_locality_id) is 0>
+					<cfif len(lcl_locality_id) is 0>
 						<!--- we'll have to find or build a locality ---->
 						<!--- coordinates? --->
 						<cfif orig_lat_long_units is 'deg. min. sec.'>
@@ -708,7 +712,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 						</cfquery>
 						<cfif eLoc.locality_id gt 0>
 							cant find locality
-							<cfset l_locality_id=eLoc.locality_id>
+							<cfset lcl_locality_id=eLoc.locality_id>
 						<cfelse>
 							<!--- make a locality ---->
 							<cfquery name="nLocId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -788,18 +792,17 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 										locality_id=#locality_id#
 								)
 							</cfquery>
-							<cfset l_locality_id=lid>
+							<cfset lcl_locality_id=lid>
 						</cfif>
 					</cfif>
 					<!--- we should have a locality_id here, so see if we have a collecting_event.---->
 					<cfquery name="findEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-
 						select 
 				    	    nvl(MIN(collecting_event_id),-1) collecting_event_id
 				    	from
 				    	    collecting_event 
 				    	where
-				    	    locality_id = l_locality_id and
+				    	    locality_id = lcl_locality_id and
 				    	    nvl(verbatim_date,'NULL') = nvl('#verbatim_date#','NULL') and
 				    	    nvl(VERBATIM_LOCALITY,'NULL') = nvl('#VERBATIM_LOCALITY#','NULL') and
 				    	    nvl(COLL_EVENT_REMARKS,'NULL') = nvl('#COLL_EVENT_REMARKS#','NULL') and
@@ -811,13 +814,13 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				    	    nvl(ORIG_LAT_LONG_UNITS,'NULL') = nvl('#ORIG_LAT_LONG_UNITS#','NULL')
     	    		</cfquery>
     				<cfif findEvent.collecting_event_id gt 0>
-						<cfset l_collecting_event_id=findEvent.collecting_event_id>
+						<cfset lcl_collecting_event_id=findEvent.collecting_event_id>
 					<cfelse>
 						<!---- make a collecting event ---->
 						<cfquery name="nCevId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select sq_collecting_event_id.nextval nv from dual
 						</cfquery>
-						<cfset l_collecting_event_id=nCevId.nv>
+						<cfset lcl_collecting_event_id=nCevId.nv>
 						<cfquery name="makeEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				    		insert into collecting_event (
 				    			collecting_event_id,
@@ -845,8 +848,8 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				    			UTM_NS,
 				    			ORIG_LAT_LONG_UNITS
 				    		) values (
-				    			#l_collecting_event_id#',
-				    			#l_locality_id#',
+				    			#lcl_collecting_event_id#',
+				    			#lcl_locality_id#',
 				    			'#verbatim_date#',
 				    			'#VERBATIM_LOCALITY#',
 				    			'#began_date#',			
@@ -935,8 +938,8 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			            VERIFICATIONSTATUS,
 			            HABITAT
 			        ) VALUES (
-			            l_collection_object_id,
-			            l_collecting_event_id,
+			            #l_collection_object_id#,
+			            #lcl_collecting_event_id#,
 			            (SELECT agent_id FROM agent_name WHERE agent_name='#ASSIGNED_BY_AGENT#'),
 			            '#event_assigned_date#',
 			            '#SPECIMEN_EVENT_REMARK#',
