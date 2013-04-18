@@ -450,9 +450,9 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				<cfset checkEvent=false>
 				<cfset checkLocality=false>
 				<cfquery name="collecting_event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select nvl(collecting_event_id,0) collecting_event_id from collecting_event where collecting_event_id=#collecting_event_id#
+					select collecting_event_id from collecting_event where collecting_event_id=#collecting_event_id#
 				</cfquery>
-				<cfif collecting_event.collecting_event_id is 0>
+				<cfif collecting_event.recordcount is not 1>
 					<cfset s=listappend(s,'not a valid collecting_event_id',';')>
 				<cfelse>
 					<cfset lcl_collecting_event_id=collecting_event.collecting_event_id>
@@ -726,7 +726,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				                locality_id not in (select locality_id from geology_attributes)
 						</cfquery>
 						<cfif eLoc.locality_id gt 0>
-							cant find locality
+							found existing locality
 							<cfset lcl_locality_id=eLoc.locality_id>
 						<cfelse>
 							<!--- make a locality ---->
