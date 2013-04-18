@@ -811,7 +811,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				    	from
 				    	    collecting_event 
 				    	where
-				    	    locality_id = lcl_locality_id and
+				    	    locality_id = #lcl_locality_id# and
 				    	    nvl(verbatim_date,'NULL') = nvl('#verbatim_date#','NULL') and
 				    	    nvl(VERBATIM_LOCALITY,'NULL') = nvl('#VERBATIM_LOCALITY#','NULL') and
 				    	    nvl(COLL_EVENT_REMARKS,'NULL') = nvl('#COLL_EVENT_REMARKS#','NULL') and
