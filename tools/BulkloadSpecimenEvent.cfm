@@ -631,7 +631,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 					l_collecting_event_id=#lcl_collecting_event_id#,
 					l_locality_id=#lcl_locality_id#,
 					l_geog_auth_rec_id=#lcl_geog_auth_rec_id#,
-					l_event_assigned_id=#lcl_event_assigned_id#
+					l_event_assigned_id=#lcl_event_assigned_id#,
 					status='#s#' where key=#key#
 			</cfquery>
 		</cfloop>
