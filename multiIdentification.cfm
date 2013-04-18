@@ -2,8 +2,8 @@
 <script language="JavaScript" type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery("#made_date").datepicker();
-	script});
-</SCRIPT>
+	});
+</script>
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 <!--------------------------------------------------------------------------------------------------->
 <cfif Action is "nothing">
