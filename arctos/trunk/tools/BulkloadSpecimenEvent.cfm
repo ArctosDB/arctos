@@ -625,7 +625,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				<cfdump var=#data#>
 
 		<cfquery name="willload" dbtype="query">
-			select count(*) c from data where status is null
+			select count(*) c from data where status is not null
 		</cfquery>
 		<cfdump var=#willload#>
 		<cfif willload.c is 0>
