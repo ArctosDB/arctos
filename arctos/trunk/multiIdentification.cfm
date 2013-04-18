@@ -375,9 +375,9 @@
 			 </cfif>
 </cfloop>
 	</cftransaction>
-	
+		<cflocation url="multiIdentification.cfm" addtoken="no">
+
 	<!----
-	<cflocation url="multiIdentification.cfm" addtoken="no">
 	----->
 	all done
 </cfoutput>
