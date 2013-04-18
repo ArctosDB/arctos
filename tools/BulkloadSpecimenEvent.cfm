@@ -89,7 +89,13 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 	Use this form to ADD specimen-events.
 	<p>
 		You may NOT create localities with geology attributes from this form - create them in Arctos, name them, and use locality_name here. 
-		<a href="/contact.cfm">contact us</a> if you need other functinoality.
+		<a href="/contact.cfm">contact us</a> if you need other functionality.
+	</p>
+	<p>
+		Localities and events will be re-used if possible or created if nothing suitable exists.
+	</p>
+	<p>
+		Coordiantes will go to collecting_event (verbatim coordinates) and locality. Pre-create events if you need more control.
 	</p>
 	<p>
 		<a href="BulkloadSpecimenEvent.cfm?action=makeTemplate">download a CSV template</a>
@@ -279,7 +285,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</tr>
 		<tr>
 			<td>SPEC_LOCALITY</td>
-			<td>required if locality/event name/id not given</td>
+			<td>required if LOCALITY_ID, LOCALITY_NAME, COLLECTING_EVENT_ID, or COLLECTING_EVENT_NAME not given</td>
 			<td></td>
 		</tr>
 		<tr>
@@ -339,16 +345,15 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</tr>
 		<tr>
 			<td>GEOG_AUTH_REC_ID</td>
-			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if event/locality name/id is not given</td>
+			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if LOCALITY_ID, LOCALITY_NAME, COLLECTING_EVENT_ID, or COLLECTING_EVENT_NAME is not given</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td>HIGHER_GEOG</td>
-			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if event/locality name/id is not given</td>
+			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if LOCALITY_ID, LOCALITY_NAME, COLLECTING_EVENT_ID, or COLLECTING_EVENT_NAME is not given</td>
 			<td></td>
 		</tr>
 	</table>
-
 
 	Upload a file:
 	<cfform name="getFile" method="post" action="BulkloadSpecimenEvent.cfm" enctype="multipart/form-data">
