@@ -678,9 +678,9 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				<cfset lcl_collecting_event_id=l_collecting_event_id>
 		
 					
-				<cfif len(lcl_collecting_event_id) is 0>
+				<cfif lcl_collecting_event_id is 0>
 					<!--- we'll have to find or build an event - see about locality ---->
-					<cfif len(lcl_locality_id) is 0>
+					<cfif lcl_locality_id is 0>
 						<!--- we'll have to find or build a locality ---->
 						<!--- coordinates? --->
 						<cfif orig_lat_long_units is 'deg. min. sec.'>
