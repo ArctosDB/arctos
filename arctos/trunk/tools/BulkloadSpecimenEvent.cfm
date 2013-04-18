@@ -427,19 +427,19 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			<cfquery name="getCatItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select nvl(collection_object_id,0) collection_object_id from flat where guid='#guid#'
 			</cfquery>
-			<cfset lcl_collection_object_id=getCatItem.collection_object_id>
 			<cfif getCatItem.collection_object_id is 0>
 				<cfset s=listappend(s,'guid not found',';')>
+			<cfelse>
+				<cfset lcl_collection_object_id=getCatItem.collection_object_id>
 			</cfif>
 			<cfquery name="aba" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select nvl(agent_id,0) agent_id from agent_name where agent_name='#ASSIGNED_BY_AGENT#' group by agent_id
 			</cfquery>
-			<cfdump var=#aba#>
-			<cfset lcl_event_assigned_id=aba.agent_id>
 			<cfif aba.agent_id is not 1>
 				<cfset s=listappend(s,'ASSIGNED_BY_AGENT not found',';')>
+			<cfelse>
+				<cfset lcl_event_assigned_id=aba.agent_id>
 			</cfif>
-		
 			<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select is_iso8601('#ASSIGNED_DATE#') isdate from dual
 			</cfquery>
@@ -452,9 +452,10 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				<cfquery name="collecting_event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 					select nvl(collecting_event_id,0) collecting_event_id from collecting_event where collecting_event_id=#collecting_event_id#
 				</cfquery>
-				<cfset lcl_collecting_event_id=collecting_event.collecting_event_id>
 				<cfif collecting_event.collecting_event_id is 0>
 					<cfset s=listappend(s,'not a valid collecting_event_id',';')>
+				<cfelse>
+					<cfset lcl_collecting_event_id=collecting_event.collecting_event_id>
 				</cfif>
 			</cfif>
 			<cfif len(collecting_event_name) gt 0>
