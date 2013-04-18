@@ -628,10 +628,12 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			select count(*) c from data where status is not null
 		</cfquery>
 		<cfdump var=#willload#>
-		<cfif willload.c is 0>
-			<a href="BulkloadSpecimenEvent.cfm?action=load">continue to load</a>
+		<cfif willload.c gt 0>
+					fix errors and reload
+
 		<cfelse>
-			fix errors and reload
+					<a href="BulkloadSpecimenEvent.cfm?action=load">continue to load</a>
+
 		</cfif>
 		<cfset clist=listprepend(thecolumns,'status')>
 		<table border>
