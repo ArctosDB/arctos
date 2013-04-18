@@ -275,6 +275,7 @@
 			<cfquery name="theList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select collection_object_id from #session.SpecSrchTab#
 			</cfquery>
+			<cfdump var=#theList#>
 			<cfset colobjidlist=theList.collection_object_id>
 		
 
