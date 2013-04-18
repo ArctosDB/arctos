@@ -462,7 +462,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				<cfset checkEvent=false>
 				<cfset checkLocality=false>
 				<cfquery name="collecting_event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select nvl(collecting_event_id,0) collecting_event_id from collecting_event where collecting_event_name='#collecting_event_name#'
+					select min(collecting_event_id) collecting_event_id from collecting_event where collecting_event_name='#collecting_event_name#'
 				</cfquery>
 				<cfset lcl_collecting_event_id=collecting_event.collecting_event_id>
 				<cfif collecting_event.collecting_event_id is 0>
@@ -472,11 +472,12 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			<cfif len(LOCALITY_ID) gt 0>
 				<cfset checkLocality=false>
 				<cfquery name="LOCALITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select nvl(LOCALITY_ID,0) LOCALITY_ID from LOCALITY where LOCALITY_ID=#LOCALITY_ID#
+					select min(LOCALITY_ID) LOCALITY_ID from LOCALITY where LOCALITY_ID=#LOCALITY_ID#
 				</cfquery>
-				<cfset lcl_locality_id=LOCALITY.LOCALITY_ID>
-				<cfif LOCALITY.LOCALITY_ID is 0>
+				<cfif LOCALITY.recordcount is not 1>
 					<cfset s=listappend(s,'not a valid LOCALITY_ID',';')>
+				<cfelse>
+					<cfset lcl_locality_id=LOCALITY.LOCALITY_ID>
 				</cfif>
 			</cfif>
 			<cfif len(LOCALITY_NAME) gt 0>
