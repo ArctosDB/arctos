@@ -215,7 +215,7 @@
 	<td><strong>County</strong></td>
 	<td><strong>Quad</strong></td>
 </tr>
- <cfoutput query="specimenList" group="collection_object_id">
+ <cfoutput query="specimenList">
     <tr>
 	  <td>
 	  	<a href="/guid/#guid#">#guid#</a>
