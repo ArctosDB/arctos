@@ -610,7 +610,14 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				</cfif>
 			</cfif>
 			<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update cf_temp_specevent set l_collection_object_id=#getCatItem.collection_object_id#, status='#s#' where key=#key#
+				update 
+					cf_temp_specevent 
+				set 
+					l_collection_object_id=#getCatItem.collection_object_id#,
+					l_collecting_event_id=#l_collecting_event_id#,
+					l_locality_id=#l_locality_id#,
+					l_geog_auth_rec_id=#l_geog_auth_rec_id#,
+					status='#s#' where key=#key#
 			</cfquery>
 		</cfloop>
 		<cflocation url="BulkloadSpecimenEvent.cfm?action=beenValidated" addtoken="false">
@@ -621,19 +628,13 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_specevent
 		</cfquery>
-		
-				<cfdump var=#data#>
-
 		<cfquery name="willload" dbtype="query">
 			select count(*) c from data where status is not null
 		</cfquery>
-		<cfdump var=#willload#>
 		<cfif willload.c gt 0>
-					fix errors and reload
-
+			stage1 validation failed - fix errors and reload
 		<cfelse>
-					<a href="BulkloadSpecimenEvent.cfm?action=load">continue to load</a>
-
+			<a href="BulkloadSpecimenEvent.cfm?action=load">continue to validate localities</a>
 		</cfif>
 		<cfset clist=listprepend(thecolumns,'status')>
 		<table border>
