@@ -905,7 +905,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 								<cfelse>
 									NULL
 								</cfif>,
-				    			'#LONGDIR#',
+				    			'#LONG_DIR#',
 				    			<cfif len(DEC_LAT) gt 0>
 									DEC_LAT
 								<cfelse>
