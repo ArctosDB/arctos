@@ -481,7 +481,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			<cfif len(LOCALITY_NAME) gt 0>
 				<cfset checkLocality=false>
 				<cfquery name="LOCALITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					selectnvl(LOCALITY_ID,0) LOCALITY_ID from LOCALITY where LOCALITY_NAME='#LOCALITY_NAME#'
+					select nvl(LOCALITY_ID,0) LOCALITY_ID from LOCALITY where LOCALITY_NAME='#LOCALITY_NAME#'
 				</cfquery>
 				<cfset lcl_locality_id=LOCALITY.LOCALITY_ID>
 				<cfif LOCALITY.LOCALITY_ID is 0>
