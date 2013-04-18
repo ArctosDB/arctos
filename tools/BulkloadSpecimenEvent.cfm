@@ -707,7 +707,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 							<cfset verbatimcoordinates=''>
 						</cfif>
 						<cfquery name="eLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select nvl(min(locality.locality_id),-1)
+							select nvl(min(locality.locality_id),-1) locality_id
 				            FROM 
 				            	locality
 				            WHERE
