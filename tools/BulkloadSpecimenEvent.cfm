@@ -433,12 +433,12 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				<cfset lcl_collection_object_id=getCatItem.collection_object_id>
 			</cfif>
 			<cfquery name="aba" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select nvl(agent_id,0) agent_id from agent_name where agent_name='#ASSIGNED_BY_AGENT#' group by agent_id
+				select agent_id from agent_name where agent_name='#ASSIGNED_BY_AGENT#' group by agent_id
 			</cfquery>
-			<cfif aba.recordcount is not 1>
-				<cfset s=listappend(s,'ASSIGNED_BY_AGENT not found',';')>
-			<cfelse>
+			<cfif aba.recordcount is 1 and len(aba.agent_id) gt 0>
 				<cfset lcl_event_assigned_id=aba.agent_id>
+			<cfelse>
+				<cfset s=listappend(s,'ASSIGNED_BY_AGENT not found',';')>
 			</cfif>
 			<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select is_iso8601('#ASSIGNED_DATE#') isdate from dual
@@ -464,8 +464,9 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 				<cfquery name="collecting_event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 					select min(collecting_event_id) collecting_event_id from collecting_event where collecting_event_name='#collecting_event_name#'
 				</cfquery>
-				<cfset lcl_collecting_event_id=collecting_event.collecting_event_id>
-				<cfif collecting_event.collecting_event_id is 0>
+				<cfif collecting_event.recordcount is 1 and len(collecting_event.collecting_event_id) gt 0>
+					<cfset lcl_collecting_event_id=collecting_event.collecting_event_id>
+				<cfelse>
 					<cfset s=listappend(s,'not a valid collecting_event_name',';')>
 				</cfif>
 			</cfif>
@@ -475,19 +476,20 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 					select min(LOCALITY_ID) LOCALITY_ID from LOCALITY where LOCALITY_ID=#LOCALITY_ID#
 				</cfquery>
 				<cfdump var=#LOCALITY#>
-				<cfif LOCALITY.recordcount is not 1>
-					<cfset s=listappend(s,'not a valid LOCALITY_ID',';')>
-				<cfelse>
+				<cfif LOCALITY.recordcount is 1 and len(LOCALITY.LOCALITY_ID) gt 0>
 					<cfset lcl_locality_id=LOCALITY.LOCALITY_ID>
+				<cfelse>
+					<cfset s=listappend(s,'not a valid LOCALITY_ID',';')>
 				</cfif>
 			</cfif>
 			<cfif len(LOCALITY_NAME) gt 0>
 				<cfset checkLocality=false>
 				<cfquery name="LOCALITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select nvl(LOCALITY_ID,0) LOCALITY_ID from LOCALITY where LOCALITY_NAME='#LOCALITY_NAME#'
+					select min(LOCALITY_ID) LOCALITY_ID from LOCALITY where LOCALITY_NAME='#LOCALITY_NAME#'
 				</cfquery>
-				<cfset lcl_locality_id=LOCALITY.LOCALITY_ID>
-				<cfif LOCALITY.LOCALITY_ID is 0>
+				<cfif LOCALITY.recordcount is 1 and len(LOCALITY.LOCALITY_ID) gt 0>
+					<cfset lcl_locality_id=LOCALITY.LOCALITY_ID>
+				<cfelse>
 					<cfset s=listappend(s,'not a valid LOCALITY_NAME',';')>
 				</cfif>
 			</cfif>
