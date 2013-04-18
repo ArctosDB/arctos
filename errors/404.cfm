@@ -65,7 +65,7 @@
 					queryformat : 'column'
 				},
 				function (d) {
-		  			document.location='#request.rdurl#';
+		  			document.location='/#request.rdurl#';
 				}
 			);
 		}
