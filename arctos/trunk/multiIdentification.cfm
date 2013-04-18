@@ -218,7 +218,7 @@
  <cfoutput query="specimenList" group="collection_object_id">
     <tr>
 	  <td>
-	  	<a href="/guid/#guid#">#guid</a>
+	  	<a href="/guid/#guid#">#guid#</a>
 	  </td>
 	<td>
 		#CustomID#&nbsp;
