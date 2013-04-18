@@ -621,9 +621,13 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_specevent
 		</cfquery>
+		
+				<cfdump var=#data#>
+
 		<cfquery name="willload" dbtype="query">
-			select count(*) c from data where len(status) is 0
+			select count(*) c from data where status is null
 		</cfquery>
+		<cfdump var=#willload#>
 		<cfif willload.c is 0>
 			<a href="BulkloadSpecimenEvent.cfm?action=load">continue to load</a>
 		<cfelse>
