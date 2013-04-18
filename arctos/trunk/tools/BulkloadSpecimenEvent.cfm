@@ -431,11 +431,11 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			<cfif getCatItem.collection_object_id is 0>
 				<cfset s=listappend(s,'guid not found',';')>
 			</cfif>
-			<cfquery name="l_event_assigned_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			<cfquery name="aba" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select agent_id from agent_name where agent_name='#ASSIGNED_BY_AGENT#' group by agent_id
 			</cfquery>
-			<cfset lcl_event_assigned_id=l_event_assigned_id.agent_id>
-			<cfif lcl_event_assigned_id.agent_id is not 1>
+			<cfset lcl_event_assigned_id=aba.agent_id>
+			<cfif aba.agent_id is not 1>
 				<cfset s=listappend(s,'ASSIGNED_BY_AGENT not found',';')>
 			</cfif>
 		
