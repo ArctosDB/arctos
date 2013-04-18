@@ -58,7 +58,8 @@ create table cf_temp_specevent (
 	l_collection_object_id number,
 	l_collecting_event_id number,
 	l_locality_id number,
-	l_geog_auth_rec_id number
+	l_geog_auth_rec_id number,
+	l_event_assigned_id number
 );
 
 create or replace public synonym cf_temp_specevent for cf_temp_specevent;
@@ -419,6 +420,9 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			<cfset lcl_collecting_event_id = 0>
 			<cfset lcl_locality_id = 0>
 			<cfset lcl_geog_auth_rec_id = 0>
+			
+			<cfset lcl_event_assigned_id = 0>
+			
 	
 			<cfquery name="getCatItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select nvl(collection_object_id,0) collection_object_id from flat where guid='#guid#'
@@ -427,6 +431,14 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			<cfif getCatItem.collection_object_id is 0>
 				<cfset s=listappend(s,'guid not found',';')>
 			</cfif>
+			<cfquery name="l_event_assigned_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select agent_id from agent_name where agent_name='#ASSIGNED_BY_AGENT#' group by agent_id
+			</cfquery>
+			<cfset lcl_event_assigned_id=l_event_assigned_id.agent_id>
+			<cfif lcl_event_assigned_id.agent_id is not 1>
+				<cfset s=listappend(s,'ASSIGNED_BY_AGENT not found',';')>
+			</cfif>
+		
 			<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select is_iso8601('#ASSIGNED_DATE#') isdate from dual
 			</cfquery>
@@ -617,6 +629,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 					l_collecting_event_id=#lcl_collecting_event_id#,
 					l_locality_id=#lcl_locality_id#,
 					l_geog_auth_rec_id=#lcl_geog_auth_rec_id#,
+					l_event_assigned_id=#lcl_event_assigned_id#
 					status='#s#' where key=#key#
 			</cfquery>
 		</cfloop>
@@ -940,7 +953,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			        ) VALUES (
 			            #l_collection_object_id#,
 			            #lcl_collecting_event_id#,
-			            (SELECT agent_id FROM agent_name WHERE agent_name='#ASSIGNED_BY_AGENT#'),
+			            #l_event_assigned_id#,
 			            '#ASSIGNED_DATE#',
 			            '#SPECIMEN_EVENT_REMARK#',
 			            '#SPECIMEN_EVENT_TYPE#',
