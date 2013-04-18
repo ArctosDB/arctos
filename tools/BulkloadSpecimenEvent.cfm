@@ -149,13 +149,13 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			<td>COLLECTING_EVENT_ID</td>
 			<td>no</td>
 			<td>Specify an existing COLLECTING_EVENT.COLLECTING_EVENT_ID to use an existing event. This will IGNORE anything
-			else entered under event, locality, geography here</td>
+			else entered under event, locality, geography</td>
 		</tr>
 		<tr>
 			<td>COLLECTING_EVENT_NAME</td>
 			<td>no</td>
 			<td>Specify an existing COLLECTING_EVENT.COLLECTING_EVENT_NAME to use an existing event. This will IGNORE anything
-			else entered under event, locality, geography here</td>
+			else entered under event, locality, geography</td>
 		</tr>
 		<tr>
 			<td>VERBATIM_DATE</td>
@@ -174,180 +174,179 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</tr>
 		<tr>
 			<td>BEGAN_DATE</td>
-			<td></td>
-			<td></td>
+			<td>conditionally</td>
+			<td>required if COLLECTING_EVENT_ID or COLLECTING_EVENT_NAME is not given</td>
 		</tr>
 		<tr>
 			<td>ENDED_DATE</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>LAT_DEG</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>DEC_LAT_MIN</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>LAT_MIN</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>LAT_SEC</td>
-			<td></td>
-			<td></td>
-		</tr>
-	<tr>
-		<td>LAT_DIR</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>LONG_DEG</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>DEC_LONG_MIN</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>LONG_MIN</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>LONG_SEC</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>LONG_DIR</td>
-		<td></td>
-		<td></td>
-	</tr>
-		<tr>
-			<td>DEC_LAT</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>DEC_LONG</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>DATUM</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>UTM_ZONE</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>UTM_EW</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>UTM_NS</td>
-			<td></td>
-			<td></td>
+			<td>conditionally</td>
+			<td>required if COLLECTING_EVENT_ID or COLLECTING_EVENT_NAME is not given</td>
 		</tr>
 		<tr>
 			<td>ORIG_LAT_LONG_UNITS</td>
-			<td></td>
-			<td></td>
+			<td>no</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTLAT_LONG_UNITS">CTLAT_LONG_UNITS</a></td>
+		</tr>
+		<tr>
+			<td>LAT_DEG</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec." or "degrees dec. minutes"</td>
+		</tr>
+		<tr>
+			<td>DEC_LAT_MIN</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is "degrees dec. minutes"</td>
+		</tr>
+		<tr>
+			<td>LAT_MIN</td>
+			<td><conditionally/td>
+			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec."</td>
+		</tr>
+		<tr>
+			<td>LAT_SEC</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec."</td>
+		</tr>
+		<tr>
+			<td>LAT_DIR</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec." or "degrees dec. minutes"</td>
+		</tr>
+		<tr>
+			<td>LONG_DEG</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec." or "degrees dec. minutes"</td>
+		</tr>
+		<tr>
+			<td>DEC_LONG_MIN</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is "degrees dec. minutes"</td>
+		</tr>
+		<tr>
+			<td>LONG_MIN</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec."</td>
+		</tr>
+		<tr>
+			<td>LONG_SEC</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec."</td>
+		</tr>
+		<tr>
+			<td>LONG_DIR</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is "deg. min. sec." or "degrees dec. minutes"</td>
+		</tr>
+		<tr>
+			<td>DEC_LAT</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is "decimal degrees"</td>
+		</tr>
+		<tr>
+			<td>DEC_LONG</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is "decimal degrees"</td>
+		</tr>
+		<tr>
+			<td>DATUM</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is given</td>
+		</tr>
+		<tr>
+			<td>UTM_ZONE</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is "UTM"</td>
+		</tr>
+		<tr>
+			<td>UTM_EW</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is "UTM"</td>
+		</tr>
+		<tr>
+			<td>UTM_NS</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is "UTM"</td>
 		</tr>
 		<tr>
 			<td>LOCALITY_ID</td>
-			<td></td>
-			<td></td>
+			<td>no</td>
+			<td>if given, overrides all locality and geog information</td>
+		</tr>
+		<tr>
+			<td>LOCALITY_NAME</td>
+			<td>no</td>
+			<td>if given, overrides all locality and geog information</td>
 		</tr>
 		<tr>
 			<td>SPEC_LOCALITY</td>
-			<td></td>
-			<td></td>
+			<td>conditionally</td>
+			<td>required if locality/event name/id not given</td>
 		</tr>
 		<tr>
 			<td>MINIMUM_ELEVATION</td>
-			<td></td>
-			<td></td>
+			<td>conditionally</td>
+			<td>required if ORIG_ELEV_UNITS given</td>
 		</tr>
 		<tr>
 			<td>MAXIMUM_ELEVATION</td>
-			<td></td>
-			<td></td>
+			<td>conditionally</td>
+			<td>required if ORIG_ELEV_UNITS given</td>
 		</tr>
 		<tr>
 			<td>ORIG_ELEV_UNITS</td>
-			<td></td>
-			<td></td>
+			<td>no</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTORIG_ELEV_UNITS">CTORIG_ELEV_UNITS</a></td>
 		</tr>
 		<tr>
 			<td>MIN_DEPTH</td>
-			<td></td>
+			<td>conditionally</td>
+			<td>required if DEPTH_UNITS given</td>
+		</tr>
+		<tr>
+			<td>MAX_DEPTH</td>
+			<td>conditionally</td>
+			<td>required if DEPTH_UNITS given</td>
+		</tr>
+		<tr>
+			<td>DEPTH_UNITS</td>
+			<td>no</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTDEPTH_UNITS">CTDEPTH_UNITS</a></td>
+		</tr>
+		<tr>
+			<td>MAX_ERROR_DISTANCE</td>
+			<td>conditionally</td>
+			<td>required if MAX_ERROR_UNITS given</td>
+		</tr>
+		<tr>
+			<td>MAX_ERROR_UNITS</td>
+			<td>no</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTLAT_LONG_ERROR_UNITS">CTLAT_LONG_ERROR_UNITS</a></td>
+		</tr>
+		<tr>
+			<td>LOCALITY_REMARKS</td>
+			<td>no</td>
 			<td></td>
 		</tr>
-	<tr>
-		<td>MAX_DEPTH</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>DEPTH_UNITS</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>MAX_ERROR_DISTANCE</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>MAX_ERROR_UNITS</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>LOCALITY_REMARKS</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>GEOREFERENCE_SOURCE</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>GEOREFERENCE_PROTOCOL</td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>LOCALITY_NAME</td>
-		<td></td>
-		<td></td>
-	</tr>
+		<tr>
+			<td>GEOREFERENCE_SOURCE</td>
+			<td>conditionally</td>
+			<td>required if ORIG_LAT_LONG_UNITS is given</td>
+		</tr>
+		<tr>
+			<td>GEOREFERENCE_PROTOCOL</td>
+			<td>required if ORIG_LAT_LONG_UNITS is given</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTGEOREFERENCE_PROTOCOL">CTGEOREFERENCE_PROTOCOL</a></td>
+		</tr>
 		<tr>
 			<td>GEOG_AUTH_REC_ID</td>
-			<td></td>
-			<td></td>
+			<td>conditionally</td>
+			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if event/locality name/id is not given</td>
 		</tr>
 		<tr>
 			<td>HIGHER_GEOG</td>
-			<td></td>
-			<td></td>
+			<td>conditionally</td>
+			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if event/locality name/id is not given</td>
 		</tr>
-
 	</table>
 
 
@@ -653,7 +652,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		<cfif willload.c gt 0>
 			stage1 validation failed - fix errors and reload
 		<cfelse>
-			<a href="BulkloadSpecimenEvent.cfm?action=load">continue to validate localities</a>
+			<a href="BulkloadSpecimenEvent.cfm?action=load">continue to upload</a>
 		</cfif>
 		<cfset clist=listprepend(thecolumns,'status')>
 		<table border>
