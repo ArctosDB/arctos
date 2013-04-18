@@ -752,8 +752,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 									MAX_ERROR_UNITS,
 									DATUM,
 									georeference_source,
-									georeference_protocol,
-									locality_name
+									georeference_protocol
 								)  values (
 									#lid#,
 									#l_geog_auth_rec_id#,
@@ -799,12 +798,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 									'#MAX_ERROR_UNITS#',
 									'#DATUM#',
 									'#georeference_source#',
-									'#georeference_protocol#',
-									'#locality_name#'
-									from
-										locality
-									where
-										locality_id=#locality_id#
+									'#georeference_protocol#'
 								)
 							</cfquery>
 							<cfset lcl_locality_id=lid>
