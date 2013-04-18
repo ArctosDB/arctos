@@ -615,15 +615,14 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</cfloop>
 		<cflocation url="BulkloadSpecimenEvent.cfm?action=beenValidated" addtoken="false">
 	</cfif>
-	
-	
+<!------------------------------------------------------------------------------------------------>	
 	<cfif action is "beenValidated">
 		<cfoutput>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_specevent
 		</cfquery>
 		<cfquery name="willload" dbtype="query">
-			select count(*) c from data where status is not null
+			select count(*) c from data where len(status) is 0
 		</cfquery>
 		<cfif willload.c is 0>
 			<a href="BulkloadSpecimenEvent.cfm?action=load">continue to load</a>
