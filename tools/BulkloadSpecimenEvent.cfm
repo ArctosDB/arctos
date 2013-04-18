@@ -155,13 +155,17 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			<td>COLLECTING_EVENT_ID</td>
 			<td>no</td>
 			<td>Specify an existing COLLECTING_EVENT.COLLECTING_EVENT_ID to use an existing event. This will IGNORE anything
-			else entered under event, locality, geography</td>
+			else entered under event, locality, geography.
+			COLLECTING_EVENT_ID gets precedence over COLLECTING_EVENT_NAME - but don't provide both or you'll confuse yourself.
+			</td>
 		</tr>
 		<tr>
 			<td>COLLECTING_EVENT_NAME</td>
 			<td>no</td>
 			<td>Specify an existing COLLECTING_EVENT.COLLECTING_EVENT_NAME to use an existing event. This will IGNORE anything
-			else entered under event, locality, geography</td>
+			else entered under event, locality, geography
+			COLLECTING_EVENT_ID gets precedence over COLLECTING_EVENT_NAME - but don't provide both or you'll confuse yourself.
+			</td>
 		</tr>
 		<tr>
 			<td>VERBATIM_DATE</td>
@@ -276,12 +280,17 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		<tr>
 			<td>LOCALITY_ID</td>
 			<td>no</td>
-			<td>if given, overrides all locality and geog information</td>
+			<td>
+				If given, overrides all locality and geog information. 
+				LOCALITY_ID gets precedence over LOCALITY_NAME - but don't provide both or you'll confuse yourself.
+			</td>
 		</tr>
 		<tr>
 			<td>LOCALITY_NAME</td>
 			<td>no</td>
-			<td>if given, overrides all locality and geog information</td>
+			<td>if given, overrides all locality and geog information
+			LOCALITY_ID gets precedence over LOCALITY_NAME - but don't provide both or you'll confuse yourself.
+			</td>
 		</tr>
 		<tr>
 			<td>SPEC_LOCALITY</td>
@@ -345,12 +354,16 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</tr>
 		<tr>
 			<td>GEOG_AUTH_REC_ID</td>
-			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if LOCALITY_ID, LOCALITY_NAME, COLLECTING_EVENT_ID, or COLLECTING_EVENT_NAME is not given</td>
+			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if LOCALITY_ID, LOCALITY_NAME, COLLECTING_EVENT_ID, or COLLECTING_EVENT_NAME is not given
+				GEOG_AUTH_REC_ID gets precedence over HIGHER_GEOG - but don't provide both or you'll confuse yourself.
+			</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td>HIGHER_GEOG</td>
-			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if LOCALITY_ID, LOCALITY_NAME, COLLECTING_EVENT_ID, or COLLECTING_EVENT_NAME is not given</td>
+			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if LOCALITY_ID, LOCALITY_NAME, COLLECTING_EVENT_ID, or COLLECTING_EVENT_NAME is not given. 
+			GEOG_AUTH_REC_ID gets precedence over HIGHER_GEOG - but don't provide both or you'll confuse yourself.
+			</td>
 			<td></td>
 		</tr>
 	</table>
