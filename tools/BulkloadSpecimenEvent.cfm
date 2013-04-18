@@ -435,7 +435,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			<cfquery name="aba" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select nvl(agent_id,0) agent_id from agent_name where agent_name='#ASSIGNED_BY_AGENT#' group by agent_id
 			</cfquery>
-			<cfif aba.agent_id is not 1>
+			<cfif aba.recordcount is not 1>
 				<cfset s=listappend(s,'ASSIGNED_BY_AGENT not found',';')>
 			<cfelse>
 				<cfset lcl_event_assigned_id=aba.agent_id>
