@@ -941,7 +941,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 			            #l_collection_object_id#,
 			            #lcl_collecting_event_id#,
 			            (SELECT agent_id FROM agent_name WHERE agent_name='#ASSIGNED_BY_AGENT#'),
-			            '#event_assigned_date#',
+			            '#ASSIGNED_DATE#',
 			            '#SPECIMEN_EVENT_REMARK#',
 			            '#SPECIMEN_EVENT_TYPE#',
 			            '#COLLECTING_METHOD#',
