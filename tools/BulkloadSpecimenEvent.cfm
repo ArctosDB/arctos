@@ -381,35 +381,37 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 <cfif action is "getFileData">
 	<cfoutput>
 		<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				delete from cf_temp_specevent
-			</cfquery>
-			<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-			<cfset fileContent=replace(fileContent,"'","''","all")>
-			<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
-			<cfset colNames="">
-			<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
-				<cfset colVals="">
-					<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
-						<cfset thisBit=arrResult[o][i]>
-						<cfif #o# is 1>
-							<cfset colNames="#colNames#,#thisBit#">
-						<cfelse>
-							<cfset colVals="#colVals#,'#thisBit#'">
-						</cfif>
-					</cfloop>
-				<cfif #o# is 1>
-					<cfset colNames=replace(colNames,",","","first")>
-				</cfif>
-				<cfif len(#colVals#) gt 1>
-					<cfset colVals=replace(colVals,",","","first")>
-					<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						insert into cf_temp_specevent (#colNames#) values (#preservesinglequotes(colVals)#)
-					</cfquery>
-				</cfif>
-			</cfloop>
-			<cflocation url="BulkloadSpecimenEvent.cfm?action=validateFromFile">
-		</cfoutput>
-	</cfif>
+			delete from cf_temp_specevent
+		</cfquery>
+		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+		<cfset fileContent=replace(fileContent,"'","''","all")>
+		<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
+		<cfset colNames="">
+		<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
+			<cfset colVals="">
+				<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
+					<cfset thisBit=arrResult[o][i]>
+					<cfif #o# is 1>
+						<cfset colNames="#colNames#,#thisBit#">
+					<cfelse>
+						<cfset colVals="#colVals#,'#thisBit#'">
+					</cfif>
+				</cfloop>
+			<cfif #o# is 1>
+				<cfset colNames=replace(colNames,",","","first")>
+			</cfif>
+			<cfif len(#colVals#) gt 1>
+				<cfset colVals=replace(colVals,",","","first")>
+				<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into cf_temp_specevent (#colNames#) values (#preservesinglequotes(colVals)#)
+				</cfquery>
+			</cfif>
+		</cfloop>
+		<cflocation url="BulkloadSpecimenEvent.cfm?action=validateFromFile" addtoken="false">
+	</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------->
+
 	<cfif action is "validateFromFile">
 		<cfquery name="guid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_specevent set status='guid not found'
