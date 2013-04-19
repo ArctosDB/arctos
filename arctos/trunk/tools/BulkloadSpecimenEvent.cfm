@@ -368,7 +368,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		</tr>
 	</table>
 
-	Upload a file:
+	Upload CSV:
 	<cfform name="getFile" method="post" action="BulkloadSpecimenEvent.cfm" enctype="multipart/form-data">
 		<input type="hidden" name="action" value="getFileData">
 		 <input type="file"
@@ -377,7 +377,7 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		<input type="submit" value="Upload this file" class="savBtn">
 	</cfform>
 </cfif>
-
+<!---------------------------------------------------------------------------->
 <cfif action is "getFileData">
 	<cfoutput>
 		<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
