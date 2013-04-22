@@ -93,32 +93,36 @@ commit;
 			<cfset cterms=ListToArray(x.data[1].results[i].classification_path, "|", true)>
 			<cfset cranks=ListToArray(x.data[1].results[i].classification_path_ranks, "|", true)>
 			 
-			
+			<cfset thisSource=x.data[1].results[i].data_source_title>
 			<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
 				<cfset thisTerm=cterms[listpos]>
 				<cfset thisRank=cranks[listpos]>
 				<br>thisTerm: #thisTerm# ---- thisRank: #thisRank#
+				
+				<cfquery name="meta" datasource="uam_god">
+					insert into taxon_metadata (
+						tmid,
+						taxon_name_id,
+						term,
+						term_type,
+						source,
+						position_in_source_hierarchy
+					) values (
+						somerandomsequence.nextval,
+						#d.taxon_name_id#,
+						'#thisTerm#',
+						'#lcase(thisRank)#',
+						'#thisSource#',
+						#pos#
+					)
+				</cfquery>
+				<cfset pos=pos+1>
+			
+			
 			</cfloop>
 			
 			<!------------
-			<cfquery name="meta" datasource="uam_god">
-				insert into taxon_metadata (
-					tmid,
-					taxon_name_id,
-					term,
-					term_type,
-					source,
-					position_in_source_hierarchy
-				) values (
-					somerandomsequence.nextval,
-					#d.taxon_name_id#,
-					'#thisTermVal#',
-					'#lcase(termtype)#',
-					'Arctos',
-					#pos#
-				)
-			</cfquery>
-			<cfset pos=pos+1>
+			
 				
 				
 			
