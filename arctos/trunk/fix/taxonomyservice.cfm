@@ -92,8 +92,10 @@ commit;
 			
 			 
 			
-			<cfloop list="#x.data[1].results[i].classification_path#" delimiters="|" index="term">
-				<br>term: #term#
+			<cfloop from="1" to="#listlen(x.data[1].results[i].classification_path,"|")#" index="listPos">
+				<cfset thisTerm=listgetat(x.data[1].results[i].classification_path,"|",listPos)>
+				<cfset thisRank=listgetat(x.data[1].results[i].classification_path_ranks,"|",listPos)>
+				<br>thisTerm: #thisTerm# ---- thisRank: #thisRank#
 			</cfloop>
 			
 			<!------------
