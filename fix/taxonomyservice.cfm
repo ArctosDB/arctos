@@ -81,6 +81,9 @@ commit;
 			select taxon_name_id from taxon_term where scientific_name='#scientific_name#'
 		</cfquery>
 		<cfdump var=#d#>
+		<cfif len(d.taxon_name_id) is 0>
+			taxon name not found<cfabort>
+		</cfif>
 		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
 			<cfset pos=1>
 			<br>listlen(x.data[1].results[i].classification_path,"|"): #listlen(x.data[1].results[i].classification_path,"|")#
