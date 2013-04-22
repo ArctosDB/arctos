@@ -89,12 +89,14 @@ commit;
 			<br>x.data[1].results[i].classification_path: #x.data[1].results[i].classification_path#
 			<br>x.data[1].results[i].classification_path_ranks: #x.data[1].results[i].classification_path_ranks#
 			
-			
+			<!--- because lists are stupid and ignore NULLs.... ---->
+			<cfset cterms=ListToArray(x.data[1].results[i].classification_path, "|", true)>
+			<cfset cranks=ListToArray(x.data[1].results[i].classification_path_ranks, "|", true)>
 			 
 			
-			<cfloop from="1" to="#listlen(x.data[1].results[i].classification_path,"|")#" index="listPos">
-				<cfset thisTerm=listgetat(x.data[1].results[i].classification_path,listPos,"|")>
-				<cfset thisRank=listgetat(x.data[1].results[i].classification_path_ranks,listPos,"|")>
+			<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
+				<cfset thisTerm=cterms[listpos]>
+				<cfset thisRank=cranks[listpos]>
 				<br>thisTerm: #thisTerm# ---- thisRank: #thisRank#
 			</cfloop>
 			
