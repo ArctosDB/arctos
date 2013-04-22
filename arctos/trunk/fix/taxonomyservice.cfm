@@ -86,6 +86,11 @@ commit;
 
 
 
+<cfdump var=#xmlDoc.hash.data#>
+
+
+
+
 
 	</cfif>
 
