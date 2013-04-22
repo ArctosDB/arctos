@@ -74,11 +74,13 @@ commit;
 <br />http://resolver.globalnames.org/name_resolvers.xml?names=Sorex%20cinereus
 
 	<cfif action is "pullFromGlobalnames">
-		<cfhttp url="http://resolver.globalnames.org/name_resolvers.xml?names=#scientific_name#"></cfhttp>
-		<!----
+		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#scientific_name#"></cfhttp>
+		
+		
 		<cfdump var=#cfhttp#>
-		---->
-		<cfset xmlDoc=xmlParse(cfhttp.filecontent)>
+		
+		<!----
+			<cfset xmlDoc=xmlParse(cfhttp.filecontent)>
 <!-----
 				<cfdump var=#xmlDoc#>
 ---->
@@ -99,6 +101,8 @@ commit;
 				
 	</p>
 </cfloop>
+		---->
+	
 
 	</cfif>
 
