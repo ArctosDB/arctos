@@ -114,7 +114,7 @@ commit;
 		
 		
 	</cfif>
-
+<!-------------------------------------------------------------->
 	<cfif action is "popFromArctos">
 		<cfquery name="d" datasource="uam_god">
 			select * from taxonomy where scientific_name='#scientific_name#'
@@ -125,12 +125,12 @@ commit;
 		</cfquery>
 		<!--- first, taxon terms ---->
 		<cfset orderedTerms="KINGDOM,PHYLUM,PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,SUBSPECIES">
-		<cfloop list="#orderedTerms#" index="term">
-			<cfset thisTermVal=evaluate("d." & term)>
+		<cfloop list="#orderedTerms#" index="termtype">
+			<cfset thisTermVal=evaluate("d." & termtype)>
 			<cfif len(thisTermVal) gt 0>
 				<cfset thisTerm=term>
 				<cfif term is "SUBSPECIES" and len(d.INFRASPECIFIC_RANK) gt 0>
-					<cfset thisTerm=d.INFRASPECIFIC_RANK>
+					<cfset thisTermVal=d.INFRASPECIFIC_RANK>
 				</cfif>
 				<cfquery name="meta" datasource="uam_god">
 					insert into taxon_metadata (
@@ -144,7 +144,7 @@ commit;
 						somerandomsequence.nextval,
 						#d.taxon_name_id#,
 						'#thisTermVal#',
-						'#lcase(thisTerm)#',
+						'#lcase(termtype)#',
 						'Arctos',
 						#pos#
 					)
@@ -154,8 +154,8 @@ commit;
 		</cfloop>
 		<!--- then "non-taxonomy metadata" - we may not want to keep all this stuff, so discuss before any large-scale migration ---->
 		<cfset orderedTerms="VALID_CATALOG_TERM_FG|SOURCE_AUTHORITY|AUTHOR_TEXT|TAXON_REMARKS|NOMENCLATURAL_CODE|INFRASPECIFIC_AUTHOR|DISPLAY_NAME|TAXON_STATUS">
-		<cfloop list="#orderedTerms#" index="term" delimiters="|">
-			<cfset thisTermVal=evaluate("d." & term)>
+		<cfloop list="#orderedTerms#" index="termtype" delimiters="|">
+			<cfset thisTermVal=evaluate("d." & termtype)>
 			<cfif len(thisTermVal) gt 0>
 				<cfquery name="meta" datasource="uam_god">
 					insert into taxon_metadata (
@@ -168,7 +168,7 @@ commit;
 						somerandomsequence.nextval,
 						#d.taxon_name_id#,
 						'#thisTermVal#',
-						'#lcase(thisTerm)#',
+						'#lcase(termtype)#',
 						'Arctos'
 					)
 				</cfquery>
