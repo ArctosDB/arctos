@@ -75,8 +75,6 @@ commit;
 	<cfif action is "pullFromGlobalnames">
 		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#scientific_name#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
-		<br>JSON result converted to object
-		<br>get taxon_name_id
 		<cfquery name="d" datasource="uam_god">
 			select taxon_name_id from taxon_term where scientific_name='#scientific_name#'
 		</cfquery>
@@ -86,12 +84,6 @@ commit;
 		</cfif>
 		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
 			<cfset pos=1>
-			<br>listlen(x.data[1].results[i].classification_path,"|"): #listlen(x.data[1].results[i].classification_path,"|")#
-			<br>listlen(x.data[1].results[i].classification_path_ranks,"|"): #listlen(x.data[1].results[i].classification_path_ranks,"|")#
-			
-			<br>x.data[1].results[i].classification_path: #x.data[1].results[i].classification_path#
-			<br>x.data[1].results[i].classification_path_ranks: #x.data[1].results[i].classification_path_ranks#
-			
 			<!--- because lists are stupid and ignore NULLs.... ---->
 			<cfset cterms=ListToArray(x.data[1].results[i].classification_path, "|", true)>
 			<cfset cranks=ListToArray(x.data[1].results[i].classification_path_ranks, "|", true)>
@@ -123,54 +115,11 @@ commit;
 				</cfif>
 			
 			</cfloop>
-			
-			<!------------
-			
-				
-				
-			
-			<cfset thisDataSource=x.data[1].results[i].data_source_title[1]>
-			<cfset thisclassification_path
-			<hr>
-			loop #i#
-			<br>canonical_form 	#x.data[1].results[i].canonical_form#
-			<br>classification_path 	#x.data[1].results[i].classification_path#
-			<br>
-			<br>classification_path_ranks 	#x.data[1].results[i].classification_path_ranks#
-			<br>data_source_title 	##
-			
-			------------>
 		</cfloop>
 
 
-
-		<!----
-			<cfset xmlDoc=xmlParse(cfhttp.filecontent)>
-<!-----
-				<cfdump var=#xmlDoc#>
----->
-<cfdump var=#xmlDoc.hash#>
-
-
-
-
-<cfdump var=#xmlDoc.hash.data.datum.results#>
-
-
-
-<cfloop from="1" to="#ArrayLen(xmlDoc.hash.data.datum.results.result)#" index="i">
-	<p>#i#
-	<cfset a=xmlDoc.hash.data.datum.results.result[i].xmlattributes>
-		<cfdump var=#a#>
-				
-				
-	</p>
-</cfloop>
-		---->
-	
-
 	</cfif>
-
+<!-------------------------------------------------------------->
 	<cfif action is "whatsThere">
 		<br>
 		get everything with one trip to the DB
@@ -214,6 +163,33 @@ commit;
 		select term,term_type,source from  d where position_in_source_hierarchy is null order by source,term_type
 		</cfquery>
 		<cfdump var=#nontaxterms#>
+		
+		<br> we can create "hierarchies" at will
+		<br>get distinct sources....
+		<cfquery name="sources" dbtype="query">
+			select source from d group by source order by source
+		</cfquery>
+		<cfdump var=#source#>
+		<br>loop through them....
+		<cfloop query="sources">
+			<cfquery name="thisone" dbtype="query">
+				select term,term_type,position_in_source_hierarchy from d where position_in_source_hierarchy is not null and source='#source#' group by 
+				term,term_type order by position_in_source_hierarchy 
+			</cfquery>
+			<p>Hierarchy according to #source#:</p>
+			<cfset indent=10>
+			<cfloop query="thisone">
+				<div style="padding-left:#indent#">
+					#term#
+					<cfif len(term_type) gt 0>
+						(#term_type#)
+					</cfif>
+				</div>
+				<cfset indent&=+10>
+			</cfloop>
+		</cfloop>
+
+		
 		
 		
 	</cfif>
