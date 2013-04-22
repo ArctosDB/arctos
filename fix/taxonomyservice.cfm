@@ -77,6 +77,10 @@ commit;
 		<cfhttp url="http://resolver.globalnames.org/name_resolvers.xml?names=#scientific_name#"></cfhttp>
 		<cfdump var=#cfhttp#>
 		
+		<cfset xmlDoc=xmlParse(cfhttp.filecontent)>
+
+				<cfdump var=#xmlDoc#>
+
 	</cfif>
 
 	<cfif action is "whatsThere">
