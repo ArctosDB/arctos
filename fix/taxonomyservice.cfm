@@ -48,6 +48,7 @@ position_in_source_hierarchy - dual-purpose integer that
 
 delete from taxon_metadata;
 delete from taxon_term;
+commit;
 
 
 ------------>
@@ -58,7 +59,62 @@ delete from taxon_term;
 <cfoutput>
 
 
-<a href="/fix/taxonomyservice.cfm?action=popFromArctos">/fix/taxonomyservice.cfm?action=popFromArctos</a>
+<a href="/fix/taxonomyservice.cfm?action=popFromArctos">popFromArctos</a>
+
+<br>
+
+
+<a href="/fix/taxonomyservice.cfm?action=whatsThere">whatsThere</a>
+
+	<cfif action is "whatsThere">
+		<br>
+		get everything with one trip to the DB
+		<br>
+		select * from taxon_term,taxon_metadata where 
+			taxon_term.taxon_name_id=taxon_metadata.taxon_name_id (+) and
+			scientific_name='#scientific_name#'
+		<cfquery name="d" datasource="uam_god">
+			select * from taxon_term,taxon_metadata where 
+			taxon_term.taxon_name_id=taxon_metadata.taxon_name_id (+) and
+			scientific_name='#scientific_name#'
+		</cfquery>
+		
+		<br>
+		
+		get THE scientific_name with a local CF query
+		
+		<br>
+		select scientific_name from d group by scientific_name
+		<br>
+		
+		<cfquery name="scientific_name" dbtype="query">
+			select scientific_name from d group by scientific_name
+		</cfquery>
+		<cfdump var=#scientific_name#>
+		<br>
+		get taxon terms ordered by classification
+		<br>
+		
+		select term,term_type from  d where position_in_source_hierarchy is not null order by source,position_in_source_hierarchy group by term,term_type
+		<br>
+		<cfquery name="taxterms" dbtype="query">
+		select term,term_type from  d where position_in_source_hierarchy is not null order by source,position_in_source_hierarchy group by term,term_type
+		</cfquery>
+		<cfdump var=#taxterms#>
+		
+		get non-taxon terms ordered by classification
+		<br>
+		
+		select term,term_type from  d where position_in_source_hierarchy is null order by source
+		<br>
+		<cfquery name="nontaxterms" dbtype="query">
+		select term,term_type from  d where position_in_source_hierarchy is null order by source
+		</cfquery>
+		<cfdump var=#nontaxterms#>
+		
+		
+	</cfif>
+
 	<cfif action is "popFromArctos">
 		<cfquery name="d" datasource="uam_god">
 			select * from taxonomy where scientific_name='#scientific_name#'
