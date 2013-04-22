@@ -78,7 +78,7 @@ commit;
 			taxon_term.taxon_name_id=taxon_metadata.taxon_name_id (+) and
 			scientific_name='#scientific_name#'
 		</cfquery>
-		
+		<cfdump var=#d#>
 		<br>
 		
 		get THE scientific_name with a local CF query
