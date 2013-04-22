@@ -91,10 +91,7 @@ commit;
 			
 			
 			 
-			<cfif listlen(x.data[1].results[i].classification_path,"|") neq listlen(x.data[1].results[i].classification_path_ranks,"|")>
-				classification_path and classification_path_ranks are unequal - aborting
-				<cfabort>
-			</cfif>
+			
 			<cfloop list="#x.data[1].results[i].classification_path#" delimiters="|" index="term">
 				<br>term: #term#
 			</cfloop>
