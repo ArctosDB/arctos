@@ -81,10 +81,12 @@ commit;
 
 				<cfdump var=#xmlDoc#>
 
+<cfdump var=#xmlDoc.hash#>
 
-	<cfloop from="1" to="#ArrayLen(xmldoc.data.datum.result)#" index="i">
-		<p>xmldoc.data.datum.result</p>#i#
-	</cfloop>
+
+
+
+
 	</cfif>
 
 	<cfif action is "whatsThere">
