@@ -55,7 +55,7 @@ position_in_source_hierarchy - dual-purpose integer that
 		</cfquery>
 		<cfset pos=1>
 		<cfquery name="tt" datasource="uam_god">
-			insert into taxon_term (taxon_name_id,scientific_name) values (#d.taxon_name_id#,'#d.SCIENTIFIC_NAME#');
+			insert into taxon_term (taxon_name_id,scientific_name) values (#d.taxon_name_id#,'#d.SCIENTIFIC_NAME#')
 		</cfquery>
 		<!--- first, taxon terms ---->
 		<cfset orderedTerms="KINGDOM,PHYLUM,PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,SUBSPECIES">
