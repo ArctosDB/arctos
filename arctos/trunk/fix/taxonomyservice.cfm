@@ -86,7 +86,7 @@ commit;
 
 
 
-<cfdump var=#xmlDoc.hash.data#>
+<cfdump var=#xmlDoc.hash.data.datum#>
 
 
 
