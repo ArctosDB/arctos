@@ -112,7 +112,7 @@ delete from taxon_term;
 						somerandomsequence.nextval,
 						#d.taxon_name_id#,
 						'#thisTermVal#',
-						'#lower(thisTerm)#',
+						'#lcase(thisTerm)#',
 						'Arctos'
 					)
 				</cfquery>
