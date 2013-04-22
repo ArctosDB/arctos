@@ -89,7 +89,7 @@ commit;
 		numRes: #numRes#
 		
 		
-		<cfloop from="1" to="#x.data[1].results#" index="i">
+		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
 			<hr>
 			loop #i#
 			<br>canonical_form 	#x.data[1].results[i].canonical_form#
