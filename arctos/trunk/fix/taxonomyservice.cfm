@@ -190,13 +190,13 @@ commit;
 			<p>Hierarchy according to #source#:</p>
 			<cfset indent=10>
 			<cfloop query="thisone">
-				<div style="padding-left:#indent#">
+				<div style="padding-left:#indent# px;">
 					#term#
 					<cfif len(term_type) gt 0>
 						(#term_type#)
 					</cfif>
 				</div>
-				<cfset indent&=+10>
+				<cfset indent=indent+10>
 			</cfloop>
 		</cfloop>
 
