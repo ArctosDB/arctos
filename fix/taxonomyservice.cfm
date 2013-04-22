@@ -98,26 +98,26 @@ commit;
 				<cfset thisTerm=cterms[listpos]>
 				<cfset thisRank=cranks[listpos]>
 				<br>thisTerm: #thisTerm# ---- thisRank: #thisRank#
-				
-				<cfquery name="meta" datasource="uam_god">
-					insert into taxon_metadata (
-						tmid,
-						taxon_name_id,
-						term,
-						term_type,
-						source,
-						position_in_source_hierarchy
-					) values (
-						somerandomsequence.nextval,
-						#d.taxon_name_id#,
-						'#thisTerm#',
-						'#lcase(thisRank)#',
-						'#thisSource#',
-						#pos#
-					)
-				</cfquery>
+				<cfif len(thisTerm) gt 0>
+					<cfquery name="meta" datasource="uam_god">
+						insert into taxon_metadata (
+							tmid,
+							taxon_name_id,
+							term,
+							term_type,
+							source,
+							position_in_source_hierarchy
+						) values (
+							somerandomsequence.nextval,
+							#d.taxon_name_id#,
+							'#thisTerm#',
+							'#lcase(thisRank)#',
+							'#thisSource#',
+							#pos#
+						)
+					</cfquery>
 				<cfset pos=pos+1>
-			
+				</cfif>
 			
 			</cfloop>
 			
