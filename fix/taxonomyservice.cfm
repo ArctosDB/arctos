@@ -128,8 +128,7 @@ commit;
 		<cfloop list="#orderedTerms#" index="termtype">
 			<cfset thisTermVal=evaluate("d." & termtype)>
 			<cfif len(thisTermVal) gt 0>
-				<cfset thisTerm=term>
-				<cfif term is "SUBSPECIES" and len(d.INFRASPECIFIC_RANK) gt 0>
+				<cfif termtype is "SUBSPECIES" and len(d.INFRASPECIFIC_RANK) gt 0>
 					<cfset thisTermVal=d.INFRASPECIFIC_RANK>
 				</cfif>
 				<cfquery name="meta" datasource="uam_god">
