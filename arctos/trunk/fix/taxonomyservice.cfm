@@ -41,6 +41,10 @@ position_in_source_hierarchy - dual-purpose integer that
    REFERENCES taxon_term (taxon_name_id)
 
 ------------>
+
+
+<cfinclude template="/includes/_header.cfm">
+
 <cfoutput>
 	<cfif action is "popFromArctos">
 		<cfquery name="d" datasource="uam_god">
