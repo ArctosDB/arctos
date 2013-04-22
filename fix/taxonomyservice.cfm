@@ -46,13 +46,16 @@ position_in_source_hierarchy - dual-purpose integer that
 <cfinclude template="/includes/_header.cfm">
 
 <cfoutput>
+
+
+<a href="/fix/taxonomyservice.cfm?action=popFromArctos">/fix/taxonomyservice.cfm?action=popFromArctos</a>
 	<cfif action is "popFromArctos">
 		<cfquery name="d" datasource="uam_god">
 			select * from taxonomy where scientific_name='#scientific_name#'
 		</cfquery>
 		<cfset pos=1>
 		<cfquery name="tt" datasource="uam_god">
-			insert into taxon_term (taxon_name_id,scientific_name) (#d.taxon_name_id#,'#d.SCIENTIFIC_NAME#');
+			insert into taxon_term (taxon_name_id,scientific_name) values (#d.taxon_name_id#,'#d.SCIENTIFIC_NAME#');
 		</cfquery>
 		<!--- first, taxon terms ---->
 		<cfset orderedTerms="KINGDOM,PHYLUM,PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,SUBSPECIES">
