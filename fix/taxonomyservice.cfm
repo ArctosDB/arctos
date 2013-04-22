@@ -104,10 +104,9 @@ commit;
 		get non-taxon terms ordered by classification
 		<br>
 		
-		select term,term_type from  d where position_in_source_hierarchy is null order by source
 		<br>
 		<cfquery name="nontaxterms" dbtype="query">
-		select term,term_type from  d where position_in_source_hierarchy is null order by source
+		select term,term_type,source from  d where position_in_source_hierarchy is null order by source,term_type
 		</cfquery>
 		<cfdump var=#nontaxterms#>
 		
