@@ -173,8 +173,19 @@ commit;
 		<br>loop through them....
 		<cfloop query="sources">
 			<cfquery name="thisone" dbtype="query">
-				select term,term_type,position_in_source_hierarchy from d where position_in_source_hierarchy is not null and source='#source#' group by 
-				term,term_type order by position_in_source_hierarchy 
+				select 
+					term,
+					term_type 
+				from 
+					d 
+				where 
+					position_in_source_hierarchy is not null and 
+					source='#source#' 
+				group by 
+					term,
+					term_type 
+				order by 
+					position_in_source_hierarchy 
 			</cfquery>
 			<p>Hierarchy according to #source#:</p>
 			<cfset indent=10>
