@@ -188,15 +188,15 @@ commit;
 					position_in_source_hierarchy 
 			</cfquery>
 			<p>Hierarchy according to #source#:</p>
-			<cfset indent=10>
+			<cfset indent=1>
 			<cfloop query="thisone">
-				<div style="padding-left:#indent# px;">
+				<div style="padding-left:#indent#em;">
 					#term#
 					<cfif len(term_type) gt 0>
 						(#term_type#)
 					</cfif>
 				</div>
-				<cfset indent=indent+10>
+				<cfset indent=indent+1>
 			</cfloop>
 		</cfloop>
 
