@@ -43,6 +43,13 @@ position_in_source_hierarchy - dual-purpose integer that
    FOREIGN KEY (taxon_name_id)
    REFERENCES taxon_term (taxon_name_id)
 
+
+
+
+delete from taxon_metadata;
+delete from taxon_term;
+
+
 ------------>
 
 
@@ -65,14 +72,10 @@ position_in_source_hierarchy - dual-purpose integer that
 		<cfloop list="#orderedTerms#" index="term">
 			<cfset thisTermVal=evaluate("d." & term)>
 			<cfif len(thisTermVal) gt 0>
-				<cfif term is "SUBSPECIES">
-					<cfif len(d.INFRASPECIFIC_RANK) gt 0>
-						<cfset thisTerm=d.INFRASPECIFIC_RANK>
-					<cfelse>
-						<cfset thisTerm=term>
-					</cfif>
+				<cfset thisTerm=term>
+				<cfif term is "SUBSPECIES" and len(d.INFRASPECIFIC_RANK) gt 0>
+					<cfset thisTerm=d.INFRASPECIFIC_RANK>
 				</cfif>
-			
 				<cfquery name="meta" datasource="uam_god">
 					insert into taxon_metadata (
 						tmid,
