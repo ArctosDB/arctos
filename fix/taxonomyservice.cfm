@@ -83,6 +83,10 @@ commit;
 		
 		
 		<cfdump var=#x#>
+		
+		<cfset numRes=arrayLen(x.data.results)>
+		
+		numRes: #numRes#
 		<!----
 			<cfset xmlDoc=xmlParse(cfhttp.filecontent)>
 <!-----
