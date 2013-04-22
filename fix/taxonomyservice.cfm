@@ -169,7 +169,7 @@ commit;
 		<cfquery name="sources" dbtype="query">
 			select source from d group by source order by source
 		</cfquery>
-		<cfdump var=#source#>
+		<cfdump var=#sources#>
 		<br>loop through them....
 		<cfloop query="sources">
 			<cfquery name="thisone" dbtype="query">
