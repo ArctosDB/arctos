@@ -71,34 +71,60 @@ commit;
 <a href="/fix/taxonomyservice.cfm?action=pullFromGlobalnames">pullFromGlobalnames</a>
 
 
-<br />http://resolver.globalnames.org/name_resolvers.xml?names=Sorex%20cinereus
 
 	<cfif action is "pullFromGlobalnames">
 		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#scientific_name#"></cfhttp>
-		
-		
-		<cfdump var=#cfhttp#>
-		
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
-		
-		
+		<br>JSON result converted to object
 		<cfdump var=#x#>
-		
-		<cfset numRes=arrayLen(x.data[1].results)>
-		
-		numRes: #numRes#
-		
-		
+		<br>get taxon_name_id
+		<cfquery name="d" datasource="uam_god">
+			select taxon_name_id from taxon_term where scientific_name='#scientific_name#'
+		</cfquery>
+		<cfdump var=#d#>
 		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
+			<cfset pos=1>
+			<cfif listlen(x.data[1].results[i].classification_path,"|") neq listlen( x.data[1].results[i].classification_path_ranks,"|")>
+				classification_path and classification_path_ranks are unequal - aborting
+				<cfabort>
+			</cfif>
+			<cfloop list="#x.data[1].results[i].classification_path#" delimiters="|" index="term">
+				<br>term: #term#
+			</cfloop>
+			
+			<!------------
+			<cfquery name="meta" datasource="uam_god">
+				insert into taxon_metadata (
+					tmid,
+					taxon_name_id,
+					term,
+					term_type,
+					source,
+					position_in_source_hierarchy
+				) values (
+					somerandomsequence.nextval,
+					#d.taxon_name_id#,
+					'#thisTermVal#',
+					'#lcase(termtype)#',
+					'Arctos',
+					#pos#
+				)
+			</cfquery>
+			<cfset pos=pos+1>
+				
+				
+			
+			<cfset thisDataSource=x.data[1].results[i].data_source_title[1]>
+			<cfset thisclassification_path
 			<hr>
 			loop #i#
 			<br>canonical_form 	#x.data[1].results[i].canonical_form#
 			<br>classification_path 	#x.data[1].results[i].classification_path#
 			<br>
 			<br>classification_path_ranks 	#x.data[1].results[i].classification_path_ranks#
-			<br>data_source_title 	#x.data[1].results[i].data_source_title#
+			<br>data_source_title 	##
 			
-			
+			------------>
 		</cfloop>
 
 
