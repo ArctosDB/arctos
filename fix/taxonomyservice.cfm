@@ -76,7 +76,6 @@ commit;
 		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#scientific_name#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
 		<br>JSON result converted to object
-		<cfdump var=#x#>
 		<br>get taxon_name_id
 		<cfquery name="d" datasource="uam_god">
 			select taxon_name_id from taxon_term where scientific_name='#scientific_name#'
@@ -84,7 +83,9 @@ commit;
 		<cfdump var=#d#>
 		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
 			<cfset pos=1>
-			<cfif listlen(x.data[1].results[i].classification_path,"|") neq listlen( x.data[1].results[i].classification_path_ranks,"|")>
+			<br>listlen(x.data[1].results[i].classification_path,"|"): #listlen(x.data[1].results[i].classification_path,"|")#
+			<br>listlen(x.data[1].results[i].classification_path_ranks,"|"): #listlen(x.data[1].results[i].classification_path_ranks,"|")#
+			<cfif listlen(x.data[1].results[i].classification_path,"|") neq listlen(x.data[1].results[i].classification_path_ranks,"|")>
 				classification_path and classification_path_ranks are unequal - aborting
 				<cfabort>
 			</cfif>
