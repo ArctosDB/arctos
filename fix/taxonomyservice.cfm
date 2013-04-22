@@ -98,7 +98,7 @@ commit;
 		select term,term_type from  d where position_in_source_hierarchy is not null order by source,position_in_source_hierarchy group by term,term_type
 		<br>
 		<cfquery name="taxterms" dbtype="query">
-		select term,term_type from  d where position_in_source_hierarchy is not null order by source,position_in_source_hierarchy group by term,term_type
+		select term,term_type from  d where position_in_source_hierarchy is not null group by term,term_type order by source,position_in_source_hierarchy 
 		</cfquery>
 		<cfdump var=#taxterms#>
 		
