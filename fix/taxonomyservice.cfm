@@ -84,21 +84,20 @@ commit;
 		get THE scientific_name with a local CF query
 		
 		<br>
-		select scientific_name from d group by scientific_name
-		<br>
+	
 		
 		<cfquery name="scientific_name" dbtype="query">
 			select scientific_name from d group by scientific_name
 		</cfquery>
 		<cfdump var=#scientific_name#>
 		<br>
-		get taxon terms ordered by classification
+		get taxon terms ordered by classification then by position_in_source_hierarchy
 		<br>
 		
-		select term,term_type from  d where position_in_source_hierarchy is not null order by source,position_in_source_hierarchy group by term,term_type
 		<br>
 		<cfquery name="taxterms" dbtype="query">
-		select term,term_type from  d where position_in_source_hierarchy is not null group by term,term_type order by source,position_in_source_hierarchy 
+		select term,term_type,position_in_source_hierarchy from d where position_in_source_hierarchy is not null group by 
+		term,term_type,position_in_source_hierarchy order by source,position_in_source_hierarchy 
 		</cfquery>
 		<cfdump var=#taxterms#>
 		
