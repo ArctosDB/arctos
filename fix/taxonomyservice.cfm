@@ -79,6 +79,10 @@ commit;
 		
 		<cfdump var=#cfhttp#>
 		
+		<cfset x=DeserializeJSON(cfhttp.filecontent)>
+		
+		
+		<cfdump var=#x#>
 		<!----
 			<cfset xmlDoc=xmlParse(cfhttp.filecontent)>
 <!-----
