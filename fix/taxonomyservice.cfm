@@ -75,18 +75,19 @@ commit;
 
 	<cfif action is "pullFromGlobalnames">
 		<cfhttp url="http://resolver.globalnames.org/name_resolvers.xml?names=#scientific_name#"></cfhttp>
+		<!----
 		<cfdump var=#cfhttp#>
-		
+		---->
 		<cfset xmlDoc=xmlParse(cfhttp.filecontent)>
-
+<!-----
 				<cfdump var=#xmlDoc#>
-
+---->
 <cfdump var=#xmlDoc.hash#>
 
 
 
 
-<cfdump var=#xmlDoc.hash.data.datum#>
+<cfdump var=#xmlDoc.hash.data.datum.results#>
 
 
 
