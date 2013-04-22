@@ -65,6 +65,19 @@ commit;
 
 
 <a href="/fix/taxonomyservice.cfm?action=whatsThere">whatsThere</a>
+<br>
+
+
+<a href="/fix/taxonomyservice.cfm?action=pullFromGlobalnames">pullFromGlobalnames</a>
+
+
+<br />http://resolver.globalnames.org/name_resolvers.xml?names=Sorex%20cinereus
+
+	<cfif action is "pullFromGlobalnames">
+		<cfhttp url="http://resolver.globalnames.org/name_resolvers.xml?names=#scientific_name#"></cfhttp>
+		<cfdump var=#cfhttp#>
+		
+	</cfif>
 
 	<cfif action is "whatsThere">
 		<br>
