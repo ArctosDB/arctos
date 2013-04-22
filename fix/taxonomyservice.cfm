@@ -12,6 +12,9 @@ create table taxon_term (
 	scientific_name varchar2(255) not null
 );
 
+-- as now, "scientific name" is globally unique
+
+create unique index ix_temp_tt_sciname on taxon_term(scientific_name) tablespace uam_idx_1;
 
 taxon_name_id is a local primary key
 scientific_name retains it's current meaning: a literature-derived term (eg, not something you made up) - "Sorex cinereus" and "Animalia"
@@ -82,7 +85,7 @@ position_in_source_hierarchy - dual-purpose integer that
 						somerandomsequence.nextval,
 						#d.taxon_name_id#,
 						'#thisTermVal#',
-						'#lower(thisTerm)#',
+						'#lcase(thisTerm)#',
 						'Arctos',
 						#pos#
 					)
