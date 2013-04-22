@@ -84,7 +84,7 @@ commit;
 		
 		<cfdump var=#x#>
 		
-		<cfset numRes=arrayLen(x.data.results)>
+		<cfset numRes=arrayLen(x.data[1].results)>
 		
 		numRes: #numRes#
 		<!----
