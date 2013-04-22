@@ -85,6 +85,12 @@ commit;
 			<cfset pos=1>
 			<br>listlen(x.data[1].results[i].classification_path,"|"): #listlen(x.data[1].results[i].classification_path,"|")#
 			<br>listlen(x.data[1].results[i].classification_path_ranks,"|"): #listlen(x.data[1].results[i].classification_path_ranks,"|")#
+			
+			<br>x.data[1].results[i].classification_path: #x.data[1].results[i].classification_path#
+			<br>x.data[1].results[i].classification_path_ranks: #x.data[1].results[i].classification_path_ranks#
+			
+			
+			 
 			<cfif listlen(x.data[1].results[i].classification_path,"|") neq listlen(x.data[1].results[i].classification_path_ranks,"|")>
 				classification_path and classification_path_ranks are unequal - aborting
 				<cfabort>
