@@ -91,7 +91,7 @@ commit;
 
 
 
-<cfloop from="1" to="#ArrayLen(xmlDoc.hash.data.datum.results)#" index="i">
+<cfloop from="1" to="#ArrayLen(xmlDoc.hash.data.datum.results.result)#" index="i">
 	<p>#i#</p>
 </cfloop>
 
