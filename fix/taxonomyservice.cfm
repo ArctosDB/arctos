@@ -87,6 +87,22 @@ commit;
 		<cfset numRes=arrayLen(x.data[1].results)>
 		
 		numRes: #numRes#
+		
+		
+		<cfloop from="1" to="#x.data[1].results#" index="i">
+			<hr>
+			loop #i#
+			<br>canonical_form 	#x.data[1].results[i].canonical_form#
+			<br>classification_path 	#x.data[1].results[i].classification_path#
+			<br>
+			<br>classification_path_ranks 	#x.data[1].results[i].classification_path_ranks#
+			<br>data_source_title 	#x.data[1].results[i].data_source_title#
+			
+			
+		</cfloop>
+
+
+
 		<!----
 			<cfset xmlDoc=xmlParse(cfhttp.filecontent)>
 <!-----
