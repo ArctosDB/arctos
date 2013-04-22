@@ -92,7 +92,12 @@ commit;
 
 
 <cfloop from="1" to="#ArrayLen(xmlDoc.hash.data.datum.results.result)#" index="i">
-	<p>#i#</p>
+	<p>#i#
+	<cfset a=xmlDoc.hash.data.datum.results.result[i].xmlattributes>
+		<cfdump var=#a#>
+				
+				
+	</p>
 </cfloop>
 
 	</cfif>
