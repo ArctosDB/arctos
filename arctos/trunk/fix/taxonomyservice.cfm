@@ -25,6 +25,7 @@ create table taxon_metadata (
 	term varchar2(255) not null,
 	term_type varchar2(255),
 	source varchar2(255) not null,
+	hierarchy_id varchar2(255),
 	position_in_source_hierarchy number,
 	 CONSTRAINT fk_tnid
     FOREIGN KEY (taxon_name_id)
@@ -43,6 +44,14 @@ position_in_source_hierarchy - dual-purpose integer that
    FOREIGN KEY (taxon_name_id)
    REFERENCES taxon_term (taxon_name_id)
 
+-- "source" is not sufficient to disambiguate classifications
+-- NCBI provides several for Philometra, for example.
+-- so....
+
+alter table taxon_metadata add hierarchy_id varchar2(255);
+
+-- probably need some logic to autopopulate this with UUID or something, maybe require it when position_in_source_hierarchy is not null,
+--  but for now just wing it in the interfaces.
 
 
 
@@ -112,7 +121,7 @@ commit;
 		<br> we can create "hierarchies"....
 		<br>get distinct sources....
 		<cfquery name="sources" dbtype="query">
-			select source from d group by source order by source
+			select source,hierarchy_id from d group by source,hierarchy_id order by source,hierarchy_id
 		</cfquery>
 		<cfdump var=#sources#>
 		<br>loop through them...
@@ -126,7 +135,7 @@ commit;
 					d 
 				where 
 					position_in_source_hierarchy is not null and 
-					source='#source#' 
+					hierarchy_id='#hierarchy_id#' 
 				group by 
 					term,
 					term_type 
@@ -158,6 +167,7 @@ commit;
 		</cfquery>
 		<!--- first, taxon terms ---->
 		<cfset orderedTerms="KINGDOM,PHYLUM,PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,SUBSPECIES">
+		<cfset thisSourceID=CreateUUID()>
 		<cfloop list="#orderedTerms#" index="termtype">
 			<cfset thisTermVal=evaluate("d." & termtype)>
 			<cfif len(thisTermVal) gt 0>
@@ -171,14 +181,16 @@ commit;
 						term,
 						term_type,
 						source,
-						position_in_source_hierarchy
+						position_in_source_hierarchy,
+						hierarchy_id
 					) values (
 						somerandomsequence.nextval,
 						#d.taxon_name_id#,
 						'#thisTermVal#',
 						'#lcase(termtype)#',
 						'Arctos',
-						#pos#
+						#pos#,
+						'#thisSourceID#'
 					)
 				</cfquery>
 				<cfset pos=pos+1>
@@ -237,14 +249,16 @@ commit;
 							term,
 							term_type,
 							source,
-							position_in_source_hierarchy
+							position_in_source_hierarchy,
+							hierarchy_id
 						) values (
 							somerandomsequence.nextval,
 							#d.taxon_name_id#,
 							'#thisTerm#',
 							'#lcase(thisRank)#',
 							'#thisSource#',
-							#pos#
+							#pos#,
+							'x.data[1].results[i].gni-uuid#'
 						)
 					</cfquery>
 				<cfset pos=pos+1>
