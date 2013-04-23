@@ -234,9 +234,10 @@ commit;
 		<cfset thisSourceID=CreateUUID()>
 		<cfloop list="#orderedTerms#" index="termtype">
 			<cfset thisTermVal=evaluate("d." & termtype)>
+			<cfset thisTermType=termtype>
 			<cfif len(thisTermVal) gt 0>
-				<cfif termtype is "SUBSPECIES" and len(d.INFRASPECIFIC_RANK) gt 0>
-					<cfset thisTermVal=d.INFRASPECIFIC_RANK>
+				<cfif thisTermType is "SUBSPECIES" and len(d.INFRASPECIFIC_RANK) gt 0>
+					<cfset thisTermType=d.INFRASPECIFIC_RANK>
 				</cfif>
 				<cfquery name="meta" datasource="uam_god">
 					insert into taxon_metadata (
@@ -251,7 +252,7 @@ commit;
 						somerandomsequence.nextval,
 						#d.taxon_name_id#,
 						'#thisTermVal#',
-						'#lcase(termtype)#',
+						'#lcase(thisTermType)#',
 						'Arctos',
 						#pos#,
 						'#thisSourceID#'
