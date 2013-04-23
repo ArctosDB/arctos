@@ -67,7 +67,7 @@ commit;
 	<hr>
 	These exist:
 	<cfloop query="has">
-		<br><a href="taxonomyservice?scientific_name=#scientific_name#">#scientific_name#</a>
+		<br><a href="taxonomyservice.cfm?scientific_name=#scientific_name#">#scientific_name#</a>
 	</cfloop>
 	<hr>
 	Here are some you can create:
@@ -75,7 +75,7 @@ commit;
 		select scientific_name from taxonomy where scientific_name not in (select scientific_name from taxon_term) and rownum<20
 	</cfquery>
 	<cfloop query="nohas">
-		<br><a href="taxonomyservice?scientific_name=#scientific_name#">#scientific_name#</a>
+		<br><a href="taxonomyservice.cfm?scientific_name=#scientific_name#">#scientific_name#</a>
 	</cfloop>
 </cfif>
 <cfif isdefined("scientific_name") and len(scientific_name) gt 0>
@@ -253,7 +253,7 @@ commit;
 		</cfloop>
 		<hr>
 		name+data created....		
-		<br><a href="taxonomyservice?scientific_name=#scientific_name#">click here to see #scientific_name#</a>
+		<br><a href="taxonomyservice.cfm?scientific_name=#scientific_name#">click here to see #scientific_name#</a>
 	</cfif>
 </cfif>
 </cfoutput>
