@@ -105,6 +105,22 @@ commit;
 	<cfloop query="nohas">
 		<br><a href="taxonomyservice.cfm?scientific_name=#scientific_name#">#scientific_name#</a>
 	</cfloop>
+	<br>
+	Or you can try all species in a genus....
+	<cfquery name="nohasgen" datasource="uam_god">
+		SELECT genus FROM (
+		select genus from taxonomy where scientific_name not in (select scientific_name from taxon_term)
+		and rownum<10000
+		group by genus
+		 ORDER BY dbms_random.value
+		) WHERE rownum <= 12
+	</cfquery>
+	<cfloop query="nohasgen">
+		<br><a href="taxonomyservice.cfm?action=makeabunch&genus=#genus#">#genus#</a>
+	</cfloop>
+	
+	
+	makeabunch
 <hr>
 <cfif action is "debugon">
 	<cfset session.debug=true>
