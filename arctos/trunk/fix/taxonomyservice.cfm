@@ -90,7 +90,7 @@ commit;
 	Here are some you can create:
 	<cfquery name="nohas" datasource="uam_god">
 		SELECT * FROM (
-		select scientific_name from taxonomy where scientific_name not in (select scientific_name from taxon_term) and rownum<20
+		select scientific_name from taxonomy where scientific_name not in (select scientific_name from taxon_term)
 		 ORDER BY dbms_random.value
 		) WHERE rownum <= 12
 	</cfquery>
