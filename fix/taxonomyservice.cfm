@@ -283,41 +283,43 @@ commit;
 		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
 			<cfset pos=1>
 			<!--- because lists are stupid and ignore NULLs.... ---->
-			<cfset cterms=ListToArray(x.data[1].results[i].classification_path, "|", true)>
-			<cfset cranks=ListToArray(x.data[1].results[i].classification_path_ranks, "|", true)>
-			 
-			<cfset thisSource=x.data[1].results[i].data_source_title>
-			
-			<cfset thisSourceID=CreateUUID()>
-			
-			<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
-				<cfset thisTerm=cterms[listpos]>
-				<cfset thisRank=cranks[listpos]>
-				<br>thisTerm: #thisTerm# ---- thisRank: #thisRank#
-				<cfif len(thisTerm) gt 0>
-					<cfquery name="meta" datasource="uam_god">
-						insert into taxon_metadata (
-							tmid,
-							taxon_name_id,
-							term,
-							term_type,
-							source,
-							position_in_source_hierarchy,
-							hierarchy_id
-						) values (
-							somerandomsequence.nextval,
-							#d.taxon_name_id#,
-							'#thisTerm#',
-							'#lcase(thisRank)#',
-							'#thisSource#',
-							#pos#,
-							'#thisSourceID#'
-						)
-					</cfquery>
-				<cfset pos=pos+1>
-				</cfif>
-			
-			</cfloop>
+			<cfif isdefined("x.data[1].results[i].classification_path") and isdefined("x.data[1].results[i].classification_path_ranks")>
+				<cfset cterms=ListToArray(x.data[1].results[i].classification_path, "|", true)>
+				<cfset cranks=ListToArray(x.data[1].results[i].classification_path_ranks, "|", true)>
+				 
+				<cfset thisSource=x.data[1].results[i].data_source_title>
+				
+				<cfset thisSourceID=CreateUUID()>
+				
+				<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
+					<cfset thisTerm=cterms[listpos]>
+					<cfset thisRank=cranks[listpos]>
+					<br>thisTerm: #thisTerm# ---- thisRank: #thisRank#
+					<cfif len(thisTerm) gt 0>
+						<cfquery name="meta" datasource="uam_god">
+							insert into taxon_metadata (
+								tmid,
+								taxon_name_id,
+								term,
+								term_type,
+								source,
+								position_in_source_hierarchy,
+								hierarchy_id
+							) values (
+								somerandomsequence.nextval,
+								#d.taxon_name_id#,
+								'#thisTerm#',
+								'#lcase(thisRank)#',
+								'#thisSource#',
+								#pos#,
+								'#thisSourceID#'
+							)
+						</cfquery>
+					<cfset pos=pos+1>
+					</cfif>
+				
+				</cfloop>
+			</cfif>
 		</cfloop>
 		
 		<cfif session.debug is true>
