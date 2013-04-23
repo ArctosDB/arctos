@@ -470,6 +470,7 @@
 		)
 	</cfquery>
 	<cfset ac = valuelist(cols.column_name)>
+	<cfset ac=listprepend(ac,"USE_LICENSE_URL")>
 	<!--- strip internal columns --->
 	<cfif ListFindNoCase(ac,'COLLECTION_OBJECT_ID')>
 			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_OBJECT_ID'))>
