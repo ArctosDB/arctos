@@ -90,9 +90,11 @@ commit;
 	</cfquery>
 	<hr>
 	These exist:
+	<div style="max-height:10em; everflow:auto;">
 	<cfloop query="has">
 		<br><a href="taxonomyservice.cfm?scientific_name=#scientific_name#">#scientific_name#</a>
 	</cfloop>
+	</div>
 	<hr>
 	Here are some you can create:
 	<cfquery name="nohas" datasource="uam_god">
