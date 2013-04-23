@@ -258,7 +258,7 @@ commit;
 							'#lcase(thisRank)#',
 							'#thisSource#',
 							#pos#,
-							'#x.data[1].results[i].gni-uuid#'
+							'#x.data[1].results[i].gni_uuid#'
 						)
 					</cfquery>
 				<cfset pos=pos+1>
