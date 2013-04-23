@@ -356,7 +356,7 @@ commit;
 		genus='#genus#'
 	</cfquery>
 	<cfif session.debug is true>
-		<cfdump var=#d#>
+		<cfdump var=#arctostaxonomy#>
 	</cfif>
 	<cfloop query="arctostaxonomy">
 		<cfset pos=1>
