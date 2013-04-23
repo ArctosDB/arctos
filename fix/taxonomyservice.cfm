@@ -56,6 +56,7 @@ alter table taxon_metadata add hierarchy_id varchar2(255);
 
 
 -- maybe should incorporate score for ordering hierarchies
+-- DEFINITELY need to filter by score - test with made-up species name
 
 -- get name_string, at least for plants
 
