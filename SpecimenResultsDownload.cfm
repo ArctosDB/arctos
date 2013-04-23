@@ -449,7 +449,7 @@
 	<cfelse>
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select filtered_flat.USE_LICENSE_URL
-			<cfloop list="#theCols#" index="cname">
+			<cfloop list="#valuelist(cols.column_name)#" index="cname">
 				,#tableName#.#cname#
 			</cfloop>
 			from #tableName#
