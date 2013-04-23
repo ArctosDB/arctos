@@ -57,6 +57,11 @@ alter table taxon_metadata add hierarchy_id varchar2(255);
 
 -- maybe should incorporate score for ordering hierarchies
 
+-- get name_string, at least for plants
+
+-- put everything into a temp structure, remove dups, and only then write to Arctos
+-- maybe delete from arctos before writing (=always update) ??
+
 
 
 delete from taxon_metadata;
