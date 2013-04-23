@@ -110,7 +110,9 @@ commit;
 		taxon_term.taxon_name_id=taxon_metadata.taxon_name_id (+) and
 		scientific_name='#scientific_name#'
 	</cfquery>
-	<cfdump var=#d#>
+	<cfif session.debug is true>
+		<cfdump var=#d#>
+	</cfif>
 	<cfif d.recordcount gt 0>
 		#scientific_name# has an entry - here it is
 		<cfif session.debug is true>
