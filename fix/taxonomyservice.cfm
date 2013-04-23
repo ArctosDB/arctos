@@ -210,6 +210,7 @@ commit;
 		<br>now get service data.....
 		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#scientific_name#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
+		<cfdump var=#x#>
 		<cfquery name="d" datasource="uam_god">
 			select taxon_name_id from taxon_term where scientific_name='#scientific_name#'
 		</cfquery>
