@@ -64,9 +64,11 @@ commit;
 
 
 <cfinclude template="/includes/_header.cfm">
-
+<cfif not isdefined("session.debug")>
+	<cfset session.debug="true">
+</cfif>
 <cfoutput>
-
+	
 	add "?scientific_name=somescientificname to the URL.
 	
 	<cfquery name="has" datasource="uam_god">
@@ -89,6 +91,12 @@ commit;
 		<br><a href="taxonomyservice.cfm?scientific_name=#scientific_name#">#scientific_name#</a>
 	</cfloop>
 <hr>
+<cfif action is "debugon">
+	<cfset session.debug=true>
+</cfif>
+<cfif action is "debugoff">
+	<cfset session.debug=false>
+</cfif>
 <cfif isdefined("scientific_name") and len(scientific_name) gt 0>
 	<cfquery name="d" datasource="uam_god">
 		select * from taxon_term,taxon_metadata where 
@@ -98,35 +106,48 @@ commit;
 	<cfdump var=#d#>
 	<cfif d.recordcount gt 0>
 		#scientific_name# has an entry - here it is
-		<br>		
-		get THE scientific_name with a local CF query
-		<br>
+		<cfif session.debug is true>
+			<br>		
+			get THE scientific_name with a local CF query
+			<br>
+		</cfif>
 		<cfquery name="scientific_name" dbtype="query">
 			select scientific_name from d group by scientific_name
 		</cfquery>
-		<cfdump var=#scientific_name#>
-		<br>
-		get taxon terms ordered by classification then by position_in_source_hierarchy
-		<br>
+		<cfif session.debug is true>
+			<cfdump var=#scientific_name#>
+			<br>
+			get taxon terms ordered by classification then by position_in_source_hierarchy
+			<br>
+		</cfif>
 		<cfquery name="taxterms" dbtype="query">
 			select source,term,term_type,position_in_source_hierarchy from d where position_in_source_hierarchy is not null group by 
 			source,term,term_type,position_in_source_hierarchy order by source,position_in_source_hierarchy 
 		</cfquery>
-		<cfdump var=#taxterms#>
-		get non-taxon terms ordered by classification		
-		<br>
+		<cfif session.debug is true>
+			<cfdump var=#taxterms#>
+			get non-taxon terms ordered by classification		
+			<br>
+		</cfif>
 		<cfquery name="nontaxterms" dbtype="query">
 			select term,term_type,source from  d where position_in_source_hierarchy is null order by source,term_type
 		</cfquery>
-		<cfdump var=#nontaxterms#>
+		<cfif session.debug is true>
+			<cfdump var=#nontaxterms#>
+			
+			<br> we can create "hierarchies"....
+			<br>get distinct sources....
 		
-		<br> we can create "hierarchies"....
-		<br>get distinct sources....
+		</cfif>
 		<cfquery name="sources" dbtype="query">
 			select source,hierarchy_id from d where hierarchy_id is not null group by source,hierarchy_id order by source,hierarchy_id
 		</cfquery>
+		
+		<cfif session.debug is true>
 		<cfdump var=#sources#>
-		<br>loop through them...
+			<br>loop through them...
+		
+		</cfif>
 		<cfloop query="sources">
 			<p>Hierarchy according to #source#:</p>
 			<cfquery name="thisone" dbtype="query">
@@ -144,7 +165,11 @@ commit;
 				order by 
 					position_in_source_hierarchy 
 			</cfquery>
-			<cfdump var=#thisone#>
+			
+			<cfif session.debug is true>
+				<cfdump var=#thisone#>
+			</cfif>
+			
 			<cfset indent=1>
 			<cfloop query="thisone">
 				<div style="padding-left:#indent#em;">
@@ -158,11 +183,16 @@ commit;
 		</cfloop>
 	<cfelse><!--- fetch the name ---->
 		that name does not exist in the experimental structure - pulling it.....
-		<br>first make the Arctos entry.....
+		
+		<cfif session.debug is true>
+			<br>first make the Arctos entry.....
+		</cfif>
 		<cfquery name="d" datasource="uam_god">
 			select * from taxonomy where scientific_name='#scientific_name#'
 		</cfquery>
-		<cfdump var=#d#>
+		<cfif session.debug is true>
+			<cfdump var=#d#>
+		</cfif>
 		<cfset pos=1>
 		<cfquery name="tt" datasource="uam_god">
 			insert into taxon_term (taxon_name_id,scientific_name) values (#d.taxon_name_id#,'#d.SCIENTIFIC_NAME#')
@@ -221,14 +251,22 @@ commit;
 				<cfset pos=pos+1>
 			</cfif>
 		</cfloop>
-		<br>now get service data.....
+		<cfif session.debug is true>
+			<br>now get service data.....
+		</cfif>
 		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#scientific_name#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
-		<cfdump var=#x#>
+		
+		<cfif session.debug is true>
+			<cfdump var=#x#>
+		</cfif>
 		<cfquery name="d" datasource="uam_god">
 			select taxon_name_id from taxon_term where scientific_name='#scientific_name#'
 		</cfquery>
-		<cfdump var=#d#>
+		<cfif session.debug is true>
+			<cfdump var=#d#>
+		</cfif>
+		
 		<cfif len(d.taxon_name_id) is 0>
 			taxon name not found<cfabort>
 		</cfif>
@@ -271,9 +309,14 @@ commit;
 			
 			</cfloop>
 		</cfloop>
-		<hr>
-		name+data created....		
-		<br><a href="taxonomyservice.cfm?scientific_name=#scientific_name#">click here to see #scientific_name#</a>
+		
+		<cfif session.debug is true>
+			<hr>
+			name+data created....		
+			<br><a href="taxonomyservice.cfm?scientific_name=#scientific_name#">click here to see #scientific_name#</a>
+		<cfelse>
+			<cflocation url="taxonomyservice.cfm?scientific_name=#scientific_name#" addtoken="false">
+		</cfif>
 	</cfif>
 </cfif>
 </cfoutput>
