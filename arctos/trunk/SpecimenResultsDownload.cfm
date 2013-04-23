@@ -435,9 +435,6 @@
 		where 
 			upper(table_name)=upper('#tableName#') order by DISP_ORDER
 	</cfquery>
-	
-	<cfdump var=#cols#>
-	
 	<cfif not listfindnocase(valuelist(cols.column_name),"collection_object_id")>
 		<cfmail subject="download without collection_object_id" to="#Application.PageProblemEmail#" from="funkydownload@#application.fromEmail#" type="html">
 			valuelist(cols.column_name): #valuelist(cols.column_name)#
@@ -457,12 +454,6 @@
 		</cfquery>
 	</cfif>
 	
-	
-		<cfdump var=#getData#>
-		
-		
-		<cfabort>
-
 	<cfquery name="dl" datasource="cf_dbuser">
 		INSERT INTO cf_download (
 			user_id,
