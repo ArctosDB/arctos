@@ -312,7 +312,7 @@ commit;
 				<cfset thisSource=x.data[1].results[i].data_source_title>
 				
 				<cfset thisSourceID=CreateUUID()>
-				
+				<br>thisSource: #thisSource#
 				<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
 					<cfset thisTerm=cterms[listpos]>
 					<br>thisTerm: #thisTerm#
