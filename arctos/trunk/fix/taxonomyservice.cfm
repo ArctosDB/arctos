@@ -315,8 +315,10 @@ commit;
 				
 				<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
 					<cfset thisTerm=cterms[listpos]>
+					<br>thisTerm: #thisTerm#
+					
 					<cfset thisRank=cranks[listpos]>
-					<br>thisTerm: #thisTerm# ---- thisRank: #thisRank#
+					 ---- thisRank: #thisRank#
 					<cfif len(thisTerm) gt 0>
 						<cfquery name="meta" datasource="uam_god">
 							insert into taxon_metadata (
