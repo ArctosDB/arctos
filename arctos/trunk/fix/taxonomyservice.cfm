@@ -283,7 +283,7 @@ commit;
 		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
 			<cfset pos=1>
 			<!--- because lists are stupid and ignore NULLs.... ---->
-			<cfif structKeyExists("x.data[1].results[i]","classification_path") and structKeyExists("x.data[1].results[i]","classification_path_ranks")>
+			<cfif structKeyExists(x.data[1].results[i],"classification_path") and structKeyExists(x.data[1].results[i],"classification_path_ranks")>
 				<cfset cterms=ListToArray(x.data[1].results[i].classification_path, "|", true)>
 				<cfset cranks=ListToArray(x.data[1].results[i].classification_path_ranks, "|", true)>
 				 
