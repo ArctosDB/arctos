@@ -351,7 +351,7 @@ commit;
 		<br>first make the Arctos entry.....
 	</cfif>
 	<cfquery name="d" datasource="uam_god">
-		select * from taxonomy where #q#
+		select * from taxonomy where genus='#genus#'
 	</cfquery>
 	<cfif session.debug is true>
 		<cfdump var=#d#>
