@@ -255,4 +255,5 @@ commit;
 		name+data created....		
 		<br><a href="taxonomyservice?scientific_name=#scientific_name#">click here to see #scientific_name#</a>
 	</cfif>
+</cfif>
 </cfoutput>
