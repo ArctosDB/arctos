@@ -316,7 +316,7 @@ commit;
 				<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
 					<cfset thisTerm=cterms[listpos]>
 					<br>thisTerm: #thisTerm#
-					<cfif structKeyExists(cranks,"[#listpos#]")>
+					<cfif ArrayIsDefined(cranks, listpos)>
 						<cfset thisRank=cranks[listpos]>
 						exists....
 					<cfelse>
