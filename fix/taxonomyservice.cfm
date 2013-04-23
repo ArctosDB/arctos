@@ -67,7 +67,6 @@ commit;
 
 <cfoutput>
 
-<cfif not isdefined("scientific_name") or len(scientific_name) is 0>
 	add "?scientific_name=somescientificname to the URL.
 	
 	<cfquery name="has" datasource="uam_god">
@@ -86,7 +85,7 @@ commit;
 	<cfloop query="nohas">
 		<br><a href="taxonomyservice.cfm?scientific_name=#scientific_name#">#scientific_name#</a>
 	</cfloop>
-</cfif>
+<hr>
 <cfif isdefined("scientific_name") and len(scientific_name) gt 0>
 	<cfquery name="d" datasource="uam_god">
 		select * from taxon_term,taxon_metadata where 
