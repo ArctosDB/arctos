@@ -58,88 +58,38 @@ commit;
 
 <cfoutput>
 
-
-<a href="/fix/taxonomyservice.cfm?action=popFromArctos">popFromArctos</a>
-
-<br>
-
-
-<a href="/fix/taxonomyservice.cfm?action=whatsThere">whatsThere</a>
-<br>
-
-
-<a href="/fix/taxonomyservice.cfm?action=pullFromGlobalnames">pullFromGlobalnames</a>
-
-
-
-	<cfif action is "pullFromGlobalnames">
-		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#scientific_name#"></cfhttp>
-		<cfset x=DeserializeJSON(cfhttp.filecontent)>
-		<cfquery name="d" datasource="uam_god">
-			select taxon_name_id from taxon_term where scientific_name='#scientific_name#'
-		</cfquery>
-		<cfdump var=#d#>
-		<cfif len(d.taxon_name_id) is 0>
-			taxon name not found<cfabort>
-		</cfif>
-		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
-			<cfset pos=1>
-			<!--- because lists are stupid and ignore NULLs.... ---->
-			<cfset cterms=ListToArray(x.data[1].results[i].classification_path, "|", true)>
-			<cfset cranks=ListToArray(x.data[1].results[i].classification_path_ranks, "|", true)>
-			 
-			<cfset thisSource=x.data[1].results[i].data_source_title>
-			<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
-				<cfset thisTerm=cterms[listpos]>
-				<cfset thisRank=cranks[listpos]>
-				<br>thisTerm: #thisTerm# ---- thisRank: #thisRank#
-				<cfif len(thisTerm) gt 0>
-					<cfquery name="meta" datasource="uam_god">
-						insert into taxon_metadata (
-							tmid,
-							taxon_name_id,
-							term,
-							term_type,
-							source,
-							position_in_source_hierarchy
-						) values (
-							somerandomsequence.nextval,
-							#d.taxon_name_id#,
-							'#thisTerm#',
-							'#lcase(thisRank)#',
-							'#thisSource#',
-							#pos#
-						)
-					</cfquery>
-				<cfset pos=pos+1>
-				</cfif>
-			
-			</cfloop>
-		</cfloop>
-
-
-	</cfif>
-<!-------------------------------------------------------------->
-	<cfif action is "whatsThere">
-		<br>
-		get everything with one trip to the DB
-		<br>
-		select * from taxon_term,taxon_metadata where 
-			taxon_term.taxon_name_id=taxon_metadata.taxon_name_id (+) and
-			scientific_name='#scientific_name#'
-		<cfquery name="d" datasource="uam_god">
-			select * from taxon_term,taxon_metadata where 
-			taxon_term.taxon_name_id=taxon_metadata.taxon_name_id (+) and
-			scientific_name='#scientific_name#'
-		</cfquery>
-		<cfdump var=#d#>
-		<br>
-		
-		get THE scientific_name with a local CF query
-		
-		<br>
+<cfif not isdefined("scientific_name") or len(scientific_name) is 0>
+	add "?scientific_name=somescientificname to the URL.
 	
-		
+	<cfquery name="has" datasource="uam_god">
+		select scientific_name from taxon_term order by scientific_name
+	</cfquery>
+	<hr>
+	These exist:
+	<cfloop query="has">
+		<br><a href="taxonomyservice?scientific_name=#scientific_name#">#scientific_name#</a>
+	</cfloop>
+	<hr>
+	Here are some you can create:
+	<cfquery name="nohas" datasource="uam_god">
+		select scientific_name from taxonomy where scientific_name not in (select scientific_name from taxon_term) and rownum<20
+	</cfquery>
+	<cfloop query="nohas">
+		<br><a href="taxonomyservice?scientific_name=#scientific_name#">#scientific_name#</a>
+	</cfloop>
+</cfif>
+<cfif isdefined("scientific_name") and len(scientific_name) gt 0>
+	<cfquery name="d" datasource="uam_god">
+		select * from taxon_term,taxon_metadata where 
+		taxon_term.taxon_name_id=taxon_metadata.taxon_name_id (+) and
+		scientific_name='#scientific_name#'
+	</cfquery>
+	<cfdump var=#d#>
+	<cfif d.recordcount gt 0>
+		#scientific_name# has an entry - here it is
+		<br>		
+		get THE scientific_name with a local CF query
+		<br>
 		<cfquery name="scientific_name" dbtype="query">
 			select scientific_name from d group by scientific_name
 		</cfquery>
@@ -147,31 +97,27 @@ commit;
 		<br>
 		get taxon terms ordered by classification then by position_in_source_hierarchy
 		<br>
-		
-		<br>
 		<cfquery name="taxterms" dbtype="query">
-		select source,term,term_type,position_in_source_hierarchy from d where position_in_source_hierarchy is not null group by 
-		source,term,term_type,position_in_source_hierarchy order by source,position_in_source_hierarchy 
+			select source,term,term_type,position_in_source_hierarchy from d where position_in_source_hierarchy is not null group by 
+			source,term,term_type,position_in_source_hierarchy order by source,position_in_source_hierarchy 
 		</cfquery>
 		<cfdump var=#taxterms#>
-		
-		get non-taxon terms ordered by classification
-		<br>
-		
+		get non-taxon terms ordered by classification		
 		<br>
 		<cfquery name="nontaxterms" dbtype="query">
-		select term,term_type,source from  d where position_in_source_hierarchy is null order by source,term_type
+			select term,term_type,source from  d where position_in_source_hierarchy is null order by source,term_type
 		</cfquery>
 		<cfdump var=#nontaxterms#>
 		
-		<br> we can create "hierarchies" at will
+		<br> we can create "hierarchies"....
 		<br>get distinct sources....
 		<cfquery name="sources" dbtype="query">
 			select source from d group by source order by source
 		</cfquery>
 		<cfdump var=#sources#>
-		<br>loop through them....
+		<br>loop through them...
 		<cfloop query="sources">
+			<p>Hierarchy according to #source#:</p>
 			<cfquery name="thisone" dbtype="query">
 				select 
 					term,
@@ -187,7 +133,7 @@ commit;
 				order by 
 					position_in_source_hierarchy 
 			</cfquery>
-			<p>Hierarchy according to #source#:</p>
+			<cfdump var=#thisone#>
 			<cfset indent=1>
 			<cfloop query="thisone">
 				<div style="padding-left:#indent#em;">
@@ -199,16 +145,13 @@ commit;
 				<cfset indent=indent+1>
 			</cfloop>
 		</cfloop>
-
-		
-		
-		
-	</cfif>
-<!-------------------------------------------------------------->
-	<cfif action is "popFromArctos">
+	<cfelse><!--- fetch the name ---->
+		that name does not exist in the experimental structure - pulling it.....
+		<br>first make the Arctos entry.....
 		<cfquery name="d" datasource="uam_god">
 			select * from taxonomy where scientific_name='#scientific_name#'
 		</cfquery>
+		<cfdump var=#d#>
 		<cfset pos=1>
 		<cfquery name="tt" datasource="uam_god">
 			insert into taxon_term (taxon_name_id,scientific_name) values (#d.taxon_name_id#,'#d.SCIENTIFIC_NAME#')
@@ -264,5 +207,52 @@ commit;
 				<cfset pos=pos+1>
 			</cfif>
 		</cfloop>
+		<br>now get service data.....
+		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#scientific_name#"></cfhttp>
+		<cfset x=DeserializeJSON(cfhttp.filecontent)>
+		<cfquery name="d" datasource="uam_god">
+			select taxon_name_id from taxon_term where scientific_name='#scientific_name#'
+		</cfquery>
+		<cfdump var=#d#>
+		<cfif len(d.taxon_name_id) is 0>
+			taxon name not found<cfabort>
+		</cfif>
+		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
+			<cfset pos=1>
+			<!--- because lists are stupid and ignore NULLs.... ---->
+			<cfset cterms=ListToArray(x.data[1].results[i].classification_path, "|", true)>
+			<cfset cranks=ListToArray(x.data[1].results[i].classification_path_ranks, "|", true)>
+			 
+			<cfset thisSource=x.data[1].results[i].data_source_title>
+			<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
+				<cfset thisTerm=cterms[listpos]>
+				<cfset thisRank=cranks[listpos]>
+				<br>thisTerm: #thisTerm# ---- thisRank: #thisRank#
+				<cfif len(thisTerm) gt 0>
+					<cfquery name="meta" datasource="uam_god">
+						insert into taxon_metadata (
+							tmid,
+							taxon_name_id,
+							term,
+							term_type,
+							source,
+							position_in_source_hierarchy
+						) values (
+							somerandomsequence.nextval,
+							#d.taxon_name_id#,
+							'#thisTerm#',
+							'#lcase(thisRank)#',
+							'#thisSource#',
+							#pos#
+						)
+					</cfquery>
+				<cfset pos=pos+1>
+				</cfif>
+			
+			</cfloop>
+		</cfloop>
+		<hr>
+		name+data created....		
+		<br><a href="taxonomyservice?scientific_name=#scientific_name#">click here to see #scientific_name#</a>
 	</cfif>
 </cfoutput>
