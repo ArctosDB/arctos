@@ -449,7 +449,11 @@
 	<cfelse>
 		<cfset theCols=listprepend(valuelist(cols.column_name),"USE_LICENSE_URL")>
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select #theCols# from #tableName#
+			select filtered_flat.USE_LICENSE_URL
+			<cfloop list="#theCols#" index="cname">
+				,#tableName#.#cname#
+			</cfloop>
+			from #tableName#
 			,filtered_flat where #tableName#.collection_object_id=filtered_flat.collection_object_id	
 		</cfquery>
 	</cfif>
