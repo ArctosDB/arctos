@@ -69,9 +69,9 @@ commit;
 </cfif>
 <cfoutput>
 	<cfif session.debug is false>
-		<br><a href="taxonomyservice.cfm?action=#debugon#">debug on</a>
+		<br><a href="taxonomyservice.cfm?action=debugon">debug on</a>
 	<cfelse>
-		<br><a href="taxonomyservice.cfm?action=#debugoff#">debug off</a>
+		<br><a href="taxonomyservice.cfm?action=debugoff">debug off</a>
 	</cfif>
 	
 	
