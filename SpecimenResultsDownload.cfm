@@ -437,9 +437,23 @@
 	</cfquery>
 	
 	<cfdump var=#cols#>
-	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from #tableName#
-	</cfquery>
+	
+	<cfif not listfindnocase(valuelist(cols.column_name),"collection_object_id")>
+		<cfmail subject="download without collection_object_id" to="#Application.PageProblemEmail#" from="funkydownload@#application.fromEmail#" type="html">
+			valuelist(cols.column_name): #valuelist(cols.column_name)#
+			<cfdump var=#session#>
+		</cfmail>
+		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from #tableName#
+		</cfquery>
+	<cfelse>
+		<cfset theCols=listprepend(valuelist(cols.column_name),"USE_LICENSE_URL")>
+		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select #theCols# from #tableName#
+			,filtered_flat where #tableName#.collection_object_id=filtered_flat.collection_object_id	
+		</cfquery>
+	</cfif>
+	
 	
 		<cfdump var=#getData#>
 		
