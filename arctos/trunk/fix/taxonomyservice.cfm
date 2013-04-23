@@ -350,25 +350,27 @@ commit;
 	<cfif session.debug is true>
 		<br>first make the Arctos entry.....
 	</cfif>
-	<cfquery name="d" datasource="uam_god">
-		select * from taxonomy where genus='#genus#'
+	<cfquery name="arctostaxonomy" datasource="uam_god">
+		select * from taxonomy where 
+		scientific_name not in (select scientific_name from taxon_term) and 
+		genus='#genus#'
 	</cfquery>
 	<cfif session.debug is true>
 		<cfdump var=#d#>
 	</cfif>
-	<cfloop query="d">
+	<cfloop query="arctostaxonomy">
 		<cfset pos=1>
 		<cfquery name="tt" datasource="uam_god">
-			insert into taxon_term (taxon_name_id,scientific_name) values (#d.taxon_name_id#,'#d.SCIENTIFIC_NAME#')
+			insert into taxon_term (taxon_name_id,scientific_name) values (#arctostaxonomy.taxon_name_id#,'#arctostaxonomy.SCIENTIFIC_NAME#')
 		</cfquery>
 		<!--- first, taxon terms ---->
 		<cfset orderedTerms="KINGDOM,PHYLUM,PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,SUBSPECIES">
 		<cfset thisSourceID=CreateUUID()>
 		<cfloop list="#orderedTerms#" index="termtype">
-			<cfset thisTermVal=evaluate("d." & termtype)>
+			<cfset thisTermVal=evaluate("arctostaxonomy." & termtype)>
 			<cfif len(thisTermVal) gt 0>
-				<cfif termtype is "SUBSPECIES" and len(d.INFRASPECIFIC_RANK) gt 0>
-					<cfset thisTermVal=d.INFRASPECIFIC_RANK>
+				<cfif termtype is "SUBSPECIES" and len(arctostaxonomy.INFRASPECIFIC_RANK) gt 0>
+					<cfset thisTermVal=arctostaxonomy.INFRASPECIFIC_RANK>
 				</cfif>
 				<cfquery name="meta" datasource="uam_god">
 					insert into taxon_metadata (
@@ -381,7 +383,7 @@ commit;
 						hierarchy_id
 					) values (
 						somerandomsequence.nextval,
-						#d.taxon_name_id#,
+						#arctostaxonomy.taxon_name_id#,
 						'#thisTermVal#',
 						'#lcase(termtype)#',
 						'Arctos',
@@ -395,7 +397,7 @@ commit;
 		<!--- then "non-taxonomy metadata" - we may not want to keep all this stuff, so discuss before any large-scale migration ---->
 		<cfset orderedTerms="VALID_CATALOG_TERM_FG|SOURCE_AUTHORITY|AUTHOR_TEXT|TAXON_REMARKS|NOMENCLATURAL_CODE|INFRASPECIFIC_AUTHOR|DISPLAY_NAME|TAXON_STATUS">
 		<cfloop list="#orderedTerms#" index="termtype" delimiters="|">
-			<cfset thisTermVal=evaluate("d." & termtype)>
+			<cfset thisTermVal=evaluate("arctostaxonomy." & termtype)>
 			<cfif len(thisTermVal) gt 0>
 				<cfquery name="meta" datasource="uam_god">
 					insert into taxon_metadata (
@@ -406,7 +408,7 @@ commit;
 						source
 					) values (
 						somerandomsequence.nextval,
-						#d.taxon_name_id#,
+						#arctostaxonomy.taxon_name_id#,
 						'#thisTermVal#',
 						'#lcase(termtype)#',
 						'Arctos'
@@ -424,16 +426,7 @@ commit;
 		<cfif session.debug is true>
 			<cfdump var=#x#>
 		</cfif>
-		<cfquery name="d" datasource="uam_god">
-			select taxon_name_id from taxon_term where scientific_name='#scientific_name#'
-		</cfquery>
-		<cfif session.debug is true>
-			<cfdump var=#d#>
-		</cfif>
 		
-		<cfif len(d.taxon_name_id) is 0>
-			taxon name not found<cfabort>
-		</cfif>
 		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
 			<cfset pos=1>
 			<!--- because lists are stupid and ignore NULLs.... ---->
@@ -461,7 +454,7 @@ commit;
 								hierarchy_id
 							) values (
 								somerandomsequence.nextval,
-								#d.taxon_name_id#,
+								#arctostaxonomy.taxon_name_id#,
 								'#thisTerm#',
 								'#lcase(thisRank)#',
 								'#thisSource#',
