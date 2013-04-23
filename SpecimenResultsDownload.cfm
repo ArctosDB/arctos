@@ -435,9 +435,14 @@
 		where 
 			upper(table_name)=upper('#tableName#') order by DISP_ORDER
 	</cfquery>
+	
+	<cfdump var=#cols#>
 	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from #tableName#
 	</cfquery>
+	
+		<cfdump var=#getData#>
+
 	<cfquery name="dl" datasource="cf_dbuser">
 		INSERT INTO cf_download (
 			user_id,
