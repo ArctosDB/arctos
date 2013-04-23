@@ -109,7 +109,7 @@ commit;
 	Or you can try all species in a genus....
 	<cfquery name="nohasgen" datasource="uam_god">
 		SELECT genus,c FROM (
-		select genus,coutn(*) c from taxonomy where scientific_name not in (select scientific_name from taxon_term)
+		select genus,count(*) c from taxonomy where scientific_name not in (select scientific_name from taxon_term)
 		and rownum<10000
 		group by genus
 		 ORDER BY dbms_random.value
