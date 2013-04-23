@@ -442,6 +442,9 @@
 	</cfquery>
 	
 		<cfdump var=#getData#>
+		
+		
+		<cfabort>
 
 	<cfquery name="dl" datasource="cf_dbuser">
 		INSERT INTO cf_download (
