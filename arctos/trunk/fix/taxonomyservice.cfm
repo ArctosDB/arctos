@@ -468,7 +468,16 @@ commit;
 				
 				<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
 					<cfset thisTerm=cterms[listpos]>
-					<cfset thisRank=cranks[listpos]>
+					
+					<cfif ArrayIsDefined(cranks, listpos)>
+						<cfset thisRank=cranks[listpos]>
+						exists....
+					<cfelse>
+						<cfset thisRank=''>
+						noexists....
+					</cfif>
+					
+					
 					<br>thisTerm: #thisTerm# ---- thisRank: #thisRank#
 					<cfif len(thisTerm) gt 0>
 						<cfquery name="meta" datasource="uam_god">
