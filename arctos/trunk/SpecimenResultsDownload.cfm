@@ -447,7 +447,6 @@
 			select * from #tableName#
 		</cfquery>
 	<cfelse>
-		<cfset theCols=listprepend(valuelist(cols.column_name),"USE_LICENSE_URL")>
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select filtered_flat.USE_LICENSE_URL
 			<cfloop list="#theCols#" index="cname">
