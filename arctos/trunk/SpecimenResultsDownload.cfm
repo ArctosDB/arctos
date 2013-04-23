@@ -493,11 +493,6 @@
 	<cfset fileDir = "#Application.webDirectory#">
 	
 	<!--- add one and only one line break back onto the end --->
-	<cfdump var=#ac#>
-	
-	<cfabort>
-	
-	
 	<cfoutput>
 		<cfset variables.encoding="UTF-8">
 		<cfif fileFormat is "csv">
