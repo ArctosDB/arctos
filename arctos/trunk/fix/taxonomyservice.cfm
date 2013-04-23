@@ -242,6 +242,9 @@ WHERE rownum <= 10
 			<cfset cranks=ListToArray(x.data[1].results[i].classification_path_ranks, "|", true)>
 			 
 			<cfset thisSource=x.data[1].results[i].data_source_title>
+			
+			<cfset thisSourceID=CreateUUID()>
+			
 			<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
 				<cfset thisTerm=cterms[listpos]>
 				<cfset thisRank=cranks[listpos]>
@@ -263,7 +266,7 @@ WHERE rownum <= 10
 							'#lcase(thisRank)#',
 							'#thisSource#',
 							#pos#,
-							'#x.data[1].results[i].gni_uuid#'
+							'#thisSourceID#'
 						)
 					</cfquery>
 				<cfset pos=pos+1>
