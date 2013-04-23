@@ -69,7 +69,10 @@ commit;
 </cfif>
 <cfoutput>
 	
-	add "?scientific_name=somescientificname to the URL.
+	<br><a href="taxonomyservice.cfm?action=#debugon#">debug on</a>
+	<br><a href="taxonomyservice.cfm?action=#debugoff#">debug off</a>
+	
+	<br>add "?scientific_name=somescientificname to the URL.
 	
 	<cfquery name="has" datasource="uam_god">
 		select scientific_name from taxon_term order by scientific_name
