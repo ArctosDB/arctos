@@ -108,15 +108,15 @@ commit;
 	<br>
 	Or you can try all species in a genus....
 	<cfquery name="nohasgen" datasource="uam_god">
-		SELECT genus FROM (
-		select genus from taxonomy where scientific_name not in (select scientific_name from taxon_term)
+		SELECT genus,c FROM (
+		select genus,coutn(*) c from taxonomy where scientific_name not in (select scientific_name from taxon_term)
 		and rownum<10000
 		group by genus
 		 ORDER BY dbms_random.value
 		) WHERE rownum <= 12
 	</cfquery>
 	<cfloop query="nohasgen">
-		<br><a href="taxonomyservice.cfm?action=makeabunch&genus=#genus#">#genus#</a>
+		<br><a href="taxonomyservice.cfm?action=makeabunch&genus=#genus#">#genus# (#c# species)</a>
 	</cfloop>
 	
 	
@@ -363,6 +363,9 @@ commit;
 
 
 <cfif action is "makeabunch">
+
+		<br><a href="taxonomyservice.cfm">something probably happened down beloww....clickypop back to the splashpage</a>
+
 	<cfif session.debug is true>
 		<br>first make the Arctos entry.....
 	</cfif>
