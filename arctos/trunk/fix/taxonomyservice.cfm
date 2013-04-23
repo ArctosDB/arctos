@@ -52,6 +52,10 @@ alter table taxon_metadata add hierarchy_id varchar2(255);
 
 -- probably need some logic to autopopulate this with UUID or something, maybe require it when position_in_source_hierarchy is not null,
 --  but for now just wing it in the interfaces.
+-- would really like some stable (at the service) identifier, so we can eg "refresh _THAT_ {source} hierarchy" 
+
+
+-- maybe should incorporate score for ordering hierarchies
 
 
 
@@ -68,6 +72,9 @@ commit;
 	<cfset session.debug="false">
 </cfif>
 <cfoutput>
+
+<cfif action is not "makeabunch">
+
 	<cfif session.debug is false>
 		<br><a href="taxonomyservice.cfm?action=debugon">debug on</a>
 	<cfelse>
@@ -330,5 +337,148 @@ commit;
 			<cflocation url="taxonomyservice.cfm?scientific_name=#scientific_name#" addtoken="false">
 		</cfif>
 	</cfif>
+</cfif>
+</cfif>
+
+
+
+
+
+
+
+<cfif action is "makeabunch">
+	<cfif session.debug is true>
+		<br>first make the Arctos entry.....
+	</cfif>
+	<cfquery name="d" datasource="uam_god">
+		select * from taxonomy where #q#
+	</cfquery>
+	<cfif session.debug is true>
+		<cfdump var=#d#>
+	</cfif>
+	<cfloop query="d">
+		<cfset pos=1>
+		<cfquery name="tt" datasource="uam_god">
+			insert into taxon_term (taxon_name_id,scientific_name) values (#d.taxon_name_id#,'#d.SCIENTIFIC_NAME#')
+		</cfquery>
+		<!--- first, taxon terms ---->
+		<cfset orderedTerms="KINGDOM,PHYLUM,PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,SUBSPECIES">
+		<cfset thisSourceID=CreateUUID()>
+		<cfloop list="#orderedTerms#" index="termtype">
+			<cfset thisTermVal=evaluate("d." & termtype)>
+			<cfif len(thisTermVal) gt 0>
+				<cfif termtype is "SUBSPECIES" and len(d.INFRASPECIFIC_RANK) gt 0>
+					<cfset thisTermVal=d.INFRASPECIFIC_RANK>
+				</cfif>
+				<cfquery name="meta" datasource="uam_god">
+					insert into taxon_metadata (
+						tmid,
+						taxon_name_id,
+						term,
+						term_type,
+						source,
+						position_in_source_hierarchy,
+						hierarchy_id
+					) values (
+						somerandomsequence.nextval,
+						#d.taxon_name_id#,
+						'#thisTermVal#',
+						'#lcase(termtype)#',
+						'Arctos',
+						#pos#,
+						'#thisSourceID#'
+					)
+				</cfquery>
+				<cfset pos=pos+1>
+			</cfif>
+		</cfloop>
+		<!--- then "non-taxonomy metadata" - we may not want to keep all this stuff, so discuss before any large-scale migration ---->
+		<cfset orderedTerms="VALID_CATALOG_TERM_FG|SOURCE_AUTHORITY|AUTHOR_TEXT|TAXON_REMARKS|NOMENCLATURAL_CODE|INFRASPECIFIC_AUTHOR|DISPLAY_NAME|TAXON_STATUS">
+		<cfloop list="#orderedTerms#" index="termtype" delimiters="|">
+			<cfset thisTermVal=evaluate("d." & termtype)>
+			<cfif len(thisTermVal) gt 0>
+				<cfquery name="meta" datasource="uam_god">
+					insert into taxon_metadata (
+						tmid,
+						taxon_name_id,
+						term,
+						term_type,
+						source
+					) values (
+						somerandomsequence.nextval,
+						#d.taxon_name_id#,
+						'#thisTermVal#',
+						'#lcase(termtype)#',
+						'Arctos'
+					)
+				</cfquery>
+				<cfset pos=pos+1>
+			</cfif>
+		</cfloop>
+		<cfif session.debug is true>
+			<br>now get service data.....
+		</cfif>
+		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#scientific_name#"></cfhttp>
+		<cfset x=DeserializeJSON(cfhttp.filecontent)>
+		
+		<cfif session.debug is true>
+			<cfdump var=#x#>
+		</cfif>
+		<cfquery name="d" datasource="uam_god">
+			select taxon_name_id from taxon_term where scientific_name='#scientific_name#'
+		</cfquery>
+		<cfif session.debug is true>
+			<cfdump var=#d#>
+		</cfif>
+		
+		<cfif len(d.taxon_name_id) is 0>
+			taxon name not found<cfabort>
+		</cfif>
+		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
+			<cfset pos=1>
+			<!--- because lists are stupid and ignore NULLs.... ---->
+			<cfif structKeyExists(x.data[1].results[i],"classification_path") and structKeyExists(x.data[1].results[i],"classification_path_ranks")>
+				<cfset cterms=ListToArray(x.data[1].results[i].classification_path, "|", true)>
+				<cfset cranks=ListToArray(x.data[1].results[i].classification_path_ranks, "|", true)>
+				 
+				<cfset thisSource=x.data[1].results[i].data_source_title>
+				
+				<cfset thisSourceID=CreateUUID()>
+				
+				<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
+					<cfset thisTerm=cterms[listpos]>
+					<cfset thisRank=cranks[listpos]>
+					<br>thisTerm: #thisTerm# ---- thisRank: #thisRank#
+					<cfif len(thisTerm) gt 0>
+						<cfquery name="meta" datasource="uam_god">
+							insert into taxon_metadata (
+								tmid,
+								taxon_name_id,
+								term,
+								term_type,
+								source,
+								position_in_source_hierarchy,
+								hierarchy_id
+							) values (
+								somerandomsequence.nextval,
+								#d.taxon_name_id#,
+								'#thisTerm#',
+								'#lcase(thisRank)#',
+								'#thisSource#',
+								#pos#,
+								'#thisSourceID#'
+							)
+						</cfquery>
+					<cfset pos=pos+1>
+					</cfif>
+				
+				</cfloop>
+			</cfif>
+		</cfloop>
+	</cfloop>
+	
+		
+		
+		
 </cfif>
 </cfoutput>
