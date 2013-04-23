@@ -65,7 +65,7 @@ commit;
 
 <cfinclude template="/includes/_header.cfm">
 <cfif not isdefined("session.debug")>
-	<cfset session.debug="true">
+	<cfset session.debug="false">
 </cfif>
 <cfoutput>
 	<cfif session.debug is false>
