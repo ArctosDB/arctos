@@ -42,7 +42,7 @@
 				box_position : box_position,
 				position_id : position_id,
 				barcode : barcode,
-				acceptableChildContainerType: $("acceptableChildContainerType").val();
+				acceptableChildContainerType: $("#acceptableChildContainerType").val();
 				returnformat : "json",
 				queryformat : 'column'
 			},
