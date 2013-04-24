@@ -2683,7 +2683,6 @@
 			select container_id,label,container_type from container where barcode='#barcode#'
 		</cfquery>
 		
-		<cfdump var=#thisID#>
 		<cfif thisID.recordcount is 1 and thisID.container_type is acceptableChildContainerType>
 			<cfset thisContainerId = thisID.container_id>
 		<cfelseif thisID.recordcount is 1 and thisID.container_type is "#acceptableChildContainerType# label">
