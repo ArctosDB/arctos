@@ -204,6 +204,7 @@
 					<input type="hidden" name="action" value="moveScans">
 					<input type="hidden" name="number_positions" value="#aBox.number_positions#">
 					<input type="hidden" name="container_id" id="container_id" value="#aBox.container_id#">
+					<cfset ti=1>
 					<cfloop from="1" to="#numberColumns#" index="col">
 						<tr height="50" valign="top">
 							<cfloop from="1" to="#numberRows#" index="row">
@@ -226,7 +227,9 @@
 									<cfset thisTabIndex=numberRows * col + row + 1>
 									
 									<br>thisTabIndex: #thisTabIndex#
-									
+									<br>ti: #ti#
+														<cfset ti=ti+1>
+
 									<div class="cellDiv">
 									<span class="labelSpan">
 											#thisLabel#
