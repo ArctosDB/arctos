@@ -1,12 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
-	input.activeCell {
+		input.activeCell {
 		background-color:#FF0000;
 		}
 	input.hasData {
 		background-color:#FFFF00;
 		}
 	div.cellDiv {
+		width:100%;
+		height:100%;
 		border:1px solid black;
 		background-color:#F4F4F4;
 		}
