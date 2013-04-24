@@ -199,7 +199,7 @@
 				<tr>
 					<td>
 			<table cellpadding="0" cellspacing="0" border="1">
-					<!----
+			
 					
 					<input type="hidden" name="action" value="moveScans">
 					<input type="hidden" name="number_positions" value="#aBox.number_positions#">
@@ -207,6 +207,9 @@
 					<cfloop from="1" to="#numberColumns#" index="col">
 						<tr height="50" valign="top">
 							<cfloop from="1" to="#numberRows#" index="row">
+							
+								<cfset thisTabIndex=totalRowCount * currentColumnIndex + currentRowIndex + 1
+
 								<td width="60" align="left">
 									<!--- now, we can get the contents of this cell
 											First, get the container_id for this label from a
@@ -216,6 +219,10 @@
 										select container_id, position_id,contentLabel,posConBc from positionContents
 										where label = '#thisLabel#'
 									</cfquery>
+									numberColumns:#numberColumns#
+									<br>numberRows: #numberRows#
+									<br>col: #col#
+									<br>row: #row#
 									<div class="cellDiv">
 									<span class="labelSpan">
 											#thisLabel#
@@ -246,7 +253,7 @@
 							</cfloop>
 						</tr>
 					</cfloop>
----->
+					<!----
 
 <tr>
 	<td>
@@ -265,6 +272,7 @@
 	</td>
 </tr>
 					</table>
+---->
 
 			</cfif>
 		</td>
