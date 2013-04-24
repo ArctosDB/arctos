@@ -2695,7 +2695,7 @@
 		<cfelseif thisID.recordcount is not 1>
 			<cfset result = "-#box_position#|Container barcode #barcode# matches #thisID.recordcount# records.">
 		<cfelse>
-			<cfset result = "-#box_position#|Container barcode #barcode# is not of type #acceptableChildContainerType# or #acceptableChildContainerType# label.">
+			<cfset result = "-#box_position#|Container barcode #barcode# (#thisID.container_type#) is not of type #acceptableChildContainerType# or #acceptableChildContainerType# label.">
 		</cfif>
 		
 		
