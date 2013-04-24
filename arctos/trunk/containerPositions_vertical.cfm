@@ -72,57 +72,47 @@
 	}
 </script>
 
-<cfif #action# is "nothing">
-	<cfoutput>
+<cfif action is "nothing">
+<cfoutput>
 	<cfquery name="aBox" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from container where container_id=#container_id#
-	</cfquery>
-	
+	</cfquery>	
 	<!--- default is....---->
 	<cfset taborder="horizontal">
-
 	<!---- figure out what they're trying to do and set some variables ---->
-	<cfif #aBox.number_positions# is 100 AND #aBox.container_type# is "freezer box">
+	<cfif aBox.number_positions is 100 AND aBox.container_type is "freezer box">
 		<cfset goodPositionType = "position">
 		<cfset numberRows = 10>
 		<cfset numberColumns = 10>
-	<cfelseif #aBox.number_positions# is 81 AND #aBox.container_type# is "freezer box">
+	<cfelseif aBox.number_positions is 81 AND aBox.container_type is "freezer box">
 		<cfset goodPositionType = "position">
 		<cfset numberRows = 9>
 		<cfset numberColumns = 9>
-	<cfelseif #aBox.number_positions# is 48 AND #aBox.container_type# is "freezer">
+	<cfelseif aBox.number_positions is 48 AND aBox.container_type is "freezer">
 		<cfset goodPositionType = "position">
 		<cfset numberRows = 12>
 		<cfset numberColumns = 4>
-	<cfelseif #aBox.number_positions# is 33 AND #aBox.container_type# is "freezer">
+	<cfelseif aBox.number_positions is 33 AND aBox.container_type is "freezer">
 		<cfset goodPositionType = "position">
 		<cfset numberRows = 11>
 		<cfset numberColumns = 3>
 	<cfelseif aBox.number_positions is 100 AND aBox.container_type is "slide box">
-			<cfset goodPositionType = "position">
-			<cfset numberRows = 50>
-			<cfset numberColumns = 2>
-				<cfset taborder="vertical">
-
+		<cfset goodPositionType = "position">
+		<cfset numberRows = 50>
+		<cfset numberColumns = 2>
+		<cfset taborder="vertical">
 	<cfelse>
-		<p>
-			<strong><font color="##FF0000">This application won't do what you want to do.
-				<ul>
-					<li>
-						 You must have a container with positons.
-					</li>
-					<li>
-						Position labels must be numeric
-					</li>
-					<li>
-						Position labels must be less than the number
-			of positions in the box.
-					</li>
-				</ul>
+		<div class="error">
+			This application won't do what you want to do.
+			<ul>
+				<li>You must have a container with positons.</li>
+				<li>Position labels must be numeric</li>
+				<li>Position labels must be less than the number of positions in the box.</li>
+			</ul>
 			<p>
-			If you have that and you're still getting this error, submit a <a href="/info/bugs.cfm">bug report</a>.
-			</font></strong>
-			<cfabort>
+			If you have that and you're still getting this error, submit a <a href="/contact.cfm">contact us</a>.
+		</div>
+		<cfabort>
 	</cfif>
 	<!---global--->
 	<cfset thisLabel = 1>
@@ -166,7 +156,7 @@
 					<cfabort>
 			</cfif>
 			<!----it's all positions ---->
-			<cfif #whatPosAreUsed.recordcount# is not #aBox.number_positions#>
+			<cfif whatPosAreUsed.recordcount is not aBox.number_positions>
 				<hr>
 				<font color="##FF0000">
 					There is a problem with the positions in this box. Aborting....
@@ -180,8 +170,9 @@
 					---->
 			</cfif>
 			<cfloop query="whatPosAreUsed">
-				<cfif not isnumeric(#label#)>
-					<hr><font color="##FF0000">Some position labels aren't numeric!</font>						  					<cfabort>
+				<cfif not isnumeric(label)>
+					<hr><font color="##FF0000">Some position labels aren't numeric!</font>
+					<cfabort>
 				</cfif>
 			</cfloop>
 			<!---- made it through the checks, now actually do stuff --->

@@ -44,6 +44,8 @@
 			sysdate-CACHEDATE > 30 and
 			rownum<1000
 	</cfquery>
+	
+	<br>found #....newOrStale.recordcount#
 	<cfloop query="newOrStale">
 		<!--- this should be a web fetch, but see above. Try to be nice about encumbrances, get only public data, etc. --->
 		<cfquery name="fetch" datasource="uam_god">
