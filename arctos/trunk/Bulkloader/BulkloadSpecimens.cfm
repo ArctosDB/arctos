@@ -212,27 +212,9 @@
 		</cfif>
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
-			<!----
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into bulkloader_stage (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
-			
-			---->
-			
-			
-							insert into bulkloader_stage (#colNames#) values (#preservesinglequotes(colVals)#)
-							
-							<cfflush>
-							
-							<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into bulkloader_stage (#colNames#) values (#preservesinglequotes(colVals)#)
-			</cfquery>
-			
-			inserted </cfflush>
-
-<cfabort>
-
-
 		</cfif>
 	</cfloop>
 	<cflocation url="BulkloadSpecimens.cfm?action=validate" addtoken="false">
