@@ -218,7 +218,7 @@
 								</span>
 								<span class="innerSpan" id="theSpan#thisTabIndex#">
 									<cfif len(thisPos.container_id) gt 0>
-										br>#thisPos.contentLabel#
+										<br>#thisPos.contentLabel#
 										<br>#thisPos.posConBc#
 									<cfelse>
 										Barcode:<br>
