@@ -97,7 +97,7 @@
 		<cfset numberColumns = 3>
 	<cfelseif aBox.number_positions is 100 AND aBox.container_type is "slide box">
 			<cfset goodPositionType = "position">
-			<cfset numberRows = 5>
+			<cfset numberRows = 50>
 			<cfset numberColumns = 2>
 	<cfelse>
 		<p>
