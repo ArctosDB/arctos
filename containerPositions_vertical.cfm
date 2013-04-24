@@ -253,12 +253,12 @@
 		<input  tabindex="1" type="text" value="1">
 	</td>
 	<td >
-		<input  tabindex="2" type="text" value="2">
+		<input  tabindex="3" type="text" value="3">
 	</td>
 </tr>
 <tr>
 	<td>
-		<input  tabindex="3" type="text" value="3">
+		<input  tabindex="2" type="text" value="2">
 	</td>
 	<td>
 		<input  tabindex="4" type="text" value="4">
