@@ -208,7 +208,6 @@
 						<tr height="50" valign="top">
 							<cfloop from="1" to="#numberRows#" index="row">
 							
-								<cfset thisTabIndex=totalRowCount * currentColumnIndex + currentRowIndex + 1
 
 								<td width="60" align="left">
 									<!--- now, we can get the contents of this cell
