@@ -129,6 +129,8 @@
 	</cfquery>
 	<cfif whatPosAreUsed.recordcount is 0>
 		There's nothing in this container.
+		<br>You can create positions in empty position-appropriate containers.
+
 		<form name="allnewPos" method="post" action="containerPositions.cfm">
 			<input type="hidden" name="action" value="allNewPositions">
 			<input type="hidden" name="container_type" value="#aBox.container_type#">
@@ -199,11 +201,12 @@
 	</p>
 		
 	<p>
-		Use this for to:
+		Use this form to:
 		<ul>
-			<li>Create positions in empty position-appropriate containers</li>
+			<li>Scan cryovials into freezer boxes</li>
 			<li>Turn cryovial labels into cryovials while scanning them into freezer boxes</li>
-			<li>Turn slide labels into slides while scanning them into slide boxes
+			<li>Turn slide labels into slides while scanning them into slide boxes</li>
+			<li>Scan slides into slide boxes</li>
 		</ul>
 	</p>
 	<form name="newScans" method="post" action="containerPositions.cfm" onsubmit="return false;">
