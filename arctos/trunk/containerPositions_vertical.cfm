@@ -214,23 +214,23 @@
 							</cfif>
 							<div class="cellDiv">
 								<span class="labelSpan">
-									#thisCellNumber#
+									#thisTabIndex#
 								</span>
-								<span class="innerSpan" id="theSpan#thisCellNumber#">
+								<span class="innerSpan" id="theSpan#thisTabIndex#">
 									<cfif len(thisPos.container_id) gt 0>
 										br>#thisPos.contentLabel#
 										<br>#thisPos.posConBc#
 									<cfelse>
 										Barcode:<br>
 										<input type="hidden"
-											name="position_id#thisCellNumber#"
-											id="position_id#thisCellNumber#"
+											name="position_id#thisTabIndex#"
+											id="position_id#thisTabIndex#"
 											value="#thisPos.position_id#">
 										<input type="text"
 											onFocus="this.className='activeCell'"
-											onChange="moveContainer('barcode#thisCellNumber#',this.value)"
-											name="barcode#thisCellNumber#"
-											id="barcode#thisCellNumber#"
+											onChange="moveContainer('barcode#thisTabIndex#',this.value)"
+											name="barcode#thisTabIndex#"
+											id="barcode#thisTabIndex#"
 											size="6"
 											style="font-size:small;"
 											tabindex="#thisTabIndex#">
