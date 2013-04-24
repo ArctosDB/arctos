@@ -251,7 +251,7 @@
 		<cfif getPrefs.recordcount is 0>
 			<cfset session.username = "">
 			<cfset session.epw = "">
-       		<cflocation url="login.cfm?badPW=true&username=#username#">
+       		<cflocation url="/login.cfm?badPW=true&username=#username#">
 		</cfif>
 		<cfset session.username=username>
 		<cfquery name="dbrole" datasource="uam_god">

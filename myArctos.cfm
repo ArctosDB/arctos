@@ -121,7 +121,7 @@
 		username = '#session.username#' order by cf_users.user_id
 	</cfquery>
 	<cfif getPrefs.recordcount is 0>
-		<cflocation url="login.cfm?action=signOut" addtoken="false">
+		<cflocation url="/login.cfm?action=signOut" addtoken="false">
 	</cfif>
 	<cfquery name="isInv" datasource="uam_god">
 		select allow from temp_allow_cf_user where user_id=#getPrefs.user_id#
