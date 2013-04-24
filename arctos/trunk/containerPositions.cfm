@@ -75,6 +75,7 @@
 
 <cfif action is "nothing">
 <cfoutput>
+	<cfset title = 'scan items into positions in containers'>
 	<cfquery name="aBox" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from container where container_id=#container_id#
 	</cfquery>	
