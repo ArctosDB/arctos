@@ -2676,6 +2676,7 @@
 	<cfargument name="box_position" type="numeric" required="yes">
 	<cfargument name="position_id" type="numeric" required="yes">
 	<cfargument name="barcode" type="string" required="yes">
+	<cfargument name="change_cryovial_label" type="boolean" required="no" default="true">
 	<cfset thisContainerId = "">
 	<CFTRY>
 		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -2695,7 +2696,7 @@
 				<cfset thisContainerId = #thisID.container_id#>
 			</cfif>
 		<cfelse>
-			<cfset thisContainerId = #thisID.container_id#>
+			<cfset thisContainerId = thisID.container_id>
 		</cfif>
 
 		<cfif len(#thisContainerId#) gt 0>
