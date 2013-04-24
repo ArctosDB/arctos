@@ -2683,6 +2683,8 @@
 			select container_id,label from container where barcode='#barcode#'
 			AND container_type = '#acceptableChildContainerType#'
 		</cfquery>
+		
+		<cfdump var=#thisID#>
 		<cfif #thisID.recordcount# is 0>
 			<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select container_id,label from container where barcode='#barcode#'
