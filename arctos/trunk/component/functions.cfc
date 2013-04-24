@@ -2680,28 +2680,27 @@
 	<cfset thisContainerId = "">
 	<CFTRY>
 		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select container_id,label from container where barcode='#barcode#'
-			AND container_type = '#acceptableChildContainerType#'
+			select container_id,label,container_type from container where barcode='#barcode#'
+			AND  = '#acceptableChildContainerType#'
 		</cfquery>
 		
 		<cfdump var=#thisID#>
-		<cfif #thisID.recordcount# is 0>
-			<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select container_id,label from container where barcode='#barcode#'
-				AND container_type = '#acceptableChildContainerType# label'
-			</cfquery>
-			<cfif #thisID.recordcount# is 1>
-				<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update container set container_type='#acceptableChildContainerType#'
-					where container_id=#thisID.container_id#
-				</cfquery>
-				<cfset thisContainerId = #thisID.container_id#>
-			</cfif>
-		<cfelse>
+		<cfif thisID.recordcount is 1 and thisID.container_type is acceptableChildContainerType>
 			<cfset thisContainerId = thisID.container_id>
+		<cfelseif thisID.recordcount is 1 and thisID.container_type is "#acceptableChildContainerType# label">
+			<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update container set container_type='#acceptableChildContainerType#'
+				where container_id=#thisID.container_id#
+			</cfquery>
+			<cfset thisContainerId = thisID.container_id>
+		<cfelseif thisID.recordcount is not 1>
+			<cfset result = "-#box_position#|Container barcode #barcode# matches #thisID.recordcount# records.">
+		<cfelse>
+			<cfset result = "-#box_position#|Container barcode #barcode# is not of type #acceptableChildContainerType# or #acceptableChildContainerType# label.">
 		</cfif>
-
-		<cfif len(#thisContainerId#) gt 0>
+		
+		
+		<cfif len(thisContainerId) gt 0>
 			<cfquery name="putItIn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update container set
 				parent_container_id = #position_id#,
@@ -2709,8 +2708,6 @@
 				where container_id = #thisContainerId#
 			</cfquery>
 			<cfset result = "#box_position#|#thisID.label#">
-		<cfelse>
-			<cfset result = "-#box_position#|Container barcode #barcode# of type #acceptableChildContainerType# or #acceptableChildContainerType# label not found.">
 		</cfif>
 	<cfcatch>
 		<cfset result = "-#box_position#|#cfcatch.Message#">
