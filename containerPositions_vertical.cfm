@@ -205,9 +205,9 @@
 					<input type="hidden" name="number_positions" value="#aBox.number_positions#">
 					<input type="hidden" name="container_id" id="container_id" value="#aBox.container_id#">
 					<cfset ti=1>
-					<cfloop from="1" to="#numberColumns#" index="col">
+					<cfloop from="1" to="#numberRows#" index="col">
 						<tr height="50" valign="top">
-							<cfloop from="1" to="#numberRows#" index="row">
+							<cfloop from="1" to="#numberColumns#" index="row">
 							
 
 								<td width="60" align="left">
