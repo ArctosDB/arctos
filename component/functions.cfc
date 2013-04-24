@@ -2708,7 +2708,7 @@
 			</cfquery>
 			<cfset result = "#box_position#|#thisID.label#">
 		<cfelse>
-			<cfset result = "-#box_position#|Container (or type #acceptableChildContainerType# or #acceptableChildContainerType# label) not found.">
+			<cfset result = "-#box_position#|Container barcode #barcode# of type #acceptableChildContainerType# or #acceptableChildContainerType# label not found.">
 		</cfif>
 	<cfcatch>
 		<cfset result = "-#box_position#|#cfcatch.Message#">
