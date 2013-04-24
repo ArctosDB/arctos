@@ -6,7 +6,7 @@
 	input.hasData {
 		background-color:#FFFF00;
 		}
-	div.cellDiv {
+	div.ccellDiv {
 		width:100%;
 		height:100%;
 		border:1px solid black;
@@ -212,7 +212,7 @@
 							<cfelse>
 								<cfset thisTabIndex=thisCellNumber>
 							</cfif>
-							<div class="cellDiv">
+							<div class="ccellDiv">
 								<span class="labelSpan">
 									#thisTabIndex#
 								</span>
