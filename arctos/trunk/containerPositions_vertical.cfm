@@ -212,7 +212,6 @@
 							<cfelse>
 								<cfset thisTabIndex=thisCellNumber>
 							</cfif>
-							<cfset thisCellNumber=thisCellNumber+1>
 							<div class="cellDiv">
 								<span class="labelSpan">
 									#thisCellNumber#
@@ -238,6 +237,7 @@
 									</cfif>
 								</span>
 							</div>
+							<cfset thisCellNumber=thisCellNumber+1>
 						</td>
 					</cfloop>
 				</tr>
