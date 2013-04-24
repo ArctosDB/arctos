@@ -42,6 +42,7 @@
 				box_position : box_position,
 				position_id : position_id,
 				barcode : barcode,
+				acceptableChildContainerType: $("acceptableChildContainerType").val();
 				returnformat : "json",
 				queryformat : 'column'
 			},
@@ -81,22 +82,27 @@
 	<cfset taborder="horizontal">
 	<!---- figure out what they're trying to do and set some variables ---->
 	<cfif aBox.number_positions is 100 AND aBox.container_type is "freezer box">
+		<cfset acceptableChildContainerType="cryovial">
 		<cfset goodPositionType = "position">
 		<cfset numberRows = 10>
 		<cfset numberColumns = 10>
 	<cfelseif aBox.number_positions is 81 AND aBox.container_type is "freezer box">
+		<cfset acceptableChildContainerType="cryovial">
 		<cfset goodPositionType = "position">
 		<cfset numberRows = 9>
 		<cfset numberColumns = 9>
 	<cfelseif aBox.number_positions is 48 AND aBox.container_type is "freezer">
+		<cfset acceptableChildContainerType="freezer rack">
 		<cfset goodPositionType = "position">
 		<cfset numberRows = 12>
 		<cfset numberColumns = 4>
 	<cfelseif aBox.number_positions is 33 AND aBox.container_type is "freezer">
+		<cfset acceptableChildContainerType="freezer rack">
 		<cfset goodPositionType = "position">
 		<cfset numberRows = 11>
 		<cfset numberColumns = 3>
 	<cfelseif aBox.number_positions is 100 AND aBox.container_type is "slide box">
+		<cfset acceptableChildContainerType="slide">
 		<cfset goodPositionType = "position">
 		<cfset numberRows = 50>
 		<cfset numberColumns = 2>
@@ -193,6 +199,7 @@
 		<input type="hidden" name="action" value="moveScans">
 		<input type="hidden" name="number_positions" value="#aBox.number_positions#">
 		<input type="hidden" name="container_id" id="container_id" value="#aBox.container_id#">
+		<input type="hidden" name="acceptableChildContainerType" id="acceptableChildContainerType" value="#acceptableChildContainerType#">
 		<cfset thisCellNumber=1>
 		<table cellpadding="0" cellspacing="0" border="1">
 			<cfloop from="1" to="#numberRows#" index="currentrow">

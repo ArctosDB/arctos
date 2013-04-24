@@ -2676,21 +2676,21 @@
 	<cfargument name="box_position" type="numeric" required="yes">
 	<cfargument name="position_id" type="numeric" required="yes">
 	<cfargument name="barcode" type="string" required="yes">
-	<cfargument name="change_cryovial_label" type="boolean" required="no" default="true">
+	<cfargument name="acceptableChildContainerType" type="string" required="yes">
 	<cfset thisContainerId = "">
 	<CFTRY>
 		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id,label from container where barcode='#barcode#'
-			AND container_type = 'cryovial'
+			AND container_type = '#acceptableChildContainerType#'
 		</cfquery>
 		<cfif #thisID.recordcount# is 0>
 			<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select container_id,label from container where barcode='#barcode#'
-				AND container_type = 'cryovial label'
+				AND container_type = '#acceptableChildContainerType# label'
 			</cfquery>
 			<cfif #thisID.recordcount# is 1>
 				<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update container set container_type='cryovial'
+					update container set container_type='#acceptableChildContainerType#'
 					where container_id=#thisID.container_id#
 				</cfquery>
 				<cfset thisContainerId = #thisID.container_id#>
@@ -2708,7 +2708,7 @@
 			</cfquery>
 			<cfset result = "#box_position#|#thisID.label#">
 		<cfelse>
-			<cfset result = "-#box_position#|Container not found.">
+			<cfset result = "-#box_position#|Container (or type #acceptableChildContainerType# or #acceptableChildContainerType# label) not found.">
 		</cfif>
 	<cfcatch>
 		<cfset result = "-#box_position#|#cfcatch.Message#">
