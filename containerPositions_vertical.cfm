@@ -137,7 +137,7 @@
 		select container_type from whatPosAreUsed
 		group by container_type
 	</cfquery>
-	<cfif uContentType.recordcount is not 1 uContentType.container_type is not goodPositionType>
+	<cfif uContentType.recordcount is not 1 or uContentType.container_type is not goodPositionType>
 		<div class="error">
 			There is a problem with the positions in this box.
 			<br>It contains things other than positions, or inappropriate position types.
