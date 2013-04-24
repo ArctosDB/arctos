@@ -5,7 +5,7 @@
 <!------------------------------------------------------------>
 <cfif action is "signOut">
 	<cfset initSession()>
-	<cflocation url="login.cfm" addtoken="false">
+	<cflocation url="/login.cfm" addtoken="false">
 </cfif>
 <!------------------------------------------------------------>
 <cfif  action is "newUser">
@@ -154,7 +154,7 @@
 	<cfif not isdefined("gotopage")>
 		<cfset gotopage=''>
 	</cfif>
-	<form action="login.cfm" method="post" name="signIn">
+	<form action="/login.cfm" method="post" name="signIn">
 		<input name="action" value="signIn" type="hidden">
 		<input name="gotopage" value="#gotopage#" type="hidden">
 		<label for="username">Username</label>
