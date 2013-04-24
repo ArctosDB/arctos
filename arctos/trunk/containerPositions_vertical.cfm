@@ -241,8 +241,12 @@
 									<br>currentcolumn: #currentcolumn#
 									<br>currentrow: #currentrow#
 									
+									<cfset thisTabIndex=(currentcolumn -1) *  numberColumns + currentrow>
 									
 									<br>ti: #ti#
+									
+									
+									<br>thisTabIndex: #thisTabIndex#
 														<cfset ti=ti+1>
 
 									<div class="cellDiv">
