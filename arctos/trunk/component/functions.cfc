@@ -2681,7 +2681,6 @@
 	<CFTRY>
 		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id,label,container_type from container where barcode='#barcode#'
-			AND  = '#acceptableChildContainerType#'
 		</cfquery>
 		
 		<cfdump var=#thisID#>
@@ -2710,7 +2709,7 @@
 			<cfset result = "#box_position#|#thisID.label#">
 		</cfif>
 	<cfcatch>
-		<cfset result = "-#box_position#|#cfcatch.Message#">
+		<cfset result = "-#box_position#|#cfcatch.Message#: #cfcatch.detail#">
 	</cfcatch>
 	</CFTRY>
 	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
