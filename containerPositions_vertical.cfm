@@ -222,6 +222,11 @@
 									<br>numberRows: #numberRows#
 									<br>col: #col#
 									<br>row: #row#
+									
+									<cfset thisTabIndex=numberRows * col + row + 1>
+									
+									<br>thisTabIndex: #thisTabIndex#
+									
 									<div class="cellDiv">
 									<span class="labelSpan">
 											#thisLabel#
