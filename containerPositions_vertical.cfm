@@ -205,9 +205,26 @@
 					<input type="hidden" name="number_positions" value="#aBox.number_positions#">
 					<input type="hidden" name="container_id" id="container_id" value="#aBox.container_id#">
 					<cfset ti=1>
-					<cfloop from="1" to="#numberRows#" index="col">
+					<cfloop from="1" to="#numberRows#" index="currentrow">
+						
+	<!----
+	
+	1  6
+	2  7
+	3  8
+	4  9
+	5  10
+	
+	currentrow 
+	
+	
+	
+	------->					
 						<tr height="50" valign="top">
-							<cfloop from="1" to="#numberColumns#" index="row">
+							
+							
+							
+							<cfloop from="1" to="#numberColumns#" index="currentcolumn">
 							
 
 								<td width="60" align="left">
@@ -221,8 +238,8 @@
 									</cfquery>
 									numberColumns:#numberColumns#
 									<br>numberRows: #numberRows#
-									<br>col: #col#
-									<br>row: #row#
+									<br>currentcolumn: #currentcolumn#
+									<br>currentrow: #currentrow#
 									
 									<cfset thisTabIndex=numberRows * col + row + 1>
 									
