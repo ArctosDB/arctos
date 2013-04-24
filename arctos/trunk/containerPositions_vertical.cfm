@@ -249,19 +249,19 @@
 ---->
 
 <tr>
-	<td tabindex="1">
-		<input type="text" value="1">
+	<td>
+		<input  tabindex="1" type="text" value="1">
 	</td>
-	<td tabindex="2">
-		<input type="text" value="2">
+	<td >
+		<input  tabindex="2" type="text" value="2">
 	</td>
 </tr>
 <tr>
-	<td tabindex="3">
-		<input type="text" value="3">
+	<td>
+		<input  tabindex="3" type="text" value="3">
 	</td>
-	<td tabindex="4">
-		<input type="text" value="4">
+	<td>
+		<input  tabindex="4" type="text" value="4">
 	</td>
 </tr>
 					</table>
