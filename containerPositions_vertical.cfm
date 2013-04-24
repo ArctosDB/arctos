@@ -77,6 +77,9 @@
 	<cfquery name="aBox" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from container where container_id=#container_id#
 	</cfquery>
+	
+	<!--- default is....---->
+	<cfset taborder="horizontal">
 
 	<!---- figure out what they're trying to do and set some variables ---->
 	<cfif #aBox.number_positions# is 100 AND #aBox.container_type# is "freezer box">
@@ -99,6 +102,8 @@
 			<cfset goodPositionType = "position">
 			<cfset numberRows = 50>
 			<cfset numberColumns = 2>
+				<cfset taborder="vertical">
+
 	<cfelse>
 		<p>
 			<strong><font color="##FF0000">This application won't do what you want to do.
@@ -241,7 +246,13 @@
 									<br>currentcolumn: #currentcolumn#
 									<br>currentrow: #currentrow#
 									
-									<cfset thisTabIndex=((currentcolumn -1) *  numberRows) + currentrow>
+									
+									<cfif taborder is "vertical">
+										<cfset thisTabIndex=((currentcolumn -1) *  numberRows) + currentrow>
+									<cfelse>
+										<cfset thisTabIndex=ti>
+									</cfif>
+									
 									
 									<br>ti: #ti#
 									
