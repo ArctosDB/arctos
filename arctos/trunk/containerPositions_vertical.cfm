@@ -199,7 +199,8 @@
 				<tr>
 					<td>
 			<table cellpadding="0" cellspacing="0" border="1">
-
+					<!----
+					
 					<input type="hidden" name="action" value="moveScans">
 					<input type="hidden" name="number_positions" value="#aBox.number_positions#">
 					<input type="hidden" name="container_id" id="container_id" value="#aBox.container_id#">
@@ -245,7 +246,24 @@
 							</cfloop>
 						</tr>
 					</cfloop>
+---->
 
+<tr>
+	<td tabindex="1">
+		one
+	</td>
+	<td tabindex="2">
+		one
+	</td>
+</tr>
+<tr>
+	<td tabindex="3">
+		3
+	</td>
+	<td tabindex="4">
+		4
+	</td>
+</tr>
 					</table>
 
 			</cfif>
