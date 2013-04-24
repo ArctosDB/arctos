@@ -192,7 +192,7 @@
 		<input type="hidden" name="number_positions" value="#aBox.number_positions#">
 		<input type="hidden" name="container_id" id="container_id" value="#aBox.container_id#">
 		<cfset thisCellNumber=1>
-		<table cellpadding="0" cellspacing="0" border="1">
+		<table >
 			<cfloop from="1" to="#numberRows#" index="currentrow">
 				<tr>
 					<cfloop from="1" to="#numberColumns#" index="currentcolumn">
