@@ -2682,7 +2682,6 @@
 		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id,label,container_type from container where barcode='#barcode#'
 		</cfquery>
-		
 		<cfif thisID.recordcount is 1 and thisID.container_type is acceptableChildContainerType>
 			<cfset thisContainerId = thisID.container_id>
 		<cfelseif thisID.recordcount is 1 and thisID.container_type is "#acceptableChildContainerType# label">
@@ -2696,8 +2695,6 @@
 		<cfelse>
 			<cfset result = "-#box_position#|Container barcode #barcode# (#thisID.container_type#) is not of type #acceptableChildContainerType# or #acceptableChildContainerType# label.">
 		</cfif>
-		
-		
 		<cfif len(thisContainerId) gt 0>
 			<cfquery name="putItIn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update container set
