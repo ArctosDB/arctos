@@ -250,18 +250,18 @@
 
 <tr>
 	<td tabindex="1">
-		one
+		<input type="text" value="1">
 	</td>
 	<td tabindex="2">
-		one
+		<input type="text" value="2">
 	</td>
 </tr>
 <tr>
 	<td tabindex="3">
-		3
+		<input type="text" value="3">
 	</td>
 	<td tabindex="4">
-		4
+		<input type="text" value="4">
 	</td>
 </tr>
 					</table>
