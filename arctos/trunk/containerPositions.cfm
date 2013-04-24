@@ -209,6 +209,10 @@
 			<li>Scan slides into slide boxes</li>
 		</ul>
 	</p>
+	<p>
+		Save happens when you tab out of a cell. You can set your scanner to send a tab after data. Make sure you deal with anything
+		that turns red.
+	</p>
 	<form name="newScans" method="post" action="containerPositions.cfm" onsubmit="return false;">
 		<input type="hidden" name="action" value="moveScans">
 		<input type="hidden" name="number_positions" value="#aBox.number_positions#">
