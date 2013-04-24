@@ -188,13 +188,23 @@
 			pos.parent_container_id = #container_id#
 	</cfquery>
 	
-	<font size="-1">
-		Label: <strong>#abox.label#</strong>
+	<p style="font-weight: bold;">
+		This parent container is:
+		<br>Label: <strong>#abox.label#</strong>
 		<br>Barcode:
 		<strong>#aBox.barcode#</strong>
 		<br> Type:
 		<strong>#aBox.container_type#</strong>
-	</font>
+	</p>
+		
+	<p>
+		Use this for to:
+		<ul>
+			<li>Create positions in empty position-appropriate containers</li>
+			<li>Turn cryovial labels into cryovials while scanning them into freezer boxes</li>
+			<li>Turn slide labels into slides while scanning them into slide boxes
+		</ul>
+	</p>
 	<form name="newScans" method="post" action="containerPositions.cfm" onsubmit="return false;">
 		<input type="hidden" name="action" value="moveScans">
 		<input type="hidden" name="number_positions" value="#aBox.number_positions#">
