@@ -115,7 +115,6 @@
 		<cfabort>
 	</cfif>
 	<!---global--->
-	<cfset thisLabel = 1>
 	<!---- see is positions are used ---->
 	<cfquery name="whatPosAreUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select container_id, container_type, label from container
@@ -190,8 +189,6 @@
 		<br> Type:
 		<strong>#aBox.container_type#</strong>
 	</font>
-	
-	
 	<form name="newScans" method="post" action="containerPositions.cfm" onsubmit="return noenter();">
 		<input type="hidden" name="action" value="moveScans">
 		<input type="hidden" name="number_positions" value="#aBox.number_positions#">
@@ -208,7 +205,7 @@
 							---->
 							<cfquery name="thisPos" dbtype="query">
 								select container_id, position_id,contentLabel,posConBc from positionContents
-								where label = '#thisLabel#'
+								where label = '#thisCellNumber#'
 							</cfquery>
 							<cfif taborder is "vertical">
 								<cfset thisTabIndex=((currentcolumn -1) *  numberRows) + currentrow>
@@ -218,30 +215,29 @@
 							<cfset thisCellNumber=thisCellNumber+1>
 							<div class="cellDiv">
 								<span class="labelSpan">
-									#thisLabel#
+									#thisCellNumber#
 								</span>
-								<span class="innerSpan" id="theSpan#thisLabel#">
+								<span class="innerSpan" id="theSpan#thisCellNumber#">
 									<cfif len(thisPos.container_id) gt 0>
 										br>#thisPos.contentLabel#
 										<br>#thisPos.posConBc#
 									<cfelse>
 										Barcode:<br>
 										<input type="hidden"
-											name="position_id#thisLabel#"
-											id="position_id#thisLabel#"
+											name="position_id#thisCellNumber#"
+											id="position_id#thisCellNumber#"
 											value="#thisPos.position_id#">
 										<input type="text"
 											onFocus="this.className='activeCell'"
-											onChange="moveContainer('barcode#thisLabel#',this.value)"
-											name="barcode#thisLabel#"
-											id="barcode#thisLabel#"
+											onChange="moveContainer('barcode#thisCellNumber#',this.value)"
+											name="barcode#thisCellNumber#"
+											id="barcode#thisCellNumber#"
 											size="6"
 											style="font-size:small;"
 											tabindex="#thisTabIndex#">
 									</cfif>
 								</span>
 							</div>
-							<cfset thisLabel = thisLabel + 1>
 						</td>
 					</cfloop>
 				</tr>
