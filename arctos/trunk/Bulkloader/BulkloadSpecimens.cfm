@@ -222,7 +222,7 @@
 			
 							insert into bulkloader_stage (#colNames#) values (#preservesinglequotes(colVals)#)
 
-
+<cfabort>
 
 
 		</cfif>
