@@ -241,9 +241,7 @@
 									<br>currentcolumn: #currentcolumn#
 									<br>currentrow: #currentrow#
 									
-									<cfset thisTabIndex=numberRows * col + row + 1>
 									
-									<br>thisTabIndex: #thisTabIndex#
 									<br>ti: #ti#
 														<cfset ti=ti+1>
 
