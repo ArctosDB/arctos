@@ -117,6 +117,7 @@ function saveThisAnnotation() {
 					queryformat : 'column'
 				},
 				function(r) {
+					alert('returned: ' + r)
 					if (r == 'success') {
 						closeAnnotation();
 						alert("Your annotations have been saved, and the appropriate curator will be alerted. \n Thank you for helping improve Arctos!");
