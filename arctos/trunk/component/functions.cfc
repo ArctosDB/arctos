@@ -2454,7 +2454,7 @@
 		<cfreturn result>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
-<cffunction name="getHash" access="remote">
+<cffunction name="hashString" access="remote">
 	<cfargument name="string" type="string" required="yes">
 	<cfreturn hash(string)>
 </cffunction>
