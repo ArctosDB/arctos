@@ -102,6 +102,8 @@ function saveThisAnnotation() {
 			returnformat : "json",
 		},
 		function(r) {
+			console.log('back with r=' + r);
+			
 			if (r != captchaHash){
 				alert('bad captcha');
 				return false;
