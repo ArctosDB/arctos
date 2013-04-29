@@ -93,7 +93,7 @@ function saveThisAnnotation() {
 	var captcha=$("#captcha").val();
 	$.getJSON("/component/functions.cfc",
 		{
-			method : "genMD5",
+			method : "hashString",
 			string : captcha,
 			returnformat : "plain",
 		},
