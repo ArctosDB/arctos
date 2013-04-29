@@ -107,6 +107,8 @@ function saveThisAnnotation() {
 		},
 		function(r) {
 			console.log('back with r=' + r);
+			alert('r=' + r '\n' + 'c=' + captchaHash );
+			
 			
 			if (r != captchaHash){
 				alert('bad captcha');
