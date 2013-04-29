@@ -118,7 +118,7 @@
 			<label for="captcha">
 			<cfif len(session.username) gt 0>You have an account - we'll get this for you.<cfelse>Enter the text above. Case doesn't matter. (required)</cfif>
 			</label>
-	    <input type="text" name="captcha" id="captcha" <cfif <cfif len(session.username) gt 0>value="#captcha#"</cfif> class="reqdClr" size="60">
+	    <input type="text" name="captcha" id="captcha" <cfif len(session.username) gt 0>value="#captcha#"</cfif> class="reqdClr" size="60">
 	    <input type="text" name="captchaHash" value="#captchaHash#">
 	    
 		<input type="hidden" name="requireCaptcha" id="requireCaptcha" value="#requireCaptcha#">
