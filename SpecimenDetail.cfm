@@ -264,19 +264,15 @@ font-weight:bold;
 			</td>
 		    <td valign="top" align="right">
 		        <div id="annotateSpace">
-					<cfif len(session.username) gt 0>
-						<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select count(*) cnt from annotations
-							where collection_object_id = #detail.collection_object_id#
-						</cfquery>
-						<span class="likeLink" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')">
-							[&nbsp;Report&nbsp;Bad&nbsp;Data&nbsp;]
-						</span>
-						<cfif existingAnnotations.cnt gt 0>
-							<br>(#existingAnnotations.cnt#&nbsp;annotations)
-						</cfif>
-					<cfelse>
-						<a href="/login.cfm">Login&nbsp;or&nbsp;Create&nbsp;Account</a>
+					<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select count(*) cnt from annotations
+						where collection_object_id = #detail.collection_object_id#
+					</cfquery>
+					<span class="likeLink" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')">
+						[&nbsp;Report&nbsp;Bad&nbsp;Data&nbsp;]
+					</span>
+					<cfif existingAnnotations.cnt gt 0>
+						<br>(#existingAnnotations.cnt#&nbsp;annotations)
 					</cfif>
 					<cfif len(detail.web_link) gt 0>
 						<cfif len(detail.web_link_text) gt 0>
