@@ -854,9 +854,13 @@
 										#part_name#
 									</td>
 									<td>#part_condition#</td>
-									<td>#part_disposition#</td>
+									<cfif oneOfUs is 1>
+										<td>#part_disposition#</td>
+									</cfif>
 									<td>#lot_count#</td>
-									<td>#label#</td>
+									<cfif oneOfUs is 1>
+										<td>#label#</td>
+									</cfif>
 									<td>#part_remarks#</td>
 								</tr>
 								<cfquery name="patt" dbtype="query">
@@ -917,9 +921,13 @@
 											&nbsp;&nbsp;&nbsp;#part_name#
 										</td>
 										<td>#part_condition#</td>
-										<td>#part_disposition#</td>
+										<cfif oneOfUs is 1>
+											<td>#part_disposition#</td>
+										</cfif>
 										<td>#lot_count#</td>
-										<td>#label#</td>
+										<cfif oneOfUs is 1>
+											<td>#label#</td>
+										</cfif>
 										<td>#part_remarks#</td>
 									</tr>
 								</cfloop>
