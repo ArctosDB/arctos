@@ -90,7 +90,7 @@ function saveThisAnnotation() {
 	var idvalue = document.getElementById("idvalue").value;
 	var annotation = document.getElementById("annotation").value;
 	var captchaHash=$("#captchaHash").val();
-	var captcha=$("#captcha").val();
+	var captcha=$("#captcha").val().toUpperCase();
 	if (annotation.length==0){
 		alert('You must enter an annotation to save.');
 		return false;
