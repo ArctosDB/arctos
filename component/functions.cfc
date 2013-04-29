@@ -3890,9 +3890,7 @@
 		</cfquery>
 		<cfset mailTo = valuelist(whoTo.address)>
 		<cfset mailTo=listappend(mailTo,Application.bugReportEmail,",")>
-		
-		<!----#mailTo#---->
-		<cfmail to="dustymc@gmail.com" from="annotation@#Application.fromEmail#" subject="Annotation Submitted" type="html">
+		<cfmail to="#mailTo#" from="annotation@#Application.fromEmail#" subject="Annotation Submitted" type="html">
 			Arctos User #session.username# has submitted an annotation concerning #summary.s#.
 
 			<blockquote>
