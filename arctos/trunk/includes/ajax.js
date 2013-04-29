@@ -105,7 +105,7 @@ function saveThisAnnotation() {
 		}
 	);
 	
-	//console.log('back with theCaptchaHash: ' + theCaptchaHash);
+	console.log('back with theCaptchaHash: ' + theCaptchaHash);
 	
 	
 	return false;
