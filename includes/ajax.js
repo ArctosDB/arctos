@@ -89,6 +89,25 @@ function saveThisAnnotation() {
 	var idType = document.getElementById("idtype").value;
 	var idvalue = document.getElementById("idvalue").value;
 	var annotation = document.getElementById("annotation").value;
+	var captchaHash=$("#captchaHash").val();
+	var captcha=$("#captcha").val();
+	$.getJSON("/component/functions.cfc",
+		{
+			method : "genMD5",
+			string : captcha,
+			returnformat : "plain",
+		},
+		function(r) {
+			var theCaptchaHash=r;	
+		}
+	);
+	
+	console.log('back with theCaptchaHash: ' + theCaptchaHash);
+	
+	
+	return false;
+	
+	
 	if (annotation.length==0){
 		alert('You must enter an annotation to save.');
 		return false;
