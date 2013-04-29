@@ -98,6 +98,9 @@ function saveThisAnnotation() {
 			returnformat : "plain",
 		},
 		function(r) {
+			
+			console.log('back with r: ' + r);
+
 			var theCaptchaHash=r;	
 		}
 	);
