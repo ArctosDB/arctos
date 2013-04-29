@@ -94,11 +94,19 @@ function saveThisAnnotation() {
 	
 	console.log('captcha=' + captcha);
 	/*
+	
+	*/
+	
 	if (annotation.length==0){
 		alert('You must enter an annotation to save.');
 		return false;
 	}
-	*/
+	if ($("#email").val().length==0){
+		alert('You must enter an email to save.');
+		return false;
+	}
+	
+	
 	$.getJSON("/component/functions.cfc",
 		{
 			method : "hashString",
