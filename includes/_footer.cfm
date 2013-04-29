@@ -52,7 +52,7 @@
 						<a href="/Collections/index.cfm"><font size="-1">Data Providers</font></a>
 					</li>
 					<li>
-						<a HREF="/contact.cfm?ref=#session.rdurl#"><font size="-1">Report a bug or request support</font></a>
+						<a HREF="/contact.cfm?ref=<cfoutput>#session.rdurl#</cfoutput>"><font size="-1">Report a bug or request support</font></a>
 					</li>
 				</ul>
 			</td>
