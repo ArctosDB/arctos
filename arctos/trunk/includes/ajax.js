@@ -133,8 +133,6 @@ function saveThisAnnotation() {
 					}	
 				}
 			);
-			
-			
 		}
 	);
 }

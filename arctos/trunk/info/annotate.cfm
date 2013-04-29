@@ -117,7 +117,7 @@
 		</label>
 	    <input type="text" name="captcha" id="captcha" <cfif len(session.username) gt 0>value="#captcha#"</cfif> class="reqdClr" size="60">
 	    captcha: #captcha#
-		 <input type="text" name="captchaHash" id="captchaHash" value="#captchaHash#">
+		 <input type="hidden" name="captchaHash" id="captchaHash" value="#captchaHash#">
 		<label for="email">Email</label>
 		<input type="text" class="reqdClr" name="email" id="email" value="#email#">
 		<br>

@@ -556,7 +556,7 @@
 						<cfelse>
 							<cfloop query="thisRec">
 								<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
-									#institution_acronym#&nbsp;#collection_cde#&nbsp;#cat_num#</a><br />
+									#thisRec.collection#&nbsp;#cat_num#</a><br />
 							</cfloop>
 						</cfif>
 						</td>
@@ -567,7 +567,7 @@
 							#thisRec.scientific_name#
 						<cfelse>
 							<cfloop query="thisRec">
-									#scientific_name#
+								#scientific_name#
 							</cfloop>
 						</cfif>
 						</td>
