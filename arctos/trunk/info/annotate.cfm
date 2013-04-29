@@ -88,21 +88,22 @@
 			<cfif hasEmail.recordcount is 1 and len(hasEmail.email) gt 0>
 				<cfset email=hasEmail.email>
 			</cfif>
-		<cfelse>
-			<cffunction name="makeRandomString" returnType="string" output="false">
-			    <cfset var chars = "23456789ABCDEFGHJKMNPQRS">
-			    <cfset var length = randRange(4,7)>
-			    <cfset var result = "">
-			    <cfset var i = "">
-			    <cfset var char = "">
-			    <cfscript>
-			    for(i=1; i <= length; i++) {
-			        char = mid(chars, randRange(1, len(chars)),1);
-			        result&=char;
-			    }
-			    </cfscript>
-			    <cfreturn result>
-			</cffunction>
+	
+		</cfif>
+		<cffunction name="makeRandomString" returnType="string" output="false">
+		    <cfset var chars = "23456789ABCDEFGHJKMNPQRS">
+		    <cfset var length = randRange(4,7)>
+		    <cfset var result = "">
+		    <cfset var i = "">
+		    <cfset var char = "">
+		    <cfscript>
+		    for(i=1; i <= length; i++) {
+		        char = mid(chars, randRange(1, len(chars)),1);
+		        result&=char;
+		    }
+		    </cfscript>
+		    <cfreturn result>
+		</cffunction>
 			
 			<cfset captcha = makeRandomString()>
 			<cfset captchaHash = hash(captcha)>
@@ -114,12 +115,13 @@
 		    	overwrite="yes"
 		    	destination="#application.webdirectory#/download/#imgName#.png">
 			<img src="/download/#imgName#.png">
-			<label for="captcha">Enter the text above. Case doesn't matter. (required)</label>
-	    <input type="text" name="captcha" id="captcha" value="#v#" class="reqdClr" size="60">
+			<label for="captcha">
+			<cfif len(session.username) gt 0>You have an account - we'll get this for you.<cfelse>Enter the text above. Case doesn't matter. (required)</cfif>
+			</label>
+	    <input type="text" name="captcha" id="captcha" <cfif <cfif len(session.username) gt 0>value="#captcha#"</cfif> class="reqdClr" size="60">
 	    <input type="text" name="captchaHash" value="#captchaHash#">
 	    
-	    
-		</cfif>
+		<input type="hidden" name="requireCaptcha" id="requireCaptcha" value="#requireCaptcha#">
 		<label for="email">Email</label>
 		<input type="text" class="reqdClr" name="email" id="email" value="#email#">
 		<br>

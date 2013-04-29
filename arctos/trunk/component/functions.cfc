@@ -2454,6 +2454,11 @@
 		<cfreturn result>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="getHash" access="remote">
+	<cfargument name="string" type="string" required="yes">
+	<cfreturn hash(string)>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="genMD5" access="remote">
 	<cfargument name="uri" type="string" required="yes">
 	<cfif len(uri) is 0>
