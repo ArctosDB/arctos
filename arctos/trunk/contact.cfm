@@ -13,7 +13,9 @@
     </cfscript>
     <cfreturn result>
 </cffunction>
-
+<cfif not isdefined("ref")>
+	<cfset ref="">
+</cfif>
 <cfif action is "nothing">
 	<cfset title="Contact Us">
 <cfoutput>
@@ -23,6 +25,7 @@
 	<p>Data problems? Use a "report bad data" link if there's one available.</p>
 	<cfform action="contact.cfm" method="post" name="contact">
 		<input type="hidden" name="action" value="sendMail">
+		<input type="hidden" name="ref" value="#ref#">
 		<label for="name">Your Name or Arctos username (required)</label>
 		<cfinput type="text" id="name" name="name" size="60" value="#session.username#" required="true" class="reqdClr">
 		<label for="email">Your Email Address (required - we'll never share it)</label>
@@ -67,13 +70,19 @@
 			A name is required to proceed. Please use your back button.
 			<cfabort>
 		</cfif>
+		<!----
+		#Application.technicalEmail#
+		---->
 		<cfmail subject="Arctos Contact"
 			replyto="#email#"
-			to="#Application.technicalEmail#"
+			to="dustymc@gmail.com"
 			from="contact@#application.fromEmail#" type="html">
 			Name: #name#
 			<br>Email: #email#
 			<br>Message: #msg#
+			<cfif len(ref) gt 0>
+				<br>Came from page: #ref#
+			</cfif>
 		</cfmail>
 		Thanks for contacting us. Your message has been delivered.
 	</cfoutput>
