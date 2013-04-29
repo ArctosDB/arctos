@@ -91,6 +91,9 @@ function saveThisAnnotation() {
 	var annotation = document.getElementById("annotation").value;
 	var captchaHash=$("#captchaHash").val();
 	var captcha=$("#captcha").val();
+	
+	console.log('captcha=' + captcha);
+	
 	if (annotation.length==0){
 		alert('You must enter an annotation to save.');
 		return false;
