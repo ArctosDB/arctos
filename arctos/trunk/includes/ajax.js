@@ -91,6 +91,10 @@ function saveThisAnnotation() {
 	var annotation = document.getElementById("annotation").value;
 	var captchaHash=$("#captchaHash").val();
 	var captcha=$("#captcha").val();
+	if (annotation.length==0){
+		alert('You must enter an annotation to save.');
+		return false;
+	}
 	$.getJSON("/component/functions.cfc",
 		{
 			method : "hashString",
@@ -98,41 +102,38 @@ function saveThisAnnotation() {
 			returnformat : "json",
 		},
 		function(r) {
+			if (r != captchaHash){
+				alert('bad captcha');
+				return false;
+			}
 			
-			console.log('back with r: ' + r);
+			$.getJSON("/component/functions.cfc",
+				{
+					method : "addAnnotation",
+					idType : idType,
+					idvalue : idvalue,
+					annotation : annotation,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function(r) {
+					if (r == 'success') {
+						closeAnnotation();
+						alert("Your annotations have been saved, and the appropriate curator will be alerted. \n Thank you for helping improve Arctos!");
+					} else {
+						alert('An error occured! \n ' + r);
+					}	
+				}
+			);
+			
+			
+		}
+	);
+	
 
-			var theCaptchaHash=r;	
-		}
-	);
-	
-	console.log('back with theCaptchaHash: ' + theCaptchaHash);
 	
 	
-	return false;
 	
-	
-	if (annotation.length==0){
-		alert('You must enter an annotation to save.');
-		return false;
-	}
-	$.getJSON("/component/functions.cfc",
-		{
-			method : "addAnnotation",
-			idType : idType,
-			idvalue : idvalue,
-			annotation : annotation,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function(r) {
-			if (r == 'success') {
-				closeAnnotation();
-				alert("Your annotations have been saved, and the appropriate curator will be alerted. \n Thank you for helping improve Arctos!");
-			} else {
-				alert('An error occured! \n ' + r);
-			}	
-		}
-	);
 }
 function openAnnotation(q) {
 	var bgDiv = document.createElement('div');
