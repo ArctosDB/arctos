@@ -70,18 +70,15 @@
 			A name is required to proceed. Please use your back button.
 			<cfabort>
 		</cfif>
-		<!----
-		#Application.technicalEmail#
-		---->
 		<cfmail subject="Arctos Contact"
 			replyto="#email#"
-			to="dustymc@gmail.com"
+			to="#Application.technicalEmail#"
 			from="contact@#application.fromEmail#" type="html">
 			Name: #name#
 			<br>Email: #email#
 			<br>Message: #msg#
 			<cfif len(ref) gt 0>
-				<br>Came from page: #ref#
+				<br>Referring page: #ref#
 			</cfif>
 		</cfmail>
 		Thanks for contacting us. Your message has been delivered.
