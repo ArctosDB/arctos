@@ -110,8 +110,16 @@ function saveThisAnnotation() {
 			
 			if (r != captchaHash){
 				alert('bad captcha');
-				return false;
+				//return false;
 			}
+			
+			if (r==captchaHash){
+				alert('good captcha');
+
+			}
+			
+			return false;
+			
 			
 			$.getJSON("/component/functions.cfc",
 				{
