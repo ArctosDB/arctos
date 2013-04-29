@@ -104,23 +104,19 @@
 		    </cfscript>
 		    <cfreturn result>
 		</cffunction>
-			
-			<cfset captcha = makeRandomString()>
-			<cfset captchaHash = hash(captcha)>
-			captcha: #captcha#
-			
-			<cfset imgName=hash(now() & session.sessionid)>
-			
-			<cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low"
-		    	overwrite="yes"
-		    	destination="#application.webdirectory#/download/#imgName#.png">
-			<img src="/download/#imgName#.png">
-			<label for="captcha">
+		<cfset captcha = makeRandomString()>
+		<cfset captchaHash = hash(captcha)>
+		<cfset imgName=hash(now() & session.sessionid)>
+		<cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low"
+		   	overwrite="yes"
+		   	destination="#application.webdirectory#/download/#imgName#.png">
+		<br>
+		<img src="/download/#imgName#.png">
+		<label for="captcha">
 			<cfif len(session.username) gt 0>You have an account - we'll get this for you.<cfelse>Enter the text above. Case doesn't matter. (required)</cfif>
-			</label>
+		</label>
 	    <input type="text" name="captcha" id="captcha" <cfif len(session.username) gt 0>value="#captcha#"</cfif> class="reqdClr" size="60">
 	    <input type="text" name="captchaHash" id="captchaHash" value="#captchaHash#">
-	    
 		<label for="email">Email</label>
 		<input type="text" class="reqdClr" name="email" id="email" value="#email#">
 		<br>

@@ -91,12 +91,6 @@ function saveThisAnnotation() {
 	var annotation = document.getElementById("annotation").value;
 	var captchaHash=$("#captchaHash").val();
 	var captcha=$("#captcha").val();
-	
-	console.log('captcha=' + captcha);
-	/*
-	
-	*/
-	
 	if (annotation.length==0){
 		alert('You must enter an annotation to save.');
 		return false;
@@ -105,8 +99,6 @@ function saveThisAnnotation() {
 		alert('You must enter an email to save.');
 		return false;
 	}
-	
-	
 	$.getJSON("/component/functions.cfc",
 		{
 			method : "hashString",
@@ -114,23 +106,10 @@ function saveThisAnnotation() {
 			returnformat : "json",
 		},
 		function(r) {
-			console.log('back with r=' + r);
-			alert('r=' + r + '\n' + 'c=' + captchaHash );
-			
-			
 			if (r != captchaHash){
 				alert('bad captcha');
-				//return false;
+				return false;
 			}
-			
-			if (r==captchaHash){
-				alert('good captcha');
-
-			}
-			
-			return false;
-			
-			
 			$.getJSON("/component/functions.cfc",
 				{
 					method : "addAnnotation",
@@ -154,11 +133,6 @@ function saveThisAnnotation() {
 			
 		}
 	);
-	
-
-	
-	
-	
 }
 function openAnnotation(q) {
 	var bgDiv = document.createElement('div');
