@@ -107,10 +107,13 @@
 			<cfset captcha = makeRandomString()>
 			<cfset captchaHash = hash(captcha)>
 			captcha: #captcha#
+			
+			<cfset imgName=hash(now() & session.sessionid)>
+			
 			<cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low"
 		    	overwrite="yes"
-		    	destination="#application.webdirectory#/download/#session.sessionid#.png">
-			<img src="/download/#session.sessionid#.png">
+		    	destination="#application.webdirectory#/download/#imgName#.png">
+			<img src="/download/#imgName#.png">
 			<label for="captcha">Enter the text above. Case doesn't matter. (required)</label>
 	    <input type="text" name="captcha" id="captcha" value="#v#" class="reqdClr" size="60">
 	    <input type="text" name="captchaHash" value="#captchaHash#">
