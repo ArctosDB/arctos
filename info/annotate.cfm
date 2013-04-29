@@ -6,21 +6,10 @@
 	<cfset "#t#"="#v#">
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">		
 	<span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
-	<cfquery name="hasEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select email from cf_user_data,cf_users
-		where cf_user_data.user_id = cf_users.user_id and
-		cf_users.username='#session.username#'
-	</cfquery>
-	<cfif hasEmail.recordcount is 0 OR len(hasEmail.email) is 0>
-		<div class="error">
-			You must provide an email address to annotate specimens.
-			<br>
-			Update <a href="/myArctos.cfm" target="_blank">your profile</a> (opens in new window) to proceed.
-			<br>
-			<span class="likeLink" onclick="closeAnnotation()">Close this window</span>
-		</div>
-		<cfabort>
-	</cfif>
+	
+	
+	
+	
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
@@ -77,7 +66,7 @@
 		</cfquery>
 	<cfelse>
 		<div class="error">
-			Oops! I can't handle that request. File a bug report.
+			Oops! I can't handle that request. <a href="/contact.cfm?ref=failedAnnotationType">contact us</a>
 			<cfthrow detail="unhandled_annotation" errorcode="9999" message="unhandled annotation">
 		</div>
 		<cfabort>
@@ -89,6 +78,45 @@
 		<input type="hidden" name="idvalue" id="idvalue" value="#v#">
 		<label for="annotation">Annotation</label>
 		<textarea rows="4" cols="50" name="annotation" id="annotation"></textarea>
+		<cfset email="">
+		<cfif len(session.username) gt 0>
+			<cfquery name="hasEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select email from cf_user_data,cf_users
+				where cf_user_data.user_id = cf_users.user_id and
+				cf_users.username='#session.username#'
+			</cfquery>
+			<cfif hasEmail.recordcount is 1 and len(hasEmail.email) gt 0>
+				<cfset email=hasEmail.email>
+			</cfif>
+		<cfelse>
+			<cffunction name="makeRandomString" returnType="string" output="false">
+			    <cfset var chars = "23456789ABCDEFGHJKMNPQRS">
+			    <cfset var length = randRange(4,7)>
+			    <cfset var result = "">
+			    <cfset var i = "">
+			    <cfset var char = "">
+			    <cfscript>
+			    for(i=1; i <= length; i++) {
+			        char = mid(chars, randRange(1, len(chars)),1);
+			        result&=char;
+			    }
+			    </cfscript>
+			    <cfreturn result>
+			</cffunction>
+			<cfset captcha = makeRandomString()>
+			<cfset captchaHash = hash(captcha)>
+			<cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low"
+		    	overwrite="yes"
+		    	destination="#application.webdirectory#/download/captcha.png">
+			<img src="/download/captcha.png">
+			<label for="captcha">Enter the text above. Case doesn't matter. (required)</label>
+	    <input type="text" name="captcha" id="captcha" value="#v#" class="reqdClr" size="60">
+	    <input type="text" name="captchaHash" value="#captchaHash#">
+	    
+	    
+		</cfif>
+		<label for="email">Email</label>
+		<input type="text" class="reqdClr" name="email" id="email" value="#email#">
 		<br>
 		<input type="button" 
 			class="qutBtn"
