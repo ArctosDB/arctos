@@ -103,8 +103,10 @@
 			    </cfscript>
 			    <cfreturn result>
 			</cffunction>
+			
 			<cfset captcha = makeRandomString()>
 			<cfset captchaHash = hash(captcha)>
+			captcha: #captcha#
 			<cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low"
 		    	overwrite="yes"
 		    	destination="#application.webdirectory#/download/captcha.png">
