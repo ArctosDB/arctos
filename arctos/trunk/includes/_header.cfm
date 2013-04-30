@@ -32,7 +32,9 @@
 		</cfif>
 		</head>
 		<body>
-		request.rdurl: #request.rdurl#
+		cgi.script_name: #cgi.script_name#
+		<br>request.rdurl: #request.rdurl#
+		<br>current path: #cgi.script_name##request.rdurl#
 		<cfdump var=#cgi#>
 		<noscript>
 			<div class="browserCheck">
