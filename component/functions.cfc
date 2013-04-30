@@ -7,8 +7,6 @@
 	<cfif not isdefined("userString") or len(userString) is 0>
 		<cfset userString="<br>">
 	</cfif>
-	
-	
 	<cfquery name="result" datasource="uam_god">
 		select 
 			regexp_replace('#escapeQuotes(orig)#','[^[:print:]]','[X]') replaced_with_x,
@@ -17,7 +15,6 @@
 			regexp_replace('#escapeQuotes(orig)#','[^[:print:]]','#userString#') replaced_with_userString		
 		from dual
 	</cfquery>
-	
 	<cfreturn result>
 </cffunction>
 <!--------------------------------------------------------------------------------------->

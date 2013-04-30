@@ -32,7 +32,11 @@ Many Arctos fields will not accept nonprinting characters
 	<li>
 		Nonprinting characters replaced with [X]. This is primarily for visual reference, but may also be used for further processing. For example, 
 		you could paste this into your favorite word processor (one which does not add nonprinting characters, please!), search for [X], and replace
-		all found values with "<br>" to format your text for HTML display.
+		all found values with "\n" ("newline" in javascript) to format your text for javascript display.
+	</li>
+	<li>
+		Nonprinting characters replaced with a user-specified string. Just type something into the "Enter a replacement string here" box. The default is the HTML linebreak, 
+		"#lt;br#gt;".
 	</li>
 	<li>
 		Nonprinting characters replaced with nothing. You may be able to replace your original value with this if it contains control characters that
