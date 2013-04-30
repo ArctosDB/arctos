@@ -32,6 +32,7 @@
 		</cfif>
 		</head>
 		<body>
+		request.rdurl: #request.rdurl#
 		<noscript>
 			<div class="browserCheck">
 				JavaScript is turned off in your web browser. Please turn it on to take full advantage of Arctos, or
@@ -97,7 +98,7 @@
 					</cfif>
 					<form name="logIn" method="post" action="/login.cfm">
 						<input type="hidden" name="action" value="signIn">
-						<input type="hidden" name="gotopage" value="#replace(gtp,'//','/','all')#">
+						<input type="text" name="gotopage" value="#replace(gtp,'//','/','all')#">
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td>
