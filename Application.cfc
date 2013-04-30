@@ -455,7 +455,7 @@
 	</cfif>
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfif cgi.script_name is not "/errors/missing.cfm">
-		<cfset request.rdurl=cgi.script_name & request.rdurl>
+		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
 	</cfif>
 	<cfset request.rdurl=replace("/" & request.rdurl,"//","/","all")>
 		
