@@ -5,7 +5,8 @@
 			{
 				method : "removeNonprinting",
 				orig : $("#orig").val(),
-				returnformat : "json"
+				returnformat : "json",
+				queryformat : 'column'
 			},
 			function(r) {
 				$("#replaced_with_nothing").val(r.DATA.REPLACED_WITH_NOTHING);
