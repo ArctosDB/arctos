@@ -32,9 +32,6 @@
 		</cfif>
 		</head>
 		<body>
-		<br>request.rdurl: #request.rdurl#
-		
-		
 		<noscript>
 			<div class="browserCheck">
 				JavaScript is turned off in your web browser. Please turn it on to take full advantage of Arctos, or
