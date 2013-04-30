@@ -33,6 +33,7 @@
 		</head>
 		<body>
 		request.rdurl: #request.rdurl#
+		<cfdump var=#cgi#>
 		<noscript>
 			<div class="browserCheck">
 				JavaScript is turned off in your web browser. Please turn it on to take full advantage of Arctos, or
