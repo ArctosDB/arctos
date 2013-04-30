@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="nonprinting characters come here to die">
 <script>
 	function replaceNoprint(){
 		$.getJSON("/component/functions.cfc",
