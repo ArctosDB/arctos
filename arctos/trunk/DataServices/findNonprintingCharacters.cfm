@@ -6,7 +6,7 @@
 			{
 				method : "removeNonprinting",
 				orig : $("#orig").val(),
-				userString : $("#orig").val(),
+				userString : $("#replaced_with_userstring").val(),
 				returnformat : "json",
 				queryformat : 'column'
 			},
