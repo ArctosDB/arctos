@@ -36,7 +36,7 @@ Many Arctos fields will not accept nonprinting characters
 	</li>
 	<li>
 		Nonprinting characters replaced with a user-specified string. Just type something into the "Enter a replacement string here" box. The default is the HTML linebreak, 
-		"#lt;br#gt;".
+		"&lt;br&gt;".
 	</li>
 	<li>
 		Nonprinting characters replaced with nothing. You may be able to replace your original value with this if it contains control characters that
