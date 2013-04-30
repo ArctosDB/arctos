@@ -40,6 +40,7 @@
 		<cfelse>
 			<cfset currentpath=cgi.script_name & request.rdurl>
 		</cfif>
+		<cfset currentpath=replace("/" & currentpath,"//","/","all")>
 		<br>currentpath: #currentpath#
 		<cfdump var=#cgi#>
 		<noscript>
