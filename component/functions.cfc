@@ -3,7 +3,17 @@
 <!--------------------------------------------------------------------------------------->
 <cffunction name="removeNonprinting" access="remote" returnformat="json">
    	<cfargument name="orig" required="true" type="string">
-	<cfset result = ReReplace(orig,"[[:PRINT:]]","[X]","ALL")>
+	
+	
+	<cfquery name="result" datasource="uam_god">
+		select regexp_replace(#'orig#','[^[:print:]]','[X]') result from dual
+	</cfquery>
+
+
+
+	<!----
+	<cfset result = ReReplace(orig,"[[:print:]]","[X]","ALL")>
+	---->
 	<cfreturn result>
 </cffunction>
 <!--------------------------------------------------------------------------------------->
