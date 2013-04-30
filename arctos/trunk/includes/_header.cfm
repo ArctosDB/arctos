@@ -34,7 +34,13 @@
 		<body>
 		cgi.script_name: #cgi.script_name#
 		<br>request.rdurl: #request.rdurl#
-		<br>current path: #cgi.script_name##request.rdurl#
+		
+		<cfif cgi.script_name is "/errors/missing.cfm">
+			<cfset currentpath=request.rdurl>
+		<cfelse>
+			<cfset currentpath=cgi.script_name & request.rdurl>
+		</cfif>
+		<br>currentpath: #currentpath#
 		<cfdump var=#cgi#>
 		<noscript>
 			<div class="browserCheck">
