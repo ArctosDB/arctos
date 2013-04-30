@@ -1,4 +1,11 @@
 <cfcomponent>
+
+<!--------------------------------------------------------------------------------------->
+<cffunction name="removeNonprinting" access="remote" returnformat="json">
+   	<cfargument name="orig" required="true" type="string">
+	<cfset result = ReReplace(result,"[^[:PRINT:]]","[X]","ALL")>
+	<cfreturn result>
+</cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="getDOI__oldInitMVZCreate" access="remote" returnformat="json">
    	<cfargument name="media_id" required="false" type="numeric">
