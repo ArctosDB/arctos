@@ -458,7 +458,9 @@
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
 	</cfif>
 	<cfset request.rdurl=replace("/" & request.rdurl,"//","/","all")>
-		
+	<cfif right(request.rdurl,1) is "?">
+		<cfset request.rdurl=left(request.rdurl,len(request.rdurl)-1)>
+	</cfif>
 	<cfif request.rdurl contains chr(195) & chr(151)>
 		<cfset request.rdurl=replace(request.rdurl,chr(195) & chr(151),chr(215))>
 	</cfif>
