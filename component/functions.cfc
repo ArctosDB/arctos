@@ -8,7 +8,6 @@
 		<cfset userString="<br>">
 	</cfif>
 	
-	userString: <CFDUMP VAR=#userString#>
 	
 	<cfquery name="result" datasource="uam_god">
 		select 
@@ -19,7 +18,6 @@
 		from dual
 	</cfquery>
 	
-	<CFDUMP VAR=#result#>
 	<cfreturn result>
 </cffunction>
 <!--------------------------------------------------------------------------------------->
