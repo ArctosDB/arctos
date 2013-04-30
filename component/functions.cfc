@@ -3,7 +3,7 @@
 <!--------------------------------------------------------------------------------------->
 <cffunction name="removeNonprinting" access="remote" returnformat="json">
    	<cfargument name="orig" required="true" type="string">
-	<cfset result = ReReplace(orig,"[^[:PRINT:]]","[X]","ALL")>
+	<cfset result = ReReplace(orig,"[[:PRINT:]]","[X]","ALL")>
 	<cfreturn result>
 </cffunction>
 <!--------------------------------------------------------------------------------------->
