@@ -3,7 +3,7 @@
 <!--------------------------------------------------------------------------------------->
 <cffunction name="removeNonprinting" access="remote" returnformat="json">
    	<cfargument name="orig" required="true" type="string">
-	
+	<cfinclude template="/includes/functionLib.cfm">
 	
 	<cfquery name="result" datasource="uam_god">
 		select 
