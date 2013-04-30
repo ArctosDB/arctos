@@ -31,6 +31,7 @@
 	<!--- create their account --->
 	<cfif len(err) gt 0>
 		<cflocation url="/login.cfm?username=#username#&badPW=true&err=#err#" addtoken="false">
+		<cfabort>
 	</cfif>
 	<cfquery name="nextUserID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select max(user_id) + 1 as nextid from cf_users
@@ -66,7 +67,7 @@
 			<cflocation url="#u#" addtoken="false">
 		</cfif>
 		<cfif (not isdefined("gotopage") or len(gotopage) is 0) and len(request.rdurl) gt 0>
-			<cfset gotopage=request.rdurl>
+			<cfset gotopage="/" & request.rdurl>
 		</cfif>
 		<cfset junk="session.sessionKey,badPW,username">
 		<cfloop list="#gotopage#" index="e" delimiters="?&">
