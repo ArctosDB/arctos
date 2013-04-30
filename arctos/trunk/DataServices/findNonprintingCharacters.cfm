@@ -24,7 +24,11 @@ Many Arctos fields will not accept nonprinting characters
 
 <p>This form will accept text which may return nonprinting characters, and return three strings:
 <ol>
-	<li>Nonprinting characters replaced with [X]. This is for visual reference only. You may need it to clean up your data.</li>
+	<li>
+		Nonprinting characters replaced with [X]. This is primarily for visual reference, but may also be used for further processing. For example, 
+		you could paste this into your favorite word processor (one which does not add nonprinting characters, please!), search for [X], and replace
+		all found values with "<br>" to format your text for HTML display.
+	</li>
 	<li>
 		Nonprinting characters replaced with nothing. You may be able to replace your original value with this if it contains control characters that
 		do not affect layout.
