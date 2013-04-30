@@ -32,17 +32,9 @@
 		</cfif>
 		</head>
 		<body>
-		cgi.script_name: #cgi.script_name#
 		<br>request.rdurl: #request.rdurl#
 		
-		<cfif cgi.script_name is "/errors/missing.cfm">
-			<cfset currentpath=request.rdurl>
-		<cfelse>
-			<cfset currentpath=cgi.script_name & request.rdurl>
-		</cfif>
-		<cfset currentpath=replace("/" & currentpath,"//","/","all")>
-		<br>currentpath: #currentpath#
-		<cfdump var=#cgi#>
+		
 		<noscript>
 			<div class="browserCheck">
 				JavaScript is turned off in your web browser. Please turn it on to take full advantage of Arctos, or
