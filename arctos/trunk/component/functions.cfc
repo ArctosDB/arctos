@@ -1,23 +1,20 @@
 <cfcomponent>
-
 <!--------------------------------------------------------------------------------------->
 <cffunction name="removeNonprinting" access="remote" returnformat="json">
    	<cfargument name="orig" required="true" type="string">
+   	<cfargument name="userString" required="false" type="string">
 	<cfinclude template="/includes/functionLib.cfm">
-	
+	<cfif not isdefined("userString") or len(userString) is 0>
+		<cfset userString="<br>">
+	</cfif>
 	<cfquery name="result" datasource="uam_god">
 		select 
 			regexp_replace('#escapeQuotes(orig)#','[^[:print:]]','[X]') replaced_with_x,
 			regexp_replace('#escapeQuotes(orig)#','[^[:print:]]','') replaced_with_nothing,
-			regexp_replace('#escapeQuotes(orig)#','[^[:print:]]',' ') replaced_with_space		
+			regexp_replace('#escapeQuotes(orig)#','[^[:print:]]',' ') replaced_with_space,
+			regexp_replace('#escapeQuotes(orig)#','[^[:print:]]','#userString#') replaced_with_userString		
 		from dual
 	</cfquery>
-
-
-
-	<!----
-	<cfset result = ReReplace(orig,"[[:print:]]","[X]","ALL")>
-	---->
 	<cfreturn result>
 </cffunction>
 <!--------------------------------------------------------------------------------------->
