@@ -15,6 +15,8 @@
 			regexp_replace('#escapeQuotes(orig)#','[^[:print:]]','#userString#') replaced_with_userString		
 		from dual
 	</cfquery>
+	
+	<CFDUMP VAR=#result#>
 	<cfreturn result>
 </cffunction>
 <!--------------------------------------------------------------------------------------->
