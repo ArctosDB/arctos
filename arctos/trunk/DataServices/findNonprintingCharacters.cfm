@@ -11,7 +11,6 @@
 				$("#replaced_with_nothing").val(r);
 			}
 		);
-removeNonprinting
 	}
 </script>
 <label for="orig">paste your text here</label>
