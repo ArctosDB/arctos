@@ -23,7 +23,7 @@
 Many Arctos fields will not accept nonprinting characters 
 (<a href="http://en.wikipedia.org/wiki/Regular_expression#POSIX_character_classes" target="_blank" class="external">posix class PRINT</a>).
 
-<p>This form will accept text which may return nonprinting characters, and return three strings:
+<p>This form will accept text which may contain nonprinting characters, and return the following:
 <ol>
 	<li>
 		Nonprinting characters replaced with [X]. This is primarily for visual reference, but may also be used for further processing. For example, 
