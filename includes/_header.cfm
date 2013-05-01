@@ -97,7 +97,7 @@
 					</cfif>
 					<form name="logIn" method="post" action="/login.cfm">
 						<input type="hidden" name="action" value="signIn">
-						<input type="text" name="gotopage" value="#replace(gtp,'//','/','all')#">
+						<input type="hidden" name="gotopage" value="#replace(gtp,'//','/','all')#">
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td>
@@ -105,7 +105,7 @@
 										class="loginTxt" onfocus="if(this.value==this.title){this.value=''};">
 								</td>
 								<td>
-									<input type="password" name="password"title="Password"  size="12" class="loginTxt">
+									<input type="password" name="password" title="Password"  size="12" class="loginTxt">
 								</td>
 							</tr>
 							<tr>
