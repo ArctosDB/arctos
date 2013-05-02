@@ -111,7 +111,7 @@
 							source,
 							position_in_source_hierarchy,
 							hierarchy_id,
-							score
+							gn_score
 						) values (
 							sq_taxon_term_id.nextval,
 							#d.taxon_name_id#,
