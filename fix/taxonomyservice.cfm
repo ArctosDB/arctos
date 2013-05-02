@@ -369,31 +369,37 @@ commit;
 				position_in_classification 
 		</cfquery>
 		
-		<cfdump var=#taxterms#>
-		<cfif session.debug is true>
-			<cfdump var=#taxterms#>
-			get non-taxon terms ordered by classification		
-			<br>
-		</cfif>
+	
 		<cfquery name="nontaxterms" dbtype="query">
-			select term,term_type,source from  d where position_in_source_hierarchy is null order by source,term_type
+			select 
+				term,
+				term_type,
+				source 
+			from  
+				d 
+			where 
+				position_in_classification is null 
+			order by 
+				source,term_type
 		</cfquery>
-		<cfif session.debug is true>
-			<cfdump var=#nontaxterms#>
-			
-			<br> we can create "hierarchies"....
-			<br>get distinct sources....
 		
-		</cfif>
 		<cfquery name="sources" dbtype="query">
-			select source,hierarchy_id from d where hierarchy_id is not null group by source,hierarchy_id order by source,hierarchy_id
+			select 
+				source,
+				classification_id
+			from 
+				d 
+			where 
+				classification_id is not null 
+			group by 
+				source,
+				classification_id
+			order by 
+				source,
+				classification_id
 		</cfquery>
 		
-		<cfif session.debug is true>
-		<cfdump var=#sources#>
-			<br>loop through them...
 		
-		</cfif>
 		<cfloop query="sources">
 			<p>Hierarchy according to #source#:</p>
 			<cfquery name="thisone" dbtype="query">
@@ -403,18 +409,15 @@ commit;
 				from 
 					d 
 				where 
-					position_in_source_hierarchy is not null and 
+					position_in_classification is not null and 
 					hierarchy_id='#hierarchy_id#' 
 				group by 
 					term,
 					term_type 
 				order by 
-					position_in_source_hierarchy 
+					position_in_classification 
 			</cfquery>
 			
-			<cfif session.debug is true>
-				<cfdump var=#thisone#>
-			</cfif>
 			
 			<cfset indent=1>
 			<cfloop query="thisone">
