@@ -423,6 +423,15 @@
 					<option value="#VerificationStatus#">#VerificationStatus#</option>
 				</cfloop>
 			</select>
+			<label for="VerificationStatusIs">
+				.....where current verificationstatus IS (leave blank to get everything)
+			</label>
+			<select name="VerificationStatusIs" id="VerificationStatusIs" size="1" class="reqdClr">
+				<option value=""></option>
+				<cfloop query="ctVerificationStatus">
+					<option value="#VerificationStatus#">#VerificationStatus#</option>
+				</cfloop>
+			</select>
 			<br>
 			<input type="submit" class="lnkBtn" value="Update Verification Status for all of your specimen_events in this locality to value in pick above">
 		</form>
@@ -899,10 +908,14 @@
 			where
 				COLLECTING_EVENT_ID in (select COLLECTING_EVENT_ID from COLLECTING_EVENT where locality_id = #locality_id#) and
 				COLLECTION_OBJECT_ID in (select COLLECTION_OBJECT_ID from cataloged_item) -- keep things on the right side of the VPD
+				<cfif isdefined("VerificationStatusIs") and len(VerificationStatusIs) gt 0>
+					and VerificationStatus='#VerificationStatusIs#'
+				</cfif>
 		</cfquery>
 		<cflocation addtoken="false" url="editLocality.cfm?locality_id=#locality_id#">
 	</cfoutput>
 </cfif>
+<!------------------------------------------------------------------------------------------------------>
 <cfif action is "editGeol">
 <cfoutput>
 	<cfloop from="1" to="#number_of_determinations#" index="n">
