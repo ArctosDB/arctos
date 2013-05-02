@@ -1,13 +1,15 @@
 <cfoutput>	
 	<cfquery name="ids" datasource="uam_god">
-		select 
-			taxon_name_id 
-		from 
-			identification_taxonomy 
-		where 
-			taxon_name_id not in (select taxon_name_id from taxon_name) and 
-			rownum<21
-		group by taxon_name_id
+		select * from (
+			select 
+				taxon_name_id 
+			from 
+				identification_taxonomy 
+			where 
+				taxon_name_id not in (select taxon_name_id from taxon_name) 
+			group by taxon_name_id
+		) where rownum<21
+
 	</cfquery>
 	
 	<cfdump var=#ids#>
