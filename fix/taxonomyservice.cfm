@@ -109,7 +109,7 @@
 							term,
 							term_type,
 							source,
-							position_in_source_hierarchy,
+							position_in_classification,
 							classification_id,
 							gn_score
 						) values (
