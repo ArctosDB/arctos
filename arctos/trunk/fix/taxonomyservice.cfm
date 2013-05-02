@@ -364,7 +364,7 @@ commit;
 			order by 
 				gn_score,
 				source,
-				position_in_source_hierarchy 
+				position_in_classification 
 		</cfquery>
 		
 		<cfdump var=#taxterms#>
