@@ -339,7 +339,6 @@ commit;
 		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
 		scientific_name='#name#'
 	</cfquery>
-	<cfdump var=#d#>
 	
 	<cfif d.recordcount gt 0>
 		<cfquery name="scientific_name" dbtype="query">
@@ -410,7 +409,7 @@ commit;
 					d 
 				where 
 					position_in_classification is not null and 
-					hierarchy_id='#hierarchy_id#' 
+					hierarchy_id='#classification_id#' 
 				group by 
 					term,
 					term_type 
