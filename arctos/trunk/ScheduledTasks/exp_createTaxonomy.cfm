@@ -9,7 +9,9 @@
 		group by taxon_name_id
 	</cfquery>
 	<cfloop query="ids">
+		 <!-------
 		 <cfthread action="run" name="t#taxon_name_id#" taxon_name_id="#taxon_name_id#">
+		 ------->
 			 <cfquery name="d" datasource="uam_god">
 				select * from taxonomy where taxon_name_id='#taxon_name_id#'
 			</cfquery>
@@ -165,5 +167,7 @@
 					</cfif>
 				</cfif>
 			</cfloop>
+			<!--------
 		 </cfthread>
+		 -------->
 	</cfloop>
