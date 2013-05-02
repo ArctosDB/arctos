@@ -166,9 +166,6 @@
 		</cfloop>
 	</cfif>
 
-</cfoutput>
-<cfabort>
-
 
 
 
