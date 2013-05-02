@@ -1,3 +1,4 @@
+<cfoutput>	
 	<cfquery name="ids" datasource="uam_god">
 		select 
 			taxon_name_id 
@@ -172,3 +173,4 @@
 		 </cfthread>
 		 -------->
 	</cfloop>
+</cfoutput>
