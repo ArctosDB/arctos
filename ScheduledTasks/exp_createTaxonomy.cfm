@@ -5,7 +5,7 @@
 			identification_taxonomy 
 		where 
 			taxon_name_id not in (select taxon_name_id from taxon_name) and 
-			rownum<2
+			rownum<21
 		group by taxon_name_id
 	</cfquery>
 	<cfloop query="ids">
