@@ -37,141 +37,149 @@ sho err
 
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-	<cfif action is "nothing" and isdefined("name") and len(name) gt 0>
-	<cfquery name="d" datasource="uam_god">
-		select * from taxon_name,taxon_term where 
-		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
-		upper(scientific_name)='#ucase(name)#'
-	</cfquery>
-	
-	<cfif d.recordcount is 0>
-		sorry, we don't see to have data for #name# yet.
-		<cfabort>
-	</cfif>
-	<cfquery name="scientific_name" dbtype="query">
-		select scientific_name from d group by scientific_name
-	</cfquery>
-	<cfquery name="taxterms" dbtype="query">
-		select 
-			gn_score,
-			source,
-			term,
-			term_type,
-			position_in_classification
-		from 
-			d 
-		where 
-			position_in_classification is not null 
-		group by 
-			gn_score,
-			source,
-			term,
-			term_type,
-			position_in_classification 
-		order by 
-			gn_score,
-			source,
-			position_in_classification 
-	</cfquery>
-	
-
-	<cfquery name="nontaxterms" dbtype="query">
-		select 
-			term,
-			term_type,
-			source 
-		from  
-			d 
-		where 
-			position_in_classification is null 
-		order by 
-			source,term_type
-	</cfquery>
-	
-	<cfquery name="sources" dbtype="query">
-		select 
-			source,
-			classification_id
-		from 
-			d 
-		where 
-			classification_id is not null 
-		group by 
-			source,
-			classification_id
-		order by 
-			source,
-			classification_id
-	</cfquery>
-	
-	
-	<cfloop query="sources">
-		<cfquery name="notclass" dbtype="query">
-			select 
-				term,
-				term_type 
-			from 
-				d 
-			where 
-				position_in_classification is null and 
-				source='#source#' 
-			group by 
-				term,
-				term_type 
-			order by 
-				term_type,
-				term
-		</cfquery>
-		<hr>
-		Data from #source# 
-		<p>
-		<cfloop query="notclass">
-			<br>#term_type#: #term#
-		</cfloop>
-		</p>
+	<cfif action is nothing and (not isdefined("name") or len(name) is 0)>
 		
-		<cfquery name="tscore" dbtype="query">
-			select gn_score from d where classification_id='#classification_id#'
+		
+		You need a "?name=NAME" parameter in the URL to use this form.
+		<p>
+			Try <a href="taxonomydemo.cfm?name=Sorex cinereus">Sorex cinereus</a>.
+		</p>
+	</cfif>
+	<cfif action is "nothing" and isdefined("name") and len(name) gt 0>
+		<cfquery name="d" datasource="uam_god">
+			select * from taxon_name,taxon_term where 
+			taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
+			upper(scientific_name)='#ucase(name)#'
 		</cfquery>
-		<p>Classification
-		(<cfif len(tscore.gn_score) gt 0>
-			globalnames score=#tscore.gn_score#
-		<cfelse>
-			globalnames score not available
-		</cfif>):</p>
-		<cfquery name="thisone" dbtype="query">
+		
+		<cfif d.recordcount is 0>
+			sorry, we don't see to have data for #name# yet.
+			You can <a href="taxonomydemo.cfm?action=createTerm&scientific_name=#name#">create #name#</a>
+			<cfabort>
+		</cfif>
+		<cfquery name="scientific_name" dbtype="query">
+			select scientific_name from d group by scientific_name
+		</cfquery>
+		<cfquery name="taxterms" dbtype="query">
 			select 
+				gn_score,
+				source,
 				term,
-				term_type 
+				term_type,
+				position_in_classification
 			from 
 				d 
 			where 
-				position_in_classification is not null and 
-				classification_id='#classification_id#' 
+				position_in_classification is not null 
 			group by 
+				gn_score,
+				source,
 				term,
-				term_type 
+				term_type,
+				position_in_classification 
 			order by 
+				gn_score,
+				source,
 				position_in_classification 
 		</cfquery>
 		
+	
+		<cfquery name="nontaxterms" dbtype="query">
+			select 
+				term,
+				term_type,
+				source 
+			from  
+				d 
+			where 
+				position_in_classification is null 
+			order by 
+				source,term_type
+		</cfquery>
 		
-		<cfset indent=1>
-		<cfloop query="thisone">
-			<div style="padding-left:#indent#em;">
-				#term#
-				<cfif len(term_type) gt 0>
-					(#term_type#)
-				</cfif>
-			</div>
-			<cfset indent=indent+1>
+		<cfquery name="sources" dbtype="query">
+			select 
+				source,
+				classification_id
+			from 
+				d 
+			where 
+				classification_id is not null 
+			group by 
+				source,
+				classification_id
+			order by 
+				source,
+				classification_id
+		</cfquery>
+		
+		
+		<cfloop query="sources">
+			<cfquery name="notclass" dbtype="query">
+				select 
+					term,
+					term_type 
+				from 
+					d 
+				where 
+					position_in_classification is null and 
+					source='#source#' 
+				group by 
+					term,
+					term_type 
+				order by 
+					term_type,
+					term
+			</cfquery>
+			<hr>
+			Data from #source# 
+			<p>
+			<cfloop query="notclass">
+				<br>#term_type#: #term#
+			</cfloop>
+			</p>
+			
+			<cfquery name="tscore" dbtype="query">
+				select gn_score from d where classification_id='#classification_id#'
+			</cfquery>
+			<p>Classification
+			(<cfif len(tscore.gn_score) gt 0>
+				globalnames score=#tscore.gn_score#
+			<cfelse>
+				globalnames score not available
+			</cfif>):</p>
+			<cfquery name="thisone" dbtype="query">
+				select 
+					term,
+					term_type 
+				from 
+					d 
+				where 
+					position_in_classification is not null and 
+					classification_id='#classification_id#' 
+				group by 
+					term,
+					term_type 
+				order by 
+					position_in_classification 
+			</cfquery>
+			
+			
+			<cfset indent=1>
+			<cfloop query="thisone">
+				<div style="padding-left:#indent#em;">
+					#term#
+					<cfif len(term_type) gt 0>
+						(#term_type#)
+					</cfif>
+				</div>
+				<cfset indent=indent+1>
+			</cfloop>
 		</cfloop>
-	</cfloop>
-</cfif>
-</cfoutput>
-<cfinclude template="/includes/_header.cfm">
-
-	<!-----------
+	</cfif>
+	
+	
+	
 	<cfif action is "createTerm">
 		<cfquery name="d" datasource="uam_god">
 			select * from taxon_name where 
@@ -336,7 +344,13 @@ sho err
 				</cfif>
 			</cfif>
 		</cfloop>
+		<cflocation url="taxonomydemo.cfm?name=#scientific_name#" addtoken="false">
 	</cfif>
+</cfoutput>
+<cfinclude template="/includes/_header.cfm">
+
+	<!-----------
+	
 
 
 
