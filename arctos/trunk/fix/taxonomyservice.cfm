@@ -68,6 +68,7 @@
 		</cfif>
 	</cfloop>
 	<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#scientific_name#"></cfhttp>
+	<cfset x=DeserializeJSON(cfhttp.filecontent)>
 	<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
 		<cfset pos=1>
 		<!--- because lists are stupid and ignore NULLs.... ---->
