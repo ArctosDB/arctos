@@ -37,7 +37,7 @@ sho err
 
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-	<cfif action is nothing and (not isdefined("name") or len(name) is 0)>
+	<cfif action is "nothing" and (not isdefined("name") or len(name) is 0)>
 		
 		
 		You need a "?name=NAME" parameter in the URL to use this form.
