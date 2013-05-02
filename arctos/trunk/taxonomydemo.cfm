@@ -347,7 +347,7 @@ sho err
 		<cflocation url="taxonomydemo.cfm?name=#scientific_name#" addtoken="false">
 	</cfif>
 </cfoutput>
-<cfinclude template="/includes/_header.cfm">
+<cfinclude template="/includes/_footer.cfm">
 
 	<!-----------
 	
