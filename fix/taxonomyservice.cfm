@@ -420,7 +420,7 @@ commit;
 			Data from #source# 
 			<p>
 			<cfloop query="notclass">
-				<br>term_type: #term#
+				<br>#term_type#: #term#
 			</cfloop>
 			</p>
 			
