@@ -404,7 +404,7 @@ commit;
 				select gn_score from d where classification_id='#classification_id#'
 			</cfquery>
 			<p>Hierarchy according to #source# 
-			(<cfif len(score=tscore.gn_score) gt 0>
+			(<cfif len(tscore.gn_score) gt 0>
 				globalnames score=#tscore.gn_score#
 			<cfelse>
 				globalnames score not available
