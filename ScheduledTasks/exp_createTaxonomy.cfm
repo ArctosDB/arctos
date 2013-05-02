@@ -100,19 +100,15 @@
 					<cfset thisNameString=x.data[1].results[i].name_string>
 					<cfset thisCanonicalFormName=x.data[1].results[i].canonical_form>
 					
-					<br>thisSource: #thisSource#
 					<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
 						<cfset thisTerm=cterms[listpos]>
 						<br>thisTerm: #thisTerm#
 						<cfif ArrayIsDefined(cranks, listpos)>
 							<cfset thisRank=cranks[listpos]>
-							exists....
 						<cfelse>
 							<cfset thisRank=''>
-							noexists....
 						</cfif>
 						
-						 ---- thisRank: #thisRank#
 						<cfif len(thisTerm) gt 0>
 							<cfquery name="meta" datasource="uam_god">
 								insert into taxon_term (
