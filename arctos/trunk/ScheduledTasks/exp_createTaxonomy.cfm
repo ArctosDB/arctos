@@ -9,6 +9,8 @@
 			rownum<21
 		group by taxon_name_id
 	</cfquery>
+	
+	<cfdump var=#ids#>
 	<cfloop query="ids">
 		 <!-------
 		 <cfthread action="run" name="t#taxon_name_id#" taxon_name_id="#taxon_name_id#">
