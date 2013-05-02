@@ -400,7 +400,15 @@ commit;
 		
 		
 		<cfloop query="sources">
-			<p>Hierarchy according to #source#:</p>
+			<cfquery name="tscore" dbtype="query">
+				select gn_score from d where classification_id='#classification_id#'
+			</cfquery>
+			<p>Hierarchy according to #source# 
+			(<cfif len(score=#tscore.gn_score) gt 0>
+				globalnames score=#tscore.gn_score#
+			<cfelse>
+				globalnames score not available
+			</cfif>):</p>
 			<cfquery name="thisone" dbtype="query">
 				select 
 					term,
