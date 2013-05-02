@@ -110,7 +110,7 @@
 							term_type,
 							source,
 							position_in_source_hierarchy,
-							hierarchy_id,
+							classification_id,
 							gn_score
 						) values (
 							sq_taxon_term_id.nextval,
