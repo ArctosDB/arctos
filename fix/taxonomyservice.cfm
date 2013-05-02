@@ -348,6 +348,7 @@ commit;
 		
 		<cfquery name="taxterms" dbtype="query">
 			select 
+				gn_score,
 				source,
 				term,
 				term_type,
@@ -357,6 +358,7 @@ commit;
 			where 
 				position_in_classification is not null 
 			group by 
+				gn_score,
 				source,
 				term,
 				term_type,
