@@ -409,7 +409,7 @@ commit;
 					d 
 				where 
 					position_in_classification is not null and 
-					hierarchy_id='#classification_id#' 
+					classification_id='#classification_id#' 
 				group by 
 					term,
 					term_type 
