@@ -341,16 +341,33 @@ commit;
 	</cfquery>
 	<cfdump var=#d#>
 	
-	<cfabort>
 	<cfif d.recordcount gt 0>
 		<cfquery name="scientific_name" dbtype="query">
 			select scientific_name from d group by scientific_name
 		</cfquery>
 		
 		<cfquery name="taxterms" dbtype="query">
-			select source,term,term_type,position_in_source_hierarchy from d where position_in_source_hierarchy is not null group by 
-			source,term,term_type,position_in_source_hierarchy order by gn_score,source,position_in_source_hierarchy 
+			select 
+				source,
+				term,
+				term_type,
+				position_in_classification
+			from 
+				d 
+			where 
+				position_in_classification is not null 
+			group by 
+				source,
+				term,
+				term_type,
+				position_in_classification 
+			order by 
+				gn_score,
+				source,
+				position_in_source_hierarchy 
 		</cfquery>
+		
+		<cfdump var=#taxterms#>
 		<cfif session.debug is true>
 			<cfdump var=#taxterms#>
 			get non-taxon terms ordered by classification		
