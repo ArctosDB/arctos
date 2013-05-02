@@ -774,7 +774,7 @@
 			</cfif>
 		</cfif>
 		<cfif  isdefined("NATURE_OF_MATERIAL") and len(#NATURE_OF_MATERIAL#) gt 0>
-			<cfset sql = "#sql# AND upper(NATURE_OF_MATERIAL) like '%#ucase(NATURE_OF_MATERIAL)#%'">
+			<cfset sql = "#sql# AND upper(NATURE_OF_MATERIAL) like '%#ucase(escapeQuotes(NATURE_OF_MATERIAL))#%'">
 		</cfif>
 		<cfif  isdefined("rec_agent") and len(#rec_agent#) gt 0>
 			<cfset frm = "#frm#,agent_name">
