@@ -172,66 +172,8 @@
 
 
 
-
-
-
-
-create table taxon_term (
-	taxon_term_id number not null primary key,
-	taxon_name_id number not null,
-	classification_id varchar2(4000) null,
-	term varchar2(255) not null,
-	term_type varchar2(255),
-	source varchar2(255) not null,
-	gn_score number,
-	position_in_classification number,
-	lastdate date default (sysdate) not null ,
-	CONSTRAINT fk_tnid FOREIGN KEY (taxon_name_id) REFERENCES taxon_name (taxon_name_id)
-  );
-		
-		
-		<!--- first, taxon terms ---->
-		
-		
-		<!--- then "non-taxonomy metadata" - we may not want to keep all this stuff, so discuss before any large-scale migration ---->
-		
-		<cfif session.debug is true>
-			<br>now get service data.....
-		</cfif>
-		
-		<cfset x=DeserializeJSON(cfhttp.filecontent)>
-		
-		<cfif session.debug is true>
-			<cfdump var=#x#>
-		</cfif>
-		<cfquery name="d" datasource="uam_god">
-			select taxon_name_id from taxon_term where scientific_name='#scientific_name#'
-		</cfquery>
-		<cfif session.debug is true>
-			<cfdump var=#d#>
-		</cfif>
-		
-		<cfif len(d.taxon_name_id) is 0>
-			taxon name not found<cfabort>
-		</cfif>
-		
-		
-		<cfif session.debug is true>
-			<hr>
-			name+data created....		
-			<br><a href="taxonomyservice.cfm?scientific_name=#scientific_name#">click here to see #scientific_name#</a>
-		<cfelse>
-			<cflocation url="taxonomyservice.cfm?scientific_name=#scientific_name#" addtoken="false">
-		</cfif>
-	</cfif>
-</cfif>
-</cfif>
-
-
-
-
-
 <!-------
+			<cflocation url="taxonomyservice.cfm?scientific_name=#scientific_name#" addtoken="false">
 
 setup
 
