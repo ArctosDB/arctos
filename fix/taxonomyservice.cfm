@@ -408,7 +408,7 @@ commit;
 				<cfset indent=indent+1>
 			</cfloop>
 		</cfloop>
-	
+	</cfif>
 </cfif>
 
 
