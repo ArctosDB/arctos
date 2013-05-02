@@ -400,10 +400,34 @@ commit;
 		
 		
 		<cfloop query="sources">
+			<cfquery name="notclass" dbtype="query">
+				select 
+					term,
+					term_type 
+				from 
+					d 
+				where 
+					position_in_classification is null and 
+					source='#source#' 
+				group by 
+					term,
+					term_type 
+				order by 
+					term_type,
+					term
+			</cfquery>
+			<hr>
+			Data from #source# 
+			<p>
+			<cfloop query="notclass">
+				<br>term_type: #term#
+			</cfloop>
+			</p>
+			
 			<cfquery name="tscore" dbtype="query">
 				select gn_score from d where classification_id='#classification_id#'
 			</cfquery>
-			<p>Hierarchy according to #source# 
+			<p>Classification
 			(<cfif len(tscore.gn_score) gt 0>
 				globalnames score=#tscore.gn_score#
 			<cfelse>
