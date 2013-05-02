@@ -11,7 +11,7 @@
 	<cfloop query="ids">
 		 <cfthread action="run" name="t#taxon_name_id#" taxon_name_id="#taxon_name_id#">
 			 <cfquery name="d" datasource="uam_god">
-				select * from taxonomy where scientific_name='#scientific_name#'
+				select * from taxonomy where taxon_name_id='#taxon_name_id#'
 			</cfquery>
 			<cfquery name="tt" datasource="uam_god">
 				insert into taxon_name (taxon_name_id,scientific_name) values (#d.taxon_name_id#,'#d.SCIENTIFIC_NAME#')
