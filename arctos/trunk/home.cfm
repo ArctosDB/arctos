@@ -839,7 +839,7 @@ The data providers are not responsible for loss or damages due to use of these d
 <div class="a">
 	A: We impose no strict limits. Queries almost always take less than 5 seconds. Getting the data to your browser often then
 	becomes a bottleneck. If you have a reasonably fast browser and connection, it should be possible to return
-	at least 100,000 basic records with a single query. We have no idea why you'd want to. <a href="/contact.cfm" target="_blank">Let us know</a>
+	at least 100,000 basic records with a single query. <a href="/contact.cfm" target="_blank">Let us know</a>
 	if you find something excessively slow.
 </div>
 <div class="q">
