@@ -259,7 +259,7 @@
 					<option value="relatedTaxonomy">RelatedTaxonomy CONTAINS</option>
 					<option value="common">CommonName CONTAINS</option>
 				</select>
-				<span class="infoLink" id="_taxon_scope">[ help ]</span>
+				<span class="infoLink helpLink" id="_taxon_scope">[ help ]</span>
 			</td>
 			<td class="srch">
 				<input type="text" value="" name="taxon_term" id="taxon_term" size="50">
