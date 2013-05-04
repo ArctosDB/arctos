@@ -327,10 +327,9 @@
 	</cfif>
     <cfif media_type is not "any">
         <cfset basJoin = " #basJoin# INNER JOIN media ci_media ON (ci_media_relations.media_id = ci_media.media_id)">
-        <cfset basQual = "#basQual#  AND ci_media.media_type = '#media_type#'" >
+        <cfset basQual = "#basQual#  AND ci_media.media_type = '#media_type#' and ci_media_relations.media_relationship='shows cataloged_item'">
     </cfif>
 </cfif>
-
 <cfif isdefined("mime_type") AND len(mime_type) gt 0>
 	<cfset mapurl = "#mapurl#&mime_type=#mime_type#">
 	<cfif basJoin does not contain " ci_media_relations ">
