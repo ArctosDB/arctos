@@ -374,8 +374,9 @@ function addRelation (n) {
 	var nSel = document.getElementById(selName).cloneNode(true);
 	nSel.name="relationship__" + n;
 	nSel.id="relationship__" + n;
-	nSel.value='';
+	nSel.value='delete';
 	nDiv.appendChild(nSel);
+	console.log('nSel.value set to null');
 	
 	c = document.createElement("textNode");
 	c.innerHTML=":&nbsp;";
