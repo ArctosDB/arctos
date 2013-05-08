@@ -492,7 +492,8 @@ function manyCatItemToMedia(mid){
 	theDiv.id = 'pickDiv';
 	theDiv.className = 'pickDiv';
 	theDiv.innerHTML='<br>Loading...';
-	theDiv.src = '';
+
+	document.body.appendChild(theDiv);
 	jQuery.get(ptl,function(data){
 		document.getElementById('pickDiv').innerHTML=data;
 		viewport.init("#pickDiv");
