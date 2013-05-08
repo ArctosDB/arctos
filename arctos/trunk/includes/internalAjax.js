@@ -488,16 +488,14 @@ function manyCatItemToMedia(mid){
 //	bgDiv.setAttribute('onclick','closeManyMedia()');
 //	document.body.appendChild(bgDiv);
 	var ptl = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
-	var theiFrame = document.createElement('iFrame');
-	theiFrame.id = 'pickDiv';
-	theiFrame.className = 'pickDiv';
-	theiFrame.innerHTML='<br>Loading...';
+	$('<iframe id="pickFrame" name="pickFrame" class="pickDiv">').appendTo('#bgDiv');
+	$('<iframe />').attr('src', ptl); 
+	
 
-	document.body.appendChild(theiFrame);
+	//document.body.appendChild(theiFrame);
 	//jQuery.get(ptl,function(data){
-		document.getElementById('theiFrame').innerHTML=data;
+	//	document.getElementById('theiFrame').innerHTML=data;
 		viewport.init("#pickDiv");
-	});
 	//document.body.appendChild(theDiv);
 	//$('#annotateDiv').append('<iframe id="commentiframe" width="100%" height="100%">');
 	//$('#commentiframe').attr('src', guts);
