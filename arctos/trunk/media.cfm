@@ -2,22 +2,7 @@
 <cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
 <script>
-	function manyCatItemToMedia(mid){
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','closeManyMedia()');
-		document.body.appendChild(bgDiv);
-		var guts = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
-		var theDiv = document.createElement('div');
-		theDiv.id = 'annotateDiv';
-		theDiv.className = 'annotateBox';
-		theDiv.innerHTML='';
-		theDiv.src = '';
-		document.body.appendChild(theDiv);
-		$('#annotateDiv').append('<iframe id="commentiframe" width="100%" height="100%">');
-		$('#commentiframe').attr('src', guts);
-	}
+	
 </script>
 <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select media_relationship from ctmedia_relationship order by media_relationship

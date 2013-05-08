@@ -478,6 +478,29 @@ function saveAgentRank(){
 		}
 	); 		
 }
+
+function manyCatItemToMedia(mid){
+	addBGDiv('removePick()');
+
+//	var bgDiv = document.createElement('div');
+//	bgDiv.id = 'bgDiv';
+//	bgDiv.className = 'bgDiv';
+//	bgDiv.setAttribute('onclick','closeManyMedia()');
+//	document.body.appendChild(bgDiv);
+	var ptl = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
+	var theDiv = document.createElement('div');
+	theDiv.id = 'pickDiv';
+	theDiv.className = 'pickDiv';
+	theDiv.innerHTML='<br>Loading...';
+	theDiv.src = '';
+	jQuery.get(ptl,function(data){
+		document.getElementById('pickDiv').innerHTML=data;
+		viewport.init("#pickDiv");
+	});
+	//document.body.appendChild(theDiv);
+	//$('#annotateDiv').append('<iframe id="commentiframe" width="100%" height="100%">');
+	//$('#commentiframe').attr('src', guts);
+}
 function rankAgent(agent_id) {
 	addBGDiv('removePick()');
 	var theDiv = document.createElement('div');
