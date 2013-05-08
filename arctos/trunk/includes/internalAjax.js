@@ -488,14 +488,14 @@ function manyCatItemToMedia(mid){
 //	bgDiv.setAttribute('onclick','closeManyMedia()');
 //	document.body.appendChild(bgDiv);
 	var ptl = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
-	var theDiv = document.createElement('div');
-	theDiv.id = 'pickDiv';
-	theDiv.className = 'pickDiv';
-	theDiv.innerHTML='<br>Loading...';
+	var theiFrame = document.createElement('iFrame');
+	theiFrame.id = 'pickDiv';
+	theiFrame.className = 'pickDiv';
+	theiFrame.innerHTML='<br>Loading...';
 
-	document.body.appendChild(theDiv);
-	jQuery.get(ptl,function(data){
-		document.getElementById('pickDiv').innerHTML=data;
+	document.body.appendChild(theiFrame);
+	//jQuery.get(ptl,function(data){
+		document.getElementById('theiFrame').innerHTML=data;
 		viewport.init("#pickDiv");
 	});
 	//document.body.appendChild(theDiv);
