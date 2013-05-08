@@ -31,7 +31,7 @@
 				collection.collection,
 				collection.collection_id,
 				accn_number,
-				accn.accn_id
+				accn.transaction_id
 			FROM
 				accn,
 				trans,
@@ -51,7 +51,7 @@
 			Nothing matched.
 		<cfelse>
 			<cfloop query="getAccn">
-				<br><span class="likeLink" onClick="opener.document.getElementById('#idOfTxtFld#').value='#accn_number#';opener.document.getElementById('#idOfPKeyFld#').value='#accn_id#';self.close();">#collection# #accn_number#</span>
+				<br><span class="likeLink" onClick="opener.document.getElementById('#idOfTxtFld#').value='#accn_number#';opener.document.getElementById('#idOfPKeyFld#').value='#transaction_id#';self.close();">#collection# #accn_number#</span>
 			</cfloop>
 		</cfif>
 	</cfif>
