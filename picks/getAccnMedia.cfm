@@ -25,7 +25,7 @@
 		<input type="text" name="accnNumber" id="accnNumber">
 		<input type="submit" value="Search"	class="lnkBtn">
 	</form>
-	<cfif len(accnNumber) gt 0>
+	<cfif isdefined("accnNumber") and len(accnNumber) gt 0>
 		<cfquery name="getAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
 				collection.collection,
