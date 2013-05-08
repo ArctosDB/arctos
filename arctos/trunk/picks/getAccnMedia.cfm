@@ -22,7 +22,7 @@
 			</cfloop>
 		</select>
 		<label for="accnNumber">Accn Number</label>
-		<input type="text" name="accnNumber" id="accnNumber" value="#accnNumber#">
+		<input type="text" name="accnNumber" id="accnNumber">
 		<input type="submit" value="Search"	class="lnkBtn">
 	</form>
 	<cfif len(accnNumber) gt 0>
