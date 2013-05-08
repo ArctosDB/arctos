@@ -291,7 +291,7 @@ jQuery(document).ready(function() {
 						</td>
 						<td>
 							<div id="attribute_value_cell_#i#">
-								<input type="text" name="attribute_value_#i#" id="attribute_value_#i#"size="15">
+								<input type="text" name="attribute_value_#i#" id="attribute_value_#i#" size="15">
 							</div>
 						</td>
 						<td>
