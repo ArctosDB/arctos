@@ -1047,6 +1047,13 @@ function getAccn(accnNumber,rtnFldID,InstAcrColnCde){
 	pickwin=window.open(pickwin,"","width=400,height=338, resizable,scrollbars");
 }
 
+function getAccnMedia(idOfTxtFld,idOfPKeyFld){
+	//accnNumber=value submitted by user, optional
+	//collection_id
+	var url="/picks/getAccnMedia.cfm";
+	var pickwin=url+"?idOfTxtFld="+idOfTxtFld+"&idOfPKeyFld="+idOfPKeyFld;
+	pickwin=window.open(pickwin,"","width=400,height=338, resizable,scrollbars");
+}
 function getAccn2(accnNumber,colID){
 	//accnNumber=value submitted by user, optional
 	//collection_id
