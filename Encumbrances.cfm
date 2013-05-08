@@ -154,7 +154,7 @@
 	<br>
 	<script>
 		function confirmRemoveSpecs(eid){
-			if (confirm("Are you sure you want to remove all specimens from this encumbrance?")){
+			if (confirm("Are you sure you want to remove all specimens from this encumbrance?")==true){
 				document.location='/Encumbrances.cfm?action=removeAllSpecimens&encumbrance_id=' + eid;
 			}
 	</script>
