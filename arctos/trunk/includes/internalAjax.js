@@ -479,13 +479,18 @@ function saveAgentRank(){
 	); 		
 }
 
+function removeMediaMultiCatItem(){
+	
+	$('#bgDiv').remove();
+	$('#pickFrame').remove()
+}
 function manyCatItemToMedia(mid){
 	//addBGDiv('removePick()');
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
 	
-	bgDiv.setAttribute('onclick',$('#bgDiv').remove();$('#pickFrame').remove());
+	bgDiv.setAttribute('onclick',"removeMediaMultiCatItem());
 	document.body.appendChild(bgDiv);
 	
 	
