@@ -490,7 +490,7 @@ function manyCatItemToMedia(mid){
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
 	
-	bgDiv.setAttribute('onclick',"removeMediaMultiCatItem());
+	bgDiv.setAttribute('onclick',"removeMediaMultiCatItem()");
 	document.body.appendChild(bgDiv);
 	
 	
