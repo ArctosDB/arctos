@@ -2220,6 +2220,6 @@ function success_getAttributeStuff (r) {
 	catch ( err ){// nothing, just ignore 
 	}
 	// focus on value
-	$("#attribute_value_" + theNumber).focus();
+	$("#attribute_value_" + theNumber).select();
 
 }
