@@ -480,8 +480,15 @@ function saveAgentRank(){
 }
 
 function manyCatItemToMedia(mid){
-	addBGDiv('removePick()');
-
+	//addBGDiv('removePick()');
+	var bgDiv = document.createElement('div');
+	bgDiv.id = 'bgDiv';
+	bgDiv.className = 'bgDiv';
+	
+	bgDiv.setAttribute('onclick',removeBgDiv());
+	document.body.appendChild(bgDiv);
+	
+	
 //	var bgDiv = document.createElement('div');
 //	bgDiv.id = 'bgDiv';
 //	bgDiv.className = 'bgDiv';
