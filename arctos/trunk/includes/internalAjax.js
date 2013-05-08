@@ -485,7 +485,7 @@ function manyCatItemToMedia(mid){
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
 	
-	bgDiv.setAttribute('onclick',removeBgDiv());
+	bgDiv.setAttribute('onclick',$('#bgDiv').remove();$('#pickFrame').remove());
 	document.body.appendChild(bgDiv);
 	
 	
