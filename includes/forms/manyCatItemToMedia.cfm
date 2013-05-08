@@ -1,4 +1,7 @@
 <cfinclude template="/includes/_pickHeader.cfm">
+<div align="right">
+	<span class="likeLink" onclick="removeMediaMultiCatItem();">close form</span>
+</div>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select distinct(collection) from collection order by collection
 </cfquery>
