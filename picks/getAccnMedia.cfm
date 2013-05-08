@@ -18,7 +18,7 @@
 		<select name="collectionID" id="collectionID">
 			<option value=""></option>
 			<cfloop query="ctcollection">
-				<option <cfif collectionID is collection_id> selected="selected" </cfif>value="#collection_id#">#collection#</option>
+				<option value="#collection_id#">#collection#</option>
 			</cfloop>
 		</select>
 		<label for="accnNumber">Accn Number</label>
