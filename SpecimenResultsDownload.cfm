@@ -450,7 +450,7 @@
 				,#tableName#.#cname#
 			</cfloop>
 			from #tableName#
-			,filtered_flat where #tableName#.collection_object_id=filtered_flat.collection_object_id	
+			,filtered_flat where #tableName#.collection_object_id=filtered_flat.collection_object_id (+)
 		</cfquery>
 	</cfif>
 	
