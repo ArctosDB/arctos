@@ -495,8 +495,8 @@ function manyCatItemToMedia(mid){
 //	bgDiv.setAttribute('onclick','closeManyMedia()');
 //	document.body.appendChild(bgDiv);
 	var ptl = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
-	$('<iframe id="pickFrame" name="pickFrame" class="pickDiv">').appendTo('body');
-	$('<iframe />').attr('src', ptl); 
+	$('<iframe id="pickFrame" name="pickFrame" class="pickDiv" src="' + ptl + ">').appendTo('body');
+	//$('<iframe />').attr('src', ptl); 
 	
 
 	//document.body.appendChild(theiFrame);
