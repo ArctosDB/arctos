@@ -152,6 +152,12 @@
 	<cfset title="Encumbrance Search Results">
 	<a href="Encumbrances.cfm">Back to Search Encumbrances</a>
 	<br>
+	<script>
+		function confirmRemoveSpecs(eid){
+			if (confirm("Are you sure you want to remove all specimens from this encumbrance?")){
+				document.location='/Encumbrances.cfm?action=removeAllSpecimens&encumbrance_id=' + eid;
+			}
+	</script>
 	<cfoutput>
 		<cfset s="select
 				encumbrance.encumbrance_id,
@@ -239,6 +245,9 @@
 				</span>
 				<a href="/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">[ See Specimens ]</a>
 				<a href="/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#">[ Delete Encumbered Specimens ]</a>
+				<span class="likeLink" onclick="confirmRemoveSpecs('#encumbrance_id#')">
+					[ Remove all specimens from this encumbrance ]
+				</span>
 			</form>
 			</div>
 			<cfset i = #i#+1>
@@ -246,31 +255,9 @@
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------->
-<cfif #Action# is "remListedItems">
+<cfif action is "removeAllSpecimens">
 	<cfoutput>
-	<cfif len(encumbrance_id) is 0>
-		Didn't get an encumbrance_id!!<cfabort>
-	</cfif>
-	<cfif len(table_name) is 0>
-		Didn't get specimens - abort<cfabort>
-	</cfif>
-
-	<cfquery name="encSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		DELETE FROM coll_object_encumbrance
-		WHERE
-		encumbrance_id = #encumbrance_id# AND
-		collection_object_id in
-		<cfif len(table_name) gt 0>
-			(select collection_object_id from #table_name#)
-		<cfelse>
-			(#collection_object_id#)
-		</cfif>
-	</cfquery>
-
-	<p>
-		All items listed below have been removed from this encumbrance.
-		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#&table_name=#table_name#&collection_object_id=#collection_object_id#">Return to Encumbrance.</a>
-	</p>
+		buh-bye
 </cfoutput>
 </cfif>
 
