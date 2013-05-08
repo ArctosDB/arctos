@@ -324,7 +324,7 @@ function pickedRelationship (id){
 	} else if (relatedTable=='publication'){
 		getPublication(dispInputName,idInputName,'','newMedia');
 	} else if (relatedTable=='accn'){
-		getAccn(dispInputName,idInputName,'newMedia');
+		getAccn2(dispInputName,idInputName,'newMedia');
 	} else if (relatedTable=='media'){
 		findMedia(dispInputName,idInputName);
 	} else if (relatedTable=='delete'){
