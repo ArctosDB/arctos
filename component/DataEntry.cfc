@@ -43,10 +43,11 @@
 				<cfquery name="valCodes" dbtype="query">
 					SELECT #columnName# as valCodes from valCT
 					WHERE collection_cde='#collection_cde#'
+					order by #columnName#
 				</cfquery>
 			  <cfelse>
 				<cfquery name="valCodes" dbtype="query">
-					SELECT  #columnName# as valCodes from valCT
+					SELECT  #columnName# as valCodes from valCT order by #columnName#
 				</cfquery>
 			</cfif>
 			<cfset result = QueryNew("V")>
@@ -89,10 +90,11 @@
 				<cfquery name="valCodes" dbtype="query">
 					SELECT #columnName# as valCodes from valCT
 					WHERE collection_cde='#collection_cde#'
+					order by #columnName#
 				</cfquery>
 			  <cfelse>
 				<cfquery name="valCodes" dbtype="query">
-					SELECT #columnName# as valCodes from valCT
+					SELECT #columnName# as valCodes from valCT order by #columnName#
 				</cfquery>
 			</cfif>
 			<cfset result = "unit - #isCtControlled.UNITS_CODE_TABLE#">
