@@ -1,9 +1,6 @@
 <cfset title="Manage Media">
 <cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
-<script>
-	
-</script>
 <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select media_relationship from ctmedia_relationship order by media_relationship
 </cfquery>
@@ -20,7 +17,7 @@
 	select media_license_id,display media_license from ctmedia_license order by display
 </cfquery>
 <!----------------------------------------------------------------------------------------->
-<cfif #action# is "saveEdit">
+<cfif action is "saveEdit">
 	<cfoutput>
 	<!--- update media --->
 	<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -146,7 +143,7 @@
 			<input type="hidden" id="media_id" name="media_id" value="#media_id#">
 			<label for="media_uri">Media URI (<a href="#media.media_uri#" target="_blank">open</a>)</label>
 			<input type="text" name="media_uri" id="media_uri" size="90" value="#media.media_uri#">
-			<cfif #media.media_uri# contains #application.serverRootUrl#>
+			<cfif media.media_uri contains application.serverRootUrl>
 				<span class="infoLink" onclick="generateMD5()">Generate Checksum</span>
 			</cfif>
 			<label for="preview_uri">Preview URI 
@@ -178,6 +175,7 @@
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctmedia_license');">Define</span>
 			<label for="relationships">Media Relationships | <span class="likeLink" onclick="manyCatItemToMedia('#media_id#')">Add multiple "shows cataloged_item" records</span></label>
+			<br>To edit, change relationship to "delete" then change to new type. Make sure to save when you're done.
 			<div id="relationships" style="border:1px dashed red;">
 				<cfset i=1>
 				<cfif relns.recordcount is 0>
