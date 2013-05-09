@@ -311,6 +311,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfquery dbtype="query" name="lt1k">
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters < 1000
 	</cfquery>
+	<cfquery dbtype="query" name="inbetween">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters between 10000 and 10000
+	</cfquery>
 	<cfquery dbtype="query" name="gt10k">
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
 	</cfquery>
@@ -333,6 +336,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 						<cfelse>
 							<li>No specimens have an error less than 1 kilometer.</li>
 						</cfif>
+							<li>#inbetween.c# specimens have an error between 1 and 10 kilometers.</li>
+						
 						<cfif gt10k.c gt 0>
 							<li>#gt10k.c# specimens have an error greater than 10 kilometers.</li>
 						<cfelse>
