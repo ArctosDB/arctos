@@ -937,13 +937,10 @@
 			<ul>
 				<li>Higher Geog: #locDet.higher_geog#</li>
 				<cfif len(locDet.locality_name) gt 0>
-					<li>Locality Name: #locDet.locality_name#</li>
+					<li>Locality Nickname: #locDet.locality_name#</li>
 				</cfif>
 				<cfif len(locDet.SPEC_LOCALITY) gt 0>
 					<li>Specific Locality: #locDet.SPEC_LOCALITY#</li>
-				</cfif>
-				<cfif len(locDet.locality_name) gt 0>
-					<li>Locality Name: #locDet.locality_name#</li>
 				</cfif>
 				<cfif len(locDet.ORIG_ELEV_UNITS) gt 0>
 					<li>Elevation: #locDet.MINIMUM_ELEVATION#-#locDet.MAXIMUM_ELEVATION# #locDet.ORIG_ELEV_UNITS#</li>
@@ -1567,7 +1564,7 @@ INSERT INTO geog_auth_rec (
 			<td>
 				 <div class="smaller">
 				 	<cfif len(spec_locality) gt 0>Specific Locality: #spec_locality#</cfif>
-				 	<cfif len(LOCALITY_NAME) gt 0><br>Locality Name: #LOCALITY_NAME#</cfif>
+				 	<cfif len(LOCALITY_NAME) gt 0><br>Locality Nickname: #LOCALITY_NAME#</cfif>
 				 	<cfif len(DEC_LAT) gt 0>
 					 	<br>Coordinates: #DEC_LAT# / #DEC_LONG#
 					 	<br>Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
@@ -1809,7 +1806,7 @@ INSERT INTO geog_auth_rec (
 				<td>
 					<div class="smaller">
 					 	<cfif len(spec_locality) gt 0>Specific Locality: #spec_locality#</cfif>
-					 	<cfif len(LOCALITY_NAME) gt 0><br>Locality Name: #LOCALITY_NAME#</cfif>
+					 	<cfif len(LOCALITY_NAME) gt 0><br>Locality Nickname: #LOCALITY_NAME#</cfif>
 					 	<cfif len(DEC_LAT) gt 0>
 						 	<br>Coordinates: #DEC_LAT# / #DEC_LONG#
 						 	<br>Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#

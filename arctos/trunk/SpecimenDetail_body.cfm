@@ -325,13 +325,13 @@
 						</cfif>
 						<cfif len(locality_name) gt 0>
 							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Locality Name:</td>
+								<td id="SDCellLeft" class="innerDetailLabel">Locality Nickname:</td>
 								<td id="SDCellRight">#locality_name#</td>
 							</tr>
 						</cfif>
 						<cfif len(collecting_event_name) gt 0>
 							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Event Name:</td>
+								<td id="SDCellLeft" class="innerDetailLabel">Event Nickname:</td>
 								<td id="SDCellRight">#collecting_event_name#</td>
 							</tr>
 						</cfif>

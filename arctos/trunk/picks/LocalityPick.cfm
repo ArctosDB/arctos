@@ -88,7 +88,7 @@
           			<span style="font-size:.7em">#higher_geog#</span>
 					<br>#localityResults.spec_locality#
 					<cfif len(locality_name) gt 0>
-						<br>Locality Name: #locality_name#
+						<br>Locality Nickname: #locality_name#
 					</cfif>
 					<cfif len(geolAtts) gt 0> [#geolAtts#] </cfif>
 					<br>

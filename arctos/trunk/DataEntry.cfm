@@ -541,7 +541,7 @@
 										<td colspan="2">
 											<table>
 												<tr>
-													<td align="right"><span class="f11a">Event Name</span></td>
+													<td align="right"><span class="f11a">Event Nickname</span></td>
 													<td>
 														<input type="text" name="collecting_event_name" class="" id="collecting_event_name" size="60"
 															onchange="findCollEvent('collecting_event_id','dataEntry','verbatim_locality',this.value);">
@@ -616,7 +616,7 @@
 										<td colspan="2">
 											<table>
 												<tr>
-													<td align="right"><span class="f11a">Locality Name</span></td>
+													<td align="right"><span class="f11a">Locality Nickname</span></td>
 													<td>
 														<input type="text" name="locality_name" class="" id="locality_name" size="60"
 															onchange="LocalityPick('locality_id','spec_locality','dataEntry',this.value);">
