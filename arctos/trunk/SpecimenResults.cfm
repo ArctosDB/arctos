@@ -426,31 +426,34 @@ If your item needs to be sorted in a special way, then do that here. --->
 				</tr>
 			</table>
 		</td>
+		<td>
+			<tr>
+				<td>
+					<label for="">&nbsp;</label>
+					<input type="hidden" name="killRowList" id="killRowList">
+					<span id="removeChecked"
+						style="display:none;"
+						class="controlButton redButton"
+						onclick="removeItems();">Remove&nbsp;Checked&nbsp;Rows</span>
+				</td>
+				<td>
+					<label for="">&nbsp;</label>
+					<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
+				</td>
+				<td>
+					<label for="">&nbsp;</label>
+					<span class="controlButton"
+						onclick="window.open('/SpecimenResultsDownload.cfm?tableName=#session.SpecSrchTab#','_blank');">Download</span>
+				</td>
+				<td>
+					<label for="">&nbsp;</label>
+					<span class="controlButton"
+						onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
+				</td>
+			</tr>
+		</td>
 	
-		<td><div style="width:100px;">&nbsp;</div></td>
-		<td>
-			<label for="">&nbsp;</label>
-			<input type="hidden" name="killRowList" id="killRowList">
-			<span id="removeChecked"
-				style="display:none;"
-				class="controlButton redButton"
-				onclick="removeItems();">Remove&nbsp;Checked&nbsp;Rows</span>
-		</td>
-		<td>
-			<label for="">&nbsp;</label>
-			<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
-			<!----onclick="openCustomize();"---->
-		</td>
-		<td>
-			<label for="">&nbsp;</label>
-			<span class="controlButton"
-				onclick="window.open('/SpecimenResultsDownload.cfm?tableName=#session.SpecSrchTab#','_blank');">Download</span>
-		</td>
-		<td>
-			<label for="">&nbsp;</label>
-			<span class="controlButton"
-				onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
-		</td>
+		
 		<td nowrap="nowrap">
 			<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
 				<label for="goWhere">Manage...</label>
