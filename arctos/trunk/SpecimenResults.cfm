@@ -348,14 +348,18 @@ If your item needs to be sorted in a special way, then do that here. --->
 						<cfset sp=''>
 						<cfloop query="willItRangeMap">
 							<cfif listlen(scientific_name," ") is 1>
-								<cfset gen=listappend(gen,scientific_name)>
+								<cfif not listcontains(gen,scientific_name)>
+									<cfset gen=listappend(gen,scientific_name)>
+								</cfif>
 							<cfelseif listlen(scientific_name," ") gte 2>
-								<cfset gen=listappend(gen,listgetat(scientific_name,1," "))>
-								<cfset sp=listappend(gen,listgetat(scientific_name,2," "))>
+								<cfif not listcontains(gen,listgetat(scientific_name,1," "))>
+									<cfset gen=listappend(gen,listgetat(scientific_name,1," "))>
+								</cfif>
+								<cfif not listcontains(sp,listgetat(scientific_name,2," "))>
+									<cfset sp=listappend(sp,listgetat(scientific_name,2," "))>
+								</cfif>
 							</cfif>
 						</cfloop>
-						<cfset gen=listRemoveDupes(gen)>
-						<cfset sp=listRemoveDupes(sp)>
 						<cfif listlen(gen) is 1 and listlen(sp) is 1>
 							<li><a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">Map these results in BerkeleyMapper+Rangemaps</a></li>
 						</cfif>
