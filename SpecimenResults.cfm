@@ -346,9 +346,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 			</td>
 			<td>
 				<a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">BerkeleyMapper</a>
-				
-				<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">BerkeleyMapper+Rangemaps</a>
-				<a href="/bnhmMaps/kml.cfm" target="_blank">Google Earth/Maps</a>
+				<br><a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">BerkeleyMapper+Rangemaps</a>
+				<br><a href="/bnhmMaps/kml.cfm" target="_blank">Google Earth/Maps</a>
 				
 			</td>
 		</tr>
