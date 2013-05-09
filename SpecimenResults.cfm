@@ -311,7 +311,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters < 1000
 	</cfquery>
 	<cfquery dbtype="query" name="inbetween">
-		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters between 10000 and 10000
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters between 1000 and 10000
 	</cfquery>
 	<cfquery dbtype="query" name="gt10k">
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
