@@ -350,7 +350,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 							<cfif listlen(scientific_name," ") is 1>
 								<cfset gen=listappend(gen,scientific_name)>
 							<cfelseif listlen(scientific_name," ") gte 2>
-								<cfset gen=listappend(gen,listgetat(scientific_name,1," ")>
+								<cfset gen=listappend(gen,listgetat(scientific_name,1," "))>
 								<cfset sp=listappend(gen,listgetat(scientific_name,2," "))>
 							</cfif>
 						</cfloop>
