@@ -322,6 +322,14 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfquery dbtype="query" name="err_gt10000">
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
 	</cfquery>
+	
+	<cfquery dbtype="query" name="smap">
+		select dec_lat & ',' & dec_long as coords from summary where dec_lat is not null group by  dec_lat,dec_long
+	</cfquery>
+	
+	<img src="http://maps.googleapis.com/maps/api/staticmap??maptype=roadmap&zoom=2&size=150x150&sensor=false&markers=color:red|size:tiny|label:X|#valuelist(smap.coords,'|')#">
+	
+
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
 	<table>
 		<tr>
