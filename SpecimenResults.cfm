@@ -55,7 +55,7 @@ jQuery( function($) {
 			
 			  	var ptl='/component/functions.cfc?method=mapUserSpecResults;
 			    jQuery.get(ptl, function(data){
-					jQuery("#mapGoHere).html(data);
+					jQuery("##mapGoHere").html(data);
 				});
 	
 	
