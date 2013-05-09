@@ -425,7 +425,7 @@
 		</cfquery>
 		<cfset obj = CreateObject("component","functions")>
 		<!--- build and return a HTML block for a map ---->
- 		<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#coords#")#'>
+ 		<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#summary.coords#")#'>
 		<cfset params=params & '&maptype=roadmap&zoom=2&size=200x200'>
 		<cfset signedURL = obj.googleSignURL(
 			urlPath="/maps/api/staticmap",
