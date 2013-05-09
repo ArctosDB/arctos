@@ -540,8 +540,10 @@ If your item needs to be sorted in a special way, then do that here. --->
 				<input type="button" value="Go" class="lnkBtn" onClick="reporter();">
 			</cfif>
 		</td>
-		<td><a href="SpecimenResultsHTML.cfm?#mapurl#" class="likeLink">&nbsp;&nbsp;&nbsp;Problems viewing this page? Click for HTML version</a></td>
-		<td><a class="likeLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a></td>
+		<td>
+			<a href="SpecimenResultsHTML.cfm?#mapurl#" class="likeLink">&nbsp;&nbsp;&nbsp;Problems viewing this page? Click for HTML version</a>
+			<br><a class="likeLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>
+		</td>
 	</tr>
 </table>
 </div>
