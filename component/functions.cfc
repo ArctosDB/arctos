@@ -435,6 +435,8 @@
 		<cfdump var=#signedURL#>
 		<cfreturn mapImage>
 	<cfcatch>
+	
+		<cfdump var=#cfcatch#>
 		<cfreturn #cfcatch.detail#>
 	</cfcatch>
 	</cftry>
