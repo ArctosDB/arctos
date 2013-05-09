@@ -322,6 +322,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfquery dbtype="query" name="err_gt10000">
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
 	</cfquery>
+	<cfdump var=#err_gt10000#>
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
 	<table>
 		<tr>
@@ -341,6 +342,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 				<div style="padding-left:2em;">
 					<ul>
 						<li><a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">Map these results in BerkeleyMapper</a></li>
+						<!--- far from perfect, but see if we can prevent some frustration by sending fewer bound-to-fail queries to rangemaps ---->
 						<cfquery dbtype="query" name="willItRangeMap">
 							select scientific_name from summary group by scientific_name
 						</cfquery>
