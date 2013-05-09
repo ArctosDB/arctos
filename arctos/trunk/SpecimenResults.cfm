@@ -257,9 +257,9 @@ function removeHelpDiv() {
 	 select 
  		collection_object_id,
  		dec_lat, 
- 		decode(coordinateuncertaintyinmeters,
+ 		to_number(decode(coordinateuncertaintyinmeters,
 			0,NULL,
-			coordinateuncertaintyinmeters) coordinateuncertaintyinmeters
+			coordinateuncertaintyinmeters)) coordinateuncertaintyinmeters
 	from 
 		#session.SpecSrchTab#
 	group by 
