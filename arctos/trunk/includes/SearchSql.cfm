@@ -1140,11 +1140,11 @@
 	<cfif not isdefined("max_error_units") or len(max_error_units) is 0>
 		<cfset max_error_units='m'>
 	</cfif>
-	<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) and ((not isdefined("max_max_error")) or len(max_max_error) gt 0>
+	<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) and ((not isdefined("max_max_error")) or len(max_max_error) gt 0)>
 		got min, not max - set max to some improbably large number
 		<cfset max_max_error=999999999999999999999999999>
 	</cfif>
-	<cfif (isdefined("max_max_error") AND len(max_max_error) gt 0) and ((not isdefined("min_max_error")) or len(min_max_error) gt 0>
+	<cfif (isdefined("max_max_error") AND len(max_max_error) gt 0) and ((not isdefined("min_max_error")) or len(min_max_error) gt 0)>
 		got max , not min - set min to some 0
 		<cfset max_max_error=0>
 	</cfif>
