@@ -323,7 +323,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 	</cfquery>
 	<table>
 		<tr>
-			<td width="50%" valign="top">
+			<td>
 				<div style="border:1px solid green;">
 					Found #summary.recordcount# specimens.
 					<br>#willnotmap.c# specimens have no coordinates and cannot be mapped.
@@ -344,7 +344,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 					</cfif>
 				</div>
 			</td>
-			<td width="50%" valign="top">
+			<td >
 				<span class="controlButton"	onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
 				<br><span class="controlButton" onclick="window.open('/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#','_blank');">BerkeleyMapper+Rangemaps</span>
 				<br><span class="controlButton" onclick="window.open('/bnhmMaps/kml.cfm','_blank');">Google Earth/Maps</span>
