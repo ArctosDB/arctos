@@ -431,12 +431,8 @@
 			urlPath="/maps/api/staticmap",
 			urlParams="#params#")>
 		<cfset mapImage='<img src="#signedURL#" alt="[ map of your query ]">'>
-		
-		<cfdump var=#signedURL#>
 		<cfreturn mapImage>
 	<cfcatch>
-	
-		<cfdump var=#cfcatch#>
 		<cfreturn #cfcatch.detail#>
 	</cfcatch>
 	</cftry>
