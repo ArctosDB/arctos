@@ -209,7 +209,8 @@ function removeHelpDiv() {
 	<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			collection_object_id,
- 			dec_lat, 
+ 			dec_lat,
+			dec_long,
  			to_number(decode(coordinateuncertaintyinmeters,
 				0,NULL,
 				coordinateuncertaintyinmeters)) coordinateuncertaintyinmeters,
