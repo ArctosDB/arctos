@@ -332,7 +332,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with not indication of precision.
+						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
 					</li>
 					<li>
 						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error less than 100 meters.
