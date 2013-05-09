@@ -308,7 +308,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
-		<cfdump var=#mappable#>
 
 	<cfquery dbtype="query" name="willnotmap">
 		select count(*) c from mappable where dec_lat is null
@@ -328,22 +327,25 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<td>
 				<div style="border:1px solid green;">
 					<strong>Found #summary.recordcount# specimens.</strong>
-					<br>#willnotmap.c# specimens have no coordinates and cannot be mapped.
-					<cfif noerr.c gt 0>
-						<br>#noerr.c# specimens do not include coordinate error.
-					<cfelse>
-						<br>All specimens include coordinate error.
-					</cfif>
-					<cfif lt1k.c gt 0>
-						<br>#lt1k.c# specimens have an error less than 1 kilometer.
-					<cfelse>
-						<br>No specimens have an error less than 1 kilometer.
-					</cfif>
-					<cfif gt10k.c gt 0>
-						<br>#gt10k.c# specimens have an error greater than 10 kilometers.
-					<cfelse>
-						<br>No specimens have an error greater than 10 kilometers.
-					</cfif>
+					<br>#willnotmap.c# specimens have no coordinates and cannot be mapped. Of the remainder:
+					<ul>
+						<cfif noerr.c gt 0>
+							<li>#noerr.c# specimens do not include coordinate error.</li>
+						<cfelse>
+							<li>All specimens include coordinate error.</li>
+						</cfif>
+						<cfif lt1k.c gt 0>
+							<li>#lt1k.c# specimens have an error less than 1 kilometer.</li>
+						<cfelse>
+							<li>No specimens have an error less than 1 kilometer.</li>
+						</cfif>
+						<cfif gt10k.c gt 0>
+							<li>#gt10k.c# specimens have an error greater than 10 kilometers.</li>
+						<cfelse>
+							<li>No specimens have an error greater than 10 kilometers.</li>
+						</cfif>
+					</ul>
+					
 				</div>
 			</td>
 			<td>
