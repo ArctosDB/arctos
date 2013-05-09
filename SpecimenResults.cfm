@@ -362,6 +362,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 <table border="0" width="100%">
 	<tr>
 		<td>
+		
 		<cfset numPages= ceiling(summary.recordcount/session.displayrows)>
 		<cfset loopTo=numPages-2>
 		<label for="page_record">Records...</label>
@@ -378,8 +379,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<!--- all records --->
 			<option value="1,#summary.recordcount#">1 - #summary.recordcount#</option>
 		</select>
-		</td>
-		<td nowrap="nowrap">
+		
 			<label for="orderBy1">Order by...</label>
 			<select name="orderBy1" id="orderBy1" size="1" onchange="changeresultSort(this.value)">
 				<!--- prepend their CustomID and integer sort of their custom ID to the list --->
@@ -391,16 +391,14 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option <cfif #session.result_sort# is #i#>selected="selected" </cfif>value="#i#">#i#</option>
 				</cfloop>
 			</select>
-		</td>
-		<td>
+	
 			<label for="orderBy2">...then order by</label>
 			<select name="orderBy2" id="orderBy2" size="1">
 				<cfloop list="#resultList#" index="i">
 					<option value="#i#">#i#</option>
 				</cfloop>
 			</select>
-		</td>
-		<td>
+		
 			<label for="">&nbsp;</label>
 			<span class="controlButton"
 				onclick="var pr=document.getElementById('page_record');
