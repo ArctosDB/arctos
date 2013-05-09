@@ -321,25 +321,37 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfquery dbtype="query" name="gt10k">
 		select count(*) c from mappable where coordinateuncertaintyinmeters > 10000
 	</cfquery>
-	<div style="border:1px solid green;">
-		Found #summary.recordcount# specimens.
-		<br>#willnotmap.c# specimens have no coordinates and cannot be mapped.
-		<cfif noerr.c gt 0>
-			<br>#noerr.c# specimens do not include coordinate error.
-		<cfelse>
-			<br>All specimens include coordinate error.
-		</cfif>
-		<cfif lt1k.c gt 0>
-			<br>#lt1k.c# specimens have an error of less than 1 kilometer.
-		<cfelse>
-			<br>No specimens have an error of less than 1 kilometer.
-		</cfif>
-		<cfif gt10k.c gt 0>
-			<br>#gt10k.c# specimens have an error of greater than 10 kilometers.
-		<cfelse>
-			<br>No specimens have an error of greater than 10 kilometers.
-		</cfif>
-	</div>
+	<table>
+		<tr>
+			<td width="50%" valign="top">
+				<div style="border:1px solid green;">
+					Found #summary.recordcount# specimens.
+					<br>#willnotmap.c# specimens have no coordinates and cannot be mapped.
+					<cfif noerr.c gt 0>
+						<br>#noerr.c# specimens do not include coordinate error.
+					<cfelse>
+						<br>All specimens include coordinate error.
+					</cfif>
+					<cfif lt1k.c gt 0>
+						<br>#lt1k.c# specimens have an error of less than 1 kilometer.
+					<cfelse>
+						<br>No specimens have an error of less than 1 kilometer.
+					</cfif>
+					<cfif gt10k.c gt 0>
+						<br>#gt10k.c# specimens have an error of greater than 10 kilometers.
+					<cfelse>
+						<br>No specimens have an error of greater than 10 kilometers.
+					</cfif>
+				</div>
+			</td>
+			<td width="50%" valign="top">
+				<span class="controlButton"	onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
+				<br><span class="controlButton" onclick="window.open('/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#','_blank');">BerkeleyMapper+Rangemaps</span>
+				<br><span class="controlButton" onclick="window.open('/bnhmMaps/kml.cfm','_blank');">Google Earth/Maps</span>
+			</td>
+		</tr>
+	</table>
+	
 	
 	<!----------
 	
@@ -356,11 +368,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 		dec_lat
 		----------->
 		
-			<span class="controlButton"	onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
-			<span class="controlButton" onclick="window.open('/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#','_blank');">BerkeleyMapper+Rangemaps</span>
-			<span class="controlButton" onclick="window.open('/bnhmMaps/kml.cfm','_blank');">Google Earth/Maps</span>
-			<a href="SpecimenResultsHTML.cfm?#mapurl#" class="likeLink">&nbsp;&nbsp;&nbsp;Problems viewing this page? Click for HTML version</a>
-			&nbsp;&nbsp;&nbsp;<a class="likeLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>
+			
+			
+			
 <div style="border:2px solid blue;" id="ssControl">
 <cfif isdefined("transaction_id")>
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
@@ -528,6 +538,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 				<input type="button" value="Go" class="lnkBtn" onClick="reporter();">
 			</cfif>
 		</td>
+		<td><a href="SpecimenResultsHTML.cfm?#mapurl#" class="likeLink">&nbsp;&nbsp;&nbsp;Problems viewing this page? Click for HTML version</a></td>
+		<td><a class="likeLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a></td>
 	</tr>
 </table>
 </div>
