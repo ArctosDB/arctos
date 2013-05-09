@@ -323,19 +323,16 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<table>
 		<tr>
 			<td>
-				<div style="border:1px solid green;">
-					<strong>Found #summary.recordcount# specimens.</strong>
-					<ul>
-						<li><strong>#numWillNotMap#</strong> specimens do not have coordinate and will not map.</li>
-						<li><strong>#noerr.c#</strong> specimens have no indication of precision.</li>
-						<li><strong>#err_lt100.c#</strong> specimens have an error less than 100 meters.</li>
-						<li><strong>#err_100_1000.c#</strong> specimens have an error between 100 meters and 1 kilometer.</li>
-						<li><strong>#err_1000_10000.c#</strong> specimens have an error between 1 and 10 kilometers.</li>
-						<li><strong>#err_gt10000.c#</strong> specimens have an error greater than 10 kilometers.</li>
-						
-					</ul>
+				<strong>Found #summary.recordcount# specimens.</strong>
+				<ul>
+					<li><strong>#numWillNotMap#</strong> specimens do not have coordinate and will not map.</li>
+					<li><strong>#noerr.c#</strong> specimens have no indication of precision.</li>
+					<li><strong>#err_lt100.c#</strong> specimens have an error less than 100 meters.</li>
+					<li><strong>#err_100_1000.c#</strong> specimens have an error between 100 meters and 1 kilometer.</li>
+					<li><strong>#err_1000_10000.c#</strong> specimens have an error between 1 and 10 kilometers.</li>
+					<li><strong>#err_gt10000.c#</strong> specimens have an error greater than 10 kilometers.</li>
 					
-				</div>
+				</ul>
 			</td>
 			<td>
 				<div style="padding-left:2em;">
