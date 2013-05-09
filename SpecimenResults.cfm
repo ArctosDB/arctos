@@ -325,7 +325,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 	</cfquery>
 	
 	<cfquery dbtype="query" name="smap">
-		select cast(dec_lat as varchar)  + ',' + cast(dec_long as varchar)  as coords from summary where dec_lat is not null group by  dec_lat,dec_long
+		select cast(round(dec_lat,2) as varchar)  + ',' + cast(round(dec_long,2) as varchar)  as coords from summary where dec_lat is not null group by  dec_lat,dec_long
 	</cfquery>
 	
 	<img src="http://maps.googleapis.com/maps/api/staticmap??maptype=roadmap&zoom=2&size=150x150&sensor=false&markers=color:red|size:tiny|label:X|#valuelist(smap.coords,'|')#">
