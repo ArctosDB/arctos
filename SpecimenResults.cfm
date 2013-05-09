@@ -207,7 +207,14 @@ function removeHelpDiv() {
 	</cfif>
 </form>
 	<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select distinct collection_object_id from #session.SpecSrchTab#
+		select
+			collection_object_id,
+ 			dec_lat, 
+ 			to_number(decode(coordinateuncertaintyinmeters,
+				0,NULL,
+				coordinateuncertaintyinmeters)) coordinateuncertaintyinmeters
+		from 
+			#session.SpecSrchTab#
 	</cfquery>
 <cfif summary.recordcount is 0>
 	<script>
@@ -253,21 +260,6 @@ function removeHelpDiv() {
 <script>
 	hidePageLoad();
 </script>
-<cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	 select 
- 		collection_object_id,
- 		dec_lat, 
- 		to_number(decode(coordinateuncertaintyinmeters,
-			0,NULL,
-			coordinateuncertaintyinmeters)) coordinateuncertaintyinmeters
-	from 
-		#session.SpecSrchTab#
-	group by 
-		coordinateuncertaintyinmeters,
-		collection_object_id,
-		dec_lat
-</cfquery>
-
 <form name="saveme" id="saveme" method="post" action="saveSearch.cfm" target="myWin">
 	<input type="hidden" name="returnURL" value="#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#" />
 </form>
@@ -310,16 +302,16 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
 
 	<cfquery dbtype="query" name="willnotmap">
-		select count(*) c from mappable where dec_lat is null
+		select count(*) c from summary where dec_lat is null
 	</cfquery>
 	<cfquery dbtype="query" name="noerr">
-		select count(*) c from mappable where coordinateuncertaintyinmeters is null
+		select count(*) c from summary where coordinateuncertaintyinmeters is null
 	</cfquery>
 	<cfquery dbtype="query" name="lt1k">
-		select count(*) c from mappable where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters < 1000
+		select count(*) c from summary where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters < 1000
 	</cfquery>
 	<cfquery dbtype="query" name="gt10k">
-		select count(*) c from mappable where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
+		select count(*) c from summary where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
 	</cfquery>
 	<cfdump var=#gt10k#>
 	<table>
