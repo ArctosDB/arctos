@@ -301,25 +301,27 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
 	<cfdump var=#summary#>
-	<cfquery dbtype="query" name="willnotmap">
-		select count(*) c from summary where dec_lat is null
+
+	<cfquery dbtype="query" name="willmap">
+		select * from summary where dec_lat is not null
 	</cfquery>
 	<cfquery dbtype="query" name="noerr">
-		select count(*) c from summary where coordinateuncertaintyinmeters is null
+		select count(*) c from willmap where coordinateuncertaintyinmeters is null
 	</cfquery>
 	<cfquery dbtype="query" name="lt1k">
-		select count(*) c from summary where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters < 1000
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters < 1000
 	</cfquery>
 	<cfquery dbtype="query" name="gt10k">
-		select count(*) c from summary where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
 	</cfquery>
+	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
 	<cfdump var=#gt10k#>
 	<table>
 		<tr>
 			<td>
 				<div style="border:1px solid green;">
 					<strong>Found #summary.recordcount# specimens.</strong>
-					<br>#willnotmap.c# specimens have no coordinates and cannot be mapped. Of the remainder:
+					<br>#numWillNotMap# specimens do not have coordinate and will not map. Of the remainder:
 					<ul>
 						<cfif noerr.c gt 0>
 							<li>#noerr.c# specimens do not include coordinate error.</li>
