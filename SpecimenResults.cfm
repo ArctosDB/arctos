@@ -321,6 +321,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfquery dbtype="query" name="gt10k">
 		select count(*) c from mappable where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
 	</cfquery>
+	<cfdump var=#gt10k#>
 	<table>
 		<tr>
 			<td>
