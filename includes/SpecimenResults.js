@@ -466,9 +466,6 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('VERBATIMCOORDINATES')> -1) {
 				theInnerHtml += '<th>Coordinates</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
-				theInnerHtml += '<th>Max&nbsp;Error&nbsp;(m)</th>';
-			}
 			if (data.COLUMNLIST[0].indexOf('DATUM')> -1) {
 				theInnerHtml += '<th>Datum</th>';
 			}
@@ -599,6 +596,9 @@ function success_getSpecResultsData(result){
 			}
 			if (data.COLUMNLIST[0].indexOf('DEC_LONG')> -1) {
 				theInnerHtml += '<th>Dec.&nbsp;Long.</th>';
+			}
+			if (data.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
+				theInnerHtml += '<th>Max&nbsp;Error&nbsp;(m)</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('COLLECTING_EVENT_ID') > -1) {
 				theInnerHtml += '<th>CollectingEventId</th>';
@@ -735,9 +735,6 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('VERBATIMCOORDINATES')> -1) {
 					theInnerHtml += '<td>' + cordFormat(data.VERBATIMCOORDINATES[i]) + '</td>';
-				}
-				if (data.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
-					theInnerHtml += '<td>' + data.COORDINATEUNCERTAINTYINMETERS[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('DATUM')> -1) {
 					theInnerHtml += '<td>' + spaceStripper(data.DATUM[i]) + '</td>';
@@ -877,6 +874,9 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('DEC_LONG')> -1) {
 					theInnerHtml += '<td style="font-size:small">' + data.DEC_LONG[i] + '</td>';
+				}
+				if (data.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
+					theInnerHtml += '<td>' + data.COORDINATEUNCERTAINTYINMETERS[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('COLLECTING_EVENT_ID')> -1) {
 					theInnerHtml += '<td>' + data.COLLECTING_EVENT_ID[i] + '</td>';
