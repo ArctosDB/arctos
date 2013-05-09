@@ -320,7 +320,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 			coordinateuncertaintyinmeters > 1000 and coordinateuncertaintyinmeters <=10000
 	</cfquery>
 	<cfquery dbtype="query" name="err_gt10000">
-		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
+		select val(count(*)) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
 	</cfquery>
 	<cfdump var=#err_gt10000#>
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
