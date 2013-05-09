@@ -346,9 +346,11 @@ If your item needs to be sorted in a special way, then do that here. --->
 			</td>
 			<td>
 				<div style="padding-left:2em;">
-					<a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">BerkeleyMapper</a>
-					<br><a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">BerkeleyMapper+Rangemaps</a>
-					<br><a href="/bnhmMaps/kml.cfm" target="_blank">Google Earth/Maps</a>
+					<ul>
+						<li><a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">BerkeleyMapper</a></li>
+						<li><a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">BerkeleyMapper+Rangemaps</a></li>
+						<li><a href="/bnhmMaps/kml.cfm" target="_blank">Google Earth/Maps</a></li>
+					</ul>
 				</div>
 			</td>
 		</tr>
@@ -377,7 +379,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 <cfif isdefined("transaction_id")>
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
 </cfif>
-<table border="0">
+<table border="0" width="100%">
 	<tr>
 		<td>
 		<cfset numPages= ceiling(summary.recordcount/session.displayrows)>
