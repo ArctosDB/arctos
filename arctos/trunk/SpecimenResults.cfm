@@ -344,10 +344,12 @@ If your item needs to be sorted in a special way, then do that here. --->
 					</cfif>
 				</div>
 			</td>
-			<td >
-				<span class="controlButton"	onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
-				<br><span class="controlButton" onclick="window.open('/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#','_blank');">BerkeleyMapper+Rangemaps</span>
-				<br><span class="controlButton" onclick="window.open('/bnhmMaps/kml.cfm','_blank');">Google Earth/Maps</span>
+			<td>
+				<a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">BerkeleyMapper</a>
+				
+				<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">BerkeleyMapper+Rangemaps</a>
+				<a href="/bnhmMaps/kml.cfm" target="_blank">Google Earth/Maps</a>
+				
 			</td>
 		</tr>
 	</table>
