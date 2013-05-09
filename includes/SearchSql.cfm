@@ -1139,8 +1139,6 @@
 	<cfif not isdefined("max_error_units") or len(max_error_units) is 0>
 		<cfset max_error_units='m'>
 	</cfif>
-	
-	
 	<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) and ((not isdefined("max_max_error")) or len(max_max_error) eq 0)>
 		<!-------->
 		<cfdump var=#url#>
