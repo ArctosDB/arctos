@@ -300,7 +300,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
-	<cfdump var=#summary#>
 
 	<cfquery dbtype="query" name="willmap">
 		select * from summary where dec_lat is not null
@@ -318,7 +317,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
 	</cfquery>
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
-	<cfdump var=#gt10k#>
 	<table>
 		<tr>
 			<td>
