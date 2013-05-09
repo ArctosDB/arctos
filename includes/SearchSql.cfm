@@ -1151,8 +1151,8 @@
 		<!-- return only records with coordinates BUT with no error ---->
 		<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat is not null and (#session.flatTableName#.COORDINATEUNCERTAINTYINMETERS is null OR #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS=0)">
 	<cfelse>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS between
-			to_meters(#min_max_error#,'#max_error_units#') and to_meters(#max_max_error#,'#max_error_units#')">
+		<cfset basQual = " #basQual# AND #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS 
+			>=to_meters(#min_max_error#,'#max_error_units#') and #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS < to_meters(#max_max_error#,'#max_error_units#')">
 	</cfif>
 </cfif>
 <cfif isdefined("chronological_extent") AND len(chronological_extent) gt 0>
