@@ -309,8 +309,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
 	
-	<cfquery dbtype="query" name="willmap">
-		select count(*) c from mappable where dec_lat is not null
+	<cfquery dbtype="query" name="willnotmap">
+		select count(*) c from mappable where dec_lat is null
 	</cfquery>
 	<cfquery dbtype="query" name="noerr">
 		select count(*) c from mappable where coordinateuncertaintyinmeters is null
@@ -322,11 +322,23 @@ If your item needs to be sorted in a special way, then do that here. --->
 		select count(*) c from mappable where coordinateuncertaintyinmeters > 10000
 	</cfquery>
 	<br>Found #summary.recordcount# specimens.
-	<br>#willmap.c# specimens have coordinates.
-	<br>#noerr.c# specimens do not include coordinate error.
+	<br>#willnotmap.c# specimens have no coordinates and cannot be mapped.
+	<cfif noerr.c gt 0>
+		<br>#noerr.c# specimens do not include coordinate error.
+	<cfelse>
+		<br>All specimens include coordinate error.
+	</cfif>
+	<cfif lt1k.c gt 0>
+		<br>#lt1k.c# specimens have an error of less than 1 kilometer.
+	<cfelse>
+		<br>No specimens have an error of less than 1 kilometer.
+	</cfif>
+	<cfif gt10k.c gt 0>
+		<br>#gt10k.c# specimens have an error of greater than 10 kilometers.
+	<cfelse>
+		<br>No specimens have an error of greater than 10 kilometers.
+	</cfif>
 	
-	<br>#lt1k.c# specimens have an error of less than 1 kilometer.
-	<br>#gt10k.c# specimens have an error of greater than 10 kilometers.
 	
 	<!----------
 	
