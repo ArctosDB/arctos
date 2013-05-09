@@ -50,17 +50,10 @@ jQuery( function($) {
 		document.body.appendChild(theDiv);
 		viewport.init("##browseDiv");
 	});
-
-
-			
-			  	var ptl='/component/functions.cfc?method=mapUserSpecResults&returnformat=plain';
-			    jQuery.get(ptl, function(data){
-					jQuery("##mapGoHere").html(data);
-				});
-	
-	
-	
-	
+  	var ptl='/component/functions.cfc?method=mapUserSpecResults&returnformat=plain';
+    jQuery.get(ptl, function(data){
+		jQuery("##mapGoHere").html(data);
+	});
 });
 function closeBrowse(){
 	var theDiv = document.getElementById('browseDiv');
@@ -335,7 +328,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
 	</cfquery>
 	
-	<div id="mapGoHere"></div>
+	
 
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
 	<table>
@@ -396,6 +389,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 						</ul>
 					</cfif>
 				</div>
+			</td>
+			<td align="right">
+				<div id="mapGoHere"></div>
 			</td>
 		</tr>
 	</table>		
