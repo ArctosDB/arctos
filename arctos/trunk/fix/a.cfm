@@ -2,7 +2,7 @@
 <cffunction name="toRad">
 	<cfargument name="n" required="yes">
 	
-	<cfreturn n * 180 / pi>
+	<cfreturn n * 180 / pi()>
 </cffunction>
 
 <cfset x=toRad(30)>
