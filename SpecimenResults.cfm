@@ -329,10 +329,10 @@ If your item needs to be sorted in a special way, then do that here. --->
 				<strong>Found #summary.recordcount# specimens.</strong>
 				<ul>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#?isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinate and will not map.
+						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinate and will not map.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#?min_max_error=NULL">#val(noerr.c)# specimens</a> have no indication of precision.
+						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have no indication of precision.
 					</li>
 					<li><strong>#val(err_lt100.c)#</strong> specimens have an error less than 100 meters.</li>
 					<li><strong>#val(err_100_1000.c)#</strong> specimens have an error between 100 meters and 1 kilometer.</li>
