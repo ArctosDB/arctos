@@ -1140,17 +1140,11 @@
 		<cfset max_error_units='m'>
 	</cfif>
 	
-	
-	http://arctos-test.tacc.utexas.edu/SpecimenResults.cfm?&
-	taxon_term=odobenus&taxon_scope=currentID_like&ShowObservations=false&
-	
-	min_max_error=100&max_max_error=1000&debug=true
-	
-	
+
 	
 	<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) and ((not isdefined("max_max_error")) or len(max_max_error) gt 0)>
 		<!-------->
-		
+		<cfdump var=#url#>
 		got min, not max - set max to some improbably large number
 		<cfset max_max_error=999999999999999999999999999>
 	<cfelseif (isdefined("max_max_error") AND len(max_max_error) gt 0) and ((not isdefined("min_max_error")) or len(min_max_error) gt 0)>
