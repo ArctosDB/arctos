@@ -325,7 +325,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 		<tr>
 			<td>
 				<div style="border:1px solid green;">
-					Found #summary.recordcount# specimens.
+					<strong>Found #summary.recordcount# specimens.</strong>
 					<br>#willnotmap.c# specimens have no coordinates and cannot be mapped.
 					<cfif noerr.c gt 0>
 						<br>#noerr.c# specimens do not include coordinate error.
@@ -333,14 +333,14 @@ If your item needs to be sorted in a special way, then do that here. --->
 						<br>All specimens include coordinate error.
 					</cfif>
 					<cfif lt1k.c gt 0>
-						<br>#lt1k.c# specimens have an error of less than 1 kilometer.
+						<br>#lt1k.c# specimens have an error less than 1 kilometer.
 					<cfelse>
-						<br>No specimens have an error of less than 1 kilometer.
+						<br>No specimens have an error less than 1 kilometer.
 					</cfif>
 					<cfif gt10k.c gt 0>
-						<br>#gt10k.c# specimens have an error of greater than 10 kilometers.
+						<br>#gt10k.c# specimens have an error greater than 10 kilometers.
 					<cfelse>
-						<br>No specimens have an error of greater than 10 kilometers.
+						<br>No specimens have an error greater than 10 kilometers.
 					</cfif>
 				</div>
 			</td>
@@ -354,27 +354,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 				</div>
 			</td>
 		</tr>
-	</table>
-	
-	
-	<!----------
-	
-	>#mappable.cnt#
-	 select 
- 		collection_object_id,
- 		dec_lat, 
- 		coordinateuncertaintyinmeters 
-	from 
-		#session.SpecSrchTab#
-	group by 
-		coordinateuncertaintyinmeters,
-		collection_object_id,
-		dec_lat
-		----------->
-		
-			
-			
-			
+	</table>		
 <div style="border:2px solid blue;" id="ssControl">
 <cfif isdefined("transaction_id")>
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
