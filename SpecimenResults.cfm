@@ -321,24 +321,25 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfquery dbtype="query" name="gt10k">
 		select count(*) c from mappable where coordinateuncertaintyinmeters > 10000
 	</cfquery>
-	<br>Found #summary.recordcount# specimens.
-	<br>#willnotmap.c# specimens have no coordinates and cannot be mapped.
-	<cfif noerr.c gt 0>
-		<br>#noerr.c# specimens do not include coordinate error.
-	<cfelse>
-		<br>All specimens include coordinate error.
-	</cfif>
-	<cfif lt1k.c gt 0>
-		<br>#lt1k.c# specimens have an error of less than 1 kilometer.
-	<cfelse>
-		<br>No specimens have an error of less than 1 kilometer.
-	</cfif>
-	<cfif gt10k.c gt 0>
-		<br>#gt10k.c# specimens have an error of greater than 10 kilometers.
-	<cfelse>
-		<br>No specimens have an error of greater than 10 kilometers.
-	</cfif>
-	
+	<span style="border:1px solid green;">
+		Found #summary.recordcount# specimens.
+		<br>#willnotmap.c# specimens have no coordinates and cannot be mapped.
+		<cfif noerr.c gt 0>
+			<br>#noerr.c# specimens do not include coordinate error.
+		<cfelse>
+			<br>All specimens include coordinate error.
+		</cfif>
+		<cfif lt1k.c gt 0>
+			<br>#lt1k.c# specimens have an error of less than 1 kilometer.
+		<cfelse>
+			<br>No specimens have an error of less than 1 kilometer.
+		</cfif>
+		<cfif gt10k.c gt 0>
+			<br>#gt10k.c# specimens have an error of greater than 10 kilometers.
+		<cfelse>
+			<br>No specimens have an error of greater than 10 kilometers.
+		</cfif>
+	</span>
 	
 	<!----------
 	
