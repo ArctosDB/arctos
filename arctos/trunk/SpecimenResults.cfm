@@ -50,6 +50,17 @@ jQuery( function($) {
 		document.body.appendChild(theDiv);
 		viewport.init("##browseDiv");
 	});
+
+
+			
+			  	var ptl='/component/functions.cfc?method=mapUserSpecResults;
+			    jQuery.get(ptl, function(data){
+					jQuery("#mapGoHere).html(data);
+				});
+	
+	
+	
+	
 });
 function closeBrowse(){
 	var theDiv = document.getElementById('browseDiv');
@@ -324,16 +335,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
 	</cfquery>
 	
-	<cfquery dbtype="query" name="smap">
-		select dec_lat,dec_long from summary 
-		where dec_lat is not null
-	</cfquery>
-	<cfset clsit
-	<cfloop query="smap">
-		
-	</cfloop>
-	<img src="http://maps.googleapis.com/maps/api/staticmap??maptype=roadmap&zoom=2&size=150x150&sensor=false&markers=color:red|size:tiny|label:X|#valuelist(smap.coords,'|')#">
-	
+	<div id="mapGoHere"></div>
 
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
 	<table>
