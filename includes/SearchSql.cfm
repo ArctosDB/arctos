@@ -1148,7 +1148,7 @@
 		<cfset max_max_error=999999999999999999999999999>
 	
 	
-	<cfelseif (isdefined("max_max_error") AND len(max_max_error) gt 0) and ((not isdefined("min_max_error")) or len(min_max_error) gt 0)>
+	<cfelseif (isdefined("max_max_error") AND len(max_max_error) gt 0) and ((not isdefined("min_max_error")) or len(min_max_error) eq 0)>
 		<!------->
 		<cfdump var=#url#>
 		got max , not min - set min to some 0
