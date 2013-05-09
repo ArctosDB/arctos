@@ -329,22 +329,22 @@ If your item needs to be sorted in a special way, then do that here. --->
 				<strong>Found #summary.recordcount# specimens.</strong>
 				<ul>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinate and will not map.
+						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=false&debug=true">#val(numWillNotMap)# specimens</a> do not have coordinate and will not map.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have no indication of precision.
+						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL&debug=true">#val(noerr.c)# specimens</a> have no indication of precision.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have an error less than 100 meters.
+						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100&debug=true">#val(err_lt100.c)# specimens</a> have an error less than 100 meters.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=100&max_max_error=1000">#val(err_100_1000.c)# specimens</a> have an error between 100 meters and 1 kilometer.
+						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=100&max_max_error=1000&debug=true">#val(err_100_1000.c)# specimens</a> have an error between 100 meters and 1 kilometer.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=1000&max_max_error=10000">#val(err_1000_10000.c)# specimens</a> have an error between 1 and 10 kilometers.
+						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=1000&max_max_error=10000&debug=true">#val(err_1000_10000.c)# specimens</a> have an error between 1 and 10 kilometers.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=10000">#val(err_gt10000.c)# specimens</a> have an error greater than 10 kilometers.
+						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=10000&debug=true">#val(err_gt10000.c)# specimens</a> have an error greater than 10 kilometers.
 					</li>
 					
 				</ul>
