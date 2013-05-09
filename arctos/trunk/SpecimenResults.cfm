@@ -255,13 +255,11 @@ function removeHelpDiv() {
 </script>
 <cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select 
-		count(distinct(collection_object_id)) cnt,
+		nvl(dec_lat,'NULL'),
+		--count(distinct(collection_object_id)) cnt,
 		coordinateuncertaintyinmeters
 	from 
 		#session.SpecSrchTab# 
-	where 
-		dec_lat is not null and 
-		dec_long is not null
 	group by 
 		coordinateuncertaintyinmeters
 </cfquery>
