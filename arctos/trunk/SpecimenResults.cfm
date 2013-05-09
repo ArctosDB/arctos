@@ -327,11 +327,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfquery dbtype="query" name="err_gt10000">
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
 	</cfquery>
-	
-	
-
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
-	<table>
+	<table width="100%">
 		<tr>
 			<td>
 				<strong>Found #summary.recordcount# specimens.</strong>
