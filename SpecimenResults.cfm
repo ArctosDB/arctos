@@ -359,8 +359,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<span class="controlButton"	onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
 			<span class="controlButton" onclick="window.open('/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#','_blank');">BerkeleyMapper+Rangemaps</span>
 			<span class="controlButton" onclick="window.open('/bnhmMaps/kml.cfm','_blank');">Google Earth/Maps</span>
-			<a href="SpecimenResultsHTML.cfm?#mapurl#" class="infoLink">&nbsp;&nbsp;&nbsp;Problems viewing this page? Click for HTML version</a>
-			&nbsp;&nbsp;&nbsp;<a class="infoLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>
+			<a href="SpecimenResultsHTML.cfm?#mapurl#" class="likeLink">&nbsp;&nbsp;&nbsp;Problems viewing this page? Click for HTML version</a>
+			&nbsp;&nbsp;&nbsp;<a class="likeLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>
 <div style="border:2px solid blue;" id="ssControl">
 <cfif isdefined("transaction_id")>
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
