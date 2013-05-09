@@ -257,7 +257,9 @@ function removeHelpDiv() {
 	 select 
  		collection_object_id,
  		dec_lat, 
- 		coordinateuncertaintyinmeters 
+ 		decode(coordinateuncertaintyinmeters,
+			0,NULL,
+			coordinateuncertaintyinmeters) coordinateuncertaintyinmeters
 	from 
 		#session.SpecSrchTab#
 	group by 
@@ -306,6 +308,17 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
+	
+	<cfquery dbtype="query" name="willmap">
+		select count(*) c from mappable where dec_lat is not null
+	</cfquery>
+	<cfquery dbtype="query" name="noerr">
+		select count(*) c from mappable where coordinateuncertaintyinmeters is null
+	</cfquery>
+	<br>Found #summary.recordcount# specimens.
+	#willmap.c# specimens have coordinates.
+	#noerr.c# specimens have no error.
+	
 	<!----------
 	
 	>#mappable.cnt#
