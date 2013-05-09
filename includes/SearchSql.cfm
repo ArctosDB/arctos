@@ -1135,16 +1135,15 @@
 <cfif isdefined("max_error_in_meters") AND len(max_error_in_meters) gt 0>
 	<cfset min_max_error=max_error_in_meters>
 </cfif>
-
 <cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) or (isdefined("max_max_error") AND len(max_max_error) gt 0)>
 	<cfif not isdefined("max_error_units") or len(max_error_units) is 0>
 		<cfset max_error_units='m'>
 	</cfif>
 	<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) and ((not isdefined("max_max_error")) or len(max_max_error) gt 0)>
-		got min, not max - set max to some improbably large number
+		<!----got min, not max - set max to some improbably large number---->
 		<cfset max_max_error=999999999999999999999999999>
 	<cfelseif (isdefined("max_max_error") AND len(max_max_error) gt 0) and ((not isdefined("min_max_error")) or len(min_max_error) gt 0)>
-		got max , not min - set min to some 0
+		<!---got max , not min - set min to some 0---->
 		<cfset max_max_error=0>
 	</cfif>
 	<cfset mapurl = "#mapurl#&min_max_error=#min_max_error#&max_max_error=#max_max_error#&max_error_units=#max_error_units#">
@@ -1152,12 +1151,10 @@
 		<!-- return only records with coordinates BUT with no error ---->
 		<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat is not null and (#session.flatTableName#.COORDINATEUNCERTAINTYINMETERS is null OR #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS=0)">
 	<cfelse>
-		
 		<cfset basQual = " #basQual# AND #session.flatTableName#.COORDINATEUNCERTAINTYINMETER  between
 			to_meters(#min_max_error#,'#max_error_units#') and to_meters(#max_max_error#,'#max_error_units#')">
 	</cfif>
 </cfif>
-
 <cfif isdefined("chronological_extent") AND len(chronological_extent) gt 0>
 	<cfif not isnumeric(chronological_extent)>
 		<div class="error">chronological_extent must be numeric.</div>
