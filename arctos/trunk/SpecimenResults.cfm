@@ -316,13 +316,17 @@ If your item needs to be sorted in a special way, then do that here. --->
 		select count(*) c from mappable where coordinateuncertaintyinmeters is null
 	</cfquery>
 	<cfquery dbtype="query" name="lt1k">
-		select count(*) c from mappable where coordinateuncertaintyinmeters <= 1000
+		select count(*) c from mappable where coordinateuncertaintyinmeters < 1000
+	</cfquery>
+	<cfquery dbtype="query" name="gt10k">
+		select count(*) c from mappable where coordinateuncertaintyinmeters > 10000
 	</cfquery>
 	<br>Found #summary.recordcount# specimens.
 	<br>#willmap.c# specimens have coordinates.
 	<br>#noerr.c# specimens do not include coordinate error.
 	
 	<br>#lt1k.c# specimens have an error of less than 1 kilometer.
+	<br>#gt10k.c# specimens have an error of greater than 10 kilometers.
 	
 	<!----------
 	
