@@ -300,7 +300,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
-
+	<cfdump var=#summary#>
 	<cfquery dbtype="query" name="willnotmap">
 		select count(*) c from summary where dec_lat is null
 	</cfquery>
