@@ -254,16 +254,17 @@ function removeHelpDiv() {
 	hidePageLoad();
 </script>
 <cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select 
-		nvl(dec_lat,'NULL'),
-		--count(distinct(collection_object_id)) cnt,
-		coordinateuncertaintyinmeters
+	 select 
+ 		collection_object_id,
+ 		dec_lat, 
+ 		coordinateuncertaintyinmeters 
 	from 
-		#session.SpecSrchTab# 
+		#session.SpecSrchTab#
 	group by 
-		coordinateuncertaintyinmeters
+		coordinateuncertaintyinmeters,
+		collection_object_id,
+		dec_lat
 </cfquery>
-<cfdump var=#mappable#>
 
 <form name="saveme" id="saveme" method="post" action="saveSearch.cfm" target="myWin">
 	<input type="hidden" name="returnURL" value="#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#" />
@@ -305,7 +306,22 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
-<strong>#mappable.cnt#</strong> of these <strong>#summary.recordcount#</strong> records have coordinates and can be displayed with
+	<!----------
+	
+	>#mappable.cnt#
+	 select 
+ 		collection_object_id,
+ 		dec_lat, 
+ 		coordinateuncertaintyinmeters 
+	from 
+		#session.SpecSrchTab#
+	group by 
+		coordinateuncertaintyinmeters,
+		collection_object_id,
+		dec_lat
+		----------->
+		
+<strong></strong> of these <strong>#summary.recordcount#</strong> records have coordinates and can be displayed with
 			<span class="controlButton"
 				onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
 			<span class="controlButton"
