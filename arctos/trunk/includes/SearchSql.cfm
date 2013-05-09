@@ -1131,52 +1131,24 @@
 	</cfif>
 	<cfset mapurl = "#mapurl#&island=#island#">
 </cfif>
-<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) or (isdefined("max_max_error") AND len(max_max_error) gt 0)>
-	<cfif compare(min_max_error,"NULL") is 0>
-		min_max_error is NULL<cfabort>
-	</cfif>
 
-	<cfif not isdefined("max_error_units") or len(max_error_units) is 0>
-		<cfset max_error_units='m'>
-	</cfif>
-	<cfif not isnumeric(min_max_error) or not isnumeric(max_max_error)>
-		<div class="error">
-			Maximum Error must be numeric.
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-	<cfif len(min_max_error) is 0>
-		<cfset min_max_error=0>
-	</cfif>
-	<cfif len(max_max_error) is 0>
-		<cfset max_max_error=9999999999>
-	</cfif>
-	<cfset mapurl = "#mapurl#&min_max_error=#min_max_error#&max_max_error=#max_max_error#&max_error_units=#max_error_units#">
-	<cfif basJoin does not contain " specimen_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
-	</cfif>
-	<cfif basJoin does not contain " collecting_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
-	</cfif>
-	<cfif basJoin does not contain " locality ">
-		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
-	</cfif>
-	<cfset basQual = " #basQual# AND to_meters(locality.max_error_distance,locality.max_error_units) between
-		to_meters(#min_max_error#,'#max_error_units#') and to_meters(#max_max_error#,'#max_error_units#')">
-</cfif>
 <cfif isdefined("max_error_in_meters") AND len(max_error_in_meters) gt 0>
-	<cfif not isnumeric(max_error_in_meters)>
-		<div class="error">max_error_in_meters must be numeric.</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-  	<cfset mapurl = "#mapurl#&max_error_in_meters=#max_error_in_meters#">
-	<cfset basQual = " #basQual# AND coORDINATEUNCERTAINTYINMETERS <= #max_error_in_meters#">
-	<cfif max_error_in_meters gt 0>
-		<cfset basQual = " #basQual# AND coORDINATEUNCERTAINTYINMETERS > 0">
+	<cfset min_max_error=max_error_in_meters>
+</cfif>
+
+<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) or (isdefined("max_max_error") AND len(max_max_error) gt 0)>
+	<cfset mapurl = "#mapurl#&min_max_error=#min_max_error#&max_max_error=#max_max_error#&max_error_units=#max_error_units#">
+	<cfif compare(min_max_error,"NULL") is 0>
+		<cfset basQual = " #basQual# AND (#session.flatTableName#.COORDINATEUNCERTAINTYINMETERS is null OR #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS=0)">
+	<cfelse>
+		<cfif not isdefined("max_error_units") or len(max_error_units) is 0>
+			<cfset max_error_units='m'>
+		</cfif>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.COORDINATEUNCERTAINTYINMETER  between
+			to_meters(#min_max_error#,'#max_error_units#') and to_meters(#max_max_error#,'#max_error_units#')">
 	</cfif>
 </cfif>
+
 <cfif isdefined("chronological_extent") AND len(chronological_extent) gt 0>
 	<cfif not isnumeric(chronological_extent)>
 		<div class="error">chronological_extent must be numeric.</div>
