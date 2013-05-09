@@ -315,9 +315,14 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfquery dbtype="query" name="noerr">
 		select count(*) c from mappable where coordinateuncertaintyinmeters is null
 	</cfquery>
+	<cfquery dbtype="query" name="lt1k">
+		select count(*) c from mappable where coordinateuncertaintyinmeters <= 1000
+	</cfquery>
 	<br>Found #summary.recordcount# specimens.
-	#willmap.c# specimens have coordinates.
-	#noerr.c# specimens have no error.
+	<br>#willmap.c# specimens have coordinates.
+	<br>#noerr.c# specimens do not include coordinate error.
+	
+	<br>#lt1k.c# specimens have an error of less than 1 kilometer.
 	
 	<!----------
 	
