@@ -328,7 +328,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<td>
 				<strong>Found #summary.recordcount# specimens.</strong>
 				<ul>
-					<li><strong>#val(numWillNotMap)#</strong> specimens do not have coordinate and will not map.</li>
+					<li>
+						<a href=#mapurl#val(numWillNotMap)#</strong> specimens do not have coordinate and will not map.</li>
 					<li><strong>#val(noerr.c)#</strong> specimens have no indication of precision.</li>
 					<li><strong>#val(err_lt100.c)#</strong> specimens have an error less than 100 meters.</li>
 					<li><strong>#val(err_100_1000.c)#</strong> specimens have an error between 100 meters and 1 kilometer.</li>
