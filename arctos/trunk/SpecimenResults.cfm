@@ -212,7 +212,8 @@ function removeHelpDiv() {
  			dec_lat, 
  			to_number(decode(coordinateuncertaintyinmeters,
 				0,NULL,
-				coordinateuncertaintyinmeters)) coordinateuncertaintyinmeters
+				coordinateuncertaintyinmeters)) coordinateuncertaintyinmeters,
+			scientific_name
 		from 
 			#session.SpecSrchTab#
 	</cfquery>
@@ -340,7 +341,10 @@ If your item needs to be sorted in a special way, then do that here. --->
 				<div style="padding-left:2em;">
 					<ul>
 						<li><a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">Map these results in BerkeleyMapper</a></li>
-						<li><a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">Map these results in BerkeleyMapper+Rangemaps</a></li>
+						<cfif listlen(valuelist(summary.scientific_name)) is 1>
+							<!--- not perfect, but will prevent some frustration --->
+							<li><a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">Map these results in BerkeleyMapper+Rangemaps</a></li>
+						</cfif>
 						<li><a href="/bnhmMaps/kml.cfm" target="_blank">Map in Google Maps or download for Google Earth</a></li>
 					</ul>
 				</div>
