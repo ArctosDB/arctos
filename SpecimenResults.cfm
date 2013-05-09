@@ -355,7 +355,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 		dec_lat
 		----------->
 		
-<strong></strong> of these <strong>#summary.recordcount#</strong> records have coordinates and can be displayed with
 			<span class="controlButton"
 				onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
 			<span class="controlButton"
