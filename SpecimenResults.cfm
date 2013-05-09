@@ -313,13 +313,13 @@ If your item needs to be sorted in a special way, then do that here. --->
 		select count(*) c from mappable where dec_lat is null
 	</cfquery>
 	<cfquery dbtype="query" name="noerr">
-		select count(*) c from mappable where dec_lat is not null and coordinateuncertaintyinmeters is null
+		select count(*) c from mappable where coordinateuncertaintyinmeters is null
 	</cfquery>
 	<cfquery dbtype="query" name="lt1k">
-		select count(*) c from mappable where dec_lat is not null and coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters < 1000
+		select count(*) c from mappable where coordinateuncertaintyinmeters < 1000
 	</cfquery>
 	<cfquery dbtype="query" name="gt10k">
-		select count(*) c from mappable where dec_lat is not null and coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
+		select count(*) c from mappable where coordinateuncertaintyinmeters > 10000
 	</cfquery>
 	<table>
 		<tr>
