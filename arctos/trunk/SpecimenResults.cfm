@@ -307,13 +307,16 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfquery dbtype="query" name="noerr">
 		select count(*) c from willmap where coordinateuncertaintyinmeters is null
 	</cfquery>
-	<cfquery dbtype="query" name="lt1k">
-		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters < 1000
+	<cfquery dbtype="query" name="err_lt100">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters < 100
 	</cfquery>
-	<cfquery dbtype="query" name="inbetween">
+	<cfquery dbtype="query" name="err_100_1000">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters between 100 and 10000
+	</cfquery>
+	<cfquery dbtype="query" name="err_1000_10000">
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters between 1000 and 10000
 	</cfquery>
-	<cfquery dbtype="query" name="gt10k">
+	<cfquery dbtype="query" name="err_gt10000">
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
 	</cfquery>
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
@@ -322,25 +325,14 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<td>
 				<div style="border:1px solid green;">
 					<strong>Found #summary.recordcount# specimens.</strong>
-					<br>#numWillNotMap# specimens do not have coordinate and will not map. Of the remainder:
 					<ul>
-						<cfif noerr.c gt 0>
-							<li>#noerr.c# specimens do not include coordinate error.</li>
-						<cfelse>
-							<li>All specimens include coordinate error.</li>
-						</cfif>
-						<cfif lt1k.c gt 0>
-							<li>#lt1k.c# specimens have an error less than 1 kilometer.</li>
-						<cfelse>
-							<li>No specimens have an error less than 1 kilometer.</li>
-						</cfif>
-							<li>#inbetween.c# specimens have an error between 1 and 10 kilometers.</li>
+						<li><strong>#numWillNotMap#</strong> specimens do not have coordinate and will not map.</li>
+						<li><strong>#noerr.c#</strong> specimens have no indication of precision.</li>
+						<li><strong>#err_lt100.c#</strong> specimens have an error less than 100 meters.</li>
+						<li><strong>#err_100_1000.c#</strong> specimens have an error between 100 meters and 1 kilometer.</li>
+						<li><strong>#err_1000_10000.c#</strong> specimens have an error between 1 and 10 kilometers.</li>
+						<li><strong>#gt10k.c#</strong> specimens have an error greater than 10 kilometers.</li>
 						
-						<cfif gt10k.c gt 0>
-							<li>#gt10k.c# specimens have an error greater than 10 kilometers.</li>
-						<cfelse>
-							<li>No specimens have an error greater than 10 kilometers.</li>
-						</cfif>
 					</ul>
 					
 				</div>
