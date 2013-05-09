@@ -547,7 +547,7 @@ function useGL(glat,glon,gerr){
 					<li>Verbatim Coordinates: #verbatim_coordinates#</li>
 				</cfif>
 				<cfif len(collecting_event_name) gt 0>
-					<li>Collecting Event Name: #collecting_event_name#</li>
+					<li>Collecting Event Nickname: #collecting_event_name#</li>
 				</cfif>
 				<cfif len(COLL_EVENT_REMARKS) gt 0>
 					<li>Collecting Event Remarks: #COLL_EVENT_REMARKS#</li>
@@ -572,7 +572,7 @@ function useGL(glat,glon,gerr){
 			#localityContents#
 			<ul>
 				<cfif len(locality_name) gt 0>
-					<li>Locality Name: #locality_name#</li>
+					<li>Locality Nickname: #locality_name#</li>
 				</cfif>
 				<cfif len(DEC_LAT) gt 0>
 					<li>

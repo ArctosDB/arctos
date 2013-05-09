@@ -289,7 +289,7 @@
 						<table cellpadding="0" cellspacign="0">
 							<tr>
 								<td colspan="2">
-									<label for="locality_name">Locality Name</label>
+									<label for="locality_name">Locality Nickname</label>
 									<input type="text" name="locality_name" id="locality_name" size="50">
 								</td>
 							</tr>
@@ -573,7 +573,7 @@
 								</tr>
 								<tr>
 									<td>
-										<label for="collecting_event_name">CollectingEventName</label>
+										<label for="collecting_event_name">CollectingEventNickname</label>
 										<input type="text" name="collecting_event_name" id="collecting_event_name" size="50">
 									</td>
 								</tr>

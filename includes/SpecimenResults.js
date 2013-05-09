@@ -485,10 +485,10 @@ function success_getSpecResultsData(result){
 				theInnerHtml += '<th>Spec/Event Remark</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('COLLECTING_EVENT_NAME')> -1) {
-				theInnerHtml += '<th>Event Name</th>';
+				theInnerHtml += '<th>Event Nickname</th>';
 			}
 			if (data.COLUMNLIST[0].indexOf('LOCALITY_NAME')> -1) {
-				theInnerHtml += '<th>Locality Name</th>';
+				theInnerHtml += '<th>Locality Nickname</th>';
 			}
 			
 			if (data.COLUMNLIST[0].indexOf('GEOREFERENCE_SOURCE')> -1) {
