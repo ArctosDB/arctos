@@ -430,6 +430,9 @@
 		<cfset signedURL = obj.googleSignURL(
 			urlPath="/maps/api/staticmap",
 			urlParams="#params#")>
+		<cfif len(signedURL) gt 2048>
+			<cfreturn "[too many results for mapping]">
+		</cfif>
 		<cfset mapImage='<img src="#signedURL#" alt="[ map of your query ]">'>
 		<cfreturn mapImage>
 	<cfcatch>
