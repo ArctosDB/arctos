@@ -414,6 +414,30 @@
 	</cfquery>
 	<cfreturn colns>
 </cffunction>
+<!-------------------------------------------------->
+<cffunction name="mapUserSpecResults" access="remote">
+	<cftry>
+		<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				round(dec_lat,2) || ',' || round(dec_long,2) coords
+			from 
+				#session.SpecSrchTab#
+			group by round(dec_lat,2) || ',' || round(dec_long,2) coords
+		</cfquery>
+		<cfset obj = CreateObject("component","functions")>
+		<!--- build and return a HTML block for a map ---->
+ 		<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#coords#")#'>
+		<cfset params=params & '&maptype=roadmap&zoom=2&size=200x200'>
+		<cfset signedURL = obj.googleSignURL(
+			urlPath="/maps/api/staticmap",
+			urlParams="#params#")>
+		<cfset mapImage='<img src="#signedURL#" alt="[ map of your query ]">'>
+		<cfreturn mapImage>
+	<cfcatch>
+		<cfreturn #cfcatch.detail#>
+	</cfcatch>
+	</cftry>
+</cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getMap" access="remote">
 	<cfargument name="size" type="string" required="no" default="200x200">
@@ -721,20 +745,6 @@
 					where locality_id=#locality_id#
 				</cfquery>
 			</cfif><!--- end service call --->
-
-
-			<cfmail subject="threadreport" to="dustymc@gmail.com" from="threadreport@#Application.fromEmail#" type="html">
-				finished a thread in  #NumberFormat(((GetTickCount() - intStartTime) / 1000),",.00")#
-				<hr>
-				update locality set
-						S$ELEVATION=<cfif len(elevRslt) is 0>NULL<cfelse>#elevRslt#</cfif>,
-						S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
-						S$DEC_LAT=<cfif len(slat) is 0>NULL<cfelse>#slat#</cfif>,
-						S$DEC_LONG=<cfif len(slon) is 0>NULL<cfelse>#slon#</cfif>,
-						S$LASTDATE=sysdate
-					where locality_id=#locality_id#
-			</cfmail>
-
 		</cfthread>
 		<cfset obj = CreateObject("component","functions")>
 		<!--- build and return a HTML block for a map ---->
