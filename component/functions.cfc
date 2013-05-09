@@ -419,19 +419,19 @@
 	<cftry>
 		<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				distinct(round(dec_lat,2) || ',' || round(dec_long,2)) coords
+				distinct(round(dec_lat) || ',' || round(dec_long)) coords
 			from 
 				#session.SpecSrchTab#
 		</cfquery>
 		<cfset obj = CreateObject("component","functions")>
 		<!--- build and return a HTML block for a map ---->
  		<cfset params='markers=color:red|size:tiny|label:X|#URLEncodedFormat("#valuelist(summary.coords,"|")#")#'>
-		<cfset params=params & '&maptype=roadmap&zoom=2&size=200x200'>
+		<cfset params=params & '&maptype=roadmap&zoom=0&size=200x200'>
 		<cfset signedURL = obj.googleSignURL(
 			urlPath="/maps/api/staticmap",
 			urlParams="#params#")>
 		<cfif len(signedURL) gt 2048>
-			<cfreturn "[too many results for mapping]">
+			<cfreturn "[too many results: no map available]">
 		</cfif>
 		<cfset mapImage='<img src="#signedURL#" alt="[ map of your query ]">'>
 		<cfreturn mapImage>
