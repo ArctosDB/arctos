@@ -99,6 +99,7 @@
 			 group by
 			 phylclass,genus || ' ' || species,genus,species
 		</cfquery>
+		<cfdump var=#getClass#>
 		<cfif getClass.recordcount is not 1 or (
 				getClass.phylclass is not 'Amphibia' and getClass.phylclass is not 'Mammalia' and getClass.phylclass is not 'Aves'
 			)>
