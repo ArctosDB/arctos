@@ -419,10 +419,9 @@
 	<cftry>
 		<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				round(dec_lat,2) || ',' || round(dec_long,2) coords
+				distinct(round(dec_lat,2) || ',' || round(dec_long,2)) coords
 			from 
 				#session.SpecSrchTab#
-			group by round(dec_lat,2) || ',' || round(dec_long,2) coords
 		</cfquery>
 		<cfset obj = CreateObject("component","functions")>
 		<!--- build and return a HTML block for a map ---->
