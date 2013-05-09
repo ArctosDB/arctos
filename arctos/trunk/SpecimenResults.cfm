@@ -254,8 +254,18 @@ function removeHelpDiv() {
 	hidePageLoad();
 </script>
 <cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select count(distinct(collection_object_id)) cnt from #session.SpecSrchTab# where dec_lat is not null and dec_long is not null
+	select 
+		count(distinct(collection_object_id)) cnt,
+		coordinateuncertaintyinmeters
+	from 
+		#session.SpecSrchTab# 
+	where 
+		dec_lat is not null and 
+		dec_long is not null
+	group by 
+		coordinateuncertaintyinmeters
 </cfquery>
+<cfdump var=#mappable#>
 
 <form name="saveme" id="saveme" method="post" action="saveSearch.cfm" target="myWin">
 	<input type="hidden" name="returnURL" value="#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#" />
