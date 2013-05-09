@@ -331,7 +331,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 						<li><strong>#err_lt100.c#</strong> specimens have an error less than 100 meters.</li>
 						<li><strong>#err_100_1000.c#</strong> specimens have an error between 100 meters and 1 kilometer.</li>
 						<li><strong>#err_1000_10000.c#</strong> specimens have an error between 1 and 10 kilometers.</li>
-						<li><strong>#gt10k.c#</strong> specimens have an error greater than 10 kilometers.</li>
+						<li><strong>#err_gt10000.c#</strong> specimens have an error greater than 10 kilometers.</li>
 						
 					</ul>
 					
