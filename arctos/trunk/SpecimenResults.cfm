@@ -362,62 +362,71 @@ If your item needs to be sorted in a special way, then do that here. --->
 <table border="0" width="100%">
 	<tr>
 		<td>
-		
-		<cfset numPages= ceiling(summary.recordcount/session.displayrows)>
-		<cfset loopTo=numPages-2>
-		<label for="page_record">Records...</label>
-		<select name="page_record" id="page_record" size="1" onchange="getSpecResultsData(this.value);">
-			<cfloop from="0" to="#loopTo#" index="i">
-				<cfset bDispVal = (i * session.displayrows + 1)>
-				<cfset eDispval = (i + 1) * session.displayrows>
-				<option value="#bDispVal#,#session.displayrows#">#bDispVal# - #eDispval#</option>
-			</cfloop>
-			<!--- last set of records --->
-			<cfset bDispVal = ((loopTo + 1) * session.displayrows )+ 1>
-			<cfset eDispval = summary.recordcount>
-			<option value="#bDispVal#,#session.displayrows#">#bDispVal# - #eDispval#</option>
-			<!--- all records --->
-			<option value="1,#summary.recordcount#">1 - #summary.recordcount#</option>
-		</select>
-		
-			<label for="orderBy1">Order by...</label>
-			<select name="orderBy1" id="orderBy1" size="1" onchange="changeresultSort(this.value)">
-				<!--- prepend their CustomID and integer sort of their custom ID to the list --->
-				<cfif len(session.CustomOtherIdentifier) gt 0>
-					<option <cfif session.result_sort is "custom_id">selected="selected" </cfif>value="CustomID">#session.CustomOtherIdentifier#</option>
-					<option value="CustomIDInt">#session.CustomOtherIdentifier# (INT)</option>
-				</cfif>
-				<cfloop list="#resultList#" index="i">
-					<option <cfif #session.result_sort# is #i#>selected="selected" </cfif>value="#i#">#i#</option>
-				</cfloop>
-			</select>
+			<table>
+				<tr>
+					<td>
+						<cfset numPages= ceiling(summary.recordcount/session.displayrows)>
+						<cfset loopTo=numPages-2>
+						<label for="page_record">Records...</label>
+						<select name="page_record" id="page_record" size="1" onchange="getSpecResultsData(this.value);">
+							<cfloop from="0" to="#loopTo#" index="i">
+								<cfset bDispVal = (i * session.displayrows + 1)>
+								<cfset eDispval = (i + 1) * session.displayrows>
+								<option value="#bDispVal#,#session.displayrows#">#bDispVal# - #eDispval#</option>
+							</cfloop>
+							<!--- last set of records --->
+							<cfset bDispVal = ((loopTo + 1) * session.displayrows )+ 1>
+							<cfset eDispval = summary.recordcount>
+							<option value="#bDispVal#,#session.displayrows#">#bDispVal# - #eDispval#</option>
+							<!--- all records --->
+							<option value="1,#summary.recordcount#">1 - #summary.recordcount#</option>
+						</select>
+					</td>
+					<td>
+						<label for="orderBy1">Order by...</label>
+						<select name="orderBy1" id="orderBy1" size="1" onchange="changeresultSort(this.value)">
+							<!--- prepend their CustomID and integer sort of their custom ID to the list --->
+							<cfif len(session.CustomOtherIdentifier) gt 0>
+								<option <cfif session.result_sort is "custom_id">selected="selected" </cfif>value="CustomID">#session.CustomOtherIdentifier#</option>
+								<option value="CustomIDInt">#session.CustomOtherIdentifier# (INT)</option>
+							</cfif>
+							<cfloop list="#resultList#" index="i">
+								<option <cfif #session.result_sort# is #i#>selected="selected" </cfif>value="#i#">#i#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<label for="orderBy2">...then order by</label>
+						<select name="orderBy2" id="orderBy2" size="1">
+							<cfloop list="#resultList#" index="i">
+								<option value="#i#">#i#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<label for="">&nbsp;</label>
+						<span class="controlButton"
+							onclick="var pr=document.getElementById('page_record');
+							var c=pr.value;
+							var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
+							if (c=='1,#summary.recordcount#')
+							{var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#;pr.selectedIndex=0;};
+							getSpecResultsData(1,numRec,obv,'ASC');">&uarr;</span>
+					</td>
+					<td>
+						<label for="">&nbsp;</label>
+						<span class="controlButton"
+							onclick="var pr=document.getElementById('page_record');
+								var c=pr.value;
+								var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
+								if (c=='1,#summary.recordcount#')
+									{var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#;pr.selectedIndex=0;};
+								getSpecResultsData(1,numRec,obv,'DESC');">&darr;</span>
+					</td>
+				</tr>
+			</table>
+		</td>
 	
-			<label for="orderBy2">...then order by</label>
-			<select name="orderBy2" id="orderBy2" size="1">
-				<cfloop list="#resultList#" index="i">
-					<option value="#i#">#i#</option>
-				</cfloop>
-			</select>
-		
-			<label for="">&nbsp;</label>
-			<span class="controlButton"
-				onclick="var pr=document.getElementById('page_record');
-					var c=pr.value;
-					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
-					if (c=='1,#summary.recordcount#')
-						{var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#;pr.selectedIndex=0;};
-						getSpecResultsData(1,numRec,obv,'ASC');">&uarr;</span>
-		</td>
-		<td>
-			<label for="">&nbsp;</label>
-			<span class="controlButton"
-				onclick="var pr=document.getElementById('page_record');
-					var c=pr.value;
-					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
-					if (c=='1,#summary.recordcount#')
-						{var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#;pr.selectedIndex=0;};
-					getSpecResultsData(1,numRec,obv,'DESC');">&darr;</span>
-		</td>
 		<td><div style="width:100px;">&nbsp;</div></td>
 		<td>
 			<label for="">&nbsp;</label>
