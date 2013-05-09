@@ -325,7 +325,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 	</cfquery>
 	
 	<cfquery dbtype="query" name="smap">
-		select cast(numberformat(dec_lat,"9.99") as varchar)  + "," + cast(numberformat(dec_long,"9.99") as varchar)  as coords from summary 
+		select dec_lat,dec_long from summary 
 		where dec_lat is not null
 	</cfquery>
 	
