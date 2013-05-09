@@ -427,30 +427,32 @@ If your item needs to be sorted in a special way, then do that here. --->
 			</table>
 		</td>
 		<td>
-			<tr>
-				<td>
-					<label for="">&nbsp;</label>
-					<input type="hidden" name="killRowList" id="killRowList">
-					<span id="removeChecked"
-						style="display:none;"
-						class="controlButton redButton"
-						onclick="removeItems();">Remove&nbsp;Checked&nbsp;Rows</span>
-				</td>
-				<td>
-					<label for="">&nbsp;</label>
-					<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
-				</td>
-				<td>
-					<label for="">&nbsp;</label>
-					<span class="controlButton"
-						onclick="window.open('/SpecimenResultsDownload.cfm?tableName=#session.SpecSrchTab#','_blank');">Download</span>
-				</td>
-				<td>
-					<label for="">&nbsp;</label>
-					<span class="controlButton"
-						onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
-				</td>
-			</tr>
+			<table>
+				<tr>
+					<td>
+						<label for="">&nbsp;</label>
+						<input type="hidden" name="killRowList" id="killRowList">
+						<span id="removeChecked"
+							style="display:none;"
+							class="controlButton redButton"
+							onclick="removeItems();">Remove&nbsp;Checked&nbsp;Rows</span>
+					</td>
+					<td>
+						<label for="">&nbsp;</label>
+						<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
+					</td>
+					<td>
+						<label for="">&nbsp;</label>
+						<span class="controlButton"
+							onclick="window.open('/SpecimenResultsDownload.cfm?tableName=#session.SpecSrchTab#','_blank');">Download</span>
+					</td>
+					<td>
+						<label for="">&nbsp;</label>
+						<span class="controlButton"
+							onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
+					</td>
+				</tr>
+			</table>
 		</td>
 	
 		
