@@ -15,7 +15,6 @@
 		<option value="false">Query by points only</option>
 		<option value="true">Query by points ands error</option>
 	</select>
-	<input id="sq_error" type="text" placeholder="Search the Map" onKeyPress="return noenter(event);">
 </div>
 <div id="search-panel">
 	<input id="gmapsrchtarget" type="text" placeholder="Search the Map" onKeyPress="return noenter(event);">

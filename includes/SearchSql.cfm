@@ -1187,8 +1187,6 @@
 		<cfif sq_error is true>
 			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
 			<cfif NELong lt 0 and SWLong gt 0>
-				
-				
 				<cfset basQual = " #basQual# AND 
 					(
 						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
@@ -1196,49 +1194,12 @@
 							(#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong) or 
 							(#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong)
 						)
-					)
-						or
-					(
+					) or (
 						fake_coordinate_error.nelat between #SWLat# and #NELat# and
-						((fake_coordinate_error.nelong between #SWLong# and 180) OR (fake_coordinate_error.nelong between -180 and #NELong#))
+						(
+							(fake_coordinate_error.nelong between #SWLong# and 180) OR (fake_coordinate_error.nelong between -180 and #NELong#)
+						)
 					)">
-					
-					<!----
-					
-					
-													((#nelong# between  -180 and fake_coordinate_error.nelong) OR (#swlong# between fake_coordinate_error.swlong and 180))
-
-
-
-
-	LOCALITY_ID	 SWLAT	   SWLONG      NELAT	 NELONG
------------ ---------- ---------- ---------- ----------
-   10012379 47.8753755 35.1669983 64.3890245 59.3368017
-
-
-(
-52.533205471718574 between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
-((-175.238525390625 between -180 and fake_coordinate_error.nelong) OR (177.238037109375 between fake_coordinate_error.swlong and 180))
-)
-or
-(
-fake_coordinate_error.nelat between 51.17689838353933 and 52.533205471718574 and
-((fake_coordinate_error.nelong between 177.238037109375 and 180) OR (fake_coordinate_error.nelong between -180 and -175.238525390625)) 
-
----->
-					<cfoutput>
-					<hr>
-					<br>(
-					<br>	#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
-						<br>((#nelong# between  -180 and fake_coordinate_error.nelong) OR (#swlong# between fake_coordinate_error.swlong and 180))
-					<br>)
-						<br>or
-				<br>	(
-					<br>	fake_coordinate_error.nelat between #SWLat# and #NELat# and
-						<br>((fake_coordinate_error.nelong between #SWLong# and 180) OR (fake_coordinate_error.nelong between -180 and #NELong#))
-					<br>)
-					
-					</cfoutput>
 			<cfelse><!--- NE & SW longitude both either positive or negative --->
 				<cfset basQual = " #basQual# AND 
 					(
@@ -1250,35 +1211,6 @@ fake_coordinate_error.nelat between 51.17689838353933 and 52.533205471718574 and
 						fake_coordinate_error.nelat between #SWLat# and #NELat# and
 						fake_coordinate_error.nelong between #SWLong# AND #NELong# 
 					)">
-					
-				
-					<!------
-					
-					 ( 
- 50.8514188357247 between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND 
- -95.501953125 between fake_coordinate_error.nelong and fake_coordinate_error.swlong 
- ) or ( 
- fake_coordinate_error.nelat between 45.018359678852306 and 50.8514188357247 and 
- fake_coordinate_error.nelong between -95.501953125 and -109.458984375 ) 
-					
-					
-					---------->
-					
-					<cfoutput>
-						<hr>
-					<br>(
-					<br>	#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
-						<br>#nelong# between fake_coordinate_error.nelong and fake_coordinate_error.swlong
-					<br>)
-					<br>	or
-					<br>(
-					<br>	fake_coordinate_error.nelat between #SWLat# and #NELat# and
-					<br>	fake_coordinate_error.nelong between #SWLong# AND #NELong# 
-					<br>)
-					
-					<hr>
-					</cfoutput>
-					
 			</cfif>
 		<cfelse>
 			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
