@@ -1214,11 +1214,23 @@
 				 	1) drawn box WITHIN error box
 				 	2) drawn box overlaps error box
 				 	
-				 	66	 -169
+				 uam@arctos> select dec_lat,dec_long from flat where locality_id=1198090;
+
+   DEC_LAT   DEC_LONG
+---------- ----------
+65.4666667 -168.56667
+
+1 row selected.
+
+Elapsed: 00:00:00.06
+uam@arctos> select * from fake_coordinate_error where locality_id=1198090;
 
 LOCALITY_ID	 SWLAT	   SWLONG      NELAT	 NELONG
 ----------- ---------- ---------- ---------- ----------
-   10005521 63.4598481	-174.6645 68.5401519  -163.3355
+    1198090 65.4666667 -168.56667 65.4666667 -168.56667
+
+1 row selected.
+
 
 
 
@@ -1226,13 +1238,15 @@ LOCALITY_ID	 SWLAT	   SWLONG      NELAT	 NELONG
 				 
 				<cfset basQual = " #basQual# AND 
 					(
+						(
 						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
-						#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong 
-					)
-						or
-					(
-						fake_coordinate_error.nelat between #SWLat# and #NELat# and
-						fake_coordinate_error.nelong between #SWLong# AND #NELong# 
+							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong 
+						)
+							or
+						(
+							fake_coordinate_error.nelat between #SWLat# and #NELat# and
+							fake_coordinate_error.nelong between #SWLong# AND #NELong# 
+						)
 					)">
 			</cfif>
 		<cfelse>
@@ -1241,8 +1255,7 @@ LOCALITY_ID	 SWLAT	   SWLONG      NELAT	 NELONG
 			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
 			<cfif NELong lt 0 and SWLong gt 0>
 			
-					flat.dec_lat BETWEEN 65.40393545760334 AND 66.0148635418038 AND flat.dec_long BETWEEN -169.9013651875 AND -168.20386718750007 
-
+ flat.dec_lat BETWEEN 65.40393545760334 AND 66.0148635418038 AND flat.dec_long BETWEEN -169.9013651875 AND -168.20386718750007 
 
 				<cfset basQual = " #basQual# AND (#session.flatTableName#.dec_long between #SWLong# and 180 OR
 					#session.flatTableName#.dec_long between -180 and #NELong#)">
