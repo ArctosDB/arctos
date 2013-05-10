@@ -1181,17 +1181,44 @@
 		AND (isdefined("SWLat") and isnumeric(SWLat))
 		AND (isdefined("NELong") and isnumeric(NELong))
 		AND (isdefined("SWLong") and isnumeric(SWLong))>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
-
-
-		<cfif NELong lt 0 and SWLong gt 0>
-			<cfset basQual = " #basQual# AND (#session.flatTableName#.dec_long between #SWLong# and 180 OR
-				#session.flatTableName#.dec_long between -180 and #NELong#)">
-		<cfelse>
-			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_long BETWEEN #SWLong# AND #NELong#">
+		<cfif not isdefined("sq_error")>
+			<cfset sq_error='false'>
 		</cfif>
+		<cfif sq_error is true>
+			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
+			
+				--- (user box north latitude BETWEEN FE nlat and FE slat OR UB slat between FE.nlat & fe.slat)
+			-- AND
+			-- (ub.elon between fe.elong and fe.wlong OR ub.wlon between fe.elong and fe.wlong)
+			--OR
+			--- (fe north latitude BETWEEN ub nlat and ub slat OR fe slat between ub.nlat & ub.slat)
+			-- AND
+			-- (fe.elon between ub.elong and ub.wlong OR fe.wlon between ub.elong and ub.wlong)
+			
+			
+			
+			<cfset basQual = " #basQual# AND 
+				(
+					(#NELat# between fake_coordinate_error.nelat and fake_coordinate_error.swlat AND
+					#nelong# between fake_coordinate_error.nelong and fake_coordinate_error.swlong
+				)
+					or
+				(
+					fake_coordinate_error.nelat between #NELat# and #SWLat# and
+					fake_coordinate_error.nelong between #NELong# and #SWLong#
+				)">
+		<cfelse>
+			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
+			<cfif NELong lt 0 and SWLong gt 0>
+				<cfset basQual = " #basQual# AND (#session.flatTableName#.dec_long between #SWLong# and 180 OR
+					#session.flatTableName#.dec_long between -180 and #NELong#)">
+			<cfelse>
+				<cfset basQual = " #basQual# AND #session.flatTableName#.dec_long BETWEEN #SWLong# AND #NELong#">
+			</cfif>
+		</cfif>
+		
 
-		<cfset mapurl = "#mapurl#&NELat=#NELat#&NELong=#NELong#&SWLat=#SWLat#&SWLong=#SWLong#">
+		<cfset mapurl = "#mapurl#&NELat=#NELat#&NELong=#NELong#&SWLat=#SWLat#&SWLong=#SWLong#&sq_error=#sq_error#">
 	<cfelse>
 		<div class="error">
 			You entered at least one bounding box point, but didn't enter sufficient
@@ -1204,7 +1231,7 @@
 </cfif>
 
 
-
+<!--------- this is legacy from the old spatial query and can probably be deprecated rather than updated when that becomes an issue ---->
 <cfif (isdefined("NWLat") and len(NWLat) gt 0)
 	OR (isdefined("NWLong") and len(NWLong) gt 0)
 	OR (isdefined("SELat") and len(SELat) gt 0)
@@ -1231,6 +1258,8 @@
 		<cfabort>
 	</cfif>
 </cfif>
+<!--------- the above is legacy from the old spatial query and can probably be deprecated rather than updated when that becomes an issue ---->
+
 <cfif isdefined("spec_locality") and len(spec_locality) gt 0>
 	<cfset mapurl = "#mapurl#&spec_locality=#spec_locality#">
 	<cfif compare(spec_locality,"NULL") is 0>
