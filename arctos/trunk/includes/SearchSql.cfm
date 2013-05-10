@@ -1186,17 +1186,7 @@
 		</cfif>
 		<cfif sq_error is true>
 			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
-			
-				--- (user box north latitude BETWEEN FE nlat and FE slat OR UB slat between FE.nlat & fe.slat)
-			-- AND
-			-- (ub.elon between fe.elong and fe.wlong OR ub.wlon between fe.elong and fe.wlong)
-			--OR
-			--- (fe north latitude BETWEEN ub nlat and ub slat OR fe slat between ub.nlat & ub.slat)
-			-- AND
-			-- (fe.elon between ub.elong and ub.wlong OR fe.wlon between ub.elong and ub.wlong)
-			
-			
-			
+	
 			<cfset basQual = " #basQual# AND 
 				(
 					(#NELat# between fake_coordinate_error.nelat and fake_coordinate_error.swlat AND
