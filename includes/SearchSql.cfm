@@ -1192,25 +1192,37 @@
 				<cfset basQual = " #basQual# AND 
 					(
 						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
-						(#nelong# between  -180 and fake_coordinate_error.nelong) OR (#swlong# between fake_coordinate_error.swlong and 180)
+						((#nelong# between  -180 and fake_coordinate_error.nelong) OR (#swlong# between fake_coordinate_error.swlong and 180))
 					)
 						or
 					(
 						fake_coordinate_error.nelat between #SWLat# and #NELat# and
-						(fake_coordinate_error.nelong between #SWLong# and 180) OR (fake_coordinate_error.nelong between -180 and #NELong#)
+						((fake_coordinate_error.nelong between #SWLong# and 180) OR (fake_coordinate_error.nelong between -180 and #NELong#))
 					)">
 					
-					
+					<!----
+	select count(*) from 	fake_coordinate_error where			
+					(
+50.54519454708567 between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
+(-179.474853515625 between -180 and fake_coordinate_error.nelong) OR (178.639892578125 between fake_coordinate_error.swlong and 180)
+)
+or
+(
+fake_coordinate_error.nelat between 49.98409900471027 and 50.54519454708567 and
+(fake_coordinate_error.nelong between 178.639892578125 and 180) OR (fake_coordinate_error.nelong between -180 and -179.474853515625)
+) 
+
+---->
 					<cfoutput>
 					<hr>
 					<br>(
 					<br>	#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
-						<br>(#nelong# between  -180 and fake_coordinate_error.nelong) OR (#swlong# between fake_coordinate_error.swlong and 180)
+						<br>((#nelong# between  -180 and fake_coordinate_error.nelong) OR (#swlong# between fake_coordinate_error.swlong and 180))
 					<br>)
 						<br>or
 				<br>	(
 					<br>	fake_coordinate_error.nelat between #SWLat# and #NELat# and
-						<br>(fake_coordinate_error.nelong between #SWLong# and 180) OR (fake_coordinate_error.nelong between -180 and #NELong#)
+						<br>((fake_coordinate_error.nelong between #SWLong# and 180) OR (fake_coordinate_error.nelong between -180 and #NELong#))
 					<br>)
 					
 					<cfabort>
