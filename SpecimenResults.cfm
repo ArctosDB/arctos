@@ -1,8 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-
-<cfset debug=1>
-
-
 <script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js'></script>
 <script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script>
 <cfif len(session.displayrows) is 0>
