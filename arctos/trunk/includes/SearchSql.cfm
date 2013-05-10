@@ -1199,6 +1199,22 @@
 						fake_coordinate_error.nelat between #SWLat# and #NELat# and
 						(fake_coordinate_error.nelong between #SWLong# and 180) OR (fake_coordinate_error.nelong between -180 and #NELong#)
 					)">
+					
+					
+					<cfoutput>
+					<hr>
+					<br>(
+					<br>	#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
+						<br>(#nelong# between  -180 and fake_coordinate_error.nelong) OR (#swlong# between fake_coordinate_error.swlong and 180)
+					<br>)
+						<br>or
+				<br>	(
+					<br>	fake_coordinate_error.nelat between #SWLat# and #NELat# and
+						<br>(fake_coordinate_error.nelong between #SWLong# and 180) OR (fake_coordinate_error.nelong between -180 and #NELong#)
+					<br>)
+					
+					<cfabort>
+					</cfoutput>
 			<cfelse><!--- NE & SW longitude both either positive or negative --->
 				<cfset basQual = " #basQual# AND 
 					(
