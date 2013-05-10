@@ -13,7 +13,7 @@
 <div id="safsdg">
 	<select name="sq_error" id="sq_error">
 		<option value="false">Query by points only</option>
-		<option value="true">Query by points ands error</option>
+		<option value="true">Query by points and error</option>
 	</select>
 </div>
 <div id="search-panel">
