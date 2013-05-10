@@ -1225,7 +1225,6 @@ fake_coordinate_error.nelat between 49.98409900471027 and 50.54519454708567 and
 						<br>((fake_coordinate_error.nelong between #SWLong# and 180) OR (fake_coordinate_error.nelong between -180 and #NELong#))
 					<br>)
 					
-					<cfabort>
 					</cfoutput>
 			<cfelse><!--- NE & SW longitude both either positive or negative --->
 				<cfset basQual = " #basQual# AND 
