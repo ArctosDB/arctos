@@ -1171,7 +1171,6 @@
 					)
 					<= #chronological_extent#">
 </cfif>
-
 <cfif (isdefined("NELat") and len(NELat) gt 0)
 	OR (isdefined("NELong") and len(NELong) gt 0)
 	OR (isdefined("SWLat") and len(SWLat) gt 0)
@@ -1201,41 +1200,6 @@
 						)
 					)">
 			<cfelse><!--- NE & SW longitude both either positive or negative --->
-				
-				 ( 
-				 	66.0148635418038 between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND 
-				 	-168.20386718750007 between fake_coordinate_error.nelong and fake_coordinate_error.swlong 
-				 ) or ( 
-				 	fake_coordinate_error.nelat between 65.40393545760334 and 66.0148635418038 and 
-				 	fake_coordinate_error.nelong between -169.9013651875 AND -168.20386718750007 
-				 ) 
-				 
-				 <!---
-				 	1) drawn box WITHIN error box
-				 	2) drawn box overlaps error box
-				 	
-				 uam@arctos> select dec_lat,dec_long from flat where locality_id=1198090;
-
-   DEC_LAT   DEC_LONG
----------- ----------
-65.4666667 -168.56667
-
-1 row selected.
-
-Elapsed: 00:00:00.06
-uam@arctos> select * from fake_coordinate_error where locality_id=1198090;
-
-LOCALITY_ID	 SWLAT	   SWLONG      NELAT	 NELONG
------------ ---------- ---------- ---------- ----------
-    1198090 65.4666667 -168.56667 65.4666667 -168.56667
-
-1 row selected.
-
-
-
-
-				 ---->
-				 
 				<cfset basQual = " #basQual# AND 
 					(
 						(
@@ -1251,12 +1215,7 @@ LOCALITY_ID	 SWLAT	   SWLONG      NELAT	 NELONG
 			</cfif>
 		<cfelse>
 		
-		
-			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
 			<cfif NELong lt 0 and SWLong gt 0>
-			
- flat.dec_lat BETWEEN 65.40393545760334 AND 66.0148635418038 AND flat.dec_long BETWEEN -169.9013651875 AND -168.20386718750007 
-
 				<cfset basQual = " #basQual# AND (#session.flatTableName#.dec_long between #SWLong# and 180 OR
 					#session.flatTableName#.dec_long between -180 and #NELong#)">
 			<cfelse>
