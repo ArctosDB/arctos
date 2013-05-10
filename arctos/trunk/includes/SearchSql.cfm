@@ -1214,7 +1214,8 @@
 				 	1) drawn box WITHIN error box
 				 	2) drawn box overlaps error box
 				 	
-				 	
+				 	66	 -169
+
 LOCALITY_ID	 SWLAT	   SWLONG      NELAT	 NELONG
 ----------- ---------- ---------- ---------- ----------
    10005521 63.4598481	-174.6645 68.5401519  -163.3355
@@ -1235,8 +1236,14 @@ LOCALITY_ID	 SWLAT	   SWLONG      NELAT	 NELONG
 					)">
 			</cfif>
 		<cfelse>
+		
+		
 			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
 			<cfif NELong lt 0 and SWLong gt 0>
+			
+					flat.dec_lat BETWEEN 65.40393545760334 AND 66.0148635418038 AND flat.dec_long BETWEEN -169.9013651875 AND -168.20386718750007 
+
+
 				<cfset basQual = " #basQual# AND (#session.flatTableName#.dec_long between #SWLong# and 180 OR
 					#session.flatTableName#.dec_long between -180 and #NELong#)">
 			<cfelse>
