@@ -1186,17 +1186,29 @@
 		</cfif>
 		<cfif sq_error is true>
 			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
-	
-			<cfset basQual = " #basQual# AND 
-				(
-					#NELat# between fake_coordinate_error.nelat and fake_coordinate_error.swlat AND
-					#nelong# between fake_coordinate_error.nelong and fake_coordinate_error.swlong
-				)
-					or
-				(
-					fake_coordinate_error.nelat between #NELat# and #SWLat# and
-					fake_coordinate_error.nelong between #NELong# and #SWLong#
-				)">
+			<cfif NELong lt 0 and SWLong gt 0>
+				<cfset basQual = " #basQual# AND 
+					(
+						#NELat# between fake_coordinate_error.nelat and fake_coordinate_error.swlat AND
+						(#nelong# between fake_coordinate_error.nelong and 180) OR (#swlong# between -180 and fake_coordinate_error.swlong)
+					)
+						or
+					(
+						fake_coordinate_error.nelat between #NELat# and #SWLat# and
+						(fake_coordinate_error.nelong between #SWLong# and 180) OR (fake_coordinate_error.nelong between -180 and #NELong#)
+					)">
+			<cfelse>
+				<cfset basQual = " #basQual# AND 
+					(
+						#NELat# between fake_coordinate_error.nelat and fake_coordinate_error.swlat AND
+						#nelong# between fake_coordinate_error.nelong and fake_coordinate_error.swlong
+					)
+						or
+					(
+						fake_coordinate_error.nelat between #NELat# and #SWLat# and
+						fake_coordinate_error.nelong between #NELong# and #SWLong#
+					)">
+			</cfif>
 		<cfelse>
 			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
 			<cfif NELong lt 0 and SWLong gt 0>
@@ -1206,8 +1218,6 @@
 				<cfset basQual = " #basQual# AND #session.flatTableName#.dec_long BETWEEN #SWLong# AND #NELong#">
 			</cfif>
 		</cfif>
-		
-
 		<cfset mapurl = "#mapurl#&NELat=#NELat#&NELong=#NELong#&SWLat=#SWLat#&SWLong=#SWLong#&sq_error=#sq_error#">
 	<cfelse>
 		<div class="error">
