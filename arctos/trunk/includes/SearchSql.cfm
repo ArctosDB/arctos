@@ -1189,7 +1189,7 @@
 	
 			<cfset basQual = " #basQual# AND 
 				(
-					(#NELat# between fake_coordinate_error.nelat and fake_coordinate_error.swlat AND
+					#NELat# between fake_coordinate_error.nelat and fake_coordinate_error.swlat AND
 					#nelong# between fake_coordinate_error.nelong and fake_coordinate_error.swlong
 				)
 					or
