@@ -10,6 +10,13 @@
 	<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
 	<br>Click the Arctos Search button (at the top or bottom of the page), NOT the Google Search button on the map, to run your query.
 </label>
+<div id="safsdg">
+	<select name="sq_error" id="sq_error">
+		<option value="false">Query by points only</option>
+		<option value="true">Query by points ands error</option>
+	</select>
+	<input id="sq_error" type="text" placeholder="Search the Map" onKeyPress="return noenter(event);">
+</div>
 <div id="search-panel">
 	<input id="gmapsrchtarget" type="text" placeholder="Search the Map" onKeyPress="return noenter(event);">
 </div>
