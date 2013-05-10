@@ -1225,7 +1225,7 @@
 					
 					---------->
 					
-					
+					<cfoutput>
 						<hr>
 					<br>(
 					<br>	#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
@@ -1238,7 +1238,7 @@
 					<br>)
 					
 					<hr>
-					
+					</cfoutput>
 					
 			</cfif>
 		<cfelse>
