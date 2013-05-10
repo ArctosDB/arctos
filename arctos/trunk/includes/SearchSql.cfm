@@ -1189,18 +1189,18 @@
 			<cfif NELong lt 0 and SWLong gt 0>
 				<cfset basQual = " #basQual# AND 
 					(
-						#NELat# between fake_coordinate_error.nelat and fake_coordinate_error.swlat AND
-						(#nelong# between fake_coordinate_error.nelong and 180) OR (#swlong# between -180 and fake_coordinate_error.swlong)
+						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
+						(#nelong# between fake_coordinate_error.nelong and -180) OR (#swlong# between 180 and fake_coordinate_error.swlong)
 					)
 						or
 					(
-						fake_coordinate_error.nelat between #NELat# and #SWLat# and
+						fake_coordinate_error.nelat between #SWLat# and #NELat# and
 						(fake_coordinate_error.nelong between #SWLong# and 180) OR (fake_coordinate_error.nelong between -180 and #NELong#)
 					)">
 			<cfelse>
 				<cfset basQual = " #basQual# AND 
 					(
-						#NELat# between fake_coordinate_error.nelat and fake_coordinate_error.swlat AND
+						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
 						#nelong# between fake_coordinate_error.nelong and fake_coordinate_error.swlong
 					)
 						or
