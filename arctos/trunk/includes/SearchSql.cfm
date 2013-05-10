@@ -1201,10 +1201,32 @@
 						)
 					)">
 			<cfelse><!--- NE & SW longitude both either positive or negative --->
+				
+				 ( 
+				 	66.0148635418038 between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND 
+				 	-168.20386718750007 between fake_coordinate_error.nelong and fake_coordinate_error.swlong 
+				 ) or ( 
+				 	fake_coordinate_error.nelat between 65.40393545760334 and 66.0148635418038 and 
+				 	fake_coordinate_error.nelong between -169.9013651875 AND -168.20386718750007 
+				 ) 
+				 
+				 <!---
+				 	1) drawn box WITHIN error box
+				 	2) drawn box overlaps error box
+				 	
+				 	
+LOCALITY_ID	 SWLAT	   SWLONG      NELAT	 NELONG
+----------- ---------- ---------- ---------- ----------
+   10005521 63.4598481	-174.6645 68.5401519  -163.3355
+
+
+
+				 ---->
+				 
 				<cfset basQual = " #basQual# AND 
 					(
 						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
-						#nelong# between fake_coordinate_error.nelong and fake_coordinate_error.swlong
+						#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong 
 					)
 						or
 					(
