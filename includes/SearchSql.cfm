@@ -1192,7 +1192,10 @@
 				<cfset basQual = " #basQual# AND 
 					(
 						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
-						((#nelong# between  -180 and fake_coordinate_error.nelong) OR (#swlong# between fake_coordinate_error.swlong and 180))
+						(
+							(#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong) or 
+							(#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong)
+						)
 					)
 						or
 					(
@@ -1201,16 +1204,26 @@
 					)">
 					
 					<!----
-	select count(*) from 	fake_coordinate_error where			
-					(
-50.54519454708567 between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
-(-179.474853515625 between -180 and fake_coordinate_error.nelong) OR (178.639892578125 between fake_coordinate_error.swlong and 180)
+					
+					
+													((#nelong# between  -180 and fake_coordinate_error.nelong) OR (#swlong# between fake_coordinate_error.swlong and 180))
+
+
+
+
+	LOCALITY_ID	 SWLAT	   SWLONG      NELAT	 NELONG
+----------- ---------- ---------- ---------- ----------
+   10012379 47.8753755 35.1669983 64.3890245 59.3368017
+
+
+(
+52.533205471718574 between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
+((-175.238525390625 between -180 and fake_coordinate_error.nelong) OR (177.238037109375 between fake_coordinate_error.swlong and 180))
 )
 or
 (
-fake_coordinate_error.nelat between 49.98409900471027 and 50.54519454708567 and
-(fake_coordinate_error.nelong between 178.639892578125 and 180) OR (fake_coordinate_error.nelong between -180 and -179.474853515625)
-) 
+fake_coordinate_error.nelat between 51.17689838353933 and 52.533205471718574 and
+((fake_coordinate_error.nelong between 177.238037109375 and 180) OR (fake_coordinate_error.nelong between -180 and -175.238525390625)) 
 
 ---->
 					<cfoutput>
