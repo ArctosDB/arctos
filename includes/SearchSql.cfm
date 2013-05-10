@@ -1188,7 +1188,6 @@
 			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
 			<cfif NELong lt 0 and SWLong gt 0>
 				
-				go away <cfabort>
 				
 				<cfset basQual = " #basQual# AND 
 					(
