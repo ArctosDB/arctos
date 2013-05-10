@@ -1,13 +1,58 @@
 <cfoutput>
 <cffunction name="toRad">
 	<cfargument name="n" required="yes">
-	
+	<cfreturn n * pi() / 180 >
+</cffunction>
+<cffunction name="toDeg">
+	<cfargument name="n" required="yes">
 	<cfreturn n * 180 / pi()>
 </cffunction>
 
 <cfset x=toRad(30)>
+toRad
+<cfdump var=#x#>
+
+toDeg
+
+<cfset x=toDeg(30)>
 
 <cfdump var=#x#>
+
+
+<cffunction name="destinationPoint">
+	<cfargument name="brng" required="yes">
+	<cfargument name="dist" required="yes">
+	<cfargument name="lat" required="yes">
+	<cfargument name="lng" required="yes">
+	<cfscript>
+		dist = dist / 6371;  
+   		brng = toRad(brng);
+  	 var lat1 = this.lat().toRad(), lon1 = this.lng().toRad();
+	</cfscript>
+	
+
+  
+
+   var lat2 = Math.asin(Math.sin(lat1) * Math.cos(dist) + 
+                        Math.cos(lat1) * Math.sin(dist) * Math.cos(brng));
+
+   var lon2 = lon1 + Math.atan2(Math.sin(brng) * Math.sin(dist) *
+                                Math.cos(lat1), 
+                                Math.cos(dist) - Math.sin(lat1) *
+                                Math.sin(lat2));
+
+   if (isNaN(lat2) || isNaN(lon2)) return null;
+
+   return new google.maps.LatLng(lat2.toDeg(), lon2.toDeg());
+
+
+
+	
+	
+	
+	<cfreturn n * 180 / pi()>
+</cffunction>
+
 
 </cfoutput>
 
