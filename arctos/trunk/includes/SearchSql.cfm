@@ -1187,6 +1187,9 @@
 		<cfif sq_error is true>
 			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
 			<cfif NELong lt 0 and SWLong gt 0>
+				
+				go away <cfabort>
+				
 				<cfset basQual = " #basQual# AND 
 					(
 						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
@@ -1197,7 +1200,7 @@
 						fake_coordinate_error.nelat between #SWLat# and #NELat# and
 						(fake_coordinate_error.nelong between #SWLong# and 180) OR (fake_coordinate_error.nelong between -180 and #NELong#)
 					)">
-			<cfelse>
+			<cfelse><!--- NE & SW longitude both either positive or negative --->
 				<cfset basQual = " #basQual# AND 
 					(
 						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
@@ -1206,8 +1209,37 @@
 						or
 					(
 						fake_coordinate_error.nelat between #SWLat# and #NELat# and
-						fake_coordinate_error.nelong between #NELong# and #SWLong#
+						fake_coordinate_error.nelong between #SWLong# AND #NELong# 
 					)">
+					
+				
+					<!------
+					
+					 ( 
+ 50.8514188357247 between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND 
+ -95.501953125 between fake_coordinate_error.nelong and fake_coordinate_error.swlong 
+ ) or ( 
+ fake_coordinate_error.nelat between 45.018359678852306 and 50.8514188357247 and 
+ fake_coordinate_error.nelong between -95.501953125 and -109.458984375 ) 
+					
+					
+					---------->
+					
+					
+						<hr>
+					<br>(
+					<br>	#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
+						<br>#nelong# between fake_coordinate_error.nelong and fake_coordinate_error.swlong
+					<br>)
+					<br>	or
+					<br>(
+					<br>	fake_coordinate_error.nelat between #SWLat# and #NELat# and
+					<br>	fake_coordinate_error.nelong between #SWLong# AND #NELong# 
+					<br>)
+					
+					<hr>
+					
+					
 			</cfif>
 		<cfelse>
 			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
