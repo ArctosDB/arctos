@@ -1205,7 +1205,7 @@
 					)
 						or
 					(
-						fake_coordinate_error.nelat between #NELat# and #SWLat# and
+						fake_coordinate_error.nelat between #SWLat# and #NELat# and
 						fake_coordinate_error.nelong between #NELong# and #SWLong#
 					)">
 			</cfif>
