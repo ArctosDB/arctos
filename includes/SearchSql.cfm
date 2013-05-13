@@ -1214,7 +1214,7 @@
 							#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong 
 						) or ( <!--- SE corner --->
 							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
-							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong s
+							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong
 						) or (	<!---- a corner of the error box is withing the user box ---->	
 						<!--- userbox completely overlaps error --->				
 							fake_coordinate_error.nelat between #SWLat# and #NELat# and
