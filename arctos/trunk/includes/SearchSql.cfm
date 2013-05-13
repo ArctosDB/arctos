@@ -1203,13 +1203,17 @@
 				<cfset basQual = " #basQual# AND 
 					(
 						(
-						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
+							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
 							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong 
-						)
-							or
-						(
+						) or (
+							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
+							#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong 
+						) or (
 							fake_coordinate_error.nelat between #SWLat# and #NELat# and
 							fake_coordinate_error.nelong between #SWLong# AND #NELong# 
+						) or (
+							fake_coordinate_error.swlat between #SWLat# and #NELat# and
+							fake_coordinate_error.swlong between #SWLong# AND #NELong# 
 						)
 					)">
 			</cfif>
