@@ -1185,14 +1185,50 @@
 		</cfif>
 		<cfif sq_error is true>
 			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
+			<cfset x=0>
+			<cfif NELong lt 0 and SWLong gt 0>
+				<cfset x=180>
+			</cfif>
+			
+		
+			<cfset basQual = " #basQual# AND 
+				(
+					(	
+						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
+						(#nelong# + #x#) between (fake_coordinate_error.swlong + #x#) and (fake_coordinate_error.nelong + #x#) 
+					) or (
+						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
+						(#swlong# + #x#) between (fake_coordinate_error.swlong + #x#) and (fake_coordinate_error.nelong + #x#) 
+					) or (
+						#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
+						(#swlong#  + #x#) between (fake_coordinate_error.swlong + #x#) and (fake_coordinate_error.nelong + #x#) 
+					) or ( 
+						#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
+						(#nelong# + #x#) between (fake_coordinate_error.swlong + #x#) and (fake_coordinate_error.nelong + #x#)
+					) or (		
+						fake_coordinate_error.nelat between #SWLat# and #NELat# and
+						(fake_coordinate_error.nelong + #x#) between (#SWLong# + #x#) AND (#NELong# + #x#) 
+					) or (
+						fake_coordinate_error.swlat between #SWLat# and #NELat# and
+						(fake_coordinate_error.swlong + #x#) between (#SWLong# + #x#) AND (#NELong# + #x#) 
+					)
+				)">
+			<!----
+			
+			
+			USERBOX:			175   ---------------(180/-180)---------------  -175
+SPECIMEN			                                      -176 -------------------- -170                        
+ 	
+	
+	
+	
 			<cfif NELong lt 0 and SWLong gt 0>
 				<cfset basQual = " #basQual# AND 
 					(
 						(
 							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
 							(
-								(#nelong# between fake_coordinate_error.swlong and 180) OR
-								(#nelong# between -180 and fake_coordinate_error.nelong)
+							 #nelong# between fake_coordinate_error.swlong and 180
 							)
 						) or (
 							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
@@ -1233,9 +1269,15 @@
 					-- can be extending past any edge, but not touching corners (or one of the 4 first would have found it)
 				
 				---->
+				
+				
+				
+			
+					
+					
 				<cfset basQual = " #basQual# AND 
 					(
-						(	-- userbox north lat within specimen error
+						(	
 							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
 							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong 
 						) or (
@@ -1256,6 +1298,9 @@
 						)
 					)">
 			</cfif>
+			
+			
+			---->
 		<cfelse>
 			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
 			<cfif NELong lt 0 and SWLong gt 0>
