@@ -1184,8 +1184,29 @@
 			<cfset sq_error='false'>
 		</cfif>
 		<cfif sq_error is true>
+		
+			<!----------
+				possibilities:
+					latitude: whatever, always works
+					
+					longitude:
+						userbox both ends positive, specimen both ends positive
+							add 0 to both sides (=just works)
+						userbox both ends negative, specimen both ends negative
+							add 0 to both sides (=just works)
+						userbox one + one, specimen (anything) - then
+							add 180 to everything
+						specimen one end positive, one end negative
+							??
+								
+						
+								
+						
+				
+			
+			------------>
 			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
-			<cfset x=0>
+			<cfset x=180>
 			<cfif NELong lt 0 and SWLong gt 0>
 				<cfset x=180>
 			</cfif>
