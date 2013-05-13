@@ -1188,21 +1188,37 @@
 			<cfif NELong lt 0 and SWLong gt 0>
 				<cfset basQual = " #basQual# AND 
 					(
-						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
 						(
-							(#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong) or 
-							(#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong)
-						)
-					) or (
-						fake_coordinate_error.nelat between #SWLat# and #NELat# and
-						(
-							(fake_coordinate_error.nelong between #SWLong# and 180) OR (fake_coordinate_error.nelong between -180 and #NELong#)
+							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
+							(
+								#nelong# between fake_coordinate_error.swlong and 180 OR
+								#nelong# between -180 and fake_coordinate_error.nelong
+							)
+						) or (
+							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
+							(
+								#swlong# between fake_coordinate_error.swlong and 180 OR
+								#swlong# between -180 and fake_coordinate_error.nelong
+							)
+						) or (
+							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
+							(
+								#nelong# between fake_coordinate_error.swlong and 180 OR
+								#nelong# between -180 and fake_coordinate_error.nelong
+							)
+						) or (
+							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
+							(
+								#swlong# between fake_coordinate_error.swlong and 180 OR
+								#swlong# between -180 and fake_coordinate_error.nelong
+							)
 						)
 					)">
 			<cfelse><!--- NE & SW longitude both either positive or negative --->
-				<!---- first 4 criteria: any of the user's box coordinate corners are withing th speci err
+				<!---- first 4 criteria: any of the user's box coordinate corners are withing the specimen error
 				
-				;ast 2 criteria: the rest
+				last 2 criteria: userbox is within specimen error
+					-- can be extending past any edge, but not touching corners (or one of the 4 first would have found it)
 				
 				---->
 				<cfset basQual = " #basQual# AND 
