@@ -1191,41 +1191,40 @@
 						(
 							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
 							(
-								#nelong# between fake_coordinate_error.swlong and 180 OR
-								#nelong# between -180 and fake_coordinate_error.nelong
+								(#nelong# between fake_coordinate_error.swlong and 180) OR
+								(#nelong# between -180 and fake_coordinate_error.nelong)
 							)
 						) or (
 							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
 							(
-								#swlong# between fake_coordinate_error.swlong and 180 OR
-								#swlong# between -180 and fake_coordinate_error.nelong
+								(#swlong# between fake_coordinate_error.swlong and 180) OR
+								(#swlong# between -180 and fake_coordinate_error.nelong)
 							)
 						) or (
 							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
 							(
-								#nelong# between fake_coordinate_error.swlong and 180 OR
-								#nelong# between -180 and fake_coordinate_error.nelong
+								(#nelong# between fake_coordinate_error.swlong and 180) OR
+								(#nelong# between -180 and fake_coordinate_error.nelong)
 							)
 						) or (
 							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
 							(
-								#swlong# between fake_coordinate_error.swlong and 180 OR
-								#swlong# between -180 and fake_coordinate_error.nelong
+								(#swlong# between fake_coordinate_error.swlong and 180) OR
+								(#swlong# between -180 and fake_coordinate_error.nelong)
 							)
-								
-							
 						) or (		
 							fake_coordinate_error.nelat between #SWLat# and #NELat# and
 							(
-								fake_coordinate_error.nelong between #SWLong# AND #NELong# or
-								fake_coordinate_error.nelong between #SWLong# AND #NELong# or
+								(fake_coordinate_error.nelong between #SWLong# AND 180) or
+								(fake_coordinate_error.nelong between -180 and #NELong#)
 							)
 						) or (
 							fake_coordinate_error.swlat between #SWLat# and #NELat# and
-							fake_coordinate_error.swlong between #SWLong# AND #NELong# 
-						)
-							
-								
+							(
+								(fake_coordinate_error.swlong between #SWLong# AND 180) or
+								(fake_coordinate_error.swlong between -180 and #NELong#)
+							)
+						)	
 					)">
 			<cfelse><!--- NE & SW longitude both either positive or negative --->
 				<!---- first 4 criteria: any of the user's box coordinate corners are withing the specimen error
