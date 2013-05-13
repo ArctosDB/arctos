@@ -891,7 +891,7 @@
 	<cfif basJoin does not contain " accn ">
 		<cfset basJoin = " #basJoin# INNER JOIN accn ON (#session.flatTableName#.accn_id = accn.transaction_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND upper(accn.accn_number) IN (#listqualify(accn_list,chr(39))#)">
+	<cfset basQual = " #basQual# AND upper(accn.accn_number) IN (#ucase(listqualify(accn_list,chr(39)))#)">
 </cfif>
 <cfif isdefined("loan_number") and len(loan_number) gt 0>
 	<cfset mapurl = "#mapurl#&loan_number=#loan_number#">
