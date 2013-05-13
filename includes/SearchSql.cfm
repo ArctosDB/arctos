@@ -1212,7 +1212,20 @@
 								#swlong# between fake_coordinate_error.swlong and 180 OR
 								#swlong# between -180 and fake_coordinate_error.nelong
 							)
+								
+							
+						) or (		
+							fake_coordinate_error.nelat between #SWLat# and #NELat# and
+							(
+								fake_coordinate_error.nelong between #SWLong# AND #NELong# or
+								fake_coordinate_error.nelong between #SWLong# AND #NELong# or
+							)
+						) or (
+							fake_coordinate_error.swlat between #SWLat# and #NELat# and
+							fake_coordinate_error.swlong between #SWLong# AND #NELong# 
 						)
+							
+								
 					)">
 			<cfelse><!--- NE & SW longitude both either positive or negative --->
 				<!---- first 4 criteria: any of the user's box coordinate corners are withing the specimen error
@@ -1223,7 +1236,7 @@
 				---->
 				<cfset basQual = " #basQual# AND 
 					(
-						(
+						(	-- userbox north lat within specimen error
 							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
 							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong 
 						) or (
