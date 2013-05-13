@@ -874,12 +874,17 @@
 	<cfset basQual = " #basQual# AND upper(trans.institution_acronym) like '%#ucase(accn_inst)#%'">
 </cfif>
 <cfif isdefined("accn_number") and len(accn_number) gt 0>
-	<cfset mapurl = "#mapurl#&accn_number=#accn_number#">
-	<cfif left(accn_number,1) is '='>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.accession) = '#ucase(right(accn_number,len(accn_number)-1))#'">
+	<cfif accn_number contains ",">
+		<cfset accn_list=accn_number>
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.accession) LIKE '%#ucase(accn_number)#%'">
+		<cfset mapurl = "#mapurl#&accn_number=#accn_number#">
+		<cfif left(accn_number,1) is '='>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.accession) = '#ucase(right(accn_number,len(accn_number)-1))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.accession) LIKE '%#ucase(accn_number)#%'">
+		</cfif>
 	</cfif>
+	
 </cfif>
 <cfif isdefined("accn_list") and len(accn_list) gt 0>
 	<cfset mapurl = "#mapurl#&accn_list=#accn_list#">
