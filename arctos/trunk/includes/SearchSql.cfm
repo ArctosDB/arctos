@@ -1206,7 +1206,7 @@
 			
 			------------>
 			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
-			<cfset x=180>
+			<cfset x=0>
 			<cfif NELong lt 0 and SWLong gt 0>
 				<cfset x=180>
 			</cfif>
