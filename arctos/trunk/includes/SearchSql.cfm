@@ -1200,6 +1200,11 @@
 						)
 					)">
 			<cfelse><!--- NE & SW longitude both either positive or negative --->
+				<!---- first 4 criteria: any of the user's box coordinate corners are withing th speci err
+				
+				;ast 2 criteria: the rest
+				
+				---->
 				<cfset basQual = " #basQual# AND 
 					(
 						(
