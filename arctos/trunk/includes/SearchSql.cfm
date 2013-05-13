@@ -1202,13 +1202,21 @@
 			<cfelse><!--- NE & SW longitude both either positive or negative --->
 				<cfset basQual = " #basQual# AND 
 					(
-						(
+						<!---- a corner of the user box is within the error ---->
+						(	<!--- NE corner --->
 							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
 							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong 
-						) or (
+						) or ( <--- NW corner --->
+							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
+							#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong 
+						) or ( <!--- sw corner --->
 							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
 							#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong 
-						) or (
+						) or ( <!--- SE corner --->
+							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
+							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong s
+						) or (	<!---- a corner of the error box is withing the user box ---->	
+						<!--- userbox completely overlaps error --->				
 							fake_coordinate_error.nelat between #SWLat# and #NELat# and
 							fake_coordinate_error.nelong between #SWLong# AND #NELong# 
 						) or (
