@@ -333,13 +333,13 @@ If your item needs to be sorted in a special way, then do that here. --->
 				<ul>
 					
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error less than 100 meters.
+						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error of 100 meters or less.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=1000">#val(err_lt1000.c)# specimens</a> have a coordinate error between less than 1 kilometer.
+						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=1000">#val(err_lt1000.c)# specimens</a> have a coordinate error of 1 kilometer or less.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100000">#val(err_lt10000.c)# specimens</a> have a coordinate error less than 10 kilometers.
+						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=10000">#val(err_lt10000.c)# specimens</a> have a coordinate error of 10 kilometers or less.
 					</li>
 					<li>
 						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=99999999999999999999999">#val(haserr.c)# specimens</a> have a coordinate error.
