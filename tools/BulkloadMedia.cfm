@@ -147,9 +147,19 @@ sho err
 <cfif action is "pulldir">
 	<cfset title=title&": Pull from URL">
 	<cfquery name="ctMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		SELECT distinct(display)  MEDIA_LICENSE FROM ctMEDIA_LICENSE
-		order by display
+		SELECT distinct(display)  MEDIA_LICENSE FROM ctMEDIA_LICENSE order by display
     </cfquery>
+	<cfquery name="ctMIME_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT distinct(MIME_TYPE)  MIME_TYPE FROM ctMIME_TYPE order by MIME_TYPE
+    </cfquery>
+	<cfquery name="ctMEDIA_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT distinct(MEDIA_TYPE)  MEDIA_TYPE FROM ctMEDIA_TYPE order by MEDIA_TYPE
+    </cfquery>
+	<cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT distinct(MEDIA_RELATIONSHIP) MEDIA_RELATIONSHIP FROM ctmedia_relationship order by MEDIA_RELATIONSHIP
+    </cfquery>
+	
+	
 	<cfoutput>
 		<cfif not isdefined("dirurl")>
 			<cfset dirurl=''>
@@ -188,30 +198,33 @@ sho err
 		<cfif not isdefined("MEDIA_LICENSE")>
 			<cfset MEDIA_LICENSE=''>
 		</cfif>
+		<cfif not isdefined("MIME_TYPE")>
+			<cfset MIME_TYPE=''>
+		</cfif>
+		<cfif not isdefined("MEDIA_TYPE")>
+			<cfset MEDIA_TYPE=''>
+		</cfif>
+		<cfif not isdefined("MEDIA_RELATIONSHIP_1")>
+			<cfset MEDIA_RELATIONSHIP_1=''>
+		</cfif>
+		
+		
 		<form name="temp2" method="post" action="BulkloadMedia.cfm">
 			<input type="hidden" name="action" value="pulldir">
 			<label for="dirurl">Directory URL</label>
 			<input type="text" name="dirurl" value="#dirurl#" size="80">
 			<label for="extfilter">Filter for extension (eg, ".jpg")</label>
 			<input type="text" name="extfilter" value="#extfilter#" size="6">
-			
-			
 			<label for="requirePrefix">Require file to start with...</label>
 			<input type="text" name="requirePrefix" value="#requirePrefix#" size="6">
-			
 			<label for="ignorePrefix">ignore files that start with...</label>
 			<input type="text" name="ignorePrefix" value="#ignorePrefix#" size="6">
-			
 			<label for="tndir">Preview Directory URL</label>
 			<input type="text" name="tndir" value="#tndir#" size="80">
-			
 			<label for="tnprefix">Preview prefix (eg, "tn_")</label>
 			<input type="text" name="tnprefix" value="#tnprefix#" size="6">
-			
-			
 			<label for="tnext">Preview extension (eg, ".jpg")</label>
 			<input type="text" name="tnext" value="#tnext#" size="6">
-			
 			<label for="MEDIA_LICENSE">MEDIA_LICENSE</label>
 			<cfset tml=MEDIA_LICENSE>
 			<select name="MEDIA_LICENSE" id="MEDIA_LICENSE">
@@ -220,6 +233,29 @@ sho err
 					<option <cfif tml is MEDIA_LICENSE> selected="selected" </cfif>value="#MEDIA_LICENSE#">#MEDIA_LICENSE#</option>
 				</cfloop>
 			</select>
+			<label for="MIME_TYPE">MIME_TYPE</label>
+			<cfset tml=MIME_TYPE>
+			<select name="MIME_TYPE" id="MIME_TYPE">
+				<cfloop query="ctMIME_TYPE">
+					<option <cfif tml is MIME_TYPE> selected="selected" </cfif>value="#MIME_TYPE#">#MIME_TYPE#</option>
+				</cfloop>
+			</select>
+			<label for="MEDIA_TYPE">MEDIA_TYPE</label>
+			<cfset tml=MEDIA_TYPE>
+			<select name="MEDIA_TYPE" id="MEDIA_TYPE">
+				<cfloop query="ctMEDIA_TYPE">
+					<option <cfif tml is MEDIA_TYPE> selected="selected" </cfif>value="#MEDIA_TYPE#">#MEDIA_TYPE#</option>
+				</cfloop>
+			</select>
+			
+			<label for="MEDIA_RELATIONSHIP_1">MEDIA_RELATIONSHIP_1</label>
+			<select name="MEDIA_RELATIONSHIP_1" id="MEDIA_RELATIONSHIP_1">
+				<option value=""></option>
+				<cfloop query="ctmedia_relationship">
+					<option <cfif tml is MEDIA_RELATIONSHIP> selected="selected" </cfif>value="#MEDIA_RELATIONSHIP#">#MEDIA_RELATIONSHIP#</option>
+				</cfloop>
+			</select>
+			
 			
 			
 			<br><input type="submit" value="go">
@@ -244,6 +280,11 @@ sho err
 						<th>MEDIA_URI</th>
 						<th>PREVIEW_URI</th>
 						<th>MEDIA_LICENSE</th>
+						<th>MIME_TYPE</th>
+						<th>MEDIA_TYPE</th>
+						<th>MEDIA_RELATIONSHIP_1</th>
+						
+						
 					</tr>
 				
 				
@@ -288,6 +329,11 @@ sho err
 						<td>#dirurl##thisFile#</td>
 						<td>#thisThumb#</td>
 						<td>#MEDIA_LICENSE#</td>
+						<td>#MIME_TYPE#</td>
+						<td>#MEDIA_TYPE#</td>
+						<td>#MEDIA_RELATIONSHIP_1#</td>
+						
+						
 					</tr>
 				</cfif>
 				<!----
