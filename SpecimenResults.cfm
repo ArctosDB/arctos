@@ -320,7 +320,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=1000
 	</cfquery>
 	<cfquery dbtype="query" name="err_lt10000">
-		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=10000
+		select count(*) c from summary where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=10000
 	</cfquery>
 	<cfquery dbtype="query" name="haserr">
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null
