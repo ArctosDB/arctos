@@ -142,6 +142,72 @@ sho err
 		<a href="/download/BulkMediaBack.csv">Click here if your file does not automatically download.</a>
 	</cfoutput>
 </cfif>
+
+<!------------------------------------------------------->
+<cfif action is "pulldir">
+	<cfset title=title&": Pull from URL">
+	<cfoutput>
+		<cfhttp url="#dirurl#" charset="utf-8" method="get">
+		</cfhttp>
+		
+		<cfdump var=#cfhttp#>
+		
+		<!-------------
+		<cfif isXML(cfhttp.FileContent)>
+			<cfset xStr=cfhttp.FileContent>
+			<!--- goddamned xmlns bug in CF --->
+			<cfset xStr= replace(xStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
+			<cfset xdir=xmlparse(xStr)>
+			<cfset dir = xmlsearch(xdir, "//td[@class='n']")>	
+			<cfloop index="i" from="1" to="#arrayLen(dir)#">
+				<cfset folder = dir[i].XmlChildren[1].xmlText>
+				<br>folder: #folder#
+				<cfif len(folder) is 10 and listlen(folder,"_") is 3><!--- probably a yyyy_mm_dd folder --->
+					<cfquery name="gotFolder" datasource="uam_god">
+						select count(*) c from es_img where folder='#folder#'		
+					</cfquery>
+					<!---
+					<cfquery name="gotFile" datasource="uam_god">
+						select count(distinct(imgname)) cbc from es_img where folder='#folder#'			
+					</cfquery>
+					--->
+					<cfif gotFolder.c is 0><!--- been here? --->
+						<br>fetching http://web.corral.tacc.utexas.edu/UAF/es/#folder#
+						<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/es/#folder#" charset="utf-8" method="get"></cfhttp>
+						<cfset ximgStr=cfhttp.FileContent>
+						<!--- goddamned xmlns bug in CF --->
+						<cfset ximgStr = replace(ximgStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
+						<cfset xImgAll=xmlparse(ximgStr)>
+						<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
+						<cfloop index="i" from="1" to="#arrayLen(xImage)#">
+							<cfset fname = xImage[i].XmlChildren[1].xmlText>
+							<br>adding fname: #fname#
+							<cfif right(fname,4) is ".dng">
+								<cfset imgname=replace(fname,".dng","")>
+								<cftry>
+								<cfquery name="upFile" datasource="uam_god">
+									insert into es_img (
+										imgname,
+										folder
+									) values (
+										'#imgname#',
+										'#folder#'
+									)	
+								</cfquery>
+								<cfcatch>
+									<br>failed@'#imgname#','#folder#'===#cfcatch.message#: #cfcatch.detail#
+								</cfcatch>
+								</cftry>
+							</cfif> 
+						</cfloop>
+					</cfif> <!--- end not been here --->
+				</cfif>		
+			</cfloop>
+		</cfif>	
+		
+		----->
+	</cfoutput>
+</cfif>
 <!------------------------------------------------------->
 <cfif action is "myStuff">
 	<cfset title=title&": My Stuff">
@@ -245,6 +311,16 @@ sho err
 			</UL>
 		</li>
 	</ul>
+<hr>
+	Upload Media to TACC (may work elsewhere) and use a directory to build a bulkloader template.
+	<form name="temp2" method="post" action="BulkloadMedia.cfm">
+		<input type="hidden" name="action" value="pulldir">
+		<label for="dirurl">Directory URL</label>
+		<input type="text" name="dirurl" size="80">
+		<br><input type="submit" value="go">
+
+<a href=""></a>
+
 <hr>
 	Download CSV template:
 	<form name="temp" method="post" action="BulkloadMedia.cfm">
