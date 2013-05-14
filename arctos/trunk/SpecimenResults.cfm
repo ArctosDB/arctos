@@ -347,7 +347,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 					
 					
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=true">#val(willmap)# specimens</a> have coordinates.
+						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=true">#val(willmap.recordcount)# specimens</a> have coordinates.
 					</li>
 					<li>
 						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
