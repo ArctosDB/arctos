@@ -153,6 +153,13 @@ sho err
 		<cfif not isdefined("extfilter")>
 			<cfset extfilter=''>
 		</cfif>
+		<cfif not isdefined("requirePrefix")>
+			<cfset requirePrefix=''>
+		</cfif>
+		
+		<cfif not isdefined("ignorePrefix")>
+			<cfset ignorePrefix=''>
+		</cfif>
 		<form name="temp2" method="post" action="BulkloadMedia.cfm">
 			<input type="hidden" name="action" value="pulldir">
 			<label for="dirurl">Directory URL</label>
@@ -161,6 +168,13 @@ sho err
 			
 			<label for="extfilter">Filter for extension (eg, ".jpg")</label>
 			<input type="text" name="extfilter" value="#extfilter#" size="6">
+			
+			
+			<label for="requirePrefix">Require file to start with...</label>
+			<input type="text" name="requirePrefix" value="#requirePrefix#" size="6">
+			
+			<label for="ignorePrefix">ignore files that start with...</label>
+			<input type="text" name="ignorePrefix" value="#ignorePrefix#" size="6">
 			
 			
 			<br><input type="submit" value="go">
@@ -172,9 +186,7 @@ sho err
 		
 		<cfif len(dirurl) is 0>
 			<cfabort>
-		</cfif>
-		<cfdump var=#cfhttp#>
-		
+		</cfif>		
 		<cfif isXML(cfhttp.FileContent)>
 			<cfset xStr=cfhttp.FileContent>
 			<!--- goddamned xmlns bug in CF --->
@@ -188,6 +200,21 @@ sho err
 						<cfset thisFile=thisFile>
 					<cfelse>
 						<cfset thisFile=''>
+					</cfif>
+				</cfif>
+				<cfif len(requirePrefix) gt 0>
+					<cfif left(thisFile,len(requirePrefix)) is requirePrefix>
+						<cfset thisFile=thisFile>
+					<cfelse>
+						<cfset thisFile=''>
+					</cfif>
+				</cfif>
+				
+				<cfif len(ignorePrefix) gt 0>
+					<cfif left(thisFile,len(ignorePrefix)) is ignorePrefix>
+						<cfset thisFile=''>
+					<cfelse>
+						<cfset thisFile=thisFile>
 					</cfif>
 				</cfif>
 				
