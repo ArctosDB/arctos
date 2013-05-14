@@ -207,6 +207,9 @@ sho err
 		<cfif not isdefined("MEDIA_RELATIONSHIP_1")>
 			<cfset MEDIA_RELATIONSHIP_1=''>
 		</cfif>
+		<cfif not isdefined("MEDIA_RELATED_TERM_1")>
+			<cfset MEDIA_RELATED_TERM_1=''>
+		</cfif>
 		
 		
 		<form name="temp2" method="post" action="BulkloadMedia.cfm">
@@ -255,7 +258,8 @@ sho err
 					<option <cfif tml is MEDIA_RELATIONSHIP> selected="selected" </cfif>value="#MEDIA_RELATIONSHIP#">#MEDIA_RELATIONSHIP#</option>
 				</cfloop>
 			</select>
-			
+			<label for="MEDIA_RELATED_TERM_1">MEDIA_RELATED_TERM_1</label>
+			<input type="text" name="MEDIA_RELATED_TERM_1" value="#MEDIA_RELATED_TERM_1#" size="80">
 			
 			
 			<br><input type="submit" value="go">
@@ -283,6 +287,7 @@ sho err
 						<th>MIME_TYPE</th>
 						<th>MEDIA_TYPE</th>
 						<th>MEDIA_RELATIONSHIP_1</th>
+						<th>MEDIA_RELATED_TERM_1</th>
 						
 						
 					</tr>
@@ -332,6 +337,7 @@ sho err
 						<td>#MIME_TYPE#</td>
 						<td>#MEDIA_TYPE#</td>
 						<td>#MEDIA_RELATIONSHIP_1#</td>
+						<td>#MEDIA_RELATED_TERM_1#</td>
 						
 						
 					</tr>
