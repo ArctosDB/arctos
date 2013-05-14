@@ -227,7 +227,7 @@ sho err
 				
 				<cfif len(thisFile) gt 0>
 					<tr>
-						<td>#thisFile#</td>
+						<td>#dirurl##thisFile#</td>
 					</tr>
 				</cfif>
 				<!----
