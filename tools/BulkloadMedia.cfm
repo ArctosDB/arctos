@@ -204,12 +204,13 @@ sho err
 		<cfif not isdefined("MEDIA_TYPE")>
 			<cfset MEDIA_TYPE=''>
 		</cfif>
-		<cfif not isdefined("MEDIA_RELATIONSHIP_1")>
-			<cfset MEDIA_RELATIONSHIP_1=''>
-		</cfif>
+		
 		<cfloop from ="1" to="5" index="i">
 			<cfif not isdefined("MEDIA_RELATED_TERM_#i#")>
 				<cfset "MEDIA_RELATED_TERM_#i#"=''>
+			</cfif>
+			<cfif not isdefined("MEDIA_RELATIONSHIP_#i#")>
+				<cfset "MEDIA_RELATIONSHIP_#i#"=''>
 			</cfif>
 		</cfloop>
 		
