@@ -2,8 +2,10 @@
 <cfif action is "nothing">
 <script language="JavaScript" src="/includes/jquery/jquery.imgareaselect.pack.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/imgareaselect-default.css">
+<!----
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css">
 <script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+---->
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 <script language="JavaScript" src="/includes/TAG.js" type="text/javascript"></script>
 <cfoutput>
