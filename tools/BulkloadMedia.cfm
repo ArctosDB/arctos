@@ -318,9 +318,7 @@ sho err
 		<label for="dirurl">Directory URL</label>
 		<input type="text" name="dirurl" size="80">
 		<br><input type="submit" value="go">
-
-<a href=""></a>
-
+	</form>
 <hr>
 	Download CSV template:
 	<form name="temp" method="post" action="BulkloadMedia.cfm">
