@@ -338,7 +338,6 @@ function modArea(id) {
 	$("div .refPane_editing").removeClass("refPane_editing");
 	$("#" + divID).removeClass("refDiv").addClass("editing");
 	$("#" + paneID).addClass('refPane_editing');
-	console.log('making div draggable');
 	$("#" + divID).draggable({
 		containment: 'parent',
 		stop: function(event,ui){showDim(id,event, ui);}
