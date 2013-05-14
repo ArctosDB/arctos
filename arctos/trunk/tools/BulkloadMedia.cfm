@@ -255,7 +255,7 @@ sho err
 			<select name="MEDIA_RELATIONSHIP_1" id="MEDIA_RELATIONSHIP_1">
 				<option value=""></option>
 				<cfloop query="ctmedia_relationship">
-					<option <cfif tml is MEDIA_RELATIONSHIP> selected="selected" </cfif>value="#MEDIA_RELATIONSHIP#">#MEDIA_RELATIONSHIP#</option>
+					<option <cfif MEDIA_RELATIONSHIP_1 is MEDIA_RELATIONSHIP> selected="selected" </cfif>value="#MEDIA_RELATIONSHIP#">#MEDIA_RELATIONSHIP#</option>
 				</cfloop>
 			</select>
 			<label for="MEDIA_RELATED_TERM_1">MEDIA_RELATED_TERM_1</label>
