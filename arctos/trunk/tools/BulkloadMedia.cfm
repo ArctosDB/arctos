@@ -185,8 +185,6 @@ sho err
 			<input type="hidden" name="action" value="pulldir">
 			<label for="dirurl">Directory URL</label>
 			<input type="text" name="dirurl" value="#dirurl#" size="80">
-			
-			
 			<label for="extfilter">Filter for extension (eg, ".jpg")</label>
 			<input type="text" name="extfilter" value="#extfilter#" size="6">
 			
@@ -265,7 +263,7 @@ sho err
 							You must specify a preview extension.
 							<cfabort>
 						</cfif>
-						<cfset thisBareFilename=listdeleteat(thisFile,listlen(thisFile,"."))>
+						<cfset thisBareFilename=listdeleteat(thisFile,listlen(thisFile,"."),".")>
 						<cfset thisThumb="#tndir##tnprefix##thisBareFilename##tnext#">
 					</cfif>
 					<tr>
