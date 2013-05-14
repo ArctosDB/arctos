@@ -192,7 +192,14 @@ sho err
 			<!--- goddamned xmlns bug in CF --->
 			<cfset xStr= replace(xStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
 			<cfset xdir=xmlparse(xStr)>
-			<cfset dir = xmlsearch(xdir, "//td[@class='n']")>	
+			<cfset dir = xmlsearch(xdir, "//td[@class='n']")>
+			
+			<table border>
+					<tr>
+						<th>MEDIA_URI</th>
+					</tr>
+				
+				
 			<cfloop index="i" from="1" to="#arrayLen(dir)#">
 				<cfset thisFile = dir[i].XmlChildren[1].xmlText>
 				<cfif len(extfilter) gt 0>
@@ -219,9 +226,63 @@ sho err
 				</cfif>
 				
 				<cfif len(thisFile) gt 0>
-					<br>thisFile: #thisFile#	
+					<tr>
+						<td>#thisFile#</td>
+					</tr>
 				</cfif>
 				<!----
+				
+				
+				
+				KEY									    NUMBER
+ STATUS 								    VARCHAR2(255)
+ USERNAME								    VARCHAR2(255)
+ USER_AGENT_ID								    NUMBER
+ LOADED_MEDIA_ID							    NUMBER
+ MEDIA_LICENSE_ID							    NUMBER
+ MEDIA_URI								    VARCHAR2(255)
+ MIME_TYPE								    VARCHAR2(255)
+ MEDIA_TYPE								    VARCHAR2(255)
+ PREVIEW_URI								    VARCHAR2(255)
+ MEDIA_LICENSE								    VARCHAR2(60)
+ MEDIA_RELATIONSHIP_1							    VARCHAR2(60)
+ MEDIA_RELATED_KEY_1							    NUMBER
+ MEDIA_RELATED_TERM_1							    VARCHAR2(255)
+ MEDIA_RELATIONSHIP_2							    VARCHAR2(60)
+ MEDIA_RELATED_KEY_2							    NUMBER
+ MEDIA_RELATED_TERM_2							    VARCHAR2(255)
+ MEDIA_RELATIONSHIP_3							    VARCHAR2(60)
+ MEDIA_RELATED_KEY_3							    NUMBER
+ MEDIA_RELATED_TERM_3							    VARCHAR2(255)
+ MEDIA_RELATIONSHIP_4							    VARCHAR2(60)
+ MEDIA_RELATED_KEY_4							    NUMBER
+ MEDIA_RELATED_TERM_4							    VARCHAR2(255)
+ MEDIA_RELATIONSHIP_5							    VARCHAR2(60)
+ MEDIA_RELATED_KEY_5							    NUMBER
+ MEDIA_RELATED_TERM_5							    VARCHAR2(255)
+ MEDIA_LABEL_1								    VARCHAR2(60)
+ MEDIA_LABEL_VALUE_1							    VARCHAR2(255)
+ MEDIA_LABEL_2								    VARCHAR2(60)
+ MEDIA_LABEL_VALUE_2							    VARCHAR2(255)
+ MEDIA_LABEL_3								    VARCHAR2(60)
+ MEDIA_LABEL_VALUE_3							    VARCHAR2(255)
+ MEDIA_LABEL_4								    VARCHAR2(60)
+ MEDIA_LABEL_VALUE_4							    VARCHAR2(255)
+ MEDIA_LABEL_5								    VARCHAR2(60)
+ MEDIA_LABEL_VALUE_5							    VARCHAR2(255)
+ MEDIA_LABEL_6								    VARCHAR2(60)
+ MEDIA_LABEL_VALUE_6							    VARCHAR2(255)
+ MEDIA_LABEL_7								    VARCHAR2(60)
+ MEDIA_LABEL_VALUE_7							    VARCHAR2(255)
+ MEDIA_LABEL_8								    VARCHAR2(60)
+ MEDIA_LABEL_VALUE_8							    VARCHAR2(255)
+ MEDIA_LABEL_9								    VARCHAR2(60)
+ MEDIA_LABEL_VALUE_9							    VARCHAR2(255)
+ MEDIA_LABEL_10 							    VARCHAR2(60)
+ MEDIA_LABEL_VALUE_10							    VARCHAR2(255)
+
+
+
 				<cfif len(folder) is 10 and listlen(folder,"_") is 3><!--- probably a yyyy_mm_dd folder --->
 					<cfquery name="gotFolder" datasource="uam_god">
 						select count(*) c from es_img where folder='#folder#'		
@@ -264,6 +325,7 @@ sho err
 				</cfif>	
 				---->	
 			</cfloop>
+			</table>
 		<cfelse>
 			The directory structure is not XML - can't proceed.
 		</cfif>	
