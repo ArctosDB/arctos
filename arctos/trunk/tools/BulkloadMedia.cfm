@@ -161,9 +161,25 @@ sho err
 		<cfif not isdefined("requirePrefix")>
 			<cfset requirePrefix=''>
 		</cfif>
-		
 		<cfif not isdefined("ignorePrefix")>
 			<cfset ignorePrefix=''>
+		</cfif>
+		<cfif not isdefined("tndir")>
+			<cfset tndir=''>
+		<cfelseif right(tndir,1) is not "/">
+			<cfset tndir=tndir & '/'>
+			<p>Added required trailing slash to preview URL</p>
+		</cfif>
+		
+		<cfif not isdefined("tnprefix")>
+			<cfset tnprefix=''>
+		</cfif>
+		<cfif not isdefined("tnext")>
+			<cfset tnext=''>
+		</cfif>
+		<cfif right(isdefined,1) is not "/">
+			<cfset dirurl=dirurl & '/'>
+			<p>Added required trailing slash to directory URL</p>
 		</cfif>
 		<form name="temp2" method="post" action="BulkloadMedia.cfm">
 			<input type="hidden" name="action" value="pulldir">
@@ -181,6 +197,15 @@ sho err
 			<label for="ignorePrefix">ignore files that start with...</label>
 			<input type="text" name="ignorePrefix" value="#ignorePrefix#" size="6">
 			
+			<label for="tndir">Preview Directory URL</label>
+			<input type="text" name="tndir" value="#tndir#" size="80">
+			
+			<label for="tnprefix">Preview prefix (eg, "tn_")</label>
+			<input type="text" name="tnprefix" value="#tnprefix#" size="6">
+			
+			
+			<label for="tnext">Preview extension (eg, ".jpg")</label>
+			<input type="text" name="tnext" value="#tnext#" size="6">
 			
 			<br><input type="submit" value="go">
 		</form>
@@ -202,6 +227,7 @@ sho err
 			<table border>
 					<tr>
 						<th>MEDIA_URI</th>
+						<th>PREVIEW_URI</th>
 					</tr>
 				
 				
@@ -221,7 +247,6 @@ sho err
 						<cfset thisFile=''>
 					</cfif>
 				</cfif>
-				
 				<cfif len(ignorePrefix) gt 0>
 					<cfif left(thisFile,len(ignorePrefix)) is ignorePrefix>
 						<cfset thisFile=''>
@@ -229,10 +254,23 @@ sho err
 						<cfset thisFile=thisFile>
 					</cfif>
 				</cfif>
-				
 				<cfif len(thisFile) gt 0>
+					<cfset thisThumb="">
+					<cfif len(tndir) gt 0>
+						<cfif thisFile does not contain ".">
+							You may only specify a preview directory if all the files contain a dot (eg, have an extension).
+							<cfabort>
+						</cfif>
+						<cfif len(tnext) is 0>
+							You must specify a preview extension.
+							<cfabort>
+						</cfif>
+						<cfset thisBareFilename=listdeleteat(thisFile,listlen(thisFile,"."))>
+						<cfset thisThumb="#tndir##tnprefix##thisBareFilename##tnext#"
+					</cfif>
 					<tr>
 						<td>#dirurl##thisFile#</td>
+						<td>#thisThumb#</td>
 					</tr>
 				</cfif>
 				<!----
@@ -245,7 +283,6 @@ sho err
  USER_AGENT_ID								    NUMBER
  LOADED_MEDIA_ID							    NUMBER
  MEDIA_LICENSE_ID							    NUMBER
- MEDIA_URI								    VARCHAR2(255)
  MIME_TYPE								    VARCHAR2(255)
  MEDIA_TYPE								    VARCHAR2(255)
  PREVIEW_URI								    VARCHAR2(255)
