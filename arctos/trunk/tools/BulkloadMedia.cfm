@@ -221,7 +221,6 @@ sho err
 				<cfif len(thisFile) gt 0>
 					<br>thisFile: #thisFile#	
 				</cfif>
-				<br>thisFile: #thisFile#
 				<!----
 				<cfif len(folder) is 10 and listlen(folder,"_") is 3><!--- probably a yyyy_mm_dd folder --->
 					<cfquery name="gotFolder" datasource="uam_god">
