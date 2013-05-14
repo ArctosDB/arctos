@@ -344,15 +344,15 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<li>
 						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=99999999999999999999999">#val(haserr.c)# specimens</a> have a coordinate error.
 					</li>
-					
-					
 					<li>
 						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=true">#val(willmap.recordcount)# specimens</a> have coordinates.
 					</li>
 					<li>
 						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
 					</li>
-					
+					<li>
+						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
+					</li>
 					
 				</ul>
 			</td>
