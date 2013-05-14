@@ -158,7 +158,9 @@ sho err
 	<cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT distinct(MEDIA_RELATIONSHIP) MEDIA_RELATIONSHIP FROM ctmedia_relationship order by MEDIA_RELATIONSHIP
     </cfquery>
-	
+	<cfquery name="ctmedia_label" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT distinct(MEDIA_LABEL) MEDIA_LABEL FROM ctmedia_label order by MEDIA_LABEL
+    </cfquery>
 	
 	<cfoutput>
 		<cfif not isdefined("dirurl")>
@@ -211,6 +213,15 @@ sho err
 			</cfif>
 			<cfif not isdefined("MEDIA_RELATIONSHIP_#i#")>
 				<cfset "MEDIA_RELATIONSHIP_#i#"=''>
+			</cfif>
+		</cfloop>
+		
+		<cfloop from ="1" to="10" index="i">
+			<cfif not isdefined("MEDIA_LABEL_#i#")>
+				<cfset "MEDIA_LABEL_#i#"=''>
+			</cfif>
+			<cfif not isdefined("MEDIA_LABEL_VALUE_#i#")>
+				<cfset "MEDIA_LABEL_VALUE_#i#"=''>
 			</cfif>
 		</cfloop>
 		
@@ -267,7 +278,21 @@ sho err
 				<input type="text" name="MEDIA_RELATED_TERM_#i#" value="#thisMRT#" size="80">
 			</cfloop>
 			
-			
+			<cfloop from ="1" to="10" index="i">
+				<label for="MEDIA_LABEL_#i#">MEDIA_LABEL_#i#</label>
+				<cfset thisML=evaluate("MEDIA_LABEL_" & i)>
+				<select name="MEDIA_LABEL_#i#" id="MEDIA_LABEL_#i#">
+					<option value=""></option>
+					<cfloop query="ctmedia_label">
+						<option <cfif thisML is MEDIA_LABEL> selected="selected" </cfif>value="#MEDIA_LABEL#">#MEDIA_LABEL#</option>
+					</cfloop>
+				</select>
+				<cfset thisMLV=evaluate("MEDIA_LABEL_VALUE_" & i)>
+				<label for="MEDIA_LABEL_VALUE_#i#">MEDIA_LABEL_VALUE_#i#</label>
+				<input type="text" name="MEDIA_LABEL_VALUE_#i#" value="#thisMLV#" size="80">				
+			</cfloop>
+		
+	
 			<label for="MEDIA_RELATIONSHIP_2">MEDIA_RELATIONSHIP_2</label>
 			<select name="MEDIA_RELATIONSHIP_2" id="MEDIA_RELATIONSHIP_2">
 				<option value=""></option>
@@ -306,7 +331,10 @@ sho err
 							<th>MEDIA_RELATED_TERM_#i#</th>
 						</cfloop>
 						
-						
+						<cfloop from ="1" to="10" index="i">
+							<th>MEDIA_LABEL_#i#</th>
+							<th>MEDIA_LABEL_VALUE_#i#</th>
+						</cfloop>
 					</tr>
 				
 				
@@ -359,6 +387,14 @@ sho err
 							<td>#thisMR#</td>
 							<td>#thisMRT#</td>
 						</cfloop>
+						<cfloop from ="1" to="10" index="i">
+							<cfset thisML=evaluate("MEDIA_LABEL_" & i)>
+							<cfset thisMLV=evaluate("MEDIA_LABEL_VALUE_" & i)>
+							<td>#thisML#</td>
+							<td>#thisMLV#</td>			
+						</cfloop>
+			
+			
 						
 						
 						
