@@ -266,7 +266,7 @@ sho err
 							<cfabort>
 						</cfif>
 						<cfset thisBareFilename=listdeleteat(thisFile,listlen(thisFile,"."))>
-						<cfset thisThumb="#tndir##tnprefix##thisBareFilename##tnext#"
+						<cfset thisThumb="#tndir##tnprefix##thisBareFilename##tnext#">
 					</cfif>
 					<tr>
 						<td>#dirurl##thisFile#</td>
