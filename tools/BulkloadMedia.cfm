@@ -152,7 +152,6 @@ sho err
 		
 		<cfdump var=#cfhttp#>
 		
-		<!-------------
 		<cfif isXML(cfhttp.FileContent)>
 			<cfset xStr=cfhttp.FileContent>
 			<!--- goddamned xmlns bug in CF --->
@@ -162,6 +161,7 @@ sho err
 			<cfloop index="i" from="1" to="#arrayLen(dir)#">
 				<cfset folder = dir[i].XmlChildren[1].xmlText>
 				<br>folder: #folder#
+				<!----
 				<cfif len(folder) is 10 and listlen(folder,"_") is 3><!--- probably a yyyy_mm_dd folder --->
 					<cfquery name="gotFolder" datasource="uam_god">
 						select count(*) c from es_img where folder='#folder#'		
@@ -201,11 +201,13 @@ sho err
 							</cfif> 
 						</cfloop>
 					</cfif> <!--- end not been here --->
-				</cfif>		
+				</cfif>	
+				---->	
 			</cfloop>
+		<cfelse>
+			The directory structure is not XML - can't proceed.
 		</cfif>	
 		
-		----->
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------->
