@@ -150,6 +150,11 @@ sho err
 		<cfif not isdefined("dirurl")>
 			<cfset dirurl=''>
 		</cfif>
+		
+		<cfif right(dirurl,1) is not "/">
+			<cfset dirurl=dirurl & '/'>
+			<p>Added required trailing slash to directory URL</p>
+		</cfif>
 		<cfif not isdefined("extfilter")>
 			<cfset extfilter=''>
 		</cfif>
