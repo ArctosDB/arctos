@@ -147,9 +147,32 @@ sho err
 <cfif action is "pulldir">
 	<cfset title=title&": Pull from URL">
 	<cfoutput>
+		<cfif not isdefined("dirurl")>
+			<cfset dirurl=''>
+		</cfif>
+		<cfif not isdefined("extfilter")>
+			<cfset extfilter=''>
+		</cfif>
+		<form name="temp2" method="post" action="BulkloadMedia.cfm">
+			<input type="hidden" name="action" value="pulldir">
+			<label for="dirurl">Directory URL</label>
+			<input type="text" name="dirurl" value="#dirurl#" size="80">
+			
+			
+			<label for="extfilter">Filter for extension (eg, ".jpg")</label>
+			<input type="text" name="extfilter" value="#extfilter#" size="6">
+			
+			
+			<br><input type="submit" value="go">
+		</form>
+		
+		
 		<cfhttp url="#dirurl#" charset="utf-8" method="get">
 		</cfhttp>
 		
+		<cfif len(dirurl) is 0>
+			<cfabort>
+		</cfif>
 		<cfdump var=#cfhttp#>
 		
 		<cfif isXML(cfhttp.FileContent)>
@@ -159,8 +182,18 @@ sho err
 			<cfset xdir=xmlparse(xStr)>
 			<cfset dir = xmlsearch(xdir, "//td[@class='n']")>	
 			<cfloop index="i" from="1" to="#arrayLen(dir)#">
-				<cfset folder = dir[i].XmlChildren[1].xmlText>
-				<br>folder: #folder#
+				<cfset thisFile="">
+				<cfset thisFile = dir[i].XmlChildren[1].xmlText>
+				<cfif len(extfilter) gt 0>
+					<cfif right(folder,len(extfilter)) is extfilter>
+						<cfset thisFile=thisFile>
+					</cfif>
+				</cfif>
+				
+				<cfif len(thisFile) gt 0>
+					<br>thisFile: #thisFile#	
+				</cfif>
+				<br>thisFile: #thisFile#
 				<!----
 				<cfif len(folder) is 10 and listlen(folder,"_") is 3><!--- probably a yyyy_mm_dd folder --->
 					<cfquery name="gotFolder" datasource="uam_god">
