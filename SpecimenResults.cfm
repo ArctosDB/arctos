@@ -353,7 +353,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<li>
 						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
 					</li>
-					
 				</ul>
 			</td>
 			<td>
