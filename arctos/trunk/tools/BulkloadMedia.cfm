@@ -216,7 +216,7 @@ sho err
 			<cfset tml=MEDIA_LICENSE>
 			<select name="MEDIA_LICENSE" id="MEDIA_LICENSE">
 				<option value=""></option>
-				<cfloop query="MEDIA_LICENSE">
+				<cfloop query="ctMEDIA_LICENSE">
 					<option <cfif tml is MEDIA_LICENSE> selected="selected" </cfif>value="#MEDIA_LICENSE#">#MEDIA_LICENSE#</option>
 				</cfloop>
 			</select>
