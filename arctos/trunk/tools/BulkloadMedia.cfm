@@ -147,8 +147,8 @@ sho err
 <cfif action is "pulldir">
 	<cfset title=title&": Pull from URL">
 	<cfquery name="ctMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		SELECT distinct(MEDIA_LICENSE) FROM ctMEDIA_LICENSE
-		order by MEDIA_LICENSE
+		SELECT distinct(display)  MEDIA_LICENSE FROM ctMEDIA_LICENSE
+		order by display
     </cfquery>
 	<cfoutput>
 		<cfif not isdefined("dirurl")>
