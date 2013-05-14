@@ -182,11 +182,12 @@ sho err
 			<cfset xdir=xmlparse(xStr)>
 			<cfset dir = xmlsearch(xdir, "//td[@class='n']")>	
 			<cfloop index="i" from="1" to="#arrayLen(dir)#">
-				<cfset thisFile="">
 				<cfset thisFile = dir[i].XmlChildren[1].xmlText>
 				<cfif len(extfilter) gt 0>
-					<cfif right(folder,len(extfilter)) is extfilter>
+					<cfif right(thisFile,len(extfilter)) is extfilter>
 						<cfset thisFile=thisFile>
+					<cfelse>
+						<cfset thisFile=''>
 					</cfif>
 				</cfif>
 				
