@@ -177,7 +177,7 @@ sho err
 		<cfif not isdefined("tnext")>
 			<cfset tnext=''>
 		</cfif>
-		<cfif right(isdefined,1) is not "/">
+		<cfif right(dirurl,1) is not "/">
 			<cfset dirurl=dirurl & '/'>
 			<p>Added required trailing slash to directory URL</p>
 		</cfif>
