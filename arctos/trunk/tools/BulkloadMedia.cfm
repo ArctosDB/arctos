@@ -146,6 +146,10 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "pulldir">
 	<cfset title=title&": Pull from URL">
+	<cfquery name="ctMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT distinct(MEDIA_LICENSE) FROM ctMEDIA_LICENSE
+		order by MEDIA_LICENSE
+    </cfquery>
 	<cfoutput>
 		<cfif not isdefined("dirurl")>
 			<cfset dirurl=''>
@@ -181,6 +185,9 @@ sho err
 			<cfset dirurl=dirurl & '/'>
 			<p>Added required trailing slash to directory URL</p>
 		</cfif>
+		<cfif not isdefined("MEDIA_LICENSE")>
+			<cfset MEDIA_LICENSE=''>
+		</cfif>
 		<form name="temp2" method="post" action="BulkloadMedia.cfm">
 			<input type="hidden" name="action" value="pulldir">
 			<label for="dirurl">Directory URL</label>
@@ -205,6 +212,16 @@ sho err
 			<label for="tnext">Preview extension (eg, ".jpg")</label>
 			<input type="text" name="tnext" value="#tnext#" size="6">
 			
+			<label for="MEDIA_LICENSE">MEDIA_LICENSE</label>
+			<cfset tml=MEDIA_LICENSE>
+			<select name="MEDIA_LICENSE" id="MEDIA_LICENSE">
+				<option value=""></option>
+				<cfloop query="MEDIA_LICENSE">
+					<option <cfif tml is MEDIA_LICENSE> selected="selected" </cfif>value="#MEDIA_LICENSE#">#MEDIA_LICENSE#</option>
+				</cfloop>
+			</select>
+			
+			
 			<br><input type="submit" value="go">
 		</form>
 		
@@ -226,6 +243,7 @@ sho err
 					<tr>
 						<th>MEDIA_URI</th>
 						<th>PREVIEW_URI</th>
+						<th>MEDIA_LICENSE</th>
 					</tr>
 				
 				
@@ -269,6 +287,7 @@ sho err
 					<tr>
 						<td>#dirurl##thisFile#</td>
 						<td>#thisThumb#</td>
+						<td>#MEDIA_LICENSE#</td>
 					</tr>
 				</cfif>
 				<!----
