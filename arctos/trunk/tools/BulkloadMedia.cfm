@@ -213,7 +213,7 @@ sho err
 			</cfif>
 		</cfloop>
 		
-		
+		<cfdump var=#variables#>
 		
 		<form name="temp2" method="post" action="BulkloadMedia.cfm">
 			<input type="hidden" name="action" value="pulldir">
