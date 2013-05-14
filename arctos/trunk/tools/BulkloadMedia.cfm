@@ -213,7 +213,6 @@ sho err
 			</cfif>
 		</cfloop>
 		
-		<cfdump var=#variables#>
 		
 		<form name="temp2" method="post" action="BulkloadMedia.cfm">
 			<input type="hidden" name="action" value="pulldir">
@@ -253,16 +252,20 @@ sho err
 					<option <cfif tml is MEDIA_TYPE> selected="selected" </cfif>value="#MEDIA_TYPE#">#MEDIA_TYPE#</option>
 				</cfloop>
 			</select>
+			<cfloop from ="1" to="5" index="i">
+				<label for="MEDIA_RELATIONSHIP_#i#">MEDIA_RELATIONSHIP_#i#</label>
+				<cfset thisMR=evaluate("MEDIA_RELATIONSHIP_" & i)>
+				<select name="MEDIA_RELATIONSHIP_#i#" id="MEDIA_RELATIONSHIP_#i#">
+					<option value=""></option>
+					<cfloop query="ctmedia_relationship">
+						<option <cfif thisMR is MEDIA_RELATIONSHIP> selected="selected" </cfif>value="#MEDIA_RELATIONSHIP#">#MEDIA_RELATIONSHIP#</option>
+					</cfloop>
+				</select>
+				<cfset thisMRT=evaluate("MEDIA_RELATED_TERM_" & i)>
+				<label for="MEDIA_RELATED_TERM_#i#">MEDIA_RELATED_TERM_#i#</label>
+				<input type="text" name="MEDIA_RELATED_TERM_#i#" value="#thisMRT#" size="80">
+			</cfloop>
 			
-			<label for="MEDIA_RELATIONSHIP_1">MEDIA_RELATIONSHIP_1</label>
-			<select name="MEDIA_RELATIONSHIP_1" id="MEDIA_RELATIONSHIP_1">
-				<option value=""></option>
-				<cfloop query="ctmedia_relationship">
-					<option <cfif MEDIA_RELATIONSHIP_1 is MEDIA_RELATIONSHIP> selected="selected" </cfif>value="#MEDIA_RELATIONSHIP#">#MEDIA_RELATIONSHIP#</option>
-				</cfloop>
-			</select>
-			<label for="MEDIA_RELATED_TERM_1">MEDIA_RELATED_TERM_1</label>
-			<input type="text" name="MEDIA_RELATED_TERM_1" value="#MEDIA_RELATED_TERM_1#" size="80">
 			
 			<label for="MEDIA_RELATIONSHIP_2">MEDIA_RELATIONSHIP_2</label>
 			<select name="MEDIA_RELATIONSHIP_2" id="MEDIA_RELATIONSHIP_2">
@@ -297,8 +300,10 @@ sho err
 						<th>MEDIA_LICENSE</th>
 						<th>MIME_TYPE</th>
 						<th>MEDIA_TYPE</th>
-						<th>MEDIA_RELATIONSHIP_1</th>
-						<th>MEDIA_RELATED_TERM_1</th>
+						<cfloop from ="1" to="5" index="i">
+							<th>MEDIA_RELATIONSHIP_#i#</th>
+							<th>MEDIA_RELATED_TERM_#i#</th>
+						</cfloop>
 						
 						
 					</tr>
@@ -347,8 +352,13 @@ sho err
 						<td>#MEDIA_LICENSE#</td>
 						<td>#MIME_TYPE#</td>
 						<td>#MEDIA_TYPE#</td>
-						<td>#MEDIA_RELATIONSHIP_1#</td>
-						<td>#MEDIA_RELATED_TERM_1#</td>
+						<cfloop from ="1" to="5" index="i">
+							<cfset thisMR=evaluate("MEDIA_RELATIONSHIP_" & i)>
+							<cfset thisMRT=evaluate("MEDIA_RELATED_TERM_" & i)>
+							<td>#thisMR#</td>
+							<td>#thisMRT#</td>
+						</cfloop>
+						
 						
 						
 					</tr>
