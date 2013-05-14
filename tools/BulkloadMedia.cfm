@@ -161,12 +161,10 @@ sho err
 	<cfquery name="ctmedia_label" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT distinct(MEDIA_LABEL) MEDIA_LABEL FROM ctmedia_label order by MEDIA_LABEL
     </cfquery>
-	
 	<cfoutput>
 		<cfif not isdefined("dirurl")>
 			<cfset dirurl=''>
 		</cfif>
-		
 		<cfif right(dirurl,1) is not "/">
 			<cfset dirurl=dirurl & '/'>
 			<p>Added required trailing slash to directory URL</p>
@@ -186,7 +184,6 @@ sho err
 			<cfset tndir=tndir & '/'>
 			<p>Added required trailing slash to preview URL</p>
 		</cfif>
-		
 		<cfif not isdefined("tnprefix")>
 			<cfset tnprefix=''>
 		</cfif>
@@ -206,7 +203,6 @@ sho err
 		<cfif not isdefined("MEDIA_TYPE")>
 			<cfset MEDIA_TYPE=''>
 		</cfif>
-		
 		<cfloop from ="1" to="5" index="i">
 			<cfif not isdefined("MEDIA_RELATED_TERM_#i#")>
 				<cfset "MEDIA_RELATED_TERM_#i#"=''>
@@ -215,7 +211,6 @@ sho err
 				<cfset "MEDIA_RELATIONSHIP_#i#"=''>
 			</cfif>
 		</cfloop>
-		
 		<cfloop from ="1" to="10" index="i">
 			<cfif not isdefined("MEDIA_LABEL_#i#")>
 				<cfset "MEDIA_LABEL_#i#"=''>
@@ -223,9 +218,7 @@ sho err
 			<cfif not isdefined("MEDIA_LABEL_VALUE_#i#")>
 				<cfset "MEDIA_LABEL_VALUE_#i#"=''>
 			</cfif>
-		</cfloop>
-		
-		
+		</cfloop>		
 		<form name="temp2" method="post" action="BulkloadMedia.cfm">
 			<input type="hidden" name="action" value="pulldir">
 			<label for="dirurl">Directory URL</label>
@@ -277,7 +270,6 @@ sho err
 				<label for="MEDIA_RELATED_TERM_#i#">MEDIA_RELATED_TERM_#i#</label>
 				<input type="text" name="MEDIA_RELATED_TERM_#i#" value="#thisMRT#" size="80">
 			</cfloop>
-			
 			<cfloop from ="1" to="10" index="i">
 				<label for="MEDIA_LABEL_#i#">MEDIA_LABEL_#i#</label>
 				<cfset thisML=evaluate("MEDIA_LABEL_" & i)>
@@ -291,24 +283,14 @@ sho err
 				<label for="MEDIA_LABEL_VALUE_#i#">MEDIA_LABEL_VALUE_#i#</label>
 				<input type="text" name="MEDIA_LABEL_VALUE_#i#" value="#thisMLV#" size="80">				
 			</cfloop>
-		
-	
-			<label for="MEDIA_RELATIONSHIP_2">MEDIA_RELATIONSHIP_2</label>
-			<select name="MEDIA_RELATIONSHIP_2" id="MEDIA_RELATIONSHIP_2">
-				<option value=""></option>
-				<cfloop query="ctmedia_relationship">
-					<option <cfif MEDIA_RELATIONSHIP_2 is MEDIA_RELATIONSHIP> selected="selected" </cfif>value="#MEDIA_RELATIONSHIP#">#MEDIA_RELATIONSHIP#</option>
-				</cfloop>
-			</select>
-			<label for="MEDIA_RELATED_TERM_1">MEDIA_RELATED_TERM_1</label>
-			<input type="text" name="MEDIA_RELATED_TERM_1" value="#MEDIA_RELATED_TERM_1#" size="80">
-			<br><input type="submit" value="go">
+			<br><input type="submit" value="build/rebuild the table below">
+			<cfset fileDir = "#Application.webDirectory#">
+			<cfset variables.encoding="UTF-8">
+			<cfset fname = "media_from_url.csv">
+			<br><a href="/download.cfm?file=#fname#">get the table below as CSV</a>
+
 		</form>
-		
-		
-		<cfhttp url="#dirurl#" charset="utf-8" method="get">
-		</cfhttp>
-		
+		<cfhttp url="#dirurl#" charset="utf-8" method="get"></cfhttp>
 		<cfif len(dirurl) is 0>
 			<cfabort>
 		</cfif>		
@@ -318,183 +300,111 @@ sho err
 			<cfset xStr= replace(xStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
 			<cfset xdir=xmlparse(xStr)>
 			<cfset dir = xmlsearch(xdir, "//td[@class='n']")>
+			<cfset header="MEDIA_URI,PREVIEW_URI,MEDIA_LICENSE,MIME_TYPE,MEDIA_TYPE">
+			<cfloop from ="1" to="5" index="i">
+				<cfset header=listappend(header,"MEDIA_RELATIONSHIP_#i#")>
+				<cfset header=listappend(header,"MEDIA_RELATED_TERM_#i#")>
+			</cfloop>
+			<cfloop from ="1" to="10" index="i">
+				<cfset header=listappend(header,"MEDIA_LABEL_#i#")>
+				<cfset header=listappend(header,"MEDIA_LABEL_VALUE_#i#")>
+			</cfloop>
+			
+			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+			<cfscript>
+				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+				variables.joFileWriter.writeLine(ListQualify(header,'"')); 
+			</cfscript>
 			
 			<table border>
-					<tr>
-						<th>MEDIA_URI</th>
-						<th>PREVIEW_URI</th>
-						<th>MEDIA_LICENSE</th>
-						<th>MIME_TYPE</th>
-						<th>MEDIA_TYPE</th>
-						<cfloop from ="1" to="5" index="i">
-							<th>MEDIA_RELATIONSHIP_#i#</th>
-							<th>MEDIA_RELATED_TERM_#i#</th>
-						</cfloop>
-						
-						<cfloop from ="1" to="10" index="i">
-							<th>MEDIA_LABEL_#i#</th>
-							<th>MEDIA_LABEL_VALUE_#i#</th>
-						</cfloop>
-					</tr>
-				
-				
-			<cfloop index="i" from="1" to="#arrayLen(dir)#">
-				<cfset thisFile = dir[i].XmlChildren[1].xmlText>
-				<cfif len(extfilter) gt 0>
-					<cfif right(thisFile,len(extfilter)) is extfilter>
-						<cfset thisFile=thisFile>
-					<cfelse>
-						<cfset thisFile=''>
-					</cfif>
-				</cfif>
-				<cfif len(requirePrefix) gt 0>
-					<cfif left(thisFile,len(requirePrefix)) is requirePrefix>
-						<cfset thisFile=thisFile>
-					<cfelse>
-						<cfset thisFile=''>
-					</cfif>
-				</cfif>
-				<cfif len(ignorePrefix) gt 0>
-					<cfif left(thisFile,len(ignorePrefix)) is ignorePrefix>
-						<cfset thisFile=''>
-					<cfelse>
-						<cfset thisFile=thisFile>
-					</cfif>
-				</cfif>
-				<cfif len(thisFile) gt 0>
-					<cfset thisThumb="">
-					<cfif len(tndir) gt 0>
-						<cfif thisFile does not contain ".">
-							You may only specify a preview directory if all the files contain a dot (eg, have an extension).
-							<cfabort>
+				<tr>
+					<th>MEDIA_URI</th>
+					<th>PREVIEW_URI</th>
+					<th>MEDIA_LICENSE</th>
+					<th>MIME_TYPE</th>
+					<th>MEDIA_TYPE</th>
+					<cfloop from ="1" to="5" index="i">
+						<th>MEDIA_RELATIONSHIP_#i#</th>
+						<th>MEDIA_RELATED_TERM_#i#</th>
+					</cfloop>
+					<cfloop from ="1" to="10" index="i">
+						<th>MEDIA_LABEL_#i#</th>
+						<th>MEDIA_LABEL_VALUE_#i#</th>
+					</cfloop>
+				</tr>				
+				<cfloop index="i" from="1" to="#arrayLen(dir)#">
+					<cfset thisFile = dir[i].XmlChildren[1].xmlText>
+					<cfif len(extfilter) gt 0>
+						<cfif right(thisFile,len(extfilter)) is extfilter>
+							<cfset thisFile=thisFile>
+						<cfelse>
+							<cfset thisFile=''>
 						</cfif>
-						<cfif len(tnext) is 0>
-							You must specify a preview extension.
-							<cfabort>
-						</cfif>
-						<cfset thisBareFilename=listdeleteat(thisFile,listlen(thisFile,"."),".")>
-						<cfset thisThumb="#tndir##tnprefix##thisBareFilename##tnext#">
 					</cfif>
-					<tr>
-						<td>#dirurl##thisFile#</td>
-						<td>#thisThumb#</td>
-						<td>#MEDIA_LICENSE#</td>
-						<td>#MIME_TYPE#</td>
-						<td>#MEDIA_TYPE#</td>
-						<cfloop from ="1" to="5" index="i">
-							<cfset thisMR=evaluate("MEDIA_RELATIONSHIP_" & i)>
-							<cfset thisMRT=evaluate("MEDIA_RELATED_TERM_" & i)>
-							<td>#thisMR#</td>
-							<td>#thisMRT#</td>
-						</cfloop>
-						<cfloop from ="1" to="10" index="i">
-							<cfset thisML=evaluate("MEDIA_LABEL_" & i)>
-							<cfset thisMLV=evaluate("MEDIA_LABEL_VALUE_" & i)>
-							<td>#thisML#</td>
-							<td>#thisMLV#</td>			
-						</cfloop>
-			
-			
+					<cfif len(requirePrefix) gt 0>
+						<cfif left(thisFile,len(requirePrefix)) is requirePrefix>
+							<cfset thisFile=thisFile>
+						<cfelse>
+							<cfset thisFile=''>
+						</cfif>
+					</cfif>
+					<cfif len(ignorePrefix) gt 0>
+						<cfif left(thisFile,len(ignorePrefix)) is ignorePrefix>
+							<cfset thisFile=''>
+						<cfelse>
+							<cfset thisFile=thisFile>
+						</cfif>
+					</cfif>
+					<cfif len(thisFile) gt 0>
+						<cfset thisThumb="">
+						<cfif len(tndir) gt 0>
+							<cfif thisFile does not contain ".">
+								You may only specify a preview directory if all the files contain a dot (eg, have an extension).
+								<cfabort>
+							</cfif>
+							<cfif len(tnext) is 0>
+								You must specify a preview extension.
+								<cfabort>
+							</cfif>
+							<cfset thisBareFilename=listdeleteat(thisFile,listlen(thisFile,"."),".")>
+							<cfset thisThumb="#tndir##tnprefix##thisBareFilename##tnext#">
+						</cfif>
 						
-						
-						
-					</tr>
-				</cfif>
-				<!----
-				
-				
-				
-				KEY									    NUMBER
- STATUS 								    VARCHAR2(255)
- USERNAME								    VARCHAR2(255)
- USER_AGENT_ID								    NUMBER
- LOADED_MEDIA_ID							    NUMBER
- MEDIA_LICENSE_ID							    NUMBER
- MIME_TYPE								    VARCHAR2(255)
- MEDIA_TYPE								    VARCHAR2(255)
- PREVIEW_URI								    VARCHAR2(255)
- MEDIA_LICENSE								    VARCHAR2(60)
- MEDIA_RELATIONSHIP_1							    VARCHAR2(60)
- MEDIA_RELATED_KEY_1							    NUMBER
- MEDIA_RELATED_TERM_1							    VARCHAR2(255)
- MEDIA_RELATIONSHIP_2							    VARCHAR2(60)
- MEDIA_RELATED_KEY_2							    NUMBER
- MEDIA_RELATED_TERM_2							    VARCHAR2(255)
- MEDIA_RELATIONSHIP_3							    VARCHAR2(60)
- MEDIA_RELATED_KEY_3							    NUMBER
- MEDIA_RELATED_TERM_3							    VARCHAR2(255)
- MEDIA_RELATIONSHIP_4							    VARCHAR2(60)
- MEDIA_RELATED_KEY_4							    NUMBER
- MEDIA_RELATED_TERM_4							    VARCHAR2(255)
- MEDIA_RELATIONSHIP_5							    VARCHAR2(60)
- MEDIA_RELATED_KEY_5							    NUMBER
- MEDIA_RELATED_TERM_5							    VARCHAR2(255)
- MEDIA_LABEL_1								    VARCHAR2(60)
- MEDIA_LABEL_VALUE_1							    VARCHAR2(255)
- MEDIA_LABEL_2								    VARCHAR2(60)
- MEDIA_LABEL_VALUE_2							    VARCHAR2(255)
- MEDIA_LABEL_3								    VARCHAR2(60)
- MEDIA_LABEL_VALUE_3							    VARCHAR2(255)
- MEDIA_LABEL_4								    VARCHAR2(60)
- MEDIA_LABEL_VALUE_4							    VARCHAR2(255)
- MEDIA_LABEL_5								    VARCHAR2(60)
- MEDIA_LABEL_VALUE_5							    VARCHAR2(255)
- MEDIA_LABEL_6								    VARCHAR2(60)
- MEDIA_LABEL_VALUE_6							    VARCHAR2(255)
- MEDIA_LABEL_7								    VARCHAR2(60)
- MEDIA_LABEL_VALUE_7							    VARCHAR2(255)
- MEDIA_LABEL_8								    VARCHAR2(60)
- MEDIA_LABEL_VALUE_8							    VARCHAR2(255)
- MEDIA_LABEL_9								    VARCHAR2(60)
- MEDIA_LABEL_VALUE_9							    VARCHAR2(255)
- MEDIA_LABEL_10 							    VARCHAR2(60)
- MEDIA_LABEL_VALUE_10							    VARCHAR2(255)
-
-
-
-				<cfif len(folder) is 10 and listlen(folder,"_") is 3><!--- probably a yyyy_mm_dd folder --->
-					<cfquery name="gotFolder" datasource="uam_god">
-						select count(*) c from es_img where folder='#folder#'		
-					</cfquery>
-					<!---
-					<cfquery name="gotFile" datasource="uam_god">
-						select count(distinct(imgname)) cbc from es_img where folder='#folder#'			
-					</cfquery>
-					--->
-					<cfif gotFolder.c is 0><!--- been here? --->
-						<br>fetching http://web.corral.tacc.utexas.edu/UAF/es/#folder#
-						<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/es/#folder#" charset="utf-8" method="get"></cfhttp>
-						<cfset ximgStr=cfhttp.FileContent>
-						<!--- goddamned xmlns bug in CF --->
-						<cfset ximgStr = replace(ximgStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
-						<cfset xImgAll=xmlparse(ximgStr)>
-						<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
-						<cfloop index="i" from="1" to="#arrayLen(xImage)#">
-							<cfset fname = xImage[i].XmlChildren[1].xmlText>
-							<br>adding fname: #fname#
-							<cfif right(fname,4) is ".dng">
-								<cfset imgname=replace(fname,".dng","")>
-								<cftry>
-								<cfquery name="upFile" datasource="uam_god">
-									insert into es_img (
-										imgname,
-										folder
-									) values (
-										'#imgname#',
-										'#folder#'
-									)	
-								</cfquery>
-								<cfcatch>
-									<br>failed@'#imgname#','#folder#'===#cfcatch.message#: #cfcatch.detail#
-								</cfcatch>
-								</cftry>
-							</cfif> 
-						</cfloop>
-					</cfif> <!--- end not been here --->
-				</cfif>	
-				---->	
-			</cfloop>
+						<tr>
+							<td>#dirurl##thisFile#</td>
+							<td>#thisThumb#</td>
+							<td>#MEDIA_LICENSE#</td>
+							<td>#MIME_TYPE#</td>
+							<td>#MEDIA_TYPE#</td>
+							
+							<cfset thisData='"#dirurl##thisFile#","#thisThumb#","#MEDIA_LICENSE#","#MIME_TYPE#","#MEDIA_TYPE#"'>
+							<cfloop from ="1" to="5" index="i">
+								<cfset thisMR=evaluate("MEDIA_RELATIONSHIP_" & i)>
+								<cfset thisMRT=evaluate("MEDIA_RELATED_TERM_" & i)>
+								<td>#thisMR#</td>
+								<td>#thisMRT#</td>
+								<cfset thisData=listappend(thisData,'"' & thisMR & '"')>
+								<cfset thisData=listappend(thisData,'"' & thisMRT & '"')>
+							</cfloop>
+							<cfloop from ="1" to="10" index="i">
+								<cfset thisML=evaluate("MEDIA_LABEL_" & i)>
+								<cfset thisMLV=evaluate("MEDIA_LABEL_VALUE_" & i)>
+								
+								<cfset thisData=listappend(thisData,'"' & thisML & '"')>
+								<cfset thisData=listappend(thisData,'"' & thisMLV & '"')>
+								<td>#thisML#</td>
+								<td>#thisMLV#</td>
+								<cfscript>
+									variables.joFileWriter.writeLine(thisData);
+								</cfscript>		
+							</cfloop>
+						</tr>
+					</cfif>
+				</cfloop>
 			</table>
+			<cfscript>	
+				variables.joFileWriter.close();
+			</cfscript>				
 		<cfelse>
 			The directory structure is not XML - can't proceed.
 		</cfif>	
