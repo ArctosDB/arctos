@@ -328,7 +328,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<cfset userSrchMaxErr=userSrchMaxErr * .9144>
 		</cfif>
 	</cfif>
-
+userSrchMaxErr: #userSrchMaxErr#
 <!--------- additive links do not work well when a user searches by error 
 
 			
