@@ -146,8 +146,7 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "pulldir">
 	<cfset title=title&": Pull from URL">
-	Create a media bulkloader template by pulling URLs from a directory (at TACC, or anyone else with a lighttpd-like directory listing) and
-	filling in some static stuff here.
+	Create a media bulkloader template by pulling URLs from a directory (at TACC, or anyone else with a lighttpd-like directory listing).
 	<cfquery name="ctMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT distinct(display)  MEDIA_LICENSE FROM ctMEDIA_LICENSE order by display
     </cfquery>
@@ -232,15 +231,17 @@ sho err
 			<input type="hidden" name="action" value="pulldir">
 			<label for="dirurl">Directory URL</label>
 			<input type="text" name="dirurl" value="#dirurl#" size="80">
-			<label for="extfilter">Filter for extension (eg, ".jpg")</label>
+			<label for="extfilter">Filter for extension (eg, ".jpg") - if you don't use this, you'll probablu end up with some directories in your file</label>
 			<input type="text" name="extfilter" value="#extfilter#" size="6">
 			<label for="requirePrefix">Require file to start with...</label>
 			<input type="text" name="requirePrefix" value="#requirePrefix#" size="6">
-			<label for="ignorePrefix">ignore files that start with...</label>
+			<label for="ignorePrefix">Ignore files that start with...</label>
 			<input type="text" name="ignorePrefix" value="#ignorePrefix#" size="6">
-			<label for="tndir">Preview Directory URL</label>
+			<label for="tndir">Preview Directory URL (full URL - sometimes same as Directory URL)</label>
 			<input type="text" name="tndir" value="#tndir#" size="80">
-			<label for="tnprefix">Preview prefix (eg, "tn_")</label>
+			<label for="tnprefix">
+				Preview prefix (eg, "tn_") - preview is some (possibly zero-length) prefix + filename (as manipulated by regex below) + (possibly zero-length) suffix
+			</label>
 			<input type="text" name="tnprefix" value="#tnprefix#" size="6">
 			<label for="tnext">Preview extension (eg, ".jpg")</label>
 			<input type="text" name="tnext" value="#tnext#" size="6">
@@ -274,8 +275,7 @@ sho err
 			
 			<label for="regexreplace"> regexreplace  regex to manipulate [filename] variable available for relationships and labels</label>
 			<input type="text" name="regexreplace" value="#regexreplace#" size="80">
-			
-		
+						
 		
 			<cfloop from ="1" to="5" index="i">
 				<label for="MEDIA_RELATIONSHIP_#i#">MEDIA_RELATIONSHIP_#i#</label>
