@@ -1364,9 +1364,22 @@ LOCALITY_ID  SWLAT     SWLONG      NELAT   NELONG   STALE_FG  SPANS_180
 				
 				
 				
-			
+			<cfset basQual = " #basQual# AND 
+					(
+						(
+							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
+							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
+							fake_coordinate_error.swlat between #SWLat# and #NELat# OR
+							fake_coordinate_error.nelat between #SWLat# and #NELat#
+						) AND (
+							#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
+							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
+							fake_coordinate_error.swlong between #swlong# and #nelong# OR
+							fake_coordinate_error.nelong between #swlong# and #nelong#
+						)
+					)">
 					
-					
+					<!-----------
 				<cfset basQual = " #basQual# AND 
 					(
 						(	
@@ -1389,6 +1402,7 @@ LOCALITY_ID  SWLAT     SWLONG      NELAT   NELONG   STALE_FG  SPANS_180
 							fake_coordinate_error.swlong between #SWLong# AND #NELong# 
 						)
 					)">
+					---------->
 			</cfif>
 			
 			
