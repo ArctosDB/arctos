@@ -1136,10 +1136,6 @@
 	</cfif>
 	<cfset mapurl = "#mapurl#&island=#island#">
 </cfif>
-
-<cfif isdefined("max_error_in_meters") AND len(max_error_in_meters) gt 0>
-	<cfset min_max_error=max_error_in_meters>
-</cfif>
 <cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) or (isdefined("max_max_error") AND len(max_max_error) gt 0)>
 	<cfif not isdefined("max_error_units") or len(max_error_units) is 0>
 		<cfset max_error_units='m'>
