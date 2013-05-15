@@ -312,21 +312,23 @@ If your item needs to be sorted in a special way, then do that here. --->
 	
 	precisionmapurl: #precisionmapurl#
 	<cfif mapurl contains "max_max_error">
-		<cfset listpos=1>
 		<cfloop list="#mapurl#" delimiters="&?" index="i">
-		<br>#I# @ #listpos#
+		<br>#I#
 			<cfif listgetat(i,1,"=") is "max_max_error">
-				<cfset precisionmapurl=listdeleteat(precisionmapurl,listpos,"&")>
+				<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "max_max_error=[^&]+&?", "")>
 				<cfset userSrchMaxErr=listgetat(i,2,"=")>
-			<cfelseif listgetat(i,1,"=") is "max_error_units">
-				<cfset precisionmapurl=listdeleteat(precisionmapurl,listpos,"&")>
+			<cfelseif listgetat(i,1,"=") is "min_max_error">
+				<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "min_max_error=[^&]+&?", "")>
 				<cfset meu=listgetat(i,2,"=")>
 			<cfelseif listgetat(i,1,"=") is "max_error_units">
-				<cfset precisionmapurl=listdeleteat(precisionmapurl,listpos,"&")>
+				<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "max_error_units=[^&]+&?", "")>
 			</cfif>
 			<cfset listpos=listpos+1>
 		</cfloop>
 	</cfif>
+	
+	<br>	precisionmapurl: #precisionmapurl#
+
 	<cfif isdefined("meu") and meu is not "m">
 		<cfif meu is ft>
 			<cfset userSrchMaxErr=userSrchMaxErr * .3048>
@@ -338,6 +340,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<cfset userSrchMaxErr=userSrchMaxErr * .9144>
 		</cfif>
 	</cfif>
+	
+	<br>
 userSrchMaxErr: #userSrchMaxErr#
 <!--------- additive links do not work well when a user searches by error 
 
