@@ -231,12 +231,35 @@ sho err
 			<input type="hidden" name="action" value="pulldir">
 			<label for="dirurl">Directory URL</label>
 			<input type="text" name="dirurl" value="#dirurl#" size="80">
-			<label for="extfilter">Filter for extension (eg, ".jpg") - if you don't use this, you'll probablu end up with some directories in your file</label>
+			 If you don't use this, you'll probably end up with some directories in your file
+			<label for="extfilter">Filter for extension (eg, ".jpg")</label>
 			<input type="text" name="extfilter" value="#extfilter#" size="6">
 			<label for="requirePrefix">Require file to start with...</label>
 			<input type="text" name="requirePrefix" value="#requirePrefix#" size="6">
 			<label for="ignorePrefix">Ignore files that start with...</label>
 			<input type="text" name="ignorePrefix" value="#ignorePrefix#" size="6">
+			
+			A variable [filename] is created from the string between the last slash and the
+			last dot (eg, "bob" in "http://someserver/somedirectory/bob.jpg") of each item in the directory you specify
+			
+			You may manipulate this variable by specifying values in regexfind and (optionally) regexreplace.
+			
+			For example, to ignore everything after the first underbar in the filenames, enter <strong>_.*$</strong> in regexfind and leave regexreplace NULL.
+			
+			To replace all occurrences of "E" with "e," enter <strong>E</strong> in regexfind and <strong>e</strong> in regexreplace.
+			
+			
+			 : find portion of [filename] variable manipulation. Accepts regex (eg, _.*$ to remove everything after the first underbar) or strings (eg, 'a' to 
+				replace all the a's in filename with whatever you supply below)
+			
+			<label for="regexfind">regexfind</label>
+			<input type="text" name="regexfind" value="#regexfind#" size="80">
+			
+			<label for="regexreplace"> regexreplace - what to replace the regex above with - leave blank to strip</label>
+			<input type="text" name="regexreplace" value="#regexreplace#" size="80">
+						
+						
+						
 			<label for="tndir">Preview Directory URL (full URL - sometimes same as Directory URL)</label>
 			<input type="text" name="tndir" value="#tndir#" size="80">
 			<label for="tnprefix">
@@ -270,14 +293,7 @@ sho err
 			
 			
 			
-			<label for="regexfind">regexfind : find portion of [filename] variable manipulation. Accepts regex (eg, _.*$ to remove everything after the first underbar) or strings (eg, 'a' to 
-				replace all the a's in filename with whatever you supply below)
-			</label>
-			<input type="text" name="regexfind" value="#regexfind#" size="80">
-			
-			<label for="regexreplace"> regexreplace - what to replace the regex above with - leave blank to strip</label>
-			<input type="text" name="regexreplace" value="#regexreplace#" size="80">
-						
+		
 		
 			<cfloop from ="1" to="5" index="i">
 				<label for="MEDIA_RELATIONSHIP_#i#">MEDIA_RELATIONSHIP_#i#</label>
