@@ -307,6 +307,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
 
+
+<!--------- additive links do not work well when a user searches by error 
+
 	<cfquery dbtype="query" name="willmap">
 		select * from summary where dec_lat is not null
 	</cfquery>
@@ -327,62 +330,83 @@ If your item needs to be sorted in a special way, then do that here. --->
 	</cfquery>
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
 	<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
-	
-	
-		<cfset mapurlnommerr = mapurl>
-
-
-<!----
-	<cfset mapurlnommerr = reReplaceNoCase(mapurl, "min_max_error=[^&]+&?", "")>
-	<cfset mapurlnommerr = reReplaceNoCase(mapurlnommerr, "max_max_error=[^&]+&?", "")>
-	<cfset mapurlnommerr = reReplaceNoCase(mapurlnommerr, "max_error_units=[^&]+&?", "")>
-	
-	<!--- do not show links that would return specimens not in "this" query ---->
-	<cfif mapurl contains "min_max_error" or mapurl contains "max_max_error" or mapurl contains "max_error_units">
-		<cfset minmin=''>
-		<cfset maxmin=''>
-		<cfset minmaxer=''>
-		<cfloop list="#mapurl#" delimiters="?&" index="tv">
-			<cfset t=listgetat(tv,1,'=')>
-			<cfset v=listgetat(tv,2,'=')>
-			<cfif t is "min_max_error">
-				<cfset minmin=v>
-			<cfelseif t is "max_max_error">
-				<cfset maxmin=v>
-			<cfelseif t is "max_error_units">
-				<cfset minmaxer=v>
-			</cfif>
-		</cfloop>
-		<cfif len(minmin) gt 0 or len(maxmin) gt 0></cfif>
-	</cfif>
-	---->
-	
 	<table width="100%">
 		<tr>
 			<td>
 				<strong>Found #summary.recordcount# specimens.</strong>
 				<ul>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurlnommerr#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error of 100 meters or less.
+						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error of 100 meters or less.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurlnommerr#&max_max_error=1000">#val(err_lt1000.c)# specimens</a> have a coordinate error of 1 kilometer or less.
+						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=1000">#val(err_lt1000.c)# specimens</a> have a coordinate error of 1 kilometer or less.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurlnommerr#&max_max_error=10000">#val(err_lt10000.c)# specimens</a> have a coordinate error of 10 kilometers or less.
+						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=10000">#val(err_lt10000.c)# specimens</a> have a coordinate error of 10 kilometers or less.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurlnommerr#&max_max_error=99999999999999999999999">#val(haserr.c)# specimens</a> have a coordinate error.
+						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=99999999999999999999999">#val(haserr.c)# specimens</a> have a coordinate error.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurlnommerr#&isGeoreferenced=true">#val(willmap.recordcount)# specimens</a> have coordinates.
+						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=true">#val(willmap.recordcount)# specimens</a> have coordinates.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurlnommerr#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
+						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurlnommerr#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
+						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
 					</li>
+				</ul>
+			</td>
+			
+			
+			---------------->
+			
+	<cfquery dbtype="query" name="willmap">
+		select * from summary where dec_lat is not null
+	</cfquery>
+	<cfquery dbtype="query" name="noerr">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is null
+	</cfquery>
+	<cfquery dbtype="query" name="err_lt100">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <= 100
+	</cfquery>
+	<cfquery dbtype="query" name="err_100_1000">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and 
+			coordinateuncertaintyinmeters > 100 and coordinateuncertaintyinmeters <=1000
+	</cfquery>
+	<cfquery dbtype="query" name="err_1000_10000">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and 
+			coordinateuncertaintyinmeters > 1000 and coordinateuncertaintyinmeters <=10000
+	</cfquery>
+	<cfquery dbtype="query" name="err_gt10000">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters > 10000
+	</cfquery>
+	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
+	<table width="100%">
+		<tr>
+			<td>
+				<strong>Found #summary.recordcount# specimens.</strong>
+				<ul>
+					<li>
+						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
+					</li>
+					<li>
+						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
+					</li>
+					<li>
+						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error less than 100 meters.
+					</li>
+					<li>
+						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=100&max_max_error=1000">#val(err_100_1000.c)# specimens</a> have a coordinate error between 100 meters and 1 kilometer.
+					</li>
+					<li>
+						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=1000&max_max_error=10000">#val(err_1000_10000.c)# specimens</a> have a coordinate error between 1 and 10 kilometers.
+					</li>
+					<li>
+						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=10000">#val(err_gt10000.c)# specimens</a> have a coordinate error greater than 10 kilometers.
+					</li>
+					
 				</ul>
 			</td>
 			<td>
