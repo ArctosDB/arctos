@@ -312,6 +312,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfif mapurl contains "max_max_error">
 		<cfset listpos=1>
 		<cfloop list="#mapurl#" delimiters="&?" index="i">
+		<br>#I# @ #listpos#
 			<cfif listgetat(i,1,"=") is "max_max_error">
 				<cfset precisionmapurl=listdeleteat(precisionmapurl,listpos,"&?")>
 				<cfset userSrchMaxErr=listgetat(i,2,"=")>
