@@ -358,6 +358,7 @@ sho err
 						</cfif>
 					</cfif>
 					<cfif len(thisFile) gt 0>
+						<cfset thisBareFilename=listdeleteat(thisFile,listlen(thisFile,"."),".")>
 						<cfset thisThumb="">
 						<cfif len(tndir) gt 0>
 							<cfif thisFile does not contain ".">
@@ -368,7 +369,6 @@ sho err
 								You must specify a preview extension.
 								<cfabort>
 							</cfif>
-							<cfset thisBareFilename=listdeleteat(thisFile,listlen(thisFile,"."),".")>
 							<cfset thisThumb="#tndir##tnprefix##thisBareFilename##tnext#">
 						</cfif>
 						
