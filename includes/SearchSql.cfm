@@ -1137,6 +1137,13 @@
 	<cfset mapurl = "#mapurl#&island=#island#">
 </cfif>
 <cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) or (isdefined("max_max_error") AND len(max_max_error) gt 0)>
+	<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) and ((not isdefined("max_max_error")) or len(max_max_error) eq 0)>
+		<!---got min, not max - set max to some improbably large number----->
+		<cfset max_max_error=999999999999999999999999999>
+	<cfelseif (isdefined("max_max_error") AND len(max_max_error) gt 0) and ((not isdefined("min_max_error")) or len(min_max_error) eq 0)>
+		<!---got max , not min - set min to some 0---->		
+		<cfset min_max_error=0>
+	</cfif>
 	<cfif 	min_max_error contains "," or max_max_error contains ",">
 		<div class="error">min and max precision must be integers.
 		<br>Searching by precision and then clicking some "specimens with precision...." links can also cause this error.</div>
@@ -1145,13 +1152,6 @@
 	</cfif>
 	<cfif not isdefined("max_error_units") or len(max_error_units) is 0>
 		<cfset max_error_units='m'>
-	</cfif>
-	<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) and ((not isdefined("max_max_error")) or len(max_max_error) eq 0)>
-		<!---got min, not max - set max to some improbably large number----->
-		<cfset max_max_error=999999999999999999999999999>
-	<cfelseif (isdefined("max_max_error") AND len(max_max_error) gt 0) and ((not isdefined("min_max_error")) or len(min_max_error) eq 0)>
-		<!---got max , not min - set min to some 0---->		
-		<cfset min_max_error=0>
 	</cfif>
 	<cfset mapurl = "#mapurl#&min_max_error=#min_max_error#&max_max_error=#max_max_error#&max_error_units=#max_error_units#">
 	<cfif compare(min_max_error,"NULL") is 0>
