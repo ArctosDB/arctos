@@ -1252,13 +1252,76 @@ SPECIMEN			                                      -176 -------------------- -170
 	---------->
 	
 			<cfif NELong lt 0 and SWLong gt 0>
+				<!--- for comments:
+					UB==user-drawn rectangle
+					FE==error rectangle(s)
+					
+					return stuff where
+					(	
+						UB N latitude in range of FE latitude
+						OR
+						UB S latitude withing range of FE latitude 
+						OR
+						FE N latitude within range of UB latitude
+						OR
+						FE S latitude within range of UB latitude
+					) AND (
+						-- remembering that FE.long may be represented as two objects,
+						-- one spanning from W longitude to 180 and
+						-- another spanning from -180 to E longitude
+						--AND
+						-- if we're here, the UB spans from positive to negative longituded
+						
+						UB.westlong within range of FE.long
+						OR
+						UB.eastlong within range of FE.long
+						OR
+						FE.west long between UB.westlong and 180
+						OR
+						FE.west long between -180 and UB.eastlong
+						OR
+						FE.eastlong between UB.westlong and 180
+						OR
+						FE.eastlong between -180 and UB.eastlong
+
+					)
+				
+				--->
+				
+				
+LOCALITY_ID  SWLAT     SWLONG      NELAT   NELONG   STALE_FG  SPANS_180
+----------- ---------- ---------- ---------- ---------- ---------- ----------
+      72657 50.1891848 176.953715 52.8108152      180
+      72657 50.1891848       -180 52.8108152 -178.95372
+	
+	
 				<cfset basQual = " #basQual# AND 
 					(
 						(
-							-- this is a comment
+							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
+							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
+							fake_coordinate_error.swlat between #SWLat# and #NELat# OR
+							fake_coordinate_error.nelat between #SWLat# and #NELat#
+						) AND (
+							#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
+							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
+							fake_coordinate_error.swlong between #swlong# and 180 OR
+							fake_coordinate_error.swlong between -180 and #nelong# OR
+							fake_coordinate_error.nelong between #swlong# and 180 OR
+							fake_coordinate_error.nelong between -180 and #nelong#
+						)
+					)">
+				<!-----
+				<cfset basQual = " #basQual# AND 
+					(
+						(
+							-- UB N latitude within range of FE latitude
+							-- UB E long between FE w long and 180
 							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
 							(#nelong# between fake_coordinate_error.swlong and 180)
 						) or (
+							-- UB N latitude within range of FE latitude
+							-- UB W long between FE w long and 180 OR UB W long between -180 and FE E long
 							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
 							(
 								(#swlong# between fake_coordinate_error.swlong and 180) OR
@@ -1290,6 +1353,7 @@ SPECIMEN			                                      -176 -------------------- -170
 							)
 						)	
 					)">
+					----->
 			<cfelse><!--- NE & SW longitude both either positive or negative --->
 				<!---- first 4 criteria: any of the user's box coordinate corners are withing the specimen error
 				
