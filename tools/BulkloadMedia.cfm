@@ -205,6 +205,13 @@ sho err
 		<cfif not isdefined("MEDIA_TYPE")>
 			<cfset MEDIA_TYPE=''>
 		</cfif>
+		<cfif not isdefined("regexfind")>
+			<cfset regexfind=''>
+		</cfif>
+		<cfif not isdefined("regexreplace")>
+			<cfset regexreplace=''>
+		</cfif>
+		
 		<cfloop from ="1" to="5" index="i">
 			<cfif not isdefined("MEDIA_RELATED_TERM_#i#")>
 				<cfset "MEDIA_RELATED_TERM_#i#"=''>
@@ -259,6 +266,17 @@ sho err
 					<option <cfif tml is MEDIA_TYPE> selected="selected" </cfif>value="#MEDIA_TYPE#">#MEDIA_TYPE#</option>
 				</cfloop>
 			</select>
+			
+			
+			
+			<label for="regexfind">regexfind   regex to manipulate [filename] variable available for relationships and labels</label>
+			<input type="text" name="regexfind" value="#regexfind#" size="80">
+			
+			<label for="regexreplace"> regexreplace  regex to manipulate [filename] variable available for relationships and labels</label>
+			<input type="text" name="regexreplace" value="#regexreplace#" size="80">
+			
+		
+		
 			<cfloop from ="1" to="5" index="i">
 				<label for="MEDIA_RELATIONSHIP_#i#">MEDIA_RELATIONSHIP_#i#</label>
 				<cfset thisMR=evaluate("MEDIA_RELATIONSHIP_" & i)>
@@ -371,6 +389,11 @@ sho err
 							</cfif>
 							<cfset thisThumb="#tndir##tnprefix##thisBareFilename##tnext#">
 						</cfif>
+						<!--- run this after the thumbnail stuff --->
+						<cfif len(regexpfilename) gt 0>
+							<cfset thisBareFilename=rereplace(thisBareFilename,'#regexfind#','#regexreplace#')>
+						</cfif>
+						
 						
 						<tr>
 							<td>#dirurl##thisFile#</td>
