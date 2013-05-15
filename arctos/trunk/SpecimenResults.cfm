@@ -307,63 +307,15 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
 	<!---- see if users have searched for min-max/max-mar error ---->
-	<cfloop list="#mapurl#" delimiters="&?" index="i">
-		<br>#i#
-	</cfloop>
+	<cfif mapurl contains "max_max_error">
+		<cfloop list="#mapurl#" delimiters="&?" index="i">
+			<br>#i#
+		</cfloop>
+	</cfif>
+	
 
 <!--------- additive links do not work well when a user searches by error 
 
-	<cfquery dbtype="query" name="willmap">
-		select * from summary where dec_lat is not null
-	</cfquery>
-	<cfquery dbtype="query" name="noerr">
-		select count(*) c from willmap where coordinateuncertaintyinmeters is null
-	</cfquery>
-	<cfquery dbtype="query" name="err_lt100">
-		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <= 100
-	</cfquery>
-	<cfquery dbtype="query" name="err_lt1000">
-		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=1000
-	</cfquery>
-	<cfquery dbtype="query" name="err_lt10000">
-		select count(*) c from summary where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=10000
-	</cfquery>
-	<cfquery dbtype="query" name="haserr">
-		select count(*) c from willmap where coordinateuncertaintyinmeters is not null
-	</cfquery>
-	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
-	<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
-	<table width="100%">
-		<tr>
-			<td>
-				<strong>Found #summary.recordcount# specimens.</strong>
-				<ul>
-					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error of 100 meters or less.
-					</li>
-					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=1000">#val(err_lt1000.c)# specimens</a> have a coordinate error of 1 kilometer or less.
-					</li>
-					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=10000">#val(err_lt10000.c)# specimens</a> have a coordinate error of 10 kilometers or less.
-					</li>
-					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=99999999999999999999999">#val(haserr.c)# specimens</a> have a coordinate error.
-					</li>
-					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=true">#val(willmap.recordcount)# specimens</a> have coordinates.
-					</li>
-					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
-					</li>
-					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
-					</li>
-				</ul>
-			</td>
-			
-			
-			---------------->
 			
 	<cfquery dbtype="query" name="willmap">
 		select * from summary where dec_lat is not null
@@ -424,6 +376,59 @@ If your item needs to be sorted in a special way, then do that here. --->
 					
 				</ul>
 			</td>
+			
+			---------------->
+	<cfquery dbtype="query" name="willmap">
+		select * from summary where dec_lat is not null
+	</cfquery>
+	<cfquery dbtype="query" name="noerr">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is null
+	</cfquery>
+	<cfquery dbtype="query" name="err_lt100">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <= 100
+	</cfquery>
+	<cfquery dbtype="query" name="err_lt1000">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=1000
+	</cfquery>
+	<cfquery dbtype="query" name="err_lt10000">
+		select count(*) c from summary where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=10000
+	</cfquery>
+	<cfquery dbtype="query" name="haserr">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null
+	</cfquery>
+	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
+	<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
+	<table width="100%">
+		<tr>
+			<td>
+				<strong>Found #summary.recordcount# specimens.</strong>
+				<ul>
+					<li>
+						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error of 100 meters or less.
+					</li>
+					<li>
+						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=1000">#val(err_lt1000.c)# specimens</a> have a coordinate error of 1 kilometer or less.
+					</li>
+					<li>
+						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=10000">#val(err_lt10000.c)# specimens</a> have a coordinate error of 10 kilometers or less.
+					</li>
+					<li>
+						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=99999999999999999999999">#val(haserr.c)# specimens</a> have a coordinate error.
+					</li>
+					<li>
+						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=true">#val(willmap.recordcount)# specimens</a> have coordinates.
+					</li>
+					<li>
+						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
+					</li>
+					<li>
+						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
+					</li>
+				</ul>
+			</td>
+			
+			
+			
 			<td>
 				<div style="padding-left:2em;">
 					<cfif willmap.recordcount gt 0>
