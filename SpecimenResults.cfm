@@ -309,8 +309,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<!---- see if users have searched for min-max/max-mar error ---->
 	<cfset userSrchMaxErr=99999999999999999999999>
 	<cfset precisionmapurl=mapurl>
-	
-	precisionmapurl: #precisionmapurl#
 	<cfif mapurl contains "max_max_error">
 		<cfloop list="#mapurl#" delimiters="&?" index="i">
 		<br>#I#
@@ -325,9 +323,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 			</cfif>
 		</cfloop>
 	</cfif>
-	
-	<br>	precisionmapurl: #precisionmapurl#
-
 	<cfif isdefined("meu") and meu is not "m">
 		<cfif meu is "ft">
 			<cfset userSrchMaxErr=userSrchMaxErr * .3048>
@@ -339,9 +334,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<cfset userSrchMaxErr=userSrchMaxErr * .9144>
 		</cfif>
 	</cfif>
-	
-	<br>
-userSrchMaxErr: #userSrchMaxErr#
 <!--------- additive links do not work well when a user searches by error 
 
 			
@@ -430,6 +422,9 @@ userSrchMaxErr: #userSrchMaxErr#
 		<tr>
 			<td>
 				<strong>Found #summary.recordcount# specimens.</strong>
+				<span class="infoLink" onclick="alert('The following links are ADDITIVE; the \'1000 meter\' link contains the \'100 meter\' specimens.\nIf you searched by precision or followed a link like these to get here, the links may include specimens not in your original query')">
+					about these links
+				</span>
 				<ul>
 					<cfif err_lt100.c gt 0 and userSrchMaxErr gte 100>
 						<li>
