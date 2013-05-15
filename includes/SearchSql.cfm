@@ -1255,10 +1255,9 @@ SPECIMEN			                                      -176 -------------------- -170
 				<cfset basQual = " #basQual# AND 
 					(
 						(
-							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
-							(
-							 #nelong# between fake_coordinate_error.swlong and 180
-							)
+							-- this is a comment
+							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
+							(#nelong# between fake_coordinate_error.swlong and 180)
 						) or (
 							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
 							(
