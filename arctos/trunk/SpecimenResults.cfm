@@ -362,7 +362,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<td>
 				<strong>Found #summary.recordcount# specimens.</strong>
 				<ul>
-					<cfif err_lt100.c gt 0
 					<li>
 						<a href="/SpecimenResults.cfm?#mapurlnommerr#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error of 100 meters or less.
 					</li>
