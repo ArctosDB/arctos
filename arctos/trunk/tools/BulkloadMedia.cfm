@@ -147,6 +147,28 @@ sho err
 <cfif action is "pulldir">
 	<cfset title=title&": Pull from URL">
 	Create a media bulkloader template by pulling URLs from a directory (at TACC, or anyone else with a lighttpd-like directory listing).
+	<p>
+		A variable [filename] is created from the string between the last slash and the 
+		last dot (eg, "bob" in "http://someserver/somedirectory/bob.jpg") of each item in the directory you specify.
+	</p>
+	<p>
+		You may manipulate this variable by specifying values in regexfind and (optionally) regexreplace.
+			
+		For example, to ignore everything after the first underbar in the filenames, enter <strong>_.*$</strong> in regexfind and leave regexreplace NULL.
+			
+		To replace all occurrences of "E" with "e," enter <strong>E</strong> in regexfind and <strong>e</strong> in regexreplace.
+	</p>
+	<p>
+		You may then use the [filename] variable in label and relationship values - to create "barcode" labels, for example. Just enter <strong>[filename]</strong>
+		(with the brackets) as all or part of the relationship or label.
+	</p>
+	<p>
+		[filename] is also used to generate preview_url, which are
+		<br>preview_directory/{preview_prefix}[filename]{preview_suffix}
+	</p>
+			
+		
+				
 	<cfquery name="ctMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT distinct(display)  MEDIA_LICENSE FROM ctMEDIA_LICENSE order by display
     </cfquery>
@@ -191,10 +213,6 @@ sho err
 		<cfif not isdefined("tnext")>
 			<cfset tnext=''>
 		</cfif>
-		<cfif right(dirurl,1) is not "/">
-			<cfset dirurl=dirurl & '/'>
-			<p>Added required trailing slash to directory URL</p>
-		</cfif>
 		<cfif not isdefined("MEDIA_LICENSE")>
 			<cfset MEDIA_LICENSE=''>
 		</cfif>
@@ -238,33 +256,13 @@ sho err
 			<input type="text" name="requirePrefix" value="#requirePrefix#" size="6">
 			<label for="ignorePrefix">Ignore files that start with...</label>
 			<input type="text" name="ignorePrefix" value="#ignorePrefix#" size="6">
-			
-			A variable [filename] is created from the string between the last slash and the
-			last dot (eg, "bob" in "http://someserver/somedirectory/bob.jpg") of each item in the directory you specify
-			
-			You may manipulate this variable by specifying values in regexfind and (optionally) regexreplace.
-			
-			For example, to ignore everything after the first underbar in the filenames, enter <strong>_.*$</strong> in regexfind and leave regexreplace NULL.
-			
-			To replace all occurrences of "E" with "e," enter <strong>E</strong> in regexfind and <strong>e</strong> in regexreplace.
-			
-			
-			 : find portion of [filename] variable manipulation. Accepts regex (eg, _.*$ to remove everything after the first underbar) or strings (eg, 'a' to 
-				replace all the a's in filename with whatever you supply below)
-			
 			<label for="regexfind">regexfind</label>
 			<input type="text" name="regexfind" value="#regexfind#" size="80">
-			
-			<label for="regexreplace"> regexreplace - what to replace the regex above with - leave blank to strip</label>
-			<input type="text" name="regexreplace" value="#regexreplace#" size="80">
-						
-						
-						
-			<label for="tndir">Preview Directory URL (full URL - sometimes same as Directory URL)</label>
+			<label for="regexreplace"> regexreplace</label>
+			<input type="text" name="regexreplace" value="#regexreplace#" size="80">					
+			<label for="tndir">Preview Directory URL</label>
 			<input type="text" name="tndir" value="#tndir#" size="80">
-			<label for="tnprefix">
-				Preview prefix (eg, "tn_") - preview is some (possibly zero-length) prefix + filename (as manipulated by regex below) + (possibly zero-length) suffix
-			</label>
+			<label for="tnprefix">Preview prefix (eg, "tn_")</label>
 			<input type="text" name="tnprefix" value="#tnprefix#" size="6">
 			<label for="tnext">Preview extension (eg, ".jpg")</label>
 			<input type="text" name="tnext" value="#tnext#" size="6">
