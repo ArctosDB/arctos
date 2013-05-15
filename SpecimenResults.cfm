@@ -307,7 +307,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
 	<!---- see if users have searched for min-max/max-mar error ---->
-	<cfloop list="#mapurl# delimiters="&?" index="i">
+	<cfloop list="#mapurl#" delimiters="&?" index="i">
 		<br>#i#
 	</cfloop>
 
