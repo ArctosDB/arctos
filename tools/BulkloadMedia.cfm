@@ -244,7 +244,6 @@ sho err
 			<input type="hidden" name="action" value="pulldir">
 			<label for="dirurl">Directory URL</label>
 			<input type="text" name="dirurl" value="#dirurl#" size="80">
-			 If you don't use this, you'll probably end up with some directories in your file
 			<label for="extfilter">Filter for extension (eg, ".jpg")</label>
 			<input type="text" name="extfilter" value="#extfilter#" size="6">
 			<label for="requirePrefix">Require file to start with...</label>
