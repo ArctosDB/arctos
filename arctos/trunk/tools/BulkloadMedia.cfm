@@ -146,6 +146,8 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "pulldir">
 	<cfset title=title&": Pull from URL">
+	Create a media bulkloader template by pulling URLs from a directory (at TACC, or anyone else with a lighttpd-like directory listing) and
+	filling in some static stuff here.
 	<cfquery name="ctMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT distinct(display)  MEDIA_LICENSE FROM ctMEDIA_LICENSE order by display
     </cfquery>
@@ -165,7 +167,7 @@ sho err
 		<cfif not isdefined("dirurl")>
 			<cfset dirurl=''>
 		</cfif>
-		<cfif right(dirurl,1) is not "/">
+		<cfif len(dirurl) gt 0 and right(dirurl,1) is not "/">
 			<cfset dirurl=dirurl & '/'>
 			<p>Added required trailing slash to directory URL</p>
 		</cfif>
@@ -180,7 +182,7 @@ sho err
 		</cfif>
 		<cfif not isdefined("tndir")>
 			<cfset tndir=''>
-		<cfelseif right(tndir,1) is not "/">
+		<cfelseif len(tndir) gt 0 and  right(tndir,1) is not "/">
 			<cfset tndir=tndir & '/'>
 			<p>Added required trailing slash to preview URL</p>
 		</cfif>
@@ -381,6 +383,7 @@ sho err
 							<cfloop from ="1" to="5" index="i">
 								<cfset thisMR=evaluate("MEDIA_RELATIONSHIP_" & i)>
 								<cfset thisMRT=evaluate("MEDIA_RELATED_TERM_" & i)>
+								
 								<td>#thisMR#</td>
 								<td>#thisMRT#</td>
 								<cfset thisData=listappend(thisData,'"' & thisMR & '"')>
@@ -408,7 +411,6 @@ sho err
 		<cfelse>
 			The directory structure is not XML - can't proceed.
 		</cfif>	
-		
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------->
