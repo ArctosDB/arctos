@@ -146,24 +146,6 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "pulldir">
 	<cfset title=title&": Pull from URL">
-	Create a media bulkloader template by pulling URLs from a directory (at TACC, or anyone else with a lighttpd-like directory listing).
-	<p>
-		A variable [filename] is created from the string between the last slash and the 
-		last dot (eg, "bob" in "http://someserver/somedirectory/bob.jpg") of each item in the directory you specify.
-	</p>
-	<p>
-		You may manipulate this variable by specifying values in regexfind and (optionally) regexreplace.
-			
-		For example, to ignore everything after the first underbar in the filenames, enter <strong>_.*$</strong> in regexfind and leave regexreplace NULL.
-			
-		To replace all occurrences of "E" with "e," enter <strong>E</strong> in regexfind and <strong>e</strong> in regexreplace.
-	</p>
-	<p>
-		You may then use the [filename] variable in label and relationship values - to create "barcode" labels, for example. Just enter <strong>[filename]</strong>
-		(with the brackets) as all or part of the relationship or label.
-	</p>
-		
-				
 	<cfquery name="ctMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT distinct(display)  MEDIA_LICENSE FROM ctMEDIA_LICENSE order by display
     </cfquery>
@@ -179,6 +161,23 @@ sho err
 	<cfquery name="ctmedia_label" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT distinct(MEDIA_LABEL) MEDIA_LABEL FROM ctmedia_label order by MEDIA_LABEL
     </cfquery>
+	Create a media bulkloader template by pulling URLs from a directory (at TACC, or anyone else with a lighttpd-like directory listing).
+	<p>
+		A variable [filename] is created from the string between the last slash and the 
+		last dot (eg, "bob" in "http://someserver/somedirectory/bob.jpg") of each item in the directory you specify.
+	</p>
+	<p>
+		You may manipulate this variable by specifying values in regexfind and (optionally) regexreplace.
+			
+		For example, to ignore everything after the first underbar in the filenames, enter <strong>_.*$</strong> in regexfind and leave regexreplace NULL.
+			
+		To replace all occurrences of "E" with "e," enter <strong>E</strong> in regexfind and <strong>e</strong> in regexreplace.
+	</p>
+	<p>
+		You may then use the [filename] variable in label and relationship values - to create "barcode" labels, for example. Just enter <strong>[filename]</strong>
+		(with the brackets) as all or part of the relationship or label.
+	</p>		
+	
 	<cfoutput>
 		<cfif not isdefined("dirurl")>
 			<cfset dirurl=''>
@@ -282,11 +281,6 @@ sho err
 					<option <cfif tml is MEDIA_TYPE> selected="selected" </cfif>value="#MEDIA_TYPE#">#MEDIA_TYPE#</option>
 				</cfloop>
 			</select>
-			
-			
-			
-		
-		
 			<cfloop from ="1" to="5" index="i">
 				<label for="MEDIA_RELATIONSHIP_#i#">MEDIA_RELATIONSHIP_#i#</label>
 				<cfset thisMR=evaluate("MEDIA_RELATIONSHIP_" & i)>
@@ -317,7 +311,6 @@ sho err
 			<cfset fileDir = "#Application.webDirectory#">
 			<cfset variables.encoding="UTF-8">
 			<cfset fname = "media_from_url.csv">
-			<br><a href="/download.cfm?file=#fname#">get the table below as CSV</a>
 
 		</form>
 		<cfhttp url="#dirurl#" charset="utf-8" method="get"></cfhttp>
@@ -345,6 +338,9 @@ sho err
 				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 				variables.joFileWriter.writeLine(ListQualify(header,'"')); 
 			</cfscript>
+			
+			
+			<br><a href="/download.cfm?file=#fname#">get the table below as CSV</a>
 			
 			<table border>
 				<tr>
