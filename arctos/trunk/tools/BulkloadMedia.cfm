@@ -270,10 +270,12 @@ sho err
 			
 			
 			
-			<label for="regexfind">regexfind   regex to manipulate [filename] variable available for relationships and labels</label>
+			<label for="regexfind">regexfind : find portion of [filename] variable manipulation. Accepts regex (eg, _.*$ to remove everything after the first underbar) or strings (eg, 'a' to 
+				replace all the a's in filename with whatever you supply below)
+			</label>
 			<input type="text" name="regexfind" value="#regexfind#" size="80">
 			
-			<label for="regexreplace"> regexreplace  regex to manipulate [filename] variable available for relationships and labels</label>
+			<label for="regexreplace"> regexreplace - what to replace the regex above with - leave blank to strip</label>
 			<input type="text" name="regexreplace" value="#regexreplace#" size="80">
 						
 		
@@ -377,6 +379,9 @@ sho err
 					</cfif>
 					<cfif len(thisFile) gt 0>
 						<cfset thisBareFilename=listdeleteat(thisFile,listlen(thisFile,"."),".")>
+						<cfif len(regexfind) gt 0>
+							<cfset thisBareFilename=rereplace(thisBareFilename,'#regexfind#','#regexreplace#')>
+						</cfif>
 						<cfset thisThumb="">
 						<cfif len(tndir) gt 0>
 							<cfif thisFile does not contain ".">
@@ -389,12 +394,6 @@ sho err
 							</cfif>
 							<cfset thisThumb="#tndir##tnprefix##thisBareFilename##tnext#">
 						</cfif>
-						<!--- run this after the thumbnail stuff --->
-						<cfif len(regexfind) gt 0>
-							<cfset thisBareFilename=rereplace(thisBareFilename,'#regexfind#','#regexreplace#')>
-						</cfif>
-						
-						
 						<tr>
 							<td>#dirurl##thisFile#</td>
 							<td>#thisThumb#</td>
