@@ -162,11 +162,6 @@ sho err
 		You may then use the [filename] variable in label and relationship values - to create "barcode" labels, for example. Just enter <strong>[filename]</strong>
 		(with the brackets) as all or part of the relationship or label.
 	</p>
-	<p>
-		[filename] is also used to generate preview_url, which are
-		<br>preview_directory/{preview_prefix}[filename]{preview_suffix}
-	</p>
-			
 		
 				
 	<cfquery name="ctMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -393,9 +388,6 @@ sho err
 					</cfif>
 					<cfif len(thisFile) gt 0>
 						<cfset thisBareFilename=listdeleteat(thisFile,listlen(thisFile,"."),".")>
-						<cfif len(regexfind) gt 0>
-							<cfset thisBareFilename=rereplace(thisBareFilename,'#regexfind#','#regexreplace#')>
-						</cfif>
 						<cfset thisThumb="">
 						<cfif len(tndir) gt 0>
 							<cfif thisFile does not contain ".">
@@ -407,6 +399,9 @@ sho err
 								<cfabort>
 							</cfif>
 							<cfset thisThumb="#tndir##tnprefix##thisBareFilename##tnext#">
+						</cfif>
+						<cfif len(regexfind) gt 0>
+							<cfset thisBareFilename=rereplace(thisBareFilename,'#regexfind#','#regexreplace#')>
 						</cfif>
 						<tr>
 							<td>#dirurl##thisFile#</td>
