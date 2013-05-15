@@ -308,12 +308,17 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
 	<!---- see if users have searched for min-max/max-mar error ---->
 	<cfset userSrchMaxErr=99999999999999999999999>
+	<cfset precisionmapurl=mapurl>
 	<cfif mapurl contains "max_max_error">
 		<cfloop list="#mapurl#" delimiters="&?" index="i">
 			<cfif listgetat(i,1,"=") is "max_max_error">
+				<cfset precisionmapurl=listdeleteat(precisionmapurl,i,"&?")>
 				<cfset userSrchMaxErr=listgetat(i,2,"=")>
 			<cfelseif listgetat(i,1,"=") is "max_error_units">
+				<cfset precisionmapurl=listdeleteat(precisionmapurl,i,"&?")>
 				<cfset meu=listgetat(i,2,"=")>
+			<cfelseif listgetat(i,1,"=") is "max_error_units">
+				<cfset precisionmapurl=listdeleteat(precisionmapurl,i,"&?")>
 			</cfif>
 		</cfloop>
 	</cfif>
@@ -420,37 +425,37 @@ userSrchMaxErr: #userSrchMaxErr#
 				<ul>
 					<cfif err_lt100.c gt 0 and userSrchMaxErr gte 100>
 						<li>
-							<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error of 100 meters or less.
+							<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error of 100 meters or less.
 						</li>
 					</cfif>
 					<cfif err_lt1000.c gt 0 and userSrchMaxErr gte 1000>
 						<li>
-							<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=1000">#val(err_lt1000.c)# specimens</a> have a coordinate error of 1 kilometer or less.
+							<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=1000">#val(err_lt1000.c)# specimens</a> have a coordinate error of 1 kilometer or less.
 						</li>
 					</cfif>
 					<cfif err_lt10000.c gt 0 and userSrchMaxErr gte 10000>
 						<li>
-							<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=10000">#val(err_lt10000.c)# specimens</a> have a coordinate error of 10 kilometers or less.
+							<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=10000">#val(err_lt10000.c)# specimens</a> have a coordinate error of 10 kilometers or less.
 						</li>
 					</cfif>
 					<cfif haserr.c gt 0>
 						<li>
-							<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=99999999999999999999999">#val(haserr.c)# specimens</a> have a coordinate error.
+							<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=99999999999999999999999">#val(haserr.c)# specimens</a> have a coordinate error.
 						</li>
 					</cfif>
 					<cfif willmap.recordcount gt 0>
 						<li>
-							<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=true">#val(willmap.recordcount)# specimens</a> have coordinates.
+							<a href="/SpecimenResults.cfm?#precisionmapurl#&isGeoreferenced=true">#val(willmap.recordcount)# specimens</a> have coordinates.
 						</li>
 					</cfif>
 					<cfif noerr.c gt 0>
 						<li>
-							<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
+							<a href="/SpecimenResults.cfm?#precisionmapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
 						</li>
 					</cfif>
 					<cfif numWillNotMap gt 0>
 						<li>
-							<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
+							<a href="/SpecimenResults.cfm?#precisionmapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
 						</li>
 					</cfif>
 				</ul>
