@@ -326,6 +326,11 @@ If your item needs to be sorted in a special way, then do that here. --->
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null
 	</cfquery>
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
+	<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
+	<cfset mapurlnommerr = reReplaceNoCase(mapurl, "min_max_error=[^&]+&?", "")>
+	<cfset mapurlnommerr = reReplaceNoCase(mapurlnommerr, "max_max_error=[^&]+&?", "")>
+	<cfset mapurlnommerr = reReplaceNoCase(mapurlnommerr, "max_error_units=[^&]+&?", "")>
+	
 	<table width="100%">
 		<tr>
 			<td>
@@ -333,25 +338,25 @@ If your item needs to be sorted in a special way, then do that here. --->
 				<ul>
 					
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error of 100 meters or less.
+						<a href="/SpecimenResults.cfm?#mapurlnommerr#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error of 100 meters or less.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=1000">#val(err_lt1000.c)# specimens</a> have a coordinate error of 1 kilometer or less.
+						<a href="/SpecimenResults.cfm?#mapurlnommerr#&max_max_error=1000">#val(err_lt1000.c)# specimens</a> have a coordinate error of 1 kilometer or less.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=10000">#val(err_lt10000.c)# specimens</a> have a coordinate error of 10 kilometers or less.
+						<a href="/SpecimenResults.cfm?#mapurlnommerr#&max_max_error=10000">#val(err_lt10000.c)# specimens</a> have a coordinate error of 10 kilometers or less.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=99999999999999999999999">#val(haserr.c)# specimens</a> have a coordinate error.
+						<a href="/SpecimenResults.cfm?#mapurlnommerr#&max_max_error=99999999999999999999999">#val(haserr.c)# specimens</a> have a coordinate error.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=true">#val(willmap.recordcount)# specimens</a> have coordinates.
+						<a href="/SpecimenResults.cfm?#mapurlnommerr#&isGeoreferenced=true">#val(willmap.recordcount)# specimens</a> have coordinates.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
+						<a href="/SpecimenResults.cfm?#mapurlnommerr#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
 					</li>
 					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
+						<a href="/SpecimenResults.cfm?#mapurlnommerr#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
 					</li>
 				</ul>
 			</td>
