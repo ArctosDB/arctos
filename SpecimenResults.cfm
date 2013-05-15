@@ -311,7 +311,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfset precisionmapurl=mapurl>
 	<cfif mapurl contains "max_max_error">
 		<cfloop list="#mapurl#" delimiters="&?" index="i">
-		<br>#I#
 			<cfif listgetat(i,1,"=") is "max_max_error">
 				<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "max_max_error=[^&]+&?", "")>
 				<cfset userSrchMaxErr=listgetat(i,2,"=")>
@@ -422,7 +421,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 		<tr>
 			<td>
 				<strong>Found #summary.recordcount# specimens.</strong>
-				<span class="infoLink" onclick="alert('The following links are ADDITIVE; the \'1000 meter\' link contains the \'100 meter\' specimens.\nIf you searched by precision or followed a link like these to get here, the links may include specimens not in your original query')">
+				<span class="infoLink" onclick="alert('The following links are ADDITIVE; the \'1000 meter\' link contains the \'100 meter\' specimens.\nIf you searched by precision or followed a link like these to get here, the links may return specimens not in your original query')">
 					about these links
 				</span>
 				<ul>
