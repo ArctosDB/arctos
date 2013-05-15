@@ -323,7 +323,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<cfelseif listgetat(i,1,"=") is "max_error_units">
 				<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "max_error_units=[^&]+&?", "")>
 			</cfif>
-			<cfset listpos=listpos+1>
 		</cfloop>
 	</cfif>
 	
