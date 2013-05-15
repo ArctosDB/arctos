@@ -310,16 +310,18 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfset userSrchMaxErr=99999999999999999999999>
 	<cfset precisionmapurl=mapurl>
 	<cfif mapurl contains "max_max_error">
+		<cfset listpos=1>
 		<cfloop list="#mapurl#" delimiters="&?" index="i">
 			<cfif listgetat(i,1,"=") is "max_max_error">
-				<cfset precisionmapurl=listdeleteat(precisionmapurl,i,"&?")>
+				<cfset precisionmapurl=listdeleteat(precisionmapurl,listpos,"&?")>
 				<cfset userSrchMaxErr=listgetat(i,2,"=")>
 			<cfelseif listgetat(i,1,"=") is "max_error_units">
-				<cfset precisionmapurl=listdeleteat(precisionmapurl,i,"&?")>
+				<cfset precisionmapurl=listdeleteat(precisionmapurl,listpos,"&?")>
 				<cfset meu=listgetat(i,2,"=")>
 			<cfelseif listgetat(i,1,"=") is "max_error_units">
-				<cfset precisionmapurl=listdeleteat(precisionmapurl,i,"&?")>
+				<cfset precisionmapurl=listdeleteat(precisionmapurl,listpos,"&?")>
 			</cfif>
+			<cfset listpos=listpos+1>
 		</cfloop>
 	</cfif>
 	<cfif isdefined("meu") and meu is not "m">
