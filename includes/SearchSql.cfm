@@ -1191,110 +1191,8 @@
 			<cfset sq_error='false'>
 		</cfif>
 		<cfif sq_error is true>
-		
-			<!----------
-				possibilities:
-					latitude: whatever, always works
-					
-					longitude:
-						userbox both ends positive, specimen both ends positive
-							add 0 to both sides (=just works)
-						userbox both ends negative, specimen both ends negative
-							add 0 to both sides (=just works)
-						userbox one + one, specimen (anything) - then
-							add 180 to everything
-						specimen one end positive, one end negative
-							??
-								
-						
-								
-						
-				
-			
-			------------>
 			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
-			
-			<!--------
-			<cfset x=0>
-			<cfif NELong lt 0 and SWLong gt 0>
-				<cfset x=180>
-			</cfif>
-			
-		
-			<cfset basQual = " #basQual# AND 
-				(
-					(	
-						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
-						(#nelong# + #x#) between (fake_coordinate_error.swlong + #x#) and (fake_coordinate_error.nelong + #x#) 
-					) or (
-						#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
-						(#swlong# + #x#) between (fake_coordinate_error.swlong + #x#) and (fake_coordinate_error.nelong + #x#) 
-					) or (
-						#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
-						(#swlong#  + #x#) between (fake_coordinate_error.swlong + #x#) and (fake_coordinate_error.nelong + #x#) 
-					) or ( 
-						#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
-						(#nelong# + #x#) between (fake_coordinate_error.swlong + #x#) and (fake_coordinate_error.nelong + #x#)
-					) or (		
-						fake_coordinate_error.nelat between #SWLat# and #NELat# and
-						(fake_coordinate_error.nelong + #x#) between (#SWLong# + #x#) AND (#NELong# + #x#) 
-					) or (
-						fake_coordinate_error.swlat between #SWLat# and #NELat# and
-						(fake_coordinate_error.swlong + #x#) between (#SWLong# + #x#) AND (#NELong# + #x#) 
-					)
-				)">
-			
-			
-			USERBOX:			175   ---------------(180/-180)---------------  -175
-SPECIMEN			                                      -176 -------------------- -170                        
- 	
-	
-	---------->
-	
-			<cfif NELong lt 0 and SWLong gt 0>
-				<!--- for comments:
-					UB==user-drawn rectangle
-					FE==error rectangle(s)
-					
-					return stuff where
-					(	
-						UB N latitude in range of FE latitude
-						OR
-						UB S latitude withing range of FE latitude 
-						OR
-						FE N latitude within range of UB latitude
-						OR
-						FE S latitude within range of UB latitude
-					) AND (
-						-- remembering that FE.long may be represented as two objects,
-						-- one spanning from W longitude to 180 and
-						-- another spanning from -180 to E longitude
-						--AND
-						-- if we're here, the UB spans from positive to negative longituded
-						
-						UB.westlong within range of FE.long
-						OR
-						UB.eastlong within range of FE.long
-						OR
-						FE.west long between UB.westlong and 180
-						OR
-						FE.west long between -180 and UB.eastlong
-						OR
-						FE.eastlong between UB.westlong and 180
-						OR
-						FE.eastlong between -180 and UB.eastlong
-
-					)
-				
-				--->
-				
-				
-LOCALITY_ID  SWLAT     SWLONG      NELAT   NELONG   STALE_FG  SPANS_180
------------ ---------- ---------- ---------- ---------- ---------- ----------
-      72657 50.1891848 176.953715 52.8108152      180
-      72657 50.1891848       -180 52.8108152 -178.95372
-	
-	
+			<cfif NELong lt 0 and SWLong gt 0><!--- overlaps 180, need a pair of extra statements ----->
 				<cfset basQual = " #basQual# AND 
 					(
 						(
@@ -1311,60 +1209,8 @@ LOCALITY_ID  SWLAT     SWLONG      NELAT   NELONG   STALE_FG  SPANS_180
 							fake_coordinate_error.nelong between -180 and #nelong#
 						)
 					)">
-				<!-----
+			<cfelse><!--- longitude does not overlap 180 --->
 				<cfset basQual = " #basQual# AND 
-					(
-						(
-							-- UB N latitude within range of FE latitude
-							-- UB E long between FE w long and 180
-							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat AND
-							(#nelong# between fake_coordinate_error.swlong and 180)
-						) or (
-							-- UB N latitude within range of FE latitude
-							-- UB W long between FE w long and 180 OR UB W long between -180 and FE E long
-							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
-							(
-								(#swlong# between fake_coordinate_error.swlong and 180) OR
-								(#swlong# between -180 and fake_coordinate_error.nelong)
-							)
-						) or (
-							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
-							(
-								(#nelong# between fake_coordinate_error.swlong and 180) OR
-								(#nelong# between -180 and fake_coordinate_error.nelong)
-							)
-						) or (
-							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
-							(
-								(#swlong# between fake_coordinate_error.swlong and 180) OR
-								(#swlong# between -180 and fake_coordinate_error.nelong)
-							)
-						) or (		
-							fake_coordinate_error.nelat between #SWLat# and #NELat# and
-							(
-								(fake_coordinate_error.nelong between #SWLong# AND 180) or
-								(fake_coordinate_error.nelong between -180 and #NELong#)
-							)
-						) or (
-							fake_coordinate_error.swlat between #SWLat# and #NELat# and
-							(
-								(fake_coordinate_error.swlong between #SWLong# AND 180) or
-								(fake_coordinate_error.swlong between -180 and #NELong#)
-							)
-						)	
-					)">
-					----->
-			<cfelse><!--- NE & SW longitude both either positive or negative --->
-				<!---- first 4 criteria: any of the user's box coordinate corners are withing the specimen error
-				
-				last 2 criteria: userbox is within specimen error
-					-- can be extending past any edge, but not touching corners (or one of the 4 first would have found it)
-				
-				---->
-				
-				
-				
-			<cfset basQual = " #basQual# AND 
 					(
 						(
 							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
@@ -1378,35 +1224,7 @@ LOCALITY_ID  SWLAT     SWLONG      NELAT   NELONG   STALE_FG  SPANS_180
 							fake_coordinate_error.nelong between #swlong# and #nelong#
 						)
 					)">
-					
-					<!-----------
-				<cfset basQual = " #basQual# AND 
-					(
-						(	
-							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
-							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong 
-						) or (
-							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
-							#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong 
-						) or (
-							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
-							#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong 
-						) or ( 
-							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat and
-							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong
-						) or (		
-							fake_coordinate_error.nelat between #SWLat# and #NELat# and
-							fake_coordinate_error.nelong between #SWLong# AND #NELong# 
-						) or (
-							fake_coordinate_error.swlat between #SWLat# and #NELat# and
-							fake_coordinate_error.swlong between #SWLong# AND #NELong# 
-						)
-					)">
-					---------->
 			</cfif>
-			
-			
-			---->
 		<cfelse>
 			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
 			<cfif NELong lt 0 and SWLong gt 0>
