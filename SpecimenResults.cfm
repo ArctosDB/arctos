@@ -327,16 +327,42 @@ If your item needs to be sorted in a special way, then do that here. --->
 	</cfquery>
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
 	<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
+	
+	
+		<cfset mapurlnommerr = mapurl>
+
+
+<!----
 	<cfset mapurlnommerr = reReplaceNoCase(mapurl, "min_max_error=[^&]+&?", "")>
 	<cfset mapurlnommerr = reReplaceNoCase(mapurlnommerr, "max_max_error=[^&]+&?", "")>
 	<cfset mapurlnommerr = reReplaceNoCase(mapurlnommerr, "max_error_units=[^&]+&?", "")>
+	
+	<!--- do not show links that would return specimens not in "this" query ---->
+	<cfif mapurl contains "min_max_error" or mapurl contains "max_max_error" or mapurl contains "max_error_units">
+		<cfset minmin=''>
+		<cfset maxmin=''>
+		<cfset minmaxer=''>
+		<cfloop list="#mapurl#" delimiters="?&" index="tv">
+			<cfset t=listgetat(tv,1,'=')>
+			<cfset v=listgetat(tv,2,'=')>
+			<cfif t is "min_max_error">
+				<cfset minmin=v>
+			<cfelseif t is "max_max_error">
+				<cfset maxmin=v>
+			<cfelseif t is "max_error_units">
+				<cfset minmaxer=v>
+			</cfif>
+		</cfloop>
+		<cfif len(minmin) gt 0 or len(maxmin) gt 0></cfif>
+	</cfif>
+	---->
 	
 	<table width="100%">
 		<tr>
 			<td>
 				<strong>Found #summary.recordcount# specimens.</strong>
 				<ul>
-					
+					<cfif err_lt100.c gt 0
 					<li>
 						<a href="/SpecimenResults.cfm?#mapurlnommerr#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error of 100 meters or less.
 					</li>
