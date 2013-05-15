@@ -390,7 +390,7 @@ sho err
 							<cfset thisThumb="#tndir##tnprefix##thisBareFilename##tnext#">
 						</cfif>
 						<!--- run this after the thumbnail stuff --->
-						<cfif len(regexpfilename) gt 0>
+						<cfif len(regexfind) gt 0>
 							<cfset thisBareFilename=rereplace(thisBareFilename,'#regexfind#','#regexreplace#')>
 						</cfif>
 						
