@@ -309,18 +309,20 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<!---- see if users have searched for min-max/max-mar error ---->
 	<cfset userSrchMaxErr=99999999999999999999999>
 	<cfset precisionmapurl=mapurl>
+	
+	precisionmapurl: #precisionmapurl#
 	<cfif mapurl contains "max_max_error">
 		<cfset listpos=1>
 		<cfloop list="#mapurl#" delimiters="&?" index="i">
 		<br>#I# @ #listpos#
 			<cfif listgetat(i,1,"=") is "max_max_error">
-				<cfset precisionmapurl=listdeleteat(precisionmapurl,listpos,"&?")>
+				<cfset precisionmapurl=listdeleteat(precisionmapurl,listpos,"&")>
 				<cfset userSrchMaxErr=listgetat(i,2,"=")>
 			<cfelseif listgetat(i,1,"=") is "max_error_units">
-				<cfset precisionmapurl=listdeleteat(precisionmapurl,listpos,"&?")>
+				<cfset precisionmapurl=listdeleteat(precisionmapurl,listpos,"&")>
 				<cfset meu=listgetat(i,2,"=")>
 			<cfelseif listgetat(i,1,"=") is "max_error_units">
-				<cfset precisionmapurl=listdeleteat(precisionmapurl,listpos,"&?")>
+				<cfset precisionmapurl=listdeleteat(precisionmapurl,listpos,"&")>
 			</cfif>
 			<cfset listpos=listpos+1>
 		</cfloop>
