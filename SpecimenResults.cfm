@@ -418,17 +418,17 @@ userSrchMaxErr: #userSrchMaxErr#
 			<td>
 				<strong>Found #summary.recordcount# specimens.</strong>
 				<ul>
-					<cfif err_lt100.c gt 0 and userSrchMaxErr lt 100>
+					<cfif err_lt100.c gt 0 and userSrchMaxErr gt 100>
 						<li>
 							<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error of 100 meters or less.
 						</li>
 					</cfif>
-					<cfif err_lt1000.c gt 0 and userSrchMaxErr lt 1000>
+					<cfif err_lt1000.c gt 0 and userSrchMaxErr gt 1000>
 						<li>
 							<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=1000">#val(err_lt1000.c)# specimens</a> have a coordinate error of 1 kilometer or less.
 						</li>
 					</cfif>
-					<cfif err_lt10000.c gt 0 and userSrchMaxErr lt 10000>
+					<cfif err_lt10000.c gt 0 and userSrchMaxErr gt 10000>
 						<li>
 							<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=10000">#val(err_lt10000.c)# specimens</a> have a coordinate error of 10 kilometers or less.
 						</li>
