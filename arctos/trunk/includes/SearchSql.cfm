@@ -1138,8 +1138,9 @@
 </cfif>
 <cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) or (isdefined("max_max_error") AND len(max_max_error) gt 0)>
 	<cfif 	min_max_error contains "," or max_max_error contains ",">
-		min and max precision must be integers.
-		Searching by precision and then clicking some "specimens with precision...." links can also cause this error.
+		<div class="error">min and max precision must be integers.
+		<br>Searching by precision and then clicking some "specimens with precision...." links can also cause this error.</div>
+		<script>hidePageLoad();</script>
 		<cfabort>
 	</cfif>
 	<cfif not isdefined("max_error_units") or len(max_error_units) is 0>

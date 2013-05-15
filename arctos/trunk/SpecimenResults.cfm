@@ -388,24 +388,36 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<td>
 				<strong>Found #summary.recordcount# specimens.</strong>
 				<ul>
-					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
-					</li>
-					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
-					</li>
-					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate error less than 100 meters.
-					</li>
-					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=100&max_max_error=1000">#val(err_100_1000.c)# specimens</a> have a coordinate error between 100 meters and 1 kilometer.
-					</li>
-					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=1000&max_max_error=10000">#val(err_1000_10000.c)# specimens</a> have a coordinate error between 1 and 10 kilometers.
-					</li>
-					<li>
-						<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=10000">#val(err_gt10000.c)# specimens</a> have a coordinate error greater than 10 kilometers.
-					</li>
+					<cfif numWillNotMap gt 0>
+						<li>
+							<a href="/SpecimenResults.cfm?#mapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
+						</li>
+					</cfif>
+					<cfif noerr.c gt 0>
+						<li>
+							<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
+						</li>
+					</cfif>
+					<cfif err_lt100.c gt 0>
+						<li>
+							<a href="/SpecimenResults.cfm?#mapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate precision of 100 meters or less.
+						</li>
+					</cfif>
+					<cfif err_100_1000.c gt 0>
+						<li>
+							<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=100&max_max_error=1000">#val(err_100_1000.c)# specimens</a> have a coordinate precision between 100 meters and 1 kilometer.
+						</li>
+					</cfif>
+					<cfif err_1000_10000.c gt 0>
+						<li>
+							<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=1000&max_max_error=10000">#val(err_1000_10000.c)# specimens</a> have a coordinate precision between 1 and 10 kilometers.
+						</li>
+					</cfif>
+					<cfif err_gt10000.c gt 0>
+						<li>
+							<a href="/SpecimenResults.cfm?#mapurl#&min_max_error=10000">#val(err_gt10000.c)# specimens</a> have a coordinate precision greater than 10 kilometers.
+						</li>
+					</cfif>
 					
 				</ul>
 			</td>
