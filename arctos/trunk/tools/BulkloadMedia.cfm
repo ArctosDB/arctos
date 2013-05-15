@@ -383,7 +383,7 @@ sho err
 							<cfloop from ="1" to="5" index="i">
 								<cfset thisMR=evaluate("MEDIA_RELATIONSHIP_" & i)>
 								<cfset thisMRT=evaluate("MEDIA_RELATED_TERM_" & i)>
-								
+								<cfset thisMRT=replace(thisMRT,'[filename]',thisBareFilename,"all")>
 								<td>#thisMR#</td>
 								<td>#thisMRT#</td>
 								<cfset thisData=listappend(thisData,'"' & thisMR & '"')>
