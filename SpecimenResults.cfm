@@ -329,13 +329,13 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<br>	precisionmapurl: #precisionmapurl#
 
 	<cfif isdefined("meu") and meu is not "m">
-		<cfif meu is ft>
+		<cfif meu is "ft">
 			<cfset userSrchMaxErr=userSrchMaxErr * .3048>
-		<cfelseif meu is km>
+		<cfelseif meu is "km">
 			<cfset userSrchMaxErr=userSrchMaxErr * 1000>
-		<cfelseif meu is mi>
+		<cfelseif meu is "mi">
 			<cfset userSrchMaxErr=userSrchMaxErr * 1609.344>
-		<cfelseif meu is yd>
+		<cfelseif meu is "yd">
 			<cfset userSrchMaxErr=userSrchMaxErr * .9144>
 		</cfif>
 	</cfif>
