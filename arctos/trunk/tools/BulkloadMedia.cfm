@@ -177,7 +177,10 @@ sho err
 		You may then use the [filename] variable in label and relationship values - to create "barcode" labels, for example. Just enter <strong>[filename]</strong>
 		(with the brackets) as all or part of the relationship or label.
 	</p>		
-	
+	<p>
+		Do stuff in the form and click the button to build a table. Experiment with the form to get the table data you want, then 
+		download it as CSV, manipulate it (eg, in Excel) if necessary, and upload it to the media bulkloader.
+	</p>
 	<cfoutput>
 		<cfif not isdefined("dirurl")>
 			<cfset dirurl=''>
@@ -307,7 +310,7 @@ sho err
 				<label for="MEDIA_LABEL_VALUE_#i#">MEDIA_LABEL_VALUE_#i#</label>
 				<input type="text" name="MEDIA_LABEL_VALUE_#i#" value="#thisMLV#" size="80">				
 			</cfloop>
-			<br><input type="submit" value="build/rebuild the table below">
+			<br><input type="submit" value="build/rebuild the table">
 			<cfset fileDir = "#Application.webDirectory#">
 			<cfset variables.encoding="UTF-8">
 			<cfset fname = "media_from_url.csv">
@@ -340,7 +343,7 @@ sho err
 			</cfscript>
 			
 			
-			<br><a href="/download.cfm?file=#fname#">get the table below as CSV</a>
+			<br><a href="/download.cfm?file=#fname#">download CSV</a>
 			
 			<table border>
 				<tr>
