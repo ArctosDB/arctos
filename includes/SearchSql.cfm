@@ -1213,6 +1213,8 @@
 			
 			------------>
 			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
+			
+			<!--------
 			<cfset x=0>
 			<cfif NELong lt 0 and SWLong gt 0>
 				<cfset x=180>
@@ -1241,14 +1243,13 @@
 						(fake_coordinate_error.swlong + #x#) between (#SWLong# + #x#) AND (#NELong# + #x#) 
 					)
 				)">
-			<!----
 			
 			
 			USERBOX:			175   ---------------(180/-180)---------------  -175
 SPECIMEN			                                      -176 -------------------- -170                        
  	
 	
-	
+	---------->
 	
 			<cfif NELong lt 0 and SWLong gt 0>
 				<cfset basQual = " #basQual# AND 
