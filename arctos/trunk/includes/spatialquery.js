@@ -132,7 +132,7 @@ function addARectangle(){
 	
 	 var topRight=map.getProjection().fromLatLngToPoint(theBounds.getNorthEast());
 	          
-	 var bottomLeft=map.getProjection().fromLatLngToPointtheBounds.getSouthWest());
+	 var bottomLeft=map.getProjection().fromLatLngToPoint(theBounds.getSouthWest());
 	
 	 
 	 console.log('topRight=' + topRight);
