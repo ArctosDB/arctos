@@ -156,8 +156,8 @@ function addARectangle(){
 	 
 	 
 	bounds = new google.maps.LatLngBounds(
-			google.maps.geometry.spherical.interpolate(theBounds.getNorthEast(), theBounds.getSouthWest(), 0.8),
-			google.maps.geometry.spherical.interpolate(theBounds.getNorthEast(), theBounds.getSouthWest(), 0.2)
+			rNE,
+			rSW
 			//new google.maps.LatLng(rSW)		
 			//new google.maps.LatLng(swla , swlo ),
 		//new google.maps.LatLng(nela, nelo)
