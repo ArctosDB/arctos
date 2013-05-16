@@ -139,7 +139,6 @@ function addARectangle(){
 	 console.log('topRight=' + topRight);
 	 console.log('bottomLeft=' + bottomLeft);
 	
- 	 console.log('theresult=' + theresult);
 
 	console.log('longrange=' + longrange + ':::NELat=' + NELat);
 	
