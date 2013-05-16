@@ -130,8 +130,15 @@ function addARectangle(){
 		console.log('longrange is (180-SWLong) + (NELong+180); SWLong = ' + SWLong + '; NELong=' + NELong + ' math: ' + (180-SWLong) + ' plus ' + (NELong+180));
 	}
 	
+	 var topRight=map.getProjection().fromLatLngToPoint(theBounds.getNorthEast());
+	          
+	 var bottomLeft=map.getProjection().fromLatLngToPointtheBounds.getSouthWest());
 	
-	
+	 
+	 console.log('topRight=' + topRight);
+	 console.log('bottomLeft=' + bottomLeft);
+			 
+			 
 	console.log('longrange=' + longrange + ':::NELat=' + NELat);
 	
 	var nelo=NELong-(longrange*.3);
