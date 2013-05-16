@@ -61,8 +61,6 @@ function initialize() {
 	});
 }
 function setPreviousMap() {
-	
-
 	var NELat=$("#NELat").val();
 	var NELong=$("#NELong").val();
 	var SWLat=$("#SWLat").val();
@@ -123,20 +121,22 @@ function addARectangle(){
 	// if longitudes are same sign....
 	if ((NELong>0 && SWLong>0) || (NELong<0 && SWLong<0)){
 		var longrange=NELong-SWLong;
-		var nelo=NELong-(longrange*.3);
-		var swlo=SWLong+(longrange*.3);
 	} else if (NELong<0 && SWLong>0) {
 		var longrange=NELong+SWLong;
-		var nelo=NELong-(longrange*.3);
-		var swlo=SWLong+(longrange*.3);
+		console.log(longrange);
 	} else if (NELong>0 && SWLong<0) {
-		var longrange=NELong+SWLong;
-		var nelo=NELong-(longrange*.3);
-		var swlo=SWLong+(longrange*.3);
+		var longrange=NELong+SWLong;		
 	} else {
 		alert('ERROR: long_combo_not_found: use the Contact link in the footer, include this message - aborting');
 		return false;
 	}
+	
+	console.log(longrange || ':::NELat=' || NELat);
+	
+	var nelo=NELong-(longrange*.3);
+	var swlo=SWLong+(longrange*.3);
+	
+	
 	bounds = new google.maps.LatLngBounds(
 		new google.maps.LatLng(swla , swlo ),
 		new google.maps.LatLng(nela, nelo)
