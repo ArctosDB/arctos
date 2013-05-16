@@ -421,7 +421,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 		<tr>
 			<td>
 				<strong>Found #summary.recordcount# specimens.</strong>
-				<span class="infoLink" onclick="alert('The following links are ADDITIVE; the \'1000 meter\' link contains the \'100 meter\' specimens.\nIf you searched by precision or followed a link like these to get here, the links may return specimens not in your original query')">
+				<span class="infoLink" onclick="alert('The following links are ADDITIVE; the \'1000 meter\' link contains the \'100 meter\' specimens.\nIf your previous search included precision, or followed a link such as these, then these links may return records that were not in your previous query.')">
 					about these links
 				</span>
 				<ul>
