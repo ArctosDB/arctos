@@ -131,7 +131,7 @@ function addARectangle(){
 		return false;
 	}
 	
-	console.log('longrange=' + longrange + ':::NELat=' || NELat);
+	console.log('longrange=' + longrange + ':::NELat=' + NELat);
 	
 	var nelo=NELong-(longrange*.3);
 	var swlo=SWLong+(longrange*.3);
