@@ -156,8 +156,11 @@ function addARectangle(){
 	 
 	 
 	bounds = new google.maps.LatLngBounds(
-		new google.maps.LatLng(swla , swlo ),
-		new google.maps.LatLng(nela, nelo)
+			new google.maps.LatLng(rNE),
+
+			new google.maps.LatLng(rSW)		
+			//new google.maps.LatLng(swla , swlo ),
+		//new google.maps.LatLng(nela, nelo)
 	);
 	rectangle = new google.maps.Rectangle({
 		bounds: bounds,
