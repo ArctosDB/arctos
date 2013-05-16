@@ -145,9 +145,9 @@ function addARectangle(){
 	var nelo=NELong-(longrange*.3);
 	var swlo=SWLong+(longrange*.3);
 	
-	var rNE=google.maps.geometry.spherical.interpolate(theBounds.getNorthEast(), theBounds.getSouthWest(), 0.2);
+	var rNE=google.maps.geometry.spherical.interpolate(theBounds.getNorthEast(), theBounds.getSouthWest(), 0.3);
 	
-	var rSW=google.maps.geometry.spherical.interpolate(theBounds.getNorthEast(), theBounds.getSouthWest(), 0.8);
+	var rSW=google.maps.geometry.spherical.interpolate(theBounds.getNorthEast(), theBounds.getSouthWest(), 0.7);
 
 	
 	 console.log('rNE=' + rNE);
