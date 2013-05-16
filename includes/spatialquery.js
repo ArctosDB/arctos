@@ -61,6 +61,8 @@ function initialize() {
 	});
 }
 function setPreviousMap() {
+	
+
 	var NELat=$("#NELat").val();
 	var NELong=$("#NELong").val();
 	var SWLat=$("#SWLat").val();
@@ -121,46 +123,23 @@ function addARectangle(){
 	// if longitudes are same sign....
 	if ((NELong>0 && SWLong>0) || (NELong<0 && SWLong<0)){
 		var longrange=NELong-SWLong;
-		
-		console.log('longrange is NELong-SWLong : ' + NELong + ' minus ' + SWLong);
-	} else {
-		var longrange=(180-SWLong) + (NELong+180);
-		
+		var nelo=NELong-(longrange*.3);
+		var swlo=SWLong+(longrange*.3);
+	} else if (NELong<0 && SWLong>0) {
 		var longrange=NELong+SWLong;
-		
-		console.log('longrange is (180-SWLong) + (NELong+180); SWLong = ' + SWLong + '; NELong=' + NELong + ' math: ' + (180-SWLong) + ' plus ' + (NELong+180));
+		var nelo=NELong-(longrange*.3);
+		var swlo=SWLong+(longrange*.3);
+	} else if (NELong>0 && SWLong<0) {
+		var longrange=NELong+SWLong;
+		var nelo=NELong-(longrange*.3);
+		var swlo=SWLong+(longrange*.3);
+	} else {
+		alert('ERROR: long_combo_not_found: use the Contact link in the footer, include this message - aborting');
+		return false;
 	}
-	
-	 var topRight=map.getProjection().fromLatLngToPoint(theBounds.getNorthEast());
-	          
-	 var bottomLeft=map.getProjection().fromLatLngToPoint(theBounds.getSouthWest());
-	
-	 
-	 console.log('topRight=' + topRight);
-	 console.log('bottomLeft=' + bottomLeft);
-	
-
-	console.log('longrange=' + longrange + ':::NELat=' + NELat);
-	
-	var nelo=NELong-(longrange*.3);
-	var swlo=SWLong+(longrange*.3);
-	
-	var rNE=google.maps.geometry.spherical.interpolate(theBounds.getNorthEast(), theBounds.getSouthWest(), 0.3);
-	
-	var rSW=google.maps.geometry.spherical.interpolate(theBounds.getNorthEast(), theBounds.getSouthWest(), 0.7);
-
-	
-	 console.log('rNE=' + rNE);
-	 console.log('rSW=' + rSW);
-
-	 
-	 
 	bounds = new google.maps.LatLngBounds(
-			rSW,
-			rNE			
-			//new google.maps.LatLng(rSW)		
-			//new google.maps.LatLng(swla , swlo ),
-		//new google.maps.LatLng(nela, nelo)
+		new google.maps.LatLng(swla , swlo ),
+		new google.maps.LatLng(nela, nelo)
 	);
 	rectangle = new google.maps.Rectangle({
 		bounds: bounds,
