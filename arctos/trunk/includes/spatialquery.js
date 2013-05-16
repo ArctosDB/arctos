@@ -145,10 +145,13 @@ function addARectangle(){
 	var nelo=NELong-(longrange*.3);
 	var swlo=SWLong+(longrange*.3);
 	
-	var theCenter=google.maps.geometry.spherical.interpolate(theBounds.getNorthEast(), theBounds.getSouthWest(), 0.5);
+	var rNE=google.maps.geometry.spherical.interpolate(theBounds.getNorthEast(), theBounds.getSouthWest(), 0.2);
 	
+	var rSW=google.maps.geometry.spherical.interpolate(theBounds.getNorthEast(), theBounds.getSouthWest(), 0.8);
+
 	
-	 console.log('theCenter=' + theCenter);
+	 console.log('rNE=' + rNE);
+	 console.log('rSW=' + rSW);
 
 	 
 	 
