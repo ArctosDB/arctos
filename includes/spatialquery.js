@@ -138,11 +138,7 @@ function addARectangle(){
 	 
 	 console.log('topRight=' + topRight);
 	 console.log('bottomLeft=' + bottomLeft);
-	  var worldPoint=map.getProjection().fromLatLngToPoint(latLng);
-	  
-      var theresult= google.maps.Point((worldPoint.x-bottomLeft.x)*scale,(worldPoint.y-topRight.y)*scale); 
 	
-      
  	 console.log('theresult=' + theresult);
 
 	console.log('longrange=' + longrange + ':::NELat=' + NELat);
