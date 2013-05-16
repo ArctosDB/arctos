@@ -126,7 +126,8 @@ function addARectangle(){
 	} else {
 		var longrange=(180-SWLong) + (NELong+180);
 		
-
+		var longrange=NELong+SWLong;
+		
 		console.log('longrange is (180-SWLong) + (NELong+180); SWLong = ' + SWLong + '; NELong=' + NELong + ' math: ' + (180-SWLong) + ' plus ' + (NELong+180));
 	}
 	
@@ -138,6 +139,7 @@ function addARectangle(){
 	 console.log('topRight=' + topRight);
 	 console.log('bottomLeft=' + bottomLeft);
 	  var worldPoint=map.getProjection().fromLatLngToPoint(latLng);
+	  
       var theresult= google.maps.Point((worldPoint.x-bottomLeft.x)*scale,(worldPoint.y-topRight.y)*scale); 
 	
       
