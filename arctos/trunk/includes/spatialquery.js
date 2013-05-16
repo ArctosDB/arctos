@@ -121,15 +121,16 @@ function addARectangle(){
 	// if longitudes are same sign....
 	if ((NELong>0 && SWLong>0) || (NELong<0 && SWLong<0)){
 		var longrange=NELong-SWLong;
-	} else if (NELong<0 && SWLong>0) {
-		var longrange=NELong+SWLong;
-		console.log(longrange);
-	} else if (NELong>0 && SWLong<0) {
-		var longrange=NELong+SWLong;		
+		
+		console.log('longrange is NELong-SWLong : ' + NELong + 'minus' + SWLong);
 	} else {
-		alert('ERROR: long_combo_not_found: use the Contact link in the footer, include this message - aborting');
-		return false;
+		var longrange=NELong+SWLong;
+		
+
+		console.log('longrange is NELong+SWLong : ' + NELong + 'plus' + SWLong);
 	}
+	
+	
 	
 	console.log('longrange=' + longrange + ':::NELat=' + NELat);
 	
