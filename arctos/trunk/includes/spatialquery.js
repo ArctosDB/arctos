@@ -122,12 +122,12 @@ function addARectangle(){
 	if ((NELong>0 && SWLong>0) || (NELong<0 && SWLong<0)){
 		var longrange=NELong-SWLong;
 		
-		console.log('longrange is NELong-SWLong : ' + NELong + 'minus' + SWLong);
+		console.log('longrange is NELong-SWLong : ' + NELong + ' minus ' + SWLong);
 	} else {
 		var longrange=(180-SWLong) + (NELong+180);
 		
 
-		console.log('longrange is 180-SWLong) + (NELong+180 : ' + NELong + 'plus' + SWLong);
+		console.log('longrange is 180-SWLong) + (NELong+180) : ' + (180-SWLong) + ' plus ' + (NELong+180));
 	}
 	
 	
