@@ -127,7 +127,7 @@ function addARectangle(){
 		var longrange=(180-SWLong) + (NELong+180);
 		
 
-		console.log('longrange is 180-SWLong) + (NELong+180) : ' + (180-SWLong) + ' plus ' + (NELong+180));
+		console.log('longrange is (180-SWLong) + (NELong+180); SWLong = ' + SWLong + '; NELong=' + NELong + ' math: ' + (180-SWLong) + ' plus ' + (NELong+180));
 	}
 	
 	
