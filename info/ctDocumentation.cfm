@@ -73,6 +73,45 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				</tr>
 			</cfloop>
 		</table>
+	<cfelseif table is "CTGEOLOGY_ATTRIBUTE">
+		<cfquery name="cData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			 SELECT  
+			 	level,
+			 	geology_attribute_hierarchy_id,
+			 	parent_id,
+			 	usable_value_fg,
+		   		attribute_value || ' (' || attribute || ')' attribute
+			FROM
+				geology_attribute_hierarchy
+			start with parent_id is null
+			CONNECT BY PRIOR 
+				geology_attribute_hierarchy_id = parent_id
+		</cfquery>
+		
+<br>Current Data (values in red are NOT code table values but may still be used in searches):
+<cfset levelList = "">
+<cfloop query="cData">
+	<cfif listLast(levelList,",") IS NOT level>
+    	<cfset levelListIndex = listFind(levelList,cData.level,",")>
+      	<cfif levelListIndex IS NOT 0>
+        	<cfset numberOfLevelsToRemove = listLen(levelList,",") - levelListIndex>
+         	<cfloop from="1" to="#numberOfLevelsToRemove#" index="i">
+            	<cfset levelList = listDeleteAt(levelList,listLen(levelList,","))>
+         	</cfloop>
+        	#repeatString("</ul>",numberOfLevelsToRemove)#
+      	<cfelse>
+        	<cfset levelList = listAppend(levelList,cData.level)>
+         	<ul>
+      	</cfif>
+  	</cfif>
+	<li><span <cfif usable_value_fg is 0>style="color:red"</cfif>
+	>#attribute#</span>
+	<a class="infoLink" href="geol_hierarchy.cfm?action=edit&geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#">more</a>
+	</li>
+	<cfif cData.currentRow IS cData.recordCount>
+		#repeatString("</ul>",listLen(levelList,","))#
+   	</cfif>
+</cfloop>
 	<cfelseif table is "ctcollection_cde">
 		<cfset i=1>
 		<table border id="t" class="sortable">
