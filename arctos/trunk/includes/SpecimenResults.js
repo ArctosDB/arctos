@@ -405,7 +405,7 @@ function success_getSpecResultsData(result){
 			if (killrow == 1){
 				theInnerHtml += '<th>Remove</th>';
 			}
-			theInnerHtml += '<th>Cat&nbsp;Num</th>';
+			theInnerHtml += '<th>GUID</th>';
 			if (loan_request_coll_id.length > 0){
 				theInnerHtml +='<th>Request</th>';
 			}
