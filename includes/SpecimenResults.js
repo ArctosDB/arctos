@@ -44,6 +44,7 @@ function insertTypes(idList) {
 						var el=document.getElementById(sel);
 						var ns='<div class="showType">' + tl + '</div>';
 						el.innerHTML+=ns;
+						console.log('inserted at ' sel);
 					}
 				}
 			}
