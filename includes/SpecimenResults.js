@@ -325,7 +325,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 			var o2=document.getElementById('orderBy2').value;
 			var orderBy = o1 + ',' + o2;
 		} else {
-			var orderBy = 'cat_num';
+			var orderBy = 'guid';
 		}		
 	}
 	if (orderOrder==null) {
