@@ -88,7 +88,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				geology_attribute_hierarchy_id = parent_id
 		</cfquery>
 		
-<br>Current Data (values in red are NOT code table values but may still be used in searches):
+Values in red are not "data" values but may be used in searches.
 <cfset levelList = "">
 <cfloop query="cData">
 	<cfif listLast(levelList,",") IS NOT level>
@@ -106,7 +106,6 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
   	</cfif>
 	<li><span <cfif usable_value_fg is 0>style="color:red"</cfif>
 	>#attribute#</span>
-	<a class="infoLink" href="geol_hierarchy.cfm?action=edit&geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#">more</a>
 	</li>
 	<cfif cData.currentRow IS cData.recordCount>
 		#repeatString("</ul>",listLen(levelList,","))#
