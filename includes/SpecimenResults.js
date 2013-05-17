@@ -640,7 +640,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '</a>';
 				theInnerHtml += '</td>';
 				if (data.COLUMNLIST[0].indexOf('COLLECTION')> -1) {
-					theInnerHtml += '<td>data.COLLECTION[i]</td>';
+					theInnerHtml += '<td>' + data.COLLECTION[i]; + '</td>';
 				}
 				if (loan_request_coll_id.length > 0) {
 					if (loan_request_coll_id == data.COLLECTION_ID[i]){
