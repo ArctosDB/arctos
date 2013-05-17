@@ -87,7 +87,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			CONNECT BY PRIOR 
 				geology_attribute_hierarchy_id = parent_id
 		</cfquery>
-		Values in red are not "data" values but may be used in searches.
+		(Values in red are not "data" values but may be used in searches.)
 		<cfset levelList = "">
 		<cfloop query="cData">
 			<cfif listLast(levelList,",") IS NOT level>

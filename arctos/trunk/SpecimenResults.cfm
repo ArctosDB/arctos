@@ -461,10 +461,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 						</li>
 					</cfif>
 				</ul>
-			</td>
-			
-			
-			
+			</td>		
 			<td>
 				<div style="padding-left:2em;">
 					<cfif willmap.recordcount gt 0>
