@@ -2214,7 +2214,7 @@
 				<cfset i=2>
 				<cfset sql="update bulkloader set ">
 				<cfloop query="oid">
-					<cfif i lt 4>
+					<cfif i lte 4>
 						<cfset sql=sql & "OTHER_ID_NUM_TYPE_#i# = '#other_id_type#',OTHER_ID_NUM_#i#='#display_value#',">
 						<cfset i=i+1>
 					</cfif>
@@ -2225,7 +2225,7 @@
 					#preservesinglequotes(sql)#
 				</cfquery>
 			</cfif>
-			<cfif oid.recordcount gte 3>
+			<cfif oid.recordcount gte 4>
 				<cfset ids="">
 				<cfloop query="oid">
 					<cfset ids=listappend(ids,"#other_id_type#=#display_value#",";")>
