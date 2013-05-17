@@ -88,6 +88,28 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				<cfset i=i+1>
 			</cfloop>
 		</table>
+	<cfelseif table is "ctcoll_other_id_type">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select OTHER_ID_TYPE,DESCRIPTION,BASE_URL from ctcoll_other_id_type order by OTHER_ID_TYPE
+		</cfquery>
+		<table border id="t" class="sortable">
+			<tr>
+				<th>
+					<strong>IDType</strong>
+				</th>
+				<th><strong>Description</strong></th>
+				<th>
+					<strong>Base URI</strong>
+				</th>
+			</tr>
+			<cfloop query="docs">
+				<tr>
+					<td>#OTHER_ID_TYPE#</td>
+					<td>#description#</td>
+					<td>#BASE_URL#</td>
+				</tr>
+			</cfloop>
+		</table>
 	<cfelseif table is "ctattribute_code_tables">
 		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct(attribute_type) from ctAttribute_type

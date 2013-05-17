@@ -237,9 +237,6 @@
 			</cfloop>
 		</table>
 	<cfelseif tbl is "ctcoll_other_id_type"><!--------------------------------------------------------------->
-	
-	
-	hai gaiz§
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctcoll_other_id_type order by other_id_type
 		</cfquery>	
