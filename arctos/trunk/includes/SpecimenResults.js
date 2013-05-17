@@ -50,7 +50,10 @@ function insertTypes(idList) {
 					}
 				}
 			}
-			catch(e){}
+			catch(e){
+				
+				console.log(e);
+			}
 			document.body.removeChild(sBox);
 		}
 	);
