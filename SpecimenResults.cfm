@@ -94,6 +94,11 @@ function removeHelpDiv() {
 <cfif not isdefined("session.resultColumnList")>
 	<cfset session.resultColumnList=''>
 </cfif>
+
+<cfdump var=#session.resultColumnList#>
+
+
+
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from cf_spec_res_cols order by disp_order
 </cfquery>
