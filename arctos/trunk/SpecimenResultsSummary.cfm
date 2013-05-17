@@ -33,7 +33,6 @@
 
 <cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
 
-<cfdump var=#sqlstring#>
 <!--- require some actual searching --->
 <cfset srchTerms="">
 <cfloop list="#mapurl#" delimiters="&" index="t">
