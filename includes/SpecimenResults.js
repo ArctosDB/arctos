@@ -630,12 +630,10 @@ function success_getSpecResultsData(result){
 					theInnerHtml +=data.COLLECTION_OBJECT_ID[i] + "'" + ',this.checked);"></td>';
 				}
 				theInnerHtml += '<td nowrap="nowrap" id="CatItem_'+data.COLLECTION_OBJECT_ID[i]+'">';
-					theInnerHtml += '<a href="/SpecimenDetail.cfm?collection_object_id=';
-					theInnerHtml += data.COLLECTION_OBJECT_ID[i];
+					theInnerHtml += '<a href="/guid/';
+					theInnerHtml += data.GUID[i];
 					theInnerHtml += '">';
-					theInnerHtml += data.COLLECTION[i];
-					theInnerHtml += '&nbsp;';
-					theInnerHtml += data.CAT_NUM[i];
+					theInnerHtml += data.GUID[i];
 					theInnerHtml += '</a>';
 				theInnerHtml += '</td>';
 				if (loan_request_coll_id.length > 0) {
