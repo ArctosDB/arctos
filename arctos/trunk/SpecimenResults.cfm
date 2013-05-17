@@ -94,18 +94,9 @@ function removeHelpDiv() {
 <cfif not isdefined("session.resultColumnList")>
 	<cfset session.resultColumnList=''>
 </cfif>
-
-<cfdump var=#session.resultColumnList#>
-
-
-
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from cf_spec_res_cols order by disp_order
 </cfquery>
-
-<cfdump var=#r_d#>
-
-
 <cfquery name="reqd" dbtype="query">
 	select * from r_d where category='required'
 </cfquery>
@@ -115,7 +106,6 @@ function removeHelpDiv() {
 	</cfif>
 </cfloop>
 
-<cfdump var=#session.resultColumnList#>
 <cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
 <cfif len(session.CustomOtherIdentifier) gt 0>
 	<cfset basSelect = "#basSelect#
