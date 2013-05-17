@@ -406,6 +406,9 @@ function success_getSpecResultsData(result){
 				theInnerHtml += '<th>Remove</th>';
 			}
 			theInnerHtml += '<th>GUID</th>';
+			if (data.COLUMNLIST[0].indexOf('COLLECTION')> -1) {
+				theInnerHtml += '<th>Collection</th>';
+			}
 			if (loan_request_coll_id.length > 0){
 				theInnerHtml +='<th>Request</th>';
 			}
@@ -636,6 +639,9 @@ function success_getSpecResultsData(result){
 					theInnerHtml += data.GUID[i];
 					theInnerHtml += '</a>';
 				theInnerHtml += '</td>';
+				if (data.COLUMNLIST[0].indexOf('COLLECTION')> -1) {
+					theInnerHtml += '<td>data.COLLECTION[i]</td>';
+				}
 				if (loan_request_coll_id.length > 0) {
 					if (loan_request_coll_id == data.COLLECTION_ID[i]){
 						theInnerHtml +='<td><span class="likeLink" onclick="addLoanItem(' + "'";
