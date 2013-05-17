@@ -39,8 +39,8 @@ function insertTypes(idList) {
 			try{
 				sBox.innerHTML='Processing Types....';
 				for (i=0; i<result.ROWCOUNT; ++i) {
-					var sid=result.DATA.collection_object_id[i];
-					var tl=result.DATA.typeList[i];
+					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
+					var tl=result.DATA.TYPELIST[i];
 					var sel='CatItem_' + sid;
 					if (sel.length>0){
 						var el=document.getElementById(sel);
