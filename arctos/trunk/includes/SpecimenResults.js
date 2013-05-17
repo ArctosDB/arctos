@@ -20,8 +20,6 @@ function saveSearch(returnURL){
 	}
 }
 function insertTypes(idList) {
-	console.log(' am am insertTypes');
-	
 	var s=document.createElement('DIV');
 	s.id='ajaxStatus';
 	s.className='ajaxStatus';
@@ -46,14 +44,10 @@ function insertTypes(idList) {
 						var el=document.getElementById(sel);
 						var ns='<div class="showType">' + tl + '</div>';
 						el.innerHTML+=ns;
-						console.log('inserted at ' + sel);
 					}
 				}
 			}
-			catch(e){
-				
-				console.log(e);
-			}
+			catch(e){}
 			document.body.removeChild(sBox);
 		}
 	);
