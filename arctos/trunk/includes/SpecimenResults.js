@@ -20,6 +20,8 @@ function saveSearch(returnURL){
 	}
 }
 function insertTypes(idList) {
+	console.log(' am am insertTypes');
+	
 	var s=document.createElement('DIV');
 	s.id='ajaxStatus';
 	s.className='ajaxStatus';
