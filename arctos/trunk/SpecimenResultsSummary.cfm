@@ -18,9 +18,18 @@
 <cfloop list="#groupBy#" index="x">
 	<cfset SqlString = "#SqlString#,#session.flatTableName#.#x#">
 </cfloop>
+
+<cfset SqlString = "#SqlString# order by">
+
+
+<cfloop list="#groupBy#" index="x">
+	<cfset SqlString = "#SqlString#,#session.flatTableName#.#x#">
+</cfloop>
 <cfset SqlString = replace(SqlString, "group by,","group by ")>
 
 <cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
+
+<cfdump var=#sqlstring#>
 <!--- require some actual searching --->
 <cfset srchTerms="">
 <cfloop list="#mapurl#" delimiters="&" index="t">
