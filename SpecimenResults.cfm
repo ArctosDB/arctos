@@ -97,6 +97,10 @@ function removeHelpDiv() {
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from cf_spec_res_cols order by disp_order
 </cfquery>
+
+<cfdump var=#r_d#>
+
+
 <cfquery name="reqd" dbtype="query">
 	select * from r_d where category='required'
 </cfquery>
