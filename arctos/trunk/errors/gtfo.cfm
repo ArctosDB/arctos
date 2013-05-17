@@ -10,7 +10,19 @@
 	    return result;
     </cfscript>
 </cffunction>
+<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
+	<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
+<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
+	<CFSET ipaddress=CGI.Remote_Addr>
+<cfelse>
+	<cfset ipaddress='unknown'>
+</CFIF>
+
 <cfif not isdefined("action") or action is not "p">
+	<cfquery name="d" datasource="uam_god">
+		insert into blacklisted_entry_attempt (ip) values ('#ipaddress#')
+	</cfquery>
+
 	Oops. It looks like you are on our blacklist. That's probably because someone from your IP
 	made a lame attempt to hack us, or possibly we were just feeling exceptionally paranoid when you
 	tried to do something legit, so you ended up in our logs anyway. We get like that sometimes, and we'd
@@ -61,14 +73,7 @@
 			Email is required.
 			<cfabort>
 		</cfif>
-		<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
-			<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
-		<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
-			<CFSET ipaddress=CGI.Remote_Addr>
-		<cfelse>
-			<cfset ipaddress='unknown'>
-		</CFIF>
-
+		
 
 		<cfmail subject="BlackList Objection" replyto="#email#" to="#Application.PageProblemEmail#" from="blacklist@#application.fromEmail#" type="html">
 			IP #ipaddress# ( #email# ) had this to say:

@@ -2343,7 +2343,7 @@
 			</cfquery>
 			<!--- attributes 1 through 6 are customizable and we can't use them here --->
 			<cfif att.recordcount gt 0>
-				<cfset i=7>
+				<cfset i=1>
 				<cfset sql="update bulkloader set ">
 				<cfloop query="att">
 					<cfif i lte 10>
@@ -2363,7 +2363,7 @@
 					#preservesinglequotes(sql)#
 				</cfquery>
 			</cfif>
-			<cfif att.recordcount gt 4>
+			<cfif att.recordcount gt 10>
 				<cfset problem="too many attribute: #valuelist(att.ATTRIBUTE_TYPE)#">
 			</cfif>
 			<cfif len(problem) gt 0>
