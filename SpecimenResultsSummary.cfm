@@ -72,7 +72,7 @@
 	variables.joFileWriter.writeLine(ListQualify(header,'"'));
 </cfscript>
 
-<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#');">Save&nbsp;Search</span>
+<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">Save&nbsp;Search</span>
 <a href="/saveSearch.cfm?action=manage">[ view/manage your saved searches ]</a>
 <table border id="t" class="sortable">
 	<tr>
