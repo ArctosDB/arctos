@@ -59,6 +59,9 @@
 	variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	variables.joFileWriter.writeLine(ListQualify(header,'"'));
 </cfscript>
+
+<span class="controlButton"
+							onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#');">Save&nbsp;Search</span>
 <table border id="t" class="sortable">
 	<tr>
 		<th>Count</th>
