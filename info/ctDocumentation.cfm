@@ -87,30 +87,29 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			CONNECT BY PRIOR 
 				geology_attribute_hierarchy_id = parent_id
 		</cfquery>
-		
-Values in red are not "data" values but may be used in searches.
-<cfset levelList = "">
-<cfloop query="cData">
-	<cfif listLast(levelList,",") IS NOT level>
-    	<cfset levelListIndex = listFind(levelList,cData.level,",")>
-      	<cfif levelListIndex IS NOT 0>
-        	<cfset numberOfLevelsToRemove = listLen(levelList,",") - levelListIndex>
-         	<cfloop from="1" to="#numberOfLevelsToRemove#" index="i">
-            	<cfset levelList = listDeleteAt(levelList,listLen(levelList,","))>
-         	</cfloop>
-        	#repeatString("</ul>",numberOfLevelsToRemove)#
-      	<cfelse>
-        	<cfset levelList = listAppend(levelList,cData.level)>
-         	<ul>
-      	</cfif>
-  	</cfif>
-	<li><span <cfif usable_value_fg is 0>style="color:red"</cfif>
-	>#attribute#</span>
-	</li>
-	<cfif cData.currentRow IS cData.recordCount>
-		#repeatString("</ul>",listLen(levelList,","))#
-   	</cfif>
-</cfloop>
+		Values in red are not "data" values but may be used in searches.
+		<cfset levelList = "">
+		<cfloop query="cData">
+			<cfif listLast(levelList,",") IS NOT level>
+		    	<cfset levelListIndex = listFind(levelList,cData.level,",")>
+		      	<cfif levelListIndex IS NOT 0>
+		        	<cfset numberOfLevelsToRemove = listLen(levelList,",") - levelListIndex>
+		         	<cfloop from="1" to="#numberOfLevelsToRemove#" index="i">
+		            	<cfset levelList = listDeleteAt(levelList,listLen(levelList,","))>
+		         	</cfloop>
+		        	#repeatString("</ul>",numberOfLevelsToRemove)#
+		      	<cfelse>
+		        	<cfset levelList = listAppend(levelList,cData.level)>
+		         	<ul>
+		      	</cfif>
+		  	</cfif>
+			<li><span <cfif usable_value_fg is 0>style="color:red"</cfif>
+			>#attribute#</span>
+			</li>
+			<cfif cData.currentRow IS cData.recordCount>
+				#repeatString("</ul>",listLen(levelList,","))#
+		   	</cfif>
+		</cfloop>
 	<cfelseif table is "ctcollection_cde">
 		<cfset i=1>
 		<table border id="t" class="sortable">
