@@ -106,7 +106,7 @@
 					<option value="island_group">Island Group</option>
 					<option value="sea">Sea</option>
 					<option value="spec_locality">Specific Locality</option>
-					<option value="yr">Year</option>
+					<option value="year">Year</option>
 				</select>
 			</div>
 			<div id="kmlDiv1" style="display:none;border:1px solid green;padding:.5em;">
