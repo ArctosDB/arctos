@@ -226,7 +226,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="max_error_distance">Maximum Uncertainty:</span>
+			<span class="helpLink" id="max_error_distance">Coordinate Precision:</span>
 		</td>
 		<td class="srch">
 			(less than) <input type="text" name="min_max_error" id="min_max_error" size="5"> (and/or more than)
