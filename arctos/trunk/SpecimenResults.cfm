@@ -446,7 +446,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 							<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=99999999999999999999999">#val(haserr.c)# specimens</a> have a coordinate error.
 						</li>
 					</cfif>
-					<cfif willmap.recordcount gt 0>
+					<cfif willmap.recordcount gt 0 and willmap.recordcount neq haserr.c>
 						<li>
 							<a href="/SpecimenResults.cfm?#precisionmapurl#&isGeoreferenced=true">#val(willmap.recordcount)# specimens</a> have coordinates.
 						</li>
