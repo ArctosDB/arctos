@@ -232,9 +232,8 @@
 			(MORE than) <input type="text" name="min_max_error" id="min_max_error" size="5"> (and/or LESS than)
 			<input type="text" name="max_max_error" id="max_max_error" size="5">
 			<select name="max_error_units" id="max_error_units" size="1">
-				<option value=""></option>
 				<cfloop query="ctlat_long_error_units">
-					<option value="#ctlat_long_error_units.lat_long_error_units#">#ctlat_long_error_units.lat_long_error_units#</option>
+					<option <cfif ctlat_long_error_units.lat_long_error_units is "m"> selected="selected" </cfif>value="#ctlat_long_error_units.lat_long_error_units#">#ctlat_long_error_units.lat_long_error_units#</option>
 				</cfloop>
 			</select>
 		</td>
