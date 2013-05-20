@@ -229,7 +229,7 @@
 			<span class="helpLink" id="max_error_distance">Coordinate Precision:</span>
 		</td>
 		<td class="srch">
-			(less than) <input type="text" name="min_max_error" id="min_max_error" size="5"> (and/or more than)
+			(MORE than) <input type="text" name="min_max_error" id="min_max_error" size="5"> (and/or LESS than)
 			<input type="text" name="max_max_error" id="max_max_error" size="5">
 			<select name="max_error_units" id="max_error_units" size="1">
 				<option value=""></option>
