@@ -17,7 +17,12 @@
 		<cfset cTemp=cgi.script_name>
 	</cfif>
 	<cfquery name="redir" datasource="cf_dbuser">
-		select new_path from redirect where upper(old_path)='/#ucase(cTemp)#'
+		select new_path from redirect where upper(old_path)=
+		<cfif left(cTemp,1) is "/">
+			'#ucase(cTemp)#'
+		<cfelse>
+			'/#ucase(cTemp)#'
+		</cfif>
 	</cfquery>
 	<cfif redir.recordcount is 1>
 		<cfheader statuscode="301" statustext="Moved permanently">
