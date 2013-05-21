@@ -249,7 +249,7 @@
 <cfoutput>
 	<cfif getDataLoanRequests.recordcount gt 0>
 		<p>
-			This loan contains #getDataLoanRequests.c# data loan items.
+			This loan contains #getDataLoanRequests.recordcount# data loan items.
 		</p>
 		<form name="dcli" method="post" action="a_loanItemReview.cfm">
 			<input type="hidden" name="action" value="deleteCatItemLoanItem">
