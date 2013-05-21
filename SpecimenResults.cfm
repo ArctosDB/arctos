@@ -100,6 +100,8 @@ function removeHelpDiv() {
 <cfquery name="reqd" dbtype="query">
 	select * from r_d where category='required'
 </cfquery>
+
+<cfdump var=#reqd#>
 <cfloop query="reqd">
 	<cfif not ListContainsNoCase(session.resultColumnList,COLUMN_NAME)>
 		<cfset session.resultColumnList = ListAppend(session.resultColumnList, COLUMN_NAME)>
