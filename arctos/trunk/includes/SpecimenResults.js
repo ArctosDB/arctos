@@ -374,7 +374,6 @@ function success_getSpecResultsData(result){
 		var msg = data.message[0];
 		alert(msg);
 	} else {
-		var clist = data.COLUMNLIST[0];
 		var tgt = document.getElementById('resultsGoHere');
 		if (document.getElementById('killrow') && document.getElementById('killrow').value==1){
 			var killrow = 1;
@@ -416,195 +415,195 @@ function success_getSpecResultsData(result){
 			if (action == 'dispCollObj'){
 				theInnerHtml +='<th>Loan</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
+			if (clistarray.indexOf('CUSTOMID')> 0) {
 				theInnerHtml += '<th>';
 					theInnerHtml += data.MYCUSTOMIDTYPE[0];
 				theInnerHtml += '</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
+			if (clistarray.indexOf('MEDIA')> -1) {
 				theInnerHtml += '<th>Media</th>';
 			}
 			theInnerHtml += '<th>Identification</th>';
-			if (data.COLUMNLIST[0].indexOf('ID_SENSU')> -1) {
+			if (clistarray.indexOf('ID_SENSU')> -1) {
 				theInnerHtml += '<th>ID sensu</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('ID_DATE')> -1) {
+			if (clistarray.indexOf('ID_DATE')> -1) {
 				theInnerHtml += '<th>ID Date</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
+			if (clistarray.indexOf('SCI_NAME_WITH_AUTH')> -1) {
 				theInnerHtml += '<th>Scientific&nbsp;Name</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('ID_HISTORY')> -1) {
+			if (clistarray.indexOf('ID_HISTORY')> -1) {
 				theInnerHtml += '<th>Identification&nbsp;History</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('CITATIONS')> -1) {
+			if (clistarray.indexOf('CITATIONS')> -1) {
 				theInnerHtml += '<th>Citations</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('IDENTIFIED_BY')> -1) {
+			if (clistarray.indexOf('IDENTIFIED_BY')> -1) {
 				theInnerHtml += '<th>Identified&nbsp;By</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('PHYLORDER')> -1) {
+			if (clistarray.indexOf('PHYLORDER')> -1) {
 				theInnerHtml += '<th>Order</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('PHYLCLASS')> -1) {
+			if (clistarray.indexOf('PHYLCLASS')> -1) {
 				theInnerHtml += '<th>Class</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('FAMILY')> -1) {
+			if (clistarray.indexOf('FAMILY')> -1) {
 				theInnerHtml += '<th>Family</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('OTHERCATALOGNUMBERS')> -1) {
+			if (clistarray.indexOf('OTHERCATALOGNUMBERS')> -1) {
 				theInnerHtml += '<th>Other&nbsp;Identifiers</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('RELATEDCATALOGEDITEMS')> -1) {
+			if (clistarray.indexOf('RELATEDCATALOGEDITEMS')> -1) {
 				theInnerHtml += '<th>Related Items</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('ACCESSION')> -1) {
+			if (clistarray.indexOf('ACCESSION')> -1) {
 				theInnerHtml += '<th>Accession</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('COLLECTORS')> -1) {
+			if (clistarray.indexOf('COLLECTORS')> -1) {
 				theInnerHtml += '<th>Collectors</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('PREPARATORS')> -1) {
+			if (clistarray.indexOf('PREPARATORS')> -1) {
 				theInnerHtml += '<th>Preparators</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('VERBATIMCOORDINATES')> -1) {
+			if (clistarray.indexOf('VERBATIMCOORDINATES')> -1) {
 				theInnerHtml += '<th>Coordinates</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('DATUM')> -1) {
+			if (clistarray.indexOf('DATUM')> -1) {
 				theInnerHtml += '<th>Datum</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('ORIG_LAT_LONG_UNITS')> -1) {
+			if (clistarray.indexOf('ORIG_LAT_LONG_UNITS')> -1) {
 				theInnerHtml += '<th>Original&nbsp;Lat/Long&nbsp;Units</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('EVENT_ASSIGNED_BY_AGENT')> -1) {
+			if (clistarray.indexOf('EVENT_ASSIGNED_BY_AGENT')> -1) {
 				theInnerHtml += '<th>Event&nbsp;Assigned&nbsp;By</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('EVENT_ASSIGNED_DATE')> -1) {
+			if (clistarray.indexOf('EVENT_ASSIGNED_DATE')> -1) {
 				theInnerHtml += '<th>Event&nbsp;Assigned&nbsp;Date</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('SPECIMEN_EVENT_REMARK')> -1) {
+			if (clistarray.indexOf('SPECIMEN_EVENT_REMARK')> -1) {
 				theInnerHtml += '<th>Spec/Event Remark</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('COLLECTING_EVENT_NAME')> -1) {
+			if (clistarray.indexOf('COLLECTING_EVENT_NAME')> -1) {
 				theInnerHtml += '<th>Event Nickname</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('LOCALITY_NAME')> -1) {
+			if (clistarray.indexOf('LOCALITY_NAME')> -1) {
 				theInnerHtml += '<th>Locality Nickname</th>';
 			}
 			
-			if (data.COLUMNLIST[0].indexOf('GEOREFERENCE_SOURCE')> -1) {
+			if (clistarray.indexOf('GEOREFERENCE_SOURCE')> -1) {
 				theInnerHtml += '<th>Georeference&nbsp;Source</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('GEOREFERENCE_PROTOCOL')> -1) {
+			if (clistarray.indexOf('GEOREFERENCE_PROTOCOL')> -1) {
 				theInnerHtml += '<th>Georeference&nbsp;Protocol</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('CONTINENT_OCEAN')> -1) {
+			if (clistarray.indexOf('CONTINENT_OCEAN')> -1) {
 				theInnerHtml += '<th>Continent</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('COUNTRY')> -1) {
+			if (clistarray.indexOf('COUNTRY')> -1) {
 				theInnerHtml += '<th>Country</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('STATE_PROV')> -1) {
+			if (clistarray.indexOf('STATE_PROV')> -1) {
 				theInnerHtml += '<th>State</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('SEA')> -1) {
+			if (clistarray.indexOf('SEA')> -1) {
 				theInnerHtml += '<th>Sea</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('QUAD')> -1) {
+			if (clistarray.indexOf('QUAD')> -1) {
 				theInnerHtml += '<th>Map&nbsp;Name</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('FEATURE')> -1) {
+			if (clistarray.indexOf('FEATURE')> -1) {
 				theInnerHtml += '<th>Feature</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('COUNTY')> -1) {
+			if (clistarray.indexOf('COUNTY')> -1) {
 				theInnerHtml += '<th>County</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('ISLAND_GROUP')> -1) {
+			if (clistarray.indexOf('ISLAND_GROUP')> -1) {
 				theInnerHtml += '<th>Island&nbsp;Group</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('ISLAND')> -1) {
+			if (clistarray.indexOf('ISLAND')> -1) {
 				theInnerHtml += '<th>Island</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('ASSOCIATED_SPECIES')> -1) {
+			if (clistarray.indexOf('ASSOCIATED_SPECIES')> -1) {
 				theInnerHtml += '<th>Associated&nbsp;Species</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('HABITAT')> -1) {
+			if (clistarray.indexOf('HABITAT')> -1) {
 				theInnerHtml += '<th>Habitat</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('MIN_ELEV_IN_M')> -1) {
+			if (clistarray.indexOf('MIN_ELEV_IN_M')> -1) {
 				theInnerHtml += '<th>Min&nbsp;Elevation&nbsp;(m)</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('MAX_ELEV_IN_M')> -1) {
+			if (clistarray.indexOf('MAX_ELEV_IN_M')> -1) {
 				theInnerHtml += '<th>Max&nbsp;Elevation&nbsp;(m)</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('MINIMUM_ELEVATION')> -1) {
+			if (clistarray.indexOf('MINIMUM_ELEVATION')> -1) {
 				theInnerHtml += '<th>Min&nbsp;Elevation</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('MAXIMUM_ELEVATION')> -1) {
+			if (clistarray.indexOf('MAXIMUM_ELEVATION')> -1) {
 				theInnerHtml += '<th>Max&nbsp;Elevation</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('ORIG_ELEV_UNITS')> -1) {
+			if (clistarray.indexOf('ORIG_ELEV_UNITS')> -1) {
 				theInnerHtml += '<th>Elevation&nbsp;Units</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('SPEC_LOCALITY')> -1) {
+			if (clistarray.indexOf('SPEC_LOCALITY')> -1) {
 				theInnerHtml += '<th>Specific&nbsp;Locality</th>';
 			}
 			
-			if (data.COLUMNLIST[0].indexOf('VERBATIM_LOCALITY')> -1) {
+			if (clistarray.indexOf('VERBATIM_LOCALITY')> -1) {
 				theInnerHtml += '<th>Verbatim&nbsp;Locality</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('COLLECTING_METHOD')> -1) {
+			if (clistarray.indexOf('COLLECTING_METHOD')> -1) {
 				theInnerHtml += '<th>Collecting&nbsp;Method</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
+			if (clistarray.indexOf('GEOLOGY_ATTRIBUTES')> -1) {
 				theInnerHtml += '<th>Geology&nbsp;Attributes</th>';
 			}
 			
-			if (data.COLUMNLIST[0].indexOf('VERBATIM_DATE')> -1) {
+			if (clistarray.indexOf('VERBATIM_DATE')> -1) {
 				theInnerHtml += '<th>Verbatim&nbsp;Date</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('BEGAN_DATE')> -1) {
+			if (clistarray.indexOf('BEGAN_DATE')> -1) {
 				theInnerHtml += '<th>Began&nbsp;Date</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
+			if (clistarray.indexOf('ENDED_DATE')> -1) {
 				theInnerHtml += '<th>Ended&nbsp;Date</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('YEARCOLL')> -1) {
+			if (clistarray.indexOf('YEARCOLL')> -1) {
 				theInnerHtml += '<th>Year</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('MONCOLL')> -1) {
+			if (clistarray.indexOf('MONCOLL')> -1) {
 				theInnerHtml += '<th>Month</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('DAYCOLL')> -1) {
+			if (clistarray.indexOf('DAYCOLL')> -1) {
 				theInnerHtml += '<th>Day</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
+			if (clistarray.indexOf('PARTS')> -1) {
 				theInnerHtml += '<th>Parts</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('PARTDETAIL')> -1) {
+			if (clistarray.indexOf('PARTDETAIL')> -1) {
 				theInnerHtml += '<th>Part Detail</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('SEX')> -1) {
+			if (clistarray.indexOf('SEX')> -1) {
 				theInnerHtml += '<th>Sex</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('REMARKS')> -1) {
+			if (clistarray.indexOf('REMARKS')> -1) {
 				theInnerHtml += '<th>Specimen&nbsp;Remarks</th>';
 			}
 			for (a=0; a<nAtt; a++) {
-				if (data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase())> -1) {
+				if (clistarray.indexOf(attAry[a].toUpperCase())> -1) {
 					theInnerHtml += '<th>' + attAry[a] + '</th>';
 				}
 			}
-			if (data.COLUMNLIST[0].indexOf('DEC_LAT')> -1) {
+			if (clistarray.indexOf('DEC_LAT')> -1) {
 				theInnerHtml += '<th>Dec.&nbsp;Lat.</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('DEC_LONG')> -1) {
+			if (clistarray.indexOf('DEC_LONG')> -1) {
 				theInnerHtml += '<th>Dec.&nbsp;Long.</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
+			if (clistarray.indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
 				theInnerHtml += '<th>Max&nbsp;Error&nbsp;(m)</th>';
 			}
-			if (data.COLUMNLIST[0].indexOf('COLLECTING_EVENT_ID') > -1) {
+			if (clistarray.indexOf('COLLECTING_EVENT_ID') > -1) {
 				theInnerHtml += '<th>CollectingEventId</th>';
 			}
 		theInnerHtml += '</tr>';
@@ -640,7 +639,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += data.GUID[i];
 					theInnerHtml += '</a>';
 				theInnerHtml += '</td>';
-				if (data.COLUMNLIST[0].indexOf('COLLECTION')> 0) {
+				if (clistarray.indexOf('COLLECTION')> 0) {
 					theInnerHtml += '<td>' + data.COLLECTION[i]; + '</td>';
 				}
 				if (loan_request_coll_id.length > 0) {
@@ -655,10 +654,10 @@ function success_getSpecResultsData(result){
 				if (action == 'dispCollObj'){
 					theInnerHtml +='<td id="partCell_' + data.COLLECTION_OBJECT_ID[i] + '"></td>';
 				}				
-				if (data.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
+				if (clistarray.indexOf('CUSTOMID')> -1) {
 					theInnerHtml += '<td>' + data.CUSTOMID[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
+				if (clistarray.indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
 					theInnerHtml += '<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
 						var thisMedia=JSON.parse(data.MEDIA[i]);
@@ -685,187 +684,187 @@ function success_getSpecResultsData(result){
 				theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(data.SCIENTIFIC_NAME[i]) + '">' + spaceStripper(data.SCIENTIFIC_NAME[i]);
 				theInnerHtml += '</span>'; 					
 				theInnerHtml += '</td>';
-				if (data.COLUMNLIST[0].indexOf('ID_SENSU')> -1) {
+				if (clistarray.indexOf('ID_SENSU')> -1) {
 					theInnerHtml += '<td>';
 						theInnerHtml += data.ID_SENSU[i];
 					theInnerHtml += '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('ID_DATE')> -1) {
+				if (clistarray.indexOf('ID_DATE')> -1) {
 					theInnerHtml += '<td>';
 						theInnerHtml += data.ID_DATE[i];
 					theInnerHtml += '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
+				if (clistarray.indexOf('SCI_NAME_WITH_AUTH')> -1) {
 					theInnerHtml += '<td>';
 						theInnerHtml += spaceStripper(data.SCI_NAME_WITH_AUTH[i]);
 					theInnerHtml += '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('ID_HISTORY')> -1) {
+				if (clistarray.indexOf('ID_HISTORY')> -1) {
 					theInnerHtml += '<td>';
 						theInnerHtml += data.ID_HISTORY[i];
 					theInnerHtml += '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('CITATIONS')> -1) {
+				if (clistarray.indexOf('CITATIONS')> -1) {
 					theInnerHtml += '<td>';
 						theInnerHtml += data.CITATIONS[i];
 					theInnerHtml += '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('IDENTIFIED_BY')> -1) {
+				if (clistarray.indexOf('IDENTIFIED_BY')> -1) {
 					theInnerHtml += '<td>' + splitBySemicolon(data.IDENTIFIED_BY[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('PHYLORDER')> -1) {
+				if (clistarray.indexOf('PHYLORDER')> -1) {
 					theInnerHtml += '<td>' + data.PHYLORDER[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('PHYLCLASS')> -1) {
+				if (clistarray.indexOf('PHYLCLASS')> -1) {
 					theInnerHtml += '<td>' + data.PHYLCLASS[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('FAMILY')> -1) {
+				if (clistarray.indexOf('FAMILY')> -1) {
 					theInnerHtml += '<td>' + data.FAMILY[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('OTHERCATALOGNUMBERS')> -1) {
+				if (clistarray.indexOf('OTHERCATALOGNUMBERS')> -1) {
 					theInnerHtml += '<td>' + splitBySemicolon(data.OTHERCATALOGNUMBERS[i]) + '</td>';
 				}
 				
-				if (data.COLUMNLIST[0].indexOf('RELATEDCATALOGEDITEMS')> -1) {
+				if (clistarray.indexOf('RELATEDCATALOGEDITEMS')> -1) {
 					theInnerHtml += '<td>' + splitBySemicolonNS(data.RELATEDCATALOGEDITEMS[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('ACCESSION')> -1) {
+				if (clistarray.indexOf('ACCESSION')> -1) {
 					theInnerHtml += '<td>' + spaceStripper(data.ACCESSION[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('COLLECTORS')> -1) {
+				if (clistarray.indexOf('COLLECTORS')> -1) {
 					theInnerHtml += '<td>' + splitByComma(data.COLLECTORS[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('PREPARATORS')> -1) {
+				if (clistarray.indexOf('PREPARATORS')> -1) {
 					theInnerHtml += '<td>' + splitByComma(data.PREPARATORS[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('VERBATIMCOORDINATES')> -1) {
+				if (clistarray.indexOf('VERBATIMCOORDINATES')> -1) {
 					theInnerHtml += '<td>' + cordFormat(data.VERBATIMCOORDINATES[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('DATUM')> -1) {
+				if (clistarray.indexOf('DATUM')> -1) {
 					theInnerHtml += '<td>' + spaceStripper(data.DATUM[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('ORIG_LAT_LONG_UNITS')> -1) {
+				if (clistarray.indexOf('ORIG_LAT_LONG_UNITS')> -1) {
 					theInnerHtml += '<td>' + data.ORIG_LAT_LONG_UNITS[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('EVENT_ASSIGNED_BY_AGENT')> -1) {
+				if (clistarray.indexOf('EVENT_ASSIGNED_BY_AGENT')> -1) {
 					theInnerHtml += '<td>' + splitBySemicolon(data.EVENT_ASSIGNED_BY_AGENT[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('EVENT_ASSIGNED_DATE')> -1) {
+				if (clistarray.indexOf('EVENT_ASSIGNED_DATE')> -1) {
 					theInnerHtml += '<td>' + data.EVENT_ASSIGNED_DATE[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('SPECIMEN_EVENT_REMARK')> -1) {
+				if (clistarray.indexOf('SPECIMEN_EVENT_REMARK')> -1) {
 					theInnerHtml += '<td>' + data.SPECIMEN_EVENT_REMARK[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('COLLECTING_EVENT_NAME')> -1) {
+				if (clistarray.indexOf('COLLECTING_EVENT_NAME')> -1) {
 					theInnerHtml += '<td>' + data.COLLECTING_EVENT_NAME[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('LOCALITY_NAME')> -1) {
+				if (clistarray.indexOf('LOCALITY_NAME')> -1) {
 					theInnerHtml += '<td>' + data.LOCALITY_NAME[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('GEOREFERENCE_SOURCE')> -1) {
+				if (clistarray.indexOf('GEOREFERENCE_SOURCE')> -1) {
 					theInnerHtml += '<td>' + data.GEOREFERENCE_SOURCE[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('GEOREFERENCE_PROTOCOL')> -1) {
+				if (clistarray.indexOf('GEOREFERENCE_PROTOCOL')> -1) {
 					theInnerHtml += '<td>' + data.GEOREFERENCE_PROTOCOL[i] + '</td>';
 				}
 				
 				
 				
-				if (data.COLUMNLIST[0].indexOf('CONTINENT_OCEAN')> -1) {
+				if (clistarray.indexOf('CONTINENT_OCEAN')> -1) {
 					theInnerHtml += '<td>' + spaceStripper(data.CONTINENT_OCEAN[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('COUNTRY')> -1) {
+				if (clistarray.indexOf('COUNTRY')> -1) {
 					theInnerHtml += '<td>' + spaceStripper(data.COUNTRY[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('STATE_PROV')> -1) {
+				if (clistarray.indexOf('STATE_PROV')> -1) {
 					theInnerHtml += '<td>' + spaceStripper(data.STATE_PROV[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('SEA')> -1) {
+				if (clistarray.indexOf('SEA')> -1) {
 					theInnerHtml += '<td>' + data.SEA[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('QUAD')> -1) {
+				if (clistarray.indexOf('QUAD')> -1) {
 					theInnerHtml += '<td>' + spaceStripper(data.QUAD[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('FEATURE')> -1) {
+				if (clistarray.indexOf('FEATURE')> -1) {
 					theInnerHtml += '<td>' + spaceStripper(data.FEATURE[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('COUNTY')> -1) {
+				if (clistarray.indexOf('COUNTY')> -1) {
 					theInnerHtml += '<td>' + data.COUNTY[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('ISLAND_GROUP')> -1) {
+				if (clistarray.indexOf('ISLAND_GROUP')> -1) {
 					theInnerHtml += '<td>' + spaceStripper(data.ISLAND_GROUP[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('ISLAND')> -1) {
+				if (clistarray.indexOf('ISLAND')> -1) {
 					theInnerHtml += '<td>' + spaceStripper(data.ISLAND[i]) + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('ASSOCIATED_SPECIES')> -1) {
+				if (clistarray.indexOf('ASSOCIATED_SPECIES')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + data.ASSOCIATED_SPECIES[i] + '</div></td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('HABITAT')> -1) {
+				if (clistarray.indexOf('HABITAT')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + data.HABITAT[i] + '</div></td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('HABITAT_DESC')> -1) {
+				if (clistarray.indexOf('HABITAT_DESC')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + data.HABITAT_DESC[i] + '</div></td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('MIN_ELEV_IN_M')> -1) {
+				if (clistarray.indexOf('MIN_ELEV_IN_M')> -1) {
 					theInnerHtml += '<td>' + data.MIN_ELEV_IN_M[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('MAX_ELEV_IN_M')> -1) {
+				if (clistarray.indexOf('MAX_ELEV_IN_M')> -1) {
 					theInnerHtml += '<td>' + data.MAX_ELEV_IN_M[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('MINIMUM_ELEVATION')> -1) {
+				if (clistarray.indexOf('MINIMUM_ELEVATION')> -1) {
 					theInnerHtml += '<td>' + data.MINIMUM_ELEVATION[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('MAXIMUM_ELEVATION')> -1) {
+				if (clistarray.indexOf('MAXIMUM_ELEVATION')> -1) {
 					theInnerHtml += '<td>' + data.MAXIMUM_ELEVATION[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('ORIG_ELEV_UNITS')> -1) {
+				if (clistarray.indexOf('ORIG_ELEV_UNITS')> -1) {
 					theInnerHtml += '<td>' + data.ORIG_ELEV_UNITS[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('SPEC_LOCALITY')> -1) {
+				if (clistarray.indexOf('SPEC_LOCALITY')> -1) {
 					theInnerHtml += '<td id="SpecLocality_'+data.COLLECTION_OBJECT_ID[i] + '">';
 					theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(data.SPEC_LOCALITY[i]) + '"><div class="wrapLong">' + data.SPEC_LOCALITY[i] + '</div>';
 					theInnerHtml += '</span>';
 					theInnerHtml += '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('VERBATIM_LOCALITY')> -1) {
+				if (clistarray.indexOf('VERBATIM_LOCALITY')> -1) {
 					theInnerHtml += '<td>' + data.VERBATIM_LOCALITY[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('COLLECTING_METHOD')> -1) {
+				if (clistarray.indexOf('COLLECTING_METHOD')> -1) {
 					theInnerHtml += '<td>' + data.COLLECTING_METHOD[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
+				if (clistarray.indexOf('GEOLOGY_ATTRIBUTES')> -1) {
 					theInnerHtml += '<td>' + data.GEOLOGY_ATTRIBUTES[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('VERBATIM_DATE')> -1) {
+				if (clistarray.indexOf('VERBATIM_DATE')> -1) {
 					theInnerHtml += '<td>' + data.VERBATIM_DATE[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('BEGAN_DATE')> -1) {
+				if (clistarray.indexOf('BEGAN_DATE')> -1) {
 					theInnerHtml += '<td>' + data.BEGAN_DATE[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
+				if (clistarray.indexOf('ENDED_DATE')> -1) {
 					theInnerHtml += '<td>' + data.ENDED_DATE[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('YEARCOLL')> -1) {
+				if (clistarray.indexOf('YEARCOLL')> -1) {
 					theInnerHtml += '<td>' + data.YEARCOLL[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('MONCOLL')> -1) {
+				if (clistarray.indexOf('MONCOLL')> -1) {
 					theInnerHtml += '<td>' + data.MONCOLL[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('DAYCOLL')> -1) {
+				if (clistarray.indexOf('DAYCOLL')> -1) {
 					theInnerHtml += '<td>' + data.DAYCOLL[i] + '</td>';
 				}
 				
-				if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
+				if (clistarray.indexOf('PARTS')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(data.PARTS[i]) + '</div></td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('PARTDETAIL')> -1) {
+				if (clistarray.indexOf('PARTDETAIL')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + splitByLF(data.PARTDETAIL[i]) + '</div></td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('SEX')> -1) {
+				if (clistarray.indexOf('SEX')> -1) {
 					theInnerHtml += '<td>' + data.SEX[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('REMARKS')> -1) {
+				if (clistarray.indexOf('REMARKS')> -1) {
 					theInnerHtml += '<td>' + data.REMARKS[i] + '</td>';
 				}
 				
@@ -878,16 +877,16 @@ function success_getSpecResultsData(result){
 						theInnerHtml += '<td>' + eval(attStr) + '</td>';
 					}
 				}
-				if (data.COLUMNLIST[0].indexOf('DEC_LAT')> -1) {
+				if (clistarray.indexOf('DEC_LAT')> -1) {
 					theInnerHtml += '<td style="font-size:small">' + data.DEC_LAT[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('DEC_LONG')> -1) {
+				if (clistarray.indexOf('DEC_LONG')> -1) {
 					theInnerHtml += '<td style="font-size:small">' + data.DEC_LONG[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
+				if (clistarray.indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
 					theInnerHtml += '<td>' + data.COORDINATEUNCERTAINTYINMETERS[i] + '</td>';
 				}
-				if (data.COLUMNLIST[0].indexOf('COLLECTING_EVENT_ID')> -1) {
+				if (clistarray.indexOf('COLLECTING_EVENT_ID')> -1) {
 					theInnerHtml += '<td>' + data.COLLECTING_EVENT_ID[i] + '</td>';
 				}
 			theInnerHtml += '</tr>';
