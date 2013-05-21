@@ -285,6 +285,12 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		where
 		NATURE_OF_ID not in (select NATURE_OF_ID from ctNATURE_OF_ID)
 	</cfquery>
+	
+	<cfquery name="guid_prefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_citation set status='guid_prefix invalid (check case, colons)'
+		where
+		guid_prefix not in (select guid_prefix from collection)
+	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_citation where status is null
 	</cfquery>
