@@ -149,7 +149,7 @@ function removeHelpDiv() {
 
 <cfloop query="r_d">
 	<cfif left(column_name,1) is not "_" and (
-		ListContainsNoCase(session.resultColumnList,column_name,",") OR category is 'required')>
+		ListFindNoCase(session.resultColumnList,column_name,",") gt 0 OR category is 'required')>
 		<hr>
 		made it through with <br>-----#column_name#
 			<br>category: #category#
