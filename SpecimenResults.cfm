@@ -705,13 +705,14 @@ If your item needs to be sorted in a special way, then do that here. --->
 		getSpecResultsData(1,#session.displayrows#);
 	});
 	function confirmAddAllDL(){
-	var msg = msg || "this record";
-	var yesno=confirm('Are you sure you want to add all these specimens to the data loan?');
-	if (yesno==true) {
-		document.location='/Loan.cfm?action=addAllDataLoanItems&transaction_id=' + $("##transaction_id").val();  		
- 	} else {
-	  	return false;
-  	}
+		var msg = msg || "this record";
+		var yesno=confirm('Are you sure you want to add all these specimens to the data loan?');
+		if (yesno==true) {
+			document.location='/Loan.cfm?action=addAllDataLoanItems&transaction_id=' + $("##transaction_id").val();  		
+	 	} else {
+		  	return false;
+	  	}
+	}
 	function reporter() {
 		var f=document.getElementById('goWhere').value;
 		var t='#session.SpecSrchTab#';
