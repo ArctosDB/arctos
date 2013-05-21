@@ -60,7 +60,8 @@ border-bottom:1px solid black;
 			web_link_text,
 			loan_policy_url,
 			portal_name,
-			count(cat_num) as cnt
+			count(cat_num) as cnt,
+			guid_prefix
 		from
 			cf_collection,
 			collection,
@@ -81,7 +82,8 @@ border-bottom:1px solid black;
 			decode(cf_collection.collection_id,
 				null,cf_collection.collection || ' Portal',
 				cf_collection.collection || ' Collection'),
-			cf_collection.collection_id
+			cf_collection.collection_id,
+			guid_prefix
 		order by cf_collection.collection
 	</cfquery>
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
@@ -181,6 +183,9 @@ border-bottom:1px solid black;
 				<tr>
 					<td class="collnCell">
 						#collection#
+						<cfif len(guid_prefix) gt 0>
+							(GUID Prefix: #guid_prefix#)
+						</cfif>
 						<cfif len(descr) gt 0>
 							<div class="collnDescrCell">
 								#descr#

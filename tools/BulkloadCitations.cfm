@@ -112,7 +112,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		<tr>
 			<td>guid_prefix</td>
 			<td>yes</td>
-			<td>find under Manage Collections - things like "UAM:Mamm"</td>
+			<td>find under Manage Collections or under the <a href="/home.cfm">Portals</a> tab - it's things like "UAM:Mamm"</td>
 			<td><a  target="_blank" class="external" href="http://arctosdb.org/documentation/catalog/#guid">docs</a></td>
 		</tr>
 		<tr>
