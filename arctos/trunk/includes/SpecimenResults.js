@@ -868,18 +868,11 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + data.REMARKS[i] + '</td>';
 				}
 				
-				
 				var clistarray=data.COLUMNLIST[0].split(",");
 				
 				for (a=0; a<nAtt; a++) {
-					
-					
 					if (clistarray.indexOf(attAry[a].toUpperCase())> -1) {
-						
-						
-						
-						
-						
+				
 					var attStr='data.' + attAry[a].toUpperCase() + '[' + i + ']';
 						theInnerHtml += '<td>' + eval(attStr) + '</td>';
 					}
