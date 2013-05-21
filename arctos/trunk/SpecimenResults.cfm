@@ -101,11 +101,10 @@ function removeHelpDiv() {
 	select * from r_d where category='required'
 </cfquery>
 <cfloop query="reqd">
-	<cfif not ListContainsNoCase(session.resultColumnList,COLUMN_NAME)>
+	<cfif ListFindNoCase(session.resultColumnList,COLUMN_NAME) is 0>
 		<cfset session.resultColumnList = ListAppend(session.resultColumnList, COLUMN_NAME)>
 	</cfif>
 </cfloop>
-
 <cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
 <cfif len(session.CustomOtherIdentifier) gt 0>
 	<cfset basSelect = "#basSelect#
@@ -126,17 +125,18 @@ function removeHelpDiv() {
 	</cfif>
 	---->
 
+
+
 <cfloop query="r_d">
 	<cfif left(column_name,1) is not "_" and (
-		ListFindNoCase(session.resultColumnList,column_name,",") gt 0 OR category is 'required')>
+		ListFindNoCase(session.resultColumnList,column_name) gt 0 OR category is 'required')>
 		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
 	</cfif>
 </cfloop>
-
-<cfif ListFindNoCase(session.resultColumnList,"_elev_in_m")>
+<cfif ListFindNoCase(session.resultColumnList,"_elev_in_m") gt 0>
 	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
 </cfif>
-<cfif ListFindNoCase(session.resultColumnList,"_day_of_ymd")>
+<cfif ListFindNoCase(session.resultColumnList,"_day_of_ymd") gt 0>
 	<cfset basSelect = "#basSelect#, getYearCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) AS YearColl,
 		getMonthCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) MonColl,
 		getDayCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) DayColl ">
@@ -146,10 +146,9 @@ function removeHelpDiv() {
 		getDayCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) ddddDayColl">
 		---->
 </cfif>
-<cfif ListFindNoCase(session.resultColumnList,"_original_elevation")>
+<cfif ListFindNoCase(session.resultColumnList,"_original_elevation") gt 0>
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
 </cfif>
-
 	<cfset basFrom = " FROM #session.flatTableName#">
 	<cfset basJoin = "">
 	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
@@ -274,7 +273,7 @@ function removeHelpDiv() {
 <cfset resultList = session.resultColumnList>
 <cfset tabooItems="institution_acronym,collection_id,collection_cde">
 <cfloop list="#tabooItems#" index="item">
-		<cfif ListContainsNoCase(resultList,item)>
+		<cfif ListFindNoCase(resultList,item) gt 0>
 		<cfset resultList = ListDeleteAt(resultList, ListFindNoCase(resultList,item))>
 	</cfif>
 </cfloop>
@@ -283,7 +282,7 @@ function removeHelpDiv() {
 if you have an item that starts with _, you must change how it is sorted!
 For example, if your item cannot be sorted, then remove it from resultList.
 If your item needs to be sorted in a special way, then do that here. --->
-<cfif ListContainsNoCase(resultList,"_elev_in_m")>
+<cfif ListFindNoCase(resultList,"_elev_in_m") gt 0>
 <cfflush>
 	<cftry>
 	<cfset resultList = listappend(resultList,"min_elev_in_m")>
@@ -292,7 +291,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfcatch></cfcatch>
 	</cftry>
 </cfif>
-<cfif ListContainsNoCase(resultList,"_original_elevation")>
+<cfif ListFindNoCase(resultList,"_original_elevation") gt 0>
 	<cftry>
 	<cfset resultList = listappend(resultList,"minimum_elevation")>
 	<cfset resultList = listappend(resultList,"maximum_elevation")>
