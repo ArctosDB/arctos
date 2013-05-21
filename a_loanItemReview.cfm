@@ -426,4 +426,14 @@
 	</cfquery>
 	<cflocation url="a_loanItemReview.cfm?transaction_id=#transaction_id#" addtoken="false">
 </cfif>
+<!------------------------------------------------------>
+<cfif action is "removeAllDataLoanItems">
+	<cfquery name="buhBye" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from loan_item where transaction_id=#transaction_id# and
+		collection_object_id in (select collection_object_id from cataloged_item)
+	</cfquery>
+	<cflocation url="a_loanItemReview.cfm?transaction_id=#transaction_id#" addtoken="false">
+</cfif>
+
+
 <cfinclude template="includes/_footer.cfm">
