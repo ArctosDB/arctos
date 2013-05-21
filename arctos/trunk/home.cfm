@@ -229,6 +229,9 @@ border-bottom:1px solid black;
 				<tr>
 					<td class="collnCell">
 						#collection#
+						<cfif len(guid_prefix) gt 0>
+							(GUID Prefix: <strong>#guid_prefix#</strong>)
+						</cfif>
 						<cfif len(descr) gt 0>
 							<div class="collnDescrCell">
 								#descr#
@@ -264,6 +267,9 @@ border-bottom:1px solid black;
 				<tr>
 					<td class="collnCell">
 						#collection#
+						<cfif len(guid_prefix) gt 0>
+							(GUID Prefix: <strong>#guid_prefix#</strong>)
+						</cfif>
 						<cfif len(descr) gt 0>
 							<div class="collnDescrCell">
 								#descr#
@@ -306,6 +312,9 @@ border-bottom:1px solid black;
 				<tr>
 					<td class="collnCell">
 						#collection#
+						<cfif len(guid_prefix) gt 0>
+							(GUID Prefix: <strong>#guid_prefix#</strong>)
+						</cfif>
 						<cfif len(descr) gt 0>
 							<div class="collnDescrCell">
 								#descr#
@@ -348,6 +357,9 @@ border-bottom:1px solid black;
 				<tr>
 					<td class="collnCell">
 						#collection#
+						<cfif len(guid_prefix) gt 0>
+							(GUID Prefix: <strong>#guid_prefix#</strong>)
+						</cfif>
 						<cfif len(descr) gt 0>
 							<div class="collnDescrCell">
 								#descr#
@@ -392,6 +404,9 @@ border-bottom:1px solid black;
 				<tr>
 					<td class="collnCell">
 						#collection#
+						<cfif len(guid_prefix) gt 0>
+							(GUID Prefix: <strong>#guid_prefix#</strong>)
+						</cfif>
 						<cfif len(descr) gt 0>
 							<div class="collnDescrCell">
 								#descr#
@@ -436,6 +451,9 @@ border-bottom:1px solid black;
 				<tr>
 					<td class="collnCell">
 						#collection#
+						<cfif len(guid_prefix) gt 0>
+							(GUID Prefix: <strong>#guid_prefix#</strong>)
+						</cfif>
 						<cfif len(descr) gt 0>
 							<div class="collnDescrCell">
 								#descr#
@@ -459,9 +477,9 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
-										<cfif listlast(collection,' ') is not 'Portal'>
-									<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
-										</cfif>
+							<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+							</cfif>
 						</ul>
 					</td>
 				</tr>
@@ -478,6 +496,9 @@ border-bottom:1px solid black;
 				<tr>
 					<td class="collnCell">
 						#collection#
+						<cfif len(guid_prefix) gt 0>
+							(GUID Prefix: <strong>#guid_prefix#</strong>)
+						</cfif>
 						<cfif len(descr) gt 0>
 							<div class="collnDescrCell">
 								#descr#
@@ -501,9 +522,9 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
-									<cfif listlast(collection,' ') is not 'Portal'>
+							<cfif listlast(collection,' ') is not 'Portal'>
 								<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
-									</cfif>
+							</cfif>
 						</ul>
 					</td>
 				</tr>
@@ -520,6 +541,9 @@ border-bottom:1px solid black;
 				<tr>
 					<td class="collnCell">
 						#collection#
+						<cfif len(guid_prefix) gt 0>
+							(GUID Prefix: <strong>#guid_prefix#</strong>)
+						</cfif>
 						<cfif len(descr) gt 0>
 							<div class="collnDescrCell">
 								#descr#
@@ -543,9 +567,9 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
-								<cfif listlast(collection,' ') is not 'Portal'>
-							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
-								</cfif>
+							<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+							</cfif>
 						</ul>
 					</td>
 				</tr>
@@ -563,6 +587,9 @@ border-bottom:1px solid black;
 				<tr>
 					<td class="collnCell">
 						#collection#
+						<cfif len(guid_prefix) gt 0>
+							(GUID Prefix: <strong>#guid_prefix#</strong>)
+						</cfif>
 						<cfif len(descr) gt 0>
 							<div class="collnDescrCell">
 								#descr#
@@ -586,9 +613,9 @@ border-bottom:1px solid black;
 							<cfelse>
 								<li>no loan policy</li>
 							</cfif>
-								<cfif listlast(collection,' ') is not 'Portal'>
-							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
-								</cfif>
+							<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+							</cfif>
 						</ul>
 					</td>
 				</tr>
