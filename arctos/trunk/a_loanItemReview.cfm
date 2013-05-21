@@ -242,7 +242,7 @@
 			trans.transaction_id=#transaction_id#
 	</cfquery>
 	<cfoutput>
-		Review Loan Items for #theLoan.collection# #theLoan.loan_number# (#theLoan.loanType#)
+		Review Loan Items for #theLoan.collection# #theLoan.loan_number# (#theLoan.loan_type#)
 		<br><a href="a_loanItemReview.cfm?action=nothing&transaction_id=#transaction_id#&Ijustwannadownload=yep">Download (csv)</a> - non-data loans only!
 		<br><a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to Edit Loan</a>
 		<cfif getDataLoanRequests.recordcount gt 0>
