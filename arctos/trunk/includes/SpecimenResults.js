@@ -406,7 +406,7 @@ function success_getSpecResultsData(result){
 				theInnerHtml += '<th>Remove</th>';
 			}
 			theInnerHtml += '<th>GUID</th>';
-			if (data.COLUMNLIST[0].indexOf('COLLECTION')> -1) {
+			if (data.COLUMNLIST[0].indexOf('COLLECTION')> 0) {
 				theInnerHtml += '<th>Collection</th>';
 			}
 			if (loan_request_coll_id.length > 0){
