@@ -30,7 +30,9 @@
 		<cfloop query="citColl">
 			<tr>
 				<td>#collection#</td>
-				<td>#cnt#</td>
+				<td>
+					<a href="/SpecimenResults.cfm?collection_id=#collection_id#&type_status=any">#cnt#</a>
+				</td>
 			</tr>
 		</cfloop>
 	</table>
