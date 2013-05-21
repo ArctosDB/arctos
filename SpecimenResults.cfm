@@ -505,7 +505,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfquery name="isDataLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select LOAN_TYPE from loan where transaction_id=#transaction_id#
 	</cfquery>
-	<cfif isDataLoan.LOAN_TYPE='data'>
+	<cfif isDataLoan.LOAN_TYPE is 'data'>
 		<input type="hidden" name="isDataLoan" value="yes">
 	<cfelse>
 		<input type="hidden" name="isDataLoan" value="no">
