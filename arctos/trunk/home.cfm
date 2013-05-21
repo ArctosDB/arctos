@@ -184,7 +184,7 @@ border-bottom:1px solid black;
 					<td class="collnCell">
 						#collection#
 						<cfif len(guid_prefix) gt 0>
-							(GUID Prefix: #guid_prefix#)
+							(GUID Prefix: <strong>#guid_prefix#</strong>)
 						</cfif>
 						<cfif len(descr) gt 0>
 							<div class="collnDescrCell">
