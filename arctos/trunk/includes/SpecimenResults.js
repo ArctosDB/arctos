@@ -867,13 +867,15 @@ function success_getSpecResultsData(result){
 				if (data.COLUMNLIST[0].indexOf('REMARKS')> -1) {
 					theInnerHtml += '<td>' + data.REMARKS[i] + '</td>';
 				}
+				
+				console.log(attAry);
 				for (a=0; a<nAtt; a++) {
 					
 					console.log(attAry[a]);
 					
 					if (data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase())> -1) {
 						
-						console.log(attAry[a] + 'is in the list');
+						console.log(attAry[a] + ' is in the list');
 					var attStr='data.' + attAry[a].toUpperCase() + '[' + i + ']';
 						theInnerHtml += '<td>' + eval(attStr) + '</td>';
 					}
