@@ -234,7 +234,7 @@
 	select 
 		flat.collection_object_id,
 		guid,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+		concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		flat.scientific_name,
 		flat.encumbrances
 	 from 
