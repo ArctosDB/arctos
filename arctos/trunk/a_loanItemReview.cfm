@@ -274,7 +274,7 @@
 			</tr>
 			<cfset i=1>
 			<cfloop query="getDataLoanRequests">
-			<tr id="rowNum#partID#">
+			<tr>
 				<td>
 					<a href="/guid/#guid#">#guid#</a>
 				</td>
