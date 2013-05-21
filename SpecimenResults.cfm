@@ -144,6 +144,7 @@ function removeHelpDiv() {
 <cfdump var=#basSelect#>
 
 <cfdump var=#r_d#>
+<cfdump var=#session.resultColumnList#>
 
 
 <cfloop query="r_d">
