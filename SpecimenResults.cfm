@@ -197,16 +197,28 @@ function removeHelpDiv() {
 	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
+
+
+
+
+
 <form name="defaults">
 	<input type="hidden" name="killrow" id="killrow" value="#session.killrow#">
 	<input type="hidden" name="displayrows" id="displayrows" value="#session.displayrows#">
 	<input type="hidden" name="action" id="action" value="#action#">
 	<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
-	<cfset session.mapURL = mapURL>
 	<cfif isdefined("loan_request_coll_id")>
 		<input type="hidden" name="loan_request_coll_id" id="loan_request_coll_id" value="#loan_request_coll_id#">
 	</cfif>
 </form>
+
+
+
+
+
+
+
+
 	<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			collection_object_id,
@@ -450,9 +462,13 @@ If your item needs to be sorted in a special way, then do that here. --->
 	</cfif>
 	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
 	<cfset mapURL=listappend(mapurl,"transaction_id=#transaction_id#","&")>
-	<cfset session.mapURL=mapURL>
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
 </cfif>
+<cfset session.mapURL=mapURL>
+
+
+
+
 <table border="0" width="100%">
 	<tr>
 		<td>
@@ -640,6 +656,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 <div id="resultsGoHere"></div>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
+		// set this after load - it can be manipulated if eg, loans
+		$("##mapURL").val('#session.mapURL#');
 		getSpecResultsData(1,#session.displayrows#);
 	});
 	function confirmAddAllDL(){
