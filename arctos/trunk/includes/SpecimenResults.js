@@ -401,12 +401,13 @@ function success_getSpecResultsData(result){
 		} else {
 			var mapURL='';
 		}
+		var clistarray=data.COLUMNLIST[0].split(",");
 		var theInnerHtml = '<table class="specResultTab"><tr>';
 			if (killrow == 1){
 				theInnerHtml += '<th>Remove</th>';
 			}
 			theInnerHtml += '<th>GUID</th>';
-			if (data.COLUMNLIST[0].indexOf('COLLECTION')> 0) {
+			if (clistarray.indexOf('COLLECTION')> 0) {
 				theInnerHtml += '<th>Collection</th>';
 			}
 			if (loan_request_coll_id.length > 0){
@@ -868,7 +869,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + data.REMARKS[i] + '</td>';
 				}
 				
-				var clistarray=data.COLUMNLIST[0].split(",");
+				
 				
 				for (a=0; a<nAtt; a++) {
 					if (clistarray.indexOf(attAry[a].toUpperCase())> -1) {
