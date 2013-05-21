@@ -868,6 +868,8 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + data.REMARKS[i] + '</td>';
 				}
 				
+				console.log(data.COLUMNLIST[0]);
+				
 				
 				for (a=0; a<nAtt; a++) {
 					
