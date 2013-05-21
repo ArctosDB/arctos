@@ -450,6 +450,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 	</cfif>
 	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
 	<cfset mapURL=listappend(mapurl,"transaction_id=#transaction_id#","&")>
+	<cfset session.mapURL=mapURL>
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
 </cfif>
 <table border="0" width="100%">
