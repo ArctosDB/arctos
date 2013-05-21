@@ -6,7 +6,8 @@
 	<cfquery name="citColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT 
 			count(citation.collection_object_id) as cnt,
-			collection.collection
+			collection.collection,
+			collection.collection_id
 		FROM
 			citation,
 			cataloged_item,
@@ -15,7 +16,7 @@
 			citation.collection_object_id = cataloged_item.collection_object_id AND
 			cataloged_item.collection_id = collection.collection_id
 		GROUP BY
-			collection.collection
+			collection.collection,collection.collection_id
 		ORDER BY 
 			collection.collection
 	</cfquery>
