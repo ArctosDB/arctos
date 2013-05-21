@@ -23,6 +23,8 @@
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection,collection_id from collection group by collection,collection_id order by collection
 	</cfquery>
+	<br>NOTE: Number of Citations is not necessarily number of Specimens; if XYZ:Mamm:1 has been cited twice and XYZ:Mamm:2 has been cited once, 
+	the number below will be "3" and the link will find two specimens.
 	<table border>
 		<tr>
 			<td>Collection</td>
