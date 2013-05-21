@@ -698,9 +698,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 
 <div id="resultsGoHere"></div>
 <script language="javascript" type="text/javascript">
-	getSpecResultsData(1,#session.displayrows#);
-</script>
-<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		getSpecResultsData(1,#session.displayrows#);
+	});
 	function reporter() {
 		var f=document.getElementById('goWhere').value;
 		var t='#session.SpecSrchTab#';
