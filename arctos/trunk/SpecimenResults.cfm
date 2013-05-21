@@ -506,9 +506,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 		select LOAN_TYPE from loan where transaction_id=#transaction_id#
 	</cfquery>
 	<cfif isDataLoan.LOAN_TYPE is 'data'>
-		<input type="hidden" name="isDataLoan" value="yes">
+		<input type="hidden" name="isDataLoan" id="isDataLoan" value="yes">
 	<cfelse>
-		<input type="hidden" name="isDataLoan" value="no">
+		<input type="hidden" name="isDataLoan" id="isDataLoan" value="no">
 	</cfif>
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
 </cfif>
