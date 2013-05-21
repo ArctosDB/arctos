@@ -1327,6 +1327,13 @@
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "addAllDataLoanItems">
 	addAllDataLoanItems
+	<cfquery name="addItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from #session.SpecSrchTab#
+	</cfquery>
+	<cfdump var=#addItems#>
+
+	
+	
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "listLoans">
