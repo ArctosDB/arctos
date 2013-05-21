@@ -161,6 +161,9 @@ function removeHelpDiv() {
 		
 		<cfset x=listchangedelims(x,"|",",")>
 		<br>x:#x#
+		
+				<br>-#column_name# is the #ListContainsNoCase(session.resultColumnList,column_name,"|")# element in resultColumnList
+
 		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
 		
 	</cfif>
