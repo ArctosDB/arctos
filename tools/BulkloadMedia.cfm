@@ -522,7 +522,7 @@ sho err
 	<ul>
 		<li>Binary objects to be created as Media (and preview) must exist in a web-accessible location and return a 200 statuscode in the HTML header</li>
 		<li>Objects to which Media will be related - such as collecting events and cataloged items - must exist</li>
-		<li>You may specify either a media_related_key_n OR media_related_term_n, but neither both</li>
+		<li>You may specify either a media_related_key_n OR media_related_term_n, but not both</li>
 		<li>There is no checking for media_related_key; just provide a primary key for the table name specified in media_relationship</li>
 		<li><a href="/info/ctDocumentation.cfm?table=ctmedia_relationship">valid relationships</a></li>
 		<li><a href="/info/ctDocumentation.cfm?table=ctmedia_label">valid labels</a></li>
