@@ -203,11 +203,8 @@ function removeHelpDiv() {
 	<input type="hidden" name="action" id="action" value="#action#">
 	<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
 	<cfset session.mapURL = mapURL>
-	<cfif isdefined("transaction_id")>
-			<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
-	</cfif>
 	<cfif isdefined("loan_request_coll_id")>
-			<input type="hidden" name="loan_request_coll_id" id="loan_request_coll_id" value="#loan_request_coll_id#">
+		<input type="hidden" name="loan_request_coll_id" id="loan_request_coll_id" value="#loan_request_coll_id#">
 	</cfif>
 </form>
 	<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -437,6 +434,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 		</tr>
 	</table>		
 <div style="border:2px solid blue;" id="ssControl">
+
+
 <cfif isdefined("transaction_id")>
 	<cfquery name="isDataLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select LOAN_TYPE from loan where transaction_id=#transaction_id#
@@ -449,6 +448,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfelse>
 		<input type="hidden" name="isDataLoan" id="isDataLoan" value="no">
 	</cfif>
+	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
+	<cfset mapURL=listappend(mapurl,"transaction_id=#transaction_id#","&">
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
 </cfif>
 <table border="0" width="100%">
