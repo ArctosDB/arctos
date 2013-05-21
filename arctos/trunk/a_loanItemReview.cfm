@@ -232,21 +232,76 @@
 </cfquery>
 <cfquery name="getDataLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select 
-		count(*) c 			 
+		flat.collection_object_id,
+		guid,
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+		flat.scientific_name,
+		flat.encumbrances
 	 from 
+		flat,
 		loan,
-		loan_item, 
-		cataloged_item
+		loan_item
 	WHERE
 		loan.transaction_id = loan_item.transaction_id AND
-		loan_item.collection_object_id = cataloged_item.collection_object_id AND
+		loan_item.collection_object_id = flat.collection_object_id AND
 	  	loan_item.transaction_id = #transaction_id#
 </cfquery>
 <cfoutput>
-	<cfif getDataLoanRequests.c gt 0>
+	<cfif getDataLoanRequests.recordcount gt 0>
 		<p>
-			This loan contains #getDataLoanRequests.c# data loan items. This form won't deal with those items.
+			This loan contains #getDataLoanRequests.c# data loan items.
 		</p>
+		<form name="dcli" method="post" action="a_loanItemReview.cfm">
+			<input type="hidden" name="action" value="deleteCatItemLoanItem">
+			<input type="hidden" name="transaction_id" value="#transaction_id#">
+		<table border id="t" class="sortable">
+			<tr>
+				<td>
+					GUID
+				</td>
+				<td>
+					#session.CustomOtherIdentifier#
+				</td>
+				<td>
+					Scientific Name
+				</td>
+				<td>
+					Encumbrance
+				</td>
+				<td>&nbsp;
+					
+				</td>
+			</tr>
+			<cfset i=1>
+			<cfloop query="getDataLoanRequests">
+			<tr id="rowNum#partID#">
+				<td>
+					<a href="/guid/#guid#">#guid#</a>
+				</td>
+				<td>
+					#CustomID#&nbsp;
+				</td>	
+				<td>
+					<em>#scientific_name#</em>&nbsp;
+				</td>
+				<td>
+					#encumbrances#
+				</td>
+				<td>
+					<input type="checkbox" name="collection_object_id" value="#collection_object_id#">
+				</td>
+			</tr>
+<cfset i=#i#+1>
+</cfloop>
+</cfoutput>
+</table>
+<input type="submit" value="delete checked items">
+</form>
+
+
+
+
+		
 	</cfif>
 	<cfif isdefined("Ijustwannadownload") and Ijustwannadownload is "yep">
 		<cfset fileName = "/download/ArctosLoanData_#getPartLoanRequests.loan_number#.csv">
@@ -410,5 +465,8 @@ Review items in loan<b>
 <cfoutput>
 	<br><a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">Back to Edit Loan</a>
 </cfoutput>
+</cfif>
+<cfif action is "deleteCatItemLoanItem">
+	<cfdump var=#form#>
 </cfif>
 <cfinclude template="includes/_footer.cfm">
