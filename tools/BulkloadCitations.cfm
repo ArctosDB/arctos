@@ -308,7 +308,13 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 					display_value = '#trim(other_id_number)#'
 				</cfif>
 		</cfquery>
-		<cfset thisColObjId=collObj.COLLECTION_OBJECT_ID>
+		<cfif len(collObj.COLLECTION_OBJECT_ID) gt 0>
+			<cfset thisColObjId=collObj.COLLECTION_OBJECT_ID>
+		<cfelse>
+			<cfset thisColObjId=-1>
+			<cfset problem = listappend(problem,'specimen not found',";")>
+		</cfif>
+		
 		<cfif len(publication_id) is 0>
 			<cfquery name="isPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select publication_id from publication where full_citation = '#full_citation#'
@@ -366,7 +372,8 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		</cfquery>
 	</cfloop>
 	<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_citation set status='duplicate' where key in (
+		update cf_temp_citation set status='duplicate' where 
+			status is null and key in (
 			select distinct k from cf_temp_citation a,
 			 (select min(key) k, collection_object_id,publication_id
 			from cf_temp_citation having count(*) >  1 group by
