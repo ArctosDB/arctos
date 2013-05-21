@@ -185,16 +185,20 @@ function success_makePartThingy(r){
 	}
 }
 function makePartThingy() {
-	var transaction_id = document.getElementById("transaction_id").value;
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "getLoanPartResults",
-			transaction_id : transaction_id,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		success_makePartThingy
-	);	
+	var isDataLoan = ;
+	if (document.getElementById("isDataLoan").value=='no'){
+		// add part-picker
+		var transaction_id = document.getElementById("transaction_id").value;
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "getLoanPartResults",
+				transaction_id : transaction_id,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			success_makePartThingy
+		);
+	}
 }
 function cordFormat(str) {
 	var rStr;
