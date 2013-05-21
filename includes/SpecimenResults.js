@@ -868,6 +868,9 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + data.REMARKS[i] + '</td>';
 				}
 				for (a=0; a<nAtt; a++) {
+					
+					console.log(attAry[a]);
+					
 					if (data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase())> -1) {
 					var attStr='data.' + attAry[a].toUpperCase() + '[' + i + ']';
 						theInnerHtml += '<td>' + eval(attStr) + '</td>';
