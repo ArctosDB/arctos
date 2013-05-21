@@ -293,7 +293,6 @@
 			</tr>
 <cfset i=#i#+1>
 </cfloop>
-</cfoutput>
 </table>
 <input type="submit" value="delete checked items">
 </form>
