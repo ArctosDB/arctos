@@ -870,6 +870,7 @@ function success_getSpecResultsData(result){
 				
 				console.log(data.COLUMNLIST[0]);
 				
+				var clistarray=data.COLUMNLIST[0].split(",");
 				
 				for (a=0; a<nAtt; a++) {
 					
@@ -879,6 +880,8 @@ function success_getSpecResultsData(result){
 						
 						
 						console.log(data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase()));
+						
+						console.log(clistarray.indexOf(attAry[a].toUpperCase()));
 						
 						
 						console.log(attAry[a] + ' is in the list');
