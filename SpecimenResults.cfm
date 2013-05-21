@@ -502,6 +502,14 @@ If your item needs to be sorted in a special way, then do that here. --->
 	</table>		
 <div style="border:2px solid blue;" id="ssControl">
 <cfif isdefined("transaction_id")>
+	<cfquery name="isDataLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select LOAN_TYPE from loan where transaction_id=#transaction_id#
+	</cfquery>
+	<cfif isDataLoan.LOAN_TYPE='data'>
+		<input type="hidden" name="isDataLoan" value="yes">
+	<cfelse>
+		<input type="hidden" name="isDataLoan" value="no">
+	</cfif>
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
 </cfif>
 <table border="0" width="100%">
