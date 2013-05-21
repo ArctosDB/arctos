@@ -147,6 +147,9 @@ function removeHelpDiv() {
 		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
 	</cfif>
 </cfloop>
+<hr>
+<cfdump var=#basSelect#>
+
 <cfif ListContainsNoCase(session.resultColumnList,"_elev_in_m")>
 	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
 </cfif>
