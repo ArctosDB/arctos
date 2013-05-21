@@ -325,7 +325,8 @@
 			<td class="lbl">
 				<span class="helpLink infoLink" id="collector">Help</span>
 				<select name="coll_role" id="coll_role" size="1">
-					<option value="" selected="selected">Collector</option>
+					<option value="" selected="selected">Collecto or Preparatorr</option>
+					<option value="c" >Collector</option>
 					<option value="p">Preparator</option>
 				</select>
 			</td>

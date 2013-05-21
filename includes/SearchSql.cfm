@@ -514,11 +514,12 @@
 		<cfset coll_role="c">
 	</cfif>
 	<cfif coll_role is "p">
-		<cfset basJoin = " #basJoin# INNER JOIN collector ON (#session.flatTableName#.collection_object_id = collector.collection_object_id)
-			INNER JOIN agent_name srchColl ON (collector.agent_id = srchColl.agent_id)">
-		<cfSet basQual = " #basQual# AND UPPER(srchColl.Agent_Name) LIKE '%#UCASE(coll)#%' AND collector_role = '#coll_role#'">
-	<cfelse>
+		<cfSet basQual = " #basQual# AND UPPER(#session.flatTableName#.PREPARATORS) LIKE '%#UCASE(escapeQuotes(coll))#%'">
+	<cfelseif coll_role is "c">
 		<cfSet basQual = " #basQual# AND UPPER(#session.flatTableName#.COLLECTORS) LIKE '%#UCASE(escapeQuotes(coll))#%'">
+	<cfelse>
+		<cfSet basQual = " #basQual# AND (UPPER(#session.flatTableName#.PREPARATORS) LIKE '%#UCASE(escapeQuotes(coll))#%' OR
+			UPPER(#session.flatTableName#.COLLECTORS) LIKE '%#UCASE(escapeQuotes(coll))#%')">
 	</cfif>
 	<cfset mapurl = "#mapurl#&coll=#coll#">
 	<cfset mapurl = "#mapurl#&coll_role=#coll_role#">
