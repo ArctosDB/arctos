@@ -1326,14 +1326,33 @@
 
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "addAllDataLoanItems">
-	addAllDataLoanItems
-	<cfquery name="addItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from #session.SpecSrchTab#
-	</cfquery>
-	<cfdump var=#addItems#>
-
-	
-	
+	<cfoutput>
+		<cfquery name="addItemsToDataLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into loan_item (
+				TRANSACTION_ID,
+				COLLECTION_OBJECT_ID,
+				RECONCILED_BY_PERSON_ID,
+				RECONCILED_DATE,
+				ITEM_DESCR
+			) (
+				select
+					#transaction_id#,
+					collection_object_id,
+					#session.myagentid#,
+					sysdate,
+					'Cataloged item ' || guid
+				from
+					#session.SpecSrchTab#
+			)
+		</cfquery>
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from #session.SpecSrchTab#
+		</cfquery>
+		<p>
+			#c.c# items have been added.
+		</p>
+		<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">Return to Edit Loan</a>	
+	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "listLoans">
