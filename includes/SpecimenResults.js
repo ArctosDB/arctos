@@ -639,7 +639,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += data.GUID[i];
 					theInnerHtml += '</a>';
 				theInnerHtml += '</td>';
-				if (data.COLUMNLIST[0].indexOf('COLLECTION')> -1) {
+				if (data.COLUMNLIST[0].indexOf('COLLECTION')> 0) {
 					theInnerHtml += '<td>' + data.COLLECTION[i]; + '</td>';
 				}
 				if (loan_request_coll_id.length > 0) {

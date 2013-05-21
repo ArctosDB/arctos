@@ -94,20 +94,12 @@ function removeHelpDiv() {
 <cfif not isdefined("session.resultColumnList")>
 	<cfset session.resultColumnList=''>
 </cfif>
-
-<cfdump var=#session.resultColumnList#>
---
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from cf_spec_res_cols order by disp_order
 </cfquery>
 <cfquery name="reqd" dbtype="query">
 	select * from r_d where category='required'
 </cfquery>
-
-<cfdump var=#reqd#>
-
-
-
 <cfloop query="reqd">
 	<cfif not ListContainsNoCase(session.resultColumnList,COLUMN_NAME)>
 		<cfset session.resultColumnList = ListAppend(session.resultColumnList, COLUMN_NAME)>
@@ -115,11 +107,6 @@ function removeHelpDiv() {
 </cfloop>
 
 <cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
-
-
-<cfdump var=#basSelect#>
-
---
 <cfif len(session.CustomOtherIdentifier) gt 0>
 	<cfset basSelect = "#basSelect#
 		,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
@@ -139,37 +126,12 @@ function removeHelpDiv() {
 	</cfif>
 	---->
 
-
-<hr>
-<cfdump var=#basSelect#>
-
-<cfdump var=#r_d#>
-<cfdump var=#session.resultColumnList#>
-
-
 <cfloop query="r_d">
 	<cfif left(column_name,1) is not "_" and (
 		ListFindNoCase(session.resultColumnList,column_name,",") gt 0 OR category is 'required')>
-		<hr>
-		made it through with <br>-----#column_name#
-			<br>category: #category#
-		<br>session.resultColumnList is : #session.resultColumnList#
-		<br>-#column_name# is the #ListFindNoCase(session.resultColumnList,column_name,",")# element in resultColumnList
-		
-		
-		<cfset x=session.resultColumnList>
-		
-		<cfset x=listchangedelims(x,"|",",")>
-		<br>x:#x#
-		
-				<br>-#column_name# is the #ListContainsNoCase(session.resultColumnList,column_name,"|")# element in resultColumnList
-
 		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
-		
 	</cfif>
 </cfloop>
-<hr>
-<cfdump var=#basSelect#>
 
 <cfif ListContainsNoCase(session.resultColumnList,"_elev_in_m")>
 	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
@@ -188,7 +150,6 @@ function removeHelpDiv() {
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
 </cfif>
 
-<cfdump var=#basSelect#>
 	<cfset basFrom = " FROM #session.flatTableName#">
 	<cfset basJoin = "">
 	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
