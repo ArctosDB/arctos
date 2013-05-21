@@ -268,8 +268,8 @@
 				<td>
 					Encumbrance
 				</td>
-				<td>&nbsp;
-					
+				<td>
+				delete
 				</td>
 			</tr>
 			<cfset i=1>
@@ -294,7 +294,7 @@
 <cfset i=#i#+1>
 </cfloop>
 </table>
-<input type="submit" value="delete checked items">
+<input type="submit" class="delBtn" value="delete checked items">
 </form>
 
 
@@ -466,6 +466,10 @@ Review items in loan<b>
 </cfoutput>
 </cfif>
 <cfif action is "deleteCatItemLoanItem">
-	<cfdump var=#form#>
+	<cfquery name="buhBye" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from loan_item where transaction_id=#transaction_id# and
+		collection_object_id in (#collection_object_id#)
+	</cfquery>
+	<cflocation url="a_loanItemReview.cfm?transaction_id=#transaction_id#" addtoken="false">
 </cfif>
 <cfinclude template="includes/_footer.cfm">
