@@ -280,8 +280,21 @@
 						</tr>
 					</cfloop>
 				</table>
-				<input type="submit" class="delBtn" value="delete checked items">
+				<input type="submit" class="delBtn" value="remove checked items">
 			</form>
+			<p>
+				<input type="button" class="delBtn" value="remove ALL items" onclick="removeAllDataLoanItems();">
+				<script>
+					function removeAllDataLoanItems(){
+						var yesno=confirm('Are you sure you want to REMOVE ALL specimens from the data loan?');
+						if (yesno==true) {
+							document.location='/a_loanItemReview.cfm?action=removeAllDataLoanItems&transaction_id=#transaction_id#';  		
+					 	} else {
+						  	return false;
+					  	}
+					}
+				</script>
+			</p>
 		</cfif>
 		<cfif getPartLoanRequests.recordcount gt 0>
 			<cfif isdefined("Ijustwannadownload") and Ijustwannadownload is "yep">
@@ -331,7 +344,7 @@
 			</p>
 			<table border id="t" class="sortable">
 				<tr>
-					<th>CN</th>
+					<th>GUID</th>
 					<th>#session.CustomOtherIdentifier#</th>
 					<th>Scientific Name</th>
 					<th>Item</th>
