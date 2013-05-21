@@ -133,10 +133,10 @@ function removeHelpDiv() {
 	</cfif>
 </cfloop>
 
-<cfif ListContainsNoCase(session.resultColumnList,"_elev_in_m")>
+<cfif ListFindNoCase(session.resultColumnList,"_elev_in_m")>
 	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
 </cfif>
-<cfif ListContainsNoCase(session.resultColumnList,"_day_of_ymd")>
+<cfif ListFindNoCase(session.resultColumnList,"_day_of_ymd")>
 	<cfset basSelect = "#basSelect#, getYearCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) AS YearColl,
 		getMonthCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) MonColl,
 		getDayCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) DayColl ">
@@ -146,7 +146,7 @@ function removeHelpDiv() {
 		getDayCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) ddddDayColl">
 		---->
 </cfif>
-<cfif ListContainsNoCase(session.resultColumnList,"_original_elevation")>
+<cfif ListFindNoCase(session.resultColumnList,"_original_elevation")>
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
 </cfif>
 
