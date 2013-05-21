@@ -185,7 +185,6 @@ function success_makePartThingy(r){
 	}
 }
 function makePartThingy() {
-	var isDataLoan = ;
 	if (document.getElementById("isDataLoan").value=='no'){
 		// add part-picker
 		var transaction_id = document.getElementById("transaction_id").value;
