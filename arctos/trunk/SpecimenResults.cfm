@@ -154,7 +154,7 @@ function removeHelpDiv() {
 		made it through with <br>-----#column_name#
 			<br>category: #category#
 		<br>session.resultColumnList is : #session.resultColumnList#
-		<br>-#column_name# is the #ListContainsNoCase(session.resultColumnList,column_name,",")# element in resultColumnList
+		<br>-#column_name# is the #ListFindNoCase(session.resultColumnList,column_name,",")# element in resultColumnList
 		
 		
 		<cfset x=session.resultColumnList>
