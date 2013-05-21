@@ -507,6 +507,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 	</cfquery>
 	<cfif isDataLoan.LOAN_TYPE is 'data'>
 		<input type="hidden" name="isDataLoan" id="isDataLoan" value="yes">
+		<br>You are adding cataloged items to a data loan.
+		<br>Customize, turn on Remove Rows option to remove anything that should not be added to this loan.
+		<br>Then <span onclick="confirmAddAllDL();">Add All Cataloged Items to this Data Loan</span>
 	<cfelse>
 		<input type="hidden" name="isDataLoan" id="isDataLoan" value="no">
 	</cfif>
@@ -701,6 +704,14 @@ If your item needs to be sorted in a special way, then do that here. --->
 	jQuery(document).ready(function() {
 		getSpecResultsData(1,#session.displayrows#);
 	});
+	function confirmAddAllDL(){
+	var msg = msg || "this record";
+	var yesno=confirm('Are you sure you want to add all these specimens to the data loan?');
+	if (yesno==true) {
+		document.location='/Loan.cfm?action=addAllDataLoanItems&transaction_id=' + $("##transaction_id").val();  		
+ 	} else {
+	  	return false;
+  	}
 	function reporter() {
 		var f=document.getElementById('goWhere').value;
 		var t='#session.SpecSrchTab#';
