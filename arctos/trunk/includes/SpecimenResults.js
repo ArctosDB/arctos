@@ -876,7 +876,7 @@ function success_getSpecResultsData(result){
 					
 					console.log(attAry[a]);
 					
-					if (data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase())> -1) {
+					if (clistarray.indexOf(attAry[a].toUpperCase())> -1) {
 						
 						
 						console.log(data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase()));
