@@ -155,7 +155,7 @@ function removeHelpDiv() {
 		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
 		<br>-----#column_name#
 		<br>category: #category#
-		<br>ListContainsNoCase(session.resultColumnList,column_name: #ListContainsNoCase(session.resultColumnList,column_name)#
+		<br>ListContainsNoCase(session.resultColumnList,column_name: #ListContainsNoCase(session.resultColumnList,column_name,",")#
 	</cfif>
 </cfloop>
 <hr>
