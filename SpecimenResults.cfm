@@ -149,7 +149,7 @@ function removeHelpDiv() {
 
 <cfloop query="r_d">
 	<cfif left(column_name,1) is not "_" and (
-		ListContainsNoCase(session.resultColumnList,column_name) OR category is 'required')>
+		ListContainsNoCase(session.resultColumnList,column_name,",") OR category is 'required')>
 		
 		
 		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
