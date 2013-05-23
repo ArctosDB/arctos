@@ -1,3 +1,4 @@
+<cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfheader statuscode="401" statustext="Not authorized">
 This is a development server. You may log in or create an account 
@@ -12,3 +13,4 @@ valid specimen data.
 	<a href="http://arctos.database.museum">Go to Arctos</a>
 </p>
 </cfoutput>
+<cfinclude template="/includes/_footer.cfm">
