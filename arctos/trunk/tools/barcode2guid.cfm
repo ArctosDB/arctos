@@ -16,7 +16,7 @@
 			scan single barcodes here
 		</label>
 		<input type="text" id="scantarget" onchange="getScanned(this.value);">
-		<input type="text" id="tabbedin" onchange="$('##scantarget').select();">
+		<input type="text" id="tabbedin" onfocus="$('##scantarget').select();">
 		<label for="bc">
 			Comma-delimited list of barcodes here
 		</label>
