@@ -76,7 +76,7 @@
 					<td>#t.guid#</td>
 				</tr>
 				<cfscript>
-					variables.joFileWriter.writeLine('"#b#","t.guid#"');
+					variables.joFileWriter.writeLine('"#b#","#t.guid#"');
 				</cfscript>
 			</cfloop>
 		</table>
