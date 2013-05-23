@@ -20,8 +20,6 @@
 			Comma-delimited list of barcodes here
 		</label>
 		<textarea name="bc" id="bc" rows="20" cols="80">#bc#</textarea>
-		<label for="delim">Barcodes delimited by....</label>
-		<select name="delim" id="delim">
 		<br><input type="submit" value="get guids">
 	</form>
 	<cfif len(bc) gt 0>
@@ -57,7 +55,6 @@
 		<cfquery name="c" dbtype="query">
 			select count(*) c from d where guid is not null
 		</cfquery>
-		<cfdump var=#d#>
 		<br>Found #c.c# GUIDs
 		<br><a href="/download/#fname#">Download CSV</a>
 		<!--- order is important there - rather than trusting the query to do anything, loop over the input list --->
