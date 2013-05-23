@@ -8,7 +8,16 @@
 			multiple: false,
 			scroll: true,
 			scrollHeight: 300
-		});	
+		});
+		jQuery("#feature").autocomplete("/ajax/tData.cfm?action=suggestFeature", {
+			width: 320,
+			max: 20,
+			autofill: true,
+			highlight: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300
+		});
 	});
 </script>
 <cfquery name="ctElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -26,9 +35,7 @@
 <cfquery name="IslGrp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select island_group from ctIsland_Group order by Island_Group
 </cfquery>
-<cfquery name="Feature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select distinct(Feature) from geog_auth_rec order by Feature
-</cfquery>
+
 <cfquery name="ctgeology_attribute"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select attribute from geology_attribute_hierarchy group by attribute order by attribute 
 </cfquery>
@@ -170,13 +177,9 @@
 			<span class="helpLink" id="_feature">Geographic Feature:</span>
 		</td>
 		<td class="srch">
-			<select name="feature" id="feature" size="1">
-				<option value=""></option>
-				<option value="NULL">NULL</option>
-				<cfloop query="Feature">
-					<option value="#Feature.Feature#">#Feature.Feature#</option>
-				</cfloop>
-			</select>
+			<input type="text" name="feature" id="feature" size="50">
+			<span class="infoLink" onclick="var e=document.getElementById('feature');e.value='='+e.value;">Add = for exact match</span>
+			<span class="infoLink" onclick="document.getElementById('feature').value='NULL';">[ NULL ]</span>
 		</td>
 	</tr>
 	<tr>

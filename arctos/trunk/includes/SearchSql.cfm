@@ -1340,10 +1340,29 @@
 	</cfif>
 </cfif>
 <cfif isdefined("feature") AND len(feature) gt 0>
+
+
+
+<cfif compare(spec_locality,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.spec_locality is null">
+	<cfelse>
+		<cfif left(spec_locality,1) is '='>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.spec_locality) = '#ucase(escapeQuotes(right(spec_locality,len(spec_locality)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.spec_locality) like '%#ucase(escapeQuotes(spec_locality))#%'">
+		</cfif>
+	</cfif>
+	
+	
+	
 	<cfif compare(feature,"NULL") is 0>
 		<cfset basQual = " #basQual# AND feature is null">
 	<cfelse>
-		<cfset basQual = " #basQual# AND feature LIKE '%#ucase(escapeQuotes(feature))#%'">
+		<cfif left(feature,1) is '='>
+			<cfset basQual = " #basQual# AND feature LIKE '#ucase(escapeQuotes(feature))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND feature LIKE '%#ucase(escapeQuotes(feature))#%'">
+		</cfif>
 	</cfif>
 	<cfset mapurl = "#mapurl#&feature=#feature#">
 </cfif>
