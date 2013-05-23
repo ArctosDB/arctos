@@ -248,7 +248,7 @@ function saveNewRecord () {
 								queryformat : 'column'
 							},
 							function(r) {
-								console.log('back with ' + r);
+								//console.log('back with ' + r);
 								$("#other_id_num_5").val(r);
 							}
 						);
@@ -552,7 +552,7 @@ function loadRecordEnter(collection_object_id){
 					var cVal=eval("r.DATA." + columns[i]);
 					var eName=cName.toLowerCase();
 					
-					console.log(eName + '-->' + cVal);
+					//console.log(eName + '-->' + cVal);
 					
 					$("#" + eName).val(cVal);
 				}
