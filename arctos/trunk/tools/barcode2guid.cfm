@@ -30,8 +30,8 @@
 		<cfset fileDir = "#Application.webDirectory#">
 		<cfset variables.encoding="UTF-8">
 		<cfset fname = "barcode2guid.csv">
-		<a href="/download/#fname#">Download CSV</a>
-
+		<hr>
+		
 		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
@@ -54,6 +54,13 @@
 				p.parent_container_id=c.container_id and
 				c.barcode in (#ListQualify(BC, "'")#)
 		</cfquery>
+		<br>Queried for #listlen(bc)# barcodes.
+		<cfquery name="c" dbtype="query">
+			select count(*) c from d where guid is not null
+		</cfquery>
+		<br>Found #c.c# GUIDs
+		<br><a href="/download/#fname#">Download CSV</a>
+		
 		<!--- order is important there - rather than trusting the query to do anything, loop over the input list --->
 		<table border>
 			<tr>
