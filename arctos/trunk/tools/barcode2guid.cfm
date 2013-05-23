@@ -1,17 +1,24 @@
 <cfinclude template="/includes/_header.cfm">
+<script>
+	function getScanned(v){
+		if (v.length>0){
+			$("#bc").val().append(',' + v);
+		}
+	}
+</script>
 <cfoutput>
 	<cfif not isdefined("bc")><cfset bc =""></cfif>
-	<cfif not isdefined("delim")><cfset delim =","></cfif>
 	<form name="a" method="post" action="barcode2guid.cfm">
+		<label for="scantarget">
+			scan single barcodes here
+		</label>
+		<input type="text" id="scantarget" onchange="getScanned(this.value);">
 		<label for="bc">
-			Enter barcodes here
+			Comma-delimited list of barcodes here
 		</label>
 		<textarea name="bc" id="bc" rows="20" cols="80">#bc#</textarea>
 		<label for="delim">Barcodes delimited by....</label>
 		<select name="delim" id="delim">
-			<option <cfif delim is ","> selected="selected" </cfif>value=",">,</option>
-			<option <cfif delim is "#chr(9)#"> selected="selected" </cfif>value="#chr(9)#">{tab}</option>
-		</select>
 		<br><input type="submit" value="get guids">
 	</form>
 	<cfif len(bc) gt 0>
