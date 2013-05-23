@@ -23,6 +23,6 @@
 			upper(feature) LIKE '%#ucase(q)#%'
 		 order by Feature
 	</cfquery>
-	<cfoutput query="ins">#attribute_value##chr(10)#
+	<cfoutput query="ins">#Feature##chr(10)#
 	</cfoutput>
 </cfif>
