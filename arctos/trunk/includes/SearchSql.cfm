@@ -1344,9 +1344,9 @@
 		<cfset basQual = " #basQual# AND feature is null">
 	<cfelse>
 		<cfif left(feature,1) is '='>
-			<cfset basQual = " #basQual# AND upper(feature) LIKE '#ucase(escapeQuotes(feature))#'">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.feature) = '#ucase(escapeQuotes(right(feature,len(feature)-1)))#'">
 		<cfelse>
-			<cfset basQual = " #basQual# AND upper(feature) LIKE '%#ucase(escapeQuotes(feature))#%'">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.feature) LIKE '%#ucase(escapeQuotes(feature))#%'">
 		</cfif>
 	</cfif>
 	<cfset mapurl = "#mapurl#&feature=#feature#">
