@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="look up GUIDs by part barcode">
 <script>
 	function getScanned(v){
 		if (v.length>0){
@@ -6,8 +7,6 @@
 		}
 		$("#scantarget").select();
 	}
-
-
 </script>
 <cfoutput>
 	<cfif not isdefined("bc")><cfset bc =""></cfif>
@@ -60,7 +59,6 @@
 		</cfquery>
 		<br>Found #c.c# GUIDs
 		<br><a href="/download/#fname#">Download CSV</a>
-		
 		<!--- order is important there - rather than trusting the query to do anything, loop over the input list --->
 		<table border>
 			<tr>
