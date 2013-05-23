@@ -57,6 +57,7 @@
 		<cfquery name="c" dbtype="query">
 			select count(*) c from d where guid is not null
 		</cfquery>
+		<cfdump var=#d#>
 		<br>Found #c.c# GUIDs
 		<br><a href="/download/#fname#">Download CSV</a>
 		<!--- order is important there - rather than trusting the query to do anything, loop over the input list --->
