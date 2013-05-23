@@ -26,28 +26,45 @@
 		<br><input type="submit" value="get guids">
 	</form>
 	<cfif len(bc) gt 0>
-		#bc#
+		<cfquery name="d" datasource="uam_god">
+			select 
+				c.barcode,
+				guid 
+			from 
+				flat,
+				specimen_part,
+				coll_obj_cont_hist,
+				container p,
+				container c 
+			where 
+				flat.collection_object_id=specimen_part.derived_from_cat_item and
+				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+				coll_obj_cont_hist.container_id=p.container_id and
+				p.parent_container_id=c.container_id and
+				c.barcode in (#ListQualify(BC, "'")#)
+		</cfquery>
+		<!--- order is important there - rather than trusting the query to do anything, loop over the input list --->
+		<table border>
+			<tr>
+				<th>Barcode</th>
+				<th>GUID</th>
+			</tr>
+			<cfloop list="#bc#" index="b">
+				<cfquery name="t" dbtype="query">
+					select * from d where barcode='#b#'
+				</cfquery>
+				<tr>
+					<td>#b#</td>
+					<td>#t.guid#</td>
+				</tr>
+			</cfloop>
+		</table>
+
 	</cfif>
 <!----
 <cffunction name="getGuidByPartBarcode" access="remote">
 	<cfargument name="barcode" type="any" required="yes">
-	<cfquery name="d" datasource="uam_god">
-		select 
-			c.barcode,
-			guid 
-		from 
-			flat,
-			specimen_part,
-			coll_obj_cont_hist,
-			container p,
-			container c 
-		where 
-			flat.collection_object_id=specimen_part.derived_from_cat_item and
-			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
-			coll_obj_cont_hist.container_id=p.container_id and
-			p.parent_container_id=c.container_id and
-			c.barcode in (#ListQualify(barcode, "'")#)
-	</cfquery>
+	
 	<cfreturn d>
 </cffunction>
 
