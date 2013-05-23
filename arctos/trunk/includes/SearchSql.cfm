@@ -1343,7 +1343,7 @@
 	<cfif compare(feature,"NULL") is 0>
 		<cfset basQual = " #basQual# AND feature is null">
 	<cfelse>
-		<cfset basQual = " #basQual# AND feature LIKE '#escapeQuotes(feature)#'">
+		<cfset basQual = " #basQual# AND feature LIKE '%#ucase(escapeQuotes(feature))#%'">
 	</cfif>
 	<cfset mapurl = "#mapurl#&feature=#feature#">
 </cfif>
