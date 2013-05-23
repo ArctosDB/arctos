@@ -26,6 +26,17 @@
 		<br><input type="submit" value="get guids">
 	</form>
 	<cfif len(bc) gt 0>
+	
+		<cfset fileDir = "#Application.webDirectory#">
+		<cfset variables.encoding="UTF-8">
+		<cfset fname = "barcode2guid.csv">
+		<a href="/download/#fname#">Download CSV</a>
+
+		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine('barcode,guid'); 
+		</cfscript>
 		<cfquery name="d" datasource="uam_god">
 			select 
 				c.barcode,
@@ -57,17 +68,14 @@
 					<td>#b#</td>
 					<td>#t.guid#</td>
 				</tr>
+				<cfscript>
+					variables.joFileWriter.writeLine('"#b#","t.guid#"');
+				</cfscript>
 			</cfloop>
 		</table>
-
+		<cfscript>	
+			variables.joFileWriter.close();
+		</cfscript>
 	</cfif>
-<!----
-<cffunction name="getGuidByPartBarcode" access="remote">
-	<cfargument name="barcode" type="any" required="yes">
-	
-	<cfreturn d>
-</cffunction>
-
------>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
