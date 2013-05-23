@@ -4,7 +4,7 @@
 		if (v.length>0){
 			$("#bc").val($("#bc").val() + ',' + $.trim(v));
 		}
-		$("#scantarget").focus();
+		$("#scantarget").select();
 	}
 
 
