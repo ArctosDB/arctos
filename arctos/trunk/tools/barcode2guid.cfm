@@ -2,9 +2,12 @@
 <script>
 	function getScanned(v){
 		if (v.length>0){
-			$("#bc").val().append(',' + v);
+			$("#bc").val($("#bc").val() + ',' + $.trim(v));
 		}
+		$("#scantarget").focus();
 	}
+
+
 </script>
 <cfoutput>
 	<cfif not isdefined("bc")><cfset bc =""></cfif>
