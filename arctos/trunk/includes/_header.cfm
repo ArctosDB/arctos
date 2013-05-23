@@ -344,6 +344,7 @@
 									</li>
 									 <li><a target="_top" href="##">Data Services</a>
 										<ul>
+											<li><a target="_top" href="/tools/barcode2guid.cfm">Find GUID from Barcode</a></li>
 											<li><a target="_top" href="/DataServices/SciNameCheck.cfm">Taxon Name Checker</a></li>
 											<li><a target="_top" href="/DataServices/geog_lookup.cfm">Higher Geog Lookup</a></li>
 											<li><a target="_top" href="/DataServices/dateSplit.cfm">Date Formatter</a></li>
