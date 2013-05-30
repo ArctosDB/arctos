@@ -467,7 +467,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 				#session.SpecSrchTab#
 			where
 				specimen_part.derived_from_cat_item=#session.SpecSrchTab#.collection_object_id and
-				specimen_part.sampled_from_obj_id is null
+				specimen_part.sampled_from_obj_id is null and
+				count(*)=(select count(*) from #session.SpecSrchTab#)
 			group by
 				part_name
 		</cfquery>
