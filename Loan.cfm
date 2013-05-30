@@ -1326,13 +1326,10 @@
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "addAllSrchResultLoanItems">
 	<cfoutput>
-		<cfquery name="addAllSrchResultLoanItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="getPartID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				#transaction_id#,
 				min(specimen_part.collection_object_id),
-				#session.myagentid#,
-				sysdate,
-				specimen_part.part_name || ' of ' || guid
+				specimen_part.part_name || ' of ' || #session.SpecSrchTab#.guid
 			from
 				#session.SpecSrchTab#,
 				specimen_part
@@ -1340,6 +1337,9 @@
 				specimen_part.derived_from_cat_item=#session.SpecSrchTab#.collection_object_id and
 				specimen_part.sampled_from_obj_id is null and
 				specimen_part.part_name='#part_name#'
+			group by
+				specimen_part.part_name,
+				#session.SpecSrchTab#.guid
 		</cfquery>
 		<cfdump var=#addAllSrchResultLoanItems#>
 		
