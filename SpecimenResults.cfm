@@ -467,12 +467,16 @@ If your item needs to be sorted in a special way, then do that here. --->
 				#session.SpecSrchTab#
 			where
 				specimen_part.derived_from_cat_item=#session.SpecSrchTab#.collection_object_id and
-				specimen_part.sampled_from_obj_id is null and
-				count(*)=(select count(*) from #session.SpecSrchTab#)
+				specimen_part.sampled_from_obj_id is null
 			group by
 				part_name
 		</cfquery>
 		<cfdump var=#commonParts#>
+		<cfquery name="partsForLoan" dbtype="query">
+			select part_name from commonParts where numRecWithThisPart=#summary.recordcount#
+			group by part_name order by part_name
+		</cfquery>
+		<cfdump var=#partsForLoan#>
 		<input type="hidden" name="isDataLoan" id="isDataLoan" value="no">
 	</cfif>
 	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
