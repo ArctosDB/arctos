@@ -490,8 +490,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 			</select>
 			<label for="subsample">Subsample?</label>
 			<select name="subsample" id="subsample">
-				<option value="no">no</option>
-				<option value="yes">yes</option>
+				<option value="true">no</option>
+				<option value="false">yes</option>
 			</select>
 			<br>Then <span class="likeLink" onclick="confirmAddAllPartLoan();">Add All to this Loan</span>
 		<cfelse>
