@@ -716,7 +716,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 
 	
 		var msg='Are you sure you want to add';
-		if (subsample==true){
+		if (subsample=='true'){
 			msg+=' a subsample of';
 		}
 		msg+=' all ' + part_name + ' to the loan?';
