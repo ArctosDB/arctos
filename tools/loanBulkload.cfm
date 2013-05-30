@@ -46,6 +46,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 </cfif>
 <!----------------------------------------------------------------------------->
 <cfif action is "downloadForBulkSpecSrchRslt">
+<cfoutput>
 	<cfset header="BARCODE,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,PART_NAME,PART_DISPOSITION,PART_CONDITION,ITEM_DESCRIPTION,ITEM_REMARKS,SUBSAMPLE,LOAN_NUMBER">
 	<cfset fileDir = "#Application.webDirectory#">
 	<cfset variables.encoding="UTF-8">
@@ -96,6 +97,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 	</cfscript>
 	<a href="/download/#fname#">Click here</a>
 	to download a loan bulkload template containing the results of your search.
+</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------->
 <cfif action is "nothing">
