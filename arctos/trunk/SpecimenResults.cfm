@@ -488,12 +488,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="#part_name#">#part_name#</option>
 				</cfloop>
 			</select>
-			<label for="subsample">Subsample?</label>
-			<select name="subsample" id="subsample">
-				<option value="false">no</option>
-				<option value="true">yes</option>
-			</select>
+			<br>
 			<input type="button" value="Add All to this Loan" onclick="confirmAddAllPartLoan();">
+			<br>Need more flexibility? Download for loan bulkloader.
 		<cfelse>
 			<br>No common Parts - group-add tools not available.
 		</cfif>
@@ -709,20 +706,10 @@ If your item needs to be sorted in a special way, then do that here. --->
 	}
 	function confirmAddAllPartLoan(){
 		var part_name=$("##part_name").val();
-		var subsample=$("##subsample").val();
-
-		console.log(part_name);
-		console.log(subsample);
-
-	
-		var msg='Are you sure you want to add';
-		if (subsample=='true'){
-			msg+=' a subsample of';
-		}
-		msg+=' all ' + part_name + ' to the loan?';
+		var msg='Are you sure you want to add all found ' + part_name + ' to the loan?';
 		var yesno=confirm(msg);
 		if (yesno==true) {
-			document.location='/Loan.cfm?action=addAllSrchResultLoanItems&transaction_id=' + $("##transaction_id").val();  		
+			document.location='/Loan.cfm?action=addAllSrchResultLoanItems&transaction_id=' + $("##transaction_id").val() + '&part_name=' + part_name;  		
 	 	} else {
 		  	return false;
 	  	}
