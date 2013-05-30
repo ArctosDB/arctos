@@ -1332,7 +1332,7 @@
 				min(specimen_part.collection_object_id),
 				#session.myagentid#,
 				sysdate,
-				specimen_part.part_name ' of ' || guid
+				specimen_part.part_name || ' of ' || guid
 			from
 				#session.SpecSrchTab#,
 				specimen_part
