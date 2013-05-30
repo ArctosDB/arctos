@@ -1328,8 +1328,8 @@
 	<cfoutput>
 		<cfquery name="getPartID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				min(specimen_part.collection_object_id),
-				specimen_part.part_name || ' of ' || #session.SpecSrchTab#.guid
+				min(specimen_part.collection_object_id) partID,
+				#session.SpecSrchTab#.guid || ' - ' || specimen_part.part_name partDesc
 			from
 				#session.SpecSrchTab#,
 				specimen_part
@@ -1341,7 +1341,32 @@
 				specimen_part.part_name,
 				#session.SpecSrchTab#.guid
 		</cfquery>
-		<cfdump var=#getPartID#>
+		<cftransaction>
+			<cfloop query="getPartID">
+				<cfquery name="addOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into loan_item (
+						TRANSACTION_ID,
+						COLLECTION_OBJECT_ID,
+						RECONCILED_BY_PERSON_ID,
+						RECONCILED_DATE,
+						ITEM_DESCR
+					) values (
+						#transaction_id#,
+						#partID#,
+						#session.myagentid#,
+						sysdate,
+						'#partDesc#'
+					)
+				</cfquery>
+			</cfloop>
+		</cftransaction>
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from #session.SpecSrchTab#
+		</cfquery>
+		<p>
+			#c.c# items have been added.
+		</p>
+		<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">Return to Edit Loan</a>	
 		
 	</cfoutput>
 </cfif>
