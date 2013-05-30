@@ -490,18 +490,18 @@ If your item needs to be sorted in a special way, then do that here. --->
 			</select>
 			<label for="subsample">Subsample?</label>
 			<select name="subsample" id="subsample">
-				<option value="true">no</option>
-				<option value="false">yes</option>
+				<option value="false">no</option>
+				<option value="true">yes</option>
 			</select>
-			<br>Then <span class="likeLink" onclick="confirmAddAllPartLoan();">Add All to this Loan</span>
+			<input type="button" value="Add All to this Loan" onclick="confirmAddAllPartLoan();">
 		<cfelse>
-			No common Parts - group-add tools not available.
+			<br>No common Parts - group-add tools not available.
 		</cfif>
 		<input type="hidden" name="isDataLoan" id="isDataLoan" value="no">
 	</cfif>
 	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
 	<cfset mapURL=listappend(mapurl,"transaction_id=#transaction_id#","&")>
-	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
+	<br><a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
 </cfif>
 <cfset session.mapURL=mapURL>
 
