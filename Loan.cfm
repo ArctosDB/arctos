@@ -1341,7 +1341,7 @@
 				specimen_part.part_name,
 				#session.SpecSrchTab#.guid
 		</cfquery>
-		<cfdump var=#addAllSrchResultLoanItems#>
+		<cfdump var=#getPartID#>
 		
 	</cfoutput>
 </cfif>
