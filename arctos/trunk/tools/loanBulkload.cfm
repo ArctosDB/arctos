@@ -63,7 +63,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 		select
 			'' barcode,
 			SUBSTR(guid, 1 ,INSTR(guid, ':', 1, 2)-1) guid_prefix,
-			'catalog number',
+			'catalog number' OTHER_ID_TYPE,
 			SUBSTR(guid, INSTR(guid,':', -1, 1)+1) OTHER_ID_NUMBER,
 			'' PART_NAME,
 			'' PART_DISPOSITION,
