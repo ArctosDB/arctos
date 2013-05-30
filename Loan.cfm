@@ -1323,7 +1323,12 @@
 </form>
 </cfoutput>
 </cfif>
-
+<!-------------------------------------------------------------------------------------------------->
+<cfif action is "addAlladdAllSrchResultLoanItemsDataLoanItems">
+	<cfoutput>
+		i am addAllSrchResultLoanItems
+	</cfoutput>
+</cfif>
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "addAllDataLoanItems">
 	<cfoutput>

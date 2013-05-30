@@ -471,12 +471,32 @@ If your item needs to be sorted in a special way, then do that here. --->
 			group by
 				part_name
 		</cfquery>
-		<cfdump var=#commonParts#>
 		<cfquery name="partsForLoan" dbtype="query">
 			select part_name from commonParts where numRecWithThisPart=#summary.recordcount#
 			group by part_name order by part_name
 		</cfquery>
-		<cfdump var=#partsForLoan#>
+		<cfif partsForLoan.recordcount gte 1>
+			<br>Customize, turn on Remove Rows option to remove anything that should not be added to this loan, them you can
+			use this form to add an item from all found specimens (not necessarily just the ones visible on this page)
+			to your loan.
+			<p>
+				For all specimens, add this:
+			</p>
+			<label for="part_name">Part Name</label>
+			<select name="part_name" id="part_name">
+				<cfloop query="partsForLoan">
+					<option value="#part_name#">#part_name#</option>
+				</cfloop>
+			</select>
+			<label for="subsample">Subsample?</label>
+			<select name="subsample" id="subsample">
+				<option value="no">no</option>
+				<option value="yes">yes</option>
+			</select>
+			<br>Then <span class="likeLink" onclick="confirmAddAllPartLoan();">Add All to this Loan</span>
+		<cfelse>
+			No common Parts - group-add tools not available.
+		</cfif>
 		<input type="hidden" name="isDataLoan" id="isDataLoan" value="no">
 	</cfif>
 	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
@@ -680,7 +700,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 		getSpecResultsData(1,#session.displayrows#);
 	});
 	function confirmAddAllDL(){
-		var msg = msg || "this record";
 		var yesno=confirm('Are you sure you want to add all these specimens to the data loan?');
 		if (yesno==true) {
 			document.location='/Loan.cfm?action=addAllDataLoanItems&transaction_id=' + $("##transaction_id").val();  		
@@ -688,6 +707,22 @@ If your item needs to be sorted in a special way, then do that here. --->
 		  	return false;
 	  	}
 	}
+	function confirmAddAllPartLoan(){
+		var part_name=$("##part_name").val();
+		var subsample=$("##subsample").val();
+		var msg='Are you sure you want to add';
+		if (subsample==true){
+			msg+=' a subsample of';
+		}
+		msg+=' all ' + part_name + ' to the loan?';
+		var yesno=confirm(msg);
+		if (yesno==true) {
+			document.location='/Loan.cfm?action=addAllSrchResultLoanItems&transaction_id=' + $("##transaction_id").val();  		
+	 	} else {
+		  	return false;
+	  	}
+	}
+
 	function reporter() {
 		var f=document.getElementById('goWhere').value;
 		var t='#session.SpecSrchTab#';
