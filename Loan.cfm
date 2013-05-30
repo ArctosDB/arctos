@@ -1324,7 +1324,7 @@
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
-<cfif action is "addAlladdAllSrchResultLoanItemsDataLoanItems">
+<cfif action is "addAllSrchResultLoanItems">
 	<cfoutput>
 		i am addAllSrchResultLoanItems
 	</cfoutput>
