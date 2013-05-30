@@ -710,6 +710,11 @@ If your item needs to be sorted in a special way, then do that here. --->
 	function confirmAddAllPartLoan(){
 		var part_name=$("##part_name").val();
 		var subsample=$("##subsample").val();
+
+		console.log(part_name);
+		console.log(subsample);
+
+	
 		var msg='Are you sure you want to add';
 		if (subsample==true){
 			msg+=' a subsample of';
