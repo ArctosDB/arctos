@@ -44,6 +44,60 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
     addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkLoanItemTemplate.csv" addtoken="false">
 </cfif>
+<!----------------------------------------------------------------------------->
+<cfif action is "downloadForBulkSpecSrchRslt">
+	<cfset header="BARCODE,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,PART_NAME,PART_DISPOSITION,PART_CONDITION,ITEM_DESCRIPTION,ITEM_REMARKS,SUBSAMPLE,LOAN_NUMBER">
+	<cfset fileDir = "#Application.webDirectory#">
+	<cfset variables.encoding="UTF-8">
+	<cfset fname = "loan_bulkloader_prefill.csv">
+	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(ListQualify(header,'"')); 
+	</cfscript>
+	<cfquery name="getLoanNumber" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select loan_number from loan where transaction_id=#transaction_id#
+	</cfquery>
+
+	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			'' barcode,
+			SUBSTR(guid, 1 ,INSTR(guid, ':', 1, 2)-1) guid_prefix,
+			'catalog number',
+			SUBSTR(guid, INSTR(guid,':', -1, 1)+1) OTHER_ID_NUMBER,
+			'' PART_NAME,
+			'' PART_DISPOSITION,
+			'' PART_CONDITION,
+			'' ITEM_DESCRIPTION,
+			'' ITEM_REMARKS,
+			'' SUBSAMPLE,
+			'#getLoanNumber.loan_number#' LOAN_NUMBER
+		from
+			#session.SpecSrchTab#
+	</cfquery>
+	<cfloop query="getData">
+		<cfset oneLine = "">
+		<cfloop list="#header#" index="c">
+			<cfset thisData = evaluate("getData." & c)>
+			<cfset thisData=replace(thisData,'"','""','all')>			
+			<cfif len(oneLine) is 0>
+				<cfset oneLine = '"#thisData#"'>
+			<cfelse>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+			</cfif>
+		</cfloop>
+		<cfset oneLine = trim(oneLine)>
+		<cfscript>
+			variables.joFileWriter.writeLine(oneLine);
+		</cfscript>
+	</cfloop>
+	<cfscript>	
+		variables.joFileWriter.close();
+	</cfscript>
+	<a href="/download/#fname#">Click here</a>
+	to download a loan bulkload template containing the results of your search.
+</cfif>
+<!----------------------------------------------------------------------------->
 <cfif action is "nothing">
 <cfoutput>
 	The following must all be true to use this form:
@@ -135,8 +189,8 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 		<tr>
 			<td>LOAN_NUMBER</td>
 			<td>yes</td>
-			<td>Loan.Loan_Number - does not include collection as is often displayed with loan number</td>
-			<td>0 or 1</td>
+			<td>Loan.Loan_Number - does not include collection as is often displayed with loan number; collection comes from part's owning collection</td>
+			<td></td>
 		</tr>
 	</table>
 	<cfform name="catnum" method="post" enctype="multipart/form-data">

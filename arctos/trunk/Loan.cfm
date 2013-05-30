@@ -1326,6 +1326,7 @@
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "addAllSrchResultLoanItems">
 	<cfoutput>
+		<cfset title="add search results to loan">
 		<cfquery name="getPartID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				min(specimen_part.collection_object_id) partID,
