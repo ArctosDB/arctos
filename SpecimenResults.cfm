@@ -460,13 +460,16 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfelse>
 		<cfquery name="commonParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
-				part_name
+				part_name,
+				count(*) numRecWithThisPart
 			from
 				specimen_part,
 				#session.SpecSrchTab#
 			where
 				specimen_part.derived_from_cat_item=#session.SpecSrchTab#.collection_object_id and
 				specimen_part.sampled_from_obj_id is null
+			group by
+				part_name
 		</cfquery>
 		<cfdump var=#commonParts#>
 		<input type="hidden" name="isDataLoan" id="isDataLoan" value="no">
