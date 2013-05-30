@@ -490,10 +490,10 @@ If your item needs to be sorted in a special way, then do that here. --->
 			</select>
 			<br>
 			<input type="button" value="Add All to this Loan" onclick="confirmAddAllPartLoan();">
-			<br>Need more flexibility? Download for loan bulkloader.
 		<cfelse>
 			<br>No common Parts - group-add tools not available.
 		</cfif>
+		<br><a href="/tools/loanBulkload.cfm?action=downloadForBulkSpecSrchRslt&transaction_id=#transaction_id#">Download in loan bulkloader format</a>
 		<input type="hidden" name="isDataLoan" id="isDataLoan" value="no">
 	</cfif>
 	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
