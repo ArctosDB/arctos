@@ -458,6 +458,17 @@ If your item needs to be sorted in a special way, then do that here. --->
 		<br>Customize, turn on Remove Rows option to remove anything that should not be added to this loan.
 		<br>Then <span class="likeLink" onclick="confirmAddAllDL();">Add All Cataloged Items to this Data Loan</span>
 	<cfelse>
+		<cfquery name="commonParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select 
+				part_name
+			from
+				specimen_part,
+				#session.SpecSrchTab#
+			where
+				specimen_part.derived_from_cat_item=#session.SpecSrchTab#.collection_object_id and
+				specimen_part.sampled_from_obj_id is null
+		</cfquery>
+		<cfdump var=#commonParts#>
 		<input type="hidden" name="isDataLoan" id="isDataLoan" value="no">
 	</cfif>
 	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
