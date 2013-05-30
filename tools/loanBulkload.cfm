@@ -47,6 +47,44 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 <!----------------------------------------------------------------------------->
 <cfif action is "downloadForBulkSpecSrchRslt">
 <cfoutput>
+	Build a loan bulkloader template from you search results.
+	<br>
+	Put something in the following form to set defaults.
+	<br>Leave blank to add them to the CSV.
+	<form name="x" method="post" action="loanBulkload.cfm">
+		<input type="hidden" name="action" value="reallyDownloadForBulkSpecSrchRslt">
+		<input type="hidden" name="transaction_id" value="#transaction_id#">
+		<label for="part_name">part name</label>
+		<input type="text" name="part_name" id="part_name">
+		<label for="subsample">subsample?</label>
+		<select name="subsample" id="subsample">
+			<option value=""></option>
+			<option value="0">no</option>
+			<option value="1">yes</option>
+		</select>
+		<label for="part_disposition">part_disposition</label>
+		<input type="text" id="part_disposition" name="part_disposition">
+		
+		<label for="part_condition">part_condition</label>
+		<input type="text" id="part_condition" name="part_condition">
+		
+		
+		<label for="item_description">item_description</label>
+		<input type="text" id="item_description" name="item_description">
+		
+		
+		<label for="item_remarks">item_remarks</label>
+		<input type="text" id="item_remarks" name="item_remarks">
+		<br>
+		<input type="submit" value="get template">
+	</form>
+</cfoutput>
+</cfif>
+
+
+<!----------------------------------------------------------------------------->
+<cfif action is "reallyDownloadForBulkSpecSrchRslt">
+<cfoutput>
 	<cfset header="BARCODE,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,PART_NAME,PART_DISPOSITION,PART_CONDITION,ITEM_DESCRIPTION,ITEM_REMARKS,SUBSAMPLE,LOAN_NUMBER">
 	<cfset fileDir = "#Application.webDirectory#">
 	<cfset variables.encoding="UTF-8">
@@ -66,12 +104,12 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 			SUBSTR(guid, 1 ,INSTR(guid, ':', 1, 2)-1) guid_prefix,
 			'catalog number' OTHER_ID_TYPE,
 			SUBSTR(guid, INSTR(guid,':', -1, 1)+1) OTHER_ID_NUMBER,
-			'' PART_NAME,
-			'' PART_DISPOSITION,
-			'' PART_CONDITION,
-			'' ITEM_DESCRIPTION,
-			'' ITEM_REMARKS,
-			'' SUBSAMPLE,
+			'#part_name#' PART_NAME,
+			'#part_disposition#' PART_DISPOSITION,
+			'#part_condition#' PART_CONDITION,
+			'#item_description#' ITEM_DESCRIPTION,
+			'#item_remarks#' ITEM_REMARKS,
+			'#subsample#' SUBSAMPLE,
 			'#getLoanNumber.loan_number#' LOAN_NUMBER
 		from
 			#session.SpecSrchTab#
@@ -95,8 +133,9 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 	<cfscript>	
 		variables.joFileWriter.close();
 	</cfscript>
-	<a href="/download/#fname#">Click here</a>
-	to download a loan bulkload template containing the results of your search.
+	
+	<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+	<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------->
