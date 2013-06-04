@@ -8,8 +8,8 @@
 </cfif>
 <cfif action is "bulkloaderFormat">
 	<cfoutput>
-	<cfif len(collection_object_id) is 0>
-		This form requires collection_object_id (LIST)
+	<cfif len(table_name) is 0>
+		This form requires table_name
 		<cfabort>
 	</cfif>
 	<!--- 
