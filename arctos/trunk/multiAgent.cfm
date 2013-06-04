@@ -41,7 +41,7 @@
 	<br>Order is ignored for deletion.
 	<br>
   	<form name="tweakColls" method="post" action="multiAgent.cfm">
-		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+		<input type="hidden" name="table_name" value="#table_name#">
 		<input type="hidden" name="action" value="">
 		<label for="name">Name</label>
 		<input type="text" name="name" class="reqdClr" 
