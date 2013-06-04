@@ -15,7 +15,6 @@
 		 	FLAT
 		 where
 		 	FLAT.dec_lat is not null
-		 	and rownum < 100
 	</cfquery>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
@@ -85,7 +84,7 @@ kml=chr(9) & chr(9) & '</Folder>';
 		variables.joFileWriter.writeLine(kml);
 		variables.joFileWriter.close();
 	</cfscript>
-
-<a href="#externalPath#/#dlFile#"#externalPath#/#dlFile#</a>
+<hr>heres a liunk
+<a href="#externalPath##dlFile#"#externalPath##dlFile#</a>
 
 	</cfoutput>
