@@ -3,17 +3,20 @@
 <!----------------------------------------------------------------------------------->
 <cfif action is "deleteAll">
 	<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from specimen_event where collection_object_id in (#collection_object_id#)
+		delete from specimen_event where collection_object_id in (select collection_object_id from #table_name#)
 	</cfquery>
-	<cflocation url="bulkCollEvent.cfm?collection_object_id=#collection_object_id#" addtoken="false">
+	<cflocation url="bulkCollEvent.cfm?table_name=#table_name#" addtoken="false">
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfif action is "replaceAll">
+	<cfquery name="cids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select collection_object_id from #table_name#
+	</cfquery>
 	<cftransaction>
 		<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from specimen_event where collection_object_id in (#collection_object_id#)
+			delete from specimen_event where collection_object_id in (select collection_object_id from #table_name#)
 		</cfquery>
-		<cfloop list="#COLLECTION_OBJECT_ID#" index="i">
+		<cfloop query="cids">
 			<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into specimen_event (
 					collection_object_id,
@@ -27,7 +30,7 @@
 					VERIFICATIONSTATUS,
 					habitat
 				) values (
-					#i#,
+					#collection_object_id#,
 					#collecting_event_id#,
 					#assigned_by_agent_id#,
 					'#dateformat(assigned_date,"yyyy=mm-dd")#',
@@ -41,12 +44,15 @@
 			</cfquery>
 		</cfloop>
 	</cftransaction>
-	<cflocation url="bulkCollEvent.cfm?collection_object_id=#collection_object_id#" addtoken="false">
+	<cflocation url="bulkCollEvent.cfm?table_name=#table_name#" addtoken="false">
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfif action is "addToAll">
+	<cfquery name="cids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select collection_object_id from #table_name#
+	</cfquery>
 	<cftransaction>
-		<cfloop list="#COLLECTION_OBJECT_ID#" index="i">
+		<cfloop query="cids">
 			<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into specimen_event (
 					collection_object_id,
@@ -60,7 +66,7 @@
 					VERIFICATIONSTATUS,
 					habitat
 				) values (
-					#i#,
+					#collection_object_id#,
 					#collecting_event_id#,
 					#assigned_by_agent_id#,
 					'#dateformat(assigned_date,"yyyy=mm-dd")#',
@@ -74,7 +80,7 @@
 			</cfquery>
 		</cfloop>
 	</cftransaction>
-	<cflocation url="bulkCollEvent.cfm?collection_object_id=#collection_object_id#" addtoken="false">
+	<cflocation url="bulkCollEvent.cfm?table_name=#table_name#" addtoken="false">
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfif action is "nothing">
@@ -85,7 +91,7 @@
  		<h3>Find collecting event</h3>
 		<form name="getCol" method="post" action="bulkCollEvent.cfm">
 			<input type="hidden" name="Action" value="findCollEvent">
-			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+			<input type="hidden" name="table_name" value="#table_name#">
 			<cfinclude template="/includes/frmFindLocation_guts.cfm">	   
 		</form>
 	</cfoutput>
@@ -129,7 +135,7 @@
 			specimen_event.collecting_event_id=collecting_event.collecting_event_id (+) and
 			collecting_event.locality_id=locality.locality_id (+) and
 			locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id (+) and
-			flat.collection_object_id IN (#collection_object_id#)
+			flat.collection_object_id IN (select collection_object_id from #table_name#)
 	</cfquery>
 	<cfquery name="spec" dbtype="query">
 		select 
@@ -179,7 +185,7 @@
 		</cfif>
 		<cfif allowReplace is true>
 			<br><input type="button"
-					onclick="document.location='bulkCollEvent.cfm?action=deleteAll&collection_object_id=#collection_object_id#';" 
+					onclick="document.location='bulkCollEvent.cfm?action=deleteAll&table_name=#table_name#';" 
 				 	value="REMOVE all specimen events (presumably so you can add new ones)" 
 					class="delBtn">
 			<hr>
@@ -212,7 +218,7 @@
 				<cfform name="loc" method="post" action="bulkCollEvent.cfm">
 					<input type="hidden" name="action" value="saveChangeMultiEvent">
 					<input type="hidden" name="specimen_event_id" value="#valuelist(specimenList.specimen_event_id)#">
-					<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+					<input type="hidden" name="table_name" value="#table_name#">
 					
 					
 					<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -518,7 +524,7 @@
 					</cfquery>
 			</cfloop>
 		</cftransaction>
-		<cflocation url="bulkCollEvent.cfm?collection_object_id=#collection_object_id#" addtoken="false">
+		<cflocation url="bulkCollEvent.cfm?table_name=#table_name#" addtoken="false">
 	</cfoutput>	
 </cfif>
 <!----------------------------------------------------------------------------------->
@@ -581,7 +587,7 @@
 						
 						<form name="coll#i#" method="post" action="bulkCollEvent.cfm">
 							<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-							<input type="hidden" name="collecting_event_id" value="#collecting_event_id#">
+							<input type="hidden" name="table_name" value="#table_name#">
 							<input type="hidden" name="action" value="">
 							<label for="specimen_event_type">Specimen/Event Type</label>
 							<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
