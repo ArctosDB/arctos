@@ -10,7 +10,16 @@
 </cfif>
 <cfif not isdefined("sort")>
     <cfset sort="">
-</cfif>	
+</cfif>
+<cfif len(collection_object_id) is 0 and isdefined("table_name")>
+	<cfquery name="cids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select collection_object_id from #table_name#
+	</cfquery>
+	<cfset collection_object_id=valuelist(cids.collection_object_id)>
+</cfif>
+
+	
+	
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/Reports/functions/label_functions.cfm">
 
