@@ -1653,7 +1653,7 @@
 </cffunction>
 <!----------------------------------------------------------------------------------------------->
 <cffunction name="getCloneOfCatalogedItemInBulkloaderFormat" access="public" output="true" returnType="query">
-	<cfargument name="collection_object_id" type="any" required="yes">
+	<cfargument name="table_name" type="any" required="yes">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			flat.COLLECTION_OBJECT_ID,
@@ -1721,7 +1721,7 @@
 			c.parent_container_id=p.container_id (+) and
 			flat.collection_object_id=attributes.collection_object_id (+) and
 			attributes.DETERMINED_BY_AGENT_ID=atagnt.agent_id (+) and
-			flat.collection_object_id in (#collection_object_id#)
+			flat.collection_object_id in (select collection_object_id from #table_name#)
 	</cfquery>
 	<cfquery name="one" dbtype="query">
 		select
