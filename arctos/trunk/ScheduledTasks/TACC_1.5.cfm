@@ -15,7 +15,14 @@ create table tacc_check (
 	update tacc_check set collection_object_id = (select collection_object_id from tcb2 where tcb2.barcode=tacc_check.barcode);
 --->
 <cfsetting requesttimeout="600"> 
-
+<!---- 
+	4 June 2013: Modify to deal with "barcode" (=filename) multiples
+		- Actual barcode: ABC123
+			deal with filenames:
+				ABC123
+				ABC123_1
+				ABC123_n (where n is an integer)
+------->
 <cfoutput>
 	<cfquery name="fldr" datasource="uam_god">
 		select
@@ -67,7 +74,7 @@ create table tacc_check (
 					specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
 					coll_obj_cont_hist.container_id = pc.container_id and
 					pc.parent_container_id = prnt.container_id and
-					prnt.barcode='#barcode#'
+					prnt.barcode='listgetat(barcode,1,"_")##'
 			</cfquery>
 			<cfif bc.collection_object_id is "">
 				<cfquery name="data" datasource="uam_god">
