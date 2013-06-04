@@ -80,8 +80,6 @@
 		variables.joFileWriter.close();
 	</cfscript>
 
-<a href="#externalPath#/#dlFile#"
-#externalPath#/#dlFile#
-</a>
+<a href="#externalPath#/#dlFile#"#externalPath#/#dlFile#</a>
 
 	</cfoutput>
