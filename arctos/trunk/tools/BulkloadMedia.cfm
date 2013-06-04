@@ -406,8 +406,7 @@ sho err
 							<td>#thisThumb#</td>
 							<td>#MEDIA_LICENSE#</td>
 							<td>#MIME_TYPE#</td>
-							<td>#MEDIA_TYPE#</td>
-							
+							<td>#MEDIA_TYPE#</td>							
 							<cfset thisData='"#dirurl##thisFile#","#thisThumb#","#MEDIA_LICENSE#","#MIME_TYPE#","#MEDIA_TYPE#"'>
 							<cfloop from ="1" to="5" index="i">
 								<cfset thisMR=evaluate("MEDIA_RELATIONSHIP_" & i)>
@@ -421,16 +420,16 @@ sho err
 							<cfloop from ="1" to="10" index="i">
 								<cfset thisML=evaluate("MEDIA_LABEL_" & i)>
 								<cfset thisMLV=evaluate("MEDIA_LABEL_VALUE_" & i)>
-								
+								<cfset thisMLV=replace(thisMLV,'[filename]',thisBareFilename,"all")>
 								<cfset thisData=listappend(thisData,'"' & thisML & '"')>
 								<cfset thisData=listappend(thisData,'"' & thisMLV & '"')>
 								<td>#thisML#</td>
 								<td>#thisMLV#</td>
-								<cfscript>
-									variables.joFileWriter.writeLine(thisData);
-								</cfscript>		
 							</cfloop>
 						</tr>
+						<cfscript>
+							variables.joFileWriter.writeLine(thisData);
+						</cfscript>		
 					</cfif>
 				</cfloop>
 			</table>

@@ -170,7 +170,7 @@
 <cfif action is "nothing">
 	<cfquery name="getPartLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
-			guid_prefix || cat_num guid, 
+			guid_prefix || ':' || cat_num guid, 
 			cataloged_item.collection_object_id,
 			collection,
 			part_name,
