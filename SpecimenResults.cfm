@@ -726,6 +726,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 		if (f.indexOf('?') > 0) {
 			sep='&';
 		}
+		/*
 		var lla='#collObjIdList#'.split(',');
 		var i;
 		if (lla.length>999){
@@ -734,6 +735,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 			i='#collObjIdList#';
 		}
 		u += sep + 'collection_object_id=' + i;
+		*/
 		u += '&table_name=' + t;
 		u += '&sort=' + s;
 		var reportWin=window.open(u);
