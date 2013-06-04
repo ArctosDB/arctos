@@ -558,7 +558,7 @@ UPDATE encumbrance SET
 							remarks
 						FROM getData
 						WHERE
-							collection_object_id = #collection_object_id#
+							collection_object_id = #getData.collection_object_id#
 						GROUP BY
 							collection_object_id,
 							encumbrance_id,
@@ -573,7 +573,7 @@ UPDATE encumbrance SET
 					<cfset e=1>
 					<cfloop query="encs">
 
-					<cfif len(#encumbrance#) gt 0>
+					<cfif len(encumbrance) gt 0>
 						#encumbrance# (#encumbrance_action#)
 						by #encumbering_agent# made
 						#dateformat(encumbered_date,"yyyy-mm-dd")#,
