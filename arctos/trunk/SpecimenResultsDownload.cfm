@@ -217,7 +217,7 @@
 	<cfset cList=replace(clist,chr(9),'','all')>
 	<cfset cList=replace(clist,chr(13),'','all')>				
 	<cfinvoke component="component.functions" method="getCloneOfCatalogedItemInBulkloaderFormat" returnvariable="getData">
-		<cfinvokeargument name="collection_object_id" value="#collection_object_id#">
+		<cfinvokeargument name="table_name" value="#table_name#">
 	</cfinvoke>
 	<cfset fileDir = "#Application.webDirectory#">
 	<cfset variables.encoding="UTF-8">
