@@ -586,7 +586,7 @@
 					<td>
 						
 						<form name="coll#i#" method="post" action="bulkCollEvent.cfm">
-							<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+							<input type="hidden" name="collecting_event_id" value="#collecting_event_id#">
 							<input type="hidden" name="table_name" value="#table_name#">
 							<input type="hidden" name="action" value="">
 							<label for="specimen_event_type">Specimen/Event Type</label>
