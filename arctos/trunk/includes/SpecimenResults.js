@@ -277,7 +277,7 @@ function goPickParts (collection_object_id,transaction_id) {
 function removeItems() {
 	var theList = document.getElementById('killRowList').value;
 	var currentLocn = document.getElementById('mapURL').value;
-	document.location='SpecimenResults.cfm?' + currentLocn + '&exclCollObjId=' + theList;
+	document.location='/SpecimenResults.cfm?' + currentLocn + '&exclCollObjId=' + theList;
 }
 function toggleKillrow(id,status) {
 	//alert(id + ' ' + status);
