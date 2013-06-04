@@ -30,7 +30,7 @@
 			AND cataloged_item.collection_object_id = identification.collection_object_id 
 			and accepted_id_fg=1
 			AND cataloged_item.collection_id = collection.collection_id
-			AND cataloged_item.collection_object_id IN (#collection_object_id#)
+			AND cataloged_item.collection_object_id IN (select collection_object_id from #table_name#)
 		ORDER BY 
 			cataloged_item.collection_object_id
 	</cfquery>
