@@ -14,7 +14,7 @@
 		from
 		 	FLAT
 		 where
-		 	locality.dec_lat is not null
+		 	FLAT.dec_lat is not null
 		 	and rownum < 100
 	</cfquery>
 	<cfscript>
