@@ -206,7 +206,7 @@ function removeHelpDiv() {
 	<input type="hidden" name="killrow" id="killrow" value="#session.killrow#">
 	<input type="hidden" name="displayrows" id="displayrows" value="#session.displayrows#">
 	<input type="hidden" name="action" id="action" value="#action#">
-	<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
+	<input type="text" name="mapURL" id="mapURL" value="#mapURL#">
 	<cfif isdefined("loan_request_coll_id")>
 		<input type="hidden" name="loan_request_coll_id" id="loan_request_coll_id" value="#loan_request_coll_id#">
 	</cfif>
