@@ -14,7 +14,7 @@
 		accepted_lat_long
 	where
 		flat.locality_id=accepted_lat_long.locality_id (+) and
-		flat.collection_object_id IN (#collection_object_id#)
+		flat.collection_object_id IN (select collection_object_id from #table_name#)
 	order by to_number(flat.cat_num)	
 </cfquery>
 <cfset fname = "bugs.tex">
