@@ -112,6 +112,9 @@
 <!----------------------------------------------------------------------------------->
 <cfif action is "insertColl">
 	<cfoutput>
+	<cfquery name="cids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select collection_object_id from #table_name#
+	</cfquery>
 		<cftransaction>
 			<cfif coll_order is "first" and collector_role is 'c'>
 				<!--- bump everything up a notch --->
@@ -121,9 +124,9 @@
 					set 
 						coll_order=coll_order + 1 
 					where
-						collection_object_id IN (#collection_object_id#)
+						collection_object_id IN (select collection_object_id from #table_name#)
 				</cfquery>
-				<cfloop list="#collection_object_id#" index="i">
+				<cfloop query="cids">
 					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into collector (
 							collection_object_id,
@@ -131,7 +134,7 @@
 							collector_role,
 							coll_order
 						) values (
-							#i#,
+							#collection_object_id#,
 							#agent_id#,
 							'c',
 							1
@@ -146,12 +149,12 @@
 						coll_order=coll_order + 1 
 					where
 						collector_role='p' and
-						collection_object_id IN (#collection_object_id#)
+						collection_object_id IN (select collection_object_id from #table_name#)
 				</cfquery>			
-				<cfloop list="#collection_object_id#" index="i">
+				<cfloop query="cids">
 					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select max(coll_order) +1 m from collector where 
-						collection_object_id=#i# and
+						collection_object_id=#collection_object_id# and
 						collector_role='c'
 					</cfquery>
 					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -161,7 +164,7 @@
 							collector_role,
 							coll_order
 						) values (
-							#i#,
+							#collection_object_id#,
 							#agent_id#,
 							'c',
 							#max.m#
@@ -176,12 +179,12 @@
 						coll_order=coll_order + 1 
 					where
 						collector_role='p' and
-						collection_object_id IN (#collection_object_id#)
+						collection_object_id IN (select collection_object_id from #table_name#)
 				</cfquery>			
-				<cfloop list="#collection_object_id#" index="i">
+				<cfloop query="cids">
 					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select max(coll_order) +1 m from collector where 
-						collection_object_id=#i# and
+						collection_object_id=#collection_object_id# and
 						collector_role='c'
 					</cfquery>
 					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -191,7 +194,7 @@
 							collector_role,
 							coll_order
 						) values (
-							#i#,
+							#collection_object_id#,
 							#agent_id#,
 							'p',
 							#max.m#
@@ -199,10 +202,10 @@
 					</cfquery>
 				</cfloop>
 			<cfelseif coll_order is "last" and collector_role is 'p'>
-				<cfloop list="#collection_object_id#" index="i">
+				<cfloop query="cids">
 					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select max(coll_order) +1 m from collector where 
-						collection_object_id=#i#
+						collection_object_id=#collection_object_id#
 					</cfquery>
 					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into collector (
@@ -211,7 +214,7 @@
 							collector_role,
 							coll_order
 						) values (
-							#i#,
+							#collection_object_id#,
 							#agent_id#,
 							'p',
 							#max.m#
@@ -220,11 +223,11 @@
 				</cfloop>				
 			</cfif>
 		</cftransaction>
-		<cflocation url="multiAgent.cfm?collection_object_id=#collection_object_id#">
+		<cflocation url="multiAgent.cfm?table_name=#table_name#">
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
-<cfif #Action# is "deleteColl">
+<cfif action is "deleteColl">
 	<cfoutput>
 	<cfquery name="cids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection_object_id from #table_name#
