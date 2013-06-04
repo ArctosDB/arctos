@@ -46,14 +46,16 @@
 			chr(9) & chr(9) & '</Style>';
 		variables.joFileWriter.writeLine(kml);
 	</cfscript>
-
 		<cfscript>
 			kml=chr(9) & chr(9) & '<Folder>' & chr(10) &
 				chr(9) & chr(9) & chr(9) & '<name>everything</name>' & chr(10) &
 				chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>';
 			variables.joFileWriter.writeLine(kml);
-		</cfscript>
+		</cfscript>	
+		
 		<cfloop query="data">
+		
+		
 			<cfscript>
 				kml=chr(9) & chr(9) & chr(9) & '<Placemark>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<name>#guid#</name>' & chr(10) &
@@ -67,13 +69,17 @@
 					chr(9) & chr(9) & chr(9) & '</Placemark>';
 				variables.joFileWriter.writeLine(kml);
 			
-			kml=chr(9) & chr(9) & '</Folder>';
-			variables.joFileWriter.writeLine(kml);
+			
 		</cfscript>
 	</cfloop>
 	
 	
 	<cfscript>
+	
+kml=chr(9) & chr(9) & '</Folder>';
+			variables.joFileWriter.writeLine(kml);
+
+
 		kml=chr(9) & '</Document>' & chr(10) &
 			'</kml>';
 		variables.joFileWriter.writeLine(kml);
