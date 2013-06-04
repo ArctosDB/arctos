@@ -226,8 +226,12 @@
 <!----------------------------------------------------------------------------------->
 <cfif #Action# is "deleteColl">
 	<cfoutput>
+	<cfquery name="cids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select collection_object_id from #table_name#
+	</cfquery>
+
 		<cftransaction>
-			<cfloop list="#collection_object_id#" index="i">
+			<cfloop query="cids">
 				<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select 
 						collection_object_id,
@@ -235,7 +239,7 @@
 					from 
 						collector 
 					where 
-						collection_object_id=#i# and
+						collection_object_id=#collection_object_id# and
 						agent_id=#agent_id# and
 						collector_role='#collector_role#'
 				</cfquery>
@@ -244,7 +248,7 @@
 						delete from 
 							collector 
 						where 
-							collection_object_id=#i# and
+							collection_object_id=#collection_object_id# and
 							agent_id=#agent_id# and
 							collector_role='#collector_role#'
 					</cfquery>
@@ -254,13 +258,13 @@
 						set
 							coll_order=coll_order -1
 						where	 
-							collection_object_id=#i# and
+							collection_object_id=#collection_object_id# and
 							coll_order > #max.coll_order#
 					</cfquery>
 				</cfif>
 			</cfloop>
 		</cftransaction>
-		<cflocation url="multiAgent.cfm?collection_object_id=#collection_object_id#">
+		<cflocation url="multiAgent.cfm?table_name=#table_name#">
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
