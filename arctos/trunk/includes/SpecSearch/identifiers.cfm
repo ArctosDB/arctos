@@ -35,7 +35,7 @@
 								selected="selected"
 							</cfif>
 						</cfif>
-						value="#replace(OtherIdType.other_id_type,",","#chr(44)#","all")#">#OtherIdType.other_id_type#</option>
+						value="#replace(OtherIdType.other_id_type,",","|","all")#">#OtherIdType.other_id_type#</option>
 				</cfoutput>
 			</select><span class="infoLink" onclick="getCtDoc('ctcoll_other_id_type',SpecData.OIDType.value);">Define</span>
 		</td>
