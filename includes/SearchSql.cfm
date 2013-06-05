@@ -1039,7 +1039,13 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND otherIdRefRelTerms1.term='#related_term_1#'">
 </cfif>
-
+<cfif isdefined("RelatedOIDType") AND len(RelatedOIDType) gt 0>
+	<cfset mapurl = "#mapurl#&RelatedOIDType=#RelatedOIDType#">
+	<cfif basJoin does not contain " otherIdRefSearch ">
+		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdRefSearch ON (#session.flatTableName#.collection_object_id = otherIdRefSearch.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND otherIdRefSearch.other_id_type='#RelatedOIDType#'">
+</cfif>
 <cfif isdefined("related_term_val_1") AND len(related_term_val_1) gt 0>
 	<cfset mapurl = "#mapurl#&related_term_val_1=#related_term_val_1#">
 	<cfif basJoin does not contain " otherIdRefSearch ">
