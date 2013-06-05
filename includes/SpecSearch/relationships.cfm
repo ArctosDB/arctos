@@ -26,9 +26,9 @@
 			<td class="srch">
 				<select name="RelatedOIDType" id="RelatedOIDType">
 					<option value=""></option>
-					<cfoutput query="OtherIdType">
+					<cfloop query="OtherIdType">
 						<option value="#OtherIdType.other_id_type#">#OtherIdType.other_id_type#</option>
-					</cfoutput>
+					</cfloop>
 				</select>
 			</td>
 		</tr>
