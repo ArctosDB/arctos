@@ -1018,7 +1018,9 @@
 	
 	<cfdump var=#OIDType#>
 	
-	<cfabort>
+	
+	#listqualify(OIDType,chr(39))#
+	
 	
 	
 	<cfif basJoin does not contain " otherIdSearch ">
