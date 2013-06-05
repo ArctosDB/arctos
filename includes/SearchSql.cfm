@@ -1044,7 +1044,7 @@
 	<cfif basJoin does not contain " otherIdRefSearch ">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdRefSearch ON (#session.flatTableName#.collection_object_id = otherIdRefSearch.collection_object_id)">
 	</cfif>
-	<cfset basQual = " and otherIdRefSearch.id_references != 'self' and #basQual# AND otherIdRefSearch.other_id_type='#RelatedOIDType#'">
+	<cfset basQual = "  #basQual# and otherIdRefSearch.id_references != 'self' AND otherIdRefSearch.other_id_type='#RelatedOIDType#'">
 </cfif>
 <cfif isdefined("related_term_val_1") AND len(related_term_val_1) gt 0>
 	<cfset mapurl = "#mapurl#&related_term_val_1=#related_term_val_1#">
