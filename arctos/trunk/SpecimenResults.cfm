@@ -1,5 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-<cfset debug=1>
 <script type='text/javascript' language="javascript" src='/includes/SpecimenResults.min.js'></script>
 <script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script>
 <cfif len(session.displayrows) is 0>
@@ -197,43 +196,30 @@ function removeHelpDiv() {
 	#preserveSingleQuotes(SqlString)#
 </cfif>
 <cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
-	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		#preserveSingleQuotes(SqlString)#
-	</cfquery>
-
-
-
-
-
+<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	#preserveSingleQuotes(SqlString)#
+</cfquery>
 <form name="defaults">
 	<input type="hidden" name="killrow" id="killrow" value="#session.killrow#">
 	<input type="hidden" name="displayrows" id="displayrows" value="#session.displayrows#">
 	<input type="hidden" name="action" id="action" value="#action#">
-	<input type="text" name="mapURL" id="mapURL" value="#mapURL#">
+	<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
 	<cfif isdefined("loan_request_coll_id")>
 		<input type="hidden" name="loan_request_coll_id" id="loan_request_coll_id" value="#loan_request_coll_id#">
 	</cfif>
 </form>
-
-
-
-
-
-
-
-
-	<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-			collection_object_id,
- 			dec_lat,
-			dec_long,
- 			to_number(decode(coordinateuncertaintyinmeters,
-				0,NULL,
-				coordinateuncertaintyinmeters)) coordinateuncertaintyinmeters,
-			scientific_name
-		from 
-			#session.SpecSrchTab#
-	</cfquery>
+<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select
+		collection_object_id,
+			dec_lat,
+		dec_long,
+			to_number(decode(coordinateuncertaintyinmeters,
+			0,NULL,
+			coordinateuncertaintyinmeters)) coordinateuncertaintyinmeters,
+		scientific_name
+	from 
+		#session.SpecSrchTab#
+</cfquery>
 <cfif summary.recordcount is 0>
 	<script>
 		hidePageLoad();
