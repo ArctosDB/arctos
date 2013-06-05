@@ -19,18 +19,19 @@
 		select distinct(TERM) term FROM cf_relations_cache ORDER BY TERM
 	</cfquery>
 	<table id="t_relationships" class="ssrch">
-		<td class="lbl">
-			<span class="helpLink" id="other_id_type">Related&nbsp;Identifier&nbsp;Type:</span>
-		</td>
-		<td class="srch">
-			<select name="RelatedOIDType" id="RelatedOIDType">
-				<option value=""></option>
-				<cfoutput query="OtherIdType">
-					<option value="#replace(OtherIdType.other_id_type,",","|","all")#">#OtherIdType.other_id_type#</option>
-				</cfoutput>
-			</select>
-		</td>
-	</tr>
+		<tr>
+			<td class="lbl">
+				<span class="helpLink" id="other_id_type">Related&nbsp;Identifier&nbsp;Type:</span>
+			</td>
+			<td class="srch">
+				<select name="RelatedOIDType" id="RelatedOIDType">
+					<option value=""></option>
+					<cfoutput query="OtherIdType">
+						<option value="#OtherIdType.other_id_type#">#OtherIdType.other_id_type#</option>
+					</cfoutput>
+				</select>
+			</td>
+		</tr>
 		<tr>
 			<td class="lbl">
 				<span class="helpLink" id="_related_term">Term:</span>
