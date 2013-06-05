@@ -1031,7 +1031,7 @@
 	<cfoutput>
 	<br>oidType: #oidType#
 	</cfoutput>
-	<cfset basQual = " #basQual# and otherIdSearch.id_references='self' AND otherIdSearch.other_id_type in (#listqualify(OIDType,chr(39),"|")#)">
+	<cfset basQual = " #basQual# and otherIdSearch.id_references='self' AND otherIdSearch.other_id_type in (#OIDType#)">
 </cfif>
 
 
