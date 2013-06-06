@@ -330,14 +330,36 @@ function scrollToTag(id) {
 function modArea(id) {
 	console.log('hello modarea here');
 	var divID='refDiv_' + id;
+	console.log('111111');
 	var paneID='refPane_' + id;
+	console.log('22222222222');
 	$("div .highlight").removeClass("highlight").addClass("refDiv");
+
+	console.log('333333333');
 	$("div .refPane_highlight").removeClass("refPane_highlight");
+	
+
+	console.log('444444444');
 	$("div .editing").draggable("destroy");
+	
+
+	console.log('555555555');
 	$("div .editing").resizable("destroy");
+	
+
+	console.log('666666666');
 	$("div .editing").removeClass("editing").addClass("refDiv");
+	
+
+	console.log('7777777777');
 	$("div .refPane_editing").removeClass("refPane_editing");
+	
+
+	console.log('88888888888');
 	$("#" + divID).removeClass("refDiv").addClass("editing");
+	
+
+	console.log('999999999');
 	$("#" + paneID).addClass('refPane_editing');
 	$("#" + divID).draggable({
 		containment: 'parent',
