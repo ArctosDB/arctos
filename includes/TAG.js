@@ -177,7 +177,6 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 	$.each($("div[id^='refControl_']"), function() {
 		$("#" + this.id).hide();
     });
-	console.log('hello');
 	var tagID=this.id.replace('editRefClk_','');
 	var RefType=$('#RefType_' + tagID).val();
 	var RefStr=$('#RefStr_' + tagID).val();
@@ -393,6 +392,8 @@ function nevermindNew(){
 	$("#info").text('');
 }	
 function newArea() {
+	console.log('makin a tag');
+	
 	if($('#refDiv_new').length > 0){
 		alert('There is already a new TAG.');
 		return false;
@@ -449,13 +450,18 @@ function pickRefType(id,v){
 	}
 }	
 function addArea(id,t,l,h,w) {
+	console.log('addArea');
+	
 	if(id=='new'){
 		c='editing';
 	}else{
 		c='refDiv';
 	}
+	
 	var dv='<div id="refDiv_' + id + '" class="' + c + '" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
+	console.log('here comes a div');
 	$("#imgDiv").append(dv);
+	console.log('there is it');
 }			
 function showDim(tagID,event,ui){
 	try{
