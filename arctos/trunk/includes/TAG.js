@@ -262,9 +262,6 @@ $("span[id^='killRefClk_']").live('click', function(e){
 		);
 	}
 });
-
-
-
 function loadInitial() {
 	$.getJSON("/component/tag.cfc",
 		{
@@ -325,86 +322,33 @@ function scrollToTag(id) {
 	$("#" + paneID).addClass('refPane_highlight');
 	$(document).scrollTo( $('#' + divID), 800 );
 }
-	
-	
 function modArea(id) {
-	console.log('hello modarea here');
 	var divID='refDiv_' + id;
-	console.log('111111');
 	var paneID='refPane_' + id;
-	console.log('22222222222');
 	$("div .highlight").removeClass("highlight").addClass("refDiv");
-
-	console.log('333333333');
 	$("div .refPane_highlight").removeClass("refPane_highlight");
-	
-
-	console.log('444444444');
+	// try/catch necessary/easiest way to deal with NEW
 	try{
 		$("div .editing").draggable("destroy");
-	} catch(e){
-		console.log('caught');
-		
-	}
-	console.log('555555555');
-	
+	} catch(e){}
 	try{
 		$("div .editing").resizable("destroy");
-	} catch(e){
-		console.log('caught');
-		
-	}
-	
-	
-	
-
-	console.log('666666666');
+	} catch(e){}
 	$("div .editing").removeClass("editing").addClass("refDiv");
-	
-
-	console.log('7777777777');
 	$("div .refPane_editing").removeClass("refPane_editing");
-	
-
-	console.log('88888888888');
 	$("#" + divID).removeClass("refDiv").addClass("editing");
-	
-
-	console.log('999999999');
 	$("#" + paneID).addClass('refPane_editing');
-	
-
-	console.log('aaaaa');
-	
-	
 	$("#" + divID).draggable({
 		containment: 'parent',
 		stop: function(event,ui){showDim(id,event, ui);}
 	});
-	
-
-	console.log('bbbbb');
-	
 	$("#" + divID).resizable({
 		containment: 'parent',
 		stop: function(event,ui){showDim(id,event, ui);}
 	});
-	
-
-	console.log('cccc');
-	console.log('navDiv: ' + navDiv);
-	console.log('paneID: ' + paneID);
-	
 	try{
 		$('#navDiv').scrollTo( $('#' + paneID), 800 );
-	} catch(e){
-		console.log('caught');
-		
-	}
-	
-	
-
-	console.log('buhbye modarea here');
+	} catch(e){}
 }
 function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 	if (refStr==null){refStr='';}
@@ -449,9 +393,7 @@ function nevermindNew(){
 	pickRefType('RefType_new','');
 	$("#info").text('');
 }	
-function newArea() {
-	console.log('makin a tag');
-	
+function newArea() {	
 	if($('#refDiv_new').length > 0){
 		alert('There is already a new TAG.');
 		return false;
@@ -473,13 +415,8 @@ function newArea() {
 	$("#l_new").val(l);
 	$("#h_new").val(h);
 	$("#w_new").val(w);
-	console.log('about to go....');
-	setTimeout("modArea('new')",500);
-	console.log('fone');
-	
+	setTimeout("modArea('new')",500);	
 	$("#info").html('Drag/resize the new red box on the image, pick a TAG and/or enter a comment, then click "create TAG" - or <span class="likeLink" onclick="nevermindNew()">cancel</span>');
-	
-	console.log('aftr');
 }
 function pickRefType(id,v){
 	var tagID=id.replace('RefType_','');
@@ -512,19 +449,14 @@ function pickRefType(id,v){
 		alert('I have no idea what you are trying to do. Stoppit, Srsly.');
 	}
 }	
-function addArea(id,t,l,h,w) {
-	console.log('addArea: ' + id);
-	
+function addArea(id,t,l,h,w) {	
 	if(id=='new'){
 		c='editing';
 	}else{
 		c='refDiv';
 	}
-	
 	var dv='<div id="refDiv_' + id + '" class="' + c + '" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
-	console.log('here comes a div');
 	$("#imgDiv").append(dv);
-	console.log('there is it');
 }			
 function showDim(tagID,event,ui){
 	try{
