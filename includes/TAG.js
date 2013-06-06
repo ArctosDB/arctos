@@ -340,9 +340,16 @@ function modArea(id) {
 	
 
 	console.log('444444444');
-	$("div .editing").draggable("destroy");
+	try{
+		$("div .editing").draggable("destroy");
+	} catch(e){
+		console.log('caught');
+		
+	}
 	
-
+	
+	
+	
 	console.log('555555555');
 	$("div .editing").resizable("destroy");
 	
