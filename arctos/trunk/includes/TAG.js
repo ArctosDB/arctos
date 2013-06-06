@@ -346,12 +346,16 @@ function modArea(id) {
 		console.log('caught');
 		
 	}
-	
-	
-	
-	
 	console.log('555555555');
-	$("div .editing").resizable("destroy");
+	
+	try{
+		$("div .editing").resizable("destroy");
+	} catch(e){
+		console.log('caught');
+		
+	}
+	
+	
 	
 
 	console.log('666666666');
