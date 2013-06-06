@@ -328,6 +328,7 @@ function scrollToTag(id) {
 	
 	
 function modArea(id) {
+	console.log('hello modarea here');
 	var divID='refDiv_' + id;
 	var paneID='refPane_' + id;
 	$("div .highlight").removeClass("highlight").addClass("refDiv");
@@ -347,6 +348,9 @@ function modArea(id) {
 		stop: function(event,ui){showDim(id,event, ui);}
 	});
 	$('#navDiv').scrollTo( $('#' + paneID), 800 );
+	
+
+	console.log('buhbye modarea here');
 }
 function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 	if (refStr==null){refStr='';}
