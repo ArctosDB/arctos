@@ -372,14 +372,27 @@ function modArea(id) {
 
 	console.log('999999999');
 	$("#" + paneID).addClass('refPane_editing');
+	
+
+	console.log('aaaaa');
+	
+	
 	$("#" + divID).draggable({
 		containment: 'parent',
 		stop: function(event,ui){showDim(id,event, ui);}
 	});
+	
+
+	console.log('bbbbb');
+	
 	$("#" + divID).resizable({
 		containment: 'parent',
 		stop: function(event,ui){showDim(id,event, ui);}
 	});
+	
+
+	console.log('cccc');
+	
 	$('#navDiv').scrollTo( $('#' + paneID), 800 );
 	
 
