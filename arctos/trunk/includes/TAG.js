@@ -395,8 +395,13 @@ function modArea(id) {
 	console.log('navDiv: ' + navDiv);
 	console.log('paneID: ' + paneID);
 	
+	try{
+		$('#navDiv').scrollTo( $('#' + paneID), 800 );
+	} catch(e){
+		console.log('caught');
+		
+	}
 	
-	$('#navDiv').scrollTo( $('#' + paneID), 800 );
 	
 
 	console.log('buhbye modarea here');
