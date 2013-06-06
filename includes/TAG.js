@@ -392,6 +392,9 @@ function modArea(id) {
 	
 
 	console.log('cccc');
+	console.log('navDiv: ' + navDiv);
+	console.log('paneID: ' + paneID);
+	
 	
 	$('#navDiv').scrollTo( $('#' + paneID), 800 );
 	
