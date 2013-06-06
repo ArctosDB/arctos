@@ -415,8 +415,13 @@ function newArea() {
 	$("#l_new").val(l);
 	$("#h_new").val(h);
 	$("#w_new").val(w);
+	console.log('about to go....');
 	setTimeout("modArea('new')",500);
+	console.log('fone');
+	
 	$("#info").html('Drag/resize the new red box on the image, pick a TAG and/or enter a comment, then click "create TAG" - or <span class="likeLink" onclick="nevermindNew()">cancel</span>');
+	
+	console.log('aftr');
 }
 function pickRefType(id,v){
 	var tagID=id.replace('RefType_','');
