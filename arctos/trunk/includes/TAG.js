@@ -450,7 +450,7 @@ function pickRefType(id,v){
 	}
 }	
 function addArea(id,t,l,h,w) {
-	console.log('addArea');
+	console.log('addArea: ' + id);
 	
 	if(id=='new'){
 		c='editing';
