@@ -175,8 +175,9 @@ function saveTagEdit(id){
 
 jQuery("span[id^='editRefClk_']").live('click', function(e){
 	$.each($("div[id^='refControl_']"), function() {
-	      $("#" + this.id).hide();
+		$("#" + this.id).hide();
     });
+	console.log('hello');
 	var tagID=this.id.replace('editRefClk_','');
 	var RefType=$('#RefType_' + tagID).val();
 	var RefStr=$('#RefStr_' + tagID).val();
