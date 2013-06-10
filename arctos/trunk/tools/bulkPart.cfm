@@ -8,7 +8,7 @@
 		Bad call.<cfabort>
 	</cfif>
 <cfquery name="colcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select COLLECTION_ID from #table_name#
+	select distinct(COLLECTION_ID) from #table_name#
 </cfquery>
 
 <cfset colcdes = valuelist(colcde.COLLECTION_ID)>
