@@ -1,3 +1,6 @@
+deprecated<cfabort>
+
+
 <!---
 create table tacc_folder (
 	folder varchar2(255),
@@ -74,7 +77,7 @@ create table tacc_check (
 					specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
 					coll_obj_cont_hist.container_id = pc.container_id and
 					pc.parent_container_id = prnt.container_id and
-					prnt.barcode='listgetat(barcode,1,"_")##'
+					prnt.barcode='#listgetat(barcode,1,"_")#'
 			</cfquery>
 			<cfif bc.collection_object_id is "">
 				<cfquery name="data" datasource="uam_god">

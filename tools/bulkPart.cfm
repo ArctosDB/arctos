@@ -8,10 +8,10 @@
 		Bad call.<cfabort>
 	</cfif>
 <cfquery name="colcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select distinct(collection_cde) from #table_name#
+	select COLLECTION_ID from #table_name#
 </cfquery>
 
-<cfset colcdes = valuelist(colcde.collection_cde)>
+<cfset colcdes = valuelist(colcde.COLLECTION_ID)>
 <cfif listlen(colcdes) is not 1>
 	You can only use this form on one collection at a time. Please revise your search.
 	<cfabort>

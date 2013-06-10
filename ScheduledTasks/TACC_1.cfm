@@ -1,3 +1,6 @@
+deprecated<cfabort>
+
+
 <!---
 create table tacc_folder (
 	folder varchar2(255),

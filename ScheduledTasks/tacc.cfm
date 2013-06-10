@@ -149,25 +149,38 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 						<cfif getFiletype(f2) is "d">
 							<cfset arrayAppend(dirs,"#cPath2##f2#")>
 							<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/#cPath2##f2#" charset="utf-8" method="get"></cfhttp>
-							<cfset xdir3=XMLparse(trim(replace(cfhttp.FileContent,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')))>
-							<cfset dir3=xmlsearch(xdir3, "//td[@class='n']")>
-							<cfset cPath3=replace(xdir3.html.head.title.xmlText,"Index of /UAF/","")>
-							<cfloop index="i" from="1" to="#arrayLen(dir3)#">
-								<cfset f3 = dir3[i].XmlChildren[1].xmlText>
-								<cfif getFiletype(f3) is "d">
-									<cfset arrayAppend(dirs,"#cPath3##f3#")>
-									<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/#cPath3##f3#" charset="utf-8" method="get"></cfhttp>
-									<cfset xdir4= xmlparse(trim(replace(cfhttp.FileContent,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')))>
-									<cfset dir4=xmlsearch(xdir4, "//td[@class='n']")>
-									<cfset cPath4=replace(xdir4.html.head.title.xmlText,"Index of /UAF/","")>
-									<cfloop index="i" from="1" to="#arrayLen(dir4)#">
-										<cfset f4 = dir4[i].XmlChildren[1].xmlText>
-										<cfif getFiletype(f4) is "d">
-											<cfset arrayAppend(dirs,"#cPath4##f4#")>
-										</cfif>
-									</cfloop>
-								</cfif>
-							</cfloop>
+							
+							<cftry>
+							
+								<cfset xdir3=XMLparse(trim(replace(cfhttp.FileContent,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')))>
+								<cfset dir3=xmlsearch(xdir3, "//td[@class='n']")>
+								<cfset cPath3=replace(xdir3.html.head.title.xmlText,"Index of /UAF/","")>
+								<cfloop index="i" from="1" to="#arrayLen(dir3)#">
+									<cfset f3 = dir3[i].XmlChildren[1].xmlText>
+									<cfif getFiletype(f3) is "d">
+										<cfset arrayAppend(dirs,"#cPath3##f3#")>
+										<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/#cPath3##f3#" charset="utf-8" method="get"></cfhttp>
+										<cfset xdir4= xmlparse(trim(replace(cfhttp.FileContent,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')))>
+										<cfset dir4=xmlsearch(xdir4, "//td[@class='n']")>
+										<cfset cPath4=replace(xdir4.html.head.title.xmlText,"Index of /UAF/","")>
+										<cfloop index="i" from="1" to="#arrayLen(dir4)#">
+											<cfset f4 = dir4[i].XmlChildren[1].xmlText>
+											<cfif getFiletype(f4) is "d">
+												<cfset arrayAppend(dirs,"#cPath4##f4#")>
+											</cfif>
+										</cfloop>
+									</cfif>
+								</cfloop>
+								<cfcatch>
+									<p>
+										Error with http://web.corral.tacc.utexas.edu/UAF/#cPath2##f2#
+										
+										<cfdump var=#cfcatch#>
+										
+										<cfdump var=#cfhttp#>
+									</p>
+								</cfcatch>
+							</cftry>
 						</cfif>
 					</cfloop>
 				</cfif>
@@ -198,18 +211,20 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 <!----------------------------------------- findFilesOnePath  --------------------------------------------->
 <cfif action is "findFilesOnePath">
 	<cfoutput>
+		#now()#
 		<cfquery name="path" datasource="uam_god">
 			select fullpath from tacc where
 			filetype='path' and
 			(
-				crawled_path_date is null or
-				round(sysdate-crawled_path_date) > 3
+				crawled_path_date is null 
+				 --or round(sysdate-crawled_path_date) > 10
 			) and
 			rownum=1
 		</cfquery>
 		<cfset files=arraynew(1)>
 		<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/#path.fullpath#" charset="utf-8" method="get"></cfhttp>
 		<cfif left(cfhttp.statuscode,3) is "200" and isXML(cfhttp.FileContent)>
+			<br>isxml
 			<cfset xdir=xmlparse(trim(replace(cfhttp.FileContent,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')))>
 			<cfset dir = xmlsearch(xdir, "//td[@class='n']")>
 			<cfset cPath=replace(xdir.html.head.title.xmlText,"Index of /UAF/","")>
@@ -224,6 +239,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 			select * from tacc where lower(filetype)='dng' and
 			fullpath like '#path.fullpath#%'
 		</cfquery>
+		
 		<cfloop query="c">
 			<cfif arrayfind(files,#fullpath#)>
 				<cfset arrayDeleteAt(files,arrayfind(files,#fullpath#))>
@@ -242,12 +258,14 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					'dng'
 				)
 			</cfquery>
-
 			<cfcatch>
 				<cfdump var="#cfcatch#">
 			</cfcatch>
 			</cftry>
 		</cfloop>
+		
+					update tacc set crawled_path_date=sysdate where fullpath='#path.fullpath#'
+
 		<cfquery name="udcd" datasource="uam_god">
 			update tacc set crawled_path_date=sysdate where fullpath='#path.fullpath#'
 		</cfquery>
@@ -283,15 +301,17 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
 					specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
 					coll_obj_cont_hist.container_id = pc.container_id and
+					cataloged_item.collection_id in (6,40) and
 					pc.parent_container_id = prnt.container_id and
-					prnt.barcode='#filename#'
+					prnt.barcode='#listgetat(filename,1,"_")#'
 			</cfquery>
-			<cfif bc.recordcount is 1 and len(bc.collection_object_id) gt 0 and bc.collection_id is 6>
+			<cfif bc.recordcount is 1 and len(bc.collection_object_id) gt 0>
 				<cfquery name="data" datasource="uam_god">
 					update tacc set collection_object_id=#bc.collection_object_id# where filename='#filename#'
 				</cfquery>
 				<cfquery name="ixrel" datasource="uam_god">
-					select count(*) c from biol_indiv_relations where related_coll_object_id = #bc.collection_object_id#
+					select count(*) c from coll_obj_other_id_num where id_references != 'self' and
+					collection_object_id = #bc.collection_object_id#
 				</cfquery>
 				<cfif ixrel.c neq 0>
 					<cfquery name="izaplant" datasource="uam_god">
@@ -332,7 +352,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 			<cfif izadup.c neq 0>
 				<cfset go=false>
 				<cfquery name="izaplant" datasource="uam_god">
-					update tacc set status='duplicate_barcode' where filename='#filename#'
+					update tacc set status='dng_created' where filename='#filename#'
 				</cfquery>
 			</cfif>
 			<cfset descr=getDescr(collection_object_id)>
