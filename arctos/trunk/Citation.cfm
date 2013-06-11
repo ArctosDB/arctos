@@ -69,7 +69,7 @@
 			select collection_id,collection from collection order by collection
 		</cfquery>
 		<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select nature_of_id from ctnature_of_id
+			select nature_of_id from ctnature_of_id order by nature_of_id
 		</cfquery>
 		<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select taxa_formula from cttaxa_formula order by taxa_formula
@@ -143,58 +143,8 @@
 		<span class="helpLink"  onClick="getDocs('publication','citation')">[ help ]</span>
 		<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
 		<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">[ View Publication ]</a>
-		<table border="1" cellpadding="0" cellspacing="0">
-			<tr>
-				<th>&nbsp;</th>
-				<th nowrap>Cat Num</th>
-				<th nowrap>#session.CustomOtherIdentifier#</th>
-				<th nowrap>Cited As</th>
-				<th>Current ID</th>
-				<th nowrap>Citation Type</th>
-				<th nowrap>Page ##</th>
-				<th>Remarks</th>
-			</tr>
-			<cfset i=1>
-			<cfloop query="getCited">
-				<tr>
-					<td nowrap>
-						<table>
-							<tr>
-								<td>
-									<input type="button" 
-										value="Delete"
-										class="delBtn"
-										onClick="deleteCitation(#citation_id#,#publication_id#);">
-								</td>
-								<td>
-									<input type="button" 
-										value="Edit" 
-										class="lnkBtn"
-										onClick="document.location='Citation.cfm?action=editCitation&citation_id=#citation_id#';">
-								</td>					
-								<td>
-									<input type="button" 
-										value="Clone" 
-										class="insBtn"
-										onclick = "makeClone('#cat_num#','#collection_id#');">
-								</td>
-							</tr>
-						</table>
-					</td>
-					<td>
-						<a href="/SpecimenDetail.cfm?collection_object_id=#getCited.collection_object_id#">
-							#getCited.collection#&nbsp;#getCited.cat_num#</a>
-					</td>
-					<td nowrap="nowrap">#customID#</td>
-					<td nowrap><i>#getCited.citSciName#</i>&nbsp;</td>
-					<td nowrap><i>#getCited.scientific_name#</i>&nbsp;</td>
-					<td nowrap>#getCited.type_status#&nbsp;</td>
-					<td>#getCited.occurs_page_number#&nbsp;</td>
-					<td nowrap>#getCited.citation_remarks#&nbsp;</td>
-				</tr>
-				<cfset i=i+1>
-			</cfloop>
-		</table>
+		
+		
 		<form name="newCitation" id="newCitation" method="post" action="Citation.cfm">
 			<input type="hidden" name="Action" value="newCitation">
 			<input type="hidden" name="publication_id" value="#publication_id#">
@@ -301,6 +251,62 @@
 				<br><input type="submit" id="newID_submit" value="Create Citation and Identification" class="insBtn reqdClr">	
 			</div>
 		</form>
+		
+		
+		
+		<table border="1" cellpadding="0" cellspacing="0">
+			<tr>
+				<th>&nbsp;</th>
+				<th nowrap>Cat Num</th>
+				<th nowrap>#session.CustomOtherIdentifier#</th>
+				<th nowrap>Cited As</th>
+				<th>Current ID</th>
+				<th nowrap>Citation Type</th>
+				<th nowrap>Page ##</th>
+				<th>Remarks</th>
+			</tr>
+			<cfset i=1>
+			<cfloop query="getCited">
+				<tr>
+					<td nowrap>
+						<table>
+							<tr>
+								<td>
+									<input type="button" 
+										value="Delete"
+										class="delBtn"
+										onClick="deleteCitation(#citation_id#,#publication_id#);">
+								</td>
+								<td>
+									<input type="button" 
+										value="Edit" 
+										class="lnkBtn"
+										onClick="document.location='Citation.cfm?action=editCitation&citation_id=#citation_id#';">
+								</td>					
+								<td>
+									<input type="button" 
+										value="Clone" 
+										class="insBtn"
+										onclick = "makeClone('#cat_num#','#collection_id#');">
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<a href="/SpecimenDetail.cfm?collection_object_id=#getCited.collection_object_id#">
+							#getCited.collection#&nbsp;#getCited.cat_num#</a>
+					</td>
+					<td nowrap="nowrap">#customID#</td>
+					<td nowrap><i>#getCited.citSciName#</i>&nbsp;</td>
+					<td nowrap><i>#getCited.scientific_name#</i>&nbsp;</td>
+					<td nowrap>#getCited.type_status#&nbsp;</td>
+					<td>#getCited.occurs_page_number#&nbsp;</td>
+					<td nowrap>#getCited.citation_remarks#&nbsp;</td>
+				</tr>
+				<cfset i=i+1>
+			</cfloop>
+		</table>
+		
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->
