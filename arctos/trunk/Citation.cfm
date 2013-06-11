@@ -187,7 +187,7 @@
 					<tr>
 						<td>
 							<label for="collection">Collection</label>
-							<select name="collection" id="collection" size="1" class="reqdClr">
+							<select name="collection" id="collection" size="1">
 								<option value=""></option>
 								<cfloop query="ctcollection">
 									<option value="#collection_id#">#collection#</option>
@@ -197,6 +197,8 @@
 						<td>
 							<label for="cat_num">Catalog Number</label>
 							<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')">
+						</td>
+						<td>
 							<cfif len(session.CustomOtherIdentifier) gt 0>
 								<label for="custom_id">OR #session.CustomOtherIdentifier#</label>
 								<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
