@@ -212,7 +212,7 @@
 					<input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="click this button to find a specimen">.
 					(Or check below after you tab out - we'll save you the click if we can!)
 				</p>
-				<div id="resulttext">[ This will be a link when the lookup is successful. ]</div>
+				<div id="resulttext">[ When the lookup is successful, existing IDs go here. ]</div>
 				<br>---------------------------------- citation -----------------------------------------
 				<label class="likeLink" for="type_status" onClick="getDocs('publication','citation_type')">Citation Type</label>
 				<select name="type_status" id="type_status" size="1">
