@@ -46,7 +46,7 @@
 					alert('error: ' + scientific_name);
 				} else {
 					var ltxt = '<a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
-					ltxt += 'Click this button to use NO EXISTING ID (reset): <input type="radio" name="identification_id" value="">';
+					ltxt += 'Pick one of these IDs to use an existing ID in the Citation, or scroll down to create a new ID.<br>Click this button to use NO EXISTING ID (reset): <input type="radio" name="identification_id" value="">';
 					for (i=0;i<r.ROWCOUNT;i++) {
 						ltxt += '<ul><li>';
 						ltxt += 'Click this button to use this ID: <input type="radio" name="identification_id" value="' + result.IDENTIFICATION_ID[0] + '">';
@@ -180,7 +180,7 @@
 			<input type="hidden" name="collection_object_id" id="collection_object_id">
 			<div class="newRec" id="newRec">
 				<h3>Add Citation/ID</h3>
-				<br>---------------------------------- citation -----------------------------------------
+				<br>---------------------------------- Citation -----------------------------------------
 				<label class="likeLink" for="type_status" onClick="getDocs('publication','citation_type')">Citation Type</label>
 				<select name="type_status" id="type_status" size="1">
 					<cfloop query="ctTypeStatus">
@@ -192,7 +192,7 @@
 				<input type="text" name="occurs_page_number" id="occurs_page_number" size="4">
 				<label for="citation_remarks">Citation Remarks:</label>
 				<input type="text" name="citation_remarks" id="citation_remarks" size="90">
-				<br>Find Specimen
+				<br>----------------------------------Find Specimen-------------------------------------
 				<label for="guid">GUID (UAM:Mamm:12 format; overrides any other identifiers)</label>
 				<input type="text" name="guid" id="guid" onchange="getCatalogedItemCitation()">
 				<table>
