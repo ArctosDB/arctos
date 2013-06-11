@@ -193,7 +193,7 @@
 				<label for="citation_remarks">Citation Remarks:</label>
 				<input type="text" name="citation_remarks" id="citation_remarks" size="90">
 				<br>Find Specimen
-				<label for="guid">GUID</label>
+				<label for="guid">GUID (UAM:Mamm:12 format; overrides any other identifiers)</label>
 				<input type="text" name="guid" id="guid" onchange="getCatalogedItemCitation()">
 				<table>
 					<tr>
@@ -219,11 +219,9 @@
 					</tr>
 				</table>
 				<p>
-					Fill the above in, then 
 					<input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="click this button to find a specimen">.
-					(Or check below after you tab out - we'll save you the click if we can!)
 				</p>
-				<div id="resulttext">[ When the lookup is successful, existing IDs go here. ]</div>
+				<div id="resulttext">[ When/if the lookup is successful, existing IDs go here. ]</div>
 			
 				<br>---------------------------------- identification -----------------------------------------
 				<label for="accepted_id_fg">Make this the accepted specimen ID?</label>
