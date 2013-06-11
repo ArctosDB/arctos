@@ -38,7 +38,6 @@
 	}
 	function success_getCatalogedItemCitation (r) {
 		var result=r.DATA;
-		var ltxt;
 		if (r.ROWCOUNT == 0){
 			alert('Specimen not found.');
 		} else {
@@ -46,8 +45,10 @@
 					// error handling is packaged wonky
 					alert('error: ' + scientific_name);
 				} else {
+					var ltxt += '<a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
 					for (i=0;i<r.ROWCOUNT;i++) {
-						ltxt += '<a target="_blank" href="/guid/' + result.GUID[i] + '">' + result.GUID[i] + ' - ' + result.SCIENTIFIC_NAME[i] + '</a><br>';
+						ltxt += '<ul><li>' + result.SCIENTIFIC_NAME[i] + '</li></ul>'; 
+						
 
 						
 					}
