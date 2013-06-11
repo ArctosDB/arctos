@@ -2882,7 +2882,8 @@
 					concatidentifiers(cataloged_item.COLLECTION_OBJECT_ID) idby,
 					SHORT_CITATION,
 					identification_remarks,
-					made_date
+					made_date,
+					identification_id
 				from
 					cataloged_item,
 					collection,
@@ -2894,7 +2895,7 @@
 					identification.publication_id=publication.publication_id (+) and
 					upper(collection.guid_prefix || ':' || cataloged_item.cat_num)='#ucase(guid)#'
 				order by
-					accepted_id_fg,
+					accepted_id_fg DESC,
 					scientific_name
 			</cfquery>
 		<cfelseif isdefined("collection_id") and len(collection_id) gt 0 and isdefined("theNum") and len(theNum) gt 0 and isdefined("type") and len(type) gt 0>
