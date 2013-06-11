@@ -28,6 +28,7 @@
 				method : "getCatalogedItemCitation",
 				collection_id : $("#collection").val(),
 				theNum : $("#" + id).val(),
+				guid : $("#guid").val(),
 				type : type,
 				returnformat : "json",
 				queryformat : 'column'
@@ -143,6 +144,7 @@
 		<span class="helpLink"  onClick="getDocs('publication','citation')">[ help ]</span>
 		<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
 		<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">[ View Publication ]</a>
+		<br>Lots of citations? Try the <a href="/tools/BulkloadCitations.cfm">Citation Bulkloader</a>.
 		
 		
 		<form name="newCitation" id="newCitation" method="post" action="Citation.cfm">
@@ -151,10 +153,13 @@
 			<input type="hidden" name="collection_object_id" id="collection_object_id">
 			<div class="newRec" id="newRec">
 				<h3>Add Citation/ID</h3>
-				Lots of citations? Try the <a href="/tools/BulkloadCitations.cfm">bulkloader</a>.
 				<br>---------------------------------- find specimen -----------------------------------------
+				<label for="guid">GUID</label>
+				<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')">
+				
 				<label for="collection">Collection</label>
 				<select name="collection" id="collection" size="1" class="reqdClr">
+					<option value=""></option>
 					<cfloop query="ctcollection">
 						<option value="#collection_id#">#collection#</option>
 					</cfloop>

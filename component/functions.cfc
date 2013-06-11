@@ -2865,11 +2865,35 @@
 
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getCatalogedItemCitation" access="remote">
-	<cfargument name="collection_id" type="numeric" required="yes">
-	<cfargument name="theNum" type="string" required="yes">
-	<cfargument name="type" type="string" required="yes">
+	<cfargument name="collection_id" type="numeric" required="no">
+	<cfargument name="theNum" type="string" required="no">
+	<cfargument name="type" type="string" required="no">
+	<cfargument name="guid" type="string" required="no">
 	<cfoutput>
 	<cftry>
+		<cfif isdefined("guid") and len(guid) gt 0>
+			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					cataloged_item.COLLECTION_OBJECT_ID,
+					collection.guid_prefix || ':' || cataloged_item.cat_num guid,
+					identification.scientific_name,
+					identification_taxonomy.taxon_name_id,
+					identification.NATURE_OF_ID,
+					identification.TAXA_FORMULA
+				from
+					cataloged_item,
+					collection,
+					identification,
+					identification_taxonomy
+				where
+					cataloged_item.collection_id=collection.collection_id and
+					cataloged_item.collection_object_id=identification.collection_object_id and
+					identification.accepted_id_fg=1 and
+					identification.identification_id=identification_taxonomy.identification_id and
+					identification_taxonomy.variable='A' and
+					upper(collection.guid_prefix || ':' || cataloged_item.cat_num)='#ucase(guid)#'
+			</cfquery>
+		<cfelseif isdefined("collection_id") and len(collection_id) gt 0 and isdefined("theNum") and len(theNum) gt 0 and isdefined("type") and len(type) gt 0>
 			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select
 					cataloged_item.COLLECTION_OBJECT_ID,
@@ -2906,6 +2930,7 @@
 					identification.NATURE_OF_ID,
 					identification.TAXA_FORMULA
 			</cfquery>
+		</cfif>
 		<cfcatch>
 			<cfset result = querynew("collection_object_id,guid,scientific_name")>
 			<cfset temp = queryaddrow(result,1)>
