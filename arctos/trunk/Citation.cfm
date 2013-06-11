@@ -180,7 +180,19 @@
 			<input type="hidden" name="collection_object_id" id="collection_object_id">
 			<div class="newRec" id="newRec">
 				<h3>Add Citation/ID</h3>
-				<br>Step One: Find Specimen by GUID or Collection+Catnum or Collection+CustomID
+				<br>---------------------------------- citation -----------------------------------------
+				<label class="likeLink" for="type_status" onClick="getDocs('publication','citation_type')">Citation Type</label>
+				<select name="type_status" id="type_status" size="1">
+					<cfloop query="ctTypeStatus">
+						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
+					</cfloop>
+				</select>
+				<span class="infoLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">Define</span>
+				<label class="likeLink" onClick="getDocs('publication','cited_on_page_number')" for="occurs_page_number">Page ##</label>
+				<input type="text" name="occurs_page_number" id="occurs_page_number" size="4">
+				<label for="citation_remarks">Citation Remarks:</label>
+				<input type="text" name="citation_remarks" id="citation_remarks" size="90">
+				<br>Find Specimen
 				<label for="guid">GUID</label>
 				<input type="text" name="guid" id="guid" onchange="getCatalogedItemCitation()">
 				<table>
@@ -200,33 +212,19 @@
 						</td>
 						<td>
 							<cfif len(session.CustomOtherIdentifier) gt 0>
-								<label for="custom_id">OR #session.CustomOtherIdentifier#</label>
+								<label for="custom_id">#session.CustomOtherIdentifier#</label>
 								<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
 							</cfif>
 						</td>
 					</tr>
 				</table>
-				
-				
-				
 				<p>
 					Fill the above in, then 
 					<input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="click this button to find a specimen">.
 					(Or check below after you tab out - we'll save you the click if we can!)
 				</p>
 				<div id="resulttext">[ When the lookup is successful, existing IDs go here. ]</div>
-				<br>---------------------------------- citation -----------------------------------------
-				<label class="likeLink" for="type_status" onClick="getDocs('publication','citation_type')">Citation Type</label>
-				<select name="type_status" id="type_status" size="1">
-					<cfloop query="ctTypeStatus">
-						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
-					</cfloop>
-				</select>
-				<span class="infoLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">Define</span>
-				<label class="likeLink" onClick="getDocs('publication','cited_on_page_number')" for="occurs_page_number">Page ##</label>
-				<input type="text" name="occurs_page_number" id="occurs_page_number" size="4">
-				<label for="citation_remarks">Citation Remarks:</label>
-				<input type="text" name="citation_remarks" id="citation_remarks" size="90">
+			
 				<br>---------------------------------- identification -----------------------------------------
 				<label for="accepted_id_fg">Make this the accepted specimen ID?</label>
 				<select name="accepted_id_fg" id="accepted_id_fg" size="1" class="reqdClr">
