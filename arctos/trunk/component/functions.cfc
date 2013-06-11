@@ -2878,15 +2878,23 @@
 					collection.guid_prefix || ':' || cataloged_item.cat_num guid,
 					identification.scientific_name,
 					identification.NATURE_OF_ID,
-					identification.TAXA_FORMULA
+					identification.accepted_id_fg,
+					concatidentifiers(cataloged_item.COLLECTION_OBJECT_ID) idby,
+					SHORT_CITATION,
+					identification_remarks
 				from
 					cataloged_item,
 					collection,
-					identification
+					identification,
+					publication
 				where
 					cataloged_item.collection_id=collection.collection_id and
 					cataloged_item.collection_object_id=identification.collection_object_id and
+					identification.publication_id=publication.publication_id (+) and
 					upper(collection.guid_prefix || ':' || cataloged_item.cat_num)='#ucase(guid)#'
+				order by
+					accepted_id_fg,
+					scientific_name
 			</cfquery>
 		<cfelseif isdefined("collection_id") and len(collection_id) gt 0 and isdefined("theNum") and len(theNum) gt 0 and isdefined("type") and len(type) gt 0>
 			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
