@@ -2865,7 +2865,7 @@
 
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getCatalogedItemCitation" access="remote">
-	<cfargument name="collection_id" type="numeric" required="no">
+	<cfargument name="collection_id" type="string" required="no">
 	<cfargument name="theNum" type="string" required="no">
 	<cfargument name="type" type="string" required="no">
 	<cfargument name="guid" type="string" required="no">
