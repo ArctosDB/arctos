@@ -174,7 +174,7 @@
 		<br>Lots of citations? Try the <a href="/tools/BulkloadCitations.cfm">Citation Bulkloader</a>.
 		
 		
-		<form name="newCitation" id="newCitation" method="post" action="Citation.cfm" onsubmit="return preventEnterSubmit(event);">
+		<form name="newCitation" id="newCitation" method="post" action="Citation.cfm" onsubmit="preventEnterSubmit(event);">
 			<input type="hidden" name="Action" value="newCitation">
 			<input type="hidden" name="publication_id" value="#publication_id#">
 			<input type="hidden" name="collection_object_id" id="collection_object_id">
