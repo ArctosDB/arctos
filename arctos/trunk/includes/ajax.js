@@ -463,6 +463,12 @@ function newPart (collection_object_id) {
 	}
  }
  function preventEnterSubmit(e) {
+	 
+	 console.log('I am preventEnterSubmit');
+	 
+	 console.log(e.which);
+	 
+	 
     if (e.which == 13) {
         var $targ = $(e.target);
 
