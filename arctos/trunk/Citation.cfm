@@ -155,7 +155,7 @@
 				<h3>Add Citation/ID</h3>
 				<br>---------------------------------- find specimen -----------------------------------------
 				<label for="guid">GUID</label>
-				<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')">
+				<input type="text" name="guid" id="guid" onchange="getCatalogedItemCitation()">
 				
 				<label for="collection">Collection</label>
 				<select name="collection" id="collection" size="1" class="reqdClr">
