@@ -47,13 +47,16 @@
 				} else {
 					var ltxt = '<a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
 					for (i=0;i<r.ROWCOUNT;i++) {
-						ltxt += '<ul><li>' + result.SCIENTIFIC_NAME[i];
+						ltxt += '<ul><li>';
+						ltxt += 'Use This ID: <input type="radio" name="identification_id" value="' + result.IDENTIFICATION_ID[0] + '">';
+						
+
+ 						ltxt += ' Scientific Name: ' + result.SCIENTIFIC_NAME[i];
 						if (result.ACCEPTED_ID_FG[i]==1){
 							ltxt += ' (accepted)';
 						} else {
 							ltxt += ' (unaccepted)';
 						}
-						ltxt += 'Use This ID: <input type="radio" name="identification_id" value="' + result.IDENTIFICATION_ID[0] + '">';
 						ltxt += '<br>Nature of ID: ' + result.NATURE_OF_ID[i];
 
 						ltxt += '<br>Identified By: ' + result.IDBY[i] + ' on ' + result.MADE_DATE[i];
