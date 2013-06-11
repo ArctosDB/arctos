@@ -51,8 +51,18 @@
 
 						
 					}
-$("#resulttext").html(ltxt);
-					/*
+					$("#resulttext").html(ltxt);
+				
+				}
+				
+			}
+		}
+	
+</script>
+
+<!---------
+
+	/*
 					$("#collection_object_id").val(result.COLLECTION_OBJECT_ID[0]);
 					var ltxt='<a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a>';
 					$("#resulttext").html(ltxt);
@@ -61,12 +71,8 @@ $("#resulttext").html(ltxt);
 					$("#taxona_id").val(result.TAXON_NAME_ID[0]);
 					$("#nature_of_id").val(result.NATURE_OF_ID[0]);
 */
-				}
-				
-			}
-		}
-	}
-</script>
+
+----------->
 <!------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfset title="Manage Citations">
