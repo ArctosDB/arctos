@@ -179,8 +179,8 @@
 			<input type="hidden" name="publication_id" value="#publication_id#">
 			<input type="hidden" name="collection_object_id" id="collection_object_id">
 			<div class="newRec" id="newRec">
-				<h3>Add Citation/ID</h3>
-				<br>---------------------------------- Citation -----------------------------------------
+				<h3>Add Citation and/or Identification</h3>
+				<br>---------------------------------- Citation -------------------------------------------------------------------------
 				<label class="likeLink" for="type_status" onClick="getDocs('publication','citation_type')">Citation Type</label>
 				<select name="type_status" id="type_status" size="1">
 					<cfloop query="ctTypeStatus">
@@ -192,7 +192,7 @@
 				<input type="text" name="occurs_page_number" id="occurs_page_number" size="4">
 				<label for="citation_remarks">Citation Remarks:</label>
 				<input type="text" name="citation_remarks" id="citation_remarks" size="90">
-				<br>----------------------------------Find Specimen-------------------------------------
+				<br>----------------------------------Find Specimen-----------------------------------------------------------------------
 				<label for="guid">GUID (UAM:Mamm:12 format; overrides any other identifiers)</label>
 				<input type="text" name="guid" id="guid" onchange="getCatalogedItemCitation()">
 				<table>
@@ -223,7 +223,7 @@
 				</p>
 				<div id="resulttext">[ When/if the lookup is successful, existing IDs go here. ]</div>
 			
-				<br>---------------------------------- identification -----------------------------------------
+				<br>----------------------------------Pick an ID above, or use this form toCreate New Identification ---------------------------
 				<label for="accepted_id_fg">Make this the accepted specimen ID?</label>
 				<select name="accepted_id_fg" id="accepted_id_fg" size="1" class="reqdClr">
 					<option value="0">no</option>
