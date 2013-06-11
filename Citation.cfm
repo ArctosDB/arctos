@@ -47,7 +47,7 @@
 					alert('error: ' + scientific_name);
 				} else {
 					for (i=0;i<r.ROWCOUNT;i++) {
-						ltxt += '<a target="_blank" href="/guid/' + result.GUID[' + i + '] + '">' + result.GUID[' | i + '] + ' - ' + result.SCIENTIFIC_NAME[' + i + '] + '</a><br>';
+						ltxt += '<a target="_blank" href="/guid/' + result.GUID[i] + '">' + result.GUID[i] + ' - ' + result.SCIENTIFIC_NAME[i] + '</a><br>';
 
 						
 					}
