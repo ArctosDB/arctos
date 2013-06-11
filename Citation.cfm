@@ -51,7 +51,7 @@
 						ltxt += 'Use This ID: <input type="radio" name="identification_id" value="' + result.IDENTIFICATION_ID[0] + '">';
 						
 
- 						ltxt += ' Scientific Name: ' + result.SCIENTIFIC_NAME[i];
+ 						ltxt += '<br>Scientific Name: ' + result.SCIENTIFIC_NAME[i];
 						if (result.ACCEPTED_ID_FG[i]==1){
 							ltxt += ' (accepted)';
 						} else {
