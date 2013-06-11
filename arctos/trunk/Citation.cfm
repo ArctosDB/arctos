@@ -46,6 +46,7 @@
 					alert('error: ' + scientific_name);
 				} else {
 					var ltxt = '<a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
+					ltxt += 'Click this button to use NO EXISTING ID: <input type="radio" name="identification_id" value="">';
 					for (i=0;i<r.ROWCOUNT;i++) {
 						ltxt += '<ul><li>';
 						ltxt += 'Click this button to use this ID: <input type="radio" name="identification_id" value="' + result.IDENTIFICATION_ID[0] + '">';
