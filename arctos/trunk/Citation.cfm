@@ -53,11 +53,12 @@
 						} else {
 							ltxt += ' (unaccepted)';
 						}
-						ltxt += '<br>NATURE_OF_ID ' + result.NATURE_OF_ID[i];
+						ltxt += 'Use This ID: <input type="radio" name="identification_id" value="' + result.IDENTIFICATION_ID[0] + '">';
+						ltxt += '<br>Nature of ID: ' + result.NATURE_OF_ID[i];
 
-						ltxt += '<br>identified by ' + result.IDBY[i] + ' on ' + result.MADE_DATE[i];
-						ltxt += '<br>ID <i>Sensu</i> ' + result.SHORT_CITATION[i];
-						ltxt += '<br>ID Remark ' + result.IDENTIFICATION_REMARKS[i];
+						ltxt += '<br>Identified By: ' + result.IDBY[i] + ' on ' + result.MADE_DATE[i];
+						ltxt += '<br>ID <i>Sensu</i>: ' + result.SHORT_CITATION[i];
+						ltxt += '<br>ID Remark: ' + result.IDENTIFICATION_REMARKS[i];
 
 
 						ltxt += '</li></ul>'; 
