@@ -38,13 +38,21 @@
 	}
 	function success_getCatalogedItemCitation (r) {
 		var result=r.DATA;
-		if (r.ROWCOUNT > 1){
-			alert('Multiple matches.');
+		var ltxt;
+		if (r.ROWCOUNT == 0){
+			alert('Specimen not found.');
 		} else {
-			if (r.ROWCOUNT==1) {	
 				if (result.COLLECTION_OBJECT_ID[0] < 0) {
+					// error handling is packaged wonky
 					alert('error: ' + scientific_name);
 				} else {
+					for (i=0;i<r.ROWCOUNT;i++) {
+						ltxt += '<a target="_blank" href="/guid/' + result.GUID[' + i + '] + '">' + result.GUID[' | i + '] + ' - ' + result.SCIENTIFIC_NAME[' + i + '] + '</a><br>';
+
+						
+					}
+$("#resulttext").html(ltxt);
+					/*
 					$("#collection_object_id").val(result.COLLECTION_OBJECT_ID[0]);
 					var ltxt='<a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a>';
 					$("#resulttext").html(ltxt);
@@ -52,9 +60,9 @@
 					$("#taxona").val(result.SCIENTIFIC_NAME[0]);
 					$("#taxona_id").val(result.TAXON_NAME_ID[0]);
 					$("#nature_of_id").val(result.NATURE_OF_ID[0]);
+*/
 				}
-			} else {
-				alert('Specimen not found.');
+				
 			}
 		}
 	}
