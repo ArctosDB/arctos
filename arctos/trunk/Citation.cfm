@@ -46,7 +46,7 @@
 					alert('error: ' + scientific_name);
 				} else {
 					var ltxt = '<a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
-					ltxt += 'Click this button to use NO EXISTING ID: <input type="radio" name="identification_id" value="">';
+					ltxt += 'Click this button to use NO EXISTING ID (reset): <input type="radio" name="identification_id" value="">';
 					for (i=0;i<r.ROWCOUNT;i++) {
 						ltxt += '<ul><li>';
 						ltxt += 'Click this button to use this ID: <input type="radio" name="identification_id" value="' + result.IDENTIFICATION_ID[0] + '">';
@@ -59,16 +59,10 @@
 							ltxt += ' (unaccepted)';
 						}
 						ltxt += '<br>Nature of ID: ' + result.NATURE_OF_ID[i];
-
 						ltxt += '<br>Identified By: ' + result.IDBY[i] + ' on ' + result.MADE_DATE[i];
 						ltxt += '<br>ID <i>Sensu</i>: ' + result.SHORT_CITATION[i];
 						ltxt += '<br>ID Remark: ' + result.IDENTIFICATION_REMARKS[i];
-
-
 						ltxt += '</li></ul>'; 
-						
-
-						
 					}
 					$("#resulttext").html(ltxt);
 				
@@ -186,23 +180,33 @@
 			<input type="hidden" name="collection_object_id" id="collection_object_id">
 			<div class="newRec" id="newRec">
 				<h3>Add Citation/ID</h3>
-				<br>---------------------------------- find specimen -----------------------------------------
+				<br>Step One: Find Specimen by GUID or Collection+Catnum or Collection+CustomID
 				<label for="guid">GUID</label>
 				<input type="text" name="guid" id="guid" onchange="getCatalogedItemCitation()">
+				<table>
+					<tr>
+						<td>
+							<label for="collection">Collection</label>
+							<select name="collection" id="collection" size="1" class="reqdClr">
+								<option value=""></option>
+								<cfloop query="ctcollection">
+									<option value="#collection_id#">#collection#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<label for="cat_num">Catalog Number</label>
+							<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')">
+							<cfif len(session.CustomOtherIdentifier) gt 0>
+								<label for="custom_id">OR #session.CustomOtherIdentifier#</label>
+								<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
+							</cfif>
+						</td>
+					</tr>
+				</table>
 				
-				<label for="collection">Collection</label>
-				<select name="collection" id="collection" size="1" class="reqdClr">
-					<option value=""></option>
-					<cfloop query="ctcollection">
-						<option value="#collection_id#">#collection#</option>
-					</cfloop>
-				</select>
-				<label for="cat_num">Catalog Number</label>
-				<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')">
-				<cfif len(session.CustomOtherIdentifier) gt 0>
-					<label for="custom_id">OR #session.CustomOtherIdentifier#</label>
-					<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
-				</cfif>
+				
+				
 				<p>
 					Fill the above in, then 
 					<input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="click this button to find a specimen">.
