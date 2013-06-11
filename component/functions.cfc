@@ -2881,7 +2881,8 @@
 					identification.accepted_id_fg,
 					concatidentifiers(cataloged_item.COLLECTION_OBJECT_ID) idby,
 					SHORT_CITATION,
-					identification_remarks
+					identification_remarks,
+					made_date
 				from
 					cataloged_item,
 					collection,
