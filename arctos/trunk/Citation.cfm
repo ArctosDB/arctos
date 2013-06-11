@@ -47,7 +47,20 @@
 				} else {
 					var ltxt = '<a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
 					for (i=0;i<r.ROWCOUNT;i++) {
-						ltxt += '<ul><li>' + result.SCIENTIFIC_NAME[i] + '</li></ul>'; 
+						ltxt += '<ul><li>' + result.SCIENTIFIC_NAME[i];
+						if (result.ACCEPTED_ID_FG[i]==1){
+							ltxt += ' (accepted)';
+						} else {
+							ltxt += ' (unaccepted)';
+						}
+						ltxt += '<br>NATURE_OF_ID ' + result.NATURE_OF_ID[i];
+
+						ltxt += '<br>identified by ' + result.IDBY[i] + ' on ' + result.MADE_DATE[i];
+						ltxt += '<br>ID <i>Sensu</i> ' + result.SHORT_CITATION[i];
+						ltxt += '<br>ID Remark ' + result.IDENTIFICATION_REMARKS[i];
+
+
+						ltxt += '</li></ul>'; 
 						
 
 						
