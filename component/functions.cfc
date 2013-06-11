@@ -2877,20 +2877,15 @@
 					cataloged_item.COLLECTION_OBJECT_ID,
 					collection.guid_prefix || ':' || cataloged_item.cat_num guid,
 					identification.scientific_name,
-					identification_taxonomy.taxon_name_id,
 					identification.NATURE_OF_ID,
 					identification.TAXA_FORMULA
 				from
 					cataloged_item,
 					collection,
-					identification,
-					identification_taxonomy
+					identification
 				where
 					cataloged_item.collection_id=collection.collection_id and
 					cataloged_item.collection_object_id=identification.collection_object_id and
-					identification.accepted_id_fg=1 and
-					identification.identification_id=identification_taxonomy.identification_id and
-					identification_taxonomy.variable='A' and
 					upper(collection.guid_prefix || ':' || cataloged_item.cat_num)='#ucase(guid)#'
 			</cfquery>
 		<cfelseif isdefined("collection_id") and len(collection_id) gt 0 and isdefined("theNum") and len(theNum) gt 0 and isdefined("type") and len(type) gt 0>
