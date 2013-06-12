@@ -1,3 +1,7 @@
+
+<iframe width="100%" height="100%" src="http://vertnet.cartodb.com/tables/arctos/embed_map?title=true&description=true&search=true&shareable=true&cartodb_logo=true&scrollwheel=true&sql=&zoom=3&center_lat=57.27904276497778&center_lon=-167.16796875"></iframe>
+
+<cfabort>
 <cfoutput>
 	<cfset dlFile = "test.kml">
 	<cfset internalPath="#Application.webDirectory#/bnhmMaps/tabfiles/">

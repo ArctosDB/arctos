@@ -462,32 +462,6 @@ function newPart (collection_object_id) {
 		);
 	}
  }
- function preventEnterSubmit(e) {
-	 
-	 console.log('I am preventEnterSubmit');
-	 
-	 console.log(e.which);
-	 
-	 
-    if (e.which == 13) {
-        var $targ = $(e.target);
-
-        if (!$targ.is("textarea") && !$targ.is(":button,:submit")) {
-            var focusNext = false;
-            $(this).find(":input:visible:not([disabled],[readonly]), a").each(function(){
-                if (this === e.target) {
-                    focusNext = true;
-                }
-                else if (focusNext){
-                    $(this).focus();
-                    return false;
-                }
-            });
-
-            return false;
-        }
-    }
-}
 function success_getParts(r) {
 	var	result=r.DATA;	
 	var s=document.getElementById('ajaxStatus');
