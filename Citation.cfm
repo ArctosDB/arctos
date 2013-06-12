@@ -199,7 +199,7 @@
 		<form name="newCitation" id="newCitation" method="post" action="Citation.cfm" onkeypress="return event.keyCode != 13;">
 			<input type="hidden" name="action" value="">
 			<input type="hidden" name="publication_id" value="#publication_id#">
-			<input type="hidden" name="identification_id" value="">
+			<input type="hidden" name="identification_id" id="identification_id" value="">
 			<input type="hidden" name="collection_object_id" id="collection_object_id">
 			<div class="newRec" id="newRec">
 				<h3>Add Citation and/or Identification</h3>
@@ -425,7 +425,7 @@
 			) VALUES (
 				#collection_object_id#,
 				1,
-				#identification_id#,
+				#identification_id#
 				<cfif len(occurs_page_number) gt 0>
 					,#occurs_page_number#
 				</cfif>
