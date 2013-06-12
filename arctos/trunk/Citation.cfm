@@ -327,7 +327,10 @@
 						</fieldset>
 						</td>
 						<td>
+						<label for="theSpLkupDiv">Use an existing ID</label>
+				<fieldset id="theSpLkupDiv" class="fieldgroup">
 							<div id="resulttext">[ When/if the lookup is successful, existing identifications go here. ]</div>
+							</fieldset>
 						</td>
 					</tr>
 				</table>
