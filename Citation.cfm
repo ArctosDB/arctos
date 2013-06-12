@@ -324,12 +324,12 @@
 				<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
 				<label for="identification_remarks"><span class="helpLink" id="identification_remarks">Remarks</span></label>
 				<input type="text" name="identification_remarks" id="identification_remarks" size="50">
-				<br><input type="submit" id="newID_submit" value="Create Citation and Identification" class="insBtn reqdClr">	
+				<br><input type="submit" id="newID_submit" value="Create Citation and Identification" class="insBtn">	
 			</div>
 						</fieldset>
 						</td>
 						<td class="valigntop">
-						<label for="theSpLkupDiv">Use an existing ID</label>
+						<label for="theSpLkupDiv">Use an existing Identifications</label>
 				<fieldset id="theSpLkupDiv" class="fieldgroup">
 							<div id="resulttext">[ Find a specimen ]</div>
 							</fieldset>
