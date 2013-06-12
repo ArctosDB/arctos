@@ -247,12 +247,18 @@
 						</td>
 					</tr>
 				</table>
+				
 				<input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="Find Specimen">
 				</fieldset>
-				<div id="resulttext">[ When/if the lookup is successful, existing identifications go here. ]</div>
-				<label for="theSpLkupDiv">Create new identification</label>
+				
+				<label for="theSpLkupDiv">Identification</label>
 				<fieldset id="theSpLkupDiv" class="fieldgroup">
-				<label for="accepted_id_fg">Make this the accepted specimen ID?</label>
+				<table>
+					<tr>
+						<td>
+						<label for="">Create new Identification</label>
+						<fieldset id="newIDflg" class="fieldgroup">
+						<label for="accepted_id_fg">Make this the accepted specimen ID?</label>
 				<select name="accepted_id_fg" id="accepted_id_fg" size="1" class="reqdClr">
 					<option value="0">no</option>
 					<option value="1">yes</option>
@@ -318,6 +324,14 @@
 				<input type="text" name="identification_remarks" id="identification_remarks" size="50">
 				<br><input type="submit" id="newID_submit" value="Create Citation and Identification" class="insBtn reqdClr">	
 			</div>
+						</fieldset>
+						</td>
+						<td>
+							<div id="resulttext">[ When/if the lookup is successful, existing identifications go here. ]</div>
+						</td>
+					</tr>
+				</table>
+				
 			</fieldset>
 		</form>
 		
