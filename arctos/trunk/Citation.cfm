@@ -2,10 +2,9 @@
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 <script>
-	function makeClone (cn,cid){
-		$("#cat_num").val(cn);
-		$("#collection").val(cid);
-		getCatalogedItemCitation ('cat_num','cat_num');
+	function makeClone (guid){
+		$("#guid").val(guid);
+		getCatalogedItemCitation();
 		$(document).scrollTo( $('#newRec'), 800 );
 	}
 	function deleteCitation(cid,pid){
@@ -114,11 +113,8 @@
 				citation.citation_id,
 				citation.publication_id,
 				citation.collection_object_id,
-				collection,
+				guid_prefix || ':' || cat_num guid,
 				PUBLISHED_YEAR,
-				guid_prefix,
-				collection.collection_id,
-				cat_num, 
 				identification.scientific_name, 
 				citedid.scientific_name as citSciName,
 				occurs_page_number,
@@ -146,19 +142,16 @@
 				citation.citation_id,
 				citation.publication_id,
 				citation.collection_object_id,
-				collection,
+				guid_prefix || ':' || cat_num,
 				PUBLISHED_YEAR,
-				guid_prefix,
-				collection.collection_id,
-				cat_num, 
 				identification.scientific_name, 
 				citedid.scientific_name,
 				occurs_page_number,
 				type_status,
 				citation_remarks,
 				full_citation,
-				citedid.identification_id,
-				concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') 
+				citedid.identification_id citedidid,
+				concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#')
 			ORDER BY
 				occurs_page_number,citSciName,cat_num
 		</cfquery>
@@ -345,7 +338,7 @@
 		<table border="1" cellpadding="0" cellspacing="0">
 			<tr>
 				<th>&nbsp;</th>
-				<th nowrap>Cat Num</th>
+				<th nowrap>GUID</th>
 				<th nowrap>#session.CustomOtherIdentifier#</th>
 				<th nowrap>Cited As</th>
 				<th>Current ID</th>
@@ -375,14 +368,13 @@
 									<input type="button" 
 										value="Clone" 
 										class="insBtn"
-										onclick = "makeClone('#cat_num#','#collection_id#');">
+										onclick = "makeClone('#guid#');">
 								</td>
 							</tr>
 						</table>
 					</td>
 					<td>
-						<a href="/SpecimenDetail.cfm?collection_object_id=#getCited.collection_object_id#">
-							#getCited.collection#&nbsp;#getCited.cat_num#</a>
+						<a href="/guid/#guid#">#guid#</a>
 					</td>
 					<td nowrap="nowrap">#customID#</td>
 					<td nowrap><i>#getCited.citSciName#</i>&nbsp;</td>
