@@ -186,7 +186,8 @@
 			<input type="hidden" name="collection_object_id" id="collection_object_id">
 			<div class="newRec" id="newRec">
 				<h3>Add Citation and/or Identification</h3>
-				<br>---------------------------------- Citation -------------------------------------------------------------------------
+				<label for="theCitationDiv">Citation</label>
+				<div id="theCitationDiv" style="border:2px solid green">
 				<table>
 					<tr>
 						<td>
@@ -211,7 +212,7 @@
 						</td>
 					</tr>
 				</table>
-				
+				</div>
 				
 				<br>----------------------------------Find Specimen-----------------------------------------------------------------------
 				
@@ -248,7 +249,7 @@
 				</table>
 				<div id="resulttext">[ When/if the lookup is successful, existing IDs go here. ]</div>
 			
-				<br>----------------------------------Pick an ID above, or use this form toCreate New Identification ---------------------------
+				<br>----------------------------------Or use this form to create new identification ---------------------------
 				<label for="accepted_id_fg">Make this the accepted specimen ID?</label>
 				<select name="accepted_id_fg" id="accepted_id_fg" size="1" class="reqdClr">
 					<option value="0">no</option>
