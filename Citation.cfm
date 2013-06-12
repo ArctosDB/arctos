@@ -369,7 +369,7 @@
 						<table>
 							<tr>
 								<td>
-									<a name="cid#citation_id#></a>
+									<a name="cid#citation_id#"></a>
 									<input type="button" 
 										value="Delete"
 										class="delBtn"
@@ -440,7 +440,7 @@
 				</cfif>
 			) 
 		</cfquery>
-	<cflocation url="Citation.cfm?publication_id=#publication_id###newCitation">
+	<cflocation addtoken="false" url="Citation.cfm?publication_id=#publication_id###newCitation">
 	</cfoutput>
 </cfif>	
 <!------------------------------------------------------------------------------->
@@ -613,7 +613,7 @@
 			) 
 		</cfquery>
 	</cftransaction>
-	<cflocation url="Citation.cfm?publication_id=#publication_id###newCitation">
+	<cflocation addtoken="false" url="Citation.cfm?publication_id=#publication_id###newCitation">
 </cfif>
 <!------------------------------------------------------------------------------->
 <cfif #Action# is "saveEdits">
@@ -633,7 +633,7 @@
 		WHERE 
 			citation_id = #citation_id#
 		</cfquery>
-		<cflocation url="Citation.cfm?action=editCitation&citation_id=#citation_id###cid#citation_id#">
+		<cflocation addtoken="false" url="Citation.cfm?action=editCitation&citation_id=#citation_id###cid#citation_id#">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->
