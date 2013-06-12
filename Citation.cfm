@@ -221,7 +221,7 @@
 				</table>
 				</fieldset>
 				<label for="theSpLkupDiv">Find Specimen</label>
-				<fieldset id="theSpLkupDiv" style="border:2px solid green">
+				<fieldset id="theSpLkupDiv" class="fieldgroup">
 				<label for="guid">GUID (UAM:Mamm:12 format; overrides any other identifiers)</label>
 							<input type="text" name="guid" id="guid" onchange="getCatalogedItemCitation()">
 				<table>
@@ -251,7 +251,7 @@
 				</fieldset>
 				<div id="resulttext">[ When/if the lookup is successful, existing identifications go here. ]</div>
 				<label for="theSpLkupDiv">Create new identification</label>
-				<fieldset id="theSpLkupDiv" style="border:2px solid green">
+				<fieldset id="theSpLkupDiv" class="fieldgroup">
 				<label for="accepted_id_fg">Make this the accepted specimen ID?</label>
 				<select name="accepted_id_fg" id="accepted_id_fg" size="1" class="reqdClr">
 					<option value="0">no</option>
