@@ -51,7 +51,7 @@
 						ltxt += '<ul><li>';
 						
 
- 						ltxt += '<br><strong>' + result.SCIENTIFIC_NAME[i] + '</strong>';
+ 						ltxt += '<strong>' + result.SCIENTIFIC_NAME[i] + '</strong>';
 						if (result.ACCEPTED_ID_FG[i]==1){
 							ltxt += ' (accepted)';
 						} else {
@@ -191,8 +191,8 @@
 					<tr>
 						<td>
 							<label for="type_status">
-								<span class="LikeLink" onClick="getDocs('publication','citation_type')">Citation Type</span>
-								<span class="LikeLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">[ Define ]</span>
+								<span class="likeLink" onClick="getDocs('publication','citation_type')">Citation Type</span>
+								<span class="likeLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">[ Define ]</span>
 							</label>
 							<select name="type_status" id="type_status" size="1">
 								<option value=''></option>
