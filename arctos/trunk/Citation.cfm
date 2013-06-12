@@ -76,6 +76,19 @@
 				alert('pick a type status');
 				return false;
 			}
+
+			newCitation.action.value='newCitationExistingID';
+			newCitation.submit();
+		}
+
+		function createCitWithNewID(IdId){
+			if ($("#type_status").val().length==0){
+				alert('pick a type status');
+				return false;
+			}
+
+			newCitation.action.value='newCitation';
+			newCitation.submit();
 		}
 </script>
 
@@ -182,7 +195,7 @@
 		
 		
 		<form name="newCitation" id="newCitation" method="post" action="Citation.cfm" onkeypress="return event.keyCode != 13;">
-			<input type="hidden" name="action" value="newCitation">
+			<input type="hidden" name="action" value="">
 			<input type="hidden" name="publication_id" value="#publication_id#">
 			<input type="hidden" name="collection_object_id" id="collection_object_id">
 			<div class="newRec" id="newRec">
@@ -317,7 +330,7 @@
 				<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
 				<label for="identification_remarks"><span class="helpLink" id="identification_remarks">Remarks</span></label>
 				<input type="text" name="identification_remarks" id="identification_remarks" size="50">
-				<br><input type="submit" id="newID_submit" value="Create Citation and Identification" class="insBtn">	
+				<br><input type="button" onclick="createCitWithNewID();" id="newID_submit" value="Create Citation and Identification" class="insBtn">	
 			</div>
 						</fieldset>
 						</td>
@@ -389,6 +402,41 @@
 		
 	</cfoutput>
 </cfif>
+<!------------------------------------------------------------------------------->
+<cfif action is "newCitationExistingID">
+	<cfoutput>
+	 	<cfquery name="newCite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO citation (
+				collection_object_id,
+				cit_current_fg,
+				identification_id			
+				<cfif len(occurs_page_number) gt 0>
+					,occurs_page_number
+				</cfif>
+				<cfif len(type_status) gt 0>
+					,type_status
+				</cfif>
+				<cfif len(citation_remarks) gt 0>
+					,citation_remarks
+				</cfif>
+			) VALUES (
+				#collection_object_id#,
+				1,
+				#identification_id#,
+				<cfif len(occurs_page_number) gt 0>
+					,#occurs_page_number#
+				</cfif>
+				<cfif len(type_status) gt 0>
+					,'#type_status#'
+				</cfif>
+				<cfif len(citation_remarks) gt 0>
+					,'#escapeQuotes(citation_remarks)#'
+				</cfif>
+			) 
+		</cfquery>
+	<cflocation url="Citation.cfm?publication_id=#publication_id#">
+	</cfoutput>
+</cfif>	
 <!------------------------------------------------------------------------------->
 <cfif action is "newCitation">		
 	<cfif taxa_formula is "A {string}">
