@@ -331,7 +331,7 @@
 						<td>
 						<label for="theSpLkupDiv">Use an existing ID</label>
 				<fieldset id="theSpLkupDiv" class="fieldgroup">
-							<div id="resulttext">[ When/if the lookup is successful, existing identifications go here. ]</div>
+							<div id="resulttext">[ Find a specimen ]</div>
 							</fieldset>
 						</td>
 					</tr>
