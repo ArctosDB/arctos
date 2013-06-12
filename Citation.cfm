@@ -76,19 +76,7 @@
 				alert('pick a type status');
 				return false;
 			}
-
-
-" size="1">
-					<option value=''></option>
-					<cfloop query="ctTypeStatus">
-						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
-					</cfloop>
-				</select>
-				<span class="infoLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">Define</span>
-				<label class="likeLink" onClick="getDocs('publication','cited_on_page_number')" for="occurs_page_number">Page ##</label>
-				<input type="text" name="occurs_page_number" id="occurs_page_number" size="4">
-				<label for="citation_remarks">Citation Remarks:</label>
-				<input type="text" name="citation_remarks" id="citation_remarks" size="90">
+		}
 </script>
 
 <!---------
