@@ -213,8 +213,8 @@
 					</tr>
 				</table>
 				</fieldset>
-				
-				<br>----------------------------------Find Specimen-----------------------------------------------------------------------
+				<label for="theSpLkupDiv">Find Specimen</label>
+				<fieldset id="theSpLkupDiv" style="border:2px solid green">
 				
 				<table>
 					<tr>
@@ -247,6 +247,7 @@
 						</td>
 					</tr>
 				</table>
+				</fieldset>
 				<div id="resulttext">[ When/if the lookup is successful, existing IDs go here. ]</div>
 			
 				<br>----------------------------------Or use this form to create new identification ---------------------------
