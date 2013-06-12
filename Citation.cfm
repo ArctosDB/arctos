@@ -240,7 +240,7 @@
 						</td>
 					</tr>
 				</table>
-				<br><input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="Find Specimen">
+				<input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="Find Specimen">
 				</fieldset>
 				<div id="resulttext">[ When/if the lookup is successful, existing IDs go here. ]</div>
 			
