@@ -410,6 +410,7 @@
 	<cfoutput>
 	 	<cfquery name="newCite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO citation (
+				publication_id,
 				collection_object_id,
 				cit_current_fg,
 				identification_id			
@@ -423,6 +424,7 @@
 					,citation_remarks
 				</cfif>
 			) VALUES (
+				#publication_id#,
 				#collection_object_id#,
 				1,
 				#identification_id#
