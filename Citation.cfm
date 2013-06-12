@@ -187,7 +187,7 @@
 			<div class="newRec" id="newRec">
 				<h3>Add Citation and/or Identification</h3>
 				<label for="theCitationDiv">Citation</label>
-				<div id="theCitationDiv" style="border:2px solid green">
+				<span id="theCitationDiv" style="border:2px solid green">
 				<table>
 					<tr>
 						<td>
@@ -212,7 +212,7 @@
 						</td>
 					</tr>
 				</table>
-				</div>
+				</span>
 				
 				<br>----------------------------------Find Specimen-----------------------------------------------------------------------
 				
