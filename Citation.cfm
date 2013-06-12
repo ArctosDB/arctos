@@ -322,7 +322,7 @@
 						</fieldset>
 						</td>
 						<td class="valigntop">
-						<label for="theSpLkupDiv">Use an existing Identifications</label>
+						<label for="theSpLkupDiv">Use an existing Identification</label>
 				<fieldset id="theSpLkupDiv" class="fieldgroup">
 							<div id="resulttext">[ Find a specimen ]</div>
 							</fieldset>
