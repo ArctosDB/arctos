@@ -184,6 +184,7 @@
 				<br>---------------------------------- Citation -------------------------------------------------------------------------
 				<label class="likeLink" for="type_status" onClick="getDocs('publication','citation_type')">Citation Type</label>
 				<select name="type_status" id="type_status" size="1">
+					<option value=''></option>
 					<cfloop query="ctTypeStatus">
 						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
 					</cfloop>
