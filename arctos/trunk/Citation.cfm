@@ -190,14 +190,16 @@
 				<table>
 					<tr>
 						<td>
-							<label class="likeLink" for="type_status" onClick="getDocs('publication','citation_type')">Citation Type</label>
+							<label class="likeLink" for="type_status" onClick="getDocs('publication','citation_type')">
+								Citation Type
+								<span class="infoLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">[ Define ]</span>
+							</label>
 							<select name="type_status" id="type_status" size="1">
 								<option value=''></option>
 								<cfloop query="ctTypeStatus">
 									<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
 								</cfloop>
 							</select>
-							<span class="infoLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">Define</span>
 						</td>
 						<td>
 							<label class="likeLink" onClick="getDocs('publication','cited_on_page_number')" for="occurs_page_number">Page ##</label>
