@@ -46,10 +46,10 @@
 					alert('error: ' + scientific_name);
 				} else {
 					var ltxt = '<a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
-					ltxt += 'Pick one of these IDs to use an existing ID in the Citation, or scroll down to create a new ID.<br>Click this button to use NO EXISTING ID (reset): <input type="radio" name="identification_id" value="">';
+					ltxt += 'Pick one of these IDs to use an existing ID in the Citation, or scroll down to create a new ID.';
 					for (i=0;i<r.ROWCOUNT;i++) {
 						ltxt += '<ul><li>';
-						ltxt += 'Click this button to use this ID: <input type="radio" name="identification_id" value="' + result.IDENTIFICATION_ID[0] + '">';
+						ltxt += '<input type="button" value="Create Citation with this Identification" onclick="createCitWithExistingID(' + result.IDENTIFICATION_ID[0] + ');">';
 						
 
  						ltxt += '<br><strong>' + result.SCIENTIFIC_NAME[i] + '</strong>';
