@@ -195,7 +195,7 @@
 		<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">[ View Publication ]</a>
 		<br>Lots of citations? Try the <a href="/tools/BulkloadCitations.cfm">Citation Bulkloader</a>.
 		
-		
+		<a name="newCitation"></a>
 		<form name="newCitation" id="newCitation" method="post" action="Citation.cfm" onkeypress="return event.keyCode != 13;">
 			<input type="hidden" name="action" value="">
 			<input type="hidden" name="publication_id" value="#publication_id#">
@@ -369,6 +369,7 @@
 						<table>
 							<tr>
 								<td>
+									<a name="cid#citation_id#></a>
 									<input type="button" 
 										value="Delete"
 										class="delBtn"
@@ -439,7 +440,7 @@
 				</cfif>
 			) 
 		</cfquery>
-	<cflocation url="Citation.cfm?publication_id=#publication_id#">
+	<cflocation url="Citation.cfm?publication_id=#publication_id###newCitation">
 	</cfoutput>
 </cfif>	
 <!------------------------------------------------------------------------------->
@@ -612,7 +613,7 @@
 			) 
 		</cfquery>
 	</cftransaction>
-	<cflocation url="Citation.cfm?publication_id=#publication_id#">
+	<cflocation url="Citation.cfm?publication_id=#publication_id###newCitation">
 </cfif>
 <!------------------------------------------------------------------------------->
 <cfif #Action# is "saveEdits">
@@ -632,7 +633,7 @@
 		WHERE 
 			citation_id = #citation_id#
 		</cfquery>
-		<cflocation url="Citation.cfm?action=editCitation&citation_id=#citation_id#">
+		<cflocation url="Citation.cfm?action=editCitation&citation_id=#citation_id###cid#citation_id#">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->
