@@ -214,10 +214,14 @@
 				
 				
 				<br>----------------------------------Find Specimen-----------------------------------------------------------------------
-				<label for="guid">GUID (UAM:Mamm:12 format; overrides any other identifiers)</label>
-				<input type="text" name="guid" id="guid" onchange="getCatalogedItemCitation()">
+				
 				<table>
 					<tr>
+						<td>
+							<label for="guid">GUID (UAM:Mamm:12 format; overrides any other identifiers)</label>
+							<input type="text" name="guid" id="guid" onchange="getCatalogedItemCitation()">
+						</td>
+						<td>OR</td>
 						<td>
 							<label for="collection">Collection</label>
 							<select name="collection" id="collection" size="1">
@@ -237,11 +241,11 @@
 								<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
 							</cfif>
 						</td>
+						<td>
+							<input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="Find Specimen">
+						</td>
 					</tr>
 				</table>
-				<p>
-					<input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="click this button to find a specimen">.
-				</p>
 				<div id="resulttext">[ When/if the lookup is successful, existing IDs go here. ]</div>
 			
 				<br>----------------------------------Pick an ID above, or use this form toCreate New Identification ---------------------------
