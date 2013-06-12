@@ -72,7 +72,7 @@
 			}
 		}
 		function createCitWithExistingID(IdId){
-			if ($("#type_status").val().length())==0{
+			if ($("#type_status").val().length==0){
 				alert('pick a type status');
 				return false;
 			}
