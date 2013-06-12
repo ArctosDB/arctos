@@ -45,7 +45,7 @@
 					// error handling is packaged wonky
 					alert('error: ' + scientific_name);
 				} else {
-					var ltxt = '<a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
+					var ltxt = 'Working with Specimen: <a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
 					$("#foundSpecimen").html(ltxt);
 					ltxt='';
 					for (i=0;i<r.ROWCOUNT;i++) {
