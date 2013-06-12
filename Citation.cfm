@@ -58,7 +58,7 @@
 						} else {
 							ltxt += ' (unaccepted)';
 						}
-						ltxt += '<input type="button" value="Create Citation with this Identification" onclick="createCitWithExistingID(' + result.IDENTIFICATION_ID[0] + ');">';
+						ltxt += '<input type="button" class="insBtn" value="Create Citation with this Identification" onclick="createCitWithExistingID(' + result.IDENTIFICATION_ID[0] + ');">';
 						
 						ltxt += '<br>Nature of ID: ' + result.NATURE_OF_ID[i];
 						ltxt += '<br>Identified By: ' + result.IDBY[i] + ' on ' + result.MADE_DATE[i];
