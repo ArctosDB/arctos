@@ -49,7 +49,6 @@
 					ltxt += 'Pick one of these IDs to use an existing ID in the Citation, or scroll down to create a new ID.';
 					for (i=0;i<r.ROWCOUNT;i++) {
 						ltxt += '<ul><li>';
-						ltxt += '<input type="button" value="Create Citation with this Identification" onclick="createCitWithExistingID(' + result.IDENTIFICATION_ID[0] + ');">';
 						
 
  						ltxt += '<br><strong>' + result.SCIENTIFIC_NAME[i] + '</strong>';
@@ -58,6 +57,8 @@
 						} else {
 							ltxt += ' (unaccepted)';
 						}
+						ltxt += '<input type="button" value="Create Citation with this Identification" onclick="createCitWithExistingID(' + result.IDENTIFICATION_ID[0] + ');">';
+						
 						ltxt += '<br>Nature of ID: ' + result.NATURE_OF_ID[i];
 						ltxt += '<br>Identified By: ' + result.IDBY[i] + ' on ' + result.MADE_DATE[i];
 						ltxt += '<br>ID <i>Sensu</i>: ' + result.SHORT_CITATION[i];
