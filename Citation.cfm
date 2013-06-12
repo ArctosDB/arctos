@@ -203,7 +203,7 @@
 								<span class="likeLink" onClick="getDocs('publication','citation_type')">Citation Type</span>
 								<span class="likeLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">[ Define ]</span>
 							</label>
-							<select name="type_status" id="type_status" size="1">
+							<select name="type_status" id="type_status" size="1" class="reqdClr">
 								<option value=''></option>
 								<cfloop query="ctTypeStatus">
 									<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
@@ -257,7 +257,7 @@
 				<fieldset id="theSpLkupDiv" class="fieldgroup">
 				<table>
 					<tr>
-						<td>
+						<td class="valigntop">
 						<label for="">Create new Identification</label>
 						<fieldset id="newIDflg" class="fieldgroup">
 						<label for="accepted_id_fg">Make this the accepted specimen ID?</label>
@@ -328,7 +328,7 @@
 			</div>
 						</fieldset>
 						</td>
-						<td>
+						<td class="valigntop">
 						<label for="theSpLkupDiv">Use an existing ID</label>
 				<fieldset id="theSpLkupDiv" class="fieldgroup">
 							<div id="resulttext">[ Find a specimen ]</div>
