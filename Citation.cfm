@@ -173,6 +173,13 @@
 				publication_agent.agent_id=preferred_agent_name.agent_id and
 				publication_agent.publication_id = #publication_id#
 		</cfquery>
+		
+		<style>
+			.fieldgroup {
+				display: inline-block;
+				border:2px solid green;
+			}
+		</style>
 		Citations for <b>#getCited.full_citation#</b>
 		<span class="helpLink"  onClick="getDocs('publication','citation')">[ help ]</span>
 		<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
@@ -187,7 +194,7 @@
 			<div class="newRec" id="newRec">
 				<h3>Add Citation and/or Identification</h3>
 				<label for="theCitationDiv">Citation</label>
-				<fieldset id="theCitationDiv" style="border:2px solid green">
+				<fieldset id="theCitationDiv" class="fieldgroup">
 				<table>
 					<tr>
 						<td>
