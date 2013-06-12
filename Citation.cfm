@@ -45,6 +45,8 @@
 					alert('error: ' + scientific_name);
 				} else {
 					var ltxt = 'Working with Specimen: <a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
+					$("#collection_object_id").val(result.COLLECTION_OBJECT_ID[0]);
+
 					$("#foundSpecimen").html(ltxt);
 					ltxt='';
 					for (i=0;i<r.ROWCOUNT;i++) {
@@ -96,7 +98,6 @@
 <!---------
 
 	/*
-					$("#collection_object_id").val(result.COLLECTION_OBJECT_ID[0]);
 					var ltxt='<a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a>';
 					$("#resulttext").html(ltxt);
 					$("#taxa_formula").val(result.TAXA_FORMULA[0]);
