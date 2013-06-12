@@ -71,7 +71,24 @@
 				
 			}
 		}
-	
+		function createCitWithExistingID(IdId){
+			if ($("#type_status").val().length())==0{
+				alert('pick a type status');
+				return false;
+			}
+
+
+" size="1">
+					<option value=''></option>
+					<cfloop query="ctTypeStatus">
+						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
+					</cfloop>
+				</select>
+				<span class="infoLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">Define</span>
+				<label class="likeLink" onClick="getDocs('publication','cited_on_page_number')" for="occurs_page_number">Page ##</label>
+				<input type="text" name="occurs_page_number" id="occurs_page_number" size="4">
+				<label for="citation_remarks">Citation Remarks:</label>
+				<input type="text" name="citation_remarks" id="citation_remarks" size="90">
 </script>
 
 <!---------
@@ -176,24 +193,36 @@
 		
 		
 		<form name="newCitation" id="newCitation" method="post" action="Citation.cfm" onkeypress="return event.keyCode != 13;">
-			<input type="hidden" name="Action" value="newCitation">
+			<input type="hidden" name="action" value="newCitation">
 			<input type="hidden" name="publication_id" value="#publication_id#">
 			<input type="hidden" name="collection_object_id" id="collection_object_id">
 			<div class="newRec" id="newRec">
 				<h3>Add Citation and/or Identification</h3>
 				<br>---------------------------------- Citation -------------------------------------------------------------------------
-				<label class="likeLink" for="type_status" onClick="getDocs('publication','citation_type')">Citation Type</label>
-				<select name="type_status" id="type_status" size="1">
-					<option value=''></option>
-					<cfloop query="ctTypeStatus">
-						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
-					</cfloop>
-				</select>
-				<span class="infoLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">Define</span>
-				<label class="likeLink" onClick="getDocs('publication','cited_on_page_number')" for="occurs_page_number">Page ##</label>
-				<input type="text" name="occurs_page_number" id="occurs_page_number" size="4">
-				<label for="citation_remarks">Citation Remarks:</label>
-				<input type="text" name="citation_remarks" id="citation_remarks" size="90">
+				<table>
+					<tr>
+						<td>
+							<label class="likeLink" for="type_status" onClick="getDocs('publication','citation_type')">Citation Type</label>
+							<select name="type_status" id="type_status" size="1">
+								<option value=''></option>
+								<cfloop query="ctTypeStatus">
+									<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
+								</cfloop>
+							</select>
+							<span class="infoLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">Define</span>
+						</td>
+						<td>
+							<label class="likeLink" onClick="getDocs('publication','cited_on_page_number')" for="occurs_page_number">Page ##</label>
+							<input type="text" name="occurs_page_number" id="occurs_page_number" size="4">
+						</td>
+						<td>
+							<label for="citation_remarks">Citation Remarks:</label>
+							<input type="text" name="citation_remarks" id="citation_remarks" size="90">
+						</td>
+					</tr>
+				</table>
+				
+				
 				<br>----------------------------------Find Specimen-----------------------------------------------------------------------
 				<label for="guid">GUID (UAM:Mamm:12 format; overrides any other identifiers)</label>
 				<input type="text" name="guid" id="guid" onchange="getCatalogedItemCitation()">
