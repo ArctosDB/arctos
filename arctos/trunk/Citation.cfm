@@ -153,7 +153,7 @@
 				citedid.identification_id,
 				concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#')
 			ORDER BY
-				occurs_page_number,citSciName,cat_num
+				occurs_page_number,citSciName,guid_prefi,cat_num
 		</cfquery>
 		<cfquery name="auth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
