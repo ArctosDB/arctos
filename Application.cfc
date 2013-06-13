@@ -530,6 +530,8 @@
 	
 	<cfif currentPath contains "/CFIDE/">
 		you are in CFIDE
+	<cfelse>
+		nope
 	</cfif>
 	<!--- protect "us" directories	 --->
 
