@@ -78,6 +78,8 @@
 		<cfquery name="reqd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_spec_res_cols where category='required'
 		</cfquery>
+		
+		<cfdump var=#reqd#>
 		<cfset basSelect = listappend(basSelect,valuelist(reqd.SQL_ELEMENT))>
 		
 		basSelect: #basSelect#
