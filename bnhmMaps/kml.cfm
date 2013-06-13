@@ -80,7 +80,10 @@
 		</cfquery>
 		
 		<cfdump var=#reqd#>
-		<cfset basSelect = listappend(basSelect,valuelist(reqd.SQL_ELEMENT))>
+		
+		<cfloop query="reqd">
+			<cfset basSelect & ", " & reqd.SQL_ELEMENT & " " & reqd.COLUMN_NAME>
+		</cfloop>
 		
 		basSelect: #basSelect#
 		
