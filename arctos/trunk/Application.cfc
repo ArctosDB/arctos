@@ -527,6 +527,10 @@
 		</cfscript>
 		<cfabort>
 	</cfif>
+	
+	<cfif currentPath contains "/CFIDE/">
+		you are in CFIDE
+	</cfif>
 	<!--- protect "us" directories	 --->
 
 	<cfif (CGI.Remote_Addr is not "127.0.0.1") and
