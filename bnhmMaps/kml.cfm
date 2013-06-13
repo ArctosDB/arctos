@@ -79,6 +79,9 @@
 			select * from cf_spec_res_cols where category='required'
 		</cfquery>
 		<cfset basSelect = listappend(basSelect,valuelist(reqd.SQL_ELEMENT))>
+		
+		basSelect: #basSelect#
+		
 		<cfset basFrom = " FROM #flatTableName#">
 		<cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
 		<cfset basWhere = " WHERE #flatTableName#.collection_object_id IS NOT NULL ">
