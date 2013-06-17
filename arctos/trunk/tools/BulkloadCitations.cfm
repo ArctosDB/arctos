@@ -311,6 +311,12 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		where
 		(full_citation is null and publication_id is null)
 	</cfquery>
+	<cfquery name="nopub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_citation set status='publication not found'
+		where
+		publication_id is not null and
+		publication_id not in (select publication_id from publication)
+	</cfquery>
 	<cfquery name="data2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='missing data'
 		where
