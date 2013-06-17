@@ -488,7 +488,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	</cfquery>
 	<cftransaction>
 	<cfloop query="getTempData">
-		<cfif USE_EXISTING_ACCEPTED_ID is 1>
+		<cfif USE_EXISTING_ACCEPTED_ID is 0>
 			<cfif accepted_id_fg is 1>
 				<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
