@@ -124,7 +124,7 @@
     url = "127.0.0.1/ScheduledTasks/tacc_ocr.cfm?action=crawl"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:01 AM"
-    interval = "600"
+    interval = "daily"
     requestTimeOut = "300">
 <!-----------------------------------   media bulkloader    ------------------------------------------>
 <cfschedule action = "update"

@@ -305,6 +305,13 @@
 				<cfquery name="a3" dbtype="query">
 					select * from auth where r=3
 				</cfquery>
+				
+				<label for="">ID <em>sensu</em> this publication?</label>
+				<select name="use_id_sensu" id="use_id_sensu" size="1" class="reqdClr">
+					<option value="true">yes</option>
+					<option value="false">no</option>
+				</select>
+				
 				<label for="usePublicationAuthors">Use Publication Authors & ignore any agent info below</label>
 				<select name="usePublicationAuthors" id="usePublicationAuthors" size="1" class="reqdClr">
 					<option value="0">no, use author info below</option>
@@ -497,7 +504,11 @@
 				'#IDENTIFICATION_REMARKS#',
 				'#taxa_formula#',
 				'#scientific_name#',
-				#publication_id#
+				<cfif use_id_sensu is true>
+					#publication_id#
+				<cfelse>
+					NULL
+				</cfif>
 			)
 		</cfquery>
 		<cfif isdefined("usePublicationAuthors") and usePublicationAuthors is true>
