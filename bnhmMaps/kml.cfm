@@ -78,15 +78,9 @@
 		<cfquery name="reqd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_spec_res_cols where category='required'
 		</cfquery>
-		
-		<cfdump var=#reqd#>
-		
 		<cfloop query="reqd">
 			<cfset basSelect & ", " & reqd.SQL_ELEMENT & " " & reqd.COLUMN_NAME>
-		</cfloop>
-		
-		basSelect: #basSelect#
-		
+		</cfloop>		
 		<cfset basFrom = " FROM #flatTableName#">
 		<cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
 		<cfset basWhere = " WHERE #flatTableName#.collection_object_id IS NOT NULL ">

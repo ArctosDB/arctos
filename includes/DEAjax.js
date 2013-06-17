@@ -32,7 +32,6 @@ jQuery(document).ready(function() {
 		window.attachEvent("onmessage", getGeolocate);
 	}
 	pickedLocality();
-	makeSortable();
 	$.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "checkshowcal",
