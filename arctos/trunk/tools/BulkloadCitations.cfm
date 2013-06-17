@@ -651,7 +651,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 					#publication_id#,
 					#collection_object_id#,
 					1,
-					(select identification_id from identifiation where accepted_id_fg=1 and collection_object_id=#collection_object_id#)
+					(select identification_id from identification where accepted_id_fg=1 and collection_object_id=#collection_object_id#)
 					<cfif len(occurs_page_number) gt 0>
 						,#occurs_page_number#
 					</cfif>
