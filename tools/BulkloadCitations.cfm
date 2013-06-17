@@ -97,11 +97,43 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 <cfif action is "nothing">
 	Step 1: Upload a comma-delimited text file (csv).
 	Include CSV column headings.
+	
 	<ul>
 		<li><a href="BulkloadCitations.cfm?action=makeTemplate">Get a template</a></li>
 		<li><a target="_blank" class="external" href="http://arctosdb.org/documentation/publications/specimen-citations/">Citations documentation</a></li>
 	</ul>
-
+	Citations are a combination of a Publication and an Identification.
+	
+	<p>
+		Either full_citation or publication_id will find a publication. full_citation is an exact-string match - HTML markup and trailing spaces and all other
+		characters matter.
+	</p>
+	<p>
+		The combination of guid_prefix, other_id_type (including "catalog number"), and other_id_number must define exactly one specimen.
+		<ul>
+			<li>UAM:Mamm + catalog number + 1 will assuredly work.</li>
+			<li>UAM:Mamm + collector number + 1 will work ONLY if exactly one UAM:Mammal has a collector number of "1".</li>
+		</ul>
+		There are several options to select an Identification:
+		<ul>
+			<li>Enter "1" under USE_EXISTING_ACCEPTED_ID to link the citation to the current accepted identification. Use this option cautiously - it 
+			severely limits	the utility of citations.</li>
+			<li>
+				Enter "0" under USE_EXISTING_ACCEPTED_ID to create a new Identification/Citation pair.
+				 New Citations created using this application will automatically be "sensu" the publication used in the citation. This option created dedicated
+				 citations and is strongly preferred, even when a publication does not explicitly add Identification information. There are two options for specifying 
+				 Identifying Agents:
+				 	<li>
+				 		Set use_pub_authors to "1" to use the authors of the publication as the identifiers. This is usually the correct approach IF (and only if) the
+				 		publication explicitly has Agents attached. Not all publications do.
+				 	</li>
+				 	<li>
+				 		Set use_pub_authors to "0" and specify identifying agents under identifier_<em>n</em>. This is appropriate if the publication does not have 
+				 		agents attached. 
+				 	</li>
+			</li>
+		</ul>
+	</p>
 
 	<table border>
 		<tr>
