@@ -681,7 +681,9 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select publication_id,full_citation,status from cf_temp_citation group by publication_id,full_citation,status
 		</cfquery>
-		<cfif #getTempData.recordcount# is 0>
+		
+		<cfdump var=#getTempData#>
+		<cfif getTempData.recordcount is 0>
 			something very strange happened. Contact a sysadmin.
 		</cfif>
 		<cfloop query="getTempData">
