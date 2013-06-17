@@ -634,9 +634,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 					</cfif>
 				)
 			</cfquery>
-			<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update cf_temp_citation set status='loaded' where key=#key#
-			</cfquery>
 		<cfelse><!--- use existing accepted ID ---->
 			<cfquery name="newCite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO citation (
@@ -670,6 +667,9 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				)
 			</cfquery>
 		</cfif>
+		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update cf_temp_citation set status='loaded' where key=#key#
+		</cfquery>
 	</cfloop>
 	</cftransaction>
 <cflocation url="BulkloadCitations.cfm?action=allDone">
