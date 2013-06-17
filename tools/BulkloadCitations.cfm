@@ -123,6 +123,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				 New Citations created using this application will automatically be "sensu" the publication used in the citation. This option created dedicated
 				 citations and is strongly preferred, even when a publication does not explicitly add Identification information. There are two options for specifying 
 				 Identifying Agents:
+				 <ul>
 				 	<li>
 				 		Set use_pub_authors to "1" to use the authors of the publication as the identifiers. This is usually the correct approach IF (and only if) the
 				 		publication explicitly has Agents attached. Not all publications do.
@@ -131,6 +132,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				 		Set use_pub_authors to "0" and specify identifying agents under identifier_<em>n</em>. This is appropriate if the publication does not have 
 				 		agents attached. 
 				 	</li>
+				 </ul>
 			</li>
 		</ul>
 	</p>
