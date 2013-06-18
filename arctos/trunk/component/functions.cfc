@@ -2900,21 +2900,22 @@
 				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) AND
 				<cfif isdefined("guid") and len(guid) gt 0>
 					upper(collection.guid_prefix || ':' || cataloged_item.cat_num)='#ucase(guid)#'
-				<cfelseif isdefined("collection_id") and len(collection_id) gt 0 and isdefined("theNum") and len(theNum) gt 0 and isdefined("type") and len(type) gt 0>
-					<cfif type is "cat_num">
+				<cfelseif type is "cat_num">
 						cat_num='#theNum#'
-					<cfelse>
-						display_value='#theNum#' and
-						other_id_type='#type#'
-					</cfif>
 				<cfelse>
-					1=0
+					display_value='#theNum#' and
+					other_id_type='#type#'
 				</cfif>
 			order by
 				accepted_id_fg DESC,
 				scientific_name
 		</cfquery>
+		<!----
 		
+						<cfelseif isdefined("collection_id") and len(collection_id) gt 0 and isdefined("theNum") and len(theNum) gt 0 and isdefined("type") and len(type) gt 0>
+
+
+------>
 		<cfdump var=#result#>
 		<cfcatch>
 			<cfset result = querynew("collection_object_id,guid,scientific_name")>
