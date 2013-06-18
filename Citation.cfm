@@ -116,6 +116,14 @@
 </script>
 <!------------------------------------------------------------------------------->
 <cfif action is "nothing">
+	<script>
+		jQuery(document).ready(function() {
+			var ptl="Citation.cfm?action=ThisIsTheExistingCitationThingee&publication_id=" + $("#publication_id").val();
+			jQuery.get(ptl, function(data){
+				 jQuery('#theCitationsGoHere').html(data);
+			})
+		});	
+	</script>
 	<cfset title="Manage Citations">
 	<cfoutput>
 		<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
