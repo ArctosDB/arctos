@@ -42,7 +42,11 @@
 			alert('error: ' + result.SCIENTIFIC_NAME[0]);
 			return false;
 		} else {
-			var ltxt = 'Working with Specimen: <a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
+			var ltxt = 'Working with Specimen: <a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a>';
+			if (result.CUSTOMIDTYPE[0].length < 0) {
+				ltxt+=result.CUSTOMIDTYPE[0] + ': ' + result.CUSTOMID[0];
+			}
+			ltxt+'<br>';
 			$("#collection_object_id").val(result.COLLECTION_OBJECT_ID[0]);
 			// default some possibly-useful stuff in
 			$("#taxona").val(result.SCIENTIFIC_NAME[0]);
