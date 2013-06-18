@@ -37,44 +37,38 @@
 	}
 	function success_getCatalogedItemCitation (r) {
 		var result=r.DATA;
-		if (r.ROWCOUNT == 0){
-			alert('Specimen not found.');
+		if (result.COLLECTION_OBJECT_ID[0] < 0) {
+			// error handling is packaged wonky
+			alert('error: ' + result.SCIENTIFIC_NAME[0]);
 			return false;
 		} else {
-				if (result.COLLECTION_OBJECT_ID[0] < 0) {
-					// error handling is packaged wonky
-					alert('error: ' + result.SCIENTIFIC_NAME[0]);
-					return false;
+			var ltxt = 'Working with Specimen: <a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
+			$("#collection_object_id").val(result.COLLECTION_OBJECT_ID[0]);
+			// default some possibly-useful stuff in
+			$("#taxona").val(result.SCIENTIFIC_NAME[0]);
+			$("#taxona_id").val(result.TAXON_NAME_ID[0]);
+			$("#nature_of_id").val(result.NATURE_OF_ID[0]);
+
+
+			$("#foundSpecimen").html(ltxt);
+			ltxt='';
+			for (i=0;i<r.ROWCOUNT;i++) {
+				ltxt += '<ul><li>';
+					ltxt += '<strong>' + result.SCIENTIFIC_NAME[i] + '</strong>';
+				if (result.ACCEPTED_ID_FG[i]==1){
+					ltxt += ' (accepted)';
 				} else {
-					var ltxt = 'Working with Specimen: <a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
-					$("#collection_object_id").val(result.COLLECTION_OBJECT_ID[0]);
-					// default some possibly-useful stuff in
-					$("#taxona").val(result.SCIENTIFIC_NAME[0]);
-					$("#taxona_id").val(result.TAXON_NAME_ID[0]);
-					$("#nature_of_id").val(result.NATURE_OF_ID[0]);
-
-
-					$("#foundSpecimen").html(ltxt);
-					ltxt='';
-					for (i=0;i<r.ROWCOUNT;i++) {
-						ltxt += '<ul><li>';
- 						ltxt += '<strong>' + result.SCIENTIFIC_NAME[i] + '</strong>';
-						if (result.ACCEPTED_ID_FG[i]==1){
-							ltxt += ' (accepted)';
-						} else {
-							ltxt += ' (unaccepted)';
-						}
-						ltxt += '<input type="button" class="insBtn" value="Create Citation with this Identification" onclick="createCitWithExistingID(' + result.IDENTIFICATION_ID[0] + ');">';
-						
-						ltxt += '<br>Nature of ID: ' + result.NATURE_OF_ID[i];
-						ltxt += '<br>Identified By: ' + result.IDBY[i] + ' on ' + result.MADE_DATE[i];
-						ltxt += '<br>ID <i>Sensu</i>: ' + result.SHORT_CITATION[i];
-						ltxt += '<br>ID Remark: ' + result.IDENTIFICATION_REMARKS[i];
-						ltxt += '</li></ul>'; 
-					}
-					$("#resulttext").html(ltxt);
+					ltxt += ' (unaccepted)';
 				}
+				ltxt += '<input type="button" class="insBtn" value="Create Citation with this Identification" onclick="createCitWithExistingID(' + result.IDENTIFICATION_ID[0] + ');">';
+				
+				ltxt += '<br>Nature of ID: ' + result.NATURE_OF_ID[i];
+				ltxt += '<br>Identified By: ' + result.IDBY[i] + ' on ' + result.MADE_DATE[i];
+				ltxt += '<br>ID <i>Sensu</i>: ' + result.SHORT_CITATION[i];
+				ltxt += '<br>ID Remark: ' + result.IDENTIFICATION_REMARKS[i];
+				ltxt += '</li></ul>'; 
 			}
+			$("#resulttext").html(ltxt);
 		}
 		function createCitWithExistingID(IdId){
 			if ($("#type_status").val().length==0){
