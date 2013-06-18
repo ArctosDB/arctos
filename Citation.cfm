@@ -22,6 +22,8 @@
 		});
 	});
 	function getCatalogedItemCitation () {
+		$("#foundSpecimen").html('<img src="/images/indicator.gif">');
+
 		// GUID overrides everything
 		if ($("#guid").val().length > 0) {
 			$("#collection").val('');
@@ -33,7 +35,7 @@
 			return false;
 			$("#foundSpecimen").html('[ find a specimen to continue ]');
 		}
-		$("#foundSpecimen").html('<img src="/images/indicator.gif">');
+		
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "getCatalogedItemCitation",
