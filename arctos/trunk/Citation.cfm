@@ -70,32 +70,33 @@
 			}
 			$("#resulttext").html(ltxt);
 		}
-		function createCitWithExistingID(IdId){
-			if ($("#type_status").val().length==0){
-				alert('pick a type status');
-				return false;
-			}
-			if ($("#collection_object_id").val().length==0){
-				alert('pick a specimen');
-				return false;
-			}
-			newCitation.action.value='newCitationExistingID';
-			$("#identification_id").val(IdId);
-			newCitation.submit();
+	}
+	function createCitWithExistingID(IdId){
+		if ($("#type_status").val().length==0){
+			alert('pick a type status');
+			return false;
 		}
+		if ($("#collection_object_id").val().length==0){
+			alert('pick a specimen');
+			return false;
+		}
+		newCitation.action.value='newCitationExistingID';
+		$("#identification_id").val(IdId);
+		newCitation.submit();
+	}
 
-		function createCitWithNewID(IdId){
-			if ($("#type_status").val().length==0){
-				alert('pick a type status');
-				return false;
-			}
-			if ($("#collection_object_id").val().length==0){
-				alert('pick a specimen');
-				return false;
-			}
-			newCitation.action.value='newCitation';
-			newCitation.submit();
+	function createCitWithNewID(IdId){
+		if ($("#type_status").val().length==0){
+			alert('pick a type status');
+			return false;
 		}
+		if ($("#collection_object_id").val().length==0){
+			alert('pick a specimen');
+			return false;
+		}
+		newCitation.action.value='newCitation';
+		newCitation.submit();
+	}
 </script>
 
 
