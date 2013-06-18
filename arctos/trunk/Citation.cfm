@@ -31,7 +31,9 @@
 		// require something to run the query
 		if ($("#guid").val().length == 0 && $("#cat_num").val().length == 0 && $("#custom_id").val().length == 0) {
 			return false;
+			$("#foundSpecimen").html('[ find a specimen to continue ]');
 		}
+		$("#foundSpecimen").html('<img src="/images/indicator.gif">');
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "getCatalogedItemCitation",
@@ -50,6 +52,7 @@
 		if (result.COLLECTION_OBJECT_ID[0] < 0) {
 			// error handling is packaged wonky
 			alert('error: ' + result.SCIENTIFIC_NAME[0]);
+			$("#foundSpecimen").html('error: ' + result.SCIENTIFIC_NAME[0]);
 			return false;
 		} else {
 			var ltxt = 'Working with Specimen: <a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a>';
@@ -268,7 +271,7 @@
 				</table>
 				
 				<input type="button" class="schLink" onclick="getCatalogedItemCitation();" value="Find Specimen">
-				<div id="foundSpecimen"></div>
+				<div id="foundSpecimen">[ find a specimen to continue ]</div>
 				</fieldset>
 				
 				<label for="theSpLkupDiv">Identification</label>
