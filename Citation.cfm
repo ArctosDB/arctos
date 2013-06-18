@@ -119,6 +119,9 @@
 	<script>
 		jQuery(document).ready(function() {
 			var ptl="Citation.cfm?action=ThisIsTheExistingCitationThingee&publication_id=" + $("#publication_id").val();
+		console.log('getting ' + ptl);
+return false;
+
 			jQuery.get(ptl, function(data){
 				 jQuery('#theCitationsGoHere').html(data);
 			})
