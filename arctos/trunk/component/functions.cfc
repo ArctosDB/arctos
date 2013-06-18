@@ -2918,7 +2918,12 @@
 			<cfset result = querynew("collection_object_id,guid,scientific_name")>
 			<cfset temp = queryaddrow(result,1)>
 			<cfset temp = QuerySetCell(result, "collection_object_id", "-1", 1)>
-			<cfset temp = QuerySetCell(result, "scientific_name", "Search matched #distci.c# specimens.", 1)>
+			<cfif len(distci.c) is 0>
+				<cfset c=0>
+			<cfelse>
+				<cfset c=distci.c>
+			</cfif>
+			<cfset temp = QuerySetCell(result, "scientific_name", "Search matched #c# specimens.", 1)>
 		</cfif>
 		<!----
 		
