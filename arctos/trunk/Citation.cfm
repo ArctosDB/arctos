@@ -22,10 +22,15 @@
 		});
 	});
 	function getCatalogedItemCitation () {
+		// GUID overrides everything
 		if ($("#guid").val().length > 0) {
 			$("#collection").val('');
 			$("#cat_num").val('');
 			$("#custom_id").val('');
+		}
+		// require something to run the query
+		if ($("#guid").val().length == 0 && $("#cat_num").val().length == 0 && $("#custom_id").val().length == 0) {
+			return false;
 		}
 		jQuery.getJSON("/component/functions.cfc",
 			{
