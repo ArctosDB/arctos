@@ -46,13 +46,17 @@
 				} else {
 					var ltxt = 'Working with Specimen: <a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
 					$("#collection_object_id").val(result.COLLECTION_OBJECT_ID[0]);
+					// default some possibly-useful stuff in
+					$("#taxa_formula").val(result.TAXA_FORMULA[0]);
+					$("#taxona").val(result.SCIENTIFIC_NAME[0]);
+					$("#taxona_id").val(result.TAXON_NAME_ID[0]);
+					$("#nature_of_id").val(result.NATURE_OF_ID[0]);
+
 
 					$("#foundSpecimen").html(ltxt);
 					ltxt='';
 					for (i=0;i<r.ROWCOUNT;i++) {
 						ltxt += '<ul><li>';
-						
-
  						ltxt += '<strong>' + result.SCIENTIFIC_NAME[i] + '</strong>';
 						if (result.ACCEPTED_ID_FG[i]==1){
 							ltxt += ' (accepted)';
@@ -68,9 +72,7 @@
 						ltxt += '</li></ul>'; 
 					}
 					$("#resulttext").html(ltxt);
-				
 				}
-				
 			}
 		}
 		function createCitWithExistingID(IdId){
@@ -78,7 +80,10 @@
 				alert('pick a type status');
 				return false;
 			}
-
+			if ($("#collection_object_id").val().length==0){
+				alert('pick a specimen');
+				return false;
+			}
 			newCitation.action.value='newCitationExistingID';
 			$("#identification_id").val(IdId);
 			newCitation.submit();
@@ -89,24 +94,16 @@
 				alert('pick a type status');
 				return false;
 			}
-
+			if ($("#collection_object_id").val().length==0){
+				alert('pick a specimen');
+				return false;
+			}
 			newCitation.action.value='newCitation';
 			newCitation.submit();
 		}
 </script>
 
-<!---------
 
-	/*
-					var ltxt='<a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a>';
-					$("#resulttext").html(ltxt);
-					$("#taxa_formula").val(result.TAXA_FORMULA[0]);
-					$("#taxona").val(result.SCIENTIFIC_NAME[0]);
-					$("#taxona_id").val(result.TAXON_NAME_ID[0]);
-					$("#nature_of_id").val(result.NATURE_OF_ID[0]);
-*/
-
------------>
 <!------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfset title="Manage Citations">
@@ -193,7 +190,7 @@
 		<br><span class="helpLink"  onClick="getDocs('publication','citation')">[ help ]</span>
 		<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
 		<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">[ View Publication ]</a>
-		<br>Lots of citations? Try the <a href="/tools/BulkloadCitations.cfm">Citation Bulkloader</a>.
+		Lots of citations? Try the <a href="/tools/BulkloadCitations.cfm">Citation Bulkloader</a>.
 		
 		<a name="newCitation"></a>
 		<form name="newCitation" id="newCitation" method="post" action="Citation.cfm" onkeypress="return event.keyCode != 13;">
