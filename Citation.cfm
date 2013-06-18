@@ -22,7 +22,7 @@
 		});
 	});
 	function getCatalogedItemCitation () {
-		if ($("#guid").val().length > 0 {
+		if ($("#guid").val().length > 0) {
 			$("#collection").val('');
 			$("#cat_num").val('');
 			$("#custom_id").val('');
