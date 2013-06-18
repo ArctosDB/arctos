@@ -2897,14 +2897,19 @@
 				identification.publication_id=publication.publication_id (+) and
 				identification.identification_id=identification_taxonomy.identification_id (+) and
 				identification_taxonomy.VARIABLE='A' and
-				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) AND
+				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) 
 				<cfif isdefined("guid") and len(guid) gt 0>
-					upper(collection.guid_prefix || ':' || cataloged_item.cat_num)='#ucase(guid)#'
-				<cfelseif type is "cat_num">
-						cat_num='#theNum#'
+					AND upper(collection.guid_prefix || ':' || cataloged_item.cat_num)='#ucase(guid)#'
 				<cfelse>
-					display_value='#theNum#' and
-					other_id_type='#type#'
+					<cfif len(collection_id) gt 0>
+						and collection.collection_id=#collection_id#
+					</cfif>
+					<cfif type is "cat_num">
+						AND cat_num='#theNum#'
+					<cfelse>
+						AND display_value='#theNum#' and
+						other_id_type='#type#'
+					</cfif>
 				</cfif>
 			order by
 				accepted_id_fg DESC,
