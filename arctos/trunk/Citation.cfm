@@ -43,7 +43,7 @@
 			return false;
 		} else {
 			var ltxt = 'Working with Specimen: <a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a>';
-			if (result.CUSTOMIDTYPE[0].length > 0) {
+			if (result.CUSTOMIDTYPE[0] != null) {
 				ltxt+=' - ' + result.CUSTOMIDTYPE[0] + ': ' + result.CUSTOMID[0];
 			}
 			ltxt+'<br>';
