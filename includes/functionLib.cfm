@@ -241,7 +241,7 @@
 	<cfset session.block_suggest=''>
 	<cfset session.meta_description=''>
 	<cfset session.SpecSrchTab="SpecSrch" & left(session.sessionKey,20)>
-	<cfset session.MediaSrchTab="MediaSrch" & left(session.sessionKey,20)> <!-- Doris' edit -->
+	<cfset session.MediaSrchTab="MediaSrch" & left(session.sessionKey,20)>
 	<cfset session.TaxSrchTab="TaxSrch" & left(session.sessionKey,20)>
 	<!---------------------------- login ------------------------------------------------>
 	<cfif isdefined("username") and len(username) gt 0 and isdefined("pwd") and len(pwd) gt 0>
