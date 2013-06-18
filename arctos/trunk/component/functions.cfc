@@ -2907,7 +2907,7 @@
 						and collection.collection_id=#collection_id#
 					</cfif>
 					<cfif len(cat_num) gt 0>
-						AND cat_num='#theNum#'
+						AND cat_num='#cat_num#'
 					<cfelseif len(custom_id) gt 0>
 						AND display_value='#custom_id#' and
 						other_id_type='#session.CustomOtherIdentifier#'
