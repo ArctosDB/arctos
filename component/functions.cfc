@@ -2914,6 +2914,8 @@
 				accepted_id_fg DESC,
 				scientific_name
 		</cfquery>
+		
+		<cfdump var=#result#>
 		<cfcatch>
 			<cfset result = querynew("collection_object_id,guid,scientific_name")>
 			<cfset temp = queryaddrow(result,1)>
