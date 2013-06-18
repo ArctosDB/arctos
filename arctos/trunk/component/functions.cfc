@@ -2912,7 +2912,7 @@
 		</cfquery>
 		<!--- allow return of only one cataloged item ---->
 		<cfquery name="distci" dbtype="query">
-			select count(distinct(cataloged_item.COLLECTION_OBJECT_ID)) c from result
+			select count(distinct(COLLECTION_OBJECT_ID)) c from result
 		</cfquery>
 		<cfif distci.c neq 1>
 			<cfset result = querynew("collection_object_id,guid,scientific_name")>
