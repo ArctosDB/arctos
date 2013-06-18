@@ -47,7 +47,6 @@
 					var ltxt = 'Working with Specimen: <a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
 					$("#collection_object_id").val(result.COLLECTION_OBJECT_ID[0]);
 					// default some possibly-useful stuff in
-					$("#taxa_formula").val(result.TAXA_FORMULA[0]);
 					$("#taxona").val(result.SCIENTIFIC_NAME[0]);
 					$("#taxona_id").val(result.TAXON_NAME_ID[0]);
 					$("#nature_of_id").val(result.NATURE_OF_ID[0]);

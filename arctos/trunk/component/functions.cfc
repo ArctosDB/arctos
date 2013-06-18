@@ -2871,71 +2871,49 @@
 	<cfargument name="guid" type="string" required="no">
 	<cfoutput>
 	<cftry>
-		<cfif isdefined("guid") and len(guid) gt 0>
-			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select
-					cataloged_item.COLLECTION_OBJECT_ID,
-					collection.guid_prefix || ':' || cataloged_item.cat_num guid,
-					identification.scientific_name,
-					identification.NATURE_OF_ID,
-					identification.accepted_id_fg,
-					concatidentifiers(cataloged_item.COLLECTION_OBJECT_ID) idby,
-					SHORT_CITATION,
-					identification_remarks,
-					made_date,
-					identification_id
-				from
-					cataloged_item,
-					collection,
-					identification,
-					publication
-				where
-					cataloged_item.collection_id=collection.collection_id and
-					cataloged_item.collection_object_id=identification.collection_object_id and
-					identification.publication_id=publication.publication_id (+) and
+		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				cataloged_item.COLLECTION_OBJECT_ID,
+				collection.guid_prefix || ':' || cataloged_item.cat_num guid,
+				identification.scientific_name,
+				identification.NATURE_OF_ID,
+				identification.accepted_id_fg,
+				concatidentifiers(cataloged_item.COLLECTION_OBJECT_ID) idby,
+				SHORT_CITATION,
+				identification_remarks,
+				made_date,
+				identification.identification_id,
+				identification_taxonomy.taxon_name_id
+			from
+				cataloged_item,
+				collection,
+				identification,
+				publication,
+				identification_taxonomy,
+				coll_obj_other_id_num
+			where
+				cataloged_item.collection_id=collection.collection_id and
+				cataloged_item.collection_object_id=identification.collection_object_id and
+				identification.publication_id=publication.publication_id (+) and
+				identification.identification_id=identification_taxonomy.identification_id (+) and
+				identification_taxonomy.VARIABLE='A' and
+				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) AND
+				<cfif isdefined("guid") and len(guid) gt 0>
 					upper(collection.guid_prefix || ':' || cataloged_item.cat_num)='#ucase(guid)#'
-				order by
-					accepted_id_fg DESC,
-					scientific_name
-			</cfquery>
-		<cfelseif isdefined("collection_id") and len(collection_id) gt 0 and isdefined("theNum") and len(theNum) gt 0 and isdefined("type") and len(type) gt 0>
-			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select
-					cataloged_item.COLLECTION_OBJECT_ID,
-					collection.guid_prefix || ':' || cataloged_item.cat_num guid,
-					identification.scientific_name,
-					identification_taxonomy.taxon_name_id,
-					identification.NATURE_OF_ID,
-					identification.TAXA_FORMULA
-				from
-					cataloged_item,
-					collection,
-					coll_obj_other_id_num,
-					identification,
-					identification_taxonomy
-				where
-					cataloged_item.collection_id=collection.collection_id and
-					cataloged_item.collection_object_id=identification.collection_object_id and
-					identification.accepted_id_fg=1 and
-					identification.identification_id=identification_taxonomy.identification_id and
-					identification_taxonomy.variable='A' and
-					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) AND
-					cataloged_item.collection_id=#collection_id# and
+				<cfelseif isdefined("collection_id") and len(collection_id) gt 0 and isdefined("theNum") and len(theNum) gt 0 and isdefined("type") and len(type) gt 0>
 					<cfif type is "cat_num">
 						cat_num='#theNum#'
 					<cfelse>
 						display_value='#theNum#' and
 						other_id_type='#type#'
 					</cfif>
-				group by
-					cataloged_item.COLLECTION_OBJECT_ID,
-					collection.guid_prefix || ':' || cataloged_item.cat_num,
-					identification.scientific_name,
-					identification_taxonomy.taxon_name_id,
-					identification.NATURE_OF_ID,
-					identification.TAXA_FORMULA
-			</cfquery>
-		</cfif>
+				<cfelse>
+					1=0
+				</cfif>
+			order by
+				accepted_id_fg DESC,
+				scientific_name
+		</cfquery>
 		<cfcatch>
 			<cfset result = querynew("collection_object_id,guid,scientific_name")>
 			<cfset temp = queryaddrow(result,1)>
