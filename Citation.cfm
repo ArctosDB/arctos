@@ -22,6 +22,11 @@
 		});
 	});
 	function getCatalogedItemCitation () {
+		if ($("#guid").val().length > 0 {
+			$("#collection").val('');
+			$("#cat_num").val('');
+			$("#custom_id").val('');
+		}
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "getCatalogedItemCitation",
