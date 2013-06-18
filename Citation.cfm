@@ -331,13 +331,9 @@
 			</div>
 		</form>
 		<!--- split the table out so it can be loaded asynchronously - see http://code.google.com/p/arctos/issues/detail?id=559 --->
+		<p><strong>Existing Citations</strong></p>
 		<div id="theCitationsGoHere"></div>
-		
 	</cfoutput>
-</cfif>
-<!------------------------------------------------------------------------------->
-<cfif action is "ThisIsTheExistingCitationThingee">
-	
 </cfif>
 <!------------------------------------------------------------------------------->
 
