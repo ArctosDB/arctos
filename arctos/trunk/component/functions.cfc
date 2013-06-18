@@ -2883,7 +2883,9 @@
 				identification_remarks,
 				made_date,
 				identification.identification_id,
-				identification_taxonomy.taxon_name_id
+				identification_taxonomy.taxon_name_id,
+				concatSingleOtherId(cataloged_item.collection_object_id,'#type#') AS CustomID,
+				'#type#' AS CustomIDtype,
 			from
 				cataloged_item,
 				collection,
