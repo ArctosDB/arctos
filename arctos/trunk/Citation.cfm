@@ -130,52 +130,14 @@
 		<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select taxa_formula from cttaxa_formula order by taxa_formula
 		</cfquery>
-		<cfquery name="getCited" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="getPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
-				citation.citation_id,
-				citation.publication_id,
-				citation.collection_object_id,
-				guid_prefix || ':' || cat_num guid,
 				PUBLISHED_YEAR,
-				identification.scientific_name, 
-				citedid.scientific_name as citSciName,
-				occurs_page_number,
-				type_status,
-				citation_remarks,
-				full_citation,
-				citedid.identification_id citedidid,
-				concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
+				full_citation
 			FROM 
-				citation, 
-				cataloged_item,
-				collection,
-				identification,
-				identification citedid,
 				publication
 			WHERE
-				citation.collection_object_id = cataloged_item.collection_object_id AND
-				cataloged_item.collection_id = collection.collection_id AND
-				citation.identification_id = citedid.identification_id AND
-				cataloged_item.collection_object_id = identification.collection_object_id (+) AND
-				identification.accepted_id_fg = 1 AND
-				citation.publication_id = publication.publication_id AND
-				citation.publication_id = #publication_id#
-			group by
-				citation.citation_id,
-				citation.publication_id,
-				citation.collection_object_id,
-				guid_prefix || ':' || cat_num,
-				PUBLISHED_YEAR,
-				identification.scientific_name, 
-				citedid.scientific_name,
-				occurs_page_number,
-				type_status,
-				citation_remarks,
-				full_citation,
-				citedid.identification_id,
-				concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#')
-			ORDER BY
-				occurs_page_number,citSciName,guid_prefix || ':' || cat_num
+				publication_id = #publication_id#
 		</cfquery>
 		<cfquery name="auth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
@@ -195,7 +157,7 @@
 				border:2px solid green;
 			}
 		</style>
-		Citations for <b>#getCited.full_citation#</b>
+		Citations for <b>#getPub.full_citation#</b>
 		<br><span class="helpLink"  onClick="getDocs('publication','citation')">[ help ]</span>
 		<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
 		<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">[ View Publication ]</a>
@@ -357,6 +319,61 @@
 				</fieldset>
 			</div>
 		</form>
+		<!--- split the table out so it can be loaded asynchronously - see http://code.google.com/p/arctos/issues/detail?id=559 --->
+		<div id="theCitationsGoHere"></div>
+		
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------->
+<cfif action is "ThisIsTheExistingCitationThingee">
+	<cfoutput>
+		<cfquery name="getCited" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			SELECT
+				citation.citation_id,
+				citation.publication_id,
+				citation.collection_object_id,
+				guid_prefix || ':' || cat_num guid,
+				PUBLISHED_YEAR,
+				identification.scientific_name, 
+				citedid.scientific_name as citSciName,
+				occurs_page_number,
+				type_status,
+				citation_remarks,
+				full_citation,
+				citedid.identification_id citedidid,
+				concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
+			FROM 
+				citation, 
+				cataloged_item,
+				collection,
+				identification,
+				identification citedid,
+				publication
+			WHERE
+				citation.collection_object_id = cataloged_item.collection_object_id AND
+				cataloged_item.collection_id = collection.collection_id AND
+				citation.identification_id = citedid.identification_id AND
+				cataloged_item.collection_object_id = identification.collection_object_id (+) AND
+				identification.accepted_id_fg = 1 AND
+				citation.publication_id = publication.publication_id AND
+				citation.publication_id = #publication_id#
+			group by
+				citation.citation_id,
+				citation.publication_id,
+				citation.collection_object_id,
+				guid_prefix || ':' || cat_num,
+				PUBLISHED_YEAR,
+				identification.scientific_name, 
+				citedid.scientific_name,
+				occurs_page_number,
+				type_status,
+				citation_remarks,
+				full_citation,
+				citedid.identification_id,
+				concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#')
+			ORDER BY
+				occurs_page_number,citSciName,guid_prefix || ':' || cat_num
+		</cfquery>
 		<table border="1" cellpadding="0" cellspacing="0">
 			<tr>
 				<th>&nbsp;</th>
@@ -412,6 +429,7 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->
+
 <cfif action is "newCitationExistingID">
 	<cfoutput>
 	 	<cfquery name="newCite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
