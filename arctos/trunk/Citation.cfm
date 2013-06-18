@@ -43,7 +43,7 @@
 		} else {
 				if (result.COLLECTION_OBJECT_ID[0] < 0) {
 					// error handling is packaged wonky
-					alert('error: ' + scientific_name);
+					alert('error: ' + result.SCIENTIFIC_NAME[0]);
 					return false;
 				} else {
 					var ltxt = 'Working with Specimen: <a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
