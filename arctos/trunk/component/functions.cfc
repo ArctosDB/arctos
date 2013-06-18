@@ -2866,8 +2866,8 @@
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getCatalogedItemCitation" access="remote">
 	<cfargument name="collection_id" type="string" required="no">
-	<cfargument name="theNum" type="string" required="no">
-	<cfargument name="type" type="string" required="no">
+	<cfargument name="cat_num" type="string" required="no">
+	<cfargument name="custom_id" type="string" required="no">
 	<cfargument name="guid" type="string" required="no">
 	<cfoutput>
 	<cftry>
@@ -2906,11 +2906,13 @@
 					<cfif len(collection_id) gt 0>
 						and collection.collection_id=#collection_id#
 					</cfif>
-					<cfif type is "cat_num">
+					<cfif len(cat_num) gt 0>
 						AND cat_num='#theNum#'
+					<cfelseif len(custom_id) gt 0>
+						AND display_value='#custom_id#' and
+						other_id_type='#session.CustomOtherIdentifier#'
 					<cfelse>
-						AND display_value='#theNum#' and
-						other_id_type='#type#'
+						and 0=1
 					</cfif>
 				</cfif>
 			order by

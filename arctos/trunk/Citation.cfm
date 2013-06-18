@@ -21,14 +21,14 @@
 			$("#" + this.id).datepicker();
 		});
 	});
-	function getCatalogedItemCitation (id,type) {
+	function getCatalogedItemCitation () {
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "getCatalogedItemCitation",
 				collection_id : $("#collection").val(),
-				theNum : $("#" + id).val(),
+				cat_num : $("#cat_num").val(),
+				custom_id : $("#custom_id").val(),
 				guid : $("#guid").val(),
-				type : type,
 				returnformat : "json",
 				queryformat : 'column'
 			},
@@ -244,18 +244,20 @@
 						</td>
 						<td>
 							<label for="cat_num">Catalog Number</label>
-							<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')">
+							<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation()">
 						</td>
 						<td>
 							<cfif len(session.CustomOtherIdentifier) gt 0>
 								<label for="custom_id">#session.CustomOtherIdentifier#</label>
 								<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
+							<cfelse>
+								<input type="hidden" name="custom_id" id="custom_id">
 							</cfif>
 						</td>
 					</tr>
 				</table>
 				
-				<input type="button" class="schLink" onclick="getCatalogedItemCitation('cat_num','cat_num');" value="Find Specimen">
+				<input type="button" class="schLink" onclick="getCatalogedItemCitation();" value="Find Specimen">
 				<div id="foundSpecimen"></div>
 				</fieldset>
 				
