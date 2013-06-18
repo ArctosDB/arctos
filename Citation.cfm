@@ -67,8 +67,6 @@
 			$("#taxona").val(result.SCIENTIFIC_NAME[0]);
 			$("#taxona_id").val(result.TAXON_NAME_ID[0]);
 			$("#nature_of_id").val(result.NATURE_OF_ID[0]);
-
-
 			$("#foundSpecimen").html(ltxt);
 			ltxt='';
 			for (i=0;i<r.ROWCOUNT;i++) {
@@ -80,7 +78,6 @@
 					ltxt += ' (unaccepted)';
 				}
 				ltxt += '<input type="button" class="insBtn" value="Create Citation with this Identification" onclick="createCitWithExistingID(' + result.IDENTIFICATION_ID[0] + ');">';
-				
 				ltxt += '<br>Nature of ID: ' + result.NATURE_OF_ID[i];
 				ltxt += '<br>Identified By: ' + result.IDBY[i] + ' on ' + result.MADE_DATE[i];
 				ltxt += '<br>ID <i>Sensu</i>: ' + result.SHORT_CITATION[i];
@@ -117,8 +114,6 @@
 		newCitation.submit();
 	}
 </script>
-
-
 <!------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfset title="Manage Citations">
@@ -194,7 +189,6 @@
 				publication_agent.agent_id=preferred_agent_name.agent_id and
 				publication_agent.publication_id = #publication_id#
 		</cfquery>
-		
 		<style>
 			.fieldgroup {
 				display: inline-block;
@@ -206,7 +200,6 @@
 		<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
 		<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">[ View Publication ]</a>
 		Lots of citations? Try the <a href="/tools/BulkloadCitations.cfm">Citation Bulkloader</a>.
-		
 		<a name="newCitation"></a>
 		<form name="newCitation" id="newCitation" method="post" action="Citation.cfm" onkeypress="return event.keyCode != 13;">
 			<input type="hidden" name="action" value="">
@@ -217,161 +210,153 @@
 				<h3>Add Citation and/or Identification</h3>
 				<label for="theCitationDiv">Citation</label>
 				<fieldset id="theCitationDiv" class="fieldgroup">
-				<table>
-					<tr>
-						<td>
-							<label for="type_status">
-								<span class="likeLink" onClick="getDocs('publication','citation_type')">Citation Type</span>
-								<span class="likeLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">[ Define ]</span>
-							</label>
-							<select name="type_status" id="type_status" size="1" class="reqdClr">
-								<option value=''></option>
-								<cfloop query="ctTypeStatus">
-									<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<label class="likeLink" onClick="getDocs('publication','cited_on_page_number')" for="occurs_page_number">Page ##</label>
-							<input type="text" name="occurs_page_number" id="occurs_page_number" size="4">
-						</td>
-						<td>
-							<label for="citation_remarks">Citation Remarks:</label>
-							<input type="text" name="citation_remarks" id="citation_remarks" size="90">
-						</td>
-					</tr>
-				</table>
+					<table>
+						<tr>
+							<td>
+								<label for="type_status">
+									<span class="likeLink" onClick="getDocs('publication','citation_type')">Citation Type</span>
+									<span class="likeLink" onClick="getCtDoc('ctcitation_type_status',newCitation.type_status.value)">[ Define ]</span>
+								</label>
+								<select name="type_status" id="type_status" size="1" class="reqdClr">
+									<option value=''></option>
+									<cfloop query="ctTypeStatus">
+										<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+								<label class="likeLink" onClick="getDocs('publication','cited_on_page_number')" for="occurs_page_number">Page ##</label>
+								<input type="text" name="occurs_page_number" id="occurs_page_number" size="4">
+							</td>
+							<td>
+								<label for="citation_remarks">Citation Remarks:</label>
+								<input type="text" name="citation_remarks" id="citation_remarks" size="90">
+							</td>
+						</tr>
+					</table>
 				</fieldset>
 				<label for="theSpLkupDiv">Find Specimen</label>
 				<fieldset id="theSpLkupDiv" class="fieldgroup">
-				<label for="guid">GUID (UAM:Mamm:12 format; overrides any other identifiers)</label>
-							<input type="text" name="guid" id="guid" onchange="getCatalogedItemCitation()">
-				<table>
-					<tr>
-						<td>
-							<label for="collection">Collection</label>
-							<select name="collection" id="collection" size="1">
-								<option value=""></option>
-								<cfloop query="ctcollection">
-									<option value="#collection_id#">#collection#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<label for="cat_num">Catalog Number</label>
-							<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation()">
-						</td>
-						<td>
-							<cfif len(session.CustomOtherIdentifier) gt 0>
-								<label for="custom_id">#session.CustomOtherIdentifier#</label>
-								<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
-							<cfelse>
-								<input type="hidden" name="custom_id" id="custom_id">
-							</cfif>
-						</td>
-					</tr>
-				</table>
-				
-				<input type="button" class="schLink" onclick="getCatalogedItemCitation();" value="Find Specimen">
-				<div id="foundSpecimen">[ find a specimen to continue ]</div>
+					<label for="guid">GUID (UAM:Mamm:12 format; overrides any other identifiers)</label>
+					<input type="text" name="guid" id="guid" onchange="getCatalogedItemCitation()">
+					<table>
+						<tr>
+							<td>
+								<label for="collection">Collection</label>
+								<select name="collection" id="collection" size="1">
+									<option value=""></option>
+									<cfloop query="ctcollection">
+										<option value="#collection_id#">#collection#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+								<label for="cat_num">Catalog Number</label>
+								<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation()">
+							</td>
+							<td>
+								<cfif len(session.CustomOtherIdentifier) gt 0>
+									<label for="custom_id">#session.CustomOtherIdentifier#</label>
+									<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
+								<cfelse>
+									<input type="hidden" name="custom_id" id="custom_id">
+								</cfif>
+							</td>
+						</tr>
+					</table>
+					<input type="button" class="schLink" onclick="getCatalogedItemCitation();" value="Find Specimen">
+					<div id="foundSpecimen">[ find a specimen to continue ]</div>
 				</fieldset>
-				
 				<label for="theSpLkupDiv">Identification</label>
 				<fieldset id="theSpLkupDiv" class="fieldgroup">
-				<table>
-					<tr>
-						<td class="valigntop">
-						<label for="">Create new Identification</label>
-						<fieldset id="newIDflg" class="fieldgroup">
-						<label for="accepted_id_fg">Make this the accepted specimen ID?</label>
-				<select name="accepted_id_fg" id="accepted_id_fg" size="1" class="reqdClr">
-					<option value="0">no</option>
-					<option value="1">yes</option>
-				</select>
-				<label for="taxa_formula"><span class="helpLink" id="taxa_formula">ID Formula:</span></label>
-				<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr" onchange="newIdFormula(this.value);">
-					<cfloop query="ctFormula">
-						<option value="#ctFormula.taxa_formula#">#taxa_formula#</option>
-					</cfloop>
-				</select>
-				<label for="taxona"><span class="helpLink" id="scientific_name">Taxon A:</span></label>
-				<input type="text" name="taxona" id="taxona" class="reqdClr" size="50" 
-					onChange="taxaPick('taxona_id','taxona','newCitation',this.value); return false;"
-					onKeyPress="return noenter(event);">
-				<input type="hidden" name="taxona_id" id="taxona_id" class="reqdClr">	
-				<div id="userID" style="display:none;">
-			    	<label for="user_id"><span class="helpLink" id="user_identification">Identification:</span></label>
-					<input type="text" name="user_id" id="user_id" size="50">
-				</div>
-				<div id="taxon_b_row" style="display:none;">
-					<label for="taxonb"><span class="helpLink" id="scientific_name">Taxon B:</span></label>
-					<input type="text" name="taxonb" id="taxonb"  size="50" 
-						onChange="taxaPick('taxonb_id','taxonb','newCitation',this.value); return false;"
-						onKeyPress="return noenter(event);">
-					<input type="hidden" name="taxonb_id" id="taxonb_id">
-				</div>
-				<cfquery name="a1" dbtype="query">
-					select * from auth where r=1
-				</cfquery>
-				<cfquery name="a2" dbtype="query">
-					select * from auth where r=2
-				</cfquery>
-				<cfquery name="a3" dbtype="query">
-					select * from auth where r=3
-				</cfquery>
-				
-				<label for="">ID <em>sensu</em> this publication?</label>
-				<select name="use_id_sensu" id="use_id_sensu" size="1" class="reqdClr">
-					<option value="true">yes</option>
-					<option value="false">no</option>
-				</select>
-				
-				<label for="usePublicationAuthors">Use Publication Authors & ignore any agent info below</label>
-				<select name="usePublicationAuthors" id="usePublicationAuthors" size="1" class="reqdClr">
-					<option value="0">no, use author info below</option>
-					<option value="1">yes, ignore author info below</option>
-				</select>
-				<label for="newIdBy"><span class="helpLink" id="id_by">ID Agent 1 (save and edit for more agents)</span></label>
-				<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" value="#a1.agent_name#"
-					onchange="getAgent('newIdBy_id',this.id,'newCitation',this.value);">
-				<input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr" value="#a1.agent_id#"> 
-				<label for="newIdBy_two"><span class="helpLink" id="id_by">ID Agent 2</span></label>
-				<input type="text" name="newIdBy_two" id="newIdBy_two" size="50"  value="#a2.agent_name#"
-					onchange="getAgent('newIdBy_two_id',this.id,'newCitation',this.value);">
-			    <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id" value="#a2.agent_id#"> 
-				<label for="newIdBy_three"><span class="helpLink" id="id_by">ID Agent 3</span></label>
-				<input type="text" name="newIdBy_three" id="newIdBy_three" size="50" value="#a3.agent_name#" 
-					onchange="getAgent('newIdBy_three_id',this.id,'newCitation',this.value);">
-			    <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id" value="#a3.agent_id#"> 	
-				<label for="made_date"><span class="helpLink" id="identification.made_date">ID Date:</span></label>
-				<input type="text" name="made_date" id="made_date" value='#getCited.PUBLISHED_YEAR#'>
-				<label for="nature_of_id"><span class="helpLink" id="nature_of_id">Nature of ID</span></label>
-				<select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr">
-					<cfloop query="ctnature">
-					<option  value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
-					</cfloop>
-				</select>
-				<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
-				<label for="identification_remarks"><span class="helpLink" id="identification_remarks">Remarks</span></label>
-				<input type="text" name="identification_remarks" id="identification_remarks" size="50">
-				<br><input type="button" onclick="createCitWithNewID();" id="newID_submit" value="Create Citation and Identification" class="insBtn">	
+					<table>
+						<tr>
+							<td class="valigntop">
+								<label for="">Create new Identification</label>
+								<fieldset id="newIDflg" class="fieldgroup">
+									<label for="accepted_id_fg">Make this the accepted specimen ID?</label>
+									<select name="accepted_id_fg" id="accepted_id_fg" size="1" class="reqdClr">
+										<option value="0">no</option>
+										<option value="1">yes</option>
+									</select>
+									<label for="taxa_formula"><span class="helpLink" id="taxa_formula">ID Formula:</span></label>
+									<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr" onchange="newIdFormula(this.value);">
+										<cfloop query="ctFormula">
+											<option value="#ctFormula.taxa_formula#">#taxa_formula#</option>
+										</cfloop>
+									</select>
+									<label for="taxona"><span class="helpLink" id="scientific_name">Taxon A:</span></label>
+									<input type="text" name="taxona" id="taxona" class="reqdClr" size="50" 
+										onChange="taxaPick('taxona_id','taxona','newCitation',this.value); return false;"
+										onKeyPress="return noenter(event);">
+									<input type="hidden" name="taxona_id" id="taxona_id" class="reqdClr">	
+									<div id="userID" style="display:none;">
+								    	<label for="user_id"><span class="helpLink" id="user_identification">Identification:</span></label>
+										<input type="text" name="user_id" id="user_id" size="50">
+									</div>
+									<div id="taxon_b_row" style="display:none;">
+										<label for="taxonb"><span class="helpLink" id="scientific_name">Taxon B:</span></label>
+										<input type="text" name="taxonb" id="taxonb"  size="50" 
+											onChange="taxaPick('taxonb_id','taxonb','newCitation',this.value); return false;"
+											onKeyPress="return noenter(event);">
+										<input type="hidden" name="taxonb_id" id="taxonb_id">
+									</div>
+									<cfquery name="a1" dbtype="query">
+										select * from auth where r=1
+									</cfquery>
+									<cfquery name="a2" dbtype="query">
+										select * from auth where r=2
+									</cfquery>
+									<cfquery name="a3" dbtype="query">
+										select * from auth where r=3
+									</cfquery>
+									<label for="">ID <em>sensu</em> this publication?</label>
+									<select name="use_id_sensu" id="use_id_sensu" size="1" class="reqdClr">
+										<option value="true">yes</option>
+										<option value="false">no</option>
+									</select>
+									<label for="usePublicationAuthors">Use Publication Authors & ignore any agent info below</label>
+									<select name="usePublicationAuthors" id="usePublicationAuthors" size="1" class="reqdClr">
+										<option value="0">no, use author info below</option>
+										<option value="1">yes, ignore author info below</option>
+									</select>
+									<label for="newIdBy"><span class="helpLink" id="id_by">ID Agent 1 (save and edit for more agents)</span></label>
+									<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" value="#a1.agent_name#"
+										onchange="getAgent('newIdBy_id',this.id,'newCitation',this.value);">
+									<input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr" value="#a1.agent_id#"> 
+									<label for="newIdBy_two"><span class="helpLink" id="id_by">ID Agent 2</span></label>
+									<input type="text" name="newIdBy_two" id="newIdBy_two" size="50"  value="#a2.agent_name#"
+										onchange="getAgent('newIdBy_two_id',this.id,'newCitation',this.value);">
+								    <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id" value="#a2.agent_id#"> 
+									<label for="newIdBy_three"><span class="helpLink" id="id_by">ID Agent 3</span></label>
+									<input type="text" name="newIdBy_three" id="newIdBy_three" size="50" value="#a3.agent_name#" 
+										onchange="getAgent('newIdBy_three_id',this.id,'newCitation',this.value);">
+								    <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id" value="#a3.agent_id#"> 	
+									<label for="made_date"><span class="helpLink" id="identification.made_date">ID Date:</span></label>
+									<input type="text" name="made_date" id="made_date" value='#getCited.PUBLISHED_YEAR#'>
+									<label for="nature_of_id"><span class="helpLink" id="nature_of_id">Nature of ID</span></label>
+									<select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr">
+										<cfloop query="ctnature">
+										<option  value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
+										</cfloop>
+									</select>
+									<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
+									<label for="identification_remarks"><span class="helpLink" id="identification_remarks">Remarks</span></label>
+									<input type="text" name="identification_remarks" id="identification_remarks" size="50">
+									<br><input type="button" onclick="createCitWithNewID();" id="newID_submit" value="Create Citation and Identification" class="insBtn">	
+								</fieldset>
+							</td>
+							<td class="valigntop">
+								<label for="theSpLkupDiv">Use an existing Identification</label>
+								<fieldset id="theSpLkupDiv" class="fieldgroup">
+									<div id="resulttext">[ Find a specimen ]</div>
+								</fieldset>
+							</td>
+						</tr>
+					</table>
+				</fieldset>
 			</div>
-						</fieldset>
-						</td>
-						<td class="valigntop">
-						<label for="theSpLkupDiv">Use an existing Identification</label>
-				<fieldset id="theSpLkupDiv" class="fieldgroup">
-							<div id="resulttext">[ Find a specimen ]</div>
-							</fieldset>
-						</td>
-					</tr>
-				</table>
-				
-			</fieldset>
 		</form>
-		
-		
-		
 		<table border="1" cellpadding="0" cellspacing="0">
 			<tr>
 				<th>&nbsp;</th>
@@ -424,7 +409,6 @@
 				<cfset i=i+1>
 			</cfloop>
 		</table>
-		
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->
