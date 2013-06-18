@@ -332,7 +332,7 @@
 		</form>
 		<!--- split the table out so it can be loaded asynchronously - see http://code.google.com/p/arctos/issues/detail?id=559 --->
 		<p><strong>Existing Citations</strong></p>
-		<div id="theCitationsGoHere"></div>
+		<div id="theCitationsGoHere"><img src="/imges/indicator.gif"></div>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->
