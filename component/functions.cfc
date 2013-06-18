@@ -2910,6 +2910,16 @@
 				accepted_id_fg DESC,
 				scientific_name
 		</cfquery>
+		<!--- allow return of only one cataloged item ---->
+		<cfquery name="distci" dbtype="query">
+			select count(distinct(cataloged_item.COLLECTION_OBJECT_ID)) c from result
+		</cfquery>
+		<cfif distci.c neq 1>
+			<cfset result = querynew("collection_object_id,guid,scientific_name")>
+			<cfset temp = queryaddrow(result,1)>
+			<cfset temp = QuerySetCell(result, "collection_object_id", "-1", 1)>
+			<cfset temp = QuerySetCell(result, "scientific_name", "Search matched #distci.c# specimens.", 1)>
+		</cfif>
 		<!----
 		
 						<cfelseif isdefined("collection_id") and len(collection_id) gt 0 and isdefined("theNum") and len(theNum) gt 0 and isdefined("type") and len(type) gt 0>
