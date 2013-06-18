@@ -176,7 +176,7 @@ return false;
 		<a name="newCitation"></a>
 		<form name="newCitation" id="newCitation" method="post" action="Citation.cfm" onkeypress="return event.keyCode != 13;">
 			<input type="hidden" name="action" value="">
-			<input type="hidden" name="publication_id" value="#publication_id#">
+			<input type="hidden" name="publication_id" id="publication_id" value="#publication_id#">
 			<input type="hidden" name="identification_id" id="identification_id" value="">
 			<input type="hidden" name="collection_object_id" id="collection_object_id">
 			<div class="newRec" id="newRec">
