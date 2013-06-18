@@ -39,10 +39,12 @@
 		var result=r.DATA;
 		if (r.ROWCOUNT == 0){
 			alert('Specimen not found.');
+			return false;
 		} else {
 				if (result.COLLECTION_OBJECT_ID[0] < 0) {
 					// error handling is packaged wonky
 					alert('error: ' + scientific_name);
+					return false;
 				} else {
 					var ltxt = 'Working with Specimen: <a target="_blank" href="/guid/' + result.GUID[0] + '">' + result.GUID[0] + ' - ' + result.SCIENTIFIC_NAME[0] + '</a><br>';
 					$("#collection_object_id").val(result.COLLECTION_OBJECT_ID[0]);
