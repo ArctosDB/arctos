@@ -295,7 +295,7 @@
 										onchange="getAgent('newIdBy_three_id',this.id,'newCitation',this.value);">
 								    <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id" value="#a3.agent_id#"> 	
 									<label for="made_date"><span class="helpLink" id="identification.made_date">ID Date:</span></label>
-									<input type="text" name="made_date" id="made_date" value='#getCited.PUBLISHED_YEAR#'>
+									<input type="text" name="made_date" id="made_date" value='#getPub.PUBLISHED_YEAR#'>
 									<label for="nature_of_id"><span class="helpLink" id="nature_of_id">Nature of ID</span></label>
 									<select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr">
 										<cfloop query="ctnature">
