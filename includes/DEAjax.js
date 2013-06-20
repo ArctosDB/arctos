@@ -316,6 +316,7 @@ function saveEditedRecord () {
 		$.ajax({
 		    url: "/component/Bulkloader.cfc",
 		    dataType: "json",
+		    type: "POST",
 		    data: {
 				method: "saveEdits",
 				q : $("#dataEntry").serialize(),

@@ -1,16 +1,4 @@
 <cfcomponent>
-
-
-<cffunction name="test" access="remote">
-	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from bulkloader where rownum=1
-	</cfquery>
-	<cfset x=SerializeJSON(result, true)>
-	<cfreturn x>
-</cffunction>
-
-
-
 <cffunction name="my_last_record" access="remote">
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select max(collection_object_id) collection_object_id from bulkloader where enteredby='#session.username#'
@@ -298,7 +286,8 @@
 			<cfset temp = QuerySetCell(result, "rslt",  cfcatch.message & "; " &  cfcatch.detail, 1)>
 		</cfcatch>
 		</cftry>
-		<cfreturn result>
+		<cfset x=SerializeJSON(result, true)>
+		<cfreturn x>
 	</cfoutput>
 </cffunction>
 <!----------------------------------------------------------------------------------------->
