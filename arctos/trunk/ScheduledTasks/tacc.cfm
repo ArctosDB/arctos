@@ -217,7 +217,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 			filetype='path' and
 			(
 				crawled_path_date is null 
-				 --or round(sysdate-crawled_path_date) > 10
+				-- or round(sysdate-crawled_path_date) > 3
 			) and
 			rownum=1
 		</cfquery>
@@ -459,6 +459,8 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					related_primary_key=#collection_object_id# and
 					media_uri='http://web.corral.tacc.utexas.edu/UAF/#fullpath#'
 			</cfquery>
+			
+			<cfdump var=#dng_id#>
 			<cfif len(dng_id.media_id) is 0 or dng_id.recordcount is not 1>
 				<cfquery name="fail" datasource="uam_god">
 					update tacc set status='dng_media_not_found' where collection_object_id=#collection_object_id#
@@ -573,6 +575,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 							update tacc set status='all_done' where collection_object_id=#collection_object_id#
 						</cfquery>
 						<cfcatch>
+							<cfdump var=#cfcatch#>
 							<cfquery name="notspiffy" datasource="uam_god">
 								update tacc set status='fail_at_jpg: #cfcatch.message#' where collection_object_id=#collection_object_id#
 							</cfquery>
