@@ -5,7 +5,7 @@
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from bulkloader where rownum=1
 	</cfquery>
-	<cfset x=SerializeJSON(result, serializeQueryByColumns)>
+	<cfset x=SerializeJSON(result, true)>
 	<cfreturn x>
 </cffunction>
 
