@@ -337,7 +337,7 @@ function saveEditedRecord () {
 				$("#browseThingy").show();
 				return false;
 			}
-		)};
+		});
 	}
 }
 
