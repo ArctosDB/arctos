@@ -722,9 +722,9 @@ Roll yer own:
 		</cfloop>
 	</cfgrid>
 	<br><cfinput type="submit" name="save" value="Save Changes In Grid">
-	<br><a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&colln=#colln#&returnAction=viewTable">Mark all to load</a>
 	<br><a href="browseBulk.cfm?action=download&enteredby=#enteredby#&accn=#accn#&colln=#colln#">Download CSV</a>
 	<br>Set LOADED to DELETE to delete.
+	<br><a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&colln=#colln#&returnAction=viewTable">Mark all to load</a>
 </cfform>
 
 </cfoutput>
