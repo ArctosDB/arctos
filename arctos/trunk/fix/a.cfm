@@ -1,3 +1,4 @@
+<cfinclude template="/inclides/_header.cfm">
 <script>
 
 function test () {
