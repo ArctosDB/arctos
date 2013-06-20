@@ -341,6 +341,9 @@ function saveEditedRecord () {
 	}
 }
 
+
+
+
 function loadedEditRecord(){
 	// show errors and set the form up to deal with them if necessary
 	// used by saveEditedRecord and loadRecordEdit
