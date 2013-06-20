@@ -119,9 +119,6 @@
 	<script>
 		jQuery(document).ready(function() {
 			var ptl="/includes/forms/listExistingCitations.cfm?publication_id=" + $("#publication_id").val();
-		console.log('getting ' + ptl);
-
-
 			jQuery.get(ptl, function(data){
 				 jQuery('#theCitationsGoHere').html(data);
 			})
