@@ -7,7 +7,7 @@ function test () {
 		$.ajax({
 		    url: "/component/Bulkloader.cfc",
 		    dataType: "json",
-			type: "GET",
+			type: "POST",
 		    data: {
 				method: "test",
 				queryformat : "column",
