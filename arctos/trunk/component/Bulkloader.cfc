@@ -2,11 +2,11 @@
 
 
 <cffunction name="test" access="remote">
-	<cfset queryformat="column">
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from bulkloader where rownum=1
 	</cfquery>
-	<cfreturn result>
+	<cfset x=SerializeJSON(result, serializeQueryByColumns)>
+	<cfreturn x>
 </cffunction>
 
 
