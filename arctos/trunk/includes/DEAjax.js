@@ -329,8 +329,15 @@ function saveEditedRecord () {
 				msg(status);
 				//$("#loadedMsgDiv").text(status);
 				loadedEditRecord();
+			},
+			error: function( result, strError ){
+				alert('Error saving edits: ' + strError);
+				msg('record failed to load','good');
+				// turn on browse at least
+				$("#browseThingy").show();
+				return false;
 			}
-		);
+		)};
 	}
 }
 
