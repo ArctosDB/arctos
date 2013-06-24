@@ -265,7 +265,6 @@
 						<th>#session.CustomOtherIdentifier#</th>
 						<th>Scientific Name</th>
 						<th>Encumbrances</th>
-						<th>partLastScanDate</th>
 						<th>remove</th>
 					</tr>
 					<cfloop query="getDataLoanRequests">
@@ -282,7 +281,6 @@
 							<td>
 								#encumbrances#
 							</td>
-							<td>#partLastScanDate#</td>
 							<td>
 								<input type="checkbox" name="collection_object_id" value="#collection_object_id#">
 							</td>
@@ -363,6 +361,7 @@
 					<th>Item Remarks</th>
 					<th>Disposition</th>
 					<th>Encumbrance</th>
+					<th>partLastScanDate</th>
 					<th>&nbsp;</th>
 				</tr>
 				<cfset i=1>
@@ -417,6 +416,7 @@
 						<td>
 							#Encumbrance# <cfif len(#agent_name#) gt 0> by #agent_name#</cfif>&nbsp;
 						</td>
+						<td>#partLastScanDate#</td>
 						<td>
 							<img src="/images/del.gif" class="likeLink" onclick="remPartFromLoan(#partID#);" />
 						</td>
