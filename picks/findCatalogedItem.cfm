@@ -119,7 +119,7 @@
 		collection,
 		cataloged_item.collection_object_id,
 		scientific_name
-		order by cat_num">
+		order by collection,cat_num">
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
