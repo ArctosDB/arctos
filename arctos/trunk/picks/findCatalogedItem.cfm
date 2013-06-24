@@ -118,7 +118,8 @@
 	<cfset sql=sql & " group by cat_num,
 		collection,
 		cataloged_item.collection_object_id,
-		scientific_name">
+		scientific_name
+		order by cat_num">
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
