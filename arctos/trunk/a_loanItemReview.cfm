@@ -185,7 +185,8 @@
 			 agent_name,
 			 loan_number,
 			 specimen_part.collection_object_id as partID,
-			concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID		 			 
+			concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+			to_char(pbc.PARENT_INSTALL_DATE,'YYYY-MM-DD"T"HH24:MI:SS') partLastScanDate			 
 		 from 
 			loan_item, 
 			loan,
@@ -196,11 +197,17 @@
 			encumbrance,
 			agent_name,
 			identification,
-			collection
+			collection,
+			coll_obj_cont_hist,
+			container partc,
+			container pbc
 		WHERE
 			loan_item.collection_object_id = specimen_part.collection_object_id AND
 			loan.transaction_id = loan_item.transaction_id AND
 			specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
+			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id (+) and
+			coll_obj_cont_hist.container_id=partc.container_id (+) and
+			partc.parent_container_id=pbc.container_id (+) and 
 			specimen_part.collection_object_id = coll_object.collection_object_id AND
 			coll_object.collection_object_id = coll_object_encumbrance.collection_object_id (+) and
 			coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND
@@ -258,6 +265,7 @@
 						<th>#session.CustomOtherIdentifier#</th>
 						<th>Scientific Name</th>
 						<th>Encumbrances</th>
+						<th>partLastScanDate</th>
 						<th>remove</th>
 					</tr>
 					<cfloop query="getDataLoanRequests">
@@ -274,6 +282,7 @@
 							<td>
 								#encumbrances#
 							</td>
+							<td>#partLastScanDate#</td>
 							<td>
 								<input type="checkbox" name="collection_object_id" value="#collection_object_id#">
 							</td>
