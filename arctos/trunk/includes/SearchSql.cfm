@@ -447,34 +447,41 @@
 </cfif>
 
 
-beg_pbcscan_date
-end_pbcscan_date
 
-
-<cfif (isdefined("beg_pbcscan_date") AND len(beg_pbcscan_date) gt 0) or (isdefined("end_pbcscan_date") AND len(end_pbcscan_date) gt 0)>
-	<cfset thisBC = replace(barcode,",","','","all")>
-	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_object_id IN (
-		SELECT
-			derived_from_cat_item
-		FROM
-			specimen_part,
-			coll_obj_cont_hist,
-			container coll_obj_container,
-			container parent_container
-		WHERE
-			specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id AND
-			coll_obj_cont_hist.container_id = coll_obj_container.container_id AND
-			coll_obj_container.parent_container_id = parent_container.container_id">
-	<cfif isdefined("beg_pbcscan_date") AND len(beg_pbcscan_date) gt 0>
-		<cfset basQual = "#basQual#  AND parent_container.PARENT_INSTALL_DATE >= '#beg_pbcscan_date#'">
-		<cfset mapurl = "#mapurl#&beg_pbcscan_date=#beg_pbcscan_date#">
+<cfif isdefined("beg_pbcscan_date") AND len(beg_pbcscan_date) gt 0>
+	<cfif basJoin does not contain "specimen_part">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON (#session.flatTableName#.collection_object_id = specimen_part.derived_from_cat_item)">
 	</cfif>
-	<cfif isdefined("end_pbcscan_date") AND len(end_pbcscan_date) gt 0>
-		<cfset basQual = "#basQual#  AND parent_container.PARENT_INSTALL_DATE <= '#end_pbcscan_date#'">
-		<cfset mapurl = "#mapurl#&end_pbcscan_date=#end_pbcscan_date#">
+	<cfif basJoin does not contain "coll_obj_cont_hist">
+		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_cont_hist ON (specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id)">
 	</cfif>
-	<cfset basQual = "#basQual# )">
+	<cfif basJoin does not contain "coll_obj_container">
+		<cfset basJoin = " #basJoin# INNER JOIN container coll_obj_container ON (coll_obj_cont_hist.container_id = coll_obj_container.container_id)">
+	</cfif>
+	<cfif basJoin does not contain "parent_container">
+		<cfset basJoin = " #basJoin# INNER JOIN container parent_container ON (coll_obj_container.parent_container_id = parent_container.container_id)">
+	</cfif>
+	<cfset basQual = "#basQual#  AND parent_container.PARENT_INSTALL_DATE >= '#beg_pbcscan_date#'">
+	<cfset mapurl = "#mapurl#&beg_pbcscan_date=#beg_pbcscan_date#">
 </cfif>
+<cfif isdefined("end_pbcscan_date") AND len(end_pbcscan_date) gt 0>
+	<cfif basJoin does not contain "specimen_part">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON (#session.flatTableName#.collection_object_id = specimen_part.derived_from_cat_item)">
+	</cfif>
+	<cfif basJoin does not contain "coll_obj_cont_hist">
+		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_cont_hist ON (specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain "coll_obj_container">
+		<cfset basJoin = " #basJoin# INNER JOIN container coll_obj_container ON (coll_obj_cont_hist.container_id = coll_obj_container.container_id)">
+	</cfif>
+	<cfif basJoin does not contain "parent_container">
+		<cfset basJoin = " #basJoin# INNER JOIN container parent_container ON (coll_obj_container.parent_container_id = parent_container.container_id)">
+	</cfif>
+	<cfset basQual = "#basQual#  AND parent_container.PARENT_INSTALL_DATE <= '#end_pbcscan_date#'">
+	<cfset mapurl = "#mapurl#&beg_pbcscan_date=#beg_pbcscan_date#">
+</cfif>
+	
+	
 <cfif isdefined("session.ShowObservations") AND session.ShowObservations is false>
 	<cfset mapurl = "#mapurl#&ShowObservations=false">
 	<cfset basQual = "#basQual#  AND lower( #session.flatTableName#.institution_acronym) not like '%obs'" >
