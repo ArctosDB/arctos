@@ -473,6 +473,7 @@ end_pbcscan_date
 		<cfset basQual = "#basQual#  AND parent_container.PARENT_INSTALL_DATE <= '#end_pbcscan_date#'">
 		<cfset mapurl = "#mapurl#&end_pbcscan_date=#end_pbcscan_date#">
 	</cfif>
+	<cfset basQual = "#basQual# )">
 </cfif>
 <cfif isdefined("session.ShowObservations") AND session.ShowObservations is false>
 	<cfset mapurl = "#mapurl#&ShowObservations=false">
