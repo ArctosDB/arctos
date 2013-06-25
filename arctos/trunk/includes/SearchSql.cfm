@@ -445,7 +445,13 @@
 		)">
 	<cfset mapurl = "#mapurl#&anyContainerId=#anyContainerId#">
 </cfif>
-<cfif isdefined("barcode") AND len(barcode) gt 0>
+
+
+beg_pbcscan_date
+end_pbcscan_date
+
+
+<cfif (isdefined("beg_pbcscan_date") AND len(beg_pbcscan_date) gt 0) or (isdefined("end_pbcscan_date") AND len(end_pbcscan_date) gt 0)>
 	<cfset thisBC = replace(barcode,",","','","all")>
 	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_object_id IN (
 		SELECT
@@ -458,10 +464,15 @@
 		WHERE
 			specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id AND
 			coll_obj_cont_hist.container_id = coll_obj_container.container_id AND
-			coll_obj_container.parent_container_id = parent_container.container_id AND
-			parent_container.barcode IN ('#ListChangeDelims(thisBC,',')#') )
-		" >
-	<cfset mapurl = "#mapurl#&barcode=#barcode#">
+			coll_obj_container.parent_container_id = parent_container.container_id AND">
+	<cfif isdefined("beg_pbcscan_date") AND len(beg_pbcscan_date) gt 0>
+		<cfset basQual = "#basQual#  AND parent_container.PARENT_INSTALL_DATE >= '#beg_pbcscan_date#'">
+		<cfset mapurl = "#mapurl#&beg_pbcscan_date=#beg_pbcscan_date#">
+	</cfif>
+	<cfif isdefined("end_pbcscan_date") AND len(end_pbcscan_date) gt 0>
+		<cfset basQual = "#basQual#  AND parent_container.PARENT_INSTALL_DATE <= '#end_pbcscan_date#'">
+		<cfset mapurl = "#mapurl#&end_pbcscan_date=#end_pbcscan_date#">
+	</cfif>
 </cfif>
 <cfif isdefined("session.ShowObservations") AND session.ShowObservations is false>
 	<cfset mapurl = "#mapurl#&ShowObservations=false">

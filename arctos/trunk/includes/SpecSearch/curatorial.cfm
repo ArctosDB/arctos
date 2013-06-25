@@ -19,6 +19,16 @@
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
+			<span class="helpLink" id="_entered_date">Part Barcode Scan Date:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="beg_pbcscan_date" id="beg_pbcscan_date" size="10" />-
+			<input type="text" name="end_pbcscan_date" id="end_pbcscan_date" size="10" />
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="anybarcode">Any Barcode:</span>
 		</td>
 		<td class="srch">
