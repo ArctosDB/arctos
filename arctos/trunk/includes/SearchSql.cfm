@@ -461,7 +461,7 @@
 	<cfif basJoin does not contain "parent_container">
 		<cfset basJoin = " #basJoin# INNER JOIN container parent_container ON (coll_obj_container.parent_container_id = parent_container.container_id)">
 	</cfif>
-	<cfset basQual = "#basQual#  AND parent_container.PARENT_INSTALL_DATE >= '#beg_pbcscan_date#'">
+	<cfset basQual = "#basQual#  AND to_char(parent_container.PARENT_INSTALL_DATE,'YYYY-MM-DD"T"HH24:MI:SS') >= '#beg_pbcscan_date#'">
 	<cfset mapurl = "#mapurl#&beg_pbcscan_date=#beg_pbcscan_date#">
 </cfif>
 <cfif isdefined("end_pbcscan_date") AND len(end_pbcscan_date) gt 0>
@@ -477,7 +477,7 @@
 	<cfif basJoin does not contain "parent_container">
 		<cfset basJoin = " #basJoin# INNER JOIN container parent_container ON (coll_obj_container.parent_container_id = parent_container.container_id)">
 	</cfif>
-	<cfset basQual = "#basQual#  AND parent_container.PARENT_INSTALL_DATE <= '#end_pbcscan_date#'">
+	<cfset basQual = "#basQual#  AND to_char(parent_container.PARENT_INSTALL_DATE,'YYYY-MM-DD"T"HH24:MI:SS') <= '#end_pbcscan_date#'">
 	<cfset mapurl = "#mapurl#&beg_pbcscan_date=#beg_pbcscan_date#">
 </cfif>
 	
