@@ -373,7 +373,6 @@
 					UPDATE 
 						container
 					SET
-						parent_install_date = sysdate,
 						parent_container_id = #isCont.container_id#
 					WHERE
 						container_id = #thisCollCont.container_id#

@@ -60,9 +60,10 @@
 			</cfquery>
 			<cfloop query="data">
 				<cfquery name="insThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					UPDATE container SET
-						parent_container_id = #parent_container_id#,
-						parent_install_date='#timestamp#'
+					UPDATE 
+						container 
+					SET
+						parent_container_id = #parent_container_id#
 					WHERE
 						container_id=#container_id#
 				</cfquery>

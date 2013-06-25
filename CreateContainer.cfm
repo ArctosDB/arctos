@@ -44,13 +44,6 @@
 				<cfset description = "null">
 				<cfelse><cfset description = "'#description#'">
 			</cfif>
-			<cfif isdate("#parent_install_date#")>
-				<cfset parent_install_date = "'#Dateformat(parent_install_date, "yyyy-mm-dd")#'">
-				
-				<cfelse>
-				Need a date <cfabort>
-				<cfset parent_install_date = "null">
-			</cfif>
 			<cfif #container_remarks# is "">
 				<cfset container_remarks = "null">
 				<cfelse><cfset container_remarks = "'#container_remarks#'">
@@ -85,7 +78,6 @@
 						container_type, 
 						label, 
 						description, 
-						parent_install_date, 
 						container_remarks, 
 						barcode,
 						width,
@@ -100,7 +92,6 @@
 						'#container_type#',
 						#label#,
 						#description#,
-						#parent_install_date#,
 						#container_remarks#,
 						#barcode#,
 						#width#,
@@ -120,7 +111,6 @@
       Type: #container_type# <br>
       Description: #description# <br>
       Barcode: #barcode# <br>
-      Install Date: #parent_install_date# <br>
       Remarks: #container_remarks#</font> <br>
 		</cfif>
 			
@@ -138,10 +128,6 @@
 			<cfif #description# is "">
 				<cfset description = "null">
 				<cfelse><cfset description = "'#description#'">
-			</cfif>
-			<cfif isdate("#parent_install_date#")>
-				<cfset parent_install_date = "'#Dateformat(parent_install_date, "yyyy-mm-dd")#'">
-				<cfelse><cfset parent_install_date = "null">
 			</cfif>
 			<cfif #container_remarks# is "">
 				<cfset container_remarks = "null">
@@ -179,7 +165,6 @@
 						container_type, 
 						label, 
 						description, 
-						parent_install_date, 
 						container_remarks, 
 						barcode,
 						width,
@@ -192,7 +177,6 @@
 						'#container_type#',
 						#label#,
 						#description#,
-						#parent_install_date#,
 						#container_remarks#,
 						#barcode#,
 						#width#,
@@ -227,7 +211,6 @@
       Type: #container_type# <br>
       Description: #description# <br>
       Barcode: #barcode# <br>
-      Install Date: #parent_install_date# <br>
       Remarks: #container_remarks# <br>
       Fluid Checked Date: #checked_date# <br>
       Fluid Type: #fluid_type# <br>
@@ -308,12 +291,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 	<tr>
 		<td align="right"><b>Label:</b></td>
 		<td><input name="label" type="text" value="" class="reqdClr"></td>
-	</tr>
-	<tr>
-		<td align="right"><b>Install Date:</b></td>
-		<td><input name="parent_install_date" type="text" value="" class="reqdClr"></td>
-	</tr>
-	<tr>
+	</tr>	<tr>
 		<td align="right"><b>Remarks:</b></td>
 		<td><input name="container_remarks" type="text" value=""></td>
 	</tr>
