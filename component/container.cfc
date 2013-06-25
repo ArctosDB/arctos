@@ -483,6 +483,9 @@
 	<cfargument name="other_id_type" required="yes" type="string">
 	<cfargument name="other_id_value" required="yes" type="string">
 	<cfargument name="contr_id" required="no" type="string">
+	<cfargument name="begin_parent_install_date" required="no" type="string">
+	<cfargument name="end_parent_install_date" required="no" type="string">
+	
 	
 	<cfset sel = "
 		SELECT 
@@ -501,7 +504,7 @@
 		<cfset whr = "#whr# container.container_id = fluid_container_history.container_id (+)">
 	 </cfif>
 	
-	 <cfif len(#cat_num#) gt 0 and #cat_num# neq "-1">
+	 <cfif len(cat_num) gt 0 and cat_num neq "-1">
 		<cfset whr = "#whr# AND cataloged_item.cat_num IN (#cat_num#)">
 	 </cfif>
 	 <cfif len(#other_id_type#) gt 0 and #other_id_type# neq "-1">
@@ -545,6 +548,15 @@
 	 <cfif len(#contr_id#) gt 0 and #contr_id# neq "-1">
 		<cfset whr = "#whr# AND container.container_id = #contr_id#">
 	 </cfif>
+	  <cfif len(begin_parent_install_date) gt 0 and len(begin_parent_install_date) gt 0>
+		<cfset whr = "#whr# AND to_char(PARENT_INSTALL_DATE,'YYYY-MM-DD""T""HH24:MI:SS') >= '#begin_parent_install_date#'">
+	 </cfif>
+	  <cfif len(end_parent_install_date) gt 0 and len(end_parent_install_date) gt 0>
+		<cfset whr = "#whr# AND to_char(PARENT_INSTALL_DATE,'YYYY-MM-DD""T""HH24:MI:SS') <= '#end_parent_install_date#'">
+	 </cfif>
+	 
+	
+	
 	<!--- require some search terms --->
 	<cfif len(#cat_num#) is 0 AND
 		len(#barcode#) is 0 AND

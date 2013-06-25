@@ -16,6 +16,11 @@
 			scroll: true,
 			scrollHeight: 300
 		});
+
+		$("#begin_parent_install_date").datepicker();
+		$("#end_parent_install_date").datepicker();
+		
+
 	});
 </script>
 <style >
@@ -81,6 +86,11 @@ padding-right:10px;
 							<option value="#collection_id#">#coll#</option>
 				  		</cfloop>
 				</select>
+				<label for="begin_parent_install_date">Earliest Install Date</label>
+				<input type="text" name="begin_parent_install_date" id="begin_parent_install_date"  />
+				
+				<label for="end_parent_install_date">Latest Install Date</label>
+				<input type="text" name="end_parent_install_date" id="end_parent_install_date"  />
 				<label for="description">Description (% for wildcard)</label>
 				<input type="text" name="description" id="description"  />
 				<label for="part_name">Part</label>
