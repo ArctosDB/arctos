@@ -447,7 +447,22 @@
 </cfif>
 
 
-
+<cfif isdefined("barcode") AND len(barcode) gt 0>
+	<cfif basJoin does not contain "specimen_part">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON (#session.flatTableName#.collection_object_id = specimen_part.derived_from_cat_item)">
+	</cfif>
+	<cfif basJoin does not contain "coll_obj_cont_hist">
+		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_cont_hist ON (specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain "coll_obj_container">
+		<cfset basJoin = " #basJoin# INNER JOIN container coll_obj_container ON (coll_obj_cont_hist.container_id = coll_obj_container.container_id)">
+	</cfif>
+	<cfif basJoin does not contain "parent_container">
+		<cfset basJoin = " #basJoin# INNER JOIN container parent_container ON (coll_obj_container.parent_container_id = parent_container.container_id)">
+	</cfif>
+	<cfset basQual = "#basQual#  AND parent_container.barcode = '#barcode#'">
+	<cfset mapurl = "#mapurl#&barcode=#barcode#">
+</cfif>
 <cfif isdefined("beg_pbcscan_date") AND len(beg_pbcscan_date) gt 0>
 	<cfif basJoin does not contain "specimen_part">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON (#session.flatTableName#.collection_object_id = specimen_part.derived_from_cat_item)">
