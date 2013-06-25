@@ -136,6 +136,8 @@
 	<cfset in_container_type="">
 	<cfset transaction_id="">
 	<cfset container_id="">
+	<cfset begin_parent_install_date="">
+	<cfset end_parent_install_date="">
 	<cfloop list="#q#" index="p" delimiters="&">
 		<cfset k=listgetat(p,1,"=")>
 		<cfset v=listgetat(p,2,"=")>
@@ -155,12 +157,14 @@
 		len(table_name) is 0 and
 		len(in_container_type) is 0 and
 		len(transaction_id) is 0 and
-		len(container_id) is 0
+		len(container_id) is 0 and
+		len(begin_parent_install_date) is 0 and
+		len(end_parent_install_date) is 0
 		>
 		<cfset result = querynew("CONTAINER_ID,MSG")>
 		<cfset temp = queryaddrow(result,1)>
 		<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
-		<cfset temp = QuerySetCell(result, "msg", "You must enter search criteria. ---#transaction_id#---", 1)>
+		<cfset temp = QuerySetCell(result, "msg", "You must enter search criteria.", 1)>
 		<cfreturn result>
 	</cfif>
 
@@ -256,7 +260,12 @@
 	  <cfif len(container_type) gt 0>
 		<cfset whr = "#whr# AND container_type='#container_type#'">
 	 </cfif>
-	 
+	  <cfif len(begin_parent_install_date) gt 0 and len(begin_parent_install_date) gt 0>
+		<cfset whr = "#whr# AND to_char(PARENT_INSTALL_DATE,'YYYY-MM-DD""T""HH24:MI:SS') >= '#begin_parent_install_date#'">
+	 </cfif>
+	  <cfif len(end_parent_install_date) gt 0 and len(end_parent_install_date) gt 0>
+		<cfset whr = "#whr# AND to_char(PARENT_INSTALL_DATE,'YYYY-MM-DD""T""HH24:MI:SS') <= '#end_parent_install_date#'">
+	 </cfif>
 	 <cfif len(part_name) gt 0>
 		<cfif frm does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
