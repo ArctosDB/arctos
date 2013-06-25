@@ -4,6 +4,8 @@
 		$("#end_entered_date").datepicker();
 		$("#beg_last_edit_date").datepicker();
 		$("#end_last_edit_date").datepicker();
+		$("#beg_pbcscan_date").datepicker();
+		$("#end_pbcscan_date").datepicker();
 	});
 </script>
 <cfoutput>
