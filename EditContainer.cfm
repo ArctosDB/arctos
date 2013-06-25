@@ -296,7 +296,7 @@
 				</td>
 				<td>
 					<label for="parent_install_date">Install Date</label>
-					<div id="parent_install_date">#Dateformat(getCont.parent_install_date, "yyyy-mm-dd")#"</div>
+					<div id="parent_install_date">#Dateformat(getCont.parent_install_date, "yyyy-mm-dd")#</div>
 				</td>
 			</tr>
 	  		<tr>
@@ -690,7 +690,8 @@
 			<input name="barcode" type="text" value="#barcode#">
 			<label for="label">Label</label>
 			<input name="label" type="text" value="#label#" class="reqdClr">
-			<label for="parent_install_date">Install Date</label>#dateformat(now(),'yyyy-mm-dd')#
+			<label for="parent_install_date">Install Date</label>
+			<div id="parent_install_date">#Dateformat(getCont.parent_install_date, "yyyy-mm-dd")#</div>
 			<label for="container_remarks">Remarks</label>
 			<input name="container_remarks" type="text" value="#container_remarks#">
 			<div id="fluidCtl">
