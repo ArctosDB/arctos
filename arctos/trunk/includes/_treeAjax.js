@@ -46,7 +46,6 @@ function loadTree () {
 			}
 		}
 	}
-	console.log(q);
 	jQuery.getJSON("/component/container.cfc",
 		{
 			method : "get_containerTree",
