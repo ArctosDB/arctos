@@ -1,7 +1,6 @@
 <cfinclude template="includes/_header.cfm">
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		$("#parent_install_date").datepicker();
 		$("#checked_date").datepicker();
 		$("#check_date").datepicker();
 	});
@@ -86,7 +85,6 @@
 				barcode = '#barcode#',
 				institution_acronym = '#institution_acronym#',
 				label = '#label#',
-				parent_install_date = '#parent_install_date#',
 				container_remarks = '#escapeQuotes(container_remarks)#',
 				locked_position = #locked_position#">
 			<cfif len(newParentBarcode) gt 0>
@@ -298,7 +296,7 @@
 				</td>
 				<td>
 					<label for="parent_install_date">Install Date</label>
-					<input name="parent_install_date" id="parent_install_date" type="text" value="#Dateformat(getCont.parent_install_date, "yyyy-mm-dd")#">
+					<div id="parent_install_date">#Dateformat(getCont.parent_install_date, "yyyy-mm-dd")#"</div>
 				</td>
 			</tr>
 	  		<tr>
@@ -545,7 +543,6 @@
 					container_type, 
 					label, 
 					description, 
-					parent_install_date, 
 					container_remarks, 
 					barcode,
 					width,
@@ -564,7 +561,6 @@
 					,'#container_type#',
 					'#label#',
 					'#description#',
-					to_date('#parent_install_date#'),
 					'#escapeQuotes(container_remarks)#',
 					'#barcode#'
 					<cfif len(width) gt 0>
@@ -628,7 +624,6 @@
 	<cfparam name="barcode" default="">
 	<cfparam name="label" default="">
 	<cfparam name="checked_date" default="">
-	<cfparam name="parent_install_date" default="">
 	<cfparam name="container_remarks" default="">
 	<cfparam name="Fluid_Type" default="">
 	<cfparam name="concentration" default="">
@@ -695,8 +690,7 @@
 			<input name="barcode" type="text" value="#barcode#">
 			<label for="label">Label</label>
 			<input name="label" type="text" value="#label#" class="reqdClr">
-			<label for="parent_install_date">Install Date</label>
-			<input name="parent_install_date" type="text" value="#dateformat(now(),'yyyy-mm-dd')#" class="reqdClr">
+			<label for="parent_install_date">Install Date</label>#dateformat(now(),'yyyy-mm-dd')#
 			<label for="container_remarks">Remarks</label>
 			<input name="container_remarks" type="text" value="#container_remarks#">
 			<div id="fluidCtl">

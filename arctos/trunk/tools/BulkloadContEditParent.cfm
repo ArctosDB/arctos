@@ -210,7 +210,6 @@ validate
 				update container set
 					label='#label#',
 					DESCRIPTION='#DESCRIPTION#',
-					PARENT_INSTALL_DATE=sysdate,
 					CONTAINER_REMARKS='#remarks#'
 					<cfif len(#WIDTH#) gt 0>
 						,WIDTH=#WIDTH#

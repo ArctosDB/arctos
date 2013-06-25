@@ -129,7 +129,7 @@
 	<cftransaction>
 		<cfloop query="d">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update container set parent_container_id=#parent_id#,PARENT_INSTALL_DATE='#dateformat(install_date,"yyyy-mm-dd")#' where container_id=#child_id#
+				update container set parent_container_id=#parent_id# where container_id=#child_id#
 			</cfquery>
 		</cfloop>
 	</cftransaction>

@@ -23,10 +23,12 @@
 		</cfif>
 		<cftransaction>
 			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update container set parent_container_id=#parentID.container_id#,
-					parent_install_date=to_date('#thisDate#','yyyy-mm-dd HH24:MI:SS')
+				update 
+					container 
+				set 
+					parent_container_id=#parentID.container_id#
 				where
-				container_id = #childID.container_id#
+					container_id = #childID.container_id#
 			</cfquery>
 		</cftransaction>
 		<cfset result = "success|#childID.barcode# (#childID.label#, #childID.container_type#) moved to #parentID.barcode# (#parentID.label#, #parentID.container_type#)">

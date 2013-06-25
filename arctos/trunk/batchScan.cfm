@@ -71,10 +71,10 @@
 				<cfif chk.cmvt is 'pass'>
 					<cfset pf=listappend(pf,"p")>
 					<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						update container set 
-							parent_container_id=
-								(select container_id from container where barcode='#parent_barcode#'),
-							PARENT_INSTALL_DATE=sysdate
+						update 
+							container 
+						set 
+							parent_container_id=(select container_id from container where barcode='#parent_barcode#')
 						where
 							barcode='#thisBarcode#'
 					</cfquery>	

@@ -28,7 +28,6 @@
 			<input type="text" name="end_pbcscan_date" id="end_pbcscan_date" size="10" />
 		</td>
 	</tr>
-	
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="anybarcode">Any Barcode:</span>

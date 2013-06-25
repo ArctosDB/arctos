@@ -104,7 +104,6 @@
 	<cfargument name="coll_object_remarks" type="string" required="yes">
 	<cfargument name="barcode" type="string" required="yes">
 	<cfargument name="new_container_type" type="string" required="yes">
-	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cftry>
 		<cftransaction>
 			<cfquery name="ccid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -125,7 +124,7 @@
 					#ccid.nv#,
 					'SP',
 					#session.myAgentId#,
-					'#thisDate#',
+					sysdate,
 					#session.myAgentId#,
 					'#COLL_OBJ_DISPOSITION#',
 					#lot_count#,
@@ -1005,7 +1004,6 @@
 	<cfargument name="remark" type="string" required="yes">
 	<cfargument name="instructions" type="string" required="yes">
 	<cfargument name="subsample" type="numeric" required="yes">
-	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cfoutput>
 	<cftransaction>
 		<cftry>
@@ -1055,9 +1053,9 @@
 					(#n.n#,
 					'SS',
 					#session.myAgentId#,
-					'#thisDate#',
+					sysdate,
 					#session.myAgentId#,
-					'#thisDate#',
+					sysdate,
 					'#parentData.coll_obj_disposition#',
 					1,
 					'#parentData.condition#')
@@ -1109,7 +1107,7 @@
 					#partID#,
 				</cfif>		
 				#session.myagentid#,
-				'#thisDate#'
+				sysdate
 				,'#meta.collection# #meta.cat_num# #meta.part_name#'
 				<cfif len(#instructions#) gt 0>
 					,'#instructions#'
@@ -1841,7 +1839,6 @@
 		<cfquery name="parentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id,barcode,label,container_type from container where barcode = '#parent_barcode#'
 		</cfquery>
-		<cfset thisDate = "#dateformat(timestamp,'DD-MMM-YYYY')# #timeformat(timestamp,'HH:mm:ss')#">
 		<cfif #childID.recordcount# is not 1>
 			<cfset result = "fail|Child container not found.">
 			<cfreturn result>
@@ -1856,8 +1853,7 @@
 				ALTER SESSION set nls_date_format = 'DD-MON-YYYY HH24:MI:SS'
 			</cfquery>
 			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update container set parent_container_id=#parentID.container_id#,
-				parent_install_date='#thisDate#'
+				update container set parent_container_id=#parentID.container_id#
 				where
 				container_id = #childID.container_id#
 			</cfquery>
@@ -1907,7 +1903,6 @@
 	<cfargument name="position_id" type="numeric" required="yes">
 	<cfargument name="barcode" type="string" required="yes">
 	<cfset thisContainerId = "">
-	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<CFTRY>
 		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id,label from container where barcode='#barcode#'
@@ -1932,8 +1927,7 @@
 		<cfif len(#thisContainerId#) gt 0>
 			<cfquery name="putItIn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update container set
-				parent_container_id = #position_id#,
-				PARENT_INSTALL_DATE = '#thisDate#'
+				parent_container_id = #position_id#
 				where container_id = #thisContainerId#
 			</cfquery>
 			<cfset result = "#box_position#|#thisID.label#">
