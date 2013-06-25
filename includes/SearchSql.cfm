@@ -464,7 +464,7 @@ end_pbcscan_date
 		WHERE
 			specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id AND
 			coll_obj_cont_hist.container_id = coll_obj_container.container_id AND
-			coll_obj_container.parent_container_id = parent_container.container_id AND">
+			coll_obj_container.parent_container_id = parent_container.container_id">
 	<cfif isdefined("beg_pbcscan_date") AND len(beg_pbcscan_date) gt 0>
 		<cfset basQual = "#basQual#  AND parent_container.PARENT_INSTALL_DATE >= '#beg_pbcscan_date#'">
 		<cfset mapurl = "#mapurl#&beg_pbcscan_date=#beg_pbcscan_date#">
