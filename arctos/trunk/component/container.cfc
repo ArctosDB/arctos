@@ -567,7 +567,9 @@
 		len(#collection_id#) is 0 and
 		len(#other_id_type#) is 0 and
 		len(#other_id_value#) is 0 and
-		len(#contr_id#) is 0
+		len(#contr_id#) is 0 and
+		len(begin_parent_install_date) is 0 and
+		len(end_parent_install_date) is 0
 		>
 		
 		 <cfset result = querynew("treeID,container_id")>
