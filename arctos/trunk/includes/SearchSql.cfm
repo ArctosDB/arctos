@@ -460,7 +460,7 @@
 	<cfif basJoin does not contain "parent_container">
 		<cfset basJoin = " #basJoin# INNER JOIN container parent_container ON (coll_obj_container.parent_container_id = parent_container.container_id)">
 	</cfif>
-	<cfset basQual = "#basQual#  AND parent_container.barcode  IN ('#listqualify(ListChangeDelims(thisBC,','),chr(39)#') ">
+	<cfset basQual = "#basQual#  AND parent_container.barcode  IN ('#listqualify(ListChangeDelims(thisBC,','),chr(39))#') ">
 	
 	<cfset mapurl = "#mapurl#&barcode=#barcode#">
 </cfif>
