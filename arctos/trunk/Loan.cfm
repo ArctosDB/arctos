@@ -548,7 +548,7 @@
 				media_relations.media_relationship='documents loan' and
 				media_relations.related_primary_key=#transaction_id#
 		</cfquery>
-		<cfset obj = CreateObject("component","functions")>
+		<cfset obj = CreateObject("component","component.functions")>
 		<cfloop query="media">
 			<cfset preview = obj.getMediaPreview(
 				preview_uri="#media.preview_uri#",
