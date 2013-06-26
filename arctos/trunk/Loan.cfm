@@ -532,6 +532,31 @@
 		<label for="saveNewProject">Check to create project with save</label>
 		<input type="checkbox" value="yes" name="saveNewProject">
 	</form>
+	
+	<strong>Media associated with this loan:</strong>
+		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select 
+				media_uri,
+				preview_uri,
+				media_type,
+				media_id
+			from
+				media,
+				media_relations
+			where
+				media.media_id=media_relations.media_id and
+				media_relations.media_relationship='documents loan' and
+				media_relations.related_primary_key=#transaction_id#
+		</cfquery>
+		<cfset obj = CreateObject("component","functions")>
+		<cfloop query="media">
+			<cfset preview = obj.getMediaPreview(
+				preview_uri="#media.preview_uri#",
+				media_type="#media.media_type#")>
+				---#preview#--
+		</cfloop>
+		
+
 	</td></tr></table>
 	<cfquery name="ship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from shipment where transaction_id = #transaction_id#
