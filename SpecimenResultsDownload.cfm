@@ -436,10 +436,6 @@
 			upper(table_name)=upper('#tableName#') order by DISP_ORDER
 	</cfquery>
 	<cfif not listfindnocase(valuelist(cols.column_name),"collection_object_id")>
-		<cfmail subject="download without collection_object_id" to="#Application.PageProblemEmail#" from="funkydownload@#application.fromEmail#" type="html">
-			valuelist(cols.column_name): #valuelist(cols.column_name)#
-			<cfdump var=#session#>
-		</cfmail>
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from #tableName#
 		</cfquery>
@@ -470,10 +466,12 @@
 		)
 	</cfquery>
 	<cfset ac = valuelist(cols.column_name)>
-	<cfset ac=listprepend(ac,"USE_LICENSE_URL")>
+	<cfif listcontains(getData.columnlist,"USE_LICENSE_URL")>
+		<cfset ac=listprepend(ac,"USE_LICENSE_URL")>
+	</cfif>
 	<!--- strip internal columns --->
 	<cfif ListFindNoCase(ac,'COLLECTION_OBJECT_ID')>
-			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_OBJECT_ID'))>
+		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_OBJECT_ID'))>
 	</cfif>
 	<cfif ListFindNoCase(ac,'CUSTOMIDINT')>
 		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'CUSTOMIDINT'))>
