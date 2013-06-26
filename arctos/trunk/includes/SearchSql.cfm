@@ -445,7 +445,10 @@
 		)">
 	<cfset mapurl = "#mapurl#&anyContainerId=#anyContainerId#">
 </cfif>
-
+<cfif isdefined("guid") AND len(guid) gt 0>
+	<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.guid)  IN (#listqualify(ListChangeDelims(guid,','),chr(39))#) ">
+	<cfset mapurl = "#mapurl#&guid=#guid#">
+</cfif>
 
 <cfif isdefined("barcode") AND len(barcode) gt 0>
 	<cfif basJoin does not contain "specimen_part">
@@ -461,7 +464,6 @@
 		<cfset basJoin = " #basJoin# INNER JOIN container parent_container ON (coll_obj_container.parent_container_id = parent_container.container_id)">
 	</cfif>
 	<cfset basQual = "#basQual#  AND parent_container.barcode  IN (#listqualify(ListChangeDelims(barcode,','),chr(39))#) ">
-	
 	<cfset mapurl = "#mapurl#&barcode=#barcode#">
 </cfif>
 <cfif isdefined("beg_pbcscan_date") AND len(beg_pbcscan_date) gt 0>
