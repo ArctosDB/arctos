@@ -446,7 +446,7 @@
 	<cfset mapurl = "#mapurl#&anyContainerId=#anyContainerId#">
 </cfif>
 <cfif isdefined("guid") AND len(guid) gt 0>
-	<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.guid)  IN (#listqualify(ListChangeDelims(guid,','),chr(39))#) ">
+	<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.guid)  IN (#ucase(listqualify(ListChangeDelims(guid,','),chr(39)))#) ">
 	<cfset mapurl = "#mapurl#&guid=#guid#">
 </cfif>
 
