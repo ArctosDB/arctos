@@ -539,7 +539,7 @@
 				media_uri,
 				preview_uri,
 				media_type,
-				media_id
+				media.media_id
 			from
 				media,
 				media_relations
