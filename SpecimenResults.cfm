@@ -149,7 +149,7 @@ function removeHelpDiv() {
 		---->
 </cfif>
 <cfif ListFindNoCase(session.resultColumnList,"_original_elevation") gt 0>
-	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
+	<cfset basSelect = "#basSelect#,#session.flatTableName#.MINIMUM_ELEVATION,#session.flatTableName#.MAXIMUM_ELEVATION,#session.flatTableName#.ORIG_ELEV_UNITS">
 </cfif>
 	<cfset basFrom = " FROM #session.flatTableName#">
 	<cfset basJoin = "">
