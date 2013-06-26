@@ -273,7 +273,7 @@
 	
 	
 	<script>
-	function addMediaHere (accnnum,transid){
+	function addMediaHere (lnum,tid){
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -289,8 +289,8 @@
 		jQuery('#mediaIframe').attr('src', '/media.cfm?action=newMedia').attr('width','100%').attr('height','100%');
 	    jQuery('iframe#mediaIframe').load(function() {
 	        jQuery('#mediaIframe').contents().find('#relationship__1').val('documents loan');
-	        jQuery('#mediaIframe').contents().find('#related_value__1').val(loan_number);
-	        jQuery('#mediaIframe').contents().find('#related_id__1').val(transaction_id);
+	        jQuery('#mediaIframe').contents().find('#related_value__1').val(lnum);
+	        jQuery('#mediaIframe').contents().find('#related_id__1').val(tid);
 	        viewport.init("#mediaDiv");
 	    });
 	}
@@ -599,7 +599,7 @@
 		<hr>
 		
 		<br><span class="likeLink"
-					onclick="addMediaHere('#accnData.collection# #accnData.accn_number#','#transaction_id#');">
+					onclick="addMediaHere('#loanDetails.collection# #loanDetails.loan_number#','#transaction_id#');">
 						Create Media
 				</span>&nbsp;~&nbsp;<a href="/MediaSearch.cfm" target="_blank">Link Media</a>
 				<div id="accnMediaDiv"></div>
