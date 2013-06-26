@@ -14,7 +14,7 @@
 			<input type="text" name="loan_number" id="loan_number">
 			<input type="submit" value="Search"	class="lnkBtn">
 			<cfoutput>
-				<input type="hidden" name="LoanIDFld" value="#mediaIdFld#">
+				<input type="hidden" name="LoanIDFld" value="#LoanIDFld#">
 				<input type="hidden" name="LoanNumberFld" value="#LoanNumberFld#">
 			</cfoutput>
 		</form>
@@ -23,42 +23,51 @@
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
-				media_id,
-				media_uri
+				collection,
+				loan_number,
+				loan.transaction_id
 			FROM
-				media
+				collection,
+				trans,
+				loan
 			WHERE
-				UPPER(media_uri) LIKE '%#ucase(escapeQuotes(media_uri))#%'
+				collection.collection_id=trans.collection_id and
+				trans.transaction_id=loan.transaction_id and
+				UPPER(loan.loan_number) LIKE '%#ucase(escapeQuotes(loan_number))#%'
+				<cfif len(collection_id) gt 0>
+					and trans.collection_id=#collection_id#
+				</cfif>
 			ORDER BY
-				media_uri
+				collection,loan_number
 		</cfquery>
 		<cfif d.recordcount is 0>
-			Nothing matched #media_uri#. <a href="findMedia.cfm?mediaIdFld=#mediaIdFld#&mediaStringFld=#mediaStringFld#">Try again.</a>
+			Nothing matched #loan_number#. 
+			<!----<a href="getLoan.cfm?mediaIdFld=#mediaIdFld#&mediaStringFld=#mediaStringFld#">Try again.</a>---->
 		<cfelse>
 	<table border>
 		<tr>
-			<td>URI</td>
+			<td>Loan</td>
 		</tr>
 	<cfloop query="d">
 		<cfif d.recordcount is 1>
 			<script>
-				opener.document.getElementById('#mediaIdFld#').value='#media_id#';
-				opener.document.getElementById('#mediaStringFld#').value='#media_uri#';
-				opener.document.getElementById('#mediaStringFld#').style.background='##8BFEB9';
+				opener.document.getElementById('#LoanIDFld#').value='#transaction_id#';
+				opener.document.getElementById('#LoanNumberFld#').value='#collection# #loan_number#';
+				opener.document.getElementById('#LoanNumberFld#').style.background='##8BFEB9';
 				self.close();
 			</script>
 		<cfelse>
 			<tr>
 				<td>
-					<a href="##" onClick="javascript: opener.document.getElementById('#mediaIdFld#').value='#media_id#';
-						opener.document.getElementById('#mediaStringFld#').value='#media_uri#';
-						opener.document.getElementById('#mediaStringFld#').style.background='##8BFEB9';
+					<a href="##" onClick="javascript: opener.document.getElementById('#LoanIDFld#').value='#transaction_id#';
+						opener.document.getElementById('#LoanNumberFld#').value='#collection# #loan_number#';
+						opener.document.getElementById('#LoanNumberFld#').style.background='##8BFEB9';
 						self.close();
-						">#media_uri#</a>
+						">#collection# #loan_number#</a>
 				</td>
 			</tr>
 		</cfif>
 	</cfloop>
 	</table>
 </cfif>
-	</cfoutput><cfinclude template="/includes/_pickFooter.cfm">
+</cfoutput><cfinclude template="/includes/_pickFooter.cfm">
