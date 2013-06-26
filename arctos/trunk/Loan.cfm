@@ -274,6 +274,8 @@
 	
 	<script>
 	function addMediaHere (lnum,tid){
+		$("#mmmsgdiv").html('refresh the page to see just-loaded media.');
+
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -606,13 +608,14 @@ function removeMediaDiv() {
 			</div>
 		</cfloop>
 		<hr>
-		
+		</div>
+		<div id="mmmsgdiv"></div>
 		<br><span class="likeLink"
 					onclick="addMediaHere('#loanDetails.collection# #loanDetails.loan_number#','#transaction_id#');">
 						Create Media
 				</span>&nbsp;~&nbsp;<a href="/MediaSearch.cfm" target="_blank">Link Media</a>
 				<div id="accnMediaDiv"></div>
-</div>
+
 	</td></tr></table>
 	<cfquery name="ship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from shipment where transaction_id = #transaction_id#
