@@ -592,7 +592,6 @@ function removeMediaDiv() {
 				media_relations.related_primary_key=#transaction_id#
 		</cfquery>
 		<cfset obj = CreateObject("component","component.functions")>
-				<div class="thumbs">
 
 		<cfloop query="media">
 			<cfset preview = obj.getMediaPreview(
@@ -608,7 +607,6 @@ function removeMediaDiv() {
 			</div>
 		</cfloop>
 		<hr>
-		</div>
 		<div id="mmmsgdiv"></div>
 		<br><span class="likeLink"
 					onclick="addMediaHere('#loanDetails.collection# #loanDetails.loan_number#','#transaction_id#');">
