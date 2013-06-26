@@ -57,6 +57,8 @@
 		</cfquery>
 		<br>Found #c.c# GUIDs
 		<br><a href="/download/#fname#">Download CSV</a>
+		
+		<br><a href="/SpecimenResults.cfm?guid=#valuelist(d.guid)#">Open SpecimenResults for these GUIDs</a>
 		<!--- order is important there - rather than trusting the query to do anything, loop over the input list --->
 		<table border>
 			<tr>
