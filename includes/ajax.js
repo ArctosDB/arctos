@@ -997,6 +997,15 @@ function chgCondition(collection_object_id) {
 	var collection_object_id;
 	helpWin=windowOpener("/picks/condition.cfm?collection_object_id="+collection_object_id,"conditionWin","width=800,height=338, resizable,scrollbars");
 }
+function getLoan(LoanIDFld,LoanNumberFld,loanNumber,collectionID){
+	var url="/picks/getLoan.cfm";
+	var LoanIDFld;
+	var LoanNumberFld;
+	var loanNumber;
+	var collectionID;
+	var oawin=url+"?LoanIDFld="+LoanIDFld+"&LoanNumberFld="+LoanNumberFld+"&loanNumber="+loanNumber+"&agent_name="+collectionID;
+	loanpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
+}
 function getAgent(agentIdFld,agentNameFld,formName,agentNameString,allowCreation){
 	var url="/picks/findAgent.cfm";
 	var agentIdFld;

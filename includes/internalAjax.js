@@ -328,6 +328,8 @@ function pickedRelationship (id){
 		getAccnMedia(dispInputName,idInputName);
 	} else if (relatedTable=='media'){
 		findMedia(dispInputName,idInputName);
+	} else if (relatedTable=='loan'){
+		getLoan(idInputName,dispInputName);
 	} else if (relatedTable=='delete'){
 		document.getElementById(dispInputName).value='Marked for deletion.....';
 	} else {
