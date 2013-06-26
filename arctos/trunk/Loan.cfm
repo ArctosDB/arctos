@@ -532,7 +532,7 @@
 		<label for="saveNewProject">Check to create project with save</label>
 		<input type="checkbox" value="yes" name="saveNewProject">
 	</form>
-	
+	<hr>
 	<strong>Media associated with this loan:</strong>
 		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
@@ -553,7 +553,14 @@
 			<cfset preview = obj.getMediaPreview(
 				preview_uri="#media.preview_uri#",
 				media_type="#media.media_type#")>
-				---#preview#--
+			
+			 <div class="one_thumb">
+               <a href="#media_uri#" target="_blank"><img src="#preview#" class="theThumb"></a>
+                  	<p>
+					#media_type# (#mime_type#)
+                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
+				</p>
+			</div>
 		</cfloop>
 		
 
