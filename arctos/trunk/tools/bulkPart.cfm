@@ -125,7 +125,7 @@
 				</td>
 				<td>
 					<input type="text" name="new_part_name" id="new_part_name" class="reqdClr"
-						onchange="findPart(this.id,this.value,'#colcdes#');" 
+						onchange="findPart(this.id,this.value,'##getColnCde.collection_cde##');" 
 						onkeypress="return noenter(event);">
 				</td>
 			</tr>
