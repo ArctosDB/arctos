@@ -270,7 +270,12 @@
 <cfif action is "editLoan">
 	<cfset title="Edit Loan">
 	
-	
+	<style>
+		#thisLoanMediaDiv{
+			max-height:20em;
+			overflow:auto;
+		}
+	</style>
 	
 	<script>
 	function addMediaHere (lnum,tid){
@@ -592,7 +597,7 @@ function removeMediaDiv() {
 				media_relations.related_primary_key=#transaction_id#
 		</cfquery>
 		<cfset obj = CreateObject("component","component.functions")>
-
+		<div id="thisLoanMediaDiv">
 		<cfloop query="media">
 			<cfset preview = obj.getMediaPreview(
 				preview_uri="#media.preview_uri#",
@@ -604,6 +609,7 @@ function removeMediaDiv() {
                    	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
 				</p>
 		</cfloop>
+		</div>
 		<hr>
 		<div id="mmmsgdiv"></div>
 		<br>
