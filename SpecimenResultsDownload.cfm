@@ -449,7 +449,6 @@
 			,filtered_flat where #tableName#.collection_object_id=filtered_flat.collection_object_id (+)
 		</cfquery>
 	</cfif>
-	
 	<cfquery name="dl" datasource="cf_dbuser">
 		INSERT INTO cf_download (
 			user_id,
@@ -489,8 +488,6 @@
 		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'INSTITUTION_ACRONYM'))>
 	</cfif>
 	<cfset fileDir = "#Application.webDirectory#">
-	
-	<!--- add one and only one line break back onto the end --->
 	<cfoutput>
 		<cfset variables.encoding="UTF-8">
 		<cfif fileFormat is "csv">

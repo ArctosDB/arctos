@@ -19,8 +19,11 @@
 <cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select count(*) c from #table_name#
 </cfquery>
-<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
+</cfquery>
+<cfquery name="getColnCde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select collection_cde from collection where collection_id=#colcdes#
 </cfquery>
 	<p><strong>Option 1: Add Part(s)</strong></p>
 	<form name="newPart" method="post" action="bulkPart.cfm">
@@ -40,7 +43,7 @@
 	   				<td>
 						<label for="part_name_#i#">Add Part (#i#)</label>
 				   		<input type="text" name="part_name_#i#" id="part_name_#i#" class="reqdClr"
-							onchange="findPart(this.id,this.value,'#colcdes#');" 
+							onchange="findPart(this.id,this.value,'#getColnCde.collection_cde#');" 
 							onkeypress="return noenter(event);">
 				   		<label for="lot_count_#i#">Part Count (#i#)</label>
 				   		<input type="text" name="lot_count_#i#" id="lot_count_#i#" class="reqdClr" size="2">
