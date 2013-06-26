@@ -606,11 +606,12 @@ function removeMediaDiv() {
 		</cfloop>
 		<hr>
 		<div id="mmmsgdiv"></div>
-		<br><span class="likeLink"
-					onclick="addMediaHere('#loanDetails.collection# #loanDetails.loan_number#','#transaction_id#');">
-						Create Media
-				</span>&nbsp;~&nbsp;<a href="/MediaSearch.cfm" target="_blank">Link Media</a>
-				<div id="accnMediaDiv"></div>
+		<br>
+		<span class="likeLink" onclick="addMediaHere('#loanDetails.collection# #loanDetails.loan_number#','#transaction_id#');">
+			Create Media
+		</span>
+		<br><a href="/MediaSearch.cfm" target="_blank">Find Media</a> and edit it to create links to this loan.
+		<div id="accnMediaDiv"></div>
 
 	</td></tr></table>
 	<cfquery name="ship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
