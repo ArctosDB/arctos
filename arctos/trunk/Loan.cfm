@@ -269,6 +269,35 @@
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "editLoan">
 	<cfset title="Edit Loan">
+	
+	
+	
+	<script>
+	function addMediaHere (accnnum,transid){
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','removeMediaDiv()');
+		document.body.appendChild(bgDiv);
+		var theDiv = document.createElement('div');
+		theDiv.id = 'mediaDiv';
+		theDiv.className = 'annotateBox';
+		ctl='<span class="likeLink" style="position:absolute;right:0px;top:0px;padding:5px;color:red;" onclick="removeMediaDiv();">Close Frame</span>';
+		theDiv.innerHTML=ctl;
+		document.body.appendChild(theDiv);
+		jQuery('#mediaDiv').append('<iframe id="mediaIframe" />');
+		jQuery('#mediaIframe').attr('src', '/media.cfm?action=newMedia').attr('width','100%').attr('height','100%');
+	    jQuery('iframe#mediaIframe').load(function() {
+	        jQuery('#mediaIframe').contents().find('#relationship__1').val('documents loan');
+	        jQuery('#mediaIframe').contents().find('#related_value__1').val(loan_number);
+	        jQuery('#mediaIframe').contents().find('#related_id__1').val(transaction_id);
+	        viewport.init("#mediaDiv");
+	    });
+	}
+	</script>
+	
+	
+	
 	<cfoutput>
 	<cfquery name="loanDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -533,6 +562,8 @@
 		<input type="checkbox" value="yes" name="saveNewProject">
 	</form>
 	<hr>
+	
+	
 	<strong>Media associated with this loan:</strong>
 		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
@@ -565,7 +596,13 @@
 				</p>
 			</div>
 		</cfloop>
+		<hr>
 		
+		<br><span class="likeLink"
+					onclick="addMediaHere('#accnData.collection# #accnData.accn_number#','#transaction_id#');">
+						Create Media
+				</span>&nbsp;~&nbsp;<a href="/MediaSearch.cfm" target="_blank">Link Media</a>
+				<div id="accnMediaDiv"></div>
 </div>
 	</td></tr></table>
 	<cfquery name="ship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
