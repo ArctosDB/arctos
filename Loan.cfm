@@ -580,7 +580,13 @@ function removeMediaDiv() {
 	<hr>
 	
 	
-	<strong>Media associated with this loan:</strong>
+	<strong>Media associated with this loan</strong>
+		<br>
+		<span class="likeLink" onclick="addMediaHere('#loanDetails.collection# #loanDetails.loan_number#','#transaction_id#');">
+			Create Media
+		</span>
+		<br><a href="/MediaSearch.cfm" target="_blank">Find Media</a> and edit it to create links to this loan.
+		<div id="mmmsgdiv"></div>
 		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				media_uri,
@@ -610,15 +616,6 @@ function removeMediaDiv() {
 				</p>
 		</cfloop>
 		</div>
-		<hr>
-		<div id="mmmsgdiv"></div>
-		<br>
-		<span class="likeLink" onclick="addMediaHere('#loanDetails.collection# #loanDetails.loan_number#','#transaction_id#');">
-			Create Media
-		</span>
-		<br><a href="/MediaSearch.cfm" target="_blank">Find Media</a> and edit it to create links to this loan.
-		<div id="accnMediaDiv"></div>
-
 	</td></tr></table>
 	<cfquery name="ship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from shipment where transaction_id = #transaction_id#
