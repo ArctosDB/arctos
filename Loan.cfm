@@ -294,6 +294,15 @@
 	        viewport.init("#mediaDiv");
 	    });
 	}
+
+function removeMediaDiv() {
+		if(document.getElementById('bgDiv')){
+			jQuery('#bgDiv').remove();
+		}
+		if (document.getElementById('mediaDiv')) {
+			jQuery('#mediaDiv').remove();
+		}
+	}
 	</script>
 	
 	
