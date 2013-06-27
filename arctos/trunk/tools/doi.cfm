@@ -1,4 +1,4 @@
-<cfinclude template="/includes/_header.cfm">
+c<cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfif action is "nothing">
 		<p>
