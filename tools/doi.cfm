@@ -194,9 +194,11 @@
 				<cfset resourcetype="Event">
 			</cfif>
 			
+			
+			
 			<cfset ctinst=querynew("inst")>
 			<cfset thisRow=1>
-			<cfset ctinst=queryaddrow(1)>
+			<cfset ctinst=queryaddrow(ctinst,1)>
 			<cfset QuerySetCell(ctinst, "inst", "University of Alaska Museum", thisRow)>
 			<cfset thisRow &= 1>
 
