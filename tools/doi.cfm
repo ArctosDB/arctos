@@ -199,7 +199,7 @@
 			<cfset ctinst=queryaddrow(ctinst,1)>
 			
 			
-			<cfset QuerySetCell(ctinst, "inst", "University of Alaska Museum", thisRow)>
+			<cfset QuerySetCell(ctinst, "inst", "University of Alaska Museum", 1)>
 			<cfset thisRow = thisRow + 1>
 
 			<cfif d.institution_acronym is "UAM" or d.institution_acronym is "UAMObs" or d.institution_acronym is "UAMb">
