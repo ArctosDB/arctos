@@ -227,6 +227,7 @@
 			<cfset queryaddrow(ctinst,1)>
 			<cfset thisRow = thisRow + 1>
 			<cfset QuerySetCell(ctinst, "inst", "Occidental College",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
 			<cfset thisRow = thisRow + 1>
 			<cfset QuerySetCell(ctinst, "inst", "U. S. National Parasite Collection",thisRow)>
 			<cfset queryaddrow(ctinst,1)>
