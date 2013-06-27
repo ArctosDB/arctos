@@ -197,8 +197,11 @@
 			<cfset ctinst=querynew("inst")>
 			<cfset thisRow=1>
 			<cfset ctinst=queryaddrow(ctinst,1)>
+			
+			
+			
 			<cfset QuerySetCell(ctinst, "inst", "University of Alaska Museum", thisRow)>
-			<cfset thisRow &= 1>
+			<cfset thisRow = thisRow + 1>
 
 			<cfif d.institution_acronym is "UAM" or d.institution_acronym is "UAMObs" or d.institution_acronym is "UAMb">
 				<cfset publisher='University of Alaska Museum'>
