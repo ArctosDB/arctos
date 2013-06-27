@@ -230,6 +230,8 @@
 		<cfif not isdefined("columname")>
 			<div class="error">Improper Call</div><cfabort>
 		</cfif>
+		
+		
 		<cfset rtl="Collection,Dataset,Event,Image,InteractiveResource,Model,PhysicalObject,Service,Software,Sound,Text">
 		<form name="doi" method="post" action="doi.cfm">
 			<input type="hidden" name="action" value="createDOI">
