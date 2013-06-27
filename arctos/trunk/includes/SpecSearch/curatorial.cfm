@@ -24,8 +24,8 @@
 			<span class="helpLink" id="_entered_date">Part Barcode Scan Date:</span>
 		</td>
 		<td class="srch">
-			after <input type="text" name="beg_pbcscan_date" id="beg_pbcscan_date" size="10" />and/or before
-			<input type="text" name="end_pbcscan_date" id="end_pbcscan_date" size="10" />
+			after <input type="text" name="beg_pbcscan_date" id="beg_pbcscan_date" size="15" />and/or before
+			<input type="text" name="end_pbcscan_date" id="end_pbcscan_date" size="15" />
 		</td>
 	</tr>
 	<tr>

@@ -249,7 +249,41 @@
 					<option value="#i#" <cfif resourcetype is i> selected="selected" </cfif> >#i#</option>
 				</cfloop>
 			</select>
-			<cfset pblst="Museum of Vertebrate Zoology|University of Alaska Museum|Museum of Southwestern Biology">
+			
+			
+				<cfset publisher="">
+			<cfelseif d.institution_acronym is "DMNS">
+				<cfset publisher="">
+			<cfelseif d.institution_acronym is "HWML">
+				<cfset publisher="">
+			<cfelseif d.institution_acronym is "KNWR">
+				<cfset publisher="">
+			<cfelseif d.institution_acronym is "WNMU">
+				<cfset publisher="">
+			<cfelseif d.institution_acronym is "KWP">
+				<cfset publisher="">
+			<cfelseif d.institution_acronym is "UWYMV">
+				<cfset publisher="">
+			<cfelseif d.institution_acronym is "MLZ">
+				<cfset publisher="Occidental College">
+			<cfelseif d.institution_acronym is "USNPC">
+				<cfset publisher="U. S. National Parasite Collection">
+			<cfelseif d.institution_acronym is "NMU">
+				<cfset publisher="Northern Michigan University">
+			<cfelseif d.institution_acronym is "UWBM">
+				<cfset publisher="University of Washington">
+			<cfelseif d.institution_acronym is "UMNH">
+				<cfset publisher="University of Utah">
+			</cfif>
+			<cfset creator=listgetat(d.collectors,1)>
+			<cfset ctinst=querynew("inst")>
+			<cfset ctinst=queryaddrow(1)>
+			
+			
+			
+			<cfset pblst="College of the Atlantic|Denver Museum of Nature and Science|Harold W. Manter Laboratory of Parasitology|
+			Kenai National Wildlife Refuge|Kenelm W. Philip lepidoptera collection|Museum of Vertebrate Zoology|University of Alaska Museum|
+			University of Wyoming|Museum of Southwestern Biology|Western New Mexico University">
 			<label for="publisher">publisher</label>
 			<select name="publisher" id="publisher" size="1">
 				<cfloop list="#pblst#" index="i" delimiters="|">
