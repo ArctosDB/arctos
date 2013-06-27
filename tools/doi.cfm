@@ -196,7 +196,7 @@
 		
 			<cfset ctinstthisisaquery=querynew("inst")>
 			
-			<cfdump var=#ctinst#>
+			<cfdump var=#ctinstthisisaquery#>
 			
 			<cfset thisRow=1>
 			<cfset ctinst=queryaddrow(ctinst,1)>
