@@ -196,12 +196,12 @@
 			
 			<cfset ctinst=querynew("inst")>
 			<cfset thisRow=1>
-	
+			<cfset ctinst=queryaddrow(1)>
+			<cfset QuerySetCell(ctinst, "inst", "University of Alaska Museum", thisRow)>
+			<cfset thisRow &= 1>
+
 			<cfif d.institution_acronym is "UAM" or d.institution_acronym is "UAMObs" or d.institution_acronym is "UAMb">
 				<cfset publisher='University of Alaska Museum'>
-				<cfset ctinst=queryaddrow(1)>
-				<cfset temp = QuerySetCell(ctinst, "inst", "University of Alaska Museum", thisRow)>
-				<cfset thisRow &= 1>
 			<cfelseif d.institution_acronym is "MSB" or d.institution_acronym is "DGR" or d.institution_acronym is "MSBObs">
 				<cfset publisher='Museum of Southwestern Biology'>
 			<cfelseif d.institution_acronym is "MVZ" or d.institution_acronym is "MVZObs">
