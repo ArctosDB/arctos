@@ -193,7 +193,7 @@
 			<cfelse>
 				<cfset resourcetype="Event">
 			</cfif>
-		xr
+		xrf
 			<cfset ctinstthisisaquery=querynew("inst")>
 			
 			<cfdump var=#ctinstthisisaquery#>
