@@ -199,7 +199,7 @@
 			<cfdump var=#ctinstthisisaquery#>
 			
 			<cfset thisRow=1>
-			<cfset ctinst=queryaddrow(ctinst,1)>
+			<cfset queryaddrow(ctinst,1)>
 			
 			
 			<cfdump var=#ctinst#>
