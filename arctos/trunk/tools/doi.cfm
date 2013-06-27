@@ -197,7 +197,7 @@
 				<cfset publisher='University of Alaska Museum'>
 			<cfelseif d.institution_acronym is "MSB" or d.institution_acronym is "DGR" or d.institution_acronym is "MSBObs">
 				<cfset publisher='Museum of Southwestern Biology'>
-			<cfelseif d.institution_acronym is "MVZ" ord.institution_acronym is "MVZObs">
+			<cfelseif d.institution_acronym is "MVZ" or d.institution_acronym is "MVZObs">
 				<cfset publisher="Museum of Vertebrate Zoology">
 			<cfelseif d.institution_acronym is "COA">
 				<cfset publisher="College of the Atlantic">
