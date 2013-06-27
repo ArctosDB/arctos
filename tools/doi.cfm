@@ -193,9 +193,7 @@
 			<cfelse>
 				<cfset resourcetype="Event">
 			</cfif>
-			
 		
-			
 			<cfset ctinst=querynew("inst")>
 			<cfset thisRow=1>
 			<cfset ctinst=queryaddrow(ctinst,1)>
