@@ -1,4 +1,4 @@
-c<cfinclude template="/includes/_header.cfm">
+<cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfif action is "nothing">
 		<p>
@@ -196,18 +196,58 @@ c<cfinclude template="/includes/_header.cfm">
 			<cfset ctinst=querynew("inst")>
 			<cfset thisRow=1>
 			<cfset queryaddrow(ctinst,1)>
-			
-			
-			<cfdump var=#ctinst#>
-			
 			<cfset QuerySetCell(ctinst, "inst", "University of Alaska Museum",thisRow)>
-			
-						<cfdump var=#ctinst#>
-
-
-
+			<cfset queryaddrow(ctinst,1)>
 			<cfset thisRow = thisRow + 1>
-
+			<cfset QuerySetCell(ctinst, "inst", "Museum of Southwestern Biology",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "Museum of Vertebrate Zoology",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "College of the Atlantic",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "Denver Museum of Nature and Science",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "Harold W. Manter Laboratory of Parasitology",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "Kenai National Wildlife Refuge",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "Western New Mexico University",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "Kenelm W. Philip lepidoptera collection",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "University of Wyoming",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "Occidental College",thisRow)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "U. S. National Parasite Collection",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "Northern Michigan University",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "University of Washington",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "University of Utah",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "",thisRow)>
+			<cfset queryaddrow(ctinst,1)>
+			<cfset thisRow = thisRow + 1>
+			<cfset QuerySetCell(ctinst, "inst", "",thisRow)>
+			<cfquery name="octinst" dbtype="query">
+				select inst from ctinst group by inst order by inst
+			</cfquery>
+				
 			<cfif d.institution_acronym is "UAM" or d.institution_acronym is "UAMObs" or d.institution_acronym is "UAMb">
 				<cfset publisher='University of Alaska Museum'>
 			<cfelseif d.institution_acronym is "MSB" or d.institution_acronym is "DGR" or d.institution_acronym is "MSBObs">
@@ -246,7 +286,6 @@ c<cfinclude template="/includes/_header.cfm">
 			<div class="error">Improper Call</div><cfabort>
 		</cfif>
 		
-		
 		<cfset rtl="Collection,Dataset,Event,Image,InteractiveResource,Model,PhysicalObject,Service,Software,Sound,Text">
 		<form name="doi" method="post" action="doi.cfm">
 			<input type="hidden" name="action" value="createDOI">
@@ -265,20 +304,12 @@ c<cfinclude template="/includes/_header.cfm">
 				</cfloop>
 			</select>
 			
-			<cfquery name="octinst" dbtype="query">
-				select inst from ctinst order by inst
-			</cfquery>
-			<cfset pblst="College of the Atlantic|Denver Museum of Nature and Science|Harold W. Manter Laboratory of Parasitology|
-			Kenai National Wildlife Refuge|Kenelm W. Philip lepidoptera collection|Museum of Vertebrate Zoology|University of Alaska Museum|
-			University of Wyoming|Museum of Southwestern Biology|Western New Mexico University">
 			<label for="publisher">publisher</label>
 			<select name="publisher" id="publisher" size="1">
 				<cfloop query="octinst">
 					<option value="#inst#" <cfif publisher is inst> selected="selected" </cfif> >#inst#</option>
 				</cfloop>
 			</select>
-
-
 			<label for="creator">creator <a href="http://n2t.net/ezid/doc/apidoc.html##profile-datacite" target="_blank" class="external">[ more info ]</a></label>
 			<input type="text" name="creator" id="creator" value="#creator#" size="80">
 			<label for="title">title <a href="http://n2t.net/ezid/doc/apidoc.html##profile-datacite" target="_blank" class="external">[ more info ]</a></label>
