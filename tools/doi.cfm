@@ -203,9 +203,9 @@
 			
 			
 			<cfdump var=#ctinst#>
+			QuerySetCell(query, column_name, value [, row_number ])
 			
-			
-			<cfset QuerySetCell(ctinst, "inst", "University of Alaska Museum", 1)>
+			<cfset QuerySetCell("ctinst", "inst", "University of Alaska Museum", 1)>
 			
 						<cfdump var=#ctinst#>
 
