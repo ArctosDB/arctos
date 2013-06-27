@@ -193,8 +193,15 @@
 			<cfelse>
 				<cfset resourcetype="Event">
 			</cfif>
+			
+			<cfset ctinst=querynew("inst")>
+			<cfset thisRow=1>
+	
 			<cfif d.institution_acronym is "UAM" or d.institution_acronym is "UAMObs" or d.institution_acronym is "UAMb">
 				<cfset publisher='University of Alaska Museum'>
+				<cfset ctinst=queryaddrow(1)>
+				<cfset temp = QuerySetCell(ctinst, "inst", "University of Alaska Museum", thisRow)>
+				<cfset thisRow &= 1>
 			<cfelseif d.institution_acronym is "MSB" or d.institution_acronym is "DGR" or d.institution_acronym is "MSBObs">
 				<cfset publisher='Museum of Southwestern Biology'>
 			<cfelseif d.institution_acronym is "MVZ" or d.institution_acronym is "MVZObs">
@@ -250,44 +257,16 @@
 				</cfloop>
 			</select>
 			
-			
-				<cfset publisher="">
-			<cfelseif d.institution_acronym is "DMNS">
-				<cfset publisher="">
-			<cfelseif d.institution_acronym is "HWML">
-				<cfset publisher="">
-			<cfelseif d.institution_acronym is "KNWR">
-				<cfset publisher="">
-			<cfelseif d.institution_acronym is "WNMU">
-				<cfset publisher="">
-			<cfelseif d.institution_acronym is "KWP">
-				<cfset publisher="">
-			<cfelseif d.institution_acronym is "UWYMV">
-				<cfset publisher="">
-			<cfelseif d.institution_acronym is "MLZ">
-				<cfset publisher="Occidental College">
-			<cfelseif d.institution_acronym is "USNPC">
-				<cfset publisher="U. S. National Parasite Collection">
-			<cfelseif d.institution_acronym is "NMU">
-				<cfset publisher="Northern Michigan University">
-			<cfelseif d.institution_acronym is "UWBM">
-				<cfset publisher="University of Washington">
-			<cfelseif d.institution_acronym is "UMNH">
-				<cfset publisher="University of Utah">
-			</cfif>
-			<cfset creator=listgetat(d.collectors,1)>
-			<cfset ctinst=querynew("inst")>
-			<cfset ctinst=queryaddrow(1)>
-			
-			
-			
+			<cfquery name="octinst" dbtype="query">
+				select inst from ctinst order by inst
+			</cfquery>
 			<cfset pblst="College of the Atlantic|Denver Museum of Nature and Science|Harold W. Manter Laboratory of Parasitology|
 			Kenai National Wildlife Refuge|Kenelm W. Philip lepidoptera collection|Museum of Vertebrate Zoology|University of Alaska Museum|
 			University of Wyoming|Museum of Southwestern Biology|Western New Mexico University">
 			<label for="publisher">publisher</label>
 			<select name="publisher" id="publisher" size="1">
-				<cfloop list="#pblst#" index="i" delimiters="|">
-					<option value="#i#" <cfif publisher is i> selected="selected" </cfif> >#i#</option>
+				<cfloop query="octinst">
+					<option value="#inst#" <cfif publisher is inst> selected="selected" </cfif> >#inst#</option>
 				</cfloop>
 			</select>
 
