@@ -199,7 +199,6 @@
 			<cfset ctinst=queryaddrow(ctinst,1)>
 			
 			
-			
 			<cfset QuerySetCell(ctinst, "inst", "University of Alaska Museum", thisRow)>
 			<cfset thisRow = thisRow + 1>
 
