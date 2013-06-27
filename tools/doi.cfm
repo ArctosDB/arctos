@@ -28,7 +28,7 @@
 			</blockquote>
 			DOI metadata is maintained at <a href="http://datacite.org/" class="external" target="_blank">DataCite</a>
 		</p>
-
+  
 		<cfset publicationyear="">
 		<cfset target="">
 		<cfset resourcetype="">
@@ -199,7 +199,6 @@
 			
 			
 			<cfdump var=#ctinst#>
-			QuerySetCell(query, column_name, value [, row_number ])
 			
 			<cfset QuerySetCell(ctinst, "inst", "University of Alaska Museum",thisRow)>
 			
