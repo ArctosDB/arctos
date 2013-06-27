@@ -28,14 +28,12 @@
 			</blockquote>
 			DOI metadata is maintained at <a href="http://datacite.org/" class="external" target="_blank">DataCite</a>
 		</p>
-  
 		<cfset publicationyear="">
 		<cfset target="">
 		<cfset resourcetype="">
 		<cfset creator="">
 		<cfset title="">
 		<cfset publisher="">
-
 		<cfif isdefined("media_id") and len(media_id) gt 0>
 			<cfquery name="alreadyGotOne" datasource="uam_god">
 				select doi from doi where media_id=#media_id#
@@ -248,7 +246,6 @@
 			<cfquery name="octinst" dbtype="query">
 				select inst from ctinst group by inst order by inst
 			</cfquery>
-				
 			<cfif d.institution_acronym is "UAM" or d.institution_acronym is "UAMObs" or d.institution_acronym is "UAMb">
 				<cfset publisher='University of Alaska Museum'>
 			<cfelseif d.institution_acronym is "MSB" or d.institution_acronym is "DGR" or d.institution_acronym is "MSBObs">
@@ -286,7 +283,6 @@
 		<cfif not isdefined("columname")>
 			<div class="error">Improper Call</div><cfabort>
 		</cfif>
-		
 		<cfset rtl="Collection,Dataset,Event,Image,InteractiveResource,Model,PhysicalObject,Service,Software,Sound,Text">
 		<form name="doi" method="post" action="doi.cfm">
 			<input type="hidden" name="action" value="createDOI">
@@ -304,7 +300,6 @@
 					<option value="#i#" <cfif resourcetype is i> selected="selected" </cfif> >#i#</option>
 				</cfloop>
 			</select>
-			
 			<label for="publisher">publisher</label>
 			<select name="publisher" id="publisher" size="1">
 				<cfloop query="octinst">
@@ -375,9 +370,6 @@
 			<cfdump var=#cfhttp#>
 		</cfif>
 	</cfif>
-
-
-
 
 	<!--------------
 	<cfquery name="tehMedia" datasource="uam_god">
