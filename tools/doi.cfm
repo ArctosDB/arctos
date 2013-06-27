@@ -194,12 +194,12 @@
 				<cfset resourcetype="Event">
 			</cfif>
 		xrf
-			<cfset ctinstthisisaquery=querynew("inst")>
+			<cfset ctinst=querynew("inst")>
 			
-			<cfdump var=#ctinstthisisaquery#>
+			<cfdump var=#ctinst#>
 			
 			<cfset thisRow=1>
-			<cfset queryaddrow(ctinstthisisaquery,1)>
+			<cfset queryaddrow(ctinst,1)>
 			
 			
 			<cfdump var=#ctinst#>
