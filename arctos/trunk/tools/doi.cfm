@@ -193,11 +193,7 @@
 			<cfelse>
 				<cfset resourcetype="Event">
 			</cfif>
-		xrf
 			<cfset ctinst=querynew("inst")>
-			
-			<cfdump var=#ctinst#>
-			
 			<cfset thisRow=1>
 			<cfset queryaddrow(ctinst,1)>
 			
@@ -205,7 +201,7 @@
 			<cfdump var=#ctinst#>
 			QuerySetCell(query, column_name, value [, row_number ])
 			
-			<cfset ffffff=QuerySetCell(ctinst, "inst", "University of Alaska Museum")>
+			<cfset QuerySetCell(ctinst, "inst", "University of Alaska Museum",thisRow)>
 			
 						<cfdump var=#ctinst#>
 
