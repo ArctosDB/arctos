@@ -91,6 +91,8 @@
 	<th>Collectors</th>
 	<th>Preparators</th>
 	<th>Geog</th>
+	<th>specloc</th>
+	<th>verbatim date</th>
 </tr>
 <cfloop query="ci">
 	<cfquery name="c" dbtype="query">
@@ -122,6 +124,8 @@
 		</cfloop>
 	</td>
 	<td>#higher_geog#&nbsp;</td>
+	<td>#spec_locality#&nbsp;</td>
+	<td>#verbatim_date#&nbsp;</td>
 </tr>
 </cfloop>
 </table>
