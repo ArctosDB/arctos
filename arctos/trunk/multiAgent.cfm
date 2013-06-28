@@ -5,32 +5,17 @@
 <cfoutput> 
 	<cfquery name="getColls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT 
-		 	cataloged_item.collection_object_id as collection_object_id, 
-			cataloged_item.cat_num,
-			concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-			identification.scientific_name,
-			geog_auth_rec.country,
-			geog_auth_rec.state_prov,
-			geog_auth_rec.county,
-			geog_auth_rec.quad,
-			collection.collection,
-			CONCATPREP(cataloged_item.collection_object_id) preps,
-			concatColl(cataloged_item.collection_object_id) colls
+		 	flat.collection_object_id, 
+			flat.guid,
+			concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+			flat.scientific_name,
+			flat.higher_geog,
+			preparators,
+			collectors
 		FROM 
-			identification, 
-			collecting_event,
-			locality,
-			geog_auth_rec,
-			cataloged_item,
-			collection
+			flat
 		WHERE 
-			locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id 
-			AND collecting_event.locality_id = locality.locality_id 
-			AND cataloged_item.collecting_event_id = collecting_event.collecting_event_id 
-			AND cataloged_item.collection_object_id = identification.collection_object_id 
-			and accepted_id_fg=1
-			AND cataloged_item.collection_id = collection.collection_id
-			AND cataloged_item.collection_object_id IN (select collection_object_id from #table_name#)
+			flat.collection_object_id IN (select collection_object_id from #table_name#)
 		ORDER BY 
 			cataloged_item.collection_object_id
 	</cfquery>
@@ -75,35 +60,25 @@
 
 <table border="1">
 <tr>
-	<th>Catalog Number</th>
+	<th>GUID</th>
 	<th>#session.CustomOtherIdentifier#</th>
-	<th>Accepted Scientific Name</th>
+	<th>Accepted ID</th>
 	<th>Collectors</th>
 	<th>Preparators</th>
-	<th>Country</th>
-	<th>State</th>
-	<th>County</th>
-	<th>Quad</th>
+	<th>Geog</th>
 </tr>
 <cfloop query="getColls">
     <tr>
 	  <td>
-	  	#collection#&nbsp;#cat_num#
+	  	<a href="/guid/#guid#">#guid#</a>
 	  </td>
 	<td>
 		#CustomID#&nbsp;
 	</td>
 	<td><i>#Scientific_Name#</i></td>
-	<td>#colls#</td>
-	<td>#preps#</td>
-	<td>#Country#&nbsp;</td>
-	<td>#State_Prov#&nbsp;</td>
-	<td>
-		#county#&nbsp;
-	</td>
-	<td>
-		#quad#&nbsp;
-	</td>
+	<td>#collectors#</td>
+	<td>#preparators#</td>
+	<td>#higher_geog#&nbsp;</td>
 </tr>
 </cfloop>
 </table>

@@ -200,7 +200,7 @@
    	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_object_id not in (select
 		collection_object_id from attributes where attribute_type='image confirmed' and attribute_value='yes')" >
 </cfif>
-<cfif isdefined("catnum") and len(catnum) gt 0>
+<cfif isdefined("catnum") and len(trim(catnum)) gt 0>
 	<cfset mapurl = "#mapurl#&catnum=#catnum#">
 	<cfif catnum contains "-">
 		<cfset hyphenPosition=find("-",catnum)>
