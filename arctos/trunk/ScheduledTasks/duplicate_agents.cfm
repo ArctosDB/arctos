@@ -291,7 +291,7 @@ END;
 									where
 										cf_dup_agent_id=#cf_dup_agent_id#
 								</cfquery>
-								<cfmail to="#valuelist(colns.address)#" subject="agent merger failed" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
+								<cfmail to="#Application.PageProblemEmail#" subject="agent merger failed" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
 									<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed and was rolled back.
 									<br>cfcatch dump follows.
 									<br>
