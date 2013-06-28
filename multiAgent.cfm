@@ -17,7 +17,7 @@
 		WHERE 
 			flat.collection_object_id IN (select collection_object_id from #table_name#)
 		ORDER BY 
-			cataloged_item.collection_object_id
+			guid
 	</cfquery>
 	<h2>
 		Add/Remove collectors for all specimens listed below
