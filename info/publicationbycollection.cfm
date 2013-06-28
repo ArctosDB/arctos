@@ -7,6 +7,10 @@
 <cfif not isdefined("collection_id")>
 	<cfset collection_id="">
 </cfif>
+<cfif collection_id is "-1''">
+	<cfinclude template="/errors/autoblacklist.cfm">
+	<cfabort>
+</cfif>
 <cfif not isdefined("citationonly")>
 	<cfset citationonly=true>
 </cfif>
