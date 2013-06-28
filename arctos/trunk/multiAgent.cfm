@@ -171,7 +171,7 @@
 				</cfquery>			
 				<cfloop query="cids">
 					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select max(coll_order) +1 m from collector where 
+						select nvl(max(coll_order),0) +1 m from collector where 
 						collection_object_id=#collection_object_id# and
 						collector_role='c'
 					</cfquery>
