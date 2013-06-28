@@ -5,18 +5,43 @@
 <cfoutput> 
 	<cfquery name="getColls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT 
-		 	flat.collection_object_id, 
 			flat.guid,
 			concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 			flat.scientific_name,
 			flat.higher_geog,
-			preparators,
-			collectors
+			flat.spec_locality,
+			flat.verbatim_date,
+			agent_name,
+			collector_role,
+			COLL_ORDER
 		FROM 
-			flat
+			flat,
+			#table_name#,
+			collector,
+			preferred_agent_name
 		WHERE 
-			flat.collection_object_id IN (select collection_object_id from #table_name#)
-		ORDER BY 
+			flat.collection_object_id = #table_name#.collection_object_id and
+			flat.collection_object_id = collector.collection_object_id (+) and
+			collector.agent_id=preferred_agent_name.agent_id (+)
+	</cfquery>
+	<cfquery name="ci" dbtype="query">
+		select
+			guid,
+			CustomID,
+			scientific_name,
+			higher_geog,
+			spec_locality,
+			verbatim_date
+		from
+			getColls
+		group by
+			guid,
+			CustomID,
+			scientific_name,
+			higher_geog,
+			spec_locality,
+			verbatim_date
+		order by
 			guid
 	</cfquery>
 	<h2>
@@ -67,7 +92,13 @@
 	<th>Preparators</th>
 	<th>Geog</th>
 </tr>
-<cfloop query="getColls">
+<cfloop query="ci">
+	<cfquery name="c" dbtype="query">
+		select agent_name from getColls where collector_role='c' and guid='#guid#' order by COLL_ORDER
+	</cfquery>
+	<cfquery name="p" dbtype="query">
+		select agent_name from getColls where collector_role='p' and guid='#guid#' order by COLL_ORDER
+	</cfquery>
     <tr>
 	  <td>
 	  	<a href="/guid/#guid#">#guid#</a>
@@ -76,8 +107,20 @@
 		#CustomID#&nbsp;
 	</td>
 	<td><i>#Scientific_Name#</i></td>
-	<td>#collectors#</td>
-	<td>#preparators#</td>
+	<td>
+		<cfloop query="c">
+			<div>
+				#agent_name#
+			</div>
+		</cfloop>
+	</td>
+	<td>
+		<cfloop query="p">
+			<div>
+				#agent_name#
+			</div>
+		</cfloop>
+	</td>
 	<td>#higher_geog#&nbsp;</td>
 </tr>
 </cfloop>
