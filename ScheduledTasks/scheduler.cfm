@@ -6,6 +6,12 @@
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
 <!-----------------------------------   related specimens cache    ------------------------------------------>
+<!--- 
+	fetchRelatedInfo
+	Purpose: Cache related-specimen information
+	Cost: Extremely variable, depends on specimens created and/or in need of refresh
+	Growth potential: unlimited
+--->
 <cfschedule action = "update"
     task = "fetchRelatedInfo"
     operation = "HTTPRequest"
@@ -15,6 +21,12 @@
     interval = "daily"
     requestTimeOut = "600">
 <!-----------------------------------   Agent merge/delete    ------------------------------------------>
+<!--- 
+	duplicate_agents_findDups
+	Purpose: Find agents marked as duplicates
+	Cost: low
+	Growth potential: low
+--->
 <cfschedule action = "update"
     task = "duplicate_agents_findDups"
     operation = "HTTPRequest"
@@ -23,6 +35,13 @@
     startTime = "04:51 AM"
     interval = "daily"
     requestTimeOut = "600">
+	
+<!--- 
+	duplicate_agents_merge
+	Purpose: Merge duplicate agents
+	Cost: extremely variable - can involve updating many (10s of K) rows in ~50 tables
+	Growth potential: low
+--->
 <cfschedule action = "update"
     task = "duplicate_agents_merge"
     operation = "HTTPRequest"
@@ -31,6 +50,12 @@
     startTime = "05:01 AM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	duplicate_agents_notify
+	Purpose: Merge duplicate agents notification
+	Cost: low/moderate
+	Growth potential: low
+--->
 <cfschedule action = "update"
     task = "duplicate_agents_notify"
     operation = "HTTPRequest"
@@ -42,7 +67,13 @@
 
 
 <!-----------------------------------   UAM Earth Science Imaging    ------------------------------------------>
-<!--- insert to bulkloader ---->
+<!--- 
+	es_spec_insBulk
+	Purpose: insert to bulkloader from uam:es imaging app
+	Cost: moderate to low depending on recent activity
+	Growth potential: low
+--->
+
 <cfschedule action = "update"
     task = "es_spec_insBulk"
     operation = "HTTPRequest"
@@ -51,7 +82,13 @@
     startTime = "12:21 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- give the newly bulkloaded specimens an hour to run, then find them--->
+<!--- 
+	es_spec_findSpec
+	Purpose: Find imaged specimens by barcode
+	Cost: moderate (?)
+	Growth potential: low
+--->
+
 <cfschedule action = "update"
     task = "es_spec_findSpec"
     operation = "HTTPRequest"
@@ -60,8 +97,12 @@
     startTime = "01:31 AM"
     interval = "daily"
     requestTimeOut = "600">
-
-<!--- find everything at TACC ---->
+<!--- 
+	es_tacc_getDir
+	Purpose: Find images at TACC
+	Cost: High
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "es_tacc_getDir"
     operation = "HTTPRequest"
@@ -70,7 +111,12 @@
     startTime = "02:31 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- TACC media to accn cards ---->
+<!--- 
+	es_tacc_accn_card_media
+	Purpose: Find images of accn cards at TACC
+	Cost: moderate/low
+	Growth potential: low
+--->
 <cfschedule action = "update"
     task = "es_tacc_accn_card_media"
     operation = "HTTPRequest"
@@ -79,7 +125,12 @@
     startTime = "02:51 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- TACC media to locality cards ---->
+<!--- 
+	es_tacc_loc_card_media
+	Purpose: Find images of locality cards at TACC
+	Cost: moderate/low
+	Growth potential: low
+--->
 <cfschedule action = "update"
     task = "es_tacc_loc_card_media"
     operation = "HTTPRequest"
@@ -88,7 +139,12 @@
     startTime = "03:01 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!--- TACC media to paleoimager-created specimens ---->
+<!--- 
+	es_tacc_spec_media
+	Purpose: Find images of specimens at TACC
+	Cost: moderate/low
+	Growth potential: low
+--->
 <cfschedule action = "update"
     task = "es_tacc_spec_media"
     operation = "HTTPRequest"
@@ -97,8 +153,12 @@
     startTime = "03:11 AM"
     interval = "daily"
     requestTimeOut = "600">
-
-<!--- TACC media to already-existing specimens ---->
+<!--- 
+	es_tacc_spec_media_alreadyentered
+	Purpose: Find images of specimens at TACC
+	Cost: moderate/low
+	Growth potential: low
+--->
 <cfschedule action = "update"
     task = "es_tacc_spec_media_alreadyentered"
     operation = "HTTPRequest"
@@ -109,7 +169,12 @@
     requestTimeOut = "600">
 
 <!-----------------------------------   OCR    ------------------------------------------>
-
+<!--- 
+	ocr_specimens
+	Purpose: Find OCR results at TACC
+	Cost: moderate/low
+	Growth potential: ??
+--->
 <cfschedule action = "update"
     task = "ocr_specimens"
     operation = "HTTPRequest"
@@ -118,6 +183,12 @@
     startTime = "12:31 AM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	ocr_crawl
+	Purpose: Find OCR results at TACC
+	Cost: moderate/low
+	Growth potential: ??
+--->
 <cfschedule action = "update"
     task = "ocr_crawl"
     operation = "HTTPRequest"
@@ -127,6 +198,12 @@
     interval = "daily"
     requestTimeOut = "300">
 <!-----------------------------------   media bulkloader    ------------------------------------------>
+<!--- 
+	MBL_cleanup
+	Purpose: Cleanup bulkloaded media
+	Cost: low
+	Growth potential: low
+--->
 <cfschedule action = "update"
     task = "MBL_cleanup"
     operation = "HTTPRequest"
@@ -135,6 +212,12 @@
     startTime = "12:31 AM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	MBL_report
+	Purpose: Send email relating to bulkloaded media
+	Cost: low
+	Growth potential: low
+--->
 <cfschedule action = "update"
     task = "MBL_report"
     operation = "HTTPRequest"
@@ -143,6 +226,12 @@
     startTime = "04:31 AM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	MBL_report
+	Purpose: Send email relating to bulkloaded media
+	Cost: low
+	Growth potential: low
+--->
 <cfschedule action = "update"
     task = "MBL_validate"
     operation = "HTTPRequest"
@@ -151,6 +240,12 @@
     startTime = "12:01 AM"
     interval = "120"
     requestTimeOut = "300">
+<!--- 
+	MBL_load
+	Purpose: load bulkloaded media
+	Cost: variable - potentially high
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "MBL_load"
     operation = "HTTPRequest"
@@ -163,7 +258,12 @@
 
 <!-----------------------------------   sitemaps    ------------------------------------------>
 
-
+<!--- 
+	CTupdates
+	Purpose: build sitemaps
+	Cost: moderate/high
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "CTupdates"
     operation = "HTTPRequest"
@@ -172,14 +272,12 @@
     startTime = "12:01 AM"
     interval = "daily"
     requestTimeOut = "600">
-<cfschedule action = "update"
-    task = "cf_spec_res_cols"
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/cf_spec_res_cols.cfm"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "01:38 AM"
-    interval = "weekly"
-    requestTimeOut = "600">
+<!--- 
+	build_sitemap_map
+	Purpose: build sitemaps
+	Cost: moderate/high
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "build_sitemap_map"
     operation = "HTTPRequest"
@@ -188,6 +286,12 @@
     startTime = "05:00 PM"
     interval = "weekly"
     requestTimeOut = "600">
+<!--- 
+	build_sitemap_index
+	Purpose: build sitemaps
+	Cost: moderate/high
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "build_sitemap_index"
     operation = "HTTPRequest"
@@ -196,6 +300,12 @@
     startTime = "05:10 PM"
     interval = "weekly"
     requestTimeOut = "600">
+<!--- 
+	build_sitemaps_spec
+	Purpose: build sitemaps
+	Cost: moderate/high
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "build_sitemaps_spec"
     operation = "HTTPRequest"
@@ -204,6 +314,12 @@
     startTime = "12:20 AM"
     interval = "1800"
     requestTimeOut = "600">
+<!--- 
+	build_sitemaps_tax
+	Purpose: build sitemaps
+	Cost: moderate/high
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "build_sitemaps_tax"
     operation = "HTTPRequest"
@@ -212,6 +328,12 @@
     startTime = "12:23 AM"
     interval = "3600"
     requestTimeOut = "600">
+<!--- 
+	build_sitemaps_pub
+	Purpose: build sitemaps
+	Cost: moderate/high
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "build_sitemaps_pub"
     operation = "HTTPRequest"
@@ -220,6 +342,12 @@
     startTime = "12:26 AM"
     interval = "3600"
     requestTimeOut = "600">
+<!--- 
+	build_sitemaps_proj
+	Purpose: build sitemaps
+	Cost: moderate/high
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "build_sitemaps_proj"
     operation = "HTTPRequest"
@@ -228,6 +356,12 @@
     startTime = "12:30 AM"
     interval = "3600"
     requestTimeOut = "600">
+<!--- 
+	build_sitemaps_stat
+	Purpose: build sitemaps
+	Cost: moderate/high
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "build_sitemaps_stat"
     operation = "HTTPRequest"
@@ -236,6 +370,12 @@
     startTime = "12:35 AM"
     interval = "3600"
     requestTimeOut = "600">
+<!--- 
+	build_sitemaps_media
+	Purpose: build sitemaps
+	Cost: moderate/high
+	Growth potential: high
+--->
 
 <cfschedule action = "update"
     task = "build_sitemaps_media"
@@ -246,6 +386,12 @@
     interval = "1800"
     requestTimeOut = "600">
 <!-----------------------------------   imaging    ------------------------------------------>
+<!--- 
+	ALA_ProblemReport
+	Purpose: send email about ALA imaging problems
+	Cost: low
+	Growth potential: low
+--->
 <cfschedule action = "update"
     task = "ALA_ProblemReport"
     operation = "HTTPRequest"
@@ -254,6 +400,13 @@
     startTime = "06:00 AM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	tacc1_findAllDirectories
+	Purpose: Find stuff at TACC
+	Cost: high
+	Growth potential: high
+	NOTE: Might be able to merge this and UAM:ES find images
+--->
 <cfschedule action = "update"
     task = "tacc1_findAllDirectories"
     operation = "HTTPRequest"
@@ -261,6 +414,13 @@
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "04:30 AM"
     interval = "daily">
+<!--- 
+	TACC2_findFilesOnePath
+	Purpose: Find one folder of stuff at TACC
+	Cost: moderate
+	Growth potential: moderate/low
+	NOTE: Might be able to merge this and UAM:ES imaging
+--->
 <cfschedule action = "update"
     task = "TACC2_findFilesOnePath"
     operation = "HTTPRequest"
@@ -268,6 +428,13 @@
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:17 AM"
     interval = "7200">
+<!--- 
+	TACC3_linkToSpecimens
+	Purpose: Hook specimens to TACC media
+	Cost: moderate/high
+	Growth potential: moderate/low
+	NOTE: Might be able to merge this and UAM:ES imaging
+--->
 <cfschedule action = "update"
     task = "TACC3_linkToSpecimens"
     operation = "HTTPRequest"
@@ -275,6 +442,13 @@
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:27 AM"
     interval = "1200">
+<!--- 
+	TACC4_makeDNGMedia
+	Purpose: Hook specimens to TACC media
+	Cost: moderate/high
+	Growth potential: moderate/low
+	NOTE: Might be able to merge this and UAM:ES imaging
+--->
 <cfschedule action = "update"
     task = "TACC4_makeDNGMedia"
     operation = "HTTPRequest"
@@ -282,6 +456,14 @@
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:37 AM"
     interval = "3600">
+
+<!--- 
+	TACC5_makeJPGMedia
+	Purpose: Hook specimens to TACC media
+	Cost: moderate/high
+	Growth potential: moderate/low
+	NOTE: Might be able to merge this and UAM:ES imaging
+--->
 <cfschedule action = "update"
     task = "TACC5_makeJPGMedia"
     operation = "HTTPRequest"
@@ -291,17 +473,12 @@
     interval = "3600">
 
 <!-----------------------------------   curatorial alerts    ------------------------------------------>
-<!--- no longer exists - replace with 'someone made a link to your stuff' eventually
-
-<cfschedule action = "update"
-    task = "attention_needed"
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/attention_needed.cfm"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "01:00 AM"
-    interval = "daily"
-    requestTimeOut = "600">
----->
+<!--- 
+	reminder
+	Purpose: loans due, permits expiring, etc. notifications
+	Cost: low/moderate
+	Growth potential: moderate/high
+--->
 <cfschedule action = "update"
     task = "reminder"
     operation = "HTTPRequest"
@@ -310,16 +487,12 @@
     startTime = "12:56 AM"
     interval = "daily"
     requestTimeOut = "600">
-<!----
-<cfschedule action = "update"
-    task = "pendingRelations"
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/pendingRelations.cfm"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "3:38 AM"
-    interval = "daily"
-    requestTimeOut = "600">
-	---->
+<!--- 
+	genbank_crawl_institution_wild2
+	Purpose: Find uncited specimens at GenBank
+	Cost: low/moderate
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "genbank_crawl_institution_wild2"
     operation = "HTTPRequest"
@@ -328,6 +501,12 @@
     startTime = "07:25 AM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	genbank_crawl_institution_wild1
+	Purpose: Find uncited specimens at GenBank
+	Cost: low/moderate
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "genbank_crawl_institution_wild1"
     operation = "HTTPRequest"
@@ -336,6 +515,12 @@
     startTime = "07:20 AM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	genbank_crawl_collection_wild2
+	Purpose: Find uncited specimens at GenBank
+	Cost: low/moderate
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "genbank_crawl_collection_wild2"
     operation = "HTTPRequest"
@@ -344,6 +529,12 @@
     startTime = "07:15 AM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	genbank_crawl_collection_wild1
+	Purpose: Find uncited specimens at GenBank
+	Cost: low/moderate
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "genbank_crawl_collection_wild1"
     operation = "HTTPRequest"
@@ -352,6 +543,12 @@
     startTime = "07:10 AM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	genbank_crawl_collection_voucher
+	Purpose: Find uncited specimens at GenBank
+	Cost: low/moderate
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "genbank_crawl_collection_voucher"
     operation = "HTTPRequest"
@@ -360,6 +557,12 @@
     startTime = "07:05 AM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	genbank_crawl_institution_voucher
+	Purpose: Find uncited specimens at GenBank
+	Cost: low/moderate
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "genbank_crawl_institution_voucher"
     operation = "HTTPRequest"
@@ -369,6 +572,12 @@
     interval = "daily"
     requestTimeOut = "600">
 <!-----------------------------------   sharing data    ------------------------------------------>
+<!--- 
+	GenBank_build
+	Purpose: Build linkouts from GenBank
+	Cost: low/moderate
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "GenBank_build"
     operation = "HTTPRequest"
@@ -377,6 +586,12 @@
     startTime = "10:00 PM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	GenBank_transfer_name
+	Purpose: Build linkouts from GenBank
+	Cost: low/moderate
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "GenBank_transfer_name"
     operation = "HTTPRequest"
@@ -385,6 +600,12 @@
     startTime = "10:30 PM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	GenBank_transfer_nuc
+	Purpose: Build linkouts from GenBank
+	Cost: low/moderate
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "GenBank_transfer_nuc"
     operation = "HTTPRequest"
@@ -393,6 +614,12 @@
     startTime = "10:35 PM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	GenBank_transfer_tax
+	Purpose: Build linkouts from GenBank
+	Cost: low/moderate
+	Growth potential: high
+--->
 <cfschedule action = "update"
     task = "GenBank_transfer_tax"
     operation = "HTTPRequest"
@@ -402,6 +629,27 @@
     interval = "daily"
     requestTimeOut = "600">
 <!-----------------------------------   maintenance    ------------------------------------------>
+<!--- 
+	cf_spec_res_cols
+	Purpose: Sync specresults with code table additions
+	Cost: low
+	Growth potential: low
+--->
+<cfschedule action = "update"
+    task = "cf_spec_res_cols"
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/cf_spec_res_cols.cfm"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "01:38 AM"
+    interval = "weekly"
+    requestTimeOut = "600">
+<!--- 
+	CleanTempFiles
+	Purpose: Clean up temporary fileserver gunk
+	Cost: low
+	Growth potential: low/moderate
+	NOTE: perhaps more efficient as CRON, but easier to maintain from here
+--->	
 <cfschedule action = "update"
     task = "CleanTempFiles"
     operation = "HTTPRequest"
@@ -410,6 +658,12 @@
     startTime = "12:00 AM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	build_home
+	Purpose: maintain home.cfm
+	Cost: low
+	Growth potential: low/moderate
+--->
 <cfschedule action = "update"
     task = "build_home"
     operation = "HTTPRequest"
@@ -418,6 +672,12 @@
     startTime = "12:56 AM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	build_robots
+	Purpose: maintain robots.txt
+	Cost: low
+	Growth potential: low/moderate
+--->
 <cfschedule action = "update"
     task = "build_robots"
     operation = "HTTPRequest"
@@ -426,6 +686,12 @@
     startTime = "1:36 AM"
     interval = "weekly"
     requestTimeOut = "600">
+<!--- 
+	stale_users
+	Purpose: lock old and unused user accounts
+	Cost: low
+	Growth potential: low/moderate
+--->
 <cfschedule action = "update"
     task = "stale_users"
     operation = "HTTPRequest"
@@ -434,70 +700,3 @@
     startTime = "1:56 AM"
     interval = "weekly"
     requestTimeOut = "600">
-
-<!----
-	We're now on the TACC server so there's no reason to move this stuff off to the TACC server
-
-<!-----------------------------------   images    ------------------------------------------>
-<cfschedule action = "update"
-    task = "image_CheckNew"
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/localToTacc.cfm?action=checkNew"
-    startDate = "1-jan-2008"
-    startTime = "12:30 AM"
-    interval = "weekly"
-    requestTimeOut = "600">
-<cfschedule action = "update"
-    task = "image_transfer"
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/localToTacc.cfm?action=transfer"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "#timeformat(now())#"
-    interval = "300"
-    requestTimeOut = "300">
-<cfschedule action = "update"
-    task = "image_findIt"
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/localToTacc.cfm?action=findIt"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "12:00 AM"
-    interval = "28800"
-    requestTimeOut = "600">
-<cfschedule action = "update"
-    task = "image_fixURI"
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/localToTacc.cfm?action=fixURI"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "01:00 AM"
-    interval = "28800"
-    requestTimeOut = "600">
-<cfschedule action = "update"
-    task = "image_recoverDisk"
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/localToTacc.cfm?action=recoverDisk"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "02:59 AM"
-    interval = "daily"
-    requestTimeOut = "3600">
-<cfschedule action = "update"
-    task = "image_report"
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/localToTacc.cfm?action=report"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "02:34 AM"
-    interval = "weekly"
-    requestTimeOut = "600">
-
-
-
-
-
-<cfschedule action = "update"
-    task = "dupsAtTacc"
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/dupsAtTacc.cfm"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "12:34 AM"
-    interval = "600"
-    requestTimeOut = "600">
---------->
