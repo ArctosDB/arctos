@@ -1159,7 +1159,7 @@
 			</cfloop>
 		<cfset basQual = " #basQual# ) ">
 	<cfelse>
-		<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.state_prov) LIKE '%#UCASE(state_prov)#%'">
+		<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.state_prov) LIKE '%#UCASE(escapeQuotes(state_prov))#%'">
 	</cfif>
 	<cfset mapurl = "#mapurl#&state_prov=#state_prov#">
 </cfif>
