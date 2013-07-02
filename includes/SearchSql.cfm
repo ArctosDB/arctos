@@ -1138,9 +1138,9 @@
 </cfif>
 <cfif isdefined("Country") AND len(Country) gt 0>
 	<cfif compare(country,"NULL") is 0>
-		<cfset basQual = " #basQual# AND country is null">
+		<cfset basQual = " #basQual# AND #session.flatTableName#.country is null">
 	<cfelse>
-		<cfset basQual = " #basQual# AND country = '#Country#'">
+		<cfset basQual = " #basQual# AND #session.flatTableName#.country = '#Country#'">
 	</cfif>
 	<cfset mapurl = "#mapurl#&Country=#Country#">
 </cfif>
@@ -1154,28 +1154,28 @@
 				  <cfif i gt 1>
 				 	<cfset basQual = " #basQual# OR ">
 				 </cfif>
-				 <cfset basQual = " #basQual# UPPER(state_prov) LIKE '%#UCASE(trim(s))#%'">
+				 <cfset basQual = " #basQual# UPPER(#session.flatTableName#.state_prov) LIKE '%#UCASE(trim(escapeQuotes(s)))#%'">
 				 <cfset i=i+1>
 			</cfloop>
 		<cfset basQual = " #basQual# ) ">
 	<cfelse>
-		<cfset basQual = " #basQual# AND UPPER(state_prov) LIKE '%#UCASE(state_prov)#%'">
+		<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.state_prov) LIKE '%#UCASE(state_prov)#%'">
 	</cfif>
 	<cfset mapurl = "#mapurl#&state_prov=#state_prov#">
 </cfif>
 <cfif isdefined("island_group") AND len(island_group) gt 0>
 	<cfif compare(island_group,"NULL") is 0>
-		<cfset basQual = " #basQual# AND island_group is null">
+		<cfset basQual = " #basQual# AND #session.flatTableName#.island_group is null">
 	<cfelse>
-		<cfset basQual = " #basQual# AND Island_Group LIKE '#island_group#'">
+		<cfset basQual = " #basQual# AND #session.flatTableName#.Island_Group LIKE '#island_group#'">
 	</cfif>
 	<cfset mapurl = "#mapurl#&island_group=#island_group#">
 </cfif>
 <cfif isdefined("Island") AND len(Island) gt 0>
 	<cfif compare(Island,"NULL") is 0>
-		<cfset basQual = " #basQual# AND Island is null">
+		<cfset basQual = " #basQual# AND #session.flatTableName#.Island is null">
 	<cfelse>
-		<cfset basQual = " #basQual# AND UPPER(Island) LIKE '%#UCASE(Island)#%'">
+		<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.Island) LIKE '%#UCASE(Island)#%'">
 	</cfif>
 	<cfset mapurl = "#mapurl#&island=#island#">
 </cfif>
