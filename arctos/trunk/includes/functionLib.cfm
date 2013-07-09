@@ -282,6 +282,9 @@
 		<cfelse>
 			<cfset session.result_sort = "">
 		</cfif>
+		
+		<cfset session.CustomOidOper = getPrefsCustomOidOper.>
+
 		<cfif len(getPrefs.CustomOtherIdentifier) gt 0>
 			<cfset session.customOtherIdentifier = getPrefs.CustomOtherIdentifier>
 		<cfelse>
