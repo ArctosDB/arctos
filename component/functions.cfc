@@ -3177,16 +3177,11 @@
 <!------------------------------------------------------------------>
 <cffunction name="setSessionCustomID" access="remote">
 	<cfargument name="val" type="string" required="no">
-	<cftry>
-		<cfquery name="up" datasource="cf_dbuser">
-			UPDATE cf_users SET CustomOidOper = '#val#' WHERE username = '#session.username#'
-		</cfquery>
-		<cfset session.CustomOidOper = "#val#">
-	<cfcatch>
-		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
-	</cfcatch>
-	</cftry>
-	<cfreturn result>
+	<cfquery name="up" datasource="cf_dbuser">
+		UPDATE cf_users SET CustomOidOper = '#val#' WHERE username = '#session.username#'
+	</cfquery>
+	<cfset session.CustomOidOper = "#val#">
+	<cfreturn>
 </cffunction>
 <!------------------------------------------------------------------>
 <cffunction name="changefancyCOID" access="remote">
