@@ -181,18 +181,23 @@
 				</cfif>
 			</td>
 		</tr>
-	<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
+	<cfif isdefined("session.CustomOtherIdentifier") and len(session.CustomOtherIdentifier) gt 0>
 		<tr>
 			<td class="lbl">
 				<span class="helpLink" id="custom_identifier">#replace(session.CustomOtherIdentifier," ","&nbsp;","all")#:</span>
 			</td>
 			<td class="srch">
+				<cfif isdefined("session.CustomOidOper")>
+					<cfset thisSelected=session.CustomOidOper>
+				<cfelse>
+					<cfset thisSelected="IS">
+				</cfif>
 				<label for="CustomOidOper">Display Value</label>
-				<select name="CustomOidOper" id="CustomOidOper" size="1">
-					<option value="IS">is</option>
-					<option value="" selected="selected">contains</option>
-					<option value="LIST">in list</option>
-					<option value="BETWEEN">in range</option>
+				<select name="CustomOidOper" id="CustomOidOper" size="1" onchange="setSessionCustomID(this.value);">
+					<option value="IS" <cfif thisSelected is "IS"> selected="selected"</cfif>>is</option>
+					<option value="" <cfif thisSelected is ""> selected="selected"></cfif>>contains</option>
+					<option value="LIST"<cfif thisSelected is "LIST"> selected="selected"></cfif>>in list</option>
+					<option value="BETWEEN"<cfif thisSelected is "BETWEEN"> selected="selected"></cfif>>in range</option>
 				</select>&nbsp;<input type="text" name="CustomIdentifierValue" id="CustomIdentifierValue" size="50">
 			</td>
 		</tr>
@@ -558,6 +563,19 @@
 </form>
 </cfoutput>
 <script type='text/javascript' language='javascript'>
+	function setSessionCustomID(v) {
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "setSessionCustomID",
+				val : v,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (getResult) {}
+		
+		});
+	}
+
 	jQuery(document).ready(function() {
 	  	var tval = document.getElementById('tgtForm').value;
 		changeTarget('tgtForm',tval);
