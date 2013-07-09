@@ -573,7 +573,7 @@
 			},
 			function (getResult) {}
 		
-		)};
+		);
 	}
 
 	jQuery(document).ready(function() {
