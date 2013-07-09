@@ -195,9 +195,9 @@
 				<label for="CustomOidOper">Display Value</label>
 				<select name="CustomOidOper" id="CustomOidOper" size="1" onchange="setSessionCustomID(this.value);">
 					<option value="IS" <cfif thisSelected is "IS"> selected="selected"</cfif>>is</option>
-					<option value="" <cfif thisSelected is ""> selected="selected"></cfif>>contains</option>
-					<option value="LIST"<cfif thisSelected is "LIST"> selected="selected"></cfif>>in list</option>
-					<option value="BETWEEN"<cfif thisSelected is "BETWEEN"> selected="selected"></cfif>>in range</option>
+					<option value="" <cfif thisSelected is ""> selected="selected"</cfif>>contains</option>
+					<option value="LIST"<cfif thisSelected is "LIST"> selected="selected"</cfif>>in list</option>
+					<option value="BETWEEN"<cfif thisSelected is "BETWEEN"> selected="selected"</cfif>>in range</option>
 				</select>&nbsp;<input type="text" name="CustomIdentifierValue" id="CustomIdentifierValue" size="50">
 			</td>
 		</tr>
