@@ -84,7 +84,7 @@ Arctos taxonomy has changed.......
 
 <cfif isdefined("name") and len(name) gt 0>
 	<!--- pipe-delimited list of things that users are allowed to edit --->
-	<cfset editableSources="Artos">
+	<cfset editableSources="Arctos">
 
 	<cfquery name="d" datasource="uam_god">
 		select * from taxon_name,taxon_term where 
