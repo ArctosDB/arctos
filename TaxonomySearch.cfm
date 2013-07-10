@@ -75,50 +75,12 @@
 </script>	
 <cfoutput>
 
-IMPORTANT ANNOUNCEMENT:
-
-<P>
-Arctos taxonomy has changed.......
-<p>
-(Maybe write something here, AC??)
-
-</p>
 
 
-</P>
-<br>
 
-
-<cfif not isdefined("taxon_name")>
-		<cfset taxon_name="">
-	</cfif>
-	<cfif not isdefined("taxon_term")>
-		<cfset taxon_term="">
-	</cfif>
-	
-	<cfif not isdefined("matchtyp")>
-		<cfset matchtyp="substring">
-	</cfif>
-	
-	<cfif not isdefined("src")>
-		<cfset src="">
-	</cfif>
 	
 	
 	
-	<form ACTION="TaxonomySearch.cfm" METHOD="post" name="taxa">
-		<input type="hidden" name="action" value="search">
-		<label for="taxon_name">Taxon Name</label>
-		<input type="text" name="taxon_name" id="taxon_name">
-		<label for="taxon_term">Taxon Term</label>
-		<input type="text" name="taxon_term" id="taxon_term">
-		
-		<select name="matchtyp">
-			<option <cfif matchtyp is "substring"> selected="selected" </cfif>value="substring">substring</option>
-			<option <cfif matchtyp is "entire"> selected="selected" </cfif> value="entire">entire terms only</option>
-		</select>
-		
-		<input type="submit">
 		<!----------
 	
 		<table width="90%" border="0" cellspacing="0" cellpadding="0">
