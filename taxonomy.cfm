@@ -107,7 +107,7 @@ Arctos taxonomy has changed.......
 		select
 			TAXON_RELATIONSHIP,
 			RELATION_AUTHORITY,
-			taxon_name
+			scientific_name
 		from
 			taxon_relations,
 			taxon_name
@@ -120,7 +120,7 @@ Arctos taxonomy has changed.......
 			Related Taxa
 			<ul>
 				<li>
-					#TAXON_RELATIONSHIP# <a href='/taxonomy.cfm?name=#taxon_name#'>#taxon_name#</a>
+					#TAXON_RELATIONSHIP# <a href='/taxonomy.cfm?name=#scientific_name#'>#scientific_name#</a>
 					<cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
 				</li>
 			</ul>
