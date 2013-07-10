@@ -74,17 +74,28 @@ function addARow() {
 		<cfdump var=#hasclass#>
 		
 		
+<table id="sortable">
+	<thead>
+		<tr><th>Term</th><th>Term Type</th><th>-</th></tr>
+	</thead>
+	<tbody>
+		<cfloop query="hasclass">
+			<tr id="id_#POSITION_IN_CLASSIFICATION#">
+				<td>
+					<input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
+				</td>
+				<td>
+					<input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
+				</td>
+				<td>
+					<span class="likeLink" onclick="deleteThis('#POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
+				</td>
+			</tr>
+		</cfloop>
 
+	</tbody>
+</table>
 
-<ul id="sortable">
-<cfloop query="hasclass">
-	<li id="id_#POSITION_IN_CLASSIFICATION#" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
-		Term: <input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
-		Term Type: <input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
-		&nbsp;&nbsp;&nbsp;<span class="likeLink" onclick="deleteThis('#POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
-	</li>
-</cfloop>
-</ul>
 
 
 
