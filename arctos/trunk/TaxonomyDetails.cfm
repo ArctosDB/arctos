@@ -3,111 +3,12 @@
 	<cfset debug=false>
 </cfif>
 <cfoutput>
+Taxonomy details for #name#.
 
+<p>
 
-<cfquery name="d" datasource="uam_god">
-			select * from taxon_name,taxon_term where 
-			taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
-			upper(scientific_name)='#ucase(name)#'
-		</cfquery>
-		<cfif d.recordcount is 0>
-			sorry, we don't see to have data for #name# yet.
-			<!----
-			You can <a href="taxonomydemo.cfm?action=createTerm&scientific_name=#name#">create #name#</a>
-			---->
-			<cfabort>
-		</cfif>
-		<cfquery name="scientific_name" dbtype="query">
-			select scientific_name from d group by scientific_name
-		</cfquery>
-		
-		<cfquery name="sources" dbtype="query">
-			select 
-				source,
-				classification_id
-			from 
-				d 
-			where 
-				classification_id is not null 
-			group by 
-				source,
-				classification_id
-			order by 
-				source,
-				classification_id
-		</cfquery>
-		
-		
-		<cfloop query="sources">
-			<cfquery name="notclass" dbtype="query">
-				select 
-					term,
-					term_type 
-				from 
-					d 
-				where 
-					position_in_classification is null and 
-					classification_id='#classification_id#'
-				group by 
-					term,
-					term_type 
-				order by 
-					term_type,
-					term
-			</cfquery>
-			<cfquery name="qscore" dbtype="query">
-				select gn_score,match_type from d where classification_id='#classification_id#' and gn_score is not null group by gn_score,match_type
-			</cfquery>
-			<cfquery name="thisone" dbtype="query">
-				select 
-					term,
-					term_type 
-				from 
-					d 
-				where 
-					position_in_classification is not null and 
-					classification_id='#classification_id#' 
-				group by 
-					term,
-					term_type 
-				order by 
-					position_in_classification 
-			</cfquery>
-			<hr>
-			Data from #source# 
-			<cfif len(qscore.gn_score) gt 0>
-				<br>globalnames score=#qscore.gn_score#
-			<cfelse>
-				<br>globalnames score not available
-			</cfif>
-			
-			<cfif len(qscore.match_type) gt 0>
-				<br>globalnames match type=#qscore.match_type#
-			<cfelse>
-				<br>match type not available
-			</cfif>
-			<cfif thisone.recordcount gt 0>
-				<p>Classification:
-				<cfset indent=1>
-				<cfloop query="thisone">
-					<div style="padding-left:#indent#em;">
-						#term#
-						<cfif len(term_type) gt 0>
-							(#term_type#)
-						</cfif>
-					</div>
-					<cfset indent=indent+1>
-				</cfloop>
-			<cfelse>
-				<p>no classification provided</p>
-			</cfif>
-			<p>
-			<cfloop query="notclass">
-				<br>#term_type#: #term#
-			</cfloop>
-			</p>
-			
-		</cfloop>
+</p>
+
 		
 		
 </cfoutput>
