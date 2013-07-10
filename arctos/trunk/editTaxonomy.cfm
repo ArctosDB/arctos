@@ -58,18 +58,8 @@ console.log(linkOrderData);
 <ul id="sortable">
 <cfloop query="hasclass">
 	<li id="id_#POSITION_IN_CLASSIFICATION#" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
-		<table>
-			<tr>
-				<td>
-					<label for="term">Term</label>
-					<input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
-				</td>
-				<td>
-					<label for="term_type">Term Type</label>
-					<input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
-				</td>
-			</tr>
-		</table>
+		Term: <input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
+		Term Type: <input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
 	</li>
 </cfloop>
 </ul>
