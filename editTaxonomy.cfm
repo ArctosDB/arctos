@@ -44,15 +44,34 @@ console.log(linkOrderData);
 			select * from d where POSITION_IN_CLASSIFICATION is not null order by  POSITION_IN_CLASSIFICATION
 		</cfquery>
 		
+		<cfquery name="maxclass" dbtype="query">
+			select max(POSITION_IN_CLASSIFICATION) m from hasclass
+		</cfquery>
+		<input type="hidden" name="maxposn" id="maxposn" value="#maxclass.m#">
+		
+		
 		<cfdump var=#hasclass#>
 		
 		
 
 
 <ul id="sortable">
-<li id="id_1" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
-<li  id="id_2" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
-<li  id="id_3" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+<cfloop query="hasclass">
+	<li id="id_#POSITION_IN_CLASSIFICATION#" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+		<table>
+			<tr>
+				<td>
+					<label for="term">Term</label>
+					<input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
+				</td>
+				<td>
+					<label for="term_type">Term Type</label>
+					<input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
+				</td>
+			</tr>
+		</table>
+	</li>
+</cfloop>
 </ul>
 
 
