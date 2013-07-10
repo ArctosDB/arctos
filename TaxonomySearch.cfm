@@ -446,7 +446,7 @@ Arctos taxonomy has changed.......
 		'%#ucase(taxon_name)#%'
 	</cfif>
 	<cfif len(taxon_term) gt 0>
-		and upper(taxon_term) like '%#ucase(taxon_term)%#'
+		and upper(taxon_term) like '%#ucase(taxon_term)#%'
 	</cfif>
 	
 	group by scientific_name
