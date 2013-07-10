@@ -119,10 +119,12 @@ Arctos taxonomy has changed.......
 		<p>
 			Related Taxa (from):
 			<ul>
-				<li>
-					#TAXON_RELATIONSHIP# <a href='/taxonomy.cfm?name=#scientific_name#'>#scientific_name#</a>
-					<cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
-				</li>
+				<cfloop query="revrelated">				
+					<li>
+						#TAXON_RELATIONSHIP# <a href='/taxonomy.cfm?name=#scientific_name#'>#scientific_name#</a>
+						<cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
+					</li>
+				</cfloop>
 			</ul>
 		</p>
 	</cfif>
@@ -142,10 +144,33 @@ Arctos taxonomy has changed.......
 		<p>
 			Related Taxa (to):
 			<ul>
-				<li>
-					#TAXON_RELATIONSHIP# <a href='/taxonomy.cfm?name=#scientific_name#'>#scientific_name#</a>
-					<cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
-				</li>
+				<cfloop query="revrelated">
+					<li>
+						#TAXON_RELATIONSHIP# <a href='/taxonomy.cfm?name=#scientific_name#'>#scientific_name#</a>
+						<cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
+					</li>
+				</cfloop>
+			</ul>
+		</p>
+	</cfif>	
+	
+	<cfquery name="common_name" datasource="uam_god">
+		select
+			common_name
+		from
+			common_name
+		where
+			taxon_name_id=#taxon_name_id.taxon_name_id#
+	</cfquery>
+	<cfif common_name.recordcount gte 1>
+		<p>
+			Common Name(s):
+			<ul>
+				<cfloop query="common_name">
+					<li>
+						#common_name#
+					</li>
+				</cfloop>
 			</ul>
 		</p>
 	</cfif>	
