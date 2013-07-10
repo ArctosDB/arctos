@@ -103,7 +103,7 @@ Arctos taxonomy has changed.......
 		select taxon_name_id from d group by taxon_name_id
 	</cfquery>
 	
-	<a href="/editTaxonomy.cfm?action=editcommonandrelations&taxon_name_id=#taxon_name_id.taxon_name_id#">Edit Common Names and Relationships</a>
+	<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">Edit Non-Classification Data</a>
 
 
 	<cfquery name="related" datasource="uam_god">
