@@ -6,9 +6,6 @@
 			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 			classification_id='#classification_id#'
 		</cfquery>
-		
-		<cfdump var=#d#>
-		
 		<cfquery name="noclass" dbtype="query">
 			select * from d where POSITION_IN_CLASSIFICATION is null order by term_type
 		</cfquery>
@@ -21,6 +18,33 @@
 		<cfdump var=#hasclass#>
 		
 		
+<style>
+#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+#sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+#sortable li span { position: absolute; margin-left: -1.3em; }
+</style>
+<script>
+$(function() {
+$( "#sortable" ).sortable();
+$( "#sortable" ).disableSelection();
+});
+</script>
+</head>
+<body>
+<ul id="sortable">
+<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+</ul>
+
+
+
+
+		
 		<cfset indent=1>
 			<cfloop query="hasclass">
 				<div style="padding-left:#indent#em;">
@@ -31,7 +55,12 @@
 				</div>
 				<cfset indent=indent+1>
 			</cfloop>
-			
+			<table border>
+				<tr>
+					<td>#term#</td>
+					<td>#term_type#</td>
+				</tr>
+			</table>
 			
 			
 	</cfif>
