@@ -25,7 +25,7 @@ function deleteThis(r) {
 }
 	
 function addARow() {
-	var n=$("#maxposn").val();
+	var n=parseInt($("#maxposn").val());
 console.log('n=' + n);
 
 	var x='<li id="id_' + n + '" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>';
