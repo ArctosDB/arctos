@@ -33,7 +33,7 @@ Arctos taxonomy has changed.......
 </P>
 <br>
 
-
+<cfoutput>
 
 <!----- always display search ---------->
 <form ACTION="taxonomy.cfm" METHOD="post" name="taxa">
@@ -214,7 +214,7 @@ Arctos taxonomy has changed.......
 		
 	</cfloop>
 </cfif>
-
+</cfoutput>
 
 <!---------
 
