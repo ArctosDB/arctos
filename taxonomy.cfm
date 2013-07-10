@@ -117,7 +117,30 @@ Arctos taxonomy has changed.......
 	</cfquery>
 	<cfif related.recordcount gte 1>
 		<p>
-			Related Taxa
+			Related Taxa (from):
+			<ul>
+				<li>
+					#TAXON_RELATIONSHIP# <a href='/taxonomy.cfm?name=#scientific_name#'>#scientific_name#</a>
+					<cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
+				</li>
+			</ul>
+		</p>
+	</cfif>
+	<cfquery name="revrelated" datasource="uam_god">
+		select
+			TAXON_RELATIONSHIP,
+			RELATION_AUTHORITY,
+			scientific_name
+		from
+			taxon_relations,
+			taxon_name
+		where
+			taxon_relations.taxon_name_id=taxon_name.taxon_name_id and
+			taxon_relations.related_taxon_name_id=#taxon_name_id.taxon_name_id#
+	</cfquery>
+	<cfif revrelated.recordcount gte 1>
+		<p>
+			Related Taxa (to):
 			<ul>
 				<li>
 					#TAXON_RELATIONSHIP# <a href='/taxonomy.cfm?name=#scientific_name#'>#scientific_name#</a>
@@ -126,6 +149,7 @@ Arctos taxonomy has changed.......
 			</ul>
 		</p>
 	</cfif>	
+	
 	<cfquery name="sources" dbtype="query">
 		select 
 			source,
