@@ -37,7 +37,7 @@ function s() {
 console.log('i am s');
 	
 
-        	var linkOrderData=$("#sortable").sortable('toArray'),join();
+        	var linkOrderData=$("#sortable").sortable('toArray').join();
 
 
 console.log(linkOrderData);
