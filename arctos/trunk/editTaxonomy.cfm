@@ -11,8 +11,12 @@ $( "#sortable" ).disableSelection();
 function s() {
 console.log('i am s');
 	
-var sorted = $( "#sortable" ).sortable( "serialize", { key: "sort" } );
-console.log(sorted);
+
+
+var linkOrderData = $("#sortable").sortable('serialize');
+
+console.log(linkOrderData);
+
 
 }
 </script>
