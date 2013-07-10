@@ -1,4 +1,15 @@
 <cfinclude template="includes/_header.cfm">
+
+
+<script>
+$(function() {
+$( "#sortable" ).sortable();
+$( "#sortable" ).disableSelection();
+});
+</script>
+
+
+
 <cfoutput>
 	<cfif action is "editClassification">
 		<cfquery name="d" datasource="uam_god">
@@ -23,14 +34,8 @@
 #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
 #sortable li span { position: absolute; margin-left: -1.3em; }
 </style>
-<script>
-$(function() {
-$( "#sortable" ).sortable();
-$( "#sortable" ).disableSelection();
-});
-</script>
-</head>
-<body>
+
+
 <ul id="sortable">
 <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
 <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
