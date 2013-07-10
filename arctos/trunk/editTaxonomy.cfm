@@ -37,8 +37,8 @@ function s() {
 console.log('i am s');
 	
 
+        	var linkOrderData=$("#sortable").sortable('toArray'),join();
 
-var linkOrderData = $("#sortable").sortable('serialize');
 
 console.log(linkOrderData);
 
@@ -115,7 +115,7 @@ function addARow() {
 		
 <table border="1">
 	<thead>
-		<tr><th>Term</th><th>Term Type</th><th>-</th></tr>
+		<tr><th>Drag Handle</th><th>Term</th><th>Term Type</th><th>Delete</th></tr>
 	</thead>
 	<tbody id="sortable">
 		<cfloop query="hasclass">
