@@ -89,25 +89,7 @@ function addARow() {
 
 <span onclick="addARow();">addARow</span>
 <span onclick="s();">run s</span>
-		
-		<cfset indent=1>
-			<cfloop query="hasclass">
-				<div style="padding-left:#indent#em;">
-					#term#
-					<cfif len(term_type) gt 0>
-						(#term_type#)
-					</cfif>
-				</div>
-				<cfset indent=indent+1>
-			</cfloop>
-			<table border>
-				<tr>
-					<td>#term#</td>
-					<td>#term_type#</td>
-				</tr>
-			</table>
-			
-			
+	
 	</cfif>
 	<!------------------------------------->
 	<cfif action is "editnoclass">
