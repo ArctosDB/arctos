@@ -53,11 +53,25 @@ function addARow() {
 	var n=parseInt($("#maxposn").val());
 	++n;
 
-	var x='<li id="id_' + n + '" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>';
-	x+='Term: <input type="text" id="term_' + n + '">';
-	x+='Term Type: <input type="text" id="term_' + n + '">';
-	x+='&nbsp;&nbsp;&nbsp;<span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span>';
-	x+='</li>';
+	var x='<tr id="id_' + n + '">';
+	x+='<td class="dragger">(drag row here)</td>';
+	x+='<td><input type="text" id="term_' + n + '"></td>';
+	x+='<td><input type="text" id="term_type_' + n + '"></td>';
+	x+='<td><span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
+	x+='</tr>';
+
+
+
+
+				
+				
+				
+				
+			
+			
+
+
+
 	$("#sortable").append(x);
 	
 	$("#maxposn").val(n);
@@ -107,13 +121,13 @@ function addARow() {
 		<cfloop query="hasclass">
 			<tr id="id_#POSITION_IN_CLASSIFICATION#">
 				<td class="dragger">
-					drag me up or down
+					(drag row here)
 				</td>
 				<td>
 					<input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
 				</td>
 				<td>
-					<input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
+					<input type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
 				</td>
 				<td>
 					<span class="likeLink" onclick="deleteThis('#POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
