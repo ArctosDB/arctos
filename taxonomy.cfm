@@ -83,6 +83,9 @@ Arctos taxonomy has changed.......
 <!--------------------- taxonomy details --------------------->
 
 <cfif isdefined("name") and len(name) gt 0>
+	<!--- pipe-delimited list of things that users are allowed to edit --->
+	<cfset editableSources="Artos">
+
 	<cfquery name="d" datasource="uam_god">
 		select * from taxon_name,taxon_term where 
 		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
@@ -231,7 +234,10 @@ Arctos taxonomy has changed.......
 				position_in_classification 
 		</cfquery>
 		<hr>
-		Data from #source# 
+		Data from #source#
+		<cfif listfindnocase(editableSources,source,"|")>
+			<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">Edit Non-Classification Data</a>
+		</cfif>
 		<cfif len(qscore.gn_score) gt 0>
 			<br>globalnames score=#qscore.gn_score#
 		<cfelse>
