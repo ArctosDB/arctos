@@ -6,6 +6,13 @@ $(function() {
 $( "#sortable" ).sortable();
 $( "#sortable" ).disableSelection();
 });
+
+
+function s() {
+	var sorted = $( "#sortable" ).sortable( "serialize", { key: "sort" } );
+console.log(sorted);
+
+}
 </script>
 <style>
 #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
@@ -37,18 +44,14 @@ $( "#sortable" ).disableSelection();
 
 
 <ul id="sortable">
-<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
-<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
-<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
-<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
-<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
-<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
-<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+<li id="id1" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+<li  id="id2" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+<li  id="id3" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
 </ul>
 
 
 
-
+<span onclick="s;">run s</span>
 		
 		<cfset indent=1>
 			<cfloop query="hasclass">
