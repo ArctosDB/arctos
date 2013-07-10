@@ -444,7 +444,7 @@ Arctos taxonomy has changed.......
 </cfquery>
 #d.recordcount# results:
 <cfloop query="d">
-	<br><a href="TaxonomyDetails.cfm?scientific_name=#scientific_name#">#scientific_name#</a>
+	<br><a href="TaxonomyDetails.cfm?name=#scientific_name#">#scientific_name#</a>
 </cfloop>
 
 </cfif>
