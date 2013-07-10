@@ -1,5 +1,15 @@
 <cfinclude template="includes/_header.cfm">
 <cfoutput>
+	<cfif action is "editClassification">
+		<cfquery name="d" datasource="uam_god">
+			select * from taxon_name,taxon_term where 
+			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+			classification_id='#classification_id#'
+		</cfquery>
+		
+		<cfdump var=#d#>
+	</cfif>
+	<!------------------------------------->
 	<cfif action is "editnoclass">
 	
 		<cfquery name="ctRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
