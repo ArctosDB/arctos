@@ -1,6 +1,10 @@
 <cfinclude template="includes/_header.cfm">
 <cfoutput>
 	<cfif action is "editcommonandrelations">
+	
+		<cfquery name="ctRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select taxon_relationship  from cttaxon_relation order by taxon_relationship
+		</cfquery>
 		<cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				taxonomy_publication_id,
@@ -161,9 +165,6 @@
 <!------------
 <cfquery name="ctInfRank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select infraspecific_rank from ctinfraspecific_rank order by infraspecific_rank
-</cfquery>
-<cfquery name="ctRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select taxon_relationship  from cttaxon_relation order by taxon_relationship
 </cfquery>
 <cfquery name="ctSourceAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select source_authority from CTTAXONOMIC_AUTHORITY order by source_authority
