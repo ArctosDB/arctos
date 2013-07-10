@@ -74,11 +74,11 @@ function addARow() {
 		<cfdump var=#hasclass#>
 		
 		
-<table id="sortable">
+<table >
 	<thead>
 		<tr><th>Term</th><th>Term Type</th><th>-</th></tr>
 	</thead>
-	<tbody>
+	<tbody id="sortable">
 		<cfloop query="hasclass">
 			<tr id="id_#POSITION_IN_CLASSIFICATION#">
 				<td>
