@@ -19,6 +19,12 @@ console.log(linkOrderData);
 
 
 }
+function deleteThis(r) {
+	$( "#id_" + r ).hide();
+
+}
+	
+
 </script>
 <style>
 #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
@@ -60,6 +66,7 @@ console.log(linkOrderData);
 	<li id="id_#POSITION_IN_CLASSIFICATION#" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
 		Term: <input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
 		Term Type: <input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
+		<span class="likeLink" onclick="deleteThis('#POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
 	</li>
 </cfloop>
 </ul>
