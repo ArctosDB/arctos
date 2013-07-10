@@ -38,7 +38,6 @@ function addARow() {
 
 
 
-<span onclick="addARow();">addARow</span>
 
 </script>
 <style>
