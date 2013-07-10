@@ -19,6 +19,21 @@
 		</cfquery>
 		
 		<cfdump var=#hasclass#>
+		
+		
+		<cfset indent=1>
+			<cfloop query="hasclass">
+				<div style="padding-left:#indent#em;">
+					#term#
+					<cfif len(term_type) gt 0>
+						(#term_type#)
+					</cfif>
+				</div>
+				<cfset indent=indent+1>
+			</cfloop>
+			
+			
+			
 	</cfif>
 	<!------------------------------------->
 	<cfif action is "editnoclass">
