@@ -1,6 +1,6 @@
 <cfinclude template="includes/_header.cfm">
 <cfoutput>
-	<cfif action is "editcommonandrelations">
+	<cfif action is "editnoclass">
 	
 		<cfquery name="ctRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select taxon_relationship  from cttaxon_relation order by taxon_relationship
@@ -20,7 +20,7 @@
 		<cfset i = 1>
 		<span class="likeLink" onClick="getDocs('taxonomy','taxonomy_publication');">Related Publications</span>
 			<form name="newPub" method="post" action="Taxonomy.cfm">
-				<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
+				<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 				<input type="hidden" name="Action" value="newTaxonPub">
 				<input type="hidden" name="new_publication_id" id="new_publication_id">
 				<label for="new_pub">Pick Publication</label>
@@ -69,7 +69,7 @@
 				<th>Authority</th>
 			</tr>
 			<form name="newRelation" method="post" action="Taxonomy.cfm">
-				<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
+				<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 				<input type="hidden" name="Action" value="newTaxaRelation">
 				<tr class="newRec">
 					<td>
