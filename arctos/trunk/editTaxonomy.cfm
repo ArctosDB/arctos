@@ -34,7 +34,7 @@ console.log('n=' + n);
 	x+='&nbsp;&nbsp;&nbsp;<span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span>';
 	x+='</li>';
 	var n=$("#sortable").append(x);
-	var nn=+n;
+	var nn = +n;
 
 console.log('nn=' + nn);
 
