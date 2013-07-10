@@ -20,7 +20,7 @@ console.log(linkOrderData);
 
 }
 function deleteThis(r) {
-	$( "#id_" + r ).hide();
+	$( "#id_" + r ).remove();
 
 }
 	
