@@ -24,6 +24,21 @@ function deleteThis(r) {
 
 }
 	
+function addARow() {
+	var n=$("#maxposn").val();
+	var x='<li id="id_' + n + '" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>';
+	x+='Term: <input type="text" id="term_' + n + '">';
+	x+='Term Type: <input type="text" id="term_' + n + '">';
+	x+='&nbsp;&nbsp;&nbsp;<span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span>';
+	x+='</li>';
+	var n=$("#sortable").append(x);
+	var nn=int(n)+1;
+	$("#maxposn").val(nn);
+}
+
+
+
+<span onclick="addARow();">addARow</span>
 
 </script>
 <style>
@@ -53,7 +68,7 @@ function deleteThis(r) {
 		<cfquery name="maxclass" dbtype="query">
 			select max(POSITION_IN_CLASSIFICATION) m from hasclass
 		</cfquery>
-		<input type="hidden" name="maxposn" id="maxposn" value="#maxclass.m#">
+		<input type="text" name="maxposn" id="maxposn" value="#maxclass.m#">
 		
 		
 		<cfdump var=#hasclass#>
@@ -73,6 +88,7 @@ function deleteThis(r) {
 
 
 
+<span onclick="addARow();">addARow</span>
 <span onclick="s();">run s</span>
 		
 		<cfset indent=1>
