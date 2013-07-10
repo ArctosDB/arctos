@@ -3,9 +3,34 @@
 
 <script>
 $(function() {
-$( "#sortable" ).sortable();
+$( "#sortable" ).sortable({
+	handle: '.dragger'
+});
+
 $( "#sortable" ).disableSelection();
 });
+
+
+
+$("#left-col,#right-col").sortable({
+        handle: '.item .celltitle',
+        connectWith: '#right-col, #left-col',
+        update : function () { 
+        	var sortR=$("#right-col").sortable('toArray');
+            var sortL=$("#left-col").sortable('toArray');
+            //console.log('sortR='+sortR.join()+' ; sortL=' + sortL.join());
+            $.getJSON("/component/Bulkloader.cfc",
+        		{
+      				method : "set_sort_order",
+      				returnformat : "json",
+      				queryformat : 'column',
+      				sort_leftcolumn: sortL.join(),
+      				sort_rightcolumn: sortR.join()
+      			},
+      			function(r) {}
+	      	);
+        }
+	});
 
 
 function s() {
@@ -74,14 +99,14 @@ function addARow() {
 		<cfdump var=#hasclass#>
 		
 		
-<table >
+<table border="1">
 	<thead>
 		<tr><th>Term</th><th>Term Type</th><th>-</th></tr>
 	</thead>
 	<tbody id="sortable">
 		<cfloop query="hasclass">
 			<tr id="id_#POSITION_IN_CLASSIFICATION#">
-				<td>
+				<td class="dragger">
 					drag me up or down
 				</td>
 				<td>
