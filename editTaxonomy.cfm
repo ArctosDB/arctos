@@ -40,10 +40,10 @@ console.log('i am s');
         	var linkOrderData=$("#sortable").sortable('toArray');
 console.log(linkOrderData);
 
-var x= linkOrderData.join();
+var x= linkOrderData.join(',');
 
 
-console.log(x);
+console.log('x=' + x);
 
 }
 function deleteThis(r) {
