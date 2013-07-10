@@ -117,6 +117,8 @@ Arctos taxonomy has changed.......
 			<option <cfif matchtyp is "substring"> selected="selected" </cfif>value="substring">substring</option>
 			<option <cfif matchtyp is "entire"> selected="selected" </cfif> value="entire">entire terms only</option>
 		</select>
+		
+		<input type="submit">
 		<!----------
 	
 		<table width="90%" border="0" cellspacing="0" cellpadding="0">
@@ -424,18 +426,6 @@ Arctos taxonomy has changed.......
 	
 <cfif action is "search">
 	
-	<select name="matchtyp">
-			<option <cfif matchtyp is "substring"> selected="selected" </cfif>value="substring">substring</option>
-			<option <cfif matchtyp is "entire"> selected="selected" </cfif> value="entire">entire terms only</option>
-		</select>
-		
-		
-		<label for="taxon_name">Taxon Name</label>
-		<input type="text" name="taxon_name" id="taxon_name">
-		<label for="taxon_term">Taxon Term</label>
-		<input type="text" name="taxon_term" id="taxon_term">
-		
-		
 <cfquery name="d" datasource="uam_god">
 	select scientific_name from taxon_name,taxon_term where 
 	taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
