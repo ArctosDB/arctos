@@ -82,6 +82,9 @@ function addARow() {
 		<cfloop query="hasclass">
 			<tr id="id_#POSITION_IN_CLASSIFICATION#">
 				<td>
+					drag me up or down
+				</td>
+				<td>
 					<input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
 				</td>
 				<td>
