@@ -31,7 +31,7 @@ console.log('n=' + n);
 	var x='<li id="id_' + n + '" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>';
 	x+='Term: <input type="text" id="term_' + n + '">';
 	x+='Term Type: <input type="text" id="term_' + n + '">';
-	//x+='&nbsp;&nbsp;&nbsp;<span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span>';
+	x+='&nbsp;&nbsp;&nbsp;<span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span>';
 	x+='</li>';
 	$("#sortable").append(x);
 	++n;
