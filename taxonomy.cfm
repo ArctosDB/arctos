@@ -107,12 +107,12 @@ Arctos taxonomy has changed.......
 		select
 			TAXON_RELATIONSHIP,
 			RELATION_AUTHORITY,
-			related_name
+			taxon_name
 		from
 			taxon_relations,
-			taxon_name relatedname
+			taxon_name
 		where
-			taxon_relations.related_taxon_name_id=relatedname.taxon_name_id and
+			taxon_relations.related_taxon_name_id=taxon_name.taxon_name_id and
 			taxon_relations.taxon_name_id=#taxon_name_id.taxon_name_id#
 	</cfquery>
 	<cfif related.recordcount gte 1>
@@ -120,7 +120,7 @@ Arctos taxonomy has changed.......
 			Related Taxa
 			<ul>
 				<li>
-					#TAXON_RELATIONSHIP# <a href='/taxonomy.cfm?name=#related_name#'>#related_name#</a>
+					#TAXON_RELATIONSHIP# <a href='/taxonomy.cfm?name=#taxon_name#'>#taxon_name#</a>
 					<cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
 				</li>
 			</ul>
