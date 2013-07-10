@@ -34,11 +34,11 @@ console.log('n=' + n);
 	//x+='&nbsp;&nbsp;&nbsp;<span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span>';
 	x+='</li>';
 	var n=$("#sortable").append(x);
-	var nn = +n;
+	v=+n;
 
-console.log('nn=' + nn);
+console.log('n=' + n);
 
-	$("#maxposn").val(nn);
+	$("#maxposn").val(n);
 }
 
 
