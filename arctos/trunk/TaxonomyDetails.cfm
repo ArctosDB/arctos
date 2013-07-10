@@ -2,7 +2,7 @@
 <cfif not isdefined("debug")>
 	<cfset debug=false>
 </cfif>
-
+<cfoutput>
 
 
 <cfquery name="d" datasource="uam_god">
@@ -108,6 +108,9 @@
 			</p>
 			
 		</cfloop>
+		
+		
+</cfoutput>
 <!--------- old form ------------------------
 <cfif isdefined("scientific_name") and len(scientific_name) gt 0>
 	<cfset checkSql(scientific_name)>
