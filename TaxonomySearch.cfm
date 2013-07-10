@@ -74,8 +74,51 @@
 	});
 </script>	
 <cfoutput>
+
+IMPORTANT ANNOUNCEMENT:
+
+<P>
+Arctos taxonomy has changed.......
+<p>
+(Maybe write something here, AC??)
+
+</p>
+
+
+</P>
 <br>
-	<form ACTION="TaxonomyResults.cfm" METHOD="post" name="taxa">
+
+
+<cfif not isdefined("taxon_name")>
+		<cfset taxon_name="">
+	</cfif>
+	<cfif not isdefined("taxon_term")>
+		<cfset taxon_term="">
+	</cfif>
+	
+	<cfif not isdefined("matchtyp")>
+		<cfset matchtyp="substring">
+	</cfif>
+	
+	<cfif not isdefined("src")>
+		<cfset src="">
+	</cfif>
+	
+	
+	
+	<form ACTION="TaxonomySearch.cfm" METHOD="post" name="taxa">
+		<input type="hidden" name="action" value="search">
+		<label for="taxon_name">Taxon Name</label>
+		<input type="text" name="taxon_name" id="taxon_name">
+		<label for="taxon_term">Taxon Term</label>
+		<input type="text" name="taxon_term" id="taxon_term">
+		
+		<select name="matchtyp">
+			<option <cfif matchtyp is "substring"> selected="selected" </cfif>value="substring">substring</option>
+			<option <cfif matchtyp is "entire"> selected="selected" </cfif> value="entire">entire terms only</option>
+		</select>
+		<!----------
+	
 		<table width="90%" border="0" cellspacing="0" cellpadding="0">
 			<tr> 
 				<td valign="top" align="left">
@@ -372,6 +415,48 @@
 				</td>
 			</tr>
 		</table>
+		
+		
+		--------------->
 	</form>
+	
+	
+	
+<cfif action is "search">
+	
+	<select name="matchtyp">
+			<option <cfif matchtyp is "substring"> selected="selected" </cfif>value="substring">substring</option>
+			<option <cfif matchtyp is "entire"> selected="selected" </cfif> value="entire">entire terms only</option>
+		</select>
+		
+		
+		<label for="taxon_name">Taxon Name</label>
+		<input type="text" name="taxon_name" id="taxon_name">
+		<label for="taxon_term">Taxon Term</label>
+		<input type="text" name="taxon_term" id="taxon_term">
+		
+		
+<cfquery name="d" datasource="uam_god">
+	select scientific_name from taxon_name,taxon_term where 
+	taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
+	upper(taxon_term.term) like 
+	<cfif matchtyp is "entire">
+		'#ucase(taxon_name)#'
+	<cfelse>
+		'%#ucase(taxon_name)#%'
+	</cfif>
+	<cfif len(taxon_term) gt 0>
+		and upper(taxon_term) like '%#ucase(taxon_term)%#'
+	</cfif>
+	
+	group by scientific_name
+	order by scientific_name
+</cfquery>
+#d.recordcount# results:
+<cfloop query="d">
+	<br><a href="TaxonomyDetails.cfm?name=#scientific_name#">#scientific_name#</a>
+</cfloop>
+
+</cfif>
 </cfoutput>
 <cfinclude template = "includes/_footer.cfm">

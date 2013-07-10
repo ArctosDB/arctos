@@ -36,6 +36,33 @@
 		}
 	}
 </script>
+
+<cfquery name="d" datasource="uam_god">
+	select scientific_name from taxon_name,taxon_term where 
+	taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
+	upper(taxon_term.term) like 
+	<cfif matchtyp is "all">
+		'#ucase(tt)#'
+	<cfelse>
+		'%#ucase(tt)#%'
+	</cfif>
+	<cfif len(ttyp) gt 0>
+		and term_type='#ttyp#'
+	</cfif>
+	
+	<cfif len(src) gt 0>
+		and source='#src#'
+	</cfif>
+	group by scientific_name
+	order by scientific_name
+</cfquery>
+#d.recordcount# results:
+<cfloop query="d">
+	<br><a href="taxonomydemo.cfm?name=#scientific_name#">#scientific_name#</a>
+</cfloop>
+
+
+<!-------------------
 <cfset titleTerms="">
 <cfif isdefined("session.displayrows") and isnumeric(session.displayrows) and session.displayrows gt 0>
 	<cfset dr=session.displayrows>
@@ -453,4 +480,12 @@ Found #summary.cnt# records.
   <cfset i=i+1>
   </cfoutput>
 </table> 
+
+
+
+
+
+
+
+------------>
 <cfinclude template = "includes/_footer.cfm">
