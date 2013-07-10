@@ -83,7 +83,6 @@ Arctos taxonomy has changed.......
 <!--------------------- taxonomy details --------------------->
 
 <cfif isdefined("name") and len(name) gt 0>
-	
 	<cfquery name="d" datasource="uam_god">
 		select * from taxon_name,taxon_term where 
 		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
@@ -103,6 +102,10 @@ Arctos taxonomy has changed.......
 	<cfquery name="taxon_name_id" dbtype="query">
 		select taxon_name_id from d group by taxon_name_id
 	</cfquery>
+	
+	<a href="/editTaxonomy.cfm?action=editcommonandrelations&taxon_name_id=#taxon_name_id.taxon_name_id#">Edit Common Names and Relationships</a>
+
+
 	<cfquery name="related" datasource="uam_god">
 		select
 			TAXON_RELATIONSHIP,
@@ -260,7 +263,6 @@ Arctos taxonomy has changed.......
 			<br>#term_type#: #term#
 		</cfloop>
 		</p>
-		
 	</cfloop>
 </cfif>
 </cfoutput>
