@@ -236,7 +236,7 @@ Arctos taxonomy has changed.......
 		<hr>
 		Data from #source#
 		<cfif listfindnocase(editableSources,source,"|")>
-			<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">Edit Non-Classification Data</a>
+			<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">Edit Classification</a>
 		<cfelse>
 				
 		#listfindnocase(editableSources,source,"|")#
