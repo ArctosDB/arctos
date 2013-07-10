@@ -9,7 +9,9 @@ $( "#sortable" ).disableSelection();
 
 
 function s() {
-	var sorted = $( "#sortable" ).sortable( "serialize", { key: "sort" } );
+console.log('i am s');
+	
+var sorted = $( "#sortable" ).sortable( "serialize", { key: "sort" } );
 console.log(sorted);
 
 }
@@ -51,7 +53,7 @@ console.log(sorted);
 
 
 
-<span onclick="s;">run s</span>
+<span onclick="s();">run s</span>
 		
 		<cfset indent=1>
 			<cfloop query="hasclass">
