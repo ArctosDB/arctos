@@ -32,10 +32,9 @@ function addARow() {
 	x+='&nbsp;&nbsp;&nbsp;<span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span>';
 	x+='</li>';
 	var n=$("#sortable").append(x);
-	var nn=int(n)+1;
+	var nn=parseInt(n)+1;
 	$("#maxposn").val(nn);
 }
-
 
 
 
