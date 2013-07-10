@@ -448,7 +448,7 @@ Arctos taxonomy has changed.......
 	<cfif len(taxon_term) gt 0>
 		and upper(taxon_term) like '%#ucase(taxon_term)#%'
 	</cfif>
-	
+	and rownum<1001
 	group by scientific_name
 	order by scientific_name
 </cfquery>
