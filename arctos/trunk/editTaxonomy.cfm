@@ -26,6 +26,8 @@ function deleteThis(r) {
 	
 function addARow() {
 	var n=$("#maxposn").val();
+console.log('n=' + n);
+
 	var x='<li id="id_' + n + '" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>';
 	x+='Term: <input type="text" id="term_' + n + '">';
 	x+='Term Type: <input type="text" id="term_' + n + '">';
@@ -33,6 +35,9 @@ function addARow() {
 	x+='</li>';
 	var n=$("#sortable").append(x);
 	var nn=parseInt(n+1);
+
+console.log('nn=' + nn);
+
 	$("#maxposn").val(nn);
 }
 
