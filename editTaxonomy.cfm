@@ -8,6 +8,17 @@
 		</cfquery>
 		
 		<cfdump var=#d#>
+		
+		<cfquery name="noclass" dbtype="query">
+			select * from d where POSITION_IN_CLASSIFICATION is null order by term_type
+		</cfquery>
+		
+		<cfdump var=#noclass#>
+		<cfquery name="hasclass" dbtype="query">
+			select * from d where POSITION_IN_CLASSIFICATION is not null order by  POSITION_IN_CLASSIFICATION
+		</cfquery>
+		
+		<cfdump var=#hasclass#>
 	</cfif>
 	<!------------------------------------->
 	<cfif action is "editnoclass">
