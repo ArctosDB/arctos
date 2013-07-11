@@ -232,6 +232,12 @@
 			<p>
 				CLASSIFICATIONROWORDER===#CLASSIFICATIONROWORDER#
 			</p>
+			
+			<cfloop from="1" to="#listlen(CLASSIFICATIONROWORDER)#" index="listpos">
+				<p>
+				listpos: #listpos#
+				</p>
+			</cfloop>
 			<cfloop list="#CLASSIFICATIONROWORDER#" index="x">
 				<cfset i=listlast(x,"_")>
 				
