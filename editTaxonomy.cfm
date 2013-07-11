@@ -172,11 +172,41 @@
 				</cfquery>
 			</cfloop>
 			<!--- these MUST be saved in the order they were drug to -------->
+			
+			<p>
+			CLASSIFICATIONROWORDER: #CLASSIFICATIONROWORDER#
+			
+			</p>
 			<cfloop from="1" to="#listlen(CLASSIFICATIONROWORDER)#" index="listpos">
 				<cfset x=listgetat(CLASSIFICATIONROWORDER,listpos)>
 				<cfset i=listlast(x,"_")>
 				<cfset thisterm=evaluate("TERM_" & i)>
 				<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
+				<p>
+				
+				
+				insert into taxon_term (
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM,
+						TERM_TYPE,
+						SOURCE,
+						LASTDATE,
+						POSITION_IN_CLASSIFICATION
+					) values (
+						#TAXON_NAME_ID#,
+						'#CLASSIFICATION_ID#',
+						'#thisterm#',
+						'#thistermtype#',
+						'#SOURCE#',
+						sysdate,
+						#i#
+					)
+					
+					
+					
+				</p>
+				
 				<cfquery name="insCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into taxon_term (
 						TAXON_NAME_ID,
@@ -198,7 +228,11 @@
 				</cfquery>
 			</cfloop>
 		</cftransaction>
+		
+		<!----
 		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
+		
+		----->
 	</cfif>
 	
 	<!------------------------------------->
