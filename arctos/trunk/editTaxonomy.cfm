@@ -228,6 +228,10 @@
 			</cfloop>
 			<cfloop list="#CLASSIFICATIONROWORDER#" index="x">
 				<cfset i=listlast(x,"_")>
+				
+				<br>i is now #i#
+				
+				
 				<cfset thisterm=evaluate("TERM_" & i)>
 				<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
 <p>
