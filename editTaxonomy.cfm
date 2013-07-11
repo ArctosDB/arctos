@@ -6,23 +6,6 @@
 		$( "#sortable" ).sortable({
 			handle: '.dragger'
 		});
-		//$( "#sortable" ).disableSelection();
-
-
-$('input').on('click', function(e) {
-    $(this).trigger({
-        type: 'mousedown',
-        which: 3
-    });
-});
-
-$('input').on('mousedown', function(e) {
-    if(e.which == 3){
-        $(this).focus();   
-    }
-});
-
-
 	});
 	function submitForm() {
 		var linkOrderData=$("#sortable").sortable('toArray').join(',');
@@ -72,12 +55,14 @@ $('input').on('mousedown', function(e) {
 		<cfquery name="thisname" dbtype="query">
 			select 
 				source,
-				scientific_name 
+				scientific_name,
+				taxon_name_id
 			from
 				d 
 			group by 
 				source,
-				scientific_name
+				scientific_name,
+				taxon_name_id
 		</cfquery>
 		<p>
 			Editing <strong>#thisName.source#</strong> classification for <strong>#thisName.scientific_name#</strong> (classification_id=#classification_id#)
@@ -97,6 +82,8 @@ $('input').on('mousedown', function(e) {
 		<form name="f1" id="f1" method="post" action="editTaxonomy.cfm">
 			<input type="hidden" name="action" value="saveClassEdits">
 			<input type="hidden" name="classification_id" id="classification_id" value="#classification_id#">
+			<input type="hidden" name="taxon_name_id" id="taxon_name_id" value="#thisname.taxon_name_id#">
+			<input type="hidden" name="source" id="source" value="#thisname.source#">
 			<input type="hidden" name="maxposn" id="maxposn" value="#maxclass.m#">
 			<input type="hidden" name="numnoclassrs" id="numnoclassrs" value="#maxnoclass.m#">
 			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
@@ -160,6 +147,86 @@ $('input').on('mousedown', function(e) {
 	<!------------------------------------->
 	<cfif action is "saveClassEdits">
 		<cfdump var=#form#>
+		
+		delete from taxon_term where classification_id='#classification_id#'
+		
+		<br>
+		
+		
+		taxon_term
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ TAXON_TERM_ID							   NOT NULL NUMBER
+ 							   NOT NULL NUMBER
+ 							    VARCHAR2(4000)
+ 								   NOT NULL VARCHAR2(255)
+ 								    VARCHAR2(255)
+  							   NOT NULL VARCHAR2(255)
+ GN_SCORE								    NUMBER
+ 						    NUMBER
+ 							   NOT NULL DATE
+ MATCH_TYPE								    VARCHAR2(255)
+
+uam@arctos> 
+
+
+
+
+
+		<cfloop from="1" to="#NUMNOCLASSRS#" index="i">
+			<cfset thisterm=evaluate("NCTERM_" & i)>
+			<cfset thistermtype=evaluate("NCTERM_TYPE_" & i)>
+			
+			<br>
+			
+			insert into taxon_term (
+				TAXON_NAME_ID,
+				CLASSIFICATION_ID,
+				TERM,
+				TERM_TYPE,
+				SOURCE,
+				LASTDATE
+			) values (
+				#TAXON_NAME_ID#,
+				'#CLASSIFICATION_ID#',
+				'#thisterm#',
+				'#thistermtype#',
+				'#SOURCE#',
+				sysdate
+			)
+		</cfloop>
+		<cfloop list="#CLASSIFICATIONROWORDER#" index="le">
+			<cfset i=listlast(le,"_")>
+			<cfset thisterm=evaluate("TERM_" & i)>
+			<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
+			
+			<br>
+			
+			insert into taxon_term (
+				TAXON_NAME_ID,
+				CLASSIFICATION_ID,
+				TERM,
+				TERM_TYPE,
+				SOURCE,
+				LASTDATE,
+				POSITION_IN_CLASSIFICATION
+			) values (
+				#TAXON_NAME_ID#,
+				'#CLASSIFICATION_ID#',
+				'#thisterm#',
+				'#thistermtype#',
+				'#SOURCE#',
+				sysdate,
+				#i#
+			)
+		
+
+
+		</cfloop>
+		
+		
+		
+		
 	</cfif>
 	
 	
