@@ -8,30 +8,13 @@
 	function submitForm() {
 		var linkOrderData=$("#sortable").sortable('toArray').join(',');
 		$( "#classificationRowOrder" ).val(linkOrderData);
-
-
-	var nccellary = new Array();
-
-	$.each($("tr[id^='nccell_']"), function() {
-		console.log(this.id);
-
-
-		nccellary.push(this.id);
-    });
-
-var ncls=nccellary.join(',');
-
-console.log(ncls);
-
-//		var linkOrderData=$("#notsortable").sortable('toArray').join(',');
-
-
+		var nccellary = new Array();
+		$.each($("tr[id^='nccell_']"), function() {
+			nccellary.push(this.id);
+	    });
+		var ncls=nccellary.join(',');
 		$( "#noclassrows" ).val(ncls);
-
-
-
-
-		 $( "#f1" ).submit();
+		$( "#f1" ).submit();
 	}
 	function deleteThis(r) {
 		$( "#cell_" + r ).remove();
@@ -93,12 +76,7 @@ console.log(ncls);
 		</cfquery>
 		<cfquery name="hasclass" dbtype="query">
 			select * from d where POSITION_IN_CLASSIFICATION is not null order by  POSITION_IN_CLASSIFICATION
-		</cfquery>
-		
-		
-		<cfdump var=#hasclass#>
-		
-		
+		</cfquery>		
 		<cfquery name="maxclass" dbtype="query">
 			select max(POSITION_IN_CLASSIFICATION) m from hasclass
 		</cfquery>
@@ -113,9 +91,7 @@ console.log(ncls);
 			<input type="hidden" name="maxposn" id="maxposn" value="#maxclass.m#">
 			<input type="hidden" name="numnoclassrs" id="numnoclassrs" value="#maxnoclass.m#">
 			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
-			
-			
-			<input type="text" name="noclassrows" id="noclassrows">
+			<input type="hidden" name="noclassrows" id="noclassrows">
 			<label for="clastbl">Edit Non-Classification information</label>
 			<table id="clastbl" border="1">
 				<thead>
@@ -180,37 +156,12 @@ console.log(ncls);
 			<cfquery name="deleteallclassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				delete from taxon_term where classification_id='#classification_id#'
 			</cfquery>
-			
-			
-			<cfdump var=#form#>
-			
-			
-			
-			
-			<!---- these are in no particular order ---->
-			
-			
-		<cfloop from="1" to="#listlen(noclassrows)#" index="listpos">
+			<!---- these are in no particular order but some may be missing ---->
+			<cfloop from="1" to="#listlen(noclassrows)#" index="listpos">
 				<cfset x=listgetat(noclassrows,listpos)>
-				
-				<p>
-					x: #x#
-				</p>
-				
-				
 				<cfset i=listlast(x,"_")>
-				
-				
-				<p>
-					i: #i#
-				</p>
-				
 				<cfset thisterm=evaluate("NCTERM_" & i)>
 				<cfset thistermtype=evaluate("NCTERM_TYPE_" & i)>
-				<p>
-				
-				
-				
 				<cfquery name="insNCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into taxon_term (
 						TAXON_NAME_ID,
@@ -230,52 +181,11 @@ console.log(ncls);
 				</cfquery>
 			</cfloop>
 			<!--- these MUST be saved in the order they were drug to -------->
-			
-			<p>
-			CLASSIFICATIONROWORDER: #CLASSIFICATIONROWORDER#
-			
-			</p>
 			<cfloop from="1" to="#listlen(CLASSIFICATIONROWORDER)#" index="listpos">
 				<cfset x=listgetat(CLASSIFICATIONROWORDER,listpos)>
-				
-				<p>
-					x: #x#
-				</p>
-				
-				
 				<cfset i=listlast(x,"_")>
-				
-				
-				<p>
-					i: #i#
-				</p>
-				
 				<cfset thisterm=evaluate("TERM_" & i)>
 				<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
-				<p>
-				
-				
-				insert into taxon_term (
-						TAXON_NAME_ID,
-						CLASSIFICATION_ID,
-						TERM,
-						TERM_TYPE,
-						SOURCE,
-						LASTDATE,
-						POSITION_IN_CLASSIFICATION
-					) values (
-						#TAXON_NAME_ID#,
-						'#CLASSIFICATION_ID#',
-						'#thisterm#',
-						'#thistermtype#',
-						'#SOURCE#',
-						sysdate,
-						#listpos#
-					)
-					
-					
-					
-				</p>
 				<cfquery name="insCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into taxon_term (
 						TAXON_NAME_ID,
@@ -295,28 +205,10 @@ console.log(ncls);
 						#listpos#
 					)
 				</cfquery>
-				
-				
-				
 			</cfloop>
-			
-			
-			E5B785E6-E717-C94C-515CADBA93238104 
-		----------->
-		
-		
 		</cftransaction>
-		
-		
-
-						<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
-
-
-		<!----
-
-		----->
-	</cfif>
-	
+		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
+	</cfif>	
 	<!------------------------------------->
 	<cfif action is "editnoclass">
 		<cfquery name="ctRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
