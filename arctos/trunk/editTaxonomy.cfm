@@ -196,6 +196,9 @@ uam@arctos>
 			)
 		</cfloop>
 		<cfloop list="#CLASSIFICATIONROWORDER#" index="le">
+		
+		
+		--------------#le#------------
 			<cfset i=listlast(le,"_")>
 			
 			i==#i#-------
