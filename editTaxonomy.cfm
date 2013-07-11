@@ -240,7 +240,11 @@
 				</p>
 				<!--- loop once for each element passed in --->
 				<!--- insert in order; get the element name of the "listpos-th" element of CLASSIFICATIONROWORDER --->
-				<cfset i=listgetat(CLASSIFICATIONROWORDER,listpos)>
+				<cfset x=listgetat(CLASSIFICATIONROWORDER,listpos)>
+				<p>
+				x: #x#
+				</p>
+				<cfset i=listlast(x,"_")>
 				<p>
 				i: #i#
 				</p>
