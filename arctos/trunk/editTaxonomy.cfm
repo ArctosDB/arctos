@@ -157,7 +157,6 @@
 			
 			
 			
-			<!----------
 			<!---- these are in no particular order ---->
 			<cfloop from="1" to="#NUMNOCLASSRS#" index="i">
 				<cfset thisterm=evaluate("NCTERM_" & i)>
@@ -227,7 +226,7 @@
 					
 					
 				</p>
-				
+				<!----
 				<cfquery name="insCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into taxon_term (
 						TAXON_NAME_ID,
@@ -247,10 +246,14 @@
 						#i#
 					)
 				</cfquery>
+				
+				---->
+				
+				
 			</cfloop>
 			
 			
-			
+			E5B785E6-E717-C94C-515CADBA93238104 
 		----------->
 		
 		
