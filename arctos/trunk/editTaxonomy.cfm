@@ -156,6 +156,8 @@
 			</cfquery>
 			
 			
+			<cfdump var=#form#>
+			
 			
 			<!---- these are in no particular order ---->
 			<cfloop from="1" to="#NUMNOCLASSRS#" index="i">
