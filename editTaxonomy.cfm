@@ -144,6 +144,7 @@
 	</cfif>
 	<!------------------------------------->
 	<cfif action is "saveClassEdits">
+		<!-------
 		<cftransaction>
 			<cfquery name="deleteallclassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				delete from taxon_term where classification_id='#classification_id#'
@@ -194,7 +195,61 @@
 				</cfquery>
 			</cfloop>
 		</cftransaction>
-		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
+		
+				<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
+
+		--------->
+		<p>
+						delete from taxon_term where classification_id='#classification_id#'
+</p>
+			<cfloop from="1" to="#NUMNOCLASSRS#" index="i">
+				<cfset thisterm=evaluate("NCTERM_" & i)>
+				<cfset thistermtype=evaluate("NCTERM_TYPE_" & i)>
+
+<p>
+					insert into taxon_term (
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM,
+						TERM_TYPE,
+						SOURCE,
+						LASTDATE
+					) values (
+						#TAXON_NAME_ID#,
+						'#CLASSIFICATION_ID#',
+						'#thisterm#',
+						'#thistermtype#',
+						'#SOURCE#',
+						sysdate
+					)
+</p>
+
+
+			</cfloop>
+			<cfloop list="#CLASSIFICATIONROWORDER#" index="x">
+				<cfset i=listlast(x,"_")>
+				<cfset thisterm=evaluate("TERM_" & i)>
+				<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
+<p>
+
+					insert into taxon_term (
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM,
+						TERM_TYPE,
+						SOURCE,
+						LASTDATE,
+						POSITION_IN_CLASSIFICATION
+					) values (
+						#TAXON_NAME_ID#,
+						'#CLASSIFICATION_ID#',
+						'#thisterm#',
+						'#thistermtype#',
+						'#SOURCE#',
+						sysdate,
+						#i#
+					)
+</p>			</cfloop>
 	</cfif>
 	
 	<!------------------------------------->
