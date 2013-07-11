@@ -26,7 +26,7 @@ console.log(ncls);
 //		var linkOrderData=$("#notsortable").sortable('toArray').join(',');
 
 
-	//	$( "#noclassrows" ).val(linkOrderData);
+		$( "#noclassrows" ).val(ncls);
 
 
 
@@ -185,10 +185,32 @@ console.log(ncls);
 			<cfdump var=#form#>
 			
 			
+			
+			
 			<!---- these are in no particular order ---->
-			<cfloop from="1" to="#NUMNOCLASSRS#" index="i">
+			
+			
+		<cfloop from="1" to="#listlen(noclassrows)#" index="listpos">
+				<cfset x=listgetat(noclassrows,listpos)>
+				
+				<p>
+					x: #x#
+				</p>
+				
+				
+				<cfset i=listlast(x,"_")>
+				
+				
+				<p>
+					i: #i#
+				</p>
+				
 				<cfset thisterm=evaluate("NCTERM_" & i)>
 				<cfset thistermtype=evaluate("NCTERM_TYPE_" & i)>
+				<p>
+				
+				
+				
 				<cfquery name="insNCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into taxon_term (
 						TAXON_NAME_ID,
