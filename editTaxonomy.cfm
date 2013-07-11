@@ -226,7 +226,6 @@
 					
 					
 				</p>
-				<!----
 				<cfquery name="insCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into taxon_term (
 						TAXON_NAME_ID,
@@ -243,11 +242,10 @@
 						'#thistermtype#',
 						'#SOURCE#',
 						sysdate,
-						#i#
+						#listpos#
 					)
 				</cfquery>
 				
-				---->
 				
 				
 			</cfloop>
