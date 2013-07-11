@@ -19,7 +19,7 @@
 
 
     
-    $("input[id^=term_type_").live("keydown.autocomplete", function() {
+    $("input[id^='term_type_'").live("keydown.autocomplete", function() {
         $(this).autocomplete(options);
     });
 
