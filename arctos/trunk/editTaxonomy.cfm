@@ -4,8 +4,8 @@
 		$( "#sortable" ).sortable({
 			handle: '.dragger'
 		});
-		$( "#term_type_1" ).autocomplete({
-			source: '/component/functions.cfc?method=ac_georeference_source',
+		var options = {
+       		source: '/component/functions.cfc?method=ac_georeference_source',
 			width: 320,
 			max: 50,
 			autofill: false,
@@ -15,7 +15,15 @@
 			matchContains: true,
 			minChars: 1,
 			selectFirst:false
-		});
+	    };		
+
+
+    
+    $("input[id^=term_type_").live("keydown.autocomplete", function() {
+        $(this).autocomplete(options);
+    });
+
+ 
 
 	});
 	function submitForm() {
