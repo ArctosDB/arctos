@@ -65,7 +65,7 @@
 				scientific_name
 		</cfquery>
 		<p>
-			Editing #thisName.source# classification for #thisName.scientific_name# (classification_id=#classification_id#)
+			Editing <strong>#thisName.source#</strong> classification for <strong>#thisName.scientific_name#</strong> (classification_id=#classification_id#)
 		</p>
 		
 		<cfquery name="noclass" dbtype="query">
@@ -110,7 +110,6 @@
 						</tr>
 						<cfset i=i+1>
 					</cfloop>
-					
 				</tbody>
 			</table>
 			<span class="likeLink" onclick="nc_addARow();">Add a Row</span>
@@ -141,6 +140,9 @@
 			<span class="likeLink" onclick="addARow();">Add a Row</span>
 			<p>
 				<input type="button" onclick="submitForm();" value="Save Edits">
+			</p>
+			<p>
+				If you haven't yet saved, you can <a href="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#">refresh this page</a>
 			</p>
 		</form>	
 	</cfif>
