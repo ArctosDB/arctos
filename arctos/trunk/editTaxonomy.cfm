@@ -234,8 +234,15 @@
 			</p>
 			
 			<cfloop from="1" to="#listlen(CLASSIFICATIONROWORDER)#" index="listpos">
-				<p>
+			
+			<p>
 				listpos: #listpos#
+				</p>
+				<!--- loop once for each element passed in --->
+				<!--- insert in order; get the element name of the "listpos-th" element of CLASSIFICATIONROWORDER --->
+				<cfset i=listgetat(CLASSIFICATIONROWORDER,listpos)>
+				<p>
+				i: #i#
 				</p>
 			</cfloop>
 			<cfloop list="#CLASSIFICATIONROWORDER#" index="x">
