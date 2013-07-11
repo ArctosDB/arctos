@@ -7,6 +7,22 @@
 			handle: '.dragger'
 		});
 		$( "#sortable" ).disableSelection();
+
+
+$('input').on('click', function(e) {
+    $(this).trigger({
+        type: 'mousedown',
+        which: 3
+    });
+});
+
+$('input').on('mousedown', function(e) {
+    if(e.which == 3){
+        $(this).focus();   
+    }
+});
+
+
 	});
 	function submitForm() {
 		var linkOrderData=$("#sortable").sortable('toArray').join(',');
