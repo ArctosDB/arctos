@@ -13,7 +13,7 @@
 	var nccellary = new Array();
 
 	$.each($("tr[id^='nccell_']"), function() {
-		console.log(this);
+		console.log(this.id);
 
 
 		//nccellary.push($("#" + this.id));
