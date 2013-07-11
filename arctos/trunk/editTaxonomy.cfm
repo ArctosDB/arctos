@@ -72,7 +72,7 @@
 			select count(*) m from noclass
 		</cfquery>
 		
-		
+		<cfdump var=#maxnoclass#>
 		
 		
 <form name="f1" method="post" action="editTaxonomy.cfm" onsubmit="return false;">
