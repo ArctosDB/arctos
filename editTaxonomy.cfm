@@ -78,7 +78,7 @@
 		<cfquery name="maxnoclass" dbtype="query">
 			select count(*) m from noclass
 		</cfquery>
-		<form name="f1" id="f1" method="post" action="editTaxonomy.cfm" onsubmit="return submitForm();">
+		<form name="f1" id="f1" method="post" action="editTaxonomy.cfm">
 			<input type="hidden" name="action" value="saveClassEdits">
 			<input type="hidden" name="classification_id" id="classification_id" value="#classification_id#">
 			<input type="hidden" name="maxposn" id="maxposn" value="#maxclass.m#">
