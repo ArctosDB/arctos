@@ -106,6 +106,7 @@ console.log(x);
 						<span class="likeLink" onclick="nc_deleteThis('#i#');">[ Delete this row ]</span>
 					</td>
 				</tr>
+				<cfset i=i+1>
 			</cfloop>
 			
 		</tbody>
