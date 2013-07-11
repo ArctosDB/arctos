@@ -77,7 +77,7 @@
 		
 <form name="f1" method="post" action="editTaxonomy.cfm" onsubmit="return false;">
 	<input type="hidden" name="action" value="saveEdits">
-	<input type="text" name="maxposn" id="classification_id" value="#classification_id#">
+	<input type="text" name="classification_id" id="classification_id" value="#classification_id#">
 	<input type="text" name="maxposn" id="maxposn" value="#maxclass.m#">
 	<input type="text" name="numnoclassrs" id="numnoclassrs" value="#maxnoclass.m#">
 
