@@ -195,11 +195,13 @@ uam@arctos>
 				sysdate
 			)
 		</cfloop>
-		<cfloop list="#CLASSIFICATIONROWORDER#" index="le">
+		
+		CLASSIFICATIONROWORDER: ------------#CLASSIFICATIONROWORDER#--------
+		<cfloop list="#CLASSIFICATIONROWORDER#" index="x">
 		
 		
-		--------------#le#------------
-			<cfset i=listlast(le,"_")>
+		--------------#x#------------
+			<cfset i=listlast(x,"_")>
 			
 			i==#i#-------
 			<cfset thisterm=evaluate("TERM_" & i)>
