@@ -38,8 +38,8 @@
 		var n=parseInt($("#numnoclassrs").val());
 		++n;
 		var x='<tr id="nccell_' + n + '">';
-		x+='<td><input size="60" type="text" id="term_type_' + n + '" name="term_type_' + n + '"></td>';
-		x+='<td><input size="60" type="text" id="term_' + n + '" name="term_' + n + '"></td>';
+		x+='<td><input size="60" type="text" id="ncterm_type_' + n + '" name="ncterm_type_' + n + '"></td>';
+		x+='<td><input size="60" type="text" id="ncterm_' + n + '" name="ncterm_' + n + '"></td>';
 		x+='<td><span class="likeLink" onclick="nc_deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
 		x+='</tr>';
 		$("#notsortable").append(x);
@@ -94,10 +94,10 @@
 					<cfloop query="noclass">
 						<tr id="nccell_#i#">
 							<td>
-								<input size="60" type="text" id="term_type_#i#" name="term_type_#i#" value="#term_type#">
+								<input size="60" type="text" id="ncterm_type_#i#" name="ncterm_type_#i#" value="#term_type#">
 							</td>
 							<td>
-								<input size="60" type="text" id="term_#i#" name="term_#i#" value="#term#">
+								<input size="60" type="text" id="ncterm_#i#" name="ncterm_#i#" value="#term#">
 							</td>
 							<td>
 								<span class="likeLink" onclick="nc_deleteThis('#i#');">[ Delete this row ]</span>
