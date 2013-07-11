@@ -179,6 +179,14 @@
 			</p>
 			<cfloop from="1" to="#listlen(CLASSIFICATIONROWORDER)#" index="listpos">
 				<cfset x=listgetat(CLASSIFICATIONROWORDER,listpos)>
+				
+				<p>
+					x: #x#
+				</p>
+				
+				<p>
+					i: #i#
+				</p>
 				<cfset i=listlast(x,"_")>
 				<cfset thisterm=evaluate("TERM_" & i)>
 				<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
