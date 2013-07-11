@@ -41,15 +41,10 @@
 		x+='<td><input size="60" type="text" id="term_' + n + '"></td>';
 		x+='<td><span class="likeLink" onclick="nc_deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
 		x+='</tr>';
-
-console.log(x);
 		$("#notsortable").append(x);
 		$("#numnoclassrs").val(n);
 	}
 </script>
-
-
-
 <cfoutput>
 	<cfif action is "editClassification">
 		<cfquery name="d" datasource="uam_god">
@@ -60,7 +55,6 @@ console.log(x);
 		<cfquery name="noclass" dbtype="query">
 			select * from d where POSITION_IN_CLASSIFICATION is null order by term_type
 		</cfquery>
-		
 		<cfquery name="hasclass" dbtype="query">
 			select * from d where POSITION_IN_CLASSIFICATION is not null order by  POSITION_IN_CLASSIFICATION
 		</cfquery>
@@ -73,79 +67,66 @@ console.log(x);
 			select count(*) m from noclass
 		</cfquery>
 		
-		<cfdump var=#maxnoclass#>
-		
-		
-		---------#maxnoclass.m#---------
-		
-		
-<form name="f1" method="post" action="editTaxonomy.cfm" onsubmit="return false;">
-	<input type="hidden" name="action" value="saveEdits">
-	<input type="text" name="classification_id" id="classification_id" value="#classification_id#">
-	<input type="text" name="maxposn" id="maxposn" value="#maxclass.m#">
-	<input type="text" name="numnoclassrs" id="numnoclassrs" value="#maxnoclass.m#">
-
-	<input type="text" name="classificationRowOrder" id="classificationRowOrder">
-	<label for="clastbl">Edit Non-Classification information</label>
-	<table id="clastbl" border="1">
-		<thead>
-			<tr><th>TermType</th><th>Term</th><th>Delete</th></tr>
-		</thead>
-		<tbody id="notsortable">
-			<cfset i=1>
-			<cfloop query="noclass">
-				<tr id="nccell_#i#">
-					<td>
-						<input size="60" type="text" id="term_type_#i#" value="#term_type#">
-					</td>
-					<td>
-						<input size="60" type="text" id="term_#i#" value="#term#">
-					</td>
-					<td>
-						<span class="likeLink" onclick="nc_deleteThis('#i#');">[ Delete this row ]</span>
-					</td>
-				</tr>
-				<cfset i=i+1>
-			</cfloop>
-			
-		</tbody>
-	</table>
-	<span class="likeLink" onclick="nc_addARow();">Add a Row</span>
-	
-	
-	
-	<label for="clastbl">Edit Classification: Drag rows to sort.</label>
-	<table id="clastbl" border="1">
-		<thead>
-			<tr><th>Drag Handle</th><th>TermType</th><th>Term</th><th>Delete</th></tr>
-		</thead>
-		<tbody id="sortable">
-			<cfloop query="hasclass">
-				<tr id="cell_#POSITION_IN_CLASSIFICATION#">
-					<td class="dragger">
-						(drag row here)
-					</td>
-					<td>
-						<input size="60" type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
-					</td>
-					<td>
-						<input size="60" type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
-					</td>
-					<td>
-						<span class="likeLink" onclick="deleteThis('#POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
-					</td>
-				</tr>
-			</cfloop>
-		</tbody>
-	</table>
-	<span class="likeLink" onclick="addARow();">Add a Row</span>
-	<input type="button" onclick="submitForm();" value="Save Edits">
-</form>	
-
-
-
-<span onclick="s();">run s</span>
-	
+		<form name="f1" method="post" action="editTaxonomy.cfm" onsubmit="return false;">
+			<input type="hidden" name="action" value="saveEdits">
+			<input type="hidden" name="classification_id" id="classification_id" value="#classification_id#">
+			<input type="hidden" name="maxposn" id="maxposn" value="#maxclass.m#">
+			<input type="hidden" name="numnoclassrs" id="numnoclassrs" value="#maxnoclass.m#">
+			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
+			<label for="clastbl">Edit Non-Classification information</label>
+			<table id="clastbl" border="1">
+				<thead>
+					<tr><th>TermType</th><th>Term</th><th>Delete</th></tr>
+				</thead>
+				<tbody id="notsortable">
+					<cfset i=1>
+					<cfloop query="noclass">
+						<tr id="nccell_#i#">
+							<td>
+								<input size="60" type="text" id="term_type_#i#" value="#term_type#">
+							</td>
+							<td>
+								<input size="60" type="text" id="term_#i#" value="#term#">
+							</td>
+							<td>
+								<span class="likeLink" onclick="nc_deleteThis('#i#');">[ Delete this row ]</span>
+							</td>
+						</tr>
+						<cfset i=i+1>
+					</cfloop>
+					
+				</tbody>
+			</table>
+			<span class="likeLink" onclick="nc_addARow();">Add a Row</span>
+			<label for="clastbl">Edit Classification: Drag rows to sort.</label>
+			<table id="clastbl" border="1">
+				<thead>
+					<tr><th>Drag Handle</th><th>TermType</th><th>Term</th><th>Delete</th></tr>
+				</thead>
+				<tbody id="sortable">
+					<cfloop query="hasclass">
+						<tr id="cell_#POSITION_IN_CLASSIFICATION#">
+							<td class="dragger">
+								(drag row here)
+							</td>
+							<td>
+								<input size="60" type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
+							</td>
+							<td>
+								<input size="60" type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
+							</td>
+							<td>
+								<span class="likeLink" onclick="deleteThis('#POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
+							</td>
+						</tr>
+					</cfloop>
+				</tbody>
+			</table>
+			<span class="likeLink" onclick="addARow();">Add a Row</span>
+			<p>
+				<input type="button" onclick="submitForm();" value="Save Edits">
+			</p>
+		</form>	
 	</cfif>
 	<!------------------------------------->
 	<cfif action is "editnoclass">
