@@ -21,8 +21,8 @@
 		++n;
 		var x='<tr id="cell_' + n + '">';
 		x+='<td class="dragger">(drag row here)</td>';
-		x+='<td><input type="text" id="term_' + n + '"></td>';
 		x+='<td><input type="text" id="term_type_' + n + '"></td>';
+		x+='<td><input type="text" id="term_' + n + '"></td>';
 		x+='<td><span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
 		x+='</tr>';
 		$("#sortable").append(x);
@@ -68,10 +68,10 @@
 			<cfloop query="noclass">
 				<tr id="nccell_#i#">
 					<td>
-						<input type="text" id="term_#i#" value="#term#">
+						<input type="text" id="term_type_#i#" value="#term_type#">
 					</td>
 					<td>
-						<input type="text" id="term_type_#i#" value="#term_type#">
+						<input type="text" id="term_#i#" value="#term#">
 					</td>
 					<td>
 						<span class="likeLink" onclick="nc_deleteThis('#i#');">[ Delete this row ]</span>
@@ -96,10 +96,10 @@
 						(drag row here)
 					</td>
 					<td>
-						<input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
+						<input type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
 					</td>
 					<td>
-						<input type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
+						<input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
 					</td>
 					<td>
 						<span class="likeLink" onclick="deleteThis('#POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
