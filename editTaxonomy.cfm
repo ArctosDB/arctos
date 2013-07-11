@@ -43,7 +43,7 @@
 		x+='</tr>';
 
 console.log(x);
-		$("#sornotsortabletable").append(x);
+		$("#notsortable").append(x);
 		$("#numnoclassrs").val(n);
 	}
 </script>
