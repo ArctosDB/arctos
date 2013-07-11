@@ -16,7 +16,7 @@
 		console.log(this.id);
 
 
-		//nccellary.push($("#" + this.id));
+		nccellary.push(this.id);
     });
 
 var ncls=nccellary.join(',');
