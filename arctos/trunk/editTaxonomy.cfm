@@ -20,10 +20,6 @@
 		$( "#nccell_" + r ).remove();
 	}
 	
-
-
-
-
 	function addARow() {
 		var n=parseInt($("#maxposn").val());
 		++n;
@@ -35,6 +31,19 @@
 		x+='</tr>';
 		$("#sortable").append(x);
 		$("#maxposn").val(n);
+	}
+
+	function nc_addARow() {
+		var n=parseInt($("#numnoclassrs").val());
+		++n;
+		var x='<tr id="cell_' + n + '">';
+		x+='<td class="dragger">(drag row here)</td>';
+		x+='<td><input size="60" type="text" id="term_type_' + n + '"></td>';
+		x+='<td><input size="60" type="text" id="term_' + n + '"></td>';
+		x+='<td><span class="likeLink" onclick="nc_deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
+		x+='</tr>';
+		$("#sornotsortabletable").append(x);
+		$("#numnoclassrs").val(n);
 	}
 </script>
 
@@ -59,19 +68,26 @@
 			select max(POSITION_IN_CLASSIFICATION) m from hasclass
 		</cfquery>
 		
+		<cfquery name="maxnoclass" dbtype="query">
+			select max(POSITION_IN_CLASSIFICATION) m from noclass
+		</cfquery>
+		
 		
 		
 		
 <form name="f1" method="post" action="editTaxonomy.cfm" onsubmit="return false;">
 	<input type="hidden" name="action" value="saveEdits">
+	<input type="text" name="maxposn" id="classification_id" value="#classification_id#">
 	<input type="text" name="maxposn" id="maxposn" value="#maxclass.m#">
+	<input type="text" name="numnoclassrs" id="numnoclassrs" value="#maxnoclass.m#">
+
 	<input type="text" name="classificationRowOrder" id="classificationRowOrder">
 	<label for="clastbl">Edit Non-Classification information</label>
 	<table id="clastbl" border="1">
 		<thead>
 			<tr><th>TermType</th><th>Term</th><th>Delete</th></tr>
 		</thead>
-		<tbody>
+		<tbody id="notsortable">
 			<cfset i=1>
 			<cfloop query="noclass">
 				<tr id="nccell_#i#">
@@ -86,6 +102,7 @@
 					</td>
 				</tr>
 			</cfloop>
+			
 		</tbody>
 	</table>
 	<span class="likeLink" onclick="nc_addARow();">Add a Row</span>
