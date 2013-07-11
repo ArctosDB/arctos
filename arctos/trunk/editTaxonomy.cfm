@@ -60,7 +60,7 @@
 		var n=parseInt($("#numnoclassrs").val());
 		++n;
 		var x='<tr id="nccell_' + n + '">';
-		x+='<td><input size="60" type="text" id="ncterm_type_' + n + '" name="ncterm_type_' + n + '"></td>';
+		x+='<td><input class="searchInput" size="60" type="text" id="ncterm_type_' + n + '" name="ncterm_type_' + n + '"></td>';
 		x+='<td><input size="60" type="text" id="ncterm_' + n + '" name="ncterm_' + n + '"></td>';
 		x+='<td><span class="likeLink" onclick="nc_deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
 		x+='</tr>';
