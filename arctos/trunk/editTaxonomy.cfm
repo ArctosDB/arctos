@@ -31,7 +31,7 @@ console.log(ncls);
 
 
 
-		// $( "#f1" ).submit();
+		 $( "#f1" ).submit();
 	}
 	function deleteThis(r) {
 		$( "#cell_" + r ).remove();
