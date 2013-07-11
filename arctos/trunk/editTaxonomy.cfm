@@ -8,7 +8,17 @@
 	function submitForm() {
 		var linkOrderData=$("#sortable").sortable('toArray').join(',');
 		$( "#classificationRowOrder" ).val(linkOrderData);
-		$( "#f1" ).submit();
+
+
+		var linkOrderData=$("#notsortable").sortable('toArray').join(',');
+
+
+		$( "#noclassrows" ).val(linkOrderData);
+
+
+
+
+		// $( "#f1" ).submit();
 	}
 	function deleteThis(r) {
 		$( "#cell_" + r ).remove();
@@ -90,6 +100,9 @@
 			<input type="hidden" name="maxposn" id="maxposn" value="#maxclass.m#">
 			<input type="hidden" name="numnoclassrs" id="numnoclassrs" value="#maxnoclass.m#">
 			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
+			
+			
+			<input type="text" name="noclassrows" id="noclassrows">
 			<label for="clastbl">Edit Non-Classification information</label>
 			<table id="clastbl" border="1">
 				<thead>
