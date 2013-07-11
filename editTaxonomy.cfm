@@ -75,6 +75,9 @@
 		<cfdump var=#maxnoclass#>
 		
 		
+		---------#maxnoclass.m#---------
+		
+		
 <form name="f1" method="post" action="editTaxonomy.cfm" onsubmit="return false;">
 	<input type="hidden" name="action" value="saveEdits">
 	<input type="text" name="classification_id" id="classification_id" value="#classification_id#">
