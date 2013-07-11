@@ -11,6 +11,7 @@
 	function submitForm() {
 		var linkOrderData=$("#sortable").sortable('toArray').join(',');
 		$( "#classificationRowOrder" ).val(linkOrderData);
+		$( "#f1" ).submit();
 	}
 	function deleteThis(r) {
 		$( "#cell_" + r ).remove();
@@ -67,24 +68,20 @@
 		<p>
 			Editing <strong>#thisName.source#</strong> classification for <strong>#thisName.scientific_name#</strong> (classification_id=#classification_id#)
 		</p>
-		
 		<cfquery name="noclass" dbtype="query">
 			select * from d where POSITION_IN_CLASSIFICATION is null order by term_type
 		</cfquery>
 		<cfquery name="hasclass" dbtype="query">
 			select * from d where POSITION_IN_CLASSIFICATION is not null order by  POSITION_IN_CLASSIFICATION
 		</cfquery>
-		
 		<cfquery name="maxclass" dbtype="query">
 			select max(POSITION_IN_CLASSIFICATION) m from hasclass
 		</cfquery>
-		
 		<cfquery name="maxnoclass" dbtype="query">
 			select count(*) m from noclass
 		</cfquery>
-		
-		<form name="f1" method="post" action="editTaxonomy.cfm" onsubmit="return false;">
-			<input type="hidden" name="action" value="saveEdits">
+		<form name="f1" id="f1" method="post" action="editTaxonomy.cfm" onsubmit="return false;">
+			<input type="hidden" name="action" value="saveClassEdits">
 			<input type="hidden" name="classification_id" id="classification_id" value="#classification_id#">
 			<input type="hidden" name="maxposn" id="maxposn" value="#maxclass.m#">
 			<input type="hidden" name="numnoclassrs" id="numnoclassrs" value="#maxnoclass.m#">
@@ -147,8 +144,13 @@
 		</form>	
 	</cfif>
 	<!------------------------------------->
-	<cfif action is "editnoclass">
+	<cfif action is "saveClassEdits">
+		<cfdump var=#form#>
+	</cfif>
 	
+	
+	<!------------------------------------->
+	<cfif action is "editnoclass">
 		<cfquery name="ctRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select taxon_relationship  from cttaxon_relation order by taxon_relationship
 		</cfquery>
