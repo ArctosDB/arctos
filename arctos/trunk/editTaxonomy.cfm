@@ -208,7 +208,7 @@
 						'#thistermtype#',
 						'#SOURCE#',
 						sysdate,
-						#i#
+						#listpos#
 					)
 					
 					
@@ -237,8 +237,12 @@
 			</cfloop>
 		</cftransaction>
 		
+		
+				<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
+
+
+
 		<!----
-		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
 		
 		----->
 	</cfif>
