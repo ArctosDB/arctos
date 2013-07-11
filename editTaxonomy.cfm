@@ -52,6 +52,22 @@
 			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 			classification_id='#classification_id#'
 		</cfquery>
+		
+		
+		<cfquery name="thisname" dbtype="query">
+			select 
+				source,
+				scientific_name 
+			from
+				d 
+			group by 
+				source,
+				scientific_name
+		</cfquery>
+		<p>
+			Editing #thisName.source# classification for #thisName.scientific_name# (classification_id=#classification_id#)
+		</p>
+		
 		<cfquery name="noclass" dbtype="query">
 			select * from d where POSITION_IN_CLASSIFICATION is null order by term_type
 		</cfquery>
