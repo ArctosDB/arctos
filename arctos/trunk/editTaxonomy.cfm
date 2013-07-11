@@ -15,14 +15,22 @@
 	function deleteThis(r) {
 		$( "#cell_" + r ).remove();
 	}
-		
+
+	function nc_deleteThis(r) {
+		$( "#nccell_" + r ).remove();
+	}
+	
+
+
+
+
 	function addARow() {
 		var n=parseInt($("#maxposn").val());
 		++n;
 		var x='<tr id="cell_' + n + '">';
 		x+='<td class="dragger">(drag row here)</td>';
-		x+='<td><input type="text" id="term_type_' + n + '"></td>';
-		x+='<td><input type="text" id="term_' + n + '"></td>';
+		x+='<td><input size="60" type="text" id="term_type_' + n + '"></td>';
+		x+='<td><input size="60" type="text" id="term_' + n + '"></td>';
 		x+='<td><span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
 		x+='</tr>';
 		$("#sortable").append(x);
@@ -61,7 +69,7 @@
 	<label for="clastbl">Edit Non-Classification information</label>
 	<table id="clastbl" border="1">
 		<thead>
-			<tr><th>Term</th><th>Term Type</th><th>Delete</th></tr>
+			<tr><th>TermType</th><th>Term</th><th>Delete</th></tr>
 		</thead>
 		<tbody>
 			<cfset i=1>
@@ -87,7 +95,7 @@
 	<label for="clastbl">Edit Classification: Drag rows to sort.</label>
 	<table id="clastbl" border="1">
 		<thead>
-			<tr><th>Drag Handle</th><th>Term</th><th>Term Type</th><th>Delete</th></tr>
+			<tr><th>Drag Handle</th><th>TermType</th><th>Term</th><th>Delete</th></tr>
 		</thead>
 		<tbody id="sortable">
 			<cfloop query="hasclass">
@@ -96,10 +104,10 @@
 						(drag row here)
 					</td>
 					<td>
-						<input type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
+						<input size="60" type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
 					</td>
 					<td>
-						<input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
+						<input size="60" type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
 					</td>
 					<td>
 						<span class="likeLink" onclick="deleteThis('#POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
