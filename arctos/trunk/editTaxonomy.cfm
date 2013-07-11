@@ -10,10 +10,18 @@
 		$( "#classificationRowOrder" ).val(linkOrderData);
 
 
-		var linkOrderData=$("#notsortable").sortable('toArray').join(',');
+	var nccellary = new Array();
+
+	$.each($("tr[id^='nccell_']"), function() {
+		nccellary.push($("#" + this.id));
+    });
+
+console.log(nccellary);
+
+//		var linkOrderData=$("#notsortable").sortable('toArray').join(',');
 
 
-		$( "#noclassrows" ).val(linkOrderData);
+	//	$( "#noclassrows" ).val(linkOrderData);
 
 
 
