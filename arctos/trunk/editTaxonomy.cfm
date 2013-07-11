@@ -37,13 +37,13 @@ function s() {
 console.log('i am s');
 	
 
-        	var linkOrderData=$("#sortable").sortable('toArray');
+        	var linkOrderData=$("#sortable").sortable('toArray').join(',');
 console.log(linkOrderData);
 
-var x= linkOrderData.join(',');
+//var x= linkOrderData.join(',');
 
 
-console.log('x=' + x);
+//console.log('x=' + x);
 
 }
 function deleteThis(r) {
