@@ -154,6 +154,10 @@
 			<cfquery name="deleteallclassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				delete from taxon_term where classification_id='#classification_id#'
 			</cfquery>
+			
+			
+			
+			<!----------
 			<!---- these are in no particular order ---->
 			<cfloop from="1" to="#NUMNOCLASSRS#" index="i">
 				<cfset thisterm=evaluate("NCTERM_" & i)>
@@ -244,6 +248,12 @@
 					)
 				</cfquery>
 			</cfloop>
+			
+			
+			
+		----------->
+		
+		
 		</cftransaction>
 		
 		
