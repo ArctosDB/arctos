@@ -1,6 +1,4 @@
 <cfinclude template="includes/_header.cfm">
-
-
 <script>
 	$(function() {
 		$( "#sortable" ).sortable({
@@ -47,7 +45,7 @@
 </script>
 <cfoutput>
 	<cfif action is "editClassification">
-		<cfquery name="d" datasource="uam_god">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from taxon_name,taxon_term where 
 			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 			classification_id='#classification_id#'
@@ -146,96 +144,58 @@
 	</cfif>
 	<!------------------------------------->
 	<cfif action is "saveClassEdits">
-		<cfdump var=#form#>
-		
-		delete from taxon_term where classification_id='#classification_id#'
-		
-		<br>
-		
-		
-		taxon_term
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- TAXON_TERM_ID							   NOT NULL NUMBER
- 							   NOT NULL NUMBER
- 							    VARCHAR2(4000)
- 								   NOT NULL VARCHAR2(255)
- 								    VARCHAR2(255)
-  							   NOT NULL VARCHAR2(255)
- GN_SCORE								    NUMBER
- 						    NUMBER
- 							   NOT NULL DATE
- MATCH_TYPE								    VARCHAR2(255)
-
-uam@arctos> 
-
-
-
-
-
-		<cfloop from="1" to="#NUMNOCLASSRS#" index="i">
-			<cfset thisterm=evaluate("NCTERM_" & i)>
-			<cfset thistermtype=evaluate("NCTERM_TYPE_" & i)>
-			
-			<br>
-			
-			insert into taxon_term (
-				TAXON_NAME_ID,
-				CLASSIFICATION_ID,
-				TERM,
-				TERM_TYPE,
-				SOURCE,
-				LASTDATE
-			) values (
-				#TAXON_NAME_ID#,
-				'#CLASSIFICATION_ID#',
-				'#thisterm#',
-				'#thistermtype#',
-				'#SOURCE#',
-				sysdate
-			)
-		</cfloop>
-		
-		CLASSIFICATIONROWORDER: ------------#CLASSIFICATIONROWORDER#--------
-		<cfloop list="#CLASSIFICATIONROWORDER#" index="x">
-		
-		
-		--------------#x#------------
-			<cfset i=listlast(x,"_")>
-			
-			i==#i#-------
-			<cfset thisterm=evaluate("TERM_" & i)>
-			<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
-			
-			<br>
-			
-			insert into taxon_term (
-				TAXON_NAME_ID,
-				CLASSIFICATION_ID,
-				TERM,
-				TERM_TYPE,
-				SOURCE,
-				LASTDATE,
-				POSITION_IN_CLASSIFICATION
-			) values (
-				#TAXON_NAME_ID#,
-				'#CLASSIFICATION_ID#',
-				'#thisterm#',
-				'#thistermtype#',
-				'#SOURCE#',
-				sysdate,
-				#i#
-			)
-		
-
-
-		</cfloop>
-		
-		
-		
-		
+		<cftransaction>
+			<cfquery name="deleteallclassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				delete from taxon_term where classification_id='#classification_id#'
+			</cfquery>
+			<cfloop from="1" to="#NUMNOCLASSRS#" index="i">
+				<cfset thisterm=evaluate("NCTERM_" & i)>
+				<cfset thistermtype=evaluate("NCTERM_TYPE_" & i)>
+				<cfquery name="insNCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into taxon_term (
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM,
+						TERM_TYPE,
+						SOURCE,
+						LASTDATE
+					) values (
+						#TAXON_NAME_ID#,
+						'#CLASSIFICATION_ID#',
+						'#thisterm#',
+						'#thistermtype#',
+						'#SOURCE#',
+						sysdate
+					)
+				</cfquery>
+			</cfloop>
+			<cfloop list="#CLASSIFICATIONROWORDER#" index="x">
+				<cfset i=listlast(x,"_")>
+				<cfset thisterm=evaluate("TERM_" & i)>
+				<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
+				<cfquery name="insCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into taxon_term (
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM,
+						TERM_TYPE,
+						SOURCE,
+						LASTDATE,
+						POSITION_IN_CLASSIFICATION
+					) values (
+						#TAXON_NAME_ID#,
+						'#CLASSIFICATION_ID#',
+						'#thisterm#',
+						'#thistermtype#',
+						'#SOURCE#',
+						sysdate,
+						#i#
+					)
+				</cfquery>
+			</cfloop>
+		</cftransaction>
+		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
 	</cfif>
-	
 	
 	<!------------------------------------->
 	<cfif action is "editnoclass">
