@@ -197,6 +197,8 @@ uam@arctos>
 		</cfloop>
 		<cfloop list="#CLASSIFICATIONROWORDER#" index="le">
 			<cfset i=listlast(le,"_")>
+			
+			i==#i#-------
 			<cfset thisterm=evaluate("TERM_" & i)>
 			<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
 			
