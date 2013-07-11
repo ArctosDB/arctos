@@ -69,7 +69,7 @@
 		</cfquery>
 		
 		<cfquery name="maxnoclass" dbtype="query">
-			select max(POSITION_IN_CLASSIFICATION) m from noclass
+			select count(*) m from noclass
 		</cfquery>
 		
 		
