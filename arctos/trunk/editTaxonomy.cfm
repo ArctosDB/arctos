@@ -6,7 +6,7 @@
 		$( "#sortable" ).sortable({
 			handle: '.dragger'
 		});
-		$( "#sortable" ).disableSelection();
+		//$( "#sortable" ).disableSelection();
 
 
 $('input').on('click', function(e) {
