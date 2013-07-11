@@ -16,7 +16,9 @@
 		nccellary.push($("#" + this.id));
     });
 
-console.log(nccellary);
+var ncls=nccellary.join(',');
+
+console.log(ncls);
 
 //		var linkOrderData=$("#notsortable").sortable('toArray').join(',');
 
