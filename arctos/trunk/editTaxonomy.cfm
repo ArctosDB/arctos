@@ -68,10 +68,10 @@
 			<cfloop query="noclass">
 				<tr id="nccell_#i#">
 					<td>
-						<input type="text" id="term_type_#i#" value="#term_type#">
+						<input size="60" type="text" id="term_type_#i#" value="#term_type#">
 					</td>
 					<td>
-						<input type="text" id="term_#i#" value="#term#">
+						<input size="60" type="text" id="term_#i#" value="#term#">
 					</td>
 					<td>
 						<span class="likeLink" onclick="nc_deleteThis('#i#');">[ Delete this row ]</span>
