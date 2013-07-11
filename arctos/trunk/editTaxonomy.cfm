@@ -144,11 +144,12 @@
 	</cfif>
 	<!------------------------------------->
 	<cfif action is "saveClassEdits">
-		<!-------
 		<cftransaction>
+			<!---- clear everything out, start over - just easier this way ---->
 			<cfquery name="deleteallclassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				delete from taxon_term where classification_id='#classification_id#'
 			</cfquery>
+			<!---- these are in no particular order ---->
 			<cfloop from="1" to="#NUMNOCLASSRS#" index="i">
 				<cfset thisterm=evaluate("NCTERM_" & i)>
 				<cfset thistermtype=evaluate("NCTERM_TYPE_" & i)>
@@ -170,7 +171,9 @@
 					)
 				</cfquery>
 			</cfloop>
-			<cfloop list="#CLASSIFICATIONROWORDER#" index="x">
+			<!--- these MUST be saved in the order they were drug to -------->
+			<cfloop from="1" to="#listlen(CLASSIFICATIONROWORDER)#" index="listpos">
+				<cfset x=listgetat(CLASSIFICATIONROWORDER,listpos)>
 				<cfset i=listlast(x,"_")>
 				<cfset thisterm=evaluate("TERM_" & i)>
 				<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
@@ -195,88 +198,7 @@
 				</cfquery>
 			</cfloop>
 		</cftransaction>
-		
-				<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
-
-		--------->
-		<p>
-						delete from taxon_term where classification_id='#classification_id#'
-</p>
-			<cfloop from="1" to="#NUMNOCLASSRS#" index="i">
-				<cfset thisterm=evaluate("NCTERM_" & i)>
-				<cfset thistermtype=evaluate("NCTERM_TYPE_" & i)>
-
-<p>
-					insert into taxon_term (
-						TAXON_NAME_ID,
-						CLASSIFICATION_ID,
-						TERM,
-						TERM_TYPE,
-						SOURCE,
-						LASTDATE
-					) values (
-						#TAXON_NAME_ID#,
-						'#CLASSIFICATION_ID#',
-						'#thisterm#',
-						'#thistermtype#',
-						'#SOURCE#',
-						sysdate
-					)
-</p>
-
-
-			</cfloop>
-			
-			
-			
-			<p>
-				CLASSIFICATIONROWORDER===#CLASSIFICATIONROWORDER#
-			</p>
-			
-			<cfloop from="1" to="#listlen(CLASSIFICATIONROWORDER)#" index="listpos">
-			
-			<p>
-				listpos: #listpos#
-				</p>
-				<!--- loop once for each element passed in --->
-				<!--- insert in order; get the element name of the "listpos-th" element of CLASSIFICATIONROWORDER --->
-				<cfset x=listgetat(CLASSIFICATIONROWORDER,listpos)>
-				<p>
-				x: #x#
-				</p>
-				<cfset i=listlast(x,"_")>
-				<p>
-				i: #i#
-				</p>
-			</cfloop>
-			<cfloop list="#CLASSIFICATIONROWORDER#" index="x">
-				<cfset i=listlast(x,"_")>
-				
-				<br>i is now #i#
-				
-				
-				<cfset thisterm=evaluate("TERM_" & i)>
-				<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
-<p>
-
-					insert into taxon_term (
-						TAXON_NAME_ID,
-						CLASSIFICATION_ID,
-						TERM,
-						TERM_TYPE,
-						SOURCE,
-						LASTDATE,
-						POSITION_IN_CLASSIFICATION
-					) values (
-						#TAXON_NAME_ID#,
-						'#CLASSIFICATION_ID#',
-						'#thisterm#',
-						'#thistermtype#',
-						'#SOURCE#',
-						sysdate,
-						#i#
-					)
-</p>			</cfloop>
+		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
 	</cfif>
 	
 	<!------------------------------------->
