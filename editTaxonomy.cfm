@@ -4,6 +4,19 @@
 		$( "#sortable" ).sortable({
 			handle: '.dragger'
 		});
+		$( "#term_type_1" ).autocomplete({
+			source: '/component/functions.cfc?method=ac_georeference_source',
+			width: 320,
+			max: 50,
+			autofill: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300,
+			matchContains: true,
+			minChars: 1,
+			selectFirst:false
+		});
+
 	});
 	function submitForm() {
 		var linkOrderData=$("#sortable").sortable('toArray').join(',');
@@ -19,11 +32,9 @@
 	function deleteThis(r) {
 		$( "#cell_" + r ).remove();
 	}
-
 	function nc_deleteThis(r) {
 		$( "#nccell_" + r ).remove();
 	}
-	
 	function addARow() {
 		var n=parseInt($("#maxposn").val());
 		++n;
