@@ -71,6 +71,11 @@
 		<cfquery name="hasclass" dbtype="query">
 			select * from d where POSITION_IN_CLASSIFICATION is not null order by  POSITION_IN_CLASSIFICATION
 		</cfquery>
+		
+		
+		<cfdump var=#hasclass#>
+		
+		
 		<cfquery name="maxclass" dbtype="query">
 			select max(POSITION_IN_CLASSIFICATION) m from hasclass
 		</cfquery>
