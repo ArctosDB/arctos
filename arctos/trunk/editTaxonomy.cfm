@@ -184,10 +184,14 @@
 					x: #x#
 				</p>
 				
+				
+				<cfset i=listlast(x,"_")>
+				
+				
 				<p>
 					i: #i#
 				</p>
-				<cfset i=listlast(x,"_")>
+				
 				<cfset thisterm=evaluate("TERM_" & i)>
 				<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
 				<p>
