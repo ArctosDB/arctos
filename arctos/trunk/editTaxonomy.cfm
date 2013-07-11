@@ -19,7 +19,7 @@
 
 
     
-    $("input[id^='term_type_'").live("keydown.autocomplete", function() {
+    $("input.searchInput").live("keydown.autocomplete", function() {
         $(this).autocomplete(options);
     });
 
@@ -121,7 +121,7 @@
 					<cfloop query="noclass">
 						<tr id="nccell_#i#">
 							<td>
-								<input size="60" type="text" id="ncterm_type_#i#" name="ncterm_type_#i#" value="#term_type#">
+								<input class="searchInput" size="60" type="text" id="ncterm_type_#i#" name="ncterm_type_#i#" value="#term_type#">
 							</td>
 							<td>
 								<input size="60" type="text" id="ncterm_#i#" name="ncterm_#i#" value="#term#">
