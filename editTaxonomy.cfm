@@ -2,91 +2,33 @@
 
 
 <script>
-$(function() {
-$( "#sortable" ).sortable({
-	handle: '.dragger'
-});
-
-$( "#sortable" ).disableSelection();
-});
-
-
-
-$("#left-col,#right-col").sortable({
-        handle: '.item .celltitle',
-        connectWith: '#right-col, #left-col',
-        update : function () { 
-        	var sortR=$("#right-col").sortable('toArray');
-            var sortL=$("#left-col").sortable('toArray');
-            //console.log('sortR='+sortR.join()+' ; sortL=' + sortL.join());
-            $.getJSON("/component/Bulkloader.cfc",
-        		{
-      				method : "set_sort_order",
-      				returnformat : "json",
-      				queryformat : 'column',
-      				sort_leftcolumn: sortL.join(),
-      				sort_rightcolumn: sortR.join()
-      			},
-      			function(r) {}
-	      	);
-        }
+	$(function() {
+		$( "#sortable" ).sortable({
+			handle: '.dragger'
+		});
+		$( "#sortable" ).disableSelection();
 	});
-
-
-function s() {
-console.log('i am s');
-	
-
-        	var linkOrderData=$("#sortable").sortable('toArray').join(',');
-console.log(linkOrderData);
-
-//var x= linkOrderData.join(',');
-
-
-//console.log('x=' + x);
-
-}
-function deleteThis(r) {
-	$( "#id_" + r ).remove();
-
-}
-	
-function addARow() {
-	var n=parseInt($("#maxposn").val());
-	++n;
-
-	var x='<tr id="id_' + n + '">';
-	x+='<td class="dragger">(drag row here)</td>';
-	x+='<td><input type="text" id="term_' + n + '"></td>';
-	x+='<td><input type="text" id="term_type_' + n + '"></td>';
-	x+='<td><span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
-	x+='</tr>';
-
-
-
-
-				
-				
-				
-				
-			
-			
-
-
-
-	$("#sortable").append(x);
-	
-	$("#maxposn").val(n);
-}
-
-
-
+	function submitForm() {
+		var linkOrderData=$("#sortable").sortable('toArray').join(',');
+		$( "#classificationRowOrder" ).val(linkOrderData);
+	}
+	function deleteThis(r) {
+		$( "#cell_" + r ).remove();
+	}
+		
+	function addARow() {
+		var n=parseInt($("#maxposn").val());
+		++n;
+		var x='<tr id="cell_' + n + '">';
+		x+='<td class="dragger">(drag row here)</td>';
+		x+='<td><input type="text" id="term_' + n + '"></td>';
+		x+='<td><input type="text" id="term_type_' + n + '"></td>';
+		x+='<td><span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
+		x+='</tr>';
+		$("#sortable").append(x);
+		$("#maxposn").val(n);
+	}
 </script>
-<style>
-#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-#sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
-#sortable li span { position: absolute; margin-left: -1.3em; }
-</style>
 
 
 
@@ -101,7 +43,6 @@ function addARow() {
 			select * from d where POSITION_IN_CLASSIFICATION is null order by term_type
 		</cfquery>
 		
-		<cfdump var=#noclass#>
 		<cfquery name="hasclass" dbtype="query">
 			select * from d where POSITION_IN_CLASSIFICATION is not null order by  POSITION_IN_CLASSIFICATION
 		</cfquery>
@@ -109,41 +50,70 @@ function addARow() {
 		<cfquery name="maxclass" dbtype="query">
 			select max(POSITION_IN_CLASSIFICATION) m from hasclass
 		</cfquery>
-		<input type="text" name="maxposn" id="maxposn" value="#maxclass.m#">
 		
 		
-		<cfdump var=#hasclass#>
 		
 		
-<table border="1">
-	<thead>
-		<tr><th>Drag Handle</th><th>Term</th><th>Term Type</th><th>Delete</th></tr>
-	</thead>
-	<tbody id="sortable">
-		<cfloop query="hasclass">
-			<tr id="id_#POSITION_IN_CLASSIFICATION#">
-				<td class="dragger">
-					(drag row here)
-				</td>
-				<td>
-					<input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
-				</td>
-				<td>
-					<input type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
-				</td>
-				<td>
-					<span class="likeLink" onclick="deleteThis('#POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
-				</td>
-			</tr>
-		</cfloop>
+<form name="f1" method="post" action="editTaxonomy.cfm" onsubmit="return false;">
+	<input type="hidden" name="action" value="saveEdits">
+	<input type="text" name="maxposn" id="maxposn" value="#maxclass.m#">
+	<input type="text" name="classificationRowOrder" id="classificationRowOrder">
+	<label for="clastbl">Edit Non-Classification information</label>
+	<table id="clastbl" border="1">
+		<thead>
+			<tr><th>Term</th><th>Term Type</th><th>Delete</th></tr>
+		</thead>
+		<tbody>
+			<cfset i=1>
+			<cfloop query="noclass">
+				<tr id="nccell_#i#">
+					<td>
+						<input type="text" id="term_#i#" value="#term#">
+					</td>
+					<td>
+						<input type="text" id="term_type_#i#" value="#term_type#">
+					</td>
+					<td>
+						<span class="likeLink" onclick="nc_deleteThis('#i#');">[ Delete this row ]</span>
+					</td>
+				</tr>
+			</cfloop>
+		</tbody>
+	</table>
+	<span class="likeLink" onclick="nc_addARow();">Add a Row</span>
+	
+	
+	
+	<label for="clastbl">Edit Classification: Drag rows to sort.</label>
+	<table id="clastbl" border="1">
+		<thead>
+			<tr><th>Drag Handle</th><th>Term</th><th>Term Type</th><th>Delete</th></tr>
+		</thead>
+		<tbody id="sortable">
+			<cfloop query="hasclass">
+				<tr id="cell_#POSITION_IN_CLASSIFICATION#">
+					<td class="dragger">
+						(drag row here)
+					</td>
+					<td>
+						<input type="text" id="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
+					</td>
+					<td>
+						<input type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
+					</td>
+					<td>
+						<span class="likeLink" onclick="deleteThis('#POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
+					</td>
+				</tr>
+			</cfloop>
+		</tbody>
+	</table>
+	<span class="likeLink" onclick="addARow();">Add a Row</span>
+	<input type="button" onclick="submitForm();" value="Save Edits">
+</form>	
 
-	</tbody>
-</table>
 
 
-
-
-<span onclick="addARow();">addARow</span>
 <span onclick="s();">run s</span>
 	
 	</cfif>
