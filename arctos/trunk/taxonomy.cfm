@@ -73,12 +73,11 @@ Arctos taxonomy has changed.......
 	<cfset title="Taxonomy Search Results">
 	#d.recordcount# results:
 	<cfloop query="d">
-		<br><a href="/taxonomy.cfm?name=#scientific_name#">#scientific_name#</a>
+		<br><a href="/name/#scientific_name#">#scientific_name#</a>
 	</cfloop>
 </cfif>
 
 <!--------------------- taxonomy details --------------------->
-
 <cfif isdefined("name") and len(name) gt 0>
 	<!--- pipe-delimited list of things that users are allowed to edit --->
 	<cfset editableSources="Arctos">
@@ -121,7 +120,7 @@ Arctos taxonomy has changed.......
 			<ul>
 				<cfloop query="revrelated">				
 					<li>
-						#TAXON_RELATIONSHIP# <a href='/taxonomy.cfm?name=#scientific_name#'>#scientific_name#</a>
+						#TAXON_RELATIONSHIP# <a href='/name/#scientific_name#'>#scientific_name#</a>
 						<cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
 					</li>
 				</cfloop>
@@ -146,7 +145,7 @@ Arctos taxonomy has changed.......
 			<ul>
 				<cfloop query="revrelated">
 					<li>
-						#TAXON_RELATIONSHIP# <a href='/taxonomy.cfm?name=#scientific_name#'>#scientific_name#</a>
+						#TAXON_RELATIONSHIP# <a href='/name/#scientific_name#'>#scientific_name#</a>
 						<cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
 					</li>
 				</cfloop>
@@ -174,7 +173,7 @@ Arctos taxonomy has changed.......
 			</ul>
 		</p>
 	</cfif>	
-	
+	<h4>Classifications</h4>
 	<cfquery name="sources" dbtype="query">
 		select 
 			source,
