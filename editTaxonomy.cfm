@@ -4,8 +4,8 @@
 		$( "#sortable" ).sortable({
 			handle: '.dragger'
 		});
-		var options = {
-       		source: '/component/functions.cfc?method=ac_georeference_source',
+		var ac_isclass_ttoptions = {
+       		source: '/component/functions.cfc?method=ac_isclass_tt',
 			width: 320,
 			max: 50,
 			autofill: false,
@@ -19,8 +19,8 @@
 
 
     
-    $("input.searchInput").live("keydown.autocomplete", function() {
-        $(this).autocomplete(options);
+    $("input.ac_isclass_tt").live("keydown.autocomplete", function() {
+        $(this).autocomplete(ac_isclass_ttoptions);
     });
 
  
@@ -48,7 +48,7 @@
 		++n;
 		var x='<tr id="cell_' + n + '">';
 		x+='<td class="dragger">(drag row here)</td>';
-		x+='<td><input size="60" type="text" id="term_type_' + n + '" name="term_type_' + n + '"></td>';
+		x+='<td><input size="60" class="ac_isclass_tt" type="text" id="term_type_' + n + '" name="term_type_' + n + '"></td>';
 		x+='<td><input size="60" type="text" id="term_' + n + '" name="term_' + n + '"></td>';
 		x+='<td><span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
 		x+='</tr>';
@@ -60,7 +60,7 @@
 		var n=parseInt($("#numnoclassrs").val());
 		++n;
 		var x='<tr id="nccell_' + n + '">';
-		x+='<td><input class="searchInput" size="60" type="text" id="ncterm_type_' + n + '" name="ncterm_type_' + n + '"></td>';
+		x+='<td><input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_' + n + '" name="ncterm_type_' + n + '"></td>';
 		x+='<td><input size="60" type="text" id="ncterm_' + n + '" name="ncterm_' + n + '"></td>';
 		x+='<td><span class="likeLink" onclick="nc_deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
 		x+='</tr>';
@@ -121,7 +121,7 @@
 					<cfloop query="noclass">
 						<tr id="nccell_#i#">
 							<td>
-								<input class="searchInput" size="60" type="text" id="ncterm_type_#i#" name="ncterm_type_#i#" value="#term_type#">
+								<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#i#" name="ncterm_type_#i#" value="#term_type#">
 							</td>
 							<td>
 								<input size="60" type="text" id="ncterm_#i#" name="ncterm_#i#" value="#term#">
@@ -147,7 +147,7 @@
 								(drag row here)
 							</td>
 							<td>
-								<input size="60" type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" name="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
+								<input size="60" class="ac_isclass_tt" type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" name="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
 							</td>
 							<td>
 								<input size="60" type="text" id="term_#POSITION_IN_CLASSIFICATION#" name="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
