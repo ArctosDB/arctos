@@ -128,7 +128,7 @@
 			<label for="clastbl">Edit Non-Classification information</label>
 			<table id="clastbl" border="1">
 				<thead>
-					<tr><th>TermType</th><th>Term</th><th>Delete</th></tr>
+					<tr><th>Term Type</th><th>Term</th><th>Delete</th></tr>
 				</thead>
 				<tbody id="notsortable">
 					<cfset i=1>
@@ -149,10 +149,11 @@
 				</tbody>
 			</table>
 			<span class="likeLink" onclick="nc_addARow();">Add a Row</span>
+			<p>&nbsp;</p>
 			<label for="clastbl">Edit Classification: Drag rows to sort.</label>
 			<table id="clastbl" border="1">
 				<thead>
-					<tr><th>Drag Handle</th><th>TermType</th><th>Term</th><th>Delete</th></tr>
+					<tr><th>Drag Handle</th><th>Term Type</th><th>Term</th><th>Delete</th></tr>
 				</thead>
 				<tbody id="sortable">
 					<cfloop query="hasclass">
