@@ -45,12 +45,6 @@ Arctos taxonomy has changed.......
 </form>
 
 <!---------- search results ------------>
-
-<cfif left(superfamily,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(superfamily) = '#ucase(right(superfamily,len(superfamily)-1))#'">
-			<cfelse>
-				<CFSET SQL = "#SQL# AND upper(superfamily) LIKE '%#ucase(superfamily)#%'">
-			</cfif>
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0>
 	<cfquery name="d" datasource="uam_god">
 		select scientific_name from taxon_name,taxon_term where 
