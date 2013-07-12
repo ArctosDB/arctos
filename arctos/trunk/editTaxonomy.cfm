@@ -69,7 +69,6 @@
 		$("#sortable").append(x);
 		$("#maxposn").val(n);
 	}
-
 	function nc_addARow() {
 		var n=parseInt($("#numnoclassrs").val());
 		++n;
@@ -84,22 +83,6 @@
 </script>
 <cfoutput>
 	<cfif action is "editClassification">
-		<p>
-			<strong>Firm Rules About These Data:</strong>
-			<br>There are none. You can mess this up for everyone. Please don't.
-		</p>
-		<p>
-			<strong>Guidelines for editing these data:</strong>
-			<br>You should probably only edit classifications whose source is set as your collection's preferred classification.
-			<br>Term Type will autosuggest. Just hit ESCAPE to type in new values. Be extra cautious if you are creating new values, and 
-			new values may take an hour or so to get into the autosuggest list.
-			<br>Term "display_value" should include HTML markup.
-			<ul>
-				<li>&lt;i&gt;Alces alces&lt;/i&gt; (Linnaeus, 1758)</li>
-				will display as
-				<li><i>Alces alces</i> (Linnaeus, 1758)</li>
-			</ul>
-		</p>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from taxon_name,taxon_term where 
 			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
@@ -117,9 +100,6 @@
 				scientific_name,
 				taxon_name_id
 		</cfquery>
-		<p>
-			Editing <strong>#thisName.source#</strong> classification for <strong>#thisName.scientific_name#</strong> (classification_id=#classification_id#)
-		</p>
 		<cfquery name="noclass" dbtype="query">
 			select * from d where POSITION_IN_CLASSIFICATION is null order by term_type
 		</cfquery>
@@ -132,6 +112,28 @@
 		<cfquery name="maxnoclass" dbtype="query">
 			select count(*) m from noclass
 		</cfquery>
+		<p>
+			Editing <strong>#thisName.source#</strong> classification for <strong>#thisName.scientific_name#</strong> (classification_id=#classification_id#)
+			<br><a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#thisname.taxon_name_id#">Edit Non-Classification Data</a>
+			<br><a href="/name/#thisname.scientific_name#">View Taxon Page</a>
+		</p>
+		<p>
+			<strong>Firm Rules About These Data:</strong>
+			<br>There are none. You can mess this up for everyone. Please don't.
+		</p>
+		<p>
+			<strong>Guidelines for editing these data:</strong>
+			<br>You should probably only edit classifications whose source is set as your collection's preferred classification.
+			<br>Term Type will autosuggest. Just hit ESCAPE to type in new values. Be extra cautious if you are creating new values, and 
+			new values may take an hour or so to get into the autosuggest list.
+			<br>Term "display_value" should include HTML markup.
+			<ul>
+				<li>&lt;i&gt;Alces alces&lt;/i&gt; (Linnaeus, 1758)</li>
+				will display as
+				<li><i>Alces alces</i> (Linnaeus, 1758)</li>
+			</ul>
+		</p>
+		
 		<form name="f1" id="f1" method="post" action="editTaxonomy.cfm">
 			<input type="hidden" name="action" value="saveClassEdits">
 			<input type="hidden" name="classification_id" id="classification_id" value="#classification_id#">
