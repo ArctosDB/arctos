@@ -122,12 +122,12 @@
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'name',"/")>
 	<cfif replace(request.rdurl,"/","","last") is "name">
-		<cfinclude template="/TaxonomySearch.cfm">
+		<cfinclude template="/taxonomy.cfm">
 	<cfelse>
 		<cftry>
 			<cfset gPos=listfindnocase(request.rdurl,"name","/")>
-			<cfset scientific_name = listgetat(request.rdurl,gPos+1,"/")>
-			<cfinclude template="/TaxonomyDetails.cfm">
+			<cfset name = listgetat(request.rdurl,gPos+1,"/")>
+			<cfinclude template="/taxonomy.cfm">
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
