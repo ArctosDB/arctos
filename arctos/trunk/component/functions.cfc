@@ -202,7 +202,7 @@
 <cffunction name="ac_isclass_tt" access="remote" returnformat="json">
    	<cfargument name="term" required="true" type="string">
 	<cfquery name="classification_termtype" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select term_type from taxon_term where position_in_hierarchy is not null group by term_type
+		select term_type from taxon_term where position_in_classification is not null group by term_type
 	</cfquery>
 
 	<cfquery name="pn" dbtype="query">
