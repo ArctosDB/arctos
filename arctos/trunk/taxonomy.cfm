@@ -31,6 +31,7 @@ Arctos taxonomy has changed.......
 
 <cfoutput>
 
+<cfset title="Search Taxonomy">
 <!----- always display search ---------->
 <h3>Search for Taxonomy</h3>
 <form ACTION="/taxonomy.cfm" METHOD="post" name="taxa">
@@ -39,10 +40,8 @@ Arctos taxonomy has changed.......
 	<input type="text" name="taxon_name" id="taxon_name">
 	<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match)</label>
 	<br>
-	<input type="text" name="taxon_term" id="taxon_term">
-	
-	
-	<input type="submit">
+	<input type="text" name="taxon_term" id="taxon_term">	
+	<input value="Search" type="submit">
 </form>
 <hr>
 <!---------- search results ------------>
@@ -71,6 +70,7 @@ Arctos taxonomy has changed.......
 		order by scientific_name
 	</cfquery>
 	<h3>Taxonomy Search Results</h3>
+	<cfset title="Taxonomy Search Results">
 	#d.recordcount# results:
 	<cfloop query="d">
 		<br><a href="/taxonomy.cfm?name=#scientific_name#">#scientific_name#</a>
@@ -109,6 +109,9 @@ Arctos taxonomy has changed.......
 	
 	
 	<h3>Taxonomy Details for <i>#name#</i></h3>
+	
+	
+	<cfset title="Taxonomy Details for <i>#name#</i>">
 	
 	<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">Edit Non-Classification Data</a>
 
