@@ -88,6 +88,10 @@ Arctos taxonomy has changed.......
 		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
 		upper(scientific_name)='#ucase(name)#'
 	</cfquery>
+	
+	<cfdump var=#d#>
+	
+	
 	<cfif d.recordcount is 0>
 		sorry, we don't see to have data for #name# yet.
 		<!----
