@@ -15,8 +15,8 @@
 </cfif>
 	
 <!---- blurb about arctos taxonomy ------->
+<h3>IMPORTANT ANNOUNCEMENT</h3>
 
-IMPORTANT ANNOUNCEMENT:
 
 <P>
 Arctos taxonomy has changed.......
@@ -70,7 +70,7 @@ Arctos taxonomy has changed.......
 		group by scientific_name
 		order by scientific_name
 	</cfquery>
-	
+	<h3>Taxonomy Search Results</h3>
 	#d.recordcount# results:
 	<cfloop query="d">
 		<br><a href="taxonomy.cfm?name=#scientific_name#">#scientific_name#</a>
@@ -102,6 +102,9 @@ Arctos taxonomy has changed.......
 	<cfquery name="taxon_name_id" dbtype="query">
 		select taxon_name_id from d group by taxon_name_id
 	</cfquery>
+	
+	
+	<h3>Taxonomy Details for <i>#name#</i></h3>
 	
 	<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">Edit Non-Classification Data</a>
 
