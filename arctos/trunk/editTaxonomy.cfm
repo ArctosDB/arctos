@@ -263,6 +263,14 @@
 	</cfif>	
 	<!------------------------------------->
 	<cfif action is "editnoclass">
+		
+		<cfquery name="thisname" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select scientific_name  from taxon_name where taxon_name_id=#taxon_name_id#
+		</cfquery>
+		
+		<p>Editing #thisname.scientific_name#</p>
+		
+		
 		<cfquery name="ctRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select taxon_relationship  from cttaxon_relation order by taxon_relationship
 		</cfquery>
