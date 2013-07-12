@@ -1,7 +1,7 @@
 <cfinclude template="includes/_header.cfm">
 <style>
 	.dragger {
-		cursor:hand;
+		cursor:move;
 	}
 </style>
 <script>
