@@ -1,88 +1,88 @@
 <cfinclude template="includes/_header.cfm">
-<style>
-	.dragger {
-		cursor:move;
-	}
-</style>
-<script>
-	$(function() {
-		$( "#sortable" ).sortable({
-			handle: '.dragger'
+<cfif action is "editClassification">
+	<style>
+		.dragger {
+			cursor:move;
+		}
+	</style>
+	<script>
+		$(function() {
+			$( "#sortable" ).sortable({
+				handle: '.dragger'
+			});
+			var ac_isclass_ttoptions = {
+	       		source: '/component/functions.cfc?method=ac_isclass_tt',
+				width: 320,
+				max: 50,
+				autofill: false,
+				multiple: false,
+				scroll: true,
+				scrollHeight: 300,
+				matchContains: true,
+				minChars: 1,
+				selectFirst:false
+		    };
+			var ac_noclass_ttoptions = {
+	       		source: '/component/functions.cfc?method=ac_noclass_tt',
+				width: 320,
+				max: 50,
+				autofill: false,
+				multiple: false,
+				scroll: true,
+				scrollHeight: 300,
+				matchContains: true,
+				minChars: 1,
+				selectFirst:false
+		    };		
+		    $("input.ac_isclass_tt").live("keydown.autocomplete", function() {
+		        $(this).autocomplete(ac_isclass_ttoptions);
+		    });
+			$("input.ac_noclass_tt").live("keydown.autocomplete", function() {
+		        $(this).autocomplete(ac_noclass_ttoptions);
+		    });
 		});
-		var ac_isclass_ttoptions = {
-       		source: '/component/functions.cfc?method=ac_isclass_tt',
-			width: 320,
-			max: 50,
-			autofill: false,
-			multiple: false,
-			scroll: true,
-			scrollHeight: 300,
-			matchContains: true,
-			minChars: 1,
-			selectFirst:false
-	    };
-		var ac_noclass_ttoptions = {
-       		source: '/component/functions.cfc?method=ac_noclass_tt',
-			width: 320,
-			max: 50,
-			autofill: false,
-			multiple: false,
-			scroll: true,
-			scrollHeight: 300,
-			matchContains: true,
-			minChars: 1,
-			selectFirst:false
-	    };		
-	    $("input.ac_isclass_tt").live("keydown.autocomplete", function() {
-	        $(this).autocomplete(ac_isclass_ttoptions);
-	    });
-		$("input.ac_noclass_tt").live("keydown.autocomplete", function() {
-	        $(this).autocomplete(ac_noclass_ttoptions);
-	    });
-	});
-	function submitForm() {
-		var linkOrderData=$("#sortable").sortable('toArray').join(',');
-		$( "#classificationRowOrder" ).val(linkOrderData);
-		var nccellary = new Array();
-		$.each($("tr[id^='nccell_']"), function() {
-			nccellary.push(this.id);
-	    });
-		var ncls=nccellary.join(',');
-		$( "#noclassrows" ).val(ncls);
-		$( "#f1" ).submit();
-	}
-	function deleteThis(r) {
-		$( "#cell_" + r ).remove();
-	}
-	function nc_deleteThis(r) {
-		$( "#nccell_" + r ).remove();
-	}
-	function addARow() {
-		var n=parseInt($("#maxposn").val());
-		++n;
-		var x='<tr id="cell_' + n + '">';
-		x+='<td class="dragger">(drag row here)</td>';
-		x+='<td><input size="60" class="ac_isclass_tt" type="text" id="term_type_' + n + '" name="term_type_' + n + '"></td>';
-		x+='<td><input size="60" type="text" id="term_' + n + '" name="term_' + n + '"></td>';
-		x+='<td><span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
-		x+='</tr>';
-		$("#sortable").append(x);
-		$("#maxposn").val(n);
-	}
-	function nc_addARow() {
-		var n=parseInt($("#numnoclassrs").val());
-		++n;
-		var x='<tr id="nccell_' + n + '">';
-		x+='<td><input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_' + n + '" name="ncterm_type_' + n + '"></td>';
-		x+='<td><input size="60" type="text" id="ncterm_' + n + '" name="ncterm_' + n + '"></td>';
-		x+='<td><span class="likeLink" onclick="nc_deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
-		x+='</tr>';
-		$("#notsortable").append(x);
-		$("#numnoclassrs").val(n);
-	}
-</script>
-<cfoutput>
-	<cfif action is "editClassification">
+		function submitForm() {
+			var linkOrderData=$("#sortable").sortable('toArray').join(',');
+			$( "#classificationRowOrder" ).val(linkOrderData);
+			var nccellary = new Array();
+			$.each($("tr[id^='nccell_']"), function() {
+				nccellary.push(this.id);
+		    });
+			var ncls=nccellary.join(',');
+			$( "#noclassrows" ).val(ncls);
+			$( "#f1" ).submit();
+		}
+		function deleteThis(r) {
+			$( "#cell_" + r ).remove();
+		}
+		function nc_deleteThis(r) {
+			$( "#nccell_" + r ).remove();
+		}
+		function addARow() {
+			var n=parseInt($("#maxposn").val());
+			++n;
+			var x='<tr id="cell_' + n + '">';
+			x+='<td class="dragger">(drag row here)</td>';
+			x+='<td><input size="60" class="ac_isclass_tt" type="text" id="term_type_' + n + '" name="term_type_' + n + '"></td>';
+			x+='<td><input size="60" type="text" id="term_' + n + '" name="term_' + n + '"></td>';
+			x+='<td><span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
+			x+='</tr>';
+			$("#sortable").append(x);
+			$("#maxposn").val(n);
+		}
+		function nc_addARow() {
+			var n=parseInt($("#numnoclassrs").val());
+			++n;
+			var x='<tr id="nccell_' + n + '">';
+			x+='<td><input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_' + n + '" name="ncterm_type_' + n + '"></td>';
+			x+='<td><input size="60" type="text" id="ncterm_' + n + '" name="ncterm_' + n + '"></td>';
+			x+='<td><span class="likeLink" onclick="nc_deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
+			x+='</tr>';
+			$("#notsortable").append(x);
+			$("#numnoclassrs").val(n);
+		}
+	</script>
+	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from taxon_name,taxon_term where 
 			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
@@ -199,10 +199,12 @@
 			<p>
 				If you haven't yet saved, you can <a href="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#">refresh this page</a>
 			</p>
-		</form>	
-	</cfif>
-	<!------------------------------------->
-	<cfif action is "saveClassEdits">
+		</form>
+	</cfoutput>
+</cfif>
+<!------------------------------------->
+<cfif action is "saveClassEdits">
+	<cfoutput>
 		<cftransaction>
 			<!---- clear everything out, start over - just easier this way ---->
 			<cfquery name="deleteallclassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -260,15 +262,20 @@
 			</cfloop>
 		</cftransaction>
 		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
-	</cfif>	
-	<!------------------------------------->
-	<cfif action is "editnoclass">
-		
+	</cfoutput>
+</cfif>	
+<!------------------------------------->
+<cfif action is "editnoclass">
+	<cfoutput>		
 		<cfquery name="thisname" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select scientific_name  from taxon_name where taxon_name_id=#taxon_name_id#
 		</cfquery>
 		
-		<p>Editing #thisname.scientific_name#</p>
+		<p>Editing #thisname.scientific_name# non-classification data</p>
+		<br><a href="/name/#thisname.scientific_name#">Return to taxon overview</a>
+		
+		
+		<cfabort>
 		
 		
 		<cfquery name="ctRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -426,9 +433,8 @@
 				</td>
 			</tr>
 		</table>
-	</cfif>
-</cfoutput>
-
+	</cfoutput>
+</cfif>
 
 
 <!------------
