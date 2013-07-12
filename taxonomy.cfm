@@ -33,7 +33,7 @@ Arctos taxonomy has changed.......
 
 <!----- always display search ---------->
 <h3>Search for Taxonomy</h3>
-<form ACTION="taxonomy.cfm" METHOD="post" name="taxa">
+<form ACTION="/taxonomy.cfm" METHOD="post" name="taxa">
 	<input type="hidden" name="action" value="search">
 	<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
 	<input type="text" name="taxon_name" id="taxon_name">
@@ -73,7 +73,7 @@ Arctos taxonomy has changed.......
 	<h3>Taxonomy Search Results</h3>
 	#d.recordcount# results:
 	<cfloop query="d">
-		<br><a href="taxonomy.cfm?name=#scientific_name#">#scientific_name#</a>
+		<br><a href="/taxonomy.cfm?name=#scientific_name#">#scientific_name#</a>
 	</cfloop>
 </cfif>
 
