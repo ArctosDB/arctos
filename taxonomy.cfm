@@ -82,16 +82,11 @@ Arctos taxonomy has changed.......
 <cfif isdefined("name") and len(name) gt 0>
 	<!--- pipe-delimited list of things that users are allowed to edit --->
 	<cfset editableSources="Arctos">
-
 	<cfquery name="d" datasource="uam_god">
 		select * from taxon_name,taxon_term where 
 		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
 		upper(scientific_name)='#ucase(name)#'
-	</cfquery>
-	
-	<cfdump var=#d#>
-	
-	
+	</cfquery>	
 	<cfif d.recordcount is 0>
 		sorry, we don't see to have data for #name# yet.
 		<!----
@@ -102,20 +97,12 @@ Arctos taxonomy has changed.......
 	<cfquery name="scientific_name" dbtype="query">
 		select scientific_name from d group by scientific_name
 	</cfquery>
-		
 	<cfquery name="taxon_name_id" dbtype="query">
 		select taxon_name_id from d group by taxon_name_id
 	</cfquery>
-	
-	
 	<h3>Taxonomy Details for <i>#name#</i></h3>
-	
-	
-	<cfset title="Taxonomy Details for <i>#name#</i>">
-	
+	<cfset title="Taxonomy Details: #name#">
 	<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">Edit Non-Classification Data</a>
-
-
 	<cfquery name="related" datasource="uam_god">
 		select
 			TAXON_RELATIONSHIP,
