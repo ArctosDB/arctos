@@ -84,6 +84,16 @@
 </script>
 <cfoutput>
 	<cfif action is "editClassification">
+		<p>
+			<strong>Firm Rules About These Data:</strong>
+			<br>There are none. You can mess this up for everyone. Please don't.
+		</p>
+		<p>
+			<strong>Guidelines for editing these data:</strong>
+			<br>Term Type will autosuggest. Just hit ESCAPE to type in new values. Be extra cautious if you are creating new values, and 
+			new values may take an hour or so to get into the autosuggest list.
+			<br>Term "display_value" should include HTML markup.
+		</p>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from taxon_name,taxon_term where 
 			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
