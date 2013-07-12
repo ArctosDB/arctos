@@ -79,6 +79,43 @@ Arctos taxonomy has changed.......
 
 <!--------------------- taxonomy details --------------------->
 <cfif isdefined("name") and len(name) gt 0>
+	<script>
+		jQuery(document).ready(function(){
+			//var elemsToLoad='specTaxMedia,taxRelatedNames,mapTax';
+			var elemsToLoad='taxRelatedNames,mapTax';
+			getMedia('taxon','#one.taxon_name_id#','specTaxMedia','10','1');
+			//var elemsToLoad='taxRelatedNames';
+			var elemAry = elemsToLoad.split(",");
+			for(var i=0; i<elemAry.length; i++){
+				load(elemAry[i]);
+			}
+		});
+		function load(name){
+			//var el=document.getElementById(name);
+			var ptl="/includes/taxonomy/" + name + ".cfm?taxon_name_id=#one.taxon_name_id#&scientific_name=#one.scientific_name#";
+			jQuery.get(ptl, function(data){
+				 jQuery('##' + name).html(data);
+			})
+		}
+	</script>
+	
+	<span class="annotateSpace">
+		<cfif len(session.username) gt 0>
+			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select count(*) cnt from annotations
+				where taxon_name_id = #tnid#
+			</cfquery>
+			<a href="javascript: openAnnotation('taxon_name_id=#tnid#')">
+				[Annotate]
+			<cfif #existingAnnotations.cnt# gt 0>
+				<br>(#existingAnnotations.cnt# existing)
+			</cfif>
+			</a>
+		<cfelse>
+			<a href="/login.cfm">Login or Create Account</a>
+		</cfif>
+    </span>
+	
 	<!--- pipe-delimited list of things that users are allowed to edit --->
 	<cfset editableSources="Arctos">
 	<cfquery name="d" datasource="uam_god">
@@ -101,7 +138,9 @@ Arctos taxonomy has changed.......
 	</cfquery>
 	<h3>Taxonomy Details for <i>#name#</i></h3>
 	<cfset title="Taxonomy Details: #name#">
-	<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">Edit Non-Classification Data</a>
+	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
+		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">Edit Non-Classification Data</a>
+	</cfif>
 	<cfquery name="related" datasource="uam_god">
 		select
 			TAXON_RELATIONSHIP,
@@ -116,7 +155,7 @@ Arctos taxonomy has changed.......
 	</cfquery>
 	<cfif related.recordcount gte 1>
 		<p>
-			Related Taxa (from):
+			<h4>Related Taxa (from)</h4>
 			<ul>
 				<cfloop query="revrelated">				
 					<li>
@@ -141,7 +180,7 @@ Arctos taxonomy has changed.......
 	</cfquery>
 	<cfif revrelated.recordcount gte 1>
 		<p>
-			Related Taxa (to):
+			<h4>Related Taxa (to)</h4>
 			<ul>
 				<cfloop query="revrelated">
 					<li>
@@ -152,7 +191,6 @@ Arctos taxonomy has changed.......
 			</ul>
 		</p>
 	</cfif>	
-	
 	<cfquery name="common_name" datasource="uam_god">
 		select
 			common_name
@@ -163,7 +201,7 @@ Arctos taxonomy has changed.......
 	</cfquery>
 	<cfif common_name.recordcount gte 1>
 		<p>
-			Common Name(s):
+			<h4>Common Name(s)</h4>
 			<ul>
 				<cfloop query="common_name">
 					<li>
@@ -172,7 +210,41 @@ Arctos taxonomy has changed.......
 				</cfloop>
 			</ul>
 		</p>
-	</cfif>	
+	</cfif>
+	
+	
+	
+	<cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select
+		taxonomy_publication_id,
+		short_citation,
+		taxonomy_publication.publication_id
+	from
+		taxonomy_publication,
+		publication
+	where
+		taxonomy_publication.publication_id=publication.publication_id and
+		taxonomy_publication.taxon_name_id=#tnid#
+</cfquery>
+
+
+<div>
+		Related Publications:
+		<ul>
+		 	<cfif tax_pub.recordcount is 0>
+				<li><b>No related publications recorded.</b></li>
+			<cfelse>
+				<cfloop query="tax_pub">
+					<li>
+						<a href="/SpecimenUsage.cfm?publication_id=#publication_id#">
+							#short_citation#
+						</a>
+					</li>
+				</cfloop>
+			</cfif>
+		</ul>
+    </div>
+
 	<h4>Classifications</h4>
 	<cfquery name="sources" dbtype="query">
 		select 
