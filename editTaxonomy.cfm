@@ -1,4 +1,9 @@
 <cfinclude template="includes/_header.cfm">
+<style>
+	.dragger {
+		cursor:hand;
+	}
+</style>
 <script>
 	$(function() {
 		$( "#sortable" ).sortable({
@@ -28,18 +33,12 @@
 			minChars: 1,
 			selectFirst:false
 	    };		
-
-
-    
-    $("input.ac_isclass_tt").live("keydown.autocomplete", function() {
-        $(this).autocomplete(ac_isclass_ttoptions);
-    });
-	$("input.ac_noclass_tt").live("keydown.autocomplete", function() {
-        $(this).autocomplete(ac_noclass_ttoptions);
-    });
-
- 
-
+	    $("input.ac_isclass_tt").live("keydown.autocomplete", function() {
+	        $(this).autocomplete(ac_isclass_ttoptions);
+	    });
+		$("input.ac_noclass_tt").live("keydown.autocomplete", function() {
+	        $(this).autocomplete(ac_noclass_ttoptions);
+	    });
 	});
 	function submitForm() {
 		var linkOrderData=$("#sortable").sortable('toArray').join(',');
