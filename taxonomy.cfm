@@ -91,10 +91,14 @@ Arctos taxonomy has changed.......
 			}
 		});
 		function load(name){
-			//var el=document.getElementById(name);
-			var ptl="/includes/taxonomy/" + name + ".cfm?taxon_name_id=#one.taxon_name_id#&scientific_name=#one.scientific_name#";
+			var scientific_name=$("#scientific_name").val();
+			var taxon_name_id=$("#taxon_name_id").val();
+
+
+//var el=document.getElementById(name);
+			var ptl="/includes/taxonomy/" + name + ".cfm?taxon_name_id=" + taxon_name_id + "&scientific_name=" + scientific_name;
 			jQuery.get(ptl, function(data){
-				 jQuery('##' + name).html(data);
+				 jQuery('#' + name).html(data);
 			})
 		}
 	</script>
@@ -136,6 +140,8 @@ Arctos taxonomy has changed.......
 	<cfquery name="taxon_name_id" dbtype="query">
 		select taxon_name_id from d group by taxon_name_id
 	</cfquery>
+	<input type="hidden" id="scientific_name" value="#scientific_name.scientific_name#">
+	<input type="hidden" id="taxon_name_id" value="#taxon_name_id.taxon_name_id#">
 	<h3>Taxonomy Details for <i>#name#</i></h3>
 	<cfset title="Taxonomy Details: #name#">
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
