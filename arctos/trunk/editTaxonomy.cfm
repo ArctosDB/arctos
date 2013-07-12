@@ -93,6 +93,11 @@
 			<br>Term Type will autosuggest. Just hit ESCAPE to type in new values. Be extra cautious if you are creating new values, and 
 			new values may take an hour or so to get into the autosuggest list.
 			<br>Term "display_value" should include HTML markup.
+			<ul>
+				<li>&lt;i&gt;Alces alces&lt;/&gt; (Linnaeus, 1758)</li>
+				will display as
+				<li><i>Alces alces</i> (Linnaeus, 1758)</li>
+			</ul>
 		</p>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from taxon_name,taxon_term where 
