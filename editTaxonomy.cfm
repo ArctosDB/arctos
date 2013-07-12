@@ -15,12 +15,27 @@
 			matchContains: true,
 			minChars: 1,
 			selectFirst:false
+	    };
+		var ac_noclass_ttoptions = {
+       		source: '/component/functions.cfc?method=ac_noclass_tt',
+			width: 320,
+			max: 50,
+			autofill: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300,
+			matchContains: true,
+			minChars: 1,
+			selectFirst:false
 	    };		
 
 
     
     $("input.ac_isclass_tt").live("keydown.autocomplete", function() {
         $(this).autocomplete(ac_isclass_ttoptions);
+    });
+	$("input.ac_noclass_tt").live("keydown.autocomplete", function() {
+        $(this).autocomplete(ac_noclass_ttoptions);
     });
 
  
