@@ -10,10 +10,6 @@
 	<cfset taxon_term="">
 </cfif>
 
-<cfif not isdefined("matchtyp")>
-	<cfset matchtyp="substring">
-</cfif>
-
 <cfif not isdefined("src")>
 	<cfset src="">
 </cfif>
@@ -36,38 +32,44 @@ Arctos taxonomy has changed.......
 <cfoutput>
 
 <!----- always display search ---------->
+<h3>Search for Taxonomy</h3>
 <form ACTION="taxonomy.cfm" METHOD="post" name="taxa">
 	<input type="hidden" name="action" value="search">
-	<label for="taxon_name">Taxon Name</label>
+	<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
 	<input type="text" name="taxon_name" id="taxon_name">
-	<label for="taxon_term">Taxon Term</label>
+	<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match)</label>
 	<input type="text" name="taxon_term" id="taxon_term">
 	
-	<select name="matchtyp">
-		<option <cfif matchtyp is "substring"> selected="selected" </cfif>value="substring">substring</option>
-		<option <cfif matchtyp is "entire"> selected="selected" </cfif> value="entire">entire terms only</option>
-	</select>
 	
 	<input type="submit">
 </form>
 
 <!---------- search results ------------>
 
-
+<cfif left(superfamily,1) is "=">
+				<CFSET SQL = "#SQL# AND upper(superfamily) = '#ucase(right(superfamily,len(superfamily)-1))#'">
+			<cfelse>
+				<CFSET SQL = "#SQL# AND upper(superfamily) LIKE '%#ucase(superfamily)#%'">
+			</cfif>
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0>
 	<cfquery name="d" datasource="uam_god">
 		select scientific_name from taxon_name,taxon_term where 
 		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
 		<cfif len(taxon_name) gt 0>
-			upper(taxon_term.term) like 
-			<cfif matchtyp is "entire">
-				'#ucase(taxon_name)#'
+			upper(taxon_name.scientific_name)  
+			<cfif  left(taxon_name,1) is "=">
+				= '#ucase(taxon_name)#'
 			<cfelse>
-				'%#ucase(taxon_name)#%'
+				like '%#ucase(taxon_name)#%'
 			</cfif>
 		</cfif>
 		<cfif len(taxon_term) gt 0>
-			and upper(taxon_term) like '%#ucase(taxon_term)#%'
+			and upper(taxon_term)
+			<cfif  left(taxon_term,1) is "=">
+				= '#ucase(taxon_name)#'
+			<cfelse>
+				like '%#ucase(taxon_term)#%'
+			</cfif>			  
 		</cfif>
 		and rownum<1001
 		group by scientific_name
