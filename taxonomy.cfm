@@ -38,12 +38,13 @@ Arctos taxonomy has changed.......
 	<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
 	<input type="text" name="taxon_name" id="taxon_name">
 	<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match)</label>
+	<br>
 	<input type="text" name="taxon_term" id="taxon_term">
 	
 	
 	<input type="submit">
 </form>
-
+<hr>
 <!---------- search results ------------>
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0>
 	<cfquery name="d" datasource="uam_god">
