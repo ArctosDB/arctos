@@ -91,14 +91,14 @@ Arctos taxonomy has changed.......
 			}
 		});
 		function load(name){
-			var scientific_name=$("#scientific_name").val();
-			var taxon_name_id=$("#taxon_name_id").val();
+			var scientific_name=$("##scientific_name").val();
+			var taxon_name_id=$("##taxon_name_id").val();
 
 
 //var el=document.getElementById(name);
 			var ptl="/includes/taxonomy/" + name + ".cfm?taxon_name_id=" + taxon_name_id + "&scientific_name=" + scientific_name;
 			jQuery.get(ptl, function(data){
-				 jQuery('#' + name).html(data);
+				 jQuery('##' + name).html(data);
 			})
 		}
 	</script>
