@@ -402,7 +402,7 @@
 				<th>Related Taxa</th>
 				<th>Authority</th>
 			</tr>
-			<form name="newRelation" method="post" action="Taxonomy.cfm">
+			<form name="newRelation" method="post" action="editTaxonomy.cfm">
 				<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 				<input type="hidden" name="Action" value="newTaxaRelation">
 				<tr class="newRec">
