@@ -430,7 +430,7 @@
 			</form>
 			<cfloop query="relations">
 				<form name="relation#i#" method="post" action="Taxonomy.cfm">
-					<input type="hidden" name="taxon_name_id" value="#getTaxa.taxon_name_id#">
+					<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 					<input type="hidden" name="Action">
 					<input type="hidden" name="related_taxon_name_id" value="#related_taxon_name_id#">
 					<input type="hidden" name="origTaxon_Relationship" value="#taxon_relationship#">
