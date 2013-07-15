@@ -292,6 +292,33 @@
 	</cfquery>
 	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfif>
+
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "removePub">
+	<cfquery name="removePub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from taxonomy_publication where taxonomy_publication_id=#taxonomy_publication_id#
+	</cfquery>
+	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "newTaxaRelation">
+<cfoutput>
+	<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		INSERT INTO taxon_relations (
+			 TAXON_NAME_ID,
+			 RELATED_TAXON_NAME_ID,
+			 TAXON_RELATIONSHIP,
+			 RELATION_AUTHORITY
+		  )	VALUES (
+			#TAXON_NAME_ID#,
+			 #newRelatedId#,
+			 '#TAXON_RELATIONSHIP#',
+		 	'#RELATION_AUTHORITY#'
+		)		 
+	</cfquery>
+	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
+</cfoutput>
+</cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "editnoclass">
 	<cfoutput>		
@@ -309,10 +336,6 @@
 			<input type="text" id="scientific_name" name="scientific_name" value="#thisname.scientific_name#" size="80">
 			<input type="submit" value="Save Change">
 		</form>
-
-		
-		
-		
 		<cfquery name="ctRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select taxon_relationship from cttaxon_relation order by taxon_relationship
 		</cfquery>
@@ -692,13 +715,6 @@
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif action is "removePub">
-	<cfquery name="removePub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from taxonomy_publication where taxonomy_publication_id=#taxonomy_publication_id#
-	</cfquery>
-	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
-</cfif>
-<!---------------------------------------------------------------------------------------------------->
 <cfif action is "newCommon">
 <cfoutput>
 	<cfquery name="newCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -969,25 +985,6 @@
 		)
 	</cfquery>
 	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#nextID.nextID#" addtoken="false">	
-</cfoutput>
-</cfif>
-<!---------------------------------------------------------------------------------------------------->
-<cfif action is "newTaxaRelation">
-<cfoutput>
-	<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		INSERT INTO taxon_relations (
-			 TAXON_NAME_ID,
-			 RELATED_TAXON_NAME_ID,
-			 TAXON_RELATIONSHIP,
-			 RELATION_AUTHORITY
-		  )	VALUES (
-			#TAXON_NAME_ID#,
-			 #newRelatedId#,
-			 '#TAXON_RELATIONSHIP#',
-		 	'#RELATION_AUTHORITY#'
-		)		 
-	</cfquery>
-	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
