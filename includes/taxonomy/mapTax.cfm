@@ -98,7 +98,6 @@
 		jQuery(document).ready(function() {
 	 		var map;
 	 		var mapOptions = {
-	        	//center: new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val()),
 	         	mapTypeId: google.maps.MapTypeId.ROADMAP
 	        };
 
