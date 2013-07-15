@@ -236,7 +236,7 @@ Arctos taxonomy has changed.......
 		publication
 	where
 		taxonomy_publication.publication_id=publication.publication_id and
-		taxonomy_publication.taxon_name_id=#tnid#
+		taxonomy_publication.taxon_name_id=#taxon_name_id.taxon_name_id#
 </cfquery>
 
 
