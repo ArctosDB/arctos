@@ -161,7 +161,7 @@ Arctos taxonomy has changed.......
 	
 	<div id="specTaxMedia"></div>
 
-	<div id="mapTax"></div>
+	<div id="mapTax" style="margin:2em;"></div>
 
 
 
