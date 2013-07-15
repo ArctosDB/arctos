@@ -320,6 +320,33 @@
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
+<cfif action is "saveRelnEdit">
+<cfoutput>
+<cfquery name="edRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	UPDATE taxon_relations SET
+		taxon_relationship = '#taxon_relationship#',
+		related_taxon_name_id = #related_taxon_name_id#,
+		relation_authority = '#relation_authority#'
+	WHERE
+		taxon_relations_id = #taxon_relations_id#
+</cfquery>
+<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
+</cfoutput>
+</cfif>				
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "deleReln">
+<cfoutput>
+<cfquery name="deleReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	DELETE FROM 
+		taxon_relations
+	WHERE
+		taxon_relations_id = #taxon_relations_id#
+		</cfquery>
+		<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
+</cfoutput>		
+				
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
 <cfif action is "editnoclass">
 	<cfoutput>		
 		<cfquery name="thisname" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -383,6 +410,7 @@
 		</table>
 		<cfquery name="relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
+				taxon_relations_id,
 				scientific_name, 
 				taxon_relationship,
 				relation_authority,
@@ -404,7 +432,7 @@
 			</tr>
 			<form name="newRelation" method="post" action="editTaxonomy.cfm">
 				<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
-				<input type="hidden" name="Action" value="newTaxaRelation">
+				<input type="hidden" name="action" value="newTaxaRelation">
 				<tr class="newRec">
 					<td>
 						<label for="taxon_relationship">Add Relationship</label>
@@ -429,11 +457,11 @@
 				</tr>
 			</form>
 			<cfloop query="relations">
-				<form name="relation#i#" method="post" action="Taxonomy.cfm">
+				<form name="relation#i#" method="post" action="editTaxonomy.cfm">
 					<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
-					<input type="hidden" name="Action">
+					<input type="hidden" name="taxon_relations_id" value="#taxon_relations_id#">
+					<input type="hidden" name="action">
 					<input type="hidden" name="related_taxon_name_id" value="#related_taxon_name_id#">
-					<input type="hidden" name="origTaxon_Relationship" value="#taxon_relationship#">
 					<tr>
 						<td>
 							<select name="taxon_relationship" size="1" class="reqdClr">
@@ -446,20 +474,19 @@
 						</td>
 						<td>
 							<input type="text" name="relatedName" class="reqdClr" size="50" value="#relations.scientific_name#"
-								onChange="taxaPick('newRelatedId','relatedName','relation#i#',this.value); return false;"
+								onChange="taxaPick('related_taxon_name_id','relatedName','relation#i#',this.value); return false;"
 								onKeyPress="return noenter(event);">
-							<input type="hidden" name="newRelatedId">
 						</td>
 						<td>
 							<input type="text" name="relation_authority" value="#relations.relation_authority#">
 						</td>
 						<td>
-							<input type="button" value="Save" class="savBtn" onclick="relation#i#.Action.value='saveRelnEdit';submit();">	
-							<input type="button" value="Delete" class="delBtn" onclick="relation#i#.Action.value='deleReln';confirmDelete('relation#i#');">
+							<input type="button" value="Save" class="savBtn" onclick="relation#i#.action.value='saveRelnEdit';submit();">	
+							<input type="button" value="Delete" class="delBtn" onclick="relation#i#.action.value='deleReln';confirmDelete('relation#i#');">
 						</td>
 					</tr>
 				</form>
-				<cfset i = #i#+1>
+				<cfset i = i+1>
 			</cfloop>
 		</table>
 		<cfquery name="common" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -985,44 +1012,6 @@
 		)
 	</cfquery>
 	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#nextID.nextID#" addtoken="false">	
-</cfoutput>
-</cfif>
-<!---------------------------------------------------------------------------------------------------->
-<cfif Action is "deleReln">
-<cfoutput>
-<cfquery name="deleReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	DELETE FROM 
-		taxon_relations
-	WHERE
-		taxon_name_id = #taxon_name_id#
-		AND Taxon_relationship = '#origtaxon_relationship#'
-		AND related_taxon_name_id=#related_taxon_name_id#
-		</cfquery>
-		<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
-</cfoutput>
-</cfif>
-<!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "saveRelnEdit">
-<cfoutput>
-<cfquery name="edRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	UPDATE taxon_relations SET
-		taxon_relationship = '#taxon_relationship#'
-		<cfif len(#newRelatedId#) gt 0>
-			,related_taxon_name_id = #newRelatedId#
-		<cfelse>
-			,related_taxon_name_id = #related_taxon_name_id#
-		</cfif>
-		<cfif len(#relation_authority#) gt 0>
-			,relation_authority = '#relation_authority#'
-		<cfelse>
-			,relation_authority = null
-		</cfif>
-	WHERE
-		taxon_name_id = #taxon_name_id#
-		AND Taxon_relationship = '#origTaxon_relationship#'
-		AND related_taxon_name_id=#related_taxon_name_id#
-</cfquery>
-<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
