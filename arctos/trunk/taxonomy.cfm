@@ -156,7 +156,7 @@ Arctos taxonomy has changed.......
 		</cfif>
     </span>
 	<div id="mapTax"></div>
-	
+	<p>stuff</p>
 	<input type="hidden" id="scientific_name" value="#scientific_name.scientific_name#">
 	<input type="hidden" id="taxon_name_id" value="#taxon_name_id.taxon_name_id#">
 	<h3>Taxonomy Details for <i>#name#</i></h3>
