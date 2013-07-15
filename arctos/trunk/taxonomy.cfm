@@ -105,22 +105,7 @@ Arctos taxonomy has changed.......
 		}
 	</script>
 	
-	<span class="annotateSpace">
-		<cfif len(session.username) gt 0>
-			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select count(*) cnt from annotations
-				where taxon_name_id = #tnid#
-			</cfquery>
-			<a href="javascript: openAnnotation('taxon_name_id=#tnid#')">
-				[Annotate]
-			<cfif #existingAnnotations.cnt# gt 0>
-				<br>(#existingAnnotations.cnt# existing)
-			</cfif>
-			</a>
-		<cfelse>
-			<a href="/login.cfm">Login or Create Account</a>
-		</cfif>
-    </span>
+	
 	
 	<!--- pipe-delimited list of things that users are allowed to edit --->
 	<cfset editableSources="Arctos">
@@ -142,6 +127,25 @@ Arctos taxonomy has changed.......
 	<cfquery name="taxon_name_id" dbtype="query">
 		select taxon_name_id from d group by taxon_name_id
 	</cfquery>
+	
+	<span class="annotateSpace">
+		<cfif len(session.username) gt 0>
+			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select count(*) cnt from annotations
+				where taxon_name_id = #taxon_name_id.taxon_name_id#
+			</cfquery>
+			<a href="javascript: openAnnotation('taxon_name_id=#taxon_name_id.taxon_name_id#')">
+				[Annotate]
+			<cfif #existingAnnotations.cnt# gt 0>
+				<br>(#existingAnnotations.cnt# existing)
+			</cfif>
+			</a>
+		<cfelse>
+			<a href="/login.cfm">Login or Create Account</a>
+		</cfif>
+    </span>
+	
+	
 	<input type="hidden" id="scientific_name" value="#scientific_name.scientific_name#">
 	<input type="hidden" id="taxon_name_id" value="#taxon_name_id.taxon_name_id#">
 	<h3>Taxonomy Details for <i>#name#</i></h3>
