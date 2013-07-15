@@ -96,7 +96,13 @@
 	<span style="font-size:smaller;color:red;">Encumbered records are excluded.</span>
 	<div id="taxarangemap" style="width: 100%;; height: 400px;"></div>
 	<script language="javascript" type="text/javascript">
-		jQuery(document).ready(function() {
+		
+function initialize() {
+        	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+      	}
+
+
+jQuery(document).ready(function() {
 	 		var map;
 	 		var mapOptions = {
 	         	mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -107,6 +113,7 @@ var georssLayer = new google.maps.KmlLayer('#externalPath##fn#');
 georssLayer.setMap(map);
 
 
+		initialize();
 
 
 		});
@@ -120,4 +127,6 @@ georssLayer.setMap(map);
 			Showing fuzzy matches - <span class="likeLink" onclick="reloadThis('exact')"> show matches for exactly '#scientific_name#'</span>
 		</cfif>
 	</span>
+	
+	<div id="map-canvas">map here</div>
 </cfoutput>
