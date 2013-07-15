@@ -97,9 +97,6 @@
 	<div id="taxarangemap" style="width: 100%;; height: 400px;"></div>
 	<script language="javascript" type="text/javascript">
 		
-function initialize() {
-        	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-      	}
 
 
 jQuery(document).ready(function() {
@@ -107,6 +104,9 @@ jQuery(document).ready(function() {
 	 		var mapOptions = {
 	         	mapTypeId: google.maps.MapTypeId.ROADMAP
 	        };
+function initialize() {
+        	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+      	}
 
 
 var georssLayer = new google.maps.KmlLayer('#externalPath##fn#');
