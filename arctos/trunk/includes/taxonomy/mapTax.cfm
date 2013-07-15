@@ -1,3 +1,4 @@
+<cfinclude template="/includes/alwaysInclude.cfm">
 <style>
 	#mapTax{
 		width:40%;
