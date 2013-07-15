@@ -263,22 +263,51 @@
 		</cftransaction>
 		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
 	</cfoutput>
-</cfif>	
-<!------------------------------------->
+</cfif>
+
+
+
+
+
+
+
+
+
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "saveEditScientificName">
+<cfoutput>
+<cftransaction>
+	<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,session.sessionKey)#">
+	UPDATE taxon_name SET scientific_name='#scientific_name#' where taxon_name_id=#taxon_name_id#
+	</cfquery>
+	</cftransaction>
+	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
+</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "newTaxonPub">
+	<cfquery name="newTaxonPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		INSERT INTO taxonomy_publication (taxon_name_id,publication_id)
+		VALUES (#taxon_name_id#,#new_publication_id#)
+	</cfquery>
+	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
 <cfif action is "editnoclass">
 	<cfoutput>		
 		<cfquery name="thisname" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select scientific_name  from taxon_name where taxon_name_id=#taxon_name_id#
 		</cfquery>
 		
-		<p>Editing #thisname.scientific_name# non-classification data</p>
+		<p>Editing non-classification data for <strong><em>#thisname.scientific_name#</em></strong></p>
 		<br><a href="/name/#thisname.scientific_name#">Return to taxon overview</a>
 		
-		<form name="name" method="post" action="Taxonomy.cfm">
+		<form name="name" method="post" action="editTaxonomy.cfm">
 			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 			<input type="hidden" name="action" value="saveEditScientificName">
 			<label for="scientific_name">Scientific Name</label>
 			<input type="text" id="scientific_name" name="scientific_name" value="#thisname.scientific_name#" size="80">
+			<input type="submit" value="Save Change">
 		</form>
 
 		
@@ -301,7 +330,7 @@
 		</cfquery>
 		<cfset i = 1>
 		<span class="likeLink" onClick="getDocs('taxonomy','taxonomy_publication');">Related Publications</span>
-			<form name="newPub" method="post" action="Taxonomy.cfm">
+			<form name="newPub" method="post" action="editTaxonomy.cfm">
 				<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 				<input type="hidden" name="Action" value="newTaxonPub">
 				<input type="hidden" name="new_publication_id" id="new_publication_id">
@@ -317,10 +346,10 @@
 					#short_citation#
 					<ul>
 						<li>
-							<a href="Taxonomy.cfm?action=removePub&taxonomy_publication_id=#taxonomy_publication_id#&taxon_name_id=#taxon_name_id#">[ remove ]</a>
+							<a href="editTaxonomy.cfm?action=removePub&taxonomy_publication_id=#taxonomy_publication_id#&taxon_name_id=#taxon_name_id#">[ remove ]</a>
 						</li>
 						<li>
-							<a href="SpecimenUsage.cfm?publication_id=#publication_id#">[ details ]</a>
+							<a href="/SpecimenUsage.cfm?publication_id=#publication_id#">[ details ]</a>
 						</li>
 					</ul>
 				</li>
@@ -670,14 +699,6 @@
 	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif action is "newTaxonPub">
-	<cfquery name="newTaxonPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		INSERT INTO taxonomy_publication (taxon_name_id,publication_id)
-		VALUES (#taxon_name_id#,#new_publication_id#)
-	</cfquery>
-	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
-</cfif>
-<!---------------------------------------------------------------------------------------------------->
 <cfif action is "newCommon">
 <cfoutput>
 	<cfquery name="newCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -1005,40 +1026,6 @@
 		AND related_taxon_name_id=#related_taxon_name_id#
 </cfquery>
 <cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
-</cfoutput>
-</cfif>
-<!---------------------------------------------------------------------------------------------------->
-<cfif #Action# is "saveTaxaEdits">
-<cfoutput>
-<cftransaction>
-	<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,session.sessionKey)#">
-	UPDATE taxonomy SET 
-		valid_catalog_term_fg=#valid_catalog_term_fg#,
-		source_authority = '#source_authority#',
-		author_text='#escapeQuotes(author_text)#',
-		tribe = '#tribe#',
-		infraspecific_rank = '#infraspecific_rank#',
-		phylclass = '#phylclass#',
-		phylorder = '#phylorder#',
-		suborder = '#suborder#',
-		family = '#family#',
-		subfamily = '#subfamily#',
-		genus = '#genus#',
-		subgenus = '#subgenus#',
-		species = '#species#',
-		subspecies = '#subspecies#',
-		phylum = '#phylum#',
-		taxon_remarks = '#escapeQuotes(taxon_remarks)#',
-		kingdom = '#kingdom#',
-		nomenclatural_code = '#nomenclatural_code#',
-		infraspecific_author = '#escapeQuotes(infraspecific_author)#',
-		taxon_status='#taxon_status#',
-		subclass='#subclass#',
-		superfamily='#superfamily#'
-	WHERE taxon_name_id=#taxon_name_id#
-	</cfquery>
-	</cftransaction>
-	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
