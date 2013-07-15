@@ -100,17 +100,25 @@
 
 
 jQuery(document).ready(function() {
-	 		var map;
-	 		var mapOptions = {
-	         	mapTypeId: google.maps.MapTypeId.ROADMAP
-	        };
+	 	var map;
+	
+var myLatLng = new google.maps.LatLng(49.496675, -102.65625);
+var mapOptions = {
+  zoom: 4,
+  center: myLatLng,
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+}
+
+
+
+	 		
 function initialize() {
         	map = new google.maps.Map(document.getElementById("taxarangemap"), mapOptions);
       	}
 
 
-var georssLayer = new google.maps.KmlLayer('#externalPath##fn#');
-georssLayer.setMap(map);
+//var georssLayer = new google.maps.KmlLayer('#externalPath##fn#');
+//georssLayer.setMap(map);
 
 
 		initialize();
