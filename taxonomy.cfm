@@ -214,13 +214,8 @@ Arctos taxonomy has changed.......
 			</ul>
 		</p>
 	</cfif>
-	<p>
-	ima paragraph
-	</p>
-	<div id="specTaxMedia"></div>
+	
 
-	<p>
-somi	</p>
 	<cfquery name="common_name" datasource="uam_god">
 		select
 			common_name
@@ -274,6 +269,11 @@ somi	</p>
 			</cfif>
 		</ul>
     </div>
+
+
+	<div id="specTaxMedia"></div>
+
+
 
 	<h4>Classifications</h4>
 	<cfquery name="sources" dbtype="query">
