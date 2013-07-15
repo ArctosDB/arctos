@@ -144,7 +144,8 @@ Arctos taxonomy has changed.......
 			<a href="/login.cfm">Login or Create Account</a>
 		</cfif>
     </span>
-	
+		<div id="specTaxMedia"></div>
+	<div id="mapTax"></div>
 	
 	<input type="hidden" id="scientific_name" value="#scientific_name.scientific_name#">
 	<input type="hidden" id="taxon_name_id" value="#taxon_name_id.taxon_name_id#">
