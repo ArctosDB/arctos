@@ -82,8 +82,10 @@ Arctos taxonomy has changed.......
 	<script>
 		jQuery(document).ready(function(){
 			//var elemsToLoad='specTaxMedia,taxRelatedNames,mapTax';
+			var taxon_name_id=$("##taxon_name_id").val();
+
 			var elemsToLoad='taxRelatedNames,mapTax';
-			getMedia('taxon','#one.taxon_name_id#','specTaxMedia','10','1');
+			getMedia('taxon',taxon_name_id,'specTaxMedia','10','1');
 			//var elemsToLoad='taxRelatedNames';
 			var elemAry = elemsToLoad.split(",");
 			for(var i=0; i<elemAry.length; i++){
