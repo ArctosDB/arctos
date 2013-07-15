@@ -105,7 +105,7 @@ jQuery(document).ready(function() {
 	         	mapTypeId: google.maps.MapTypeId.ROADMAP
 	        };
 function initialize() {
-        	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+        	map = new google.maps.Map(document.getElementById("taxarangemap"), mapOptions);
       	}
 
 
@@ -128,5 +128,4 @@ georssLayer.setMap(map);
 		</cfif>
 	</span>
 	
-	<div id="map-canvas">map here</div>
 </cfoutput>
