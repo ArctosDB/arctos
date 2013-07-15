@@ -274,12 +274,18 @@
 		<p>Editing #thisname.scientific_name# non-classification data</p>
 		<br><a href="/name/#thisname.scientific_name#">Return to taxon overview</a>
 		
+		<form name="name" method="post" action="Taxonomy.cfm">
+			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
+			<input type="hidden" name="action" value="saveEditScientificName">
+			<label for="scientific_name">Scientific Name</label>
+			<input type="text" id="scientific_name" name="scientific_name" value="#thisname.scientific_name#" size="80">
+		</form>
+
 		
-		<cfabort>
 		
 		
 		<cfquery name="ctRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select taxon_relationship  from cttaxon_relation order by taxon_relationship
+			select taxon_relationship from cttaxon_relation order by taxon_relationship
 		</cfquery>
 		<cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
