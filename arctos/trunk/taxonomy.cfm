@@ -157,6 +157,15 @@ Arctos taxonomy has changed.......
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">Edit Non-Classification Data</a>
 	</cfif>
+	
+	
+	<div id="specTaxMedia"></div>
+
+	<div id="mapTax"></div>
+
+
+
+
 	<cfquery name="related" datasource="uam_god">
 		select
 			TAXON_RELATIONSHIP,
@@ -264,11 +273,7 @@ Arctos taxonomy has changed.......
     </div>
 
 
-	<div id="specTaxMedia"></div>
-
-	<div id="mapTax"></div>
-	<p>stuff</p>
-
+	
 
 	<h4>Classifications</h4>
 	<cfquery name="sources" dbtype="query">
