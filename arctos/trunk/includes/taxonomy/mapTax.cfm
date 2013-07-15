@@ -80,40 +80,21 @@
 			variables.joFileWriter.close();
 		</cfscript>
 	</cfif>
-	
-
-	
 	<span style="font-size:smaller;color:red;">Encumbered records are excluded.</span>
 	<div id="taxarangemap" style="width: 100%;; height: 400px;"></div>
 	<script language="javascript" type="text/javascript">
-		
-
-
-jQuery(document).ready(function() {
-	 	var map;
-	
-var myLatLng = new google.maps.LatLng(49.496675, -102.65625);
-var mapOptions = {
-  zoom: 4,
-  center: myLatLng,
-  mapTypeId: google.maps.MapTypeId.ROADMAP
-}
-
-
-
-	 		
+		jQuery(document).ready(function() {
+	 		var map;
+			var myLatLng = new google.maps.LatLng(49.496675, -102.65625);
+			var mapOptions = {
+			  zoom: 4,
+			  center: myLatLng,
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+			}		
         	map = new google.maps.Map(document.getElementById("taxarangemap"), mapOptions);
-
-
-
-var georssLayer = new google.maps.KmlLayer('#externalPath##fn#');
-georssLayer.setMap(map);
-
-
-
+			var georssLayer = new google.maps.KmlLayer('#externalPath##fn#');
+			georssLayer.setMap(map);
 		});
-
-
 	</script>
 	<span id="toggleExactmatch">
 		<cfif method is "exact">
@@ -122,5 +103,4 @@ georssLayer.setMap(map);
 			Showing fuzzy matches - <span class="likeLink" onclick="reloadThis('exact')"> show matches for exactly '#scientific_name#'</span>
 		</cfif>
 	</span>
-	
 </cfoutput>

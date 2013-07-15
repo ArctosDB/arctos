@@ -155,7 +155,6 @@ Arctos taxonomy has changed.......
 			<a href="/login.cfm">Login or Create Account</a>
 		</cfif>
     </span>
-		<div id="specTaxMedia"></div>
 	<div id="mapTax"></div>
 	
 	<input type="hidden" id="scientific_name" value="#scientific_name.scientific_name#">
@@ -214,7 +213,9 @@ Arctos taxonomy has changed.......
 				</cfloop>
 			</ul>
 		</p>
-	</cfif>	
+	</cfif>
+	<div id="specTaxMedia"></div>
+
 	<cfquery name="common_name" datasource="uam_god">
 		select
 			common_name
