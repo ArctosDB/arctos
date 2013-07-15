@@ -79,6 +79,17 @@ Arctos taxonomy has changed.......
 
 <!--------------------- taxonomy details --------------------->
 <cfif isdefined("name") and len(name) gt 0>
+	
+		<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select
+			google_client_id,
+			google_private_key
+		from cf_global_settings
+	</cfquery>
+	<cfoutput>
+		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
+	</cfoutput>
+	
 	<script>
 		jQuery(document).ready(function(){
 			//var elemsToLoad='specTaxMedia,taxRelatedNames,mapTax';
