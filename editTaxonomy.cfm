@@ -420,6 +420,17 @@
 		</form>
 	</cfoutput>
 </cfif>
+
+<!------------------------------------->
+<cfif action is "deleteClassification">
+	<cfoutput>
+		<cfquery name="deleteallclassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from taxon_term where classification_id='#classification_id#'
+		</cfquery>
+	</cfoutput>
+	<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
+</cfif>
+
 <!------------------------------------->
 <cfif action is "saveClassEdits">
 	<cfoutput>
