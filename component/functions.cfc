@@ -206,7 +206,7 @@
 		select source from taxon_term group by source
 	</cfquery>
 	<cfquery name="pn" dbtype="query">
-		select source from classification_termtype where upper(source) like '%#ucase(source)#%'
+		select source from classification_termtype where upper(source) like '%#ucase(term)#%'
 		order by source
 	</cfquery>
 	<cfreturn "[" & ListQualify(valuelist(pn.source),'"') & "]">
