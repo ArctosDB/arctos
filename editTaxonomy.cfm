@@ -1,4 +1,138 @@
 <cfinclude template="includes/_header.cfm">
+<cfif action is "newClassification">
+	<script>
+		// copy this with edit classification
+		$(function() {
+			$( "#sortable" ).sortable({
+				handle: '.dragger'
+			});
+			var ac_isclass_ttoptions = {
+	       		source: '/component/functions.cfc?method=ac_isclass_tt',
+				width: 320,
+				max: 50,
+				autofill: false,
+				multiple: false,
+				scroll: true,
+				scrollHeight: 300,
+				matchContains: true,
+				minChars: 1,
+				selectFirst:false
+		    };
+			var ac_noclass_ttoptions = {
+	       		source: '/component/functions.cfc?method=ac_noclass_tt',
+				width: 320,
+				max: 50,
+				autofill: false,
+				multiple: false,
+				scroll: true,
+				scrollHeight: 300,
+				matchContains: true,
+				minChars: 1,
+				selectFirst:false
+		    };
+			// split source out for creating 
+			var ac_nc_source = {
+	       		source: '/component/functions.cfc?method=ac_nc_source',
+				width: 320,
+				max: 50,
+				autofill: false,
+				multiple: false,
+				scroll: true,
+				scrollHeight: 300,
+				matchContains: true,
+				minChars: 1,
+				selectFirst:false
+		    };
+			
+			$("input.ac_nc_source").live("keydown.autocomplete", function() {
+		        $(this).autocomplete(ac_nc_source);
+		    });
+
+			// end source split
+		
+		    $("input.ac_isclass_tt").live("keydown.autocomplete", function() {
+		        $(this).autocomplete(ac_isclass_ttoptions);
+		    });
+			$("input.ac_noclass_tt").live("keydown.autocomplete", function() {
+		        $(this).autocomplete(ac_noclass_ttoptions);
+		    });
+
+		});
+	</script>
+	<p>
+		Create classifications here. This form is limited - you can edit classifications (after creating them here) to do more.	
+	</p>
+	<p>"Classifications" consist of hierarchical "taxonomy" data and nonhierarchical, non-classification data attributable to a Source.
+	
+	"Nomenclatural code according to Arctos" is part of a Clasification (so it can be linked to the potentially-ranked taxonomy) but is NOT part of the 
+	taxonomic classification.</p>
+	<p>
+		There are no true hierarchies, and there are no data rules. You can type anything here. Be exceedingly careful.
+	</p>
+	<cfquery name="thisName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select scientific_name from taxon_name where taxon_name_id=#taxon_name_id#
+	</cfquery>
+	<h3>Create Classification for #thisName.scientific_name#</h3>
+
+	<form name="f1" id="f1" method="post" action="editTaxonomy.cfm">
+		<input type="hidden" name="action" value="saveNewClass">
+		<input type="hidden" name="taxon_name_id" id="taxon_name_id" value="#taxon_name_id#">
+			
+			<label for="source">Source (required)</label>
+			<input type="text" name="source" id="source" class="ac_nc_source">
+			
+			<label for="clastbl">Non-Classification information</label>
+			<table id="clastbl" border="1">
+				<thead>
+					<tr><th>Term Type</th><th>Term</th><th>Delete</th></tr>
+				</thead>
+				<tbody id="notsortable">
+					<cfloop from="1" to="10" index="i">
+						<tr id="nccell_#i#">
+							<td>
+								<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#i#" name="ncterm_type_#i#" value="#term_type#">
+							</td>
+							<td>
+								<input size="60" type="text" id="ncterm_#i#" name="ncterm_#i#" value="#term#">
+							</td>
+							<td>
+								<span class="likeLink" onclick="nc_deleteThis('#i#');">[ Delete this row ]</span>
+							</td>
+						</tr>
+					</cfloop>
+				</tbody>
+			</table>
+			<span class="likeLink" onclick="nc_addARow();">Add a Row</span>
+			<p>&nbsp;</p>
+			<label for="clastbl">
+				Create Classification. Order is important here - "large" (eg, kingdom) at top to "small" (eg, subspecies) at bottom.
+				Use as many cells as you need; leave the rest empty. Add more via Edit (after you save here).	
+			</label>
+			<table id="clastbl" border="1">
+				<thead>
+					<tr><th>Term Type</th><th>Term</th></tr>
+				</thead>
+				<tbody id="sortable">
+					<cfloop from="1" to="10" index="i">
+							
+							<td>
+								<input size="60" class="ac_isclass_tt" type="text" id="term_type_#i#" name="term_type_#i#">
+							</td>
+							<td>
+								<input size="60" type="text" id="term_#i#" name="term_#i#" >
+							</td>
+						</tr>
+					</cfloop>
+				</tbody>
+			</table>
+			<span class="likeLink" onclick="addARow();">Add a Row</span>
+			<p>
+				<input type="submit" value="Create Classification">
+			</p>
+		</form>
+		
+</cfif>
+
 <cfif action is "editClassification">
 	<style>
 		.dragger {
@@ -6,6 +140,7 @@
 		}
 	</style>
 	<script>
+		// copy this with create classification
 		$(function() {
 			$( "#sortable" ).sortable({
 				handle: '.dragger'

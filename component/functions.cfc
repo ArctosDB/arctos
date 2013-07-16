@@ -198,6 +198,20 @@
 	</cfquery>
 	<cfreturn "[" & ListQualify(valuelist(pn.label),'"') & "]">
 </cffunction>
+
+<!------------------------------------------------------------------->
+<cffunction name="ac_nc_source" access="remote" returnformat="json">
+   	<cfargument name="term" required="true" type="string">
+	<cfquery name="classification_termtype" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select source from taxon_term group by source
+	</cfquery>
+	<cfquery name="pn" dbtype="query">
+		select source from classification_termtype where upper(source) like '%#ucase(source)#%'
+		order by source
+	</cfquery>
+	<cfreturn "[" & ListQualify(valuelist(pn.source),'"') & "]">
+</cffunction>
+
 <!------------------------------------------------------------------->
 <cffunction name="ac_isclass_tt" access="remote" returnformat="json">
    	<cfargument name="term" required="true" type="string">

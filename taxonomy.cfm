@@ -281,6 +281,8 @@ Arctos taxonomy has changed.......
 	<h4>Classifications</h4>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<a target="_blank" href="/ScheduledTasks/globalnames_fetch.cfm?name=#name#">Refresh/pull GlobalNames</a>
+		
+		<a target="_blank" href="/editTaxonomy.cfm?action=newClassification&taxon_name_id=#taxon_name_id.taxon_name_id#">Create Classification</a>
 	</cfif>
 	<cfquery name="sources" dbtype="query">
 		select 
