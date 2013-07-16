@@ -73,7 +73,7 @@
 		select scientific_name from taxon_name where taxon_name_id=#taxon_name_id#
 	</cfquery>
 	<h3>Create Classification for #thisName.scientific_name#</h3>
-
+<cfoutput>
 	<form name="f1" id="f1" method="post" action="editTaxonomy.cfm">
 		<input type="hidden" name="action" value="saveNewClass">
 		<input type="hidden" name="taxon_name_id" id="taxon_name_id" value="#taxon_name_id#">
@@ -90,10 +90,10 @@
 					<cfloop from="1" to="10" index="i">
 						<tr id="nccell_#i#">
 							<td>
-								<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#i#" name="ncterm_type_#i#" value="#term_type#">
+								<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#i#" name="ncterm_type_#i#" >
 							</td>
 							<td>
-								<input size="60" type="text" id="ncterm_#i#" name="ncterm_#i#" value="#term#">
+								<input size="60" type="text" id="ncterm_#i#" name="ncterm_#i#">
 							</td>
 							<td>
 								<span class="likeLink" onclick="nc_deleteThis('#i#');">[ Delete this row ]</span>
@@ -130,7 +130,7 @@
 				<input type="submit" value="Create Classification">
 			</p>
 		</form>
-		
+		</cfoutput>
 </cfif>
 
 <cfif action is "editClassification">
