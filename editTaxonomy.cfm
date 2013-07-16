@@ -337,6 +337,10 @@
 				taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 				classification_id='#classification_id#'
 		</cfquery>
+		
+		<cfdump var=#d#>
+		
+		
 		<cfquery name="thisname" dbtype="query">
 			select 
 				source,
@@ -399,20 +403,20 @@
 					<tr><th>Term Type</th><th>Term</th><th>Delete</th></tr>
 				</thead>
 				<tbody id="notsortable">
-					<cfset i=1>
+					<cfset thisrow=1>
 					<cfloop query="noclass">
-						<tr id="nccell_#i#">
+						<tr id="nccell_#thisrow#">
 							<td>
-								<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#i#" name="ncterm_type_#i#" value="#term_type#">
+								<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#thisrow#" name="ncterm_type_#thisrow#" value="#term_type#">
 							</td>
 							<td>
-								<input size="60" type="text" id="ncterm_#i#" name="ncterm_#i#" value="#term#">
+								<input size="60" type="text" id="ncterm_#thisrow#" name="ncterm_#thisrow#" value="#term#">
 							</td>
 							<td>
-								<span class="likeLink" onclick="nc_deleteThis('#i#');">[ Delete this row ]</span>
+								<span class="likeLink" onclick="nc_deleteThis('#thisrow#');">[ Delete this row ]</span>
 							</td>
 						</tr>
-						<cfset i=i+1>
+						<cfset thisrow=thisrow+1>
 					</cfloop>
 				</tbody>
 			</table>
