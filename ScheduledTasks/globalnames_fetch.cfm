@@ -18,6 +18,8 @@
 				where 
 					scientific_name='#name#'
 		</cfquery>
+		<br>got taxon_name_id=#ids.taxon_name_id#
+		
 	<cfelse>
 		<!--- see if we can find something interesting to update ---->
 		<cfquery name="ids" datasource="uam_god">
