@@ -82,8 +82,7 @@ Arctos taxonomy has changed.......
 
 <!--------------------- taxonomy details --------------------->
 <cfif isdefined("name") and len(name) gt 0>
-	
-		<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			google_client_id,
 			google_private_key
@@ -92,7 +91,6 @@ Arctos taxonomy has changed.......
 	<cfoutput>
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
 	</cfoutput>
-	
 	<script>
 		jQuery(document).ready(function(){
 			//var elemsToLoad='specTaxMedia,taxRelatedNames,mapTax';
@@ -109,16 +107,12 @@ Arctos taxonomy has changed.......
 		function load(name){
 			var scientific_name=$("##scientific_name").val();
 			var taxon_name_id=$("##taxon_name_id").val();
-
-
-//var el=document.getElementById(name);
 			var ptl="/includes/taxonomy/" + name + ".cfm?taxon_name_id=" + taxon_name_id + "&scientific_name=" + scientific_name;
 			jQuery.get(ptl, function(data){
 				 jQuery('##' + name).html(data);
 			})
 		}
 	</script>
-	
 	
 	
 	<!--- pipe-delimited list of things that users are allowed to edit --->
@@ -159,16 +153,9 @@ Arctos taxonomy has changed.......
 	<cfset title="Taxonomy Details: #name#">
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">Edit Non-Classification Data</a>
-	</cfif>
-	
-	
+	</cfif>	
 	<div id="specTaxMedia"></div>
-
 	<div id="mapTax" style="margin:2em;"></div>
-
-
-
-
 	<cfquery name="related" datasource="uam_god">
 		select
 			TAXON_RELATIONSHIP,
@@ -219,8 +206,6 @@ Arctos taxonomy has changed.......
 			</ul>
 		</p>
 	</cfif>
-	
-
 	<cfquery name="common_name" datasource="uam_god">
 		select
 			common_name
@@ -241,24 +226,19 @@ Arctos taxonomy has changed.......
 			</ul>
 		</p>
 	</cfif>
-	
-	
-	
 	<cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select
-		taxonomy_publication_id,
-		short_citation,
-		taxonomy_publication.publication_id
-	from
-		taxonomy_publication,
-		publication
-	where
-		taxonomy_publication.publication_id=publication.publication_id and
-		taxonomy_publication.taxon_name_id=#taxon_name_id.taxon_name_id#
-</cfquery>
-
-
-<div>
+		select
+			taxonomy_publication_id,
+			short_citation,
+			taxonomy_publication.publication_id
+		from
+			taxonomy_publication,
+			publication
+		where
+			taxonomy_publication.publication_id=publication.publication_id and
+			taxonomy_publication.taxon_name_id=#taxon_name_id.taxon_name_id#
+	</cfquery>
+	<div>
 		Related Publications:
 		<ul>
 		 	<cfif tax_pub.recordcount is 0>
@@ -276,13 +256,10 @@ Arctos taxonomy has changed.......
     </div>
 
 
-	
-
 	<h4>Classifications</h4>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<a target="_blank" href="/ScheduledTasks/globalnames_fetch.cfm?name=#name#">Refresh/pull GlobalNames</a>
-		
-		<a target="_blank" href="/editTaxonomy.cfm?action=newClassification&taxon_name_id=#taxon_name_id.taxon_name_id#">Create Classification</a>
+		<a href="/editTaxonomy.cfm?action=newClassification&taxon_name_id=#taxon_name_id.taxon_name_id#">Create Classification</a>
 	</cfif>
 	<cfquery name="sources" dbtype="query">
 		select 
@@ -300,6 +277,7 @@ Arctos taxonomy has changed.......
 			classification_id
 	</cfquery>
 		
+	<cfdump var=#sources#>
 		
 	<cfloop query="sources">
 		<cfquery name="notclass" dbtype="query">
