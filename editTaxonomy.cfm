@@ -385,7 +385,7 @@
 <cfif action is "saveNewName">
 <cfoutput>
 	<cfquery name="saveNewName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		INSERT INTO taxon_name (SCIENTIFIC_NAME) VALUES ('#scientific_name#')
+		INSERT INTO taxon_name (TAXON_NAME_ID,SCIENTIFIC_NAME) VALUES (sq_TAXON_NAME_ID.nextval,'#scientific_name#')
 	</cfquery>
 	<br>
 	<cflocation url="/name/#SCIENTIFIC_NAME#" addtoken="false">
