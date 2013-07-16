@@ -72,19 +72,28 @@
 	<cfquery name="thisName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select scientific_name from taxon_name where taxon_name_id=#taxon_name_id#
 	</cfquery>
+	<cfoutput>
+	<cfset title="Create Classification for #thisName.scientific_name#">
 	<h3>Create Classification for #thisName.scientific_name#</h3>
-<cfoutput>
+
 	<form name="f1" id="f1" method="post" action="editTaxonomy.cfm">
 		<input type="hidden" name="action" value="saveNewClass">
 		<input type="hidden" name="taxon_name_id" id="taxon_name_id" value="#taxon_name_id#">
 			
-			<label for="source">Source (required)</label>
+			<label for="source">
+				Source (required)
+				<a href="/component/functions.cfc?method=ac_nc_source&term">[ view all (JSON)]</a>
+			</label>
 			<input type="text" name="source" id="source" class="ac_nc_source">
 			
 			<label for="clastbl">Non-Classification information</label>
 			<table id="clastbl" border="1">
 				<thead>
-					<tr><th>Term Type</th><th>Term</th><th>Delete</th></tr>
+					<tr><th>
+					Term Type
+									<a href="/component/functions.cfc?method=ac_noclass_tt&term">[ view all (JSON)]</a>
+
+</th><th>Term</th><th>Delete</th></tr>
 				</thead>
 				<tbody id="notsortable">
 					<cfloop from="1" to="10" index="i">
@@ -110,7 +119,9 @@
 			</label>
 			<table id="clastbl" border="1">
 				<thead>
-					<tr><th>Term Type</th><th>Term</th></tr>
+					<tr><th>Term Type
+					<a href="/component/functions.cfc?method=ac_isclass_tt&term">[ view all (JSON)]</a>
+					</th><th>Term</th></tr>
 				</thead>
 				<tbody id="sortable">
 					<cfloop from="1" to="10" index="i">
