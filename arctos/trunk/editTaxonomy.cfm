@@ -1,4 +1,67 @@
 <cfinclude template="includes/_header.cfm">
+
+<cfif action is "saveNewClass">
+	<cfoutput>		
+		<cfif len(source) is 0>
+			Source is required.
+			<cfabort>
+		</cfif>
+		<cfset thisSourceID=CreateUUID()>
+		<cfloop from="1" to="10" index="i">
+			<cfset thisTerm=evaluate("ncterm_type_" & i)>
+			<cfset thisTermType=evaluate("ncterm_") & i)>
+			<cfif len(thisTerm) gt 0 and len(thisTermType) gt 0>
+				<cfquery name="insRow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into taxon_term (
+						taxon_term_id,
+						taxon_name_id,
+						term,
+						term_type,
+						source,
+						classification_id
+					) values (
+						sq_taxon_term_id.nextval,
+						#taxon_name_id#,
+						'#thisTerm#',
+						'#thisTermType#',
+						'#Source#',
+						'#thisSourceID#'
+					)
+				</cfquery>
+			</cfif>
+		</cfloop>
+		<cfloop from="1" to="10" index="i">
+			<!--- deal with yahoos leaving empty cells.... ---->
+			<cfset pos=1>
+			<cfset thisTerm=evaluate("term_type_" & i)>
+			<cfset thisTermType=evaluate("term_") & i)>
+			<cfif len(thisTerm) gt 0 and len(thisTermType) gt 0>
+				<cfquery name="insRow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into taxon_term (
+						taxon_term_id,
+						taxon_name_id,
+						term,
+						term_type,
+						source,
+						position_in_classification,
+						classification_id
+					) values (
+						sq_taxon_term_id.nextval,
+						#d.taxon_name_id#,
+						'#thisTerm#',
+						'#lcase(thisTermType)#',
+						'#source#',
+						#pos#,
+						'#thisSourceID#'
+					)
+				</cfquery>
+				<cfset pos=pos+1>
+			</cfif>
+		</cfloop>
+		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#" addtoken="false">
+	</cfoutput>
+</cfif>
+<!--------------------------------------------->
 <cfif action is "newClassification">
 	<script>
 		// copy this with edit classification
@@ -82,18 +145,20 @@
 			
 			<label for="source">
 				Source (required)
-				<a href="/component/functions.cfc?method=ac_nc_source&term">[ view all (JSON)]</a>
+				<a target="_blank" href="/component/functions.cfc?method=ac_nc_source&term">[ view all (JSON)]</a>
 			</label>
 			<input type="text" name="source" id="source" class="ac_nc_source">
 			
-			<label for="clastbl">Non-Classification information</label>
+			<label for="clastbl">Non-Classification information. These are both/neither; if you leave one side blank the other will be ignored.</label>
 			<table id="clastbl" border="1">
 				<thead>
-					<tr><th>
-					Term Type
-									<a href="/component/functions.cfc?method=ac_noclass_tt&term">[ view all (JSON)]</a>
-
-</th><th>Term</th><th>Delete</th></tr>
+					<tr>
+						<th>
+							Term Type
+							<a target="_blank" href="/component/functions.cfc?method=ac_noclass_tt&term">[ view all (JSON)]</a>
+						</th>
+						<th>Term</th>
+					</tr>
 				</thead>
 				<tbody id="notsortable">
 					<cfloop from="1" to="10" index="i">
@@ -104,14 +169,10 @@
 							<td>
 								<input size="60" type="text" id="ncterm_#i#" name="ncterm_#i#">
 							</td>
-							<td>
-								<span class="likeLink" onclick="nc_deleteThis('#i#');">[ Delete this row ]</span>
-							</td>
 						</tr>
 					</cfloop>
 				</tbody>
 			</table>
-			<span class="likeLink" onclick="nc_addARow();">Add a Row</span>
 			<p>&nbsp;</p>
 			<label for="clastbl">
 				Create Classification. Order is important here - "large" (eg, kingdom) at top to "small" (eg, subspecies) at bottom.
@@ -120,7 +181,7 @@
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Term Type
-					<a href="/component/functions.cfc?method=ac_isclass_tt&term">[ view all (JSON)]</a>
+					<a target="_blank" href="/component/functions.cfc?method=ac_isclass_tt&term">[ view all (JSON)]</a>
 					</th><th>Term</th></tr>
 				</thead>
 				<tbody id="sortable">
@@ -136,14 +197,13 @@
 					</cfloop>
 				</tbody>
 			</table>
-			<span class="likeLink" onclick="addARow();">Add a Row</span>
 			<p>
 				<input type="submit" value="Create Classification">
 			</p>
 		</form>
 		</cfoutput>
 </cfif>
-
+<!------------------------------------------------------------------->
 <cfif action is "editClassification">
 	<style>
 		.dragger {
