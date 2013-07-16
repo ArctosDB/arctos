@@ -439,6 +439,10 @@
 <!------------------------------------->
 <cfif action is "saveClassEdits">
 	<cfoutput>
+	
+	<cfdump var=#form#>
+	
+	
 		<cftransaction>
 			<!---- clear everything out, start over - just easier this way ---->
 			<cfquery name="deleteallclassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
