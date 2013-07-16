@@ -428,7 +428,7 @@
 			delete from taxon_term where classification_id='#classification_id#'
 		</cfquery>
 	</cfoutput>
-	<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
+	<cflocation url="/taxonomy.cfm?TAXON_NAME_ID=#TAXON_NAME_ID#" addtoken="false">
 </cfif>
 
 <!------------------------------------->
