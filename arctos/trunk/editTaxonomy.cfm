@@ -34,7 +34,7 @@
 			<!--- deal with yahoos leaving empty cells.... ---->
 			<cfset pos=1>
 			<cfset thisTerm=evaluate("term_type_" & i)>
-			<cfset thisTermType=evaluate("term_") & i)>
+			<cfset thisTermType=evaluate("term_" & i)>
 			<cfif len(thisTerm) gt 0 and len(thisTermType) gt 0>
 				<cfquery name="insRow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into taxon_term (
