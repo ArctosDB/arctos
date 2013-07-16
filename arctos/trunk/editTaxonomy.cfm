@@ -8,8 +8,8 @@
 		</cfif>
 		<cfset thisSourceID=CreateUUID()>
 		<cfloop from="1" to="10" index="i">
-			<cfset thisTerm=evaluate("ncterm_type_" & i)>
-			<cfset thisTermType=evaluate("ncterm_" & i)>
+			<cfset thisTerm=evaluate("ncterm_" & i)>
+			<cfset thisTermType=evaluate("ncterm_type_" & i)>
 			<cfif len(thisTerm) gt 0 and len(thisTermType) gt 0>
 				<cfquery name="insRow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into taxon_term (
@@ -33,8 +33,8 @@
 		<cfloop from="1" to="10" index="i">
 			<!--- deal with yahoos leaving empty cells.... ---->
 			<cfset pos=1>
-			<cfset thisTerm=evaluate("term_type_" & i)>
-			<cfset thisTermType=evaluate("term_" & i)>
+			<cfset thisTerm=evaluate("term_" & i)>
+			<cfset thisTermType=evaluate("term_type_" & i)>
 			<cfif len(thisTerm) gt 0 and len(thisTermType) gt 0>
 				<cfquery name="insRow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into taxon_term (
