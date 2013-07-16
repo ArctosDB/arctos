@@ -18,6 +18,13 @@
 				where 
 					scientific_name='#name#'
 		</cfquery>
+		<p>
+			Hi!
+			You're probably seeing this because you clicked some sort of refresh button.
+			Sorry, but it's pretty boring. It'll fire a bunch of threads off, and whatever you're trying to refresh
+			will probably be updated in a minute or so, unless for some reason there are a bunch of other threads running
+			or something's busted. If it really seems to be stuck, use the Contact link or send us an email.
+		</p>
 		<br>got taxon_name_id=#ids.taxon_name_id#
 		
 	<cfelse>
@@ -44,7 +51,6 @@
 		 <cfquery name="d" datasource="uam_god">
 			select * from taxonomy where taxon_name_id='#taxon_name_id#'
 		</cfquery>
-		<p>running for #d.SCIENTIFIC_NAME#</p>
 		<cfquery name="tt" datasource="uam_god">
 			insert into taxon_name (taxon_name_id,scientific_name) values (#d.taxon_name_id#,'#d.SCIENTIFIC_NAME#')
 		</cfquery>
@@ -131,9 +137,6 @@
 						<cfelse>
 							<cfset thisMatchType="">
 						</cfif>
-						
-				
-	
 						<!--- try to use something from them to uniquely identify the hierarchy---->
 						<!---- failing that, make a local identifier useful only in patching the hierarchy back together ---->
 						<cfset thisSourceID=x.data[1].results[i].classification_path_ids>
@@ -224,8 +227,8 @@
 				</cfif>
 			</cfloop>		 
 		</cfthread>
-
-			<!--------
-		 -------->
 	</cfloop>
+	<cfif isdefined("name") and len(name) gt 0>
+		<br>threads opened
+	</cfif>
 </cfoutput>
