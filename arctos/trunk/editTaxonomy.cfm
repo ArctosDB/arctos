@@ -1,4 +1,7 @@
 <cfinclude template="includes/_header.cfm">
+<cfdump var=#form#>
+
+
 
 <cfif action is "saveNewClass">
 	<cfoutput>		
