@@ -397,7 +397,7 @@
 			<input type="hidden" name="numnoclassrs" id="numnoclassrs" value="#maxnoclass.m#">
 			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
 			<input type="hidden" name="noclassrows" id="noclassrows">
-			<label for="clastbl">Edit Non-Classification information</label>
+			<h3>Edit Non-Classification information</h3>
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Term Type</th><th>Term</th><th>Delete</th></tr>
@@ -422,7 +422,7 @@
 			</table>
 			<span class="likeLink" onclick="nc_addARow();">Add a Row</span>
 			<p>&nbsp;</p>
-			<label for="clastbl">Edit Classification: Drag rows to sort.</label>
+			<h3>Edit Classification: Drag rows to sort.</h3>
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Drag Handle</th><th>Term Type</th><th>Term</th><th>Delete</th></tr>
@@ -456,7 +456,6 @@
 		</form>
 	</cfoutput>
 </cfif>
-
 <!------------------------------------->
 <cfif action is "deleteClassification">
 	<cfoutput>
@@ -466,14 +465,9 @@
 	</cfoutput>
 	<cflocation url="/taxonomy.cfm?TAXON_NAME_ID=#TAXON_NAME_ID#" addtoken="false">
 </cfif>
-
 <!------------------------------------->
 <cfif action is "saveClassEdits">
 	<cfoutput>
-	
-	<cfdump var=#form#>
-	
-	
 		<cftransaction>
 			<!---- clear everything out, start over - just easier this way ---->
 			<cfquery name="deleteallclassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -528,45 +522,11 @@
 						#listpos#
 					)
 				</cfquery>
-				
-				
-				<hr>
-				
-					insert into taxon_term (
-						TAXON_NAME_ID,
-						CLASSIFICATION_ID,
-						TERM,
-						TERM_TYPE,
-						SOURCE,
-						LASTDATE,
-						POSITION_IN_CLASSIFICATION
-					) values (
-						#TAXON_NAME_ID#,
-						'#CLASSIFICATION_ID#',
-						'#thisterm#',
-						'#thistermtype#',
-						'#SOURCE#',
-						sysdate,
-						#listpos#
-					)
-					
-					
 			</cfloop>
 		</cftransaction>
-		
-		<cfabort>
 		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
 	</cfoutput>
 </cfif>
-
-
-
-
-
-
-
-
-
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "saveEditScientificName">
 <cfoutput>
@@ -586,7 +546,6 @@
 	</cfquery>
 	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfif>
-
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "removePub">
 	<cfquery name="removePub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
