@@ -289,6 +289,15 @@
 			$("#notsortable").append(x);
 			$("#numnoclassrs").val(n);
 		}
+		function deleteClassification(cid,tnid) {
+			var msg='Are you sure you want to delete this classification?\nDo NOT delete classifications because you do not agree with them or because they';
+			msg+=' do not fit your collection or taxonomy biases.\nDeleted classifications from GlobalNames will come back; fix them at the source.';
+			msg+='\nIf you did not create the classification you are trying to delete, you should probably click "cancel" now.';
+			var r=confirm(msg);
+			if (r==true) {
+				document.location='/editTaxonomy.cfm?action=deleteClassification&classification_id=' + cid + '&taxon_name_id=' + tnid;
+			}
+		}
 	</script>
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -324,6 +333,7 @@
 			Editing <strong>#thisName.source#</strong> classification for <strong>#thisName.scientific_name#</strong> (classification_id=#classification_id#)
 			<br><a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#thisname.taxon_name_id#">Edit Non-Classification Data</a>
 			<br><a href="/name/#thisname.scientific_name#">View Taxon Page</a>
+			<br><span class="likeLInk" onclick="deleteClassification('#classification_id#','#thisname.taxon_name_id#');">Delete Classification</span>
 		</p>
 		<p>
 			<strong>Firm Rules About These Data:</strong>
