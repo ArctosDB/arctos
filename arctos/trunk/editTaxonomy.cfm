@@ -383,13 +383,13 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "editnoclass">
-	<cfoutput>		
+	<cfoutput>	
 		<cfquery name="thisname" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select scientific_name  from taxon_name where taxon_name_id=#taxon_name_id#
 		</cfquery>
-		
+		<cfset title="Edit non-classification data for #thisname.scientific_name#">
 		<p>Editing non-classification data for <strong><em>#thisname.scientific_name#</em></strong></p>
-		<br><a href="/name/#thisname.scientific_name#">Return to taxon overview</a>
+		<br><a href="/name/#thisname.scientific_name#">Return to taxon overview</a> to edit classifications
 		
 		<form name="name" method="post" action="editTaxonomy.cfm">
 			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
