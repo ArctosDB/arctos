@@ -30,7 +30,6 @@ Arctos taxonomy has changed.......
 <br>
 
 <cfoutput>
-
 <cfif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
 	<cfquery name="d" datasource="uam_god">
 		select scientific_name from taxon_name where taxon_name_id=<cfqueryparam value = "#taxon_name_id#" CFSQLType = "CF_SQL_INTEGER"> 

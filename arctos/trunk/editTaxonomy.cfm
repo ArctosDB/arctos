@@ -333,7 +333,7 @@
 			Editing <strong>#thisName.source#</strong> classification for <strong>#thisName.scientific_name#</strong> (classification_id=#classification_id#)
 			<br><a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#thisname.taxon_name_id#">Edit Non-Classification Data</a>
 			<br><a href="/name/#thisname.scientific_name#">View Taxon Page</a>
-			<br><span class="likeLInk" onclick="deleteClassification('#classification_id#','#thisname.taxon_name_id#');">Delete Classification</span>
+			<br><span class="likeLink" onclick="deleteClassification('#classification_id#','#thisname.taxon_name_id#');">Delete Classification</span>
 		</p>
 		<p>
 			<strong>Firm Rules About These Data:</strong>
