@@ -7,57 +7,59 @@
 			<cfabort>
 		</cfif>
 		<cfset thisSourceID=CreateUUID()>
-		<cfloop from="1" to="10" index="i">
-			<cfset thisTerm=evaluate("ncterm_" & i)>
-			<cfset thisTermType=evaluate("ncterm_type_" & i)>
-			<cfif len(thisTerm) gt 0 and len(thisTermType) gt 0>
-				<cfquery name="insRow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into taxon_term (
-						taxon_term_id,
-						taxon_name_id,
-						term,
-						term_type,
-						source,
-						classification_id
-					) values (
-						sq_taxon_term_id.nextval,
-						#taxon_name_id#,
-						'#thisTerm#',
-						'#thisTermType#',
-						'#Source#',
-						'#thisSourceID#'
-					)
-				</cfquery>
-			</cfif>
-		</cfloop>
-		<cfloop from="1" to="10" index="i">
-			<!--- deal with yahoos leaving empty cells.... ---->
-			<cfset pos=1>
-			<cfset thisTerm=evaluate("term_" & i)>
-			<cfset thisTermType=evaluate("term_type_" & i)>
-			<cfif len(thisTerm) gt 0 and len(thisTermType) gt 0>
-				<cfquery name="insRow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into taxon_term (
-						taxon_term_id,
-						taxon_name_id,
-						term,
-						term_type,
-						source,
-						position_in_classification,
-						classification_id
-					) values (
-						sq_taxon_term_id.nextval,
-						#taxon_name_id#,
-						'#thisTerm#',
-						'#lcase(thisTermType)#',
-						'#source#',
-						#pos#,
-						'#thisSourceID#'
-					)
-				</cfquery>
-				<cfset pos=pos+1>
-			</cfif>
-		</cfloop>
+		<cftransaction>
+			<cfloop from="1" to="10" index="i">
+				<cfset thisTerm=evaluate("ncterm_" & i)>
+				<cfset thisTermType=evaluate("ncterm_type_" & i)>
+				<cfif len(thisTerm) gt 0 and len(thisTermType) gt 0>
+					<cfquery name="insRow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into taxon_term (
+							taxon_term_id,
+							taxon_name_id,
+							term,
+							term_type,
+							source,
+							classification_id
+						) values (
+							sq_taxon_term_id.nextval,
+							#taxon_name_id#,
+							'#thisTerm#',
+							'#thisTermType#',
+							'#Source#',
+							'#thisSourceID#'
+						)
+					</cfquery>
+				</cfif>
+			</cfloop>
+			<cfloop from="1" to="10" index="i">
+				<!--- deal with yahoos leaving empty cells.... ---->
+				<cfset pos=1>
+				<cfset thisTerm=evaluate("term_" & i)>
+				<cfset thisTermType=evaluate("term_type_" & i)>
+				<cfif len(thisTerm) gt 0 and len(thisTermType) gt 0>
+					<cfquery name="insRow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into taxon_term (
+							taxon_term_id,
+							taxon_name_id,
+							term,
+							term_type,
+							source,
+							position_in_classification,
+							classification_id
+						) values (
+							sq_taxon_term_id.nextval,
+							#taxon_name_id#,
+							'#thisTerm#',
+							'#lcase(thisTermType)#',
+							'#source#',
+							#pos#,
+							'#thisSourceID#'
+						)
+					</cfquery>
+					<cfset pos=pos+1>
+				</cfif>
+			</cfloop>
+		</cftransaction>
 		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#" addtoken="false">
 	</cfoutput>
 </cfif>
