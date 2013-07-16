@@ -95,6 +95,8 @@
 					<cfelse>
 						<cfset gtp="/" & request.rdurl>
 					</cfif>
+					<!--- run this twice to get /// --->
+					<cfset gtp=replace(gtp,"//","/","all")>
 					<cfset gtp=replace(gtp,"//","/","all")>
 					<form name="logIn" method="post" action="/login.cfm">
 						<input type="hidden" name="action" value="signIn">

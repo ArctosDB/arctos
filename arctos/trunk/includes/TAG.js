@@ -271,7 +271,7 @@ function loadInitial() {
 			queryformat : 'column'
 		},
 		function (r) {
-			if (r.ROWCOUNT){
+			if (r) && (r.ROWCOUNT){
 				var imgh=$("#imgH").val();
 				var imgw=$("#imgW").val();
 				for (i=0; i<r.ROWCOUNT; ++i) {
