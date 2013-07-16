@@ -47,7 +47,7 @@
 						classification_id
 					) values (
 						sq_taxon_term_id.nextval,
-						#d.taxon_name_id#,
+						#taxon_name_id#,
 						'#thisTerm#',
 						'#lcase(thisTermType)#',
 						'#source#',
