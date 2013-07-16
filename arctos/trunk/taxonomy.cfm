@@ -282,10 +282,7 @@ Arctos taxonomy has changed.......
 		order by 
 			source,
 			classification_id
-	</cfquery>
-		
-	<cfdump var=#sources#>
-		
+	</cfquery>		
 	<cfloop query="sources">
 		<cfquery name="notclass" dbtype="query">
 			select 

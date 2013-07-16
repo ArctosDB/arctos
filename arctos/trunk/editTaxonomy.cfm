@@ -301,9 +301,14 @@
 	</script>
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from taxon_name,taxon_term where 
-			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-			classification_id='#classification_id#'
+			select 
+				* 
+			from 
+				taxon_name,
+				taxon_term 
+			where 
+				taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+				classification_id='#classification_id#'
 		</cfquery>
 		<cfquery name="thisname" dbtype="query">
 			select 
