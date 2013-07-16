@@ -316,9 +316,13 @@ Arctos taxonomy has changed.......
 		</cfquery>
 		<hr>
 		Data from #source#
+		<!--- maybe later....
 		<cfif listfindnocase(editableSources,source,"|")>
 			<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">Edit Classification</a>
 		</cfif>
+		---->
+					<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">Edit Classification</a>
+
 		<cfif len(qscore.gn_score) gt 0>
 			<br>globalnames score=#qscore.gn_score#
 		<cfelse>
