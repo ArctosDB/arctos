@@ -39,7 +39,7 @@
 				<cfset pos=1>
 				<cfset thisTerm=evaluate("term_" & i)>
 				<cfset thisTermType=evaluate("term_type_" & i)>
-				<cfif len(thisTerm) gt 0 and len(thisTermType) gt 0>
+				<cfif len(thisTerm) gt 0>
 					<cfquery name="insRow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into taxon_term (
 							taxon_term_id,
@@ -84,7 +84,7 @@
 				</cfif>
 			</cfloop>
 		</cftransaction>
-		
+		/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#
 		<!----
 		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#" addtoken="false">
 		---->
