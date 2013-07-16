@@ -382,6 +382,34 @@
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
+<cfif action is "saveNewName">
+<cfoutput>
+	<cfquery name="saveNewName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		INSERT INTO taxon_name (SCIENTIFIC_NAME) VALUES ('#scientific_name#')
+	</cfquery>
+	<br>
+	<cflocation url="/name/#SCIENTIFIC_NAME#" addtoken="false">
+</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "newName">
+	<p>Use this form to create "namestrings."</p>
+	<p>
+		"Namestrings" are (more or less) formal taxa produced by publication. "Sorex cinereus" is a namestring. "Sorex sp." and "Sorex sp. nov. 41" are not.
+		Namestrings are rankless - "Animalia" is acceptable. Namestrings are not tied to singular classifications - namestring "Diptera" refers to 
+		insects and plants and no duplication is necessary.
+	</p>
+	<p>
+		Make sure you've searched before using this form.
+	</p>
+	<form name="name" method="post" action="editTaxonomy.cfm">
+		<input type="hidden" name="action" value="saveNewName">
+		<label for="scientific_name">Scientific Name</label>
+		<input type="text" id="scientific_name" name="scientific_name" size="80">
+		<input type="submit" value="Create Name" class="insBtn">
+	</form>
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
 <cfif action is "editnoclass">
 	<cfoutput>	
 		<cfquery name="thisname" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

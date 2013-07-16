@@ -229,6 +229,6 @@
 		</cfthread>
 	</cfloop>
 	<cfif isdefined("name") and len(name) gt 0>
-		<br>threads opened
+		<br>threads spawned - we're done here
 	</cfif>
 </cfoutput>
