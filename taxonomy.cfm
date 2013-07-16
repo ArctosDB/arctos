@@ -30,6 +30,9 @@ Arctos taxonomy has changed.......
 <br>
 
 <cfoutput>
+<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
+	<a target="_blank" href="/editTaxonomy.cfm?action=newName">Create a new name</a>
+</cfif>
 
 <cfset title="Search Taxonomy">
 <!----- always display search ---------->
