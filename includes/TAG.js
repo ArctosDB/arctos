@@ -270,9 +270,7 @@ function loadInitial() {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		function (r) {
-			console.log(r);
-			
+		function (r) {			
 			if (r && r.ROWCOUNT){
 				var imgh=$("#imgH").val();
 				var imgw=$("#imgW").val();
