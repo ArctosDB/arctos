@@ -343,8 +343,43 @@
 		taxon_relations_id = #taxon_relations_id#
 		</cfquery>
 		<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
-</cfoutput>		
-				
+</cfoutput>			
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "saveCommon">
+<cfoutput>
+	<cfquery name="upCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		UPDATE
+			common_name
+		SET 
+			common_name = '#common_name#'
+		WHERE 
+			common_name_id=#common_name_id#
+	</cfquery>
+	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
+</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "deleteCommon">
+<cfoutput>
+	<cfquery name="killCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		DELETE FROM 
+			common_name
+		WHERE 
+			common_name_id=#common_name_id#
+	</cfquery>
+	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
+</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "newCommon">
+<cfoutput>
+	<cfquery name="newCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		INSERT INTO common_name (common_name, taxon_name_id)
+		VALUES ('#common_name#', #taxon_name_id#)
+	</cfquery>
+	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
+</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "editnoclass">
@@ -490,25 +525,28 @@
 			</cfloop>
 		</table>
 		<cfquery name="common" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select common_name from common_name where taxon_name_id = #taxon_name_id#
+			select 
+				common_name,
+				common_name_id
+			from common_name where taxon_name_id = #taxon_name_id#
 		</cfquery>
 		<span class="likeLink" onClick="getDocs('taxonomy','common_names');">Common Names</span>
 		<cfset i=1>
 		<cfloop query="common">
-			<form name="common#i#" method="post" action="Taxonomy.cfm">
-				<input type="hidden" name="Action">
-				<input type="hidden" name="origCommonName" value="#common_name#">
+			<form name="common#i#" method="post" action="editTaxonomy.cfm">
+				<input type="hidden" name="common_name_id" value="#common_name_id#">
+				<input type="hidden" name="action">
 				<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 				<input type="text" name="common_name" value="#common_name#" size="50">
-				<input type="button" value="Save" class="savBtn" onClick="common#i#.Action.value='saveCommon';submit();">	
-		   		<input type="button" value="Delete" class="delBtn" onClick="common#i#.Action.value='deleteCommon';confirmDelete('common#i#');">
+				<input type="button" value="Save" class="savBtn" onClick="common#i#.action.value='saveCommon';submit();">	
+		   		<input type="button" value="Delete" class="delBtn" onClick="common#i#.action.value='deleteCommon';confirmDelete('common#i#');">
 			</form>
 			<cfset i=i+1>
 		</cfloop>
 		<table class="newRec">
 			<tr>
 				<td>
-					<form name="newCommon" method="post" action="Taxonomy.cfm">
+					<form name="newCommon" method="post" action="editTaxonomy.cfm">
 						<input type="hidden" name="Action" value="newCommon">
 						<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 						<label for="common_name">New Common Name</label>
@@ -742,16 +780,6 @@
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif action is "newCommon">
-<cfoutput>
-	<cfquery name="newCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		INSERT INTO common_name (common_name, taxon_name_id)
-		VALUES ('#common_name#', #taxon_name_id#)
-	</cfquery>
-	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
-</cfoutput>
-</cfif>
-<!---------------------------------------------------------------------------------------------------->
 <cfif Action is "deleTaxa">
 <cfoutput>
 	<cfquery name="deleTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -761,32 +789,6 @@
 			taxon_name_id=#taxon_name_id#
 	</cfquery>
 	You killed it!
-</cfoutput>
-</cfif>
-<!---------------------------------------------------------------------------------------------------->
-<cfif action is "deleteCommon">
-<cfoutput>
-	<cfquery name="killCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		DELETE FROM 
-			common_name
-		WHERE 
-			common_name='#origCommonName#' AND taxon_name_id=#taxon_name_id#
-	</cfquery>
-	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
-</cfoutput>
-</cfif>
-<!---------------------------------------------------------------------------------------------------->
-<cfif action is "saveCommon">
-<cfoutput>
-	<cfquery name="upCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		UPDATE
-			common_name
-		SET 
-			common_name = '#common_name#'
-		WHERE 
-			common_name='#origCommonName#' AND taxon_name_id=#taxon_name_id#
-	</cfquery>
-	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
