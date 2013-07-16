@@ -493,8 +493,33 @@
 						#listpos#
 					)
 				</cfquery>
+				
+				
+				<hr>
+				
+					insert into taxon_term (
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM,
+						TERM_TYPE,
+						SOURCE,
+						LASTDATE,
+						POSITION_IN_CLASSIFICATION
+					) values (
+						#TAXON_NAME_ID#,
+						'#CLASSIFICATION_ID#',
+						'#thisterm#',
+						'#thistermtype#',
+						'#SOURCE#',
+						sysdate,
+						#listpos#
+					)
+					
+					
 			</cfloop>
 		</cftransaction>
+		
+		<cfabort>
 		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
 	</cfoutput>
 </cfif>
