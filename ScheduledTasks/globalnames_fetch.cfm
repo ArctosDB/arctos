@@ -14,7 +14,7 @@
 				select 
 					taxon_name_id 
 				from 
-					taxon_term 
+					taxon_name 
 				where 
 					scientific_name='#name#'
 		</cfquery>
