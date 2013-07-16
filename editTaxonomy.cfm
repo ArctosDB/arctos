@@ -396,7 +396,7 @@
 			<input type="hidden" name="action" value="saveEditScientificName">
 			<label for="scientific_name">Scientific Name</label>
 			<input type="text" id="scientific_name" name="scientific_name" value="#thisname.scientific_name#" size="80">
-			<input type="submit" value="Save Change">
+			<input type="submit" value="Save Change" class="savBtn">
 		</form>
 		<cfquery name="ctRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select taxon_relationship from cttaxon_relation order by taxon_relationship
