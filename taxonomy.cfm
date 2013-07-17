@@ -422,14 +422,11 @@ Arctos taxonomy has changed.......
 						Wikipedia
 					</a>
 				</li>
-	
-				<cfif one.kingdom is not "Plantae">
 				<li>
 					<a class="external" target="_blank" href="http://animaldiversity.ummz.umich.edu/site/search?SearchableText=#srchName#">
 						Animal Diversity Web
 					</a>
 				</li>
-				</cfif>
 				<li>
 					<a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?name=#srchName#">
 						NCBI
