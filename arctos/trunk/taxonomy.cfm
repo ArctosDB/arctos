@@ -93,6 +93,10 @@ Arctos taxonomy has changed.......
 	<style>
 		.classificationDiv {
 			border:2px solid black;
+			display:block;
+			margin:2em;
+			padding:2em;
+			background-color:lightgray;
 		}
 	</style>
 	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -354,6 +358,9 @@ Arctos taxonomy has changed.......
 		<hr>
 		<a name="#anchor#"></a>
 		Data from source <strong>#source#</strong>
+		
+		
+		<!-------------
 		<cfquery name="source_classification" dbtype="query">
 			select classification_id from d where source='#source#' group by classification_id
 		</cfquery>
@@ -426,6 +433,7 @@ Arctos taxonomy has changed.......
 				</cfloop>
 				</p>
 			</cfloop>
+			-------------->
 		</div>
 	</cfloop>
 		
