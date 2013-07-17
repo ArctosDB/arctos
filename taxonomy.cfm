@@ -44,7 +44,9 @@
 		});
 	});
 	function requireTermOrName() {
-		return false;
+			console.log('val fail');
+		
+return false;
 
 /*if ($( "#taxon_name" ).val().length==0 && $( "#taxon_term" ).val().length==0){
 			console.log('val fail');
