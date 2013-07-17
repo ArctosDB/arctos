@@ -150,6 +150,10 @@ Arctos taxonomy has changed.......
 	<cfquery name="d" datasource="uam_god">
 		#preservesinglequotes(sql)#		
 	</cfquery>
+	
+	<cfdump var=#d#>
+	
+	
 	<cfset title="Taxonomy Search Results">
 	#d.recordcount# results - click results for more information.
 	<div class="taxonomyResultsDiv">
