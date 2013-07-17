@@ -341,7 +341,7 @@ Arctos taxonomy has changed.......
 	</cfquery>
 	<ul>
 		<cfloop query="sources">
-			<li><a href="##anchor">#source#</a></li>
+			<li><a href="###anchor#">#source#</a></li>
 		</cfloop>
 	</ul>
 	<cfloop query="sources">
