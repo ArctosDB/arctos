@@ -106,6 +106,17 @@ This REFRESHES data that already exist in Arctos.
 						<cfif len(thisSourceID) is 0>
 							<cfset thisSourceID=CreateUUID()>
 						</cfif>
+						
+						
+						<!------------ 
+							delete (so we can reinsert to update) from Arctos 
+							if we already have the classification
+						--------------->
+						<cfquery name="flush" datasource="uam_god">
+							delete from taxon_term where taxon_name_id=#d.taxon_name_id#
+							and classification_id='#thisSourceID#'
+						</cfquery>
+
 						<cfset thisScore=x.data[1].results[i].score>
 						<cfif len(thisScore) is 0><cfset thisScore=0></cfif>
 						<cfset thisNameString=x.data[1].results[i].name_string>
