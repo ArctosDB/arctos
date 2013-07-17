@@ -82,11 +82,6 @@ This REFRESHES data that already exist in Arctos.
 					<cfset cterms=ListToArray(x.data[1].results[i].classification_path, "|", true)>
 					<cfdump var=#cterms#>
 					<cfif len(x.data[1].results[i].classification_path) gt 0>
-					
-						<br>taht's gt 0 - we're running......
-						
-						
-						<br>
 						<!--- ignore the stuff with no useful classification --->
 						<cfset cranks=ListToArray(x.data[1].results[i].classification_path_ranks, "|", true)>
 						 
