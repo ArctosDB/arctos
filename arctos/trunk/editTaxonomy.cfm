@@ -44,6 +44,34 @@
 		such updates - we'll make them for you if we can.
 	</p>
 </div>
+
+<cfif action is "forceDeleteNonLocal">
+	<cfoutput>
+		Are you sure you want to delete all source-derived metadata?
+		
+		<p>
+			You should probably use the "refresh from globalnames" link when you're done here.
+		</p>
+		<p>
+			Use your back button to get out of here.
+		</p>
+		<p>
+			<a href="editTaxonomy.cfm?action=&taxon_name_id=#taxon_name_id#">
+				Click here to finalize the delete of all non-local metadata
+			</a>
+		</p>
+	</cfoutput>
+</cfif>
+
+<cfif action is "yesReally_forceDeleteNonLocal">
+	<cfoutput>
+		<cfquery name="insRow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from taxon_term where source not in (select source from cttaxonomy_source) and taxon_name_id=#taxon_name_id#
+		</cfquery>
+		<cflocation url="/taxonomy.cfm?taxon_name_id=#taxon_name_id#" addtoken="false">
+	</cfoutput>
+</cfif>
+
 <cfif action is "saveNewClass">
 	<cfoutput>		
 		<cfif len(source) is 0>
