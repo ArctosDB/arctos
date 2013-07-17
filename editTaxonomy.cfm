@@ -71,11 +71,11 @@
 		$(function() {
 			// suggest some defaults
 
-			$("##ncterm_type_1").val('author_text');
-			$("##ncterm_type_2").val('display_name');
-			$("##ncterm_type_3").val('nomenclatural_code');
-			$("##ncterm_type_4").val('taxon_status');
-			$("##ncterm_type_5").val('infraspecific_author');
+			$("#ncterm_type_1").val('author_text');
+			$("#ncterm_type_2").val('display_name');
+			$("#ncterm_type_3").val('nomenclatural_code');
+			$("#ncterm_type_4").val('taxon_status');
+			$("#ncterm_type_5").val('infraspecific_author');
 			$( "#sortable" ).sortable({
 				handle: '.dragger'
 			});
