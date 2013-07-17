@@ -360,8 +360,8 @@ Arctos taxonomy has changed.......
 	</ul>
 	<cfloop query="sources">
 		<div class="sourceDiv">
-			<a name="#anchor#" href="##classifications">Jump to Classifications</a>
 			Data from source <strong>#source#</strong>
+			<a name="#anchor#" href="##classifications">[ Jump to Classifications ]</a>
 			<cfquery name="source_classification" dbtype="query">
 				select classification_id from d where source='#source#' group by classification_id
 			</cfquery>
