@@ -9,6 +9,12 @@
 	.taxonomyResultsDiv {
 		padding-left:3em;
 	}
+	.warningOverflow {
+		border:2px solid red;
+		display: inline-block;
+		padding:1em;
+		margin:1em;
+	}
 </style>
 <script>
 	$(function() {
@@ -157,7 +163,7 @@ Arctos taxonomy has changed.......
 	<cfset title="Taxonomy Search Results">
 	#d.recordcount# results - click results for more information.
 	<cfif d.recordcount is 1000>
-		<br>This form will return a maximum of 1,000 records.
+		<span class="warningOverflow">This form will return a maximum of 1,000 records.</span>
 	</cfif>
 	<div class="taxonomyResultsDiv">
 		<cfloop query="d">
