@@ -43,6 +43,13 @@
 			selectFirst:false
 		});
 	});
+	function requireTermOrName() {
+		if ($( "#taxon_name" ).val().length==0 && $( "#taxon_term" ).val().length==0){
+			$( "#srchFailure" ).addClass(warningOverflow).html('You must provide at least one of Taxon Term or Taxon Name to search.');
+			return false;
+		}
+		return;
+	}
 </script>
 <!---- unified taxonomy (except editing) form ---------->
 
@@ -89,7 +96,9 @@ Arctos taxonomy has changed.......
 <cfset title="Search Taxonomy">
 <!----- always display search ---------->
 <h3>Search for Taxonomy</h3>
-<form ACTION="/taxonomy.cfm" METHOD="post" name="taxa">
+
+<span id="srchFailure"></span>
+<form ACTION="/taxonomy.cfm" METHOD="post" name="taxa" onsubmit="return requireTermOrName()">
 	<input type="hidden" name="action" value="search">
 	<label for="reqdToSearchDiv">You must supply Taxon Name or Taxon Term to search.</label>
 	<span class="reqdToSearchDiv" id="reqdToSearchDiv">
