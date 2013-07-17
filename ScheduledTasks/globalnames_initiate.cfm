@@ -73,11 +73,12 @@ It is obsolete once it's run once.
 		----------------->
 		
 	<cfquery name="ids" datasource="uam_god">
-			select related_primary_key taxon_name_id from (
-					SELECT related_primary_key FROM
+			select 
+				 taxon_name_id from (
+					SELECT related_primary_key taxon_name_id FROM
 					 media_relations WHERE media_relationship like '% taxonomy' and 
 					 related_primary_key NOT IN (SELECT TAXON_NAME_ID FROM TAXON_NAME)
-				group by taxon_name_id
+				group by related_primary_key
 			) where rownum<2001
 		</cfquery>
 		
