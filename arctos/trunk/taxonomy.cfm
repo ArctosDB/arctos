@@ -246,7 +246,7 @@ Arctos taxonomy has changed.......
 			taxonomy_publication.publication_id=publication.publication_id and
 			taxonomy_publication.taxon_name_id=#taxon_name_id.taxon_name_id#
 	</cfquery>
-	<cfif tax_pub.recordcount is 0>
+	<cfif tax_pub.recordcount gt 0>
 		<div>
 			Related Publications:
 			<ul>
