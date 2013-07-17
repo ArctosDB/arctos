@@ -208,7 +208,7 @@ Arctos taxonomy has changed.......
 		<p>
 			<h4>Related Taxa (from)</h4>
 			<ul>
-				<cfloop query="revrelated">				
+				<cfloop query="related">				
 					<li>
 						#TAXON_RELATIONSHIP# <a href='/name/#scientific_name#'>#scientific_name#</a>
 						<cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
