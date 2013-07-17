@@ -51,6 +51,9 @@
 			return false;
 		}
 	}
+function resetForm() {
+    $("#taxa").find("input[type=text], textarea").val("");
+}
 </script>
 <!---- unified taxonomy (except editing) form ---------->
 
@@ -111,7 +114,7 @@ Arctos taxonomy has changed.......
 	<input type="text" name="source" id="source" value="#source#">
 	<br>
 	<input value="Search" type="submit">
-	<br> <input type="reset"/>
+	<br> <input type="button" onclick="resetForm()" value="clear form>
 </form>
 <cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 	<br><a target="_blank" href="/editTaxonomy.cfm?action=newName">[ Create a new name ]</a>
