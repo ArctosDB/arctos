@@ -345,7 +345,7 @@ Arctos taxonomy has changed.......
 		<a name="#anchor#"></a>
 		Data from source <strong>#source#</strong>
 		<cfquery name="source_classification" dbtype="query">
-			select classification_id from d where source='#source#'
+			select classification_id from d where source='#source#' group by classification_id
 		</cfquery>
 		<cfloop query="source_classification">
 			<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a> (ID: #classification_id#)
