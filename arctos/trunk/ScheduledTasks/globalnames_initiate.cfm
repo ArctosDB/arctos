@@ -22,6 +22,13 @@ It is obsolete once it's run once.
 	
 	
 		<!--- see if we can find something interesting to update ---->
+		
+		<!-------- 
+		
+		ALREADY DID DUN THISUNS.....
+		
+		
+		COMMON NAME
 		<cfquery name="ids" datasource="uam_god">
 			select * from (
 				select 
@@ -34,7 +41,20 @@ It is obsolete once it's run once.
 			) where rownum<2001
 		</cfquery>
 	
-
+		----------------->
+		
+		<cfquery name="ids" datasource="uam_god">
+			select * from (
+				select 
+					taxon_name_id 
+				from 
+					ANNOTATIONS 
+				where 
+					taxon_name_id not in (select taxon_name_id from taxon_name) 
+				group by taxon_name_id
+			) where rownum<2001
+		</cfquery>
+	
 	<cfloop query="ids">
 		<!--- spawn threads 		<cfthread action="run" name="t#taxon_name_id#" taxon_name_id="#taxon_name_id#">
 --->
