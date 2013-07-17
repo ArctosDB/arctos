@@ -471,7 +471,7 @@
 				<cfset i=listlast(x,"_")>
 				<cfset thisterm=evaluate("NCTERM_" & i)>
 				<cfset thistermtype=evaluate("NCTERM_TYPE_" & i)>
-				<cfif (len(thisterm) is 0 and len(thistermtype) gt 0) or (len(thistermtype) is 0 and len(thisterm) gt 0))>
+				<cfif (len(thisterm) is 0 and len(thistermtype) gt 0) or (len(thistermtype) is 0 and len(thisterm) gt 0)>
 					Non-classification terms must be provided as pairs.
 				</cfif>
 				<cfquery name="insNCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
