@@ -159,8 +159,8 @@ console.log(tt);
 				$("#ncterm_type_" + i).addClass('reqdClr');
 				$("#ncterm_" + i).addClass('reqdClr');
 			} else {
-				$("#ncterm_type_" + i).addClass('reqdClr');
-				$("#ncterm_" + i).addClass('reqdClr');	
+				$("#ncterm_type_" + i).removeClass('reqdClr');
+				$("#ncterm_" + i).removeClass('reqdClr');	
 			}
 
 		}
