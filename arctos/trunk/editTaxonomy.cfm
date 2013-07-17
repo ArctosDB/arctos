@@ -149,6 +149,12 @@
 		function requirePair(i){
 			var tt=$("#ncterm_type_" + i).val().length;
 			var t=$("#ncterm_" + i).val().length;
+console.log(t);
+
+
+console.log(tt);
+
+
 			if (tt>0 || t>0){
 				$("#ncterm_type_" + i).addClass('reqdClr');
 				$("#ncterm_" + i).addClass('reqdClr');
