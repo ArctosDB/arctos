@@ -31,7 +31,7 @@ It is obsolete once it's run once.
 				where 
 					taxon_name_id not in (select taxon_name_id from taxon_name) 
 				group by taxon_name_id
-			) where rownum<201
+			) where rownum<20001
 		</cfquery>
 	
 
@@ -105,6 +105,14 @@ It is obsolete once it's run once.
 					<cfset pos=pos+1>
 				</cfif>
 			</cfloop>
+			
+			
+			
+			<!------------
+			
+			for the purposes of test initiation, don't bother with globalnames - just get the Arctos data 
+			
+			
 			<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#d.scientific_name#"></cfhttp>
 			<cfset x=DeserializeJSON(cfhttp.filecontent)>
 			<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
@@ -221,6 +229,10 @@ It is obsolete once it's run once.
 					</cfif>
 				</cfif>
 			</cfloop>
+			
+			
+			------>
+			
 			<!----	 
 		----->
 		
