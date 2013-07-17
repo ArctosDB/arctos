@@ -56,7 +56,7 @@
 			Use your back button to get out of here.
 		</p>
 		<p>
-			<a href="editTaxonomy.cfm?action=&taxon_name_id=#taxon_name_id#">
+			<a href="editTaxonomy.cfm?action=yesReally_forceDeleteNonLocal&taxon_name_id=#taxon_name_id#">
 				Click here to finalize the delete of all non-local metadata
 			</a>
 		</p>
