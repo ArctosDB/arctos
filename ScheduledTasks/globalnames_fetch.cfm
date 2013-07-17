@@ -195,6 +195,9 @@ This REFRESHES data that already exist in Arctos.
 		--------->
 	</cfloop>
 	<cfif isdefined("name") and len(name) gt 0>
-		<br>threads spawned - we're done here
+		<p>threads spawned - we're done here</p>
+		<p>
+			You can probably close a window and refresh or something.
+		</p>
 	</cfif>
 </cfoutput>
