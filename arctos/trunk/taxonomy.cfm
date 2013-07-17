@@ -258,8 +258,53 @@ Arctos taxonomy has changed.......
 			</ul>
 	    </div>
 	</cfif>
-
-
+	<cfquery name="sidas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from identification_taxonomy where taxon_name_id=#taxon_name_id.taxon_name_id#
+	</cfquery>
+	<cfif sidas.c gt 0>
+		<p>
+			Arctos Links:
+			<ul>
+				<li>
+					<a href="/SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#">
+						Specimens currently identified as #scientific_name.scientific_name#
+					</a>
+					<a href="/SpecimenResults.cfm?anyTaxId=#taxon_name_id.taxon_name_id#">
+						[ include unaccepted IDs ]
+					</a>
+					<a href="/SpecimenResults.cfm?taxon_name_id=#taxon_name_id.taxon_name_id#">
+						[ exact matches only ]
+					</a>
+					<a href="/SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#&media_type=any">
+						[ with Media ]
+					</a>
+				</li>
+				<li>
+					<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&scientific_name=#scientific_name.scientific_name#" class="external" target="_blank">
+						BerkeleyMapper + RangeMaps
+					</a>
+				</li>
+			</cfif>
+			 <cfquery name="citas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					count(*) c
+				from
+					citation,
+					identification_taxonomy
+				where
+					citation.identification_id=identification_taxonomy.identification_id and
+					identification_taxonomy.taxon_name_id=#taxon_name_id.taxon_name_id#
+			</cfquery>
+			<cfif citas.c gt 0>
+				<li>	
+					<a href="/SpecimenResults.cfm?cited_taxon_name_id=#taxon_name_id.taxon_name_id#">
+						Specimens cited using #scientific_name.scientific_name#
+					</a>
+				</li>
+			</cfif>
+		</ul>
+	</p>
+	
 	<h4>Classifications</h4>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<a target="_blank" href="/ScheduledTasks/globalnames_fetch.cfm?name=#name#">Refresh/pull GlobalNames</a>
@@ -354,6 +399,100 @@ Arctos taxonomy has changed.......
 		<cfloop query="notclass">
 			<br>#term_type#: #term#
 		</cfloop>
+		</p>
+		
+		<p>
+			External Links:
+			<cfset srchName = URLEncodedFormat(scientific_name.scientific_name)>
+			<ul>
+			
+				<!--- things that we've been asked to link to but which cannot deal with our data
+				<li>
+					<a class="external" target="_blank" href="http://amphibiaweb.org/cgi/amphib_query?where-genus=#one.genus#&where-species=#one.species#">
+						AmphibiaWeb
+					</a>
+				</li>
+				
+				END things that we've been asked to link to but which cannot deal with our data ---->
+				<li id="ispecies">
+					<a class="external" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
+				</li>
+				<li>
+					<a class="external" target="_blank" href="http://wikipedia.org/wiki/#srchName#">
+						Wikipedia
+					</a>
+				</li>
+	
+				<cfif one.kingdom is not "Plantae">
+				<li>
+					<a class="external" target="_blank" href="http://animaldiversity.ummz.umich.edu/site/search?SearchableText=#srchName#">
+						Animal Diversity Web
+					</a>
+				</li>
+				</cfif>
+				<li>
+					<a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?name=#srchName#">
+						NCBI
+					</a>
+				</li>
+				<li>
+					<a class="external" href="http://google.com/search?q=#thisSearch#" target="_blank">
+						Google
+					</a>
+					<a class="external" href="http://images.google.com/images?q=#thisSearch#" target="_blank">
+						Images
+					</a>
+				</li>
+				<li>
+					<a class="external" target="_blank" href="http://www.eol.org/search/?q=#srchName#">
+						Encyclopedia of Life
+					</a>
+				</li>
+				<li>
+					<a class="external" target="_blank" href="http://www.ubio.org/browser/search.php?search_all=#srchName#">
+						uBio
+					</a>
+				</li>
+				<li>
+					<a class="external" target="_blank" href="http://www.efloras.org/browse.aspx?name_str=#srchName#">Flora of North America</a>
+				</li>
+				<li>
+					<a class="external" target="_blank" href="http://www.ipni.org/ipni/simplePlantNameSearch.do?find_wholeName=#srchName#">
+						The International Plant Names Index
+					</a>
+				</li>
+				<li>
+					<a class="external" target="_blank" href="http://epic.kew.org/searchepic/summaryquery.do?scientificName=#srchName#&searchAll=true&categories=names&categories=bibl&categories=colln&categories=taxon&categories=flora&categories=misc">
+						electronic plant information centre
+					</a>
+				</li>
+				<li>
+					<a class="external" target="_blank" href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all">
+						ITIS
+					</a>
+				</li>
+				<li>
+					<a class="external" target="_blank" href="http://www.catalogueoflife.org/col/search/all/key/#srchName#/match/1">
+						Catalogue of Life
+					</a>
+				</li>
+				<li>
+					<a class="external" target="_blank" href="
+						http://www.google.com/custom?q=#srchName#&sa=Go!&cof=S:http://www.unep-wcmc.org;AH:left;LH:56;L:http://www.unep-wcmc.org/wdpa/I/unepwcmcsml.gif;LW:100;AWFID:681b57e6eabf5be6;&domains=unep-wcmc.org&sitesearch=unep-wcmc.org">
+						UNEP (CITES)
+					</a>
+				</li>
+				<li id="wikispecies">
+					<a class="external" target="_blank" href="http://species.wikimedia.org/wiki/#srchName#">
+						WikiSpecies
+					</a>
+				</li>
+				<li>
+					<a class="external" target="_blank" href="http://www.biodiversitylibrary.org/name/#srchName#">
+						Biodiversity Heritage Library
+					</a>
+				</li>
+			</ul>
 		</p>
 	</cfloop>
 </cfif>
