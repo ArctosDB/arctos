@@ -68,7 +68,7 @@ This REFRESHES data that already exist in Arctos.
 		--->
 		
 		 <cfquery name="d" datasource="uam_god">
-			select scientific_name from taxon_name where taxon_name_id='#taxon_name_id#'
+			select scientific_name,taxon_name_id from taxon_name where taxon_name_id='#taxon_name_id#'
 		</cfquery>
 		
 		
