@@ -1,33 +1,35 @@
 <cfinclude template="includes/_header.cfm">
-<h3>
-	General rules, guidelines, and advice for editing taxonomy.	
-</h3>
-<p>
-	All taxonomic data in Arctos is shared globally. Please coordinate changes with other users, and be cautious of changing data even when it seems 
-	blatantly wrong.
-</p>
-<p>
-	"Arctos taxonomy" consists of a scientific name and any number of optionally-qualified metadata terms. The scientific name is not linked to any particular 
-	classification, and may be a homonym or hemihomonym.	
-</p>
-<p>
-	"Metadata" is of two broad categories: Classification data and non-classification data. Non-classification data are linked to but not part of classifications, 
-	and consist of things like HTML-formatted "display name" and author strings. Classification data are optionally-ranked "taxonomic terms."
-</p>
-<p>
-	Metadata can be further divided into "locally-curated" and "source-derived." Locally-curated data originate from Arctos and can be modified. Please coordinate 
-	modifications with other users - some collections use taxonomy in unexpected ways. Source-derived data are automatically maintained; you can change them, but they'll
-	just revert and you probably won't be happy about all your work vanishing.
-</p>
-<p>
-	There are very few rules and guidelines here. You can create garbage data, creatively spell scientific names, mess up data created by other users, 
-	delete and modify things that will automatically rejuvenate themselves, and find endless other ways to frustrate yourself and others. Use the contact link
-	at the bottom of the page if you have any questions; we're happy to help explain or clarify how things work.
-</p>
-<p>
-	The only hierarchies are in individual classifications. There are no form tools to update across or multiple classifications. Use the contact link if you need 
-	such updates - we'll make them for you if we can.
-</p>
+<div style="padding:2em;margin:2em; border:2px solid red;">
+	<h3>
+		General rules, guidelines, and advice for editing taxonomy.	
+	</h3>
+	<p>
+		All taxonomic data in Arctos is shared globally. Please coordinate changes with other users, and be cautious of changing data even when it seems 
+		blatantly wrong.
+	</p>
+	<p>
+		"Arctos taxonomy" consists of a scientific name and any number of optionally-qualified metadata terms. The scientific name is not linked to any particular 
+		classification, and may be a homonym or hemihomonym.	
+	</p>
+	<p>
+		"Metadata" is of two broad categories: Classification data and non-classification data. Non-classification data are linked to but not part of classifications, 
+		and consist of things like HTML-formatted "display name" and author strings. Classification data are optionally-ranked "taxonomic terms."
+	</p>
+	<p>
+		Metadata can be further divided into "locally-curated" and "source-derived." Locally-curated data originate from Arctos and can be modified. Please coordinate 
+		modifications with other users - some collections use taxonomy in unexpected ways. Source-derived data are automatically maintained; you can change them, but they'll
+		just revert and you probably won't be happy about all your work vanishing.
+	</p>
+	<p>
+		There are very few rules and guidelines here. You can create garbage data, creatively spell scientific names, mess up data created by other users, 
+		delete and modify things that will automatically rejuvenate themselves, and find endless other ways to frustrate yourself and others. Use the contact link
+		at the bottom of the page if you have any questions; we're happy to help explain or clarify how things work.
+	</p>
+	<p>
+		The only hierarchies are in individual classifications. There are no form tools to update across or multiple classifications. Use the contact link if you need 
+		such updates - we'll make them for you if we can.
+	</p>
+</div>
 <cfif action is "saveNewClass">
 	<cfoutput>		
 		<cfif len(source) is 0>

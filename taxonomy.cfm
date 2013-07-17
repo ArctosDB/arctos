@@ -374,7 +374,7 @@ Arctos taxonomy has changed.......
 						<cfif listcontains(valuelist(cttaxonomy_source.source),sources.source)>
 							<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a> (ID: #classification_id#)
 						<cfelse>
-							Editing non-local sources disallowed
+							[ Editing non-local sources disallowed ]
 						</cfif>
 					</cfif>
 					<cfquery name="notclass" dbtype="query">
