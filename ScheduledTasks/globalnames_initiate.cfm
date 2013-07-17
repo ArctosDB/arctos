@@ -23,12 +23,7 @@ It is obsolete once it's run once.
 	
 		<!--- see if we can find something interesting to update ---->
 		
-		<!-------- 
 		
-		ALREADY DID DUN THISUNS.....
-		
-		
-		COMMON NAME
 		<cfquery name="ids" datasource="uam_god">
 			select * from (
 				select 
@@ -40,77 +35,85 @@ It is obsolete once it's run once.
 				group by taxon_name_id
 			) where rownum<2001
 		</cfquery>
-	
-	
-	<cfquery name="ids" datasource="uam_god">
-			select * from (
+		<cfif ids.recordcount is 0>
+			<cfquery name="ids" datasource="uam_god">
+				select * from (
+					select 
+						taxon_name_id 
+					from 
+						ANNOTATIONS 
+					where 
+						taxon_name_id not in (select taxon_name_id from taxon_name) 
+					group by taxon_name_id
+				) where rownum<2001
+			</cfquery>
+		</cfif>
+		<cfif ids.recordcount is 0>
+			<cfquery name="ids" datasource="uam_god">
+				select * from (
+					select 
+						taxon_name_id 
+					from 
+						identification_taxonomy 
+					where 
+						taxon_name_id not in (select taxon_name_id from taxon_name) 
+					group by taxon_name_id
+				) where rownum<2001
+			</cfquery>
+		</cfif>
+		<cfif ids.recordcount is 0>
+			<cfquery name="ids" datasource="uam_god">
 				select 
-					taxon_name_id 
-				from 
-					ANNOTATIONS 
-				where 
-					taxon_name_id not in (select taxon_name_id from taxon_name) 
-				group by taxon_name_id
-			) where rownum<2001
-		</cfquery>
+					 taxon_name_id from (
+						SELECT related_primary_key taxon_name_id FROM
+						 media_relations WHERE media_relationship like '% taxonomy' and 
+						 related_primary_key NOT IN (SELECT TAXON_NAME_ID FROM TAXON_NAME)
+					group by related_primary_key
+				) where rownum<2001
+			</cfquery>
+		</cfif>
+		<cfif ids.recordcount is 0>
+			<cfquery name="ids" datasource="uam_god">
+				select * from (
+					select 
+						taxon_name_id 
+					from 
+						TAXONOMY_PUBLICATION 
+					where 
+						taxon_name_id not in (select taxon_name_id from taxon_name) 
+					group by taxon_name_id
+				) where rownum<2001
+			</cfquery>
+		</cfif>
+		<cfif ids.recordcount is 0>
+			<cfquery name="ids" datasource="uam_god">
+				select * from (
+					select 
+						taxon_name_id 
+					from 
+						TAXON_RELATIONS 
+					where 
+						taxon_name_id not in (select taxon_name_id from taxon_name) 
+					group by taxon_name_id
+				) where rownum<2001
+			</cfquery>
+		</cfif>
+		<cfif ids.recordcount is 0>
+			<cfquery name="ids" datasource="uam_god">
+				select * from (
+					select 
+						related_taxon_name_id  taxon_name_id
+					from 
+						TAXON_RELATIONS 
+					where 
+						related_taxon_name_id not in (select taxon_name_id from taxon_name) 
+					group by related_taxon_name_id
+				) where rownum<2001
+			</cfquery>
+		</cfif>
 	
 	
-	
-	<cfquery name="ids" datasource="uam_god">
-			select * from (
-				select 
-					taxon_name_id 
-				from 
-					identification_taxonomy 
-				where 
-					taxon_name_id not in (select taxon_name_id from taxon_name) 
-				group by taxon_name_id
-			) where rownum<2001
-		</cfquery>
 		
-		<cfquery name="ids" datasource="uam_god">
-			select 
-				 taxon_name_id from (
-					SELECT related_primary_key taxon_name_id FROM
-					 media_relations WHERE media_relationship like '% taxonomy' and 
-					 related_primary_key NOT IN (SELECT TAXON_NAME_ID FROM TAXON_NAME)
-				group by related_primary_key
-			) where rownum<2001
-		</cfquery>
-		
-	<cfquery name="ids" datasource="uam_god">
-			select * from (
-				select 
-					taxon_name_id 
-				from 
-					TAXONOMY_PUBLICATION 
-				where 
-					taxon_name_id not in (select taxon_name_id from taxon_name) 
-				group by taxon_name_id
-			) where rownum<2001
-		</cfquery>
-		
-		----------------->
-		SELECT TAXON_NAME_ID FROM TAXON_RELATIONS WHERE TAXON_NAME_ID NOT IN (SELECT TAXON_NAME_ID FROM TAXON_NAME);
-
-	<cfquery name="ids" datasource="uam_god">
-			select * from (
-				select 
-					taxon_name_id 
-				from 
-					TAXON_RELATIONS 
-				where 
-					taxon_name_id not in (select taxon_name_id from taxon_name) 
-				group by taxon_name_id
-			) where rownum<2001
-		</cfquery>
-		
-	SELECT TAXON_NAME_ID FROM TAXONOMY_PUBLICATION WHERE TAXON_NAME_ID NOT IN (SELECT TAXON_NAME_ID FROM TAXON_NAME);
-
-	
-	SELECT related_primary_key FROM media_relations WHERE media_relationship like '% taxonomy' and related_primary_key NOT IN (SELECT TAXON_NAME_ID FROM TAXON_NAME);
-
-	
 	
 	<cfloop query="ids">
 		<!--- spawn threads 		<cfthread action="run" name="t#taxon_name_id#" taxon_name_id="#taxon_name_id#">
