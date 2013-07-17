@@ -78,14 +78,27 @@ It is obsolete once it's run once.
 			) where rownum<2001
 		</cfquery>
 		
-		----------------->
-		
 	<cfquery name="ids" datasource="uam_god">
 			select * from (
 				select 
 					taxon_name_id 
 				from 
 					TAXONOMY_PUBLICATION 
+				where 
+					taxon_name_id not in (select taxon_name_id from taxon_name) 
+				group by taxon_name_id
+			) where rownum<2001
+		</cfquery>
+		
+		----------------->
+		SELECT TAXON_NAME_ID FROM TAXON_RELATIONS WHERE TAXON_NAME_ID NOT IN (SELECT TAXON_NAME_ID FROM TAXON_NAME);
+
+	<cfquery name="ids" datasource="uam_god">
+			select * from (
+				select 
+					taxon_name_id 
+				from 
+					TAXON_RELATIONS 
 				where 
 					taxon_name_id not in (select taxon_name_id from taxon_name) 
 				group by taxon_name_id
