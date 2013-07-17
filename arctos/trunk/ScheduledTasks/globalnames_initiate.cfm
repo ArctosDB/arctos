@@ -54,6 +54,22 @@ It is obsolete once it's run once.
 			) where rownum<2001
 		</cfquery>
 	
+	
+	
+	<cfquery name="ids" datasource="uam_god">
+			select * from (
+				select 
+					taxon_name_id 
+				from 
+					identification_taxonomy 
+				where 
+					taxon_name_id not in (select taxon_name_id from taxon_name) 
+				group by taxon_name_id
+			) where rownum<2001
+		</cfquery>
+		
+		
+		
 		----------------->
 		
 	<cfquery name="ids" datasource="uam_god">
@@ -61,7 +77,7 @@ It is obsolete once it's run once.
 				select 
 					taxon_name_id 
 				from 
-					identification_taxonomy 
+					PROJECT_TAXONOMY 
 				where 
 					taxon_name_id not in (select taxon_name_id from taxon_name) 
 				group by taxon_name_id
