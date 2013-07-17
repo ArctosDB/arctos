@@ -348,6 +348,7 @@ Arctos taxonomy has changed.......
 			select classification_id from d where source='#source#'
 		</cfquery>
 		<cfloop query="source_classification">
+			<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a> (ID: #classification_id#)
 			<cfquery name="notclass" dbtype="query">
 				select 
 					term,
@@ -383,19 +384,11 @@ Arctos taxonomy has changed.......
 					position_in_classification 
 			</cfquery>
 			
-			<!--- maybe later....
-			<cfif listfindnocase(editableSources,source,"|")>
-				<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">Edit Classification</a>
-			</cfif>
-			---->
-			<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a>
-	
 			<cfif len(qscore.gn_score) gt 0>
 				<br><span style="font-size:small">globalnames score=#qscore.gn_score#</span>
 			<cfelse>
 				<br><span style="font-size:small">globalnames score not available</span>
 			</cfif>
-			
 			<cfif len(qscore.match_type) gt 0>
 				<br><span style="font-size:small">globalnames match type=#qscore.match_type#</span>
 			<cfelse>
@@ -422,7 +415,6 @@ Arctos taxonomy has changed.......
 			</cfloop>
 			</p>
 		</cfloop>
-		
 	</cfloop>
 		
 	<p>
