@@ -36,10 +36,10 @@ It is obsolete once it's run once.
 	
 
 	<cfloop query="ids">
-		<!--- spawn threads --->
+		<!--- spawn threads 		<cfthread action="run" name="t#taxon_name_id#" taxon_name_id="#taxon_name_id#">
+--->
 		
 		<!--- after initial population, need to adjust this to NOT make the new Arctos classifications ---->
-		<cfthread action="run" name="t#taxon_name_id#" taxon_name_id="#taxon_name_id#">
 
 		<!----
 		---->
@@ -233,10 +233,10 @@ It is obsolete once it's run once.
 			
 			------>
 			
-			<!----	 
+			<!----	 </cfthread>
 		----->
 		
-				</cfthread>
+				
 
 	</cfloop>
 	<cfif isdefined("name") and len(name) gt 0>
