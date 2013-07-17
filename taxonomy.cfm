@@ -339,7 +339,11 @@ Arctos taxonomy has changed.......
 		order by 
 			source
 	</cfquery>
-
+	<ul>
+		<cfloop query="sources">
+			<li><a href="##anchor">#source#</a></li>
+		</cfloop>
+	</ul>
 	<cfloop query="sources">
 		<hr>
 		<a name="#anchor#"></a>
