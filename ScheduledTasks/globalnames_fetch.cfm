@@ -81,8 +81,8 @@ This REFRESHES data that already exist in Arctos.
 				<cfif structKeyExists(x.data[1].results[i],"classification_path") and structKeyExists(x.data[1].results[i],"classification_path_ranks")>
 					<cfset cterms=ListToArray(x.data[1].results[i].classification_path, "|", true)>
 					<cfdump var=#cterms#>
-					<cfif len(x.data[1].results[i].classification_path) gt 0>
-						<!--- ignore the stuff with no useful classification --->
+					<cfif listlen(x.data[1].results[i].classification_pathh, "|") gt 1>
+						<!--- ignore the stuff with no useful classification, which includes one-term "classifications" --->
 						<cfset cranks=ListToArray(x.data[1].results[i].classification_path_ranks, "|", true)>
 						 
 						<cfset thisSource=x.data[1].results[i].data_source_title>
