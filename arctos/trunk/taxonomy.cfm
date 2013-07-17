@@ -432,6 +432,10 @@ Arctos taxonomy has changed.......
 						NCBI
 					</a>
 				</li>
+				<cfset thisSearch = "%22#scientific_name.scientific_name#%22">
+				<cfloop query="common_name">
+					<cfset thisSearch = "#thisSearch# OR %22#common_name#%22">
+				</cfloop>
 				<li>
 					<a class="external" href="http://google.com/search?q=#thisSearch#" target="_blank">
 						Google
