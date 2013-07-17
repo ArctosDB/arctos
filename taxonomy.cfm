@@ -513,6 +513,7 @@ Arctos taxonomy has changed.......
 								<cfif len(term_type) gt 0>
 									(#term_type#)
 								</cfif>
+								<a href="/taxonomy.cfm?taxon_term==#term#&term_type==#term_type#&source=#sources.source#">more like this</a>
 							</div>
 							<cfset indent=indent+1>
 						</cfloop>
