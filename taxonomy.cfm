@@ -427,15 +427,19 @@ Arctos taxonomy has changed.......
 						Animal Diversity Web
 					</a>
 				</li>
+				
+				<cfset thisSearch = "%22#scientific_name.scientific_name#%22">
+				<cfloop query="common_name">
+					<cfset thisSearch = "#thisSearch# OR %22#common_name#%22">
+				</cfloop>
+				
+				
 				<li>
 					<a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?name=#srchName#">
 						NCBI
 					</a>
 				</li>
-				<cfset thisSearch = "%22#scientific_name.scientific_name#%22">
-				<cfloop query="common_name">
-					<cfset thisSearch = "#thisSearch# OR %22#common_name#%22">
-				</cfloop>
+				
 				<li>
 					<a class="external" href="http://google.com/search?q=#thisSearch#" target="_blank">
 						Google
