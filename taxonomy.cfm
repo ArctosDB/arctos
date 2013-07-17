@@ -116,7 +116,7 @@ Arctos taxonomy has changed.......
 			</cfif>
 		</cfif>
 		<cfif len(taxon_term) gt 0>
-			and upper(taxon_term)
+			and upper(term)
 			<cfif  left(taxon_term,1) is "=">
 				= '#ucase(taxon_name)#'
 			<cfelse>
