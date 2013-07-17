@@ -149,12 +149,6 @@
 		function requirePair(i){
 			var tt=$("#ncterm_type_" + i).val().length;
 			var t=$("#ncterm_" + i).val().length;
-console.log(t);
-
-
-console.log(tt);
-
-
 			if (tt>0 || t>0){
 				$("#ncterm_type_" + i).addClass('reqdClr');
 				$("#ncterm_" + i).addClass('reqdClr');
@@ -162,7 +156,6 @@ console.log(tt);
 				$("#ncterm_type_" + i).removeClass('reqdClr');
 				$("#ncterm_" + i).removeClass('reqdClr');	
 			}
-
 		}
 	</script>
 	<p>
@@ -191,8 +184,12 @@ console.log(tt);
 				<a target="_blank" href="/component/functions.cfc?method=ac_nc_source&term">[ view all (JSON)]</a>
 			</label>
 			<input type="text" class="reqdClr" name="source" id="source" class="ac_nc_source">
-			
-			<label for="clastbl">Non-Classification information. These are both/neither; if you leave one side blank the other will be ignored.</label>
+			<h3>
+				Non-Classification Terms
+			</h3>
+			<p style="font-size:small;">
+				These are paired terms - you must provide both or neither for each row.
+			</p>
 			<table id="clastbl" border="1">
 				<thead>
 					<tr>
@@ -216,11 +213,14 @@ console.log(tt);
 					</cfloop>
 				</tbody>
 			</table>
-			<p>&nbsp;</p>
-			<label for="clastbl">
-				Create Classification. Order is important here - "large" (eg, kingdom) at top to "small" (eg, subspecies) at bottom.
-				Use as many cells as you need; leave the rest empty. TermType will be ignored if Term is empty. Add more via Edit (after you save here).	
-			</label>
+			<h3>
+				Classification Terms
+			</h3>
+			<p style="font-size:small;">
+				 Order is important here - "large" (eg, kingdom) at top to "small" (eg, subspecies) at bottom.
+				Use as many cells as you need; leave the rest empty. TermType will be ignored if Term is empty (eg, unranked terms are OK).
+				 Add more via Edit (after you save here) if necessary.	
+			</p>
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Term Type
