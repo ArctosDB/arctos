@@ -47,8 +47,8 @@ Arctos taxonomy has changed.......
 	<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
 	<input type="text" name="taxon_name" id="taxon_name">
 	<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match)</label>
+	<input type="text" name="taxon_term" id="taxon_term">
 	<br>
-	<input type="text" name="taxon_term" id="taxon_term">	
 	<input value="Search" type="submit">
 </form>
 <cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
