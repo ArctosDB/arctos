@@ -96,14 +96,13 @@ Arctos taxonomy has changed.......
 			display:block;
 			margin:2em;
 			padding:2em;
-			background-color:lightgray;
+			background-color:#F8F8F8;
 		}
 		.sourceDiv {
 			border:2px solid black;
 			display:block;
 			margin:2em;
 			padding:2em;
-			background-color:lightgray;
 		}
 	</style>
 	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
