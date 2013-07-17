@@ -409,7 +409,7 @@ Arctos taxonomy has changed.......
 					<cfquery name="lastdate" dbtype="query">
 						select max(lastdate) as lastdate from d where classification_id='#classification_id#'
 					</cfquery>
-					<br><span style="font-size:small">lastdate: #lastdate.lastdate#</span>
+					<br><span style="font-size:small">last update: #lastdate.lastdate#</span>
 					<cfif len(qscore.gn_score) gt 0>
 						<br><span style="font-size:small">globalnames score=#qscore.gn_score#</span>
 					<cfelse>
