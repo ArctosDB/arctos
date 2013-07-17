@@ -193,10 +193,11 @@
 			</table>
 			<h3>
 				Classification Terms
-			</h3>
+			</h3>		
 			<p style="font-size:small;">
 				 Order is important here - "large" (eg, kingdom) at top to "small" (eg, subspecies) at bottom.
-				Use as many cells as you need; leave the rest empty. TermType will be ignored if Term is empty (eg, unranked terms are OK).
+				Use as many cells as you need; leave the rest empty. 
+				 TermType will be ignored if Term is empty. Term will be saved regardless of TermType; unranked terms are OK.
 				 Add more via Edit (after you save here) if necessary.	
 			</p>
 			<table id="clastbl" border="1">
@@ -385,7 +386,13 @@
 			<input type="hidden" name="numnoclassrs" id="numnoclassrs" value="#maxnoclass.m#">
 			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
 			<input type="hidden" name="noclassrows" id="noclassrows">
-			<h3>Edit Non-Classification information. These are pair-bound; if there's a term there must be a term type and vice-versa.</h3>
+			
+			<h3>
+				Non-Classification Terms
+			</h3>
+			<p style="font-size:small;">
+				These are paired terms; unpaired terms will be ignored (=deleted).
+			</p>
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Term Type</th><th>Term</th><th>Delete</th></tr>
@@ -409,8 +416,14 @@
 				</tbody>
 			</table>
 			<span class="likeLink" onclick="nc_addARow();">Add a Row</span>
-			<p>&nbsp;</p>
-			<h3>Edit Classification: Drag rows to sort.</h3>
+			
+			<h3>
+				Classification Terms
+			</h3>
+			<p style="font-size:small;">
+				 Order is important here - "large" (eg, kingdom) at top to "small" (eg, subspecies) at bottom. Drag rows to sort.
+				 TermType will be ignored if Term is empty. Term will be saved regardless of TermType; unranked terms are OK.
+			</p>
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Drag Handle</th><th>Term Type</th><th>Term</th><th>Delete</th></tr>
