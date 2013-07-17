@@ -52,7 +52,7 @@ Arctos taxonomy has changed.......
 	<input value="Search" type="submit">
 </form>
 <cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-	<a target="_blank" href="/editTaxonomy.cfm?action=newName">Create a new name</a>
+	<br><a target="_blank" href="/editTaxonomy.cfm?action=newName">[ Create a new name ]</a>
 </cfif>
 <hr>
 <!---------- search results ------------>
@@ -320,24 +320,24 @@ Arctos taxonomy has changed.......
 				position_in_classification 
 		</cfquery>
 		<hr>
-		Data from #source#
+		Data from source <strong>#source#</strong>
 		<!--- maybe later....
 		<cfif listfindnocase(editableSources,source,"|")>
 			<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">Edit Classification</a>
 		</cfif>
 		---->
-					<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">Edit Classification</a>
+		<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a>
 
 		<cfif len(qscore.gn_score) gt 0>
-			<br>globalnames score=#qscore.gn_score#
+			<br><span style="font-size:small">globalnames score=#qscore.gn_score#</span>
 		<cfelse>
-			<br>globalnames score not available
+			<br><span style="font-size:small">globalnames score not available</span>
 		</cfif>
 		
 		<cfif len(qscore.match_type) gt 0>
-			<br>globalnames match type=#qscore.match_type#
+			<br><span style="font-size:small">globalnames match type=#qscore.match_type#</span>
 		<cfelse>
-			<br>match type not available
+			<br><span style="font-size:small">match type not available</span>
 		</cfif>
 		<cfif thisone.recordcount gt 0>
 			<p>Classification:
