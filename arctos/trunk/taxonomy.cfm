@@ -44,21 +44,11 @@
 		});
 	});
 	function requireTermOrName() {
-			console.log('val fail');
 		if ($( "#taxon_name" ).val().length==0 && $( "#taxon_term" ).val().length==0){
-			console.log('val fail');
-
 			$( "#srchFailure" ).show();
-return false;
-
-//addClass(warningOverflow);
-			
+			return false;
 		}
-
-/*
-*/
-	
- }
+	}
 </script>
 <!---- unified taxonomy (except editing) form ---------->
 
@@ -105,17 +95,14 @@ Arctos taxonomy has changed.......
 <cfset title="Search Taxonomy">
 <!----- always display search ---------->
 <h3>Search for Taxonomy</h3>
-
 <span id="srchFailure" class="warningOverflow" style="display:none;">You must provide at least one of Taxon Term or Taxon Name to search.</span>
-<form ACTION="/taxonomy.cfm" METHOD="post" name="taxa" onsubmit="return requireTermOrName()">
+<label for="taxa">You must supply Taxon Name or Taxon Term to search.</label>
+<form ACTION="/taxonomy.cfm" METHOD="post" name="taxa" id="taxa" onsubmit="return requireTermOrName()">
 	<input type="hidden" name="action" value="search">
-	<label for="reqdToSearchDiv">You must supply Taxon Name or Taxon Term to search.</label>
-	<span class="reqdToSearchDiv" id="reqdToSearchDiv">
-		<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
-		<input type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
-		<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match; NULL to match unranked terms)</label>
-		<input type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
-	</span>
+	<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
+	<input type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
+	<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match; NULL to match unranked terms)</label>
+	<input type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
 	<label for="term_type">Term Type (prefix with = [equal sign] for exact match)</label>
 	<input type="text" name="term_type" id="term_type" value="#term_type#">
 	<label for="source">Source</label>
