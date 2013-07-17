@@ -68,11 +68,7 @@ It is obsolete once it's run once.
 			) where rownum<2001
 		</cfquery>
 		
-		
-		
-		----------------->
-		
-	<cfquery name="ids" datasource="uam_god">
+		<cfquery name="ids" datasource="uam_god">
 			select 
 				 taxon_name_id from (
 					SELECT related_primary_key taxon_name_id FROM
@@ -82,7 +78,22 @@ It is obsolete once it's run once.
 			) where rownum<2001
 		</cfquery>
 		
-	
+		----------------->
+		
+	<cfquery name="ids" datasource="uam_god">
+			select * from (
+				select 
+					taxon_name_id 
+				from 
+					TAXONOMY_PUBLICATION 
+				where 
+					taxon_name_id not in (select taxon_name_id from taxon_name) 
+				group by taxon_name_id
+			) where rownum<2001
+		</cfquery>
+		
+	SELECT TAXON_NAME_ID FROM TAXONOMY_PUBLICATION WHERE TAXON_NAME_ID NOT IN (SELECT TAXON_NAME_ID FROM TAXON_NAME);
+
 	
 	SELECT related_primary_key FROM media_relations WHERE media_relationship like '% taxonomy' and related_primary_key NOT IN (SELECT TAXON_NAME_ID FROM TAXON_NAME);
 
