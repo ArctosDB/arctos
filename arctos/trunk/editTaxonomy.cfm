@@ -132,26 +132,6 @@
 				minChars: 1,
 				selectFirst:false
 		    };
-			// split source out for creating 
-			var ac_nc_source = {
-	       		source: '/component/functions.cfc?method=ac_nc_source',
-				width: 320,
-				max: 50,
-				autofill: false,
-				multiple: false,
-				scroll: true,
-				scrollHeight: 300,
-				matchContains: true,
-				minChars: 1,
-				selectFirst:false
-		    };
-			
-			$("input.ac_nc_source").live("keydown.autocomplete", function() {
-		        $(this).autocomplete(ac_nc_source);
-		    });
-
-			// end source split
-		
 		    $("input.ac_isclass_tt").live("keydown.autocomplete", function() {
 		        $(this).autocomplete(ac_isclass_ttoptions);
 		    });
@@ -185,6 +165,9 @@
 	<cfquery name="thisName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select scientific_name from taxon_name where taxon_name_id=#taxon_name_id#
 	</cfquery>
+	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select source from cttaxonomy_source order by source
+	</cfquery>
 	<cfoutput>
 	<cfset title="Create Classification for #thisName.scientific_name#">
 	<h3>Create Classification for #thisName.scientific_name#</h3>
@@ -197,7 +180,11 @@
 				Source (required)
 				<a target="_blank" href="/component/functions.cfc?method=ac_nc_source&term">[ view all (JSON)]</a>
 			</label>
-			<input type="text" class="reqdClr" name="source" id="source" class="ac_nc_source">
+			<select name="source" id="source" class="reqdClr">
+				<cfloop query="cttaxonomy_source">
+					<option value="#source#">#source#</option>
+				</cfloop>
+			</select>
 			<h3>
 				Non-Classification Terms
 			</h3>
