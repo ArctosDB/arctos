@@ -166,7 +166,7 @@
 				Non-Classification Terms
 			</h3>
 			<p style="font-size:small;">
-				These are paired terms - you must provide both or neither for each row.
+				These are paired terms; unpaired terms will be ignored.
 			</p>
 			<table id="clastbl" border="1">
 				<thead>
