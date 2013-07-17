@@ -46,6 +46,7 @@ It is obsolete once it's run once.
 		 <cfquery name="d" datasource="uam_god">
 			select * from taxonomy where taxon_name_id='#taxon_name_id#'
 		</cfquery>
+		<br>#d.SCIENTIFIC_NAME#
 		<cfquery name="tt" datasource="uam_god">
 			insert into taxon_name (taxon_name_id,scientific_name) values (#d.taxon_name_id#,'#d.SCIENTIFIC_NAME#')
 		</cfquery>
