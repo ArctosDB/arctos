@@ -48,7 +48,7 @@
 		if ($( "#taxon_name" ).val().length==0 && $( "#taxon_term" ).val().length==0){
 			console.log('val fail');
 
-			$( "#srchFailure" ).html('You must provide at least one of Taxon Term or Taxon Name to search.');
+			$( "#srchFailure" ).html('You must provide at least one of Taxon Term or Taxon Name to search.').addClass(warningOverflow);
 
 //addClass(warningOverflow);
 			
