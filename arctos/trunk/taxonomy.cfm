@@ -43,8 +43,6 @@
 			selectFirst:false
 		});
 	});
-
-
 </script>
 <!---- unified taxonomy (except editing) form ---------->
 
@@ -157,9 +155,6 @@ Arctos taxonomy has changed.......
 	<cfquery name="d" datasource="uam_god">
 		#preservesinglequotes(sql)#		
 	</cfquery>
-	
-	
-	
 	<cfset title="Taxonomy Search Results">
 	#d.recordcount# results - click results for more information.
 	<cfif d.recordcount is 1000>
@@ -222,9 +217,6 @@ Arctos taxonomy has changed.......
 		}
 	</script>
 	
-	
-	<!--- pipe-delimited list of things that users are allowed to edit --->
-	<cfset editableSources="Arctos">
 	<cfquery name="d" datasource="uam_god">
 		select 
 			taxon_name.taxon_name_id,
