@@ -82,11 +82,30 @@ This REFRESHES data that already exist in Arctos.
 					<cfset cterms=ListToArray(x.data[1].results[i].classification_path, "|", true)>
 					
 					<cfif len(cterms) gt 0>
-						<!--- ignore the stuff with not useful classification --->
+						<!--- ignore the stuff with no useful classification --->
 						<cfset cranks=ListToArray(x.data[1].results[i].classification_path_ranks, "|", true)>
 						 
 						<cfset thisSource=x.data[1].results[i].data_source_title>
 						<cfif not listfindnocase(sourcesToIgnore,thisSource,"|")>
+							<cfset thisSourceID=x.data[1].results[i].classification_path_ids>
+							<cfif len(thisSourceID) is 0>
+								<cfset thisSourceID=CreateUUID()>
+							<cfelse>
+								<!------------ 
+									delete (so we can reinsert to update) from Arctos 
+									if we already have the classification.
+									
+									Delete is just cheaper/easier than checking for existing, updating lastdate, etc.
+									
+									Don't bother if we're creating a UUID - it won't exist (that's the point!) so save 
+									a trip to the DB
+								--------------->
+								<cfquery name="flush" datasource="uam_god">
+									delete from taxon_term where taxon_name_id=#d.taxon_name_id#
+									and classification_id='#thisSourceID#'
+								</cfquery>			
+							</cfif>
+										
 							<cfset match_type=x.data[1].results[i].match_type>
 							<cfif match_type is 1>
 								<cfset thisMatchType="Exact match">
@@ -105,20 +124,10 @@ This REFRESHES data that already exist in Arctos.
 							</cfif>
 							<!--- try to use something from them to uniquely identify the hierarchy---->
 							<!---- failing that, make a local identifier useful only in patching the hierarchy back together ---->
-							<cfset thisSourceID=x.data[1].results[i].classification_path_ids>
-							<cfif len(thisSourceID) is 0>
-								<cfset thisSourceID=CreateUUID()>
-							</cfif>
 							
 							
-							<!------------ 
-								delete (so we can reinsert to update) from Arctos 
-								if we already have the classification
-							--------------->
-							<cfquery name="flush" datasource="uam_god">
-								delete from taxon_term where taxon_name_id=#d.taxon_name_id#
-								and classification_id='#thisSourceID#'
-							</cfquery>
+							
+							
 	
 							<cfset thisScore=x.data[1].results[i].score>
 							<cfif len(thisScore) is 0><cfset thisScore=0></cfif>
