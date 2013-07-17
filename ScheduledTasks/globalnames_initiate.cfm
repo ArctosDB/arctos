@@ -20,48 +20,28 @@ It is obsolete once it's run once.
 	--->
 	<cfset sourcesToIgnore="Arctos">
 	
-	<cfif isdefined("name") and len(name) gt 0>
-		<!--- someone's calling something specific - update by request ---->
-		<cfquery name="ids" datasource="uam_god">
-				select 
-					taxon_name_id 
-				from 
-					taxon_name 
-				where 
-					scientific_name='#name#'
-		</cfquery>
-		<p>
-			Hi!
-			You're probably seeing this because you clicked some sort of refresh button.
-			Sorry, but it's pretty boring. It'll fire a bunch of threads off, and whatever you're trying to refresh
-			will probably be updated in a minute or so, unless for some reason there are a bunch of other threads running
-			or something's busted. If it really seems to be stuck, use the Contact link or send us an email.
-		</p>
-		<br>got taxon_name_id=#ids.taxon_name_id#
-		
-	<cfelse>
+	
 		<!--- see if we can find something interesting to update ---->
 		<cfquery name="ids" datasource="uam_god">
 			select * from (
 				select 
 					taxon_name_id 
 				from 
-					identification_taxonomy 
+					common_name 
 				where 
 					taxon_name_id not in (select taxon_name_id from taxon_name) 
 				group by taxon_name_id
 			) where rownum<201
 		</cfquery>
-	</cfif>
 	
 
 	<cfloop query="ids">
 		<!--- spawn threads --->
 		
 		<!--- after initial population, need to adjust this to NOT make the new Arctos classifications ---->
-		
-		<!----
 		<cfthread action="run" name="t#taxon_name_id#" taxon_name_id="#taxon_name_id#">
+
+		<!----
 		---->
 		 <cfquery name="d" datasource="uam_god">
 			select * from taxonomy where taxon_name_id='#taxon_name_id#'
@@ -242,8 +222,10 @@ It is obsolete once it's run once.
 				</cfif>
 			</cfloop>
 			<!----	 
-		</cfthread>
 		----->
+		
+				</cfthread>
+
 	</cfloop>
 	<cfif isdefined("name") and len(name) gt 0>
 		<br>threads spawned - we're done here
