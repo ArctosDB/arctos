@@ -61,9 +61,12 @@ This REFRESHES data that already exist in Arctos.
 	
 
 	<cfloop query="ids">
-		<!--- spawn threads --->
+		<!--- spawn threads 
 		
-		<cfthread action="run" name="t#taxon_name_id#" taxon_name_id="#taxon_name_id#">
+				<cfthread action="run" name="t#taxon_name_id#" taxon_name_id="#taxon_name_id#">
+
+		--->
+		
 		 <cfquery name="d" datasource="uam_god">
 			select scientific_name from taxon_name where taxon_name_id='#taxon_name_id#'
 		</cfquery>
@@ -185,8 +188,11 @@ This REFRESHES data that already exist in Arctos.
 						</cfif>
 					</cfif>
 				</cfif>
-			</cfloop>		 
+			</cfloop>	
+			<!---------	 
 		</cfthread>
+		
+		--------->
 	</cfloop>
 	<cfif isdefined("name") and len(name) gt 0>
 		<br>threads spawned - we're done here
