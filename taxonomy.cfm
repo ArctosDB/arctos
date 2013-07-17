@@ -136,7 +136,7 @@ Arctos taxonomy has changed.......
 			gn_score,
 			position_in_classification,
 			lastdate,
-			match_type
+			match_type,
 			regexp_replace(source,'[^A-Za-z]') anchor
 		from 
 			taxon_name,
