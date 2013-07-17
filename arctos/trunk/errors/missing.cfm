@@ -121,6 +121,9 @@
 		</cftry>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'name',"/")>
+
+
+------------#replace(request.rdurl,"/","","last")#------------
 	<cfif replace(request.rdurl,"/","","last") is "name">
 		<cfinclude template="/taxonomy.cfm">
 	<cfelse>
