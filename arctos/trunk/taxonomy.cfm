@@ -95,7 +95,7 @@ Arctos taxonomy has changed.......
 	<span class="reqdToSearchDiv" id="reqdToSearchDiv">
 		<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
 		<input type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
-		<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match)</label>
+		<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match; NULL to match unranked terms)</label>
 		<input type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
 	</span>
 	<label for="term_type">Term Type (prefix with = [equal sign] for exact match)</label>
@@ -117,7 +117,7 @@ Arctos taxonomy has changed.......
 	Search terms:
 	<ul>
 		<cfif len(taxon_name) gt 0>
-			<cfif  left(taxon_name,1) is "=">
+			<cfif left(taxon_name,1) is "=">
 				<cfset sql=sql & " and upper(taxon_name.scientific_name) = '#ucase(right(taxon_name,len(taxon_name)-1))#'">
 				<li>scientific_name IS #right(taxon_name,len(taxon_name)-1)#</li>
 			<cfelse>
@@ -138,6 +138,9 @@ Arctos taxonomy has changed.......
 			<cfif  left(term_type,1) is "=">
 				<cfset sql=sql & " and upper(term_type) = '#ucase(right(term_type,len(term_type)-1))#'">
 				<li>term type IS #right(term_type,len(term_type)-1)#</li>
+			<cfelseif term_type is "NULL">
+				<cfset sql=sql & " and term_type is null">
+				<li>term type IS NULL</li>
 			<cfelse>
 				<cfset sql=sql & " and upper(term_type) like '%#ucase(term_type)#%'">
 				<li>term type CONTAINS #term_type#</li>
@@ -510,10 +513,17 @@ Arctos taxonomy has changed.......
 						<cfloop query="thisone">
 							<div style="padding-left:#indent#em;">
 								#term#
+								<cfset tlink="/taxonomy.cfm?taxon_term==#term#">
 								<cfif len(term_type) gt 0>
 									(#term_type#)
+									<cfset ttlink=tlink & "&term_type==#term_type#">
+								<cfelse>
+									<cfset ttlink=tlink & "&term_type=NULL">
 								</cfif>
-								<a href="/taxonomy.cfm?taxon_term==#term#&term_type==#term_type#&source=#sources.source#">more like this</a>
+								<cfset srclnk=ttlink & "&source=#sources.source#">
+								<a class="infoLink" href="tlink">[ more like this term ]</a>
+								<a class="infoLink" href="ttlink">[ including rank ]</a>
+								<a class="infoLink" href="srclnk">[ from this source ]</a>
 							</div>
 							<cfset indent=indent+1>
 						</cfloop>
