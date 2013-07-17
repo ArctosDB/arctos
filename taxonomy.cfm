@@ -44,12 +44,17 @@
 		});
 	});
 	function requireTermOrName() {
-		if ($( "#taxon_name" ).val().length==0 && $( "#taxon_term" ).val().length==0){
+		return false;
+
+/*if ($( "#taxon_name" ).val().length==0 && $( "#taxon_term" ).val().length==0){
+			console.log('val fail');
+
 			$( "#srchFailure" ).addClass(warningOverflow).html('You must provide at least one of Taxon Term or Taxon Name to search.');
-			return false;
+			
 		}
-		return;
-	}
+*/
+	
+ }
 </script>
 <!---- unified taxonomy (except editing) form ---------->
 
