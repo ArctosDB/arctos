@@ -324,7 +324,13 @@ Arctos taxonomy has changed.......
 		order by 
 			source,
 			classification_id
-	</cfquery>		
+	</cfquery>
+	<cfquery name="baresource" dbtype="query">
+		select rereplace(source,'[^A-Za-z]','') from sources
+	</cfquery>
+	
+	<cfdump var=#baresource#>
+
 	<cfloop query="sources">
 		<cfquery name="notclass" dbtype="query">
 			select 
