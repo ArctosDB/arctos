@@ -112,7 +112,7 @@ Arctos taxonomy has changed.......
 		<cfif len(taxon_name) gt 0>
 			<cfif  left(taxon_name,1) is "=">
 				<cfset sql=sql & " upper(taxon_name.scientific_name) = '#ucase(right(taxon_name,len(taxon_name)-1))#'">
-				<li>scientific_name IS #taxon_name#</li>
+				<li>scientific_name IS #right(taxon_name,len(taxon_name)-1)#</li>
 			<cfelse>
 				<cfset sql=sql & " upper(taxon_name.scientific_name) like '%#ucase(taxon_name)#%'">
 				<li>scientific_name CONTAINS #taxon_name#</li>
@@ -121,7 +121,7 @@ Arctos taxonomy has changed.......
 		<cfif len(taxon_term) gt 0>
 			<cfif  left(taxon_term,1) is "=">
 				<cfset sql=sql & " and upper(term) = '#ucase(right(taxon_term,len(taxon_term)-1))#'">
-				<li>taxa term IS #taxon_term#</li>
+				<li>taxa term IS #right(taxon_term,len(taxon_term)-1)#</li>
 			<cfelse>
 				<cfset sql=sql & " and upper(term) like '%#ucase(taxon_term)#%'">
 				<li>taxa term CONTAINS #taxon_term#</li>
@@ -130,7 +130,7 @@ Arctos taxonomy has changed.......
 		<cfif len(term_type) gt 0>
 			<cfif  left(term_type,1) is "=">
 				<cfset sql=sql & " and upper(term_type) = '#ucase(right(term_type,len(term_type)-1))#'">
-				<li>term type IS #term_type#</li>
+				<li>term type IS #right(term_type,len(term_type)-1)#</li>
 			<cfelse>
 				<cfset sql=sql & " and upper(term_type) like '%#ucase(term_type)#%'">
 				<li>term type CONTAINS #term_type#</li>
