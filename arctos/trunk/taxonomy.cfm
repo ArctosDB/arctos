@@ -49,11 +49,11 @@
 			console.log('val fail');
 
 			$( "#srchFailure" ).show();
+return false;
 
 //addClass(warningOverflow);
 			
 		}
-return false;
 
 /*
 */
