@@ -126,9 +126,24 @@ Arctos taxonomy has changed.......
 	<!--- pipe-delimited list of things that users are allowed to edit --->
 	<cfset editableSources="Arctos">
 	<cfquery name="d" datasource="uam_god">
-		select * from taxon_name,taxon_term where 
-		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
-		upper(scientific_name)='#ucase(name)#'
+		select 
+			taxon_name.taxon_name_id,
+			scientific_name,
+			term,
+			term_type,
+			source,
+			classification_id,
+			gn_score,
+			position_in_classification,
+			lastdate,
+			match_type
+			regexp_replace(source,'[^A-Za-z]') anchor
+		from 
+			taxon_name,
+			taxon_term 
+		where 
+			taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
+			upper(scientific_name)='#ucase(name)#'
 	</cfquery>	
 	<cfif d.recordcount is 0>
 		sorry, we don't see to have data for #name# yet.
@@ -313,23 +328,20 @@ Arctos taxonomy has changed.......
 	<cfquery name="sources" dbtype="query">
 		select 
 			source,
-			classification_id
+			classification_id,
+			anchor
 		from 
 			d 
 		where 
 			classification_id is not null 
 		group by 
 			source,
-			classification_id
+			classification_id,
+			anchor
 		order by 
 			source,
 			classification_id
 	</cfquery>
-	<cfquery name="baresource" dbtype="query">
-		select rereplace(source,'[^A-Za-z]','') from sources
-	</cfquery>
-	
-	<cfdump var=#baresource#>
 
 	<cfloop query="sources">
 		<cfquery name="notclass" dbtype="query">
