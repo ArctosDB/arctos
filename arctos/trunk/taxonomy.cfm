@@ -96,7 +96,7 @@ Arctos taxonomy has changed.......
 			display:block;
 			margin:2em;
 			padding:2em;
-			background-color:#F8F8F8;
+			background-color:##F8F8F8;
 		}
 		.sourceDiv {
 			border:2px solid black;
@@ -111,9 +111,7 @@ Arctos taxonomy has changed.......
 			google_private_key
 		from cf_global_settings
 	</cfquery>
-	<cfoutput>
-		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
-	</cfoutput>
+	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
 	<script>
 		jQuery(document).ready(function(){
 			//var elemsToLoad='specTaxMedia,taxRelatedNames,mapTax';
