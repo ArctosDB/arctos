@@ -405,18 +405,6 @@ Arctos taxonomy has changed.......
 				<cfelse>
 					<br><span style="font-size:small">globalnames score not available</span>
 				</cfif>
-
-
-			</div>
-		</cfloop>
-		<!-------------
-		
-		
-			
-				
-				
-				
-				
 				<cfif len(qscore.match_type) gt 0>
 					<br><span style="font-size:small">globalnames match type=#qscore.match_type#</span>
 				<cfelse>
@@ -438,13 +426,12 @@ Arctos taxonomy has changed.......
 					<p>no classification provided</p>
 				</cfif>
 				<p>
-				<cfloop query="notclass">
-					<br>#term_type#: #term#
-				</cfloop>
+					<cfloop query="notclass">
+						<br>#term_type#: #term#
+					</cfloop>
 				</p>
-			</cfloop>
-			-------------->
-		
+			</div>
+		</cfloop>
 	</cfloop>
 		
 	<p>
