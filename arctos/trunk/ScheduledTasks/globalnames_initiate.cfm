@@ -31,7 +31,7 @@ It is obsolete once it's run once.
 				where 
 					taxon_name_id not in (select taxon_name_id from taxon_name) 
 				group by taxon_name_id
-			) where rownum<20001
+			) where rownum<2001
 		</cfquery>
 	
 
