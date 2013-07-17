@@ -371,7 +371,7 @@ Arctos taxonomy has changed.......
 			<cfloop query="source_classification">
 				<div class="classificationDiv">
 					<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-						<cfif listcontains(valuelist(cttaxonomy_source.source),source)>
+						<cfif listcontains(valuelist(cttaxonomy_source.source),sources.source)>
 							<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a> (ID: #classification_id#)
 						<cfelse>
 							Editing non-local sources disallowed
