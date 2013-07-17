@@ -8,11 +8,21 @@
 		blatantly wrong.
 	</p>
 	<p>
-		"Arctos taxonomy" consists of a scientific name and any number of optionally-qualified metadata terms. The scientific name is not linked to any particular 
-		classification, and may be a homonym or hemihomonym.	
+		Scientific name is data; it's linked to Identifications and cannot be changed once used. Everything else is metadata and therefore subject
+		to arbitrary change.
 	</p>
 	<p>
-		"Metadata" is of two broad categories: Classification data and non-classification data. Non-classification data are linked to but not part of classifications, 
+		Source-derived data may not be edited. These data are filtered (require at least one classification term), and may need further filters. Please use the 
+		contact link if you notice some sort of systematic garbage. Please contact the data provider directly if you see 
+		specific garbage (eg, misspelling).
+	</p>
+	<p>
+		"Arctos taxonomy" consists of a scientific name and any number of optionally-qualified metadata terms. The scientific name is not linked to any particular 
+		classification, and may be a homonym or hemihomonym. The namestring "Diptera" CORRECTLY includes classifications for flies and plants; this is not a 
+		mistake and should not be "corrected" to any particular point of view.
+	</p>
+	<p>
+		"Metadata" are of two broad categories: Classification data and non-classification data. Non-classification data are linked to but not part of classifications, 
 		and consist of things like HTML-formatted "display name" and author strings. Classification data are optionally-ranked "taxonomic terms."
 	</p>
 	<p>
@@ -24,6 +34,10 @@
 		There are very few rules and guidelines here. You can create garbage data, creatively spell scientific names, mess up data created by other users, 
 		delete and modify things that will automatically rejuvenate themselves, and find endless other ways to frustrate yourself and others. Use the contact link
 		at the bottom of the page if you have any questions; we're happy to help explain or clarify how things work.
+	</p>
+	<p>
+		These data are not artificially limited in scope. You may use these forms to curate non-biological taxonomies (such as minerals), and data so curated
+		are available to use in Arctos identifications.
 	</p>
 	<p>
 		The only hierarchies are in individual classifications. There are no form tools to update across or multiple classifications. Use the contact link if you need 
