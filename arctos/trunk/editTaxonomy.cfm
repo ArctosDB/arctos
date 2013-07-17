@@ -69,6 +69,13 @@
 	<script>
 		// copy this with edit classification
 		$(function() {
+			// suggest some defaults
+
+			$("##ncterm_type_1").val('author_text');
+			$("##ncterm_type_2").val('display_name');
+			$("##ncterm_type_3").val('nomenclatural_code');
+			$("##ncterm_type_4").val('taxon_status');
+			$("##ncterm_type_5").val('infraspecific_author');
 			$( "#sortable" ).sortable({
 				handle: '.dragger'
 			});
@@ -166,7 +173,7 @@
 				Non-Classification Terms
 			</h3>
 			<p style="font-size:small;">
-				These are paired terms; unpaired terms will be ignored.
+				These are paired terms; unpaired terms will be ignored. That means you can ignore the defaulted-in suggestions if you want.
 			</p>
 			<table id="clastbl" border="1">
 				<thead>
