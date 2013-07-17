@@ -73,7 +73,7 @@ It is obsolete once it's run once.
 		----------------->
 		
 	<cfquery name="ids" datasource="uam_god">
-			select * from (
+			select related_primary_key taxon_name_id from (
 					SELECT related_primary_key FROM
 					 media_relations WHERE media_relationship like '% taxonomy' and 
 					 related_primary_key NOT IN (SELECT TAXON_NAME_ID FROM TAXON_NAME)
