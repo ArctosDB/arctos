@@ -98,6 +98,13 @@ Arctos taxonomy has changed.......
 			padding:2em;
 			background-color:lightgray;
 		}
+		.sourceDiv {
+			border:2px solid black;
+			display:block;
+			margin:2em;
+			padding:2em;
+			background-color:lightgray;
+		}
 	</style>
 	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
@@ -355,83 +362,84 @@ Arctos taxonomy has changed.......
 		</cfloop>
 	</ul>
 	<cfloop query="sources">
-		<hr>
-		<a name="#anchor#"></a>
-		Data from source <strong>#source#</strong>
-		<cfquery name="source_classification" dbtype="query">
-			select classification_id from d where source='#source#' group by classification_id
-		</cfquery>
-		<cfloop query="source_classification">
-			<div class="classificationDiv">
-				<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-					<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a> (ID: #classification_id#)
-				</cfif>
-				<cfquery name="notclass" dbtype="query">
-					select 
-						term,
-						term_type 
-					from 
-						d 
-					where 
-						position_in_classification is null and 
-						classification_id='#classification_id#'
-					group by 
-						term,
-						term_type 
-					order by 
-						term_type,
-						term
-				</cfquery>
-				<cfquery name="qscore" dbtype="query">
-					select gn_score,match_type from d where classification_id='#classification_id#' and gn_score is not null group by gn_score,match_type
-				</cfquery>
-				<cfquery name="thisone" dbtype="query">
-					select 
-						term,
-						term_type 
-					from 
-						d 
-					where 
-						position_in_classification is not null and 
-						classification_id='#classification_id#' 
-					group by 
-						term,
-						term_type 
-					order by 
-						position_in_classification 
-				</cfquery>
-				<cfif len(qscore.gn_score) gt 0>
-					<br><span style="font-size:small">globalnames score=#qscore.gn_score#</span>
-				<cfelse>
-					<br><span style="font-size:small">globalnames score not available</span>
-				</cfif>
-				<cfif len(qscore.match_type) gt 0>
-					<br><span style="font-size:small">globalnames match type=#qscore.match_type#</span>
-				<cfelse>
-					<br><span style="font-size:small">match type not available</span>
-				</cfif>
-				<cfif thisone.recordcount gt 0>
-					<p>Classification:
-					<cfset indent=1>
-					<cfloop query="thisone">
-						<div style="padding-left:#indent#em;">
-							#term#
-							<cfif len(term_type) gt 0>
-								(#term_type#)
-							</cfif>
-						</div>
-						<cfset indent=indent+1>
-					</cfloop>
-				<cfelse>
-					<p>no classification provided</p>
-				</cfif>
-				<p>
-					<cfloop query="notclass">
-						<br>#term_type#: #term#
-					</cfloop>
-				</p>
-			</div>
-		</cfloop>
+		<div class="sourceDiv">
+			<a name="#anchor#"></a>
+			Data from source <strong>#source#</strong>
+			<cfquery name="source_classification" dbtype="query">
+				select classification_id from d where source='#source#' group by classification_id
+			</cfquery>
+			<cfloop query="source_classification">
+				<div class="classificationDiv">
+					<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
+						<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a> (ID: #classification_id#)
+					</cfif>
+					<cfquery name="notclass" dbtype="query">
+						select 
+							term,
+							term_type 
+						from 
+							d 
+						where 
+							position_in_classification is null and 
+							classification_id='#classification_id#'
+						group by 
+							term,
+							term_type 
+						order by 
+							term_type,
+							term
+					</cfquery>
+					<cfquery name="qscore" dbtype="query">
+						select gn_score,match_type from d where classification_id='#classification_id#' and gn_score is not null group by gn_score,match_type
+					</cfquery>
+					<cfquery name="thisone" dbtype="query">
+						select 
+							term,
+							term_type 
+						from 
+							d 
+						where 
+							position_in_classification is not null and 
+							classification_id='#classification_id#' 
+						group by 
+							term,
+							term_type 
+						order by 
+							position_in_classification 
+					</cfquery>
+					<cfif len(qscore.gn_score) gt 0>
+						<br><span style="font-size:small">globalnames score=#qscore.gn_score#</span>
+					<cfelse>
+						<br><span style="font-size:small">globalnames score not available</span>
+					</cfif>
+					<cfif len(qscore.match_type) gt 0>
+						<br><span style="font-size:small">globalnames match type=#qscore.match_type#</span>
+					<cfelse>
+						<br><span style="font-size:small">match type not available</span>
+					</cfif>
+					<cfif thisone.recordcount gt 0>
+						<p>Classification:
+						<cfset indent=1>
+						<cfloop query="thisone">
+							<div style="padding-left:#indent#em;">
+								#term#
+								<cfif len(term_type) gt 0>
+									(#term_type#)
+								</cfif>
+							</div>
+							<cfset indent=indent+1>
+						</cfloop>
+					<cfelse>
+						<p>no classification provided</p>
+					</cfif>
+					<p>
+						<cfloop query="notclass">
+							<br>#term_type#: #term#
+						</cfloop>
+					</p>
+				</div>
+			</cfloop>
+		</div>
 	</cfloop>
 		
 	<p>
