@@ -74,17 +74,17 @@ It is obsolete once it's run once.
 		
 	<cfquery name="ids" datasource="uam_god">
 			select * from (
-				select 
-					taxon_name_id 
-				from 
-					PROJECT_TAXONOMY 
-				where 
-					taxon_name_id not in (select taxon_name_id from taxon_name) 
+					SELECT related_primary_key FROM
+					 media_relations WHERE media_relationship like '% taxonomy' and 
+					 related_primary_key NOT IN (SELECT TAXON_NAME_ID FROM TAXON_NAME)
 				group by taxon_name_id
 			) where rownum<2001
 		</cfquery>
 		
 	
+	
+	SELECT related_primary_key FROM media_relations WHERE media_relationship like '% taxonomy' and related_primary_key NOT IN (SELECT TAXON_NAME_ID FROM TAXON_NAME);
+
 	
 	
 	<cfloop query="ids">
