@@ -27,7 +27,7 @@ Arctos taxonomy has changed.......
 
 
 </P>
-<br>
+<hr>
 
 <cfoutput>
 <cfif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
@@ -37,9 +37,7 @@ Arctos taxonomy has changed.......
 	<cflocation url="/name/#d.scientific_name#" addtoken="false">
 </cfif>
 
-<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-	<a target="_blank" href="/editTaxonomy.cfm?action=newName">Create a new name</a>
-</cfif>
+
 
 <cfset title="Search Taxonomy">
 <!----- always display search ---------->
@@ -53,6 +51,9 @@ Arctos taxonomy has changed.......
 	<input type="text" name="taxon_term" id="taxon_term">	
 	<input value="Search" type="submit">
 </form>
+<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
+	<a target="_blank" href="/editTaxonomy.cfm?action=newName">Create a new name</a>
+</cfif>
 <hr>
 <!---------- search results ------------>
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0>

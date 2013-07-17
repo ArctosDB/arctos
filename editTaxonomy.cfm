@@ -1,8 +1,4 @@
 <cfinclude template="includes/_header.cfm">
-<cfdump var=#form#>
-
-
-
 <cfif action is "saveNewClass">
 	<cfoutput>		
 		<cfif len(source) is 0>
@@ -337,10 +333,6 @@
 				taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 				classification_id='#classification_id#'
 		</cfquery>
-		
-		<cfdump var=#d#>
-		
-		
 		<cfquery name="thisname" dbtype="query">
 			select 
 				source,
@@ -397,7 +389,7 @@
 			<input type="hidden" name="numnoclassrs" id="numnoclassrs" value="#maxnoclass.m#">
 			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
 			<input type="hidden" name="noclassrows" id="noclassrows">
-			<h3>Edit Non-Classification information</h3>
+			<h3>Edit Non-Classification information. These are pair-bound; if there's a term there must be a term type and vice-versa.</h3>
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Term Type</th><th>Term</th><th>Delete</th></tr>
@@ -479,6 +471,9 @@
 				<cfset i=listlast(x,"_")>
 				<cfset thisterm=evaluate("NCTERM_" & i)>
 				<cfset thistermtype=evaluate("NCTERM_TYPE_" & i)>
+				<cfif (len(thisterm) is 0 and len(thistermtype) gt 0) or (len(thistermtype) is 0 and len(thisterm) gt 0))>
+					Non-classification terms must be provided as pairs.
+				</cfif>
 				<cfquery name="insNCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into taxon_term (
 						TAXON_NAME_ID,
