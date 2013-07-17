@@ -160,7 +160,7 @@ Arctos taxonomy has changed.......
 	<h3>Taxonomy Details for <i>#name#</i></h3>
 	<cfset title="Taxonomy Details: #name#">
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">Edit Non-Classification Data</a>
+		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
 	</cfif>	
 	<div id="specTaxMedia"></div>
 	<div id="mapTax" style="margin:2em;"></div>
@@ -307,8 +307,8 @@ Arctos taxonomy has changed.......
 	
 	<h4>Classifications</h4>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-		<a target="_blank" href="/ScheduledTasks/globalnames_fetch.cfm?name=#name#">Refresh/pull GlobalNames</a>
-		<a href="/editTaxonomy.cfm?action=newClassification&taxon_name_id=#taxon_name_id.taxon_name_id#">Create Classification</a>
+		<a target="_blank" href="/ScheduledTasks/globalnames_fetch.cfm?name=#name#">[ Refresh/pull GlobalNames ]</a>
+		<a href="/editTaxonomy.cfm?action=newClassification&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Create Classification ]</a>
 	</cfif>
 	<cfquery name="sources" dbtype="query">
 		select 
