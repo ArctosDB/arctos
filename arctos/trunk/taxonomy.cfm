@@ -6,6 +6,9 @@
 		padding:1em;
 		margin:1em;
 	}
+	.taxonomyResultsDiv {
+		padding-left:3em;
+	}
 </style>
 <script>
 	$(function() {
@@ -148,10 +151,12 @@ Arctos taxonomy has changed.......
 		#preservesinglequotes(sql)#		
 	</cfquery>
 	<cfset title="Taxonomy Search Results">
-	#d.recordcount# results:
-	<cfloop query="d">
-		<br><a href="/name/#scientific_name#">#scientific_name#</a>
-	</cfloop>
+	#d.recordcount# results - click results for more information.
+	<div class="taxonomyResultsDiv">
+		<cfloop query="d">
+			<br><a href="/name/#scientific_name#">#scientific_name#</a>
+		</cfloop>
+	</div>
 </cfif>
 
 <!--------------------- taxonomy details --------------------->
