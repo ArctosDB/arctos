@@ -213,6 +213,18 @@
 </cffunction>
 
 <!------------------------------------------------------------------->
+<cffunction name="ac_alltaxterm_tt" access="remote" returnformat="json">
+   	<cfargument name="term" required="true" type="string">
+	<cfquery name="classification_termtype" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select term_type from taxon_term group by term_type
+	</cfquery>
+	<cfquery name="pn" dbtype="query">
+		select term_type from classification_termtype where upper(term_type) like '%#ucase(term)#%'
+		order by term_type
+	</cfquery>
+	<cfreturn "[" & ListQualify(valuelist(pn.term_type),'"') & "]">
+</cffunction>
+<!------------------------------------------------------------------->
 <cffunction name="ac_isclass_tt" access="remote" returnformat="json">
    	<cfargument name="term" required="true" type="string">
 	<cfquery name="classification_termtype" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
