@@ -1,4 +1,21 @@
 <cfinclude template="includes/_header.cfm">
+
+<script>
+	$(function() {
+		$( "#source" ).autocomplete({
+			source: '/component/functions.cfc?method=ac_nc_source',
+			width: 320,
+			max: 50,
+			autofill: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300,
+			matchContains: true,
+			minChars: 1,
+			selectFirst:false
+		});
+	});
+</script>
 <!---- unified taxonomy (except editing) form ---------->
 
 <!--------- global form defaults -------------->
@@ -10,8 +27,8 @@
 	<cfset taxon_term="">
 </cfif>
 
-<cfif not isdefined("src")>
-	<cfset src="">
+<cfif not isdefined("source")>
+	<cfset source="">
 </cfif>
 	
 <!---- blurb about arctos taxonomy ------->
@@ -33,7 +50,7 @@ Arctos taxonomy has changed.......
 <cfif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
 	<cfquery name="d" datasource="uam_god">
 		select scientific_name from taxon_name where taxon_name_id=<cfqueryparam value = "#taxon_name_id#" CFSQLType = "CF_SQL_INTEGER"> 
-		</cfquery>
+	</cfquery>
 	<cflocation url="/name/#d.scientific_name#" addtoken="false">
 </cfif>
 
@@ -45,9 +62,12 @@ Arctos taxonomy has changed.......
 <form ACTION="/taxonomy.cfm" METHOD="post" name="taxa">
 	<input type="hidden" name="action" value="search">
 	<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
-	<input type="text" name="taxon_name" id="taxon_name">
+	<input type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
 	<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match)</label>
-	<input type="text" name="taxon_term" id="taxon_term">
+	<input type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
+	
+	<label for="source">Source</label>
+	<input type="text" name="source" id="source" value="#source#">
 	<br>
 	<input value="Search" type="submit">
 </form>
