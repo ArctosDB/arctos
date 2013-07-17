@@ -46,7 +46,7 @@
 	function requireTermOrName() {
 		if ($( "#taxon_name" ).val().length==0 && $( "#taxon_term" ).val().length==0){
 			$( "#srchFailure" ).show();
-			$( "#taxon_term" ).addClass('highlight');
+			$( "#taxon_term" ).addClass('redBorder');
 
 
 //
