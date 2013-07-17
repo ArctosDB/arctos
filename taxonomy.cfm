@@ -332,7 +332,7 @@ Arctos taxonomy has changed.......
 			</cfif>
 		</ul>
 	</p>
-	
+	<a name="classifications"></a>
 	<h4>Classifications</h4>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<a target="_blank" href="/ScheduledTasks/globalnames_fetch.cfm?name=#name#">[ Refresh/pull GlobalNames ]</a>
@@ -360,7 +360,7 @@ Arctos taxonomy has changed.......
 	</ul>
 	<cfloop query="sources">
 		<div class="sourceDiv">
-			<a name="#anchor#"></a>
+			<a name="#anchor#" href="#classifications#">Jump to Classifications</a>
 			Data from source <strong>#source#</strong>
 			<cfquery name="source_classification" dbtype="query">
 				select classification_id from d where source='#source#' group by classification_id
