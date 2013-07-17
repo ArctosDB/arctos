@@ -400,106 +400,106 @@ Arctos taxonomy has changed.......
 			<br>#term_type#: #term#
 		</cfloop>
 		</p>
-		
-		<p>
-			External Links:
-			<cfset srchName = URLEncodedFormat(scientific_name.scientific_name)>
-			<ul>
-			
-				<!--- things that we've been asked to link to but which cannot deal with our data
-				<li>
-					<a class="external" target="_blank" href="http://amphibiaweb.org/cgi/amphib_query?where-genus=#one.genus#&where-species=#one.species#">
-						AmphibiaWeb
-					</a>
-				</li>
-				
-				END things that we've been asked to link to but which cannot deal with our data ---->
-				<li id="ispecies">
-					<a class="external" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
-				</li>
-				<li>
-					<a class="external" target="_blank" href="http://wikipedia.org/wiki/#srchName#">
-						Wikipedia
-					</a>
-				</li>
-				<li>
-					<a class="external" target="_blank" href="http://animaldiversity.ummz.umich.edu/site/search?SearchableText=#srchName#">
-						Animal Diversity Web
-					</a>
-				</li>
-				
-				<cfset thisSearch = "%22#scientific_name.scientific_name#%22">
-				<cfloop query="common_name">
-					<cfset thisSearch = "#thisSearch# OR %22#common_name#%22">
-				</cfloop>
-				
-				
-				<li>
-					<a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?name=#srchName#">
-						NCBI
-					</a>
-				</li>
-				
-				<li>
-					<a class="external" href="http://google.com/search?q=#thisSearch#" target="_blank">
-						Google
-					</a>
-					<a class="external" href="http://images.google.com/images?q=#thisSearch#" target="_blank">
-						Images
-					</a>
-				</li>
-				<li>
-					<a class="external" target="_blank" href="http://www.eol.org/search/?q=#srchName#">
-						Encyclopedia of Life
-					</a>
-				</li>
-				<li>
-					<a class="external" target="_blank" href="http://www.ubio.org/browser/search.php?search_all=#srchName#">
-						uBio
-					</a>
-				</li>
-				<li>
-					<a class="external" target="_blank" href="http://www.efloras.org/browse.aspx?name_str=#srchName#">Flora of North America</a>
-				</li>
-				<li>
-					<a class="external" target="_blank" href="http://www.ipni.org/ipni/simplePlantNameSearch.do?find_wholeName=#srchName#">
-						The International Plant Names Index
-					</a>
-				</li>
-				<li>
-					<a class="external" target="_blank" href="http://epic.kew.org/searchepic/summaryquery.do?scientificName=#srchName#&searchAll=true&categories=names&categories=bibl&categories=colln&categories=taxon&categories=flora&categories=misc">
-						electronic plant information centre
-					</a>
-				</li>
-				<li>
-					<a class="external" target="_blank" href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all">
-						ITIS
-					</a>
-				</li>
-				<li>
-					<a class="external" target="_blank" href="http://www.catalogueoflife.org/col/search/all/key/#srchName#/match/1">
-						Catalogue of Life
-					</a>
-				</li>
-				<li>
-					<a class="external" target="_blank" href="
-						http://www.google.com/custom?q=#srchName#&sa=Go!&cof=S:http://www.unep-wcmc.org;AH:left;LH:56;L:http://www.unep-wcmc.org/wdpa/I/unepwcmcsml.gif;LW:100;AWFID:681b57e6eabf5be6;&domains=unep-wcmc.org&sitesearch=unep-wcmc.org">
-						UNEP (CITES)
-					</a>
-				</li>
-				<li id="wikispecies">
-					<a class="external" target="_blank" href="http://species.wikimedia.org/wiki/#srchName#">
-						WikiSpecies
-					</a>
-				</li>
-				<li>
-					<a class="external" target="_blank" href="http://www.biodiversitylibrary.org/name/#srchName#">
-						Biodiversity Heritage Library
-					</a>
-				</li>
-			</ul>
-		</p>
 	</cfloop>
+		
+	<p>
+		External Links:
+		<cfset srchName = URLEncodedFormat(scientific_name.scientific_name)>
+		<ul>
+		
+			<!--- things that we've been asked to link to but which cannot deal with our data
+			<li>
+				<a class="external" target="_blank" href="http://amphibiaweb.org/cgi/amphib_query?where-genus=#one.genus#&where-species=#one.species#">
+					AmphibiaWeb
+				</a>
+			</li>
+			
+			END things that we've been asked to link to but which cannot deal with our data ---->
+			<li id="ispecies">
+				<a class="external" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
+			</li>
+			<li>
+				<a class="external" target="_blank" href="http://wikipedia.org/wiki/#srchName#">
+					Wikipedia
+				</a>
+			</li>
+			<li>
+				<a class="external" target="_blank" href="http://animaldiversity.ummz.umich.edu/site/search?SearchableText=#srchName#">
+					Animal Diversity Web
+				</a>
+			</li>
+			
+			<cfset thisSearch = "%22#scientific_name.scientific_name#%22">
+			<cfloop query="common_name">
+				<cfset thisSearch = "#thisSearch# OR %22#common_name#%22">
+			</cfloop>
+			
+			
+			<li>
+				<a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?name=#srchName#">
+					NCBI
+				</a>
+			</li>
+			
+			<li>
+				<a class="external" href="http://google.com/search?q=#thisSearch#" target="_blank">
+					Google
+				</a>
+				<a class="external" href="http://images.google.com/images?q=#thisSearch#" target="_blank">
+					Images
+				</a>
+			</li>
+			<li>
+				<a class="external" target="_blank" href="http://www.eol.org/search/?q=#srchName#">
+					Encyclopedia of Life
+				</a>
+			</li>
+			<li>
+				<a class="external" target="_blank" href="http://www.ubio.org/browser/search.php?search_all=#srchName#">
+					uBio
+				</a>
+			</li>
+			<li>
+				<a class="external" target="_blank" href="http://www.efloras.org/browse.aspx?name_str=#srchName#">Flora of North America</a>
+			</li>
+			<li>
+				<a class="external" target="_blank" href="http://www.ipni.org/ipni/simplePlantNameSearch.do?find_wholeName=#srchName#">
+					The International Plant Names Index
+				</a>
+			</li>
+			<li>
+				<a class="external" target="_blank" href="http://epic.kew.org/searchepic/summaryquery.do?scientificName=#srchName#&searchAll=true&categories=names&categories=bibl&categories=colln&categories=taxon&categories=flora&categories=misc">
+					electronic plant information centre
+				</a>
+			</li>
+			<li>
+				<a class="external" target="_blank" href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all">
+					ITIS
+				</a>
+			</li>
+			<li>
+				<a class="external" target="_blank" href="http://www.catalogueoflife.org/col/search/all/key/#srchName#/match/1">
+					Catalogue of Life
+				</a>
+			</li>
+			<li>
+				<a class="external" target="_blank" href="
+					http://www.google.com/custom?q=#srchName#&sa=Go!&cof=S:http://www.unep-wcmc.org;AH:left;LH:56;L:http://www.unep-wcmc.org/wdpa/I/unepwcmcsml.gif;LW:100;AWFID:681b57e6eabf5be6;&domains=unep-wcmc.org&sitesearch=unep-wcmc.org">
+					UNEP (CITES)
+				</a>
+			</li>
+			<li id="wikispecies">
+				<a class="external" target="_blank" href="http://species.wikimedia.org/wiki/#srchName#">
+					WikiSpecies
+				</a>
+			</li>
+			<li>
+				<a class="external" target="_blank" href="http://www.biodiversitylibrary.org/name/#srchName#">
+					Biodiversity Heritage Library
+				</a>
+			</li>
+		</ul>
+	</p>
 </cfif>
 </cfoutput>
 <!---------------------------------------------------------------------------------------------------->
