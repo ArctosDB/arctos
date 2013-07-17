@@ -104,41 +104,49 @@ Arctos taxonomy has changed.......
 <hr>
 <!---------- search results ------------>
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0>
-	<cfquery name="d" datasource="uam_god">
-		select scientific_name from taxon_name,taxon_term where 
-		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
+	<h3>Taxonomy Search Results</h3>
+	<cfset sql="select scientific_name from taxon_name,taxon_term where 
+		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and">
+	Search terms:
+	<ul>
 		<cfif len(taxon_name) gt 0>
-			upper(taxon_name.scientific_name)  
 			<cfif  left(taxon_name,1) is "=">
-				= '#ucase(taxon_name)#'
+				<cfset sql=sql & " upper(taxon_name.scientific_name) = '#ucase(taxon_name)#'">
+				<li>scientific_name IS #taxon_name#</li>
 			<cfelse>
-				like '%#ucase(taxon_name)#%'
+				<cfset sql=sql & " upper(taxon_name.scientific_name) like '%#ucase(taxon_name)#%'">
+				<li>scientific_name CONTAINS #taxon_name#</li>
 			</cfif>
 		</cfif>
 		<cfif len(taxon_term) gt 0>
-			and upper(term)
 			<cfif  left(taxon_term,1) is "=">
-				= '#ucase(taxon_name)#'
+				<cfset sql=sql & " and upper(term) = '#ucase(taxon_term)#'">
+				<li>taxa term IS #taxon_term#</li>
 			<cfelse>
-				like '%#ucase(taxon_term)#%'
+				<cfset sql=sql & " and upper(term) like '%#ucase(taxon_term)#%'">
+				<li>taxa term CONTAINS #taxon_term#</li>
 			</cfif>			  
 		</cfif>
 		<cfif len(term_type) gt 0>
-			and upper(term_type)
 			<cfif  left(term_type,1) is "=">
-				= '#ucase(term_type)#'
+				<cfset sql=sql & " and upper(term_type) = '#ucase(term_type)#'">
+				<li>term type IS #term_type#</li>
 			<cfelse>
-				like '%#ucase(term_type)#%'
+				<cfset sql=sql & " and upper(term_type) like '%#ucase(term_type)#%'">
+				<li>term type CONTAINS #term_type#</li>
 			</cfif>			  
 		</cfif>
 		<cfif len(source) gt 0>
-			and upper(source) like '%#ucase(source)#%'
+			<cfset sql=sql & " and upper(source) like '%#ucase(source)#%'">
+			<li>source CONTAINS #source#</li>
 		</cfif>
-		and rownum<1001
+		<cfset sql=sql & "and rownum<1001
 		group by scientific_name
-		order by scientific_name
+		order by scientific_name">
+	</ul>
+	<cfquery name="d" datasource="uam_god">
+		#preservesinglequotes(sql)#		
 	</cfquery>
-	<h3>Taxonomy Search Results</h3>
 	<cfset title="Taxonomy Search Results">
 	#d.recordcount# results:
 	<cfloop query="d">
