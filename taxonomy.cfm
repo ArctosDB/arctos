@@ -108,7 +108,7 @@ Arctos taxonomy has changed.......
 <!---------- search results ------------>
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0>
 	<h3>Taxonomy Search Results</h3>
-	<cfset sql="select scientific_name from taxon_name,taxon_term where 
+	<cfset sql="select scientific_name from (select scientific_name from taxon_name,taxon_term where 
 		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and">
 	Search terms:
 	<ul>
@@ -143,19 +143,22 @@ Arctos taxonomy has changed.......
 			<cfset sql=sql & " and upper(source) like '%#ucase(source)#%'">
 			<li>source CONTAINS #source#</li>
 		</cfif>
-		<cfset sql=sql & "and rownum<1001
+		<cfset sql=sql & "
 		group by scientific_name
-		order by scientific_name">
+		order by scientific_name)
+		where rownum<1001">
 	</ul>
 	<cfquery name="d" datasource="uam_god">
 		#preservesinglequotes(sql)#		
 	</cfquery>
 	
-	<cfdump var=#d#>
 	
 	
 	<cfset title="Taxonomy Search Results">
 	#d.recordcount# results - click results for more information.
+	<cfif d.recordcount is 1000>
+		<br>This form will return a maximum of 1,000 records.
+	</cfif>
 	<div class="taxonomyResultsDiv">
 		<cfloop query="d">
 			<br><a href="/name/#scientific_name#">#scientific_name#</a>
