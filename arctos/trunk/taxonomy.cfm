@@ -21,7 +21,21 @@
 			minChars: 1,
 			selectFirst:false
 		});
+		$( "#term_type" ).autocomplete({
+			source: '/component/functions.cfc?method=ac_alltaxterm_tt',
+			width: 320,
+			max: 50,
+			autofill: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300,
+			matchContains: true,
+			minChars: 1,
+			selectFirst:false
+		});
 	});
+
+
 </script>
 <!---- unified taxonomy (except editing) form ---------->
 
@@ -33,7 +47,9 @@
 <cfif not isdefined("taxon_term")>
 	<cfset taxon_term="">
 </cfif>
-
+<cfif not isdefined("term_type")>
+	<cfset term_type="">
+</cfif>
 <cfif not isdefined("source")>
 	<cfset source="">
 </cfif>
@@ -68,13 +84,15 @@ Arctos taxonomy has changed.......
 <h3>Search for Taxonomy</h3>
 <form ACTION="/taxonomy.cfm" METHOD="post" name="taxa">
 	<input type="hidden" name="action" value="search">
-	<span class="reqdToSearchDiv">
-		<label for="">You must supply Taxon Name or Taxon Term to search.</label>
+	<label for="reqdToSearchDiv">You must supply Taxon Name or Taxon Term to search.</label>
+	<span class="reqdToSearchDiv" id="reqdToSearchDiv">
 		<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
 		<input type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
 		<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match)</label>
 		<input type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
 	</span>
+	<label for="term_type">Term Type (prefix with = [equal sign] for exact match)</label>
+	<input type="text" name="term_type" id="term_type" value="#term_type#">
 	<label for="source">Source</label>
 	<input type="text" name="source" id="source" value="#source#">
 	<br>
@@ -103,6 +121,14 @@ Arctos taxonomy has changed.......
 				= '#ucase(taxon_name)#'
 			<cfelse>
 				like '%#ucase(taxon_term)#%'
+			</cfif>			  
+		</cfif>
+		<cfif len(term_type) gt 0>
+			and upper(term_type)
+			<cfif  left(term_type,1) is "=">
+				= '#ucase(term_type)#'
+			<cfelse>
+				like '%#ucase(term_type)#%'
 			</cfif>			  
 		</cfif>
 		<cfif len(source) gt 0>
