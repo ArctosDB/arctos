@@ -46,7 +46,10 @@
 	function requireTermOrName() {
 		if ($( "#taxon_name" ).val().length==0 && $( "#taxon_term" ).val().length==0){
 			$( "#srchFailure" ).show();
-//highlight
+			$( "#taxon_term" ).addClass('highlight');
+
+
+//
 			return false;
 		}
 	}
@@ -102,8 +105,8 @@ Arctos taxonomy has changed.......
 	<input type="hidden" name="action" value="search">
 	<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
 	<input class="reqdClr" type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
-	<label class="reqdClr" for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match; NULL to match unranked terms)</label>
-	<input type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
+	<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match; NULL to match unranked terms)</label>
+	<input class="reqdClr" type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
 	<label for="term_type">Term Type (prefix with = [equal sign] for exact match)</label>
 	<input type="text" name="term_type" id="term_type" value="#term_type#">
 	<label for="source">Source</label>
