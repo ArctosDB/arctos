@@ -169,17 +169,14 @@
 		select source from cttaxonomy_source order by source
 	</cfquery>
 	<cfoutput>
-	<cfset title="Create Classification for #thisName.scientific_name#">
-	<h3>Create Classification for #thisName.scientific_name#</h3>
-
-	<form name="f1" id="f1" method="post" action="editTaxonomy.cfm">
-		<input type="hidden" name="action" value="saveNewClass">
-		<input type="hidden" name="taxon_name_id" id="taxon_name_id" value="#taxon_name_id#">
+		<cfset title="Create Classification for #thisName.scientific_name#">
+		<h3>Create Classification for #thisName.scientific_name#</h3>
+	
+		<form name="f1" id="f1" method="post" action="editTaxonomy.cfm">
+			<input type="hidden" name="action" value="saveNewClass">
+			<input type="hidden" name="taxon_name_id" id="taxon_name_id" value="#taxon_name_id#">
 			
-			<label for="source">
-				Source (required)
-				<a target="_blank" href="/component/functions.cfc?method=ac_nc_source&term">[ view all (JSON)]</a>
-			</label>
+			<label for="source">Source</label>
 			<select name="source" id="source" class="reqdClr">
 				<cfloop query="cttaxonomy_source">
 					<option value="#source#">#source#</option>
@@ -246,7 +243,7 @@
 				<input type="submit" value="Create Classification">
 			</p>
 		</form>
-		</cfoutput>
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------->
 <cfif action is "editClassification">

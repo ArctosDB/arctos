@@ -111,6 +111,9 @@ Arctos taxonomy has changed.......
 			google_private_key
 		from cf_global_settings
 	</cfquery>
+	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select source from cttaxonomy_source order by source
+	</cfquery>
 	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
 	<script>
 		jQuery(document).ready(function(){
@@ -368,7 +371,11 @@ Arctos taxonomy has changed.......
 			<cfloop query="source_classification">
 				<div class="classificationDiv">
 					<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-						<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a> (ID: #classification_id#)
+						<cfif listcontains(valuelist(cttaxonomy_source.source),source)>
+							<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a> (ID: #classification_id#)
+						<cfelse>
+							Editing non-local sources disallowed
+						</cfif>
 					</cfif>
 					<cfquery name="notclass" dbtype="query">
 						select 
