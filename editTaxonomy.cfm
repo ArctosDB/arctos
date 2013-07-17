@@ -146,6 +146,18 @@
 		    });
 
 		});
+		function requirePair(i){
+			var tt=$("#ncterm_type_" + i).val().length;
+			var t=$("#ncterm_" + i).val().length;
+			if (tt>0 || t>0){
+				$("#ncterm_type_" + i).addClass('reqdClr');
+				$("#ncterm_" + i).addClass('reqdClr');
+			} else {
+				$("#ncterm_type_" + i).addClass('reqdClr');
+				$("#ncterm_" + i).addClass('reqdClr');	
+			}
+
+		}
 	</script>
 	<p>
 		Create classifications here. This form is limited - you can edit classifications (after creating them here) to do more.	
@@ -172,7 +184,7 @@
 				Source (required)
 				<a target="_blank" href="/component/functions.cfc?method=ac_nc_source&term">[ view all (JSON)]</a>
 			</label>
-			<input type="text" name="source" id="source" class="ac_nc_source">
+			<input type="text" class="reqdClr" name="source" id="source" class="ac_nc_source">
 			
 			<label for="clastbl">Non-Classification information. These are both/neither; if you leave one side blank the other will be ignored.</label>
 			<table id="clastbl" border="1">
@@ -189,10 +201,10 @@
 					<cfloop from="1" to="10" index="i">
 						<tr id="nccell_#i#">
 							<td>
-								<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#i#" name="ncterm_type_#i#" >
+								<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#i#" name="ncterm_type_#i#" onchange="requirePair(#i#);">
 							</td>
 							<td>
-								<input size="60" type="text" id="ncterm_#i#" name="ncterm_#i#">
+								<input size="60" type="text" id="ncterm_#i#" name="ncterm_#i#" onchange="requirePair(#i#);">
 							</td>
 						</tr>
 					</cfloop>
@@ -201,7 +213,7 @@
 			<p>&nbsp;</p>
 			<label for="clastbl">
 				Create Classification. Order is important here - "large" (eg, kingdom) at top to "small" (eg, subspecies) at bottom.
-				Use as many cells as you need; leave the rest empty. Add more via Edit (after you save here).	
+				Use as many cells as you need; leave the rest empty. TermType will be ignored if Term is empty. Add more via Edit (after you save here).	
 			</label>
 			<table id="clastbl" border="1">
 				<thead>
