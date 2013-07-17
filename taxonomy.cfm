@@ -1,5 +1,9 @@
 <cfinclude template="includes/_header.cfm">
-
+<style>
+	.reqdToSearchDiv {
+		border:1px solid green;
+	}
+</style>
 <script>
 	$(function() {
 		$( "#source" ).autocomplete({
@@ -61,11 +65,13 @@ Arctos taxonomy has changed.......
 <h3>Search for Taxonomy</h3>
 <form ACTION="/taxonomy.cfm" METHOD="post" name="taxa">
 	<input type="hidden" name="action" value="search">
-	<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
-	<input type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
-	<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match)</label>
-	<input type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
-	
+	<div class="reqdToSearchDiv">
+		<label for="">You must supply Taxon Name or Taxon Term to search.</label>
+		<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
+		<input type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
+		<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match)</label>
+		<input type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
+	</div>
 	<label for="source">Source</label>
 	<input type="text" name="source" id="source" value="#source#">
 	<br>
@@ -95,6 +101,9 @@ Arctos taxonomy has changed.......
 			<cfelse>
 				like '%#ucase(taxon_term)#%'
 			</cfif>			  
+		</cfif>
+		<cfif len(source) gt 0>
+			and upper(source) like '%#ucase(source)#%'
 		</cfif>
 		and rownum<1001
 		group by scientific_name
