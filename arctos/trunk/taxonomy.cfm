@@ -113,15 +113,15 @@ Arctos taxonomy has changed.......
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0>
 	<h3>Taxonomy Search Results</h3>
 	<cfset sql="select scientific_name from (select scientific_name from taxon_name,taxon_term where 
-		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and">
+		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) ">
 	Search terms:
 	<ul>
 		<cfif len(taxon_name) gt 0>
 			<cfif  left(taxon_name,1) is "=">
-				<cfset sql=sql & " upper(taxon_name.scientific_name) = '#ucase(right(taxon_name,len(taxon_name)-1))#'">
+				<cfset sql=sql & " and upper(taxon_name.scientific_name) = '#ucase(right(taxon_name,len(taxon_name)-1))#'">
 				<li>scientific_name IS #right(taxon_name,len(taxon_name)-1)#</li>
 			<cfelse>
-				<cfset sql=sql & " upper(taxon_name.scientific_name) like '%#ucase(taxon_name)#%'">
+				<cfset sql=sql & " and upper(taxon_name.scientific_name) like '%#ucase(taxon_name)#%'">
 				<li>scientific_name CONTAINS #taxon_name#</li>
 			</cfif>
 		</cfif>
