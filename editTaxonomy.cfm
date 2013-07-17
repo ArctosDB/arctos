@@ -356,6 +356,7 @@
 		</cfquery>
 		<p>
 			Editing <strong>#thisName.source#</strong> classification for <strong>#thisName.scientific_name#</strong> (classification_id=#classification_id#)
+			<cfset title="Edit Classification: #thisName.scientific_name#">
 			<br><a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#thisname.taxon_name_id#">Edit Non-Classification Data</a>
 			<br><a href="/name/#thisname.scientific_name#">View Taxon Page</a>
 			<br><span class="likeLink" onclick="deleteClassification('#classification_id#','#thisname.taxon_name_id#');">Delete Classification</span>
