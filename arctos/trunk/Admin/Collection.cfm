@@ -37,7 +37,8 @@
 			guid_prefix,
 			allow_prefix_suffix,
 			use_license_id,
-			citation
+			citation,
+			preferred_taxonomy_source
  		from collection
   		where
    		collection_id = #collection_id#
@@ -47,6 +48,9 @@
 	</cfquery>
 	<cfquery name="CTMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select MEDIA_LICENSE_ID,DISPLAY from CTMEDIA_LICENSE order by DISPLAY
+	</cfquery>
+	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select source from cttaxonomy_source order by source
 	</cfquery>
 	<h2>
 		CAUTION!!
@@ -101,6 +105,14 @@
 						</cfloop>
 					</select>
 					<span class="infoLink" onclick="getCtDoc('ctmedia_license',editCollection.use_license_id.value);">Define</span>
+					<label for="PREFERRED_TAXONOMY_SOURCE">Taxonomy Source</label>
+					<select name="preferred_taxonomy_source" id="use_license_id">
+						<cfloop query="cttaxonomy_source">
+							<option	<cfif colls.source is cttaxonomy_source.source> selected="selected" </cfif>
+								value="#source#">#source#</option>
+						</cfloop>
+					</select>
+					<span class="infoLink" onclick="getCtDoc('cttaxonomy_source',editCollection.preferred_taxonomy_source.value);">Define</span>
 
 					<br><input type="submit" value="Save Changes" class="savBtn">
 					<input type="button" value="Quit" class="qutBtn" onClick="document.location='/Admin/Collection.cfm';">
@@ -374,7 +386,8 @@
 			loan_policy_url='#loan_policy_url#',
 			allow_prefix_suffix=#allow_prefix_suffix#,
 			use_license_id=#use_license_id#,
-			citation='#escapeQuotes(citation)#'
+			citation='#escapeQuotes(citation)#',
+			preferred_taxonomy_source='#preferred_taxonomy_source#'
 		WHERE COLLECTION_ID = #collection_id#
 	</cfquery>
 	</cftransaction>
