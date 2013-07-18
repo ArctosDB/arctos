@@ -487,9 +487,10 @@
 			<cfloop query="source_classification">
 				<div class="classificationDiv">
 					<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-						<a href="/editTaxonomy.cfm?action=cloneClassification&name=#name#&classification_id=#classification_id#">[ Clone Classification ]</a> (ID: #classification_id#)
+						ClassificationID: #classification_id#
+						<a href="/editTaxonomy.cfm?action=cloneClassification&name=#name#&classification_id=#classification_id#">[ Clone Classification ]</a> 
 						<cfif listcontains(valuelist(cttaxonomy_source.source),sources.source)>
-							<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a> (ID: #classification_id#)
+							<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a>
 						<cfelse>
 							[ Editing non-local sources disallowed ]
 						</cfif>
