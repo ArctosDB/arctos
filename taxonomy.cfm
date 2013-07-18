@@ -308,11 +308,10 @@
 	<input type="hidden" id="scientific_name" value="#scientific_name.scientific_name#">
 	<input type="hidden" id="taxon_name_id" value="#taxon_name_id.taxon_name_id#">
 	<cfset title="Taxonomy Details: #name#">
-	<h3>Taxonomy Details for <i>#name#</i>
+	<h3>Taxonomy Details for <i>#name#</i></h3>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
 	</cfif>
-	</h3>
 	<div id="specTaxMedia"></div>
 	<div id="mapTax" style="margin:2em;"></div>
 	<cfquery name="related" datasource="uam_god">
@@ -476,7 +475,6 @@
 		order by 
 			source
 	</cfquery>
-	<br>Jump to Source....
 	<ul>
 		<cfloop query="sources">
 			<li><a href="###anchor#">#source#</a></li>
@@ -492,7 +490,6 @@
 			<cfloop query="source_classification">
 				<div class="classificationDiv">
 					<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-						ClassificationID: #classification_id#
 						<a href="/editTaxonomy.cfm?action=cloneClassification&name=#name#&classification_id=#classification_id#">[ Clone Classification ]</a> 
 						<cfif listcontains(valuelist(cttaxonomy_source.source),sources.source)>
 							<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a>
