@@ -90,7 +90,7 @@
 				<span class="infoLink" onclick="var e=document.getElementById('taxon_name');e.value='='+e.value;">
 					Prefix with = for exact match
 				</span>
-				<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match)</label>
+				<label for="taxon_term">Taxon Term</label>
 				<input class="reqdClr" type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
 				<span class="infoLink" onclick="var e=document.getElementById('taxon_term');e.value='='+e.value;">
 					Prefix with = for exact match
