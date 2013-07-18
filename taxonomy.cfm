@@ -79,7 +79,7 @@
 <cfset title="Search Taxonomy">
 <table width="100%">
 	<tr>
-		<td valign="top">
+		<td width="50%" valign="top">
 			<!--- search form gets half-width --->
 			<h3>Search for Taxonomy</h3>
 			<span id="srchFailure" class="warningOverflow" style="display:none;">You must provide at least one of Taxon Term or Taxon Name to search.</span>
