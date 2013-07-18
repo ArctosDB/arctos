@@ -76,7 +76,6 @@
 				CLASSIFICATION_ID,
 				TERM,
 				TERM_TYPE,
-				SOURCE,
 				POSITION_IN_CLASSIFICATION 
 			from taxon_term where classification_id='#classification_id#'
 		</cfquery>
