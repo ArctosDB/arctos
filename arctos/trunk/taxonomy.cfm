@@ -1,8 +1,4 @@
 <cfinclude template="includes/_header.cfm">
-<cfif isdefined("name") and len(name) gt 0>
-	<cfset taxon_name='=' & name>
-</cfif>
-
 <style>
 	.reqdToSearchDiv {
 		border:1px solid green;
@@ -77,18 +73,7 @@
 </cfif>
 	
 <!---- blurb about arctos taxonomy ------->
-<h3>IMPORTANT ANNOUNCEMENT</h3>
 
-
-<P>
-Arctos taxonomy has changed.......
-<p>
-(Maybe write something here, AC??)
-
-</p>
-
-
-</P>
 <hr>
 
 <cfoutput>
@@ -98,31 +83,53 @@ Arctos taxonomy has changed.......
 	</cfquery>
 	<cflocation url="/name/#d.scientific_name#" addtoken="false">
 </cfif>
-
-
-
 <cfset title="Search Taxonomy">
+
+<table>
+	<tr>
+		<td valign="top">
+			<!--- search form gets half-width --->
+			<h3>Search for Taxonomy</h3>
+			<span id="srchFailure" class="warningOverflow" style="display:none;">You must provide at least one of Taxon Term or Taxon Name to search.</span>
+			<label for="taxa">You must supply Taxon Name or Taxon Term to search.</label>
+			<form ACTION="/taxonomy.cfm" METHOD="post" name="taxa" id="taxa" onsubmit="return requireTermOrName()">
+				<input type="hidden" name="action" value="search">
+				<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
+				<input class="reqdClr" type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
+				<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match; NULL to match unranked terms)</label>
+				<input class="reqdClr" type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
+				<label for="term_type">Term Type (prefix with = [equal sign] for exact match)</label>
+				<input type="text" name="term_type" id="term_type" value="#term_type#">
+				<label for="source">Source</label>
+				<input type="text" name="source" id="source" value="#source#">
+				<br>
+				<input value="Search" type="submit">
+				<br> <input type="button" onclick="resetForm()" value="clear form">
+			</form>
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
+				<br><a target="_blank" href="/editTaxonomy.cfm?action=newName">[ Create a new name ]</a>
+			</cfif>
+		</td>
+		<td>
+			<!--- and help/about/etc. gets 1/2 ---->
+			<h3>IMPORTANT ANNOUNCEMENT</h3>
+
+			
+			<P>
+			Arctos taxonomy has changed.......
+			<p>
+			(Maybe write something here, AC??)
+			
+			</p>
+			
+			
+			</P>
+		</td>
+	</tr>
+</table>
+
 <!----- always display search ---------->
-<h3>Search for Taxonomy</h3>
-<span id="srchFailure" class="warningOverflow" style="display:none;">You must provide at least one of Taxon Term or Taxon Name to search.</span>
-<label for="taxa">You must supply Taxon Name or Taxon Term to search.</label>
-<form ACTION="/taxonomy.cfm" METHOD="post" name="taxa" id="taxa" onsubmit="return requireTermOrName()">
-	<input type="hidden" name="action" value="search">
-	<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
-	<input class="reqdClr" type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
-	<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match; NULL to match unranked terms)</label>
-	<input class="reqdClr" type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
-	<label for="term_type">Term Type (prefix with = [equal sign] for exact match)</label>
-	<input type="text" name="term_type" id="term_type" value="#term_type#">
-	<label for="source">Source</label>
-	<input type="text" name="source" id="source" value="#source#">
-	<br>
-	<input value="Search" type="submit">
-	<br> <input type="button" onclick="resetForm()" value="clear form">
-</form>
-<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-	<br><a target="_blank" href="/editTaxonomy.cfm?action=newName">[ Create a new name ]</a>
-</cfif>
+
 <hr>
 <!---------- search results ------------>
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0>
