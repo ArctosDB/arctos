@@ -559,9 +559,9 @@
 									<cfset ttlink=tlink & "&term_type=NULL">
 								</cfif>
 								<cfset srclnk=ttlink & "&source=#sources.source#">
-								<a class="infoLink" href="#tlink#">[ more like this term ]</a>
-								<a class="infoLink" href="#ttlink#">[ including rank ]</a>
-								<a class="infoLink" href="#srclnk#">[ from this source ]</a>
+								<a href="#tlink#">[ more like this term ]</a>
+								<a href="#ttlink#">[ including rank ]</a>
+								<a href="#srclnk#">[ from this source ]</a>
 							</div>
 							<cfset indent=indent+1>
 						</cfloop>
