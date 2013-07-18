@@ -480,13 +480,14 @@
 	<cfloop query="sources">
 		<div class="sourceDiv">
 			Data from source <strong>#source#</strong>
-			<a name="#anchor#" href="##classifications">[ Jump to Classifications ]</a>
+			<a name="#anchor#" href="##classifications">[ Classifications ]</a>
 			<cfquery name="source_classification" dbtype="query">
 				select classification_id from d where source='#source#' group by classification_id
 			</cfquery>
 			<cfloop query="source_classification">
 				<div class="classificationDiv">
 					<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
+						<a href="/editTaxonomy.cfm?action=cloneClassification&name=#name#&classification_id=#classification_id#">[ Clone Classification ]</a> (ID: #classification_id#)
 						<cfif listcontains(valuelist(cttaxonomy_source.source),sources.source)>
 							<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a> (ID: #classification_id#)
 						<cfelse>
