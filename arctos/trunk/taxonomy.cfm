@@ -123,12 +123,63 @@
 				<P>
 				Arctos taxonomy has changed.......
 				<p>
-				(Maybe write something here, AC??)
+				href=clickypop to real docs.....
 				
 				</p>
 				
+				<p>
+					<ul>
+						<li>
+							<strong>Taxon Name</strong> is the "namestring" or "scientific name," the "data" that is used to form Identifications and the core
+							of every Taxonomy record.
+						</li>
+						<li>
+							<strong>Taxon Term</strong> is the data value of either a classification term ("Animalia") or or classification metadata (such
+							as name authors).
+						</li>
+						<li>
+							<strong>Term Type</strong> is the rank ("kingdom") for classification terms, in which role it may be NULL, and the label for 
+							classification metadata ("author text").
+						</li>
+						<li>
+							<strong>Source</strong> indicates the source of a classification (NOT a taxon name). Some classifications
+							are <a href="/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE">local</a>; most come from
+							<a href="http://www.globalnames.org/" target="_blank" class="external">GlobalNames</a>.
+						</li>
+					</ul>	
+				</p>
 				
-				</P>
+				
+				
+				<form ACTION="/taxonomy.cfm" METHOD="post" name="taxa" id="taxa" onsubmit="return requireTermOrName()">
+				<input type="hidden" name="action" value="search">
+				<label for="taxon_name"></label>
+				<input class="reqdClr" type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
+				<span class="infoLink" onclick="var e=document.getElementById('taxon_name');e.value='='+e.value;">
+					Prefix with = for exact match
+				</span>
+				<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match)</label>
+				<input class="reqdClr" type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
+				<span class="infoLink" onclick="var e=document.getElementById('taxon_term');e.value='='+e.value;">
+					Prefix with = for exact match
+				</span>
+				<label for="term_type">Term Type</label>
+				<input type="text" name="term_type" id="term_type" value="#term_type#">
+				<span class="infoLink" onclick="var e=document.getElementById('term_type');e.value='='+e.value;">
+					Prefix with = for exact match
+				</span>
+				<span class="infoLink" onclick="var e=document.getElementById('term_type').value='NULL';">
+					[ NULL ]
+				</span>
+				<label for="source">Source</label>
+				<input type="text" name="source" id="source" value="#source#">
+				<br>
+				<input value="Search" type="submit">
+				<br> <input type="button" onclick="resetForm()" value="clear form">
+			</form>
+			
+			
+			
 			</div>
 		</td>
 	</tr>
