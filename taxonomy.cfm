@@ -55,10 +55,7 @@
 	    $("#taxa").find("input[type=text], textarea").val("");
 	}
 </script>
-<!---- unified taxonomy (except editing) form ---------->
-
 <!--------- global form defaults -------------->
-
 <cfif not isdefined("taxon_name")>
 	<cfset taxon_name="">
 </cfif>
@@ -71,11 +68,7 @@
 <cfif not isdefined("source")>
 	<cfset source="">
 </cfif>
-	
-<!---- blurb about arctos taxonomy ------->
-
-<hr>
-
+<!--------------------- end init -------------------------->
 <cfoutput>
 <cfif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
 	<cfquery name="d" datasource="uam_god">
@@ -84,7 +77,6 @@
 	<cflocation url="/name/#d.scientific_name#" addtoken="false">
 </cfif>
 <cfset title="Search Taxonomy">
-
 <table width="100%">
 	<tr>
 		<td valign="top">
@@ -96,10 +88,19 @@
 				<input type="hidden" name="action" value="search">
 				<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
 				<input class="reqdClr" type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
-				<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match; NULL to match unranked terms)</label>
+				<span class="infoLink" onclick="var e=document.getElementById('taxon_name');e.value='='+e.value;">
+					Add = for exact match
+				</span>
+				<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match)</label>
 				<input class="reqdClr" type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
-				<label for="term_type">Term Type (prefix with = [equal sign] for exact match)</label>
+				<label for="term_type">Term Type (prefix with = [equal sign] for exact match; NULL to match unranked terms)</label>
 				<input type="text" name="term_type" id="term_type" value="#term_type#">
+				<span class="infoLink" onclick="var e=document.getElementById('term_type');e.value='='+e.value;">
+					Add = for exact match
+				</span>
+				<span class="infoLink" onclick="var e=document.getElementById('term_type').value='NULL';">
+					NULL
+				</span>
 				<label for="source">Source</label>
 				<input type="text" name="source" id="source" value="#source#">
 				<br>
