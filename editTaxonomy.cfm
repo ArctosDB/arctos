@@ -457,13 +457,13 @@
 			<cfelse>
 				<cfset mc=maxclass.m>
 			</cfif>
-			<input type="text" name="maxposn" id="maxposn" value="#mc#">
+			<input type="hidden" name="maxposn" id="maxposn" value="#mc#">
 			<cfif len(maxnoclass.m) is 0>
 				<cfset mc=0>
 			<cfelse>
 				<cfset mc=maxnoclass.m>
 			</cfif>
-			<input type="text" name="numnoclassrs" id="numnoclassrs" value="#mc#">
+			<input type="hidden" name="numnoclassrs" id="numnoclassrs" value="#mc#">
 			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
 			<input type="hidden" name="noclassrows" id="noclassrows">
 			
