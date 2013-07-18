@@ -238,7 +238,7 @@
 		jQuery(document).ready(function(){
 			
 		     $('html, body').animate({
-		         scrollTop: $("#taxondetail").offset().top
+		         scrollTop: $("##taxondetail").offset().top
 		     }, 2000);
 			//var elemsToLoad='specTaxMedia,taxRelatedNames,mapTax';
 			var taxon_name_id=$("##taxon_name_id").val();
