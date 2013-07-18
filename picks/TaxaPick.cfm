@@ -15,21 +15,19 @@
 			select * from (
 				SELECT 
 					scientific_name, 
-					taxon_name_id, 
-					valid_catalog_term_fg
+					taxon_name_id
 				from 
-					taxonomy
+					taxon_name
 				where
 					UPPER(scientific_name) LIKE '#ucase(scientific_name)#%'
 				UNION
 				SELECT 
 					a.scientific_name, 
-					a.taxon_name_id, 
-					a.valid_catalog_term_fg
+					a.taxon_name_id
 				from 
-					taxonomy a,
+					taxon_name a,
 					taxon_relations,
-					taxonomy b
+					taxon_name b
 				where
 					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
 					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
@@ -37,12 +35,11 @@
 				UNION
 				SELECT 
 					b.scientific_name, 
-					b.taxon_name_id, 
-					b.valid_catalog_term_fg
+					b.taxon_name_id
 				from 
-					taxonomy a,
+					taxon_name a,
 					taxon_relations,
-					taxonomy b
+					taxon_name b
 				where
 					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
 					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
@@ -51,20 +48,15 @@
 			where taxon_name_id is not null
 			group by 
 				scientific_name,
-				taxon_name_id, 
-				valid_catalog_term_fg
+				taxon_name_id
 			ORDER BY scientific_name
 		</cfquery>
 	</cfoutput>
 	<cfif #getTaxa.recordcount# is 1>
 	<cfoutput>
-		<cfif #getTaxa.valid_catalog_term_fg# is "1">
 		<script>
 			opener.document.#formName#.#taxonIdFld#.value='#getTaxa.taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#getTaxa.scientific_name#';self.close();
 		</script>
-		<cfelse>
-			<a href="##" onClick="javascript: opener.document.#formName#.#taxonIdFld#.value='#getTaxa.taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#getTaxa.scientific_name#';self.close();"><font color="##FF0000">#getTaxa.scientific_name# (unaccepted)</font></a>
-		</cfif>
 	</cfoutput>
 	<cfelseif #getTaxa.recordcount# is 0>
 		<cfoutput>
@@ -73,14 +65,11 @@
 		
 	<cfelse>
 		<cfoutput query="getTaxa">
-		<cfif #getTaxa.valid_catalog_term_fg# is "1">
 <br><a href="##" onClick="javascript: opener.document.#formName#.#taxonIdFld#.value='#taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#scientific_name#';self.close();">#scientific_name#</a>
 	<!---	
 		<br><a href="##" onClick="javascript: document.selectedAgent.agentID.value='#agent_id#';document.selectedAgent.agentName.value='#agent_name#';document.selectedAgent.submit();">#agent_name# - #agent_id#</a> - 
 	--->
-	<cfelse>
-	<br><a href="##" onClick="javascript: opener.document.#formName#.#taxonIdFld#.value='#taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#scientific_name#';self.close();"><font color="##FF0000">#scientific_name# (unaccepted)</font></a>
-	</cfif>
+
 	</cfoutput>
 	</CFIF>
 
