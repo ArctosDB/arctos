@@ -108,7 +108,7 @@
 					<label for="PREFERRED_TAXONOMY_SOURCE">Taxonomy Source</label>
 					<select name="preferred_taxonomy_source" id="use_license_id">
 						<cfloop query="cttaxonomy_source">
-							<option	<cfif colls.source is cttaxonomy_source.source> selected="selected" </cfif>
+							<option	<cfif colls.preferred_taxonomy_source is cttaxonomy_source.source> selected="selected" </cfif>
 								value="#source#">#source#</option>
 						</cfloop>
 					</select>
