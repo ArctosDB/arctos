@@ -1,4 +1,8 @@
 <cfinclude template="includes/_header.cfm">
+<cfif isdefined("name") and len(name) gt 0>
+	<cfset taxon_name='=' & name>
+</cfif>
+
 <style>
 	.reqdToSearchDiv {
 		border:1px solid green;
