@@ -2183,6 +2183,8 @@
 					ENTEREDBY,
 					ACCN,
 					TAXON_NAME,
+					HABITAT,
+					COLLECTING_METHOD,
 					NATURE_OF_ID,
 					MADE_DATE,
 					COLLECTION_CDE,
@@ -2208,6 +2210,8 @@
 						<cfelse>
 							scientific_name,
 						</cfif>
+						HABITAT,
+						COLLECTING_METHOD,
 						nature_of_id,
 						made_date,
 						(select COLLECTION_CDE from collection where collection_id=#collection_id#),
