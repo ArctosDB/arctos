@@ -29,10 +29,12 @@ This REFRESHES data that already exist in Arctos.
 		<p>
 			Hi!
 			You're probably seeing this because you clicked some sort of refresh button.
-			Sorry, but it's pretty boring. It'll fire a bunch of threads off, and whatever you're trying to refresh
-			will probably be updated in a minute or so, unless for some reason there are a bunch of other threads running
-			or something's busted. If it really seems to be stuck, use the Contact link or send us an email. 
-			<br>Make sure you tell us what taxon you were trying to refresh.
+			Sorry, but it's pretty boring. By the time you read this it's probably already done it's thing,
+			so just close this and refresh wherever you came from.
+			
+		</p>
+		<p>
+			
 		</p>
 		<br>got taxon_name_id=#ids.taxon_name_id#
 		
@@ -220,9 +222,6 @@ This REFRESHES data that already exist in Arctos.
 		--------->
 	</cfloop>
 	<cfif isdefined("name") and len(name) gt 0>
-		<p>threads spawned - we're done here</p>
-		<p>
-			You can probably close a window and refresh or something.
-		</p>
+		<cflocation url="/name/#name#" addtoken="false">
 	</cfif>
 </cfoutput>
