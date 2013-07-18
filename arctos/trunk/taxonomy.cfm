@@ -539,7 +539,7 @@
 					</cfquery>
 					<br><span style="font-size:small">last update: #lastdate.lastdate#</span>
 					<cfif len(qscore.gn_score) gt 0>
-						<br><span style="font-size:small">globalnames score=#qscore.gn_score#</span>
+						<br><span style="font-size:small"><a target="_blank" class="external" href="http://resolver.globalnames.org/api">globalnames score</a>=#qscore.gn_score#</span>
 					<cfelse>
 						<br><span style="font-size:small">globalnames score not available</span>
 					</cfif>
