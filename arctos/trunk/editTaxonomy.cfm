@@ -452,7 +452,7 @@
 			<input type="hidden" name="classification_id" id="classification_id" value="#classification_id#">
 			<input type="hidden" name="taxon_name_id" id="taxon_name_id" value="#thisname.taxon_name_id#">
 			<input type="hidden" name="source" id="source" value="#thisname.source#">
-			<input type="hidden" name="maxposn" id="maxposn" value="#maxclass.m#">
+			<input type="text" name="maxposn" id="maxposn" value="#maxclass.m#">
 			
 			<input type="text" name="numnoclassrs" id="numnoclassrs" value="#maxnoclass.m#">
 			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
