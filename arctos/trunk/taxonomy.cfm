@@ -83,7 +83,6 @@
 			<!--- search form gets half-width --->
 			<h3>Search for Taxonomy</h3>
 			<span id="srchFailure" class="warningOverflow" style="display:none;">You must provide at least one of Taxon Term or Taxon Name to search.</span>
-			<label for="taxa">You must supply Taxon Name or Taxon Term to search.</label>
 			<form ACTION="/taxonomy.cfm" METHOD="post" name="taxa" id="taxa" onsubmit="return requireTermOrName()">
 				<input type="hidden" name="action" value="search">
 				<label for="taxon_name">Taxon Name</label>
