@@ -208,6 +208,7 @@
 
 <!--------------------- taxonomy details --------------------->
 <cfif isdefined("name") and len(name) gt 0>
+	<a id="taxondetail" name="taxondetail"></a>
 	<style>
 		.classificationDiv {
 			border:2px solid black;
@@ -235,6 +236,10 @@
 	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
 	<script>
 		jQuery(document).ready(function(){
+			
+		     $('html, body').animate({
+		         scrollTop: $("#taxondetail").offset().top
+		     }, 2000);
 			//var elemsToLoad='specTaxMedia,taxRelatedNames,mapTax';
 			var taxon_name_id=$("##taxon_name_id").val();
 
