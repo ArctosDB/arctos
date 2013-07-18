@@ -159,7 +159,7 @@
 		<cfset basQual = " #basQual# AND (
 			upper(taxon_name.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%' or
 			upper(taxon_term.term) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
-			">
+			)">
 	<cfelseif taxon_scope is "relatedTaxonomy">
 		<cfif basJoin does not contain " identification ">
 			<cfset basJoin = " #basJoin# INNER JOIN identification ON (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
