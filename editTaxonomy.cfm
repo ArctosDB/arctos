@@ -394,7 +394,7 @@
 		}
 		function deleteClassification(cid,tnid) {
 			var msg='Are you sure you want to delete this classification?\nDo NOT delete classifications because you do not agree with them or because they';
-			msg+=' do not fit your collection or taxonomy biases.\nDeleted classifications from GlobalNames will come back; fix them at the source.';
+			msg+=' do not fit your collection or taxonomy preferences.\nDeleted classifications from GlobalNames will come back; fix them at the source.';
 			msg+='\nIf you did not create the classification you are trying to delete, you should probably click "cancel" now.';
 			var r=confirm(msg);
 			if (r==true) {
