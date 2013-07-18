@@ -81,7 +81,7 @@
 	<tr>
 		<td width="50%" valign="top">
 			<!--- search form gets half-width --->
-			<h3>Search for Taxonomy</h3>
+			<h3>Search Taxonomy</h3>
 			<span id="srchFailure" class="warningOverflow" style="display:none;">You must provide at least one of Taxon Term or Taxon Name to search.</span>
 			<form ACTION="/taxonomy.cfm" METHOD="post" name="taxa" id="taxa" onsubmit="return requireTermOrName()">
 				<input type="hidden" name="action" value="search">
@@ -106,8 +106,8 @@
 				<label for="source">Source</label>
 				<input type="text" name="source" id="source" value="#source#">
 				<br>
-				<input value="Search" type="submit">
-				<br> <input type="button" onclick="resetForm()" value="clear form">
+				<input value="Search" type="submit"><span style="width:5em"></span>
+				<input type="button" onclick="resetForm()" value="clear form">
 			</form>
 			<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 				<br><a target="_blank" href="/editTaxonomy.cfm?action=newName">[ Create a new name ]</a>
