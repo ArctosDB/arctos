@@ -260,7 +260,6 @@
 			})
 		}
 	</script>
-	
 	<cfquery name="d" datasource="uam_god">
 		select 
 			taxon_name.taxon_name_id,
@@ -308,11 +307,12 @@
     </span>
 	<input type="hidden" id="scientific_name" value="#scientific_name.scientific_name#">
 	<input type="hidden" id="taxon_name_id" value="#taxon_name_id.taxon_name_id#">
-	<h3>Taxonomy Details for <i>#name#</i></h3>
 	<cfset title="Taxonomy Details: #name#">
+	<h3>Taxonomy Details for <i>#name#</i>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
-	</cfif>	
+	</cfif>
+	</h3>
 	<div id="specTaxMedia"></div>
 	<div id="mapTax" style="margin:2em;"></div>
 	<cfquery name="related" datasource="uam_god">
