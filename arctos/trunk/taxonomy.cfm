@@ -86,20 +86,23 @@
 			<label for="taxa">You must supply Taxon Name or Taxon Term to search.</label>
 			<form ACTION="/taxonomy.cfm" METHOD="post" name="taxa" id="taxa" onsubmit="return requireTermOrName()">
 				<input type="hidden" name="action" value="search">
-				<label for="taxon_name">Taxon Name (prefix with = [equal sign] for exact match)</label>
+				<label for="taxon_name">Taxon Name</label>
 				<input class="reqdClr" type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
 				<span class="infoLink" onclick="var e=document.getElementById('taxon_name');e.value='='+e.value;">
-					Add = for exact match
+					Prefix with = for exact match
 				</span>
 				<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match)</label>
 				<input class="reqdClr" type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
-				<label for="term_type">Term Type (prefix with = [equal sign] for exact match; NULL to match unranked terms)</label>
+				<span class="infoLink" onclick="var e=document.getElementById('taxon_term');e.value='='+e.value;">
+					Prefix with = for exact match
+				</span>
+				<label for="term_type">Term Type</label>
 				<input type="text" name="term_type" id="term_type" value="#term_type#">
 				<span class="infoLink" onclick="var e=document.getElementById('term_type');e.value='='+e.value;">
-					Add = for exact match
+					Prefix with = for exact match
 				</span>
 				<span class="infoLink" onclick="var e=document.getElementById('term_type').value='NULL';">
-					NULL
+					[ NULL ]
 				</span>
 				<label for="source">Source</label>
 				<input type="text" name="source" id="source" value="#source#">
