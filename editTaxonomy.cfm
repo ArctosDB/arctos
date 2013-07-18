@@ -445,8 +445,6 @@
 			<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#thisname.taxon_name_id#">[ Edit Non-Classification Data ]</a>
 			<span class="likeLink" onclick="deleteClassification('#classification_id#','#thisname.taxon_name_id#');">[ Delete Classification ]</span>
 		</p>
-
-		
 		<form name="f1" id="f1" method="post" action="editTaxonomy.cfm">
 			<input type="hidden" name="action" value="saveClassEdits">
 			<input type="hidden" name="classification_id" id="classification_id" value="#classification_id#">
@@ -466,7 +464,6 @@
 			<input type="hidden" name="numnoclassrs" id="numnoclassrs" value="#mc#">
 			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
 			<input type="hidden" name="noclassrows" id="noclassrows">
-			
 			<h3>
 				Non-Classification Terms
 			</h3>
@@ -496,7 +493,6 @@
 				</tbody>
 			</table>
 			<span class="likeLink" onclick="nc_addARow();">Add a Row</span>
-			
 			<h3>
 				Classification Terms
 			</h3>
