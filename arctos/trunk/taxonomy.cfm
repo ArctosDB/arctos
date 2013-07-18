@@ -484,6 +484,7 @@
 		<div class="sourceDiv">
 			Data from source <strong>#source#</strong>
 			<a name="#anchor#" href="##classifications">[ Classifications ]</a>
+			<a href="##taxondetail">[ Top ]</a>
 			<cfquery name="source_classification" dbtype="query">
 				select classification_id from d where source='#source#' group by classification_id
 			</cfquery>
