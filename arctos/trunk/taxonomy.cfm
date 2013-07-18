@@ -118,29 +118,26 @@
 				<!--- and help/about/etc. gets 1/2 ---->
 				<h3>IMPORTANT ANNOUNCEMENT</h3>
 				Arctos taxonomy has changed - 
-				<a target="_blank" class="external" href="https://docs.google.com/document/d/1J1B7NKfaWl1A1wVQUe5rlm6FsfA7-VVUHsCqH-gHA_E/edit?usp=sharing">learn more</a>.
-				
-				<p>
-					<ul>
-						<li>
-							<strong>Taxon Name</strong> is the "namestring" or "scientific name," the "data" that is used to form Identifications and the core
-							of every Taxonomy record.
-						</li>
-						<li>
-							<strong>Taxon Term</strong> is the data value of either a classification term ("Animalia") or or classification metadata (such
-							as name authors).
-						</li>
-						<li>
-							<strong>Term Type</strong> is the rank ("kingdom") for classification terms, in which role it may be NULL, and the label for 
-							classification metadata ("author text").
-						</li>
-						<li>
-							<strong>Source</strong> indicates the source of a classification (NOT a taxon name). Some classifications
-							are <a href="/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE">local</a>; most come from
-							<a href="http://www.globalnames.org/" target="_blank" class="external">GlobalNames</a>.
-						</li>
-					</ul>	
-				</p>
+				<a target="_blank" class="external" href="https://docs.google.com/document/d/1J1B7NKfaWl1A1wVQUe5rlm6FsfA7-VVUHsCqH-gHA_E/edit?usp=sharing">learn more here</a>.
+				<ul>
+					<li>
+						<strong>Taxon Name</strong> is the "namestring" or "scientific name," the "data" that is used to form Identifications and the core
+						of every Taxonomy record.
+					</li>
+					<li>
+						<strong>Taxon Term</strong> is the data value of either a classification term ("Animalia") or or classification metadata (such
+						as name authors).
+					</li>
+					<li>
+						<strong>Term Type</strong> is the rank ("kingdom") for classification terms, in which role it may be NULL, and the label for 
+						classification metadata ("author text").
+					</li>
+					<li>
+						<strong>Source</strong> indicates the source of a classification (NOT a taxon name). Some classifications
+						are <a href="/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE">local</a>; most come from
+						<a href="http://www.globalnames.org/" target="_blank" class="external">GlobalNames</a>.
+					</li>
+				</ul>	
 			</div>
 		</td>
 	</tr>
