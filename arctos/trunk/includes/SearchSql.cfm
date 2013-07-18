@@ -149,7 +149,7 @@
 			<cfset basJoin = " #basJoin# inner join identification_taxonomy on (identification.identification_id = identification_taxonomy.identification_id)">
 		</cfif>
 		<cfif basJoin does not contain " taxon_name ">
-			<cfset basJoin = " #basJoin# inner join taxon_name on (identification.taxon_name_id = taxon_name.taxon_name_id)">
+			<cfset basJoin = " #basJoin# inner join taxon_name on (identification_taxonomy.taxon_name_id = taxon_name.taxon_name_id)">
 		</cfif>
 	
 		<cfif basJoin does not contain " taxon_term ">
