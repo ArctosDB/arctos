@@ -148,38 +148,6 @@
 						</li>
 					</ul>	
 				</p>
-				
-				
-				
-				<form ACTION="/taxonomy.cfm" METHOD="post" name="taxa" id="taxa" onsubmit="return requireTermOrName()">
-				<input type="hidden" name="action" value="search">
-				<label for="taxon_name"></label>
-				<input class="reqdClr" type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
-				<span class="infoLink" onclick="var e=document.getElementById('taxon_name');e.value='='+e.value;">
-					Prefix with = for exact match
-				</span>
-				<label for="taxon_term">Taxon Term (prefix with = [equal sign] for exact match)</label>
-				<input class="reqdClr" type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
-				<span class="infoLink" onclick="var e=document.getElementById('taxon_term');e.value='='+e.value;">
-					Prefix with = for exact match
-				</span>
-				<label for="term_type">Term Type</label>
-				<input type="text" name="term_type" id="term_type" value="#term_type#">
-				<span class="infoLink" onclick="var e=document.getElementById('term_type');e.value='='+e.value;">
-					Prefix with = for exact match
-				</span>
-				<span class="infoLink" onclick="var e=document.getElementById('term_type').value='NULL';">
-					[ NULL ]
-				</span>
-				<label for="source">Source</label>
-				<input type="text" name="source" id="source" value="#source#">
-				<br>
-				<input value="Search" type="submit">
-				<br> <input type="button" onclick="resetForm()" value="clear form">
-			</form>
-			
-			
-			
 			</div>
 		</td>
 	</tr>
