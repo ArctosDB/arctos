@@ -85,7 +85,7 @@
 </cfif>
 <cfset title="Search Taxonomy">
 
-<table>
+<table width="100%">
 	<tr>
 		<td valign="top">
 			<!--- search form gets half-width --->
@@ -110,20 +110,22 @@
 				<br><a target="_blank" href="/editTaxonomy.cfm?action=newName">[ Create a new name ]</a>
 			</cfif>
 		</td>
-		<td>
-			<!--- and help/about/etc. gets 1/2 ---->
-			<h3>IMPORTANT ANNOUNCEMENT</h3>
-
-			
-			<P>
-			Arctos taxonomy has changed.......
-			<p>
-			(Maybe write something here, AC??)
-			
-			</p>
-			
-			
-			</P>
+		<td valign="top">
+			<div style="margin-left:2em;">
+				<!--- and help/about/etc. gets 1/2 ---->
+				<h3>IMPORTANT ANNOUNCEMENT</h3>
+	
+				
+				<P>
+				Arctos taxonomy has changed.......
+				<p>
+				(Maybe write something here, AC??)
+				
+				</p>
+				
+				
+				</P>
+			</div>
 		</td>
 	</tr>
 </table>
