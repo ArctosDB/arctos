@@ -106,7 +106,7 @@
 				<label for="source">Source</label>
 				<input type="text" name="source" id="source" value="#source#">
 				<br>
-				<input value="Search" type="submit"><span style="width:5em"></span>
+				<input value="Search" type="submit">&nbsp;&nbsp;&nbsp;
 				<input type="button" onclick="resetForm()" value="clear form">
 			</form>
 			<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
