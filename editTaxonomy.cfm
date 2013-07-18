@@ -44,7 +44,72 @@
 		such updates - we'll make them for you if we can.
 	</p>
 </div>
-
+<cfif action is "cloneClassification">
+	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select source from cttaxonomy_source order by source
+	</cfquery>
+	<cfoutput>
+		Use this form to create a clone of a classification as another (e.g., local and editable) Source.
+		
+		<p>
+			Pick a source below, click the button, and then you'll have a chance to edit the classification you've created.
+		</p>
+		<form name="x" method="post" action="editTaxonomy.cfm">
+			<input type="hidden" name="action" value="cloneClassification_insert">
+			<input type="hidden" name="classification_id" value="#classification_id#">
+			<label for="source">Clone into Source</label>
+			<select name="source" id="source" class="reqdClr">
+				<cfloop query="cttaxonomy_source">
+					<option value="#source#">#source#</option>
+				</cfloop>
+			</select>
+			<input type="submit" value="create classification">
+		</form>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------->
+<cfif action is "cloneClassification_insert">
+	<cfoutput>
+		<cfquery name="seedClassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select 
+				TAXON_NAME_ID,
+				CLASSIFICATION_ID,
+				TERM,
+				TERM_TYPE,
+				SOURCE,
+				POSITION_IN_CLASSIFICATION 
+			from taxon_term where classification_id=#classification_id#
+		</cfquery>
+		<cfset thisSourceID=CreateUUID()>
+		<cftransaction>
+			<cfloop query="seedClassification">
+				<cfquery name="seedClassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into taxon_term (
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM,
+						TERM_TYPE,
+						SOURCE,
+						POSITION_IN_CLASSIFICATION
+					) values (
+						#TAXON_NAME_ID#,
+						'#thisSourceID#',
+						'#TERM#',
+						'#TERM_TYPE#',
+						'#SOURCE#',
+						<cfif len(POSITION_IN_CLASSIFICATION) is 0>
+							NULL
+						<cfelse>
+							#POSITION_IN_CLASSIFICATION#
+						</cfif>
+					)
+				</cfquery>
+			</cfloop>
+		</cftransaction>
+		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#" addtoken="false">
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------->
 <cfif action is "forceDeleteNonLocal">
 	<cfoutput>
 		Are you sure you want to delete all source-derived metadata?
