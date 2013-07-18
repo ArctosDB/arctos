@@ -452,9 +452,18 @@
 			<input type="hidden" name="classification_id" id="classification_id" value="#classification_id#">
 			<input type="hidden" name="taxon_name_id" id="taxon_name_id" value="#thisname.taxon_name_id#">
 			<input type="hidden" name="source" id="source" value="#thisname.source#">
-			<input type="text" name="maxposn" id="maxposn" value="#maxclass.m#">
-			
-			<input type="text" name="numnoclassrs" id="numnoclassrs" value="#maxnoclass.m#">
+			<cfif len(maxclass.m) is 0>
+				<cfset mc=0>
+			<cfelse>
+				<cfset mc=maxclass.m>
+			</cfif>
+			<input type="text" name="maxposn" id="maxposn" value="#mc#">
+			<cfif len(maxnoclass.m) is 0>
+				<cfset mc=0>
+			<cfelse>
+				<cfset mc=maxnoclass.m>
+			</cfif>
+			<input type="text" name="numnoclassrs" id="numnoclassrs" value="#mc#">
 			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
 			<input type="hidden" name="noclassrows" id="noclassrows">
 			
