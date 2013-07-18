@@ -78,7 +78,7 @@
 				TERM_TYPE,
 				SOURCE,
 				POSITION_IN_CLASSIFICATION 
-			from taxon_term where classification_id=#classification_id#
+			from taxon_term where classification_id='#classification_id#'
 		</cfquery>
 		<cfset thisSourceID=CreateUUID()>
 		<cftransaction>
