@@ -117,14 +117,8 @@
 			<div style="margin-left:2em;">
 				<!--- and help/about/etc. gets 1/2 ---->
 				<h3>IMPORTANT ANNOUNCEMENT</h3>
-	
-				
-				<P>
-				Arctos taxonomy has changed.......
-				<p>
-				href=clickypop to real docs.....
-				
-				</p>
+				Arctos taxonomy has changed - 
+				<a target="_blank" class="external" href="https://docs.google.com/document/d/1J1B7NKfaWl1A1wVQUe5rlm6FsfA7-VVUHsCqH-gHA_E/edit?usp=sharing">learn more</a>.
 				
 				<p>
 					<ul>
