@@ -153,7 +153,7 @@
 		</cfif>	
 		<cfset basQual = " #basQual# AND (
 			upper(taxon_term_aggregate.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%' or
-			upper(taxon_term_aggregate.term) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
+			upper(taxon_term_aggregate.terms) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
 			)">
 	<cfelseif taxon_scope is "relatedTaxonomy">
 		<cfif basJoin does not contain " identification ">
