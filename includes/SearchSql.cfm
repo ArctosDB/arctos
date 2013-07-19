@@ -635,34 +635,34 @@
 <cfif isdefined("family") AND len(family) gt 0>
 	<cfset mapurl = "#mapurl#&family=#family#">
 	<cfif left(family,1) is '='>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.family) = '#ucase(right(family,len(family)-1))#'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.family) = '#ucase(right(family,len(family)-1))#'">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.family) like '%#ucase(family)#%'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.family) like '%#ucase(family)#%'">
 	</cfif>
 </cfif>
 
 <cfif isdefined("genus") AND len(genus) gt 0>
 	<cfset mapurl = "#mapurl#&genus=#genus#">
 	<cfif left(genus,1) is '='>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.genus) = '#ucase(right(genus,len(genus)-1))#'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.genus) = '#ucase(right(genus,len(genus)-1))#'">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.genus) like '%#ucase(genus)#%'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.genus) like '%#ucase(genus)#%'">
 	</cfif>
 </cfif>
 <cfif isdefined("species") AND len(species) gt 0>
 	<cfset mapurl = "#mapurl#&species=#species#">
 	<cfif left(species,1) is '='>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.species) = '#ucase(right(species,len(species)-1))#'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.species) = '#ucase(right(species,len(species)-1))#'">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.species) like '%#ucase(species)#%'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.species) like '%#ucase(species)#%'">
 	</cfif>
 </cfif>
 <cfif isdefined("subspecies") AND len(subspecies) gt 0>
 	<cfset mapurl = "#mapurl#&subspecies=#subspecies#">
 	<cfif left(subspecies,1) is '='>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.subspecies) = '#ucase(right(subspecies,len(subspecies)-1))#'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.subspecies) = '#ucase(right(subspecies,len(subspecies)-1))#'">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.subspecies) like '%#ucase(subspecies)#%'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.subspecies) like '%#ucase(subspecies)#%'">
 	</cfif>
 </cfif>
 
@@ -670,42 +670,42 @@
 <cfif isdefined("phylum") AND len(phylum) gt 0>
 	<cfset mapurl = "#mapurl#&phylum=#phylum#">
 	<cfif left(phylum,1) is '='>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.phylum) = '#ucase(right(phylum,len(phylum)-1))#'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.phylum) = '#ucase(right(phylum,len(phylum)-1))#'">
 	<cfelseif compare(phylum,"NULL") is 0>
 		<cfset basQual = " #basQual# AND (#session.flatTableName#.phylum is NULL">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.phylum) like '%#ucase(phylum)#%'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.phylum) like '%#ucase(phylum)#%'">
 	</cfif>
 </cfif>
 
 <cfif isdefined("phylorder") AND len(phylorder) gt 0>
 	<cfif left(phylorder,1) is '='>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.phylorder) = '#ucase(right(phylorder,len(phylorder)-1))#'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.phylorder) = '#ucase(right(phylorder,len(phylorder)-1))#'">
 	<cfelseif compare(phylorder,"NULL") is 0>
 		<cfset basQual = " #basQual# AND (#session.flatTableName#.phylorder is NULL">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.phylorder) like '%#ucase(phylorder)#%'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.phylorder) like '%#ucase(phylorder)#%'">
 	</cfif>
 </cfif>
 <cfif isdefined("kingdom") AND len(kingdom) gt 0>
 	<cfset mapurl = "#mapurl#&kingdom=#kingdom#">
 	<cfif left(kingdom,1) is '='>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.kingdom) = '#ucase(right(kingdom,len(kingdom)-1))#'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.kingdom) = '#ucase(right(kingdom,len(kingdom)-1))#'">
 	<cfelseif compare(kingdom,"NULL") is 0>
 		<cfset basQual = " #basQual# AND (#session.flatTableName#.kingdom is NULL">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.kingdom) like '%#ucase(kingdom)#%'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.kingdom) like '%#ucase(kingdom)#%'">
 	</cfif>
 </cfif>
 
 <cfif isdefined("Phylclass") AND len(Phylclass) gt 0>
 	<cfset mapurl = "#mapurl#&Phylclass=#Phylclass#">
 	<cfif left(phylclass,1) is '='>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.phylclass) = '#ucase(right(phylclass,len(phylclass)-1))#'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.phylclass) = '#ucase(right(phylclass,len(phylclass)-1))#'">
 	<cfelseif compare(phylclass,"NULL") is 0>
 		<cfset basQual = " #basQual# AND (#session.flatTableName#.phylclass is NULL">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper((#session.flatTableName#.phylclass) like '%#ucase(phylclass)#%'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.phylclass) like '%#ucase(phylclass)#%'">
 	</cfif>
 </cfif>
 <cfif isdefined("identified_agent_id") AND len(identified_agent_id) gt 0>
