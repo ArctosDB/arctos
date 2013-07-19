@@ -1034,8 +1034,6 @@
 		<cftry>
 		<cfif idtype is 'DOI'>
 			<cfhttp url="http://www.crossref.org/openurl/?id=#identifier#&noredirect=true&pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
-
-
 			<cfset r=xmlParse(cfhttp.fileContent)>
 			<cfif debug>
 				<cfdump var=#r#>
