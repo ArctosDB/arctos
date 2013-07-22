@@ -23,7 +23,7 @@
 		institution_acronym  like '%Obs'
 	</cfquery>
 	<cfquery name="taxonomy" datasource="uam_god">
-		select count(*) c from taxonomy
+		select count(*) c from taxon_name
 	</cfquery>
 	<cfquery name="locality" datasource="uam_god">
 		select count(*) c from locality

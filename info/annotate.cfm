@@ -31,9 +31,9 @@
 	<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
-				'Name <strong>' || display_name || '</strong>' summary
+				'Name <strong>' || scientific_name || '</strong>' summary
 			from 
-				taxonomy
+				taxon_name
 			where 
 				taxon_name_id=#taxon_name_id#
 		</cfquery>

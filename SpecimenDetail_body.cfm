@@ -44,7 +44,16 @@
 		COLLECTORS,
 		PREPARATORS,
 		remarks,
-		flags
+		flags,
+		PHYLCLASS,
+		KINGDOM,
+		PHYLUM,
+		PHYLORDER,
+		FAMILY,
+		GENUS,
+		SPECIES,
+		SUBSPECIES,
+		FORMATTED_SCIENTIFIC_NAME
 	FROM
 		#session.flatTableName#
 	WHERE
@@ -167,7 +176,7 @@
 					</div>
 					<div class="detailBlock">
 						<span class="detailData">
-							<cfquery name="identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							<cfquery name="raw_identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								SELECT
 									identification.scientific_name,
 									concatidagent(identification.identification_id) agent_name,
@@ -178,49 +187,47 @@
 									accepted_id_fg,
 									taxa_formula,
 									short_citation,
-									identification.publication_id
+									identification.publication_id,
+									taxon_name.scientific_name taxsciname
 								FROM
 									identification,
-									publication
+									publication,
+									identification_taxonomy,
+									taxon_name
 								WHERE
 									identification.publication_id=publication.publication_id (+) and
+									identification.identification_id=identification_taxonomy.identification_id (+) and
+									identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id (+) and
 									identification.collection_object_id = #collection_object_id#
 								ORDER BY accepted_id_fg DESC,made_date DESC
 							</cfquery>
+							<cfquery name="identification" dbtype="query">
+								select
+									scientific_name,
+									agent_name,
+									made_date,
+									nature_of_id,
+									identification_remarks,
+									identification_id,
+									accepted_id_fg,
+									taxa_formula,
+									short_citation,
+									publication_id
+								from
+									raw_identification
+								group by
+									scientific_name,
+									agent_name,
+									made_date,
+									nature_of_id,
+									identification_remarks,
+									identification_id,
+									accepted_id_fg,
+									taxa_formula,
+									short_citation,
+									publication_id
+							</cfquery>
 							<cfloop query="identification">
-								<cfquery name="getTaxa_r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-									select
-										taxonomy.taxon_name_id,
-										display_name,
-										scientific_name,
-										author_text,
-										common_name,
-										full_taxon_name
-									FROM
-										identification_taxonomy,
-										taxonomy,
-										common_name
-									WHERE
-										identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id and
-										taxonomy.taxon_name_id=common_name.taxon_name_id (+) and
-										identification_id=#identification_id#
-								</cfquery>
-								<cfquery name="getTaxa" dbtype="query">
-									select
-										taxon_name_id,
-										display_name,
-										scientific_name,
-										author_text,
-										full_taxon_name
-									from
-										getTaxa_r
-									group by
-										taxon_name_id,
-										display_name,
-										scientific_name,
-										author_text,
-										full_taxon_name
-								</cfquery>
 								<cfif accepted_id_fg is 1>
 						        	<div class="acceptedIdDiv">
 							    <cfelse>
@@ -229,13 +236,16 @@
 						        <cfif getTaxa.recordcount is 1 and taxa_formula is 'a'>
 									<a href="/name/#getTaxa.scientific_name#" target="_blank">#getTaxa.display_name#</a>
 								<cfelse>
+									<cfquery name="thisTaxLinks" dbtype="query">
+										select taxsciname from raw_identification where identification_id=#identification_id#
+									</cfquery>
 									<cfset link="">
 									<cfset i=1>
 									<cfset thisSciName="#scientific_name#">
-									<cfloop query="getTaxa">
-										<cfset thisLink='<a href="/name/#scientific_name#" target="_blank">#display_name#</a>'>
+									<cfloop query="thisTaxLinks">
+										<cfset thisLink='<a href="/name/#scientific_name#" target="_blank">#scientific_name#</a>'>
 										<cfset thisSciName=#replace(thisSciName,scientific_name,thisLink)#>
-										<cfset i=#i#+1>
+										<cfset i=i+1>
 									</cfloop>
 									#thisSciName#
 								</cfif>
@@ -244,19 +254,28 @@
 								</cfif>
 								<div class="taxDetDiv">
 									<cfloop query="getTaxa">
-										<div style="font-size:.8em;color:gray;">
-											#full_taxon_name#
-										</div>
-										<cfset metaDesc=metaDesc & '; ' & full_taxon_name>
-										<cfquery name="cName" dbtype="query">
-											select common_name from getTaxa_r where taxon_name_id=#taxon_name_id#
-											and common_name is not null
-											group by common_name order by common_name
-										</cfquery>
-										<div style="font-size:.8em;color:gray;padding-left:1em;">
-											#valuelist(cName.common_name,"; ")#
-										</div>
-										<cfset metaDesc=metaDesc & '; ' & valuelist(cName.common_name,"; ")>
+										<cfif accepted_id_fg is 1>
+											<div style="font-size:.8em;color:gray;">
+											PHYLCLASS,
+		KINGDOM,
+		PHYLUM,
+		PHYLORDER,
+		FAMILY,
+		GENUS,
+		SPECIES,
+		SUBSPECIES,
+		FORMATTED_SCIENTIFIC_NAME
+											</div>
+										</cfif>
+
+										
+										
+											
+											
+		
+		
+										
+										
 									</cfloop>
 									<cfif len(short_citation) gt 0>
 										sensu <a href="/publication/#publication_id#" target="_mainFrame">

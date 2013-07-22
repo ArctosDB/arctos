@@ -233,7 +233,7 @@ function removeHelpDiv() {
 		<ul>
 			<li>Check your form input, or use the Clear Form button to start over.</li>
 			<li>
-				If you searched by taxonomy, consult <a href="/TaxonomySearch.cfm" class="novisit">Arctos Taxonomy</a>.
+				If you searched by taxonomy, consult <a href="/taxonomy.cfm" class="novisit">Arctos Taxonomy</a>.
 				Taxa are often synonymized and revised, and may not be consistent across collections. Previous Identifications,
 				which are separate from the taxonomy used in Identifications, may be located using the scientific name
 				"is/was/cited/related" option.

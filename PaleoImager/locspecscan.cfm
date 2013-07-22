@@ -653,7 +653,7 @@
 	<cfif left(idnum,7) neq 'UAM:ES:'>
 	<br>taxon_name	
 		<cfquery name="vT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select taxon_name_id from taxonomy where scientific_name='#taxon_name#'
+			select taxon_name_id from taxon_name where scientific_name='#taxon_name#'
 		</cfquery>
 		<cfif vT.recordcount is 1>
 			is valid (#vT.taxon_name_id#)

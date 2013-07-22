@@ -194,13 +194,13 @@
 		</cfquery>
 		<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				taxonomy.taxon_name_id,
+				taxon_name.taxon_name_id,
 				scientific_name
 			from
 				project_taxonomy,
-				taxonomy
+				taxon_name
 			where
-				taxonomy.taxon_name_id=project_taxonomy.taxon_name_id and
+				taxon_name.taxon_name_id=project_taxonomy.taxon_name_id and
 				project_id = #getDetails.project_id#
 			order by
 				scientific_name
