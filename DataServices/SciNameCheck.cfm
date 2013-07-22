@@ -183,7 +183,7 @@ sho err
 		</cfif>
 		<cfif found is false>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select scientific_name from taxonomy where scientific_name='#scientific_name#'
+				select scientific_name from taxon_name where scientific_name='#scientific_name#'
 			</cfquery>
 			<cfif d.recordcount is 1>
 				<cfset found=true>
