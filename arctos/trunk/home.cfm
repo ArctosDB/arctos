@@ -778,7 +778,7 @@ and programming is freely available.</p>
 
 <p>Collections or institutions interested in having their
 data hosted in Arctos, or interested in participating in
-the development of Arctos should <a href="/info/participate.cfm">review the participation guidelines</a>, then
+the development of Arctos should <a href="http://arctosdb.org/home/governance/joining-arctos/">review the participation guidelines</a>, then
 <a href="/contact.cfm">contact us</a> for additional information.</p>
 
 

@@ -44,7 +44,7 @@
 	or through Saved Searches (find specimens, click Save Search, provide a name, then click My Stuff/Saved Searches, then 
 	copy/paste/email/click the links.)
 	<p>
-		You may search taxonomy using the <a href="/api/taxsrch">TaxonomyResults.cfm API</a>. 
+		You may search taxonomy using the <a href="/api/taxsrch">taxonomy.cfm API</a>. 
 	</p>
 	<p>
 		You may link to taxon detail pages with URLs of the format:
@@ -170,7 +170,7 @@
 	</table>
 </cfif>
 <cfif action is "taxsrch">
-	Base URL: #Application.serverRootUrl#/TaxonomyResults.cfm
+	Base URL: #Application.serverRootUrl#/taxonomy.cfm
 	<table border>
 		<tr>
 			<th>term</th>
@@ -183,62 +183,6 @@
 		<tr>
 			<td>scientific_name</td>
 			<td></td>
-		</tr>
-		<tr>
-			<td>genus</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>species</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>subspecies</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>full_taxon_name</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>phylum</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>phylclass</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>phylorder</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>suborder</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>family</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>subfamily</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>tribe</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>subgenus</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>author_text</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>we_have_some</td>
-			<td>Boolean. True=limits returns to taxonomy that have been used for identifications in Arctos.</td>
 		</tr>
 	</table>
 </cfif>

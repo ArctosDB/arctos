@@ -102,8 +102,8 @@
 		something is broken, or <a href="/info/bugs.cfm">submit a bug report</a> telling us how you got this error.
 	</p>
 
-	<p><a href="/TaxonomySearch">Search for Taxon Names here</a></p>
-	<p><a href="/SpecimenUsage">Search for Projects and Publications here</a></p>
+	<p><a href="/taxonomy.cfm">Search for Taxon Names here</a></p>
+	<p><a href="/SpecimenUsage.cfm">Search for Projects and Publications here</a></p>
 	<p>
 		If you're trying to find specimens, you may:
 		<ul>

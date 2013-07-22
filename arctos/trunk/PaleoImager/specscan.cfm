@@ -153,7 +153,7 @@ loc_card_scan
 				select 
 					taxon_name_id 
 				from 
-					taxonomy 
+					taxon_name 
 				where
 					scientific_name='#taxon_name#'
 			</cfquery>

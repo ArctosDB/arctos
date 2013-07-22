@@ -42,7 +42,7 @@ sho err
 	<br>See http://arctosdb.org/how-to/create/bulkloader/#taxa for the full scoop on taxonomy.
 	
 	<br>This form considers only
-	namestrings (that is, taxonomy.scientific_name) so will have a high false failure rate for 
+	namestrings (that is, taxon_name.scientific_name) so will have a high false failure rate for 
 	data with complex names (Name sp., etc.)
 	
 	<br>
@@ -133,7 +133,7 @@ sho err
 	<cfloop query="r">
 		<cfset found=false>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select scientific_name from taxonomy where scientific_name='#scientific_name#' and VALID_CATALOG_TERM_FG=1
+			select scientific_name from taxon_name where scientific_name='#scientific_name#'
 		</cfquery>
 		<cfif d.recordcount is 1>
 			<cfset found=true>
@@ -146,14 +146,13 @@ sho err
 				select 
 					rel.scientific_name 
 				from 
-					taxonomy,
+					taxon_name,
 					taxon_relations,
-					taxonomy rel
+					taxon_name rel
 				where 
-					taxonomy.taxon_name_id=taxon_relations.taxon_name_id and
+					taxon_name.taxon_name_id=taxon_relations.taxon_name_id and
 					taxon_relations.related_taxon_name_id=rel.taxon_name_id and
-					taxonomy.scientific_name='#scientific_name#' and 
-					rel.VALID_CATALOG_TERM_FG=1
+					taxon_name.scientific_name='#scientific_name#'
 			</cfquery>
 			<cfif d.recordcount is 1>
 				<cfset found=true>
@@ -165,16 +164,15 @@ sho err
 		<cfif found is false>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select 
-					taxonomy.scientific_name 
+					taxon_name.scientific_name 
 				from 
-					taxonomy,
+					taxon_name,
 					taxon_relations,
-					taxonomy rel
+					taxon_name rel
 				where 
-					taxonomy.taxon_name_id=taxon_relations.taxon_name_id and
+					taxon_name.taxon_name_id=taxon_relations.taxon_name_id and
 					taxon_relations.related_taxon_name_id=rel.taxon_name_id and
-					rel.scientific_name='#scientific_name#' and 
-					taxonomy.VALID_CATALOG_TERM_FG=1
+					rel.scientific_name='#scientific_name#'
 			</cfquery>
 			<cfif d.recordcount is 1>
 				<cfset found=true>
@@ -194,46 +192,7 @@ sho err
 				</cfquery>
 			</cfif>
 		</cfif>
-		<cfif found is false>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					rel.scientific_name 
-				from 
-					taxonomy,
-					taxon_relations,
-					taxonomy rel
-				where 
-					taxonomy.taxon_name_id=taxon_relations.taxon_name_id and
-					taxon_relations.related_taxon_name_id=rel.taxon_name_id and
-					taxonomy.scientific_name='#scientific_name#'
-			</cfquery>
-			<cfif d.recordcount is 1>
-				<cfset found=true>
-				<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update ds_temp_taxcheck set suggested_sci_name='#d.scientific_name#',status='found_related_unaccepted_name' where key=#key#
-				</cfquery>
-			</cfif>
-		</cfif>
-		<cfif found is false>
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					taxonomy.scientific_name 
-				from 
-					taxonomy,
-					taxon_relations,
-					taxonomy rel
-				where 
-					taxonomy.taxon_name_id=taxon_relations.taxon_name_id and
-					taxon_relations.related_taxon_name_id=rel.taxon_name_id and
-					rel.scientific_name='#scientific_name#'
-			</cfquery>
-			<cfif d.recordcount is 1>
-				<cfset found=true>
-				<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update ds_temp_taxcheck set suggested_sci_name='#d.scientific_name#',status='found_related_unaccepted_name' where key=#key#
-				</cfquery>
-			</cfif>
-		</cfif>	
+		
 		<cfif found is false>
 			<cfset fstTerm="">
 			<cfset scndTerm="">

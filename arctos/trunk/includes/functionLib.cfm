@@ -480,8 +480,8 @@
             <cfset temp = QuerySetCell(result, "link", "/ProjectDetail.cfm?project_id=#related_primary_key#", i)>
 		<cfelseif table_name is "taxonomy">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select display_name data,scientific_name from 
-				taxonomy where taxon_name_id=#related_primary_key#
+				select scientific_name data,scientific_name from 
+				taxon_name where taxon_name_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/name/#d.scientific_name#", i)>
@@ -492,140 +492,6 @@
 	</cfloop>
 	<cfreturn result>
 </cffunction>
-<!----------------------------------------------------------------------------------------->
-<cffunction name="getMediaRelations2" access="public" output="false" returntype="Query">
-	<cfargument name="media_id" required="true" type="numeric">
-	<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from media_relations,
-		preferred_agent_name
-		where
-		media_relations.created_by_agent_id = preferred_agent_name.agent_id and
-		media_id=#media_id#
-	</cfquery>
-	<cfset result = querynew("media_relations_id,media_relationship,created_agent_name,related_primary_key,summary,link, rel_type")>
-	<cfset i=1>
-	<cfloop query="relns">
-		<cfset temp = queryaddrow(result,1)>
-		<cfset temp = QuerySetCell(result, "media_relations_id", "#media_relations_id#", i)>	
-		<cfset temp = QuerySetCell(result, "media_relationship", "#media_relationship#", i)>
-		<cfset temp = QuerySetCell(result, "created_agent_name", "#agent_name#", i)>
-		<cfset temp = QuerySetCell(result, "related_primary_key", "#related_primary_key#", i)>
-		<cfset table_name = listlast(media_relationship," ")>
-		<cfif table_name is "locality">
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					higher_geog || ': ' || spec_locality data 
-				from 
-					locality, 
-					geog_auth_rec 
-				where 
-					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
-					locality.locality_id=#related_primary_key#
-			</cfquery>
-			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/showLocality.cfm?action=srch&locality_id=#related_primary_key#", i)>
-			<cfset temp = QuerySetCell(result, "rel_type", "locality", i)>
-		<cfelseif #table_name# is "agent">
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select agent_name data from preferred_agent_name where agent_id=#related_primary_key#
-			</cfquery>
-			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-			<cfif #media_relationship# is "created by agent">
-				<cfset temp = QuerySetCell(result, "rel_type", "created by agent", i)>
-			<cfelse>
-				<cfset temp = QuerySetCell(result, "rel_type", "shows agent", i)>
-			</cfif>
-
-		<cfelseif table_name is "collecting_event">
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					higher_geog || ': ' || spec_locality || ' (' || verbatim_date || ')' data 
-				from 
-					collecting_event,
-					locality, 
-					geog_auth_rec 
-				where 
-					collecting_event.locality_id=locality.locality_id and
-					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
-					collecting_event.collecting_event_id=#related_primary_key#
-			</cfquery>
-			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/showLocality.cfm?action=srch&collecting_event_id=#related_primary_key#", i)>
-			<cfset temp = QuerySetCell(result, "rel_type", "collecting_event", i)>
-		<cfelseif table_name is "accn">
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					collection || ' ' || accn_number data 
-				from 
-					collection,
-					trans, 
-					accn 
-				where 
-					collection.collection_id=trans.collection_id and
-					trans.transaction_id=accn.transaction_id and
-					accn.transaction_id=#related_primary_key#
-			</cfquery>
-			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/editAccn.cfm?Action=edit&transaction_id=#related_primary_key#", i)>
-			<cfset temp = QuerySetCell(result, "rel_type", "accn", i)>
-		<cfelseif table_name is "cataloged_item">
-		<!--- upping this to uam_god for now - see Issue 135
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		---->
-			<cfquery name="d" datasource="uam_god">
-				select collection || ' ' || cat_num || ' (' || scientific_name || ')' data,
-				guid_prefix || ':' || cat_num guid_string
-				from 
-				cataloged_item,
-                collection,
-                identification
-                where
-                cataloged_item.collection_object_id=identification.collection_object_id and
-                accepted_id_fg=1 and
-                cataloged_item.collection_id=collection.collection_id and
-                cataloged_item.collection_object_id=#related_primary_key#
-			</cfquery>
-			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/guid/#d.guid_string#", i)>
-			<cfset temp = QuerySetCell(result, "rel_type", "cataloged_item", i)>
-		<cfelseif table_name is "media">
-			<cfquery name="d" datasource="uam_god">
-				select media_uri data from media where media_id=#related_primary_key#
-			</cfquery>
-			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/media/#related_primary_key#", i)>
-			<cfset temp = QuerySetCell(result, "rel_type", "media", i)>
-		<cfelseif table_name is "publication">
-			<cfquery name="d" datasource="uam_god">
-				select full_citation data from publication where publication_id=#related_primary_key#
-			</cfquery>
-			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/SpecimenUsage.cfm?publication_id=#related_primary_key#", i)>
-			<cfset temp = QuerySetCell(result, "rel_type", "publication", i)>
-		<cfelseif #table_name# is "project">
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select project_name data from 
-				project where project_id=#related_primary_key#
-			</cfquery>
-			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/ProjectDetail.cfm?project_id=#related_primary_key#", i)>
-			<cfset temp = QuerySetCell(result, "rel_type", "project", i)>
-		<cfelseif table_name is "taxonomy">
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select display_name data,scientific_name from 
-				taxonomy where taxon_name_id=#related_primary_key#
-			</cfquery>
-			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/name/#d.scientific_name#", i)>
-			<cfset temp = QuerySetCell(result, "rel_type", "taxonomy", i)>
-		<cfelse>
-			<cfset temp = QuerySetCell(result, "summary", "#table_name# is not currently supported.", i)>
-		</cfif>
-		<cfset i=i+1>
-	</cfloop>
-	<cfreturn result>
-</cffunction>
-
 <!----------------------------------------------------------------------------------------->
 <cffunction name="QueryToCSV" access="public" returntype="string" output="false">
  

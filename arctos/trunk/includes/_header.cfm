@@ -333,7 +333,6 @@
 
 				                    <li><a target="_top" href="##">Funky Data</a>
 										<ul>
-											<li><a target="_top" href="/info/collnHoldgByClass.cfm">Collection Holdings by Class</a></li>
 											<li><a target="_top" href="/Admin/bad_taxonomy.cfm">Invalid Taxonomy</a></li>
 											<li><a target="_top" href="/tools/TaxonomyScriptGap.cfm">Unscriptable Taxonomy Gaps</a></li>
 											<li><a target="_top" href="/info/slacker.cfm">Suspect Data</a></li>

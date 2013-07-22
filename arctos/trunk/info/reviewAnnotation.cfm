@@ -118,10 +118,10 @@
 	<cfelseif type is "taxon">
 		<cfquery name="data" datasource="uam_god">
 			select 
-				taxonomy.display_name summary,
+				taxon_name.scientific_name summary,
 				'/name/' || taxonomy.scientific_name datalink,
 				'taxon_name_id' pkeytype,
-				taxonomy.taxon_name_id pkey,
+				taxon_name.taxon_name_id pkey,
 				annotations.ANNOTATION_ID,
 				annotations.ANNOTATE_DATE,
 				annotations.CF_USERNAME,
@@ -134,12 +134,12 @@
 				annotations.taxon_name_id
 			FROM
 				annotations,
-				taxonomy,
+				taxon_name,
 				cf_user_data,
 				cf_users,
 				preferred_agent_name
 			WHERE
-				annotations.taxon_name_id = taxonomy.taxon_name_id AND
+				annotations.taxon_name_id = taxon_name.taxon_name_id AND
 				annotations.reviewer_agent_id=preferred_agent_name.agent_id (+) and
 				annotations.CF_USERNAME=cf_users.username (+) and
 				cf_users.user_id = cf_user_data.user_id (+)

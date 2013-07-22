@@ -33,7 +33,7 @@
 		</cfquery>
 	</cfloop>
 	<cfquery name="t" datasource="uam_god">
-		select count(*) c from taxonomy
+		select count(*) c from taxon_name
 	</cfquery>
 	<cfset numSiteMaps=Ceiling(t.c/chunkSize)>
 	<cfloop from="1" to="#numSiteMaps#" index="l">
@@ -113,7 +113,7 @@
 	</cfif>
 	<cfset formList="SpecimenSearch.cfm">
 	<cfset formList=listAppend(formList,"SpecimenUsage.cfm")>
-	<cfset formList=listAppend(formList,"TaxonomySearch.cfm")>
+	<cfset formList=listAppend(formList,"taxonomy.cfm")>
 	<cfset formList=listAppend(formList,"MediaSearch.cfm")>
 	<cfset formList=listAppend(formList,"login.cfm")>
 	<cfset formList=listAppend(formList,"home.cfm")>

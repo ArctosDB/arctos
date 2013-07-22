@@ -75,7 +75,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 				null,'UAM:Herb:' || cat_num || ' (ALA)',
 				'ALA ' || ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC')
 			)  || ': ' ||
-			get_taxonomy(coll_obj_other_id_num.collection_object_id,'display_name') descr
+			get_formatted_taxname(coll_obj_other_id_num.collection_object_id) descr
 		from
 			coll_obj_other_id_num,
 			cataloged_item
@@ -91,7 +91,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					null,'UAM:Herb:' || cat_num || ' (ALA)',
 					'ALA ' || ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC')
 				)  || ': ' ||
-				get_taxonomy(coll_obj_other_id_num.collection_object_id,'display_name') descr
+				get_formatted_taxname(coll_obj_other_id_num.collection_object_id) descr
 			from
 				coll_obj_other_id_num,
 				cataloged_item

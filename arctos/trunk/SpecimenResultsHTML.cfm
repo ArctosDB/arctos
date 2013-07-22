@@ -136,8 +136,8 @@
 			#session.flatTableName#.COORDINATEUNCERTAINTYINMETERS,
 			#session.flatTableName#.CONTINENT_OCEAN,
 			#session.flatTableName#.SEA,
-			get_taxonomy(cataloged_item.collection_object_id,'family') family,
-			get_taxonomy(cataloged_item.collection_object_id,'phylorder') phylorder
+			get_taxon(cataloged_item.collection_object_id,'family') family,
+			get_taxon(cataloged_item.collection_object_id,'phylorder') phylorder
 		">
 	</cfif><!--- end detail_level 4---->
 		<cfset basSelect = "#basSelect#,#session.flatTableName#.dec_lat,#session.flatTableName#.dec_long">
@@ -256,7 +256,7 @@
 		<p>Some possibilities include:</p>
 		<ul>
 			<li>
-				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" class="novisit">Arctos Taxonomy</a>.
+				If you searched by taxonomy, please consult <a href="/taxonomy.cfm" class="novisit">Arctos Taxonomy</a>.
 			</li>
 			<li>
 				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, etc. Don't assume we've accurately or predictably recorded data!
