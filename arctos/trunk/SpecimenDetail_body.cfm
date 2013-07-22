@@ -250,7 +250,6 @@
 									<cfset metaDesc="">
 								</cfif>
 								<div class="taxDetDiv">
-									<cfloop query="getTaxa">
 										<cfif accepted_id_fg is 1>
 											<div style="font-size:.8em;color:gray;">
 											PHYLCLASS,
@@ -273,7 +272,6 @@
 		
 										
 										
-									</cfloop>
 									<cfif len(short_citation) gt 0>
 										sensu <a href="/publication/#publication_id#" target="_mainFrame">
 												#short_citation#
