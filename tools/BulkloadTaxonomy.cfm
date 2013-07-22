@@ -188,6 +188,7 @@ sho err
 			) values (
 				sq_taxon_name_id.nextval,
 				'#trim(scientific_name)#'
+			)
 		</cfquery>
 		</cfloop>
 	</cftransaction>
