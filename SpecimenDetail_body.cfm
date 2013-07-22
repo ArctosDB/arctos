@@ -199,7 +199,6 @@
 									identification.identification_id=identification_taxonomy.identification_id (+) and
 									identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id (+) and
 									identification.collection_object_id = #collection_object_id#
-								ORDER BY accepted_id_fg DESC,made_date DESC
 							</cfquery>
 							<cfquery name="identification" dbtype="query">
 								select
@@ -226,6 +225,7 @@
 									taxa_formula,
 									short_citation,
 									publication_id
+								ORDER BY accepted_id_fg DESC,made_date DESC
 							</cfquery>
 							<cfloop query="identification">
 								<cfif accepted_id_fg is 1>
@@ -250,17 +250,28 @@
 									<cfset metaDesc="">
 								</cfif>
 								<div class="taxDetDiv">
+									<cfset thisHT=''>
+									<cfset thisHT=listappend(thisHT,one.KINGDOM)>
+									<cfset thisHT=listappend(thisHT,one.PHYLUM)>
+									<cfset thisHT=listappend(thisHT,one.PHYLCLASS)>
+									<cfset thisHT=listappend(thisHT,one.PHYLORDER)>
+									<cfset thisHT=listappend(thisHT,one.FAMILY)>
+									<cfset thisHT=listappend(thisHT,one.GENUS)>
+									<cfset thisHT=listappend(thisHT,one.SPECIES)>
+									<cfset thisHT=listappend(thisHT,one.SUBSPECIES)>
+									<cfset thisHT=listappend(thisHT,one.FORMATTED_SCIENTIFIC_NAME)>
+									
+									<!----
+									<cfif len(one.KINGDOM) gt 0>
+										<cfset thisHT=listappend(thisHT,one.KINGDOM)>
+									</cfif>
+									
+									---------->
 										<cfif accepted_id_fg is 1>
 											<div style="font-size:.8em;color:gray;">
-											PHYLCLASS,
-		KINGDOM,
-		PHYLUM,
-		PHYLORDER,
-		FAMILY,
-		GENUS,
-		SPECIES,
-		SUBSPECIES,
-		FORMATTED_SCIENTIFIC_NAME
+										
+											---------------#thisHT#---------
+
 											</div>
 										</cfif>
 
