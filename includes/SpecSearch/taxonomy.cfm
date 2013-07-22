@@ -1,16 +1,5 @@
 <script type="text/javascript" language="javascript">
-	jQuery(document).ready(function() {
-		jQuery("#phylclass").autocomplete("/ajax/phylclass.cfm", {
-			width: 320,
-			max: 50,
-			autofill: false,
-			multiple: false,
-			scroll: true,
-			scrollHeight: 300,
-			matchContains: true,
-			minChars: 1,
-			selectFirst:false
-		});
+	jQuery(document).ready(function() {	
 		$("#begin_made_date").datepicker();
 		$("#end_made_date").datepicker();
 	});
