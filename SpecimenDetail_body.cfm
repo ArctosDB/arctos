@@ -233,9 +233,7 @@
 							    <cfelse>
 						        	<div class="unAcceptedIdDiv">
 						        </cfif>
-						        <cfif getTaxa.recordcount is 1 and taxa_formula is 'a'>
-									<a href="/name/#getTaxa.scientific_name#" target="_blank">#getTaxa.display_name#</a>
-								<cfelse>
+						       
 									<cfquery name="thisTaxLinks" dbtype="query">
 										select taxsciname from raw_identification where identification_id=#identification_id#
 									</cfquery>
@@ -248,7 +246,6 @@
 										<cfset i=i+1>
 									</cfloop>
 									#thisSciName#
-								</cfif>
 								<cfif not isdefined("metaDesc")>
 									<cfset metaDesc="">
 								</cfif>
