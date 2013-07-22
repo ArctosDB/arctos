@@ -261,6 +261,7 @@
 										<cfset thisHT=listappend(thisHT,one.SPECIES)>
 										<cfset thisHT=listappend(thisHT,one.SUBSPECIES)>
 										<cfset thisHT=listappend(thisHT,one.FORMATTED_SCIENTIFIC_NAME)>
+										<cfset thisHT=listchangedelims(thisHT,", ")>
 										<div style="font-size:.8em;color:gray;">
 											#thisHT#
 										</div>
