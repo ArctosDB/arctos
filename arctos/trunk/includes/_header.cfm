@@ -268,11 +268,7 @@
 									<li><a target="_top" href="##">Tools</a>
 										<ul>
 											<li><a target="_top" href="/tools/PublicationStatus.cfm">Publication Staging</a></li>
-											<li><a target="_top" href="/tools/parent_child_taxonomy.cfm">Sync parent/child taxonomy</a></li>
 											<li><a target="_top" href="/tools/pendingRelations.cfm">Pending Relationships</a></li>
-											<cfif listfind(formList,"/tools/sqlTaxonomy.cfm")>
-												<li><a target="_top" href="/tools/sqlTaxonomy.cfm">SQL Taxonomy</a></li>
-											</cfif>
 											<li><a target="_top" href="/Admin/redirect.cfm">Redirects</a></li>
 										</ul>
 									</li>
@@ -322,7 +318,6 @@
 									<li><a target="_top" href="/Admin/download.cfm">Download Stats</a></li>
 									<li><a target="_top" href="/info/queryStats.cfm">Query Stats</a></li>
 									<li><a target="_top" href="/Admin/ActivityLog.cfm">Audit SQL</a></li>
-									<li><a target="_top" href="/tools/downloadData.cfm">Download Tables</a></li>
 									<li><a target="_top" href="/tools/access_report.cfm">Oracle Roles</a></li>
 									<li><a target="_top" href="/info/ipt.cfm">IPT/collection metadata report</a></li>
 									<li><a target="_top" href="/info/sysstats.cfm">System Statistics</a></li>
@@ -337,7 +332,6 @@
 											<li><a target="_top" href="/tools/TaxonomyScriptGap.cfm">Unscriptable Taxonomy Gaps</a></li>
 											<li><a target="_top" href="/info/slacker.cfm">Suspect Data</a></li>
 											<li><a target="_top" href="/info/noParts.cfm">Partless Specimens</a></li>
-											<li><a target="_top" href="/tools/TaxonomyGaps.cfm">Messy Taxonomy</a></li>
 											<li><a target="_top" href="/tools/findGap.cfm">Catalog Number Gaps</a></li>
 											<li><a target="_top" href="/info/dupAgent.cfm">Duplicate Agents</a></li>
 											<li><a target="_top" href="/Reports/partusage.cfm">Part Usage</a></li>

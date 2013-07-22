@@ -132,7 +132,7 @@ Include column headings, spelled exactly as below.
 	</cfquery>
 	<cfloop query="data">
 		<cfset problem="">
-		<cfif #other_id_type# is not "catalog number">
+		<cfif other_id_type is not "catalog number">
 			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					SELECT 
 						coll_obj_other_id_num.collection_object_id
@@ -201,8 +201,7 @@ Include column headings, spelled exactly as below.
 			</cfif>
 
 			<cfquery name="isTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				SELECT taxon_name_id FROM taxonomy WHERE scientific_name = '#TaxonomyTaxonName#'
-				AND valid_catalog_term_fg=1
+				SELECT taxon_name_id FROM taxon_name WHERE scientific_name = '#TaxonomyTaxonName#'
 			</cfquery>
 			<cfif #isTaxa.recordcount# is not 1>
 				<cfif len(#problem#) is 0>
