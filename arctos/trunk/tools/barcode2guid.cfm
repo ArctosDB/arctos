@@ -34,6 +34,7 @@
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 			variables.joFileWriter.writeLine('barcode,guid'); 
 		</cfscript>
+		<cfset bc=REReplace(bc, ",+$", "")>
 		<cfquery name="d" datasource="uam_god">
 			select 
 				c.barcode,
@@ -49,8 +50,8 @@
 				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 				coll_obj_cont_hist.container_id=p.container_id and
 				p.parent_container_id=c.container_id and
-				c.barcode in (#ListQualify(BC, "'")#)
-		</cfquery>
+				c.barcode in (#ListQualify(trim(BC), "'")#)
+		</cfquery>		
 		<br>Queried for #listlen(bc)# barcodes.
 		<cfquery name="c" dbtype="query">
 			select count(*) c from d where guid is not null
@@ -67,14 +68,14 @@
 			</tr>
 			<cfloop list="#bc#" index="b">
 				<cfquery name="t" dbtype="query">
-					select * from d where barcode='#b#'
+					select * from d where barcode='#trim(b)#'
 				</cfquery>
 				<tr>
 					<td>#b#</td>
 					<td>#t.guid#</td>
 				</tr>
 				<cfscript>
-					variables.joFileWriter.writeLine('"#b#","#t.guid#"');
+					variables.joFileWriter.writeLine('"#trim(b)#","#trim(t.guid)#"');
 				</cfscript>
 			</cfloop>
 		</table>
