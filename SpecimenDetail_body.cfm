@@ -271,6 +271,13 @@
 											<div style="font-size:.8em;color:gray;">
 										
 											---------------#thisHT#---------
+											
+											<p>
+												<cfset thisHT=ListChangeDelims(thisHT,", ")>
+												
+												
+											---------------#thisHT#---------
+											</p>
 
 											</div>
 										</cfif>
