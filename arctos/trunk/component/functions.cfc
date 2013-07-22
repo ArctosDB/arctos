@@ -2897,7 +2897,7 @@
 
 	<cfif len(taxa_one) gt 0>
 		<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	        select taxon_name_id from taxonomy where scientific_name = trim('#taxa_one#') and VALID_CATALOG_TERM_FG = 1
+	        select taxon_name_id from taxon_name where scientific_name = trim('#taxa_one#')
 		</cfquery>
 		<cfset QuerySetCell(result, "taxon_name_id_1", t.taxon_name_id, 1)>
 		<cfif t.recordcount is not 1>
@@ -2906,7 +2906,7 @@
 	</cfif>
 	<cfif len(taxa_two) gt 0>
 		<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	        select taxon_name_id from taxonomy where scientific_name = trim('#taxa_two#') and VALID_CATALOG_TERM_FG = 1
+	        select taxon_name_id from taxon_name where scientific_name = trim('#taxa_two#')
 		</cfquery>
 		<cfif t.recordcount is not 1>
 			<cfset err=listappend(err,"taxon 2 not found",";")>
@@ -4011,7 +4011,7 @@
 			<cfif idType is "COLLECTION_OBJECT_ID">
 				select '<a href="#Application.serverRootUrl#/guid/' || guid || '">' || guid || '</a>' s from flat where collection_object_id=#idvalue#
 			<cfelseif idType is "TAXON_NAME_ID">
-				select '<a href="#Application.serverRootUrl#/name/' || scientific_name || '">' || display_name || '</a>' s from taxonomy where taxon_name_id=#idvalue#
+				select '<a href="#Application.serverRootUrl#/name/' || scientific_name || '">' || scientific_name || '</a>' s from taxon_name where taxon_name_id=#idvalue#
 			<cfelseif idType is "PROJECT_ID">
 				select '<a href="#Application.serverRootUrl#/project/' || niceURL(project_name) || '">' || project_name || '</a>' s from project where project_id=#idvalue#
 			<cfelseif idType is "PUBLICATION_ID">
