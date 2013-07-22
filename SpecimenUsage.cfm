@@ -266,8 +266,7 @@
 			publication.doi,
 			publication.pmid,
 			count(distinct(citation.collection_object_id)) numCits,
-			taxonomy.display_name,
-			taxonomy.scientific_name">
+			taxon_name.scientific_name">
 		<cfset basFrom = "
 			FROM 
 			publication,
@@ -276,7 +275,7 @@
 			agent_name,
 			citation,
 			taxonomy_publication,
-			taxonomy">
+			taxon_name">
 		<cfset basWhere = "
 			WHERE 
 				publication.publication_id = project_publication.publication_id (+) and
@@ -284,7 +283,7 @@
 				AND publication.publication_id = publication_agent.publication_id (+) 
 				AND publication_agent.agent_id = agent_name.agent_id (+) and
 				publication.publication_id=taxonomy_publication.publication_id (+) and
-				taxonomy_publication.taxon_name_id=taxonomy.taxon_name_id (+)">
+				taxonomy_publication.taxon_name_id=taxon_name.taxon_name_id (+)">
 		<cfif (isdefined("project_type") AND len(project_type) gt 0)>
 			<cfset basWhere = "#basWhere# AND 1=2">
 		</cfif>
@@ -379,8 +378,7 @@
 				publication.full_citation,
 				publication.doi,
 				publication.pmid,
-				taxonomy.display_name,
-				taxonomy.scientific_name
+				taxon_name.scientific_name
 			ORDER BY 
 				publication.full_citation,
 				publication.publication_id">

@@ -233,19 +233,18 @@
 							    <cfelse>
 						        	<div class="unAcceptedIdDiv">
 						        </cfif>
-						       
-									<cfquery name="thisTaxLinks" dbtype="query">
-										select taxsciname from raw_identification where identification_id=#identification_id#
-									</cfquery>
-									<cfset link="">
-									<cfset i=1>
-									<cfset thisSciName="#scientific_name#">
-									<cfloop query="thisTaxLinks">
-										<cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'>
-										<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
-										<cfset i=i+1>
-									</cfloop>
-									#thisSciName#
+								<cfquery name="thisTaxLinks" dbtype="query">
+									select taxsciname from raw_identification where identification_id=#identification_id#
+								</cfquery>
+								<cfset link="">
+								<cfset i=1>
+								<cfset thisSciName="#scientific_name#">
+								<cfloop query="thisTaxLinks">
+									<cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'>
+									<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
+									<cfset i=i+1>
+								</cfloop>
+								#thisSciName#
 								<cfif not isdefined("metaDesc")>
 									<cfset metaDesc="">
 								</cfif>
