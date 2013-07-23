@@ -427,6 +427,10 @@
 				scientific_name,
 				taxon_name_id
 		</cfquery>
+		
+		<cfdump var=#d#>
+		
+		
 		<cfquery name="noclass" dbtype="query">
 			select * from d where POSITION_IN_CLASSIFICATION is null order by term_type
 		</cfquery>
