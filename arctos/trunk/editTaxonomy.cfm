@@ -513,7 +513,7 @@
 								(drag row here)
 							</td>
 							<td>
-								<input size="60" class="ac_isclass_tt" type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" name="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
+								term_type_#POSITION_IN_CLASSIFICATION#<input size="60" class="ac_isclass_tt" type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" name="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
 							</td>
 							<td>
 								<input size="60" type="text" id="term_#POSITION_IN_CLASSIFICATION#" name="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
