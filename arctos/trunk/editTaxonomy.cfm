@@ -483,7 +483,7 @@
 								<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#thisrow#" name="ncterm_type_#thisrow#" value="#term_type#">
 							</td>
 							<td>
-								<input size="60" type="text" id="ncterm_#thisrow#" name="ncterm_#thisrow#" value="#escapeQuotes(term)#">
+								<input size="60" type="text" id="ncterm_#thisrow#" name="ncterm_#thisrow#" value="#stripQuotes(term)#">
 							</td>
 							<td>
 								<span class="likeLink" onclick="nc_deleteThis('#thisrow#');">[ Delete this row ]</span>
