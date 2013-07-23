@@ -236,10 +236,6 @@
 	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
 	<script>
 		jQuery(document).ready(function(){
-			
-			console.log(document.location.hash.length);
-
-
 			if (document.location.hash.length == 0) {
 			     $('html, body').animate({
 			         scrollTop: $("##taxondetail").offset().top
