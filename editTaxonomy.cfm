@@ -122,9 +122,9 @@
 					</cfquery>
 				</cfif>
 			</cfloop>
+			<cfset pos=1>
 			<cfloop from="1" to="10" index="i">
 				<!--- deal with yahoos leaving empty cells.... ---->
-				<cfset pos=1>
 				<cfset thisTerm=evaluate("term_" & i)>
 				<cfset thisTermType=evaluate("term_type_" & i)>
 				<cfif len(thisTerm) gt 0>
