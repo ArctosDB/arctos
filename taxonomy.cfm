@@ -237,17 +237,12 @@
 	<script>
 		jQuery(document).ready(function(){
 			
-console.log('hai!!');
-
-
-console.log(document.location);
-
-
-console.log(document.location.hash);
-
-		     $('html, body').animate({
-		         scrollTop: $("##taxondetail").offset().top
-		     }, 1000);
+	
+			if (document.location.hash.length > 0) {
+			     $('html, body').animate({
+			         scrollTop: $("##taxondetail").offset().top
+			     }, 1000);
+			}
 			var taxon_name_id=$("##taxon_name_id").val();
 
 			var elemsToLoad='mapTax';
