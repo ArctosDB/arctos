@@ -242,6 +242,9 @@ console.log('hai!!');
 
 console.log(document.location);
 
+
+console.log(document.location.hash);
+
 		     $('html, body').animate({
 		         scrollTop: $("##taxondetail").offset().top
 		     }, 1000);
