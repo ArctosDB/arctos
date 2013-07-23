@@ -493,7 +493,7 @@
 					</cfloop>
 				</tbody>
 			</table>
-			<span class="likeLink" onclick="nc_addARow();">Add a Row</span>
+			<span class="likeLink" onclick="nc_addARow();">[ add a row ]</span>
 			<h3>
 				Classification Terms
 			</h3>
@@ -524,7 +524,7 @@
 					</cfloop>
 				</tbody>
 			</table>
-			<span class="likeLink" onclick="addARow();">Add a Row</span>
+			<span class="likeLink" onclick="addARow();">[ add a row ]</span>
 			<p>
 				<input type="button" onclick="submitForm();" value="Save Edits">
 			</p>
