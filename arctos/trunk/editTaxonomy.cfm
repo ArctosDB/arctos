@@ -147,6 +147,27 @@
 							'#thisSourceID#'
 						)
 					</cfquery>
+					
+					<hr>
+					insert into taxon_term (
+							taxon_term_id,
+							taxon_name_id,
+							term,
+							term_type,
+							source,
+							position_in_classification,
+							classification_id
+						) values (
+							sq_taxon_term_id.nextval,
+							#taxon_name_id#,
+							'#thisTerm#',
+							'#lcase(thisTermType)#',
+							'#source#',
+							#pos#,
+							'#thisSourceID#'
+						)
+						
+						
 					<cfset pos=pos+1>
 				</cfif>
 			</cfloop>
