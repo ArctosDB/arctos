@@ -549,6 +549,11 @@
 					<cfelse>
 						<br><span style="font-size:small">match type not available</span>
 					</cfif>
+					<p>
+						<cfloop query="notclass">
+							<br>#term_type#: #term#
+						</cfloop>
+					</p>
 					<cfif thisone.recordcount gt 0>
 						<p>Classification:
 						<cfset indent=1>
@@ -572,11 +577,6 @@
 					<cfelse>
 						<p>no classification provided</p>
 					</cfif>
-					<p>
-						<cfloop query="notclass">
-							<br>#term_type#: #term#
-						</cfloop>
-					</p>
 				</div>
 			</cfloop>
 		</div>
