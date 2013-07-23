@@ -463,9 +463,9 @@
 			<cfelse>
 				<cfset mc=maxnoclass.m>
 			</cfif>
-			<input type="hidden" name="numnoclassrs" id="numnoclassrs" value="#mc#">
-			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
-			<input type="hidden" name="noclassrows" id="noclassrows">
+			<input type="text" name="numnoclassrs" id="numnoclassrs" value="#mc#">
+			<input type="text" name="classificationRowOrder" id="classificationRowOrder">
+			<input type="text" name="noclassrows" id="noclassrows">
 			<h3>
 				Non-Classification Terms
 			</h3>
@@ -481,7 +481,7 @@
 					<cfloop query="noclass">
 						<tr id="nccell_#thisrow#">
 							<td>
-								<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#thisrow#" name="ncterm_type_#thisrow#" value="#term_type#">
+								ncterm_type_#thisrow#<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#thisrow#" name="ncterm_type_#thisrow#" value="#term_type#">
 							</td>
 							<td>
 								<input size="60" type="text" id="ncterm_#thisrow#" name="ncterm_#thisrow#" value="#term#">
