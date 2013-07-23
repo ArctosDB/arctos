@@ -28,7 +28,38 @@ END;
 /
 sho err
 
+-------- classifications
 
+drop table cf_temp_taxonomy;
+
+create table cf_temp_taxonomy (
+	key number,
+	status varchar2(4000),
+ 	SCIENTIFIC_NAME VARCHAR2(255)
+);
+
+	create or replace public synonym cf_temp_taxonomy for cf_temp_taxonomy;
+	grant select,insert,update,delete on cf_temp_taxonomy to coldfusion_user;
+	grant select on cf_temp_taxonomy to public;
+	
+	
+CREATE OR REPLACE TRIGGER cf_temp_taxonomy_key                                         
+ before insert  ON cf_temp_taxonomy
+FOR EACH ROW
+DECLARE
+BEGIN
+	if :NEW.key is null then
+		select somerandomsequence.nextval into :new.key from dual;
+    end if;    
+	
+END;
+/
+sho err
+
+
+        
+		
+		
         
 ------>
 
@@ -89,7 +120,12 @@ sho err
 			</ul>
 		</p>
 		
-		 
+		 <p>
+		 	Need to load Classifications? <a href="/contact.cfm">Contact us</a>.
+		 </p>
+		 <p>
+		 	You can pull pull classification from globalnames.
+		 </p>
 		<cfform name="oids" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Action" value="getFile">
 			<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
