@@ -171,6 +171,11 @@
 					<cfset pos=pos+1>
 				</cfif>
 			</cfloop>
+			
+			<cfabort>
+			
+			
+			
 		</cftransaction>
 		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#" addtoken="false">
 		<!----
