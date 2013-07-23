@@ -81,7 +81,7 @@
 		</p>
 	</cfoutput>
 </cfif>
-
+<!------------------------------------------------------------------------------->
 <cfif action is "yesReally_forceDeleteNonLocal">
 	<cfoutput>
 		<cfquery name="insRow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -90,7 +90,7 @@
 		<cflocation url="/taxonomy.cfm?taxon_name_id=#taxon_name_id#" addtoken="false">
 	</cfoutput>
 </cfif>
-
+<!------------------------------------------------------------------------------->
 <cfif action is "saveNewClass">
 	<cfoutput>		
 		<cfif len(source) is 0>
@@ -293,6 +293,8 @@
 					<cfloop from="1" to="10" index="i">
 							
 							<td>
+								term_type_#i#
+								
 								<input size="60" class="ac_isclass_tt" type="text" id="term_type_#i#" name="term_type_#i#">
 							</td>
 							<td>
