@@ -237,8 +237,10 @@
 	<script>
 		jQuery(document).ready(function(){
 			
-	
-			if (document.location.hash.length > 0) {
+			console.log(document.location.hash.length);
+
+
+			if (document.location.hash.length == 0) {
 			     $('html, body').animate({
 			         scrollTop: $("##taxondetail").offset().top
 			     }, 1000);
