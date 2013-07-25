@@ -48,14 +48,6 @@
 			selectFirst:false
 		});
 	});
-	function requireTermOrName() {
-		if ($( "#taxon_name" ).val().length==0 && $( "#taxon_term" ).val().length==0){
-			$( "#srchFailure" ).show();
-			$( "#taxon_name" ).addClass('redBorder');
-			$( "#taxon_term" ).addClass('redBorder');
-			return false;
-		}
-	}
 	function resetForm() {
 	    $("#taxa").find("input[type=text], textarea").val("");
 	}
@@ -93,19 +85,15 @@
 	<tr>
 		<td width="50%" valign="top">
 			<!--- search form gets half-width --->
-			<h3>Search Taxonomy</h3>
-			<span id="srchFailure" class="warningOverflow" style="display:none;">You must provide at least one of Taxon Term or Taxon Name to search.</span>
-			
-			" onsubmit="return requireTermOrName()
-			
+			<h3>Search Taxonomy</h3>			
 			<form ACTION="/taxonomy.cfm" METHOD="get" name="taxa" id="taxa">
 				<label for="taxon_name">Taxon Name</label>
-				<input class="reqdClr" type="text" name="taxon_name" id="taxon_name" value="#taxon_name#" onfocus="highlightHelp(this.id);">
+				<input type="text" name="taxon_name" id="taxon_name" value="#taxon_name#" onfocus="highlightHelp(this.id);">
 				<span class="infoLink" onclick="var e=document.getElementById('taxon_name');e.value='='+e.value;">
 					Prefix with = for exact match
 				</span>
 				<label for="taxon_term">Taxon Term</label>
-				<input class="reqdClr" type="text" name="taxon_term" id="taxon_term" value="#taxon_term#" onfocus="highlightHelp(this.id);">
+				<input type="text" name="taxon_term" id="taxon_term" value="#taxon_term#" onfocus="highlightHelp(this.id);">
 				<span class="infoLink" onclick="var e=document.getElementById('taxon_term');e.value='='+e.value;">
 					Prefix with = for exact match
 				</span>
