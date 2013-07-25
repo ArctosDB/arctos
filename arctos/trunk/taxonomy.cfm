@@ -99,12 +99,12 @@ function highlightHelp(id){
 					Prefix with = for exact match
 				</span>
 				<label for="taxon_term">Taxon Term</label>
-				<input class="reqdClr" type="text" name="taxon_term" id="taxon_term" value="#taxon_term#">
+				<input class="reqdClr" type="text" name="taxon_term" id="taxon_term" value="#taxon_term#" onfocus="highlightHelp(this.id);">
 				<span class="infoLink" onclick="var e=document.getElementById('taxon_term');e.value='='+e.value;">
 					Prefix with = for exact match
 				</span>
 				<label for="term_type">Term Type</label>
-				<input type="text" name="term_type" id="term_type" value="#term_type#">
+				<input type="text" name="term_type" id="term_type" value="#term_type#" onfocus="highlightHelp(this.id);">
 				<span class="infoLink" onclick="var e=document.getElementById('term_type');e.value='='+e.value;">
 					Prefix with = for exact match
 				</span>
@@ -112,7 +112,7 @@ function highlightHelp(id){
 					[ NULL ]
 				</span>
 				<label for="source">Source</label>
-				<input type="text" name="source" id="source" value="#source#">
+				<input type="text" name="source" id="source" value="#source#" onfocus="highlightHelp(this.id);">
 				<br>
 				<input value="Search" type="submit">&nbsp;&nbsp;&nbsp;
 				<input type="button" onclick="resetForm()" value="Clear Form">
