@@ -166,7 +166,7 @@
 
 <hr>
 <!---------- search results ------------>
-<cfif len(taxon_name) gt 0 or len(taxon_term) gt 0 or len(common_name) gt 0>
+<cfif len(taxon_name) gt 0 or len(taxon_term) gt 0 or len(common_name) gt 0 or len(source) gt 0 or len(term_type) gt 0>
 	<h3>Taxonomy Search Results</h3>
 	<cfset sql="select scientific_name from (select scientific_name from taxon_name,taxon_term where 
 		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) ">
