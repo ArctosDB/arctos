@@ -60,11 +60,10 @@
 	    $("#taxa").find("input[type=text], textarea").val("");
 	}
 function highlightHelp(id){
-$('html, body').animate({
+$('html, body').({
 			        
 $(".highlight").removeClass('highlight');
-	$("#help_" + id).addClass('highlight');
-			     }, 1000);	
+	$("#help_" + id).addClass('highlight',1000);	
 }
 </script>
 <!--------- global form defaults -------------->
