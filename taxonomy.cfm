@@ -132,15 +132,15 @@ function highlightHelp(id){
 						<strong>Taxon Name</strong> is the "namestring" or "scientific name," the "data" that is used to form Identifications and the core
 						of every Taxonomy record.
 					</li>
-					<li>
+					<li id="help_taxon_term">
 						<strong>Taxon Term</strong> is the data value of either a classification term ("Animalia") or or classification metadata (such
 						as name authors).
 					</li>
-					<li>
+					<li id="help_term_type">
 						<strong>Term Type</strong> is the rank ("kingdom") for classification terms, in which role it may be NULL, and the label for 
 						classification metadata ("author text").
 					</li>
-					<li>
+					<li id="help_source">
 						<strong>Source</strong> indicates the source of a classification (NOT a taxon name). Some classifications
 						are <a href="/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE">local</a>; most come from
 						<a href="http://www.globalnames.org/" target="_blank" class="external">GlobalNames</a>.
