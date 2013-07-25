@@ -207,7 +207,7 @@
 			<li>source CONTAINS #source#</li>
 		</cfif>
 		<cfif len(common_name) gt 0>
-			<cfset sql=sql & " and taxon_name.taxon_name_id in (select taxon_name_id from common_name where upper(common_name) like '%#ucase(common_name)#%'">
+			<cfset sql=sql & " and taxon_name.taxon_name_id in (select taxon_name_id from common_name where upper(common_name) like '%#ucase(common_name)#%') ">
 			<li>common name CONTAINS #common_name#</li>
 		</cfif>
 		
