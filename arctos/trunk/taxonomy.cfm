@@ -77,6 +77,9 @@
 <cfif not isdefined("source")>
 	<cfset source="">
 </cfif>
+<cfif not isdefined("common_name")>
+	<cfset common_name="">
+</cfif>
 <!--------------------- end init -------------------------->
 <cfoutput>
 <cfif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
