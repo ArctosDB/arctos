@@ -59,11 +59,10 @@
 	function resetForm() {
 	    $("#taxa").find("input[type=text], textarea").val("");
 	}
-function highlightHelp(id){
-			        
-$(".highlight").removeClass('highlight');
-	$("#help_" + id).addClass('highlight',500);	
-}
+	function highlightHelp(id){
+		$(".highlight").removeClass('highlight');
+		$("#help_" + id).addClass('highlight',500);	
+	}
 </script>
 <!--------- global form defaults -------------->
 <cfif not isdefined("taxon_name")>
@@ -114,6 +113,8 @@ $(".highlight").removeClass('highlight');
 				</span>
 				<label for="source">Source</label>
 				<input type="text" name="source" id="source" value="#source#" onfocus="highlightHelp(this.id);">
+				<label for="common_name">Common Name</label>
+				<input type="text" name="common_name" id="common_name" value="#common_name#" onfocus="highlightHelp(this.id);">
 				<br>
 				<input value="Search" type="submit">&nbsp;&nbsp;&nbsp;
 				<input type="button" onclick="resetForm()" value="Clear Form">
@@ -146,6 +147,9 @@ $(".highlight").removeClass('highlight');
 						are <a href="/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE">local</a>; most come from
 						<a href="http://www.globalnames.org/" target="_blank" class="external">GlobalNames</a>.
 					</li>
+					<li id="help_common_name">
+						<strong>Common Names</strong> are vernacular term associated with taxon names, and are not necessarily English, correct, or common.
+					</li>
 				</ul>	
 			</div>
 		</td>
@@ -156,7 +160,7 @@ $(".highlight").removeClass('highlight');
 
 <hr>
 <!---------- search results ------------>
-<cfif len(taxon_name) gt 0 or len(taxon_term) gt 0>
+<cfif len(taxon_name) gt 0 or len(taxon_term) gt 0 or len(common_name) gt 0>
 	<h3>Taxonomy Search Results</h3>
 	<cfset sql="select scientific_name from (select scientific_name from taxon_name,taxon_term where 
 		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) ">
@@ -196,6 +200,11 @@ $(".highlight").removeClass('highlight');
 			<cfset sql=sql & " and upper(source) like '%#ucase(source)#%'">
 			<li>source CONTAINS #source#</li>
 		</cfif>
+		<cfif len(common_name) gt 0>
+			<cfset sql=sql & " and taxon_name.taxon_name_id in (select taxon_name_id from common_name where upper(common_name) like '%#ucase(common_name)#%'">
+			<li>common name CONTAINS #common_name#</li>
+		</cfif>
+		
 		<cfset sql=sql & "
 		group by scientific_name
 		order by scientific_name)
