@@ -15,6 +15,11 @@
 		padding:1em;
 		margin:1em;
 	}
+	.highlight {
+		border:2px solid red;
+		padding:1em;
+		margin:1em;
+	}
 </style>
 <script>
 	$(function() {
@@ -54,6 +59,10 @@
 	function resetForm() {
 	    $("#taxa").find("input[type=text], textarea").val("");
 	}
+function highlightHelp(id){
+	$(".highlight").removeClass('highlight');
+	$("#help_" + id).addClass('highlight');
+}
 </script>
 <!--------- global form defaults -------------->
 <cfif not isdefined("taxon_name")>
@@ -85,7 +94,7 @@
 			<span id="srchFailure" class="warningOverflow" style="display:none;">You must provide at least one of Taxon Term or Taxon Name to search.</span>
 			<form ACTION="/taxonomy.cfm" METHOD="get" name="taxa" id="taxa" onsubmit="return requireTermOrName()">
 				<label for="taxon_name">Taxon Name</label>
-				<input class="reqdClr" type="text" name="taxon_name" id="taxon_name" value="#taxon_name#">
+				<input class="reqdClr" type="text" name="taxon_name" id="taxon_name" value="#taxon_name#" onfocus="highlightHelp(this.id);">
 				<span class="infoLink" onclick="var e=document.getElementById('taxon_name');e.value='='+e.value;">
 					Prefix with = for exact match
 				</span>
@@ -106,7 +115,7 @@
 				<input type="text" name="source" id="source" value="#source#">
 				<br>
 				<input value="Search" type="submit">&nbsp;&nbsp;&nbsp;
-				<input type="button" onclick="resetForm()" value="clear form">
+				<input type="button" onclick="resetForm()" value="Clear Form">
 			</form>
 			<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 				<br><a target="_blank" href="/editTaxonomy.cfm?action=newName">[ Create a new name ]</a>
@@ -119,7 +128,7 @@
 				Arctos taxonomy has changed - 
 				<a target="_blank" class="external" href="https://docs.google.com/document/d/1J1B7NKfaWl1A1wVQUe5rlm6FsfA7-VVUHsCqH-gHA_E/edit?usp=sharing">learn more here</a>.
 				<ul>
-					<li>
+					<li id="help_taxon_name">
 						<strong>Taxon Name</strong> is the "namestring" or "scientific name," the "data" that is used to form Identifications and the core
 						of every Taxonomy record.
 					</li>
