@@ -62,7 +62,7 @@
 function highlightHelp(id){
 			        
 $(".highlight").removeClass('highlight');
-	$("#help_" + id).addClass('highlight',1000);	
+	$("#help_" + id).addClass('highlight',500);	
 }
 </script>
 <!--------- global form defaults -------------->
