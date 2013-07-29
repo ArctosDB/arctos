@@ -86,6 +86,8 @@
 <cfif action is "nothing">
 	<cfoutput>
 	<cfset title = "Change Specimen Event">
+	
+	
 	<h2>Bulk-update specimen events</h2>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -124,6 +126,29 @@
 			#table_name#.guid,
 			specimen_event.SPECIMEN_EVENT_TYPE
 	</cfquery>
+	<cfquery name="collevent" dbtype="query">
+		select
+			COLLECTING_EVENT_ID,
+			VERBATIM_DATE,
+			VERBATIM_LOCALITY
+		from
+			d
+		group by
+			COLLECTING_EVENT_ID,
+			VERBATIM_DATE,
+			VERBATIM_LOCALITY
+	</cfquery>
+	Update all records in the table below....
+	<form name="getCol" method="post" action="bulkSpecimenEvent.cfm">
+		<select name="collecting_event_id" id="collecting_event_id">
+			<option value="">do not change</option>
+			<cfloop query="collevent">
+				<option value="#COLLECTING_EVENT_ID#">#VERBATIM_DATE# @ #VERBATIM_LOCALITY#</option>
+			</cfloop>
+		</select>
+	</form>
+	
+	
 	Specimens (one row per specimen-event; specimens may be in this table multiple times.)
 	<table border>
 		<tr>
@@ -139,11 +164,6 @@
 			<th>VERBATIM_LOCALITY</th>
 			<th>VERBATIM_COORDINATES</th>
 			<th>COLLECTING_EVENT_NAME</th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
 		</tr>
 		<cfloop query="d">
 			<tr>
@@ -159,20 +179,9 @@
 				<td>#VERBATIM_LOCALITY#</td>
 				<td>#VERBATIM_COORDINATES#</td>
 				<td>#COLLECTING_EVENT_NAME#</td>
-				<td>#SPECIMEN_EVENT_TYPE#</td>
-				<td>#SPECIMEN_EVENT_TYPE#</td>
-				<td>#SPECIMEN_EVENT_TYPE#</td>
-				<td>#SPECIMEN_EVENT_TYPE#</td>
-				<td>#SPECIMEN_EVENT_TYPE#</td>
-				<td>#SPECIMEN_EVENT_TYPE#</td>
-				<td>#SPECIMEN_EVENT_TYPE#</td>
-				<td>#SPECIMEN_EVENT_TYPE#</td>
 			</tr>
 		</cfloop>
 	</table>
-	<form name="getCol" method="post" action="bulkSpecimenEvent.cfm">
-		
-	</form>
 
 	</cfoutput>
 	<cfabort>
