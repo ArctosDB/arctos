@@ -110,7 +110,7 @@
 			 geog_auth_rec.higher_geog
 		from
 			#table_name#,
-			specimen_event
+			specimen_event,
 			collecting_event,
 			locality,
 			geog_auth_rec
