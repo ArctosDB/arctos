@@ -106,7 +106,7 @@
 			 collecting_event.ENDED_DATE,
 			 collecting_event.VERBATIM_COORDINATES,
 			 collecting_event.COLLECTING_EVENT_NAME,
-			 collecting_event.locality.spec_locality,
+			 locality.spec_locality,
 			 geog_auth_rec.higher_geog
 		from
 			#table_name#,
