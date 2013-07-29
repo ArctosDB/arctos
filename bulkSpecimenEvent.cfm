@@ -84,6 +84,7 @@
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfif action is "nothing">
+	<cfoutput>
 	<cfset title = "Change Specimen Event">
 	<h2>Bulk-update specimen events</h2>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -150,7 +151,7 @@
 		
 	</form>
 
-	
+	</cfoutput>
 	<cfabort>
 	
 	
