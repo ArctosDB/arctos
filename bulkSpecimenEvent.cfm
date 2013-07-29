@@ -84,6 +84,12 @@
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfif action is "nothing">
+	<script>
+		function useThisEvent () {
+			$("#collecting_event").val($('#__existingEvent option:selected').html());
+			$("#collecting_event_id").val($('#__existingEvent').val());
+		}
+	</script>
 	<cfoutput>
 	<cfset title = "Change Specimen Event">
 	
@@ -140,15 +146,21 @@
 		order by
 			collecting_event_id
 	</cfquery>
+
 	Update all records in the table below....
 	<form name="getCol" method="post" action="bulkSpecimenEvent.cfm">
 		<label for="collecting_event_id">Collecting Event</label>
-		<select name="collecting_event_id" id="collecting_event_id">
-			<option value="">do not change</option>
+		<input type="text" name="collecting_event_id" id="collecting_event_id">
+		<input type="text" name="collecting_event" id="collecting_event" onchange="findCollEvent('collecting_event_id','se','collecting_event');">
+		<select name="__existingEvent" id="__existingEvent" onchange="useThisEvent();">
+			<option value="">Event Pick Shortcut</option>
 			<cfloop query="collevent">
 				<option value="#COLLECTING_EVENT_ID#">#collecting_event_id#: #VERBATIM_DATE# @ #VERBATIM_LOCALITY#</option>
 			</cfloop>
 		</select>
+		
+		function findCollEvent(collIdFld,formName,dispField,eventName){
+
 	</form>
 	
 	
