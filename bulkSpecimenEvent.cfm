@@ -129,11 +129,16 @@
 		<tr>
 			<th>GUID</th>
 			<th>SPECIMEN_EVENT_TYPE</th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
+			<th>higher_geog</th>
+			<th>spec_locality</th>
+			<th>COLLECTING_METHOD</th>
+			<th>COLLECTING_SOURCE</th>
+			<th>VERIFICATIONSTATUS</th>
+			<th>HABITAT</th>
+			<th>VERBATIM_DATE</th>
+			<th>VERBATIM_LOCALITY</th>
+			<th>VERBATIM_COORDINATES</th>
+			<th>COLLECTING_EVENT_NAME</th>
 			<th></th>
 			<th></th>
 			<th></th>
@@ -143,6 +148,24 @@
 		<cfloop query="d">
 			<tr>
 				<td>#GUID#</td>
+				<td>#SPECIMEN_EVENT_TYPE#</td>
+				<td>#higher_geog#</td>
+				<td>#spec_locality#</td>
+				<td>#COLLECTING_METHOD#</td>
+				<td>#COLLECTING_SOURCE#</td>
+				<td>#VERIFICATIONSTATUS#</td>
+				<td>#HABITAT#</td>
+				<td>#VERBATIM_DATE#</td>
+				<td>#VERBATIM_LOCALITY#</td>
+				<td>#VERBATIM_COORDINATES#</td>
+				<td>#COLLECTING_EVENT_NAME#</td>
+				<td>#SPECIMEN_EVENT_TYPE#</td>
+				<td>#SPECIMEN_EVENT_TYPE#</td>
+				<td>#SPECIMEN_EVENT_TYPE#</td>
+				<td>#SPECIMEN_EVENT_TYPE#</td>
+				<td>#SPECIMEN_EVENT_TYPE#</td>
+				<td>#SPECIMEN_EVENT_TYPE#</td>
+				<td>#SPECIMEN_EVENT_TYPE#</td>
 				<td>#SPECIMEN_EVENT_TYPE#</td>
 			</tr>
 		</cfloop>
