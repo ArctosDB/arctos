@@ -137,13 +137,16 @@
 			COLLECTING_EVENT_ID,
 			VERBATIM_DATE,
 			VERBATIM_LOCALITY
+		order by
+			collecting_event_id
 	</cfquery>
 	Update all records in the table below....
 	<form name="getCol" method="post" action="bulkSpecimenEvent.cfm">
+		<label for="collecting_event_id">Collecting Event</label>
 		<select name="collecting_event_id" id="collecting_event_id">
 			<option value="">do not change</option>
 			<cfloop query="collevent">
-				<option value="#COLLECTING_EVENT_ID#">#VERBATIM_DATE# @ #VERBATIM_LOCALITY#</option>
+				<option value="#COLLECTING_EVENT_ID#">#collecting_event_id#: #VERBATIM_DATE# @ #VERBATIM_LOCALITY#</option>
 			</cfloop>
 		</select>
 	</form>
