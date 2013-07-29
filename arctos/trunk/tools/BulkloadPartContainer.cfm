@@ -235,7 +235,10 @@ sho err
 					container_id=#part_container_id#
 				</cfquery>
 			</cfloop>
-		</cftransaction>	
+		</cftransaction>
+		
+				success!
+	
 	</cfif>
 </cfif>
 <!------------------------------------------------------------------->

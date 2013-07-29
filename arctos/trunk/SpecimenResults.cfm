@@ -615,6 +615,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="/bulkCollEvent.cfm">
 						Collecting Events
 					</option>
+					<option value="/bulkSpecimenEvent.cfm">
+						Specimen Events
+					</option>
 					<!----
 					<option value="/compDGR.cfm">
 						MSB<->DGR
