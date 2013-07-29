@@ -85,8 +85,71 @@
 <!----------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfset title = "Change Specimen Event">
-	
-	hello
+	<h2>Bulk-update specimen events</h2>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			 #table_name#.guid,
+			 specimen_event.SPECIMEN_EVENT_ID,
+			 specimen_event.COLLECTION_OBJECT_ID,
+			 specimen_event.COLLECTING_EVENT_ID,
+			 specimen_event.ASSIGNED_BY_AGENT_ID,
+			 specimen_event.ASSIGNED_DATE,
+			 specimen_event.SPECIMEN_EVENT_REMARK,
+			 specimen_event.SPECIMEN_EVENT_TYPE,
+			 specimen_event.COLLECTING_METHOD,
+			 specimen_event.COLLECTING_SOURCE,
+			 specimen_event.VERIFICATIONSTATUS,
+			 specimen_event.HABITAT,
+			 collecting_event.VERBATIM_DATE,
+			 collecting_event.VERBATIM_LOCALITY,
+			 collecting_event.BEGAN_DATE,
+			 collecting_event.ENDED_DATE,
+			 collecting_event.VERBATIM_COORDINATES,
+			 collecting_event.COLLECTING_EVENT_NAME,
+			 collecting_event.locality.spec_locality,
+			 geog_auth_rec.higher_geog
+		from
+			#table_name#,
+			specimen_event
+			collecting_event,
+			locality,
+			geog_auth_rec
+		where
+			#table_name#.collection_object_id=specimen_event.collection_object_id (+) and
+			specimen_event.collecting_event_id=collecting_event.collecting_event_id (+) and
+			collecting_event.locality_id=locality.locality_id (+) and
+			locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id (+)
+		order by
+			#table_name#.guid,
+			specimen_event.SPECIMEN_EVENT_TYPE
+	</cfquery>
+	Specimens (one row per specimen-event; specimens may be in this table multiple times.)
+	<table border>
+		<tr>
+			<th>GUID</th>
+			<th>SPECIMEN_EVENT_TYPE</th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>#GUID#</td>
+				<td>#SPECIMEN_EVENT_TYPE#</td>
+			</tr>
+		</cfloop>
+	</table>
+	<form name="getCol" method="post" action="bulkSpecimenEvent.cfm">
+		
+	</form>
+
 	
 	<cfabort>
 	
