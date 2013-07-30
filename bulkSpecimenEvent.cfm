@@ -84,9 +84,6 @@
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfif action is "nothing">
-	<cfif not isdefined("exclSEID")>
-		<cfset exclSEID=''>
-	</cfif>
 	<script>
 		function useThisEvent () {
 			$("#collecting_event").val($('#__existingEvent option:selected').html());
@@ -130,7 +127,10 @@
 			#table_name#.collection_object_id=specimen_event.collection_object_id (+) and
 			specimen_event.collecting_event_id=collecting_event.collecting_event_id (+) and
 			collecting_event.locality_id=locality.locality_id (+) and
-			locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id (+)
+			locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id (+) 
+			<cfif isdefined("exclSEID") and len(exclSEID) gt 0>
+				and specimen_event.specimen_event_id not in (#exclSEID#)
+			</cfif>
 		order by
 			#table_name#.guid,
 			specimen_event.SPECIMEN_EVENT_TYPE
