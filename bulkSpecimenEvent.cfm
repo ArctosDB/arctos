@@ -84,6 +84,9 @@
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfif action is "nothing">
+	<cfif not isdefined("exclSEID")>
+		<cfset exclSEID=''>
+	</cfif>
 	<script>
 		function useThisEvent () {
 			$("#collecting_event").val($('#__existingEvent option:selected').html());
@@ -132,6 +135,14 @@
 			#table_name#.guid,
 			specimen_event.SPECIMEN_EVENT_TYPE
 	</cfquery>
+	
+	<cfquery name="seid" dbtype="query">
+		select SPECIMEN_EVENT_ID from d group by SPECIMEN_EVENT_ID
+	</cfquery>
+	<cfif seid.recordcount gt 999>
+		This form works on a maximum of 1000 specimen-events.
+		<cfabort>
+	</cfif>
 	<cfquery name="collevent" dbtype="query">
 		select
 			COLLECTING_EVENT_ID,
@@ -150,11 +161,16 @@
 	<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 	</cfquery>
+	<cfquery name="ctverificationstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select verificationstatus from ctverificationstatus order by verificationstatus
+	</cfquery>
 	Update all records in the table below....
 	<form name="getCol" method="post" action="bulkSpecimenEvent.cfm">
-		<label for="collecting_event_id">Collecting Event (type Name to pick, or use the dropdown to the right)</label>
+		<input type="hidden" name="action" id="action" value="updateAll">
+		<label for="collecting_event_id">Collecting Event (type Name to pick, or use the dropdown below)</label>
 		<input type="hidden" name="collecting_event_id" id="collecting_event_id">
-		<input type="text" name="collecting_event" id="collecting_event" onchange="findCollEvent('collecting_event_id','se','collecting_event');">
+		<input type="text" size="80" name="collecting_event" id="collecting_event" onchange="findCollEvent('collecting_event_id','se','collecting_event');">
+		<br>
 		<select name="__existingEvent" id="__existingEvent" onchange="useThisEvent();">
 			<option value="">Event Pick Shortcut</option>
 			<cfloop query="collevent">
@@ -168,14 +184,30 @@
 				<option value="#specimen_event_type#">#specimen_event_type#</option>
 			</cfloop>
 		</select>
-		
-
+		<label for="verificationstatus">Verification Status</label>
+		<select name="verificationstatus" id="verificationstatus">
+			<option value="">Do Not Update</option>
+			<cfloop query="ctverificationstatus">
+				<option value="#verificationstatus#">#verificationstatus#</option>
+			</cfloop>
+		</select>
+		<label for="specimen_event_remark">Specimen Event Remark</label>
+		<input type="text" size="80" name="specimen_event_remark" id="specimen_event_remark">
+		<label for="collecting_method">Collecting Method</label>
+		<input type="text" size="80" name="collecting_method" id="collecting_method">
+		<label for="collecting_source">Collecting Source</label>
+		<input type="text" size="80" name="collecting_source" id="collecting_source">
+		<label for="habitat">Habitat</label>
+		<input type="text" size="80" name="habitat" id="habitat">
+		<br>
+		<input type="submit" value="update all specimen events listed below to the values in this form">
 	</form>
 	
 	
 	Specimens (one row per specimen-event; specimens may be in this table multiple times.)
 	<table border>
 		<tr>
+			<th>Remove</th>
 			<th>GUID</th>
 			<th>SPECIMEN_EVENT_TYPE</th>
 			<th>higher_geog</th>
@@ -189,8 +221,12 @@
 			<th>VERBATIM_COORDINATES</th>
 			<th>COLLECTING_EVENT_NAME</th>
 		</tr>
+		<form method="post" action="bulkSpecimenEvent.cfm">
 		<cfloop query="d">
 			<tr>
+				<td>
+					<input type="checkbox" name="exclSEID" value="exclSEID">
+				</td>
 				<td>#GUID#</td>
 				<td>#SPECIMEN_EVENT_TYPE#</td>
 				<td>#higher_geog#</td>
@@ -205,6 +241,8 @@
 				<td>#COLLECTING_EVENT_NAME#</td>
 			</tr>
 		</cfloop>
+		<input type="submit" value="remove checked rows">
+		</form>
 	</table>
 
 	</cfoutput>
