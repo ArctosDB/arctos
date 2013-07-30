@@ -214,7 +214,6 @@
 		</tr>
 		<form method="post" action="bulkSpecimenEvent.cfm">
 		<input type="hidden" name="table_name" value="#table_name#">
-		<input type="hidden" name="specimen_event_id" value="#valuelist(seid.specimen_event_id)#">
 		<cfloop query="d">
 			<tr>
 				<td>
@@ -245,6 +244,7 @@
 
 	Update all records in the table above....
 	<form name="se" method="post" action="bulkSpecimenEvent.cfm">
+		<input type="hidden" name="specimen_event_id" value="#valuelist(seid.specimen_event_id)#">
 		<input type="hidden" name="action" id="action" value="updateAll">
 		<input type="hidden" name="table_name" value="#table_name#">
 		<label for="collecting_event_id">Collecting Event (type Name, click button, or use the dropdown below)</label>
