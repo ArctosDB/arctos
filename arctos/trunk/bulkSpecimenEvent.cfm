@@ -199,6 +199,9 @@
 	<cfquery name="ctverificationstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select verificationstatus from ctverificationstatus order by verificationstatus
 	</cfquery>
+	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select collecting_source from ctcollecting_source order by collecting_source
+	</cfquery>
 	
 	
 	
@@ -291,7 +294,12 @@
 		<label for="collecting_method">Collecting Method (leave blank to not update; enter "NULL" to update to null)</label>
 		<input type="text" size="80" name="collecting_method" id="collecting_method">
 		<label for="collecting_source">Collecting Source (leave blank to not update; enter "NULL" to update to null)</label>
-		<input type="text" size="80" name="collecting_source" id="collecting_source">
+		<select name="collecting_source" id="collecting_source">
+			<option value="">Do Not Update</option>
+			<cfloop query="ctcollecting_source">
+				<option value="#collecting_source#">#collecting_source#</option>
+			</cfloop>
+		</select>
 		<label for="habitat">Habitat (leave blank to not update; enter "NULL" to update to null)</label>
 		<input type="text" size="80" name="habitat" id="habitat">
 		<br>
