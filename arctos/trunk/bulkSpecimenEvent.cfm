@@ -221,6 +221,8 @@
 			<th>VERBATIM_LOCALITY</th>
 			<th>VERBATIM_COORDINATES</th>
 			<th>COLLECTING_EVENT_NAME</th>
+			<th>SPECIMEN_EVENT_REMARK</th>
+			
 		</tr>
 		<form method="post" action="bulkSpecimenEvent.cfm">
 		<input type="hidden" name="table_name" value="#table_name#">
@@ -241,6 +243,7 @@
 				<td>#VERBATIM_LOCALITY#</td>
 				<td>#VERBATIM_COORDINATES#</td>
 				<td>#COLLECTING_EVENT_NAME#</td>
+				<td>#SPECIMEN_EVENT_REMARK#</td>
 			</tr>
 		</cfloop>
 		<tr>
