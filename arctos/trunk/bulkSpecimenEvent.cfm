@@ -69,7 +69,17 @@
 			<cfset sql=sql & " habitat='#escapeQuotes(habitat)#' ">
 		</cfif>
 	</cfif>
-	update specimen_event set #sql# where specimen_event_id in (#specimen_event_id#)
+	
+	<cfif len(sql) is 0>
+		nothing to update....
+	<cfelse>
+	
+		update specimen_event set #sql# where specimen_event_id in 
+		<br>
+		
+		(#specimen_event_id#)
+
+	</cfif>
 </cfoutput>	
 	<!-------------
 	<cftransaction>
