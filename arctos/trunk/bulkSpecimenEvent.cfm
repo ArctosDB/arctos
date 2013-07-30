@@ -227,7 +227,7 @@
 		<cfloop query="d">
 			<tr>
 				<td>
-					<input type="checkbox" name="exclSEID" value="exclSEID">
+					<input type="checkbox" name="exclSEID" value="#specimen_event_id#">
 				</td>
 				<td>#GUID#</td>
 				<td>#SPECIMEN_EVENT_TYPE#</td>
