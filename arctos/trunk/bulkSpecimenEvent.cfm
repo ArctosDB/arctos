@@ -169,7 +169,7 @@
 		select verificationstatus from ctverificationstatus order by verificationstatus
 	</cfquery>
 	Update all records in the table below....
-	<form name="getCol" method="post" action="bulkSpecimenEvent.cfm">
+	<form name="se" method="post" action="bulkSpecimenEvent.cfm">
 		<input type="hidden" name="action" id="action" value="updateAll">
 		<input type="hidden" name="table_name" value="#table_name#">
 		<label for="collecting_event_id">Collecting Event (type Name, click button, or use the dropdown below)</label>
