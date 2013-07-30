@@ -72,13 +72,14 @@
 	
 	<cfif len(sql) is 0>
 		nothing to update....
+		<p>
+			Use your back button.
+		</p>
 	<cfelse>
-	
-		update specimen_event set #sql# where specimen_event_id in 
-		<br>
-		
-		(#specimen_event_id#)
-
+		<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update specimen_event set #preservesinglequotes(sql)#  where specimen_event_id in (#specimen_event_id#)
+		</cfquery>
+		<cflocation url="bulkSpecimenEvent.cfm?table_name=#table_name#" addtoken="false">
 	</cfif>
 </cfoutput>	
 	<!-------------
@@ -110,7 +111,6 @@
 			</cfquery>
 		</cfloop>
 	</cftransaction>
-	<cflocation url="bulkSpecimenEvent.cfm?table_name=#table_name#" addtoken="false">
 	-------->
 </cfif>
 <!----------------------------------------------------------------------------------->
