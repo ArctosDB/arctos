@@ -588,7 +588,7 @@
 									<input type="text" name="lat_min" id="lat_min" size="2">
 								</td>
 								<td>
-									<label for="lat_sec">LatDec</label>
+									<label for="lat_sec">LatSec</label>
 									<input type="text" name="lat_sec" id="lat_sec" size="2">
 								</td>
 								<td>
