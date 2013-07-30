@@ -147,10 +147,13 @@
 			collecting_event_id
 	</cfquery>
 
+	<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
+	</cfquery>
 	Update all records in the table below....
 	<form name="getCol" method="post" action="bulkSpecimenEvent.cfm">
-		<label for="collecting_event_id">Collecting Event</label>
-		<input type="text" name="collecting_event_id" id="collecting_event_id">
+		<label for="collecting_event_id">Collecting Event (type Name to pick, or use the dropdown to the right)</label>
+		<input type="hidden" name="collecting_event_id" id="collecting_event_id">
 		<input type="text" name="collecting_event" id="collecting_event" onchange="findCollEvent('collecting_event_id','se','collecting_event');">
 		<select name="__existingEvent" id="__existingEvent" onchange="useThisEvent();">
 			<option value="">Event Pick Shortcut</option>
@@ -158,8 +161,14 @@
 				<option value="#COLLECTING_EVENT_ID#">#collecting_event_id#: #VERBATIM_DATE# @ #VERBATIM_LOCALITY#</option>
 			</cfloop>
 		</select>
+		<label for="specimen_event_type">Specimen Event Type</label>
+		<select name="specimen_event_type" id="specimen_event_type">
+			<option value="">Do Not Update</option>
+			<cfloop query="ctspecimen_event_type">
+				<option value="#specimen_event_type#">#specimen_event_type#</option>
+			</cfloop>
+		</select>
 		
-		function findCollEvent(collIdFld,formName,dispField,eventName){
 
 	</form>
 	
