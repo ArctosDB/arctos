@@ -167,6 +167,7 @@
 	Update all records in the table below....
 	<form name="getCol" method="post" action="bulkSpecimenEvent.cfm">
 		<input type="hidden" name="action" id="action" value="updateAll">
+		<input type="hidden" name="table_name" value="#table_name#">
 		<label for="collecting_event_id">Collecting Event (type Name to pick, or use the dropdown below)</label>
 		<input type="hidden" name="collecting_event_id" id="collecting_event_id">
 		<input type="text" size="80" name="collecting_event" id="collecting_event" onchange="findCollEvent('collecting_event_id','se','collecting_event');">
@@ -222,6 +223,7 @@
 			<th>COLLECTING_EVENT_NAME</th>
 		</tr>
 		<form method="post" action="bulkSpecimenEvent.cfm">
+		<input type="hidden" name="table_name" value="#table_name#">
 		<cfloop query="d">
 			<tr>
 				<td>
