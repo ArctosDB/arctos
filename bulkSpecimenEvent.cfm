@@ -243,7 +243,12 @@
 				<td>#COLLECTING_EVENT_NAME#</td>
 			</tr>
 		</cfloop>
-		<input type="submit" value="remove checked rows">
+		<tr>
+			<td colspan="13">
+				<input type="submit" value="remove checked rows">
+			</td>
+		</tr>
+		
 		</form>
 	</table>
 
