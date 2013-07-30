@@ -89,6 +89,10 @@
 			$("#collecting_event").val($('#__existingEvent option:selected').html());
 			$("#collecting_event_id").val($('#__existingEvent').val());
 		}
+		function depickEvent() {
+			$("#collecting_event").val('');
+			$("#collecting_event_id").val('');
+		}
 	</script>
 	<cfoutput>
 	<cfset title = "Change Specimen Event">
@@ -168,9 +172,11 @@
 	<form name="getCol" method="post" action="bulkSpecimenEvent.cfm">
 		<input type="hidden" name="action" id="action" value="updateAll">
 		<input type="hidden" name="table_name" value="#table_name#">
-		<label for="collecting_event_id">Collecting Event (type Name to pick, or use the dropdown below)</label>
+		<label for="collecting_event_id">Collecting Event (type Name, click button, or use the dropdown below)</label>
 		<input type="hidden" name="collecting_event_id" id="collecting_event_id">
 		<input type="text" size="80" name="collecting_event" id="collecting_event" onchange="findCollEvent('collecting_event_id','se','collecting_event');">
+		<input type="button" onclick="findCollEvent('collecting_event_id','se','collecting_event');" value="pick event">
+		<input type="button" onclick="depickEvent();" value="reset/do change event">
 		<br>
 		<select name="__existingEvent" id="__existingEvent" onchange="useThisEvent();">
 			<option value="">Event Pick Shortcut</option>
