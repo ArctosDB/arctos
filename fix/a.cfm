@@ -250,7 +250,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 function initialize() {
   var chicago = new google.maps.LatLng(41.875696,-87.624207);
   var mapOptions = {
-    zoom: 11,
+    zoom: 3,
     center: chicago,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
