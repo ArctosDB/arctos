@@ -137,7 +137,7 @@ jQuery.getJSON("/component/functions.cfc",
 		function initialize() {
 			var mapOptions = {
 				zoom: 10,
-			    center: new google.maps.LatLng(7.4600000000,62.6300000000),
+			    center: new google.maps.LatLng(-152.1166666667,63.6666666667),
 			    mapTypeId: google.maps.MapTypeId.ROADMAP,
 			    panControl: true,
 			    scaleControl: true
