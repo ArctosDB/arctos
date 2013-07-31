@@ -104,4 +104,9 @@
 
 </script>
 
-		<div id="map-canvas"></div>
+		<div id="map-canvas">i am a map</div>
+		
+		
+		
+		<cfinclude template="/includes/_footer.cfm">
+
