@@ -39,7 +39,7 @@
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) &
-		 	'<kml xmlns="http://earth.google.com/kml/2.2">'  & chr(10);
+		 	'<kml xmlns="http://www.opengis.net/kml/2.2">'  & chr(10);
 		variables.joFileWriter.writeLine(kml);
 	</cfscript>
 	<cfloop query="data">
