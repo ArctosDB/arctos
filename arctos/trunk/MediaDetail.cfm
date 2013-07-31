@@ -1,7 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
-<script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script>
+<script type="text/javascript" src="/includes/jQuery.jPlayer.2.4.0/jquery.jplayer.min.js"></script>
 <cfoutput>
-	<cfset stuffToNotPlay="audio/x-wav">
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			media.media_id,
@@ -58,17 +57,14 @@
 			<cfinvokeargument name="preview_uri" value="#findIDs.preview_uri#">
 			<cfinvokeargument name="media_type" value="#findIDs.media_type#">
 		</cfinvoke>
-		<cfset addThisClass=''>
-		<cfif listfind(stuffToNotPlay,findIDs.mime_type)>
-			<cfset addThisClass="noplay">
-		</cfif>
+		
 		<cfquery name="coord"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select coordinates from media_flat where coordinates is not null and media_id=#media_id#
 		</cfquery>
         <table>
 			<tr>
 				<td align="middle">
-					<a class="#addThisClass#" href="#findIDs.media_uri#" target="_blank">
+					<a href="#findIDs.media_uri#" target="_blank">
 						<img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;">
 					</a>
 					<br>
