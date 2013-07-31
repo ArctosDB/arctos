@@ -127,8 +127,7 @@
 	</script>
 	<cfoutput>
 	<cfset title = "Change Specimen Event">
-	
-	
+	<script src="/includes/sorttable.js"></script>
 	<h2>Bulk-update specimen events</h2>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -209,54 +208,49 @@
 	<br>Note that this table is one row per specimen-event; specimens may be in this table multiple times.
 	<br>Check boxes and click button to remove specimen-events from the update.
 	<br>When this table contains only the specimen-events you want to update, use the <a href="##editForm">form below</a>.
-	<table border>
-		<tr>
-			<th>Remove</th>
-			<th>GUID</th>
-			<th>SPECIMEN_EVENT_TYPE</th>
-			<th>higher_geog</th>
-			<th>spec_locality</th>
-			<th>COLLECTING_METHOD</th>
-			<th>COLLECTING_SOURCE</th>
-			<th>VERIFICATIONSTATUS</th>
-			<th>HABITAT</th>
-			<th>VERBATIM_DATE</th>
-			<th>VERBATIM_LOCALITY</th>
-			<th>VERBATIM_COORDINATES</th>
-			<th>COLLECTING_EVENT_NAME</th>
-			<th>SPECIMEN_EVENT_REMARK</th>
-			
-		</tr>
-		<form method="post" action="bulkSpecimenEvent.cfm">
+	<form method="post" action="bulkSpecimenEvent.cfm">
 		<input type="hidden" name="table_name" value="#table_name#">
-		<cfloop query="d">
+		<table border id="t" class="sortable">
 			<tr>
-				<td>
-					<input type="checkbox" name="exclSEID" value="#specimen_event_id#">
-				</td>
-				<td>#GUID#</td>
-				<td>#SPECIMEN_EVENT_TYPE#</td>
-				<td>#higher_geog#</td>
-				<td>#spec_locality#</td>
-				<td>#COLLECTING_METHOD#</td>
-				<td>#COLLECTING_SOURCE#</td>
-				<td>#VERIFICATIONSTATUS#</td>
-				<td>#HABITAT#</td>
-				<td>#VERBATIM_DATE#</td>
-				<td>#VERBATIM_LOCALITY#</td>
-				<td>#VERBATIM_COORDINATES#</td>
-				<td>#COLLECTING_EVENT_NAME#</td>
-				<td>#SPECIMEN_EVENT_REMARK#</td>
+				<th>Remove</th>
+				<th>GUID</th>
+				<th>Specimen-Event Type</th>
+				<th>Geography</th>
+				<th>Spec. Locality</th>
+				<th>Collecting Method</th>
+				<th>Collecting Source</th>
+				<th>Verification Status</th>
+				<th>Habitat</th>
+				<th>Verbatim Date</th>
+				<th>Verbatim Locality</th>
+				<th>verbatim Coordinates</th>
+				<th>Event Nickname</th>
+				<th>Specimen-Event Remark</th>
 			</tr>
-		</cfloop>
-		<tr>
-			<td colspan="13">
-				<input type="submit" value="remove checked rows">
-			</td>
-		</tr>
-		
-		</form>
-	</table>
+			<cfloop query="d">
+				<tr>
+					<td>
+						<input type="checkbox" name="exclSEID" value="#specimen_event_id#">
+					</td>
+					<td>#GUID#</td>
+					<td>#SPECIMEN_EVENT_TYPE#</td>
+					<td>#higher_geog#</td>
+					<td>#spec_locality#</td>
+					<td>#COLLECTING_METHOD#</td>
+					<td>#COLLECTING_SOURCE#</td>
+					<td>#VERIFICATIONSTATUS#</td>
+					<td>#HABITAT#</td>
+					<td>#VERBATIM_DATE#</td>
+					<td>#VERBATIM_LOCALITY#</td>
+					<td>#VERBATIM_COORDINATES#</td>
+					<td>#COLLECTING_EVENT_NAME#</td>
+					<td>#SPECIMEN_EVENT_REMARK#</td>
+				</tr>
+			</cfloop>
+		<input class="savBtn" type="submit" value="remove checked rows">
+		</table>
+	</form>
+	<hr>
 	<a name="editForm"></a>
 	Update all records in the table above....
 	<form name="se" method="post" action="bulkSpecimenEvent.cfm">
@@ -303,13 +297,8 @@
 		<label for="habitat">Habitat (leave blank to not update; enter "NULL" to update to null)</label>
 		<input type="text" size="80" name="habitat" id="habitat">
 		<br>
-		<input type="submit" value="update all specimen events listed below to the values in this form">
+		<input type="submit" class="savBtn" value="update all specimen events listed below to the values in this form">
 	</form>
 	</cfoutput>
 </cfif>
-
-
-
-
-
 <cfinclude template="includes/_footer.cfm">
