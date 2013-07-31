@@ -242,7 +242,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	
 	
 		------------->
-	<cfoutput>
 	<script language="javascript" type="text/javascript">
 	
 
@@ -286,7 +285,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 
 </script>
-</cfoutput>
 		<div id="map-canvas">i am a map</div>
 		
 	</cfif>	
