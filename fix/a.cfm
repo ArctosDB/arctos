@@ -112,7 +112,7 @@ jQuery.getJSON("/component/functions.cfc",
 				method : "getSpecimensForMap",
 				returnformat : "json",
 				queryformat : 'column',
-				qs: qs
+				swLat: swLat
 			},
 			function (r) {
 				console.log('return: ' + r);
