@@ -54,7 +54,7 @@
 				<td>#ptype#</td>	
 				<td>#plabel#</td>
 				<td>#pdesc#</td>
-				<td><a target="_top" href="/findContainer.cfm?container_id=#pid#">details</a></td>		
+				<td><a target="_parent" href="/findContainer.cfm?container_id=#pid#">details</a></td>		
 				</tr>
 			</cfloop>
 	</table>
