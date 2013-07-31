@@ -1,43 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<script type="text/javascript" src="/includes/jQuery.jPlayer.2.4.0/jquery.jplayer.min.js"></script>
-
-
-<script>
-	$("#jquery_jplayer").jPlayer({
-    ready: function () {
-      $(this).jPlayer("setMedia", { mp3: "http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6230_Cicero_26Jun2006_Pmaculatus2.mp3" } );
-    },
-    //swfPath: "http://cloudfactory-transcription.s3.amazonaws.com/javascripts/",
-    swfPath: "http://www.jplayer.org/latest/js/Jplayer.swf",
-    supplied: "mp3",
-    volume: 1,
-    wmode:"window",
-    solution: "html,flash",
-    errorAlerts: true,
-    warningAlerts: false
-    
-});
-</script>
-
-
-
-<div id="jquery_jplayer"></div>
-<div id="jp_container_1" class="jp-audio">
-    <div class="jp-type-single">
-      <div id="jp_interface_1" class="jp-interface all_rounded_corners">
-        <ul class="jp-controls">
-          <li><a href="#" class="jp-play pp" tabindex="1">play</a></li>
-          <li><a href="#" class="jp-pause pp" tabindex="1">pause</a></li>
-          <li><a href="#" class="jp-previous traverse" tabindex="1">Previous</a></li>
-        </ul>
-        <div class="jp-progress" style = "display:none;">
-          <div class="jp-seek-bar">
-            <div class="jp-play-bar"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
+<script type="text/javascript" src="http://webplayer.yahooapis.com/player-beta.js"></script>
 
 
 
