@@ -48,7 +48,7 @@
 				'  <name>#spec_locality#</name>' & chr(10) &
 				'   <description>#spec_locality#</description>' & chr(10) &
 				'   <Point>' & chr(10) &
-				'    <coordinates>#dec_lat#,#dec_long#</coordinates>' & chr(10) &
+				'    <coordinates>#dec_long#,#dec_lat#</coordinates>' & chr(10) &
 				'   </Point>' & chr(10) &
 				' </Placemark>' & chr(10);
 			variables.joFileWriter.writeLine(kml);
