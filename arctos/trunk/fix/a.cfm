@@ -133,19 +133,17 @@ jQuery.getJSON("/component/functions.cfc",
 
 
 
-	jQuery(document).ready(function() {
  		var map;
-function initialize() {
-var mapOptions = {
-		zoom: 3,
-	    center: new google.maps.LatLng(55, -135),
-	    mapTypeId: google.maps.MapTypeId.ROADMAP,
-	    panControl: true,
-	    scaleControl: true
-	};
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
-}
+		function initialize() {
+			var mapOptions = {
+				zoom: 3,
+			    center: new google.maps.LatLng(55, -135),
+			    mapTypeId: google.maps.MapTypeId.ROADMAP,
+			    panControl: true,
+			    scaleControl: true
+			};
+		  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+		}
 
 
 
@@ -158,7 +156,6 @@ var mapOptions = {
 
 
 
-initialize();
 /*
 google.maps.event.addListener(map, 'idle', function() {
 loadMapFromCurrentBounds(map);
@@ -167,8 +164,7 @@ loadMapFromCurrentBounds(map);
 * */
 
 
-	});
-
+google.maps.event.addDomListener(window, 'load', initialize);
 	
 	
 
