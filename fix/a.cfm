@@ -81,10 +81,15 @@
 
 	jQuery(document).ready(function() {
  		var map;
- 		var mapOptions = {
-        	center: new google.maps.LatLng(55, -135),
-         	mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
+var mapOptions = {
+		zoom: 3,
+	    center: new google.maps.LatLng(55, -135),
+	    mapTypeId: google.maps.MapTypeId.ROADMAP,
+	    panControl: true,
+	    scaleControl: true
+	};
+
+
         var bounds = new google.maps.LatLngBounds();
 		function initialize() {
 			console.log('aminit');        	
