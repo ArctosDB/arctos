@@ -47,11 +47,11 @@
 		<cfloop query="d">
 			<tr>
 				<td>#install_date#</td>
-				<td>#container_type#</td>
-				<td>#barcode#</td>		
-				<td>#label#</td>
-				<td>#description#</td>
-				<td><a target="_top" href="/findContainer.cfm?container_id=#container_id#">details</a></td>		
+				<td>#ptype#</td>
+				<td>#pbarcode#</td>		
+				<td>#plabel#</td>
+				<td>#pdesc#</td>
+				<td><a target="_top" href="/findContainer.cfm?container_id=#pid#">details</a></td>		
 				</tr>
 			</cfloop>
 	</table>
