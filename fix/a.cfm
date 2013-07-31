@@ -1,4 +1,72 @@
 <cfinclude template="/includes/_header.cfm">
+
+
+
+<cfif action is "buildKML">
+
+<cfoutput>
+
+
+	<cfset internalPath="#Application.webDirectory#/bnhmMaps/tabfiles/">
+	<cfset externalPath="#Application.ServerRootUrl#/bnhmMaps/tabfiles/">
+    <cfset dlFile = "test.kml">
+	<cfset variables.fileName="#internalPath##dlFile#">
+	<cfset variables.encoding="UTF-8">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			flat.guid,
+			flat.dec_lat,
+			flat.dec_long,
+			flat.spec_locality
+		 from
+		 	flat
+		 where
+		 	dec_lat is not null and rownum < 100
+	</cfquery>
+	
+	<?xml version="1.0" encoding="utf-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark>
+    <name>My office</name>
+    <description>This is the location of my office.</description>
+    <Point>
+      <coordinates>-122.087461,37.422069</coordinates>
+    </Point>
+  </Placemark>
+
+
+
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) &
+		 	'<kml xmlns="http://earth.google.com/kml/2.2">'  & chr(10);
+		variables.joFileWriter.writeLine(kml);
+	</cfscript>
+	<cfloop query="data">
+    	 <cfscript>
+			kml=chr(9) & chr(9) & '<Placemark>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & ' <name>#spec_locality#</name>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & chr(9) & '<description>#spec_locality#</description>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & chr(9) & ' <Point>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_lat#,#dec_long#</coordinates>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & chr(9) & ' </Point>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Placemark>' & chr(10);
+			variables.joFileWriter.writeLine(kml);
+		</cfscript>
+	</cfloop>
+	
+	
+		<cfscript>
+			kml = "</kml>";
+			variables.joFileWriter.writeLine(kml);
+		variables.joFileWriter.close();
+	</cfscript>
+
+
+	</cfoutput>
+
+
+</cfif>
 <style type="text/css">
 	#map-canvas { height: 600px;width:800px; }
 </style>
