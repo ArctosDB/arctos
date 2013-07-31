@@ -1,5 +1,23 @@
 <cfinclude template="/includes/_header.cfm">
 <script type="text/javascript" src="/includes/jQuery.jPlayer.2.4.0/jquery.jplayer.min.js"></script>
+
+
+<script>
+	$("#jquery_jplayer").jPlayer({
+    ready: function () {
+      $(this).jPlayer("setMedia", { mp3: "http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6230_Cicero_26Jun2006_Pmaculatus2.mp3" } );
+    },
+    //swfPath: "http://cloudfactory-transcription.s3.amazonaws.com/javascripts/",
+    swfPath: "http://www.jplayer.org/latest/js/Jplayer.swf",
+    supplied: "mp3",
+    volume: 1,
+    wmode:"window",
+    solution: "html,flash",
+    errorAlerts: true,
+    warningAlerts: false
+    
+});
+</script>
 <cfoutput>
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
@@ -41,7 +59,7 @@
 		where
 			media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
 			media_id=#media_id#
-        </cfquery>
+	</cfquery>
         <cfquery name="labels" dbtype="query">
 			select media_label,label_value from labels_raw where media_label != 'description'
         </cfquery>
