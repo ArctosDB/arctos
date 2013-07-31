@@ -81,6 +81,35 @@
 	
 
 
+function loadMapFromCurrentBounds( map )
+{
+  // First, determine the map bounds
+  var bounds = map.getBounds();
+
+  // Then the points
+  var swPoint = bounds.getSouthWest();
+  var nePoint = bounds.getNorthEast();
+
+  // Now, each individual coordinate
+  var swLat = swPoint.lat();
+  var swLng = swPoint.lng();
+  var neLat = nePoint.lat();
+  var neLng = nePoint.lng();
+
+  // Now, build a query-string to represent this data
+  var qs = 'swLat=' + swLat + '&swLng=' + swLng + '&neLat=' + neLat + '&neLng=' + neLng;
+
+
+console.log(qs);
+
+
+  // Now you can use this query-string in your AJAX request  
+
+  // AJAX-stuff here
+}
+
+
+
 	jQuery(document).ready(function() {
  		var map;
 function initialize() {
@@ -98,6 +127,14 @@ var mapOptions = {
 
 
 initialize();
+
+
+
+GEvent.addListener( map, 'moveend', function()
+{
+  loadMapFromCurrentBounds( gmap );
+});
+
 
 
 
