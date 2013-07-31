@@ -90,7 +90,6 @@ var mapOptions = {
 	};
 
 
-        var bounds = new google.maps.LatLngBounds();
 		function initialize() {
 			console.log('aminit');        	
 			map = new google.maps.Map(document.getElementById("gmapdiv"), mapOptions);
