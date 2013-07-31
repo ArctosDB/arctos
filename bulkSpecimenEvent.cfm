@@ -208,7 +208,7 @@
 	Specimen-events
 	<br>Note that this table is one row per specimen-event; specimens may be in this table multiple times.
 	<br>Check boxes and click button to remove specimen-events from the update.
-	<br>When this table contains only the specimen-events you want to update, use the <a href="#editForm">form below</a>.
+	<br>When this table contains only the specimen-events you want to update, use the <a href="##editForm">form below</a>.
 	<table border>
 		<tr>
 			<th>Remove</th>
