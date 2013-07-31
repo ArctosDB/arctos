@@ -2423,7 +2423,7 @@
 			<cfif len(problem) gt 0>
 				<cfquery name="irel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update bulkloader set
-						COLL_OBJECT_REMARKS='#problem#'
+						loaded=loaded || '; #problem#'
 					where collection_object_id=#key#
 				</cfquery>
 			</cfif>
