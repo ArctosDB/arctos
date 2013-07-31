@@ -27,14 +27,12 @@
 		ORDER BY 
 			install_date DESC
 	</cfquery>
-	<h2>
-		Current Container:
-	</h2>
-	Label: #d.clabel#
+	<p><strong>Current Container</strong></p>	
+	<br>Label: #d.clabel#
 	<br>Barcode: #d.cbarcode#
 	<br>Description: #d.cdesc#
 	<br>Type: #d.ctype#
-	<h2>Scan History</h2>
+	<p><strong>Scan History</strong></p>	
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Date</th>
