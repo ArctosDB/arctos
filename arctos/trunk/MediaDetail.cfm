@@ -18,6 +18,30 @@
     
 });
 </script>
+
+
+
+<div id="jquery_jplayer"></div>
+<div id="jp_container_1" class="jp-audio">
+    <div class="jp-type-single">
+      <div id="jp_interface_1" class="jp-interface all_rounded_corners">
+        <ul class="jp-controls">
+          <li><a href="#" class="jp-play pp" tabindex="1">play</a></li>
+          <li><a href="#" class="jp-pause pp" tabindex="1">pause</a></li>
+          <li><a href="#" class="jp-previous traverse" tabindex="1">Previous</a></li>
+        </ul>
+        <div class="jp-progress" style = "display:none;">
+          <div class="jp-seek-bar">
+            <div class="jp-play-bar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
 <cfoutput>
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
