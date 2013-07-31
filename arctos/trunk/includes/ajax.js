@@ -1092,7 +1092,7 @@ function confirmDelete(formName,msg) {
 }
 function getHistory(contID) {
 	var idcontID;
-	historyWin=windowOpener("/info/ContHistory.cfm?container_id="+contID,"historyWin","width=800,height=338, resizable,scrollbars");
+	historyWin=windowOpener("/info/ContHistory.cfm?container_id="+contID,"historyWin","width=800,height=600, resizable,scrollbars");
 }
 function getQuadHelp() {
 	helpWin=windowOpener("/info/quad.cfm","quadHelpWin","width=800,height=600, resizable,scrollbars,status");
