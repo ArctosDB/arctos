@@ -99,8 +99,10 @@ function loadMapFromCurrentBounds( map )
   var neLat = nePoint.lat();
   var neLng = nePoint.lng();
 
+ var zoomlevel=map.getZoom();
+
   // Now, build a query-string to represent this data
-  var qs = 'swLat=' + swLat + '&swLng=' + swLng + '&neLat=' + neLat + '&neLng=' + neLng;
+  var qs = 'swLat=' + swLat + '&swLng=' + swLng + '&neLat=' + neLat + '&neLng=' + neLng + '&zoomlevel=' + zoomlevel;
 
 
 console.log(qs);
