@@ -11,6 +11,7 @@
 			thisc.container_type ctype,
 			thisc.barcode cbarcode,
 			container_history.install_date,
+			container_history.USERNAME,
 			parent.container_type ptype,
 			parent.label plabel,
 			parent.description pdesc,
@@ -36,8 +37,9 @@
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Date</th>
-			<th>Type</th>
 			<th>Barcode</th>
+			<th>User</th>
+			<th>Type</th>
 			<th>Label</th>
 			<th>Description</th>
 			<th>Link</th>
@@ -45,8 +47,9 @@
 		<cfloop query="d">
 			<tr>
 				<td>#install_date#</td>
-				<td>#ptype#</td>
-				<td>#pbarcode#</td>		
+				<td>#pbarcode#</td>	
+				<td>#username#</td>	
+				<td>#ptype#</td>	
 				<td>#plabel#</td>
 				<td>#pdesc#</td>
 				<td><a target="_top" href="/findContainer.cfm?container_id=#pid#">details</a></td>		
