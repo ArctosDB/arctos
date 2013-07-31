@@ -88,7 +88,7 @@
         var bounds = new google.maps.LatLngBounds();
 		function initialize() {
 			console.log('aminit');        	
-			map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+			map = new google.maps.Map(document.getElementById("gmapdiv"), mapOptions);
 }
 
 			console.log('go init');        	
@@ -104,7 +104,7 @@
 
 </script>
 
-		<div id="map-canvas">i am a map</div>
+		<div id="gmapdiv">i am a map</div>
 		
 		
 		
