@@ -76,10 +76,7 @@
 		------------->
 	
 	<script language="javascript" type="text/javascript">
-	function initialize() {
-console.log('aminit');        	
-map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-      	}
+	
 
 
 	jQuery(document).ready(function() {
@@ -89,7 +86,13 @@ map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
          	mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var bounds = new google.maps.LatLngBounds();
-		
+		function initialize() {
+			console.log('aminit');        	
+			map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+}
+
+			console.log('go init');        	
+
 		initialize();
 
 
