@@ -3,9 +3,9 @@
 
 <!--------------------------------------------------------------------------------------->
 <cffunction name="getSpecimensForMap" access="remote" returnformat="json">
-   	<cfargument name="qs" required="true" type="string">
+   	<cfargument name="swLat" required="true" type="numeric">
   
-	<cfreturn qs>
+	<cfreturn 'ok'>
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="removeNonprinting" access="remote" returnformat="json">
