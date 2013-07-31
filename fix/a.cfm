@@ -107,6 +107,20 @@ function loadMapFromCurrentBounds( map )
 
 console.log(qs);
 
+jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "getSpecimensForMap",
+				returnformat : "json",
+				queryformat : 'column',
+				qs: qs
+			},
+			function (r) {
+				console.log('return: ' + r);
+			}
+		);
+
+
+
 
   // Now you can use this query-string in your AJAX request  
 
