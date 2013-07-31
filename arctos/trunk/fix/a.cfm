@@ -21,7 +21,7 @@
 		 from
 		 	flat
 		 where
-		 	dec_lat is not null and rownum < 2
+		 	dec_lat is not null and rownum < 101
 	</cfquery>
 	
 	<?xml version="1.0" encoding="utf-8"?>
