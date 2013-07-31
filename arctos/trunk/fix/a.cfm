@@ -130,12 +130,9 @@ initialize();
 
 
 
-GEvent.addListener( map, 'moveend', function()
-{
-  loadMapFromCurrentBounds( gmap );
+google.maps.event.addListener(this.map, 'idle', function() {
+loadMapFromCurrentBounds();
 });
-
-
 
 
 	});
