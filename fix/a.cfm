@@ -93,6 +93,10 @@ function initialize() {
 
 
 
+
+		initialize();
+
+
 	});
 
 	
