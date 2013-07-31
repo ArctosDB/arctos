@@ -27,7 +27,7 @@
 		ORDER BY 
 			install_date DESC
 	</cfquery>
-	<p><strong>Current Container</strong></p>	
+	<strong>Current Container</strong>
 	<br>Label: #d.clabel#
 	<br>Barcode: #d.cbarcode#
 	<br>Description: #d.cdesc#
