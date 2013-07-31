@@ -258,7 +258,7 @@ function initialize() {
 layer = new google.maps.FusionTablesLayer({
   query: {
     select: 'coordinates',
-    from: '18FZ90kXw2mAbe4Lqc1EAszaccbAkH42ylOiqYdA'
+    from: '1q1wAPJZajAsrEO9vklsDvofVUCFo8kJqzoR5a7A'
   }
 });
 layer.setMap(map);
