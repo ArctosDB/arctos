@@ -242,7 +242,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	
 	
 		------------->
-	
+	<cfoutput>
 	<script language="javascript" type="text/javascript">
 	
 
@@ -258,7 +258,7 @@ function initialize() {
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
   var ctaLayer = new google.maps.KmlLayer({
-    url: 'http://arctos-test.tacc.utexas.edu/bnhmMaps/tabfiles/p2.kml'
+    url: 'http://arctos-test.tacc.utexas.edu/bnhmMaps/tabfiles/p2.kml?r=#now()#'
   });
   ctaLayer.setMap(map);
 }
@@ -268,7 +268,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 
 </script>
-
+</cfoutput>
 		<div id="map-canvas">i am a map</div>
 		
 	</cfif>	
