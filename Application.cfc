@@ -258,8 +258,8 @@
 		<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
 		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
-		<cfset Application.bugReportEmail = "dustymc@gmail.com">
-		<cfset Application.technicalEmail = "dustymc@gmail.com">
+		<cfset Application.bugReportEmail = "arctos.database@gmail.com">
+		<cfset Application.technicalEmail = "arctos.database@gmail.com">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
 		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
 		<cfset Application.genBankPrid = "3849">
