@@ -259,14 +259,7 @@ layer = new google.maps.FusionTablesLayer({
   query: {
     select: 'Location',
     from: '1q1wAPJZajAsrEO9vklsDvofVUCFo8kJqzoR5a7A'
-  },
-  styles: [{
-    polygonOptions: {
-      fillColor: "#00FF00",
-      fillOpacity: 0.3
-    }
   }
-  }]
 });
 layer.setMap(map);
 }
