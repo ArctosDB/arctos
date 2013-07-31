@@ -4,8 +4,14 @@
 <!--------------------------------------------------------------------------------------->
 <cffunction name="getSpecimensForMap" access="remote" returnformat="json">
    	<cfargument name="swLat" required="true" type="numeric">
-  
-	<cfreturn 'ok'>
+   	<cfargument name="swLng" required="true" type="numeric">
+   	<cfargument name="neLat" required="true" type="numeric">
+   	<cfargument name="neLng" required="true" type="numeric">
+   	<cfargument name="zoomlevel" required="true" type="numeric">
+  	<cfif zoomlevel lte 3>
+		<cfset swLat=round(swLat)>
+	</cfif>
+	<cfreturn swLat>
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="removeNonprinting" access="remote" returnformat="json">
