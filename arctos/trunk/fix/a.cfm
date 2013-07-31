@@ -1,18 +1,22 @@
-<cfinclude template="/includes/_header.cfm">
-
-
-
-
-
-
-
-
-
+<!DOCTYPE html>
+<html>
+<body>
 
 <audio controls>
   <source src="http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6230_Cicero_26Jun2006_Pmaculatus2.mp3" type="audio/mpeg">
   Your browser does not support this audio format.
-</audio> 
+</audio>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
 
 
 
@@ -23,6 +27,9 @@
 
 
 <cfabort>
+
+<cfinclude template="/includes/_header.cfm">
+
 <script>
 
 function test () {
