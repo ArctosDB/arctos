@@ -247,8 +247,8 @@
 					<td>#SPECIMEN_EVENT_REMARK#</td>
 				</tr>
 			</cfloop>
-		<input class="savBtn" type="submit" value="remove checked rows">
-		</table>
+		</table>	
+		<input class="savBtn" type="submit" value="Remove Checked Rows">
 	</form>
 	<hr>
 	<a name="editForm"></a>
