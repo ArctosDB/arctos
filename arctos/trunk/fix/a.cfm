@@ -73,7 +73,10 @@
 			window.attachEvent("onmessage", getGeolocate);
 		}
 		
-		
+		 var bounds = map.getBounds();
+ var sw = bounds.getSouthWest();
+ var ne = bounds.getNorthEast();
+ alert("minimum lat of current map view: " + sw.lat());
 		
 		------------->
 	
@@ -129,10 +132,8 @@ var mapOptions = {
 initialize();
 
 google.maps.event.addListener(map, 'idle', function() {
- var bounds = map.getBounds();
- var sw = bounds.getSouthWest();
- var ne = bounds.getNorthEast();
- alert("minimum lat of current map view: " + sw.lat());
+loadMapFromCurrentBounds(map);
+
 });
 	});
 
