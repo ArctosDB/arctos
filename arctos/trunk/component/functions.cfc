@@ -1,4 +1,12 @@
 <cfcomponent>
+
+
+<!--------------------------------------------------------------------------------------->
+<cffunction name="getSpecimensForMap" access="remote" returnformat="json">
+   	<cfargument name="qs" required="true" type="string">
+  
+	<cfreturn qs>
+</cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="removeNonprinting" access="remote" returnformat="json">
    	<cfargument name="orig" required="true" type="string">
