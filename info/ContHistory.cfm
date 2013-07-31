@@ -21,6 +21,7 @@
 			container_history,
 			container parent
 		where 
+			thisc.container_id=#container_id# and
 			thisc.container_id=container_history.container_id (+) and
 			container_history.parent_container_id = parent.container_id (+)
 		ORDER BY 
