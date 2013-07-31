@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <style type="text/css">
-	#map-canvas { height: 300px;width:500px; }
+	#map-canvas { height: 600px;width:800px; }
 </style>
 
 
