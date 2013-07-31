@@ -128,13 +128,12 @@ var mapOptions = {
 
 initialize();
 
-
-
-google.maps.event.addListener(this.map, 'idle', function() {
-loadMapFromCurrentBounds();
+google.maps.event.addListener(map, 'idle', function() {
+ var bounds = map.getBounds();
+ var sw = bounds.getSouthWest();
+ var ne = bounds.getNorthEast();
+ alert("minimum lat of current map view: " + sw.lat());
 });
-
-
 	});
 
 	
