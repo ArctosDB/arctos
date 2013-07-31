@@ -258,7 +258,7 @@ function initialize() {
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
   var ctaLayer = new google.maps.KmlLayer({
-    url: 'http://arctos-test.tacc.utexas.edu/bnhmMaps/tabfiles/p2.kml?r=#now()#'
+    url: 'http://arctos-test.tacc.utexas.edu/bnhmMaps/tabfiles/p2.kml?r=#createUUID#'
   });
   ctaLayer.setMap(map);
 }
