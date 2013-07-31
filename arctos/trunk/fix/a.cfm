@@ -81,23 +81,15 @@
 
 	jQuery(document).ready(function() {
  		var map;
-var mapOptions = {
-		zoom: 3,
-	    center: new google.maps.LatLng(55, -135),
-	    mapTypeId: google.maps.MapTypeId.ROADMAP,
-	    panControl: true,
-	    scaleControl: true
-	};
-
-
-		function initialize() {
-			console.log('aminit');        	
-			map = new google.maps.Map(document.getElementById("gmapdiv"), mapOptions);
+function initialize() {
+  var mapOptions = {
+    zoom: 8,
+    center: new google.maps.LatLng(-34.397, 150.644),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
 }
-
-			console.log('go init');        	
-
-		initialize();
 
 
 
@@ -108,7 +100,7 @@ var mapOptions = {
 
 </script>
 
-		<div id="gmapdiv">i am a map</div>
+		<div id="map-canvas">i am a map</div>
 		
 		
 		
