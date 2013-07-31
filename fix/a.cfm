@@ -67,6 +67,9 @@
 
 
 </cfif>
+
+
+<cfif action is "nothing">
 <style type="text/css">
 	#map-canvas { height: 600px;width:800px; }
 </style>
@@ -255,7 +258,7 @@ function initialize() {
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
   var ctaLayer = new google.maps.KmlLayer({
-    url: 'http://kml-samples.googlecode.com/svn/trunk/kml/Placemark/placemark.kml'
+    url: 'http://arctos-test.tacc.utexas.edu/bnhmMaps/tabfiles/test.kml'
   });
   ctaLayer.setMap(map);
 }
@@ -268,7 +271,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 		<div id="map-canvas">i am a map</div>
 		
-		
+	</cfif>	
 		
 		<cfinclude template="/includes/_footer.cfm">
 
