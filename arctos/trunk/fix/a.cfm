@@ -265,16 +265,7 @@ layer = new google.maps.FusionTablesLayer({
       fillColor: "#00FF00",
       fillOpacity: 0.3
     }
-  }, {
-    where: "birds > 300",
-    polygonOptions: {
-      fillColor: "#0000FF"
-    }
-  }, {
-    where: "population > 5",
-    polygonOptions: {
-      fillOpacity: 1.0
-    }
+  }
   }]
 });
 layer.setMap(map);
