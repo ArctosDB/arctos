@@ -148,7 +148,7 @@ jQuery.getJSON("/component/functions.cfc",
 
 
  var ctaLayer = new google.maps.KmlLayer({
-    url: 'http://arctos-test.tacc.utexas.edu/bnhmMaps/tabfiles/link_kmlfile4DA2DC9562.kml'
+    url: 'http://arctos-test.tacc.utexas.edu/bnhmMaps/tabfiles/kmlfile4DA2DC9562.kml'
   });
   ctaLayer.setMap(map);
 
