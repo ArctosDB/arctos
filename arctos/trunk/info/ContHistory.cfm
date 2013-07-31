@@ -29,11 +29,13 @@
 			install_date DESC
 	</cfquery>
 	<strong>Current Container</strong>
-	<br><strong>Label:</strong> #d.clabel#
-	<br><strong>Barcode:</strong> #d.cbarcode#
-	<br><strong>Description:</strong> #d.cdesc#
-	<br><strong>Type:</strong> #d.ctype#
-	<p><strong>Scan Into Parent History</strong></p>	
+	<div style="margin:1em">
+		<strong>Label:</strong> #d.clabel#
+		<br><strong>Barcode:</strong> #d.cbarcode#
+		<br><strong>Description:</strong> #d.cdesc#
+		<br><strong>Type:</strong> #d.ctype#
+	</div>
+	<strong>Scan Into Parent History</strong>
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Date</th>
