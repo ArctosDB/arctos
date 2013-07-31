@@ -257,7 +257,7 @@ function initialize() {
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 layer = new google.maps.FusionTablesLayer({
   query: {
-    select: 'Location',
+    select: 'latlng',
     from: '1q1wAPJZajAsrEO9vklsDvofVUCFo8kJqzoR5a7A'
   }
 });
