@@ -159,11 +159,14 @@ var mapOptions = {
 
 
 initialize();
-
+/*
 google.maps.event.addListener(map, 'idle', function() {
 loadMapFromCurrentBounds(map);
 
 });
+* */
+
+
 	});
 
 	
