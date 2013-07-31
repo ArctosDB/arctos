@@ -1,28 +1,3 @@
-<!DOCTYPE html>
-<html>
-<body>
- <object height="50" width="100" data="http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6230_Cicero_26Jun2006_Pmaculatus2.mp3"></object>
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<cfabort>
 
 <cfinclude template="/includes/_header.cfm">
 
@@ -61,30 +36,10 @@ function test () {
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=geometry" type="text/javascript"></script>'>
 	</cfoutput>
 	
+	<!----------
 	
 	
-	<script language="javascript" type="text/javascript">
-	rad = function(x) {return x*Math.PI/180;}
-	distHaversine = function(p1, p2) {
-	  var R = 6371; // earth's mean radius in km
-	  var dLat  = rad(p2.lat() - p1.lat());
-	  var dLong = rad(p2.lng() - p1.lng());
-	  var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) * Math.sin(dLong/2) * Math.sin(dLong/2);
-	  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-	  var d = R * c;
-	  return d.toFixed(3);
-	}
-	jQuery(document).ready(function() {
- 		var map;
- 		var mapOptions = {
-        	center: new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val()),
-         	mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var bounds = new google.maps.LatLngBounds();
-		function initialize() {
-        	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-      	}
-		initialize();
+	
 		var latLng1 = new google.maps.LatLng($("#dec_lat").val(), $("#dec_long").val());
 		if ($("#dec_lat").val().length>0){
 			var marker1 = new google.maps.Marker({
@@ -139,6 +94,36 @@ function test () {
 		} else {
 			window.attachEvent("onmessage", getGeolocate);
 		}
+		
+		
+		
+		------------->
+	
+	<script language="javascript" type="text/javascript">
+	rad = function(x) {return x*Math.PI/180;}
+	distHaversine = function(p1, p2) {
+	  var R = 6371; // earth's mean radius in km
+	  var dLat  = rad(p2.lat() - p1.lat());
+	  var dLong = rad(p2.lng() - p1.lng());
+	  var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) * Math.sin(dLong/2) * Math.sin(dLong/2);
+	  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	  var d = R * c;
+	  return d.toFixed(3);
+	}
+	jQuery(document).ready(function() {
+ 		var map;
+ 		var mapOptions = {
+        	center: new google.maps.LatLng(55, -135),
+         	mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var bounds = new google.maps.LatLngBounds();
+		function initialize() {
+        	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+      	}
+		initialize();
+
+
+
 	});
 
 	function useAutoCoords(){
