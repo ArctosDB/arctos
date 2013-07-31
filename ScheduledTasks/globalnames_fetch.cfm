@@ -38,6 +38,16 @@ This REFRESHES data that already exist in Arctos.
 		</p>
 		<br>got taxon_name_id=#ids.taxon_name_id#
 		
+	<cfelseif isdefined('getTheWoodrats')>
+		<cfquery name="ids" datasource="uam_god">
+				select 
+					taxon_name_id 
+				from 
+					taxonomy 
+				where 
+					scientific_name like 'Neotoma%'
+		</cfquery>
+	
 	<cfelse>
 		<!--- see if we can find something interesting to update ---->
 		
