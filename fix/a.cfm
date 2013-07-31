@@ -44,13 +44,13 @@
 	</cfscript>
 	<cfloop query="data">
     	 <cfscript>
-			kml=chr(9) & chr(9) & '<Placemark>' & chr(10) &
-				chr(9) & chr(9) & chr(9) & ' <name>#spec_locality#</name>' & chr(10) &
-				chr(9) & chr(9) & chr(9) & chr(9) & '<description>#spec_locality#</description>' & chr(10) &
-				chr(9) & chr(9) & chr(9) & chr(9) & ' <Point>' & chr(10) &
-				chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_lat#,#dec_long#</coordinates>' & chr(10) &
-				chr(9) & chr(9) & chr(9) & chr(9) & ' </Point>' & chr(10) &
-				chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Placemark>' & chr(10);
+			kml=' <Placemark>' & chr(10) &
+				'  <name>#spec_locality#</name>' & chr(10) &
+				'   <description>#spec_locality#</description>' & chr(10) &
+				'   <Point>' & chr(10) &
+				'    <coordinates>#dec_lat#,#dec_long#</coordinates>' & chr(10) &
+				'   </Point>' & chr(10) &
+				' </Placemark>' & chr(10);
 			variables.joFileWriter.writeLine(kml);
 		</cfscript>
 	</cfloop>
