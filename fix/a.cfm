@@ -9,7 +9,7 @@
 
 	<cfset internalPath="#Application.webDirectory#/bnhmMaps/tabfiles/">
 	<cfset externalPath="#Application.ServerRootUrl#/bnhmMaps/tabfiles/">
-    <cfset dlFile = "test.kml">
+    <cfset dlFile = "test2.kml">
 	<cfset variables.fileName="#internalPath##dlFile#">
 	<cfset variables.encoding="UTF-8">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -258,7 +258,7 @@ function initialize() {
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
   var ctaLayer = new google.maps.KmlLayer({
-    url: 'http://arctos-test.tacc.utexas.edu/bnhmMaps/tabfiles/test.kml?r=#CreateUUID()#'
+    url: 'http://arctos-test.tacc.utexas.edu/bnhmMaps/tabfiles/test2.kml?r=#CreateUUID()#'
   });
   ctaLayer.setMap(map);
 }
