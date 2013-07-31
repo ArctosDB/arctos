@@ -149,6 +149,15 @@ var mapOptions = {
 
 
 
+ var ctaLayer = new google.maps.KmlLayer({
+    url: 'http://arctos-test.tacc.utexas.edu/bnhmMaps/tabfiles/link_kmlfile4DA2DC9562.kml'
+  });
+  ctaLayer.setMap(map);
+
+
+
+
+
 initialize();
 
 google.maps.event.addListener(map, 'idle', function() {
