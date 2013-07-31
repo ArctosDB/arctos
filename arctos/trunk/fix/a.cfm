@@ -1,27 +1,5 @@
-
 <cfinclude template="/includes/_header.cfm">
 
-<script>
-
-function test () {
-	// save edited - this happens only from edit and 
-	// returns only to edit
-		$.ajax({
-		    url: "/component/Bulkloader.cfc",
-		    dataType: "json",
-			type: "POST",
-		    data: {
-				method: "test",
-				queryformat : "column",
-				returnformat : "json",
-				q : "collection_object_id=12"
-			},
-			success: function( r ){
-				console.log(r);
-			}
-		});
-}
-</script>
 
 
 <cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -30,8 +8,6 @@ function test () {
 			google_private_key
 		from cf_global_settings
 	</cfquery>
-	<cfset title="Edit Locality">
-	<script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 	<cfoutput>
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=geometry" type="text/javascript"></script>'>
 	</cfoutput>
@@ -100,7 +76,12 @@ function test () {
 		------------->
 	
 	<script language="javascript" type="text/javascript">
-	
+	function initialize() {
+console.log('aminit');        	
+map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+      	}
+
+
 	jQuery(document).ready(function() {
  		var map;
  		var mapOptions = {
@@ -108,9 +89,7 @@ function test () {
          	mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var bounds = new google.maps.LatLngBounds();
-		function initialize() {
-        	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-      	}
+		
 		initialize();
 
 
