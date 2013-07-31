@@ -191,10 +191,6 @@
 									<cfinvokeargument name="preview_uri" value="#preview_uri#">
 									<cfinvokeargument name="media_type" value="#media_type#">
 								</cfinvoke>
-								<cfset addThisClass=''>
-								<cfif listfind(stuffToNotPlay,mime_type)>
-									<cfset addThisClass="noplay">
-								</cfif>
 								<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 									select
 									media_label,
