@@ -9,7 +9,7 @@
 		from cf_global_settings
 	</cfquery>
 	<cfoutput>
-		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=geometry" type="text/javascript"></script>'>
+		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
 	</cfoutput>
 	
 	<!----------
