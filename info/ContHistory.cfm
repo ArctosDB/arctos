@@ -9,7 +9,7 @@
 			thisc.label clabel,
 			thisc.description cdesc,
 			thisc.container_type ctype,
-			thisc.barcode cbarcode
+			thisc.barcode cbarcode,
 			container_history.install_date,
 			parent.container_type ptype,
 			parent.label plabel,
