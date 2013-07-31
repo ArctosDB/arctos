@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-
-<audio controls>
-  <source src="http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6230_Cicero_26Jun2006_Pmaculatus2.mp3" type="audio/mpeg">
-  Your browser does not support this audio format.
-</audio>
+ <object height="50" width="100" data="http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6230_Cicero_26Jun2006_Pmaculatus2.mp3"></object>
 
 </body>
 </html>
