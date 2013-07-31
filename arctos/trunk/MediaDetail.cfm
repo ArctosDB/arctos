@@ -1,10 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
-<script type="text/javascript" src="http://webplayer.yahooapis.com/player-beta.js"></script>
-
-
-
-
+<script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script>
 <cfoutput>
+	<cfset stuffToNotPlay="audio/x-wav">
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			media.media_id,
@@ -45,7 +42,7 @@
 		where
 			media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
 			media_id=#media_id#
-	</cfquery>
+        </cfquery>
         <cfquery name="labels" dbtype="query">
 			select media_label,label_value from labels_raw where media_label != 'description'
         </cfquery>
@@ -61,14 +58,17 @@
 			<cfinvokeargument name="preview_uri" value="#findIDs.preview_uri#">
 			<cfinvokeargument name="media_type" value="#findIDs.media_type#">
 		</cfinvoke>
-		
+		<cfset addThisClass=''>
+		<cfif listfind(stuffToNotPlay,findIDs.mime_type)>
+			<cfset addThisClass="noplay">
+		</cfif>
 		<cfquery name="coord"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select coordinates from media_flat where coordinates is not null and media_id=#media_id#
 		</cfquery>
         <table>
 			<tr>
 				<td align="middle">
-					<a href="#findIDs.media_uri#" target="_blank">
+					<a class="#addThisClass#" href="#findIDs.media_uri#" target="_blank">
 						<img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;">
 					</a>
 					<br>
@@ -177,6 +177,10 @@
 									<cfinvokeargument name="preview_uri" value="#preview_uri#">
 									<cfinvokeargument name="media_type" value="#media_type#">
 								</cfinvoke>
+								<cfset addThisClass=''>
+								<cfif listfind(stuffToNotPlay,mime_type)>
+									<cfset addThisClass="noplay">
+								</cfif>
 								<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 									select
 									media_label,
@@ -194,7 +198,7 @@
 									<cfset alt=desc.label_value>
 								</cfif>
 								<div class="one_thumb">
-									<a href="#media_uri#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
+									<a href="#media_uri#" class="#addThisClass#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
 									<p>
 										#media_type# (#mime_type#)
 										<br><a href="/media/#media_id#">Media Details</a>
