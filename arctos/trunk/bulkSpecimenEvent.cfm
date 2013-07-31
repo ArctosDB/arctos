@@ -82,36 +82,6 @@
 		<cflocation url="bulkSpecimenEvent.cfm?table_name=#table_name#" addtoken="false">
 	</cfif>
 </cfoutput>	
-	<!-------------
-	<cftransaction>
-			<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into specimen_event (
-					collection_object_id,
-					collecting_event_id,
-					assigned_by_agent_id,
-					assigned_date,
-					specimen_event_remark,
-					specimen_event_type,
-					COLLECTING_METHOD,
-					COLLECTING_SOURCE,
-					VERIFICATIONSTATUS,
-					habitat
-				) values (
-					#collection_object_id#,
-					#collecting_event_id#,
-					#assigned_by_agent_id#,
-					'#dateformat(assigned_date,"yyyy=mm-dd")#',
-					'#escapeQuotes(specimen_event_remark)#',
-					'#specimen_event_type#',
-					'#escapeQuotes(COLLECTING_METHOD)#',
-					'#COLLECTING_SOURCE#',
-					'#VERIFICATIONSTATUS#',
-					'#escapeQuotes(habitat)#'
-				)
-			</cfquery>
-		</cfloop>
-	</cftransaction>
-	-------->
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfif action is "nothing">
@@ -260,7 +230,7 @@
 		<label for="collecting_event_id">Collecting Event (type Name, click button, or use the dropdown below)</label>
 		<input type="hidden" name="collecting_event_id" id="collecting_event_id">
 		<input type="text" size="80" name="collecting_event" id="collecting_event" onchange="findCollEvent('collecting_event_id','se','collecting_event');">
-		<input type="button" onclick="findCollEvent('collecting_event_id','se','collecting_event');" value="pick event">
+		<input type="button" class="picBtn" onclick="findCollEvent('collecting_event_id','se','collecting_event');" value="pick event">
 		<input type="button" onclick="depickEvent();" value="reset/do not change event">
 		<br>
 		<select name="__existingEvent" id="__existingEvent" onchange="useThisEvent();">
