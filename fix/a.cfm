@@ -308,5 +308,4 @@ function test () {
 
 </script>
 
-
-<span onclick="test();">test</span>
+<div id="map-canvas"></div>
