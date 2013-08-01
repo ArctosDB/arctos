@@ -226,7 +226,7 @@
 		Potential Duplicates
 		<script>
 			function checkAll() {
-				    $('input:checkbox [name="deleteLocalityID"]').attr('checked', 'checked');
+				    $('input:checkbox@[name="deleteLocalityID"]').attr('checked', 'checked');
 			}
 		</script>
 		<span class="likeLink" onclick="checkAll();">Check All</span>
