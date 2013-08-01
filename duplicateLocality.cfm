@@ -205,9 +205,9 @@
 		<cfset sql=sql & " GEOREFERENCE_PROTOCOL is null and ">
 	</cfif>
 	<cfif len(orig.LOCALITY_NAME) gt 0>
-		<cfset sql=sql & " LOCALITY_NAME='#orig.LOCALITY_NAME#' and ">
+		<cfset sql=sql & " LOCALITY_NAME='#orig.LOCALITY_NAME#' ">
 	<cfelse>
-		<cfset sql=sql & " LOCALITY_NAME is null and ">
+		<cfset sql=sql & " LOCALITY_NAME is null ">
 	</cfif>
 	
 		
