@@ -279,6 +279,10 @@
 			<cfquery name="dups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(sql)# and rownum < 1001
 			</cfquery>
+			
+			<hr>#preservesinglequotes(sql)# and rownum < 1001
+			
+			<hr>
 			<cfif dups.recordcount is 100>
 				This form only returns 1000 records. You may have to delete a few sets.
 			</cfif>
