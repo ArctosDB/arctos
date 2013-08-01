@@ -116,7 +116,6 @@ drop index ix_temp_gmapsrch_c;
 	  		}
 		});
 		layer.setMap(map);
-		var input =
 
 
 
