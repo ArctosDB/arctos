@@ -76,7 +76,9 @@ end;
 
 
 <style type="text/css">
-	#map-canvas { width:90%; }
+	html {height:100%}
+	body {height:100%}
+	#map-canvas { width:90%; height:90%; }
 </style>
 
 <cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
