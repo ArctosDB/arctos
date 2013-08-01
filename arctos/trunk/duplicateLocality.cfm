@@ -238,6 +238,7 @@
 			<form name="d" method="post" action="duplicateLocality.cfm">
 				<input type="hidden" name="locality_id" value="#locality_id#">
 				<input type="hidden" name="action" value="delete">
+				<input type="submit" value="merge checked localities with this locality">
 				<table border id="t" class="sortable">
 					<tr>
 						<th>merge</th>
