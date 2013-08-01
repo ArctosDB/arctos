@@ -290,7 +290,23 @@
 			</form>
 	</cfif>
 	<cfif action is "delete">
-		<cfdump var=#form#>
+		<cftransaction>
+			<cfquery name="cleardups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update collecting_event set locality_id=#locality_id# where locality_id in (#deleteLocalityID#)
+			</cfquery>
+			<cfquery name="cleardupsMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update media_relations set related_primary_key=#locality_id# where 
+				media_relatinship like '% locality' and 
+				related_primary_key in (#deleteLocalityID#)
+			</cfquery>
+			<cfquery name="cleardupsBL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update bulkloader set locality_id=#locality_id# where locality_id in (#deleteLocalityID#)
+			</cfquery>
+			<cfquery name="delete" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				delete from locality where locality_id in (#deleteLocalityID#)
+			</cfquery>
+		</cftransaction>
+		spiffy.....
 	</cfif>
 </cfoutput>
 <cfinclude template="includes/_footer.cfm">
