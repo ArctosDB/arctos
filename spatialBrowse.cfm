@@ -117,7 +117,39 @@ drop index ix_temp_gmapsrch_c;
 		});
 		layer.setMap(map);
 		var input = document.getElementById('gmapsrchtarget');
-		var searchBox = new google.maps.places.SearchBox(input);
+		var searchBox = new google.maps.places.SearchBox(input);var markers = [];
+	google.maps.event.addListener(searchBox, 'places_changed', function() {
+		var places = searchBox.getPlaces();
+		for (var i = 0, marker; marker = markers[i]; i++) {
+			marker.setMap(null);
+		}
+		markers = [];
+		var bounds = new google.maps.LatLngBounds();
+		for (var i = 0, place; place = places[i]; i++) {
+			var image = {
+				url: place.icon,
+				size: new google.maps.Size(71, 71),
+				origin: new google.maps.Point(0, 0),
+				anchor: new google.maps.Point(17, 34),
+				scaledSize: new google.maps.Size(25, 25)
+			};
+			var marker = new google.maps.Marker({
+				map: map,
+				icon: image,
+				title: place.name,
+				position: place.geometry.location
+			});
+			markers.push(marker);
+			bounds.extend(place.geometry.location);
+		}
+		if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+	       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.01, bounds.getNorthEast().lng() + 0.01);
+	       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.01, bounds.getNorthEast().lng() - 0.01);
+	       bounds.extend(extendPoint1);
+	       bounds.extend(extendPoint2);
+	    }
+		map.fitBounds(bounds);
+	});
 	}
 	google.maps.event.addDomListener(window, 'load', initialize);
 	function resetLayer (value) {
