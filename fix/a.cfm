@@ -2,6 +2,27 @@
 
 drop table gmap_srch;
 
+create table gmap_srch (
+	coordinates varchar2(255),
+	taxa varchar2(4000)
+);
+
+declare
+	sep varchar2(10);
+	ctax varchar2(4000);
+begin
+	for r in (select round(dec_lat,2) || ',' || round(dec_long,2) c from flat) loop
+		sep := '';
+		ctax := '';
+		for t in (select distinct(scientific_name) from flat where 	round(dec_lat,2) || ',' || round(dec_long,2) = r.c) loop
+			ctax := ctax || sep || t.scientific_name;
+			sep := '; ';
+		end loop;
+		insert into gmap_srch (coordinates,taxa) values (r.c,ctax);
+	end loop;
+end;
+/
+
 
 drop table gmap_srch;
 
