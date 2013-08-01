@@ -272,7 +272,7 @@ function resetLayer (value) {
     query: {
       select: "coordinates",
       from: "1q1wAPJZajAsrEO9vklsDvofVUCFo8kJqzoR5a7A",
-      where: "'taxon_name' CONTAINS IGNORING CASE '%" + value + "%'"
+      where: "'taxon_name' CONTAINS IGNORING CASE '" + value + "'"
     }
   });
 }
