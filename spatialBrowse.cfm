@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="Spatially browse all Arctos records">
 <!--- setup
 
 drop table temp_gmapsrch;
