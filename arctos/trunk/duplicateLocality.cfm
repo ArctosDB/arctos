@@ -218,10 +218,18 @@
 		
 		
 		<cfquery name="dups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			#preservesinglequotes(sql)# and rownum < 100
+			#preservesinglequotes(sql)# and rownum < 101
 		</cfquery>
-		
+		<cfif dups.recordcount is 100>
+			This form only returns 100 records. You may have to delete a few sets.
+		</cfif>
 		Potential Duplicates
+		<script>
+			function checkAll() {
+				    $('input:checkbox [name="deleteLocalityID"]').attr('checked', 'checked');
+			}
+		</script>
+		<span class="likeLink" onclick="checkAll();">Check All</span>
 		<table border id="t" class="sortable">
 			<tr>
 				<th>merge</th>
