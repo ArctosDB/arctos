@@ -174,7 +174,13 @@
 					<cfset sql=sql & " SPEC_LOCALITY is null and ">
 				</cfif>
 			</cfif>
-			
+			<cfif DEC_LAT is not "ignore">
+				<cfif len(DEC_LAT) gt 0>
+					<cfset sql=sql & " DEC_LAT=#DEC_LAT# and ">
+				<cfelse>
+					<cfset sql=sql & " DEC_LAT is null and ">
+				</cfif>
+			</cfif>
 			<cfif DEC_LONG is not "ignore">
 				<cfif len(DEC_LONG) gt 0>
 					<cfset sql=sql & " DEC_LONG=#DEC_LONG# and ">
