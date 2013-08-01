@@ -271,7 +271,7 @@ function resetLayer (value) {
   layer.setOptions({
     query: {
       select: "coordinates",
-      from: 1q1wAPJZajAsrEO9vklsDvofVUCFo8kJqzoR5a7A,
+      from: "1q1wAPJZajAsrEO9vklsDvofVUCFo8kJqzoR5a7A",
       where: "'taxon_name' = '" + value + "'"
     }
   });
