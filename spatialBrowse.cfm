@@ -118,8 +118,8 @@ function resetLayer (value) {
       from: tableID,
       where: "'TAXA' CONTAINS IGNORING CASE '" + value + "'"
     }
-	$("#tname").select();
   });
+$("#tname").select();
 }
 
 </script>
