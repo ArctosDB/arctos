@@ -94,7 +94,7 @@ drop index ix_temp_gmapsrch_c;
 	from cf_global_settings
 </cfquery>
 <cfoutput>
-	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
+	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=places" type="text/javascript"></script>'>
 </cfoutput>
 <script language="javascript" type="text/javascript">
 	var tableID='1eI0xLA9tXOVC53QnRxc6L32G72SFtqFVJT4COos';
