@@ -94,6 +94,7 @@
 		
 		
 			<form method="post" action="duplicateLocality.cfm">
+				<input type="hidden" name="locality_id" value='#locality_id#'>
 				<label for="GEOG_AUTH_REC_ID">GEOG_AUTH_REC_ID</label>
 				<input type="text" name="GEOG_AUTH_REC_ID" size="120" value="#GEOG_AUTH_REC_ID#">
 				<label for="SPEC_LOCALITY">SPEC_LOCALITY</label>
