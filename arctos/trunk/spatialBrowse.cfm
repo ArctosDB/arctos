@@ -91,49 +91,45 @@ end;
 	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
 </cfoutput>
 <script language="javascript" type="text/javascript">
-
-var tableID='1eI0xLA9tXOVC53QnRxc6L32G72SFtqFVJT4COos';
-
-function initialize() {
-  var chicago = new google.maps.LatLng(64.8333333333,-147.7166666667);
-  var mapOptions = {
-    zoom: 3,
-    center: chicago,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
-
-  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-layer = new google.maps.FusionTablesLayer({
-  query: {
-    select: 'COORDINATES',
-    from: tableID
-  }
-});
-layer.setMap(map);
-}
-
-google.maps.event.addDomListener(window, 'load', initialize);
-
-function resetLayer (value) {
-  value = value.replace("'", "\\'");
-  layer.setOptions({
-    query: {
-      select: "COORDINATES",
-      from: tableID,
-      where: "'TAXA' CONTAINS IGNORING CASE '" + value + "'"
-    }
-  });
-$("#tname").select();
-}
-
+	var tableID='1eI0xLA9tXOVC53QnRxc6L32G72SFtqFVJT4COos';
+	function initialize() {
+		var chicago = new google.maps.LatLng(64.8333333333,-147.7166666667);
+		var mapOptions = {
+			zoom: 3,
+		    center: new google.maps.LatLng(55, -135),
+		    mapTypeId: google.maps.MapTypeId.ROADMAP,
+		    panControl: true,
+		    scaleControl: true
+		};
+		var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+		layer = new google.maps.FusionTablesLayer({
+			query: {
+	    		select: 'COORDINATES',
+	  			from: tableID
+	  		}
+		});
+		layer.setMap(map);
+	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+	function resetLayer (value) {
+  		value = value.replace("'", "\\'");
+		layer.setOptions({
+			query: {
+				select: "COORDINATES",
+				from: tableID,
+				where: "'TAXA' CONTAINS IGNORING CASE '" + value + "'"
+			}
+		});
+		$("#tname").select();
+	}
 </script>
-<div id="map-canvas">i am a map</div>
 <label for="tname">Filter by taxon name</label>		
 <input type="text" id="tname" onchange="resetLayer(this.value)">
-<input type="button" value="filter" onclick="resetLayer($('#tname').val());">
+<input type="button" value="filter" onclick="resetLayer($('#tname').val());"><a href="##about">[ about ]</a>
+<div id="map-canvas">i am a map</div>
 
 <hr>
-
+<a name="about"></a>
 <h2>What's all this then?</h2>
 <p>
 	This is an extremely limited spatial browse tool. Points (error and datum transformation are ignored) 
