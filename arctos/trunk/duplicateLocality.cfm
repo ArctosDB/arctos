@@ -32,7 +32,7 @@
 			</cfquery>
 			<form method="post" action="duplicateLocality.cfm">
 				<label for="GEOG_AUTH_REC_ID">GEOG_AUTH_REC_ID</label>
-				<input type="text" size="80" value="#orig.GEOG_AUTH_REC_ID#">
+				<input type="text" size="120" value="#orig.GEOG_AUTH_REC_ID#">
 			</form>
 			<table border id="t" class="sortable">
 				<tr>
