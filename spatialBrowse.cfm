@@ -124,6 +124,13 @@ end;
 		//$("#tname").select();
 	}
 </script>
+<cfif application.serverrooturl is not 'http://arctos.database.museum'>
+	<div style="border:3px solid red;margin:2em;">
+		These data originate from and links return to <a href="http://arctos.database.museum">http://arctos.database.museum</a>.
+	</div>
+</cfif>
+
+
 <label for="tname">Filter by taxon name</label>		
 <input type="text" id="tname" size="30"  onkeyup="resetLayer(this.value)">
 <a href="#about">[ about ]</a>

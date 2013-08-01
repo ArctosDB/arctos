@@ -40,6 +40,11 @@
 	<cfset mapurl = "#mapurl#&cataloged_item_type=#cataloged_item_type#">
 	<cfset basQual = "#basQual#  AND  #session.flatTableName#.cataloged_item_type='#cataloged_item_type#'" >
 </cfif>
+<!---- rcoords is round(n,2) concatenated coordinates from spatial browse ---->
+<cfif isdefined("rcoords") AND len(rcoords) gt 0>
+	<cfset mapurl = "#mapurl#&rcoords=#rcoords#">
+	<cfset basQual = "#basQual#  AND  round(#session.flatTableName#.dec_lat,2) || ',' || round(#session.flatTableName#.dec_long,2)='#rcoords#'" >
+</cfif>
 <cfif isdefined("isGeoreferenced") AND len(isGeoreferenced) gt 0>
 	<cfset mapurl = "#mapurl#&isGeoreferenced=#isGeoreferenced#">
 	<cfif isGeoreferenced is true>
