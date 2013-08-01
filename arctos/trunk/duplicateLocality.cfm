@@ -119,12 +119,14 @@
 		where 
 			locality_id != #locality_id# and
 			GEOG_AUTH_REC_ID=#orig.GEOG_AUTH_REC_ID# and ">
-			
-	<cfif len(orig.SPEC_LOCALITY) gt 0>
-		<cfset sql=sql & " SPEC_LOCALITY='#orig.SPEC_LOCALITY#' and ">
-	<cfelse>
-		<cfset sql=sql & " SPEC_LOCALITY is null and ">
-	</cfif>
+	<cfif q_spec_locality is "exact">
+		<cfif len(orig.SPEC_LOCALITY) gt 0>
+			<cfset sql=sql & " SPEC_LOCALITY='#escapeQuotes(orig.SPEC_LOCALITY)#' and ">
+		<cfelse>
+			<cfset sql=sql & " SPEC_LOCALITY is null and ">
+		</cfif>
+	</cfif>		
+	
 	
 	
 	<cfif len(orig.dec_lat) gt 0>
@@ -209,6 +211,12 @@
 	</cfif>
 	
 		
+	#preservesinglequotes(sql)# and rownum < 100
+	
+	
+	
+	<cfabort>
+	
 	
 	<cfquery name="dups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)# and rownum < 100
