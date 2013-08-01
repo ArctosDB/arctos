@@ -110,8 +110,15 @@
 			locality 
 		where 
 			locality_id != #locality_id# and
-			GEOG_AUTH_REC_ID=#orig.GEOG_AUTH_REC_ID# and
-			SPEC_LOCALITY='#orig.SPEC_LOCALITY#' and ">
+			GEOG_AUTH_REC_ID=#orig.GEOG_AUTH_REC_ID# and ">
+			
+	<cfif len(orig.SPEC_LOCALITY) gt 0>
+		<cfset sql=sql & " SPEC_LOCALITY='#orig.SPEC_LOCALITY#' and ">
+	<cfelse>
+		<cfset sql=sql & " SPEC_LOCALITY is null and ">
+	</cfif>
+	
+	
 	<cfif len(orig.dec_lat) gt 0>
 		<cfset sql=sql & " DEC_LAT=#orig.DEC_LAT# and ">
 	<cfelse>
@@ -132,8 +139,14 @@
 	<cfelse>
 		<cfset sql=sql & " MAXIMUM_ELEVATION is null and ">
 	</cfif>
-	<cfset sql=sql & " ORIG_ELEV_UNITS = '#orig.ORIG_ELEV_UNITS#' and ">
 	
+	<cfif len(orig.ORIG_ELEV_UNITS) gt 0>
+		<cfset sql=sql & " ORIG_ELEV_UNITS='#orig.ORIG_ELEV_UNITS#' and ">
+	<cfelse>
+		<cfset sql=sql & " ORIG_ELEV_UNITS is null and ">
+	</cfif>
+	
+		
 	<cfif len(orig.MIN_DEPTH) gt 0>
 		<cfset sql=sql & " MIN_DEPTH=#orig.MIN_DEPTH# and ">
 	<cfelse>
@@ -144,18 +157,49 @@
 	<cfelse>
 		<cfset sql=sql & " MAX_DEPTH is null and ">
 	</cfif>
-	<cfset sql=sql & " DEPTH_UNITS = '#orig.DEPTH_UNITS#' and ">
+	<cfif len(orig.DEPTH_UNITS) gt 0>
+		<cfset sql=sql & " DEPTH_UNITS='#orig.DEPTH_UNITS#' and ">
+	<cfelse>
+		<cfset sql=sql & " DEPTH_UNITS is null and ">
+	</cfif>
+
 	<cfif len(orig.MAX_ERROR_DISTANCE) gt 0>
 		<cfset sql=sql & " MAX_ERROR_DISTANCE=#orig.MAX_ERROR_DISTANCE# and ">
 	<cfelse>
 		<cfset sql=sql & " MAX_ERROR_DISTANCE is null and ">
 	</cfif>
-	<cfset sql=sql & " MAX_ERROR_UNITS = '#orig.MAX_ERROR_UNITS#' and ">
-	<cfset sql=sql & " DATUM = '#orig.DATUM#' and ">
-	<cfset sql=sql & " LOCALITY_REMARKS = '#orig.LOCALITY_REMARKS#' and ">
-	<cfset sql=sql & " GEOREFERENCE_SOURCE = '#orig.GEOREFERENCE_SOURCE#' and ">
-	<cfset sql=sql & " GEOREFERENCE_PROTOCOL = '#orig.GEOREFERENCE_PROTOCOL#' and ">
-	<cfset sql=sql & " LOCALITY_NAME = '#orig.LOCALITY_NAME#' ">
+	
+	<cfif len(orig.MAX_ERROR_UNITS) gt 0>
+		<cfset sql=sql & " MAX_ERROR_UNITS='#orig.MAX_ERROR_UNITS#' and ">
+	<cfelse>
+		<cfset sql=sql & " MAX_ERROR_UNITS is null and ">
+	</cfif>
+	<cfif len(orig.DATUM) gt 0>
+		<cfset sql=sql & " DATUM='#orig.DATUM#' and ">
+	<cfelse>
+		<cfset sql=sql & " DATUM is null and ">
+	</cfif>
+	<cfif len(orig.LOCALITY_REMARKS) gt 0>
+		<cfset sql=sql & " LOCALITY_REMARKS='#orig.LOCALITY_REMARKS#' and ">
+	<cfelse>
+		<cfset sql=sql & " LOCALITY_REMARKS is null and ">
+	</cfif>
+	<cfif len(orig.GEOREFERENCE_SOURCE) gt 0>
+		<cfset sql=sql & " GEOREFERENCE_SOURCE='#orig.GEOREFERENCE_SOURCE#' and ">
+	<cfelse>
+		<cfset sql=sql & " GEOREFERENCE_SOURCE is null and ">
+	</cfif>
+	<cfif len(orig.GEOREFERENCE_PROTOCOL) gt 0>
+		<cfset sql=sql & " GEOREFERENCE_PROTOCOL='#orig.GEOREFERENCE_PROTOCOL#' and ">
+	<cfelse>
+		<cfset sql=sql & " GEOREFERENCE_PROTOCOL is null and ">
+	</cfif>
+	<cfif len(orig.LOCALITY_NAME) gt 0>
+		<cfset sql=sql & " LOCALITY_NAME='#orig.LOCALITY_NAME#' and ">
+	<cfelse>
+		<cfset sql=sql & " LOCALITY_NAME is null and ">
+	</cfif>
+	
 		
 	
 	<cfquery name="dups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
