@@ -156,7 +156,7 @@
 				from 
 					locality 
 				where 
-					locality_id != #locality_id# ">
+					locality_id != #locality_id# and ">
 					
 			<cfif GEOG_AUTH_REC_ID is not "ignore">
 				<cfif len(GEOG_AUTH_REC_ID) gt 0>
