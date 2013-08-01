@@ -99,7 +99,7 @@
 			<form method="post" action="duplicateLocality.cfm">
 				<input type="hidden" name="locality_id" value='#locality_id#'>
 				<label for="GEOG_AUTH_REC_ID">GEOG_AUTH_REC_ID</label>
-				<input type="text" name="GEOG_AUTH_REC_ID" size="120" value="#GEOG_AUTH_REC_ID#">
+				<input type="text" name="GEOG_AUTH_REC_ID" size="120" value="#GEOG_AUTH_REC_ID#">#GEOG_AUTH_REC_ID#
 				<label for="SPEC_LOCALITY">SPEC_LOCALITY</label>
 				<input type="text" name="SPEC_LOCALITY" size="120" value="#SPEC_LOCALITY#">
 				<label for="DEC_LAT">DEC_LAT</label>
