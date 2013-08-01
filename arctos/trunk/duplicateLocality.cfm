@@ -306,7 +306,8 @@
 				delete from locality where locality_id in (#deleteLocalityID#)
 			</cfquery>
 		</cftransaction>
-		spiffy.....
+		<cflocation url="duplicateLocality.cfm?locality_id=#locality_id#" addtoken="false">
+		
 	</cfif>
 </cfoutput>
 <cfinclude template="includes/_footer.cfm">
