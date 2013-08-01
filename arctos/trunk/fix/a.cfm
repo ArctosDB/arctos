@@ -298,9 +298,9 @@ function resetLayer (value) {
   value = value.replace("'", "\\'");
   layer.setOptions({
     query: {
-      select: "coordinates",
+      select: "COORDINATES",
       from: "18FZ90kXw2mAbe4Lqc1EAszaccbAkH42ylOiqYdA",
-      where: "'guid' CONTAINS IGNORING CASE '" + value + "'"
+      where: "'GUID' CONTAINS IGNORING CASE '" + value + "'"
     }
 
   });
