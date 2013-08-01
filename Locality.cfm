@@ -1819,6 +1819,7 @@ INSERT INTO geog_auth_rec (
 					 	<cfif len(LOCALITY_REMARKS) gt 0><br>Remark: #LOCALITY_REMARKS#</cfif>
 					 	 <cfif len(geolAtts) gt 0><br>[#geolAtts#]</cfif>
 						<br><a href="/editLocality.cfm?locality_id=#locality_id#">Edit #locality_id#</a>
+						<br><a href="/duplicateLocality.cfm?locality_id=#locality_id#">check for duplicates</a>
 					</div>
 				</td>
 				<td>
