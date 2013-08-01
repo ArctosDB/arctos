@@ -296,7 +296,7 @@
 			</cfquery>
 			<cfquery name="cleardupsMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update media_relations set related_primary_key=#locality_id# where 
-				media_relatinship like '% locality' and 
+				media_relationship like '% locality' and 
 				related_primary_key in (#deleteLocalityID#)
 			</cfquery>
 			<cfquery name="cleardupsBL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
