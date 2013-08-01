@@ -116,50 +116,41 @@ drop index ix_temp_gmapsrch_c;
 	  		}
 		});
 		layer.setMap(map);
-
-
-
-	var input =  document.getElementById('gmapsrchtarget');
-	var searchBox = new google.maps.places.SearchBox(input);
-	var markers = [];
-	google.maps.event.addListener(searchBox, 'places_changed', function() {
-    	var places = searchBox.getPlaces();
+		var input =  document.getElementById('gmapsrchtarget');
+		var searchBox = new google.maps.places.SearchBox(input);
+		var markers = [];
+		google.maps.event.addListener(searchBox, 'places_changed', function() {
+	    	var places = searchBox.getPlaces();
+		
+		    for (var i = 0, marker; marker = markers[i]; i++) {
+		      marker.setMap(null);
+		    }
 	
-	    for (var i = 0, marker; marker = markers[i]; i++) {
-	      marker.setMap(null);
-	    }
-
-	    markers = [];
-    	var bounds = new google.maps.LatLngBounds();
-		for (var i = 0, place; place = places[i]; i++) {
-			var image = {
-				url: place.icon,
-				size: new google.maps.Size(71, 71),
-				origin: new google.maps.Point(0, 0),
-				anchor: new google.maps.Point(17, 34),
-				scaledSize: new google.maps.Size(25, 25)
-			};
-			var marker = new google.maps.Marker({
-	        	map: map,
-	        	icon: image,
-	        	title: place.name,
-	        	position: place.geometry.location
-			});
-			markers.push(marker);
-			bounds.extend(place.geometry.location);
-		}
-		map.fitBounds(bounds);
-	});
-	google.maps.event.addListener(map, 'bounds_changed', function() {
-	  var bounds = map.getBounds();
-	  searchBox.setBounds(bounds);
-	});
-
-
-
-
-
-
+		    markers = [];
+	    	var bounds = new google.maps.LatLngBounds();
+			for (var i = 0, place; place = places[i]; i++) {
+				var image = {
+					url: place.icon,
+					size: new google.maps.Size(71, 71),
+					origin: new google.maps.Point(0, 0),
+					anchor: new google.maps.Point(17, 34),
+					scaledSize: new google.maps.Size(25, 25)
+				};
+				var marker = new google.maps.Marker({
+		        	map: map,
+		        	icon: image,
+		        	title: place.name,
+		        	position: place.geometry.location
+				});
+				markers.push(marker);
+				bounds.extend(place.geometry.location);
+			}
+			map.fitBounds(bounds);
+		});
+		google.maps.event.addListener(map, 'bounds_changed', function() {
+		  var bounds = map.getBounds();
+		  searchBox.setBounds(bounds);
+		});
 	}
 	google.maps.event.addDomListener(window, 'load', initialize);
 	function resetLayer (value) {
@@ -179,11 +170,21 @@ drop index ix_temp_gmapsrch_c;
 		These data originate from and links return to <a href="http://arctos.database.museum">http://arctos.database.museum</a>.
 	</div>
 </cfif>
-<label for="tname">Filter by taxon name</label>		
-<input type="text" id="tname" size="30"  onkeyup="resetLayer(this.value)">
-<label for="gmapsrchtarget">Search Map</label>
-<input type="text" id="gmapsrchtarget">
-<a href="#about">[ about ]</a>
+<table>
+	<tr>
+		<td>
+			<label for="tname">Filter by taxon name</label>		
+			<input type="text" id="tname" size="30"  onkeyup="resetLayer(this.value)">
+		</td>
+		<td>
+			<label for="gmapsrchtarget">Search Map</label>
+			<input type="text" id="gmapsrchtarget">
+		</td>
+		<td>
+			<a href="#about">[ about ]</a>
+		</td>
+	</tr>
+</table>
 <div id="map-canvas">i am a map</div>
 <a name="about"></a>
 <h2>What's all this then?</h2>
