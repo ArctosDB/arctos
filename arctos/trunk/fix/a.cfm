@@ -1,6 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
 
-
+create table gmap_srch as select
+	locality_id,
+	
 
 <cfif action is "buildKML">
 
@@ -257,7 +259,7 @@ function initialize() {
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 layer = new google.maps.FusionTablesLayer({
   query: {
-    select: 'coordinates',
+    select: 'COORDINATES',
     from: '18FZ90kXw2mAbe4Lqc1EAszaccbAkH42ylOiqYdA'
   }
 });
@@ -273,7 +275,11 @@ function resetLayer (value) {
       select: "coordinates",
       from: "1q1wAPJZajAsrEO9vklsDvofVUCFo8kJqzoR5a7A",
       where: "'taxon_name' CONTAINS IGNORING CASE '" + value + "'"
-    }
+    },
+  heatmap: {
+    enabled: true
+  }
+
   });
 }
 
