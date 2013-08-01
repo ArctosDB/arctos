@@ -90,7 +90,10 @@
 		
 		
 		
-		
+		Filter for duplicates (or almost-duplicates). Default values are from the locality you came here from. 
+		<br>Empty cells match NULL
+		<br>Enter "ignore" (without the quotes) to IGNORE the term. That is, spec_locality=ignore will match ALL
+		other spec localities; the filter will be only on the remaining terms, and spec_locality will not be considered at all.
 		
 		
 			<form method="post" action="duplicateLocality.cfm">
@@ -294,7 +297,7 @@
 			<cfif dups.recordcount is 100>
 				This form only returns 1000 records. You may have to delete a few sets.
 			</cfif>
-			Potential Duplicates
+			Potential Duplicates - check anything that you want to merge with the locality you came from and click the button.
 			<script>
 				function checkAll() {
 					$('input:checkbox[name="deleteLocalityID"]').prop('checked', true);
