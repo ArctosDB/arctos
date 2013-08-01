@@ -1,5 +1,8 @@
 <cfinclude template="includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
+<style>
+	.readClr {background-color:gray;}
+</style>
 <cfset title="Duplicate Locality Merger Widget">
 <cfoutput>
 	<cfif action is "nothing">
