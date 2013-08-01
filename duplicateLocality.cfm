@@ -105,41 +105,52 @@
 				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.GEOG_AUTH_REC_ID#">
 				<label for="SPEC_LOCALITY">SPEC_LOCALITY</label>
 				<input type="text" name="SPEC_LOCALITY" size="120" value="#SPEC_LOCALITY#">
-				
 				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.SPEC_LOCALITY#">
 				<label for="DEC_LAT">DEC_LAT</label>
 				<input type="text" name="DEC_LAT" size="120" value="#DEC_LAT#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.SPEC_LOCALITY#">
 				<label for="DEC_LONG">DEC_LONG</label>
 				<input type="text" name="DEC_LONG" size="120" value="#DEC_LONG#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.SPEC_LOCALITY#">
 				<label for="MINIMUM_ELEVATION">MINIMUM_ELEVATION</label>
 				<input type="text" name="MINIMUM_ELEVATION" size="120" value="#MINIMUM_ELEVATION#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.MINIMUM_ELEVATION#">
 				<label for="MAXIMUM_ELEVATION">MAXIMUM_ELEVATION</label>
 				<input type="text" name="MAXIMUM_ELEVATION" size="120" value="#MAXIMUM_ELEVATION#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.MAXIMUM_ELEVATION#">
 				<label for="ORIG_ELEV_UNITS">ORIG_ELEV_UNITS</label>
 				<input type="text" name="ORIG_ELEV_UNITS" size="120" value="#ORIG_ELEV_UNITS#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.ORIG_ELEV_UNITS#">
 				<label for="MIN_DEPTH">MIN_DEPTH</label>
 				<input type="text" name="MIN_DEPTH" size="120" value="#MIN_DEPTH#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.MIN_DEPTH#">
 				<label for="MAX_DEPTH">MAX_DEPTH</label>
 				<input type="text" name="MAX_DEPTH" size="120" value="#MAX_DEPTH#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.MAX_DEPTH#">
 				<label for="DEPTH_UNITS">DEPTH_UNITS</label>
 				<input type="text" name="DEPTH_UNITS" size="120" value="#DEPTH_UNITS#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.DEPTH_UNITS#">
 				<label for="MAX_ERROR_DISTANCE">MAX_ERROR_DISTANCE</label>
 				<input type="text" name="MAX_ERROR_DISTANCE" size="120" value="#MAX_ERROR_DISTANCE#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.MAX_ERROR_DISTANCE#">
 				<label for="MAX_ERROR_UNITS">MAX_ERROR_UNITS</label>
 				<input type="text" name="MAX_ERROR_UNITS" size="120" value="#MAX_ERROR_UNITS#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.MAX_ERROR_UNITS#">
 				<label for="DATUM">DATUM</label>
 				<input type="text" name="DATUM" size="120" value="#DATUM#">
-				
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.DATUM#">
 				<label for="LOCALITY_REMARKS">LOCALITY_REMARKS</label>
 				<input type="text" name="LOCALITY_REMARKS" size="120" value="#LOCALITY_REMARKS#">
-				
-				
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.LOCALITY_REMARKS#">
 				<label for="GEOREFERENCE_SOURCE">GEOREFERENCE_SOURCE</label>
 				<input type="text" name="GEOREFERENCE_SOURCE" size="120" value="#GEOREFERENCE_SOURCE#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.GEOREFERENCE_SOURCE#">
 				<label for="GEOREFERENCE_PROTOCOL">GEOREFERENCE_PROTOCOL</label>
 				<input type="text" name="GEOREFERENCE_PROTOCOL" size="120" value="#GEOREFERENCE_PROTOCOL#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.GEOREFERENCE_PROTOCOL#">
 				<label for="LOCALITY_NAME">LOCALITY_NAME</label>
 				<input type="text" name="LOCALITY_NAME" size="120" value="#LOCALITY_NAME#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.LOCALITY_NAME#">
 				<br>
 				<input type="submit" value="filter table below">
 				<a href="duplicateLocality.cfm?locality_id=#locality_id#">[ change nothing - reset everything ]</a>
