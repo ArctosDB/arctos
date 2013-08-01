@@ -132,7 +132,9 @@
 				<input type="text" name="GEOREFERENCE_PROTOCOL" size="120" value="#GEOREFERENCE_PROTOCOL#">
 				<label for="LOCALITY_NAME">LOCALITY_NAME</label>
 				<input type="text" name="LOCALITY_NAME" size="120" value="#LOCALITY_NAME#">
+				<br>
 				<input type="submit" value="filter table below">
+				<a href="duplicateLocality.cfm?locality_id=#locality_id#">[ change nothing - reset everything ]</a>
 			</form>
 			
 			<cfset sql="select
