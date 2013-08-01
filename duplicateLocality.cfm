@@ -306,8 +306,9 @@
 					$('input:checkbox[name="deleteLocalityID"]').prop('checked', false);
 				}
 			</script>
-			<span class="likeLink" onclick="checkAll();">Check All</span>
-			<span class="likeLink" onclick="uncheckAll();">UNcheck All</span>
+			<p></p>
+			<span class="likeLink" onclick="checkAll();">[ Check All ]</span>
+			<span class="likeLink" onclick="uncheckAll();">[ UNcheck All ]</span>
 			<form name="d" method="post" action="duplicateLocality.cfm">
 				<input type="hidden" name="locality_id" value="#locality_id#">
 				<input type="hidden" name="action" value="delete">
