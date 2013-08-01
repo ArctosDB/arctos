@@ -95,13 +95,17 @@
 		<br>Enter "ignore" (without the quotes) to IGNORE the term. That is, spec_locality=ignore will match ALL
 		other spec localities; the filter will be only on the remaining terms, and spec_locality will not be considered at all.
 		
-		
+		<p>
+			Original values (from locality #locality_id#) are under the textboxes
+		</p>
 			<form method="post" action="duplicateLocality.cfm">
 				<input type="hidden" name="locality_id" value='#locality_id#'>
 				<label for="GEOG_AUTH_REC_ID">GEOG_AUTH_REC_ID</label>
-				<input type="text" name="GEOG_AUTH_REC_ID" size="120" value="#GEOG_AUTH_REC_ID#">#GEOG_AUTH_REC_ID#
+				<input type="text" name="GEOG_AUTH_REC_ID" size="120" value="#GEOG_AUTH_REC_ID#">
+				<br>#GEOG_AUTH_REC_ID#
 				<label for="SPEC_LOCALITY">SPEC_LOCALITY</label>
 				<input type="text" name="SPEC_LOCALITY" size="120" value="#SPEC_LOCALITY#">
+				<br>#SPEC_LOCALITY#
 				<label for="DEC_LAT">DEC_LAT</label>
 				<input type="text" name="DEC_LAT" size="120" value="#DEC_LAT#">
 				<label for="DEC_LONG">DEC_LONG</label>
