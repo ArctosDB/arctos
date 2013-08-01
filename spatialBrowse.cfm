@@ -124,7 +124,7 @@ end;
 	}
 </script>
 <label for="tname">Filter by taxon name</label>		
-<input type="text" id="tname" onchange="resetLayer(this.value)">
+<input type="text" id="tname" onkeyup="resetLayer(this.value)">
 <input type="button" value="filter" onclick="resetLayer($('#tname').val());">
 <a href="#about">[ about ]</a>
 <div id="map-canvas">i am a map</div>
