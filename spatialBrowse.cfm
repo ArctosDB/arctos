@@ -125,7 +125,7 @@ end;
 	}
 </script>
 <cfif application.serverrooturl is not 'http://arctos.database.museum'>
-	<div style="border:3px solid red;margin:2em;">
+	<div style="border:3px solid red;margin:2em;padding:2em;text-align:center;">
 		These data originate from and links return to <a href="http://arctos.database.museum">http://arctos.database.museum</a>.
 	</div>
 </cfif>
