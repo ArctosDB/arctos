@@ -270,8 +270,8 @@ function resetLayer (value) {
   value = value.replace("'", "\\'");
   layer.setOptions({
     query: {
-      select: "Address",
-      from: tableid,
+      select: "coordinates",
+      from: 1q1wAPJZajAsrEO9vklsDvofVUCFo8kJqzoR5a7A,
       where: "'taxon_name' = '" + value + "'"
     }
   });
