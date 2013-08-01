@@ -229,7 +229,7 @@
 				$('input:checkbox[name="deleteLocalityID"]').prop('checked', true);
 			}
 			function uncheckAll() {
-				$('input:checkbox[name="deleteLocalityID"]')..prop('checked', false);
+				$('input:checkbox[name="deleteLocalityID"]').prop('checked', false);
 			}
 		</script>
 		<span class="likeLink" onclick="checkAll();">Check All</span>
