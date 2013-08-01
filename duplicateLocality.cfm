@@ -244,7 +244,7 @@
 				<th>GEOREFERENCE_PROTOCOL</th>
 				<th>LOCALITY_NAME</th>
 			</tr>
-			<cfloop query="">
+			<cfloop query="dups">
 				<tr>
 					<td>
 						<input type="checkbox" name="deleteLocalityID" value="#LOCALITY_ID#">
