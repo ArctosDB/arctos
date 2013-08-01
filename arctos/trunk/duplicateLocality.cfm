@@ -226,10 +226,10 @@
 		Potential Duplicates
 		<script>
 			function checkAll() {
-				$('input:checkbox[name="deleteLocalityID"]').attr('checked', 'checked');
+				$('input:checkbox[name="deleteLocalityID"]').prop('checked', true);
 			}
 			function uncheckAll() {
-				$('input:checkbox[name="deleteLocalityID"]').attr('checked', '');
+				$('input:checkbox[name="deleteLocalityID"]')..prop('checked', false);
 			}
 		</script>
 		<span class="likeLink" onclick="checkAll();">Check All</span>
