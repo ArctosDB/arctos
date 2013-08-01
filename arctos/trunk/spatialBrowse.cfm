@@ -120,7 +120,7 @@ end;
 				where: "'TAXA' CONTAINS IGNORING CASE '" + value + "'"
 			}
 		});
-		$("#tname").select();
+		//$("#tname").select();
 	}
 </script>
 <label for="tname">Filter by taxon name</label>		
