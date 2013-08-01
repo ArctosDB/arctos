@@ -266,10 +266,21 @@ layer.setMap(map);
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-
+function resetLayer (n) {
+  value = value.replace("'", "\\'");
+  layer.setOptions({
+    query: {
+      select: "Address",
+      from: tableid,
+      where: "'taxon_name' = '" + n + "'"
+    }
+  });
+}
 
 </script>
 		<div id="map-canvas">i am a map</div>
+		
+		<input type="text" id="tname" onchange="resetLayer(this.value)">
 		
 	</cfif>	
 		
