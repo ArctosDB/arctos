@@ -30,10 +30,14 @@
 					locality 
 				where locality_id=#locality_id#
 			</cfquery>
+			<form method="post" action="duplicateLocality.cfm">
+				<label for="GEOG_AUTH_REC_ID">GEOG_AUTH_REC_ID</label>
+				<input type="text" size="80" value="#orig.GEOG_AUTH_REC_ID#">
+			</form>
 			<table border id="t" class="sortable">
 				<tr>
 					<th>LOCALITY_ID</th>
-					<th>GEOG_AUTH_REC_ID</th>
+					<th></th>
 					<th>SPEC_LOCALITY</th>
 					<th>DEC_LAT</th>
 					<th>DEC_LONG</th>
