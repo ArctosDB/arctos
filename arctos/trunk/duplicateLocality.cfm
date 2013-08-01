@@ -1,6 +1,10 @@
 <cfinclude template="includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
+<cfset title="Duplicate Locality Merger Widget">
 <cfoutput>
+	<cfif not isdefined("q_spec_locality")>
+		<cfset q_spec_locality='exact'>
+	</cfif>
 	<cfquery name="orig" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			LOCALITY_ID,
@@ -67,9 +71,13 @@
 			<td>#orig.LOCALITY_NAME#</td>
 		</tr>
 		<tr>
-			<td>Filter for Duplicates.....</td>
-			<td>#orig.GEOG_AUTH_REC_ID#</td>
-			<td>#orig.SPEC_LOCALITY#</td>
+			<td>Filter for Duplicates</td>
+			<td>Set criteria this row</td>
+			<td>
+				<select name="q_spec_locality">
+					<option <cfif q_spec_locality is 'exact'> selected="selected"</cfif>value="exact">exact</option>
+				</select>
+			</td>
 			<td>#orig.DEC_LAT#</td>
 			<td>#orig.DEC_LONG#</td>
 			<td>#orig.MINIMUM_ELEVATION#</td>
@@ -203,7 +211,7 @@
 		
 	
 	<cfquery name="dups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		#preservesinglequotes(sql)#
+		#preservesinglequotes(sql)# and rownum < 100
 	</cfquery>
 	
 	<cfdump var=#dups#>
