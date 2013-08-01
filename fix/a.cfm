@@ -266,13 +266,13 @@ layer.setMap(map);
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-function resetLayer (n) {
+function resetLayer (value) {
   value = value.replace("'", "\\'");
   layer.setOptions({
     query: {
       select: "Address",
       from: tableid,
-      where: "'taxon_name' = '" + n + "'"
+      where: "'taxon_name' = '" + value + "'"
     }
   });
 }
