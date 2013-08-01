@@ -139,6 +139,7 @@ drop index ix_temp_gmapsrch_c;
 </cfif>
 <label for="tname">Filter by taxon name</label>		
 <input type="text" id="tname" size="30"  onkeyup="resetLayer(this.value)">
+<label for="gmapsrchtarget">Search Map</label>
 <input type="text" id="gmapsrchtarget">
 <a href="#about">[ about ]</a>
 <div id="map-canvas">i am a map</div>
