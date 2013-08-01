@@ -108,10 +108,10 @@
 				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.SPEC_LOCALITY#">
 				<label for="DEC_LAT">DEC_LAT</label>
 				<input type="text" name="DEC_LAT" size="120" value="#DEC_LAT#">
-				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.SPEC_LOCALITY#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.DEC_LAT#">
 				<label for="DEC_LONG">DEC_LONG</label>
 				<input type="text" name="DEC_LONG" size="120" value="#DEC_LONG#">
-				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.SPEC_LOCALITY#">
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.DEC_LONG#">
 				<label for="MINIMUM_ELEVATION">MINIMUM_ELEVATION</label>
 				<input type="text" name="MINIMUM_ELEVATION" size="120" value="#MINIMUM_ELEVATION#">
 				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.MINIMUM_ELEVATION#">
