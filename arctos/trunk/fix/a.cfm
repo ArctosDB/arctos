@@ -1,8 +1,34 @@
 <cfinclude template="/includes/_header.cfm">
 
+drop table gmap_srch;
+
+
+drop table gmap_srch;
+
+select * from gmap_srch where locality_id=10052158;
+
 create table gmap_srch as select
+
 	locality_id,
+	listagg(y.guid,', ') within group (order by y.guid) names
+	from (
+		select distinct guid, locality_id
+		from flat
+		) y
+		group by y.guid,y.locality_id
+		order by y.guid,y.locality_id
+		;
 	
+	create or replace view taxon_term_aggregate as 
+SELECT y.taxon_name_id, y.scientific_name,
+       LISTAGG(y.term, ', ') WITHIN GROUP (ORDER BY y.term) terms
+  FROM (
+        select distinct tn.taxon_name_id, tn.scientific_name, tt.term
+        from taxon_name tn, taxon_term tt
+        where tn.taxon_name_id = tt.taxon_name_id and POSITION_IN_CLASSIFICATION is not null) y
+  GROUP BY y.taxon_name_id, y.scientific_name
+  ORDER BY y.taxon_name_id, y.scientific_name
+;
 
 <cfif action is "buildKML">
 
@@ -273,12 +299,9 @@ function resetLayer (value) {
   layer.setOptions({
     query: {
       select: "coordinates",
-      from: "1q1wAPJZajAsrEO9vklsDvofVUCFo8kJqzoR5a7A",
-      where: "'taxon_name' CONTAINS IGNORING CASE '" + value + "'"
-    },
-  heatmap: {
-    enabled: true
-  }
+      from: "18FZ90kXw2mAbe4Lqc1EAszaccbAkH42ylOiqYdA",
+      where: "'guid' CONTAINS IGNORING CASE '" + value + "'"
+    }
 
   });
 }
