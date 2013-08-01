@@ -63,6 +63,8 @@ end;
 
 --- upload to fusiontables as arctos.database
 
+-- make sure it's public
+
 -- make sure tableID is used in JS below
 
 -- woot!
@@ -74,7 +76,7 @@ end;
 
 
 <style type="text/css">
-	#map-canvas { height: 600px;width:800px; }
+	#map-canvas { width:90%; }
 </style>
 
 <cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
