@@ -155,7 +155,7 @@
 	<cfset sql=sql & " LOCALITY_REMARKS = '#orig.LOCALITY_REMARKS#' and ">
 	<cfset sql=sql & " GEOREFERENCE_SOURCE = '#orig.GEOREFERENCE_SOURCE#' and ">
 	<cfset sql=sql & " GEOREFERENCE_PROTOCOL = '#orig.GEOREFERENCE_PROTOCOL#' and ">
-	<cfset sql=sql & " LOCALITY_NAME = '#orig.LOCALITY_NAME#' and ">
+	<cfset sql=sql & " LOCALITY_NAME = '#orig.LOCALITY_NAME#' ">
 		
 	
 	<cfquery name="dups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
