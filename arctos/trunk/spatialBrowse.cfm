@@ -2,17 +2,16 @@
 <cfset title="Spatially browse all Arctos records">
 <!--- setup
 
-drop table temp_gmapsrch;
 
 create table temp_gmapsrch as select
 	scientific_name,
-	round(dec_lat,2) || ',' || round(dec_long,2) c
+	round(dec_lat,1) || ',' || round(dec_long,1) c
 from 
-	flat 
+	filtered_flat 
 where
 	dec_lat is not null and dec_long is not null
 group by
-	scientific_name,round(dec_lat,2) || ',' || round(dec_long,2)
+	scientific_name,round(dec_lat,1) || ',' || round(dec_long,1)
 ;
 
 
@@ -20,17 +19,12 @@ create index ix_temp_gmapsrch_sn on temp_gmapsrch(scientific_name) tablespace ua
 create index ix_temp_gmapsrch_c on temp_gmapsrch(c) tablespace uam_idx_1;
 
 
-drop table gmap_srch;
-
 create table gmap_srch (
 	coordinates varchar2(255),
 	taxa varchar2(4000),
 	link varchar2(4000)
 );
 
-
-
-delete from gmap_srch;
 
 
 declare
@@ -60,6 +54,10 @@ begin
 end;
 /
 
+
+-- check count - if over limitations, rebuild something
+
+select count(*) from gmap_srch;
 --- use table2csv to download gmap_srch
 
 --- upload to fusiontables as arctos.database
@@ -67,6 +65,13 @@ end;
 -- make sure it's public
 
 -- make sure tableID is used in JS below
+
+-- cleanup
+
+drop table temp_gmapsrch;
+drop table gmap_srch;
+drop index ix_temp_gmapsrch_sn;
+drop index ix_temp_gmapsrch_c;
 
 -- woot!
 
@@ -93,6 +98,7 @@ end;
 </cfoutput>
 <script language="javascript" type="text/javascript">
 	var tableID='1eI0xLA9tXOVC53QnRxc6L32G72SFtqFVJT4COos';
+
 	function initialize() {
 		var chicago = new google.maps.LatLng(64.8333333333,-147.7166666667);
 		var mapOptions = {
@@ -110,6 +116,8 @@ end;
 	  		}
 		});
 		layer.setMap(map);
+		var input = document.getElementById('gmapsrchtarget');
+		var searchBox = new google.maps.places.SearchBox(input);
 	}
 	google.maps.event.addDomListener(window, 'load', initialize);
 	function resetLayer (value) {
@@ -129,17 +137,16 @@ end;
 		These data originate from and links return to <a href="http://arctos.database.museum">http://arctos.database.museum</a>.
 	</div>
 </cfif>
-
-
 <label for="tname">Filter by taxon name</label>		
 <input type="text" id="tname" size="30"  onkeyup="resetLayer(this.value)">
+<input type="text" id="gmapsrchtarget">
 <a href="#about">[ about ]</a>
 <div id="map-canvas">i am a map</div>
 <a name="about"></a>
 <h2>What's all this then?</h2>
 <p>
 	This is an extremely limited spatial browse tool. Points (error and datum transformation are ignored) 
-	on the map are represented by coordinates rounded to hundredth of a degree and a sometimes-incomplete
+	on the map are represented by coordinates rounded to tenth of a degree and a sometimes-incomplete
 	concatenation of associated taxa. Data are updated manually - which means infrequently and unpredictably.
 </p>
 <p>

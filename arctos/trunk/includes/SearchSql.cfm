@@ -43,7 +43,7 @@
 <!---- rcoords is round(n,2) concatenated coordinates from spatial browse ---->
 <cfif isdefined("rcoords") AND len(rcoords) gt 0>
 	<cfset mapurl = "#mapurl#&rcoords=#rcoords#">
-	<cfset basQual = "#basQual#  AND  round(#session.flatTableName#.dec_lat,2) || ',' || round(#session.flatTableName#.dec_long,2)='#rcoords#'" >
+	<cfset basQual = "#basQual#  AND  round(#session.flatTableName#.dec_lat,1) || ',' || round(#session.flatTableName#.dec_long,1)='#rcoords#'" >
 </cfif>
 <cfif isdefined("isGeoreferenced") AND len(isGeoreferenced) gt 0>
 	<cfset mapurl = "#mapurl#&isGeoreferenced=#isGeoreferenced#">
