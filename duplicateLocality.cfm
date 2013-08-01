@@ -210,14 +210,6 @@
 			<cfelse>
 				<cfset sql=sql & " LOCALITY_NAME is null ">
 			</cfif>
-			
-				
-			#preservesinglequotes(sql)# and rownum < 100
-			
-			
-			
-			
-			
 			<cfquery name="dups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(sql)# and rownum < 101
 			</cfquery>
