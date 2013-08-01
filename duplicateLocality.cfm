@@ -310,7 +310,20 @@
 				#preservesinglequotes(sql)# and rownum < 1001
 			</cfquery>
 			
-			<hr>#preservesinglequotes(sql)# and rownum < 1001
+			<hr>
+			<p>
+				The SQL to build the table below is here.
+				
+				<br>
+				
+				
+				In the event you want to merge localities but cannot because they are
+				shared or used in verified events, use the Contact link in the footer or send a DBA email
+				explaining what you're trying to do, and make sure you include this SQL.
+			</p>
+			
+			<textarea rows="20" cols="120">#preservesinglequotes(sql)# and rownum < 1001</textarea>
+			
 			
 			<hr>
 			<cfif dups.recordcount is 100>
