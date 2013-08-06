@@ -63,7 +63,7 @@
 			select count(distinct(barcode)) c from d where barcode is not null
 		</cfquery>
 		<br>#c.c# unique barcodes were found.
-		<br>
+		<br>If a container contains multiple specimens, GUIDs will appear as a comma-separated list.
 		<br><a href="/download/#fname#">Download CSV</a>
 		
 		<br><a href="/SpecimenResults.cfm?guid=#valuelist(d.guid)#">Open SpecimenResults for these GUIDs</a>
@@ -82,7 +82,7 @@
 					<td>#valuelist(t.guid)#</td>
 				</tr>
 				<cfscript>
-					variables.joFileWriter.writeLine('"#trim(b)#","#trim(t.guid)#"');
+					variables.joFileWriter.writeLine('"#trim(b)#","#trim(valuelist(t.guid))#"');
 				</cfscript>
 			</cfloop>
 		</table>
