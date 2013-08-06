@@ -79,7 +79,7 @@
 				</cfquery>
 				<tr>
 					<td>#b#</td>
-					<td>#t.guid#</td>
+					<td>#valuelist(t.guid)#</td>
 				</tr>
 				<cfscript>
 					variables.joFileWriter.writeLine('"#trim(b)#","#trim(t.guid)#"');
