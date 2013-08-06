@@ -51,7 +51,9 @@
 				coll_obj_cont_hist.container_id=p.container_id and
 				p.parent_container_id=c.container_id and
 				c.barcode in (#ListQualify(trim(BC), "'")#)
-		</cfquery>		
+		</cfquery>
+		
+		<cfdump var=#d#>	
 		<br>Queried for #listlen(bc)# barcodes.
 		<cfquery name="c" dbtype="query">
 			select count(*) c from d where guid is not null
