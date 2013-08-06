@@ -51,9 +51,7 @@
 				coll_obj_cont_hist.container_id=p.container_id and
 				p.parent_container_id=c.container_id and
 				c.barcode in (#ListQualify(trim(BC), "'")#)
-		</cfquery>
-		
-		<cfdump var=#d#>	
+		</cfquery>	
 		<br>You entered #listlen(bc)# barcodes.
 		<cfquery name="c" dbtype="query">
 			select count(distinct(guid)) c from d where guid is not null
@@ -62,7 +60,7 @@
 		<cfquery name="c" dbtype="query">
 			select count(distinct(barcode)) c from d where barcode is not null
 		</cfquery>
-		<br>#c.c# unique barcodes were found.
+		<br>#c.c# unique barcodes were found containing specimen parts.
 		<br>If a container contains multiple specimens, GUIDs will appear as a comma-separated list.
 		<br><a href="/download/#fname#">Download CSV</a>
 		
