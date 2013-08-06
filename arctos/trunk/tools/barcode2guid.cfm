@@ -54,11 +54,16 @@
 		</cfquery>
 		
 		<cfdump var=#d#>	
-		<br>Queried for #listlen(bc)# barcodes.
+		<br>You entered #listlen(bc)# barcodes.
 		<cfquery name="c" dbtype="query">
-			select count(*) c from d where guid is not null
+			select count(distinct(guid)) c from d where guid is not null
 		</cfquery>
-		<br>Found #c.c# GUIDs
+		<br>#c.c# unique GUIDs were found.
+		<cfquery name="c" dbtype="query">
+			select count(distinct(barcode)) c from d where barcode is not null
+		</cfquery>
+		<br>#c.c# unique barcodes were found.
+		<br>
 		<br><a href="/download/#fname#">Download CSV</a>
 		
 		<br><a href="/SpecimenResults.cfm?guid=#valuelist(d.guid)#">Open SpecimenResults for these GUIDs</a>
