@@ -53,7 +53,8 @@
 		GENUS,
 		SPECIES,
 		SUBSPECIES,
-		FORMATTED_SCIENTIFIC_NAME
+		FORMATTED_SCIENTIFIC_NAME,
+		full_taxon_name
 	FROM
 		#session.flatTableName#
 	WHERE
@@ -250,19 +251,9 @@
 								</cfif>
 								<div class="taxDetDiv">
 									<cfif accepted_id_fg is 1>
-										<cfset thisHT=''>
-										<cfset thisHT=listappend(thisHT,one.KINGDOM)>
-										<cfset thisHT=listappend(thisHT,one.PHYLUM)>
-										<cfset thisHT=listappend(thisHT,one.PHYLCLASS)>
-										<cfset thisHT=listappend(thisHT,one.PHYLORDER)>
-										<cfset thisHT=listappend(thisHT,one.FAMILY)>
-										<cfset thisHT=listappend(thisHT,one.GENUS)>
-										<cfset thisHT=listappend(thisHT,one.SPECIES)>
-										<cfset thisHT=listappend(thisHT,one.SUBSPECIES)>
-										<cfset thisHT=listappend(thisHT,one.FORMATTED_SCIENTIFIC_NAME)>
-										<cfset thisHT=listchangedelims(thisHT,", ")>
+										
 										<div style="font-size:.8em;color:gray;">
-											#thisHT#
+											#full_taxon_name#
 										</div>
 									</cfif>	
 									<cfif len(short_citation) gt 0>
