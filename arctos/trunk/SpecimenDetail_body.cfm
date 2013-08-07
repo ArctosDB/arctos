@@ -253,7 +253,7 @@
 									<cfif accepted_id_fg is 1>
 										
 										<div style="font-size:.8em;color:gray;">
-											#full_taxon_name#
+											#one.full_taxon_name#
 										</div>
 									</cfif>	
 									<cfif len(short_citation) gt 0>
