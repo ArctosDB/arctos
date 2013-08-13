@@ -344,10 +344,7 @@
 						<source src="#media_uri#" type="audio/mpeg">
 						Your browser does not support the audio element.
 					</audio> 
-				</cfif>
-				
-				
-				
+				</cfif>				
 			</td>
 			<td align="middle">
 				<div id="mapgohere-media_id-#media_id#">
