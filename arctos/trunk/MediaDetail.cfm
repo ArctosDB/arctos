@@ -66,7 +66,9 @@
 						<br>
 						<audio controls>
 							<source src="#findIDs.media_uri#" type="audio/mp3">
-							Your browser does not support the audio element.
+							<a href="#findIDs.media_uri#" target="_blank">
+								<img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;">
+							</a>
 						</audio>
 						<br><a href="#findIDs.media_uri#" download>download MP3</a>
 					<cfelse>
@@ -74,7 +76,6 @@
 							<img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;">
 						</a>
 					</cfif>
-					
 					<br>
 					<span style='font-size:small'>#findIDs.media_type#&nbsp;(#findIDs.mime_type#)</span>
 					<cfif len(findIDs.display) gt 0>

@@ -329,22 +329,25 @@
 		</cfif>
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<td align="middle">
-				<a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
-					<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
-				</a>
+				<cfif mime_type is "audio/mpeg3">
+					<br>
+					<audio controls>
+						<source src="#media_uri#" type="audio/mpeg">
+						<!--- fallback --->
+						<a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
+							<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
+						</a>
+					</audio> 
+				<cfelse>
+					
+				</cfif>
 				<br>
 				<span style = "font-size:small;">#media_type# (#mime_type#)</span>
 				<br>
 				<span style = "font-size:small;">#license#</span>
 				<br>
 				<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>
-				<cfif mime_type is "audio/mpeg3">
-					<br>
-					<audio controls>
-						<source src="#media_uri#" type="audio/mpeg">
-						Your browser does not support the audio element.
-					</audio> 
-				</cfif>				
+							
 			</td>
 			<td align="middle">
 				<div id="mapgohere-media_id-#media_id#">
