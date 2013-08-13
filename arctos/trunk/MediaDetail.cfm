@@ -83,7 +83,8 @@
 						<audio controls>
 							<source src="#findIDs.media_uri#" type="audio/mpeg">
 							Your browser does not support the audio element.
-						</audio> 
+						</audio>
+						<a href="#findIDs.media_uri#" download>
 					</cfif>
 				</td>
 				<td>
