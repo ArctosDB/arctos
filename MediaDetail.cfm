@@ -62,9 +62,19 @@
         <table>
 			<tr>
 				<td align="middle">
-					<a href="#findIDs.media_uri#" target="_blank">
-						<img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;">
-					</a>
+					<cfif findIDs.mime_type is "audio/mpeg3">
+						<br>
+						<audio controls>
+							<source src="#findIDs.media_uri#" type="audio/mp3">
+							Your browser does not support the audio element.
+						</audio>
+						<br><a href="#findIDs.media_uri#" download>download MP3</a>
+					<cfelse>
+						<a href="#findIDs.media_uri#" target="_blank">
+							<img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;">
+						</a>
+					</cfif>
+					
 					<br>
 					<span style='font-size:small'>#findIDs.media_type#&nbsp;(#findIDs.mime_type#)</span>
 					<cfif len(findIDs.display) gt 0>
@@ -73,14 +83,7 @@
 					<cfelse>
 						<br><span style='font-size:small'>unlicensed</span>
 					</cfif>
-					<cfif findIDs.mime_type is "audio/mpeg3">
-						<br>
-						<audio controls>
-							<source src="#findIDs.media_uri#" type="audio/mp3">
-							Your browser does not support the audio element.
-						</audio>
-						<br><a href="#findIDs.media_uri#" download>download MP3</a>
-					</cfif>
+					
 				</td>
 				<td>
 					<cfif coord.recordcount is 1>
