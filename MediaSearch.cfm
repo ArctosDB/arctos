@@ -26,8 +26,12 @@
 });
 </script>
 
+<audio controls>
+  <source src="http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6231_Cicero_26Jun2006_Pmaculatus3.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio> 
 
-<audio src="http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6231_Cicero_26Jun2006_Pmaculatus3.mp3" preload="auto" />
+
 	<!----
 	<script type='text/javascript' language="javascript" src='/includes/media.js'></script>
 	---->
