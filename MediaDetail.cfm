@@ -1,6 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-	<cfset stuffToNotPlay="audio/x-wav">
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			media.media_id,
@@ -57,17 +56,13 @@
 			<cfinvokeargument name="preview_uri" value="#findIDs.preview_uri#">
 			<cfinvokeargument name="media_type" value="#findIDs.media_type#">
 		</cfinvoke>
-		<cfset addThisClass=''>
-		<cfif listfind(stuffToNotPlay,findIDs.mime_type)>
-			<cfset addThisClass="noplay">
-		</cfif>
 		<cfquery name="coord"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select coordinates from media_flat where coordinates is not null and media_id=#media_id#
 		</cfquery>
         <table>
 			<tr>
 				<td align="middle">
-					<a class="#addThisClass#" href="#findIDs.media_uri#" target="_blank">
+					<a href="#findIDs.media_uri#" target="_blank">
 						<img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;">
 					</a>
 					<br>
@@ -81,7 +76,7 @@
 					<cfif findIDs.mime_type is "audio/mpeg3">
 						<br>
 						<audio controls>
-							<source src="#findIDs.media_uri#" type="audio/mpeg">
+							<source src="#findIDs.media_uri#" type="audio/mp3">
 							Your browser does not support the audio element.
 						</audio>
 						<br><a href="#findIDs.media_uri#" download>download MP3</a>
@@ -184,10 +179,6 @@
 									<cfinvokeargument name="preview_uri" value="#preview_uri#">
 									<cfinvokeargument name="media_type" value="#media_type#">
 								</cfinvoke>
-								<cfset addThisClass=''>
-								<cfif listfind(stuffToNotPlay,mime_type)>
-									<cfset addThisClass="noplay">
-								</cfif>
 								<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 									select
 									media_label,
@@ -205,7 +196,7 @@
 									<cfset alt=desc.label_value>
 								</cfif>
 								<div class="one_thumb">
-									<a href="#media_uri#" class="#addThisClass#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
+									<a href="#media_uri#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
 									<p>
 										#media_type# (#mime_type#)
 										<br><a href="/media/#media_id#">Media Details</a>
