@@ -6,7 +6,5 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 <link rel="stylesheet" href="/includes/style.css" />
 <script type="text/javascript">
-    // set up Y-player stuff; include the JS only where necessary
-	var YWPParams={termDetection:"on",theme:"silver"};
     $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd',changeMonth: true, changeYear: true, constrainInput: false });
 </script>

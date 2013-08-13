@@ -1,5 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-<script type="text/javascript" src="http://webplayer.yahooapis.com/player-beta.js"></script>
 <cfoutput>
 	<cfset stuffToNotPlay="audio/x-wav">
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
