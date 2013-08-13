@@ -1331,20 +1331,25 @@
 							<cfset alt=desc.label_value>
 						</cfif>
 		               <div class="one_thumb">
-			               <a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
-							   	<img src="#puri#" alt="#alt#" class="theThumb">
-							</a>
+			               <cfif mime_type is "audio/mp3">
+								<br>
+								<audio controls>
+									<source src="#media_uri#" type="audio/mp3">
+								   	<a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
+							   			<img src="#puri#" alt="#alt#" class="theThumb">
+									</a>
+								</audio> 
+								<br><a href="#findIDs.media_uri#" download>download MP3</a>
+							<cfelse>
+								<a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
+									<img src="#puri#" alt="#alt#" class="theThumb">
+								</a>
+							</cfif>
 		                   	<p>
 								#media_type# (#mime_type#)
 			                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
 								<br>#alt#
-								<cfif mime_type is "audio/mpeg3">
-									<br>
-									<audio controls>
-										<source src="#media_uri#" type="audio/mpeg">
-										Your browser does not support the audio element.
-									</audio> 
-								</cfif>
+								
 							</p>
 						</div>
 					</cfloop>

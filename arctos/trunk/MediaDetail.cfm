@@ -70,7 +70,6 @@
 								<img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;">
 							</a>
 						</audio>
-						<br><a href="#findIDs.media_uri#" download>download MP3</a>
 					<cfelse>
 						<a href="#findIDs.media_uri#" target="_blank">
 							<img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;">
