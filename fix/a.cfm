@@ -20,7 +20,6 @@
 		keyEnabled: true
 	});
 
-	$("#jplayer_inspector").jPlayerInspector({jPlayer:$("#jquery_jplayer_1")});
 });
 
 
