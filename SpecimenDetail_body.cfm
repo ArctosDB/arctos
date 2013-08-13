@@ -1180,13 +1180,6 @@
 											#media_type# (#mime_type#)
 						                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
 											<br>#descr#
-											<cfif mime_type is "audio/mpeg3">
-												<br>
-												<audio controls>
-													<source src="#media_uri#" type="audio/mpeg">
-													Your browser does not support the audio element.
-												</audio> 
-											</cfif>
 										</p>
 									</div>
 								</cfloop>
@@ -1345,6 +1338,13 @@
 								#media_type# (#mime_type#)
 			                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
 								<br>#alt#
+								<cfif mime_type is "audio/mpeg3">
+									<br>
+									<audio controls>
+										<source src="#media_uri#" type="audio/mpeg">
+										Your browser does not support the audio element.
+									</audio> 
+								</cfif>
 							</p>
 						</div>
 					</cfloop>
