@@ -26,7 +26,13 @@
 				<tr>
 					<td>
 						<label for="begYear">Year</label>
-						<input name="begYear" id="begYear" type="text" size="4">
+						<input type="number"
+					       min="1600"
+					       max="2013"
+					       step="1"
+					       value=""
+					       name="begYear" id="begYear">
+						
 					</td>
 					<td>
 						<label for="begMon">Month</label>
