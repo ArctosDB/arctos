@@ -172,9 +172,11 @@ function removeHelpDiv() {
 		<cfset srchTerms=listappend(srchTerms,tt)>
 	</cfloop>
 	<!--- remove standard criteria that kill Oracle... --->
+	<!----
 	<cfif listcontains(srchTerms,"ShowObservations")>
 		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'ShowObservations'))>
 	</cfif>
+	---->
 	<cfif listcontains(srchTerms,"collection_id")>
 		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
 	</cfif>

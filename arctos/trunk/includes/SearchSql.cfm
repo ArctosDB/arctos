@@ -532,11 +532,12 @@
 	<cfset mapurl = "#mapurl#&beg_pbcscan_date=#beg_pbcscan_date#">
 </cfif>
 	
-	
+<!----
 <cfif isdefined("session.ShowObservations") AND session.ShowObservations is false>
 	<cfset mapurl = "#mapurl#&ShowObservations=false">
 	<cfset basQual = "#basQual#  AND lower( #session.flatTableName#.institution_acronym) not like '%obs'" >
 </cfif>
+---->
 <cfif isdefined("edited_by_id") AND len(edited_by_id) gt 0>
 	<cfif basJoin does not contain "CatItemCollObject">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_object CatItemCollObject ON (#session.flatTableName#.collection_object_id = CatItemCollObject.collection_object_id)">
