@@ -2,7 +2,6 @@
 	<div id="_header">
 	    <cfinclude template="/includes/_header.cfm">
 	</div>
-   	<script type="text/javascript" src="http://webplayer.yahooapis.com/player-beta.js"></script>
 	<!----
 	<script type='text/javascript' language="javascript" src='/includes/media.js'></script>
 	---->
