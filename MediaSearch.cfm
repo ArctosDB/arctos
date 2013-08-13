@@ -3,12 +3,27 @@
 	    <cfinclude template="/includes/_header.cfm">
 	</div>
 	
-	<script src="/includes/audiojs/audio.min.js"></script>
+	<script src="/includes/jQuery.jPlayer.2.4.0/jquery.jplayer.min.js"></script>
 	
 	<script>
-  audiojs.events.ready(function() {
-    var as = audiojs.createAll();
-  });
+  $(document).ready(function(){
+
+	$("#jquery_jplayer_1").jPlayer({
+		ready: function (event) {
+			$(this).jPlayer("setMedia", {
+				m4a:"http://www.jplayer.org/audio/m4a/TSP-01-Cro_magnon_man.m4a",
+				oga:"http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg"
+			});
+		},
+		swfPath: "../js",
+		supplied: "m4a, oga",
+		wmode: "window",
+		smoothPlayBar: true,
+		keyEnabled: true
+	});
+
+	$("#jplayer_inspector").jPlayerInspector({jPlayer:$("#jquery_jplayer_1")});
+});
 </script>
 
 
