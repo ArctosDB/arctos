@@ -9,12 +9,11 @@
 	$("#jquery_jplayer_1").jPlayer({
 		ready: function (event) {
 			$(this).jPlayer("setMedia", {
-				m4a:"http://www.jplayer.org/audio/m4a/TSP-01-Cro_magnon_man.m4a",
-				oga:"http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg"
+				mp3:"http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6231_Cicero_26Jun2006_Pmaculatus3.mp3"
 			});
 		},
 		swfPath: "/includes/jQuery.jPlayer.2.4.0/",
-		supplied: "m4a, oga",
+		supplied: "mp3",
 		wmode: "window",
 		smoothPlayBar: true,
 		keyEnabled: true
