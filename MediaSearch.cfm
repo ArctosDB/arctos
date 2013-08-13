@@ -2,39 +2,6 @@
 	<div id="_header">
 	    <cfinclude template="/includes/_header.cfm">
 	</div>
-	
-	<script src="/includes/jQuery.jPlayer.2.4.0/jquery.jplayer.min.js"></script>
-	
-	<script>
-  $(document).ready(function(){
-
-	$("#jquery_jplayer_1").jPlayer({
-		ready: function (event) {
-			$(this).jPlayer("setMedia", {
-				m4a:"http://www.jplayer.org/audio/m4a/TSP-01-Cro_magnon_man.m4a",
-				oga:"http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg"
-			});
-		},
-		swfPath: "../js",
-		supplied: "m4a, oga",
-		wmode: "window",
-		smoothPlayBar: true,
-		keyEnabled: true
-	});
-
-	$("#jplayer_inspector").jPlayerInspector({jPlayer:$("#jquery_jplayer_1")});
-});
-</script>
---------
-<audio controls>
-  <source src="http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6231_Cicero_26Jun2006_Pmaculatus3.mp3" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio> 
---------------
-
-	<!----
-	<script type='text/javascript' language="javascript" src='/includes/media.js'></script>
-	---->
 	<cfif isdefined("url.collection_object_id")>
 	    <cfoutput>
 	    	<cflocation url="MediaSearch.cfm?action=search&relationships=shows cataloged_item&related_primary_key1=#url.collection_object_id#" addtoken="false">
