@@ -13,7 +13,7 @@
 				oga:"http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg"
 			});
 		},
-		swfPath: "../js",
+		swfPath: "/includes/jQuery.jPlayer.2.4.0/",
 		supplied: "m4a, oga",
 		wmode: "window",
 		smoothPlayBar: true,
