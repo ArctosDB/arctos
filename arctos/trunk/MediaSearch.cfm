@@ -339,6 +339,7 @@
 				<br>
 				<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>
 				<cfif mime_type is "audio/mpeg3">
+					<br>
 					<audio controls>
 						<source src="#media_uri#" type="audio/mpeg">
 						Your browser does not support the audio element.
