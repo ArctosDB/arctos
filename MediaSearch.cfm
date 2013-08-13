@@ -332,14 +332,17 @@
 				<cfif mime_type is "audio/mpeg3">
 					<br>
 					<audio controls>
-						<source src="#media_uri#" type="audio/mpeg">
-						<!--- fallback --->
+						<source src="#media_uri#" type="audio/mp3">
+						<!--- fallback: is MP3 but browser can't play it --->
 						<a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
 							<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
 						</a>
-					</audio> 
+					</audio>
+					<br><a href="#media_uri#" download>download MP3</a>
 				<cfelse>
-					
+					<a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
+						<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
+					</a>
 				</cfif>
 				<br>
 				<span style = "font-size:small;">#media_type# (#mime_type#)</span>
