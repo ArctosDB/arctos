@@ -19,7 +19,6 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
 	</cfif>
-	<script type="text/javascript" src="http://webplayer.yahooapis.com/player-beta.js"></script>
 	<script>
 		jQuery(document).ready(function(){
 			getMedia('collecting_event','#collection_object_id#','colEventMedia','2','1');
