@@ -25,10 +25,6 @@ using the <a href="/SpecimenSearch.cfm">standard search form</a>.
 			<input type="reset" name="Reset" value="Clear Form" class="clrBtn">
 		</td>
 		<td valign="top">
-			Show&nbsp;Observations?
-			<input type="checkbox" name="showObservations" id="showObservations" value="1" <cfif #session.showObservations# eq 1> checked="checked" </cfif>>
-		</td>
-		<td valign="top">
 			Tissues?
 			<input type="checkbox" name="is_tissue" id="is_tissue" value="1">
 		</td>
