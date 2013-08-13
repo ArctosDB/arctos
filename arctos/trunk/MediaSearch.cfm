@@ -3,7 +3,7 @@
 	    <cfinclude template="/includes/_header.cfm">
 	</div>
 	
-	<script src="/includes/audiojs/audiojs/audio.min.js"></script>
+	<script src="/includes/audiojs/audio.min.js"></script>
 	
 	<script>
   audiojs.events.ready(function() {
