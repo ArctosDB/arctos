@@ -78,10 +78,10 @@
 					<cfelse>
 						<br><span style='font-size:small'>unlicensed</span>
 					</cfif>
-					<cfif mime_type is "audio/mpeg3">
+					<cfif findIDs.mime_type is "audio/mpeg3">
 						<br>
 						<audio controls>
-							<source src="#media_uri#" type="audio/mpeg">
+							<source src="#findIDs.media_uri#" type="audio/mpeg">
 							Your browser does not support the audio element.
 						</audio> 
 					</cfif>
