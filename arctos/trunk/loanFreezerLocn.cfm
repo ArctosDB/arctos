@@ -26,6 +26,54 @@
 <cfset filterparts=listqualify(filterparts,"'","\")>
 <cfset filterparts=replace(filterparts,"'\'","','","all")>
 
+<cfif isdefined("container_id") and listlen(container_id) gte 1000>
+	This form will only work with 1000 items or less.
+	
+	<p>
+		You can use the form below to filter for part type.
+	</p>
+	<p>
+		If you are seeing this message, the part type filter contains ALL PART TYPES.
+	</p>
+	<p>
+		Part type filter is NOT prefiltered for parts of the specimens you sent. 
+		(The 1000-itme list-length database limitation means that we have no idea what you sent - sorry!)
+	</p>
+	
+	<cfquery name="ctpart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select part_name from ctspecimen_part_name group by part_name order by part_name
+	</cfquery>
+	
+	<form name="f" method="post" action="loanFreezerLocn.cfm">
+		<input type="hidden" name="container_id" value="#container_id#">
+		<input type="hidden" name="transaction_id" value="#transaction_id#">
+		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+		<label for="part1">Filter for part</label>
+		<select name="part1" id="part1">
+			<option value="">no filter</option>
+			<cfloop query="ctpart">
+				<option value="#part_name#" <cfif part1 is part_name> selected="selected"</cfif>>#part_name#</option>
+			</cfloop>
+		</select>
+		OR
+		<select name="part2" id="part2">
+			<option value="">no filter</option>
+			<cfloop query="ctpart">
+				<option value="#part_name#" <cfif part2 is part_name> selected="selected"</cfif>>#part_name#</option>
+			</cfloop>
+		</select>
+		OR
+		<select name="part3" id="part3">
+			<option value="">no filter</option>
+			<cfloop query="ctpart">
+				<option value="#part_name#" <cfif part3 is part_name> selected="selected"</cfif>>#part_name#</option>
+			</cfloop>
+		</select>
+		<input type="submit" value="filter" class="lnkBtn">
+	</form>
+
+
+</cfif>
 
 <cfset sel="select 
 		cat_num,
