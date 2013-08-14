@@ -104,7 +104,29 @@
 	<cfset whr="#whr# AND specimen_part.collection_object_id = loan_item.collection_object_id and
 			loan_item.transaction_id = #transaction_id#">
 <cfelseif len(container_id) gt 0>
-	<cfset whr="#whr# AND coll_obj_cont_hist.container_id in (#container_id#)">
+	<cfif listlen(container_id) lt 1000>
+		<cfset whr="#whr# AND coll_obj_cont_hist.container_id in (#container_id#)">
+	<cfelse>
+		<!---- wonky workaround to Oracle's list limitations ---->
+		<cftry>
+			<cfquery name="rem_my_big_list" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				drop table my_big_list
+			</cfquery>
+			<cfcatch>
+				<br>caught drop
+			</cfcatch>
+		</cftry>
+		<cfquery name="my_big_list" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			create table my_big_list litem number
+		</cfquery>
+		<cfloop list="#container_id#" index="i">
+			<cfquery name="insmy_big_list" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into my_big_list (litem) values (#i#)
+			</cfquery>
+		</cfloop>
+		<cfset whr="#whr# AND coll_obj_cont_hist.container_id in select litem from my_big_list)">
+	</cfif>
+	
 <cfelseif len(collection_object_id) gt 0>
 	<cfset whr="#whr# AND cataloged_item.collection_object_id in (#collection_object_id#)">
 </cfif>
