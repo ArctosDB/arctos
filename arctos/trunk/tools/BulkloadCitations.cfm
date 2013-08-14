@@ -356,11 +356,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		select * from cf_temp_citation where status is null
 	</cfquery>
 	
-	<cfdump var=#data#>
-	
-	<cfabort>
-	
-	
 	<cfloop query="data">
 		<cfset problem="">
 		<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
