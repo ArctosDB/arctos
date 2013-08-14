@@ -192,7 +192,7 @@ function post_to_url(path, params, method) {
 }
 
 function downloadTree () {
-	try {
+	//try {
 		var fatAr = newTree.getAllFatItems().split(",")
 		var leafAr = newTree.getAllLeafs().split(",")
 		var rootsAr = fatAr.concat(leafAr);
@@ -219,9 +219,9 @@ function downloadTree () {
         form.submit();
         
         
-	} catch(err){
-		post(1,'Error: No tree?');
-	}
+	//} catch(err){
+	//	post(1,'Error: No tree?');
+	//}
 }
 
 
