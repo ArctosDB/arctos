@@ -48,7 +48,7 @@
 	    	overwrite="yes"
 	    	destination="#application.webdirectory#/download/captcha.png">
 
-	    <img src="/temp/captcha.png">
+	    <img src="/download/captcha.png">
 	   	<br>
 	    <label for="captcha">Enter the text above</label>
 	    <input type="text" name="captcha" id="captcha" class="reqdClr">
