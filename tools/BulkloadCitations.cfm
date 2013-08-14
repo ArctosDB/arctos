@@ -398,6 +398,10 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<cfinvoke component="component.functions" method="parseTaxonName" returnvariable="tn">
 				<cfinvokeargument name="taxon_name" value="#SCIENTIFIC_NAME#">
 			</cfinvoke>
+			
+			<cfdump var=#tn#>
+			
+			
 			<cfset thisTNID1=tn.taxon_name_id_1>
 			<cfset thisTNID2=tn.taxon_name_id_2>
 			<cfset thisTF=tn.taxa_formula>
