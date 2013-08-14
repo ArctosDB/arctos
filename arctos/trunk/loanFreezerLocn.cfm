@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+	<cfset title="flattened freezer locations">
 	<script src="/includes/sorttable.js"></script>
 	<cfset title="Flatten Parts">
 	<cfoutput>
