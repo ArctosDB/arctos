@@ -124,7 +124,7 @@
 				insert into my_big_list (litem) values (#i#)
 			</cfquery>
 		</cfloop>
-		<cfset whr="#whr# AND coll_obj_cont_hist.container_id in select litem from my_big_list)">
+		<cfset whr="#whr# AND coll_obj_cont_hist.container_id in (select litem from my_big_list)">
 	</cfif>
 	
 <cfelseif len(collection_object_id) gt 0>
