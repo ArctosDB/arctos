@@ -165,7 +165,68 @@ function checkHandler (id){
 	}
 }
 
+
+
+function post_to_url(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+         }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
 function downloadTree () {
+	try {
+		var fatAr = newTree.getAllFatItems().split(",")
+		var leafAr = newTree.getAllLeafs().split(",")
+		var rootsAr = fatAr.concat(leafAr);
+		var cidAr= new Array;
+		for(var i=0;i<rootsAr.length;i++){ 
+			cidAr.push(rootsAr[i]); 
+		}
+		var cutAr=cidAr.slice(1);
+		var cid=cutAr.join(",");
+
+		var form = document.createElement("form");
+	    form.setAttribute("method", "POST");
+	    form.setAttribute("action", "/loanFreezerLocn.cfm");
+	    form.setAttribute("target", "_blank");
+	    
+	    var hf_cid = document.createElement("input");
+	    hf_cid.setAttribute("type", "hidden");
+	    hf_cid.setAttribute("name", "container_id");
+	    container_id.setAttribute("value", "cid");
+
+        form.appendChild(hiddenField);
+        
+        document.body.appendChild(form);
+        form.submit();
+        
+        
+	} catch(err){
+		post(1,'Error: No tree?');
+	}
+}
+
+
+
+function downloadTree__orig () {
 	post(1);
 	try {
 		var fatAr = newTree.getAllFatItems().split(",")
