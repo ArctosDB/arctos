@@ -46,7 +46,7 @@
 	    	height="50"
 	    	text="#captcha#"
 	    	overwrite="yes"
-	    	destination="#application.webdirectory#/temp/captcha.png">
+	    	destination="#application.webdirectory#/download/captcha.png">
 
 	    <img src="/temp/captcha.png">
 	   	<br>
