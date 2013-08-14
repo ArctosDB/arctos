@@ -71,8 +71,10 @@
 		</select>
 		<input type="submit" value="filter" class="lnkBtn">
 	</form>
-
-
+	<p>
+		There's probably a big nasty error below - not trying to suppress it for diagnostic reasons.....
+	</p>
+	<hr>
 </cfif>
 
 <cfset sel="select 
@@ -105,7 +107,14 @@
 	<cfset whr="#whr# AND coll_obj_cont_hist.container_id in (#container_id#)">
 <cfelseif len(collection_object_id) gt 0>
 	<cfset whr="#whr# AND cataloged_item.collection_object_id in (#collection_object_id#)">
-</cfif>		
+</cfif>
+
+<cfif len(filterparts) gt 0>
+
+	<cfset whr="#whr# AND  part_name in (#preservesinglequotes(filterparts)#) ">
+	</cfif>
+	
+	
 <cfset sql="#sel# #frm# #whr#">
 
 #preservesinglequotes(sql)#
@@ -116,9 +125,7 @@
 </cfquery>
 <cfquery name="allCatItems" dbtype="query">
 	select * from allCatItemsRaw
-	<cfif len(filterparts) gt 0>
-		where part_name in (#preservesinglequotes(filterparts)#)
-	</cfif>
+	
 </cfquery>
 <cfquery name="ctpart" dbtype="query">
 	select part_name from allCatItemsRaw group by part_name order by part_name
