@@ -102,7 +102,7 @@
 	<cfset a=1>
 	<cfset fileName = "FreezerLocation_#left(session.sessionKey,10)#.csv">
 	<a href="/download.cfm?file=#fileName#">Download</a>
-	<cfset dlData="cataloged_item,#session.customOtherIdentifier#,part_name,location,disposition">
+	<cfset dlData="guid,#session.customOtherIdentifier#,part_name,location,disposition">
 	<cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#dlData#">
 	<form name="f" method="post" action="loanFreezerLocn.cfm">
 		<input type="hidden" name="container_id" value="#container_id#">
@@ -183,7 +183,7 @@
 				<td>#coll_obj_disposition#</td>
 			</tr>
 		<cfset a=a+1>
-			<cfset oneLine='"#collection# #cat_num#","#CustomID#","#pn#","#posn#","#coll_obj_disposition#"'>
+			<cfset oneLine='"#guid#","#CustomID#","#pn#","#posn#","#coll_obj_disposition#"'>
 			<cfset oneLine=replace(oneLine,"</span>","","all")>
 			<cfset oneLine=replace(oneLine,'<span style="font-weight:bold;">',"","all")>
 			<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
