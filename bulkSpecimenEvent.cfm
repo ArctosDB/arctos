@@ -86,6 +86,10 @@
 <!----------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<script>
+		jQuery.fn.highlight=function(c){function e(b,c){var d=0;if(3==b.nodeType){var a=b.data.toUpperCase().indexOf(c);if(0<=a){d=document.createElement("span");d.className="highlight";a=b.splitText(a);a.splitText(c.length);var f=a.cloneNode(!0);d.appendChild(f);a.parentNode.replaceChild(d,a);d=1}}else if(1==b.nodeType&&b.childNodes&&!/(script|style)/i.test(b.tagName))for(a=0;a<b.childNodes.length;++a)a+=e(b.childNodes[a],c);return d}return this.length&&c&&c.length?this.each(function(){e(this,c.toUpperCase())}): this};jQuery.fn.removeHighlight=function(){return this.find("span.highlight").each(function(){this.parentNode.firstChild.nodeName;with(this.parentNode)replaceChild(this.firstChild,this),normalize()}).end()};
+
+
+
 		function useThisEvent () {
 			$("#collecting_event").val($('#__existingEvent option:selected').html());
 			$("#collecting_event_id").val($('#__existingEvent').val());
@@ -94,8 +98,23 @@
 			$("#collecting_event").val('');
 			$("#collecting_event_id").val('');
 		}
+
+		function hl(txt){
+			$highlight(txt);
+		}
 	</script>
+	<style>
+		.highlight { background-color: yellow }
+	</style>
 	<cfoutput>
+	<span onclick="hl('North America, United States, Alaska, Fairbanks');">hl</span>
+		<span onclick="$('#highlight-plugin').removeHighlight();">remove</span>
+
+	
+	North America, United States, Alaska, Fairbanks
+	
+	
+	
 	<cfset title = "Change Specimen Event">
 	<script src="/includes/sorttable.js"></script>
 	<h2>Bulk-update specimen events</h2>
@@ -267,7 +286,7 @@
 		<label for="habitat">Habitat (leave blank to not update; enter "NULL" to update to null)</label>
 		<input type="text" size="80" name="habitat" id="habitat">
 		<br>
-		<input type="submit" class="savBtn" value="update all specimen events listed below to the values in this form">
+		<input type="submit" class="savBtn" value="update all listed specimen events to the values in this form">
 	</form>
 	</cfoutput>
 </cfif>
