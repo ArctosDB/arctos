@@ -106,9 +106,11 @@
 	<style>
 		.highlight { background-color: yellow }
 	</style>
-	<cfoutput>
+	
 	<span onclick="hl('North America, United States, Alaska, Fairbanks');">hl</span>
 		<span onclick="$('#highlight-plugin').removeHighlight();">remove</span>
+	<cfoutput>
+	
 
 	
 	North America, United States, Alaska, Fairbanks
