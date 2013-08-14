@@ -393,7 +393,8 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<cfset thisPubId=publication_id>
 		</cfif>
 		
-		<cfif USE_EXISTING_ACCEPTED_ID is 1>
+		<cfif USE_EXISTING_ACCEPTED_ID is 0>
+			<!--- creating a new ID ---->
 			<cfinvoke component="component.functions" method="parseTaxonName" returnvariable="tn">
 				<cfinvokeargument name="taxon_name" value="#SCIENTIFIC_NAME#">
 			</cfinvoke>
@@ -448,6 +449,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 					key = #key#
 			</cfquery>
 		<cfelse>
+			<!--- using existing identification ---->
 			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				UPDATE cf_temp_citation SET
 					collection_object_id = #thisColObjId#					
