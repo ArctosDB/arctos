@@ -408,8 +408,11 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<cfset aid3=a.agent_id>
 			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				UPDATE cf_temp_citation SET
-					collection_object_id = #thisColObjId#,
-					publication_id=#thisPubId#
+					collection_object_id = #thisColObjId#
+					<cfif len(thisPubId) gt 0>
+						,publication_id=#thisPubId#
+					</cfif>
+					
 					<cfif len(aid1) gt 0>
 						,agentid1=#aid1#
 					</cfif>

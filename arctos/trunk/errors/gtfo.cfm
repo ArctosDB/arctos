@@ -74,8 +74,6 @@
 			Email is required.
 			<cfabort>
 		</cfif>
-		
-
 		<cfmail subject="BlackList Objection" replyto="#email#" to="#Application.PageProblemEmail#" from="blacklist@#application.fromEmail#" type="html">
 			IP #ipaddress# ( #email# ) had this to say:
 			<p>
