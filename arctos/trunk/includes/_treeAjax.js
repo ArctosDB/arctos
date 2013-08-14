@@ -211,7 +211,7 @@ function downloadTree () {
 	    var hf_cid = document.createElement("input");
 	    hf_cid.setAttribute("type", "hidden");
 	    hf_cid.setAttribute("name", "container_id");
-	    hf_cid.setAttribute("value", "cid");
+	    hf_cid.setAttribute("value", cid);
 
         form.appendChild(hf_cid);
         
