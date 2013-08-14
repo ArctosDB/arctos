@@ -100,7 +100,7 @@
 		}
 
 		function hl(txt){
-			$highlight(txt);
+			$.highlight(txt);
 		}
 	</script>
 	<style>
