@@ -46,6 +46,7 @@
 	    	height="50"
 	    	text="#captcha#"
 	    	overwrite="yes"
+	    	difficulty="high"
 	    	destination="#application.webdirectory#/download/captcha.png">
 
 	    <img src="/download/captcha.png">
