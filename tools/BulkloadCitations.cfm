@@ -440,7 +440,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		<cfelse>
 			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				UPDATE cf_temp_citation SET
-					collection_object_id = #thisColObjId#,
+					collection_object_id = #thisColObjId#					
 					<cfif len(thisPubId) gt 0>
 						,publication_id=#thisPubId#
 					</cfif>
