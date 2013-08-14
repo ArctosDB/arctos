@@ -406,6 +406,8 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			</cfinvoke>
 			<cfset problem = listappend(problem,a.status,";")>
 			<cfset aid3=a.agent_id>
+			
+			<hr>thisPubId: #thisPubId#
 			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				UPDATE cf_temp_citation SET
 					collection_object_id = #thisColObjId#
