@@ -345,7 +345,7 @@
 				<cfloop query="related">				
 					<li>
 						#TAXON_RELATIONSHIP# <a href='/name/#scientific_name#'>#scientific_name#</a>
-						<cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
+						<cfif len(RELATION_AUTHORITY) gt 0>(Authority: #RELATION_AUTHORITY#)</cfif>
 					</li>
 				</cfloop>
 			</ul>
