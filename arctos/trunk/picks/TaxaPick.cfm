@@ -5,7 +5,7 @@
 			<input type="hidden" name="taxonIdFld" value="#taxonIdFld#">
 			<input type="hidden" name="taxonNameFld" value="#taxonNameFld#">
 			<label for="scientific_name">Scientific Name</label>
-			<input type="text" name="scientific_name" id="scientific_name" size="50">
+			<input type="text" name="scientific_name" id="scientific_name" size="50" value="#scientific_name#">
 			<br><input type="submit" class="lnkBtn" value="Search">
 		</form>
 		<cfif len(scientific_name) is 0 or scientific_name is 'undefined'>
