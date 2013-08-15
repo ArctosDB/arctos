@@ -13,6 +13,8 @@
 			<select name="taxaPickPrefs" id="taxaPickPrefs">
 				<option <cfif session.taxaPickPrefs is "anyterm"> selected="selected" </cfif> value="anyterm">Any Term (best performance)</option>
 				<option <cfif session.taxaPickPrefs is "relatedterm"> selected="selected" </cfif> value="relatedterm">Include terms from relationships</option>
+				<option <cfif session.taxaPickPrefs is "mycollections"> selected="selected" </cfif> value="mycollections">Include only terms with classifications preferred by my collections</option>
+			
 			</select>
 			<br><input type="submit" class="lnkBtn" value="Search">
 		</form>
@@ -28,7 +30,27 @@
 					taxon_name
 				where
 					UPPER(scientific_name) LIKE '#ucase(scientific_name)#%'">
-			
+		<cfelseif taxaPickPrefs is "mycollections">
+<cfset sql="select scientific_name,taxon_name_id from (
+            SELECT 
+          taxon_name.scientific_name, 
+          taxon_name.taxon_name_id
+        from 
+          taxon_name,
+          taxon_term,
+          collection,
+          cf_collection,
+          user_role_privs
+        where
+        taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+        taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
+        collection.collection_id=cf_collection.collection_id and
+        cf_collection.portal_name=user_role_privs.granted_role and
+          UPPER(scientific_name) LIKE '%#ucase(scientific_name)#%'
+          ) group by scientific_name,taxon_name_id">
+
+		
+		
 		<cfelseif taxaPickPrefs is "relatedterm">
 			<cfset sql="
 			select * from (
