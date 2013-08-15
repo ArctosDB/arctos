@@ -398,10 +398,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<cfinvoke component="component.functions" method="parseTaxonName" returnvariable="tn">
 				<cfinvokeargument name="taxon_name" value="#SCIENTIFIC_NAME#">
 			</cfinvoke>
-			
-			<cfdump var=#tn#>
-			
-			
 			<cfset thisTNID1=tn.taxon_name_id_1>
 			<cfset thisTNID2=tn.taxon_name_id_2>
 			<cfset thisTF=tn.taxa_formula>
@@ -421,10 +417,6 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			</cfinvoke>
 			<cfset problem = listappend(problem,a.status,";")>
 			<cfset aid3=a.agent_id>
-			
-		
-			
-			
 			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				UPDATE cf_temp_citation SET
 					collection_object_id = #thisColObjId#
