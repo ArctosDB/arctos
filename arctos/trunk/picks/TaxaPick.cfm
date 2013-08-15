@@ -1,16 +1,15 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 	<script>
-	
-function settaxaPickPrefs (v) {
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "setSessionTaxaPickPrefs",
-			val : v,
-			returnformat : "json",
-			queryformat : 'column'
+		function settaxaPickPrefs (v) {
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "setSessionTaxaPickPrefs",
+					val : v,
+					returnformat : "json",
+					queryformat : 'column'
+				}
+			);
 		}
-	);
-}
 	</script>
 	<cfoutput>
 		<cfif not isdefined("session.taxaPickPrefs")>
@@ -28,6 +27,7 @@ function settaxaPickPrefs (v) {
 				<option <cfif session.taxaPickPrefs is "anyterm"> selected="selected" </cfif> value="anyterm">Any Term (best performance)</option>
 				<option <cfif session.taxaPickPrefs is "relatedterm"> selected="selected" </cfif> value="relatedterm">Include terms from relationships</option>
 				<option <cfif session.taxaPickPrefs is "mycollections"> selected="selected" </cfif> value="mycollections">Include only terms with classifications preferred by my collections</option>
+				<option <cfif session.taxaPickPrefs is "mycollections"> selected="selected" </cfif> value="usedbymycollections">Include only terms used by my collections</option>
 			</select>
 			<br><input type="submit" class="lnkBtn" value="Search">
 		</form>
@@ -43,27 +43,42 @@ function settaxaPickPrefs (v) {
 					taxon_name
 				where
 					UPPER(scientific_name) LIKE '#ucase(scientific_name)#%'">
-		<cfelseif taxaPickPrefs is "mycollections">
-<cfset sql="select scientific_name,taxon_name_id from (
-            SELECT 
-          taxon_name.scientific_name, 
-          taxon_name.taxon_name_id
-        from 
-          taxon_name,
-          taxon_term,
-          collection,
-          cf_collection,
-          user_role_privs
-        where
-        taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-        taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
-        collection.collection_id=cf_collection.collection_id and
-        cf_collection.portal_name=user_role_privs.granted_role and
-          UPPER(scientific_name) LIKE '%#ucase(scientific_name)#%'
-          ) group by scientific_name,taxon_name_id">
-
-		
-		
+		<cfelseif taxaPickPrefs is "usedbymycollections">
+			<!--- VPD limits users to seeing only their collections, so just make the joins --->
+			<cfset sql="select scientific_name,taxon_name_id from (
+	            SELECT 
+	          taxon_name.scientific_name, 
+	          taxon_name.taxon_name_id
+	        from 
+	          taxon_name,
+	          collection,
+	          cf_collection,
+	          user_role_privs
+	        where
+	        taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+	        taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
+	        collection.collection_id=cf_collection.collection_id and
+	        cf_collection.portal_name=user_role_privs.granted_role and
+	          UPPER(scientific_name) LIKE '%#ucase(scientific_name)#%'
+	          ) group by scientific_name,taxon_name_id">
+	          
+	      <cfelseif taxaPickPrefs is "mycollections">
+			<!--- VPD limits users to seeing only their collections, so just make the joins --->
+			<cfset sql="select scientific_name,taxon_name_id from (
+	            SELECT 
+	          taxon_name.scientific_name, 
+	          taxon_name.taxon_name_id
+	        from 
+	          taxon_name,
+	          identification_taxonomy,
+	          identification,
+	          cataloged_item
+	        where
+	        taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+	        identification_taxonomy.identification_id=identification.identification_id and
+	        identification.collection_object_id=cataloged_item.collection_object_id and
+	        UPPER(scientific_name) LIKE '%#ucase(scientific_name)#%'
+	        ) group by scientific_name,taxon_name_id">
 		<cfelseif taxaPickPrefs is "relatedterm">
 			<cfset sql="
 			select * from (
@@ -105,7 +120,6 @@ function settaxaPickPrefs (v) {
 				taxon_name_id
 			ORDER BY scientific_name
 			">
-			
 		</cfif>
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
