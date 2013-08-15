@@ -20,7 +20,7 @@
 			<input type="hidden" name="formName" value="#formName#">
 			<input type="hidden" name="taxonIdFld" value="#taxonIdFld#">
 			<input type="hidden" name="taxonNameFld" value="#taxonNameFld#">
-			<label for="scientific_name">Scientific Name</label>
+			<label for="scientific_name">Scientific Name (STARTS WITH)</label>
 			<input type="text" name="scientific_name" id="scientific_name" size="50" value="#scientific_name#">
 			<label for="taxaPickPrefs">Filter Results by...</label>
 			<select name="taxaPickPrefs" id="taxaPickPrefs" onchange="settaxaPickPrefs(this.value);">
@@ -59,7 +59,7 @@
 					taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
 					identification_taxonomy.identification_id=identification.identification_id and
 					identification.collection_object_id=cataloged_item.collection_object_id and
-					UPPER(taxon_name.scientific_name) LIKE '%#ucase(scientific_name)#%'
+					UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
 				) 
 				group by 
 					scientific_name,
@@ -79,7 +79,7 @@
 				where
 					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 					taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
-			  		UPPER(taxon_name.scientific_name) LIKE '%#ucase(scientific_name)#%'
+			  		UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
 			  	) 
 			  	group by 
 			  		scientific_name, 
