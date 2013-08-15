@@ -16,6 +16,7 @@ function settaxaPickPrefs (v) {
 		<cfif not isdefined("session.taxaPickPrefs")>
 			<cfset session.taxaPickPrefs="anyterm">
 		</cfif>
+		<cfset taxaPickPrefs=session.taxaPickPrefs>
 		<form name="s" method="post" action="TaxaPick.cfm">
 			<input type="hidden" name="formName" value="#formName#">
 			<input type="hidden" name="taxonIdFld" value="#taxonIdFld#">
