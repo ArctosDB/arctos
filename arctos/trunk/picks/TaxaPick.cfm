@@ -1,6 +1,5 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 	<cfoutput>
-	<cfif len(scientific_name) is 0 or scientific_name is 'undefined'>
 		<form name="s" method="post" action="TaxaPick.cfm">
 			<input type="hidden" name="formName" value="#formName#">
 			<input type="hidden" name="taxonIdFld" value="#taxonIdFld#">
@@ -9,9 +8,9 @@
 			<input type="text" name="scientific_name" id="scientific_name" size="50">
 			<br><input type="submit" class="lnkBtn" value="Search">
 		</form>
-	<cfif len(scientific_name) is 0 or scientific_name is 'undefined'>
-		<cfabort>
-	</cfif>
+		<cfif len(scientific_name) is 0 or scientific_name is 'undefined'>
+			<cfabort>
+		</cfif>
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from (
 				SELECT 
