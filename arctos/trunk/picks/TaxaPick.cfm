@@ -27,7 +27,7 @@
 				<option <cfif session.taxaPickPrefs is "anyterm"> selected="selected" </cfif> value="anyterm">Any Term (best performance)</option>
 				<option <cfif session.taxaPickPrefs is "relatedterm"> selected="selected" </cfif> value="relatedterm">Include terms from relationships</option>
 				<option <cfif session.taxaPickPrefs is "mycollections"> selected="selected" </cfif> value="mycollections">Include only terms with classifications preferred by my collections</option>
-				<option <cfif session.taxaPickPrefs is "mycollections"> selected="selected" </cfif> value="usedbymycollections">Include only terms used by my collections</option>
+				<option <cfif session.taxaPickPrefs is "usedbymycollections"> selected="selected" </cfif> value="usedbymycollections">Include only terms used by my collections</option>
 			</select>
 			<br><input type="submit" class="lnkBtn" value="Search">
 		</form>
