@@ -3241,7 +3241,15 @@
 	</cftry>
 	</cfoutput>
 </cffunction>
-
+<!------------------------------------------------------------------>
+<cffunction name="setSessionTaxaPickPrefs" access="remote">
+	<cfargument name="val" type="string" required="no">
+	<cfquery name="up" datasource="cf_dbuser">
+		UPDATE cf_users SET taxaPickPrefs = '#val#' WHERE username = '#session.username#'
+	</cfquery>
+	<cfset session.taxaPickPrefs = val>
+	<cfreturn>
+</cffunction>
 <!------------------------------------------------------------------>
 <cffunction name="setSessionCustomID" access="remote">
 	<cfargument name="val" type="string" required="no">
