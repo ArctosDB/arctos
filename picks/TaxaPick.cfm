@@ -1,17 +1,36 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 	<cfoutput>
+		<cfif not isdefined("session.taxaPickPrefs")>
+			<cfset session.taxaPickPrefs="anyterm">
+		</cfif>
 		<form name="s" method="post" action="TaxaPick.cfm">
 			<input type="hidden" name="formName" value="#formName#">
 			<input type="hidden" name="taxonIdFld" value="#taxonIdFld#">
 			<input type="hidden" name="taxonNameFld" value="#taxonNameFld#">
 			<label for="scientific_name">Scientific Name</label>
 			<input type="text" name="scientific_name" id="scientific_name" size="50" value="#scientific_name#">
+			<label for="taxaPickPrefs">Filter Results by...</label>
+			<select name="taxaPickPrefs" id="taxaPickPrefs">
+				<option <cfif session.taxaPickPrefs is "anyterm"> selected="selected" </cfif> value="anyterm">Any Term (best performance)</option>
+				<option <cfif session.taxaPickPrefs is "relatedterm"> selected="selected" </cfif> value="relatedterm">Include terms from relationships</option>
+			</select>
 			<br><input type="submit" class="lnkBtn" value="Search">
 		</form>
 		<cfif len(scientific_name) is 0 or scientific_name is 'undefined'>
 			<cfabort>
 		</cfif>
-		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		
+		<cfif session.taxaPickPrefs is "anyterm">
+			<cfset sql="SELECT 
+					scientific_name, 
+					taxon_name_id
+				from 
+					taxon_name
+				where
+					UPPER(scientific_name) LIKE '#ucase(scientific_name)#%'">
+			
+		<cfelseif session.taxaPickPrefs is "relatedterm">
+			<cfset sql="
 			select * from (
 				SELECT 
 					scientific_name, 
@@ -50,9 +69,14 @@
 				scientific_name,
 				taxon_name_id
 			ORDER BY scientific_name
+			">
+			
+		</cfif>
+		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			#preservesinglequotesa(sql)#
 		</cfquery>
 	</cfoutput>
-	<cfif #getTaxa.recordcount# is 1>
+	<cfif getTaxa.recordcount is 1>
 	<cfoutput>
 		<script>
 			opener.document.#formName#.#taxonIdFld#.value='#getTaxa.taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#getTaxa.scientific_name#';self.close();
