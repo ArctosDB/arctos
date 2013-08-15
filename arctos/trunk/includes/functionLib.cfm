@@ -267,7 +267,7 @@
 		<cfset session.roles=listappend(session.roles,"public")>
 		<cfset session.last_login = "#getPrefs.last_login#">
 		<cfset session.displayrows = "#getPrefs.displayRows#">
-		<cfset session.showObservations = "#getPrefs.showObservations#">
+		<cfset session.taxaPickPrefs = getPrefs.taxaPickPrefs>
 		<cfset session.resultcolumnlist = "#getPrefs.resultcolumnlist#">
 		<cfif len(getPrefs.fancyCOID) gt 0>
 			<cfset session.fancyCOID = getPrefs.fancyCOID>

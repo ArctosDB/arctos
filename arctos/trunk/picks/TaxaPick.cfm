@@ -1,4 +1,17 @@
 <cfinclude template="../includes/_pickHeader.cfm">
+	<script>
+	
+function settaxaPickPrefs (v) {
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "setSessionTaxaPickPrefs",
+			val : v,
+			returnformat : "json",
+			queryformat : 'column'
+		}
+	);
+}
+	</script>
 	<cfoutput>
 		<cfif not isdefined("session.taxaPickPrefs")>
 			<cfset session.taxaPickPrefs="anyterm">
@@ -10,11 +23,10 @@
 			<label for="scientific_name">Scientific Name</label>
 			<input type="text" name="scientific_name" id="scientific_name" size="50" value="#scientific_name#">
 			<label for="taxaPickPrefs">Filter Results by...</label>
-			<select name="taxaPickPrefs" id="taxaPickPrefs">
+			<select name="taxaPickPrefs" id="taxaPickPrefs" onchange="settaxaPickPrefs(this.value);">
 				<option <cfif session.taxaPickPrefs is "anyterm"> selected="selected" </cfif> value="anyterm">Any Term (best performance)</option>
 				<option <cfif session.taxaPickPrefs is "relatedterm"> selected="selected" </cfif> value="relatedterm">Include terms from relationships</option>
 				<option <cfif session.taxaPickPrefs is "mycollections"> selected="selected" </cfif> value="mycollections">Include only terms with classifications preferred by my collections</option>
-			
 			</select>
 			<br><input type="submit" class="lnkBtn" value="Search">
 		</form>
