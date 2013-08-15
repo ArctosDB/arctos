@@ -132,7 +132,6 @@
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
-		<cfdump var=#getTaxa#>
 	</cfoutput>
 	<cfif getTaxa.recordcount is 1>
 	<cfoutput>
