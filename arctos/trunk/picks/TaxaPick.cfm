@@ -20,7 +20,7 @@
 			<cfabort>
 		</cfif>
 		
-		<cfif session.taxaPickPrefs is "anyterm">
+		<cfif taxaPickPrefs is "anyterm">
 			<cfset sql="SELECT 
 					scientific_name, 
 					taxon_name_id
@@ -29,7 +29,7 @@
 				where
 					UPPER(scientific_name) LIKE '#ucase(scientific_name)#%'">
 			
-		<cfelseif session.taxaPickPrefs is "relatedterm">
+		<cfelseif taxaPickPrefs is "relatedterm">
 			<cfset sql="
 			select * from (
 				SELECT 
@@ -75,6 +75,7 @@
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
+		<cfdump var=#getTaxa#>
 	</cfoutput>
 	<cfif getTaxa.recordcount is 1>
 	<cfoutput>
