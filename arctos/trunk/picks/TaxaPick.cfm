@@ -34,59 +34,67 @@
 		<cfif len(scientific_name) is 0 or scientific_name is 'undefined'>
 			<cfabort>
 		</cfif>
-		
 		<cfif taxaPickPrefs is "anyterm">
 			<cfset sql="SELECT 
-					scientific_name, 
-					taxon_name_id
-				from 
-					taxon_name
-				where
-					UPPER(scientific_name) LIKE '#ucase(scientific_name)#%'">
+				scientific_name, 
+				taxon_name_id
+			from 
+				taxon_name
+			where
+				UPPER(scientific_name) LIKE '#ucase(scientific_name)#%'
+			order by
+			  		scientific_name">
 		<cfelseif taxaPickPrefs is "usedbymycollections">
 			<!--- VPD limits users to seeing only their collections, so just make the joins --->
 			<cfset sql="select scientific_name,taxon_name_id from (
-	            SELECT 
-	          taxon_name.scientific_name, 
-	          taxon_name.taxon_name_id
-	        from 
-	          taxon_name,
-	          identification_taxonomy,
-	          identification,
-	          cataloged_item
-	        where
-	        taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
-	        identification_taxonomy.identification_id=identification.identification_id and
-	        identification.collection_object_id=cataloged_item.collection_object_id and
-	        UPPER(scientific_name) LIKE '%#ucase(scientific_name)#%'
-	        ) group by scientific_name,taxon_name_id">
-	      <cfelseif taxaPickPrefs is "mycollections">
+				SELECT 
+					taxon_name.scientific_name, 
+					taxon_name.taxon_name_id
+				from 
+					taxon_name,
+					identification_taxonomy,
+					identification,
+					cataloged_item
+				where
+					taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+					identification_taxonomy.identification_id=identification.identification_id and
+					identification.collection_object_id=cataloged_item.collection_object_id and
+					UPPER(taxon_name.scientific_name) LIKE '%#ucase(scientific_name)#%'
+				) 
+				group by 
+					scientific_name,
+					taxon_name_id
+				order by
+			  		scientific_name">
+		<cfelseif taxaPickPrefs is "mycollections">
 			<!--- VPD limits users to seeing only their collections, so just make the joins --->
 			<cfset sql="select scientific_name,taxon_name_id from (
-	            SELECT 
-	          taxon_name.scientific_name, 
-	          taxon_name.taxon_name_id
-	        from 
-	          taxon_name,
-	          taxon_term,
-	          collection
-	        where
-	        taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-	        taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
-	          UPPER(taxon_name.scientific_name) LIKE '%#ucase(scientific_name)#%'
-	          ) group by taxon_name.scientific_name, 
-	          taxon_name.taxon_name_id">
-	          
+				SELECT 
+			 		taxon_name.scientific_name, 
+			  		taxon_name.taxon_name_id
+				from 
+			  		taxon_name,
+			  		taxon_term,
+			  		collection
+				where
+					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+					taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
+			  		UPPER(taxon_name.scientific_name) LIKE '%#ucase(scientific_name)#%'
+			  	) 
+			  	group by 
+			  		scientific_name, 
+			  		taxon_name_id
+			  	order by
+			  		scientific_name">
 		<cfelseif taxaPickPrefs is "relatedterm">
-			<cfset sql="
-			select * from (
+			<cfset sql="select * from (
 				SELECT 
 					scientific_name, 
 					taxon_name_id
 				from 
 					taxon_name
 				where
-					UPPER(scientific_name) LIKE '#ucase(scientific_name)#%'
+					UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
 				UNION
 				SELECT 
 					a.scientific_name, 
@@ -112,12 +120,14 @@
 					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
 					UPPER(a.scientific_name) LIKE '#ucase(scientific_name)#%'
 			)
-			where taxon_name_id is not null
-			group by 
+			where 
+				taxon_name_id is not null
+			group by
 				scientific_name,
 				taxon_name_id
-			ORDER BY scientific_name
-			">
+			ORDER BY 
+				scientific_name
+		">
 		</cfif>
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
