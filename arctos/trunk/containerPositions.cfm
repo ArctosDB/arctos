@@ -93,7 +93,7 @@
 		<cfset goodPositionType = "position">
 		<cfset numberRows = 9>
 		<cfset numberColumns = 9>
-	<cfelseif aBox.number_positions is 81 AND aBox.container_type is "freezer box">
+	<cfelseif aBox.number_positions is 25 AND aBox.container_type is "freezer box">
 		<cfset acceptableChildContainerType="cryovial">
 		<cfset goodPositionType = "position">
 		<cfset numberRows = 5>
@@ -114,7 +114,13 @@
 		<cfset numberRows = 50>
 		<cfset numberColumns = 2>
 		<cfset taborder="vertical">
+	<cfelseif (aBox.container_type is "freezer box" or aBox.container_type is "freezer" or aBox.container_type is "slide box")>
+		<!--- right kind of box, no positions - create it ---->
+		
+		
 	<cfelse>
+		<!--- this form can do nothing useful ---->
+	
 		<div class="error">
 			This application won't do what you want to do.
 			<ul>
