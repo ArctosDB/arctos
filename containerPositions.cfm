@@ -79,7 +79,6 @@
 	<cfquery name="aBox" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from container where container_id=#container_id#
 	</cfquery>
-	<cfdump var=#aBox#>
 	<!--- default is....---->
 	<cfset taborder="horizontal">
 	<!---- figure out what they're trying to do and set some variables ---->
