@@ -124,7 +124,7 @@
 		<div class="error">
 			This application won't do what you want to do.
 			<ul>
-				<li>You must have a container with positons.</li>
+				<li>You must have a container with positons. (Edit Container, set number of positions.)</li>
 				<li>Position labels must be numeric</li>
 				<li>Position labels must be less than the number of positions in the box.</li>
 			</ul>
@@ -380,6 +380,11 @@
 			<cfset width = 14>
 			<cfset height = 80>
 			<cfset length = 14>
+		<cfelseif #number_positions# is 25 AND #container_type# is "freezer box">
+			<cfset position_label = "position">
+			<cfset width = 1.2>
+			<cfset length = 1.2>
+			<cfset height = 4.9>
 		<cfelseif #number_positions# is 81 AND #container_type# is "freezer box">
 			<cfset position_label = "position">
 			<cfset width = 1.2>
