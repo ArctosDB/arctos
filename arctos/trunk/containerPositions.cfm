@@ -123,9 +123,8 @@
 				<li>Position labels must be less than the number of positions in the box.</li>
 			</ul>
 			<p>
-			If you have that and you're still getting this error, submit a <a href="/contact.cfm">contact us</a>.
+			If you have that and you're still getting this error, <a href="/contact.cfm">contact us</a>.
 		</div>
-		<cfabort>
 	</cfif>
 	<!---global--->
 	<!---- see is positions are used ---->
