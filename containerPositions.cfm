@@ -92,6 +92,11 @@
 		<cfset goodPositionType = "position">
 		<cfset numberRows = 9>
 		<cfset numberColumns = 9>
+	<cfelseif aBox.number_positions is 81 AND aBox.container_type is "freezer box">
+		<cfset acceptableChildContainerType="cryovial">
+		<cfset goodPositionType = "position">
+		<cfset numberRows = 5>
+		<cfset numberColumns = 5>
 	<cfelseif aBox.number_positions is 48 AND aBox.container_type is "freezer">
 		<cfset acceptableChildContainerType="freezer rack">
 		<cfset goodPositionType = "position">

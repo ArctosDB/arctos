@@ -15,7 +15,7 @@ It is obsolete once it's run once.
 		pipe-delimited list of things to completely ignore 
 		
 		Arctos: Is locally-managed taxonomy that we send to GN; picking it back up would 
-			cause a black hold and could spell the end of the universe.
+			cause a black hole and could spell the end of the universe.
 			Or possibly some slight confusion. 
 	--->
 	<cfset sourcesToIgnore="Arctos">
@@ -111,7 +111,12 @@ It is obsolete once it's run once.
 				) where rownum<2001
 			</cfquery>
 		</cfif>
-	
+		<cfif ids.recordcount is 0>
+			<cfquery name="ids" datasource="uam_god">
+				select taxon_name_id from taxonomy where taxon_name_id not in (select taxon_name_id from taxon_name) 
+				and rownum<2001
+			</cfquery>
+		</cfif>
 	
 		
 	
