@@ -113,23 +113,32 @@
 		<cfset numberRows = 50>
 		<cfset numberColumns = 2>
 		<cfset taborder="vertical">
-	<cfelseif (aBox.container_type is "freezer box" or aBox.container_type is "freezer" or aBox.container_type is "slide box")>
-		<!--- right kind of box, no positions - create it ---->
-		
-		
 	<cfelse>
 		<!--- this form can do nothing useful ---->
-	
 		<div class="error">
 			This application won't do what you want to do.
+			
+			<p>
+				You must have a container with positons. (Edit Container, set number of positions.)
+			</p>
+			What this form will scan into or create positions for:
+			
+			
 			<ul>
-				<li>You must have a container with positons. (Edit Container, set number of positions.)</li>
-				<li>Position labels must be numeric</li>
-				<li>Position labels must be less than the number of positions in the box.</li>
+				<li>freezer box - 100 positions - 10 rows, 10 columns, holds <strong>cryovial</strong></li>
+				<li>freezer box - 81 positions - 9 rows, 9 columns, holds <strong>cryovial</strong></li>
+				<li>freezer box - 25 positions - 5 rows, 5 columns, holds <strong>cryovial</strong></li>
+				<li>freezer - 48 positions - 12 rows, 4 columns, holds <strong>freezer rack</strong></li>
+				<li>freezer - 33 positions - 11 rows, 3 columns, holds <strong>freezer rack</strong></li>
+				<li>slide box - 100 positions - 50 rows, 2 columns, holds <strong>slide</strong></li>
 			</ul>
+			
+			
 			<p>
 			If you have that and you're still getting this error, <a href="/contact.cfm">contact us</a>.
+			</p>
 		</div>
+		<cfabort>
 	</cfif>
 	<!---global--->
 	<!---- see is positions are used ---->

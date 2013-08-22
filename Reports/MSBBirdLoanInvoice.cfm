@@ -191,7 +191,6 @@ website: http://msb.unm.edu<br>
 <cfif #Action# is "itemList">
 <cfoutput>
 <cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-
 select 
 		cat_num, 
 		cataloged_item.collection_object_id,
@@ -208,19 +207,7 @@ select
 		 loan_number,
 		 spec_locality,
 		 higher_geog,
-		 orig_lat_long_units,
-		 lat_deg, 
-		 lat_min,
-		 lat_sec,
-		 long_deg,
-		 long_min,
-		 long_sec,
-		 dec_lat_min,
-		 dec_long_min,
-		 lat_dir,
-		 long_dir,
-		 dec_lat,
-		 dec_long,
+		 verbatim_coordinates,
 		 max_error_distance,
 		 max_error_units,
 		 concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
@@ -237,8 +224,8 @@ select
 		collecting_event,
 		locality,
 		geog_auth_rec,
-		accepted_lat_long,
-		collection
+		collection,
+		specimen_event
 	WHERE
 		loan_item.collection_object_id = specimen_part.collection_object_id AND
 		loan.transaction_id = loan_item.transaction_id AND
@@ -249,7 +236,8 @@ select
 		encumbrance.encumbering_agent_id = agent_name.agent_id (+) AND
 		cataloged_item.collection_object_id = identification.collection_object_id AND
 		identification.accepted_id_fg = 1 AND
-		cataloged_item.collecting_event_id = collecting_event.collecting_event_id AND
+		cataloged_item.collection_object_id=specimen_event.collection_object_id and
+		specimen_event.collecting_event_id= collecting_event.collecting_event_id AND
 		cataloged_item.collection_id = collection.collection_id and
 		collecting_event.locality_id = locality.locality_id AND
 		locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND
@@ -354,25 +342,8 @@ select
 		<td>
 			#higher_geog#. <br>#spec_locality#
 			<br>
-			<cfif #orig_lat_long_units# is "deg. min. sec.">
-				#lat_deg#<sup>0</sup> 
-				#lat_min#<sup>'</sup> 
-				#lat_sec#<sup>''</sup> 
-				#lat_dir# 
-				#long_deg#<sup>0</sup> 
-				#long_min#<sup>'</sup>
-				#long_sec#<sup>''</sup>
-				#long_dir# 
-				&##177; #max_error_distance# #max_error_units#
-				<cfelseif #orig_lat_long_units# is "decimal degrees">
-					#dec_lat# #dec_long# &##177; #max_error_distance# #max_error_units#
-				<cfelseif #orig_lat_long_units# is "degrees dec. minutes">
-					#lat_deg#<sup>0</sup> 
-					#dec_lat_min#<sup>'</sup> 
-					#lat_dir# 
-					#long_deg#<sup>0</sup> 
-					#dec_long_min#<sup>'</sup>
-					#long_dir# &##177; #max_error_distance# #max_error_units#
+			<cfif len(verbatim_coordinates) gt 0>
+				#verbatim_coordinates# &##177; #max_error_distance# #max_error_units#
 				<cfelse>
 					Not georeferenced.
 			</cfif>
