@@ -589,7 +589,7 @@
 	<cfSet basQual = " #basQual# AND srchColl.agent_id in (
 		select agent_id from agent_name where UPPER(agent_name) LIKE '%#UCASE(escapeQuotes(coll))#%'
 		union
-		select agent_name,GROUP_AGENT_ID from group_member,agent_name where group_member.MEMBER_AGENT_ID=agent_name.agent_id and UPPER(agent_name) LIKE  '%#UCASE(escapeQuotes(coll))#%'
+		select GROUP_AGENT_ID from group_member,agent_name where group_member.MEMBER_AGENT_ID=agent_name.agent_id and UPPER(agent_name) LIKE  '%#UCASE(escapeQuotes(coll))#%'
 		) ">
 	<cfif isdefined("coll_role") and len(coll_role) gt 0>
 		<cfset mapurl = "#mapurl#&coll_role=#coll_role#">
