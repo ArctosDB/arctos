@@ -581,27 +581,30 @@
 	<cfset mapurl = "#mapurl#&collection_cde=#collection_cde#">
 </cfif>
 <cfif isdefined("coll") AND len(coll) gt 0>
-	<cfif not isdefined("coll_role") or len(coll_role) is 0>
-		<cfset coll_role="c">
+	<cfif basJoin does not contain " srchColl ">
+		<cfset basJoin = " #basJoin# INNER JOIN collector ON
+			(#session.flatTableName#.collection_object_id = collector.collection_object_id)
+			INNER JOIN agent_name srchColl ON (collector.agent_id = srchColl.agent_id)">
 	</cfif>
-	<cfif coll_role is "p">
-		<cfSet basQual = " #basQual# AND UPPER(#session.flatTableName#.PREPARATORS) LIKE '%#UCASE(escapeQuotes(coll))#%'">
-	<cfelseif coll_role is "c">
-		<cfSet basQual = " #basQual# AND UPPER(#session.flatTableName#.COLLECTORS) LIKE '%#UCASE(escapeQuotes(coll))#%'">
-	<cfelse>
-		<cfSet basQual = " #basQual# AND (UPPER(#session.flatTableName#.PREPARATORS) LIKE '%#UCASE(escapeQuotes(coll))#%' OR
-			UPPER(#session.flatTableName#.COLLECTORS) LIKE '%#UCASE(escapeQuotes(coll))#%')">
+	<cfSet basQual = " #basQual# AND UPPER(srchColl.agent_name) LIKE '%#UCASE(escapeQuotes(coll))#%'">
+	<cfif isdefined("coll_role") and len(coll_role) gt 0>
+		<cfset mapurl = "#mapurl#&coll_role=#coll_role#">
+		<cfSet basQual = " #basQual# AND collector.collector_role='#coll_role#'">
 	</cfif>
 	<cfset mapurl = "#mapurl#&coll=#coll#">
-	<cfset mapurl = "#mapurl#&coll_role=#coll_role#">
 </cfif>
 <cfif isDefined ("notCollector") and len(notCollector) gt 0>
 	<cfset mapurl = "#mapurl#&notCollector=#notCollector#">
-	<cfSet basQual = " #basQual# AND UPPER(#session.flatTableName#.COLLECTORS) NOT LIKE '%#UCASE(notCollector)#%'">
+	<cfif basJoin does not contain " srchColl ">
+		<cfset basJoin = " #basJoin# INNER JOIN collector ON
+			(#session.flatTableName#.collection_object_id = collector.collection_object_id)
+			INNER JOIN agent_name srchColl ON (collector.agent_id = srchColl.agent_id)">
+	</cfif>
+	<cfSet basQual = " #basQual# AND UPPER(srchColl.agent_name) NOT LIKE '%#UCASE(notCollector)#%'">
 </cfif>
 <cfif isdefined("collector_agent_id") AND len(collector_agent_id) gt 0>
 	<cfset mapurl = "#mapurl#&collector_agent_id=#collector_agent_id#">
-	<cfif basJoin does not contain "srchColl">
+	<cfif basJoin does not contain " srchColl ">
 		<cfset basJoin = " #basJoin# INNER JOIN collector ON
 			(#session.flatTableName#.collection_object_id = collector.collection_object_id)
 			INNER JOIN agent_name srchColl ON (collector.agent_id = srchColl.agent_id)">
