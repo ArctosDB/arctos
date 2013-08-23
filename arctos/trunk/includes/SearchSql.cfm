@@ -586,12 +586,17 @@
 			(#session.flatTableName#.collection_object_id = collector.collection_object_id)
 			INNER JOIN agent_name srchColl ON (collector.agent_id = srchColl.agent_id)">
 	</cfif>
-	<cfSet basQual = " #basQual# AND UPPER(srchColl.agent_name) LIKE '%#UCASE(escapeQuotes(coll))#%'">
+	<cfSet basQual = " #basQual# AND srchColl.agent_id in (
+		select agent_id from agent_name where UPPER(agent_name) LIKE '%#UCASE(escapeQuotes(coll))#%'
+		union
+		select agent_name,GROUP_AGENT_ID from group_member,agent_name where group_member.MEMBER_AGENT_ID=agent_name.agent_id and UPPER(agent_name) LIKE  '%#UCASE(escapeQuotes(coll))#%'
+		) ">
 	<cfif isdefined("coll_role") and len(coll_role) gt 0>
 		<cfset mapurl = "#mapurl#&coll_role=#coll_role#">
 		<cfSet basQual = " #basQual# AND collector.collector_role='#coll_role#'">
 	</cfif>
 	<cfset mapurl = "#mapurl#&coll=#coll#">
+
 </cfif>
 <cfif isDefined ("notCollector") and len(notCollector) gt 0>
 	<cfset mapurl = "#mapurl#&notCollector=#notCollector#">
