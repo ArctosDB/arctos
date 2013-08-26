@@ -59,7 +59,6 @@ Scope (check one or more)
 
 
 <br>Term Rank (* prefix = NOT available as collection's taxonomy)
-<cfoutput>
 <br>
 <select>
 	<option>ignore this</option>
