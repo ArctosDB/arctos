@@ -12,6 +12,10 @@
 <cfset basQual = "">
 <cfset mapurl="">
 <cfinclude template="includes/SearchSql.cfm">
+
+<cfdump var=#mapURL#>
+
+
 <!--- wrap everything up in a string --->
 <cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by">
 
