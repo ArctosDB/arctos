@@ -1,4 +1,4 @@
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select 
 					source,
 					PREFERRED_TAXONOMY_SOURCE
@@ -28,7 +28,7 @@ Scope (check one or more)
 <br>Current Identification <input type="checkbox" checked="checked">
 <br>Previous Identification <input type="checkbox">
 <br>Collection's Taxonomy<input type="checkbox">
-<br>Related and webservice taxonomy (* prefix means preferred by at least one collection)
+<br>Related and webservice taxonomy (* prefix = preferred by at least one collection)
 <cfoutput>
 <br>
 <select>
