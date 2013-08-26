@@ -42,23 +42,22 @@
 	</select>
 <label>Search Scope</label>
 <select multiple size="5">
-	<option selected>Current Identification</option>
-	<option>Previous Identification</option>
-	<option>Collection Taxonomy</option>
+	<option selected>Current Scientific Name</option>
+	<option>Previous Scientific Name</option>
+	<option>Higher Taxonomy</option>
 </select>
 <label>Taxonomy Sources (*=preferred by 1 or more collections)</label>
 <select>
-	<option>do not include related & webservice taxonomy</option>
+	<option>Collection's taxonomy only</option>
 	<option>include all related & webservice taxonomy</option>
 	<cfloop query="d">
 		<option>
 		<cfif len(PREFERRED_TAXONOMY_SOURCE) gt 0>* </cfif>
 		#source#</option>
 	</cfloop>
-	
 </select>
 
-
+<!----------
 <label>Match only terms of rank (* prefix = available as collection's taxonomy)</label>
 <select>
 	<option>ignore rank</option>
@@ -69,7 +68,7 @@
 	</cfloop>
 	
 </select>
-
+---------->
 </cfoutput>
 
 <cfabort>
