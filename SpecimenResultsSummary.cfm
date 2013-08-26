@@ -102,7 +102,7 @@
 			#mapurl#
 			<hr>
 			<cfif mapurl contains "taxon_scope">
-			<cfset mapurl=rereplace(mapurl,'(taxon_scope=.*)&','')>
+			<cfset mapurl=rereplace(mapurl,'taxon_scope=.*&?','')>
 			yes
 		</cfif>
 		#mapurl#
