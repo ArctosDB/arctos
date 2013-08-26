@@ -7,7 +7,7 @@
 					collection
 				where
 					source=PREFERRED_TAXONOMY_SOURCE (+)
-				group by source order by source
+				group by source,PREFERRED_TAXONOMY_SOURCE order by source
 			</cfquery>
 
 
