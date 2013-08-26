@@ -14,7 +14,7 @@
 <label>
 	Taxonomy and Identification
 </label><br>
-<input type="text" value="type taxon term here">
+<input type="text" placeholder="type taxon term here">
 <p>
 	Match Type (pick one)
 	<blockquote style="text-align:right">
