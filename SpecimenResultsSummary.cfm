@@ -46,13 +46,13 @@
 	<cfabort>
 </cfif>
 <cfset checkSql(SqlString)>
-<cfif isdefined("debug") and debug is true>
-	#preserveSingleQuotes(SqlString)#
-</cfif>
-<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	#preserveSingleQuotes(SqlString)#
-</cfquery>
 <cfoutput>
+	<cfif isdefined("debug") and debug is true>
+		#preserveSingleQuotes(SqlString)#
+	</cfif>
+	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		#preserveSingleQuotes(SqlString)#
+	</cfquery>
 	<cfset dlPath = "#Application.DownloadPath#">
 	<cfset variables.encoding="UTF-8">
 	<cfset variables.fileName="#Application.webDirectory#/download/ArctosSpecimenSummary.csv">
@@ -84,6 +84,7 @@
 				<cfset thisLink=rereplace(mapurl,'taxon_scope=.*&?','')>
 			</cfif>
 			<cfset thisLink="#thisLink#&taxon_scope=currentID_is">
+			
 			<tr>
 				<td>#COUNTOFCATALOGEDITEM#</td>
 				<cfloop list="#groupby#" index="x">
@@ -99,6 +100,8 @@
 					<td>#thisVal#</td>
 				</cfloop>
 				<cfset thisLink=replace(thisLink,"##","%23","all")>
+				<cfset thisLink=replace(thisLink,"?&","?","all")>
+				<cfset thisLink=replace(thisLink,"&&","&","all")>
 				<cfset oneLine=oneline & ',"#Application.serverRootUrl#/SpecimenResults.cfm?#thisLink#"'>
 				
 				<cfscript>
