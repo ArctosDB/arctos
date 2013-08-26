@@ -1,3 +1,22 @@
+<label>
+	Taxonomy and Identification
+</label>
+<input type="text" value="type taxon term here">
+<table border>
+	<tr>
+		<th>Include in search</th>
+		<th>check</th>
+	</tr>
+	<tr>
+		<tr>
+			<td>Current Identification</td>
+			<td><input type="checkbox"></td>
+		</tr>
+	</tr>
+</table>
+
+
+<cfabort>
 <cfinclude template="/includes/_header.cfm">
 
 	<script src="/includes/jQuery.jPlayer.2.4.0/jquery.jplayer.min.js"></script>
