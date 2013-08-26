@@ -13,9 +13,6 @@
 <cfset mapurl="">
 <cfinclude template="includes/SearchSql.cfm">
 
-<cfdump var=#mapURL#>
-
-
 <!--- wrap everything up in a string --->
 <cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by">
 
@@ -97,12 +94,22 @@
 			correct links - eg, the no-subspecies name
 			should not contain all the subspecies
 		---->
-		<cfif mapurl contains "taxon_scope">
-			<cfset mapurl=rereplace(mapurl,'(taxon_scope=.*)&','')>
-		</cfif>
+		
+		-- here ---
 		<cfset thisLink="#mapURL#&taxon_scope=currentID_is">
 		<tr>
-			<td>#COUNTOFCATALOGEDITEM#</td>
+			<td>
+			#mapurl#
+			<hr>
+			<cfif mapurl contains "taxon_scope">
+			<cfset mapurl=rereplace(mapurl,'(taxon_scope=.*)&','')>
+			yes
+		</cfif>
+		#mapurl#
+			<hr>
+			
+			
+			#COUNTOFCATALOGEDITEM#</td>
 			<cfloop list="#groupby#" index="x">
 				<cfif len(evaluate("getData." & x)) is 0>
 					<cfset thisVal='NULL'>
