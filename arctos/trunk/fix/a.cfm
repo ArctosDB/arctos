@@ -40,15 +40,15 @@
 		<option>is</option>
 		<option>does not contain</option>
 	</select>
-<label>Search Scope</label>
-<select multiple size="5">
+<label>Search Scope (apple/ctl-click to pick multiple)</label>
+<select multiple size="3">
 	<option selected>Current Scientific Name</option>
 	<option>Previous Scientific Name</option>
 	<option>Higher Taxonomy</option>
 </select>
 <label>Taxonomy Sources (*=preferred by 1 or more collections)</label>
 <select>
-	<option>Collection's taxonomy only</option>
+	<option>current taxonomy only</option>
 	<option>include all related & webservice taxonomy</option>
 	<cfloop query="d">
 		<option>
