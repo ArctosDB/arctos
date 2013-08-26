@@ -1,6 +1,6 @@
 	<cfinclude template="/includes/_header.cfm">
 
-
+<cfoutput>
 
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select 
@@ -40,14 +40,15 @@
 		<option>is</option>
 		<option>does not contain</option>
 	</select>
-<label>Scope (check one or more)</label>
-<label>Current Identification</label> <input type="checkbox" checked="checked">
-<label>Previous Identification</label> <input type="checkbox">
-<label>Collection's Taxonomy</label><input type="checkbox">
-<label>Related and webservice taxonomy (* prefix = preferred by at least one collection)</label>
-<cfoutput>
+<label>Search Scope</label>
+<select multiple size="5">
+	<option selected>Current Identification</option>
+	<option>Previous Identification</option>
+	<option>Collection Taxonomy</option>
+	<option>Related and webservice Taxonomy</option>
+</select>
+<label>Taxonomy Sources (*=preferred by 1 or more collections)</label>
 <select>
-	<option>ignore this</option>
 	<option>include all sources</option>
 	<cfloop query="d">
 		<option>
@@ -58,10 +59,9 @@
 </select>
 
 
-
 <label>Term Rank (* prefix = available as collection's taxonomy)</label>
 <select>
-	<option>ignore this</option>
+	<option>ignore rank</option>
 	<cfloop query="r">
 		<option>
 		<cfif listcontainsnocase(colnterms,term_type)>* </cfif>
