@@ -95,21 +95,12 @@
 			should not contain all the subspecies
 		---->
 		
-		-- here ---
-		<cfset thisLink="#mapURL#&taxon_scope=currentID_is">
-		<tr>
-			<td>
-			#mapurl#
-			<hr>
-			<cfif mapurl contains "taxon_scope">
-			<cfset mapurl=rereplace(mapurl,'taxon_scope=.*&?','')>
-			yes
+		<cfif mapurl contains "taxon_scope">
+			<cfset thisLink=rereplace(mapurl,'taxon_scope=.*&?','')>
 		</cfif>
-		#mapurl#
-			<hr>
-			
-			
-			#COUNTOFCATALOGEDITEM#</td>
+		<cfset thisLink="#thisLink#&taxon_scope=currentID_is">
+		<tr>
+			<td>#COUNTOFCATALOGEDITEM#</td>
 			<cfloop list="#groupby#" index="x">
 				<cfif len(evaluate("getData." & x)) is 0>
 					<cfset thisVal='NULL'>
