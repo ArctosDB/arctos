@@ -33,15 +33,23 @@
 	Taxonomy and Identification
 </label>
 <input type="text" placeholder="type taxon term here">
-<p>
+
 	<label>Match Type (pick one)</label>
-	<span style="text-align:right; padding-left:1em;">
-		<br>contains (default)<input type="radio" checked="checked">
-		<br>is<input type="radio">
-		<br>does not contain<input type="radio">
-	</span>
+	<table border>
+		<tr>
+			<td>
+				<label>contains</label><input type="radio" checked="checked">
+			</td>
+			<td>
+				<label>is</label><input type="radio" checked="">
+			</td>
+			<td>
+				<label>does not contain</label><input type="radio" checked="">
+			</td>
+		</tr>
+	</table>
 </p>
-<p>
+
 <label>Scope (check one or more)</label>
 <br>Current Identification <input type="checkbox" checked="checked">
 <br>Previous Identification <input type="checkbox">
