@@ -17,17 +17,20 @@
 <input type="text" value="type taxon term here">
 <p>
 	Match Type (pick one)
-	contains<input type="radio" checked="checked">
-is<input type="radio">
-does not contain<input type="radio">
+	<blockquote>
+		contains (default)<input type="radio" checked="checked">
+		<br>is<input type="radio">
+		<br>does not contain<input type="radio">
+	</blockquote>
 </p>
 <p>
 Scope (check one or more)
 <br>Current Identification <input type="checkbox" checked="checked">
 <br>Previous Identification <input type="checkbox">
-<br>Collection's Taxonomy<input type="checkbox" checked="checked">
+<br>Collection's Taxonomy<input type="checkbox">
 <br>Related and webservice taxonomy (* prefix means preferred by at least one collection)
 <cfoutput>
+<br>
 <select>
 	<option>do not include</option>
 	<option>include all sources</option>
