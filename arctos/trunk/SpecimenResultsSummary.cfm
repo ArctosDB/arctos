@@ -117,7 +117,7 @@
 			<cfscript>
 				variables.joFileWriter.writeLine(oneLine);
 			</cfscript>
-			<td><a href="/SpecimenResults.cfm?#thisLink#">specimens</a>
+			<td><a href="/SpecimenResults.cfm?#URLEncodedFormat(thisLink)#">specimens</a>
 		</tr>
 	</cfloop>
 </table>
