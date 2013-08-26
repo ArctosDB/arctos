@@ -1,4 +1,8 @@
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfinclude template="/includes/_header.cfm">
+
+
+
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select 
 					source,
 					PREFERRED_TAXONOMY_SOURCE
@@ -72,7 +76,6 @@ Scope (check one or more)
 </cfoutput>
 
 <cfabort>
-<cfinclude template="/includes/_header.cfm">
 
 	<script src="/includes/jQuery.jPlayer.2.4.0/jquery.jplayer.min.js"></script>
 
