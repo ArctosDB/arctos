@@ -35,21 +35,11 @@
 <input type="text" placeholder="type taxon term here">
 
 	<label>Match Type (pick one)</label>
-	<table border>
-		<tr>
-			<td>
-				<label>contains</label><input type="radio" checked="checked">
-			</td>
-			<td>
-				<label>is</label><input type="radio" >
-			</td>
-			<td>
-				<label>does not contain</label><input type="radio" >
-			</td>
-		</tr>
-	</table>
-</p>
-<fieldset>
+	<select>
+		<option>contains</option>
+		<option>is</option>
+		<option>does not contain</option>
+	</select>
 <label>Scope (check one or more)</label>
 <label>Current Identification</label> <input type="checkbox" checked="checked">
 <label>Previous Identification</label> <input type="checkbox">
