@@ -43,7 +43,7 @@
 <label>Search Scope (apple/ctl-click to pick multiple)</label>
 <select multiple size="3">
 	<option selected>Current Scientific Name</option>
-	<option>Previous Scientific Name</option>
+	<option>Previous Scientific Name(s)</option>
 	<option>Higher Taxonomy</option>
 </select>
 <label>Taxonomy Sources (*=preferred by 1 or more collections)</label>
