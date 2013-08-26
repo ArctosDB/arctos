@@ -1,12 +1,6 @@
-<label>
-	Taxonomy and Identification
-</label><br>
-<input type="text" value="type taxon term here">
-
-<p>Include in taxonomy search
-
-
-
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select source from taxon_term group by source order by source
+			</cfquery>
 
 
 <label>
@@ -25,38 +19,16 @@ Scope (check one or more)
 <br>Previous Identification <input type="checkbox">
 <br>Collection's Taxonomy<input type="checkbox" checked="checked">
 <br>Related and webservice taxonomy
+<cfoutput>
 <select>
 	<option>do not include</option>
 	<option>include all sources</option>
-	<option>Arctos classification</option>
-	<option>NCBI classification</option>
-	<option>ca. 60 more things</option>
-	<option>you've probably never heard of most of them</option>
-	<option>and most of them probably do not....</option>
-	<option>... have any data for most specimens</option>
+	<cfloop quer="d">
+		<option>#source#</option>
+	</cfloop>
+	
 </select>
-
-
-<br>Current Taxonomy (by globalnames) <input type="checkbox" checked="checked">
-<br>Related Taxonomy  (by collection)<input type="checkbox" checked="checked">
-<br>Related Taxonomy  (by globalnames)<input type="checkbox" checked="checked">
-<br>common name <input type="checkbox" checked="checked">
-</p>
-
-
-<table border>
-	<tr>
-		<th></th>
-		<th>check</th>
-	</tr>
-	<tr>
-		<tr>
-			<td></td>
-			<td></td>
-		</tr>
-	</tr>
-</table>
-
+</cfoutput>
 
 <cfabort>
 <cfinclude template="/includes/_header.cfm">
