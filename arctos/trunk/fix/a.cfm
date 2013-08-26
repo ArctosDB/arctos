@@ -37,7 +37,7 @@
 	<label>Match Type (pick one)</label>
 	<select>
 		<option>contains</option>
-		<option>is</option>
+		<option>is (case insensitive)</option>
 		<option>does not contain</option>
 	</select>
 <label>Search Scope (apple/ctl-click to pick multiple)</label>
