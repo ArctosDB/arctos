@@ -9,7 +9,21 @@
 					source=PREFERRED_TAXONOMY_SOURCE (+)
 				group by source,PREFERRED_TAXONOMY_SOURCE order by source
 			</cfquery>
-
+			
+			
+			<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select 
+					term_type
+				from 
+					taxon_term
+				where
+					term_type is not null and 
+					POSITION_IN_CLASSIFICATION is not null
+				group by term_type order by term_type
+			</cfquery>
+			
+			
+			<cfset colnterms="PHYLCLASS,KINGDOM,PHYLUM,PHYLORDER,FAMILY,GENUS,SPECIES,SUBSPECIES">
 
 <label>
 	Taxonomy and Identification
@@ -32,12 +46,27 @@ Scope (check one or more)
 <cfoutput>
 <br>
 <select>
-	<option>do not include</option>
+	<option>ignore this</option>
 	<option>include all sources</option>
 	<cfloop query="d">
 		<option>
 		<cfif len(PREFERRED_TAXONOMY_SOURCE) gt 0>* </cfif>
 		#source#</option>
+	</cfloop>
+	
+</select>
+
+
+
+<br>Term Rank (* prefix = NOT available as collection's taxonomy)
+<cfoutput>
+<br>
+<select>
+	<option>ignore this</option>
+	<cfloop query="r">
+		<option>
+		<cfif listcontainsnocase(colnterms,term_type)>* </cfif>
+		#term_type#</option>
 	</cfloop>
 	
 </select>
