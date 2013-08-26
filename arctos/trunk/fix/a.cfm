@@ -4,30 +4,44 @@
 <input type="text" value="type taxon term here">
 
 <p>Include in taxonomy search
-<br>Current Identification <input type="checkbox" checked="checked">
-contains<input type="radio">
+
+
+
+
+
+<label>
+	Taxonomy and Identification
+</label><br>
+<input type="text" value="type taxon term here">
+<p>
+	Match Type (pick one)
+	contains<input type="radio" checked="checked">
 is<input type="radio">
 does not contain<input type="radio">
-
+</p>
+<p>
+Scope (check one or more)
+<br>Current Identification <input type="checkbox" checked="checked">
 <br>Previous Identification <input type="checkbox">
-
-contains<input type="radio">
-is<input type="radio">
-does not contain<input type="radio">
-
-
-<br>Current Identification <input type="checkbox" checked="checked">
-<br>Current Identification <input type="checkbox" checked="checked">
-<br>Current Identification <input type="checkbox" checked="checked">
-<br>Current Identification <input type="checkbox" checked="checked">
-<br>Current Identification <input type="checkbox" checked="checked">
-<br>Current Identification <input type="checkbox" checked="checked">
-
-
+<br>Collection's Taxonomy<input type="checkbox" checked="checked">
+<br>Related and webservice taxonomy
+<select>
+	<option>do not include</option>
+	<option>include all sources</option>
+	<option>Arctos classification</option>
+	<option>NCBI classification</option>
+	<option>ca. 60 more things</option>
+	<option>you've probably never heard of most of them</option>
+	<option>and most of them probably do not....</option>
+	<option>... have any data for most specimens</option>
+</select>
 
 
-
-
+<br>Current Taxonomy (by globalnames) <input type="checkbox" checked="checked">
+<br>Related Taxonomy  (by collection)<input type="checkbox" checked="checked">
+<br>Related Taxonomy  (by globalnames)<input type="checkbox" checked="checked">
+<br>common name <input type="checkbox" checked="checked">
+</p>
 
 
 <table border>
