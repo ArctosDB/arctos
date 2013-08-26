@@ -23,7 +23,7 @@ Scope (check one or more)
 <select>
 	<option>do not include</option>
 	<option>include all sources</option>
-	<cfloop quer="d">
+	<cfloop query="d">
 		<option>#source#</option>
 	</cfloop>
 	
