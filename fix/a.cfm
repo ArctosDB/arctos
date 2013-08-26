@@ -1,5 +1,13 @@
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select source from taxon_term group by source order by source
+				select 
+					source,
+					PREFERRED_TAXONOMY_SOURCE
+				from 
+					taxon_term,
+					collection
+				where
+					source=PREFERRED_TAXONOMY_SOURCE (+)
+				group by source order by source
 			</cfquery>
 
 
@@ -18,13 +26,15 @@ Scope (check one or more)
 <br>Current Identification <input type="checkbox" checked="checked">
 <br>Previous Identification <input type="checkbox">
 <br>Collection's Taxonomy<input type="checkbox" checked="checked">
-<br>Related and webservice taxonomy
+<br>Related and webservice taxonomy (* prefix means preferred by at least one collection)
 <cfoutput>
 <select>
 	<option>do not include</option>
 	<option>include all sources</option>
 	<cfloop query="d">
-		<option>#source#</option>
+		<option>
+		<cfif len(PREFERRED_TAXONOMY_SOURCE) gt 0>* </cfif>
+		#source#</option>
 	</cfloop>
 	
 </select>
