@@ -1,16 +1,20 @@
 <label>
 	Taxonomy and Identification
-</label>
+</label><br>
 <input type="text" value="type taxon term here">
+
+Include in taxonomy search
+
+Current Identification <input type="checkbox" checked="checked">
 <table border>
 	<tr>
-		<th>Include in search</th>
+		<th></th>
 		<th>check</th>
 	</tr>
 	<tr>
 		<tr>
-			<td>Current Identification</td>
-			<td><input type="checkbox"></td>
+			<td></td>
+			<td></td>
 		</tr>
 	</tr>
 </table>
