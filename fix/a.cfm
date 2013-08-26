@@ -45,11 +45,11 @@
 	<option selected>Current Identification</option>
 	<option>Previous Identification</option>
 	<option>Collection Taxonomy</option>
-	<option>Related and webservice Taxonomy</option>
 </select>
 <label>Taxonomy Sources (*=preferred by 1 or more collections)</label>
 <select>
-	<option>include all sources</option>
+	<option>do not include related & webservice taxonomy</option>
+	<option>include all related & webservice taxonomy</option>
 	<cfloop query="d">
 		<option>
 		<cfif len(PREFERRED_TAXONOMY_SOURCE) gt 0>* </cfif>
@@ -59,7 +59,7 @@
 </select>
 
 
-<label>Term Rank (* prefix = available as collection's taxonomy)</label>
+<label>Match only terms of rank (* prefix = available as collection's taxonomy)</label>
 <select>
 	<option>ignore rank</option>
 	<cfloop query="r">
@@ -70,7 +70,6 @@
 	
 </select>
 
-</fieldset>
 </cfoutput>
 
 <cfabort>
