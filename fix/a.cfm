@@ -32,7 +32,7 @@
 <p>
 	Match Type (pick one)
 	<span style="text-align:right; padding-left:1em;">
-		contains (default)<input type="radio" checked="checked">
+		<br>contains (default)<input type="radio" checked="checked">
 		<br>is<input type="radio">
 		<br>does not contain<input type="radio">
 	</span>
