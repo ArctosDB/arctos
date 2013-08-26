@@ -12,28 +12,18 @@
 <cfset basQual = "">
 <cfset mapurl="">
 <cfinclude template="includes/SearchSql.cfm">
-
 <!--- wrap everything up in a string --->
 <cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by">
-
 <cfloop list="#groupBy#" index="x">
 	<cfset SqlString = "#SqlString#,#session.flatTableName#.#x#">
 </cfloop>
-
 <cfset SqlString = replace(SqlString, "group by,","group by ")>
-
 <cfset SqlString = "#SqlString# order by">
-
-
 <cfloop list="#groupBy#" index="x">
 	<cfset SqlString = "#SqlString#,#session.flatTableName#.#x#">
 </cfloop>
-
 <cfset SqlString = replace(SqlString, "order by,","order by ")>
-
-
 <cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
-
 <!--- require some actual searching --->
 <cfset srchTerms="">
 <cfloop list="#mapurl#" delimiters="&" index="t">
@@ -55,7 +45,6 @@
 	<font color="##FF0000" size="+2">You must enter some search criteria!</font>
 	<cfabort>
 </cfif>
-
 <cfset checkSql(SqlString)>
 <cfif isdefined("debug") and debug is true>
 	#preserveSingleQuotes(SqlString)#
@@ -64,77 +53,63 @@
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
 <cfoutput>
-
-
-<cfset dlPath = "#Application.DownloadPath#">
-<cfset variables.encoding="UTF-8">
-<cfset variables.fileName="#Application.webDirectory#/download/ArctosSpecimenSummary.csv">
-<cfset header ="Count,#groupBy#,Link">
-<cfscript>
-	variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-	variables.joFileWriter.writeLine(ListQualify(header,'"'));
-</cfscript>
-
-<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">Save&nbsp;Search</span>
-<a href="/saveSearch.cfm?action=manage">[ view/manage your saved searches ]</a>
-<table border id="t" class="sortable">
-	<tr>
-		<th>Count</th>
-		<cfloop list="#groupby#" index="x">
-			<th>#x#</th>
-		</cfloop>
-		<th>Specimens</th>
-	</tr>
-	<cfloop query="getData">
-		<cfset thisLink=mapurl>
-		<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
-		<!---
-			mapURL probably contains taxon_scope
-			We have to over-ride that here to get the
-			correct links - eg, the no-subspecies name
-			should not contain all the subspecies
-		---->
-		
-		<cfif mapurl contains "taxon_scope">
-			<cfset thisLink=rereplace(mapurl,'taxon_scope=.*&?','')>
-		</cfif>
-		<cfset thisLink="#thisLink#&taxon_scope=currentID_is">
+	<cfset dlPath = "#Application.DownloadPath#">
+	<cfset variables.encoding="UTF-8">
+	<cfset variables.fileName="#Application.webDirectory#/download/ArctosSpecimenSummary.csv">
+	<cfset header ="Count,#groupBy#,Link">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(ListQualify(header,'"'));
+	</cfscript>
+	<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">Save&nbsp;Search</span>
+	<a href="/saveSearch.cfm?action=manage">[ view/manage your saved searches ]</a>
+	<table border id="t" class="sortable">
 		<tr>
-			<td>#COUNTOFCATALOGEDITEM#</td>
+			<th>Count</th>
 			<cfloop list="#groupby#" index="x">
-				<cfif len(evaluate("getData." & x)) is 0>
-					<cfset thisVal='NULL'>
-				<cfelse>
-					<cfset thisVal=evaluate("getData." & x)>
-				</cfif>
-				<cfif thisLink does not contain x>
-					<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
-				</cfif>
-				<cfset oneLine=oneline & ',"#thisVal#"'>
-				<td>#thisVal#</td>
+				<th>#x#</th>
 			</cfloop>
-			<cfset oneLine=oneline & ',"#thisLink#"'>
-			<cfscript>
-				variables.joFileWriter.writeLine(oneLine);
-			</cfscript>
-			<cfset thisLink=URLEncodedFormat('/SpecimenResults.cfm?' & thisLink)>
-			<td><a href="#thisLink#">specimens</a>
+			<th>Specimens</th>
 		</tr>
-	</cfloop>
-</table>
-
-
-
+		<cfloop query="getData">
+			<cfset thisLink=mapurl>
+			<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
+			<!---
+				mapURL probably contains taxon_scope
+				We have to over-ride that here to get the
+				correct links - eg, the no-subspecies name
+				should not contain all the subspecies
+			---->
+			<cfif mapurl contains "taxon_scope">
+				<cfset thisLink=rereplace(mapurl,'taxon_scope=.*&?','')>
+			</cfif>
+			<cfset thisLink="#thisLink#&taxon_scope=currentID_is">
+			<tr>
+				<td>#COUNTOFCATALOGEDITEM#</td>
+				<cfloop list="#groupby#" index="x">
+					<cfif len(evaluate("getData." & x)) is 0>
+						<cfset thisVal='NULL'>
+					<cfelse>
+						<cfset thisVal=evaluate("getData." & x)>
+					</cfif>
+					<cfif thisLink does not contain x>
+						<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
+					</cfif>
+					<cfset oneLine=oneline & ',"#thisVal#"'>
+					<td>#thisVal#</td>
+				</cfloop>
+				<cfset oneLine=oneline & ',"#thisLink#"'>
+				<cfscript>
+					variables.joFileWriter.writeLine(oneLine);
+				</cfscript>
+				<cfset thisLink=replace(thisLink,"##","%23","all")>
+				<td><a href="/SpecimenResults.cfm%thisLink#">specimens</a></td>
+			</tr>
+		</cfloop>
+	</table>
 	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
-
 	<a href="/download.cfm?file=ArctosSpecimenSummary.csv">get CSV</a>
-
-
-
 </cfoutput>
-
-
-
 <cfinclude template = "includes/_footer.cfm">
