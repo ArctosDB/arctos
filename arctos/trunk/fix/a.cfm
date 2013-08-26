@@ -31,11 +31,11 @@
 <input type="text" placeholder="type taxon term here">
 <p>
 	Match Type (pick one)
-	<blockquote style="text-align:right">
+	<span style="text-align:right; padding-left:1em;">
 		contains (default)<input type="radio" checked="checked">
 		<br>is<input type="radio">
 		<br>does not contain<input type="radio">
-	</blockquote>
+	</span>
 </p>
 <p>
 Scope (check one or more)
