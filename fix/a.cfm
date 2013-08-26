@@ -17,7 +17,7 @@
 <input type="text" value="type taxon term here">
 <p>
 	Match Type (pick one)
-	<blockquote>
+	<blockquote style="text-align:right">
 		contains (default)<input type="radio" checked="checked">
 		<br>is<input type="radio">
 		<br>does not contain<input type="radio">
