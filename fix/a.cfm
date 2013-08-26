@@ -31,10 +31,10 @@
 
 <label>
 	Taxonomy and Identification
-</label><br>
+</label>
 <input type="text" placeholder="type taxon term here">
 <p>
-	Match Type (pick one)
+	<label>Match Type (pick one)</label>
 	<span style="text-align:right; padding-left:1em;">
 		<br>contains (default)<input type="radio" checked="checked">
 		<br>is<input type="radio">
@@ -42,13 +42,12 @@
 	</span>
 </p>
 <p>
-Scope (check one or more)
+<label>Scope (check one or more)</label>
 <br>Current Identification <input type="checkbox" checked="checked">
 <br>Previous Identification <input type="checkbox">
 <br>Collection's Taxonomy<input type="checkbox">
-<br>Related and webservice taxonomy (* prefix = preferred by at least one collection)
+<label>Related and webservice taxonomy (* prefix = preferred by at least one collection)</label>
 <cfoutput>
-<br>
 <select>
 	<option>ignore this</option>
 	<option>include all sources</option>
@@ -62,8 +61,7 @@ Scope (check one or more)
 
 
 
-<br>Term Rank (* prefix = NOT available as collection's taxonomy)
-<br>
+<label>Term Rank (* prefix = NOT available as collection's taxonomy)</label>
 <select>
 	<option>ignore this</option>
 	<cfloop query="r">
