@@ -49,11 +49,11 @@
 		</tr>
 	</table>
 </p>
-
+<fieldset>
 <label>Scope (check one or more)</label>
-<br>Current Identification <input type="checkbox" checked="checked">
-<br>Previous Identification <input type="checkbox">
-<br>Collection's Taxonomy<input type="checkbox">
+<label>Current Identification</label> <input type="checkbox" checked="checked">
+<label>Previous Identification</label> <input type="checkbox">
+<label>Collection's Taxonomy</label><input type="checkbox">
 <label>Related and webservice taxonomy (* prefix = preferred by at least one collection)</label>
 <cfoutput>
 <select>
@@ -69,7 +69,7 @@
 
 
 
-<label>Term Rank (* prefix = NOT available as collection's taxonomy)</label>
+<label>Term Rank (* prefix = available as collection's taxonomy)</label>
 <select>
 	<option>ignore this</option>
 	<cfloop query="r">
@@ -79,6 +79,8 @@
 	</cfloop>
 	
 </select>
+
+</fieldset>
 </cfoutput>
 
 <cfabort>
