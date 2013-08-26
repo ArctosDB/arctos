@@ -98,11 +98,12 @@
 					<cfset oneLine=oneline & ',"#thisVal#"'>
 					<td>#thisVal#</td>
 				</cfloop>
-				<cfset oneLine=oneline & ',"#thisLink#"'>
+				<cfset thisLink=replace(thisLink,"##","%23","all")>
+				<cfset oneLine=oneline & ',"#Application.serverRootUrl#/SpecimenResults.cfm?#thisLink#"'>
+				
 				<cfscript>
 					variables.joFileWriter.writeLine(oneLine);
 				</cfscript>
-				<cfset thisLink=replace(thisLink,"##","%23","all")>
 				<td><a href="/SpecimenResults.cfm?#thisLink#">specimens</a></td>
 			</tr>
 		</cfloop>
