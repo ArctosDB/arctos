@@ -103,7 +103,7 @@
 					variables.joFileWriter.writeLine(oneLine);
 				</cfscript>
 				<cfset thisLink=replace(thisLink,"##","%23","all")>
-				<td><a href="/SpecimenResults.cfm%thisLink#">specimens</a></td>
+				<td><a href="/SpecimenResults.cfm#thisLink#">specimens</a></td>
 			</tr>
 		</cfloop>
 	</table>
