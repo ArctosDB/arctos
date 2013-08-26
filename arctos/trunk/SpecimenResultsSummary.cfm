@@ -106,9 +106,7 @@
 					<cfset thisVal=evaluate("getData." & x)>
 				</cfif>
 				<cfif thisLink does not contain x>
-					#x# not there
-									<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
-
+					<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
 				</cfif>
 				<cfset oneLine=oneline & ',"#thisVal#"'>
 				<td>#thisVal#</td>
