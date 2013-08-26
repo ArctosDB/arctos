@@ -41,10 +41,10 @@
 				<label>contains</label><input type="radio" checked="checked">
 			</td>
 			<td>
-				<label>is</label><input type="radio" checked="">
+				<label>is</label><input type="radio" >
 			</td>
 			<td>
-				<label>does not contain</label><input type="radio" checked="">
+				<label>does not contain</label><input type="radio" >
 			</td>
 		</tr>
 	</table>
