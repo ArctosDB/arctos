@@ -3,9 +3,27 @@
 </label><br>
 <input type="text" value="type taxon term here">
 
-Include in taxonomy search
+<p>Include in taxonomy search
+<br>Current Identification <input type="checkbox" checked="checked">
+contains<input type="radio">
+is<input type="radio">
+does not contain<input type="radio">
 
-Current Identification <input type="checkbox" checked="checked">
+<br>Current Identification <input type="checkbox" checked="checked">
+<br>Current Identification <input type="checkbox" checked="checked">
+<br>Current Identification <input type="checkbox" checked="checked">
+<br>Current Identification <input type="checkbox" checked="checked">
+<br>Current Identification <input type="checkbox" checked="checked">
+<br>Current Identification <input type="checkbox" checked="checked">
+<br>Current Identification <input type="checkbox" checked="checked">
+
+
+
+
+
+
+
+
 <table border>
 	<tr>
 		<th></th>
