@@ -9,7 +9,13 @@ contains<input type="radio">
 is<input type="radio">
 does not contain<input type="radio">
 
-<br>Current Identification <input type="checkbox" checked="checked">
+<br>Previous Identification <input type="checkbox">
+
+contains<input type="radio">
+is<input type="radio">
+does not contain<input type="radio">
+
+
 <br>Current Identification <input type="checkbox" checked="checked">
 <br>Current Identification <input type="checkbox" checked="checked">
 <br>Current Identification <input type="checkbox" checked="checked">
