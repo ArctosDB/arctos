@@ -269,12 +269,15 @@
 				---->
 			</td>
 			<td class="srch">
-				<input type="text" value="" name="taxon_term" id="taxon_term" size="50">
-					<select>
-						<option>contains</option>
-						<option>is (case insensitive)</option>
-						<option>does not contain</option>
-					</select>
+				<input type="text" name="identification" id="identification" size="50" placeholder="identification (scientific name)">
+				<label for="includeAllIDs">Include previous IDs?</label>
+				<input type="checkbox" name="includeAllIDs" id="includeAllIDs">
+				<select name="taxon_match_type" id="taxon_match_type">
+					<option value="contains">contains</option>
+					<option value="exact">is (case insensitive)</option>
+					<option value="notcontains">does not contain</option>
+					<option value="inlist">comma-list</option>
+				</select>
 			</td>
 		</tr>
 	</table>
