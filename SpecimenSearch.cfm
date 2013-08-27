@@ -277,26 +277,26 @@
 					</tr>
 					<tr>
 						<td>
-						<table width="100%">
-							<tr>
-								<td width="50%">
-									<label for="scientific_name_scope">Include previous IDs?</label>
-									<select name="scientific_name_scope" id="scientific_name_scope">
-										<option value="currentID">Current ID only</option>
-										<option value="allID">Include all IDs</option>
-									</select>
-								</td>
-								<td>
-									<label for="scientific_name_match_type">Match Type</label>
-									<select name="scientific_name_match_type" id="scientific_name_match_type">
-										<option value="contains">contains</option>
-										<option value="exact">is (case insensitive)</option>
-										<option value="notcontains">does not contain</option>
-										<option value="inlist">comma-list</option>
-									</select>
-								</td>
-							</tr>
-						</table>
+							<table width="100%">
+								<tr>
+									<td width="50%">
+										<label for="scientific_name_scope">Include previous IDs?</label>
+										<select name="scientific_name_scope" id="scientific_name_scope">
+											<option value="currentID">Current ID only</option>
+											<option value="allID">Include all IDs</option>
+										</select>
+									</td>
+									<td>
+										<label for="scientific_name_match_type">Match Type</label>
+										<select name="scientific_name_match_type" id="scientific_name_match_type">
+											<option value="contains">contains</option>
+											<option value="exact">is (case insensitive)</option>
+											<option value="notcontains">does not contain</option>
+											<option value="inlist">comma-list</option>
+										</select>
+									</td>
+								</tr>
+							</table>
 						</td>
 					</tr>
 				</table>
