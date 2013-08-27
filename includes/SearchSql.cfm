@@ -235,56 +235,62 @@
 		AND identification.accepted_id_fg=1">
 	<cfset mapurl = "#mapurl#&taxon_name_id=#taxon_name_id#">
 </cfif>
-<cfif isdefined("taxon_term") AND len(taxon_term) gt 0>
-	<!----
-		if we have a taxon_term, it may be accompanied by any of the following:
-			taxon_match_type
-				contains (DEFAULT)
-				exact
-				notcontains
-				inlist
-			taxon_scope
-				currentID (DEFAULT)
-					match the current scientific_name from FLAT; ignore everything that follows
-				anyID
-					match ANY scientific_name from FLAT; ignore everything that follows
-				taxonomy
-					refer to taxon_source
-			taxon_source
-				defines the scoope of
-				
-				
-					
-					</td>
-		<td class="srch">
-		 	<select name="taxon_scope" id="taxon_scope">
-				<option value="currentID" selected>Current Scientific Name</option>
-				<option value="anyID" >& Any Scientific Name(s)</option>
-				<option value="taxonomy" >& Higher Taxonomy</option>
-				<option value="commonname">& Common Names</option>
-			</select>		
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="_phylclass">Taxonomy Sources</span>
-		</td>
-		<td class="srch">
-			<label>(*=preferred by 1 or more collections)</label>
-		 	<select name="taxon_source" id="taxon_source">
-				<option value="collection_preferred">current taxonomy only</option>
-				<option value="all">include all related & webservice taxonomy</option>
-				<cfloop query="ct_taxon_term_source">
-					<option value="#source#"><cfif len(PREFERRED_TAXONOMY_SOURCE) gt 0>* </cfif>#source#</option>
-				</cfloop>
-			</select>
-			
-			
-	<cfif not isdefined("taxon_scope") OR len(taxon_scope) is 0>
-		<cfset taxon_scope = "currentID">
+
+<cfif isdefined("scientific_name") AND len(scientific_name) gt 0>
+	<cfif not isdefined("scientific_name_scope") OR len(scientific_name_scope) is 0>
+		<cfset scientific_name_scope = "currentID">
 	</cfif>
+	<cfif not isdefined("scientific_name_match_type") OR len(scientific_name_match_type) is 0>
+		<cfset scientific_name_match_type = "contains">
+	</cfif>
+	<cfset mapurl = "#mapurl#&scientific_name=#scientific_name#">
+	<cfset mapurl = "#mapurl#&scientific_name_scope=#scientific_name_scope#">
+	<cfset mapurl = "#mapurl#&scientific_name_match_type=#scientific_name_match_type#">
+	
+	<cfif scientific_name_scope is "currentID">
+		<cfif scientific_name_match_type is "contains">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'">
+		<cfelseif scientific_name_match_type is "exact">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(escapeQuotes(taxon_term))#'">
+		<cfelseif scientific_name_match_type is "notcontains">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) NOT LIKE '%#ucase(escapeQuotes(taxon_term))#%'">
+		<cfelseif scientific_name_match_type is "inlist">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in (#listqualify(ucase(taxon_term),chr(39))#)">
+		</cfif>
+	<cfelseif scientific_name_scope is "allID">
+		<cfif basJoin does not contain " identification ">
+			<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
+		</cfif>
+		<cfif scientific_name_match_type is "contains">
+			<cfset basQual = " #basQual# AND upper(identification.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'">
+		<cfelseif scientific_name_match_type is "exact">
+			<cfset basQual = " #basQual# AND upper(identification.scientific_name) = '#ucase(escapeQuotes(taxon_term))#'">
+		<cfelseif scientific_name_match_type is "notcontains">
+			<cfset basQual = " #basQual# upper(identification.scientific_name) NOT LIKE '%#ucase(escapeQuotes(taxon_term))#%'">
+		<cfelseif scientific_name_match_type is "inlist">
+			<cfset basQual = " #basQual# AND upper(identification.scientific_name) in (#listqualify(ucase(taxon_term),chr(39))#)">
+		</cfif>
+	</cfif>
+</cfif>
+
+
+<cfif isdefined("taxon_term") AND len(taxon_term) gt 0>
+	<!----	
+		if we have a taxon_term, it may be accompanied by any of the following:
+			taxon_source
+				collection_preferred (DEFAULT) - join to collection source
+				all - don't join to collection; hit anything
+				somethingelse: taxon_term.source=somethingelse
+			taxon_rank
+				empty: ignore
+				something: match
+		
+			----------->
 	<cfif not isdefined("taxon_source") OR len(taxon_source) is 0>
 		<cfset taxon_source = "collection_preferred">
+	</cfif>
+	<cfif not isdefined("taxon_rank")>
+		<cfset taxon_rank = "">
 	</cfif>
 	<cfif not isdefined("taxon_match_type") OR len(taxon_match_type) is 0>
 		<cfset taxon_match_type = "contains">
