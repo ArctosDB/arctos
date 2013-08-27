@@ -69,7 +69,7 @@
 		<td class="srch" style="border:1px solid green;">
 			<table>
 				<tr>
-					<td><input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="Taxon Name (Family, Kingdon, etc.)"></td>
+					<td><input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="Taxon Name (<em>Animalia</em>; <em>Soricidae</em>)"></td>
 				</tr>
 				<tr>
 					<td>
