@@ -50,33 +50,37 @@
 
 
 	---->
-	
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_taxon_scope">Taxon Scope:</span>
+			<span class="helpLink" id="_taxon_name">Taxon Name:</span>
 		</td>
 		<td class="srch">
-		 	<select name="taxon_scope" id="taxon_scope">
-				<option value="currentID" selected>Current Scientific Name</option>
-				<option value="anyID" >& Any Scientific Name(s)</option>
-				<option value="taxonomy" >& Higher Taxonomy</option>
-				<option value="commonname">& Common Names</option>
-			</select>		
+			<table>
+				<tr>
+					<td><input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="Taxon Name (Family, Kingdon, etc.)"></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="">Taxonomy Source (*=preferred by 1 or more collections)</label>
+						<select name="taxon_source" id="taxon_source">
+							<option value="collection_preferred">current taxonomy only</option>
+							<option value="all">include ALL related & webservice taxonomy</option>
+							<cfloop query="ct_taxon_term_source">
+								<option value="#source#"><cfif len(PREFERRED_TAXONOMY_SOURCE) gt 0>* </cfif>#source#</option>
+							</cfloop>
+						</select>
+					</td>
+				</tr>
+			</table>
+		 	
 		</td>
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_phylclass">Taxonomy Sources</span>
+			<span class="helpLink" id="_common_name">Common Name:</span>
 		</td>
 		<td class="srch">
-			<label>(*=preferred by 1 or more collections)</label>
-		 	<select name="taxon_source" id="taxon_source">
-				<option value="collection_preferred">current taxonomy only</option>
-				<option value="all">include all related & webservice taxonomy</option>
-				<cfloop query="ct_taxon_term_source">
-					<option value="#source#"><cfif len(PREFERRED_TAXONOMY_SOURCE) gt 0>* </cfif>#source#</option>
-				</cfloop>
-			</select>
+			<input name="common_name" id="common_name" type="text" size="50">
 		</td>
 	</tr>
 	<tr>
@@ -174,14 +178,6 @@
 		<td class="srch">
 			<input type="text" name="subspecies" id="subspecies" size="50">
 			<span class="infoLink" onclick="var e=document.getElementById('subspecies');e.value='='+e.value;">Add = for exact match</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="_common_name">Common Name:</span>
-		</td>
-		<td class="srch">
-			<input name="common_name" id="common_name" type="text" size="50">
 		</td>
 	</tr>
 	

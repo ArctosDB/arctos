@@ -272,7 +272,7 @@
 				<table>
 					<tr>
 						<td>
-										<input type="text" name="identification" id="identification" size="50" placeholder="identification (scientific name)">
+										<input type="text" name="scientific_name" id="scientific_name" size="50" placeholder="Identification (scientific name)">
 
 						</td>
 					</tr>
