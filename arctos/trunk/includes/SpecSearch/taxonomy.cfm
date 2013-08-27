@@ -73,13 +73,26 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="taxon_term_match_type">Match Type</label>
-						<select name="taxon_term_match_type" id="taxon_term_match_type">
-							<option value="contains">contains</option>
-							<option value="exact">is (case insensitive)</option>
-							<option value="notcontains">does not contain</option>
-							<option value="inlist">comma-list</option>
-						</select>
+						<table width="100%">
+							<tr>
+								<td width="50%">
+									<label for="taxon_term_scope">Match taxonomy from</label>
+									<select name="taxon_term_scope" id="taxon_term_scope">
+										<option value="currentID">Current ID only</option>
+										<option value="allID">Any ID</option>
+									</select>
+								</td>
+								<td>
+										<label for="taxon_term_match_type">Match Type</label>
+										<select name="taxon_term_match_type" id="taxon_term_match_type">
+											<option value="contains">contains</option>
+											<option value="exact">is (case insensitive)</option>
+											<option value="notcontains">does not contain</option>
+											<option value="inlist">comma-list</option>
+										</select>
+								</td>
+							</tr>
+						</table>
 					</td>
 				</tr>
 				<tr>

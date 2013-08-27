@@ -284,7 +284,14 @@
 			taxon_rank
 				empty: ignore
 				something: match
-		
+			taxon_term_scope
+				currentID: identification.accepted_id_fg filter
+				allID: just join to identification
+			taxon_term_match_type
+				contains (default) 
+				exact
+				notcontains
+				inlist
 			----------->
 	<cfif not isdefined("taxon_source") OR len(taxon_source) is 0>
 		<cfset taxon_source = "collection_preferred">
@@ -292,16 +299,74 @@
 	<cfif not isdefined("taxon_rank")>
 		<cfset taxon_rank = "">
 	</cfif>
-	<cfif not isdefined("taxon_match_type") OR len(taxon_match_type) is 0>
-		<cfset taxon_match_type = "contains">
+	<cfif not isdefined("taxon_term_scope") OR len(taxon_term_scope) is 0>
+		<cfset taxon_term_scope = "currentID">
+	</cfif>
+	<cfif not isdefined("taxon_term_match_type") OR len(taxon_term_match_type) is 0>
+		<cfset taxon_term_match_type = "contains">
 	</cfif>
 	
-	<cfset mapurl = "#mapurl#&taxon_term=#taxon_term#">
-	<cfset mapurl = "#mapurl#&taxon_scope=#taxon_scope#">
-	<cfset mapurl = "#mapurl#&taxon_match_type=#taxon_match_type#">
-	<cfif taxon_scope is "currentID">
-		<!--- current identification ----->
-		<cfif taxon_match_type is "contains">
+	<cfset mapurl = "#mapurl#&taxon_source=#taxon_source#">
+	<cfset mapurl = "#mapurl#&taxon_rank=#taxon_rank#">
+	<cfset mapurl = "#mapurl#&taxon_term_scope=#taxon_term_scope#">
+	<cfset mapurl = "#mapurl#&taxon_term_match_type=#taxon_term_match_type#">
+	
+	<cfif basJoin does not contain " identification ">
+		<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " identification_taxonomy ">
+		<cfset basJoin = " #basJoin# inner join identification_taxonomy on (identification.identification_id = identification_taxonomy.identification_id)">
+	</cfif>
+	<cfif basJoin does not contain " taxon_name ">
+		<cfset basJoin = " #basJoin# inner join taxon_name on (identification_taxonomy.taxon_name_id = taxon_name.taxon_name_id)">
+	</cfif>
+	<cfif basJoin does not contain " taxon_term ">
+		<cfset basJoin = " #basJoin# inner join taxon_term on (taxon_name.taxon_name_id = taxon_term.taxon_name_id)">
+	</cfif>
+	<!--- criteria and qualifications --->
+	<cfif taxon_term_scope is "currentID">
+		<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
+	</cfif>
+	<cfif taxon_source is "collection_preferred">
+		<cfif basJoin does not contain " collection_taxon_source ">
+			<cfset basJoin = " #basJoin# inner join collection collection_taxon_source on (taxon_term.source = collection_taxon_source.preferred_taxonomy_source)">
+		</cfif>
+	<cfelseif taxon_source is "all">
+		<!--- do nothing --->
+	<cfelse>
+		<cfset basQual = " #basQual# AND taxon_term.source = '#taxon_source#' ">
+	</cfif>
+	<cfif len(taxon_rank) gt 0>
+		<cfset basQual = " #basQual# AND taxon_term.term_type = '#taxon_rank#' ">
+	</cfif>
+	
+	<cfif taxon_term_match_type is "contains">
+		<cfset basQual = " #basQual# AND (
+			upper(taxon_term.term) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR 
+			upper(taxon_name.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
+			)">
+	<cfelseif taxon_term_match_type is "exact">
+		<cfset basQual = " #basQual# AND ( 
+			upper(taxon_term.term) = '#ucase(escapeQuotes(taxon_term))#' OR 
+			upper(taxon_name.scientific_name) = '#ucase(escapeQuotes(taxon_term))#'
+			)">
+	<cfelseif taxon_term_match_type is "notcontains">
+		<cfset basQual = " #basQual# AND ( 
+			upper(taxon_term.term) = '#ucase(escapeQuotes(taxon_term))#' OR 
+			upper(taxon_name.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
+			)">
+	<cfelseif taxon_term_match_type is "inlist">
+		<cfset basQual = " #basQual# AND (
+			upper(taxon_term.term) in (#listqualify(ucase(taxon_term),chr(39))#) OR
+			upper(taxon_name.scientific_name) in (#listqualify(ucase(taxon_term),chr(39))#
+		)">
+	</cfif>
+	
+	
+	<!--------------
+		
+		
+		<cfif taxon_term_match_type is "contains">
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'">
 		<cfelseif taxon_match_type is "exact">
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(escapeQuotes(taxon_term))#'">
@@ -452,6 +517,9 @@
 	<cfelse>
 		not sure what to do with taxon_scope....<cfabort>
 	</cfif>
+	
+	
+	------------->
 </cfif>
 <cfif isdefined("ImgNoConfirm") and len(ImgNoConfirm) gt 0>
 	<cfset mapurl = "#mapurl#&ImgNoConfirm=#ImgNoConfirm#">
