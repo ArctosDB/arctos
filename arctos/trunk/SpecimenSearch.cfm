@@ -280,14 +280,14 @@
 						<td>
 						<table width="100%">
 							<tr>
-								<td>
+								<td width="50%">
 									<label for="includeAllIDs">Include previous IDs?</label>
 									<select name="includeAllIDs" id="includeAllIDs">
 										<option value="currentID">Current ID only</option>
 										<option value="allID">Include all IDs</option>
 									</select>
 								</td>
-								<td align="right">
+								<td >
 																	<label for="taxon_match_type">Match Type</label>
 
 								<select name="taxon_match_type" id="taxon_match_type">
