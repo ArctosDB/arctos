@@ -63,8 +63,8 @@
 					<td>
 						<label for="">Taxonomy Source (*=preferred by 1 or more collections)</label>
 						<select name="taxon_source" id="taxon_source">
-							<option value="collection_preferred">current taxonomy only</option>
-							<option value="all">include ALL related & webservice taxonomy</option>
+							<option value="collection_preferred"><strong>current taxonomy only</strong></option>
+							<option value="all"><strong>any related or webservice taxonomy</strong></option>
 							<cfloop query="ct_taxon_term_source">
 								<option value="#source#"><cfif len(PREFERRED_TAXONOMY_SOURCE) gt 0>* </cfif>#source#</option>
 							</cfloop>
