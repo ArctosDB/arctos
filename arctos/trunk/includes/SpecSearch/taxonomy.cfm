@@ -66,9 +66,10 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_phylclass">Taxonomy Sources (*=preferred by 1 or more collections):</span>
+			<span class="helpLink" id="_phylclass">Taxonomy Sources</span>
 		</td>
 		<td class="srch">
+			<label>(*=preferred by 1 or more collections)</label>
 		 	<select name="taxon_source" id="taxon_source">
 				<option value="collection_preferred">current taxonomy only</option>
 				<option value="all">include all related & webservice taxonomy</option>
