@@ -32,7 +32,7 @@
 <label>
 	Taxonomy and Identification
 </label>
-<input type="text" placeholder="type taxon term here">
+<input type="text" placeholder="taxon name">
 
 	<label>Match Type (pick one)</label>
 	<select>
