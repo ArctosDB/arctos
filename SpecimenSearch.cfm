@@ -248,7 +248,7 @@
 			</td>
 			---->
 			<td class="lbl">
-				<span class="helpLink infoLink" id="_taxon_scope">Taxon Name</span>
+				<span class="helpLink" id="_taxon_scope">Taxon Name</span>
 				<!----
 				<select name="taxon_scope" id="taxon_scope" size="1">
 					<option value="currentID_like">Current Identification CONTAINS</option>
@@ -275,7 +275,6 @@
 						<option>is (case insensitive)</option>
 						<option>does not contain</option>
 					</select>
-				<span class="helpLink infoLink" id="_taxon_scope">[&nbsp;help&nbsp;]</span>
 			</td>
 		</tr>
 	</table>
