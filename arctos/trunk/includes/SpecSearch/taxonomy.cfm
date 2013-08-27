@@ -54,7 +54,7 @@
 		<td class="lbl">
 			<span class="helpLink" id="_taxon_name">Taxon Name:</span>
 		</td>
-		<td class="srch">
+		<td class="srch" style="border:1px solid green;">
 			<table>
 				<tr>
 					<td><input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="Taxon Name (Family, Kingdon, etc.)"></td>
