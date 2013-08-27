@@ -10,6 +10,17 @@
 <cfquery name="CTTAXA_FORMULA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	SELECT DISTINCT(TAXA_FORMULA) FROM CTTAXA_FORMULA ORDER BY TAXA_FORMULA
 </cfquery>
+<cfquery name="ct_taxon_term_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select 
+		source,
+		PREFERRED_TAXONOMY_SOURCE
+	from 
+		taxon_term,
+		collection
+	where
+		source=PREFERRED_TAXONOMY_SOURCE (+)
+	group by source,PREFERRED_TAXONOMY_SOURCE order by source
+</cfquery>
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
 	<!----
@@ -42,10 +53,10 @@
 	
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_phylclass">Taxon Scope:</span>
+			<span class="helpLink" id="_taxon_scope">Taxon Scope:</span>
 		</td>
 		<td class="srch">
-		 	<select name="taxon_scope" id="taxon_scope" multiple size="3">
+		 	<select name="taxon_scope" id="taxon_scope">
 				<option value="currentID" selected>Current Scientific Name</option>
 				<option value="previousID" >& Previous Scientific Name(s)</option>
 				<option value="taxonomy" >& Higher Taxonomy</option>
@@ -53,8 +64,73 @@
 			</select>		
 		</td>
 	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_phylclass">Taxonomy Sources (*=preferred by 1 or more collections):</span>
+		</td>
+		<td class="srch">
+		 	<select name="taxon_source" id="taxon_source">
+				<option value="collection_preferred">current taxonomy only</option>
+				<option value="all">include all related & webservice taxonomy</option>
+				<cfloop query="ct_taxon_term_source">
+					<option value="#source#"><cfif len(PREFERRED_TAXONOMY_SOURCE) gt 0>* </cfif>#source#</option>
+				</cfloop>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_nature_of_id">Nature of ID:</span>
+		</td>
+		<td class="srch">
+			<select name="nature_of_id" id="nature_of_id" size="1">
+				<option value=""></option>
+				<cfloop query="ctNatureOfId">
+					<option value="#ctNatureOfId.nature_of_id#">#ctNatureOfId.nature_of_id#</option>
+				</cfloop>
+			</select><span class="infoLink" 
+							onclick="getCtDoc('ctnature_of_id',SpecData.nature_of_id.value);">Define</span>
+		</td>
+	</tr>
 	
-	
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="identifier">ID Determiner:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="identified_agent" id="identified_agent">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="made_date">ID Made Date:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="begin_made_date" id="begin_made_date" size="10" />-
+			<input type="text" name="end_made_date" id="end_made_date" size="10" />
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_taxa_formula">ID Taxa Formula:</span>
+		</td>
+		<td class="srch">
+			<select name="taxa_formula" id="taxa_formula" size="1">
+				<option value=""></option>
+				<cfloop query="cttaxa_formula">
+					<option value="#cttaxa_formula.taxa_formula#">#cttaxa_formula.taxa_formula#</option>
+				</cfloop>
+			</select><span class="infoLink" onclick="getCtDoc('cttaxa_formula',SpecData.taxa_formula.value);">Define</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_identification_remarks">ID Remarks:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="identification_remarks" id="identification_remarks">
+		</td>
+	</tr>
 	
 	<tr>
 		<td class="lbl">
@@ -107,57 +183,6 @@
 			<input name="common_name" id="common_name" type="text" size="50">
 		</td>
 	</tr>
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="made_date">ID Made Date:</span>
-		</td>
-		<td class="srch">
-			<input type="text" name="begin_made_date" id="begin_made_date" size="10" />-
-			<input type="text" name="end_made_date" id="end_made_date" size="10" />
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="_nature_of_id">Nature of ID:</span>
-		</td>
-		<td class="srch">
-			<select name="nature_of_id" id="nature_of_id" size="1">
-				<option value=""></option>
-				<cfloop query="ctNatureOfId">
-					<option value="#ctNatureOfId.nature_of_id#">#ctNatureOfId.nature_of_id#</option>
-				</cfloop>
-			</select><span class="infoLink" 
-							onclick="getCtDoc('ctnature_of_id',SpecData.nature_of_id.value);">Define</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="_taxa_formula">Taxa Formula:</span>
-		</td>
-		<td class="srch">
-			<select name="taxa_formula" id="taxa_formula" size="1">
-				<option value=""></option>
-				<cfloop query="cttaxa_formula">
-					<option value="#cttaxa_formula.taxa_formula#">#cttaxa_formula.taxa_formula#</option>
-				</cfloop>
-			</select><span class="infoLink" onclick="getCtDoc('cttaxa_formula',SpecData.taxa_formula.value);">Define</span>
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="identifier">Determiner:</span>
-		</td>
-		<td class="srch">
-			<input type="text" name="identified_agent" id="identified_agent">
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
-			<span class="helpLink" id="_identification_remarks">ID Remarks:</span>
-		</td>
-		<td class="srch">
-			<input type="text" name="identification_remarks" id="identification_remarks">
-		</td>
-	</tr>
+	
 </table>
 </cfoutput>	
