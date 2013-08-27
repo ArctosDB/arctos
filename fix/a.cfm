@@ -27,7 +27,6 @@
 			</cfquery>
 			
 			
-			<cfset colnterms="PHYLCLASS,KINGDOM,PHYLUM,PHYLORDER,FAMILY,GENUS,SPECIES,SUBSPECIES">
 
 <label>
 	Taxonomy and Identification

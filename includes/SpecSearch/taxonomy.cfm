@@ -21,6 +21,18 @@
 		source=PREFERRED_TAXONOMY_SOURCE (+)
 	group by source,PREFERRED_TAXONOMY_SOURCE order by source
 </cfquery>
+<!--- list of taxonomy columns in FLAT ----><cfset colnterms="PHYLCLASS,KINGDOM,PHYLUM,PHYLORDER,FAMILY,GENUS,SPECIES,SUBSPECIES">
+<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select 
+		term_type
+	from 
+		taxon_term
+	where
+		term_type is not null and 
+		POSITION_IN_CLASSIFICATION is not null
+	group by term_type order by term_type
+</cfquery>
+
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
 	<!----
@@ -67,6 +79,17 @@
 							<option value="all"><strong>any related or webservice taxonomy</strong></option>
 							<cfloop query="ct_taxon_term_source">
 								<option value="#source#"><cfif len(PREFERRED_TAXONOMY_SOURCE) gt 0>* </cfif>#source#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<label>Term Rank (* prefix = available as collection's taxonomy)</label>
+						<select>
+							<option value="">ignore rank</option>
+							<cfloop query="r">
+								<option value="#term_type#">
+								<cfif listcontainsnocase(colnterms,term_type)>* </cfif>
+								#term_type#</option>
 							</cfloop>
 						</select>
 					</td>
