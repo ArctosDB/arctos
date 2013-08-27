@@ -278,7 +278,7 @@
 					</tr>
 					<tr>
 						<td>
-						<table>
+						<table width="100%">
 							<tr>
 								<td>
 									<label for="includeAllIDs">Include previous IDs?</label>
@@ -287,7 +287,7 @@
 										<option value="allID">Include all IDs</option>
 									</select>
 								</td>
-								<td>
+								<td align="right">
 																	<label for="taxon_match_type">Match Type</label>
 
 								<select name="taxon_match_type" id="taxon_match_type">
