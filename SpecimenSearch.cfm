@@ -269,7 +269,7 @@
 				---->
 			</td>
 			<td class="srch">
-				<table>
+				<table style="border:1px solid green;">
 					<tr>
 						<td>
 										<input type="text" name="scientific_name" id="scientific_name" size="50" placeholder="Identification (scientific name)">
