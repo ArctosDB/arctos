@@ -82,6 +82,8 @@
 							</cfloop>
 						</select>
 					</td>
+				</tr>
+				<tr>
 					<td>
 						<label>Term Rank (* prefix = available as collection's taxonomy)</label>
 						<select>
