@@ -69,7 +69,18 @@
 		<td class="srch" style="border:1px solid green;">
 			<table>
 				<tr>
-					<td><input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="Taxon Name (<em>Animalia</em>; <em>Soricidae</em>)"></td>
+					<td><input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="Taxon Name (Animalia; Soricidae)"></td>
+				</tr>
+				<tr>
+					<td>
+						<label for="taxon_term_match_type">Match Type</label>
+						<select name="taxon_term_match_type" id="taxon_term_match_type">
+							<option value="contains">contains</option>
+							<option value="exact">is (case insensitive)</option>
+							<option value="notcontains">does not contain</option>
+							<option value="inlist">comma-list</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -86,7 +97,7 @@
 				<tr>
 					<td>
 						<label>Term Rank (* prefix = available as collection's taxonomy)</label>
-						<select>
+						<select name="taxon_rank" id="taxon_rank">
 							<option value="">ignore rank</option>
 							<cfloop query="r">
 								<option value="#term_type#">

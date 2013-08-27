@@ -272,8 +272,7 @@
 				<table style="border:1px solid green;">
 					<tr>
 						<td>
-										<input type="text" name="scientific_name" id="scientific_name" size="50" placeholder="Identification (scientific name)">
-
+							<input type="text" name="scientific_name" id="scientific_name" size="50" placeholder="Identification (scientific name)">
 						</td>
 					</tr>
 					<tr>
@@ -281,30 +280,26 @@
 						<table width="100%">
 							<tr>
 								<td width="50%">
-									<label for="includeAllIDs">Include previous IDs?</label>
-									<select name="includeAllIDs" id="includeAllIDs">
+									<label for="scientific_name_scope">Include previous IDs?</label>
+									<select name="scientific_name_scope" id="scientific_name_scope">
 										<option value="currentID">Current ID only</option>
 										<option value="allID">Include all IDs</option>
 									</select>
 								</td>
-								<td >
-																	<label for="taxon_match_type">Match Type</label>
-
-								<select name="taxon_match_type" id="taxon_match_type">
-					<option value="contains">contains</option>
-					<option value="exact">is (case insensitive)</option>
-					<option value="notcontains">does not contain</option>
-					<option value="inlist">comma-list</option>
-				</select>
+								<td>
+									<label for="scientific_name_match_type">Match Type</label>
+									<select name="scientific_name_match_type" id="scientific_name_match_type">
+										<option value="contains">contains</option>
+										<option value="exact">is (case insensitive)</option>
+										<option value="notcontains">does not contain</option>
+										<option value="inlist">comma-list</option>
+									</select>
 								</td>
 							</tr>
 						</table>
-					
 						</td>
 					</tr>
 				</table>
-				
-				
 			</td>
 		</tr>
 	</table>
