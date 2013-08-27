@@ -28,7 +28,34 @@
 			<input type="text" name="scientific_name" id="scientific_name" size="28">
 		</td>
 	</tr>
+	
+	
+	<select multiple size="3">
+	<option selected>Current Scientific Name</option>
+	<option>Previous Scientific Name(s)</option>
+	<option>Higher Taxonomy</option>
+</select>
+
+
+
 	---->
+	
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_phylclass">Taxon Scope:</span>
+		</td>
+		<td class="srch">
+		 	<select name="taxon_scope" id="taxon_scope" multiple size="3">
+				<option value="currentID" selected>Current Scientific Name</option>
+				<option value="previousID" >& Previous Scientific Name(s)</option>
+				<option value="taxonomy" >& Higher Taxonomy</option>
+				<option value="commonname">& Common Names</option>
+			</select>		
+		</td>
+	</tr>
+	
+	
+	
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_phylclass">Class:</span>
