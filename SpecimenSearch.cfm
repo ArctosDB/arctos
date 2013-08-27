@@ -275,6 +275,8 @@
 										<input type="text" name="identification" id="identification" size="50" placeholder="identification (scientific name)">
 
 						</td>
+					</tr>
+					<tr>
 						<td>
 						<table>
 							<tr>
