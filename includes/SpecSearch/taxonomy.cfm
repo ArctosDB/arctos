@@ -58,7 +58,7 @@
 		<td class="srch">
 		 	<select name="taxon_scope" id="taxon_scope">
 				<option value="currentID" selected>Current Scientific Name</option>
-				<option value="previousID" >& Previous Scientific Name(s)</option>
+				<option value="anyID" >& Any Scientific Name(s)</option>
 				<option value="taxonomy" >& Higher Taxonomy</option>
 				<option value="commonname">& Common Names</option>
 			</select>		
