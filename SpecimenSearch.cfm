@@ -276,8 +276,23 @@
 
 						</td>
 						<td>
-						<label for="includeAllIDs">& previous IDs?</label>
+						<table>
+							<tr>
+								<td>
+									<label for="includeAllIDs">& previous IDs?</label>
 				<input type="checkbox" name="includeAllIDs" id="includeAllIDs">
+								</td>
+								<td>
+								<select name="taxon_match_type" id="taxon_match_type">
+					<option value="contains">contains</option>
+					<option value="exact">is (case insensitive)</option>
+					<option value="notcontains">does not contain</option>
+					<option value="inlist">comma-list</option>
+				</select>
+								</td>
+							</tr>
+						</table>
+					
 						</td>
 					</tr>
 				</table>
@@ -290,12 +305,7 @@
 				<span class="helpLink" id="any_geog_term">Scientific Name Match Type:</span>
 			</td>
 			<td class="srch">
-			<select name="taxon_match_type" id="taxon_match_type">
-					<option value="contains">contains</option>
-					<option value="exact">is (case insensitive)</option>
-					<option value="notcontains">does not contain</option>
-					<option value="inlist">comma-list</option>
-				</select>
+			
 			</td>
 		</tr>
 	</table>
