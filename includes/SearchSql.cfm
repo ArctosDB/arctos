@@ -4,9 +4,6 @@
 <cfif not isdefined("mapurl")>
 	<cfset mapurl="">
 </cfif>
-
-
-<cfdump var="#form#">
 <!----------------------------------- translate deprecated terms when possible ---------------------------->
 <cfif isdefined("listcatnum")>
 	<cfset catnum = listcatnum>
