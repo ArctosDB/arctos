@@ -201,7 +201,6 @@ function removeHelpDiv() {
 	#preserveSingleQuotes(SqlString)#
 </cfif>
 
-<cfabort>
 
 
 <cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
