@@ -222,7 +222,7 @@
 </cfif>
 
 
-<cfif isdefined("taxon_term") AND len(taxon_term) gt 0>
+<cfif isdefined("taxon_name") AND len(taxon_name) gt 0>
 	<!----	
 		if we have a taxon_term, it may be accompanied by any of the following:
 			taxon_source
@@ -256,7 +256,7 @@
 		<cfset taxon_term_match_type = "contains">
 	</cfif>
 	
-	<cfset mapurl = "#mapurl#&taxon_term=#taxon_term#">
+	<cfset mapurl = "#mapurl#&taxon_name=#taxon_name#">
 	<cfset mapurl = "#mapurl#&taxon_source=#taxon_source#">
 	<cfset mapurl = "#mapurl#&taxon_rank=#taxon_rank#">
 	<cfset mapurl = "#mapurl#&taxon_term_scope=#taxon_term_scope#">
@@ -320,22 +320,22 @@
 	<cfif taxon_term_match_type is "contains">
 		<cfset basQual = " #basQual# AND (
 			upper(taxon_term.term) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR 
-			upper(taxon_name.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
+			upper(taxon_name.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_name))#%'
 			)">
 	<cfelseif taxon_term_match_type is "exact">
 		<cfset basQual = " #basQual# AND ( 
 			upper(taxon_term.term) = '#ucase(escapeQuotes(taxon_term))#' OR 
-			upper(taxon_name.scientific_name) = '#ucase(escapeQuotes(taxon_term))#'
+			upper(taxon_name.scientific_name) = '#ucase(escapeQuotes(taxon_name))#'
 			)">
 	<cfelseif taxon_term_match_type is "notcontains">
 		<cfset basQual = " #basQual# AND ( 
 			upper(taxon_term.term) = '#ucase(escapeQuotes(taxon_term))#' OR 
-			upper(taxon_name.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
+			upper(taxon_name.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_name))#%'
 			)">
 	<cfelseif taxon_term_match_type is "inlist">
 		<cfset basQual = " #basQual# AND (
 			upper(taxon_term.term) in (#listqualify(ucase(taxon_term),chr(39))#) OR
-			upper(taxon_name.scientific_name) in (#listqualify(ucase(taxon_term),chr(39))#
+			upper(taxon_name.scientific_name) in (#listqualify(ucase(taxon_name),chr(39))#
 		)">
 	</cfif>
 	
