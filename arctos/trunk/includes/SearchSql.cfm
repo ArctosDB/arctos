@@ -253,6 +253,7 @@
 		<cfset taxon_term_match_type = "contains">
 	</cfif>
 	
+	<cfset mapurl = "#mapurl#&taxon_term=#taxon_term#">
 	<cfset mapurl = "#mapurl#&taxon_source=#taxon_source#">
 	<cfset mapurl = "#mapurl#&taxon_rank=#taxon_rank#">
 	<cfset mapurl = "#mapurl#&taxon_term_scope=#taxon_term_scope#">
