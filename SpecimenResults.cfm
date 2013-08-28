@@ -200,6 +200,10 @@ function removeHelpDiv() {
 <cfif isdefined("debug") and debug is true>
 	#preserveSingleQuotes(SqlString)#
 </cfif>
+
+<cfflush>
+
+
 <cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
 <cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preserveSingleQuotes(SqlString)#
