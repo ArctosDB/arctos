@@ -194,26 +194,26 @@
 	
 	<cfif scientific_name_scope is "currentID">
 		<cfif scientific_name_match_type is "contains">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(escapeQuotes(scientific_name))#%'">
 		<cfelseif scientific_name_match_type is "exact">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(escapeQuotes(taxon_term))#'">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(escapeQuotes(scientific_name))#'">
 		<cfelseif scientific_name_match_type is "notcontains">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) NOT LIKE '%#ucase(escapeQuotes(taxon_term))#%'">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) NOT LIKE '%#ucase(escapeQuotes(scientific_name))#%'">
 		<cfelseif scientific_name_match_type is "inlist">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in (#listqualify(ucase(taxon_term),chr(39))#)">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in (#listqualify(ucase(scientific_name),chr(39))#)">
 		</cfif>
 	<cfelseif scientific_name_scope is "allID">
 		<cfif basJoin does not contain " identification ">
 			<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
 		</cfif>
 		<cfif scientific_name_match_type is "contains">
-			<cfset basQual = " #basQual# AND upper(identification.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'">
+			<cfset basQual = " #basQual# AND upper(identification.scientific_name) LIKE '%#ucase(escapeQuotes(scientific_name))#%'">
 		<cfelseif scientific_name_match_type is "exact">
-			<cfset basQual = " #basQual# AND upper(identification.scientific_name) = '#ucase(escapeQuotes(taxon_term))#'">
+			<cfset basQual = " #basQual# AND upper(identification.scientific_name) = '#ucase(escapeQuotes(scientific_name))#'">
 		<cfelseif scientific_name_match_type is "notcontains">
-			<cfset basQual = " #basQual# upper(identification.scientific_name) NOT LIKE '%#ucase(escapeQuotes(taxon_term))#%'">
+			<cfset basQual = " #basQual# upper(identification.scientific_name) NOT LIKE '%#ucase(escapeQuotes(scientific_name))#%'">
 		<cfelseif scientific_name_match_type is "inlist">
-			<cfset basQual = " #basQual# AND upper(identification.scientific_name) in (#listqualify(ucase(taxon_term),chr(39))#)">
+			<cfset basQual = " #basQual# AND upper(identification.scientific_name) in (#listqualify(ucase(scientific_name),chr(39))#)">
 		</cfif>
 	</cfif>
 </cfif>
