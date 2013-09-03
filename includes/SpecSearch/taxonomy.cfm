@@ -15,11 +15,14 @@
 		source,
 		PREFERRED_TAXONOMY_SOURCE
 	from 
-		taxon_term,
+		mv_u_taxonterm_source,
 		collection
 	where
 		source=PREFERRED_TAXONOMY_SOURCE (+)
-	group by source,PREFERRED_TAXONOMY_SOURCE order by source
+	group by 
+		source,PREFERRED_TAXONOMY_SOURCE 
+	order by 
+		source
 </cfquery>
 <!--- list of taxonomy columns in FLAT ----><cfset colnterms="PHYLCLASS,KINGDOM,PHYLUM,PHYLORDER,FAMILY,GENUS,SPECIES,SUBSPECIES">
 <cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
