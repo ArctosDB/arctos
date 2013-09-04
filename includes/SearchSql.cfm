@@ -272,17 +272,18 @@
 	<cfif taxon_term_scope is "currentID">
 		<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
 	</cfif>
-	<cfif taxon_source is "collection_preferred">
-		<cfif basJoin does not contain " collection ">
-			<cfset basJoin = " #basJoin# inner join collection on (#session.flatTableName#.collection_id = collection.collection_id)">
-			<cfset basQual = " #basQual# AND taxon_term.source = collection.preferred_taxonomy_source ">
-		</cfif>
-	</cfif>
 
 	<cfset currTaxIDs=" select taxon_name_id from taxon_term where upper(taxon_term.term) ">
 	<cfset relTaxIDs=" select related_taxon_name_id from taxon_relations,taxon_term where taxon_relations.taxon_name_id=taxon_term.taxon_name_id and upper(taxon_term.term) ">
 	<cfset invRelTaxIDs=" select taxon_term.taxon_name_id from taxon_relations,taxon_term where taxon_relations.related_taxon_name_id=taxon_term.taxon_name_id and upper(taxon_term.term) ">
-	 <cfif taxon_source is not "all" and taxon_source is not "collection_preferred">
+	
+	
+	<cfif taxon_source is "all">
+		<!--- do nothing --->
+	<cfelseif taxon_source is "collection_preferred">
+		 <cfset currTaxIDs=currTaxIDs & " and taxon_term.source = (select preferred_taxonomy_source from collection where collection_id=#session.flatTableName#.collection_id ) ">
+	<cfelse>
+	
 	 	<cfset currTaxIDs=currTaxIDs & " and taxon_term.source = '#taxon_source#' ">
 	 	<cfset relTaxIDs=relTaxIDs & " and taxon_term.source = '#taxon_source#' ">
 	 	<cfset invRelTaxIDs=invRelTaxIDs & " and taxon_term.source = '#taxon_source#' ">
@@ -315,11 +316,28 @@
 	<cfelse>
 		<cfset combinedTaxIDs=currTaxIDs & " union " & relTaxIDs & " union " & invRelTaxIDs>
 	</cfif>
+	
+	
+	<cfset combinedTaxIDs=currTaxIDs>
+	
+	
 	<cfset basQual = basQual & " and identification_taxonomy.taxon_name_id in ( #combinedTaxIDs# )">
 	
 	
 	
 <!----
+
+
+
+	<cfif taxon_source is "collection_preferred">
+		<cfif basJoin does not contain " collection ">
+			<cfset basJoin = " #basJoin# inner join collection on (#session.flatTableName#.collection_id = collection.collection_id)">
+			<cfset basQual = " #basQual# AND taxon_term.source = collection.preferred_taxonomy_source ">
+		</cfif>
+	</cfif>
+	
+	
+	
 		 
     union 
      LIKE '%MARMOTINI%'
