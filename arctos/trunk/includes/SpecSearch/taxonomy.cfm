@@ -139,7 +139,9 @@
 		</td>
 		<td class="srch">
 		 	<input type="text" name="phylclass" id="phylclass" size="50" placeholder="Collection's classification">
-			<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='='+e.value;">Add = for exact match</span>		
+			<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='='+e.value;">[ exact ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='NULL';">[ NULL ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='!'+e.value;">[ NOT ]</span>	
 		</td>
 	</tr>
 	<tr>
