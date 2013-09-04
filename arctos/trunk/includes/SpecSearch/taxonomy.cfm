@@ -132,7 +132,39 @@
 			<input type="text" name="identification_remarks" id="identification_remarks">
 		</td>
 	</tr>
-	
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_kingdom">Kingdom:</span>
+		</td>
+		<td class="srch">
+		 	<input type="text" name="kingdom" id="kingdom" size="50" placeholder="Collection's classification">
+			<span class="infoLink" onclick="var e=document.getElementById('kingdom');e.value='='+e.value;">[ exact ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('kingdom');e.value='NULL';">[ NULL ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('kingdom');e.value='!'+e.value;">[ NOT ]</span>	
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_phylum">Phylum:</span>
+		</td>
+		<td class="srch">
+		 	<input type="text" name="phylum" id="phylum" size="50" placeholder="Collection's classification">
+			<span class="infoLink" onclick="var e=document.getElementById('phylum');e.value='='+e.value;">[ exact ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('phylum');e.value='NULL';">[ NULL ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('phylum');e.value='!'+e.value;">[ NOT ]</span>	
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_phylorder">Order:</span>
+		</td>
+		<td class="srch">
+		 	<input type="text" name="phylorder" id="phylorder" size="50" placeholder="Collection's classification">
+			<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='='+e.value;">[ exact ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='NULL';">[ NULL ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='!'+e.value;">[ NOT ]</span>	
+		</td>
+	</tr>
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_phylclass">Class:</span>
@@ -150,6 +182,9 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="family" id="family" size="50" placeholder="Collection's classification">
+			<span class="infoLink" onclick="var e=document.getElementById('family');e.value='='+e.value;">[ exact ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('family');e.value='NULL';">[ NULL ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('family');e.value='!'+e.value;">[ NOT ]</span>	
 		</td>
 	</tr>
 	<tr>
@@ -158,6 +193,9 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="genus" id="genus" size="50" placeholder="Collection's classification">
+			<span class="infoLink" onclick="var e=document.getElementById('genus');e.value='='+e.value;">[ exact ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('genus');e.value='NULL';">[ NULL ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('genus');e.value='!'+e.value;">[ NOT ]</span>
 		</td>
 	</tr>
 	<tr>
@@ -166,7 +204,9 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="species" id="species" size="50" placeholder="Collection's classification">
-			<span class="infoLink" onclick="var e=document.getElementById('species');e.value='='+e.value;">Add = for exact match</span>
+			<span class="infoLink" onclick="var e=document.getElementById('species');e.value='='+e.value;">[ exact ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('species');e.value='NULL';">[ NULL ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('species');e.value='!'+e.value;">[ NOT ]</span>
 		</td>
 	</tr>
 	<tr>
@@ -175,7 +215,9 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="subspecies" id="subspecies" size="50" placeholder="Collection's classification">
-			<span class="infoLink" onclick="var e=document.getElementById('subspecies');e.value='='+e.value;">Add = for exact match</span>
+			<span class="infoLink" onclick="var e=document.getElementById('subspecies');e.value='='+e.value;">[ exact ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('subspecies');e.value='NULL';">[ NULL ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('subspecies');e.value='!'+e.value;">[ NOT ]</span>
 		</td>
 	</tr>
 	
