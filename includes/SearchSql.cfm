@@ -292,9 +292,6 @@
 	</cfif>
 	
 	<!--- always hit relationships ---->
-	
-	
-	<!----------
 	<cfif basJoin does not contain " taxon_relations ">
 		<cfset basJoin = " #basJoin# left outer join taxon_relations on (taxon_name.taxon_name_id = taxon_relations.taxon_name_id)">
 	</cfif>
@@ -304,13 +301,12 @@
 		<cfset basJoin = " #basJoin# left outer JOIN taxon_term_aggregate invrelatedtaxonomy ON (invrelations.taxon_name_id = invrelatedtaxonomy.taxon_name_id)">
 		<cfset basQual = " #basQual# AND (
 			upper(taxon_term_aggregate.terms) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR
-			upper(taxon_term_aggregate.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR
 			upper(relatedtaxonomy.terms) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR
-			upper(relatedtaxonomy.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR
-			upper(invrelatedtaxonomy.terms) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR
-			upper(invrelatedtaxonomy.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR
-			upper(identification.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
+			upper(invrelatedtaxonomy.terms) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
 		)">
+	
+	<!----------
+	
 		
 	---------->	
 		
