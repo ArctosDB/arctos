@@ -248,25 +248,7 @@
 			</td>
 			---->
 			<td class="lbl">
-				<span class="helpLink" id="_taxon_scope">Taxon Name</span>
-				<!----
-				<select name="taxon_scope" id="taxon_scope" size="1">
-					<option value="currentID_like">Current Identification CONTAINS</option>
-					<option value="currentID_is">Current Identification IS</option>
-					<option value="currentID_list">Current Identification IN LIST</option>
-					<option value="currentID_not">Current Identification NOT</option>
-
-
-					<option value="anyID_like">Any Identification CONTAINS</option>
-					<option value="anyID_is">Any Identification IS</option>
-					<option value="anyID_list">Any Identification IN LIST</option>
-					<option value="anyID_not">Any Identification NOT</option>
-
-					<option value="currentTaxonomy">CurrentTaxonomy CONTAINS</option>
-					<option value="relatedTaxonomy">RelatedTaxonomy CONTAINS</option>
-					<option value="common">CommonName CONTAINS</option>
-				</select>
-				---->
+				<span class="helpLink" id="_taxon_scope">Identification</span>
 			</td>
 			<td class="srch">
 				<table style="border:1px solid green;">

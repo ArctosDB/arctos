@@ -74,6 +74,7 @@
 				<tr>
 					<td><input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="Taxon Name (Animalia; Soricidae)"></td>
 				</tr>
+				<!----
 				<tr>
 					<td>
 						<table width="100%">
@@ -123,6 +124,7 @@
 						</select>
 					</td>
 				</tr>
+				---------->
 			</table>
 		 	
 		</td>
