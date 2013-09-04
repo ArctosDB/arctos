@@ -239,6 +239,10 @@
 				inlist
 		also do whatever we're doing for related taxa
 		
+		
+		
+		IN seems to perform just as well, and is nice to write SQL to, so.....
+		
 		----------->
 	<cfif not isdefined("taxon_source") OR len(taxon_source) is 0>
 		<cfset taxon_source = "collection_preferred">
@@ -265,15 +269,6 @@
 	<cfif basJoin does not contain " identification_taxonomy ">
 		<cfset basJoin = " #basJoin# inner join identification_taxonomy on (identification.identification_id = identification_taxonomy.identification_id)">
 	</cfif>
-	<cfif basJoin does not contain " taxon_name ">
-		<cfset basJoin = " #basJoin# inner join taxon_name on (identification_taxonomy.taxon_name_id = taxon_name.taxon_name_id)">
-	</cfif>
-	<cfif basJoin does not contain " taxon_term ">
-		<cfset basJoin = " #basJoin# inner join taxon_term on (taxon_name.taxon_name_id = taxon_term.taxon_name_id)">
-	</cfif>
-	
-	
-	<!--- criteria and qualifications --->
 	<cfif taxon_term_scope is "currentID">
 		<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
 	</cfif>
@@ -282,7 +277,52 @@
 			<cfset basJoin = " #basJoin# inner join collection on (#session.flatTableName#.collection_id = collection.collection_id)">
 			<cfset basQual = " #basQual# AND taxon_term.source = collection.preferred_taxonomy_source ">
 		</cfif>
-	<cfelseif taxon_source is "all">
+	</cfif>
+	<cfset basQual = basQual & " and identification_taxonomy.taxon_name_id in ( ">
+		 <cfset currTaxIDs=" select taxon_name_id from taxon_term where upper(taxon_term.term) LIKE '%MARMOTINI%' ">
+		 <cfif taxon_source is not "all" and taxon_source is not "collection_preferred">
+		 	<cfset currTaxIDs=currTaxIDs & " and taxon_term.source = '#taxon_source#' ">
+		 </cfif>
+		 <cfif len(taxon_rank) gt 0>
+			<cfset currTaxIDs = currTaxIDs & " AND taxon_term.term_type = '#taxon_rank#' ">
+		</cfif>
+		
+	
+	
+	
+	<cfset basQual = basQual & " and identification_taxonomy.taxon_name_id in ( #currTaxIDs# )">
+	
+	
+	
+<!----
+		 
+    union 
+    select related_taxon_name_id from taxon_relations,taxon_term where taxon_relations.taxon_name_id=taxon_term.taxon_name_id and upper(taxon_term.term) LIKE '%MARMOTINI%'
+    UNION
+    select taxon_term.taxon_name_id from taxon_relations,taxon_term where taxon_relations.related_taxon_name_id=taxon_term.taxon_name_id and upper(taxon_term.term) LIKE '%MARMOTINI%'
+		
+	<cfif basJoin does not contain " taxon_name ">
+		<cfset basJoin = " #basJoin# inner join taxon_name on (identification_taxonomy.taxon_name_id = taxon_name.taxon_name_id)">
+	</cfif>
+	<cfif basJoin does not contain " taxon_term ">
+		<cfset basJoin = " #basJoin# inner join taxon_term on (taxon_name.taxon_name_id = taxon_term.taxon_name_id)">
+	</cfif>
+	
+	---->
+	
+	
+	
+	
+	
+	<!--- criteria and qualifications --->
+	
+	
+	
+
+	
+	<!----------
+	
+		<cfelseif taxon_source is "all">
 		<!--- do nothing --->
 	<cfelse>
 		<cfset basQual = " #basQual# AND taxon_term.source = '#taxon_source#' ">
@@ -326,12 +366,6 @@
 			upper(invrelatedtaxonomy.term)  in (#listqualify(ucase(taxon_name),chr(39))#---->
 	</cfif>
 	
-	
-
-	
-	<!----------
-	
-		
 	---------->	
 		
 		
