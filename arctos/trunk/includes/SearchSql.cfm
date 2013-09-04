@@ -277,24 +277,6 @@
 	<cfset relTaxIDs=" select related_taxon_name_id from taxon_relations,taxon_term where taxon_relations.taxon_name_id=taxon_term.taxon_name_id and upper(taxon_term.term) ">
 	<cfset invRelTaxIDs=" select taxon_term.taxon_name_id from taxon_relations,taxon_term where taxon_relations.related_taxon_name_id=taxon_term.taxon_name_id and upper(taxon_term.term) ">
 	
-	
-	<cfif taxon_source is "all">
-		<!--- do nothing --->
-	<cfelseif taxon_source is "collection_preferred">
-		 <cfset currTaxIDs=currTaxIDs & " and taxon_term.source = (select preferred_taxonomy_source from collection where collection_id=#session.flatTableName#.collection_id ) ">
-	<cfelse>
-	
-	 	<cfset currTaxIDs=currTaxIDs & " and taxon_term.source = '#taxon_source#' ">
-	 	<cfset relTaxIDs=relTaxIDs & " and taxon_term.source = '#taxon_source#' ">
-	 	<cfset invRelTaxIDs=invRelTaxIDs & " and taxon_term.source = '#taxon_source#' ">
-	 </cfif>
-	 <cfif len(taxon_rank) gt 0>
-		<cfset currTaxIDs = currTaxIDs & " AND taxon_term.term_type = '#taxon_rank#' ">
-		<cfset relTaxIDs = relTaxIDs & " AND taxon_term.term_type = '#taxon_rank#' ">
-		<cfset invRelTaxIDs = invRelTaxIDs & " AND taxon_term.term_type = '#taxon_rank#' ">
-	</cfif>
-		
-	
 	<cfif taxon_term_match_type is "contains">
 		<cfset currTaxIDs = currTaxIDs & " LIKE '%#ucase(escapeQuotes(taxon_name))#%' ">
 		<cfset relTaxIDs = relTaxIDs & " LIKE '%#ucase(escapeQuotes(taxon_name))#%' ">
@@ -310,6 +292,25 @@
 		<cfset relTaxIDs = relTaxIDs & " in ( #listqualify(ucase(taxon_name),chr(39))# ) ">
 		<cfset invRelTaxIDs = invRelTaxIDs & " in ( #listqualify(ucase(taxon_name),chr(39))# ) ">
 	 </cfif>
+	 
+	<cfif taxon_source is "all">
+		<!--- do nothing --->
+	<cfelseif taxon_source is "collection_preferred">
+		 <cfset currTaxIDs=currTaxIDs & " and taxon_term.source = (select preferred_taxonomy_source from collection where collection_id=#session.flatTableName#.collection_id ) ">
+	<cfelse>
+	 	<cfset currTaxIDs=currTaxIDs & " and taxon_term.source = '#taxon_source#' ">
+	 	<cfset relTaxIDs=relTaxIDs & " and taxon_term.source = '#taxon_source#' ">
+	 	<cfset invRelTaxIDs=invRelTaxIDs & " and taxon_term.source = '#taxon_source#' ">
+	 </cfif>
+	 
+	 <cfif len(taxon_rank) gt 0>
+		<cfset currTaxIDs = currTaxIDs & " AND taxon_term.term_type = '#taxon_rank#' ">
+		<cfset relTaxIDs = relTaxIDs & " AND taxon_term.term_type = '#taxon_rank#' ">
+		<cfset invRelTaxIDs = invRelTaxIDs & " AND taxon_term.term_type = '#taxon_rank#' ">
+	</cfif>
+		
+	
+	
 	
 	<cfif taxon_term_match_type is "notcontains">
 		<cfset combinedTaxIDs=currTaxIDs>
