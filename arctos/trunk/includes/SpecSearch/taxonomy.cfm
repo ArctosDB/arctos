@@ -69,64 +69,8 @@
 		<td class="lbl">
 			<span class="helpLink" id="_taxon_name">Taxon Name:</span>
 		</td>
-		<td class="srch" style="border:1px solid green;">
-			<table>
-				<tr>
-					<td><input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="any taxon term; any classification + related taxa"></td>
-				</tr>
-				<!----
-				<tr>
-					<td>
-						<table width="100%">
-							<tr>
-								<td width="50%">
-									<label for="taxon_term_scope">Match taxonomy from</label>
-									<select name="taxon_term_scope" id="taxon_term_scope">
-										<option value="currentID">Current ID only</option>
-										<option value="allID">Any ID</option>
-									</select>
-								</td>
-								<td>
-										<label for="taxon_term_match_type">Match Type</label>
-										<select name="taxon_term_match_type" id="taxon_term_match_type">
-											<option value="contains">contains</option>
-											<option value="exact">is (case insensitive)</option>
-											<option value="notcontains">does not contain</option>
-											<option value="inlist">comma-list</option>
-										</select>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="">Taxonomy Source (*=preferred by 1 or more collections)</label>
-						<select name="taxon_source" id="taxon_source">
-							<option value="collection_preferred"><strong>current taxonomy only</strong></option>
-							<option value="all"><strong>any related or webservice taxonomy</strong></option>
-							<cfloop query="ct_taxon_term_source">
-								<option value="#source#"><cfif len(PREFERRED_TAXONOMY_SOURCE) gt 0>* </cfif>#source#</option>
-							</cfloop>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label>Term Rank (*= available as collection's taxonomy)</label>
-						<select name="taxon_rank" id="taxon_rank">
-							<option value="">ignore rank</option>
-							<cfloop query="r">
-								<option value="#term_type#">
-								<cfif listcontainsnocase(colnterms,term_type)>* </cfif>
-								#term_type#</option>
-							</cfloop>
-						</select>
-					</td>
-				</tr>
-				---------->
-			</table>
-		 	
+		<td class="srch">
+			<input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="any taxon term; any classification + related taxa">
 		</td>
 	</tr>
 	<tr>
@@ -147,11 +91,9 @@
 				<cfloop query="ctNatureOfId">
 					<option value="#ctNatureOfId.nature_of_id#">#ctNatureOfId.nature_of_id#</option>
 				</cfloop>
-			</select><span class="infoLink" 
-							onclick="getCtDoc('ctnature_of_id',SpecData.nature_of_id.value);">Define</span>
+			</select><span class="infoLink" onclick="getCtDoc('ctnature_of_id',SpecData.nature_of_id.value);">Define</span>
 		</td>
 	</tr>
-	
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="identifier">ID Determiner:</span>
