@@ -1090,6 +1090,8 @@
 	<cfset mapurl = "#mapurl#&Phylclass=#Phylclass#">
 	<cfif left(phylclass,1) is '='>
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.phylclass) = '#ucase(right(phylclass,len(phylclass)-1))#'">
+	<cfelseif left(phylclass,1) is '!'>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.phylclass) != '#ucase(right(phylclass,len(phylclass)-1))#'">
 	<cfelseif compare(phylclass,"NULL") is 0>
 		<cfset basQual = " #basQual# AND (#session.flatTableName#.phylclass is NULL">
 	<cfelse>
