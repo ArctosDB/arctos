@@ -290,7 +290,7 @@
 		
 	
 		<cfif taxon_term_match_type is "contains">
-			<cfset currTaxIDs = currTaxIDs & " LIKE '%#ucase(escapeQuotes(taxon_name))#%' )">
+			<cfset currTaxIDs = currTaxIDs & " LIKE '%#ucase(escapeQuotes(taxon_name))#%' ">
 		</cfif>
 	
 	<cfset basQual = basQual & " and identification_taxonomy.taxon_name_id in ( #currTaxIDs# )">
