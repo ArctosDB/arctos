@@ -305,9 +305,9 @@
 	<cfelseif taxon_term_match_type is "notcontains">
 		<cfset currTaxIDs = currTaxIDs & " NOT LIKE '%#ucase(escapeQuotes(taxon_name))#%' ">
 	<cfelseif taxon_term_match_type is "inlist">
-		<cfset currTaxIDs = currTaxIDs & " in (#listqualify(ucase(taxon_name),chr(39))# ">
-		<cfset relTaxIDs = relTaxIDs & " in (#listqualify(ucase(taxon_name),chr(39))# ">
-		<cfset invRelTaxIDs = invRelTaxIDs & " in (#listqualify(ucase(taxon_name),chr(39))# ">
+		<cfset currTaxIDs = currTaxIDs & " in ( #listqualify(ucase(taxon_name),chr(39))# ) ">
+		<cfset relTaxIDs = relTaxIDs & " in ( #listqualify(ucase(taxon_name),chr(39))# ) ">
+		<cfset invRelTaxIDs = invRelTaxIDs & " in ( #listqualify(ucase(taxon_name),chr(39))# ) ">
 	 </cfif>
 	
 	<cfif taxon_term_match_type is "notcontains">
