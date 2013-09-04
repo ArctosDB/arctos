@@ -314,12 +314,14 @@
 	<cfelseif taxon_term_match_type is "notcontains">
 		<cfset basQual = " #basQual# AND upper(taxon_term.term) = '#ucase(escapeQuotes(taxon_name))#' ">
 	<cfelseif taxon_term_match_type is "inlist">
-		<cfset basQual = " #basQual# AND upper(taxon_term.term) in (#listqualify(ucase(taxon_name),chr(39))#) ">
+		<cfset basQual = " #basQual# AND (
+			upper(taxon_term.term) in (#listqualify(ucase(taxon_name),chr(39))#)   OR
+			upper(relatedtaxonomy.term)  in (#listqualify(ucase(taxon_name),chr(39))#) OR
+			upper(invrelatedtaxonomy.term)  in (#listqualify(ucase(taxon_name),chr(39))#) ">
 	</cfif>
 	
 	
-	
-	)">
+
 	
 	<!----------
 	
