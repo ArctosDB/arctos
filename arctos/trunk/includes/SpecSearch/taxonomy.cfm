@@ -72,7 +72,7 @@
 		<td class="srch" style="border:1px solid green;">
 			<table>
 				<tr>
-					<td><input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="any taxon term from any classification"></td>
+					<td><input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="any taxon term; any classification + related taxa"></td>
 				</tr>
 				<!----
 				<tr>
@@ -205,7 +205,7 @@
 			<span class="helpLink" id="_family">Family:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="family" id="family" size="50">
+			<input type="text" name="family" id="family" size="50" placeholder="Collection's classification">
 		</td>
 	</tr>
 	<tr>
@@ -213,7 +213,7 @@
 			<span class="helpLink" id="_genus">Genus:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="genus" id="genus" size="50">
+			<input type="text" name="genus" id="genus" size="50" placeholder="Collection's classification">
 		</td>
 	</tr>
 	<tr>
@@ -221,7 +221,7 @@
 			<span class="helpLink" id="_species">Species:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="species" id="species" size="50">
+			<input type="text" name="species" id="species" size="50" placeholder="Collection's classification">
 			<span class="infoLink" onclick="var e=document.getElementById('species');e.value='='+e.value;">Add = for exact match</span>
 		</td>
 	</tr>
@@ -230,7 +230,7 @@
 			<span class="helpLink" id="_subspecies">Subspecies:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="subspecies" id="subspecies" size="50">
+			<input type="text" name="subspecies" id="subspecies" size="50" placeholder="Collection's classification">
 			<span class="infoLink" onclick="var e=document.getElementById('subspecies');e.value='='+e.value;">Add = for exact match</span>
 		</td>
 	</tr>
