@@ -298,10 +298,23 @@
 		<cfset currTaxIDs = currTaxIDs & " LIKE '%#ucase(escapeQuotes(taxon_name))#%' ">
 		<cfset relTaxIDs = relTaxIDs & " LIKE '%#ucase(escapeQuotes(taxon_name))#%' ">
 		<cfset invRelTaxIDs = invRelTaxIDs & " LIKE '%#ucase(escapeQuotes(taxon_name))#%' ">
+	<cfelseif taxon_term_match_type is "exact">
+		<cfset currTaxIDs = currTaxIDs & " = '#ucase(escapeQuotes(taxon_name))#' ">
+		<cfset relTaxIDs = relTaxIDs & " = '#ucase(escapeQuotes(taxon_name))#' ">
+		<cfset invRelTaxIDs = invRelTaxIDs & " = '#ucase(escapeQuotes(taxon_name))#' ">		
+	<cfelseif taxon_term_match_type is "notcontains">
+		<cfset currTaxIDs = currTaxIDs & " NOT LIKE '%#ucase(escapeQuotes(taxon_name))#%' ">
+	<cfelseif taxon_term_match_type is "inlist">
+		<cfset currTaxIDs = currTaxIDs & " in (#listqualify(ucase(taxon_name),chr(39))# ">
+		<cfset relTaxIDs = relTaxIDs & " in (#listqualify(ucase(taxon_name),chr(39))# ">
+		<cfset invRelTaxIDs = invRelTaxIDs & " in (#listqualify(ucase(taxon_name),chr(39))# ">
+	 </cfif>
+	
+	<cfif taxon_term_match_type is "notcontains">
+		<cfset combinedTaxIDs=currTaxIDs>
+	<cfelse>
+		<cfset combinedTaxIDs=currTaxIDs & " union " & relTaxIDs & " union " & invRelTaxIDs>
 	</cfif>
-	
-	<cfset combinedTaxIDs=currTaxIDs & " union " & relTaxIDs & " union " & invRelTaxIDs>
-	
 	<cfset basQual = basQual & " and identification_taxonomy.taxon_name_id in ( #combinedTaxIDs# )">
 	
 	
