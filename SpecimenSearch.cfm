@@ -248,7 +248,7 @@
 			</td>
 			---->
 			<td class="lbl">
-				<span class="helpLink" id="_taxon_scope">Identification</span>
+				<span class="helpLink" id="_scientific_name">Identification</span>
 			</td>
 			<td class="srch">
 				<table style="border:1px solid green;">
