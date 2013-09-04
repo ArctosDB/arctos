@@ -220,6 +220,33 @@
 
 
 <cfif isdefined("taxon_name") AND len(taxon_name) gt 0>
+	<!---- version: lots
+		approach: 
+			taxon term: very broad net
+			family, etc: collection's stuff
+		------------>
+	<cfset mapurl = "#mapurl#&taxon_name=#taxon_name#">
+	<cfif basJoin does not contain " identification ">
+		<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " identification_taxonomy ">
+		<cfset basJoin = " #basJoin# inner join identification_taxonomy on (identification.identification_id = identification_taxonomy.identification_id)">
+	</cfif>
+	<cfset currTaxIDs=" select taxon_name_id from taxon_term where upper(taxon_term.term) ">
+	<cfset relTaxIDs=" select related_taxon_name_id from taxon_relations,taxon_term where taxon_relations.taxon_name_id=taxon_term.taxon_name_id and upper(taxon_term.term) ">
+	<cfset invRelTaxIDs=" select taxon_term.taxon_name_id from taxon_relations,taxon_term where taxon_relations.related_taxon_name_id=taxon_term.taxon_name_id and upper(taxon_term.term) ">
+	
+	<cfset currTaxIDs = currTaxIDs & " LIKE '%#ucase(escapeQuotes(taxon_name))#%' ">
+	<cfset relTaxIDs = relTaxIDs & " LIKE '%#ucase(escapeQuotes(taxon_name))#%' ">
+	<cfset invRelTaxIDs = invRelTaxIDs & " LIKE '%#ucase(escapeQuotes(taxon_name))#%' ">
+	
+	<cfset combinedTaxIDs=currTaxIDs & " union " & relTaxIDs & " union " & invRelTaxIDs>
+	
+	
+	<cfset basQual = basQual & " and identification_taxonomy.taxon_name_id in ( #combinedTaxIDs# )">
+	
+	
+	 		
 	<!----	
 		if we have a taxon_term, it may be accompanied by any of the following:
 			taxon_source
@@ -243,7 +270,7 @@
 		
 		IN seems to perform just as well, and is nice to write SQL to, so.....
 		
-		----------->
+		
 	<cfif not isdefined("taxon_source") OR len(taxon_source) is 0>
 		<cfset taxon_source = "collection_preferred">
 	</cfif>
@@ -577,7 +604,7 @@
 		not sure what to do with taxon_scope....<cfabort>
 	</cfif>
 	
-	
+	----------->
 	------------->
 </cfif>
 <cfif isdefined("ImgNoConfirm") and len(ImgNoConfirm) gt 0>
