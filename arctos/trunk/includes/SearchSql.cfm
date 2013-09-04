@@ -299,8 +299,8 @@
 	<cfset basJoin = " #basJoin# left outer JOIN taxon_relations invrelations ON (taxon_name.taxon_name_id = invrelations.RELATED_TAXON_NAME_ID)">
 	<cfset basJoin = " #basJoin# left outer JOIN taxon_term invrelatedtaxonomy ON (invrelations.taxon_name_id = invrelatedtaxonomy.taxon_name_id)">
 	<cfset basQual = " #basQual# AND (
-		upper(relatedtaxonomy.term) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR
-		upper(invrelatedtaxonomy.terms) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
+		upper(relatedtaxonomy.term) LIKE '%#ucase(escapeQuotes(taxon_name))#%' OR
+		upper(invrelatedtaxonomy.term) LIKE '%#ucase(escapeQuotes(taxon_name))#%'
 	)">
 	
 	<!----------
