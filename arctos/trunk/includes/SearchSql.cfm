@@ -22,16 +22,14 @@
 	</cfif>
 </cfif>
 <cfif isdefined("HighTaxa") AND len(HighTaxa) gt 0>
-	<cfset taxon_term=HighTaxa>
-	<cfset taxon_scope="currentTaxonomy">
+	<cfset taxon_name=HighTaxa>
 </cfif>
 <cfif isdefined("AnySciName") AND len(AnySciName) gt 0>
 	<cfset scientific_name=AnySciName>
 	<cfset scientific_name_match_type="contains">
 </cfif>
 <cfif isdefined("any_taxa_term") AND len(any_taxa_term) gt 0>
-	<cfset taxon_term=any_taxa_term>
-	<cfset taxon_scope="common">
+	<cfset taxon_name=any_taxa_term>
 </cfif>
 <!---- old taxonomy model used taxon_scope - see if we can translate it to new stuff to not break links ---->
 
@@ -89,12 +87,9 @@
 		
 	<cfelseif taxon_scope is "currentTaxonomy">
 		<!--- collection taxonomy LIKE ---->
-		<cfset taxon_term_match_type="contains">
-		<cfset taxon_source = "collection_preferred">
+		<cfset taxon_name=taxon_term>
 	<cfelseif taxon_scope is "relatedTaxonomy">
-		<!---- any taxonomy ---->
-		<cfset taxon_term_match_type="contains">
-		<cfset taxon_source = "any">
+		<cfset taxon_name=taxon_term>
 	<cfelseif taxon_scope is "common">
 		<!--- not taxonomy ay all ---->
 		<cfset Common_Name=taxon_term>
