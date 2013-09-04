@@ -295,15 +295,13 @@
 	<cfif basJoin does not contain " taxon_relations ">
 		<cfset basJoin = " #basJoin# left outer join taxon_relations on (taxon_name.taxon_name_id = taxon_relations.taxon_name_id)">
 	</cfif>
-	<cfset basJoin = " #basJoin# left outer JOIN taxon_term_aggregate relatedtaxonomy ON (taxon_relations.RELATED_TAXON_NAME_ID = relatedtaxonomy.taxon_name_id)">
-
-		<cfset basJoin = " #basJoin# left outer JOIN taxon_relations invrelations ON (taxon_term_aggregate.taxon_name_id = invrelations.RELATED_TAXON_NAME_ID)">
-		<cfset basJoin = " #basJoin# left outer JOIN taxon_term_aggregate invrelatedtaxonomy ON (invrelations.taxon_name_id = invrelatedtaxonomy.taxon_name_id)">
-		<cfset basQual = " #basQual# AND (
-			upper(taxon_term_aggregate.terms) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR
-			upper(relatedtaxonomy.terms) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR
-			upper(invrelatedtaxonomy.terms) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
-		)">
+	<cfset basJoin = " #basJoin# left outer JOIN taxon_term relatedtaxonomy ON (taxon_relations.RELATED_TAXON_NAME_ID = taxon_term.taxon_name_id)">
+	<cfset basJoin = " #basJoin# left outer JOIN taxon_relations invrelations ON (taxon_name.taxon_name_id = invrelations.RELATED_TAXON_NAME_ID)">
+	<cfset basJoin = " #basJoin# left outer JOIN taxon_term invrelatedtaxonomy ON (invrelations.taxon_name_id = invrelatedtaxonomy.taxon_name_id)">
+	<cfset basQual = " #basQual# AND (
+		upper(relatedtaxonomy.term) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR
+		upper(invrelatedtaxonomy.terms) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
+	)">
 	
 	<!----------
 	
