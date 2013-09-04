@@ -278,8 +278,9 @@
 		<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
 	</cfif>
 	<cfif taxon_source is "collection_preferred">
-		<cfif basJoin does not contain " collection_taxon_source ">
-			<cfset basJoin = " #basJoin# inner join collection collection_taxon_source on (taxon_term.source = collection_taxon_source.preferred_taxonomy_source)">
+		<cfif basJoin does not contain " collection ">
+			<cfset basJoin = " #basJoin# inner join collection on (#session.flatTableName#.collection_id = collection.collection_id)">
+			<cfset basQual = " #basQual# AND taxon_term.source = collection.preferred_taxonomy_source ">
 		</cfif>
 	<cfelseif taxon_source is "all">
 		<!--- do nothing --->
