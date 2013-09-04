@@ -298,9 +298,27 @@
 	<cfset basJoin = " #basJoin# left outer JOIN taxon_term relatedtaxonomy ON (taxon_relations.RELATED_TAXON_NAME_ID = taxon_term.taxon_name_id)">
 	<cfset basJoin = " #basJoin# left outer JOIN taxon_relations invrelations ON (taxon_name.taxon_name_id = invrelations.RELATED_TAXON_NAME_ID)">
 	<cfset basJoin = " #basJoin# left outer JOIN taxon_term invrelatedtaxonomy ON (invrelations.taxon_name_id = invrelatedtaxonomy.taxon_name_id)">
-	<cfset basQual = " #basQual# AND (
-		upper(relatedtaxonomy.term) LIKE '%#ucase(escapeQuotes(taxon_name))#%' OR
-		upper(invrelatedtaxonomy.term) LIKE '%#ucase(escapeQuotes(taxon_name))#%'
+		
+	<cfif taxon_term_match_type is "contains">
+		<cfset basQual = " #basQual# AND (
+			upper(taxon_term.term) LIKE '%#ucase(escapeQuotes(taxon_name))#%' OR
+			upper(relatedtaxonomy.term) LIKE '%#ucase(escapeQuotes(taxon_name))#%' OR
+			upper(invrelatedtaxonomy.term) LIKE '%#ucase(escapeQuotes(taxon_name))#%'
+		)">
+	<cfelseif taxon_term_match_type is "exact">
+		<cfset basQual = " #basQual# AND (
+			upper(taxon_term.term) = '#ucase(escapeQuotes(taxon_name))#'  OR
+			upper(relatedtaxonomy.term) = '#ucase(escapeQuotes(taxon_name))#' OR
+			upper(invrelatedtaxonomy.term) = '#ucase(escapeQuotes(taxon_name))#'
+		)">
+	<cfelseif taxon_term_match_type is "notcontains">
+		<cfset basQual = " #basQual# AND upper(taxon_term.term) = '#ucase(escapeQuotes(taxon_name))#' ">
+	<cfelseif taxon_term_match_type is "inlist">
+		<cfset basQual = " #basQual# AND upper(taxon_term.term) in (#listqualify(ucase(taxon_name),chr(39))#) ">
+	</cfif>
+	
+	
+	
 	)">
 	
 	<!----------
@@ -309,15 +327,7 @@
 	---------->	
 		
 		
-	<cfif taxon_term_match_type is "contains">
-		<cfset basQual = " #basQual# AND upper(taxon_term.term) LIKE '%#ucase(escapeQuotes(taxon_name))#%'">
-	<cfelseif taxon_term_match_type is "exact">
-		<cfset basQual = " #basQual# AND upper(taxon_term.term) = '#ucase(escapeQuotes(taxon_name))#' ">
-	<cfelseif taxon_term_match_type is "notcontains">
-		<cfset basQual = " #basQual# AND upper(taxon_term.term) = '#ucase(escapeQuotes(taxon_name))#' ">
-	<cfelseif taxon_term_match_type is "inlist">
-		<cfset basQual = " #basQual# AND upper(taxon_term.term) in (#listqualify(ucase(taxon_name),chr(39))#) ">
-	</cfif>
+	
 	
 	
 	
