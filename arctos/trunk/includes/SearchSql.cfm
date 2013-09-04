@@ -278,7 +278,8 @@
 			<cfset basQual = " #basQual# AND taxon_term.source = collection.preferred_taxonomy_source ">
 		</cfif>
 	</cfif>
-	<cfset basQual = basQual & " and identification_taxonomy.taxon_name_id in ( ">
+
+
 		 <cfset currTaxIDs=" select taxon_name_id from taxon_term where upper(taxon_term.term) LIKE '%MARMOTINI%' ">
 		 <cfif taxon_source is not "all" and taxon_source is not "collection_preferred">
 		 	<cfset currTaxIDs=currTaxIDs & " and taxon_term.source = '#taxon_source#' ">
