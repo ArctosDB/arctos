@@ -112,7 +112,7 @@
 				</tr>
 				<tr>
 					<td>
-						<label>Term Rank (* prefix = available as collection's taxonomy)</label>
+						<label>Term Rank (*= available as collection's taxonomy)</label>
 						<select name="taxon_rank" id="taxon_rank">
 							<option value="">ignore rank</option>
 							<cfloop query="r">
