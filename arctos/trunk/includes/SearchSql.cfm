@@ -280,7 +280,7 @@
 	</cfif>
 
 
-		 <cfset currTaxIDs=" select taxon_name_id from taxon_term where upper(taxon_term.term) LIKE '%MARMOTINI%' ">
+		 <cfset currTaxIDs=" select taxon_name_id from taxon_term where upper(taxon_term.term) ">
 		 <cfif taxon_source is not "all" and taxon_source is not "collection_preferred">
 		 	<cfset currTaxIDs=currTaxIDs & " and taxon_term.source = '#taxon_source#' ">
 		 </cfif>
@@ -289,7 +289,9 @@
 		</cfif>
 		
 	
-	
+		<cfif taxon_term_match_type is "contains">
+			<cfset currTaxIDs = currTaxIDs & " LIKE '%#ucase(escapeQuotes(taxon_name))#%' )">
+		</cfif>
 	
 	<cfset basQual = basQual & " and identification_taxonomy.taxon_name_id in ( #currTaxIDs# )">
 	
