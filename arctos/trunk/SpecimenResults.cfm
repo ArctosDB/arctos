@@ -202,7 +202,7 @@ function removeHelpDiv() {
 </cfif>
 
 
-
+<cfabort>
 
 <cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
 <cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
