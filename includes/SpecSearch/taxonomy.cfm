@@ -72,7 +72,7 @@
 		<td class="srch" style="border:1px solid green;">
 			<table>
 				<tr>
-					<td><input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="Taxon Name (Animalia; Soricidae)"></td>
+					<td><input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="any taxon term from any classification"></td>
 				</tr>
 				<!----
 				<tr>
@@ -196,7 +196,7 @@
 			<span class="helpLink" id="_phylclass">Class:</span>
 		</td>
 		<td class="srch">
-		 	<input type="text" name="phylclass" id="phylclass" size="50">
+		 	<input type="text" name="phylclass" id="phylclass" size="50" placeholder="Collection's classification">
 			<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='='+e.value;">Add = for exact match</span>		
 		</td>
 	</tr>
