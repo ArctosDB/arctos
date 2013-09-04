@@ -194,6 +194,13 @@
 		<cfmail subject="#subject#" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
 			#errortext#
 		</cfmail>
+		<cfif subject is "[Macromedia][Oracle JDBC Driver][Oracle]ORA-00933: SQL command not properly ended">
+			<!--- see if it's the viagra ad asshats again ---->
+			<cfif isdefined("exception.sql") and exception.sql contains 'href="http://'>
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
+		</cfif>
 		<table cellpadding="10">
 			<tr>
 				<td valign="top">
