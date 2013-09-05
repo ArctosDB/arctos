@@ -59,253 +59,290 @@ END;
 				round(sysdate-last_date) >= 7
 		</cfquery>
 		<cfloop query="bads">
-			<cfset fail="">
 			<cfquery name="addr" datasource="uam_god">
-				select count(*) cnt from addr where agent_id=#bads.agent_id#
+				select formatted_addr,addr_id from addr where agent_id=#bads.agent_id#
 			</cfquery>
-			<cfif addr.cnt gt 0>
-				<cfset fail="Agent ID #bads.agent_id# has addresses.">
-			</cfif>
-			<cfquery name="electronic_address" datasource="uam_god">
-				select count(*) cnt from electronic_address where agent_id=#bads.agent_id#
-			</cfquery>
-			<cfif electronic_address.cnt gt 0>
-				<cfset fail="Agent ID #bads.agent_id# has electronic addresses.">
-			</cfif>
-			<cfif len(fail) gt 0>
-				<br>fail: #fail#
-				<cfquery name="sentEmail" datasource="uam_god">
-					update 
-						cf_dup_agent
-					set 
-						status='fail: #fail#',
-						last_date=sysdate
-					where
-						cf_dup_agent_id=#cf_dup_agent_id#
+			<!--- 
+				if the good agent has an identical address, just switch loans and such
+				
+				otherwise, add the address to the good agent. Doing so will bring shipments along
+			---->
+			<cfloop query="addr">
+				<cfquery name="goodHasDupAddr" datasource="uam_god">
+					select min(addr_id) addr_id from addr where agent_id=#bads.RELATED_AGENT_ID# and
+					formatted_addr='#addr.formatted_addr
 				</cfquery>
-				<cfmail to="arctos.database@gmail.com" subject="agent merger failed" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
-					<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed.
-					<br>fail reason: #fail#
-				</cfmail>
-			<cfelse>
-				doing it...
-				<cftransaction>
-					<cftry>
-						<cfquery name="collector" datasource="uam_god">
-							UPDATE collector SET agent_id = #bads.related_agent_id#
-							WHERE agent_id = #bads.agent_id#
-						</cfquery>
-						got collector<br><cfflush>
-						<cfquery name="attributes" datasource="uam_god">
-							update attributes SET determined_by_agent_id=#bads.related_agent_id#
-							where determined_by_agent_id = #bads.agent_id#
-						</cfquery>
-						got attributes<br><cfflush>
-						<cfquery name="mediarc" datasource="uam_god">
-							UPDATE 
-							media_relations SET CREATED_BY_AGENT_ID=#bads.related_agent_id#
-							where CREATED_BY_AGENT_ID=#bads.agent_id#
-						</cfquery>
-						got media 1<br><cfflush>
-						<cfquery name="mediard" datasource="uam_god">
-							UPDATE 
-								media_relations 
-							SET RELATED_PRIMARY_KEY=#bads.related_agent_id#
-							where RELATED_PRIMARY_KEY=#bads.agent_id# and
-							upper(SUBSTR(media_relationship,instr(media_relationship,' ',-1)+1))='AGENT'
-						</cfquery>
-						got media 2<br><cfflush>
-						<cfquery name="medialbl" datasource="uam_god">
-							UPDATE 
-								media_labels 
-							SET ASSIGNED_BY_AGENT_ID=#bads.related_agent_id#
-							where ASSIGNED_BY_AGENT_ID=#bads.agent_id# 
-						</cfquery>
-						got media label<br><cfflush>
-						<cfquery name="encumbrance" datasource="uam_god">
-							UPDATE encumbrance SET encumbering_agent_id = #bads.related_agent_id#
-							where encumbering_agent_id = #bads.agent_id#
-						</cfquery>
-						got encumbrance<br><cfflush>
-						<cfquery name="identification_agent" datasource="uam_god">
-							update identification_agent set
-							agent_id = #bads.related_agent_id#
-							where agent_id = #bads.agent_id#
-						</cfquery>
-						got ID agnt<br><cfflush>
-						<cfquery name="specimen_event" datasource="uam_god">
-							update
-							specimen_event set 
-							ASSIGNED_BY_AGENT_ID = #bads.related_agent_id# where
-							ASSIGNED_BY_AGENT_ID = #bads.agent_id#
-						</cfquery>
-						got latlong<br><cfflush>
-						<cfquery name="permit_to" datasource="uam_god">
-							update permit set
-								ISSUED_TO_AGENT_ID = #bads.related_agent_id# where
-								ISSUED_TO_AGENT_ID = #bads.agent_id#
-						</cfquery>
+				<cfif len(goodHasDupAddr.addr_id) gt 0>
+					<!--- the good dup has a dup address; update shipment to use it and delete the old ---->
+					<cfquery name="upShipTo" datasource="uam_god">
+						update shipment set SHIPPED_TO_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_TO_ADDR_ID=#addr.addr_id#
+					</cfquery>
+					<cfquery name="upShipFrom" datasource="uam_god">
+						update shipment set SHIPPED_FROM_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
+					</cfquery>
+				<cfelse>
+					<!--- there is no existing duplicate address for the good agent, so give them the bad agent's addresses. Shipments etc. will follow ---->
+					<cfquery name="giveAddrToGoodAgent" datasource="uam_god">
+						update addr set AGENT_ID=#bads.RELATED_AGENT_ID# where addr_id=#addr.addr_id#
+					</cfquery>
+				</cfif>
+			</cfloop>
+			<cfquery name="electronic_address" datasource="uam_god">
+				select 
+					AGENT_ID,
+					ADDRESS_TYPE,
+					ADDRESS 
+				from 
+					electronic_address 
+				where 
+					agent_id=#bads.agent_id#
+			</cfquery>
+			<cfloop query="electronic_address">
+				<cfquery name="hasgood_electronic_address" datasource="uam_god">
+					select 
+						count(*) cnt 
+					from 
+						electronic_address 
+					where 
+						agent_id=#bads.RELATED_AGENT_ID# and
+						ADDRESS_TYPE='#electronic_address.ADDRESS_TYPE#' and
+						ADDRESS='#electronic_address.ADDRESS#'
+				</cfquery>
+				<cfif hasgood_electronic_address.cnt is 0>
+					<!--- no dup, create address ---->
+					<cfquery name="new_electronic_address" datasource="uam_god">
+						insert into electronic_address (
+							AGENT_ID,
+							ADDRESS_TYPE,
+							ADDRESS
+						) values (
+							#bads.RELATED_AGENT_ID#,
+							'#electronic_address.ADDRESS_TYPE#',
+							'#electronic_address.ADDRESS#'
+						)
+					</cfquery>
+				</cfif>
+			</cfloop>
+
+			doing it...
+			<cftransaction>
+				<cftry>
+					<cfquery name="collector" datasource="uam_god">
+						UPDATE collector SET agent_id = #bads.related_agent_id#
+						WHERE agent_id = #bads.agent_id#
+					</cfquery>
+					got collector<br><cfflush>
+					<cfquery name="attributes" datasource="uam_god">
+						update attributes SET determined_by_agent_id=#bads.related_agent_id#
+						where determined_by_agent_id = #bads.agent_id#
+					</cfquery>
+					got attributes<br><cfflush>
+					<cfquery name="mediarc" datasource="uam_god">
+						UPDATE 
+						media_relations SET CREATED_BY_AGENT_ID=#bads.related_agent_id#
+						where CREATED_BY_AGENT_ID=#bads.agent_id#
+					</cfquery>
+					got media 1<br><cfflush>
+					<cfquery name="mediard" datasource="uam_god">
+						UPDATE 
+							media_relations 
+						SET RELATED_PRIMARY_KEY=#bads.related_agent_id#
+						where RELATED_PRIMARY_KEY=#bads.agent_id# and
+						upper(SUBSTR(media_relationship,instr(media_relationship,' ',-1)+1))='AGENT'
+					</cfquery>
+					got media 2<br><cfflush>
+					<cfquery name="medialbl" datasource="uam_god">
+						UPDATE 
+							media_labels 
+						SET ASSIGNED_BY_AGENT_ID=#bads.related_agent_id#
+						where ASSIGNED_BY_AGENT_ID=#bads.agent_id# 
+					</cfquery>
+					got media label<br><cfflush>
+					<cfquery name="encumbrance" datasource="uam_god">
+						UPDATE encumbrance SET encumbering_agent_id = #bads.related_agent_id#
+						where encumbering_agent_id = #bads.agent_id#
+					</cfquery>
+					got encumbrance<br><cfflush>
+					<cfquery name="identification_agent" datasource="uam_god">
+						update identification_agent set
+						agent_id = #bads.related_agent_id#
+						where agent_id = #bads.agent_id#
+					</cfquery>
+					got ID agnt<br><cfflush>
+					<cfquery name="specimen_event" datasource="uam_god">
+						update
+						specimen_event set 
+						ASSIGNED_BY_AGENT_ID = #bads.related_agent_id# where
+						ASSIGNED_BY_AGENT_ID = #bads.agent_id#
+					</cfquery>
+					got latlong<br><cfflush>
+					<cfquery name="permit_to" datasource="uam_god">
+						update permit set
+							ISSUED_TO_AGENT_ID = #bads.related_agent_id# where
+							ISSUED_TO_AGENT_ID = #bads.agent_id#
+					</cfquery>
+					update trans_agent set
+							AGENT_ID = #bads.related_agent_id# where
+							AGENT_ID = #bads.agent_id#killagent<CFFLUSH>
+					<cfquery name="trans_agent" datasource="uam_god">
 						update trans_agent set
-								AGENT_ID = #bads.related_agent_id# where
-								AGENT_ID = #bads.agent_id#killagent<CFFLUSH>
-						<cfquery name="trans_agent" datasource="uam_god">
-							update trans_agent set
-								AGENT_ID = #bads.related_agent_id# where
-								AGENT_ID = #bads.agent_id#
-						</cfquery>
-						got tagent<br><cfflush>
-						<cfquery name="permit_by" datasource="uam_god">
-							update permit set
-								ISSUED_by_AGENT_ID = #bads.related_agent_id# where
-								ISSUED_by_AGENT_ID = #bads.agent_id#
-						</cfquery>
-						<cfquery name="permit_contact" datasource="uam_god">
-							update permit set
-								CONTACT_AGENT_ID = #bads.related_agent_id# where
-								CONTACT_AGENT_ID = #bads.agent_id#
-						</cfquery>
-						got permit<br><cfflush>
-						<cfquery name="shipment" datasource="uam_god">
-							update shipment set 
-							PACKED_BY_AGENT_ID = #bads.related_agent_id# where
-							PACKED_BY_AGENT_ID = #bads.agent_id#
-						</cfquery>
-						got shipment<br><cfflush>
-						<cfquery name="entered" datasource="uam_god">
-							update coll_object set
-							ENTERED_PERSON_ID = #bads.related_agent_id# where
-							ENTERED_PERSON_ID = #bads.agent_id#
-						</cfquery>
-						got collobject<br><cfflush>
-						<cfquery name="last_edit" datasource="uam_god">
-							update coll_object set
-							LAST_EDITED_PERSON_ID = #bads.related_agent_id# where
-							LAST_EDITED_PERSON_ID = #bads.agent_id#
-						</cfquery>
-						got collobjed<br><cfflush>
-						<cfquery name="loan_item" datasource="uam_god">
-							update loan_item set
-							RECONCILED_BY_PERSON_ID = #bads.related_agent_id# where
-							RECONCILED_BY_PERSON_ID = #bads.agent_id#
-						</cfquery>
-						
-						<cfquery name="media_relations" datasource="uam_god">
-							update media_relations set
-							RELATED_PRIMARY_KEY = #bads.related_agent_id# where
-							RELATED_PRIMARY_KEY = #bads.agent_id# and
-							MEDIA_RELATIONSHIP like '% agent'
-						</cfquery>
-						<cfquery name="media_relations_creator" datasource="uam_god">
-							update media_relations set
-							CREATED_BY_AGENT_ID = #bads.related_agent_id# where
-							CREATED_BY_AGENT_ID = #bads.agent_id#
-						</cfquery>
-						<cfquery name="media_labels" datasource="uam_god">
-							update media_labels set
-							ASSIGNED_BY_AGENT_ID = #bads.related_agent_id# where
-							ASSIGNED_BY_AGENT_ID = #bads.agent_id#
-						</cfquery>
-						got media labels<br><cfflush>
-						<cfquery name="group_member" datasource="uam_god">
-							update group_member set
-							MEMBER_AGENT_ID = #bads.related_agent_id# where
-							MEMBER_AGENT_ID = #bads.agent_id#
-						</cfquery>
-						got group_member<br><cfflush>
-						<cfquery name="object_condition" datasource="uam_god">
-							update object_condition set
-							DETERMINED_AGENT_ID = #bads.related_agent_id# where
-							DETERMINED_AGENT_ID = #bads.agent_id#
-						</cfquery>
-						got object_condition<br><cfflush>
-						<cfquery name="collection_contacts" datasource="uam_god">
-							update collection_contacts set
+							AGENT_ID = #bads.related_agent_id# where
+							AGENT_ID = #bads.agent_id#
+					</cfquery>
+					got tagent<br><cfflush>
+					<cfquery name="permit_by" datasource="uam_god">
+						update permit set
+							ISSUED_by_AGENT_ID = #bads.related_agent_id# where
+							ISSUED_by_AGENT_ID = #bads.agent_id#
+					</cfquery>
+					<cfquery name="permit_contact" datasource="uam_god">
+						update permit set
 							CONTACT_AGENT_ID = #bads.related_agent_id# where
 							CONTACT_AGENT_ID = #bads.agent_id#
-						</cfquery>
-						got collection_contacts<br><cfflush>
-						<cfquery name="publication_agent" datasource="uam_god">
-							update publication_agent set
-							agent_id = #bads.related_agent_id# where
-							agent_id = #bads.agent_id#
-						</cfquery>
-						got publication_agent<br><cfflush>
-						<!----
-						
-						---->
-						<cfquery name="related" datasource="uam_god">
-							DELETE FROM agent_relations WHERE agent_id = #bads.agent_id# OR related_agent_id = #bads.agent_id#
-						</cfquery>
-						NO SKIPPED del agntreln<br><cfflush>
-						
-						<cfquery name="disableTrig" datasource="uam_god">
-							alter trigger TR_AGENT_NAME_BIUD disable
-						</cfquery>
-						<cfquery name="killnames" datasource="uam_god">
-							DELETE FROM agent_name WHERE agent_id = #bads.agent_id#
-						</cfquery>
-						del agntname<br><cfflush>
-						
-						
-						<cfquery name="killperson" datasource="uam_god">
-							DELETE FROM person WHERE person_id = #bads.agent_id#
-						</cfquery>
-						del person<br><cfflush>
-						<cfquery name="killagent" datasource="uam_god">
-							DELETE FROM agent WHERE agent_id = #bads.agent_id#
-						</cfquery>
-						<cfquery name="disableTrig" datasource="uam_god">
-							alter trigger TR_AGENT_NAME_BIUD enable
-						</cfquery>
-						del agnt<br><cfflush>
-						
-						<!--- send email & mark as merged --->
-						
-						<cfquery name="sentEmail" datasource="uam_god">
-							update 
-								cf_dup_agent
-							set 
-								status='merged',
-								last_date=sysdate
-							where
-								cf_dup_agent_id=#cf_dup_agent_id#
-						</cfquery>
-						<cfinvoke component="component.functions" method="agentCollectionContacts" returnvariable="colns">
-							<cfinvokeargument name="agent_id" value="#bads.related_agent_id#,#bads.agent_id#">
-						</cfinvoke>
-						<cfif len(valuelist(colns.address)) gt 0>
-							<cfset mailto=valuelist(colns.address)>
-						<cfelse>
-							<cfset mailto=Application.bugReportEmail>
-						</cfif>
-						<cfmail to="#mailto#" subject="agent merger success" cc="#Application.PageProblemEmail#" from="agentmerge@#Application.fromEmail#" type="html">
-							<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
-						</cfmail>
-						.........commit...
-						<cftransaction action="commit">
-						<cfcatch>
-						.........rollback...
-							<cftransaction action="rollback">
+					</cfquery>
+					got permit<br><cfflush>
+					<cfquery name="shipment" datasource="uam_god">
+						update shipment set 
+						PACKED_BY_AGENT_ID = #bads.related_agent_id# where
+						PACKED_BY_AGENT_ID = #bads.agent_id#
+					</cfquery>
+					got shipment<br><cfflush>
+					<cfquery name="entered" datasource="uam_god">
+						update coll_object set
+						ENTERED_PERSON_ID = #bads.related_agent_id# where
+						ENTERED_PERSON_ID = #bads.agent_id#
+					</cfquery>
+					got collobject<br><cfflush>
+					<cfquery name="last_edit" datasource="uam_god">
+						update coll_object set
+						LAST_EDITED_PERSON_ID = #bads.related_agent_id# where
+						LAST_EDITED_PERSON_ID = #bads.agent_id#
+					</cfquery>
+					got collobjed<br><cfflush>
+					<cfquery name="loan_item" datasource="uam_god">
+						update loan_item set
+						RECONCILED_BY_PERSON_ID = #bads.related_agent_id# where
+						RECONCILED_BY_PERSON_ID = #bads.agent_id#
+					</cfquery>
+					
+					<cfquery name="media_relations" datasource="uam_god">
+						update media_relations set
+						RELATED_PRIMARY_KEY = #bads.related_agent_id# where
+						RELATED_PRIMARY_KEY = #bads.agent_id# and
+						MEDIA_RELATIONSHIP like '% agent'
+					</cfquery>
+					<cfquery name="media_relations_creator" datasource="uam_god">
+						update media_relations set
+						CREATED_BY_AGENT_ID = #bads.related_agent_id# where
+						CREATED_BY_AGENT_ID = #bads.agent_id#
+					</cfquery>
+					<cfquery name="media_labels" datasource="uam_god">
+						update media_labels set
+						ASSIGNED_BY_AGENT_ID = #bads.related_agent_id# where
+						ASSIGNED_BY_AGENT_ID = #bads.agent_id#
+					</cfquery>
+					got media labels<br><cfflush>
+					<cfquery name="group_member" datasource="uam_god">
+						update group_member set
+						MEMBER_AGENT_ID = #bads.related_agent_id# where
+						MEMBER_AGENT_ID = #bads.agent_id#
+					</cfquery>
+					got group_member<br><cfflush>
+					<cfquery name="object_condition" datasource="uam_god">
+						update object_condition set
+						DETERMINED_AGENT_ID = #bads.related_agent_id# where
+						DETERMINED_AGENT_ID = #bads.agent_id#
+					</cfquery>
+					got object_condition<br><cfflush>
+					<cfquery name="collection_contacts" datasource="uam_god">
+						update collection_contacts set
+						CONTACT_AGENT_ID = #bads.related_agent_id# where
+						CONTACT_AGENT_ID = #bads.agent_id#
+					</cfquery>
+					got collection_contacts<br><cfflush>
+					<cfquery name="publication_agent" datasource="uam_god">
+						update publication_agent set
+						agent_id = #bads.related_agent_id# where
+						agent_id = #bads.agent_id#
+					</cfquery>
+					got publication_agent<br><cfflush>
+					<!----
+					
+					---->
+					<cfquery name="related" datasource="uam_god">
+						DELETE FROM agent_relations WHERE agent_id = #bads.agent_id# OR related_agent_id = #bads.agent_id#
+					</cfquery>
+					NO SKIPPED del agntreln<br><cfflush>
+					
+					<cfquery name="disableTrig" datasource="uam_god">
+						alter trigger TR_AGENT_NAME_BIUD disable
+					</cfquery>
+					<cfquery name="killnames" datasource="uam_god">
+						DELETE FROM agent_name WHERE agent_id = #bads.agent_id#
+					</cfquery>
+					del agntname<br><cfflush>
+					
+					
+					<cfquery name="killperson" datasource="uam_god">
+						DELETE FROM person WHERE person_id = #bads.agent_id#
+					</cfquery>
+					del person<br><cfflush>
+					<cfquery name="killagent" datasource="uam_god">
+						DELETE FROM agent WHERE agent_id = #bads.agent_id#
+					</cfquery>
+					<cfquery name="disableTrig" datasource="uam_god">
+						alter trigger TR_AGENT_NAME_BIUD enable
+					</cfquery>
+					del agnt<br><cfflush>
+					
+					<!--- send email & mark as merged --->
+					
+					<cfquery name="sentEmail" datasource="uam_god">
+						update 
+							cf_dup_agent
+						set 
+							status='merged',
+							last_date=sysdate
+						where
+							cf_dup_agent_id=#cf_dup_agent_id#
+					</cfquery>
+					<cfinvoke component="component.functions" method="agentCollectionContacts" returnvariable="colns">
+						<cfinvokeargument name="agent_id" value="#bads.related_agent_id#,#bads.agent_id#">
+					</cfinvoke>
+					<cfif len(valuelist(colns.address)) gt 0>
+						<cfset mailto=valuelist(colns.address)>
+					<cfelse>
+						<cfset mailto=Application.bugReportEmail>
+					</cfif>
+					
+					<cfset mailto='dustymc@gmail.com'>
+					<cfmail to="#mailto#" subject="agent merger success" cc="#Application.PageProblemEmail#" from="agentmerge@#Application.fromEmail#" type="html">
+						<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
+					</cfmail>
+					.........commit...
+					<cftransaction action="commit">
+					<cfcatch>
+					.........rollback...
+						<cftransaction action="rollback">
+							<cfdump var=#cfcatch#>
+							<cfquery name="sentEmail" datasource="uam_god">
+								update 
+									cf_dup_agent
+								set 
+									status='catch: #cfcatch.message#',
+									last_date=sysdate
+								where
+									cf_dup_agent_id=#cf_dup_agent_id#
+							</cfquery>
+							<cfmail to="#Application.PageProblemEmail#" subject="agent merger failed" from="agentmerge@#Application.fromEmail#" type="html">
+								<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed and was rolled back.
+								<br>cfcatch dump follows.
+								<br>
 								<cfdump var=#cfcatch#>
-								<cfquery name="sentEmail" datasource="uam_god">
-									update 
-										cf_dup_agent
-									set 
-										status='catch: #cfcatch.message#',
-										last_date=sysdate
-									where
-										cf_dup_agent_id=#cf_dup_agent_id#
-								</cfquery>
-								<cfmail to="#Application.PageProblemEmail#" subject="agent merger failed" from="agentmerge@#Application.fromEmail#" type="html">
-									<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed and was rolled back.
-									<br>cfcatch dump follows.
-									<br>
-									<cfdump var=#cfcatch#>
-								</cfmail>
-						</cfcatch>
-						</cftry>
-					</cftransaction>
-				</cfif>
+							</cfmail>
+					</cfcatch>
+					</cftry>
+				</cftransaction>
 				
 				
 				
