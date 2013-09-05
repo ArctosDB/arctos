@@ -320,10 +320,10 @@ END;
 						<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
 					</cfmail>
 					.........commit...
-					<cftransaction action="commit">
+					<cftransaction action="commit" />
 					<cfcatch>
 					.........rollback...
-						<cftransaction action="rollback">
+						<cftransaction action="rollback" />
 							<cfdump var=#cfcatch#>
 							<cfquery name="sentEmail" datasource="uam_god">
 								update 
