@@ -468,40 +468,19 @@ END;
 					OR (related_agent_id = #findDups.agent_id# AND agent_id = #findDups.related_agent_id# AND agent_relationship = 'good duplicate of')
 					)
 			</cfquery>
-			<cfset prob="">		
-			<cfif agent_relations.cnt gt 0>
-				<cfset prob=listappend(prob,"The bad duplicate agents is involved in relationships.",";")>
-			</cfif>
-			<cfquery name="addr" datasource="uam_god">
-				select count(*) cnt from addr where agent_id=#findDups.agent_id#
-			</cfquery>
-			<cfif addr.cnt gt 0>
-				<cfset prob=listappend(prob,"The bad duplicate agent has addresses.",";")>
-			</cfif>
-			<cfquery name="electronic_address" datasource="uam_god">
-				select count(*) cnt from electronic_address where agent_id=#findDups.agent_id#
-			</cfquery>
-			<cfif electronic_address.cnt gt 0>
-				<cfset prob=listappend(prob,"The bad duplicate agent has electronic addresses.",";")>
-			</cfif>
+			
 			
 			<!--------#Application.DataProblemReportEmail#,#valuelist(colns.address)#------------->
 			<cfmail to="dustymc@gmail.com" subject="agents marked for merge" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
 				<br>Agents have been marked for merger.
 				<br>#findDups.agent_pref_name# is a bad duplicate of #findDups.rel_agent_pref_name#.
 				<br>The following agents are scheduled for merger on #dateformat(dateadd("d",7,detected_date),"yyyy-mm-dd")#.
-				<cfif len(prob) gt 0>
-					<p>
-						The following must be fixed before the merger can proceed:
-						<cfloop list="#prob#" delimiters=";" index="p">
-							<br>#p#
-						</cfloop>
-					</p>
-				<cfelse>
-					<br>To allow this merger, do nothing.
 				
-					<br>To stop this merger, remove the "bad duplicate of" relationship.
-				</cfif>
+				<br>To allow this merger, do nothing.
+			
+				<br>To stop this merger, remove the "bad duplicate of" relationship.
+				
+				<hr>
 				
 				<br>You are receiving this notification because one of more of the agents may have activities pertaining to
 				your collections. See Agent Activity for complete information.
