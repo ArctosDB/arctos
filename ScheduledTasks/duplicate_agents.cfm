@@ -130,6 +130,8 @@ END;
 							</cfquery>
 						</cfif>
 					</cfloop>
+					
+					<cftransaction action="commit" />
 					<cfquery name="electronic_address" datasource="uam_god">
 						delete from electronic_address where agent_id=#bads.agent_id#
 					</cfquery>
@@ -345,6 +347,9 @@ END;
 							</cfquery>
 							<cfmail to="#Application.PageProblemEmail#" subject="agent merger failed" from="agentmerge@#Application.fromEmail#" type="html">
 								<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed and was rolled back.
+								<br>
+								
+								cleanup SQL: update cf_dup_agent set last_date=sysdate-8,status='pass_email_sent' where AGENT_ID=#bads.agent_id#;
 								<br>cfcatch dump follows.
 								<br>
 								<cfdump var=#cfcatch#>
