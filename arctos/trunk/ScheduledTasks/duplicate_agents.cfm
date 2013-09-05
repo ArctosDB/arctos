@@ -70,7 +70,7 @@ END;
 			<cfloop query="addr">
 				<cfquery name="goodHasDupAddr" datasource="uam_god">
 					select min(addr_id) addr_id from addr where agent_id=#bads.RELATED_AGENT_ID# and
-					formatted_addr='#addr.formatted_addr
+					formatted_addr='#addr.formatted_addr#'
 				</cfquery>
 				<cfif len(goodHasDupAddr.addr_id) gt 0>
 					<!--- the good dup has a dup address; update shipment to use it and delete the old ---->
