@@ -297,8 +297,6 @@ function loadInitial() {
 						scaledH,
 						scaledW);
 				}
-			} else {
-				alert('error (1): ' + r);
 			}
 		}
 	);
