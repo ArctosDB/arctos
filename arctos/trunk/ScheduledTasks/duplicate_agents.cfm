@@ -59,74 +59,83 @@ END;
 				round(sysdate-last_date) >= 7
 		</cfquery>
 		<cfloop query="bads">
-			<cfquery name="addr" datasource="uam_god">
-				select formatted_addr,addr_id from addr where agent_id=#bads.agent_id#
-			</cfquery>
-			<!--- 
-				if the good agent has an identical address, just switch loans and such
-				
-				otherwise, add the address to the good agent. Doing so will bring shipments along
-			---->
-			<cfloop query="addr">
-				<cfquery name="goodHasDupAddr" datasource="uam_god">
-					select min(addr_id) addr_id from addr where agent_id=#bads.RELATED_AGENT_ID# and
-					formatted_addr='#addr.formatted_addr#'
-				</cfquery>
-				<cfif len(goodHasDupAddr.addr_id) gt 0>
-					<!--- the good dup has a dup address; update shipment to use it and delete the old ---->
-					<cfquery name="upShipTo" datasource="uam_god">
-						update shipment set SHIPPED_TO_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_TO_ADDR_ID=#addr.addr_id#
-					</cfquery>
-					<cfquery name="upShipFrom" datasource="uam_god">
-						update shipment set SHIPPED_FROM_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
-					</cfquery>
-				<cfelse>
-					<!--- there is no existing duplicate address for the good agent, so give them the bad agent's addresses. Shipments etc. will follow ---->
-					<cfquery name="giveAddrToGoodAgent" datasource="uam_god">
-						update addr set AGENT_ID=#bads.RELATED_AGENT_ID# where addr_id=#addr.addr_id#
-					</cfquery>
-				</cfif>
-			</cfloop>
-			<cfquery name="electronic_address" datasource="uam_god">
-				select 
-					AGENT_ID,
-					ADDRESS_TYPE,
-					ADDRESS 
-				from 
-					electronic_address 
-				where 
-					agent_id=#bads.agent_id#
-			</cfquery>
-			<cfloop query="electronic_address">
-				<cfquery name="hasgood_electronic_address" datasource="uam_god">
-					select 
-						count(*) cnt 
-					from 
-						electronic_address 
-					where 
-						agent_id=#bads.RELATED_AGENT_ID# and
-						ADDRESS_TYPE='#electronic_address.ADDRESS_TYPE#' and
-						ADDRESS='#electronic_address.ADDRESS#'
-				</cfquery>
-				<cfif hasgood_electronic_address.cnt is 0>
-					<!--- no dup, create address ---->
-					<cfquery name="new_electronic_address" datasource="uam_god">
-						insert into electronic_address (
-							AGENT_ID,
-							ADDRESS_TYPE,
-							ADDRESS
-						) values (
-							#bads.RELATED_AGENT_ID#,
-							'#electronic_address.ADDRESS_TYPE#',
-							'#electronic_address.ADDRESS#'
-						)
-					</cfquery>
-				</cfif>
-			</cfloop>
-
+			
 			doing it...
 			<cftransaction>
 				<cftry>
+				
+				
+					
+					<cfquery name="addr" datasource="uam_god">
+						select formatted_addr,addr_id from addr where agent_id=#bads.agent_id#
+					</cfquery>
+					<!--- 
+						if the good agent has an identical address, just switch loans and such
+						
+						otherwise, add the address to the good agent. Doing so will bring shipments along
+					---->
+					<cfloop query="addr">
+						<cfquery name="goodHasDupAddr" datasource="uam_god">
+							select min(addr_id) addr_id from addr where agent_id=#bads.RELATED_AGENT_ID# and
+							formatted_addr='#addr.formatted_addr#'
+						</cfquery>
+						<cfif len(goodHasDupAddr.addr_id) gt 0>
+							<!--- the good dup has a dup address; update shipment to use it and delete the old ---->
+							<cfquery name="upShipTo" datasource="uam_god">
+								update shipment set SHIPPED_TO_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_TO_ADDR_ID=#addr.addr_id#
+							</cfquery>
+							<cfquery name="upShipFrom" datasource="uam_god">
+								update shipment set SHIPPED_FROM_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
+							</cfquery>
+						<cfelse>
+							<!--- there is no existing duplicate address for the good agent, so give them the bad agent's addresses. Shipments etc. will follow ---->
+							<cfquery name="giveAddrToGoodAgent" datasource="uam_god">
+								update addr set AGENT_ID=#bads.RELATED_AGENT_ID# where addr_id=#addr.addr_id#
+							</cfquery>
+						</cfif>
+					</cfloop>
+					<cfquery name="electronic_address" datasource="uam_god">
+						select 
+							AGENT_ID,
+							ADDRESS_TYPE,
+							ADDRESS 
+						from 
+							electronic_address 
+						where 
+							agent_id=#bads.agent_id#
+					</cfquery>
+					<cfloop query="electronic_address">
+						<cfquery name="hasgood_electronic_address" datasource="uam_god">
+							select 
+								count(*) cnt 
+							from 
+								electronic_address 
+							where 
+								agent_id=#bads.RELATED_AGENT_ID# and
+								ADDRESS_TYPE='#electronic_address.ADDRESS_TYPE#' and
+								ADDRESS='#electronic_address.ADDRESS#'
+						</cfquery>
+						<cfif hasgood_electronic_address.cnt is 0>
+							<!--- no dup, create address ---->
+							<cfquery name="new_electronic_address" datasource="uam_god">
+								insert into electronic_address (
+									AGENT_ID,
+									ADDRESS_TYPE,
+									ADDRESS
+								) values (
+									#bads.RELATED_AGENT_ID#,
+									'#electronic_address.ADDRESS_TYPE#',
+									'#electronic_address.ADDRESS#'
+								)
+							</cfquery>
+						</cfif>
+					</cfloop>
+					<cfquery name="electronic_address" datasource="uam_god">
+						delete from electronic_address where agent_id=#bads.agent_id#
+					</cfquery>
+					<cfquery name="addr" datasource="uam_god">
+						delete from addr where agent_id=#bads.agent_id#
+					</cfquery>
 					<cfquery name="collector" datasource="uam_god">
 						UPDATE collector SET agent_id = #bads.related_agent_id#
 						WHERE agent_id = #bads.agent_id#
