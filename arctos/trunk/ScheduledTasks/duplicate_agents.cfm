@@ -484,7 +484,9 @@ END;
 			<cfif electronic_address.cnt gt 0>
 				<cfset prob=listappend(prob,"The bad duplicate agent has electronic addresses.",";")>
 			</cfif>
-			<cfmail to="#Application.DataProblemReportEmail#,#valuelist(colns.address)#" subject="agents marked for merge" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
+			
+			<!--------#Application.DataProblemReportEmail#,#valuelist(colns.address)#------------->
+			<cfmail to="dustymc@gmail.com" subject="agents marked for merge" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
 				<br>Agents have been marked for merger.
 				<br>#findDups.agent_pref_name# is a bad duplicate of #findDups.rel_agent_pref_name#.
 				<br>The following agents are scheduled for merger on #dateformat(dateadd("d",7,detected_date),"yyyy-mm-dd")#.
