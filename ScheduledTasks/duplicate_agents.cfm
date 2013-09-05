@@ -473,8 +473,10 @@ END;
 			<!--------#Application.DataProblemReportEmail#,#valuelist(colns.address)#------------->
 			<cfmail to="dustymc@gmail.com" subject="agents marked for merge" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
 				<br>Agents have been marked for merger.
-				<br>#findDups.agent_pref_name# is a bad duplicate of #findDups.rel_agent_pref_name#.
+				
 				<br>The following agents are scheduled for merger on #dateformat(dateadd("d",7,detected_date),"yyyy-mm-dd")#.
+				
+				<br>#findDups.agent_pref_name# is a bad duplicate of #findDups.rel_agent_pref_name#.
 				
 				<br>To allow this merger, do nothing.
 			
