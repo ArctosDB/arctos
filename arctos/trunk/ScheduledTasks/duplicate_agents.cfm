@@ -503,11 +503,7 @@ END;
 				update 
 					cf_dup_agent
 				set 
-					<cfif len(prob) gt 0>
-						status='fail_email_sent',
-					<cfelse>
-						status='pass_email_sent',
-					</cfif>
+					status='pass_email_sent',
 					last_date=sysdate 
 				where
 					cf_dup_agent_id=#cf_dup_agent_id#
