@@ -249,7 +249,6 @@ END;
 						</cfif>
 					</cfloop>
 					
-					<cftransaction action="commit">
 					
 					
 					<cfquery name="dammit2" datasource="uam_god">
