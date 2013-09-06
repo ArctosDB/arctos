@@ -123,6 +123,12 @@ END;
 							
 							<br>
 							
+							
+
+							
+
+
+
 							update shipment set SHIPPED_TO_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_TO_ADDR_ID=#addr.addr_id#
 
 
@@ -137,15 +143,56 @@ END;
 								update shipment set SHIPPED_FROM_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
 							</cfquery>
 						<cfelse>
-							<!--- there is no existing duplicate address for the good agent, so give them the bad agent's addresses. Shipments etc. will follow ---->
-							
+							<!--- create new address, update shipments ---->
+							<cfquery name="newAddrID" datasource="uam_god">
+								select sq_addr_id.nextval nid from dual
+							</cfquery>
+							<cfquery name="newAddr" datasource="uam_god">
+								insert into addr (
+									ADDR_ID,
+									STREET_ADDR1,
+									STREET_ADDR2,
+									CITY,
+									STATE,
+									ZIP,
+									COUNTRY_CDE,
+									MAIL_STOP,
+									AGENT_ID,
+									ADDR_TYPE,
+									JOB_TITLE,
+									VALID_ADDR_FG,
+									ADDR_REMARKS,
+									INSTITUTION,
+									DEPARTMENT
+								) values (
+									#newAddrID.nid#,
+									'#escapequotes(addr.STREET_ADDR1)#',
+									'#escapequotes(addr.STREET_ADDR2)#',
+									'#escapequotes(addr.CITY)#',
+									'#escapequotes(addr.STATE)#',
+									'#escapequotes(addr.ZIP)#',
+									'#escapequotes(addr.COUNTRY_CDE)#',
+									'#escapequotes(addr.MAIL_STOP)#',
+									'#bads.related_agent_id#',
+									'#escapequotes(addr.ADDR_TYPE)#',
+									'#escapequotes(addr.JOB_TITLE)#',
+									#addr.VALID_ADDR_FG#,
+									'#escapequotes(addr.ADDR_REMARKS)#',
+									'#escapequotes(addr.INSTITUTION)#',
+									'#escapequotes(addr.DEPARTMENT)#'
+								)
+							</cfquery>
 							<br>
 							
 							update addr set AGENT_ID=#bads.RELATED_AGENT_ID# where addr_id=#addr.addr_id#
+							<cfquery name="upShipTo" datasource="uam_god">
+								update shipment set SHIPPED_TO_ADDR_ID=#newAddrID.nid# where SHIPPED_TO_ADDR_ID=#addr.addr_id#
+							</cfquery>
 							
-							
-							<cfquery name="giveAddrToGoodAgent" datasource="uam_god">
-								update addr set AGENT_ID=#bads.RELATED_AGENT_ID# where addr_id=#addr.addr_id#
+							<br>								update shipment set SHIPPED_FROM_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
+
+							<cfquery name="upShipFrom" datasource="uam_god">
+								update shipment set SHIPPED_FROM_ADDR_ID=#newAddrID.nid# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
 							</cfquery>
 						</cfif>
 						
