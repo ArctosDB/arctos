@@ -249,14 +249,6 @@ END;
 						</cfif>
 					</cfloop>
 					
-					
-					
-					<cfquery name="dammit2" datasource="uam_god">
-								select * from addr where addr_id=#addr.addr_id#
-							</cfquery>
-							
-							<cfdump var=#dammit2#>
-						
 						
 						
 						
