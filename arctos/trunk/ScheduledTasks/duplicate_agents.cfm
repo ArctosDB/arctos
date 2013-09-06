@@ -99,8 +99,6 @@ END;
 							
 							<br>								update shipment set SHIPPED_FROM_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
 
-
-
 							<cfquery name="upShipFrom" datasource="uam_god">
 								update shipment set SHIPPED_FROM_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
 							</cfquery>
