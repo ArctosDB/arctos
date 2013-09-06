@@ -79,6 +79,11 @@ END;
 							select min(addr_id) addr_id from addr where agent_id=#bads.RELATED_AGENT_ID# and
 							formatted_addr='#addr.formatted_addr#'
 						</cfquery>
+						
+						
+						<cfdump var=#goodHasDupAddr#>
+						
+						
 						<cfif len(goodHasDupAddr.addr_id) gt 0>
 							<!--- the good dup has a dup address; update shipment to use it and delete the old ---->
 							
@@ -91,6 +96,11 @@ END;
 							<cfquery name="upShipTo" datasource="uam_god">
 								update shipment set SHIPPED_TO_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_TO_ADDR_ID=#addr.addr_id#
 							</cfquery>
+							
+							<br>								update shipment set SHIPPED_FROM_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
+
+
+
 							<cfquery name="upShipFrom" datasource="uam_god">
 								update shipment set SHIPPED_FROM_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
 							</cfquery>
@@ -145,9 +155,13 @@ END;
 					</cfloop>
 					
 					<cftransaction action="commit">
+					
+					<br>						delete from electronic_address where agent_id=#bads.agent_id#
+
 					<cfquery name="electronic_address" datasource="uam_god">
 						delete from electronic_address where agent_id=#bads.agent_id#
 					</cfquery>
+<br>delete from addr where agent_id=#bads.agent_id#
 					<cfquery name="addr" datasource="uam_god">
 						delete from addr where agent_id=#bads.agent_id#
 					</cfquery>
