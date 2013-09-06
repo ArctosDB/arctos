@@ -81,6 +81,13 @@ END;
 						</cfquery>
 						<cfif len(goodHasDupAddr.addr_id) gt 0>
 							<!--- the good dup has a dup address; update shipment to use it and delete the old ---->
+							
+							<br>
+							
+															update shipment set SHIPPED_TO_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_TO_ADDR_ID=#addr.addr_id#
+
+
+
 							<cfquery name="upShipTo" datasource="uam_god">
 								update shipment set SHIPPED_TO_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_TO_ADDR_ID=#addr.addr_id#
 							</cfquery>
@@ -89,6 +96,12 @@ END;
 							</cfquery>
 						<cfelse>
 							<!--- there is no existing duplicate address for the good agent, so give them the bad agent's addresses. Shipments etc. will follow ---->
+							
+							<br>
+							
+							update addr set AGENT_ID=#bads.RELATED_AGENT_ID# where addr_id=#addr.addr_id#
+							
+							
 							<cfquery name="giveAddrToGoodAgent" datasource="uam_god">
 								update addr set AGENT_ID=#bads.RELATED_AGENT_ID# where addr_id=#addr.addr_id#
 							</cfquery>
