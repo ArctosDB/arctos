@@ -114,6 +114,15 @@ END;
 								update addr set AGENT_ID=#bads.RELATED_AGENT_ID# where addr_id=#addr.addr_id#
 							</cfquery>
 						</cfif>
+						
+						
+						
+							<cfquery name="dammit" datasource="uam_god">
+								select * from shipment where SHIPPED_FROM_ADDR_ID=#addr.addr_id# or SHIPPED_TO_ADDR_ID=#addr.addr_id#
+							</cfquery>
+							
+							<cfdump var=#dammit#>
+						
 					</cfloop>
 					<cfquery name="electronic_address" datasource="uam_god">
 						select 
@@ -361,6 +370,9 @@ END;
 					.........rollback...
 						<cftransaction action="rollback">
 							<cfdump var=#cfcatch#>
+							
+							
+							<!-----
 							<cfquery name="sentEmail" datasource="uam_god">
 								update 
 									cf_dup_agent
@@ -379,6 +391,7 @@ END;
 								<br>
 								<cfdump var=#cfcatch#>
 							</cfmail>
+							----->
 					</cfcatch>
 					</cftry>
 				</cftransaction>
