@@ -10,6 +10,7 @@
 <cfquery name="CTTAXA_FORMULA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	SELECT DISTINCT(TAXA_FORMULA) FROM CTTAXA_FORMULA ORDER BY TAXA_FORMULA
 </cfquery>
+<!--------
 <cfquery name="ct_taxon_term_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select 
 		source,
@@ -35,7 +36,7 @@
 		POSITION_IN_CLASSIFICATION is not null
 	group by term_type order by term_type
 </cfquery>
-
+-------->
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
 	<!----
