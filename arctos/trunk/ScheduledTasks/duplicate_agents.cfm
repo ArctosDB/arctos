@@ -65,19 +65,52 @@ END;
 				<cftry>
 				
 				
+					<!--- if there are non-electronic addresses, merge them and update shipments ---->
 					
 					<cfquery name="addr" datasource="uam_god">
-						select formatted_addr,addr_id from addr where agent_id=#bads.agent_id#
+						select 
+							ADDR_ID,
+							STREET_ADDR1,
+							STREET_ADDR2,
+							CITY,
+							STATE,
+							ZIP,
+							COUNTRY_CDE,
+							MAIL_STOP,
+							FORMATTED_ADDR,
+							AGENT_ID,
+							ADDR_TYPE,
+							JOB_TITLE,
+							VALID_ADDR_FG,
+							ADDR_REMARKS,
+							INSTITUTION,
+							DEPARTMENT
+						from 
+							addr 
+						where 
+							agent_id=#bads.agent_id#
 					</cfquery>
-					<!--- 
-						if the good agent has an identical address, just switch loans and such
-						
-						otherwise, add the address to the good agent. Doing so will bring shipments along
-					---->
+					
 					<cfloop query="addr">
+						<br>got some addresses.....
+						<!--- see if there's a functional duplicate ---->
 						<cfquery name="goodHasDupAddr" datasource="uam_god">
-							select min(addr_id) addr_id from addr where agent_id=#bads.RELATED_AGENT_ID# and
-							formatted_addr='#addr.formatted_addr#'
+							select 
+								min(addr_id) addr_id 
+							from 
+								addr 
+							where 
+								agent_id=#bads.RELATED_AGENT_ID# and
+								STREET_ADDR1='#STREET_ADDR1#' and
+								STREET_ADDR2='#STREET_ADDR2#' and
+								CITY='#CITY#' and
+								STATE='#STATE#' and
+								ZIP='#ZIP#' and
+								COUNTRY_CDE='#ZIP#' and
+								MAIL_STOP='#MAIL_STOP#' and
+								JOB_TITLE='#JOB_TITLE#' and
+								INSTITUTION='#INSTITUTION#' and
+								DEPARTMENT='#DEPARTMENT#'
 						</cfquery>
 						
 						
