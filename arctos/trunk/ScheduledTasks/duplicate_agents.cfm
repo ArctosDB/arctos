@@ -204,6 +204,18 @@ END;
 					
 					<cftransaction action="commit">
 					
+					
+					<cfquery name="dammit2" datasource="uam_god">
+								select * from addr where addr_id=#addr.addr_id#
+							</cfquery>
+							
+							<cfdump var=#dammit2#>
+						
+						
+						
+						
+						
+					
 					<br>						delete from electronic_address where agent_id=#bads.agent_id#
 
 					<cfquery name="electronic_address" datasource="uam_god">
