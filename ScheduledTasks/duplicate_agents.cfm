@@ -84,7 +84,7 @@ END;
 							
 							<br>
 							
-															update shipment set SHIPPED_TO_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_TO_ADDR_ID=#addr.addr_id#
+							update shipment set SHIPPED_TO_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_TO_ADDR_ID=#addr.addr_id#
 
 
 
@@ -144,7 +144,7 @@ END;
 						</cfif>
 					</cfloop>
 					
-					<cftransaction action="commit" />
+					<cftransaction action="commit">
 					<cfquery name="electronic_address" datasource="uam_god">
 						delete from electronic_address where agent_id=#bads.agent_id#
 					</cfquery>
@@ -344,10 +344,10 @@ END;
 						<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
 					</cfmail>
 					.........commit...
-					<cftransaction action="commit" />
+					<cftransaction action="commit">
 					<cfcatch>
 					.........rollback...
-						<cftransaction action="rollback" />
+						<cftransaction action="rollback">
 							<cfdump var=#cfcatch#>
 							<cfquery name="sentEmail" datasource="uam_god">
 								update 
