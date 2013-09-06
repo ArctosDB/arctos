@@ -102,16 +102,17 @@ END;
 							where 
 								agent_id=#bads.RELATED_AGENT_ID# and
 								STREET_ADDR1='#STREET_ADDR1#' and
-								STREET_ADDR2='#STREET_ADDR2#' and
+								nvl(STREET_ADDR2,'NULL')=nvl('#STREET_ADDR2#','NULL') and
 								CITY='#CITY#' and
-								STATE='#STATE#' and
-								ZIP='#ZIP#' and
-								COUNTRY_CDE='#ZIP#' and
-								MAIL_STOP='#MAIL_STOP#' and
-								JOB_TITLE='#JOB_TITLE#' and
-								INSTITUTION='#INSTITUTION#' and
-								DEPARTMENT='#DEPARTMENT#'
+								nvl(STATE,'NULL')=nvl('#STATE#','NULL') and
+								nvl(ZIP,'NULL')=nvl('#ZIP#','NULL') and
+								nvl(COUNTRY_CDE,'NULL')=nvl('#COUNTRY_CDE#','NULL') and
+								nvl(MAIL_STOP,'NULL')=nvl('#MAIL_STOP#','NULL') and
+								nvl(JOB_TITLE,'NULL')=nvl('#JOB_TITLE#','NULL') and
+								nvl(INSTITUTION,'NULL')=nvl('#INSTITUTION#','NULL') and
+								nvl(DEPARTMENT,'NULL')=nvl('#DEPARTMENT#','NULL')
 						</cfquery>
+						
 						
 						
 						<cfdump var=#goodHasDupAddr#>
