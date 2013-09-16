@@ -85,7 +85,7 @@
 	<tr>
 		<td width="50%" valign="top">
 			<!--- search form gets half-width --->
-			<h3>Search Taxonomy</h3>			
+			<h3>Search Taxonomy (default is case-insensitive STARTS WITH)</h3>			
 			<form ACTION="/taxonomy.cfm" METHOD="get" name="taxa" id="taxa">
 				<label for="taxon_name">Taxon Name</label>
 				<input type="text" name="taxon_name" id="taxon_name" value="#taxon_name#" onfocus="highlightHelp(this.id);">
@@ -101,6 +101,9 @@
 				<input type="text" name="term_type" id="term_type" value="#term_type#" onfocus="highlightHelp(this.id);">
 				<span class="infoLink" onclick="var e=document.getElementById('term_type');e.value='='+e.value;">
 					Prefix with = for exact match
+				</span>
+				<span class="infoLink" onclick="var e=document.getElementById('term_type');e.value='%'+e.value;">
+					Prefix with % for contains
 				</span>
 				<span class="infoLink" onclick="var e=document.getElementById('term_type').value='NULL';">
 					[ NULL ]
@@ -165,7 +168,7 @@
 				<cfset sql=sql & " and upper(taxon_name.scientific_name) = '#ucase(right(taxon_name,len(taxon_name)-1))#'">
 				<li>scientific_name IS #right(taxon_name,len(taxon_name)-1)#</li>
 			<cfelse>
-				<cfset sql=sql & " and upper(taxon_name.scientific_name) like '%#ucase(taxon_name)#%'">
+				<cfset sql=sql & " and upper(taxon_name.scientific_name) like '#ucase(taxon_name)#%'">
 				<li>scientific_name CONTAINS #taxon_name#</li>
 			</cfif>
 		</cfif>
@@ -174,7 +177,7 @@
 				<cfset sql=sql & " and upper(term) = '#ucase(right(taxon_term,len(taxon_term)-1))#'">
 				<li>taxa term IS #right(taxon_term,len(taxon_term)-1)#</li>
 			<cfelse>
-				<cfset sql=sql & " and upper(term) like '%#ucase(taxon_term)#%'">
+				<cfset sql=sql & " and upper(term) like '#ucase(taxon_term)#%'">
 				<li>taxa term CONTAINS #taxon_term#</li>
 			</cfif>			  
 		</cfif>
@@ -185,17 +188,20 @@
 			<cfelseif term_type is "NULL">
 				<cfset sql=sql & " and term_type is null">
 				<li>term type IS NULL</li>
-			<cfelse>
-				<cfset sql=sql & " and upper(term_type) like '%#ucase(term_type)#%'">
+			<cfelseif left(term_type,1) is "%">
+				<cfset sql=sql & " and upper(term_type) like '%#ucase(right(term_type,len(term_type)-1))#%'">
 				<li>term type CONTAINS #term_type#</li>
+			<cfelse>
+				<cfset sql=sql & " and upper(term_type) like '#ucase(term_type)#%'">
+				<li>term type STARTS WITH #term_type#</li>
 			</cfif>			  
 		</cfif>
 		<cfif len(source) gt 0>
-			<cfset sql=sql & " and upper(source) like '%#ucase(source)#%'">
+			<cfset sql=sql & " and upper(source) like '#ucase(source)#%'">
 			<li>source CONTAINS #source#</li>
 		</cfif>
 		<cfif len(common_name) gt 0>
-			<cfset sql=sql & " and taxon_name.taxon_name_id in (select taxon_name_id from common_name where upper(common_name) like '%#ucase(common_name)#%') ">
+			<cfset sql=sql & " and taxon_name.taxon_name_id in (select taxon_name_id from common_name where upper(common_name) like '#ucase(common_name)#%') ">
 			<li>common name CONTAINS #common_name#</li>
 		</cfif>
 		

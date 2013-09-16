@@ -33,7 +33,7 @@ It is obsolete once it's run once.
 				where 
 					taxon_name_id not in (select taxon_name_id from taxon_name) 
 				group by taxon_name_id
-			) where rownum<2001
+			) where rownum<1001
 		</cfquery>
 		<cfif ids.recordcount is 0>
 			<cfquery name="ids" datasource="uam_god">
@@ -45,7 +45,7 @@ It is obsolete once it's run once.
 					where 
 						taxon_name_id not in (select taxon_name_id from taxon_name) 
 					group by taxon_name_id
-				) where rownum<2001
+				) where rownum<1001
 			</cfquery>
 		</cfif>
 		<cfif ids.recordcount is 0>
@@ -58,7 +58,7 @@ It is obsolete once it's run once.
 					where 
 						taxon_name_id not in (select taxon_name_id from taxon_name) 
 					group by taxon_name_id
-				) where rownum<2001
+				) where rownum<1001
 			</cfquery>
 		</cfif>
 		<cfif ids.recordcount is 0>
@@ -69,7 +69,7 @@ It is obsolete once it's run once.
 						 media_relations WHERE media_relationship like '% taxonomy' and 
 						 related_primary_key NOT IN (SELECT TAXON_NAME_ID FROM TAXON_NAME)
 					group by related_primary_key
-				) where rownum<2001
+				) where rownum<1001
 			</cfquery>
 		</cfif>
 		<cfif ids.recordcount is 0>
@@ -82,7 +82,7 @@ It is obsolete once it's run once.
 					where 
 						taxon_name_id not in (select taxon_name_id from taxon_name) 
 					group by taxon_name_id
-				) where rownum<2001
+				) where rownum<1001
 			</cfquery>
 		</cfif>
 		<cfif ids.recordcount is 0>
@@ -95,7 +95,7 @@ It is obsolete once it's run once.
 					where 
 						taxon_name_id not in (select taxon_name_id from taxon_name) 
 					group by taxon_name_id
-				) where rownum<2001
+				) where rownum<1001
 			</cfquery>
 		</cfif>
 		<cfif ids.recordcount is 0>
@@ -114,7 +114,7 @@ It is obsolete once it's run once.
 		<cfif ids.recordcount is 0>
 			<cfquery name="ids" datasource="uam_god">
 				select taxon_name_id from taxonomy where taxon_name_id not in (select taxon_name_id from taxon_name) 
-				and rownum<2001
+				and rownum<1001
 			</cfquery>
 		</cfif>
 	
@@ -135,7 +135,7 @@ It is obsolete once it's run once.
 		<cfquery name="tt" datasource="uam_god">
 			insert into taxon_name (taxon_name_id,scientific_name) values (#d.taxon_name_id#,'#d.SCIENTIFIC_NAME#')
 		</cfquery>
-		<cfset orderedTerms="KINGDOM,PHYLUM,PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,SUBSPECIES">
+		<cfset orderedTerms="KINGDOM,PHYLUM,PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,SUBSPECIES,SCIENTIFIC_NAME">
 		<cfset pos=1>
 			<!--- arctos "source_id" is just the taxon_name_id ---->
 			<cfloop list="#orderedTerms#" index="termtype">
