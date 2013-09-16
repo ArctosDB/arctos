@@ -59,14 +59,9 @@ END;
 				round(sysdate-last_date) >= 7
 		</cfquery>
 		<cfloop query="bads">
-			
-			doing it...
 			<cftransaction>
-				<cftry>
-				
-				
+				<cftry>				
 					<!--- if there are non-electronic addresses, merge them and update shipments ---->
-					
 					<cfquery name="addr" datasource="uam_god">
 						select 
 							ADDR_ID,
@@ -112,33 +107,11 @@ END;
 								nvl(INSTITUTION,'NULL')=nvl('#INSTITUTION#','NULL') and
 								nvl(DEPARTMENT,'NULL')=nvl('#DEPARTMENT#','NULL')
 						</cfquery>
-						
-						
-						
-						<cfdump var=#goodHasDupAddr#>
-						
-						
 						<cfif len(goodHasDupAddr.addr_id) gt 0>
 							<!--- the good dup has a dup address; update shipment to use it and delete the old ---->
-							
-							<br>
-							
-							
-
-							
-
-
-
-							update shipment set SHIPPED_TO_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_TO_ADDR_ID=#addr.addr_id#
-
-
-
 							<cfquery name="upShipTo" datasource="uam_god">
 								update shipment set SHIPPED_TO_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_TO_ADDR_ID=#addr.addr_id#
 							</cfquery>
-							
-							<br>								update shipment set SHIPPED_FROM_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
-
 							<cfquery name="upShipFrom" datasource="uam_god">
 								update shipment set SHIPPED_FROM_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
 							</cfquery>
@@ -182,35 +155,13 @@ END;
 									'#escapequotes(addr.DEPARTMENT)#'
 								)
 							</cfquery>
-							<br>
-							
-							update addr set AGENT_ID=#bads.RELATED_AGENT_ID# where addr_id=#addr.addr_id#
 							<cfquery name="upShipTo" datasource="uam_god">
 								update shipment set SHIPPED_TO_ADDR_ID=#newAddrID.nid# where SHIPPED_TO_ADDR_ID=#addr.addr_id#
 							</cfquery>
-							
-							<br>								update shipment set SHIPPED_FROM_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
-
 							<cfquery name="upShipFrom" datasource="uam_god">
 								update shipment set SHIPPED_FROM_ADDR_ID=#newAddrID.nid# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
 							</cfquery>
 						</cfif>
-						
-						
-						
-							<cfquery name="dammit" datasource="uam_god">
-								select * from shipment where SHIPPED_FROM_ADDR_ID=#addr.addr_id# or SHIPPED_TO_ADDR_ID=#addr.addr_id#
-							</cfquery>
-							
-							<cfdump var=#dammit#>
-							
-							<cfquery name="dammit2" datasource="uam_god">
-								select * from addr where addr_id=#addr.addr_id#
-							</cfquery>
-							
-							<cfdump var=#dammit2#>
-						
-						
 					</cfloop>
 					<cfquery name="electronic_address" datasource="uam_god">
 						select 
@@ -248,14 +199,6 @@ END;
 							</cfquery>
 						</cfif>
 					</cfloop>
-					
-						
-						
-						
-						
-					
-					<br>						delete from electronic_address where agent_id=#bads.agent_id#
-
 					<cfquery name="electronic_address" datasource="uam_god">
 						delete from electronic_address where agent_id=#bads.agent_id#
 					</cfquery>
