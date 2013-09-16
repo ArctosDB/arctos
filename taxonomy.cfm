@@ -90,20 +90,26 @@
 				<label for="taxon_name">Taxon Name</label>
 				<input type="text" name="taxon_name" id="taxon_name" value="#taxon_name#" onfocus="highlightHelp(this.id);">
 				<span class="infoLink" onclick="var e=document.getElementById('taxon_name');e.value='='+e.value;">
-					Prefix with = for exact match
+					[ Prefix with = for exact match ]
+				</span>
+				<span class="infoLink" onclick="var e=document.getElementById('taxon_name');e.value='%'+e.value;">
+					[ Prefix with % for contains ]
 				</span>
 				<label for="taxon_term">Taxon Term</label>
 				<input type="text" name="taxon_term" id="taxon_term" value="#taxon_term#" onfocus="highlightHelp(this.id);">
 				<span class="infoLink" onclick="var e=document.getElementById('taxon_term');e.value='='+e.value;">
-					Prefix with = for exact match
+					[ Prefix with = for exact match ]
+				</span>
+				<span class="infoLink" onclick="var e=document.getElementById('taxon_term');e.value='%'+e.value;">
+					[ Prefix with % for contains ]
 				</span>
 				<label for="term_type">Term Type</label>
 				<input type="text" name="term_type" id="term_type" value="#term_type#" onfocus="highlightHelp(this.id);">
 				<span class="infoLink" onclick="var e=document.getElementById('term_type');e.value='='+e.value;">
-					Prefix with = for exact match
+					[ Prefix with = for exact match ]
 				</span>
 				<span class="infoLink" onclick="var e=document.getElementById('term_type');e.value='%'+e.value;">
-					Prefix with % for contains
+					[ Prefix with % for contains ]
 				</span>
 				<span class="infoLink" onclick="var e=document.getElementById('term_type').value='NULL';">
 					[ NULL ]
@@ -167,18 +173,24 @@
 			<cfif left(taxon_name,1) is "=">
 				<cfset sql=sql & " and upper(taxon_name.scientific_name) = '#ucase(right(taxon_name,len(taxon_name)-1))#'">
 				<li>scientific_name IS #right(taxon_name,len(taxon_name)-1)#</li>
+			<cfelseif left(taxon_name,1) is "%">
+				<cfset sql=sql & " and upper(taxon_name.scientific_name) like '%#ucase(right(taxon_name,len(taxon_name)-1))#%'">
+				<li>scientific_name CONTAINS #taxon_term#</li>
 			<cfelse>
 				<cfset sql=sql & " and upper(taxon_name.scientific_name) like '#ucase(taxon_name)#%'">
-				<li>scientific_name CONTAINS #taxon_name#</li>
+				<li>scientific_name STARTS WITH #taxon_name#</li>
 			</cfif>
 		</cfif>
 		<cfif len(taxon_term) gt 0>
 			<cfif  left(taxon_term,1) is "=">
 				<cfset sql=sql & " and upper(term) = '#ucase(right(taxon_term,len(taxon_term)-1))#'">
 				<li>taxa term IS #right(taxon_term,len(taxon_term)-1)#</li>
+			<cfelseif left(taxon_term,1) is "%">
+				<cfset sql=sql & " and upper(term) like '%#ucase(right(taxon_term,len(taxon_term)-1))#%'">
+				<li>taxa term CONTAINS #taxon_term#</li>
 			<cfelse>
 				<cfset sql=sql & " and upper(term) like '#ucase(taxon_term)#%'">
-				<li>taxa term CONTAINS #taxon_term#</li>
+				<li>taxa term STARTS WITH #taxon_term#</li>
 			</cfif>			  
 		</cfif>
 		<cfif len(term_type) gt 0>
@@ -198,11 +210,21 @@
 		</cfif>
 		<cfif len(source) gt 0>
 			<cfset sql=sql & " and upper(source) like '#ucase(source)#%'">
-			<li>source CONTAINS #source#</li>
+			<li>source STARTS WITH #source#</li>
 		</cfif>
 		<cfif len(common_name) gt 0>
-			<cfset sql=sql & " and taxon_name.taxon_name_id in (select taxon_name_id from common_name where upper(common_name) like '#ucase(common_name)#%') ">
-			<li>common name CONTAINS #common_name#</li>
+			<cfif  left(common_name,1) is "=">
+				<cfset sql=sql & " and taxon_name.taxon_name_id in (select taxon_name_id from common_name where upper(common_name) = '#ucase(right(common_name,len(common_name)-1))#') ">
+				<li>common name IS #right(common_name,len(common_name)-1)#</li>
+			<cfelseif left(common_name,1) is "%">
+				<cfset sql=sql & " and taxon_name.taxon_name_id in (select taxon_name_id from common_name where upper(common_name) LIKE '%#ucase(right(common_name,len(common_name)-1))#%') ">
+				<li>common name CONTAINS #common_name#</li>
+			<cfelse>
+				<cfset sql=sql & " and taxon_name.taxon_name_id in (select taxon_name_id from common_name where upper(common_name) like '#ucase(common_name)#%') ">
+				<li>common name STARTS WITH #term_type#</li>
+			</cfif>		
+			
+			
 		</cfif>
 		
 		<cfset sql=sql & "
