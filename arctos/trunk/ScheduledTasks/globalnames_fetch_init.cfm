@@ -124,6 +124,9 @@ Delete this file after initial fetch
 		<cfdump var=#d#>
 		
 		
+		<cfflush>
+		
+		
 		
 		
 		<!----
