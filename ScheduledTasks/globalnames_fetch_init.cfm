@@ -182,7 +182,7 @@ Delete this file after initial fetch
 		----------------------->
 
 
-<cfsetting requesttimeout="3000" />
+<cfsetting requesttimeout="30" />
 		
 		<!------------
 			<cfif left(scientific_name,1) is chr(215)>
