@@ -163,9 +163,8 @@ Delete this file after initial fetch
 	<cfset theseNames=valuelist(d.scientific_name,"|")>
 		<hr>
 		
-		#scientific_name# --- #taxon_name_id#
 		
-		
+		-----------theseNames: #theseNames#
 		
 		<br>
 		<!---------------
