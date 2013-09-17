@@ -34,42 +34,44 @@ Delete this file after initial fetch
 </cfquery>
 <cfif d.recordcount is 0>			
 	<cfquery name="d" datasource="uam_god">
-		select 
-			taxon_name.scientific_name,
-			taxon_name.taxon_name_id 
-		from 
-			taxon_name,
-			TAXON_RELATIONS
-		where 
-			taxon_name.taxon_name_id=TAXON_RELATIONS.taxon_name_id and
-			taxon_name.taxon_name_id not in (select taxon_name_id from temp_gn_fetched) and 
-			rownum < #numberOfNamesOneFetch#
-	group by
-		taxon_name.scientific_name,
-		taxon_name.taxon_name_id
+		select * from (
+			select 
+				taxon_name.scientific_name,
+				taxon_name.taxon_name_id 
+			from 
+				taxon_name,
+				TAXON_RELATIONS
+			where 
+				taxon_name.taxon_name_id=TAXON_RELATIONS.taxon_name_id and
+				taxon_name.taxon_name_id not in (select taxon_name_id from temp_gn_fetched)
+			group by
+				taxon_name.scientific_name,
+				taxon_name.taxon_name_id
+		) where rownum < #numberOfNamesOneFetch#
 	</cfquery>
 </cfif>
 <cfif d.recordcount is 0>			
 	<cfquery name="d" datasource="uam_god">
-		select 
+		select * from (
+			select 
+				taxon_name.scientific_name,
+				taxon_name.taxon_name_id 
+			from 
+				taxon_name,
+				ANNOTATIONS
+			where 
+				taxon_name.taxon_name_id=ANNOTATIONS.taxon_name_id and
+				taxon_name.taxon_name_id not in (select taxon_name_id from temp_gn_fetched)
+		group by
 			taxon_name.scientific_name,
-			taxon_name.taxon_name_id 
-		from 
-			taxon_name,
-			ANNOTATIONS
-		where 
-			taxon_name.taxon_name_id=ANNOTATIONS.taxon_name_id and
-			taxon_name.taxon_name_id not in (select taxon_name_id from temp_gn_fetched) and 
-			rownum < #numberOfNamesOneFetch#
-	group by
-		taxon_name.scientific_name,
-		taxon_name.taxon_name_id
+			taxon_name.taxon_name_id
+		) where rownum < #numberOfNamesOneFetch#
 	</cfquery>
 </cfif>
 
 <cfif d.recordcount is 0>			
 	<cfquery name="d" datasource="uam_god">
-		select 
+		select * from ( select 
 			taxon_name.scientific_name,
 			taxon_name.taxon_name_id 
 		from 
@@ -78,16 +80,15 @@ Delete this file after initial fetch
 		where 
 			taxon_name.taxon_name_id=media_relations.related_primary_key and
 			media_relationship like '% taxonomy' and
-			taxon_name.taxon_name_id not in (select taxon_name_id from temp_gn_fetched) and 
-			rownum < #numberOfNamesOneFetch#
+			taxon_name.taxon_name_id not in (select taxon_name_id from temp_gn_fetched)
 	group by
 		taxon_name.scientific_name,
-		taxon_name.taxon_name_id
+		taxon_name.taxon_name_id) where rownum < #numberOfNamesOneFetch#
 	</cfquery>
 </cfif>
 <cfif d.recordcount is 0>			
 	<cfquery name="d" datasource="uam_god">
-		select 
+		select * from ( select 
 			taxon_name.scientific_name,
 			taxon_name.taxon_name_id 
 		from 
@@ -95,17 +96,16 @@ Delete this file after initial fetch
 			TAXONOMY_PUBLICATION
 		where 
 			taxon_name.taxon_name_id=TAXONOMY_PUBLICATION.taxon_name_id and
-			taxon_name.taxon_name_id not in (select taxon_name_id from temp_gn_fetched) and 
-			rownum < #numberOfNamesOneFetch#
+			taxon_name.taxon_name_id not in (select taxon_name_id from temp_gn_fetched)
 	group by
 		taxon_name.scientific_name,
-		taxon_name.taxon_name_id
+		taxon_name.taxon_name_id) where rownum < #numberOfNamesOneFetch#
 	</cfquery>
 </cfif>
 
 <cfif d.recordcount is 0>			
 	<cfquery name="d" datasource="uam_god">
-		select 
+		select * from (select 
 			taxon_name.scientific_name,
 			taxon_name.taxon_name_id 
 		from 
@@ -113,11 +113,10 @@ Delete this file after initial fetch
 			TAXON_RELATIONS
 		where 
 			taxon_name.taxon_name_id=TAXON_RELATIONS.related_taxon_name_id and
-			taxon_name.taxon_name_id not in (select taxon_name_id from temp_gn_fetched) and 
-			rownum < #numberOfNamesOneFetch#
+			taxon_name.taxon_name_id not in (select taxon_name_id from temp_gn_fetched)
 	group by
 		taxon_name.scientific_name,
-		taxon_name.taxon_name_id
+		taxon_name.taxon_name_id) where rownum < #numberOfNamesOneFetch#
 	</cfquery>
 </cfif>
 		
@@ -211,7 +210,6 @@ Delete this file after initial fetch
 			
 			
 			
-			<cfdump var="#x#">
 			
 			
 			
@@ -306,6 +304,11 @@ Delete this file after initial fetch
 								
 								<cfif len(thisTerm) gt 0>
 									<!----
+									
+									
+									----->
+									
+									
 									<cfquery name="meta" datasource="uam_god">
 										insert into taxon_term (
 											taxon_term_id,
@@ -329,11 +332,6 @@ Delete this file after initial fetch
 											'#thisMatchType#'
 										)
 									</cfquery>
-									
-									----->
-									
-									
-									
 								
 								<hr>
 								insert into taxon_term (
@@ -364,6 +362,8 @@ Delete this file after initial fetch
 							
 							<cfif len(thisNameString) gt 0>
 								<!----
+								
+									----->
 								<cfquery name="meta" datasource="uam_god">
 									insert into taxon_term (
 										taxon_term_id,
@@ -381,8 +381,6 @@ Delete this file after initial fetch
 										'#thisSourceID#'
 									)
 								</cfquery>
-									----->
-								
 								<hr>
 								
 								insert into taxon_term (
@@ -403,6 +401,9 @@ Delete this file after initial fetch
 							</cfif>
 							<cfif len(thisCanonicalFormName) gt 0>
 							<!----
+								
+								
+								----->
 								<cfquery name="meta" datasource="uam_god">
 									insert into taxon_term (
 										taxon_term_id,
@@ -420,9 +421,6 @@ Delete this file after initial fetch
 										'#thisSourceID#'
 									)
 								</cfquery>
-								
-								----->
-								
 								<hr>
 								insert into taxon_term (
 										taxon_term_id,
@@ -447,15 +445,17 @@ Delete this file after initial fetch
 				</cfif>
 			</cfloop>
 			
+			<cfquery name="gotit" datasource="uam_god">
+		insert into temp_gn_fetched (taxon_name_id) values (#thisTaxonNameID#)
+	</cfquery>
+			
 			</cfloop>
 			
 
 	
 	
 	<!------------
-<cfquery name="gotit" datasource="uam_god">
-		insert into temp_gn_fetched (taxon_name_id) values (#thisTaxonNameID#)
-	</cfquery>
+
 			</cfthread>
 
 	----------->
