@@ -17,19 +17,20 @@ Delete this file after initial fetch
 
 <cfset numberOfNamesOneFetch="3">
 <cfquery name="d" datasource="uam_god">
-	select 
-		taxon_name.scientific_name,
-		taxon_name.taxon_name_id 
-	from 
-		taxon_name,
-		identification_taxonomy
-	where 
-		taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
-		taxon_name.taxon_name_id not in (select taxon_name_id from temp_gn_fetched) and 
-		rownum < #numberOfNamesOneFetch#
-	group by
-		taxon_name.scientific_name,
-		taxon_name.taxon_name_id
+	select * from (	
+		select 
+			taxon_name.scientific_name,
+			taxon_name.taxon_name_id 
+		from 
+			taxon_name,
+			identification_taxonomy
+		where 
+			taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+			taxon_name.taxon_name_id not in (select taxon_name_id from temp_gn_fetched)
+		group by
+			taxon_name.scientific_name,
+			taxon_name.taxon_name_id
+	) where rownum < #numberOfNamesOneFetch#
 </cfquery>
 <cfif d.recordcount is 0>			
 	<cfquery name="d" datasource="uam_god">
