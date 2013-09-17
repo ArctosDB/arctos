@@ -118,6 +118,9 @@
 				<input type="text" name="source" id="source" value="#source#" onfocus="highlightHelp(this.id);">
 				<label for="common_name">Common Name</label>
 				<input type="text" name="common_name" id="common_name" value="#common_name#" onfocus="highlightHelp(this.id);">
+				<span class="infoLink" onclick="var e=document.getElementById('common_name');e.value='%'+e.value;">
+					[ Prefix with % for contains ]
+				</span>
 				<br>
 				<input value="Search" type="submit">&nbsp;&nbsp;&nbsp;
 				<input type="button" onclick="resetForm()" value="Clear Form">
