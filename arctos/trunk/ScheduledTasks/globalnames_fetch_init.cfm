@@ -15,7 +15,7 @@ Delete this file after initial fetch
  ---->
 
 
-<cfset numberOfNamesOneFetch="2">
+<cfset numberOfNamesOneFetch="3">
 <cfquery name="d" datasource="uam_god">
 	select 
 		taxon_name.scientific_name,
@@ -318,7 +318,7 @@ Delete this file after initial fetch
 											match_type
 										) values (
 											sq_taxon_term_id.nextval,
-											#taxon_name_id#,
+											#thisTaxonNameID#,
 											'#thisTerm#',
 											'#lcase(thisRank)#',
 											'#thisSource#',
@@ -347,7 +347,7 @@ Delete this file after initial fetch
 											match_type
 										) values (
 											sq_taxon_term_id.nextval,
-											#taxon_name_id#,
+											#thisTaxonNameID#,
 											'#thisTerm#',
 											'#lcase(thisRank)#',
 											'#thisSource#',
@@ -373,7 +373,7 @@ Delete this file after initial fetch
 										classification_id
 									) values (
 										sq_taxon_term_id.nextval,
-										#taxon_name_id#,
+										#thisTaxonNameID#,
 										'#thisNameString#',
 										'name string',
 										'#thisSource#',
@@ -393,7 +393,7 @@ Delete this file after initial fetch
 										classification_id
 									) values (
 										sq_taxon_term_id.nextval,
-										#taxon_name_id#,
+										#thisTaxonNameID#,
 										'#thisNameString#',
 										'name string',
 										'#thisSource#',
@@ -412,7 +412,7 @@ Delete this file after initial fetch
 										classification_id
 									) values (
 										sq_taxon_term_id.nextval,
-										#taxon_name_id#,
+										#thisTaxonNameID#,
 										'#thisCanonicalFormName#',
 										'canonical name',
 										'#thisSource#',
@@ -432,7 +432,7 @@ Delete this file after initial fetch
 										classification_id
 									) values (
 										sq_taxon_term_id.nextval,
-										#taxon_name_id#,
+										#thisTaxonNameID#,
 										'#thisCanonicalFormName#',
 										'canonical name',
 										'#thisSource#',
@@ -453,7 +453,7 @@ Delete this file after initial fetch
 	
 	<!------------
 <cfquery name="gotit" datasource="uam_god">
-		insert into temp_gn_fetched (taxon_name_id) values (#taxon_name_id#)
+		insert into temp_gn_fetched (taxon_name_id) values (#thisTaxonNameID#)
 	</cfquery>
 			</cfthread>
 
