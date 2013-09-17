@@ -121,6 +121,11 @@ Delete this file after initial fetch
 </cfif>
 		
 		
+		<cfdump var=#d#>
+		
+		<cfabort>
+		
+		
 		
 		<!----
 		
