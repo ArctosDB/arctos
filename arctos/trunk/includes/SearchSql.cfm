@@ -11,6 +11,13 @@
 <cfif isdefined("cat_num")>
 	<cfset catnum = cat_num>
 </cfif>
+
+
+<cfif isdefined("year") AND len(year) gt 0>
+	<cfset begYear=year>
+	<cfset endYear=year>
+</cfif>
+
 <cfif isdefined("sciname") and len(sciname) gt 0>
 	<cfset scientific_name=sciname>
 	<cfset scientific_name_match_type="contains">
