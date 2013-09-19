@@ -316,10 +316,8 @@
 			match_type,
 			regexp_replace(source,'[^A-Za-z]') anchor
 		from 
-			taxon_name,
-			taxon_term 
+			mv_sciname_term 
 		where 
-			taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) and
 			upper(scientific_name)='#ucase(name)#'
 	</cfquery>	
 	<cfif d.recordcount is 0>
