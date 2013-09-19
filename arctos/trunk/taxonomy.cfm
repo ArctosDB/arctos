@@ -168,7 +168,7 @@
 <!---------- search results ------------>
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0 or len(common_name) gt 0 or len(source) gt 0 or len(term_type) gt 0>
 	<h3>Taxonomy Search Results</h3>
-	<cfset sql="select scientific_name from (select scientific_name from mv_sciname_term where ">
+	<cfset sql="select scientific_name from (select scientific_name from mv_sciname_term where 1=1 ">
 	Search terms:
 	<ul>
 		<cfif len(taxon_name) gt 0>
