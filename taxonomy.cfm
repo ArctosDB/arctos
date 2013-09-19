@@ -168,19 +168,18 @@
 <!---------- search results ------------>
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0 or len(common_name) gt 0 or len(source) gt 0 or len(term_type) gt 0>
 	<h3>Taxonomy Search Results</h3>
-	<cfset sql="select scientific_name from (select scientific_name from taxon_name,taxon_term where 
-		taxon_name.taxon_name_id=taxon_term.taxon_name_id (+) ">
+	<cfset sql="select scientific_name from (select scientific_name from mv_sciname_term where ">
 	Search terms:
 	<ul>
 		<cfif len(taxon_name) gt 0>
 			<cfif left(taxon_name,1) is "=">
-				<cfset sql=sql & " and upper(taxon_name.scientific_name) = '#ucase(right(taxon_name,len(taxon_name)-1))#'">
+				<cfset sql=sql & " and upper(scientific_name) = '#ucase(right(taxon_name,len(taxon_name)-1))#'">
 				<li>scientific_name IS #right(taxon_name,len(taxon_name)-1)#</li>
 			<cfelseif left(taxon_name,1) is "%">
-				<cfset sql=sql & " and upper(taxon_name.scientific_name) like '%#ucase(right(taxon_name,len(taxon_name)-1))#%'">
+				<cfset sql=sql & " and upper(scientific_name) like '%#ucase(right(taxon_name,len(taxon_name)-1))#%'">
 				<li>scientific_name CONTAINS #taxon_term#</li>
 			<cfelse>
-				<cfset sql=sql & " and upper(taxon_name.scientific_name) like '#ucase(taxon_name)#%'">
+				<cfset sql=sql & " and upper(scientific_name) like '#ucase(taxon_name)#%'">
 				<li>scientific_name STARTS WITH #taxon_name#</li>
 			</cfif>
 		</cfif>
@@ -217,13 +216,13 @@
 		</cfif>
 		<cfif len(common_name) gt 0>
 			<cfif  left(common_name,1) is "=">
-				<cfset sql=sql & " and taxon_name.taxon_name_id in (select taxon_name_id from common_name where upper(common_name) = '#ucase(right(common_name,len(common_name)-1))#') ">
+				<cfset sql=sql & " and taxon_name_id in (select taxon_name_id from common_name where upper(common_name) = '#ucase(right(common_name,len(common_name)-1))#') ">
 				<li>common name IS #right(common_name,len(common_name)-1)#</li>
 			<cfelseif left(common_name,1) is "%">
-				<cfset sql=sql & " and taxon_name.taxon_name_id in (select taxon_name_id from common_name where upper(common_name) LIKE '%#ucase(right(common_name,len(common_name)-1))#%') ">
+				<cfset sql=sql & " and taxon_name_id in (select taxon_name_id from common_name where upper(common_name) LIKE '%#ucase(right(common_name,len(common_name)-1))#%') ">
 				<li>common name CONTAINS #common_name#</li>
 			<cfelse>
-				<cfset sql=sql & " and taxon_name.taxon_name_id in (select taxon_name_id from common_name where upper(common_name) like '#ucase(common_name)#%') ">
+				<cfset sql=sql & " and taxon_name_id in (select taxon_name_id from common_name where upper(common_name) like '#ucase(common_name)#%') ">
 				<li>common name STARTS WITH #term_type#</li>
 			</cfif>		
 			
