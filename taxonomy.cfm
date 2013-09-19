@@ -304,7 +304,7 @@
 	</script>
 	<cfquery name="d" datasource="uam_god">
 		select 
-			taxon_name.taxon_name_id,
+			taxon_name_id,
 			scientific_name,
 			term,
 			term_type,
