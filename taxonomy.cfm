@@ -205,7 +205,7 @@
 			</cfif>			  
 		</cfif>
 		<cfif len(term_type) gt 0>
-			<cfif tabls does not contain " taxon_term ">
+			<cfif tabls does not contain "taxon_term">
 				<cfset tabls=tabls & " , taxon_term">
 				<cfset tbljoin=tbljoin & " AND taxon_name.taxon_name_id=taxon_term.taxon_name_id">
 			</cfif>
