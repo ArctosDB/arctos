@@ -244,7 +244,7 @@
 		</cfif>
 		
 		
-		<cfset sql="select scientific_name from (select scientific_name from #tabls# where 1=1 #tbljoin# #whr# )">
+		<cfset sql="select scientific_name from (select scientific_name from #tabls# where 1=1 #tbljoin# #whr# ">
 
 		<cfset sql=sql & "
 		group by scientific_name
