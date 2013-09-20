@@ -1,4 +1,4 @@
-<cfinclude template="../includes/_pickHeader.cfm">
+<cfinclude template="/includes/_pickHeader.cfm">
 	<script>
 		function settaxaPickPrefs (v) {
 			jQuery.getJSON("/component/functions.cfc",
@@ -130,7 +130,7 @@
 		">
 		</cfif>
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			#preservesinglequotes(sql)#
+			#PreserveSingleQuotes(sql)#
 		</cfquery>
 	</cfoutput>
 	<cfif getTaxa.recordcount is 1>

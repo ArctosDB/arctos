@@ -246,7 +246,7 @@
 				<li>common name CONTAINS #common_name#</li>
 			<cfelse>
 				<cfset whr=whr & " and upper(common_name) like '#ucase(common_name)#%' ">
-				<li>common name STARTS WITH #term_type#</li>
+				<li>common name STARTS WITH #common_name#</li>
 			</cfif>		
 			
 			
@@ -258,12 +258,7 @@
 		<cfset sql=sql & "
 		group by scientific_name
 		order by scientific_name)
-		where rownum<1001">
-		
-		
-		
-		#sql#
-		
+		where rownum<1001">	
 		
 	</ul>
 	<cfquery name="d" datasource="uam_god">
