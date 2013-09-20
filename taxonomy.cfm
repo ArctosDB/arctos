@@ -225,18 +225,27 @@
 			</cfif>			  
 		</cfif>
 		<cfif len(source) gt 0>
+			<cfif tabls does not contain "taxon_term">
+				<cfset tabls=tabls & " , taxon_term">
+				<cfset tbljoin=tbljoin & " AND taxon_name.taxon_name_id=taxon_term.taxon_name_id">
+			</cfif>
 			<cfset whr=whr & " and upper(source) like '#ucase(source)#%'">
 			<li>source STARTS WITH #source#</li>
 		</cfif>
 		<cfif len(common_name) gt 0>
+			<cfif tabls does not contain "common_name">
+				<cfset tabls=tabls & " , common_name">
+				<cfset tbljoin=tbljoin & " AND taxon_name.taxon_name_id=common_name.taxon_name_id">
+			</cfif>
+		
 			<cfif  left(common_name,1) is "=">
-				<cfset whr=whr & " and taxon_name_id in (select taxon_name_id from common_name where upper(common_name) = '#ucase(right(common_name,len(common_name)-1))#') ">
+				<cfset whr=whr & " and upper(common_name) = '#ucase(right(common_name,len(common_name)-1))#' ">
 				<li>common name IS #right(common_name,len(common_name)-1)#</li>
 			<cfelseif left(common_name,1) is "%">
-				<cfset whr=whr & " and taxon_name_id in (select taxon_name_id from common_name where upper(common_name) LIKE '%#ucase(right(common_name,len(common_name)-1))#%') ">
+				<cfset whr=whr & " and upper(common_name) LIKE '%#ucase(right(common_name,len(common_name)-1))#%' ">
 				<li>common name CONTAINS #common_name#</li>
 			<cfelse>
-				<cfset whr=whr & " and taxon_name_id in (select taxon_name_id from common_name where upper(common_name) like '#ucase(common_name)#%') ">
+				<cfset whr=whr & " and upper(common_name) like '#ucase(common_name)#%') ">
 				<li>common name STARTS WITH #term_type#</li>
 			</cfif>		
 			
