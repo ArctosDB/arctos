@@ -31,7 +31,6 @@ This REFRESHES data that already exist in Arctos.
 	
 	<cfdump var=#ids#>
 	
-	<cfabort>
 
 	<cfloop query="ids">
 		<!--- spawn threads 
@@ -47,6 +46,12 @@ This REFRESHES data that already exist in Arctos.
 		
 
 			<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#d.scientific_name#"></cfhttp>
+			
+	<cfdump var=#cfhttp#>
+				<cfabort>
+
+
+
 			<cfset x=DeserializeJSON(cfhttp.filecontent)>
 			<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
 				<cfset pos=1>
