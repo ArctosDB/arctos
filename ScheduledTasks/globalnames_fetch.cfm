@@ -48,7 +48,6 @@ This REFRESHES data that already exist in Arctos.
 			<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#d.scientific_name#"></cfhttp>
 			
 	<cfdump var=#cfhttp#>
-				<cfabort>
 
 
 
@@ -193,10 +192,10 @@ This REFRESHES data that already exist in Arctos.
 			</cfloop>	
 			<!---------	 
 		</cfthread>
-		
-		--------->
-	</cfloop>
-	<cfif isdefined("name") and len(name) gt 0>
+		<cfif isdefined("name") and len(name) gt 0>
 		<cflocation url="/name/#name#" addtoken="false">
 	</cfif>
+		--------->
+	</cfloop>
+	
 </cfoutput>
