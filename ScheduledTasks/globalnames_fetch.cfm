@@ -79,7 +79,11 @@ This REFRESHES data that already exist in Arctos.
 								<cfquery name="flush" datasource="uam_god">
 									delete from taxon_term where taxon_name_id=#d.taxon_name_id#
 									and classification_id='#thisSourceID#'
-								</cfquery>			
+								</cfquery>
+								
+								<cfdump var=#flush#>
+								
+											<cfabort>
 							</cfif>
 										
 							<cfset match_type=x.data[1].results[i].match_type>
