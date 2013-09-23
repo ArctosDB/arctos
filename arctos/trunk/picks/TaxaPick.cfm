@@ -134,16 +134,15 @@
 		</cfquery>
 	</cfoutput>
 	<cfif getTaxa.recordcount is 1>
-	<cfoutput>
-		<script>
-			opener.document.#formName#.#taxonIdFld#.value='#getTaxa.taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#getTaxa.scientific_name#';self.close();
-		</script>
-	</cfoutput>
+		<cfoutput>
+			<script>
+				opener.document.#formName#.#taxonIdFld#.value='#getTaxa.taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#getTaxa.scientific_name#';self.close();
+			</script>
+		</cfoutput>
 	<cfelseif #getTaxa.recordcount# is 0>
 		<cfoutput>
 			Nothing matched #scientific_name#. <a href="javascript:void(0);" onClick="opener.document.#formName#.#taxonIdFld#.value='';opener.document.#formName#.#taxonNameFld#.value='';opener.document.#formName#.#taxonNameFld#.focus();self.close();">Try again.</a>
 		</cfoutput>
-		
 	<cfelse>
 		<cfoutput query="getTaxa">
 <br><a href="##" onClick="javascript: opener.document.#formName#.#taxonIdFld#.value='#taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#scientific_name#';self.close();">#scientific_name#</a>
@@ -154,4 +153,4 @@
 	</cfoutput>
 	</CFIF>
 
-<cfinclude template="../includes/_pickFooter.cfm">
+<cfinclude template="/includes/_pickFooter.cfm">
