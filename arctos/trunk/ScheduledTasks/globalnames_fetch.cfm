@@ -76,14 +76,14 @@ This REFRESHES data that already exist in Arctos.
 									Don't bother if we're creating a UUID - it won't exist (that's the point!) so save 
 									a trip to the DB
 								--------------->
-								<cfquery name="flush" datasource="uam_god">
+								<cfquery name="flush_old" datasource="uam_god">
 									delete from taxon_term where taxon_name_id=#d.taxon_name_id#
 									and classification_id='#thisSourceID#'
 								</cfquery>
 								
-								<cfdump var=#flush#>
+								old deleted....
 								
-											<cfabort>
+											<cfflush>
 							</cfif>
 										
 							<cfset match_type=x.data[1].results[i].match_type>
