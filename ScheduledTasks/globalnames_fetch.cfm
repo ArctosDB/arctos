@@ -148,6 +148,10 @@ This REFRESHES data that already exist in Arctos.
 										)
 									</cfquery>
 									<cfset pos=pos+1>
+									
+									<br>inserted #thisTerm#
+								
+											<cfflush>
 								</cfif>
 							</cfloop>
 							
