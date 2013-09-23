@@ -26,51 +26,12 @@ This REFRESHES data that already exist in Arctos.
 				where 
 					scientific_name='#name#'
 		</cfquery>
-		<p>
-			Hi!
-			You're probably seeing this because you clicked some sort of refresh button.
-			Sorry, but it's pretty boring. By the time you read this it's probably already done it's thing,
-			so just close this and refresh wherever you came from.
-			
-		</p>
-		<p>
-			
-		</p>
-		<br>got taxon_name_id=#ids.taxon_name_id#
-		
-	<cfelseif isdefined('getTheWoodrats')>
-		<cfquery name="ids" datasource="uam_god">
-				select 
-					taxon_name_id 
-				from 
-					taxonomy 
-				where 
-					scientific_name like 'Neotoma%'
-		</cfquery>
-	
-	<cfelse>
-		<!--- see if we can find something interesting to update ---->
-		
-		
-		change this to do something with last run dates
-		
-		
-		<cfabort>
-		
-		
-		<cfquery name="ids" datasource="uam_god">
-			select * from (
-				select 
-					taxon_name_id 
-				from 
-					identification_taxonomy 
-				where 
-					taxon_name_id not in (select taxon_name_id from taxon_name) 
-				group by taxon_name_id
-			) where rownum<201
-		</cfquery>
 	</cfif>
 	
+	
+	<cfdump var=#ids#>
+	
+	<cfabort>
 
 	<cfloop query="ids">
 		<!--- spawn threads 
