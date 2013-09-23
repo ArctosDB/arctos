@@ -2,10 +2,7 @@
 
 This REFRESHES data that already exist in Arctos.
 
-
-
 ------------------------->
-
 
 <cfoutput>
 	<!--- 
@@ -16,18 +13,17 @@ This REFRESHES data that already exist in Arctos.
 			Or possibly some slight confusion. 
 	--->
 	<cfset sourcesToIgnore="Arctos">
-	
-	<cfif isdefined("name") and len(name) gt 0>
-		<!--- someone's calling something specific - update by request ---->
-		<cfquery name="ids" datasource="uam_god">
-				select 
-					taxon_name_id 
-				from 
-					taxon_name 
-				where 
-					scientific_name='#name#'
-		</cfquery>
+	<cfif not isdefined("name") or len(name) is 0>
+		invalid call<cfabort>
 	</cfif>
+	<cfquery name="ids" datasource="uam_god">
+		select 
+			taxon_name_id 
+		from 
+			taxon_name 
+		where 
+			scientific_name='#name#'
+	</cfquery>
 	<cfloop query="ids">
 		 <cfquery name="d" datasource="uam_god">
 			select scientific_name,taxon_name_id from taxon_name where taxon_name_id='#taxon_name_id#'
@@ -167,5 +163,5 @@ This REFRESHES data that already exist in Arctos.
 			</cfif>
 		</cfloop>
 	</cfloop>
-	
+	<cflocation url="/name/#name#">
 </cfoutput>
