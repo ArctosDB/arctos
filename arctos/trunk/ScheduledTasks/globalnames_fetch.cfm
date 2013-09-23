@@ -163,5 +163,5 @@ This REFRESHES data that already exist in Arctos.
 			</cfif>
 		</cfloop>
 	</cfloop>
-	<cflocation url="/name/#name#">
+	<cflocation url="/name/#name#" addtoken="false">
 </cfoutput>
