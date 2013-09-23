@@ -89,7 +89,6 @@ This REFRESHES data that already exist in Arctos.
 						
 						<cfloop from="1" to="#arrayLen(cterms)#" index="listPos">
 							<cfset thisTerm=cterms[listpos]>
-							<br>thisTerm: #thisTerm#
 							<cfif ArrayIsDefined(cranks, listpos)>
 								<cfset thisRank=cranks[listpos]>
 							<cfelse>
