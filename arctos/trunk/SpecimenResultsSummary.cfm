@@ -73,6 +73,14 @@
 		</tr>
 		
 		<cfdump var=#groupby#>
+		
+		<br>
+		
+		<cfdump var=#maourl#>
+		
+		<br>
+		
+		
 		<cfloop query="getData">
 			<cfset thisLink=mapurl>
 			<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
