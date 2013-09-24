@@ -100,6 +100,14 @@
 					<cfelse>
 						<cfset thisVal=evaluate("getData." & x)>
 					</cfif>
+					<cfif thisLink contains x>
+						<!--- replace search terms with stuff here ---->
+						<cfset delPos=listcontains(thisLink,x,"?&">
+						<cfset thisLink=listdeleteat(delPos)>
+						<br>deleted - now #thislink#
+						
+					</cfif>
+					
 					<cfif thisLink does not contain x>
 						<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
 					</cfif>
