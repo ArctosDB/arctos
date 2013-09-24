@@ -905,12 +905,7 @@ function success_getSpecResultsData(result){
 			makePartThingy();
 		}
 		insertMedia(orderedCollObjIdList);
-		insertTypes(orderedCollObjIdList);
-		
-		// do nothing for a second, then call the YPlayer thingee - maybe....
-		setTimeout(function() {},1000);
-		
-		YAHOO.MediaPlayer.addTracks(tgt,1,false);
+		insertTypes(orderedCollObjIdList);		
 	}
 }
 function ssvar (startrow,maxrows) {
