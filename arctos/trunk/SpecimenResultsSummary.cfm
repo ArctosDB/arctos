@@ -71,16 +71,6 @@
 			</cfloop>
 			<th>Specimens</th>
 		</tr>
-		
-		<cfdump var=#groupby#>
-		
-		<br>
-		
-		<br><cfdump var=#mapurl#>
-		
-		<br>
-		
-		
 		<cfloop query="getData">
 			<cfset thisLink=mapurl>
 			<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
@@ -90,28 +80,19 @@
 				correct links - eg, the no-subspecies name
 				should not contain all the subspecies
 			---->
-			
-			http://arctos.database.museum/SpecimenResults.cfm?&scientific_name=Aphelocoma%20californica&
-			scientific_name_scope=currentID&scientific_name_match_type=contains&any_geog=contra%20costa&taxon_scope=currentID_is
-			
+	
 			
 			<cfif thisLink contains "scientific_name_match_type">
-							<br>before<cfdump var=#thisLink#>
-<br>itdies..........
 
 <!----
 				<cfset thisLink=rereplace(thisLink,'scientific_name_match_type=.*&?','')>
 				---->
 					<cfset delPos=listcontains(thisLink,"scientific_name_match_type=","?&")>
-						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
-				
-				<br>aftr<cfdump var=#thisLink#>
+					<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 			</cfif>
 			<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
 			
 			
-			
-				<br>xc c<cfdump var=#thisLink#>
 			
 			<tr>
 				<td>#COUNTOFCATALOGEDITEM#</td>
@@ -126,14 +107,11 @@
 						REMOVE the thing they searched (eg, more general)
 						ADD the thing grouped (eg, more specific)
 						---->
-						<br>deleing - now #thislink#
 
 						<!--- replace search terms with stuff here ---->
 						<cfset delPos=listcontains(thisLink,x,"?&")>
 						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>)>
-						<br>deleted - now #thislink#
-						<br><cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
-						<br>reappended - now #thislink#
+						<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
 					</cfif>
 					<!----
 					<cfif thisLink does not contain x>
