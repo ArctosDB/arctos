@@ -76,7 +76,7 @@
 		
 		<br>
 		
-		<cfdump var=#maourl#>
+		<cfdump var=#mapurl#>
 		
 		<br>
 		
