@@ -196,7 +196,7 @@
 	
 	<cfif scientific_name_scope is "currentID">
 		<cfif scientific_name_match_type is "contains">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(escapeQuotes(scientific_name))#%'">
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '#ucase(escapeQuotes(scientific_name))#%'">
 		<cfelseif scientific_name_match_type is "exact">
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(escapeQuotes(scientific_name))#'">
 		<cfelseif scientific_name_match_type is "notcontains">
