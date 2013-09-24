@@ -5,10 +5,6 @@
 </cfif>
 <cfhtmlhead text="<title>Specimen Results</title>">
 <cfoutput>
-<cfif session.username is "dlm">
-	<cfset debug=1>
-</cfif>
-
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
 	$("##customizeButton").live('click', function(e){
@@ -178,14 +174,6 @@ function removeHelpDiv() {
 	<cfif listcontains(srchTerms,"collection_id")>
 		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
 	</cfif>
-	
-	
-	<cfif isdefined("debug") and debug is true>
-	#preserveSingleQuotes(SqlString)#
-</cfif>
-
-
-
 
 	<!--- ... and abort if there's nothing left --->
 	<cfif len(srchTerms) is 0>
