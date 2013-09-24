@@ -23,7 +23,7 @@
 				
 				<br>#l#
 						<cfquery name="i" datasource="uam_god">
-						insert into  dmns_geog_split (orig ,geog,locality ) values ('#locality#','#g#','#l#)
+						insert into  dmns_geog_split (orig ,geog,locality ) values ('#locality#','#g#','#l#')
 						</cfquery>
 
 				
