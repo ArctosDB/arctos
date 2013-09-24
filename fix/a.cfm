@@ -3,7 +3,7 @@
 <cfoutput>
 
 		<cfquery name="d" datasource="uam_god">
-				select locality from dmns group by locality
+				select locality from dmns where locality is not null group by locality
 			</cfquery>
 			
 			<cfloop query="d">
