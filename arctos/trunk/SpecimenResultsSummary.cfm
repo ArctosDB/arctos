@@ -95,9 +95,9 @@
 			scientific_name_scope=currentID&scientific_name_match_type=contains&any_geog=contra%20costa&taxon_scope=currentID_is
 			
 			
-			<cfif mapurl contains "scientific_name_match_type">
+			<cfif thisLink contains "scientific_name_match_type">
 			itdies..........
-				<cfset thisLink=rereplace(mapurl,'scientific_name_match_type=.*&?','')>
+				<cfset thisLink=rereplace(thisLink,'scientific_name_match_type=.*&?','')>
 				
 				
 				<br>asfs<cfdump var=#thisLink#>
