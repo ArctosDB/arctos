@@ -18,5 +18,7 @@
 					<cfset g=replace(locality,l,"","all")>
 				</cfif>
 			</cfloop>
+			
+			</cfoutput>
 		<cfinclude template="/includes/_footer.cfm">
 
