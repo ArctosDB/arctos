@@ -5,7 +5,9 @@
 </cfif>
 <cfhtmlhead text="<title>Specimen Results</title>">
 <cfoutput>
-
+<cfif session.username is "dlm">
+	<cfset debug=1>
+</cfif>
 
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
