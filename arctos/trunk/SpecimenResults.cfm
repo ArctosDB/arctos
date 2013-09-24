@@ -178,6 +178,15 @@ function removeHelpDiv() {
 	<cfif listcontains(srchTerms,"collection_id")>
 		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
 	</cfif>
+	
+	
+	<cfif isdefined("debug") and debug is true>
+	#preserveSingleQuotes(SqlString)#
+</cfif>
+
+
+
+
 	<!--- ... and abort if there's nothing left --->
 	<cfif len(srchTerms) is 0>
 		<CFSETTING ENABLECFOUTPUTONLY=0>
