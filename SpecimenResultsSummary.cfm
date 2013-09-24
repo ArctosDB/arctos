@@ -71,6 +71,8 @@
 			</cfloop>
 			<th>Specimens</th>
 		</tr>
+		
+		<cfdump var=#groupby#>
 		<cfloop query="getData">
 			<cfset thisLink=mapurl>
 			<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
@@ -80,6 +82,11 @@
 				correct links - eg, the no-subspecies name
 				should not contain all the subspecies
 			---->
+			
+			http://arctos.database.museum/SpecimenResults.cfm?&scientific_name=Aphelocoma%20californica&
+			scientific_name_scope=currentID&scientific_name_match_type=contains&any_geog=contra%20costa&taxon_scope=currentID_is
+			
+			
 			<cfif mapurl contains "taxon_scope">
 				<cfset thisLink=rereplace(mapurl,'taxon_scope=.*&?','')>
 			</cfif>
