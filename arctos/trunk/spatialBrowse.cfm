@@ -26,6 +26,11 @@ create table gmap_srch (
 );
 
 
+OR
+
+truncate table gmap_srch;
+
+
 
 declare
 	sep varchar2(10);
@@ -39,7 +44,7 @@ begin
 				ctax := ctax || sep || t.scientific_name;
 				sep := '; ';
 			else
-				ctax := substr(ctax,1,3997) || '...';
+				ctax := substr(ctax,1,3990) || '...';
 			end if;
 		end loop;
 		insert into gmap_srch (
@@ -58,6 +63,10 @@ end;
 -- check count - if over limitations, rebuild something
 
 select count(*) from gmap_srch;
+
+commit;
+
+
 --- use table2csv to download gmap_srch
 
 --- upload to fusiontables as arctos.database
