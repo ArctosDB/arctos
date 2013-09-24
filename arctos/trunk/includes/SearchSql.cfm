@@ -1092,6 +1092,7 @@
 </cfif>
 
 <cfif isdefined("phylorder") AND len(phylorder) gt 0>
+	<cfset mapurl = "#mapurl#&phylorder=#phylorder#">
 	<cfif left(phylorder,1) is '='>
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.phylorder) = '#ucase(right(phylorder,len(phylorder)-1))#'">
 	<cfelseif left(phylorder,1) is '!'>
