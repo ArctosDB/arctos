@@ -76,7 +76,7 @@
 		
 		<br>
 		
-		<cfdump var=#mapurl#>
+		<br><cfdump var=#mapurl#>
 		
 		<br>
 		
@@ -96,9 +96,17 @@
 			
 			
 			<cfif mapurl contains "scientific_name_match_type">
+			itdies..........
 				<cfset thisLink=rereplace(mapurl,'scientific_name_match_type=.*&?','')>
+				
+				
+				<br>asfs<cfdump var=#thisLink#>
 			</cfif>
 			<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
+			
+			
+			
+				<br>xc c<cfdump var=#thisLink#>
 			
 			<tr>
 				<td>#COUNTOFCATALOGEDITEM#</td>
