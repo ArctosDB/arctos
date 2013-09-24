@@ -1,7 +1,9 @@
 <cfinclude template = "/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfset title="Specimen Results Summary">
-<cfif not isdefined("groupBy")><cfset groupBy='scientific_name'></cfif>
+<cfif not isdefined("groupBy")>
+	<cfset groupBy='scientific_name'>
+</cfif>
 <cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem">
 <cfloop list="#groupBy#" index="x">
 	<cfset basSelect = "#basSelect#	,#session.flatTableName#.#x#">
@@ -83,12 +85,8 @@
 	
 			
 			<cfif thisLink contains "scientific_name_match_type">
-
-<!----
-				<cfset thisLink=rereplace(thisLink,'scientific_name_match_type=.*&?','')>
-				---->
-					<cfset delPos=listcontains(thisLink,"scientific_name_match_type=","?&")>
-					<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
+				<cfset delPos=listcontains(thisLink,"scientific_name_match_type=","?&")>
+				<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 			</cfif>
 			<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
 			
@@ -100,12 +98,13 @@
 					<cfif len(evaluate("getData." & x)) is 0>
 						<cfset thisVal='NULL'>
 					<cfelse>
-						<cfset thisVal=evaluate("getData." & x)>
+						<cfset thisVal=evaluate("getData." & x )>
 					</cfif>
 					<cfif thisLink contains x>
-						<!--- they searched for something that they also grouped by
-						REMOVE the thing they searched (eg, more general)
-						ADD the thing grouped (eg, more specific)
+						<!--- 
+							they searched for something that they also grouped by
+							REMOVE the thing they searched (eg, more general)
+							ADD the thing grouped (eg, more specific)
 						---->
 
 						<!--- replace search terms with stuff here ---->
