@@ -126,14 +126,15 @@
 
 						<!--- replace search terms with stuff here ---->
 						<cfset delPos=listcontains(thisLink,x,"?&")>
-						<cfset thisLink=listdeleteat(thisLink,delPos)>
+						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>)>
 						<br>deleted - now #thislink#
-						
+						<br>
 					</cfif>
-					
+					<!----
 					<cfif thisLink does not contain x>
 						<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
 					</cfif>
+					----->
 					<cfset oneLine=oneline & ',"#thisVal#"'>
 					<td>#thisVal#</td>
 				</cfloop>
