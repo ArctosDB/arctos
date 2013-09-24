@@ -11,12 +11,14 @@
 				<cfset g="">
 				<hr>
 				#locality#
-				<br>#l#
-				<br>#g#
+				
 				<cfif locality contains ";">
 					<cfset l=listlast(locality,";")>
 					<cfset g=replace(locality,l,"","all")>
 				</cfif>
+				
+				<br>#l#
+				<br>#g#
 			</cfloop>
 			
 			</cfoutput>
