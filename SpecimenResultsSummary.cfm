@@ -87,10 +87,10 @@
 			scientific_name_scope=currentID&scientific_name_match_type=contains&any_geog=contra%20costa&taxon_scope=currentID_is
 			
 			
-			<cfif mapurl contains "taxon_scope">
-				<cfset thisLink=rereplace(mapurl,'taxon_scope=.*&?','')>
+			<cfif mapurl contains "scientific_name_match_type">
+				<cfset thisLink=rereplace(mapurl,'scientific_name_match_type=.*&?','')>
 			</cfif>
-			<cfset thisLink="#thisLink#&taxon_scope=currentID_is">
+			<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
 			
 			<tr>
 				<td>#COUNTOFCATALOGEDITEM#</td>
