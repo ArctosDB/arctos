@@ -103,7 +103,7 @@
 				<cfset thisLink=rereplace(thisLink,'scientific_name_match_type=.*&?','')>
 				---->
 					<cfset delPos=listcontains(thisLink,"scientific_name_match_type=","?&")>
-						<cfset thisLink=listdeleteat(thisLink,delPos)>
+						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 				
 				<br>aftr<cfdump var=#thisLink#>
 			</cfif>
