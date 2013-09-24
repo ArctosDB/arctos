@@ -1099,7 +1099,7 @@
 	<cfelseif compare(phylorder,"NULL") is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.phylorder is NULL">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.phylorder) like '%#ucase(phylorder)#%'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.phylorder) like '#ucase(phylorder)#%'">
 	</cfif>
 </cfif>
 <cfif isdefined("kingdom") AND len(kingdom) gt 0>
