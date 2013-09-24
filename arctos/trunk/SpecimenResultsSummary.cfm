@@ -122,13 +122,18 @@
 						<cfset thisVal=evaluate("getData." & x)>
 					</cfif>
 					<cfif thisLink contains x>
+						<!--- they searched for something that they also grouped by
+						REMOVE the thing they searched (eg, more general)
+						ADD the thing grouped (eg, more specific)
+						---->
 						<br>deleing - now #thislink#
 
 						<!--- replace search terms with stuff here ---->
 						<cfset delPos=listcontains(thisLink,x,"?&")>
 						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>)>
 						<br>deleted - now #thislink#
-						<br>
+						<br><cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
+						<br>reappended - now #thislink#
 					</cfif>
 					<!----
 					<cfif thisLink does not contain x>
