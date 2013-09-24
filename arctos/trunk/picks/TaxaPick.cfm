@@ -12,7 +12,7 @@
 		}
 	</script>
 	<cfoutput>
-		<cfif not isdefined("session.taxaPickPrefs")>
+		<cfif not isdefined("session.taxaPickPrefs") or len(session.taxaPickPrefs) is 0>
 			<cfset session.taxaPickPrefs="anyterm">
 		</cfif>
 		<cfset taxaPickPrefs=session.taxaPickPrefs>
