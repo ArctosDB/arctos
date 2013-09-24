@@ -96,11 +96,12 @@
 			
 			
 			<cfif thisLink contains "scientific_name_match_type">
-			itdies..........
+							<br>before<cfdump var=#thisLink#>
+<br>itdies..........
 				<cfset thisLink=rereplace(thisLink,'scientific_name_match_type=.*&?','')>
 				
 				
-				<br>asfs<cfdump var=#thisLink#>
+				<br>aftr<cfdump var=#thisLink#>
 			</cfif>
 			<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
 			
