@@ -102,7 +102,7 @@
 					</cfif>
 					<cfif thisLink contains x>
 						<!--- replace search terms with stuff here ---->
-						<cfset delPos=listcontains(thisLink,x,"?&">
+						<cfset delPos=listcontains(thisLink,x,"?&")>
 						<cfset thisLink=listdeleteat(delPos)>
 						<br>deleted - now #thislink#
 						
