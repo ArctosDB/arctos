@@ -183,7 +183,7 @@
 				<cfset whr=whr & " and upper(scientific_name) like '%#ucase(right(taxon_name,len(taxon_name)-1))#%'">
 				<li>scientific_name CONTAINS #taxon_term#</li>
 			<cfelse>
-				<cfset whr=whr & " and upper(scientific_name) like '#ucase(taxon_name)#%'">
+				<cfset whr=whr & " and upper(scientific_name) like '#ucase(escapeQuotes(taxon_name))#%'">
 				<li>scientific_name STARTS WITH #taxon_name#</li>
 			</cfif>
 		</cfif>
