@@ -109,7 +109,7 @@
 
 						<!--- replace search terms with stuff here ---->
 						<cfset delPos=listcontains(thisLink,x,"?&")>
-						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>)>
+						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 						<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
 					</cfif>
 					<!----
