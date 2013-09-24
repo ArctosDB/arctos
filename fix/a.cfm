@@ -16,9 +16,12 @@
 					<cfset l=listlast(locality,";")>
 					<cfset g=replace(locality,l,"","all")>
 				</cfif>
+				<cfif right(g,1) is ";">
+					<cfset g=left(g,len(g)-1)>
+				</cfif>
+				<br>#g#
 				
 				<br>#l#
-				<br>#g#
 			</cfloop>
 			
 			</cfoutput>
