@@ -1,5 +1,32 @@
 <cfinclude template="includes/_header.cfm">
 <a target="_blank" class="external" href="https://docs.google.com/document/d/1J1B7NKfaWl1A1wVQUe5rlm6FsfA7-VVUHsCqH-gHA_E/edit">editing guidelines</a>
+<!------------------------------------------------------------------------------->
+
+<cfif action is "cloneClassificationNewName">
+	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select source from cttaxonomy_source order by source
+	</cfquery>
+	<cfoutput>
+		Use this form to create a clone of a name and classification as another (e.g., local and editable) Source.
+		<p>
+			Pick a source below, enter the new namestring, click the button, and then you'll have a chance to edit the classification you've created.
+		</p>
+		<form name="x" method="post" action="editTaxonomy.cfm">
+			<input type="hidden" name="action" value="cloneClassificationNewName_insert">
+			<input type="hidden" name="classification_id" value="#classification_id#">
+			<label for="newName">New Namestring/Scientific Name</label>
+			<input type="text" name="newName" id="newName" class="reqdClr">
+			<label for="source">Clone into Source</label>
+			<select name="source" id="source" class="reqdClr">
+				<cfloop query="cttaxonomy_source">
+					<option value="#source#">#source#</option>
+				</cfloop>
+			</select>
+			<input type="submit" value="create name and classification">
+		</form>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------->
 <cfif action is "cloneClassification">
 	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select source from cttaxonomy_source order by source

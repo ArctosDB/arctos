@@ -394,7 +394,6 @@ END;
 						<cfset mailto=Application.bugReportEmail>
 					</cfif>
 					
-					<cfset mailto='dustymc@gmail.com'>
 					<cfmail to="#mailto#" subject="agent merger success" cc="#Application.PageProblemEmail#" from="agentmerge@#Application.fromEmail#" type="html">
 						<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
 					</cfmail>
@@ -555,8 +554,8 @@ END;
 			</cfquery>
 			
 			
-			<!--------#Application.DataProblemReportEmail#,#valuelist(colns.address)#------------->
-			<cfmail to="dustymc@gmail.com" subject="agents marked for merge" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
+			<!--------------------->
+			<cfmail to="#Application.DataProblemReportEmail#,#valuelist(colns.address)#" subject="agents marked for merge" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
 				<br>Agents have been marked for merger.
 				
 				<br>The following agents are scheduled for merger on #dateformat(dateadd("d",7,detected_date),"yyyy-mm-dd")#.
