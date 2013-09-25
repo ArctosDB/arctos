@@ -566,6 +566,8 @@
 						<cfelse>
 							[ Editing non-local sources disallowed ]
 						</cfif>
+						<a href="/editTaxonomy.cfm?action=cloneClassificationNewName&name=#name#&classification_id=#classification_id#">[ Clone Classification as new name ]</a> 
+												
 					</cfif>
 					<cfquery name="notclass" dbtype="query">
 						select 
