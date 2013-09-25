@@ -551,7 +551,12 @@
 	</ul>
 	<cfloop query="sources">
 		<div class="sourceDiv">
-			Data from source <strong>#source#</strong>
+			<cfif source is "">
+				<cfset srcHTML='<a href="" target="_blank" class="external">#source#</a>'>
+			<cfelse>
+				<cfset srcHTML=source>
+			</cfif>
+			Data from source <strong>#srcHTML#</strong>
 			<a name="#anchor#" href="##classifications">[ Classifications ]</a>
 			<a href="##taxondetail">[ Top ]</a>
 			<cfquery name="source_classification" dbtype="query">
