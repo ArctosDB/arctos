@@ -424,7 +424,7 @@
 																</div>
 															</cfif>
 															<cfif len(DATUM) gt 0>
-																<div>
+																<div style="font-size:.8em;">
 																	Datum: #DATUM#
 																</div>
 															</cfif>
