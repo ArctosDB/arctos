@@ -415,24 +415,32 @@
 											<table>
 												<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
 													<tr>
-														<td align="right">Coordinates:</td>
+														<td align="right" valign="top">Coordinates:</td>
 														<td align="left">
 															#dec_lat# / #dec_long#
 															<cfif len(verbatim_coordinates) gt 0>
 																<div class="detailCellSmall">
-																	Verbatim Coorinates: #verbatim_coordinates#
+																	Verbatim Coordinates: #verbatim_coordinates#
 																</div>
+															</cfif>
+															<cfif len(DATUM) gt 0>
+																<div>
+																	Datum: #DATUM#
+																</div>
+															</cfif>
+															<cfif len(MAX_ERROR_UNITS) gt 0>
+																<div>Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</div>
+															</cfif>
+															<cfif len(georeference_source) gt 0>
+																<div>Georeference&nbsp;Source: #georeference_source#</div>
+															</cfif>
+															<cfif len(georeference_protocol) gt 0>
+																<div>Georeference&nbsp;Protocol: #georeference_protocol#</div>
 															</cfif>
 														</td>
 													</tr>
 												</cfif>
 												
-												<cfif len(DATUM) gt 0>
-													<tr>
-														<td align="right">Datum:</td>
-														<td align="left">#DATUM#</td>
-													</tr>
-												</cfif>
 												
 												<cfif len(orig_elev_units) gt 0>
 													<tr>
@@ -444,24 +452,6 @@
 													<tr>
 														<td align="right">Depth:</td>
 														<td align="left">#MIN_DEPTH# to #MAX_DEPTH# #DEPTH_UNITS#</td>
-													</tr>
-												</cfif>
-												<cfif len(MAX_ERROR_UNITS) gt 0>
-													<tr>
-														<td align="right">Error:</td>
-														<td align="left">#MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</td>
-													</tr>
-												</cfif>
-												<cfif len(georeference_source) gt 0>
-													<tr>
-														<td align="right">Georeference&nbsp;Source:</td>
-														<td align="left">#georeference_source#</td>
-													</tr>
-												</cfif>
-												<cfif len(georeference_protocol) gt 0>
-													<tr>
-														<td align="right">Georeference&nbsp;Protocol:</td>
-														<td align="left">#georeference_protocol#</td>
 													</tr>
 												</cfif>
 												
