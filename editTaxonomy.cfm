@@ -7,7 +7,16 @@
 		select source from cttaxonomy_source order by source
 	</cfquery>
 	<cfoutput>
+		<p>
 		Use this form to create a clone of a name and classification as another (e.g., local and editable) Source.
+		</p>
+		<p>
+			You are creating a new namestring.
+		</p>
+		<p>
+			You should not do that if the namestring (scientific name) exists, even if it's currently used for some other 
+			biological entity. That is, Diptera (flies) and Diptera (plants) share a namestring, and a new name is not necessary (or possible).
+		</p>
 		<p>
 			Pick a source below, enter the new namestring, click the button, and then you'll have a chance to edit the classification you've created.
 		</p>
@@ -80,7 +89,15 @@
 		select source from cttaxonomy_source order by source
 	</cfquery>
 	<cfoutput>
+		<p>
 		Use this form to create a clone of a classification as another (e.g., local and editable) Source.
+		</p>
+		<p>
+			Do NOT try to use this form to create names - use "create name" or "clone classification into new name" for that.
+		</p>
+		<p>
+			Do NOT use this form to assert taxon relationships - use "edit non-classification data" for that.
+		</p>
 		<p>
 			Pick a source below, click the button, and then you'll have a chance to edit the classification you've created.
 		</p>
