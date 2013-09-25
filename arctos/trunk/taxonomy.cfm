@@ -551,7 +551,7 @@
 	</ul>
 	<cfloop query="sources">
 		<div class="sourceDiv">
-			<cfif source is "">
+			<cfif source is "Catalogue of Life">
 				<cfset srcHTML='<a href="http://www.catalogueoflife.org/" target="_blank" class="external">#source#</a>'>
 			<cfelse>
 				<cfset srcHTML=source>
