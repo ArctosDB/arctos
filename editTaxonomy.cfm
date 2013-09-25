@@ -828,7 +828,18 @@
 		insects and plants and no duplication is necessary.
 	</p>
 	<p>
-		Make sure you've searched before using this form.
+		Make sure you've searched before using this form. Errors make us nervous....
+	</p>
+	<p>
+		When you successfully create a namestring here, you'll be redirected to the main taxonomy page, where you can
+		<ul>
+			<li>Pull information from GlobalNames, and then clone those into other classifications if necessary.</li>
+			<li>"Edit non-classification data" to create relationships, common names, etc.</li>
+			<li>Manually create classifications and non-classificatoin metadata</li>
+		</ul>
+	</p>
+	<p>
+		If you want to bring an Arctos classification over, use your back button, find a similar name, and hten "clone classification into new name."
 	</p>
 	<form name="name" method="post" action="editTaxonomy.cfm">
 		<input type="hidden" name="action" value="saveNewName">
