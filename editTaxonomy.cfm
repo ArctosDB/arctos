@@ -891,9 +891,9 @@
 				related_taxon_name_id
 			FROM 
 				taxon_relations,
-				taxonomy
+				taxon_name
 			WHERE
-				taxon_relations.related_taxon_name_id = taxonomy.taxon_name_id 
+				taxon_relations.related_taxon_name_id = taxon_name.taxon_name_id 
 				AND taxon_relations.taxon_name_id = #taxon_name_id#
 		</cfquery>
 		<cfset i = 1>
