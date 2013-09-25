@@ -429,13 +429,13 @@
 																</div>
 															</cfif>
 															<cfif len(MAX_ERROR_UNITS) gt 0>
-																<div>Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</div>
+																<div style="font-size:.8em;">Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</div>
 															</cfif>
 															<cfif len(georeference_source) gt 0>
-																<div>Georeference&nbsp;Source: #georeference_source#</div>
+																<div style="font-size:.8em;">Georeference&nbsp;Source: #georeference_source#</div>
 															</cfif>
 															<cfif len(georeference_protocol) gt 0>
-																<div>Georeference&nbsp;Protocol: #georeference_protocol#</div>
+																<div style="font-size:.8em;">Georeference&nbsp;Protocol: #georeference_protocol#</div>
 															</cfif>
 														</td>
 													</tr>
