@@ -413,24 +413,27 @@
 									<tr>
 										<td valign="top" align="right"><!---- text stuff here ---->
 											<table>
-												<cfif len(verbatim_coordinates) gt 0>
+												<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
 													<tr>
-														<td align="right">Event Coordinates:</td>
-														<td align="left">#verbatim_coordinates#</td>
+														<td align="right">Coordinates:</td>
+														<td align="left">
+															#dec_lat# / #dec_long#
+															<cfif len(verbatim_coordinates) gt 0>
+																<div class="detailCellSmall">
+																	Verbatim Coorinates: #verbatim_coordinates#
+																</div>
+															</cfif>
+														</td>
 													</tr>
 												</cfif>
+												
 												<cfif len(DATUM) gt 0>
 													<tr>
 														<td align="right">Datum:</td>
 														<td align="left">#DATUM#</td>
 													</tr>
 												</cfif>
-												<cfif len(ORIG_LAT_LONG_UNITS) gt 0>
-													<tr>
-														<td align="right">Original Coordinate Format:</td>
-														<td align="left">#ORIG_LAT_LONG_UNITS#</td>
-													</tr>
-												</cfif>
+												
 												<cfif len(orig_elev_units) gt 0>
 													<tr>
 														<td align="right">Elevation</td>
@@ -461,6 +464,7 @@
 														<td align="left">#georeference_protocol#</td>
 													</tr>
 												</cfif>
+												
 
 											</table>
 										</td>
