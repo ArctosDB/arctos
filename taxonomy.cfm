@@ -553,6 +553,49 @@
 		<div class="sourceDiv">
 			<cfif source is "Catalogue of Life">
 				<cfset srcHTML='<a href="http://www.catalogueoflife.org/" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "Arctos">
+				<cfset srcHTML='<a href="http://arctosdb.org/documentation/identification/taxonomy/#arctos_source" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "GBIF Taxonomic Backbone">
+				<cfset srcHTML='<a href="http://www.gbif.org/informatics/name-services/using-names-data/taxonomic-backbone/" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "ITIS">
+				<cfset srcHTML='<a href="http://www.itis.gov/" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "Interim Register of Marine and Nonmarine Genera">
+				<cfset srcHTML='<a href="http://www.obis.org.au/irmng/" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "WoRMS">
+				<cfset srcHTML='<a href="http://www.marinespecies.org/" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "Wikispecies">
+				<cfset srcHTML='<a href="http://species.wikimedia.org/wiki/Main_Page" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "NCBI">
+				<cfset srcHTML='<a href="http://www.ncbi.nlm.nih.gov/Taxonomy/taxonomyhome.html/" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "Index Fungorum">
+				<cfset srcHTML='<a href="http://www.indexfungorum.org/Names/Names.asp" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "GRIN Taxonomy for Plants">
+				<cfset srcHTML='<a href="http://www.ars-grin.gov/cgi-bin/npgs/html/index.pl" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "Freebase">
+				<cfset srcHTML='<a href="http://www.freebase.com/" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "EOL">
+				<cfset srcHTML='<a href="http://eol.org/" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "xxxxx">
+				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "xxxxx">
+				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "xxxxx">
+				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "xxxxx">
+				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "xxxxx">
+				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "xxxxx">
+				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "xxxxx">
+				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "xxxxx">
+				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "xxxxx">
+				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
+			<cfelseif source is "xxxxx">
+				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
+			
 			<cfelse>
 				<cfset srcHTML=source>
 			</cfif>
