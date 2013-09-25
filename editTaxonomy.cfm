@@ -27,6 +27,54 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->
+<cfif action is "cloneClassificationNewName_insert">
+	<cfoutput>
+		<cfquery name="seedClassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select 
+				TAXON_NAME_ID,
+				CLASSIFICATION_ID,
+				TERM,
+				TERM_TYPE,
+				POSITION_IN_CLASSIFICATION 
+			from taxon_term where classification_id='#classification_id#'
+		</cfquery>
+		<cfset thisSourceID=CreateUUID()>
+		<cftransaction>
+			<!---  new name --->
+			<cfquery name="nnID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select sq_taxon_name_id.nextval tnid from dual
+			</cfquery>
+			<cfquery name="newName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into taxon_name (taxon_name_id,scientific_name) values (#nnID.tnid#,'#newName#')
+			</cfquery>			
+			<cfloop query="seedClassification">
+				<cfquery name="seedClassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into taxon_term (
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM,
+						TERM_TYPE,
+						SOURCE,
+						POSITION_IN_CLASSIFICATION
+					) values (
+						#nnID.tnid#,
+						'#thisSourceID#',
+						'#TERM#',
+						'#TERM_TYPE#',
+						'#SOURCE#',
+						<cfif len(POSITION_IN_CLASSIFICATION) is 0>
+							NULL
+						<cfelse>
+							#POSITION_IN_CLASSIFICATION#
+						</cfif>
+					)
+				</cfquery>
+			</cfloop>
+		</cftransaction>
+		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#thisSourceID#" addtoken="false">
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------->
 <cfif action is "cloneClassification">
 	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select source from cttaxonomy_source order by source
@@ -49,6 +97,8 @@
 		</form>
 	</cfoutput>
 </cfif>
+
+
 <!------------------------------------------------------------------------------->
 <cfif action is "cloneClassification_insert">
 	<cfoutput>
