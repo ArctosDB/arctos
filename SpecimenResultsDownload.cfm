@@ -301,16 +301,6 @@
 							</td>
 						</tr>
 						<tr>
-							<td align="right">File Format</td>
-							<td>
-								<select name="fileFormat" size="1">
-									<option <cfif getUserData.download_format is "csv"> selected="selected" </cfif>value="csv">CSV</option>
-									<option <cfif getUserData.download_format is "text"> selected="selected" </cfif>value="text">tab-delimited text</option>
-									<option <cfif getUserData.download_format is "xml"> selected="selected" </cfif>value="xml">XML</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
 							<td align="right">File Name</td>
 							<td>
 								<input type="text" name="filename" value="ArctosData_#left(session.sessionKey,10)#">
@@ -320,7 +310,6 @@
 							<td colspan="2">
 								You can skip this page by setting "Ask for Filename" to "no" in your <a href="/myArctos.cfm">Profile</a>.
 							</td>
-							
 						</tr>
 						<tr>
 							<td colspan="2" align="center">
@@ -330,12 +319,7 @@
 					</table>
 				</form>
 			<cfelse>
-				<cfif not isdefined("getUserData.download_format") or len(getUserData.download_format) is 0>
-					<cfset ff='csv'>
-				<cfelse>
-					<cfset ff=getUserData.download_format>
-				</cfif>
-				<cflocation url="SpecimenResultsDownload.cfm?fileformat=#getUserData.download_format#&agree=yes&action=down&tablename=#tablename#&download_purpose=research&filename=ArctosData_#left(session.sessionKey,10)#" addtoken="false">
+				<cflocation url="SpecimenResultsDownload.cfm?agree=yes&action=down&tablename=#tablename#&download_purpose=research&filename=ArctosData_#left(session.sessionKey,10)#" addtoken="false">
 			</cfif>			
 		<cfelse>
 			<form method="post" action="SpecimenResultsDownload.cfm" name="dlForm">
@@ -353,16 +337,6 @@
 								<option value="#ctPurpose.download_purpose#">#ctPurpose.download_purpose#</option>
 							</cfloop>
 						</select>
-						</td>
-					</tr>
-					<tr>
-						<td align="right">File Format</td>
-						<td>
-							<select name="fileFormat" size="1">
-								<option <cfif getUserData.download_format is "csv"> selected="selected" </cfif>value="csv">CSV</option>
-								<option <cfif getUserData.download_format is "text"> selected="selected" </cfif>value="text">tab-delimited text</option>
-								<option <cfif getUserData.download_format is "xml"> selected="selected" </cfif>value="xml">XML</option>
-							</select>
 						</td>
 					</tr>
 					<tr>
@@ -418,8 +392,7 @@
 			<li>Use your browser's back button or click <a href="javascript: history.back();">here</a> 
 				if you wish to agree to the terms and proceed with the download.</li>
 			<li>
-				<a href="/contact.cfm">Contact us</a> if you wish to discuss the terms of
-				usage.
+				<a href="/contact.cfm">Contact us</a> if you wish to discuss the terms of usage.
 			</li>
 		</ul>
 		<cfabort>
@@ -490,7 +463,6 @@
 	<cfset fileDir = "#Application.webDirectory#">
 	<cfoutput>
 		<cfset variables.encoding="UTF-8">
-		<cfif fileFormat is "csv">
 			<cfset fname = "#fileName#.csv">
 			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 			<cfset header=trim(ac)>
@@ -522,76 +494,6 @@
 			</cfscript>
 			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
 			<a href="/download/#fname#">Click here if your file does not automatically download.</a>
-		<cfelseif fileFormat is "text">
-			<cfset fname = "#fileName#.txt">
-			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-			<cfset header = replace(ac,",","#chr(9)#","all")>
-			<cfset header=#trim(header)#>
-			<cfscript>
-				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-				variables.joFileWriter.writeLine(header); 
-			</cfscript>
-			<cfloop query="getData">
-				<cfset oneLine = "">
-				<cfloop list="#ac#" index="c">
-					<cfset thisData = #evaluate(c)#>
-					<cfif c is "MEDIA">
-						<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
-					</cfif>
-					<cfif len(#oneLine#) is 0>
-						<cfset oneLine = '#thisData#'>
-					<cfelse>
-						<cfset oneLine = '#oneLine##chr(9)##thisData#'>
-					</cfif>
-				</cfloop>
-				<cfset oneLine = trim(oneLine)>
-				<cfscript>
-					variables.joFileWriter.writeLine(oneLine);
-				</cfscript>
-			</cfloop>
-			<cfscript>	
-				variables.joFileWriter.close();
-			</cfscript>
-			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-			<a href="/download/#fname#">Click here if your file does not automatically download.</a>
-		
-		<cfelseif fileFormat is "xml">
-			<cfset fname = "#fileName#.xml">
-			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-			<cfset header = "<result>">
-			<cfscript>
-				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-				variables.joFileWriter.writeLine(header); 
-			</cfscript>
-			<cfloop query="getData">
-				<cfset oneLine = "<record>">
-				<cfloop list="#ac#" index="c">
-					<cfset thisData = #evaluate(c)#>
-					<cfif c is "MEDIA">
-						<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
-					</cfif>
-					<cfif len(#oneLine#) is 0>
-						<cfset oneLine = '<#c#>#xmlformat(thisData)#</#c#>'>
-					<cfelse>
-						<cfset oneLine = '#oneLine#<#c#>#xmlformat(thisData)#</#c#>'>
-					</cfif>
-				</cfloop>
-				<cfset oneLine = "#oneLine#</record>">
-				<cfset oneLine = trim(oneLine)>
-				<cfscript>
-					variables.joFileWriter.writeLine(oneLine);
-				</cfscript>
-			</cfloop>
-			<cfset oneLine = "</result>">				
-			<cfscript>	
-				variables.joFileWriter.writeLine(oneLine);
-				variables.joFileWriter.close();
-			</cfscript>
-			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-			<a href="/download/#fname#">Click here if your file does not automatically download.</a>
-		<cfelse>
-			That file format doesn't seem to be supported yet!
-		</cfif>
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
