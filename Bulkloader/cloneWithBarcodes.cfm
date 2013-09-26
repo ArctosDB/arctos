@@ -280,7 +280,7 @@ grant all on bulkloader_clone to coldfusion_user;
 	
 	<script>
 		function highlightRow(id) {
-			$(".highlightRow).removeClass();
+			$(".highlightRow").removeClass();
 			$("##tr_" + id).addClass('highlightRow');
 		}
 	</script>
