@@ -837,7 +837,7 @@
 								<cfif oneOfUs is 1>
 									<th><span class="innerDetailLabel">Disposition</span></th>
 								</cfif>
-								<th><span class="innerDetailLabel">##</span></th>
+								<th><span class="innerDetailLabel">Qty</span></th>
 								<cfif oneOfUs is 1>
 									<th><span class="innerDetailLabel">Label</span></th>
 								</cfif>

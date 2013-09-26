@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="scan barcodes to make copies of a record">
 
 <!---- relies on table bulkloader_clone
  drop table bulkloader_clone;
@@ -14,6 +15,10 @@ grant all on bulkloader_clone to coldfusion_user;
 	width: 100%;
 	overflow:scroll;
 	}
+	.highlightRow{
+		background-color:#E5E5E5;
+	}
+
 </style>
 <cfif #action# IS "nothing">
 <cfoutput>
@@ -271,6 +276,14 @@ grant all on bulkloader_clone to coldfusion_user;
 		select column_name from user_tab_cols where table_name='BULKLOADER'
 		order by internal_column_id
 	</cfquery>
+	
+	
+	<script>
+		function highlightRow(id) {
+			$(".highlightRow).removeClass();
+			$("##tr_" + id).addClass('highlightRow');
+		}
+	</script>
 	<div style="background-color:##C0C0C0; font-size:smaller;">
 		Use the top form to filter the table
 		<br>
@@ -433,7 +446,7 @@ grant all on bulkloader_clone to coldfusion_user;
 				<th>#column_name#</th>
 			</cfloop>
 			<cfloop query="data">
-				<tr>
+				<tr id="tr_#data.collection_object_id#" onclick="highlightRow(#data.collection_object_id#)">
 				<cfquery name="thisRec" dbtype="query">
 					select * from data where collection_object_id=#data.collection_object_id#
 				</cfquery>
