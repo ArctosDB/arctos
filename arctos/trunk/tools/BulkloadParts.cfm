@@ -280,6 +280,7 @@ validate
 			select validated_status,count(*) c from cf_temp_parts group by validated_status
 		</cfquery>
 		<cfdump var=#tt#>
+		<!----
 		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update 
 				cf_temp_parts 
@@ -305,6 +306,7 @@ validate
 				)
 			where validated_status='VALID' 
 		</cfquery>
+		---->
 		<br>after bads....
 		<cfquery name="tt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select validated_status,count(*) c from cf_temp_parts group by validated_status

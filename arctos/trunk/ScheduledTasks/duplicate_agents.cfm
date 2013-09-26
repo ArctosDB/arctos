@@ -566,6 +566,8 @@ END;
 			
 				<br>To stop this merger, remove the "bad duplicate of" relationship.
 				
+				<br>To permanently stop this merger, add a "not the same as" relationship.
+				
 				<hr>
 				
 				<br>You are receiving this notification because one of more of the agents may have activities pertaining to
