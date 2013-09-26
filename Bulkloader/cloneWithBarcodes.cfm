@@ -16,7 +16,8 @@ grant all on bulkloader_clone to coldfusion_user;
 	overflow:scroll;
 	}
 	.highlightRow{
-		background-color:#E5E5E5;
+		outline:5px solid red;
+		background-color:lightgray;	
 	}
 
 </style>
@@ -269,6 +270,8 @@ grant all on bulkloader_clone to coldfusion_user;
 			<cfset sql = "#sql# #f# and #t# ">
 		</cfif>		 
 	</cfif>
+	
+	<cfset sql = "#sql# order by collection_object_id DESC ">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#	
 	</cfquery>
@@ -287,7 +290,8 @@ grant all on bulkloader_clone to coldfusion_user;
 	<div style="background-color:##C0C0C0; font-size:smaller;">
 		Use the top form to filter the table
 		<br>
-        Add a comma-delimited list of barcodes to the record you wish to clone
+        Add a comma-delimited list of barcodes to the record you wish to clone.
+		<br>Click headers to sort, rows to highlight.
         <br>Submit to:
         <ol>
             <li>check barcodes</li>
