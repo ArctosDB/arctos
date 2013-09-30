@@ -175,6 +175,15 @@
 			</select>
 		</td>
 	</tr>
+	
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_specimen_event_remark">Specimen/Event Remark:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="specimen_event_remark" id="specimen_event_remark">
+		</td>
+	</tr>
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_collecting_source">Collecting Source:</span>
