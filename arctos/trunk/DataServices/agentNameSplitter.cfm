@@ -193,7 +193,7 @@ sho err
 				group by agent_name
 			</cfquery>
 			<cfif ln.recordcount gt 0>
-				<cfset s=listappend(s,"did you mean any of: #valuelist(ln.agent_name,"; ")#?",";")>	
+				<cfset s=listappend(s,"Suggestions: #valuelist(ln.agent_name,"; ")#",";")>	
 			</cfif>
 		</cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
