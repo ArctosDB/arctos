@@ -205,6 +205,9 @@ sho err
 			<cfif ln.recordcount gt 0>
 				<cfset sugn=valuelist(ln.agent_name,"#suggestionDelimiter#")>	
 			</cfif>
+			<cfif len(sugn) gt 3500>
+				<cfset sugn=left(sugn,3500) & '...'>
+			</cfif>
 		</cfif>
 		<!--- this has to run as UAM because the CF datathingy is completely retarded and fails on agent name "grant" ---->
 		<cfquery name="d" datasource="uam_god">
