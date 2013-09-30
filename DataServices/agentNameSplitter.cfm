@@ -204,7 +204,7 @@ sho err
 			</cfquery>
 			<cfif ln.recordcount gt 0>
 				<cfset sugn=valuelist(ln.agent_name,"|")>
-				<cfset sugn=replace(sugn,"|",suggestionDelimiter,'all')>
+				<cfset sugn=replace(sugn,"|",chr(10),'all')>
 			</cfif>
 			<cfif len(sugn) gt 3500>
 				<cfset sugn=left(sugn,3500) & '...'>
