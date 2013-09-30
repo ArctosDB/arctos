@@ -22,6 +22,8 @@ create table ds_temp_agent_split (
 	status varchar2(4000)
 	);
 	
+alter table ds_temp_agent_split add suggestions varchar2(4000);
+
 create public synonym ds_temp_agent_split for ds_temp_agent_split;
 grant all on ds_temp_agent_split to coldfusion_user;
 grant select on ds_temp_agent_split to public;
@@ -118,6 +120,9 @@ sho err
 		<cfset firstn=''>
 		<cfset lastn=''>
 		<cfset mdln=''>
+		<cfset sugn=''>
+		
+		
 		<cfset thisName=trim(preferred_name)>
 		<cfif len(thisName) is 0>
 			<cfset s=listappend(s,"preferred_name may not be blank",";")>
@@ -193,7 +198,7 @@ sho err
 				group by agent_name
 			</cfquery>
 			<cfif ln.recordcount gt 0>
-				<cfset s=listappend(s,"Suggestions: #valuelist(ln.agent_name,"; ")#",";")>	
+				<cfset sugn=valuelist(ln.agent_name,"; ")>	
 			</cfif>
 		</cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -214,6 +219,7 @@ sho err
 				other_name_3='',
 				other_name_type_3='',
 				agent_remark='',
+				suggestions='#sugn#',
 				status='#s#'
 			where key=#key#
 		</cfquery>
