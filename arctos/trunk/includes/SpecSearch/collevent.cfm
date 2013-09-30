@@ -181,7 +181,7 @@
 			<span class="helpLink" id="_specimen_event_remark">Specimen/Event Remark:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="specimen_event_remark" id="specimen_event_remark">
+			<input type="text" name="specimen_event_remark" id="specimen_event_remark" size="50">
 		</td>
 	</tr>
 	<tr>
