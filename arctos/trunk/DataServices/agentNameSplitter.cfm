@@ -56,6 +56,12 @@ sho err
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
+		<label for="suggestionDelimiter">suggestionDelimiter</label>
+		<select name="suggestionDelimiter" id="suggestionDelimiter">
+			<option value="; ">; </option>
+			<option value=", ">, </option>
+			<option value="chr(10)">chr(10)</option>
+		</select>
 		<input type="submit" value="Upload this file" class="savBtn">
 	</cfform>
 </cfif>
@@ -97,7 +103,7 @@ sho err
 		</cfif>
 	</cfloop>
 </cfoutput>
-<cflocation url="agentNameSplitter.cfm?action=validate" addtoken="false">
+<cflocation url="agentNameSplitter.cfm?action=validate&suggestionDelimiter=#suggestionDelimiter#" addtoken="false">
 </cfif>
 <cfif action is "validate">
 <cfoutput>
@@ -113,7 +119,6 @@ sho err
 	<cfset sfxLst=valuelist(ctsuffix.suffix)>
 	<cfset pfxLst=valuelist(ctprefix.prefix)>
 	<cfloop query="d">
-		<p>#preferred_name#</p>
 		<cfset s=''>
 		<cfset pfx=''>
 		<cfset sfx=''>
@@ -198,7 +203,7 @@ sho err
 				group by agent_name
 			</cfquery>
 			<cfif ln.recordcount gt 0>
-				<cfset sugn=valuelist(ln.agent_name,"; ")>	
+				<cfset sugn=valuelist(ln.agent_name,"#suggestionDelimiter#")>	
 			</cfif>
 		</cfif>
 		<!--- this has to run as UAM because the CF datathingy is completely retarded and fails on agent name "grant" ---->
