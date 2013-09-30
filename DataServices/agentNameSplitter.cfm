@@ -201,7 +201,8 @@ sho err
 				<cfset sugn=valuelist(ln.agent_name,"; ")>	
 			</cfif>
 		</cfif>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<!--- this has to run as UAM because the CF datathingy is completely retarded and fails on agent name "grant" ---->
+		<cfquery name="d" datasource="uam_god">
 			update ds_temp_agent_split set
 				agent_type='person',
 				preferred_name='#thisName#',
