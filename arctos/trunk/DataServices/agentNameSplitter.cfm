@@ -203,8 +203,7 @@ sho err
 				group by agent_name
 			</cfquery>
 			<cfif ln.recordcount gt 0>
-				<cfset sugn=valuelist(ln.agent_name,"|")>
-				<cfset sugn=replace(sugn,"|",\n,'all')>
+				<cfset sugn=valuelist(ln.agent_name,"; ")>
 			</cfif>
 			<cfif len(sugn) gt 3500>
 				<cfset sugn=left(sugn,3500) & '...'>
