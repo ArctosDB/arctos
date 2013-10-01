@@ -4039,6 +4039,8 @@
 				<cfelse>
 					1=0
 				</cfif>
+			group by
+				address
 		</cfquery>
 		<cfquery name="summary" datasource="uam_god">
 			<cfif idType is "COLLECTION_OBJECT_ID">
