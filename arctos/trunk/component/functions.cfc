@@ -4025,6 +4025,17 @@
 				electronic_address.ADDRESS_TYPE='e-mail' and
 				<cfif idType is "collection_object_id">
 					cataloged_item.collection_object_id=#idvalue#
+				<cfelseif idType is "taxon_name_id">
+					cataloged_item.collection_object_id in (
+						select 
+							collection_object_id
+						from
+							identification,
+							identification_taxonomy 
+						where
+							identification.identification_id=identification_taxonomy.identification_id and
+							identification_taxonomy.taxon_name_id=#idvalue#
+					)
 				<cfelse>
 					1=0
 				</cfif>
@@ -4042,7 +4053,9 @@
 		</cfquery>
 		<cfset mailTo = valuelist(whoTo.address)>
 		<cfset mailTo=listappend(mailTo,Application.bugReportEmail,",")>
-		<cfmail to="#mailTo#" from="annotation@#Application.fromEmail#" subject="Annotation Submitted" type="html">
+		<cfmail to="dustymc@gmail.com" from="annotation@#Application.fromEmail#" subject="Annotation Submitted" type="html">
+			--------#mailTo#--------
+			
 			Arctos User #session.username# has submitted an annotation concerning #summary.s#.
 
 			<blockquote>

@@ -115,11 +115,11 @@
 					and annotations.project_id=#id#
 				</cfif>
 		</cfquery>
-	<cfelseif type is "taxon">
+	<cfelseif type is "taxon" or type is "taxon_name_id">
 		<cfquery name="data" datasource="uam_god">
 			select 
 				taxon_name.scientific_name summary,
-				'/name/' || taxonomy.scientific_name datalink,
+				'/name/' || taxon_name.scientific_name datalink,
 				'taxon_name_id' pkeytype,
 				taxon_name.taxon_name_id pkey,
 				annotations.ANNOTATION_ID,

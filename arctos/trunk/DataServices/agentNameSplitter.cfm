@@ -56,12 +56,6 @@ sho err
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
-		<label for="suggestionDelimiter">suggestionDelimiter</label>
-		<select name="suggestionDelimiter" id="suggestionDelimiter">
-			<option value="; ">; </option>
-			<option value=", ">, </option>
-			<option value="chr(10)">chr(10)</option>
-		</select>
 		<input type="submit" value="Upload this file" class="savBtn">
 	</cfform>
 </cfif>
@@ -103,7 +97,7 @@ sho err
 		</cfif>
 	</cfloop>
 </cfoutput>
-<cflocation url="agentNameSplitter.cfm?action=validate&suggestionDelimiter=#suggestionDelimiter#" addtoken="false">
+<cflocation url="agentNameSplitter.cfm?action=validate" addtoken="false">
 </cfif>
 <cfif action is "validate">
 <cfoutput>
