@@ -187,7 +187,7 @@
 		select distinct(institution_acronym) institution_acronym from collection order by institution_acronym
 	</cfquery>
 	<cfquery name="ContType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select container_type from ctcontainer_type where container_type is not "collection object" order by container_type
+		select container_type from ctcontainer_type where container_type != "collection object" order by container_type
 	</cfquery>
 	<cfquery name="FluidType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select fluid_type from ctFluid_Type ORDER BY fluid_type
