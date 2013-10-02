@@ -506,7 +506,7 @@
 				<td>#container_type#</td>
 				<td>
 					<a href="/EditContainer.cfm?container_id=#container_id#">[ edit ]</a>
-					<a href="/findContainer.cfm?container_id=#container_id#">[ tree ]</a>
+					<a href="/findContainer.cfm?container_id=#container_id#">[ find ]</a>
 				</td>
 			</tr>
 		</cfloop>
@@ -515,6 +515,28 @@
 </tr></table>
 </cfoutput>
  </form>
+</cfif>
+<!-------------------------------------------------------------->
+<cfif action is "saveChecked">
+	<cfoutput>
+	
+		<cfquery name="cidOfnewParentBarcode" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select container_id from container where barcode='#newParentBarcode#'
+		</cfquery>
+
+		<cfquery name="children" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update container set parent_container_id=#cidOfnewParentBarcode.container_id# where
+			parent_container_id=#container_id#
+		</cfquery>
+		
+		<p>
+			Children moved.
+		</p>
+		<ul>
+			<li><a href="/EditContainer.cfm?container_id=#container_id#">continue editing</a></li>
+			<li><a href="/EditContainer.cfm?container_id=#cidOfnewParentBarcode.container_id#">edit the new parent</a></li>
+		</ul>
+	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #Action# is "saveChecked">
