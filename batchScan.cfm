@@ -81,9 +81,10 @@ jQuery(document).ready(function() {
 			<cfset numberOfUniqueBarcodesScanned=0>
 			<cfset barcodescanlist="">
 		<cfloop from="1" to ="#numberFolders#" index="i">
-		<tr>
+		
 			<cfset thisBarcode=evaluate("barcode_" & i)>
 			<cfif len(thisBarcode) gt 0>
+			<tr>
 				<cfset isDup=true>
 				<cfif not listfind(barcodescanlist,thisBarcode)>
 					<cfset numberOfUniqueBarcodesScanned=numberOfUniqueBarcodesScanned+1>
@@ -135,9 +136,9 @@ jQuery(document).ready(function() {
 					<cftransaction action="rollback" />
 					<cfabort>
 				</cfif>
+		</tr>
 			</cfif>
 		</cfloop>
-		</tr>
 		</table>
 		<ul>
 			<li>Number barcodes scanned: #numberOfBarcodesScanned#</li>
