@@ -240,7 +240,9 @@
 					select
 						part_name,
 						container_type,
-						barcode
+						barcode,
+						parentbarcode,
+						parenttype
 					from
 						raw
 					where
@@ -260,9 +262,11 @@
 						<table border width="100%">
 							<cfloop query="p">
 								<tr>
-									<td width="33%">#part_name#</td>
-									<td width="33%">#container_type#</td>
-									<td width="33%">#barcode#</td>
+									<td width="20%">#part_name#</td>
+									<td width="20%">#container_type#</td>
+									<td width="20%">#barcode#</td>
+									<td width="20%">#parentbarcode#</td>
+									<td width="20%">#parenttype#</td>
 								</tr>
 							</cfloop>
 						</table>
