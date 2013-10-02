@@ -16,8 +16,59 @@
 <cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select taxa_formula from cttaxa_formula order by taxa_formula
 </cfquery>
+<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	 SELECT 
+	 	flat.guid,
+		concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+		flat.scientific_name,
+		flat.higher_geog,
+		flat.collection,
+		specimen_part.part_name,
+		container.container_type,
+		container.barcode
+	FROM 
+		#session.SpecSrchTab#,
+		flat,
+		specimen_part,
+		coll_obj_cont_hist,
+		container part,
+		container
+	WHERE 
+		#session.SpecSrchTab#.collection_object_id=flat.collection_object_id and
+		flat.collection_object_id=specimen_part.derived_from_cat_item (+) and
+		specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id (+) and
+		coll_obj_cont_hist.container_id=part.container_id (+) and
+		part.parent_container_id=container.container_id (+)
+	ORDER BY 
+		flat.collection_object_id
+</cfquery>
+
+<cfquery name="specimenList" dbtype="query">
+	select
+		guid,
+		CustomID,
+		scientific_name,
+		higher_geog
+	from
+		raw
+	group by
+		guid,
+		CustomID,
+		scientific_name,
+		higher_geog
+	order by
+		guid
+</cfquery>
+<cfquery name="distPart" dbtype="query">
+	select part_name from raw group by part_name order by part_name
+</cfquery>
+
 <cfoutput>
-</cfoutput> <cfoutput> <strong>Add Identification For <font size="+1"><i>All</i></font> 
+<table>
+	<tr><td><!--- left column ---->
+
+
+ <strong>Add Identification For <font size="+1"><i>All</i></font> 
   specimens listed below:</strong> 
   <table>
   <form name="newID" method="post" action="multiIdentification.cfm">
@@ -180,55 +231,34 @@
           
         </form>
 		
+</td><!--- end left column ----><!---- start right column ----><td>
+<h2>
+	Move Part Containers
+</h2>
+	<p>
+		For every specimen in the table below, move part(s) of type....
+		 <form name="newIDParts" method="post" action="multiIdentification.cfm">
+            <input type="hidden" name="action" value="moveParts">
+			<label for="partsToMove">pick part(s) to move</label>
+			<select name="partsToMove" size="10" multiple="multiple">
+				<cfloop query="distPart">
+					<option value="#part_name#">#part_name#</option>
+				</cfloop>
+			</select>
+			<label for="newPartContainer">Move parts to container barcode</label>
+			<input type="text" name="newPartContainer" id="newPartContainer">
+			<br> <input type="submit" value="Move Parts for all listed specimens" class="savBtn">	
+		</form>
 		
+	</p>
+
+	
+</td></tr>
+</table>	
   
   
 
-<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	 SELECT 
-	 	flat.guid,
-		concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-		flat.scientific_name,
-		flat.higher_geog,
-		flat.collection,
-		specimen_part.part_name,
-		container.container_type,
-		container.barcode
-	FROM 
-		#session.SpecSrchTab#,
-		flat,
-		specimen_part,
-		coll_obj_cont_hist,
-		container part,
-		container
-	WHERE 
-		#session.SpecSrchTab#.collection_object_id=flat.collection_object_id and
-		flat.collection_object_id=specimen_part.derived_from_cat_item (+) and
-		specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id (+) and
-		coll_obj_cont_hist.container_id=part.container_id (+) and
-		part.parent_container_id=container.container_id (+)
-	ORDER BY 
-		flat.collection_object_id
-</cfquery>
 
-<cfquery name="specimenList" dbtype="query">
-	select
-		guid,
-		CustomID,
-		scientific_name,
-		higher_geog
-	from
-		raw
-	group by
-		guid,
-		CustomID,
-		scientific_name,
-		higher_geog
-	order by
-		guid
-		
-		
-</cfquery>
 <br><b>#specimenList.recordcount# Specimens Being Re-Identified:</b>
 
 
@@ -278,30 +308,22 @@
 			<cfset pcnt=1>
 		</cfif>
 		<tr>
-			<td >
-				<a href="/guid/#guid#">#guid#</a>
-			</td>
-			<td >
-			#CustomID#&nbsp;
-			</td>
-						<td >
-<i>#Scientific_Name#</i></td>
-						<td >
-#higher_geog#</td>
-			
+			<td><a href="/guid/#guid#">#guid#</a></td>
+			<td>#CustomID#&nbsp;</td>
+			<td><i>#Scientific_Name#</i></td>
+			<td>#higher_geog#</td>
 			<td>
-			<table border width="100%">
-			<cfloop query="p">
-			<tr>
-			<td width="33%">#part_name#</td>
-			<td width="33%">#container_type#</td>
-			<td width="33%">#barcode#</td>
-			</tr>
-			</cfloop>
-			</table>
+				<table border width="100%">
+					<cfloop query="p">
+						<tr>
+							<td width="33%">#part_name#</td>
+							<td width="33%">#container_type#</td>
+							<td width="33%">#barcode#</td>
+						</tr>
+					</cfloop>
+				</table>
 			</td>
 		</tr>
-
 	</cfloop>
 </table>
 
