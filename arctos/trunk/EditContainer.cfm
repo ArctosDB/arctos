@@ -517,7 +517,7 @@
  </form>
 </cfif>
 <!-------------------------------------------------------------->
-<cfif action is "saveChecked">
+<cfif action is "moveChillun">
 	<cfoutput>
 	
 		<cfquery name="cidOfnewParentBarcode" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
