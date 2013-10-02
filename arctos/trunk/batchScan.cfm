@@ -60,6 +60,9 @@ jQuery(document).ready(function() {
 <!------------------------------------------------------------------------------->
 <cfif #action# is "save">
 	<cfoutput>
+	
+	
+	<cfdump var=#form#>
 		<hr>Scans are being processed. If you don't see a success message and a link at the bottom of this page, it
 		probably didn't work.
 		<hr>
