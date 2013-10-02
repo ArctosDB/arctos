@@ -314,7 +314,7 @@
 								<label for="checked_date">Fluid Check Date</label>
 								<input name="checked_date" id="checked_date" 
 								type="text" 
-								value="#getCont.checked_date#" 
+								value="#dateformat(getCont.checked_date,'yyyy-mm-dd')#" 
 								size="10">
 							</td>
 							<td>
@@ -449,7 +449,7 @@
 		</tr>
 		<cfloop query="checked">
 			<tr>
-				<td>#dateformat(check_date,"yyyy-mm-ddy")#</td>
+				<td>#check_date#</td>
 				<td>#agent_name#</td>
 				<td>#check_remark#</td>
 			</tr>
