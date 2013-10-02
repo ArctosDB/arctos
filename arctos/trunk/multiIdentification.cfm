@@ -288,9 +288,6 @@
 	container (coll obj)             <---- this parent container ID is a shortcut to what we need to move
 	container (with barcode)         <---- move this thing
 	container (thing that holds the "part barcode"
-	
-------------->
-
 	<cfquery name="scannedID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update 
 			container 
@@ -311,6 +308,22 @@
 					coll_obj_cont_hist.container_id=part_container.container_id and
 					specimen_part.part_name in ( #ListQualify(partsToMove,"'")# )
 			)
+	</cfquery>
+------------->
+
+	<cfquery name="scannedID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select 
+					part_container.parent_container_id
+				from
+					#session.SpecSrchTab#,
+					specimen_part,
+					coll_obj_cont_hist,
+					container part_container
+				WHERE 
+					#session.SpecSrchTab#.collection_object_id=specimen_part.derived_from_cat_item and
+					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+					coll_obj_cont_hist.container_id=part_container.container_id and
+					specimen_part.part_name in ( #ListQualify(partsToMove,"'")# )
 	</cfquery>
 	
 <cflocation url="multiIdentification.cfm" addtoken="no">
