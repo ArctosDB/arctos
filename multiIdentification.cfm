@@ -246,6 +246,7 @@
 					from
 						raw
 					where
+						barcode is not null and 
 						guid='#guid#'
 				</cfquery>
 				<cfif p.recordcount gt 0>
