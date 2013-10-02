@@ -1,6 +1,11 @@
 <cfset title="Move Containers">
 <cfinclude template="/includes/_header.cfm">
-<cfif #action# is "nothing">
+<script>
+jQuery(document).ready(function() {
+	$("#parent_barcode").focus();
+});
+</script>
+<cfif action is "nothing">
 <cfoutput>
 	<cfset numberFolders = 100>
 	<cfset colCount=5>
@@ -13,13 +18,15 @@
 					class="savBtn"
 					onmouseover="this.className='savBtn btnhov'" 
 	   				onmouseout="this.className='savBtn'"
-					value="Save">
+					value="Save"
+					tabindex="-1">
 					&nbsp;&nbsp;&nbsp;
 				<input type="reset" 
 					class="clrBtn"
 					onmouseover="this.className='clrBtn btnhov'" 
 	   				onmouseout="this.className='clrBtn'"
-					value="Clear Form">
+					value="Clear Form"
+					tabindex="-1">
 					<hr>
 					
 		<label for="sheets">Child Barcodes</label>		
