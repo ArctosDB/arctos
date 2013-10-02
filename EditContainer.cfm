@@ -526,7 +526,10 @@
 		<cfquery name="cidOfnewParentBarcode" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id from container where barcode='#newParentBarcode#'
 		</cfquery>
-
+		<cfif len(cidOfnewParentBarcode.container_id) is 0>
+			nothing found
+			<cfabort>
+		</cfif>
 		<cfquery name="children" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update container set parent_container_id=#cidOfnewParentBarcode.container_id# where
 			parent_container_id=#container_id#
