@@ -59,7 +59,16 @@
 			guid
 	</cfquery>
 	<cfquery name="distPart" dbtype="query">
-		select part_name from raw group by part_name order by part_name
+		select 
+			part_name 
+		from 
+			raw
+		where
+			barcode is not null
+		group by 
+			part_name 
+		order by 
+			part_name
 	</cfquery>
 	<cfoutput>
 		<table width="100%"><tr><td width="50%"><!--- left column ---->
