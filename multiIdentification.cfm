@@ -259,9 +259,7 @@
 		<td><strong><cfoutput>#session.CustomOtherIdentifier#</cfoutput></strong></td>
 		<td><strong>Accepted Scientific Name</strong></td>
 		<td><strong>Geography</strong></td>
-		<td><strong>Parts</strong></td>
-		<td><strong>Parts</strong></td>
-		<td><strong>Parts</strong></td>
+		<td><strong>Part | container type | barcode</strong></td>
 	</tr>
 	 <cfloop query="specimenList">
 		<cfquery name="p" dbtype="query">
@@ -292,12 +290,12 @@
 #higher_geog#</td>
 			
 			<td>
-			<table border>
+			<table border width="100%">
 			<cfloop query="p">
 			<tr>
-			<td>#part_name#</td>
-			<td>#container_type#</td>
-			<td>#barcode#</td>
+			<td width="33%">#part_name#</td>
+			<td width="33%">#container_type#</td>
+			<td width="33%">#barcode#</td>
 			</tr>
 			</cfloop>
 			</table>
