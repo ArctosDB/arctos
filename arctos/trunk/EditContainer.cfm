@@ -469,34 +469,40 @@
 </td>
 <td valign="top"><!---- right column ---->
 
-<cfquery name="children" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select
-		barcode,
-		container_type,
-		label
-	from
-		container
-	where
-		parent_container_id=#container_id#
-	order by
-		container_type,barcode,label
-</cfquery>
-Children of this container
-<table border>
-	<tr>
-		<th>Barcode</th>
-		<th>Label</th>
-		<th>Container Type</th>
-	</tr>
-	<cfloop query="children">
+	<cfquery name="children" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			barcode,
+			container_type,
+			label
+		from
+			container
+		where
+			parent_container_id=#container_id#
+		order by
+			container_type,barcode,label
+	</cfquery>
+	<h3>Children of this container</h3>
+	<form name="moveChillun" method="post" action="EditContainer.cfm">
+		<input type="hidden" name="action" value="moveChillun">
+		<input type="hidden" name="container_id" value="#getCont.container_id#">
+		<label for="newParentBarcode">Move all children of this container to barcode:</label>
+		<input type="text" name="newParentBarcode" id="newParentBarcode" class="reqdClr">
+		<br><input type="submit" value="Move all children of this container to scanned barcode" class="savBtn">
+	</form>
+	<table border>
 		<tr>
-			<td>#barcode#</td>
-			<td>#label#</td>
-			<td>#container_type#</td>
+			<th>Barcode</th>
+			<th>Label</th>
+			<th>Container Type</th>
 		</tr>
-	</cfloop>
-</table>
-	I am right column.
+		<cfloop query="children">
+			<tr>
+				<td>#barcode#</td>
+				<td>#label#</td>
+				<td>#container_type#</td>
+			</tr>
+		</cfloop>
+	</table>
 </td>
 </tr></table>
 </cfoutput>
