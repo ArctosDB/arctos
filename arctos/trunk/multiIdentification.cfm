@@ -325,12 +325,14 @@
 					coll_obj_cont_hist.container_id=part_container.container_id and
 					specimen_part.part_name in ( #ListQualify(partsToMove,"'")# )
 	</cfquery>
-	
-<cflocation url="multiIdentification.cfm" addtoken="no">
+		<cfdump var=#scannedID#>
+
 </cfoutput>
 </cfif>		
 <!------------------------------------
-	<cfdump var=#scannedID#>
+
+<cflocation url="multiIdentification.cfm" addtoken="no">
+
 
 
 
