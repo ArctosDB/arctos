@@ -505,7 +505,7 @@
 				<td>#label#</td>
 				<td>#container_type#</td>
 				<td>
-					<a href="/editContainer.cfm?container_id=#container_id#">[ edit ]</a>
+					<a href="/EditContainer.cfm?container_id=#container_id#">[ edit ]</a>
 					<a href="/findContainer.cfm?container_id=#container_id#">[ tree ]</a>
 				</td>
 			</tr>
