@@ -157,17 +157,6 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_phylorder">Order:</span>
-		</td>
-		<td class="srch">
-		 	<input type="text" name="phylorder" id="phylorder" size="50" placeholder="Collection's classification">
-			<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='='+e.value;">[ exact ]</span>
-			<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='NULL';">[ NULL ]</span>
-			<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='!'+e.value;">[ NOT ]</span>	
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
 			<span class="helpLink" id="_phylclass">Class:</span>
 		</td>
 		<td class="srch">
@@ -175,6 +164,17 @@
 			<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='='+e.value;">[ exact ]</span>
 			<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='NULL';">[ NULL ]</span>
 			<span class="infoLink" onclick="var e=document.getElementById('phylclass');e.value='!'+e.value;">[ NOT ]</span>	
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_phylorder">Order:</span>
+		</td>
+		<td class="srch">
+		 	<input type="text" name="phylorder" id="phylorder" size="50" placeholder="Collection's classification">
+			<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='='+e.value;">[ exact ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='NULL';">[ NULL ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='!'+e.value;">[ NOT ]</span>	
 		</td>
 	</tr>
 	<tr>
