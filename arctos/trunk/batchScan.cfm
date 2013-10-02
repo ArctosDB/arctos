@@ -75,10 +75,19 @@ jQuery(document).ready(function() {
 				<th>Child</th>
 				<th>Status</th>
 			</tr>
+			<cfset numberOfBarcodesScanned=0>
+			<cfset numberOfUniqueBarcodesScanned=0>
+			<cfset barcodescanlist="">
 		<cfloop from="1" to ="#numberFolders#" index="i">
 		<tr>
 			<cfset thisBarcode=evaluate("barcode_" & i)>
-			<cfif len(#thisBarcode#) gt 0>
+			<cfif len(thisBarcode) gt 0>
+				<cfif not listfind(barcodescanlist,thisBarcode)>
+					<cfset numberOfUniqueBarcodesScanned=numberOfUniqueBarcodesScanned+1>
+				</cfif>
+				<cfset barcodescanlist=listappend(barcodescanlist,thisBarcode)>
+				<cfset numberOfBarcodesScanned=numberOfBarcodesScanned+1>
+				 
 				<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select 
 						checkContainerMovement('#parent_barcode#','#thisBarcode#') cmvt
@@ -107,6 +116,11 @@ jQuery(document).ready(function() {
 		</cfloop>
 		</tr>
 		</table>
+		<ul>
+			<li>Number barcodes scanned: #numberOfBarcodesScanned#</li>
+			<li>Number unique barcodes scanned: #numberOfUniqueBarcodesScanned#</li>
+		</ul>
+
 		</cftransaction>
 		<cfif listcontains(pf,'f')>
 			<div class="error">
