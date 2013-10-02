@@ -231,52 +231,84 @@
 </cfquery>
 <br><b>#specimenList.recordcount# Specimens Being Re-Identified:</b>
 
-</cfoutput>
+
+
+<table border="1">
+  <tr>
+    <th>Month</th>
+    <th>Savings</th>
+    <th>Savings for holiday!</th>
+  </tr>
+  <tr>
+    <td>January</td>
+    <td>$100</td>
+    <td rowspan="2">$50</td>
+  </tr>
+  <tr>
+    <td>February</td>
+    <td>$80</td>
+  </tr>
+</table>
+
+
+
 *Changes can take a few minutes to show up in this table and in specimenresults.
 <table width="95%" border="1">
-<tr>
-	<td><strong>GUID</strong></td>
-	<td><strong><cfoutput>#session.CustomOtherIdentifier#</cfoutput></strong></td>
-	<td><strong>Accepted Scientific Name</strong></td>
-	<td><strong>Geography</strong></td>
-	<td><strong>Parts</strong></td>
-</tr>
- <cfoutput query="specimenList">
-    <tr>
-	  <td>
-	  	<a href="/guid/#guid#">#guid#</a>
-	  </td>
-	<td>
-		#CustomID#&nbsp;
-	</td>
-	<td><i>#Scientific_Name#</i></td>
-	<td>#higher_geog#</td>
-	<cfquery name="p" dbtype="query">
-		select
-			part_name,
-			container_type,
-			barcode
-		from
-			raw
-		where
-			guid='#guid#'
-	</cfquery>
-	<td>
-		<table border>
+	<tr>
+		<td><strong>GUID</strong></td>
+		<td><strong><cfoutput>#session.CustomOtherIdentifier#</cfoutput></strong></td>
+		<td><strong>Accepted Scientific Name</strong></td>
+		<td><strong>Geography</strong></td>
+		<td><strong>Parts</strong></td>
+		<td><strong>Parts</strong></td>
+		<td><strong>Parts</strong></td>
+	</tr>
+	 <cfloop query="specimenList">
+		<cfquery name="p" dbtype="query">
+			select
+				part_name,
+				container_type,
+				barcode
+			from
+				raw
+			where
+				guid='#guid#'
+		</cfquery>
+		<cfif p.recordcount gt 0>
+			<cfset pcnt=p.recordcount>
+		<cfelse>
+			<cfset pcnt=1>
+		</cfif>
+		<tr>
+			<td >
+				<a href="/guid/#guid#">#guid#</a>
+			</td>
+			<td >
+			#CustomID#&nbsp;
+			</td>
+						<td >
+<i>#Scientific_Name#</i></td>
+						<td >
+#higher_geog#</td>
+			
+			<td>
+			<table border>
 			<cfloop query="p">
-				<tr>
-					<td>#part_name#</td>
-					<td>#container_type#</td>
-					<td>#barcode#</td>
-				</tr>
+			<tr>
+			<td>#part_name#</td>
+			<td>#container_type#</td>
+			<td>#barcode#</td>
+			</tr>
 			</cfloop>
-		</table>
-	</td>
-</tr>
+			</table>
+			</td>
+		</tr>
+
+	</cfloop>
+</table>
 
 
 </cfoutput>
-</table>
 </cfif>
 <!----------------------------------------------------------------------------------->
 <!----------------------------------------------------------------------------------->
