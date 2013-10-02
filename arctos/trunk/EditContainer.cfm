@@ -200,7 +200,7 @@
 	<table><tr><td valign="top"><!---- left column ---->
 	<form name="form1" method="post" action="EditContainer.cfm">
 		<input type="hidden" name="container_id" value="#getCont.container_id#">
-		<table cellpadding="0" cellspacing="0" border>
+		<table cellpadding="0" cellspacing="0">
 	 		<tr>
 				<td>
 					<label for="label">Label</label>
@@ -314,7 +314,7 @@
 								<label for="checked_date">Fluid Check Date</label>
 								<input name="checked_date" id="checked_date" 
 								type="text" 
-								value="#dateformat(getCont.checked_date,'yyyy-mm-dd')#" 
+								value="#getCont.checked_date#" 
 								size="10">
 							</td>
 							<td>
