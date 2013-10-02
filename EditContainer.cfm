@@ -1,4 +1,7 @@
 <cfinclude template="includes/_header.cfm">
+
+<cfdump var=#form#>
+
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$("#checked_date").datepicker();
