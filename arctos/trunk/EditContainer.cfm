@@ -530,7 +530,7 @@
 		</cfquery>
 		
 		<p>
-			Children moved.
+			Children moved to barcode #newParentBarcode#.
 		</p>
 		<ul>
 			<li><a href="/EditContainer.cfm?container_id=#container_id#">continue editing</a></li>
