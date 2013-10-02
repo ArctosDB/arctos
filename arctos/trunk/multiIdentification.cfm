@@ -192,6 +192,10 @@
 			Move Part Containers
 		</h2>
 		<p>
+			Important note: This form will NOT move parts which are not already in a barcoded container, such as a NUNC tube. 
+			Use one of the many other container applications to do that.
+		</p>
+		<p>
 			For every specimen in the table below, move part(s) of type....
 			 <form name="newIDParts" method="post" action="multiIdentification.cfm">
 	            <input type="hidden" name="action" value="moveParts">
@@ -266,13 +270,13 @@
 	part
 	container (coll obj)             <---- this parent container ID is a shortcut to what we need to move
 	container (with barcode)         <---- move this thing
-update container set parent_container_id=(select container_id from container where barcode='#newPartContainer#')
-		where container_id in (
-	)
+
+	
 ------------->
 
 	<cfquery name="scannedID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		
+		update container set parent_container_id=(select container_id from container where barcode='#newPartContainer#')
+		where container_id in (
 			select 
 				part_container.parent_container_id
 			from
@@ -285,16 +289,15 @@ update container set parent_container_id=(select container_id from container whe
 				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 				coll_obj_cont_hist.container_id=part_container.container_id and
 				specimen_part.part_name in ( #ListQualify(partsToMove,"'")# )
-	
+		)
 	</cfquery>
 	
-	
-	<cfdump var=#scannedID#>
+<cflocation url="multiIdentification.cfm" addtoken="no">
 </cfoutput>
 </cfif>		
 <!------------------------------------
+	<cfdump var=#scannedID#>
 
-<cflocation url="multiIdentification.cfm" addtoken="no">
 
 
 ----------------------------------------------->
