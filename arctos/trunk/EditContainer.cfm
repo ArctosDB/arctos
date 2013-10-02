@@ -468,6 +468,34 @@
 </cfif>
 </td>
 <td><!---- right column ---->
+
+<cfquery name="children" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select
+		barcode,
+		container_type,
+		label
+	from
+		container
+	where
+		parent_container_id=#container_id#
+	order by
+		container_type,barcode,label
+</cfquery>
+Children of this container
+<table border>
+	<tr>
+		<th>Barcode</th>
+		<th>Label</th>
+		<th>Container Type</th>
+	</tr>
+	<cfloop query="children">
+		<tr>
+			<td>#barcode#</td>
+			<td>#label#</td>
+			<td>#container_type#</td>
+		</tr>
+	</cfloop>
+</table>
 	I am right column.
 </td>
 </tr></table>
