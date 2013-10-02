@@ -266,13 +266,13 @@
 	part
 	container (coll obj)             <---- this parent container ID is a shortcut to what we need to move
 	container (with barcode)         <---- move this thing
-
-
+update container set parent_container_id=(select container_id from container where barcode='#newPartContainer#')
+		where container_id in (
+	)
 ------------->
 
 	<cfquery name="scannedID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update container set parent_container_id=(select container_id from container where barcode='#newPartContainer#')
-		where container_id in (
+		
 			select 
 				part_container.parent_container_id
 			from
@@ -285,13 +285,19 @@
 				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 				coll_obj_cont_hist.container_id=part_container.container_id and
 				specimen_part.part_name in ( #ListQualify(partsToMove,"'")# )
-		)
+	
 	</cfquery>
-
+	
+	
+	<cfdump var=#scannedID#>
 </cfoutput>
-<cflocation url="multiIdentification.cfm" addtoken="no">
 </cfif>		
-<!----------------------------------------------------------------------------------->
+<!------------------------------------
+
+<cflocation url="multiIdentification.cfm" addtoken="no">
+
+
+----------------------------------------------->
 <cfif Action is "createManyNew">
 
 <cfoutput>
