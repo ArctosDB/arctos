@@ -200,7 +200,7 @@
 	<table><tr><td valign="top"><!---- left column ---->
 	<form name="form1" method="post" action="EditContainer.cfm">
 		<input type="hidden" name="container_id" value="#getCont.container_id#">
-		<table cellpadding="0" cellspacing="0">
+		<table cellpadding="0" cellspacing="0" border>
 	 		<tr>
 				<td>
 					<label for="label">Label</label>
@@ -291,7 +291,6 @@
 							</td>
 						</tr>
 					</table>
-					
 				</td>
 			</tr>
 	  		<tr>
@@ -308,7 +307,8 @@
 			</tr>
 	  		<tr>
 				<td colspan="2">
-					<table cellspacing="0" cellpadding="0" width="100%">
+					<label for="fluidTbl">Fluid</label>
+					<table id="fluidTbl" cellspacing="0" cellpadding="0" width="100%">
 						<tr>
 							<td>
 								<label for="checked_date">Fluid Check Date</label>
