@@ -65,7 +65,15 @@ jQuery(document).ready(function() {
 		<hr>
 		<cfset pf="">
 		<cftransaction>
+		
+		<table>
+			<tr>
+				<th>Parent</th>
+				<th>Child</th>
+				<th>Status</th>
+			</tr>
 		<cfloop from="1" to ="#numberFolders#" index="i">
+		<tr>
 			<cfset thisBarcode=evaluate("barcode_" & i)>
 			<cfif len(#thisBarcode#) gt 0>
 				<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -74,7 +82,9 @@ jQuery(document).ready(function() {
 	 				from
 						dual
 				</cfquery>
-				<br>Parent: #parent_barcode#; Child: #thisBarcode#; Error: #chk.cmvt#
+				<td>#parent_barcode#</td>
+				<td>#thisBarcode#</td>
+				<td>#chk.cmvt#</td>
 				<cfif chk.cmvt is 'pass'>
 					<cfset pf=listappend(pf,"p")>
 					<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -92,6 +102,8 @@ jQuery(document).ready(function() {
 				</cfif>
 			</cfif>
 		</cfloop>
+		</tr>
+		</table>
 		</cftransaction>
 		<cfif listcontains(pf,'f')>
 			<div class="error">
