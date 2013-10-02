@@ -197,7 +197,7 @@
 	FROM 
 		#session.SpecSrchTab#,
 		flat,
-		specimen_part
+		specimen_part,
 		coll_obj_cont_hist,
 		container part,
 		container
