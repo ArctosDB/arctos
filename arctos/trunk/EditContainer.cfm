@@ -196,10 +196,13 @@
 		select concentration from ctfluid_concentration order by concentration
 	</cfquery>
 	<cfoutput>
+	<table><tr><td valign="top"><!---- left column ---->
+	
 	<form name="form1" method="post" action="EditContainer.cfm">
 		<input type="hidden" name="container_id" value="#getCont.container_id#">
 		<span style="font-size:large; font-weight:bolder;">Edit Container</span>
 		<table cellpadding="0" cellspacing="0">
+	 		
 	 		<tr>
 				<td>
 					<label for="label">Label</label>
@@ -463,7 +466,11 @@
 		</cfloop>
 	</table>
 </cfif>
-
+</td>
+<td><!---- right column ---->
+	I am right column.
+</td>
+</tr></table>
 </cfoutput>
  </form>
 </cfif>
