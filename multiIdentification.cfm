@@ -184,22 +184,50 @@
   
   
 
-<cfquery name="specimenList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	 SELECT 
 	 	flat.guid,
 		concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		flat.scientific_name,
-		flat.country,
-		flat.state_prov,
-		flat.county,
-		flat.quad,
-		flat.collection
+		flat.higher_geog,
+		flat.collection,
+		specimen_part.part_name,
+		container.container_type,
+		container.barcode
 	FROM 
-		flat,#session.SpecSrchTab#
+		#session.SpecSrchTab#,
+		flat,
+		specimen_part
+		coll_obj_cont_hist,
+		container part,
+		container
 	WHERE 
-		flat.collection_object_id=#session.SpecSrchTab#.collection_object_id
+		#session.SpecSrchTab#.collection_object_id=flat.collection_object_id and
+		flat.collection_object_id=specimen_part.derived_from_cat_item (+) and
+		specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id (+) and
+		coll_obj_cont_hist.container_id=part.container_id (+) and
+		part.parent_container_id=container.container_id (+)
 	ORDER BY 
 		flat.collection_object_id
+</cfquery>
+
+<cfquery name="specimenList" dbtype="query">
+	select
+		guid,
+		CustomID,
+		scientific_name,
+		higher_geog
+	from
+		raw
+	group by
+		guid,
+		CustomID,
+		scientific_name,
+		higher_geog
+	order by
+		guid
+		
+		
 </cfquery>
 <br><b>#specimenList.recordcount# Specimens Being Re-Identified:</b>
 
@@ -210,10 +238,8 @@
 	<td><strong>GUID</strong></td>
 	<td><strong><cfoutput>#session.CustomOtherIdentifier#</cfoutput></strong></td>
 	<td><strong>Accepted Scientific Name</strong></td>
-	<td><strong>Country</strong></td>
-	<td><strong>State</strong></td>
-	<td><strong>County</strong></td>
-	<td><strong>Quad</strong></td>
+	<td><strong>Geography</strong></td>
+	<td><strong>Parts</strong></td>
 </tr>
  <cfoutput query="specimenList">
     <tr>
@@ -224,13 +250,27 @@
 		#CustomID#&nbsp;
 	</td>
 	<td><i>#Scientific_Name#</i></td>
-	<td>#Country#&nbsp;</td>
-	<td>#State_Prov#&nbsp;</td>
+	<td>#higher_geog#</td>
+	<cfquery name="p" dbtype="query">
+		select
+			part_name,
+			container_type,
+			barcode
+		from
+			raw
+		where
+			guid='#guid#'
+	</cfquery>
 	<td>
-		#county#&nbsp;
-	</td>
-	<td>
-		#quad#&nbsp;
+		<table border>
+			<cfloop query="p">
+				<tr>
+					<td>#part_name#</td>
+					<td>#container_type#</td>
+					<td>#barcode#</td>
+				</tr>
+			</cfloop>
+		</table>
 	</td>
 </tr>
 
