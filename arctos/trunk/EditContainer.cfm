@@ -481,7 +481,7 @@
 		order by
 			container_type,barcode,label
 	</cfquery>
-	<h3>Children of this container</h3>
+	<h3>Contents</h3>
 	<form name="moveChillun" method="post" action="EditContainer.cfm">
 		<input type="hidden" name="action" value="moveChillun">
 		<input type="hidden" name="container_id" value="#getCont.container_id#">
@@ -489,6 +489,8 @@
 		<input type="text" name="newParentBarcode" id="newParentBarcode" class="reqdClr">
 		<br><input type="submit" value="Move all children of this container to scanned barcode" class="savBtn">
 	</form>
+	
+	<label for ="ctabl">Children of this container</label>
 	<table border>
 		<tr>
 			<th>Barcode</th>
