@@ -312,13 +312,14 @@
 					specimen_part.part_name in ( #ListQualify(partsToMove,"'")# )
 			)
 	</cfquery>
-		<cfdump var=#scannedID#>
+<cflocation url="multiIdentification.cfm" addtoken="no">
 
 </cfoutput>
 </cfif>		
 <!------------------------------------
 
 <cflocation url="multiIdentification.cfm" addtoken="no">
+		<cfdump var=#scannedID#>
 
 
 
