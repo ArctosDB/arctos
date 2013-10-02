@@ -246,11 +246,6 @@
 						</cfif>
 					</cfif>
 				</td>
-			</tr>
-				
-				
-			</tr>
-			<tr>
 				<td>
 					 <label for="institution_acronym">Institution</label>
 					 <select name="institution_acronym" id="institution_acronym" size="1" class="reqdClr">
@@ -261,8 +256,22 @@
 				</td>
 			</tr>
 			<tr>
+				<td>
+					<label for="parent_install_date">Last Moved Date</label>
+					<div id="parent_install_date">#Dateformat(getCont.parent_install_date, "yyyy-mm-dd")#</div>
+				</td>
+				<td>
+					<label for="locked_position">Locked?</label>
+						<select name="locked_position" id="locked_position" size="1">
+							<option <cfif getCont.locked_position is 0> selected </cfif>value="0">no</option>
+							<option <cfif getCont.locked_position is 1> selected </cfif>value="1">yes</option>
+						</select>
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2">
-					<table cellspacing="0" cellpadding="0" width="100%">
+					<label for="dimTbl">Dimensions</label>
+					<table cellspacing="0" cellpadding="0" width="100%" id="dimTbl">
 						<tr>
 							<td>
 								<label for="width">Width (cm)</label>
@@ -288,29 +297,13 @@
 	  		<tr>
 				<td colspan="2">
 					<label for="description">Description</label>
-					<textarea rows="2" cols="40" name="description" id="description">#getCont.Description#</textarea>
-				</td>
-			</tr>
-	 		<tr>
-				
-				<td>
-					<label for="parent_install_date">Install Date</label>
-					<div id="parent_install_date">#Dateformat(getCont.parent_install_date, "yyyy-mm-dd")#</div>
-				</td>
-			</tr>
-	  		<tr>
-				<td>
-					<label for="locked_position">Locked?</label>
-						<select name="locked_position" id="locked_position" size="1">
-							<option <cfif #getCont.locked_position# is 0> selected </cfif>value="0">no</option>
-							<option <cfif #getCont.locked_position# is 1> selected </cfif>value="1">yes</option>
-						</select>
+					<textarea rows="2" cols="60" name="description" id="description">#getCont.Description#</textarea>
 				</td>
 			</tr>
 	 		<tr>
 				<td colspan="2">
 					<label for="container_remarks">Remarks?</label>
-					<textarea rows="2" cols="40" id="container_remarks" name="container_remarks">#getCont.container_remarks#</textarea>
+					<textarea rows="2" cols="60" id="container_remarks" name="container_remarks">#getCont.container_remarks#</textarea>
 				</td>
 			</tr>
 	  		<tr>
@@ -322,7 +315,7 @@
 								<input name="checked_date" id="checked_date" 
 								type="text" 
 								value="#dateformat(getCont.checked_date,'yyyy-mm-dd')#" 
-								size="6">
+								size="10">
 							</td>
 							<td>
 								<label for="fluid_type">Fluid Type</label>
