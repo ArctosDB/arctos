@@ -471,6 +471,7 @@
 
 	<cfquery name="children" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
+			container_id,
 			barcode,
 			container_type,
 			label
@@ -496,12 +497,17 @@
 			<th>Barcode</th>
 			<th>Label</th>
 			<th>Container Type</th>
+			<th>Tools</th>
 		</tr>
 		<cfloop query="children">
 			<tr>
 				<td>#barcode#</td>
 				<td>#label#</td>
 				<td>#container_type#</td>
+				<td>
+					<a href="/editContainer.cfm?container_id=#container_id#">[ edit ]</a>
+					<a href="/findContainer.cfm?container_id=#container_id#">[ tree ]</a>
+				</td>
 			</tr>
 		</cfloop>
 	</table>
