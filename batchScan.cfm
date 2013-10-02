@@ -73,6 +73,7 @@ jQuery(document).ready(function() {
 			<tr>
 				<th>Parent</th>
 				<th>Child</th>
+				<th>isDup</th>
 				<th>Status</th>
 			</tr>
 			<cfset numberOfBarcodesScanned=0>
@@ -82,8 +83,11 @@ jQuery(document).ready(function() {
 		<tr>
 			<cfset thisBarcode=evaluate("barcode_" & i)>
 			<cfif len(thisBarcode) gt 0>
+				
+				<cfset isDup=true>
 				<cfif not listfind(barcodescanlist,thisBarcode)>
 					<cfset numberOfUniqueBarcodesScanned=numberOfUniqueBarcodesScanned+1>
+					<cfset isDup=false>
 				</cfif>
 				<cfset barcodescanlist=listappend(barcodescanlist,thisBarcode)>
 				<cfset numberOfBarcodesScanned=numberOfBarcodesScanned+1>
@@ -96,6 +100,7 @@ jQuery(document).ready(function() {
 				</cfquery>
 				<td>#parent_barcode#</td>
 				<td>#thisBarcode#</td>
+				<td>#isDup#</td>
 				<td>#chk.cmvt#</td>
 				<cfif chk.cmvt is 'pass'>
 					<cfset pf=listappend(pf,"p")>
