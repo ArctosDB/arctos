@@ -205,10 +205,13 @@
 			Move Part Containers
 		</h2>
 		<p style="border:2px solid red; margin:1em;padding:1em;">
-			Important note: This form will NOT move parts which are not already in a barcoded container, such as a NUNC tube. 
-			Use one of the many other container applications to do that.
+			<strong>Important note:</strong> 
+			<br>This form will NOT install parts.
+			<br>It will move the parent container of the part container.
+			<br>That's usually the thing with a barcode, such as a NUNC tube. 
+			<br>Use one of the many other container applications install parts.
 			<br>
-			Only moveable parts are listed in the table below.
+			<strong>Only moveable parts are listed in the table below.</strong>
 		</p>
 		<p>
 			For every specimen in the table below, move part(s) of type....
