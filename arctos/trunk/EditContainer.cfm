@@ -444,6 +444,7 @@
 		</tr>
 	</table>
 
+ </form>
 <cfquery name="checked" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from container_check,
 	preferred_agent_name
@@ -517,7 +518,6 @@
 </td>
 </tr></table>
 </cfoutput>
- </form>
 </cfif>
 <!-------------------------------------------------------------->
 <cfif action is "moveChillun">
