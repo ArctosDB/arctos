@@ -289,7 +289,8 @@
 	</cfquery>
 
 </cfoutput>
-<cflocation url="multiIdentification.cfm" addtoken="no">			
+<cflocation url="multiIdentification.cfm" addtoken="no">
+</cfif>		
 <!----------------------------------------------------------------------------------->
 <cfif Action is "createManyNew">
 
