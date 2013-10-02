@@ -25,20 +25,24 @@
 			flat.collection,
 			specimen_part.part_name,
 			container.container_type,
-			container.barcode
+			container.barcode,
+			parentcontainer.barcode parentbarcode,
+			parentcontainer.container_type parenttype
 		FROM 
 			#session.SpecSrchTab#,
 			flat,
 			specimen_part,
 			coll_obj_cont_hist,
 			container part,
-			container
+			container,
+			container parentcontainer
 		WHERE 
 			#session.SpecSrchTab#.collection_object_id=flat.collection_object_id and
 			flat.collection_object_id=specimen_part.derived_from_cat_item (+) and
 			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id (+) and
 			coll_obj_cont_hist.container_id=part.container_id (+) and
-			part.parent_container_id=container.container_id (+)
+			part.parent_container_id=container.container_id (+) and
+			container.parent_container_id=parentcontainer.container_id (+)
 		ORDER BY 
 			flat.collection_object_id
 	</cfquery>
@@ -229,7 +233,7 @@
 				<td><strong><cfoutput>#session.CustomOtherIdentifier#</cfoutput></strong></td>
 				<td><strong>Accepted Scientific Name</strong></td>
 				<td><strong>Geography</strong></td>
-				<td><strong>Part | container type | barcode</strong></td>
+				<td><strong>Part | container type | barcode | parentbarcode | parenttype</strong></td>
 			</tr>
 			 <cfloop query="specimenList">
 				<cfquery name="p" dbtype="query">
