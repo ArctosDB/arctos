@@ -1,7 +1,4 @@
 <cfinclude template="includes/_header.cfm">
-
-<cfdump var=#form#>
-
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$("#checked_date").datepicker();
@@ -190,7 +187,7 @@
 		select distinct(institution_acronym) institution_acronym from collection order by institution_acronym
 	</cfquery>
 	<cfquery name="ContType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select container_type from ctcontainer_type order by container_type
+		select container_type from ctcontainer_type where container_type is not "collection object" order by container_type
 	</cfquery>
 	<cfquery name="FluidType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select fluid_type from ctFluid_Type ORDER BY fluid_type
@@ -199,60 +196,59 @@
 		select concentration from ctfluid_concentration order by concentration
 	</cfquery>
 	<cfoutput>
+	<h2>Edit Container</h2>
 	<table><tr><td valign="top"><!---- left column ---->
-	
 	<form name="form1" method="post" action="EditContainer.cfm">
 		<input type="hidden" name="container_id" value="#getCont.container_id#">
-		<span style="font-size:large; font-weight:bolder;">Edit Container</span>
 		<table cellpadding="0" cellspacing="0">
-	 		
 	 		<tr>
 				<td>
 					<label for="label">Label</label>
 					<input name="label" id="label" type="text" value="#getCont.label#" size="30" class="reqdClr">
 				</td>
 				<td>
-					 <cfset thisType = "#getCont.Container_Type#">
+					<label for="barcode">Barcode</label>
+					<input name="barcode" type="text" value="#getCont.barcode#" id="barcode">
+				</td>
+			</tr>
+			<tr>
+				<td>
 					 <label for="container_type">Container Type</label>
 					 <cfif getCont.container_type is not "collection object">
-					 <select name="container_type" id="container_type" size="1" class="reqdClr" onChange="magicNumbers(this.value);">
-				          <cfloop query="ContType"> 
-			  				<cfif ContType.container_type is not "collection object">
-	            				<option
-								<cfif #thisType# is #ContType.container_type#> selected </cfif>
-								value="#ContType.container_type#">#ContType.container_type#</option>
-							</cfif>
-	         			 </cfloop> 
-					</select>
+						 <select name="container_type" id="container_type" size="1" class="reqdClr" onChange="magicNumbers(this.value);">
+					          <cfloop query="ContType"> 
+		            			<option
+									<cfif getCont.Container_Type is ContType.container_type> selected="selected" </cfif>
+									value="#ContType.container_type#">#ContType.container_type#</option>
+		         			 </cfloop> 
+						</select>
 					<cfelse>
 						<cfquery name="findItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select 
-								cataloged_item.collection_object_id,
-								cat_num,
-								collection.collection_cde,
-								collection.institution_acronym,
+								guid,
 								part_name
 							FROM
 								coll_obj_cont_hist,
 								specimen_part,
-								cataloged_item,
-								collection
+								flat
 							WHERE
 								coll_obj_cont_hist.collection_object_id = specimen_part.collection_object_id AND
-								specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
-								cataloged_item.collection_id = collection.collection_id and
+								specimen_part.derived_from_cat_item = flat.collection_object_id AND
 								coll_obj_cont_hist.container_id = #container_id#
 						</cfquery>
 						<input type="text" name="container_type" id="container_type" value="collection object" readonly="yes" />
-						<cfif #findItem.recordcount# is 1>
-							<a href="/SpecimenDetail.cfm?collection_object_id=#findItem.collection_object_id#" target="_blank">
-								#findItem.institution_acronym# #findItem.collection_cde# #findItem.cat_num#</a>
+						<cfif findItem.recordcount is 1>
+							<a href="/guid/#findItem.guid#" target="_blank">
+								#findItem.guid# (#findItem.part_name#)</a>
 						<cfelse>
 							Something is goofy - this containers matches #findItem.recordcount# items. File a bug report.
-							<br />#findItem.institution_acronym# #findItem.collection_cde# #findItem.cat_num#
+							<br />#findItem.guid#
 						</cfif>
 					</cfif>
 				</td>
+			</tr>
+				
+				
 			</tr>
 			<tr>
 				<td>
@@ -296,10 +292,7 @@
 				</td>
 			</tr>
 	 		<tr>
-				<td>
-					<label for="barcode">Barcode</label>
-					<input name="barcode" type="text" value="#getCont.barcode#" id="barcode">
-				</td>
+				
 				<td>
 					<label for="parent_install_date">Install Date</label>
 					<div id="parent_install_date">#Dateformat(getCont.parent_install_date, "yyyy-mm-dd")#</div>
@@ -522,7 +515,6 @@
 <!-------------------------------------------------------------->
 <cfif action is "moveChillun">
 	<cfoutput>
-	
 		<cfquery name="cidOfnewParentBarcode" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id from container where barcode='#newParentBarcode#'
 		</cfquery>
@@ -534,7 +526,6 @@
 			update container set parent_container_id=#cidOfnewParentBarcode.container_id# where
 			parent_container_id=#container_id#
 		</cfquery>
-		
 		<p>
 			Children moved to barcode #newParentBarcode#.
 		</p>
