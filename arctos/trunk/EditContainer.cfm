@@ -467,7 +467,7 @@
 	</table>
 </cfif>
 </td>
-<td><!---- right column ---->
+<td valign="top"><!---- right column ---->
 
 <cfquery name="children" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
