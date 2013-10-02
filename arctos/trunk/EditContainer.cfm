@@ -489,7 +489,7 @@
 		<input type="text" name="newParentBarcode" id="newParentBarcode" class="reqdClr">
 		<br><input type="submit" value="Move all children of this container to scanned barcode" class="savBtn">
 	</form>
-	
+	<p></p>
 	<label for ="ctabl">Children of this container</label>
 	<table border>
 		<tr>
