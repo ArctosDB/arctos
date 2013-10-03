@@ -48,6 +48,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 
 ---->
 <cfinclude template="/includes/_header.cfm">
+<cfset title="bulkload agents">
 <cfif action is "nothing">
 	<p>
 		<a href="agentNameSplitter.cfm">Agent Name Splitter</a> will accept a list of agent names and return a file that can be used here.
@@ -260,18 +261,31 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		
 		<!---- random list of things that people have loaded as persons. Expect some false positives - sorray! ---->
 		<cfset disallowPersons="Animal">
-		<cfset disallowPersons=disallowPersons & ",Class">
+		<cfset disallowPersons=disallowPersons & ",Class,cat">
 		<cfset disallowPersons=disallowPersons & ",Ecology">
-		<cfset disallowPersons=disallowPersons & ",Group">
+		<cfset disallowPersons=disallowPersons & ",Group,Growth">
 		<cfset disallowPersons=disallowPersons & ",Hospital">
 		<cfset disallowPersons=disallowPersons & ",illegible">
+		<cfset disallowPersons=disallowPersons & ",Lab">
 		<cfset disallowPersons=disallowPersons & ",Museum">
 		<cfset disallowPersons=disallowPersons & ",National">
+		<cfset disallowPersons=disallowPersons & ",Old">
 		<cfset disallowPersons=disallowPersons & ",Rangers,Ranger">
-		<cfset disallowPersons=disallowPersons & ",Predatory">
-		<cfset disallowPersons=disallowPersons & ",Sanctuary,Science,Seabird,Society">
+		<cfset disallowPersons=disallowPersons & ",Predatory,Project,Puffin">
+		<cfset disallowPersons=disallowPersons & ",Sanctuary,Science,Seabird,Society,Study">
 		<cfset disallowPersons=disallowPersons & ",University">
 		<cfset disallowPersons=disallowPersons & ",Zoological,zoo">
+		
+		   U.W.
+		
+		
+		 
+		
+		ANP
+		
+		
+		
+		
 		
 		
 		<!---- random list of things may be indicitave of garbage. Expect some false positives - sorray! ---->
@@ -320,6 +334,12 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				</cfloop>
 			</cfif>
 			
+			<!--- try to avoid unnecessary acronyms --->
+			<cfif refind(preferred_name,'[A-Z]{3,}')>
+						<cfset fatalProblems='This application will not handle abbreviations and acronyms.'>
+			</cfif>
+
+
 			 
 			
 			
