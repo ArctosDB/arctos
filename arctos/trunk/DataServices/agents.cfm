@@ -239,7 +239,7 @@ sho err
 			<th>death_date</th>
 			<th>Remark</th>
 		</tr>
-		<cfset regexStripJunk='[ .,-]'>
+		<cfset regexStripJunk="[ .,-']">
 		
 		
 		<cfset fileDir = "#Application.webDirectory#">
