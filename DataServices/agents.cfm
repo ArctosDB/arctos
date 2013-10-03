@@ -305,6 +305,8 @@ sho err
 				
 				
 				<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					
+					<!---------
 					select
 				        'agent name match' reason,
 				        #KEY# key,
@@ -385,6 +387,8 @@ sho err
 					        )
 					      )
 					     )
+					     
+					     ---->
 					select
 				        'nodots-nospaces match on person' reason,
 				        #KEY# key,
