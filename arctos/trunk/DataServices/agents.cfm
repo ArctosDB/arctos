@@ -257,6 +257,27 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 	
 	
 		<cfset hasProbs=false>
+		
+		<!---- random list of things that people have loaded as persons. Expect some false positives - sorray! ---->
+		<cfset disallowPersons="Animal">
+		<cfset disallowPersons=disallowPersons & ",Class">
+		<cfset disallowPersons=disallowPersons & ",Ecology">
+		<cfset disallowPersons=disallowPersons & ",Group">
+		<cfset disallowPersons=disallowPersons & ",Hospital">
+		<cfset disallowPersons=disallowPersons & ",illegible">
+		<cfset disallowPersons=disallowPersons & ",Museum">
+		<cfset disallowPersons=disallowPersons & ",National">
+		<cfset disallowPersons=disallowPersons & ",Rangers,Ranger">
+		<cfset disallowPersons=disallowPersons & ",Predatory">
+		<cfset disallowPersons=disallowPersons & ",Sanctuary,Science,Seabird,Society">
+		<cfset disallowPersons=disallowPersons & ",University">
+		<cfset disallowPersons=disallowPersons & ",Zoological,zoo">
+		
+		
+		<!---- random list of things may be indicitave of garbage. Expect some false positives - sorray! ---->
+		<cfset disallowInAll=" and , or ,/,\,&">
+			
+			
 		<cfloop query="d">
 			<cfset strippedUpperFML=ucase(rereplace(d.first_name & d.middle_name & d.last_name,regexStripJunk,"","all"))>
 			<cfset strippedUpperFL=ucase(rereplace(d.first_name & d.last_name,regexStripJunk,"","all"))>
@@ -284,46 +305,34 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			<cfif len(strippedNamePermutations) is 0>
 				<cfset fatalProblems='This application will not handle agents without letters in their name.'>
 			</cfif>
-			<cfset disallowInAll=" and , or ,/,\,&">
 			
 			<cfloop list="#disallowInAll#" index="i">
 				<cfif preferred_name contains i>
-					<p>#preferred_name# contains #i#</p>
+					<cfset fatalProblems='This application will not handle agents with #i# in their name.'>
 				</cfif>
 			</cfloop>
-			<cfif 
-				preferred_name contains " and " or 
-				preferred_name contains " or " or 
-				preferred_name contains "/" or 
-				preferred_name contains "\" or 
-				preferred_name contains "&">
-				<cfset fatalProblems='This application will not handle agents with AND, OR, /, \, or & in their name.'>
-			</cfif>
-			<cfset disallowList="">
 			
-			Seabird Sanctuary
-			National
-			Predatory
-			Museum
-			Animal
-			Hospital
-			Rangers
-			Ranger
-			Richard
-			Society
-			Ecology Class
-			University
-			Zoological
-			zoo
-			Science
-			illegible
+			<cfif agent_type is "person">
+				<cfloop list="#disallowPersons#" index="i">
+					<cfif preferred_name contains i>
+						<cfset fatalProblems='This application will not handle person agents with #i# in their name.'>
+					</cfif>
+				</cfloop>
+			</cfif>
+			
+			 
+			
+			
+			
+			
+			
 
 			<cfif preferred_name does not contain " ">
 				<cfset fatalProblems='This application will not handle agents without a space in preferred name.'>
 			</cfif>
-			Group
-			Animal
-			:
+			<cfif ucase(preferred_name) is preferred_name or lcase(preferred_name) is preferred_name>
+				<cfset fatalProblems='This application will not preferred name being all upper or lower case.'>
+			</cfif>
 			
 			<cfif len(fatalProblems) gt 0>
 				<cfset oneLine = "">
