@@ -423,18 +423,10 @@ sho err
 						srch.person_id=preferred_agent_name.agent_id and
 						( 
 							upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'#regexStripJunk#', '')) in (
-								'#ucase(rereplace(d.preferred_name,regexStripJunk,""))#',
-					        	'#ucase(rereplace(d.other_name_1,regexStripJunk,""))#',
-					        	'#ucase(rereplace(d.other_name_2,regexStripJunk,""))#',
-					        	'#ucase(rereplace(d.other_name_3,regexStripJunk,""))#',
-					        	'#ucase(rereplace(d.first_name & d.middle_name & d.last_name,"[ ,.]",""))#'
+								#strippedNamePermutations#
 					     	) or (
 							upper(regexp_replace(srch.first_name || srch.last_name ,'#regexStripJunk#', '')) in (
-								'#ucase(rereplace(d.preferred_name,regexStripJunk,""))#',
-					        	'#ucase(rereplace(d.other_name_1,regexStripJunk,""))#',
-					        	'#ucase(rereplace(d.other_name_2,regexStripJunk,""))#',
-					        	'#ucase(rereplace(d.other_name_3,regexStripJunk,""))#',
-					        	'#ucase(rereplace(d.first_name & d.middle_name & d.last_name,regexStripJunk,""))#'
+								#strippedNamePermutations#
 					        )
 					      )
 					     )
