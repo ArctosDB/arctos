@@ -302,7 +302,7 @@ sho err
 			<tr id="row_#key#">
 				<td>#preferred_name#</td>
 				<td nowrap="nowrap" id="suggested__#key#">
-				<cfset ufmlunp=ucase(rereplace(d.first_name & d.middle_name & d.last_name,"[ .,]",""))>
+				<cfset ufmlunp=ucase(rereplace(d.first_name & d.middle_name & d.last_name,"[ .,]","","all"))>
 				<br>ufmlunp: #ufmlunp#
 				
 				<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
