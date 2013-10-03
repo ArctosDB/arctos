@@ -225,7 +225,7 @@
 				</select>
 				<label for="newPartContainer">Move parts to container barcode</label>
 				<input type="text" name="newPartContainer" id="newPartContainer">
-				<br> <input type="submit" value="Move Parts for all listed specimens" class="savBtn">	
+				<br> <input type="submit" value="Move selected Parts for all listed specimens" class="savBtn">	
 			</form>
 			
 		</p>
