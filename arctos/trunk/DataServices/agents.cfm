@@ -422,7 +422,7 @@ sho err
 		<cfif session.roles contains "manage_codetables">
 			<div style="border:2px solid red;padding:1em;margin:1em;">
 				You have manage_codetables, which should mean that you are a member of the Arctos Advisory Committee.
-				<br>Click here to use your awesome powers to load these data as they are. 
+				<br>Click <a href="agents.cfm?action=loadData">here</a> to use your awesome powers to load these data as they are. 
 				<br>Be paranoid, please - these warnings still apply.
 			</div>
 		</cfif> 
@@ -446,7 +446,7 @@ sho err
 			<a href="/download/#fname#">Download CSV with suggestions</a>
 		</p>
 	<cfelse>
-		 No problems detected. Review the data one last time, then click here to create agents.
+		 No problems detected. Review the data one last time, then click <a href="agents.cfm?action=loadData">here</a> to create agents.
 	</cfif>
 </cfoutput>
 </cfif>
