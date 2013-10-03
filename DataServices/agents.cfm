@@ -44,7 +44,7 @@ grant select on ds_temp_agent to public;
 sho err
 
 
-
+create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablespace uam_idx_1;
 
 ---->
 <cfinclude template="/includes/_header.cfm">
@@ -291,7 +291,11 @@ sho err
 				preferred_name contains "/" or 
 				preferred_name contains "\" or 
 				preferred_name contains "&">
-				<cfset fatalProblems='This application will not handle agents with AND in their name.'>
+				<cfset fatalProblems='This application will not handle agents with AND, OR, /, \, or & in their name.'>
+			</cfif>
+			
+			<cfif preferred_name does not contain " ">
+				<cfset fatalProblems='This application will not handle agents without a space in preferred name.'>
 			</cfif>
 			
 			<cfif len(fatalProblems) gt 0>
