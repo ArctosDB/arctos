@@ -276,7 +276,12 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<cfset disallowPersons=disallowPersons & ",University">
 		<cfset disallowPersons=disallowPersons & ",Zoological,zoo">
 				
-		<!---- random list of things may be indicitave of garbage. Expect some false positives - sorray! ---->
+		<!---- 
+			random lists of things may be indicitave of garbage. 
+				disallowWords are " me AND you" but not "ANDy"
+				disallowCharacters are just that "me/you" and me /  you" and ....	
+			Expect some false positives - sorray! 
+		---->
 		<cfset disallowWords="and,or,cat">
 		<cfset disallowCharacters="/,\,&">
 			
@@ -327,7 +332,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			
 			<cfif agent_type is "person">
 				<cfloop list="#disallowPersons#" index="i">
-					<cfif preferred_name contains i>
+					<cfif listfind(preferred_name,i," ;,.")>
 						<cfset fatalProblems='This application will not handle person agents with #i# in their name.'>
 					</cfif>
 				</cfloop>
