@@ -449,6 +449,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				        preferred_agent_name.agent_name,
 				        #key#
 				</cfquery>
+				<cfdump var=#isDup#>
 				<cfif isdup.recordcount is 0>
 					<!--- try last-name match --->
 					<cfquery name="lastnamematch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
