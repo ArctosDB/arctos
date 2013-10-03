@@ -403,7 +403,8 @@ sho err
 				        	'#ucase(rereplace(d.preferred_name,"[ .]",""))#',
 				        	'#ucase(rereplace(d.other_name_1,"[ .]",""))#',
 				        	'#ucase(rereplace(d.other_name_2,"[ .]",""))#',
-				        	'#ucase(rereplace(d.other_name_3,"[ .]",""))#'
+				        	'#ucase(rereplace(d.other_name_3,"[ .]",""))#',
+				        	'#ucase(rereplace(d.first_name & d.middle_name & d.last_name,"[ .]",""))#'
 				        )
 				    group by
 				    	preferred_agent_name.agent_id, 
