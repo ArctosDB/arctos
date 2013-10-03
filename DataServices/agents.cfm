@@ -304,7 +304,7 @@ sho err
 				<td>#preferred_name#</td>
 				<td nowrap="nowrap" id="suggested__#key#">
 				<cfset strippedUpperFML=ucase(rereplace(d.first_name & d.middle_name & d.last_name,regexStripJunk,"","all"))>
-				<br>ufmlunp: #ufmlunp#
+				<br>strippedUpperFML: #strippedUpperFML#
 				
 				<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					
