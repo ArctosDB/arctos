@@ -447,13 +447,11 @@ sho err
 				        	------------>
 				        	
 				        	<cfdump var=#isdup#>
-				<cfif isdup.recordcount gt 0>
+				<cfloop query="isdup">
 					<div>
 						<a href="/agents.cfm?agent_id=#isdup.AGENT_ID#">#isdup.PREFERRED_AGENT_NAME#</a> (#isdup.REASON#)
 					</div>
-					
-				</cfif>	
-	
+				</cfloop>
 					<label for="">Map To Agent</label>
 					<input type="text" name="name_#key#" id="name_#key#" class="reqdClr" 
 						onchange="getAgent('agent_id_#key#',this.id,'f',this.value); return false;"
