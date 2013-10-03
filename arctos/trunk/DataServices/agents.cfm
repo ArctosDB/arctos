@@ -303,7 +303,6 @@ sho err
 		<cfset clist='agent_type,preferred_name,first_name,middle_name,last_name,birth_date,death_date,prefix,suffix,other_name_1,other_name_type_1,other_name_2,other_name_type_2,other_name_3,other_name_type_3,agent_remark,suggestions'>
 		<cfset autoColList=listdeleteat(clist,listfindnocase(clist,'suggestions'))>
 			
-	<br>autoColList: #autoColList#
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 			variables.joFileWriter.writeLine(ListQualify(clist,'"')); 
@@ -417,7 +416,10 @@ sho err
 					<cfset oneLine = '#oneLine#,"#thisData#"'>
 				</cfif>
 			</cfloop>
-			<cfset sugnConcat=replace(valuelist(isdup.PREFERRED_AGENT_NAME),'"','""','all')>
+			<cfquery name="uSugPrefName" dbtype="query">
+				select PREFERRED_AGENT_NAME from isdup group by PREFERRED_AGENT_NAME order by PREFERRED_AGENT_NAME
+			</cfquery>
+			<cfset sugnConcat=replace(valuelist(uSugPrefName.PREFERRED_AGENT_NAME,"|"),'"','""','all')>
 			<cfset oneLine=oneLine & ',"#sugnConcat#"'>
 			<cfset oneLine = trim(oneLine)>
 			<cfscript>
