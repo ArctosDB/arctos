@@ -304,7 +304,38 @@ sho err
 				<td>#preferred_name#</td>
 				<td nowrap="nowrap" id="suggested__#key#">
 				<cfset strippedUpperFML=ucase(rereplace(d.first_name & d.middle_name & d.last_name,regexStripJunk,"","all"))>
-				<br>strippedUpperFML: #strippedUpperFML#
+				<cfset strippedUpperFL=ucase(rereplace(d.first_name & d.last_name,regexStripJunk,"","all"))>
+				<cfset strippedUpperLF=ucase(rereplace(d.last_name & d.first_name,regexStripJunk,"","all"))>
+				<cfset strippedUpperLFM=ucase(rereplace(d.last_name & d.first_name & d.middle_name,regexStripJunk,"","all"))>
+				<cfset strippedP=ucase(rereplace(d.preferred_name,regexStripJunk,"","all"))>
+				<cfset strippedo1=ucase(rereplace(d.other_name_1,regexStripJunk,"","all"))>
+				<cfset strippedo2=ucase(rereplace(d.other_name_2,regexStripJunk,"","all"))>
+				<cfset strippedo3=ucase(rereplace(d.other_name_3,regexStripJunk,"","all"))>
+				
+				
+				
+				<cfset =ucase(rereplace(d.last_name & d.first_name,regexStripJunk,"","all"))>
+				<cfset =ucase(rereplace(d.last_name & d.first_name & d.middle_name,regexStripJunk,"","all"))>
+				<cfset =ucase(rereplace(d.preferred_name,regexStripJunk,"","all"))>
+				<cfset =ucase(rereplace(d.other_name_1,regexStripJunk,"","all"))>
+				<cfset =ucase(rereplace(d.other_name_2,regexStripJunk,"","all"))>
+				<cfset =ucase(rereplace(d.other_name_3,regexStripJunk,"","all"))>
+				
+				
+				
+				
+				<cfset strippedNamePermutations=strippedUpperFML>
+				<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperFL)>
+				<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperLF)>
+				<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperLFM)>
+				<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedP)>
+				<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo1)>
+				<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo2)>
+				<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo3)>
+				
+				<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>
+				        	
+				<br>strippedNamePermutations: #strippedNamePermutations#
 				
 				<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					
@@ -353,7 +384,7 @@ sho err
 				        preferred_agent_name
 					where 
 				        srch.agent_id=preferred_agent_name.agent_id and
-				        upper(regexp_replace(srch.agent_name,'[ .]', '')) in (
+				        upper(regexp_replace(srch.agent_name,'#regexStripJunk#', '')) in (
 				        	'#ucase(rereplace(d.preferred_name,"[ .]",""))#',
 				        	'#ucase(rereplace(d.other_name_1,"[ .]",""))#',
 				        	'#ucase(rereplace(d.other_name_2,"[ .]",""))#',
@@ -374,12 +405,12 @@ sho err
 				        preferred_agent_name
 					where 
 				        srch.agent_id=preferred_agent_name.agent_id and
-				        upper(regexp_replace(srch.agent_name,'[ .]', '')) in (
+				        upper(regexp_replace(srch.agent_name,'#regexStripJunk#', '')) in (
 				        	'#ucase(rereplace(d.preferred_name,"[ .]",""))#',
-				        	'#ucase(rereplace(d.other_name_1,"[ .]",""))#',
-				        	'#ucase(rereplace(d.other_name_2,"[ .]",""))#',
-				        	'#ucase(rereplace(d.other_name_3,"[ .]",""))#',
-				        	'#ucase(rereplace(d.first_name & d.middle_name & d.last_name,"[ .]",""))#'
+				        	'#ucase(rereplace(d.other_name_1,regexStripJunk,""))#',
+				        	'#ucase(rereplace(d.other_name_2,regexStripJunk,""))#',
+				        	'#ucase(rereplace(d.other_name_3,regexStripJunk,""))#',
+				        	'#ucase(rereplace(d.first_name & d.middle_name & d.last_name,regexStripJunk,""))#'
 				        )
 				    group by
 				    	preferred_agent_name.agent_id, 
@@ -400,19 +431,19 @@ sho err
 					where
 						srch.person_id=preferred_agent_name.agent_id and
 						( 
-							upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'[ .,]', '')) in (
-								'#ucase(rereplace(d.preferred_name,"[ .,]",""))#',
-					        	'#ucase(rereplace(d.other_name_1,"[ .,]",""))#',
-					        	'#ucase(rereplace(d.other_name_2,"[ .,]",""))#',
-					        	'#ucase(rereplace(d.other_name_3,"[ .,]",""))#',
+							upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'#regexStripJunk#', '')) in (
+								'#ucase(rereplace(d.preferred_name,regexStripJunk,""))#',
+					        	'#ucase(rereplace(d.other_name_1,regexStripJunk,""))#',
+					        	'#ucase(rereplace(d.other_name_2,regexStripJunk,""))#',
+					        	'#ucase(rereplace(d.other_name_3,regexStripJunk,""))#',
 					        	'#ucase(rereplace(d.first_name & d.middle_name & d.last_name,"[ ,.]",""))#'
 					     	) or (
-							upper(regexp_replace(srch.first_name || srch.last_name ,'[ .]', '')) in (
-								'#ucase(rereplace(d.preferred_name,"[ .,]",""))#',
-					        	'#ucase(rereplace(d.other_name_1,"[ .,]",""))#',
-					        	'#ucase(rereplace(d.other_name_2,"[ .,]",""))#',
-					        	'#ucase(rereplace(d.other_name_3,"[ .,]",""))#',
-					        	'#ucase(rereplace(d.first_name & d.middle_name & d.last_name,"[ .,]",""))#'
+							upper(regexp_replace(srch.first_name || srch.last_name ,'#regexStripJunk#', '')) in (
+								'#ucase(rereplace(d.preferred_name,regexStripJunk,""))#',
+					        	'#ucase(rereplace(d.other_name_1,regexStripJunk,""))#',
+					        	'#ucase(rereplace(d.other_name_2,regexStripJunk,""))#',
+					        	'#ucase(rereplace(d.other_name_3,regexStripJunk,""))#',
+					        	'#ucase(rereplace(d.first_name & d.middle_name & d.last_name,regexStripJunk,""))#'
 					        )
 					      )
 					     )
