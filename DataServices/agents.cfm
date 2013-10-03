@@ -279,18 +279,18 @@ sho err
 			<br>#strippedNamePermutations#
 			<cfset fatalProblems="">
 			<cfif strippedNamePermutations contains "'">
-				<cfset fatalProblem='This application will not handle agents with apostrophes in their name.'>
+				<cfset fatalProblems='This application will not handle agents with apostrophes in their name.'>
 			</cfif>
 			<cfif len(strippedNamePermutations) is 0>
-				<cfset fatalProblem='This application will not handle agents without letters in their name.'>
+				<cfset fatalProblems='This application will not handle agents without letters in their name.'>
 			</cfif>
 			
-			<cfif len(fatalProblem) gt 0>
+			<cfif len(fatalProblems) gt 0>
 				<p>
 					A fatal exception has occurred with #preferred_name#. Remove the offending line from your data and try again.
 				</p>
 				<p>
-					#fatalProblem#
+					#fatalProblems#
 				</p>
 				<cfabort>
 			</cfif>
