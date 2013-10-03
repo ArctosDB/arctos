@@ -285,7 +285,12 @@ sho err
 				<cfset fatalProblems='This application will not handle agents without letters in their name.'>
 			</cfif>
 			
-			<cfif preferred_name contains " and " >
+			<cfif 
+				preferred_name contains " and " or 
+				preferred_name contains " or " or 
+				preferred_name contains "/" or 
+				preferred_name contains "\" or 
+				preferred_name contains "&">
 				<cfset fatalProblems='This application will not handle agents with AND in their name.'>
 			</cfif>
 			
