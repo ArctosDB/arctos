@@ -316,7 +316,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			</cfloop>
 			
 			<cfloop list="#disallowWords#" index="i">
-				<cfif listfind(preferred_name,i," ;,.")i>
+				<cfif listfind(preferred_name,i," ;,.")>
 					<cfset fatalProblems='This application will not handle agents with #i# in their name.'>
 				</cfif>
 			</cfloop>
