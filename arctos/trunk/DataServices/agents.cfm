@@ -428,11 +428,13 @@ sho err
 				        	
 				        	
 				        	------------>
+				        	
+				        	<cfdump var=#isdup#>
 				<cfif isdup.recordcount gt 0>
 					<div>
 						<a href="/agents.cfm?agent_id=#AGENT_ID#">#PREFERRED_AGENT_NAME#</a> (#REASON#)
 					</div>
-					<cfdump var=#isdup#>
+					
 				</cfif>	
 	
 					<label for="">Map To Agent</label>
