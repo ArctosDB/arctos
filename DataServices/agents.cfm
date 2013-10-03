@@ -312,16 +312,7 @@ sho err
 				<cfset strippedo2=ucase(rereplace(d.other_name_2,regexStripJunk,"","all"))>
 				<cfset strippedo3=ucase(rereplace(d.other_name_3,regexStripJunk,"","all"))>
 				
-				
-				
-				<cfset =ucase(rereplace(d.last_name & d.first_name,regexStripJunk,"","all"))>
-				<cfset =ucase(rereplace(d.last_name & d.first_name & d.middle_name,regexStripJunk,"","all"))>
-				<cfset =ucase(rereplace(d.preferred_name,regexStripJunk,"","all"))>
-				<cfset =ucase(rereplace(d.other_name_1,regexStripJunk,"","all"))>
-				<cfset =ucase(rereplace(d.other_name_2,regexStripJunk,"","all"))>
-				<cfset =ucase(rereplace(d.other_name_3,regexStripJunk,"","all"))>
-				
-				
+		
 				
 				
 				<cfset strippedNamePermutations=strippedUpperFML>
