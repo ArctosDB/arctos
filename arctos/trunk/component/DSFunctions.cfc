@@ -406,7 +406,7 @@
 	<cfset temp = QuerySetCell(result, "AGENT_ID", agent_id, 1)>
 	<cfreturn result>
 </cffunction>
-
+<!--------------------------------------------->
 
 <cffunction name="findAgentMatch" access="remote">
 	<cfargument name="key" type="numeric" required="yes">	
@@ -449,6 +449,7 @@
 	</cfquery>
 	<cfreturn result>
 </cffunction>
+<!------------------------------------------>
 <cffunction name="findAgentMatchOld" access="remote">
 	<cfargument name="key" type="numeric" required="yes">	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

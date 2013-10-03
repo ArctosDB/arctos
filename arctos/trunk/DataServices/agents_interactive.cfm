@@ -1,3 +1,10 @@
+This is the old interactive agent bulkloader.
+
+People refused to deal with dups, so it's being phased out.
+
+Keeping the code around because I liked using it.
+
+<cfabort>
 <!----
 
 
@@ -51,10 +58,11 @@ sho err
 	</p>
 	<p>
 		Note: Due to large influxes of duplicate agents, this form is currently set on "paranoid." File an Issue to change how this form works.
-		(The interactive form code is preserved as agents_interactive.)
 	</p>
 	Step 1: Upload a comma-delimited text file (csv). 
 	Include column headings, spelled exactly as below. 
+	<br>
+	NOTE: This application currently handles only agent_type='person'
 	<br>
 	<a href="/info/ctDocumentation.cfm?table=ctagent_name_type">Valid agent name types</a>
 	<br>
@@ -132,17 +140,98 @@ sho err
 	</cfloop>
 </cfoutput>
 <cflocation url="agents.cfm?action=validate" addtoken="false">
+
+<!---
+---->
 </cfif>
-<!----------------------------------->
 <cfif action is "validate">
 <script src="/includes/sorttable.js"></script>
+<style>
+	.cfcatch{
+		font-size:.9em;
+		padding-left:1em;
+	}
+	.infobox{
+		font-size:.7em;
+		width:250px;
+		overflow:auto;
+	}
+	.rBorder {
+		border:2px solid red;
+	}
+	.gBorder {
+		border:2px solid green;
+	}
+</style>
+<script type='text/javascript' language='javascript'>
+	function saveAll() {
+		var keyList = document.getElementById('keyList').value;
+	  	kAry=keyList.split(",");
+	  	for (i=0; i<kAry.length; ++i) {
+	  		jQuery.getJSON("/component/DSFunctions.cfc",
+				{
+					method : "loadAgent",
+					key : kAry[i],
+					agent_id : $('#agent_id_' + kAry[i]).val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					var key=r.DATA.KEY[0];
+					var msg=r.DATA.MSG[0];
+					var status=r.DATA.STATUS[0];
+					var agent_id=r.DATA.AGENT_ID[0];
+					if (status=='FAIL'){
+						$('#msgDiv_' + key).remove();						
+						var ns='<div class="infobox rBorder" id="msgDiv_' + key + '></div>';
+						$('#suggested__' + key).append(ns);
+						$('#msgDiv_' + key).html(msg);
+					} else if (status=='PASS') {
+						$('#msgDiv_' + key).remove();
+						var ns='<div class="infobox gBorder" id="msgDiv_' + key + '>';
+						ns+='</div>';
+						$('#suggested__' + key).html(ns);
+						$('#msgDiv_' + key).html(msg);
+						
+					}
+				}
+			);
+		}
+	}
+	function useThis(key,name,id) {
+		$('#name_' + key).val(name);
+		$('#agent_id_' + key).val(id);
+	}
+	jQuery(document).ready(function() {
+	  	var keyList = document.getElementById('keyList').value;
+	  	kAry=keyList.split(",");
+	  	for (i=0; i<kAry.length; ++i) {
+	  		jQuery.getJSON("/component/DSFunctions.cfc",
+				{
+					method : "findAgentMatch",
+					key : kAry[i],
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					var key=r.DATA.KEY[0];
+					for (a=0; a<r.ROWCOUNT; ++a) {
+						var ns='<br><span  id="clkUseAgent_' + key + '" class="infoLink" onclick="';
+						ns+="useThis('" + key + "','" + r.DATA.PREFERRED_AGENT_NAME[a] + "',";
+						ns+="'" + r.DATA.AGENT_ID[a] + "')";
+						ns+='">' + r.DATA.PREFERRED_AGENT_NAME[a] + '</span>';
+						ns+='&nbsp;<a class="infoLink" href="/agents.cfm?agent_id=' + r.DATA.AGENT_ID[a] + '" target="_blank">[info]</a>';
+						$('#suggested__' + key).append(ns);
+					}
+				}
+			);
+	  	}
+	});
+</script>
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_agent
 	</cfquery>
-	
-	
-	
 	<cfquery name="p" dbtype="query">
 		select distinct(agent_type) agent_type from d
 	</cfquery>
@@ -150,9 +239,6 @@ sho err
 		<div class="error">Sorry, we can only deal with agent type=person here.</div>
 		<cfabort>
 	</cfif>
-	
-	
-	
 	<cfquery name="rpn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from ds_temp_agent where preferred_name is null
 	</cfquery>
@@ -160,9 +246,6 @@ sho err
 		<div class="error">Preferred name is required for every agent.</div>
 		<cfabort>
 	</cfif>
-	
-	
-	
 	<cfquery name="ont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select nt from (
 			select
@@ -186,9 +269,6 @@ sho err
 		<div class="error">Other name types may not be "preferred"</div>
 		<cfabort>
 	</cfif>
-	
-	
-	
 	<cfquery name="ctont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select nt from  
 		(
@@ -213,10 +293,6 @@ sho err
 		<div class="error">Unaccepable name type(s): #valuelist(ctont.nt)#</div>
 		<cfabort>
 	</cfif>
-	
-	
-	
-	
 	<hr>
 	If you made it this far, your data are in a more-or-less acceptable format. Congratulations!
 	
@@ -284,7 +360,7 @@ sho err
 	<table border id="theTable" class="sortable">
 		<tr>
 			<th>preferred_name</th>
-			<th>Status</th>
+			<th>MapToAgent</th>
 			<th>first_name</th>
 			<th>middle_name</th>
 			<th>last_name</th>
@@ -302,44 +378,6 @@ sho err
 			<tr id="row_#key#">
 				<td>#preferred_name#</td>
 				<td nowrap="nowrap" id="suggested__#key#">
-				
-				
-				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select
-				        #KEY# key,
-				        preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name preferred_agent_name
-					from 
-				        agent_name srch,
-				        preferred_agent_name
-					where 
-				        srch.agent_id=preferred_agent_name.agent_id and
-				        trim(srch.agent_name) in (
-				        	trim('#d.preferred_name#'),
-				        	trim('#d.other_name_1#'),
-				        	trim('#d.other_name_2#'),
-				        	trim('#d.other_name_3#')
-				        )
-				    group by
-				    	preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name,
-				        #key#
-				    union
-				    select
-				    	#KEY# key,
-				        preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name preferred_agent_name
-					from
-						person,
-						preferred_agent_name
-					where
-						person.person_id=preferred_agent_name.agent_id and
-						upper(first_name) = trim(upper('#d.first_name#')) and
-						upper(last_name) = trim(upper('#d.last_name#'))			
-				</cfquery>
-				<cfdump var=#result#>
-	
-	
 					<label for="">Map To Agent</label>
 					<input type="text" name="name_#key#" id="name_#key#" class="reqdClr" 
 						onchange="getAgent('agent_id_#key#',this.id,'f',this.value); return false;"
