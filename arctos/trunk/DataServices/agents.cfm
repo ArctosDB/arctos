@@ -468,119 +468,120 @@ sho err
 				<cfabort>
 			</cfif>
 		</cfif>
+		<cftransaction>
+			<cfloop query="d">
+				<br>loading #preferred_name#....
+				<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select sq_agent_id.nextval nextAgentId from dual
+				</cfquery>
+				<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select sq_agent_name_id.nextval nextAgentNameId from dual
+				</cfquery>		
+				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO agent (
+						agent_id,
+						agent_type,
+						preferred_agent_name_id,
+						AGENT_REMARKS
+					) VALUES (
+						#agentID.nextAgentId#,
+						'person',
+						#agentNameID.nextAgentNameId#,
+						'#trim(d.agent_remark)#'
+						)
+				</cfquery>		
+				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO person ( 
+						PERSON_ID
+						,prefix
+						,LAST_NAME
+						,FIRST_NAME
+						,MIDDLE_NAME
+						,SUFFIX,
+						BIRTH_DATE,
+						DEATH_DATE
+					) VALUES (
+						#agentID.nextAgentId#
+						,'#trim(d.prefix)#'
+						,'#trim(d.LAST_NAME)#'
+						,'#trim(d.FIRST_NAME)#'
+						,'#trim(d.MIDDLE_NAME)#'
+						,'#trim(d.SUFFIX)#'
+						,'#trim(d.birth_date)#'
+						,'#trim(d.death_date)#'
+					)
+				</cfquery>
+				<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO agent_name (
+						agent_name_id,
+						agent_id,
+						agent_name_type,
+						agent_name,
+						donor_card_present_fg
+					) VALUES (
+						#agentNameID.nextAgentNameId#,
+						#agentID.nextAgentId#,
+						'preferred',
+						'#trim(d.preferred_name)#',
+						0
+					)
+				</cfquery>
+			<!--- stoopid trigger workaround to have preferred name <cftransaction action="commit">--->
+				<cfif len(d.other_name_1) gt 0>
+					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						INSERT INTO agent_name (
+							agent_name_id,
+							agent_id,
+							agent_name_type,
+							agent_name,
+							donor_card_present_fg
+						) VALUES (
+							sq_agent_name_id.nextval,
+							#agentID.nextAgentId#,
+							'#d.other_name_type_1#',
+							'#trim(d.other_name_1)#',
+							0
+						)
+					</cfquery>
+				</cfif>
+				<cfif len(d.other_name_2) gt 0>
+					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						INSERT INTO agent_name (
+							agent_name_id,
+							agent_id,
+							agent_name_type,
+							agent_name,
+							donor_card_present_fg
+						) VALUES (
+							sq_agent_name_id.nextval,
+							#agentID.nextAgentId#,
+							'#d.other_name_type_2#',
+							'#trim(d.other_name_2)#',
+							0
+						)
+					</cfquery>
+				</cfif>
+				<cfif len(d.other_name_3) gt 0>
+					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						INSERT INTO agent_name (
+							agent_name_id,
+							agent_id,
+							agent_name_type,
+							agent_name,
+							donor_card_present_fg
+						) VALUES (
+							sq_agent_name_id.nextval,
+							#agentID.nextAgentId#,
+							'#d.other_name_type_3#',
+							'#trim(d.other_name_3)#',
+							0
+						)
+					</cfquery>
+				</cfif>
+			</cfloop>
+		</cftransaction>
 	</cfoutput>
-	<cftransaction>
-		<cfloop query="d">
-			<br>loading #preferred_name#....
-			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select sq_agent_id.nextval nextAgentId from dual
-			</cfquery>
-			<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select sq_agent_name_id.nextval nextAgentNameId from dual
-			</cfquery>		
-			<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO agent (
-					agent_id,
-					agent_type,
-					preferred_agent_name_id,
-					AGENT_REMARKS
-				) VALUES (
-					#agentID.nextAgentId#,
-					'person',
-					#agentNameID.nextAgentNameId#,
-					'#trim(d.agent_remark)#'
-					)
-			</cfquery>		
-			<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO person ( 
-					PERSON_ID
-					,prefix
-					,LAST_NAME
-					,FIRST_NAME
-					,MIDDLE_NAME
-					,SUFFIX,
-					BIRTH_DATE,
-					DEATH_DATE
-				) VALUES (
-					#agentID.nextAgentId#
-					,'#trim(d.prefix)#'
-					,'#trim(d.LAST_NAME)#'
-					,'#trim(d.FIRST_NAME)#'
-					,'#trim(d.MIDDLE_NAME)#'
-					,'#trim(d.SUFFIX)#'
-					,'#trim(d.birth_date)#'
-					,'#trim(d.death_date)#'
-				)
-			</cfquery>
-			<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO agent_name (
-					agent_name_id,
-					agent_id,
-					agent_name_type,
-					agent_name,
-					donor_card_present_fg
-				) VALUES (
-					#agentNameID.nextAgentNameId#,
-					#agentID.nextAgentId#,
-					'preferred',
-					'#trim(d.preferred_name)#',
-					0
-				)
-			</cfquery>
-		<!--- stoopid trigger workaround to have preferred name <cftransaction action="commit">--->
-			<cfif len(d.other_name_1) gt 0>
-				<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					INSERT INTO agent_name (
-						agent_name_id,
-						agent_id,
-						agent_name_type,
-						agent_name,
-						donor_card_present_fg
-					) VALUES (
-						sq_agent_name_id.nextval,
-						#agentID.nextAgentId#,
-						'#d.other_name_type_1#',
-						'#trim(d.other_name_1)#',
-						0
-					)
-				</cfquery>
-			</cfif>
-			<cfif len(d.other_name_2) gt 0>
-				<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					INSERT INTO agent_name (
-						agent_name_id,
-						agent_id,
-						agent_name_type,
-						agent_name,
-						donor_card_present_fg
-					) VALUES (
-						sq_agent_name_id.nextval,
-						#agentID.nextAgentId#,
-						'#d.other_name_type_2#',
-						'#trim(d.other_name_2)#',
-						0
-					)
-				</cfquery>
-			</cfif>
-			<cfif len(d.other_name_3) gt 0>
-				<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					INSERT INTO agent_name (
-						agent_name_id,
-						agent_id,
-						agent_name_type,
-						agent_name,
-						donor_card_present_fg
-					) VALUES (
-						sq_agent_name_id.nextval,
-						#agentID.nextAgentId#,
-						'#d.other_name_type_3#',
-						'#trim(d.other_name_3)#',
-						0
-					)
-				</cfquery>
-			</cfif>
-		</cfloop>
-	</cftransaction>
+
 	<p>
 		everything loaded
 	</p>
