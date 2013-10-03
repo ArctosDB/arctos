@@ -496,6 +496,13 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				<td nowrap="nowrap" id="suggested__#key#">
 					<cfif len(fatalProblems) gt 0>
 						FATAL PROBLEM: #fatalProblems#
+					<cfelseif lastnamematch.recordcount is not 0>
+						ADVISORY (not in download): Last name matches found.
+						<cfloop query="lastnamematch">
+							<div>
+								<a href="/agents.cfm?agent_id=#lastnamematch.AGENT_ID#">#lastnamematch.PREFERRED_AGENT_NAME#</a>
+							</div>
+						</cfloop>
 					<cfelse>
 						<cfloop query="isdup">
 							<cfset hasProbs=true>
@@ -504,14 +511,6 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 								<a href="/agents.cfm?agent_id=#isdup.AGENT_ID#">#isdup.PREFERRED_AGENT_NAME#</a> (#isdup.REASON#)
 							</div>
 						</cfloop>
-					<cfelseif lastnamematch.recordcount is not 0>
-						ADVISORY (not in download): Last name matches found.
-						<cfloop query="lastnamematch">
-							<div>
-								<a href="/agents.cfm?agent_id=#lastnamematch.AGENT_ID#">#lastnamematch.PREFERRED_AGENT_NAME#</a>
-							</div>
-						</cfloop>
-					
 					</cfif>
 
 					
