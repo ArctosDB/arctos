@@ -350,7 +350,7 @@ sho err
 					where 
 				        srch.agent_id=preferred_agent_name.agent_id and
 				        upper(regexp_replace(srch.agent_name,'[ .]', '')) in (
-				        	'#ucase(rereplace(d.preferred_name,"[ .]"))#'
+				        	'#ucase(rereplace(d.preferred_name,"[ .]",""))#'
 				        )
 				    group by
 				    	preferred_agent_name.agent_id, 
