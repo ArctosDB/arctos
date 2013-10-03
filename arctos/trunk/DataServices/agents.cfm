@@ -457,16 +457,7 @@ sho err
 		</cfquery>
 		<cfdump var=#d#>
 		
-			<cfquery name="requiresOverride" dbtype="query">
-				select count(*) c from d where requires_admin_override is not null
-			</cfquery>
-			<cfif requiresOverride.c is not 0>
-				<cfthrow detail = "unauthorized agent load" errorCode = "666"
-			    extendedInfo = "@agents.loadData with admin override required and no auth"
-			    message = "You are not allowed to be here.">
-
-			</cfif>
-			
+		
 			
 			
 			
@@ -477,21 +468,14 @@ sho err
 			</cfquery>
 			<cfif requiresOverride.c is not 0>
 				<cfthrow detail = "unauthorized agent load" errorCode = "666"
-			    extendedInfo = "@agents.loadData with admin override required and no auth"
-			    message = "You are not allowed to be here.">
-
+				    extendedInfo = "@agents.loadData with admin override required and no auth"
+				    message = "You are not allowed to be here.">
+				<cfabort>
 			</cfif>
 		</cfif>
 	</cfoutput>
-	
-	<cfabort>
-	
-	
-	
-	
-		<cftransaction>
-				
-				<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cftransaction>
+		<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select sq_agent_id.nextval nextAgentId from dual
 				</cfquery>
 				<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -546,7 +530,7 @@ sho err
 						0
 					)
 				</cfquery>
-			<cftransaction action="commit"><!--- stoopid trigger workaround to have preferred name --->
+			<!--- stoopid trigger workaround to have preferred name <cftransaction action="commit">--->
 				<cfif len(d.other_name_1) gt 0>
 					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						INSERT INTO agent_name (
@@ -598,8 +582,9 @@ sho err
 						)
 					</cfquery>
 				</cfif>
-			</cftransaction>
-			
+	</cftransaction>
+
+everything loaded
 			
 			
 			
