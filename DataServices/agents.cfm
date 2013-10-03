@@ -351,9 +351,9 @@ sho err
 				        srch.agent_id=preferred_agent_name.agent_id and
 				        upper(regexp_replace(srch.agent_name,'[ .]', '')) in (
 				        	'#ucase(rereplace(d.preferred_name,'[ .]',''))#'),
-				        	'#d.other_name_1#'),
-				        	'#d.other_name_2#'),
-				        	'#d.other_name_3#')
+				        	'#ucase(rereplace(d.other_name_1,'[ .]',''))#'),
+				        	'#ucase(rereplace(d.other_name_2,'[ .]',''))#'),
+				        	'#ucase(rereplace(d.other_name_3,'[ .]',''))#')
 				        )
 				    group by
 				    	preferred_agent_name.agent_id, 
