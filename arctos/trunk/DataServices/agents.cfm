@@ -423,10 +423,10 @@ sho err
 						srch.person_id=preferred_agent_name.agent_id and
 						( 
 							upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'#regexStripJunk#', '')) in (
-								#strippedNamePermutations#
+								#preserveSingleQuotes(strippedNamePermutations)#
 					     	) or (
 							upper(regexp_replace(srch.first_name || srch.last_name ,'#regexStripJunk#', '')) in (
-								#strippedNamePermutations#
+								#preserveSingleQuotes(strippedNamePermutations)#
 					        )
 					      )
 					     )
