@@ -284,7 +284,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			<cfif len(strippedNamePermutations) is 0>
 				<cfset fatalProblems='This application will not handle agents without letters in their name.'>
 			</cfif>
-			<cfset disallowInAll=" and , or ">
+			<cfset disallowInAll=" and , or ,/,\,&">
 			
 			<cfloop list="#disallowInAll#" index="i">
 				<cfif preferred_name contains i>
