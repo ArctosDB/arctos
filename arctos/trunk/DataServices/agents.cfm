@@ -385,28 +385,7 @@ sho err
 				    	preferred_agent_name.agent_id, 
 				        preferred_agent_name.agent_name,
 				        #key#
-				    UNION
-				    select
-				        'nodots-nospaces match on person' reason,
-				        #KEY# key,
-				        preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name preferred_agent_name
-					from 
-				        agent_name srch,
-				        preferred_agent_name
-					where 
-				        srch.agent_id=preferred_agent_name.agent_id and
-				        upper(regexp_replace(srch.agent_name,'#regexStripJunk#', '')) in (
-				        	'#ucase(rereplace(d.preferred_name,"[ .]",""))#',
-				        	'#ucase(rereplace(d.other_name_1,regexStripJunk,""))#',
-				        	'#ucase(rereplace(d.other_name_2,regexStripJunk,""))#',
-				        	'#ucase(rereplace(d.other_name_3,regexStripJunk,""))#',
-				        	'#ucase(rereplace(d.first_name & d.middle_name & d.last_name,regexStripJunk,""))#'
-				        )
-				    group by
-				    	preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name,
-				        #key#
+				    
 				        
 				        
 					     ---->
@@ -430,8 +409,24 @@ sho err
 					        )
 					      )
 					     )
-					     
-				        
+					 UNION
+				    select
+				        'nodots-nospaces match on agent name' reason,
+				        #KEY# key,
+				        preferred_agent_name.agent_id, 
+				        preferred_agent_name.agent_name preferred_agent_name
+					from 
+				        agent_name srch,
+				        preferred_agent_name
+					where 
+				        srch.agent_id=preferred_agent_name.agent_id and
+				        upper(regexp_replace(srch.agent_name,'#regexStripJunk#', '')) in (
+				        	#preserveSingleQuotes(strippedNamePermutations)#
+				        )
+				    group by
+				    	preferred_agent_name.agent_id, 
+				        preferred_agent_name.agent_name,
+				        #key#
 				</cfquery>
 				
 				<!----
