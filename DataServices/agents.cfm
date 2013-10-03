@@ -301,8 +301,9 @@ sho err
 		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 		
 		<cfset clist='agent_type,preferred_name,first_name,middle_name,last_name,birth_date,death_date,prefix,suffix,other_name_1,other_name_type_1,other_name_2,other_name_type_2,other_name_3,other_name_type_3,agent_remark,suggestions'>
-		
-	
+		<cfset autoColList=listdeleteat(clist,listfindnocase(clist,'suggestions'))>
+			
+	<br>autoColList: #autoColList#
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 			variables.joFileWriter.writeLine(ListQualify(clist,'"')); 
@@ -407,7 +408,6 @@ sho err
 			</cfquery>
 			
 			<cfset oneLine = "">
-			<cfset autoColList=listdeleteat(listfindnocase(clist,'suggestions'))>
 			<cfloop list="#autoColList#" index="c">
 				<cfset thisData = evaluate("d." & c)>
 				<cfset thisData=replace(thisData,'"','""','all')>
