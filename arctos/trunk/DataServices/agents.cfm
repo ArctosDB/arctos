@@ -330,7 +330,6 @@ sho err
 				
 				<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					
-					<!---------
 					select
 				        'agent name match' reason,
 				        #KEY# key,
@@ -365,30 +364,6 @@ sho err
 						upper(first_name) = trim(upper('#d.first_name#')) and
 						upper(last_name) = trim(upper('#d.last_name#'))	
 					UNION
-					select
-				        'nodots-nospaces match on agent name(s)' reason,
-				        #KEY# key,
-				        preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name preferred_agent_name
-					from 
-				        agent_name srch,
-				        preferred_agent_name
-					where 
-				        srch.agent_id=preferred_agent_name.agent_id and
-				        upper(regexp_replace(srch.agent_name,'#regexStripJunk#', '')) in (
-				        	'#ucase(rereplace(d.preferred_name,"[ .]",""))#',
-				        	'#ucase(rereplace(d.other_name_1,"[ .]",""))#',
-				        	'#ucase(rereplace(d.other_name_2,"[ .]",""))#',
-				        	'#ucase(rereplace(d.other_name_3,"[ .]",""))#'
-				        )
-				    group by
-				    	preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name,
-				        #key#
-				    
-				        
-				        
-					     ---->
 					
 					 select
 				        'nodots-nospaces match on person' reason,
@@ -429,24 +404,7 @@ sho err
 				        #key#
 				</cfquery>
 				
-				<!----
 				
-				
-				
-				
-				
-				,
-				        	'#ucase(rereplace(d.other_name_1,'[ .]',''))#'),
-				        	'#ucase(rereplace(d.other_name_2,'[ .]',''))#'),
-				        	'#ucase(rereplace(d.other_name_3,'[ .]',''))#')
-				        	
-				        	
-				        	
-				        	
-				        	
-				        	------------>
-				        	
-				        	<cfdump var=#isdup#>
 				<cfloop query="isdup">
 					<div>
 						<a href="/agents.cfm?agent_id=#isdup.AGENT_ID#">#isdup.PREFERRED_AGENT_NAME#</a> (#isdup.REASON#)
