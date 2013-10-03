@@ -284,7 +284,13 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			<cfif len(strippedNamePermutations) is 0>
 				<cfset fatalProblems='This application will not handle agents without letters in their name.'>
 			</cfif>
+			<cfset disallowInAll=" and , or ">
 			
+			<cfloop list="#disallowInAll#" index="i">
+				<cfif preferred_name contains i>
+					<p>#preferred_name# contains #i#</p>
+				</cfif>
+			</cfloop>
 			<cfif 
 				preferred_name contains " and " or 
 				preferred_name contains " or " or 
@@ -293,10 +299,31 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				preferred_name contains "&">
 				<cfset fatalProblems='This application will not handle agents with AND, OR, /, \, or & in their name.'>
 			</cfif>
+			<cfset disallowList="">
 			
+			Seabird Sanctuary
+			National
+			Predatory
+			Museum
+			Animal
+			Hospital
+			Rangers
+			Ranger
+			Richard
+			Society
+			Ecology Class
+			University
+			Zoological
+			zoo
+			Science
+			illegible
+
 			<cfif preferred_name does not contain " ">
 				<cfset fatalProblems='This application will not handle agents without a space in preferred name.'>
 			</cfif>
+			Group
+			Animal
+			:
 			
 			<cfif len(fatalProblems) gt 0>
 				<cfset oneLine = "">
