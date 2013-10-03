@@ -278,9 +278,6 @@ sho err
 		any name that they already had.
 	</p>
 	
-	<form name="f">
-	<input type="button" onclick="saveAll()" value="save to Arctos">
-	<input type="hidden" id="keyList" value="#valuelist(d.key)#">
 	<table border id="theTable" class="sortable">
 		<tr>
 			<th>preferred_name</th>
@@ -300,122 +297,108 @@ sho err
 		</tr>
 		<cfset regexStripJunk='[ .,-]'>
 		<cfloop query="d">
+			<cfset strippedUpperFML=ucase(rereplace(d.first_name & d.middle_name & d.last_name,regexStripJunk,"","all"))>
+			<cfset strippedUpperFL=ucase(rereplace(d.first_name & d.last_name,regexStripJunk,"","all"))>
+			<cfset strippedUpperLF=ucase(rereplace(d.last_name & d.first_name,regexStripJunk,"","all"))>
+			<cfset strippedUpperLFM=ucase(rereplace(d.last_name & d.first_name & d.middle_name,regexStripJunk,"","all"))>
+			<cfset strippedP=ucase(rereplace(d.preferred_name,regexStripJunk,"","all"))>
+			<cfset strippedo1=ucase(rereplace(d.other_name_1,regexStripJunk,"","all"))>
+			<cfset strippedo2=ucase(rereplace(d.other_name_2,regexStripJunk,"","all"))>
+			<cfset strippedo3=ucase(rereplace(d.other_name_3,regexStripJunk,"","all"))>
+				
+			<cfset strippedNamePermutations=strippedUpperFML>
+			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperFL)>
+			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperLF)>
+			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperLFM)>
+			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedP)>
+			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo1)>
+			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo2)>
+			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo3)>
+			
+			<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>
+			
+			<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+			        'agent name match' reason,
+			        #KEY# key,
+			        preferred_agent_name.agent_id, 
+			        preferred_agent_name.agent_name preferred_agent_name
+				from 
+			        agent_name srch,
+			        preferred_agent_name
+				where 
+			        srch.agent_id=preferred_agent_name.agent_id and
+			        trim(srch.agent_name) in (
+			        	trim('#d.preferred_name#'),
+			        	trim('#d.other_name_1#'),
+			        	trim('#d.other_name_2#'),
+			        	trim('#d.other_name_3#')
+			        )
+			    group by
+			    	preferred_agent_name.agent_id, 
+			        preferred_agent_name.agent_name,
+			        #key#
+			    union
+			    select
+			    	'first and last name match' reason,
+			    	#KEY# key,
+			        preferred_agent_name.agent_id, 
+			        preferred_agent_name.agent_name preferred_agent_name
+				from
+					person,
+					preferred_agent_name
+				where
+					person.person_id=preferred_agent_name.agent_id and
+					upper(first_name) = trim(upper('#d.first_name#')) and
+					upper(last_name) = trim(upper('#d.last_name#'))	
+				UNION
+				
+				 select
+			        'nodots-nospaces match on person' reason,
+			    	#KEY# key,
+			        preferred_agent_name.agent_id, 
+			        preferred_agent_name.agent_name preferred_agent_name
+				from
+					person srch,
+					preferred_agent_name
+				where
+					srch.person_id=preferred_agent_name.agent_id and
+					( 
+						upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'#regexStripJunk#', '')) in (
+							#preserveSingleQuotes(strippedNamePermutations)#
+				     	) or (
+						upper(regexp_replace(srch.first_name || srch.last_name ,'#regexStripJunk#', '')) in (
+							#preserveSingleQuotes(strippedNamePermutations)#
+				        )
+				      )
+				     )
+				 UNION
+			    select
+			        'nodots-nospaces match on agent name' reason,
+			        #KEY# key,
+			        preferred_agent_name.agent_id, 
+			        preferred_agent_name.agent_name preferred_agent_name
+				from 
+			        agent_name srch,
+			        preferred_agent_name
+				where 
+			        srch.agent_id=preferred_agent_name.agent_id and
+			        upper(regexp_replace(srch.agent_name,'#regexStripJunk#', '')) in (
+			        	#preserveSingleQuotes(strippedNamePermutations)#
+			        )
+			    group by
+			    	preferred_agent_name.agent_id, 
+			        preferred_agent_name.agent_name,
+			        #key#
+			</cfquery>
 			<tr id="row_#key#">
 				<td>#preferred_name#</td>
 				<td nowrap="nowrap" id="suggested__#key#">
-				<cfset strippedUpperFML=ucase(rereplace(d.first_name & d.middle_name & d.last_name,regexStripJunk,"","all"))>
-				<cfset strippedUpperFL=ucase(rereplace(d.first_name & d.last_name,regexStripJunk,"","all"))>
-				<cfset strippedUpperLF=ucase(rereplace(d.last_name & d.first_name,regexStripJunk,"","all"))>
-				<cfset strippedUpperLFM=ucase(rereplace(d.last_name & d.first_name & d.middle_name,regexStripJunk,"","all"))>
-				<cfset strippedP=ucase(rereplace(d.preferred_name,regexStripJunk,"","all"))>
-				<cfset strippedo1=ucase(rereplace(d.other_name_1,regexStripJunk,"","all"))>
-				<cfset strippedo2=ucase(rereplace(d.other_name_2,regexStripJunk,"","all"))>
-				<cfset strippedo3=ucase(rereplace(d.other_name_3,regexStripJunk,"","all"))>
-				
-		
-				
-				
-				<cfset strippedNamePermutations=strippedUpperFML>
-				<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperFL)>
-				<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperLF)>
-				<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperLFM)>
-				<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedP)>
-				<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo1)>
-				<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo2)>
-				<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo3)>
-				
-				<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>
-				        	
-				<br>strippedNamePermutations: #strippedNamePermutations#
-				
-				<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					
-					select
-				        'agent name match' reason,
-				        #KEY# key,
-				        preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name preferred_agent_name
-					from 
-				        agent_name srch,
-				        preferred_agent_name
-					where 
-				        srch.agent_id=preferred_agent_name.agent_id and
-				        trim(srch.agent_name) in (
-				        	trim('#d.preferred_name#'),
-				        	trim('#d.other_name_1#'),
-				        	trim('#d.other_name_2#'),
-				        	trim('#d.other_name_3#')
-				        )
-				    group by
-				    	preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name,
-				        #key#
-				    union
-				    select
-				    	'first and last name match' reason,
-				    	#KEY# key,
-				        preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name preferred_agent_name
-					from
-						person,
-						preferred_agent_name
-					where
-						person.person_id=preferred_agent_name.agent_id and
-						upper(first_name) = trim(upper('#d.first_name#')) and
-						upper(last_name) = trim(upper('#d.last_name#'))	
-					UNION
-					
-					 select
-				        'nodots-nospaces match on person' reason,
-				    	#KEY# key,
-				        preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name preferred_agent_name
-					from
-						person srch,
-						preferred_agent_name
-					where
-						srch.person_id=preferred_agent_name.agent_id and
-						( 
-							upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'#regexStripJunk#', '')) in (
-								#preserveSingleQuotes(strippedNamePermutations)#
-					     	) or (
-							upper(regexp_replace(srch.first_name || srch.last_name ,'#regexStripJunk#', '')) in (
-								#preserveSingleQuotes(strippedNamePermutations)#
-					        )
-					      )
-					     )
-					 UNION
-				    select
-				        'nodots-nospaces match on agent name' reason,
-				        #KEY# key,
-				        preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name preferred_agent_name
-					from 
-				        agent_name srch,
-				        preferred_agent_name
-					where 
-				        srch.agent_id=preferred_agent_name.agent_id and
-				        upper(regexp_replace(srch.agent_name,'#regexStripJunk#', '')) in (
-				        	#preserveSingleQuotes(strippedNamePermutations)#
-				        )
-				    group by
-				    	preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name,
-				        #key#
-				</cfquery>
-				
-				
-				<cfloop query="isdup">
-					<div>
-						<a href="/agents.cfm?agent_id=#isdup.AGENT_ID#">#isdup.PREFERRED_AGENT_NAME#</a> (#isdup.REASON#)
-					</div>
-				</cfloop>
-					<label for="">Map To Agent</label>
-					<input type="text" name="name_#key#" id="name_#key#" class="reqdClr" 
-						onchange="getAgent('agent_id_#key#',this.id,'f',this.value); return false;"
-		 				onKeyPress="return noenter(event);" size="30">
-					<input type="hidden" name="agent_id_#key#" id="agent_id_#key#">
-					<br><span id="clkUseAgent_#key#" class="infoLink" onclick="useThis('#key#','#preferred_name#','-1')">[ #preferred_name# ] (new agent)</span>
+					<cfloop query="isdup">
+						<div>
+							<a href="/agents.cfm?agent_id=#isdup.AGENT_ID#">#isdup.PREFERRED_AGENT_NAME#</a> (#isdup.REASON#)
+						</div>
+					</cfloop>
 				</td>
 				<td>#first_name#&nbsp;</td>
 				<td>#middle_name#&nbsp;</td>
@@ -444,7 +427,6 @@ sho err
 			</tr>
 		</cfloop>
 	</table>
-	</form>
 </cfoutput>
 </cfif>
 <!----
