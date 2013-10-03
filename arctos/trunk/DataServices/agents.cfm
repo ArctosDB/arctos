@@ -276,6 +276,7 @@ sho err
 			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo2)>
 			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo3)>
 			
+			<!--- stuff we just can't deal with ---->
 			<cfset fatalProblems="">
 			<cfif strippedNamePermutations contains "'">
 				<cfset fatalProblems='This application will not handle agents with apostrophes in their name.'>
@@ -285,134 +286,148 @@ sho err
 			</cfif>
 			
 			<cfif len(fatalProblems) gt 0>
-				<p>
-					A fatal exception has occurred with #preferred_name#. Remove the offending line from your data and try again.
-				</p>
-				<p>
-					#fatalProblems#
-				</p>
-				<cfabort>
+				<cfset oneLine = "">
+				<cfloop list="#autoColList#" index="c">
+					<cfset thisData = evaluate("d." & c)>
+					<cfset thisData=replace(thisData,'"','""','all')>
+					<cfif len(oneLine) is 0>
+						<cfset oneLine = '"#thisData#"'>
+					<cfelse>
+						<cfset oneLine = '#oneLine#,"#thisData#"'>
+					</cfif>
+				</cfloop>
+				<cfset oneLine=oneLine & ',"FATAL PROBLEM: #fatalProblems#"'>
+				<cfset oneLine = trim(oneLine)>
+				<cfscript>
+					variables.joFileWriter.writeLine(oneLine);
+				</cfscript>
+			<cfelse>
+				<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>
+				
+				
+				
+				<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select
+				        'agent name match' reason,
+				        #KEY# key,
+				        preferred_agent_name.agent_id, 
+				        preferred_agent_name.agent_name preferred_agent_name
+					from 
+				        agent_name srch,
+				        preferred_agent_name
+					where 
+				        srch.agent_id=preferred_agent_name.agent_id and
+				        trim(srch.agent_name) in (
+				        	trim('#d.preferred_name#'),
+				        	trim('#d.other_name_1#'),
+				        	trim('#d.other_name_2#'),
+				        	trim('#d.other_name_3#')
+				        )
+				    group by
+				    	preferred_agent_name.agent_id, 
+				        preferred_agent_name.agent_name,
+				        #key#
+				    union
+				    select
+				    	'first and last name match' reason,
+				    	#KEY# key,
+				        preferred_agent_name.agent_id, 
+				        preferred_agent_name.agent_name preferred_agent_name
+					from
+						person,
+						preferred_agent_name
+					where
+						person.person_id=preferred_agent_name.agent_id and
+						upper(first_name) = trim(upper('#d.first_name#')) and
+						upper(last_name) = trim(upper('#d.last_name#'))	
+					union 
+					 select
+				        'nodots-nospaces match on person first middle last' reason,
+				    	#KEY# key,
+				        preferred_agent_name.agent_id, 
+				        preferred_agent_name.agent_name preferred_agent_name
+					from
+						person srch,
+						preferred_agent_name
+					where
+						srch.person_id=preferred_agent_name.agent_id and
+						upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'#regexStripJunk#', '')) in (
+							#preserveSingleQuotes(strippedNamePermutations)#
+					     )
+					union 
+					 select
+				        'nodots-nospaces match on person first last' reason,
+				    	#KEY# key,
+				        preferred_agent_name.agent_id, 
+				        preferred_agent_name.agent_name preferred_agent_name
+					from
+						person srch,
+						preferred_agent_name
+					where
+						srch.person_id=preferred_agent_name.agent_id and
+						upper(regexp_replace(srch.first_name || srch.last_name ,'#regexStripJunk#', '')) in (
+							#preserveSingleQuotes(strippedNamePermutations)#
+					     )
+					 UNION
+				    select
+				        'nodots-nospaces match on agent name' reason,
+				        #KEY# key,
+				        preferred_agent_name.agent_id, 
+				        preferred_agent_name.agent_name preferred_agent_name
+					from 
+				        agent_name srch,
+				        preferred_agent_name
+					where 
+				        srch.agent_id=preferred_agent_name.agent_id and
+				        upper(regexp_replace(srch.agent_name,'#regexStripJunk#', '')) in (
+				        	#preserveSingleQuotes(strippedNamePermutations)#
+				        )
+				    group by
+				    	preferred_agent_name.agent_id, 
+				        preferred_agent_name.agent_name,
+				        #key#
+				</cfquery>
+				
+				
+				
+				
+				
+				<cfset oneLine = "">
+				<cfloop list="#autoColList#" index="c">
+					<cfset thisData = evaluate("d." & c)>
+					<cfset thisData=replace(thisData,'"','""','all')>
+					<cfif len(oneLine) is 0>
+						<cfset oneLine = '"#thisData#"'>
+					<cfelse>
+						<cfset oneLine = '#oneLine#,"#thisData#"'>
+					</cfif>
+				</cfloop>
+				<cfquery name="uSugPrefName" dbtype="query">
+					select PREFERRED_AGENT_NAME from isdup group by PREFERRED_AGENT_NAME order by PREFERRED_AGENT_NAME
+				</cfquery>
+				<cfset sugnConcat=replace(valuelist(uSugPrefName.PREFERRED_AGENT_NAME,"|"),'"','""','all')>
+				<cfset oneLine=oneLine & ',"#sugnConcat#"'>
+				<cfset oneLine = trim(oneLine)>
+				<cfscript>
+					variables.joFileWriter.writeLine(oneLine);
+				</cfscript>
 			</cfif>
-			
-			<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>
-			
-			
-			
-			<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select
-			        'agent name match' reason,
-			        #KEY# key,
-			        preferred_agent_name.agent_id, 
-			        preferred_agent_name.agent_name preferred_agent_name
-				from 
-			        agent_name srch,
-			        preferred_agent_name
-				where 
-			        srch.agent_id=preferred_agent_name.agent_id and
-			        trim(srch.agent_name) in (
-			        	trim('#d.preferred_name#'),
-			        	trim('#d.other_name_1#'),
-			        	trim('#d.other_name_2#'),
-			        	trim('#d.other_name_3#')
-			        )
-			    group by
-			    	preferred_agent_name.agent_id, 
-			        preferred_agent_name.agent_name,
-			        #key#
-			    union
-			    select
-			    	'first and last name match' reason,
-			    	#KEY# key,
-			        preferred_agent_name.agent_id, 
-			        preferred_agent_name.agent_name preferred_agent_name
-				from
-					person,
-					preferred_agent_name
-				where
-					person.person_id=preferred_agent_name.agent_id and
-					upper(first_name) = trim(upper('#d.first_name#')) and
-					upper(last_name) = trim(upper('#d.last_name#'))	
-				union 
-				 select
-			        'nodots-nospaces match on person first middle last' reason,
-			    	#KEY# key,
-			        preferred_agent_name.agent_id, 
-			        preferred_agent_name.agent_name preferred_agent_name
-				from
-					person srch,
-					preferred_agent_name
-				where
-					srch.person_id=preferred_agent_name.agent_id and
-					upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'#regexStripJunk#', '')) in (
-						#preserveSingleQuotes(strippedNamePermutations)#
-				     )
-				union 
-				 select
-			        'nodots-nospaces match on person first last' reason,
-			    	#KEY# key,
-			        preferred_agent_name.agent_id, 
-			        preferred_agent_name.agent_name preferred_agent_name
-				from
-					person srch,
-					preferred_agent_name
-				where
-					srch.person_id=preferred_agent_name.agent_id and
-					upper(regexp_replace(srch.first_name || srch.last_name ,'#regexStripJunk#', '')) in (
-						#preserveSingleQuotes(strippedNamePermutations)#
-				     )
-				 UNION
-			    select
-			        'nodots-nospaces match on agent name' reason,
-			        #KEY# key,
-			        preferred_agent_name.agent_id, 
-			        preferred_agent_name.agent_name preferred_agent_name
-				from 
-			        agent_name srch,
-			        preferred_agent_name
-				where 
-			        srch.agent_id=preferred_agent_name.agent_id and
-			        upper(regexp_replace(srch.agent_name,'#regexStripJunk#', '')) in (
-			        	#preserveSingleQuotes(strippedNamePermutations)#
-			        )
-			    group by
-			    	preferred_agent_name.agent_id, 
-			        preferred_agent_name.agent_name,
-			        #key#
-			</cfquery>
-			
-			
-			
-			
-			
-			<cfset oneLine = "">
-			<cfloop list="#autoColList#" index="c">
-				<cfset thisData = evaluate("d." & c)>
-				<cfset thisData=replace(thisData,'"','""','all')>
-				<cfif len(oneLine) is 0>
-					<cfset oneLine = '"#thisData#"'>
-				<cfelse>
-					<cfset oneLine = '#oneLine#,"#thisData#"'>
-				</cfif>
-			</cfloop>
-			<cfquery name="uSugPrefName" dbtype="query">
-				select PREFERRED_AGENT_NAME from isdup group by PREFERRED_AGENT_NAME order by PREFERRED_AGENT_NAME
-			</cfquery>
-			<cfset sugnConcat=replace(valuelist(uSugPrefName.PREFERRED_AGENT_NAME,"|"),'"','""','all')>
-			<cfset oneLine=oneLine & ',"#sugnConcat#"'>
-			<cfset oneLine = trim(oneLine)>
-			<cfscript>
-				variables.joFileWriter.writeLine(oneLine);
-			</cfscript>
 			<tr id="row_#key#">
 				<td>#preferred_name#</td>
 				<td nowrap="nowrap" id="suggested__#key#">
-					<cfloop query="isdup">
-						<cfset hasProbs=true>
-						<cfset failedKeyList=listappend(failedKeyList,key)>
-						<div>
-							<a href="/agents.cfm?agent_id=#isdup.AGENT_ID#">#isdup.PREFERRED_AGENT_NAME#</a> (#isdup.REASON#)
-						</div>
-					</cfloop>
+					<cfif len(fatalProblems) gt 0>
+						FATAL PROBLEM: #fatalProblems#
+					<cfelse>
+						<cfloop query="isdup">
+							<cfset hasProbs=true>
+							<cfset failedKeyList=listappend(failedKeyList,key)>
+							<div>
+								<a href="/agents.cfm?agent_id=#isdup.AGENT_ID#">#isdup.PREFERRED_AGENT_NAME#</a> (#isdup.REASON#)
+							</div>
+						</cfloop>
+					</cfif>
+
+					
 				</td>
 				<td>#first_name#&nbsp;</td>
 				<td>#middle_name#&nbsp;</td>
@@ -469,6 +484,10 @@ sho err
 		<p>
 			If you manually create agents because of something that happened here, there is a very high probability that a "not the same as"
 				relationship and a note explaining that relationship is necessary. Eliminating this step may result in inadvertent merger.
+		</p>
+		<p>
+			If you accept suggestions made here, be sure to update the data which uses agents to incorporate the existing spelling. Alternatively,
+			you may add agent_names to the existing agents.
 		</p>
 		<p>
 			Members of the Arctos Advisory Committee can override these restrictions.
