@@ -306,6 +306,7 @@ sho err
 				
 				<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
+				        'agent name match' reason,
 				        #KEY# key,
 				        preferred_agent_name.agent_id, 
 				        preferred_agent_name.agent_name preferred_agent_name
@@ -326,6 +327,7 @@ sho err
 				        #key#
 				    union
 				    select
+				    	'first and last name match' reason,
 				    	#KEY# key,
 				        preferred_agent_name.agent_id, 
 				        preferred_agent_name.agent_name preferred_agent_name
@@ -335,7 +337,31 @@ sho err
 					where
 						person.person_id=preferred_agent_name.agent_id and
 						upper(first_name) = trim(upper('#d.first_name#')) and
-						upper(last_name) = trim(upper('#d.last_name#'))			
+						upper(last_name) = trim(upper('#d.last_name#'))	
+					UNION
+					select
+				        'nodots-nospaces match on agent name(s)' reason,
+				        #KEY# key,
+				        preferred_agent_name.agent_id, 
+				        preferred_agent_name.agent_name preferred_agent_name
+					from 
+				        agent_name srch,
+				        preferred_agent_name
+					where 
+				        srch.agent_id=preferred_agent_name.agent_id and
+				        upper(regexp_replace(srch.agent_name,'[ .]', '')) in (
+				        	'#rereplace(d.preferred_name,'[ .]','')#'),
+				        	'#d.other_name_1#'),
+				        	'#d.other_name_2#'),
+				        	'#d.other_name_3#')
+				        )
+				    group by
+				    	preferred_agent_name.agent_id, 
+				        preferred_agent_name.agent_name,
+				        #key#
+				    union
+				    
+					upper(regexp_replace(agent_name,'[ .]', ''))		
 				</cfquery>
 				<cfif isdup.recordcount gt 0>
 					<cfdump var=#isdup#>
