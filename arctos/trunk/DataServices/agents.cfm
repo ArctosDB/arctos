@@ -276,7 +276,6 @@ sho err
 			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo2)>
 			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo3)>
 			
-			<br>#strippedNamePermutations#
 			<cfset fatalProblems="">
 			<cfif strippedNamePermutations contains "'">
 				<cfset fatalProblems='This application will not handle agents with apostrophes in their name.'>
