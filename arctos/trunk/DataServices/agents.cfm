@@ -285,8 +285,10 @@ sho err
 				<cfset fatalProblems='This application will not handle agents without letters in their name.'>
 			</cfif>
 			
-			<cfif len(d.preferred_name) contains " and " >
+			<cfif len(preferred_name) contains " and " >
 				<cfset fatalProblems='This application will not handle agents with AND in their name.'>
+			<cfelse>
+				<br>#preferred_name# - no and
 			</cfif>
 			
 			<cfif len(fatalProblems) gt 0>
