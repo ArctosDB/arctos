@@ -239,7 +239,7 @@ sho err
 			<th>death_date</th>
 			<th>Remark</th>
 		</tr>
-		<cfset regexStripJunk="[ .,-']">
+		<cfset regexStripJunk='[ .,-]'>
 		
 		
 		<cfset fileDir = "#Application.webDirectory#">
@@ -278,6 +278,23 @@ sho err
 			
 			<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>
 			
+			<cfset fatalProblems="">
+			<cfif strippedNamePermutations contains "'">
+				<cfset fatalProblem='This application will not handle agents with apostrophes in their name.'>
+			</cfif>
+			<cfif len(strippedNamePermutations) is 0>
+				<cfset fatalProblem='This application will not handle agents without letters in their name.'>
+			</cfif>
+			
+			<cfif len(fatalProblem) gt 0>
+				<p>
+					A fatal exception has occurred. Remove the offending line from your data and try again.
+				</p>
+				<p>
+					#fatalProblem#
+				</p>
+				<cfabort>
+			</cfif>
 			<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select
 			        'agent name match' reason,
