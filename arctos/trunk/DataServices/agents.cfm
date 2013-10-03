@@ -398,19 +398,19 @@ sho err
 					where
 						srch.person_id=preferred_agent_name.agent_id and
 						( 
-							upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'[ .]', '')) in (
-								'#ucase(rereplace(d.preferred_name,"[ .]",""))#',
-					        	'#ucase(rereplace(d.other_name_1,"[ .]",""))#',
-					        	'#ucase(rereplace(d.other_name_2,"[ .]",""))#',
-					        	'#ucase(rereplace(d.other_name_3,"[ .]",""))#',
-					        	'#ucase(rereplace(d.first_name & d.middle_name & d.last_name,"[ .]",""))#'
+							upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'[ .,]', '')) in (
+								'#ucase(rereplace(d.preferred_name,"[ .,]",""))#',
+					        	'#ucase(rereplace(d.other_name_1,"[ .,]",""))#',
+					        	'#ucase(rereplace(d.other_name_2,"[ .,]",""))#',
+					        	'#ucase(rereplace(d.other_name_3,"[ .,]",""))#',
+					        	'#ucase(rereplace(d.first_name & d.middle_name & d.last_name,"[ .,]",""))#'
 					     	) or (
 							upper(regexp_replace(srch.first_name || srch.last_name ,'[ .]', '')) in (
-								'#ucase(rereplace(d.preferred_name,"[ .]",""))#',
-					        	'#ucase(rereplace(d.other_name_1,"[ .]",""))#',
-					        	'#ucase(rereplace(d.other_name_2,"[ .]",""))#',
-					        	'#ucase(rereplace(d.other_name_3,"[ .]",""))#',
-					        	'#ucase(rereplace(d.first_name & d.middle_name & d.last_name,"[ .]",""))#'
+								'#ucase(rereplace(d.preferred_name,"[ .,]",""))#',
+					        	'#ucase(rereplace(d.other_name_1,"[ .,]",""))#',
+					        	'#ucase(rereplace(d.other_name_2,"[ .,]",""))#',
+					        	'#ucase(rereplace(d.other_name_3,"[ .,]",""))#',
+					        	'#ucase(rereplace(d.first_name & d.middle_name & d.last_name,"[ .,]",""))#'
 					        )
 					      )
 					     )
