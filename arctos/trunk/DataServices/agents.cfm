@@ -353,6 +353,8 @@ sho err
 			        #key#
 			</cfquery>
 			
+			
+			<cfdump var="isdup">
 			<cfset oneLine = "">
 			<cfloop list="#autoColList#" index="c">
 				<cfset thisData = evaluate("d." & c)>
