@@ -285,6 +285,10 @@ sho err
 				<cfset fatalProblems='This application will not handle agents without letters in their name.'>
 			</cfif>
 			
+			<cfif len(d.preferred_name) contains " and " >
+				<cfset fatalProblems='This application will not handle agents with AND in their name.'>
+			</cfif>
+			
 			<cfif len(fatalProblems) gt 0>
 				<cfset oneLine = "">
 				<cfloop list="#autoColList#" index="c">
