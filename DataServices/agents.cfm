@@ -350,7 +350,7 @@ sho err
 					where 
 				        srch.agent_id=preferred_agent_name.agent_id and
 				        upper(regexp_replace(srch.agent_name,'[ .]', '')) in (
-				        	'#rereplace(d.preferred_name,'[ .]','')#'),
+				        	'#ucase(rereplace(d.preferred_name,'[ .]',''))#'),
 				        	'#d.other_name_1#'),
 				        	'#d.other_name_2#'),
 				        	'#d.other_name_3#')
@@ -359,9 +359,6 @@ sho err
 				    	preferred_agent_name.agent_id, 
 				        preferred_agent_name.agent_name,
 				        #key#
-				    union
-				    
-					upper(regexp_replace(agent_name,'[ .]', ''))		
 				</cfquery>
 				<cfif isdup.recordcount gt 0>
 					<cfdump var=#isdup#>
