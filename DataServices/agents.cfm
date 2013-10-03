@@ -333,7 +333,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 					</cfif>
 				</cfloop>
 			</cfif>
-			<br>--#refind(preferred_name,'[A-Z]{3,}')#---
+			<br>--#preferred_name#--#refind('[A-Z]{3,}',preferred_name)#---
 			<!--- try to avoid unnecessary acronyms --->
 			<cfif refind(preferred_name,'[A-Z]{3,}')>
 						<cfset fatalProblems='This application will not handle abbreviations and acronyms.'>
