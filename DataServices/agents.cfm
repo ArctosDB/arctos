@@ -276,8 +276,7 @@ sho err
 			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo2)>
 			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo3)>
 			
-			<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>
-			
+			<br>#strippedNamePermutations#
 			<cfset fatalProblems="">
 			<cfif strippedNamePermutations contains "'">
 				<cfset fatalProblem='This application will not handle agents with apostrophes in their name.'>
@@ -295,6 +294,11 @@ sho err
 				</p>
 				<cfabort>
 			</cfif>
+			
+			<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>
+			
+			
+			
 			<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select
 			        'agent name match' reason,
