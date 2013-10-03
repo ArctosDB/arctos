@@ -416,7 +416,7 @@ sho err
 		variables.joFileWriter.close();
 	</cfscript>
 	<cfif hasProbs is true>
-		<cfif session.roles contains "manage_codetables")>
+		<cfif session.roles contains "manage_codetables">
 			<div style="border:2px sold red;padding:1em;margin:1em;">
 				You have manage_codetables, which should mean that you are a member of the Arctos Advisory Committee.
 				<br>Click here to use your awesome powers to load these data as they are. 
