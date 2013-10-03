@@ -218,62 +218,9 @@ sho err
 		<cfabort>
 	</cfif>
 	
+	Scroll to the bottom of the table to continue.
 	
 	
-	
-	<hr>
-	If you made it this far, your data are in a more-or-less acceptable format. Congratulations!
-	
-	<p>
-		Once everything is ready, do one of <span style="text-decoration:line-through;">three</span> four things for each agent:
-		<ol>
-			<li>
-				Remove the alleged duplicate from your load file. Edit (if necessary) your data or the existing agent, or manually create an agent.
-				If you do manually create an agent because of something that happened here, there is a very high probability that a "not the same as"
-				relationship and a note explaining that relationship is necessary. Eliminating this step may result in inadvertent merger.
-			</li>
-			<li>Create a new agent by clicking the preferred name you uploaded. It's the one in [ square brackets ], and says 
-				"(new agent)" after it.
-			</li>
-			<li>Map your agent to an existing agent by clicking one of the suggest links. They're not in square brackets, and
-				say [info] after them. Clicking [info] will take you to the agent detail page, where you can also access
-				agent activity.
-			</li>
-			<li>Pick another existing agent by typing in the box and tabbing out, just like any other agent pick.</li>
-		</ol>		
-		Click Save to Arctos when you're done. You can actually click that anytime, and it will try to save what you've done.
-		However, if you then reload it can be hard to tell what's what. Proceed with extreme caution
-		if you must reload.
-	</p>
-	<p>
-		If you picked an existing agent, we'll try to add all of your names to that agent.
-		Your preferred name will be loaded as name type "aka". Attempting to load duplicate names to an agent will return
-		"unique constraint (UAM.IU_AGENTNAME_AGENTNAME_AID) violated" - it's usually safe to ignore those, since they just mean the 
-		name is already in Arctos.
-	</p>
-	<p>
-		Just do nothing if you decide to not use an agent that you've loaded here - for example, if you notice that it's 
-		mis-spelled. You can then either upload a revised file containing the corrected agent, or create the agent using other tools.
-		Don't forget to update your specimen records to reflect the changes.
-	</p>
-	<p>
-		If you chose to use your agent, we'll create an agent with all the names you supplied.
-	</p>
-	
-	<p>
-		Successfully saved records will contain nothing but a green message box in the MapToAgent column.
-		You must deal with anything else.
-	</p>
-	<p>
-		You can sort the table below by clicking on column headers.
-	</p>
-	<p>
-		Leading and trailing spaces are TRIMmed, but get them out of your data anyway.
-	</p>
-	<p>
-		Once everything has saved you can load specimen data using any of the names you loaded or, for pre-existing agents,
-		any name that they already had.
-	</p>
 	
 	<table border id="theTable" class="sortable">
 		<tr>
@@ -309,7 +256,7 @@ sho err
 		</cfscript>
 	
 	
-	
+		<cfset hasProbs=false>
 		<cfloop query="d">
 			<cfset strippedUpperFML=ucase(rereplace(d.first_name & d.middle_name & d.last_name,regexStripJunk,"","all"))>
 			<cfset strippedUpperFL=ucase(rereplace(d.first_name & d.last_name,regexStripJunk,"","all"))>
@@ -432,6 +379,7 @@ sho err
 				<td>#preferred_name#</td>
 				<td nowrap="nowrap" id="suggested__#key#">
 					<cfloop query="isdup">
+						<cfset hasProbs=true>
 						<div>
 							<a href="/agents.cfm?agent_id=#isdup.AGENT_ID#">#isdup.PREFERRED_AGENT_NAME#</a> (#isdup.REASON#)
 						</div>
@@ -467,11 +415,37 @@ sho err
 	<cfscript>	
 		variables.joFileWriter.close();
 	</cfscript>
+	<cfif hasProbs is true>
+		<cfif session.roles contains "manage_codetables")>
+			<div style="border:2px sold red;padding:1em;margin:1em;">
+				You have manage_codetables, which should mean that you are a member of the Arctos Advisory Committee.
+				<br>Click here to use your awesome powers to load these data as they are. 
+				<br>Be paranoid, please - these warnings still apply.
+			</div>
+		</cfif> 
+		<p>
+			Potential problems have been detected in your data, and you cannot use this form. If there are a few 
+			false alerts, you can enter those agents manually, delete them from your load file, and continue.
+		</p>
+		<p>
+			If there are many false alerts, send a DBA your data and an explanation of the problem.
+		</p>
+		<p>
+			If you manually create agents because of something that happened here, there is a very high probability that a "not the same as"
+				relationship and a note explaining that relationship is necessary. Eliminating this step may result in inadvertent merger.
+		</p>
+		<p>
+			Members of the Arctos Advisory Committee can override these restrictions.
+		</p>
+		<p>
+			<a href="/download/#fname#">Download CSV with suggestions</a>
+		</p>
+	<cfelse>
+		 No problems detected. Review the data one last time, then click here to create agents.
+	</cfif>
 	
 	
 	
-	
-		<a href="/download/#fname#">Download CSV with suggestions</a>
 
 </cfoutput>
 </cfif>

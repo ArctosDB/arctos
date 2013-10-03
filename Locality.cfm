@@ -1230,14 +1230,14 @@
 <cfif action is "deleteCollEvent">
 <cfoutput>
 	<cfquery name="isSpec" datasource="uam_god">
-		select collection_object_id from cataloged_item where collecting_event_id=#collecting_event_id#
+		select specimen_event_id from specimen_event where collecting_event_id=#collecting_event_id#
 	</cfquery>
-<cfif len(#isSpec.collection_object_id#) gt 0>
+<cfif len(#isSpec.specimen_event_id#) gt 0>
 	There are specimens for this collecting event. It cannot be deleted. If you can't see them, perhaps they aren't in
 	the collection list you've set in your preferences.
 	<br><a href="Locality.cfm?Action=editCollEvent&collecting_event_id=#collecting_event_id#">Return</a> to editing.
 	<cfabort>
-<cfelseif len(#isSpec.collection_object_id#) is 0>
+<cfelseif len(#isSpec.specimen_event_id#) is 0>
 	<cfquery name="deleCollEv" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	delete from collecting_event where collecting_event_id=#collecting_event_id#
 	</cfquery>
