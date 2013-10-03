@@ -219,7 +219,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 	</cfif>
 	
 	<cfset failedKeyList="">
-	Scroll to the bottom of the table to continue.
+	Click headers to sort. Scroll to the bottom of the table to continue.
 	
 	
 	
@@ -275,19 +275,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<cfset disallowPersons=disallowPersons & ",Sanctuary,Science,Seabird,Society,Study">
 		<cfset disallowPersons=disallowPersons & ",University">
 		<cfset disallowPersons=disallowPersons & ",Zoological,zoo">
-		
-		   U.W.
-		
-		
-		 
-		
-		ANP
-		
-		
-		
-		
-		
-		
+				
 		<!---- random list of things may be indicitave of garbage. Expect some false positives - sorray! ---->
 		<cfset disallowInAll=" and , or ,/,\,&">
 			
@@ -338,12 +326,6 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				<cfset fatalProblems='This application will not handle abbreviations and acronyms.'>
 			</cfif>
 
-
-			 
-			
-			
-			
-			
 			<cfif Compare(ucase(preferred_name), preferred_name) is 0 or Compare(lcase(preferred_name), preferred_name) is 0>
 				<cfset fatalProblems='This application will not preferred name being all upper or lower case.'>
 			</cfif>
@@ -369,10 +351,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 					variables.joFileWriter.writeLine(oneLine);
 				</cfscript>
 			<cfelse>
-				<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>
-				
-				
-				
+				<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>	
 				<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
 				        'agent name match' reason,
@@ -540,24 +519,34 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			</div>
 		</cfif> 
 		<p>
-			Potential problems have been detected in your data. You cannot use this form with these data. 
+			Potential problems have been detected in your data. You cannot use this form with these data. These should not be taken to mean
+			that anything is "wrong," simply that this application, which is built to avoid the introduction of low-quality data and 
+			duplicate agents, won't deal with them. You can create any name via "create agent," and members of the Arctos Advisory Committee can 
+			override these warnings.
 		</p>
 		<p>
-			If there are a few false alerts, you can enter those agents manually, delete them from your load file, and continue.
+			This application is not magic, it just looks for things that have caused problems that have occurred in the past. 
+			Be particularly careful of non-person agents (agencies often have many names and acronyms), commonly-changed names (William/Bill, etc.), and "low-quality" agents (J. Smith).
+		</p>
+		<p>
+			Consider using "unknown" for extremely vague agents. Is "Firstname" (or "Lastname" or initials or ....) somehow
+			 functionally more useful than "unknown"? This is always a Curatorial decision, but please consider if a person discovering
+			field notes, labels, or other information that clarify low-quality names would have used a different path or might have had a different result 
+			if coming from agent "unknown" (or, where allowable, simply NULL).
+		</p>
+		<p>
+			If there are a few false alerts, you can enter those agents manually, delete them from your load file, create manually as necessary, and continue.
 		</p>
 		<p>
 			If there are many false alerts, send a DBA your data and an explanation of the problem.
 		</p>
 		<p>
-			If you manually create agents because of something that happened here, there is a very high probability that a "not the same as"
+			If you manually create agents because of something that happened here, there is a high probability that a "not the same as"
 				relationship and a note explaining that relationship is necessary. Eliminating this step may result in inadvertent merger.
 		</p>
 		<p>
 			If you accept suggestions made here, be sure to update the data which uses agents to incorporate the existing spelling. Alternatively,
-			you may add agent_names to the existing agents.
-		</p>
-		<p>
-			Members of the Arctos Advisory Committee can override these restrictions.
+			you may add agent_names to the existing agents instead of altering your data.
 		</p>
 		<p>
 			<a href="/download/#fname#">Download CSV with suggestions</a>
