@@ -359,6 +359,53 @@ sho err
 				    	preferred_agent_name.agent_id, 
 				        preferred_agent_name.agent_name,
 				        #key#
+				    UNION
+					 select
+				        'nodots-nospaces match on person' reason,
+				    	#KEY# key,
+				        preferred_agent_name.agent_id, 
+				        preferred_agent_name.agent_name preferred_agent_name
+					from
+						person,
+						preferred_agent_name
+					where
+						person.person_id=preferred_agent_name.agent_id and
+						( 
+							upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'[ .]', '')) in (
+								'#ucase(rereplace(d.preferred_name,"[ .]",""))#',
+					        	'#ucase(rereplace(d.other_name_1,"[ .]",""))#',
+					        	'#ucase(rereplace(d.other_name_2,"[ .]",""))#',
+					        	'#ucase(rereplace(d.other_name_3,"[ .]",""))#'
+					     	) or (
+							upper(regexp_replace(srch.first_name || srch.last_name ,'[ .]', '')) in (
+								'#ucase(rereplace(d.preferred_name,"[ .]",""))#',
+					        	'#ucase(rereplace(d.other_name_1,"[ .]",""))#',
+					        	'#ucase(rereplace(d.other_name_2,"[ .]",""))#',
+					        	'#ucase(rereplace(d.other_name_3,"[ .]",""))#'
+					        )
+					      )
+					     )
+					select
+				        'nodots-nospaces match on person' reason,
+				        #KEY# key,
+				        preferred_agent_name.agent_id, 
+				        preferred_agent_name.agent_name preferred_agent_name
+					from 
+				        agent_name srch,
+				        preferred_agent_name
+					where 
+				        srch.agent_id=preferred_agent_name.agent_id and
+				        upper(regexp_replace(srch.agent_name,'[ .]', '')) in (
+				        	'#ucase(rereplace(d.preferred_name,"[ .]",""))#',
+				        	'#ucase(rereplace(d.other_name_1,"[ .]",""))#',
+				        	'#ucase(rereplace(d.other_name_2,"[ .]",""))#',
+				        	'#ucase(rereplace(d.other_name_3,"[ .]",""))#'
+				        )
+				    group by
+				    	preferred_agent_name.agent_id, 
+				        preferred_agent_name.agent_name,
+				        #key#
+				        
 				</cfquery>
 				
 				<!----
