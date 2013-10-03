@@ -26,8 +26,7 @@ create table ds_temp_agent (
 	);
 	
 	
-	alter table ds_temp_agent add  suggestions varchar2(4000);
-	alter table ds_temp_agent add admin_override number;
+	alter table ds_temp_agent add requires_admin_override number;
 	
 create public synonym ds_temp_agent for ds_temp_agent;
 grant all on ds_temp_agent to coldfusion_user;
@@ -218,6 +217,7 @@ sho err
 		<cfabort>
 	</cfif>
 	
+	<cfset failedKeyList="">
 	Scroll to the bottom of the table to continue.
 	
 	
@@ -372,14 +372,12 @@ sho err
 			<cfscript>
 				variables.joFileWriter.writeLine(oneLine);
 			</cfscript>
-	
-	
-	
 			<tr id="row_#key#">
 				<td>#preferred_name#</td>
 				<td nowrap="nowrap" id="suggested__#key#">
 					<cfloop query="isdup">
 						<cfset hasProbs=true>
+						<cfset failedKeyList=listappend(failedKeyList,key)
 						<div>
 							<a href="/agents.cfm?agent_id=#isdup.AGENT_ID#">#isdup.PREFERRED_AGENT_NAME#</a> (#isdup.REASON#)
 						</div>
@@ -415,17 +413,24 @@ sho err
 	<cfscript>	
 		variables.joFileWriter.close();
 	</cfscript>
+	
+	
 	<cfif hasProbs is true>
+		<cfquery name="fails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update ds_temp_agent set requires_admin_override=1 where key in (#failedKeyList#)
+		</cfquery>
 		<cfif session.roles contains "manage_codetables">
-			<div style="border:2px sold red;padding:1em;margin:1em;">
+			<div style="border:2px solid red;padding:1em;margin:1em;">
 				You have manage_codetables, which should mean that you are a member of the Arctos Advisory Committee.
 				<br>Click here to use your awesome powers to load these data as they are. 
 				<br>Be paranoid, please - these warnings still apply.
 			</div>
 		</cfif> 
 		<p>
-			Potential problems have been detected in your data, and you cannot use this form. If there are a few 
-			false alerts, you can enter those agents manually, delete them from your load file, and continue.
+			Potential problems have been detected in your data. You cannot use this form with these data. 
+		</p>
+		<p>
+			If there are a few false alerts, you can enter those agents manually, delete them from your load file, and continue.
 		</p>
 		<p>
 			If there are many false alerts, send a DBA your data and an explanation of the problem.
@@ -443,21 +448,161 @@ sho err
 	<cfelse>
 		 No problems detected. Review the data one last time, then click here to create agents.
 	</cfif>
-	
-	
-	
-
 </cfoutput>
 </cfif>
-<!----
+<cfif action is "loadData">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from ds_temp_agent
+		</cfquery>
+		<cfdump var=#d#>
+		
+			<cfquery name="requiresOverride" dbtype="query">
+				select count(*) c from d where requires_admin_override is not null
+			</cfquery>
+			<cfif requiresOverride.c is not 0>
+				<cfthrow detail = "unauthorized agent load" errorCode = "666"
+			    extendedInfo = "@agents.loadData with admin override required and no auth"
+			    message = "You are not allowed to be here.">
 
+			</cfif>
+			
+			
+			
+			
+		<cfif session.roles does not contain "manage_codetables">
+			<!---- doublecheck --->
+			<cfquery name="requiresOverride" dbtype="query">
+				select count(*) c from d where requires_admin_override is not null
+			</cfquery>
+			<cfif requiresOverride.c is not 0>
+				<cfthrow detail = "unauthorized agent load" errorCode = "666"
+			    extendedInfo = "@agents.loadData with admin override required and no auth"
+			    message = "You are not allowed to be here.">
 
-
-var n='<input type="text" name="name' + key + '" class="reqdClr"';
-					n+='onchange="getAgent(\'agentID_' + key + '\',\'name\',\'f\',this.value); return false;"';
-					n+='onKeyPress="return noenter(event);">';
-					n+='<input type="hidden" name="agentID_' + key + ' id="agentID_' + key + '">';
-					
-					---->
+			</cfif>
+		</cfif>
+	</cfoutput>
+	
+	<cfabort>
+	
+	
+	
+	
+		<cftransaction>
+				
+				<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select sq_agent_id.nextval nextAgentId from dual
+				</cfquery>
+				<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select sq_agent_name_id.nextval nextAgentNameId from dual
+				</cfquery>		
+				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO agent (
+						agent_id,
+						agent_type,
+						preferred_agent_name_id,
+						AGENT_REMARKS
+					) VALUES (
+						#agentID.nextAgentId#,
+						'person',
+						#agentNameID.nextAgentNameId#,
+						'#trim(d.agent_remark)#'
+						)
+				</cfquery>		
+				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO person ( 
+						PERSON_ID
+						,prefix
+						,LAST_NAME
+						,FIRST_NAME
+						,MIDDLE_NAME
+						,SUFFIX,
+						BIRTH_DATE,
+						DEATH_DATE
+					) VALUES (
+						#agentID.nextAgentId#
+						,'#trim(d.prefix)#'
+						,'#trim(d.LAST_NAME)#'
+						,'#trim(d.FIRST_NAME)#'
+						,'#trim(d.MIDDLE_NAME)#'
+						,'#trim(d.SUFFIX)#'
+						,'#trim(d.birth_date)#'
+						,'#trim(d.death_date)#'
+					)
+				</cfquery>
+				<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO agent_name (
+						agent_name_id,
+						agent_id,
+						agent_name_type,
+						agent_name,
+						donor_card_present_fg
+					) VALUES (
+						#agentNameID.nextAgentNameId#,
+						#agentID.nextAgentId#,
+						'preferred',
+						'#trim(d.preferred_name)#',
+						0
+					)
+				</cfquery>
+			<cftransaction action="commit"><!--- stoopid trigger workaround to have preferred name --->
+				<cfif len(d.other_name_1) gt 0>
+					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						INSERT INTO agent_name (
+							agent_name_id,
+							agent_id,
+							agent_name_type,
+							agent_name,
+							donor_card_present_fg
+						) VALUES (
+							sq_agent_name_id.nextval,
+							#agentID.nextAgentId#,
+							'#d.other_name_type_1#',
+							'#trim(d.other_name_1)#',
+							0
+						)
+					</cfquery>
+				</cfif>
+				<cfif len(d.other_name_2) gt 0>
+					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						INSERT INTO agent_name (
+							agent_name_id,
+							agent_id,
+							agent_name_type,
+							agent_name,
+							donor_card_present_fg
+						) VALUES (
+							sq_agent_name_id.nextval,
+							#agentID.nextAgentId#,
+							'#d.other_name_type_2#',
+							'#trim(d.other_name_2)#',
+							0
+						)
+					</cfquery>
+				</cfif>
+				<cfif len(d.other_name_3) gt 0>
+					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						INSERT INTO agent_name (
+							agent_name_id,
+							agent_id,
+							agent_name_type,
+							agent_name,
+							donor_card_present_fg
+						) VALUES (
+							sq_agent_name_id.nextval,
+							#agentID.nextAgentId#,
+							'#d.other_name_type_3#',
+							'#trim(d.other_name_3)#',
+							0
+						)
+					</cfquery>
+				</cfif>
+			</cftransaction>
+			
+			
+			
+			
+</cfif>
 
 <cfinclude template="/includes/_footer.cfm">
