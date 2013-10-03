@@ -462,15 +462,10 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 							preferred_agent_name
 						where
 							person.person_id=preferred_agent_name.agent_id and
-							upper(last_name) = trim(upper('#d.last_name#'))	
+							upper(last_name) = trim(upper('#d.last_name#'))
+						order by preferred_agent_name
 					</cfquery>
-
-					
 				</cfif>
-				
-				
-				
-				
 				<cfset oneLine = "">
 				<cfloop list="#autoColList#" index="c">
 					<cfset thisData = evaluate("d." & c)>
@@ -494,26 +489,26 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			<tr id="row_#key#">
 				<td>#preferred_name#</td>
 				<td nowrap="nowrap" id="suggested__#key#">
-					<cfif len(fatalProblems) gt 0>
-						FATAL PROBLEM: #fatalProblems#
-					<cfelseif lastnamematch.recordcount is not 0>
-						ADVISORY (not in download): Last name matches found.
-						<cfloop query="lastnamematch">
-							<div>
-								<a href="/agents.cfm?agent_id=#lastnamematch.AGENT_ID#">#lastnamematch.PREFERRED_AGENT_NAME#</a>
-							</div>
-						</cfloop>
-					<cfelse>
-						<cfloop query="isdup">
-							<cfset hasProbs=true>
-							<cfset failedKeyList=listappend(failedKeyList,key)>
-							<div>
-								<a href="/agents.cfm?agent_id=#isdup.AGENT_ID#">#isdup.PREFERRED_AGENT_NAME#</a> (#isdup.REASON#)
-							</div>
-						</cfloop>
-					</cfif>
-
-					
+					<div style="overflow:auto;max-height:10em;">
+						<cfif len(fatalProblems) gt 0>
+							FATAL PROBLEM: #fatalProblems#
+						<cfelseif lastnamematch.recordcount is not 0>
+							ADVISORY: Last name matches found.
+							<cfloop query="lastnamematch">
+								<div>
+									<a href="/agents.cfm?agent_id=#lastnamematch.AGENT_ID#">#lastnamematch.PREFERRED_AGENT_NAME#</a>
+								</div>
+							</cfloop>
+						<cfelse>
+							<cfloop query="isdup">
+								<cfset hasProbs=true>
+								<cfset failedKeyList=listappend(failedKeyList,key)>
+								<div>
+									<a href="/agents.cfm?agent_id=#isdup.AGENT_ID#">#isdup.PREFERRED_AGENT_NAME#</a> (#isdup.REASON#)
+								</div>
+							</cfloop>
+						</cfif>
+					</div>
 				</td>
 				<td>#first_name#&nbsp;</td>
 				<td>#middle_name#&nbsp;</td>
@@ -567,6 +562,23 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<p>
 			This application is not magic, it just looks for things that have caused problems that have occurred in the past. 
 			Be particularly careful of non-person agents (agencies often have many names and acronyms), commonly-changed names (William/Bill, etc.), and "low-quality" agents (J. Smith).
+		</p>
+		<p>
+			FATAL PROBLEM notes prevent proceeding and must be fixed before this application may be used. These are included in the CSV download.
+		</p>
+		<p>
+			Agent name suggestions must be fixed before this application may be used - these are "decent" guesses that demand 
+			more scrutiny. These are included in the CSV download.
+		</p>
+		<p>
+			Agent name guesses preceeded by "ADVISORY" do NOT prevent using this application, and are not included in downloads. Please do
+			check these agents carefully - this is a good place to detect first-name variations in both the data you are trying to load
+			and the data existing in Arctos. There will probably also be some very bad guesses included in this category - just ignore those.
+		</p>
+		<p>
+			Nothing in the "status" column should never be interpreted as "these data are perfect," but rather consider it an indication that 
+			the name may be horribly mangled either in your data or in existing Arctos data. This is especially true for prolific collectors and authors who
+			have donated specimens to or used specimens from multiple collections.
 		</p>
 		<p>
 			Consider using "unknown" for extremely vague agents. Is "Firstname" (or "Lastname" or initials or ....) somehow
