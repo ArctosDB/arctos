@@ -325,13 +325,12 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			
 			
 			
-			
+			<cfif Compare(ucase(preferred_name), preferred_name) is 0 or Compare(lcase(preferred_name), preferred_name) is 0>
+				<cfset fatalProblems='This application will not preferred name being all upper or lower case.'>
+			</cfif>
 
 			<cfif preferred_name does not contain " ">
 				<cfset fatalProblems='This application will not handle agents without a space in preferred name.'>
-			</cfif>
-			<cfif ucase(preferred_name) is preferred_name or lcase(preferred_name) is preferred_name>
-				<cfset fatalProblems='This application will not preferred name being all upper or lower case.'>
 			</cfif>
 			
 			<cfif len(fatalProblems) gt 0>
