@@ -25,6 +25,10 @@ create table ds_temp_agent (
 	agent_remark varchar2(4000)
 	);
 	
+	
+	alter table ds_temp_agent add  suggestions varchar2(4000);
+	alter table ds_temp_agent add admin_override number;
+	
 create public synonym ds_temp_agent for ds_temp_agent;
 grant all on ds_temp_agent to coldfusion_user;
 grant select on ds_temp_agent to public;
@@ -220,13 +224,6 @@ sho err
 	<hr>
 	If you made it this far, your data are in a more-or-less acceptable format. Congratulations!
 	
-	<br>There is a bunch of JavaScript off looking for likely agent matches. Give it some time to run - maybe while reading these
-	instructions. It'll take a while, and your page will bounce around while it's doing it's thing.
-	
-	<br>You might need to split your load up into smaller batches, depending on your computer and how many
-	suggestions we have. There is no fixed record limit, and at least several thousand agents are possible with lots of RAM.
-	However, it's best to deal with a batch all at once, and the app gets smarter with every agent that's loaded. So, a duplicate that
-	might be missed in one big batch is likely to be detected as part of several smaller runs.
 	<p>
 		Once everything is ready, do one of <span style="text-decoration:line-through;">three</span> four things for each agent:
 		<ol>
@@ -296,6 +293,23 @@ sho err
 			<th>Remark</th>
 		</tr>
 		<cfset regexStripJunk='[ .,-]'>
+		
+		
+		<cfset fileDir = "#Application.webDirectory#">
+		<cfset variables.encoding="UTF-8">
+		<cfset fname = "agent_bulk_down.csv">
+		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+		
+		<cfset clist='agent_type,preferred_name,first_name,middle_name,last_name,birth_date,death_date,prefix,suffix,other_name_1,other_name_type_1,other_name_2,other_name_type_2,other_name_3,other_name_type_3,agent_remark,suggestions'>
+		
+	
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine(ListQualify(clist,'"')); 
+		</cfscript>
+	
+	
+	
 		<cfloop query="d">
 			<cfset strippedUpperFML=ucase(rereplace(d.first_name & d.middle_name & d.last_name,regexStripJunk,"","all"))>
 			<cfset strippedUpperFL=ucase(rereplace(d.first_name & d.last_name,regexStripJunk,"","all"))>
@@ -391,6 +405,27 @@ sho err
 			        preferred_agent_name.agent_name,
 			        #key#
 			</cfquery>
+			
+			<cfset oneLine = "">
+			<cfset autoColList=listdeleteat(listfindnocase(clist,'suggestions'))>
+			<cfloop list="#autoColList#" index="c">
+				<cfset thisData = evaluate("d." & c)>
+				<cfset thisData=replace(thisData,'"','""','all')>
+				<cfif len(oneLine) is 0>
+					<cfset oneLine = '"#thisData#"'>
+				<cfelse>
+					<cfset oneLine = '#oneLine#,"#thisData#"'>
+				</cfif>
+			</cfloop>
+			<cfset sugnConcat=replace(valuelist(isdup.PREFERRED_AGENT_NAME),'"','""','all')>
+			<cfset oneLine=oneLine & ',"#sugnConcat#"'>
+			<cfset oneLine = trim(oneLine)>
+			<cfscript>
+				variables.joFileWriter.writeLine(oneLine);
+			</cfscript>
+	
+	
+	
 			<tr id="row_#key#">
 				<td>#preferred_name#</td>
 				<td nowrap="nowrap" id="suggested__#key#">
@@ -427,6 +462,15 @@ sho err
 			</tr>
 		</cfloop>
 	</table>
+	<cfscript>	
+		variables.joFileWriter.close();
+	</cfscript>
+	
+	
+	
+	
+		<a href="/download/#fname#">Download CSV with suggestions</a>
+
 </cfoutput>
 </cfif>
 <!----
