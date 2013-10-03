@@ -393,10 +393,10 @@ sho err
 				        preferred_agent_name.agent_id, 
 				        preferred_agent_name.agent_name preferred_agent_name
 					from
-						person,
+						person srch,
 						preferred_agent_name
 					where
-						person.person_id=preferred_agent_name.agent_id and
+						srch.person_id=preferred_agent_name.agent_id and
 						( 
 							upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'[ .]', '')) in (
 								'#ucase(rereplace(d.preferred_name,"[ .]",""))#',
