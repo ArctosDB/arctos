@@ -423,7 +423,7 @@ sho err
 			<div style="border:2px solid red;padding:1em;margin:1em;">
 				You have manage_codetables, which should mean that you are a member of the Arctos Advisory Committee.
 				<br>Click <a href="agents.cfm?action=loadData">here</a> to use your awesome powers to load these data as they are. 
-				<br>Be paranoid, please - these warnings still apply.
+				<br>Be paranoid. Carefully review the suggestions in the table above before continuing.
 			</div>
 		</cfif> 
 		<p>
@@ -471,6 +471,7 @@ sho err
 	</cfoutput>
 	<cftransaction>
 		<cfloop query="d">
+			<br>loading #preferred_name#....
 			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select sq_agent_id.nextval nextAgentId from dual
 			</cfquery>
@@ -580,6 +581,8 @@ sho err
 			</cfif>
 		</cfloop>
 	</cftransaction>
-	everything loaded		
+	<p>
+		everything loaded
+	</p>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
