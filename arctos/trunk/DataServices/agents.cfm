@@ -288,7 +288,7 @@ sho err
 			
 			<cfif len(fatalProblem) gt 0>
 				<p>
-					A fatal exception has occurred. Remove the offending line from your data and try again.
+					A fatal exception has occurred with #preferred_name#. Remove the offending line from your data and try again.
 				</p>
 				<p>
 					#fatalProblem#
