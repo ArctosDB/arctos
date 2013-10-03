@@ -304,7 +304,7 @@ sho err
 				<td nowrap="nowrap" id="suggested__#key#">
 				
 				
-				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
 				        #KEY# key,
 				        preferred_agent_name.agent_id, 
@@ -337,8 +337,9 @@ sho err
 						upper(first_name) = trim(upper('#d.first_name#')) and
 						upper(last_name) = trim(upper('#d.last_name#'))			
 				</cfquery>
-				<cfdump var=#result#>
-	
+				<cfif isdup.recordcount gt 0>
+					<cfdump var=#isdup#>
+				</cfif>	
 	
 					<label for="">Map To Agent</label>
 					<input type="text" name="name_#key#" id="name_#key#" class="reqdClr" 
