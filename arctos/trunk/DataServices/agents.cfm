@@ -449,7 +449,24 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				        preferred_agent_name.agent_name,
 				        #key#
 				</cfquery>
-				
+				<cfif isdup.recordcount is 0>
+					<!--- try last-name match --->
+					<cfquery name="lastnamematch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select
+					    	'last name match' reason,
+					    	#KEY# key,
+					        preferred_agent_name.agent_id, 
+					        preferred_agent_name.agent_name preferred_agent_name
+						from
+							person,
+							preferred_agent_name
+						where
+							person.person_id=preferred_agent_name.agent_id and
+							upper(last_name) = trim(upper('#d.last_name#'))	
+					</cfquery>
+
+					
+				</cfif>
 				
 				
 				
@@ -487,6 +504,14 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 								<a href="/agents.cfm?agent_id=#isdup.AGENT_ID#">#isdup.PREFERRED_AGENT_NAME#</a> (#isdup.REASON#)
 							</div>
 						</cfloop>
+					<cfelseif lastnamematch.recordcount is not 0>
+						ADVISORY (not in download): Last name matches found.
+						<cfloop query="lastnamematch">
+							<div>
+								<a href="/agents.cfm?agent_id=#lastnamematch.AGENT_ID#">#lastnamematch.PREFERRED_AGENT_NAME#</a>
+							</div>
+						</cfloop>
+					
 					</cfif>
 
 					
