@@ -377,7 +377,7 @@ sho err
 				<td nowrap="nowrap" id="suggested__#key#">
 					<cfloop query="isdup">
 						<cfset hasProbs=true>
-						<cfset failedKeyList=listappend(failedKeyList,key)
+						<cfset failedKeyList=listappend(failedKeyList,key)>
 						<div>
 							<a href="/agents.cfm?agent_id=#isdup.AGENT_ID#">#isdup.PREFERRED_AGENT_NAME#</a> (#isdup.REASON#)
 						</div>
