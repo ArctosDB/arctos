@@ -261,7 +261,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		
 		<!---- random list of things that people have loaded as persons. Expect some false positives - sorray! ---->
 		<cfset disallowPersons="Animal">
-		<cfset disallowPersons=disallowPersons & ",Class,cat">
+		<cfset disallowPersons=disallowPersons & ",Class">
 		<cfset disallowPersons=disallowPersons & ",Ecology">
 		<cfset disallowPersons=disallowPersons & ",Group,Growth">
 		<cfset disallowPersons=disallowPersons & ",Hospital">
@@ -277,7 +277,8 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<cfset disallowPersons=disallowPersons & ",Zoological,zoo">
 				
 		<!---- random list of things may be indicitave of garbage. Expect some false positives - sorray! ---->
-		<cfset disallowInAll=" and , or ,/,\,&">
+		<cfset disallowWords="and,or,cat">
+		<cfset disallowCharacters="/,\,&">
 			
 			
 		<cfloop query="d">
@@ -308,11 +309,21 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				<cfset fatalProblems='This application will not handle agents without letters in their name.'>
 			</cfif>
 			
-			<cfloop list="#disallowInAll#" index="i">
+			<cfloop list="#disallowCharacters#" index="i">
 				<cfif preferred_name contains i>
 					<cfset fatalProblems='This application will not handle agents with #i# in their name.'>
 				</cfif>
 			</cfloop>
+			
+			<cfloop list="#disallowWords#" index="i">
+				<cfif listfind(preferred_name,i," ;,.")i>
+					<cfset fatalProblems='This application will not handle agents with #i# in their name.'>
+				</cfif>
+			</cfloop>
+			
+			
+			
+			
 			
 			<cfif agent_type is "person">
 				<cfloop list="#disallowPersons#" index="i">
