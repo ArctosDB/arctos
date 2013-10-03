@@ -312,10 +312,9 @@ sho err
 					person.person_id=preferred_agent_name.agent_id and
 					upper(first_name) = trim(upper('#d.first_name#')) and
 					upper(last_name) = trim(upper('#d.last_name#'))	
-				UNION
-				
+				union 
 				 select
-			        'nodots-nospaces match on person' reason,
+			        'nodots-nospaces match on person first middle last' reason,
 			    	#KEY# key,
 			        preferred_agent_name.agent_id, 
 			        preferred_agent_name.agent_name preferred_agent_name
@@ -324,14 +323,22 @@ sho err
 					preferred_agent_name
 				where
 					srch.person_id=preferred_agent_name.agent_id and
-					( 
-						upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'#regexStripJunk#', '')) in (
-							#preserveSingleQuotes(strippedNamePermutations)#
-				     	) or (
-						upper(regexp_replace(srch.first_name || srch.last_name ,'#regexStripJunk#', '')) in (
-							#preserveSingleQuotes(strippedNamePermutations)#
-				        )
-				      )
+					upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'#regexStripJunk#', '')) in (
+						#preserveSingleQuotes(strippedNamePermutations)#
+				     )
+				union 
+				 select
+			        'nodots-nospaces match on person first last' reason,
+			    	#KEY# key,
+			        preferred_agent_name.agent_id, 
+			        preferred_agent_name.agent_name preferred_agent_name
+				from
+					person srch,
+					preferred_agent_name
+				where
+					srch.person_id=preferred_agent_name.agent_id and
+					upper(regexp_replace(srch.first_name || srch.last_name ,'#regexStripJunk#', '')) in (
+						#preserveSingleQuotes(strippedNamePermutations)#
 				     )
 				 UNION
 			    select
