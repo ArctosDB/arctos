@@ -1244,15 +1244,15 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND specimen_event.collecting_event_id IN ( #collecting_event_id# )">
 </cfif>
-<cfif isdefined("collecting_event_remarks") AND len(collecting_event_remarks) gt 0>
-	<cfset mapurl = "#mapurl#&collecting_event_remarks=#collecting_event_remarks#">
+<cfif isdefined("coll_event_remarks") AND len(coll_event_remarks) gt 0>
+	<cfset mapurl = "#mapurl#&coll_event_remarks=#coll_event_remarks#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
 	</cfif>
 	<cfif basJoin does not contain " collecting_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND upper(collecting_event.collecting_event_remarks) like '%#ucase(collecting_event_remarks)#%'">
+	<cfset basQual = " #basQual# AND upper(collecting_event.collecting_event_remarks) like '%#ucase(coll_event_remarks)#%'">
 </cfif>
 <cfif isdefined("verificationstatus") AND len(verificationstatus) gt 0>
 	<cfset mapurl = "#mapurl#&verificationstatus=#verificationstatus#">
