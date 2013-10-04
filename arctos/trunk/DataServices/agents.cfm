@@ -574,6 +574,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			Agent name guesses preceeded by "ADVISORY" do NOT prevent using this application, and are not included in downloads. Please do
 			check these agents carefully - this is a good place to detect first-name variations in both the data you are trying to load
 			and the data existing in Arctos. There will probably also be some very bad guesses included in this category - just ignore those.
+			Change your data or update the agent in Arctos to use these suggestions.
 		</p>
 		<p>
 			Nothing in the "status" column should never be interpreted as "these data are perfect," but rather consider it an indication that 
