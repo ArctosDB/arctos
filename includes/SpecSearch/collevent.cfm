@@ -230,5 +230,14 @@
 			<span class="infoLink" onclick="var e=document.getElementById('verbatim_locality');e.value='='+e.value;">Add = for exact match</span>
 		</td>
 	</tr>
+	
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_collecting_event_remarks">Collecting Event Remark:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="collecting_event_remarks" id="collecting_event_remarks" size="50">
+		</td>
+	</tr>
 </table>
 </cfoutput>
