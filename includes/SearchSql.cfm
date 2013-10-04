@@ -1252,7 +1252,7 @@
 	<cfif basJoin does not contain " collecting_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND upper(collecting_event.collecting_event_remarks) like '%#ucase(coll_event_remarks)#%'">
+	<cfset basQual = " #basQual# AND upper(collecting_event.coll_event_remarks) like '%#ucase(coll_event_remarks)#%'">
 </cfif>
 <cfif isdefined("verificationstatus") AND len(verificationstatus) gt 0>
 	<cfset mapurl = "#mapurl#&verificationstatus=#verificationstatus#">
