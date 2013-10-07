@@ -140,7 +140,7 @@
 		<cfelseif  scientific_name contains " or ">
 			<cfset theSplit=find(" or ",scientific_name)>
 			<cfset thisName1=left(scientific_name,theSplit-1)>
-			<cfset thisName2=replace(scientific_name,"#thisName1# or ","","all")>
+			<cfset thisName2=replace(scientific_name,"#thisName1# or ","","first")>
 			<cfset formula="A or B">
 			<cfset sql="SELECT 
 					a.scientific_name || ' or ' || b.scientific_name scientific_name
@@ -154,7 +154,7 @@
 		<cfelseif  scientific_name contains " and ">
 			<cfset theSplit=find(" and ",scientific_name)>
 			<cfset thisName1=left(scientific_name,theSplit-1)>
-			<cfset thisName2=replace(scientific_name,"#thisName1# and ","","all")>
+			<cfset thisName2=replace(scientific_name,"#thisName1# and ","","first")>
 			<cfset formula="A and B">
 			<cfset sql="SELECT 
 					a.scientific_name || ' and ' || b.scientific_name scientific_name
@@ -168,7 +168,7 @@
 		<cfelseif  scientific_name contains "{" and scientific_name contains "}">
 			<cfset theSplit=find("{",scientific_name)>
 			<cfset thisName=left(scientific_name,theSplit-2)>
-			<cfset theString=trim(replace(scientific_name,thisName,"","all"))>
+			<cfset theString=trim(replace(scientific_name,thisName,"","first"))>
 			<br>thisName-#thisName#-
 			<br>theString-#theString#-
 			<cfset formula="A {string}">
