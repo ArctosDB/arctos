@@ -208,9 +208,33 @@
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#PreserveSingleQuotes(sql)#
 		</cfquery>
+		
+		<cfdump var=#getTaxa#>
+	
+	
+	<cfif getTaxa.recordcount is 0>
+						Nothing matched #scientific_name#. <a href="javascript:void(0);" onClick="opener.document.#formName#.#taxonIdFld#.value='';opener.document.#formName#.#taxonNameFld#.value='';opener.document.#formName#.#taxonNameFld#.focus();self.close();">Try again.</a>
+<cfabort>
+	</cfif>
+		<cfloop query="getTaxa">
+			<cfif formula is "A">
+				<div>
+					#scientific_name#
+				</div>
+			<cfelseif formula is "A sp.">
+				<div>
+					#scientific_name# sp.
+				</div>
+			
+			</cfif>
+	
+		</cfloop>
+		
+		
+		
+
 	</cfoutput>
 	
-	<cfdump var=#getTaxa#>
 	
 	<!----------
 	<cfif getTaxa.recordcount is 1>
