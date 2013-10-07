@@ -1127,6 +1127,15 @@ var scientificName;
 var popurl=url+"?taxonIdFld="+taxonIdFld+"&taxonNameFld="+taxonNameFld+"&formName="+formName+"&scientific_name="+scientificName;
 taxapick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
+function taxaPickIdentification(taxonIdFld,taxonNameFld,formName,scientificName){
+	var url="/picks/TaxaPickIdentification.cfm";
+	var taxonIdFld;
+	var taxonNameFld;
+	var formName;
+	var scientificName;
+	var popurl=url+"?taxonIdFld="+taxonIdFld+"&taxonNameFld="+taxonNameFld+"&formName="+formName+"&scientific_name="+scientificName;
+	taxapick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
+	}
 function CatItemPick(collIdFld,catNumFld,formName,sciNameFld){
 	var url="/picks/CatalogedItemPick.cfm";
 	var collIdFld;
