@@ -139,17 +139,8 @@
 				  		scientific_name">
 		<cfelseif  scientific_name contains " or ">
 			<cfset theSplit=find(" or ",scientific_name)>
-			<p>
-			theSplit: #theSplit#
-			</p>
 			<cfset thisName1=left(scientific_name,theSplit-1)>
 			<cfset thisName2=replace(scientific_name,"#thisName1# or ","","all")>
-				<p>
-			thisName1: -#thisName1#-
-			</p>
-				<p>
-			thisName2: -#thisName2#-
-			</p>
 			<cfset formula="A or B">
 			<cfset sql="SELECT 
 					a.scientific_name || ' or ' || b.scientific_name scientific_name
@@ -161,13 +152,28 @@
 					UPPER(b.scientific_name) = '#ucase(thisName2)#'
 			">
 		<cfelseif  scientific_name contains " and ">
-			<cfset thisName=left(scientific_name,len(scientific_name)-2)>
-			<cfset formula="A ?">
-			<cfset nospacefilter=false>
+			<cfset theSplit=find(" and ",scientific_name)>
+			<cfset thisName1=left(scientific_name,theSplit-1)>
+			<cfset thisName2=replace(scientific_name,"#thisName1# and ","","all")>
+			<cfset formula="A and B">
+			<cfset sql="SELECT 
+					a.scientific_name || ' and ' || b.scientific_name scientific_name
+				from 
+					taxon_name a,
+					taxon_name b
+				where
+					UPPER(a.scientific_name) = '#ucase(thisName1)#' and
+					UPPER(b.scientific_name) = '#ucase(thisName2)#'
+			">
 		<cfelseif  scientific_name contains "{" and scientific_name contains "}">
+			<cfset theSplit=find("{",scientific_name)>
+			<cfset taxonName=left(scientific_name,theSplit-1)>
+			<cfset theString=replace(scientific_name,taxonName,"","all")>
+			<br>taxonName-#taxonName#-
+			<br>theString-#theString#-
 			<cfset thisName=left(scientific_name,len(scientific_name)-2)>
-			<cfset formula="A ?">
-			<cfset nospacefilter=false>
+			<cfset formula="A {string}">
+			
 		<cfelse>
 			<!--- formula A --->
 			<cfset thisName=scientific_name>
