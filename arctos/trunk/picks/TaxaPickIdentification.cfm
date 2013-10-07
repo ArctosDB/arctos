@@ -129,7 +129,7 @@
 				<br>Namestring IS: #thisName#
 			</div>
 			<cfset sql="SELECT 
-					scientific_name || ' sp.'
+					scientific_name || ' sp.' scientific_name
 				from 
 					taxon_name
 				where
