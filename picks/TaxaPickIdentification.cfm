@@ -103,9 +103,12 @@
 		<cfif right(scientific_name,4) is " sp.">
 			<cfset thisName=left(scientific_name,len(scientific_name)-4)>
 			<cfset formula="A sp.">
+			<div id="srchingFor">
+				formula: #formula#
+				<br>Namestring: #thisName#
+			</div>
 			<cfset sql="SELECT 
-					scientific_name, 
-					taxon_name_id
+					scientific_name || ' sp.'
 				from 
 					taxon_name
 				where
@@ -116,6 +119,10 @@
 		<cfelseif  right(scientific_name,4) is " cf.">
 			<cfset thisName=left(scientific_name,len(scientific_name)-4)>
 			<cfset formula="A cf.">
+			<div id="srchingFor">
+				formula: #formula#
+				<br>Namestring: #thisName#
+			</div>
 			<cfset sql="SELECT 
 					scientific_name, 
 					taxon_name_id
@@ -128,6 +135,10 @@
 		<cfelseif  right(scientific_name,2) is " ?">
 			<cfset thisName=left(scientific_name,len(scientific_name)-2)>
 			<cfset formula="A ?">
+			<div id="srchingFor">
+				formula: #formula#
+				<br>Namestring: #thisName#
+			</div>
 			<cfset sql="SELECT 
 					scientific_name, 
 					taxon_name_id
@@ -142,6 +153,11 @@
 			<cfset thisName1=left(scientific_name,theSplit-1)>
 			<cfset thisName2=replace(scientific_name,"#thisName1# or ","","first")>
 			<cfset formula="A or B">
+			<div id="srchingFor">
+				formula: #formula#
+				<br>Namestring1: #thisName1#
+				<br>Namestring2: #thisName2#
+			</div>
 			<cfset sql="SELECT 
 					a.scientific_name || ' or ' || b.scientific_name scientific_name
 				from 
@@ -156,6 +172,11 @@
 			<cfset thisName1=left(scientific_name,theSplit-1)>
 			<cfset thisName2=replace(scientific_name,"#thisName1# and ","","first")>
 			<cfset formula="A and B">
+			<div id="srchingFor">
+				formula: #formula#
+				<br>Namestring1: #thisName1#
+				<br>Namestring2: #thisName2#
+			</div>
 			<cfset sql="SELECT 
 					a.scientific_name || ' and ' || b.scientific_name scientific_name
 				from 
@@ -169,9 +190,11 @@
 			<cfset theSplit=find("{",scientific_name)>
 			<cfset thisName=left(scientific_name,theSplit-2)>
 			<cfset theString=trim(replace(scientific_name,thisName,"","first"))>
-			<br>thisName-#thisName#-
-			<br>theString-#theString#-
 			<cfset formula="A {string}">
+			<div id="srchingFor">
+				formula: #formula#
+				<br>Namestring: #thisName#
+			</div>
 			<cfset sql="SELECT 
 					scientific_name || ' #theString#' scientific_name
 				from 
@@ -184,10 +207,13 @@
 			<!--- formula A --->
 			<cfset thisName=scientific_name>
 			<cfset formula="A">
+			<div id="srchingFor">
+				formula: #formula#
+				<br>Namestring: #thisName#
+			</div>
 			<cfif taxaPickPrefs is "anyterm">
 				<cfset sql="SELECT 
-					scientific_name, 
-					taxon_name_id
+					scientific_name
 				from 
 					taxon_name
 				where
@@ -198,8 +224,7 @@
 				<!--- VPD limits users to seeing only their collections, so just make the joins --->
 				<cfset sql="select scientific_name,taxon_name_id from (
 					SELECT 
-						taxon_name.scientific_name, 
-						taxon_name.taxon_name_id
+						taxon_name.scientific_name
 					from 
 						taxon_name,
 						identification_taxonomy,
@@ -212,16 +237,14 @@
 						UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
 					) 
 					group by 
-						scientific_name,
-						taxon_name_id
+						scientific_name
 					order by
 				  		scientific_name">
 			<cfelseif taxaPickPrefs is "mycollections">
 				<!--- VPD limits users to seeing only their collections, so just make the joins --->
-				<cfset sql="select scientific_name,taxon_name_id from (
+				<cfset sql="select scientific_name from (
 					SELECT 
-				 		taxon_name.scientific_name, 
-				  		taxon_name.taxon_name_id
+				 		taxon_name.scientific_name
 					from 
 				  		taxon_name,
 				  		taxon_term,
@@ -232,23 +255,20 @@
 				  		UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
 				  	) 
 				  	group by 
-				  		scientific_name, 
-				  		taxon_name_id
+				  		scientific_name
 				  	order by
 				  		scientific_name">
 			<cfelseif taxaPickPrefs is "relatedterm">
 				<cfset sql="select * from (
 					SELECT 
-						scientific_name, 
-						taxon_name_id
+						scientific_name
 					from 
 						taxon_name
 					where
 						UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
 					UNION
 					SELECT 
-						a.scientific_name, 
-						a.taxon_name_id
+						a.scientific_name
 					from 
 						taxon_name a,
 						taxon_relations,
@@ -259,8 +279,7 @@
 						UPPER(B.scientific_name) LIKE '#ucase(thisName)#%'
 					UNION
 					SELECT 
-						b.scientific_name, 
-						b.taxon_name_id
+						b.scientific_name
 					from 
 						taxon_name a,
 						taxon_relations,
@@ -270,11 +289,8 @@
 						taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
 						UPPER(a.scientific_name) LIKE '#ucase(thisName)#%'
 				)
-				where 
-					taxon_name_id is not null
 				group by
-					scientific_name,
-					taxon_name_id
+					scientific_name
 				ORDER BY 
 					scientific_name
 			">
