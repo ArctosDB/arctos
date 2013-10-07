@@ -13,6 +13,14 @@
 				}
 			);
 		}
+
+function scrollToAnchor(aid){
+    var aTag = $("a[name='"+ aid +"']");
+    $('html,body').animate({scrollTop: aTag.offset().top},'slow');
+}
+
+
+
 		function goExample(term) {
 			$("#scientific_name").val(term);
 			$("#blockAutoSubmit").val('true');
@@ -318,7 +326,7 @@
 		
 		
 
-		
+		<a name="results"></a>
 		
 		
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -333,6 +341,8 @@
 				
 jQuery(document).ready(function() {
 	showFormulaHelp();
+scrollToAnchor('results');
+
 });
 			</script>
 		</cfif>
