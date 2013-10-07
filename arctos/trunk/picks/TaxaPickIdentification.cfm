@@ -86,7 +86,12 @@
 			<cfset thisName=scientific_name>
 			<cfset formula="A">
 		</cfif>
-		
+		<p>
+			thisName: #thisName#
+		</p>
+		<p>
+			formula: #formula#
+		</p>
 		<cfif taxaPickPrefs is "anyterm">
 			<cfset sql="SELECT 
 				scientific_name, 
