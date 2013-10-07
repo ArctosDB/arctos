@@ -168,11 +168,17 @@
 		<cfelseif  scientific_name contains "{" and scientific_name contains "}">
 			<cfset theSplit=find("{",scientific_name)>
 			<cfset taxonName=left(scientific_name,theSplit-2)>
-			<cfset theString=replace(scientific_name,taxonName,"","all")>
+			<cfset theString=trim(replace(scientific_name,taxonName,"","all"))>
 			<br>taxonName-#taxonName#-
 			<br>theString-#theString#-
-			<cfset thisName=left(scientific_name,len(scientific_name)-2)>
 			<cfset formula="A {string}">
+			<cfset sql="SELECT 
+					scientific_name || ' #theString#' scientific_name
+				from 
+					taxon_name
+				where
+					UPPER(scientific_name) = '#ucase(thisName1)#'
+			">
 			
 		<cfelse>
 			<!--- formula A --->
