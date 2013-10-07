@@ -106,7 +106,7 @@
 			<input type="hidden" name="formName" value="#formName#">
 			<input type="hidden" name="taxonIdFld" value="#taxonIdFld#">
 			<input type="hidden" name="taxonNameFld" value="#taxonNameFld#">
-			<input type="hidden" name="blockAutoSubmit" value="false">
+			<input type="hidden" id="blockAutoSubmit" name="blockAutoSubmit" value="false">
 			<label for="scientific_name">Scientific Name (STARTS WITH)</label>
 			<input type="text" name="scientific_name" id="scientific_name" size="50" value="#scientific_name#">
 			<label for="taxaPickPrefs">Filter Results by...</label>
