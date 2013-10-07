@@ -80,7 +80,7 @@
 			<cfabort>
 		</cfif>
 		<cfif right(scientific_name,4) is " sp.">
-			<cfset thisName=left(scientific_name,len(scientific_name)-1)>
+			<cfset thisName=left(scientific_name,len(scientific_name)-4)>
 			<cfset formula="A sp.">
 		<cfelse>
 			<cfset thisName=scientific_name>
