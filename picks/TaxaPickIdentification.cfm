@@ -315,26 +315,9 @@
 <cfabort>
 	</cfif>
 		<cfloop query="getTaxa">
-			<cfif formula is "A">
 				<div>
 					#scientific_name#
 				</div>
-			<cfelseif formula is "A sp.">
-				<div>
-					#scientific_name# sp.
-				</div>
-			<cfelseif formula is "A cf.">
-				<div>
-					#scientific_name# cf.
-				</div>
-			<cfelseif formula is "A ?">
-				<div>
-					#scientific_name# ?
-				</div>
-			
-			<cfelse>
-				<div>wut??</div>
-			</cfif>
 	
 		</cfloop>
 		
