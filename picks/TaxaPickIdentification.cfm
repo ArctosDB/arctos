@@ -129,7 +129,7 @@
 				from 
 					taxon_name
 				where
-					UPPER(scientific_name) LIKE '#ucase(thisName)#%'
+					UPPER(scientific_name) LIKE '#ucase(thisName)#'
 				order by
 				  		scientific_name">
 		<cfelseif  right(scientific_name,2) is " ?">
