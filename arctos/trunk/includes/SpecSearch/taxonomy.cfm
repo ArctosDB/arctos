@@ -71,7 +71,7 @@
 			<span class="helpLink" id="_taxon_name">Taxon Name:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="any taxon term; any classification + related taxa">
+			<input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="any taxon name; any classification + related taxa">
 		</td>
 	</tr>
 	<tr>
@@ -207,6 +207,7 @@
 			<input type="text" name="species" id="species" size="50" placeholder="Collection's classification">
 			<span class="infoLink" onclick="var e=document.getElementById('species');e.value='='+e.value;">[ exact ]</span>
 			<span class="infoLink" onclick="var e=document.getElementById('species');e.value='NULL';">[ NULL ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('species');e.value='NOTNULL';">[ NOTNULL ]</span>
 			<span class="infoLink" onclick="var e=document.getElementById('species');e.value='!'+e.value;">[ NOT ]</span>
 		</td>
 	</tr>

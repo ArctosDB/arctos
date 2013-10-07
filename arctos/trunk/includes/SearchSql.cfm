@@ -1067,6 +1067,8 @@
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.species) != '#ucase(right(species,len(species)-1))#'">
 	<cfelseif compare(species,"NULL") is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.species is NULL">
+	<cfelseif compare(species,"NOTNULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.species is not NULL">
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.species) like '%#ucase(species)#%'">
 	</cfif>
