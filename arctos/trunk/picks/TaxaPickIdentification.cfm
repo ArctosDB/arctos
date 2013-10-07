@@ -13,13 +13,51 @@
 				}
 			);
 		}
+		function goExample(term) {
+			$("#scientific_name").val(term);
+			$("#s").submit();
+		}
 	</script>
 	<cfoutput>
+	
+		<div id="formulaHelp">
+			This form will accept the following formulaic taxonomy.
+			<li>
+				<ul>
+					<li>
+						Formula "A": An exact match to any accepted taxonomy.scientific_name. Just type the taxon name; it's here or it isn't. Examples:
+						<ul>
+							<li><span class="likeLine" onclick="goExample('Sorex cinereus')">Sorex cinereus</span></li>
+							<li><span class="likeLine" onclick="goExample('Soricidae')">Soricidae</span></li>
+						</ul>
+        
+        
+					</li>
+				</ul>
+			</li>
+    Formula “A”: An exact match to any accepted taxonomy.scientific_name
+        Sorex cinereus
+        Soricidae
+    Formula “A sp.”: Any accepted taxonomy.scientific_name where scientific name is also genus plus ” sp.”
+        Sorex sp.
+    Formula “A cf.”: Any accepted taxonomy.scientific_name plus ” cf.”
+        Sorex cf.
+    Formula “A ?”: Any accepted taxonomy.scientific_name plus ” ?”
+        Sorex ?
+    Formula “A x B”: Any two accepted taxonomy.scientific_names separated by ” x ”
+        Sorex cinereus x Sorex yukonicus
+    Formula “A or B”: Any two accepted taxonomy.scientific_names separated by ” or ”
+        Sorex cinereus or Sorex yukonicus
+    Formula “A {string}”: Any valid taxonomy.scientific_name, followed by a space, followed by an opening curly bracket, followed by a verbatim identification, followed by a closing curly bracket.
+        Sorex {Sorex new species ”my name”}
+        unidentifiable {granite}
+
+		</div>
 		<cfif not isdefined("session.taxaPickPrefs") or len(session.taxaPickPrefs) is 0>
 			<cfset session.taxaPickPrefs="anyterm">
 		</cfif>
 		<cfset taxaPickPrefs=session.taxaPickPrefs>
-		<form name="s" method="post" action="TaxaPick.cfm">
+		<form name="s" id="s" method="post" action="TaxaPick.cfm">
 			<input type="hidden" name="formName" value="#formName#">
 			<input type="hidden" name="taxonIdFld" value="#taxonIdFld#">
 			<input type="hidden" name="taxonNameFld" value="#taxonNameFld#">
@@ -37,6 +75,8 @@
 		<cfif len(scientific_name) is 0 or scientific_name is 'undefined'>
 			<cfabort>
 		</cfif>
+		
+		
 		<cfif taxaPickPrefs is "anyterm">
 			<cfset sql="SELECT 
 				scientific_name, 
