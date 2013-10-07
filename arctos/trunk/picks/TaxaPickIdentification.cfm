@@ -15,6 +15,7 @@
 		}
 		function goExample(term) {
 			$("#scientific_name").val(term);
+			$("#blockAutoSubmit").val('true');
 			$("#s").submit();
 		}
 		function showFormulaHelp() {
@@ -105,6 +106,7 @@
 			<input type="hidden" name="formName" value="#formName#">
 			<input type="hidden" name="taxonIdFld" value="#taxonIdFld#">
 			<input type="hidden" name="taxonNameFld" value="#taxonNameFld#">
+			<input type="hidden" name="blockAutoSubmit" value="false">
 			<label for="scientific_name">Scientific Name (STARTS WITH)</label>
 			<input type="text" name="scientific_name" id="scientific_name" size="50" value="#scientific_name#">
 			<label for="taxaPickPrefs">Filter Results by...</label>
@@ -322,22 +324,28 @@
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#PreserveSingleQuotes(sql)#
 		</cfquery>
-		
-		<cfdump var=#getTaxa#>
-	
-	
-	<cfif getTaxa.recordcount is 0>
-						Nothing matched #scientific_name#. <a href="javascript:void(0);" onClick="opener.document.#formName#.#taxonIdFld#.value='';opener.document.#formName#.#taxonNameFld#.value='';opener.document.#formName#.#taxonNameFld#.focus();self.close();">Try again.</a>
-<cfabort>
-	</cfif>
-		<cfloop query="getTaxa">
-				<div>
-					#scientific_name#
-				</div>
-	
-		</cfloop>
-		
-		
+		<cfif not isdefined("blockAutoSubmit")>
+			<cfset blockAutoSubmit=false>
+		</cfif>
+	<cfif getTaxa.recordcount is 1 and blockAutoSubmit is false>
+		<cfoutput>
+			<script>
+				opener.document.#formName#.#taxonIdFld#.value='#getTaxa.taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#getTaxa.scientific_name#';self.close();
+			</script>
+		</cfoutput>
+	<cfelseif getTaxa.recordcount is 0>
+		<cfoutput>
+			Nothing matched #scientific_name#. <a href="javascript:void(0);" onClick="opener.document.#formName#.#taxonIdFld#.value='';opener.document.#formName#.#taxonNameFld#.value='';opener.document.#formName#.#taxonNameFld#.focus();self.close();">Try again.</a>
+		</cfoutput>
+	<cfelse>
+		<cfoutput query="getTaxa">
+<br><a href="##" onClick="javascript: opener.document.#formName#.#taxonIdFld#.value='#taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#scientific_name#';self.close();">#scientific_name#</a>
+	<!---	
+		<br><a href="##" onClick="javascript: document.selectedAgent.agentID.value='#agent_id#';document.selectedAgent.agentName.value='#agent_name#';document.selectedAgent.submit();">#agent_name# - #agent_id#</a> - 
+	--->
+
+	</cfoutput>
+	</CFIF>
 		
 
 	</cfoutput>
