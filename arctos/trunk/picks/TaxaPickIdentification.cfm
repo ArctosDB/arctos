@@ -32,7 +32,7 @@
 						</ul>
 					</li>
 					<li>
-						Formula "A sp.": Any scientific name followed by space then "sp." Examples:
+						Formula "A sp.": Any scientific name followed by space then "sp." These are by default filtered to names which do not contain spaces. Examples:
 						<ul>
 							<li><span class="likeLink" onclick="goExample('Sorex sp.')">Sorex sp.</span></li>
 						</ul>
@@ -211,6 +211,8 @@
 	</cfoutput>
 	
 	<cfdump var=#getTaxa#>
+	
+	<!----------
 	<cfif getTaxa.recordcount is 1>
 		<cfoutput>
 			<script>
@@ -230,5 +232,8 @@
 
 	</cfoutput>
 	</CFIF>
+	
+	
+	---------->
 
 <cfinclude template="/includes/_pickFooter.cfm">
