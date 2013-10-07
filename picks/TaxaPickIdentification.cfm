@@ -345,13 +345,13 @@
 			Nothing matched #scientific_name#. <a href="javascript:void(0);" onClick="opener.document.#formName#.#taxonIdFld#.value='';opener.document.#formName#.#taxonNameFld#.value='';opener.document.#formName#.#taxonNameFld#.focus();self.close();">Try again.</a>
 		</cfoutput>
 	<cfelse>
-		<cfoutput query="getTaxa">
+		<cfloop query="getTaxa">
 <br><a href="##" onClick="javascript: ;opener.document.#formName#.#taxonNameFld#.value='#scientific_name#';self.close();">#scientific_name#</a>
 	<!---	
 		<br><a href="##" onClick="javascript: document.selectedAgent.agentID.value='#agent_id#';document.selectedAgent.agentName.value='#agent_name#';document.selectedAgent.submit();">#agent_name# - #agent_id#</a> - 
 	--->
 
-	</cfoutput>
+	</cfloop>
 	</CFIF>
 		
 
