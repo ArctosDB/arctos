@@ -82,9 +82,11 @@
 		<cfif right(scientific_name,4) is " sp.">
 			<cfset thisName=left(scientific_name,len(scientific_name)-4)>
 			<cfset formula="A sp.">
+			<cfset nospacefilter=true>
 		<cfelse>
 			<cfset thisName=scientific_name>
 			<cfset formula="A">
+			<cfset nospacefilter=false>
 		</cfif>
 		<p>
 			thisName: #thisName#
@@ -92,6 +94,14 @@
 		<p>
 			formula: #formula#
 		</p>
+		
+		<cfif nospacefilter is true>
+			<cfset filter=" and scientific_name not like '% %'">
+		<cfelse>
+			<cfset filter="">
+		</cfif>
+		
+		
 		<cfif taxaPickPrefs is "anyterm">
 			<cfset sql="SELECT 
 				scientific_name, 
@@ -100,6 +110,7 @@
 				taxon_name
 			where
 				UPPER(scientific_name) LIKE '#ucase(thisName)#%'
+				#filter#
 			order by
 			  		scientific_name">
 		<cfelseif taxaPickPrefs is "usedbymycollections">
@@ -118,6 +129,7 @@
 					identification_taxonomy.identification_id=identification.identification_id and
 					identification.collection_object_id=cataloged_item.collection_object_id and
 					UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
+					#filter#
 				) 
 				group by 
 					scientific_name,
@@ -138,6 +150,7 @@
 					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 					taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
 			  		UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
+					#filter#
 			  	) 
 			  	group by 
 			  		scientific_name, 
@@ -153,6 +166,7 @@
 					taxon_name
 				where
 					UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
+					#filter#
 				UNION
 				SELECT 
 					a.scientific_name, 
@@ -165,6 +179,7 @@
 					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
 					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
 					UPPER(B.scientific_name) LIKE '#ucase(thisName)#%'
+					#filter#
 				UNION
 				SELECT 
 					b.scientific_name, 
@@ -177,6 +192,7 @@
 					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
 					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
 					UPPER(a.scientific_name) LIKE '#ucase(thisName)#%'
+					#filter#
 			)
 			where 
 				taxon_name_id is not null
@@ -187,6 +203,8 @@
 				scientific_name
 		">
 		</cfif>
+		
+		
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#PreserveSingleQuotes(sql)#
 		</cfquery>
