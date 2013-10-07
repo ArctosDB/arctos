@@ -18,6 +18,14 @@
 			$("#s").submit();
 		}
 	</script>
+	<style>
+		#srchingFor {
+			font-size:small;
+			border:1px dashed green;
+			margin:.6em;
+			padding:.6em;
+		}
+	</style>
 	<cfoutput>
 	
 		<div id="formulaHelp">
@@ -124,8 +132,7 @@
 				<br>Namestring: #thisName#
 			</div>
 			<cfset sql="SELECT 
-					scientific_name, 
-					taxon_name_id
+					scientific_name || ' cf.' scientific_name
 				from 
 					taxon_name
 				where
@@ -140,8 +147,7 @@
 				<br>Namestring: #thisName#
 			</div>
 			<cfset sql="SELECT 
-					scientific_name, 
-					taxon_name_id
+					scientific_name || ' ?' scientific_name
 				from 
 					taxon_name
 				where
