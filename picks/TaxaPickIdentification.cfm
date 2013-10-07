@@ -150,8 +150,16 @@
 				<p>
 			thisName2: -#thisName2#-
 			</p>
-			<cfset formula="A ?">
-			<cfset nospacefilter=false>
+			<cfset formula="A or B">
+			<cfset sql="SELECT 
+					a.scientific_name || ' or ' || b.scientific_name scientific_name
+				from 
+					taxon_name a,
+					taxon_name b
+				where
+					UPPER(a.scientific_name) = '#ucase(thisName1)#' and
+					UPPER(b.scientific_name) = '#ucase(thisName2)#'
+			">
 		<cfelseif  scientific_name contains " and ">
 			<cfset thisName=left(scientific_name,len(scientific_name)-2)>
 			<cfset formula="A ?">
