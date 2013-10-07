@@ -186,6 +186,8 @@
 			#PreserveSingleQuotes(sql)#
 		</cfquery>
 	</cfoutput>
+	
+	<cfdump var=#getTaxa#>
 	<cfif getTaxa.recordcount is 1>
 		<cfoutput>
 			<script>
