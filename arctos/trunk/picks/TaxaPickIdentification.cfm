@@ -261,11 +261,7 @@
 			formula: #formula#
 		</p>
 		
-		<cfif nospacefilter is true>
-			<cfset filter=">
-		<cfelse>
-			<cfset filter="">
-		</cfif>
+
 		
 		
 		
