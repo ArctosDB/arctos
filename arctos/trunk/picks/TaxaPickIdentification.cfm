@@ -330,7 +330,10 @@
 		<cfif blockAutoSubmit is "true">
 			<!--- the only way to get here is through examples/help, so turn that back on --->
 			<script>
-				showHideFormulaHelp();
+				
+jQuery(document).ready(function() {
+	showHideFormulaHelp();
+});
 			</script>
 		</cfif>
 		
