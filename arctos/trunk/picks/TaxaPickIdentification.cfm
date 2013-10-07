@@ -27,11 +27,9 @@
 					<li>
 						Formula "A": An exact match to any accepted taxonomy.scientific_name. Just type the taxon name; it's here or it isn't. Examples:
 						<ul>
-							<li><span class="likeLine" onclick="goExample('Sorex cinereus')">Sorex cinereus</span></li>
-							<li><span class="likeLine" onclick="goExample('Soricidae')">Soricidae</span></li>
+							<li><span class="likeLink" onclick="goExample('Sorex cinereus')">Sorex cinereus</span></li>
+							<li><span class="likeLink" onclick="goExample('Soricidae')">Soricidae</span></li>
 						</ul>
-        
-        
 					</li>
 				</ul>
 			</li>
@@ -57,7 +55,7 @@
 			<cfset session.taxaPickPrefs="anyterm">
 		</cfif>
 		<cfset taxaPickPrefs=session.taxaPickPrefs>
-		<form name="s" id="s" method="post" action="TaxaPick.cfm">
+		<form name="s" id="s" method="post" action="TaxaPickIdentification.cfm">
 			<input type="hidden" name="formName" value="#formName#">
 			<input type="hidden" name="taxonIdFld" value="#taxonIdFld#">
 			<input type="hidden" name="taxonNameFld" value="#taxonNameFld#">
