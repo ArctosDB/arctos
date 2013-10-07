@@ -167,7 +167,7 @@
 			">
 		<cfelseif  scientific_name contains "{" and scientific_name contains "}">
 			<cfset theSplit=find("{",scientific_name)>
-			<cfset taxonName=left(scientific_name,theSplit-1)>
+			<cfset taxonName=left(scientific_name,theSplit-2)>
 			<cfset theString=replace(scientific_name,taxonName,"","all")>
 			<br>taxonName-#taxonName#-
 			<br>theString-#theString#-
