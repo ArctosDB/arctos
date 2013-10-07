@@ -269,12 +269,7 @@
 			</cfif>
 			
 		</cfif>
-		<p>
-			thisName: #thisName#
-		</p>
-		<p>
-			formula: #formula#
-		</p>
+		
 		
 
 		
