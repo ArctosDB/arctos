@@ -17,9 +17,10 @@
 			$("#scientific_name").val(term);
 			$("#s").submit();
 		}
-function showFormulaHelp() {
+		function showFormulaHelp() {
 			$("#formulaHelp").show();
-}
+			$("#showHideFormulaHelp").hide();
+		}
 	</script>
 	<style>
 		#srchingFor {
@@ -37,7 +38,7 @@ function showFormulaHelp() {
 	</style>
 	<cfoutput>
 		
-		<span id="showHideFormulaHelp" onclick="showFormulaHelp();">Show Usage and Formula Help</span>
+		<span id="showHideFormulaHelp" onclick="showFormulaHelp();" class="likeLink">Show Usage and Formula Help</span>
 		<div id="formulaHelp" style="display:none;">
 			This form will accept the following <a href="/info/ctDocumentation.cfm?table=CTTAXA_FORMULA">formulaic taxonomy</a>.
 			<li>
