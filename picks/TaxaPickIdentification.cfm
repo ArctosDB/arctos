@@ -21,41 +21,62 @@
 	<cfoutput>
 	
 		<div id="formulaHelp">
-			This form will accept the following formulaic taxonomy.
+			This form will accept the following <a href="/info/ctDocumentation.cfm?table=CTTAXA_FORMULA">formulaic taxonomy</a>.
 			<li>
 				<ul>
 					<li>
-						Formula "A": An exact match to any accepted taxonomy.scientific_name. Just type the taxon name; it's here or it isn't. Examples:
+						Formula "A": An exact match to any accepted taxonomy.scientific_name. Just type the start of (or entire) taxon name. Examples:
 						<ul>
 							<li><span class="likeLink" onclick="goExample('Sorex cinereus')">Sorex cinereus</span></li>
 							<li><span class="likeLink" onclick="goExample('Soricidae')">Soricidae</span></li>
 						</ul>
 					</li>
 					<li>
-						Formula "A sp.": Any scientific name followed by space then "sp." These are by default filtered to names which do not contain spaces. Examples:
+						Formula "A sp.": Any scientific name followed by space then "sp." 
+						No substring matching; "Filter Results by..." is ignored. Examples:
 						<ul>
 							<li><span class="likeLink" onclick="goExample('Sorex sp.')">Sorex sp.</span></li>
 						</ul>
 					</li>
+					<li>
+						Formula "A cf.": Any scientific name followed by space then "cf." No substring matching; "Filter Results by..." is ignored. Examples:
+						<ul>
+							<li><span class="likeLink" onclick="goExample('Sorex cf.')">Sorex cf.</span></li>
+						</ul>
+					</li>
+					<li>
+						Formula "A ?": Any scientific name followed by space then "?"  No substring matching; "Filter Results by..." is ignored. Examples:
+						<ul>
+							<li><span class="likeLink" onclick="goExample('Sorex ?')">Sorex ?.</span></li>
+							<li><span class="likeLink" onclick="goExample('Sorex cinereus ?')">Sorex cinereus ?</span></li>
+						</ul>
+					</li>
+					<li>
+						Formula "A x B": Any scientific name followed by space then "x" then another scientific name.  
+						No substring matching; "Filter Results by..." is ignored. Examples:
+						<ul>
+							<li><span class="likeLink" onclick="goExample('Sorex x Alces')">Sorex x Alces</span></li>
+							<li><span class="likeLink" onclick="goExample('Sorex cinereus x Alces alces')">Sorex cinereus x Alces alces</span></li>
+						</ul>
+					</li>
+					<li>
+						Formula "A or B": Any scientific name followed by space then "or" then another scientific name. 
+						 No substring matching; ; "Filter Results by..." is ignored. Examples:
+						<ul>
+							<li><span class="likeLink" onclick="goExample('Sorex or Alces')">Sorex or Alces</span></li>
+							<li><span class="likeLink" onclick="goExample('Sorex cinereus or Alces alces')">Sorex cinereus or Alces alces</span></li>
+						</ul>
+					</li>
+					<li>
+						Formula "A {string}": Any scientific name followed by space then "{" then any string then "}". 
+						 No substring matching; ; "Filter Results by..." is ignored. Examples:
+						<ul>
+							<li><span class="likeLink" onclick="goExample('Sorex {Sorex n. sp. workingname}')">Sorex {Sorex n. sp. workingname}</span></li>
+							<li><span class="likeLink" onclick="goExample('Sorex cinereus {you can type anything here}')">Sorex cinereus {you can type anything here}</span></li>
+						</ul>
+					</li>
 				</ul>
 			</li>
-    Formula “A”: An exact match to any accepted taxonomy.scientific_name
-        Sorex cinereus
-        Soricidae
-    Formula “A sp.”: Any accepted taxonomy.scientific_name where scientific name is also genus plus ” sp.”
-        Sorex sp.
-    Formula “A cf.”: Any accepted taxonomy.scientific_name plus ” cf.”
-        Sorex cf.
-    Formula “A ?”: Any accepted taxonomy.scientific_name plus ” ?”
-        Sorex ?
-    Formula “A x B”: Any two accepted taxonomy.scientific_names separated by ” x ”
-        Sorex cinereus x Sorex yukonicus
-    Formula “A or B”: Any two accepted taxonomy.scientific_names separated by ” or ”
-        Sorex cinereus or Sorex yukonicus
-    Formula “A {string}”: Any valid taxonomy.scientific_name, followed by a space, followed by an opening curly bracket, followed by a verbatim identification, followed by a closing curly bracket.
-        Sorex {Sorex new species ”my name”}
-        unidentifiable {granite}
-
 		</div>
 		<cfif not isdefined("session.taxaPickPrefs") or len(session.taxaPickPrefs) is 0>
 			<cfset session.taxaPickPrefs="anyterm">
@@ -82,11 +103,156 @@
 		<cfif right(scientific_name,4) is " sp.">
 			<cfset thisName=left(scientific_name,len(scientific_name)-4)>
 			<cfset formula="A sp.">
-			<cfset nospacefilter=true>
+			<cfset sql="SELECT 
+					scientific_name, 
+					taxon_name_id
+				from 
+					taxon_name
+				where
+					UPPER(scientific_name) LIKE '#ucase(thisName)#%'
+					 and scientific_name not like '% %'
+				order by
+				  		scientific_name">
+		<cfelseif  right(scientific_name,4) is " cf.">
+			<cfset thisName=left(scientific_name,len(scientific_name)-4)>
+			<cfset formula="A cf.">
+			<cfset sql="SELECT 
+					scientific_name, 
+					taxon_name_id
+				from 
+					taxon_name
+				where
+					UPPER(scientific_name) LIKE '#ucase(thisName)#%'
+				order by
+				  		scientific_name">
+		<cfelseif  right(scientific_name,2) is " ?">
+			<cfset thisName=left(scientific_name,len(scientific_name)-2)>
+			<cfset formula="A ?">
+			<cfset sql="SELECT 
+					scientific_name, 
+					taxon_name_id
+				from 
+					taxon_name
+				where
+					UPPER(scientific_name) LIKE '#ucase(thisName)#%'
+				order by
+				  		scientific_name">
+		<cfelseif  scientific_name contains " or ">
+			<cfset theSplit=find(" or ",scientific_name)>
+			<p>
+			theSplit: #theSplit#
+			</p>
+			<cfset thisName1=left(scientific_name,len(scientific_name)-2)>
+			<cfset formula="A ?">
+			<cfset nospacefilter=false>
+		<cfelseif  scientific_name contains " and ">
+			<cfset thisName=left(scientific_name,len(scientific_name)-2)>
+			<cfset formula="A ?">
+			<cfset nospacefilter=false>
+		<cfelseif  scientific_name contains "{" and scientific_name contains "}">
+			<cfset thisName=left(scientific_name,len(scientific_name)-2)>
+			<cfset formula="A ?">
+			<cfset nospacefilter=false>
 		<cfelse>
+			<!--- formula A --->
 			<cfset thisName=scientific_name>
 			<cfset formula="A">
-			<cfset nospacefilter=false>
+			<cfif taxaPickPrefs is "anyterm">
+				<cfset sql="SELECT 
+					scientific_name, 
+					taxon_name_id
+				from 
+					taxon_name
+				where
+					UPPER(scientific_name) LIKE '#ucase(thisName)#%'
+				order by
+				  		scientific_name">
+			<cfelseif taxaPickPrefs is "usedbymycollections">
+				<!--- VPD limits users to seeing only their collections, so just make the joins --->
+				<cfset sql="select scientific_name,taxon_name_id from (
+					SELECT 
+						taxon_name.scientific_name, 
+						taxon_name.taxon_name_id
+					from 
+						taxon_name,
+						identification_taxonomy,
+						identification,
+						cataloged_item
+					where
+						taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
+						identification_taxonomy.identification_id=identification.identification_id and
+						identification.collection_object_id=cataloged_item.collection_object_id and
+						UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
+					) 
+					group by 
+						scientific_name,
+						taxon_name_id
+					order by
+				  		scientific_name">
+			<cfelseif taxaPickPrefs is "mycollections">
+				<!--- VPD limits users to seeing only their collections, so just make the joins --->
+				<cfset sql="select scientific_name,taxon_name_id from (
+					SELECT 
+				 		taxon_name.scientific_name, 
+				  		taxon_name.taxon_name_id
+					from 
+				  		taxon_name,
+				  		taxon_term,
+				  		collection
+					where
+						taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+						taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
+				  		UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
+				  	) 
+				  	group by 
+				  		scientific_name, 
+				  		taxon_name_id
+				  	order by
+				  		scientific_name">
+			<cfelseif taxaPickPrefs is "relatedterm">
+				<cfset sql="select * from (
+					SELECT 
+						scientific_name, 
+						taxon_name_id
+					from 
+						taxon_name
+					where
+						UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
+					UNION
+					SELECT 
+						a.scientific_name, 
+						a.taxon_name_id
+					from 
+						taxon_name a,
+						taxon_relations,
+						taxon_name b
+					where
+						a.taxon_name_id = taxon_relations.taxon_name_id (+) and
+						taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
+						UPPER(B.scientific_name) LIKE '#ucase(thisName)#%'
+					UNION
+					SELECT 
+						b.scientific_name, 
+						b.taxon_name_id
+					from 
+						taxon_name a,
+						taxon_relations,
+						taxon_name b
+					where
+						a.taxon_name_id = taxon_relations.taxon_name_id (+) and
+						taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
+						UPPER(a.scientific_name) LIKE '#ucase(thisName)#%'
+				)
+				where 
+					taxon_name_id is not null
+				group by
+					scientific_name,
+					taxon_name_id
+				ORDER BY 
+					scientific_name
+			">
+			</cfif>
+			
 		</cfif>
 		<p>
 			thisName: #thisName#
@@ -96,113 +262,11 @@
 		</p>
 		
 		<cfif nospacefilter is true>
-			<cfset filter=" and scientific_name not like '% %'">
+			<cfset filter=">
 		<cfelse>
 			<cfset filter="">
 		</cfif>
 		
-		
-		<cfif taxaPickPrefs is "anyterm">
-			<cfset sql="SELECT 
-				scientific_name, 
-				taxon_name_id
-			from 
-				taxon_name
-			where
-				UPPER(scientific_name) LIKE '#ucase(thisName)#%'
-				#filter#
-			order by
-			  		scientific_name">
-		<cfelseif taxaPickPrefs is "usedbymycollections">
-			<!--- VPD limits users to seeing only their collections, so just make the joins --->
-			<cfset sql="select scientific_name,taxon_name_id from (
-				SELECT 
-					taxon_name.scientific_name, 
-					taxon_name.taxon_name_id
-				from 
-					taxon_name,
-					identification_taxonomy,
-					identification,
-					cataloged_item
-				where
-					taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
-					identification_taxonomy.identification_id=identification.identification_id and
-					identification.collection_object_id=cataloged_item.collection_object_id and
-					UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
-					#filter#
-				) 
-				group by 
-					scientific_name,
-					taxon_name_id
-				order by
-			  		scientific_name">
-		<cfelseif taxaPickPrefs is "mycollections">
-			<!--- VPD limits users to seeing only their collections, so just make the joins --->
-			<cfset sql="select scientific_name,taxon_name_id from (
-				SELECT 
-			 		taxon_name.scientific_name, 
-			  		taxon_name.taxon_name_id
-				from 
-			  		taxon_name,
-			  		taxon_term,
-			  		collection
-				where
-					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
-					taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
-			  		UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
-					#filter#
-			  	) 
-			  	group by 
-			  		scientific_name, 
-			  		taxon_name_id
-			  	order by
-			  		scientific_name">
-		<cfelseif taxaPickPrefs is "relatedterm">
-			<cfset sql="select * from (
-				SELECT 
-					scientific_name, 
-					taxon_name_id
-				from 
-					taxon_name
-				where
-					UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
-					#filter#
-				UNION
-				SELECT 
-					a.scientific_name, 
-					a.taxon_name_id
-				from 
-					taxon_name a,
-					taxon_relations,
-					taxon_name b
-				where
-					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
-					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
-					UPPER(B.scientific_name) LIKE '#ucase(thisName)#%'
-					#filter#
-				UNION
-				SELECT 
-					b.scientific_name, 
-					b.taxon_name_id
-				from 
-					taxon_name a,
-					taxon_relations,
-					taxon_name b
-				where
-					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
-					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
-					UPPER(a.scientific_name) LIKE '#ucase(thisName)#%'
-					#filter#
-			)
-			where 
-				taxon_name_id is not null
-			group by
-				scientific_name,
-				taxon_name_id
-			ORDER BY 
-				scientific_name
-		">
-		</cfif>
 		
 		
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -224,6 +288,14 @@
 			<cfelseif formula is "A sp.">
 				<div>
 					#scientific_name# sp.
+				</div>
+			<cfelseif formula is "A cf.">
+				<div>
+					#scientific_name# cf.
+				</div>
+			<cfelseif formula is "A ?">
+				<div>
+					#scientific_name# ?
 				</div>
 			
 			<cfesle>
