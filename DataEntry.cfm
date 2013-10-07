@@ -362,7 +362,7 @@
 										</td>
 										<td>
 											<input type="text" name="taxon_name" class="reqdClr" size="40" id="taxon_name"
-												onchange="taxaPick('nothing',this.id,'dataEntry',this.value)">
+												onchange="taxaPickIdentification('nothing',this.id,'dataEntry',this.value)">
 										</td>
 									</tr>
 									<tr>
