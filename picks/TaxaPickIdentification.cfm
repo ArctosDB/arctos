@@ -31,6 +31,12 @@
 							<li><span class="likeLink" onclick="goExample('Soricidae')">Soricidae</span></li>
 						</ul>
 					</li>
+					<li>
+						Formula "A sp.": Any scientific name followed by space then "sp." Examples:
+						<ul>
+							<li><span class="likeLink" onclick="goExample('Sorex sp.')">Sorex sp.</span></li>
+						</ul>
+					</li>
 				</ul>
 			</li>
     Formula ÒAÓ: An exact match to any accepted taxonomy.scientific_name
@@ -73,7 +79,13 @@
 		<cfif len(scientific_name) is 0 or scientific_name is 'undefined'>
 			<cfabort>
 		</cfif>
-		
+		<cfif right(scientific_name,4) is " sp.">
+			<cfset thisName=left(scientific_name,len(scientific_name)-1)>
+			<cfset formula="A sp.">
+		<cfelse>
+			<cfset thisName=scientific_name>
+			<cfset formula="A">
+		</cfif>
 		
 		<cfif taxaPickPrefs is "anyterm">
 			<cfset sql="SELECT 
@@ -82,7 +94,7 @@
 			from 
 				taxon_name
 			where
-				UPPER(scientific_name) LIKE '#ucase(scientific_name)#%'
+				UPPER(scientific_name) LIKE '#ucase(thisName)#%'
 			order by
 			  		scientific_name">
 		<cfelseif taxaPickPrefs is "usedbymycollections">
@@ -100,7 +112,7 @@
 					taxon_name.taxon_name_id=identification_taxonomy.taxon_name_id and
 					identification_taxonomy.identification_id=identification.identification_id and
 					identification.collection_object_id=cataloged_item.collection_object_id and
-					UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
+					UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
 				) 
 				group by 
 					scientific_name,
@@ -120,7 +132,7 @@
 				where
 					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 					taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
-			  		UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
+			  		UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
 			  	) 
 			  	group by 
 			  		scientific_name, 
@@ -135,7 +147,7 @@
 				from 
 					taxon_name
 				where
-					UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
+					UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
 				UNION
 				SELECT 
 					a.scientific_name, 
@@ -147,7 +159,7 @@
 				where
 					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
 					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
-					UPPER(B.scientific_name) LIKE '#ucase(scientific_name)#%'
+					UPPER(B.scientific_name) LIKE '#ucase(thisName)#%'
 				UNION
 				SELECT 
 					b.scientific_name, 
@@ -159,7 +171,7 @@
 				where
 					a.taxon_name_id = taxon_relations.taxon_name_id (+) and
 					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
-					UPPER(a.scientific_name) LIKE '#ucase(scientific_name)#%'
+					UPPER(a.scientific_name) LIKE '#ucase(thisName)#%'
 			)
 			where 
 				taxon_name_id is not null
