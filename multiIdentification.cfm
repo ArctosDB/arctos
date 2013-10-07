@@ -76,7 +76,7 @@
 	</cfquery>
 	<cfoutput>
 		<table width="100%"><tr><td width="50%"><!--- left column ---->
-			<h2>Add Identification for ALL pecimens listed below</h2>	
+			<h2>Add Identification for ALL Specimens listed below</h2>	
 		    <form name="newID" method="post" action="multiIdentification.cfm">
 		  		<input type="hidden" name="Action" value="createManyNew">
 		    	<table>
