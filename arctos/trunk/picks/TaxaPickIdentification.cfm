@@ -143,7 +143,7 @@
 			theSplit: #theSplit#
 			</p>
 			<cfset thisName1=left(scientific_name,theSplit)>
-			<cfset thisName2=right(scientific_name,theSplit + 4)>
+			<cfset thisName2=listgetat(scientific_name,2 ," or ")>
 				<p>
 			thisName1: -#thisName1#-
 			</p>
