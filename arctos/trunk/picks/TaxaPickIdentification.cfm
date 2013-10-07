@@ -332,7 +332,7 @@
 			<script>
 				
 jQuery(document).ready(function() {
-	showHideFormulaHelp();
+	showFormulaHelp();
 });
 			</script>
 		</cfif>
