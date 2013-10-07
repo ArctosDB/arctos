@@ -142,8 +142,8 @@
 			<p>
 			theSplit: #theSplit#
 			</p>
-			<cfset thisName1=left(scientific_name,theSplit)>
-			<cfset thisName2=replace(scientific_name,"#thisName1#","","all")>
+			<cfset thisName1=left(scientific_name,theSplit-1)>
+			<cfset thisName2=replace(scientific_name," or #thisName1#","","all")>
 				<p>
 			thisName1: -#thisName1#-
 			</p>
