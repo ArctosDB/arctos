@@ -167,7 +167,7 @@
 			">
 		<cfelseif  scientific_name contains "{" and scientific_name contains "}">
 			<cfset theSplit=find("{",scientific_name)>
-			<cfset taxonName=left(scientific_name,theSplit-2)>
+			<cfset thisName=left(scientific_name,theSplit-2)>
 			<cfset theString=trim(replace(scientific_name,taxonName,"","all"))>
 			<br>taxonName-#taxonName#-
 			<br>theString-#theString#-
@@ -177,7 +177,7 @@
 				from 
 					taxon_name
 				where
-					UPPER(scientific_name) = '#ucase(thisName1)#'
+					UPPER(scientific_name) = '#ucase(thisName)#'
 			">
 			
 		<cfelse>
