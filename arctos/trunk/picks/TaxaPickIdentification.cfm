@@ -17,6 +17,9 @@
 			$("#scientific_name").val(term);
 			$("#s").submit();
 		}
+function showFormulaHelp() {
+			$("#formulaHelp").show();
+}
 	</script>
 	<style>
 		#srchingFor {
@@ -25,10 +28,17 @@
 			margin:.6em;
 			padding:.6em;
 		}
+		#formulaHelp {
+			font-size:small;
+			border:1px dashed green;
+			margin:.6em;
+			padding:.6em;
+		}
 	</style>
 	<cfoutput>
-	
-		<div id="formulaHelp">
+		
+		<span id="showHideFormulaHelp" onclick="showFormulaHelp();">Show Usage and Formula Help</span>
+		<div id="formulaHelp" style="display:none;">
 			This form will accept the following <a href="/info/ctDocumentation.cfm?table=CTTAXA_FORMULA">formulaic taxonomy</a>.
 			<li>
 				<ul>
@@ -113,7 +123,7 @@
 			<cfset formula="A sp.">
 			<div id="srchingFor">
 				formula: #formula#
-				<br>Namestring: #thisName#
+				<br>Namestring IS: #thisName#
 			</div>
 			<cfset sql="SELECT 
 					scientific_name || ' sp.'
@@ -129,7 +139,7 @@
 			<cfset formula="A cf.">
 			<div id="srchingFor">
 				formula: #formula#
-				<br>Namestring: #thisName#
+				<br>Namestring IS: #thisName#
 			</div>
 			<cfset sql="SELECT 
 					scientific_name || ' cf.' scientific_name
@@ -144,7 +154,7 @@
 			<cfset formula="A ?">
 			<div id="srchingFor">
 				formula: #formula#
-				<br>Namestring: #thisName#
+				<br>Namestring IS: #thisName#
 			</div>
 			<cfset sql="SELECT 
 					scientific_name || ' ?' scientific_name
@@ -161,8 +171,8 @@
 			<cfset formula="A or B">
 			<div id="srchingFor">
 				formula: #formula#
-				<br>Namestring1: #thisName1#
-				<br>Namestring2: #thisName2#
+				<br>Namestring1 IS: #thisName1#
+				<br>Namestring2 IS: #thisName2#
 			</div>
 			<cfset sql="SELECT 
 					a.scientific_name || ' or ' || b.scientific_name scientific_name
@@ -180,8 +190,8 @@
 			<cfset formula="A and B">
 			<div id="srchingFor">
 				formula: #formula#
-				<br>Namestring1: #thisName1#
-				<br>Namestring2: #thisName2#
+				<br>Namestring1 IS: #thisName1#
+				<br>Namestring2 IS: #thisName2#
 			</div>
 			<cfset sql="SELECT 
 					a.scientific_name || ' and ' || b.scientific_name scientific_name
@@ -199,7 +209,7 @@
 			<cfset formula="A {string}">
 			<div id="srchingFor">
 				formula: #formula#
-				<br>Namestring: #thisName#
+				<br>Namestring IS: #thisName#
 			</div>
 			<cfset sql="SELECT 
 					scientific_name || ' #theString#' scientific_name
@@ -215,7 +225,7 @@
 			<cfset formula="A">
 			<div id="srchingFor">
 				formula: #formula#
-				<br>Namestring: #thisName#
+				<br>Namestring STARTS WITH: #thisName#
 			</div>
 			<cfif taxaPickPrefs is "anyterm">
 				<cfset sql="SELECT 
@@ -301,7 +311,6 @@
 					scientific_name
 			">
 			</cfif>
-			
 		</cfif>
 		
 		
