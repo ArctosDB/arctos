@@ -327,6 +327,13 @@
 		<cfif not isdefined("blockAutoSubmit")>
 			<cfset blockAutoSubmit=false>
 		</cfif>
+		<cfif blockAutoSubmit is "true">
+			<!--- the only way to get here is through examples/help, so turn that back on --->
+			<script>
+				showHideFormulaHelp();
+			</script>
+		</cfif>
+		
 	<cfif getTaxa.recordcount is 1 and blockAutoSubmit is false>
 		<cfoutput>
 			<script>
