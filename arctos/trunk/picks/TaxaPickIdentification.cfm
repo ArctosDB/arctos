@@ -142,7 +142,14 @@
 			<p>
 			theSplit: #theSplit#
 			</p>
-			<cfset thisName1=left(scientific_name,len(scientific_name)-2)>
+			<cfset thisName1=left(scientific_name,theSplit)>
+			<cfset thisName2=right(scientific_name,theSplit + 4)>
+				<p>
+			thisName1: -#thisName1#-
+			</p>
+				<p>
+			thisName2: -#thisName2#-
+			</p>
 			<cfset formula="A ?">
 			<cfset nospacefilter=false>
 		<cfelseif  scientific_name contains " and ">
