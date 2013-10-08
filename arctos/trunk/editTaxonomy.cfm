@@ -518,6 +518,47 @@ displayvalueelem='ncterm_type_' + n;
 	console.log('displayvalueelem (new): ' + displayvalueelem);
 
 }
+
+// and this point, there should be a display_name and we should know it's ID.
+// grab the original value, because
+var origDisplayNameValue=$("#" + displayvalueelem).val();
+	console.log('origDisplayNameValue: ' + origDisplayNameValue);
+
+// now build a suggested display_name
+// find genus
+	//if no genus, lowest-ranking term is display name
+	// if genus, then
+		// find species
+			// if 
+// loop through the classification terms, get what we need
+
+var genus;
+var species; //  species
+var infraspecific_term; //variety var. varietas subvar.  subspecies form sp sect. forma subsubvar. subsect. subseries
+var infraspecific_rank;
+
+
+
+
+
+ $("input[name^='term_type_']").each(function() {
+     var val = $(this).val();
+if(val == "genus") {
+var genus=this.id;
+}
+if(val == "gen.") {
+var genus=this.id;
+}
+if(val == "subsp.") {
+var infraspecific_term=this.id;
+}
+  });
+
+
+			
+			console.log('genus: ' + genus);
+	
+			
 }
 	</script>
 	<cfoutput>
