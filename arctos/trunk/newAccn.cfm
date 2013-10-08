@@ -186,7 +186,7 @@
 										</cfif>
 										#preservesinglequotes(whr)#
 								</cfquery>
-								<cfdump var=##>
+								<cfdump var=#thisq#>
 								<cfcatch>
 									<hr>
 									#cfcatch.detail#
