@@ -557,12 +557,10 @@ console.log('relatedElement: ' + relatedElement);
 
 
 console.log('this value: ' + val);
-if(val == "genus") {
-var genus=this.id;
+if(val == "genus" || val == "gen.") {
+	var genus=relatedElement;
 }
-if(val == "gen.") {
-var genus=this.id;
-}
+
 if(val == "subsp.") {
 var infraspecific_term=this.id;
 }
