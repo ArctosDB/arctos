@@ -186,7 +186,7 @@
 										<cfif institution_acronym is not "MVZ" and institution_acronym is not "MVZObs">
 											and collection.collection_id=#collection_id#
 										<cfelse>
-											and collection.institution_acronym in ( 'MVZ','MVZObs')>
+											and collection.institution_acronym in ( 'MVZ','MVZObs')
 										</cfif>
 										#preservesinglequotes(whr)#
 								</cfquery>
