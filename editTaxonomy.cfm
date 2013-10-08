@@ -558,7 +558,10 @@ console.log('relatedElement: ' + relatedElement);
 
 console.log('this value: ' + val);
 if(val == "genus" || val == "gen.") {
+	console.log('setting genus');
 	var genus=relatedElement;
+			console.log('genus is now: ' + genus);
+
 }
 
 if(val == "subsp.") {
