@@ -499,6 +499,17 @@
 		}
 function guessAtDisplayName() {
 	console.log('i am guessAtDisplayName');
+
+var displayvalueelem="";
+ $("input[name^='ncterm_type_']").each(function() {
+     var val = $(this).val();
+     if(val == "display_value") {
+       displayvalueelem=this.id;
+     }
+  });
+	console.log('displayvalueelem: ' + displayvalueelem);
+
+
 }
 	</script>
 	<cfoutput>
