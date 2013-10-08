@@ -584,12 +584,12 @@ function guessAtDisplayName() {
 		if (species.length > 0) {
 			// genus + species in all cases
 			formattedname += ' ' + species;
-			if (formatstyle=='icbn' && speciesauthor.length > 0){
+			if (formatstyle=='icbn' && speciesauthor ){
 				// for ICBN, inject species author here  
 				formattedname += ' ' + speciesauthor;
 			}
 			if (infraspecific_term.length > 0) {
-				if (formatstyle=='icbn' && infraspecific_rank.length > 0){
+				if (formatstyle=='icbn' && infraspecific_rank){
 					if (infraspecific_rank.length > 0){
 						// we have a ranked subspecies under ICBN
 						formattedname += ' ' + infraspecific_rank + ' ' + infraspecific_term;
