@@ -615,7 +615,7 @@ function guessAtDisplayName() {
 	console.log('formattedname: ' + formattedname);
 
 	// get rid of unnecessary italicization
-	formattedname=formattedname.replace(/<\/i> <i>/g, '');
+	formattedname=formattedname.replace(/<\/i> <i>/g, ' ');
 	console.log('formattedname: ' + formattedname);
 
 
