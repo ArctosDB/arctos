@@ -190,6 +190,7 @@
 										</cfif>
 										#preservesinglequotes(whr)#
 								</cfquery>
+								<cfdump var=#thisq#>
 								<cfcatch>
 									<hr>
 									#cfcatch.detail#
@@ -201,14 +202,13 @@
 										from 
 											dual
 									</cfquery>
-									<cfdump var=#cfcatch#>
 								</cfcatch>
 							</cftry>
 							<tr>
 								<td>#collection#</td>
 								<td>
 									<cfif len(thisq.nn) is 0>
-										check data
+										nothing found
 									<cfelse>
 										<span class="likeLink" 
 											onclick="document.getElementById('collection_id').value='#collection_id#';
