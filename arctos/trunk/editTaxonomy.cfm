@@ -495,6 +495,9 @@
 				document.location='/editTaxonomy.cfm?action=deleteClassification&classification_id=' + cid + '&taxon_name_id=' + tnid;
 			}
 		}
+function guessAtDisplayName() {
+	console.log('i am guessAtDisplayName)';
+}
 	</script>
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
