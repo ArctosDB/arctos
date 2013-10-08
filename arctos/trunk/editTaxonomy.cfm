@@ -521,7 +521,7 @@ displayvalueelem='ncterm_type_' + n;
 
 // and this point, there should be a display_name and we should know it's ID.
 // grab the original value, because
-var origDisplayNameValue=$("#" + displayvalueelem).val();
+var origDisplayNameValue=$("#ncterm_" + n).val();
 	console.log('origDisplayNameValue: ' + origDisplayNameValue);
 
 // now build a suggested display_name
@@ -543,6 +543,7 @@ var infraspecific_rank;
 
  $("input[name^='term_type_']").each(function() {
      var val = $(this).val();
+console.log('this value: ' + val);
 if(val == "genus") {
 var genus=this.id;
 }
