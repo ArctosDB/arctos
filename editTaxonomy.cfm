@@ -581,7 +581,7 @@ function guessAtDisplayName() {
 	console.log('lowestclassificationterm: ' + lowestclassificationterm);
 	if (genus.length > 0){
 		formattedname=genus;
-		if (species.length > 0) {
+		if (species) {
 			// genus + species in all cases
 			formattedname += ' ' + species;
 			if (formatstyle=='icbn' && speciesauthor ){
@@ -590,14 +590,14 @@ function guessAtDisplayName() {
 			}
 			if (infraspecific_term.length > 0) {
 				if (formatstyle=='icbn' && infraspecific_rank){
-					if (infraspecific_rank.length > 0){
+					if (infraspecific_rank){
 						// we have a ranked subspecies under ICBN
 						formattedname += ' ' + infraspecific_rank + ' ' + infraspecific_term;
 					} else {
 						// nonranked subspecies under ICBN - whatever.....
 						formattedname += ' ' + infraspecific_term;
 					}
-					if (subspeciesauthor.length > 0){
+					if (subspeciesauthor){
 						formattedname += ' ' + subspeciesauthor;
 					}
 				} else {
