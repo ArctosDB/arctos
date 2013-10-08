@@ -532,11 +532,6 @@ var origDisplayNameValue=$("#ncterm_" + n).val();
 			// if 
 // loop through the classification terms, get what we need
 
-var genus;
-var species; //  
-var infraspecific_term; // .     form sp sect. forma subsubvar. subsect. subseries
-var infraspecific_rank;
-
 
 
 
@@ -557,17 +552,14 @@ var infraspecific_rank;
 	}
 	
 	if(val == "species" || val == "sp" || val == "sp.") {
-	var species=relatedElement;
+		var species=relatedElement;
 	}
 	
 	if(val == "subsp." || val == "variety" || val == "var." || val == "varietas" || val == "subvar." || val == "subspecies" || val == "species") {
-	// "subspecies"
-	var infraspecific_term=relatedElement;
-	var infraspecific_rank=val;
-	
+		// "subspecies"
+		var infraspecific_term=relatedElement;
+		var infraspecific_rank=val;
 	}
-
-
   });
 
 	console.log('genus: ' + genus);
