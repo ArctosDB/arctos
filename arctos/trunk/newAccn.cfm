@@ -201,6 +201,7 @@
 										from 
 											dual
 									</cfquery>
+									<cfdump var=#cfcatch#>
 								</cfcatch>
 							</cftry>
 							<tr>
