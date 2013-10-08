@@ -546,6 +546,11 @@ var infraspecific_rank;
 
 console.log(this);
 console.log('id: ' + this.id);
+var relatedElementID=this.id.replace("type_");
+console.log('relatedElementID: ' + relatedElementID);
+
+
+
 
 
 console.log('this value: ' + val);
