@@ -503,7 +503,7 @@ function guessAtDisplayName() {
 var displayvalueelem="";
  $("input[name^='ncterm_type_']").each(function() {
      var val = $(this).val();
-     if(val == "display_value") {
+     if(val == "display_name") {
        displayvalueelem=this.id;
      }
   });
