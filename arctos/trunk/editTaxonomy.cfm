@@ -582,7 +582,7 @@ function guessAtDisplayName() {
 	console.log('subspeciesauthor: ' + subspeciesauthor);
 	console.log('formatstyle: ' + formatstyle);
 	console.log('lowestclassificationterm: ' + lowestclassificationterm);
-	if (genus.length > 0){
+	if (genus){
 		formattedname='<i>' + genus + '</i>';
 		if (species) {
 			// genus + species in all cases
@@ -612,8 +612,6 @@ function guessAtDisplayName() {
 	} else {
 		formattedname=lowestclassificationterm;
 	}
-	console.log('formattedname: ' + formattedname);
-
 	// get rid of unnecessary italicization
 	formattedname=formattedname.replace(/<\/i> <i>/g, ' ');
 	console.log('formattedname: ' + formattedname);
