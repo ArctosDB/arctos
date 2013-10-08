@@ -533,8 +533,8 @@ var origDisplayNameValue=$("#ncterm_" + n).val();
 // loop through the classification terms, get what we need
 
 var genus;
-var species; //  species
-var infraspecific_term; //variety var. varietas subvar.  subspecies form sp sect. forma subsubvar. subsect. subseries
+var species; //  
+var infraspecific_term; // .     form sp sect. forma subsubvar. subsect. subseries
 var infraspecific_rank;
 
 
@@ -544,35 +544,36 @@ var infraspecific_rank;
  $("input[name^='term_type_']").each(function() {
      var val = $(this).val();
 
-console.log(this);
-console.log('id: ' + this.id);
-var relatedElementID=this.id.replace("type_","");
-console.log('relatedElementID: ' + relatedElementID);
+	var relatedElementID=this.id.replace("type_","");
+	var relatedElement=$("#" + relatedElementID).val();	
+	console.log('relatedElement: ' + relatedElement);
+	
+	console.log('this value: ' + val);
+	if(val == "genus" || val == "gen.") {
+		console.log('setting genus');
+		var genus=relatedElement;
+		console.log('genus is now: ' + genus);
+	
+	}
+	
+	if(val == "species" || val == "sp" || val == "sp.") {
+	var species=relatedElement;
+	}
+	
+	if(val == "subsp." || val == "variety" || val == "var." || val == "varietas" || val == "subvar." || val == "subspecies" || val == "species") {
+	// "subspecies"
+	var infraspecific_term=relatedElement;
+	var infraspecific_rank=val;
+	
+	}
 
-var relatedElement=$("#" + relatedElementID).val();
 
-console.log('relatedElement: ' + relatedElement);
-
-
-
-
-console.log('this value: ' + val);
-if(val == "genus" || val == "gen.") {
-	console.log('setting genus');
-	var genus=relatedElement;
-			console.log('genus is now: ' + genus);
-
-}
-
-if(val == "subsp.") {
-var infraspecific_term=this.id;
-}
   });
 
-
-			
-			console.log('genus: ' + genus);
-	
+	console.log('genus: ' + genus);
+	console.log('species: ' + species);
+	console.log('infraspecific_term: ' + infraspecific_term);
+	console.log('infraspecific_rank: ' + infraspecific_rank);
 			
 }
 	</script>
