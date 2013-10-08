@@ -416,17 +416,13 @@
 			var val = $(this).val();
 		    if(val != "display_name") {
 				// watch everything EXCEPT display_name for changes
-				$( "#" + this.id ).change(function() {
-					guessAtDisplayName();
-				});
+				$( "#" + this.id ).change(guessAtDisplayName);
 		    }
 		});
 	
 	
 	$("input[name^='term_type_']").each(function() {
-    	$( "#" + this.id ).change(function() {
-					guessAtDisplayName();
-				});
+    	$( "#" + this.id ).change(guessAtDisplayName);
 	});
 
 
