@@ -363,7 +363,7 @@
 		select media_id from media where media_uri='#media_uri#'
 	</cfquery>
 	<cfif len(alreadyGotOne.media_id) gt 0>
-		That URI is in use. <a href="/media.cfm?action=edit&media_id=#alreadyGotOne.media_id">Edit it here</a>
+		That URI is in use. <a href="/media.cfm?action=edit&media_id=#alreadyGotOne.media_id#">Edit it here</a>
 		<p>
 			If the link above is not the Media you're trying to create, you can rename the file you're trying to upload.
 		</p>
