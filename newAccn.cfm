@@ -166,7 +166,7 @@
 								<cfset whr=" AND is_number(accn_number)=1">
 							<cfelse>
 								<!--- collections who have not asked for a next number suggestion - just show them the last accn used ---->
-								<cfset stg="'last was ' || accn_number">
+								<cfset stg="'last created: ' || accn_number">
 								<cfset whr=" AND accn.transaction_id = (select max(accn.transaction_id) from accn,trans where trans.transaction_id=accn.transaction_id and
 								trans.collection_id=#collection_id#)">
 								
@@ -189,7 +189,6 @@
 										</cfif>
 										#preservesinglequotes(whr)#
 								</cfquery>
-								<cfdump var=#thisq#>
 								<cfcatch>
 									<hr>
 									#cfcatch.detail#
