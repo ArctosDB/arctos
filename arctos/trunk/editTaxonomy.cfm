@@ -675,26 +675,28 @@ displayvalueelem='ncterm_type_' + n;
 				<cfset i=listlast(x,"_")>
 				<cfset thisterm=evaluate("NCTERM_" & i)>
 				<cfset thistermtype=evaluate("NCTERM_TYPE_" & i)>
-				<cfif (len(thisterm) is 0 and len(thistermtype) gt 0) or (len(thistermtype) is 0 and len(thisterm) gt 0)>
-					Non-classification terms must be provided as pairs.
+				<!---- just ignore non-paired terms ---->
+				<cfif len(thisterm) gt 0 and len(thistermtype) gt 0>
+					
+				
+					<cfquery name="insNCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into taxon_term (
+							TAXON_NAME_ID,
+							CLASSIFICATION_ID,
+							TERM,
+							TERM_TYPE,
+							SOURCE,
+							LASTDATE
+						) values (
+							#TAXON_NAME_ID#,
+							'#CLASSIFICATION_ID#',
+							'#thisterm#',
+							'#thistermtype#',
+							'#SOURCE#',
+							sysdate
+						)
+					</cfquery>
 				</cfif>
-				<cfquery name="insNCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into taxon_term (
-						TAXON_NAME_ID,
-						CLASSIFICATION_ID,
-						TERM,
-						TERM_TYPE,
-						SOURCE,
-						LASTDATE
-					) values (
-						#TAXON_NAME_ID#,
-						'#CLASSIFICATION_ID#',
-						'#thisterm#',
-						'#thistermtype#',
-						'#SOURCE#',
-						sysdate
-					)
-				</cfquery>
 			</cfloop>
 			<!--- these MUST be saved in the order they were drug to -------->
 			<cfloop from="1" to="#listlen(CLASSIFICATIONROWORDER)#" index="listpos">
