@@ -545,6 +545,8 @@ var infraspecific_rank;
      var val = $(this).val();
 
 console.log(this);
+console.log('id: ' + this.id);
+
 
 console.log('this value: ' + val);
 if(val == "genus") {
