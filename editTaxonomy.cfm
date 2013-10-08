@@ -510,7 +510,13 @@ var displayvalueelem="";
 	console.log('displayvalueelem: ' + displayvalueelem);
 
 if (displayvalueelem==""){
-	nc_addARow();
+// add a row for display_name	
+nc_addARow();
+var n=parseInt($("#numnoclassrs").val());
+$('#ncterm_type_' + n).val('display_name');
+displayvalueelem='ncterm_type_' + n;
+	console.log('displayvalueelem (new): ' + displayvalueelem);
+
 }
 }
 	</script>
