@@ -499,104 +499,77 @@
 		}
 function guessAtDisplayName() {
 	console.log('i am guessAtDisplayName');
-var genus;
-var species;
-var infraspecific_term;
-var infraspecific_rank;
-var speciesauthor;
-var subspeciesauthor;
-var displayvalueelem="";
-var genus;
-var species;
-var infraspecific_term;
-var infraspecific_rank;
-var formatstyle = 'iczn'; // default to simple....
-var formattedname;
-var lowestclassificationterm;
+	var genus;
+	var species;
+	var infraspecific_term;
+	var infraspecific_rank;
+	var speciesauthor;
+	var subspeciesauthor;
+	var displayvalueelem="";
+	var genus;
+	var species;
+	var infraspecific_term;
+	var infraspecific_rank;
+	var formatstyle = 'iczn'; // default to simple....
+	var formattedname;
+	var lowestclassificationterm;
 
- $("input[name^='ncterm_type_']").each(function() {
-     var val = $(this).val();
-     if(val == "display_name") {
-       displayvalueelem=this.id;
-     }
-	if(val == "author_text") {
-       displayvalueelem=this.id;
+	$("input[name^='ncterm_type_']").each(function() {
+		var val = $(this).val();
+	    if(val == "display_name") {
+	      displayvalueelem=this.id;
+	    }
+		if(val == "author_text") {
+	    	displayvalueelem=this.id;
+			var relatedElementID=this.id.replace("type_","");
+			var relatedElement=$("#" + relatedElementID).val();	
+			var speciesauthor=relatedElement;
+	    }
+		if(val == "infraspecific_author") {
+	    	displayvalueelem=this.id;
+			var relatedElementID=this.id.replace("type_","");
+			var relatedElement=$("#" + relatedElementID).val();	
+			var subspeciesauthor=relatedElement;
+	    }
+		if(val == "nomenclatural_code" && relatedElement=='ICBN') {
+			formatstyle='icbn';
+		}
+	});
+	
+	if (displayvalueelem==""){
+		// add a row for display_name	
+		nc_addARow();
+		var n=parseInt($("#numnoclassrs").val());
+		$('#ncterm_type_' + n).val('display_name');
+		displayvalueelem='ncterm_type_' + n;
+	}
+
+	// and this point, there should be a display_name and we should know it's ID.
+	// grab the original value, because
+	var origDisplayNameValue=$("#ncterm_" + n).val();
+	$("input[name^='term_type_']").each(function() {
+    	var val = $(this).val();
 		var relatedElementID=this.id.replace("type_","");
 		var relatedElement=$("#" + relatedElementID).val();	
-		console.log('relatedElement: ' + relatedElement);
-		var speciesauthor=relatedElement;
-     }
-	if(val == "infraspecific_author") {
-       displayvalueelem=this.id;
-		var relatedElementID=this.id.replace("type_","");
-		var relatedElement=$("#" + relatedElementID).val();	
-		console.log('relatedElement: ' + relatedElement);
-		var subspeciesauthor=relatedElement;
-     }
-	if(val == "nomenclatural_code" && relatedElement=='ICBN') {
-		formatstyle='icbn';
-	}
-
-  });
-	console.log('displayvalueelem: ' + displayvalueelem);
-
-if (displayvalueelem==""){
-// add a row for display_name	
-nc_addARow();
-var n=parseInt($("#numnoclassrs").val());
-$('#ncterm_type_' + n).val('display_name');
-displayvalueelem='ncterm_type_' + n;
-	console.log('displayvalueelem (new): ' + displayvalueelem);
-
-}
-
-// and this point, there should be a display_name and we should know it's ID.
-// grab the original value, because
-var origDisplayNameValue=$("#ncterm_" + n).val();
-	console.log('origDisplayNameValue: ' + origDisplayNameValue);
-
-// now build a suggested display_name
-// find genus
-	//if no genus, lowest-ranking term is display name
-	// if genus, then
-		// find species
-			// if 
-// loop through the classification terms, get what we need
-
-
-
-
-
- $("input[name^='term_type_']").each(function() {
-     var val = $(this).val();
-
-	var relatedElementID=this.id.replace("type_","");
-	var relatedElement=$("#" + relatedElementID).val();	
-	console.log('relatedElement: ' + relatedElement);
+		if(val == "genus" || val == "gen.") {
+			genus=relatedElement;
+		}
 	
-	console.log('this value: ' + val);
-	if(val == "genus" || val == "gen.") {
-		console.log('setting genus');
-		genus=relatedElement;
-		console.log('genus is now: ' + genus);
+		if(val == "species" || val == "sp" || val == "sp.") {
+			species=relatedElement;
+		}
+		if(val == "kingdom" && relatedElement=='Plantae') {
+			formatstyle='icbn';
+		}
 	
-	}
-	
-	if(val == "species" || val == "sp" || val == "sp.") {
-		species=relatedElement;
-	}
-	if(val == "kingdom" && relatedElement='Plantae') {
-		formatstyle='icbn';
-	}
-	
-	if(val == "subsp." || val == "variety" || val == "var." || val == "varietas" || val == "subvar." || val == "subspecies" || val == "species") {
+		if(val == "subsp." || val == "variety" || val == "var." || val == "varietas" || val == "subvar." || val == "subspecies" || val == "species") {
 		// "subspecies"
-		infraspecific_term=relatedElement;
-		infraspecific_rank=val;
-	}
-	// grab the lowest term - use it for display name if all else fails
-	lowestclassificationterm=relatedElement;
-  });
+			infraspecific_term=relatedElement;
+			infraspecific_rank=val;
+		}
+		// grab the lowest term - use it for display name if all else fails
+		lowestclassificationterm=relatedElement;
+	});
 
 	console.log('genus: ' + genus);
 	console.log('species: ' + species);
