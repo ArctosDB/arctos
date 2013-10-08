@@ -585,7 +585,7 @@ function guessAtDisplayName() {
 			// genus + species in all cases
 			formattedname += ' ' + species;
 			if (formatstyle=='icbn' && speciesauthor.length > 0){
-				// for ICBN, inject species author here
+				// for ICBN, inject species author here  
 				formattedname += ' ' + speciesauthor;
 			}
 			if (infraspecific_term.length > 0) {
