@@ -72,15 +72,15 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 	<cfquery name="ala" datasource="uam_god">
 		 select
 			decode(ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC'),
-				null,'UAM:Herb:' || cat_num || ' (ALA)',
+				null,guid || ' (ALA)',
 				'ALA ' || ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC')
 			)  || ': ' ||
-			get_formatted_taxname(coll_obj_other_id_num.collection_object_id) descr
+			FORMATTED_SCIENTIFIC_NAME descr
 		from
 			coll_obj_other_id_num,
-			cataloged_item
+			flat
 		where
-			cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
+			flat.collection_object_id=coll_obj_other_id_num.collection_object_id and
 			other_id_type='ALAAC' and
 			coll_obj_other_id_num.collection_object_id=#collection_object_id#
 	</cfquery>
@@ -88,15 +88,15 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 		<cfquery name="ala" datasource="uam_god">
 			select
 				decode(ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC'),
-					null,'UAM:Herb:' || cat_num || ' (ALA)',
+					null,guid || ' (ALA)',
 					'ALA ' || ConcatSingleOtherId(coll_obj_other_id_num.collection_object_id,'ALAAC')
 				)  || ': ' ||
-				get_formatted_taxname(coll_obj_other_id_num.collection_object_id) descr
+				FORMATTED_SCIENTIFIC_NAME descr
 			from
 				coll_obj_other_id_num,
-				cataloged_item
+				flat
 			where
-				cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
+				flat.collection_object_id=coll_obj_other_id_num.collection_object_id and
 				other_id_type='ISC: Ada Hayden Herbarium, Iowa State University' and
 				coll_obj_other_id_num.collection_object_id=#collection_object_id#
 		</cfquery>

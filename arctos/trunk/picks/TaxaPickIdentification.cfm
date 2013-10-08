@@ -54,7 +54,7 @@
 					</li>
 					<li>
 						Formula "A sp.": Any scientific name followed by space then "sp." 
-						No substring matching; "Filter Results by..." is ignored. Examples:
+						No substring matching; "Filter Results by..." is ignored. Results only include names without spaces. Examples:
 						<ul>
 							<li><span class="likeLink" onclick="goExample('Sorex sp.')">Sorex sp.</span></li>
 						</ul>

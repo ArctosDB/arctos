@@ -82,16 +82,11 @@
 				correct links - eg, the no-subspecies name
 				should not contain all the subspecies
 			---->
-	
-			
 			<cfif thisLink contains "scientific_name_match_type">
 				<cfset delPos=listcontains(thisLink,"scientific_name_match_type=","?&")>
 				<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 			</cfif>
-			<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
-			
-			
-			
+			<cfset thisLink="#thisLink#&scientific_name_match_type=exact">			
 			<tr>
 				<td>#COUNTOFCATALOGEDITEM#</td>
 				<cfloop list="#groupby#" index="x">
@@ -108,7 +103,7 @@
 						---->
 
 						<!--- replace search terms with stuff here ---->
-						<cfset delPos=listcontains(thisLink,x,"?&")>
+						<cfset delPos=listcontainsnocase(thisLink,x,"?&")>
 						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 						<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
 					</cfif>

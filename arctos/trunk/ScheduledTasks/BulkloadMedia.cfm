@@ -245,7 +245,7 @@
 			<cfset rec_stat='pass'>
 		</cfif>
 		<cfquery name="c" datasource="uam_god">
-			update cf_temp_media set status='#rec_stat#' where key=#key#
+			update cf_temp_media set status='#trim(rec_stat)#' where key=#key#
 		</cfquery>
 	</cftransaction>
 </cfloop>
@@ -311,8 +311,12 @@
 				</cfquery>
 				<cfcatch>
 					<cftransaction action="rollback">
+					<cfset temp=cfcatch.message & ": " & cfcatch.detail>
+					<cfif isdefined("cfcatch.sql")>
+						<cfset temp=temp & ":: " & cfcatch.sql>
+					</cfif>
 					<cfquery name="tm" datasource="uam_god">
-						update cf_temp_media set status='#cfcatch.message#: #cfcatch.detail# <cfif isdefined("cfcatch.sql")>#cfcatch.sql#</cfif>' where key=#key#
+						update cf_temp_media set status='#trim(temp)#' where key=#key#
 					</cfquery>
 				</cfcatch>
 			</cftry>
