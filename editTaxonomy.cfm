@@ -520,6 +520,7 @@ function guessAtDisplayName() {
 	      displayvalueelem=this.id;
 	    }
 		if(val == "author_text") {
+			console.log(this);
 	    	displayvalueelem=this.id;
 			var relatedElementID=this.id.replace("type_","");
 			var relatedElement=$("#" + relatedElementID).val();	
