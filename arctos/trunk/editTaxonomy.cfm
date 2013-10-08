@@ -543,6 +543,9 @@ var infraspecific_rank;
 
  $("input[name^='term_type_']").each(function() {
      var val = $(this).val();
+
+console.log(this);
+
 console.log('this value: ' + val);
 if(val == "genus") {
 var genus=this.id;
