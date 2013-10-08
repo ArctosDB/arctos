@@ -369,9 +369,6 @@
 		</p>
 		<cfabort>
 	</cfif>
-
-	
-
 	<cftransaction>
 		<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select sq_media_id.nextval nv from dual
@@ -390,7 +387,7 @@
 					insert into 
 						media_relations (
 						media_id,media_relationship,related_primary_key
-						)values (
+					)values (
 						#media_id#,'#thisRelationship#',#thisRelatedId#)
 				</cfquery>
 			</cfif>	
@@ -406,9 +403,9 @@
 			</cfif>
 		</cfloop>
 	</cftransaction>
-<p>
-	Media Created <a href="media.cfm?action=edit&media_id=#media_id#">continue to Edit Media</a>
-</p>
+	<p>
+		Media Created <a href="media.cfm?action=edit&media_id=#media_id#">continue to Edit Media</a>
+	</p>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
