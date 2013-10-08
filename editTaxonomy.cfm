@@ -509,7 +509,9 @@ var displayvalueelem="";
   });
 	console.log('displayvalueelem: ' + displayvalueelem);
 
-
+if (displayvalueelem==""){
+	nc_addARow();
+}
 }
 	</script>
 	<cfoutput>
