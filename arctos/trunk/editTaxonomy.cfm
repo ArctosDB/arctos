@@ -412,6 +412,27 @@
 	<script>
 		// copy this with create classification
 		$(function() {
+			$("input[name^='ncterm_type_']").each(function() {
+			var val = $(this).val();
+		    if(val != "display_name") {
+				// watch everything EXCEPT display_name for changes
+				$( "#" + this.id ).change(function() {
+					guessAtDisplayName();
+				});
+		    }
+		});
+	
+	
+	$("input[name^='term_type_']").each(function() {
+    	$( "#" + this.id ).change(function() {
+					guessAtDisplayName();
+				});
+	});
+
+
+
+
+
 			$( "#sortable" ).sortable({
 				handle: '.dragger'
 			});
