@@ -523,14 +523,16 @@ function guessAtDisplayName() {
 			console.log(this);
 	    	displayvalueelem=this.id;
 			var relatedElementID=this.id.replace("type_","");
-			var relatedElement=$("#" + relatedElementID).val();	
-			var speciesauthor=relatedElement;
+			var relatedElement=$("#" + relatedElementID).val();
+			console.log('relatedElement: ' + relatedElement);
+
+			speciesauthor=relatedElement;
 	    }
 		if(val == "infraspecific_author") {
 	    	displayvalueelem=this.id;
 			var relatedElementID=this.id.replace("type_","");
 			var relatedElement=$("#" + relatedElementID).val();	
-			var subspeciesauthor=relatedElement;
+			subspeciesauthor=relatedElement;
 	    }
 		if(val == "nomenclatural_code" && relatedElement=='ICBN') {
 			formatstyle='icbn';
