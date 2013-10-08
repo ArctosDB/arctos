@@ -26,9 +26,9 @@
 <style >
 	.cTreePane {
 		height:400px;
-overflow-y:scroll;
-overflow-x:auto;
-padding-right:10px;
+		overflow-y:scroll;
+		overflow-x:auto;
+		padding-right:10px;
 	}
 	.ajaxWorking{
 		top: 20%;
@@ -118,13 +118,14 @@ padding-right:10px;
 				</select>
 				<label for="other_id_value">OID Value (% for wildcard)</label>
 				<input type="text" name="other_id_value" id="other_id_value" />
+				<label for="loan_number">Loan Number</label>
+				<input type="text" name="loan_number" id="loan_number" />
 				<input type="hidden" name="collection_object_id" id="collection_object_id" />
 				<input type="hidden" name="loan_trans_id" id="loan_trans_id" />
 				<input type="hidden" name="container_id" id="container_id" />
 				<input type="hidden" name="table_name" id="table_name" />
 				<br>
-				<input type="submit" value="Search"
-					class="schBtn">
+				<input type="submit" value="Search"	class="schBtn">
 				&nbsp;&nbsp;&nbsp;
 				<input class="clrBtn" type="button" value="Clear" onclick='document.location="/findContainer.cfm";'/>
 				</form>

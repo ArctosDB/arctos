@@ -121,6 +121,8 @@
 <cffunction name="get_containerTree" access="remote">
 	<cfargument name="q" type="string" required="true">
 	<!--- accept a url-type argument, parse it out here --->
+	
+	<cfset loan_number="">
 	<cfset cat_num="">
 	<cfset barcode="">
 	<cfset container_label="">
@@ -143,7 +145,8 @@
 		<cfset v=listgetat(p,2,"=")>
 		<cfset variables[ k ] = v >
 	</cfloop>
-	<cfif len(cat_num) is 0 AND
+	<cfif len(loan_number) is 0 AND
+		len(cat_num) is 0 AND
 		len(barcode) is 0 AND
 		len(container_label) is 0 AND
 		len(description) is 0 AND
@@ -288,6 +291,21 @@
 		<cfset whr = "#whr# AND loan_item.transaction_id = #loan_trans_id#">
 	 </cfif>
 
+	<cfif len(loan_number) gt 0>
+		<cfif frm does not contain " coll_obj_cont_hist ">
+			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
+		</cfif>
+		<cfif frm does not contain " specimen_part ">
+			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
+		</cfif>
+		<cfif frm does not contain " loan_item ">
+			<cfset frm = "#frm# inner join loan_item on (specimen_part.collection_object_id=loan_item.collection_object_id)">
+		</cfif>
+		<cfif frm does not contain " loan ">
+			<cfset frm = "#frm# inner join loan on (loan_item.collection_object_id=loan.collection_object_id)">
+		</cfif>
+		<cfset whr = "#whr# AND upper(loan.loan_number) = '#ucase(loan_number)#'">
+	</cfif>
 	<cfif len(collection_id) gt 0>
 		<cfif frm does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">

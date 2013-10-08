@@ -200,7 +200,7 @@
 			</table>
 		</cfif>
 		<br>Add Parts by Barcode. Scan parts to add to table. Click the links in each part to confirm and add. Use the links below first, if necessary.
-		<br>For everything in the table below....
+		<br>Disposition will automatically update to "on loan."
 		<ul>
 			<li><span class="likeLink" onclick="allss('1')">[ SubSample All ]</span> / <span class="likeLink" onclick="allss('0')">[ SubSample None ]</span></li>
 			<li></li>
