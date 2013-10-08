@@ -511,7 +511,7 @@ function guessAtDisplayName() {
 	var infraspecific_term;
 	var infraspecific_rank;
 	var formatstyle = 'iczn'; // default to simple....
-	var formattedname;
+	var formattedname; // with HTML
 	var lowestclassificationterm;
 
 	$("input[name^='ncterm_type_']").each(function() {
@@ -583,10 +583,10 @@ function guessAtDisplayName() {
 	console.log('formatstyle: ' + formatstyle);
 	console.log('lowestclassificationterm: ' + lowestclassificationterm);
 	if (genus.length > 0){
-		formattedname=genus;
+		formattedname='<i>' + genus + '</i>';
 		if (species) {
 			// genus + species in all cases
-			formattedname += ' ' + species;
+			formattedname += ' <i>' + species + '</i>';
 			if (formatstyle=='icbn' && speciesauthor ){
 				// for ICBN, inject species author here  
 				formattedname += ' ' + speciesauthor;
@@ -595,23 +595,25 @@ function guessAtDisplayName() {
 				if (formatstyle=='icbn' && infraspecific_rank){
 					if (infraspecific_rank){
 						// we have a ranked subspecies under ICBN
-						formattedname += ' ' + infraspecific_rank + ' ' + infraspecific_term;
+						formattedname += ' ' + infraspecific_rank + ' <i>' + infraspecific_term + '</i>';
 					} else {
 						// nonranked subspecies under ICBN - whatever.....
-						formattedname += ' ' + infraspecific_term;
+						formattedname += ' <i>' + infraspecific_term + '</i>';
 					}
 					if (subspeciesauthor){
 						formattedname += ' ' + subspeciesauthor;
 					}
 				} else {
 					// it's ICZN-style
-					formattedname += ' ' + infraspecific_term;
+					formattedname += ' <i>' + infraspecific_term + '</i>';
 				}
 			}
 		}
 	} else {
 		formattedname=lowestclassificationterm;
 	}
+	// get rid of unnecessary italicization
+	formattedname=.replace(/\n/g, '<\i> <i>');
 	console.log('formattedname: ' + formattedname);
 
 
