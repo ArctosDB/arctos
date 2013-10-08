@@ -506,6 +506,13 @@ var infraspecific_rank;
 var speciesauthor;
 var subspeciesauthor;
 var displayvalueelem="";
+var genus;
+var species;
+var infraspecific_term;
+var infraspecific_rank;
+var formatstyle = 'iczn'; // default to simple....
+var formattedname;
+var lowestclassificationterm;
 
  $("input[name^='ncterm_type_']").each(function() {
      var val = $(this).val();
@@ -517,7 +524,7 @@ var displayvalueelem="";
 		var relatedElementID=this.id.replace("type_","");
 		var relatedElement=$("#" + relatedElementID).val();	
 		console.log('relatedElement: ' + relatedElement);
-		var subspeciesauthor=relatedElement;
+		var speciesauthor=relatedElement;
      }
 	if(val == "infraspecific_author") {
        displayvalueelem=this.id;
@@ -526,7 +533,9 @@ var displayvalueelem="";
 		console.log('relatedElement: ' + relatedElement);
 		var subspeciesauthor=relatedElement;
      }
-
+	if(val == "nomenclatural_code" && relatedElement='ICBN') {
+		formatstyle='icbn';
+	}
 
   });
 	console.log('displayvalueelem: ' + displayvalueelem);
@@ -554,11 +563,6 @@ var origDisplayNameValue=$("#ncterm_" + n).val();
 			// if 
 // loop through the classification terms, get what we need
 
-var genus;
-var species;
-var infraspecific_term;
-var infraspecific_rank;
-
 
 
 
@@ -581,20 +585,35 @@ var infraspecific_rank;
 	if(val == "species" || val == "sp" || val == "sp.") {
 		species=relatedElement;
 	}
+	if(val == "kingdom" && relatedElement='Plantae') {
+		formatstyle='icbn';
+	}
 	
 	if(val == "subsp." || val == "variety" || val == "var." || val == "varietas" || val == "subvar." || val == "subspecies" || val == "species") {
 		// "subspecies"
 		infraspecific_term=relatedElement;
 		infraspecific_rank=val;
 	}
+	// grab the lowest term - use it for display name if all else fails
+	lowestclassificationterm=relatedElement;
   });
 
 	console.log('genus: ' + genus);
 	console.log('species: ' + species);
 	console.log('infraspecific_term: ' + infraspecific_term);
 	console.log('infraspecific_rank: ' + infraspecific_rank);
+	console.log('speciesauthor: ' + speciesauthor);
 	console.log('subspeciesauthor: ' + subspeciesauthor);
-	console.log('subspeciesauthor: ' + subspeciesauthor);
+	console.log('formatstyle: ' + formatstyle);
+	console.log('lowestclassificationterm: ' + lowestclassificationterm);
+	if (genus.length > 0){
+		formattedname=genus;
+	} else {
+		formattedname=lowestclassificationterm;
+	}
+	console.log('formattedname: ' + formattedname);
+
+
 }
 	</script>
 	<cfoutput>
