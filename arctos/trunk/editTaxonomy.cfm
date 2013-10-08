@@ -549,6 +549,9 @@ console.log('id: ' + this.id);
 var relatedElementID=this.id.replace("type_","");
 console.log('relatedElementID: ' + relatedElementID);
 
+var relatedElement=$("#" + relatedElementID).val();
+
+console.log('relatedElement: ' + relatedElement);
 
 
 
