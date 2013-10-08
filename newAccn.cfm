@@ -165,8 +165,11 @@
 								<cfset stg="max(to_number(accn_number)) + 1">
 								<cfset whr=" AND is_number(accn_number)=1">
 							<cfelse>
-								<cfset stg="max(to_number(accn_number)) + 1">
-								<cfset whr=" AND is_number(accn_number)=1">
+								<!--- collections who have not asked for a next number suggestion - just show them the last accn used ---->
+								<cfset stg="'last was ' || accn_number">
+								<cfset whr=" AND accn.transaction_id = (select max(accn.transaction_id) from accn,trans where trans.transaction_id=accn.transaction_id and
+								trans.collection_id=#collection_id#)">
+								
 							</cfif>
 							<cftry>
 								<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
