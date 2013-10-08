@@ -302,7 +302,7 @@
 			<cfset frm = "#frm# inner join loan_item on (specimen_part.collection_object_id=loan_item.collection_object_id)">
 		</cfif>
 		<cfif frm does not contain " loan ">
-			<cfset frm = "#frm# inner join loan on (loan_item.collection_object_id=loan.collection_object_id)">
+			<cfset frm = "#frm# inner join loan on (loan_item.transaction_id=loan.transaction_id)">
 		</cfif>
 		<cfset whr = "#whr# AND upper(loan.loan_number) = '#ucase(loan_number)#'">
 	</cfif>
