@@ -358,6 +358,20 @@
 <!------------------------------------------------------------------------------------------>
 <cfif action is "saveNew">
 <cfoutput>
+	<!--- see if they're making a duplicate ---->
+	<cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select media_id from media where media_uri='#media_uri#'
+	</cfquery>
+	<cfif len(alreadyGotOne.media_id) gt 0>
+		That URI is in use. <a href="/media.cfm?action=edit&media_id=#alreadyGotOne.media_id">Edit it here</a>
+		<p>
+			If the link above is not the Media you're trying to create, you can rename the file you're trying to upload.
+		</p>
+		<cfabort>
+	</cfif>
+
+	
+
 	<cftransaction>
 		<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select sq_media_id.nextval nv from dual

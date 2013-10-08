@@ -350,8 +350,10 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		guid_prefix not in (select guid_prefix from collection)
 	</cfquery>
 	
-	
-	
+	<cfquery name="require_author" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_citation set status='one author required when use_pub_authors is false'
+		where USE_PUB_AUTHORS != 1 and IDENTIFIER_1 is null
+	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_citation where status is null
 	</cfquery>
