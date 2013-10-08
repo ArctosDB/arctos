@@ -612,8 +612,10 @@ function guessAtDisplayName() {
 	} else {
 		formattedname=lowestclassificationterm;
 	}
+	console.log('formattedname: ' + formattedname);
+
 	// get rid of unnecessary italicization
-	formattedname=formattedname.replace(/\n/g, '<\/i> <i>');
+	formattedname=formattedname.replace(/<\/i> <i>/g, '');
 	console.log('formattedname: ' + formattedname);
 
 
