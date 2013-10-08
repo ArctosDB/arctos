@@ -199,9 +199,13 @@
 				</cfloop>
 			</table>
 		</cfif>
-		<br>Add Parts by Barcode
-		<br><span class="likeLink" onclick="allss('1')">[ SubSample All ]</span>
-		 <span class="likeLink" onclick="allss('0')">[ SubSample None ]</span>
+		<br>Add Parts by Barcode. Scan parts to add to table. Click the links in each part to confirm and add. Use the links below first, if necessary.
+		<br>For everything in the table below....
+		<ul>
+			<li><span class="likeLink" onclick="allss('1')">[ SubSample All ]</span> / <span class="likeLink" onclick="allss('0')">[ SubSample None ]</span></li>
+			<li></li>
+		</ul>
+		 
 		<form name="f" method="post" action="loanByBarcode.cfm">
 			<input type="hidden" name="action" value="saveParts">
 			<input type="hidden" name="transaction_id" id="transaction_id" value='#transaction_id#'>
