@@ -148,15 +148,22 @@
 									(institution_acronym is 'MSB' and collection_cde is 'Mamm') or
 									(institution_acronym is 'MSB' and collection_cde is 'Bird') or
 									(institution_acronym is 'UAM' and collection_cde is 'Fish')>
+								<!---- these collections use a YYYY.001.COLLECTIONCODE format --->
 								<cfset stg="'#dateformat(now(),"yyyy")#.' || lpad(max(to_number(substr(accn_number,6,3))) + 1,3,0) || '.#collection_cde#'">
 								<cfset whr=" AND accn_number like '%.#collection_cde#' AND
 									substr(accn_number,1,4) = '#dateformat(now(),"yyyy")#'">
 							<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Ento')>
+								<!--- unpredictable format, but want to know what the last accession created was ---->
 								<cfset stg="'last was ' || accn_number">
 								<cfset whr=" AND accn.transaction_id = (select max(transaction_id) from accn where accn_number like '%Ento')">
 							<cfelseif (institution_acronym is 'UAM' and collection_cde is 'ES')>
+								<!---- Earth Science uses a wonky suffix rather than collection code ---->
 								<cfset stg="'#dateformat(now(),"yyyy")#.' || lpad(max(to_number(substr(accn_number,6,3))) + 1,3,0) || '.ESCI'">
 								<cfset whr=" AND accn_number like '%.ESCI'">
+							<cfelseif institution_acronym is 'MVZ' or institution_acronym is "MVZObs">
+								<!--- MVZ collections share accessions ---->
+								<cfset stg="max(to_number(accn_number)) + 1">
+								<cfset whr=" AND is_number(accn_number)=1">
 							<cfelse>
 								<cfset stg="max(to_number(accn_number)) + 1">
 								<cfset whr=" AND is_number(accn_number)=1">
@@ -173,11 +180,13 @@
 										accn.transaction_id=trans.transaction_id and
 										trans.collection_id=collection.collection_id 
 										<cfif institution_acronym is not "MVZ" and institution_acronym is not "MVZObs">
-										and
-										collection.collection_id=#collection_id#
+											and collection.collection_id=#collection_id#
+										<cfelse>
+											and collection.institution_acronym in ( 'MVZ','MVZObs')>
 										</cfif>
 										#preservesinglequotes(whr)#
 								</cfquery>
+								<cfdump var=##>
 								<cfcatch>
 									<hr>
 									#cfcatch.detail#
