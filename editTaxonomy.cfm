@@ -445,6 +445,8 @@
 			$("input.ac_noclass_tt").live("keydown.autocomplete", function() {
 		        $(this).autocomplete(ac_noclass_ttoptions);
 		    });
+			
+			guessAtDisplayName();
 		});
 		function submitForm() {
 			var linkOrderData=$("#sortable").sortable('toArray').join(',');
@@ -496,7 +498,7 @@
 			}
 		}
 function guessAtDisplayName() {
-	console.log('i am guessAtDisplayName)';
+	console.log('i am guessAtDisplayName');
 }
 	</script>
 	<cfoutput>
