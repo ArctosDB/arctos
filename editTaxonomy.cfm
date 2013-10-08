@@ -533,7 +533,7 @@ var lowestclassificationterm;
 		console.log('relatedElement: ' + relatedElement);
 		var subspeciesauthor=relatedElement;
      }
-	if(val == "nomenclatural_code" && relatedElement='ICBN') {
+	if(val == "nomenclatural_code" && relatedElement=='ICBN') {
 		formatstyle='icbn';
 	}
 
