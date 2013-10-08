@@ -517,7 +517,17 @@ var displayvalueelem="";
 		var relatedElementID=this.id.replace("type_","");
 		var relatedElement=$("#" + relatedElementID).val();	
 		console.log('relatedElement: ' + relatedElement);
+		var subspeciesauthor=relatedElement;
      }
+	if(val == "infraspecific_author") {
+       displayvalueelem=this.id;
+		var relatedElementID=this.id.replace("type_","");
+		var relatedElement=$("#" + relatedElementID).val();	
+		console.log('relatedElement: ' + relatedElement);
+		var subspeciesauthor=relatedElement;
+     }
+
+
   });
 	console.log('displayvalueelem: ' + displayvalueelem);
 
@@ -583,7 +593,8 @@ var infraspecific_rank;
 	console.log('species: ' + species);
 	console.log('infraspecific_term: ' + infraspecific_term);
 	console.log('infraspecific_rank: ' + infraspecific_rank);
-			
+	console.log('subspeciesauthor: ' + subspeciesauthor);
+	console.log('subspeciesauthor: ' + subspeciesauthor);
 }
 	</script>
 	<cfoutput>
