@@ -499,12 +499,24 @@
 		}
 function guessAtDisplayName() {
 	console.log('i am guessAtDisplayName');
-
+var genus;
+var species;
+var infraspecific_term;
+var infraspecific_rank;
+var speciesauthor;
+var subspeciesauthor;
 var displayvalueelem="";
+
  $("input[name^='ncterm_type_']").each(function() {
      var val = $(this).val();
      if(val == "display_name") {
        displayvalueelem=this.id;
+     }
+	if(val == "author_text") {
+       displayvalueelem=this.id;
+		var relatedElementID=this.id.replace("type_","");
+		var relatedElement=$("#" + relatedElementID).val();	
+		console.log('relatedElement: ' + relatedElement);
      }
   });
 	console.log('displayvalueelem: ' + displayvalueelem);
@@ -533,8 +545,8 @@ var origDisplayNameValue=$("#ncterm_" + n).val();
 // loop through the classification terms, get what we need
 
 var genus;
-var species; //  
-var infraspecific_term; // .     form sp sect. forma subsubvar. subsect. subseries
+var species;
+var infraspecific_term;
 var infraspecific_rank;
 
 
