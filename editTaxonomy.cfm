@@ -423,6 +423,7 @@
 	
 	$("input[name^='term_type_']").each(function() {
     	$( "#" + this.id ).change(guessAtDisplayName);
+		console.log('setting change for ' + this.id);
 	});
 
 
