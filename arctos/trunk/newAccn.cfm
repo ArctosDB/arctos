@@ -135,7 +135,8 @@
 					</table>
 				</td>
 				<td valign="top">
-					<table border="1">
+					<label for=""><a href="/contact.cfm">Contact us</a> to request collection-specific next accession number suggestions.</label>
+					<table id="sugnTabl" border="1">
 						<tr>
 							<td>Collection</td>
 							<td>Next Number</td>
