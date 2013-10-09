@@ -413,9 +413,11 @@
 		// copy this with create classification
 		$(function() {
 			
-	$("form input:text").on( "change", guessAtDisplayName );
+
 
 /*
+* 
+* 	$("form input:text").on( "change", guessAtDisplayName );
 
 	$("form input:text").each(function() {
 		if(this.val != "display_name") {
