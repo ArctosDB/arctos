@@ -524,7 +524,7 @@ if(caller){
 console.log('caller: ' + caller);
 var cary=caller.split('_');
 console.log('cary: ' + cary);
-var theIdInt=array[cary.length-1];
+var theIdInt=cary[cary.length-1];
 console.log('theIdInt: ' + theIdInt);
 
 }
