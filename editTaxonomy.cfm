@@ -659,6 +659,7 @@ function guessAtDisplayName(caller) {
 	formattedname=formattedname.replace(/<\/i> <i>/g, ' ');
 	console.log('formattedname: ' + formattedname);
 	console.log('dv_value: ' + dv_value);
+	console.log('dv_value_element: ' + dv_value_element);
 	if (formattedname) {
 			console.log('pushing: ');
 
