@@ -426,15 +426,15 @@
 		</div>
 	</cfoutput>
 </cfif>
-<!------------------------------------------------------------------->
-<cfif action is "reallyDeleteClassification">
+<!-----------------------<cfif action is "reallyDeleteClassification">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from taxon_term where taxon_name_id=#taxon_name_id# and classification_id='#classification_id#'
 		</cfquery>
 		<cflocation addtoken="false" url="/name/#name#">
 	</cfoutput>
-</cfif>
+</cfif>-------------------------------------------->
+
 <!------------------------------------------------------------------->
 <cfif action is "editClassification">
 	<style>
