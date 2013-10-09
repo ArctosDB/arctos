@@ -562,6 +562,7 @@ function guessAtDisplayName(caller) {
 		if(val == "author_text") {
 			var relatedElementID=this.id.replace("type_","");
 			speciesauthor=$("#" + relatedElementID).val();
+			console.log('got a species author');
 	    }
 		if(val == "infraspecific_author") {
 			var relatedElementID=this.id.replace("type_","");
