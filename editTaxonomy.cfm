@@ -550,7 +550,8 @@ function guessAtDisplayName(caller) {
 
 		var val = $(this).val();
 	    if(val == "display_name") {
-	      displayvalueelem=this.id;
+			var relatedElementID=this.id.replace("type_","");
+			var displayvalueelem=$("#" + relatedElementID).val();
 	    }
 		if(val == "author_text") {
 			console.log(this);
