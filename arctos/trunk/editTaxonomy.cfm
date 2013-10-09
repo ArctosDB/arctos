@@ -659,10 +659,9 @@ console.log('setting change for ' + this.id);
 					}
 				}
 				if (formatstyle=='iczn'){
-											console.log('formattedname====: ' + formattedname);
-	
-					
-			
+					if (infraspecific_term) {
+						formattedname += ' <i>' + infraspecific_term + '</i>';
+					}
 					if (speciesauthor) {
 						formattedname += ' ' + speciesauthor;
 					}
