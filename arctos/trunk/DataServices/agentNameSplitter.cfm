@@ -113,8 +113,6 @@ sho err
 	<cfset sfxLst=valuelist(ctsuffix.suffix)>
 	<cfset pfxLst=valuelist(ctprefix.prefix)>
 	<cfloop query="d">
-	
-	<br>#preferred_name#
 		<cfset s=''>
 		<cfset pfx=''>
 		<cfset sfx=''>
@@ -122,7 +120,6 @@ sho err
 		<cfset lastn=''>
 		<cfset mdln=''>
 		<cfset sugn=''>
-		
 		<cftry>
 			<cfset thisName=trim(preferred_name)>
 			<cfif len(thisName) is 0>
@@ -162,8 +159,6 @@ sho err
 			<cfif right(tempName,1) is ",">
 				<cfset tempName=left(tempName,len(tempName)-1)>
 			</cfif>
-			<br>#tempName#
-			<br>#listlen(tempName," ")#
 			<cfif listlen(tempName," ") is 1>
 				<cfset s=listappend(s,"will not deal with no-space agents",";")>	
 			<cfelseif listlen(tempName," ") is 2>
