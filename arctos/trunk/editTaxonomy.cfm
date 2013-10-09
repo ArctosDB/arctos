@@ -1,10 +1,4 @@
 <cfinclude template="includes/_header.cfm">
-
-<cfdump var=#url#>
-
-<cfabort>
-
-
 <a target="_blank" class="external" href="https://docs.google.com/document/d/1J1B7NKfaWl1A1wVQUe5rlm6FsfA7-VVUHsCqH-gHA_E/edit">editing guidelines</a>
 <!------------------------------------------------------------------------------->
 
@@ -408,7 +402,7 @@
 		</form>
 	</cfoutput>
 </cfif>
-
+<!-----------------------
 <!------------------------------------------------------------------->
 <cfif action is "deleteClassification">
 	<cfoutput>
@@ -432,7 +426,7 @@
 		</div>
 	</cfoutput>
 </cfif>
-<!-----------------------<cfif action is "reallyDeleteClassification">
+<cfif action is "reallyDeleteClassification">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from taxon_term where taxon_name_id=#taxon_name_id# and classification_id='#classification_id#'
