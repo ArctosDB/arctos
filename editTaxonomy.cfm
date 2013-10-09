@@ -658,6 +658,9 @@ function guessAtDisplayName(caller) {
 	// get rid of unnecessary italicization
 	formattedname=formattedname.replace(/<\/i> <i>/g, ' ');
 	console.log('formattedname: ' + formattedname);
+	if (formattedname) {
+		$("#displayvalueelem").val(formattedname);
+	}
 
 
 }
