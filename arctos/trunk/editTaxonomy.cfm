@@ -579,7 +579,7 @@ function guessAtDisplayName(caller) {
 			var undoSuggest='<span onclick="$(' + "'#" + relatedElementID + "').val('" + relatedElement + "');>click to reset display_value</span>";
 			console.log(undoSuggest);
 
-			$("#originalDisplayName").html(relatedElement);
+			$("#originalDisplayName").html(undoSuggest);
 		}
 	});
 	
