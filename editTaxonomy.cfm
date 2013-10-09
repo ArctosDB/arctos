@@ -421,9 +421,13 @@
 		});
 	
 	
-	$("input[name^='term_type_']").each(function() {
-    	$( "#" + this.id ).change(guessAtDisplayName);
-		console.log('setting change for ' + this.id);
+	$("form input:text").each(function() {
+		if(this.val != "display_name") {
+			// watch everything EXCEPT display_name for changes
+			$( "#" + this.id ).change(guessAtDisplayName);		
+console.log('setting change for ' + this.id);
+
+		}
 	});
 
 
