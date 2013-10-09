@@ -412,14 +412,7 @@
 	<script>
 		// copy this with create classification
 		$(function() {
-			$("input[name^='ncterm_type_']").each(function() {
-			var val = $(this).val();
-		    if(val != "display_name") {
-				// watch everything EXCEPT display_name for changes
-				$( "#" + this.id ).change(guessAtDisplayName);
-		    }
-		});
-	
+			
 	
 	$("form input:text").each(function() {
 		if(this.val != "display_name") {
