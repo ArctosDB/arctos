@@ -527,14 +527,11 @@ if(caller && caller.substring(0, 2) == "nc") {
 	var theType=$("#ncterm_type_" + theIdInt).val();
 	if (theType == 'display_name'){
 		console.log('is display name');
-		return false;
+		return;
 	}
 }
-console.log('caller: ' + caller);
-console.log('cary: ' + cary);
-console.log('theIdInt: ' + theIdInt);
 
-}
+
 	var genus;
 	var species;
 	var infraspecific_term;
