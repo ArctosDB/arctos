@@ -567,10 +567,13 @@ function guessAtDisplayName(caller) {
 			var relatedElementID=this.id.replace("type_","");
 			subspeciesauthor=$("#" + relatedElementID).val();
 	    }
-		if(val == "nomenclatural_code" && relatedElement=='ICBN') {
-			formatstyle='icbn';			
-console.log('icbn by nomenclatural_code');
-
+		if(val == "nomenclatural_code") {
+			var relatedElementID=this.id.replace("type_","");
+			var relatedElement=$("#" + relatedElementID).val();
+			if (relatedElement=='ICBN') {
+				formatstyle='icbn';			
+				console.log('icbn by nomenclatural_code');
+			}
 		}
 		// on initial load ONLY, save display name
 		if ( val=='display_name' && ! caller) {
