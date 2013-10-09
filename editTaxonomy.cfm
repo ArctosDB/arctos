@@ -545,6 +545,7 @@ function guessAtDisplayName(caller) {
 	var formatstyle = 'iczn'; // default to simple....
 	var formattedname; // with HTML
 	var lowestclassificationterm;
+	var origDisplayNameValue;
 
 	$("input[name^='ncterm_type_']").each(function() {
 
@@ -572,7 +573,7 @@ function guessAtDisplayName(caller) {
 		}
 		// on initial load ONLY, save display name
 		if ( val=='display_name' && ! caller) {
-			var origDisplayNameValue=$("#ncterm_" + n).val();
+			origDisplayNameValue=$("#ncterm_" + n).val();
 			console.log('grabbing display name: ' + origDisplayNameValue);
 			$("#originalDisplayName").html(origDisplayNameValue);
 		}
