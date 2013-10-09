@@ -572,9 +572,9 @@ function guessAtDisplayName(caller) {
 		}
 		// on initial load ONLY, save display name
 		if ( val=='display_name' && ! caller) {
-			//var origDisplayNameValue=$("#ncterm_" + n).val();
-			console.log('grabbing display name');
-			$("#originalDisplayName").text($("#ncterm_" + n).val());
+			var origDisplayNameValue=$("#ncterm_" + n).val();
+			console.log('grabbing display name: ' + origDisplayNameValue);
+			$("#originalDisplayName").html(origDisplayNameValue);
 		}
 	});
 	
