@@ -538,6 +538,7 @@ function guessAtDisplayName(caller) {
 	var speciesauthor;
 	var subspeciesauthor;
 	var displayvalueelem="";
+	var displayvalue_value="";
 	var genus;
 	var species;
 	var infraspecific_term;
@@ -551,7 +552,8 @@ function guessAtDisplayName(caller) {
 		var val = $(this).val();
 	    if(val == "display_name") {
 			var relatedElementID=this.id.replace("type_","");
-			var displayvalueelem=$("#" + relatedElementID).val();
+			displayvalue_value=$("#" + relatedElementID).val();
+			displayvalueelem=this.id; 
 	    }
 		if(val == "author_text") {
 			console.log(this);
@@ -659,11 +661,11 @@ function guessAtDisplayName(caller) {
 	// get rid of unnecessary italicization
 	formattedname=formattedname.replace(/<\/i> <i>/g, ' ');
 	console.log('formattedname: ' + formattedname);
-	console.log('displayvalueelem: ' + displayvalueelem);
+	console.log('displayvalue_value: ' + displayvalue_value);
 	if (formattedname) {
 			console.log('pushing: ');
 
-		$("#displayvalueelem").addClass('red');
+		$("#displayvalue_value").addClass('red');
 	}
 
 
