@@ -637,6 +637,11 @@ console.log('setting change for ' + this.id);
 			console.log('formatstyle: ' + formatstyle);
 			console.log('lowestclassificationterm: ' + lowestclassificationterm);
 			// just doing this separately because it's less confusing....
+			if (infraspecific_term) {
+				infraspecific_term=infraspecific_term.replace(species,"");
+							console.log('replaced infraspecific_term: ' + infraspecific_term);
+			}
+					
 			if (formatstyle=='icbn'){
 				if (species) {
 					formattedname += ' <i>' + species + '</i>';
