@@ -520,7 +520,10 @@ console.log('setting change for ' + this.id);
 function guessAtDisplayName(caller) {
 	
 console.log('i am guessAtDisplayName');
-	console.log('caller: ' + caller);
+		
+console.log('caller: ' + caller);
+var cary=caller.split('_');
+console.log('cary: ' + cary);
 
 	var genus;
 	var species;
