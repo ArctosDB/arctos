@@ -678,6 +678,9 @@ console.log('setting change for ' + this.id);
 			if (! formattedname) {
 				if (genus) {
 					formattedname='<i>' + genus + '</i>';
+					if (speciesauthor) {
+						formattedname += ' ' + speciesauthor;
+					}
 				} else {
 					formattedname=lowestclassificationterm;
 				}
