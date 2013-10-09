@@ -632,34 +632,42 @@ function guessAtDisplayName(caller) {
 	console.log('subspeciesauthor: ' + subspeciesauthor);
 	console.log('formatstyle: ' + formatstyle);
 	console.log('lowestclassificationterm: ' + lowestclassificationterm);
-	if (genus){
-		formattedname='<i>' + genus + '</i>';
-		if (species) {
-			// genus + species in all cases
-			formattedname += ' <i>' + species + '</i>';
-			if (formatstyle=='icbn' && speciesauthor ){
-				// for ICBN, inject species author here  
-				formattedname += ' ' + speciesauthor;
-			}
-			if (infraspecific_term.length > 0) {
-				if (formatstyle=='icbn' && infraspecific_rank){
-					if (infraspecific_rank){
-						// we have a ranked subspecies under ICBN
-						formattedname += ' ' + infraspecific_rank + ' <i>' + infraspecific_term + '</i>';
-					} else {
-						// nonranked subspecies under ICBN - whatever.....
-						formattedname += ' <i>' + infraspecific_term + '</i>';
-					}
-					if (subspeciesauthor){
-						formattedname += ' ' + subspeciesauthor;
-					}
-				} else {
-					// it's ICZN-style
-					formattedname += ' <i>' + infraspecific_term + '</i>';
-				}
-			}
+	// just doing this separately because it's less confusing....
+	if (formatstyle=='icbn'){
+		if (genus){
+			formattedname='<i>' + genus + '</i>';
 		}
-	} else {
+		if (species) {
+			formattedname += ' <i>' + species + '</i>';
+		}
+
+		if (speciesauthor) {
+			formattedname += ' ' + speciesauthor;
+		}
+		if (infraspecific_rank) {
+			formattedname += ' ' + infraspecific_rank;
+		}
+		if (infraspecific_term) {
+			formattedname += ' <i>' + infraspecific_term + '</i>';
+		}
+		if (subspeciesauthor) {
+			formattedname += ' ' + subspeciesauthor;
+		}
+	}
+	if (formatstyle=='iczn'){
+		if (genus){
+			formattedname='<i>' + genus + '</i>';
+		}
+		if (species) {
+			formattedname += ' <i>' + species + '</i>';
+		}
+
+		if (speciesauthor) {
+			formattedname += ' ' + speciesauthor;
+		}
+	}
+	// fallback
+	if (! formattedname) {
 		formattedname=lowestclassificationterm;
 	}
 	// get rid of unnecessary italicization
