@@ -520,15 +520,20 @@ console.log('setting change for ' + this.id);
 function guessAtDisplayName(caller) {
 	
 console.log('i am guessAtDisplayName');
-if(caller){
-console.log('caller: ' + caller);
-var cary=caller.split('_');
-console.log('cary: ' + cary);
-var theIdInt=cary[cary.length-1];
-console.log('theIdInt: ' + theIdInt);
-if (caller.substring(0, 2) == "nc") {
-console.log('starts with nc: ');
+if(caller && caller.substring(0, 2) == "nc") {
+	console.log('starts with nc: ');
+	var cary=caller.split('_');
+	var theIdInt=cary[cary.length-1];
+	var theType=$("#ncterm_type_" + theIdInt).val();
+	if (theType == 'display_name'){
+		console.log('is display name');
+		return false;
+	}
 }
+console.log('caller: ' + caller);
+console.log('cary: ' + cary);
+console.log('theIdInt: ' + theIdInt);
+
 }
 	var genus;
 	var species;
