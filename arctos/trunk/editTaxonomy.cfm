@@ -576,8 +576,8 @@ function guessAtDisplayName(caller) {
 			var relatedElement=$("#" + relatedElementID).val();
 
 			console.log('grabbing display name: ' + relatedElement + '(' + relatedElementID);
-			var linky='<span onclick="$(' + "'#' + relatedElementID + "').val('" + relatedElement + "')" + ';"';
-			console.log(linky);
+			var undoSuggest='<span onclick="$(\'#" + relatedElementID + "\').val(\'" + relatedElement + "\')";
+			console.log(undoSuggest);
 
 			$("#originalDisplayName").html(relatedElement);
 		}
