@@ -724,7 +724,7 @@ console.log('i am guessAtDisplayName');
 								<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#thisrow#" name="ncterm_type_#thisrow#" value="#term_type#" onchange="guessAtDisplayName(this.id)">
 							</td>
 							<td>
-								<input size="60" type="text" id="ncterm_#thisrow#" name="ncterm_#thisrow#" value="#stripQuotes(term)# onchange="guessAtDisplayName(this.id)"">
+								<input size="60" type="text" id="ncterm_#thisrow#" name="ncterm_#thisrow#" value="#stripQuotes(term)#" onchange="guessAtDisplayName(this.id)">
 							</td>
 							<td>
 								<span class="likeLink" onclick="nc_deleteThis('#thisrow#');">[ Delete this row ]</span>
