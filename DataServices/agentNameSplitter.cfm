@@ -123,90 +123,94 @@ sho err
 		<cfset mdln=''>
 		<cfset sugn=''>
 		
-		
-		<cfset thisName=trim(preferred_name)>
-		<cfif len(thisName) is 0>
-			<cfset s=listappend(s,"preferred_name may not be blank",";")>
-		</cfif>
-		<cfif thisName is not preferred_name>
-			<cfset s=listappend(s,"leading or trailing spaces trimmed",";")>
-		</cfif>
-		<cfif thisName contains "  ">
-			<cfset thisName=replace(thisName,"  "," ","all")>
-			<cfset s=listappend(s,"trimmed double spaces",";")>
-		</cfif>
-		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select agent_id from agent_name where agent_name='#thisName#'
-		</cfquery>
-		<cfif isThere.recordcount is 1>
-			<cfset s=listappend(s,"found #isThere.recordcount# match",";")>	
-		<cfelseif isThere.recordcount gt 1>
-			<cfset s=listappend(s,"found #isThere.recordcount# matches-merge or make unique",";")>
-		</cfif>
-		<cfloop index="i" list="#thisName#" delimiters=" ,;">
-			<cfif listfindnocase(pfxLst,i)>
-				<cfset pfx=i>
+		<cftry>
+			<cfset thisName=trim(preferred_name)>
+			<cfif len(thisName) is 0>
+				<cfset s=listappend(s,"preferred_name may not be blank",";")>
 			</cfif>
-			<cfif listfindnocase(sfxLst,i)>
-				<cfset sfx=i>
+			<cfif thisName is not preferred_name>
+				<cfset s=listappend(s,"leading or trailing spaces trimmed",";")>
 			</cfif>
-		</cfloop>
-		<cfset tempName=thisName>
-		<cfif len(pfx) gt 0>
-			<cfset tempName=replace(tempName,pfx,'')>
-		</cfif>
-		<cfif len(sfx) gt 0>
-			<cfset tempName=replace(tempName,sfx,'')>
-		</cfif>
-		<cfset tempName=trim(tempName)>
-		<cfif right(tempName,1) is ",">
-			<cfset tempName=left(tempName,len(tempName)-1)>
-		</cfif>
-		<br>#tempName#
-		<br>#listlen(tempName," ")#
-		<cfif listlen(tempName," ") is 1>
-			<cfset s=listappend(s,"will not deal with no-space agents",";")>	
-		<cfelseif listlen(tempName," ") is 2>
-			<cfset firstn=listFirst(tempName," ")>
-			<cfset lastn=listLast(tempName," ")>
-		<cfelse>
-			<cfset firstn=listFirst(tempName," ")>
-			<cfset lastn=listLast(tempName," ")>
-			<cfset mdln=tempName>
-			<cfset mdln=replace(mdln,firstn,'')>
-			<cfset mdln=replace(mdln,lastn,'')>
-			<cfset mdln=trim(mdln)>
-		</cfif>
-		<cfset ProbNotPersonClue="class,biol,alaska,california,field,station,research,summer,student,students,uaf,national,estate">
-		<cfset pnap=false>
-		<cfloop list="#ProbNotPersonClue#" index="i">
-			<cfif listfindnocase(thisName,i," ,;-")>
+			<cfif thisName contains "  ">
+				<cfset thisName=replace(thisName,"  "," ","all")>
+				<cfset s=listappend(s,"trimmed double spaces",";")>
+			</cfif>
+			<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select agent_id from agent_name where agent_name='#thisName#'
+			</cfquery>
+			<cfif isThere.recordcount is 1>
+				<cfset s=listappend(s,"found #isThere.recordcount# match",";")>	
+			<cfelseif isThere.recordcount gt 1>
+				<cfset s=listappend(s,"found #isThere.recordcount# matches-merge or make unique",";")>
+			</cfif>
+			<cfloop index="i" list="#thisName#" delimiters=" ,;">
+				<cfif listfindnocase(pfxLst,i)>
+					<cfset pfx=i>
+				</cfif>
+				<cfif listfindnocase(sfxLst,i)>
+					<cfset sfx=i>
+				</cfif>
+			</cfloop>
+			<cfset tempName=thisName>
+			<cfif len(pfx) gt 0>
+				<cfset tempName=replace(tempName,pfx,'')>
+			</cfif>
+			<cfif len(sfx) gt 0>
+				<cfset tempName=replace(tempName,sfx,'')>
+			</cfif>
+			<cfset tempName=trim(tempName)>
+			<cfif right(tempName,1) is ",">
+				<cfset tempName=left(tempName,len(tempName)-1)>
+			</cfif>
+			<br>#tempName#
+			<br>#listlen(tempName," ")#
+			<cfif listlen(tempName," ") is 1>
+				<cfset s=listappend(s,"will not deal with no-space agents",";")>	
+			<cfelseif listlen(tempName," ") is 2>
+				<cfset firstn=listFirst(tempName," ")>
+				<cfset lastn=listLast(tempName," ")>
+			<cfelse>
+				<cfset firstn=listFirst(tempName," ")>
+				<cfset lastn=listLast(tempName," ")>
+				<cfset mdln=tempName>
+				<cfset mdln=replace(mdln,firstn,'')>
+				<cfset mdln=replace(mdln,lastn,'')>
+				<cfset mdln=trim(mdln)>
+			</cfif>
+			<cfset ProbNotPersonClue="class,biol,alaska,california,field,station,research,summer,student,students,uaf,national,estate">
+			<cfset pnap=false>
+			<cfloop list="#ProbNotPersonClue#" index="i">
+				<cfif listfindnocase(thisName,i," ,;-")>
+					<cfset pnap=true>
+				</cfif>
+			</cfloop>
+			<cfif refind("[A-Z][A-Z]",thisName)>
 				<cfset pnap=true>
 			</cfif>
-		</cfloop>
-		<cfif refind("[A-Z][A-Z]",thisName)>
-			<cfset pnap=true>
-		</cfif>
-		<cfif refind("[0-9]",thisName)>
-			<cfset pnap=true>
-		</cfif>
-		<cfif pnap>
-			<cfset s=listappend(s,"probably not a person",";")>
-		</cfif>
-		<cfif s does not contain "found">
-			<cfquery name="ln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select agent_name from preferred_agent_name,person where 
-				person.person_id=preferred_agent_name.agent_id and
-				person.last_name='#lastn#'
-				group by agent_name
-			</cfquery>
-			<cfif ln.recordcount gt 0>
-				<cfset sugn=valuelist(ln.agent_name,"; ")>
+			<cfif refind("[0-9]",thisName)>
+				<cfset pnap=true>
 			</cfif>
-			<cfif len(sugn) gt 3500>
-				<cfset sugn=left(sugn,3500) & '...'>
+			<cfif pnap>
+				<cfset s=listappend(s,"probably not a person",";")>
 			</cfif>
-		</cfif>
+			<cfif s does not contain "found">
+				<cfquery name="ln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select agent_name from preferred_agent_name,person where 
+					person.person_id=preferred_agent_name.agent_id and
+					person.last_name='#lastn#'
+					group by agent_name
+				</cfquery>
+				<cfif ln.recordcount gt 0>
+					<cfset sugn=valuelist(ln.agent_name,"; ")>
+				</cfif>
+				<cfif len(sugn) gt 3500>
+					<cfset sugn=left(sugn,3500) & '...'>
+				</cfif>
+			</cfif>
+		<cfcatch>
+			<cfset s="something very strange happened - check for nonprinting or special characters">
+		</cfcatch>
+		</cftry>
 		<!--- this has to run as UAM because the CF datathingy is completely retarded and fails on agent name "grant" ---->
 		<cfquery name="d" datasource="uam_god">
 			update ds_temp_agent_split set
