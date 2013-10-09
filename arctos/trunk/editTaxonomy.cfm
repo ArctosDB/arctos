@@ -568,7 +568,9 @@ function guessAtDisplayName(caller) {
 			subspeciesauthor=$("#" + relatedElementID).val();
 	    }
 		if(val == "nomenclatural_code" && relatedElement=='ICBN') {
-			formatstyle='icbn';
+			formatstyle='icbn';			
+console.log('icbn by nomenclatural_code');
+
 		}
 		// on initial load ONLY, save display name
 		if ( val=='display_name' && ! caller) {
@@ -605,6 +607,7 @@ function guessAtDisplayName(caller) {
 			species=relatedElement;
 		}
 		if(val == "kingdom" && relatedElement=='Plantae') {
+			console.log('icbn by kingdom');
 			formatstyle='icbn';
 		}
 	
