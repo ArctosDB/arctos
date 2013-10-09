@@ -107,7 +107,7 @@ Containers Moved:<span id="counter" style="background-color:green">0</span>
 		<input type="hidden" name="action" value="moveIt">
 		<td>
 			<label for="parent_barcode">Parent Barcode</label>
-			<input type="text" name="parent_barcode" id="parent_barcode">
+			<input type="text" name="parent_barcode" id="parent_barcode" autofocus>
 		</td>
 		<td>
 			<label for="child_barcode">Child Barcode</label>
