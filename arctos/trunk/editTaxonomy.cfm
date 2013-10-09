@@ -573,8 +573,11 @@ function guessAtDisplayName(caller) {
 		}
 		// on initial load ONLY, save display name
 		if ( val=='display_name' && ! caller) {
+			var relatedElementID=this.id.replace("type_","");
+			var relatedElement=$("#" + relatedElementID).val();
+
 			origDisplayNameValue=$("#ncterm_" + n).val();
-			console.log('grabbing display name: ' + origDisplayNameValue);
+			console.log('grabbing display name: ' + relatedElement);
 			$("#originalDisplayName").html(origDisplayNameValue);
 		}
 	});
