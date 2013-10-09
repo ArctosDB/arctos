@@ -1,4 +1,10 @@
 <cfinclude template="includes/_header.cfm">
+
+<cfdump var=#url#>
+
+<cfabort>
+
+
 <a target="_blank" class="external" href="https://docs.google.com/document/d/1J1B7NKfaWl1A1wVQUe5rlm6FsfA7-VVUHsCqH-gHA_E/edit">editing guidelines</a>
 <!------------------------------------------------------------------------------->
 
