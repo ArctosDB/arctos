@@ -662,7 +662,7 @@ function guessAtDisplayName(caller) {
 	if (formattedname) {
 			console.log('pushing: ');
 
-		$("#displayvalueelem").val('tatertors');
+		$("#displayvalueelem").addClass('red');
 	}
 
 
