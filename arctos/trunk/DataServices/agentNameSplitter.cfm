@@ -162,6 +162,8 @@ sho err
 		<cfif right(tempName,1) is ",">
 			<cfset tempName=left(tempName,len(tempName)-1)>
 		</cfif>
+		<br>#tempName#
+		<br>#listlen(tempName," ")#
 		<cfif listlen(tempName," ") is 1>
 			<cfset s=listappend(s,"will not deal with no-space agents",";")>	
 		<cfelseif listlen(tempName," ") is 2>
