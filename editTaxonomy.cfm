@@ -638,7 +638,7 @@ console.log('setting change for ' + this.id);
 			console.log('lowestclassificationterm: ' + lowestclassificationterm);
 			// just doing this separately because it's less confusing....
 			if (infraspecific_term) {
-				infraspecific_term=infraspecific_term.replace(species,"");
+				infraspecific_term=infraspecific_term.replace(species,"").trim();
 							console.log('replaced infraspecific_term: ' + infraspecific_term);
 			}
 					
@@ -661,7 +661,8 @@ console.log('setting change for ' + this.id);
 				}
 			}
 			if (formatstyle=='iczn'){
-			
+										console.log('formattedname====: ' + formattedname);
+
 				if (species) {
 					formattedname += ' <i>' + species + '</i>';
 				}
