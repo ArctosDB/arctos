@@ -518,20 +518,19 @@ console.log('setting change for ' + this.id);
 			}
 		}
 function guessAtDisplayName(caller) {
-	
-console.log('i am guessAtDisplayName');
-if(caller && caller.substring(0, 2) == "nc") {
-	console.log('starts with nc: ');
-	var cary=caller.split('_');
-	var theIdInt=cary[cary.length-1];
-	var theType=$("#ncterm_type_" + theIdInt).val();
-	if (theType == 'display_name'){
-		console.log('is display name');
-		return;
+	// if this is being called by an element, check if that element is the value
+	// of display_name. If so, just exit. Otherwise, rock on.
+	if(caller && caller.substring(0, 2) == "nc") {
+		console.log('starts with nc: ');
+		var cary=caller.split('_');
+		var theIdInt=cary[cary.length-1];
+		var theType=$("#ncterm_type_" + theIdInt).val();
+		if (theType == 'display_name'){
+			console.log('is display name');
+			return;
+		}
 	}
-}
-
-
+	
 	var genus;
 	var species;
 	var infraspecific_term;
@@ -571,6 +570,11 @@ if(caller && caller.substring(0, 2) == "nc") {
 		if(val == "nomenclatural_code" && relatedElement=='ICBN') {
 			formatstyle='icbn';
 		}
+		// on initial load ONLY, save display name
+		if ( val=='display_name' && ! caller) {
+			//var origDisplayNameValue=$("#ncterm_" + n).val();
+			$("#originalDisplayName").text($("#ncterm_" + n).val());
+		}
 	});
 	
 	if (displayvalueelem==""){
@@ -582,8 +586,8 @@ if(caller && caller.substring(0, 2) == "nc") {
 	}
 
 	// and this point, there should be a display_name and we should know it's ID.
-	// grab the original value, because
-	var origDisplayNameValue=$("#ncterm_" + n).val();
+	
+	
 	$("input[name^='term_type_']").each(function() {
     	var val = $(this).val();
 		var relatedElementID=this.id.replace("type_","");
@@ -779,6 +783,9 @@ if(caller && caller.substring(0, 2) == "nc") {
 			<p>
 				<input type="button" onclick="submitForm();" value="Save Edits">
 			</p>
+			<div id="originalDisplayName">
+				
+			</div>
 			<p>
 				If you haven't yet saved, you can <a href="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#">refresh this page</a>
 			</p>
