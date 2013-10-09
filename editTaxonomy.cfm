@@ -550,7 +550,141 @@ console.log('setting change for ' + this.id);
 				document.location='/editTaxonomy.cfm?action=deleteClassification&classification_id=' + cid + '&taxon_name_id=' + tnid;
 			}
 		}
+
 		function guessAtDisplayName(caller) {
+			// if this is being called by an element, check if that element is the value
+			// of display_name. If so, just exit. Otherwise, rock on.
+			if(caller && caller.substring(0, 2) == "nc") {
+				console.log('starts with nc: ');
+				var cary=caller.split('_');
+				var theIdInt=cary[cary.length-1];
+				var theType=$("#ncterm_type_" + theIdInt).val();
+				if (theType == 'display_name'){
+					console.log('is display name');
+					return;
+				}
+			}
+			var species;
+			var infraspecific_term;
+			var infraspecific_rank;
+			var speciesauthor;
+			var subspeciesauthor;
+			var dv_element=""; // element of the term type
+			var dv_value=""; // contents of the term
+			var dv_value_element=""; // element of the term
+			var formatstyle = 'iczn'; // default to simple....
+			var formattedname; // with HTML
+			var lowestclassificationterm;
+		
+			$("input[name^='ncterm_type_']").each(function() {
+				var val = $(this).val();
+				var relatedElementID=this.id.replace("type_","");    
+				var relatedElement=$("#" + relatedElementID).val();
+		
+				if(val == "display_name") {
+					dv_value_element=relatedElementID;
+					dv_value=relatedElement;
+					dv_element=this.id;
+			    }
+				if(val == "author_text") {			
+					speciesauthor=relatedElement;
+			    }
+				if(val == "infraspecific_author") {
+					subspeciesauthor=relatedElement;
+			    }
+				if(val == "nomenclatural_code" && relatedElement=='ICBN') {
+					formatstyle='icbn';			
+				}
+				// on initial load ONLY, save display name
+				if ( val=='display_name' && ! caller) {
+					var undoSuggest='display_value may have been automatically updated.<br>';
+					undoSuggest+='<span class="likeLink" onclick="$(\'#' + relatedElementID + '\').val(\'' + relatedElement + '\');">reset to ' + relatedElement + '</span>';
+					$("#originalDisplayName").html(undoSuggest);
+				}
+			});
+			if (! dv_element){
+				// add a row for display_name	
+				nc_addARow();
+				var n=parseInt($("#numnoclassrs").val());
+				$('#ncterm_type_' + n).val('display_name');
+				dv_element='ncterm_type_' + n;
+			}
+			// and this point, there should be a display_name and we should know it's ID.
+			$("input[name^='term_type_']").each(function() {
+		    	var val = $(this).val();
+				var relatedElementID=this.id.replace("type_","");
+				var relatedElement=$("#" + relatedElementID).val();	
+				if(val == "kingdom" && relatedElement=='Plantae') {
+					formatstyle='icbn';
+				}
+				if(val == "species" || val == "sp" || val == "sp.") {
+					species=relatedElement;
+				}		
+				if(val == "subsp." || val == "variety" || val == "var." || val == "varietas" || val == "subvar." || val == "subspecies") {
+					// "subspecies"
+					infraspecific_term=relatedElement;
+					infraspecific_rank=val;
+				}
+				// grab the lowest classification term - use it for display name if all else fails
+				lowestclassificationterm=relatedElement;
+			});
+		
+			console.log('species: ' + species);
+			console.log('infraspecific_term: ' + infraspecific_term);
+			console.log('infraspecific_rank: ' + infraspecific_rank);
+			console.log('speciesauthor: ' + speciesauthor);
+			console.log('subspeciesauthor: ' + subspeciesauthor);
+			console.log('formatstyle: ' + formatstyle);
+			console.log('lowestclassificationterm: ' + lowestclassificationterm);
+			// just doing this separately because it's less confusing....
+			if (formatstyle=='icbn'){
+				if (species) {
+					formattedname += ' <i>' + species + '</i>';
+				}
+		
+				if (speciesauthor) {
+					formattedname += ' ' + speciesauthor;
+				}
+				if (infraspecific_rank) {
+					formattedname += ' ' + infraspecific_rank;
+				}
+				if (infraspecific_term) {
+					formattedname += ' <i>' + infraspecific_term + '</i>';
+				}
+				if (subspeciesauthor) {
+					formattedname += ' ' + subspeciesauthor;
+				}
+			}
+			if (formatstyle=='iczn'){
+			
+				if (species) {
+					formattedname += ' <i>' + species + '</i>';
+				}
+		
+				if (speciesauthor) {
+					formattedname += ' ' + speciesauthor;
+				}
+			}
+			// fallback
+			if (! formattedname) {
+				formattedname=lowestclassificationterm;
+			}
+			// get rid of unnecessary italicization
+			formattedname=formattedname.replace(/<\/i> <i>/g, ' ');
+			/*
+			console.log('formattedname: ' + formattedname);
+			console.log('dv_value: ' + dv_value);
+			console.log('dv_value_element: ' + dv_value_element);
+			*/
+			if (formattedname) {
+				$("#" + dv_value_element).val(formattedname);
+			}
+		}
+	</script>
+<!-------------/* this version works for species=single term, not species=genus+species
+
+
+function guessAtDisplayName(caller) {
 			// if this is being called by an element, check if that element is the value
 			// of display_name. If so, just exit. Otherwise, rock on.
 			if(caller && caller.substring(0, 2) == "nc") {
@@ -695,7 +829,8 @@ console.log('setting change for ' + this.id);
 				$("#" + dv_value_element).val(formattedname);
 			}
 		}
-	</script>
+
+---------------->
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
