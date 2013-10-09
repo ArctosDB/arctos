@@ -537,8 +537,10 @@ function guessAtDisplayName(caller) {
 	var infraspecific_rank;
 	var speciesauthor;
 	var subspeciesauthor;
-	var displayvalueelem="";
-	var displayvalue_value="";
+
+	var dv_element=""; // element of the term type
+	var dv_value=""; // contents of the term
+	var dv_value_element=""; // element of the term
 	var genus;
 	var species;
 	var infraspecific_term;
@@ -548,27 +550,22 @@ function guessAtDisplayName(caller) {
 	var lowestclassificationterm;
 
 	$("input[name^='ncterm_type_']").each(function() {
-
 		var val = $(this).val();
+
 	    if(val == "display_name") {
-			var relatedElementID=this.id.replace("type_","");
-			displayvalue_value=$("#" + relatedElementID).val();
-			displayvalueelem=this.id; 
+			dv_value_element=this.id.replace("type_","");
+			dv_value=$("#" + dv_value_element).val();
+			dv_element=this.id;
+
+
 	    }
 		if(val == "author_text") {
-			console.log(this);
-	    	displayvalueelem=this.id;
 			var relatedElementID=this.id.replace("type_","");
-			var relatedElement=$("#" + relatedElementID).val();
-			console.log('relatedElement: ' + relatedElement);
-
-			speciesauthor=relatedElement;
+			speciesauthor=$("#" + relatedElementID).val();
 	    }
 		if(val == "infraspecific_author") {
-	    	displayvalueelem=this.id;
 			var relatedElementID=this.id.replace("type_","");
-			var relatedElement=$("#" + relatedElementID).val();	
-			subspeciesauthor=relatedElement;
+			subspeciesauthor=$("#" + relatedElementID).val();
 	    }
 		if(val == "nomenclatural_code" && relatedElement=='ICBN') {
 			formatstyle='icbn';
@@ -585,12 +582,12 @@ function guessAtDisplayName(caller) {
 		}
 	});
 	
-	if (! displayvalueelem){
+	if (! dv_element){
 		// add a row for display_name	
 		nc_addARow();
 		var n=parseInt($("#numnoclassrs").val());
 		$('#ncterm_type_' + n).val('display_name');
-		displayvalueelem='ncterm_type_' + n;
+		dv_element='ncterm_type_' + n;
 	}
 
 	// and this point, there should be a display_name and we should know it's ID.
@@ -661,11 +658,11 @@ function guessAtDisplayName(caller) {
 	// get rid of unnecessary italicization
 	formattedname=formattedname.replace(/<\/i> <i>/g, ' ');
 	console.log('formattedname: ' + formattedname);
-	console.log('displayvalue_value: ' + displayvalue_value);
+	console.log('dv_value: ' + dv_value);
 	if (formattedname) {
 			console.log('pushing: ');
 
-		$("#displayvalue_value").addClass('red');
+		$("#dv_value").addClass('red');
 	}
 
 
