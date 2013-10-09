@@ -576,7 +576,8 @@ function guessAtDisplayName(caller) {
 			var relatedElement=$("#" + relatedElementID).val();
 
 			console.log('grabbing display name: ' + relatedElement + '(' + relatedElementID);
-			var undoSuggest='<span class="likeLink" onclick="$(\'#' + relatedElementID + '\').val(\'' + relatedElement + '\');">reset display_value to ' + relatedElement + '</span>';
+			var undoSuggest='display_value may have been automatically updated.';
+			undoSuggest+='<span class="likeLink" onclick="$(\'#' + relatedElementID + '\').val(\'' + relatedElement + '\');">reset display_value to ' + relatedElement + '</span>';
 			$("#originalDisplayName").html(undoSuggest);
 		}
 	});
