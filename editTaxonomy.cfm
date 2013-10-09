@@ -488,8 +488,8 @@ console.log('setting change for ' + this.id);
 			++n;
 			var x='<tr id="cell_' + n + '">';
 			x+='<td class="dragger">(drag row here)</td>';
-			x+='<td><input size="60" class="ac_isclass_tt" type="text" id="term_type_' + n + '" name="term_type_' + n + '"></td>';
-			x+='<td><input size="60" type="text" id="term_' + n + '" name="term_' + n + '"></td>';
+			x+='<td><input size="60" class="ac_isclass_tt" type="text" id="term_type_' + n + '" name="term_type_' + n + '" onchange="guessAtDisplayName(this.id)"></td>';
+			x+='<td><input size="60" type="text" id="term_' + n + '" name="term_' + n + '" onchange="guessAtDisplayName(this.id)"></td>';
 			x+='<td><span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
 			x+='</tr>';
 			$("#sortable").append(x);
@@ -499,8 +499,8 @@ console.log('setting change for ' + this.id);
 			var n=parseInt($("#numnoclassrs").val());
 			++n;
 			var x='<tr id="nccell_' + n + '">';
-			x+='<td><input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_' + n + '" name="ncterm_type_' + n + '"></td>';
-			x+='<td><input size="60" type="text" id="ncterm_' + n + '" name="ncterm_' + n + '"></td>';
+			x+='<td><input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_' + n + '" name="ncterm_type_' + n + '" onchange="guessAtDisplayName(this.id)"></td>';
+			x+='<td><input size="60" type="text" id="ncterm_' + n + '" name="ncterm_' + n + '" onchange="guessAtDisplayName(this.id)"></td>';
 			x+='<td><span class="likeLink" onclick="nc_deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
 			x+='</tr>';
 			$("#notsortable").append(x);
@@ -515,8 +515,11 @@ console.log('setting change for ' + this.id);
 				document.location='/editTaxonomy.cfm?action=deleteClassification&classification_id=' + cid + '&taxon_name_id=' + tnid;
 			}
 		}
-function guessAtDisplayName() {
-	console.log('i am guessAtDisplayName');
+function guessAtDisplayName(caller) {
+	
+console.log('i am guessAtDisplayName');
+	console.log('caller: ' + caller);
+
 	var genus;
 	var species;
 	var infraspecific_term;
@@ -533,6 +536,7 @@ function guessAtDisplayName() {
 	var lowestclassificationterm;
 
 	$("input[name^='ncterm_type_']").each(function() {
+
 		var val = $(this).val();
 	    if(val == "display_name") {
 	      displayvalueelem=this.id;
@@ -715,10 +719,10 @@ function guessAtDisplayName() {
 					<cfloop query="noclass">
 						<tr id="nccell_#thisrow#">
 							<td>
-								<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#thisrow#" name="ncterm_type_#thisrow#" value="#term_type#">
+								<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#thisrow#" name="ncterm_type_#thisrow#" value="#term_type#" onchange="guessAtDisplayName(this.id)">
 							</td>
 							<td>
-								<input size="60" type="text" id="ncterm_#thisrow#" name="ncterm_#thisrow#" value="#stripQuotes(term)#">
+								<input size="60" type="text" id="ncterm_#thisrow#" name="ncterm_#thisrow#" value="#stripQuotes(term)# onchange="guessAtDisplayName(this.id)"">
 							</td>
 							<td>
 								<span class="likeLink" onclick="nc_deleteThis('#thisrow#');">[ Delete this row ]</span>
@@ -747,10 +751,10 @@ function guessAtDisplayName() {
 								(drag row here)
 							</td>
 							<td>
-								<input size="60" class="ac_isclass_tt" type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" name="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#">
+								<input size="60" class="ac_isclass_tt" type="text" id="term_type_#POSITION_IN_CLASSIFICATION#" name="term_type_#POSITION_IN_CLASSIFICATION#" value="#term_type#" onchange="guessAtDisplayName(this.id)">
 							</td>
 							<td>
-								<input size="60" type="text" id="term_#POSITION_IN_CLASSIFICATION#" name="term_#POSITION_IN_CLASSIFICATION#" value="#term#">
+								<input size="60" type="text" id="term_#POSITION_IN_CLASSIFICATION#" name="term_#POSITION_IN_CLASSIFICATION#" value="#term#" onchange="guessAtDisplayName(this.id)">
 							</td>
 							<td>
 								<span class="likeLink" onclick="deleteThis('#POSITION_IN_CLASSIFICATION#');">[ Delete this row ]</span>
