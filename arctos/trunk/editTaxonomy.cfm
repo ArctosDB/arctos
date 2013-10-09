@@ -639,38 +639,37 @@ console.log('setting change for ' + this.id);
 			// just doing this separately because it's less confusing....
 			if (infraspecific_term) {
 				infraspecific_term=infraspecific_term.replace(species,"").trim();
-							console.log('replaced infraspecific_term: ' + infraspecific_term);
+				console.log('replaced infraspecific_term: ' + infraspecific_term);
 			}
+			if (species) {
+				formattedname = ' <i>' + species + '</i>';
+				if (formatstyle=='icbn'){
+				
+					if (speciesauthor) {
+						formattedname += ' ' + speciesauthor;
+					}
+					if (infraspecific_rank) {
+						formattedname += ' ' + infraspecific_rank;
+					}
+					if (infraspecific_term) {
+						formattedname += ' <i>' + infraspecific_term + '</i>';
+					}
+					if (subspeciesauthor) {
+						formattedname += ' ' + subspeciesauthor;
+					}
+				}
+				if (formatstyle=='iczn'){
+											console.log('formattedname====: ' + formattedname);
+	
 					
-			if (formatstyle=='icbn'){
-				if (species) {
-					formattedname += ' <i>' + species + '</i>';
-				}
-		
-				if (speciesauthor) {
-					formattedname += ' ' + speciesauthor;
-				}
-				if (infraspecific_rank) {
-					formattedname += ' ' + infraspecific_rank;
-				}
-				if (infraspecific_term) {
-					formattedname += ' <i>' + infraspecific_term + '</i>';
-				}
-				if (subspeciesauthor) {
-					formattedname += ' ' + subspeciesauthor;
+			
+					if (speciesauthor) {
+						formattedname += ' ' + speciesauthor;
+					}
 				}
 			}
-			if (formatstyle=='iczn'){
-										console.log('formattedname====: ' + formattedname);
-
-				if (species) {
-					formattedname += ' <i>' + species + '</i>';
-				}
-		
-				if (speciesauthor) {
-					formattedname += ' ' + speciesauthor;
-				}
-			}
+				
+			
 			// fallback
 			if (! formattedname) {
 				formattedname=lowestclassificationterm;
