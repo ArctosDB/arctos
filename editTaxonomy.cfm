@@ -582,7 +582,7 @@ function guessAtDisplayName(caller) {
 		}
 	});
 	
-	if (displayvalueelem==""){
+	if (! displayvalueelem){
 		// add a row for display_name	
 		nc_addARow();
 		var n=parseInt($("#numnoclassrs").val());
@@ -660,6 +660,8 @@ function guessAtDisplayName(caller) {
 	console.log('formattedname: ' + formattedname);
 	console.log('displayvalueelem: ' + displayvalueelem);
 	if (formattedname) {
+			console.log('pushing: ');
+
 		$("#displayvalueelem").val(formattedname);
 	}
 
