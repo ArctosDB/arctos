@@ -413,7 +413,10 @@
 		// copy this with create classification
 		$(function() {
 			
-	
+	$("form input:text").on( "change", guessAtDisplayName );
+
+/*
+
 	$("form input:text").each(function() {
 		if(this.val != "display_name") {
 			// watch everything EXCEPT display_name for changes
@@ -422,7 +425,7 @@ console.log('setting change for ' + this.id);
 
 		}
 	});
-
+*/
 
 
 
