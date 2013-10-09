@@ -663,7 +663,7 @@ function guessAtDisplayName(caller) {
 	if (formattedname) {
 			console.log('pushing: ');
 
-		$("#dv_value_element").val('formattedname');
+		$("#" + dv_value_element).val(formattedname);
 	}
 
 
