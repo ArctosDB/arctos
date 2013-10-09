@@ -402,6 +402,39 @@
 		</form>
 	</cfoutput>
 </cfif>
+
+<!------------------------------------------------------------------->
+<cfif action is "deleteClassification">
+	<cfoutput>
+		<div style="border:5px solid red; font-size:large;font-weight:bold; margin:5em;padding:5em;">
+			Are you very sure that you want to delete classification #classification_id# for #name#?
+			<p>
+				This is not reversible.
+			</p>
+			<p>
+				These data may be shared.
+			</p>
+			<p>
+				Proceed with caution!
+			</p>
+			<p>
+				<a href="/name/#name#">go back to the taxon page</a>
+			</p>
+			<p>
+				<a href="/editTaxonomy.cfm?action=reallyDeleteClassification&taxon_name_id=#taxon_name_id#&name=#name#&classification_id=##">Continue to Delete Classification </a>
+			</p>
+		</div>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------->
+<cfif action is "reallyDeleteClassification">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from taxon_term where taxon_name_id=#taxon_name_id# and classification_id='#classification_id#'
+		</cfquery>
+		<cflocation addtoken="false" url="/name/#name#">
+	</cfoutput>
+</cfif>
 <!------------------------------------------------------------------->
 <cfif action is "editClassification">
 	<style>
