@@ -564,6 +564,7 @@ console.log('setting change for ' + this.id);
 					return;
 				}
 			}
+			var genus;
 			var species;
 			var infraspecific_term;
 			var infraspecific_rank;
@@ -619,6 +620,9 @@ console.log('setting change for ' + this.id);
 				}
 				if(val == "species" || val == "sp" || val == "sp.") {
 					species=relatedElement;
+				}
+				if(val == "genus" || val == "gen.") {
+					genus=relatedElement;
 				}		
 				if(val == "subsp." || val == "variety" || val == "var." || val == "varietas" || val == "subvar." || val == "subspecies") {
 					// "subspecies"
@@ -670,11 +674,16 @@ console.log('setting change for ' + this.id);
 				
 			
 			// fallback
+	
 			if (! formattedname) {
-				formattedname=lowestclassificationterm;
+				if (genus) {
+					formattedname='<i>' + genus + '</i>';
+				} else {
+					formattedname=lowestclassificationterm;
+				}
 			}
 			// get rid of unnecessary italicization
-			formattedname=formattedname.replace(/<\/i> <i>/g, ' ');
+			formattedname=formattedname.replace(/<\/i> <i>/g, ' ').trim();
 			/*
 			console.log('formattedname: ' + formattedname);
 			console.log('dv_value: ' + dv_value);
