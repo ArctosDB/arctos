@@ -36,7 +36,7 @@
 			select * from #tbl# where 1=1
 			<cfloop collection="#url#" item="key">
 				<cfif key is not "tbl" and key is not "action" and len(url[key]) gt 0>
-					and #key# like '%#ucase(url[key])#%'
+					and upper(#key#) like '%#ucase(url[key])#%'
 				</cfif>
 			</cfloop>
 			and rownum<1001
