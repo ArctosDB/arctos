@@ -572,10 +572,6 @@
 				}
 				lowestclassificationterm=relatedElement;
 			});
-		
-		
-
-
 			if (species) {
 				formattedname = ' <i>' + species + '</i>';
 				if (formatstyle=='icbn'){
@@ -588,9 +584,6 @@
 					if (infraspecific_term) {
 						infraspecific_term=infraspecific_term.replace(species,"").trim();
 						infraspecific_term=infraspecific_term.replace(infraspecific_rank,"").trim();
-
-console.log('icbn infraspecific_term: ' + infraspecific_term);
-
 						formattedname += ' <i>' + infraspecific_term + '</i>';
 					}
 					if (subspeciesauthor) {
@@ -600,9 +593,6 @@ console.log('icbn infraspecific_term: ' + infraspecific_term);
 				if (formatstyle=='iczn'){
 					if (infraspecific_term) {
 						infraspecific_term=infraspecific_term.replace(species,"").trim();
-
-console.log('iczn infraspecific_term: ' + infraspecific_term);
-
 						formattedname += ' <i>' + infraspecific_term + '</i>';
 					}
 					if (speciesauthor) {
@@ -610,9 +600,6 @@ console.log('iczn infraspecific_term: ' + infraspecific_term);
 					}
 				}
 			}
-
-
-
 			if (! formattedname) {
 				if (genus) {
 					formattedname='<i>' + genus + '</i>';
@@ -623,9 +610,8 @@ console.log('iczn infraspecific_term: ' + infraspecific_term);
 					formattedname=lowestclassificationterm;
 				}
 			}
-			// get rid of unnecessary italicization
-			formattedname=formattedname.replace(/<\/i> <i>/g, ' ').trim();
 			if (formattedname) {
+				formattedname=formattedname.replace(/<\/i> <i>/g, ' ').trim();
 				$("#" + dv_value_element).val(formattedname);
 			}
 		}
