@@ -404,6 +404,10 @@
 		.dragger {
 			cursor:move;
 		}
+		.isterm {
+			font-weight:bold;
+			font-style:italics;
+		}
 	</style>
 	<script>
 		// copy this with create classification
@@ -668,23 +672,26 @@
 			Important randomness:
 			<ul>
 				<li>
-					Term type <strong><em>display_name</em></strong> is (when appropriate and available) stored as FLAT.FORMATTED_SCIENTIFIC_NAME. 
+					Term type <span class="isterm">display_name</span> is (when appropriate and available) stored as FLAT.FORMATTED_SCIENTIFIC_NAME. 
 					This form will suggest display names
-					based on other data, including <strong><em>kingdom</em></strong>, <strong><em>nomenclatural_code</em></strong>, 
-					<strong><em>genus</em></strong>, <strong><em>species</em></strong>, 
-					"<strong><em>subspecies</em></strong>" 
-					(including <strong><em>var.</em></strong>, <strong><em>forma</em></strong>, etc.), infraspecific rank (
-					such as <strong><em>var.</em></strong>, <strong><em>forma</em></strong>, etc.), and <strong><em>infraspecific_author</em></strong>. 
+					based on other data, including <span class="isterm">kingdom</span>, <span class="isterm">nomenclatural_code</span>, 
+					<span class="isterm">genus</span>, <span class="isterm">species</span>, 
+					"<span class="isterm">subspecies</span>" 
+					(including <span class="isterm">var.</span>, <span class="isterm">forma</span>, etc.), infraspecific rank (
+					such as <span class="isterm">var.</span>, <span class="isterm">forma</span>, etc.), and <span class="isterm">infraspecific_author</span>. 
 					Click the link at the bottom of the page to reset and stop suggestions for this editing session.
-					 <strong><em>Display_name</em></strong> should include HTML markup, which can be easily stripped off when appropriate.
+					 <span class="isterm">Display_name</span> should include HTML markup, which can be easily stripped off when appropriate.
 				</li>
 				<li>
-					<strong><em>Species</em></strong> is not specific epithet. "Poa abbreviata" rather than "abbreviata."
+					<span class="isterm">Species</span> are binomials, not specific epithets: "Poa abbreviata" rather than "abbreviata."
 				</li>
 				<li>
-					ICZN-like subspecific terms (which should with rare exception be <strong><em>subspecies</em></strong>) are trinomials: "Alces alces shirasi." 
-					ICBN-like subspecific terms (<strong><em>subspecies</em></strong>, <strong><em>subsp.</em></strong>, <strong><em>var.</em></strong>, etc.) 
-					are ranked trinomials: "Poa abbreviata subsp. jordalii."
+					ICZN-like subspecific terms (which should with rare exception be <span class="isterm">subspecies</span>) are trinomials: 
+					"Alces alces shirasi," not "shirasi." 
+				</li>
+				<li>
+					ICBN-like subspecific terms (<span class="isterm">subspecies</span>, <span class="isterm">subsp.</span>, <span class="isterm">var.</span>, etc.) 
+					are ranked trinomials: "Poa abbreviata subsp. jordalii," not "jordalii."
 				</li>
 			</ul>
 		</p>
