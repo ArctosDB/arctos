@@ -495,7 +495,7 @@
 
 		function guessAtDisplayName(caller) {
 			if ($("#stoppit").val() == "true"){
-				console.log('guessAtDisplayName disabled');
+				// they've clicked the "use old value" link - stop making suggestions for this editing suggestion
 				return false;
 			}
 			// if this is being called by an element, check if that element is the value
@@ -508,9 +508,6 @@
 					return false;
 				}
 			}
-
-console.log('guessAtDisplayName');
-
 			var genus; // just so that we can italicize @fallback
 			var species;
 			var infraspecific_term;
@@ -669,6 +666,29 @@ console.log('guessAtDisplayName');
 			<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#thisname.taxon_name_id#">[ Edit Non-Classification Data ]</a>
 			<span class="likeLink" onclick="deleteClassification('#classification_id#','#thisname.taxon_name_id#');">[ Delete Classification ]</span>
 		</p>
+		<p>
+			Important randomness:
+			<ul>
+				<li>
+					Term type <strong><em>display_name</em></strong> is (when appropriate and available) stored as FLAT.FORMATTED_SCIENTIFIC_NAME. 
+					This form will suggest display names
+					based on other data, including <strong><em>kingdom</em></strong>, <strong><em>nomenclatural_code</em></strong>, 
+					<strong><em>genus</em></strong>, <strong><em>species</em></strong>, 
+					"<strong><em>subspecies</em></strong>" 
+					(including <strong><em>var.</em></strong>, <strong><em>forma</em></strong>, etc.), infraspecific rank (
+					such as <strong><em>var.</em></strong>, <strong><em>forma</em></strong>, etc.), and <strong><em>infraspecific_author</em></strong>. 
+					Click the link at the bottom of the page to reset and stop suggestions for this editing session.
+				</li>
+				<li>
+					<strong><em>Species</em></strong> is not specific epithet. "Poa abbreviata" rather than "abbreviata."
+				</li>
+				<li>
+					ICZN-like subspecific terms (which should with rare exception be <strong><em>subspecies</em></strong>) are trinomials: "Alces alces shirasi." 
+					ICBN-like subspecific terms (<strong><em>subspecies</em></strong>, <strong><em>subsp.</em></strong>, <strong><em>var.</em></strong>, etc.) 
+					are ranked trinomials: "Poa abbreviata subsp. jordalii."
+				</li>
+			</ul>
+		</p>
 		<form name="f1" id="f1" method="post" action="editTaxonomy.cfm">
 			<input type="hidden" name="action" value="saveClassEdits">
 			<input type="hidden" name="classification_id" id="classification_id" value="#classification_id#">
@@ -753,7 +773,7 @@ console.log('guessAtDisplayName');
 				<cfif not isdefined("stoppit")>
 					<cfset stoppit=''>
 				</cfif>
-				<input type="text" id="stoppit" name="stoppit" value="#stoppit#">
+				<input type="hidden" id="stoppit" name="stoppit" value="#stoppit#">
 				<input type="button" onclick="submitForm();" value="Save Edits">
 			</p>
 			<div id="originalDisplayName">
