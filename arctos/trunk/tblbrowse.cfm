@@ -32,8 +32,9 @@
 			select * from tbl where 
 		</cfquery>
 		-------->
-		
-		
+		<cfloop collection="#url#" item="key">
+		    <br>#key#
+		</cfloop>		
 	</cfif>
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
