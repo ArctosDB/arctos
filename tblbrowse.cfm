@@ -51,9 +51,11 @@
 					</cfloop>
 				</tr>
 				<cfloop query="d">
-					<cfloop query="tcols">
-						<td>#evaluate("d." & COLUMN_NAME)#</td>
-					</cfloop>
+					<tr>
+						<cfloop query="tcols">
+							<td>#evaluate("d." & COLUMN_NAME)#</td>
+						</cfloop>
+					</tr>
 				</cfloop>
 			</table>
 		</cfif>
