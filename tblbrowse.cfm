@@ -13,6 +13,7 @@
 			order by
 			INTERNAL_COLUMN_ID
 		</cfquery>
+		<cfdump var=#tcols#>
 		<form name="s" method="get" action="tbrowse.cfm">
 			<input type="hidden" name="action" id="action" value="srch">
 			<cfloop query="tcols">
