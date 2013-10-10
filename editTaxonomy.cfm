@@ -576,6 +576,8 @@
 			if (infraspecific_term) {
 				infraspecific_term=infraspecific_term.replace(species,"").trim();
 			}
+console.log('infraspecific_term: ' + infraspecific_term);
+
 			if (species) {
 				formattedname = ' <i>' + species + '</i>';
 				if (formatstyle=='icbn'){
