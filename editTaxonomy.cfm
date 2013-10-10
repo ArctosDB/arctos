@@ -678,6 +678,7 @@
 					(including <strong><em>var.</em></strong>, <strong><em>forma</em></strong>, etc.), infraspecific rank (
 					such as <strong><em>var.</em></strong>, <strong><em>forma</em></strong>, etc.), and <strong><em>infraspecific_author</em></strong>. 
 					Click the link at the bottom of the page to reset and stop suggestions for this editing session.
+					 <strong><em>Display_name</em></strong> should include HTML markup, which can be easily stripped off when appropriate.
 				</li>
 				<li>
 					<strong><em>Species</em></strong> is not specific epithet. "Poa abbreviata" rather than "abbreviata."
