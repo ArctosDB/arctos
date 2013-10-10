@@ -20,17 +20,12 @@
 			<input type="hidden" name="tbl" id="tbl" value="#tbl#">
 			<cfloop query="tcols">
 				<cfif structkeyexists(url,"#COLUMN_NAME#")>
-					found
-					<!-------<cfset v=structfind(url,"#COLUMN_NAME#")>
-					 #COLUMN_NAME# in URL - it's #v#
-					 
-					 
-					 				isdefined(<cfset param2 = url['param2'] />
-
-					 --------->
+					<cfset v=structfind(url,"#COLUMN_NAME#")>
+				<cfelse>
+					<cfset v="">
 				</cfif>
 				<label for="#COLUMN_NAME#">#COLUMN_NAME#</label>
-				<input type="text" name="#COLUMN_NAME#" value="" id="#COLUMN_NAME#">
+				<input type="text" name="#COLUMN_NAME#" value="#v#" id="#COLUMN_NAME#">
 			</cfloop>
 			<br>
 			<input type="submit" value="search">
