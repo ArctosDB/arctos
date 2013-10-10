@@ -19,9 +19,13 @@
 			<input type="hidden" name="action" id="action" value="srch">
 			<input type="hidden" name="tbl" id="tbl" value="#tbl#">
 			<cfloop query="tcols">
+				<cfif structfind(url,"#COLUMN_NAME#")>
+					<cfset v=structfind(url,"#COLUMN_NAME#")>
+					found #COLUMN_NAME# in URL - it's #v#
+				</cfif>
+				isdefined(<cfset param2 = url['param2'] />
 				<label for="#COLUMN_NAME#">#COLUMN_NAME#</label>
 				<input type="text" name="#COLUMN_NAME#" value="" id="#COLUMN_NAME#">
-			
 			</cfloop>
 			<br>
 			<input type="submit" value="search">
