@@ -1,7 +1,6 @@
 <cfinclude template="includes/_header.cfm">
 <a target="_blank" class="external" href="https://docs.google.com/document/d/1J1B7NKfaWl1A1wVQUe5rlm6FsfA7-VVUHsCqH-gHA_E/edit">editing guidelines</a>
 <!------------------------------------------------------------------------------->
-
 <cfif action is "cloneClassificationNewName">
 	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select source from cttaxonomy_source order by source
@@ -114,8 +113,6 @@
 		</form>
 	</cfoutput>
 </cfif>
-
-
 <!------------------------------------------------------------------------------->
 <cfif action is "cloneClassification_insert">
 	<cfoutput>
@@ -256,7 +253,6 @@
 		// copy this with edit classification
 		$(function() {
 			// suggest some defaults
-
 			$("#ncterm_type_1").val('author_text');
 			$("#ncterm_type_2").val('display_name');
 			$("#ncterm_type_3").val('nomenclatural_code');
@@ -402,39 +398,6 @@
 		</form>
 	</cfoutput>
 </cfif>
-<!-----------------------
-<!------------------------------------------------------------------->
-<cfif action is "deleteClassification">
-	<cfoutput>
-		<div style="border:5px solid red; font-size:large;font-weight:bold; margin:5em;padding:5em;">
-			Are you very sure that you want to delete classification #classification_id# for #name#?
-			<p>
-				This is not reversible.
-			</p>
-			<p>
-				These data may be shared.
-			</p>
-			<p>
-				Proceed with caution!
-			</p>
-			<p>
-				<a href="/name/#name#">go back to the taxon page</a>
-			</p>
-			<p>
-				<a href="/editTaxonomy.cfm?action=reallyDeleteClassification&taxon_name_id=#taxon_name_id#&name=#name#&classification_id=##">Continue to Delete Classification </a>
-			</p>
-		</div>
-	</cfoutput>
-</cfif>
-<cfif action is "reallyDeleteClassification">
-	<cfoutput>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from taxon_term where taxon_name_id=#taxon_name_id# and classification_id='#classification_id#'
-		</cfquery>
-		<cflocation addtoken="false" url="/name/#name#">
-	</cfoutput>
-</cfif>-------------------------------------------->
-
 <!------------------------------------------------------------------->
 <cfif action is "editClassification">
 	<style>
@@ -445,26 +408,6 @@
 	<script>
 		// copy this with create classification
 		$(function() {
-			
-
-
-/*
-* 
-* 	$("form input:text").on( "change", guessAtDisplayName );
-
-	$("form input:text").each(function() {
-		if(this.val != "display_name") {
-			// watch everything EXCEPT display_name for changes
-			$( "#" + this.id ).change(guessAtDisplayName);		
-console.log('setting change for ' + this.id);
-
-		}
-	});
-*/
-
-
-
-
 			$( "#sortable" ).sortable({
 				handle: '.dragger'
 			});
@@ -498,7 +441,6 @@ console.log('setting change for ' + this.id);
 			$("input.ac_noclass_tt").live("keydown.autocomplete", function() {
 		        $(this).autocomplete(ac_noclass_ttoptions);
 		    });
-			
 			guessAtDisplayName();
 		});
 		function submitForm() {
@@ -555,16 +497,14 @@ console.log('setting change for ' + this.id);
 			// if this is being called by an element, check if that element is the value
 			// of display_name. If so, just exit. Otherwise, rock on.
 			if(caller && caller.substring(0, 2) == "nc") {
-				console.log('starts with nc: ');
 				var cary=caller.split('_');
 				var theIdInt=cary[cary.length-1];
 				var theType=$("#ncterm_type_" + theIdInt).val();
 				if (theType == 'display_name'){
-					console.log('is display name');
 					return;
 				}
 			}
-			var genus;
+			var genus; // just so that we can italicize @fallback
 			var species;
 			var infraspecific_term;
 			var infraspecific_rank;
@@ -576,28 +516,26 @@ console.log('setting change for ' + this.id);
 			var formatstyle = 'iczn'; // default to simple....
 			var formattedname; // with HTML
 			var lowestclassificationterm;
-		
 			$("input[name^='ncterm_type_']").each(function() {
-				var val = $(this).val();
+				var thisval = $(this).val();
 				var relatedElementID=this.id.replace("type_","");    
 				var relatedElement=$("#" + relatedElementID).val();
-		
-				if(val == "display_name") {
+				if(thisval == "display_name") {
 					dv_value_element=relatedElementID;
 					dv_value=relatedElement;
 					dv_element=this.id;
 			    }
-				if(val == "author_text") {			
+				if(thisval == "author_text") {			
 					speciesauthor=relatedElement;
 			    }
-				if(val == "infraspecific_author") {
+				if(thisval == "infraspecific_author") {
 					subspeciesauthor=relatedElement;
 			    }
-				if(val == "nomenclatural_code" && relatedElement=='ICBN') {
+				if(thisval == "nomenclatural_code" && relatedElement=='ICBN') {
 					formatstyle='icbn';			
 				}
 				// on initial load ONLY, save display name
-				if ( val=='display_name' && ! caller) {
+				if (thisval=='display_name' && ! caller) {
 					var undoSuggest='display_value may have been automatically updated.<br>';
 					undoSuggest+='<span class="likeLink" onclick="$(\'#' + relatedElementID + '\').val(\'' + relatedElement + '\');">reset to ' + relatedElement + '</span>';
 					$("#originalDisplayName").html(undoSuggest);
@@ -612,43 +550,31 @@ console.log('setting change for ' + this.id);
 			}
 			// and this point, there should be a display_name and we should know it's ID.
 			$("input[name^='term_type_']").each(function() {
-		    	var val = $(this).val();
+		    	var thisval = $(this).val();
 				var relatedElementID=this.id.replace("type_","");
 				var relatedElement=$("#" + relatedElementID).val();	
-				if(val == "kingdom" && relatedElement=='Plantae') {
+				if(thisval == "kingdom" && relatedElement=='Plantae') {
 					formatstyle='icbn';
 				}
-				if(val == "species" || val == "sp" || val == "sp.") {
+				if(thisval == "species" || val == "sp" || val == "sp.") {
 					species=relatedElement;
 				}
-				if(val == "genus" || val == "gen.") {
+				if(thisval == "genus" || val == "gen.") {
 					genus=relatedElement;
 				}		
-				if(val == "subsp." || val == "variety" || val == "var." || val == "varietas" || val == "subvar." || val == "subspecies") {
-					// "subspecies"
+				if(thisval == "subsp." || val == "variety" || val == "var." || val == "varietas" || val == "subvar." || val == "subspecies") {
 					infraspecific_term=relatedElement;
 					infraspecific_rank=val;
 				}
-				// grab the lowest classification term - use it for display name if all else fails
 				lowestclassificationterm=relatedElement;
 			});
 		
-			console.log('species: ' + species);
-			console.log('infraspecific_term: ' + infraspecific_term);
-			console.log('infraspecific_rank: ' + infraspecific_rank);
-			console.log('speciesauthor: ' + speciesauthor);
-			console.log('subspeciesauthor: ' + subspeciesauthor);
-			console.log('formatstyle: ' + formatstyle);
-			console.log('lowestclassificationterm: ' + lowestclassificationterm);
-			// just doing this separately because it's less confusing....
 			if (infraspecific_term) {
 				infraspecific_term=infraspecific_term.replace(species,"").trim();
-				console.log('replaced infraspecific_term: ' + infraspecific_term);
 			}
 			if (species) {
 				formattedname = ' <i>' + species + '</i>';
 				if (formatstyle=='icbn'){
-				
 					if (speciesauthor) {
 						formattedname += ' ' + speciesauthor;
 					}
@@ -671,10 +597,6 @@ console.log('setting change for ' + this.id);
 					}
 				}
 			}
-				
-			
-			// fallback
-	
 			if (! formattedname) {
 				if (genus) {
 					formattedname='<i>' + genus + '</i>';
@@ -687,11 +609,6 @@ console.log('setting change for ' + this.id);
 			}
 			// get rid of unnecessary italicization
 			formattedname=formattedname.replace(/<\/i> <i>/g, ' ').trim();
-			/*
-			console.log('formattedname: ' + formattedname);
-			console.log('dv_value: ' + dv_value);
-			console.log('dv_value_element: ' + dv_value_element);
-			*/
 			if (formattedname) {
 				$("#" + dv_value_element).val(formattedname);
 			}
