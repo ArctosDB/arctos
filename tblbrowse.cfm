@@ -16,6 +16,7 @@
 		<cfdump var=#tcols#>
 		<form name="s" method="get" action="tblbrowse.cfm">
 			<input type="hidden" name="action" id="action" value="srch">
+			<input type="hidden" name="tbl" id="tbl" value="#tbl#">
 			<cfloop query="tcols">
 				<label for="#COLUMN_NAME#">#COLUMN_NAME#</label>
 				<input type="text" name="#COLUMN_NAME#" value="" id="#COLUMN_NAME#">
