@@ -10,6 +10,7 @@
 			user_tab_cols
 			where
 			TABLE_NAME='#ucase(tbl)#'
+			and HIDDEN_COLUMN='NO'
 			order by
 			INTERNAL_COLUMN_ID
 		</cfquery>
@@ -41,9 +42,6 @@
 			</cfloop>
 			and rownum<1001
 		</cfquery>
-		
-		<cfdump var=#d#>
-		
 		
 		<cfif d.recordcount gt 0>
 			<table border>
