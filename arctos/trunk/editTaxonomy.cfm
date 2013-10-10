@@ -753,7 +753,7 @@ console.log('guessAtDisplayName');
 				<cfif not isdefined("stoppit")>
 					<cfset stoppit=''>
 				</cfif>
-				<input type="hidden" id="stoppit" name="stoppit" value="stoppit">
+				<input type="text" id="stoppit" name="stoppit" value="#stoppit#">
 				<input type="button" onclick="submitForm();" value="Save Edits">
 			</p>
 			<div id="originalDisplayName">
