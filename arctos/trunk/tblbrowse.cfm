@@ -32,12 +32,29 @@
 			select * from tbl where 
 		</cfquery>
 		-------->
-		select * from #tbl# where 1=1
-		<cfloop collection="#url#" item="key">
-			<cfif key is not "tbl" and key is not "action" and len(url[key]) gt 0>
-				and #key# like '%#ucase(url[key])#'
-			</cfif>
-		</cfloop>		
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from #tbl# where 1=1
+			<cfloop collection="#url#" item="key">
+				<cfif key is not "tbl" and key is not "action" and len(url[key]) gt 0>
+					and #key# like '%#ucase(url[key])#%'
+				</cfif>
+			</cfloop>
+			and rownum<1001
+		</cfquery>
+		<cfif d.recordcount gt 0>
+			<table border>
+				<tr>
+					<cfloop query="tcols">
+						<th>#COLUMN_NAME#</th>
+					</cfloop>
+				</tr>
+				<cfloop query="d">
+					<cfloop query="tcols">
+						<td>#evaluate("d." & COLUMN_NAME)#</td>
+					</cfloop>
+				</cfloop>
+			</table>
+		</cfif>
 	</cfif>
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
