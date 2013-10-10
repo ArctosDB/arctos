@@ -286,6 +286,7 @@
 										<ul>
 											<li><a target="_top" href="/Admin/CSVAnyTable.cfm">CSVFromTable</a></li>
 											<li><a target="_top" href="/tools/loadToTable.cfm">CSVToTable</a></li>
+											<li><a target="_top" href="/tblbrowse.cfm">Table Browser</a></li>
 											<li><a target="_top" href="/ScheduledTasks/index.cfm">Scheduled Tasks</a></li>
 											<li><a target="_top" href="/Admin/dumpAll.cfm">dump</a></li>
 											<li><a target="_top" href="/tools/imageList.cfm">Image List</a></li>
