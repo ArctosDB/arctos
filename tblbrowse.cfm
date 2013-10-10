@@ -41,6 +41,10 @@
 			</cfloop>
 			and rownum<1001
 		</cfquery>
+		
+		<cfdump var=#d#>
+		
+		
 		<cfif d.recordcount gt 0>
 			<table border>
 				<tr>
