@@ -32,8 +32,11 @@
 			select * from tbl where 
 		</cfquery>
 		-------->
+		select * from #tbl# where 1=1
 		<cfloop collection="#url#" item="key">
-		    <br>#key#: #url[key]#
+			<cfif key is not "tbl" and key is not "action">
+				and #key# like '%#ucase(url[key])#'
+			</cfif>
 		</cfloop>		
 	</cfif>
 	</cfoutput>
