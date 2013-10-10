@@ -14,7 +14,7 @@
 			INTERNAL_COLUMN_ID
 		</cfquery>
 		<cfdump var=#tcols#>
-		<form name="s" method="get" action="tbrowse.cfm">
+		<form name="s" method="get" action="tblbrowse.cfm">
 			<input type="hidden" name="action" id="action" value="srch">
 			<cfloop query="tcols">
 				<label for="#COLUMN_NAME#">#COLUMN_NAME#</label>
