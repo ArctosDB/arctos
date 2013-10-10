@@ -33,7 +33,7 @@
 		</cfquery>
 		-------->
 		<cfloop collection="#url#" item="key">
-		    <br>#key#: #[url, key]#
+		    <br>#key#: #url[key]#
 		</cfloop>		
 	</cfif>
 	</cfoutput>
