@@ -19,7 +19,7 @@
 			<input type="hidden" name="action" id="action" value="srch">
 			<input type="hidden" name="tbl" id="tbl" value="#tbl#">
 			<cfloop query="tcols">
-				<cfif structfind(url,"#COLUMN_NAME#")>
+				<cfif structkeyexists(url,"#COLUMN_NAME#")>
 					found
 					<!-------<cfset v=structfind(url,"#COLUMN_NAME#")>
 					 #COLUMN_NAME# in URL - it's #v#
