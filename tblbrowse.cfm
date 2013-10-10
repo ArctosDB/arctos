@@ -45,7 +45,7 @@
 		</cfquery>
 		<cfif d.recordcount gt 0>
 			max 1k rows
-			<table border>
+			<table border id="t" class="sortable">
 				<tr>
 					<cfloop query="tcols">
 						<th>#COLUMN_NAME#</th>
