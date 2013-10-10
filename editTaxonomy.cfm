@@ -496,7 +496,7 @@
 		function guessAtDisplayName(caller) {
 			if ($("#stoppit").val(); == "true"){
 				console.log('guessAtDisplayName disabled');
-
+				return false;
 			}
 			// if this is being called by an element, check if that element is the value
 			// of display_name. If so, just exit. Otherwise, rock on.
