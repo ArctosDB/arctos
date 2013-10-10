@@ -23,9 +23,12 @@
 					found
 					<!-------<cfset v=structfind(url,"#COLUMN_NAME#")>
 					 #COLUMN_NAME# in URL - it's #v#
+					 
+					 
+					 				isdefined(<cfset param2 = url['param2'] />
+
 					 --------->
 				</cfif>
-				isdefined(<cfset param2 = url['param2'] />
 				<label for="#COLUMN_NAME#">#COLUMN_NAME#</label>
 				<input type="text" name="#COLUMN_NAME#" value="" id="#COLUMN_NAME#">
 			</cfloop>
