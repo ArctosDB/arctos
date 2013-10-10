@@ -494,6 +494,10 @@
 		}
 
 		function guessAtDisplayName(caller) {
+			if ($("#stoppit").val()){
+				console.log('guessAtDisplayName disabled');
+
+			}
 			// if this is being called by an element, check if that element is the value
 			// of display_name. If so, just exit. Otherwise, rock on.
 			if(caller && caller.substring(0, 2) == "nc") {
@@ -540,7 +544,7 @@ console.log('guessAtDisplayName');
 				// on initial load ONLY, save display name
 				if (thisval=='display_name' && ! caller) {
 					var undoSuggest='display_value may have been automatically added and/or updated.<br>';
-					undoSuggest+='<span class="likeLink" onclick="$(\'#' + relatedElementID + '\').val(\'' + relatedElement + '\');">reset to ' + relatedElement + '</span>';
+					undoSuggest+='<span class="likeLink" onclick="stoppit(\'' + relatedElementID + '\',\'' + relatedElement + '\');">reset to ' + relatedElement + '</span>';
 					$("#originalDisplayName").html(undoSuggest);
 				}
 			});
@@ -615,6 +619,10 @@ console.log('guessAtDisplayName');
 			if (formattedname) {
 				$("#" + dv_value_element).val(formattedname);
 			}
+		}
+		function stoppit(e,v){
+			$("#stoppit").val('true');
+			$("#" + e).val(v);			
 		}
 	</script>
 <!-------------/* this version works for species=single term, not species=genus+species
@@ -891,6 +899,7 @@ function guessAtDisplayName(caller) {
 			</table>
 			<span class="likeLink" onclick="addARow();">[ add a row ]</span>
 			<p>
+				<input type="hidden" id="stoppit">
 				<input type="button" onclick="submitForm();" value="Save Edits">
 			</p>
 			<div id="originalDisplayName">
