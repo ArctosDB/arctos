@@ -536,7 +536,7 @@
 				}
 				// on initial load ONLY, save display name
 				if (thisval=='display_name' && ! caller) {
-					var undoSuggest='display_value may have been automatically updated.<br>';
+					var undoSuggest='display_value may have been automatically added and/or updated.<br>';
 					undoSuggest+='<span class="likeLink" onclick="$(\'#' + relatedElementID + '\').val(\'' + relatedElement + '\');">reset to ' + relatedElement + '</span>';
 					$("#originalDisplayName").html(undoSuggest);
 				}
@@ -556,15 +556,15 @@
 				if(thisval == "kingdom" && relatedElement=='Plantae') {
 					formatstyle='icbn';
 				}
-				if(thisval == "species" || val == "sp" || val == "sp.") {
+				if(thisval == "species" || thisval == "sp" || thisval == "sp.") {
 					species=relatedElement;
 				}
-				if(thisval == "genus" || val == "gen.") {
+				if(thisval == "genus" || thisval == "gen.") {
 					genus=relatedElement;
 				}		
-				if(thisval == "subsp." || val == "variety" || val == "var." || val == "varietas" || val == "subvar." || val == "subspecies") {
+				if(thisval == "subsp." || thisval == "variety" || thisval == "var." || thisval == "varietas" || thisval == "subvar." || thisval == "subspecies") {
 					infraspecific_term=relatedElement;
-					infraspecific_rank=val;
+					infraspecific_rank=thisval;
 				}
 				lowestclassificationterm=relatedElement;
 			});
