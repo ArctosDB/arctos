@@ -3,7 +3,7 @@
 		<cfabort>
 	</cfif>
 	<cfoutput>
-		<cfquery name="tcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="tcols" datasource="uam_god">
 			select 
 			COLUMN_NAME
 			from
