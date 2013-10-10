@@ -9,7 +9,7 @@
 			from
 			user_tab_cols
 			where
-			TABLE_NAME='ucase(#tbl#)'
+			TABLE_NAME='#ucase(tbl)#'
 			order by
 			INTERNAL_COLUMN_ID
 		</cfquery>
