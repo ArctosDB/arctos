@@ -501,12 +501,11 @@
 				var theIdInt=cary[cary.length-1];
 				var theType=$("#ncterm_type_" + theIdInt).val();
 				if (theType == 'display_name'){
-					return;
+					return false;
 				}
 			}
 
 console.log('guessAtDisplayName');
-return false;
 
 			var genus; // just so that we can italicize @fallback
 			var species;
