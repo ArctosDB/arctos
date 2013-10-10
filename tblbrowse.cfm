@@ -1,7 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfif not isdefined("tbl")>
+		var tbl notfound
 		<cfabort>
 	</cfif>
+	<cfset title="table browser thingee">
+	<script src="/includes/sorttable.js"></script>
+
 	<cfoutput>
 		<cfquery name="tcols" datasource="uam_god">
 			select 
@@ -14,7 +18,6 @@
 			order by
 			INTERNAL_COLUMN_ID
 		</cfquery>
-		<cfdump var=#tcols#>
 		<form name="s" method="get" action="tblbrowse.cfm">
 			<input type="hidden" name="action" id="action" value="srch">
 			<input type="hidden" name="tbl" id="tbl" value="#tbl#">
@@ -31,12 +34,6 @@
 			<input type="submit" value="search">
 		</form>
 	<cfif action is "srch">
-		<cfdump var="#url#">
-		<!--------
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from tbl where 
-		</cfquery>
-		-------->
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from #tbl# where 1=1
 			<cfloop collection="#url#" item="key">
@@ -46,8 +43,8 @@
 			</cfloop>
 			and rownum<1001
 		</cfquery>
-		
 		<cfif d.recordcount gt 0>
+			max 1k rows
 			<table border>
 				<tr>
 					<cfloop query="tcols">
@@ -62,6 +59,8 @@
 					</tr>
 				</cfloop>
 			</table>
+		<cfelse>
+			notfound
 		</cfif>
 	</cfif>
 	</cfoutput>
