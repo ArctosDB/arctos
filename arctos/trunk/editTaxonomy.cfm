@@ -494,7 +494,7 @@
 		}
 
 		function guessAtDisplayName(caller) {
-			if ($("#stoppit").val(); == "true"){
+			if ($("#stoppit").val() == "true"){
 				console.log('guessAtDisplayName disabled');
 				return false;
 			}
