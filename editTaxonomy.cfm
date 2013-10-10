@@ -573,10 +573,8 @@
 				lowestclassificationterm=relatedElement;
 			});
 		
-			if (infraspecific_term) {
-				infraspecific_term=infraspecific_term.replace(species,"").trim();
-			}
-console.log('infraspecific_term: ' + infraspecific_term);
+		
+
 
 			if (species) {
 				formattedname = ' <i>' + species + '</i>';
@@ -588,6 +586,11 @@ console.log('infraspecific_term: ' + infraspecific_term);
 						formattedname += ' ' + infraspecific_rank;
 					}
 					if (infraspecific_term) {
+						infraspecific_term=infraspecific_term.replace(species,"").trim();
+						infraspecific_term=infraspecific_term.replace(infraspecific_rank,"").trim();
+
+console.log('icbn infraspecific_term: ' + infraspecific_term);
+
 						formattedname += ' <i>' + infraspecific_term + '</i>';
 					}
 					if (subspeciesauthor) {
@@ -596,6 +599,10 @@ console.log('infraspecific_term: ' + infraspecific_term);
 				}
 				if (formatstyle=='iczn'){
 					if (infraspecific_term) {
+						infraspecific_term=infraspecific_term.replace(species,"").trim();
+
+console.log('iczn infraspecific_term: ' + infraspecific_term);
+
 						formattedname += ' <i>' + infraspecific_term + '</i>';
 					}
 					if (speciesauthor) {
@@ -603,6 +610,9 @@ console.log('infraspecific_term: ' + infraspecific_term);
 					}
 				}
 			}
+
+
+
 			if (! formattedname) {
 				if (genus) {
 					formattedname='<i>' + genus + '</i>';
