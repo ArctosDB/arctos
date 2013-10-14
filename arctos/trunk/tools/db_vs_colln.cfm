@@ -32,7 +32,7 @@
 		where
 			specimen_part.derived_from_cat_item=cataloged_item.collection_object_id and
 			cataloged_item.collection_id=#cid#
-		 order by 
+		 group by part_name order by 
 		 	part_name
 	</cfquery>
 	<form name="findStuff" method="post" action="db_vs_colln.cfm">
