@@ -67,7 +67,7 @@
 			} else {
 				var newMess = message;
 			}
-			theStatusBox.innerHTML = '<div class="red">(' + cdate + '): ' + ' + newMess + '</div>' + currentStatus;
+			theStatusBox.innerHTML = '<div class="red">(' + cdate + '): ' + newMess + '</div>' + currentStatus;
 			p.focus();
 		}
 	}
