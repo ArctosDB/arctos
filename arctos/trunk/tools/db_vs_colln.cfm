@@ -36,7 +36,8 @@
 	</cfif>
 	<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
-			part_name 
+			part_name,
+			count(*) c
 		from
 			specimen_part,
 			cataloged_item
@@ -48,10 +49,10 @@
 	</cfquery>
 	<form name="findStuff" method="post" action="db_vs_colln.cfm">
 		<input type="text" name="collection_id" value="#collection_id#">
-		<label for="part_name">Part Names</label>
+		<label for="part_name">Part Names (collection count in parens)</label>
 		<select name="parts" id="v" multiple="multiple" size="20">
 			<cfloop query="ctspecimen_part_name">
-				<option <cfif listfind(parts,part_name)> selected="selected" </cfif>value="#part_name#">#part_name#</option>
+				<option <cfif listfind(parts,part_name)> selected="selected" </cfif>value="#part_name#">#part_name# (#c#)</option>
 			</cfloop>
 		</select>
 		<label for="idname">Scientific Name</label>
