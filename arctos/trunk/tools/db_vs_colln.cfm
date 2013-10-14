@@ -58,18 +58,21 @@
 	<cfif isdefined("parts") and len(parts) gt 0>
 		<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				guid_prefix,
-				cat_num,
+				guid_prefix || ':' || cat_num guid,
+				scientific_name,
 				part_name,
 				COLL_OBJ_DISPOSITION
 			from
 				collection,
 				cataloged_item,
+				identification,
 				specimen_part,
 				coll_object
 			where
 				collection.collection_id=cataloged_item.collection_id and
 				cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
+				cataloged_item.collection_object_id=identification.collection_object_id and
+				identification.accepted_id_fg=1 and
 				specimen_part.collection_object_id=coll_object.collection_object_id and
 				collection.collection_id=#collection_id# and
 				part_name in (#listqualify(parts,chr(39))#)
@@ -77,6 +80,38 @@
 				and cat_num not in (#listqualify(exclCatNum,chr(39))#)
 			</cfif>
 		</cfquery>
+		<cfquery name="s" dbtype="query">
+			select guid,scientific_name from specs group by guid,scientific_name order by guid
+		</cfquery>
+		<cfif s.recordcout lt 1000>
+			<a href="/SpecimenResults.cfm?guid=#valuelist(s.guid)#" target="_blank">specresults</a>
+		<cfelse>
+			link only available for <1k records
+		</cfif>
+		<table border>
+			<tr>
+				<th>GUID</th>
+				<th>ID</th>
+				<th>Parts</th>
+			</tr>
+			<cfloop query="s">
+				<cfquery name="p" dbtype="query">
+					select part_name,COLL_OBJ_DISPOSITION from specs where guid='#guid#'
+				</cfquery>
+				<tr>
+					<td><a href="/guid/#guid#" target="_blank">#guid#</a></td>
+					<td>#scientific_name#</td>
+					<td>
+						<cfloop query="p">
+							<div>
+								#part_name# (#COLL_OBJ_DISPOSITION#)
+							</div>
+						</cfloop>
+					</td>
+				</tr>
+			</cfloop>
+		</table>
+		
 		<cfdump var=#specs#>
 	</cfif>
 </cfoutput>
