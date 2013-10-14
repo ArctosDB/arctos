@@ -87,7 +87,7 @@
 				and cat_num not in (#listqualify(exclCatNum,chr(39))#)
 			</cfif>
 			<cfif len(catnum) gt 0>
-				and catnum in (#listqualify(catnum,chr(39))#)
+				and cat_num in (#listqualify(catnum,chr(39))#)
 			</cfif>
 			<cfif len(idname) gt 0>
 				and upper(scientific_name) like '%#ucase(idname)#%'
