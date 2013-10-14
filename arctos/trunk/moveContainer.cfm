@@ -17,6 +17,10 @@
 	function moveThisOne() {
 		var p = document.getElementById('parent_barcode');
 		var c = document.getElementById('child_barcode');
+
+		var newdisp = document.getElementById('newdisp');
+		var olddisp = document.getElementById('olddisp');
+
 		p.className='red';
 		p.setAttribute('readonly','readonly');
 		c.className='red';
@@ -29,6 +33,8 @@
 				method : "moveContainerLocation",
 				barcode : barcode,
 				parent_barcode : parent_barcode,
+				newdisp: newdisp,
+				olddisp: olddisp,
 				returnformat : "json",
 				queryformat : 'column'
 			},
@@ -102,8 +108,8 @@
 		</td>
 			<td align="right">
 
-			<label for="whendispis">When current disposition is....</label>
-			<select name="whendispis" id="whendispis">
+			<label for="olddisp">When current disposition is....</label>
+			<select name="olddisp" id="olddisp">
 				<option value="">-any value-</option>
 				<cfloop query="CTCOLL_OBJ_DISP">
 					<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>

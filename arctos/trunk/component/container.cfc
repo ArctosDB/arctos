@@ -3,6 +3,8 @@
 <cffunction name="moveContainerLocation" access="remote">
 	<cfargument name="barcode" type="string" required="yes">
 	<cfargument name="parent_barcode" type="string" required="yes">
+	<cfargument name="newdisp" type="string" required="yes">
+	<cfargument name="olddisp" type="string" required="yes">
 	<cftry>
 		<cfquery name="childID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id,barcode,label,container_type from container where barcode = '#barcode#'
@@ -10,7 +12,7 @@
 		<cfquery name="parentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id,barcode,label,container_type from container where barcode = '#parent_barcode#'
 		</cfquery>
-		<cfset thisDate = "#dateformat(timestamp,'yyyy-mm-dd')# #timeformat(timestamp,'HH:mm:ss')#">
+		
 		<cfif #childID.recordcount# is not 1>
 			<cfset result = "fail|Child container not found.">
 			<cfreturn result>
@@ -19,6 +21,25 @@
 		<cfif parentID.recordcount is not 1>
 			<cfset result = "fail|Parent container not found.">
 			<cfreturn result>
+		</cfif>
+		
+		<cfif len(newdisp) gt 0>
+			<cfquery name="childPartID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					specimen_part.collection_object_id
+				from
+					specimen_part,
+					coll_obj_cont_hist,
+					container partcontainer
+				where
+					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+					coll_obj_cont_hist.container_id=partcontainer.container_id and
+					partcontainer.parent_container_id=#childID.container_id#
+			</cfquery>
+			<cfdump var=#childPartID#>
+			<cfif childPartID.recordcount is not 1 or len(childPartID.collection_object_id) is 0>
+				error bla etc<cfabort>
+			</cfif>
 		</cfif>
 		<cftransaction>
 			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
