@@ -72,9 +72,9 @@
 				cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
 				specimen_part.collection_object_id=coll_object.collection_object_id and
 				collection.collection_id=#collection_id# and
-				part_name in (#listqualify(parts,chr(39)))#)
+				part_name in (#listqualify(parts,chr(39))#)
 			<cfif len() gt 0>
-				and cat_num not in (#listqualify(cat_num,chr(39)))#)
+				and cat_num not in (#listqualify(cat_num,chr(39))#)
 			</cfif>
 		</cfquery>
 		<cfdump var=#specs#>
