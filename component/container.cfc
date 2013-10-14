@@ -22,32 +22,8 @@
 			<cfset result = "fail|Parent container not found.">
 			<cfreturn result>
 		</cfif>
+		<cfset msg="">
 		
-		<cfif len(newdisp) gt 0>
-			<cfquery name="childPartID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select
-					specimen_part.collection_object_id,
-					specimen_part.part_name,
-					flat.guid,
-					coll_object.COLL_OBJ_DISPOSITION
-				from
-					specimen_part,
-					flat,
-					coll_object,
-					coll_obj_cont_hist,
-					container partcontainer
-				where
-					specimen_part.derived_from_cat_item=flat.collection_object_id and
-					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
-					specimen_part.collection_object_id=coll_object.collection_object_id and
-					coll_obj_cont_hist.container_id=partcontainer.container_id and
-					partcontainer.parent_container_id=#childID.container_id#
-			</cfquery>
-			<cfdump var=#childPartID#>
-			<cfif childPartID.recordcount is not 1 or len(childPartID.collection_object_id) is 0>
-				error bla etc<cfabort>
-			</cfif>
-		</cfif>
 		<cftransaction>
 			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update 
@@ -57,10 +33,54 @@
 				where
 					container_id = #childID.container_id#
 			</cfquery>
-			
+			<cfif len(newdisp) gt 0>
+				<cfquery name="childPartID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select
+						specimen_part.collection_object_id,
+						specimen_part.part_name,
+						flat.guid,
+						coll_object.coll_obj_disposition
+					from
+						specimen_part,
+						flat,
+						coll_object,
+						coll_obj_cont_hist,
+						container partcontainer
+					where
+						specimen_part.derived_from_cat_item=flat.collection_object_id and
+						specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+						specimen_part.collection_object_id=coll_object.collection_object_id and
+						coll_obj_cont_hist.container_id=partcontainer.container_id and
+						partcontainer.parent_container_id=#childID.container_id#
+				</cfquery>				
+				<cfif childPartID.recordcount is not 1 or len(childPartID.collection_object_id) is 0>
+					<cfset msg='no suitable child part found; disposition not updated'>
+				<cfelse>
+					<cfif len(olddisp) gt 0>
+						<!--- only move the part of current disposition matches olddisp ---->
+						<cfif olddisp is childPartID.COLL_OBJ_DISPOSITION>
+							<cfset msg='updating part #childPartID.part_name# for GUID #childPartID.guid# from #childPartID.COLL_OBJ_DISPOSITION# to #newdisp#.'>
+							<cfquery name="upDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								update coll_object set coll_obj_disposition='#newdisp#' where collection_object_id=#childPartID.collection_object_id#
+							</cfquery>
+						<cfelse>
+							<cfset msg='#childPartID.part_name# for GUID #childPartID.guid# disposition is #childPartID.COLL_OBJ_DISPOSITION# - not updating.'>
+						</cfif>
+					<cfelse>
+						<!---- move the part no matter olddisp ---->
+						<cfset msg='updating part #childPartID.part_name# for GUID #childPartID.guid# from #childPartID.COLL_OBJ_DISPOSITION# to #newdisp#.'>
+						<cfquery name="upDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							update coll_object set coll_obj_disposition='#newdisp#' where collection_object_id=#childPartID.collection_object_id#
+						</cfquery>
+					</cfif>
+				</cfif>
+			</cfif>
 		</cftransaction>
 		<cfset result = "success|#childID.barcode# (#childID.label#, #childID.container_type#) moved to #parentID.barcode# (#parentID.label#, #parentID.container_type#)">
-			<cfreturn result>
+		<cfif len(msg) gt 0>
+			<cfset result=result & '; ' & msg>
+		</cfif>
+		<cfreturn result>
 	<cfcatch>
 		<cfset result = "fail|#cfcatch.message#: #cfcatch.Detail#">
 		<cfreturn result>
