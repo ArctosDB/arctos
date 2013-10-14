@@ -1,15 +1,15 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Compare thingee">
 <cfoutput>
-
+	<cfdump var=#form#>
+	
+	
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection,collection_id from collection order by collection
 	</cfquery>
 
 	<cfif not isdefined('collection_id')>
-		<cfset cid="">
-	<cfelse>
-		<cfset cid=collection_id>
+		<cfset collection_id="">
 	</cfif>
 	
 	<cfif not isdefined('parts')>
@@ -17,6 +17,7 @@
 	</cfif>
 	<form name="pc" method="post" action="db_vs_colln.cfm">
 		<label for="collection">Collection</label>
+		<cfset cid=collection_id>
 		<select name="collection_id" id="collection_id">
 			<cfloop query="ctcollection">
 				<option <cfif cid is ctcollection.collection_id> selected="selected" </cfif>value="#collection_id#">#collection#</option>
@@ -24,7 +25,7 @@
 		</select>
 		<input type="submit" value="choose collection">
 	</form>
-	<cfif len(cid) is 0>
+	<cfif len(collection_id) is 0>
 		pick a collection to continue<cfabort>
 	</cfif>
 	<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -40,7 +41,7 @@
 		 	part_name
 	</cfquery>
 	<form name="findStuff" method="post" action="db_vs_colln.cfm">
-		<input type="text" name="cid" value="#cid#">
+		<input type="text" name="collection_id" value="#collection_id#">
 		<label for="part_name">Part Names</label>
 		<input type="hidden" name="part_name" id="part_name">
 		<select name="parts" id="v" multiple="multiple" size="20">
