@@ -64,8 +64,7 @@
 				cataloged_item.collection_object_id,
 				guid_prefix || ':' || cat_num guid,
 				scientific_name,
-				part_name,
-				COLL_OBJ_DISPOSITION
+				part_name
 			from
 				collection,
 				cataloged_item,
