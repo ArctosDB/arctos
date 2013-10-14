@@ -56,10 +56,8 @@
 		);
 	}
 	function moveThisOne_success(result) {
-		var cdate = new Date().toISOString;
-console.log(cdate);
-
-		var x=cdate.toISOString();
+		var date = new Date();
+		var cdate=date.toISOString();
 
 		var resAry = result.split("|");
 		var status = resAry[0];
@@ -70,7 +68,7 @@ console.log(cdate);
 		var currentStatus= theStatusBox.innerHTML;
 		if (status == 'success') {
 			document.getElementById('counter').innerHTML=parseInt(document.getElementById('counter').innerHTML)+1;
-			theStatusBox.innerHTML = '<div class="green">[' + x + ']: ' + message + '</div>' + currentStatus;
+			theStatusBox.innerHTML = '<div class="green">[' + cdate + ']: ' + message + '</div>' + currentStatus;
 			c.removeAttribute('readonly');
 			p.removeAttribute('readonly');
 			c.className='';
@@ -93,7 +91,7 @@ console.log(cdate);
 			} else {
 				var newMess = message;
 			}
-			theStatusBox.innerHTML = '<div class="red">[' + x + ']: ' + newMess + '</div>' + currentStatus;
+			theStatusBox.innerHTML = '<div class="red">[' + cdate + ']: ' + newMess + '</div>' + currentStatus;
 			p.focus();
 		}
 	}
