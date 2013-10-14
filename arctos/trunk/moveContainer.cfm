@@ -56,7 +56,9 @@
 		);
 	}
 	function moveThisOne_success(result) {
-		var cdate = new Date();
+		var cdate = new Date().toISOString;
+console.log(cdate);
+
 		var x=cdate.toISOString();
 
 		var resAry = result.split("|");
