@@ -135,19 +135,11 @@ Containers Moved:<span id="counter" style="background-color:green">0</span>
 		</td>
 		<td>
 			<label for="">&nbsp;</label>
-			<input type="submit" 
-				value="Move Container" 
-				class="savBtn"
-				onmouseover="this.className='savBtn btnhov'"
-				onmouseout="this.className='savBtn'">
+			<input type="button" onclick="moveThisOne()" value="Move Container" class="savBtn">
 		</td>
 		<td>
 			<label for="">&nbsp;</label>
-			<input type="reset" 
-				value="Clear Form" 
-				class="clrBtn"
-				onmouseover="this.className='clrBtn btnhov'"
-				onmouseout="this.className='clrBtn'">
+			<input type="reset" value="Clear Form" class="clrBtn">
 		</td>
 	</form>
 </tr>
