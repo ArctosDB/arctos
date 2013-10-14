@@ -136,6 +136,11 @@ Containers Moved:<span id="counter" style="background-color:green">0</span>
 		<td align="right">
 			<label for="autoSubmit">Submit on Child Change</label>
 			<input type="checkbox" name="autoSubmit" id="autoSubmit" />
+		</td>
+		
+		<td align="right">
+			When child contains a specimen part, update part disposition to {pick one}
+			when part_disposition is {pick one}
 		</td>		
 	</form>
 </tr>
