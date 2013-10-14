@@ -1,5 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Move a container">
+<cfquery name="CTCOLL_OBJ_DISP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP order by COLL_OBJ_DISPOSITION
+</cfquery>
+
 <style>
 	.red {background-color:#FF0000;
 	}
@@ -139,9 +143,22 @@ Containers Moved:<span id="counter" style="background-color:green">0</span>
 		</td>
 		
 		<td align="right">
-			When child contains a specimen part, update part disposition to {pick one}
-			when part_disposition is {pick one}
-		</td>		
+			<label for="newdisp">When child barcode contains a specimen part, update part disposition to....</label>
+			<select name="newdisp" id="newdisp">
+				<option value="">-do not update disposition-</option>
+				<cfloop query="CTCOLL_OBJ_DISP">
+					<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
+				</cfloop>
+			</select>
+		</td>
+			<label for="whendispis">When current disposition is....</label>
+			<select name="whendispis" id="whendispis">
+				<option value="">-any value-</option>
+				<cfloop query="CTCOLL_OBJ_DISP">
+					<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
+				</cfloop>
+			</select>
+		</td>
 	</form>
 </tr>
 </table>
