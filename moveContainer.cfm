@@ -17,13 +17,10 @@
 	function moveThisOne() {
 		var p = document.getElementById('parent_barcode');
 		var c = document.getElementById('child_barcode');
-		var t = document.getElementById('timestamp');
 		p.className='red';
 		p.setAttribute('readonly','readonly');
 		c.className='red';
 		c.setAttribute('readonly','readonly');
-		t.className='red';
-		t.setAttribute('readonly','readonly');
 		var barcode = c.value;
 		var parent_barcode = p.value;
 		var timestamp = t.value;
@@ -32,7 +29,6 @@
 				method : "moveContainerLocation",
 				barcode : barcode,
 				parent_barcode : parent_barcode,
-				timestamp : timestamp,
 				returnformat : "json",
 				queryformat : 'column'
 			},
@@ -46,26 +42,21 @@
 		var theStatusBox = document.getElementById('result');
 		var p = document.getElementById('parent_barcode');
 		var c = document.getElementById('child_barcode');
-		var t = document.getElementById('timestamp');
 		var currentStatus= theStatusBox.innerHTML;
 		if (status == 'success') {
 			document.getElementById('counter').innerHTML=parseInt(document.getElementById('counter').innerHTML)+1;
 			theStatusBox.innerHTML = '<div class="green">' + message + '</div>' + currentStatus;
 			c.removeAttribute('readonly');
-			t.removeAttribute('readonly');
 			p.removeAttribute('readonly');
 			c.className='';
 			p.className ='';
-			t.className='';
 			c.value='';
 			c.focus();
 		} else {
 			c.removeAttribute('readonly');
-			t.removeAttribute('readonly');
 			p.removeAttribute('readonly');
 			c.className='yellow';
 			p.className ='yellow';
-			t.className='yellow';
 			var isChild = message.indexOf('Child');
 			var isParent = message.indexOf('Parent');	
 			if (isChild > -1) {
@@ -81,20 +72,7 @@
 			p.focus();
 		}
 	}
-		function setNow() {
-			var thisdate = new Date();
-			var y = thisdate.getFullYear();
-			var m = thisdate.getMonth() + 1;
-			var d = thisdate.getDate();
-			var h = thisdate.getHours();
-			var mi = thisdate.getMinutes();
-			var s = "00";
-			var theDateElement = document.getElementById('timestamp');
-			months=new Array("01","02","03","04","05","06","07","08","09","10","11","12");
-			var Mon = months[m-1];
-			var td = y + '-' + Mon + '-' + d  + ' ' + h+ ':' + mi + ':' + s;
-			theDateElement.value=td;
-		}
+	
 		function autosubmit() {
 			var theCheck =  document.getElementById('autoSubmit');
 			var isChecked = theCheck.checked;
@@ -104,44 +82,10 @@
 		}
 </script>
 <cfoutput>
-Containers Moved:<span id="counter" style="background-color:green">0</span>
+<label for="autoSubmit">Submit Form when ChildBarcode changes</label>
+<input type="checkbox" name="autoSubmit" id="autoSubmit" />
 <table>
 	<tr>
-	<form name="moveIt" onsubmit="moveThisOne(); return false;">
-		<input type="hidden" name="action" value="moveIt">
-		<td>
-			<label for="parent_barcode">Parent Barcode</label>
-			<input type="text" name="parent_barcode" id="parent_barcode" autofocus>
-		</td>
-		<td>
-			<label for="child_barcode">Child Barcode</label>
-		  	<input type="text" name="child_barcode" id="child_barcode" onchange="autosubmit();">
-		</td>		
-		<td>
-			<label for="timestamp">Timestamp <img src="/images/clock.gif" class="likeLink" onclick="setNow();" /></label>
-			<input type="text" name="timestamp" id="timestamp">
-		</td>
-		<td>
-			<label for="">&nbsp;</label>
-			<input type="submit" 
-				value="Move Container" 
-				class="savBtn"
-				onmouseover="this.className='savBtn btnhov'"
-				onmouseout="this.className='savBtn'">
-		</td>
-		<td>
-			<label for="">&nbsp;</label>
-			<input type="reset" 
-				value="Clear Form" 
-				class="clrBtn"
-				onmouseover="this.className='clrBtn btnhov'"
-				onmouseout="this.className='clrBtn'">
-		</td>
-		<td align="right">
-			<label for="autoSubmit">Submit on Child Change</label>
-			<input type="checkbox" name="autoSubmit" id="autoSubmit" />
-		</td>
-		
 		<td align="right">
 			<label for="newdisp">When child barcode contains a specimen part, update part disposition to....</label>
 			<select name="newdisp" id="newdisp">
@@ -161,13 +105,43 @@ Containers Moved:<span id="counter" style="background-color:green">0</span>
 				</cfloop>
 			</select>
 		</td>
+	</tr>
+</table>
+
+		
+Containers Moved:<span id="counter" style="background-color:green">0</span>
+<table>
+	<tr>
+	<form name="moveIt" onsubmit="moveThisOne(); return false;">
+		<input type="hidden" name="action" value="moveIt">
+		<td>
+			<label for="parent_barcode">Parent Barcode</label>
+			<input type="text" name="parent_barcode" id="parent_barcode" autofocus>
+		</td>
+		<td>
+			<label for="child_barcode">Child Barcode</label>
+		  	<input type="text" name="child_barcode" id="child_barcode" onchange="autosubmit();">
+		</td>
+		<td>
+			<label for="">&nbsp;</label>
+			<input type="submit" 
+				value="Move Container" 
+				class="savBtn"
+				onmouseover="this.className='savBtn btnhov'"
+				onmouseout="this.className='savBtn'">
+		</td>
+		<td>
+			<label for="">&nbsp;</label>
+			<input type="reset" 
+				value="Clear Form" 
+				class="clrBtn"
+				onmouseover="this.className='clrBtn btnhov'"
+				onmouseout="this.className='clrBtn'">
+		</td>
 	</form>
 </tr>
 </table>
 <div id="result">
 </div>
-<script>
-	setNow();
-</script>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
