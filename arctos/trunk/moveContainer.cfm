@@ -88,6 +88,7 @@
 		}
 </script>
 <cfoutput>
+	<form name="moveIt" onsubmit="moveThisOne(); return false;">
 
 <table border>
 	<tr>
@@ -123,7 +124,6 @@
 Containers Moved:<span id="counter" style="background-color:green">0</span>
 <table>
 	<tr>
-	<form name="moveIt" onsubmit="moveThisOne(); return false;">
 		<input type="hidden" name="action" value="moveIt">
 		<td>
 			<label for="parent_barcode">Parent Barcode</label>
@@ -141,9 +141,10 @@ Containers Moved:<span id="counter" style="background-color:green">0</span>
 			<label for="">&nbsp;</label>
 			<input type="reset" value="Clear Form" class="clrBtn">
 		</td>
-	</form>
 </tr>
 </table>
+	</form>
+
 <div id="result">
 </div>
 </cfoutput>
