@@ -112,6 +112,9 @@
 					where 
 						specimen_part.collection_object_id=coll_object.collection_object_id and
 						specimen_part.derived_from_cat_item=#collection_object_id#
+					order by 
+						part_name,
+						COLL_OBJ_DISPOSITION
 				</cfquery>
 				<tr>
 					<td><a href="/guid/#guid#" target="_blank">#guid#</a></td>
