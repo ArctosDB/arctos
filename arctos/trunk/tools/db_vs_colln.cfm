@@ -11,6 +11,10 @@
 	<cfelse>
 		<cfset cid=collection_id>
 	</cfif>
+	
+	<cfif not isdefined('parts')>
+		<cfset parts="">
+	</cfif>
 	<form name="pc" method="post" action="db_vs_colln.cfm">
 		<label for="collection">Collection</label>
 		<select name="collection_id" id="collection_id">
@@ -36,18 +40,18 @@
 		 	part_name
 	</cfquery>
 	<form name="findStuff" method="post" action="db_vs_colln.cfm">
-		<input type="hidden" name="cid" value="#cid#">
+		<input type="text" name="cid" value="#cid#">
 		<label for="part_name">Part Names</label>
 		<input type="hidden" name="part_name" id="part_name">
-		<select name="part_name" id="part_name" multiple="multiple" size="20">
+		<select name="parts" id="v" multiple="multiple" size="20">
 			<cfloop query="ctspecimen_part_name">
-				<option value="#part_name#">#part_name#</option>
+				<option <cfif listfind(parts,part_name)> selected="selected" </cfif>value="#part_name#">#part_name#</option>
 			</cfloop>
 		</select>
 		<br><input type="submit" value="find specimens">
 	</form>
-	<cfif len(part_name) gt 0>
-		#part_name#
+	<cfif isdefined("parts") and len(parts) gt 0>
+		#parts#
 	</cfif>
 </cfoutput>
 
