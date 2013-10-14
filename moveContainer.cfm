@@ -57,7 +57,7 @@
 	}
 	function moveThisOne_success(result) {
 		var cdate = new Date();
-		cdate.toISOString();
+		var x=cdate.toISOString();
 
 		var resAry = result.split("|");
 		var status = resAry[0];
@@ -68,7 +68,7 @@
 		var currentStatus= theStatusBox.innerHTML;
 		if (status == 'success') {
 			document.getElementById('counter').innerHTML=parseInt(document.getElementById('counter').innerHTML)+1;
-			theStatusBox.innerHTML = '<div class="green">[' + cdate + ']: ' + message + '</div>' + currentStatus;
+			theStatusBox.innerHTML = '<div class="green">[' + x + ']: ' + message + '</div>' + currentStatus;
 			c.removeAttribute('readonly');
 			p.removeAttribute('readonly');
 			c.className='';
@@ -91,7 +91,7 @@
 			} else {
 				var newMess = message;
 			}
-			theStatusBox.innerHTML = '<div class="red">[' + cdate + ']: ' + newMess + '</div>' + currentStatus;
+			theStatusBox.innerHTML = '<div class="red">[' + x + ']: ' + newMess + '</div>' + currentStatus;
 			p.focus();
 		}
 	}
