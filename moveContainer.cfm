@@ -82,9 +82,14 @@
 		}
 </script>
 <cfoutput>
-<label for="autoSubmit">Submit Form when ChildBarcode changes</label>
-<input type="checkbox" name="autoSubmit" id="autoSubmit" />
-<table>
+
+<table border>
+	<tr>
+		<td colspan="2">
+			<label for="autoSubmit">Check to submit form when ChildBarcode changes</label>
+			<input type="checkbox" name="autoSubmit" id="autoSubmit" />
+		</td>
+	</tr>
 	<tr>
 		<td align="right">
 			<label for="newdisp">When child barcode contains a specimen part, update part disposition to....</label>
