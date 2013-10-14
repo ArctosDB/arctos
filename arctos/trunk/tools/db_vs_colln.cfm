@@ -59,7 +59,7 @@
 		<br><input type="submit" value="find specimens">
 	</form>
 	<cfif isdefined("parts") and len(parts) gt 0>
-		<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				cataloged_item.collection_object_id,
 				guid_prefix || ':' || cat_num guid,
@@ -85,9 +85,11 @@
 				and upper(scientific_name) like '%#ucase(idname)#%'
 			</cfif>
 		</cfquery>
+		<!----
 		<cfquery name="s" dbtype="query">
-			select guid,scientific_name from specs group by guid,scientific_name order by guid
+			select guid,scientific_name,collection_object_id from specs group by guid,scientific_name,collection_object_id order by guid
 		</cfquery>
+		----->
 		<cfif s.recordcount lt 1000>
 			<a href="/SpecimenResults.cfm?guid=#valuelist(s.guid)#" target="_blank">specresults</a>
 		<cfelse>
@@ -116,7 +118,7 @@
 					<td>#scientific_name#</td>
 					<td>
 						<cfloop query="p">
-							<div>
+							<div <cfif p.part_name is s.part_name> style="font-weight:bold;"</cfif>
 								#part_name# (#COLL_OBJ_DISPOSITION#)
 							</div>
 						</cfloop>
