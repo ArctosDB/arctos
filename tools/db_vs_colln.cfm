@@ -13,7 +13,7 @@
 		<label for="collection">Collection</label>
 		<select name="collection_id" id="collection_id">
 			<cfloop query="ctcollection">
-				<option <cfif cid is ctcollection.ctcollection> selected="selected" </cfif>value="#collection_id#">#collection#</option>
+				<option <cfif cid is ctcollection.collection_id> selected="selected" </cfif>value="#collection_id#">#collection#</option>
 			</cfloop>
 		</select>
 		<input type="submit" value="choose collection">
