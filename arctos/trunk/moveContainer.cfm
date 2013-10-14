@@ -14,6 +14,30 @@
 	
 </style>
 <script>
+	if ( !Date.prototype.toISOString ) {
+  ( function() {
+
+    function pad(number) {
+      var r = String(number);
+      if ( r.length === 1 ) {
+        r = '0' + r;
+      }
+      return r;
+    }
+
+    Date.prototype.toISOString = function() {
+      return this.getUTCFullYear()
+        + '-' + pad( this.getUTCMonth() + 1 )
+        + '-' + pad( this.getUTCDate() )
+        + 'T' + pad( this.getUTCHours() )
+        + ':' + pad( this.getUTCMinutes() )
+        + ':' + pad( this.getUTCSeconds() )
+        + '.' + String( (this.getUTCMilliseconds()/1000).toFixed(3) ).slice( 2, 5 )
+        + 'Z';
+    };
+
+  }() );
+}
 	function moveThisOne() {
 		$("#child_barcode").removeClass().addClass('red').attr('readonly', true);
 		$("#child_barcode").removeClass().addClass('red').attr('readonly', true);
@@ -44,7 +68,7 @@
 		var currentStatus= theStatusBox.innerHTML;
 		if (status == 'success') {
 			document.getElementById('counter').innerHTML=parseInt(document.getElementById('counter').innerHTML)+1;
-			theStatusBox.innerHTML = '<div class="green">(' + cdate + '): ' + message + '</div>' + currentStatus;
+			theStatusBox.innerHTML = '<div class="green">[' + cdate + ']: ' + message + '</div>' + currentStatus;
 			c.removeAttribute('readonly');
 			p.removeAttribute('readonly');
 			c.className='';
@@ -67,7 +91,7 @@
 			} else {
 				var newMess = message;
 			}
-			theStatusBox.innerHTML = '<div class="red">(' + cdate + '): ' + newMess + '</div>' + currentStatus;
+			theStatusBox.innerHTML = '<div class="red">[' + cdate + ']: ' + newMess + '</div>' + currentStatus;
 			p.focus();
 		}
 	}
