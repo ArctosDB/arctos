@@ -64,11 +64,11 @@
 								update coll_object set coll_obj_disposition='#newdisp#' where collection_object_id=#childPartID.collection_object_id#
 							</cfquery>
 						<cfelse>
-							<cfset msg='#childPartID.part_name# for GUID #childPartID.guid# disposition is #childPartID.COLL_OBJ_DISPOSITION# - not updating.'>
+							<cfset msg='#childPartID.part_name# for GUID <a target="_blank" href="/guid/#childPartID.guid#">#childPartID.guid#</a> disposition is #childPartID.COLL_OBJ_DISPOSITION# - not updating.'>
 						</cfif>
 					<cfelse>
 						<!---- move the part no matter olddisp ---->
-						<cfset msg='updating part #childPartID.part_name# for GUID #childPartID.guid# from #childPartID.COLL_OBJ_DISPOSITION# to #newdisp#.'>
+						<cfset msg='updating part #childPartID.part_name# for GUID <a target="_blank" href="/guid/#childPartID.guid#">#childPartID.guid#</a> from #childPartID.COLL_OBJ_DISPOSITION# to #newdisp#.'>
 						<cfquery name="upDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							update coll_object set coll_obj_disposition='#newdisp#' where collection_object_id=#childPartID.collection_object_id#
 						</cfquery>
