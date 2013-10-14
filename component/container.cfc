@@ -28,15 +28,18 @@
 				select
 					specimen_part.collection_object_id,
 					specimen_part.part_name,
-					flat.guid
+					flat.guid,
+					coll_object.COLL_OBJ_DISPOSITION
 				from
 					specimen_part,
 					flat,
+					coll_object,
 					coll_obj_cont_hist,
 					container partcontainer
 				where
 					specimen_part.derived_from_cat_item=flat.collection_object_id and
 					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+					specimen_part.collection_object_id=coll_object.collection_object_id and
 					coll_obj_cont_hist.container_id=partcontainer.container_id and
 					partcontainer.parent_container_id=#childID.container_id#
 			</cfquery>
@@ -54,6 +57,7 @@
 				where
 					container_id = #childID.container_id#
 			</cfquery>
+			
 		</cftransaction>
 		<cfset result = "success|#childID.barcode# (#childID.label#, #childID.container_type#) moved to #parentID.barcode# (#parentID.label#, #parentID.container_type#)">
 			<cfreturn result>
