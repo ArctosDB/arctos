@@ -99,7 +99,7 @@
 			<tr>
 				<th>GUID</th>
 				<th>ID</th>
-				<th>Parts</th>
+				<th>Part (disposition)</th>
 			</tr>
 			<cfloop query="s">
 				<cfquery name="p"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -120,7 +120,6 @@
 					<td><a href="/guid/#guid#" target="_blank">#guid#</a></td>
 					<td>#scientific_name#</td>
 					<td>
-						<cfdump var=#p#>
 						<cfloop query="p">
 							<div <cfif p.part_name is s.part_name> style="font-weight:bold;"</cfif>>
 								#part_name# (#COLL_OBJ_DISPOSITION#)
