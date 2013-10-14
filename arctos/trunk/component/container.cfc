@@ -3,7 +3,6 @@
 <cffunction name="moveContainerLocation" access="remote">
 	<cfargument name="barcode" type="string" required="yes">
 	<cfargument name="parent_barcode" type="string" required="yes">
-	<cfargument name="timestamp" type="string" required="yes">	
 	<cftry>
 		<cfquery name="childID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id,barcode,label,container_type from container where barcode = '#barcode#'
