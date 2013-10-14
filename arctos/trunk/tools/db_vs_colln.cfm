@@ -6,8 +6,10 @@
 		select collection,collection_id from collection order by collection
 	</cfquery>
 
-	<cfif not isdefined('cid')>
+	<cfif not isdefined('collection_id')>
 		<cfset cid="">
+	<cfelse>
+		<cfset cid=collection_id>
 	</cfif>
 	<form name="pc" method="post" action="db_vs_colln.cfm">
 		<label for="collection">Collection</label>
