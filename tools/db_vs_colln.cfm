@@ -45,7 +45,7 @@
 		 	part_name
 	</cfquery>
 	<form name="findStuff" method="post" action="db_vs_colln.cfm">
-		<input type="text" name="collection_id" value="#collection_id#">
+		<input type="hidden" name="collection_id" value="#collection_id#">
 		<label for="part_name">Part Names (collection count in parens)</label>
 		<select name="parts" id="v" multiple="multiple" size="20">
 			<cfloop query="ctspecimen_part_name">
