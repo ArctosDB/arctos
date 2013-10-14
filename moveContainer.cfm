@@ -15,25 +15,16 @@
 </style>
 <script>
 	function moveThisOne() {
-		var p = document.getElementById('parent_barcode');
-		var c = document.getElementById('child_barcode');
+		$("#child_barcode").removeClass().addClass('red').attr('readonly', true);
+		$("#child_barcode").removeClass().addClass('red').attr('readonly', true);
 
-		var newdisp = document.getElementById('newdisp');
-		var olddisp = document.getElementById('olddisp');
-
-		p.className='red';
-		p.setAttribute('readonly','readonly');
-		c.className='red';
-		c.setAttribute('readonly','readonly');
-		var barcode = c.value;
-		var parent_barcode = p.value;
 		jQuery.getJSON("/component/container.cfc",
 			{
 				method : "moveContainerLocation",
-				barcode : barcode,
-				parent_barcode : parent_barcode,
-				newdisp: newdisp,
-				olddisp: olddisp,
+				barcode : $("#child_barcode").val(),
+				parent_barcode : $("#parent_barcode").val(),
+				newdisp: $("#newdisp").val(),
+				olddisp: $("#olddisp").val(),
 				returnformat : "json",
 				queryformat : 'column'
 			},
