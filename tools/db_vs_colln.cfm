@@ -18,6 +18,9 @@
 	<cfif not isdefined('idname')>
 		<cfset idname="">
 	</cfif>
+	<cfif not isdefined('catnum')>
+		<cfset catnum="">
+	</cfif>
 	<form name="pc" method="post" action="db_vs_colln.cfm">
 		<label for="collection">Collection</label>
 		<cfset cid=collection_id>
@@ -55,7 +58,9 @@
 		<label for="idname">Scientific Name</label>
 		<input type="text" value="#idname#" name="idname" id="idname">
 		<label for="exclCatNum">Exclude cat nums (comma list)</label>
-		<textarea name="exclCatNum" id="exclCatNum" rows="10" cols="50">#exclCatNum#</textarea>
+		<textarea name="exclCatNum" id="exclCatNum" rows="4" cols="50">#exclCatNum#</textarea>
+		<label for="catnum">cat nums (comma list)</label>
+		<textarea name="catnum" id="catnum" rows="4" cols="50">#catnum#</textarea>
 		<br><input type="submit" value="find specimens">
 	</form>
 	<cfif isdefined("parts") and len(parts) gt 0>
@@ -80,6 +85,9 @@
 				part_name in (#listqualify(parts,chr(39))#)
 			<cfif len(exclCatNum) gt 0>
 				and cat_num not in (#listqualify(exclCatNum,chr(39))#)
+			</cfif>
+			<cfif len(catnum) gt 0>
+				and catnum in (#listqualify(catnum,chr(39))#)
 			</cfif>
 			<cfif len(idname) gt 0>
 				and upper(scientific_name) like '%#ucase(idname)#%'
