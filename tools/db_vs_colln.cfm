@@ -119,7 +119,7 @@
 					<td>
 						<cfdump var=#p#>
 						<cfloop query="p">
-							<div <cfif p.part_name is s.part_name> style="font-weight:bold;"</cfif>
+							<div <cfif p.part_name is s.part_name> style="font-weight:bold;"</cfif>>
 								#part_name# (#COLL_OBJ_DISPOSITION#)
 							</div>
 						</cfloop>
