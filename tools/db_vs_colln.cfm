@@ -83,7 +83,7 @@
 		<cfquery name="s" dbtype="query">
 			select guid,scientific_name from specs group by guid,scientific_name order by guid
 		</cfquery>
-		<cfif s.recordcout lt 1000>
+		<cfif s.recordcount lt 1000>
 			<a href="/SpecimenResults.cfm?guid=#valuelist(s.guid)#" target="_blank">specresults</a>
 		<cfelse>
 			link only available for <1k records
