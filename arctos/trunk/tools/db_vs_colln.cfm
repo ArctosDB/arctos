@@ -1,9 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Compare thingee">
 <cfoutput>
-	<cfdump var=#form#>
-	
-	
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection,collection_id from collection order by collection
 	</cfquery>
@@ -120,9 +117,6 @@
 				</tr>
 			</cfloop>
 		</table>
-		
-		<cfdump var=#specs#>
 	</cfif>
 </cfoutput>
-
 <cfinclude template="/includes/_footer.cfm">
