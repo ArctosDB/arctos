@@ -7,14 +7,7 @@
 <cfoutput>
 		<cfinclude template="/includes/functionLib.cfm">
 
-	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select
-			google_client_id,
-			google_private_key
-		from cf_global_settings
-	</cfquery>
-	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=geometry" type="text/javascript"></script>'>
-
+	
 <!----
 
 	<cfinclude template="/includes/_header.cfm">
