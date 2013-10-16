@@ -5,12 +5,12 @@
 	}
 </style>
 <cfoutput>
-		<cfinclude template="/includes/functionLib.cfm">
 
-	
+	i like tatertots.
 <!----
 
 	<cfinclude template="/includes/_header.cfm">
+		<cfinclude template="/includes/functionLib.cfm">
 
 
 
