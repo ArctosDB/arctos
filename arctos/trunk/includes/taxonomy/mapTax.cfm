@@ -65,7 +65,7 @@
 	</cfif>
 	<br>found a file - now reading it into a query.....
 	
-	<cffile action="READ" file="#fn#" variable="fileContent">
+	<cffile action="READ" file="#internalPath#/#fn#" variable="fileContent">
 
 	<cfdump var=#fileContent#>
 	
