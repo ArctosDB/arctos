@@ -77,7 +77,7 @@
 	<cfset theJS="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<p>
-			#o#
+			#arrResult[o]#
 		</p>
 	</cfloop>
 	<cfabort>
