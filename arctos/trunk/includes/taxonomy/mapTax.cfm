@@ -88,7 +88,7 @@
 		<cfset theJS=theJS & 'var latLng#o# = new google.maps.LatLng(#dec_lat#, #dec_long#);'>
 		
 		<cfset theJS=theJS & "var marker#o# = new google.maps.Marker({position: latLng#o#,map: map,icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'});">
-		<cfset theJS=theJS & 'var circleOptions = {center: latLng#o#,radius: Math.round(#error_in_meters#),map: map,editable: false};'>
+		<cfset theJS=theJS & 'var circleOptions = {center: latLng#o#,radius: Math.round(#coordinateuncertaintyinmeters#),map: map,editable: false};'>
 		<cfset theJS=theJS & 'var circle = new google.maps.Circle(circleOptions);'>
 		<cfset theJS=theJS & 'bounds.extend(latLng#o#);'>
 		
