@@ -52,8 +52,8 @@
 		<cfset variables.fileName=internalPath & fn>
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			x='"c","locality_id","scientific_name","dec_lat","dec_long","datum","coordinateuncertaintyinmeters"';
-			variables.joFileWriter.writeLine(x);      
+			//x='"c","locality_id","scientific_name","dec_lat","dec_long","datum","coordinateuncertaintyinmeters"';
+			//variables.joFileWriter.writeLine(x);      
 		</cfscript>
 		<cfloop query="d">
 			<cfscript>
@@ -76,11 +76,15 @@
 	<!--- loop across the array, build JS for the map ---->
 	<cfset theJS="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
-		<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
-			<p>
-				#arrResult[o][i]#
-			</p>
-		</cfloop>
+		<cfset c=arrResult[o][1]>
+		<cfset locality_id=arrResult[o][2]>
+		<cfset scientific_name=arrResult[o][3]>
+		<cfset dec_lat=arrResult[o][4]>
+		<cfset dec_long=arrResult[o][5]>
+		<cfset datum=arrResult[o][6]>
+		<cfset coordinateuncertaintyinmeters=arrResult[o][7]>
+		<br>c: #c#
+		<br>scientific_name: #scientific_name#>
 		
 	</cfloop>
 	<cfabort>
