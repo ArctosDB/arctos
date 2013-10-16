@@ -73,6 +73,13 @@
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 	<cfdump var=#arrResult#>
+	<!--- loop across the array, build JS for the map ---->
+	<cfset theJS="">
+	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
+		<p>
+			#o#
+		</p>
+	</cfloop>
 	<cfabort>
 	
 	
