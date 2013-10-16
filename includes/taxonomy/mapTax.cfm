@@ -5,7 +5,7 @@
 	}
 </style>
 <cfoutput>
-
+<cftry>
 	i like tatertots.
 <!----
 
@@ -128,4 +128,11 @@
 			Showing fuzzy matches - <span class="likeLink" onclick="reloadThis('exact')"> show matches for exactly '#scientific_name#'</span>
 		</cfif>
 	</span>
+	
+	
+	<cfcatch>
+	<cfdump var=#cfcatch#>
+	</cfcatch>
+	
+	</cftry>
 </cfoutput>
