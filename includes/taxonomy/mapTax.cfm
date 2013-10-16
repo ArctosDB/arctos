@@ -76,9 +76,12 @@
 	<!--- loop across the array, build JS for the map ---->
 	<cfset theJS="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
-		<p>
-			#arrResult[o]#
-		</p>
+		<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
+			<p>
+				#arrResult[o][i]#
+			</p>
+		</cfloop>
+		
 	</cfloop>
 	<cfabort>
 	
