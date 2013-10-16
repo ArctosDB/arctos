@@ -507,7 +507,14 @@ function loadRecordEdit (collection_object_id) {
 						var cName=columns[i];
 						var cVal=eval("r.DATA." + columns[i]);
 						var eName=cName.toLowerCase();
-						$("#" + eName).val(cVal);
+						if (cval == "true") {
+							// ajax form changes "yes" to "true"
+							$("#" + eName).val('yes');
+						} else if (cval == 'false') {
+							$("#" + eName).val('no');
+						} else {
+							$("#" + eName).val(cVal);
+						}
 						//console.log(eName + '-->' + cVal);
 					}
 
