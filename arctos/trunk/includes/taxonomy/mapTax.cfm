@@ -85,7 +85,7 @@
 		<cfset coordinateuncertaintyinmeters=arrResult[o][7]>
 		<br>c: #c#
 		<br>scientific_name: #scientific_name#
-		<cfset theJS=theJS & 'var latLng#o# = new google.maps.LatLng($("#dec_lat").val(), $("#dec_long").val());'>
+		<cfset theJS=theJS & 'var latLng#o# = new google.maps.LatLng(#dec_lat#, #dec_long#);'>
 		
 		<cfset theJS=theJS & "var marker#o# = new google.maps.Marker({position: latLng#o#,map: map,icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'});">
 		<cfset theJS=theJS & 'var circleOptions = {center: latLng#o#,radius: Math.round($("#error_in_meters").val()),map: map,editable: false};'>
