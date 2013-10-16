@@ -5,7 +5,11 @@
 	}
 </style>
 <cfoutput>
+	<cfinclude template="/includes/_header.cfm">
+
+<!----
 	<cfinclude template="/includes/functionLib.cfm">
+	---->
 	<cfset internalPath="#Application.webDirectory#/cache/">
 	<cfset externalPath="#Application.ServerRootUrl#/cache/">
 	<cfif not isdefined("method")>
@@ -99,6 +103,38 @@
 	
 	
 	#theJS#
+	
+	
+	<script>
+	
+	
+	jQuery(document).ready(function() {
+ 		var map;
+			var defaultcenter = new google.maps.LatLng(49.496675, -102.65625);
+
+ 		var mapOptions = {
+        	center: defaultcenter,
+         	mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var bounds = new google.maps.LatLngBounds();
+		function initialize() {
+        	map = new google.maps.Map(document.getElementById("taxarangemap"), mapOptions);
+      	}
+		initialize();
+
+#theJS#
+
+		// center the map on the points
+		map.fitBounds(bounds);
+		// and zoom back out a bit, if the points will still fit
+		// because the centering zooms WAY in if the points are close together
+		
+	});
+	</script>
+	
+	
+		<div id="taxarangemap" style="width: 100%;; height: 400px;"></div>
+
 	<cfabort>
 	
 	
