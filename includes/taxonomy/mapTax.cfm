@@ -6,6 +6,7 @@
 </style>
 <cfoutput>
 	<cfinclude template="/includes/_header.cfm">
+	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=geometry" type="text/javascript"></script>'>
 
 <!----
 	<cfinclude template="/includes/functionLib.cfm">
