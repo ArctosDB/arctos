@@ -92,16 +92,7 @@
 		<cfset theJS=theJS & 'var circle = new google.maps.Circle(circleOptions);'>
 		<cfset theJS=theJS & 'bounds.extend(latLng#o#);'>
 		
-		map.fitBounds(bounds);
-		// and zoom back out a bit, if the points will still fit
-		// because the centering zooms WAY in if the points are close together
-		var p1 = new google.maps.LatLng($("#dec_lat").val(),$("#dec_long").val());
-		var p2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(),$("#s_dollar_dec_long").val());
-		var tdis=distHaversine(p1,p2);
-		$("#distanceBetween").val(tdis);
-
-
-
+	
 
 
 	</cfloop>
