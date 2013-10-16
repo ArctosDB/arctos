@@ -84,9 +84,30 @@
 		<cfset datum=arrResult[o][6]>
 		<cfset coordinateuncertaintyinmeters=arrResult[o][7]>
 		<br>c: #c#
-		<br>scientific_name: #scientific_name#>
+		<br>scientific_name: #scientific_name#
+		<cfset theJS=theJS & 'var latLng#o# = new google.maps.LatLng($("#dec_lat").val(), $("#dec_long").val());'>
 		
+		<cfset theJS=theJS & "var marker#o# = new google.maps.Marker({position: latLng#o#,map: map,icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'});">
+		<cfset theJS=theJS & 'var circleOptions = {center: latLng#o#,radius: Math.round($("#error_in_meters").val()),map: map,editable: false};'>
+		<cfset theJS=theJS & 'var circle = new google.maps.Circle(circleOptions);'>
+		<cfset theJS=theJS & 'bounds.extend(latLng#o#);'>
+		
+		map.fitBounds(bounds);
+		// and zoom back out a bit, if the points will still fit
+		// because the centering zooms WAY in if the points are close together
+		var p1 = new google.maps.LatLng($("#dec_lat").val(),$("#dec_long").val());
+		var p2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(),$("#s_dollar_dec_long").val());
+		var tdis=distHaversine(p1,p2);
+		$("#distanceBetween").val(tdis);
+
+
+
+
+
 	</cfloop>
+	
+	
+	#theJS#
 	<cfabort>
 	
 	
