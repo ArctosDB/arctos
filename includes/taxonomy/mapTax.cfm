@@ -118,8 +118,14 @@
 	});
 	</script>
 	
-	
+	<span style="font-size:smaller;color:red;">Encumbered records are excluded.</span>
 		<div id="taxarangemap" style="width: 100%;; height: 400px;"></div>
 
-	
+	<span id="toggleExactmatch">
+		<cfif method is "exact">
+			Showing exact matches - <span class="likeLink" onclick="reloadThis('')"> show matches for '#scientific_name#%'</span>
+		<cfelse>
+			Showing fuzzy matches - <span class="likeLink" onclick="reloadThis('exact')"> show matches for exactly '#scientific_name#'</span>
+		</cfif>
+	</span>
 </cfoutput>
