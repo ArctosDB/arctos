@@ -69,7 +69,9 @@
 	<cffile action="READ" file="#internalPath#/#fn#" variable="fileContent">
 
 	<cfdump var=#fileContent#>
-	
+	<cfset fileContent=replace(fileContent,"'","''","all")>
+	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
+	<cfdump var=#arrResult#>
 	<cfabort>
 	
 	
