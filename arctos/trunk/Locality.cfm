@@ -1461,8 +1461,6 @@ INSERT INTO geog_auth_rec (
 	<cfif len(#sea#) gt 0>
 		,sea
 	</cfif>
-		,valid_catalog_term_fg
-		,source_authority
 		)
 	VALUES (
 		#nextGEO.nextid#
@@ -1493,8 +1491,6 @@ INSERT INTO geog_auth_rec (
 	<cfif len(#sea#) gt 0>
 		,'#sea#'
 	</cfif>
-		,#valid_catalog_term_fg#
-		,'#source_authority#'
 )
 </cfquery>
 <cflocation addtoken="no" url="Locality.cfm?Action=editGeog&geog_auth_rec_id=#nextGEO.nextid#">
