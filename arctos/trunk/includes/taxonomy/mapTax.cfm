@@ -57,7 +57,7 @@
 		<cfloop query="d">
 			<cfscript>
 				x='"#c#","#locality_id#","#scientific_name#","#dec_lat#","#dec_long#","#datum#","#coordinateuncertaintyinmeters#"';				
-				variables.joFileWriter.writeLine(kml);
+				variables.joFileWriter.writeLine(x);
 			</cfscript>
 		</cfloop>
 		<cfscript>
