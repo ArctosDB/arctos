@@ -11,12 +11,11 @@
 		<cfset method="">
 	</cfif>
 	<cfif method is "exact">
-		<cfset fn="_#replace(scientific_name,' ','-','all')#.csv">
+		<cfset fn="_#replace(scientific_name,' ','-','all')#.kml">
 	<cfelse>
-		<cfset fn="#replace(scientific_name,' ','-','all')#.csv">
+		<cfset fn="#replace(scientific_name,' ','-','all')#.kml">
 	</cfif>
 	<cfif not fileexists("#internalPath##fn#")>
-		building cache.....
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		 	select 
 		 		count(*) c,
@@ -50,65 +49,37 @@
 		<cfset variables.fileName=internalPath & fn>
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			x='"c","locality_id","scientific_name","dec_lat","dec_long","datum","coordinateundertaintymeters"';
-			variables.joFileWriter.writeLine(x);      
+			kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+				'<kml xmlns="http://earth.google.com/kml/2.2">' & chr(10) &
+				chr(9) & '<Document>' & chr(10) &
+				chr(9) & chr(9) & '<name>#scientific_name#</name>' & chr(10) &
+				chr(9) & chr(9) & '<open>1</open>';
+			variables.joFileWriter.writeLine(kml);      
 		</cfscript>
 		<cfloop query="d">
 			<cfscript>
-				x='"#c#","#locality_id#","#scientific_name#","#dec_lat#","#dec_long#","#datum#","#coordinateundertaintymeters#"';				
+				kml=chr(9) & chr(9) & '<Placemark>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & '<name>#c# #scientific_name#</name>' & chr(10) &
+	      			chr(9) & chr(9) & chr(9) & '<description>' & chr(10) &
+			        chr(9) & chr(9) & chr(9) & chr(9) & '<![CDATA[' & chr(10) &
+			        chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<a href="#application.serverRootUrl#/SpecimenResults.cfm?locality_id=#locality_id#&scientific_name=#scientific_name#">Arctos Specimen Records</a>' & chr(10) & 
+			        chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<br><span style="font-size:smaller">Datum: #datum#; error: #COORDINATEUNCERTAINTYINMETERS# m</span>' & chr(10) &
+			       	chr(9) & chr(9) & chr(9) & chr(9) & ' ]]>' & chr(10) &
+			      	chr(9) & chr(9) & chr(9) & '</description>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & '<Point>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#</coordinates>' & chr(10) &
+					chr(9) & chr(9) &  chr(9) & '</Point>' & chr(10) &
+					chr(9) & chr(9) & '</Placemark>';
 				variables.joFileWriter.writeLine(kml);
 			</cfscript>
 		</cfloop>
 		<cfscript>
+			kml=chr(9) & '</Document>' & chr(10) &
+				'</kml>';
+			variables.joFileWriter.writeLine(kml);		
 			variables.joFileWriter.close();
 		</cfscript>
 	</cfif>
-	<br>found a file - now reading it into a query.....
-	
-	<cffile action="READ" file="#fn#" variable="fileContent">
-
-	<cfdump var=#fileContent#>
-	
-	<cfabort>
-	
-	
-	
-
-	<cfset fileContent=replace(fileContent,"'","''","all")>
-
-	 <cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
-
- <cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	delete from cf_temp_cont_edit
-</cfquery>
-
-<cfset colNames="">
-	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
-		<cfset colVals="">
-			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
-				<cfset thisBit=arrResult[o][i]>
-				<cfif #o# is 1>
-					<cfset colNames="#colNames#,#thisBit#">
-				<cfelse>
-					<cfset colVals="#colVals#,'#thisBit#'">
-				</cfif>
-			</cfloop>
-		<cfif #o# is 1>
-			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
-		<cfif len(#colVals#) gt 1>
-			<cfset colVals=replace(colVals,",","","first")>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into cf_temp_cont_edit (#colNames#) values (#preservesinglequotes(colVals)#)
-			</cfquery>
-		</cfif>
-	</cfloop>
-
-
-
-
-
-	
 	<span style="font-size:smaller;color:red;">Encumbered records are excluded.</span>
 	<div id="taxarangemap" style="width: 100%;; height: 400px;"></div>
 	<script language="javascript" type="text/javascript">
