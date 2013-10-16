@@ -25,7 +25,7 @@
 		 		dec_lat,
 		 		dec_long,
 		 		datum,
-		 		COORDINATEUNCERTAINTYINMETERS
+		 		coordinateuncertaintymeters
 		 	from filtered_flat
 		 	where 
 				dec_lat is not null and 
@@ -41,7 +41,7 @@
 		 		dec_lat,
 		 		dec_long,
 		 		datum,
-		 		COORDINATEUNCERTAINTYINMETERS
+		 		coordinateuncertaintymeters
 		</cfquery>
 		<cfdump var=#d#>
 		<cfif d.recordcount is 0>
@@ -51,12 +51,12 @@
 		<cfset variables.fileName=internalPath & fn>
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			x='"c","locality_id","scientific_name","dec_lat","dec_long","datum","coordinateundertaintymeters"';
+			x='"c","locality_id","scientific_name","dec_lat","dec_long","datum","coordinateuncertaintymeters"';
 			variables.joFileWriter.writeLine(x);      
 		</cfscript>
 		<cfloop query="d">
 			<cfscript>
-				x='"#c#","#locality_id#","#scientific_name#","#dec_lat#","#dec_long#","#datum#","#coordinateundertaintyinmeters#"';				
+				x='"#c#","#locality_id#","#scientific_name#","#dec_lat#","#dec_long#","#datum#","#coordinateuncertaintymeters#"';				
 				variables.joFileWriter.writeLine(kml);
 			</cfscript>
 		</cfloop>
