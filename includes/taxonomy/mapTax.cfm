@@ -5,6 +5,7 @@
 	}
 </style>
 <cfoutput>
+	<cfinclude template="/includes/functionLib.cfm">
 	<cfset internalPath="#Application.webDirectory#/cache/">
 	<cfset externalPath="#Application.ServerRootUrl#/cache/">
 	<cfif not isdefined("method")>
