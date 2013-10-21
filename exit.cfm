@@ -51,7 +51,6 @@
 		<cfheader name="Location" value="#http_target#">
 	<cfelse>
 		<div style="border:4px solid red; padding:1em;margin:1em;">
-			<span style="padding:1em; font-size:xx-large";>!</span>
 			There may be a problem with the external resource.
 			<p>
 				Status: #status#

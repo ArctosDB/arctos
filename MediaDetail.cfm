@@ -59,12 +59,6 @@
 		<cfquery name="coord"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select coordinates from media_flat where coordinates is not null and media_id=#media_id#
 		</cfquery>
-		
-		<a href="/exit.cfm">notarget</a>
-		
-		<a href="/exit.cfm?target=/test/nothere.jpg">local404target</a>
-		
-		<a href="/exit.cfm?target=http://test.com/nothere.jpg">remote404target</a>
         <table>
 			<tr>
 				<td align="middle">
@@ -205,7 +199,7 @@
 									<cfset alt=desc.label_value>
 								</cfif>
 								<div class="one_thumb">
-									<a href="#media_uri#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
+									<a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
 									<p>
 										#media_type# (#mime_type#)
 										<br><a href="/media/#media_id#">Media Details</a>
