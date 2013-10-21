@@ -1,6 +1,9 @@
 <cfinclude template="includes/_header.cfm">
 <cfset title="You are now leaving Arctos.">
 <cfoutput>
+	checking link.....
+	<cfflush>
+	
 	<cfif not isdefined("target") or len(target) is 0>
 		Improper call of this form.	
 		<cfthrow detail="exit called without target" errorcode="9944" message="A call to the exit form was made without specifying a target.">
