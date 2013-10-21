@@ -74,7 +74,7 @@ jQuery(document).ready(function() {
 			</p>
 		</div>
 		<script>
-		$("#splash").html('all finished showing page bla bla....');
+		$("##splash").html('all finished showing page bla bla....');
 		</script>		
 				
 
