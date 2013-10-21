@@ -66,12 +66,12 @@
 						<br>
 						<audio controls>
 							<source src="#findIDs.media_uri#" type="audio/mp3">
-							<a href="#findIDs.media_uri#" target="_blank">
+							<a href="/exit.cfm?target=#findIDs.media_uri#" target="_blank">
 								<img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;">
 							</a>
 						</audio>
 					<cfelse>
-						<a href="#findIDs.media_uri#" target="_blank">
+						<a href="/exit.cfm?target=#findIDs.media_uri#" target="_blank">
 							<img src="#mp#" alt="#alt#" style="max-width:250px;max-height:250px;">
 						</a>
 					</cfif>
