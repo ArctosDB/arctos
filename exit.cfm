@@ -52,7 +52,7 @@
 	<cfelse>
 		There may be a problem with the external resource.
 		<p>
-			....details
+			Status: #status#
 		</p>
 		<p>
 			You can try the exit link specified: <a href="#target#" target="_blank">#target#</a>
@@ -61,26 +61,5 @@
 			</cfif>
 		</p>
 	</cfif>
-	exit_link_id number not null,
-	username varchar2(255),
-	ipaddress varchar2(255),
-	from_page varchar2(255),
-	target varchar2(255),
-	http_target varchar2(255),
-	when_date date,
-	status varchar2(255);
-	<cfif status is "200">
-	
-	</cfif>
 </cfoutput>
-create table exit_link (
-exit_link_id number not null,
-username varchar2(255),
-ipaddress varchar2(255),
-from_page varchar2(255),
-to_page varchar2(255),
-when_date date
-  8  );
-
-
 <cfinclude template="includes/_footer.cfm">
