@@ -1,17 +1,6 @@
 <cfinclude template="includes/_header.cfm">
 <cfset title="You are now leaving Arctos.">
-
-<div id="splash">
-
-</div>
-<script>
-jQuery(document).ready(function() {
-	$("#splash").html('i am javasript bla bla lba......');	
-});
-</script>
 <cfoutput>
-	
-	
 	<cfif not isdefined("target") or len(target) is 0>
 		Improper call of this form.	
 		<cfthrow detail="exit called without target" errorcode="9944" message="A call to the exit form was made without specifying a target.">
@@ -27,7 +16,7 @@ jQuery(document).ready(function() {
 	<cfelse>
 		<cfset http_target=target>
 	</cfif>
-	<cfhttp url="#http_target#" method="head"></cfhttp>
+	<cfhttp url="#http_target#" method="head" timeout="1"></cfhttp>
 	<cfif isdefined("cfhttp.statuscode") and cfhttp.statuscode is "200 OK">
 		<cfset status="200">
 	<cfelse>
@@ -73,11 +62,6 @@ jQuery(document).ready(function() {
 				</cfif>
 			</p>
 		</div>
-		<script>
-		$("##splash").html('all finished showing page bla bla....');
-		</script>		
-				
-
 	</cfif>
 </cfoutput>
 <cfinclude template="includes/_footer.cfm">
