@@ -57,7 +57,7 @@
 		<p>
 			You can try the exit link specified: <a href="#target#" target="_blank">#target#</a>
 			<cfif http_target is not target>
-				or our guess at the intended target, <a href="#http_target#" target="_blank">#http_target#</a>
+				<br>Or our guess at the intended target: <a href="#http_target#" target="_blank">#http_target#</a>
 			</cfif>
 		</p>
 	</cfif>
