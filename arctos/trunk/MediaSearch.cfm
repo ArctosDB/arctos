@@ -334,13 +334,13 @@
 					<audio controls>
 						<source src="#media_uri#" type="audio/mp3">
 						<!--- fallback: is MP3 but browser can't play it --->
-						<a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
+						<a href="/exit.cfm?target=#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
 							<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
 						</a>
 					</audio>
-					<br><a href="#media_uri#" download>download MP3</a>
+					<br><a href="/exit.cfm?target=#media_uri#" download>download MP3</a>
 				<cfelse>
-					<a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
+					<a href="/exit.cfm?target=#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
 						<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
 					</a>
 				</cfif>
