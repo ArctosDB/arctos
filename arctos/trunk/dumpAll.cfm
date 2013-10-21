@@ -7,3 +7,5 @@
 <cfdump var=#session# label="session">
 <cfdump var=#application# label="application">
 <cfdump var=#cgi# label="cgi">
+
+<cfdump var=#request# label="request">
