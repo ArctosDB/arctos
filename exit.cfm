@@ -1,10 +1,14 @@
-checking link.....
-	<cfflush>
-	
-	
-	
 <cfinclude template="includes/_header.cfm">
 <cfset title="You are now leaving Arctos.">
+
+<div id="splash">
+
+</div>
+<script>
+jQuery(document).ready(function() {
+	$("#splash").html('i am javasript bla bla lba......');	
+});
+</script>
 <cfoutput>
 	
 	
@@ -69,6 +73,11 @@ checking link.....
 				</cfif>
 			</p>
 		</div>
+		<script>
+		$("#splash").html('all finished showing page bla bla....');
+		</script>		
+				
+
 	</cfif>
 </cfoutput>
 <cfinclude template="includes/_footer.cfm">
