@@ -50,16 +50,19 @@
 		<cfheader statuscode="303" statustext="Redirecting to external resource">
 		<cfheader name="Location" value="#http_target#">
 	<cfelse>
-		There may be a problem with the external resource.
-		<p>
-			Status: #status#
-		</p>
-		<p>
-			You can try the exit link specified: <a href="#target#" target="_blank">#target#</a>
-			<cfif http_target is not target>
-				<br>Or our guess at the intended target: <a href="#http_target#" target="_blank">#http_target#</a>
-			</cfif>
-		</p>
+		<div style="border:4px solid red; padding:1em;margin:1em;">
+			<span style="padding:1em; font-size:xx-large";>!</span>
+			There may be a problem with the external resource.
+			<p>
+				Status: #status#
+			</p>
+			<p>
+				You can try the exit link specified: <a href="#target#" target="_blank">#target#</a>
+				<cfif http_target is not target>
+					<br>Or our guess at the intended target: <a href="#http_target#" target="_blank">#http_target#</a>
+				</cfif>
+			</p>
+		</div>
 	</cfif>
 </cfoutput>
 <cfinclude template="includes/_footer.cfm">
