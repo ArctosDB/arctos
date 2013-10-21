@@ -6,7 +6,18 @@
 	<cfthrow detail="exit called without target" errorcode="9944" message="A call to the exit form was made without specifying a target.">
 	<cfabort>
 </cfif>
-<cfhttp url="#target#" method="head">
+<cfif left(target,4) is not "http">
+	<!--- hopefully a local resource and not some garbage ---->
+	<cfif left(target,1) is "/">
+		<cfset http_target=application.serverRootURL & target>
+	<cfelse>
+		<cfset http_target=application.serverRootURL & '/' & target>
+	</cfif>
+<cfelse>
+	<cfset http_target=target>
+	
+</cfif>
+<cfhttp url="#http_target#" method="head">
 
 </cfhttp>
 
