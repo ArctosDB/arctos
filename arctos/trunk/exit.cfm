@@ -57,7 +57,7 @@
 			</p>
 			<cfif left(status,3) is "408">
 				<p>The external resource is not responding in a timely fashion.</p>
-			<cfelseif  left(status,3) is "408">
+			<cfelseif  left(status,3) is "404">
 				<p>The external resource does not appear to exist.</p>
 			</cfif>
 			<p>
