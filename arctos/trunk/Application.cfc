@@ -508,7 +508,7 @@
 			<cfabort>
 		</cfif>
 	</cfif>
-	<cfset nono="passwd,etc,proc">
+	<cfset nono="passwd,proc">
 	<cfloop list="#cgi.query_string#" delimiters="./," index="i">
 		<cfif listfindnocase(nono,i)>
 			<cfinclude template="/errors/autoblacklist.cfm">

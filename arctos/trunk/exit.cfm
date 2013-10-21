@@ -61,9 +61,9 @@
 				<p>The external resource does not appear to exist.</p>
 			</cfif>
 			<p>
-				You can try the exit link specified: <a href="#target#" target="_blank">#target#</a>
+				You can try the exit link specified: <a href="#target#">#target#</a>
 				<cfif http_target is not target>
-					<br>Or our guess at the intended target: <a href="#http_target#" target="_blank">#http_target#</a>
+					<br>Or our guess at the intended target: <a href="#http_target#">#http_target#</a>
 				</cfif>
 			</p>
 		</div>
