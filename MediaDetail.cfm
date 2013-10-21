@@ -60,7 +60,11 @@
 			select coordinates from media_flat where coordinates is not null and media_id=#media_id#
 		</cfquery>
 		
-		<a href="/exit.cfm">deadlink</a>
+		<a href="/exit.cfm">notarget</a>
+		
+		<a href="/exit.cfm?target=/test/nothere.jpg">local404target</a>
+		
+		<a href="/exit.cfm?target=http://test.com/nothere.jpg">remote404target</a>
         <table>
 			<tr>
 				<td align="middle">
