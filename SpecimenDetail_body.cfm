@@ -1167,7 +1167,7 @@
 										<cfinvokeargument name="media_type" value="#media_type#">
 									</cfinvoke>
 									<div class="one_thumb">
-						            	<a href="#media_uri#" target="_blank">
+						            	<a href="/exit.cfm?target=#media_uri#" target="_blank">
 							               <img src="#puri#" alt="#descr#" class="theThumb">
 										</a>
 					                   	<p>
@@ -1329,13 +1329,13 @@
 								<br>
 								<audio controls>
 									<source src="#media_uri#" type="audio/mp3">
-								   	<a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
+								   	<a href="/exit.cfm?target=#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
 							   			<img src="#puri#" alt="#alt#" class="theThumb">
 									</a>
 								</audio> 
-								<br><a href="#findIDs.media_uri#" download>download MP3</a>
+								<br><a href="/exit.cfm?target=#findIDs.media_uri#">download MP3</a>
 							<cfelse>
-								<a href="#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
+								<a href="/exit.cfm?target=#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
 									<img src="#puri#" alt="#alt#" class="theThumb">
 								</a>
 							</cfif>
