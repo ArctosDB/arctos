@@ -59,6 +59,8 @@
 		<cfquery name="coord"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select coordinates from media_flat where coordinates is not null and media_id=#media_id#
 		</cfquery>
+		
+		<a href="/exit.cfm">deadlink</a>
         <table>
 			<tr>
 				<td align="middle">
