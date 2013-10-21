@@ -38,9 +38,29 @@
 			status
 		) values (
 			'#session.username#',
-			'
+			'#request.ipaddress#',
+			'#cgi.HTTP_REFERER#',
+			'#target#',
+			'#http_target#',
+			sysdate,
+			'#status#'
+		)
 	</cfquery>
- 
+ 	<cfif status is "200">
+		<cfheader statuscode="303" statustext="Redirecting to external resource">
+		<cfheader name="Location" value="#http_target#">
+	<cfelse>
+		There may be a problem with the external resource.
+		<p>
+			....details
+		</p>
+		<p>
+			You can try the exit link specified: <a href="#target#" target="_blank">#target#</a>
+			<cfif http_target is not target>
+				or our guess at the intended target, <a href="#http_target#" target="_blank">#http_target#</a>
+			</cfif>
+		</p>
+	</cfif>
 	exit_link_id number not null,
 	username varchar2(255),
 	ipaddress varchar2(255),
