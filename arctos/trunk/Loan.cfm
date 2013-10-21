@@ -609,7 +609,7 @@ function removeMediaDiv() {
 				preview_uri="#media.preview_uri#",
 				media_type="#media.media_type#")>
 				<br>
-				<a href="#media_uri#" target="_blank"><img src="#preview#" class="theThumb"></a>
+				<a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#preview#" class="theThumb"></a>
                   	<p>
 					#media_type# (#mime_type#)
                    	<br><a href="/media/#media_id#" target="_blank">Media Details</a>

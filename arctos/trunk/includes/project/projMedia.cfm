@@ -43,7 +43,7 @@
 					<cfinvokeargument name="media_type" value="#media_type#">
 				</cfinvoke>
 				<div class="bigThumbDiv">
-					<a href="#media_uri#" target="_blank">
+					<a href="/exit.cfm?target=#media_uri#" target="_blank">
 						<img class="bigImgPrev" src="#puri#" alt="#alt#">
 					</a>
                    	<div class="imgCaptionDiv">
