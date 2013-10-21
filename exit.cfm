@@ -1,8 +1,12 @@
+checking link.....
+	<cfflush>
+	
+	
+	
 <cfinclude template="includes/_header.cfm">
 <cfset title="You are now leaving Arctos.">
 <cfoutput>
-	checking link.....
-	<cfflush>
+	
 	
 	<cfif not isdefined("target") or len(target) is 0>
 		Improper call of this form.	
