@@ -12,7 +12,11 @@
 
 <cfdump var=#cfhttp#>
 
-
+<cfif isdefined("cfhttp.statuscode") and cfhttp.statuscode is "200 OK">
+	all spiffy, exiting.....
+<cfelse>
+	bad link bla bla bla.....
+</cfif> 
 </cfoutput>
 create table exit_link (
 exit_link_id number not null,
