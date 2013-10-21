@@ -48,10 +48,7 @@
 	</cfquery>
  	<cfif status is "200">
 		<cfheader statuscode="303" statustext="Redirecting to external resource">
-		<cfheader name="Location" value="#http_target#">
-	<cfelseif left(status,3) is "408">
-		
-	
+		<cfheader name="Location" value="#http_target#">	
 	<cfelse>
 		<div style="border:4px solid red; padding:1em;margin:1em;">
 			There may be a problem with the external resource.
