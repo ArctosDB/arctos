@@ -49,12 +49,20 @@
  	<cfif status is "200">
 		<cfheader statuscode="303" statustext="Redirecting to external resource">
 		<cfheader name="Location" value="#http_target#">
+	<cfelseif left(status,3) is "408">
+		
+	
 	<cfelse>
 		<div style="border:4px solid red; padding:1em;margin:1em;">
 			There may be a problem with the external resource.
 			<p>
 				Status: #status#
 			</p>
+			<cfif left(status,3) is "408">
+				<p>The external resource is not responding in a timely fashion.</p>
+			<cfelseif  left(status,3) is "408">
+				<p>The external resource does not appear to exist.</p>
+			</cfif>
 			<p>
 				You can try the exit link specified: <a href="#target#" target="_blank">#target#</a>
 				<cfif http_target is not target>
