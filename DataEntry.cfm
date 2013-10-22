@@ -312,7 +312,7 @@
 
 						<div class="wrapper" id="sort_otherid">
 				            <div class="item">
-								<div class="celltitle">Other IDs  <span class="likeLink" onClick="getDocs('cataloged_item','other_id')">[ documentation ]</span></div>
+								<div class="celltitle">Other IDs  <span class="likeLink" onClick="getDocs('other-id')">[ documentation ]</span></div>
 									<table cellpadding="0" cellspacing="0" class="fs"><!------ other IDs ------------------->
 										<tr>
 											<th>ID Type</th>
