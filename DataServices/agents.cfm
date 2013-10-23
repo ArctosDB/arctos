@@ -642,19 +642,6 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 						select sq_agent_name_id.nextval nextAgentNameId from dual
 					</cfquery>
 					
-					<cfquery name="breaksit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						INSERT INTO agent (
-							agent_id,
-							agent_type,
-							preferred_agent_name_id,
-							AGENT_REMARKS
-						) VALUES (
-							this is not a number,
-							'person',
-							#agentNameID.nextAgentNameId#,
-							'#trim(d.agent_remark)#'
-							)
-					</cfquery>		
 					
 					
 						
@@ -759,11 +746,32 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 							)
 						</cfquery>
 					</cfif>
+					
+					
+					<cfif preferred_name is "Cecil Howell">
+					
+					<cfquery name="breaksit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						INSERT INTO agent (
+							agent_id,
+							agent_type,
+							preferred_agent_name_id,
+							AGENT_REMARKS
+						) VALUES (
+							this is not a number,
+							'person',
+							#agentNameID.nextAgentNameId#,
+							'#trim(d.agent_remark)#'
+							)
+					</cfquery>		
+					</cfif>
+					
+					
+					
 				</cfloop>
 			</cftransaction>
 		
 		<cfcatch>
-		
+			
 		<!----------
 			<cfquery name="distrg" datasource="uam_god">
 				alter trigger tr_agent_name_biud enable
