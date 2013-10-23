@@ -779,7 +779,16 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			
 			-------->
 			
-			caught
+			There was a problem loading.
+			
+			Everything has been rolled back.
+			<cfdump var=#cfcatch#>
+			
+			<cfquery name="distrg" datasource="uam_god">
+				alter trigger tr_agent_name_biud enable
+			</cfquery>
+			
+			<cfabort>
 		</cfcatch>
 		</cftry>
 		
