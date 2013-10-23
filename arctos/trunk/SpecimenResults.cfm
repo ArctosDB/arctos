@@ -704,7 +704,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 		var msg='Are you sure you want to add all found ' + part_name + ' to the loan?';
 		var yesno=confirm(msg);
 		if (yesno==true) {
-			document.location='/Loan.cfm?action=addAllSrchResultLoanItems&transaction_id=' + $("##transaction_id").val() + '&part_name=' + part_name;  		
+			document.location='/Loan.cfm?action=addAllSrchResultLoanItems&transaction_id=' + $("##transaction_id").val() + '&part_name=' + encodeURIComponent(part_name);  		
 	 	} else {
 		  	return false;
 	  	}
