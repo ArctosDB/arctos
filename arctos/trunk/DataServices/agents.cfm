@@ -627,6 +627,10 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				<cfabort>
 			</cfif>
 		</cfif>
+		
+		<cfquery name="distrg" datasource="uam_god">
+				alter trigger tr_agent_name_biud disable
+			</cfquery>
 		<cftransaction>
 			<cfloop query="d">
 				<br>loading #preferred_name#....
@@ -739,6 +743,12 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				</cfif>
 			</cfloop>
 		</cftransaction>
+		
+		<cfquery name="distrg" datasource="uam_god">
+				alter trigger tr_agent_name_biud disable
+			</cfquery>
+			
+			
 	</cfoutput>
 
 	<p>
