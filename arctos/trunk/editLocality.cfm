@@ -109,6 +109,10 @@
 	function useAutoCoords(){
 		$("#dec_lat").val($("#s_dollar_dec_lat").val());
 		$("#dec_long").val($("#s_dollar_dec_long").val());
+		$("#datum").val('World Geodetic System 1984');
+		$("#georeference_source").val('Google auto-suggest georeference');
+		$("#Google automated georeference").val('Google auto-suggest georeference');
+		
 	}
 
 	function geolocate(method) {
