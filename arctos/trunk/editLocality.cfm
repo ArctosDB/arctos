@@ -369,7 +369,7 @@
     <cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS order by LAT_LONG_ERROR_UNITS
      </cfquery>
-     <cfquery name="ctgeoreference_protocol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+     <cfquery name="ctgeoreference_protocol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select georeference_protocol from ctgeoreference_protocol order by georeference_protocol
 	</cfquery>
 	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -692,8 +692,8 @@
 				</td>
 			</tr>
 		</table>
-		<label for="DATUM" class="likeLink" onClick="getDocs('lat_long','datum')">Datum</label>
-		<select name="DATUM" id="DATUM" size="1" class="reqdClr">
+		<label for="datum" class="likeLink" onClick="getDocs('lat_long','datum')">Datum</label>
+		<select name="datum" id="datum" size="1" class="reqdClr">
 			<option value=''></option>
 			<cfloop query="ctdatum">
 				<option <cfif ctdatum.DATUM is locDet.DATUM> selected="selected" </cfif> value="#ctdatum.DATUM#">#ctdatum.DATUM#</option>
