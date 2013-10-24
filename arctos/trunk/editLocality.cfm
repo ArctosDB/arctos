@@ -7,7 +7,7 @@
 		function useGL(glat,glon,gerr){
 			$("##MAX_ERROR_DISTANCE").val(gerr);
 			$("##MAX_ERROR_UNITS").val('m');
-			$("##DATUM").val('World Geodetic System 1984');
+			$("##datum").val('World Geodetic System 1984');
 			$("##georeference_source").val('GeoLocate');
 			$("##georeference_protocol").val('GeoLocate');
 			$("##dec_lat").val(glat);
@@ -111,7 +111,7 @@
 		$("#dec_long").val($("#s_dollar_dec_long").val());
 		$("#datum").val('World Geodetic System 1984');
 		$("#georeference_source").val('Google auto-suggest georeference');
-		$("#Google automated georeference").val('Google auto-suggest georeference');
+		$("#georeference_protocol").val('Google automated georeference');
 		
 	}
 
