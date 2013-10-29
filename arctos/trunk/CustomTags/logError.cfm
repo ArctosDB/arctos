@@ -4,20 +4,14 @@
 
 -------->
 <cfif isdefined("attributes.cause.message")>
-
-
-
-<cfset exception.message=attributes.cause.message>
-
+	<cfset exception.message=attributes.cause.message>
 </cfif>
 <cfif isdefined("attributes.sql")>
-
-
-
-<cfset exception.sql=attributes.sql>
-
+	<cfset exception.sql=attributes.sql>
 </cfif>
-
+<cfif isdefined("attributes.cause.TagContext[1].LINE")>
+	<cfset exception.line=attributes.cause.TagContext[1].LINE>
+</cfif>
 <p>
 	exception.message: #exception.message#
 </p>
