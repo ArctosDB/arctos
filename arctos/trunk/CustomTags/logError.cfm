@@ -25,7 +25,7 @@
 </cfif>
 <cfsavecontent variable="loginfo">
 ------------------------------------------------------------------------------------------------------------------------------
-LOG ENTRY: #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#
+LOG ENTRY: (#theLogFile#) ON #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#
 
 SUBJECT: #subject#
 <cfif isdefined("session.username")>
