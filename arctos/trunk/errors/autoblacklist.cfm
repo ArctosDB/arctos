@@ -3,17 +3,10 @@
 			insert into uam.blacklist (ip) values ('#trim(request.ipaddress)#')
 		</cfquery>
 		<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
-		<cfmail subject="Autoblacklist Success" to="#Application.PageProblemEmail#" from="blacklisted@#application.fromEmail#" type="html">
-			Arctos automatically blacklisted IP
-			<a href="http://network-tools.com/default.asp?prog=network&host=#request.ipaddress#">#request.ipaddress#</a>
-			- <a href="#application.serverRootUrl#/Admin/blacklist.cfm?action=ins&ip=#request.ipaddress#">blacklist</a>
-			<p></p>
-			<cfdump var="#cgi.redirect_url#">
-			<cfdump var="#cgi#">
-			<cfdump var="#url#">
-			<cfdump var="#form#">
-			<cfdump var="#session#">
-		</cfmail>
+	
+		inserted and added to app BL.....
+		
+		<cf_logError subject="autoblacklist">
 		<cfinclude template="/errors/gtfo.cfm">
 		<script>
 			try{document.getElementById('loading').style.display='none';}catch(e){}
