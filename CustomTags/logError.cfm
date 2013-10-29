@@ -3,14 +3,33 @@
 <cftry>
 
 -------->
+<cfif isdefined("attributes.cause.message")>
 
 
+
+<cfset exception.message=attributes.cause.message>
+
+</cfif>
+<cfif isdefined("attributes.sql")>
+
+
+
+<cfset exception.sql=attributes.sql>
+
+</cfif>
+
+<p>
+	exception.message: #exception.message#
+</p>
+
+
+<cfdump var=#exception#>
 <cfdump var=#attributes#>
 
 
 -- flatten this out
 
-<cfif isdefined("attributes.cause")>
+<cfif isdefined("attributes.cause.message")>
 
 
 we got atttributes
@@ -21,9 +40,7 @@ we got atttributes
 
 
 
-<p>
-	exception.message: #exception.message#
-</p>
+
 <!---------
 
 
