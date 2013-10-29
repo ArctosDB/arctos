@@ -201,6 +201,11 @@
 				<cfabort>
 			</cfif>
 		</cfif>
+		<!----
+		<cffile action="">
+		
+		Application.webDirectory
+		------>
 		<table cellpadding="10">
 			<tr>
 				<td valign="top">
@@ -398,6 +403,8 @@
 			<cfdump var=#cgi# label="cgi">
 		</cfmail>
 	</cfif>
+	
+	
 	<cftry>
 		<cfquery name="d" datasource="uam_god">
 			select ip from uam.blacklist
@@ -444,6 +451,14 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
+
+<!--- make sure we're set up for logging ---->
+	
+	<cfif not FileExists("#Application.webDirectory#/log/log.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/log.txt"> 
+	</cfif> 
+	
+	
 	<cfif cgi.HTTP_HOST contains "altai.corral.tacc.utexas.edu">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
