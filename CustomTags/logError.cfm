@@ -8,6 +8,31 @@
 <cfdump var=#attributes#>
 
 
+-- flatten this out
+
+<cfif isdefined("attributes")>
+
+we got atttributes
+
+
+
+</cfif>
+
+
+<!---------
+
+
+
+
+Exception Dump:
+<cfloop item="key" collection="#attributes.cause#">
+<cfif len(attributes.cause[key]) gt 0>
+#chr(10)##chr(9)##key#: #attributes.cause[key]#
+</cfif>
+</cfloop>
+
+----->
+
 --------attributes.cause----------
 <cfdump var=#attributes.cause#>
 
@@ -96,15 +121,9 @@ URL Dump:
 </cfif>
 </cfloop>
 </cfif>
-<cfif isdefined("attributes.cause")>
 
-Exception Dump:
-<cfloop item="key" collection="#attributes.cause#">
-<cfif len(attributes.cause[key]) gt 0>
-#chr(10)##chr(9)##key#: #attributes.cause[key]#
-</cfif>
-</cfloop>
-</cfif>
+
+
 <cfif isdefined("session")>
 
 Session Dump:
