@@ -10,7 +10,7 @@
 
 -- flatten this out
 
-<cfif isdefined("attributes")>
+<cfif isdefined("attributes.cause")>
 
 we got atttributes
 
