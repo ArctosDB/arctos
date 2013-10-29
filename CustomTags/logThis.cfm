@@ -1,8 +1,8 @@
 <cfoutput>
 <!---- see if we can figure out why there's an error ---->
 <!--- first, just see if it's being explicitly handed in ---->
-<cfif isdefined("caller.subject") and len(caller.subject) gt 0>
-	<cfset subject=caller.subject>
+<cfif isdefined("attributes.subject") and len(attributes.subject) gt 0>
+	<cfset subject=attributes.subject>
 <cfelse>
 	<cfset subject='unknown error'>
 </cfif>
