@@ -143,8 +143,8 @@
 		<cfset frm="stoopid.safari">
 	</cfif>
 	
-	<cfset loginfo="404 @ #now()#
-			Referrer: #cgi.HTTP_REFERER#">
+	<cfset loginfo="404 @ #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#">
+	<cfset loginfo=loginfo & chr(10) & "Referrer: #cgi.HTTP_REFERER#">
 	
 	<cffile action="append" file="#Application.webDirectory#/log/log.txt" output="#loginfo#">
 
