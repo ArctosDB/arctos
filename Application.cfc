@@ -15,9 +15,7 @@
 		<cfreturn/>
 	</cfif>
 	
-	
-	<cfdump var=#exception#>
-	
+		
 	
 	<cfif showErr is 1>
 		<cfset subject="">
