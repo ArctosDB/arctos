@@ -142,6 +142,12 @@
 		<cfset sub="stoopid safari">
 		<cfset frm="stoopid.safari">
 	</cfif>
+	
+	<cfset loginfo="this is a test">
+	<cffile action="append" file="#Application.webDirectory#/log/log.txt" output="#loginfo#">
+
+
+
 	<cfmail subject="#sub#" to="#Application.PageProblemEmail#" from="#frm#@#application.fromEmail#" type="html">
 		A user found a dead link! The referring site was #cgi.HTTP_REFERER#.
 		<cfif isdefined("CGI.script_name")>
