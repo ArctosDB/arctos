@@ -6,6 +6,7 @@
 </cfloop>
 	
 <cfsavecontent variable="loginfo">
+------------------------------------------------------------------------------------------------------------------------------
 LOG ENTRY: #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#
 Problem: 404
 Referrer: #cgi.HTTP_REFERER#
@@ -19,6 +20,12 @@ URL Dump:
 <cfloop item="key" collection="#URL#">
 	<cfif len(URL[key]) gt 0>
 		#key# - #URL[key]# #chr(10)#
+	</cfif>
+</cfloop>
+Error Dump:
+<cfloop item="key" collection="#error#">
+	<cfif len(error[key]) gt 0>
+		#key# - #error[key]# #chr(10)#
 	</cfif>
 </cfloop>
 </cfsavecontent>
