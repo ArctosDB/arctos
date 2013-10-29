@@ -633,7 +633,14 @@
 	</cfif>
 	<cfif not FileExists("#Application.webDirectory#/log/404log.txt")> 
 	    <cffile action="write" file="#Application.webDirectory#/log/404log.txt" output="init"> 
-	</cfif> 
+	</cfif>
+	<cfif not FileExists("#Application.webDirectory#/log/missingGUIDlog.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/missingGUIDlog.txt" output="init"> 
+	</cfif>
+	
+	<cfif not FileExists("#Application.webDirectory#/log/blacklistlog.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/blacklistlog.txt" output="init"> 
+	</cfif>
 	
 	
 	

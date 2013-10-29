@@ -13,9 +13,17 @@
 ----->
 <cfif subject is "404">
 	<cfset theLogFile="404log.txt">
+<cfelseif subject is "missing GUID">
+	<cfset theLogFile="missingGUIDlog.txt">
+<cfelseif subject is "blacklist">
+	<cfset theLogFile="blacklistlog.txt">
 <cfelse>
 	<cfset theLogFile="log.txt">
 </cfif>
+
+missing GUID
+
+blacklistlog
 <!------
 
 
@@ -50,9 +58,6 @@ SUBJECT: #subject#
 <cfcatch></cfcatch>
 </cftry>
 </cfif>
-
-
-
 <cfif isdefined("cgi.redirect_url")>
 #chr(10)#Path: #cgi.redirect_url#
 </cfif>
@@ -124,4 +129,8 @@ Session Dump:
 
 	-------->
 	<cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#loginfo#">
+	
+	<cfmail subject="#subject#" to="#Application.PageProblemEmail#" from="logs@#application.fromEmail#" type="html">
+		#loginfo#
+	</cfmail>
 </cfoutput>
