@@ -15,6 +15,12 @@ CGI Dump:
 		#key# - #cgi[key]# #chr(10)#
 	</cfif>
 </cfloop>
+URL Dump:
+<cfloop item="key" collection="#URL#">
+	<cfif len(URL[key]) gt 0>
+		#key# - #URL[key]# #chr(10)#
+	</cfif>
+</cfloop>
 </cfsavecontent>
 
 	<!----------
