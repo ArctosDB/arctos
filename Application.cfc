@@ -202,12 +202,7 @@
 			</cfif>
 		</cfif>
 		
-		
-		<cfset loginfo="this is a test">
-		<cffile action="append" file="#Application.webDirectory#/log/log.txt" output="#loginfo#">
-
-
-
+	
 		<!----
 		<cffile action="">
 		
