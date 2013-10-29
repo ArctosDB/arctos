@@ -76,11 +76,6 @@
 	</cfif>
 	<cfreturn/>
 </cffunction>
-
-
-
-
-
 <!-------------------------->
 <cffunction name="onApplicationStart" returnType="boolean" output="true">
 	<cfscript>
