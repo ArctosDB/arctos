@@ -452,13 +452,7 @@
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
 
-<!--- make sure we're set up for logging ---->
-	
-	<cfif not FileExists("#Application.webDirectory#/log/log.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/log.txt"> 
-	</cfif> 
-	
-	
+
 	<cfif cgi.HTTP_HOST contains "altai.corral.tacc.utexas.edu">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
@@ -624,6 +618,19 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfoutput><cfheader name="Location" value="#rurl#"></cfoutput>
 	</cfif>
+	
+	
+	
+	<!--- make sure we're set up for logging ---->
+	
+	<cfif not FileExists("#Application.webDirectory#/log/log.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/log.txt" output="-"> 
+	</cfif> 
+	
+	
+	
+	
+	
 	<cfreturn true>
 </cffunction>
 </cfcomponent>
