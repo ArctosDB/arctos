@@ -7,161 +7,16 @@
 	<cfset subject='unknown error'>
 </cfif>
 
+<!--- 
+	now see if we can figure out an appropriate logfile
+	make sure all these are initiated in application start
+----->
+<cfif subject is "404">
+	<cfset theLogFile="404log.txt">
+<cfelse>
+	<cfset theLogFile="log.txt">
+</cfif>
 <!------
-
-
-
-
-
-
-<table border width="800px;">
-					<tr>
-						<td colspan="2" align="center">
-							<strong>Summary</strong>
-						</td>
-					</tr>
-					<cfif isdefined("exception.cause.message")>
-						<tr>
-							<td>Message</td>
-							<td>#replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#</td>
-						</tr>
-					<cfelseif isdefined("exception.Message")>
-						<tr>
-							<td>Message</td>
-							<td>#exception.Message#</td>
-						</tr>
-					</cfif>
-					<tr>
-						<td>IP</td>
-						<td>
-							#request.ipaddress#
-							<a href="http://network-tools.com/default.asp?prog=network&host=#request.ipaddress#">[ lookup ]</a>
-							<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#request.ipaddress#">[ blacklist ]</a>
-						</td>
-					</tr>
-					<cfif isdefined("session.username")>
-						<tr>
-							<td>Username</td>
-							<td>#session.username#</td>
-						</tr>
-					</cfif>
-					<cfif isdefined("exception.Sql")>
-						<tr>
-							<td>SQL</td>
-							<td>#exception.Sql#</td>
-						</tr>
-					</cfif>
-
-					<cfif structKeyExists(exception,"tagcontext")>
-						<!----
-						<cfloop index="stack" from="1" to="#arrayLen(exception.tagContext)#">
-						<tr>
-							<td>Line</td>
-							<td>#exception.tagContext[stack].line#</td>
-						</tr>
-						</cfloop>
-						---->
-						<tr>
-							<td>Line</td>
-							<td>
-								<cftry>
-									#exception.tagContext[1].line#
-								<cfcatch>
-									-no line - see exception dump -
-								</cfcatch>
-								</cftry>
-							</td>
-						</tr>
-					</cfif>
-
-
-
-					<cfif isdefined("cgi.redirect_url")>
-						<tr>
-							<td>Path</td>
-							<td>#cgi.redirect_url#</td>
-						</tr>
-					</cfif>
-					<cfif isdefined("cgi.PATH_TRANSLATED")>
-						<tr>
-							<td>Path</td>
-							<td>#cgi.PATH_TRANSLATED#</td>
-						</tr>
-					</cfif>
-					<cfif isdefined("form")>
-						<tr>
-							<td colspan="2" align="center">
-								<strong>Form</strong>
-							</td>
-						</tr>
-						<cfloop collection="#form#" item="key">
-							<cfif len(form[key]) gt 0>
-								<tr>
-									<td>#key#</td>
-									<td>#rereplace(form[key],'(.),(.)','\1, \2','all')#</td>
-								</tr>
-							</cfif>
-						</cfloop>
-					</cfif>
-					<cfif isdefined("url")>
-						<tr>
-							<td colspan="2" align="center">
-								<strong>URL</strong>
-							</td>
-						</tr>
-						<cfloop collection="#url#" item="key">
-							<cfif len(url[key]) gt 0>
-								<tr>
-									<td>#key#</td>
-									<td>#rereplace(url[key],'(.),(.)','\1, \2','all')#</td>
-								</tr>
-							</cfif>
-						</cfloop>
-					</cfif>
-					<cfif isdefined("cgi")>
-						<tr>
-							<td colspan="2" align="center">
-								<strong>CGI</strong>
-							</td>
-						</tr>
-						<cfloop collection="#cgi#" item="key">
-							<cfif len(cgi[key]) gt 0>
-								<tr>
-									<td>#key#</td>
-									<td>#rereplace(cgi[key],'(.),(.)','\1, \2','all')#</td>
-								</tr>
-							</cfif>
-						</cfloop>
-					</cfif>
-					<cfif isdefined("session")>
-						<tr>
-							<td colspan="2" align="center">
-								<strong>Session</strong>
-							</td>
-						</tr>
-						<cfloop collection="#session#" item="key">
-							<cfif len(session[key]) gt 0>
-								<tr>
-									<td>#key#</td>
-									<td>#rereplace(session[key],'(.),(.)','\1, \2','all')#</td>
-								</tr>
-							</cfif>
-						</cfloop>
-					</cfif>
-					<tr>
-						<td colspan="2" align="center">
-							<strong>Exception Structure</strong>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<cfdump var="#exception#" label="exception">
-						</td>
-					</tr>
-				</table>
-				
-				
-				
 
 
 
@@ -174,9 +29,45 @@
 LOG ENTRY: #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#
 
 SUBJECT: #subject#
+<!---- see if we can get some important/common stuff broke out up here ---->
+<cfif isdefined("exception.cause.message")>
+#chr(10)#Message: #replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#
+<cfelseif isdefined("exception.Message")>
+#chr(10)#Message: #exception.Message#
+</cfif>
+#chr(10)#IP: #request.ipaddress#
+#chr(10)##chr(9)#<a href="http://network-tools.com/default.asp?prog=network&host=#request.ipaddress#">[ lookup ]</a>
+#chr(10)##chr(9)#<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#request.ipaddress#">[ blacklist ]</a>
+<cfif isdefined("session.username")>
+#chr(10)#Username: #session.username#
+</cfif>
+<cfif isdefined("exception.Sql")>
+#chr(10)#SQL: #exception.Sql#
+</cfif>
+<cfif structKeyExists(exception,"tagcontext")>
+<cftry>
+#chr(10)#Line: #exception.tagContext[1].line#
+<cfcatch></cfcatch>
+</cftry>
+</cfif>
 
-				
 
+
+<cfif isdefined("cgi.redirect_url")>
+#chr(10)#Path: #cgi.redirect_url#
+</cfif>
+<cfif isdefined("cgi.PATH_TRANSLATED")>
+#chr(10)#PathTranslated: #cgi.PATH_TRANSLATED#
+</cfif>
+<cfif isdefined("form")>
+
+Form Dump:
+<cfloop item="key" collection="#form#">
+<cfif len(form[key]) gt 0>
+#chr(10)##chr(9)##key# - #form[key]#
+</cfif>
+</cfloop>
+</cfif>
 <cfif isdefined("request")>
 
 Request Dump:
@@ -232,5 +123,5 @@ Session Dump:
 		<cfset loginfo=loginfo & chr(10) & "cgi: " & cfdump var="cgi" format="text">
 
 	-------->
-	<cffile action="append" file="#Application.webDirectory#/log/log.txt" output="#loginfo#">
+	<cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#loginfo#">
 </cfoutput>

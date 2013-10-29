@@ -628,10 +628,16 @@
 	
 	
 	
-	<!--- make sure we're set up for logging ---->
+	<!--- 
+		make sure we're set up for logging 
+		move these to applicatonstart once we're stable
+	---->
 	
 	<cfif not FileExists("#Application.webDirectory#/log/log.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/log.txt" output="-"> 
+	    <cffile action="write" file="#Application.webDirectory#/log/log.txt" output="init"> 
+	</cfif>
+	<cfif not FileExists("#Application.webDirectory#/log/404log.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/404log.txt" output="init"> 
 	</cfif> 
 	
 	
