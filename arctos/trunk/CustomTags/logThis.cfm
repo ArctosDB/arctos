@@ -8,7 +8,7 @@ LOG ENTRY: #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#
 Request Dump:
 <cfloop item="key" collection="#request#">
 <cfif len(request[key]) gt 0>
-    #key# - #request[key]# #chr(10)#
+#chr(10)##chr(9)##key# - #request[key]#
 </cfif>
 </cfloop>
 </cfif>
@@ -26,7 +26,7 @@ CGI Dump:
 URL Dump:
 <cfloop item="key" collection="#URL#">
 <cfif len(URL[key]) gt 0>
-#key#: #URL[key]# #chr(10)#
+#chr(10)##chr(9)##key#: #URL[key]#
 </cfif>
 </cfloop>
 </cfif>
@@ -35,7 +35,7 @@ URL Dump:
 Exception Dump:
 <cfloop item="key" collection="#exception#">
 <cfif len(exception[key]) gt 0>
-#key#: #exception[key]# #chr(10)#
+#chr(10)##chr(9)##key#: #exception[key]#
 </cfif>
 </cfloop>
 </cfif>
@@ -44,7 +44,7 @@ Exception Dump:
 Session Dump:
 <cfloop item="key" collection="#session#">
 <cfif len(session[key]) gt 0>
-#key#: #session[key]# #chr(10)#
+#chr(10)##chr(9)##key#: #session[key]#
 </cfif>
 </cfloop>
 </cfif>
