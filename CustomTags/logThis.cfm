@@ -12,7 +12,7 @@ Referrer: #cgi.HTTP_REFERER#
 CGI Dump:
 <cfloop item="key" collection="#cgi#">
 	<cfif len(cgi[key]) gt 0>
-		#key# - #cgi[key]#
+		#key# - #cgi[key]# #chr(10)#
 	</cfif>
 </cfloop>
 </cfsavecontent>
