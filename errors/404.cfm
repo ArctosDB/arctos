@@ -146,6 +146,7 @@
 LOG ENTRY: #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#
 Problem: 404
 Referrer: #cgi.HTTP_REFERER#
+<cfdump var="cgi" format="text">
 </cfsavecontent>
 
 	<!----------
