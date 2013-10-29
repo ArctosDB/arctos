@@ -142,11 +142,11 @@
 		<cfset sub="stoopid safari">
 		<cfset frm="stoopid.safari">
 	</cfif>
-	<cfsavecontent variable="loginfo">
-		LOG ENTRY: #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#
-		Problem: 404
-		Referrer: #cgi.HTTP_REFERER#
-	</cfsavecontent>
+<cfsavecontent variable="loginfo">
+LOG ENTRY: #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#
+Problem: 404
+Referrer: #cgi.HTTP_REFERER#
+</cfsavecontent>
 
 	<!----------
 	<cfset loginfo="LOG ENTRY: #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#">
