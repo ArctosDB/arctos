@@ -12,13 +12,18 @@
 
 <cfif isdefined("attributes.cause")>
 
+
 we got atttributes
 
-
+<cfset exception.message=attributes.cause.message>
 
 </cfif>
 
 
+
+<p>
+	exception.message: #exception.message#
+</p>
 <!---------
 
 
@@ -31,10 +36,10 @@ Exception Dump:
 </cfif>
 </cfloop>
 
------>
-
 --------attributes.cause----------
 <cfdump var=#attributes.cause#>
+----->
+
 
 
 <!---- see if we can figure out why there's an error ---->
