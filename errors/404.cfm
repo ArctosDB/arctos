@@ -131,6 +131,12 @@
 			Occasionally, a specimen is recataloged. You may be able to find them by using Other Identifiers in Specimen Search.
 		</p>
 	</p>
+	
+	
+	<cfloop item="key" collection="#cgi#">
+<br>#key# - #cgi[key]#<br>
+
+</cfloop>
 	<cfif isGuid is false>
 		<cfset sub="Dead Link">
 		<cfset frm="dead.link">
