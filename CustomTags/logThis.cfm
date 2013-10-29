@@ -129,8 +129,9 @@ Session Dump:
 
 	-------->
 	<cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#loginfo#">
+	<cfset htmlLogInfo=replace(loginfo,chr(10),"<br>","all")>
 	
 	<cfmail subject="#subject#" to="#Application.PageProblemEmail#" from="logs@#application.fromEmail#" type="html">
-		#loginfo#
+		#htmlLogInfo#
 	</cfmail>
 </cfoutput>
