@@ -4,7 +4,7 @@
 <cfif isdefined("caller.subject") and len(caller.subject) gt 0>
 	<cfset subject=caller.subject>
 <cfelse>
-	<cfset caller.subject='unknown error'>
+	<cfset subject='unknown error'>
 </cfif>
 
 <!------
