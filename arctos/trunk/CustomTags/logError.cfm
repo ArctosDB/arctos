@@ -41,18 +41,16 @@ SUBJECT: #subject#
 <cfif isdefined("session.username")>
 #chr(10)#Username: #session.username#
 </cfif>
-<cfif isdefined("exception.cause.message")>
-#chr(10)#Message: #replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#
-<cfelseif isdefined("exception.Message")>
-#chr(10)#Message: #exception.Message#
+<cfif isdefined("attributes.cause.message")>
+#chr(10)#Message: #replace(attributes.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#
 </cfif>
 #chr(10)#IP: #request.ipaddress#
-<cfif isdefined("exception.Sql")>
-#chr(10)#SQL: #exception.Sql#
+<cfif isdefined("attributes.Sql")>
+#chr(10)#SQL: #attributes.Sql#
 </cfif>
-<cfif isdefined("exception") and structKeyExists(exception,"tagcontext")>
+<cfif isdefined("attributes.cause") and structKeyExists(attributes.cause,"tagcontext")>
 <cftry>
-#chr(10)#Line: #exception.tagContext[1].line#
+#chr(10)#Line: #attributes.cause.tagContext[1].line#
 <cfcatch></cfcatch>
 </cftry>
 </cfif>
@@ -98,12 +96,12 @@ URL Dump:
 </cfif>
 </cfloop>
 </cfif>
-<cfif isdefined("exception")>
+<cfif isdefined("attributes.cause")>
 
 Exception Dump:
-<cfloop item="key" collection="#exception#">
-<cfif len(exception[key]) gt 0>
-#chr(10)##chr(9)##key#: #exception[key]#
+<cfloop item="key" collection="#attributes.cause#">
+<cfif len(attributes.cause[key]) gt 0>
+#chr(10)##chr(9)##key#: #attributes.cause[key]#
 </cfif>
 </cfloop>
 </cfif>
