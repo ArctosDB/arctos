@@ -2,20 +2,6 @@
 <cftry>
 
 
-<cfif isdefined("attributes.exception")>
-
-	setting local to attributes.............
-	<cfset exception=attributes.exception>
-</cfif>
-
-
-
-
-<cfif isdefined("exception")>
-	we got an exception: <cfdump var=#exception#>
-</cfif>
-
-
 
 
 
@@ -48,18 +34,18 @@ SUBJECT: #subject#
 <cfif isdefined("session.username")>
 #chr(10)#Username: #session.username#
 </cfif>
-<cfif isdefined("exception.cause.message")>
-#chr(10)#Message: #replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#
-<cfelseif isdefined("exception.Message")>
-#chr(10)#Message: #exception.Message#
+<cfif isdefined("attributes.exception.cause.message")>
+#chr(10)#Message: #replace(attributes.exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#
+<cfelseif isdefined("attributes.exception.Message")>
+#chr(10)#Message: #attributes.exception.Message#
 </cfif>
 #chr(10)#IP: #request.ipaddress#
-<cfif isdefined("exception.Sql")>
-#chr(10)#SQL: #exception.Sql#
+<cfif isdefined("attributes.exception.Sql")>
+#chr(10)#SQL: #attributes.exception.Sql#
 </cfif>
-<cfif isdefined("exception") and structKeyExists(exception,"tagcontext")>
+<cfif isdefined("attributes,exception") and structKeyExists(attributes.exception,"tagcontext")>
 <cftry>
-#chr(10)#Line: #exception.tagContext[1].line#
+#chr(10)#Line: #attributes.exception.tagContext[1].line#
 <cfcatch></cfcatch>
 </cftry>
 </cfif>
@@ -108,9 +94,9 @@ URL Dump:
 <cfif isdefined("exception")>
 
 Exception Dump:
-<cfloop item="key" collection="#exception#">
-<cfif len(exception[key]) gt 0>
-#chr(10)##chr(9)##key#: #exception[key]#
+<cfloop item="key" collection="#attributes.exception#">
+<cfif len(attributes.exception[key]) gt 0>
+#chr(10)##chr(9)##key#: #attributes.exception[key]#
 </cfif>
 </cfloop>
 </cfif>
