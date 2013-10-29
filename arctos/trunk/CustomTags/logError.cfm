@@ -44,7 +44,7 @@ SUBJECT: #subject#
 <cfif isdefined("attributes.exception.Sql")>
 #chr(10)#SQL: #attributes.exception.Sql#
 </cfif>
-<cfif isdefined("attributes,exception") and structKeyExists(attributes.exception,"tagcontext")>
+<cfif isdefined("attributes.exception") and structKeyExists(attributes.exception,"tagcontext")>
 <cftry>
 #chr(10)#Line: #attributes.exception.tagContext[1].line#
 <cfcatch></cfcatch>
