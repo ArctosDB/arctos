@@ -132,7 +132,8 @@
 		</p>
 	</p>
 	
-	<cfinclude template="/errors/log_this.cfm">
+<cf_logThis>
+
 
 	<cfmail subject="#sub#" to="#Application.PageProblemEmail#" from="#frm#@#application.fromEmail#" type="html">
 		A user found a dead link! The referring site was #cgi.HTTP_REFERER#.
