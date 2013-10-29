@@ -17,26 +17,6 @@
 </cftry>
 </cfif>
 
-
-
-<!---------
-
-
-
-
-Exception Dump:
-<cfloop item="key" collection="#attributes.cause#">
-<cfif len(attributes.cause[key]) gt 0>
-#chr(10)##chr(9)##key#: #attributes.cause[key]#
-</cfif>
-</cfloop>
-
---------attributes.cause----------
-<cfdump var=#attributes.cause#>
------>
-
-
-
 <!---- see if we can figure out why there's an error ---->
 <!--- first, just see if it's being explicitly handed in ---->
 <cfif isdefined("attributes.subject") and len(attributes.subject) gt 0>
@@ -44,7 +24,6 @@ Exception Dump:
 <cfelse>
 	<cfset subject='unknown error'>
 </cfif>
-
 <!--- 
 	now see if we can figure out an appropriate logfile
 	make sure all these are initiated in application start
@@ -120,8 +99,6 @@ URL Dump:
 </cfloop>
 </cfif>
 
-
-
 <cfif isdefined("session")>
 
 Session Dump:
@@ -131,6 +108,10 @@ Session Dump:
 </cfif>
 </cfloop>
 </cfif>
+
+Attributes rawfile:
+
+<cfdump var=#attributes# format="text">
 </cfsavecontent>
 
 	<!----------
