@@ -35,18 +35,18 @@ SUBJECT: #subject#
 <cfif isdefined("session.username")>
 #chr(10)#Username: #session.username#
 </cfif>
-<cfif isdefined("attributes.exception.cause.message")>
-#chr(10)#Message: #replace(attributes.exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#
-<cfelseif isdefined("attributes.exception.Message")>
-#chr(10)#Message: #attributes.exception.Message#
+<cfif isdefined("exception.cause.message")>
+#chr(10)#Message: #replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#
+<cfelseif isdefined("exception.Message")>
+#chr(10)#Message: #exception.Message#
 </cfif>
 #chr(10)#IP: #request.ipaddress#
-<cfif isdefined("attributes.exception.Sql")>
-#chr(10)#SQL: #attributes.exception.Sql#
+<cfif isdefined("exception.Sql")>
+#chr(10)#SQL: #exception.Sql#
 </cfif>
-<cfif isdefined("attributes.exception") and structKeyExists(attributes.exception,"tagcontext")>
+<cfif isdefined("exception") and structKeyExists(exception,"tagcontext")>
 <cftry>
-#chr(10)#Line: #attributes.exception.tagContext[1].line#
+#chr(10)#Line: #exception.tagContext[1].line#
 <cfcatch></cfcatch>
 </cftry>
 </cfif>
@@ -95,9 +95,9 @@ URL Dump:
 <cfif isdefined("exception")>
 
 Exception Dump:
-<cfloop item="key" collection="#attributes.exception#">
-<cfif len(attributes.exception[key]) gt 0>
-#chr(10)##chr(9)##key#: #attributes.exception[key]#
+<cfloop item="key" collection="#exception#">
+<cfif len(exception[key]) gt 0>
+#chr(10)##chr(9)##key#: #exception[key]#
 </cfif>
 </cfloop>
 </cfif>
@@ -135,7 +135,7 @@ Session Dump:
 			<a href="http://network-tools.com/default.asp?prog=network&host=#request.ipaddress#">[ lookup #request.ipaddress# ]</a>
 			<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#request.ipaddress#">[ blacklist #request.ipaddress# ]</a>
 			<cfdump var=#form#>
-			<cfdump var=#attributes.exception#>
+			<cfdump var=#exception#>
 			<cfdump var=#session#>
 			<cfdump var=#url#>
 			<cfdump var=#request#>
