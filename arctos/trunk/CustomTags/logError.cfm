@@ -99,6 +99,15 @@ SUBJECT: #subject#
 <cfif isdefined("cgi.PATH_TRANSLATED")>
 #chr(10)#PathTranslated: #cgi.PATH_TRANSLATED#
 </cfif>
+<cfif isdefined("exception")>
+
+Exception Dump:
+<cfloop item="key" collection="#exception#">
+<cfif len(exception[key]) gt 0>
+#chr(10)##chr(9)##key# - #exception[key]#
+</cfif>
+</cfloop>
+</cfif>
 <cfif isdefined("form")>
 
 Form Dump:
