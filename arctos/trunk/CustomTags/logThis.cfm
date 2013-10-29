@@ -1,15 +1,16 @@
 <cfoutput>
-<cfloop item="key" collection="#cgi#">
-	<cfif len(cgi[key]) gt 0>
-		#key# - #cgi[key]#
-	</cfif>
-</cfloop>
-	
 <cfsavecontent variable="loginfo">
 ------------------------------------------------------------------------------------------------------------------------------
 LOG ENTRY: #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#
-Problem: 404
-Referrer: #cgi.HTTP_REFERER#
+
+<cfif isdefined("request")>
+	Request Dump:
+	<cfloop item="key" collection="#request#">
+		<cfif len(request[key]) gt 0>
+			#key# - #request[key]# #chr(10)#
+		</cfif>
+	</cfloop>
+</cfif>
 <cfif isdefined("CGI")>
 	CGI Dump:
 	<cfloop item="key" collection="#cgi#">
