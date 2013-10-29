@@ -22,10 +22,10 @@ URL Dump:
 		#key# - #URL[key]# #chr(10)#
 	</cfif>
 </cfloop>
-Error Dump:
-<cfloop item="key" collection="#error#">
-	<cfif len(error[key]) gt 0>
-		#key# - #error[key]# #chr(10)#
+exception Dump:
+<cfloop item="key" collection="#exception#">
+	<cfif len(exception[key]) gt 0>
+		#key# - #exception[key]# #chr(10)#
 	</cfif>
 </cfloop>
 </cfsavecontent>
