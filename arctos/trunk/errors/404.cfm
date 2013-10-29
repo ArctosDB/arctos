@@ -134,7 +134,17 @@
 	
 <cf_logThis>
 
-
+<cfif isGuid is false>
+		<cfset sub="Dead Link">
+		<cfset frm="dead.link">
+	<cfelse>
+		<cfset sub="Missing GUID">
+		<cfset frm="dead.guid">
+	</cfif>
+	<cfif request.rdurl contains 'coldfusion.applets.CFGridApplet.class'>
+		<cfset sub="stoopid safari">
+		<cfset frm="stoopid.safari">
+	</cfif>
 	<cfmail subject="#sub#" to="#Application.PageProblemEmail#" from="#frm#@#application.fromEmail#" type="html">
 		A user found a dead link! The referring site was #cgi.HTTP_REFERER#.
 		<cfif isdefined("CGI.script_name")>
