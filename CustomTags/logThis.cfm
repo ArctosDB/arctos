@@ -1,24 +1,20 @@
 
-	<cfloop item="key" collection="#cgi#">
-<br>#key# - #cgi[key]#<br>
-
+<cfloop item="key" collection="#cgi#">
+	<cfif len(cgi[key]) gt 0>
+		#key# - #cgi[key]#
+	</cfif>
 </cfloop>
-	<cfif isGuid is false>
-		<cfset sub="Dead Link">
-		<cfset frm="dead.link">
-	<cfelse>
-		<cfset sub="Missing GUID">
-		<cfset frm="dead.guid">
-	</cfif>
-	<cfif request.rdurl contains 'coldfusion.applets.CFGridApplet.class'>
-		<cfset sub="stoopid safari">
-		<cfset frm="stoopid.safari">
-	</cfif>
+	
 <cfsavecontent variable="loginfo">
 LOG ENTRY: #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#
 Problem: 404
 Referrer: #cgi.HTTP_REFERER#
-<cfdump var="#cgi#" format="text">
+CGI Dump:
+<cfloop item="key" collection="#cgi#">
+	<cfif len(cgi[key]) gt 0>
+		#key# - #cgi[key]#
+	</cfif>
+</cfloop>
 </cfsavecontent>
 
 	<!----------
