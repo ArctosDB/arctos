@@ -18,7 +18,7 @@
 	<cfset theLogFile="404log.txt">
 <cfelseif subject is "missing GUID">
 	<cfset theLogFile="missingGUIDlog.txt">
-<cfelseif subject is "blacklist">
+<cfelseif subject is "autoblacklist">
 	<cfset theLogFile="blacklistlog.txt">
 <cfelse>
 	<cfset theLogFile="log.txt">

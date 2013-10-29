@@ -146,9 +146,7 @@
 	</cfif>
 	
 	
-	<cf_logThis subject="#sub#">
-
-	
+	<cf_logError subject="#sub#">
 	
 	 <p>A message has been sent to the site administrator.</p>
 	 <p>

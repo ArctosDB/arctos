@@ -14,167 +14,22 @@
 		<cfset showErr=0>
 		<cfreturn/>
 	</cfif>
-	<cfif isdefined("exception.Sql") and exception.sql contains "@@version">
-		<cflocation url="/errors/autoblacklist.cfm">
-		<cfreturn/>
-	</cfif>
+	
 	<cfif showErr is 1>
-		<cfsavecontent variable="errortext">
-			<cfoutput>
-				<table border width="800px;">
-					<tr>
-						<td colspan="2" align="center">
-							<strong>Summary</strong>
-						</td>
-					</tr>
-					<cfif isdefined("exception.cause.message")>
-						<tr>
-							<td>Message</td>
-							<td>#replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#</td>
-						</tr>
-					<cfelseif isdefined("exception.Message")>
-						<tr>
-							<td>Message</td>
-							<td>#exception.Message#</td>
-						</tr>
-					</cfif>
-					<tr>
-						<td>IP</td>
-						<td>
-							#request.ipaddress#
-							<a href="http://network-tools.com/default.asp?prog=network&host=#request.ipaddress#">[ lookup ]</a>
-							<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#request.ipaddress#">[ blacklist ]</a>
-						</td>
-					</tr>
-					<cfif isdefined("session.username")>
-						<tr>
-							<td>Username</td>
-							<td>#session.username#</td>
-						</tr>
-					</cfif>
-					<cfif isdefined("exception.Sql")>
-						<tr>
-							<td>SQL</td>
-							<td>#exception.Sql#</td>
-						</tr>
-					</cfif>
-
-					<cfif structKeyExists(exception,"tagcontext")>
-						<!----
-						<cfloop index="stack" from="1" to="#arrayLen(exception.tagContext)#">
-						<tr>
-							<td>Line</td>
-							<td>#exception.tagContext[stack].line#</td>
-						</tr>
-						</cfloop>
-						---->
-						<tr>
-							<td>Line</td>
-							<td>
-								<cftry>
-									#exception.tagContext[1].line#
-								<cfcatch>
-									-no line - see exception dump -
-								</cfcatch>
-								</cftry>
-							</td>
-						</tr>
-					</cfif>
-
-
-
-					<cfif isdefined("cgi.redirect_url")>
-						<tr>
-							<td>Path</td>
-							<td>#cgi.redirect_url#</td>
-						</tr>
-					</cfif>
-					<cfif isdefined("cgi.PATH_TRANSLATED")>
-						<tr>
-							<td>Path</td>
-							<td>#cgi.PATH_TRANSLATED#</td>
-						</tr>
-					</cfif>
-					<cfif isdefined("form")>
-						<tr>
-							<td colspan="2" align="center">
-								<strong>Form</strong>
-							</td>
-						</tr>
-						<cfloop collection="#form#" item="key">
-							<cfif len(form[key]) gt 0>
-								<tr>
-									<td>#key#</td>
-									<td>#rereplace(form[key],'(.),(.)','\1, \2','all')#</td>
-								</tr>
-							</cfif>
-						</cfloop>
-					</cfif>
-					<cfif isdefined("url")>
-						<tr>
-							<td colspan="2" align="center">
-								<strong>URL</strong>
-							</td>
-						</tr>
-						<cfloop collection="#url#" item="key">
-							<cfif len(url[key]) gt 0>
-								<tr>
-									<td>#key#</td>
-									<td>#rereplace(url[key],'(.),(.)','\1, \2','all')#</td>
-								</tr>
-							</cfif>
-						</cfloop>
-					</cfif>
-					<cfif isdefined("cgi")>
-						<tr>
-							<td colspan="2" align="center">
-								<strong>CGI</strong>
-							</td>
-						</tr>
-						<cfloop collection="#cgi#" item="key">
-							<cfif len(cgi[key]) gt 0>
-								<tr>
-									<td>#key#</td>
-									<td>#rereplace(cgi[key],'(.),(.)','\1, \2','all')#</td>
-								</tr>
-							</cfif>
-						</cfloop>
-					</cfif>
-					<cfif isdefined("session")>
-						<tr>
-							<td colspan="2" align="center">
-								<strong>Session</strong>
-							</td>
-						</tr>
-						<cfloop collection="#session#" item="key">
-							<cfif len(session[key]) gt 0>
-								<tr>
-									<td>#key#</td>
-									<td>#rereplace(session[key],'(.),(.)','\1, \2','all')#</td>
-								</tr>
-							</cfif>
-						</cfloop>
-					</cfif>
-					<tr>
-						<td colspan="2" align="center">
-							<strong>Exception Structure</strong>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<cfdump var="#exception#" label="exception">
-						</td>
-					</tr>
-				</table>
-			</cfoutput>
-		</cfsavecontent>
+		<cfset subject="">
+		<!--- it's a real error --->
+		<!--- get rid of hack attempts etc first ---->
+		<cfif isdefined("exception.Sql") and exception.sql contains "@@version">
+			<cflocation url="/errors/autoblacklist.cfm">
+			<cfreturn/>
+		</cfif>
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfif cgi.HTTP_USER_AGENT contains "slurp">
 				<!--- friggin yahoo ignoring robots.txt - buh-bye, biatchez.... --->
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
-			<cfset subject="locked form">
+			<cfset subject="403">
 		<cfelse>
 			<cfif isdefined("exception.detail")>
 				<cfif exception.detail contains "[Macromedia][Oracle JDBC Driver][Oracle]ORA-00600">
@@ -182,18 +37,8 @@
 				<cfelse>
 					<cfset subject="#exception.detail#">
 				</cfif>
-			<cfelse>
-				<cfset subject="Unknown Error">
 			</cfif>
 		</cfif>
-		<cfif isdefined("session.username") and session.username is "dlm">
-			<cfoutput>
-				#errortext#
-			</cfoutput>
-		</cfif>
-		<cfmail subject="#subject#" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
-			#errortext#
-		</cfmail>
 		<cfif subject is "[Macromedia][Oracle JDBC Driver][Oracle]ORA-00933: SQL command not properly ended">
 			<!--- see if it's the viagra ad asshats again ---->
 			<cfif isdefined("exception.sql") and exception.sql contains 'href="http://'>
@@ -201,13 +46,7 @@
 				<cfabort>
 			</cfif>
 		</cfif>
-		
-	
-		<!----
-		<cffile action="">
-		
-		Application.webDirectory
-		------>
+		<cf_logError subject="#subject#">
 		<table cellpadding="10">
 			<tr>
 				<td valign="top">
