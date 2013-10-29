@@ -1,15 +1,24 @@
 <cfoutput>
 <cftry>
 
+
+<cfif isdefined("attributes.exception")>
+
+	setting local to attributes.............
+	<cfset exception=attributes.exception>
+</cfif>
+
+
+
+
 <cfif isdefined("exception")>
 	we got an exception: <cfdump var=#exception#>
 </cfif>
 
 
 
-<cfif isdefined("attributes.exception")>
-	<cfset exception=attributes.exception>
-</cfif>
+
+
 <!---- see if we can figure out why there's an error ---->
 <!--- first, just see if it's being explicitly handed in ---->
 <cfif isdefined("attributes.subject") and len(attributes.subject) gt 0>
