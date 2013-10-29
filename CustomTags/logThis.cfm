@@ -2,9 +2,6 @@
 <cftry>
 
 
-<cfset 1=2>
-
-
 <!---- see if we can figure out why there's an error ---->
 <!--- first, just see if it's being explicitly handed in ---->
 <cfif isdefined("attributes.subject") and len(attributes.subject) gt 0>
@@ -129,16 +126,16 @@ Session Dump:
 	</cfmail>
 	<cfcatch>
 		<cfmail subject="error logging exception" to="#Application.PageProblemEmail#" from="logsproblem@#application.fromEmail#" type="html">
-		<a href="http://network-tools.com/default.asp?prog=network&host=#request.ipaddress#">[ lookup #request.ipaddress# ]</a>
-		<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#request.ipaddress#">[ blacklist #request.ipaddress# ]</a>
-		<cfdump var=#form#>
-		<cfdump var=#exception#>
-		<cfdump var=#session#>
-		<cfdump var=#url#>
-		<cfdump var=#request#>
-		<cfdump var=#CGI#>
-
-	</cfmail>
+			<a href="http://network-tools.com/default.asp?prog=network&host=#request.ipaddress#">[ lookup #request.ipaddress# ]</a>
+			<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#request.ipaddress#">[ blacklist #request.ipaddress# ]</a>
+			<cfdump var=#form#>
+			<cfdump var=#exception#>
+			<cfdump var=#session#>
+			<cfdump var=#url#>
+			<cfdump var=#request#>
+			<cfdump var=#CGI#>
+	
+		</cfmail>
 	</cfcatch>
 	</cftry>
 </cfoutput>
