@@ -10,7 +10,12 @@
 	<cfset exception.sql=attributes.sql>
 </cfif>
 
-
+<cfif isdefined("attributes.cause") and structKeyExists(attributes.cause,"tagcontext")>
+<cftry>
+	<cfset exception.line=attributes.cause.tagContext[1].line>
+<cfcatch></cfcatch>
+</cftry>
+</cfif>
 
 
 
@@ -61,19 +66,8 @@ SUBJECT: #subject#
 <cfif isdefined("session.username")>
 #chr(10)#Username: #session.username#
 </cfif>
-<cfif isdefined("attributes.cause.message")>
-#chr(10)#Message: #replace(attributes.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#
-</cfif>
 #chr(10)#IP: #request.ipaddress#
-<cfif isdefined("attributes.Sql")>
-#chr(10)#SQL: #attributes.Sql#
-</cfif>
-<cfif isdefined("attributes.cause") and structKeyExists(attributes.cause,"tagcontext")>
-<cftry>
-#chr(10)#Line: #attributes.cause.tagContext[1].line#
-<cfcatch></cfcatch>
-</cftry>
-</cfif>
+
 <cfif isdefined("cgi.redirect_url")>
 #chr(10)#Path: #cgi.redirect_url#
 </cfif>
@@ -85,7 +79,7 @@ SUBJECT: #subject#
 Exception Dump:
 <cfloop item="key" collection="#exception#">
 <cfif len(exception[key]) gt 0>
-#chr(10)##chr(9)##key# - #exception[key]#
+#chr(10)##chr(9)##key#: #exception[key]#
 </cfif>
 </cfloop>
 </cfif>
@@ -94,7 +88,7 @@ Exception Dump:
 Form Dump:
 <cfloop item="key" collection="#form#">
 <cfif len(form[key]) gt 0>
-#chr(10)##chr(9)##key# - #form[key]#
+#chr(10)##chr(9)##key#: #form[key]#
 </cfif>
 </cfloop>
 </cfif>
@@ -103,7 +97,7 @@ Form Dump:
 Request Dump:
 <cfloop item="key" collection="#request#">
 <cfif len(request[key]) gt 0>
-#chr(10)##chr(9)##key# - #request[key]#
+#chr(10)##chr(9)##key#: #request[key]#
 </cfif>
 </cfloop>
 </cfif>
