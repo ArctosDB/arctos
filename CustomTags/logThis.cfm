@@ -1,4 +1,4 @@
-
+<cfoutput>
 <cfloop item="key" collection="#cgi#">
 	<cfif len(cgi[key]) gt 0>
 		#key# - #cgi[key]#
@@ -26,4 +26,4 @@ CGI Dump:
 
 	-------->
 	<cffile action="append" file="#Application.webDirectory#/log/log.txt" output="#loginfo#">
-
+</cfoutput>
