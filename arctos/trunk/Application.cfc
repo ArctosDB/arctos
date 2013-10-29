@@ -50,7 +50,7 @@
 				<cfabort>
 			</cfif>
 		</cfif>
-		<cf_logError subject="#subject#">
+		<cf_logError subject="#subject#" exception=#exception#>
 		<table cellpadding="10">
 			<tr>
 				<td valign="top">
