@@ -8,7 +8,7 @@
 
 
 <cfif isdefined("attributes.exception")>
-	we got an attributes.exception: <cfdump var=#attributes.exception#>
+	<cfset exception=attributes.exception>
 </cfif>
 <!---- see if we can figure out why there's an error ---->
 <!--- first, just see if it's being explicitly handed in ---->
