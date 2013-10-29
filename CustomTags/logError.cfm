@@ -9,7 +9,7 @@
 <cfif isdefined("attributes.sql")>
 	<cfset exception.sql=attributes.sql>
 </cfif>
-<cfif isdefined("attributes.cause.TagContext[1].LINE")>
+<cfif structKeyExists("attributes.cause.TagContext[1]")>
 	<cfset exception.line=attributes.cause.TagContext[1].LINE>
 </cfif>
 <p>
