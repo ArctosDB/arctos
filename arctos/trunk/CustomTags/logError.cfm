@@ -11,25 +11,6 @@
 </cfif>
 
 
-	exception.message: #exception.message#
-</p>
-
-
-<cfdump var=#exception#>
-<cfdump var=#attributes#>
-
-
--- flatten this out
-
-<cfif isdefined("attributes.cause.message")>
-
-
-we got atttributes
-
-<cfset exception.message=attributes.cause.message>
-
-</cfif>
-
 
 
 
