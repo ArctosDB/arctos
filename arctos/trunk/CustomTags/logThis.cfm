@@ -37,18 +37,15 @@ blacklistlog
 LOG ENTRY: #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#
 
 SUBJECT: #subject#
-<!---- see if we can get some important/common stuff broke out up here ---->
+<cfif isdefined("session.username")>
+#chr(10)#Username: #session.username#
+</cfif>
 <cfif isdefined("exception.cause.message")>
 #chr(10)#Message: #replace(exception.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','')#
 <cfelseif isdefined("exception.Message")>
 #chr(10)#Message: #exception.Message#
 </cfif>
 #chr(10)#IP: #request.ipaddress#
-#chr(10)##chr(9)#<a href="http://network-tools.com/default.asp?prog=network&host=#request.ipaddress#">[ lookup ]</a>
-#chr(10)##chr(9)#<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#request.ipaddress#">[ blacklist ]</a>
-<cfif isdefined("session.username")>
-#chr(10)#Username: #session.username#
-</cfif>
 <cfif isdefined("exception.Sql")>
 #chr(10)#SQL: #exception.Sql#
 </cfif>
@@ -132,6 +129,8 @@ Session Dump:
 	<cfset htmlLogInfo=replace(loginfo,chr(10),"<br>","all")>
 	
 	<cfmail subject="#subject#" to="#Application.PageProblemEmail#" from="logs@#application.fromEmail#" type="html">
+		<a href="http://network-tools.com/default.asp?prog=network&host=#request.ipaddress#">[ lookup #request.ipaddress# ]</a>
+		<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#request.ipaddress#">[ blacklist #request.ipaddress# ]</a>
 		#htmlLogInfo#
 	</cfmail>
 </cfoutput>
