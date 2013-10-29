@@ -132,7 +132,7 @@
 		</p>
 	</p>
 	
-<cf_logThis>
+<cf_logThis subject="404">
 
 <cfif isGuid is false>
 		<cfset sub="Dead Link">
