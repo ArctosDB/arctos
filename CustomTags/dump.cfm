@@ -85,14 +85,5 @@ where attributes is a struct
 </table>
 </td></tr>
 </table>
-<cfelse>gbbtynyyyyykydfg
-&quot;#HTMLEditFormat(var)#&quot;
-<!--- Output WDDX if possible --->
-<cftry>
-<cfwddx action="WDDX2CFML" input="#var#" output="wddx">
-<br><b>This Is A WDDX Variable</b>
-<CF_Dump variable="wddx">
-<cfcatch type="ANY"></cfcatch>
-</cftry>
-</cfif>
+<cfelse>#trim(HTMLEditFormat(var))#</cfif>
 </cfoutput>
