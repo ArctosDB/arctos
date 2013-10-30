@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cffile action="read" file="#Application.webDirectory#/log/#theLogFile#" variable="logtxt">
+<cffile action="read" file="#Application.webDirectory#/log/log.txt" variable="logtxt">
 <cfoutput>
 	#logtxt#
 </cfoutput>
