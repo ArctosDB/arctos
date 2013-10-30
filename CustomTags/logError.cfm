@@ -5,6 +5,9 @@
 -------->
 
 
+<cfdump var=#attributes#>
+
+
 <cfif isdefined("attributes.uuid")>
 	<cfset exception.uuid=attributes.uuid>
 </cfif>
