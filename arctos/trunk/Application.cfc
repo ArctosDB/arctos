@@ -51,6 +51,10 @@
 				<cfabort>
 			</cfif>
 		</cfif>
+		
+		<!--- append on the UUID ---->
+		
+		<cfset exception.uuid=request.uuid>
 		<cf_logError subject="#subject#" attributeCollection=#exception#>
 		<table cellpadding="10">
 			<tr>
