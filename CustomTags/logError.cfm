@@ -34,7 +34,7 @@
 <cfif exception.subject is "404">
 	<cfset theLogFile="404log.txt">
 <cfelseif exception.subject is "missing GUID">
-	<cfset exception.theLogFile="missingGUIDlog.txt">
+	<cfset theLogFile="missingGUIDlog.txt">
 <cfelseif exception.subject is "autoblacklist">
 	<cfset theLogFile="blacklistlog.txt">
 </cfif>
