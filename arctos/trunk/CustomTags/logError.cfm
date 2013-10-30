@@ -157,7 +157,7 @@
 	<cfset StructDelete(exception, "specsrchtab")>
 </cfif>
 
-<cf_log v=attributes>
+<cf_dump v=attributes>
 
 
 <cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#exception#">
