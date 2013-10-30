@@ -85,6 +85,12 @@
 <cfdump var=#attributes# format="text">
 </cfsavecontent>
 <cfset exception.rawExceptionDump=rawexc>
+
+<!--- clean up the stuff we don't really care about --->
+
+<cfif structkeyexists(exception,"HTTPS")>
+	<cfset exception = StructDelete(exception, "exception", "True")>
+</cfif>
 <cfdump var=#exception#>
 	<!-----------
 </summary>
