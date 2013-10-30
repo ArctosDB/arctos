@@ -76,10 +76,13 @@
 		</cfif>
 	</cfloop>
 </cfif>
+
+<!----
 <cfsavecontent variable="rawexc">
 <cfdump var=#attributes# format="html">
 </cfsavecontent>
 <cfset exception.rawExceptionDump=rawexc>
+---->
 <!--- clean up the stuff we don't really care about --->
 <cfif structkeyexists(exception,"HTTPS")>
 	<cfset StructDelete(exception, "HTTPS")>
@@ -163,6 +166,9 @@
 <cfset log=replace(log,"</pre>","","all")>
 
 <cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#log#">
+<cfdump var=#attributes# output="#Application.webDirectory#/log/#theLogFile#">
+
+<cfset exception.rawExceptionDump=rawexc>
 <cfmail subject="#exception.subject#" to="#Application.PageProblemEmail#" from="logs@#application.fromEmail#" type="html">
 	<a href="http://network-tools.com/default.asp?prog=network&host=#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
 	<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
@@ -188,6 +194,6 @@
 		<br>SUBJECT: #exception.SUBJECT#
 	</cfif>
 	<p>Raw exception dump:</p>
-	<cfdump var=#exception#>
+	<cfdump var=#attributes# format="html">
 </cfmail>
 </cfoutput>
