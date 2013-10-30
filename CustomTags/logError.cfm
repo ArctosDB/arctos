@@ -170,10 +170,9 @@
 
 <cfset logdata="<logEntry>">
 <cfloop item="key" collection="#exception#">
-	<cfset logdata=logdata & "<#key#>#exception[key]#</#key#>">
+	<cfset logdata=logdata & "<#key#>#replace(exception[key],'=','[EQUALS]','all')#</#key#>">
 </cfloop>
 <cfset logdata=logdata & "</logEntry>">	
-	
 <cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#logdata#">
 
 <cfmail subject="#exception.subject#" to="#Application.PageProblemEmail#" from="logs@#application.fromEmail#" type="html">
