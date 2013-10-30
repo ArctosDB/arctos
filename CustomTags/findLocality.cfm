@@ -3,7 +3,18 @@
 <cfoutput>
 <cfset sel = "select
 		geog_auth_rec.geog_auth_rec_id,
-		higher_geog">
+		higher_geog,
+		CONTINENT_OCEAN	,
+		COUNTRY,
+		STATE_PROV,
+		COUNTY,
+		QUAD,
+		FEATURE,
+		ISLAND ,
+		ISLAND_GROUP,
+		SEA
+
+">
 <cfset frm=" from geog_auth_rec">
 <cfset whr=" 1=1">
 <cfset orderby="higher_geog">
