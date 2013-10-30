@@ -157,9 +157,13 @@
 	<cfset StructDelete(exception, "specsrchtab")>
 </cfif>
 
-
-
-<cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#exception#">
+<cfset logdata="">
+<cfloop item="key" collection="#exception#">
+	<cfset logdata=logdata & "#key#: #exception[key]#">
+</cfloop>
+	
+	
+<cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#logdata#">
 
 <cfmail subject="#exception.subject#" to="#Application.PageProblemEmail#" from="logs@#application.fromEmail#" type="html">
 	<a href="http://network-tools.com/default.asp?prog=network&host=#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
