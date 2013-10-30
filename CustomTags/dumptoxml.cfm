@@ -7,4 +7,4 @@
 </cfloop><cfelseif IsStruct(var)>
 <cfloop item="i" collection="#var#"><#trim(i)#><cf_dumptoxml variable="var['#i#']"></#trim(i)#></cfloop>
 <cfelseif IsArray(var)><cfloop index="i" from="1" to="#ArrayLen(var)#"><#trim(i)#><cftry>
-<cf_dumptoxml variable="var[#i#]"><cfcatch type="Any">&nbsp;</cfcatch></cftry></#trim(i)#></cfloop><cfelse>#trim(HTMLEditFormat(replace(var,'=','[EQUALS]','all'))#</cfif></cfoutput>
+<cf_dumptoxml variable="var[#i#]"><cfcatch type="Any">&nbsp;</cfcatch></cftry></#trim(i)#></cfloop><cfelse>#trim(HTMLEditFormat(replace(var,'=','[EQUALS]','all')))#</cfif></cfoutput>
