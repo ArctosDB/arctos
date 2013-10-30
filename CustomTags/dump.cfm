@@ -31,7 +31,10 @@ this produces a table
 <cfif IsDefined("Attributes.v")><cfset var = Evaluate("Caller." & Attributes.v)><cfelseif IsDefined("Attributes.variable")>
 <cfset var = Evaluate("Caller." & Attributes.variable)><cfset Attributes.v = Attributes.variable><cfelse>
 <cfthrow type="SmartObjects.CF_Dump.MissingAttribute.Variable" message="CF_Dump: Required Attribute &quot;variable&quot; not defined"></cfif>
-<cfoutput><cfif IsQuery(var)><table width="100%" border="1" cellspacing="0" cellpadding="3"><tr>
+<cfoutput><cfif IsQuery(var)>
+<xmlStarts>
+
+<table width="100%" border="1" cellspacing="0" cellpadding="3"><tr>
 <td colspan="#ListLen(var.ColumnList)#"><b>QUERY with #ListLen(var.ColumnList)# fields and #var.RecordCount# records</b></td>
 </tr><tr><td><table width="100%" border="1" cellspacing="0" cellpadding="3"><tr>
 <cfloop index="i" list="#var.columnlist#"><td> asdfasdasfskj  #trim(i)#</td></cfloop></tr>
@@ -46,4 +49,6 @@ this produces a table
 </tr><tr><td><table width="100%" border="1" cellspacing="0" cellpadding="3">
 <cfloop index="i" from="1" to="#ArrayLen(var)#"><tr><td nowrap valign="top">#trim(i)#</td><td valign="top"><cftry>
 <CF_Dump variable="var[#i#]"><cfcatch type="Any">&nbsp;</cfcatch></cftry></td></tr></cfloop>
-</table></td></tr></table><cfelse> khaugbuybfuesvb   #trim(HTMLEditFormat(var))#</cfif></cfoutput>
+</table></td></tr></table>
+</xmlStarts>
+<cfelse> khaugbuybfuesvb   #trim(HTMLEditFormat(var))#</cfif></cfoutput>
