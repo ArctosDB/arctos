@@ -159,7 +159,7 @@
 
 <cfset logdata="">
 <cfloop item="key" collection="#exception#">
-	<cfset logdata=logdata & "#key#: #exception[key]#" & chr(10)>
+	<cfset logdata=logdata & "<#key#>#exception[key]#<#key#>">
 </cfloop>
 	
 	
