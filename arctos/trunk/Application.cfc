@@ -54,9 +54,12 @@
 		
 		<!--- append on the UUID ---->
 		
+		
+		
 		<cfset exception.uuid=request.uuid>
 		
-		
+				<cfset exception.IAmANewField="aknsdfkajsbdaskdfnasjd">
+
 		<cfdump var=#exception#>
 		
 		
