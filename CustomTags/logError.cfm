@@ -80,7 +80,7 @@
 </cfif>
 
 <cfsavecontent variable="rawexc">
-<cfdump var=#attributes# format="html">
+<cf_dump v=attributes>
 </cfsavecontent>
 <cfset exception.rawExceptionDump=rawexc>
 <!--- clean up the stuff we don't really care about --->
@@ -157,7 +157,6 @@
 	<cfset StructDelete(exception, "specsrchtab")>
 </cfif>
 
-<cf_dump v=attributes>
 
 
 <cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#exception#">
