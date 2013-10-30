@@ -20,39 +20,40 @@
 <!---- see if we can figure out why there's an error ---->
 <!--- first, just see if it's being explicitly handed in ---->
 <cfif isdefined("attributes.subject") and len(attributes.subject) gt 0>
-	<cfset subject=attributes.subject>
+	<cfset exception.subject=attributes.subject>
 <cfelse>
-	<cfset subject='unknown error'>
+	<cfset exception.subject='unknown error'>
 </cfif>
 <!--- 
 	now see if we can figure out an appropriate logfile
 	make sure all these are initiated in application start
 ----->
-<cfif subject is "404">
+<cfif exception.subject is "404">
 	<cfset theLogFile="404log.txt">
-<cfelseif subject is "missing GUID">
-	<cfset theLogFile="missingGUIDlog.txt">
-<cfelseif subject is "autoblacklist">
+<cfelseif exception.subject is "missing GUID">
+	<cfset exception.theLogFile="missingGUIDlog.txt">
+<cfelseif exception.subject is "autoblacklist">
 	<cfset theLogFile="blacklistlog.txt">
 <cfelse>
 	<cfset theLogFile="log.txt">
 </cfif>
-<cfsavecontent variable="loginfo">
-<logEntry>
-<summary>
-	<filename>#theLogFile#</filename>
-	<date>#dateformat(now(),"yyyy-mm-dd")#T#TimeFormat(now(), "HH:mm:ss")#</date>
-	<subject>#subject#</subject>
-	<cfif isdefined("session.username")>
-		<username>#session.username#</username>
-	</cfif>
-	<ipaddress>#request.ipaddress#</ipaddress>
-	<cfif isdefined("cgi.redirect_url")>
-		<path>#cgi.redirect_url#</path>
-	</cfif>
-	<cfif isdefined("cgi.PATH_TRANSLATED")>
-		<PathTranslated>#cgi.PATH_TRANSLATED#<PathTranslated>
-	</cfif>
+<cfset exception.logfile=theLogFile>
+<cfset exception.date='#dateformat(now(),"yyyy-mm-dd")#T#TimeFormat(now(), "HH:mm:ss")#'>
+<cfif isdefined("session.username")>
+	<cfset exception.username=session.username>
+</cfif>
+<cfset exception.ipaddress=request.ipaddress>
+<cfif isdefined("exception")>
+	<cfloop item="key" collection="#exception#">
+		<cfif len(exception[key]) gt 0>
+			<cfset session.#key#=#exception[key]#>
+		</cfif>
+	</cfloop>
+</cfif>
+
+
+<cfdump var=#exception#>
+	
 </summary>
 <cfif isdefined("exception")>
 	<exception>
