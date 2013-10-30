@@ -306,7 +306,8 @@
 					received_date
 			</cfquery>
 			<cfif len(valuelist(contact.ADDRESS)) gt 0>
-				<cfmail to="#valuelist(contact.ADDRESS)#" bcc="arctos.database@gmail.com" subject="Bare Accession" from="bare_accession@#Application.fromEmail#" type="html">
+			
+				<cfsavecontent variable="msg">
 					You are receiving this message because you are the data quality contact for collection #collection#.
 					<p>
 						The following accessions are one or more years old and have no specimens attached.
@@ -319,6 +320,9 @@
 							<br>
 						</cfloop>
 					</p>
+				</cfsavecontent>
+				<cfmail to="#valuelist(contact.ADDRESS)#" bcc="arctos.database@gmail.com" subject="Bare Accession" from="bare_accession@#Application.fromEmail#" type="html">
+					#msg#
 				</cfmail>
 			</cfif>
 		</cfloop>

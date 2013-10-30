@@ -485,6 +485,9 @@
 	<cfif not FileExists("#Application.webDirectory#/log/blacklistlog.txt")> 
 	    <cffile action="write" file="#Application.webDirectory#/log/blacklistlog.txt" output=""> 
 	</cfif>
+	<cfif not FileExists("#Application.webDirectory#/log/emaillog.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/emaillog.txt" output=""> 
+	</cfif>
 	
 	
 	
