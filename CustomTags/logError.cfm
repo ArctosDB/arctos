@@ -144,19 +144,22 @@
 <cfif structkeyexists(exception,"institution_link_text")>
 	<cfset StructDelete(exception, "institution_link_text")>
 </cfif>
-
-collection_link_text
-collection_url
-specsrchtab
+<cfif structkeyexists(exception,"collection_link_text")>
+	<cfset StructDelete(exception, "collection_link_text")>
+</cfif>
+<cfif structkeyexists(exception,"collection_url")>
+	<cfset StructDelete(exception, "collection_url")>
+</cfif>
+<cfif structkeyexists(exception,"specsrchtab")>
+	<cfset StructDelete(exception, "specsrchtab")>
+</cfif>
 <!--- log as XML ---->
 <cfset log="<logEntry>">
 <cfloop item="key" collection="#exception#">
 	<cfset log=log & "<#key#>#exception[key]#</#key#>">
 </cfloop>
-<cfset log="</logEntry>">
-	<cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#log#">
-
-<cfdump var=#exception#>
+<cfset log=log & "</logEntry>">
+<cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#log#">
 <cfmail subject="#exception.subject#" to="#Application.PageProblemEmail#" from="logs@#application.fromEmail#" type="html">
 	<a href="http://network-tools.com/default.asp?prog=network&host=#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
 	<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
@@ -166,14 +169,14 @@ specsrchtab
 	<cfif structKeyExists(exception,"rdurl")>
 		<br>rdurl: #exception.rdurl#
 	</cfif>
+	<cfif structKeyExists(exception,"ACTION")>
+		<br>ACTION: #exception.ACTION#
+	</cfif>
 	<cfif structKeyExists(exception,"SQL")>
 		<br>SQL: #exception.SQL#
 	</cfif>
 	<cfif structKeyExists(exception,"LINE")>
 		<br>LINE: #exception.LINE#
-	</cfif>
-	<cfif structKeyExists(exception,"ACTION")>
-		<br>ACTION: #exception.ACTION#
 	</cfif>
 	<cfif structKeyExists(exception,"HTTP_REFERER")>
 		<br>HTTP_REFERER: #exception.HTTP_REFERER#
@@ -184,100 +187,4 @@ specsrchtab
 	<p>Raw exception dump:</p>
 	<cfdump var=#exception#>
 </cfmail>
-	
-
-	<!-----------
-</summary>
-<cfif isdefined("exception")>
-	<exception>
-		<cfloop item="key" collection="#exception#">
-			<cfif len(exception[key]) gt 0>
-			<#key#>#exception[key]#</#key#>
-			</cfif>
-		</cfloop>
-	</exception>
-</cfif>
-<cfif isdefined("form")>
-
-Form Dump:
-<cfloop item="key" collection="#form#">
-<cfif len(form[key]) gt 0>
-#chr(10)##chr(9)##key#: #form[key]#
-</cfif>
-</cfloop>
-</cfif>
-<cfif isdefined("request")>
-
-Request Dump:
-<cfloop item="key" collection="#request#">
-<cfif len(request[key]) gt 0>
-#chr(10)##chr(9)##key#: #request[key]#
-</cfif>
-</cfloop>
-</cfif>
-<cfif isdefined("CGI")>
-
-CGI Dump:
-<cfloop item="key" collection="#cgi#">
-<cfif len(cgi[key]) gt 0>
-#chr(10)##chr(9)##key#: #cgi[key]#
-</cfif>
-</cfloop>
-</cfif>
-<cfif isdefined("URL")>
-
-URL Dump:
-<cfloop item="key" collection="#URL#">
-<cfif len(URL[key]) gt 0>
-#chr(10)##chr(9)##key#: #URL[key]#
-</cfif>
-</cfloop>
-</cfif>
-
-<cfif isdefined("session")>
-
-Session Dump:
-<cfloop item="key" collection="#session#">
-<cfif len(session[key]) gt 0>
-#chr(10)##chr(9)##key#: #session[key]#
-</cfif>
-</cfloop>
-</cfif>
-
-Attributes rawfile:
-
-<cfdump var=#attributes# format="text">
-</logEntry>
-</cfsavecontent>
-
-	<!----------
-	<cfset loginfo="LOG ENTRY: #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#">
-	<cfset loginfo=loginfo & chr(10) & "Problem: 404">
-
-	<cfset loginfo=loginfo & chr(10) & "Referrer: #cgi.HTTP_REFERER#">
-		<cfset loginfo=loginfo & chr(10) & "cgi: " & cfdump var="cgi" format="text">
-
-	-------->
-	<cfset htmlLogInfo=replace(loginfo,chr(10),"<br>","all")>
-	
-	
-	
-	<!---------
-	<cfcatch>
-		<cfmail subject="error logging exception" to="#Application.PageProblemEmail#" from="logsproblem@#application.fromEmail#" type="html">
-			<a href="http://network-tools.com/default.asp?prog=network&host=#request.ipaddress#">[ lookup #request.ipaddress# ]</a>
-			<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#request.ipaddress#">[ blacklist #request.ipaddress# ]</a>
-			<cfdump var=#form#>
-			<cfdump var=#exception#>
-			<cfdump var=#session#>
-			<cfdump var=#url#>
-			<cfdump var=#request#>
-			<cfdump var=#CGI#>
-	
-		</cfmail>
-	</cfcatch>
-	</cftry>
-	-------->
-	
-	----------->
 </cfoutput>
