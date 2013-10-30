@@ -69,8 +69,11 @@ Version 1.0
 	
 	<cfset id = Replace(CreateUUID(), "-", "_", "ALL")>
 	
-	<cfif IsQuery(var)>
 	
+	<cfset xmlstring="<dump>">
+	<cfif IsQuery(var)>
+		no can do <cfabort>
+		<!-----------
 		<table width="100%" border="1" cellspacing="0" cellpadding="3">
 			<tr bgcolor="eeeeee">
 				<td colspan="#ListLen(var.ColumnList)#">
@@ -110,7 +113,7 @@ Version 1.0
 			</td></tr>
 			
 		</table>
-		
+		----------->
 	<cfelseif IsStruct(var)>
 	
 		<table width="100%" border="1" cellspacing="0" cellpadding="3">
@@ -130,11 +133,15 @@ Version 1.0
 			<tr><td>
 					<table width="100%" border="1" cellspacing="0" cellpadding="3">
 						<cfloop item="i" collection="#var#">
+							<cfset xmlstring=xmlstring & "<#i#>">
+						
 							<tr>
 								<td nowrap valign="top">#i#</td>
 								<td valign="top">
 									<CF_Dump variable="var['#i#']">
 								</td>
+								
+								<cfset xmlstring=xmlstring & "</#i#>">
 							</tr>
 						</cfloop>
 					</table>
@@ -162,17 +169,24 @@ Version 1.0
 						<cfloop index="i" from="1" to="#ArrayLen(var)#">
 							<tr>
 								<td nowrap valign="top">#i#</td>
+								<cfset xmlstring=xmlstring & "<#i#>">
+
 								<td valign="top">
 									<cftry>
 										<CF_Dump variable="var[#i#]">
 										<cfcatch type="Any">&nbsp;</cfcatch>
 									</cftry>
+									
+									<cfset xmlstring=xmlstring & "</#i#>">
 								</td>
 							</tr>
 						</cfloop>
 					</table>
 			</td></tr>
 		</table>
+		
+		
+		<cfset xmlstring=xmlstring & "</dump>">
 	<!--- Attribute is a normal scalar value --->
 	<cfelse>
 		&quot;#HTMLEditFormat(var)#&quot;
@@ -185,6 +199,8 @@ Version 1.0
 			<cfcatch type="ANY"></cfcatch>
 		</cftry>
 	</cfif>
-
+<hr>
+#xmlstring#
+<hr>
 </cfoutput>
 
