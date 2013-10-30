@@ -35,13 +35,16 @@
 		<cfelse>
 			<cfif isdefined("exception.detail")>
 				<cfif exception.detail contains "[Macromedia][Oracle JDBC Driver][Oracle]ORA-00600">
-					<cfset subject="[Macromedia][Oracle JDBC Driver][Oracle]ORA-00600">
+					<cfset subject="ORA-00600">
 				<cfelse>
 					<cfset subject="#exception.detail#">
 				</cfif>
 			</cfif>
 		</cfif>
-		<cfif subject is "[Macromedia][Oracle JDBC Driver][Oracle]ORA-00933: SQL command not properly ended">
+		<cfset subject=replace(subject,'[Macromedia][Oracle JDBC Driver][Oracle]','','all')>
+
+		
+		<cfif subject is "ORA-00933: SQL command not properly ended">
 			<!--- see if it's the viagra ad asshats again ---->
 			<cfif isdefined("exception.sql") and exception.sql contains 'href="http://'>
 				<cfinclude template="/errors/autoblacklist.cfm">
