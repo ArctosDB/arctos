@@ -42,7 +42,6 @@
 <cfif isdefined("session.username")>
 	<cfset exception.username=session.username>
 </cfif>
-<cfset exception.ipaddress=request.ipaddress>
 
 
 
@@ -54,10 +53,31 @@
 		</cfif>
 	</cfloop>
 </cfif>
-<cfif isdefined("attributes")>
-	<cfloop item="key" collection="#attributes#">
-		<cfif len(attributes[key]) gt 0>
-			<cfset "exception.#key#"="#attributes[key]#">
+<cfif isdefined("request")>
+	<cfloop item="key" collection="#request#">
+		<cfif len(request[key]) gt 0>
+			<cfset "exception.#key#"="#request[key]#">
+		</cfif>
+	</cfloop>
+</cfif>
+<cfif isdefined("cgi")>
+	<cfloop item="key" collection="#cgi#">
+		<cfif len(cgi[key]) gt 0>
+			<cfset "exception.#key#"="#cgi[key]#">
+		</cfif>
+	</cfloop>
+</cfif>
+<cfif isdefined("URL")>
+	<cfloop item="key" collection="#URL#">
+		<cfif len(URL[key]) gt 0>
+			<cfset "exception.#key#"="#URL[key]#">
+		</cfif>
+	</cfloop>
+</cfif>
+<cfif isdefined("session")>
+	<cfloop item="key" collection="#session#">
+		<cfif len(session[key]) gt 0>
+			<cfset "exception.#key#"="#session[key]#">
 		</cfif>
 	</cfloop>
 </cfif>
