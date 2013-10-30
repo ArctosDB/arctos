@@ -163,6 +163,10 @@
 	<cfset StructDelete(exception, "specsrchtab")>
 </cfif>
 
+
+<cfdump var=#exception#>
+
+
 <!--- log as XML ---->
 <cfset log="<logEntry>">
 <cfloop item="key" collection="#exception#">
