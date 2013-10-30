@@ -45,8 +45,9 @@
 <cfset exception.ipaddress=request.ipaddress>
 <cfif isdefined("exception")>
 	<cfloop item="key" collection="#exception#">
+		
 		<cfif len(exception[key]) gt 0>
-			<cfset session.#key#=#exception[key]#>
+			<cfset "session.#key#"="#exception[key]#">
 		</cfif>
 	</cfloop>
 </cfif>
