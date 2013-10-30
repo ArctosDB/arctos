@@ -5,56 +5,39 @@ CF_Dump.cfm v1.3
 
 dump into a simple table
 
+call with
+
+<cf_dump v=attributes>
+
+where attributes is a struct
 
 --->
 
-<cfif IsDefined("Attributes.v")>
-	<cfset var = Evaluate("Caller." & Attributes.v)>
-<cfelseif IsDefined("Attributes.variable")>
-	<cfset var = Evaluate("Caller." & Attributes.variable)>
-	<cfset Attributes.v = Attributes.variable>
-<cfelse>
-	<cfthrow type="SmartObjects.CF_Dump.MissingAttribute.Variable" message="CF_Dump: Required Attribute &quot;variable&quot; not defined">
-</cfif>
-
+<cfset var = Evaluate("Caller." & Attributes.v)>
 <cfoutput>
-
-	<cfset id = Replace(CreateUUID(), "-", "_", "ALL")>
-	
-	
 	<cfif IsQuery(var)>
-		<table width="100%" border="1" cellspacing="0" cellpadding="3">
-			<tr>
-				<td colspan="#ListLen(var.ColumnList)#">
-					
-					<b>QUERY with #ListLen(var.ColumnList)# fields and #var.RecordCount# records</b>
-				</td>
-			</tr>
-
-			<tr><td>
-
-
-					<table width="100%" border="1" cellspacing="0" cellpadding="3">
-						<tr>
-							<cfloop index="i" list="#var.columnlist#">
-								<td><font face="Arial" size="2">#i#</font></td>
-							</cfloop>
-						</tr>
-				
-						<cfloop index="i" from="1" to="#var.RecordCount#">
-							<tr>
-								<cfloop index="j" list="#var.columnlist#">
-									<td valign="top" align="left"><font face="Arial" size="1">#HTMLEditFormat(Evaluate("var." & j & "[i]"))#</font>&nbsp;</td>
-								</cfloop>
-							</tr>
-						</cfloop>
-					</table>
-				
-			</td></tr>
-			
-		</table>
-		----------->
-	<cfelseif IsStruct(var)>
+		<table width="100%" border="1" cellspacing="0" cellpadding="3"><tr><td colspan="#ListLen(var.ColumnList)#">
+			<b>QUERY with #ListLen(var.ColumnList)# fields and #var.RecordCount# records</b>
+		</td>
+	</tr>
+	<tr><td>
+<table width="100%" border="1" cellspacing="0" cellpadding="3">
+<tr>
+<cfloop index="i" list="#var.columnlist#">
+<td><font face="Arial" size="2">#i#</font></td>
+</cfloop>
+</tr>
+<cfloop index="i" from="1" to="#var.RecordCount#">
+<tr>
+<cfloop index="j" list="#var.columnlist#">
+<td valign="top" align="left">#HTMLEditFormat(Evaluate("var." & j & "[i]"))#&nbsp;</td>
+</cfloop>
+</tr>
+</cfloop>
+</table>
+</td></tr>
+</table>
+<cfelseif IsStruct(var)>
 	
 		<table width="100%" border="1" cellspacing="0" cellpadding="3">
 			<tr bgcolor="eeeeee">
