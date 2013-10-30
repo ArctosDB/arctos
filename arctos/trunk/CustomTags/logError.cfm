@@ -144,6 +144,10 @@
 <cfif structkeyexists(exception,"institution_link_text")>
 	<cfset StructDelete(exception, "institution_link_text")>
 </cfif>
+
+collection_link_text
+collection_url
+specsrchtab
 <!--- log as XML ---->
 <cfset log="<logEntry>">
 <cfloop item="key" collection="#exception#">
@@ -155,10 +159,29 @@
 <cfdump var=#exception#>
 <cfmail subject="#exception.subject#" to="#Application.PageProblemEmail#" from="logs@#application.fromEmail#" type="html">
 	<a href="http://network-tools.com/default.asp?prog=network&host=#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
-	<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
+	<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
 	<cfif structKeyExists(exception,"username")>
-		Username: #exception.username#
+		<br>username: #exception.username#
 	</cfif>
+	<cfif structKeyExists(exception,"rdurl")>
+		<br>rdurl: #exception.rdurl#
+	</cfif>
+	<cfif structKeyExists(exception,"SQL")>
+		<br>SQL: #exception.SQL#
+	</cfif>
+	<cfif structKeyExists(exception,"LINE")>
+		<br>LINE: #exception.LINE#
+	</cfif>
+	<cfif structKeyExists(exception,"ACTION")>
+		<br>ACTION: #exception.ACTION#
+	</cfif>
+	<cfif structKeyExists(exception,"HTTP_REFERER")>
+		<br>HTTP_REFERER: #exception.HTTP_REFERER#
+	</cfif>
+	<cfif structKeyExists(exception,"SUBJECT")>
+		<br>SUBJECT: #exception.SUBJECT#
+	</cfif>
+	<p>Raw exception dump:</p>
 	<cfdump var=#exception#>
 </cfmail>
 	
