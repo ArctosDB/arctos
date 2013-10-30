@@ -3,6 +3,12 @@
 <cftry>
 
 -------->
+
+
+<cfif isdefined("attributes.uuid")>
+	<cfset exception.uuid=attributes.uuid>
+</cfif>
+
 <cfif isdefined("attributes.cause.message")>
 	<cfset exception.message=replace(attributes.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','','all')>
 </cfif>
@@ -156,10 +162,6 @@
 <cfif structkeyexists(exception,"specsrchtab")>
 	<cfset StructDelete(exception, "specsrchtab")>
 </cfif>
-
-
-<cfdump var=#exception#>
-
 
 <!--- log as XML ---->
 <cfset log="<logEntry>">
