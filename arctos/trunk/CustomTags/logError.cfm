@@ -80,7 +80,7 @@
 </cfif>
 
 <cfsavecontent variable="rawexc">
-<cf_dump v=attributes>
+<cf_dumptoxml v=attributes>
 </cfsavecontent>
 
 
@@ -89,7 +89,6 @@
 
 
 
-<cfabort>
 
 
 
