@@ -70,7 +70,7 @@ Version 1.0
 	<cfset id = Replace(CreateUUID(), "-", "_", "ALL")>
 	
 	
-	<cfset xmlstring="<dump>">
+	<cfset x="<dump>">
 	<cfif IsQuery(var)>
 		no can do <cfabort>
 		<!-----------
@@ -141,7 +141,7 @@ Version 1.0
 									<CF_Dump variable="var['#i#']">
 								</td>
 								
-								<cfset xmlstring=xmlstring & "</#i#>">
+								<cfset x=x & "</#i#>">
 							</tr>
 						</cfloop>
 					</table>
@@ -169,7 +169,7 @@ Version 1.0
 						<cfloop index="i" from="1" to="#ArrayLen(var)#">
 							<tr>
 								<td nowrap valign="top">#i#</td>
-								<cfset xmlstring=xmlstring & "<#i#>">
+								<cfset x=x & "<#i#>">
 
 								<td valign="top">
 									<cftry>
@@ -177,7 +177,7 @@ Version 1.0
 										<cfcatch type="Any">&nbsp;</cfcatch>
 									</cftry>
 									
-									<cfset xmlstring=xmlstring & "</#i#>">
+									<cfset x=x & "</#i#>">
 								</td>
 							</tr>
 						</cfloop>
@@ -200,7 +200,7 @@ Version 1.0
 		</cftry>
 	</cfif>
 <hr>
-#xmlstring#
+#x#
 <hr>
 </cfoutput>
 
