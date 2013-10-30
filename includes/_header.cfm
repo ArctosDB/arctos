@@ -324,6 +324,7 @@
 									<li><a target="_top" href="/info/ipt.cfm">IPT/collection metadata report</a></li>
 									<li><a target="_top" href="/info/sysstats.cfm">System Statistics</a></li>
 									<li><a target="_top" href="/Admin/exit_links.cfm">Exit Links</a></li>
+									<li><a target="_top" href="/Admin/errorLogViewer.cfm">Error Logs</a></li>
 						            <cfif listfind(formList,"/tools/userSQL.cfm")>
 									    <li><a target="_top" href="/tools/userSQL.cfm">Write SQL</a></li>
 				                    </cfif>
