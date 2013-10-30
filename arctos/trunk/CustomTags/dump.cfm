@@ -34,8 +34,6 @@ this produces a table
 <cfoutput>
 
 <cfif IsQuery(var)>
-	<xmlQueryStarts>
-
 	<cfloop index="i" list="#var.columnlist#">
 		asdfasdasfskj  #trim(i)#
 	</cfloop>
@@ -46,20 +44,16 @@ this produces a table
 	</cfloop>
 <cfelseif IsStruct(var)>
 	<cfloop item="i" collection="#var#"> 
-		[adagidbfsefg]  <#trim(i)#>
-		<CF_Dump variable="var['#i#']">
-		</#trim(i)# [/adagidbfsefg]>
+		<#trim(i)#><CF_Dump variable="var['#i#']"></#trim(i)#>
 	</cfloop>
 <cfelseif IsArray(var)>
 	<cfloop index="i" from="1" to="#ArrayLen(var)#">
-		 ooihbiiknj #trim(i)#
+		 <#trim(i)#>
 		<cftry>
 			<CF_Dump variable="var[#i#]">
 			<cfcatch type="Any">&nbsp;</cfcatch>
 		</cftry>
-
-		#trim(i)#
-
+		</#trim(i)#>
 	</cfloop>
 
 <cfelse>
