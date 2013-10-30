@@ -60,7 +60,7 @@
 		
 				<cfset exception.IAmANewField="aknsdfkajsbdaskdfnasjd">
 		<cfset x=structNew()>
-		<cfset x.uuid="request.uuid">
+		<cfset x.IAmANewField2="safgafsgsdfasdgabrsvdfasd">
 
 
 		<cfdump var=#x#>
