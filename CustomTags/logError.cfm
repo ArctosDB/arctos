@@ -38,29 +38,30 @@
 	<cfset theLogFile="log.txt">
 </cfif>
 <cfsavecontent variable="loginfo">
-------------------------------------------------------------------------------------------------------------------------------
-LOG ENTRY: (#theLogFile#) ON #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#
-
-SUBJECT: #subject#
-<cfif isdefined("session.username")>
-#chr(10)#Username: #session.username#
-</cfif>
-#chr(10)#IP: #request.ipaddress#
-
-<cfif isdefined("cgi.redirect_url")>
-#chr(10)#Path: #cgi.redirect_url#
-</cfif>
-<cfif isdefined("cgi.PATH_TRANSLATED")>
-#chr(10)#PathTranslated: #cgi.PATH_TRANSLATED#
-</cfif>
+<logEntry>
+<summary>
+	<filename>#theLogFile#</filename>
+	<date>#dateformat(now(),"yyyy-mm-dd")#T#TimeFormat(now(), "HH:mm:ss")#</date>
+	<subject>#subject#</subject>
+	<cfif isdefined("session.username")>
+		<username>#session.username#</username>
+	</cfif>
+	<ipaddress>#request.ipaddress#</ipaddress>
+	<cfif isdefined("cgi.redirect_url")>
+		<path>#cgi.redirect_url#</path>
+	</cfif>
+	<cfif isdefined("cgi.PATH_TRANSLATED")>
+		<PathTranslated>#cgi.PATH_TRANSLATED#<PathTranslated>
+	</cfif>
+</summary>
 <cfif isdefined("exception")>
-
-Exception Dump:
-<cfloop item="key" collection="#exception#">
-<cfif len(exception[key]) gt 0>
-#chr(10)##chr(9)##key#: #exception[key]#
-</cfif>
-</cfloop>
+	<exception>
+		<cfloop item="key" collection="#exception#">
+			<cfif len(exception[key]) gt 0>
+			<#key#>#exception[key]#</#key#>
+			</cfif>
+		</cfloop>
+	</exception>
 </cfif>
 <cfif isdefined("form")>
 
@@ -112,6 +113,7 @@ Session Dump:
 Attributes rawfile:
 
 <cfdump var=#attributes# format="text">
+</logEntry>
 </cfsavecontent>
 
 	<!----------
