@@ -37,7 +37,7 @@ where attributes is a struct
 <cfloop index="i" from="1" to="#var.RecordCount#">
 <tr>
 <cfloop index="j" list="#var.columnlist#">
-<td valign="top" align="left">#trim(HTMLEditFormat(Evaluate("var." & j & "[i]")))#</td>
+<td valign="top" align="left">alnaksfnasjd #trim(HTMLEditFormat(Evaluate("var." & j & "[i]")))#</td>
 </cfloop>
 </tr>
 </cfloop>
