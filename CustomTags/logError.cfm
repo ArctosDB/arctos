@@ -39,11 +39,6 @@
 </cfif>
 <cfset exception.logfile=theLogFile>
 <cfset exception.date='#dateformat(now(),"yyyy-mm-dd")#T#TimeFormat(now(), "HH:mm:ss")#'>
-<cfif isdefined("session.username")>
-	<cfset exception.username=session.username>
-</cfif>
-
-
 
 
 <cfif isdefined("form")>
@@ -85,10 +80,7 @@
 <cfdump var=#attributes# format="text">
 </cfsavecontent>
 <cfset exception.rawExceptionDump=rawexc>
-
 <!--- clean up the stuff we don't really care about --->
-<cfdump var=#exception#>
-
 <cfif structkeyexists(exception,"HTTPS")>
 	<cfset StructDelete(exception, "HTTPS")>
 </cfif>
@@ -146,27 +138,30 @@
 <cfif structkeyexists(exception,"getjulianday")>
 	<cfset StructDelete(exception, "getjulianday")>
 </cfif>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<cfif structkeyexists(exception,"urltoken")>
+	<cfset StructDelete(exception, "urltoken")>
+</cfif>
+<cfif structkeyexists(exception,"institution_link_text")>
+	<cfset StructDelete(exception, "institution_link_text")>
+</cfif>
+<!--- log as XML ---->
+<cfset log="<logEntry>">
+<cfloop item="key" collection="#exception#">
+	<cfset log=log & "<#key#>#exception[key]#</#key#>">
+</cfloop>
+<cfset log="</logEntry>">
+	<cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#log#">
 
 <cfdump var=#exception#>
+<cfmail subject="#exception.subject#" to="#Application.PageProblemEmail#" from="logs@#application.fromEmail#" type="html">
+	<a href="http://network-tools.com/default.asp?prog=network&host=#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
+	<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
+	<cfif structKeyExists(exception,"username")>
+		Username: #exception.username#
+	</cfif>
+</cfmail>
+	
+
 	<!-----------
 </summary>
 <cfif isdefined("exception")>
@@ -239,14 +234,9 @@ Attributes rawfile:
 		<cfset loginfo=loginfo & chr(10) & "cgi: " & cfdump var="cgi" format="text">
 
 	-------->
-	<cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#loginfo#">
 	<cfset htmlLogInfo=replace(loginfo,chr(10),"<br>","all")>
 	
-	<cfmail subject="#subject#" to="#Application.PageProblemEmail#" from="logs@#application.fromEmail#" type="html">
-		<a href="http://network-tools.com/default.asp?prog=network&host=#request.ipaddress#">[ lookup #request.ipaddress# ]</a>
-		<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#request.ipaddress#">[ blacklist #request.ipaddress# ]</a>
-		#htmlLogInfo#
-	</cfmail>
+	
 	
 	<!---------
 	<cfcatch>
