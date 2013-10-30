@@ -67,7 +67,7 @@
 		
 		<cfset thex=exception>
 
-		<cfset structAppend(thex,x)>
+		<cfset structAppend(thex,x,true)>
 		
 		
 		<cfdump var=#thex#>
