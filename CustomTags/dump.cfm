@@ -13,7 +13,14 @@ where attributes is a struct
 
 --->
 
-<cfset var = Evaluate("Caller." & Attributes.v)>
+<cfif IsDefined("Attributes.v")>
+	<cfset var = Evaluate("Caller." & Attributes.v)>
+<cfelseif IsDefined("Attributes.variable")>
+	<cfset var = Evaluate("Caller." & Attributes.variable)>
+	<cfset Attributes.v = Attributes.variable>
+<cfelse>
+	<cfthrow type="SmartObjects.CF_Dump.MissingAttribute.Variable" message="CF_Dump: Required Attribute &quot;variable&quot; not defined">
+</cfif>
 <cfoutput>
 	<cfif IsQuery(var)>
 		<table width="100%" border="1" cellspacing="0" cellpadding="3"><tr><td colspan="#ListLen(var.ColumnList)#">
