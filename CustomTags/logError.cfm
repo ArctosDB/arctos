@@ -176,7 +176,7 @@
 <cfset log=replace(log,"<pre>","","all")>
 <cfset log=replace(log,"</pre>","","all")>
 
-<cf_dump var="#attributes#">
+<cf_dump variable="#attributes#">
 
 
 <cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#log#">
