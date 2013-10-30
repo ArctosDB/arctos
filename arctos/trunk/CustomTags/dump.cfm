@@ -31,13 +31,13 @@ where attributes is a struct
 <table width="100%" border="1" cellspacing="0" cellpadding="3">
 <tr>
 <cfloop index="i" list="#var.columnlist#">
-<td><font face="Arial" size="2">#i#</font></td>
+<td>#trim(i)#</td>
 </cfloop>
 </tr>
 <cfloop index="i" from="1" to="#var.RecordCount#">
 <tr>
 <cfloop index="j" list="#var.columnlist#">
-<td valign="top" align="left">#HTMLEditFormat(Evaluate("var." & j & "[i]"))#&nbsp;</td>
+<td valign="top" align="left">#trim(HTMLEditFormat(Evaluate("var." & j & "[i]")))#</td>
 </cfloop>
 </tr>
 </cfloop>
@@ -53,7 +53,7 @@ where attributes is a struct
 <table width="100%" border="1" cellspacing="0" cellpadding="3">
 <cfloop item="i" collection="#var#">
 <tr>
-<td nowrap valign="top">#i#</td>
+<td nowrap valign="top">#trim(i)#</td>
 <td valign="top">
 <CF_Dump variable="var['#i#']">
 </td>
@@ -73,7 +73,7 @@ where attributes is a struct
 <table width="100%" border="1" cellspacing="0" cellpadding="3">
 <cfloop index="i" from="1" to="#ArrayLen(var)#">
 <tr>
-<td nowrap valign="top">#i#</td>
+<td nowrap valign="top">#trim(i)#</td>
 <td valign="top">
 <cftry>
 <CF_Dump variable="var[#i#]">
