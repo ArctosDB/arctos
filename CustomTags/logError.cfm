@@ -5,15 +5,6 @@
 -------->
 
 
-<cfdump var=#attributes#>
-
-
-<cfif isdefined("attributes.uuid")>
-
-uuid is defined: #attributes.uuid#
-	<cfset exception.uuid=attributes.uuid>
-</cfif>
-
 <cfif isdefined("attributes.cause.message")>
 	<cfset exception.message=replace(attributes.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','','all')>
 </cfif>
@@ -88,12 +79,10 @@ uuid is defined: #attributes.uuid#
 	</cfloop>
 </cfif>
 
-<!----
 <cfsavecontent variable="rawexc">
 <cfdump var=#attributes# format="html">
 </cfsavecontent>
 <cfset exception.rawExceptionDump=rawexc>
----->
 <!--- clean up the stuff we don't really care about --->
 <cfif structkeyexists(exception,"HTTPS")>
 	<cfset StructDelete(exception, "HTTPS")>
@@ -169,23 +158,7 @@ uuid is defined: #attributes.uuid#
 </cfif>
 
 
-<cfdump var=#exception#>
-
-
-<!--- log as XML ---->
-<cfset log="<logEntry>">
-<cfloop item="key" collection="#exception#">
-	<cfset log=log & "<#key#>#exception[key]#</#key#>">
-</cfloop>
-<cfset log=log & "</logEntry>">
-<cfset log=replace(log,"<pre>","","all")>
-<cfset log=replace(log,"</pre>","","all")>
-
-<cf_dump v="attributes">
-
-
 <cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#log#">
-<cfdump var=#attributes# output="#Application.webDirectory#/log/rawdump.txt">
 
 <cfmail subject="#exception.subject#" to="#Application.PageProblemEmail#" from="logs@#application.fromEmail#" type="html">
 	<a href="http://network-tools.com/default.asp?prog=network&host=#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>

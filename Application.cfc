@@ -51,20 +51,6 @@
 				<cfabort>
 			</cfif>
 		</cfif>
-		
-		<!--- append on the UUID ---->
-		
-		
-		
-		<cfset Exception.uuid=request.uuid>
-		
-			
-		
-		<cfdump var=#Exception#>
-		
-		
-		
-		<hr>
 		<cf_logError subject="#subject#" attributeCollection=#exception#>
 		<table cellpadding="10">
 			<tr>
@@ -499,10 +485,6 @@
 	<cfif not FileExists("#Application.webDirectory#/log/blacklistlog.txt")> 
 	    <cffile action="write" file="#Application.webDirectory#/log/blacklistlog.txt" output="init"> 
 	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/rawdump.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/rawdump.txt" output="init"> 
-	</cfif>
-	
 	
 	
 	
