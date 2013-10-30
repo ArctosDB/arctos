@@ -158,7 +158,6 @@ Version 1.0
 				</td>
 			</tr>
 			<tr><td>
-				<div id="id_#id#" style="display:none;">
 					<table width="100%" border="1" cellspacing="0" cellpadding="3">
 						<cfloop index="i" from="1" to="#ArrayLen(var)#">
 							<tr>
@@ -172,7 +171,6 @@ Version 1.0
 							</tr>
 						</cfloop>
 					</table>
-				</div>
 			</td></tr>
 		</table>
 
