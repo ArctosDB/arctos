@@ -55,6 +55,13 @@
 		<!--- append on the UUID ---->
 		
 		<cfset exception.uuid=request.uuid>
+		
+		
+		<cfdump var=#exception#>
+		
+		
+		
+		<hr>
 		<cf_logError subject="#subject#" attributeCollection=#exception#>
 		<table cellpadding="10">
 			<tr>
