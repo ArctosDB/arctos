@@ -3,7 +3,7 @@
 <cfoutput>
 	#logtxt#
 	
-	<cfset x=xmlparse(logtxt)>
+	<cfset x=xmlparse("<logs>" & logtxt & "</logs>")>
 	
 	<cfdump var=#x#>
 </cfoutput>
