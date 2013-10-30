@@ -54,7 +54,13 @@
 		</cfif>
 	</cfloop>
 </cfif>
-
+<cfif isdefined("attributes")>
+	<cfloop item="key" collection="#attributes#">
+		<cfif len(attributes[key]) gt 0>
+			<cfset "exception.#key#"="#attributes[key]#">
+		</cfif>
+	</cfloop>
+</cfif>
 
 <cfdump var=#exception#>
 	<!-----------
