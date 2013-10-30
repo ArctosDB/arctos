@@ -158,7 +158,7 @@
 </cfif>
 
 
-<cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#log#">
+<cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#exception#">
 
 <cfmail subject="#exception.subject#" to="#Application.PageProblemEmail#" from="logs@#application.fromEmail#" type="html">
 	<a href="http://network-tools.com/default.asp?prog=network&host=#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
