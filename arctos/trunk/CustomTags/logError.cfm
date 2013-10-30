@@ -9,6 +9,8 @@
 
 
 <cfif isdefined("attributes.uuid")>
+
+uuid is defined: #attributes.uuid#
 	<cfset exception.uuid=attributes.uuid>
 </cfif>
 
