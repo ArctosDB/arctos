@@ -77,7 +77,7 @@
 	</cfloop>
 </cfif>
 <cfsavecontent variable="rawexc">
-<cfdump var=#attributes# format="text">
+<cfdump var=#attributes# format="html">
 </cfsavecontent>
 <cfset exception.rawExceptionDump=rawexc>
 <!--- clean up the stuff we don't really care about --->
