@@ -64,11 +64,13 @@
 
 
 		<cfdump var=#x#>
+		
+		<cfset thex=exception>
 
-		<cfset structAppend(exception,x)>
+		<cfset structAppend(thex,x)>
 		
 		
-		<cfdump var=#exception#>
+		<cfdump var=#thex#>
 		
 		
 		
