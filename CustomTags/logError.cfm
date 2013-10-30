@@ -81,7 +81,10 @@
 		</cfif>
 	</cfloop>
 </cfif>
-
+<cfsavecontent variable="rawexc">
+<cfdump var=#attributes# format="text">
+</cfsavecontent>
+<cfset exception.rawExceptionDump=rawexc>
 <cfdump var=#exception#>
 	<!-----------
 </summary>
