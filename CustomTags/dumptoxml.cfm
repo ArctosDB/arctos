@@ -5,6 +5,10 @@
 <cfloop index="i" from="1" to="#var.RecordCount#"><cfloop index="j" list="#var.columnlist#">
 [ HELP NEW THING2!!! ]  #trim(HTMLEditFormat(Evaluate("var." & j & "[i]")))#</cfloop>
 </cfloop><cfelseif IsStruct(var)>
-<cfloop item="i" collection="#var#"><#trim(i)#><cf_dumptoxml variable="var['#i#']"></#trim(i)#></cfloop>
+<cfloop item="i" collection="#var#">
+<cfif isnumeric(i)>
+	<cfset i="Number_" & i>
+</cfif>
+<#trim(i)#><cf_dumptoxml variable="var['#i#']"></#trim(i)#></cfloop>
 <cfelseif IsArray(var)><cfloop index="i" from="1" to="#ArrayLen(var)#"><#trim(i)#><cftry>
 <cf_dumptoxml variable="var[#i#]"><cfcatch type="Any">&nbsp;</cfcatch></cftry></#trim(i)#></cfloop><cfelse>#trim(HTMLEditFormat(replace(var,'=','[EQUALS]','all')))#</cfif></cfoutput>
