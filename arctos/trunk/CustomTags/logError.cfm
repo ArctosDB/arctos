@@ -84,7 +84,7 @@
 </cfsavecontent>
 
 
-<textarea rows="50" cols="50">#rawexc#</textarea>
+<textarea rows="200" cols="200">#rawexc#</textarea>
 
 
 
