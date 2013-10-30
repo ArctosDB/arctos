@@ -583,6 +583,9 @@ function success_getSpecResultsData(result){
 			if (clistarray.indexOf('PARTS')> -1) {
 				theInnerHtml += '<th>Parts</th>';
 			}
+			if (clistarray.indexOf('SKULL_YN')> -1) {
+				theInnerHtml += '<th>SkullYN</th>';
+			}
 			if (clistarray.indexOf('PARTDETAIL')> -1) {
 				theInnerHtml += '<th>Part Detail</th>';
 			}
@@ -860,6 +863,9 @@ function success_getSpecResultsData(result){
 				
 				if (clistarray.indexOf('PARTS')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(data.PARTS[i]) + '</div></td>';
+				}
+				if (clistarray.indexOf('SKULL_YN')> -1) {
+					theInnerHtml += '<td>' + data.SKULL_YN[i] + '</td>';
 				}
 				if (clistarray.indexOf('PARTDETAIL')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + splitByLF(data.PARTDETAIL[i]) + '</div></td>';
