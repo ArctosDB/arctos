@@ -321,6 +321,11 @@
 	<cfif request.rdurl contains chr(195) & chr(151)>
 		<cfset request.rdurl=replace(request.rdurl,chr(195) & chr(151),chr(215))>
 	</cfif>
+	
+	<!--- a unique identifier to tie "short" log entries to the raw dump file ---->
+	
+	<cfset request.uuid=CreateUUID()>
+	
 	<!--- uncomment for a break from googlebot
 
 	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
@@ -479,6 +484,9 @@
 	
 	<cfif not FileExists("#Application.webDirectory#/log/blacklistlog.txt")> 
 	    <cffile action="write" file="#Application.webDirectory#/log/blacklistlog.txt" output="init"> 
+	</cfif>
+	<cfif not FileExists("#Application.webDirectory#/log/rawdump.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/rawdump.txt" output="init"> 
 	</cfif>
 	
 	
