@@ -38,6 +38,7 @@
 <cfelseif exception.subject is "autoblacklist">
 	<cfset theLogFile="blacklistlog.txt">
 </cfif>
+
 <cfset exception.logfile=theLogFile>
 <cfset exception.date='#dateformat(now(),"yyyy-mm-dd")#T#TimeFormat(now(), "HH:mm:ss")#'>
 

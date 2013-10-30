@@ -6,8 +6,8 @@
 <a href="errorLogViewer.cfm?log=log">log</a>
 <a href="errorLogViewer.cfm?log=404log">404log</a>
 <a href="errorLogViewer.cfm?log=missingGUIDlog">missingGUIDlog</a>
-<a href="errorLogViewer.cfm?blacklistlog=blacklistlog">blacklistlog</a>
-	
+<a href="errorLogViewer.cfm?log=blacklistlog">blacklistlog</a>
+<a href="errorLogViewer.cfm?log=emaillog">emaillog</a>
 	
 <cffile action="read" file="#Application.webDirectory#/log/#log#.txt" variable="logtxt">
 <cfoutput>	
