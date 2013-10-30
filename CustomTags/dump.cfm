@@ -34,24 +34,22 @@ this produces a table
 <cfoutput><cfif IsQuery(var)>
 <xmlQueryStarts>
 
-<table width="100%" border="1" cellspacing="0" cellpadding="3"><tr>
-<td colspan="#ListLen(var.ColumnList)#"><b>QUERY with #ListLen(var.ColumnList)# fields and #var.RecordCount# records</b></td>
-</tr><tr><td><table width="100%" border="1" cellspacing="0" cellpadding="3"><tr>
 <cfloop index="i" list="#var.columnlist#"><td> asdfasdasfskj  #trim(i)#</td></cfloop></tr>
 <cfloop index="i" from="1" to="#var.RecordCount#"><tr><cfloop index="j" list="#var.columnlist#">
 <td valign="top" align="left"> asdfasgdhgrt  #trim(HTMLEditFormat(Evaluate("var." & j & "[i]")))#</td></cfloop></tr></cfloop></table>
 </td></tr></table><cfelseif IsStruct(var)>
-<xmlStructStarts>
+
 
 <table width="100%" border="1" cellspacing="0" cellpadding="3">
 <tr bgcolor="eeeeee"><td colspan="2"><b>STRUCTURE with #StructCount(var)# elements</b></td></tr><tr><td>
 <table width="100%" border="1" cellspacing="0" cellpadding="3"><cfloop item="i" collection="#var#"><tr>
-<td nowrap valign="top"> adagidbfsefg  #trim(i)#</td><td valign="top"><CF_Dump variable="var['#i#']">
+<td nowrap valign="top"> [adagidbfsefg]  <#trim(i)#>
 
+<CF_Dump variable="var['#i#']">
 
-/adagidbfsefg
+</#trim(i)# [/adagidbfsefg]>
 
-</td></tr></cfloop>
+</cfloop>
 </table></td></tr></table><cfelseif IsArray(var)><table width="100%" border="1" cellspacing="0" cellpadding="3">
 <tr bgcolor="eeeeee"><td colspan="2"><b>ARRAY with #ArrayLen(var)# elements</b></td>
 </tr><tr><td><table width="100%" border="1" cellspacing="0" cellpadding="3">
