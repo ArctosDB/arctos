@@ -126,7 +126,7 @@
 	<cfset anchor="">
 </cfif>
 <!--------------------------- Code-table queries -------------------------------------------------->
-<cfquery name="ctIslandGroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+<cfquery name="ctIslandGroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select island_group from ctisland_group order by island_group
 </cfquery>
 <cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -150,8 +150,6 @@
 <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select datum from ctdatum order by datum
 </cfquery>
-
-
 
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
@@ -280,13 +278,18 @@
 			</tr>
 			<tr>
 				<td align="right">Island Group:</td>
-				<td><select name="island_group" size="1">
+				<td>
+				<cfif isdefined("island_group")>
+					<cfset  islandgroup=island_group>
+				<cfelse>
+					<cfset islandgroup=''>
+				</cfif>
+
+				<select name="island_group" size="1">
 				<option value=""></option>
 				<cfloop query="ctIslandGroup">
-					<option
-						<cfif isdefined("islandgroup")>
-							<cfif ctIslandGroup.island_group is islandgroup> selected="selected" </cfif>
-						</cfif>value="#ctIslandGroup.island_group#">#ctIslandGroup.island_group#
+					<option <cfif ctIslandGroup.island_group is islandgroup> selected="selected" </cfif>
+						value="#ctIslandGroup.island_group#">#ctIslandGroup.island_group#
 					</option>
 				</cfloop>
 			</select></td>
@@ -1838,10 +1841,26 @@ INSERT INTO geog_auth_rec (
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "findGeog">
+<cfset title="Geography Search Results">
 <cfoutput>
 <cf_findLocality type="geog">
-<table border>
-<tr><td><b>Geog ID</b></td><td><b>Higher Geog</b></td></tr>
+<script src="/includes/sorttable.js"></script>
+
+<table border id="t" class="sortable">
+	<tr>
+		<th>Geog ID</th>
+		<th>Higher Geog</th>
+		<th>Continent</th>
+		<th>Country</th>
+		<th>State</th>
+		<th>County</th>
+		<th>Quad</th>
+		<th>Feature</th>
+		<th>IslandGroup</th>
+		<th>Island</th>
+		<th>Sea</th>
+		<th>Feature</th>	
+	</tr>
 <cfloop query="localityResults">
 <tr>
 	<td><a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#geog_auth_rec_id#</a></td>
@@ -1849,7 +1868,16 @@ INSERT INTO geog_auth_rec (
 		<!--- make this as input that looks like test to make copying easier --->
 		<input style="border:none;" value="#higher_geog#" size="80" readonly="yes"/>
 	</td>
-</tr>
+	<td>#CONTINENT_OCEAN#</td>
+	<td>#COUNTRY#</td>
+	<td>#STATE_PROV#</td>
+	<td>#COUNTY#</td>
+	<td>#QUAD#</td>
+	<td>#FEATURE#</td>
+	<td>#ISLAND_GROUP#</td>
+	<td>#ISLAND#</td>
+	<td>#SEA#</td>
+  </tr>
 </cfloop>
 </cfoutput>
 </table>
