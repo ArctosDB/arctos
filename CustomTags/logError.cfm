@@ -157,11 +157,11 @@
 	<cfset StructDelete(exception, "specsrchtab")>
 </cfif>
 
-<cfset logdata="">
+<cfset logdata="<logEntry">
 <cfloop item="key" collection="#exception#">
 	<cfset logdata=logdata & "<#key#>#exception[key]#</#key#>">
 </cfloop>
-	
+<cfset logdata=logdata & "</logEntry">	
 	
 <cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#logdata#">
 
