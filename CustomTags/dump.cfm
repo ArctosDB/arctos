@@ -1,29 +1,9 @@
 <!--- 
+MODIFIED FROM
 
 CF_Dump.cfm v1.3
-Part of the SmartObjects framework -- providing an Object Oriented foundation for CFML.
-For more information, visit http://www.smart-objects.com
 
-This tag dumps any variable or nested structure of variables to the screen using 
-expanding DHTML tables.  Currently tested only on IE.
-
-<CF_Dump variable="Application">
-
-	variable : name of the variable in the caller's scope to be dumped.
-               Alternatively, the shorthand v="name" can be used to 
-			   accomplish the same task.
-
-Version 1.3
-* Added WDDX Lookup (long overdue)
-
-Version 1.2  
-* Removed dependancy on common javascript file in /common/scripts/spinner.js
-  
-Version 1.1  
-* Added expandable DHTML controls.
-  
-Version 1.0  
-* Custom tag dumps plain variables, arrays, structures, and queries.  Super cool!
+dump into a simple table
 
 
 --->
@@ -39,58 +19,20 @@ Version 1.0
 
 <cfoutput>
 
-	<script>
-		<!--
-		function spinner(spinner, division, icon)
-		{
-			if (spinner)
-			{
-				if (spinner.status)
-				{
-					spinner.status = false;
-					division.style.display ='none';
-					spinner.src = '/common/images/spinner/' + icon + '_up.gif';
-				}
-				else
-				{
-					spinner.status = true;
-					division.style.display ='';
-					spinner.src = '/common/images/spinner/' + icon + '_dn.gif';
-				}
-			}
-		}	
-		-->		
-	</script>
-
-	<cfif ListValueCountNoCase(GetBaseTagList(), "CF_Dump") IS 1>
-		<p>
-		<b>#Attributes.v# = </b>
-	</cfif>
-	
 	<cfset id = Replace(CreateUUID(), "-", "_", "ALL")>
 	
 	
 	<cfif IsQuery(var)>
-		no can do <cfabort>
-		<!-----------
 		<table width="100%" border="1" cellspacing="0" cellpadding="3">
-			<tr bgcolor="eeeeee">
+			<tr>
 				<td colspan="#ListLen(var.ColumnList)#">
-					<a href="javascript:spinner(window.document.spinner_#id#, id_#id#, 'white')"
-					><img 
-						src="/common/images/spinner/white_up.gif" 
-						name="spinner_#id#"
-						height="15"
-						width="15"
-						border="0"
-					></a>
+					
 					<b>QUERY with #ListLen(var.ColumnList)# fields and #var.RecordCount# records</b>
 				</td>
 			</tr>
 
 			<tr><td>
 
-				<div id="id_#id#" style="display:none;">
 
 					<table width="100%" border="1" cellspacing="0" cellpadding="3">
 						<tr>
@@ -107,7 +49,6 @@ Version 1.0
 							</tr>
 						</cfloop>
 					</table>
-				</div>
 				
 			</td></tr>
 			
@@ -118,14 +59,7 @@ Version 1.0
 		<table width="100%" border="1" cellspacing="0" cellpadding="3">
 			<tr bgcolor="eeeeee">
 				<td colspan="2">
-					<a href="javascript:spinner(window.document.spinner_#id#, id_#id#, 'white')"
-					><img 
-						src="/common/images/spinner/white_up.gif" 
-						name="spinner_#id#"
-						height="15"
-						width="15"
-						border="0"
-					></a>
+					
 					<b>STRUCTURE with #StructCount(var)# elements</b>
 				</td>
 			</tr>
@@ -150,14 +84,7 @@ Version 1.0
 		<table width="100%" border="1" cellspacing="0" cellpadding="3">
 			<tr bgcolor="eeeeee">
 				<td colspan="2">
-					<a href="javascript:spinner(window.document.spinner_#id#, id_#id#, 'white')"
-					><img 
-						src="/common/images/spinner/white_up.gif" 
-						name="spinner_#id#"
-						height="15"
-						width="15"
-						border="0"
-					></a>
+					
 					<b>ARRAY with #ArrayLen(var)# elements</b>
 				</td>
 			</tr>
