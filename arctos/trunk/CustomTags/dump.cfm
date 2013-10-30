@@ -186,7 +186,7 @@ Version 1.0
 		</table>
 		
 		
-		<cfset xmlstring=xmlstring & "</dump>">
+		<cfset x=x & "</dump>">
 	<!--- Attribute is a normal scalar value --->
 	<cfelse>
 		&quot;#HTMLEditFormat(var)#&quot;
