@@ -46,7 +46,12 @@ this produces a table
 <table width="100%" border="1" cellspacing="0" cellpadding="3">
 <tr bgcolor="eeeeee"><td colspan="2"><b>STRUCTURE with #StructCount(var)# elements</b></td></tr><tr><td>
 <table width="100%" border="1" cellspacing="0" cellpadding="3"><cfloop item="i" collection="#var#"><tr>
-<td nowrap valign="top"> adagidbfsefg  #trim(i)#</td><td valign="top"><CF_Dump variable="var['#i#']"></td></tr></cfloop>
+<td nowrap valign="top"> adagidbfsefg  #trim(i)#</td><td valign="top"><CF_Dump variable="var['#i#']">
+
+
+/adagidbfsefg
+
+</td></tr></cfloop>
 </table></td></tr></table><cfelseif IsArray(var)><table width="100%" border="1" cellspacing="0" cellpadding="3">
 <tr bgcolor="eeeeee"><td colspan="2"><b>ARRAY with #ArrayLen(var)# elements</b></td>
 </tr><tr><td><table width="100%" border="1" cellspacing="0" cellpadding="3">
