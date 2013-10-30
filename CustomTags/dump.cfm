@@ -31,33 +31,39 @@ this produces a table
 <cfif IsDefined("Attributes.v")><cfset var = Evaluate("Caller." & Attributes.v)><cfelseif IsDefined("Attributes.variable")>
 <cfset var = Evaluate("Caller." & Attributes.variable)><cfset Attributes.v = Attributes.variable><cfelse>
 <cfthrow type="SmartObjects.CF_Dump.MissingAttribute.Variable" message="CF_Dump: Required Attribute &quot;variable&quot; not defined"></cfif>
-<cfoutput><cfif IsQuery(var)>
-<xmlQueryStarts>
+<cfoutput>
 
-<cfloop index="i" list="#var.columnlist#"><td> asdfasdasfskj  #trim(i)#</td></cfloop></tr>
-<cfloop index="i" from="1" to="#var.RecordCount#"><tr><cfloop index="j" list="#var.columnlist#">
- asdfasgdhgrt  #trim(HTMLEditFormat(Evaluate("var." & j & "[i]")))#
+<cfif IsQuery(var)>
+	<xmlQueryStarts>
 
-</cfloop>
-</cfloop>
+	<cfloop index="i" list="#var.columnlist#">
+		asdfasdasfskj  #trim(i)#
+	</cfloop>
+	<cfloop index="i" from="1" to="#var.RecordCount#">
+		<cfloop index="j" list="#var.columnlist#">
+ 			asdfasgdhgrt  #trim(HTMLEditFormat(Evaluate("var." & j & "[i]")))#
+		</cfloop>
+	</cfloop>
 <cfelseif IsStruct(var)>
-<cfloop item="i" collection="#var#"> [adagidbfsefg]  <#trim(i)#>
+	<cfloop item="i" collection="#var#"> 
+		[adagidbfsefg]  <#trim(i)#>
+		<CF_Dump variable="var['#i#']">
+		</#trim(i)# [/adagidbfsefg]>
+	</cfloop>
+<cfelseif IsArray(var)>
+	<cfloop index="i" from="1" to="#ArrayLen(var)#">
+		 ooihbiiknj #trim(i)#
+		<cftry>
+			<CF_Dump variable="var[#i#]">
+			<cfcatch type="Any">&nbsp;</cfcatch>
+		</cftry>
 
-<CF_Dump variable="var['#i#']">
+		#trim(i)#
 
-</#trim(i)# [/adagidbfsefg]>
+	</cfloop>
 
-</cfloop>
+<cfelse>
+	 khaugbuybfuesvb   #trim(HTMLEditFormat(var))#
+</cfif>
 
-<cfelseif IsArray(var)
-
-
-<cfloop index="i" from="1" to="#ArrayLen(var)#">
-
- ooihbiiknj <#trim(i)#>
-<cftry>
-<CF_Dump variable="var[#i#]"><cfcatch type="Any">&nbsp;</cfcatch></cftry>
-< / #trim(i)#>
-</cfloop>
-
-<cfelse> khaugbuybfuesvb   #trim(HTMLEditFormat(var))#</cfif></cfoutput>
+</cfoutput>
