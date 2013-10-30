@@ -35,11 +35,11 @@ this produces a table
 
 <cfif IsQuery(var)>
 	<cfloop index="i" list="#var.columnlist#">
-		asdfasdasfskj  #trim(i)#
+		[ HELP NEW THING!!! ]  #trim(i)#
 	</cfloop>
 	<cfloop index="i" from="1" to="#var.RecordCount#">
 		<cfloop index="j" list="#var.columnlist#">
- 			asdfasgdhgrt  #trim(HTMLEditFormat(Evaluate("var." & j & "[i]")))#
+ 			[ HELP NEW THING2!!! ]  #trim(HTMLEditFormat(Evaluate("var." & j & "[i]")))#
 		</cfloop>
 	</cfloop>
 <cfelseif IsStruct(var)>
@@ -48,16 +48,11 @@ this produces a table
 	</cfloop>
 <cfelseif IsArray(var)>
 	<cfloop index="i" from="1" to="#ArrayLen(var)#">
-		 <#trim(i)#>
-		<cftry>
-			<CF_Dump variable="var[#i#]">
-			<cfcatch type="Any">&nbsp;</cfcatch>
-		</cftry>
-		</#trim(i)#>
+		 <#trim(i)#><cftry><CF_Dump variable="var[#i#]"><cfcatch type="Any">&nbsp;</cfcatch></cftry></#trim(i)#>
 	</cfloop>
 
 <cfelse>
-	 khaugbuybfuesvb   #trim(HTMLEditFormat(var))#
+	 #trim(HTMLEditFormat(var))#
 </cfif>
 
 </cfoutput>
