@@ -173,7 +173,6 @@ Version 1.0
 					</table>
 			</td></tr>
 		</table>
-
 	<!--- Attribute is a normal scalar value --->
 	<cfelse>
 		&quot;#HTMLEditFormat(var)#&quot;
