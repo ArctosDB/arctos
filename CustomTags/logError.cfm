@@ -159,6 +159,7 @@
 	<cfif structKeyExists(exception,"username")>
 		Username: #exception.username#
 	</cfif>
+	<cfdump var=#exception#>
 </cfmail>
 	
 
