@@ -31,28 +31,4 @@ this produces a table
 <cfif IsDefined("Attributes.v")><cfset var = Evaluate("Caller." & Attributes.v)><cfelseif IsDefined("Attributes.variable")>
 <cfset var = Evaluate("Caller." & Attributes.variable)><cfset Attributes.v = Attributes.variable><cfelse>
 <cfthrow type="SmartObjects.CF_Dump.MissingAttribute.Variable" message="CF_Dump: Required Attribute &quot;variable&quot; not defined"></cfif>
-<cfoutput>
-
-<cfif IsQuery(var)>
-	<cfloop index="i" list="#var.columnlist#">
-		[ HELP NEW THING!!! ]  #trim(i)#
-	</cfloop>
-	<cfloop index="i" from="1" to="#var.RecordCount#">
-		<cfloop index="j" list="#var.columnlist#">
- 			[ HELP NEW THING2!!! ]  #trim(HTMLEditFormat(Evaluate("var." & j & "[i]")))#
-		</cfloop>
-	</cfloop>
-<cfelseif IsStruct(var)>
-	<cfloop item="i" collection="#var#"> 
-		<#trim(i)#><CF_Dump variable="var['#i#']"></#trim(i)#>
-	</cfloop>
-<cfelseif IsArray(var)>
-	<cfloop index="i" from="1" to="#ArrayLen(var)#">
-		 <#trim(i)#><cftry><CF_Dump variable="var[#i#]"><cfcatch type="Any">&nbsp;</cfcatch></cftry></#trim(i)#>
-	</cfloop>
-
-<cfelse>
-	 #trim(HTMLEditFormat(var))#
-</cfif>
-
-</cfoutput>
+<cfoutput><cfif IsQuery(var)><cfloop index="i" list="#var.columnlist#">[ HELP NEW THING!!! ]  #trim(i)#</cfloop><cfloop index="i" from="1" to="#var.RecordCount#"><cfloop index="j" list="#var.columnlist#">[ HELP NEW THING2!!! ]  #trim(HTMLEditFormat(Evaluate("var." & j & "[i]")))#</cfloop></cfloop><cfelseif IsStruct(var)><cfloop item="i" collection="#var#"><#trim(i)#><CF_Dump variable="var['#i#']"></#trim(i)#></cfloop><cfelseif IsArray(var)><cfloop index="i" from="1" to="#ArrayLen(var)#"><#trim(i)#><cftry><CF_Dump variable="var[#i#]"><cfcatch type="Any">&nbsp;</cfcatch></cftry></#trim(i)#></cfloop><cfelse>#trim(HTMLEditFormat(var))#</cfif></cfoutput>
