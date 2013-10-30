@@ -30,14 +30,13 @@
 	now see if we can figure out an appropriate logfile
 	make sure all these are initiated in application start
 ----->
+<cfset theLogFile="log.txt">
 <cfif exception.subject is "404">
 	<cfset theLogFile="404log.txt">
 <cfelseif exception.subject is "missing GUID">
 	<cfset exception.theLogFile="missingGUIDlog.txt">
 <cfelseif exception.subject is "autoblacklist">
 	<cfset theLogFile="blacklistlog.txt">
-<cfelse>
-	<cfset theLogFile="log.txt">
 </cfif>
 <cfset exception.logfile=theLogFile>
 <cfset exception.date='#dateformat(now(),"yyyy-mm-dd")#T#TimeFormat(now(), "HH:mm:ss")#'>
