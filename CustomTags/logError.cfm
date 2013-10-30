@@ -170,7 +170,7 @@
 
 <cfset logdata="<logEntry>">
 <cfloop item="key" collection="#exception#">
-	<cfset logdata=logdata & "<#key#>#replace(exception[key],'=','[EQUALS]','all')#</#key#>">
+	<cfset logdata=logdata & "<#key#>#replace(replace(exception[key],'=','[EQUALS]','all'),'&','[AND]','all')#</#key#>">
 </cfloop>
 <cfset logdata=logdata & "</logEntry>">	
 <cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#logdata#">
