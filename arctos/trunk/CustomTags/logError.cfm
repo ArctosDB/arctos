@@ -82,6 +82,18 @@
 <cfsavecontent variable="rawexc">
 <cf_dump v=attributes>
 </cfsavecontent>
+
+
+<textarea rows="50" cols="50">#rawexc#</textarea>
+
+
+
+
+<cfabort>
+
+
+
+
 <cfset exception.rawExceptionDump=rawexc>
 <!--- clean up the stuff we don't really care about --->
 <cfif structkeyexists(exception,"HTTPS")>
