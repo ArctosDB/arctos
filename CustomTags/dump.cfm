@@ -133,7 +133,7 @@ Version 1.0
 			<tr><td>
 					<table width="100%" border="1" cellspacing="0" cellpadding="3">
 						<cfloop item="i" collection="#var#">
-							<cfset xmlstring=xmlstring & "<#i#>">
+							<cfset x=x & "<#i#>">
 						
 							<tr>
 								<td nowrap valign="top">#i#</td>
@@ -202,5 +202,7 @@ Version 1.0
 <hr>
 #x#
 <hr>
+
+<cfdump var=#x#>
 </cfoutput>
 
