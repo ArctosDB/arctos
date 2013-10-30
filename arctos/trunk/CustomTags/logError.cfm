@@ -43,11 +43,14 @@
 	<cfset exception.username=session.username>
 </cfif>
 <cfset exception.ipaddress=request.ipaddress>
-<cfif isdefined("exception")>
-	<cfloop item="key" collection="#exception#">
-		
-		<cfif len(exception[key]) gt 0>
-			<cfset "session.#key#"="#exception[key]#">
+
+
+
+
+<cfif isdefined("form")>
+	<cfloop item="key" collection="#form#">
+		<cfif len(form[key]) gt 0>
+			<cfset "exception.#key#"="#form[key]#">
 		</cfif>
 	</cfloop>
 </cfif>
