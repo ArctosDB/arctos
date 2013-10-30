@@ -59,7 +59,15 @@
 		<cfset exception.uuid=request.uuid>
 		
 				<cfset exception.IAmANewField="aknsdfkajsbdaskdfnasjd">
+		<cfset x=structNew()>
+		<cfset x.uuid="request.uuid">
 
+
+		<cfdump var=#x#>
+
+		<cfset structAppend(exception,x)>
+		
+		
 		<cfdump var=#exception#>
 		
 		
