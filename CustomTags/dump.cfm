@@ -70,7 +70,6 @@ Version 1.0
 	<cfset id = Replace(CreateUUID(), "-", "_", "ALL")>
 	
 	
-	<cfset x="<dump>">
 	<cfif IsQuery(var)>
 		no can do <cfabort>
 		<!-----------
@@ -133,7 +132,6 @@ Version 1.0
 			<tr><td>
 					<table width="100%" border="1" cellspacing="0" cellpadding="3">
 						<cfloop item="i" collection="#var#">
-							<cfset x=x & "<#i#>">
 						
 							<tr>
 								<td nowrap valign="top">#i#</td>
@@ -141,7 +139,6 @@ Version 1.0
 									<CF_Dump variable="var['#i#']">
 								</td>
 								
-								<cfset x=x & "</#i#>">
 							</tr>
 						</cfloop>
 					</table>
@@ -169,7 +166,6 @@ Version 1.0
 						<cfloop index="i" from="1" to="#ArrayLen(var)#">
 							<tr>
 								<td nowrap valign="top">#i#</td>
-								<cfset x=x & "<#i#>">
 
 								<td valign="top">
 									<cftry>
@@ -177,7 +173,6 @@ Version 1.0
 										<cfcatch type="Any">&nbsp;</cfcatch>
 									</cftry>
 									
-									<cfset x=x & "</#i#>">
 								</td>
 							</tr>
 						</cfloop>
@@ -186,7 +181,6 @@ Version 1.0
 		</table>
 		
 		
-		<cfset x=x & "</dump>">
 	<!--- Attribute is a normal scalar value --->
 	<cfelse>
 		&quot;#HTMLEditFormat(var)#&quot;
@@ -199,10 +193,6 @@ Version 1.0
 			<cfcatch type="ANY"></cfcatch>
 		</cftry>
 	</cfif>
-<hr>
-#x#
-<hr>
 
-<cfdump var=#x#>
 </cfoutput>
 
