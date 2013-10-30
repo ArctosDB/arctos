@@ -92,6 +92,80 @@
 <cfif structkeyexists(exception,"HTTPS")>
 	<cfset StructDelete(exception, "HTTPS")>
 </cfif>
+<cfif structkeyexists(exception,"header_color")>
+	<cfset StructDelete(exception, "header_color")>
+</cfif>
+<cfif structkeyexists(exception,"header_image")>
+	<cfset StructDelete(exception, "header_image")>
+</cfif>
+<cfif structkeyexists(exception,"institution_url")>
+	<cfset StructDelete(exception, "institution_url")>
+</cfif>
+<cfif structkeyexists(exception,"mediasrchtab")>
+	<cfset StructDelete(exception, "mediasrchtab")>
+</cfif>	
+<cfif structkeyexists(exception,"meta_description")>
+	<cfset StructDelete(exception, "meta_description")>
+</cfif>
+<cfif structkeyexists(exception,"meta_keywords")>
+	<cfset StructDelete(exception, "meta_keywords")>
+</cfif>
+<cfif structkeyexists(exception,"sessionid")>
+	<cfset StructDelete(exception, "sessionid")>
+</cfif>
+<cfif structkeyexists(exception,"sessionkey")>
+	<cfset StructDelete(exception, "sessionkey")>
+</cfif>
+<cfif structkeyexists(exception,"specsrchtab")>
+	<cfset StructDelete(exception, "sesspecsrchtabsionkey")>
+</cfif>
+<cfif structkeyexists(exception,"taxsrchtab")>
+	<cfset StructDelete(exception, "taxsrchtab")>
+</cfif>
+<cfif structkeyexists(exception,"SERVER_NAME")>
+	<cfset StructDelete(exception, "SERVER_NAME")>
+</cfif>
+<cfif structkeyexists(exception,"SERVER_PORT")>
+	<cfset StructDelete(exception, "SERVER_PORT")>
+</cfif>
+<cfif structkeyexists(exception,"SERVER_PORT_SECURE")>
+	<cfset StructDelete(exception, "SERVER_PORT_SECURE")>
+</cfif>
+<cfif structkeyexists(exception,"SERVER_PROTOCOL")>
+	<cfset StructDelete(exception, "SERVER_PROTOCOL")>
+</cfif>
+<cfif structkeyexists(exception,"downloadfilename")>
+	<cfset StructDelete(exception, "downloadfilename")>
+</cfif>
+<cfif structkeyexists(exception,"epw")>
+	<cfset StructDelete(exception, "epw")>
+</cfif>
+<cfif structkeyexists(exception,"flattablename")>
+	<cfset StructDelete(exception, "flattablename")>
+</cfif>
+<cfif structkeyexists(exception,"getjulianday")>
+	<cfset StructDelete(exception, "getjulianday")>
+</cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <cfdump var=#exception#>
 	<!-----------
 </summary>
