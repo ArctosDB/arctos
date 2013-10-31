@@ -454,6 +454,15 @@ function success_getSpecResultsData(result){
 			if (clistarray.indexOf('FAMILY')> -1) {
 				theInnerHtml += '<th>Family</th>';
 			}
+			if (clistarray.indexOf('SUBFAMILY')> -1) {
+				theInnerHtml += '<th>Subfamily</th>';
+			}
+			if (clistarray.indexOf('TRIBE')> -1) {
+				theInnerHtml += '<th>Tribe</th>';
+			}
+			if (clistarray.indexOf('SUBTRIBE')> -1) {
+				theInnerHtml += '<th>Subtribe</th>';
+			}
 			if (clistarray.indexOf('OTHERCATALOGNUMBERS')> -1) {
 				theInnerHtml += '<th>Other&nbsp;Identifiers</th>';
 			}
@@ -726,6 +735,15 @@ function success_getSpecResultsData(result){
 				}
 				if (clistarray.indexOf('FAMILY')> -1) {
 					theInnerHtml += '<td>' + data.FAMILY[i] + '</td>';
+				}
+				if (clistarray.indexOf('SUBFAMILY')> -1) {
+					theInnerHtml += '<td>' + data.SUBFAMILY[i] + '</td>';
+				}
+				if (clistarray.indexOf('TRIBE')> -1) {
+					theInnerHtml += '<td>' + data.TRIBE[i] + '</td>';
+				}
+				if (clistarray.indexOf('SUBTRIBE')> -1) {
+					theInnerHtml += '<td>' + data.SUBTRIBE[i] + '</td>';
 				}
 				if (clistarray.indexOf('OTHERCATALOGNUMBERS')> -1) {
 					theInnerHtml += '<td>' + splitBySemicolon(data.OTHERCATALOGNUMBERS[i]) + '</td>';
