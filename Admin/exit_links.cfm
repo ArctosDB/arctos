@@ -33,7 +33,14 @@
 				<cfelse>
 					*
 				</cfif>
-			 from exit_link order by WHEN_DATE desc
+			 from exit_link 
+			 <cfif len(fdate) gt 0>
+			 	where WHEN_DATE > '#fdate#'
+			 </cfif>
+			 <cfif len(ldate) gt 0>
+			 	where WHEN_DATE < '#fdate#'
+			 </cfif>
+			 order by WHEN_DATE desc
 		</cfquery>
 		<cfif format is "table">
 			<table border>
@@ -61,7 +68,7 @@
 				</cfloop>
 			</table>
 		<cfelseif format is "summary">
-			count: #c#
+			count: #exit.c#
 		<cfelseif format is "csv">
 			building csv.....
 		<cfelse>
