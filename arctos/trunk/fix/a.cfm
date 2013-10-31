@@ -14,6 +14,7 @@
 		<cfset state=listgetat(data,2," ")>
 	<cfelseif listlen(data," ") is 3>
 		<cfset county=listgetat(data,1,",")>
+		<br>ctemp1: #county#
 		<cfset listdeleteat(county,1," ")>
 	</cfif>
 	<br>State: #state#
