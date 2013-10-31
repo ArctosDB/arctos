@@ -1,5 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
 
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+
+
 <cfif not isdefined("log")>
 	<cfset log="log">
 </cfif>
@@ -14,21 +17,11 @@
 
 
 
-<xsl:stylesheet version="1.0"
- xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
- <xsl:output omit-xml-declaration="yes" indent="yes"/>
-
-    <xsl:template match="node()|@*">
-      <xsl:copy>
-        <xsl:apply-templates select="node()|@*"/>
-      </xsl:copy>
-    </xsl:template>
-</xsl:stylesheet>
-
 
 <cfoutput>
-#logtxt#
 
+
+ <pre class="prettyprint">#logtxt#</pre> 
 
 </cfoutput>
 <!----
