@@ -8,12 +8,19 @@
 <a href="errorLogViewer.cfm?log=missingGUIDlog">missingGUIDlog</a>
 <a href="errorLogViewer.cfm?log=blacklistlog">blacklistlog</a>
 <a href="errorLogViewer.cfm?log=emaillog">emaillog</a>
-	
-<cffile action="read" file="#Application.webDirectory#/log/#log#.txt" variable="logtxt">
+
+
+
 <cfoutput>
-<textarea>
-<logs>#logtxt#</logs>
-</textarea>
+
+
+<iframe src="xmlView.cfm?log=#log#">
+
+</iframe>
+
+
+
+
 </cfoutput>
 <!----
 <cfoutput>	
