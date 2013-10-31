@@ -1,18 +1,13 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Exit Link Report">
-<cfoutput>
-	<cfparam name="fdate">
-	<script>
+<script>
 		jQuery(document).ready(function() {
 			$("#fdate").datepicker();
-			$("#e_ent_date").datepicker();
-			$("#rec_date").datepicker();
-			$("#rec_until_date").datepicker();	
-			$("#issued_date").datepicker();
-			$("#renewed_date").datepicker();
-			$("#exp_date").datepicker();		
 		});
 </script>
+<cfoutput>
+	<cfparam name="fdate">
+	
 	<form method="post" action="exit_links.cfm">
 		<label for="fdate">Earlies Date</label>
 		<input type="text" id="fdate" name="fdate" value="#fdate#">
