@@ -56,7 +56,7 @@
 
 <cfoutput>
 
-	<pre>#htmlEditFormat(indentXml('<html><head><title>Test Page</title></head><body><h1>Hello!</h1></body></html>'))#</pre>
+	<pre>#htmlEditFormat(indentXml(logtxt))#</pre>
 
 </cfoutput>
 <!----
