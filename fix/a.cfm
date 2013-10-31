@@ -11,7 +11,7 @@
 <hr>
 <cfset county="">
 	<br>#data#
-	<cfif listlen(data," ") is 2>
+	<cfif ucase(data) is ," ") is 2>
 		<cfset state=listgetat(data,2," ")>
 	<cfelse>
 		<cfset county=listgetat(data,1,",")>
