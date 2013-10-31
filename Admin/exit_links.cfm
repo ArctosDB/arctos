@@ -30,7 +30,7 @@
 			select
 				<cfif format is "summary">
 					count(*) total,
-					count(distinct(ip)) numberOfIPs,
+					count(distinct(IPADDRESS)) numberOfIPs,
 					count(distinct(username)) numberOfUsers,
 					count(distinct(FROM_PAGE)) numberOfRefererrs,
 					count(distinct(HTTP_TARGET)) numberOfMedia	
