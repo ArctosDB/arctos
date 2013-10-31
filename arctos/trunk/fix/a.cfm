@@ -5,10 +5,10 @@
 <cfquery name="c" datasource="uam_god">
 	select data from county order by data
 </cfquery>
+<cfset state="">
 
 <cfloop query="c">
 <hr>
-<cfset state="">
 <cfset county="">
 	<br>#data#
 	<cfif listlen(data," ") is 2>
