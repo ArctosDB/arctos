@@ -21,7 +21,7 @@
 <cfoutput>
 
 
- <pre class="prettyprint">#logtxt#</pre> 
+ <pre class="prettyprint lang-xml">#logtxt#</pre> 
 
 </cfoutput>
 <!----
