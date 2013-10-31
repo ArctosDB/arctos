@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 
-<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&lang=ml"></script>
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&amp;lang=ml"></script>
 
 
 <cfif not isdefined("log")>
