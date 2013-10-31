@@ -29,7 +29,11 @@
 		<cfquery name="exit"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				<cfif format is "summary">
-					count(*) c
+					count(*) total,
+					count(distinct(ip)) numberOfIPs,
+					count(distinct(username)) numberOfUsers,
+					count(distinct(referrer)) numberOfRefererrs,
+					count(distinct(rawTarget)) numberOfMedia	
 				<cfelse>
 					*
 				</cfif>
