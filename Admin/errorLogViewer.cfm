@@ -11,7 +11,9 @@
 	
 <cffile action="read" file="#Application.webDirectory#/log/#log#.txt" variable="logtxt">
 <cfoutput>
+<iframe>
 <logs>#logtxt#</logs>
+</iframe>
 </cfoutput>
 <!----
 <cfoutput>	
