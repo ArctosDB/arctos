@@ -20,6 +20,13 @@
 	</cfif>
 	<br>State: #state#
 	<br>County: #county#
+	<cfif len(state) gt 0 and len(county) gt 0>
+	<cfquery name="d" datasource="uam_god">
+		insert into uscensuscounty (state,county) values ('#trim(state)#','#trim(county)#')
+	</cfquery>
+
+		
+	</cfif>
 </cfloop>
 			</cfoutput>
 		<cfinclude template="/includes/_footer.cfm">
