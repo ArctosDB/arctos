@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>		
 		<cfparam name="hours" default="24" type="integer">
-		DEFAULT is last 24 hours. Youc an change that by adding a URL parameter. Example:
+		DEFAULT is last 24 hours. You can change that by adding a URL parameter. Example:
 		
 		<a href="authority_change.cfm?hours=36">authority_change.cfm?hours=36</a>
 		<cfquery name="geog" datasource="uam_god">
@@ -12,7 +12,7 @@
 			WHERE
 				WHEN > SYSDATE - (1/#hours#)
 		</cfquery>
-		
+		<cfsavecontent variable="changes">
 		<p>
 			There have been #geog.recordcount# GEOG_AUTH_REC changes in the last #hours# hours.
 		</p>
@@ -70,6 +70,9 @@
 					</tr>
 				</cfloop>
 			</table>
+			</cfsavecontent>
+			
+			#changes#
 		</cfif>
 		
 	
