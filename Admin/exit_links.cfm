@@ -33,12 +33,13 @@
 				<cfelse>
 					*
 				</cfif>
-			 from exit_link 
+			 from exit_link
+			 where 1=1 
 			 <cfif len(fdate) gt 0>
-			 	where WHEN_DATE > '#fdate#'
+			 	and WHEN_DATE > '#fdate#'
 			 </cfif>
 			 <cfif len(ldate) gt 0>
-			 	where WHEN_DATE < '#fdate#'
+			 	and WHEN_DATE < '#fdate#'
 			 </cfif>
 			 order by WHEN_DATE desc
 		</cfquery>
