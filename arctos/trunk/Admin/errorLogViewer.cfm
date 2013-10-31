@@ -21,13 +21,19 @@
 <cfoutput>
 
 
- <pre class="prettyprint lang-xml"><root>#logtxt#</root></pre> 
+ <pre class="prettyprint lang-xml"><root><test>test</test></root></pre> 
 
 </cfoutput>
 <!----
 <cfoutput>	
 	<cfset x=xmlparse("<logs>" & logtxt & "</logs>")>
 	<cfdump var=#x#>
+	
+	
+	<br />#logtxt#
+	
+	
+	
 </cfoutput>
 ------>
 <cfinclude template="/includes/_footer.cfm">
