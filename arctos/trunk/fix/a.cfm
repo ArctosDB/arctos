@@ -3,7 +3,7 @@
 <cfoutput>
 
 <cfquery name="c" datasource="uam_god">
-	select data from county order by county
+	select data from county order by data
 </cfquery>
 
 <cfloop query="c">
