@@ -10,8 +10,11 @@
 <a href="errorLogViewer.cfm?log=emaillog">emaillog</a>
 	
 <cffile action="read" file="#Application.webDirectory#/log/#log#.txt" variable="logtxt">
+<logs>#logtxt#</logs>
+<!----
 <cfoutput>	
 	<cfset x=xmlparse("<logs>" & logtxt & "</logs>")>
 	<cfdump var=#x#>
 </cfoutput>
+------>
 <cfinclude template="/includes/_footer.cfm">
