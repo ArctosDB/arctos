@@ -48,7 +48,11 @@
 		
 		select
 				<cfif format is "summary">
-					count(*) c
+					count(*) total,
+					count(distinct(ip)) numberOfIPs,
+					count(distinct(username)) numberOfUsers,
+					count(distinct(referrer)) numberOfRefererrs,
+					count(distinct(rawTarget)) numberOfMedia					
 				<cfelse>
 					*
 				</cfif>
@@ -83,15 +87,37 @@
 						<td>#TARGET#</td>
 						<td>#STATUS#</td>
 						<td>#USERNAME#</td>
-						<td>#WHEN_DATE#</td>
-						<td>#IPADDRESS#</td>	 	 	
+						<td>#IPADDRESS#</td>
+						<td>#WHEN_DATE#</td> 	 	
 					</tr>
 				</cfloop>
 			</table>
 		<cfelseif format is "summary">
-			count: #exit.c#
+			<br>Total Clicks: #total#
+			<br>Unique IPs: #numberOfIPs#
+			<br>Unique Users: #numberOfUsers#
+			<br>Unique Referrers: #numberOfRefererrs#
+			<br>Unique Media/Files: #numberOfMedia#
 		<cfelseif format is "csv">
-			building csv.....
+			<cfset fileDir = "#Application.webDirectory#">
+			<cfset variables.encoding="UTF-8">
+			<cfset fname = "exit_links.csv">
+			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+			<cfscript>
+				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+				variables.joFileWriter.writeLine(ListQualify("ID,Referrer,HTTPTarget,RawTarget,Status,Username,IP,Date",'"')); 
+			</cfscript>
+			<cfloop query="exit">
+				<cfset oneLine = "'#EXIT_LINK_ID#','#FROM_PAGE#','#HTTP_TARGET#','#TARGET#','#STATUS#','#USERNAME#','#IPADDRESS#','#WHEN_DATE#'">
+				<cfscript>
+					variables.joFileWriter.writeLine(oneLine);
+				</cfscript>
+			</cfloop>
+			<cfscript>	
+				variables.joFileWriter.close();
+			</cfscript>
+			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+			<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 		<cfelse>
 			bad call<cfabort>
 		</cfif>
