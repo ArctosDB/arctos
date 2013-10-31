@@ -43,6 +43,26 @@
 			 </cfif>
 			 order by WHEN_DATE desc
 		</cfquery>
+		
+		<hr>
+		
+		select
+				<cfif format is "summary">
+					count(*) c
+				<cfelse>
+					*
+				</cfif>
+			 from exit_link
+			 where 1=1 
+			 <cfif len(fdate) gt 0>
+			 	and WHEN_DATE > '#fdate#'
+			 </cfif>
+			 <cfif len(ldate) gt 0>
+			 	and WHEN_DATE < '#fdate#'
+			 </cfif>
+			 order by WHEN_DATE desc
+			 
+			 <hr>
 		<cfif format is "table">
 			<table border>
 				<tr>
