@@ -2,26 +2,13 @@
 
 <cfoutput>
 
+<cfquery name="c" datasource="uam_god">
+	select data from county
+</cfquery>
 
-<cfset body="
-
-
-hi
-
-
-this is an email
-
-e = MVC squared
-
-ok
-
-
-buybye
-
-
-">
-
-<cf_logEmail body="#body#">
+<cfloop quer="c">
+	#data#<br>
+</cfloop>
 			</cfoutput>
 		<cfinclude template="/includes/_footer.cfm">
 
