@@ -6,7 +6,7 @@
 	select data from county
 </cfquery>
 
-<cfloop quer="c">
+<cfloop query="c">
 	#data#<br>
 </cfloop>
 			</cfoutput>
