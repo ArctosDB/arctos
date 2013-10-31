@@ -93,11 +93,11 @@
 				</cfloop>
 			</table>
 		<cfelseif format is "summary">
-			<br>Total Clicks: #total#
-			<br>Unique IPs: #numberOfIPs#
-			<br>Unique Users: #numberOfUsers#
-			<br>Unique Referrers: #numberOfRefererrs#
-			<br>Unique Media/Files: #numberOfMedia#
+			<br>Total Clicks: #exit.total#
+			<br>Unique IPs: #exit.numberOfIPs#
+			<br>Unique Users: #exit.numberOfUsers#
+			<br>Unique Referrers: #exit.numberOfRefererrs#
+			<br>Unique Media/Files: #exit.numberOfMedia#
 		<cfelseif format is "csv">
 			<cfset fileDir = "#Application.webDirectory#">
 			<cfset variables.encoding="UTF-8">
