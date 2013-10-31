@@ -89,7 +89,7 @@
 				variables.joFileWriter.writeLine(ListQualify("ID,Referrer,HTTPTarget,RawTarget,Status,Username,IP,Date",'"')); 
 			</cfscript>
 			<cfloop query="exit">
-				<cfset oneLine = "'#EXIT_LINK_ID#','#FROM_PAGE#','#HTTP_TARGET#','#TARGET#','#STATUS#','#USERNAME#','#IPADDRESS#','#WHEN_DATE#'">
+				<cfset oneLine = '"#EXIT_LINK_ID#","#FROM_PAGE#","#HTTP_TARGET#","#TARGET#","#STATUS#","#USERNAME#","#IPADDRESS#","#WHEN_DATE#"'>
 				<cfscript>
 					variables.joFileWriter.writeLine(oneLine);
 				</cfscript>
