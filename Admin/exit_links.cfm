@@ -39,7 +39,7 @@
 			 	and WHEN_DATE > '#fdate#'
 			 </cfif>
 			 <cfif len(ldate) gt 0>
-			 	and WHEN_DATE < '#fdate#'
+			 	and WHEN_DATE < '#ldate#'
 			 </cfif>
 			 order by WHEN_DATE desc
 		</cfquery>
