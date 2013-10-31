@@ -6,7 +6,7 @@
 		});
 </script>
 <cfoutput>
-	<cfparam name="fdate">
+	<cfparam name="fdate" type="string" default="">
 	
 	<form method="post" action="exit_links.cfm">
 		<label for="fdate">Earlies Date</label>
