@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
-	<cfoutput>		
+	<cfoutput>
+		<cfset changes="">
 		<cfparam name="hours" default="24" type="integer">
 		DEFAULT is last 24 hours. You can change that by adding a URL parameter. Example:
 		
@@ -75,7 +76,9 @@
 			
 			#changes#
 		</cfif>
-		
+		<cfif action is "sendEmail">
+			sending email....#changes#
+		</cfif>
 	
 <!-----		
 		
