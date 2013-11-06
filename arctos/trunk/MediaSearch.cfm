@@ -68,20 +68,32 @@
 					<td><input type="checkbox" id="noDNG" name="noDNG" value="1" checked="checked"></td>
 				</tr>
 			</table>
-			<label for="mime_type">MIME Type</label>
-			<select name="mime_type" id="mime_type" multiple="multiple" size="3">
-				<option value="" selected="selected">Anything</option>
-				<cfloop query="ctmime_type">
-					<option value="#mime_type#">#mime_type#</option>
-				</cfloop>
-			</select>
-	        <label for="media_type">Media Type</label>
-			<select name="media_type" id="media_type" multiple="multiple" size="3">
-				<option value="" selected="selected">Anything</option>
-				<cfloop query="ctmedia_type">
-					<option value="#media_type#">#media_type#</option>
-				</cfloop>
-			</select>
+			<table>
+				<tr>
+					<td>
+						<label for="mime_type">MIME Type</label>
+						<select name="mime_type" id="mime_type" multiple="multiple" size="3">
+							<option value="" selected="selected">Anything</option>
+							<cfloop query="ctmime_type">
+								<option value="#mime_type#">#mime_type#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<label for="media_type">Media Type</label>
+						<select name="media_type" id="media_type" multiple="multiple" size="3">
+							<option value="" selected="selected">Anything</option>
+							<cfloop query="ctmedia_type">
+								<option value="#media_type#">#media_type#</option>
+							</cfloop>
+						</select>
+					</td>
+				</tr>
+			</table>
+			
+			
+			
+	        
 			<label for="relationships">Media Relationships</label>
 			<select name="relationships" id="relationships" size="5" multiple="multiple">
 				<option selected="selected" value="">Anything</option>
