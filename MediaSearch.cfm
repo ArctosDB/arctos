@@ -52,7 +52,7 @@
 			}
 		</style>
 		<form name="newMedia" method="post" action="">
-			<input type="hidden" name="action" value="search">
+			<input type="hidden" name="action" value="search">				
 			<label for="keyword">Keyword</label>
 			<input type="text" name="keyword" id="keyword" size="40">
 			<span class="rdoCtl">Match Any<input type="radio" name="kwType" value="any"></span>
@@ -64,8 +64,6 @@
 				<tr>
 					<td><label for="tag">Require TAG?</label></td>
 					<td><input type="checkbox" id="tag" name="tag" value="1"></td>
-				</tr>
-				<tr>
 					<td><label for="noDNG">Ignore DNG?</label></td>
 					<td><input type="checkbox" id="noDNG" name="noDNG" value="1" checked="checked"></td>
 				</tr>
@@ -116,6 +114,8 @@
 			</table>
 			<input type="submit" value="Find Media" class="schBtn">
 			<input type="reset" value="reset form" class="clrBtn">
+			
+			</table>
 		</form>
 	</cfoutput>
 	</cfif>
