@@ -106,16 +106,28 @@
 				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_RELATIONSHIP&field=created by agent" target="_blank">Media created by Agent</a>
 			</label>
 			<input type="text" name="created_by_agent" id="created_by_agent" size="80">
-			
+			<table>
+				<tr>
+					<td>
+						<label for="relationshiptype1">
+							<a href="/info/ctDocumentation.cfm?table=CTMEDIA_RELATIONSHIP" target="_blank">Relationship</a>
+						</label>
+						<select name="relationshiptype1" id="relationshiptype1">
+							<option selected="selected" value="">-</option>
+							<cfloop query="ctmedia_relationship">
+								<option value="#media_relationship#">#media_relationship#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<label for="relationship1">Search Term</label>
+						<input type="text" name="relationship1" id="relationship1" size="80">
+					</td>
+				</tr>
+			</table>
 			
 	        
-			<label for="relationships">Media Relationships</label>
-			<select name="relationships" id="relationships" size="5" multiple="multiple">
-				<option selected="selected" value="">Anything</option>
-				<cfloop query="ctmedia_relationship">
-					<option value="#media_relationship#">#media_relationship#</option>
-				</cfloop>
-			</select>
+			
 			<label for="labels">Media Label</label>
 			<select name="media_label" id="media_label" size="1">
 				<option value=""></option>
@@ -182,6 +194,20 @@
 		</cfloop>
 		<cfset mapurl="#mapurl#&relationships=#relationships#">
 		
+		<cfif isdefined("relationshiptype1") and len(relationshiptype1) gt 0>
+			<cfif not isdefined("relationship1")>
+				<cfset relationship1="">
+			</cfif>
+			<cfset mapurl="#mapurl#&relationshiptype1=#relationshiptype1#&relationship1=#relationship1#">
+			<cfset sql = "#sql#,media_relations media_relations1">
+			<cfset whr ="#whr# AND media_flat.media_id = media_relations1.media_id ">
+			<cfset srch="#srch# AND media_relations#n#.media_relationship = '#relationshiptype1#'">
+			<cfif  len(relationship1) gt 0>
+				--------- relationshipstuffhere-------
+			</cfif>
+		</cfif>
+
+						
 		<cfif isdefined("created_by_agent") and len(created_by_agent) gt 0>
 			<cfset mapurl="#mapurl#&created_by_agent=#created_by_agent#">
 			<cfset sql = "#sql#,media_relations mr_created_by_agent,agent_name an_created_by_agent">
