@@ -71,7 +71,9 @@
 			<table>
 				<tr>
 					<td>
-						<label for="mime_type">MIME Type</label>
+						<label for="mime_type">
+							<a href="/info/ctDocumentation.cfm?table=CTMEDIA_TYPE" target="_blank">MIME Type</a>
+						</label>
 						<select name="mime_type" id="mime_type" multiple="multiple" size="3">
 							<option value="" selected="selected">Anything</option>
 							<cfloop query="ctmime_type">
@@ -90,7 +92,8 @@
 					</td>
 				</tr>
 			</table>
-			
+			<label for="created_by_agent">Media CreatedBy Agent</label>
+			<input type="text" name="created_by_agent" id="created_by_agent" size="80">
 			
 			
 	        
@@ -111,8 +114,7 @@
 			<label for="label_value">Media Label Value</label>
 			<input type="text" name="label_value" id="label_value" size="80">
 			
-			<label for="created_by_agent">Media CreatedBy Agent</label>
-			<input type="text" name="created_by_agent" id="created_by_agent" size="80">
+			
 						
 						
 			<br>
