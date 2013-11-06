@@ -68,6 +68,14 @@
 					<td><input type="checkbox" id="noDNG" name="noDNG" value="1" checked="checked"></td>
 				</tr>
 			</table>
+			<label for="requireSpecimens">
+				Direct relationship to Specimens
+			</label>
+			<select name="requireSpecimens" id="requireSpecimens">
+				<option value="" selected="selected">anything</option>
+				<option value="require">require</option>
+				<option value="exclude">exclude</option>
+			</select>
 			<table>
 				<tr>
 					<td>
@@ -173,6 +181,7 @@
 			<cfset n=n+1>
 		</cfloop>
 		<cfset mapurl="#mapurl#&relationships=#relationships#">
+		
 		<cfif isdefined("created_by_agent") and len(created_by_agent) gt 0>
 			<cfset mapurl="#mapurl#&created_by_agent=#created_by_agent#">
 			<cfset sql = "#sql#,media_relations mr_created_by_agent,agent_name an_created_by_agent">
@@ -180,6 +189,19 @@
 				mr_created_by_agent.related_primary_key=an_created_by_agent.agent_id">
 			<cfset srch="#srch# AND upper(an_created_by_agent.agent_name) like '#ucase(created_by_agent)#%' ">
 		</cfif>
+		<cfif isdefined("requireSpecimens") and len(requireSpecimens) gt 0>
+			<cfset mapurl="#mapurl#&requireSpecimens=#requireSpecimens#">
+			<cfset sql = "#sql#,media_relations mr_shows_cataloged_item">
+			<cfif requireSpecimens is "require">
+				<cfset whr ="#whr# AND media_flat.media_id = mr_shows_cataloged_item.media_id ">
+			<cfelse>
+				<cfset whr ="#whr# AND media_flat.media_id = mr_shows_cataloged_item.media_id (+) and mr_shows_cataloged_item.media_id is null ">
+			</cfif>
+		</cfif>
+		
+		
+		
+		
 		<cfif isdefined("keyword") and len(keyword) gt 0>
 			<cfif not isdefined("kwType")>
 				<cfset kwType="all">
