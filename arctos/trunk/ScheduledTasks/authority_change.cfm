@@ -11,7 +11,7 @@
 			FROM 
 				log_geog_auth_rec
 			WHERE
-				WHEN > SYSDATE - (1/#hours#)
+				WHEN > SYSDATE - (#hours#/24)
 		</cfquery>
 		
 		<p>
