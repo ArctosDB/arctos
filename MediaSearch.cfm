@@ -100,7 +100,20 @@
 			</select>
 			<label for="label_value">Media Label Value</label>
 			<input type="text" name="label_value" id="label_value" size="80">
+			
+			<label for="created_by_agent">Media CreatedBy Agent</label>
+			<input type="text" name="created_by_agent" id="created_by_agent" size="80">
+						
+						
 			<br>
+			
+			<table>
+				<tr>
+					<td>
+						
+					</td>
+				</tr>
+			</table>
 			<input type="submit" value="Find Media" class="schBtn">
 			<input type="reset" value="reset form" class="clrBtn">
 		</form>
@@ -142,6 +155,13 @@
 			<cfset n=n+1>
 		</cfloop>
 		<cfset mapurl="#mapurl#&relationships=#relationships#">
+		<cfif isdefined("created_by_agent") and len(created_by_agent) gt 0>
+			<cfset mapurl="#mapurl#&created_by_agent=#created_by_agent#">
+			<cfset sql = "#sql#,media_relations mr_created_by_agent,agent_name an_created_by_agent">
+			<cfset whr ="#whr# AND media_flat.media_id = mr_created_by_agent.media_id and mr_created_by_agent.MEDIA_RELATIONSHIP='created by agent' and 
+				mr_created_by_agent.related_primary_key=an_created_by_agent.agent_id">
+			<cfset srch="#srch# AND upper(mr_created_by_agent.agent_name) like '#ucase(created_by_agent)#%">
+		</cfif>
 		<cfif isdefined("keyword") and len(keyword) gt 0>
 			<cfif not isdefined("kwType")>
 				<cfset kwType="all">
@@ -181,14 +201,16 @@
 			<cfset srch="#srch# AND media_flat.media_type IN (#listQualify(media_type,"'")#)">
 			<cfset mapurl="#mapurl#&media_type=#media_type#">
 		</cfif>
-		<cfif isdefined("media_id") and len(#media_id#) gt 0>
-			<cfset whr="#whr# AND media_flat.media_id in (#media_id#)">
-			<cfset mapurl="#mapurl#&media_id=#media_id#">
-		</cfif>
-		<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
+		<cfif isdefined("mime_type") and len(mime_type) gt 0>
 			<cfset srch="#srch# AND media_flat.mime_type in (#listQualify(mime_type,"'")#)">
 			<cfset mapurl="#mapurl#&mime_type=#mime_type#">
 		</cfif>
+		<cfif isdefined("media_id") and len(media_id) gt 0>
+			<cfset whr="#whr# AND media_flat.media_id in (#media_id#)">
+			<cfset mapurl="#mapurl#&media_id=#media_id#">
+		</cfif>
+		
+		
 		<cfif (isdefined("media_label") and len(media_label) gt 0) or (isdefined("label_value") and len(label_value) gt 0)>
 			<cfset sql = "#sql#,media_labels">
 			<cfset whr ="#whr# AND media_flat.media_id = media_labels.media_id ">
@@ -208,6 +230,8 @@
 		<cfset srch = "#srch# AND rownum <= 500">
 		<cfset ssql="#sql# #whr# #srch# order by media_flat.media_id">
 		<!--- --->
+		
+		#ssql#
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
