@@ -160,7 +160,7 @@
 			<cfset sql = "#sql#,media_relations mr_created_by_agent,agent_name an_created_by_agent">
 			<cfset whr ="#whr# AND media_flat.media_id = mr_created_by_agent.media_id and mr_created_by_agent.MEDIA_RELATIONSHIP='created by agent' and 
 				mr_created_by_agent.related_primary_key=an_created_by_agent.agent_id">
-			<cfset srch="#srch# AND upper(mr_created_by_agent.agent_name) like '#ucase(created_by_agent)#%' ">
+			<cfset srch="#srch# AND upper(an_created_by_agent.agent_name) like '#ucase(created_by_agent)#%' ">
 		</cfif>
 		<cfif isdefined("keyword") and len(keyword) gt 0>
 			<cfif not isdefined("kwType")>
