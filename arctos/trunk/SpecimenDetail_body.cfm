@@ -53,7 +53,8 @@
 		SPECIES,
 		SUBSPECIES,
 		FORMATTED_SCIENTIFIC_NAME,
-		full_taxon_name
+		full_taxon_name,
+		associated_species
 	FROM
 		#session.flatTableName#
 	WHERE
