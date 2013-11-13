@@ -407,6 +407,19 @@
 								</tr>
 							</div>
 						</cfif>
+						
+						
+						
+						<cfif len(one.associated_species) gt 0>
+						<div class="detailBlock">
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Associated Species:</td>
+								<td id="SDCellRight">#one.associated_species#</td>
+							</tr>
+						</div>
+					</cfif>
+					
+					
 						<tr>
 							<td colspan="2">
 								<table width="100%">
@@ -517,22 +530,6 @@
 			</cfloop>
 
 
-
-
-					<!--- move this somewhere
-
-
-
-					<cfif len(one.associated_species) gt 0>
-						<div class="detailBlock">
-							<tr class="detailData">
-								<td id="SDCellLeft" class="innerDetailLabel">Associated Species:</td>
-								<td id="SDCellRight">#one.associated_species#</td>
-							</tr>
-						</div>
-					</cfif>
-
-					---->
 
 			</div>
 
