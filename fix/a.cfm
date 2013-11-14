@@ -5,7 +5,6 @@
 		
 
 
-jQuery(document).ready(function() {
 	
 		$( "#test" ).click(function() {
 		alert( "Handler for .focus() called." );
