@@ -17,7 +17,7 @@
 			$( "#srchHelp" ).html('clicketypop @ ' + this.id);
 		});
 
-		$( "#keyword" ).click(function() {
+		$( "#keyword" ).hover(function() {
 			console.log('hi');
 
 			$( "#srchHelp" ).html('KW clicketypop @ ' + this.id);
