@@ -195,6 +195,7 @@
 		<cfset mapurl = "">
 		<cfparam name="relationships" default="">
 		<cfset n=1>
+		<!---
 		<cfloop list="#relationships#" delimiters="," index="thisRelationship">
 			<cfset sql = "#sql#,media_relations media_relations#n#">
 			<cfset whr ="#whr# AND media_flat.media_id = media_relations#n#.media_id ">
@@ -206,7 +207,7 @@
 			<cfset n=n+1>
 		</cfloop>
 		<cfset mapurl="#mapurl#&relationships=#relationships#">
-		
+		---->
 		<cfif isdefined("relationshiptype1") and len(relationshiptype1) gt 0>
 			<cfif not isdefined("relationship1")>
 				<cfset relationship1="">
@@ -217,7 +218,7 @@
 			<cfset srch="#srch# AND media_relations1.media_relationship = '#relationshiptype1#'">
 			<cfif  len(relationship1) gt 0>
 				<cfif right(relationshiptype1,5) is "agent">
-					<cfset sql = "#sql#,media_relations media_relations1,agent_name mr_agentname1">
+					<cfset sql = "#sql#,agent_name mr_agentname1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_agentname1.agent_id ">
 					<cfset srch="#srch# AND upper(mr_agentname1.agent_name) like '#ucase(relationship1)#%' ">
 				</cfif> 
