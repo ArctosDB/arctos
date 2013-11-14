@@ -51,6 +51,11 @@
 				border:1px dotted green;
 			}
 		</style>
+		<div style="padding:1em;border:2px solid red; margin:1em;">
+			Search for Media here. This form considers limited relationships. For example, Specimen-related Media is findable by catalog number
+			and accepted scientific name ONLY. To find Media related to specimens by specimen criteria, see <a href="/SpecimenSearch.cfm">SpecimenSearch</a>
+		</div>
+		<table><tr><td><!---------- leftcolumn ---------->
 		<form name="newMedia" method="post" action="">
 			<input type="hidden" name="action" value="search">				
 			<label for="keyword">Keyword</label>
@@ -66,16 +71,23 @@
 					<td><input type="checkbox" id="tag" name="tag" value="1"></td>
 					<td><label for="noDNG">Ignore DNG?</label></td>
 					<td><input type="checkbox" id="noDNG" name="noDNG" value="1" checked="checked"></td>
+					<td>
+						<label for="requireSpecimens">
+							Direct relationship to Specimens
+						</label>
+					</td>
+					
+					<td>
+						<select name="requireSpecimens" id="requireSpecimens">
+							<option value="" selected="selected">anything</option>
+							<option value="require">require</option>
+							<option value="exclude">exclude</option>
+						</select>	
+					</td>
 				</tr>
 			</table>
-			<label for="requireSpecimens">
-				Direct relationship to Specimens
-			</label>
-			<select name="requireSpecimens" id="requireSpecimens">
-				<option value="" selected="selected">anything</option>
-				<option value="require">require</option>
-				<option value="exclude">exclude</option>
-			</select>
+			
+			
 			<table>
 				<tr>
 					<td>
@@ -155,6 +167,12 @@
 			
 			</table>
 		</form>
+		
+		</td><td><!------------------ rightcolumn------------>
+		<div id="srchHelp">
+		
+		</div>
+		</td></tr></table><!--------------- endcolumns -------------->
 	</cfoutput>
 	</cfif>
 	<!----------------------------------------------------------------------------------------->
@@ -253,7 +271,7 @@
 				<cfelseif right(relationshiptype1,14) is "cataloged_item">
 					<cfset sql = "#sql#,flat mr_cataloged_item1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_cataloged_item1.collection_object_id ">
-					<cfset srch="#srch# AND upper(mr_cataloged_item1.cat_num) like '%#ucase(relationship1)#%' ">
+					<cfset srch="#srch# AND upper(mr_cataloged_item1.cat_num) || upper(mr_cataloged_item1.scientific_name) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,8) is "locality">
 					<cfset sql = "#sql#,locality mr_locality1,geog_auth_rec mr_geog_auth_rec1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_locality1.locality_id and mr_locality1.geog_auth_rec_id=mr_geog_auth_rec1.geog_auth_rec_id">
