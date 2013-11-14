@@ -467,6 +467,9 @@
 		<cfoutput><cfheader name="Location" value="#rurl#"></cfoutput>
 	</cfif>
 	
+	<cfdump var=#cgi#>
+	
+	
 	<cfif listlast(cgi.script_name,".") is "cfm">
 		<Cfset theCurrentURL=request.rdurl & "/" & cgi.query_string >
 		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#theCurrentURL#||#request.uuid#">
