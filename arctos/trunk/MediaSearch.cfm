@@ -128,6 +128,11 @@
 				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_RELATIONSHIP&field=created by agent" target="_blank">Media created by Agent</a>
 			</label>
 			<input type="text" name="created_by_agent" id="created_by_agent" size="80">
+			
+			<label for="description">
+				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=description" target="_blank">Media Description</a>
+			</label>
+			<input type="text" name="description" id="description" size="80">
 			<table>
 				<tr>
 					<td>
@@ -301,6 +306,15 @@
 				mr_created_by_agent.related_primary_key=an_created_by_agent.agent_id">
 			<cfset srch="#srch# AND upper(an_created_by_agent.agent_name) like '#ucase(created_by_agent)#%' ">
 		</cfif>
+		
+		<cfif (isdefined("description") and len(description) gt 0)>
+			<cfset sql = "#sql#,media_labels ml_descr">
+			<cfset whr ="#whr# AND media_flat.media_id = ml_descr.media_id ">
+			<cfset srch="#srch# AND ml_descr.media_label = 'description'">
+			<cfset srch="#srch# AND upper(ml_descr.label_value) like '%#ucase(description)#%'">
+			<cfset mapurl="#mapurl#&description=#description#">
+		</cfif>
+		
 		
 		<cfif isdefined("requireSpecimens") and len(requireSpecimens) gt 0>
 			<cfset mapurl="#mapurl#&requireSpecimens=#requireSpecimens#">
