@@ -16,6 +16,14 @@
 
 			$( "#srchHelp" ).html('clicketypop @ ' + this.id);
 		});
+
+		$( "#keyword" ).click(function() {
+			console.log('hi');
+
+			$( "#srchHelp" ).html('KW clicketypop @ ' + this.id);
+		});
+		
+
 	</script>
 	<cfoutput>
 	    <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
