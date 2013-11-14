@@ -8,23 +8,18 @@
 	    </cfoutput>
 	</cfif>
 	<cfif action is "nothing">
-	<!-----------------------------
-	
-	
-	
-	------------------------------------------------------------>
+	<!----------------------------------------------------------------------------------------->
 	
 	
 	<script>
 		jQuery(document).ready(function() {
 
 			$( ":input" ).hover(function() {
-				$("#srchHelp").html(this.id);
+				//$("#srchHelp").html(this.id);
 			});
 		});
 
 	</script>
-	<span id="test">test</span>
 	
 	
 	<cfoutput>
@@ -69,10 +64,7 @@
 				border:1px dotted green;
 			}
 		</style>
-		<div style="padding:1em;border:2px solid red; margin:1em;">
-			Search for Media here. This form considers limited relationships. For example, Specimen-related Media is findable by catalog number
-			and accepted scientific name ONLY. To find Media related to specimens by specimen criteria, see <a href="/SpecimenSearch.cfm">SpecimenSearch</a>
-		</div>
+		
 		<table><tr><td><!---------- leftcolumn ---------->
 		<form name="newMedia" method="post" action="">
 			<input type="hidden" name="action" value="search">				
@@ -187,9 +179,18 @@
 		</form>
 		
 		</td><td><!------------------ rightcolumn------------>
-		<div id="srchHelp">
-		
+		<div style="padding:1em;border:2px solid red; margin:1em;">
+			Search for Media here. This form considers only some data from relationships. 
+			<ul>
+				<li>
+					Specimen-related Media is findable by catalog number and accepted scientific name. 
+					To find Media related to specimens by specimen criteria, see <a href="/SpecimenSearch.cfm">SpecimenSearch</a>
+				</li>
+			</ul>
 		</div>
+		
+		
+		
 		</td></tr></table><!--------------- endcolumns -------------->
 	</cfoutput>
 	</cfif>
