@@ -216,11 +216,15 @@
 			<cfset sql = "#sql#,media_relations media_relations1">
 			<cfset whr ="#whr# AND media_flat.media_id = media_relations1.media_id ">
 			<cfset srch="#srch# AND media_relations1.media_relationship = '#relationshiptype1#'">
-			<cfif  len(relationship1) gt 0>
+			<cfif len(relationship1) gt 0>
 				<cfif right(relationshiptype1,5) is "agent">
 					<cfset sql = "#sql#,agent_name mr_agentname1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_agentname1.agent_id ">
 					<cfset srch="#srch# AND upper(mr_agentname1.agent_name) like '#ucase(relationship1)#%' ">
+				<cfelseif right(relationshiptype1,7) is "project">
+					<cfset sql = "#sql#,project mr_project1">
+					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_project1.project_id ">
+					<cfset srch="#srch# AND upper(mr_project1.PROJECT_NAME) || upper(mr_project1.PROJECT_DESCRIPTION) like '#ucase(relationship1)#%' ">
 				</cfif> 
 			</cfif>
 		</cfif>
@@ -233,6 +237,7 @@
 				mr_created_by_agent.related_primary_key=an_created_by_agent.agent_id">
 			<cfset srch="#srch# AND upper(an_created_by_agent.agent_name) like '#ucase(created_by_agent)#%' ">
 		</cfif>
+		
 		<cfif isdefined("requireSpecimens") and len(requireSpecimens) gt 0>
 			<cfset mapurl="#mapurl#&requireSpecimens=#requireSpecimens#">
 			<cfset sql = "#sql#,media_relations mr_shows_cataloged_item">
