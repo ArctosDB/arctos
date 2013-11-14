@@ -229,6 +229,35 @@
 					<cfset sql = "#sql#,collecting_event mr_collecting_event1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_collecting_event1.collecting_event_id ">
 					<cfset srch="#srch# AND upper(mr_collecting_event1.VERBATIM_LOCALITY) like '%#ucase(relationship1)#%' ">
+				<cfelseif right(relationshiptype1,5) is "media">
+					<cfset sql = "#sql#,media mr_media1">
+					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_media1.media_id ">
+					<cfset srch="#srch# AND upper(mr_media1.media_uri) like '%#ucase(relationship1)#%' ">
+				<cfelseif right(relationshiptype1,8) is "taxonomy">
+					<cfset sql = "#sql#,taxon_name mr_taxonomy1">
+					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_taxonomy1.taxon_name_id ">
+					<cfset srch="#srch# AND upper(mr_taxonomy1.scientific_name) like '%#ucase(relationship1)#%' ">
+				<cfelseif right(relationshiptype1,4) is "accn">
+					<cfset sql = "#sql#,accn mr_accn1">
+					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_accn1.transaction_id ">
+					<cfset srch="#srch# AND upper(mr_accn1.accn_number) like '%#ucase(relationship1)#%' ">
+				<cfelseif right(relationshiptype1,4) is "loan">
+					<cfset sql = "#sql#,loan mr_loan1">
+					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_loan1.transaction_id ">
+					<cfset srch="#srch# AND upper(mr_loan1.loan_number) like '%#ucase(relationship1)#%' ">
+				<cfelseif right(relationshiptype1,14) is "cataloged_item">
+					<cfset sql = "#sql#,flat mr_cataloged_item1">
+					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_cataloged_item1.collection_object_id ">
+					<cfset srch="#srch# AND upper(mr_cataloged_item1.cat_num) like '%#ucase(relationship1)#%' ">
+				<cfelseif right(relationshiptype1,8) is "locality">
+					<cfset sql = "#sql#,locality mr_locality1">
+					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_locality1.locality_id ">
+					<cfset srch="#srch# AND upper(mr_locality1.spec_locality) like '%#ucase(relationship1)#%' ">
+				<cfelseif right(relationshiptype1,11) is "publication">
+					<cfset sql = "#sql#,publication mr_publication1">
+					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_publication1.publication_id ">
+					<cfset srch="#srch# AND upper(mr_publication1.FULL_CITATION) like '%#ucase(relationship1)#%' ">
+					
 				</cfif> 
 			</cfif>
 		</cfif>
