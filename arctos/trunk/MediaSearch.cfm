@@ -165,17 +165,10 @@
 						
 			<br>
 			
-			<table>
-				<tr>
-					<td>
-						
-					</td>
-				</tr>
-			</table>
+		
 			<input type="submit" value="Find Media" class="schBtn">
 			<input type="reset" value="reset form" class="clrBtn">
 			
-			</table>
 		</form>
 		
 		</td><td><!------------------ rightcolumn------------>
