@@ -470,7 +470,9 @@
 	<cfif listlast(cgi.script_name,".") is "cfm">
 		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
 		<cffile action="append" file="#Application.webDirectory#/log/request.txt" output="#loginfo#">
-
+	<cfelse>
+		<cfset loginfo="not logging - #cgi.script_name# - #listlast(cgi.script_name,".")#">
+		<cffile action="append" file="#Application.webDirectory#/log/request.txt" output="#loginfo#">
 	</cfif>
 	
 	
