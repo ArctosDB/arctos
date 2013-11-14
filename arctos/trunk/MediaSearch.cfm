@@ -11,7 +11,7 @@
 	<cfif action is "nothing">
 	
 	<script>
-		$( "input" ).click(function() {
+		$( ":input" ).click(function() {
 			console.log('hi');
 
 			$( "#srchHelp" ).html('clicketypop @ ' + this.id);
