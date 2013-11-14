@@ -7,8 +7,12 @@
 	    	<cflocation url="MediaSearch.cfm?action=search&relationships=shows cataloged_item&related_primary_key1=#url.collection_object_id#" addtoken="false">
 	    </cfoutput>
 	</cfif>
-	<!----------------------------------------------------------------------------------------->
+	<!-----------------------------
 	<cfif action is "nothing">
+	
+	
+	------------------------------------------------------------>
+	
 	
 	<script>
 		$( ":input" ).click(function() {
