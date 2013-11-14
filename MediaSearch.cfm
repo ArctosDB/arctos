@@ -9,7 +9,7 @@
 	</cfif>
 	<cfif action is "nothing">
 	<!----------------------------------------------------------------------------------------->
-	
+	<!----
 	
 	<script>
 		jQuery(document).ready(function() {
@@ -20,7 +20,7 @@
 		});
 
 	</script>
-	
+	---->
 	
 	<cfoutput>
 	    <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -170,12 +170,9 @@
 				</tr>
 			</table>		
 			<br>
-			
 			<input type="submit" value="Find Media" class="schBtn">
 			<input type="reset" value="reset form" class="clrBtn">
-			
 		</form>
-		
 		</td><td valign="top"><!------------------ rightcolumn------------>
 		<div style="padding:1em;border:2px solid red; margin:1em;">
 			This form has some important limitations. 
@@ -213,10 +210,6 @@
 				<li>
 					Publication-related media are findable by publication title ("full citation").
 				</li>
-				
-				
-				
-				
 			</ul>
 		</div>		
 		</td></tr></table><!--------------- endcolumns -------------->
@@ -258,7 +251,6 @@
 		<cfset whr ="WHERE 1=1 ">
 		<cfset srch=" ">
 		<cfset mapurl = "">
-		<cfparam name="relationships" default="">
 		<cfset n=1>
 		<!---
 		<cfloop list="#relationships#" delimiters="," index="thisRelationship">
@@ -426,9 +418,9 @@
 		</cfif>
 		<cfset srch = "#srch# AND rownum <= 500">
 		<cfset ssql="#sql# #whr# #srch# order by media_flat.media_id">
-		<!--- --->
+		<!--- #ssql#--->
 		
-		#ssql#
+		
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
