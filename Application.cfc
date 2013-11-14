@@ -356,7 +356,7 @@
 		</cfif>
 	</cfif>
 	
-	 #request.uuid#||#dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#||#request.ipaddress#||#request.rdurl#
+	
 	<cfif listfindnocase(application.blacklist,request.ipaddress)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
@@ -467,7 +467,9 @@
 		<cfoutput><cfheader name="Location" value="#rurl#"></cfoutput>
 	</cfif>
 	
-	
+	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')# #TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
+	<cffile action="append" file="#Application.webDirectory#/log/request.txt" output="#loginfo#">
+
 	
 	<!--- 
 		make sure we're set up for logging 
