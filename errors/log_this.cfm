@@ -15,7 +15,7 @@
 		<cfset frm="stoopid.safari">
 	</cfif>
 <cfsavecontent variable="loginfo">
-LOG ENTRY: #dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#
+LOG ENTRY: #dateformat(now(),"yyyy-mm-dd")#T#TimeFormat(now(), "HH:mm:ss")#
 Problem: 404
 Referrer: #cgi.HTTP_REFERER#
 <cfdump var="#cgi#" format="text">
