@@ -467,7 +467,7 @@
 		<cfoutput><cfheader name="Location" value="#rurl#"></cfoutput>
 	</cfif>
 	
-	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')# #TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
+	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
 	<cffile action="append" file="#Application.webDirectory#/log/request.txt" output="#loginfo#">
 
 	
