@@ -113,7 +113,7 @@
 					</td>
 					<td>
 						<label for="media_type">
-							<a href="/info/ctDocumentation.cfm?table=CTMEDIA_TYPE" target="_blank">Media Typ</a>
+							<a href="/info/ctDocumentation.cfm?table=CTMEDIA_TYPE" target="_blank">Media Type</a>
 						</label>
 						<select name="media_type" id="media_type" multiple="multiple" size="3">
 							<option value="" selected="selected">Anything</option>
@@ -147,43 +147,40 @@
 					</td>
 				</tr>
 			</table>
-			
-	        
-			
-			<label for="labels">Media Label</label>
-			<select name="media_label" id="media_label" size="1">
-				<option value=""></option>
-				<cfloop query="ctmedia_label">
-					<option value="#media_label#">#media_label#</option>
-				</cfloop>
-			</select>
-			<label for="label_value">Media Label Value</label>
-			<input type="text" name="label_value" id="label_value" size="80">
-			
-			
-						
-						
+			<table>
+				<tr>
+					<td>
+						<label for="labels">Media Label</label>
+						<select name="media_label" id="media_label" size="1">
+							<option value=""></option>
+							<cfloop query="ctmedia_label">
+								<option value="#media_label#">#media_label#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<label for="label_value">Media Label Value</label>
+						<input type="text" name="label_value" id="label_value" size="80">
+					</td>
+				</tr>
+			</table>		
 			<br>
 			
-		
 			<input type="submit" value="Find Media" class="schBtn">
 			<input type="reset" value="reset form" class="clrBtn">
 			
 		</form>
 		
-		</td><td><!------------------ rightcolumn------------>
+		</td><td valign="top"><!------------------ rightcolumn------------>
 		<div style="padding:1em;border:2px solid red; margin:1em;">
-			Search for Media here. This form considers only some data from relationships. 
+			This form has some important limitations. 
 			<ul>
 				<li>
 					Specimen-related Media is findable by catalog number and accepted scientific name. 
 					To find Media related to specimens by specimen criteria, see <a href="/SpecimenSearch.cfm">SpecimenSearch</a>
 				</li>
 			</ul>
-		</div>
-		
-		
-		
+		</div>		
 		</td></tr></table><!--------------- endcolumns -------------->
 	</cfoutput>
 	</cfif>
