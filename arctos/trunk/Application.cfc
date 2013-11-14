@@ -466,9 +466,7 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfoutput><cfheader name="Location" value="#rurl#"></cfoutput>
 	</cfif>
-	
-	<cfdump var=#cgi#>
-	
+		
 	
 	<cfif listlast(cgi.script_name,".") is "cfm">
 		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
