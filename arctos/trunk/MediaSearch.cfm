@@ -18,7 +18,7 @@
 	<script>
 		jQuery(document).ready(function() {
 
-			$( ":input" ).focus(function() {
+			$( ":input" ).hover(function() {
 				$("#srchHelp").html(this.id);
 			});
 		});
