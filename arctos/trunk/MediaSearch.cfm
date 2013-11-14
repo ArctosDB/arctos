@@ -226,9 +226,14 @@
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_project1.project_id ">
 					<cfset srch="#srch# AND upper(mr_project1.PROJECT_NAME) || upper(mr_project1.PROJECT_DESCRIPTION) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,16) is "collecting_event">
-					<cfset sql = "#sql#,collecting_event mr_collecting_event1">
-					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_collecting_event1.collecting_event_id ">
-					<cfset srch="#srch# AND upper(mr_collecting_event1.VERBATIM_LOCALITY) like '%#ucase(relationship1)#%' ">
+					<cfset sql = "#sql#,collecting_event mr_collecting_event1, locality mr_locality1,geog_auth_rec mr_geog_auth_rec1">
+					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_collecting_event1.collecting_event_id AND
+						mr_collecting_event1.locality_id=mr_locality1.locality_id
+						and mr_locality1.geog_auth_rec_id=mr_geog_auth_rec1.geog_auth_rec_id">
+					<cfset srch="#srch# AND 
+						upper(mr_collecting_event1.VERBATIM_LOCALITY) || 
+						upper(mr_geog_auth_rec1.higher_geog) || 
+						upper(mr_locality1.spec_locality) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,5) is "media">
 					<cfset sql = "#sql#,media mr_media1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_media1.media_id ">
