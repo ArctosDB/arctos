@@ -180,10 +180,43 @@
 		<div style="padding:1em;border:2px solid red; margin:1em;">
 			This form has some important limitations. 
 			<ul>
+				
 				<li>
-					Specimen-related Media is findable by catalog number and accepted scientific name. 
+					MIME Type is for computers and defines protocols; Media Type is for people and describes content. A YouTube video is
+					MIME type "text/html" and Media Type "video," for example.
+				</li>
+				<li>
+					Keywords contain information from various relationships. They're intended for exploration, 
+					and are not great at finding specific Media.
+				</li>
+				<li>
+					Specimen-related Media are findable by catalog number and accepted scientific name. 
 					To find Media related to specimens by specimen criteria, see <a href="/SpecimenSearch.cfm">SpecimenSearch</a>
 				</li>
+				<li>Agent-related Media are findable by agent name.</li>
+				<li>
+					Project-related Media are findable by project title or description.
+				</li>
+				<li>
+					Collecting-event related media are findable by higher geography or specific or verbatim locality. 
+				</li>
+				<li>
+					Locality related media are findable by higher geography or specific locality. 
+				</li>
+				<li>Media-related media are findable my related media URI</li>
+				<li>
+					Taxonomy-related media are findable by scientific name.
+				</li>
+				<li>
+					Accn and Loan-related media are findable by accn and loan number, respectively.
+				</li>
+				<li>
+					Publication-related media are findable by publication title ("full citation").
+				</li>
+				
+				
+				
+				
 			</ul>
 		</div>		
 		</td></tr></table><!--------------- endcolumns -------------->
@@ -325,9 +358,6 @@
 				<cfset whr ="#whr# AND media_flat.media_id = mr_shows_cataloged_item.media_id (+) and mr_shows_cataloged_item.media_id is null ">
 			</cfif>
 		</cfif>
-		
-		
-		
 		
 		<cfif isdefined("keyword") and len(keyword) gt 0>
 			<cfif not isdefined("kwType")>
