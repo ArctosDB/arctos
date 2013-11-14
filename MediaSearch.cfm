@@ -15,17 +15,7 @@
 	
 	
 	<script>
-		$( ":input" ).click(function() {
-			console.log('hi');
-
-			$( "#srchHelp" ).html('clicketypop @ ' + this.id);
-		});
-
-		$( "#keyword" ).focus(function() {
-			console.log('hi');
-
-			$( "#srchHelp" ).html('KW clicketypop @ ' + this.id);
-		});
+		
 		$( "#test" ).click(function() {
 		alert( "Handler for .focus() called." );
 		});
