@@ -22,7 +22,9 @@
 
 			$( "#srchHelp" ).html('KW clicketypop @ ' + this.id);
 		});
-		
+		$( "#keyword" ).focus(function() {
+		alert( "Handler for .focus() called." );
+		});
 
 	</script>
 	<cfoutput>
