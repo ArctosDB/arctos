@@ -283,6 +283,29 @@
 	<cfif not directoryExists("#Application.webDirectory#/download")>
 		<cfdirectory action="create" directory="#Application.webDirectory#/download" mode="744">
 	</cfif>
+	
+	<cfif not FileExists("#Application.webDirectory#/log/log.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/log.txt" output=""> 
+	</cfif>
+	<cfif not FileExists("#Application.webDirectory#/log/404log.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/404log.txt" output=""> 
+	</cfif>
+	<cfif not FileExists("#Application.webDirectory#/log/missingGUIDlog.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/missingGUIDlog.txt" output=""> 
+	</cfif>
+	
+	<cfif not FileExists("#Application.webDirectory#/log/blacklistlog.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/blacklistlog.txt" output=""> 
+	</cfif>
+	<cfif not FileExists("#Application.webDirectory#/log/emaillog.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/emaillog.txt" output=""> 
+	</cfif>
+	
+	<cfif not FileExists("#Application.webDirectory#/log/request.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/request.txt" output=""> 
+	</cfif>
+	
+	
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
@@ -471,9 +494,6 @@
 	<cfif listlast(cgi.script_name,".") is "cfm">
 		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
 		<cffile action="append" file="#Application.webDirectory#/log/request.txt" output="#loginfo#">
-	<cfelse>
-		<cfset loginfo="not logging - #cgi.script_name# - #listlast(cgi.script_name,".")#">
-		<cffile action="append" file="#Application.webDirectory#/log/request.txt" output="#loginfo#">
 	</cfif>
 	
 	
@@ -482,26 +502,7 @@
 		move these to applicatonstart once we're stable
 	---->
 	
-	<cfif not FileExists("#Application.webDirectory#/log/log.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/log.txt" output=""> 
-	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/404log.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/404log.txt" output=""> 
-	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/missingGUIDlog.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/missingGUIDlog.txt" output=""> 
-	</cfif>
 	
-	<cfif not FileExists("#Application.webDirectory#/log/blacklistlog.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/blacklistlog.txt" output=""> 
-	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/emaillog.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/emaillog.txt" output=""> 
-	</cfif>
-	
-	<cfif not FileExists("#Application.webDirectory#/log/request.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/request.txt" output=""> 
-	</cfif>
 	
 	
 	
