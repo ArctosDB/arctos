@@ -12,6 +12,8 @@
 	
 	<script>
 		$( "input" ).click(function() {
+			console.log('hi');
+
 			$( "#srchHelp" ).html('clicketypop @ ' + this.id);
 		});
 	</script>
