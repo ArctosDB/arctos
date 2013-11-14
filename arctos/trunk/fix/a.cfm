@@ -1,12 +1,13 @@
 <cfinclude template="/includes/_header.cfm">
 
-<cfoutput>
+	
+	<script>
+		
+		$( "#test" ).click(function() {
+		alert( "Handler for .focus() called." );
+		});
 
-<cfhttp method="get" url="http://api.vertnet-portal.appspot.com/#p#"></cfhttp>
-
-<cfset x=deserializejson(cfhttp.filecontent)>
-<cfdump var=#x#>
-
-			</cfoutput>
+	</script>
+	<span id="test">test</span>
 		<cfinclude template="/includes/_footer.cfm">
 
