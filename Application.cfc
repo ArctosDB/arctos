@@ -468,7 +468,8 @@
 	</cfif>
 	
 	<cfif listlast(cgi.script_name,".") is "cfm">
-		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
+		<Cfset theCurrentURL=request.rdur & "/" & cgi.query_string >
+		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#theCurrentURL#||#request.uuid#">
 		<cffile action="append" file="#Application.webDirectory#/log/request.txt" output="#loginfo#">
 	<cfelse>
 		<cfset loginfo="not logging - #cgi.script_name# - #listlast(cgi.script_name,".")#">
