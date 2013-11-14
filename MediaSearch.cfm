@@ -227,7 +227,7 @@
 					<cfset srch="#srch# AND upper(mr_project1.PROJECT_NAME) || upper(mr_project1.PROJECT_DESCRIPTION) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,16) is "collecting_event">
 					<cfset sql = "#sql#,collecting_event mr_collecting_event1">
-					<cfset whr ="#whr# AND media_relations1.related_primary_key=collecting_event1.project_id ">
+					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_collecting_event1.collecting_event_id ">
 					<cfset srch="#srch# AND upper(collecting_event1.VERBATIM_LOCALITY) like '%#ucase(relationship1)#%' ">
 				</cfif> 
 			</cfif>
