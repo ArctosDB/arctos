@@ -355,6 +355,8 @@
 			<cfset request.ipaddress=listgetat(request.ipaddress,1,",")>
 		</cfif>
 	</cfif>
+	
+	 #request.uuid#||#dateformat(now(),"yyyy-mm-dd")# #TimeFormat(now(), "HH:mm:ss")#||#request.ipaddress#||#request.rdurl#
 	<cfif listfindnocase(application.blacklist,request.ipaddress)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
@@ -487,6 +489,10 @@
 	</cfif>
 	<cfif not FileExists("#Application.webDirectory#/log/emaillog.txt")> 
 	    <cffile action="write" file="#Application.webDirectory#/log/emaillog.txt" output=""> 
+	</cfif>
+	
+	<cfif not FileExists("#Application.webDirectory#/log/request.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/request.txt" output=""> 
 	</cfif>
 	
 	
