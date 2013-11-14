@@ -220,11 +220,11 @@
 				<cfif right(relationshiptype1,5) is "agent">
 					<cfset sql = "#sql#,agent_name mr_agentname1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_agentname1.agent_id ">
-					<cfset srch="#srch# AND upper(mr_agentname1.agent_name) like '#ucase(relationship1)#%' ">
+					<cfset srch="#srch# AND upper(mr_agentname1.agent_name) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,7) is "project">
 					<cfset sql = "#sql#,project mr_project1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_project1.project_id ">
-					<cfset srch="#srch# AND upper(mr_project1.PROJECT_NAME) || upper(mr_project1.PROJECT_DESCRIPTION) like '#ucase(relationship1)#%' ">
+					<cfset srch="#srch# AND upper(mr_project1.PROJECT_NAME) || upper(mr_project1.PROJECT_DESCRIPTION) like '%#ucase(relationship1)#%' ">
 				</cfif> 
 			</cfif>
 		</cfif>
