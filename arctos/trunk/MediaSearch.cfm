@@ -7,24 +7,26 @@
 	    	<cflocation url="MediaSearch.cfm?action=search&relationships=shows cataloged_item&related_primary_key1=#url.collection_object_id#" addtoken="false">
 	    </cfoutput>
 	</cfif>
-	<!-----------------------------
 	<cfif action is "nothing">
+	<!-----------------------------
+	
 	
 	
 	------------------------------------------------------------>
 	
 	
 	<script>
-		
-		$( "#test" ).click(function() {
-		alert( "Handler for .focus() called." );
+		jQuery(document).ready(function() {
+
+			$( ":input" ).focus(function() {
+				$("#srchHelp").html(this.id);
+			});
 		});
 
 	</script>
 	<span id="test">test</span>
 	
 	
-	<!-------------
 	<cfoutput>
 	    <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select media_relationship from ctmedia_relationship order by media_relationship
@@ -588,4 +590,3 @@
 	</script>
 	
 	
-	---->
