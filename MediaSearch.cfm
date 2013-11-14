@@ -176,7 +176,20 @@
 		<cfset session.displayrows=20>
 	</cfif>
 	<cfoutput>
-		<cfset sql = "SELECT * FROM media_flat ">
+		<cfset sql = "SELECT 
+			media_flat.MEDIA_ID,
+			media_flat.MEDIA_TYPE,
+			media_flat.MEDIA_URI,
+			media_flat.PREVIEW_URI,
+			media_flat.MIME_TYPE,
+			media_flat.RELATIONSHIPS,
+			media_flat.LICENSE,
+			media_flat.LABELS ,
+			media_flat.KEYWORDS,
+			media_flat.COORDINATES,
+			media_flat.HASTAGS,
+			media_flat.LASTDATE
+			FROM media_flat ">
 		<cfset whr ="WHERE 1=1 ">
 		<cfset srch=" ">
 		<cfset mapurl = "">
