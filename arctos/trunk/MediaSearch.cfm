@@ -250,7 +250,7 @@
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_cataloged_item1.collection_object_id ">
 					<cfset srch="#srch# AND upper(mr_cataloged_item1.cat_num) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,8) is "locality">
-					<cfset sql = "#sql#,locality mr_locality1,geog_auth_r mr_geog_auth_rec1">
+					<cfset sql = "#sql#,locality mr_locality1,geog_auth_rec mr_geog_auth_rec1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_locality1.locality_id and mr_locality1.geog_auth_rec_id=mr_geog_auth_rec1.geog_auth_rec_id">
 					<cfset srch="#srch# AND upper(mr_geog_auth_rec1.higher_geog) || upper(mr_locality1.spec_locality) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,11) is "publication">
