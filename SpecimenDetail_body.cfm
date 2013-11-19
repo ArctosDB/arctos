@@ -309,7 +309,7 @@
 					<div class="detailLabel">Citations</div>
 					<cfloop query="citations">
 						<div class="detailBlock">
-							 #type_status# of <a href="http://arctos.database.museum/name/#taxsciname#">#idsciname#</a>')
+							 #type_status# of <a href="http://arctos.database.museum/name/#taxsciname#">#idsciname#</a>
 							 <cfif len(OCCURS_PAGE_NUMBER) gt 0>
 							 	, page 239 in
 							 </cfif>
