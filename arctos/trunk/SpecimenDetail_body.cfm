@@ -301,7 +301,7 @@
 						citation.publication_id=publication.publication_id AND
 						identification.identification_id=identification_taxonomy.identification_id and
 						identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id and
-						publication.publication_id = media_relations.related_primary_key (*) and
+						publication.publication_id = media_relations.related_primary_key (+) and
 						media_relations.media_id=media.media_id (+) and
 						citation.collection_object_id=#collection_object_id#
 						<!---------
