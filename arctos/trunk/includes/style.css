@@ -253,12 +253,12 @@ div.one_thumb p {
 .smallMediaPreview {
 	max-width:60px;
 	max-height:60px;
+	display:inline;
 }
 .theThumb{
 	max-width:120px;
 	max-height:120px;
 }
-
 
 /* --------  TAG style - DO NOT EDIT THIS STUFF UNLESS YOU REALLY KNOW WHAT YOU'RE DOING! -------------   */
 
