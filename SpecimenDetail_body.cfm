@@ -360,11 +360,8 @@
 							 <cfset mp = obj.getMediaPreview(
 								preview_uri="#preview_uri#",
 								media_type="#media_type#")>
-								<cfdump var=#mp#> 
+								<a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#mp#" class="theThumb"></a>
 							 </cfif>
-							 
-							  Yom-Tov et al. 2007 				publink:=REPLACE(sname,t.scientific_name,'
-
 						</div>
 					</cfloop>
 				</div>
