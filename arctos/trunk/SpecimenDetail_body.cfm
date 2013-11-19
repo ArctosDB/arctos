@@ -333,10 +333,12 @@
 /
 
 
-	<cfset mp = obj.getMediaPreview(
-		preview_uri="#preview_uri#",
-		media_type="#media_type#")>
-
+	
+<cfloop list="#one.typestatus#" index="x" delimiters=";">
+						<div class="detailBlock">
+							#x#
+						</div>
+					</cfloop>
 ------------>
 				</cfquery>
 
@@ -347,9 +349,22 @@
 
 				<div class="detailCell">
 					<div class="detailLabel">Citations</div>
-					<cfloop list="#one.typestatus#" index="x" delimiters=";">
+					<cfloop query="citations">
 						<div class="detailBlock">
-							#x#
+							 #type_status# of <a href="http://arctos.database.museum/name/#taxsciname#">#idsciname#</a>')
+							 <cfif len(OCCURS_PAGE_NUMBER) gt 0>
+							 	, page 239 in
+							 </cfif>
+							 <a href="http://arctos.database.museum/publication/#PUBLICATION_ID#">#short_citation#</a>
+							 <cfif len(media_uri) gt 0>
+							 <cfset mp = obj.getMediaPreview(
+								preview_uri="#preview_uri#",
+								media_type="#media_type#")>
+								<cfdump var=#mp#> 
+							 </cfif>
+							 
+							  Yom-Tov et al. 2007 				publink:=REPLACE(sname,t.scientific_name,'
+
 						</div>
 					</cfloop>
 				</div>
