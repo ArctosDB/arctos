@@ -318,7 +318,7 @@
 							 <cfset mp = obj.getMediaPreview(
 								preview_uri="#preview_uri#",
 								media_type="#media_type#")>
-								<a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#mp#"></a>
+								<a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#mp#" class="smallMediaPreview></a>
 							 </cfif>
 						</div>
 					</cfloop>
