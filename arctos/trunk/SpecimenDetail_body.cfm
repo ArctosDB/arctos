@@ -304,49 +304,7 @@
 						publication.publication_id = media_relations.related_primary_key (+) and
 						media_relations.media_id=media.media_id (+) and
 						citation.collection_object_id=#collection_object_id#
-						<!---------
-		) LOOP
-			sname:=r.scientific_name;
-			FOR t IN (
-				SELECT 
-					scientific_name
-				FROM 
-					identification_taxonomy,
-					taxon_name
-				WHERE 
-					identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id AND
-					identification_taxonomy.identification_id=r.identification_id
-			) LOOP
-				publink:=REPLACE(sname,t.scientific_name,'<a href="http://arctos.database.museum/name/' || t.scientific_name || '">' || r.scientific_name || '</a>');
-			END LOOP;
-			tresult:=r.TYPe_status || ' of ' || publink;
-			IF r.OCCURS_PAGE_NUMBER IS NOT NULL THEN
-				tresult:=tresult || ', page ' || r.OCCURS_PAGE_NUMBER;
-			END IF;
-			tresult:=tresult || ' in <a href="http://arctos.database.museum/publication/' || r.publication_id || '">';
-			tresult:=tresult || r.short_citation || '</a>';
-			result:=result || sep || tresult;
-			sep:='; ';      
-		END LOOP;
-		RETURN result;
-	END;
-/
-
-
-	
-<cfloop list="#one.typestatus#" index="x" delimiters=";">
-						<div class="detailBlock">
-							#x#
-						</div>
-					</cfloop>
------------->
 				</cfquery>
-
-
-<cfdump var=#citations#>
-
-
-
 				<div class="detailCell">
 					<div class="detailLabel">Citations</div>
 					<cfloop query="citations">
@@ -360,7 +318,7 @@
 							 <cfset mp = obj.getMediaPreview(
 								preview_uri="#preview_uri#",
 								media_type="#media_type#")>
-								<a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#mp#" class="theThumb"></a>
+								<a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#mp#"></a>
 							 </cfif>
 						</div>
 					</cfloop>
