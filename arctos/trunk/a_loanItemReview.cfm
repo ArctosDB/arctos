@@ -127,6 +127,9 @@
 			<cfquery name="upDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			UPDATE coll_object SET coll_obj_disposition = '#coll_obj_disposition#'
 			where collection_object_id = #collection_object_id#
+			<cfif len(currentcoll_obj_disposition) gt 0>
+				and coll_obj_disposition = '#currentcoll_obj_disposition#'
+			</cfif>
 			</cfquery>
 		</cfloop>
 	<cflocation url="a_loanItemReview.cfm?transaction_id=#transaction_id#">
@@ -334,7 +337,8 @@
 			</cfquery>
 			<br>There are #prtItemCnt.c# non-data loan items from #catCnt.c# specimens in this loan.
 			<form name="BulkUpdateDisp" method="post" action="a_loanItemReview.cfm">
-				<br>Change disposition of all these items to:
+				
+				<br>Change disposition to:
 				<input type="hidden" name="Action" value="BulkUpdateDisp">
 				<input type="hidden" name="transaction_id" value="#transaction_id#" id="transaction_id">
 				<select name="coll_obj_disposition" size="1">
@@ -342,6 +346,15 @@
 						<option value="#coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
 					</cfloop>				
 				</select>
+				when disposition is
+				
+				<select name="currentcoll_obj_disposition" id="currentcoll_obj_disposition" size="1">
+					<option value="">- anything -</option>
+					<cfloop query="ctDisp">
+						<option value="#coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+					</cfloop>				
+				</select>
+			
 				<input type="submit" value="Update Disposition" class="savBtn">	
 			</form>
 			<p>
