@@ -13,8 +13,8 @@
 			select * from d where table_name='#table_name#'
 		</cfquery>
 		
-		<cfset thisSQL="create table log_#tabl.table_name# ( ">
-		<p>
+		<cfset thisSQL="create table log_#tabl.table_name# ( username varchar2(60),	when date default sysdate,">
+		
 			
 			<cfloop query="cols">
 				<cfset thisSQL=thisSQL & "n_#COLUMN_NAME# #DATA_TYPE#(#DATA_LENGTH#),">
@@ -24,11 +24,96 @@
 			</cfloop>
 			<cfset thisSQL=thisSQL & ");">
 			<cfset thisSQL=replace(thisSQL,',);',');')>
+		<p>
 			#thisSQL#
 			
 		</p>
+		
+		
+		<cfset thisSQL="CREATE OR REPLACE TRIGGER TR_log_#table_name# AFTER INSERT or update or delete ON #table_name#
+FOR EACH ROW
+BEGIN
+      insert into log_#table_name# (username,when,">
+	<cfloop query="cols">
+		<cfset thisSQL=thisSQL & "n_#COLUMN_NAME#,">
+	</cfloop>
+	<cfloop query="cols">
+		<cfset thisSQL=thisSQL & "o_#COLUMN_NAME#,">
+	</cfloop>
+	<cfset thisSQL=thisSQL & "  ) values ( ">
+	
+	<cfloop query="cols">
+		<cfset thisSQL=thisSQL & ":NEW.#COLUMN_NAME#,">
+	</cfloop>
+	<cfloop query="cols">
+		<cfset thisSQL=thisSQL & ":OLD.#COLUMN_NAME#,">
+	</cfloop>
+	<cfset thisSQL=thisSQL & "  );">
+	
+	
+				<cfset thisSQL=replace(thisSQL,',);',');','all')>
+
+
+
+	<cfset thisSQL=thisSQL & "  END;
+			/
+sho err;
+/">
+
+
+	<p>
+			#thisSQL#
+			
+		</p>
+
+		
 		<!---------
 		
+		
+			
+      n_DESCRIPTION,
+      n_COLLECTION_CDE,
+      n_ABUNDANCE,
+      o_DESCRIPTION,
+      o_COLLECTION_CDE,
+      o_ABUNDANCE
+    ) values (
+            :NEW.DESCRIPTION,
+            :NEW.COLLECTION_CDE,
+            :NEW.ABUNDANCE,  :OLD.DESCRIPTION,
+            :OLD.COLLECTION_CDE,
+            :OLD.ABUNDANCE
+      );
+END;
+/
+sho err;
+		
+CREATE OR REPLACE TRIGGER TR_log_CTABUNDANCE
+AFTER INSERT or update or delete ON CTABUNDANCE
+FOR EACH ROW
+  declare
+    action_type varchar2(255);    
+BEGIN
+      insert into log_CTABUNDANCE (
+      n_DESCRIPTION,
+      n_COLLECTION_CDE,
+      n_ABUNDANCE,
+      o_DESCRIPTION,
+      o_COLLECTION_CDE,
+      o_ABUNDANCE
+    ) values (
+            :NEW.DESCRIPTION,
+            :NEW.COLLECTION_CDE,
+            :NEW.ABUNDANCE,  :OLD.DESCRIPTION,
+            :OLD.COLLECTION_CDE,
+            :OLD.ABUNDANCE
+      );
+END;
+/
+sho err;
+
+
+
 		create table log_geog_auth_rec (
 	GEOG_AUTH_REC_ID NUMBER,
 	username varchar2(60),
