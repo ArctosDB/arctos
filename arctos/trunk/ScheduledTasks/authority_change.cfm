@@ -17,11 +17,11 @@
 			FROM 
 				log_geog_auth_rec
 			WHERE
-				WHEN between to_date('#start#') and to_date('#stop#')> SYSDATE - (#hours#/24)
+				WHEN between to_date('#start#') and to_date('#stop#')
 		</cfquery>
 		
 		<p>
-			There have been #geog.recordcount# GEOG_AUTH_REC changes in the last #hours# hours.
+			There have been #geog.recordcount# GEOG_AUTH_REC changes between #start# and #stop#.
 		</p>
 		<cfif geog.recordcount gt 0>
 			<cfsavecontent variable="geogChanges">
