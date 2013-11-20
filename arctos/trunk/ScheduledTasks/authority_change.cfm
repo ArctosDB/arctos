@@ -147,7 +147,6 @@
 		</cfif>
 		
 		
-		#allChanges#
 		
 		
 		
@@ -198,9 +197,12 @@
 			
 			
 			<hr>
-			email to: #valuelist(cc.address)#
+			email to: #valuelist(cc.address)#, arctos.database@gmail.com
 			<br>#emailChanges#
 			</hr>
+		<cfelse>
+			<!--- just display ---->
+			#allChanges#
 		</cfif>
 	
 <!-----		
