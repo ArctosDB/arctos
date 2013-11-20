@@ -29,16 +29,16 @@
 		</cftry>
 		
 		<cfset thisSQL="create table log_#tabl.table_name# ( 
-		<br>username varchar2(60),	
-		<br>when date default sysdate,">
+		username varchar2(60),	
+		when date default sysdate,">
 		<cfloop query="cols">
-			<cfset thisSQL=thisSQL & "<br>n_#COLUMN_NAME# #DATA_TYPE#(#DATA_LENGTH#),">
+			<cfset thisSQL=thisSQL & "n_#COLUMN_NAME# #DATA_TYPE#(#DATA_LENGTH#),">
 		</cfloop>
 		<cfloop query="cols">
-			<cfset thisSQL=thisSQL & "<br>o_#COLUMN_NAME# #DATA_TYPE#(#DATA_LENGTH#),">
+			<cfset thisSQL=thisSQL & "o_#COLUMN_NAME# #DATA_TYPE#(#DATA_LENGTH#),">
 		</cfloop>
-		<cfset thisSQL=thisSQL & "<br>);">
-		<cfset thisSQL=replace(thisSQL,',<br>);','<br>);')>
+		<cfset thisSQL=thisSQL & ")">
+		<cfset thisSQL=replace(thisSQL,',);',');')>
 		<cfquery name="buildtable" datasource="uam_god">
 			#thisSQL#
 		</cfquery>
