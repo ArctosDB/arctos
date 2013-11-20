@@ -111,10 +111,25 @@
 					preferred_agent_name.agent_name,
 					electronic_address.address,
 					collection
+				order by
+					collection,
+					agent_name
 			</cfquery>
+			<cfsavecontent variable="changes">
+						sending email....
 			<cfdump var=#cc#>
-			
-			sending email....#changes#
+
+
+
+
+			</cfsavecontent>
+
+
+---
+#changes#
+---
+
+
 		</cfif>
 	
 <!-----		
