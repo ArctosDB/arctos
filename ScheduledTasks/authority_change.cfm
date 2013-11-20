@@ -56,18 +56,11 @@
 			<cfsavecontent variable="ctChanges">
 				<p>
 					Code tables have changed between #start# and #stop#.
-				</p>
-				<p>
-					This for may reflect discarded changes. Go look at the data.
-				</p>
-				<p>
-					Rows with only N_xxx values are INSERTS
-				</p>
-				<p>
-					Rows with only O_xxx values are DELETES
-				</p>
-				<p>
-					Rows with N_xxx and O_xxx values are UPDATES
+					This for may reflect discarded changes, changes that have not been used in data, or changes that your 
+					user cannot access. 				
+					Rows with only N_xxx (new) values are INSERTS.
+					Rows with only O_xxx (old) values are DELETES.
+					Rows with N_xxx and O_xxx values are UPDATES.
 				</p>
 				#ctChanges#
 			</cfsavecontent>
@@ -86,7 +79,7 @@
 		<cfif geog.recordcount gt 0>
 			<cfsavecontent variable="geogChanges">
 				<p>
-					GEOG_AUTH_REC has changed between #start# and #stop#.
+					GEOG_AUTH_REC changed between #start# and #stop#.
 					<br>(o_XXX are old values; n_XXX are new.)
 				</p>
 				
