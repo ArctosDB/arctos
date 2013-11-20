@@ -33,7 +33,7 @@
 		</cfif>
 		<cfabort>
 	</cfif>
-	<cfif right(request.rdurl,6) is "=-1%27">
+	<cfif right(request.rdurl,5) is "-1%27">
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>

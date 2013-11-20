@@ -51,6 +51,11 @@
 				<cfabort>
 			</cfif>
 		</cfif>
+		<cfif right(request.rdurl,5) is "-1%27">
+			<cfinclude template="/errors/autoblacklist.cfm">
+			<cfabort>
+		</cfif>
+	
 		<cf_logError subject="#subject#" attributeCollection=#exception#>
 		<table cellpadding="10">
 			<tr>
