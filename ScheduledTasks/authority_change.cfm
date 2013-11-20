@@ -115,7 +115,7 @@
 			
 			<cfsavecontent variable="emailChanges">
 				Geography used by a collection for which you are a "data quality" contact has changed.
-				<p>#changes#</p>
+				<p>#geogChanges#</p>
 			</cfsavecontent>
 			email to: #valuelist(cc.address)#
 			<br>#emailChanges#
