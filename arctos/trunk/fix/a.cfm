@@ -26,7 +26,12 @@
 		<p>
 			#thisSQL#
 		</p>
-		
+		<p>
+			create or replace public synonym log_#tabl.table_name# for log_#tabl.table_name#;
+		</p>
+		<p>
+			grant select on log_#tabl.table_name# to coldfusion_user;
+		</p>
 		
 		<cfset thisSQL="CREATE OR REPLACE TRIGGER TR_log_#table_name# AFTER INSERT or update or delete ON #table_name#
 			<br>FOR EACH ROW
