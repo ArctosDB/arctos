@@ -42,7 +42,7 @@ BEGIN
 	</cfloop>
 	<cfset thisSQL=thisSQL & ") values ( SYS_CONTEXT('USERENV','SESSION_USER'),sysdate,">
 	
-					<cfset thisSQL=replace(thisSQL,',);',')','all')>
+					<cfset thisSQL=replace(thisSQL,',)',')','all')>
 
 	<cfloop query="cols">
 		<cfset thisSQL=thisSQL & ":NEW.#COLUMN_NAME#,">
