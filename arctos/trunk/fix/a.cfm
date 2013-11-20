@@ -39,10 +39,52 @@
 		</cfloop>
 		<cfset thisSQL=thisSQL & ")">
 		<cfset thisSQL=replace(thisSQL,',)',')')>
+		#thisSQL#
 		<cfquery name="buildtable" datasource="uam_god">
 			#thisSQL#
 		</cfquery>
-		
+		<cfquery name="buildps" datasource="uam_god">
+			create or replace public synonym log_#tabl.table_name# for log_#tabl.table_name#
+		</cfquery>
+		<cfquery name="grantps" datasource="uam_god">
+			grant select on log_#tabl.table_name# to coldfusion_user
+		</cfquery>
+
+		<cfset thisSQL="CREATE OR REPLACE TRIGGER TR_log_#table_name# AFTER INSERT or update or delete ON #table_name#
+			FOR EACH ROW
+			BEGIN
+    		  insert into log_#table_name# (
+			username,
+			when,">
+		<cfloop query="cols">
+			<cfset thisSQL=thisSQL & "n_#COLUMN_NAME#,">
+		</cfloop>
+		<cfloop query="cols">
+			<cfset thisSQL=thisSQL & "o_#COLUMN_NAME#,">
+		</cfloop>
+		<cfset thisSQL=thisSQL & ") values ( 
+			SYS_CONTEXT('USERENV','SESSION_USER'),
+			sysdate,">
+		<cfset thisSQL=replace(thisSQL,',)',')','all')>
+
+		<cfloop query="cols">
+			<cfset thisSQL=thisSQL & ":NEW.#COLUMN_NAME#,">
+		</cfloop>
+		<cfloop query="cols">
+			<cfset thisSQL=thisSQL & ":OLD.#COLUMN_NAME#,">
+		</cfloop>
+		<cfset thisSQL=thisSQL & ");">
+	
+		<cfset thisSQL=replace(thisSQL,',);',');','all')>
+
+		<cfset thisSQL=thisSQL & "  END;
+			">
+		<p>
+			#thisSQL#
+		</p>
+		<cfquery name="buildtr" datasource="uam_god">
+			#thisSQL#
+		</cfquery>
 		<!----
 		<cfset thisSQL="create table log_#tabl.table_name# ( 
 		<br>username varchar2(60),	
