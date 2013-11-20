@@ -2,6 +2,7 @@
 	<cfoutput>
 		<cfset allChanges="">
 		<cfset geogChanges="">
+		<cfset ctChanges="">
 		<cfset today = Now()>
 		<cfset yesterday = CreateDate(Year(Now()),Month(Now()),Day(Now()-1))>
 		<cfparam name="start" default="#dateformat(yesterday,'yyyy-mm-dd')#" type="string">
@@ -29,7 +30,25 @@
 				select * from #table_name# where WHEN between to_date('#start#') and to_date('#stop#')
 			</cfquery>
 			<cfif ctab.recordcount gt 0>
-				<cfdump var=#ctab#>
+			
+							<cfdump var=#ctab#>
+
+
+
+				<table border>
+					<tr>
+					<cfloop list="#ctab.columnlist#" index="c">
+						<th>#c#</th>	
+					</cfloop>
+					</tr>
+					<cfloop query="#ctab#">
+						<tr>
+							<cfloop list="#ctab.columnlist#" index="c">
+								<td>#evaluate("ctab." & c)#</td>	
+							</cfloop>
+						</tr>
+					</cfloop>
+				</table>
 			</cfif>
 		</cfloop>
 		
