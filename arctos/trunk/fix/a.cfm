@@ -38,7 +38,7 @@
 			<cfset thisSQL=thisSQL & "o_#COLUMN_NAME# #DATA_TYPE#(#DATA_LENGTH#),">
 		</cfloop>
 		<cfset thisSQL=thisSQL & ")">
-		<cfset thisSQL=replace(thisSQL,',);',');')>
+		<cfset thisSQL=replace(thisSQL,',)',')')>
 		<cfquery name="buildtable" datasource="uam_god">
 			#thisSQL#
 		</cfquery>
