@@ -10,7 +10,7 @@
 		<cfparam name="stop" default="#dateformat(now(),'yyyy-mm-dd')#" type="string">
 		DEFAULT is last 24 hours. You can change that by adding a URL parameter. Example:
 		
-		<a href="authority_change.cfm?hours=36">authority_change.cfm?start=#start#&stop=#stop#</a>
+		<a href="authority_change.cfm?start=#start#&stop=#stop#">authority_change.cfm?start=#start#&stop=#stop#</a>
 		<cfquery name="geog" datasource="uam_god">
 			select 
 				*
@@ -119,11 +119,20 @@
 			</cfif>
 			
 			<cfsavecontent variable="emailChanges">
-				Geography used by a collection for which you are a "data quality" contact has changed.
+				<p>
+					Geography used by a collection for which you are a "data quality" contact has changed.
+				</p>
+				<p>
+					This report is available at #application.serverRootURL#/ScheduledTasks/authority_change.cfm?start=#start#&stop=#stop#
+				</p>
 				<p>#geogChanges#</p>
 			</cfsavecontent>
+			
+			
+			<hr>
 			email to: #valuelist(cc.address)#
 			<br>#emailChanges#
+			</hr>
 		</cfif>
 	
 <!-----		
