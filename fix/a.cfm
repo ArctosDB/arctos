@@ -12,11 +12,17 @@
 		<cfquery name="cols" dbtype="query">
 			select * from d where table_name='#table_name#'
 		</cfquery>
+		
+		<cfset thisSQL="create table log_#tabl.table_name# ( ">
 		<p>
-			create table log_#tabl.table_name# (
+			
 			<cfloop query="cols">
-				#COLUMN_NAME# #DATA_TYPE#
+				<cfset thisSQL=thisSQL & "#COLUMN_NAME# #DATA_TYPE#,">
 			</cfloop>
+			<cfset thisSQL=thisSQL & ");">
+			<cfset thisSQL=replace(thisSQL,',);',');'>
+			#thisSQL#
+			
 		</p>
 		<!---------
 		
