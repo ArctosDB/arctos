@@ -12,6 +12,20 @@
 		<cfquery name="cols" dbtype="query">
 			select * from d where table_name='#table_name#'
 		</cfquery>
+		
+		
+		<cfset thisSQL="drop table log_#tabl.table_name#">
+		<cftry>
+			<cfquery name="drop" dbtype="query">
+				#thisSQL#
+			</cfquery>
+			<br>#thisSQL#
+		<cfcatch>
+			<br>FAIL: could not #thisSQL#
+		</cfcatch>
+		</cftry>
+		
+		<!----
 		<cfset thisSQL="create table log_#tabl.table_name# ( 
 		<br>username varchar2(60),	
 		<br>when date default sysdate,">
@@ -68,7 +82,7 @@
 			#thisSQL#
 		</p>
 
-		
+		---->
 		<!---------
 		
 		
