@@ -22,6 +22,7 @@
 			<br>#thisSQL#
 		<cfcatch>
 			<br>FAIL: could not #thisSQL#
+			<cfdump var=#cfcatch#>
 		</cfcatch>
 		</cftry>
 		
