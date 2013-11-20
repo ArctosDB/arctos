@@ -40,7 +40,7 @@ BEGIN
 	<cfloop query="cols">
 		<cfset thisSQL=thisSQL & "o_#COLUMN_NAME#,">
 	</cfloop>
-	<cfset thisSQL=thisSQL & "  ) values ( SYS_CONTEXT('USERENV','SESSION_USER'),sysdate,">
+	<cfset thisSQL=thisSQL & " ) values ( SYS_CONTEXT('USERENV','SESSION_USER'),sysdate,">
 	
 	<cfloop query="cols">
 		<cfset thisSQL=thisSQL & ":NEW.#COLUMN_NAME#,">
@@ -55,9 +55,9 @@ BEGIN
 
 
 
-	<cfset thisSQL=thisSQL & "  END;
-			/
-sho err;
+	<cfset thisSQL=thisSQL & "  END;<br>
+			/<br>
+sho err;<br>
 /">
 
 
