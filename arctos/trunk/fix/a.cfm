@@ -14,7 +14,7 @@
 		</cfquery>
 		<p>
 			create table log_#tabl.table_name# (
-			<cfloop query="">
+			<cfloop query="cols">
 				#COLUMN_NAME# #DATA_TYPE#
 			</cfloop>
 		</p>
