@@ -22,9 +22,26 @@
 			<br>#thisSQL#
 		<cfcatch>
 			<br>FAIL: could not #thisSQL#
+			<!----
 			<cfdump var=#cfcatch#>
+			------>
 		</cfcatch>
 		</cftry>
+		
+		<cfset thisSQL="create table log_#tabl.table_name# ( 
+		<br>username varchar2(60),	
+		<br>when date default sysdate,">
+		<cfloop query="cols">
+			<cfset thisSQL=thisSQL & "<br>n_#COLUMN_NAME# #DATA_TYPE#(#DATA_LENGTH#),">
+		</cfloop>
+		<cfloop query="cols">
+			<cfset thisSQL=thisSQL & "<br>o_#COLUMN_NAME# #DATA_TYPE#(#DATA_LENGTH#),">
+		</cfloop>
+		<cfset thisSQL=thisSQL & "<br>);">
+		<cfset thisSQL=replace(thisSQL,',<br>);','<br>);')>
+		<cfquery name="buildtable" datasource="uam_god">
+			#thisSQL#
+		</cfquery>
 		
 		<!----
 		<cfset thisSQL="create table log_#tabl.table_name# ( 
