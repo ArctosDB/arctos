@@ -48,7 +48,7 @@ BEGIN
 	<cfloop query="cols">
 		<cfset thisSQL=thisSQL & ":OLD.#COLUMN_NAME#,">
 	</cfloop>
-	<cfset thisSQL=thisSQL & "  );">
+	<cfset thisSQL=thisSQL & ");">
 	
 	
 				<cfset thisSQL=replace(thisSQL,',);',');','all')>
