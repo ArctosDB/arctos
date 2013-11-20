@@ -94,7 +94,7 @@
 					cataloged_item,
 					collection,
 					collection_contacts,
-					preferred_agent_name
+					preferred_agent_name,
 					electronic_address
 				where
 					locality.locality_id=collecting_event.locality_id and
