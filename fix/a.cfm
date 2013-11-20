@@ -130,8 +130,6 @@
 		<cfset thisSQL=replace(thisSQL,',<br>);','<br>);','all')>
 
 		<cfset thisSQL=thisSQL & "  <br>END;<br>
-			/<br>
-			sho err;<br>
 			/">
 		<p>
 			#thisSQL#
