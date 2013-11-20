@@ -87,7 +87,7 @@
 				</cfquery>
 				<cfquery name="cc" datasource="uam_god">
 					select 
-						electronic_address.address,
+						electronic_address.address
 					FROM 
 						locality,
 						collecting_event,
@@ -109,7 +109,7 @@
 						electronic_address.address_type='e-mail' and
 						collection_contacts.contact_role='data quality'
 					group by 
-						electronic_address.address,
+						electronic_address.address
 				</cfquery>
 			</cfif>
 			
