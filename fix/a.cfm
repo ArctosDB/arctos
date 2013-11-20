@@ -12,64 +12,55 @@
 		<cfquery name="cols" dbtype="query">
 			select * from d where table_name='#table_name#'
 		</cfquery>
-		
-		<cfset thisSQL="create table log_#tabl.table_name# ( username varchar2(60),	when date default sysdate,">
-		
-			
-			<cfloop query="cols">
-				<cfset thisSQL=thisSQL & "n_#COLUMN_NAME# #DATA_TYPE#(#DATA_LENGTH#),">
-			</cfloop>
-			<cfloop query="cols">
-				<cfset thisSQL=thisSQL & "o_#COLUMN_NAME# #DATA_TYPE#(#DATA_LENGTH#),">
-			</cfloop>
-			<cfset thisSQL=thisSQL & ");">
-			<cfset thisSQL=replace(thisSQL,',);',');')>
+		<cfset thisSQL="create table log_#tabl.table_name# ( 
+		<br>username varchar2(60),	
+		<br>when date default sysdate,">
+		<cfloop query="cols">
+			<cfset thisSQL=thisSQL & "<br>n_#COLUMN_NAME# #DATA_TYPE#(#DATA_LENGTH#),">
+		</cfloop>
+		<cfloop query="cols">
+			<cfset thisSQL=thisSQL & "<br>o_#COLUMN_NAME# #DATA_TYPE#(#DATA_LENGTH#),">
+		</cfloop>
+		<cfset thisSQL=thisSQL & "<br>);">
+		<cfset thisSQL=replace(thisSQL,',<br>);','<br>);')>
 		<p>
 			#thisSQL#
-			
 		</p>
 		
 		
 		<cfset thisSQL="CREATE OR REPLACE TRIGGER TR_log_#table_name# AFTER INSERT or update or delete ON #table_name#
-<br>FOR EACH ROW
-<br>BEGIN
-    <br>  insert into log_#table_name# (
-	<br>username,
-	<br>when,">
-	<cfloop query="cols">
-		<cfset thisSQL=thisSQL & "<br>n_#COLUMN_NAME#,">
-	</cfloop>
-	<cfloop query="cols">
-		<cfset thisSQL=thisSQL & "<br>o_#COLUMN_NAME#,">
-	</cfloop>
-	<cfset thisSQL=thisSQL & "<br>) values ( 
-	<br>SYS_CONTEXT('USERENV','SESSION_USER'),
-	<br>sysdate,">
+			<br>FOR EACH ROW
+			<br>BEGIN
+    		<br>  insert into log_#table_name# (
+			<br>username,
+			<br>when,">
+		<cfloop query="cols">
+			<cfset thisSQL=thisSQL & "<br>n_#COLUMN_NAME#,">
+		</cfloop>
+		<cfloop query="cols">
+			<cfset thisSQL=thisSQL & "<br>o_#COLUMN_NAME#,">
+		</cfloop>
+		<cfset thisSQL=thisSQL & "<br>) values ( 
+			<br>SYS_CONTEXT('USERENV','SESSION_USER'),
+			<br>sysdate,">
+		<cfset thisSQL=replace(thisSQL,',<br>)','<br>)','all')>
+
+		<cfloop query="cols">
+			<cfset thisSQL=thisSQL & "<br>:NEW.#COLUMN_NAME#,">
+		</cfloop>
+		<cfloop query="cols">
+			<cfset thisSQL=thisSQL & "<br>:OLD.#COLUMN_NAME#,">
+		</cfloop>
+		<cfset thisSQL=thisSQL & "<br>);">
 	
-	<cfset thisSQL=replace(thisSQL,',<br>)','<br>)','all')>
+		<cfset thisSQL=replace(thisSQL,',<br>);','<br>);','all')>
 
-	<cfloop query="cols">
-		<cfset thisSQL=thisSQL & "<br>:NEW.#COLUMN_NAME#,">
-	</cfloop>
-	<cfloop query="cols">
-		<cfset thisSQL=thisSQL & "<br>:OLD.#COLUMN_NAME#,">
-	</cfloop>
-	<cfset thisSQL=thisSQL & "<br>);">
-	
-	
-				<cfset thisSQL=replace(thisSQL,',<br>);','<br>);','all')>
-
-
-
-	<cfset thisSQL=thisSQL & "  <br>END;<br>
+		<cfset thisSQL=thisSQL & "  <br>END;<br>
 			/<br>
-sho err;<br>
-/">
-
-
-	<p>
+			sho err;<br>
+			/">
+		<p>
 			#thisSQL#
-			
 		</p>
 
 		
