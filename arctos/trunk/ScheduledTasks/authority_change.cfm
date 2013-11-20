@@ -18,7 +18,7 @@
 			select 
 				table_name
 			FROM 
-				uer_tables
+				user_tables
 			WHERE
 				table_name like 'LOG_CT%'
 		</cfquery>
