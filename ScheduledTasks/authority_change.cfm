@@ -117,6 +117,10 @@
 			</cfquery>
 			<cfsavecontent variable="changes">
 						sending email....
+						
+						#changes#
+						
+						
 			<cfdump var=#cc#>
 
 
