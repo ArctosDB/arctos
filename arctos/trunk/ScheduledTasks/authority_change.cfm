@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
+		<cfset title="authority file changes">
 		<cfset allChanges="">
 		<cfset geogChanges="">
 		<cfset ctChanges="">
@@ -52,21 +53,24 @@
 		
 		
 		<cfif len(ctChanges) gt 0>
-			Code tables have changed.
-			<p>
-				This for may reflect discarded changes. Go look at the data.
-			</p>
-			<p>
-				Rows with only N_xxx values are INSERTS
-			</p>
-			<p>
-				Rows with only O_xxx values are DELETES
-			</p>
-			<p>
-				Rows with N_xxx and O_xxx values are UPDATES
-			</p>
-			
-			#ctChanges#
+			<cfsavecontent variable="ctChanges">
+				<p>
+					Code tables have changed between #start# and #stop#.
+				</p>
+				<p>
+					This for may reflect discarded changes. Go look at the data.
+				</p>
+				<p>
+					Rows with only N_xxx values are INSERTS
+				</p>
+				<p>
+					Rows with only O_xxx values are DELETES
+				</p>
+				<p>
+					Rows with N_xxx and O_xxx values are UPDATES
+				</p>
+				#ctChanges#
+			</cfsavecontent>
 		</cfif>
 		
 		<cfquery name="geog" datasource="uam_god">
@@ -78,12 +82,14 @@
 				WHEN between to_date('#start#') and to_date('#stop#')
 		</cfquery>
 		
-		<p>
-			There have been #geog.recordcount# GEOG_AUTH_REC changes between #start# and #stop#.
-		</p>
+		
 		<cfif geog.recordcount gt 0>
 			<cfsavecontent variable="geogChanges">
-				(o_XXX are old values; n_XXX are new.)
+				<p>
+					GEOG_AUTH_REC has changed between #start# and #stop#.
+					<br>(o_XXX are old values; n_XXX are new.)
+				</p>
+				
 				<table border>
 					<tr>
 						<th>GEOG_AUTH_REC_ID</th>
@@ -137,11 +143,22 @@
 					</cfloop>
 				</table>
 			</cfsavecontent>
-			#geogChanges#
 		</cfif>
 		<!--- append everything together ---->
 		
-		<cfset allChanges=geogChanges>
+		<cfset allChanges=geogChanges & ctChanges>
+		
+		
+		<cfif len(allChanges) is 0>
+			no changes.
+		</cfif>
+		
+		
+		#allChanges#
+		
+		
+		
+		
 		
 		<cfif action is "sendEmail">
 			<cfif len(geogChanges) gt 0>
