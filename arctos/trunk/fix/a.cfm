@@ -13,7 +13,7 @@
 			select * from d where table_name='#table_name#'
 		</cfquery>
 		
-		
+		<!----
 		<cfset thisSQL="drop table log_#tabl.table_name#">
 		<cftry>
 			<cfquery name="drop" datasource="uam_god">
@@ -75,7 +75,12 @@
 			#thisSQL#
 		</p>
 		<cfquery name="buildtr" datasource="uam_god">#thisSQL#</cfquery>
-		<!----
+		
+		
+		---->
+		<p>
+			drop table log_#tabl.table_name#;
+		</p>
 		<cfset thisSQL="create table log_#tabl.table_name# ( 
 		<br>username varchar2(60),	
 		<br>when date default sysdate,">
@@ -132,7 +137,6 @@
 			#thisSQL#
 		</p>
 
-		---->
 		<!---------
 		
 		
