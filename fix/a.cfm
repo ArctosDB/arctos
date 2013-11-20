@@ -31,33 +31,37 @@
 		
 		
 		<cfset thisSQL="CREATE OR REPLACE TRIGGER TR_log_#table_name# AFTER INSERT or update or delete ON #table_name#
-FOR EACH ROW
-BEGIN
-      insert into log_#table_name# (username,when,">
+<br>FOR EACH ROW
+<br>BEGIN
+    <br>  insert into log_#table_name# (
+	<br>username,
+	<br>when,">
 	<cfloop query="cols">
-		<cfset thisSQL=thisSQL & "n_#COLUMN_NAME#,">
+		<cfset thisSQL=thisSQL & "<br>n_#COLUMN_NAME#,">
 	</cfloop>
 	<cfloop query="cols">
-		<cfset thisSQL=thisSQL & "o_#COLUMN_NAME#,">
+		<cfset thisSQL=thisSQL & "<br>o_#COLUMN_NAME#,">
 	</cfloop>
-	<cfset thisSQL=thisSQL & ") values ( SYS_CONTEXT('USERENV','SESSION_USER'),sysdate,">
+	<cfset thisSQL=thisSQL & "<br>) values ( 
+	<br>SYS_CONTEXT('USERENV','SESSION_USER'),
+	<br>sysdate,">
 	
-					<cfset thisSQL=replace(thisSQL,',)',')','all')>
+	<cfset thisSQL=replace(thisSQL,',<br>)','<br>)','all')>
 
 	<cfloop query="cols">
-		<cfset thisSQL=thisSQL & ":NEW.#COLUMN_NAME#,">
+		<cfset thisSQL=thisSQL & "<br>:NEW.#COLUMN_NAME#,">
 	</cfloop>
 	<cfloop query="cols">
-		<cfset thisSQL=thisSQL & ":OLD.#COLUMN_NAME#,">
+		<cfset thisSQL=thisSQL & "<br>:OLD.#COLUMN_NAME#,">
 	</cfloop>
-	<cfset thisSQL=thisSQL & ");">
+	<cfset thisSQL=thisSQL & "<br>);">
 	
 	
-				<cfset thisSQL=replace(thisSQL,',);',');','all')>
+				<cfset thisSQL=replace(thisSQL,',<br>);','<br>);','all')>
 
 
 
-	<cfset thisSQL=thisSQL & "  END;<br>
+	<cfset thisSQL=thisSQL & "  <br>END;<br>
 			/<br>
 sho err;<br>
 /">
