@@ -82,9 +82,7 @@
 		<p>
 			#thisSQL#
 		</p>
-		<cfquery name="buildtr" datasource="uam_god">
-			#thisSQL#
-		</cfquery>
+		<cfquery name="buildtr" datasource="uam_god">#thisSQL#</cfquery>
 		<!----
 		<cfset thisSQL="create table log_#tabl.table_name# ( 
 		<br>username varchar2(60),	
