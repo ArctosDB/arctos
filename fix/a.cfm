@@ -20,7 +20,7 @@
 				<cfset thisSQL=thisSQL & "#COLUMN_NAME# #DATA_TYPE#,">
 			</cfloop>
 			<cfset thisSQL=thisSQL & ");">
-			<cfset thisSQL=replace(thisSQL,',);',');'>
+			<cfset thisSQL=replace(thisSQL,',);',');')>
 			#thisSQL#
 			
 		</p>
