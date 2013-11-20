@@ -16,7 +16,7 @@
 		
 		<cfset thisSQL="drop table log_#tabl.table_name#">
 		<cftry>
-			<cfquery name="drop" dbtype="query">
+			<cfquery name="drop" datasource="uam_god">
 				#thisSQL#
 			</cfquery>
 			<br>#thisSQL#
