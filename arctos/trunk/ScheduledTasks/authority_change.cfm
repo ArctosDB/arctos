@@ -11,6 +11,22 @@
 		DEFAULT is last 24 hours. You can change that by adding a URL parameter. Example:
 		
 		<a href="authority_change.cfm?start=#start#&stop=#stop#">authority_change.cfm?start=#start#&stop=#stop#</a>
+		
+		
+		
+		<cfquery name="ctlogtbl" datasource="uam_god">
+			select 
+				table_name
+			FROM 
+				uer_tables
+			WHERE
+				table_name like 'LOG_CT%'
+		</cfquery>
+		<cfdump var=#ctlogtbl#>
+		
+		
+		
+		
 		<cfquery name="geog" datasource="uam_god">
 			select 
 				*
