@@ -107,6 +107,10 @@
 					locality.GEOG_AUTH_REC_ID in (#valuelist(gids.geog_auth_rec_id)#) and
 					electronic_address.address_type='e-mail' and
 					collection_contacts.contact_role='data quality'
+				group by 
+					preferred_agent_name.agent_name,
+					electronic_address.address,
+					collection
 			</cfquery>
 			<cfdump var=#cc#>
 			
