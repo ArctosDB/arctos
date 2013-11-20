@@ -17,10 +17,10 @@
 		<p>
 			
 			<cfloop query="cols">
-				<cfset thisSQL=thisSQL & "n_#COLUMN_NAME# #DATA_TYPE#(#DATA_TYPE_MOD#),">
+				<cfset thisSQL=thisSQL & "n_#COLUMN_NAME# #DATA_TYPE#(#DATA_LENGTH#),">
 			</cfloop>
 			<cfloop query="cols">
-				<cfset thisSQL=thisSQL & "o_#COLUMN_NAME# #DATA_TYPE#(#DATA_TYPE_MOD#),">
+				<cfset thisSQL=thisSQL & "o_#COLUMN_NAME# #DATA_TYPE#(#DATA_LENGTH#),">
 			</cfloop>
 			<cfset thisSQL=thisSQL & ");">
 			<cfset thisSQL=replace(thisSQL,',);',');')>
