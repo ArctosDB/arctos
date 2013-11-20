@@ -23,35 +23,50 @@
 			WHERE
 				table_name like 'LOG_CT%'
 		</cfquery>
-		<cfdump var=#ctlogtbl#>
 		
 		<cfloop query="ctlogtbl">
 			<cfquery name="ctab" datasource="uam_god">
 				select * from #table_name# where WHEN between to_date('#start#') and to_date('#stop#') order by when
 			</cfquery>
 			<cfif ctab.recordcount gt 0>
-			
-							<cfdump var=#ctab#>
-
-
-
-				<table border>
-					<tr>
-					<cfloop list="#ctab.columnlist#" index="c">
-						<th>#c#</th>	
-					</cfloop>
-					</tr>
-					<cfloop query="#ctab#">
+				<cfsavecontent variable="ctChanges">
+					#ctChanges#
+					<table border>
 						<tr>
-							<cfloop list="#ctab.columnlist#" index="c">
-								<td>#evaluate("ctab." & c)#</td>	
-							</cfloop>
+						<cfloop list="#ctab.columnlist#" index="c">
+							<th>#c#</th>	
+						</cfloop>
 						</tr>
-					</cfloop>
-				</table>
+						<cfloop query="#ctab#">
+							<tr>
+								<cfloop list="#ctab.columnlist#" index="c">
+									<td>#evaluate("ctab." & c)#</td>	
+								</cfloop>
+							</tr>
+						</cfloop>
+					</table>
+				</cfsavecontent>
 			</cfif>
 		</cfloop>
 		
+		
+		<cfif len(ctChanges) gt 0>
+			Code tables have changed.
+			<p>
+				This for may reflect discarded changes. Go look at the data.
+			</p>
+			<p>
+				Rows with only N_xxx values are INSERTS
+			</p>
+			<p>
+				Rows with only O_xxx values are DELETES
+			</p>
+			<p>
+				Rows with N_xxx and O_xxx values are UPDATES
+			</p>
+			
+			#ctChanges#
+		</cfif>
 		
 		<cfquery name="geog" datasource="uam_god">
 			select 
