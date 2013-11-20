@@ -31,7 +31,7 @@
 			<cfif ctab.recordcount gt 0>
 				<cfsavecontent variable="ctChanges">
 					#ctChanges#
-					<p>Table #table_name#:</p>
+					<p>Table #replace(table_name,'LOG_','','all')#:</p>
 					<table border>
 						<tr>
 						<cfloop list="#ctab.columnlist#" index="c">
