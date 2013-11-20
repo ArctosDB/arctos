@@ -2,17 +2,22 @@
 	<cfoutput>
 		<cfset allChanges="">
 		<cfset geogChanges="">
-		<cfparam name="hours" default="24" type="integer">
+		<cfset today = Now()>
+		<cfset yesterday = CreateDate(Year(Now()),Month(Now()),Day(Now()-1))>
+		<cfparam name="start" default="#dateformat(yesterday,'yyyy-mm-dd')#" type="string">
+		
+		
+		<cfparam name="stop" default="#dateformat(now(),'yyyy-mm-dd')#" type="string">
 		DEFAULT is last 24 hours. You can change that by adding a URL parameter. Example:
 		
-		<a href="authority_change.cfm?hours=36">authority_change.cfm?hours=36</a>
+		<a href="authority_change.cfm?hours=36">authority_change.cfm?start=#start#&stop=#stop#</a>
 		<cfquery name="geog" datasource="uam_god">
 			select 
 				*
 			FROM 
 				log_geog_auth_rec
 			WHERE
-				WHEN > SYSDATE - (#hours#/24)
+				WHEN between to_date('#start#') and to_date('#stop#')> SYSDATE - (#hours#/24)
 		</cfquery>
 		
 		<p>
