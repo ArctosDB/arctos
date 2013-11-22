@@ -187,7 +187,11 @@
 			
 			<cfsavecontent variable="emailChanges">
 				<p>
-					Geography used by a collection for which you are a "data quality" contact has changed.
+					Code table (including geography) values have changed.
+				</p>
+				<p>
+					You are receiving this report because you are a collection "data quality" contact,
+					or because you are receiving forwarded email from arctos.database@gmail.com.
 				</p>
 				<p>
 					This report is available at #application.serverRootURL#/ScheduledTasks/authority_change.cfm?start=#start#&stop=#stop#

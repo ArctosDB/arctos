@@ -94,6 +94,9 @@
 					<option value="phylclass">Class</option>
 					<option value="phylorder">Order</option>
 					<option value="family">Family</option>
+					<option value="subfamily">Subfamily</option>
+					<option value="tribe">Tribe</option>
+					<option value="subtribe">Subtribe</option>
 					<option value="genus">Genus</option>
 					<option value="scientific_name">Scientific Name</option>
 					<option value="continent_ocean">Continent</option>
@@ -528,6 +531,9 @@
 				<option value="phylclass">Class</option>
 				<option value="phylorder">Order</option>
 				<option value="family">Family</option>
+				<option value="subfamily">Subfamily</option>
+				<option value="tribe">Tribe</option>
+				<option value="subtribe">Subtribe</option>
 				<option value="genus">Genus</option>
 				<option value="scientific_name">Scientific Name</option>
 				<option value="continent_ocean">Continent</option>

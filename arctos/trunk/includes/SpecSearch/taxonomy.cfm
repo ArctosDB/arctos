@@ -190,6 +190,39 @@
 	</tr>
 	<tr>
 		<td class="lbl">
+			<span class="helpLink" id="_subfamily">Subfamily:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="subfamily" id="subfamily" size="50" placeholder="Collection's classification">
+			<span class="infoLink" onclick="var e=document.getElementById('subfamily');e.value='='+e.value;">[ exact ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('subfamily');e.value='NULL';">[ NULL ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('subfamily');e.value='!'+e.value;">[ NOT ]</span>	
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_tribe">Tribe:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="tribe" id="tribe" size="50" placeholder="Collection's classification">
+			<span class="infoLink" onclick="var e=document.getElementById('tribe');e.value='='+e.value;">[ exact ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('tribe');e.value='NULL';">[ NULL ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('tribe');e.value='!'+e.value;">[ NOT ]</span>	
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_subtribe">Subtribe:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="subtribe" id="subtribe" size="50" placeholder="Collection's classification">
+			<span class="infoLink" onclick="var e=document.getElementById('subtribe');e.value='='+e.value;">[ exact ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('subtribe');e.value='NULL';">[ NULL ]</span>
+			<span class="infoLink" onclick="var e=document.getElementById('subtribe');e.value='!'+e.value;">[ NOT ]</span>	
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="_genus">Genus:</span>
 		</td>
 		<td class="srch">
