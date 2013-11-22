@@ -172,6 +172,14 @@
 	<cfquery name="portalInfo" datasource="cf_dbuser">
 		select * from cf_collection where cf_collection_id = #portal_id#
 	</cfquery>
+	<!--- these things die sometimes ---->
+	<cfif portalInfo.recordcount is 0>
+		<cfthrow 
+			detail = "missing portal"
+			errorCode = "5649"
+			extendedInfo = "portal_id=#portal_id#; portalInfo.dbpwd=#portalInfo.dbpwd#;session.sessionKey=#session.sessionKey#; #cfcatch.detail#"
+			message = "user #session.username# has a dead portal set; check exclusive_collection_id">
+	</cfif>
 	<cfif session.roles does not contain "coldfusion_user">
 		<cfset session.dbuser=portalInfo.dbusername>
 		<cfset session.epw = encrypt(portalInfo.dbpwd,session.sessionKey)>

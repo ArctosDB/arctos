@@ -1046,7 +1046,44 @@
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.family) like '%#ucase(family)#%'">
 	</cfif>
 </cfif>
+<cfif isdefined("subfamily") AND len(subfamily) gt 0>
+	<cfset mapurl = "#mapurl#&subfamily=#subfamily#">
+	<cfif left(subfamily,1) is '='>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.subfamily) = '#ucase(right(subfamily,len(subfamily)-1))#'">
+	<cfelseif left(subfamily,1) is '!'>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.subfamily) != '#ucase(right(subfamily,len(subfamily)-1))#'">
+	<cfelseif compare(subfamily,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.subfamily is NULL">
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.subfamily) like '%#ucase(subfamily)#%'">
+	</cfif>
+</cfif>
 
+<cfif isdefined("tribe") AND len(tribe) gt 0>
+	<cfset mapurl = "#mapurl#&tribe=#tribe#">
+	<cfif left(tribe,1) is '='>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.tribe) = '#ucase(right(tribe,len(tribe)-1))#'">
+	<cfelseif left(tribe,1) is '!'>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.tribe) != '#ucase(right(tribe,len(tribe)-1))#'">
+	<cfelseif compare(tribe,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.tribe is NULL">
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.tribe) like '%#ucase(tribe)#%'">
+	</cfif>
+</cfif>
+
+<cfif isdefined("subtribe") AND len(subtribe) gt 0>
+	<cfset mapurl = "#mapurl#&subtribe=#subtribe#">
+	<cfif left(subtribe,1) is '='>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.subtribe) = '#ucase(right(subtribe,len(subtribe)-1))#'">
+	<cfelseif left(subtribe,1) is '!'>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.subtribe) != '#ucase(right(subtribe,len(subtribe)-1))#'">
+	<cfelseif compare(subtribe,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.subtribe is NULL">
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.subtribe) like '%#ucase(subtribe)#%'">
+	</cfif>
+</cfif>
 <cfif isdefined("genus") AND len(genus) gt 0>
 	<cfset mapurl = "#mapurl#&genus=#genus#">
 	<cfif left(genus,1) is '='>
