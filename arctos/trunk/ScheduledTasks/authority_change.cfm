@@ -144,6 +144,7 @@
 		
 		<cfif len(allChanges) is 0>
 			no changes.
+			<cfabort>
 		</cfif>
 		
 		
@@ -154,30 +155,16 @@
 		
 		<cfif action is "sendEmail">
 			<cfif len(geogChanges) gt 0>
-				<cfquery name="gids" dbtype="query">
-					select geog_auth_rec_id from geog group by geog_auth_rec_id
-				</cfquery>
 				<cfquery name="cc" datasource="uam_god">
 					select 
 						electronic_address.address
 					FROM 
-						locality,
-						collecting_event,
-						specimen_event,
-						cataloged_item,
-						collection,
 						collection_contacts,
 						preferred_agent_name,
 						electronic_address
 					where
-						locality.locality_id=collecting_event.locality_id and
-						collecting_event.collecting_event_id=specimen_event.collecting_event_id and
-						specimen_event.collection_object_id=cataloged_item.collection_object_id and
-						cataloged_item.collection_id=collection.collection_id and
-						collection.collection_id=collection_contacts.collection_id and
 						collection_contacts.CONTACT_AGENT_ID=preferred_agent_name.agent_id and
 						preferred_agent_name.agent_id=electronic_address.agent_id and
-						locality.GEOG_AUTH_REC_ID in (#valuelist(gids.geog_auth_rec_id)#) and
 						electronic_address.address_type='e-mail' and
 						collection_contacts.contact_role='data quality'
 					group by 
@@ -202,7 +189,7 @@
 			
 			<hr>
 			email to: #valuelist(cc.address)#, arctos.database@gmail.com
-			<br>#emailChanges#
+			<br>#allChanges#
 			</hr>
 		<cfelse>
 			<!--- just display ---->
