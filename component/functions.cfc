@@ -3796,7 +3796,6 @@
 	<cfset srchName=urldecode(srchName)>
 	<cftry>
 	
-		<cfset 1=2>
 		
 		
 		<cfset urlRoot=left(returnURL,find(".cfm", returnURL))>
@@ -3814,7 +3813,7 @@
 
 		---->
 			<cfquery name="me" datasource="cf_dbuser">
-				select user_id
+				select user_idttttt
 				from cf_users
 				where username='#session.username#'
 			</cfquery>
