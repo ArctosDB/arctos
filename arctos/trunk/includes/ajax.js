@@ -169,6 +169,7 @@ function closeAnnotation() {
 	var theDiv = document.getElementById('annotateDiv');
 	document.body.removeChild(theDiv);
 }
+
 function saveSearch(returnURL){
 	
 	console.log('hi');
