@@ -170,7 +170,8 @@ function closeAnnotation() {
 	document.body.removeChild(theDiv);
 }
 function saveSearch(returnURL){
-	var sName=prompt("Name this search", "my search");
+	var uniqid = Date.now();
+	var sName=prompt("Name this search", uniqid);
 	if (sName!==null){
 		var sn=encodeURIComponent(sName);
 		var ru=encodeURI(returnURL);
