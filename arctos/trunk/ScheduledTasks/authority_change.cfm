@@ -55,12 +55,12 @@
 		<cfif len(ctChanges) gt 0>
 			<cfsavecontent variable="ctChanges">
 				<p>
-					Code tables have changed between #start# and #stop#.
-					This for may reflect discarded changes, changes that have not been used in data, or changes that your 
-					user cannot access. 				
-					Rows with only N_xxx (new) values are INSERTS.
-					Rows with only O_xxx (old) values are DELETES.
-					Rows with N_xxx and O_xxx values are UPDATES.
+					Code tables changed between #start# and #stop#.
+					These data may reflect discarded changes, changes that have not been used in data, or changes that your 
+					user cannot access. Contact any Arctos Advisory Group member for more information.			
+					<br>Rows with only N_xxx (new) values are INSERTS.
+					<br>Rows with only O_xxx (old) values are DELETES.
+					<br>Rows with N_xxx and O_xxx values are UPDATES.
 				</p>
 				#ctChanges#
 			</cfsavecontent>
