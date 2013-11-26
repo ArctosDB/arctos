@@ -170,6 +170,10 @@ function closeAnnotation() {
 	document.body.removeChild(theDiv);
 }
 function saveSearch(returnURL){
+	
+	console.log('hi');
+	
+	
 	var uniqid = Date.now();
 	var sName=prompt("Name this search", uniqid);
 	if (sName!==null){
