@@ -3827,9 +3827,14 @@
 			</cfquery>
 			<cfset msg="success">
 	<cfcatch>
-		<cfset msg="An error occured while saving your search: #cfcatch.message# #cfcatch.detail# ">
-		<cfif isdefined("cfcatch.sql")>
-			<cfset msg=msg & "; " & cfcatch.sql>
+		<cfset msg="An error occured while saving your search: ">
+		<cfif cfcatch.detail contains "ix_u_CANNED_SEARCH_schname">
+			<cfset msg=msg & "Saved search '#srchName#' is already in use; please try another name.">
+		<cfelse>
+			<cfset msg=msg & "#cfcatch.message# #cfcatch.detail# ">
+			<cfif isdefined("cfcatch.sql")>
+				<cfset msg=msg & "#cfcatch.message# #cfcatch.detail# ; " & cfcatch.sql>
+			</cfif>
 		</cfif>
 	</cfcatch>
 	</cftry>
