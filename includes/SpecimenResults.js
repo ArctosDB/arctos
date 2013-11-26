@@ -1,24 +1,4 @@
-function saveSearch(returnURL){
-	var sName=prompt("Name this search", "my search");
-	if (sName!==null){
-		var sn=encodeURIComponent(sName);
-		var ru=encodeURI(returnURL);
-		jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "saveSearch",
-				returnURL : ru,
-				srchName : sn,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (r) {
-				if(r!='success'){
-					alert(r);
-				}
-			}
-		);
-	}
-}
+
 function insertTypes(idList) {
 	var s=document.createElement('DIV');
 	s.id='ajaxStatus';
