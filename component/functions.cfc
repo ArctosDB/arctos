@@ -3795,34 +3795,37 @@
 	<cfargument name="srchName" type="string" required="yes">
 	<cfset srchName=urldecode(srchName)>
 	<cftry>
-		<cfquery name="me" datasource="cf_dbuser">
-			select user_id
-			from cf_users
-			where username='#session.username#'
-		</cfquery>
 		<cfset urlRoot=left(returnURL,find(".cfm", returnURL))>
+		<!----
 		<cfquery name="alreadyGotOne" datasource="cf_dbuser">
 			select search_name
 			from cf_canned_search
 			where search_name='#srchName#'
-				and user_id='#me.user_id#'
-				and url like '#urlRoot#%'
 		</cfquery>
 		<cfif len(alreadyGotOne.search_name) gt 0>
-			<cfset msg="The name of your saved search is already in use.">
+			<cfset msg="The name of your saved search is already in use; please pick a new name.">
 		<cfelse>
+		
+				</cfif>
+
+		---->
+			<cfquery name="me" datasource="cf_dbuser">
+				select user_id
+				from cf_users
+				where username='#session.username#'
+			</cfquery>
+		
 			<cfquery name="i" datasource="cf_dbuser">
 				insert into cf_canned_search (
 				user_id,
 				search_name,
 				url
 				) values (
-				 #me.user_id#,
+				 (select user_id from cf_users where username='#session.username#'),
 				 '#srchName#',
 				 '#returnURL#')
 			</cfquery>
 			<cfset msg="success">
-		</cfif>
 	<cfcatch>
 		<cfset msg="An error occured while saving your search: #cfcatch.message# #cfcatch.detail# ">
 		<cfif isdefined("cfcatch.sql")>
