@@ -3824,7 +3824,10 @@
 			<cfset msg="success">
 		</cfif>
 	<cfcatch>
-		<cfset msg="An error occured while saving your search: #cfcatch.message# #cfcatch.detail#">
+		<cfset msg="An error occured while saving your search: #cfcatch.message# #cfcatch.detail# ">
+		<cfif isdefined("cfcatch.sql")>
+			<cfset msg=msg & "; " & cfcatch.sql>
+		</cfif>
 	</cfcatch>
 	</cftry>
 	<cfreturn msg>
