@@ -171,12 +171,8 @@ function closeAnnotation() {
 }
 
 function saveSearch(returnURL){
-	
-	console.log('hi');
-	
-	
 	var uniqid = Date.now();
-	var sName=prompt("Name this search", uniqid);
+	var sName=prompt("Name your saved search. Copy and paste the suggestion, find it in your Saved Searches, or type your own (unique) search name.", uniqid);
 	if (sName!==null){
 		var sn=encodeURIComponent(sName);
 		var ru=encodeURI(returnURL);
