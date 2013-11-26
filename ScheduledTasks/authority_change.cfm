@@ -10,7 +10,7 @@
 		
 		
 		<cfparam name="stop" default="#dateformat(now(),'yyyy-mm-dd')#" type="string">
-		DEFAULT is last 24 hours. You can change that by adding a URL parameter. Example:
+		DEFAULT is last 24 hours. You can change that by manipulating URL parameters. Example:
 		
 		<a href="authority_change.cfm?start=#start#&stop=#stop#">authority_change.cfm?start=#start#&stop=#stop#</a>
 		
