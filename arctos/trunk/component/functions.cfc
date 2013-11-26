@@ -3795,6 +3795,10 @@
 	<cfargument name="srchName" type="string" required="yes">
 	<cfset srchName=urldecode(srchName)>
 	<cftry>
+	
+		<cfset 1=2>
+		
+		
 		<cfset urlRoot=left(returnURL,find(".cfm", returnURL))>
 		<!----
 		<cfquery name="alreadyGotOne" datasource="cf_dbuser">
@@ -3836,6 +3840,7 @@
 				<cfset msg=msg & "#cfcatch.message# #cfcatch.detail# ; " & cfcatch.sql>
 			</cfif>
 		</cfif>
+		<cf_logError subject="error caught" attributeCollection=#cfcatch#>
 	</cfcatch>
 	</cftry>
 	<cfreturn msg>
