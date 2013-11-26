@@ -488,6 +488,20 @@
     interval = "daily"
     requestTimeOut = "600">
 <!--- 
+	authority_change
+	Purpose: code tables or geography change notifications
+	Cost: moderate
+	Growth potential: low/moderate
+--->
+<cfschedule action = "update"
+    task = "authority_change"
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/authority_change.cfm"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "12:59 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+<!--- 
 	genbank_crawl_institution_wild2
 	Purpose: Find uncited specimens at GenBank
 	Cost: low/moderate

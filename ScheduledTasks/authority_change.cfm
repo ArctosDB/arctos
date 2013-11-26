@@ -185,12 +185,9 @@
 				</p>
 				<p>#allChanges#</p>
 			</cfsavecontent>
-			
-			
-			<hr>
-			email to: #valuelist(cc.address)#, arctos.database@gmail.com
-			<br>#emailChanges#
-			</hr>
+			<cfmail to="#valuelist(cc.address)#, arctos.database@gmail.com"	subject="Arctos Authority Change Notification" from="authority_notification@#Application.fromEmail#" type="html">
+				#emailChanges#
+			</cfmail>
 		<cfelse>
 			<!--- just display ---->
 			#allChanges#
