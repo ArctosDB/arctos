@@ -3839,8 +3839,10 @@
 				<cfset msg=msg & "#cfcatch.message# #cfcatch.detail# ; " & cfcatch.sql>
 			</cfif>
 		</cfif>
+		
+				<cf_logError subject="error caught" attributeCollection=#cfcatch#>
+
 		<!----
-		<cf_logError subject="error caught" attributeCollection=#cfcatch#>
 		---->
 	</cfcatch>
 	</cftry>
