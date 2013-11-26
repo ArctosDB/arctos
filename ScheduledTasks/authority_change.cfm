@@ -174,7 +174,7 @@
 			
 			<cfsavecontent variable="emailChanges">
 				<p>
-					Code table (including geography) values have changed.
+					Authority values have changed.
 				</p>
 				<p>
 					You are receiving this report because you are a collection "data quality" contact,
@@ -183,13 +183,13 @@
 				<p>
 					This report is available at #application.serverRootURL#/ScheduledTasks/authority_change.cfm?start=#start#&stop=#stop#
 				</p>
-				<p>#geogChanges#</p>
+				<p>#allChanges#</p>
 			</cfsavecontent>
 			
 			
 			<hr>
 			email to: #valuelist(cc.address)#, arctos.database@gmail.com
-			<br>#allChanges#
+			<br>#emailChanges#
 			</hr>
 		<cfelse>
 			<!--- just display ---->
