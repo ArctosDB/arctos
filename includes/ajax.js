@@ -172,7 +172,7 @@ function closeAnnotation() {
 
 function saveSearch(returnURL){
 	var uniqid = Date.now();
-	var sName=prompt("Name your saved search. Copy and paste the suggestion, find it in your Saved Searches, or type your own (unique) search name.", uniqid);
+	var sName=prompt("Name your saved search. \n  Copy and paste the suggestion or type your own (unique) search name.\n  Manage or email saved searches from your profile.", uniqid);
 	if (sName!==null){
 		var sn=encodeURIComponent(sName);
 		var ru=encodeURI(returnURL);
