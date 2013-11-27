@@ -23,7 +23,7 @@
 <cfoutput>
 	
 				
-					<cfhttp method="get" url="http://testing.shippingapis.com/ShippingAPITest.dll?API=RateV4&XML=#x#" timeout="1"></cfhttp>
+					<cfhttp method="get" url="http://testing.shippingapis.com/ShippingAPITest.dll??API=RateV4&XML=#x#" timeout="1"></cfhttp>
 					<cfdump var=#cfhttp#>
 </cfoutput>
 
