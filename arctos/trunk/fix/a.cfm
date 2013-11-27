@@ -1,8 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 
 
-<cfset x='
-<RateV4Request USERID="208ARCTO3771" >
+<cfset x='<RateV4Request USERID="208ARCTO3771" >
      <Revision/>
      <Package ID="1ST">
           <Service>PRIORITY</Service>
@@ -17,8 +16,7 @@
           <Height>15</Height>
           <Girth>55</Girth>
      </Package>
-</RateV4Request>
-'>
+</RateV4Request>'>
 
 <cfoutput>
 	
