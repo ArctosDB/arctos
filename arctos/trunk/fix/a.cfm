@@ -6,7 +6,7 @@
 	
 					<cfset signedURL = obj.googleSignURL(
 						urlPath="/maps/api/geocode/json",
-						urlParams="address=#URLEncodedFormat(addr)#")>
+						urlParams="address=#URLEncodedFormat('#addr#')#")>
 					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 					<cfdump var=#cfhttp#>
 </cfoutput>
