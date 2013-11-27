@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 
 <cfoutput>
-	<cfhttp action="get" url="http://en.wikipedia.org/wiki/Multi-Use_Radio_Service">
+	<cfhttp method="get" url="#u#">
 	</cfhttp>
 	
 	<cfdump var=#cfhttp#>
