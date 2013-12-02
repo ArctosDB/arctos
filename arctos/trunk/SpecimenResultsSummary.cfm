@@ -69,6 +69,11 @@
 		<tr>
 			<th>Count</th>
 			<cfloop list="#groupby#" index="x">
+				<cfif x is "phylclass">
+					<cfset x="Class">
+				<cfelseif x is "phylorder">
+					<cfset x="Order">
+				</cfif>
 				<th>#x#</th>
 			</cfloop>
 			<th>Specimens</th>
