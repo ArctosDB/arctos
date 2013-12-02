@@ -51,6 +51,22 @@
 				<cfabort>
 			</cfif>
 		</cfif>
+		
+		<cfif subject is "ORA-00907: missing right parenthesis">
+			<!--- see if it's the sql injection asshats ---->
+			<cfif isdefined("exception.sql") and exception.sql contains '1%'>
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
+		</cfif>
+		
+		<cfif isdefined("cgi.HTTP_ACCEPT_ENCODING") and cgi.HTTP_ACCEPT_ENCODING is "identity">
+			<!--- probes ---->
+			<cfinclude template="/errors/autoblacklist.cfm">
+			<cfabort>
+		</cfif>
+		
+		
 		<cfif right(request.rdurl,5) is "-1%27">
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
