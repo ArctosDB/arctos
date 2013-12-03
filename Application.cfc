@@ -384,9 +384,9 @@
 	<cfif not isdefined("application.blacklist")>
 		<cfset application.blacklist="">
 	</cfif>
-	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
+	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0 and CGI.HTTP_X_Forwarded_For is not "127.0.0.1">
 		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
-	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
+	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0 and CGI.Remote_Addr is not "127.0.0.1">
 		<CFSET request.ipaddress=CGI.Remote_Addr>
 	<cfelse>
 		<cfset request.ipaddress='unknown'>
@@ -399,7 +399,9 @@
 			<cfset request.ipaddress=listgetat(request.ipaddress,1,",")>
 		</cfif>
 	</cfif>
-	
+	<cfif request.ipaddress is "127.0.0.1">
+		<cfset request.ipaddress='unknown'>
+	</cfif>
 	
 	<cfif listfindnocase(application.blacklist,request.ipaddress)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
