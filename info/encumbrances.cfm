@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="Active Encumbrances">
 <script src="/includes/sorttable.js"></script>
 <cfquery name="d" datasource="uam_god">
 	select
@@ -56,7 +57,7 @@
 		REMARKS	
 </cfquery>
 <cfoutput>
-<strong>Active Encumbrances</strong>	
+<h2>Active Encumbrances</h2>	
 <table border id="t" class="sortable">
 		<tr>
 			<th>Encumbering Agent</th>
