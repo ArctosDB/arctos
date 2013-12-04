@@ -77,16 +77,6 @@
 		</cfif>
 		collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
-
-
-<cfoutput>
-----------#listfind(session.roles,"COLDFUSION_USER")#
-
-
-
-</cfoutput>
-
-
 <cfquery name="event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		specimen_event.SPECIMEN_EVENT_ID,
