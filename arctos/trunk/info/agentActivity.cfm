@@ -2,7 +2,9 @@
 <cfset title = "Agent Activity">
 <cfoutput>
 <a href="/agents.cfm?agent_id=#agent_id#" target="_top">Edit Agent</a>
-<div class="red">Please note: your login may prevent you from seeing some data</div>
+<div style="border:1px solid red; margin:1em; padding: 1em;">
+	Please note: your login may prevent you from seeing some linked data. The summary data below is accurate.
+</div>
 <cfquery name="agent" datasource="uam_god">
 	select * FROM agent where agent_id=#agent_id#
 </cfquery>

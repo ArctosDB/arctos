@@ -3797,6 +3797,9 @@
 <cffunction name="saveSearch" access="remote">
 	<cfargument name="returnURL" type="string" required="yes">
 	<cfargument name="srchName" type="string" required="yes">
+	<cfif not isdefined("session.username") or len(session.username) is 0>
+		<cfreturn "You must create an account or log in to save searches.">
+	</cfif>
 	<cfset srchName=urldecode(srchName)>
 	<cftry>
 		<cfset urlRoot=left(returnURL,find(".cfm", returnURL))>

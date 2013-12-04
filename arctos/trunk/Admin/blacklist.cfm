@@ -17,6 +17,10 @@
 	</cfloop>
 </cfif>
 <cfif action is "ins">
+	<cfif trim(ip) is "127.0.0.1">
+		<cfthrow message = "Local IP cannot be blacklisted" errorCode = "127001">
+		<cfabort>
+	</cfif>
 	<cftry>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into uam.blacklist (ip) values ('#trim(ip)#')
