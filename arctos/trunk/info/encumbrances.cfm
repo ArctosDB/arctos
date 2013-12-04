@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cfquery name="d">
+<cfquery name="d" datasource="uam_god">
 	select
 		getPreferredAgentName(ENCUMBERING_AGENT_ID) encumberer,
 		EXPIRATION_DATE,
