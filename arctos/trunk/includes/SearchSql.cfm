@@ -2134,7 +2134,11 @@
 <cfif isdefined("attribute_type_1") AND len(attribute_type_1) gt 0>
 	<cfset mapurl = "#mapurl#&attribute_type_1=#attribute_type_1#">
 	<cfif basJoin does not contain " attributes_1 ">
-		<cfset basJoin = " #basJoin# INNER JOIN attributes attributes_1 ON (#session.flatTableName#.collection_object_id = attributes_1.collection_object_id)">
+		<cfset basJoin = " #basJoin# INNER JOIN v_attributes attributes_1 ON (#session.flatTableName#.collection_object_id = attributes_1.collection_object_id)">
+		
+	</cfif>
+	<cfif session.flatTableName is not "flat">
+		<cfset basQual = " #basQual# AND attributes_1.is_encumbered = 0">
 	</cfif>
 	<cfset basQual = " #basQual# AND attributes_1.attribute_type = '#attribute_type_1#'">
 	<cfif not isdefined("attOper_1") or len(#attOper_1#) is 0>
