@@ -79,8 +79,14 @@
 </cfquery>
 
 
-
+<cfoutput>
 ----------#listfind(session.roles,"coldfusion_user")#
+
+
+
+</cfoutput>
+
+
 <cfquery name="event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		specimen_event.SPECIMEN_EVENT_ID,
