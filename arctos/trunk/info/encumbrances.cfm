@@ -91,6 +91,4 @@
 		</cfloop>
 	</table>
 </cfoutput>
-<cfdump var=#d#>
-
 <cfinclude template="/includes/_footer.cfm">
