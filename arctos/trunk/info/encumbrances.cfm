@@ -78,7 +78,7 @@
 				<td>#dateformat(MADE_DATE,"YYYY-MM-DD")#</td>
 				<td>#REMARKS#</td>
 				<cfquery name="cols" dbtype="query">
-					select collection,numberSpecimens from d where encumbrance_id=#encumbrance_id#
+					select collection,numberSpecimens from d where encumbrance_id=#encumbrance_id# order by collection
 				</cfquery>
 				<td>
 					<cfloop query="cols">
