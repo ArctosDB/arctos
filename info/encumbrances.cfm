@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 <cfquery name="d" datasource="uam_god">
 	select
 		encumbrance.encumbrance_id,
@@ -55,7 +56,8 @@
 		REMARKS	
 </cfquery>
 <cfoutput>
-	<table border>
+<strong>Active Encumbrances</strong>	
+<table border id="t" class="sortable">
 		<tr>
 			<th>Encumbering Agent</th>
 			<th>Encumbrance Action</th>
@@ -71,9 +73,9 @@
 				<td>#encumberer#</td>
 				<td>#ENCUMBRANCE_ACTION#</td>
 				<td>#ENCUMBRANCE#</td>
-				<td>#EXPIRATION_DATE#</td>
+				<td>#dateformat(EXPIRATION_DATE,"YYYY-MM-DD")#</td>
 				<td>#EXPIRATION_EVENT#</td>
-				<td>#MADE_DATE#</td>
+				<td>#dateformat(MADE_DATE,"YYYY-MM-DD")#</td>
 				<td>#REMARKS#</td>
 				<cfquery name="cols" dbtype="query">
 					select collection,numberSpecimens from d where encumbrance_id=#encumbrance_id#
