@@ -62,18 +62,19 @@
 </cfquery>
 <cfquery name="attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
-		attributes.attribute_type,
-		attributes.attribute_value,
-		attributes.attribute_units,
-		attributes.attribute_remark,
-		attributes.determination_method,
-		attributes.determined_date,
-		attribute_determiner.agent_name attributeDeterminer
+		attribute_type,
+		attribute_value,
+		attribute_units,
+		attribute_remark,
+		determination_method,
+		determined_date,
+		determiner attributeDeterminer
 	from
-		attributes,
-		preferred_agent_name attribute_determiner
+		v_attributes
 	where
-		attributes.determined_by_agent_id = attribute_determiner.agent_id and
+		<cfif not listfind(session.roles,"coldfusion_user")>
+			is_encumbered=0 and
+		</cfif>
 		attributes.collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
 <cfquery name="event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
