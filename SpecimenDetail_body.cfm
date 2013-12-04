@@ -72,7 +72,7 @@
 	from
 		v_attributes
 	where
-		<cfif not listfind(session.roles,"coldfusion_user")>
+		<cfif not listfind(session.roles,"COLDFUSION_USER")>
 			is_encumbered=0 and
 		</cfif>
 		collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
@@ -80,7 +80,7 @@
 
 
 <cfoutput>
-----------#listfind(session.roles,"coldfusion_user")#
+----------#listfind(session.roles,"COLDFUSION_USER")#
 
 
 
