@@ -1,4 +1,4 @@
-<cfinclude template="includes/_header.cfm">
+<cfinclude template="/includes/_header.cfm">
 <cfquery name="d">
 	select
 		getPreferredAgentName(ENCUMBERING_AGENT_ID) encumberer,
@@ -27,4 +27,4 @@
 
 <cfdump var=#d#>
 
-<cfinclude template="includes/_footer.cfm">
+<cfinclude template="/includes/_footer.cfm">
