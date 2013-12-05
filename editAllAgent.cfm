@@ -152,7 +152,7 @@
 				<div style="border:2px solid red;margin:1px;padding:1px;">
 			</cfif>
 				<form name="addr#i#" method="post" action="editAllAgent.cfm">
-					<input type="hidden" name="agent_id" value="#person.agent_id#">
+					<input type="hidden" name="agent_id" value="#agent.agent_id#">
 					<input type="hidden" name="addr_id" value="#agentAddrs.addr_id#">
 					<input type="hidden" name="action" value="editAddr">
 					<input type="hidden" name="addrtype" value="#agentAddrs.addr_type#">
@@ -304,7 +304,7 @@
 				<label for="nagnndv">Add agent name</label>
 				<form name="newName" action="editAllAgent.cfm" method="post" target="_person">
 					<input type="hidden" name="Action" value="newName">
-					<input type="hidden" name="agent_id" value="#person.agent_id#">
+					<input type="hidden" name="agent_id" value="#agent.agent_id#">
 					<select name="agent_name_type" onchange="suggestName(this.value);">
 						<cfloop query="ctNameType">
 							<option value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
@@ -321,7 +321,7 @@
 				where 
 				  agent_relations.related_agent_id = agent_name.agent_id 
 				  and agent_name_type = 'preferred' and
-				  agent_relations.agent_id=#person.agent_id#
+				  agent_relations.agent_id=#agent.agent_id#
 			</cfquery>
 			<br />
 			<label for="areldv"><span class="likeLink" onClick="getDocs('agent','relations')">Relationships</span></label>
@@ -330,7 +330,7 @@
 				<cfloop query="relns">
 					<form name="agentRelations#i#" method="post" action="editAllAgent.cfm">
 						<input type="hidden" name="action">
-						<input type="hidden" name="agent_id" value="#person.agent_id#">
+						<input type="hidden" name="agent_id" value="#agent.agent_id#">
 						<input type="hidden" name="related_agent_id" value="#related_agent_id#">
 						<input type="hidden" name="oldRelationship" value="#agent_relationship#">
 						<input type="hidden" name="newRelatedAgentId">
@@ -358,7 +358,7 @@
 				<form name="newRelationship" method="post" action="editAllAgent.cfm">
 					<input type="hidden" name="action" value="addRelationship">
 					<input type="hidden" name="newRelatedAgentId">
-					<input type="hidden" name="agent_id" value="#person.agent_id#">
+					<input type="hidden" name="agent_id" value="#agent.agent_id#">
 					<select name="relationship" size="1">
 						<cfloop query="ctRelns"> 
 							<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
@@ -374,7 +374,7 @@
 			<div class="newRec">
 				<label>Add Address</label>
 				<form name="newAddress" method="post" action="editAllAgent.cfm">
-					<input type="hidden" name="agent_id" value="#person.agent_id#">
+					<input type="hidden" name="agent_id" value="#agent.agent_id#">
 					<input type="hidden" name="Action" value="newAddress">
 					<table>
 						<tr>
@@ -467,7 +467,7 @@
 				<label>Add Electronic Address</label>
 				<form name="newElecAddr" method="post" action="editAllAgent.cfm">
 					<input name="Action" type="hidden" value="newElecAddr">
-					<input type="hidden" name="agent_id" value="#person.agent_id#">
+					<input type="hidden" name="agent_id" value="#agent.agent_id#">
 					<select name="address_type" size="1">
 						<cfloop query="ctElecAddrType">
 							<option value="#ctElecAddrType.address_type#">#ctElecAddrType.address_type#</option>
