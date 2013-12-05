@@ -89,7 +89,7 @@
 <div style="height:20em; overflow:auto;">
 <cfloop query="getAgents">
 	 <a href="editAllAgent.cfm?agent_id=#agent_id#" 
-	 	target="_person">#agent_name#</a> <font size="-1">(#agent_type#: #agent_id#)</font> 
+	 	target="_person">#preferred_agent_name#</a> <font size="-1">(#agent_type#: #agent_id#)</font> 
    <br>
 </cfloop>
 </div>
