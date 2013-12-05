@@ -76,10 +76,10 @@
 			select agent_id from addr where upper(formatted_addr) like '%#ucase(address)#%')">
 </cfif>
 
-<cfset sql = "#sql# GROUP BY  agent_id,
-					preferred_agent_name,
-					agent_type">
-<cfset sql = "#sql# ORDER BY preferred_agent_name">
+<cfset sql = "#sql# GROUP BY  agent.agent_id,
+					agent.preferred_agent_name,
+					agent.agent_type">
+<cfset sql = "#sql# ORDER BY agent.preferred_agent_name">
 		<cfquery name="getAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
