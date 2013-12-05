@@ -104,6 +104,12 @@
 		<cfabort>
 	</cfif>
 	<cfoutput>
+	
+	
+	
+	
+
+	
 		<cfquery name="agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				agent_id,
@@ -206,7 +212,7 @@
 			
 			
 			<label for="perferred_agent_name">Preferred Name</label>
-			<input type="text" value="#agent.perferred_agent_name#" name="perferred_agent_name" id="perferred_agent_name" size="50">
+			<input type="text" value="#agent.preferred_agent_name#" name="preferred_agent_name" id="preferred_agent_name" size="50">
 			
 			<label for="agent_type">Agent Type</label>
 			<select name="agent_type">
