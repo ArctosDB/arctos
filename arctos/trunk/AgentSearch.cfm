@@ -1,9 +1,6 @@
 <cfinclude template="includes/_frameHeader.cfm">
-<cfquery name="prefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select distinct(prefix) as prefix from person where prefix is not null
-</cfquery>
-<cfquery name="suffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select distinct(suffix) as suffix from person where suffix is not null
+<cfquery name="ctagent_name_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select agent_name_type from ctagent_name_type order by agent_name_type
 </cfquery>
 <!---
  <a href="javascript:void(0);"
@@ -18,6 +15,7 @@ Search for an agent:
 <form name="agntSearch" action="AgentGrid.cfm" method="post" target="_pick">
 	<input type="hidden" name="Action" value="search">
 <table border>	
+	<!----
 	<tr>
 		<td>
 			<label for="prefix">Prefix</label>
@@ -89,13 +87,16 @@ Search for an agent:
 			<input type="text" size="6" name="death_date" id="death_date">
 		</td>
 	</tr>
+	----->
 	<tr>
+		<!----
 		<td>
 			<label for="address">
 				<a href="javascript:void(0);" onClick="getDocs('agent','address')">Address</a>
 			</label>
 			<input type="text" name="address" id="address">
 		</td>
+		---->
 		<td>
 			<label for="anyName">
 				<a href="javascript:void(0);" onClick="getDocs('agent','anynamesearch')">Any part of any name</a>
@@ -107,27 +108,16 @@ Search for an agent:
 		<td colspan="2" align="center">
 			<input type="submit" 
 				value="Search" 
-				class="schBtn"
-				onmouseover="this.className='schBtn btnhov'"
-				onmouseout="this.className='schBtn'">
+				class="schBtn">
 			<input type="reset" 
 				value="Clear Form" 
-				class="clrBtn"
-				onmouseover="this.className='clrBtn btnhov'"
-				onmouseout="this.className='clrBtn'">
+				class="clrBtn">
 				<br>
 				<input type="button" 
-					value="New Person" 
+					value="New Agent" 
 					class="insBtn"
-					onmouseover="this.className='insBtn btnhov'"
-					onmouseout="this.className='insBtn'"
-					onClick="window.open('editAllAgent.cfm?action=newPerson','_person');">
-				<input type="button" 
-					value="New Other Agent" 
-					class="insBtn"
-					onmouseover="this.className='insBtn btnhov'"
-					onmouseout="this.className='insBtn'"
-					onClick="window.open('editAllAgent.cfm?Action=newOtherAgent','_person');">
+					onClick="window.open('editAllAgent.cfm?action=newAgent','_person');">
+				
 		</td>
 	</tr>
 </table>
