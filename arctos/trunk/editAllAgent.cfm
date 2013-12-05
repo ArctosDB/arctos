@@ -25,7 +25,7 @@
 	function togglePerson(atype){
 		if (atype=='person'){
 			$("#newPersonAttrs").show();
-		else
+		} else {
 			$("#newPersonAttrs").hide();
 		}
 	}
