@@ -211,7 +211,7 @@
 			<input type="hidden" name="action" value="saveAgentEdits">
 			
 			
-			<label for="perferred_agent_name">Preferred Name</label>
+			<label for="preferred_agent_name">Preferred Name</label>
 			<input type="text" value="#agent.preferred_agent_name#" name="preferred_agent_name" id="preferred_agent_name" size="50">
 			
 			<label for="agent_type">Agent Type</label>
@@ -920,7 +920,7 @@
 				UPDATE agent SET 
 					agent_remarks = '#agent_remarks#',
 					agent_type='#agent_type#',
-					perferred_agent_name='#perferred_agent_name#'
+					preferred_agent_name='#preferred_agent_name#'
 				WHERE
 					agent_id = #agent_id#
 			</cfquery>
