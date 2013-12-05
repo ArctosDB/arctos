@@ -203,6 +203,21 @@
 		<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
 			<input type="hidden" name="agent_id" value="#agent.agent_id#">
 			<input type="hidden" name="action" value="saveAgentEdits">
+			
+			
+			<label for="perferred_agent_name">Preferred Name</label>
+			<input type="text" value="#agent.perferred_agent_name#" name="perferred_agent_name" id="perferred_agent_name" size="50">
+			
+			<label for="agent_type">Agent Type</label>
+			<select name="agent_type">
+				<cfloop query="ctAgent_Type">
+					<option  <cfif ctAgent_Type.agent_type is agent.agent_type> selected="selected" </cfif>
+						value="#ctAgent_Type.agent_type#">#ctAgent_Type.agent_type#</option>
+				</cfloop>
+			</select>
+					
+					
+					
 			<label for="agent_remarks">Agent Remark</label>
 			<input type="text" value="#agent.agent_remarks#" name="agent_remarks" id="agent_remarks" size="100">
 			<br>
@@ -892,12 +907,14 @@
 </cfif>
 
 <!------------------------------------------------------------------------------------------------------------->	
-<cfif action is "editNonPerson">
+<cfif action is "saveAgentEdits">
 	<cfoutput>
 		<cftransaction>
 			<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				UPDATE agent SET 
-					agent_remarks = '#agent_remarks#'
+					agent_remarks = '#agent_remarks#',
+					agent_type='#agent_type#',
+					perferred_agent_name='#perferred_agent_name#'
 				WHERE
 					agent_id = #agent_id#
 			</cfquery>
