@@ -930,128 +930,6 @@
 	<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
-<cfif action is "insertPerson">
-	<cfoutput>
-		<cftransaction>
-			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select sq_agent_id.nextval nextAgentId from dual
-			</cfquery>
-			<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select sq_agent_name_id.nextval nextAgentNameId from dual
-			</cfquery>		
-			<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO agent (
-					agent_id,
-					agent_type,
-					preferred_agent_name_id)
-				VALUES (
-					#agentID.nextAgentId#,
-					'person',
-					#agentNameID.nextAgentNameId#
-					)
-			</cfquery>			
-			<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO person ( 
-					PERSON_ID
-					<cfif len(#prefix#) gt 0>
-						,prefix
-					</cfif>
-					<cfif len(#LAST_NAME#) gt 0>
-						,LAST_NAME
-					</cfif>
-					<cfif len(#FIRST_NAME#) gt 0>
-						,FIRST_NAME
-					</cfif>
-					<cfif len(#MIDDLE_NAME#) gt 0>
-						,MIDDLE_NAME
-					</cfif>
-					<cfif len(#SUFFIX#) gt 0>
-						,SUFFIX
-					</cfif>
-					)
-				VALUES
-					(#agentID.nextAgentId#
-					<cfif len(#prefix#) gt 0>
-						,'#prefix#'
-					</cfif>
-					<cfif len(#LAST_NAME#) gt 0>
-						,'#LAST_NAME#'
-					</cfif>
-					<cfif len(#FIRST_NAME#) gt 0>
-						,'#FIRST_NAME#'
-					</cfif>
-					<cfif len(#MIDDLE_NAME#) gt 0>
-						,'#MIDDLE_NAME#'
-					</cfif>
-					<cfif len(#SUFFIX#) gt 0>
-						,'#SUFFIX#'
-					</cfif>
-					)
-			</cfquery>
-			<cfif len(pref_name) is 0>
-				<cfset name = "">
-				<cfif len(#prefix#) gt 0>
-					<cfset name = "#name# #prefix#">
-				</cfif>
-				<cfif len(#FIRST_NAME#) gt 0>
-					<cfset name = "#name# #FIRST_NAME#">
-				</cfif>
-				<cfif len(#MIDDLE_NAME#) gt 0>
-					<cfset name = "#name# #MIDDLE_NAME#">
-				</cfif>
-				<cfif len(#LAST_NAME#) gt 0>
-					<cfset name = "#name# #LAST_NAME#">
-				</cfif>
-				<cfif len(#SUFFIX#) gt 0>
-					<cfset name = "#name# #SUFFIX#">
-				</cfif>
-				<cfset pref_name = #trim(name)#>
-			</cfif>
-			<cfif not isdefined("ignoreDupChek") or ignoreDupChek is false>
-				<cfquery name="dupPref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select agent_id,agent_name from agent_name where upper(agent_name) like '%#ucase(pref_name)#%'
-				</cfquery>
-				<cfif dupPref.recordcount gt 0>
-					<p>That agent may already exist! Click to see details.</p>
-					<cfloop query="dupPref">
-						<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a>
-					</cfloop>
-					<p>Are you sure you want to continue?</p>
-					<form name="ac" method="post" action="editAllAgent.cfm">
-						<input type="hidden" name="action" value="insertPerson">
-						<input type="hidden" name="prefix" value="#prefix#">
-						<input type="hidden" name="LAST_NAME" value="#LAST_NAME#">
-						<input type="hidden" name="FIRST_NAME" value="#FIRST_NAME#">
-						<input type="hidden" name="MIDDLE_NAME" value="#MIDDLE_NAME#">
-						<input type="hidden" name="SUFFIX" value="#SUFFIX#">
-						<input type="hidden" name="pref_name" value="#pref_name#">
-						<input type="hidden" name="ignoreDupChek" value="true">
-						<input type="submit" class="insBtn" value="Of course. I carefully checked for duplicates before creating this agent.">
-						<br><input type="button" class="qutBtn" onclick="back()" value="Oh - back one step, please.">
-					</form>
-					<cfabort>					
-				</cfif>
-			</cfif>
-			<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO agent_name (
-					agent_name_id,
-					agent_id,
-					agent_name_type,
-					agent_name,
-					donor_card_present_fg)
-				VALUES (
-					#agentNameID.nextAgentNameId#,
-					#agentID.nextAgentId#,
-					'preferred',
-					'#pref_name#',
-					0
-					)
-			</cfquery>
-		</cftransaction>	
-		<cflocation url="editAllAgent.cfm?agent_id=#agentID.nextAgentId#">
-	</cfoutput>
-</cfif>
-<!------------------------------------------------------------------------------------------------------------->
 <cfif Action is "makeNewAgent">
 	<cfoutput>
 		<cftransaction>
@@ -1068,7 +946,7 @@
 				VALUES (
 					#agentID.nextAgentId#,
 					'#agent_type#',
-					#agentNameID.nextAgentNameId#,
+					'#preferred_agent_name#',
 					'#agent_remarks#'
 				)
 			</cfquery>
