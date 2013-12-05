@@ -28,6 +28,7 @@
 		} else {
 			$("#newPersonAttrs").hide();
 		}
+		parent.resizeCaller();
 	}
 	function suggestName(ntype){
 		try {
@@ -82,7 +83,8 @@
 			<label for="agent_name">Preferred Name</label>
 			<input type="text" name="agent_name" id="agent_name" size="50" class="reqdClr">
 			<label for="agent_type">Agent Type</label>
-			<select name="agent_type" id="agent_type" size="1" onchange="togglePerson(this.value);">
+			<select name="agent_type" id="agent_type" size="1" class="reqdClr" onchange="togglePerson(this.value);">
+				<option value=""></option>
 				<cfloop query="ctAgent_Type">
 					<option value="#ctAgent_Type.agent_type#">#ctAgent_Type.agent_type#</option>
 				</cfloop>
