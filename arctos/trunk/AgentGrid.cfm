@@ -25,9 +25,9 @@
 <cfoutput>
 
 <cfset sql = "SELECT 
-					agent_id,
-					preferred_agent_name,
-					agent_type
+					agent.agent_id,
+					agent.preferred_agent_name,
+					agent.agent_type
 				FROM 
 					agent,
 					agent_name
