@@ -13,12 +13,6 @@
 <cfquery name="ctElecAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select address_type from ctelectronic_addr_type order by address_type
 </cfquery>
-<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select prefix from ctprefix order by prefix
-</cfquery>
-<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select suffix from ctsuffix order by suffix
-</cfquery>
 <cfquery name="ctRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select AGENT_RELATIONSHIP from CTAGENT_RELATIONSHIP order by AGENT_RELATIONSHIP
 </cfquery>
@@ -28,8 +22,7 @@
 </cfif>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		jQuery("#birth_date").datepicker();
-		jQuery("#death_date").datepicker();
+		///jQuery("#birth_date").datepicker();
 	});
 	function suggestName(ntype){
 		try {
@@ -76,7 +69,7 @@
 	}
 </script>
 <!------------------------------------------------------------------------------------------------------------->
-<cfif action is "newOtherAgent">
+<cfif action is "newAgent">
 	<cfoutput>
 		<form name="prefdName" action="editAllAgent.cfm" method="post" target="_person">
 			<input type="hidden" name="action" value="makeNewAgent">
@@ -86,11 +79,18 @@
 			<label for="agent_type">Agent Type</label>
 			<select name="agent_type" id="agent_type" size="1">
 				<cfloop query="ctAgentType">
-					<cfif #ctAgentType.agent_type# neq 'person'>
-						<option value="#ctAgentType.agent_type#">#ctAgentType.agent_type#</option>
-					</cfif>
+					<option value="#ctAgentType.agent_type#">#ctAgentType.agent_type#</option>
 				</cfloop>
 			</select>
+			
+			<label for="first_name">First Name</label>
+		<input type="text" name="first_name" id="first_name">
+		<label for="middle_name">Middle Name</label>
+		<input type="text" name="middle_name" id="middle_name">
+		<label for="last_name">Last Name</label>
+		<input type="text" name="last_name" id="last_name" class="reqdClr">
+		
+		
 			<label for="agent_remarks">Remarks</label>
 			<input type="text"  size="50" name="agent_remarks" id="agent_remarks">
 			<br>
@@ -99,155 +99,94 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
-<cfif action is "newPerson">
-	<form name="newPerson" action="editAllAgent.cfm" method="post" target="_person">
-		<input type="hidden" name="Action" value="insertPerson">
-		<label for="prefix">Prefix</label>
-		<select name="prefix" id="prefix" size="1">
-			<option value=""></option>
-			<cfoutput query="ctprefix"> 
-				<option value="#prefix#">#prefix#</option>
-			</cfoutput> 
-		</select>
-		<label for="first_name">First Name</label>
-		<input type="text" name="first_name" id="first_name">
-		<label for="middle_name">Middle Name</label>
-		<input type="text" name="middle_name" id="middle_name">
-		<label for="last_name">Last Name</label>
-		<input type="text" name="last_name" id="last_name" class="reqdClr">
-		<label for="suffix">Suffix</label>
-		<select name="suffix" size="1" id="suffix">
-			<option value=""></option>
-			<cfoutput query="ctsuffix"> 
-				<option value="#suffix#">#suffix#</option>
-			</cfoutput> 
-    	</select>
-		<label for="pref_name">Preferred Name</label>
-		<input type="text" name="pref_name" id="pref_name">
-		<input type="submit" value="Add Person" class="savBtn">
-	</form>
-</cfif>
-<!------------------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfif not isdefined("agent_id") OR agent_id lt 0 >
 		<cfabort>
 	</cfif>
-	<cfquery name="person" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			agent_id,
-			person_id,
-			prefix,
-			suffix,
-			first_name,
-			last_name,
-			middle_name,
-			birth_date,
-			death_date,
+			preferred_agent_name,
 			agent_remarks,
 			agent_type
 		from 
 			agent
-			left outer join person on (agent_id = person_id)
-			where agent_id=#agent_id#
+		where 
+			agent_id=#agent_id#
 	</cfquery>
-	<cfoutput query="person">
-		<cfif agent_type is "person">	
-			<cfset nameStr="">
-			<cfset nameStr= listappend(nameStr,prefix,' ')>
-			<cfset nameStr= listappend(nameStr,first_name,' ')>
-			<cfset nameStr= listappend(nameStr,middle_name,' ')>
-			<cfset nameStr= listappend(nameStr,last_name,' ')>
-			<cfset nameStr= listappend(nameStr,suffix,' ')>
-			<cfif len(birth_date) gt 0>
-				<cfset nameStr="#nameStr# (#dateformat(birth_date,"yyyy-mm-dd")#">
-			<cfelse>
-				<cfset nameStr="#nameStr# (unknown">
-			</cfif>
-			<cfif len(death_date) gt 0>
-				<cfset nameStr="#nameStr# - #dateformat(death_date,"yyyy-mm-dd")#)">
-			<cfelse>
-				<cfset nameStr="#nameStr# - unknown)">
-			</cfif>
-		<cfelse>
-			<cfquery name="getName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select agent_name from agent_name where agent_id=#agent_id#
-				and agent_name_type='preferred'
-			</cfquery>
-			<cfset nameStr=#getName.agent_name#>
-		</cfif>
+	<cfoutput>
 		<span class="infoLink" onClick="getDocs('agent')">Help</span>
 		<br>
-		<strong>#nameStr#</strong> (#agent_type#) {ID: #agent_id#} 
-		<cfif len(#person.agent_remarks#) gt 0>
-			<br><em>#person.agent_remarks#</em>
+		<strong>#agent.preferred_agent_name#</strong> (#agent.agent_type#) {ID: #agent.agent_id#} 
+		<cfif len(#agent.agent_remarks#) gt 0>
+			<br><em>#agent.agent_remarks#</em>
 		</cfif>
 		<cfif listcontainsnocase(session.roles,"manage_transactions")>
 			<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
 			</cfquery>
-			<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#" target="_self">Agent Activity</a>
+			<br><a href="/info/agentActivity.cfm?agent_id=#agent.agent_id#" target="_self">Agent Activity</a>
 			<br>
 			<cfif rank.recordcount gt 0>
 				Previous Ranking: #valuelist(rank.agent_rank,"; ")#
 			</cfif>
-			<input type="button" class="lnkBtn" onclick="rankAgent('#agent_id#');" value="Rank">
+			<input type="button" class="lnkBtn" onclick="rankAgent('#agent.agent_id#');" value="Rank">
 		</cfif>
 	</cfoutput>
 	<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from addr
 		where 
-		agent_id = #person.agent_id#
+		agent_id = #agent.agent_id#
 		order by valid_addr_fg DESC
 	</cfquery>
 	<cfquery name="elecagentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from electronic_address
 		where 
-		agent_id = #person.agent_id#
+		agent_id = #agent.agent_id#
 	</cfquery>
-	<cfoutput>
-		<cfset i=1>
-		<cfloop query="agentAddrs">
-			<cfif valid_addr_fg is 1>
-				<div style="border:2px solid green;margin:1px;padding:1px;">
-			<cfelse>
-				<div style="border:2px solid red;margin:1px;padding:1px;">
-			</cfif>
-				<form name="addr#i#" method="post" action="editAllAgent.cfm">
-					<input type="hidden" name="agent_id" value="#person.agent_id#">
-					<input type="hidden" name="addr_id" value="#agentAddrs.addr_id#">
-					<input type="hidden" name="action" value="editAddr">
-					<input type="hidden" name="addrtype" value="#agentAddrs.addr_type#">
-					<input type="hidden" name="job_title" value="#agentAddrs.job_title#">
-					<input type="hidden" name="street_addr1" value="#agentAddrs.street_addr1#">
-					<input type="hidden" name="department" value="#agentAddrs.department#">
-					<input type="hidden" name="institution" value="#agentAddrs.institution#">
-					<input type="hidden" name="street_addr2" value="#agentAddrs.street_addr2#">
-					<input type="hidden" name="city" value="#agentAddrs.city#">
-					<input type="hidden" name="state" value="#agentAddrs.state#">
-					<input type="hidden" name="zip" value="#agentAddrs.zip#">
-					<input type="hidden" name="country_cde" value="#agentAddrs.country_cde#">
-					<input type="hidden" name="mail_stop" value="#agentAddrs.mail_stop#">
-					<input type="hidden" name="validfg" value="#agentAddrs.valid_addr_fg#">
-					<input type="hidden" name="addr_remarks" value="#agentAddrs.addr_remarks#">
-					<input type="hidden" name="formatted_addr" value="#agentAddrs.formatted_addr#">
-				</form>
-				#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
-				&nbsp;
-				<input type="button" class="lnkBtn" value="Edit" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">
-				&nbsp;
-				<input type="button" class="delBtn" value="Delete" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">
-				<div style="margin-left:1em;">
-					#replace(formatted_addr,chr(10),"<br>","all")#
-				</div>
-				<cfset i=#i#+1>
+	<cfset i=1>
+	<cfloop query="agentAddrs">
+		<cfif valid_addr_fg is 1>
+			<div style="border:2px solid green;margin:1px;padding:1px;">
+		<cfelse>
+			<div style="border:2px solid red;margin:1px;padding:1px;">
+		</cfif>
+			<form name="addr#i#" method="post" action="editAllAgent.cfm">
+				<input type="hidden" name="agent_id" value="#person.agent_id#">
+				<input type="hidden" name="addr_id" value="#agentAddrs.addr_id#">
+				<input type="hidden" name="action" value="editAddr">
+				<input type="hidden" name="addrtype" value="#agentAddrs.addr_type#">
+				<input type="hidden" name="job_title" value="#agentAddrs.job_title#">
+				<input type="hidden" name="street_addr1" value="#agentAddrs.street_addr1#">
+				<input type="hidden" name="department" value="#agentAddrs.department#">
+				<input type="hidden" name="institution" value="#agentAddrs.institution#">
+				<input type="hidden" name="street_addr2" value="#agentAddrs.street_addr2#">
+				<input type="hidden" name="city" value="#agentAddrs.city#">
+				<input type="hidden" name="state" value="#agentAddrs.state#">
+				<input type="hidden" name="zip" value="#agentAddrs.zip#">
+				<input type="hidden" name="country_cde" value="#agentAddrs.country_cde#">
+				<input type="hidden" name="mail_stop" value="#agentAddrs.mail_stop#">
+				<input type="hidden" name="validfg" value="#agentAddrs.valid_addr_fg#">
+				<input type="hidden" name="addr_remarks" value="#agentAddrs.addr_remarks#">
+				<input type="hidden" name="formatted_addr" value="#agentAddrs.formatted_addr#">
+			</form>
+			#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
+			&nbsp;
+			<input type="button" class="lnkBtn" value="Edit" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">
+			&nbsp;
+			<input type="button" class="delBtn" value="Delete" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">
+			<div style="margin-left:1em;">
+				#replace(formatted_addr,chr(10),"<br>","all")#
 			</div>
-		</cfloop>
+			<cfset i=#i#+1>
+		</div>
+	</cfloop>
 		<br />
 		<cfset i=1>
 		<cfloop query="elecagentAddrs">
 			<form name="elad#i#" method="post" action="editAllAgent.cfm">
 				<input type="hidden" name="action" >
-				<input type="hidden" name="agent_id" value="#person.agent_id#">
+				<input type="hidden" name="agent_id" value="#agent.agent_id#">
 				<input type="hidden" name="address_type" value="#address_type#">
 				<input type="hidden" name="address" value="#address#">
 			</form>
@@ -258,145 +197,72 @@
 			</div>
 			<cfset i=#i#+1>
 		</cfloop>
-	</cfoutput>
 	<br />
-	<cfif person.agent_type is "person">
-		<cfoutput query="person">
-			<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
-				<input type="hidden" name="agent_id" value="#agent_id#">
-				<input type="hidden" name="action" value="editPerson">
-				<div style="border:2px solid green;margin:1px;padding:1px;">
-					<table>
-						<tr>
-							<td>	
-								<label for="prefix">Prefix</label>
-								<select name="prefix" id="prefix" size="1">
-									<option value=""></option>
-									<cfloop query="ctprefix"> 
-										<option value="#ctprefix.prefix#"
-										<cfif #ctprefix.prefix# is "#person.prefix#">selected</cfif>>#ctprefix.prefix#
-										</option>
-									</cfloop> 
-								</select>
-							</td>
-							<td>
-								<label for="first_name">First Name</label>
-								<input type="text" name="first_name" id="first_name" value="#first_name#">
-							</td>
-							<td>
-								<label for="middle_name">Middle Name</label>
-								<input type="text" name="middle_name" id="middle_name" value="#middle_name#">
-							</td>
-							<td>
-								<label for="last_name">Last Name</label>
-								<input type="text" name="last_name" id="last_name" value="#last_name#">
-							</td>
-							<td>
-								<label for="suffix">Suffix</label>
-								<select name="suffix" id="suffix" size="1">
-									<option value=""></option>
-									   <cfloop query="ctsuffix"> 
-											<option value="#ctsuffix.suffix#"
-												<cfif #ctsuffix.suffix# is "#person.suffix#">selected</cfif>>#ctsuffix.suffix#</option>
-										</cfloop> 
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<label for="birth_date">Birth Date</label>
-								<input type="text" name="birth_date" id="birth_date" value="#dateformat(birth_date,'yyyy-mm-dd')#" size="10">
-							</td>
-							<td colspan="3">
-								<label for="death_date">Death Date</label>
-								<input type="text" name="death_date" id="death_date" value="#dateformat(death_date,'yyyy-mm-dd')#" size="10">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="5">
-								<label for="agent_remarks">Agent Remark</label>
-								<input type="text" value="#agent_remarks#" name="agent_remarks" id="agent_remarks" size="100">
-								<br>
-								<input type="submit" class="savBtn" value="Update Person">
-							</td>
-						</tr>
-					</table>
-				</div>
-			</form>
-		</cfoutput>
-	<cfelse>
-		<cfoutput query="person">
-			<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
-				<input type="hidden" name="agent_id" value="#agent_id#">
-				<input type="hidden" name="action" value="editNonPerson">
-				<label for="agent_remarks">Agent Remark</label>
-				<input type="text" value="#agent_remarks#" name="agent_remarks" id="agent_remarks" size="100">
-				<br>
-				<input type="submit" class="savBtn" value="Update Agent">
-			</form>
-		</cfoutput>
-	</cfif>
-	<cfoutput>
-		<cfif person.agent_type is "group">
-			<cfquery name="grpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					MEMBER_AGENT_ID,
-					MEMBER_ORDER,
-					agent_name					
-				from 
-					group_member,
-					preferred_agent_name
-				where 
-					group_member.MEMBER_AGENT_ID = preferred_agent_name.agent_id AND
-					GROUP_AGENT_ID = #agent_id#
-				order by MEMBER_ORDER					
-			</cfquery>
-			<label for="gmemdv">Group Members</label>
-			<cfset i=1>
-			<br />
-			<div id="gmemdv" style="border:2px solid green;margin:1px;padding:1px;">
-				<cfloop query="grpMem">
-					<form name="groupMember#i#" method="post" action="editAllAgent.cfm">
-						<input type="hidden" name="action" value="deleteGroupMember" />
-						<input type="hidden" name="member_agent_id" value="#member_agent_id#" />
-						<input type="hidden" name="agent_id" value="#agent_id#" />
-						#agent_name#&nbsp;<input type="button" value="Remove Member" class="delBtn" onClick="confirmDelete('groupMember#i#');"><br>
-					</form>
-					<cfset i=#i# + 1>
-				</cfloop>
-			</div>
-			<cfquery name="memOrd" dbtype="query">
-				select max(member_order) + 1 as nextMemOrd from grpMem
-			</cfquery>
-			<cfif len(memOrd.nextMemOrd) gt 0>
-				<cfset nOrd = memOrd.nextMemOrd>
-			<cfelse>
-				<cfset nOrd = 1>
-			</cfif>
-			<form name="newGroupMember" method="post" action="editAllAgent.cfm">
-				<input type="hidden" name="agent_id" value="#agent_id#" />
-				<input type="hidden" name="action" value="makeNewGroupMemeber" />
-				<input type="hidden" name="member_order" value="#nOrd#" />
-				<input type="hidden" name="member_id">
-				<div class="newRec">
-					<label for="">Add Member to Group</label>
-					<input type="text" name="group_member" class="reqdClr" 
-						onchange="getAgent('member_id','group_member','newGroupMember',this.value); return false;"
-				 		onKeyPress="return noenter(event);">
-					<input type="submit" class="insBtn" value="Add Group Member">
-				</div>
-			</form>
-		</cfif>
-		<cfquery name="anames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from agent_name where agent_id=#agent_id#
+	
+	
+	<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
+		<input type="hidden" name="agent_id" value="#agent.agent_id#">
+		<input type="hidden" name="action" value="saveAgentEdits">
+		<label for="agent_remarks">Agent Remark</label>
+		<input type="text" value="#agent.agent_remarks#" name="agent_remarks" id="agent_remarks" size="100">
+		<br>
+		<input type="submit" class="savBtn" value="Update Agent">
+	</form>
+	<cfif agent.agent_type is "group">
+		<cfquery name="grpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select 
+				MEMBER_AGENT_ID,
+				MEMBER_ORDER,
+				agent_name					
+			from 
+				group_member,
+				preferred_agent_name
+			where 
+				group_member.MEMBER_AGENT_ID = preferred_agent_name.agent_id AND
+				GROUP_AGENT_ID = #agent_id#
+			order by MEMBER_ORDER					
 		</cfquery>
-		<cfquery name="pname" dbtype="query">
-			select * from anames where agent_name_type='preferred'
-		</cfquery>
-		<cfquery name="npname" dbtype="query">
-			select * from anames where agent_name_type!='preferred'
-		</cfquery>
+		<label for="gmemdv">Group Members</label>
 		<cfset i=1>
+		<br />
+		<div id="gmemdv" style="border:2px solid green;margin:1px;padding:1px;">
+			<cfloop query="grpMem">
+				<form name="groupMember#i#" method="post" action="editAllAgent.cfm">
+					<input type="hidden" name="action" value="deleteGroupMember" />
+					<input type="hidden" name="member_agent_id" value="#member_agent_id#" />
+					<input type="hidden" name="agent_id" value="#agent_id#" />
+					#agent_name#&nbsp;<input type="button" value="Remove Member" class="delBtn" onClick="confirmDelete('groupMember#i#');"><br>
+				</form>
+				<cfset i=#i# + 1>
+			</cfloop>
+		</div>
+		<cfquery name="memOrd" dbtype="query">
+			select max(member_order) + 1 as nextMemOrd from grpMem
+		</cfquery>
+		<cfif len(memOrd.nextMemOrd) gt 0>
+			<cfset nOrd = memOrd.nextMemOrd>
+		<cfelse>
+			<cfset nOrd = 1>
+		</cfif>
+		<form name="newGroupMember" method="post" action="editAllAgent.cfm">
+			<input type="hidden" name="agent_id" value="#agent_id#" />
+			<input type="hidden" name="action" value="makeNewGroupMemeber" />
+			<input type="hidden" name="member_order" value="#nOrd#" />
+			<input type="hidden" name="member_id">
+			<div class="newRec">
+				<label for="">Add Member to Group</label>
+				<input type="text" name="group_member" class="reqdClr" 
+					onchange="getAgent('member_id','group_member','newGroupMember',this.value); return false;"
+			 		onKeyPress="return noenter(event);">
+				<input type="submit" class="insBtn" value="Add Group Member">
+			</div>
+		</form>
+	</cfif>
+	<cfquery name="anames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from agent_name where agent_id=#agent_id# and agent_name_type!='preferred'
+	</cfquery>
+	
+	<cfset i=1>
 		<br />
 		<label for="anamdv"><span class="likeLink" onClick="getDocs('agent','names')">Agent Names</span></label>
 		<div id="anamdv" style="border:2px solid green;margin:1px;padding:1px;">
