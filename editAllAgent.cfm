@@ -115,6 +115,17 @@
 		</cfquery>
 	
 		<span class="infoLink" onClick="getDocs('agent')">Help</span>
+		<cfif listcontainsnocase(session.roles,"manage_transactions")>
+			<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
+			</cfquery>
+			<br><a href="/info/agentActivity.cfm?agent_id=#agent.agent_id#" target="_self">Agent Activity</a>
+			<br>
+			<cfif rank.recordcount gt 0>
+				Previous Ranking: #valuelist(rank.agent_rank,"; ")#
+			</cfif>
+			<input type="button" class="lnkBtn" onclick="rankAgent('#agent.agent_id#');" value="Rank">
+		</cfif>
 		<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
 			<input type="hidden" name="agent_id" value="#agent.agent_id#">
 			<input type="hidden" name="action" value="saveAgentEdits">
@@ -135,17 +146,7 @@
 		</form>
 		
 		
-		<cfif listcontainsnocase(session.roles,"manage_transactions")>
-			<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
-			</cfquery>
-			<br><a href="/info/agentActivity.cfm?agent_id=#agent.agent_id#" target="_self">Agent Activity</a>
-			<br>
-			<cfif rank.recordcount gt 0>
-				Previous Ranking: #valuelist(rank.agent_rank,"; ")#
-			</cfif>
-			<input type="button" class="lnkBtn" onclick="rankAgent('#agent.agent_id#');" value="Rank">
-		</cfif>
+		
 		<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from addr
 			where 
