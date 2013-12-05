@@ -22,6 +22,13 @@
 	jQuery(document).ready(function() {
 		///jQuery("#birth_date").datepicker();
 	});
+	function togglePerson(atype){
+		if (atype=='person'){
+			$("#newPersonAttrs").show();
+		else
+			$("#newPersonAttrs").hide();
+		}
+	}
 	function suggestName(ntype){
 		try {
 			var fName=document.getElementById('first_name').value;
@@ -75,19 +82,19 @@
 			<label for="agent_name">Preferred Name</label>
 			<input type="text" name="agent_name" id="agent_name" size="50" class="reqdClr">
 			<label for="agent_type">Agent Type</label>
-			<select name="agent_type" id="agent_type" size="1">
+			<select name="agent_type" id="agent_type" size="1" onchange="togglePerson(this.value);">
 				<cfloop query="ctAgent_Type">
 					<option value="#ctAgent_Type.agent_type#">#ctAgent_Type.agent_type#</option>
 				</cfloop>
 			</select>
-			
-			<label for="first_name">First Name</label>
-			<input type="text" name="first_name" id="first_name">
-			<label for="middle_name">Middle Name</label>
-			<input type="text" name="middle_name" id="middle_name">
-			<label for="last_name">Last Name</label>
-			<input type="text" name="last_name" id="last_name" class="reqdClr">
-		
+			<div id="newPersonAttrs" style="display:none;">
+				<label for="first_name">First Name</label>
+				<input type="text" name="first_name" id="first_name">
+				<label for="middle_name">Middle Name</label>
+				<input type="text" name="middle_name" id="middle_name">
+				<label for="last_name">Last Name</label>
+				<input type="text" name="last_name" id="last_name">
+			</div>
 		
 			<label for="agent_remarks">Remarks</label>
 			<input type="text"  size="50" name="agent_remarks" id="agent_remarks">
@@ -144,8 +151,6 @@
 			<br>
 			<input type="submit" class="savBtn" value="Update Agent">
 		</form>
-		
-		
 		
 		<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from addr
@@ -1045,36 +1050,91 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
-<cfif #Action# is "makeNewAgent">
+<cfif Action is "makeNewAgent">
 	<cfoutput>
 		<cftransaction>
 			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select sq_agent_id.nextval nextAgentId from dual
 			</cfquery>
-			<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select sq_agent_name_id.nextval nextAgentNameId from dual
-			</cfquery>
 			<cfquery name="insAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				INSERT INTO agent (
 					agent_id,
 					agent_type,
-					preferred_agent_name_id
-					<cfif len(#agent_remarks#) gt 0>
-						,agent_remarks
-					</cfif>
+					preferred_agent_name,
+					agent_remarks
 					)
 				VALUES (
 					#agentID.nextAgentId#,
 					'#agent_type#',
-					#agentNameID.nextAgentNameId#
-					<cfif len(#agent_remarks#) gt 0>
-						,'#agent_remarks#'
-					</cfif>
-					)
+					#agentNameID.nextAgentNameId#,
+					'#agent_remarks#'
+				)
 			</cfquery>
+			<cfquery name="insPName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				INSERT INTO agent_name (
+					agent_name_id,
+					agent_id,
+					agent_name_type,
+					agent_name
+				) VALUES (
+					sq_agent_name_id.nextval,
+					#agentID.nextAgentId#,
+					'preferred',
+					'#preferred_agent_name#'
+				)
+			</cfquery>
+			<cfif isdefined("first_name") and len(first_name) gt 0>
+				<cfquery name="insFName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO agent_name (
+					agent_name_id,
+					agent_id,
+					agent_name_type,
+					agent_name
+				) VALUES (
+					sq_agent_name_id.nextval,
+					#agentID.nextAgentId#,
+					'first name',
+					'#first_name#'
+				)
+				</cfquery>
+			</cfif>
+			<cfif isdefined("middle_name") and len(middle_name) gt 0>
+				<cfquery name="insMName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO agent_name (
+					agent_name_id,
+					agent_id,
+					agent_name_type,
+					agent_name
+				) VALUES (
+					sq_agent_name_id.nextval,
+					#agentID.nextAgentId#,
+					'middle name',
+					'#middle_name#'
+				)
+				</cfquery>
+			</cfif>
+			<cfif isdefined("last_name") and len(last_name) gt 0>
+				<cfquery name="insLName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO agent_name (
+					agent_name_id,
+					agent_id,
+					agent_name_type,
+					agent_name
+				) VALUES (
+					sq_agent_name_id.nextval,
+					#agentID.nextAgentId#,
+					'last name',
+					'#last_name#'
+				)
+				</cfquery>
+			</cfif>
+			
+			
+			
+			<!----
 			<cfif not isdefined("ignoreDupChek") or ignoreDupChek is false>
 				<cfquery name="dupPref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select agent_id,agent_name from agent_name where upper(agent_name) like '%#ucase(agent_name)#%'
+					select agent_id,agent_name from agent_name where upper(agent_name) like '%#ucase(preferred_agent_name)#%'
 				</cfquery>
 				<cfif dupPref.recordcount gt 0>
 					<p>That agent may already exist! Click to see details.</p>
@@ -1094,21 +1154,9 @@
 					<cfabort>					
 				</cfif>
 			</cfif>
-			<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO agent_name (
-					agent_name_id,
-					agent_id,
-					agent_name_type,
-					agent_name,
-					donor_card_present_fg)
-				VALUES (
-					#agentNameID.nextAgentNameId#,
-					#agentID.nextAgentId#,
-					'preferred',
-					'#agent_name#',
-					0
-					)
-			</cfquery>
+			
+			---->
+			
 		</cftransaction>			
 		<cflocation url="editAllAgent.cfm?agent_id=#agentID.nextAgentId#">
 	</cfoutput>
