@@ -30,10 +30,11 @@
 					agent_type
 				FROM 
 					agent,
-					agent_name (+)
+					agent_name
 				WHERE 
+					agent.agent_id=agent_name.agent_id (+) and
 					agent.agent_id > -1
-					and rownum<500 -- some throttle control
+					and rownum<500
 					">
 					<!---
 					agent_name_type='preferred'
