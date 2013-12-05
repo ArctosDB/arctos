@@ -103,18 +103,19 @@
 	<cfif not isdefined("agent_id") OR agent_id lt 0 >
 		<cfabort>
 	</cfif>
-	<cfquery name="agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
-			agent_id,
-			preferred_agent_name,
-			agent_remarks,
-			agent_type
-		from 
-			agent
-		where 
-			agent_id=#agent_id#
-	</cfquery>
 	<cfoutput>
+		<cfquery name="agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select 
+				agent_id,
+				preferred_agent_name,
+				agent_remarks,
+				agent_type
+			from 
+				agent
+			where 
+				agent_id=#agent_id#
+		</cfquery>
+	
 		<span class="infoLink" onClick="getDocs('agent')">Help</span>
 		<br>
 		<strong>#agent.preferred_agent_name#</strong> (#agent.agent_type#) {ID: #agent.agent_id#} 
@@ -132,351 +133,350 @@
 			</cfif>
 			<input type="button" class="lnkBtn" onclick="rankAgent('#agent.agent_id#');" value="Rank">
 		</cfif>
-	</cfoutput>
-	<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from addr
-		where 
-		agent_id = #agent.agent_id#
-		order by valid_addr_fg DESC
-	</cfquery>
-	<cfquery name="elecagentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from electronic_address
-		where 
-		agent_id = #agent.agent_id#
-	</cfquery>
-	<cfset i=1>
-	<cfloop query="agentAddrs">
-		<cfif valid_addr_fg is 1>
-			<div style="border:2px solid green;margin:1px;padding:1px;">
-		<cfelse>
-			<div style="border:2px solid red;margin:1px;padding:1px;">
-		</cfif>
-			<form name="addr#i#" method="post" action="editAllAgent.cfm">
-				<input type="hidden" name="agent_id" value="#person.agent_id#">
-				<input type="hidden" name="addr_id" value="#agentAddrs.addr_id#">
-				<input type="hidden" name="action" value="editAddr">
-				<input type="hidden" name="addrtype" value="#agentAddrs.addr_type#">
-				<input type="hidden" name="job_title" value="#agentAddrs.job_title#">
-				<input type="hidden" name="street_addr1" value="#agentAddrs.street_addr1#">
-				<input type="hidden" name="department" value="#agentAddrs.department#">
-				<input type="hidden" name="institution" value="#agentAddrs.institution#">
-				<input type="hidden" name="street_addr2" value="#agentAddrs.street_addr2#">
-				<input type="hidden" name="city" value="#agentAddrs.city#">
-				<input type="hidden" name="state" value="#agentAddrs.state#">
-				<input type="hidden" name="zip" value="#agentAddrs.zip#">
-				<input type="hidden" name="country_cde" value="#agentAddrs.country_cde#">
-				<input type="hidden" name="mail_stop" value="#agentAddrs.mail_stop#">
-				<input type="hidden" name="validfg" value="#agentAddrs.valid_addr_fg#">
-				<input type="hidden" name="addr_remarks" value="#agentAddrs.addr_remarks#">
-				<input type="hidden" name="formatted_addr" value="#agentAddrs.formatted_addr#">
-			</form>
-			#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
-			&nbsp;
-			<input type="button" class="lnkBtn" value="Edit" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">
-			&nbsp;
-			<input type="button" class="delBtn" value="Delete" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">
-			<div style="margin-left:1em;">
-				#replace(formatted_addr,chr(10),"<br>","all")#
-			</div>
-			<cfset i=#i#+1>
-		</div>
-	</cfloop>
-		<br />
-		<cfset i=1>
-		<cfloop query="elecagentAddrs">
-			<form name="elad#i#" method="post" action="editAllAgent.cfm">
-				<input type="hidden" name="action" >
-				<input type="hidden" name="agent_id" value="#agent.agent_id#">
-				<input type="hidden" name="address_type" value="#address_type#">
-				<input type="hidden" name="address" value="#address#">
-			</form>
-			<div style="border:2px solid green;margin:1px;padding:1px;">
-				#address_type#: #address#
-				<input type="button" value="Edit" class="lnkBtn" onclick="elad#i#.action.value='editElecAddr';elad#i#.submit();">
-				<input type="button" value="Delete" class="delBtn" onclick="elad#i#.action.value='deleElecAddr';confirmDelete('elad#i#');">
-			</div>
-			<cfset i=#i#+1>
-		</cfloop>
-	<br />
-	
-	
-	<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
-		<input type="hidden" name="agent_id" value="#agent.agent_id#">
-		<input type="hidden" name="action" value="saveAgentEdits">
-		<label for="agent_remarks">Agent Remark</label>
-		<input type="text" value="#agent.agent_remarks#" name="agent_remarks" id="agent_remarks" size="100">
-		<br>
-		<input type="submit" class="savBtn" value="Update Agent">
-	</form>
-	<cfif agent.agent_type is "group">
-		<cfquery name="grpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
-				MEMBER_AGENT_ID,
-				MEMBER_ORDER,
-				agent_name					
-			from 
-				group_member,
-				preferred_agent_name
+		<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from addr
 			where 
-				group_member.MEMBER_AGENT_ID = preferred_agent_name.agent_id AND
-				GROUP_AGENT_ID = #agent_id#
-			order by MEMBER_ORDER					
+			agent_id = #agent.agent_id#
+			order by valid_addr_fg DESC
 		</cfquery>
-		<label for="gmemdv">Group Members</label>
-		<cfset i=1>
-		<br />
-		<div id="gmemdv" style="border:2px solid green;margin:1px;padding:1px;">
-			<cfloop query="grpMem">
-				<form name="groupMember#i#" method="post" action="editAllAgent.cfm">
-					<input type="hidden" name="action" value="deleteGroupMember" />
-					<input type="hidden" name="member_agent_id" value="#member_agent_id#" />
-					<input type="hidden" name="agent_id" value="#agent_id#" />
-					#agent_name#&nbsp;<input type="button" value="Remove Member" class="delBtn" onClick="confirmDelete('groupMember#i#');"><br>
-				</form>
-				<cfset i=#i# + 1>
-			</cfloop>
-		</div>
-		<cfquery name="memOrd" dbtype="query">
-			select max(member_order) + 1 as nextMemOrd from grpMem
-		</cfquery>
-		<cfif len(memOrd.nextMemOrd) gt 0>
-			<cfset nOrd = memOrd.nextMemOrd>
-		<cfelse>
-			<cfset nOrd = 1>
-		</cfif>
-		<form name="newGroupMember" method="post" action="editAllAgent.cfm">
-			<input type="hidden" name="agent_id" value="#agent_id#" />
-			<input type="hidden" name="action" value="makeNewGroupMemeber" />
-			<input type="hidden" name="member_order" value="#nOrd#" />
-			<input type="hidden" name="member_id">
-			<div class="newRec">
-				<label for="">Add Member to Group</label>
-				<input type="text" name="group_member" class="reqdClr" 
-					onchange="getAgent('member_id','group_member','newGroupMember',this.value); return false;"
-			 		onKeyPress="return noenter(event);">
-				<input type="submit" class="insBtn" value="Add Group Member">
-			</div>
-		</form>
-	</cfif>
-	<cfquery name="anames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from agent_name where agent_id=#agent_id# and agent_name_type!='preferred'
-	</cfquery>
-	
-	<cfset i=1>
-		<br />
-		<label for="anamdv"><span class="likeLink" onClick="getDocs('agent','names')">Agent Names</span></label>
-		<div id="anamdv" style="border:2px solid green;margin:1px;padding:1px;">
-			<form name="a#i#" action="editAllAgent.cfm" method="post" target="_person">
-				<input type="hidden" name="action">
-				<input type="hidden" name="agent_name_id" value="#pname.agent_name_id#">
-				<input type="hidden" name="agent_id" value="#pname.agent_id#">
-				<input type="hidden" name="agent_name_type" value="#pname.agent_name_type#">
-				<label for="agent_name">Preferred Name</label>
-				<input type="text" value="#pname.agent_name#" name="agent_name" id="agent_name">
-				<input type="button" value="Update" class="savBtn" onClick="a#i#.action.value='updateName';a#i#.submit();">
-				<input type="button" value="Copy" class="lnkBtn" onClick="newName.agent_name.value='#pname.agent_name#';">
-			</form>
-			<cfset i=i+1>
-			<label>Other Names</label>
-			<cfloop query="npname">
-				<form name="a#i#" action="editAllAgent.cfm" method="post" target="_person">
-					<input type="hidden" name="action">
-					<input type="hidden" name="agent_name_id" value="#npname.agent_name_id#">
-					<input type="hidden" name="agent_id" value="#npname.agent_id#">
-					<select name="agent_name_type">
-						<cfloop query="ctNameType">
-							<option  <cfif ctNameType.agent_name_type is npname.agent_name_type> selected="selected" </cfif>
-								value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
-						</cfloop>
-					</select>
-					<input type="text" value="#npname.agent_name#" name="agent_name">
-					<input type="button" value="Update" class="savBtn" onClick="a#i#.action.value='updateName';a#i#.submit();">
-					<input type="button" value="Delete" class="delBtn" onClick="a#i#.action.value='deleteName';confirmDelete('a#i#','this agent name');">
-					<input type="button" class="lnkBtn" value="Copy" onClick="newName.agent_name.value='#pname.agent_name#';">
-					<cfif agent_name_type is "login">
-						<a href="/AdminUsers.cfm?action=edit&username=#agent_name#" class="infoLink" target="_top">[ Arctos user ]</a>
-					</cfif>
-				</form>
-				<cfset i = i + 1>
-			</cfloop>
-		</div>
-		<div id="nagnndv" class="newRec">
-			<label for="nagnndv">Add agent name</label>
-			<form name="newName" action="editAllAgent.cfm" method="post" target="_person">
-				<input type="hidden" name="Action" value="newName">
-				<input type="hidden" name="agent_id" value="#person.agent_id#">
-				<select name="agent_name_type" onchange="suggestName(this.value);">
-					<cfloop query="ctNameType">
-						<option value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
-					</cfloop>
-				</select>
-				<input type="text" name="agent_name" id="agent_name">
-				<input type="submit" class="insBtn" value="Create Name">
-			</form>
-		</div>
-		<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
-				agent_relationship, agent_name, related_agent_id
-			from agent_relations, agent_name
+		<cfquery name="elecagentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from electronic_address
 			where 
-			  agent_relations.related_agent_id = agent_name.agent_id 
-			  and agent_name_type = 'preferred' and
-			  agent_relations.agent_id=#person.agent_id#
+			agent_id = #agent.agent_id#
 		</cfquery>
-		<br />
-		<label for="areldv"><span class="likeLink" onClick="getDocs('agent','relations')">Relationships</span></label>
-		<div id="areldv" style="border:2px solid green;margin:1px;padding:1px;">
-			<cfset i=1>
-			<cfloop query="relns">
-				<form name="agentRelations#i#" method="post" action="editAllAgent.cfm">
-					<input type="hidden" name="action">
+		<cfset i=1>
+		<cfloop query="agentAddrs">
+			<cfif valid_addr_fg is 1>
+				<div style="border:2px solid green;margin:1px;padding:1px;">
+			<cfelse>
+				<div style="border:2px solid red;margin:1px;padding:1px;">
+			</cfif>
+				<form name="addr#i#" method="post" action="editAllAgent.cfm">
 					<input type="hidden" name="agent_id" value="#person.agent_id#">
-					<input type="hidden" name="related_agent_id" value="#related_agent_id#">
-					<input type="hidden" name="oldRelationship" value="#agent_relationship#">
-					<input type="hidden" name="newRelatedAgentId">
-					<cfset thisReln = agent_relationship>
-					<select name="relationship" size="1">
-						<cfloop query="ctRelns">
-							<option value="#ctRelns.AGENT_RELATIONSHIP#"
-								<cfif #ctRelns.AGENT_RELATIONSHIP# is "#thisReln#">
-									selected="selected"
-								</cfif>
-								>#ctRelns.AGENT_RELATIONSHIP#</option>
-						</cfloop>
-					</select> 
-					<input type="text" name="related_agent" class="reqdClr" value="#agent_name#"
-						onchange="getAgent('newRelatedAgentId','related_agent','agentRelations#i#',this.value); return false;"
-						onKeyPress="return noenter(event);">
-					<input type="button" class="savBtn" value="Save" onClick="agentRelations#i#.action.value='changeRelated';agentRelations#i#.submit();">
-					<input type="button" class="delBtn" value="Delete" onClick="agentRelations#i#.action.value='deleteRelated';confirmDelete('agentRelations#i#');">
+					<input type="hidden" name="addr_id" value="#agentAddrs.addr_id#">
+					<input type="hidden" name="action" value="editAddr">
+					<input type="hidden" name="addrtype" value="#agentAddrs.addr_type#">
+					<input type="hidden" name="job_title" value="#agentAddrs.job_title#">
+					<input type="hidden" name="street_addr1" value="#agentAddrs.street_addr1#">
+					<input type="hidden" name="department" value="#agentAddrs.department#">
+					<input type="hidden" name="institution" value="#agentAddrs.institution#">
+					<input type="hidden" name="street_addr2" value="#agentAddrs.street_addr2#">
+					<input type="hidden" name="city" value="#agentAddrs.city#">
+					<input type="hidden" name="state" value="#agentAddrs.state#">
+					<input type="hidden" name="zip" value="#agentAddrs.zip#">
+					<input type="hidden" name="country_cde" value="#agentAddrs.country_cde#">
+					<input type="hidden" name="mail_stop" value="#agentAddrs.mail_stop#">
+					<input type="hidden" name="validfg" value="#agentAddrs.valid_addr_fg#">
+					<input type="hidden" name="addr_remarks" value="#agentAddrs.addr_remarks#">
+					<input type="hidden" name="formatted_addr" value="#agentAddrs.formatted_addr#">
 				</form>
+				#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
+				&nbsp;
+				<input type="button" class="lnkBtn" value="Edit" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">
+				&nbsp;
+				<input type="button" class="delBtn" value="Delete" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">
+				<div style="margin-left:1em;">
+					#replace(formatted_addr,chr(10),"<br>","all")#
+				</div>
+				<cfset i=#i#+1>
+			</div>
+		</cfloop>
+			<br />
+			<cfset i=1>
+			<cfloop query="elecagentAddrs">
+				<form name="elad#i#" method="post" action="editAllAgent.cfm">
+					<input type="hidden" name="action" >
+					<input type="hidden" name="agent_id" value="#agent.agent_id#">
+					<input type="hidden" name="address_type" value="#address_type#">
+					<input type="hidden" name="address" value="#address#">
+				</form>
+				<div style="border:2px solid green;margin:1px;padding:1px;">
+					#address_type#: #address#
+					<input type="button" value="Edit" class="lnkBtn" onclick="elad#i#.action.value='editElecAddr';elad#i#.submit();">
+					<input type="button" value="Delete" class="delBtn" onclick="elad#i#.action.value='deleElecAddr';confirmDelete('elad#i#');">
+				</div>
 				<cfset i=#i#+1>
 			</cfloop>
-		</div>
-		<div class="newRec">
-			<label>Add Relationship</label>
-			<form name="newRelationship" method="post" action="editAllAgent.cfm">
-				<input type="hidden" name="action" value="addRelationship">
-				<input type="hidden" name="newRelatedAgentId">
-				<input type="hidden" name="agent_id" value="#person.agent_id#">
-				<select name="relationship" size="1">
-					<cfloop query="ctRelns"> 
-						<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
-					</cfloop> 
-				</select>
-				<input type="text" name="related_agent" class="reqdClr"
-					onchange="getAgent('newRelatedAgentId','related_agent','newRelationship',this.value); return false;"
-					onKeyPress="return noenter(event);">
-				<input type="submit" class="insBtn" value="Create Relationship">
-			</form>
-		</div>
 		<br />
-		<div class="newRec">
-			<label>Add Address</label>
-			<form name="newAddress" method="post" action="editAllAgent.cfm">
-				<input type="hidden" name="agent_id" value="#person.agent_id#">
-				<input type="hidden" name="Action" value="newAddress">
-				<table>
-					<tr>
-						<td>
-							<label for="addr_type">Address Type</label>
-							<select name="addr_type" id="addr_type" size="1">
-								<cfloop query="ctAddrType">
-								<option value="#ctAddrType.addr_type#">#ctAddrType.addr_type#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<label for="job_title">Job Title</label>
-							<input type="text" name="job_title" id="job_title">
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<label for="institution">Institution</label>
-							<input type="text" name="institution" id="institution"size="50" >
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<label for="department">Department</label>
-							<input type="text" name="department" id="department" size="50" >
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<label for="street_addr1">Street Address 1</label>
-							<input type="text" name="street_addr1" id="street_addr1" size="50" class="reqdClr">
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<label for="street_addr2">Street Address 2</label>
-							<input type="text" name="street_addr2" id="street_addr2" size="50">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label for="city">City</label>
-							<input type="text" name="city" id="city" class="reqdClr">
-						</td>
-						<td>
-							<label for="state">State</label>
-							<input type="text" name="state" id="state" class="reqdClr">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label for="zip">Zip</label>
-							<input type="text" name="zip" id="zip" class="reqdClr">
-						</td>
-						<td>
-							<label for="country_cde">Country Code</label>
-							<input type="text" name="country_cde" id="country_cde" class="reqdClr">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label for="mail_stop">Mail Stop</label>
-							<input type="text" name="mail_stop" id="mail_stop">
-						</td>
-						<td>
-							<label for="valid_addr_fg">Valid?</label>
-							<select name="valid_addr_fg" id="valid_addr_fg" size="1">
-								<option value="1">yes</option>
-								<option value="0">no</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<label for="addr_remarks">Address Remark</label>
-							<input type="text" name="addr_remarks" id="addr_remarks" size="50">
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<input type="submit" class="insBtn" value="Create Address">
-						</td>
-					</tr>
-				</table>
+		
+		
+		<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
+			<input type="hidden" name="agent_id" value="#agent.agent_id#">
+			<input type="hidden" name="action" value="saveAgentEdits">
+			<label for="agent_remarks">Agent Remark</label>
+			<input type="text" value="#agent.agent_remarks#" name="agent_remarks" id="agent_remarks" size="100">
+			<br>
+			<input type="submit" class="savBtn" value="Update Agent">
+		</form>
+		<cfif agent.agent_type is "group">
+			<cfquery name="grpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select 
+					MEMBER_AGENT_ID,
+					MEMBER_ORDER,
+					agent_name					
+				from 
+					group_member,
+					preferred_agent_name
+				where 
+					group_member.MEMBER_AGENT_ID = preferred_agent_name.agent_id AND
+					GROUP_AGENT_ID = #agent_id#
+				order by MEMBER_ORDER					
+			</cfquery>
+			<label for="gmemdv">Group Members</label>
+			<cfset i=1>
+			<br />
+			<div id="gmemdv" style="border:2px solid green;margin:1px;padding:1px;">
+				<cfloop query="grpMem">
+					<form name="groupMember#i#" method="post" action="editAllAgent.cfm">
+						<input type="hidden" name="action" value="deleteGroupMember" />
+						<input type="hidden" name="member_agent_id" value="#member_agent_id#" />
+						<input type="hidden" name="agent_id" value="#agent_id#" />
+						#agent_name#&nbsp;<input type="button" value="Remove Member" class="delBtn" onClick="confirmDelete('groupMember#i#');"><br>
+					</form>
+					<cfset i=#i# + 1>
+				</cfloop>
+			</div>
+			<cfquery name="memOrd" dbtype="query">
+				select max(member_order) + 1 as nextMemOrd from grpMem
+			</cfquery>
+			<cfif len(memOrd.nextMemOrd) gt 0>
+				<cfset nOrd = memOrd.nextMemOrd>
+			<cfelse>
+				<cfset nOrd = 1>
+			</cfif>
+			<form name="newGroupMember" method="post" action="editAllAgent.cfm">
+				<input type="hidden" name="agent_id" value="#agent_id#" />
+				<input type="hidden" name="action" value="makeNewGroupMemeber" />
+				<input type="hidden" name="member_order" value="#nOrd#" />
+				<input type="hidden" name="member_id">
+				<div class="newRec">
+					<label for="">Add Member to Group</label>
+					<input type="text" name="group_member" class="reqdClr" 
+						onchange="getAgent('member_id','group_member','newGroupMember',this.value); return false;"
+				 		onKeyPress="return noenter(event);">
+					<input type="submit" class="insBtn" value="Add Group Member">
+				</div>
 			</form>
-		</div>
-		<br />
-		<div class="newRec">
-			<label>Add Electronic Address</label>
-			<form name="newElecAddr" method="post" action="editAllAgent.cfm">
-				<input name="Action" type="hidden" value="newElecAddr">
-				<input type="hidden" name="agent_id" value="#person.agent_id#">
-				<select name="address_type" size="1">
-					<cfloop query="ctElecAddrType">
-						<option value="#ctElecAddrType.address_type#">#ctElecAddrType.address_type#</option>
-					</cfloop>
-				</select>
-				<input type="text" name="address" id="address" size="50">
-				<input type="submit" class="insBtn" value="Create Address">
-			</form>
-		</div>
+		</cfif>
+		<cfquery name="anames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from agent_name where agent_id=#agent_id# and agent_name_type!='preferred'
+		</cfquery>
+		
+		<cfset i=1>
+			<br />
+			<label for="anamdv"><span class="likeLink" onClick="getDocs('agent','names')">Agent Names</span></label>
+			<div id="anamdv" style="border:2px solid green;margin:1px;padding:1px;">
+				<form name="a#i#" action="editAllAgent.cfm" method="post" target="_person">
+					<input type="hidden" name="action">
+					<input type="hidden" name="agent_name_id" value="#pname.agent_name_id#">
+					<input type="hidden" name="agent_id" value="#pname.agent_id#">
+					<input type="hidden" name="agent_name_type" value="#pname.agent_name_type#">
+					<label for="agent_name">Preferred Name</label>
+					<input type="text" value="#pname.agent_name#" name="agent_name" id="agent_name">
+					<input type="button" value="Update" class="savBtn" onClick="a#i#.action.value='updateName';a#i#.submit();">
+					<input type="button" value="Copy" class="lnkBtn" onClick="newName.agent_name.value='#pname.agent_name#';">
+				</form>
+				<cfset i=i+1>
+				<label>Other Names</label>
+				<cfloop query="npname">
+					<form name="a#i#" action="editAllAgent.cfm" method="post" target="_person">
+						<input type="hidden" name="action">
+						<input type="hidden" name="agent_name_id" value="#npname.agent_name_id#">
+						<input type="hidden" name="agent_id" value="#npname.agent_id#">
+						<select name="agent_name_type">
+							<cfloop query="ctNameType">
+								<option  <cfif ctNameType.agent_name_type is npname.agent_name_type> selected="selected" </cfif>
+									value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
+							</cfloop>
+						</select>
+						<input type="text" value="#npname.agent_name#" name="agent_name">
+						<input type="button" value="Update" class="savBtn" onClick="a#i#.action.value='updateName';a#i#.submit();">
+						<input type="button" value="Delete" class="delBtn" onClick="a#i#.action.value='deleteName';confirmDelete('a#i#','this agent name');">
+						<input type="button" class="lnkBtn" value="Copy" onClick="newName.agent_name.value='#pname.agent_name#';">
+						<cfif agent_name_type is "login">
+							<a href="/AdminUsers.cfm?action=edit&username=#agent_name#" class="infoLink" target="_top">[ Arctos user ]</a>
+						</cfif>
+					</form>
+					<cfset i = i + 1>
+				</cfloop>
+			</div>
+			<div id="nagnndv" class="newRec">
+				<label for="nagnndv">Add agent name</label>
+				<form name="newName" action="editAllAgent.cfm" method="post" target="_person">
+					<input type="hidden" name="Action" value="newName">
+					<input type="hidden" name="agent_id" value="#person.agent_id#">
+					<select name="agent_name_type" onchange="suggestName(this.value);">
+						<cfloop query="ctNameType">
+							<option value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
+						</cfloop>
+					</select>
+					<input type="text" name="agent_name" id="agent_name">
+					<input type="submit" class="insBtn" value="Create Name">
+				</form>
+			</div>
+			<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select 
+					agent_relationship, agent_name, related_agent_id
+				from agent_relations, agent_name
+				where 
+				  agent_relations.related_agent_id = agent_name.agent_id 
+				  and agent_name_type = 'preferred' and
+				  agent_relations.agent_id=#person.agent_id#
+			</cfquery>
+			<br />
+			<label for="areldv"><span class="likeLink" onClick="getDocs('agent','relations')">Relationships</span></label>
+			<div id="areldv" style="border:2px solid green;margin:1px;padding:1px;">
+				<cfset i=1>
+				<cfloop query="relns">
+					<form name="agentRelations#i#" method="post" action="editAllAgent.cfm">
+						<input type="hidden" name="action">
+						<input type="hidden" name="agent_id" value="#person.agent_id#">
+						<input type="hidden" name="related_agent_id" value="#related_agent_id#">
+						<input type="hidden" name="oldRelationship" value="#agent_relationship#">
+						<input type="hidden" name="newRelatedAgentId">
+						<cfset thisReln = agent_relationship>
+						<select name="relationship" size="1">
+							<cfloop query="ctRelns">
+								<option value="#ctRelns.AGENT_RELATIONSHIP#"
+									<cfif #ctRelns.AGENT_RELATIONSHIP# is "#thisReln#">
+										selected="selected"
+									</cfif>
+									>#ctRelns.AGENT_RELATIONSHIP#</option>
+							</cfloop>
+						</select> 
+						<input type="text" name="related_agent" class="reqdClr" value="#agent_name#"
+							onchange="getAgent('newRelatedAgentId','related_agent','agentRelations#i#',this.value); return false;"
+							onKeyPress="return noenter(event);">
+						<input type="button" class="savBtn" value="Save" onClick="agentRelations#i#.action.value='changeRelated';agentRelations#i#.submit();">
+						<input type="button" class="delBtn" value="Delete" onClick="agentRelations#i#.action.value='deleteRelated';confirmDelete('agentRelations#i#');">
+					</form>
+					<cfset i=#i#+1>
+				</cfloop>
+			</div>
+			<div class="newRec">
+				<label>Add Relationship</label>
+				<form name="newRelationship" method="post" action="editAllAgent.cfm">
+					<input type="hidden" name="action" value="addRelationship">
+					<input type="hidden" name="newRelatedAgentId">
+					<input type="hidden" name="agent_id" value="#person.agent_id#">
+					<select name="relationship" size="1">
+						<cfloop query="ctRelns"> 
+							<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
+						</cfloop> 
+					</select>
+					<input type="text" name="related_agent" class="reqdClr"
+						onchange="getAgent('newRelatedAgentId','related_agent','newRelationship',this.value); return false;"
+						onKeyPress="return noenter(event);">
+					<input type="submit" class="insBtn" value="Create Relationship">
+				</form>
+			</div>
+			<br />
+			<div class="newRec">
+				<label>Add Address</label>
+				<form name="newAddress" method="post" action="editAllAgent.cfm">
+					<input type="hidden" name="agent_id" value="#person.agent_id#">
+					<input type="hidden" name="Action" value="newAddress">
+					<table>
+						<tr>
+							<td>
+								<label for="addr_type">Address Type</label>
+								<select name="addr_type" id="addr_type" size="1">
+									<cfloop query="ctAddrType">
+									<option value="#ctAddrType.addr_type#">#ctAddrType.addr_type#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+								<label for="job_title">Job Title</label>
+								<input type="text" name="job_title" id="job_title">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<label for="institution">Institution</label>
+								<input type="text" name="institution" id="institution"size="50" >
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<label for="department">Department</label>
+								<input type="text" name="department" id="department" size="50" >
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<label for="street_addr1">Street Address 1</label>
+								<input type="text" name="street_addr1" id="street_addr1" size="50" class="reqdClr">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<label for="street_addr2">Street Address 2</label>
+								<input type="text" name="street_addr2" id="street_addr2" size="50">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="city">City</label>
+								<input type="text" name="city" id="city" class="reqdClr">
+							</td>
+							<td>
+								<label for="state">State</label>
+								<input type="text" name="state" id="state" class="reqdClr">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="zip">Zip</label>
+								<input type="text" name="zip" id="zip" class="reqdClr">
+							</td>
+							<td>
+								<label for="country_cde">Country Code</label>
+								<input type="text" name="country_cde" id="country_cde" class="reqdClr">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="mail_stop">Mail Stop</label>
+								<input type="text" name="mail_stop" id="mail_stop">
+							</td>
+							<td>
+								<label for="valid_addr_fg">Valid?</label>
+								<select name="valid_addr_fg" id="valid_addr_fg" size="1">
+									<option value="1">yes</option>
+									<option value="0">no</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<label for="addr_remarks">Address Remark</label>
+								<input type="text" name="addr_remarks" id="addr_remarks" size="50">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input type="submit" class="insBtn" value="Create Address">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<br />
+			<div class="newRec">
+				<label>Add Electronic Address</label>
+				<form name="newElecAddr" method="post" action="editAllAgent.cfm">
+					<input name="Action" type="hidden" value="newElecAddr">
+					<input type="hidden" name="agent_id" value="#person.agent_id#">
+					<select name="address_type" size="1">
+						<cfloop query="ctElecAddrType">
+							<option value="#ctElecAddrType.address_type#">#ctElecAddrType.address_type#</option>
+						</cfloop>
+					</select>
+					<input type="text" name="address" id="address" size="50">
+					<input type="submit" class="insBtn" value="Create Address">
+				</form>
+			</div>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
