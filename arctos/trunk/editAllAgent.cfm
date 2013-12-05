@@ -1,6 +1,4 @@
 <cfinclude template="/includes/_frameHeader.cfm">
-
-
 <cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_name_type as agent_name_type from ctagent_name_type where agent_name_type != 'preferred' order by agent_name_type
 </cfquery>
@@ -84,11 +82,11 @@
 			</select>
 			
 			<label for="first_name">First Name</label>
-		<input type="text" name="first_name" id="first_name">
-		<label for="middle_name">Middle Name</label>
-		<input type="text" name="middle_name" id="middle_name">
-		<label for="last_name">Last Name</label>
-		<input type="text" name="last_name" id="last_name" class="reqdClr">
+			<input type="text" name="first_name" id="first_name">
+			<label for="middle_name">Middle Name</label>
+			<input type="text" name="middle_name" id="middle_name">
+			<label for="last_name">Last Name</label>
+			<input type="text" name="last_name" id="last_name" class="reqdClr">
 		
 		
 			<label for="agent_remarks">Remarks</label>
@@ -103,13 +101,7 @@
 	<cfif not isdefined("agent_id") OR agent_id lt 0 >
 		<cfabort>
 	</cfif>
-	<cfoutput>
-	
-	
-	
-	
-
-	
+	<cfoutput>	
 		<cfquery name="agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				agent_id,
@@ -123,11 +115,26 @@
 		</cfquery>
 	
 		<span class="infoLink" onClick="getDocs('agent')">Help</span>
-		<br>
-		<strong>#agent.preferred_agent_name#</strong> (#agent.agent_type#) {ID: #agent.agent_id#} 
-		<cfif len(#agent.agent_remarks#) gt 0>
-			<br><em>#agent.agent_remarks#</em>
-		</cfif>
+		<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
+			<input type="hidden" name="agent_id" value="#agent.agent_id#">
+			<input type="hidden" name="action" value="saveAgentEdits">
+			<label for="preferred_agent_name">Preferred Name</label>
+			<input type="text" value="#agent.preferred_agent_name#" name="preferred_agent_name" id="preferred_agent_name" size="50" class="reqdClr">
+			 {AgentID: #agent.agent_id#} 
+			<label for="agent_type">Agent Type</label>
+			<select name="agent_type" id="agent_type" class="reqdClr">
+				<cfloop query="ctAgent_Type">
+					<option  <cfif ctAgent_Type.agent_type is agent.agent_type> selected="selected" </cfif>
+						value="#ctAgent_Type.agent_type#">#ctAgent_Type.agent_type#</option>
+				</cfloop>
+			</select>
+			<label for="agent_remarks">Agent Remark</label>
+			<input type="text" value="#agent.agent_remarks#" name="agent_remarks" id="agent_remarks" size="100">
+			<br>
+			<input type="submit" class="savBtn" value="Update Agent">
+		</form>
+		
+		
 		<cfif listcontainsnocase(session.roles,"manage_transactions")>
 			<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
@@ -206,29 +213,7 @@
 		<br />
 		
 		
-		<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
-			<input type="hidden" name="agent_id" value="#agent.agent_id#">
-			<input type="hidden" name="action" value="saveAgentEdits">
-			
-			
-			<label for="preferred_agent_name">Preferred Name</label>
-			<input type="text" value="#agent.preferred_agent_name#" name="preferred_agent_name" id="preferred_agent_name" size="50">
-			
-			<label for="agent_type">Agent Type</label>
-			<select name="agent_type">
-				<cfloop query="ctAgent_Type">
-					<option  <cfif ctAgent_Type.agent_type is agent.agent_type> selected="selected" </cfif>
-						value="#ctAgent_Type.agent_type#">#ctAgent_Type.agent_type#</option>
-				</cfloop>
-			</select>
-					
-					
-					
-			<label for="agent_remarks">Agent Remark</label>
-			<input type="text" value="#agent.agent_remarks#" name="agent_remarks" id="agent_remarks" size="100">
-			<br>
-			<input type="submit" class="savBtn" value="Update Agent">
-		</form>
+		
 		<cfif agent.agent_type is "group">
 			<cfquery name="grpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select 
