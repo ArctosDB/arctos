@@ -80,8 +80,8 @@
 		<form name="prefdName" action="editAllAgent.cfm" method="post" target="_person">
 			<input type="hidden" name="action" value="makeNewAgent">
 			<input type="hidden" name="agent_name_type" value="preferred">
-			<label for="agent_name">Preferred Name</label>
-			<input type="text" name="agent_name" id="agent_name" size="50" class="reqdClr">
+			<label for="preferred_agent_name">Preferred Name</label>
+			<input type="text" name="preferred_agent_name" id="preferred_agent_name" size="50" class="reqdClr">
 			<label for="agent_type">Agent Type</label>
 			<select name="agent_type" id="agent_type" size="1" class="reqdClr" onchange="togglePerson(this.value);">
 				<option value=""></option>
