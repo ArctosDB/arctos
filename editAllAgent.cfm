@@ -273,7 +273,7 @@
 			</form>
 		</cfif>
 		<cfquery name="agent_names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from agent_name where agent_id=#agent_id# and agent_name_type!='preferred'
+			select * from agent_name where agent_id=#agent_id# and agent_name_type!='preferred' order by agent_name_type,agent_name
 		</cfquery>
 		
 		<cfset i=1>
