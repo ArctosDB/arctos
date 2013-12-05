@@ -25,14 +25,12 @@
 <cfoutput>
 
 <cfset sql = "SELECT 
-					preferred_agent_name.agent_id,
-					preferred_agent_name.agent_name,
+					agent_id,
+					preferred_agent_name,
 					agent_type
 				FROM 
-					agent_name
-					left outer join preferred_agent_name ON (agent_name.agent_id = preferred_agent_name.agent_id)
-					LEFT OUTER JOIN agent ON (agent_name.agent_id = agent.agent_id)
-					LEFT OUTER JOIN person ON (agent.agent_id = person.person_id)
+					agent,
+					agent_name (+)
 				WHERE 
 					agent.agent_id > -1
 					and rownum<500 -- some throttle control
@@ -77,10 +75,10 @@
 			select agent_id from addr where upper(formatted_addr) like '%#ucase(address)#%')">
 </cfif>
 
-<cfset sql = "#sql# GROUP BY  preferred_agent_name.agent_id,
-					preferred_agent_name.agent_name,
+<cfset sql = "#sql# GROUP BY  agent_id,
+					preferred_agent_name,
 					agent_type">
-<cfset sql = "#sql# ORDER BY preferred_agent_name.agent_name">
+<cfset sql = "#sql# ORDER BY preferred_agent_name">
 		<cfquery name="getAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
