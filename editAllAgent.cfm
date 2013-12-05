@@ -258,48 +258,37 @@
 				</div>
 			</form>
 		</cfif>
-		<cfquery name="anames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="agent_names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from agent_name where agent_id=#agent_id# and agent_name_type!='preferred'
 		</cfquery>
 		
 		<cfset i=1>
-			<br />
-			<label for="anamdv"><span class="likeLink" onClick="getDocs('agent','names')">Agent Names</span></label>
-			<div id="anamdv" style="border:2px solid green;margin:1px;padding:1px;">
+		<br />
+		<label for="anamdv"><span class="likeLink" onClick="getDocs('agent','names')">Agent Names</span></label>
+		<div id="anamdv" style="border:2px solid green;margin:1px;padding:1px;">
+			<label>Agent Names</label>
+			<cfloop query="agent_names">
 				<form name="a#i#" action="editAllAgent.cfm" method="post" target="_person">
 					<input type="hidden" name="action">
-					<input type="hidden" name="agent_name_id" value="#pname.agent_name_id#">
-					<input type="hidden" name="agent_id" value="#pname.agent_id#">
-					<input type="hidden" name="agent_name_type" value="#pname.agent_name_type#">
-					<label for="agent_name">Preferred Name</label>
-					<input type="text" value="#pname.agent_name#" name="agent_name" id="agent_name">
+					<input type="hidden" name="agent_name_id" value="#agent_names.agent_name_id#">
+					<input type="hidden" name="agent_id" value="#agent_names.agent_id#">
+					<select name="agent_name_type">
+						<cfloop query="ctNameType">
+							<option  <cfif ctNameType.agent_name_type is agent_names.agent_name_type> selected="selected" </cfif>
+								value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
+						</cfloop>
+					</select>
+					<input type="text" value="#agent_names.agent_name#" name="agent_name">
 					<input type="button" value="Update" class="savBtn" onClick="a#i#.action.value='updateName';a#i#.submit();">
-					<input type="button" value="Copy" class="lnkBtn" onClick="newName.agent_name.value='#pname.agent_name#';">
+					<input type="button" value="Delete" class="delBtn" onClick="a#i#.action.value='deleteName';confirmDelete('a#i#','this agent name');">
+					<input type="button" class="lnkBtn" value="Copy" onClick="newName.agent_name.value='#agent_names.agent_name#';">
+					<cfif agent_name_type is "login">
+						<a href="/AdminUsers.cfm?action=edit&username=#agent_names.agent_name#" class="infoLink" target="_top">[ Arctos user ]</a>
+					</cfif>
 				</form>
-				<cfset i=i+1>
-				<label>Other Names</label>
-				<cfloop query="npname">
-					<form name="a#i#" action="editAllAgent.cfm" method="post" target="_person">
-						<input type="hidden" name="action">
-						<input type="hidden" name="agent_name_id" value="#npname.agent_name_id#">
-						<input type="hidden" name="agent_id" value="#npname.agent_id#">
-						<select name="agent_name_type">
-							<cfloop query="ctNameType">
-								<option  <cfif ctNameType.agent_name_type is npname.agent_name_type> selected="selected" </cfif>
-									value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
-							</cfloop>
-						</select>
-						<input type="text" value="#npname.agent_name#" name="agent_name">
-						<input type="button" value="Update" class="savBtn" onClick="a#i#.action.value='updateName';a#i#.submit();">
-						<input type="button" value="Delete" class="delBtn" onClick="a#i#.action.value='deleteName';confirmDelete('a#i#','this agent name');">
-						<input type="button" class="lnkBtn" value="Copy" onClick="newName.agent_name.value='#pname.agent_name#';">
-						<cfif agent_name_type is "login">
-							<a href="/AdminUsers.cfm?action=edit&username=#agent_name#" class="infoLink" target="_top">[ Arctos user ]</a>
-						</cfif>
-					</form>
-					<cfset i = i + 1>
-				</cfloop>
-			</div>
+				<cfset i = i + 1>
+			</cfloop>
+		</div>
 			<div id="nagnndv" class="newRec">
 				<label for="nagnndv">Add agent name</label>
 				<form name="newName" action="editAllAgent.cfm" method="post" target="_person">
