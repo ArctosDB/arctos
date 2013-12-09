@@ -945,13 +945,13 @@
 				(not isdefined("last_name") and len(last_name) is 0)>
 				<cfset probs=listppand(probs,"Person agents must have first, middle, and/or last name.",";")>
 			</cfif>
-			<cfif isdefined("first_name") and len(first_name) is 1)>
+			<cfif isdefined("first_name") and len(first_name) is 1>
 				<cfset probs=listppand(probs,"Abbreviations should be followed by a period.",";")>
 			</cfif>
-			<cfif isdefined("middle_name") and len(middle_name) is 1)>
+			<cfif isdefined("middle_name") and len(middle_name) is 1>
 				<cfset probs=listppand(probs,"Abbreviations should be followed by a period.",";")>
 			</cfif>
-			<cfif isdefined("last_name") and len(last_name) is 1)>
+			<cfif isdefined("last_name") and len(last_name) is 1>
 				<cfset probs=listppand(probs,"Abbreviations should be followed by a period.",";")>
 			</cfif>
 		<cfelse>
