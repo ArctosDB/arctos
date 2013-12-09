@@ -99,7 +99,6 @@
 		<cfquery name="isdup" datasource="uam_god">
 			select
 		        'agent name match' reason,
-		        #KEY# key,
 		        preferred_agent_name.agent_id, 
 		        preferred_agent_name.agent_name preferred_agent_name
 			from 
@@ -112,12 +111,10 @@
 		        )
 		    group by
 		    	preferred_agent_name.agent_id, 
-		        preferred_agent_name.agent_name,
-		        #key#
+		        preferred_agent_name.agent_name
 		    union
 		    select
 		    	'first and last name match' reason,
-		    	#KEY# key,
 		        preferred_agent_name.agent_id, 
 		        preferred_agent_name.agent_name preferred_agent_name
 			from
@@ -130,7 +127,6 @@
 			union 
 			 select
 		        'nodots-nospaces match on person first middle last' reason,
-		    	#KEY# key,
 		        preferred_agent_name.agent_id, 
 		        preferred_agent_name.agent_name preferred_agent_name
 			from
@@ -144,7 +140,6 @@
 			union 
 			 select
 		        'nodots-nospaces match on person first last' reason,
-		    	#KEY# key,
 		        preferred_agent_name.agent_id, 
 		        preferred_agent_name.agent_name preferred_agent_name
 			from
@@ -158,7 +153,6 @@
 			 UNION
 		    select
 		        'nodots-nospaces match on agent name' reason,
-		        #KEY# key,
 		        preferred_agent_name.agent_id, 
 		        preferred_agent_name.agent_name preferred_agent_name
 			from 
@@ -171,15 +165,13 @@
 		        )
 		    group by
 		    	preferred_agent_name.agent_id, 
-		        preferred_agent_name.agent_name,
-		        #key#
+		        preferred_agent_name.agent_name
 		</cfquery>
 		<cfif isdup.recordcount is 0>
 			<!--- try last-name match --->
 			<cfquery name="lastnamematch" datasource="uam_god">
 				select
 			    	'last name match' reason,
-			    	#KEY# key,
 			        preferred_agent_name.agent_id, 
 			        preferred_agent_name.agent_name preferred_agent_name
 				from
