@@ -74,8 +74,8 @@
 		}
 	}
 	function autosuggestPreferredName(){
-		var pname=$("#first_name").val();
-// + ' ' +  pname=$("#middle_name").val() + ' ' + pname=$("#last_name").val();
+		var pname=$("#first_name").val() + ' ' +  $("#middle_name").val() + ' ' + $("#last_name").val();
+
 		pname=pname.replace(/^\s+|\s+$/g,"");
 		$("#preferred_agent_name").val(pname);
 	}
