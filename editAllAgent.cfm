@@ -116,8 +116,20 @@
 			</cfif>
 		</cfif>
 		<cfif len(probs) gt 0>
-			#probs#
+			<div>
+				There are potential problems with this agent:
+			</div>
+			<div>
+				#probs#
+			</div>
 			
+			<cfloop collection="#form#" item="theField">
+				<cfif theField is not "fieldNames">
+				<cfoutput>
+				#theField# = #form[theField]#<br>
+				</cfoutput>
+				</cfif>
+			</cfloop>
 			<cfabort>
 			
 			
