@@ -116,14 +116,19 @@
 				agent_id,
 				preferred_agent_name,
 				agent_remarks,
-				agent_type
+				agent_type,
+				getPreferredAgentName(CREATED_BY_AGENT_ID) created_by_agent,
+				CREATED_DATE
 			from 
 				agent
 			where 
 				agent_id=#agent_id#
 		</cfquery>
-	
+		<div>
+			AgentID: #agent.agent_id# created by #agent.created_by_agent# on #agent.CREATED_DATE#
+		</div> 
 		<span class="infoLink" onClick="getDocs('agent')">Help</span>
+		
 		<cfif listcontainsnocase(session.roles,"manage_transactions")>
 			<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
@@ -140,7 +145,7 @@
 			<input type="hidden" name="action" value="saveAgentEdits">
 			<label for="preferred_agent_name">Preferred Name</label>
 			<input type="text" value="#agent.preferred_agent_name#" name="preferred_agent_name" id="preferred_agent_name" size="50" class="reqdClr">
-			 {AgentID: #agent.agent_id#} 
+			 
 			<label for="agent_type">Agent Type</label>
 			<select name="agent_type" id="agent_type" class="reqdClr">
 				<cfloop query="ctAgent_Type">
@@ -932,6 +937,39 @@
 <!------------------------------------------------------------------------------------------------------------->
 <cfif Action is "makeNewAgent">
 	<cfoutput>
+		<cfset probs="">
+		<cfif agent_type is "person">
+			<cfif 
+				(not isdefined("first_name") or len(first_name) is 0) and 
+				(not isdefined("middle_name") and len(middle_name) is 0) and 
+				(not isdefined("last_name") and len(last_name) is 0)>
+				<cfset probs=listppand(probs,"Person agents must have first, middle, and/or last name.",";")>
+			</cfif>
+			<cfif isdefined("first_name") and len(first_name) is 1)>
+				<cfset probs=listppand(probs,"Abbreviations should be followed by a period.",";")>
+			</cfif>
+			<cfif isdefined("middle_name") and len(middle_name) is 1)>
+				<cfset probs=listppand(probs,"Abbreviations should be followed by a period.",";")>
+			</cfif>
+			<cfif isdefined("last_name") and len(last_name) is 1)>
+				<cfset probs=listppand(probs,"Abbreviations should be followed by a period.",";")>
+			</cfif>
+		<cfelse>
+			<cfif 
+				(isdefined("first_name") and len(first_name) gt 0) or 
+				(isdefined("middle_name") and len(middle_name) gt 0) or 
+				(isdefined("last_name") and len(last_name) gt 0)>
+				<cfset probs=listppand(probs,"Non-person agents may not have first, middle, or last name.",";")>
+				<cfabort>
+			</cfif>
+		</cfif>
+		<cfif len(probs) gt 0>
+			#probs#
+			
+			<cfabort>
+			
+			
+		</cfif>
 		<cftransaction>
 			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select sq_agent_id.nextval nextAgentId from dual
