@@ -18,12 +18,6 @@
 <cfif not isdefined("agent_id")>
 	<cfset agent_id = -1>
 </cfif>
-
-
-<cfdump var=#action#>
-
-
-
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		///jQuery("#birth_date").datepicker();

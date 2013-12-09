@@ -2,6 +2,207 @@
 
 
 <!--------------------------------------------------------------------------------------->
+<cffunction name="checkAgent" access="remote" returnformat="json">
+   	<cfargument name="preferred_name" required="true" type="string">
+   	<cfargument name="agent_type" required="true" type="string">
+   	<cfargument name="first_name" required="false" type="string">
+   	<cfargument name="middle_name" required="false" type="string">
+   	<cfargument name="last_name" required="false" type="string">
+	
+	<cfset regexStripJunk='[ .,-]'>
+	<cfset problems="">
+	<!--- list of terms that PROBABLY should not appear in agent names ---->
+	<cfset disallowPersons="Animal">
+	<cfset disallowPersons=disallowPersons & ",Class">
+	<cfset disallowPersons=disallowPersons & ",Ecology">
+	<cfset disallowPersons=disallowPersons & ",Group,Growth">
+	<cfset disallowPersons=disallowPersons & ",Hospital">
+	<cfset disallowPersons=disallowPersons & ",illegible">
+	<cfset disallowPersons=disallowPersons & ",Lab">
+	<cfset disallowPersons=disallowPersons & ",Museum">
+	<cfset disallowPersons=disallowPersons & ",National">
+	<cfset disallowPersons=disallowPersons & ",Old">
+	<cfset disallowPersons=disallowPersons & ",Rangers,Ranger">
+	<cfset disallowPersons=disallowPersons & ",Predatory,Project,Puffin">
+	<cfset disallowPersons=disallowPersons & ",Sanctuary,Science,Seabird,Society,Study">
+	<cfset disallowPersons=disallowPersons & ",University">
+	<cfset disallowPersons=disallowPersons & ",Zoological,zoo">
+				
+	<!---- 
+		random lists of things may be indicitave of garbage. 
+			disallowWords are " me AND you" but not "ANDy"
+			disallowCharacters are just that "me/you" and me /  you" and ....	
+		Expect some false positives - sorray! 
+	---->
+	<cfset disallowWords="and,or,cat">
+	<cfset disallowCharacters="/,\,&">
+	
+	
+	<cfset strippedUpperFML=ucase(rereplace(first_name & middle_name & last_name,regexStripJunk,"","all"))>
+	<cfset strippedUpperFL=ucase(rereplace(first_name & last_name,regexStripJunk,"","all"))>
+	<cfset strippedUpperLF=ucase(rereplace(last_name & first_name,regexStripJunk,"","all"))>
+	<cfset strippedUpperLFM=ucase(rereplace(last_name & first_name & middle_name,regexStripJunk,"","all"))>
+	<cfset strippedP=ucase(rereplace(preferred_name,regexStripJunk,"","all"))>
+	<cfset strippedo1=ucase(rereplace(other_name_1,regexStripJunk,"","all"))>
+	<cfset strippedo2=ucase(rereplace(other_name_2,regexStripJunk,"","all"))>
+	<cfset strippedo3=ucase(rereplace(other_name_3,regexStripJunk,"","all"))>
+	
+	<cfset strippedNamePermutations=strippedP>
+	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperFML)>
+	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperFL)>
+	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperLF)>
+	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperLFM)>
+	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedP)>
+	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo1)>
+	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo2)>
+	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo3)>
+		
+	<cfif len(strippedNamePermutations) is 0>
+		<cfset problems=listppend(problems,'Check apostrophy/single-quote. "O&apos;Neil" is fine; "Jim&apos;s Cat" should be entered as "unknown".',';')>
+	</cfif>
+			
+			
+	<cfloop list="#disallowCharacters#" index="i">
+		<cfif preferred_name contains i>
+			<cfset problems=listppend(problems,'Check name for #i#; do not create unnecessary variations of "unknown."',';'>
+		</cfif>
+	</cfloop>
+			
+	<cfloop list="#disallowWords#" index="i">
+		<cfif listfind(preferred_name,i," ;,.")>
+			<cfset problems=listppend(problems,'Check name for #i#; do not create unnecessary variations of "unknown."',';'>
+		</cfif>
+	</cfloop>
+			
+	<cfif agent_type is "person">
+		<cfloop list="#disallowPersons#" index="i">
+			<cfif listfind(preferred_name,i,"() ;,.")>
+				<cfset problems=listppend(problems,'Check name for #i#; do not create non-person agents as persons."',';'>
+			</cfif>
+		</cfloop>
+	</cfif>
+	<!--- try to avoid unnecessary acronyms --->
+	<cfif refind('[A-Z]{3,}',preferred_name) gt 0>
+		<cfset problems=listppend(problems,'Check for abbreviations and acronyms; do not create unnecessary variations of "unknown."',';'>
+	</cfif>
+
+	<cfif Compare(ucase(preferred_name), preferred_name) is 0 or Compare(lcase(preferred_name), preferred_name) is 0>
+		<cfset problems=listppend(problems,'Check for abbreviations and acronyms; do not create unnecessary variations of "unknown."',';'>
+	</cfif>
+
+	<cfif preferred_name does not contain " ">
+		<cfset problems=listppend(problems,'Check for abbreviations and acronyms; do not create unnecessary variations of "unknown."',';'>
+	</cfif>
+			
+	<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>	
+		<cfquery name="isdup" datasource="uam_god">
+			select
+		        'agent name match' reason,
+		        #KEY# key,
+		        preferred_agent_name.agent_id, 
+		        preferred_agent_name.agent_name preferred_agent_name
+			from 
+		        agent_name srch,
+		        preferred_agent_name
+			where 
+		        srch.agent_id=preferred_agent_name.agent_id and
+		        trim(srch.agent_name) in (
+		        	trim('#preferred_name#'),
+		        	trim('#other_name_1#'),
+		        	trim('#other_name_2#'),
+		        	trim('#other_name_3#')
+		        )
+		    group by
+		    	preferred_agent_name.agent_id, 
+		        preferred_agent_name.agent_name,
+		        #key#
+		    union
+		    select
+		    	'first and last name match' reason,
+		    	#KEY# key,
+		        preferred_agent_name.agent_id, 
+		        preferred_agent_name.agent_name preferred_agent_name
+			from
+				person,
+				preferred_agent_name
+			where
+				person.person_id=preferred_agent_name.agent_id and
+				upper(first_name) = trim(upper('#first_name#')) and
+				upper(last_name) = trim(upper('#last_name#'))	
+			union 
+			 select
+		        'nodots-nospaces match on person first middle last' reason,
+		    	#KEY# key,
+		        preferred_agent_name.agent_id, 
+		        preferred_agent_name.agent_name preferred_agent_name
+			from
+				person srch,
+				preferred_agent_name
+			where
+				srch.person_id=preferred_agent_name.agent_id and
+				upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'#regexStripJunk#', '')) in (
+					#preserveSingleQuotes(strippedNamePermutations)#
+			     )
+			union 
+			 select
+		        'nodots-nospaces match on person first last' reason,
+		    	#KEY# key,
+		        preferred_agent_name.agent_id, 
+		        preferred_agent_name.agent_name preferred_agent_name
+			from
+				person srch,
+				preferred_agent_name
+			where
+				srch.person_id=preferred_agent_name.agent_id and
+				upper(regexp_replace(srch.first_name || srch.last_name ,'#regexStripJunk#', '')) in (
+					#preserveSingleQuotes(strippedNamePermutations)#
+			     )
+			 UNION
+		    select
+		        'nodots-nospaces match on agent name' reason,
+		        #KEY# key,
+		        preferred_agent_name.agent_id, 
+		        preferred_agent_name.agent_name preferred_agent_name
+			from 
+		        agent_name srch,
+		        preferred_agent_name
+			where 
+		        srch.agent_id=preferred_agent_name.agent_id and
+		        upper(regexp_replace(srch.agent_name,'#regexStripJunk#', '')) in (
+		        	#preserveSingleQuotes(strippedNamePermutations)#
+		        )
+		    group by
+		    	preferred_agent_name.agent_id, 
+		        preferred_agent_name.agent_name,
+		        #key#
+		</cfquery>
+		<cfif isdup.recordcount is 0>
+			<!--- try last-name match --->
+			<cfquery name="lastnamematch" datasource="uam_god">
+				select
+			    	'last name match' reason,
+			    	#KEY# key,
+			        preferred_agent_name.agent_id, 
+			        preferred_agent_name.agent_name preferred_agent_name
+				from
+					person,
+					preferred_agent_name
+				where
+					person.person_id=preferred_agent_name.agent_id and
+					upper(last_name) = trim(upper('#last_name#'))
+				order by preferred_agent_name
+			</cfquery>
+		</cfif>
+		
+		
+		<cfdump var=#problems#>
+		
+				<cfdump var=#isdup#>
+		<cfdump var=#lastnamematch#>
+
+			
+</cffunction>
+<!--------------------------------------------------------------------------------------->
 <cffunction name="getSpecimensForMap" access="remote" returnformat="json">
    	<cfargument name="swLat" required="true" type="numeric">
    	<cfargument name="swLng" required="true" type="numeric">
