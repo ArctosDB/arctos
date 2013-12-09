@@ -88,6 +88,10 @@
 <!------------------------------------------------------------------------------------------------------------->
 
 <cfif Action is "makeNewAgent">
+
+<cfdump var=#form#>
+<cfdump var=#url#>
+
 	<cfoutput>
 		<cfset probs="">
 		<cfif agent_type is "person">
