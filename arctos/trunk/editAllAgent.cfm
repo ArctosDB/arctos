@@ -134,7 +134,7 @@
 			</div>
 			<cfset forceURL="/editAllAgent.cfm?action=makeNewAgent&forceOverride=true">
 			<cfloop collection="#form#" item="theField">
-				<cfif theField is not "fieldNames">
+				<cfif theField is not "fieldNames" and theField is not "ACTION">
 					<cfset forceURL=forceURL & "&" & theField & '=' & form[theField]>
 					
 					
