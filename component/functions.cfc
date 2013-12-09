@@ -9,6 +9,12 @@
    	<cfargument name="middle_name" required="false" type="string" default="">
    	<cfargument name="last_name" required="false" type="string" default="">
 	
+	
+	<!----
+	
+	http://arctos-test.tacc.utexas.edu/component/functions.cfc?method=checkAgent&PREFERRED_NAME=binky%20the%20clown&agent_type=person
+	
+	---->
 	<cfset regexStripJunk='[ .,-]'>
 	<cfset problems="">
 	<!--- list of terms that PROBABLY should not appear in agent names ---->
@@ -43,9 +49,7 @@
 	<cfset strippedUpperLF=ucase(rereplace(last_name & first_name,regexStripJunk,"","all"))>
 	<cfset strippedUpperLFM=ucase(rereplace(last_name & first_name & middle_name,regexStripJunk,"","all"))>
 	<cfset strippedP=ucase(rereplace(preferred_name,regexStripJunk,"","all"))>
-	<cfset strippedo1=ucase(rereplace(other_name_1,regexStripJunk,"","all"))>
-	<cfset strippedo2=ucase(rereplace(other_name_2,regexStripJunk,"","all"))>
-	<cfset strippedo3=ucase(rereplace(other_name_3,regexStripJunk,"","all"))>
+	
 	
 	<cfset strippedNamePermutations=strippedP>
 	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperFML)>
@@ -53,9 +57,6 @@
 	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperLF)>
 	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperLFM)>
 	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedP)>
-	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo1)>
-	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo2)>
-	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo3)>
 		
 	<cfif len(strippedNamePermutations) is 0>
 		<cfset problems=listppend(problems,'Check apostrophy/single-quote. "O&apos;Neil" is fine; "Jim&apos;s Cat" should be entered as "unknown".',';')>
@@ -107,10 +108,7 @@
 			where 
 		        srch.agent_id=preferred_agent_name.agent_id and
 		        trim(srch.agent_name) in (
-		        	trim('#preferred_name#'),
-		        	trim('#other_name_1#'),
-		        	trim('#other_name_2#'),
-		        	trim('#other_name_3#')
+		        	trim('#preferred_name#')
 		        )
 		    group by
 		    	preferred_agent_name.agent_id, 
