@@ -95,64 +95,58 @@
 
 <cfif Action is "makeNewAgent">
 
-<cfdump var=#form#>
-<cfdump var=#url#>
-
 	<cfoutput>
-		<cfset probs="">
-		<cfif agent_type is "person">
-			<cfif 
-				(not isdefined("first_name") or len(first_name) is 0) and 
-				(not isdefined("middle_name") and len(middle_name) is 0) and 
-				(not isdefined("last_name") and len(last_name) is 0)>
-				<cfset probs=listappend(probs,"Person agents must have first, middle, and/or last name.",";")>
-			</cfif>
-			<cfif isdefined("first_name") and len(first_name) is 1>
-				<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
-			</cfif>
-			<cfif isdefined("middle_name") and len(middle_name) is 1>
-				<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
-			</cfif>
-			<cfif isdefined("last_name") and len(last_name) is 1>
-				<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
-			</cfif>
-		<cfelse>
-			<cfif 
-				(isdefined("first_name") and len(first_name) gt 0) or 
-				(isdefined("middle_name") and len(middle_name) gt 0) or 
-				(isdefined("last_name") and len(last_name) gt 0)>
-				<cfset probs=listappend(probs,"Non-person agents may not have first, middle, or last name.",";")>
-				<cfabort>
-			</cfif>
-		</cfif>
-		<cfif len(probs) gt 0>
-			<div>
-				There are potential problems with this agent:
-			</div>
-			<div>
-				#probs#
-			</div>
-			<cfset forceURL="/editAllAgent.cfm?action=makeNewAgent&forceOverride=true">
-			<cfloop collection="#form#" item="theField">
-				<cfif theField is not "fieldNames" and theField is not "ACTION">
-					<cfset forceURL=forceURL & "&" & theField & '=' & form[theField]>
-					
-					
+		<cfif not isdefined("forceOverride") or forceOverride is not "true">
+			<cfset probs="">
+			<cfif agent_type is "person">
+				<cfif 
+					(not isdefined("first_name") or len(first_name) is 0) and 
+					(not isdefined("middle_name") and len(middle_name) is 0) and 
+					(not isdefined("last_name") and len(last_name) is 0)>
+					<cfset probs=listappend(probs,"Person agents must have first, middle, and/or last name.",";")>
 				</cfif>
-			</cfloop>
-			<cfloop collection="#url#" item="theField">
-				<cfif theField is not "fieldNames" and theField is not "ACTION">
-					<cfset forceURL=forceURL & "&" & theField & '=' & url[theField]>
-					
-					
+				<cfif isdefined("first_name") and len(first_name) is 1>
+					<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
 				</cfif>
-			</cfloop>
-			
-			
-			------#forceURL#------
-			<cfabort>
-			
-			
+				<cfif isdefined("middle_name") and len(middle_name) is 1>
+					<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
+				</cfif>
+				<cfif isdefined("last_name") and len(last_name) is 1>
+					<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
+				</cfif>
+			<cfelse>
+				<cfif 
+					(isdefined("first_name") and len(first_name) gt 0) or 
+					(isdefined("middle_name") and len(middle_name) gt 0) or 
+					(isdefined("last_name") and len(last_name) gt 0)>
+					<cfset probs=listappend(probs,"Non-person agents may not have first, middle, or last name.",";")>
+					<cfabort>
+				</cfif>
+			</cfif>
+			<cfif len(probs) gt 0>
+				<div>
+					There are potential problems with this agent:
+				</div>
+				<div>
+					#probs#
+				</div>
+				<cfset forceURL="/editAllAgent.cfm?action=makeNewAgent&forceOverride=true">
+				<cfloop collection="#form#" item="theField">
+					<cfif theField is not "fieldNames" and theField is not "ACTION">
+						<cfset forceURL=forceURL & "&" & theField & '=' & form[theField]>
+					</cfif>
+				</cfloop>
+				<cfloop collection="#url#" item="theField">
+					<cfif theField is not "fieldNames" and theField is not "ACTION">
+						<cfset forceURL=forceURL & "&" & theField & '=' & url[theField]>
+					</cfif>
+				</cfloop>
+				Use your back button to fix the problems.
+				<p>
+					If you're really sure that you want to create this agent, you can also <a href="#forceURL#">force creation</a>.
+				</p>	
+				<cfabort>			
+			</cfif>
 		</cfif>
 		<cftransaction>
 			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
