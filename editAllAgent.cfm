@@ -73,6 +73,12 @@
 		catch(e){
 		}
 	}
+	function autosuggestPreferredName(){
+		var pname=$("#first_name").val() + ' ' +  pname=$("#middle_name").val() + ' ' + pname=$("#last_name").val();
+		pname=pname.replace(/ /g," ");
+		$("#preferred_agent_name").val(pname);
+	}
+
 </script>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif action is "newAgent">
@@ -96,6 +102,7 @@
 				<input type="text" name="middle_name" id="middle_name">
 				<label for="last_name">Last Name</label>
 				<input type="text" name="last_name" id="last_name">
+				<br><span class="likeLink" onclick="autosuggestPreferredName();">Autogenerate preferred name</span>
 			</div>
 		
 			<label for="agent_remarks">Remarks</label>
