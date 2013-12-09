@@ -218,7 +218,7 @@
 			<!--- try last-name match --->
 		</cfif>
 		<cfloop query="isdup">
-			<cfset thisProb='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#reason# [#agent_name#]</a>'>
+			<cfset thisProb='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#reason# [#preferred_agent_name#]</a>'>
 			<cfset problems=listappend(problems,thisProb,';')>
 		</cfloop>
 		
