@@ -126,8 +126,8 @@
 				        agent.preferred_agent_name
 					from
 						agent,
-						(select agent_name from agent_name where agent_name_type='first name') first_name,
-						(select agent_name from agent_name where agent_name_type='last name') last_name
+						(select agent_id,agent_name from agent_name where agent_name_type='first name') first_name,
+						(select agent_id,agent_name from agent_name where agent_name_type='last name') last_name
 					where
 						agent.agent_id=first_name.agent_id and
 						agent.agent_id=last_name.agent_id and
