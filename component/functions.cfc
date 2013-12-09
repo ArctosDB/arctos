@@ -8,17 +8,9 @@
    	<cfargument name="first_name" required="false" type="string" default="">
    	<cfargument name="middle_name" required="false" type="string" default="">
    	<cfargument name="last_name" required="false" type="string" default="">
-	
-	
 	<!----
-	
-	http://arctos-test.tacc.utexas.edu/component/functions.cfc?method=checkAgent&PREFERRED_NAME=binky%20the%20clown&agent_type=person
-	
-	
-	
-	http://arctos-test.tacc.utexas.edu/component/functions.cfc?method=checkAgent&PREFERRED_NAME=binky%20the%20clown&agent_type=person&first_name=binky&last_name=clown&middle_name=the
-	
-	
+		http://arctos-test.tacc.utexas.edu/component/functions.cfc?method=checkAgent&PREFERRED_NAME=binky%20the%20clown&agent_type=person
+		http://arctos-test.tacc.utexas.edu/component/functions.cfc?method=checkAgent&PREFERRED_NAME=binky%20the%20clown&agent_type=person&first_name=binky&last_name=clown&middle_name=the
 	---->
 	<cfset regexStripJunk='[ .,-]'>
 	<cfset problems="">
@@ -48,13 +40,11 @@
 	<cfset disallowWords="and,or,cat">
 	<cfset disallowCharacters="/,\,&">
 	
-	
 	<cfset strippedUpperFML=ucase(rereplace(first_name & middle_name & last_name,regexStripJunk,"","all"))>
 	<cfset strippedUpperFL=ucase(rereplace(first_name & last_name,regexStripJunk,"","all"))>
 	<cfset strippedUpperLF=ucase(rereplace(last_name & first_name,regexStripJunk,"","all"))>
 	<cfset strippedUpperLFM=ucase(rereplace(last_name & first_name & middle_name,regexStripJunk,"","all"))>
 	<cfset strippedP=ucase(rereplace(preferred_name,regexStripJunk,"","all"))>
-	
 	
 	<cfset strippedNamePermutations=strippedP>
 	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperFML)>
@@ -66,7 +56,6 @@
 	<cfif len(strippedNamePermutations) is 0>
 		<cfset problems=listappend(problems,'Check apostrophy/single-quote. "O&apos;Neil" is fine; "Jim&apos;s Cat" should be entered as "unknown".',';')>
 	</cfif>
-			
 			
 	<cfloop list="#disallowCharacters#" index="i">
 		<cfif preferred_name contains i>
@@ -112,38 +101,37 @@
 				where 
 			        trim(upper(agent.preferred_agent_name))=trim(upper('#preferred_name#'))">
 
-		<cfset sql=sql & "
-			    union 
-				  select
-				        'nodots-nospaces match on first last' reason,
-				        agent.agent_id, 
-				        agent.preferred_agent_name
-					from
-						agent,
-						(select agent_id,agent_name from agent_name where agent_name_type='first name') first_name,
-						(select agent_id,agent_name from agent_name where agent_name_type='last name') last_name
-					where
-						agent.agent_id=first_name.agent_id and
-						agent.agent_id=last_name.agent_id and
-						trim(upper(first_name.agent_name)) = trim(upper('#first_name#')) and
-						trim(upper(last_name.agent_name)) = trim(upper('#last_name#')) and
-						  upper(regexp_replace(first_name.agent_name || last_name.agent_name ,'#regexStripJunk#', '')) in (
-							#preserveSingleQuotes(strippedNamePermutations)#
-					     )
-						">
-		<cfset sql=sql & "
-			 union select
-				'nodots-nospaces match on agent name' reason,
-				 agent.agent_id, 
-				 agent.preferred_agent_name
-			from 
-				agent,
-				agent_name
-			where 
-			       agent.agent_id=agent_name.agent_id and
-				        upper(regexp_replace(agent_name.agent_name,'#regexStripJunk#', '')) in (
-				        	#preserveSingleQuotes(strippedNamePermutations)#
-				        )	">	     
+	<cfset sql=sql & "
+		    union 
+			  select
+			        'nodots-nospaces match on first last' reason,
+			        agent.agent_id, 
+			        agent.preferred_agent_name
+				from
+					agent,
+					(select agent_id,agent_name from agent_name where agent_name_type='first name') first_name,
+					(select agent_id,agent_name from agent_name where agent_name_type='last name') last_name
+				where
+					agent.agent_id=first_name.agent_id and
+					agent.agent_id=last_name.agent_id and
+					trim(upper(first_name.agent_name)) = trim(upper('#first_name#')) and
+					trim(upper(last_name.agent_name)) = trim(upper('#last_name#')) and
+					  upper(regexp_replace(first_name.agent_name || last_name.agent_name ,'#regexStripJunk#', '')) in (
+						#preserveSingleQuotes(strippedNamePermutations)#
+				     )">
+	<cfset sql=sql & "
+		 union select
+			'nodots-nospaces match on agent name' reason,
+			 agent.agent_id, 
+			 agent.preferred_agent_name
+		from 
+			agent,
+			agent_name
+		where 
+		       agent.agent_id=agent_name.agent_id and
+			        upper(regexp_replace(agent_name.agent_name,'#regexStripJunk#', '')) in (
+			        	#preserveSingleQuotes(strippedNamePermutations)#
+			        )">	     
 					     
 	<cfif len(first_name) gt 0 and len(last_name) gt 0>
 		<!--- first and last names match ---->
@@ -202,30 +190,26 @@
 	
 			
 	
-		<cfquery name="isdup" datasource="uam_god">
-			select 
-				reason,
-				agent_id,
-				preferred_agent_name
-			from (
-				#preservesinglequotes(sql)#
-			)  group by
-		    	reason,
-		    	agent_id, 
-		        preferred_agent_name
-		</cfquery>
-		<cfif isdup.recordcount is 0>
-			<!--- try last-name match --->
-		</cfif>
-		<cfloop query="isdup">
-			<cfset thisProb='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#reason# [#preferred_agent_name#]</a>'>
-			<cfset problems=listappend(problems,thisProb,';')>
-		</cfloop>
-		
-		<cfdump var=#problems#>
-		
-				<cfdump var=#isdup#>
-
+	<cfquery name="isdup" datasource="uam_god">
+		select 
+			reason,
+			agent_id,
+			preferred_agent_name
+		from (
+			#preservesinglequotes(sql)#
+		)  group by
+	    	reason,
+	    	agent_id, 
+	        preferred_agent_name
+	</cfquery>
+	<cfif isdup.recordcount is 0>
+		<!--- try last-name match --->
+	</cfif>
+	<cfloop query="isdup">
+		<cfset thisProb='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#reason# [#preferred_agent_name#]</a>'>
+		<cfset problems=listappend(problems,thisProb,';')>
+	</cfloop>
+	<cfreturn problems>
 			
 </cffunction>
 <!--------------------------------------------------------------------------------------->
