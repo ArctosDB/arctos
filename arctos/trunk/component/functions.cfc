@@ -14,6 +14,11 @@
 	
 	http://arctos-test.tacc.utexas.edu/component/functions.cfc?method=checkAgent&PREFERRED_NAME=binky%20the%20clown&agent_type=person
 	
+	
+	
+	http://arctos-test.tacc.utexas.edu/component/functions.cfc?method=checkAgent&PREFERRED_NAME=binky%20the%20clown&agent_type=person&first_name=binky&last_name=clown&middle_name=the
+	
+	
 	---->
 	<cfset regexStripJunk='[ .,-]'>
 	<cfset problems="">
@@ -122,7 +127,7 @@
 					from
 						agent,
 						(select agent_name from agent_name where agent_name_type='first name') first_name,
-						(select agent_name from agent_name where agent_name_type='last name') last_name,
+						(select agent_name from agent_name where agent_name_type='last name') last_name
 					where
 						agent.agent_id=first_name.agent_id and
 						agent.agent_id=last_name.agent_id and
