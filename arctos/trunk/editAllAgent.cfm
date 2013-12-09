@@ -88,7 +88,15 @@
 <!------------------------------------------------------------------------------------------------------------->
 
 <cfif Action is "makeNewAgent">
-
+	<cfif not isdefined("first_name")>
+		<cfset first_name="">
+	</cfif>
+	<cfif not isdefined("middle_name")>
+		<cfset middle_name="">
+	</cfif>
+	<cfif not isdefined("last_name")>
+		<cfset last_name="">
+	</cfif>
 	<cfoutput>
 		<cfif not isdefined("forceOverride") or forceOverride is not "true">
 			<cfset probs="">
@@ -117,6 +125,15 @@
 					<cfabort>
 				</cfif>
 			</cfif>
+			<cfset obj = CreateObject("component","component.functions")>
+			<cfset fnProbs = obj.checkAgent(
+				preferred_name="#preferred_name#",
+				agent_type="#agent_type#",
+				first_name="#first_name#",
+				middle_name="#middle_name#",
+				last_name="#last_name#",
+			)>
+			<cfset probs=listappend(probs,fnProbs,";")>
 			<cfif len(probs) gt 0>
 				<div>
 					There are potential problems with this agent:
