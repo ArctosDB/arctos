@@ -216,14 +216,15 @@
 		</cfquery>
 		<cfif isdup.recordcount is 0>
 			<!--- try last-name match --->
-			
 		</cfif>
-		
+		<cfloop query="problems">
+			<cfset thisProb='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#reason# [#agent_name#]</a>'>
+			<cfset problems=listappend(problems,thisProb,';')>
+		</cfloop>
 		
 		<cfdump var=#problems#>
 		
 				<cfdump var=#isdup#>
-		<cfdump var=#lastnamematch#>
 
 			
 </cffunction>
