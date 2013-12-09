@@ -6,8 +6,8 @@
    	<cfargument name="preferred_name" required="true" type="string">
    	<cfargument name="agent_type" required="true" type="string">
    	<cfargument name="first_name" required="false" type="string" default="">
-   	<cfargument name="middle_name" required="false" type="string">
-   	<cfargument name="last_name" required="false" type="string">
+   	<cfargument name="middle_name" required="false" type="string" default="">
+   	<cfargument name="last_name" required="false" type="string" default="">
 	
 	<cfset regexStripJunk='[ .,-]'>
 	<cfset problems="">
