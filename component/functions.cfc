@@ -19,11 +19,11 @@
 	<cfset disallowPersons=disallowPersons & ",Class">
 	<cfset disallowPersons=disallowPersons & ",Ecology">
 	<cfset disallowPersons=disallowPersons & ",Group,Growth">
-	<cfset disallowPersons=disallowPersons & ",Hospital">
+	<cfset disallowPersons=disallowPersons & ",Hospital,hunter">
 	<cfset disallowPersons=disallowPersons & ",illegible">
 	<cfset disallowPersons=disallowPersons & ",Lab">
 	<cfset disallowPersons=disallowPersons & ",Museum">
-	<cfset disallowPersons=disallowPersons & ",National">
+	<cfset disallowPersons=disallowPersons & ",National,native">
 	<cfset disallowPersons=disallowPersons & ",Old">
 	<cfset disallowPersons=disallowPersons & ",Rangers,Ranger">
 	<cfset disallowPersons=disallowPersons & ",Predatory,Project,Puffin">

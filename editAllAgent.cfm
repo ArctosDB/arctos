@@ -131,7 +131,7 @@
 				agent_type="#agent_type#",
 				first_name="#first_name#",
 				middle_name="#middle_name#",
-				last_name="#last_name#",
+				last_name="#last_name#"
 			)>
 			<cfset probs=listappend(probs,fnProbs,";")>
 			<cfif len(probs) gt 0>
