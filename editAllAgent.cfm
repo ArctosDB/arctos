@@ -122,14 +122,17 @@
 			<div>
 				#probs#
 			</div>
-			
+			<cfset forceURL=/editAllAgent.cfm?action=makeNewAgent&forceOverride=true
 			<cfloop collection="#form#" item="theField">
 				<cfif theField is not "fieldNames">
-				<cfoutput>
-				#theField# = #form[theField]#<br>
-				</cfoutput>
+					<cfset forceURL=forceURL & "&" & theField & '=' & form[theField]>
+					
+					
 				</cfif>
 			</cfloop>
+			
+			
+			------#forceURL#------
 			<cfabort>
 			
 			
