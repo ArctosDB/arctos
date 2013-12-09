@@ -96,6 +96,16 @@
 	</cfif>
 			
 	<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>	
+		
+		select 'agent name match' reason, preferred_agent_name.agent_id, preferred_agent_name.agent_name preferred_agent_name from agent_name srch, 
+		preferred_agent_name where srch.agent_id=preferred_agent_name.agent_id and trim(srch.agent_name) in ( trim('binky the clown') ) 
+		group by preferred_agent_name.agent_id, preferred_agent_name.agent_name union select 'first and last name match' reason, 
+		preferred_agent_name.agent_id, preferred_agent_name.agent_name preferred_agent_name from person, preferred_agent_name 
+		where person.person_id=preferred_agent_name.agent_id and upper(first_name) = trim(upper('')) and upper(last_name) = trim(upper('')) union select 'nodots-nospaces match on person first middle last' reason, preferred_agent_name.agent_id, preferred_agent_name.agent_name preferred_agent_name from person srch, preferred_agent_name where srch.person_id=preferred_agent_name.agent_id and upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'[ .,-]', '')) in ( 'BINKYTHECLOWN','BINKYTHECLOWN' ) union select 'nodots-nospaces match on person first last' reason, preferred_agent_name.agent_id, preferred_agent_name.agent_name preferred_agent_name from person srch, preferred_agent_name where srch.person_id=preferred_agent_name.agent_id and upper(regexp_replace(srch.first_name || srch.last_name ,'[ .,-]', '')) in ( 'BINKYTHECLOWN','BINKYTHECLOWN' ) UNION select 'nodots-nospaces match on agent name' reason, preferred_agent_name.agent_id, preferred_agent_name.agent_name preferred_agent_name from agent_name srch, preferred_agent_name where srch.agent_id=preferred_agent_name.agent_id and upper(regexp_replace(srch.agent_name,'[ .,-]', '')) in ( 'BINKYTHECLOWN','BINKYTHECLOWN' ) group by preferred_agent_name.agent_id, preferred_agent_name.agent_name 
+		
+		
+		
+		
 		<cfquery name="isdup" datasource="uam_god">
 			select
 		        'agent name match' reason,
@@ -112,18 +122,20 @@
 		    group by
 		    	preferred_agent_name.agent_id, 
 		        preferred_agent_name.agent_name
-		    union
-		    select
-		    	'first and last name match' reason,
-		        preferred_agent_name.agent_id, 
-		        preferred_agent_name.agent_name preferred_agent_name
-			from
-				person,
-				preferred_agent_name
-			where
-				person.person_id=preferred_agent_name.agent_id and
-				upper(first_name) = trim(upper('#first_name#')) and
-				upper(last_name) = trim(upper('#last_name#'))	
+		    <cfif len(first_name & last_name) gt 0>
+		        union
+			    select
+			    	'first and last name match' reason,
+			        preferred_agent_name.agent_id, 
+			        preferred_agent_name.agent_name preferred_agent_name
+				from
+					person,
+					preferred_agent_name
+				where
+					person.person_id=preferred_agent_name.agent_id and
+					upper(first_name) = trim(upper('#first_name#')) and
+					upper(last_name) = trim(upper('#last_name#'))
+			</cfif>
 			union 
 			 select
 		        'nodots-nospaces match on person first middle last' reason,
