@@ -140,6 +140,13 @@
 					
 				</cfif>
 			</cfloop>
+			<cfloop collection="#url#" item="theField">
+				<cfif theField is not "fieldNames" and theField is not "ACTION">
+					<cfset forceURL=forceURL & "&" & theField & '=' & url[theField]>
+					
+					
+				</cfif>
+			</cfloop>
 			
 			
 			------#forceURL#------
