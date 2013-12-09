@@ -184,6 +184,23 @@
 					     )
 					     ">
 	</cfif>
+	<cfif len(last_name) gt 0>
+		<cfset sql=sql & "
+					 union
+					   select
+			    		'last name match' reason,
+				        agent.agent_id, 
+				        agent.preferred_agent_name
+					from
+						agent,
+						(select agent_id,agent_name from agent_name where agent_name_type='last name') last_name
+					where
+						agent.agent_id=last_name.agent_id and
+						trim(upper(last_name.agent_name)) = trim(upper('#last_name#'))
+					     ">
+	</cfif>
+	
+			
 	
 		<cfquery name="isdup" datasource="uam_god">
 			select 
@@ -199,19 +216,7 @@
 		</cfquery>
 		<cfif isdup.recordcount is 0>
 			<!--- try last-name match --->
-			<cfquery name="lastnamematch" datasource="uam_god">
-				select
-			    	'last name match' reason,
-			        preferred_agent_name.agent_id, 
-			        preferred_agent_name.agent_name preferred_agent_name
-				from
-					person,
-					preferred_agent_name
-				where
-					person.person_id=preferred_agent_name.agent_id and
-					upper(last_name) = trim(upper('#last_name#'))
-				order by preferred_agent_name
-			</cfquery>
+			
 		</cfif>
 		
 		
