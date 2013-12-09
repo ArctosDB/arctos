@@ -75,8 +75,9 @@
 	}
 	function autosuggestPreferredName(){
 		var pname=$("#first_name").val() + ' ' +  $("#middle_name").val() + ' ' + $("#last_name").val();
-
+		console.log(pname);
 		pname=pname.replace(/^\s+|\s+$/g,"");
+		console.log(pname);
 		$("#preferred_agent_name").val(pname);
 	}
 
