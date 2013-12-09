@@ -82,6 +82,155 @@
 	}
 
 </script>
+
+
+
+<!------------------------------------------------------------------------------------------------------------->
+
+<cfif Action is "makeNewAgent">
+	<cfoutput>
+		<cfset probs="">
+		<cfif agent_type is "person">
+			<cfif 
+				(not isdefined("first_name") or len(first_name) is 0) and 
+				(not isdefined("middle_name") and len(middle_name) is 0) and 
+				(not isdefined("last_name") and len(last_name) is 0)>
+				<cfset probs=listappend(probs,"Person agents must have first, middle, and/or last name.",";")>
+			</cfif>
+			<cfif isdefined("first_name") and len(first_name) is 1>
+				<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
+			</cfif>
+			<cfif isdefined("middle_name") and len(middle_name) is 1>
+				<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
+			</cfif>
+			<cfif isdefined("last_name") and len(last_name) is 1>
+				<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
+			</cfif>
+		<cfelse>
+			<cfif 
+				(isdefined("first_name") and len(first_name) gt 0) or 
+				(isdefined("middle_name") and len(middle_name) gt 0) or 
+				(isdefined("last_name") and len(last_name) gt 0)>
+				<cfset probs=listappend(probs,"Non-person agents may not have first, middle, or last name.",";")>
+				<cfabort>
+			</cfif>
+		</cfif>
+		<cfif len(probs) gt 0>
+			#probs#
+			
+			<cfabort>
+			
+			
+		</cfif>
+		<cftransaction>
+			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select sq_agent_id.nextval nextAgentId from dual
+			</cfquery>
+			<cfquery name="insAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				INSERT INTO agent (
+					agent_id,
+					agent_type,
+					preferred_agent_name,
+					agent_remarks
+					)
+				VALUES (
+					#agentID.nextAgentId#,
+					'#agent_type#',
+					'#preferred_agent_name#',
+					'#agent_remarks#'
+				)
+			</cfquery>
+			<cfquery name="insPName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				INSERT INTO agent_name (
+					agent_name_id,
+					agent_id,
+					agent_name_type,
+					agent_name
+				) VALUES (
+					sq_agent_name_id.nextval,
+					#agentID.nextAgentId#,
+					'preferred',
+					'#preferred_agent_name#'
+				)
+			</cfquery>
+			<cfif isdefined("first_name") and len(first_name) gt 0>
+				<cfquery name="insFName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO agent_name (
+					agent_name_id,
+					agent_id,
+					agent_name_type,
+					agent_name
+				) VALUES (
+					sq_agent_name_id.nextval,
+					#agentID.nextAgentId#,
+					'first name',
+					'#first_name#'
+				)
+				</cfquery>
+			</cfif>
+			<cfif isdefined("middle_name") and len(middle_name) gt 0>
+				<cfquery name="insMName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO agent_name (
+					agent_name_id,
+					agent_id,
+					agent_name_type,
+					agent_name
+				) VALUES (
+					sq_agent_name_id.nextval,
+					#agentID.nextAgentId#,
+					'middle name',
+					'#middle_name#'
+				)
+				</cfquery>
+			</cfif>
+			<cfif isdefined("last_name") and len(last_name) gt 0>
+				<cfquery name="insLName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO agent_name (
+					agent_name_id,
+					agent_id,
+					agent_name_type,
+					agent_name
+				) VALUES (
+					sq_agent_name_id.nextval,
+					#agentID.nextAgentId#,
+					'last name',
+					'#last_name#'
+				)
+				</cfquery>
+			</cfif>
+			
+			
+			
+			<!----
+			<cfif not isdefined("ignoreDupChek") or ignoreDupChek is false>
+				<cfquery name="dupPref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select agent_id,agent_name from agent_name where upper(agent_name) like '%#ucase(preferred_agent_name)#%'
+				</cfquery>
+				<cfif dupPref.recordcount gt 0>
+					<p>That agent may already exist! Click to see details.</p>
+					<cfloop query="dupPref">
+						<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a>
+					</cfloop>
+					<p>Are you sure you want to continue?</p>
+					<form name="ac" method="post" action="editAllAgent.cfm">
+						<input type="hidden" name="action" value="makeNewAgent">
+						<input type="hidden" name="agent_remarks" value="#agent_remarks#">
+						<input type="hidden" name="agent_type" value="#agent_type#">
+						<input type="hidden" name="agent_name" value="#agent_name#">
+						<input type="hidden" name="ignoreDupChek" value="true">
+						<input type="submit" class="insBtn" value="Of course. I carefully checked for duplicates before creating this agent.">
+						<br><input type="button" class="qutBtn" onclick="back()" value="Oh - back one step, please.">
+					</form>
+					<cfabort>					
+				</cfif>
+			</cfif>
+			
+			---->
+			
+		</cftransaction>			
+		<cflocation url="editAllAgent.cfm?agent_id=#agentID.nextAgentId#">
+	</cfoutput>
+</cfif>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif action is "newAgent">
 	<cfoutput>
@@ -944,150 +1093,7 @@
 	<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
-<cfif Action is "makeNewAgent">
-	<cfoutput>
-		<cfset probs="">
-		<cfif agent_type is "person">
-			<cfif 
-				(not isdefined("first_name") or len(first_name) is 0) and 
-				(not isdefined("middle_name") and len(middle_name) is 0) and 
-				(not isdefined("last_name") and len(last_name) is 0)>
-				<cfset probs=listppand(probs,"Person agents must have first, middle, and/or last name.",";")>
-			</cfif>
-			<cfif isdefined("first_name") and len(first_name) is 1>
-				<cfset probs=listppand(probs,"Abbreviations should be followed by a period.",";")>
-			</cfif>
-			<cfif isdefined("middle_name") and len(middle_name) is 1>
-				<cfset probs=listppand(probs,"Abbreviations should be followed by a period.",";")>
-			</cfif>
-			<cfif isdefined("last_name") and len(last_name) is 1>
-				<cfset probs=listppand(probs,"Abbreviations should be followed by a period.",";")>
-			</cfif>
-		<cfelse>
-			<cfif 
-				(isdefined("first_name") and len(first_name) gt 0) or 
-				(isdefined("middle_name") and len(middle_name) gt 0) or 
-				(isdefined("last_name") and len(last_name) gt 0)>
-				<cfset probs=listppand(probs,"Non-person agents may not have first, middle, or last name.",";")>
-				<cfabort>
-			</cfif>
-		</cfif>
-		<cfif len(probs) gt 0>
-			#probs#
-			
-			<cfabort>
-			
-			
-		</cfif>
-		<cftransaction>
-			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select sq_agent_id.nextval nextAgentId from dual
-			</cfquery>
-			<cfquery name="insAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO agent (
-					agent_id,
-					agent_type,
-					preferred_agent_name,
-					agent_remarks
-					)
-				VALUES (
-					#agentID.nextAgentId#,
-					'#agent_type#',
-					'#preferred_agent_name#',
-					'#agent_remarks#'
-				)
-			</cfquery>
-			<cfquery name="insPName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO agent_name (
-					agent_name_id,
-					agent_id,
-					agent_name_type,
-					agent_name
-				) VALUES (
-					sq_agent_name_id.nextval,
-					#agentID.nextAgentId#,
-					'preferred',
-					'#preferred_agent_name#'
-				)
-			</cfquery>
-			<cfif isdefined("first_name") and len(first_name) gt 0>
-				<cfquery name="insFName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					INSERT INTO agent_name (
-					agent_name_id,
-					agent_id,
-					agent_name_type,
-					agent_name
-				) VALUES (
-					sq_agent_name_id.nextval,
-					#agentID.nextAgentId#,
-					'first name',
-					'#first_name#'
-				)
-				</cfquery>
-			</cfif>
-			<cfif isdefined("middle_name") and len(middle_name) gt 0>
-				<cfquery name="insMName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					INSERT INTO agent_name (
-					agent_name_id,
-					agent_id,
-					agent_name_type,
-					agent_name
-				) VALUES (
-					sq_agent_name_id.nextval,
-					#agentID.nextAgentId#,
-					'middle name',
-					'#middle_name#'
-				)
-				</cfquery>
-			</cfif>
-			<cfif isdefined("last_name") and len(last_name) gt 0>
-				<cfquery name="insLName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					INSERT INTO agent_name (
-					agent_name_id,
-					agent_id,
-					agent_name_type,
-					agent_name
-				) VALUES (
-					sq_agent_name_id.nextval,
-					#agentID.nextAgentId#,
-					'last name',
-					'#last_name#'
-				)
-				</cfquery>
-			</cfif>
-			
-			
-			
-			<!----
-			<cfif not isdefined("ignoreDupChek") or ignoreDupChek is false>
-				<cfquery name="dupPref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select agent_id,agent_name from agent_name where upper(agent_name) like '%#ucase(preferred_agent_name)#%'
-				</cfquery>
-				<cfif dupPref.recordcount gt 0>
-					<p>That agent may already exist! Click to see details.</p>
-					<cfloop query="dupPref">
-						<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a>
-					</cfloop>
-					<p>Are you sure you want to continue?</p>
-					<form name="ac" method="post" action="editAllAgent.cfm">
-						<input type="hidden" name="action" value="makeNewAgent">
-						<input type="hidden" name="agent_remarks" value="#agent_remarks#">
-						<input type="hidden" name="agent_type" value="#agent_type#">
-						<input type="hidden" name="agent_name" value="#agent_name#">
-						<input type="hidden" name="ignoreDupChek" value="true">
-						<input type="submit" class="insBtn" value="Of course. I carefully checked for duplicates before creating this agent.">
-						<br><input type="button" class="qutBtn" onclick="back()" value="Oh - back one step, please.">
-					</form>
-					<cfabort>					
-				</cfif>
-			</cfif>
-			
-			---->
-			
-		</cftransaction>			
-		<cflocation url="editAllAgent.cfm?agent_id=#agentID.nextAgentId#">
-	</cfoutput>
-</cfif>
+
 <script>
 	parent.resizeCaller();
 </script>
