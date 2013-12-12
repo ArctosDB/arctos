@@ -797,7 +797,7 @@
 				STATUS_DATE,
 				STATUS_REMARK
 			) values (
-				sq_	AGENT_STATUS_ID.nextval,
+				sq_AGENT_STATUS_ID.nextval,
 				#agent_id#,
 				'#agent_status#',
 				'#status_date#',
