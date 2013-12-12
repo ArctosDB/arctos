@@ -218,8 +218,8 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 	
 	
 	
-	<cfquery name="p" dbtype="query">
-		select count(*) c from d where agent_type not in (select agent_type from ctagent_type)
+	<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from ds_temp_agent where agent_type not in (select agent_type from ctagent_type)
 	</cfquery>
 	<cfif valuelist(p.c) is not 0>
 		<div class="error">invalid agent type</div>
