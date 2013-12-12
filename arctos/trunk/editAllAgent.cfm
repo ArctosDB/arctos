@@ -385,42 +385,41 @@
 			agent_id = #agent.agent_id#
 		</cfquery>
 		<p>Agent Status</p>
+		
+		<table border>
+				<tr>
+				<th>Agent Status</th>
+				<th>Status Date</th>
+				<th>Remark</th>
+				<th></th>
+				<th></th>
+			</tr>
 		<cfloop query="status">
-			<form name="status#agent_status_id#" method="post" action="editAllAgent.cfm">
-				<input type="hidden" name="action">
-				<div>
-					<select name="agent_status" size="1">
-						<option value=""></option>
-						<cfloop query="ctagent_status">
-							<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
-						</cfloop>
-					</select>
-					<input type="text" size="6" name="status_date" value="#status_date#">
-					<input type="text" size="6" name="status_remark" value="#status_remark#">
-					reported by #reported_by# on #STATUS_REPORTED_DATE#
-				</div>
-			</form>
-
-			<label for="agent_status">Agent Status</label>
-			<select name="agent_status" size="1" id="agent_status">
-				<option value=""></option>
-				<cfloop query="ctagent_status">
-					<option value="#agent_status#">#agent_status#</option>
-				</cfloop>
-			</select>
-			
-			<label for="status_date">
-				Status Date
-			</label>
-			<select name="status_date_oper" size="1" id="status_date_oper">
-				<option value="<=">Before</option>
-				<option selected value="=" >Is</option>
-				<option value=">=">After</option>
-			</select>
-			
-			
+			<tr>
+				<form name="status#agent_status_id#" method="post" action="editAllAgent.cfm">
+					<input type="hidden" name="action">
+					<td>
+						<select name="agent_status" size="1">
+							<option value=""></option>
+							<cfloop query="ctagent_status">
+								<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td><input type="text" size="12" name="status_date" value="#status_date#"></td>
+					<td><input type="text" size="15" name="status_remark" value="#status_remark#"></td>
+					<td>
+						<span style="font-size:xsmall;">reported by #reported_by# on #STATUS_REPORTED_DATE#</span>
+					</td>
+					<td>
+						<input type="button" value="delete" class="delBtn" onclick="status#agent_status_id#.action.value='deleteStatus';status#agent_status_id#.submit();">
+						<input type="button" value="update" class="savBtn" onclick="status#agent_status_id#.action.value='updateStatus';status#agent_status_id#.submit();">
+					</td>
+				</form>
+			</tr>
 		</cfloop>
 
+		</table>
 		<cfdump var=#status#>
 		
 		<cfset i=1>
