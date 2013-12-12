@@ -138,7 +138,7 @@
 				<div>
 					There are potential problems with this agent:
 				</div>
-				<cfloop list="#probs#" index="p" delimiter=";">
+				<cfloop list="#probs#" index="p" delimiters=";">
 					<div>
 						#p#
 					</div>
