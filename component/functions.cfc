@@ -15,9 +15,11 @@
 	<cfset regexStripJunk='[ .,-]'>
 	<cfset problems="">
 	<!--- list of terms that PROBABLY should not appear in agent names ---->
-	<cfset disallowPersons="Animal,al">
-	<cfset disallowPersons=disallowPersons & ",Class">
-	<cfset disallowPersons=disallowPersons & ",Ecology,et">
+	<cfset disallowPersons="Animal,al,alaska">
+	<cfset disallowPersons=disallowPersons & ",biol,biology">
+	<cfset disallowPersons=disallowPersons & ",Class,california">
+	<cfset disallowPersons=disallowPersons & ",Ecology,et,estate">
+	<cfset disallowPersons=disallowPersons & ",field">
 	<cfset disallowPersons=disallowPersons & ",Group,Growth">
 	<cfset disallowPersons=disallowPersons & ",Hospital,hunter">
 	<cfset disallowPersons=disallowPersons & ",illegible">
@@ -25,14 +27,18 @@
 	<cfset disallowPersons=disallowPersons & ",Museum">
 	<cfset disallowPersons=disallowPersons & ",National,native">
 	<cfset disallowPersons=disallowPersons & ",Old,other">
-	<cfset disallowPersons=disallowPersons & ",Rangers,Ranger">
+	<cfset disallowPersons=disallowPersons & ",Rangers,Ranger,research">
 	<cfset disallowPersons=disallowPersons & ",Predatory,Project,Puffin">
-	<cfset disallowPersons=disallowPersons & ",Sanctuary,Science,Seabird,Society,Study,student,students">
-	<cfset disallowPersons=disallowPersons & ",University">
+	<cfset disallowPersons=disallowPersons & ",Sanctuary,Science,Seabird,Society,Study,student,students,station,summer">
+	<cfset disallowPersons=disallowPersons & ",University,uaf">
 	<cfset disallowPersons=disallowPersons & ",various">
-	
 	<cfset disallowPersons=disallowPersons & ",Zoological,zoo">
-				
+	
+	
+	
+
+
+			
 	<!---- 
 		random lists of things may be indicitave of garbage. 
 			disallowWords are " me AND you" but not "ANDy"
