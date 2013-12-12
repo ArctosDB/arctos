@@ -17,7 +17,6 @@ Search for an agent:
 <cfoutput>
 <form name="agntSearch" action="AgentGrid.cfm" method="post" target="_pick">
 	<input type="hidden" name="Action" value="search">
-<table border>	
 	<!----
 	<tr>
 		<td>
@@ -111,6 +110,18 @@ Search for an agent:
 					<option value="#agent_type#">#agent_type#</option>
 				</cfloop>
 			</select>
+			<div style="border:2px solid green;">
+				<label for="agent_name_type">Agent Name Type (pairs with name below)</label>
+				<select name="agent_name_type" size="1" id="agent_name_type">
+					<option value=""></option>
+					<cfloop query="ctagent_name_type">
+						<option value="#agent_name_type#">#agent_name_type#</option>
+					</cfloop>
+				</select>
+				<label for="agent_name">Agent Name (pairs with type above)</label>
+				<input type="text" name="agent_name" id="agent_name" size="50">
+				
+			</div>
 			<br>
 			<input type="submit" 
 				value="Search" 
