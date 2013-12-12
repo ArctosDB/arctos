@@ -206,6 +206,9 @@
 	    	reason,
 	    	agent_id, 
 	        preferred_agent_name
+	    order by
+	    	reason,
+	    	preferred_agent_name
 	</cfquery>
 	<cfif isdup.recordcount is 0>
 		<!--- try last-name match --->
