@@ -325,7 +325,9 @@
 		       	numSpecs desc,
 		       	collection
 		</cfquery>
-		<label for="tblCollActivity">Collecting Activity</label>
+		<div>
+			Collecting Summary - <a href="/info/agentActivity.cfm?agent_id=#agent.agent_id#" target="_self">click for full Agent Activity report</a>
+		</div>
 		<table border>
 			<tr>
 				<th>Collection</th>
@@ -346,7 +348,6 @@
 			<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
 			</cfquery>
-			<br><a href="/info/agentActivity.cfm?agent_id=#agent.agent_id#" target="_self">Agent Activity</a>
 			<br>
 			<cfif rank.recordcount gt 0>
 				Previous Ranking: #valuelist(rank.agent_rank,"; ")#
