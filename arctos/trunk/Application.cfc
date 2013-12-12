@@ -42,7 +42,6 @@
 			</cfif>
 		</cfif>
 		<cfset subject=replace(subject,'[Macromedia][Oracle JDBC Driver][Oracle]','','all')>
-
 		
 		<cfif subject is "ORA-00933: SQL command not properly ended">
 			<!--- see if it's the viagra ad asshats again ---->
@@ -59,18 +58,19 @@
 				<cfabort>
 			</cfif>
 		</cfif>
-		
 		<cfif isdefined("cgi.HTTP_ACCEPT_ENCODING") and cgi.HTTP_ACCEPT_ENCODING is "identity">
-			<!--- probes ---->
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
-		
-		
 		<cfif right(request.rdurl,5) is "-1%27">
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
+		<cfif left(request.rdurl,6) is "/‰Û#chr(166)#m&">
+			<cfinclude template="/errors/autoblacklist.cfm">
+			<cfabort>
+		</cfif>
+		 
 	
 		<cf_logError subject="#subject#" attributeCollection=#exception#>
 		<table cellpadding="10">

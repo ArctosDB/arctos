@@ -127,7 +127,7 @@
 			</cfif>
 			<cfset obj = CreateObject("component","component.functions")>
 			<cfset fnProbs = obj.checkAgent(
-				preferred_name="#preferred_name#",
+				preferred_name="#preferred_agent_name#",
 				agent_type="#agent_type#",
 				first_name="#first_name#",
 				middle_name="#middle_name#",

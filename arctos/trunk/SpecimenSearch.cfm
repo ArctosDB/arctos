@@ -272,12 +272,13 @@
 										</select>
 									</td>
 									<td>
-										<label for="scientific_name_match_type">Match Type</label>
+										<label id="_scientific_name_match_type" for="scientific_name_match_type">Match Type</label>
 										<select name="scientific_name_match_type" id="scientific_name_match_type">
 											<option value="contains">contains</option>
 											<option value="exact">is (case insensitive)</option>
 											<option value="notcontains">does not contain</option>
 											<option value="inlist">comma-list</option>
+											<option value="inlist_substring">comma-list (substring)</option>
 										</select>
 									</td>
 								</tr>
@@ -290,26 +291,6 @@
 	</table>
 	<div id="e_taxonomy"></div>
 </div>
-	<!---
-
-<div class="secDiv">
-	<table class="ssrch">
-		<tr>
-			<td colspan="2" class="secHead">
-				<span class="secLabel">Spatial Query</span>
-				<span class="secControl" id="c_spatial_query" onclick="showHide('spatial_query',1)">Show More Options</span>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-			</td>
-		</tr>
-	</table>
-
-</div>
-	--->
-
-
 <div class="secDiv">
 	<table class="ssrch">
 		<tr>

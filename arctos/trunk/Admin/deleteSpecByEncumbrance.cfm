@@ -119,7 +119,7 @@ drop table temp;
 				scientific_name,
 				encumbrance,
 				encumbrance_action,
-				made_encumbrance_name.agent_name as encumberer,
+				getPreferredAgentName(encumbrance.encumbering_agent_id) encumberer,
 				encumbrance.made_date as encumbered_date,
 				expiration_date,
 				expiration_event,
@@ -131,8 +131,6 @@ drop table temp;
 					inner join coll_object_encumbrance on
 						(cataloged_item.collection_object_id = coll_object_encumbrance.collection_object_id)
 					inner join encumbrance on (coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id)
-					inner join preferred_agent_name  made_encumbrance_name on
-						(encumbrance.encumbering_agent_id = made_encumbrance_name.agent_id)
 				where
 					identification.accepted_id_fg=1
 					and encumbrance.encumbrance_id=#encumbrance_id#

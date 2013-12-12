@@ -15,20 +15,22 @@
 	<cfset regexStripJunk='[ .,-]'>
 	<cfset problems="">
 	<!--- list of terms that PROBABLY should not appear in agent names ---->
-	<cfset disallowPersons="Animal">
+	<cfset disallowPersons="Animal,al">
 	<cfset disallowPersons=disallowPersons & ",Class">
-	<cfset disallowPersons=disallowPersons & ",Ecology">
+	<cfset disallowPersons=disallowPersons & ",Ecology,et">
 	<cfset disallowPersons=disallowPersons & ",Group,Growth">
 	<cfset disallowPersons=disallowPersons & ",Hospital,hunter">
 	<cfset disallowPersons=disallowPersons & ",illegible">
 	<cfset disallowPersons=disallowPersons & ",Lab">
 	<cfset disallowPersons=disallowPersons & ",Museum">
 	<cfset disallowPersons=disallowPersons & ",National,native">
-	<cfset disallowPersons=disallowPersons & ",Old">
+	<cfset disallowPersons=disallowPersons & ",Old,other">
 	<cfset disallowPersons=disallowPersons & ",Rangers,Ranger">
 	<cfset disallowPersons=disallowPersons & ",Predatory,Project,Puffin">
-	<cfset disallowPersons=disallowPersons & ",Sanctuary,Science,Seabird,Society,Study">
+	<cfset disallowPersons=disallowPersons & ",Sanctuary,Science,Seabird,Society,Study,student,students">
 	<cfset disallowPersons=disallowPersons & ",University">
+	<cfset disallowPersons=disallowPersons & ",various">
+	
 	<cfset disallowPersons=disallowPersons & ",Zoological,zoo">
 				
 	<!---- 
@@ -68,7 +70,6 @@
 			<cfset problems=listappend(problems,'Check name for #i#; do not create unnecessary variations of "unknown."',';')>
 		</cfif>
 	</cfloop>
-			
 	<cfif agent_type is "person">
 		<cfloop list="#disallowPersons#" index="i">
 			<cfif listfind(preferred_name,i,"() ;,.")>
@@ -86,6 +87,10 @@
 	</cfif>
 
 	<cfif preferred_name does not contain " ">
+		<cfset problems=listappend(problems,'Check for abbreviations and acronyms; do not create unnecessary variations of "unknown."',';')>
+	</cfif>
+	
+	<cfif preferred_name contains ".">
 		<cfset problems=listappend(problems,'Check for abbreviations and acronyms; do not create unnecessary variations of "unknown."',';')>
 	</cfif>
 			
