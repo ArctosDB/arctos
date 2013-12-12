@@ -2,6 +2,9 @@
 <cfquery name="ctagent_name_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select agent_name_type from ctagent_name_type order by agent_name_type
 </cfquery>
+<cfquery name="ctagent_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select agent_type from ctagent_type order by agent_type
+</cfquery>
 <!---
  <a href="javascript:void(0);"
  	onClick="getDocs('agent'); return false;"
@@ -87,9 +90,8 @@ Search for an agent:
 			<input type="text" size="6" name="death_date" id="death_date">
 		</td>
 	</tr>
-	----->
+
 	<tr>
-		<!----
 		<td>
 			<label for="address">
 				<a href="javascript:void(0);" onClick="getDocs('agent','address')">Address</a>
@@ -101,11 +103,15 @@ Search for an agent:
 			<label for="anyName">
 				<a href="javascript:void(0);" onClick="getDocs('agent','anynamesearch')">Any part of any name</a>
 			</label>
-			<input type="text" name="anyName" id="anyName">
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2" align="center">
+			<input type="text" name="anyName" id="anyName" size="50">
+			<label for="agent_type">Agent Type</label>
+			<select name="agent_type" size="1" id="agent_type">
+				<option value=""></option>
+				<cfloop query="ctagent_type">
+					<option value="#agent_type#">#agent_type#</option>
+				</cfloop>
+			</select>
+			<br>
 			<input type="submit" 
 				value="Search" 
 				class="schBtn">
@@ -118,9 +124,7 @@ Search for an agent:
 					class="insBtn"
 					onClick="window.open('editAllAgent.cfm?action=newAgent','_person');">
 				
-		</td>
-	</tr>
-</table>
+
 </form>
 </cfoutput>	
 <cfinclude template="includes/_pickFooter.cfm">
