@@ -326,11 +326,50 @@
 			where 
 				agent_id=#agent_id#
 		</cfquery>
+		
+		<span class="infoLink" onClick="getDocs('agent')">Help</span>
 		<div>
 			AgentID: #agent.agent_id# created by #agent.created_by_agent# on #agent.CREATED_DATE#
 		</div> 
-		<span class="infoLink" onClick="getDocs('agent')">Help</span>
 		
+		<cfquery name="activitySummary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+		        collection,
+		        min(began_date) earliest,
+		        max(ended_date) latest,
+		        count(*) numSpecs
+		      from
+		        collector,
+		        cataloged_item,
+		        specimen_event,
+		        collecting_event,
+		        collection
+		      where
+		        collector.collection_object_id=cataloged_item.collection_object_id and
+		        cataloged_item.collection_object_id=specimen_event.collection_object_id and
+		        specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+		        cataloged_item.collection_id=collection.collection_id and
+		        collector.agent_id=#agent_id#
+		      group by
+		        collection
+		</cfquery>
+		<label for="tblCollActivity">Collecting Activity</label>
+		<table border>
+			<tr>
+				<th>Collection</th>
+				<th>Earliest Date</th>
+				<th>Latest Date</th>
+				<th>NumberSpecimens</th>
+			</tr>
+			<cfloop query="activitySummary">
+				<tr>
+					<td>#collection#</td>
+					<td>#earliest#</td>
+					<td>#latest#</td>
+					<td>#numSpecs#</td>
+				</tr>
+			</cfloop>
+		</table>
 		<cfif listcontainsnocase(session.roles,"manage_transactions")>
 			<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
@@ -383,9 +422,7 @@
 			from agent_status
 			where 
 			agent_id = #agent.agent_id#
-		</cfquery>
-		<p>Agent Status</p>
-		
+		</cfquery>		
 		<table border>
 				<tr>
 				<th>Agent Status</th>
@@ -411,7 +448,7 @@
 					<td>
 					</td>
 					<td>
-						<input type="submit" value="create" class="indBtn">
+						<input type="submit" value="create" class="insBtn">
 					</td>
 				</form>
 			</tr>
