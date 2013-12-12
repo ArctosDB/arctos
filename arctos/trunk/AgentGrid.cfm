@@ -54,7 +54,12 @@
 	<cfset sql = "#sql# AND status_date #status_date_oper# '#status_date#'">
 </cfif>		
 			
+
+<cfif isdefined("agent_status") AND len(agent_status) gt 0>
+	<cfset sql = "#sql# AND agent_status='#agent_status#'">
+</cfif>		
 			
+				
 <cfif isdefined("address") AND len(#address#) gt 0>
 	<cfset sql = "#sql# AND agent.agent_id IN (
 			select agent_id from addr where upper(formatted_addr) like '%#ucase(address)#%')">
