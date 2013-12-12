@@ -138,9 +138,11 @@
 				<div>
 					There are potential problems with this agent:
 				</div>
-				<div>
-					#probs#
-				</div>
+				<cfloop list="#probs#" index="p" delimiter=";">
+					<div>
+						#p#
+					</div>
+				</cfloop>
 				<cfset forceURL="/editAllAgent.cfm?action=makeNewAgent&forceOverride=true">
 				<cfloop collection="#form#" item="theField">
 					<cfif theField is not "fieldNames" and theField is not "ACTION">
