@@ -358,7 +358,7 @@
 		      group by
 		        collection
 		       order by
-		       	numSpecs,
+		       	numSpecs desc,
 		       	collection
 		</cfquery>
 		<label for="tblCollActivity">Collecting Activity</label>
