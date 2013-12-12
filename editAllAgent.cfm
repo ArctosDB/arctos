@@ -369,6 +369,14 @@
 			where 
 			agent_id = #agent.agent_id#
 		</cfquery>
+		<cfquery name="status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from agent_status
+			where 
+			agent_id = #agent.agent_id#
+		</cfquery>
+		
+		<cfdump var=#status#>
+		
 		<cfset i=1>
 		<cfloop query="agentAddrs">
 			<cfif valid_addr_fg is 1>
