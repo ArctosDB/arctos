@@ -332,9 +332,9 @@
 				agent_id=#agent_id#
 		</cfquery>
 		
-		<span class="infoLink" onClick="getDocs('agent')">Help</span>
 		<div>
-			AgentID: #agent.agent_id# created by #agent.created_by_agent# on #agent.CREATED_DATE#
+			AgentID #agent.agent_id# created by #agent.created_by_agent# on #agent.CREATED_DATE#
+			<span class="infoLink" onClick="getDocs('agent')">Help</span>
 		</div> 
 		
 		<cfquery name="activitySummary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
