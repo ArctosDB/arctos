@@ -14,6 +14,9 @@
 <cfquery name="ctRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select AGENT_RELATIONSHIP from CTAGENT_RELATIONSHIP order by AGENT_RELATIONSHIP
 </cfquery>
+<cfquery name="ctagent_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select agent_status from ctagent_status order by agent_status
+</cfquery>
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
 <cfif not isdefined("agent_id")>
 	<cfset agent_id = -1>
@@ -370,11 +373,54 @@
 			agent_id = #agent.agent_id#
 		</cfquery>
 		<cfquery name="status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from agent_status
+			select
+				agent_status_id,
+				agent_status,
+				status_date,
+				STATUS_REMARK,
+				getPreferredAgentName(STATUS_REPORTED_BY) reported_by,
+				STATUS_REPORTED_DATE
+			from agent_status
 			where 
 			agent_id = #agent.agent_id#
 		</cfquery>
-		
+		<p>Agent Status</p>
+		<cfloop query="status">
+			<form name="status#agent_status_id#" method="post" action="editAllAgent.cfm">
+				<input type="hidden" name="action">
+				<div>
+					<select name="agent_status" size="1">
+						<option value=""></option>
+						<cfloop query="ctagent_status">
+							<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
+						</cfloop>
+					</select>
+					<input type="text" size="6" name="status_date" value="#status_date#">
+					<input type="text" size="6" name="status_remark" value="#status_remark#">
+					reported by #reported_by# on #STATUS_REPORTED_DATE#
+				</div>
+			</form>
+
+			<label for="agent_status">Agent Status</label>
+			<select name="agent_status" size="1" id="agent_status">
+				<option value=""></option>
+				<cfloop query="ctagent_status">
+					<option value="#agent_status#">#agent_status#</option>
+				</cfloop>
+			</select>
+			
+			<label for="status_date">
+				Status Date
+			</label>
+			<select name="status_date_oper" size="1" id="status_date_oper">
+				<option value="<=">Before</option>
+				<option selected value="=" >Is</option>
+				<option value=">=">After</option>
+			</select>
+			
+			
+		</cfloop>
+
 		<cfdump var=#status#>
 		
 		<cfset i=1>
