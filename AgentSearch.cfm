@@ -13,13 +13,6 @@
 		jQuery("#status_date").datepicker();
 	});
 </script>
-<!---
- <a href="javascript:void(0);"
- 	onClick="getDocs('agent'); return false;"
-	onMouseOver="self.status='Click for help.';return true;"
-	onmouseout="self.status='';return true;"><img src="/images/what.gif" border="0">
-</a>
---->
 <span class="infoLink pageHelp" onclick="getDocs('agent');">Page Help</span>
 Search for an agent:
 <cfoutput>

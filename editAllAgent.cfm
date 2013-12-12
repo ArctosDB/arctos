@@ -309,6 +309,16 @@
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
+	<script language="javascript" type="text/javascript">
+		jQuery(document).ready(function() {
+			$('input[type=datetime]').datepicker();
+		});
+	</script>
+
+
+
+
+
 	<cfif not isdefined("agent_id") OR agent_id lt 0 >
 		<cfabort>
 	</cfif>
@@ -443,7 +453,7 @@
 							</cfloop>
 						</select>
 					</td>
-					<td><input type="text" size="12" name="status_date" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
+					<td><input type="datetime" size="12" name="status_date" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
 					<td><input type="text" size="15" name="status_remark"></td>
 					<td>
 					</td>
@@ -466,7 +476,7 @@
 								</cfloop>
 							</select>
 						</td>
-						<td><input type="text" size="12" name="status_date" value="#status_date#"></td>
+						<td><input type="datetime" size="12" name="status_date" value="#status_date#"></td>
 						<td><input type="text" size="15" name="status_remark" value="#status_remark#"></td>
 						<td>
 							<span style="font-size:x-small;">reported by #reported_by# on #STATUS_REPORTED_DATE#</span>
