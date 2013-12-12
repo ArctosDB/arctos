@@ -488,6 +488,22 @@
     interval = "daily"
     requestTimeOut = "600">
 <!--- 
+	globalnames_refresh
+	Purpose: Refresh data from globalnames
+	Cost: moderate
+	Growth potential: moderate/high
+	Usage: refreshes data in table taxon_refresh_log. Manually add needs-refreshed data to this table. When
+		the table is empty or all rows have NOT NULL lastfetch, the job will immediately exit.
+--->
+<cfschedule action = "update"
+    task = "globalnames_refresh"
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/globalnames_refresh.cfm"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "12:00 AM"
+    interval = "72"
+    requestTimeOut = "600">
+<!--- 
 	authority_change
 	Purpose: code tables or geography change notifications
 	Cost: moderate
@@ -496,7 +512,7 @@
 <cfschedule action = "update"
     task = "authority_change"
     operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/authority_change.cfm"
+    url = "127.0.0.1/ScheduledTasks/authority_change.cfm?action=sendEmail"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:59 AM"
     interval = "daily"

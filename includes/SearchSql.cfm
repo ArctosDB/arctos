@@ -210,6 +210,12 @@
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) NOT LIKE '%#ucase(escapeQuotes(scientific_name))#%'">
 		<cfelseif scientific_name_match_type is "inlist">
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in (#listqualify(ucase(scientific_name),chr(39))#)">
+		<cfelseif scientific_name_match_type is "inlist_substring">
+			<cfset basQual = " #basQual# AND (">
+			<cfloop list="#scientific_name#" index="i" delimiters=",">
+				<cfset basQual = " #basQual# upper(#session.flatTableName#.scientific_name) like '%#ucase(i)#%' OR ">
+			</cfloop>
+			<cfset basQual = left(basQual,len(basQual)-4) & ")">
 		</cfif>
 	<cfelseif scientific_name_scope is "allID">
 		<cfif basJoin does not contain " identification ">

@@ -1,4 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
+
+obsolete
+
+<cfabort>
+
+
 <cfset title="Agent Merge">
 <cfif #action# is "nothing">
 

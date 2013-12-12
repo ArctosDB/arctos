@@ -124,12 +124,12 @@
 			collection_contact_id,
 			contact_role,
 			contact_agent_id,
-			agent_name contact_name
+			preferred_agent_name contact_name
 		from
 			collection_contacts,
-			preferred_agent_name
+			agent
 		where
-			contact_agent_id = agent_id AND
+			contact_agent_id = agent.agent_id AND
 			collection_id = #collection_id#
 		ORDER BY contact_name,contact_role
 	</cfquery>
