@@ -394,6 +394,26 @@
 				<th></th>
 				<th></th>
 			</tr>
+			<tr class="newRec">
+				<form name="status" method="post" action="editAllAgent.cfm">
+					<input type="hidden" name="action" value="newStatus">
+					<td>
+						<select name="agent_status" size="1">
+							<option value=""></option>
+							<cfloop query="ctagent_status">
+								<option value="#agent_status#">#agent_status#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td><input type="text" size="12" name="status_date" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
+					<td><input type="text" size="15" name="status_remark" value="#status_remark#"></td>
+					<td>
+					</td>
+					<td>
+						<input type="submit" value="create" class="indBtn">
+					</td>
+				</form>
+			</tr>
 		<cfloop query="status">
 			<tr>
 				<form name="status#agent_status_id#" method="post" action="editAllAgent.cfm">
@@ -409,7 +429,7 @@
 					<td><input type="text" size="12" name="status_date" value="#status_date#"></td>
 					<td><input type="text" size="15" name="status_remark" value="#status_remark#"></td>
 					<td>
-						<span style="font-size:xsmall;">reported by #reported_by# on #STATUS_REPORTED_DATE#</span>
+						<span style="font-size:x-small;">reported by #reported_by# on #STATUS_REPORTED_DATE#</span>
 					</td>
 					<td>
 						<input type="button" value="delete" class="delBtn" onclick="status#agent_status_id#.action.value='deleteStatus';status#agent_status_id#.submit();">
