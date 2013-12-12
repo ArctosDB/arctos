@@ -354,6 +354,7 @@
 			</cfif>
 			<input type="button" class="lnkBtn" onclick="rankAgent('#agent.agent_id#');" value="Rank">
 		</cfif>
+		<div style="border:1px solid green;padding:.5em;margin:.5em;">
 		<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
 			<input type="hidden" name="agent_id" value="#agent.agent_id#">
 			<input type="hidden" name="action" value="saveAgentEdits">
@@ -372,7 +373,7 @@
 			<br>
 			<input type="submit" class="savBtn" value="Update Agent">
 		</form>
-		
+		</div>
 		<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from addr
 			where 
