@@ -56,7 +56,7 @@
 			
 			
 <cfif isdefined("address") AND len(#address#) gt 0>
-	<cfset sql = "#sql# AND agent_id IN (
+	<cfset sql = "#sql# AND agent.agent_id IN (
 			select agent_id from addr where upper(formatted_addr) like '%#ucase(address)#%')">
 </cfif>
 
