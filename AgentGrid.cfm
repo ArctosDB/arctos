@@ -30,47 +30,31 @@
 					agent.agent_type
 				FROM 
 					agent,
-					agent_name
+					agent_name,
+					agent_status
 				WHERE 
 					agent.agent_id=agent_name.agent_id (+) and
+					agent.agent_id=agent_status.agent_id (+) and
 					agent.agent_id > -1
 					and rownum<500
 					">
 					<!---
 					agent_name_type='preferred'
 					--->
-<cfif isdefined("First_Name") AND len(First_Name) gt 0>
-	<cfset sql = "#sql# AND first_name LIKE '#First_Name#'">
-</cfif>
-<cfif isdefined("Last_Name") AND len(#Last_Name#) gt 0>
-	<cfset lastname = #replace(last_name,"'","''")#>
-	<cfset sql = "#sql# AND Last_Name LIKE '#lastname#'">
+
+<cfif isdefined("anyName") AND len(anyName) gt 0>
+	<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#ucase(escapeQuotes(anyName))#%'">
 </cfif>
 
-<cfif isdefined("Middle_Name") AND len(#Middle_Name#) gt 0>
-	<cfset sql = "#sql# AND Middle_Name LIKE '#Middle_Name#'">
-</cfif>
-<cfif isdefined("Suffix") AND len(#Suffix#) gt 0>
-	<cfset sql = "#sql# AND Suffix = '#Suffix#'">
-</cfif>
-<cfif isdefined("Prefix") AND len(#Prefix#) gt 0>
-	<cfset sql = "#sql# AND Prefix = '#Prefix#'">
-</cfif>
-<cfif isdefined("Birth_Date") AND len(#Birth_Date#) gt 0>
-	<cfset bdate = dateformat(birth_date,'yyyy-mm-dd')>
-	<cfset sql = "#sql# AND Birth_Date #birthOper# '#bdate#'">
-</cfif>
-<cfif isdefined("Death_Date") AND len(#Death_Date#) gt 0>
-	<cfset ddate = #dateformat(Death_Date,'yyyy-mm-dd')#>
-	<cfset sql = "#sql# AND Death_Date #deathOper# '#ddate#'">
-</cfif>
-<cfif isdefined("anyName") AND len(#anyName#) gt 0>
-	<cfset aName = replace(anyName,"'","''","all")>
-	<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#ucase(aName)#%'">
-</cfif>
 <cfif isdefined("agent_id") AND isnumeric(#agent_id#)>
-	<cfset sql = "#sql# AND agent_name.agent_id = #agent_id#">
+	<cfset sql = "#sql# AND agent.agent_id = #agent_id#">
 </cfif>
+
+<cfif isdefined("status_date") AND len(status_date) gt 0>
+	<cfset sql = "#sql# AND status_date #status_date_oper# '#status_date#'">
+</cfif>		
+			
+			
 <cfif isdefined("address") AND len(#address#) gt 0>
 	<cfset sql = "#sql# AND agent_id IN (
 			select agent_id from addr where upper(formatted_addr) like '%#ucase(address)#%')">

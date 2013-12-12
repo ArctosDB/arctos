@@ -5,6 +5,9 @@
 <cfquery name="ctagent_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select agent_type from ctagent_type order by agent_type
 </cfquery>
+<cfquery name="ctagent_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select agent_status from ctagent_status order by agent_status
+</cfquery>
 <!---
  <a href="javascript:void(0);"
  	onClick="getDocs('agent'); return false;"
@@ -28,7 +31,6 @@ Search for an agent:
       				</cfloop> 
    			 </select>
 		</td>
-		<td>
 			<label for="first_name"><a href="javascript:void(0);" onClick="getDocs('agent','namesearch')">First Name</a></label>
 			<input type="text" name="first_name">
 		</td>
@@ -59,10 +61,7 @@ Search for an agent:
 	   		 </select>
 		</td>
 		<td>
-			<label for="agent_id">
-				Agent ID
-			</label>
-			<input type="text" name="agent_id" size="6" id="agent_id">
+		
 		</td>
 	</tr>
 	<tr>
@@ -92,13 +91,9 @@ Search for an agent:
 
 	<tr>
 		<td>
-			<label for="address">
-				<a href="javascript:void(0);" onClick="getDocs('agent','address')">Address</a>
-			</label>
-			<input type="text" name="address" id="address">
+			
 		</td>
 		---->
-		<td>
 			<label for="anyName">
 				<a href="javascript:void(0);" onClick="getDocs('agent','anynamesearch')">Any part of any name</a>
 			</label>
@@ -110,6 +105,33 @@ Search for an agent:
 					<option value="#agent_type#">#agent_type#</option>
 				</cfloop>
 			</select>
+			<label for="agent_id">AgentID</label>
+			<input type="text" name="agent_id" size="6" id="agent_id">
+			
+			<label for="agent_status">Agent Status</label>
+			<select name="agent_status" size="1" id="agent_status">
+				<option value=""></option>
+				<cfloop query="ctagent_status">
+					<option value="#agent_status#">#agent_status#</option>
+				</cfloop>
+			</select>
+			<label for="address">
+				<a href="javascript:void(0);" onClick="getDocs('agent','address')">Address</a>
+			</label>
+			<input type="text" name="address" id="address">
+			
+			<label for="status_date">
+				Status Date
+			</label>
+			<select name="status_date_oper" size="1" id="status_date_oper">
+				<option value="<=">Before</option>
+				<option selected value="=" >Is</option>
+				<option value=">=">After</option>
+			</select>
+			<input type="text" size="6" name="status_date" id="status_date">
+			
+			
+	
 			<div style="border:2px solid green;">
 				<label for="agent_name_type">Agent Name Type (pairs with name below)</label>
 				<select name="agent_name_type" size="1" id="agent_name_type">
