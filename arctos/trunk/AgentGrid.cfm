@@ -64,6 +64,9 @@
 					agent.preferred_agent_name,
 					agent.agent_type">
 <cfset sql = "#sql# ORDER BY agent.preferred_agent_name">
+
+
+#preservesinglequotes(sql)#
 		<cfquery name="getAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
