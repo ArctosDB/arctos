@@ -56,12 +56,12 @@
 	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedP)>
 		
 	<cfif len(strippedNamePermutations) is 0>
-		<cfset problems=listappend(problems,'Check apostrophy/single-quote. "O&apos;Neil" is fine; "Jim&apos;s Cat" should be entered as "unknown".',';')>
+		<cfset problems=listappend(problems,'Check apostrophy/single-quote. "O&apos;Neil" is fine. "Jim&apos;s Cat" should be entered as "unknown".',';')>
 	</cfif>
 			
 	<cfloop list="#disallowCharacters#" index="i">
 		<cfif preferred_name contains i>
-			<cfset problems=listappend(problems,'Check name for #i#; do not create unnecessary variations of "unknown."',';')>
+			<cfset problems=listappend(problems,'Check name for #i#. do not create unnecessary variations of "unknown."',';')>
 		</cfif>
 	</cfloop>
 			
@@ -73,13 +73,13 @@
 	<cfif agent_type is "person">
 		<cfloop list="#disallowPersons#" index="i">
 			<cfif listfind(preferred_name,i,"() ;,.")>
-				<cfset problems=listappend(problems,'Check name for #i#; do not create non-person agents as persons."',';')>
+				<cfset problems=listappend(problems,'Check name for #i#. do not create non-person agents as persons."',';')>
 			</cfif>
 		</cfloop>
 	</cfif>
 	<!--- try to avoid unnecessary acronyms --->
 	<cfif refind('[A-Z]{3,}',preferred_name) gt 0>
-		<cfset problems=listappend(problems,'Check for abbreviations and acronyms; do not create unnecessary variations of "unknown."',';')>
+		<cfset problems=listappend(problems,'Check for abbreviations and acronyms. do not create unnecessary variations of "unknown."',';')>
 	</cfif>
 
 	<cfif Compare(ucase(preferred_name), preferred_name) is 0 or Compare(lcase(preferred_name), preferred_name) is 0>
@@ -87,11 +87,11 @@
 	</cfif>
 
 	<cfif preferred_name does not contain " ">
-		<cfset problems=listappend(problems,'Check for abbreviations and acronyms; do not create unnecessary variations of "unknown."',';')>
+		<cfset problems=listappend(problems,'Check for abbreviations and acronyms. do not create unnecessary variations of "unknown."',';')>
 	</cfif>
 	
 	<cfif preferred_name contains ".">
-		<cfset problems=listappend(problems,'Check for abbreviations and acronyms; do not create unnecessary variations of "unknown."',';')>
+		<cfset problems=listappend(problems,'Check for abbreviations and acronyms. do not create unnecessary variations of "unknown."',';')>
 	</cfif>
 			
 	<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>	
