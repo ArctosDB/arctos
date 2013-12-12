@@ -406,7 +406,7 @@
 						</select>
 					</td>
 					<td><input type="text" size="12" name="status_date" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
-					<td><input type="text" size="15" name="status_remark" value="#status_remark#"></td>
+					<td><input type="text" size="15" name="status_remark"></td>
 					<td>
 					</td>
 					<td>
