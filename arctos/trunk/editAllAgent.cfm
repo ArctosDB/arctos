@@ -83,13 +83,8 @@
 		console.log(pname);
 		$("#preferred_agent_name").val(pname);
 	}
-
 </script>
-
-
-
 <!------------------------------------------------------------------------------------------------------------->
-
 <cfif Action is "makeNewAgent">
 	<cfif not isdefined("first_name")>
 		<cfset first_name="">
@@ -242,35 +237,6 @@
 				)
 				</cfquery>
 			</cfif>
-			
-			
-			
-			<!----
-			<cfif not isdefined("ignoreDupChek") or ignoreDupChek is false>
-				<cfquery name="dupPref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select agent_id,agent_name from agent_name where upper(agent_name) like '%#ucase(preferred_agent_name)#%'
-				</cfquery>
-				<cfif dupPref.recordcount gt 0>
-					<p>That agent may already exist! Click to see details.</p>
-					<cfloop query="dupPref">
-						<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a>
-					</cfloop>
-					<p>Are you sure you want to continue?</p>
-					<form name="ac" method="post" action="editAllAgent.cfm">
-						<input type="hidden" name="action" value="makeNewAgent">
-						<input type="hidden" name="agent_remarks" value="#agent_remarks#">
-						<input type="hidden" name="agent_type" value="#agent_type#">
-						<input type="hidden" name="agent_name" value="#agent_name#">
-						<input type="hidden" name="ignoreDupChek" value="true">
-						<input type="submit" class="insBtn" value="Of course. I carefully checked for duplicates before creating this agent.">
-						<br><input type="button" class="qutBtn" onclick="back()" value="Oh - back one step, please.">
-					</form>
-					<cfabort>					
-				</cfif>
-			</cfif>
-			
-			---->
-			
 		</cftransaction>			
 		<cflocation url="editAllAgent.cfm?agent_id=#agentID.nextAgentId#">
 	</cfoutput>
@@ -331,12 +297,10 @@
 			where 
 				agent_id=#agent_id#
 		</cfquery>
-		
 		<div>
 			AgentID #agent.agent_id# created by #agent.created_by_agent# on #agent.CREATED_DATE#
 			<span class="infoLink" onClick="getDocs('agent')">Help</span>
 		</div> 
-		
 		<cfquery name="activitySummary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 		        collection,
@@ -444,14 +408,14 @@
 					<input type="hidden" name="action" value="newStatus">
 					<input type="hidden" name="agent_id" value="#agent_id#">
 					<td>
-						<select name="agent_status" size="1">
+						<select name="agent_status" size="1" class="reqdClr">
 							<option value=""></option>
 							<cfloop query="ctagent_status">
 								<option value="#agent_status#">#agent_status#</option>
 							</cfloop>
 						</select>
 					</td>
-					<td><input type="datetime" size="12" name="status_date" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
+					<td><input type="datetime" class="reqdClr" size="12" name="status_date" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
 					<td><input type="text" size="15" name="status_remark"></td>
 					<td>
 					</td>
@@ -467,14 +431,14 @@
 						<input type="hidden" name="agent_status_id" value="#agent_status_id#">
 						<input type="hidden" name="agent_id" value="#agent_id#">
 						<td>
-							<select name="agent_status" size="1">
+							<select name="agent_status" size="1" class="reqdClr">
 								<option value=""></option>
 								<cfloop query="ctagent_status">
 									<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
 								</cfloop>
 							</select>
 						</td>
-						<td><input type="datetime" size="12" name="status_date" value="#status_date#"></td>
+						<td><input type="datetime" class="reqdClr" size="12" name="status_date" value="#status_date#"></td>
 						<td><input type="text" size="15" name="status_remark" value="#status_remark#"></td>
 						<td>
 							<span style="font-size:x-small;">reported by #reported_by# on #STATUS_REPORTED_DATE#</span>
