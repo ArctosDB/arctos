@@ -1,4 +1,6 @@
 <cfcomponent>
+
+<!----------------------------------
 <cffunction name="shortCitation" access="remote">
 	<cfargument name="publication_id" type="numeric" required="yes">
 	<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -38,6 +40,7 @@
 	<cfset r=as & ' ' & p.published_year>
 	<cfreturn r>
 </cffunction>
+------------------------------------------------>
 <!------------------------------------------------------------------------------------------------>
 <cffunction name="longCitation" access="remote" output="true">
 	<cfargument name="publication_id" type="numeric" required="yes">

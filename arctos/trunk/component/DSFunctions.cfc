@@ -145,7 +145,7 @@
 	</cfif>
 </cffunction>
 
-
+<!--------------------
 <cffunction name="loadAgent" access="remote">
 	<cfargument name="key" type="numeric" required="yes">
 	<cfargument name="agent_id" type="any" required="yes">
@@ -406,6 +406,8 @@
 	<cfset temp = QuerySetCell(result, "AGENT_ID", agent_id, 1)>
 	<cfreturn result>
 </cffunction>
+
+----------------------------->
 <!--------------------------------------------->
 
 <cffunction name="findAgentMatch" access="remote">

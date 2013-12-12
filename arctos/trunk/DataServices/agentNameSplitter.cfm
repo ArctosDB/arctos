@@ -41,6 +41,12 @@ sho err
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title='Agent Name Splitter Thingee'>
+
+First Name, Middle Name, and Last Name are no longer required and this form is no longer critical. Use the Contact form or file an Issue if you want to split agent names.
+
+<cfabort>
+
+
 <cfif action is "nothing">
 	<br>Upload a CSV file of agent names with one column, header "preferred_name". 
 	<br>This app accepts only agent type=person; create everything else manually.

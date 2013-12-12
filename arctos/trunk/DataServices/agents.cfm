@@ -22,11 +22,21 @@ create table ds_temp_agent (
 	other_name_type_2   varchar2(255),
 	other_name_3  varchar2(255),
 	other_name_type_3   varchar2(255),
-	agent_remark varchar2(4000)
+	other_name_4  varchar2(255),
+	other_name_type_4   varchar2(255),
+	other_name_5  varchar2(255),
+	other_name_type_5   varchar2(255),
+	other_name_6  varchar2(255),
+	other_name_type_6   varchar2(255),
+	agent_remark varchar2(4000),
+	agent_status_1 varchar2(255),
+	agent_status_date_1 varchar2(255),
+	agent_status_2 varchar2(255),
+	agent_status_date_2 varchar2(255),
+	requires_admin_override number
 	);
 	
 	
-	alter table ds_temp_agent add requires_admin_override number;
 	
 create public synonym ds_temp_agent for ds_temp_agent;
 grant all on ds_temp_agent to coldfusion_user;
@@ -65,28 +75,52 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 	<a href="/info/ctDocumentation.cfm?table=ctagent_type">Valid agent types</a>
 	<div id="template">
 		<label for="t">Copy and save as a .csv file</label>
-		<textarea rows="2" cols="80" id="t">agent_type,preferred_name,first_name,middle_name,last_name,birth_date,death_date,prefix,suffix,other_name_1,other_name_type_1,other_name_2,other_name_type_2,other_name_3,other_name_type_3,agent_remark</textarea>
+		<textarea rows="2" cols="80" id="t">agent_type,preferred_name,other_name_1,other_name_type_1,other_name_2,other_name_type_2,other_name_3,other_name_type_3,other_name_4,other_name_type_4,other_name_5,other_name_type_5,other_name_6,other_name_type_6,agent_status_1,agent_status_date_1,agent_status_2,agent_status_date_2,agent_remark</textarea>
 	</div> 
-	<p></p>	
-	Columns in <span style="color:red">red</span> are required; others are optional:
-	<ul>
-		<li style="color:red">agent_type</li>
-		<li style="color:red">preferred_name</li>
-		<li>first_name (agent_type="person" only)</li>
-		<li>middle_name (agent_type="person" only)</li>
-		<li style="color:red">last_name (agent_type="person" only)</li>
-		<li>birth_date (agent_type="person" only; format 1-Jan-2000)</li>
-		<li>death_date (agent_type="person" only; format 1-Jan-2000)</li>
-		<li>agent_remark</li>
-		<li>prefix (agent_type="person" only)</li>
-		<li>suffix (agent_type="person" only)</li>
-		<li>other_name_1</li>
-		<li>other_name_type_1</li>
-		<li>other_name_2</li>
-		<li>other_name_type_2</li>
-		<li>other_name_3</li>
-		<li>other_name_type_3</li>	 
-	</ul>
+	<p>
+		<table border>
+			<tr>
+				<th>Column</th>
+				<th>Required</th>
+				<th>Doc</th>
+			</tr>
+			<tr>
+				<td>agent_type</td>
+				<td>yes</td>
+				<td><a href="/info/ctDocumentation.cfm?table=CTAGENT_TYPE">CTAGENT_TYPE</a></td>
+			</tr>
+			<tr>
+				<td>preferred_name</td>
+				<td>yes</td>
+				<td><a href="http://arctosdb.org/documentation/agent/#names">http://arctosdb.org/documentation/agent/#names</a></td>
+			</tr>
+			<tr>
+				<td>other_name_n</td>
+				<td>no</td>
+				<td><a href="http://arctosdb.org/documentation/agent/#names">http://arctosdb.org/documentation/agent/#names</a></td>
+			</tr>
+			<tr>
+				<td>other_name_type_n</td>
+				<td>if other_name_n is given</td>
+				<td><a href="/info/ctDocumentation.cfm?table=CTAGENT_NAME_TYPE">/info/ctDocumentation.cfm?table=CTAGENT_NAME_TYPE</a></td>
+			</tr>
+			<tr>
+				<td>agent_status_n</td>
+				<td>no</td>
+				<td><a href="/info/ctDocumentation.cfm?table=CTagent_status">/info/ctDocumentation.cfm?table=CTagent_status</a></td>
+			</tr>
+			<tr>
+				<td>agent_status_date_n</td>
+				<td>if agent_status_n is given</td>
+				<td><a href="http://arctosdb.org/documentation/dates/">http://arctosdb.org/documentation/dates/</a></td>
+			</tr>
+			<tr>
+				<td>agent_remark</td>
+				<td>no</td>
+				<td><a href="http://arctosdb.org/documentation/agent/#agent_remark">http://arctosdb.org/documentation/agent/#agent_remark</a></td>
+			</tr>
+		</table>
+	</p>
 	
 	
 	<cfform name="atts" method="post" enctype="multipart/form-data">
@@ -141,22 +175,14 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 <cfif action is "validate">
 <script src="/includes/sorttable.js"></script>
 <cfoutput>
+
+	<cfset obj = CreateObject("component","component.functions")>
+
+
+
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_agent
 	</cfquery>
-	
-	
-	
-	<cfquery name="p" dbtype="query">
-		select distinct(agent_type) agent_type from d
-	</cfquery>
-	<cfif valuelist(p.agent_type) is not "person">
-		<div class="error">Sorry, we can only deal with agent type=person here.</div>
-		<cfabort>
-	</cfif>
-	
-	
-	
 	<cfquery name="rpn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from ds_temp_agent where preferred_name is null
 	</cfquery>
@@ -164,8 +190,6 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<div class="error">Preferred name is required for every agent.</div>
 		<cfabort>
 	</cfif>
-	
-	
 	
 	<cfquery name="ont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select nt from (
@@ -191,6 +215,16 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<cfabort>
 	</cfif>
 	
+	
+	
+	
+	<cfquery name="p" dbtype="query">
+		select count(*) c from d where agent_type not in (select agent_type from ctagent_type)
+	</cfquery>
+	<cfif valuelist(p.c) is not 0>
+		<div class="error">invalid agent type</div>
+		<cfabort>
+	</cfif>
 	
 	
 	<cfquery name="ctont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -225,30 +259,33 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 	
 	<table border id="theTable" class="sortable">
 		<tr>
-			<th>preferred_name</th>
-			<th>Status</th>
-			<th>first_name</th>
-			<th>middle_name</th>
-			<th>last_name</th>
-			<th>prefix</th>
-			<th>suffix</th>
-			<th>aka_1</th>
-			<th>aka_2</th>
-			<th>aka_3</th>
 			<th>agent_type</th>
-			<th>birth_date</th>
-			<th>death_date</th>
-			<th>Remark</th>
+			<th>preferred_name</th>
+			<th>other_name_type_1</th>
+			<th>other_name_1</th>
+			<th>other_name_type_2</th>
+			<th>other_name_2</th>
+			<th>other_name_type_3</th>
+			<th>other_name_3</th>
+			<th>other_name_type_4</th>
+			<th>other_name_4</th>
+			<th>other_name_type_5</th>
+			<th>other_name_5</th>
+			<th>other_name_type_6</th>
+			<th>other_name_6</th>
+			<th>agent_status_1</th>
+			<th>agent_status_date_1</th>
+			<th>agent_status_2</th>
+			<th>agent_status_date_2</th>
+			<th>agent_remark</th>
+			<th>suggestions</th>
 		</tr>
-		<cfset regexStripJunk='[ .,-]'>
-		
-		
 		<cfset fileDir = "#Application.webDirectory#">
 		<cfset variables.encoding="UTF-8">
 		<cfset fname = "agent_bulk_down.csv">
 		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-		
-		<cfset clist='agent_type,preferred_name,first_name,middle_name,last_name,birth_date,death_date,prefix,suffix,other_name_1,other_name_type_1,other_name_2,other_name_type_2,other_name_3,other_name_type_3,agent_remark,suggestions'>
+
+		<cfset clist='agent_type,preferred_name,other_name_1,other_name_type_1,other_name_2,other_name_type_2,other_name_3,other_name_type_3,other_name_4,other_name_type_4,other_name_5,other_name_type_5,other_name_6,other_name_type_6,agent_status_1,agent_status_date_1,agent_status_2,agent_status_date_2,agent_remark,suggestions'>
 		<cfset autoColList=listdeleteat(clist,listfindnocase(clist,'suggestions'))>
 			
 		<cfscript>
@@ -259,98 +296,37 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 	
 		<cfset hasProbs=false>
 		
-		<!---- random list of things that people have loaded as persons. Expect some false positives - sorray! ---->
-		<cfset disallowPersons="Animal">
-		<cfset disallowPersons=disallowPersons & ",Class">
-		<cfset disallowPersons=disallowPersons & ",Ecology">
-		<cfset disallowPersons=disallowPersons & ",Group,Growth">
-		<cfset disallowPersons=disallowPersons & ",Hospital">
-		<cfset disallowPersons=disallowPersons & ",illegible">
-		<cfset disallowPersons=disallowPersons & ",Lab">
-		<cfset disallowPersons=disallowPersons & ",Museum">
-		<cfset disallowPersons=disallowPersons & ",National">
-		<cfset disallowPersons=disallowPersons & ",Old">
-		<cfset disallowPersons=disallowPersons & ",Rangers,Ranger">
-		<cfset disallowPersons=disallowPersons & ",Predatory,Project,Puffin">
-		<cfset disallowPersons=disallowPersons & ",Sanctuary,Science,Seabird,Society,Study">
-		<cfset disallowPersons=disallowPersons & ",University">
-		<cfset disallowPersons=disallowPersons & ",Zoological,zoo">
-				
-		<!---- 
-			random lists of things may be indicitave of garbage. 
-				disallowWords are " me AND you" but not "ANDy"
-				disallowCharacters are just that "me/you" and me /  you" and ....	
-			Expect some false positives - sorray! 
-		---->
-		<cfset disallowWords="and,or,cat">
-		<cfset disallowCharacters="/,\,&">
-			
 			
 		<cfloop query="d">
-			<cfset strippedUpperFML=ucase(rereplace(d.first_name & d.middle_name & d.last_name,regexStripJunk,"","all"))>
-			<cfset strippedUpperFL=ucase(rereplace(d.first_name & d.last_name,regexStripJunk,"","all"))>
-			<cfset strippedUpperLF=ucase(rereplace(d.last_name & d.first_name,regexStripJunk,"","all"))>
-			<cfset strippedUpperLFM=ucase(rereplace(d.last_name & d.first_name & d.middle_name,regexStripJunk,"","all"))>
-			<cfset strippedP=ucase(rereplace(d.preferred_name,regexStripJunk,"","all"))>
-			<cfset strippedo1=ucase(rereplace(d.other_name_1,regexStripJunk,"","all"))>
-			<cfset strippedo2=ucase(rereplace(d.other_name_2,regexStripJunk,"","all"))>
-			<cfset strippedo3=ucase(rereplace(d.other_name_3,regexStripJunk,"","all"))>
+			<cfset fn="">
+			<cfset mn="">
+			<cfset ln="">
+			
+			<cfloop from="1" to="6" index="i">
+				<cfset thisNameType=evaluate("other_name_type_" & i)>
+				<cfset thisName=evaluate("other_name_" & i)>
+				<cfif thisNameType is "first name">
+					<cfset fn=thisName>
+				<cfelseif thisNameType is "middle name">
+					<cfset mn=thisName>
+				<cfelseif thisNameType is "last name">
+					<cfset ln=thisName>
+				</cfif> 
+			</cfloop>
+			<cfset fnProbs = obj.checkAgent(
+				preferred_name="#preferred_agent_name#",
+				agent_type="#agent_type#",
+				first_name="#fn#",
+				middle_name="#mn#",
+				last_name="#ln#"
+			)>
+			
 				
-			<cfset strippedNamePermutations=strippedUpperFML>
-			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperFL)>
-			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperLF)>
-			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperLFM)>
-			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedP)>
-			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo1)>
-			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo2)>
-			<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedo3)>
-			
-			<!--- stuff we just can't deal with ---->
-			<cfset fatalProblems="">
-			<cfif strippedNamePermutations contains "'">
-				<cfset fatalProblems='This application will not handle agents with apostrophes in their name.'>
-			</cfif>
-			<cfif len(strippedNamePermutations) is 0>
-				<cfset fatalProblems='This application will not handle agents without letters in their name.'>
-			</cfif>
-			
-			<cfloop list="#disallowCharacters#" index="i">
-				<cfif preferred_name contains i>
-					<cfset fatalProblems='This application will not handle agents with #i# in their name.'>
-				</cfif>
-			</cfloop>
-			
-			<cfloop list="#disallowWords#" index="i">
-				<cfif listfind(preferred_name,i," ;,.")>
-					<cfset fatalProblems='This application will not handle agents with #i# in their name.'>
-				</cfif>
-			</cfloop>
 			
 			
 			
+		
 			
-			
-			<cfif agent_type is "person">
-				<cfloop list="#disallowPersons#" index="i">
-					<cfif listfind(preferred_name,i,"() ;,.")>
-						<cfset fatalProblems='This application will not handle person agents with #i# in their name.'>
-					</cfif>
-				</cfloop>
-			</cfif>
-			<!--- try to avoid unnecessary acronyms --->
-			<cfif refind('[A-Z]{3,}',preferred_name) gt 0>
-				<cfset fatalProblems='This application will not handle abbreviations and acronyms.'>
-			</cfif>
-
-			<cfif Compare(ucase(preferred_name), preferred_name) is 0 or Compare(lcase(preferred_name), preferred_name) is 0>
-				<cfset fatalProblems='This application will not preferred name being all upper or lower case.'>
-			</cfif>
-
-			<cfif preferred_name does not contain " ">
-				<cfset fatalProblems='This application will not handle agents without a space in preferred name.'>
-			</cfif>
-			
-			<cfif len(fatalProblems) gt 0>
 				<cfset oneLine = "">
 				<cfloop list="#autoColList#" index="c">
 					<cfset thisData = evaluate("d." & c)>
@@ -361,180 +337,49 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 						<cfset oneLine = '#oneLine#,"#thisData#"'>
 					</cfif>
 				</cfloop>
-				<cfset oneLine=oneLine & ',"FATAL PROBLEM: #fatalProblems#"'>
+				<cfset oneLine=oneLine & ',"#fnProbs#"'>
 				<cfset oneLine = trim(oneLine)>
 				<cfscript>
 					variables.joFileWriter.writeLine(oneLine);
 				</cfscript>
-			<cfelse>
-				<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>	
-				<cfquery name="isdup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select
-				        'agent name match' reason,
-				        #KEY# key,
-				        preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name preferred_agent_name
-					from 
-				        agent_name srch,
-				        preferred_agent_name
-					where 
-				        srch.agent_id=preferred_agent_name.agent_id and
-				        trim(srch.agent_name) in (
-				        	trim('#d.preferred_name#'),
-				        	trim('#d.other_name_1#'),
-				        	trim('#d.other_name_2#'),
-				        	trim('#d.other_name_3#')
-				        )
-				    group by
-				    	preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name,
-				        #key#
-				    union
-				    select
-				    	'first and last name match' reason,
-				    	#KEY# key,
-				        preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name preferred_agent_name
-					from
-						person,
-						preferred_agent_name
-					where
-						person.person_id=preferred_agent_name.agent_id and
-						upper(first_name) = trim(upper('#d.first_name#')) and
-						upper(last_name) = trim(upper('#d.last_name#'))	
-					union 
-					 select
-				        'nodots-nospaces match on person first middle last' reason,
-				    	#KEY# key,
-				        preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name preferred_agent_name
-					from
-						person srch,
-						preferred_agent_name
-					where
-						srch.person_id=preferred_agent_name.agent_id and
-						upper(regexp_replace(srch.first_name || srch.middle_name || srch.last_name ,'#regexStripJunk#', '')) in (
-							#preserveSingleQuotes(strippedNamePermutations)#
-					     )
-					union 
-					 select
-				        'nodots-nospaces match on person first last' reason,
-				    	#KEY# key,
-				        preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name preferred_agent_name
-					from
-						person srch,
-						preferred_agent_name
-					where
-						srch.person_id=preferred_agent_name.agent_id and
-						upper(regexp_replace(srch.first_name || srch.last_name ,'#regexStripJunk#', '')) in (
-							#preserveSingleQuotes(strippedNamePermutations)#
-					     )
-					 UNION
-				    select
-				        'nodots-nospaces match on agent name' reason,
-				        #KEY# key,
-				        preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name preferred_agent_name
-					from 
-				        agent_name srch,
-				        preferred_agent_name
-					where 
-				        srch.agent_id=preferred_agent_name.agent_id and
-				        upper(regexp_replace(srch.agent_name,'#regexStripJunk#', '')) in (
-				        	#preserveSingleQuotes(strippedNamePermutations)#
-				        )
-				    group by
-				    	preferred_agent_name.agent_id, 
-				        preferred_agent_name.agent_name,
-				        #key#
-				</cfquery>
-				<cfif isdup.recordcount is 0>
-					<!--- try last-name match --->
-					<cfquery name="lastnamematch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select
-					    	'last name match' reason,
-					    	#KEY# key,
-					        preferred_agent_name.agent_id, 
-					        preferred_agent_name.agent_name preferred_agent_name
-						from
-							person,
-							preferred_agent_name
-						where
-							person.person_id=preferred_agent_name.agent_id and
-							upper(last_name) = trim(upper('#d.last_name#'))
-						order by preferred_agent_name
-					</cfquery>
-				</cfif>
-				<cfset oneLine = "">
-				<cfloop list="#autoColList#" index="c">
-					<cfset thisData = evaluate("d." & c)>
-					<cfset thisData=replace(thisData,'"','""','all')>
-					<cfif len(oneLine) is 0>
-						<cfset oneLine = '"#thisData#"'>
-					<cfelse>
-						<cfset oneLine = '#oneLine#,"#thisData#"'>
-					</cfif>
-				</cfloop>
-				<cfquery name="uSugPrefName" dbtype="query">
-					select PREFERRED_AGENT_NAME from isdup group by PREFERRED_AGENT_NAME order by PREFERRED_AGENT_NAME
-				</cfquery>
-				<cfset sugnConcat=replace(valuelist(uSugPrefName.PREFERRED_AGENT_NAME,"|"),'"','""','all')>
-				<cfset oneLine=oneLine & ',"#sugnConcat#"'>
-				<cfset oneLine = trim(oneLine)>
-				<cfscript>
-					variables.joFileWriter.writeLine(oneLine);
-				</cfscript>
-			</cfif>
 			<tr id="row_#key#">
+				<td>#agent_type#</td>
 				<td>#preferred_name#</td>
+				<td>#other_name_type_1#</td>
+				<td>#other_name_1#</td>
+				<td>#other_name_type_2#</td>
+				<td>#other_name_2#</td>
+				<td>#other_name_type_3#</td>
+				<td>#other_name_3#</td>
+				<td>#other_name_type_4#</td>
+				<td>#other_name_4#</td>
+				<td>#other_name_type_5#</td>
+				<td>#other_name_5#</td>
+				<td>#other_name_type_6#</td>
+				<td>#other_name_6#</td>
+				<td>#agent_status_1#</td>
+				<td>#agent_status_date_1#</td>
+				<td>#agent_status_2#</td>
+				<td>#agent_status_date_2#</td>
+				<td>#agent_remark#</td>
+				
 				<td nowrap="nowrap" id="suggested__#key#">
 					<div style="overflow:auto;max-height:10em;">
-						<cfif len(fatalProblems) gt 0>
-							FATAL PROBLEM: #fatalProblems#
-						<cfelseif isdup.recordcount gt 0>
-							<cfloop query="isdup">
-								<cfset hasProbs=true>
-								<cfset failedKeyList=listappend(failedKeyList,key)>
-								<div>
-									<a href="/agents.cfm?agent_id=#isdup.AGENT_ID#">#isdup.PREFERRED_AGENT_NAME#</a> (#isdup.REASON#)
-								</div>
-							</cfloop>
-						<cfelseif lastnamematch.recordcount is not 0>
-							ADVISORY: Last name matches found.
-							<cfloop query="lastnamematch">
-								<div>
-									<a href="/agents.cfm?agent_id=#lastnamematch.AGENT_ID#">#lastnamematch.PREFERRED_AGENT_NAME#</a>
-								</div>
+						<cfif len(fnProbs) gt 0>
+							<cfset hasProbs=true>
+							<cfset failedKeyList=listappend(failedKeyList,key)>
+							<cfloop list="#fnProbs#" index="p" delimiters=";">
+								<li>
+									#p#
+								</li>
 							</cfloop>
 						</cfif>
 					</div>
 				</td>
-				<td>#first_name#&nbsp;</td>
-				<td>#middle_name#&nbsp;</td>
-				<td>#last_name#&nbsp;</td>
-				<td>#prefix#&nbsp;</td>
-				<td>#suffix#&nbsp;</td>
-				<td>
-					<cfif len(other_name_1) gt 0>
-						#other_name_1# (#other_name_type_1#)
-					</cfif>
-				</td>
-				<td>
-					<cfif len(other_name_2) gt 0>
-						#other_name_2# (#other_name_type_2#)
-					</cfif>
-				</td>
-				<td>
-					<cfif len(other_name_3) gt 0>
-						#other_name_3# (#other_name_type_3#)
-					</cfif>
-				</td>
-				<td>#agent_type#</td>
-				<td>#birth_date#&nbsp;</td>
-				<td>#death_date#&nbsp;</td>
-				<td nowrap="nowrap">#agent_remark#</td>
-			</tr>
+				
+		</tr>
+		
+		
 		</cfloop>
 	</table>
 	<cfscript>	
