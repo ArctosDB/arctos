@@ -261,6 +261,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<tr>
 			<th>agent_type</th>
 			<th>preferred_name</th>
+			<th>suggestions</th>
 			<th>other_name_type_1</th>
 			<th>other_name_1</th>
 			<th>other_name_type_2</th>
@@ -278,7 +279,6 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			<th>agent_status_2</th>
 			<th>agent_status_date_2</th>
 			<th>agent_remark</th>
-			<th>suggestions</th>
 		</tr>
 		<cfset fileDir = "#Application.webDirectory#">
 		<cfset variables.encoding="UTF-8">
@@ -345,6 +345,19 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			<tr id="row_#key#">
 				<td>#agent_type#</td>
 				<td>#preferred_name#</td>
+				<td nowrap="nowrap" id="suggested__#key#">
+					<div style="overflow:auto;max-height:10em;">
+						<cfif len(fnProbs) gt 0>
+							<cfset hasProbs=true>
+							<cfset failedKeyList=listappend(failedKeyList,key)>
+							<cfloop list="#fnProbs#" index="p" delimiters=";">
+								<li>
+									#p#
+								</li>
+							</cfloop>
+						</cfif>
+					</div>
+				</td>
 				<td>#other_name_type_1#</td>
 				<td>#other_name_1#</td>
 				<td>#other_name_type_2#</td>
@@ -363,19 +376,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 				<td>#agent_status_date_2#</td>
 				<td>#agent_remark#</td>
 				
-				<td nowrap="nowrap" id="suggested__#key#">
-					<div style="overflow:auto;max-height:10em;">
-						<cfif len(fnProbs) gt 0>
-							<cfset hasProbs=true>
-							<cfset failedKeyList=listappend(failedKeyList,key)>
-							<cfloop list="#fnProbs#" index="p" delimiters=";">
-								<li>
-									#p#
-								</li>
-							</cfloop>
-						</cfif>
-					</div>
-				</td>
+				
 				
 		</tr>
 		
@@ -409,20 +410,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			Be particularly careful of non-person agents (agencies often have many names and acronyms), commonly-changed names (William/Bill, etc.), and "low-quality" agents (J. Smith).
 		</p>
 		<p>
-			FATAL PROBLEM notes prevent proceeding and must be fixed before this application may be used. These are included in the CSV download.
-		</p>
-		<p>
-			Agent name suggestions must be fixed before this application may be used - these are "decent" guesses that demand 
-			more scrutiny. These are included in the CSV download.
-		</p>
-		<p>
-			Agent name guesses preceeded by "ADVISORY" do NOT prevent using this application, and are not included in downloads. Please do
-			check these agents carefully - this is a good place to detect first-name variations in both the data you are trying to load
-			and the data existing in Arctos. There will probably also be some very bad guesses included in this category - just ignore those.
-			Change your data or update the agent in Arctos to use these suggestions.
-		</p>
-		<p>
-			Nothing in the "status" column should never be interpreted as "these data are perfect," but rather consider it an indication that 
+			Nothing (NULL) in the "status" column should never be interpreted as "these data are perfect," but rather consider it an indication that 
 			the name may be horribly mangled either in your data or in existing Arctos data. This is especially true for prolific collectors and authors who
 			have donated specimens to or used specimens from multiple collections.
 		</p>
@@ -476,144 +464,66 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<cfquery name="distrg" datasource="uam_god">
 			alter trigger tr_agent_name_biud disable
 		</cfquery>
-		<cftry>
 			<cftransaction>
 				<cfloop query="d">
 					<br>loading #preferred_name#....
 					<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select sq_agent_id.nextval nextAgentId from dual
 					</cfquery>
-					<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select sq_agent_name_id.nextval nextAgentNameId from dual
-					</cfquery>
-					
-					
-					
-						
 					<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						INSERT INTO agent (
 							agent_id,
 							agent_type,
-							preferred_agent_name_id,
+							PREFERRED_AGENT_NAME,
 							AGENT_REMARKS
 						) VALUES (
 							#agentID.nextAgentId#,
 							'person',
-							#agentNameID.nextAgentNameId#,
+							#preferred_name#,
 							'#trim(d.agent_remark)#'
 							)
-					</cfquery>		
-					<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						INSERT INTO person ( 
-							PERSON_ID
-							,prefix
-							,LAST_NAME
-							,FIRST_NAME
-							,MIDDLE_NAME
-							,SUFFIX,
-							BIRTH_DATE,
-							DEATH_DATE
-						) VALUES (
-							#agentID.nextAgentId#
-							,'#trim(d.prefix)#'
-							,'#trim(d.LAST_NAME)#'
-							,'#trim(d.FIRST_NAME)#'
-							,'#trim(d.MIDDLE_NAME)#'
-							,'#trim(d.SUFFIX)#'
-							,'#trim(d.birth_date)#'
-							,'#trim(d.death_date)#'
-						)
 					</cfquery>
-					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						INSERT INTO agent_name (
-							agent_name_id,
-							agent_id,
-							agent_name_type,
-							agent_name,
-							donor_card_present_fg
-						) VALUES (
-							#agentNameID.nextAgentNameId#,
-							#agentID.nextAgentId#,
-							'preferred',
-							'#trim(d.preferred_name)#',
-							0
-						)
-					</cfquery>
-				<!--- stoopid trigger workaround to have preferred name <cftransaction action="commit">--->
-					<cfif len(d.other_name_1) gt 0>
-						<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							INSERT INTO agent_name (
-								agent_name_id,
-								agent_id,
-								agent_name_type,
-								agent_name,
-								donor_card_present_fg
-							) VALUES (
-								sq_agent_name_id.nextval,
-								#agentID.nextAgentId#,
-								'#d.other_name_type_1#',
-								'#trim(d.other_name_1)#',
-								0
-							)
-						</cfquery>
-					</cfif>
-					<cfif len(d.other_name_2) gt 0>
-						<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							INSERT INTO agent_name (
-								agent_name_id,
-								agent_id,
-								agent_name_type,
-								agent_name,
-								donor_card_present_fg
-							) VALUES (
-								sq_agent_name_id.nextval,
-								#agentID.nextAgentId#,
-								'#d.other_name_type_2#',
-								'#trim(d.other_name_2)#',
-								0
-							)
-						</cfquery>
-					</cfif>
-					<cfif len(d.other_name_3) gt 0>
-						<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							INSERT INTO agent_name (
-								agent_name_id,
-								agent_id,
-								agent_name_type,
-								agent_name,
-								donor_card_present_fg
-							) VALUES (
-								sq_agent_name_id.nextval,
-								#agentID.nextAgentId#,
-								'#d.other_name_type_3#',
-								'#trim(d.other_name_3)#',
-								0
-							)
-						</cfquery>
-					</cfif>
-				</cfloop>
-			</cftransaction>
-			<cfquery name="distrg" datasource="uam_god">
-				alter trigger tr_agent_name_biud enable
-			</cfquery>
-		<cfcatch>
-				
-			<cfquery name="distrg" datasource="uam_god">
-				alter trigger tr_agent_name_biud enable
-			</cfquery>
-			
-			There was a problem loading.
-			
-			Everything has been rolled back. Exception dump follows:
-			<cfdump var=#cfcatch#>
-		
-			
-			<cfabort>
-		</cfcatch>
-		</cftry>
-		
-		
-	
+					
+					<cfloop from="1" to="6" index="i">
+						<cfset thisNameType=evaluate("other_name_type_" & i)>
+						<cfset thisName=evaluate("other_name_" & i)>
+						<cfif LEN(thisNameType) GT 0 AND LEN(thisName) GT 0>
+							<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								INSERT INTO agent_name (
+									agent_name_id,
+									agent_id,
+									agent_name_type,
+									agent_name
+								) VALUES (
+									SQ_AGENT_NAME_ID.NEXTVAL,
+									#agentID.nextAgentId#,
+									'thisNameType',
+									'#trim(thisName)#'
+								)
+							</cfquery>
+						</cfif> 
+					</cfloop>
+					<cfloop from="1" to="2" index="i">
+						<cfset thisStatus=evaluate("agent_status_" & i)>
+						<cfset thisSDate=evaluate("agent_status_date_" & i)>
+						<cfif LEN(thisStatus) GT 0 AND LEN(thisSDate) GT 0>
+							<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								INSERT INTO AGENT_STATUS (
+									AGENT_STATUS_ID,
+									agent_id,
+									AGENT_STATUS,
+									STATUS_DATE
+								) VALUES (
+									SQ_AGENT_STATUS_ID.NEXTVAL,
+									#agentID.nextAgentId#,
+									'thisStatus',
+									'#thisSDate#'
+								)
+							</cfquery>
+						</cfif>
+					</cfloop>
+					
+				</cftransaction>
 			
 			
 	</cfoutput>
