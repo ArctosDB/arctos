@@ -34,6 +34,64 @@
 		<cfset creator="">
 		<cfset title="">
 		<cfset publisher="">
+		
+		<cfset ctinst=querynew("inst")>
+		<cfset thisRow=1>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset QuerySetCell(ctinst, "inst", "University of Alaska Museum",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "Museum of Southwestern Biology",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "Museum of Vertebrate Zoology",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "College of the Atlantic",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "Denver Museum of Nature and Science",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "Harold W. Manter Laboratory of Parasitology",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "Kenai National Wildlife Refuge",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "Western New Mexico University",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "Kenelm W. Philip lepidoptera collection",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "University of Wyoming",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "Occidental College",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "U. S. National Parasite Collection",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "Northern Michigan University",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "University of Washington",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "University of Utah",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "",thisRow)>
+		<cfset queryaddrow(ctinst,1)>
+		<cfset thisRow = thisRow + 1>
+		<cfset QuerySetCell(ctinst, "inst", "",thisRow)>
+			
+		<cfquery name="octinst" dbtype="query">
+			select inst from ctinst group by inst order by inst
+		</cfquery>	
+			
 		<cfif isdefined("media_id") and len(media_id) gt 0>
 			<cfquery name="alreadyGotOne" datasource="uam_god">
 				select doi from doi where media_id=#media_id#
@@ -191,61 +249,7 @@
 			<cfelse>
 				<cfset resourcetype="Event">
 			</cfif>
-			<cfset ctinst=querynew("inst")>
-			<cfset thisRow=1>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset QuerySetCell(ctinst, "inst", "University of Alaska Museum",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "Museum of Southwestern Biology",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "Museum of Vertebrate Zoology",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "College of the Atlantic",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "Denver Museum of Nature and Science",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "Harold W. Manter Laboratory of Parasitology",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "Kenai National Wildlife Refuge",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "Western New Mexico University",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "Kenelm W. Philip lepidoptera collection",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "University of Wyoming",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "Occidental College",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "U. S. National Parasite Collection",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "Northern Michigan University",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "University of Washington",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "University of Utah",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "",thisRow)>
-			<cfset queryaddrow(ctinst,1)>
-			<cfset thisRow = thisRow + 1>
-			<cfset QuerySetCell(ctinst, "inst", "",thisRow)>
-			<cfquery name="octinst" dbtype="query">
-				select inst from ctinst group by inst order by inst
-			</cfquery>
+		
 			<cfif d.institution_acronym is "UAM" or d.institution_acronym is "UAMObs" or d.institution_acronym is "UAMb">
 				<cfset publisher='University of Alaska Museum'>
 			<cfelseif d.institution_acronym is "MSB" or d.institution_acronym is "DGR" or d.institution_acronym is "MSBObs">
