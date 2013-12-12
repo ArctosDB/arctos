@@ -314,11 +314,6 @@
 			$('input[type=datetime]').datepicker();
 		});
 	</script>
-
-
-
-
-
 	<cfif not isdefined("agent_id") OR agent_id lt 0 >
 		<cfabort>
 	</cfif>
@@ -362,6 +357,9 @@
 		        collector.agent_id=#agent_id#
 		      group by
 		        collection
+		       order by
+		       	numSpecs,
+		       	collection
 		</cfquery>
 		<label for="tblCollActivity">Collecting Activity</label>
 		<table border>
