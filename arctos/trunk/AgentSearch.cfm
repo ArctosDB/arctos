@@ -8,6 +8,11 @@
 <cfquery name="ctagent_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select agent_status from ctagent_status order by agent_status
 </cfquery>
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#status_date").datepicker();
+	});
+</script>
 <!---
  <a href="javascript:void(0);"
  	onClick="getDocs('agent'); return false;"
