@@ -476,7 +476,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 						) VALUES (
 							#agentID.nextAgentId#,
 							'person',
-							#preferred_name#,
+							'#escapeQuotes(preferred_name)#',
 							'#trim(d.agent_remark)#'
 							)
 					</cfquery>
@@ -495,7 +495,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 									SQ_AGENT_NAME_ID.NEXTVAL,
 									#agentID.nextAgentId#,
 									'thisNameType',
-									'#trim(thisName)#'
+									'#escapeQuotes(trim(thisName))#'
 								)
 							</cfquery>
 						</cfif> 
