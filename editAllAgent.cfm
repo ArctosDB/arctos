@@ -397,6 +397,7 @@
 			<tr class="newRec">
 				<form name="status" method="post" action="editAllAgent.cfm">
 					<input type="hidden" name="action" value="newStatus">
+					<input type="hidden" name="agent_id" value="#agent_id#">
 					<td>
 						<select name="agent_status" size="1">
 							<option value=""></option>
@@ -418,6 +419,8 @@
 			<tr>
 				<form name="status#agent_status_id#" method="post" action="editAllAgent.cfm">
 					<input type="hidden" name="action">
+					<input type="hidden" name="agent_status_id" value="#agent_status_id#">
+					<input type="hidden" name="agent_id" value="#agent_id#">
 					<td>
 						<select name="agent_status" size="1">
 							<option value=""></option>
@@ -759,6 +762,51 @@
 			</div>
 	</cfoutput>
 </cfif>
+<!------------------------------------------------------------------------------------------------------------->
+<cfif action is "updateStatus">
+	<cfoutput>
+		<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update agent_status 
+			set
+			AGENT_STATUS='#AGENT_STATUS#',
+				STATUS_DATE='#STATUS_DATE#',
+				STATUS_REMARK='#status_remark#'
+			where AGENT_STATUS_ID=#AGENT_STATUS_ID#
+		</cfquery>
+		<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
+	</cfoutput>
+</cfif>
+
+<!------------------------------------------------------------------------------------------------------------->
+<cfif action is "deleteStatus">
+	<cfoutput>
+		<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from  agent_status where agent_status_id=#agent_status_id#
+		</cfquery>
+		<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------------------------------------->
+<cfif action is "newStatus">
+	<cfoutput>
+		<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into agent_status (
+				AGENT_STATUS_ID,
+				AGENT_ID,
+				AGENT_STATUS,
+				STATUS_DATE,
+				STATUS_REMARK
+			) values (
+				sq_	AGENT_STATUS_ID.nextval,
+				#agent_id#,
+				'#agent_status#',
+				'#status_date#',
+				'#status_remark#'
+			)
+		</cfquery>
+		<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
+	</cfoutput>
+</cfif>			
 <!------------------------------------------------------------------------------------------------------------->
 <cfif #Action# is "editElecAddr">
 	<cfoutput>
