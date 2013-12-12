@@ -64,7 +64,26 @@
 	<cfset sql = "#sql# AND agent.agent_id IN (
 			select agent_id from addr where upper(formatted_addr) like '%#ucase(address)#%')">
 </cfif>
+<cfif isdefined("agent_name_type") AND len(agent_name_type) gt 0>
+	<cfset sql = "#sql# AND agent_name_type='#agent_name_type#'">
+</cfif>	
+<cfif isdefined("agent_name") AND len(agent_name) gt 0>
+	<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#ucase(escapeQuotes(agent_name))#%'">
+</cfif>	
 
+	<div style="border:2px solid green;">
+				<label for="agent_name_type">Agent Name Type (pairs with name below)</label>
+				<select name="agent_name_type" size="1" id="agent_name_type">
+					<option value=""></option>
+					<cfloop query="ctagent_name_type">
+						<option value="#agent_name_type#">#agent_name_type#</option>
+					</cfloop>
+				</select>
+				<label for="">Agent Name (pairs with type above)</label>
+				<input type="text" name="agent_name" id="agent_name" size="50">
+				
+				
+				
 <cfset sql = "#sql# GROUP BY  agent.agent_id,
 					agent.preferred_agent_name,
 					agent.agent_type">
