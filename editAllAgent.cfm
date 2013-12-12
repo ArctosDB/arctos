@@ -1240,7 +1240,6 @@
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif action is "saveAgentEdits">
 	<cfoutput>
-		<cftransaction>
 			<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				UPDATE agent SET 
 					agent_remarks = '#agent_remarks#',
@@ -1249,7 +1248,6 @@
 				WHERE
 					agent_id = #agent_id#
 			</cfquery>
-		</cftransaction>
 		<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
 	</cfoutput>
 </cfif>
