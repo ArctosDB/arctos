@@ -522,6 +522,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 							</cfquery>
 						</cfif>
 					</cfloop>
+					</cfloop>
 					
 				</cftransaction>
 			
