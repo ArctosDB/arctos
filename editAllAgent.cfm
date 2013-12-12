@@ -482,8 +482,8 @@
 							<span style="font-size:x-small;">reported by #reported_by# on #STATUS_REPORTED_DATE#</span>
 						</td>
 						<td>
-							<input type="button" value="delete" class="delBtn" onclick="status#agent_status_id#.action.value='deleteStatus';status#agent_status_id#.submit();">
 							<input type="button" value="update" class="savBtn" onclick="status#agent_status_id#.action.value='updateStatus';status#agent_status_id#.submit();">
+							<input type="button" value="delete" class="delBtn" onclick="status#agent_status_id#.action.value='deleteStatus';confirmDelete('status#agent_status_id#');">
 						</td>
 					</form>
 				</tr>
