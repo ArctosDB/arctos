@@ -89,7 +89,6 @@ colorbox.close();
 		</script>
 	<cfelse>
 	<span onclick="closethis()">closething</span>
-	$("#a").val('a val');
 	<!----
 	
 	
