@@ -3,6 +3,7 @@
 		select
 			preferred_agent_name,
 			agent_name,
+			agent_type,
 			agent_name_type
 		from 
 			agent,
@@ -44,8 +45,9 @@
 		<cfsavecontent variable="response">
 			<div position="relative">
 				<span class="docControl" onclick="removeHelpDiv()">X</span>
-				<div class="docTitle">Names & Relations: #pan.preferred_agent_name#</div>
+				<div class="docTitle">Names & Relations</div>
 				<div class="docDef">
+					#pan.preferred_agent_name# (agent type: #d.agent_type#)
 					Names
 					<ul>
 						<cfloop query="d">
