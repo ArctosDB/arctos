@@ -1,14 +1,14 @@
 
 <cfinclude template="/includes/_header.cfm">
 
-    <script src="/includes/jquery.bpopup.min.js"></script>
+    <script src="/includes/jquery.colorbox-min.js"></script>
+        <link rel="stylesheet" href="/includes/colorbox.css" />
 
-<script>
-  $('element_to_pop_up').bPopup({
-            contentContainer:'.content',
-            loadUrl: 'test.html' //Uses jQuery.load()
-        });
-</script>
-				<span class="button small pop2" data-bpopup='{"contentContainer":".content","loadUrl":"/picks/agentPick.cfm"}'>Pop it up</span>
+        <script>
+            jQuery(document).ready(function () {
+                jQuery('a.gallery').colorbox({ opacity:0.5 , rel:'group1' });
 
-
+				$(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+            });
+        </script>
+   		<p><a class='iframe' href="http://wikipedia.com">Outside Webpage (Iframe)</a></p>
