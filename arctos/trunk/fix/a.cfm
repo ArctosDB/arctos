@@ -41,7 +41,8 @@
     <script src="/includes/jquery.popupoverlay.js"></script>
 
 
-
+   <!-- Bootstrap styles -->
+    <link rel="stylesheet" href="/includes/bootstrap.min.css" />
 <div class="container">
 
     <section class="col-md-10 col-md-offset-1">
