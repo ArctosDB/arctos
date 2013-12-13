@@ -33,7 +33,7 @@ Agent Search
 			</td>
 			<td>
 				<label for="agent_id">AgentID</label>
-				<input type="text" name="agent_id" size="6" id="agent_id">
+				<input type="text" name="agent_id" size="12" id="agent_id">
 			</td>
 		</tr>
 	</table>
@@ -60,7 +60,7 @@ Agent Search
 			</td>
 			<td>
 				<label for="status_date">Status Date</label>
-				<input type="text" size="6" name="status_date" id="status_date" size="15">
+				<input type="text" name="status_date" id="status_date" size="15">
 			</td>
 		</tr>
 	</table>
