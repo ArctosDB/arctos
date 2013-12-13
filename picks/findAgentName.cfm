@@ -60,11 +60,9 @@
 		<cfif getAgentId.recordcount is 0>
 			Nothing matched #agentname#.
 			<cfif listfindnocase(session.roles,"manage_agents")>
-				<cfset np=rdurl & "&action=newPerson">
-				<cfset no=rdurl & "&action=newOtherAgent">
+				<cfset np=rdurl & "&action=newAgent">
 				<br>If you're really sure that agent doesn't exist, you can	create a
-				<br><a href="#np#">new person</a> or a 
-				<br><a href="#no#">new non-person agent.</a>
+				<br><a href="#np#">new Agent</a>. Don't make duplicates!</a>
 			</cfif>
 		<cfelse>
 			<cfset i=0>

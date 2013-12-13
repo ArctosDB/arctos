@@ -345,9 +345,20 @@ END;
 						agent_id = #bads.agent_id#
 					</cfquery>
 					got publication_agent<br><cfflush>
-					<!----
-					
-					---->
+				
+				
+				
+					<cfquery name="agent_status" datasource="uam_god">
+						update agent_status set
+						agent_id = #bads.related_agent_id# where
+						agent_id = #bads.agent_id#
+					</cfquery>
+					got agent_status<br><cfflush>
+				
+			
+
+
+
 					<cfquery name="related" datasource="uam_god">
 						DELETE FROM agent_relations WHERE agent_id = #bads.agent_id# OR related_agent_id = #bads.agent_id#
 					</cfquery>
@@ -362,10 +373,6 @@ END;
 					del agntname<br><cfflush>
 					
 					
-					<cfquery name="killperson" datasource="uam_god">
-						DELETE FROM person WHERE person_id = #bads.agent_id#
-					</cfquery>
-					del person<br><cfflush>
 					<cfquery name="killagent" datasource="uam_god">
 						DELETE FROM agent WHERE agent_id = #bads.agent_id#
 					</cfquery>
