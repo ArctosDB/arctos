@@ -102,9 +102,9 @@
 					CONTACT_AGENT_ID
 				from
 					collection_contacts,
-					person
+					agent
 				where
-				CONTACT_AGENT_ID=person_id and
+				CONTACT_AGENT_ID=agent.agent_id and
 				collection_id=#collection_id#
 			</cfquery>
 			<cfloop query="contacts">
