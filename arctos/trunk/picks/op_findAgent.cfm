@@ -79,14 +79,28 @@ op_ is called as an iframe in a colorbox
 			</cfif>
 
 		</cfoutput>
-		
+		<script>
+			function closeThis() {
+				$("#a").val('a val');
+$("#b").val('b val');
+colorbox.close();
+
+			}
+		</script>
 	<cfelse>
+	<span onclick="closethis()">closething</span>
+	$("#a").val('a val');
+	<!----
+	
+	
+	
 		<cfoutput query="getAgentId">
 		<br>
 		<cfset thisName = #replace(agent_name,"'","\'","all")#>
-		<a href="##" onClick="javascript: opener.document.#formName#.#agentIdFld#.value='#agent_id#';opener.document.#formName#.#agentNameFld#.value='#thisName#';opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';self.close();">#agent_name# (#agent_id#)</a>
+		<a href="##" onClick="javascript: #formName#.#agentIdFld#.value='#agent_id#';#formName#.#agentNameFld#.value='#thisName#';opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';self.close();">#agent_name# (#agent_id#)</a>
 		<span class="infoLink" onclick="getAgentInfo(#agent_id#);">[ more info ]</span>
 	</cfoutput>
+	---->
 	</cfif>
 </cfif>
 <cfif #action# is "createAgent">
