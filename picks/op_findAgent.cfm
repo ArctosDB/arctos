@@ -81,7 +81,7 @@ op_ is called as an iframe in a colorbox
 		</cfoutput>
 		
 	<cfelse>
-	<span onclick="pushToParent('a','x','b','y');">closething</span>
+	<span onclick="parent.pushToParent('a','x','b','y');">closething</span>
 	<!----
 	
 	

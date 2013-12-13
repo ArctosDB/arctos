@@ -27,7 +27,7 @@ var viewport = {
 function pushToParent (teid,tv,ieid,idv){
 	$("#" + teid).val(tv);
 	$("#" + ieid).val(idv);
-	$.colorbox.close();
+	$colorbox.close();
 	
 }
 function checkCSV(obj) {
