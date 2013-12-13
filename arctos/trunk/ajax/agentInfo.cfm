@@ -45,7 +45,7 @@
 		order by agent_name
 	</cfquery>
 	
-	
+	<cfoutput>
 	<cfsavecontent variable="x">
 		Names
 		<ul>
@@ -78,7 +78,7 @@
 	
 	</cfsavecontent>
 	
-	
+	</cfoutput>
 	
 	
 	
