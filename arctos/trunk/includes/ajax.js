@@ -25,14 +25,6 @@ var viewport = {
        }
    };
 
-function closethis(a,b) {
-
-		$("#a").val(a);
-		$("#b").val(b);
-		$.colorbox.close();
-
-	}
-
 function checkCSV(obj) {
     var filePath = obj.value;
     var ext = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();

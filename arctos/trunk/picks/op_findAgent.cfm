@@ -79,9 +79,14 @@ op_ is called as an iframe in a colorbox
 			</cfif>
 
 		</cfoutput>
-		
+		<script>
+		function pushBack(a,b) {
+parent.$("#a").val('i am a');
+parent.$("#b").val('me b b');
+$.colorbox.close();
+</script>
 	<cfelse>
-	<span onclick="parent.closethis('aaa','bbbbb');">closething</span>
+	<span onclick="pushBack();">closething</span>
 	<!----
 	
 	
