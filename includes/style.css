@@ -536,6 +536,15 @@ label.badPickLbl {
 	padding:.1em;
 	z-index:2001;
 }
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -100px;
+}
+
 .sscustomBox {
 	border:3px solid green;
 	padding:.5em;
