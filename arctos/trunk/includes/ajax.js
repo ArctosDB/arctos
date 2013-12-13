@@ -641,24 +641,25 @@ function changedisplayRows (tgt) {
 		}
 	);
 }
-function getAgentInfo(agent_id) {
-	removeHelpDiv();
-	var bgDiv = document.createElement('div');
-	bgDiv.id = 'bgDiv';
-	bgDiv.className = 'bgDiv';
-	bgDiv.setAttribute('onclick','removeHelpDiv()');
-	document.body.appendChild(bgDiv);
-	var theDiv = document.createElement('div');
-	theDiv.id = 'helpDiv';
-	theDiv.className = 'helpBox';
-	theDiv.innerHTML='<br>Loading...';
-	document.body.appendChild(theDiv);
-	jQuery("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-	jQuery(theDiv).load("/ajax/agentInfo.cfm",{agent_id: agent_id, addCtl: 1});
-}
+
 
 
 jQuery(document).ready(function() {
+	function getAgentInfo(agent_id) {
+		removeHelpDiv();
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','removeHelpDiv()');
+		document.body.appendChild(bgDiv);
+		var theDiv = document.createElement('div');
+		theDiv.id = 'helpDiv';
+		theDiv.className = 'helpBox';
+		theDiv.innerHTML='<br>Loading...';
+		document.body.appendChild(theDiv);
+		jQuery("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
+		jQuery(theDiv).load("/ajax/agentInfo.cfm",{agent_id: agent_id, addCtl: 1});
+	}
 	jQuery(".helpLink").live('click', function(e){
 		var id=this.id;
 		removeHelpDiv();
