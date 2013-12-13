@@ -51,7 +51,7 @@ Agent Search
 				</select>
 			</td>
 			<td>
-				<label for="status_date_oper"> </label>
+				<label for="status_date_oper">date match type</label>
 				<select name="status_date_oper" size="1" id="status_date_oper">
 					<option value="<=">Before</option>
 					<option selected value="=" >At</option>
