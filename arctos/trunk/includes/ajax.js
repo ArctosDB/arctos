@@ -653,7 +653,7 @@ function getAgentInfo(agent_id) {
 	var theDiv = document.createElement('div');
 	theDiv.id = 'helpDiv';
 	theDiv.className = 'helpBox centered';
-	theDiv.innerHTML='<br>Loading...';
+	theDiv.innerHTML='<img src="/images/indicator.gif">';
 	document.body.appendChild(theDiv);
 	//jQuery("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 	jQuery(theDiv).load("/ajax/agentInfo.cfm",{agent_id: agent_id, addCtl: 1});
