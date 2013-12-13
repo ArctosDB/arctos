@@ -46,7 +46,7 @@ onShow:  loadInIframeModal
 </script>
 
 
-<span onclick="jqm():"> jqm() </span>
+<span onclick="jqm();"> jqm() </span>
 <div id="modalWindow" class="jqmWindow">
         <div id="jqmTitle">
             <button class="jqmClose">
