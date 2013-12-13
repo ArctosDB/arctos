@@ -12,7 +12,9 @@
             });
 
 
-			function closeThis() {
+			function closethis() {
+			console.log('closing');
+
 				$("#a").val('a val');
 				$("#b").val('b val');
 				$.colorbox.close();
