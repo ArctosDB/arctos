@@ -58,13 +58,13 @@
 		
 			<ul>
 		<cfloop query="agent_relations">
-			<li>#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
+			<li>#AGENT_RELATIONSHIP# <a href="/info/agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
 		</cfloop>
 	</ul>
 	
 	<ul>
 		<cfloop query="r_agent_relations">
-			<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
+			<li><a href="/info/agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
 		</cfloop>
 	</ul>
 	
@@ -72,7 +72,7 @@
 	
 	<ul>
 		<cfloop query="group_member">
-			<li><a href="agentActivity.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
+			<li><a href="/info/agentActivity.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
 		</cfloop>
 	</ul>		
 	
