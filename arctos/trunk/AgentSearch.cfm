@@ -39,52 +39,62 @@ Agent Search
 	</table>
 	<label for="address"><a href="javascript:void(0);" onClick="getDocs('agent','address')">Address</a></label>
 	<input type="text" name="address" id="address" size="75">
-			<label for="agent_status">Agent Status</label>
-			<select name="agent_status" size="1" id="agent_status">
-				<option value=""></option>
-				<cfloop query="ctagent_status">
-					<option value="#agent_status#">#agent_status#</option>
-				</cfloop>
-			</select>
-			
-			<label for="status_date">
-				Status Date
-			</label>
-			<select name="status_date_oper" size="1" id="status_date_oper">
-				<option value="<=">Before</option>
-				<option selected value="=" >Is</option>
-				<option value=">=">After</option>
-			</select>
-			<input type="text" size="6" name="status_date" id="status_date">
-			
-			
-	
-			<div style="border:2px solid green;">
-				<label for="agent_name_type">Agent Name Type (pairs with name below)</label>
+	<table>
+		<tr>
+			<td>
+				<label for="agent_status">Agent Status</label>
+				<select name="agent_status" size="1" id="agent_status">
+					<option value=""></option>
+					<cfloop query="ctagent_status">
+						<option value="#agent_status#">#agent_status#</option>
+					</cfloop>
+				</select>
+			</td>
+			<td>
+				<label for="status_date_oper"> </label>
+				<select name="status_date_oper" size="1" id="status_date_oper">
+					<option value="<=">Before</option>
+					<option selected value="=" >At</option>
+					<option value=">=">After</option>
+				</select>
+			</td>
+			<td>
+				<label for="status_date">Status Date</label>
+				<input type="text" size="6" name="status_date" id="status_date" size="15">
+			</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<td>
+				<label for="agent_name_type">Agent Name Type</label>
 				<select name="agent_name_type" size="1" id="agent_name_type">
 					<option value=""></option>
 					<cfloop query="ctagent_name_type">
 						<option value="#agent_name_type#">#agent_name_type#</option>
 					</cfloop>
 				</select>
-				<label for="agent_name">Agent Name (pairs with type above)</label>
-				<input type="text" name="agent_name" id="agent_name" size="50">
-				
-			</div>
-			<br>
-			<input type="submit" 
-				value="Search" 
-				class="schBtn">
-			<input type="reset" 
-				value="Clear Form" 
-				class="clrBtn">
-				<br>
-				<input type="button" 
-					value="New Agent" 
-					class="insBtn"
-					onClick="window.open('editAllAgent.cfm?action=newAgent','_person');">
-				
-
+			</td>
+			<td>
+				<label for="agent_name">Agent Name</label>
+				<input type="text" name="agent_name" id="agent_name" size="35">
+			</td>
+		</tr>
+	</table>
+	<table width="100%">
+		<tr>
+			<td>
+				<input type="submit" value="Search" class="schBtn">
+			</td>
+			<td><input type="reset" value="Clear Form" class="clrBtn"></td>
+			<td>
+			<input type="button" 
+				value="Create New Agent" 
+				class="insBtn"
+				onClick="window.open('editAllAgent.cfm?action=newAgent','_person');">
+			</td>
+		</tr>
+	</table>
 </form>
 </cfoutput>	
 <cfinclude template="includes/_pickFooter.cfm">
