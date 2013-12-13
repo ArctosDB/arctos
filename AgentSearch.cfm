@@ -14,29 +14,31 @@
 	});
 </script>
 <span class="infoLink pageHelp" onclick="getDocs('agent');">Page Help</span>
-Search for an agent:
+Agent Search
 <cfoutput>
 <form name="agntSearch" action="AgentGrid.cfm" method="post" target="_pick">
 	<input type="hidden" name="Action" value="search">
-	
-			<label for="anyName">
-				<a href="javascript:void(0);" onClick="getDocs('agent','anynamesearch')">Any part of any name</a>
-			</label>
-			<input type="text" name="anyName" id="anyName" size="50">
-			<label for="agent_type">Agent Type</label>
-			<select name="agent_type" size="1" id="agent_type">
-				<option value=""></option>
-				<cfloop query="ctagent_type">
-					<option value="#agent_type#">#agent_type#</option>
-				</cfloop>
-			</select>
-			<label for="agent_id">AgentID</label>
-			<input type="text" name="agent_id" size="6" id="agent_id">
-			
-			<label for="address">
-				<a href="javascript:void(0);" onClick="getDocs('agent','address')">Address</a>
-			</label>
-			<input type="text" name="address" id="address">
+	<label for="anyName"><a href="javascript:void(0);" onClick="getDocs('agent','anynamesearch')">Any part of any name</a></label>
+	<input type="text" name="anyName" id="anyName" size="75">
+	<table>
+		<tr>
+			<td>
+				<label for="agent_type">Agent Type</label>
+				<select name="agent_type" size="1" id="agent_type">
+					<option value=""></option>
+					<cfloop query="ctagent_type">
+						<option value="#agent_type#">#agent_type#</option>
+					</cfloop>
+				</select>
+			</td>
+			<td>
+				<label for="agent_id">AgentID</label>
+				<input type="text" name="agent_id" size="6" id="agent_id">
+			</td>
+		</tr>
+	</table>
+	<label for="address"><a href="javascript:void(0);" onClick="getDocs('agent','address')">Address</a></label>
+	<input type="text" name="address" id="address" size="75">
 			<label for="agent_status">Agent Status</label>
 			<select name="agent_status" size="1" id="agent_status">
 				<option value=""></option>
