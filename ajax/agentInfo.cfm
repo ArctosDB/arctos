@@ -16,7 +16,6 @@
 	<cfquery name="pan" dbtype="query">
 		select preferred_agent_name from d group by preferred_agent_name
 	</cfquery>
-	
 	<cfquery name="agent_relations" datasource="uam_god">
 		select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
 		from agent_relations,preferred_agent_name
@@ -24,7 +23,6 @@
 		agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
 		agent_relations.agent_id=#agent_id#
 	</cfquery>
-	
 	<cfquery name="r_agent_relations" datasource="uam_god">
 		select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id 
 		from agent_relations,preferred_agent_name
@@ -32,7 +30,6 @@
 		agent_relations.agent_id=preferred_agent_name.agent_id and
 		RELATED_AGENT_ID=#agent_id#
 	</cfquery>
-	
 	<cfquery name="group_member" datasource="uam_god">
 		select 
 			agent_name,
@@ -44,44 +41,30 @@
 			MEMBER_AGENT_ID=#agent_id#
 		order by agent_name
 	</cfquery>
-	
 	<cfoutput>
-	<cfsavecontent variable="x">
-		Names
-		<ul>
-			<cfloop query="d">
-				<li>#agent_name# (#agent_name_type#)</li>
-			</cfloop>
-		</ul>
-		
-		Agent Relationships:
-		
+		<cfsavecontent variable="x">
 			<ul>
-		<cfloop query="agent_relations">
-			<li>#AGENT_RELATIONSHIP# <a href="/info/agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
-		</cfloop>
-	</ul>
-	
-	<ul>
-		<cfloop query="r_agent_relations">
-			<li><a href="/info/agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
-		</cfloop>
-	</ul>
-	
-	Groups:	
-	
-	<ul>
-		<cfloop query="group_member">
-			<li><a href="/info/agentActivity.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
-		</cfloop>
-	</ul>		
-	
-	</cfsavecontent>
-	
-	</cfoutput>
-	
-	
-	
+				<cfloop query="d">
+					<li>#agent_name# (#agent_name_type#)</li>
+				</cfloop>
+			</ul>
+			<ul>
+				<cfloop query="agent_relations">
+					<li>#AGENT_RELATIONSHIP# <a href="/info/agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
+				</cfloop>
+			</ul>
+			<ul>
+				<cfloop query="r_agent_relations">
+					<li><a href="/info/agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
+				</cfloop>
+			</ul>	
+			<ul>
+				<cfloop query="group_member">
+					<li><a href="/info/agentActivity.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
+				</cfloop>
+			</ul>		
+		</cfsavecontent>
+	</cfoutput>	
 	<cfset r='<div position="relative">'>
 		<cfset r=r & '<span class="docControl" onclick="removeHelpDiv()">X</span>'>
 		<cfset r=r & '<div class="docTitle">#pan.preferred_agent_name#</div><div class="docDef">'>
