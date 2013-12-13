@@ -8,9 +8,6 @@
 <cfquery name="agent" datasource="uam_god">
 	select * FROM agent where agent_id=#agent_id#
 </cfquery>
-<cfquery name="person" datasource="uam_god">
-	select * FROM person where person_id=#agent_id#
-</cfquery>
 <cfquery name="name" datasource="uam_god">
 	select agent_name_id, agent_name, agent_name_type FROM agent_name where agent_id=#agent_id#
 </cfquery>
@@ -20,36 +17,6 @@ Agent:
 		<td align="right"><strong>Agent Type:</strong></td>
 		<td>#agent.agent_type#</td>
 	</tr>
-	<cfif #person.recordcount# gt 0>
-		<tr>
-			<td align="right"><strong>Prefix:</strong></td>
-			<td>#person.prefix#</td>
-		</tr>
-		<tr>
-			<td align="right"><strong>First Name:</strong></td>
-			<td>#person.FIRST_NAME#</td>
-		</tr>
-		<tr>
-			<td align="right"><strong>Middle Name:</strong></td>
-			<td>#person.MIDDLE_NAME#</td>
-		</tr>
-		<tr>
-			<td align="right"><strong>Last Name:</strong></td>
-			<td>#person.LAST_NAME#</td>
-		</tr>			
-		<tr>
-			<td align="right"><strong>Suffix:</strong></td>
-			<td>#person.SUFFIX#</td>
-		</tr>
-		<tr>
-			<td align="right"><strong>Birth Date:</strong></td>
-			<td>#dateformat(person.BIRTH_DATE,"yyyy-mm-dd")#</td>
-		</tr>
-		<tr>
-			<td align="right"><strong>Death Date:</strong></td>
-			<td>#dateformat(person.DEATH_DATE,"yyyy-mm-dd")#</td>
-		</tr>
-	</cfif>
 </table>
 Agent Names:
 	<ul>
