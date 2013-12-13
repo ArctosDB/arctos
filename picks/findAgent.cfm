@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 <cfif action is "nothing">
 	<!--- make sure we're searching for something --->
-	<cfif len(#agent_name#) is 0>
+	<cfif len(agent_name) is 0>
 		<form name="searchForAgent" action="findAgent.cfm" method="post">
 			<label for="agent_name">Agent Name</label>
 			<input type="text" name="agent_name" id="agent_name">
@@ -18,24 +18,22 @@
 		</form>
 		<cfabort>
 	</cfif>
-	
-		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT 
-				preferred_agent_name.agent_name, agent.agent_id 
-			from 
-				preferred_agent_name,agent_name, agent
-			where
-				preferred_agent_name.agent_id = agent_name.agent_id AND
-				agent_name.agent_id = agent.agent_id AND
-				UPPER(agent_name.agent_name) LIKE '%#ucase(agent_name)#%'
-				<cfif not isdefined("allowCreation") OR  #allowCreation# is not "true">
-					AND agent_type != 'verbatim agent'
-				</cfif>				
-				group by preferred_agent_name.agent_name, agent.agent_id 
-				order by preferred_agent_name.agent_name
-		</cfquery>
-		
-	<cfif #getAgentId.recordcount# is 1>
+	<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		SELECT 
+			preferred_agent_name.agent_name, agent.agent_id 
+		from 
+			preferred_agent_name,agent_name, agent
+		where
+			preferred_agent_name.agent_id = agent_name.agent_id AND
+			agent_name.agent_id = agent.agent_id AND
+			UPPER(agent_name.agent_name) LIKE '%#ucase(agent_name)#%'
+			<cfif not isdefined("allowCreation") OR  #allowCreation# is not "true">
+				AND agent_type != 'verbatim agent'
+			</cfif>				
+			group by preferred_agent_name.agent_name, agent.agent_id 
+			order by preferred_agent_name.agent_name
+	</cfquery>
+	<cfif getAgentId.recordcount is 1>
 	<cfoutput>
 		<cfset thisName = #replace(getAgentId.agent_name,"'","\'","all")#>
 		<script>
@@ -45,7 +43,7 @@
 			self.close();
 		</script>
 	 </cfoutput>
-	<cfelseif #getAgentId.recordcount# is 0>
+	<cfelseif getAgentId.recordcount is 0>
 		<cfoutput>
 			Nothing matched <strong>#agent_name#</strong>. 
 			<br>
@@ -82,6 +80,7 @@
 		<br>
 		<cfset thisName = #replace(agent_name,"'","\'","all")#>
 		<a href="##" onClick="javascript: opener.document.#formName#.#agentIdFld#.value='#agent_id#';opener.document.#formName#.#agentNameFld#.value='#thisName#';opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';self.close();">#agent_name# (#agent_id#)</a>
+		<span class="infoLink" onclick="getAgentInfo(#agent_id#);">[ more info ]</span>
 	</cfoutput>
 	</cfif>
 </cfif>

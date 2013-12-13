@@ -124,7 +124,7 @@
 	<cfset Application.session_timeout=90>
 	<cfset Application.serverRootUrl = "http://#serverName#">
 	<cfset Application.user_login="user_login">
-	<cfset Application.max_pw_age = 90>
+	<cfset Application.max_pw_age = 180>
 	<cfset Application.fromEmail = "#serverName#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
 	<cfset Application.StartupServerName=serverName>
