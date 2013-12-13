@@ -11,4 +11,4 @@
 				$(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
             });
         </script>
-   		<p><a class='iframe' href="/picks/findAgent.cfm">Outside Webpage (Iframe)</a></p>
+   		<p><a class='iframe' href="/picks/findAgent.cfm?agent_name=dusty">Outside Webpage (Iframe)</a></p>
