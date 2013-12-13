@@ -3,16 +3,55 @@
 <link rel="stylesheet" type="text/css" media="screen" href="/includes/jqModal.css"/>
 <script src="/includes/jqModal.js" type="text/javascript"></script>
 
+<style type="text/css">
+        .jqmOverlay { background-color: #FFF; }
+            .jqmWindow {
+                background: #888888 url(modal_bckgrn.gif) left top repeat-x;
+                color: #000;
+                border: 1px solid #888888;
+                padding: 0 0px 50px;
+            }
 
-<style>
+            button.jqmClose {
+                background: none;
+                border: 0px solid #EAEAEB;
+                color: #000;
+                clear: right;
+                float: right;
+                padding: 0;
+                margin-top:5px;
+                margin-left:5px;
+                cursor: pointer;
+                font-size: 8px;
 
-.jqmClose{ background:#FFDD00; border:1px solid #FFDD00; color:#000; clear:right; float:right; padding:0 5px; cursor:pointer; }
-.jqmClose:hover{ background:#FFF; }
-#jqmContent{ width:99%; height:99%; display: block; clear:both; margin:auto; margin-top:10px; background:#111; border:1px dotted #444; }
+                letter-spacing: 1px;
+            }
 
+            button.jqmClose:hover, button.jqmClose:active {
+                color: #FFF;
+				border: 0px solid #FFF;
+            }
 
-</style>
+            #jqmTitle {
+                background: transparent;
+                color: black;
+                text-transform: capitalize;
+                height: 50px;
+                padding: 0px 5px 0 10px;
 
+            }
+
+            #jqmContent {
+                width: 100%;
+                height: 100%;
+                display: block;
+                clear: both;
+                margin: 0;
+                margin-top: 0px;
+                background: #e8e8e8;
+                border: 1px solid #888888;
+            }
+        </style>
 
 
 <script type="text/javascript">
