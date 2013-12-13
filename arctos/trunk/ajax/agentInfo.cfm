@@ -1,5 +1,4 @@
 <cfif not isdefined("agent_id")>bad call<cfabort></cfif>
-
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			preferred_agent_name,
@@ -42,51 +41,44 @@
 		order by agent_name
 	</cfquery>
 	<cfoutput>
-		<cfsavecontent variable="x">
-			Names
-			<ul>
-				<cfloop query="d">
-					<li>#agent_name# (#agent_name_type#)</li>
-				</cfloop>
-			</ul>
-			<cfif agent_relations.recordcount gt 0 or r_agent_relations.recordcount gt 0>
-				Relationships
-			</cfif>
-			<ul>
-				<cfloop query="agent_relations">
-					<li>#AGENT_RELATIONSHIP# <a href="/info/agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
-				</cfloop>
-			</ul>
-			<ul>
-				<cfloop query="r_agent_relations">
-					<li><a href="/info/agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
-				</cfloop>
-			</ul>
-			<cfif group_member.recordcount gt 0>
-				Group Membership
-			</cfif>
-			<ul>
-				<cfloop query="group_member">
-					<li><a href="/info/agentActivity.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
-				</cfloop>
-			</ul>		
+		<cfsavecontent variable="response">
+			<div position="relative">
+				<span class="docControl" onclick="removeHelpDiv()">X</span>
+				<div class="docTitle">Names & Relations: #pan.preferred_agent_name#</div>
+				<div class="docDef">
+					Names
+					<ul>
+						<cfloop query="d">
+							<li>#agent_name# (#agent_name_type#)</li>
+						</cfloop>
+					</ul>
+					<cfif agent_relations.recordcount gt 0 or r_agent_relations.recordcount gt 0>
+						Relationships
+					</cfif>
+					<ul>
+						<cfloop query="agent_relations">
+							<li>#AGENT_RELATIONSHIP# <a href="/info/agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
+						</cfloop>
+					</ul>
+					<ul>
+						<cfloop query="r_agent_relations">
+							<li><a href="/info/agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
+						</cfloop>
+					</ul>
+					<cfif group_member.recordcount gt 0>
+						Group Membership
+					</cfif>
+					<ul>
+						<cfloop query="group_member">
+							<li><a href="/info/agentActivity.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
+						</cfloop>
+					</ul>
+				</div>
+				<a class="docMoreInfo" href="/info/agentActivity.cfm?agent_id=#agent_id#" target="_docMoreWin" onclick="removeHelpDiv();"[ Agent Activity ]</a>
+			</div>
 		</cfsavecontent>
 	</cfoutput>	
-	<cfset r='<div position="relative">'>
-		<cfset r=r & '<span class="docControl" onclick="removeHelpDiv()">X</span>'>
-		<cfset r=r & '<div class="docTitle">Names and Relationships summary for #pan.preferred_agent_name#</div><div class="docDef">'>
-		<cfset r=r & '#x#'>
-		<cfloop query="d">
-			<cfset r=r & '<div>#agent_name# (#agent_name_type#)</div>'>
-		</cfloop>
-		
-		<cfset r=r & '</div>'>
-				<cfset r=r & '<a class="docMoreInfo" href="/info/agentActivity.cfm?agent_id=#agent_id#"'>
-					<cfset r=r & 'target="_docMoreWin" onclick="removeHelpDiv()"'>
-				<cfset r=r & '>[ Agent Activity ]</div>'>
 	
-	<cfset r=r & '</div>'>
-	<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
 	<cfscript>
         getPageContext().getOut().clearBuffer();
         writeOutput(response);
