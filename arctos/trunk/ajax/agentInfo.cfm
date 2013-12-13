@@ -43,11 +43,15 @@
 	</cfquery>
 	<cfoutput>
 		<cfsavecontent variable="x">
+			Names
 			<ul>
 				<cfloop query="d">
 					<li>#agent_name# (#agent_name_type#)</li>
 				</cfloop>
 			</ul>
+			<cfif agent_relations.recordcount gt 0 or r_agent_relations.recordcount gt 0>
+				Relationships
+			</cfif>
 			<ul>
 				<cfloop query="agent_relations">
 					<li>#AGENT_RELATIONSHIP# <a href="/info/agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
@@ -57,7 +61,10 @@
 				<cfloop query="r_agent_relations">
 					<li><a href="/info/agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
 				</cfloop>
-			</ul>	
+			</ul>
+			<cfif group_member.recordcount gt 0>
+				Group Membership
+			</cfif>
 			<ul>
 				<cfloop query="group_member">
 					<li><a href="/info/agentActivity.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
@@ -67,7 +74,7 @@
 	</cfoutput>	
 	<cfset r='<div position="relative">'>
 		<cfset r=r & '<span class="docControl" onclick="removeHelpDiv()">X</span>'>
-		<cfset r=r & '<div class="docTitle">#pan.preferred_agent_name#</div><div class="docDef">'>
+		<cfset r=r & '<div class="docTitle">Names and Relationships summary for #pan.preferred_agent_name#</div><div class="docDef">'>
 		<cfset r=r & '#x#'>
 		<cfloop query="d">
 			<cfset r=r & '<div>#agent_name# (#agent_name_type#)</div>'>
