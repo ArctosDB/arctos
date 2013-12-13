@@ -1179,66 +1179,6 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->	
-<cfif #Action# is "editPerson">
-	<cfoutput>
-		<cftransaction>
-			<cfquery name="editPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				UPDATE person SET
-					person_id=#agent_id#
-					<cfif len(#first_name#) gt 0>
-						,first_name='#first_name#'
-					<cfelse>
-						,first_name=null
-					</cfif>
-					<cfif len(#prefix#) gt 0>
-						,prefix='#prefix#'
-					<cfelse>
-						,prefix=null
-					</cfif>
-					<cfif len(#middle_name#) gt 0>
-						,middle_name='#middle_name#'
-					<cfelse>
-						,middle_name=null
-					</cfif>
-					<cfif len(#last_name#) gt 0>
-						,last_name='#last_name#'
-					<cfelse>
-						,last_name=null
-					</cfif>
-					<cfif len(#suffix#) gt 0>
-						,suffix='#suffix#'
-					<cfelse>
-						,suffix=null
-					</cfif>
-					<cfif len(#birth_date#) gt 0>
-						,birth_date='#dateformat(birth_date,"yyyy-mm-dd")#'
-					  <cfelse>
-					  	,birth_date=null
-					</cfif>
-					<cfif len(#death_date#) gt 0>
-						,death_date='#dateformat(death_date,"yyyy-mm-dd")#'
-					  <cfelse>
-					  	,death_date=null
-					</cfif>
-				WHERE 
-					person_id=#agent_id#
-			</cfquery>	
-			<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				UPDATE agent SET 
-					<cfif len(#agent_remarks#) gt 0>
-						agent_remarks = '#agent_remarks#'
-					  <cfelse>
-					  	agent_remarks = null
-					</cfif>
-				WHERE
-					agent_id = #agent_id#
-			</cfquery>
-		</cftransaction>
-	<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
-	</cfoutput>
-</cfif>
-
-<!------------------------------------------------------------------------------------------------------------->	
 <cfif action is "saveAgentEdits">
 	<cfoutput>
 			<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

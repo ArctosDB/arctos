@@ -149,24 +149,32 @@
 <cfif action is "shareFL">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		Select * from (
-			Select a.*, rownum rnum From (
-				select
-					per1.first_name || ' ' || per1.last_name name1,
-					per2.first_name || ' ' || per2.last_name name2,
-					per1.person_id id1,
-					per2.person_id id2,
-					rownum r
-				from
-					person per1,
-					person per2
-				where 
-					per1.first_name=per2.first_name and
-					per1.last_name=per2.last_name and
-					per1.person_id != per2.person_id  
-				order by
-					per1.first_name,per1.last_name
-			) a where rownum <= #stop#
-		) where rnum >= #start#
+	      Select a.*, rownum rnum From (
+	        select
+	          p1_first_name.agent_name || ' ' || p1_last_name.agent_name name1,
+	          p2_first_name.agent_name || ' ' || p2_last_name.agent_name name2,
+	          p1_first_name.agent_id id1,
+	          p2_first_name.agent_id id2,
+	          rownum r
+	        from
+	          agent_name p1_first_name,
+	          agent_name p1_last_name,
+	          agent_name p2_first_name,
+	          agent_name p2_last_name
+	        where 
+	          p1_first_name.agent_name_type='first name' and
+	          p2_first_name.agent_name_type='first name' and
+	          p1_last_name.agent_name_type='last name' and
+	          p2_last_name.agent_name_type='last name' and
+	          p1_first_name.agent_id=p1_last_name.agent_id and
+	          p2_first_name.agent_id=p2_last_name.agent_id and
+	          p1_first_name.agent_id != p2_first_name.agent_id and
+	          p1_first_name.agent_name = p2_first_name.agent_name and
+	          p1_last_name.agent_name = p2_last_name.agent_name
+	        order by
+	          name1
+	      ) a where rownum <= #stop#
+	    ) where rnum >= #start#
 	</cfquery>
 	#start# to #stop# Persons that share first and last name.
 </cfif>
