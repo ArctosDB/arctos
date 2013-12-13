@@ -20,7 +20,7 @@ Agent Search
 	<input type="hidden" name="Action" value="search">
 	<label for="anyName"><a href="javascript:void(0);" onClick="getDocs('agent','anynamesearch')">Any part of any name</a></label>
 	<input type="text" name="anyName" id="anyName" size="75">
-	<table>
+	<table width="100%">
 		<tr>
 			<td>
 				<label for="agent_type">Agent Type</label>
@@ -39,7 +39,7 @@ Agent Search
 	</table>
 	<label for="address"><a href="javascript:void(0);" onClick="getDocs('agent','address')">Address</a></label>
 	<input type="text" name="address" id="address" size="75">
-	<table>
+	<table width="100%">
 		<tr>
 			<td>
 				<label for="agent_status">Agent Status</label>
@@ -64,7 +64,7 @@ Agent Search
 			</td>
 		</tr>
 	</table>
-	<table>
+	<table width="100%">
 		<tr>
 			<td>
 				<label for="agent_name_type">Agent Name Type</label>
