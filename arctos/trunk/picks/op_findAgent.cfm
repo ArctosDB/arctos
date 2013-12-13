@@ -18,7 +18,6 @@ op_ is called as an iframe in a colorbox
 			<cfoutput>
 				<input type="hidden" name="agentIdFld" value="#agentIdFld#">
 				<input type="hidden" name="agentNameFld" value="#agentNameFld#">
-				<input type="hidden" name="formName" value="#formName#">
 			</cfoutput>
 		</form>
 		<cfabort>
@@ -81,17 +80,20 @@ op_ is called as an iframe in a colorbox
 		</cfoutput>
 		
 	<cfelse>
-	<span onclick="parent.pushToParent('a','x','b','y');">closething</span>
+	
+	<cfoutput query="getAgentId">
+		<br>
+		<cfset thisName = replace(agent_name,"'","\'","all")>
+		<span class="likeLink" onclick="parent.pushToParent('#agentNameFld#','#agent_name#','#agentIdFld#','#agent_id#');">#agent_name# (#agent_id#)</span>
+		<span class="infoLink" onclick="getAgentInfo(#agent_id#);">[ more info ]</span>
+
+	</cfoutput>
+	
 	<!----
 	
 	
 	
-		<cfoutput query="getAgentId">
-		<br>
-		<cfset thisName = #replace(agent_name,"'","\'","all")#>
-		<a href="##" onClick="javascript: #formName#.#agentIdFld#.value='#agent_id#';#formName#.#agentNameFld#.value='#thisName#';opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';self.close();">#agent_name# (#agent_id#)</a>
-		<span class="infoLink" onclick="getAgentInfo(#agent_id#);">[ more info ]</span>
-	</cfoutput>
+		
 	---->
 	</cfif>
 </cfif>
