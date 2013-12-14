@@ -84,14 +84,15 @@ op_ is called as an iframe in a colorbox
 		
 	<cfelse>
 	
-	<cfoutput query="getAgentId">
-		<br>
-		<cfset thisName = replace(agent_name,"'","\'","all")>
-		<span class="likeLink" onclick="parent.pushToParent('#agentNameFld#','#agent_name#','#agentIdFld#','#agent_id#');">#agent_name# (#agent_id#)</span>
-		<span class="infoLink" onclick="getAgentInfo(#agent_id#);">[ more info ]</span>
-
-	</cfoutput>
+		<cfoutput query="getAgentId">
+			<br>
+			<cfset thisName = replace(agent_name,"'","\'","all")>
+			<span class="likeLink" onclick="parent.pushToParent('#agentNameID#','#agent_name#','#agentIdID#','#agent_id#');">#agent_name# (#agent_id#)</span>
+			<span class="infoLink" onclick="getAgentInfo(#agent_id#);">[ more info ]</span>
 	
+		</cfoutput>
+	
+
 	<!----
 	
 	
