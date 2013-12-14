@@ -12,17 +12,6 @@
             });
 
 
-			function pushToParent (teid,tv,ieid,idv){
-	$("#" + teid).val(tv).addClass('goodPick');
-	$("#" + ieid).val(idv);
-	
-	console.log('hellp');
-
-
-	$.colorbox.close();
-
-			
-}
 
         </script>
    		<p><a class='iframe' href="/picks/op_findAgent.cfm?agent_name=dusty&agentIdFld=a&agentNameFld=b">Outside Webpage (Iframe)</a></p>

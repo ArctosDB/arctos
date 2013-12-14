@@ -26,7 +26,8 @@ var viewport = {
    };
 
 function op_getAgent(agentIdID,agentNameID,agent_name){
-	
+	$("#" + agentNameID).removeClass('goodPick');
+
 	console.log('op_getAgent');
 	var url="/picks/op_findAgent.cfm";
 	var agent_name;
@@ -36,6 +37,22 @@ function op_getAgent(agentIdID,agentNameID,agent_name){
     
     
 }
+
+
+function pushToParent (teid,tv,ieid,idv){
+$("#" + teid).val(tv).addClass('goodPick');
+$("#" + ieid).val(idv);
+
+console.log('hellp');
+
+
+$.colorbox.close();
+
+
+}
+
+
+
 function checkCSV(obj) {
     var filePath = obj.value;
     var ext = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
