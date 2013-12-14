@@ -621,7 +621,7 @@
 				<cfloop query="relns">
 					<form name="agentRelations#i#" method="post" action="editAllAgent.cfm">
 						<input type="hidden" name="action">
-						<input type="hidden" name="agent_id" value="#agent.agent_id#">
+						<input type="hidden" name="agent_id" id="agent_id#i#" value="#agent.agent_id#">
 						<input type="hidden" name="related_agent_id" value="#related_agent_id#">
 						<input type="hidden" name="oldRelationship" value="#agent_relationship#">
 						<input type="hidden" name="newRelatedAgentId">
@@ -635,14 +635,21 @@
 									>#ctRelns.AGENT_RELATIONSHIP#</option>
 							</cfloop>
 						</select> 
-						<input type="text" name="related_agent" class="reqdClr" value="#agent_name#"
-							onchange="getAgent('newRelatedAgentId','related_agent','agentRelations#i#',this.value); return false;"
+						<input type="text" name="related_agent" class="reqdClr" value="#agent_name#" id="agent_name#i#"
+							onchange="op_getAgent('agent_id#i#',this.id,this.value);"
 							onKeyPress="return noenter(event);">
 						<input type="button" class="savBtn" value="Save" onClick="agentRelations#i#.action.value='changeRelated';agentRelations#i#.submit();">
 						<input type="button" class="delBtn" value="Delete" onClick="agentRelations#i#.action.value='deleteRelated';confirmDelete('agentRelations#i#');">
 					</form>
-					<cfset i=#i#+1>
+					<cfset i=i+1>
 				</cfloop>
+				
+				
+						<input type="text" id="a" name="a" onchange="op_getAgent('b',this.id,this.value);">
+
+
+
+
 			</div>
 			<div class="newRec">
 				<label>Add Relationship</label>
