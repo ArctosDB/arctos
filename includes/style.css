@@ -1287,7 +1287,7 @@ input.badPick, select.badPick, textarea.badPick {
 
 	background-color:#FF3366;}
 
-input.goodPick, select.goodPick, textarea.goodPick {
+.goodPick {
 
 	background-color:#8BFEB9;}	 
 
