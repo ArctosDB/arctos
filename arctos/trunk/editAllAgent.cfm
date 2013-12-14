@@ -275,10 +275,6 @@
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
-
-
-    <script src="/includes/jquery.colorbox-min.js"></script>
-    <link rel="stylesheet" href="/includes/colorbox.css" />
 	<script language="javascript" type="text/javascript">
 		jQuery(document).ready(function() {
 			$('input[type=datetime]').datepicker();
@@ -640,7 +636,7 @@
 							</cfloop>
 						</select> 
 						<input type="text" name="related_agent" class="reqdClr" value="#agent_name#" id="agent_name#i#"
-							onchange="op_getAgent('agent_id#i#',this.id,this.value);"
+							onchange="getAgent('newRelatedAgentId','related_agent','agentRelations#i#',this.value); return false;"
 							onKeyPress="return noenter(event);">
 						<input type="button" class="savBtn" value="Save" onClick="agentRelations#i#.action.value='changeRelated';agentRelations#i#.submit();">
 						<input type="button" class="delBtn" value="Delete" onClick="agentRelations#i#.action.value='deleteRelated';confirmDelete('agentRelations#i#');">
