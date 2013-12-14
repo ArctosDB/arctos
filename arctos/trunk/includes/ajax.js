@@ -30,7 +30,7 @@ function pushToParent (teid,tv,ieid,idv){
 	
 	console.log('hellp');
 	
-	$.colorbox.close();
+	jQuery.colorbox.close();
 }
 function op_getAgent(agentIdID,agentNameID,agent_name){
 	
@@ -681,7 +681,7 @@ function getAgentInfo(agent_id) {
 jQuery(document).ready(function() {
 	
 	
-	colorbox = jQuery.colorbox;
+	//colorbox = jQuery.colorbox;
 	
 	
 	jQuery(".helpLink").live('click', function(e){
