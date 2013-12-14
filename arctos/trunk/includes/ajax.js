@@ -47,6 +47,13 @@ function pushToParent (teid,tv,ieid,idv){
 				console.log(e);
 			}
 
+			try{
+				jQuery().colorbox.close();
+				}catch(e){
+					console.log(e);
+				}			
+			
+			
 }
 function op_getAgent(agentIdID,agentNameID,agent_name){
 	
