@@ -17,6 +17,11 @@
 	$("#" + ieid).val(idv);
 	
 	console.log('hellp');
+
+
+	$.colorbox.close();
+
+/*
 	try{
 	$.colorbox.close();
 	}catch(e){
@@ -40,7 +45,7 @@
 				}catch(e){
 					console.log(e);
 				}			
-			
+	*/		
 			
 }
 
