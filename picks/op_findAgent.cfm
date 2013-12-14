@@ -9,7 +9,7 @@ op_ is called as an iframe in a colorbox
 </cfif>
 <cfif action is "nothing">
 	<!--- make sure we're searching for something --->
-	<cfif len(agentNameString) is 0>
+	<cfif len(agent_name) is 0>
 		<form name="searchForAgent" action="findAgent.cfm" method="post">
 			<label for="agent_name">Agent Name</label>
 			<input type="text" name="agent_name" id="agent_name" value="#agent_name#">
