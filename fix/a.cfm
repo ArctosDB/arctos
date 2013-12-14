@@ -3,7 +3,7 @@
 
     <script src="/includes/jquery.colorbox-min.js"></script>
         <link rel="stylesheet" href="/includes/colorbox.css" />
-
+<!---------
         <script>
             jQuery(document).ready(function () {
                 jQuery('a.gallery').colorbox({ opacity:0.5 , rel:'group1' });
@@ -16,7 +16,7 @@
         </script>
    		<p><a class='iframe' href="/picks/op_findAgent.cfm?agent_name=dusty&agentIdFld=a&agentNameFld=b">Outside Webpage (Iframe)</a></p>
 	
-	
+	---------------->
 	<form name="t">
 	agent id
 		<input type="text" id="b" name="b">

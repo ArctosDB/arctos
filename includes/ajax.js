@@ -27,28 +27,18 @@ var viewport = {
 
 function op_getAgent(agentIdID,agentNameID,agent_name){
 	$("#" + agentNameID).removeClass('goodPick');
-
-	console.log('op_getAgent');
 	var url="/picks/op_findAgent.cfm";
 	var agent_name;
 	url+="?agentIdID="+agentIdID+"&agentNameID="+agentNameID+"&agent_name="+agent_name;
 	//console.log(url);
-	$.colorbox({width:"80%",height:"80%", href:url});
-    
-    
+	$.colorbox({width:"80%",height:"80%", href:url});   
 }
 
 
 function pushToParent (teid,tv,ieid,idv){
-$("#" + teid).val(tv).addClass('goodPick');
-$("#" + ieid).val(idv);
-
-console.log('hellp');
-
-
-$.colorbox.close();
-
-
+	$("#" + teid).val(tv).addClass('goodPick');
+	$("#" + ieid).val(idv);
+	$.colorbox.close();
 }
 
 
