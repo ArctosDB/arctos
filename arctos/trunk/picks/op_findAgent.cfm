@@ -26,6 +26,7 @@ op_ is called as an iframe in a colorbox
 		<cfabort>
 	</cfif>
 	<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from (
 		SELECT 
 			preferred_agent_name.agent_name, agent.agent_id 
 		from 
@@ -39,6 +40,7 @@ op_ is called as an iframe in a colorbox
 			</cfif>				
 			group by preferred_agent_name.agent_name, agent.agent_id 
 			order by preferred_agent_name.agent_name
+		) where rownum < 501
 	</cfquery>
 	<cfif getAgentId.recordcount is 1>
 	<cfoutput>
