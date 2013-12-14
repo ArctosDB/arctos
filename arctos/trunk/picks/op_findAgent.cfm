@@ -4,6 +4,9 @@
 op_ is called as an iframe in a colorbox
 
 ---->
+<cfif not isdefined("agentNameString")>
+	<cfset agentNameString=''>
+</cfif>
 <cfif action is "nothing">
 	<!--- make sure we're searching for something --->
 	<cfif len(agentNameString) is 0>
