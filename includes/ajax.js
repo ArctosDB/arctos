@@ -24,37 +24,7 @@ var viewport = {
        jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
-function pushToParent (teid,tv,ieid,idv){
-	$("#" + teid).val(tv).addClass('goodPick');
-	$("#" + ieid).val(idv);
-	
-	console.log('hellp');
-	try{
-	$.colorbox.close();
-	}catch(e){
-		console.log(e);
-	}
-	
-	try{
-		parent.$.colorbox.close();
-		}catch(e){
-			console.log(e);
-		}
-		
-		try{
-			colorbox.close();
-			}catch(e){
-				console.log(e);
-			}
 
-			try{
-				jQuery().colorbox.close();
-				}catch(e){
-					console.log(e);
-				}			
-			
-			
-}
 function op_getAgent(agentIdID,agentNameID,agent_name){
 	
 	console.log('op_getAgent');
