@@ -25,10 +25,18 @@ var viewport = {
        }
    };
 function pushToParent (teid,tv,ieid,idv){
-	$("#" + teid).val(tv);
+	$("#" + teid).val(tv).addClass('goodPick');
 	$("#" + ieid).val(idv);
 	$.colorbox.close();
+}
+function op_getAgent(agentIdID,agentNameID,agentNameString){
+	var url="/picks/op_findAgent.cfm";
+	var agentNameString;
+	url+="?agentIdID="+agentIdID+"&agentNameID="+agentNameID+"&agentNameString="+agentNameString;
 	
+    $.colorbox({width:"80%",height="80%", href:url});
+    
+    
 }
 function checkCSV(obj) {
     var filePath = obj.value;

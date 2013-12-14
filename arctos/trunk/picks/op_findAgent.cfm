@@ -6,18 +6,18 @@ op_ is called as an iframe in a colorbox
 ---->
 <cfif action is "nothing">
 	<!--- make sure we're searching for something --->
-	<cfif len(agent_name) is 0>
+	<cfif len(agentNameString) is 0>
 		<form name="searchForAgent" action="findAgent.cfm" method="post">
 			<label for="agent_name">Agent Name</label>
-			<input type="text" name="agent_name" id="agent_name">
+			<input type="text" name="agent_name" id="agent_name" value="#agentNameString#">
 			<input type="submit" 
 				value="Search" 
 				class="lnkBtn"
 				onmouseover="this.className='lnkBtn btnhov'"
 				onmouseout="this.className='lnkBtn'">
 			<cfoutput>
-				<input type="hidden" name="agentIdFld" value="#agentIdFld#">
-				<input type="hidden" name="agentNameFld" value="#agentNameFld#">
+				<input type="hidden" name="agentIdID" value="#agentIdID#">
+				<input type="hidden" name="agentNameID" value="#agentNameID#">
 			</cfoutput>
 		</form>
 		<cfabort>

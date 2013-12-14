@@ -19,6 +19,8 @@
 	
 	
 	<form name="t">
+	agent id
 		<input type="text" id="b" name="b">
-		<input type="text" id="a" name="a">
+		agent name
+		<input type="text" id="a" name="a" onchange="op_getAgent('b',this.id,this.value);">
 	</form>
