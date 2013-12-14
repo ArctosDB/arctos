@@ -27,7 +27,10 @@ var viewport = {
 function pushToParent (teid,tv,ieid,idv){
 	$("#" + teid).val(tv).addClass('goodPick');
 	$("#" + ieid).val(idv);
-	parent.$.colorbox.close();
+	
+	console.log('hellp');
+	
+	$.colorbox.close();
 }
 function op_getAgent(agentIdID,agentNameID,agent_name){
 	
