@@ -36,7 +36,7 @@ function op_getAgent(agentIdID,agentNameID,agentNameString){
 	var agentNameString;
 	url+="?agentIdID="+agentIdID+"&agentNameID="+agentNameID+"&agentNameString="+agentNameString;
 	
-    $.colorbox({width:"80%",height="80%", href:url});
+    $.colorbox({width:"80%",height:"80%", href:url});
     
     
 }
