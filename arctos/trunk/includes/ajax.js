@@ -30,6 +30,8 @@ function pushToParent (teid,tv,ieid,idv){
 	$.colorbox.close();
 }
 function op_getAgent(agentIdID,agentNameID,agentNameString){
+	
+	console.log('op_getAgent');
 	var url="/picks/op_findAgent.cfm";
 	var agentNameString;
 	url+="?agentIdID="+agentIdID+"&agentNameID="+agentNameID+"&agentNameString="+agentNameString;
