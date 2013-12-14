@@ -30,7 +30,7 @@ function pushToParent (teid,tv,ieid,idv){
 	
 	console.log('hellp');
 	
-	jQuery.colorbox.close();
+	//jQuery.colorbox.close();
 }
 function op_getAgent(agentIdID,agentNameID,agent_name){
 	
