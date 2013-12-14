@@ -275,6 +275,10 @@
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
+
+
+    <script src="/includes/jquery.colorbox-min.js"></script>
+    <link rel="stylesheet" href="/includes/colorbox.css" />
 	<script language="javascript" type="text/javascript">
 		jQuery(document).ready(function() {
 			$('input[type=datetime]').datepicker();
