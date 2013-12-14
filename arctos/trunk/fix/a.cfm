@@ -21,31 +21,6 @@
 
 	$.colorbox.close();
 
-/*
-	try{
-	$.colorbox.close();
-	}catch(e){
-		console.log(e);
-	}
-	
-	try{
-		parent.$.colorbox.close();
-		}catch(e){
-			console.log(e);
-		}
-		
-		try{
-			colorbox.close();
-			}catch(e){
-				console.log(e);
-			}
-
-			try{
-				jQuery().colorbox.close();
-				}catch(e){
-					console.log(e);
-				}			
-	*/		
 			
 }
 
