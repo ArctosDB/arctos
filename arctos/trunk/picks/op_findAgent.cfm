@@ -1,4 +1,4 @@
-<cfinclude template="/includes/_pickHeader.cfm">
+<cfinclude template="/includes/_noIncludeHeader.cfm">
 
 <!----
 op_ is called as an iframe in a colorbox
