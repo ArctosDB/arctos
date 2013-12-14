@@ -680,6 +680,10 @@ function getAgentInfo(agent_id) {
 
 jQuery(document).ready(function() {
 	
+	
+	colorbox = jQuery.colorbox;
+	
+	
 	jQuery(".helpLink").live('click', function(e){
 		var id=this.id;
 		removeHelpDiv();
