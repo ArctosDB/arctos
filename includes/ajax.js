@@ -29,8 +29,17 @@ function pushToParent (teid,tv,ieid,idv){
 	$("#" + ieid).val(idv);
 	
 	console.log('hellp');
+	try{
+	$.colorbox.close();
+	}catch(e){
+		console.log(e);
+	}
 	
-	//jQuery.colorbox.close();
+	try{
+		parent.$.colorbox.close();
+		}catch(e){
+			console.log(e);
+		}
 }
 function op_getAgent(agentIdID,agentNameID,agent_name){
 	
