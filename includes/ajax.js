@@ -29,12 +29,12 @@ function pushToParent (teid,tv,ieid,idv){
 	$("#" + ieid).val(idv);
 	$.colorbox.close();
 }
-function op_getAgent(agentIdID,agentNameID,agentNameString){
+function op_getAgent(agentIdID,agentNameID,agent_name){
 	
 	console.log('op_getAgent');
 	var url="/picks/op_findAgent.cfm";
-	var agentNameString;
-	url+="?agentIdID="+agentIdID+"&agentNameID="+agentNameID+"&agentNameString="+agentNameString;
+	var agent_name;
+	url+="?agentIdID="+agentIdID+"&agentNameID="+agentNameID+"&agent_name="+agent_name;
 	console.log(url);
 
    // $.colorbox({width:"80%",height:"80%", href:url});
