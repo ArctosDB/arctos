@@ -35,9 +35,8 @@ function op_getAgent(agentIdID,agentNameID,agent_name){
 	var url="/picks/op_findAgent.cfm";
 	var agent_name;
 	url+="?agentIdID="+agentIdID+"&agentNameID="+agentNameID+"&agent_name="+agent_name;
-	console.log(url);
-
-   // $.colorbox({width:"80%",height:"80%", href:url});
+	//console.log(url);
+	$.colorbox({width:"80%",height:"80%", href:url});
     
     
 }
