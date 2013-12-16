@@ -38,7 +38,7 @@ function op_getAgent(agentIdID,agentNameID,agent_name){
 function pushToParent (teid,tv,ieid,idv){
 	$("#" + teid).val(tv).addClass('goodPick');
 	$("#" + ieid).val(idv);
-	$.colorbox.close();
+	$("#_person).colorbox.close();
 }
 
 
