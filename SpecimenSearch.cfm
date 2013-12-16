@@ -171,19 +171,22 @@
 				<span class="helpLink" id="collection">Collection</span>:
 			</td>
 			<td class="srch">
+			
+
+
+			
 			<table>
 			<tr>
-			<td>
+			<td rowspan="2">
 				<select name="collection_id" id="collection_id" size="3" multiple="multiple">
 					<cfloop query="ctInst">
 						<option <cfif thisCollId is ctInst.collection_id>selected="selected" </cfif>value="#ctInst.collection_id#">#ctInst.collection#</option>
 					</cfloop>
 				</select>
 			</td>
-			</tr>
 			
 				
-					<tr rowspan="2">
+					
 						<td><span class="helpLink" id="cat_num">Catalog Number:</span>
 				<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
 					<textarea name="listcatnum" id="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
