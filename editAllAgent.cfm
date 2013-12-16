@@ -400,7 +400,9 @@
 		</cfquery>		
 		<table border>
 				<tr>
-				<th>Agent Status</th>
+				<th>
+					<span class="likeLink" onclick="getCtDoc('ctAgent_Status');">Agent Status</span>
+				</th>
 				<th>Status Date</th>
 				<th>Remark</th>
 				<th></th>
