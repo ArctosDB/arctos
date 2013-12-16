@@ -244,6 +244,7 @@
 <!------------------------------------------------------------------------------------------------------------->
 <cfif action is "newAgent">
 	<cfoutput>
+		<strong>Create Agent</strong>
 		<form name="prefdName" action="editAllAgent.cfm" method="post" target="_person">
 			<input type="hidden" name="action" value="makeNewAgent">
 			<label for="agent_type">Agent Type</label>
@@ -643,13 +644,6 @@
 					</form>
 					<cfset i=i+1>
 				</cfloop>
-				
-				
-						<input type="text" id="a" name="a" onchange="op_getAgent('b',this.id,this.value);">
-
-
-
-
 			</div>
 			<div class="newRec">
 				<label>Add Relationship</label>
