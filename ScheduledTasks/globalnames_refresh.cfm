@@ -44,16 +44,20 @@ Make sure any useful changes end up in both places.
 		select * from
 			taxon_refresh_log where lastfetch is null and rownum < #numberOfNamesOneFetch#
 	</cfquery>
+	<cfif d.recordcount is 0>
+		<cfabort>
+	</cfif>
+	
 	<cfset theseNames=valuelist(d.taxon_name,'|')>
 	
 
 
 
-	<cfloop condition = "len(theseNames) gt 6500">
+	<cfloop condition = "len(theseNames) gt 6300">
 		<cfset theseNames=listdeleteat(theseNames,listlen(theseNames,"|"),"|")>
 	</cfloop>
 
-		
+		#len(theseNames)#
 
 
 
@@ -127,13 +131,10 @@ Make sure any useful changes end up in both places.
 			<cfset x=DeserializeJSON(cfhttp.filecontent)>
 			
 			
-			<!----
 			
 			
-						<cfdump var=#x#>
+						
 
-			---->
-			
 			
 			
 			
@@ -151,7 +152,11 @@ Make sure any useful changes end up in both places.
 				<!----
 						<hr>thisTaxonNameID::::::::::::::::::::::::::: #thisTaxonNameID#
 						---->
-
+			
+		<cftry>
+			
+			
+			
 			<cfloop from="1" to="#ArrayLen(x.data[thisResultIndex].results)#" index="i">
 				<cfset pos=1>
 				<!--- because lists are stupid and ignore NULLs.... ---->
@@ -308,6 +313,11 @@ Make sure any useful changes end up in both places.
 				</cfif>
 			</cfloop>
 			<cfset theseTaxonNameIds=listappend(theseTaxonNameIds,thisTaxonNameID)>
+	
+	<cfcatch>
+		<cfdump var=#cfcatch#>
+	</cfcatch>
+		</cftry>
 			
 		</cfloop>
 		
