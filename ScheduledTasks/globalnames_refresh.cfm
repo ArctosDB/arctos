@@ -38,7 +38,7 @@ Make sure any useful changes end up in both places.
 <cfoutput>
 	
 	<cfif not isdefined("numberOfNamesOneFetch")>
-		<cfset numberOfNamesOneFetch=500>
+		<cfset numberOfNamesOneFetch=300>
 	</cfif>
 	<cfquery name="d" datasource="uam_god">
 		select * from
