@@ -27,12 +27,6 @@
 		///jQuery("#birth_date").datepicker();
 	});
 
-function pushToParent (teid,tv,ieid,idv){
-	$("#" + teid).val(tv).addClass('goodPick');
-	$("#" + ieid).val(idv);
-	parent.$("#_person").colorbox.close();
-}
-
 
 	function togglePerson(atype){
 		if (atype=='person'){
@@ -93,17 +87,6 @@ function pushToParent (teid,tv,ieid,idv){
 		$("#preferred_agent_name").val(pname);
 	}
 </script>
-
-
-
- <script src="/includes/jquery.colorbox-min.js"></script>
-        <link rel="stylesheet" href="/includes/colorbox.css" />
-		
-		
-		agent id
-		<input type="text" id="b" name="b">
-		agent name
-		<input type="text" id="a" name="a" onchange="op_getAgent('b',this.id,this.value);">
 
 
 <!------------------------------------------------------------------------------------------------------------->
