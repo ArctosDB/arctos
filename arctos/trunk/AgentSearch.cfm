@@ -13,8 +13,11 @@
 		jQuery("#status_date").datepicker();
 	});
 </script>
-<span class="infoLink pageHelp" onclick="getDocs('agent');">Page Help</span>
+<span style="float:left;">
 Agent Search
+</span>
+<span class="infoLink pageHelp" onclick="getDocs('agent');">Page Help</span>
+
 <cfoutput>
 <form name="agntSearch" action="AgentGrid.cfm" method="post" target="_pick">
 	<input type="hidden" name="Action" value="search">
