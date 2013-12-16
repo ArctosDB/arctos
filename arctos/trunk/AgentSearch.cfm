@@ -13,7 +13,7 @@
 		jQuery("#status_date").datepicker();
 	});
 </script>
-<table>
+<table width="100%">
 	<tr>
 		<td>
 			Agent Search		
