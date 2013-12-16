@@ -23,7 +23,7 @@
 </cfif>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		$.noConflict();
+		//$.noConflict();
 		///jQuery("#birth_date").datepicker();
 	});
 	function togglePerson(atype){
