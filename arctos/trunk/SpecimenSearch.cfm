@@ -182,6 +182,8 @@
 				<cfelse>
 					<input type="text" name="listcatnum" id="listcatnum" size="21" value="">
 				</cfif>
+				<span class="helpLink" id="guid">GUID:</span>
+				<input type="text" name="guid" id="guid" size="21" value="">
 			</td>
 		</tr>
 	<cfif isdefined("session.CustomOtherIdentifier") and len(session.CustomOtherIdentifier) gt 0>
