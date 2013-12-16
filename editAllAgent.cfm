@@ -84,6 +84,19 @@
 		$("#preferred_agent_name").val(pname);
 	}
 </script>
+
+
+
+ <script src="/includes/jquery.colorbox-min.js"></script>
+        <link rel="stylesheet" href="/includes/colorbox.css" />
+		
+		
+		agent id
+		<input type="text" id="b" name="b">
+		agent name
+		<input type="text" id="a" name="a" onchange="op_getAgent('b',this.id,this.value);">
+
+
 <!------------------------------------------------------------------------------------------------------------->
 <cfif Action is "makeNewAgent">
 	<cfif not isdefined("first_name")>
