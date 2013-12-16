@@ -189,6 +189,7 @@
 								<tr>
 									<td>
 										<span class="helpLink" id="cat_num">Catalog Number:</span>
+									</td><td>
 										<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
 											<textarea name="listcatnum" id="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
 										<cfelse>
@@ -199,6 +200,7 @@
 								<tr>
 									<td>
 										<span class="helpLink" id="guid">GUID:</span>
+									</td><td>
 										<input type="text" name="guid" id="guid" size="21" value="">
 									</td>
 								</tr>
