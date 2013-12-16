@@ -444,7 +444,7 @@
 						<td><input type="datetime" class="reqdClr" size="12" name="status_date" value="#status_date#"></td>
 						<td><input type="text" size="50" name="status_remark" value="#status_remark#"></td>
 						<td>
-							<span style="font-size:x-small;">reported by #reported_by# on #STATUS_REPORTED_DATE#</span>
+							<span style="font-size:x-small;">reported by #reported_by# on #dateformat(STATUS_REPORTED_DATE,'yyyy-mm-dd')#</span>
 						</td>
 						<td>
 							<input type="button" value="update" class="savBtn" onclick="status#agent_status_id#.action.value='updateStatus';status#agent_status_id#.submit();">
