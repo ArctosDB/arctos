@@ -419,7 +419,7 @@
 						</select>
 					</td>
 					<td><input type="datetime" class="reqdClr" size="12" name="status_date" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
-					<td><input type="text" size="15" name="status_remark"></td>
+					<td><input type="text" size="50" name="status_remark"></td>
 					<td>
 					</td>
 					<td>
@@ -442,7 +442,7 @@
 							</select>
 						</td>
 						<td><input type="datetime" class="reqdClr" size="12" name="status_date" value="#status_date#"></td>
-						<td><input type="text" size="15" name="status_remark" value="#status_remark#"></td>
+						<td><input type="text" size="50" name="status_remark" value="#status_remark#"></td>
 						<td>
 							<span style="font-size:x-small;">reported by #reported_by# on #STATUS_REPORTED_DATE#</span>
 						</td>
