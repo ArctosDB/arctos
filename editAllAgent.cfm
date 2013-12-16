@@ -26,6 +26,14 @@
 		//$.noConflict();
 		///jQuery("#birth_date").datepicker();
 	});
+
+function pushToParent (teid,tv,ieid,idv){
+	$("#" + teid).val(tv).addClass('goodPick');
+	$("#" + ieid).val(idv);
+	parent.$("#_person").colorbox.close();
+}
+
+
 	function togglePerson(atype){
 		if (atype=='person'){
 			$("#newPersonAttrs").show();

@@ -1,11 +1,4 @@
 <cfinclude template="/includes/_noIncludeHeader.cfm">
-<script>
-function pushToParent (teid,tv,ieid,idv){
-	$("#" + teid).val(tv).addClass('goodPick');
-	$("#" + ieid).val(idv);
-	parent.$("#_person").colorbox.close();
-}
-</script>
 
 <!----
 op_ is called as an iframe in a colorbox
