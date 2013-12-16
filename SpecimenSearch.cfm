@@ -176,14 +176,22 @@
 						<option <cfif thisCollId is ctInst.collection_id>selected="selected" </cfif>value="#ctInst.collection_id#">#ctInst.collection#</option>
 					</cfloop>
 				</select>
-				<span class="helpLink" id="cat_num">Catalog Number:</span>
+				<table>
+					<tr>
+						<td><span class="helpLink" id="cat_num">Catalog Number:</span>
 				<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
 					<textarea name="listcatnum" id="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
 				<cfelse>
 					<input type="text" name="listcatnum" id="listcatnum" size="21" value="">
-				</cfif>
-				<span class="helpLink" id="guid">GUID:</span>
-				<input type="text" name="guid" id="guid" size="21" value="">
+				</cfif></td>
+					</tr>
+					<tr>
+						<td><span class="helpLink" id="guid">GUID:</span>
+				<input type="text" name="guid" id="guid" size="21" value=""></td>
+					</tr>
+				</table>
+				
+				
 			</td>
 		</tr>
 	<cfif isdefined("session.CustomOtherIdentifier") and len(session.CustomOtherIdentifier) gt 0>
