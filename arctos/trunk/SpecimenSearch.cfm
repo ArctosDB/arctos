@@ -195,6 +195,8 @@
 											<input type="text" name="listcatnum" id="listcatnum" size="21" value="">
 										</cfif>
 									</td>
+								</tr>
+								<tr>
 									<td>
 										<span class="helpLink" id="guid">GUID:</span>
 										<input type="text" name="guid" id="guid" size="21" value="">
