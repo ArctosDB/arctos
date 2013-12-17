@@ -6,16 +6,10 @@
 		<cfset ctChanges="">
 		<cfset today = Now()>
 		<cfset yesterday = CreateDate(Year(Now()),Month(Now()),Day(Now()-1))>
-		<cfparam name="start" default="#dateformat(yesterday,'yyyy-mm-dd')#" type="string">
-		
-		
+		<cfparam name="start" default="#dateformat(yesterday,'yyyy-mm-dd')#" type="string">		
 		<cfparam name="stop" default="#dateformat(now(),'yyyy-mm-dd')#" type="string">
 		DEFAULT is last 24 hours. You can change that by manipulating URL parameters. Example:
-		
 		<a href="authority_change.cfm?start=#start#&stop=#stop#">authority_change.cfm?start=#start#&stop=#stop#</a>
-		
-		
-		
 		<cfquery name="ctlogtbl" datasource="uam_god">
 			select 
 				table_name
@@ -24,7 +18,6 @@
 			WHERE
 				table_name like 'LOG_CT%'
 		</cfquery>
-		
 		<cfloop query="ctlogtbl">
 			<cfquery name="ctab" datasource="uam_god">
 				select * from #table_name# where WHEN between to_date('#start#') and to_date('#stop#') order by when
@@ -50,8 +43,6 @@
 				</cfsavecontent>
 			</cfif>
 		</cfloop>
-		
-		
 		<cfif len(ctChanges) gt 0>
 			<cfsavecontent variable="ctChanges">
 				<p>
@@ -65,7 +56,6 @@
 				#ctChanges#
 			</cfsavecontent>
 		</cfif>
-		
 		<cfquery name="geog" datasource="uam_god">
 			select 
 				*
@@ -74,8 +64,6 @@
 			WHERE
 				WHEN between to_date('#start#') and to_date('#stop#')
 		</cfquery>
-		
-		
 		<cfif geog.recordcount gt 0>
 			<cfsavecontent variable="geogChanges">
 				<p>
@@ -138,40 +126,27 @@
 			</cfsavecontent>
 		</cfif>
 		<!--- append everything together ---->
-		
-		<cfset allChanges=geogChanges & ctChanges>
-		
-		
+		<cfset allChanges=geogChanges & ctChanges>		
 		<cfif len(allChanges) is 0>
 			no changes.
 			<cfabort>
 		</cfif>
-		
-		
-		
-		
-		
-		
-		
 		<cfif action is "sendEmail">
-			<cfif len(geogChanges) gt 0>
-				<cfquery name="cc" datasource="uam_god">
-					select 
-						electronic_address.address
-					FROM 
-						collection_contacts,
-						preferred_agent_name,
-						electronic_address
-					where
-						collection_contacts.CONTACT_AGENT_ID=preferred_agent_name.agent_id and
-						preferred_agent_name.agent_id=electronic_address.agent_id and
-						electronic_address.address_type='e-mail' and
-						collection_contacts.contact_role='data quality'
-					group by 
-						electronic_address.address
-				</cfquery>
-			</cfif>
-			
+			<cfquery name="cc" datasource="uam_god">
+				select 
+					electronic_address.address
+				FROM 
+					collection_contacts,
+					preferred_agent_name,
+					electronic_address
+				where
+					collection_contacts.CONTACT_AGENT_ID=preferred_agent_name.agent_id and
+					preferred_agent_name.agent_id=electronic_address.agent_id and
+					electronic_address.address_type='e-mail' and
+					collection_contacts.contact_role='data quality'
+				group by 
+					electronic_address.address
+			</cfquery>
 			<cfsavecontent variable="emailChanges">
 				<p>
 					Authority values have changed.
@@ -192,24 +167,5 @@
 			<!--- just display ---->
 			#allChanges#
 		</cfif>
-	
-<!-----		
-		
-		
-		
-					<cfmail to="#address#" bcc="arctos.database@gmail.com" 
-						subject="Arctos Loan Notification" from="loan_notification@#Application.fromEmail#" type="html">
-						Dear #agent_name#,
-						<p>
-							You are receiving this message because you are listed as a contact for loan 
-							#loan.collection# #loan.loan_number#, due date #loan.return_due_date#.
-						</p>
-						#contacts#<!--- from cfsavecontent above ---->
-						#common#<!--- from cfsavecontent above ---->
-					</cfmail>
-					
-					
-					
-					---------->
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
