@@ -149,6 +149,18 @@ Make sure any useful changes end up in both places.
 			</cfquery>
 			
 			<cfset thisTaxonNameID=dfd.taxon_name_id>
+			
+			
+			
+			
+		<!--- just delete all previously-fetched globalnames data ---->
+		<cfquery name="flush_old" datasource="uam_god">
+			delete from taxon_term where taxon_name_id=#thisTaxonNameID#
+			and source not in (#listqualify(sourcesToIgnore,chr(39))#)
+		</cfquery>
+		
+		
+		
 				<!----
 						<hr>thisTaxonNameID::::::::::::::::::::::::::: #thisTaxonNameID#
 						---->
@@ -180,11 +192,20 @@ Make sure any useful changes end up in both places.
 									
 									Don't bother if we're creating a UUID - it won't exist (that's the point!) so save 
 									a trip to the DB
-								--------------->
-								<cfquery name="flush_old" datasource="uam_god">
+									
+									
+									
+									
+									<cfquery name="flush_old" datasource="uam_god">
 									delete from taxon_term where taxon_name_id=#d.taxon_name_id#
 									and classification_id='#thisSourceID#'
 								</cfquery>
+								
+								
+								
+								
+								--------------->
+								
 							</cfif>
 										
 							<cfset match_type=x.data[thisResultIndex].results[i].match_type>
@@ -316,6 +337,7 @@ Make sure any useful changes end up in both places.
 	
 	<cfcatch>
 		<cfdump var=#cfcatch#>
+		<cf_logError subject="globalnames_refresh error" attributeCollection=#cfcatch#>
 	</cfcatch>
 		</cftry>
 			

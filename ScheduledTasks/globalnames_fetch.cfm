@@ -13,6 +13,15 @@ This REFRESHES data that already exist in Arctos.
 			Or possibly some slight confusion. 
 	--->
 	<cfset sourcesToIgnore="Arctos">
+	
+	
+	<cfquery name="tti" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select source from ctTAXONOMY_SOURCE
+	</cfquery>
+	<cfset localSources=valuelist(tti.source,'|')>
+	
+	
+	
 	<cfif not isdefined("name") or len(name) is 0>
 		invalid call<cfabort>
 	</cfif>
@@ -24,9 +33,17 @@ This REFRESHES data that already exist in Arctos.
 		where 
 			scientific_name='#name#'
 	</cfquery>
+	
+	
+	
 	<cfloop query="ids">
 		 <cfquery name="d" datasource="uam_god">
 			select scientific_name,taxon_name_id from taxon_name where taxon_name_id='#taxon_name_id#'
+		</cfquery>
+		<!--- just delete all previously-fetched globalnames data ---->
+		<cfquery name="flush_old" datasource="uam_god">
+			delete from taxon_term where taxon_name_id=#d.taxon_name_id#
+			and source not in (#listqualify(localSources,chr(39))#)
 		</cfquery>
 		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#d.scientific_name#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
@@ -53,11 +70,18 @@ This REFRESHES data that already exist in Arctos.
 								
 								Don't bother if we're creating a UUID - it won't exist (that's the point!) so save 
 								a trip to the DB
-							--------------->
-							<cfquery name="flush_old" datasource="uam_god">
+								
+								
+								
+								<cfquery name="flush_old" datasource="uam_god">
 								delete from taxon_term where taxon_name_id=#d.taxon_name_id#
 								and classification_id='#thisSourceID#'
 							</cfquery>
+							
+							
+							
+							--------------->
+							
 						</cfif>
 						<cfset match_type=x.data[1].results[i].match_type>
 						<cfif match_type is 1>
