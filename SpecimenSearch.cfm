@@ -300,7 +300,7 @@
 										</select>
 									</td>
 									<td>
-										<label id="_scientific_name_match_type" for="scientific_name_match_type">Match Type</label>
+										<label id="_scientific_name_match_type" class="helpLink" for="scientific_name_match_type">Match Type</label>
 										<select name="scientific_name_match_type" id="scientific_name_match_type">
 											<option value="contains">contains</option>
 											<option value="exact">is (case insensitive)</option>
