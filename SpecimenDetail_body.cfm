@@ -306,15 +306,11 @@
 						media_relations.media_id=media.media_id (+) and
 						citation.collection_object_id=#collection_object_id#
 				</cfquery>
-				<cfdump var=#citations#>
 				<div class="detailCell">
 					<div class="detailLabel">Citations</div>
 					<cfloop query="citations">
 						<div class="detailBlock">
-							 #type_status# of <a href="http://arctos.database.museum/name/#taxsciname#">#idsciname#</a>
-							 <cfif len(OCCURS_PAGE_NUMBER) gt 0>
-							 	, page 239 in
-							 </cfif>
+							 #type_status# of <a href="http://arctos.database.museum/name/#taxsciname#">#idsciname#</a><cfif len(OCCURS_PAGE_NUMBER) gt 0>, page #OCCURS_PAGE_NUMBER# in</cfif>
 							 <a href="http://arctos.database.museum/publication/#PUBLICATION_ID#">#short_citation#</a>
 							 <cfif len(media_uri) gt 0>
 							 <cfset mp = obj.getMediaPreview(
