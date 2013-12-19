@@ -59,6 +59,7 @@ END;
 				round(sysdate-last_date) >= 7
 		</cfquery>
 		<cfloop query="bads">
+			#cf_dup_agent_id#<br>
 			<cftransaction>
 				<cftry>				
 					<!--- if there are non-electronic addresses, merge them and update shipments ---->
@@ -206,10 +207,22 @@ END;
 					<cfquery name="addr" datasource="uam_god">
 						delete from addr where agent_id=#bads.agent_id#
 					</cfquery>
+					
+					<!--- avoid unique constraint ---->
+					
+					
+					<cfquery name="collector_conflict" datasource="uam_god">
+						delete from collector where agent_id=#bads.agent_id# and collection_object_id in 
+						(select collection_object_id from collector where agent_id=#bads.related_agent_id#)
+					</cfquery>
+					
 					<cfquery name="collector" datasource="uam_god">
 						UPDATE collector SET agent_id = #bads.related_agent_id#
 						WHERE agent_id = #bads.agent_id#
 					</cfquery>
+					
+					
+
 					got collector<br><cfflush>
 					<cfquery name="attributes" datasource="uam_god">
 						update attributes SET determined_by_agent_id=#bads.related_agent_id#
@@ -363,10 +376,6 @@ END;
 						DELETE FROM agent_relations WHERE agent_id = #bads.agent_id# OR related_agent_id = #bads.agent_id#
 					</cfquery>
 					NO SKIPPED del agntreln<br><cfflush>
-					
-					<cfquery name="disableTrig" datasource="uam_god">
-						alter trigger TR_AGENT_NAME_BIUD disable
-					</cfquery>
 					<cfquery name="killnames" datasource="uam_god">
 						DELETE FROM agent_name WHERE agent_id = #bads.agent_id#
 					</cfquery>
@@ -375,9 +384,6 @@ END;
 					
 					<cfquery name="killagent" datasource="uam_god">
 						DELETE FROM agent WHERE agent_id = #bads.agent_id#
-					</cfquery>
-					<cfquery name="disableTrig" datasource="uam_god">
-						alter trigger TR_AGENT_NAME_BIUD enable
 					</cfquery>
 					del agnt<br><cfflush>
 					
@@ -401,9 +407,15 @@ END;
 						<cfset mailto=Application.bugReportEmail>
 					</cfif>
 					
+					
+											<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
+
+
 					<cfmail to="#mailto#" subject="agent merger success" cc="#Application.PageProblemEmail#" from="agentmerge@#Application.fromEmail#" type="html">
 						<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
 					</cfmail>
+					
+					
 					.........commit...
 					<cfcatch>
 					.........rollback...
