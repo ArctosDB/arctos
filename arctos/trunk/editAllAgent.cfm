@@ -1113,7 +1113,7 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->	
-<cfif #Action# is "deleteRelated">
+<cfif action is "deleteRelated">
 	<cfoutput>
 	<cfquery name="killRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from agent_relations where
@@ -1121,7 +1121,13 @@
 			and related_agent_id = #related_agent_id#
 			and agent_relationship = '#relationship#'
 	</cfquery>
-<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
+	<!--- and the merge file ---->
+	<cfquery name="killRel_CFMerge" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_dup_agent set status='relationship removed by #session.username#' where 
+		AGENT_ID=#agent_id# and 
+		RELATED_AGENT_ID=#related_agent_id#
+	</cfquery>
+	<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->	
