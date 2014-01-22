@@ -118,14 +118,15 @@ console.log('window height: ' + wh);
 var sfmenuh = $('div.sf-mainMenuWrapper:first').height();
 console.log('sfmenuh height: ' + sfmenuh);
 
-var hh = $('#headerImageCell').height();
+var hh = $('#header_color').height();
 
 console.log('hh height: ' + hh);
 
 
 	wh=wh - hh - sfmenuh;
 
-	
+console.log('adj window height: ' + wh);
+
 	$("#olTabl").height(wh);
  
 });
