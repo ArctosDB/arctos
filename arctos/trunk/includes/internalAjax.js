@@ -498,7 +498,6 @@ function revokeAgentRank(agent_rank_id){
 		}
 	); 		
 }
-saveAgentRank
 function removeMediaMultiCatItem(){
 	
 	$('#bgDiv').remove();
