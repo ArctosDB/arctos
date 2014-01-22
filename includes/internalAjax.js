@@ -497,6 +497,8 @@ function revokeAgentRank(agent_rank_id){
 			queryformat : 'column'
 		},
 		function (d) {
+			console.log('back........');
+			
 			console.log(d);
 			
 			if(d.length>0 && d.substring(0,4)=='fail'){
