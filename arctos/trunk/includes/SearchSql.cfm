@@ -1470,10 +1470,6 @@
 		<cfset basQual = " #basQual# AND customIdentifier.DISPLAY_VALUE = '#CustomIdentifierValue#'">
 	<cfelseif CustomOidOper is "LIST">
 		<cfset noSpace=replace(CustomIdentifierValue,' ','','all')>
-		
-		<p>
-		#nospace#
-		</p>
 		<cfset basQual = " #basQual# AND upper(customIdentifier.DISPLAY_VALUE) IN (#ucase(ListQualify(ListChangeDelims(noSpace,','),''''))#)">
 	<cfelseif CustomOidOper is "BETWEEN">
 		<cfif CustomIdentifierValue does not contain "-">
@@ -1498,6 +1494,8 @@
 	</cfif>
 	<cfset oidType=listqualify(OIDType,chr(39),",")>
 	<cfset oidType=replace(OIDType,"|",",","all")>
+	
+	hi
 	<cfset basQual = " #basQual# and otherIdSearch.id_references='self' AND otherIdSearch.other_id_type in (#OIDType#)">
 </cfif>
 <cfif isdefined("id_references") AND len(id_references) gt 0>
