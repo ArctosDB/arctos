@@ -126,16 +126,16 @@ window.onload=resizeCaller
 
 
 
-	jQuery(window).load(function() {
+	jQuery(document).ready(function() {
 		var wh=$(window).height();
 		var sfmenuh = $('div.sf-mainMenuWrapper:first').height();
 		var hh = $('#header_color').height();
-		var ft = $('#footerTable').height();
+		//var ft = $('#footerTable').height();
 		
-console.log('ft: ' + ft);
+//console.log('ft: ' + ft);
 
 
-		wh=wh - hh - sfmenuh - ft;
+		wh=wh - hh - sfmenuh - 100;
 		$("#olTabl").height(wh); 
 	});
 </script>
