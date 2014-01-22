@@ -115,8 +115,7 @@ html, body
 	}
 </style>
 <cfoutput>
-<div id="olTabl">
-<table border width="100%" height="100%">
+<table id="olTabl">
 	<tr>
 		<td id="td_search">
 		srch
@@ -141,5 +140,4 @@ html, body
 		</td>
 		</tr>
 </table>
-</div>
 </cfoutput>
