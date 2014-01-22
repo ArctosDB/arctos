@@ -2709,6 +2709,12 @@
 	<cfargument name="agent_rank_id" type="numeric" required="yes">
 	<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
+	
+	
+	delete from agent_rank where agent_rank_id=#agent_rank_id#
+	
+	
+	
 		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from agent_rank where agent_rank_id=#agent_rank_id#
 		</cfquery>
