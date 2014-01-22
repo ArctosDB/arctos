@@ -113,9 +113,9 @@ window.onload=resizeCaller
 	#_pick {
 		width:100%;
 		height:100%;
-	}#
+	}
 	
-	_person {
+	#_person {
 		width:100%;
 		height:100%;
 	}
