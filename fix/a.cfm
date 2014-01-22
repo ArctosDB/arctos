@@ -1,3 +1,32 @@
+
+
+<style>
+
+
+	#td_search {
+		height:100%;
+		width:30%;
+	}
+	
+	#td_rslt {
+		height:100%;
+		width:30%;
+	}
+	
+	#td_edit {
+		height:100%;
+		width:30%;
+	}
+	#olTabl {
+		display:inline-block;
+		border:1px solid red;
+		height:100%;
+		width:100%;
+	}
+</style>
+
+
+
 <table border id="olTabl">
 	<tr>
 		<td id="td_search">
