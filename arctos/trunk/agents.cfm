@@ -140,7 +140,7 @@ console.log('adj window height: ' + wh);
 <table border id="olTabl">
 	<tr>
 		<td id="td_search">
-			srch
+			<iframe src="/AgentSearch.cfm" id="_search" name="_search"></iframe>
 		</td>
 		<td id="td_rslt" rowspan="2">
 			edit 
