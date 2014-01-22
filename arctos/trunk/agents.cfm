@@ -88,9 +88,14 @@ window.onload=resizeCaller
 		height:100%;
 		width:100%;
 	}
+	#olTabl {
+		display:inline-block;
+		border:1px solid red;
+		height:100%;
+	}
 </style>
 <cfoutput>
-<div style="display:inline-block;border:1px solid red;height:100%;">
+<div id="olTabl">
 <table border width="100%" height="100%">
 	<tr>
 		<td width="35%" valign="top">
