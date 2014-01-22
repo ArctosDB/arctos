@@ -92,7 +92,7 @@ window.onload=resizeCaller
 	
 	#td_rslt {
 		height:50%;
-		width:30%;
+		width:70%;
 	}
 	
 	#td_edit {
