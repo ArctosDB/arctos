@@ -1,5 +1,4 @@
 
-<cfinclude template="/includes/_header.cfm">
 <style>
 .row-fluid,.span6,.span12 {height:100%;}
 </style>
