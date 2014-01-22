@@ -14,6 +14,10 @@ var viewport = {
 		console.log('innerHeight: ' + this.innerHeight);
 		console.log('innerWidth: ' + this.innerWidth);
 		
+		
+
+		console.log('window.innerHeight: ' + window.innerHeight);
+		
 		console.log('jqheight: ' + $( window ).height());
 		
 		
