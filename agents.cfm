@@ -84,6 +84,15 @@ window.onload=resizeCaller
 ------------>
 
 <style>
+
+
+html, body
+{
+  height: 100%;
+}
+
+
+
 	#td_search {
 		height:100%;
 		width:100%;
