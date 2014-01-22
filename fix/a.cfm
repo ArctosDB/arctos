@@ -18,7 +18,6 @@
 		width:30%;
 	}
 	#olTabl {
-		display:inline-block;
 		height:100%;
 		width:100%;
 	}
@@ -29,25 +28,15 @@
 <table border id="olTabl">
 	<tr>
 		<td id="td_search">
-		srch
-		<!----
-			<iframe src="/AgentSearch.cfm" id="_search" name="_search"></iframe>
-			<br>
-			<iframe src="/AgentGrid.cfm" name="_pick" id="_pick" width="100%" height="200"></iframe>
-			---->
+			srch
 		</td>
 		<td id="td_rslt" rowspan="2">
 			edit 
 		</td>
-		
 	</tr>
-		<tr>
+	<tr>
 		<td id="td_edit" valign="top">
-		results
-		
-		<!----
-			<iframe src="/editAllAgent.cfm?agent_id=#agent_id#" name="_person" id="_person" width="100%" height="600"></iframe>
-			---->
+			results
 		</td>
-		</tr>
+	</tr>
 </table>
