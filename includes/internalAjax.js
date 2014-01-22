@@ -505,7 +505,7 @@ function revokeAgentRank(agent_rank_id){
 			} else {
 				console.log('cleanup........');
 
-				//$('#tr__' & agent_rank_id).hide();
+				$('#tr__' & agent_rank_id).hide();
 			}
 		}
 	); 	
