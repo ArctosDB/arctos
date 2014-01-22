@@ -484,6 +484,11 @@ function saveAgentRank(){
 	); 		
 }
 function revokeAgentRank(agent_rank_id){
+	
+	console.log('here i am now');
+
+	
+	
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "revokeAgentRank",
