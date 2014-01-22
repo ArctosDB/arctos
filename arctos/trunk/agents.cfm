@@ -4,7 +4,14 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title='Manage Agents'>
 
+
+
+
+<!---------------
 <script type="text/javascript">
+
+
+
 
 /***********************************************
 * IFrame SSI script II- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
@@ -74,7 +81,7 @@ window.onload=resizeCaller
 
 </script>
 
-
+------------>
 <cfoutput>
 
 <table border width="100%">
