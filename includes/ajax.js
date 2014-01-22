@@ -8,6 +8,11 @@ var viewport = {
 		this.pageXOffset = self.pageXOffset;
 		this.innerHeight = self.innerHeight;
 		this.innerWidth = self.innerWidth;
+		
+		console.log(this.innerHeight);
+		console.log($( window ).height());
+		
+		
 	} else if (document.documentElement && document.documentElement.clientHeight) {
 		
 		console.log('clientHeight');
