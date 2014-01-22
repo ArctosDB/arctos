@@ -2710,7 +2710,7 @@
 	<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
 	
-	
+	<cfdump var=#agent_rank_id#>
 	delete from agent_rank where agent_rank_id=#agent_rank_id#
 	
 	
