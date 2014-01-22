@@ -127,7 +127,10 @@ window.onload=resizeCaller
 		var wh=$(window).height();
 		var sfmenuh = $('div.sf-mainMenuWrapper:first').height();
 		var hh = $('#header_color').height();
-		wh=wh - hh - sfmenuh;
+		var ft = $('#footerTable').height();
+
+
+		wh=wh - hh - sfmenuh - ft;
 		$("#olTabl").height(wh); 
 	});
 </script>
