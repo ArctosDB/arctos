@@ -109,6 +109,16 @@ window.onload=resizeCaller
 		width:100%;
 		height:100%;
 	}
+	
+	#_pick {
+		width:100%;
+		height:100%;
+	}#
+	
+	_person {
+		width:100%;
+		height:100%;
+	}
 
 
 </style>
@@ -146,12 +156,12 @@ console.log('adj window height: ' + wh);
 			<iframe src="/AgentSearch.cfm" id="_search" name="_search"></iframe>
 		</td>
 		<td id="td_rslt" rowspan="2">
-			edit 
+			<iframe src="/editAllAgent.cfm?agent_id=#agent_id#" name="_person" id="_person" ></iframe>
 		</td>
 	</tr>
 	<tr>
 		<td id="td_edit" valign="top">
-			results
+			<iframe src="/AgentGrid.cfm" name="_pick" id="_pick" ></iframe>
 		</td>
 	</tr>
 </table>
@@ -165,7 +175,6 @@ console.log('adj window height: ' + wh);
 		<!----
 			<iframe src="/AgentSearch.cfm" id="_search" name="_search"></iframe>
 			<br>
-			<iframe src="/AgentGrid.cfm" name="_pick" id="_pick" width="100%" height="200"></iframe>
 			---->
 		</td>
 		<td id="td_rslt" rowspan="2">
@@ -178,7 +187,6 @@ console.log('adj window height: ' + wh);
 		results
 		
 		<!----
-			<iframe src="/editAllAgent.cfm?agent_id=#agent_id#" name="_person" id="_person" width="100%" height="600"></iframe>
 			---->
 		</td>
 		</tr>
