@@ -2711,7 +2711,7 @@
 		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from agent_rank where agent_rank_id=#agent_rank_id#
 		</cfquery>
-		<cfreturn 12345>
+		<cfreturn agent_rank_id>
 	<cfcatch>
 		<cfreturn "fail: #cfcatch.Message# #cfcatch.Detail# #cfcatch.sql#">
 	</cfcatch>
