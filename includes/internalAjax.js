@@ -480,7 +480,25 @@ function saveAgentRank(){
 		}
 	); 		
 }
-
+function revokeAgentRank(agent_rank_id){
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "revokeAgentRank",
+			agent_rank_id : agent_rank_id,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (d) {
+			if(d.length>0 && d.substring(0,4)=='fail'){
+				alert(d);
+			} else {
+				
+				$('#tr__' & agent_rank_id).hide();
+			}
+		}
+	); 		
+}
+saveAgentRank
 function removeMediaMultiCatItem(){
 	
 	$('#bgDiv').remove();
