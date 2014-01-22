@@ -66,7 +66,7 @@
 					<th>Remark</th>
 				</tr>
 				<cfloop query="pr">
-					<tr id="tr_#agent_rank_id#">
+					<tr id="asdffdasdfadasd">
 						<td>#agent_rank#</td>
 						<td>#transaction_type#</td>
 						<td nowrap="nowrap">#dateformat(rank_date,"yyyy-mm-dd")#</td>
@@ -79,7 +79,7 @@
 						<td>#remark#
 						
 						
-								<span class="infoLink" onclick="killarow('#agent_rank_id#');">killarow</span>
+								<span class="infoLink" onclick="killarow('asdffdasdfadasd');">killarow</span>
 						
 						</td>
 					</tr>					 
