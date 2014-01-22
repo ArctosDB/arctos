@@ -458,6 +458,9 @@ function tog_AgentRankDetail(o){
 	}
 }
 function saveAgentRank(){
+		alert('savey');
+		
+		
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "saveAgentRank",
@@ -489,10 +492,11 @@ function revokeAgentRank(agent_rank_id){
 			queryformat : 'column'
 		},
 		function (d) {
+			console.log(d);
+			
 			if(d.length>0 && d.substring(0,4)=='fail'){
 				alert(d);
 			} else {
-				
 				$('#tr__' & agent_rank_id).hide();
 			}
 		}
