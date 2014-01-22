@@ -9,8 +9,12 @@ var viewport = {
 		this.innerHeight = self.innerHeight;
 		this.innerWidth = self.innerWidth;
 		
-		console.log(this.innerHeight);
-		console.log($( window ).height());
+		console.log('pageYOffset: ' + this.pageYOffset);
+		console.log('pageXOffset: ' + this.pageXOffset);
+		console.log('innerHeight: ' + this.innerHeight);
+		console.log('innerWidth: ' + this.innerWidth);
+		
+		console.log('jqheight: ' + $( window ).height());
 		
 		
 	} else if (document.documentElement && document.documentElement.clientHeight) {
