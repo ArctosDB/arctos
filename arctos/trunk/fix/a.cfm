@@ -29,7 +29,7 @@
 </style>
 
 
-
+<div style="width:100%;height:100%;border:2px solid blue;">
 <table border id="olTabl">
 	<tr>
 		<td id="td_search">
@@ -45,3 +45,5 @@
 		</td>
 	</tr>
 </table>
+
+</div>
