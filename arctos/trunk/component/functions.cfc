@@ -2705,6 +2705,20 @@
 </cffunction>
 
 <!------------------------------------------------------->
+<cffunction name="revokeAgentRank" access="remote">
+	<cfargument name="agent_rank_id" type="numeric" required="yes">
+	<cfinclude template="/includes/functionLib.cfm">
+	<cftry>
+		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from agent_rank where agent_rank_id=#agent_rank_id#
+		</cfquery>
+		<cfreturn agent_rank_id>
+	<cfcatch>
+		<cfreturn "fail: #cfcatch.Message# #cfcatch.Detail# #cfcatch.sql#">
+	</cfcatch>
+	</cftry>
+</cffunction>
+<!------------------------------------------------------->
 <cffunction name="saveAgentRank" access="remote">
 	<cfargument name="agent_id" type="numeric" required="yes">
 	<cfargument name="agent_rank" type="string" required="yes">

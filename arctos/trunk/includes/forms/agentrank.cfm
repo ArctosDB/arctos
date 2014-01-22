@@ -9,7 +9,8 @@
 			agent_rank,
 			transaction_type,
 			rank_date,
-			agent_name ranker, 
+			agent_name ranker,
+			ranked_by_agent_id,
 			remark
 		from 
 			agent_rank,
@@ -58,11 +59,16 @@
 					<th>Remark</th>
 				</tr>
 				<cfloop query="pr">
-					<tr>
+					<tr id="tr__#agent_rank_id#">
 						<td>#agent_rank#</td>
 						<td>#transaction_type#</td>
 						<td nowrap="nowrap">#dateformat(rank_date,"yyyy-mm-dd")#</td>
-						<td nowrap="nowrap">#replace(ranker," ", "&nbsp;","all")#</td>
+						<td nowrap="nowrap">
+							#replace(ranker," ", "&nbsp;","all")#
+							<cfif ranked_by_agent_id is session.myAgentId>
+								<a href class="infoLink" onclick="revokeAgentRank(#ranked_by_agent_id#);">revoke</a>
+							</cfif>
+						</td>
 						<td>#remark#</td>
 					</tr>					 
 				</cfloop>
