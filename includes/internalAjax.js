@@ -503,7 +503,8 @@ function revokeAgentRank(agent_rank_id){
 			if(d.length>0 && d.substring(0,4)=='fail'){
 				alert(d);
 			} else {
-				console.log('cleanup.....removing tablr_' + agent_rank_id);
+				console.log('cleanup.....removing tablr_' + d);
+				$('#tablr' + agent_rank_id).addClass('red');
 
 				$('#tablr' & d).remove();
 			}
