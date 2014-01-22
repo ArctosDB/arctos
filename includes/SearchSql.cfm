@@ -1495,7 +1495,7 @@
 	<cfset oidType=listqualify(OIDType,chr(39),",")>
 	<cfset oidType=replace(OIDType,"|",",","all")>
 	
-	hi
+	fasdfasdfasd
 	<cfset basQual = " #basQual# and otherIdSearch.id_references='self' AND otherIdSearch.other_id_type in (#OIDType#)">
 </cfif>
 <cfif isdefined("id_references") AND len(id_references) gt 0>
