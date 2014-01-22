@@ -1,6 +1,8 @@
 
 <cfinclude template="/includes/_header.cfm">
-
+<style>
+.row-fluid,.span6,.span12 {height:100%;}
+</style>
 <div class="container-fluid" style="background:yellow;height:400px;">
   <div class="row-fluid" style="height:100%;border:1px solid #aaa;">
     <div class="span6" style="height:100%;">
