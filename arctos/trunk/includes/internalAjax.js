@@ -540,7 +540,7 @@ function rankAgent(agent_id) {
 	var ptl="/includes/forms/agentrank.cfm";			
 	jQuery.get(ptl,{agent_id: agent_id},function(data){
 		document.getElementById('pickDiv').innerHTML=data;
-		viewport.init("#pickDiv");
+		//viewport.init("#pickDiv");
 	});
 }
 function pickThis (fld,idfld,display,aid) {
