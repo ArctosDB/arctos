@@ -70,7 +70,12 @@
 								<span class="infoLink" onclick="revokeAgentRank(#agent_rank_id#);">revoke</span>
 							</cfif>
 						</td>
-						<td>#remark#</td>
+						<td>#remark#
+						
+						
+								<span class="infoLink" onclick="killarow(#agent_rank_id#);">killarow</span>
+						
+						</td>
 					</tr>					 
 				</cfloop>
 			</table>
