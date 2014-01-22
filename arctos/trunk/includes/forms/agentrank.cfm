@@ -1,4 +1,5 @@
 <cf_rolecheck>
+<cfinclude template="/includes/_frameHeader.cfm">
 
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
 
