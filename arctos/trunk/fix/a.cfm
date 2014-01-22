@@ -1,17 +1,25 @@
-
-<style>
-.row-fluid,.span6,.span12 {height:100%;}
-</style>
-<div class="container-fluid" style="height:400px;">
-  <div class="row-fluid">
-    <div class="span6">
-      <div class="row-fluid" style="height:50%;">
-        <div class="span12" style="background:blue;">a</div>
-      </div>
-      <div class="row-fluid" style="height:50%;">
-        <div class="span12" style="background:red;">b</div>
-      </div>
-    </div>
-    Right side
-  </div>
-</div>
+<table border id="olTabl">
+	<tr>
+		<td id="td_search">
+		srch
+		<!----
+			<iframe src="/AgentSearch.cfm" id="_search" name="_search"></iframe>
+			<br>
+			<iframe src="/AgentGrid.cfm" name="_pick" id="_pick" width="100%" height="200"></iframe>
+			---->
+		</td>
+		<td id="td_rslt" rowspan="2">
+			edit 
+		</td>
+		
+	</tr>
+		<tr>
+		<td id="td_edit" valign="top">
+		results
+		
+		<!----
+			<iframe src="/editAllAgent.cfm?agent_id=#agent_id#" name="_person" id="_person" width="100%" height="600"></iframe>
+			---->
+		</td>
+		</tr>
+</table>
