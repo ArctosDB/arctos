@@ -82,24 +82,16 @@ window.onload=resizeCaller
 </script>
 
 ------------>
-
 <style>
 
 
-html, body
-{
-  height: 100%;
-}
-
-
-
 	#td_search {
-		height:100%;
+		height:50%;
 		width:30%;
 	}
 	
 	#td_rslt {
-		height:100%;
+		height:50%;
 		width:30%;
 	}
 	
@@ -108,13 +100,46 @@ html, body
 		width:30%;
 	}
 	#olTabl {
-		display:inline-block;
-		border:1px solid red;
 		height:100%;
 		width:100%;
 	}
+	
+	
+	
+
+
 </style>
+<script>
+jQuery(document).ready(function() {
+	var wh=$(window).height();
+	wh=wh*.9;
+
+	
+	$("#olTabl").height(wh);
+ 
+});
 <cfoutput>
+
+
+
+<table border id="olTabl">
+	<tr>
+		<td id="td_search">
+			srch
+		</td>
+		<td id="td_rslt" rowspan="2">
+			edit 
+		</td>
+	</tr>
+	<tr>
+		<td id="td_edit" valign="top">
+			results
+		</td>
+	</tr>
+</table>
+
+
+<!-----------
 <table border id="olTabl">
 	<tr>
 		<td id="td_search">
@@ -140,4 +165,7 @@ html, body
 		</td>
 		</tr>
 </table>
+
+
+----------------->
 </cfoutput>
