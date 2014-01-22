@@ -60,7 +60,7 @@
 					<th>Remark</th>
 				</tr>
 				<cfloop query="pr">
-					<tr id="tr__#agent_rank_id#">
+					<tr id="tr_#agent_rank_id#">
 						<td>#agent_rank#</td>
 						<td>#transaction_type#</td>
 						<td nowrap="nowrap">#dateformat(rank_date,"yyyy-mm-dd")#</td>
