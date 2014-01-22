@@ -518,7 +518,7 @@ function killarow(agent_rank_id){
 	console.log('cleanup.....removing tr_' + agent_rank_id);
 
 	
-	$('#tr_' & agent_rank_id).addClass('red');
+	$('#asdffdasdfadasd').addClass('red');
 	
 	//$('#tr_' & agent_rank_id).remove();
 
