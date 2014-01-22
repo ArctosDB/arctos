@@ -19,7 +19,6 @@
 	}
 	#olTabl {
 		display:inline-block;
-		border:1px solid red;
 		height:100%;
 		width:100%;
 	}
