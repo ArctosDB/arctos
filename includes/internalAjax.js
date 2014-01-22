@@ -515,10 +515,10 @@ function revokeAgentRank(agent_rank_id){
 function killarow(agent_rank_id){
 	
 	
-	console.log('cleanup.....removing tr_' + agent_rank_id);
+	console.log('cleanup.....removing tablr' + agent_rank_id);
 
 	
-	$('#' + agent_rank_id).addClass('red');
+	$('#tablr' + agent_rank_id).addClass('red');
 	
 	//$('#tr_' & agent_rank_id).remove();
 
