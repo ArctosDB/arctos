@@ -90,7 +90,7 @@ window.onload=resizeCaller
 	}
 </style>
 <cfoutput>
-<div height="100%">
+<div style="border:1px solid red;height:100%;">
 <table border width="100%" height="100%">
 	<tr>
 		<td width="35%" valign="top">
