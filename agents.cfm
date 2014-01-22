@@ -118,16 +118,19 @@ window.onload=resizeCaller
 			---->
 		</td>
 		<td id="td_rslt" rowspan="2">
-			results
+			edit 
 		</td>
-		<td id="td_edit" valign="top">
 		
-		edit
+	</tr>
+		<tr>
+		<td id="td_edit" valign="top">
+		results
+		
 		<!----
 			<iframe src="/editAllAgent.cfm?agent_id=#agent_id#" name="_person" id="_person" width="100%" height="600"></iframe>
 			---->
 		</td>
-	</tr>
+		</tr>
 </table>
 </div>
 </cfoutput>
