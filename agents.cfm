@@ -112,7 +112,18 @@ window.onload=resizeCaller
 <script>
 jQuery(document).ready(function() {
 	var wh=$(window).height();
-	wh=wh*.9;
+
+console.log('window height: ' + wh);
+
+var sfmenuh = $('div.sf-mainMenuWrapper:first').height();
+console.log('sfmenuh height: ' + whsfmenuh);
+
+var hh = $('#headerImageCell').height();
+
+console.log('hh height: ' + hh);
+
+
+	wh=wh - hh - sfmenuh;
 
 	
 	$("#olTabl").height(wh);
