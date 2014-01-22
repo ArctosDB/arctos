@@ -6,6 +6,7 @@
 	</cfquery>
 	<cfquery name="pr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
+			agent_rank_id,
 			agent_rank,
 			transaction_type,
 			rank_date,
