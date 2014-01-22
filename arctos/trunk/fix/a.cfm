@@ -31,7 +31,7 @@
 jQuery(document).ready(function() {
 	
 	
-	$("#olTabl").height(420);
+	$("#olTabl").height($(window).height(););
  
 });
 
