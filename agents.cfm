@@ -135,7 +135,7 @@ window.onload=resizeCaller
 //console.log('ft: ' + ft);
 
 
-		wh=wh - hh - sfmenuh - 100;
+		wh=wh - hh - sfmenuh - 120;
 		$("#olTabl").height(wh); 
 	});
 </script>
