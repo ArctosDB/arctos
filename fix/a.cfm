@@ -29,9 +29,11 @@
 </style>
 <script>
 jQuery(document).ready(function() {
+	var wh=$(window).height();
+	wh=wh*.9;
+
 	
-	
-	$("#olTabl").height($(window).height());
+	$("#olTabl").height(wh);
  
 });
 
