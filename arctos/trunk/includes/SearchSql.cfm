@@ -249,8 +249,8 @@
 	</cfif>
 	<cfset currTaxIDs=" select taxon_name_id from taxon_term where upper(taxon_term.term) ">
 	<cfset relTaxIDs=" select related_taxon_name_id from taxon_relations,taxon_term where taxon_relations.taxon_name_id=taxon_term.taxon_name_id and upper(taxon_term.term) ">
-	<cfset invRelTaxIDs=" select taxon_term.taxon_name_id from taxon_relations,taxon_term where taxon_relations.related_taxon_name_id=taxon_term.taxon_name_id and upper(taxon_term.term) ">
-	
+	<cfset invRelTaxIDs=" select taxon_relations.taxon_name_id from taxon_relations,taxon_term where taxon_relations.related_taxon_name_id=taxon_term.taxon_name_id and upper(taxon_term.term) ">
+
 	<cfset currTaxIDs = currTaxIDs & " LIKE '#ucase(escapeQuotes(taxon_name))#%' ">
 	<cfset relTaxIDs = relTaxIDs & " LIKE '#ucase(escapeQuotes(taxon_name))#%' ">
 	<cfset invRelTaxIDs = invRelTaxIDs & " LIKE '#ucase(escapeQuotes(taxon_name))#%' ">
@@ -1470,7 +1470,7 @@
 		<cfset basQual = " #basQual# AND customIdentifier.DISPLAY_VALUE = '#CustomIdentifierValue#'">
 	<cfelseif CustomOidOper is "LIST">
 		<cfset noSpace=replace(CustomIdentifierValue,' ','','all')>
-		<cfset basQual = " #basQual# AND upper(customIdentifier.DISPLAY_VALUE) IN (#ucase(ListQualify(ListChangeDelims(noSpace,','),''''))#)">
+		<cfset basQual = " #basQual# AND upper(customIdentifier.DISPLAY_VALUE) IN (#ucase(ListQualify(ListChangeDelims(trim(noSpace),','),''''))#)">
 	<cfelseif CustomOidOper is "BETWEEN">
 		<cfif CustomIdentifierValue does not contain "-">
 			<div class="error">
