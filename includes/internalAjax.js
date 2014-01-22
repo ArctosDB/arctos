@@ -506,7 +506,7 @@ function revokeAgentRank(agent_rank_id){
 				console.log('cleanup.....removing tablr_' + d);
 				$('#tablr' + agent_rank_id).addClass('red');
 
-				$('#tablr' & d).remove();
+				$('#tablr' + agent_rank_id).remove();
 			}
 		}
 	); 	
