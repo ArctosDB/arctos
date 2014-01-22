@@ -95,17 +95,17 @@ html, body
 
 	#td_search {
 		height:100%;
-		width:100%;
+		width:30%;
 	}
 	
 	#td_rslt {
 		height:100%;
-		width:100%;
+		width:30%;
 	}
 	
 	#td_edit {
 		height:100%;
-		width:100%;
+		width:30%;
 	}
 	#olTabl {
 		display:inline-block;
@@ -115,7 +115,7 @@ html, body
 	}
 </style>
 <cfoutput>
-<table id="olTabl">
+<table border id="olTabl">
 	<tr>
 		<td id="td_search">
 		srch
