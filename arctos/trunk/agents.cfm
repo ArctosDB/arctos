@@ -116,7 +116,7 @@ jQuery(document).ready(function() {
 console.log('window height: ' + wh);
 
 var sfmenuh = $('div.sf-mainMenuWrapper:first').height();
-console.log('sfmenuh height: ' + whsfmenuh);
+console.log('sfmenuh height: ' + sfmenuh);
 
 var hh = $('#headerImageCell').height();
 
