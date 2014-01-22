@@ -378,9 +378,7 @@ function addRelation (n) {
 	nSel.name="relationship__" + n;
 	nSel.id="relationship__" + n;
 	nSel.value='delete';
-	nDiv.appendChild(nSel);
-	console.log('nSel.value set to null');
-	
+	nDiv.appendChild(nSel);	
 	c = document.createElement("textNode");
 	c.innerHTML=":&nbsp;";
 	nDiv.appendChild(c);
@@ -457,10 +455,7 @@ function tog_AgentRankDetail(o){
 		}); 
 	}
 }
-function saveAgentRank(){
-		alert('savey');
-		
-		
+function saveAgentRank(){		
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "saveAgentRank",
@@ -484,10 +479,6 @@ function saveAgentRank(){
 	); 		
 }
 function revokeAgentRank(agent_rank_id){
-	
-	console.log('here i am now');
-
-	
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "revokeAgentRank",
@@ -496,16 +487,9 @@ function revokeAgentRank(agent_rank_id){
 			queryformat : 'column'
 		},
 		function (d) {
-			console.log('back........');
-			
-			console.log(d);
-			
 			if(d.length>0 && d.substring(0,4)=='fail'){
 				alert(d);
 			} else {
-				console.log('cleanup.....removing tablr_' + d);
-				$('#tablr' + agent_rank_id).addClass('red');
-
 				$('#tablr' + agent_rank_id).remove();
 			}
 		}
@@ -513,18 +497,6 @@ function revokeAgentRank(agent_rank_id){
 	
 }
 
-function killarow(agent_rank_id){
-	
-	
-	console.log('cleanup.....removing tablr' + agent_rank_id);
-
-	
-	$('#tablr' + agent_rank_id).addClass('red');
-	
-	//$('#tr_' & agent_rank_id).remove();
-
-	
-}
 function removeMediaMultiCatItem(){
 	
 	$('#bgDiv').remove();
