@@ -1214,10 +1214,12 @@
 	<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
-
+<!----
 <script>
 	parent.resizeCaller();
 </script>
+
+---->
 <cfoutput>
 <cfif action is "nothing">
 <script type="text/javascript" language="javascript">
