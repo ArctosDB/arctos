@@ -123,7 +123,10 @@ window.onload=resizeCaller
 
 </style>
 <script>
-	jQuery(document).load(function() {
+
+
+
+	jQuery(window).load(function() {
 		var wh=$(window).height();
 		var sfmenuh = $('div.sf-mainMenuWrapper:first').height();
 		var hh = $('#header_color').height();
