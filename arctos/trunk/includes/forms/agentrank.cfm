@@ -73,13 +73,13 @@
 						<td nowrap="nowrap">
 							#replace(ranker," ", "&nbsp;","all")#
 							<cfif ranked_by_agent_id is session.myAgentId>
-								<span class="infoLink" onclick="revokeAgentRank(#agent_rank_id#);">revoke</span>
+								<span class="infoLink" onclick="revokeAgentRank('#agent_rank_id#');">revoke</span>
 							</cfif>
 						</td>
 						<td>#remark#
 						
 						
-								<span class="infoLink" onclick="killarow(#agent_rank_id#);">killarow</span>
+								<span class="infoLink" onclick="killarow('#agent_rank_id#');">killarow</span>
 						
 						</td>
 					</tr>					 
