@@ -123,48 +123,30 @@ window.onload=resizeCaller
 
 </style>
 <script>
-jQuery(document).ready(function() {
-	var wh=$(window).height();
-
-console.log('window height: ' + wh);
-
-var sfmenuh = $('div.sf-mainMenuWrapper:first').height();
-console.log('sfmenuh height: ' + sfmenuh);
-
-var hh = $('#header_color').height();
-
-console.log('hh height: ' + hh);
-
-
-	wh=wh - hh - sfmenuh;
-
-console.log('adj window height: ' + wh);
-
-	$("#olTabl").height(wh);
- 
-});
-
-
+	jQuery(document).ready(function() {
+		var wh=$(window).height();
+		var sfmenuh = $('div.sf-mainMenuWrapper:first').height();
+		var hh = $('#header_color').height();
+		wh=wh - hh - sfmenuh;
+		$("#olTabl").height(wh); 
+	});
 </script>
 <cfoutput>
-
-
-
-<table border id="olTabl">
-	<tr>
-		<td id="td_search">
-			<iframe src="/AgentSearch.cfm" id="_search" name="_search"></iframe>
-		</td>
-		<td id="td_rslt" rowspan="2">
-			<iframe src="/editAllAgent.cfm?agent_id=#agent_id#" name="_person" id="_person" ></iframe>
-		</td>
-	</tr>
-	<tr>
-		<td id="td_edit" valign="top">
-			<iframe src="/AgentGrid.cfm" name="_pick" id="_pick" ></iframe>
-		</td>
-	</tr>
-</table>
+	<table border id="olTabl">
+		<tr>
+			<td id="td_search">
+				<iframe src="/AgentSearch.cfm" id="_search" name="_search"></iframe>
+			</td>
+			<td id="td_rslt" rowspan="2">
+				<iframe src="/editAllAgent.cfm?agent_id=#agent_id#" name="_person" id="_person" ></iframe>
+			</td>
+		</tr>
+		<tr>
+			<td id="td_edit" valign="top">
+				<iframe src="/AgentGrid.cfm" name="_pick" id="_pick" ></iframe>
+			</td>
+		</tr>
+	</table>
 
 
 <!-----------
@@ -194,4 +176,7 @@ console.log('adj window height: ' + wh);
 
 
 ----------------->
+
+<cfinclude template="/includes/_footer.cfm">
+
 </cfoutput>
