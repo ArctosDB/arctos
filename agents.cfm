@@ -129,6 +129,9 @@ console.log('hh height: ' + hh);
 	$("#olTabl").height(wh);
  
 });
+
+
+</script>
 <cfoutput>
 
 
