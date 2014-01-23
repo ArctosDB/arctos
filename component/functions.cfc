@@ -2784,7 +2784,9 @@
 	<cfargument name="canned_id" type="numeric" required="yes">
 	<cftry>
 		<cfquery name="res" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from cf_canned_search where canned_id=#canned_id#
+			delete from cf_canned_search where canned_id=#canned_id# and
+			cf_canned_search.USER_ID=cf_users.USER_ID and
+			cf_users.username='#session.username#'
 		</cfquery>
 		<cfset result="#canned_id#">
 	<cfcatch>
