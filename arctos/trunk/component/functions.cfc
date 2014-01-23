@@ -2783,9 +2783,9 @@
 <cffunction name="kill_canned_search" access="remote">
 	<cfargument name="canned_id" type="numeric" required="yes">
 	<cftry>
-		<cfquery name="res" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from cf_canned_search where canned_id=#canned_id# and USER_ID in (select USER_ID from 
-			cf_users where username='#session.username#')
+		<cfquery name="res" datasource="cf_dbuser">
+			delete from cf_canned_search where canned_id=#canned_id# and 
+			USER_ID in (select USER_ID from cf_users where username='#session.username#')
 		</cfquery>
 		<cfset result="#canned_id#">
 	<cfcatch>
