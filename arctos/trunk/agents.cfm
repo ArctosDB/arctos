@@ -102,6 +102,8 @@ window.onload=resizeCaller
 	#olTabl {
 		height:100%;
 		width:100%;
+		border-spacing: 0;
+    	border-collapse: separate;
 	}
 	
 	
@@ -123,18 +125,10 @@ window.onload=resizeCaller
 
 </style>
 <script>
-
-
-
 	jQuery(document).ready(function() {
 		var wh=$(window).height();
 		var sfmenuh = $('div.sf-mainMenuWrapper:first').height();
 		var hh = $('#header_color').height();
-		//var ft = $('#footerTable').height();
-		
-//console.log('ft: ' + ft);
-
-
 		wh=wh - hh - sfmenuh - 120;
 		$("#olTabl").height(wh); 
 	});
