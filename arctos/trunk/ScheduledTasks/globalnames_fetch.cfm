@@ -47,15 +47,13 @@ This REFRESHES data that already exist in Arctos.
 		</cfquery>
 		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#d.scientific_name#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
-		
-		no problem so far.....
-		
-		<cfdump var=#x#>
-		<cfif structKeyExists(x.data[1],"results")>
-				yup
-			<cfelse>
-			nope
-			</cfif>
+		<cfif not structKeyExists(x.data[1],"results")>
+			No data for #name# was found at GlobalNames.
+			<p>
+				<a href="/name/#name#">return to #name# page</a>
+			</p>
+			<cfabort>
+		</cfif>
 		
 		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
 			<cfset pos=1>
