@@ -52,6 +52,11 @@ This REFRESHES data that already exist in Arctos.
 		
 		<cfdump var=#x#>
 		
+		<cfif structKeyExists(x.data[1].results[1])>
+				yup
+			<cfelse>
+			nope
+			</cfif>
 		
 		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
 			<cfset pos=1>
