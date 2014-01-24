@@ -49,6 +49,10 @@ This REFRESHES data that already exist in Arctos.
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
 		
 		no problem so far.....
+		
+		<cfdump var=#x#>
+		
+		
 		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
 			<cfset pos=1>
 			<!--- because lists are stupid and ignore NULLs.... ---->
