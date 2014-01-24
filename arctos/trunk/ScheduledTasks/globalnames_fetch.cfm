@@ -50,6 +50,12 @@ This REFRESHES data that already exist in Arctos.
 		<cfif not structKeyExists(x.data[1],"results")>
 			No data for #name# was found at GlobalNames.
 			<p>
+				This may be because you are trying to find information for a new or obscure name, but 
+				it may also be a symptom of an invalid (<em>e.g.</em>, creatively spelled) name in Arctos.
+				Please carefully check the name. Fix it, file an Issue, or click the Annotate button
+				if there are porblems with the data.
+			</p>
+			<p>
 				<a href="/name/#name#">return to #name# page</a>
 			</p>
 			<cfabort>
