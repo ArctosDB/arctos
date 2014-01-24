@@ -1545,6 +1545,18 @@
 	<cfelseif oidOper is "IS">
 		<cfset basQual = " #basQual# and otherIdSearch.id_references='self' and upper(otherIdSearch.display_value) = '#ucase(OIDNum)#'">
 	<cfelse><!---- list ---->
+	
+	
+	
+		<cfset oidList=replace(OIDNum,', ',',','all')>
+		<cfset oidList=replace(oidList,';',',','all')>
+		
+			
+		<cfset basQual = " #basQual# AND upper(otherIdSearch.display_value) IN ( #ListQualify(oidList,'''')# ) " >
+		
+		
+		
+		<!----
 		<cfset oidList="">
 		<cfloop list="#OIDNum#" delimiters="," index="i">
 			<cfif len(oidList) is 0>
@@ -1555,6 +1567,8 @@
 		</cfloop>
 		<cfset oidList = "#oidList# )">
 		<cfset basQual = " #basQual# #oidList#">
+		
+		---->
 	</cfif>
 </cfif>
 <cfif isdefined("continent_ocean") AND len(continent_ocean) gt 0>
