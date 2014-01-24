@@ -47,6 +47,8 @@ This REFRESHES data that already exist in Arctos.
 		</cfquery>
 		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#d.scientific_name#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
+		
+		no problem so far.....
 		<cfloop from="1" to="#ArrayLen(x.data[1].results)#" index="i">
 			<cfset pos=1>
 			<!--- because lists are stupid and ignore NULLs.... ---->
