@@ -1544,12 +1544,19 @@
 		<cfset basQual = " #basQual# and otherIdSearch.id_references='self' and upper(otherIdSearch.display_value) LIKE '%#ucase(OIDNum)#%'">
 	<cfelseif oidOper is "IS">
 		<cfset basQual = " #basQual# and otherIdSearch.id_references='self' and upper(otherIdSearch.display_value) = '#ucase(OIDNum)#'">
-	<cfelse><!---- list ---->
+	<cfelse>
+		<!---- 
+			list 
+				* change comma-space to comma
+				* change semicolon to comma
+				* change chr(10) to comma
+		---->
 	
 	
 	
 		<cfset oidList=replace(OIDNum,', ',',','all')>
 		<cfset oidList=replace(oidList,';',',','all')>
+		<cfset oidList=replace(oidList,chr(10),',','all')>
 		
 			
 		<cfset basQual = " #basQual# AND upper(otherIdSearch.display_value) IN ( #ListQualify(oidList,'''')# ) " >
