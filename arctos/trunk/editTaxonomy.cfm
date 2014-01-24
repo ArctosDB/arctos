@@ -1004,7 +1004,7 @@
 		</ul>
 	</p>
 	<p>
-		If you want to bring an Arctos classification over, use your back button, find a similar name, and hten "clone classification into new name."
+		If you want to bring an Arctos classification over, use your back button, find a similar name, and then "clone classification into new name."
 	</p>
 	<form name="name" method="post" action="editTaxonomy.cfm">
 		<input type="hidden" name="action" value="saveNewName">
