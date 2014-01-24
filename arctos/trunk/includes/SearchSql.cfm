@@ -1557,6 +1557,7 @@
 		<cfset oidList=replace(OIDNum,', ',',','all')>
 		<cfset oidList=replace(oidList,';',',','all')>
 		<cfset oidList=replace(oidList,chr(10),',','all')>
+		<cfset oidList=replace(oidList,chr(13),',','all')>
 		
 			
 		<cfset basQual = " #basQual# AND upper(otherIdSearch.display_value) IN ( #ListQualify(oidList,'''')# ) " >
