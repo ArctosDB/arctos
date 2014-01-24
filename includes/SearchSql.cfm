@@ -1552,16 +1552,18 @@
 				* change chr(10) to comma
 		---->
 	
+			<cfdump var=#OIDNum#>
+
 	
-	
-		<cfset oidList=replace(OIDNum,' ','','all')>
+		<cfset oidList=replace(OIDNum,' ',',','all')>
 		<cfset oidList=replace(oidList,';',',','all')>
 		<cfset oidList=replace(oidList,chr(10),',','all')>
 		<cfset oidList=replace(oidList,chr(13),',','all')>
 		
 		<cfset oidList=replace(oidList,",,",',','all')>
 		
-			
+		<cfdump var=#oidList#>
+		
 		<cfset basQual = " #basQual# AND upper(otherIdSearch.display_value) IN ( #ListQualify(oidList,'''')# ) " >
 		
 		
