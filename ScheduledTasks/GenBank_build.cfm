@@ -47,7 +47,8 @@
 	WHERE 
 		a.collection_object_id = c.collection_object_id AND 
 		c.accepted_id_fg=1 AND 
-		a.collection_object_id = d.collection_object_id AND 
+		a.collection_object_id = d.collection_object_id AND
+		scientific_name not like '%#%' AND
 		d.other_id_type='GenBank'
 </cfquery>
 <cfset header="------------------------------------------------#chr(10)#prid: #Application.genBankPrid##chr(10)#dbase: Taxonomy#chr(10)#!base.url: #Application.ServerRootUrl#/SpecimenResults.cfm?OIDType=GenBank&">
@@ -59,7 +60,7 @@
 </cfloop>
 <cfquery name="AllUsedSciNames" datasource="uam_god">
 	select 
-		distinct(scientific_name) from identification
+		distinct(scientific_name) from identification where scientific_name not like '%#%'
 </cfquery>
 <cfset header="------------------------------------------------#chr(10)#prid: #Application.genBankPrid##chr(10)#dbase: Taxonomy#chr(10)#!base.url: #Application.ServerRootUrl#/name/">
 <cffile action="write" file="#Application.webDirectory#/temp/names.ft" addnewline="no" output="#header#">
