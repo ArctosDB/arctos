@@ -358,19 +358,19 @@
 			<cfif kwType is "any">
 				<cfset kwsql="">
 				<cfloop list="#keyword#" index="i" delimiters=",;: ">
-					<cfset kwsql=listappend(kwsql,"upper(media_flat.keywords) like '%#ucase(trim(i))#%'","|")>
+					<cfset kwsql=listappend(kwsql,"upper(media_flat.keywords) like '%#ucase(trim(escapeQuotes(i)))#%'","|")>
 				</cfloop>
 				<cfset kwsql=replace(kwsql,"|"," OR ","all")>
 				<cfset srch="#srch# AND ( #kwsql# ) ">
 			<cfelseif kwType is "all">
 				<cfset kwsql="">
 				<cfloop list="#keyword#" index="i" delimiters=",;: ">
-					<cfset kwsql=listappend(kwsql,"upper(media_flat.keywords) like '%#ucase(trim(i))#%'","|")>
+					<cfset kwsql=listappend(kwsql,"upper(media_flat.keywords) like '%#ucase(trim(escapeQuotes(i)))#%'","|")>
 				</cfloop>
 				<cfset kwsql=replace(kwsql,"|"," AND ","all")>
 				<cfset srch="#srch# AND ( #kwsql# ) ">
 			<cfelse>
-				<cfset srch="#srch# AND upper(media_flat.keywords) like '%#ucase(keyword)#%'">
+				<cfset srch="#srch# AND upper(media_flat.keywords) like '%#ucase(escapeQuotes(keyword))#%'">
 			</cfif>
 			<cfset mapurl="#mapurl#&kwType=#kwType#&keyword=#keyword#">
 		</cfif>
