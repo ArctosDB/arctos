@@ -89,12 +89,14 @@
 	<cfquery name="a" dbtype="query">
 		select
 			agent_name,
-			project_agent_role
+			project_agent_role,
+			project_agent_remarks
 		from
 			proj
 		group by
 			agent_name,
-			project_agent_role
+			project_agent_role,
+			project_agent_remarks
 		order by
 			agent_position
 	</cfquery>
