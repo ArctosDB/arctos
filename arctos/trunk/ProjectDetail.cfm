@@ -132,11 +132,14 @@
 	<cfset noHTML=replacenocase(noHTML,'</i>','','all')>
 	<cfset title = "Project Detail: #noHTML#">
 	<div class="proj_title">#p.project_name#</div>
+	<!----
 	<cfloop query="s">
 		<div class="proj_sponsor">
 			Sponsored by #agent_name# <cfif len(project_agent_remarks) gt 0>: #project_agent_remarks#</cfif>
 		</div>
 	</cfloop>
+	
+	---->
 	<cfloop query="a">
 		<div class="proj_agent">
 			#agent_name#: #project_agent_role#<cfif len(project_agent_remarks) gt 0> (#project_agent_remarks#)</cfif>
