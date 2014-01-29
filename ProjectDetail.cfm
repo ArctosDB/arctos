@@ -100,6 +100,7 @@
 		order by
 			agent_position
 	</cfquery>
+	<!----
 	<cfquery name="s" dbtype="query">
 		select
 			agent_name,
@@ -112,6 +113,7 @@
 			agent_name,
 			project_agent_remarks
 	</cfquery>
+	---->
 	<span class="annotateSpace">
 		<cfif len(session.username) gt 0>
 			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
