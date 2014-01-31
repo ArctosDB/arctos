@@ -8,6 +8,7 @@
 		from 
 			uam.blacklist_subnet
 	</cfquery>
+	<a href="blacklist.cfm">blacklist home</a>
 	<h2>Currently Blocked Subnets</h2>
 	<cfloop query="d">
 		<br>#subnet# 
@@ -39,7 +40,6 @@
 	</cfquery>
 		
 		
-		------------>
 		<table border id="t" class="sortable">
 			<tr>
 				<th>Subnet</th>
