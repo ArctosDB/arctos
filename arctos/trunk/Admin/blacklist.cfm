@@ -125,10 +125,12 @@
 	</cfquery>
 	IMPORTANT NOTE: IPs for blocked subnets are NOT included here. <a href="blacklist.cfm?action=subnet">manage blocked subnets</a>
 	
-	<!----------
+	
 	
 	<cfset application.blacklist=valuelist(d.ip)>
 	<cfset application.subnet_blacklist=valuelist(sn.subnet)>
+	
+	<!----------
 	<form name="i" method="post" action="blacklist.cfm">
 		<input type="hidden" name="action" value="ins">
 		<label for="ip">Add IP</label>
