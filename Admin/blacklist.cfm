@@ -7,9 +7,31 @@
 		from 
 			uam.blacklist_subnet
 	</cfquery>
-	<cfdump var=#d#>
-	
-</cfif>	
+	<h2>Currently Blocked Subnets</h2>
+	<cfloop query="d">
+		<br>#subnet# 
+		<a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">whois</a>
+	</cfloop>
+	<h2>
+		Unblocked subnets with blocked IPs by number of blocked IP.
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select 
+				substr(ip,1,instr(ip,'.',1,2)-1) subnet,
+				count(*) c
+			from 
+				uam.blacklist 
+			where  
+				substr(ip,1,instr(ip,'.',1,2)-1) not in (select subnet from blacklist_subnet)
+			group by substr(ip,1,instr(ip,'.',1,2)-1)
+			order by
+				count(*)
+		</cfquery>
+		<cfloop query="q">
+			<br>#subnet# - #c#
+		</cfloop>
+	</h2>
+</cfif>
+<!------------------------------------------>
 <cfif action is "nothing">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
@@ -35,6 +57,7 @@
 		<a href="http://whois.domaintools.com/#ip#" target="_blank">whois</a>
 	</cfloop>
 </cfif>
+<!------------------------------------------>
 <cfif action is "ins">
 	<cfif trim(ip) is "127.0.0.1">
 		<cfthrow message = "Local IP cannot be blacklisted" errorCode = "127001">
@@ -50,6 +73,7 @@
 	</cfcatch>
 	</cftry>
 </cfif>
+<!------------------------------------------>
 <cfif action is "del">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from uam.blacklist where ip = '#ip#'
