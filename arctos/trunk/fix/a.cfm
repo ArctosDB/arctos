@@ -38,5 +38,16 @@
 	listfind delims: #etime#
 </p>
 
+<p>
+	<cfset startTime = getTickCount()>
+	<cfset x=ListContains(application.blacklist,request.ipaddress,",")>
+	<cfset endTime = getTickCount()>
+	<cfset etime=endtime-starttime>
+	ListContains delims: #etime#
+</p>
+
+
+
+
 
 </cfoutput>
