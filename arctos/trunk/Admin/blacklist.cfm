@@ -136,7 +136,6 @@
 			uam.blacklist 
 		where  
 			substr(ip,1,instr(ip,'.',1,2)-1) not in (select subnet from blacklist_subnet)
-			and substr(ip,1,instr(ip,'.',1,1)-1) between #f# and #l#
 	</cfquery>
 	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
