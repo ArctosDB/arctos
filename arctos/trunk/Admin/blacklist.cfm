@@ -14,6 +14,7 @@
 	</cfloop>
 	<h2>
 		Unblocked subnets with blocked IPs by number of blocked IP.
+	</h2>
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				substr(ip,1,instr(ip,'.',1,2)-1) subnet,
@@ -22,14 +23,15 @@
 				uam.blacklist 
 			where  
 				substr(ip,1,instr(ip,'.',1,2)-1) not in (select subnet from blacklist_subnet)
-			group by substr(ip,1,instr(ip,'.',1,2)-1)
+			group by 
+				substr(ip,1,instr(ip,'.',1,2)-1)
 			order by
-				count(*)
+				count(*) desc
 		</cfquery>
 		<cfloop query="q">
 			<br>#subnet# - #c#
 		</cfloop>
-	</h2>
+	
 </cfif>
 <!------------------------------------------>
 <cfif action is "nothing">
