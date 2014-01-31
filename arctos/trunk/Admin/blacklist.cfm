@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title = "manage IP and subnet blocking">
 <cfoutput>
 <cfif action is "subnet">
 	<script src="/includes/sorttable.js"></script>
@@ -15,7 +16,7 @@
 		<a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">whois</a>
 	</cfloop>
 	<h2>
-		Unblocked subnets with blocked IPs by number of blocked IP.
+		Unblocked subnets with blocked IPs
 	</h2>
 	<p>
 		Use this with great care. Blocked subnets here MUST be mirrored in firewall rules, which will probably require an email to the network folks
@@ -112,11 +113,18 @@
 		where  
 			substr(ip,1,instr(ip,'.',1,2)-1) not in (select subnet from blacklist_subnet)
 	</cfquery>
+	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select 
+			subnet 
+		from 
+			uam.blacklist_subnet
+	</cfquery>
 	IMPORTANT NOTE: IPs for blocked subnets are NOT included here. <a href="blacklist.cfm?action=subnet">manage blocked subnets</a>
 	
 	
 	
 	<cfset application.blacklist=valuelist(d.ip)>
+	<cfset application.subnet_blacklist=valuelist(sn.subnet)>
 	<form name="i" method="post" action="blacklist.cfm">
 		<input type="hidden" name="action" value="ins">
 		<label for="ip">Add IP</label>

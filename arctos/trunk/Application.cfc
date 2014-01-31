@@ -272,8 +272,13 @@
 			select ip from uam.blacklist
 		</cfquery>
 		<cfset Application.blacklist=valuelist(d.ip)>
+		<cfquery name="sn" datasource="uam_god">
+			select subnet from uam.blacklist_subnet
+		</cfquery>
+		<cfset application.subnet_blacklist=valuelist(sn.subnet)>
 	<cfcatch>
 		<cfset Application.blacklist="">
+		<cfset Application.subnet_blacklist="">
 		<cfmail subject="bad app start" to="#Application.PageProblemEmail#" from="badAppStart@#application.fromEmail#" type="html">
 			caught DB connect exception
 			<cfdump var=#servername#>
@@ -404,14 +409,23 @@
 	</cfif>
 	
 	<!----
-		The blacklist list is out of control, so deal with subnets here.
-		Most of this should be blocked at the firewall, but as we've seen TACC's 
-		firewall goes down sometimes, leaving Arctos vulnerable, so duplicate that
-		here. 
 		
-		Consider a table-based solution if this grows too crazy 
+		The blacklist list is out of control, so this adds the ability to block entire subnets at the CF level.
+		
+		This also serves as a backup of firewall blocking.
+		
 	---->
+	<cfset requestingSubnet=listgetat(request.ipaddress,1,".") & "." & listgetat(request.ipaddress,2,".")>
 	
+	
+	<cfif listfindnocase(application.subnet_blacklist,requestingSubnet)>
+		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
+			<cfscript>
+				getPageContext().forward("/errors/gtfo.cfm");
+			</cfscript>
+			<cfabort>
+		</cfif>
+	</cfif>
 	
 	<cfif listfindnocase(application.blacklist,request.ipaddress)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
