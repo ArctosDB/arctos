@@ -57,7 +57,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 <cfset title="Bulkload Citations">
 
 <cfif action is "makeTemplate">
-	<cfset header="FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,USE_EXISTING_ACCEPTED_ID,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,USE_PUB_AUTHORS,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
+	<cfset header="FULL_CITATION,PUBLICATION_ID,GUID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,USE_EXISTING_ACCEPTED_ID,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,USE_PUB_AUTHORS,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
 	<cffile action = "write"
     file = "#Application.webDirectory#/download/BulkCitationsTemplate.csv"
     output = "#header#"
@@ -70,7 +70,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_citation
 	</cfquery>
-	<cfset header="STATUS,FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,USE_EXISTING_ACCEPTED_ID,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,USE_PUB_AUTHORS,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
+	<cfset header="STATUS,FULL_CITATION,PUBLICATION_ID,GUID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,USE_EXISTING_ACCEPTED_ID,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,USE_PUB_AUTHORS,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
 	<cfset variables.encoding="UTF-8">
 	<cfset variables.fileName="#Application.webDirectory#/download/BulkCitationsDown.csv">
 	<cfscript>
@@ -109,7 +109,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		characters matter.
 	</p>
 	<p>
-		The combination of guid_prefix, other_id_type (including "catalog number"), and other_id_number must define exactly one specimen.
+		The combination of guid OR guid_prefix, other_id_type (including "catalog number"), and other_id_number must define exactly one specimen.
 		<ul>
 			<li>UAM:Mamm + catalog number + 1 will assuredly work.</li>
 			<li>UAM:Mamm + collector number + 1 will work ONLY if exactly one UAM:Mammal has a collector number of "1".</li>
@@ -145,20 +145,26 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<th>Documentation</th>
 		</tr>
 		<tr>
+			<td>guid</td>
+			<td>conditionally - use guid OR guid_prefix+other_id_type+other_id_number</td>
+			<td>"UAM:Mamm:12"</td>
+			<td><a  target="_blank" class="external" href="http://arctosdb.org/documentation/catalog/#guid">docs</a></td>
+		</tr>
+		<tr>
 			<td>guid_prefix</td>
-			<td>yes</td>
+			<td>conditionally - use guid OR guid_prefix+other_id_type+other_id_number</td>
 			<td>find under Manage Collections or under the <a href="/home.cfm">Portals</a> tab - it's things like "UAM:Mamm"</td>
 			<td><a  target="_blank" class="external" href="http://arctosdb.org/documentation/catalog/#guid">docs</a></td>
 		</tr>
 		<tr>
 			<td>other_id_type</td>
-			<td>yes</td>
+			<td>conditionally - use guid OR guid_prefix+other_id_type+other_id_number</td>
 			<td>"catalog number" is valid but not in the code table</td>
 			<td><a target="_blank" href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CTCOLL_OTHER_ID_TYPE</a></td>
 		</tr>
 		<tr>
 			<td>other_id_number</td>
-			<td>yes</td>
+			<td>conditionally - use guid OR guid_prefix+other_id_type+other_id_number</td>
 			<td>the value of the identifier/catalog number</td>
 			<td></td>
 		</tr>
@@ -347,11 +353,11 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	<cfquery name="guid_prefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='guid_prefix invalid (check case, colons)'
 		where
-		guid_prefix not in (select guid_prefix from collection)
+		guid_prefix is not null and guid_prefix not in (select guid_prefix from collection)
 	</cfquery>
 	
 	<cfquery name="require_author" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_citation set status='one author required when use_pub_authors is false'
+		update cf_temp_citation set status='at least one author required when use_pub_authors is false'
 		where USE_PUB_AUTHORS != 1 and IDENTIFIER_1 is null
 	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -370,12 +376,16 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			where
 				cataloged_item.collection_id=collection.collection_id and
 				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) AND
-				upper(collection.guid_prefix)='#ucase(guid_prefix)#' and
-				<cfif other_id_type is "catalog number">
-					cat_num=#trim(other_id_number)#
+				<cfif len(guid) gt 0>
+					upper(collection.guid_prefix || ':' || cataloged_item.cat_num)='#ucase(guid)#'
 				<cfelse>
-					other_id_type = '#trim(other_id_type)#' and
-					display_value = '#trim(other_id_number)#'
+					upper(collection.guid_prefix)='#ucase(guid_prefix)#' and
+					<cfif other_id_type is "catalog number">
+						cat_num=#trim(other_id_number)#
+					<cfelse>
+						other_id_type = '#trim(other_id_type)#' and
+						display_value = '#trim(other_id_number)#'
+					</cfif>
 				</cfif>
 		</cfquery>
 		<cfif len(collObj.COLLECTION_OBJECT_ID) gt 0>
