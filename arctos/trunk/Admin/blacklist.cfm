@@ -1,8 +1,5 @@
 <cfset title="Manage IP and subnet blocking">
 <cfinclude template="/includes/_header.cfm">
-
-<cfset title="Specimen Search">
-
 <cfif action is 'tf'>
 	hello
 </cfif>
@@ -128,7 +125,7 @@
 	</cfquery>
 	IMPORTANT NOTE: IPs for blocked subnets are NOT included here. <a href="blacklist.cfm?action=subnet">manage blocked subnets</a>
 	
-	
+	<!----------
 	
 	<cfset application.blacklist=valuelist(d.ip)>
 	<cfset application.subnet_blacklist=valuelist(sn.subnet)>
@@ -142,6 +139,8 @@
 		<br>#ip# <a href="blacklist.cfm?action=del&ip=#ip#">Remove</a>
 		<a href="http://whois.domaintools.com/#ip#" target="_blank">whois</a>
 	</cfloop>
+	
+	-------------->
 </cfif>
 <!------------------------------------------>
 <cfif action is "ins">
