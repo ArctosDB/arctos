@@ -9,7 +9,7 @@
 
 <cfset iplist=valuelist(d.ip)>
 
-
+<cfset ipla=ListToArray(iplist)>
 
 <cfoutput>
 <p>
@@ -20,6 +20,7 @@
 	<cfset endTime = getTickCount()>
 	<cfset etime=endtime-starttime>
 	listfindnocase: #etime#
+	<br>#x#
 </p>
 
 <p>
@@ -28,6 +29,7 @@
 	<cfset endTime = getTickCount()>
 	<cfset etime=endtime-starttime>
 	listfindnocase delims: #etime#
+	<br>#x#
 </p>
 
 <p>
@@ -36,6 +38,7 @@
 	<cfset endTime = getTickCount()>
 	<cfset etime=endtime-starttime>
 	listfind delims: #etime#
+	<br>#x#
 </p>
 
 <p>
@@ -44,9 +47,17 @@
 	<cfset endTime = getTickCount()>
 	<cfset etime=endtime-starttime>
 	ListContains delims: #etime#
+	<br>#x#
 </p>
 
-
+<p>
+	<cfset startTime = getTickCount()>
+	<cfset x=ArrayContains(ipla,request.ipaddress)>
+	<cfset endTime = getTickCount()>
+	<cfset etime=endtime-starttime>
+	ArrayContains delims: #etime#
+	<br>#x#
+</p>
 
 
 
