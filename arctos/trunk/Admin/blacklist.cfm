@@ -37,8 +37,8 @@
 		</cfquery>
 		<cfloop query="q">
 			<br>#subnet# - #c#
-			<a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">whois</a>
-			<a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">block this subnet</a>
+			<a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">[ whois ]</a> - 
+			<a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">[ block this subnet ]</a>
 		</cfloop>
 </cfif>
 <!------------------------------------------>
