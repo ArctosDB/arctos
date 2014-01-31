@@ -137,13 +137,13 @@
 		<br><input type="submit" value="blacklist">
 	</form>
 	
-		<!----------
 
 	<cfloop query="d">
 		<br>#ip# <a href="blacklist.cfm?action=del&ip=#ip#">Remove</a>
 		<a href="http://whois.domaintools.com/#ip#" target="_blank">whois</a>
 	</cfloop>
-	
+			<!----------
+
 	-------------->
 </cfif>
 <!------------------------------------------>
