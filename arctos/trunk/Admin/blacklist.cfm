@@ -130,13 +130,15 @@
 	<cfset application.blacklist=valuelist(d.ip)>
 	<cfset application.subnet_blacklist=valuelist(sn.subnet)>
 	
-	<!----------
 	<form name="i" method="post" action="blacklist.cfm">
 		<input type="hidden" name="action" value="ins">
 		<label for="ip">Add IP</label>
 		<input type="text" name="ip" id="ip">
 		<br><input type="submit" value="blacklist">
 	</form>
+	
+		<!----------
+
 	<cfloop query="d">
 		<br>#ip# <a href="blacklist.cfm?action=del&ip=#ip#">Remove</a>
 		<a href="http://whois.domaintools.com/#ip#" target="_blank">whois</a>
