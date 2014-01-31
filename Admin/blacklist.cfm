@@ -3,7 +3,9 @@
 
 <cfset title="Specimen Search">
 
-
+<cfif action = 'tf'>
+	hello
+</cfif>
 
 <cfoutput>
 <cfif action is "subnet">
@@ -165,4 +167,6 @@
 	<cflocation url="/Admin/blacklist.cfm">
 </cfif>
 </cfoutput>
+
+
 <cfinclude template="/includes/_footer.cfm">
