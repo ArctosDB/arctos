@@ -131,10 +131,7 @@
 	</cfif>
 	<cfif trim(subnet) is not subnet>
 		check subnet format 999.999<cfabort>
-	</cfif>
-	
-	
-	
+	</cfif>	
 	<cftry>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into blacklist_subnet (subnet) values ('#subnet#')
@@ -152,8 +149,6 @@
 	</cftry>
 </cfif>
 <!------------------------------------------>
-
-
 <cfif action is "nothing">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
