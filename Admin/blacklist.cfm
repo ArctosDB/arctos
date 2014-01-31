@@ -20,7 +20,7 @@
 		<a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">whois</a>
 	</cfloop>
 	<h2>
-		Unblocked subnets with blocked IPs
+		Unblocked subnets with >2 blocked IPs
 	</h2>
 	<p>
 		Use this with great care. Blocked subnets here MUST be mirrored in firewall rules, which will probably require an email to the network folks
@@ -38,7 +38,8 @@
 		from 
 			uam.blacklist 
 		where 
-			substr(ip,1,instr(ip,'.',1,2)-1) not in (select subnet from blacklist_subnet)
+			substr(ip,1,instr(ip,'.',1,2)-1) not in (select subnet from blacklist_subnet) and
+			count(substr(ip,1,instr(ip,'.',1,2)-1)) > 2
 	</cfquery>
 	<cfquery name="sn" dbtype="query">
 		select subnet from q group by subnet order by subnet
