@@ -1,6 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 <cfif action is "subnet">
+	<script src="/includes/sorttable.js"></script>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			subnet 
@@ -22,23 +23,53 @@
 	<p>
 		Everything redirects to the IP list page so that application variables can be properly set. Sorry about the extra click.
 	</p>
-		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
-				substr(ip,1,instr(ip,'.',1,2)-1) subnet,
-				count(*) c
-			from 
-				uam.blacklist 
-			where  
-				substr(ip,1,instr(ip,'.',1,2)-1) not in (select subnet from blacklist_subnet)
-			group by 
-				substr(ip,1,instr(ip,'.',1,2)-1)
-			order by
-				count(*) desc
-		</cfquery>
-		<cfloop query="q">
-			<br>#subnet# - #c#
-			<a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">[ whois ]</a> - 
-			<a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">[ block this subnet ]</a>
+	
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select 
+			ip,
+			substr(ip,1,instr(ip,'.',1,2)-1) subnet,
+			to_char(listdate,'YYYY-MM-DD') listdate
+		from 
+			blacklist 
+		where 
+			substr(ip,1,instr(ip,'.',1,2)-1) not in (select subnet from blacklist_subnet)
+	</cfquery>
+	<cfquery name="sn" dbtype="query">
+		select subnet from q group by subnet order by subnet
+	</cfquery>
+		
+		
+		------------>
+		<table border id="t" class="sortable">
+			<tr>
+				<th>Subnet</th>
+				<th>NumberDistIPs</th>
+				<th>firstblock</th>
+				<th>lastblock</th>
+				<th>whois</th>
+				<th>block subnet</th>
+			</tr>
+		</table>
+		<cfloop query="sn">
+			<cfquery name="sndata">
+				select 
+					count(*) c,
+					min(listdate) firstblock,
+					max(listdate) lastblock
+				from 
+					q 
+				where 
+					subnet='#subnet#'
+			</cfquery>
+			
+			<tr>
+				<td>#subnet#</td>
+				<td>#sndata.c#</td>
+				<td>#sndata.firstblock#</td>
+				<td>#sndata.lastblock#</td>
+				<td><a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">[ whois ]</a></td>
+				<td><a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">[ block this subnet ]</a></td>
+			</tr>			
 		</cfloop>
 </cfif>
 <!------------------------------------------>
