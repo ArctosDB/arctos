@@ -456,7 +456,7 @@ sho err
 			<input type="hidden" name="action" value="killMine">
 			DELETE from temp media where status =
 			<select name="status">
-				<option value="#valuelist(ss.status)#">anything</option>
+				<option value="">anything</option>
 				<cfloop query="ss">
 					<option value="#status#">#status#</option>
 				</cfloop>

@@ -1,9 +1,28 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+<cfif action is "subnet">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select 
+			subnet 
+		from 
+			uam.blacklist_subnet
+	</cfquery>
+	<cfdump var=#d#>
+	
+</cfif>	
 <cfif action is "nothing">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select ip from uam.blacklist order by to_number(replace(ip,'.'))
+		select 
+			ip 
+		from 
+			uam.blacklist 
+		where  
+			substr(ip,1,instr(ip,'.',1,2)-1) not in (select subnet from blacklist_subnet)
 	</cfquery>
+	IMPORTANT NOTE: IPs for blocked subnets are NOT included here. <a href="blacklist.cfm?action=subnet">manage blocked subnets</a>
+	
+	
+	
 	<cfset application.blacklist=valuelist(d.ip)>
 	<form name="i" method="post" action="blacklist.cfm">
 		<input type="hidden" name="action" value="ins">
