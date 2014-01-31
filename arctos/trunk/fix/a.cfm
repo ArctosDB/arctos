@@ -9,15 +9,27 @@
 
 <cfset iplist=valuelist(d.ip)>
 
-<cfset startTime = getTickCount()>
 
-	<cfset x=listfindnocase(application.blacklist,request.ipaddress)>
-	
-	<cfset endTime = getTickCount()>
 
-<cfset listnocasetime=endtime-starttime>
-
+<cfoutput>
 <p>
-listnocasetime: #listnocasetime#
+
+
+	<cfset startTime = getTickCount()>
+	<cfset x=listfindnocase(application.blacklist,request.ipaddress)>
+	<cfset endTime = getTickCount()>
+	<cfset etime=endtime-starttime>
+	listfindnocase: #etime#
 </p>
 
+<p>
+	<cfset startTime = getTickCount()>
+	<cfset x=listfindnocase(application.blacklist,request.ipaddress,",")>
+	<cfset endTime = getTickCount()>
+	<cfset etime=endtime-starttime>
+	listfindnocase delims: #etime#
+</p>
+
+
+
+</cfoutput>
