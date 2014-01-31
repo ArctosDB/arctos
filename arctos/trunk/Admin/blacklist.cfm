@@ -51,7 +51,7 @@
 			</tr>
 		</table>
 		<cfloop query="sn">
-			<cfquery name="sndata">
+			<cfquery name="sndata" dbtype="query">
 				select 
 					count(*) c,
 					min(listdate) firstblock,
