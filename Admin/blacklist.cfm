@@ -1,5 +1,10 @@
-<cfinclude template="/includes/_header.cfm">
 <cfset title="Manage IP and subnet blocking">
+<cfinclude template="/includes/_header.cfm">
+
+<cfset title="Specimen Search">
+
+
+
 <cfoutput>
 <cfif action is "subnet">
 	<script src="/includes/sorttable.js"></script>
