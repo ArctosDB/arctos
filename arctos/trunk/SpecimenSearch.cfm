@@ -99,6 +99,7 @@
 					<option value="subtribe">Subtribe</option>
 					<option value="genus">Genus</option>
 					<option value="scientific_name">Scientific Name</option>
+					<option value="identifiedby">IdentifiedBy</option>
 					<option value="continent_ocean">Continent</option>
 					<option value="country">Country</option>
 					<option value="state_prov">State</option>
@@ -545,6 +546,7 @@
 				<option value="subtribe">Subtribe</option>
 				<option value="genus">Genus</option>
 				<option value="scientific_name">Scientific Name</option>
+				<option value="identifiedby">IdentifiedBy</option>
 				<option value="continent_ocean">Continent</option>
 				<option value="country">Country</option>
 				<option value="state_prov">State</option>
