@@ -421,7 +421,7 @@
 	<cfset requestingSubnet=listgetat(request.ipaddress,1,".") & "." & listgetat(request.ipaddress,2,".")>
 	
 	
-	<cfif listfindnocase(application.subnet_blacklist,requestingSubnet)>
+	<cfif listfind(application.subnet_blacklist,requestingSubnet)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
 				getPageContext().forward("/errors/gtfo.cfm");
@@ -430,7 +430,7 @@
 		</cfif>
 	</cfif>
 	
-	<cfif listfindnocase(application.blacklist,request.ipaddress)>
+	<cfif listfind(application.blacklist,request.ipaddress)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
 				getPageContext().forward("/errors/gtfo.cfm");
