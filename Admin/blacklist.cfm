@@ -26,9 +26,7 @@
 			<td>#subnet#</td>
 			<td><a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">whois</a></td>
 			<td><a href="blacklist.cfm?action=UNblockSubnet&subnet=#subnet#">[ allow this subnet ]</a></td>
-		</tr>
-		<br>## 
-		
+		</tr>		
 	</cfloop>
 	
 	</table>
