@@ -38,8 +38,7 @@
 		from 
 			uam.blacklist 
 		where 
-			substr(ip,1,instr(ip,'.',1,2)-1) not in (select subnet from blacklist_subnet) and
-			count(substr(ip,1,instr(ip,'.',1,2)-1)) > 2
+			substr(ip,1,instr(ip,'.',1,2)-1) not in (select subnet from blacklist_subnet)
 	</cfquery>
 	<cfquery name="sn" dbtype="query">
 		select subnet from q group by subnet order by subnet
@@ -64,14 +63,16 @@
 				where 
 					subnet='#subnet#'
 			</cfquery>
-			<tr>
-				<td>#subnet#</td>
-				<td>#sndata.c#</td>
-				<td>#sndata.firstblock#</td>
-				<td>#sndata.lastblock#</td>
-				<td><a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">[ whois ]</a></td>
-				<td><a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">[ block this subnet ]</a></td>
-			</tr>			
+			<cfif c gt 2>
+				<tr>
+					<td>#subnet#</td>
+					<td>#sndata.c#</td>
+					<td>#sndata.firstblock#</td>
+					<td>#sndata.lastblock#</td>
+					<td><a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">[ whois ]</a></td>
+					<td><a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">[ block this subnet ]</a></td>
+				</tr>
+			</cfif>	
 		</cfloop>
 	</table>
 </cfif>
