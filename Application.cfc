@@ -389,6 +389,9 @@
 	<cfif not isdefined("application.blacklist")>
 		<cfset application.blacklist="">
 	</cfif>
+	<cfif not isdefined("application.subnet_blacklist")>
+		<cfset application.subnet_blacklist="">
+	</cfif>
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0 and CGI.HTTP_X_Forwarded_For is not "127.0.0.1">
 		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
 	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0 and CGI.Remote_Addr is not "127.0.0.1">
