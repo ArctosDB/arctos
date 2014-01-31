@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cfset title = "manage IP and subnet blocking">
+<cfset title="Manage IP and subnet blocking">
 <cfoutput>
 <cfif action is "subnet">
 	<script src="/includes/sorttable.js"></script>
