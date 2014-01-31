@@ -30,6 +30,13 @@
 	listfindnocase delims: #etime#
 </p>
 
+<p>
+	<cfset startTime = getTickCount()>
+	<cfset x=listfind(application.blacklist,request.ipaddress,",")>
+	<cfset endTime = getTickCount()>
+	<cfset etime=endtime-starttime>
+	listfind delims: #etime#
+</p>
 
 
 </cfoutput>
