@@ -23,8 +23,26 @@
 		Unblocked subnets with >2 blocked IPs
 	</h2>
 	<p>
-		Use this with great care. Blocked subnets here MUST be mirrored in firewall rules, which will probably require an email to the network folks
-		 - follow up as necessary. Blocking subnets at the CF level still imposes load on the server.
+		Use this with great care. Blocked subnets here should be mirrored in firewall rules, which will require an email to the network folks. 
+		Blocking subnets at the CF level still imposes load on the server.
+	</p>
+	<p>
+		General Guidelines
+		<ul>
+			<li>
+				"Your IP/subnet has been blocked" messages require CF processing. Some subnets regularly fire thousands of these queries
+				simultaneously, causing uptime and performance issues for legitimate users. "Flood probes" should be blocked at the firewall.
+			 </li>
+			 <li>
+			 	Some foreign subnets (particularly originating from Eastern Europe) are the origin of continuous probes and no 
+			 	obvious legitimate traffic. These can mask dangerous activity and make keeping up with logfiles burdensome. Consider 
+			 	blocking these subnets when all other approaches have failed.
+			 </li>
+			 <li>
+			 	US-based subnets should rarely be blocked, except in the case of fatally-aggressive bot traffic or spam injection attempts from
+			 	multiple IPs. Use with great caution.
+			 </li>
+		</ul>
 	</p>
 	<p>
 		Everything redirects to the IP list page so that application variables can be properly set. Sorry about the extra click.
