@@ -117,9 +117,15 @@
 	
 	<cftry>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		insert into blacklist_subnet (subnet) values ('#subnet#');
+		insert into blacklist_subnet (subnet) values ('#subnet#')
 	</cfquery>
-	<cflocation url="/Admin/blacklist.cfm">
+	
+	Subnet #subnet# has been added to the blacklist. You should probably send email to the network folks and also 
+	blacklist it at the firewall.
+	
+	<p>
+		You must <a href="/Admin/blacklist.cfm">continue to the main blacklist page</a> to push the changes to the application.
+	</p>
 	<cfcatch>
 		<cfdump var=#cfcatch#>
 	</cfcatch>
