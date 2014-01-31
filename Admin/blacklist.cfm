@@ -63,7 +63,7 @@
 				where 
 					subnet='#subnet#'
 			</cfquery>
-			<cfif c gt 2>
+			<cfif sndata.c gt 2>
 				<tr>
 					<td>#subnet#</td>
 					<td>#sndata.c#</td>
