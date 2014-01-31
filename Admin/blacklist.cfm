@@ -15,6 +15,13 @@
 	<h2>
 		Unblocked subnets with blocked IPs by number of blocked IP.
 	</h2>
+	<p>
+		Use this with great care. Blocked subnets here MUST be mirrored in firewall rules, which will probably require an email to the network folks
+		 - follow up as necessary. Blocking subnets at the CF level still imposes load on the server.
+	</p>
+	<p>
+		Everything redirects to the IP list page so that application variables can be properly set. Sorry about the extra click.
+	</p>
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				substr(ip,1,instr(ip,'.',1,2)-1) subnet,
@@ -30,10 +37,44 @@
 		</cfquery>
 		<cfloop query="q">
 			<br>#subnet# - #c#
+			<a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">whois</a>
+			<a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">block this subnet</a>
 		</cfloop>
-	
 </cfif>
 <!------------------------------------------>
+
+
+<!------------------------------------------>
+<cfif action is "blockSubnet">
+	<cfif trim(subnet) is "127.0">
+		<cfthrow message = "Local subnet cannot be blacklisted" errorCode = "127001">
+		<cfabort>
+	</cfif>
+	<cfif listlen(subnet,".") is not 2>
+		check subnet format 999.999<cfabort>
+	</cfif>
+	<cfif right(subnet,1) is ".">
+		check subnet format 999.999<cfabort>
+	</cfif>
+	<cfif trim(subnet) is not subnet>
+		check subnet format 999.999<cfabort>
+	</cfif>
+	
+	
+	
+	<cftry>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into blacklist_subnet (subnet) values ('#subnet#');
+	</cfquery>
+	<cflocation url="/Admin/blacklist.cfm">
+	<cfcatch>
+		<cfdump var=#cfcatch#>
+	</cfcatch>
+	</cftry>
+</cfif>
+<!------------------------------------------>
+
+
 <cfif action is "nothing">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
