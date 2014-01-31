@@ -38,18 +38,15 @@
 	<cfquery name="sn" dbtype="query">
 		select subnet from q group by subnet order by subnet
 	</cfquery>
-		
-		
-		<table border id="t" class="sortable">
-			<tr>
-				<th>Subnet</th>
-				<th>NumberDistIPs</th>
-				<th>firstblock</th>
-				<th>lastblock</th>
-				<th>whois</th>
-				<th>block subnet</th>
-			</tr>
-		</table>
+	<table border id="t" class="sortable">
+		<tr>
+			<th>Subnet</th>
+			<th>NumberDistIPs</th>
+			<th>firstblock</th>
+			<th>lastblock</th>
+			<th>whois</th>
+			<th>block subnet</th>
+		</tr>
 		<cfloop query="sn">
 			<cfquery name="sndata" dbtype="query">
 				select 
@@ -61,7 +58,6 @@
 				where 
 					subnet='#subnet#'
 			</cfquery>
-			
 			<tr>
 				<td>#subnet#</td>
 				<td>#sndata.c#</td>
@@ -71,6 +67,7 @@
 				<td><a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">[ block this subnet ]</a></td>
 			</tr>			
 		</cfloop>
+	</table>
 </cfif>
 <!------------------------------------------>
 
