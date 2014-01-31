@@ -403,6 +403,16 @@
 		<cfset request.ipaddress='unknown'>
 	</cfif>
 	
+	<!----
+		The blacklist list is out of control, so deal with subnets here.
+		Most of this should be blocked at the firewall, but as we've seen TACC's 
+		firewall goes down sometimes, leaving Arctos vulnerable, so duplicate that
+		here. 
+		
+		Consider a table-based solution if this grows too crazy 
+	---->
+	
+	
 	<cfif listfindnocase(application.blacklist,request.ipaddress)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
