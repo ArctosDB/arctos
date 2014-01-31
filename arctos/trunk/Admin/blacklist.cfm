@@ -15,10 +15,23 @@
 	</cfquery>
 	<a href="blacklist.cfm">blacklist home</a>
 	<h2>Currently Blocked Subnets</h2>
+	<table border id="t2" class="sortable">
+		<tr>
+			<th>Subnet</th>
+			<th>Whois</th>
+			<th>Remove from Blacklist</th>
+		</tr>
 	<cfloop query="d">
-		<br>#subnet# 
-		<a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">whois</a>
+		<tr>
+			<td>#subnet#</td>
+			<td><a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">whois</a></td>
+			<td><a href="blacklist.cfm?action=UNblockSubnet&subnet=#subnet#">[ allow this subnet ]</a></td>
+		</tr>
+		<br>## 
+		
 	</cfloop>
+	
+	</table>
 	<h2>
 		Unblocked subnets with >2 blocked IPs
 	</h2>
@@ -95,8 +108,17 @@
 	</table>
 </cfif>
 <!------------------------------------------>
-
-
+<cfif action is "UNblockSubnet">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from blacklist_subnet where subnet='#subnet#'
+	</cfquery>
+	
+	Subnet #subnet# has been removed from the blacklist. You must send email to the network folks to remove the firewall blacklist.
+	
+	<p>
+		You must now <a href="/Admin/blacklist.cfm">continue to the main blacklist page</a> to push the changes to the application.
+	</p>
+</cfif>
 <!------------------------------------------>
 <cfif action is "blockSubnet">
 	<cfif trim(subnet) is "127.0">
