@@ -124,9 +124,12 @@
 		from 
 			uam.blacklist_subnet
 	</cfquery>
-	IMPORTANT NOTE: IPs for blocked subnets are NOT included here. <a href="blacklist.cfm?action=subnet">manage blocked subnets</a>
-	
-	
+	<p>
+		IMPORTANT NOTE: IPs for blocked subnets are NOT included here. <a href="blacklist.cfm?action=subnet">manage blocked subnets</a>
+	</p>
+	<p>
+		Found #d.recordcount# blocked IPs
+	</p>
 	
 	<cfset application.blacklist=valuelist(d.ip)>
 	<cfset application.subnet_blacklist=valuelist(sn.subnet)>
