@@ -3,7 +3,7 @@
 
 <cfset title="Specimen Search">
 
-<cfif action = 'tf'>
+<cfif action is 'tf'>
 	hello
 </cfif>
 
