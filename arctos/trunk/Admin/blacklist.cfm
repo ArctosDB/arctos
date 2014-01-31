@@ -31,7 +31,7 @@
 			substr(ip,1,instr(ip,'.',1,2)-1) subnet,
 			to_char(listdate,'YYYY-MM-DD') listdate
 		from 
-			blacklist 
+			uam.blacklist 
 		where 
 			substr(ip,1,instr(ip,'.',1,2)-1) not in (select subnet from blacklist_subnet)
 	</cfquery>
