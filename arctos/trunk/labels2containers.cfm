@@ -108,7 +108,7 @@
 			There are problems. Fix the data and try again.
 		<cfelse>
 			Validation complete. Carefully recheck the data and <a href="labels2containers.cfm?action=finalizeUpload">click here to finalize the upload</a>.
-			Pay special attention to the "notes" column - these are not "errors" but information here may be an indication that 
+			Pay special attention to the "note" column - these are not "errors" but information here may be an indication that 
 			you are about to make a huge mess.
 		</cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -118,7 +118,7 @@
 			<tr>
 				<th>barcode</th>
 				<th>status</th>
-				<th>notes</th>
+				<th>note</th>
 				<th>old_container_type</th>
 				<th>container_type</th>
 				<th>description</th>
@@ -132,7 +132,7 @@
 				<tr>
 					<td>#barcode#</td>
 					<td>#status#</td>
-					<td>#notes#</td>
+					<td>#note#</td>
 					<td>#old_container_type#</td>
 					<td>#container_type#</td>
 					<td>#description#</td>
