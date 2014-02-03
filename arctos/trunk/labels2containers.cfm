@@ -70,11 +70,22 @@
 <cfif action IS "validateUpload">
 	
 	<cfquery name="upsbc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_lbl2contr set status='barcode_not_found' where barcode not in (select barcode from container)
+		update 
+			cf_temp_lbl2contr 
+		set 
+			status='barcode_not_found' 
+		where 
+			barcode not in (select barcode from container)
 	</cfquery>
 
 	<cfquery name="ups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_lbl2contr set status='old_container_type_nomatch' where barcode||'|'||old_container_type not in (select barcode||'|'||old_container_type from container)
+		update 
+			cf_temp_lbl2contr 
+		set 
+			status='old_container_type_nomatch' 
+		where 
+			status is null and
+			barcode||'|'||old_container_type not in (select barcode||'|'||old_container_type from container)
 	</cfquery>
 
 
