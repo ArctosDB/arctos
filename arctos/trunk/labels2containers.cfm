@@ -10,8 +10,10 @@
 		<br>Everything else is an intended/new value, and all are optional. However, leaving them NULL will update the existing record to NULL. 
 		<br>Code table, datatype, etc. rules apply.
 		If that doesn't make sense, please do NOT use this form until it does.
-	
-	</p> 
+	</p>
+	<p>
+		This form is not restricted to labels; it will alter ANY container.
+	</p>
 	<p>
 		This form will happily overwrite existing important information. Use it with caution and make sure you know what it's doing!
 	</p>
@@ -26,8 +28,6 @@
 		<li>width</li>
 		<li>number_positions</li>		
 	</ul>
-	
-	
 	<form enctype="multipart/form-data" action="labels2containers.cfm" method="POST">
 		<input type="hidden" name="action" value="getFile">
 		<label for="FiletoUpload">Upload CSV</label>
@@ -35,10 +35,7 @@
 
 		<input type="submit" value="Upload this file" class="insBtn">
 	</form>
-	
-	
 </cfif>
-
 <cfif action IS "getFile">
 	<!--- put this in a temp table --->
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -232,7 +229,7 @@
 				cf_temp_lbl2contr.barcode=container.barcode
 		)
 	</cfquery>
-		
+	all done
 </cfif>
 <!------------------------------------------>
 <cfif action IS "nothing">
