@@ -68,7 +68,7 @@
 </cfif>
 <!------------------------------------------>
 <cfif action IS "validateUpload">
-	
+	<script src="/includes/sorttable.js"></script>
 	<cfquery name="upsbc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update 
 			cf_temp_lbl2contr 
@@ -99,7 +99,34 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_lbl2contr
 	</cfquery>
-	<cfdump var=#d#>
+	<table border id="t" class="sortable">
+		<tr>
+			<th>barcode</th>
+			<th>status</th>
+			<th>old_container_type</th>
+			<th>container_type</th>
+			<th>description</th>
+			<th>container_remarks</th>
+			<th>height</th>
+			<th>length</th>
+			<th>width</th>
+			<th>number_positions</th>
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>barcode</td>
+				<td>status</td>
+				<td>old_container_type</td>
+				<td>container_type</td>
+				<td>description</td>
+				<td>container_remarks</td>
+				<td>height</td>
+				<td>lengtd</td>
+				<td>widtd</td>
+				<td>number_positions</td>
+			</tr>
+		</cfloop>
+	</table>
 </cfif>
 <!------------------------------------------>
 <cfif action IS "nothing">
