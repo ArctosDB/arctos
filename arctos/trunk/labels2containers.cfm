@@ -85,7 +85,7 @@
 			status='old_container_type_nomatch' 
 		where 
 			status is null and
-			barcode||'|'||old_container_type not in (select barcode||'|'||old_container_type from container)
+			barcode || '|' || old_container_type not in (select barcode || '|' || container_type from container)
 	</cfquery>
 
 
