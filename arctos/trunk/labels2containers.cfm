@@ -69,64 +69,66 @@
 <!------------------------------------------>
 <cfif action IS "validateUpload">
 	<script src="/includes/sorttable.js"></script>
-	<cfquery name="upsbc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			cf_temp_lbl2contr 
-		set 
-			status='barcode_not_found' 
-		where 
-			barcode not in (select barcode from container)
-	</cfquery>
-
-	<cfquery name="ups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			cf_temp_lbl2contr 
-		set 
-			status='old_container_type_nomatch' 
-		where 
-			status is null and
-			barcode || '|' || old_container_type not in (select barcode || '|' || container_type from container)
-	</cfquery>
-
-	<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from cf_temp_lbl2contr where status is not null
-	</cfquery>
-	<cfif fail.c gt 0>
-		There are problems. Fix the data and try again.
-	<cfelse>
-		Validation complete. Carefully recheck the data and <a href="labels2containers.cfm?action=finalizeUpload">click here to finalize the upload</a>
-	</cfif>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_lbl2contr
-	</cfquery>
-	<table border id="t" class="sortable">
-		<tr>
-			<th>barcode</th>
-			<th>status</th>
-			<th>old_container_type</th>
-			<th>container_type</th>
-			<th>description</th>
-			<th>container_remarks</th>
-			<th>height</th>
-			<th>length</th>
-			<th>width</th>
-			<th>number_positions</th>
-		</tr>
-		<cfloop query="d">
+	<cfoutput>
+		<cfquery name="upsbc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_lbl2contr 
+			set 
+				status='barcode_not_found' 
+			where 
+				barcode not in (select barcode from container)
+		</cfquery>
+	
+		<cfquery name="ups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_lbl2contr 
+			set 
+				status='old_container_type_nomatch' 
+			where 
+				status is null and
+				barcode || '|' || old_container_type not in (select barcode || '|' || container_type from container)
+		</cfquery>
+	
+		<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from cf_temp_lbl2contr where status is not null
+		</cfquery>
+		<cfif fail.c gt 0>
+			There are problems. Fix the data and try again.
+		<cfelse>
+			Validation complete. Carefully recheck the data and <a href="labels2containers.cfm?action=finalizeUpload">click here to finalize the upload</a>
+		</cfif>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_lbl2contr
+		</cfquery>
+		<table border id="t" class="sortable">
 			<tr>
-				<td>#barcode#</td>
-				<td>#status#</td>
-				<td>#old_container_type#</td>
-				<td>#container_type#</td>
-				<td>#description#</td>
-				<td>#container_remarks#</td>
-				<td>#height#</td>
-				<td>#length#</td>
-				<td>#width#</td>
-				<td>#number_positions#</td>
+				<th>barcode</th>
+				<th>status</th>
+				<th>old_container_type</th>
+				<th>container_type</th>
+				<th>description</th>
+				<th>container_remarks</th>
+				<th>height</th>
+				<th>length</th>
+				<th>width</th>
+				<th>number_positions</th>
 			</tr>
-		</cfloop>
-	</table>
+			<cfloop query="d">
+				<tr>
+					<td>#barcode#</td>
+					<td>#status#</td>
+					<td>#old_container_type#</td>
+					<td>#container_type#</td>
+					<td>#description#</td>
+					<td>#container_remarks#</td>
+					<td>#height#</td>
+					<td>#length#</td>
+					<td>#width#</td>
+					<td>#number_positions#</td>
+				</tr>
+			</cfloop>
+		</table>
+	</cfoutput>
 </cfif>
 <!------------------------------------------>
 <cfif action IS "nothing">
