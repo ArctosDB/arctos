@@ -23,10 +23,12 @@
 		</ul>
 	</p>
 	
-	<form name="oids" method="post" enctype="multipart/form-data">
+	
+	<form enctype="multipart/form-data" action="labels2containers.cfm" method="POST">
 		<input type="hidden" name="action" value="getFile">
 		<label for="FiletoUpload">Upload CSV</label>
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
+
 		<input type="submit" value="Upload this file" class="insBtn">
 	</form>
 	
