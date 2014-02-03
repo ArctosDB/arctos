@@ -6,6 +6,8 @@
 <cfset ddl=replace(d.x,chr(10),"[chr10]","all")>
 <cfoutput>
 	#ddl#
+	
+	<textarea>#d.x#</textarea>
 </cfoutput>
 <CFDUMP VAR=#D#>
 
