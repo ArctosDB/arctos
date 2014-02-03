@@ -1542,6 +1542,14 @@ INSERT INTO geog_auth_rec (
 			<cf_findLocality type="event">
 
 			Found #localityResults.recordcount# records
+			
+			<cfif localityResults.recordcount lt 1000>
+				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">Map LOCALITIES @BerkeleyMapper</a>
+			<cfelse>
+				1000 record limit on mapping, sorry...
+			</cfif>
+	
+	
 			<span class="likeLink" onclick="tools.action.value='csvCollEvent';tools.submit();">[ csv ]</span>
 <table border>
 	<tr>
