@@ -1066,7 +1066,7 @@
 			 return rVal;
 		</cfscript>
 	<cfcatch>
-		<cfreturn cfcatch>
+		<cfreturn cfcatch.detail>
 	</cfcatch>
 	</cftry>
 </cffunction>
