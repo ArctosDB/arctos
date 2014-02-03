@@ -16,7 +16,7 @@
 		<cfquery name="d" datasource="uam_god">
 			SELECT dbms_metadata.get_ddl('TABLE', '#table#') x FROM DUAL
 		</cfquery>
-		<textarea rows="80" cols="80">#d.x#</textarea>
+		<textarea rows="50" cols="160">#d.x#</textarea>
 	</cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
