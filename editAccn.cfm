@@ -578,6 +578,13 @@
 							</cfloop>
 						</select>
 					</td>
+					<td>
+						<label  for="accn_media"Media</label>
+						<select name="accn_media" id="accn_media" size="1">
+							<option value=""></option>
+							<option value="1">require</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="3">
@@ -710,11 +717,22 @@
 			trans.transaction_id = project_trans.transaction_id (+) and
 			project_trans.project_id = project.project_id (+) AND
 			trans.collection_id=collection.collection_id ">
+		
+		
+		<cfif isdefined("accn_media") AND len(accn_media) gt 0>
+			<cfset frm="#frm#,media_relations">
+			<cfset sql="#sql# and media_relations.media_relationship like '% accn' and accn.transaction_id = media_relations.related_primary_key">
+		</cfif>
+		
 		<cfif isdefined("trans_agent_role_1") AND len(#trans_agent_role_1#) gt 0>
 			<cfset frm="#frm#,trans_agent trans_agent_1">
 			<cfset sql="#sql# and trans.transaction_id = trans_agent_1.transaction_id">
 			<cfset sql = "#sql# AND trans_agent_1.trans_agent_role = '#trans_agent_role_1#'">
 		</cfif>
+		
+		
+		
+		
 		<cfif isdefined("agent_1") AND len(#agent_1#) gt 0>
 			<cfif #sql# does not contain "trans_agent_1">
 				<cfset frm="#frm#,trans_agent trans_agent_1">
