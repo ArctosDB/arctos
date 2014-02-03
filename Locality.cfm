@@ -1537,6 +1537,7 @@ INSERT INTO geog_auth_rec (
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "findCollEvent">
 	<cfoutput>
+		<cfset title="collecting events: search results">
 		<form name="tools" method="post" action="Locality.cfm">
 			<input type="hidden" name="action" value="" />
 			<cf_findLocality type="event">
@@ -1544,7 +1545,7 @@ INSERT INTO geog_auth_rec (
 			Found #localityResults.recordcount# records
 			
 			<cfif localityResults.recordcount lt 1000>
-				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">Map LOCALITIES @BerkeleyMapper</a>
+				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">Map <strong>localities</strong> @BerkeleyMapper</a>
 			<cfelse>
 				1000 record limit on mapping, sorry...
 			</cfif>
