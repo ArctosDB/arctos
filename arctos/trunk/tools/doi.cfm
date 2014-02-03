@@ -17,14 +17,14 @@
 		</p>
 		<p>
 			More about DOIs can be found at the <a href="http://www.doi.org/hb.html" class="external" target="_blank">DOI Handbook</a>
-			or the <a href="http://n2t.net/ezid/" class="external" target="_blank">EZID homepage.</a>
+			or the <a href="http://ezid.cdlib.org/" class="external" target="_blank">EZID homepage.</a>
 		</p>
 		<p>
 			All Arctos DOIs are (currently) provided by EZID, and metadata (including QR codes) may be viewed by appending the DOI onto
-			<blockquote>http://n2t.net/ezid/id/doi:</blockquote>
+			<blockquote>http://ezid.cdlib.org/id/doi:</blockquote>
 			to form URLs of the form
 			<blockquote>
-				<a href="http://n2t.net/ezid/id/doi:10.7299/X7WS8R7J" class="external" target="_blank">http://n2t.net/ezid/id/doi:10.7299/X7WS8R7J</a>
+				<a href="http://ezid.cdlib.org/id/doi:10.7299/X7WS8R7J" class="external" target="_blank">http://ezid.cdlib.org/id/doi:10.7299/X7WS8R7J</a>
 			</blockquote>
 			DOI metadata is maintained at <a href="http://datacite.org/" class="external" target="_blank">DataCite</a>
 		</p>
@@ -310,9 +310,9 @@
 					<option value="#inst#" <cfif publisher is inst> selected="selected" </cfif> >#inst#</option>
 				</cfloop>
 			</select>
-			<label for="creator">creator <a href="http://n2t.net/ezid/doc/apidoc.html##profile-datacite" target="_blank" class="external">[ more info ]</a></label>
+			<label for="creator">creator <a href="http://ezid.cdlib.org/doc/apidoc.html##profile-datacite" target="_blank" class="external">[ more info ]</a></label>
 			<input type="text" name="creator" id="creator" value="#creator#" size="80">
-			<label for="title">title <a href="http://n2t.net/ezid/doc/apidoc.html##profile-datacite" target="_blank" class="external">[ more info ]</a></label>
+			<label for="title">title <a href="http://ezid.cdlib.org/doc/apidoc.html##profile-datacite" target="_blank" class="external">[ more info ]</a></label>
 			<input type="text" name="title" id="title" value="#title#" size="80">
 			<br>
 			<input type="submit" value="create DOI">
