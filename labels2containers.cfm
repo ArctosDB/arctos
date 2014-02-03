@@ -88,7 +88,14 @@
 			barcode || '|' || old_container_type not in (select barcode || '|' || container_type from container)
 	</cfquery>
 
-
+	<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from cf_temp_lbl2contr where status is not null
+	</cfquery>
+	<cfif fail.c gt 0>
+		There are problems. Fix the data and try again.
+	<cfelse>
+		Validation complete. Carefully recheck the data and <a href="labels2containers.cfm?action=finalizeUpload">click here to finalize the upload</a>
+	</cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_lbl2contr
 	</cfquery>
