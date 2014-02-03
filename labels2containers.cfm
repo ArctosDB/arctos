@@ -135,7 +135,7 @@
 <cfif action IS "finalizeUpload">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update container set (container_type,description,container_remarks,height,length,width,number_positions)
-		=(select container_type,description,container_remarks,height,length,width,number_position
+		=(select container_type,description,container_remarks,height,length,width,number_positions
 		from cf_temp_lbl2contr where cf_temp_lbl2contr.barcode=container.barcode)
 	</cfquery>
 	all done
