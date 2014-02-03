@@ -10,18 +10,22 @@
 		<br>Everything else is an intended/new value, and all are optional. However, leaving them NULL will update the existing record to NULL. 
 		<br>Code table, datatype, etc. rules apply.
 		If that doesn't make sense, please do NOT use this form until it does.
-		<ul>
-			<li>barcode</li>
-			<li>old_container_type</li>
-			<li>container_type</li>
-			<li>description</li>
-			<li>container_remarks</li>
-			<li>height</li>
-			<li>length</li>
-			<li>width</li>
-			<li>number_positions</li>		
-		</ul>
+	
+	</p> 
+	<p>
+		This form will happily overwrite existing important information. Use it with caution and make sure you know what it's doing!
 	</p>
+	<ul>
+		<li>barcode</li>
+		<li>old_container_type</li>
+		<li>container_type</li>
+		<li>description</li>
+		<li>container_remarks</li>
+		<li>height</li>
+		<li>length</li>
+		<li>width</li>
+		<li>number_positions</li>		
+	</ul>
 	
 	
 	<form enctype="multipart/form-data" action="labels2containers.cfm" method="POST">
@@ -107,6 +111,42 @@
 			where 
 				container_remarks is null and 
 				barcode in (select barcode from container where container_remarks is not null)
+		</cfquery>
+		<cfquery name="upn_l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_lbl2contr 
+			set 
+				note=note || '; ' || 'existing container has length' 
+			where 
+				length is null and 
+				barcode in (select barcode from container where length is not null)
+		</cfquery>
+		<cfquery name="upn_h" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_lbl2contr 
+			set 
+				note=note || '; ' || 'existing container has height' 
+			where 
+				height is null and 
+				barcode in (select barcode from container where height is not null)
+		</cfquery>
+		<cfquery name="upn_w" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_lbl2contr 
+			set 
+				note=note || '; ' || 'existing container has width' 
+			where 
+				width is null and 
+				barcode in (select barcode from container where width is not null)
+		</cfquery>
+		<cfquery name="upn_w" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_lbl2contr 
+			set 
+				note=note || '; ' || 'existing container has number_positions' 
+			where 
+				widnumber_positionsth is null and 
+				barcode in (select barcode from container where number_positions is not null)
 		</cfquery>
 		
 		
