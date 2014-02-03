@@ -1,8 +1,81 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="labels2containers">
-<cfif #action# IS "nothing">
-	This form will function with a few thousand labels. If you need to do more, break them into batches or get a DBA to help.
-	<p></p>
+<cfif action is "uploadCSV">
+	<p>
+		Upload CSV with the following columns. 
+		
+		<br>Barcode is the key.
+		<br>old_container_type is required and must match current values (probably some type of label - 
+		this restriction prevents re-re-purposing labels; develop a label handling system if this seems burdensome)
+		<br>Everything else is an intended/new value, and all are optional. However, leaving them NULL will update the existing record to NULL. 
+		<br>Code table, datatype, etc. rules apply.
+		If that doesn't make sense, please do NOT use this form until it does.
+		<ul>
+			<li>barcode</li>
+			<li>old_container_type</li>
+			<li>container_type</li>
+			<li>description</li>
+			<li>container_remarks</li>
+			<li>height</li>
+			<li>length</li>
+			<li>width</li>
+			<li>number_positions</li>		
+		</ul>
+	</p>
+	
+	<form name="oids" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="action" value="getFile">
+		<label for="FiletoUpload">Upload CSV</label>
+		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
+		<input type="submit" value="Upload this file" class="insBtn">
+	</form>
+	
+	
+</cfif>
+
+<cfif action IS "getFile">
+	<!--- put this in a temp table --->
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from cf_temp_lbl2contr
+	</cfquery>
+	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+	<cfset fileContent=replace(fileContent,"'","''","all")>
+	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
+	<cfset colNames="">
+	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
+		<cfset colVals="">
+			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
+				<cfset thisBit=arrResult[o][i]>
+				<cfif #o# is 1>
+					<cfset colNames="#colNames#,#thisBit#">
+				<cfelse>
+					<cfset colVals="#colVals#,'#thisBit#'">
+				</cfif>
+			</cfloop>
+		<cfif #o# is 1>
+			<cfset colNames=replace(colNames,",","","first")>
+		</cfif>
+		<cfif len(#colVals#) gt 1>
+			<cfset colVals=replace(colVals,",","","first")>
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into cf_temp_lbl2contr (#colNames#) values (#preservesinglequotes(colVals)#)
+			</cfquery>
+		</cfif>
+	</cfloop>
+	<cflocation url="labels2containers.cfm?action=validateUpload" addtoken="false">
+</cfif>
+<!------------------------------------------>
+<cfif action IS "validateUpload">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_lbl2contr
+	</cfquery>
+	<cfdump var=#d#>
+</cfif>
+<!------------------------------------------>
+<cfif action IS "nothing">
+	<p>
+		This form will function with a few thousand labels. If you need to do more, break them into batches or get a DBA to help.
+	</p>
 To use this form, all of the following must be true:
 
 <ul>
@@ -10,11 +83,14 @@ To use this form, all of the following must be true:
 	<li>All the containers have barcodes</li>
 	<li>The barcodes are
 		<ul>
-			<li>Integers</li>
-			<li>Integers with a prefix</li>
+			<li>base-10 Integers</li>
+			<li>base-10 Integers with a prefix</li>
 		</ul>
 	</li>
 </ul>
+
+<a href="labels2containers.cfm?action=uploadCSV">upload a CSV file instead</a>
+
 
 <cfoutput>
 	<cfquery name="ctContainerType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
