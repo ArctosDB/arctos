@@ -4,9 +4,8 @@
 		select table_name from all_tables where owner='UAM' order by table_name
 	</cfquery>
 	
-	<cfdump var=#t#>
 	<form method="get" action="getDDL.cfm">
-		<select name="table" id="#table#">
+		<select name="table" id="table">
 			<cfloop query="t">
 				<option <cfif isdefined("table") and table is table_name> selected="selected" </cfif>value="#table_name#">#table_name#</option>
 			</cfloop>
