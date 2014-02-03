@@ -1067,7 +1067,7 @@
 		</cfscript>
 	<cfcatch>
 		<!--- some minimal and dumb error handling --->
-		<cfif cfcatch.detail contains "Thread with name #name# could not be created. Thread names must be unique within a page.">
+		<cfif cfcatch.detail contains "Thread names must be unique within a page">
 			<cfreturn 'Locality duplicated on page - map elsewhere'>
 		<cfelse>
 			<cfreturn cfcatch.detail>
