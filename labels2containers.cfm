@@ -116,6 +116,7 @@
 			<tr>
 				<th>barcode</th>
 				<th>status</th>
+				<th>notes</th>
 				<th>old_container_type</th>
 				<th>container_type</th>
 				<th>description</th>
@@ -129,6 +130,7 @@
 				<tr>
 					<td>#barcode#</td>
 					<td>#status#</td>
+					<td>#notes#</td>
 					<td>#old_container_type#</td>
 					<td>#container_type#</td>
 					<td>#description#</td>
