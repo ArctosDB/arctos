@@ -99,6 +99,15 @@
 				description is null and 
 				barcode in (select barcode from container where description is not null)
 		</cfquery>
+		<cfquery name="upn_r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_lbl2contr 
+			set 
+				note=note || '; ' || 'existing container has remark' 
+			where 
+				container_remarks is null and 
+				barcode in (select barcode from container where container_remarks is not null)
+		</cfquery>
 		
 		
 		<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
