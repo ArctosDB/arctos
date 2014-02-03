@@ -353,7 +353,7 @@
 			username="#cf_global_settings.ezid_username#"
 			password="#cf_global_settings.ezid_password#"
 			method="POST"
-			url="https://n2t.net/ezid/shoulder/doi:#cf_global_settings.ezid_shoulder#">
+			url="https://ezid.cdlib.org/shoulder/doi:#cf_global_settings.ezid_shoulder#">
 			<cfhttpparam type="header" name="Accept" value="text/plain">
 			<cfhttpparam type="header" name="Content-Type" value="text/plain; charset=UTF-8">
 			<cfhttpparam type="body" value="#x#">
