@@ -579,7 +579,7 @@
 						</select>
 					</td>
 					<td>
-						<label  for="accn_media"Media</label>
+						<label  for="accn_media">Media</label>
 						<select name="accn_media" id="accn_media" size="1">
 							<option value=""></option>
 							<option value="1">require</option>
