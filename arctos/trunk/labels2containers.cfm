@@ -199,11 +199,6 @@
 <!------------------------------------------>
 <cfif action IS "finalizeUpload">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update container set (container_type,description,container_remarks,height,length,width,number_positions)
-		=(select container_type,description,container_remarks,height,length,width,number_positions
-		from cf_temp_lbl2contr )
-		where cf_temp_lbl2contr.barcode=container.barcode
-	</cfquery>
 		update 
 			container 
 		set (
@@ -236,17 +231,8 @@
 			where
 				cf_temp_lbl2contr.barcode=container.barcode
 		)
-	
-	
-	UPDATE table1 t1
-   SET (name, desc) = (SELECT t2.name, t2.desc
-                         FROM table2 t2
-                        WHERE t1.id = t2.id)
- WHERE EXISTS (
-    SELECT 1
-      FROM table2 t2
-     WHERE t1.id = t2.id )
-	all done
+	</cfquery>
+		
 </cfif>
 <!------------------------------------------>
 <cfif action IS "nothing">
