@@ -1,4 +1,4 @@
-<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+<cfquery name="d" datasource="uam_god">
 		SELECT dbms_metadata.get_ddl('TABLE', 'ATTRIBUTES','UAM') FROM DUAL
 </cfquery>
 <CFDUMP VAR=#D#>
