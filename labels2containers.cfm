@@ -145,7 +145,7 @@
 			set 
 				note=note || '; ' || 'existing container has number_positions' 
 			where 
-				widnumber_positionsth is null and 
+				number_positions is null and 
 				barcode in (select barcode from container where number_positions is not null)
 		</cfquery>
 		
