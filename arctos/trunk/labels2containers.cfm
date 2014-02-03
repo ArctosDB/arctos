@@ -94,7 +94,7 @@
 			update 
 				cf_temp_lbl2contr 
 			set 
-				notes=notes || '; ' || 'existing container has description' 
+				note=note || '; ' || 'existing container has description' 
 			where 
 				description is null and 
 				barcode in (select barcode from container where description is not null)
@@ -107,7 +107,9 @@
 		<cfif fail.c gt 0>
 			There are problems. Fix the data and try again.
 		<cfelse>
-			Validation complete. Carefully recheck the data and <a href="labels2containers.cfm?action=finalizeUpload">click here to finalize the upload</a>
+			Validation complete. Carefully recheck the data and <a href="labels2containers.cfm?action=finalizeUpload">click here to finalize the upload</a>.
+			Pay special attention to the "notes" column - these are not "errors" but information here may be an indication that 
+			you are about to make a huge mess.
 		</cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_lbl2contr
