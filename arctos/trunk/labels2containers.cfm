@@ -89,6 +89,18 @@
 				barcode || '|' || old_container_type not in (select barcode || '|' || container_type from container)
 		</cfquery>
 	
+	
+		<cfquery name="upn_descr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_lbl2contr 
+			set 
+				notes=notes || '; ' || 'existing container has description' 
+			where 
+				description is null and 
+				barcode in (select barcode from container where description is not null)
+		</cfquery>
+		
+		
 		<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from cf_temp_lbl2contr where status is not null
 		</cfquery>
@@ -136,8 +148,51 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update container set (container_type,description,container_remarks,height,length,width,number_positions)
 		=(select container_type,description,container_remarks,height,length,width,number_positions
-		from cf_temp_lbl2contr where cf_temp_lbl2contr.barcode=container.barcode)
+		from cf_temp_lbl2contr )
+		where cf_temp_lbl2contr.barcode=container.barcode
 	</cfquery>
+		update 
+			container 
+		set (
+			container.container_type,
+			container.description,
+			container.container_remarks,
+			container.height,
+			container.length,
+			container.width,
+			container.number_positions
+		)=(
+			select 
+				cf_temp_lbl2contr.container_type,
+				cf_temp_lbl2contr.description,
+				cf_temp_lbl2contr.container_remarks,
+				cf_temp_lbl2contr.height,
+				cf_temp_lbl2contr.length,
+				cf_temp_lbl2contr.width,
+				cf_temp_lbl2contr.number_positions
+			from 
+				cf_temp_lbl2contr
+			where 
+				cf_temp_lbl2contr.barcode=container.barcode
+		)
+		where exists (
+			select
+				1
+			from
+				cf_temp_lbl2contr
+			where
+				cf_temp_lbl2contr.barcode=container.barcode
+		)
+	
+	
+	UPDATE table1 t1
+   SET (name, desc) = (SELECT t2.name, t2.desc
+                         FROM table2 t2
+                        WHERE t1.id = t2.id)
+ WHERE EXISTS (
+    SELECT 1
+      FROM table2 t2
+     WHERE t1.id = t2.id )
 	all done
 </cfif>
 <!------------------------------------------>
