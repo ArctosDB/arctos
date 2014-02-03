@@ -1,7 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfquery name="t" datasource="uam_god">
-		select table_name from all_tables where owner='UAM' order by table_name
+		select 
+			table_name 
+		from 
+			all_tables 
+		where 
+			owner='UAM' and
+			table_name not like 'CCT%'
+		order by table_name
 	</cfquery>
 	
 	<form method="get" action="getDDL.cfm">
