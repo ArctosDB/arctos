@@ -1,8 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfquery name="t" datasource="uam_god">
-		select table_name from user_tables order by table_name
+		select table_name from all_tables where owner='UAM' order by table_name
 	</cfquery>
+	
+	<cfdump var=#t#>
 	<form method="get" action="getDDL.cfm">
 		<select name="table" id="#table#">
 			<cfloop query="t">
