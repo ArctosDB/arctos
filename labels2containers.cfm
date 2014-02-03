@@ -114,16 +114,16 @@
 		</tr>
 		<cfloop query="d">
 			<tr>
-				<td>barcode</td>
-				<td>status</td>
-				<td>old_container_type</td>
-				<td>container_type</td>
-				<td>description</td>
-				<td>container_remarks</td>
-				<td>height</td>
-				<td>lengtd</td>
-				<td>widtd</td>
-				<td>number_positions</td>
+				<td>#barcode#</td>
+				<td>#status#</td>
+				<td>#old_container_type#</td>
+				<td>#container_type#</td>
+				<td>#description#</td>
+				<td>#container_remarks#</td>
+				<td>#height#</td>
+				<td>#length#</td>
+				<td>#width#</td>
+				<td>#number_positions#</td>
 			</tr>
 		</cfloop>
 	</table>
