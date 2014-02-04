@@ -7,7 +7,8 @@
 			all_tables 
 		where 
 			owner='UAM' and
-			table_name not like 'CCT%'
+			table_name not like 'CCT%' and
+			table_name not like 'LOG_%' and
 		order by table_name
 	</cfquery>
 	
