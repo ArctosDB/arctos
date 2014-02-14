@@ -8,7 +8,7 @@
 		where 
 			owner='UAM' and
 			table_name not like 'CCT%' and
-			table_name not like 'LOG_%' and
+			table_name not like 'LOG_%'
 		order by table_name
 	</cfquery>
 	

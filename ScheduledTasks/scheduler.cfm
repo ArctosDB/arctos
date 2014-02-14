@@ -238,8 +238,8 @@
     url = "127.0.0.1/ScheduledTasks/BulkloadMedia.cfm?action=validate"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:01 AM"
-    interval = "120"
-    requestTimeOut = "300">
+    interval = "300"
+    requestTimeOut = "600">
 <!--- 
 	MBL_load
 	Purpose: load bulkloaded media
@@ -252,7 +252,7 @@
     url = "127.0.0.1/ScheduledTasks/BulkloadMedia.cfm?action=load"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:01 AM"
-    interval = "300"
+    interval = "600"
     requestTimeOut = "300">
 
 
@@ -501,7 +501,7 @@
     url = "127.0.0.1/ScheduledTasks/globalnames_refresh.cfm"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:00 AM"
-    interval = "72"
+    interval = "600"
     requestTimeOut = "600">
 <!--- 
 	authority_change
