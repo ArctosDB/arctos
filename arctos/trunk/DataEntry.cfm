@@ -752,6 +752,7 @@
 														<td align="right"><span class="f11a">Georeference Protocol</span></td>
 														<td>
 															<select name="georeference_protocol" size="1" class="reqdClr" style="width:130px" id="georeference_protocol">
+																<option value=""></option>
 																<cfloop query="ctgeoreference_protocol">
 																	<option value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
 																</cfloop>

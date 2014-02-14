@@ -341,8 +341,6 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
-
-
 	<cfif cgi.HTTP_HOST contains "altai.corral.tacc.utexas.edu">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
@@ -392,23 +390,20 @@
 	<cfif not isdefined("application.subnet_blacklist")>
 		<cfset application.subnet_blacklist="">
 	</cfif>
-	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0 and CGI.HTTP_X_Forwarded_For is not "127.0.0.1">
+	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
-	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0 and CGI.Remote_Addr is not "127.0.0.1">
+	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
 		<CFSET request.ipaddress=CGI.Remote_Addr>
 	<cfelse>
-		<cfset request.ipaddress='unknown'>
+		<cfset request.ipaddress=''>
 	</CFIF>
 	<cfif request.ipaddress contains ",">
 		<cfset ip1=listgetat(request.ipaddress,1,",")>
-		<cfif ip1 contains "172." or ip1 contains "192." or ip1 contains "10.">
+		<cfif ip1 contains "172." or ip1 contains "192." or ip1 contains "10." or ip1 is "127.0.0.1">
 			<cfset request.ipaddress=listgetat(request.ipaddress,2,",")>
 		<cfelse>
 			<cfset request.ipaddress=listgetat(request.ipaddress,1,",")>
 		</cfif>
-	</cfif>
-	<cfif request.ipaddress is "127.0.0.1">
-		<cfset request.ipaddress='unknown'>
 	</cfif>
 	
 	<!----
@@ -418,9 +413,11 @@
 		This also serves as a backup of firewall blocking.
 		
 	---->
-	<cfset requestingSubnet=listgetat(request.ipaddress,1,".") & "." & listgetat(request.ipaddress,2,".")>
-	
-	
+	<cfif listlen(request.ipaddress,".") is 4>
+		<cfset requestingSubnet=listgetat(request.ipaddress,1,".") & "." & listgetat(request.ipaddress,2,".")>
+	<cfelse>
+		<cfset requestingSubnet="0.0.0.0">
+	</cfif>
 	<cfif listfind(application.subnet_blacklist,requestingSubnet)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
@@ -472,7 +469,6 @@
 		<cfabort>
 	</cfif>
 	<!--- protect "us" directories	 --->
-
 	<cfif (CGI.Remote_Addr is not "127.0.0.1") and
 		(not isdefined("session.roles") or session.roles is "public" or len(session.roles) is 0) and
 		(currentPath contains "/Admin/" or
@@ -488,7 +484,6 @@
 			</cfscript>
 			<cfabort>
 	</cfif>
-
 	<!--- disallow CF execution --->
 	<cfif currentPath contains "/images/" or
 		 currentPath contains "/download/" or
@@ -502,12 +497,7 @@
 		<cfabort>
 	</cfif>
 	<!--- keep people/bots from browsing a dev server
-
-
-	
-	
 		--->
-		
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" or cgi.HTTP_HOST is "arctos-test.tacc.utexas.edu">
 		<cfset cPath=GetTemplatePath()>
 		<cfif
@@ -539,24 +529,10 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfoutput><cfheader name="Location" value="#rurl#"></cfoutput>
 	</cfif>
-		
-	
 	<cfif listlast(cgi.script_name,".") is "cfm">
 		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
 		<cffile action="append" file="#Application.webDirectory#/log/request.txt" output="#loginfo#">
 	</cfif>
-	
-	
-	<!--- 
-		make sure we're set up for logging 
-		move these to applicatonstart once we're stable
-	---->
-	
-	
-	
-	
-	
-	
 	<cfreturn true>
 </cffunction>
 </cfcomponent>
