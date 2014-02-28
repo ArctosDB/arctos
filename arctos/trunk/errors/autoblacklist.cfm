@@ -1,4 +1,8 @@
 	<cftry>
+		<cfif trim(request.ipaddress) is "127.0.0.1">
+			<cfthrow message = "Local IP cannot be blacklisted" errorCode = "127001">
+			<cfabort>
+		</cfif>
 		<cfquery name="d" datasource="uam_god">
 			insert into uam.blacklist (ip) values ('#trim(request.ipaddress)#')
 		</cfquery>

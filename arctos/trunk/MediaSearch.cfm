@@ -252,6 +252,13 @@
 		<cfset srch=" ">
 		<cfset mapurl = "">
 		<cfset n=1>
+		
+		
+		<cfif not isdefined("relationships")>
+			<cfset relationships=''>
+		</cfif>
+		
+		
 		<cfloop list="#relationships#" delimiters="," index="thisRelationship">
 			<cfset sql = "#sql#,media_relations media_relations#n#">
 			<cfset whr ="#whr# AND media_flat.media_id = media_relations#n#.media_id ">

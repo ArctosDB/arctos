@@ -357,7 +357,16 @@ END;
 						agent_id = #bads.related_agent_id# where
 						agent_id = #bads.agent_id#
 					</cfquery>
-					got publication_agent<br><cfflush>
+					
+					
+					<cfquery name="project_agent" datasource="uam_god">
+						update project_agent set
+						agent_id = #bads.related_agent_id# where
+						agent_id = #bads.agent_id#
+					</cfquery>
+					
+
+					got project_agent<br><cfflush>
 				
 				
 				
