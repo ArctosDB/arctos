@@ -96,8 +96,8 @@
 			<input type="text" size="80" value="#tec.latest#">
 			<cfquery name="contacts" datasource="uam_god">
 				select
-					first_name,
-					last_name,
+					getAgentNameType(CONTACT_AGENT_ID,'first name') first_name,
+					getAgentNameType(CONTACT_AGENT_ID,'last name') last_name,
 					CONTACT_ROLE,
 					CONTACT_AGENT_ID
 				from
