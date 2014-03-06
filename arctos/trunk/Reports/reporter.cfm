@@ -126,7 +126,13 @@
             '#e.report_template#',
             '#e.sql_text#')
     </cfquery>
-    <cflocation url="reporter.cfm">
+	
+	<p>
+		Created report name #newName
+	</p>
+	<p>
+		<a href="reporter.cfm">click to continue</a>
+	</p>
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "testSQL">
