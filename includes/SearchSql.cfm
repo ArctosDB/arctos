@@ -990,10 +990,9 @@
 		<cfSet basQual = " #basQual# AND collector.collector_role='#coll_role#'">
 	</cfif>
 	<cfif session.flatTableName is not "flat">
-		<cfSet basQual = " #basQual# AND #session.flatTableName#.encumbrances not like '%collector%#' ">
+		<cfSet basQual = " #basQual# AND #session.flatTableName#.encumbrances not like '%collector%' ">
 	</cfif>
 	<cfset mapurl = "#mapurl#&coll=#coll#">
-
 </cfif>
 <cfif isDefined ("notCollector") and len(notCollector) gt 0>
 	<cfset mapurl = "#mapurl#&notCollector=#notCollector#">
