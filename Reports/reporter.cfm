@@ -115,13 +115,14 @@
         select * from cf_report_sql where report_id='#report_id#'
     </cfquery>
     <cfset tc=getTickCount()>
+	<cfset newName=left("Clone_Of_#e.report_name#_#tc#",38)>
     <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         insert into cf_report_sql (
             report_name,
             report_template,
             sql_text)
         values (
-            'Clone_Of_#e.report_name#_#tc#',
+            '#newName#',
             '#e.report_template#',
             '#e.sql_text#')
     </cfquery>
