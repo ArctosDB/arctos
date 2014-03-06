@@ -1584,7 +1584,7 @@
 		
 		---->
 		<cfif session.flatTableName is not "flat">
-			<cfset basQual = " #basQual# AND #session.flatTableName# not like '%mask original field number%' ">
+			<cfset basQual = " #basQual# AND #session.flatTableName#.encumbrances not like '%mask original field number%' ">
 		</cfif>
 	</cfif>
 </cfif>
