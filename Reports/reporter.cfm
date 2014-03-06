@@ -128,7 +128,7 @@
     </cfquery>
 	
 	<p>
-		Created report name #newName
+		Created report name #newName#
 	</p>
 	<p>
 		<a href="reporter.cfm">click to continue</a>
