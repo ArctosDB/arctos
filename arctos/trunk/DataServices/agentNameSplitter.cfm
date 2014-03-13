@@ -127,8 +127,7 @@ sho err
 				other_name_type_3='middle name',
 				other_name_4='#splitAgentName.first#',
 				other_name_type_4='first name',
-				suggestions='#checkAgent#',
-				status='#s#'
+				suggestions='#checkAgent#'
 			where key=#key#
 		</cfquery>
 		
