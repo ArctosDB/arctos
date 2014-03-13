@@ -18,8 +18,11 @@ create table ds_temp_agent_split (
 	other_name_type_2   varchar2(255),
 	other_name_3  varchar2(255),
 	other_name_type_3   varchar2(255),
+	other_name_4  varchar2(255),
+	other_name_type_4   varchar2(255),
 	agent_remark varchar2(4000),
-	status varchar2(4000)
+	status varchar2(4000),
+	suggestions varchar2(4000)
 	);
 	
 alter table ds_temp_agent_split add suggestions varchar2(4000);
@@ -42,17 +45,16 @@ sho err
 <cfinclude template="/includes/_header.cfm">
 <cfset title='Agent Name Splitter Thingee'>
 
-First Name, Middle Name, and Last Name are no longer required and this form is no longer critical. Use the Contact form or file an Issue if you want to split agent names.
-
-<cfabort>
-
 
 <cfif action is "nothing">
 	<br>Upload a CSV file of agent names with one column, header "preferred_name". 
 	<br>This app accepts only agent type=person; create everything else manually.
 	<br>This app is a tool, not magic; you are responsible for the result.
+	<br>This app may return things you don't want; just delete them.
 	<br>This app only returns a file which may then be cleaned up and bulkloaded. Clean and reload as many times as necessary before
-	accepting the result.
+	accepting the result. There will be columns here that will not fit in the agent bulkloader; you must delete them.
+	<br>other_name_1 and other_name_type_1 will be a "formatted name." You may need to copy these data into preferred_name and original preferred_name
+		into a more-suitable agent name type (eg, aka) if your data are "nonstandard" (eg, lastname, firstname middleinitial format). 
 	<br>Upload a smaller file if you get a timeout.
 	<br>status=found one match agents exist and do not need loaded, or match the namestring of an existing agent and need made unique.
 	<br>status "did you mean...." suggestions are last-name matches. Fix your data or add an alias to the existing agent if there's a good suggestion.
@@ -107,6 +109,86 @@ First Name, Middle Name, and Last Name are no longer required and this form is n
 </cfif>
 <cfif action is "validate">
 <cfoutput>
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from ds_temp_agent_split where preferred_name is not null		
+	</cfquery>
+	<cfset obj = CreateObject("component","component.functions")>
+	<cfloop query="d">
+		<cfif agent_type="person">
+			<cfset splitAgentName = obj.splitAgentName(name="#preferred_agent_name#")>
+			<cfset checkAgent = obj.checkAgent(name="#preferred_agent_name#", agent_type='person')>
+			<cfquery name="d" datasource="uam_god">
+				update ds_temp_agent_split set
+					agent_type='person',
+					other_name_1='#splitAgentName.formatted_name#',
+					other_name_type_1='formatted name',
+					other_name_2='#splitAgentName.last#',
+					other_name_type_2='last name',
+					other_name_3='#splitAgentName.middle#',
+					other_name_type_3='middle name',
+					other_name_4='#splitAgentName.first#',
+					other_name_type_4='first name',
+					suggestions='#checkAgent#',
+					status='#s#'
+				where key=#key#
+			</cfquery>
+		<cfelse>
+			<cfquery name="d" datasource="uam_god">
+				update ds_temp_agent_split set
+					status='this app only works for person agents'
+				where key=#key#
+			</cfquery>
+		</cfif>
+	</cfloop>
+			<!-----
+	
+			
+			other_name_1  varchar2(255),
+	other_name_type_1   varchar2(255),
+	other_name_2  varchar2(255),
+	other_name_type_2   varchar2(255),
+	other_name_3  varchar2(255),
+	other_name_type_3   varchar2(255),
+	other_name_4  varchar2(255),
+	other_name_type_4   varchar2(255),
+	
+	
+	
+			<cfset temp = queryaddrow(d,1)>
+	<cfset temp = QuerySetCell(d, "name", name, 1)>
+	<cfset temp = QuerySetCell(d, "nametype", nametype, 1)>
+	<cfset temp = QuerySetCell(d, "first", trim(first), 1)>
+	<cfset temp = QuerySetCell(d, "middle", trim(middle), 1)>
+	<cfset temp = QuerySetCell(d, "last", trim(last), 1)>
+	<cfset temp = QuerySetCell(d, "formatted_name", trim(formatted_name), 1)>
+	
+	
+		
+		<cfquery name="d" datasource="uam_god">
+			update ds_temp_agent_split set
+				agent_type='person',
+				preferred_name='#thisName#',
+				first_name='#firstn#',
+				middle_name='#mdln#',
+				last_name='#lastn#',
+				birth_date='',
+				death_date='',
+				prefix='#pfx#',
+				suffix='#sfx#',
+				other_name_1='',
+				other_name_type_1='',
+				other_name_2='',
+				other_name_type_2='',
+				other_name_3='',
+				other_name_type_3='',
+				agent_remark='',
+				suggestions='#sugn#',
+				status='#s#'
+			where key=#key#
+		</cfquery>
+		
+		
+			
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_agent_split where preferred_name is not null		
 	</cfquery>
@@ -236,6 +318,10 @@ First Name, Middle Name, and Last Name are no longer required and this form is n
 			where key=#key#
 		</cfquery>
 	</cfloop>
+	
+	
+	
+	---->
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_agent_split			
 	</cfquery>
