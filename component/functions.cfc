@@ -1,6 +1,7 @@
 <cfcomponent>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="splitAgentName" access="remote" returnformat="json">
+	<cfinclude template="/includes/functionLib.cfm">
    	<cfargument name="name" required="true" type="string">
 	<cfquery name="CTPREFIX" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select prefix from CTPREFIX
