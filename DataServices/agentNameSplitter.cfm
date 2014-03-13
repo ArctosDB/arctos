@@ -114,8 +114,8 @@ sho err
 	</cfquery>
 	<cfset obj = CreateObject("component","component.functions")>
 	<cfloop query="d">
-		<cfset splitAgentName = obj.splitAgentName(name="#preferred_agent_name#")>
-		<cfset checkAgent = obj.checkAgent(name="#preferred_agent_name#", agent_type='person')>
+		<cfset splitAgentName = obj.splitAgentName(name="#preferred_name#")>
+		<cfset checkAgent = obj.checkAgent(name="#preferred_name#", agent_type='person')>
 		<cfquery name="d" datasource="uam_god">
 			update ds_temp_agent_split set
 				agent_type='person',
