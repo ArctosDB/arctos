@@ -93,7 +93,9 @@
    	<cfargument name="first_name" required="false" type="string" default="">
    	<cfargument name="middle_name" required="false" type="string" default="">
    	<cfargument name="last_name" required="false" type="string" default="">
-	<cfinclude template="/includes/functionLib.cfm">
+	<cfif not isdefined("escapeQuotes")>
+		<cfinclude template="/includes/functionLib.cfm">
+	</cfif>
 	<cfquery name="CTPREFIX" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select prefix from CTPREFIX
 	</cfquery>
