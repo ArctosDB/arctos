@@ -363,10 +363,10 @@
 		<cfset i=i+1>
 	</cfloop>
 	<cfquery name="ff" dbtype="query">
-		select * from d order by rcount,preferred_agent_name
+		select * from d order by rcount desc,preferred_agent_name
 	</cfquery>
 	<cfloop query="ff">
-		<cfset thisProb='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">possible duplicate of [#preferred_agent_name#] (#reasons#)</a>'>
+		<cfset thisProb='possible duplicate of <a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#preferred_agent_name#</a> (#reasons#)'>
 		<cfset problems=listappend(problems,thisProb,';')>
 	</cfloop>
 	
