@@ -331,17 +331,14 @@
 	</cfif>
 	<cfquery name="isdup" datasource="uam_god">
 		select 
-			reason,
 			agent_id,
 			preferred_agent_name
 		from (
 			#preservesinglequotes(sql)#
 		)  group by
-	    	reason,
 	    	agent_id, 
 	        preferred_agent_name
 	    order by
-	    	reason,
 	    	preferred_agent_name
 	</cfquery>
 	<cfif isdup.recordcount is 0>
