@@ -360,6 +360,7 @@
 		<cfset temp = QuerySetCell(d, "agent_id", daid.agent_id, i)>
 		<cfset temp = QuerySetCell(d, "reasons", valuelist(thisReasons.reason), i)>
 		<cfset temp = QuerySetCell(d, "rcount", thisReasons.recordcount, i)>
+		<cfset i=i+1>
 	</cfloop>
 	<cfquery name="ff" dbtype="query">
 		select * from d order by rcount,preferred_agent_name
