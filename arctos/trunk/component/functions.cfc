@@ -333,7 +333,7 @@
 	<cfset i=1>
 	<cfloop query="daid">
 		<!--- some really craptacular agents return thousands of "matches" --->
-		<cfif i lt 50>
+		<cfif i lt 20>
 				<cfquery name="thisReasons" dbtype="query">
 					select * from isdup where agent_id=#agent_id#
 				</cfquery>
