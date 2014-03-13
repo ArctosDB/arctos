@@ -332,15 +332,18 @@
 	<cfset d = querynew("preferred_agent_name,agent_id,reasons,rcount")>
 	<cfset i=1>
 	<cfloop query="daid">
-		<cfquery name="thisReasons" dbtype="query">
-			select * from isdup where agent_id=#agent_id#
-		</cfquery>
-		<cfset temp = queryaddrow(d,1)>
-		<cfset temp = QuerySetCell(d, "preferred_agent_name", daid.preferred_agent_name, i)>
-		<cfset temp = QuerySetCell(d, "agent_id", daid.agent_id, i)>
-		<cfset temp = QuerySetCell(d, "reasons", valuelist(thisReasons.reason), i)>
-		<cfset temp = QuerySetCell(d, "rcount", thisReasons.recordcount, i)>
-		<cfset i=i+1>
+		<!--- some really craptacular agents return thousands of "matches" --->
+		<cfif i lt 50>
+				<cfquery name="thisReasons" dbtype="query">
+					select * from isdup where agent_id=#agent_id#
+				</cfquery>
+				<cfset temp = queryaddrow(d,1)>
+				<cfset temp = QuerySetCell(d, "preferred_agent_name", daid.preferred_agent_name, i)>
+				<cfset temp = QuerySetCell(d, "agent_id", daid.agent_id, i)>
+				<cfset temp = QuerySetCell(d, "reasons", valuelist(thisReasons.reason), i)>
+				<cfset temp = QuerySetCell(d, "rcount", thisReasons.recordcount, i)>
+				<cfset i=i+1>
+		</cfif>
 	</cfloop>
 	<cfquery name="ff" dbtype="query">
 		select * from d order by rcount desc,preferred_agent_name
