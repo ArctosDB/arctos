@@ -84,11 +84,8 @@
 	<cfset temp = QuerySetCell(d, "middle", trim(middle), 1)>
 	<cfset temp = QuerySetCell(d, "last", trim(last), 1)>
 	<cfset temp = QuerySetCell(d, "formatted_name", trim(formatted_name), 1)>
-	
-	
 	<cfreturn d>
 </cffunction>
-
 <!--------------------------------------------------------------------------------------->
 <cffunction name="checkAgent" access="remote" returnformat="json">
    	<cfargument name="preferred_name" required="true" type="string">
@@ -96,18 +93,13 @@
    	<cfargument name="first_name" required="false" type="string" default="">
    	<cfargument name="middle_name" required="false" type="string" default="">
    	<cfargument name="last_name" required="false" type="string" default="">
-	
 	<cfinclude template="/includes/functionLib.cfm">
-
 	<cfquery name="CTPREFIX" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select prefix from CTPREFIX
 	</cfquery>
 	<cfquery name="CTsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select suffix from CTsuffix
 	</cfquery>
-	
-	
-	
 	<cfset regexStripJunk='[ .,-]'>
 	<cfset problems="">
 	<!--- list of terms that PROBABLY should not appear in agent names ---->
@@ -129,9 +121,6 @@
 	<cfset disallowPersons=disallowPersons & ",University,uaf">
 	<cfset disallowPersons=disallowPersons & ",various">
 	<cfset disallowPersons=disallowPersons & ",Zoological,zoo">
-	
-	
-			
 	<!---- 
 		random lists of things may be indicitave of garbage. 
 			disallowWords are " me AND you" but not "ANDy"
@@ -140,20 +129,17 @@
 	---->
 	<cfset disallowWords="and,or,cat">
 	<cfset disallowCharacters="/,\,&">
-	
 	<cfset strippedUpperFML=ucase(rereplace(first_name & middle_name & last_name,regexStripJunk,"","all"))>
 	<cfset strippedUpperFL=ucase(rereplace(first_name & last_name,regexStripJunk,"","all"))>
 	<cfset strippedUpperLF=ucase(rereplace(last_name & first_name,regexStripJunk,"","all"))>
 	<cfset strippedUpperLFM=ucase(rereplace(last_name & first_name & middle_name,regexStripJunk,"","all"))>
 	<cfset strippedP=ucase(rereplace(preferred_name,regexStripJunk,"","all"))>
-	
 	<cfset strippedNamePermutations=strippedP>
 	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperFML)>
 	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperFL)>
 	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperLF)>
 	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedUpperLFM)>
 	<cfset strippedNamePermutations=listappend(strippedNamePermutations,strippedP)>
-		
 	<cfif len(strippedNamePermutations) is 0>
 		<cfset problems=listappend(problems,'Check apostrophy/single-quote. "O&apos;Neil" is fine. "Jim&apos;s Cat" should be entered as "unknown".',';')>
 	</cfif>
@@ -252,7 +238,6 @@
 			        upper(regexp_replace(agent_name.agent_name,'#regexStripJunk#', '')) in (
 			        	#preserveSingleQuotes(strippedNamePermutations)#
 			        )">	     
-					     
 	<cfif len(srchFirstName) gt 0 and len(srchLastName) gt 0>
 		<!--- first and last names match ---->
 		<cfset sql=sql & "
@@ -270,10 +255,6 @@
 						agent.agent_id=last_name.agent_id and
 						trim(upper(first_name.agent_name)) = trim(upper('#srchFirstName#')) and
 						trim(upper(last_name.agent_name)) = trim(upper('#srchLastName#'))">
-	
-		
-		
-	
 	</cfif>		        	
 	<cfif len(srchFirstName) gt 0 and len(srchMiddleName) gt 0 and len(srchLastName) gt 0>
 		<cfset sql=sql & "
@@ -345,11 +326,8 @@
 	</cfquery>
 	<cfquery name="daid" dbtype="query">
 		select preferred_agent_name,agent_id from isdup group by preferred_agent_name,agent_id
-	</cfquery>
-	
+	</cfquery>	
 	<cfset d = querynew("preferred_agent_name,agent_id,reasons,rcount")>
-	
-	
 	<cfset i=1>
 	<cfloop query="daid">
 		<cfquery name="thisReasons" dbtype="query">
@@ -369,11 +347,6 @@
 		<cfset thisProb='possible duplicate of <a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#preferred_agent_name#</a> (#reasons#)'>
 		<cfset problems=listappend(problems,thisProb,';')>
 	</cfloop>
-	
-		
-		
-		
-		
 	<cfreturn problems>
 </cffunction>
 <!--------------------------------------------------------------------------------------->
