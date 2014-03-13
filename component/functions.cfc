@@ -346,13 +346,33 @@
 	<cfquery name="daid" dbtype="query">
 		select preferred_agent_name,agent_id from isdup group by preferred_agent_name,agent_id
 	</cfquery>
+	
+	<cfset d = querynew("preferred_agent_name,agent_id,reasons,rcount")>
+	
+	
+	<cfset i=1>
 	<cfloop query="daid">
 		<cfquery name="thisReasons" dbtype="query">
 			select * from isdup where agent_id=#agent_id#
 		</cfquery>
-		<cfset thisProb='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">possible duplicate of [#preferred_agent_name#] (#valuelist(thisReasons.reason)#)</a>'>
+		<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "preferred_agent_name", daid.preferred_agent_name, i)>
+		<cfset temp = QuerySetCell(d, "agent_id", daid.agent_id, i)>
+		<cfset temp = QuerySetCell(d, "reasons", valuelist(thisReasons.reason), i)>
+		<cfset temp = QuerySetCell(d, "rcount", thisReasons.recordcount, i)>
+	</cfloop>
+	<cfquery name="ff" dbtype="query">
+		select * from d order by rcount,preferred_agent_name
+	</cfquery>
+	<cfloop query="ff">
+		<cfset thisProb='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">possible duplicate of [#preferred_agent_name#] (#reasons#)</a>'>
 		<cfset problems=listappend(problems,thisProb,';')>
 	</cfloop>
+	
+		
+		
+		
+		
 	<cfreturn problems>
 </cffunction>
 <!--------------------------------------------------------------------------------------->
