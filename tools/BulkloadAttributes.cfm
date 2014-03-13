@@ -326,7 +326,40 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfelse>
 		Your data should load. Review the table below and <a href="BulkloadAttributes.cfm?action=loadData">click to continue</a>.
 	</cfif>
-	<cfdump var=#datadump#>
+	<table border>
+		<tr>
+			<th>KEY</th>
+			<th>STATUS</th>
+			<th>COLLECTION_CDE</th>
+			<th>INSTITUTION_ACRONYM</th>
+			<th>OTHER_ID_TYPE</th>
+			<th>OTHER_ID_NUMBER</th>
+			<th>ATTRIBUTE</th>
+			<th>ATTRIBUTE_VALUE</th>
+			<th>ATTRIBUTE_UNITS</th>
+			<th>ATTRIBUTE_DATE</th>
+			<th>ATTRIBUTE_METH</th>
+			<th>DETERMINER</th>
+			<th>REMARKS</th>
+		</tr>
+		<cfloop query="datadump">
+			<tr>
+				<td>#KEY#</td>
+				<td>#STATUS#</td>
+				<td>#COLLECTION_CDE#</td>
+				<td>#INSTITUTION_ACRONYM#</td>
+				<td>#OTHER_ID_TYPE#</td>
+				<td>#OTHER_ID_NUMBER#</td>
+				<td>#ATTRIBUTE#</td>
+				<td>#ATTRIBUTE_VALUE#</td>
+				<td>#ATTRIBUTE_UNITS#</td>
+				<td>#ATTRIBUTE_DATE#</td>
+				<td>#ATTRIBUTE_METH#</td>
+				<td>#DETERMINER#</td>
+				<td>#REMARKS#</td>
+			</tr>		
+		</cfloop>
+	</table>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->

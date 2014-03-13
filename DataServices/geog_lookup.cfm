@@ -282,6 +282,9 @@ from geog_auth_rec where rownum<10
 
 		<cfif len(thisState) gt 0>
 			<cfset thisState=replace(thisState,'Prov.',"")>
+			<cfset thisState=replace(thisState,'Provincia',"")>
+			<cfset thisState=replace(thisState,'Province',"")>
+			<cfset thisState=replace(thisState,'Parish',"")>
 			<cfset thisState=replace(thisState,'Community',"")>
 			<cfset thisState=replace(thisState,'Island',"")>
 			<cfset thisState=replace(thisState,'kray',"")>
@@ -290,11 +293,11 @@ from geog_auth_rec where rownum<10
 			<cfset thisState=replace(thisState,'autonomous oblast',"")>
 			<cfset thisState=replace(thisState,'Republic of',"")>
 			<cfset thisState=replace(thisState,'Oblast',"")>
-			<cfset thisState=replace(thisState,'Parish',"")>
 			<cfset thisState=replace(thisState,'Municipality',"")>
 			<cfset thisState=replace(thisState,'Pref.',"")>
 			<cfset thisState=replace(thisState,'City',"")>
 			<cfset thisState=replace(thisState,'Depto.',"")>
+			<cfset thisState=replace(thisState,'Departamento',"")>
 
 			<cfset thisState=rereplace(thisState,'\(.*\)','')>
 

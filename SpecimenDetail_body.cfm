@@ -1328,6 +1328,7 @@
 				</CFIF>
 			</cfif>
 		</div>
+		
 		<div class="detailBlock">
             <span class="detailData">
 				<div class="thumbs">
@@ -1385,35 +1386,39 @@
 				</div>
 	        </span>
 		</div>
-		<cfquery name="barcode"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select p.barcode from
-			container c,
-			container p,
-			coll_obj_cont_hist,
-			specimen_part,
-			cataloged_item
-			where
-			cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
-			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
-			coll_obj_cont_hist.container_id=c.container_id and
-			c.parent_container_id=p.container_id and
-			cataloged_item.collection_object_id=#collection_object_id#
-		</cfquery>
-		<cfloop query="barcode">
-			<cfquery name="ocr" datasource="taccocr">
-				select label from output where barcode = '#barcode#'
+		<cftry>
+			<!--- this thing is dicey sometimes.... ---->		
+			<cfquery name="barcode"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select p.barcode from
+				container c,
+				container p,
+				coll_obj_cont_hist,
+				specimen_part,
+				cataloged_item
+				where
+				cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
+				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+				coll_obj_cont_hist.container_id=c.container_id and
+				c.parent_container_id=p.container_id and
+				cataloged_item.collection_object_id=#collection_object_id#
 			</cfquery>
-			<cfif ocr.recordcount is 1>
-				<div class="detailLabel">
-					OCR for #barcode#
-				</div>
-				<div class="detailBlock">
-		            <span class="detailData">
-						#replace(ocr.label,chr(10),'<br>','all')#
-			        </span>
-				</div>
-			</cfif>
-		</cfloop>
+			<cfloop query="barcode">
+				<cfquery name="ocr" datasource="taccocr">
+					select label from output where barcode = '#barcode#'
+				</cfquery>
+				<cfif ocr.recordcount is 1>
+					<div class="detailLabel">
+						OCR for #barcode#
+					</div>
+					<div class="detailBlock">
+			            <span class="detailData">
+							#replace(ocr.label,chr(10),'<br>','all')#
+				        </span>
+					</div>
+				</cfif>
+			</cfloop>
+		<cfcatch></cfcatch>
+		</cftry>
 	</div>
 </cfif>
 	</td><!--- end right half of table --->

@@ -364,7 +364,7 @@
 			<input type="hidden" name="agent_id" value="#agent.agent_id#">
 			<input type="hidden" name="action" value="saveAgentEdits">
 			<label for="preferred_agent_name">Preferred Name</label>
-			<input type="text" value="#agent.preferred_agent_name#" name="preferred_agent_name" id="preferred_agent_name" size="50" class="reqdClr">
+			<input type="text" value="#stripQuotes(agent.preferred_agent_name)#" name="preferred_agent_name" id="preferred_agent_name" size="50" class="reqdClr">
 			 
 			<label for="agent_type">Agent Type</label>
 			<select name="agent_type" id="agent_type" class="reqdClr">
@@ -374,7 +374,7 @@
 				</cfloop>
 			</select>
 			<label for="agent_remarks">Agent Remark</label>
-			<input type="text" value="#agent.agent_remarks#" name="agent_remarks" id="agent_remarks" size="100">
+			<input type="text" value="#stripQuotes(agent.agent_remarks)#" name="agent_remarks" id="agent_remarks" size="100">
 			<br>
 			<input type="submit" class="savBtn" value="Update Agent">
 		</form>
