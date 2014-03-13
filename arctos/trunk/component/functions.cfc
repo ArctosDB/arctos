@@ -332,24 +332,28 @@
 	<cfquery name="isdup" datasource="uam_god">
 		select 
 			agent_id,
-			preferred_agent_name
+			preferred_agent_name,
+			reason
 		from (
 			#preservesinglequotes(sql)#
 		)  group by
+	    	reason,
 	    	agent_id, 
 	        preferred_agent_name
 	    order by
 	    	preferred_agent_name
 	</cfquery>
-	<cfif isdup.recordcount is 0>
-		<!--- try last-name match --->
-	</cfif>
-	<cfloop query="isdup">
-		<cfset thisProb='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">possible duplicate: [#preferred_agent_name#]</a>'>
+	<cfquery name="daid" dbtype="query">
+		select preferred_agent_name,agent_id from isdup group by preferred_agent_name,agent_id
+	</cfquery>
+	<cfloop query="daid">
+		<cfquery name="thisReasons" dbtype="query">
+			select * from isdup where agent_id=#agent_id#
+		</cfquery>
+		<cfset thisProb='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">possible duplicate of [#preferred_agent_name#] (#valuelist(thisReasons.reason)#)</a>'>
 		<cfset problems=listappend(problems,thisProb,';')>
 	</cfloop>
 	<cfreturn problems>
-			
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="getSpecimensForMap" access="remote" returnformat="json">
