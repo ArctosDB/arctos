@@ -1,5 +1,92 @@
 <cfcomponent>
-
+<!--------------------------------------------------------------------------------------->
+<cffunction name="splitAgentName" access="remote" returnformat="json">
+   	<cfargument name="name" required="true" type="string">
+	<cfquery name="CTPREFIX" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select prefix from CTPREFIX
+	</cfquery>
+	<cfquery name="CTsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select suffix from CTsuffix
+	</cfquery>
+	<cfset temp=name>
+	<cfset removedPrefix="">
+	<cfset removedSuffix="">
+	<cfloop query="CTPREFIX">
+		<cfif temp contains prefix>
+			<cfset removedPrefix=prefix>
+			<br>removed #prefix#
+			<cfset temp=replace(temp,prefix,'','all')>
+		</cfif>
+	</cfloop>
+	<cfloop query="CTsuffix">
+		<cfif temp contains suffix>
+			<cfset removedSuffix=suffix>
+			<cfset temp=replace(temp,suffix,'','all')>
+		</cfif>
+		<cfset temp=replace(temp,suffix,'','all')>
+	</cfloop>	
+	<cfset temp=replace(temp,'  ',' ','all')>
+	<cfset temp=trim(temp)>
+	<!--- see if we can guess at "standard" last name prefixes --->
+	<cfset snp="Von,Van,La,Do,Del,De,St.">
+	<cfloop list="#snp#" index="x">
+		<cfset temp=replace(temp, "#x# ","#x#|","all")>
+	</cfloop>
+	<cfset nametype=''>		
+	<cfset first="">
+	<cfset middle="">
+	<cfset last="">
+	<!--- the order of these is IMPORTANT!! --->
+	<cfif REFind("^[^, ]+ [^, ]+$",temp)>
+		<!---- xxxxx xxxxxx ---->
+		<cfset nametype="first_last">
+		<cfset first=listgetat(temp,1," ")>
+		<cfset last=listlast(temp," ")>
+	<cfelseif REFind("^[^,]+ [^,]+ .+$",temp)>
+		<!---- 
+			xxxxx xxxxxx xxxxxx 
+			xxx x x xxxx	
+		---->
+		<cfset nametype="first_middle_last">
+		<cfset first=listgetat(temp,1," ")>
+		<cfset last=listlast(temp," ")>		
+		<cfset middle=replace(replace(temp,first,"","all"),last,"","all")>	
+	<cfelseif REFind("^.+, .+ .+$",temp)>
+		<!---- xxxxx, xxxxxx xxxxxx ---->
+		<cfset nametype="last_comma_first_middle">		
+		<cfset last=listfirst(temp," ")>
+		<cfset first=listgetat(temp,2," ")>
+		<cfset middle=replace(replace(temp,first,"","all"),last,"","all")>		
+	<cfelseif REFind("^.+, .+$",temp)>
+		<cfset nametype="last_comma_first">
+		<!---- xxxxx, xxxxxx ---->
+		<cfset last=listgetat(temp,1," ")>
+		<cfset first=listgetat(temp,2," ")>	
+	<cfelse>
+		<cfset nametype="nonstandard">
+	</cfif>
+	<!--- un-do guess at "standard" last name prefixes --->
+	<cfloop list="#snp#" index="x">
+		<cfset last=replace(last, "#x#|","#x# ","all")>
+	</cfloop>
+	<!--- strip commas --->
+	<cfset first=trim(replace(first, ',','','all'))>
+	<cfset middle=trim(replace(middle, ',','','all'))>
+	<cfset last=trim(replace(last, ',','','all'))>
+	<cfset formatted_name=trim(replace(removedPrefix & ' ' & 	first & ' ' & middle & ' ' & last & ' ' & removedSuffix, ',','','all'))>
+	<cfif nametype is "nonstandard">
+		<cfset formatted_name="">
+	</cfif>
+	<cfset d = querynew("name,nametype,first,middle,last, formatted_name")>
+	<cfset temp = queryaddrow(d,1)>
+	<cfset temp = QuerySetCell(d, "name", name, 1)>
+	<cfset temp = QuerySetCell(d, "nametype", nametype, 1)>
+	<cfset temp = QuerySetCell(d, "first", trim(first), 1)>
+	<cfset temp = QuerySetCell(d, "middle", trim(middle), 1)>
+	<cfset temp = QuerySetCell(d, "last", trim(last), 1)>
+	<cfset temp = QuerySetCell(d, "formatted_name", trim(formatted_name), 1)>
+	<cfreturn d>
+</cffunction>
 
 <!--------------------------------------------------------------------------------------->
 <cffunction name="checkAgent" access="remote" returnformat="json">
@@ -8,36 +95,38 @@
    	<cfargument name="first_name" required="false" type="string" default="">
    	<cfargument name="middle_name" required="false" type="string" default="">
    	<cfargument name="last_name" required="false" type="string" default="">
-	<!----
-		http://arctos-test.tacc.utexas.edu/component/functions.cfc?method=checkAgent&PREFERRED_NAME=binky%20the%20clown&agent_type=person
-		http://arctos-test.tacc.utexas.edu/component/functions.cfc?method=checkAgent&PREFERRED_NAME=binky%20the%20clown&agent_type=person&first_name=binky&last_name=clown&middle_name=the
-	---->
+	<cfquery name="CTPREFIX" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select prefix from CTPREFIX
+	</cfquery>
+	<cfquery name="CTsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select suffix from CTsuffix
+	</cfquery>
+	
+	
+	
 	<cfset regexStripJunk='[ .,-]'>
 	<cfset problems="">
 	<!--- list of terms that PROBABLY should not appear in agent names ---->
-	<cfset disallowPersons="Animal,al,alaska">
+	<cfset disallowPersons="Animal,al,alaska,and,Anonymous">
 	<cfset disallowPersons=disallowPersons & ",biol,biology">
-	<cfset disallowPersons=disallowPersons & ",Class,california">
+	<cfset disallowPersons=disallowPersons & ",Class,california,company,co.,Club">
 	<cfset disallowPersons=disallowPersons & ",Ecology,et,estate">
 	<cfset disallowPersons=disallowPersons & ",field">
 	<cfset disallowPersons=disallowPersons & ",Group,Growth">
 	<cfset disallowPersons=disallowPersons & ",Hospital,hunter">
-	<cfset disallowPersons=disallowPersons & ",illegible">
+	<cfset disallowPersons=disallowPersons & ",illegible,inc">
 	<cfset disallowPersons=disallowPersons & ",Lab">
-	<cfset disallowPersons=disallowPersons & ",Museum">
+	<cfset disallowPersons=disallowPersons & ",Management,Museum">
 	<cfset disallowPersons=disallowPersons & ",National,native">
 	<cfset disallowPersons=disallowPersons & ",Old,other">
 	<cfset disallowPersons=disallowPersons & ",Rangers,Ranger,research">
 	<cfset disallowPersons=disallowPersons & ",Predatory,Project,Puffin">
-	<cfset disallowPersons=disallowPersons & ",Sanctuary,Science,Seabird,Society,Study,student,students,station,summer">
+	<cfset disallowPersons=disallowPersons & ",Sanctuary,Science,Seabird,Society,Study,student,students,station,summer,shop,service,store,system">
 	<cfset disallowPersons=disallowPersons & ",University,uaf">
 	<cfset disallowPersons=disallowPersons & ",various">
 	<cfset disallowPersons=disallowPersons & ",Zoological,zoo">
 	
 	
-	
-
-
 			
 	<!---- 
 		random lists of things may be indicitave of garbage. 
@@ -72,13 +161,13 @@
 	</cfloop>
 			
 	<cfloop list="#disallowWords#" index="i">
-		<cfif listfind(preferred_name,i," ;,.")>
+		<cfif listfindnocase(preferred_name,i," ;,.")>
 			<cfset problems=listappend(problems,'Check name for #i#; do not create unnecessary variations of "unknown."',';')>
 		</cfif>
 	</cfloop>
 	<cfif agent_type is "person">
 		<cfloop list="#disallowPersons#" index="i">
-			<cfif listfind(preferred_name,i,"() ;,.")>
+			<cfif listfindnocase(preferred_name,i,"() ;,.")>
 				<cfset problems=listappend(problems,'Check name for #i#. do not create non-person agents as persons."',';')>
 			</cfif>
 		</cfloop>
@@ -87,21 +176,37 @@
 	<cfif refind('[A-Z]{3,}',preferred_name) gt 0>
 		<cfset problems=listappend(problems,'Check for abbreviations and acronyms. do not create unnecessary variations of "unknown."',';')>
 	</cfif>
-
 	<cfif Compare(ucase(preferred_name), preferred_name) is 0 or Compare(lcase(preferred_name), preferred_name) is 0>
 		<cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not create unnecessary variations of "unknown."',';')>
 	</cfif>
-
 	<cfif preferred_name does not contain " ">
 		<cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not create unnecessary variations of "unknown."',';')>
 	</cfif>
-	
 	<cfif preferred_name contains ".">
 		<cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not create unnecessary variations of "unknown."',';')>
 	</cfif>
-			
+	<cfset strippedNamePermutations=trim(escapeQuotes(strippedNamePermutations))>	
 	<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>	
-	
+	<!--- if we did not get a first or last name passed in, try to guess from the preferred name string ---->
+	<cfset srchFirstName=first_name>
+	<cfset srchMiddleName=middle_name>
+	<cfset srchLastName=last_name>
+	<cfif len(first_name) is 0 or len(last_name) is 0 or len(middle_name) is 0>
+		<cfset x=splitAgentName(preferred_name)>
+		<cfif len(first_name) is 0 and len(x.first) gt 0>
+			<cfset srchFirstName=x.first>
+		</cfif>
+		<cfif len(middle_name) is 0 and len(x.middle) gt 0>
+			<cfset srchMiddleName=x.middle>
+		</cfif>
+		<cfif len(last_name) is 0 and len(x.last) gt 0>
+			<cfset srchLastName=x.last>
+		</cfif>
+	</cfif>
+	<cfset srchFirstName=trim(escapeQuotes(srchFirstName))>
+	<cfset srchMiddleName=trim(escapeQuotes(srchMiddleName))>
+	<cfset srchLastName=trim(escapeQuotes(srchLastName))>
+	<cfset srchPrefName=trim(escapeQuotes(preferred_name))>						
 	<!--- nocase preferred name match ---->	
 	<cfset sql="select 
 					'nocase preferred name match' reason,
@@ -110,7 +215,7 @@
 				from 
 			        agent
 				where 
-			        trim(upper(agent.preferred_agent_name))=trim(upper('#preferred_name#'))">
+			        trim(upper(agent.preferred_agent_name))=trim(upper('#srchPrefName#'))">
 
 	<cfset sql=sql & "
 		    union 
@@ -125,8 +230,8 @@
 				where
 					agent.agent_id=first_name.agent_id and
 					agent.agent_id=last_name.agent_id and
-					trim(upper(first_name.agent_name)) = trim(upper('#first_name#')) and
-					trim(upper(last_name.agent_name)) = trim(upper('#last_name#')) and
+					trim(upper(first_name.agent_name)) = trim(upper('#srchFirstName#')) and
+					trim(upper(last_name.agent_name)) = trim(upper('#srchLastName#')) and
 					  upper(regexp_replace(first_name.agent_name || last_name.agent_name ,'#regexStripJunk#', '')) in (
 						#preserveSingleQuotes(strippedNamePermutations)#
 				     )">
@@ -144,7 +249,7 @@
 			        	#preserveSingleQuotes(strippedNamePermutations)#
 			        )">	     
 					     
-	<cfif len(first_name) gt 0 and len(last_name) gt 0>
+	<cfif len(srchFirstName) gt 0 and len(srchLastName) gt 0>
 		<!--- first and last names match ---->
 		<cfset sql=sql & "
 			        union
@@ -159,10 +264,14 @@
 					where
 						agent.agent_id=first_name.agent_id and
 						agent.agent_id=last_name.agent_id and
-						trim(upper(first_name.agent_name)) = trim(upper('#first_name#')) and
-						trim(upper(last_name.agent_name)) = trim(upper('#last_name#'))">
+						trim(upper(first_name.agent_name)) = trim(upper('#srchFirstName#')) and
+						trim(upper(last_name.agent_name)) = trim(upper('#srchLastName#'))">
+	
+		
+		
+	
 	</cfif>		        	
-	<cfif len(first_name) gt 0 and len(middle_name) gt 0 and len(last_name) gt 0>
+	<cfif len(srchFirstName) gt 0 and len(srchMiddleName) gt 0 and len(srchLastName) gt 0>
 		<cfset sql=sql & "
 					 union
 				    select
@@ -183,7 +292,7 @@
 					     )
 					     ">
 	</cfif>
-	<cfif len(last_name) gt 0>
+	<cfif len(srchLastName) gt 0>
 		<cfset sql=sql & "
 					 union
 					   select
@@ -195,12 +304,27 @@
 						(select agent_id,agent_name from agent_name where agent_name_type='last name') last_name
 					where
 						agent.agent_id=last_name.agent_id and
-						trim(upper(last_name.agent_name)) = trim(upper('#last_name#'))
+						trim(upper(last_name.agent_name)) = trim(upper('#srchLastName#'))
 					     ">
-	</cfif>
-	
+		<!--- 
+			and try to extract first and last from data without 
 			
-	
+			upper(SUBSTR(agent_name, INSTR(agent_name,' ', -1, 1)+1)) returns "last name" (thing after last space in string)
+		---->
+		<cfset sql=sql & "
+			 union
+			   select
+	    		'extracted last name match' reason,
+		        agent.agent_id, 
+		        agent.preferred_agent_name
+			from
+				agent,
+				agent_name
+			where
+				agent.agent_id=agent_name.agent_id and
+				upper(SUBSTR(agent_name.agent_name, INSTR(agent_name.agent_name,' ', -1, 1)+1)) = trim(upper('#srchLastName#'))
+			">
+	</cfif>
 	<cfquery name="isdup" datasource="uam_god">
 		select 
 			reason,

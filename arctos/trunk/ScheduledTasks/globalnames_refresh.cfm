@@ -337,16 +337,18 @@ Make sure any useful changes end up in both places.
 	
 	<cfcatch>
 		<cfdump var=#cfcatch#>
+		<!---
 		<cf_logError subject="globalnames_refresh error" attributeCollection=#cfcatch#>
+		--->
 	</cfcatch>
 		</cftry>
 			
 		</cfloop>
-		
+		<cfif len(theseTaxonNameIds) gt 0>
 		<cfquery name="gotit" datasource="uam_god">
 			update taxon_refresh_log set lastfetch=sysdate where taxon_name_id in (#theseTaxonNameIds#)
 		</cfquery>
-				
+		</cfif>
 	<!------------
 
 			</cfthread>

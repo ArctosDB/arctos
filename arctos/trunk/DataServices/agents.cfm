@@ -58,6 +58,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 
 ---->
 <cfinclude template="/includes/_header.cfm">
+<cfsetting requesttimeout="600">
 <cfset title="bulkload agents">
 <cfif action is "nothing">
 	<p>
@@ -389,8 +390,15 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 	
 	
 	<cfif hasProbs is true>
+	
+		<cfif listlen(failedKeyList) lte 1000>
+			<cfset fkl=failedKeyList>
+		<cfelse>
+			<!--- deal with oracle, hopefully not mely anything else....---->
+			<cfset fkl=listgetat(failedKeyList,1)>
+		</cfif>
 		<cfquery name="fails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update ds_temp_agent set requires_admin_override=1 where key in (#failedKeyList#)
+			update ds_temp_agent set requires_admin_override=1 where key in (#fkl#)
 		</cfquery>
 		<cfif session.roles contains "manage_codetables">
 			<div style="border:2px solid red;padding:1em;margin:1em;">
