@@ -1,91 +1,10 @@
 <cfcomponent>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="splitAgentName" access="remote" returnformat="json">
-	<cfinclude template="/includes/functionLib.cfm">
    	<cfargument name="name" required="true" type="string">
-	<cfquery name="CTPREFIX" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select prefix from CTPREFIX
-	</cfquery>
-	<cfquery name="CTsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select suffix from CTsuffix
-	</cfquery>
-	<cfset temp=name>
-	<cfset removedPrefix="">
-	<cfset removedSuffix="">
-	<cfloop query="CTPREFIX">
-		<cfif temp contains prefix>
-			<cfset removedPrefix=prefix>
-			<br>removed #prefix#
-			<cfset temp=replace(temp,prefix,'','all')>
-		</cfif>
-	</cfloop>
-	<cfloop query="CTsuffix">
-		<cfif temp contains suffix>
-			<cfset removedSuffix=suffix>
-			<cfset temp=replace(temp,suffix,'','all')>
-		</cfif>
-		<cfset temp=replace(temp,suffix,'','all')>
-	</cfloop>	
-	<cfset temp=replace(temp,'  ',' ','all')>
-	<cfset temp=trim(temp)>
-	<!--- see if we can guess at "standard" last name prefixes --->
-	<cfset snp="Von,Van,La,Do,Del,De,St.">
-	<cfloop list="#snp#" index="x">
-		<cfset temp=replace(temp, "#x# ","#x#|","all")>
-	</cfloop>
-	<cfset nametype=''>		
-	<cfset first="">
-	<cfset middle="">
-	<cfset last="">
-	<!--- the order of these is IMPORTANT!! --->
-	<cfif REFind("^[^, ]+ [^, ]+$",temp)>
-		<!---- xxxxx xxxxxx ---->
-		<cfset nametype="first_last">
-		<cfset first=listgetat(temp,1," ")>
-		<cfset last=listlast(temp," ")>
-	<cfelseif REFind("^[^,]+ [^,]+ .+$",temp)>
-		<!---- 
-			xxxxx xxxxxx xxxxxx 
-			xxx x x xxxx	
-		---->
-		<cfset nametype="first_middle_last">
-		<cfset first=listgetat(temp,1," ")>
-		<cfset last=listlast(temp," ")>		
-		<cfset middle=replace(replace(temp,first,"","all"),last,"","all")>	
-	<cfelseif REFind("^.+, .+ .+$",temp)>
-		<!---- xxxxx, xxxxxx xxxxxx ---->
-		<cfset nametype="last_comma_first_middle">		
-		<cfset last=listfirst(temp," ")>
-		<cfset first=listgetat(temp,2," ")>
-		<cfset middle=replace(replace(temp,first,"","all"),last,"","all")>		
-	<cfelseif REFind("^.+, .+$",temp)>
-		<cfset nametype="last_comma_first">
-		<!---- xxxxx, xxxxxx ---->
-		<cfset last=listgetat(temp,1," ")>
-		<cfset first=listgetat(temp,2," ")>	
-	<cfelse>
-		<cfset nametype="nonstandard">
-	</cfif>
-	<!--- un-do guess at "standard" last name prefixes --->
-	<cfloop list="#snp#" index="x">
-		<cfset last=replace(last, "#x#|","#x# ","all")>
-	</cfloop>
-	<!--- strip commas --->
-	<cfset first=trim(replace(first, ',','','all'))>
-	<cfset middle=trim(replace(middle, ',','','all'))>
-	<cfset last=trim(replace(last, ',','','all'))>
-	<cfset formatted_name=trim(replace(removedPrefix & ' ' & 	first & ' ' & middle & ' ' & last & ' ' & removedSuffix, ',','','all'))>
-	<cfif nametype is "nonstandard">
-		<cfset formatted_name="">
-	</cfif>
-	<cfset d = querynew("name,nametype,first,middle,last, formatted_name")>
-	<cfset temp = queryaddrow(d,1)>
-	<cfset temp = QuerySetCell(d, "name", name, 1)>
-	<cfset temp = QuerySetCell(d, "nametype", nametype, 1)>
-	<cfset temp = QuerySetCell(d, "first", trim(first), 1)>
-	<cfset temp = QuerySetCell(d, "middle", trim(middle), 1)>
-	<cfset temp = QuerySetCell(d, "last", trim(last), 1)>
-	<cfset temp = QuerySetCell(d, "formatted_name", trim(formatted_name), 1)>
+	<cfinclude template="/includes/functionLib.cfm">
+	
+	
 	<cfreturn d>
 </cffunction>
 
