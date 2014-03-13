@@ -114,31 +114,24 @@ sho err
 	</cfquery>
 	<cfset obj = CreateObject("component","component.functions")>
 	<cfloop query="d">
-		<cfif agent_type is "person">
-			<cfset splitAgentName = obj.splitAgentName(name="#preferred_agent_name#")>
-			<cfset checkAgent = obj.checkAgent(name="#preferred_agent_name#", agent_type='person')>
-			<cfquery name="d" datasource="uam_god">
-				update ds_temp_agent_split set
-					agent_type='person',
-					other_name_1='#splitAgentName.formatted_name#',
-					other_name_type_1='formatted name',
-					other_name_2='#splitAgentName.last#',
-					other_name_type_2='last name',
-					other_name_3='#splitAgentName.middle#',
-					other_name_type_3='middle name',
-					other_name_4='#splitAgentName.first#',
-					other_name_type_4='first name',
-					suggestions='#checkAgent#',
-					status='#s#'
-				where key=#key#
-			</cfquery>
-		<cfelse>
-			<cfquery name="d" datasource="uam_god">
-				update ds_temp_agent_split set
-					status='this app only works for person agents'
-				where key=#key#
-			</cfquery>
-		</cfif>
+		<cfset splitAgentName = obj.splitAgentName(name="#preferred_agent_name#")>
+		<cfset checkAgent = obj.checkAgent(name="#preferred_agent_name#", agent_type='person')>
+		<cfquery name="d" datasource="uam_god">
+			update ds_temp_agent_split set
+				agent_type='person',
+				other_name_1='#splitAgentName.formatted_name#',
+				other_name_type_1='formatted name',
+				other_name_2='#splitAgentName.last#',
+				other_name_type_2='last name',
+				other_name_3='#splitAgentName.middle#',
+				other_name_type_3='middle name',
+				other_name_4='#splitAgentName.first#',
+				other_name_type_4='first name',
+				suggestions='#checkAgent#',
+				status='#s#'
+			where key=#key#
+		</cfquery>
+		
 	</cfloop>
 			<!-----
 	
