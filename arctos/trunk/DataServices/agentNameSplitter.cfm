@@ -3,15 +3,7 @@ drop table ds_temp_agent_split;
 
 create table ds_temp_agent_split (
 	key number not null,
-	agent_type varchar2(255),
 	preferred_name varchar2(255),
-	first_name varchar2(255),
-	middle_name varchar2(255),
-	last_name varchar2(255),
-	birth_date date,
-	death_date date,
-	prefix varchar2(255),
-	suffix varchar2(255),
 	other_name_1  varchar2(255),
 	other_name_type_1   varchar2(255),
 	other_name_2  varchar2(255),
@@ -21,13 +13,11 @@ create table ds_temp_agent_split (
 	other_name_4  varchar2(255),
 	other_name_type_4   varchar2(255),
 	agent_remark varchar2(4000),
-	status varchar2(4000),
 	suggestions varchar2(4000)
 	);
 	
-alter table ds_temp_agent_split add suggestions varchar2(4000);
 
-create public synonym ds_temp_agent_split for ds_temp_agent_split;
+create or replace public synonym ds_temp_agent_split for ds_temp_agent_split;
 grant all on ds_temp_agent_split to coldfusion_user;
 grant select on ds_temp_agent_split to public;
 
@@ -121,7 +111,6 @@ sho err
 		<cfdump var=#checkAgent#>
 		<cfquery name="d" datasource="uam_god">
 			update ds_temp_agent_split set
-				agent_type='person',
 				other_name_1='#splitAgentName.formatted_name#',
 				other_name_type_1='formatted name',
 				other_name_2='#splitAgentName.last#',
