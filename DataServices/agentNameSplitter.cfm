@@ -55,6 +55,14 @@ sho err
 		<li>Upload a smaller file if you get a timeout.</li>
 		<li>Fix your data or add an alias to the existing agent if there's a good suggestion.</li>
 		<li>Suggestions with more "reasons" are typically stronger; a suggestion with >~4 reasons deserves very close scrutiny</li>
+		<li>Suggestions with few reasons, or no suggestions, are about equally likely to be well-formatted, new, unique names, and horribly mangled garbage.</li>
+		<li>
+			Consider tossing low-quality agents (eg, initials only, first name only, common last name only) into agent "unknown" 
+			(and perhaps an appropriate remarks field)
+		</li>
+		<li>
+			There is precisely one "unknown" agent in Arctos. It, like all of Arctos, is case-sensitive. Do NOT create horrid copies of "unknown" (Unknown, ANONYMOUS, etc.).
+		</li>
 		<li>Input (preferred_name) will be TRIMMED; remove leading and trailing spaces and control characters from your data.</li>
 	</ul>
 
