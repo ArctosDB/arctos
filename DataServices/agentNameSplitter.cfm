@@ -319,7 +319,7 @@ sho err
 	<!--- little bit of ordering --->
 	
 	
-	<cfset theCols=preferred_name,other_name_type_1,other_name_1,other_name_type_2,other_name_2,other_name_type_3,other_name_3,other_name_type_4,other_name_4,suggestions>
+	<cfset theCols="preferred_name,other_name_type_1,other_name_1,other_name_type_2,other_name_2,other_name_type_3,other_name_3,other_name_type_4,other_name_4,suggestions">
 	<script src="/includes/sorttable.js"></script>
 	<table border id="t" class="sortable">
 		<tr>
