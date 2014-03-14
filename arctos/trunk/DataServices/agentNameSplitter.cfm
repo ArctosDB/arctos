@@ -113,9 +113,7 @@ sho err
 	<cfloop query="d">
 		<cfset splitAgentName = obj.splitAgentName(name="#preferred_name#")>
 		<cfset checkAgent = obj.checkAgent(preferred_name="#preferred_name#", agent_type='person')>
-		
-		<cfdump var=#splitAgentName#>
-		<cfdump var=#checkAgent#>
+
 		<cfquery name="d" datasource="uam_god">
 			update ds_temp_agent_split set
 				other_name_1='#splitAgentName.formatted_name#',
