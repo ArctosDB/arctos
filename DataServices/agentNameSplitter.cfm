@@ -37,20 +37,27 @@ sho err
 
 
 <cfif action is "nothing">
-	<br>Upload a CSV file of agent names with one column, header "preferred_name". 
-	<br>This app accepts only agent type=person; create everything else manually.
-	<br>This app is a tool, not magic; you are responsible for the result.
-	<br>This app may return things you don't want; just delete them.
-	<br>This app only returns a file which may then be cleaned up and bulkloaded. Clean and reload as many times as necessary before
-	accepting the result. There will be columns here that will not fit in the agent bulkloader; you must delete them.
-	<br>other_name_1 and other_name_type_1 will be a "formatted name." You may need to copy these data into preferred_name and original preferred_name
-		into a more-suitable agent name type (eg, aka) if your data are "nonstandard" (eg, lastname, firstname middleinitial format). 
-	<br>Upload a smaller file if you get a timeout.
-	<br>status=found one match agents exist and do not need loaded, or match the namestring of an existing agent and need made unique.
-	<br>status "did you mean...." suggestions are last-name matches. Fix your data or add an alias to the existing agent if there's a good suggestion.
-	<br>status=null records will, all else being correct, probably load
-	<br>seemingly conflicting status concatenations happen; create them manually if all else fails.
-	<br>"...trimmed..." warnings have been fixed in the return. You'll need to fix them in your data.
+
+<p>
+	Upload a CSV file of agent names with one column, header "preferred_name".
+</p>
+	<ul>
+		<li>This app works only with agent type=person; create everything else manually.</li>
+		<li>This app is a tool, not magic; you are fully responsible for the result.</li>
+		<li>This app may return things you don't want; just delete them.</li>
+		<li>This app only returns a file which may then be cleaned up and bulkloaded. Clean and reload as many times as necessary before
+			accepting the result.</li>
+		<li>There will be columns in the result that will not fit in the agent bulkloader; you must delete them.</li>
+		<li>other_name_1 and other_name_type_1 will be a "formatted name." You may need to copy these data into preferred_name and original preferred_name
+			into a more-suitable agent name type (eg, aka) if your data are "nonstandard" (eg, lastname, firstname middleinitial format).
+		</li>
+		<li>Change "formatted name" to an appropriate name type to load.</li>
+		<li>Upload a smaller file if you get a timeout.</li>
+		<li>Fix your data or add an alias to the existing agent if there's a good suggestion.</li>
+		<li>Suggestions with more "reasons" are typically stronger; a suggestion with >~4 reasons deserves very close scrutiny</li>
+		<li>Input (preferred_name) will be TRIMMED; remove leading and trailing spaces and control characters from your data.</li>
+	</ul>
+
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
@@ -309,8 +316,10 @@ sho err
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_agent_split			
 	</cfquery>
-	<cfset theCols=data.columnList>
-	<cfset theCols=listdeleteat(theCols,listFindNoCase(theCols,"key"))>
+	<!--- little bit of ordering --->
+	
+	
+	<cfset theCols=preferred_name,other_name_type_1,other_name_1,other_name_type_2,other_name_2,other_name_type_3,other_name_3,other_name_type_4,other_name_4,suggestions>
 	<script src="/includes/sorttable.js"></script>
 	<table border id="t" class="sortable">
 		<tr>
