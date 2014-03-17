@@ -203,7 +203,7 @@
 							<table>
 								<tr>
 									<td align="right">
-										<span class="helpLink" id="cat_num">Catalog Number:</span>
+										<span class="helpLink" id="cat_num">Catalog&nbsp;Number:</span>
 									</td><td>
 										<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
 											<textarea name="listcatnum" id="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
