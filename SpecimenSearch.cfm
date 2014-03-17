@@ -201,6 +201,16 @@
 					<tr>
 						<td>
 							
+							
+							<select name="collection_id" id="collection_id" size="3" multiple="multiple">
+								<cfloop query="ctInst">
+									<option <cfif thisCollId is ctInst.collection_id>selected="selected" </cfif>value="#ctInst.collection_id#">#ctInst.collection#</option>
+								</cfloop>
+							</select>
+							
+							<!----
+							
+							
 							<div class="cboxdiv">
 								<div class="cboxdiv_allnone">
 									<span class="likeLink" onclick="$('input[name^=cid]').prop('checked',true);">[ all ]</span>									
@@ -212,13 +222,6 @@
 									</div>
 								</cfloop>
 							</div>
-							
-							<!----
-							<select name="collection_id" id="collection_id" size="3" multiple="multiple">
-								<cfloop query="ctInst">
-									<option <cfif thisCollId is ctInst.collection_id>selected="selected" </cfif>value="#ctInst.collection_id#">#ctInst.collection#</option>
-								</cfloop>
-							</select>
 							---->
 						</td>
 						<td>
@@ -644,6 +647,7 @@
 	}
 
 	jQuery(document).ready(function() {
+		$("#collection_id").multipleSelect();
 	  	var tval = document.getElementById('tgtForm').value;
 		changeTarget('tgtForm',tval);
 		changeGrp('groupBy');
