@@ -27,6 +27,28 @@
 	and URL like '%SpecimenResults.cfm%'
 	order by search_name
 </cfquery>
+
+
+
+
+  <link href="includes/multiple-select/multiple-select.css" rel="stylesheet" />
+  <script src="includes/multiple-select/jquery.multiple.select.js"></script>
+
+
+
+
+ <select multiple="multiple">
+        <option value="1">January</option>
+        ...
+        <option value="12">December</option>
+    </select>
+    <script src="jquery.multiple.select.js"></script>
+    <script>
+        $('select').multipleSelect();
+    </script>
+	
+	
+	
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
