@@ -39,7 +39,7 @@
 	<input name="action" value="ftest">
 <select name="collection_id" id="collection_id" size="3" multiple="multiple" class="msel">
 								<cfloop query="ctInst">
-									<option value="#ctInst.collection_id#"><input type="checkbox">#ctInst.collection#</option>
+									<option value="#ctInst.collection_id#">#ctInst.collection#</option>
 								</cfloop>
 							</select>
 							<input type="submit">
