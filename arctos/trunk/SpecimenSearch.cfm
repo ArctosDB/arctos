@@ -37,13 +37,13 @@
 
 
 
- <select multiple="multiple">
+ <select id="ttt" multiple="multiple">
         <option value="1">January</option>
         ...
         <option value="12">December</option>
     </select>
     <script>
-        $('select').multipleSelect();
+        $('##ttt').multipleSelect();
     </script>
 	
 	
