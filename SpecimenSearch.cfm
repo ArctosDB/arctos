@@ -735,12 +735,15 @@
 				document.getElementById(eName).value=eVl;
 				if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
 					changeTarget(eName,eVl);
+					console.log(eName + '::' + eVl);
 				}
 			}
 	 	}
 	 	try {
 			setPreviousMap();
-		} catch(e){}
+		} catch(e){
+console.log(e);
+}
 	}
 </script>
 <cfinclude template = "includes/_footer.cfm">
