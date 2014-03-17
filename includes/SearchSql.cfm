@@ -1913,6 +1913,27 @@
 <cfif isdefined("partname") AND len(partname) gt 0>
 	<cfset part_name=partname>
 </cfif>
+<cfif isdefined("part_attribute") AND len(part_attribute) gt 0>
+	<cfset mapurl = "#mapurl#&part_attribute=#part_attribute#">
+	<cfif basJoin does not contain " specimen_part ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON (#session.flatTableName#.collection_object_id = specimen_part.derived_from_cat_item)">
+	</cfif>
+	<cfif basJoin does not contain " specimen_part_attribute ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_part_attribute ON (specimen_part.collection_object_id = specimen_part_attribute.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND specimen_part_attribute.attribute_type = '#part_attribute#'">
+</cfif>
+<cfif isdefined("part_attribute_value") AND len(part_attribute_value) gt 0>
+	<cfset mapurl = "#mapurl#&part_attribute_value=#part_attribute_value#">
+	<cfif basJoin does not contain " specimen_part ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON (#session.flatTableName#.collection_object_id = specimen_part.derived_from_cat_item)">
+	</cfif>
+	<cfif basJoin does not contain " specimen_part_attribute ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_part_attribute ON (specimen_part.collection_object_id = specimen_part_attribute.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND upper(specimen_part_attribute.attribute_value) like '%#ucase(escapeQuotes(part_attribute_value))#%'">
+</cfif>
+
 <cfif isdefined("part_remark") AND len(part_remark) gt 0>
 	<cfset mapurl = "#mapurl#&part_remark=#part_remark#">
 	<cfif basJoin does not contain " specimen_part ">

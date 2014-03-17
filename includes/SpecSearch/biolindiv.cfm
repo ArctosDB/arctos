@@ -15,7 +15,25 @@
 		select distinct(attribute_type) from ctattribute_type order by attribute_type
 	</cfquery>
 </cfif>
+<cfquery name="CTSPECPART_ATTRIBUTE_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select distinct(ATTRIBUTE_TYPE) from CTSPECPART_ATTRIBUTE_TYPE order by attribute_type
+		</cfquery>
 <table id="t_identifiers" class="ssrch">
+	<tr>
+		<td class="lbl">
+			<select name="part_attribute" id="part_attribute" size="1">
+				<option value="">Part Attribute....</option>
+					<cfloop query="CTSPECPART_ATTRIBUTE_TYPE">
+						<option value="#CTSPECPART_ATTRIBUTE_TYPE.attribute_type#">#CTSPECPART_ATTRIBUTE_TYPE.attribute_type#</option>
+					</cfloop>
+			  </select>
+		</td>
+		<td class="srch">
+			
+			<input type="text" name="part_attribute_value" size="60">
+		</td>
+	</tr>
+	
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="_part_remark">Part Remark:</span>
