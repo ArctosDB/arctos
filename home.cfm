@@ -128,6 +128,10 @@ border-bottom:1px solid black;
 		select * from coll where collection like 'MLZ %' order by collection
 	</cfquery>
 	<cfset gotem=listappend(gotem,valuelist(mlz.cf_collection_id))>
+	<cfquery name="cumv" dbtype="query">
+		select * from coll where collection like 'CUMV %' order by collection
+	</cfquery>
+	<cfset gotem=listappend(gotem,valuelist(cumv.cf_collection_id))>
 	<cfset gotem=replace(gotem,',,',',','all')>
 	<cfquery name="rem" dbtype="query">
 		select * from coll where cf_collection_id not in (#gotem#)
@@ -142,6 +146,7 @@ border-bottom:1px solid black;
 		<a href="##top">top</a>
 		<div class="anchortitle">Collections</div>
 		<br><a href="##uam">UAM</a>
+		<br><a href="##cumv">CUMV</a>
 		<br><a href="##msb">MSB</a>
 		<br><a href="##mvz">MVZ</a>
 		<br><a href="##dmns">DMNS</a>
@@ -391,6 +396,55 @@ border-bottom:1px solid black;
 				</tr>
 			</cfloop>
 		</cfif>
+		
+		
+		<cfif isdefined("cumv") and cumv.recordcount gt 0>
+			<tr>
+				<td colspan="4" class="instHeader">				
+					<a name="cumv" href="http://www.cumv.cornell.edu" target="_blank" class="external institution">Cornell University Museum of Vertebrates</a>
+				</td>
+			</tr>
+			<cfloop query="cumv">
+				<cfset coll_dir_name = "#lcase(portal_name)#">
+				<tr>
+					<td class="collnCell">
+						#collection#
+						<cfif len(guid_prefix) gt 0>
+							(GUID Prefix: <strong>#guid_prefix#</strong>)
+						</cfif>
+						<cfif len(descr) gt 0>
+							<div class="collnDescrCell">
+								#descr#
+							</div>
+						</cfif>
+					</td>
+					<td class="collnSrchCell">
+						<ul>
+							<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
+							<cfelse>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
+							</cfif>
+							<cfif len(web_link) gt 0>
+								<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
+							<cfelse>
+								<li>no home page</li>
+							</cfif>
+							<cfif len(loan_policy_url) gt 0>
+								<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
+							<cfelse>
+								<li>no loan policy</li>
+							</cfif>
+								<cfif listlast(collection,' ') is not 'Portal'>
+							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+								</cfif>
+						</ul>
+					</td>
+				</tr>
+			</cfloop>
+		</cfif>
+		
+		
 		<cfif isdefined("mlz") and mlz.recordcount gt 0>
 			<tr>
 				<td colspan="4" class="instHeader">
