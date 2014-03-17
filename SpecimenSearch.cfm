@@ -180,7 +180,7 @@
 					<tr>
 						<td>
 							
-							<div id="cboxdiv">
+							<div class="cboxdiv">
 								<div class="cboxdiv_allnone">
 									<span class="likeLink" onclick="$('input[name^=cid]').prop('checked',true);">[ all ]</span>									
 									<span class="likeLink" onclick="$('input[name^=cid]').prop('checked',false);">[ none ]</span>
