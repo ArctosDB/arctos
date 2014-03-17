@@ -36,18 +36,6 @@
 
 
 
-
- <select id="ttt" multiple="multiple">
-        <option value="1">January</option>
-        ...
-        <option value="12">December</option>
-    </select>
-    <script>
-        $('##ttt').multipleSelect();
-    </script>
-	
-	
-	
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
