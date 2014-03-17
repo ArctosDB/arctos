@@ -6,10 +6,6 @@
 	<cfset "#t#"="#v#">
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">		
 	<span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
-	
-	
-	
-	
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 

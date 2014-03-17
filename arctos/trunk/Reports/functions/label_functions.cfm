@@ -29,8 +29,6 @@
 		<cfset recGeography="">
 	</cfif>
 	
-	
-	
     <cfset Ar_oneFam = ArrayNew(1)>
 	<cfset Ar_oneGeog = ArrayNew(1)>
 	<cfset Ar_oneSciname = ArrayNew(1)>
