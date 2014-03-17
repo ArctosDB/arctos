@@ -187,7 +187,7 @@
 								</div>
 								<cfloop query="ctinst">
 									<div class="cboxdiv_option">
-										<input type="checkbox" name="cid" value=#collection_id#> #collection#
+										<input type="checkbox" name="collection_id" value="#collection_id#"> #collection#
 									</div>
 								</cfloop>
 							</div>
