@@ -733,6 +733,7 @@
 	 		var eAry=pAry[i].split("::");
 	 		var eName=eAry[0];
 	 		var eVl=eAry[1];
+			console.log(eName + '::' + eVl);
 	 		if (document.getElementById(eName)){
 				document.getElementById(eName).value=eVl;
 				if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
