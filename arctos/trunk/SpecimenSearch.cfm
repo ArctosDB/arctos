@@ -30,12 +30,6 @@
 
 
 
-
-  <link href="/includes/multiple-select/multiple-select.css" rel="stylesheet" />
-  <script src="/includes/multiple-select/jquery.multiple.select.js"></script>
-
-
-
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
@@ -635,7 +629,6 @@
 	}
 
 	jQuery(document).ready(function() {
-		$("#collection_id").multipleSelect();
 	  	var tval = document.getElementById('tgtForm').value;
 		changeTarget('tgtForm',tval);
 		changeGrp('groupBy');
