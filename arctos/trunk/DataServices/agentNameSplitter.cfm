@@ -34,7 +34,7 @@ sho err
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title='Agent Name Splitter Thingee'>
-
+<cfsetting requestTimeOut = "600">
 
 <cfif action is "nothing">
 
