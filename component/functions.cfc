@@ -301,7 +301,7 @@
 		<cfset sql=sql & "
 			 union
 			   select
-	    		'extracted last name match' reason,
+	    		'extracted component match' reason,
 		        agent.agent_id, 
 		        agent.preferred_agent_name
 			from
