@@ -1,3 +1,53 @@
+
+<!-------------------------------------------------------------->
+<cffunction name="format_cumv_multi" access="public" returntype="Query">
+    <cfargument name="d" required="true" type="query">
+	<cfquery name="family" dbtype="query">
+		select family from d group by family
+	</cfquery>
+	<cfif family.recordcount is 1 and family.family is not null>
+		<cfset recFamily=family.family>
+	<cfelse>
+		<cfset recFamily="">
+	</cfif>
+	
+	<cfquery name="sciname" dbtype="query">
+		select scientific_name from d group by scientific_name
+	</cfquery>
+	<cfif sciname.recordcount is 1 and sciname.scientific_name is not null>
+		<cfset recSciName=sciname.scientific_name>
+	<cfelse>
+		<cfset recSciName="">
+	</cfif>
+	
+	<cfquery name="geo" dbtype="query">
+		select higher_geog from d group by higher_geog
+	</cfquery>
+	<cfif geo.recordcount is 1 and geo.higher_geog is not null>
+		<cfset recGeography=geo.higher_geog>
+	<cfelse>
+		<cfset recGeography="">
+	</cfif>
+	
+	
+	
+    <cfset Ar_oneFam = ArrayNew(1)>
+	<cfset Ar_oneGeog = ArrayNew(1)>
+	<cfset Ar_oneSciname = ArrayNew(1)>
+	<cfset i=1>
+	<cfloop query="d">
+		<cfset Ar_oneFam[i] = recFamily>
+		<cfset Ar_oneSciname[i] = recSciName>
+		<cfset Ar_oneFam[i] = recGeography>		
+		<cfset i=i+1>		
+	</cfloop>
+		
+	<cfset temp=queryAddColumn(d,"one_family","VarChar",Ar_oneFam)>
+	<cfset temp=queryAddColumn(d,"one_higher_geog","VarChar",Ar_oneGeog)>
+	<cfset temp=queryAddColumn(d,"one_scientific_name","Ar_oneSciname",dAr)>
+  <cfreturn d>
+</cffunction>
+<!----------------------------------------------->
 <cffunction name="get_loan_trunc" access="public" returntype="Query">
     <cf_getLoanFormInfo>
     <cfquery name="d" dbtype="query">
