@@ -177,16 +177,12 @@
 			<td class="srch">
 				<table>
 					<tr>
-						<td>
-							
-							
-							
+						<td>					
 							<div class="cboxdiv">
 								<div class="cboxdiv_allnone">
-									<span class="likeLink" onclick="$('input[name^=cid]').prop('checked',true);">[ all ]</span>									
-									<span class="likeLink" onclick="$('input[name^=cid]').prop('checked',false);">[ none ]</span>
+									<span class="likeLink" onclick="$('input[name^=collection_id]').prop('checked',true);">[ all ]</span>									
+									<span class="likeLink" onclick="$('input[name^=collection_id]').prop('checked',false);">[ none ]</span>
 								</div>
-								
 								<cfloop query="ctinst">
 									<div class="cboxdiv_option" id="collection_id">
 										<input type="checkbox" name="collection_id" value="#collection_id#"> #collection#
