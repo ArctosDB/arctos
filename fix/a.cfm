@@ -23,6 +23,9 @@
 .cboxdiv_option {
 	border:1px light gray;
 }
+.msel {
+	resize: vertical;
+	}
 </style>
 <cfoutput>
 <cfif action is "ftest">
@@ -34,9 +37,9 @@
 	</cfquery>
 	<form method="post">
 	<input name="action" value="ftest">
-<select name="collection_id" id="collection_id" size="3" multiple="multiple">
+<select name="collection_id" id="collection_id" size="3" multiple="multiple" class="msel">
 								<cfloop query="ctInst">
-									<option value="#ctInst.collection_id#">#ctInst.collection#</option>
+									<option value="#ctInst.collection_id#"><input type="checkbox" onclick="">#ctInst.collection#</option>
 								</cfloop>
 							</select>
 							<input type="submit">
