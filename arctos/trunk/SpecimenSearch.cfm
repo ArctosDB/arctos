@@ -741,9 +741,7 @@
 	 	}
 	 	try {
 			setPreviousMap();
-		} catch(e){
-console.log(e);
-}
+		} catch(e){}
 	}
 </script>
 <cfinclude template = "includes/_footer.cfm">
