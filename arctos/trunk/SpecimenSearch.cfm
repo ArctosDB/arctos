@@ -42,7 +42,6 @@
         ...
         <option value="12">December</option>
     </select>
-    <script src="jquery.multiple.select.js"></script>
     <script>
         $('select').multipleSelect();
     </script>
