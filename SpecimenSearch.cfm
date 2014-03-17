@@ -187,7 +187,6 @@
 									<span class="likeLink" onclick="$('input[name^=cid]').prop('checked',false);">[ none ]</span>
 								</div>
 								
-								$('#myCheckBox').toggleCheck();
 								<cfloop query="ctinst">
 									<div class="cboxdiv_option" id="collection_id">
 										<input type="checkbox" name="collection_id" value="#collection_id#"> #collection#
