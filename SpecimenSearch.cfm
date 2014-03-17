@@ -31,8 +31,8 @@
 
 
 
-  <link href="includes/multiple-select/multiple-select.css" rel="stylesheet" />
-  <script src="includes/multiple-select/jquery.multiple.select.js"></script>
+  <link href="/includes/multiple-select/multiple-select.css" rel="stylesheet" />
+  <script src="/includes/multiple-select/jquery.multiple.select.js"></script>
 
 
 
