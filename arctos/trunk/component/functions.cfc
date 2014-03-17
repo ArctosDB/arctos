@@ -3714,8 +3714,8 @@
 				select specsrchprefs from cf_users
 				where username='#session.username#'
 			</cfquery>
-				<cfreturn ins.specsrchprefs>
-			<cfcatch><!-- nada --></cfcatch>
+			<cfreturn ins.specsrchprefs>
+			<cfcatch></cfcatch>
 		</cftry>
 	</cfif>
 	<cfreturn "cookie">

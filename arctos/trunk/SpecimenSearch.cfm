@@ -184,14 +184,6 @@
 						<td>
 							
 							
-							<select name="collection_id" id="collection_id" size="3" multiple="multiple">
-								<cfloop query="ctInst">
-									<option <cfif thisCollId is ctInst.collection_id>selected="selected" </cfif>value="#ctInst.collection_id#">#ctInst.collection#</option>
-								</cfloop>
-							</select>
-							
-							<!----
-							
 							
 							<div class="cboxdiv">
 								<div class="cboxdiv_allnone">
@@ -204,6 +196,14 @@
 									</div>
 								</cfloop>
 							</div>
+							
+							<!----
+							<select name="collection_id" id="collection_id" size="3" multiple="multiple">
+								<cfloop query="ctInst">
+									<option <cfif thisCollId is ctInst.collection_id>selected="selected" </cfif>value="#ctInst.collection_id#">#ctInst.collection#</option>
+								</cfloop>
+							</select>
+							
 							---->
 						</td>
 						<td>
@@ -624,10 +624,8 @@
 				queryformat : 'column'
 			},
 			function (getResult) {}
-		
 		);
 	}
-
 	jQuery(document).ready(function() {
 	  	var tval = document.getElementById('tgtForm').value;
 		changeTarget('tgtForm',tval);
@@ -649,11 +647,9 @@
 					r_getSpecSrchPref(getResult);
 			}
 		);
-
-			jQuery.get("/form/browse.cfm", function(data){
-				 jQuery('body').append(data);
-			})
-
+		jQuery.get("/form/browse.cfm", function(data){
+			 jQuery('body').append(data);
+		})
 	});
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
