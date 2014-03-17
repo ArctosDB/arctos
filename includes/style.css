@@ -1,3 +1,27 @@
+
+/* checkbox/div select multiple replacement */
+
+.cboxdiv {
+   	width: 20em;
+	height: 3em;
+	border: 1px solid;
+	resize: vertical;
+	overflow: auto;
+    min-height:2em;
+    max-height:20em;
+    font-size:smaller;
+}
+
+.cboxdiv_allnone {
+	text-align:center;
+}
+.cboxdiv_allnone span {
+	padding-left:2em;
+	padding-right:2em;
+}
+.cboxdiv_option {
+	border:1px light gray;
+}
 .valigntop {
 	vertical-align:top;
 }
