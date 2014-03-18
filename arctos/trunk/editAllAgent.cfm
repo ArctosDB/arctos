@@ -122,7 +122,13 @@
 			}
 		);
 	}
+	function forceSubmit(){
+		$("#forceOverride").val('true');
+	}
 	function preCreateCheck(){
+		if ($("#forceOverride").val()){
+			console.log('return true');
+		}
 		if ($("#agent_type").val()=='person'){
 			jQuery.getJSON("/component/functions.cfc",
 				{
@@ -137,10 +143,11 @@
 				},
 				function (r) {
 					console.log(r);
-					alert(r);
 					if(r){
 						console.log('problems');
-						$("#preCreateErrors").html(r).addClass('error').show();
+						var theHTML='There are potential problems with the agent you are trying to create.<br>' + r;
+						theHTML+='<br><span onclick="forceSubmit()" class="likeLink">click here to force creation</span>';
+						$("#preCreateErrors").html(theHTML).addClass('error').show();
 					}else{
 						console.log('rock on....');
 					}
