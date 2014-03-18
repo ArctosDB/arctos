@@ -22,7 +22,6 @@
 			<cfset removedSuffix=suffix>
 			<cfset temp=listdeleteat(temp,listfind(temp,suffix," ,")," ,")>
 		</cfif>
-	
 	</cfloop>	
 	
 	<cfset temp=replace(temp,'  ',' ','all')>
@@ -73,6 +72,9 @@
 	<cfset middle=trim(replace(middle, ',','','all'))>
 	<cfset last=trim(replace(last, ',','','all'))>
 	<cfset formatted_name=trim(replace(removedPrefix & ' ' & 	first & ' ' & middle & ' ' & last & ' ' & removedSuffix, ',','','all'))>
+	
+	
+	<br>formatted_name: #formatted_name#
 	<cfset formatted_name=replace(formatted_name, '  ',' ','all')>
 	<cfif nametype is "nonstandard">
 		<cfset formatted_name="">
