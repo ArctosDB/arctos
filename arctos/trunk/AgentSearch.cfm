@@ -97,7 +97,11 @@
 			<td><input type="reset" value="Clear Form" class="clrBtn"></td>
 			<td>
 			<input type="button" 
-				value="Create New Agent" 
+				value="Create New Person Agent" 
+				class="insBtn"
+				onClick="window.open('editAllAgent.cfm?action=newAgent&agent_type=person','_person');">
+			<input type="button" 
+				value="Create New Non-Person Agent" 
 				class="insBtn"
 				onClick="window.open('editAllAgent.cfm?action=newAgent','_person');">
 			</td>
