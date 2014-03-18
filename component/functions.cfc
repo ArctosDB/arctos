@@ -37,6 +37,9 @@
 	<cfloop list="#snp#" index="x">
 		<cfset temp=replace(temp, "#x# ","#x#|","all")>
 	</cfloop>
+	
+	
+	<br>temp: #temp#
 	<cfset nametype=''>		
 	<cfset first="">
 	<cfset middle="">
