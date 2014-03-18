@@ -12,17 +12,17 @@
 	<cfset removedPrefix="">
 	<cfset removedSuffix="">
 	<cfloop query="CTPREFIX">
-		<cfif temp contains prefix>
+		<cfif listfind(temp,prefix," ,")>
 			<cfset removedPrefix=prefix>
-			<cfset temp=replace(temp,prefix,'','all')>
+			<cfset temp=replace(temp,listdeleteat(temp,listfind(temp,prefix," ,")))>
 		</cfif>
 	</cfloop>
 	<cfloop query="CTsuffix">
-		<cfif temp contains suffix>
+		<cfif listfind(temp,suffix," ,")>
 			<cfset removedSuffix=suffix>
-			<cfset temp=replace(temp,suffix,'','all')>
+			<cfset temp=replace(temp,listdeleteat(temp,listfind(temp,suffix," ,")))>
 		</cfif>
-		<cfset temp=replace(temp,suffix,'','all')>
+	
 	</cfloop>	
 	
 	<cfset temp=replace(temp,'  ',' ','all')>
