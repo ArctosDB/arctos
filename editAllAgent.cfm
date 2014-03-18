@@ -138,6 +138,12 @@
 				function (r) {
 					console.log(r);
 					alert(r);
+					if(r){
+						console.log('problems');
+						$("#preCreateErrors").val(r).show();
+					}else{
+						console.log('rock on....');
+					}
 				}
 			);
 		} else {
@@ -311,6 +317,7 @@
 		<strong>Create Agent</strong>
 		<form name="prefdName" action="editAllAgent.cfm" method="post" target="_person" onsubmit="return preCreateCheck()">
 			<input type="hidden" name="action" value="makeNewAgent">
+			<input type="hidden" name="forceOverride" id="forceOverride" value="">
 			<label for="agent_type">Agent Type</label>
 			<select name="agent_type" id="agent_type" size="1" class="reqdClr" onchange="togglePerson(this.value);">
 				<option value=""></option>
@@ -338,6 +345,8 @@
 			<input type="text"  size="50" name="agent_remarks" id="agent_remarks">
 			<br>
 			<input type="submit" value="Create Agent" class="savBtn">
+			<div id="preCreateErrors" style="display:none;">
+			</div>
 		</form>
 		<cfif isdefined("agent_type") and agent_type is "person">
 			<script>
