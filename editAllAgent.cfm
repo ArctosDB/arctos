@@ -99,13 +99,22 @@
 					console.log('got something');
 					if (r.DATA.FORMATTED_NAME[0] != $("#preferred_agent_name").val()){
 						var sfn=r.DATA.FORMATTED_NAME[0];
+						var sfirstn=r.DATA.FIRST[0];
+						var smdln=r.DATA.MIDDLE[0];
+						var slastn=r.DATA.LAST[0];
 						var r=confirm("Suggested formatted name does not match the preferred name you entered.\n Press OK to use " + sfn + ' or CANCEL to keep what you entered.');
 						if (r==true){
   							$("#preferred_agent_name").val(sfn);
 						}
 					}
-					if ($("#first_name").val().length == 0 && r.DATA.FIRST_NAME[0].length>0){
-						$("#first_name").val(r.DATA.FIRST_NAME[0]);
+					if ($("#first_name").val().length == 0 && sfirstn.length>0){
+						$("#first_name").val(sfirstn);
+					}
+					if ($("#middle_name").val().length == 0 && smdln.length>0){
+						$("#middle_name").val(smdln);
+					}
+					if ($("#last_name").val().length == 0 && slastn.length>0){
+						$("#last_name").val(slastn);
 					}
 				} else { 
 					alert('Unable to parse input. Please carefully check preferred name format');
