@@ -140,7 +140,7 @@
 					alert(r);
 					if(r){
 						console.log('problems');
-						$("#preCreateErrors").val(r).show();
+						$("#preCreateErrors").html(r).show();
 					}else{
 						console.log('rock on....');
 					}
