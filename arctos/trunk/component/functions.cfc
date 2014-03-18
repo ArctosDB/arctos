@@ -7,13 +7,7 @@
 	</cfquery>
 	<cfquery name="CTsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select suffix from CTsuffix
-	</cfquery>
-	
-	
-	
-	<cfoutput>
-	
-	
+	</cfquery>	
 	<cfset temp=name>
 	<cfset removedPrefix="">
 	<cfset removedSuffix="">
@@ -29,7 +23,6 @@
 			<cfset temp=listdeleteat(temp,listfind(temp,suffix," ,")," ,")>
 		</cfif>
 	</cfloop>	
-	
 	<cfset temp=replace(temp,'  ',' ','all')>
 	<cfset temp=trim(temp)>
 	<!--- see if we can guess at "standard" last name prefixes --->
@@ -37,9 +30,6 @@
 	<cfloop list="#snp#" index="x">
 		<cfset temp=replace(temp, "#x# ","#x#|","all")>
 	</cfloop>
-	
-	
-	<br>temp: #temp#
 	<cfset nametype=''>		
 	<cfset first="">
 	<cfset middle="">
@@ -72,23 +62,13 @@
 	<cfelse>
 		<cfset nametype="nonstandard">
 	</cfif>
-	<!--- un-do guess at "standard" last name prefixes --->
-	
-	<br>last:#last#
-	
+	<!--- un-do guess at "standard" last name prefixes --->	
 	<cfset last=replace(last, "|"," ","all")>
-	
-	<br>last:#last#
-	
-	
 	<!--- strip commas --->
 	<cfset first=trim(replace(first, ',','','all'))>
 	<cfset middle=trim(replace(middle, ',','','all'))>
 	<cfset last=trim(replace(last, ',','','all'))>
 	<cfset formatted_name=trim(replace(removedPrefix & ' ' & 	first & ' ' & middle & ' ' & last & ' ' & removedSuffix, ',','','all'))>
-	
-	
-	<br>formatted_name: #formatted_name#
 	<cfset formatted_name=replace(formatted_name, '  ',' ','all')>
 	<cfif nametype is "nonstandard">
 		<cfset formatted_name="">
@@ -101,14 +81,7 @@
 	<cfset temp = QuerySetCell(d, "middle", trim(middle), 1)>
 	<cfset temp = QuerySetCell(d, "last", trim(last), 1)>
 	<cfset temp = QuerySetCell(d, "formatted_name", trim(formatted_name), 1)>
-	<cfreturn d>
-	
-	
-	
-	</cfoutput>
-	
-	
-	
+	<cfreturn d>	
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="checkAgent" access="remote" returnformat="json">
