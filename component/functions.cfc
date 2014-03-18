@@ -33,7 +33,7 @@
 	<cfset temp=replace(temp,'  ',' ','all')>
 	<cfset temp=trim(temp)>
 	<!--- see if we can guess at "standard" last name prefixes --->
-	<cfset snp="Von,Van,La,Do,Del,De,St.">
+	<cfset snp="Von,Van,La,Do,Del,De,St.,Der">
 	<cfloop list="#snp#" index="x">
 		<cfset temp=replace(temp, "#x# ","#x#|","all")>
 	</cfloop>
