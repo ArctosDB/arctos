@@ -128,7 +128,7 @@
 	}
 	function preCreateCheck(){
 		if ($("#forceOverride").val()!="true"){
-			console.log('return true');
+			return true;
 		}
 		if ($("#agent_type").val()=='person'){
 			if ($("#first_name").val().length==0 && $("#last_name").val().length==0 && $("#middle_name").val().length==0){
@@ -147,20 +147,21 @@
 					last_name : $("#last_name").val()
 				},
 				function (r) {
-					console.log(r);
 					if(r){
 						$("#forceOverride").val('');
 						console.log('problems');
 						var theHTML='There are potential problems with the agent you are trying to create.<br>' + r;
 						theHTML+='<br><span onclick="forceSubmit()" class="likeLink">click here to force creation</span>';
 						$("#preCreateErrors").html(theHTML).addClass('error').show();
+						return false;
 					}else{
-						console.log('rock on....');
+						return true;
 					}
 				}
 			);
 		} else {
-			console.log('no handling for ' + $("#agent_type").val());
+			return true;
+			//console.log('no handling for ' + $("#agent_type").val());
 		}
 		return false;
 	}
