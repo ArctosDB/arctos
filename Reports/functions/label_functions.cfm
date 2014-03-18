@@ -1,51 +1,142 @@
-
+<!-------------------------------------------------------------->
+<cffunction name="format_cumv_single" access="public" returntype="Query">
+    <cfargument name="d" required="true" type="query">
+	<cfquery name="orig" dbtype="query">
+		select * from d
+	</cfquery>
+	<cfquery name="d" dbtype="query">
+		select 
+			collector_number,
+			scientific_name,
+			family,
+			higher_geog,
+			guid,
+			cat_num,
+			collectors,
+			spec_locality,
+			coordinates,
+			determiner,
+			field_number,
+			verbatim_date
+		from
+			orig
+		group by 
+			collector_number,
+			scientific_name,
+			family,
+			higher_geog,
+			guid,
+			cat_num,
+			collectors,
+			spec_locality,
+			coordinates,
+			determiner,
+			field_number,
+			verbatim_date
+	</cfquery>
+    <cfset Ar_individual_summary  = ArrayNew(1)>
+	<cfset Ar_part_name = ArrayNew(1)>
+	<cfset Ar_storage = ArrayNew(1)>
+	<cfset Ar_hasTissues = ArrayNew(1)>
+	<cfset i=1>
+	<cfloop query="d">
+		<cfset ic=0>
+		<cfquery name="parts" dbtype="query">
+			select
+				part_name,
+				lot_count,
+				attribute_type,
+				attribute_value 
+			from orig where guid='#guid#'
+		</cfquery>
+		<cfset tissues=''>
+		<cfset storage='unknown'>
+		<cfset part='unknown'>
+		<cfset rlc=0>
+		<cfloop query="parts">
+			<cfif part_name contains "frozen">
+				<cfset tissues=part_name>
+			<cfelseif part_name contains "ethanol">
+				<cfset storage='Etoh'>
+				<cfset part="Fluid Specimen(s)">
+			<cfelseif part_name contains "isopropanol">
+				<cfset storage='isopropanol'>
+				<cfset part="Fluid Specimen(s)">
+			</cfif>
+			<cfif part_name contains "whole organism">
+				<cfset rlc=rlc+lot_count>
+			</cfif>
+		</cfloop>
+		<cfset Ar_individual_summary[i] = 'test'>
+		<cfset Ar_part_name[i] = part>
+		<cfset Ar_hasTissues[i] = tissues>
+		<cfset Ar_individual_summary[i] = rlc & ' ' & part>
+		<cfset i=i+1>		
+	</cfloop>
+	<cfset temp=queryAddColumn(d,"individual_summary","VarChar",Ar_individual_summary)>
+	<cfset temp=queryAddColumn(d,"part_name","VarChar",Ar_part_name)>
+	<cfset temp=queryAddColumn(d,"storage","VarChar",Ar_storage)>
+	<cfset temp=queryAddColumn(d,"hasTissues","VarChar",Ar_hasTissues)>
+  <cfreturn d>
+</cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="format_cumv_multi" access="public" returntype="Query">
     <cfargument name="d" required="true" type="query">
 	<cfquery name="family" dbtype="query">
 		select family from d group by family
 	</cfquery>
-	<cfif family.recordcount is 1 and family.family is not null>
+	<cfif family.recordcount is 1 and len(family.family) gt 0>
 		<cfset recFamily=family.family>
 	<cfelse>
-		<cfset recFamily="">
+		<cfset recFamily=valuelist(family.family)>
 	</cfif>
-	
 	<cfquery name="sciname" dbtype="query">
 		select scientific_name from d group by scientific_name
 	</cfquery>
-	<cfif sciname.recordcount is 1 and sciname.scientific_name is not null>
+	<cfif sciname.recordcount is 1 and len(sciname.scientific_name) gt 0>
 		<cfset recSciName=sciname.scientific_name>
 	<cfelse>
-		<cfset recSciName="">
+		<cfset recSciName=valuelist(scianme.scientific_name)>
 	</cfif>
-	
 	<cfquery name="geo" dbtype="query">
 		select higher_geog from d group by higher_geog
 	</cfquery>
-	<cfif geo.recordcount is 1 and geo.higher_geog is not null>
+	<cfif geo.recordcount is 1 and len(geo.higher_geog) gt 0>
 		<cfset recGeography=geo.higher_geog>
 	<cfelse>
-		<cfset recGeography="">
+		<cfset recGeography=valuelist(geo.higher_geog)>
 	</cfif>
-	
     <cfset Ar_oneFam = ArrayNew(1)>
 	<cfset Ar_oneGeog = ArrayNew(1)>
 	<cfset Ar_oneSciname = ArrayNew(1)>
+	<cfset Ar_individualCount = ArrayNew(1)>
 	<cfset i=1>
 	<cfloop query="d">
+		<cfset ic=0>
+		<cfloop list="#partdetail#" delimiters="#chr(10)#" index="p">
+			<cfset thePart=listgetat(p,1,"{")>
+			<cfif thePart contains "whole organism">
+				<cfset theLotCount=replace(p,thepart,"","all")>
+				<cfset theLotCount=listGetAt(theLotCount,1," ")>
+				<cfset theLotCount=replace(theLotCount,"{","","all")>
+				<cfset theLotCount=replace(theLotCount,";","","all")>
+				<cfset ic=ic+theLotCount>
+			</cfif>
+		</cfloop>	
 		<cfset Ar_oneFam[i] = recFamily>
 		<cfset Ar_oneSciname[i] = recSciName>
-		<cfset Ar_oneFam[i] = recGeography>		
+		<cfset Ar_oneGeog[i] = recGeography>
+		<cfset Ar_individualCount[i] = ic>
 		<cfset i=i+1>		
 	</cfloop>
 		
 	<cfset temp=queryAddColumn(d,"one_family","VarChar",Ar_oneFam)>
 	<cfset temp=queryAddColumn(d,"one_higher_geog","VarChar",Ar_oneGeog)>
-	<cfset temp=queryAddColumn(d,"one_scientific_name","Ar_oneSciname",dAr)>
+	<cfset temp=queryAddColumn(d,"one_scientific_name","VarChar",Ar_oneSciname)>
+	<cfset temp=queryAddColumn(d,"individual_count","Integer",Ar_individualCount)>
   <cfreturn d>
 </cffunction>
-<!----------------------------------------------->
+<!-------------------------------------------------------------->
 <cffunction name="get_loan_trunc" access="public" returntype="Query">
     <cf_getLoanFormInfo>
     <cfquery name="d" dbtype="query">
