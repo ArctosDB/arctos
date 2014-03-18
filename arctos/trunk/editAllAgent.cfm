@@ -95,7 +95,7 @@
 			},
 			function (r) {
 				console.log(r);
-				if (r.DATA.FORMATTED_NAME.length > 0){
+				if (r.DATA.FORMATTED_NAME[0].length > 0){
 					console.log('got something');
 } else { console.log('nada');
 				}
