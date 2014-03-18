@@ -140,7 +140,7 @@
 					alert(r);
 					if(r){
 						console.log('problems');
-						$("#preCreateErrors").html(r).show();
+						$("#preCreateErrors").html(r).addClass('red').show();
 					}else{
 						console.log('rock on....');
 					}
