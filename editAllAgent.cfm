@@ -95,6 +95,10 @@
 			},
 			function (r) {
 				console.log(r);
+				if (r.DATA.FORMATTED_NAME){
+					console.log('got something');
+} else { console.log('nada');
+				}
 			}
 		);
 	} 
@@ -291,7 +295,13 @@
 			<input type="text"  size="50" name="agent_remarks" id="agent_remarks">
 			<br>
 			<input type="submit" value="Create Agent" class="savBtn">
-			</form>
+		</form>
+		<cfif isdefined("agent_type") and agent_type is "person">
+			<script>
+				$("##agent_type").val('person');
+				togglePerson('person');
+			</script>
+		</cfif>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
