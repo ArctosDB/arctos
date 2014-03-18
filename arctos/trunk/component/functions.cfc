@@ -73,6 +73,7 @@
 	<cfset middle=trim(replace(middle, ',','','all'))>
 	<cfset last=trim(replace(last, ',','','all'))>
 	<cfset formatted_name=trim(replace(removedPrefix & ' ' & 	first & ' ' & middle & ' ' & last & ' ' & removedSuffix, ',','','all'))>
+	<cfset formatted_name=replace(formatted_name, ',','','all')>
 	<cfif nametype is "nonstandard">
 		<cfset formatted_name="">
 	</cfif>
