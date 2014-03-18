@@ -54,7 +54,7 @@
 		<cfset nametype="first_middle_last">
 		<cfset first=listgetat(temp,1," ")>
 		<cfset last=listlast(temp," ")>		
-		<cfset middle=replace(replace(temp,first,"","all"),last,"","all")>	
+		<cfset middle=replace(replace(temp,first,"","first"),last,"","all")>	
 	<cfelseif REFind("^.+, .+ .+$",temp)>
 		<!---- xxxxx, xxxxxx xxxxxx ---->
 		<cfset nametype="last_comma_first_middle">		
