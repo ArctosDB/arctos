@@ -1589,7 +1589,7 @@
 	
 	</cfif>
 	<cfif session.flatTableName is not "flat">
-		<cfset basQual = " #basQual# AND #session.flatTableName#.encumbrances not like '%mask original field number%' ">
+		<cfset basQual = " #basQual# AND (#session.flatTableName#.encumbrances is null or #session.flatTableName#.encumbrances not like '%mask original field number%') ">
 	</cfif>
 </cfif>
 <cfif isdefined("continent_ocean") AND len(continent_ocean) gt 0>
