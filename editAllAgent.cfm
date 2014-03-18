@@ -127,7 +127,7 @@
 		$("#createAgent").submit();
 	}
 	function preCreateCheck(){
-		if ($("#forceOverride").val()!="true"){
+		if ($("#forceOverride").val()=="true"){
 			return true;
 		}
 		if ($("#agent_type").val()=='person'){
