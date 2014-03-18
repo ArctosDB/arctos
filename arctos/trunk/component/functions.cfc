@@ -62,8 +62,15 @@
 	<cfelse>
 		<cfset nametype="nonstandard">
 	</cfif>
-	<!--- un-do guess at "standard" last name prefixes --->	
+	<!--- 
+		un-do guess at "standard" last name prefixes 
+		
+		Also run first, middle to get crazy formatting	
+	--->	
 	<cfset last=replace(last, "|"," ","all")>
+	<cfset middle=replace(middle, "|"," ","all")>
+	<cfset first=replace(first, "|"," ","all")>
+
 	<!--- strip commas --->
 	<cfset first=trim(replace(first, ',','','all'))>
 	<cfset middle=trim(replace(middle, ',','','all'))>
