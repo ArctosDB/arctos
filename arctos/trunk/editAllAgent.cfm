@@ -121,7 +121,27 @@
 				}
 			}
 		);
-	} 
+	}
+	function preCreateCheck(){
+		if ($("#agent_type")=='person'){
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "checkAgent",
+					returnformat : "json",
+					queryformat : 'column',
+					preferred_name : $("#preferred_agent_name").val(),
+					agent_type : $("#agent_type").val(),
+					first_name : $("#first_name").val(),
+					middle_name : $("#middle_name").val(),
+					last_name : $("#last_name").val()
+				},
+				function (r) {
+					console.log(r);
+				}
+			);
+		}
+		return false;
+	}
 </script>
 
 
@@ -286,7 +306,7 @@
 <cfif action is "newAgent">
 	<cfoutput>
 		<strong>Create Agent</strong>
-		<form name="prefdName" action="editAllAgent.cfm" method="post" target="_person">
+		<form name="prefdName" action="editAllAgent.cfm" method="post" target="_person" onsubmit="return preCreateCheck()">
 			<input type="hidden" name="action" value="makeNewAgent">
 			<label for="agent_type">Agent Type</label>
 			<select name="agent_type" id="agent_type" size="1" class="reqdClr" onchange="togglePerson(this.value);">
