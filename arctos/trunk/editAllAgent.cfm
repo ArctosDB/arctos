@@ -98,9 +98,10 @@
 				if (r.DATA.FORMATTED_NAME[0].length > 0){
 					console.log('got something');
 					if (r.DATA.FORMATTED_NAME[0] != $("#preferred_agent_name").val()){
-						var r=confirm("Suggested formatted name does not match the preferred name you entered.\n Press OK to use " + r.DATA.FORMATTED_NAME[0] + ' or CANCEL to keep what you entered.');
+						var sfn=r.DATA.FORMATTED_NAME[0];
+						var r=confirm("Suggested formatted name does not match the preferred name you entered.\n Press OK to use " + sfn + ' or CANCEL to keep what you entered.');
 						if (r==true){
-  							$("#preferred_agent_name").val(r.DATA.FORMATTED_NAME[0]);
+  							$("#preferred_agent_name").val(sfn);
 						}
 					}
 					if ($("#first_name").val().length == 0 && r.DATA.FIRST_NAME[0].length>0){
