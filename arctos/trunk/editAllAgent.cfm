@@ -123,7 +123,7 @@
 		);
 	}
 	function preCreateCheck(){
-		if ($("#agent_type")=='person'){
+		if ($("#agent_type").val()=='person'){
 			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "checkAgent",
@@ -140,7 +140,7 @@
 				}
 			);
 		} else {
-			console.log('no handling for ' + $("#agent_type"));
+			console.log('no handling for ' + $("#agent_type").val());
 		}
 		return false;
 	}
