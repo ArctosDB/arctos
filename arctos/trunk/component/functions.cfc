@@ -70,7 +70,14 @@
 		<cfset nametype="nonstandard">
 	</cfif>
 	<!--- un-do guess at "standard" last name prefixes --->
+	
+	<br>last:#last#
+	
 	<cfset last=replace(last, "|"," ","all")>
+	
+	<br>last:#last#
+	
+	
 	<!--- strip commas --->
 	<cfset first=trim(replace(first, ',','','all'))>
 	<cfset middle=trim(replace(middle, ',','','all'))>
