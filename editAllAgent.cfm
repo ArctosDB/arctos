@@ -127,10 +127,14 @@
 		$("#createAgent").submit();
 	}
 	function preCreateCheck(){
-		if ($("#forceOverride").val()){
+		if ($("#forceOverride").val()!="true"){
 			console.log('return true');
 		}
 		if ($("#agent_type").val()=='person'){
+			if ($("#first_name").val().length==0 && $("#last_name").val().length==0 && $("#middle_name").val().length==0){
+				alert('First, middle, or last name is required for person agents. Use the autogenerate button.')
+				return false;
+			}
 			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "checkAgent",
@@ -145,6 +149,7 @@
 				function (r) {
 					console.log(r);
 					if(r){
+						$("#forceOverride").val('');
 						console.log('problems');
 						var theHTML='There are potential problems with the agent you are trying to create.<br>' + r;
 						theHTML+='<br><span onclick="forceSubmit()" class="likeLink">click here to force creation</span>';
