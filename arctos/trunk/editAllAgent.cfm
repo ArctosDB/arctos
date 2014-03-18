@@ -139,6 +139,8 @@
 					console.log(r);
 				}
 			);
+		} else {
+			console.log('no handling for ' + $("#agent_type"));
 		}
 		return false;
 	}
