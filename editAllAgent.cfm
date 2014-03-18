@@ -338,18 +338,15 @@
 			<label for="preferred_agent_name">Preferred Name</label>
 			<input type="text" name="preferred_agent_name" id="preferred_agent_name" size="50" class="reqdClr">
 			<div id="newPersonAttrs" style="display:none;">
+				<br><span class="likeLink" onclick="autosuggestNameComponents();">Autogenerate name componenets from preferred name</span>
 				<label for="first_name">First Name</label>
 				<input type="text" name="first_name" id="first_name">
 				<label for="middle_name">Middle Name</label>
 				<input type="text" name="middle_name" id="middle_name">
 				<label for="last_name">Last Name</label>
 				<input type="text" name="last_name" id="last_name">
-				<br><span class="likeLink" onclick="autosuggestPreferredName();">Autogenerate preferred name</span>
-				<br><span class="likeLink" onclick="autosuggestNameComponents();">Autogenerate name componenets</span>
-				
-				
+				<br><span class="likeLink" onclick="autosuggestPreferredName();">Autogenerate preferred name from first/middle/last</span>
 			</div>
-		
 			<label for="agent_remarks">Remarks</label>
 			<input type="text"  size="50" name="agent_remarks" id="agent_remarks">
 			<br>
