@@ -94,9 +94,7 @@
 				name : $("#preferred_agent_name").val()
 			},
 			function (r) {
-				console.log(r);
 				if (r.DATA.FORMATTED_NAME[0].length > 0){
-					console.log('got something');
 					var sfn=r.DATA.FORMATTED_NAME[0];
 					var sfirstn=r.DATA.FIRST[0];
 					var smdln=r.DATA.MIDDLE[0];
@@ -149,7 +147,6 @@
 				function (r) {
 					if(r){
 						$("#forceOverride").val('');
-						console.log('problems');
 						var theHTML='There are potential problems with the agent you are trying to create.<br>' + r;
 						theHTML+='<br><span onclick="forceSubmit()" class="likeLink">click here to force creation</span>';
 						$("#preCreateErrors").html(theHTML).addClass('error').show();
@@ -166,8 +163,6 @@
 		return false;
 	}
 </script>
-
-
 <!------------------------------------------------------------------------------------------------------------->
 <cfif Action is "makeNewAgent">
 	<cfif not isdefined("first_name")>
