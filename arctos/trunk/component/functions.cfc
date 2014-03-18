@@ -8,6 +8,12 @@
 	<cfquery name="CTsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select suffix from CTsuffix
 	</cfquery>
+	
+	
+	
+	<cfoutput>
+	
+	
 	<cfset temp=name>
 	<cfset removedPrefix="">
 	<cfset removedSuffix="">
@@ -88,6 +94,13 @@
 	<cfset temp = QuerySetCell(d, "last", trim(last), 1)>
 	<cfset temp = QuerySetCell(d, "formatted_name", trim(formatted_name), 1)>
 	<cfreturn d>
+	
+	
+	
+	</cfoutput>
+	
+	
+	
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="checkAgent" access="remote" returnformat="json">
