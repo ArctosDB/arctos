@@ -14,13 +14,13 @@
 	<cfloop query="CTPREFIX">
 		<cfif listfind(temp,prefix," ,")>
 			<cfset removedPrefix=prefix>
-			<cfset temp=replace(temp,listdeleteat(temp,listfind(temp,prefix," ,")))>
+			<cfset temp=listdeleteat(temp,listfind(temp,prefix," ,"))>
 		</cfif>
 	</cfloop>
 	<cfloop query="CTsuffix">
 		<cfif listfind(temp,suffix," ,")>
 			<cfset removedSuffix=suffix>
-			<cfset temp=replace(temp,listdeleteat(temp,listfind(temp,suffix," ,")))>
+			<cfset temp=listdeleteat(temp,listfind(temp,suffix," ,"))>
 		</cfif>
 	
 	</cfloop>	
