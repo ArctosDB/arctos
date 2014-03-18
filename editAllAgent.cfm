@@ -85,6 +85,19 @@
 		pname = pname.replace(/\s{2,}/g, ' ');
 		$("#preferred_agent_name").val(pname);
 	}
+	function autosuggestNameComponents(){
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "splitAgentName",
+				returnformat : "json",
+				queryformat : 'column',
+				name : $("#preferred_agent_name").val()
+			},
+			function (r) {
+				console.log(r);
+			}
+		);
+	} 
 </script>
 
 

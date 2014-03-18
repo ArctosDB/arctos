@@ -194,11 +194,16 @@
 		<cfif len(last_name) is 0 and len(x.last) gt 0>
 			<cfset srchLastName=x.last>
 		</cfif>
+		<cfif len(x.formatted_name) gt 0>
+			<cfset schFormattedName=trim(escapeQuotes(x.formatted_name))>
+		</cfif>
 	</cfif>
 	<cfset srchFirstName=trim(escapeQuotes(srchFirstName))>
 	<cfset srchMiddleName=trim(escapeQuotes(srchMiddleName))>
 	<cfset srchLastName=trim(escapeQuotes(srchLastName))>
-	<cfset srchPrefName=trim(escapeQuotes(preferred_name))>						
+	<cfset srchPrefName=trim(escapeQuotes(preferred_name))>
+	
+					
 	<!--- nocase preferred name match ---->	
 	<cfset sql="select 
 					'nocase preferred name match' reason,
@@ -209,6 +214,20 @@
 				where 
 			        trim(upper(agent.preferred_agent_name))=trim(upper('#srchPrefName#'))">
 
+	<cfif isdefined("schFormattedName") and len(schFormattedName) gt 0>
+		<cfset sql=sql & "
+			 union select
+				'nodots-nospaces match on agent name' reason,
+				 agent.agent_id, 
+				 agent.preferred_agent_name
+			from 
+				agent,
+				agent_name
+			where 
+			    agent.agent_id=agent_name.agent_id and
+				upper(agent_name.agent_name) like '%#ucase(schFormattedName)#%'
+		">	     
+	</cfif>
 	<cfset sql=sql & "
 		    union 
 			  select
@@ -279,6 +298,9 @@
 					     )
 					     ">
 	</cfif>
+	
+	
+	<!----
 	<cfif len(srchLastName) gt 0>
 		<cfset sql=sql & "
 					 union
@@ -297,8 +319,8 @@
 			and try to extract first and last from data without 
 			
 			upper(SUBSTR(agent_name, INSTR(agent_name,' ', -1, 1)+1)) returns "last name" (thing after last space in string)
-		---->
-		<cfset sql=sql & "
+			
+			<cfset sql=sql & "
 			 union
 			   select
 	    		'extracted component match' reason,
@@ -311,7 +333,10 @@
 				agent.agent_id=agent_name.agent_id and
 				upper(SUBSTR(agent_name.agent_name, INSTR(agent_name.agent_name,' ', -1, 1)+1)) = trim(upper('#srchLastName#'))
 			">
+		---->
+		
 	</cfif>
+	---->
 	<cfquery name="isdup" datasource="uam_god">
 		select 
 			agent_id,
