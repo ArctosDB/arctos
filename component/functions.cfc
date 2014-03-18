@@ -71,7 +71,7 @@
 	</cfif>
 	<!--- un-do guess at "standard" last name prefixes --->
 	<cfloop list="#snp#" index="x">
-		<cfset last=replace(last, "#x#|","#x# ","all")>
+		<cfset last=replace(last, "|"," ","all")>
 	</cfloop>
 	<!--- strip commas --->
 	<cfset first=trim(replace(first, ',','','all'))>
