@@ -282,6 +282,9 @@
 				<label for="last_name">Last Name</label>
 				<input type="text" name="last_name" id="last_name">
 				<br><span class="likeLink" onclick="autosuggestPreferredName();">Autogenerate preferred name</span>
+				<br><span class="likeLink" onclick="autosuggestNameComponents();">Autogenerate name componenets</span>
+				
+				
 			</div>
 		
 			<label for="agent_remarks">Remarks</label>
