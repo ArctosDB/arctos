@@ -103,8 +103,8 @@
   							$("#preferred_agent_name").val(r.DATA.FORMATTED_NAME[0]);
 						}
 					}
-					if ($("#first_name".val().length == 0 && r.DATA.FIRST_NAME[0].length>0){
-						($("#first_name".val(r.DATA.FIRST_NAME[0]);
+					if ($("#first_name").val().length == 0 && r.DATA.FIRST_NAME[0].length>0){
+						($("#first_name").val(r.DATA.FIRST_NAME[0]);
 					}
 				} else { 
 					alert('Unable to parse input. Please carefully check preferred name format');
