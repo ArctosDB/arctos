@@ -124,6 +124,7 @@
 	}
 	function forceSubmit(){
 		$("#forceOverride").val('true');
+		$("#createAgent").submit();
 	}
 	function preCreateCheck(){
 		if ($("#forceOverride").val()){
@@ -322,7 +323,7 @@
 <cfif action is "newAgent">
 	<cfoutput>
 		<strong>Create Agent</strong>
-		<form name="prefdName" action="editAllAgent.cfm" method="post" target="_person" onsubmit="return preCreateCheck()">
+		<form name="prefdName" action="editAllAgent.cfm" method="post" target="_person" id="createAgent" onsubmit="return preCreateCheck()">
 			<input type="hidden" name="action" value="makeNewAgent">
 			<input type="hidden" name="forceOverride" id="forceOverride" value="">
 			<label for="agent_type">Agent Type</label>
