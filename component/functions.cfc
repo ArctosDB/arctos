@@ -305,7 +305,7 @@
 				disallowCharacters are just that "me/you" and me /  you" and ....	
 			Expect some false positives - sorray! 
 		---->
-		<cfset disallowWords="or,cat,biol,boat,co,et,illegible,inc,other,uaf,ua,NY,AK,CA,various,Mfg">
+		<cfset disallowWords="or,cat,biol,boat,co,Corp,et,illegible,inc,other,uaf,ua,NY,AK,CA,various,Mfg">
 		<cfset disallowCharacters="/,\,&">		
 		<cfset strippedNamePermutations=ucase(rereplace(preferred_name,regexStripJunk,"","all"))>
 		<cfset srchPrefName=trim(escapeQuotes(preferred_name))>
@@ -403,8 +403,8 @@
 								upper(
 									regexp_replace(agent_name.agent_name,'#regexStripJunk#', '')
 								)
-							,'U. S.')
-						,'UNITED STATES')
+							,'US')
+						,'UNITEDSTATES')
 					,'THE')
 				)
 				=
@@ -413,9 +413,9 @@
 						replace(
 							replace(
 								upper('#escapeQuotes(srchPrefName)#')
-							,'U. S.')
+							,'US')
 						,'THE')
-					,'UNITED STATES')
+					,'UNITEDSTATES')
 				)">
 		
 		
