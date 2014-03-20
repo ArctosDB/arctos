@@ -394,7 +394,7 @@
 				agent_name
 			where 
 				agent.agent_id=agent_name.agent_id and
-				trim(upper(regexp_replace(replace(agent_name.agent_name,'#regexStripJunk#', ''),'U. S. ')) =
+				trim(upper(regexp_replace(replace(agent_name.agent_name,'#regexStripJunk#', ''),'U. S. '))) =
 					trim(upper(replace('#escapeQuotes(srchPrefName)#','U. S.'))) ">
 		
 		
