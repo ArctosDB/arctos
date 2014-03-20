@@ -393,6 +393,8 @@
 				agent,
 				agent_name
 			where 
+				-- performance demands this
+				agent.agent_type != 'person' and
 				agent.agent_id=agent_name.agent_id and
 				trim(
 					replace(
