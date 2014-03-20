@@ -355,7 +355,7 @@
 			</div>
 		</form>
 		<div class="importantNotification">
-			Read <a href="http://arctosdb.org/documentation/agent/#create" class="external" target="_blank">documentation</a> BEFORE clicking buttons!
+			Read <a href="http://arctosdb.org/documentation/agent/##create" class="external" target="_blank">documentation</a> BEFORE clicking buttons!
 		</div>
 		<cfif isdefined("agent_type") and agent_type is "person">
 			<script>
