@@ -394,8 +394,8 @@
 				agent_name
 			where 
 				agent.agent_id=agent_name.agent_id and
-				trim(upper(regexp_replace(replace(agent_name.agent_name,'#regexStripJunk#', ''),'U. S. '))) =
-					trim(upper(replace('#escapeQuotes(srchPrefName)#','U. S.'))) ">
+				trim(regexp_replace(replace(replace(replace(upper(agent_name.agent_name,'#regexStripJunk#', ''),'U. S.'),'UNITED STATES'),'THE'))) =
+					trim(replace(replace(replace(upper('#escapeQuotes(srchPrefName)#','U. S.'),'THE'),'UNITED STATES'))) ">
 		
 		
 	</cfif><!--- end agent type check ---->
