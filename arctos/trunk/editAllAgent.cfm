@@ -354,6 +354,17 @@
 			<div id="preCreateErrors" style="display:none;">
 			</div>
 		</form>
+		<ul>
+			<li>When possible, do not abbreviate.</li>
+			<li>Consider pushing prefix and suffix to a nonpreferred name; limit preferred name to things that do not change.</li>
+			<li>Person agents should be formatted as "Prefix First Middle Last Suffix."</li>
+			<li>Abbreviations should be followed by periods.</li>
+			<li>Periods should be followed by spaces.</li>
+			<li>Do not orphan unused names; flag them as "bad duplicate of" the good name. (Use "unknown" as the good name if they just need deleted.)</li>
+			<li>Do not include cryptic garbage, such as "Some Guy?." Record agent as unknown and add ambiguity to some remarks field.</li>
+			<li>Include name comonents (first, middle, last) as gent names.</li>
+			
+		</ul>
 		<cfif isdefined("agent_type") and agent_type is "person">
 			<script>
 				$("##agent_type").val('person');
