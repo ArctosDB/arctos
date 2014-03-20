@@ -347,33 +347,14 @@
 	<cfelse><!--- not a person --->
 		<cfset regexStripJunk='[ .,-]'>
 		<cfset problems="">
-		<!--- just try to catch abbreviations and other garbage ---->
-		<cfset disallowPersons="al,Anonymous">
-		<cfset disallowPersons=disallowPersons & ",biol,boat">
-		<cfset disallowPersons=disallowPersons & ",co.">
-		<cfset disallowPersons=disallowPersons & ",et">
-		<cfset disallowPersons=disallowPersons & "">
-		<cfset disallowPersons=disallowPersons & "">
-		<cfset disallowPersons=disallowPersons & "">
-		<cfset disallowPersons=disallowPersons & ",illegible,inc">
-		<cfset disallowPersons=disallowPersons & "">
-		<cfset disallowPersons=disallowPersons & ",">
-		<cfset disallowPersons=disallowPersons & ",">
-		<cfset disallowPersons=disallowPersons & "other">
-		<cfset disallowPersons=disallowPersons & ",">
-		<cfset disallowPersons=disallowPersons & "">
-		<cfset disallowPersons=disallowPersons & "">
-		<cfset disallowPersons=disallowPersons & "">
-		<cfset disallowPersons=disallowPersons & ",uaf">
-		<cfset disallowPersons=disallowPersons & ",various">
-		<cfset disallowPersons=disallowPersons & "">
+		
 		<!---- 
 			random lists of things may be indicitave of garbage. 
 				disallowWords are " me AND you" but not "ANDy"
 				disallowCharacters are just that "me/you" and me /  you" and ....	
 			Expect some false positives - sorray! 
 		---->
-		<cfset disallowWords="or,cat">
+		<cfset disallowWords="or,cat,biol,boat,co.et,illegible,inc,other,uaf,NY,AK,CA,various">
 		<cfset disallowCharacters="/,\,&">
 
 		
