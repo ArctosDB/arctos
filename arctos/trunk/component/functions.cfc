@@ -378,7 +378,8 @@
 
 		
 	<cfset strippedNamePermutations=ucase(rereplace(preferred_name,regexStripJunk,"","all"))>
-	
+		<cfset srchPrefName=trim(escapeQuotes(preferred_name))>
+
 	<cfif len(strippedNamePermutations) is 0>
 		<cfset problems=listappend(problems,'Check apostrophy/single-quote. "O&apos;Neil" is fine. "Jim&apos;s Cat" should be entered as "unknown".',';')>
 	</cfif>

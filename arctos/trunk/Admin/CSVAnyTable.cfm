@@ -1,3 +1,4 @@
+<cfinclude template="/includes/_header.cfm">
 <cfsetting requestTimeOut = "600">
 <cfoutput>
 	<cfif not isdefined("tableName") or len(tableName) is 0>
