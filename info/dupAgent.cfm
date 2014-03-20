@@ -1,4 +1,13 @@
 <cfinclude template="/includes/_header.cfm">
+
+<cfif not isdefined("noFNAbbr")>
+	<cfset noFNAbbr=''>
+</cfif>
+
+<cfif not isdefined("exclRelated")>
+	<cfset exclRelated=''>
+</cfif>
+
 <script src="/includes/sorttable.js"></script>
 <script>
 	function flagDupAgent(bad,good){
@@ -130,6 +139,12 @@
 	
 	<a href="dupAgent.cfm?action=fullDup">Find Agents that share a name</a>
 	<br><a href="dupAgent.cfm?action=shareFL">Find Person agents that share first and last name</a>
+	<br><a href="dupAgent.cfm?action=shareFL&noFNAbbr=true">Find Person agents that share first and last name, no dots in first name</a>
+	<br><a href="dupAgent.cfm?action=shareFL&noFNAbbr=true&exclRelated=true">Find Person agents that share first and last name, no dots in first name, no relationships</a>
+	
+	
+
+
 </cfif>
 <cfif not isdefined("start")>
 	<cfset start=1>
@@ -171,6 +186,14 @@
 	          p1_first_name.agent_id != p2_first_name.agent_id and
 	          p1_first_name.agent_name = p2_first_name.agent_name and
 	          p1_last_name.agent_name = p2_last_name.agent_name
+			<cfif noFNAbbr is "true">
+				and p1_first_name.agent_name not like '%.%'
+				and p2_first_name.agent_name not like '%.%'
+			</cfif>
+			<cfif exclRelated is "true">
+				and p1_first_name.agent_id not in (select agent_id from agent_relations union select related_agent_id agent_id from agent_relations)
+				and p2_first_name.agent_id not in (select agent_id from agent_relations union select related_agent_id agent_id from agent_relations)
+			</cfif>
 	        order by
 	          name1
 	      ) a where rownum <= #stop#
@@ -208,9 +231,10 @@
 </cfif>
 <cfif isdefined("d")>
 	<cfif start gt 1>
-		<a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=prev">[ previous 100 ]</a>
+		<a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=prev&noFNAbbr=#noFNAbbr#&exclRelated=#exclRelated#">[ previous 100 ]</a>
 	</cfif>
-	<a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=next">[ next 100 ]</a>
+	<a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=next&noFNAbbr=#noFNAbbr#&exclRelated=#exclRelated#">[ next 100 ]</a>
+	
 	<a href="dupAgent.cfm">[ start over ]</a>
 	<table border id="t" class="sortable">
 		<tr>
