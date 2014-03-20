@@ -483,7 +483,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 							AGENT_REMARKS
 						) VALUES (
 							#agentID.nextAgentId#,
-							'person',
+							'#agent_type#',
 							'#escapeQuotes(preferred_name)#',
 							'#trim(d.agent_remark)#'
 							)
