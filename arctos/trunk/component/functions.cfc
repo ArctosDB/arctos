@@ -308,7 +308,7 @@
 		<cfset disallowWords="or,cat,biol,boat,co,et,illegible,inc,other,uaf,NY,AK,CA,various,Mfg">
 		<cfset disallowCharacters="/,\,&">		
 		<cfset strippedNamePermutations=ucase(rereplace(preferred_name,regexStripJunk,"","all"))>
-			<cfset srchPrefName=trim(escapeQuotes(preferred_name))>
+		<cfset srchPrefName=trim(escapeQuotes(preferred_name))>
 	
 		<cfif len(strippedNamePermutations) is 0>
 			<cfset problems=listappend(problems,'Check apostrophy/single-quote. "O&apos;Neil" is fine. "Jim&apos;s Cat" should be entered as "unknown".',';')>
@@ -375,7 +375,29 @@
 				agent_name
 			where 
 				agent.agent_id=agent_name.agent_id and
-				upper(regexp_replace(agent_name.agent_name,'#regexStripJunk#', '')) in (#preserveSingleQuotes(strippedNamePermutations)#) ">	     
+				upper(regexp_replace(agent_name.agent_name,'#regexStripJunk#', '')) in (#preserveSingleQuotes(strippedNamePermutations)#) ">
+				
+		<!--- 
+			common "shortcuts"
+		
+			new: national park service
+			old: U. S. National Park service
+		 ---->
+
+		<cfset sql=sql & "
+			 union select
+				'manipulated match on agent name' reason,
+				 agent.agent_id, 
+				 agent.preferred_agent_name
+			from 
+				agent,
+				agent_name
+			where 
+				agent.agent_id=agent_name.agent_id and
+				trim(upper(regexp_replace(replace(agent_name.agent_name,'#regexStripJunk#', ''),'U. S. ')) =
+					trim(upper(replace('#escapeQuotes(srchPrefName)#','U. S.'))) ">
+		
+		
 	</cfif><!--- end agent type check ---->
 	
 	<cfquery name="isdup" datasource="uam_god">
