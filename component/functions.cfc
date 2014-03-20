@@ -1399,7 +1399,7 @@
 
 	<cfoutput>
 		<cfsavecontent variable="return">
-			<span style="margin:1em;display:inline-block;padding:1em;border:10px solid red;">
+			<span class="importantNotification">
 				This Locality (#locality_id#)
 				<span class="infoLink" onClick="getDocs('collecting_event')">[ help ]</span> contains
 				<cfif whatSpecs.recordcount is 0 and whatMedia.recordcount is 0>

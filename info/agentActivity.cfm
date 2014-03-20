@@ -2,7 +2,7 @@
 <cfset title = "Agent Activity">
 <cfoutput>
 <a href="/agents.cfm?agent_id=#agent_id#" target="_top">Edit Agent</a>
-<div style="border:1px solid red; margin:1em; padding: 1em;">
+<div class="importantNotification">
 	Please note: your login may prevent you from seeing some linked data. The summary data below are accurate.
 </div>
 <cfquery name="agent" datasource="uam_god">
