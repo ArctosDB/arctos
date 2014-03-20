@@ -11,7 +11,7 @@
 <cfquery name="name" datasource="uam_god">
 	select agent_name_id, agent_name, agent_name_type FROM agent_name where agent_id=#agent_id#
 </cfquery>
-Agent:
+<br>Agent:
 <table border>
 	<tr>
 		<td align="right"><strong>Agent Type:</strong></td>
