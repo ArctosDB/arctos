@@ -354,7 +354,7 @@
 				disallowCharacters are just that "me/you" and me /  you" and ....	
 			Expect some false positives - sorray! 
 		---->
-		<cfset disallowWords="or,cat,biol,boat,co.et,illegible,inc,other,uaf,NY,AK,CA,various">
+		<cfset disallowWords="or,cat,biol,boat,co,et,illegible,inc,other,uaf,NY,AK,CA,various">
 		<cfset disallowCharacters="/,\,&">
 
 		
