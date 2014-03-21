@@ -472,8 +472,8 @@ create index ix_cf_agent_dupchk_unsa on cf_agent_isitadup (upperstrippedagencyna
 							replace(
 								upper('#escapeQuotes(strippedNamePermutations)#')
 							,'US')
-						,'THE')
-					,'UNITEDSTATES')
+						,'UNITEDSTATES')
+					,'THE')
 				)">
 		<cfoutput>
 		<br>strippedNamePermutations: #strippedNamePermutations#
