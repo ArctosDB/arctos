@@ -475,8 +475,9 @@ create index ix_cf_agent_dupchk_unsa on cf_agent_isitadup (upperstrippedagencyna
 						,'THE')
 					,'UNITEDSTATES')
 				)">
-		
+		<cfoutput>
 		<br>strippedNamePermutations: #strippedNamePermutations#
+		</cfoutput>
 	</cfif><!--- end agent type check ---->
 	
 	<cfquery name="isdup" datasource="uam_god">
