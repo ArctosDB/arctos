@@ -338,10 +338,7 @@ create index ix_cf_agent_dupchk_unsa on cf_agent_isitadup (upperstrippedagencyna
 				disallowCharacters are just that "me/you" and me /  you" and ....	
 			Expect some false positives - sorray! 
 		---->
-		<cfset disallowWords="or,cat,biol,boat,co,Corp,et,illegible,inc,other,uaf,ua,NY,AK,CA,various,Mfg">
-		
-		MFG Co. Inc.
-		
+		<cfset disallowWords="or,cat,biol,boat,co,Corp,et,illegible,inc,other,uaf,ua,NY,AK,CA,various,Mfg">		
 		
 		<cfset disallowCharacters="/,\,&">		
 		<cfset strippedNamePermutations=ucase(rereplace(preferred_name,regexStripJunk,"","all"))>
@@ -430,8 +427,6 @@ create index ix_cf_agent_dupchk_unsa on cf_agent_isitadup (upperstrippedagencyna
 				agent,
 				cf_agent_isitadup
 			where 
-				-- performance demands this
-				agent.agent_type != 'person' and
 				agent.agent_id=cf_agent_isitadup.agent_id and
 				upperstrippedagencyname=
 				trim(
