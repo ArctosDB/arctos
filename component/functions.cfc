@@ -470,7 +470,7 @@ create index ix_cf_agent_dupchk_unsa on cf_agent_isitadup (upperstrippedagencyna
 			where 
 				agent.agent_id=cf_agent_isitadup.agent_id and
 				upperstrippedagencyname  in (#preserveSingleQuotes(agencystrip)#) 				
-				)">
+				">
 				
 				
 		
