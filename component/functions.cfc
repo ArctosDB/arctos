@@ -86,9 +86,15 @@
 
 <!---- table to make this faster
 
-
+drop table cf_agent_isitadup;
 
 create table cf_agent_isitadup as select
+agent_id,
+uppername,
+strippeduppername,
+upperstrippedagencyname
+from
+(select 
   agent_id,
   trim(upper(agent_name.agent_name)) uppername,
   trim(upper(regexp_replace(agent_name.agent_name,'[ .,-]', ''))) strippeduppername,
@@ -105,7 +111,38 @@ create table cf_agent_isitadup as select
         ) upperstrippedagencyname
          from
          agent_name
-         ;
+		union
+		select 
+  agent_id,
+  trim(upper(preferred_agent_name)) uppername,
+  trim(upper(regexp_replace(preferred_agent_name,'[ .,-]', ''))) strippeduppername,
+         trim(
+          replace(
+            replace(
+              replace(
+                upper(
+                  regexp_replace(preferred_agent_name,'[ .,-]', '')
+                )
+              ,'US')
+            ,'UNITEDSTATES')
+          ,'THE')
+        ) upperstrippedagencyname
+         from
+         agent
+		)
+		group by 
+         agent_id,
+uppername,
+strippeduppername,
+upperstrippedagencyname
+;
+
+
+drop index ix_cf_agent_dupchk_id;
+drop index ix_cf_agent_dupchk_un;
+drop index ix_cf_agent_dupchk_uns;
+drop index ix_cf_agent_dupchk_unsa;
+
 create index ix_cf_agent_dupchk_id on cf_agent_isitadup (agent_id) tablespace uam_idx_1;
 create index ix_cf_agent_dupchk_un on cf_agent_isitadup (uppername) tablespace uam_idx_1;
 create index ix_cf_agent_dupchk_uns on cf_agent_isitadup (strippeduppername) tablespace uam_idx_1;
@@ -433,7 +470,7 @@ create index ix_cf_agent_dupchk_unsa on cf_agent_isitadup (upperstrippedagencyna
 					replace(
 						replace(
 							replace(
-								upper('#escapeQuotes(srchPrefName)#')
+								upper('#escapeQuotes(strippedNamePermutations)#')
 							,'US')
 						,'THE')
 					,'UNITEDSTATES')
