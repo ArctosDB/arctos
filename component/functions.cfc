@@ -83,6 +83,39 @@
 	<cfreturn d>	
 </cffunction>
 <!--------------------------------------------------------------------------------------->
+
+<!---- table to make this faster
+
+
+
+create table cf_agent_isitadup as select
+  agent_id,
+  trim(upper(agent_name.agent_name)) uppername,
+  trim(upper(regexp_replace(agent_name.agent_name,'[ .,-]', ''))) strippeduppername,
+         trim(
+          replace(
+            replace(
+              replace(
+                upper(
+                  regexp_replace(agent_name.agent_name,'[ .,-]', '')
+                )
+              ,'US')
+            ,'UNITEDSTATES')
+          ,'THE')
+        ) upperstrippedagencyname
+         from
+         agent_name
+         ;
+create index ix_cf_agent_dupchk_id on cf_agent_isitadup (agent_id) tablespace uam_idx_1;
+create index ix_cf_agent_dupchk_un on cf_agent_isitadup (uppername) tablespace uam_idx_1;
+create index ix_cf_agent_dupchk_uns on cf_agent_isitadup (strippeduppername) tablespace uam_idx_1;
+create index ix_cf_agent_dupchk_unsa on cf_agent_isitadup (upperstrippedagencyname) tablespace uam_idx_1;
+
+
+
+
+---->
+	
 <cffunction name="checkAgent" access="remote" returnformat="json">
    	<cfargument name="preferred_name" required="true" type="string">
    	<cfargument name="agent_type" required="true" type="string">
@@ -146,19 +179,19 @@
 				
 		<cfloop list="#disallowCharacters#" index="i">
 			<cfif preferred_name contains i>
-				<cfset problems=listappend(problems,'Check name for #i#. do not create unnecessary variations of "unknown."',';')>
+				<cfset problems=listappend(problems,'Check name for #i#: do not create unnecessary variations of "unknown."',';')>
 			</cfif>
 		</cfloop>
 				
 		<cfloop list="#disallowWords#" index="i">
 			<cfif listfindnocase(preferred_name,i," ;,.")>
-				<cfset problems=listappend(problems,'Check name for #i#; do not create unnecessary variations of "unknown."',';')>
+				<cfset problems=listappend(problems,'Check name for #i#: do not create unnecessary variations of "unknown."',';')>
 			</cfif>
 		</cfloop>
 		<cfif agent_type is "person">
 			<cfloop list="#disallowPersons#" index="i">
 				<cfif listfindnocase(preferred_name,i,"() ;,.")>
-					<cfset problems=listappend(problems,'Check name for #i#. do not create non-person agents as persons."',';')>
+					<cfset problems=listappend(problems,'Check name for #i#: do not create non-person agents as persons."',';')>
 				</cfif>
 			</cfloop>
 		</cfif>
@@ -306,6 +339,10 @@
 			Expect some false positives - sorray! 
 		---->
 		<cfset disallowWords="or,cat,biol,boat,co,Corp,et,illegible,inc,other,uaf,ua,NY,AK,CA,various,Mfg">
+		
+		MFG Co. Inc.
+		
+		
 		<cfset disallowCharacters="/,\,&">		
 		<cfset strippedNamePermutations=ucase(rereplace(preferred_name,regexStripJunk,"","all"))>
 		<cfset srchPrefName=trim(escapeQuotes(preferred_name))>
@@ -316,19 +353,19 @@
 				
 		<cfloop list="#disallowCharacters#" index="i">
 			<cfif preferred_name contains i>
-				<cfset problems=listappend(problems,'Check name for #i#. do not create unnecessary variations of "unknown."',';')>
+				<cfset problems=listappend(problems,'Check name for #i: do not create unnecessary variations of "unknown."',';')>
 			</cfif>
 		</cfloop>
 				
 		<cfloop list="#disallowWords#" index="i">
 			<cfif listfindnocase(preferred_name,i," ;,.")>
-				<cfset problems=listappend(problems,'Check name for #i#; do not create unnecessary variations of "unknown."',';')>
+				<cfset problems=listappend(problems,'Check name for #i#: do not create unnecessary variations of "unknown."',';')>
 			</cfif>
 		</cfloop>
 		<cfif agent_type is "person">
 			<cfloop list="#disallowPersons#" index="i">
 				<cfif listfindnocase(preferred_name,i,"() ;,.")>
-					<cfset problems=listappend(problems,'Check name for #i#. do not create non-person agents as persons."',';')>
+					<cfset problems=listappend(problems,'Check name for #i#: do not create non-person agents as persons."',';')>
 				</cfif>
 			</cfloop>
 		</cfif>
@@ -372,10 +409,10 @@
 				 agent.preferred_agent_name
 			from 
 				agent,
-				agent_name
+				cf_agent_isitadup
 			where 
-				agent.agent_id=agent_name.agent_id and
-				upper(regexp_replace(agent_name.agent_name,'#regexStripJunk#', '')) in (#preserveSingleQuotes(strippedNamePermutations)#) ">
+				agent.agent_id=cf_agent_isitadup.agent_id and
+				strippeduppername in (#preserveSingleQuotes(strippedNamePermutations)#) ">
 				
 		<!--- 
 			common "shortcuts"
@@ -391,23 +428,12 @@
 				 agent.preferred_agent_name
 			from 
 				agent,
-				agent_name
+				cf_agent_isitadup
 			where 
 				-- performance demands this
 				agent.agent_type != 'person' and
 				agent.agent_id=agent_name.agent_id and
-				trim(
-					replace(
-						replace(
-							replace(
-								upper(
-									regexp_replace(agent_name.agent_name,'#regexStripJunk#', '')
-								)
-							,'US')
-						,'UNITEDSTATES')
-					,'THE')
-				)
-				=
+				upperstrippedagencyname=
 				trim(
 					replace(
 						replace(
