@@ -455,6 +455,10 @@ create index ix_cf_agent_dupchk_unsa on cf_agent_isitadup (upperstrippedagencyna
 			old: U. S. National Park service
 		 ---->
 
+		<cfset agencystrip=strippedNamePermutations>
+		<cfset agencystrip=replace(agencystrip,'US','','all')>
+		<cfset agencystrip=replace(agencystrip,'UNITEDSTATES','','all')>
+		<cfset agencystrip=replace(agencystrip,'THE','','all')>
 		<cfset sql=sql & "
 			 union select
 				'manipulated match on agent name' reason,
@@ -466,16 +470,13 @@ create index ix_cf_agent_dupchk_unsa on cf_agent_isitadup (upperstrippedagencyna
 			where 
 				agent.agent_id=cf_agent_isitadup.agent_id and
 				upperstrippedagencyname=
-				trim(
-					replace(
-						replace(
-							replace(
-								upper('#escapeQuotes(strippedNamePermutations)#')
-							,'US')
-						,'UNITEDSTATES')
-					,'THE')
+				trim(upper('#escapeQuotes(agencystrip)#'))
 				)">
+				
+				
+		
 		<cfoutput>
+		<br>agencystrip: #agencystrip#
 		<br>strippedNamePermutations: #strippedNamePermutations#
 		</cfoutput>
 	</cfif><!--- end agent type check ---->
