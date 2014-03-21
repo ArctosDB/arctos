@@ -432,7 +432,7 @@ create index ix_cf_agent_dupchk_unsa on cf_agent_isitadup (upperstrippedagencyna
 			where 
 				-- performance demands this
 				agent.agent_type != 'person' and
-				agent.agent_id=agent_name.agent_id and
+				agent.agent_id=cf_agent_isitadup.agent_id and
 				upperstrippedagencyname=
 				trim(
 					replace(
