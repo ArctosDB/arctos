@@ -353,7 +353,7 @@ create index ix_cf_agent_dupchk_unsa on cf_agent_isitadup (upperstrippedagencyna
 				
 		<cfloop list="#disallowCharacters#" index="i">
 			<cfif preferred_name contains i>
-				<cfset problems=listappend(problems,'Check name for #i: do not create unnecessary variations of "unknown."',';')>
+				<cfset problems=listappend(problems,'Check name for #i#: do not create unnecessary variations of "unknown."',';')>
 			</cfif>
 		</cfloop>
 				
