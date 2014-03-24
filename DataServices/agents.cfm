@@ -61,6 +61,87 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 <cfsetting requesttimeout="600">
 <cfset title="bulkload agents">
 <cfif action is "nothing">
+	<cfquery name="flushOldManipTable" datasource="uam_god">
+		drop table cf_agent_isitadup
+	</cfquery>
+	<br>Old table flushed
+	<cfquery name="buildNewManipTable" datasource="uam_god">
+		create table cf_agent_isitadup as select
+			agent_id,
+			uppername,
+			strippeduppername,
+			upperstrippedagencyname
+			from
+			(select 
+			  agent_id,
+			  trim(upper(agent_name.agent_name)) uppername,
+			  trim(upper(regexp_replace(agent_name.agent_name,'[ .,-]', ''))) strippeduppername,
+			         trim(
+			          replace(
+			            replace(
+			              replace(
+			                upper(
+			                  regexp_replace(agent_name.agent_name,'[ .,-]', '')
+			                )
+			              ,'US')
+			            ,'UNITEDSTATES')
+			          ,'THE')
+			        ) upperstrippedagencyname
+			         from
+			         agent_name
+					union
+					select 
+			  agent_id,
+			  trim(upper(preferred_agent_name)) uppername,
+			  trim(upper(regexp_replace(preferred_agent_name,'[ .,-]', ''))) strippeduppername,
+			         trim(
+			          replace(
+			            replace(
+			              replace(
+			                upper(
+			                  regexp_replace(preferred_agent_name,'[ .,-]', '')
+			                )
+			              ,'US')
+			            ,'UNITEDSTATES')
+			          ,'THE')
+			        ) upperstrippedagencyname
+			         from
+			         agent
+					)
+					group by 
+			         agent_id,
+			uppername,
+			strippeduppername,
+			upperstrippedagencyname
+	</cfquery>
+	<cfquery name="di1" datasource="uam_god">
+		drop index ix_cf_agent_dupchk_id
+	</cfquery>
+	<cfquery name="di2" datasource="uam_god">
+		drop index ix_cf_agent_dupchk_un
+	</cfquery>
+	<cfquery name="di3" datasource="uam_god">
+		drop index ix_cf_agent_dupchk_uns
+	</cfquery>
+	<cfquery name="di4" datasource="uam_god">
+		drop index ix_cf_agent_dupchk_unsa
+	</cfquery>
+	<cfquery name="ci1" datasource="uam_god">
+		create index ix_cf_agent_dupchk_id on cf_agent_isitadup (agent_id) tablespace uam_idx_1
+	</cfquery>
+	<cfquery name="ci2" datasource="uam_god">
+		create index ix_cf_agent_dupchk_un on cf_agent_isitadup (uppername) tablespace uam_idx_1
+	</cfquery>
+	<cfquery name="ci3" datasource="uam_god">
+		create index ix_cf_agent_dupchk_uns on cf_agent_isitadup (strippeduppername) tablespace uam_idx_1
+	</cfquery>
+	<cfquery name="ci4" datasource="uam_god">
+		create index ix_cf_agent_dupchk_unsa on cf_agent_isitadup (upperstrippedagencyname) tablespace uam_idx_1
+	</cfquery>
+	<br>indexes build....
+
+
+
 	<p>
 		<a href="agentNameSplitter.cfm">Agent Name Splitter</a> will accept a list of agent names and return a file that can be used here.
 	</p>
