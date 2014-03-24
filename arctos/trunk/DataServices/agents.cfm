@@ -61,10 +61,13 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 <cfsetting requesttimeout="600">
 <cfset title="bulkload agents">
 <cfif action is "nothing">
-	<cfquery name="flushOldManipTable" datasource="uam_god">
-		drop table cf_agent_isitadup
-	</cfquery>
+	<cftry>
+		<cfquery name="flushOldManipTable" datasource="uam_god">
+			drop table cf_agent_isitadup
+		</cfquery>
 	<br>Old table flushed
+	<cfcatch></cfcatch></cftry>
+	<cftry>
 	<cfquery name="buildNewManipTable" datasource="uam_god">
 		create table cf_agent_isitadup as select
 			agent_id,
@@ -114,30 +117,47 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 			strippeduppername,
 			upperstrippedagencyname
 	</cfquery>
+	<cfcatch></cfcatch></cftry>
+	<cftry>
 	<cfquery name="di1" datasource="uam_god">
 		drop index ix_cf_agent_dupchk_id
 	</cfquery>
+	<cfcatch></cfcatch></cftry>
+	<cftry>
 	<cfquery name="di2" datasource="uam_god">
 		drop index ix_cf_agent_dupchk_un
 	</cfquery>
+	<cfcatch></cfcatch></cftry>
+	<cftry>
 	<cfquery name="di3" datasource="uam_god">
 		drop index ix_cf_agent_dupchk_uns
 	</cfquery>
+	<cfcatch></cfcatch></cftry>
+	<cftry>
 	<cfquery name="di4" datasource="uam_god">
 		drop index ix_cf_agent_dupchk_unsa
 	</cfquery>
+	<cfcatch></cfcatch></cftry>
+	<cftry>
 	<cfquery name="ci1" datasource="uam_god">
 		create index ix_cf_agent_dupchk_id on cf_agent_isitadup (agent_id) tablespace uam_idx_1
 	</cfquery>
+	<cfcatch></cfcatch></cftry>
+	<cftry>
 	<cfquery name="ci2" datasource="uam_god">
 		create index ix_cf_agent_dupchk_un on cf_agent_isitadup (uppername) tablespace uam_idx_1
 	</cfquery>
+	<cfcatch></cfcatch></cftry>
+	<cftry>
 	<cfquery name="ci3" datasource="uam_god">
 		create index ix_cf_agent_dupchk_uns on cf_agent_isitadup (strippeduppername) tablespace uam_idx_1
 	</cfquery>
+	<cfcatch></cfcatch></cftry>
+	<cftry>
 	<cfquery name="ci4" datasource="uam_god">
 		create index ix_cf_agent_dupchk_unsa on cf_agent_isitadup (upperstrippedagencyname) tablespace uam_idx_1
 	</cfquery>
+	<cfcatch></cfcatch></cftry>
 	<br>indexes build....
 
 
