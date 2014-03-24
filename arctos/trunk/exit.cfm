@@ -18,6 +18,10 @@
 	</cfif>
 	<cfhttp url="#http_target#" method="head" timeout="1"></cfhttp>
 	
+	
+	<cfdump var=#http_target#>
+	
+	
 	<cfdump var=#cfhttp#>
 	
 	
