@@ -14,7 +14,7 @@
 			<cfset http_target=application.serverRootURL & '/' & target>
 		</cfif>
 	<cfelse>
-		<cfset http_target=URLEncodedFormat(target)>
+		<cfset http_target=target>
 	</cfif>
 	<cfhttp url="#http_target#" method="head" timeout="1"></cfhttp>
 	
