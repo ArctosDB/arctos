@@ -21,6 +21,8 @@
 	<cfset http_target="http://calphotos.berkeley.edu/cgi/img_query?enlarge=1111+1111+1111+4248">
 	<cfhttp url="#http_target#" method="head" timeout="1"></cfhttp>
 	
+	
+	<!-----
 	<cfdump var=#http_target#>
 	
 	
@@ -31,6 +33,8 @@
 	<cfhttp url="#http_target#" method="get" timeout="1"></cfhttp>
 	
 		<cfdump var=#cfhttp#>
+
+---------->
 
 
 
