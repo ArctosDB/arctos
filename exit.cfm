@@ -17,6 +17,11 @@
 		<cfset http_target=target>
 	</cfif>
 	<cfhttp url="#http_target#" method="head" timeout="1"></cfhttp>
+	
+	<cfdump var=#cfhttp#>
+	
+	
+	
 	<cfif isdefined("cfhttp.statuscode") and cfhttp.statuscode is "200 OK">
 		<cfset status="200">
 	<cfelse>
