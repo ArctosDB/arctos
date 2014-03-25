@@ -441,7 +441,11 @@
 		
 		
 		#preservesinglequotes(ssql)#
-		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		
+		
+		 cachedwithin="#createtimespan(0,0,60,0)#"
+		
+		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
 		<cfquery name="nodoc" dbtype="query">
