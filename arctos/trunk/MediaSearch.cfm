@@ -427,11 +427,19 @@
 		<p>
 			sql: #sql#
 		</p>
+		<cfset noDocsWhr=whr & " and media_flat.media_type !='multi=page document' ">
 		<p>
 			whr: #whr#
-		</p><p>
+		</p>
+			<p>
+			noDocsWhr: #noDocsWhr#
+		</p>
+		<p>
 			srch: #srch#
 		</p>
+		<cfset ssql="#sql# #noDocsWhr# #srch# order by media_flat.media_id">
+		
+		
 		#preservesinglequotes(ssql)#
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
