@@ -427,17 +427,15 @@
 		<p>
 			sql: #sql#
 		</p>
-		<cfset noDocsWhr=whr & " and media_flat.media_type !='multi-page document' ">
 		<p>
 			whr: #whr#
 		</p>
 			<p>
-			noDocsWhr: #noDocsWhr#
 		</p>
 		<p>
 			srch: #srch#
 		</p>
-		<cfset ssql="#sql# #noDocsWhr# #srch# order by media_flat.media_id">
+		<cfset ssql="#sql# #whr# #srch# order by media_flat.media_id">
 		
 		
 		#preservesinglequotes(ssql)#
@@ -479,8 +477,7 @@
 			</td>
 		</form>
 		<td>
-			<span class="controlButton"
-				onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
+			<span class="controlButton" onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
 		</td>
 		</tr></table>
 		<cfset q="">
