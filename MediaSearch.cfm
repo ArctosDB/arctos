@@ -556,7 +556,7 @@
 	
 	
 	
-	
+	--#URL.offset#--
 	<cfloop query="isdoc" startrow="#URL.offset#" endrow="#limit#">
 		<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="mp">
 			<cfinvokeargument name="preview_uri" value="#preview_uri#">
