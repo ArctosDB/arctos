@@ -427,7 +427,7 @@
 		<p>
 			sql: #sql#
 		</p>
-		<cfset noDocsWhr=whr & " and media_flat.media_type !='multi=page document' ">
+		<cfset noDocsWhr=whr & " and media_flat.media_type !='multi-page document' ">
 		<p>
 			whr: #whr#
 		</p>
