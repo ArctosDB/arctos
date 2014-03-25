@@ -16,7 +16,7 @@
 	<cfelse>
 		<cfset http_target=target>
 	</cfif>
-	<cfhttp url="#http_target#" method="get" timeout="1"></cfhttp>
+	<cfhttp url="#http_target#" method="head" timeout="3"></cfhttp>
 	<cfif isdefined("cfhttp.statuscode") and cfhttp.statuscode is "200 OK">
 		<cfset status="200">
 	<cfelse>
@@ -50,22 +50,32 @@
 		<cfheader statuscode="303" statustext="Redirecting to external resource">
 		<cfheader name="Location" value="#http_target#">	
 	<cfelse>
+		<cftry><cfhtmlhead text='<title>An external resource is not responding properly</title>'>
+			<cfcatch type="template">
+			</cfcatch>
+		</cftry>
 		<div style="border:4px solid red; padding:1em;margin:1em;">
-			There may be a problem with the external resource.
+			There may be a problem with the linked resource. 
 			<p>
 				Status: #status#
 			</p>
 			<cfif left(status,3) is "408">
-				<p>The external resource is not responding in a timely fashion.</p>
+				<p>The server hosting the link may be slow or nonresponsive.</p>
 			<cfelseif  left(status,3) is "404">
 				<p>The external resource does not appear to exist.</p>
+			<cfelseif left(status,3) is "500">
+				<p>The server may be down or misconfigured.</p>			
 			</cfif>
 			<p>
-				You can try the exit link specified: <a href="#target#">#target#</a>
-				<cfif http_target is not target>
-					<br>Or our guess at the intended target: <a href="#http_target#">#http_target#</a>
-				</cfif>
+				Click the following link(s) to attempt to load the resource manually. 
 			</p>
+			<p>
+				Please <a href="/contact.cfm?ref=#target#">contact us</a> if you experience additional problems with the link.
+			</p>
+			<p>Link as provided: <a href="#target#">#target#</a></p>
+				<cfif http_target is not target>
+					<br>Or our guess at the intended link: <a href="#http_target#">#http_target#</a>
+				</cfif>
 		</div>
 	</cfif>
 </cfoutput>
