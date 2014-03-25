@@ -442,6 +442,14 @@
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
+		<cfquery name="nodoc" dbtype="query">
+			select * from findIDs where media_type!='multi-page document'
+		</cfquery>
+		
+		<cfquery name="isdoc" dbtype="query">
+			select * from findIDs where media_type='multi-page document'
+		</cfquery>
+		
 		<table cellpadding="10"><tr>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		    <cfset h="/media.cfm?action=newMedia">
@@ -456,7 +464,8 @@
 			<div class="error">Nothing found.</div>
 			<cfabort>
 		<cfelse>
-			<cfset title="Media Results: #findIDs.recordcount# records found">
+			<cfset sumCount=nodoc.recordcount + isdoc.recordcount>
+			<cfset title="Media Results: #sumCount# records found">
 			<cfif findIDs.recordcount is 500>
 				<div style="border:2px solid red;text-align:center;margin:0 10em;">
 					Note: This form will return a maximum of 500 records.
@@ -494,9 +503,9 @@
 		<cfsavecontent variable="pager">
 			<cfparam name="URL.offset" default="0">
 			<cfparam name="limit" default="1">
-			<cfif findIDs.recordcount gt 1>
+			<cfif nodoc.recordcount gt 1>
 				<cfset Result_Per_Page=session.displayrows>
-				<cfset Total_Records=findIDs.recordcount>
+				<cfset Total_Records=nodoc.recordcount>
 				<cfset limit=URL.offset+Result_Per_Page>
 				<cfset start_result=URL.offset+1>
 				<div style="margin-left:20%;">
@@ -531,13 +540,14 @@
 					</cfif>
 				</div>
 			</cfif>
+			
 		</cfsavecontent>
 		#pager#
 		<cfset rownum=1>
 	<table>
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
 	<cfset stuffToNotPlay="audio/x-wav">
-	<cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
+	<cfloop query="nodoc" startrow="#URL.offset#" endrow="#limit#">
 		<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="mp">
 			<cfinvokeargument name="preview_uri" value="#preview_uri#">
 			<cfinvokeargument name="media_type" value="#media_type#">
