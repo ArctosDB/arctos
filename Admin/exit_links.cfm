@@ -10,7 +10,6 @@
 	<cfparam name="fdate" type="string" default="">
 	<cfparam name="ldate" type="string" default="">
 	<cfparam name="format" type="string" default="">
-	
 	<form method="post" action="exit_links.cfm">
 		<label for="fdate">Earliest Date</label>
 		<input type="text" id="fdate" name="fdate" value="#fdate#">
@@ -47,7 +46,6 @@
 			 </cfif>
 			 order by WHEN_DATE desc
 		</cfquery>
-		
 		<cfif format is "table">
 			<table border>
 				<tr>
