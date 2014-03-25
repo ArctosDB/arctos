@@ -317,7 +317,7 @@
 			<cfset problems=listappend(problems,'Check apostrophy/single-quote. "O&apos;Neil" is fine. "Jim&apos;s Cat" should be entered as "unknown".',';')>
 		</cfif>
 		
-		<cfif ucase(preferred_name) is lcase(preferred_name)>
+		<cfif compare(ucase(preferred_name),lcase(preferred_name))>
 			<cfset problems=listappend(problems,'Check case: Most agents should be Proper Case.',';')>
 		</cfif>
 			
