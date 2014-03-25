@@ -421,7 +421,9 @@
 			<div class="error">You must enter search criteria.</div>
 			<cfabort>
 		</cfif>
+<!---
 		<cfset srch = "#srch# AND rownum <= 500">
+		--->
 		<cfset ssql="#sql# #whr# #srch# order by media_flat.media_id">
 		<!--- #ssql#--->
 		<p>
