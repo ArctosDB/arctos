@@ -512,7 +512,7 @@
 		
 		<cfif sumCount gt 1>
 			<cfset Result_Per_Page=session.displayrows>
-			<cfset Total_Records=nodoc.recordcount>
+			<cfset Total_Records=sumCount>
 			<cfset limit=URL.offset+Result_Per_Page>
 			<cfset start_result=URL.offset+1>
 		</cfif>
