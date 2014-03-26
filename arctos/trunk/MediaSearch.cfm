@@ -463,7 +463,7 @@
 				'' as RELATIONSHIPS,
 				'' as KEYWORDS,
 				'' as COORDINATES,
-				'' as HASTAGS 
+				'' as HASTAGS,
 				'' as LASTDATE
 			from 
 				findIDs where media_type='multi-page document' 
