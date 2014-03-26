@@ -468,7 +468,7 @@
 				'' as KEYWORDS,
 				'' as COORDINATES,
 				0 as HASTAGS,
-				'23' as LASTDATE
+				'2014-03-01' as LASTDATE
 			from 
 				raw where media_type='multi-page document' 
 			group by 
