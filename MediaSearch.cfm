@@ -453,9 +453,10 @@
 		</cfquery>
 		
 		<cfquery name="isdoc" dbtype="query">
-			select * from findIDs where media_type='multi-page document'
+			select media_uri,preview_uri from findIDs where media_type='multi-page document'
 		</cfquery>
-		<cfdump var=#isdoc#>
+
+
 		<table cellpadding="10"><tr>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		    <cfset h="/media.cfm?action=newMedia">
