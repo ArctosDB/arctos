@@ -466,7 +466,7 @@
 				'' as RELATIONSHIPS,
 				'' as KEYWORDS,
 				'' as COORDINATES,
-				'' as HASTAGS,
+				0 as HASTAGS,
 				'' as LASTDATE
 			from 
 				raw where media_type='multi-page document' 
