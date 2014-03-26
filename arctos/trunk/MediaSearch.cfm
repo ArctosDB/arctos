@@ -611,10 +611,7 @@
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
 	<cfset stuffToNotPlay="audio/x-wav">
 	<cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
-		<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="mp">
-			<cfinvokeargument name="preview_uri" value="#preview_uri#">
-			<cfinvokeargument name="media_type" value="#media_type#">
-		</cfinvoke>
+		
 		<cfset alt=''>
 		<cfset lbl=replace(labels,"==",chr(7),"all")>
 		<cfset rel=replace(relationships,"==",chr(7),"all")>
@@ -633,8 +630,23 @@
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<cfif media_type is "multi-page document">
 				<td align="middle">
+					<a href="/document/#title#" target="_blank" class="#addThisClass#" title="#title#">
+							<img src="/images/document_thumbnail.png" alt="#title#" style="max-width:150px;max-height:150px;">
+						</a>
+					</cfif>
+					<br>
+					<span style = "font-size:small;">Multi-Page Document</span>
+					<br>
+					<span style = "font-size:small;">#license#</span>
+					
+								
+								
+								
 					<!---
 					<a href="/document.cfm?media_id=#media_id#">[ view as document ]</a>
+					
+					<br>
+					<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>
 					---->
 					view as....
 				</td>
@@ -668,6 +680,12 @@
 				---->
 				</td>
 			<cfelse><!--- not MPD --->
+				<cfif len(preview_uri) is 0>
+					<cfset mp = obj.getMap(preview_uri="#preview_uri#",media_type="#media_type#")>
+				<cfelse>
+					<cfset mp=preview_uri>
+				</cfif>
+				
 				<td align="middle">
 					<cfif mime_type is "audio/mpeg3">
 						<br>
