@@ -514,7 +514,6 @@
 			from
 				nodoc
 		</cfquery>
-		<cfdump var=#findIDs#>
 		<table cellpadding="10"><tr>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		    <cfset h="/media.cfm?action=newMedia">
