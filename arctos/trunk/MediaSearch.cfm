@@ -632,7 +632,10 @@
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<cfif media_type is "multi-page document">
 				<td align="middle">
+					<!---
 					<a href="/document.cfm?media_id=#media_id#">[ view as document ]</a>
+					---->
+					view as....
 				</td>
 				<td align="middle">
 					&nbsp;
