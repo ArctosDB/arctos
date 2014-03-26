@@ -246,9 +246,10 @@
 			media_flat.KEYWORDS,
 			media_flat.COORDINATES,
 			media_flat.HASTAGS,
-			media_flat.LASTDATE
-			FROM media_flat ">
-		<cfset whr ="WHERE 1=1 ">
+			media_flat.LASTDATE,
+			mttitle.label_value title
+			FROM media_flat,(select label_media_id,label_value from media_labels where media_label='title') mttitle ">
+		<cfset whr ="WHERE media_flat.media_id=mttitle.media_id (+) ">
 		<cfset srch=" ">
 		<cfset mapurl = "">
 		<cfset n=1>
@@ -458,7 +459,7 @@
 			select 
 				0 as media_id,
 				'' as media_uri,
-				preview_uri,
+				'/images/document_thumbnail.png' preview_uri,
 				MEDIA_TYPE,
 				MIME_TYPE,
 				'' as LABELS,
@@ -467,7 +468,7 @@
 				'' as KEYWORDS,
 				'' as COORDINATES,
 				0 as HASTAGS,
-				'' as LASTDATE
+				'23' as LASTDATE
 			from 
 				raw where media_type='multi-page document' 
 			group by 
@@ -476,7 +477,10 @@
 				MEDIA_TYPE,
 				MIME_TYPE
 		</cfquery>
+		<cfset obj = CreateObject("component","component.functions")>
 
+		
+		
 		<cfquery name="findIDs" dbtype="query">
 			select 
 				media_uri,
