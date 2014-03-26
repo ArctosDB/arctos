@@ -445,7 +445,7 @@
 		
 		 cachedwithin="#createtimespan(0,0,60,0)#"
 		
-		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
 		<cfquery name="nodoc" dbtype="query">
@@ -474,7 +474,38 @@
 				MIME_TYPE
 		</cfquery>
 
-		
+		<cfquery name="findIDs" dbtype="query">
+			select 
+				media_uri,
+				preview_uri,
+				MEDIA_TYPE,
+				MIME_TYPE,
+				LABELS,
+				license,
+				RELATIONSHIPS,
+				KEYWORDS,
+				COORDINATES,
+				HASTAGS,
+				LASTDATE
+			from
+				isdoc
+			UNION
+			select 
+				media_uri,
+				preview_uri,
+				MEDIA_TYPE,
+				MIME_TYPE,
+				LABELS,
+				license,
+				RELATIONSHIPS,
+				KEYWORDS,
+				COORDINATES,
+				HASTAGS,
+				LASTDATE
+			from
+				nodoc
+		</cfquery>
+
 		<table cellpadding="10"><tr>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		    <cfset h="/media.cfm?action=newMedia">
@@ -489,8 +520,7 @@
 			<div class="error">Nothing found.</div>
 			<cfabort>
 		<cfelse>
-			<cfset sumCount=nodoc.recordcount + isdoc.recordcount>
-			<cfset title="Media Results: #sumCount# records found">
+			<cfset title="Media Results: #findIDs.recordcount# records found">
 			<cfif findIDs.recordcount is 500>
 				<div style="border:2px solid red;text-align:center;margin:0 10em;">
 					Note: This form will return a maximum of 500 records.
@@ -511,7 +541,8 @@
 			</td>
 		</form>
 		<td>
-			<span class="controlButton" onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
+			<span class="controlButton"
+				onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
 		</td>
 		</tr></table>
 		<cfset q="">
@@ -525,18 +556,14 @@
 				<cfset q=listappend(q,"#key#=#url[key]#","&")>
 			 </cfif>
 		</cfloop>
-		
-		<cfparam name="URL.offset" default="0">
-		<cfparam name="limit" default="1">
-		
-		<cfif sumCount gt 1>
-			<cfset Result_Per_Page=session.displayrows>
-			<cfset Total_Records=sumCount>
-			<cfset limit=URL.offset+Result_Per_Page>
-			<cfset start_result=URL.offset+1>
-		</cfif>
 		<cfsavecontent variable="pager">
-			
+			<cfparam name="URL.offset" default="0">
+			<cfparam name="limit" default="1">
+			<cfif findIDs.recordcount gt 1>
+				<cfset Result_Per_Page=session.displayrows>
+				<cfset Total_Records=findIDs.recordcount>
+				<cfset limit=URL.offset+Result_Per_Page>
+				<cfset start_result=URL.offset+1>
 				<div style="margin-left:20%;">
 					Showing results #start_result# -
 					<cfif limit GT Total_Records> #Total_Records# <cfelse> #limit# </cfif> of #Total_Records#
@@ -568,18 +595,14 @@
 						</cfif>
 					</cfif>
 				</div>
-			
+			</cfif>
 		</cfsavecontent>
 		#pager#
 		<cfset rownum=1>
 	<table>
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
 	<cfset stuffToNotPlay="audio/x-wav">
-	
-	
-	
-	--#URL.offset#--
-	<cfloop query="isdoc" startrow="#URL.offset#" endrow="#limit#">
+	<cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 		<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="mp">
 			<cfinvokeargument name="preview_uri" value="#preview_uri#">
 			<cfinvokeargument name="media_type" value="#media_type#">
@@ -659,93 +682,6 @@
 		</tr>
 		<cfset rownum=rownum+1>
 	</cfloop>
-	
-	
-	
-	
-	<cfloop query="nodoc" startrow="#URL.offset#" endrow="#limit#">
-		<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="mp">
-			<cfinvokeargument name="preview_uri" value="#preview_uri#">
-			<cfinvokeargument name="media_type" value="#media_type#">
-		</cfinvoke>
-		<cfset alt=''>
-		<cfset lbl=replace(labels,"==",chr(7),"all")>
-		<cfset rel=replace(relationships,"==",chr(7),"all")>
-		<cfloop list="#lbl#" index="i" delimiters="|">
-			<cfif listgetat(i,1,chr(7)) is "description">
-				<cfset alt=listgetat(i,2,chr(7))>
-			</cfif>
-		</cfloop>
-		<cfset addThisClass=''>
-		<cfif listfind(stuffToNotPlay,mime_type)>
-			<cfset addThisClass="noplay">
-		</cfif>
-		<cfif len(alt) is 0>
-			<cfset alt=media_uri>
-		</cfif>
-		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-			<td align="middle">
-				<cfif mime_type is "audio/mpeg3">
-					<br>
-					<audio controls>
-						<source src="#media_uri#" type="audio/mp3">
-						<!--- fallback: is MP3 but browser can't play it --->
-						<a href="/exit.cfm?target=#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
-							<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
-						</a>
-					</audio>
-					<br><a href="/exit.cfm?target=#media_uri#" download>download MP3</a>
-				<cfelse>
-					<a href="/exit.cfm?target=#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
-						<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
-					</a>
-				</cfif>
-				<br>
-				<span style = "font-size:small;">#media_type# (#mime_type#)</span>
-				<br>
-				<span style = "font-size:small;">#license#</span>
-				<br>
-				<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>
-							
-			</td>
-			<td align="middle">
-				<div id="mapgohere-media_id-#media_id#">
-					<img src="/images/indicator.gif">
-				</div>
-			</td>
-			<td>
-				<div style="max-height:10em;overflow:auto;">
-					<cfset relMedia=''>
-					<cfloop list="#rel#" index="i" delimiters="|">
-						<cfset r=listgetat(i,1,chr(7))>
-						<cfset t=listgetat(i,2,chr(7))>
-						<cfif right(r,6) is ' media'>
-							<cfset relMedia=listAppend(relMedia,t)>
-						<cfelse>
-							#r#: #t#<br>
-						</cfif>
-					</cfloop>
-					<cfloop list="#lbl#" index="i" delimiters="|">
-						#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
-					</cfloop>
-				</div>
-			<cfif media_type is "multi-page document">
-				<a href="/document.cfm?media_id=#media_id#">[ view as document ]</a>
-			</cfif>
-			<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-		        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
-		        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
-		    </cfif>
-		    <cfif hastags gt 0>
-				<a href="/showTAG.cfm?media_id=#media_id#">[ View #hastags# TAGs ]</a>
-			</cfif>
-			</td>
-		</tr>
-		<cfset rownum=rownum+1>
-	</cfloop>
-	
-	
-	
 	</table>
 	#pager#
 	</cfoutput>
