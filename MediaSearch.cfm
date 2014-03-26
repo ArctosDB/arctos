@@ -466,7 +466,7 @@
 				'' as HASTAGS,
 				'' as LASTDATE
 			from 
-				findIDs where media_type='multi-page document' 
+				raw where media_type='multi-page document' 
 			group by 
 				media_uri,
 				preview_uri,
