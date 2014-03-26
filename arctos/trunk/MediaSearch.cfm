@@ -448,13 +448,16 @@
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
+	
+		
 		<cfquery name="nodoc" dbtype="query">
-			select * from findIDs where media_type!='multi-page document'
+			select * from raw where media_type!='multi-page document'
 		</cfquery>
 		
 		<cfquery name="isdoc" dbtype="query">
 			select 
-				media_uri,
+				'' as media_id,
+				'' as media_uri,
 				preview_uri,
 				MEDIA_TYPE,
 				MIME_TYPE,
@@ -505,7 +508,7 @@
 			from
 				nodoc
 		</cfquery>
-
+		---->
 		<table cellpadding="10"><tr>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		    <cfset h="/media.cfm?action=newMedia">
