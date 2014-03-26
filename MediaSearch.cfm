@@ -456,7 +456,7 @@
 		
 		<cfquery name="isdoc" dbtype="query">
 			select 
-				'' as media_id,
+				0 as media_id,
 				'' as media_uri,
 				preview_uri,
 				MEDIA_TYPE,
