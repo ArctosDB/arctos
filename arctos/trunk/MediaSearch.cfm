@@ -453,10 +453,10 @@
 		</cfquery>
 		
 		<cfquery name="isdoc" dbtype="query">
-			select media_uri,preview_uri from findIDs where media_type='multi-page document'
+			select media_uri,preview_uri from findIDs where media_type='multi-page document' group by  media_uri,preview_uri
 		</cfquery>
 
-
+		
 		<table cellpadding="10"><tr>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		    <cfset h="/media.cfm?action=newMedia">
