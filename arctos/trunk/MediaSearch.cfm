@@ -457,7 +457,7 @@
 		
 		<cfquery name="isdoc" dbtype="query">
 			select 
-				1234567899 as media_id,
+				CAST( 0 AS INTEGER ) AS  media_id,
 				'' as media_uri,
 				'/images/document_thumbnail.png' preview_uri,
 				MEDIA_TYPE,
