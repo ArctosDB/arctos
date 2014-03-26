@@ -248,7 +248,7 @@
 			media_flat.HASTAGS,
 			media_flat.LASTDATE,
 			mttitle.label_value title
-			FROM media_flat,(select label_media_id,label_value from media_labels where media_label='title') mttitle ">
+			FROM media_flat,(select media_id,label_value from media_labels where media_label='title') mttitle ">
 		<cfset whr ="WHERE media_flat.media_id=mttitle.media_id (+) ">
 		<cfset srch=" ">
 		<cfset mapurl = "">
