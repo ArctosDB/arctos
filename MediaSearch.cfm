@@ -656,7 +656,7 @@
 							#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 						</cfloop>
 					</div>
-				
+				<!----
 				<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 			        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
 			        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
@@ -664,6 +664,7 @@
 			    <cfif hastags gt 0>
 					<a href="/showTAG.cfm?media_id=#media_id#">[ View #hastags# TAGs ]</a>
 				</cfif>
+				---->
 				</td>
 			<cfelse><!--- not MPD --->
 				<td align="middle">
