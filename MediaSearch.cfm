@@ -630,35 +630,68 @@
 			<cfset alt=media_uri>
 		</cfif>
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-			<td align="middle">
-				<cfif mime_type is "audio/mpeg3">
-					<br>
-					<audio controls>
-						<source src="#media_uri#" type="audio/mp3">
-						<!--- fallback: is MP3 but browser can't play it --->
+			<cfif media_type is "multi-page document">
+				<td align="middle">
+					<a href="/document.cfm?media_id=#media_id#">[ view as document ]</a>
+				</td>
+				<td align="middle">
+					&nbsp;
+				</td>
+				<td>
+					<div style="max-height:10em;overflow:auto;">
+						<cfset relMedia=''>
+						<cfloop list="#rel#" index="i" delimiters="|">
+							<cfset r=listgetat(i,1,chr(7))>
+							<cfset t=listgetat(i,2,chr(7))>
+							<cfif right(r,6) is ' media'>
+								<cfset relMedia=listAppend(relMedia,t)>
+							<cfelse>
+								#r#: #t#<br>
+							</cfif>
+						</cfloop>
+						<cfloop list="#lbl#" index="i" delimiters="|">
+							#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
+						</cfloop>
+					</div>
+				
+				<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+			        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
+			        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
+			    </cfif>
+			    <cfif hastags gt 0>
+					<a href="/showTAG.cfm?media_id=#media_id#">[ View #hastags# TAGs ]</a>
+				</cfif>
+				</td>
+			<cfelse><!--- not MPD --->
+				<td align="middle">
+					<cfif mime_type is "audio/mpeg3">
+						<br>
+						<audio controls>
+							<source src="#media_uri#" type="audio/mp3">
+							<!--- fallback: is MP3 but browser can't play it --->
+							<a href="/exit.cfm?target=#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
+								<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
+							</a>
+						</audio>
+						<br><a href="/exit.cfm?target=#media_uri#" download>download MP3</a>
+					<cfelse>
 						<a href="/exit.cfm?target=#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
 							<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
 						</a>
-					</audio>
-					<br><a href="/exit.cfm?target=#media_uri#" download>download MP3</a>
-				<cfelse>
-					<a href="/exit.cfm?target=#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
-						<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
-					</a>
-				</cfif>
-				<br>
-				<span style = "font-size:small;">#media_type# (#mime_type#)</span>
-				<br>
-				<span style = "font-size:small;">#license#</span>
-				<br>
-				<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>
-							
-			</td>
-			<td align="middle">
-				<div id="mapgohere-media_id-#media_id#">
-					<img src="/images/indicator.gif">
-				</div>
-			</td>
+					</cfif>
+					<br>
+					<span style = "font-size:small;">#media_type# (#mime_type#)</span>
+					<br>
+					<span style = "font-size:small;">#license#</span>
+					<br>
+					<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>
+								
+				</td>
+				<td align="middle">
+					<div id="mapgohere-media_id-#media_id#">
+						<img src="/images/indicator.gif">
+					</div>
+				</td>
 			<td>
 				<div style="max-height:10em;overflow:auto;">
 					<cfset relMedia=''>
@@ -675,9 +708,7 @@
 						#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 					</cfloop>
 				</div>
-			<cfif media_type is "multi-page document">
-				<a href="/document.cfm?media_id=#media_id#">[ view as document ]</a>
-			</cfif>
+			
 			<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
 		        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
@@ -687,6 +718,9 @@
 			</cfif>
 			</td>
 		</tr>
+		
+				
+			</cfif>
 		<cfset rownum=rownum+1>
 	</cfloop>
 	</table>
