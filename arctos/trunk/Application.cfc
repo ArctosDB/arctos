@@ -14,7 +14,7 @@
 		<cfset showErr=0>
 		<cfreturn/>
 	</cfif>
-	<cfif isdefined("session.username") and session.userame is "dlm">
+	<cfif isdefined("session.username") and session.username is "dlm">
 		<cfdump var=#exception#>
 	</cfif>
 		
