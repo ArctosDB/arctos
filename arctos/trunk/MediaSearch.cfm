@@ -456,9 +456,22 @@
 			select 
 				media_uri,
 				preview_uri,
-				'' as LABELS
+				MEDIA_TYPE,
+				MIME_TYPE,
+				'' as LABELS,
+				'' as license,
+				'' as RELATIONSHIPS,
+				'' as KEYWORDS,
+				'' as COORDINATES,
+				'' as HASTAGS 
+				'' as LASTDATE
 			from 
-				findIDs where media_type='multi-page document' group by  media_uri,preview_uri
+				findIDs where media_type='multi-page document' 
+			group by 
+				media_uri,
+				preview_uri,
+				MEDIA_TYPE,
+				MIME_TYPE
 		</cfquery>
 
 		
