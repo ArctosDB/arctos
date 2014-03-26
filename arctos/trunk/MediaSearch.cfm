@@ -549,7 +549,6 @@
 						</cfif>
 					</cfif>
 				</div>
-			</cfif>
 			
 		</cfsavecontent>
 		#pager#
