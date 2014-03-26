@@ -453,7 +453,12 @@
 		</cfquery>
 		
 		<cfquery name="isdoc" dbtype="query">
-			select media_uri,preview_uri from findIDs where media_type='multi-page document' group by  media_uri,preview_uri
+			select 
+				media_uri,
+				preview_uri,
+				'' as LABELS
+			from 
+				findIDs where media_type='multi-page document' group by  media_uri,preview_uri
 		</cfquery>
 
 		
