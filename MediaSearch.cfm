@@ -483,6 +483,7 @@
 		
 		<cfquery name="findIDs" dbtype="query">
 			select 
+				media_id,
 				media_uri,
 				preview_uri,
 				MEDIA_TYPE,
@@ -498,6 +499,7 @@
 				isdoc
 			UNION
 			select 
+				media_id,
 				media_uri,
 				preview_uri,
 				MEDIA_TYPE,
