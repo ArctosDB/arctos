@@ -130,7 +130,7 @@
 			title.label_value mtitle,
 			to_number(page.label_value) page,
 			media.media_id,
-			decode(count(tag.media_id),null,'No',count(tag.media_id)) numTags
+			count(tag.media_id) numTags
 		from
 			media,
 			media_labels title,
@@ -198,7 +198,7 @@
 				<td>
 					<select name="p" id="p" onchange="document.location=this.value">
 						<cfloop query="doc">
-							<option <cfif doc.page is p> selected="selected" </cfif>value="/document/#ttl#/#doc.page#">#doc.page# (#doc.numTags# TAGs)</option>
+							<option <cfif doc.page is p> selected="selected" </cfif>value="/document/#ttl#/#doc.page#">#doc.page#<cfif doc.numTags gt 0> (#doc.numTAGs# TAGs)</cfif></option>
 						</cfloop>
 					</select>
 				</td>
