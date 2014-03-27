@@ -660,9 +660,10 @@
 								</cfif>
 							</cfif>
 						</cfloop>
-						<br>Pages: #numPages#
+						
 						<br>#labels#
 					</cfloop>
+					<br>Pages: #numPages#
 					<cfset lbl=replace(labels,"==",chr(7),"all")>
 					<!----
 					<div style="max-height:10em;overflow:auto;">
