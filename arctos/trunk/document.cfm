@@ -43,7 +43,7 @@ it is
 	==<cfdump var=#gPos#>==
 	
 	
-	
+	<cfoutput>
 	<cftry>
 		<cfset ttl = listgetat(request.rdurl,gPos+1,"/")>
 		<cfcatch>
@@ -55,6 +55,8 @@ it is
 	gt pos+1
 		<cftry>
 		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
+		
+		<br>p: #p#
 		<cfif listlen(p,"?") gt 1>
 			<cfset pg=listgetat(p,1,"?")>
 			<cfset tag_id=listgetat(p,2,"?")>
@@ -68,7 +70,7 @@ it is
 	</cftry>
 	</cfif>
 	<cfset action="show">
-	
+	</cfoutput>
 </cfif>
 
 <cfif action is 'srchResult'>
