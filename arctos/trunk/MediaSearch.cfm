@@ -77,8 +77,8 @@
 			<input type="text" name="media_uri" id="media_uri" size="90">
 			<table>
 				<tr>
-					<td><label for="tag">Require TAG?</label></td>
-					<td><input type="checkbox" id="tag" name="tag" value="1"></td>
+					<td><span class="rdoCtl"><label for="tag">Require TAG?</label></td>
+					<td><input type="checkbox" id="tag" name="tag" value="1"></span></td>
 					<td><label for="noDNG">Ignore DNG?</label></td>
 					<td><input type="checkbox" id="noDNG" name="noDNG" value="1" checked="checked"></td>
 					<td>
