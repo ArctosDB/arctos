@@ -334,7 +334,12 @@ function scrollToTag(id) {
 	
 	
 	setTimeout(function() {$(document).scrollTo( $('#' + divID), 800 );},1250);	
-	
+	try{
+		$(document).scrollTo( $('#' + divID), 800 );
+	} catch(e){
+		console.log(e);
+	}
+
 	
 	
 	console.log('scrolled');
