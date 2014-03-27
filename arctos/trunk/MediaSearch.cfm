@@ -125,7 +125,7 @@
 				</tr>
 			</table>
 			<label for="created_by_agent">
-				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_RELATIONSHIP&field=created by agent" target="_blank">Media created by Agent</a>
+				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_RELATIONSHIP&field=created by agent" target="_blank">Media created by Agent (eg, field note author, photographer)</a>
 			</label>
 			<input type="text" name="created_by_agent" id="created_by_agent" size="80">
 			
@@ -364,7 +364,6 @@
 			<cfset srch="#srch# AND upper(ml_descr.label_value) like '%#ucase(description)#%'">
 			<cfset mapurl="#mapurl#&description=#description#">
 		</cfif>
-		
 		<cfif (isdefined("doc_title") and len(doc_title) gt 0)>
 			<cfset tabls = "#tabls#,media_labels ml_titl">
 			<cfset whr ="#whr# AND media_flat.media_id = ml_titl.media_id ">
@@ -372,22 +371,20 @@
 			<cfset srch="#srch# AND upper(ml_titl.label_value) like '%#ucase(doc_title)#%'">
 			<cfset mapurl="#mapurl#&doc_title=#doc_title#">
 		</cfif>
-		
-		
 		<cfif (isdefined("min_published_year") and len(min_published_year) gt 0)>
 			<cfset tabls = "#tabls#,media_labels ml_mipubyr">
 			<cfset whr ="#whr# AND media_flat.media_id = ml_mipubyr.media_id ">
-			
 			<cfset srch="#srch# AND ml_mipubyr.media_label = 'published year'">
 			<cfset srch="#srch# AND is_number(ml_mipubyr.label_value)=1 and ml_mipubyr.label_value >= '#min_published_year#'">
 			<cfset mapurl="#mapurl#&min_published_year=#min_published_year#">
 		</cfif>
-		
-		
-		
-		max_published_year
-		
-		
+		<cfif (isdefined("max_published_year") and len(max_published_year) gt 0)>
+			<cfset tabls = "#tabls#,media_labels ml_mapubyr">
+			<cfset whr ="#whr# AND media_flat.media_id = ml_mapubyr.media_id ">
+			<cfset srch="#srch# AND ml_mapubyr.media_label = 'published year'">
+			<cfset srch="#srch# AND is_number(ml_mapubyr.label_value)=1 and ml_mapubyr.label_value <= '#max_published_year#'">
+			<cfset mapurl="#mapurl#&max_published_year=#max_published_year#">
+		</cfif>
 		<cfif isdefined("requireSpecimens") and len(requireSpecimens) gt 0>
 			<cfset mapurl="#mapurl#&requireSpecimens=#requireSpecimens#">
 			<cfset tabls = "#tabls#,media_relations mr_shows_cataloged_item">
@@ -397,7 +394,6 @@
 				<cfset whr ="#whr# AND media_flat.media_id = mr_shows_cataloged_item.media_id (+) and mr_shows_cataloged_item.media_id is null ">
 			</cfif>
 		</cfif>
-		
 		<cfif isdefined("keyword") and len(keyword) gt 0>
 			<cfif not isdefined("kwType")>
 				<cfset kwType="all">
