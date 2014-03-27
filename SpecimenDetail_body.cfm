@@ -1291,10 +1291,12 @@
      from
          media,
          media_relations,
-         media_labels
+         media_labels,
+		tag
      where
          media.media_id=media_relations.media_id and
          media.media_id=media_labels.media_id (+) and
+         media.media_id=tag.media_id (+) and
          media_relations.media_relationship like '%cataloged_item' and
          media_relations.related_primary_key = #collection_object_id#
 	group by
