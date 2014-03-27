@@ -37,9 +37,15 @@
 			<cfset p=1>
 		</cfcatch>
 	</cftry>
-	<cfif action is not "pdf">
-		<cfset action="show">
-	</cfif>
+	
+	
+	
+	
+	<cfset action="show">
+	
+	
+	
+	
 </cfif>
 <cfif action is 'srchResult'>
 <cfoutput >
@@ -145,45 +151,6 @@
 		<input type="text" id="e_year" name="e_year">
 		<input type="submit" class="lnkBtn" value="Go">
 	</form>
-</cfoutput>
-</cfif>
-<cfif action is 'pdf'>
-<cfoutput>
-	<cfquery name="doc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-			media_uri,
-			title.label_value mtitle,
-			to_number(page.label_value) page
-		from
-			media,
-			media_labels title,
-			media_labels page
-		where
-			media.media_id=title.media_id and
-			media.media_id=page.media_id and
-			title.media_label='title' and
-			page.media_label='page' and
-			media_type='multi-page document' and
-			niceURLNumbers(title.label_value)='#ttl#'
-		order by
-			to_number(page.label_value)
-	</cfquery>
-	<cfloop query="doc">
-		<cfdocument format="PDF" name="p#page#">
-			<img src="#media_uri#" alt="Page #page#">
-		</cfdocument>
- 	</cfloop>
-	<cfpdf action="merge" name="mergedpdf">
-		<cfloop query="doc">
-			<cfset thisName="p#page#">
-			 <cfpdfparam source="#thisName#">
-		</cfloop>
-	</cfpdf>
-	<cfset fname = ttl>
-	<cfset filePath="#application.webDirectory#/temp/#fname#.pdf">
-	<cffile action="write" file="#filePath#" output="#toBinary(mergedpdf)#">
-	<cfheader name="Content-Disposition" value="attachment; filename=#getFileFromPath(filePath)#">
-	<cfcontent file="#filePath#" type="application/pdf">
 </cfoutput>
 </cfif>
 <!------------------------------->
@@ -310,7 +277,6 @@
 		</tr>
 		<tr>
 			<td>
-				<a href="/document.cfm?ttl=#ttl#&action=pdf">[ PDF ]</a>
 				<a href="/media/#cpg.media_id#">[ Media Details ]</a>
 				<cfif relMedia.recordcount is 1>
 					<a target="_blank" href="/exit.cfm?target=#relMedia.media_uri#">[ download master ]</a>
