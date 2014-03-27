@@ -322,11 +322,19 @@ function scrollToTag(id) {
 		
 	var divID='refDiv_' + id;
 	var paneID='refPane_' + id;
+	
+	console.log('divID=' + divID);
+	
 	$("div .highlight").removeClass("highlight").addClass("refDiv");
 	$("div .refPane_highlight").removeClass("refPane_highlight");
 	$("#" + divID).removeClass("refDiv").addClass("highlight");
 	$("#" + paneID).addClass('refPane_highlight');
+	
+	console.log('calling scrollto with ' + divID);
+	
 	$(document).scrollTo( $('#' + divID), 800 );
+	
+	console.log('scrolled');
 }
 function modArea(id) {
 	var divID='refDiv_' + id;
