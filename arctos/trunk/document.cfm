@@ -223,46 +223,11 @@
 	<cfset maxPage=pg.npgs>
 	<cfset title=doc.mtitle>
 	<strong>#doc.mtitle#</strong>
-	<cfsavecontent variable="controls">
-	<table>
-		<tr>
-			<td>
-				<table>
-					<tr>
-						<td>Page</td>
-						<td>
-							<cfif p gt 1>
-								<cfset pp=p-1>
-								<a class="infoLink" href="/document/#ttl#/#pp#">Previous</a>
-							</Cfif>
-						</td>
-						<td>
-							<select name="p" id="p" onchange="document.location=this.value">
-								<cfloop from="1" to="#maxPage#" index="pg">
-									<option <cfif pg is p> selected="selected" </cfif>value="/document/#ttl#/#pg#">#pg#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfif p lt maxPage>
-								<cfset np=p+1>
-								<a class="infoLink" href="/document/#ttl#/#np#">Next</a>
-							</Cfif>
-						</td>
-						<td> of #maxPage#</td>
-					</tr>
-				</table>
-			</td>
-			<td>stuff goes here</td>
-		</tr>
-	</table>
-	</cfsavecontent>
-	#controls#
+	
 	<cfquery name="cpg" dbtype="query">
 		select media_uri,media_id from doc where page=#p#
 	</cfquery>
-	<a href="/document.cfm?ttl=#ttl#&action=pdf">[ PDF ]</a>
-	<a href="/media/#cpg.media_id#">[ Media Details ]</a>
+	
 	<cfquery name="relMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			media_uri,
@@ -273,9 +238,63 @@
 			mime_type in ('image/tiff','image/dng') and
 			media_relationship = 'derived from media' and media_relations.media_id=#cpg.media_id#
 	</cfquery>
-	<cfif relMedia.recordcount is 1>
-		<a target="_blank" href="/exit.cfm?target=#relMedia.media_uri#">[ download master ]</a>
-	</cfif>
+	<cfquery name="mDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from media_flat where media_id=#cpg.media_id#
+	</cfquery>
+	
+	<cfsavecontent variable="controls">
+		<table>
+			<tr>
+				<td>Page</td>
+				<td>
+					<cfif p gt 1>
+						<cfset pp=p-1>
+						<a class="infoLink" href="/document/#ttl#/#pp#">Previous</a>
+					</Cfif>
+				</td>
+				<td>
+					<select name="p" id="p" onchange="document.location=this.value">
+						<cfloop from="1" to="#maxPage#" index="pg">
+							<option <cfif pg is p> selected="selected" </cfif>value="/document/#ttl#/#pg#">#pg#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<cfif p lt maxPage>
+						<cfset np=p+1>
+						<a class="infoLink" href="/document/#ttl#/#np#">Next</a>
+					</Cfif>
+				</td>
+				<td> of #maxPage#</td>
+			</tr>
+		</table>
+	</cfsavecontent>
+	
+	
+	
+	<table>
+		<tr>
+			<td>
+				#controls#
+			</td>
+			<td><cfdump var=#mDet#></td>
+		</tr>
+		<tr>
+			<td>
+				<a href="/document.cfm?ttl=#ttl#&action=pdf">[ PDF ]</a>
+				<a href="/media/#cpg.media_id#">[ Media Details ]</a>
+				<cfif relMedia.recordcount is 1>
+					<a target="_blank" href="/exit.cfm?target=#relMedia.media_uri#">[ download master ]</a>
+				</cfif>
+			</td>
+		</tr>
+	</table>
+	
+	
+	
+	
+	
+	
 	 <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) n from tag where media_id=#cpg.media_id#
 	</cfquery>
