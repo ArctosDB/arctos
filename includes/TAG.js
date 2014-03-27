@@ -303,7 +303,7 @@ function loadInitial(tid) {
 	);
 	console.log('checking for tag....' + tid);
 	if(tid){
-		console.log('scrolling to tag....');
+		console.log('scrolling to tag....' + tid);
 		scrollToTag(tid);
 	}
 }
