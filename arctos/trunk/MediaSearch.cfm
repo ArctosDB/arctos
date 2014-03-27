@@ -438,28 +438,7 @@
 		<cfdump var=#ssql#>
 		
 		
-		<hr>
-		
-		
-			
-		
-		<!--- #ssql#--->
-		<p>
-			sql: #sql#
-		</p>
-		<p>
-			whr: #whr#
-		</p>
-			<p>
-		</p>
-		<p>
-			srch: #srch#
-		</p>
-		<cfset ssql="#sql# #whr# and media_type != 'multi-page document' #srch# order by media_flat.media_id">
-		
-		
-		#preservesinglequotes(ssql)#
-		
+
 		
 		 cachedwithin="#createtimespan(0,0,60,0)#"
 		
@@ -471,13 +450,6 @@
 		<cfdump var=#raw#>
 		
 		
-				<cfset ssql2="#sql# #whr# and media_type = 'multi-page document' #srch# order by media_flat.media_id">
-
-	<cfquery name="raw2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			#preservesinglequotes(ssql2)#
-		</cfquery>
-	
-		<cfdump var=#raw2#>
 
 		<cfquery name="nodoc" dbtype="query">
 			select * from raw where media_type!='multi-page document'
