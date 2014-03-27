@@ -435,19 +435,17 @@
 		<cfset ssql="#sql# FROM #tabls# #whr# #srch# order by media_flat.media_id">
 		
 		
-		<cfdump var=#ssql#>
 		
 		
 
 		
-		 cachedwithin="#createtimespan(0,0,60,0)#"
+		 
 		
-		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
 	
 	
-		<cfdump var=#raw#>
 		
 		
 
