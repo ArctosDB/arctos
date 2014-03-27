@@ -146,9 +146,9 @@
 			niceURLNumbers(title.label_value)='#ttl#'
 		group by
 			media_uri,
-			title.label_value mtitle,
-			to_number(page.label_value) page,
-			media.media_id,
+			title.label_value,
+			to_number(page.label_value),
+			media.media_id
 		order by
 			to_number(page.label_value)
 	</cfquery>
