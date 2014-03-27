@@ -130,7 +130,7 @@
 			title.label_value mtitle,
 			to_number(page.label_value) page,
 			media.media_id,
-			decode(count(tag.media_id),null,'No',count(tag.media_id) numTags
+			decode(count(tag.media_id),null,'No',count(tag.media_id)) numTags
 		from
 			media,
 			media_labels title,
