@@ -726,6 +726,7 @@
 				<td>
 					<div style="max-height:10em;overflow:auto;">
 						<cfset relMedia=''>
+						#rel#
 						<cfloop list="#rel#" index="i" delimiters="|">
 							<cfset r=listgetat(i,1,chr(7))>
 							<cfset t=listgetat(i,2,chr(7))>
