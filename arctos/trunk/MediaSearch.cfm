@@ -678,7 +678,7 @@
 				<cfset alt=''>
 				<cfset lbl=replace(labels,"==",chr(7),"all")>
 				<cfset rel=replace(relationships,"==",chr(7),"all")>
-				#relationships#
+				------------#relationships#---------------
 				<cfloop list="#lbl#" index="i" delimiters="|">
 					<cfif listgetat(i,1,chr(7)) is "description">
 						<cfset alt=listgetat(i,2,chr(7))>
