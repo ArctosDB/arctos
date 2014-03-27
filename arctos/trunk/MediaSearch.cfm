@@ -125,7 +125,7 @@
 				</tr>
 			</table>
 			<label for="created_by_agent">
-				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_RELATIONSHIP&field=created by agent" target="_blank">Media created by Agent (eg, field note author, photographer)</a>
+				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_RELATIONSHIP&field=created by agent" target="_blank">Media created by Agent (<em>e.g.</em>, field note author, photographer)</a>
 			</label>
 			<input type="text" name="created_by_agent" id="created_by_agent" size="80">
 			
