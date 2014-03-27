@@ -247,7 +247,8 @@
 			media_flat.COORDINATES,
 			media_flat.HASTAGS,
 			media_flat.LASTDATE,
-			mttitle.label_value title
+			mttitle.label_value title,
+			niceURLNumbers(mttitle.label_value) urltitle
 			FROM media_flat,(select media_id,label_value from media_labels where media_label='title') mttitle ">
 		<cfset whr ="WHERE media_flat.media_id=mttitle.media_id (+) ">
 		<cfset srch=" ">
@@ -469,7 +470,8 @@
 				'' as COORDINATES,
 				0 as HASTAGS,
 				'2014-03-01' as LASTDATE,
-				title
+				title,
+				urltitle
 			from 
 				raw where media_type='multi-page document' 
 			group by 
@@ -477,7 +479,8 @@
 				preview_uri,
 				MEDIA_TYPE,
 				MIME_TYPE,
-				title
+				title,
+				urltitle
 		</cfquery>
 		<cfset obj = CreateObject("component","component.functions")>
 
@@ -497,7 +500,8 @@
 				COORDINATES,
 				HASTAGS,
 				LASTDATE,
-				title
+				title,
+				urltitle
 			from
 				isdoc
 			UNION
@@ -514,7 +518,8 @@
 				COORDINATES,
 				HASTAGS,
 				LASTDATE,
-				title
+				title,
+				urltitle
 			from
 				nodoc
 		</cfquery>
@@ -634,7 +639,7 @@
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<cfif media_type is "multi-page document">
 				<td align="middle">
-					<a href="/document/#title#" target="_blank" title="#title#">
+					<a href="/document/#urltitle#" target="_blank" title="#title#">
 						<img src="/images/document_thumbnail.png" alt="#title#" style="max-width:150px;max-height:150px;">
 					</a>
 					<br>
