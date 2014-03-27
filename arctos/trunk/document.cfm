@@ -272,12 +272,13 @@
 	
 	
 	
-	<table width="65%">
+	<table width="50%">
 		<tr>
 			<td>
 				#controls#
 			</td>
 			<td align="right">
+				<div style="text-align:left">
 				<cfset attrList="">
 				<cfloop list="#mDet.labels#" index="i" delimiters="|">
 					<cfset x=replace(i,"==",chr(7),"all")>
@@ -304,6 +305,7 @@
 				<cfloop list="#rattrList#" index="i" delimiters="|">
 					<br>#i#
 				</cfloop>
+				</div>
 			</td>
 		</tr>
 		<tr>
