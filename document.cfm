@@ -118,40 +118,8 @@
 </cfoutput>
 </cfif>
 <cfif action is 'nothing'>
-	<cfset title='Document Viewer'>
-<cfoutput>
-	<cfquery name="titles" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-			label_value
-		from
-			media_labels,
-			media
-		where
-			media.media_id=media_labels.media_id and
-			media_type='multi-page document' and
-			media_label='title'
-		group by
-			label_value
-		order by label_value
-	</cfquery>
-	<form name="g" method="post" action="document.cfm">
-		<input type="hidden" name="action" value="srchResult">
-		<label for="mtitle">Title</label>
-		<select name="mtitle" id="mtitle" size="1">
-			<option value=""></option>
-			<cfloop query="titles">
-				<option value="#label_value#">#label_value#</option>
-			</cfloop>
-		</select>
-		<label for="author">Author</label>
-		<input type="text" id="author" name="author">
-		<label for="b_year">Year (minimum)</label>
-		<input type="text" id="b_year" name="b_year">
-		<label for="e_year">Year (maximum)</label>
-		<input type="text" id="e_year" name="e_year">
-		<input type="submit" class="lnkBtn" value="Go">
-	</form>
-</cfoutput>
+	<cfheader statuscode="301" statustext="Moved permanently">
+	<cfheader name="Location" value="/MediaSearch.cfm">
 </cfif>
 <!------------------------------->
 <cfif action is 'show'>
