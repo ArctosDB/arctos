@@ -638,7 +638,10 @@
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<cfif media_type is "multi-page document">
 				<cfquery name="relations" dbtype="query">
-					select relationships from raw where urltitle='#urltitle#'
+					select relationships from raw where urltitle='#urltitle#' group by relationships
+				</cfquery>
+				<cfquery name="labels" dbtype="query">
+					select labels from raw where urltitle='#urltitle#' group by labels
 				</cfquery>
 			
 				<td align="middle">
@@ -651,13 +654,12 @@
 					<span style = "font-size:small;">#license#</span>
 				</td>
 				<td align="middle">
-					<div id="mapgohere-media_id-#media_id#">
-						<img src="/images/indicator.gif">
-					</div>
+					&nbsp;
 				</td>
 				<td>
 				
 					<cfdump var=#relations#>
+					<cfdump var=#labels#>
 					<div style="max-height:10em;overflow:auto;">
 						<cfset relMedia=''>
 						<cfloop list="#rel#" index="i" delimiters="|">
