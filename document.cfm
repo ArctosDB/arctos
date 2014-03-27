@@ -57,6 +57,8 @@ it is
 		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
 		
 		<br>p: #p#
+		
+		listlen(p,"?"): #listlen(p,"?")#
 		<cfif listlen(p,"?") gt 1>
 			page and tag ID
 			<cfset pg=listgetat(p,1,"?")>
