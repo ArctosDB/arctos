@@ -1286,7 +1286,8 @@
         media.media_uri,
         media.mime_type,
         media.media_type,
-        media.preview_uri
+        media.preview_uri,
+		count(tag.media_id) numTags
      from
          media,
          media_relations,
@@ -1296,6 +1297,12 @@
          media.media_id=media_labels.media_id (+) and
          media_relations.media_relationship like '%cataloged_item' and
          media_relations.related_primary_key = #collection_object_id#
+	group by
+		media.media_id,
+        media.media_uri,
+        media.mime_type,
+        media.media_type,
+        media.preview_uri
 </cfquery>
 <cfif media.recordcount gt 0>
     <div class="detailCell">
@@ -1373,7 +1380,7 @@
 							</cfif>
 		                   	<p>
 								#media_type# (#mime_type#)
-			                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
+			                   	<br><a href="/media/#media_id#" target="_blank">Media Details<cfif numTags gt 0> (incl. #numTags# TAGs)</cfif></a>
 								<br>#alt#
 								
 							</p>
