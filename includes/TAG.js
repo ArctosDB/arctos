@@ -88,7 +88,7 @@ function loadTAG(mid,muri){
 	d+='<input type="text" id="RefStr_new" name="RefStr_new" size="50">';
 	d+='<input type="hidden" id="RefId_new" name="RefId_new">';
 	d+='<label for="Remark_new">Remark</label>';
-	d+='<input type="text" id="Remark_new" name="Remark_new" size="50">';
+	d+='<input type="text" id="Remark_new" name="Remark_new" size="50" Title="Enter a remark or transcription" class="resize">';
 	d+='<input type="hidden" id="t_new">';
 	d+='<input type="hidden" id="l_new">';
 	d+='<input type="hidden" id="h_new">';

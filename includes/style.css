@@ -4,6 +4,10 @@
 	padding:1em;
 	border:10px solid red;
 }
+.resize {
+	resize:both;
+	overflow:auto;
+}
 /* checkbox/div select multiple replacement */
 
 .cboxdiv {
