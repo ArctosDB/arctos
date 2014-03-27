@@ -60,8 +60,8 @@ it is
 		
 		<br>
 		
-		listlen(p,"?"): #listlen(p,"?")#
-		
+		listlen(p,"?"): #listlen(p,"?&")#
+		<!----
 		<cfset p=replace(p,"?","|")>
 		<br>p: ====#p#====
 		
@@ -69,8 +69,10 @@ it is
 		
 		listlen(p,"|"): #listlen(p,"|")#
 		
+		---->
 		
-		<cfif listlen(p,"?") gt 1>
+		
+		<cfif listlen(p,"?&") gt 1>
 			page and tag ID
 			<cfset pg=listgetat(p,1,"?")>
 			<cfset tag_id=listgetat(p,2,"?")>
