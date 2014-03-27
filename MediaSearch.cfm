@@ -134,10 +134,10 @@
 			</label>
 			<input type="text" name="description" id="description" size="80">
 
-			<label for="title">
+			<label for="doc_title">
 				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=title" target="_blank">Document Title</a>
 			</label>
-			<input type="text" name="title" id="title" size="80">
+			<input type="text" name="doc_title" id="doc_title" size="80">
 
 			
 			<label for="min_published_year">
@@ -365,12 +365,12 @@
 			<cfset mapurl="#mapurl#&description=#description#">
 		</cfif>
 		
-		<cfif (isdefined("title") and len(title) gt 0)>
+		<cfif (isdefined("doc_title") and len(doc_title) gt 0)>
 			<cfset tabls = "#tabls#,media_labels ml_titl">
 			<cfset whr ="#whr# AND media_flat.media_id = ml_titl.media_id ">
 			<cfset srch="#srch# AND ml_titl.media_label = 'title'">
-			<cfset srch="#srch# AND upper(ml_titl.label_value) like '%#ucase(title)#%'">
-			<cfset mapurl="#mapurl#&title=#title#">
+			<cfset srch="#srch# AND upper(ml_titl.label_value) like '%#ucase(doc_title)#%'">
+			<cfset mapurl="#mapurl#&doc_title=#doc_title#">
 		</cfif>
 		
 		
