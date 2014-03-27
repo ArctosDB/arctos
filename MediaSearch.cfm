@@ -133,7 +133,14 @@
 			<label for="description">
 				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=description" target="_blank">Media Description</a>
 			</label>
-			<input type="text" name="description" id="description" size="80">
+			<label for="title">
+				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=title" target="_blank">Document Title</a>
+			</label>
+			<label for="min_published_year">
+				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=published year" target="_blank">Published Year (min-max)</a>
+			</label>
+			<input type="text" name="min_published_year" id="min_published_year" size="8">-<input type="text" name="max_published_year" id="max_published_year" size="8">
+			
 			<table>
 				<tr>
 					<td>
@@ -353,6 +360,28 @@
 			<cfset srch="#srch# AND upper(ml_descr.label_value) like '%#ucase(description)#%'">
 			<cfset mapurl="#mapurl#&description=#description#">
 		</cfif>
+		
+		<cfif (isdefined("title") and len(title) gt 0)>
+			<cfset tabls = "#tabls#,media_labels ml_titl">
+			<cfset whr ="#whr# AND media_flat.media_id = ml_titl.media_id ">
+			<cfset srch="#srch# AND ml_titl.media_label = 'title'">
+			<cfset srch="#srch# AND upper(ml_titl.label_value) like '%#ucase(title)#%'">
+			<cfset mapurl="#mapurl#&title=#title#">
+		</cfif>
+		
+		
+		<cfif (isdefined("min_published_year") and len(min_published_year) gt 0)>
+			<cfset tabls = "#tabls#,media_labels ml_mipubyr">
+			<cfset whr ="#whr# AND media_flat.media_id = ml_mipubyr.media_id ">
+			
+			<cfset srch="#srch# AND ml_mipubyr.media_label = 'published year'">
+			<cfset srch="#srch# AND is_number(ml_titl.label_valu)=1 and ml_titl.label_value >= '#min_published_year#'">
+			<cfset mapurl="#mapurl#&min_published_year=#min_published_year#">
+		</cfif>
+		
+		
+		
+		max_published_year
 		
 		
 		<cfif isdefined("requireSpecimens") and len(requireSpecimens) gt 0>
