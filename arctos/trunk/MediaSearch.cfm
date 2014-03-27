@@ -729,13 +729,9 @@
 							<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
 						</a>
 					</cfif>
-					<br>
-					<span style = "font-size:small;">#media_type# (#mime_type#)</span>
-					<br>
-					<span style = "font-size:small;">#license#</span>
-					<br>
-					<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>		
-					<br>#hastags#	
+					<br><span style = "font-size:small;">#media_type# (#mime_type#)</span>
+					<br><span style = "font-size:small;">#license#</span>
+					<br><span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>
 				</td>
 				<td align="middle">
 					<div id="mapgohere-media_id-#media_id#">
