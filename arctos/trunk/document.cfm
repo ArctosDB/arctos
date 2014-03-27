@@ -277,7 +277,7 @@
 			<td>
 				#controls#
 			</td>
-			<td align="right">
+			<td align="right" class="valigntop">
 				<div style="text-align:left">
 				<cfset attrList="">
 				<cfloop list="#mDet.labels#" index="i" delimiters="|">
