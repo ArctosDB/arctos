@@ -1382,9 +1382,9 @@
 							</cfif>
 		                   	<p>
 								#media_type# (#mime_type#)
-			                   	<br><a href="/media/#media_id#" target="_blank">Media Details<cfif numTags gt 0> (incl. #numTags# TAGs)</cfif></a>
+			                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
+			                   	<cfif numTags gt 0><a href="/showTAG.cfm?media_id#media_id#" target="_blank">[ #numTags# TAGs ]</a></cfif>
 								<br>#alt#
-								
 							</p>
 						</div>
 					</cfloop>
