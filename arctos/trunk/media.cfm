@@ -179,7 +179,7 @@
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctmedia_license');">Define</span>
 			<label for="relationships">Media Relationships | <span class="likeLink" onclick="manyCatItemToMedia('#media_id#')">Add multiple "shows cataloged_item" records</span>
-			<span class="infoLink" onclick="getCtDoc('ctmedia_relations');">Define</span>
+			<span class="likeLink" onclick="getCtDoc('ctmedia_relationship');">Define</span>
 			</label>
 			<br>To edit, change relationship to "delete" then change to new type. Make sure to save when you're done.
 			<div id="relationships" style="border:1px dashed red;">
@@ -216,7 +216,7 @@
 			</div>
 			
 			<br>
-			<label for="labels">Media Labels <span class="infoLink" onclick="getCtDoc('ctmedia_label');">Define</span></label>
+			<label for="labels">Media Labels <span class="likeLink" onclick="getCtDoc('ctmedia_label');">Define</span></label>
 			<div id="labels" style="border:1px dashed red;">
 			
 			<cfset i=1>
@@ -305,23 +305,23 @@
 				<cfloop query="ctmime_type">
 					<option value="#mime_type#">#mime_type#</option>
 				</cfloop>
-			</select>
+			</select><span class="infoLink" onclick="getCtDoc('ctmime_type');">Define</span>
+
             <label for="media_type">Media Type</label>
 			<select name="media_type" id="media_type" class="reqdClr">
 				<option value=""></option>
 				<cfloop query="ctmedia_type">
 					<option value="#media_type#">#media_type#</option>
 				</cfloop>
-			</select>
+			</select><span class="infoLink" onclick="getCtDoc('ctmedia_type');">Define</span>
 			<label for="media_license_id">License</label>
 			<select name="media_license_id" id="media_license_id">
 				<option value="">NONE</option>
 				<cfloop query="ctmedia_license">
 					<option value="#media_license_id#">#media_license#</option>
 				</cfloop>
-			</select>
-			<span class="infoLink" onclick="getCtDoc('ctmedia_license');">Define</span>
-			<label for="relationships">Media Relationships</label>
+			</select><span class="infoLink" onclick="getCtDoc('ctmedia_license');">Define</span>
+			<label for="relationships">Media Relationships <span class="likeLink" onclick="getCtDoc('ctmedia_relationship');">Define</span></label>
 			<div id="relationships" style="border:1px dashed red;">
 				<select name="relationship__1" id="relationship__1" size="1" onchange="pickedRelationship(this.id)">
 					<option value="">None/Unpick</option>
@@ -333,7 +333,7 @@
 				<br><span class="infoLink" id="addRelationship" onclick="addRelation(2)">Add Relationship</span>
 			</div>
 			<br>
-			<label for="labels">Media Labels</label>
+			<label for="labels">Media Labels  <span class="likeLink" onclick="getCtDoc('ctmedia_label');">Define</span></label>
 			<div id="labels" style="border:1px dashed red;">
 				<div id="labelsDiv__1">
 				<select name="label__1" id="label__1" size="1">
