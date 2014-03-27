@@ -622,21 +622,7 @@
 	<cfset stuffToNotPlay="audio/x-wav">
 	<cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 		
-		<cfset alt=''>
-		<cfset lbl=replace(labels,"==",chr(7),"all")>
-		<cfset rel=replace(relationships,"==",chr(7),"all")>
-		<cfloop list="#lbl#" index="i" delimiters="|">
-			<cfif listgetat(i,1,chr(7)) is "description">
-				<cfset alt=listgetat(i,2,chr(7))>
-			</cfif>
-		</cfloop>
-		<cfset addThisClass=''>
-		<cfif listfind(stuffToNotPlay,mime_type)>
-			<cfset addThisClass="noplay">
-		</cfif>
-		<cfif len(alt) is 0>
-			<cfset alt=media_uri>
-		</cfif>
+		
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<cfif media_type is "multi-page document">
 				<cfquery name="relations" dbtype="query">
@@ -688,6 +674,23 @@
 				---->
 				</td>
 			<cfelse><!--- not MPD --->
+				<cfset alt=''>
+				<cfset lbl=replace(labels,"==",chr(7),"all")>
+				<cfset rel=replace(relationships,"==",chr(7),"all")>
+				<cfloop list="#lbl#" index="i" delimiters="|">
+					<cfif listgetat(i,1,chr(7)) is "description">
+						<cfset alt=listgetat(i,2,chr(7))>
+					</cfif>
+				</cfloop>
+				<cfset addThisClass=''>
+				<cfif listfind(stuffToNotPlay,mime_type)>
+					<cfset addThisClass="noplay">
+				</cfif>
+				<cfif len(alt) is 0>
+					<cfset alt=media_uri>
+				</cfif>
+		
+		
 				<cfif len(preview_uri) is 0>
 					<cfset mp = obj.getMap(preview_uri="#preview_uri#",media_type="#media_type#")>
 				<cfelse>
