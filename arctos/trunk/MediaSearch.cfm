@@ -647,6 +647,7 @@
 					<cfdump var=#relations#>
 					<cfdump var=#lbl#>
 					<cfset numPages=0>
+					<cfset attrList="">
 					<cfloop query="#lbl#">
 						<cfloop list="#labels#" index="i" delimiters="|">
 							<cfset x=replace(i,"==",chr(7),"all")>
@@ -656,12 +657,16 @@
 								<cfif v gt numPages>
 									<cfset numPages=v>
 								</cfif>
+							<cfelseif r is not "title">
+								<cfif not listfind(attrList,"#r#=#v#","|")>
+									<cfset attrList=listappend(attrList,"#r#=#v#","|")>
+								</cfif>
 							</cfif>
 						</cfloop>
-						
-						<br>#labels#
 					</cfloop>
+					
 					<br>Pages: #numPages#
+					<br>attrList: #attrList#
 					<cfset lbl=replace(labels,"==",chr(7),"all")>
 					<!----
 					<div style="max-height:10em;overflow:auto;">
