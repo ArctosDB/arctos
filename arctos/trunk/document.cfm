@@ -56,14 +56,14 @@ it is
 		<cftry>
 		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
 		
-		<br>p: #p#
+		<br>p: ====#p#====
 		
 		<br>
 		
 		listlen(p,"?"): #listlen(p,"?")#
 		
 		<cfset p=replace(p,"?","|")>
-		<br>p: #p#
+		<br>p: ====#p#====
 		
 		<br>
 		
