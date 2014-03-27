@@ -62,6 +62,13 @@ it is
 		
 		listlen(p,"?"): #listlen(p,"?")#
 		
+		<cfset p=replace(p,"?","|")>
+		<br>p: #p#
+		
+		<br>
+		
+		listlen(p,"|"): #listlen(p,"|")#
+		
 		
 		<cfif listlen(p,"?") gt 1>
 			page and tag ID
