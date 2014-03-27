@@ -249,9 +249,6 @@
 			media_flat.LASTDATE">
 		<cfset tabls="media_flat">
 			
-			mttitle.label_value title,
-			niceURLNumbers(mttitle.label_value) urltitle
-			FROM media_flat,(select media_id,label_value from media_labels where media_label='title') mttitle ">
 		<cfset whr ="WHERE media_flat.media_id=mttitle.media_id (+) ">
 		<cfset whr ="WHERE 1=1 ">
 
@@ -435,6 +432,15 @@
 		
 		
 		<cfdump var=#ssql#>
+		
+		
+		<hr>
+		
+		
+			mttitle.label_value title,
+			niceURLNumbers(mttitle.label_value) urltitle
+			FROM media_flat,(select media_id,label_value from media_labels where media_label='title') mttitle ">
+		
 		<!--- #ssql#--->
 		<p>
 			sql: #sql#
