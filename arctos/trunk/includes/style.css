@@ -292,7 +292,7 @@ div.one_thumb p {
 /* --------  TAG style - DO NOT EDIT THIS STUFF UNLESS YOU REALLY KNOW WHAT YOU'RE DOING! -------------   */
 
 .editing {
-	border:1px solid green;
+	border:2px solid green;
 	z-index:300;
 }
 .refDiv{
