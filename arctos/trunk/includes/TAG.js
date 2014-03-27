@@ -321,7 +321,7 @@ function scrollToTag(id) {
 		console.log('i am scrollToTag - going to ' + id);
 		
 		setTimeout(function() {console.log('hanging out.....')},1250);	
-		console.log('back')''
+		console.log('back');
 		
 	var divID='refDiv_' + id;
 	var paneID='refPane_' + id;
