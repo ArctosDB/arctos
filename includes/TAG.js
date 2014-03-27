@@ -318,6 +318,8 @@ function scrollToLabel(id) {
 }
 	
 function scrollToTag(id) {
+		console.log('i am scrollToTag - going to ' + id);
+		
 	var divID='refDiv_' + id;
 	var paneID='refPane_' + id;
 	$("div .highlight").removeClass("highlight").addClass("refDiv");
