@@ -631,14 +631,17 @@
 			<cfif media_type is "multi-page document">
 				<td align="middle">
 					<a href="/document/#title#" target="_blank" title="#title#">
-					<!---
-							<img src="/images/document_thumbnail.png" alt="#title#" style="max-width:150px;max-height:150px;">
-						</a>
-					</cfif>
+						<img src="/images/document_thumbnail.png" alt="#title#" style="max-width:150px;max-height:150px;">
+					</a>
 					<br>
 					<span style = "font-size:small;">Multi-Page Document</span>
 					<br>
 					<span style = "font-size:small;">#license#</span>
+					
+					<!---
+							
+						
+					</cfif>
 					
 								
 								
