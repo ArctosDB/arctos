@@ -43,16 +43,15 @@
 			<cfset tag_id="">
 		</cfcatch>
 	</cftry>
-	
-	
-	
-	
 	<cfset action="show">
 	
-	
+	<cfoutput>
+		pg: #pg# tag_id: #tag_id#
+	</cfoutput>
 	
 	
 </cfif>
+
 <cfif action is 'srchResult'>
 <cfoutput >
 	<cfset basSQL="select
@@ -103,8 +102,6 @@
 		</cfif>
 		<cfset basQ=basQ & " and l_year.label_value <= #e_year#">
 	</cfif>
-
-
 
 	<cfset ssql=basSQL & basFrm & basWhr & basQ & " group by l_title.label_value">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
