@@ -320,7 +320,6 @@ function scrollToLabel(id) {
 function scrollToTag(id) {
 		console.log('i am scrollToTag - going to ' + id);
 		
-		setTimeout(function() {console.log('hanging out.....')},1250);	
 		console.log('back');
 		
 	var divID='refDiv_' + id;
@@ -328,6 +327,10 @@ function scrollToTag(id) {
 	
 	console.log('divID=' + divID);
 	console.log('paneID=' + paneID);
+	
+	console.log($("#" + divID).html());
+	console.log($("#" + paneID).html());
+	
 	
 	$("div .highlight").removeClass("highlight").addClass("refDiv");
 	$("div .refPane_highlight").removeClass("refPane_highlight");
