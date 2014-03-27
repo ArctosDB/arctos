@@ -643,7 +643,7 @@
 								
 								
 								
-					<!---
+				
 					<a href="/document.cfm?media_id=#media_id#">[ view as document ]</a>
 					
 					<br>
