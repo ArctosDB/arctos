@@ -320,6 +320,9 @@ function scrollToLabel(id) {
 function scrollToTag(id) {
 		console.log('i am scrollToTag - going to ' + id);
 		
+		setTimeout(function() {console.log('hanging out.....')},1250);	
+		console.log('back')''
+		
 	var divID='refDiv_' + id;
 	var paneID='refPane_' + id;
 	
@@ -333,13 +336,7 @@ function scrollToTag(id) {
 	
 	console.log('calling scrollto with ' + divID);
 	
-	
-	setTimeout(function() {$(document).scrollTo( $('#' + divID), 800 );},1250);	
-	try{
-		$(document).scrollTo( $('#' + divID), 800 );
-	} catch(e){
-		console.log(e);
-	}
+	$(document).scrollTo( $('#' + divID), 800 );s
 
 	
 	
