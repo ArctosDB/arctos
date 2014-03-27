@@ -642,7 +642,7 @@
 				<cfquery name="relations" dbtype="query">
 					select relationships from raw where urltitle='#urltitle#' group by relationships
 				</cfquery>
-				<cfquery name="labels" dbtype="query">
+				<cfquery name="lbl" dbtype="query">
 					select labels from raw where urltitle='#urltitle#' group by labels
 				</cfquery>
 			
@@ -661,7 +661,7 @@
 				<td>
 				
 					<cfdump var=#relations#>
-					<cfdump var=#labels#>
+					<cfdump var=#lbl#>
 					<div style="max-height:10em;overflow:auto;">
 						<cfset relMedia=''>
 						<cfloop list="#rel#" index="i" delimiters="|">
