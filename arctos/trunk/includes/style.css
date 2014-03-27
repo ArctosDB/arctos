@@ -353,7 +353,7 @@ div.one_thumb p {
 	max-width:100%;
 }
 .highlight {
-	border:3px solid red;
+	outline:5px solid red;
 	z-index:300;
 }
 .refPane_highlight {
