@@ -166,11 +166,9 @@
 	<cfset maxPage=pg.npgs>
 	<cfset title=doc.mtitle>
 	<strong>#doc.mtitle#</strong>
-	
 	<cfquery name="cpg" dbtype="query">
 		select media_uri,media_id from doc where page=#p#
 	</cfquery>
-	
 	<cfquery name="relMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			media_uri,
@@ -184,7 +182,6 @@
 	<cfquery name="mDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from media_flat where media_id=#cpg.media_id#
 	</cfquery>
-	
 	<cfsavecontent variable="controls">
 		<table>
 			<tr>
@@ -212,9 +209,6 @@
 			</tr>
 		</table>
 	</cfsavecontent>
-	
-	
-	
 	<table width="50%">
 		<tr>
 			<td>
