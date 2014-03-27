@@ -664,7 +664,9 @@
 					</cfloop>
 					<br>#title#
 					<br>Pages: #numPages#
-					<br>attrList: #attrList#
+					<cfloop list="#attrList#" index="i" delimiters="|">
+						<br>#i#
+					</cfloop>
 					
 					<cfset rattrList="">
 					<cfloop query="#relns#">
@@ -677,8 +679,9 @@
 							</cfif>
 						</cfloop>
 					</cfloop>
-					
-					<br>rattrList: #rattrList#
+					<cfloop list="#rattrList#" index="i" delimiters="|">
+						<br>#i#
+					</cfloop>
 					
 					
 					<!----
