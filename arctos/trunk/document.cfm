@@ -185,9 +185,6 @@
 		select * from media_flat where media_id=#cpg.media_id#
 	</cfquery>
 	
-	<cfquery name="tpgs" dbtype="query">
-		select page from doc where numTags>0 order by page
-	</cfquery>
 	<cfsavecontent variable="controls">
 		<table>
 			<tr>
@@ -212,24 +209,6 @@
 					</Cfif>
 				</td>
 				<td> of #maxPage#</td>
-			</tr>
-			<tr>
-				<td>TAGged Pages</td>
-				<td>
-					
-				</td>
-				<td>
-					<select name="pt" id="pt" onchange="document.location=this.value">
-						<option value="">jump to...</option>
-						<cfloop query="tpgs">
-							<option <cfif page is p> selected="selected" </cfif>value="/document/#ttl#/#page#">#page#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td>
-					
-				</td>
-				<td></td>
 			</tr>
 		</table>
 	</cfsavecontent>
