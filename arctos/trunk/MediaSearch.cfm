@@ -141,7 +141,7 @@
 
 			
 			<label for="min_published_year">
-				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=published year" target="_blank">Published Year (min-max)</a>
+				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=published year" target="_blank">Document Published Year (min-max)</a>
 			</label>
 			<input type="text" name="min_published_year" id="min_published_year" size="8">-<input type="text" name="max_published_year" id="max_published_year" size="8">
 			
