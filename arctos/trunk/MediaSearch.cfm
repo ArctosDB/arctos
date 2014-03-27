@@ -732,6 +732,9 @@
 					<br><span style = "font-size:small;">#media_type# (#mime_type#)</span>
 					<br><span style = "font-size:small;">#license#</span>
 					<br><span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>
+					 <cfif hastags gt 0>
+						<br><a href="/showTAG.cfm?media_id=#media_id#">[ View #hastags# TAGs ]</a>
+					</cfif>
 				</td>
 				<td align="middle">
 					<div id="mapgohere-media_id-#media_id#">
@@ -758,9 +761,7 @@
 			        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
 			        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
 			    </cfif>
-			    <cfif hastags gt 0>
-					<a href="/showTAG.cfm?media_id=#media_id#">[ View #hastags# TAGs ]</a>
-				</cfif>
+			   
 				</td>
 			</tr>
 			</cfif>
