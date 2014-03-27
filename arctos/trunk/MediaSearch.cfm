@@ -375,7 +375,7 @@
 			<cfset whr ="#whr# AND media_flat.media_id = ml_mipubyr.media_id ">
 			
 			<cfset srch="#srch# AND ml_mipubyr.media_label = 'published year'">
-			<cfset srch="#srch# AND is_number(ml_titl.label_valu)=1 and ml_titl.label_value >= '#min_published_year#'">
+			<cfset srch="#srch# AND is_number(ml_mipubyr.label_value)=1 and ml_titl.label_value >= '#min_published_year#'">
 			<cfset mapurl="#mapurl#&min_published_year=#min_published_year#">
 		</cfif>
 		
