@@ -428,7 +428,7 @@
 <!---
 		<cfset srch = "#srch# AND rownum <= 500">
 		--->
-		<cfset ssql="#sql# #tabls# #whr# #srch# order by media_flat.media_id">
+		<cfset ssql="#sql# FROM #tabls# #whr# #srch# order by media_flat.media_id">
 		
 		
 		<cfdump var=#ssql#>
