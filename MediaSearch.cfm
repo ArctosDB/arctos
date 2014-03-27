@@ -439,7 +439,7 @@
 		<p>
 			srch: #srch#
 		</p>
-		<cfset ssql="#sql# #whr# #srch# order by media_flat.media_id">
+		<cfset ssql="#sql# #whr# and media_type != 'multi-page document' #srch# order by media_flat.media_id">
 		
 		
 		#preservesinglequotes(ssql)#
