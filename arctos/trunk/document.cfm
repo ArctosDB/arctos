@@ -280,18 +280,14 @@
 			<td>
 				<cfset attrList="">
 				<cfloop list="#mDet.labels#" index="i" delimiters="|">
-				<!----
 					<cfset x=replace(i,"==",chr(7),"all")>
 					<cfset r=listgetat(x,1,chr(7))>
 					<cfset v=listgetat(x,2,chr(7))>
-					<cfif r is not "title">
+					<cfif r is not "title" and r is not "page">
 						<cfif not listfind(attrList,"#r#: <strong>#v#</strong>","|")>
 							<cfset attrList=listappend(attrList,"#r#: <strong>#v#</strong>","|")>
 						</cfif>
 					</cfif>
-					---->
-					
-					#i#
 				</cfloop>
 				<cfloop list="#attrList#" index="i" delimiters="|">
 					<br>#i#
