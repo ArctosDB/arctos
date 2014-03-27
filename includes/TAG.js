@@ -304,7 +304,8 @@ function loadInitial(tid) {
 	console.log('checking for tag....' + tid);
 	if(tid){
 		console.log('scrolling to tag....' + tid);
-		scrollToTag(tid);
+		setTimeout(function() {scrollToTag(tid);},1250);
+		
 	}
 }
 function scrollToLabel(id) {
