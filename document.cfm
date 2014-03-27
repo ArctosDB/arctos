@@ -23,6 +23,7 @@
 		</cfif>
 	</cfoutput>
 </cfif>
+
 <cfif listlen(request.rdurl,"/") gt 1>
 	<cfset gPos=listfindnocase(request.rdurl,"document","/")>
 	<cftry>
@@ -33,8 +34,13 @@
 	</cftry>
 	<cftry>
 		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
+		<cfif listlen(p,"?") gt 1>
+			<cfset pg=listgetat(p,1,"?")>
+			<cfset tag_id=listgetat(p,2,"?")>
+		</cfif>
 		<cfcatch>
-			<cfset p=1>
+			<cfset pg=1>
+			<cfset tag_id="">
 		</cfcatch>
 	</cftry>
 	
@@ -167,7 +173,7 @@
 	<cfset title=doc.mtitle>
 	<strong>#doc.mtitle#</strong>
 	<cfquery name="cpg" dbtype="query">
-		select media_uri,media_id from doc where page=#p#
+		select media_uri,media_id from doc where page=#pg#
 	</cfquery>
 	<cfquery name="relMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -187,21 +193,21 @@
 			<tr>
 				<td>Page</td>
 				<td>
-					<cfif p gt 1>
-						<cfset pp=p-1>
+					<cfif pg gt 1>
+						<cfset pp=pg-1>
 						<a class="likeLink" href="/document/#ttl#/#pp#">Previous</a>
 					</Cfif>
 				</td>
 				<td>
-					<select name="p" id="p" onchange="document.location=this.value">
+					<select name="pg" id="pg" onchange="document.location=this.value">
 						<cfloop query="doc">
-							<option <cfif doc.page is p> selected="selected" </cfif>value="/document/#ttl#/#doc.page#">#doc.page#<cfif doc.numTags gt 0> (#doc.numTAGs# TAGs)</cfif></option>
+							<option <cfif doc.page is pg> selected="selected" </cfif>value="/document/#ttl#/#doc.page#">#doc.page#<cfif doc.numTags gt 0> (#doc.numTAGs# TAGs)</cfif></option>
 						</cfloop>
 					</select>
 				</td>
 				<td>
-					<cfif p lt maxPage>
-						<cfset np=p+1>
+					<cfif pg lt maxPage>
+						<cfset np=pg+1>
 						<a class="likeLink" href="/document/#ttl#/#np#">Next</a>
 					</Cfif>
 				</td>
@@ -285,7 +291,7 @@
 	<cfif (isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")) or tag.n gt 0>
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function () {
-				if ($("##p").val()!=$("##pt").val()){
+				if ($("##pg").val()!=$("##pt").val()){
 					$("##pt").val('');
 				}
 				loadTAG(#cpg.media_id#,'#cpg.media_uri#');
