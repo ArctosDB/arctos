@@ -58,7 +58,11 @@ it is
 		
 		<br>p: #p#
 		
+		<br>
+		
 		listlen(p,"?"): #listlen(p,"?")#
+		
+		
 		<cfif listlen(p,"?") gt 1>
 			page and tag ID
 			<cfset pg=listgetat(p,1,"?")>
