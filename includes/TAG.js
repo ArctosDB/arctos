@@ -301,11 +301,8 @@ function loadInitial(tid) {
 			}
 		}
 	);
-	console.log('checking for tag....' + tid);
 	if(tid){
-		console.log('scrolling to tag....' + tid);
 		setTimeout(function() {scrollToTag(tid);},1250);
-		
 	}
 }
 function scrollToLabel(id) {
@@ -319,32 +316,13 @@ function scrollToLabel(id) {
 }
 	
 function scrollToTag(id) {
-		console.log('i am scrollToTag - going to ' + id);
-		
-		console.log('back');
-		
 	var divID='refDiv_' + id;
 	var paneID='refPane_' + id;
-	
-	console.log('divID=' + divID);
-	console.log('paneID=' + paneID);
-	
-	console.log($("#" + divID).html());
-	console.log($("#" + paneID).html());
-	
-	
 	$("div .highlight").removeClass("highlight").addClass("refDiv");
 	$("div .refPane_highlight").removeClass("refPane_highlight");
 	$("#" + divID).removeClass("refDiv").addClass("highlight");
 	$("#" + paneID).addClass('refPane_highlight');
-	
-	console.log('calling scrollto with ' + divID);
-	
 	$(document).scrollTo( $('#' + divID), 800 );s
-
-	
-	
-	console.log('scrolled');
 }
 function modArea(id) {
 	var divID='refDiv_' + id;

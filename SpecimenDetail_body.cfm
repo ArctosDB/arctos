@@ -1250,7 +1250,8 @@
 <!------------------------------------ Media ---------------------------------------------->
 <cfquery name="mediaTag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     select distinct
-        media.media_id,
+        tag.tag_id,
+		media.media_id,
         media.media_uri,
         media.mime_type,
         media.media_type,
@@ -1271,7 +1272,7 @@
 				<cfset puri = obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
 				 <span class="detailData">
 					<cfif media_type is "multi-page document">
-						<a href="/document.cfm?media_id=#media_id#" target="_blank"><img src="#puri#"></a>
+						<a href="/document.cfm?media_id=#media_id#&tag_id=#tag_id#" target="_blank"><img src="#puri#"></a>
 					<cfelse>
 						<a href="/showTAG.cfm?media_id=#media_id#" target="_blank"><img src="#puri#"></a>
 					</cfif>
