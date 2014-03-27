@@ -33,6 +33,7 @@
 	</cftry>
 	<cftry>
 		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
+		<input type="hidden" id="p" value="#p#">
 		<cfcatch>
 			<cfset p=1>
 		</cfcatch>
@@ -313,6 +314,9 @@
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function () {
 				$("##pt").val('');
+				if ($("##p").val()!=$("##pt").val()){
+					$("##pt").val('');
+				}
 				loadTAG(#cpg.media_id#,'#cpg.media_uri#');
 			});
 		</script>
