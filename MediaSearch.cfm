@@ -645,6 +645,9 @@
 					</a>
 					<br><span style = "font-size:small;">Multi-Page Document</span>
 					<br><span style = "font-size:small;">#license#</span>
+					<cfif qhastags.recordcount gt 0>
+						<br><span style = "font-size:small;">Includes #qhastags.recordcount# TAGs</span>
+					</cfif>
 				</td>
 				<td align="middle">
 					&nbsp;
@@ -687,9 +690,6 @@
 					<cfloop list="#rattrList#" index="i" delimiters="|">
 						<br>#i#
 					</cfloop>
-					<cfif qhastags.recordcount gt 0>
-						<br>Number TAGged pages: #qhastags.recordcount#
-					</cfif>
 				</td>
 			<cfelse><!--- not MPD --->
 				<cfset alt=''>
