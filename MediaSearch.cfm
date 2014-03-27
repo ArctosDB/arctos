@@ -656,14 +656,14 @@
 									<cfset numPages=v>
 								</cfif>
 							<cfelseif r is not "title">
-								<cfif not listfind(attrList,"#r#=#v#","|")>
-									<cfset attrList=listappend(attrList,"#r#=#v#","|")>
+								<cfif not listfind(attrList,"#r#: <strong>#v#</strong>","|")>
+									<cfset attrList=listappend(attrList,"#r#: <strong>#v#</strong>","|")>
 								</cfif>
 							</cfif>
 						</cfloop>
 					</cfloop>
-					<br>#title#
-					<br>Pages: #numPages#
+					<br>Title: <strong>#title#</strong>
+					<br><strong>#numPages#</strong>Pages
 					<cfloop list="#attrList#" index="i" delimiters="|">
 						<br>#i#
 					</cfloop>
@@ -674,8 +674,8 @@
 							<cfset x=replace(i,"==",chr(7),"all")>
 							<cfset r=listgetat(x,1,chr(7))>
 							<cfset v=listgetat(x,2,chr(7))>
-							<cfif not listfind(rattrList,"#r#=#v#","|")>
-								<cfset rattrList=listappend(rattrList,"#r#=#v#","|")>
+							<cfif not listfind(rattrList,"#r#: <strong>#v#</strong>","|")>
+								<cfset rattrList=listappend(rattrList,"#r#: <strong>#v#</strong>","|")>
 							</cfif>
 						</cfloop>
 					</cfloop>
