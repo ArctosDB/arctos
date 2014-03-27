@@ -45,6 +45,7 @@ gt 1
 	<cftry>
 		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
 		<cfif listlen(p,"?") gt 1>
+		it is....
 			<cfset pg=listgetat(p,1,"?")>
 			<cfset tag_id=listgetat(p,2,"?")>
 		</cfif>
