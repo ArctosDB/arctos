@@ -41,6 +41,7 @@
 		<cfcatch>
 			<cfset pg=1>
 			<cfset tag_id="">
+			<cfdump var=#cfcatch#>
 		</cfcatch>
 	</cftry>
 	<cfset action="show">
