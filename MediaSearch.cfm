@@ -626,7 +626,7 @@
 					select labels from raw where urltitle='#urltitle#' group by labels
 				</cfquery>
 				<cfquery name="hastags" dbtype="query">
-					select media_id from raw where urltitle='#urltitle#' and hastags>0 group by hastamedia_idgs
+					select media_id from raw where urltitle='#urltitle#' and hastags>0 group by media_id
 				</cfquery>
 				
 				<cfdump var=#hastags#>
