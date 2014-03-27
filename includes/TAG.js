@@ -68,7 +68,7 @@ $.fn.getImg2Tag = function(src, f){
 		this.appendChild(i);
 	});
 }
-function loadTAG(mid,muri){
+function loadTAG(mid,muri,tid){
 	$("imgDiv").text('Loading image and tags.....');
 	var d='<div id="navDiv"><div id="info"></div></div>';
 	$('body').append(d);
@@ -263,7 +263,7 @@ $("span[id^='killRefClk_']").live('click', function(e){
 		);
 	}
 });
-function loadInitial() {
+function loadInitial(tid) {
 	$.getJSON("/component/tag.cfc",
 		{
 			method : "getTags",
@@ -301,6 +301,9 @@ function loadInitial() {
 			}
 		}
 	);
+	if(tid){
+		ScrollToTag(tid);
+	}
 }
 function scrollToLabel(id) {
 	var divID='refDiv_' + id;

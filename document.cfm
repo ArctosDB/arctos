@@ -298,8 +298,7 @@
 				if ($("##pg").val()!=$("##pt").val()){
 					$("##pt").val('');
 				}
-				loadTAG(#cpg.media_id#,'#cpg.media_uri#');
-				scrollToTag("#tag_id#");
+				loadTAG(#cpg.media_id#,'#cpg.media_uri#','#tag_id#');
 			});
 		</script>
 	</cfif>
