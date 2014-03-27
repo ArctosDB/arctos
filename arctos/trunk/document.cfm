@@ -299,7 +299,7 @@
 					$("##pt").val('');
 				}
 				loadTAG(#cpg.media_id#,'#cpg.media_uri#');
-				//scrollToTag("#tag_id#");
+				scrollToTag("#tag_id#");
 			});
 		</script>
 	</cfif>
