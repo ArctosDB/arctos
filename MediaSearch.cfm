@@ -677,7 +677,7 @@
 			<cfelse><!--- not MPD --->
 				<cfset alt=''>
 				<cfset lbl=replace(labels,"==",chr(7),"all")>
-				<cfset rel=replace(relationships,"==",chr(7),"all")>
+				<cfset rel=replace(findIDs.relationships,"==",chr(7),"all")>
 				
 				<cfloop list="#lbl#" index="i" delimiters="|">
 					<cfif listgetat(i,1,chr(7)) is "description">
