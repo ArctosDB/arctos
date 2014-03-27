@@ -22,7 +22,7 @@
 	<cfoutput>
 		<cfif r.pg gt 0 and len(r.ttl) gt 0>
 			<cfheader statuscode="301" statustext="Moved permanently">
-			<cfheader name="Location" value="/document/#r.ttl#/#r.pg#">
+			<cfheader name="Location" value="/document/#r.ttl#/#r.pg#?tag_id=#tag_id#">
 		<cfelse>
 			fail
 			<cfabort>
