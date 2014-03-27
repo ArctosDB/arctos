@@ -3,7 +3,7 @@
 	<cfset pg=1>
 </cfif>
 <cfif not isdefined("tag_id")>
-	<cfset tag_id=>
+	<cfset tag_id="">
 </cfif>
 <cfif isdefined("media_id") and media_id gt 0>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
