@@ -734,7 +734,8 @@
 					<br>
 					<span style = "font-size:small;">#license#</span>
 					<br>
-					<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>			
+					<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>		
+					<br>#hastags#	
 				</td>
 				<td align="middle">
 					<div id="mapgohere-media_id-#media_id#">
