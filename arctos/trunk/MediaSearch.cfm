@@ -432,7 +432,7 @@
 <!---
 		<cfset srch = "#srch# AND rownum <= 500">
 		--->
-		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum < 10000 order by media_flat.media_id">
+		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum <= 10000 order by media_flat.media_id">
 		
 		
 		
@@ -446,7 +446,11 @@
 		</cfquery>
 	
 	
-		
+		<cfif raw.recordcount is 10000>
+			<div style="border:2px solid red;text-align:center;margin:0 10em;">
+				Note: Some relevant records may not be included. Please be more specific in your search terms.
+			</div>
+		</cfif>
 		
 
 		<cfquery name="nodoc" dbtype="query">
