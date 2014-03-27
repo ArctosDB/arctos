@@ -220,6 +220,7 @@
 				</td>
 				<td>
 					<select name="pt" id="pt" onchange="document.location=this.value">
+						<option value="">jump to...</option>
 						<cfloop query="tpgs">
 							<option <cfif page is p> selected="selected" </cfif>value="/document/#ttl#/#page#">#page#</option>
 						</cfloop>
@@ -311,6 +312,7 @@
 	<cfif (isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")) or tag.n gt 0>
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function () {
+				$("##pt").val('');
 				loadTAG(#cpg.media_id#,'#cpg.media_uri#');
 			});
 		</script>
