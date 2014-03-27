@@ -51,6 +51,8 @@ it is
 		</cfcatch>
 	</cftry>
 	<cfif listlen(request.rdurl,"/") gte gPos+1>
+	
+	gt pos+1
 		<cftry>
 		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
 		<cfif listlen(p,"?") gt 1>
