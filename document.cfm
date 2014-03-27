@@ -184,7 +184,7 @@
 				<td>
 					<cfif p gt 1>
 						<cfset pp=p-1>
-						<a class="infoLink" href="/document/#ttl#/#pp#">Previous</a>
+						<a class="likeLink" href="/document/#ttl#/#pp#">Previous</a>
 					</Cfif>
 				</td>
 				<td>
@@ -197,7 +197,7 @@
 				<td>
 					<cfif p lt maxPage>
 						<cfset np=p+1>
-						<a class="infoLink" href="/document/#ttl#/#np#">Next</a>
+						<a class="likeLink" href="/document/#ttl#/#np#">Next</a>
 					</Cfif>
 				</td>
 				<td> of #maxPage#</td>
@@ -246,18 +246,15 @@
 		<tr>
 			<td>
 				<a href="/media/#cpg.media_id#">[ Media Details ]</a>
+				<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+					<a href="/media.cfm?action=edit&media_id=#cpg.media_id#">[ edit media ]</a>
+				</cfif>
 				<cfif relMedia.recordcount is 1>
 					<a target="_blank" href="/exit.cfm?target=#relMedia.media_uri#">[ download master ]</a>
 				</cfif>
 			</td>
 		</tr>
 	</table>
-	
-	
-	
-	
-	
-	
 	 <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) n from tag where media_id=#cpg.media_id#
 	</cfquery>
