@@ -292,7 +292,7 @@ div.one_thumb p {
 /* --------  TAG style - DO NOT EDIT THIS STUFF UNLESS YOU REALLY KNOW WHAT YOU'RE DOING! -------------   */
 
 .editing {
-	border:1px solid red;
+	border:1px solid green;
 	z-index:300;
 }
 .refDiv{
@@ -349,7 +349,7 @@ div.one_thumb p {
 	max-width:100%;
 }
 .highlight {
-	border:2px solid yellow;
+	border:2px solid red;
 	z-index:300;
 }
 .refPane_highlight {
