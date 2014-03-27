@@ -453,6 +453,11 @@
 				Note: Some relevant records may not be included. Please try more specific search terms.
 			</div>
 		</cfif>
+		
+		
+		<cfdump var=#raw#>
+		
+		
 		<cfquery name="nodoc" dbtype="query">
 			select * from raw where media_type!='multi-page document'
 		</cfquery>
