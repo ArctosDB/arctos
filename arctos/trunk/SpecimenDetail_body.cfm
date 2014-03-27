@@ -25,6 +25,7 @@
 		});
 	</script>
 </cfoutput>
+<cfset obj = CreateObject("component","component.functions")>
 <cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
 		collection_object_id,
@@ -1196,10 +1197,8 @@
 							<div class="thumbs">
 								<div class="thumb_spcr">&nbsp;</div>
 								<cfloop query="accnMedia">
-									<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
-										<cfinvokeargument name="preview_uri" value="#preview_uri#">
-										<cfinvokeargument name="media_type" value="#media_type#">
-									</cfinvoke>
+									<cfset puri = obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
+
 									<div class="one_thumb">
 						            	<a href="/exit.cfm?target=#media_uri#" target="_blank">
 							               <img src="#puri#" alt="#descr#" class="theThumb">
@@ -1269,13 +1268,14 @@
 		</div>
 		<div class="detailBlock">
 			<cfloop query="mediaTag">
-				<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
-					<cfinvokeargument name="preview_uri" value="#preview_uri#">
-					<cfinvokeargument name="media_type" value="#media_type#">
-				</cfinvoke>
+				<cfset puri = obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
 				 <span class="detailData">
-					<a href="/showTAG.cfm?media_id=#media_id#" target="_blank"><img src="#puri#"></a>
-		        </span>
+					<cfif media_type is "multi-page document">
+						<a href="/document.cfm?media_id=#media_id#" target="_blank"><img src="#puri#"></a>
+					<cfelse>
+						<a href="/showTAG.cfm?media_id=#media_id#" target="_blank"><img src="#puri#"></a>
+					</cfif>
+				</span>
 			</cfloop>
 		</div>
 	</div>
@@ -1335,10 +1335,7 @@
 					<div class="thumb_spcr">&nbsp;</div>
 					<cfset stuffToNotPlay="audio/x-wav">
 					<cfloop query="media">
-						<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
-							<cfinvokeargument name="preview_uri" value="#preview_uri#">
-							<cfinvokeargument name="media_type" value="#media_type#">
-						</cfinvoke>
+						<cfset puri = obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
 						<cfset addThisClass=''>
 						<cfif listfind(stuffToNotPlay,mime_type)>
 							<cfset addThisClass="noplay">

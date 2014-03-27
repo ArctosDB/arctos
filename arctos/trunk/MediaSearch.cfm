@@ -710,7 +710,7 @@
 					<cfset alt=media_uri>
 				</cfif>		
 				<cfif len(preview_uri) is 0>
-					<cfset mp = obj.getMap(preview_uri="#preview_uri#",media_type="#media_type#")>
+					<cfset mp = obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
 				<cfelse>
 					<cfset mp=preview_uri>
 				</cfif>
