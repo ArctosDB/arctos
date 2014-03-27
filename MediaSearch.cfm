@@ -637,11 +637,11 @@
 				<cfquery name="lbl" dbtype="query">
 					select labels from raw where urltitle='#urltitle#' group by labels
 				</cfquery>
-				<cfquery name="hastags" dbtype="query">
+				<cfquery name="qhastags" dbtype="query">
 					select media_id from raw where urltitle='#urltitle#' and hastags>0 group by media_id
 				</cfquery>
 				
-				<cfdump var=#hastags#>
+				<cfdump var=#qhastags#>
 				<td align="middle">
 					<a href="/document/#urltitle#" target="_blank" title="#title#">
 						<img src="/images/document_thumbnail.png" alt="#title#" style="max-width:150px;max-height:150px;">
