@@ -122,7 +122,7 @@
 							</cfloop>
 						</select>
 					</td>
-					<td><span class="likeLink" onclick='$("##media_type").val('multi=page document');'>Select Field Notes</span></td>
+					<td><span class="likeLink" onclick='$("##media_type").val("multi-page document");'>Select Field Notes</span></td>
 				</tr>
 			</table>
 			<label for="created_by_agent">
