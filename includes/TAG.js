@@ -108,7 +108,7 @@ function loadTAG(mid,muri,tid){
 	$('#imgDiv').getImg2Tag($("#imgURL").val(),function() {
 		$("#imgH").val($('#theImage').height());
 		$("#imgW").val($('#theImage').width());
-		loadInitial();	
+		loadInitial(tid);	
 	});
 }
 
@@ -301,7 +301,7 @@ function loadInitial(tid) {
 			}
 		}
 	);
-	console.log('checking for tag....');
+	console.log('checking for tag....' + tid);
 	if(tid){
 		console.log('scrolling to tag....');
 		scrollToTag(tid);
