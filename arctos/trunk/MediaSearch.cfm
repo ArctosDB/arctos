@@ -648,7 +648,22 @@
 				
 					<cfdump var=#relations#>
 					<cfdump var=#lbl#>
-					
+					<cfset numPages=0>
+					<cfloop query="#lbl#">
+						<cfloop list="#labels#" index="i" delimiters="|">
+							<cfset x=replace(i,"==",chr(7),"all")>
+							<cfset r=listgetat(x,1,chr(7))>
+							<cfset v=listgetat(x,2,chr(7))>
+							<cfif r is "page">
+								<cfif v gt numPages>
+									<cfset numPages=v>
+								</cfif>
+							</cfif>
+						</cfloop>
+						<br>Pages: #numPages#
+						<br>#labels#
+					</cfloop>
+					<cfset lbl=replace(labels,"==",chr(7),"all")>
 					<!----
 					<div style="max-height:10em;overflow:auto;">
 						<cfset relMedia=''>
