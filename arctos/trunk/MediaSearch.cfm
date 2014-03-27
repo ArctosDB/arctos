@@ -648,6 +648,8 @@
 				
 					<cfdump var=#relations#>
 					<cfdump var=#lbl#>
+					
+					<!----
 					<div style="max-height:10em;overflow:auto;">
 						<cfset relMedia=''>
 						<cfloop list="#rel#" index="i" delimiters="|">
@@ -663,6 +665,7 @@
 							#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 						</cfloop>
 					</div>
+					---->
 				<!----
 				<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 			        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
