@@ -637,6 +637,10 @@
 		</cfif>
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<cfif media_type is "multi-page document">
+				<cfquery name="relations" dbtype="query">
+					select relationships from raw where urltitle='#urltitle#'
+				</cfquery>
+			
 				<td align="middle">
 					<a href="/document/#urltitle#" target="_blank" title="#title#">
 						<img src="/images/document_thumbnail.png" alt="#title#" style="max-width:150px;max-height:150px;">
@@ -651,7 +655,9 @@
 						<img src="/images/indicator.gif">
 					</div>
 				</td>
-				<td>row3
+				<td>
+				
+					<cfdump var=#relations#>
 					<div style="max-height:10em;overflow:auto;">
 						<cfset relMedia=''>
 						<cfloop list="#rel#" index="i" delimiters="|">
