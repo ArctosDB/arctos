@@ -432,7 +432,7 @@
 <!---
 		<cfset srch = "#srch# AND rownum <= 500">
 		--->
-		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum < 10000 where order by media_flat.media_id">
+		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum < 10000 order by media_flat.media_id">
 		
 		
 		
