@@ -655,7 +655,7 @@
 						</cfloop>
 					</cfloop>
 					<br>Title: <strong>#title#</strong>
-					<br><strong>#numPages#</strong> Pages
+					<br>Pages: <strong>#numPages#</strong>
 					<cfloop list="#attrList#" index="i" delimiters="|">
 						<br>#i#
 					</cfloop>
@@ -724,7 +724,7 @@
 						<img src="/images/indicator.gif">
 					</div>
 				</td>
-				<td>------------#relationships#---------------
+				<td>
 					<div style="max-height:10em;overflow:auto;">
 						<cfset relMedia=''>
 						<cfloop list="#rel#" index="i" delimiters="|">
