@@ -130,8 +130,9 @@
 	<cfquery name="tag"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from tag where media_id=#media_id#
 	</cfquery>
-	<span class="infoLink" onClick="getDocs('media','guide')">READ THE DOCUMENTATION!</span>
-
+	<p>
+		<span class="infoLink" onClick="getDocs('media','guide')">READ THE DOCUMENTATION!</span>
+	</p>
 	<cfoutput>
 		Edit Media
 		<br><a href="/TAG.cfm?media_id=#media_id#">edit #tag.c# TAGs</a> ~
@@ -160,12 +161,14 @@
 				    <option <cfif #media.mime_type# is #ctmime_type.mime_type#> selected="selected"</cfif> value="#mime_type#">#mime_type#</option>
 				</cfloop>
 			</select>
+			<span class="infoLink" onclick="getCtDoc('ctmime_type');">Define</span>
 			<label for="media_type">Media Type</label>
 			<select name="media_type" id="media_type">
 				<cfloop query="ctmedia_type">
 					<option <cfif #media.media_type# is #ctmedia_type.media_type#> selected="selected"</cfif> value="#media_type#">#media_type#</option>
 				</cfloop>
 			</select>
+			<span class="infoLink" onclick="getCtDoc('ctmedia_type');">Define</span>
 			
 			<label for="media_license_id">License</label>
 			<select name="media_license_id" id="media_license_id">
@@ -175,7 +178,9 @@
 				</cfloop>
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctmedia_license');">Define</span>
-			<label for="relationships">Media Relationships | <span class="likeLink" onclick="manyCatItemToMedia('#media_id#')">Add multiple "shows cataloged_item" records</span></label>
+			<label for="relationships">Media Relationships | <span class="likeLink" onclick="manyCatItemToMedia('#media_id#')">Add multiple "shows cataloged_item" records</span>
+			<span class="infoLink" onclick="getCtDoc('ctmedia_relations');">Define</span>
+			</label>
 			<br>To edit, change relationship to "delete" then change to new type. Make sure to save when you're done.
 			<div id="relationships" style="border:1px dashed red;">
 				<cfset i=1>
@@ -211,7 +216,7 @@
 			</div>
 			
 			<br>
-			<label for="labels">Media Labels</label>
+			<label for="labels">Media Labels <span class="infoLink" onclick="getCtDoc('ctmedia_label');">Define</span></label>
 			<div id="labels" style="border:1px dashed red;">
 			
 			<cfset i=1>
@@ -283,6 +288,9 @@
 <!----------------------------------------------------------------------------------------->
 <cfif action is "newMedia">
 	<cfoutput>
+	<p>
+		<span class="infoLink" onClick="getDocs('media','guide')">READ THE DOCUMENTATION!</span>
+	</p>
 		<form name="newMedia" method="post" action="media.cfm">
 			<input type="hidden" name="action" value="saveNew">
 			<input type="hidden" id="number_of_relations" name="number_of_relations" value="1">
