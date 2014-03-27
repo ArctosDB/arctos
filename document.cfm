@@ -277,7 +277,33 @@
 			<td>
 				#controls#
 			</td>
-			<td><cfdump var=#mDet#></td>
+			<td>
+				<cfloop list="#mDet.labels#" index="i" delimiters="|">
+					<cfset x=replace(i,"==",chr(7),"all")>
+					<cfset r=listgetat(x,1,chr(7))>
+					<cfset v=listgetat(x,2,chr(7))>
+					<cfif r is not "title">
+						<cfif not listfind(attrList,"#r#: <strong>#v#</strong>","|")>
+							<cfset attrList=listappend(attrList,"#r#: <strong>#v#</strong>","|")>
+						</cfif>
+					</cfif>
+				</cfloop>
+				<cfloop list="#attrList#" index="i" delimiters="|">
+					<br>#i#
+				</cfloop>					
+				<cfset rattrList="">
+				<cfloop list="#mDet.RELATIONSHIPS#" index="i" delimiters="|">
+					<cfset x=replace(i,"==",chr(7),"all")>
+					<cfset r=listgetat(x,1,chr(7))>
+					<cfset v=listgetat(x,2,chr(7))>
+					<cfif not listfind(rattrList,"#r#: <strong>#v#</strong>","|")>
+						<cfset rattrList=listappend(rattrList,"#r#: <strong>#v#</strong>","|")>
+					</cfif>
+				</cfloop>
+				<cfloop list="#rattrList#" index="i" delimiters="|">
+					<br>#i#
+				</cfloop>
+			</td>
 		</tr>
 		<tr>
 			<td>
