@@ -623,7 +623,7 @@
 		
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<cfif media_type is "multi-page document">
-				<cfquery name="relations" dbtype="query">
+				<cfquery name="relns" dbtype="query">
 					select relationships from raw where urltitle='#urltitle#' group by relationships
 				</cfquery>
 				<cfquery name="lbl" dbtype="query">
@@ -644,8 +644,6 @@
 				</td>
 				<td>
 				
-					<cfdump var=#relations#>
-					<cfdump var=#lbl#>
 					<cfset numPages=0>
 					<cfset attrList="">
 					<cfloop query="#lbl#">
@@ -664,10 +662,25 @@
 							</cfif>
 						</cfloop>
 					</cfloop>
-					
+					<br>#title#
 					<br>Pages: #numPages#
 					<br>attrList: #attrList#
-					<cfset lbl=replace(labels,"==",chr(7),"all")>
+					
+					<cfset rattrList="">
+					<cfloop query="#relns#">
+						<cfloop list="#RELATIONSHIPS#" index="i" delimiters="|">
+							<cfset x=replace(i,"==",chr(7),"all")>
+							<cfset r=listgetat(x,1,chr(7))>
+							<cfset v=listgetat(x,2,chr(7))>
+							<cfif not listfind(rattrList,"#r#=#v#","|")>
+								<cfset rattrList=listappend(rattrList,"#r#=#v#","|")>
+							</cfif>
+						</cfloop>
+					</cfloop>
+					
+					<br>rattrList: #rattrList#
+					
+					
 					<!----
 					<div style="max-height:10em;overflow:auto;">
 						<cfset relMedia=''>
