@@ -322,7 +322,7 @@ function scrollToTag(id) {
 	$("div .refPane_highlight").removeClass("refPane_highlight");
 	$("#" + divID).removeClass("refDiv").addClass("highlight");
 	$("#" + paneID).addClass('refPane_highlight');
-	$(document).scrollTo( $('#' + divID), 800 );s
+	$(document).scrollTo( $('#' + divID), 800 );
 }
 function modArea(id) {
 	var divID='refDiv_' + id;
