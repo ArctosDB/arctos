@@ -272,12 +272,12 @@
 	
 	
 	
-	<table>
+	<table width="65%">
 		<tr>
 			<td>
 				#controls#
 			</td>
-			<td>
+			<td align="right">
 				<cfset attrList="">
 				<cfloop list="#mDet.labels#" index="i" delimiters="|">
 					<cfset x=replace(i,"==",chr(7),"all")>
