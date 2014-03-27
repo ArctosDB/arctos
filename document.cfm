@@ -39,6 +39,9 @@ gt 1
 			fail@can't get title
 		</cfcatch>
 	</cftry>
+	<cfif listlen(request.rdurl,"/") gte gPos+1>
+		haspage
+	</cfif>
 	<cftry>
 		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
 		<cfif listlen(p,"?") gt 1>
