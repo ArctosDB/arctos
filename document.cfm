@@ -33,7 +33,6 @@
 	</cftry>
 	<cftry>
 		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
-		<input type="hidden" id="p" value="#p#">
 		<cfcatch>
 			<cfset p=1>
 		</cfcatch>
@@ -131,7 +130,7 @@
 			title.label_value mtitle,
 			to_number(page.label_value) page,
 			media.media_id,
-			count(tag.media_id) numTags
+			decode(count(tag.media_id),null,'No',count(tag.media_id) numTags
 		from
 			media,
 			media_labels title,
@@ -201,8 +200,8 @@
 				</td>
 				<td>
 					<select name="p" id="p" onchange="document.location=this.value">
-						<cfloop from="1" to="#maxPage#" index="pg">
-							<option <cfif pg is p> selected="selected" </cfif>value="/document/#ttl#/#pg#">#pg#</option>
+						<cfloop query="doc">
+							<option <cfif doc.page is p> selected="selected" </cfif>value="/document/#ttl#/#doc.page#">#doc.page# (#doc.numTags# TAGs)</option>
 						</cfloop>
 					</select>
 				</td>
@@ -313,7 +312,6 @@
 	<cfif (isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")) or tag.n gt 0>
 		<script type="text/javascript" language="javascript">
 			jQuery(document).ready(function () {
-				$("##pt").val('');
 				if ($("##p").val()!=$("##pt").val()){
 					$("##pt").val('');
 				}
