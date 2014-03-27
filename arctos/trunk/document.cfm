@@ -31,6 +31,7 @@
 </cfif>
 
 <cfif listlen(request.rdurl,"/") gt 1>
+gt 1
 	<cfset gPos=listfindnocase(request.rdurl,"document","/")>
 	<cftry>
 		<cfset ttl = listgetat(request.rdurl,gPos+1,"/")>
