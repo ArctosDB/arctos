@@ -496,7 +496,7 @@
 				COORDINATES,
 				HASTAGS,
 				LASTDATE,
-				'' as title
+				title
 			from
 				isdoc
 			UNION
