@@ -463,7 +463,7 @@
 				MEDIA_TYPE,
 				MIME_TYPE,
 				'' as LABELS,
-				'' as license,
+				license,
 				'' as RELATIONSHIPS,
 				'' as KEYWORDS,
 				'' as COORDINATES,
@@ -477,6 +477,7 @@
 				media_uri,
 				preview_uri,
 				MEDIA_TYPE,
+				license,
 				MIME_TYPE,
 				title,
 				urltitle
@@ -663,7 +664,7 @@
 						</cfloop>
 					</cfloop>
 					<br>Title: <strong>#title#</strong>
-					<br><strong>#numPages#</strong>Pages
+					<br><strong>#numPages#</strong> Pages
 					<cfloop list="#attrList#" index="i" delimiters="|">
 						<br>#i#
 					</cfloop>
