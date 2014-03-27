@@ -117,7 +117,7 @@
 	</cfif>
 </cfoutput>
 </cfif>
-<cfif action is 'nothing' and (not isdefined("media_id") or len(media_id)=0)>
+<cfif action is 'nothing' and (not isdefined("media_id") or len(media_id) is 0)>
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="/MediaSearch.cfm">
 </cfif>
