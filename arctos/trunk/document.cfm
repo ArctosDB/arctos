@@ -60,6 +60,8 @@ it is
 		<cfif listlen(p,"?") gt 1>
 			<cfset pg=listgetat(p,1,"?")>
 			<cfset tag_id=listgetat(p,2,"?")>
+		<cfelse>
+			<cfset pg=p>
 		</cfif>
 		<cfcatch>
 			<cfset pg=1>
