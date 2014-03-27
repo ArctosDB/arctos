@@ -447,7 +447,7 @@
 	
 	
 		<cfif raw.recordcount is 10000>
-			<div style="border:2px solid red;text-align:center;margin:0 10em;">
+			<div class="importantMessage">
 				Note: Some relevant records may not be included. Please be more specific in your search terms.
 			</div>
 		</cfif>
