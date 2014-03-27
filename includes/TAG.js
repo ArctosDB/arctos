@@ -333,9 +333,9 @@ function scrollToTag(id) {
 	console.log('calling scrollto with ' + divID);
 	
 	
-	setTimeout(function()({$document).scrollTo( $('#' + divID), 800 );}, 1000);
+	setTimeout(function()({}, 1000);
 	
-	
+	$document).scrollTo( $('#' + divID), 800 );
 	
 	
 	console.log('scrolled');
