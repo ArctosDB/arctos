@@ -77,8 +77,8 @@
 			<input type="text" name="media_uri" id="media_uri" size="90">
 			<table>
 				<tr>
-					<td><span class="rdoCtl"><label for="tag">Require TAG?</label></td>
-					<td><input type="checkbox" id="tag" name="tag" value="1"></span></td>
+					<td><label for="tag">Require TAG?</label></td>
+					<td><input type="checkbox" id="tag" name="tag" value="1"></td>
 					<td><label for="noDNG">Ignore DNG?</label></td>
 					<td><input type="checkbox" id="noDNG" name="noDNG" value="1" checked="checked"></td>
 					<td>
@@ -262,25 +262,15 @@
 			mttitle.label_value title,
 			niceURLNumbers(mttitle.label_value) urltitle">
 		<cfset tabls="media_flat,(select media_id,label_value from media_labels where media_label='title') mttitle">
-	
-	
-	
-					
 		<cfset whr ="WHERE media_flat.media_id=mttitle.media_id (+) ">
-
 		<cfset srch=" ">
 		<cfset mapurl = "">
 		<cfset n=1>
-		
-		
 		<cfif not isdefined("relationships")>
 			<cfset relationships=''>
 		</cfif>
-		
-		
 		<cfloop list="#relationships#" delimiters="," index="thisRelationship">
-			<cfset tabls = "#tabls#,media_relations media_relations#n#">
-			
+			<cfset tabls = "#tabls#,media_relations media_relations#n#">			
 			<cfset whr ="#whr# AND media_flat.media_id = media_relations#n#.media_id ">
 			<cfset srch="#srch# AND media_relations#n#.media_relationship = '#thisRelationship#'">
 			<cfif isdefined ("related_primary_key#n#")>
@@ -346,9 +336,7 @@
 					<cfset srch="#srch# AND upper(mr_publication1.FULL_CITATION) like '%#ucase(relationship1)#%' ">
 				</cfif> 
 			</cfif>
-		</cfif>
-
-						
+		</cfif>						
 		<cfif isdefined("created_by_agent") and len(created_by_agent) gt 0>
 			<cfset mapurl="#mapurl#&created_by_agent=#created_by_agent#">
 			<cfset tabls = "#tabls#,media_relations mr_created_by_agent,agent_name an_created_by_agent">
@@ -356,7 +344,6 @@
 				mr_created_by_agent.related_primary_key=an_created_by_agent.agent_id">
 			<cfset srch="#srch# AND upper(an_created_by_agent.agent_name) like '#ucase(created_by_agent)#%' ">
 		</cfif>
-		
 		<cfif (isdefined("description") and len(description) gt 0)>
 			<cfset tabls = "#tabls#,media_labels ml_descr">
 			<cfset whr ="#whr# AND media_flat.media_id = ml_descr.media_id ">
@@ -441,8 +428,6 @@
 			<cfset whr="#whr# AND media_flat.media_id in (#media_id#)">
 			<cfset mapurl="#mapurl#&media_id=#media_id#">
 		</cfif>
-		
-		
 		<cfif (isdefined("media_label") and len(media_label) gt 0) or (isdefined("label_value") and len(label_value) gt 0)>
 			<cfset tabls = "#tabls#,media_labels">
 			<cfset whr ="#whr# AND media_flat.media_id = media_labels.media_id ">
@@ -459,34 +444,18 @@
 			<div class="error">You must enter search criteria.</div>
 			<cfabort>
 		</cfif>
-<!---
-		<cfset srch = "#srch# AND rownum <= 500">
-		--->
 		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum <= 10000 order by media_flat.media_id">
-		
-		
-		
-		
-
-		
-		 <cfdump var=#ssql#>
-		
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
-	
-	
 		<cfif raw.recordcount is 10000>
 			<div class="importantNotification">
 				Note: Some relevant records may not be included. Please try more specific search terms.
 			</div>
 		</cfif>
-		
-
 		<cfquery name="nodoc" dbtype="query">
 			select * from raw where media_type!='multi-page document'
 		</cfquery>
-		
 		<cfquery name="isdoc" dbtype="query">
 			select 
 				CAST( 0 AS DECIMAL ) AS  media_id,
@@ -515,9 +484,6 @@
 				urltitle
 		</cfquery>
 		<cfset obj = CreateObject("component","component.functions")>
-
-		
-		
 		<cfquery name="findIDs" dbtype="query">
 			select 
 				media_id,
@@ -590,8 +556,7 @@
 			</td>
 		</form>
 		<td>
-			<span class="controlButton"
-				onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
+			<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
 		</td>
 		</tr></table>
 		<cfset q="">
@@ -652,8 +617,6 @@
 	<cfif url.offset is 0><cfset url.offset=1></cfif>
 	<cfset stuffToNotPlay="audio/x-wav">
 	<cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
-		
-		
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<cfif media_type is "multi-page document">
 				<cfquery name="relns" dbtype="query">
@@ -662,21 +625,17 @@
 				<cfquery name="lbl" dbtype="query">
 					select labels from raw where urltitle='#urltitle#' group by labels
 				</cfquery>
-			
 				<td align="middle">
 					<a href="/document/#urltitle#" target="_blank" title="#title#">
 						<img src="/images/document_thumbnail.png" alt="#title#" style="max-width:150px;max-height:150px;">
 					</a>
-					<br>
-					<span style = "font-size:small;">Multi-Page Document</span>
-					<br>
-					<span style = "font-size:small;">#license#</span>
+					<br><span style = "font-size:small;">Multi-Page Document</span>
+					<br><span style = "font-size:small;">#license#</span>
 				</td>
 				<td align="middle">
 					&nbsp;
 				</td>
 				<td>
-				
 					<cfset numPages=0>
 					<cfset attrList="">
 					<cfloop query="#lbl#">
@@ -700,7 +659,6 @@
 					<cfloop list="#attrList#" index="i" delimiters="|">
 						<br>#i#
 					</cfloop>
-					
 					<cfset rattrList="">
 					<cfloop query="#relns#">
 						<cfloop list="#RELATIONSHIPS#" index="i" delimiters="|">
@@ -715,34 +673,6 @@
 					<cfloop list="#rattrList#" index="i" delimiters="|">
 						<br>#i#
 					</cfloop>
-					
-					
-					<!----
-					<div style="max-height:10em;overflow:auto;">
-						<cfset relMedia=''>
-						<cfloop list="#rel#" index="i" delimiters="|">
-							<cfset r=listgetat(i,1,chr(7))>
-							<cfset t=listgetat(i,2,chr(7))>
-							<cfif right(r,6) is ' media'>
-								<cfset relMedia=listAppend(relMedia,t)>
-							<cfelse>
-								#r#: #t#<br>
-							</cfif>
-						</cfloop>
-						<cfloop list="#lbl#" index="i" delimiters="|">
-							#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
-						</cfloop>
-					</div>
-					---->
-				<!----
-				<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-			        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
-			        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
-			    </cfif>
-			    <cfif hastags gt 0>
-					<a href="/showTAG.cfm?media_id=#media_id#">[ View #hastags# TAGs ]</a>
-				</cfif>
-				---->
 				</td>
 			<cfelse><!--- not MPD --->
 				<cfset alt=''>
@@ -759,15 +689,12 @@
 				</cfif>
 				<cfif len(alt) is 0>
 					<cfset alt=media_uri>
-				</cfif>
-		
-		
+				</cfif>		
 				<cfif len(preview_uri) is 0>
 					<cfset mp = obj.getMap(preview_uri="#preview_uri#",media_type="#media_type#")>
 				<cfelse>
 					<cfset mp=preview_uri>
 				</cfif>
-				
 				<td align="middle">
 					<cfif mime_type is "audio/mpeg3">
 						<br>
@@ -789,42 +716,38 @@
 					<br>
 					<span style = "font-size:small;">#license#</span>
 					<br>
-					<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>
-								
+					<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>			
 				</td>
 				<td align="middle">
 					<div id="mapgohere-media_id-#media_id#">
 						<img src="/images/indicator.gif">
 					</div>
 				</td>
-			<td>
-				<div style="max-height:10em;overflow:auto;">
-					<cfset relMedia=''>
-					<cfloop list="#rel#" index="i" delimiters="|">
-						<cfset r=listgetat(i,1,chr(7))>
-						<cfset t=listgetat(i,2,chr(7))>
-						<cfif right(r,6) is ' media'>
-							<cfset relMedia=listAppend(relMedia,t)>
-						<cfelse>
-							#r#: #t#<br>
-						</cfif>
-					</cfloop>
-					<cfloop list="#lbl#" index="i" delimiters="|">
-						#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
-					</cfloop>
-				</div>
-			
-			<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-		        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
-		        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
-		    </cfif>
-		    <cfif hastags gt 0>
-				<a href="/showTAG.cfm?media_id=#media_id#">[ View #hastags# TAGs ]</a>
-			</cfif>
-			</td>
-		</tr>
-		
-				
+				<td>
+					<div style="max-height:10em;overflow:auto;">
+						<cfset relMedia=''>
+						<cfloop list="#rel#" index="i" delimiters="|">
+							<cfset r=listgetat(i,1,chr(7))>
+							<cfset t=listgetat(i,2,chr(7))>
+							<cfif right(r,6) is ' media'>
+								<cfset relMedia=listAppend(relMedia,t)>
+							<cfelse>
+								#r#: #t#<br>
+							</cfif>
+						</cfloop>
+						<cfloop list="#lbl#" index="i" delimiters="|">
+							#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
+						</cfloop>
+					</div>
+				<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+			        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
+			        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
+			    </cfif>
+			    <cfif hastags gt 0>
+					<a href="/showTAG.cfm?media_id=#media_id#">[ View #hastags# TAGs ]</a>
+				</cfif>
+				</td>
+			</tr>
 			</cfif>
 		<cfset rownum=rownum+1>
 	</cfloop>
@@ -843,5 +766,3 @@
 			parent.dyniframesize();
 		}
 	</script>
-	
-	
