@@ -130,6 +130,7 @@
 	<cfquery name="tag"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from tag where media_id=#media_id#
 	</cfquery>
+	<span class="infoLink" onClick="getDocs('media','guide')">READ THE DOCUMENTATION!</span>
 
 	<cfoutput>
 		Edit Media
