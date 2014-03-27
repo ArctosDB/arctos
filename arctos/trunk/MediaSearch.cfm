@@ -451,6 +451,8 @@
 			#preservesinglequotes(ssql)#
 		</cfquery>
 	
+	
+		<cfdump var=#raw#>
 		<cfquery name="nodoc" dbtype="query">
 			select * from raw where media_type!='multi-page document'
 		</cfquery>
