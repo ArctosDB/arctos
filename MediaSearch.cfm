@@ -640,8 +640,6 @@
 				<cfquery name="qhastags" dbtype="query">
 					select media_id from raw where urltitle='#urltitle#' and hastags>0 group by media_id
 				</cfquery>
-				
-				<cfdump var=#qhastags#>
 				<td align="middle">
 					<a href="/document/#urltitle#" target="_blank" title="#title#">
 						<img src="/images/document_thumbnail.png" alt="#title#" style="max-width:150px;max-height:150px;">
@@ -690,6 +688,9 @@
 					<cfloop list="#rattrList#" index="i" delimiters="|">
 						<br>#i#
 					</cfloop>
+					<cfif qhastags.recordcount gt 0>
+						<br>Number TAGged pages: #qhastags.recordcount#
+					</cfif>
 				</td>
 			<cfelse><!--- not MPD --->
 				<cfset alt=''>
