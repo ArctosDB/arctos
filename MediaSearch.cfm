@@ -453,6 +453,16 @@
 	
 	
 		<cfdump var=#raw#>
+		
+		
+				<cfset ssql2="#sql# #whr# and media_type = 'multi-page document' #srch# order by media_flat.media_id">
+
+	<cfquery name="raw2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			#preservesinglequotes(ssql)#
+		</cfquery>
+	
+		<cfdump var=#raw2#>
+
 		<cfquery name="nodoc" dbtype="query">
 			select * from raw where media_type!='multi-page document'
 		</cfquery>
