@@ -86,7 +86,6 @@
 							Direct relationship to Specimens
 						</label>
 					</td>
-					
 					<td>
 						<select name="requireSpecimens" id="requireSpecimens">
 							<option value="" selected="selected">anything</option>
@@ -133,9 +132,14 @@
 			<label for="description">
 				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=description" target="_blank">Media Description</a>
 			</label>
+			<input type="text" name="description" id="description" size="80">
+
 			<label for="title">
 				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=title" target="_blank">Document Title</a>
 			</label>
+			<input type="text" name="title" id="title" size="80">
+
+			
 			<label for="min_published_year">
 				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=published year" target="_blank">Published Year (min-max)</a>
 			</label>
