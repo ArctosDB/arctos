@@ -733,7 +733,7 @@
 					<br><span style = "font-size:small;">#license#</span>
 					<br><span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>
 					 <cfif hastags gt 0>
-						<br><a href="/showTAG.cfm?media_id=#media_id#">[ View #hastags# TAGs ]</a>
+						<br><a style = "font-size:small;" href="/showTAG.cfm?media_id=#media_id#">[ View #hastags# TAGs ]</a>
 					</cfif>
 				</td>
 				<td align="middle">
