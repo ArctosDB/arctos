@@ -129,21 +129,31 @@
 			media_uri,
 			title.label_value mtitle,
 			to_number(page.label_value) page,
-			media.media_id
+			media.media_id,
+			count(tag.media_id) numTags
 		from
 			media,
 			media_labels title,
-			media_labels page
+			media_labels page,
+			tag
 		where
 			media.media_id=title.media_id and
+			media.media_id=tag.media_id (+) and
 			media.media_id=page.media_id and
 			title.media_label='title' and
 			page.media_label='page' and
 			media_type='multi-page document' and
 			niceURLNumbers(title.label_value)='#ttl#'
+		group by
+			media_uri,
+			title.label_value mtitle,
+			to_number(page.label_value) page,
+			media.media_id,
 		order by
 			to_number(page.label_value)
 	</cfquery>
+	
+	<cfdump var=#doc#>
 	<cfif doc.recordcount is 0>
 		<div class="error">
 			Document #ttl# was not found.
@@ -177,6 +187,7 @@
 		select * from media_flat where media_id=#cpg.media_id#
 	</cfquery>
 	
+
 	<cfsavecontent variable="controls">
 		<table>
 			<tr>
