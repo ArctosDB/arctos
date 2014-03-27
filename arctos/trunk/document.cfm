@@ -31,7 +31,6 @@
 </cfif>
 
 <cfif listlen(request.rdurl,"/") gt 1>
-gt 1
 	<cfset gPos=listfindnocase(request.rdurl,"document","/")>
 	<cftry>
 		<cfset ttl = listgetat(request.rdurl,gPos+1,"/")>
@@ -40,12 +39,9 @@ gt 1
 		</cfcatch>
 	</cftry>
 	<cfif listlen(request.rdurl,"/") gte gPos+1>
-		haspage
-	</cfif>
-	<cftry>
+		<cftry>
 		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
 		<cfif listlen(p,"?") gt 1>
-		it is....
 			<cfset pg=listgetat(p,1,"?")>
 			<cfset tag_id=listgetat(p,2,"?")>
 		</cfif>
@@ -55,12 +51,8 @@ gt 1
 			<cfdump var=#cfcatch#>
 		</cfcatch>
 	</cftry>
+	</cfif>
 	<cfset action="show">
-	
-	<cfoutput>
-		pg: #pg# tag_id: #tag_id#
-	</cfoutput>
-	
 	
 </cfif>
 
