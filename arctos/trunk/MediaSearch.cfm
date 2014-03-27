@@ -247,7 +247,7 @@
 			media_flat.COORDINATES,
 			media_flat.HASTAGS,
 			media_flat.LASTDATE">
-		<cfset tabls="media_flat">
+		<cfset tabls="media">
 			
 		<cfset whr ="WHERE media_flat.media_id=mttitle.media_id (+) ">
 		<cfset whr ="WHERE 1=1 ">
