@@ -476,7 +476,8 @@
 				media_uri,
 				preview_uri,
 				MEDIA_TYPE,
-				MIME_TYPE
+				MIME_TYPE,
+				title
 		</cfquery>
 		<cfset obj = CreateObject("component","component.functions")>
 
