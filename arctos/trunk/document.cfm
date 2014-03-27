@@ -226,27 +226,34 @@
 	<cfsavecontent variable="controls">
 	<table>
 		<tr>
-			<td>Page</td>
 			<td>
-				<cfif p gt 1>
-					<cfset pp=p-1>
-					<a class="infoLink" href="/document/#ttl#/#pp#">Previous</a>
-				</Cfif>
+				<table>
+					<tr>
+						<td>Page</td>
+						<td>
+							<cfif p gt 1>
+								<cfset pp=p-1>
+								<a class="infoLink" href="/document/#ttl#/#pp#">Previous</a>
+							</Cfif>
+						</td>
+						<td>
+							<select name="p" id="p" onchange="document.location=this.value">
+								<cfloop from="1" to="#maxPage#" index="pg">
+									<option <cfif pg is p> selected="selected" </cfif>value="/document/#ttl#/#pg#">#pg#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<cfif p lt maxPage>
+								<cfset np=p+1>
+								<a class="infoLink" href="/document/#ttl#/#np#">Next</a>
+							</Cfif>
+						</td>
+						<td> of #maxPage#</td>
+					</tr>
+				</table>
 			</td>
-			<td>
-				<select name="p" id="p" onchange="document.location=this.value">
-					<cfloop from="1" to="#maxPage#" index="pg">
-						<option <cfif pg is p> selected="selected" </cfif>value="/document/#ttl#/#pg#">#pg#</option>
-					</cfloop>
-				</select>
-			</td>
-			<td>
-				<cfif p lt maxPage>
-					<cfset np=p+1>
-					<a class="infoLink" href="/document/#ttl#/#np#">Next</a>
-				</Cfif>
-			</td>
-			<td> of #maxPage#</td>
+			<td>stuff goes here</td>
 		</tr>
 	</table>
 	</cfsavecontent>
