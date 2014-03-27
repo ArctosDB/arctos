@@ -473,7 +473,7 @@
 				title,
 				urltitle
 			from 
-				raw where media_type='multi-page document' 
+				raw where media_type='multi-page document' and urltitle is not null
 			group by 
 				media_uri,
 				preview_uri,
@@ -646,27 +646,13 @@
 					<span style = "font-size:small;">Multi-Page Document</span>
 					<br>
 					<span style = "font-size:small;">#license#</span>
-					
-					<!---
-							
-						
-					</cfif>
-					
-								
-								
-								
-				
-					<a href="/document.cfm?media_id=#media_id#">[ view as document ]</a>
-					
-					<br>
-					<span style = "font-size:small;"><a href="/media/#media_id#">details</a></span>
-					---->
-					view as....
 				</td>
 				<td align="middle">
-					&nbsp;
+					<div id="mapgohere-media_id-#media_id#">
+						<img src="/images/indicator.gif">
+					</div>
 				</td>
-				<td>
+				<td>row3
 					<div style="max-height:10em;overflow:auto;">
 						<cfset relMedia=''>
 						<cfloop list="#rel#" index="i" delimiters="|">
