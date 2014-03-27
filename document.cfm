@@ -164,10 +164,10 @@
 		<cfthrow message="missing document" detail="document title #ttl# not found">
 		<cfabort>
 	</cfif>
-	<cfquery name="pg" dbtype="query">
+	<cfquery name="qmaxpage" dbtype="query">
 		select max(page) npgs from doc
 	</cfquery>
-	<cfset maxPage=pg.npgs>
+	<cfset maxPage=qmaxpage.npgs>
 	<cfset title=doc.mtitle>
 	<strong>#doc.mtitle#</strong>
 	<cfquery name="cpg" dbtype="query">
