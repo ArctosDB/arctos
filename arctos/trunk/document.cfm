@@ -33,6 +33,11 @@
 </cfif>
 
 <cfif listlen(request.rdurl,"/") gt 1>
+
+
+it is
+
+
 	<cfset gPos=listfindnocase(request.rdurl,"document","/")>
 	
 	<cfdump var=#gPos#>
