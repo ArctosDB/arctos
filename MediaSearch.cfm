@@ -246,11 +246,15 @@
 			media_flat.KEYWORDS,
 			media_flat.COORDINATES,
 			media_flat.HASTAGS,
-			media_flat.LASTDATE,
+			media_flat.LASTDATE">
+		<cfset tabls="media_flat">
+			
 			mttitle.label_value title,
 			niceURLNumbers(mttitle.label_value) urltitle
 			FROM media_flat,(select media_id,label_value from media_labels where media_label='title') mttitle ">
 		<cfset whr ="WHERE media_flat.media_id=mttitle.media_id (+) ">
+		<cfset whr ="WHERE 1=1 ">
+
 		<cfset srch=" ">
 		<cfset mapurl = "">
 		<cfset n=1>
@@ -262,7 +266,8 @@
 		
 		
 		<cfloop list="#relationships#" delimiters="," index="thisRelationship">
-			<cfset sql = "#sql#,media_relations media_relations#n#">
+			<cfset tabls = "#tabls#,media_relations media_relations#n#">
+			
 			<cfset whr ="#whr# AND media_flat.media_id = media_relations#n#.media_id ">
 			<cfset srch="#srch# AND media_relations#n#.media_relationship = '#thisRelationship#'">
 			<cfif isdefined ("related_primary_key#n#")>
@@ -277,20 +282,20 @@
 				<cfset relationship1="">
 			</cfif>
 			<cfset mapurl="#mapurl#&relationshiptype1=#relationshiptype1#&relationship1=#relationship1#">
-			<cfset sql = "#sql#,media_relations media_relations1">
+			<cfset tabls = "#tabls#,media_relations media_relations1">
 			<cfset whr ="#whr# AND media_flat.media_id = media_relations1.media_id ">
 			<cfset srch="#srch# AND media_relations1.media_relationship = '#relationshiptype1#'">
 			<cfif len(relationship1) gt 0>
 				<cfif right(relationshiptype1,5) is "agent">
-					<cfset sql = "#sql#,agent_name mr_agentname1">
+					<cfset tabls = "#tabls#,agent_name mr_agentname1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_agentname1.agent_id ">
 					<cfset srch="#srch# AND upper(mr_agentname1.agent_name) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,7) is "project">
-					<cfset sql = "#sql#,project mr_project1">
+					<cfset tabls = "#tabls#,project mr_project1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_project1.project_id ">
 					<cfset srch="#srch# AND upper(mr_project1.PROJECT_NAME) || upper(mr_project1.PROJECT_DESCRIPTION) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,16) is "collecting_event">
-					<cfset sql = "#sql#,collecting_event mr_collecting_event1, locality mr_locality1,geog_auth_rec mr_geog_auth_rec1">
+					<cfset tabls = "#tabls#,collecting_event mr_collecting_event1, locality mr_locality1,geog_auth_rec mr_geog_auth_rec1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_collecting_event1.collecting_event_id AND
 						mr_collecting_event1.locality_id=mr_locality1.locality_id
 						and mr_locality1.geog_auth_rec_id=mr_geog_auth_rec1.geog_auth_rec_id">
@@ -299,31 +304,31 @@
 						upper(mr_geog_auth_rec1.higher_geog) || 
 						upper(mr_locality1.spec_locality) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,5) is "media">
-					<cfset sql = "#sql#,media mr_media1">
+					<cfset tabls = "#tabls#,media mr_media1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_media1.media_id ">
 					<cfset srch="#srch# AND upper(mr_media1.media_uri) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,8) is "taxonomy">
-					<cfset sql = "#sql#,taxon_name mr_taxonomy1">
+					<cfset tabls = "#tabls#,taxon_name mr_taxonomy1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_taxonomy1.taxon_name_id ">
 					<cfset srch="#srch# AND upper(mr_taxonomy1.scientific_name) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,4) is "accn">
-					<cfset sql = "#sql#,accn mr_accn1">
+					<cfset tabls = "#tabls#,accn mr_accn1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_accn1.transaction_id ">
 					<cfset srch="#srch# AND upper(mr_accn1.accn_number) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,4) is "loan">
-					<cfset sql = "#sql#,loan mr_loan1">
+					<cfset tabls = "#tabls#,loan mr_loan1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_loan1.transaction_id ">
 					<cfset srch="#srch# AND upper(mr_loan1.loan_number) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,14) is "cataloged_item">
-					<cfset sql = "#sql#,flat mr_cataloged_item1">
+					<cfset tabls = "#tabls#,flat mr_cataloged_item1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_cataloged_item1.collection_object_id ">
 					<cfset srch="#srch# AND upper(mr_cataloged_item1.cat_num) || upper(mr_cataloged_item1.scientific_name) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,8) is "locality">
-					<cfset sql = "#sql#,locality mr_locality1,geog_auth_rec mr_geog_auth_rec1">
+					<cfset tabls = "#tabls#,locality mr_locality1,geog_auth_rec mr_geog_auth_rec1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_locality1.locality_id and mr_locality1.geog_auth_rec_id=mr_geog_auth_rec1.geog_auth_rec_id">
 					<cfset srch="#srch# AND upper(mr_geog_auth_rec1.higher_geog) || upper(mr_locality1.spec_locality) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,11) is "publication">
-					<cfset sql = "#sql#,publication mr_publication1">
+					<cfset tabls = "#tabls#,publication mr_publication1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_publication1.publication_id ">
 					<cfset srch="#srch# AND upper(mr_publication1.FULL_CITATION) like '%#ucase(relationship1)#%' ">
 				</cfif> 
@@ -333,14 +338,14 @@
 						
 		<cfif isdefined("created_by_agent") and len(created_by_agent) gt 0>
 			<cfset mapurl="#mapurl#&created_by_agent=#created_by_agent#">
-			<cfset sql = "#sql#,media_relations mr_created_by_agent,agent_name an_created_by_agent">
+			<cfset tabls = "#tabls#,media_relations mr_created_by_agent,agent_name an_created_by_agent">
 			<cfset whr ="#whr# AND media_flat.media_id = mr_created_by_agent.media_id and mr_created_by_agent.MEDIA_RELATIONSHIP='created by agent' and 
 				mr_created_by_agent.related_primary_key=an_created_by_agent.agent_id">
 			<cfset srch="#srch# AND upper(an_created_by_agent.agent_name) like '#ucase(created_by_agent)#%' ">
 		</cfif>
 		
 		<cfif (isdefined("description") and len(description) gt 0)>
-			<cfset sql = "#sql#,media_labels ml_descr">
+			<cfset tabls = "#tabls#,media_labels ml_descr">
 			<cfset whr ="#whr# AND media_flat.media_id = ml_descr.media_id ">
 			<cfset srch="#srch# AND ml_descr.media_label = 'description'">
 			<cfset srch="#srch# AND upper(ml_descr.label_value) like '%#ucase(description)#%'">
@@ -350,7 +355,7 @@
 		
 		<cfif isdefined("requireSpecimens") and len(requireSpecimens) gt 0>
 			<cfset mapurl="#mapurl#&requireSpecimens=#requireSpecimens#">
-			<cfset sql = "#sql#,media_relations mr_shows_cataloged_item">
+			<cfset tabls = "#tabls#,media_relations mr_shows_cataloged_item">
 			<cfif requireSpecimens is "require">
 				<cfset whr ="#whr# AND media_flat.media_id = mr_shows_cataloged_item.media_id ">
 			<cfelse>
@@ -408,7 +413,7 @@
 		
 		
 		<cfif (isdefined("media_label") and len(media_label) gt 0) or (isdefined("label_value") and len(label_value) gt 0)>
-			<cfset sql = "#sql#,media_labels">
+			<cfset tabls = "#tabls#,media_labels">
 			<cfset whr ="#whr# AND media_flat.media_id = media_labels.media_id ">
 			<cfif isdefined("media_label") and len(media_label) gt 0>
 				<cfset srch="#srch# AND media_labels.media_label = '#media_label#'">
@@ -426,7 +431,10 @@
 <!---
 		<cfset srch = "#srch# AND rownum <= 500">
 		--->
-		<cfset ssql="#sql# #whr# #srch# order by media_flat.media_id">
+		<cfset ssql="#sql# #tabls# #whr# #srch# order by media_flat.media_id">
+		
+		
+		<cfdump var=#ssql#>
 		<!--- #ssql#--->
 		<p>
 			sql: #sql#
