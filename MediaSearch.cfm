@@ -468,7 +468,8 @@
 				'' as KEYWORDS,
 				'' as COORDINATES,
 				0 as HASTAGS,
-				'2014-03-01' as LASTDATE
+				'2014-03-01' as LASTDATE,
+				title
 			from 
 				raw where media_type='multi-page document' 
 			group by 
@@ -494,7 +495,8 @@
 				KEYWORDS,
 				COORDINATES,
 				HASTAGS,
-				LASTDATE
+				LASTDATE,
+				'' as title
 			from
 				isdoc
 			UNION
@@ -510,7 +512,8 @@
 				KEYWORDS,
 				COORDINATES,
 				HASTAGS,
-				LASTDATE
+				LASTDATE,
+				title
 			from
 				nodoc
 		</cfquery>
