@@ -445,7 +445,14 @@
 			<cfabort>
 		</cfif>
 		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum <= 10000 order by media_flat.media_id">
-		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		
+		
+		
+		 cachedwithin="#createtimespan(0,0,60,0)#"
+		 
+		 
+		 
+		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
 		<cfif raw.recordcount is 10000>
