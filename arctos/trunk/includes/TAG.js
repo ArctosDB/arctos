@@ -301,8 +301,10 @@ function loadInitial(tid) {
 			}
 		}
 	);
+	console.log('checking for tag....');
 	if(tid){
-		ScrollToTag(tid);
+		console.log('scrolling to tag....');
+		scrollToTag(tid);
 	}
 }
 function scrollToLabel(id) {
