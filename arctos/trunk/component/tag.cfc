@@ -81,7 +81,6 @@
 			<cfset remark=r.raw_remark>
 			
 			
-		<!---
 	
 		<cfif remark contains "[[" and remark contains "]]">
 			<cfset remark=replace(remark,"[[","#chr(7)#*" ,"all")>
@@ -136,7 +135,6 @@
 		
 		
 
-	---->
 		<cfset rmk = ArrayNew(1)>
 		<cfset rft = ArrayNew(1)>
 		<cfset rfi = ArrayNew(1)>
