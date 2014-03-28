@@ -5,8 +5,6 @@
 <cfif not isdefined("tag_id")>
 	<cfset tag_id="">
 </cfif>
-
-<cfoutput>#pg#--#tag_id#</cfoutput>
 <cfif isdefined("media_id") and media_id gt 0>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -31,7 +29,6 @@
 		</cfif>
 	</cfoutput>
 </cfif>
-
 <cfif listlen(request.rdurl,"/") gt 1>
 	<cfset gPos=listfindnocase(request.rdurl,"document","/")>
 	<cftry>
