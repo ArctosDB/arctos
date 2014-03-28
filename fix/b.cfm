@@ -37,7 +37,7 @@
 					<cfset htmlLink='<a href="#theLink#">#linktext#</a>'>
 				</cfif>
 				
-				<cfdump var=#htmltext#>
+				<cfdump var=#htmlLink#>
 			</cfif>
 		</cfloop>
 	</cfif>
