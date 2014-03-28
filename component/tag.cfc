@@ -26,7 +26,6 @@
 				refw,
 				imgh,
 				imgw,
-				--remark raw_remark,
 				remark,
 				collection_object_id,
 				collecting_event_id,
@@ -78,67 +77,6 @@
 			<cfset ri="">
 			<cfset rl="">
 		</cfif>
-		<!----
-			<cfset remark=r.raw_remark>
-			
-			
-	
-		<cfif remark contains "[[" and remark contains "]]">
-			<cfset remark=replace(remark,"[[","#chr(7)#*" ,"all")>
-			<cfset remark=replace(remark,"]]", "*#chr(7)#" ,"all")>
-			<!---
-			<br>#remark#
-			---->
-			<cfloop list="#remark#" delimiters="#chr(7)#" index="x">
-				<cfset htmlLink=x>
-				<cfif left(x,1) is "*" and right(x,1) is "*">
-					<cfset htmlLink=x>
-					<cfset x=left(x,len(x)-1)>
-					<cfset x=right(x,len(x)-1)>
-					<!----<br>x: #x#---->
-					<cfif x contains "|">
-						<cfset theLink=listfirst(x,"|")>
-						<!----<br>x contains linktext---->
-					<cfelse>
-						<!----<br>x is linkonly---->
-						<cfset theLink=x>
-					</cfif>
-					<cfif left(theLink,5) is "guid/">
-						<!----<br>it's a guid link---->
-						<cfif x contains "|">
-							<cfset linktext=listlast(x,"|")>
-							<!----<br>linktext: #linktext#---->
-						<cfelse>
-							<cfset linktext=replace(x,"guid/","","all")>
-							<!----<br>linktext (replacing): #linktext#---->
-						</cfif>
-						<cfset htmlLink='<a href="/#theLink#">#linktext#</a>'>
-						<!----<cfdump var=#htmlLink#>
-						
-						<cfset htmlLink='THIS IS A LINK'>
-						
-						
-						
-						
-						---->
-					</cfif>
-				</cfif>
-				<!----<br>oldremark: #remark#---->
-				<cfset remark=replace(remark,"*" & x & "*",htmlLink,"first")>
-				<!----<br>newremark: #remark#---->
-			</cfloop>			
-		</cfif>
-
-		<cfset remark=trim(replace(remark,chr(7),"","all"))>
-
-		
-		
-		<cfset rmk = ArrayNew(1)>
-		<cfset rmk[1]=remark>
-		<cfset temp = QueryAddColumn(r, "REMARK", "VarChar",rmk)>
-		---->
-		
-
 		<cfset rft = ArrayNew(1)>
 		<cfset rfi = ArrayNew(1)>
 		<cfset rfs = ArrayNew(1)>
@@ -151,16 +89,9 @@
 		<cfset temp = QueryAddColumn(r, "REFID", "Integer",rfi)>
 		<cfset temp = QueryAddColumn(r, "REFSTRING", "VarChar",rfs)>
 		<cfset temp = QueryAddColumn(r, "REFLINK", "VarChar",rfl)>
-		
-		
-		<!----<cfdump var=#r#>---->
-		
-		
 		<cfreturn r>
 	</cfoutput>
 </cffunction>
-
-
 <!----------------------------------------------------------------------------------------->
 <cffunction name="getTags" access="remote">
 	<cfargument name="media_id" required="yes">
@@ -188,9 +119,6 @@
 		<cfreturn />
 	</cfif>
 </cffunction>
-
-
-
 <!--------------------------------------->
 <cffunction name="saveEdit" access="remote">
 	<cfargument name="tag_id" required="yes">
