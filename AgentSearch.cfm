@@ -92,6 +92,27 @@
 	<table width="100%">
 		<tr>
 			<td>
+				<label for="created_by">Created By</label>
+				<input type="text" name="created_by" id="created_by" size="35">
+
+			</td>
+			<td>
+				<label for="create_date_oper">create date match type</label>
+				<select name="create_date_oper" size="1" id="create_date_oper">
+					<option value="<=">Before</option>
+					<option selected value="=" >At</option>
+					<option value=">=">After</option>
+				</select>
+			</td>
+			<td>
+				<label for="created_date">Created Date</label>
+				<input type="text" name="created_date" id="created_date" size="15">
+			</td>
+		</tr>
+	</table>
+	<table width="100%">
+		<tr>
+			<td>
 				<input type="submit" value="Search" class="schBtn">
 			</td>
 			<td><input type="reset" value="Clear Form" class="clrBtn"></td>
