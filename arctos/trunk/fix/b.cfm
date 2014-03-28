@@ -14,6 +14,12 @@
 		<cfset remark=replace(remark,"]]", "*#chr(7)#" ,"all")>
 		<br>#remark#
 		<cfloop list="#remark#" delimiters="#chr(7)#" index="x">
+			<cfif left(x,1) is "*" and right(x,1) is "*">
+				<br>#x# is a link....
+				<cfset x=left(x,len(x)-1>
+				<cfset x=right(x,len(x)-1>
+				<br>nostars: #x#
+			</cfif>
 			<p>
 				listelem: #x#
 			</p>
