@@ -55,7 +55,7 @@
 		<cfelseif len(created_date) is 10>
 			<cfset filter='YYYY-MM-DD'>
 		<cfelse>
-			Search created date by YYYY, YYYY-MM, YYYY-MM-DD
+			Search created date as YYYY, YYYY-MM, YYYY-MM-DD
 			<cfabort>
 		</cfif>
 		<cfset sql = "#sql# AND to_char(CREATED_DATE,'#filter#') #create_date_oper# '#created_date#'">

@@ -240,6 +240,21 @@
 						jQuery("#" + theElemID).html(data);
 					});
 				});
+
+				$.each($("div[id^='tags_']"), function() {
+					var theElemID=this.id;
+					var theIDType=this.id.split('_')[1];
+					var theID=this.id.split('_')[2];
+				  	var ptl='/component/tag.cfc?method=getTags&media_id=' + theID;
+				    jQuery.get(ptl, function(data){
+						jQuery("#" + theElemID).html(data);
+					});
+				});
+
+
+
+
+
 			});
 		</script>
 	<cfif not isdefined("session.displayrows") or len(session.displayrows) is 0>
@@ -690,6 +705,7 @@
 					<cfloop list="#rattrList#" index="i" delimiters="|">
 						<br>#i#
 					</cfloop>
+					<div id="tags_#media_id#"></div>
 				</td>
 			<cfelse><!--- not MPD --->
 				<cfset alt=''>
