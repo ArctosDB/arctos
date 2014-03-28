@@ -33,19 +33,7 @@
 </cfif>
 
 <cfif listlen(request.rdurl,"/") gt 1>
-
-
-it is
-
-
 	<cfset gPos=listfindnocase(request.rdurl,"document","/")>
-	
-	==gPos: <cfdump var=#gPos#>==
-	
-	<cfdump var=#request.rdurl#>
-	
-	
-	<cfoutput>
 	<cftry>
 		<cfset ttl = listgetat(request.rdurl,gPos+1,"/")>
 		<cfcatch>
@@ -53,51 +41,26 @@ it is
 		</cfcatch>
 	</cftry>
 	<cfif listlen(request.rdurl,"/") gte gPos+2>
-	<br>got a page number
-	gt pos+1
 		<cftry>
 		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
-		
-		<br>p: ====#p#====
-		
-		<br>
-		
-		listlen(p,"?"): #listlen(p,"?&")#
-		<!----
-		<cfset p=replace(p,"?","|")>
-		<br>p: ====#p#====
-		
-		<br>
-		
-		listlen(p,"|"): #listlen(p,"|")#
-		
-		---->
-		
-		
 		<cfif listlen(p,"?&") gt 1>
-			page and tag ID
 			<cfset pg=listgetat(p,1,"?&")>
 			<cfset tag_id=listgetat(p,2,"?&")>
 			<cfif listlen(tag_id,"=") gt 1>
 				<cfset tag_id=listgetat(tag_id,2,"=")>
 			<cfelse>
 				<cfset tag_id="">
-			</cfif>
-			
+			</cfif>			
 		<cfelse>
-			page only
 			<cfset pg=p>
 		</cfif>
 		<cfcatch>
 			<cfset pg=1>
 			<cfset tag_id="">
-			
-			<cfdump var=#cfcatch#>
 		</cfcatch>
 	</cftry>
 	</cfif>
 	<cfset action="show">
-	</cfoutput>
 </cfif>
 
 <cfif action is 'srchResult'>
