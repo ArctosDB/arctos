@@ -82,37 +82,39 @@
 		<cfif remark contains "[[" and remark contains "]]">
 			<cfset remark=replace(remark,"[[","#chr(7)#*" ,"all")>
 			<cfset remark=replace(remark,"]]", "*#chr(7)#" ,"all")>
+			<!---
 			<br>#remark#
+			---->
 			<cfloop list="#remark#" delimiters="#chr(7)#" index="x">
 				<cfset htmlLink=x>
 				<cfif left(x,1) is "*" and right(x,1) is "*">
 					<cfset htmlLink=x>
 					<cfset x=left(x,len(x)-1)>
 					<cfset x=right(x,len(x)-1)>
-					<br>x: #x#
+					<!----<br>x: #x#---->
 					<cfif x contains "|">
 						<cfset theLink=listfirst(x,"|")>
-						<br>x contains linktext
+						<!----<br>x contains linktext---->
 					<cfelse>
-						<br>x is linkonly
+						<!----<br>x is linkonly---->
 						<cfset theLink=x>
 					</cfif>
 					<cfif left(theLink,5) is "guid/">
-						<br>it's a guid link
+						<!----<br>it's a guid link---->
 						<cfif x contains "|">
 							<cfset linktext=listlast(x,"|")>
-							<br>linktext: #linktext#
+							<!----<br>linktext: #linktext#---->
 						<cfelse>
 							<cfset linktext=replace(x,"guid/","","all")>
-							<br>linktext (replacing): #linktext#
+							<!----<br>linktext (replacing): #linktext#---->
 						</cfif>
 						<cfset htmlLink='<a href="#theLink#">#linktext#</a>'>
-						<cfdump var=#htmlLink#>
+						<!----<cfdump var=#htmlLink#>---->
 					</cfif>
 				</cfif>
-				<br>oldremark: #remark#
+				<!----<br>oldremark: #remark#---->
 				<cfset remark=replace(remark,"*" & x & "*",htmlLink,"first")>
-				<br>newremark: #remark#
+				<!----<br>newremark: #remark#---->
 			</cfloop>			
 		</cfif>
 
@@ -137,7 +139,7 @@
 		<cfset temp = QueryAddColumn(r, "REMARK", "VarChar",rmk)>
 		
 		
-		<cfdump var=#r#>
+		<!----<cfdump var=#r#>---->
 		
 		
 		<cfreturn r>
