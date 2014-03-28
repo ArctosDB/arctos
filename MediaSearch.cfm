@@ -231,7 +231,9 @@
 	<cfif action is "search">
 		<script>
 			jQuery(document).ready(function() {
-				$.each($("div[id^='mapgohere-']"), function() {
+				
+/*
+$.each($("div[id^='mapgohere-']"), function() {
 					var theElemID=this.id;
 					var theIDType=this.id.split('-')[1];
 					var theID=this.id.split('-')[2];
@@ -240,11 +242,14 @@
 						jQuery("#" + theElemID).html(data);
 					});
 				});
-
+*/
 				$.each($("div[id^='tags_']"), function() {
+console.log(this.id);
 					var theElemID=this.id;
-					var theIDType=this.id.split('_')[1];
-					var theID=this.id.split('_')[2];
+
+console.log(theElemID);
+
+					//var theID=this.id.split('_')[2];
 				  	var ptl='/component/tag.cfc?method=getTags&media_id=' + theID;
 				    jQuery.get(ptl, function(data){
 						jQuery("#" + theElemID).html(data);
