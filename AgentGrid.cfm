@@ -44,7 +44,7 @@
 		<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#ucase(escapeQuotes(agent_name))#%'">
 	</cfif>
 	<cfif isdefined("created_by") AND len(created_by) gt 0>
-		<cfset sql = "#sql# AND agent.created_by_agent_id in (select agent_id from agent_name where upper(agent_name.agent_name) like '%#ucase(escapeQuotes(created_by))#%'">
+		<cfset sql = "#sql# AND agent.created_by_agent_id in (select agent_id from agent_name where upper(agent_name.agent_name) like '%#ucase(escapeQuotes(created_by)))#%'">
 	</cfif>
 	
 	<cfif isdefined("created_date") AND len(created_date) gt 0>
