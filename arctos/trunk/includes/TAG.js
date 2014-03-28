@@ -302,7 +302,8 @@ function loadInitial(tid) {
 		}
 	);
 	if(tid){
-		setTimeout(function() {scrollToTag(tid);},1250);
+		setTimeout(function() {scrollToTag(tid);},1000);
+		setTimeout(function() {scrollToLabel(tid);},1000);
 	}
 }
 function scrollToLabel(id) {
