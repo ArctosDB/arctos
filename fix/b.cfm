@@ -9,7 +9,7 @@
 
 
 
-	<cfif d.remark contains "[[" and d.remark contains "]]">
+	<cfif remark contains "[[" and d.remark contains "]]">
 		<cfloop list="remark" delimiters="][" index="x">
 			<p>
 				listelem: #x#
