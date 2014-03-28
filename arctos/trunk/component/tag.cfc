@@ -101,6 +101,7 @@
 						<cfset htmlLink='<a href="#theLink#">#linktext#</a>'>
 					</cfif>
 				</cfif>
+				<cfset remark=replace(remark,x,htmlLink,"first")>
 			</cfloop>			
 		</cfif>
 
