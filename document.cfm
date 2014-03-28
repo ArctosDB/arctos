@@ -40,7 +40,7 @@ it is
 
 	<cfset gPos=listfindnocase(request.rdurl,"document","/")>
 	
-	==<cfdump var=#gPos#>==
+	==gPos: <cfdump var=#gPos#>==
 	
 	<cfdump var=#request.rdurl#>
 	
@@ -53,7 +53,7 @@ it is
 		</cfcatch>
 	</cftry>
 	<cfif listlen(request.rdurl,"/") gte gPos+1>
-	
+	<br>got a page number
 	gt pos+1
 		<cftry>
 		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
