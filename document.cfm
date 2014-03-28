@@ -76,8 +76,8 @@ it is
 		
 		<cfif listlen(p,"?&") gt 1>
 			page and tag ID
-			<cfset pg=listgetat(p,1,"?")>
-			<cfset tag_id=listgetat(p,2,"?")>
+			<cfset pg=listgetat(p,1,"?&")>
+			<cfset tag_id=listgetat(p,2,"?&")>
 		<cfelse>
 			page only
 			<cfset pg=p>
