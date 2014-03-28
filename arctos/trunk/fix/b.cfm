@@ -1,7 +1,22 @@
 <cfinclude template="/includes/_header.cfm">
 
 <cfoutput>
-	HI
+
+
+<cfset remark="this makes [[guid/MVZ:Mamm:1|guid links]] to specimens [[guid/MVZ:Mamm:2|mvz too]]">
+
+<cfdump var=#remark#>
+
+
+
+	<cfif d.remark contains "[[" and d.remark contains "]]">
+		<cfloop list="remark" delimiters="][" index="x">
+			<p>
+				listelem: #x#
+			</p>
+		</cfloop>
+	</cfif>
+
 	<!-------
 <cfset variables.fn="#Application.webDirectory#/bnhmMaps/tabfiles/test.xml">
 <cfset variables.encoding="UTF-8">
