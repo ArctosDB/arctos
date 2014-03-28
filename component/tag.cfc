@@ -82,6 +82,7 @@
 		<cfif remark contains "[[" and remark contains "]]">
 			<cfset remark=replace(remark,"[[","#chr(7)#*" ,"all")>
 			<cfset remark=replace(remark,"]]", "*#chr(7)#" ,"all")>
+			<br>#remark#
 			<cfloop list="#remark#" delimiters="#chr(7)#" index="x">
 				<cfif left(x,1) is "*" and right(x,1) is "*">
 					<cfset x=left(x,len(x)-1)>
