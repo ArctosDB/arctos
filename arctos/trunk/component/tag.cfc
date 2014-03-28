@@ -127,6 +127,7 @@
 			</cfloop>			
 		</cfif>
 
+		<cfset remark=replace(remark,chr(7),"","all")>
 
 		
 		
