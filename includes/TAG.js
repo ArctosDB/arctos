@@ -371,7 +371,7 @@ function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 		d+=reflink;
 	}
 	if(remark){
-		d+='<br>Remark: ' + remark;
+		d+='<br>Remark: xx' + remark;
 	}
 	d+='</div>';
 	d+='<input type="hidden" id="RefType_' + id + '" name="RefType_' + id + '" value="' + reftype + '">';
