@@ -320,6 +320,7 @@ div.one_thumb p {
 	position:fixed;
 	right:0px;
 	top:20%;
+	resize:vertical;
 }
 .refPane_cataloged_item {
     background-color:#A7B3BC;
