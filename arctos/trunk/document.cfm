@@ -78,6 +78,12 @@ it is
 			page and tag ID
 			<cfset pg=listgetat(p,1,"?&")>
 			<cfset tag_id=listgetat(p,2,"?&")>
+			<cfif listlen(tag_id,"=") gt 1>
+				<cfset tag_id=listgetat(tag_id,2,"=")>
+			<cfelse>
+				<cfset tag_id="">
+			</cfif>
+			
 		<cfelse>
 			page only
 			<cfset pg=p>
