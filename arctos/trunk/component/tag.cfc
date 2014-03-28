@@ -26,8 +26,7 @@
 				refw,
 				imgh,
 				imgw,
-				'some text' raw_remark,
-				--remark raw_remark,
+				remark,
 				collection_object_id,
 				collecting_event_id,
 				locality_id,
@@ -78,7 +77,7 @@
 			<cfset ri="">
 			<cfset rl="">
 		</cfif>
-		
+		<!---
 		<cfset remark=r.raw_remark>
 		<cfif remark contains "[[" and remark contains "]]">
 			<cfset remark=replace(remark,"[[","#chr(7)#*" ,"all")>
@@ -126,19 +125,20 @@
 		</cfif>
 
 
+		<cfset rmk = ArrayNew(1)>
+		
+		<cfset rmk[1]=remark>
 
-
+	---->
 		
 		<cfset rft = ArrayNew(1)>
 		<cfset rfi = ArrayNew(1)>
 		<cfset rfs = ArrayNew(1)>
 		<cfset rfl = ArrayNew(1)>
-		<cfset rmk = ArrayNew(1)>
 		<cfset rft[1]=rt>
 		<cfset rfi[1]=ri>
 		<cfset rfs[1]=rs>
 		<cfset rfl[1]=rl>
-		<cfset rmk[1]=remark>
 		<cfset temp = QueryAddColumn(r, "REFTYPE", "VarChar",rft)>
 		<cfset temp = QueryAddColumn(r, "REFID", "Integer",rfi)>
 		<cfset temp = QueryAddColumn(r, "REFSTRING", "VarChar",rfs)>
