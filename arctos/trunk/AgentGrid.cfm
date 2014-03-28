@@ -48,7 +48,17 @@
 	</cfif>
 	
 	<cfif isdefined("created_date") AND len(created_date) gt 0>
-		<cfset sql = "#sql# AND status_date #create_date_oper# '#created_date#'">
+		<cfif len(created_date) is 4>
+			<cfset filter='YYYY'>
+		<cfelseif len(created_date) is 7>
+			<cfset filter='YYYY-MM'>
+		<cfelseif len(created_date) is 10>
+			<cfset filter='YYYY-MM-DD'>
+		<cfelse>
+			Search created date by YYYY, YYYY-MM, YYYY-MM-DD
+			<cfabort>
+		</cfif>
+		<cfset sql = "#sql# AND to_char(status_date,'#filter#') #create_date_oper# '#created_date#'">
 	</cfif>
 	<cfset sql = "#sql# GROUP BY  agent.agent_id,
 						agent.preferred_agent_name,
