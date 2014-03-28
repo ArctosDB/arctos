@@ -108,7 +108,7 @@
 							<cfset linktext=replace(x,"guid/","","all")>
 							<!----<br>linktext (replacing): #linktext#---->
 						</cfif>
-						<cfset htmlLink='<a href="#theLink#">#linktext#</a>'>
+						<cfset htmlLink='<a href=\"#theLink#\">#linktext#</a>'>
 						<!----<cfdump var=#htmlLink#>---->
 					</cfif>
 				</cfif>
