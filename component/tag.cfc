@@ -111,7 +111,7 @@
 					</cfif>
 				</cfif>
 				<br>oldremark: #remark#
-				<cfset remark=replace(remark,x,htmlLink,"first")>
+				<cfset remark=replace(remark,x,"*" & htmlLink & "*","first")>
 				<br>newremark: #remark#
 			</cfloop>			
 		</cfif>
