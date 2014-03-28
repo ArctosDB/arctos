@@ -354,15 +354,7 @@ function modArea(id) {
 	} catch(e){}
 }
 
-function parseLeft(markup) {
-	  var regex = /<L>(((?!<\/?L>).)*)<\/L>/g;
-	  out = markup.replace(regex, '<div class="left">$1</div>');
-	  if (out.length == markup.length) {
-	    return out;
-	  } else {
-	    return parseLeft(out);
-	  }
-	}
+
 function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 	if (refStr==null){refStr='';}
 	if (remark==null){remark='';}
@@ -385,7 +377,7 @@ function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 		
 		console.log('starting with ' + remark);
 		
-		var newremark=parseLeft(remark);
+		var newremark=return remark.replace(/\[\[(.+?)\]\]/g, "<a href='/guid/#$1'>$1</a>");
 		
 
 		console.log('newremark: ' + newremark);
