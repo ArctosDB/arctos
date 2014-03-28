@@ -383,12 +383,15 @@ function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 	if(remark){
 		// turn wiki-style markup into links
 		
+		console.log('starting with ' + remark);
+		
+		var newremark=parseLeft(remark);
+		
+
+		console.log('newremark: ' + newremark);
 		
 		
-		
-		
-		
-		d+='<br>Remark: ' + parseLeft(remark);
+		d+='<br>Remark: ' + newremark;
 	}
 	d+='</div>';
 	d+='<input type="hidden" id="RefType_' + id + '" name="RefType_' + id + '" value="' + reftype + '">';
