@@ -231,9 +231,7 @@
 	<cfif action is "search">
 		<script>
 			jQuery(document).ready(function() {
-				
-/*
-$.each($("div[id^='mapgohere-']"), function() {
+				$.each($("div[id^='mapgohere-']"), function() {
 					var theElemID=this.id;
 					var theIDType=this.id.split('-')[1];
 					var theID=this.id.split('-')[2];
@@ -242,24 +240,6 @@ $.each($("div[id^='mapgohere-']"), function() {
 						jQuery("#" + theElemID).html(data);
 					});
 				});
-*/
-				$.each($("div[id^='tags_']"), function() {
-console.log(this.id);
-					var theElemID=this.id;
-
-console.log(theElemID);
-
-					//var theID=this.id.split('_')[2];
-				  	var ptl='/component/tag.cfc?method=getTags&media_id=' + theID;
-				    jQuery.get(ptl, function(data){
-						jQuery("#" + theElemID).html(data);
-					});
-				});
-
-
-
-
-
 			});
 		</script>
 	<cfif not isdefined("session.displayrows") or len(session.displayrows) is 0>
@@ -464,15 +444,8 @@ console.log(theElemID);
 			<div class="error">You must enter search criteria.</div>
 			<cfabort>
 		</cfif>
-		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum <= 10000 order by media_flat.media_id">
-		
-		
-		
-		 cachedwithin="#createtimespan(0,0,60,0)#"
-		 
-		 
-		 
-		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum <= 10000 order by media_flat.media_id"> 
+		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
 		<cfif raw.recordcount is 10000>
@@ -480,10 +453,6 @@ console.log(theElemID);
 				Note: Some relevant records may not be included. Please try more specific search terms.
 			</div>
 		</cfif>
-		
-		
-		
-		
 		<cfquery name="nodoc" dbtype="query">
 			select * from raw where media_type!='multi-page document'
 		</cfquery>
@@ -710,7 +679,6 @@ console.log(theElemID);
 					<cfloop list="#rattrList#" index="i" delimiters="|">
 						<br>#i#
 					</cfloop>
-					<div id="tags_#media_id#"></div>
 				</td>
 			<cfelse><!--- not MPD --->
 				<cfset alt=''>
@@ -778,11 +746,10 @@ console.log(theElemID);
 							#listgetat(i,1,chr(7))#: #listgetat(i,2,chr(7))#<br>
 						</cfloop>
 					</div>
-				<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-			        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
-			        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
-			    </cfif>
-			   
+					<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+				        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
+				        <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
+				    </cfif>
 				</td>
 			</tr>
 			</cfif>
