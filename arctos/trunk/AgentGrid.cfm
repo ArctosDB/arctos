@@ -37,6 +37,9 @@
 	<cfif isdefined("agent_name_type") AND len(agent_name_type) gt 0>
 		<cfset sql = "#sql# AND agent_name_type='#agent_name_type#'">
 	</cfif>
+	<cfif isdefined("agent_type") AND len(agent_type) gt 0>
+		<cfset sql = "#sql# AND agent.agent_type='#agent_type#'">
+	</cfif>
 	<cfif isdefined("agent_name") AND len(agent_name) gt 0>
 		<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#ucase(escapeQuotes(agent_name))#%'">
 	</cfif>
