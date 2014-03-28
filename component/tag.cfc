@@ -13,7 +13,7 @@
 	</cftry>
 </cffunction>
 <!----------------------------------------------------------------------------------------->
-<cffunction name="getTagReln" access="public" output="true">
+<cffunction name="getTagReln" access="remote" output="true">
     <cfargument name="tag_id" required="true" type="numeric">
 	<cfoutput>
 		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
