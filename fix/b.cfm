@@ -34,7 +34,7 @@
 					<cfelse>
 						<cfset linktext=replace(x,"guid/","","all")>
 					</cfif>
-					<cfset htmlLink='<a href="#link#">#linktext#</a>'>
+					<cfset htmlLink='<a href="#theLink#">#linktext#</a>'>
 				</cfif>
 				
 				<cfdump var=#htmltext#>
