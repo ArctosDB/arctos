@@ -89,6 +89,7 @@
 					<cfset htmlLink=x>
 					<cfset x=left(x,len(x)-1)>
 					<cfset x=right(x,len(x)-1)>
+					<br>x: #x#
 					<cfif x contains "|">
 						<cfset theLink=listfirst(x,"|")>
 					<cfelse>
