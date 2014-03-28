@@ -52,7 +52,7 @@ it is
 			fail@can't get title
 		</cfcatch>
 	</cftry>
-	<cfif listlen(request.rdurl,"/") gte gPos+1>
+	<cfif listlen(request.rdurl,"/") gte gPos+2>
 	<br>got a page number
 	gt pos+1
 		<cftry>
