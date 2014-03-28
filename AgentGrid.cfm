@@ -58,7 +58,7 @@
 			Search created date by YYYY, YYYY-MM, YYYY-MM-DD
 			<cfabort>
 		</cfif>
-		<cfset sql = "#sql# AND to_char(status_date,'#filter#') #create_date_oper# '#created_date#'">
+		<cfset sql = "#sql# AND to_char(CREATED_DATE,'#filter#') #create_date_oper# '#created_date#'">
 	</cfif>
 	<cfset sql = "#sql# GROUP BY  agent.agent_id,
 						agent.preferred_agent_name,
