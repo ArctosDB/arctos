@@ -10,8 +10,8 @@
 
 
 	<cfif remark contains "[[" and remark contains "]]">
-		<cfset remark=replace(remark,"[[","!*" ,"all")>
-		<cfset remark=replace(remark,"]]", "*!" ,"all")>
+		<cfset remark=replace(remark,"[[","#chr(7)#*" ,"all")>
+		<cfset remark=replace(remark,"]]", "*#chr(7)#" ,"all")>
 		<br>#remark#
 		<cfloop list="#remark#" delimiters="!" index="x">
 			<p>
