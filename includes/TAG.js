@@ -377,7 +377,7 @@ function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 		
 		console.log('starting with ' + remark);
 		
-		var newremark=remark.replace(/\[\[(.+?)\]\]/g, "<a href='/guid/#$1'>$1</a>");
+		var newremark=remark.replace(/\[\[(.+?)\]\]/g, "<a href='/guid/$1'>$1</a>");
 		
 
 		console.log('newremark: ' + newremark);
