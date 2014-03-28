@@ -226,7 +226,15 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 	d+='<input type="text" id="RefStr_' + tagID + '" name="RefStr_' + tagID + '" value="' + RefStr + '" size="50">';
 	d+='<input type="hidden" id="RefId_' + tagID + '" name="RefId_' + tagID + '" value="' + RefId + '">';
 	d+='<label for="Remark_' + tagID + '">Remark</label>';
-	d+='<input type="text" id="Remark_' + tagID + '" name="Remark_' + tagID + '" value="' + Remark + '" size="50">';
+	//d+='<input type="text" id="Remark_' + tagID + '" name="Remark_' + tagID + '" value="' + Remark + '" size="50">';
+	
+	d+='<textarea id="Remark_' + tagID + '" rows="1" cols="50" placeholder="Enter a remark or transcription" name="Remark_' + tagID + '>' + Remark + '</textarea>';
+
+	//d+='<textarea id="Remark_new" name="Remark_new" rows="1" cols="50" placeholder="Enter a remark or transcription"></textarea>';
+
+	
+	
+	
 	$('#tagDetails_' + tagID).html(d);
 	modArea(tagID);
 });
@@ -374,15 +382,7 @@ function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 	}
 	if(remark){
 		// turn wiki-style markup into links
-		
-		console.log('starting with ' + remark);
-		
 		var newremark=remark.replace(/\[\[(.+?)\]\]/g, "<a href='/guid/$1'>$1</a>");
-		
-
-		console.log('newremark: ' + newremark);
-		
-		
 		d+='<br>Remark: ' + newremark;
 	}
 	d+='</div>';
