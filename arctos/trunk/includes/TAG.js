@@ -111,8 +111,6 @@ function loadTAG(mid,muri,tid){
 		loadInitial(tid);	
 	});
 }
-
-
 function saveTagEdit(id){
 	$("#info").text('saving....');
 	jQuery.getJSON("/component/tag.cfc",
