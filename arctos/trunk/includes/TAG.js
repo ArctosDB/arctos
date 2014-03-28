@@ -148,7 +148,8 @@ function saveTagEdit(id){
 					d+=reflink;
 				}
 				if(remark){
-					d+='<br>Remark: ' + remark;
+					var newremark=remark.replace(/\[\[(.+?)\]\]/g, "<a href='/guid/$1'>$1</a>");
+					d+='<br>Remark: ' + newremark;
 				}
 				$('#tagDetails_' + id).html(d);
 				var d='<input type="hidden" id="RefType_' + id + '" name="RefType_' + id + '" value="' + reftype + '">';
