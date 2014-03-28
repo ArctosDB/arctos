@@ -3,7 +3,7 @@
 <cfoutput>
 
 
-<cfset remark="this makes [[guid/MVZ:Mamm:1|guid links]] to specimens [[guid/MVZ:Mamm:2|mvz too]]">
+<cfset remark="this makes [[guid/MVZ:Mamm:1|guid links]] to specimens [[guid/MVZ:Mamm:2]]">
 
 <cfdump var=#remark#>
 
@@ -23,6 +23,21 @@
 				<cfset x=left(x,len(x)-1)>
 				<cfset x=right(x,len(x)-1)>
 				<br>nostars: #x#
+				<cfif x contains "|">
+					<cfset theLink=listfirst(x,"|")>
+				<cfelse>
+					<cfset theLink=x>
+				</cfif>
+				<cfif left(theLink,5) is "guid/">
+					<cfif x contains "|">
+						<cfset linktext=listlast(x,"|")>
+					<cfelse>
+						<cfset linktext=replace(x,"guid/","","all")>
+					</cfif>
+					<cfset htmlLink='<a href="#link#">#linktext#</a>'>
+				</cfif>
+				
+				<cfdump var=#htmltext#>
 			</cfif>
 		</cfloop>
 	</cfif>
