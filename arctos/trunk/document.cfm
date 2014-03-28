@@ -42,6 +42,8 @@ it is
 	
 	==<cfdump var=#gPos#>==
 	
+	<cfdump var=#request.rdurl#>
+	
 	
 	<cfoutput>
 	<cftry>
