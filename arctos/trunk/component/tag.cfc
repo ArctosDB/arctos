@@ -128,6 +128,9 @@
 		<cfset rmk = ArrayNew(1)>
 		
 		<cfset rmk[1]=remark>
+		
+		
+		<cfset temp = QueryAddColumn(r, "REMARK", "VarChar",rmk)>
 
 	---->
 		
@@ -143,7 +146,6 @@
 		<cfset temp = QueryAddColumn(r, "REFID", "Integer",rfi)>
 		<cfset temp = QueryAddColumn(r, "REFSTRING", "VarChar",rfs)>
 		<cfset temp = QueryAddColumn(r, "REFLINK", "VarChar",rfl)>
-		<cfset temp = QueryAddColumn(r, "REMARK", "VarChar",rmk)>
 		
 		
 		<!----<cfdump var=#r#>---->
