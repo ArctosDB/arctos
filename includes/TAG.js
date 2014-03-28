@@ -353,6 +353,16 @@ function modArea(id) {
 		$('#navDiv').scrollTo( $('#' + paneID), 800 );
 	} catch(e){}
 }
+
+function parseLeft(markup) {
+	  var regex = /<L>(((?!<\/?L>).)*)<\/L>/g;
+	  out = markup.replace(regex, '<div class="left">$1</div>');
+	  if (out.length == markup.length) {
+	    return out;
+	  } else {
+	    return parseLeft(out);
+	  }
+	}
 function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 	if (refStr==null){refStr='';}
 	if (remark==null){remark='';}
@@ -371,7 +381,14 @@ function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 		d+=reflink;
 	}
 	if(remark){
-		d+='<br>Remark: xx' + remark;
+		// turn wiki-style markup into links
+		
+		
+		
+		
+		
+		
+		d+='<br>Remark: ' + parseLeft(remark);
 	}
 	d+='</div>';
 	d+='<input type="hidden" id="RefType_' + id + '" name="RefType_' + id + '" value="' + reftype + '">';
