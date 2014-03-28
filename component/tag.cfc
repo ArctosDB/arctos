@@ -26,7 +26,7 @@
 				refw,
 				imgh,
 				imgw,
-				remark,
+				remark raw_remark,
 				collection_object_id,
 				collecting_event_id,
 				locality_id,
@@ -77,8 +77,12 @@
 			<cfset ri="">
 			<cfset rl="">
 		</cfif>
+		
+			<cfset remark=r.raw_remark>
+			
+			
 		<!---
-		<cfset remark=r.raw_remark>
+	
 		<cfif remark contains "[[" and remark contains "]]">
 			<cfset remark=replace(remark,"[[","#chr(7)#*" ,"all")>
 			<cfset remark=replace(remark,"]]", "*#chr(7)#" ,"all")>
@@ -125,15 +129,15 @@
 		</cfif>
 
 
-		<cfset rmk = ArrayNew(1)>
-		
-		<cfset rmk[1]=remark>
 		
 		
-		<cfset temp = QueryAddColumn(r, "REMARK", "VarChar",rmk)>
+		
+		
+		
+		
 
 	---->
-		
+		<cfset rmk = ArrayNew(1)>
 		<cfset rft = ArrayNew(1)>
 		<cfset rfi = ArrayNew(1)>
 		<cfset rfs = ArrayNew(1)>
@@ -141,11 +145,11 @@
 		<cfset rft[1]=rt>
 		<cfset rfi[1]=ri>
 		<cfset rfs[1]=rs>
-		<cfset rfl[1]=rl>
+		<cfset rfl[1]=rl><cfset rmk[1]=remark>
 		<cfset temp = QueryAddColumn(r, "REFTYPE", "VarChar",rft)>
 		<cfset temp = QueryAddColumn(r, "REFID", "Integer",rfi)>
 		<cfset temp = QueryAddColumn(r, "REFSTRING", "VarChar",rfs)>
-		<cfset temp = QueryAddColumn(r, "REFLINK", "VarChar",rfl)>
+		<cfset temp = QueryAddColumn(r, "REFLINK", "VarChar",rfl)><cfset temp = QueryAddColumn(r, "REMARK", "VarChar",rmk)>
 		
 		
 		<!----<cfdump var=#r#>---->
