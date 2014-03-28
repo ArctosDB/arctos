@@ -84,7 +84,9 @@
 			<cfset remark=replace(remark,"]]", "*#chr(7)#" ,"all")>
 			<br>#remark#
 			<cfloop list="#remark#" delimiters="#chr(7)#" index="x">
+				<cfset htmlLink=x>
 				<cfif left(x,1) is "*" and right(x,1) is "*">
+					<cfset htmlLink=x>
 					<cfset x=left(x,len(x)-1)>
 					<cfset x=right(x,len(x)-1)>
 					<cfif x contains "|">
