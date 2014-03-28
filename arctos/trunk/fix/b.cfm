@@ -13,7 +13,7 @@
 		<cfset remark=replace(remark,"[[","#chr(7)#*" ,"all")>
 		<cfset remark=replace(remark,"]]", "*#chr(7)#" ,"all")>
 		<br>#remark#
-		<cfloop list="#remark#" delimiters="!" index="x">
+		<cfloop list="#remark#" delimiters="#chr(7)#" index="x">
 			<p>
 				listelem: #x#
 			</p>
