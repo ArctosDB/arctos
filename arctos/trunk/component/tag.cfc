@@ -92,19 +92,27 @@
 					<br>x: #x#
 					<cfif x contains "|">
 						<cfset theLink=listfirst(x,"|")>
+						<br>x contains linktext
 					<cfelse>
+						<br>x is linkonly
 						<cfset theLink=x>
 					</cfif>
 					<cfif left(theLink,5) is "guid/">
+						<br>it's a guid link
 						<cfif x contains "|">
 							<cfset linktext=listlast(x,"|")>
+							<br>linktext: #linktext#
 						<cfelse>
 							<cfset linktext=replace(x,"guid/","","all")>
+							<br>linktext (replacing): #linktext#
 						</cfif>
 						<cfset htmlLink='<a href="#theLink#">#linktext#</a>'>
+						<cfdump var=#htmlLink#>
 					</cfif>
 				</cfif>
+				<br>oldremark: #remark#
 				<cfset remark=replace(remark,x,htmlLink,"first")>
+				<br>newremark: #remark#
 			</cfloop>			
 		</cfif>
 
