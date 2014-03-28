@@ -122,6 +122,11 @@
 		<cfset temp = QueryAddColumn(r, "REFSTRING", "VarChar",rfs)>
 		<cfset temp = QueryAddColumn(r, "REFLINK", "VarChar",rfl)>
 		<cfset temp = QueryAddColumn(r, "REMARK", "VarChar",rmk)>
+		
+		
+		<cfdump var=#r#>
+		
+		
 		<cfreturn r>
 	</cfoutput>
 </cffunction>
