@@ -754,19 +754,19 @@
 				<cfset x=replace(i,"==",chr(7),"all")>
 				<cfset r=listgetat(x,1,chr(7))>
 				<cfset v=listgetat(x,2,chr(7))>
-				<cfset "rstruct#media_id#"["#r#"]="#v#">
+				<cfset "rstruct"["#r#"]="#v#">
 			</cfloop>
 			
-			
-			<!-----
 			<br>rstruct before append:
 			<cfdump var=#rstruct#>
 			<br>dstruct before append: 
+			<!-----
+			
 			------->
 			<cfdump var=#dstruct#>
 			
 			
-			<cfset structAppend(dstruct,rstruct#media_id#,false)>
+			<cfset structAppend(dstruct,rstruct,false)>
 			
 			
 			<br>dstruct after append: 
