@@ -862,7 +862,7 @@
 					select page from rtn where page is not null and links is not null group by page order by page
 				</cfquery>
 				<cfloop query="pgs">
-				<div>
+				<div class="docMoreInfo">
 					<cfquery name="links" dbtype="query">
 						select links from rtn where page=#page# and links is not null group by links order by links
 					</cfquery>
