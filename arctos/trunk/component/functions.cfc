@@ -775,7 +775,7 @@
 				<cfset rn=rn+1>
 			</cfloop>
 		</cfloop>
-		<cfset rtn=queryNew("mpg,pub_year,volume_number,creator,ttl,page,links")>
+		<cfset rtn=queryNew("mpg,pub_year,volume_number,creator,title,page,links")>
 		<cfset queryaddrow(rtn,1)>
 		<cfset rn=1>
 		<cfquery name="mpg" dbtype="query">
@@ -802,11 +802,11 @@
 		<cfif creator.recordcount is 1>
 			<cfset QuerySetCell(rtn, "creator", creator.creator, rn)>
 		</cfif>
-		<cfquery name="ttl" dbtype="query">
-			select fld_value as ttl from qr where field_name='title' group by fld_value
+		<cfquery name="title" dbtype="query">
+			select fld_value as title from qr where field_name='title' group by fld_value
 		</cfquery>
-		<cfif ttl.recordcount is 1>
-			<cfset QuerySetCell(rtn, "ttl", ttl.ttl, rn)>
+		<cfif title.recordcount is 1>
+			<cfset QuerySetCell(rtn, "title", title.title, rn)>
 		</cfif>
 		<cfset rn=rn+1>
 		<cfquery name="dtl" dbtype="query">
@@ -838,7 +838,7 @@
 		
 		<cfif returnHTML is true>
 			<cfquery name="meta" dbtype="query">
-				select mpg,pub_year,volume_number,creator,ttl from rtn where ttl is not null group by mpg,pub_year,volume_number,creator,ttl
+				select mpg,pub_year,volume_number,creator,title from rtn where ttl is not null group by mpg,pub_year,volume_number,creator,title
 			</cfquery>
 			
 			
@@ -846,10 +846,11 @@
 					<cfset rtn=queryNew("mpg,pub_year,volume_number,creator,page,links")>
 ---->
 
-
+			<cfoutput>
 			<cfsavecontent variable="html">
-				#meta.ttl#
+				#meta.title#
 			</cfsavecontent>
+			</cfoutput>
 			<cfreturn html>
 		<cfelse>
 	<cfreturn rtn>
