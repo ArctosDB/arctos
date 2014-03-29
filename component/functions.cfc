@@ -732,120 +732,109 @@
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getMediaDocumentInfo" access="remote">
-	   <cfargument name="urltitle" required="true" type="string">
-	   <cfargument name="returnHTML" required="false" type="boolean" default="false">
-	   
-	   
-	   <!---     --->
-	   
-		<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select 
-				media_id,
-				relationships,
-				labels,
-				hasTags
-			from 
-				media_flat 
-			where 
-				media_type='multi-page document' and 
-				media_id in (select media_id from media_labels where media_label='title' and niceURLNumbers(label_value)='#urltitle#')
-		</cfquery>
-		<cfset qr=querynew("media_id,field_name,fld_value")>
-		<cfset rn=1>
-		<cfloop query="flatdocs">
-			<cfloop list="#labels#" index="i" delimiters="|">
-				<cfset queryAddRow(qr,1)>
-				<cfset x=replace(i,"==",chr(7),"all")>
-				<cfset r=listgetat(x,1,chr(7))>
-				<cfset v=listgetat(x,2,chr(7))>
-				<cfset QuerySetCell(qr, "media_id", flatdocs.media_id, rn)>
-				<cfset QuerySetCell(qr, "field_name", r, rn)>
-				<cfset QuerySetCell(qr, "fld_value", v, rn)>
-				<cfset rn=rn+1>
-			</cfloop>
-			<cfloop list="#RELATIONSHIPS#" index="i" delimiters="|">
-				<cfset queryAddRow(qr,1)>
-				<cfset x=replace(i,"==",chr(7),"all")>
-				<cfset r=listgetat(x,1,chr(7))>
-				<cfset v=listgetat(x,2,chr(7))>
-				<cfset QuerySetCell(qr, "media_id", flatdocs.media_id, rn)>
-				<cfset QuerySetCell(qr, "field_name", r, rn)>
-				<cfset QuerySetCell(qr, "fld_value", v, rn)>
-				<cfset rn=rn+1>
-			</cfloop>
-		</cfloop>
-		<cfset rtn=queryNew("mpg,pub_year,volume_number,creator,title,page,links")>
-		<cfset queryaddrow(rtn,1)>
-		<cfset rn=1>
-		<cfquery name="mpg" dbtype="query">
-			select max(fld_value) as mp from qr where field_name='page'
-		</cfquery>
-		<cfif mpg.recordcount is 1>
-			<cfset QuerySetCell(rtn, "mpg", mpg.recordcount, rn)>
-		</cfif>
-		<cfquery name="pub_year" dbtype="query">
-			select fld_value as pub_year from qr where field_name='published year' group by fld_value
-		</cfquery>
-		<cfif pub_year.recordcount is 1>
-			<cfset QuerySetCell(rtn, "pub_year", pub_year.pub_year, rn)>
-		</cfif>
-		<cfquery name="volume_number" dbtype="query">
-			select fld_value as volume_number from qr where field_name='volume number' group by fld_value
-		</cfquery>
-		<cfif volume_number.recordcount is 1>
-			<cfset QuerySetCell(rtn, "volume_number", volume_number.volume_number, rn)>
-		</cfif>
-		<cfquery name="creator" dbtype="query">
-			select fld_value as creator from qr where field_name='created by agent' group by fld_value
-		</cfquery>
-		<cfif creator.recordcount is 1>
-			<cfset QuerySetCell(rtn, "creator", creator.creator, rn)>
-		</cfif>
-		<cfquery name="title" dbtype="query">
-			select fld_value as title from qr where field_name='title' group by fld_value
-		</cfquery>
-		<cfif title.recordcount is 1>
-			<cfset QuerySetCell(rtn, "title", title.title, rn)>
-		</cfif>
-		<cfset rn=rn+1>
-		<cfquery name="dtl" dbtype="query">
-			select *  from qr where field_name not in ('title','page','published year','volume number','created by agent')
-		</cfquery>
-		<cfquery name="funkypages" dbtype="query">
-			select media_id from dtl group by media_id order by media_id 
-		</cfquery>
-		<cfloop query="funkyPages">
-			<cfquery name="funkypagenum" dbtype="query">
-				select fld_value from qr  where field_name='page' and media_id=#media_id#
-			</cfquery>
-			<cfquery name="funkyPageData" dbtype="query">
-				select * from dtl where media_id=#media_id#
-			</cfquery>
-			<cfset plinks="">
-			<cfloop query="funkyPageData">
-				<cfif funkyPageData.field_name is "derived from media">
-					<cfset plinks=listappend(plinks,'<a href="/media/#fld_value#">#field_name#=#fld_value#</a>',chr(7))>
-				<cfelse>
-					<cfset plinks=listappend(plinks,"#field_name#=#fld_value#",chr(7))>
-				</cfif>
-			</cfloop>
-			<cfset queryaddrow(rtn,1)>
-			<cfset QuerySetCell(rtn, "page", funkypagenum.fld_value, rn)>
-			<cfset QuerySetCell(rtn, "links", replace(plinks,chr(7),"<br>","all"), rn)>
+   <cfargument name="urltitle" required="true" type="string">
+   <cfargument name="returnHTML" required="false" type="boolean" default="false">
+	<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select 
+			media_id,
+			relationships,
+			labels,
+			hasTags
+		from 
+			media_flat 
+		where 
+			media_type='multi-page document' and 
+			media_id in (select media_id from media_labels where media_label='title' and niceURLNumbers(label_value)='#urltitle#')
+	</cfquery>
+	<cfset qr=querynew("media_id,field_name,fld_value")>
+	<cfset rn=1>
+	<cfloop query="flatdocs">
+		<cfloop list="#labels#" index="i" delimiters="|">
+			<cfset queryAddRow(qr,1)>
+			<cfset x=replace(i,"==",chr(7),"all")>
+			<cfset r=listgetat(x,1,chr(7))>
+			<cfset v=listgetat(x,2,chr(7))>
+			<cfset QuerySetCell(qr, "media_id", flatdocs.media_id, rn)>
+			<cfset QuerySetCell(qr, "field_name", r, rn)>
+			<cfset QuerySetCell(qr, "fld_value", v, rn)>
 			<cfset rn=rn+1>
 		</cfloop>
-		
-		<cfif returnHTML is true>
-			<cfquery name="meta" dbtype="query">
-				select mpg,pub_year,volume_number,creator,title from rtn where title is not null group by mpg,pub_year,volume_number,creator,title
-			</cfquery>
-			
-			
-			<!----
-					<cfset rtn=queryNew("mpg,pub_year,volume_number,creator,page,links")>
----->
-
-			<cfoutput>
+		<cfloop list="#RELATIONSHIPS#" index="i" delimiters="|">
+			<cfset queryAddRow(qr,1)>
+			<cfset x=replace(i,"==",chr(7),"all")>
+			<cfset r=listgetat(x,1,chr(7))>
+			<cfset v=listgetat(x,2,chr(7))>
+			<cfset QuerySetCell(qr, "media_id", flatdocs.media_id, rn)>
+			<cfset QuerySetCell(qr, "field_name", r, rn)>
+			<cfset QuerySetCell(qr, "fld_value", v, rn)>
+			<cfset rn=rn+1>
+		</cfloop>
+	</cfloop>
+	<cfset rtn=queryNew("mpg,pub_year,volume_number,creator,title,page,links")>
+	<cfset queryaddrow(rtn,1)>
+	<cfset rn=1>
+	<cfquery name="mpg" dbtype="query">
+		select max(fld_value) as mp from qr where field_name='page'
+	</cfquery>
+	<cfif mpg.recordcount is 1>
+		<cfset QuerySetCell(rtn, "mpg", mpg.recordcount, rn)>
+	</cfif>
+	<cfquery name="pub_year" dbtype="query">
+		select fld_value as pub_year from qr where field_name='published year' group by fld_value
+	</cfquery>
+	<cfif pub_year.recordcount is 1>
+		<cfset QuerySetCell(rtn, "pub_year", pub_year.pub_year, rn)>
+	</cfif>
+	<cfquery name="volume_number" dbtype="query">
+		select fld_value as volume_number from qr where field_name='volume number' group by fld_value
+	</cfquery>
+	<cfif volume_number.recordcount is 1>
+		<cfset QuerySetCell(rtn, "volume_number", volume_number.volume_number, rn)>
+	</cfif>
+	<cfquery name="creator" dbtype="query">
+		select fld_value as creator from qr where field_name='created by agent' group by fld_value
+	</cfquery>
+	<cfif creator.recordcount is 1>
+		<cfset QuerySetCell(rtn, "creator", creator.creator, rn)>
+	</cfif>
+	<cfquery name="title" dbtype="query">
+		select fld_value as title from qr where field_name='title' group by fld_value
+	</cfquery>
+	<cfif title.recordcount is 1>
+		<cfset QuerySetCell(rtn, "title", title.title, rn)>
+	</cfif>
+	<cfset rn=rn+1>
+	<cfquery name="dtl" dbtype="query">
+		select *  from qr where field_name not in ('title','page','published year','volume number','created by agent')
+	</cfquery>
+	<cfquery name="funkypages" dbtype="query">
+		select media_id from dtl group by media_id order by media_id 
+	</cfquery>
+	<cfloop query="funkyPages">
+		<cfquery name="funkypagenum" dbtype="query">
+			select fld_value from qr  where field_name='page' and media_id=#media_id#
+		</cfquery>
+		<cfquery name="funkyPageData" dbtype="query">
+			select * from dtl where media_id=#media_id#
+		</cfquery>
+		<cfset plinks="">
+		<cfloop query="funkyPageData">
+			<cfif funkyPageData.field_name is "derived from media">
+				<cfset plinks=listappend(plinks,'<a href="/media/#fld_value#">#field_name#=#fld_value#</a>',chr(7))>
+			<cfelse>
+				<cfset plinks=listappend(plinks,"#field_name#=#fld_value#",chr(7))>
+			</cfif>
+		</cfloop>
+		<cfset queryaddrow(rtn,1)>
+		<cfset QuerySetCell(rtn, "page", funkypagenum.fld_value, rn)>
+		<cfset QuerySetCell(rtn, "links", replace(plinks,chr(7),"<br>","all"), rn)>
+		<cfset rn=rn+1>
+	</cfloop>
+	<cfif returnHTML is true>
+		<cfquery name="meta" dbtype="query">
+			select mpg,pub_year,volume_number,creator,title from rtn where title is not null group by mpg,pub_year,volume_number,creator,title
+		</cfquery>
+		<cfoutput>
 			<cfsavecontent variable="html">
 				#meta.title#
 				<br>#meta.mpg# pages.
@@ -875,12 +864,11 @@
 					</div>
 				</cfloop>
 			</cfsavecontent>
-			</cfoutput>
-			<cfreturn html>
-		<cfelse>
-	<cfreturn rtn>
-			
-		</cfif>
+		</cfoutput>
+		<cfreturn html>
+	<cfelse>
+		<cfreturn rtn>
+	</cfif>
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getMediaPreview" access="remote">
