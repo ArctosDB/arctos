@@ -833,11 +833,15 @@
 			</cfquery>
 			<cfset plinks="">
 			<cfloop query="funkyPageData">
-				<cfset plinks=listappend(plinks,"#field_name#=#fld_value#",chr(7))>
+				<cfif field_name is "derived from media">
+					<cfset plinks=listappend(plinks,'<a href="/media/#fld_value#">#field_name#=#fld_value#</a>',chr(7))>
+				<cfelse>
+					<cfset plinks=listappend(plinks,"#field_name#=#fld_value#",chr(7))>
+				</cfif>
 			</cfloop>
 			<cfset queryaddrow(rtn,1)>
 			<cfset QuerySetCell(rtn, "page", funkypagenum.fld_value, rn)>
-			<cfset QuerySetCell(rtn, "links", plinks, rn)>
+			<cfset QuerySetCell(rtn, "links", replace(plinks,chr(7),"<br>","all"), rn)>
 			<cfset rn=rn+1>
 			<cfdump var=#funkypagedata#>
 		</cfloop>
