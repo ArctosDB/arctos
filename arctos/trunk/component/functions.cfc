@@ -755,7 +755,7 @@
 				<cfset x=replace(i,"==",chr(7),"all")>
 				<cfset r=listgetat(x,1,chr(7))>
 				<cfset v=listgetat(x,2,chr(7))>
-				<cfset rstruct."#r#"="#v#">
+				<cfset rstruct["#r#"]="#v#">
 			</cfloop>
 			<cfset dstruct=structAppend(dstruct,rstruct)>
 		</cfloop>
