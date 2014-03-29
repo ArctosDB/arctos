@@ -784,13 +784,11 @@
 		</cfquery>
 		<cfdump var=#mpg#>
 		<cfquery name="dtl" dbtype="query">
-			select *  from qr where field_name not in ('title','page')
+			select *  from qr where field_name not in ('title','page','published year','volume number')
 		</cfquery>
 		<cfdump var=#dtl#>
 		
 		
-				<cfdump var=#dtl#>
-		<cfdump var=#qr#>
 
 		
 			
