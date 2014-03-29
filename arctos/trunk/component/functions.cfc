@@ -786,7 +786,7 @@
 		<cfdump var=#qr#>
 		
 		<cfset rtn=queryNew("mpg,pub_year,volume_number,creator,page,links")>
-		<cfset rtn=queryaddrow(1)>
+		<cfset queryaddrow(rtn,1)>
 		<cfset rn=1>
 		<cfquery name="mpg" dbtype="query">
 			select max(fld_value) as mp from qr where field_name='page'
