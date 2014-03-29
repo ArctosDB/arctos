@@ -761,7 +761,7 @@
 				<cfset x=replace(i,"==",chr(7),"all")>
 				<cfset r=listgetat(x,1,chr(7))>
 				<cfset v=listgetat(x,2,chr(7))>
-				<cfset QuerySetCell(qr, "media_id", media_id, rn)>
+				<cfset QuerySetCell(qr, "media_id", flatdocs.media_id, rn)>
 				<cfset QuerySetCell(qr, "field_name", r, rn)>
 				<cfset QuerySetCell(qr, "value", v, rn)>
 				<cfset rn=rn+1>
@@ -771,7 +771,7 @@
 				<cfset x=replace(i,"==",chr(7),"all")>
 				<cfset r=listgetat(x,1,chr(7))>
 				<cfset v=listgetat(x,2,chr(7))>
-				<cfset QuerySetCell(qr, "media_id", media_id, rn)>
+				<cfset QuerySetCell(qr, "media_id", flatdocs.media_id, rn)>
 				<cfset QuerySetCell(qr, "field_name", r, rn)>
 				<cfset QuerySetCell(qr, "value", v, rn)>
 				<cfset rn=rn+1>
