@@ -758,8 +758,15 @@
 				<cfset rstruct["#r#"]="#v#">
 			</cfloop>
 			
+			<br>rstruct before append:
+			<cfdump var=##>
+			<br>dstruct before append: 
+			<cfdump var=#dstruct#>
+			<cfset structAppend(dstruct,rstruct)>
 			
-			<cfset structAppend(rstruct,dstruct)>
+			
+			<br>dstruct after append: 
+			<cfdump var=#dstruct#>
 		</cfloop>
 		<p>
 			dstruct
