@@ -837,6 +837,7 @@
 		</cfloop>
 		
 		<cfif returnHTML is true>
+		returning HTL....
 			<cfquery name="meta" dbtype="query">
 				select mpg,pub_year,volume_number,creator,title from rtn where title is not null group by mpg,pub_year,volume_number,creator,title
 			</cfquery>
