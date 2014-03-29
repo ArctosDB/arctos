@@ -733,6 +733,7 @@
 <!------------------------------------------------------------------->
 <cffunction name="getMediaDocumentInfo" access="remote">
 	   <cfargument name="urltitle" required="true" type="string">
+	   <cfargument name="returnHTML" required="false" type="boolean" default="false">
 	   
 	   
 	   <!---  cachedwithin="#createtimespan(0,0,60,0)#"   --->
@@ -774,7 +775,7 @@
 				<cfset rn=rn+1>
 			</cfloop>
 		</cfloop>
-		<cfset rtn=queryNew("mpg,pub_year,volume_number,creator,page,links")>
+		<cfset rtn=queryNew("mpg,pub_year,volume_number,creator,title,page,links")>
 		<cfset queryaddrow(rtn,1)>
 		<cfset rn=1>
 		<cfquery name="mpg" dbtype="query">
@@ -801,6 +802,12 @@
 		<cfif creator.recordcount is 1>
 			<cfset QuerySetCell(rtn, "creator", creator.creator, rn)>
 		</cfif>
+		<cfquery name="title" dbtype="query">
+			select fld_value as title from qr where field_name='title' group by fld_value
+		</cfquery>
+		<cfif title.recordcount is 1>
+			<cfset QuerySetCell(rtn, "title", title.title, rn)>
+		</cfif>
 		<cfset rn=rn+1>
 		<cfquery name="dtl" dbtype="query">
 			select *  from qr where field_name not in ('title','page','published year','volume number','created by agent')
@@ -818,10 +825,8 @@
 			<cfset plinks="">
 			<cfloop query="funkyPageData">
 				<cfif funkyPageData.field_name is "derived from media">
-					<br>ismedia
 					<cfset plinks=listappend(plinks,'<a href="/media/#fld_value#">#field_name#=#fld_value#</a>',chr(7))>
 				<cfelse>
-					<br>"#field_name#" is not "derived from media"
 					<cfset plinks=listappend(plinks,"#field_name#=#fld_value#",chr(7))>
 				</cfif>
 			</cfloop>
@@ -830,7 +835,26 @@
 			<cfset QuerySetCell(rtn, "links", replace(plinks,chr(7),"<br>","all"), rn)>
 			<cfset rn=rn+1>
 		</cfloop>
+		
+		<cfif returnHTML is true>
+			<cfquery name="meta" dbtype="query">
+				select mpg,pub_year,volume_number,creator,title from rtn where title is not null group by mpg,pub_year,volume_number,creator
+			</cfquery>
+			
+			
+			<!----
+					<cfset rtn=queryNew("mpg,pub_year,volume_number,creator,page,links")>
+---->
+
+
+			<cfsavecontent variable="html">
+				#meta.title#
+			</cfsavecontent>
+			<cfreturn html>
+		<cfelse>
 	<cfreturn rtn>
+			
+		</cfif>
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getMediaPreview" access="remote">
