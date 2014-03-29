@@ -762,7 +762,7 @@
 			<cfdump var=#rstruct#>
 			<br>dstruct before append: 
 			<cfdump var=#dstruct#>
-			<cfset structAppend(dstruct,rstruct)>
+			<cfset structAppend(dstruct,rstruct,"false")>
 			
 			
 			<br>dstruct after append: 
