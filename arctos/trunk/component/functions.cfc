@@ -745,68 +745,49 @@
 				media_type='multi-page document' and 
 				media_id in (select media_id from media_labels where media_label='title' and label_value='#title#')
 		</cfquery>
-		
-		
-		<!---- Create a Name structure --->
-<cfset nameCLK=StructNew()>
-<cfset nameCLK.first="Chris">
-<cfset nameCLK.middle="Lloyd">
-<cfset nameCLK.last="Gilson">
-<!--- Create an address struct --->
-<cfset addrCLK=StructNew()>
-<cfset addrCLK.street="17 Gigantic Rd">
-<cfset addrCLK.city="Watertown">
-<cfset addrCLK.state="MA">
-<cfset addrCLK.zip="02472">
-<!---- Create a Person structure --->
-<cfset personCLK=StructNew()>
-<cfset personCLK.name=#nameCLK#>
-<cfset personCLK.addr=#addrCLK#>
-<!--- Display the contents of the person struct before the Append --->
-<p>
-The person struct <b>before</b> the Append call:<br>
-<cfloop collection=#personCLK# item="myItem">
-<cfoutput>
-#myItem#<br>
-</cfoutput>
-</cfloop>
-<!--- Merge the address struct into the top-level person struct --->
-<cfset bSuccess = StructAppend( personCLK, addrCLK )>
-
-<!--- Display the contents of the person struct, after the Append --->
-<p>
-The person struct <b>after</b> the Append call:<br>
-<cfloop collection=#personCLK# item="myItem">
-    <cfoutput>
-        #myItem#<br>
-    </cfoutput>
-</cfloop>
-
-
-<cfdump var=#personCLK#>
-
-
+	
 
 
 
 		
 		<cfdump var=#flatdocs#>
-		<cfset dstruct=structNew()>
 		
+		<cfset qclist="">
 		<cfloop query="flatdocs">
 			<cfloop list="#labels#" index="i" delimiters="|">
+				<cfset c=listfirst(i,"=")>
+				<cfif not listfind(qclist,c)>
+					<cfset qclist=listappend(qclist,c)>
+				</cfif>
+			</cfloop>
+			<cfloop list="#RELATIONSHIPS#" index="i" delimiters="|">
+				<cfset c=listfirst(i,"=")>
+				<cfif not listfind(qclist,c)>
+					<cfset qclist=listappend(qclist,c)>
+				</cfif>
+			</cfloop>
+		</cfloop>
+		<cfset qr=querynew(qclist)>
+		
+		<cfdump var=#qr#>
+		
+		
+			
+			<!-----
+			
+			
+			
+			
+			
 				<cfset x=replace(i,"==",chr(7),"all")>
 				<cfset r=listgetat(x,1,chr(7))>
 				<cfset v=listgetat(x,2,chr(7))>
-				<cfset rstruct["#r#"]="#v#">
-			</cfloop>
-			
 			<br>rstruct before append:
 			<cfdump var=#rstruct#>
 			<br>dstruct before append: 
-			<!-----
 			
-			------->
+			
+			
 			<cfdump var=#dstruct#>
 			
 			
@@ -820,6 +801,11 @@ The person struct <b>after</b> the Append call:<br>
 			dstruct
 		</p>
 		<cfdump var=#dstruct#>
+		
+		
+		
+			------->
+			
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getMediaPreview" access="remote">
