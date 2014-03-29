@@ -835,7 +835,7 @@
 			</cfquery>
 			<cfset plinks="">
 			<cfloop query="funkyPageData">
-				<cfset f=replace(field_name,chr(7),"X","all")>
+				<cfset x=replace(field_name,chr(7),"X","all")>
 				<br>x=#x#
 				<br>==#field_name#==
 				<cfif x contains "derived from media">
