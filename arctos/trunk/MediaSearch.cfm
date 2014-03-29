@@ -445,16 +445,9 @@
 			<cfabort>
 		</cfif>
 		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum <= 10000 order by media_flat.media_id"> 
-		
-		
-		cachedwithin="#createtimespan(0,0,60,0)#"
-		
-		
-		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
+		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
-		
-		<cfdump var=#raw#>
 		<cfif raw.recordcount is 10000>
 			<div class="importantNotification">
 				Note: Some relevant records may not be included. Please try more specific search terms.
@@ -635,6 +628,21 @@
 				<cfquery name="qhastags" dbtype="query">
 					select media_id from raw where urltitle='#urltitle#' and hastags>0 group by media_id
 				</cfquery>
+				
+				<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+					select 
+						media_id,
+						relationships,
+						labels,
+						hasTags
+					from 
+						media_flat 
+					where 
+						media_type='multi-page document' and 
+						media_id in (select media_id from media_labels where media_label='title' and label_value='#title#')
+				</cfquery>
+				
+				<cfdump var=#flatdocs#>
 				<td align="middle">
 					<a href="/document/#urltitle#" target="_blank" title="#title#">
 						<img src="/images/document_thumbnail.png" alt="#title#" style="max-width:150px;max-height:150px;">
