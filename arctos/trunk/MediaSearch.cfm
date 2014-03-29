@@ -248,7 +248,7 @@ console.log('theElemID: ' + theElemID);
 console.log('theIDType: ' + theIDType);
 					var theID=this.id.split('_')[1];
 console.log('theID: ' + theID);
-				  	var ptl='/component/functions.cfc?method=getMediaDocumentInfo&urltitle=' + theID;
+				  	var ptl='/component/functions.cfc?method=getMediaDocumentInfo&returnHTML=true&urltitle=' + theID;
 				    jQuery.get(ptl, function(data){
 		console.log('got data: ' + data);
 						jQuery("#" + theElemID).html(data);
