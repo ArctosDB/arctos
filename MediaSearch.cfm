@@ -241,10 +241,10 @@
 					});
 				});
 
-				$.each($("div[id^='docInfoDiv-']"), function() {
+				$.each($("div[id^='docInfoDiv.']"), function() {
 					var theElemID=this.id;
-					var theIDType=this.id.split('-')[1];
-					var theID=this.id.replace(theElemID,theIDType);
+					var theIDType=this.id.split('.')[1];
+					var theID=this.id.split('.')[2];
 				  	var ptl='/component/functions.cfc?method=getMediaDocumentInfo&urltitle=' + theID;
 				    jQuery.get(ptl, function(data){
 						jQuery("#" + theElemID).html(data);
@@ -661,7 +661,7 @@
 					&nbsp;
 				</td>
 				<td>
-					<div class="mediaDocumentInformation" id="docInfoDiv-#urltitle#"> 
+					<div class="mediaDocumentInformation" id="docInfoDiv.#urltitle#"> 
 					<!----
 					<cfset numPages=0>
 					<cfset attrList="">
