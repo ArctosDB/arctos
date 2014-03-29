@@ -849,6 +849,32 @@
 			<cfoutput>
 			<cfsavecontent variable="html">
 				#meta.title#
+				<br>#meta.mpg# pages.
+				<cfif len(meta.pub_year) gt 0>
+					<br>Published #meta.pub_year#
+				</cfif>
+				<cfif len(meta.creator) gt 0>
+					<br>Created by #meta.creator#
+				</cfif>
+				<cfif len(meta.volume_number) gt 0>
+					<br>Volume #meta.volume_number#
+				</cfif>
+				<cfquery name="pgs" dbtype="query">
+					select page from rtn where page is not null and links is not null group by page order by page
+				</cfquery>
+				<div>
+					<cfloop query="pgs">
+						<cfquery name="pgs" dbtype="query">
+							select links from rtn where page=#page# and links is not null group by links order by links
+						</cfquery>
+						Additional information on page #page#
+						<cfloop query="links">
+							<br>#links#
+						</cfloop>
+					</cfloop>
+				
+					
+				</div>
 			</cfsavecontent>
 			</cfoutput>
 			<cfreturn html>
