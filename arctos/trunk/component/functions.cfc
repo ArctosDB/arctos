@@ -757,7 +757,7 @@
 		<cfset rn=1>
 		<cfloop query="flatdocs">
 			<cfloop list="#labels#" index="i" delimiters="|">
-				<cfset qr=queryAddRow(1)>
+				<cfset queryAddRow(qr,1)>
 				<cfset x=replace(i,"==",chr(7),"all")>
 				<cfset r=listgetat(x,1,chr(7))>
 				<cfset v=listgetat(x,2,chr(7))>
@@ -767,7 +767,7 @@
 				<cfset rn=rn+1>
 			</cfloop>
 			<cfloop list="#RELATIONSHIPS#" index="i" delimiters="|">
-				<cfset qr=queryAddRow(1)>
+				<cfset queryAddRow(qr,1)>
 				<cfset x=replace(i,"==",chr(7),"all")>
 				<cfset r=listgetat(x,1,chr(7))>
 				<cfset v=listgetat(x,2,chr(7))>
