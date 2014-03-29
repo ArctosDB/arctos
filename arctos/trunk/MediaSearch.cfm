@@ -243,8 +243,11 @@
 
 				$.each($("div[id^='docInfoDiv.']"), function() {
 					var theElemID=this.id;
+console.log('theElemID: ' + theElemID);
 					var theIDType=this.id.split('.')[1];
+console.log('theIDType: ' + theIDType);
 					var theID=this.id.split('.')[2];
+console.log('theID: ' + theID);
 				  	var ptl='/component/functions.cfc?method=getMediaDocumentInfo&urltitle=' + theID;
 				    jQuery.get(ptl, function(data){
 						jQuery("#" + theElemID).html(data);
