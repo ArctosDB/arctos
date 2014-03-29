@@ -748,7 +748,7 @@
 				media_flat 
 			where 
 				media_type='multi-page document' and 
-				media_id in (select media_id from media_labels where media_label='title' and niceURLNumbers(label_value)='#title#')
+				media_id in (select media_id from media_labels where media_label='title' and niceURLNumbers(label_value)='#urltitle#')
 		</cfquery>
 		<cfset qr=querynew("media_id,field_name,fld_value")>
 		<cfset rn=1>
