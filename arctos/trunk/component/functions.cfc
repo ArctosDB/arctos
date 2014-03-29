@@ -759,7 +759,7 @@
 			</cfloop>
 			
 			
-			<cfset structAppend(dstruct,rstruct)>
+			<cfset structAppend(rstruct,dstruct)>
 		</cfloop>
 		<p>
 			dstruct
