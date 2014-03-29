@@ -782,10 +782,34 @@
 		<cfquery name="mpg" dbtype="query">
 			select max(fld_value) as mp from qr where field_name='page'
 		</cfquery>
+		<cfquery name="pub_year" dbtype="query">
+			select fld_value as pub_year from qr where field_name='published year' group by fld_value
+		</cfquery>
+		<cfquery name="volume_number" dbtype="query">
+			select fld_value as volume_number from qr where field_name='volume number' group by fld_value
+		</cfquery>
+		<cfquery name="creator" dbtype="query">
+			select fld_value as creator from qr where field_name='created by agent' group by fld_value
+		</cfquery>
+		
 		<cfdump var=#mpg#>
 		<cfquery name="dtl" dbtype="query">
-			select *  from qr where field_name not in ('title','page','published year','volume number')
+			select *  from qr where field_name not in ('title','page','published year','volume number','created by agent')
 		</cfquery>
+		<cfquery name="funkypages" dbtype="query">
+			select media_id from dtl group by media_id order by media_id 
+		</cfquery>
+		<cfloop query="funkyPages">
+			<br>something funky with #media_id#
+			<cfquery name="funkypagenum" dbtype="query">
+				select fld_value from qr  where field_name='page' and media_id=#media_id#
+			</cfquery>
+			<cfquery name="funkyPageData" dbtype="query">
+				select * from dtl where media_id=#media_id#
+			</cfquery>
+			<cfdump var=#funkypagedata#>
+		</cfloop>
+
 		<cfdump var=#dtl#>
 		
 		
