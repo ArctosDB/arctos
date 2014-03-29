@@ -817,7 +817,7 @@
 			</cfquery>
 			<cfset plinks="">
 			<cfloop query="funkyPageData">
-				<cfif funkyPageData.field_name id "derived from media">
+				<cfif funkyPageData.field_name is "derived from media">
 					<br>ismedia
 					<cfset plinks=listappend(plinks,'<a href="/media/#fld_value#">#field_name#=#fld_value#</a>',chr(7))>
 				<cfelse>
