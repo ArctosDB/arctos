@@ -251,7 +251,7 @@ console.log('theID: ' + theID);
 				  	var ptl='/component/functions.cfc?method=getMediaDocumentInfo&urltitle=' + theID;
 				    jQuery.get(ptl, function(data){
 		console.log('got data: ' + data);
-						jQuery("#" + theElemID).html('i like tatertots');
+						jQuery("#" + theElemID).html(data);
 					});
 				});
 
