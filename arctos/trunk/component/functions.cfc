@@ -815,7 +815,7 @@
 		
 		
 		
-		
+		<cfset rn=rn+1>
 		<cfdump var=#mpg#>
 		<cfquery name="dtl" dbtype="query">
 			select *  from qr where field_name not in ('title','page','published year','volume number','created by agent')
