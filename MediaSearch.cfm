@@ -652,6 +652,9 @@
 					<cfset attrList="">
 					
 					<cfdump var=#lbl#>
+					
+					
+					<!----
 					<cfset pageLink="">
 							<cfif r is "page">
 								<cfset pageLink="/MediaSearch.cfm?action=search&doc_title=#title#&media_label=page&label_value=#v#">					<cfif v gt numPages>
@@ -663,7 +666,7 @@
 								</cfif>
 							</cfif>
 							
-							
+							---->
 							
 					<cfloop query="#lbl#">
 						<cfloop list="#labels#" index="i" delimiters="|">
