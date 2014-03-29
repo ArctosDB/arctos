@@ -753,7 +753,7 @@
 		<cfdump var=#flatdocs#>
 		
 
-		<cfset qr=querynew("media_id,field_name,value")>
+		<cfset qr=querynew("media_id,field_name,fld_value")>
 		<cfset rn=1>
 		<cfloop query="flatdocs">
 			<cfloop list="#labels#" index="i" delimiters="|">
@@ -763,7 +763,7 @@
 				<cfset v=listgetat(x,2,chr(7))>
 				<cfset QuerySetCell(qr, "media_id", flatdocs.media_id, rn)>
 				<cfset QuerySetCell(qr, "field_name", r, rn)>
-				<cfset QuerySetCell(qr, "value", v, rn)>
+				<cfset QuerySetCell(qr, "fld_value", v, rn)>
 				<cfset rn=rn+1>
 			</cfloop>
 			<cfloop list="#RELATIONSHIPS#" index="i" delimiters="|">
@@ -773,14 +773,14 @@
 				<cfset v=listgetat(x,2,chr(7))>
 				<cfset QuerySetCell(qr, "media_id", flatdocs.media_id, rn)>
 				<cfset QuerySetCell(qr, "field_name", r, rn)>
-				<cfset QuerySetCell(qr, "value", v, rn)>
+				<cfset QuerySetCell(qr, "fld_value", v, rn)>
 				<cfset rn=rn+1>
 			</cfloop>
 		</cfloop>
 		
 		<cfdump var=#qr#>
 		<cfquery name="mpg" dbtype="query">
-			select max(value) mp from qr where field_name='page'
+			select max(fld_value) as mp from qr where field_name='page'
 		</cfquery>
 		<cfdump var=#mpg#>
 		<cfquery name="dtl" dbtype="query">
