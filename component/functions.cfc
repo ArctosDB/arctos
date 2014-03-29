@@ -732,10 +732,10 @@
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getMediaDocumentInfo" access="remote">
-	   <cfargument name="title" required="true" type="string">
+	   <cfargument name="urltitle" required="true" type="string">
 	   
-	   cachedwithin="#createtimespan(0,0,60,0)#"
 	   
+	   <!---  cachedwithin="#createtimespan(0,0,60,0)#"   --->
 	   
 	   
 		<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
@@ -748,16 +748,8 @@
 				media_flat 
 			where 
 				media_type='multi-page document' and 
-				media_id in (select media_id from media_labels where media_label='title' and label_value='#title#')
+				media_id in (select media_id from media_labels where media_label='title' and niceURLNumbers(label_value)='#title#')
 		</cfquery>
-	
-
-
-
-		
-		<cfdump var=#flatdocs#>
-		
-
 		<cfset qr=querynew("media_id,field_name,fld_value")>
 		<cfset rn=1>
 		<cfloop query="flatdocs">
@@ -782,9 +774,6 @@
 				<cfset rn=rn+1>
 			</cfloop>
 		</cfloop>
-		
-		<cfdump var=#qr#>
-		
 		<cfset rtn=queryNew("mpg,pub_year,volume_number,creator,page,links")>
 		<cfset queryaddrow(rtn,1)>
 		<cfset rn=1>
@@ -812,21 +801,14 @@
 		<cfif creator.recordcount is 1>
 			<cfset QuerySetCell(rtn, "creator", creator.creator, rn)>
 		</cfif>
-		
-		
-		
 		<cfset rn=rn+1>
-		<cfdump var=#mpg#>
 		<cfquery name="dtl" dbtype="query">
 			select *  from qr where field_name not in ('title','page','published year','volume number','created by agent')
 		</cfquery>
 		<cfquery name="funkypages" dbtype="query">
 			select media_id from dtl group by media_id order by media_id 
 		</cfquery>
-		
-		<cfoutput>
 		<cfloop query="funkyPages">
-			<br>something funky with #media_id#
 			<cfquery name="funkypagenum" dbtype="query">
 				select fld_value from qr  where field_name='page' and media_id=#media_id#
 			</cfquery>
@@ -835,11 +817,7 @@
 			</cfquery>
 			<cfset plinks="">
 			<cfloop query="funkyPageData">
-				<p>
-					fld_value: #funkyPageData.fld_value#
-					<br>field_name: #funkyPageData.field_name#
-				</p>
-				<cfif funkyPageData.field_name contains "m">
+				<cfif funkyPageData.field_name id "derived from media">
 					<br>ismedia
 					<cfset plinks=listappend(plinks,'<a href="/media/#fld_value#">#field_name#=#fld_value#</a>',chr(7))>
 				<cfelse>
@@ -852,50 +830,7 @@
 			<cfset QuerySetCell(rtn, "links", replace(plinks,chr(7),"<br>","all"), rn)>
 			<cfset rn=rn+1>
 		</cfloop>
-		
-		</cfoutput>
-		
-		
-return this:
-
-
-		<cfdump var=#rtn#>
-		
-		
-
-		
-			
-			<!-----
-			
-			
-			
-			
-			
-				
-			<br>rstruct before append:
-			<cfdump var=#rstruct#>
-			<br>dstruct before append: 
-			
-			
-			
-			<cfdump var=#dstruct#>
-			
-			
-			<cfset structAppend(dstruct,rstruct,false)>
-			
-			
-			<br>dstruct after append: 
-			<cfdump var=#dstruct#>
-		</cfloop>
-		<p>
-			dstruct
-		</p>
-		<cfdump var=#dstruct#>
-		
-		
-		
-			------->
-			
+	<cfreturn rtn>
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getMediaPreview" access="remote">
