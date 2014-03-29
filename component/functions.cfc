@@ -835,6 +835,10 @@
 			</cfquery>
 			<cfset plinks="">
 			<cfloop query="funkyPageData">
+				<p>
+					fld_value: #funkyPageData.fld_value#
+					<br>field_name: #funkyPageData.field_name#
+				</p>
 				<cfset x=replace(field_name,chr(7),"X","all")>
 				<br>x=#x#
 				<br>==#field_name#==
