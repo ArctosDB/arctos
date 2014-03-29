@@ -766,6 +766,8 @@
 			
 			<br>dstruct after append: 
 			<cfdump var=#dstruct#>
+			<br>rstruct after append: 
+			<cfdump var=#rstruct#>
 		</cfloop>
 		<p>
 			dstruct
