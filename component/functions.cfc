@@ -757,6 +757,9 @@
 				<cfset v=listgetat(x,2,chr(7))>
 				<cfset rstruct["#r#"]="#v#">
 			</cfloop>
+			
+			<cfdump var=#rstruct#>
+			
 			<cfset dstruct=structAppend(dstruct,rstruct)>
 		</cfloop>
 		
