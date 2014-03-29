@@ -445,7 +445,12 @@
 			<cfabort>
 		</cfif>
 		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum <= 10000 order by media_flat.media_id"> 
-		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		
+		
+		cachedwithin="#createtimespan(0,0,60,0)#"
+		
+		
+		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
 			#preservesinglequotes(ssql)#
 		</cfquery>
 		<cfif raw.recordcount is 10000>
@@ -642,8 +647,24 @@
 					&nbsp;
 				</td>
 				<td>
+					<div class="mediaDocumentInformation"> 
 					<cfset numPages=0>
 					<cfset attrList="">
+					
+					<cfdump var=#lbl#>
+					<cfset pageLink="">
+							<cfif r is "page">
+								<cfset pageLink="/MediaSearch.cfm?action=search&doc_title=#title#&media_label=page&label_value=#v#">					<cfif v gt numPages>
+									<cfset numPages=v>
+								</cfif>
+							<cfelseif r is not "title">
+								<cfif not listfind(attrList,'#r#: <a href="#pageLink#"><strong>#v#</strong></a>',"|")>
+									<cfset attrList=listappend(attrList,'#r#: <a href="#pageLink#"><strong>#v#</strong></a>',"|")>
+								</cfif>
+							</cfif>
+							
+							
+							
 					<cfloop query="#lbl#">
 						<cfloop list="#labels#" index="i" delimiters="|">
 							<cfset x=replace(i,"==",chr(7),"all")>
@@ -679,6 +700,7 @@
 					<cfloop list="#rattrList#" index="i" delimiters="|">
 						<br>#i#
 					</cfloop>
+					</div>
 				</td>
 			<cfelse><!--- not MPD --->
 				<cfset alt=''>
