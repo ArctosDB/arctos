@@ -838,7 +838,7 @@
 		
 		<cfif returnHTML is true>
 			<cfquery name="meta" dbtype="query">
-				select mpg,pub_year,volume_number,creator,title from rtn where ttl is not null group by mpg,pub_year,volume_number,creator,title
+				select mpg,pub_year,volume_number,creator,title from rtn where title is not null group by mpg,pub_year,volume_number,creator,title
 			</cfquery>
 			
 			
