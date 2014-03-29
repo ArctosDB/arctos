@@ -750,7 +750,6 @@
 		<cfset dstruct=structNew()>
 		
 		<cfloop query="flatdocs">
-			<cfset rstruct=structNew()>
 			<cfloop list="#labels#" index="i" delimiters="|">
 				<cfset x=replace(i,"==",chr(7),"all")>
 				<cfset r=listgetat(x,1,chr(7))>
