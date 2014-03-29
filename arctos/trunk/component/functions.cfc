@@ -731,6 +731,38 @@
 	    <cfreturn>
 </cffunction>
 <!------------------------------------------------------------------->
+<cffunction name="getMediaDocumentInfo" access="remote">
+	   <cfargument name="title" required="true" type="string">
+		<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select 
+				media_id,
+				relationships,
+				labels,
+				hasTags
+			from 
+				media_flat 
+			where 
+				media_type='multi-page document' and 
+				media_id in (select media_id from media_labels where media_label='title' and label_value='#title#')
+		</cfquery>
+		
+		<cfdump var=#flatdocs#>
+		<cfset dstruct=structNew()>
+		
+		<cfloop query="flatdocs">
+			<cfset rstruct=structNew()>
+			<cfloop list="#labels#" index="i" delimiters="|">
+				<cfset x=replace(i,"==",chr(7),"all")>
+				<cfset r=listgetat(x,1,chr(7))>
+				<cfset v=listgetat(x,2,chr(7))>
+				<cfset rstruct.#r#="#v#">
+			</cfloop>
+			<cfset dstruct=structAppend(dstruct,rstruct)>
+		</cfloop>
+		
+		<cfdump var=#dstruct#>
+</cffunction>
+<!------------------------------------------------------------------->
 <cffunction name="getMediaPreview" access="remote">
 	   <cfargument name="preview_uri" required="true" type="string">
 	   <cfargument name="media_type" required="false" type="string">
