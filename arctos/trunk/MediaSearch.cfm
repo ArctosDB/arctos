@@ -665,7 +665,7 @@ console.log('theID: ' + theID);
 					&nbsp;
 				</td>
 				<td>
-					<div class="mediaDocumentInformation" id="docInfoDiv_#media_id#"> 
+					<div class="mediaDocumentInformation" id="docInfoDiv_#urltitle#"> 
 					<!----
 					<cfset numPages=0>
 					<cfset attrList="">
