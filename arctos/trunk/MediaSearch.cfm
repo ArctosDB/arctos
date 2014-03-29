@@ -240,27 +240,15 @@
 						jQuery("#" + theElemID).html(data);
 					});
 				});
-
 				$.each($("div[id^='docInfoDiv_']"), function() {
 					var theElemID=this.id;
-console.log('theElemID: ' + theElemID);
 					var theIDType=this.id.split('_')[0];
-console.log('theIDType: ' + theIDType);
 					var theID=this.id.split('_')[1];
-console.log('theID: ' + theID);
 				  	var ptl='/component/functions.cfc?method=getMediaDocumentInfo&&returnformat=plain&returnHTML=true&urltitle=' + theID;
 				    jQuery.get(ptl, function(data){
-		console.log('got data: ' + data);
 						jQuery("#" + theElemID).html(data);
 					});
 				});
-
-
-
-
-
-
-
 			});
 		</script>
 	<cfif not isdefined("session.displayrows") or len(session.displayrows) is 0>
@@ -640,17 +628,9 @@ console.log('theID: ' + theID);
 	<cfloop query="findIDs" startrow="#URL.offset#" endrow="#limit#">
 		<tr #iif(rownum MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<cfif media_type is "multi-page document">
-				<cfquery name="relns" dbtype="query">
-					select relationships from raw where urltitle='#urltitle#' group by relationships
-				</cfquery>
-				<cfquery name="lbl" dbtype="query">
-					select labels from raw where urltitle='#urltitle#' group by labels
-				</cfquery>
 				<cfquery name="qhastags" dbtype="query">
 					select media_id from raw where urltitle='#urltitle#' and hastags>0 group by media_id
 				</cfquery>
-				
-				
 				<td align="middle">
 					<a href="/document/#urltitle#" target="_blank" title="#title#">
 						<img src="/images/document_thumbnail.png" alt="#title#" style="max-width:150px;max-height:150px;">
@@ -665,66 +645,7 @@ console.log('theID: ' + theID);
 					&nbsp;
 				</td>
 				<td>
-					<div class="mediaDocumentInformation" id="docInfoDiv_#urltitle#"> 
-					<!----
-					<cfset numPages=0>
-					<cfset attrList="">
-					
-					<cfdump var=#lbl#>
-					
-					
-					<!----
-					<cfset pageLink="">
-							<cfif r is "page">
-								<cfset pageLink="/MediaSearch.cfm?action=search&doc_title=#title#&media_label=page&label_value=#v#">					<cfif v gt numPages>
-									<cfset numPages=v>
-								</cfif>
-							<cfelseif r is not "title">
-								<cfif not listfind(attrList,'#r#: <a href="#pageLink#"><strong>#v#</strong></a>',"|")>
-									<cfset attrList=listappend(attrList,'#r#: <a href="#pageLink#"><strong>#v#</strong></a>',"|")>
-								</cfif>
-							</cfif>
-							
-							---->
-							
-					<cfloop query="#lbl#">
-						<cfloop list="#labels#" index="i" delimiters="|">
-							<cfset x=replace(i,"==",chr(7),"all")>
-							<cfset r=listgetat(x,1,chr(7))>
-							<cfset v=listgetat(x,2,chr(7))>
-							<cfif r is "page">
-								<cfif v gt numPages>
-									<cfset numPages=v>
-								</cfif>
-							<cfelseif r is not "title">
-								<cfif not listfind(attrList,"#r#: <strong>#v#</strong>","|")>
-									<cfset attrList=listappend(attrList,"#r#: <strong>#v#</strong>","|")>
-								</cfif>
-							</cfif>
-						</cfloop>
-					</cfloop>
-					<br>Title: <strong>#title#</strong>
-					<br>Pages: <strong>#numPages#</strong>
-					<cfloop list="#attrList#" index="i" delimiters="|">
-						<br>#i#
-					</cfloop>
-					<cfset rattrList="">
-					<cfloop query="#relns#">
-						<cfloop list="#RELATIONSHIPS#" index="i" delimiters="|">
-							<cfset x=replace(i,"==",chr(7),"all")>
-							<cfset r=listgetat(x,1,chr(7))>
-							<cfset v=listgetat(x,2,chr(7))>
-							<cfif not listfind(rattrList,"#r#: <strong>#v#</strong>","|")>
-								<cfset rattrList=listappend(rattrList,"#r#: <strong>#v#</strong>","|")>
-							</cfif>
-						</cfloop>
-					</cfloop>
-					<cfloop list="#rattrList#" index="i" delimiters="|">
-						<br>#i#
-					</cfloop>
-					
-					---->
-					</div>
+					<div class="mediaDocumentInformation" id="docInfoDiv_#urltitle#"></div>
 				</td>
 			<cfelse><!--- not MPD --->
 				<cfset alt=''>
