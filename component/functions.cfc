@@ -839,8 +839,7 @@
 					fld_value: #funkyPageData.fld_value#
 					<br>field_name: #funkyPageData.field_name#
 				</p>
-				<br>==#field_name#==
-				<cfif field_name contains "derived">
+				<cfif funkyPageData.field_name contains "m">
 					<br>ismedia
 					<cfset plinks=listappend(plinks,'<a href="/media/#fld_value#">#field_name#=#fld_value#</a>',chr(7))>
 				<cfelse>
