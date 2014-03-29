@@ -784,8 +784,11 @@
 		</cfquery>
 		<cfdump var=#mpg#>
 		<cfquery name="dtl" dbtype="query">
-			delete from qr where field_name='title'
+			select *  from qr where field_name not in ('title','page')
 		</cfquery>
+		<cfdump var=#dtl#>
+		
+		
 				<cfdump var=#dtl#>
 		<cfdump var=#qr#>
 
