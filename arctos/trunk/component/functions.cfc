@@ -779,7 +779,16 @@
 		</cfloop>
 		
 		<cfdump var=#qr#>
-		
+		<cfquery name="mpg" dbtype="query">
+			select max(value) mp from qr where field_name='page'
+		</cfquery>
+		<cfdump var=#mpg#>
+		<cfquery name="dtl" dbtype="query">
+			delete from qr where field_name='title'
+		</cfquery>
+				<cfdump var=#dtl#>
+		<cfdump var=#qr#>
+
 		
 			
 			<!-----
