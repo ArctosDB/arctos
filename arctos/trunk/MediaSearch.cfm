@@ -240,6 +240,23 @@
 						jQuery("#" + theElemID).html(data);
 					});
 				});
+
+				$.each($("div[id^='docInfoDiv-']"), function() {
+					var theElemID=this.id;
+					var theIDType=this.id.split('-')[1];
+					var theID=this.id.split('-')[2];
+				  	var ptl='/component/functions.cfc?method=getMediaDocumentInfo&urltitle=' + theID;
+				    jQuery.get(ptl, function(data){
+						jQuery("#" + theElemID).html(data);
+					});
+				});
+
+
+
+
+
+
+
 			});
 		</script>
 	<cfif not isdefined("session.displayrows") or len(session.displayrows) is 0>
@@ -644,7 +661,8 @@
 					&nbsp;
 				</td>
 				<td>
-					<div class="mediaDocumentInformation"> 
+					<div class="mediaDocumentInformation" id="docInfoDiv-#urltitle#"> 
+					<!----
 					<cfset numPages=0>
 					<cfset attrList="">
 					
@@ -700,6 +718,8 @@
 					<cfloop list="#rattrList#" index="i" delimiters="|">
 						<br>#i#
 					</cfloop>
+					
+					---->
 					</div>
 				</td>
 			<cfelse><!--- not MPD --->
