@@ -838,7 +838,7 @@
 				<cfset f=replace(field_name,chr(7),"X","all")>
 				<br>x=#x#
 				<br>==#field_name#==
-				<cfif trim(field_name) eq "derived from media">
+				<cfif trim(field_name) contains "derived from media">
 					<br>ismedia
 					<cfset plinks=listappend(plinks,'<a href="/media/#fld_value#">#field_name#=#fld_value#</a>',chr(7))>
 				<cfelse>
@@ -850,7 +850,6 @@
 			<cfset QuerySetCell(rtn, "page", funkypagenum.fld_value, rn)>
 			<cfset QuerySetCell(rtn, "links", replace(plinks,chr(7),"<br>","all"), rn)>
 			<cfset rn=rn+1>
-			<cfdump var=#funkypagedata#>
 		</cfloop>
 		
 		</cfoutput>
