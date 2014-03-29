@@ -759,7 +759,7 @@
 			</cfloop>
 			
 			<br>rstruct before append:
-			<cfdump var=##>
+			<cfdump var=#rstruct#>
 			<br>dstruct before append: 
 			<cfdump var=#dstruct#>
 			<cfset structAppend(dstruct,rstruct)>
