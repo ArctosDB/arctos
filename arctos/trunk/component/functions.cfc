@@ -752,22 +752,30 @@
 		
 		<cfdump var=#flatdocs#>
 		
-		<cfset qclist="">
+
+		<cfset qr=querynew(media_id,field_name,value)>
+		<cfset rn=1>
 		<cfloop query="flatdocs">
 			<cfloop list="#labels#" index="i" delimiters="|">
-				<cfset c=listfirst(i,"=")>
-				<cfif not listfind(qclist,c)>
-					<cfset qclist=listappend(qclist,c)>
-				</cfif>
+				<cfset qr=queryAddRow(1)>
+				<cfset x=replace(i,"==",chr(7),"all")>
+				<cfset r=listgetat(x,1,chr(7))>
+				<cfset v=listgetat(x,2,chr(7))>
+				<cfset QuerySetCell(qr, "media_id", media_id, rn)>
+				<cfset QuerySetCell(qr, "field_name", r, rn)>
+				<cfset QuerySetCell(qr, "value", v, rn)>
+				<cfset rn=rn+1>
 			</cfloop>
 			<cfloop list="#RELATIONSHIPS#" index="i" delimiters="|">
-				<cfset c=listfirst(i,"=")>
-				<cfif not listfind(qclist,c)>
-					<cfset qclist=listappend(qclist,c)>
-				</cfif>
-			</cfloop>
+				<cfset qr=queryAddRow(1)>
+				<cfset x=replace(i,"==",chr(7),"all")>
+				<cfset r=listgetat(x,1,chr(7))>
+				<cfset v=listgetat(x,2,chr(7))>
+				<cfset QuerySetCell(qr, "media_id", media_id, rn)>
+				<cfset QuerySetCell(qr, "field_name", r, rn)>
+				<cfset QuerySetCell(qr, "value", v, rn)>
+				<cfset rn=rn+1>
 		</cfloop>
-		<cfset qr=querynew(qclist)>
 		
 		<cfdump var=#qr#>
 		
@@ -779,9 +787,7 @@
 			
 			
 			
-				<cfset x=replace(i,"==",chr(7),"all")>
-				<cfset r=listgetat(x,1,chr(7))>
-				<cfset v=listgetat(x,2,chr(7))>
+				
 			<br>rstruct before append:
 			<cfdump var=#rstruct#>
 			<br>dstruct before append: 
