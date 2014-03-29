@@ -783,6 +783,8 @@ The person struct <b>after</b> the Append call:<br>
 </cfloop>
 
 
+<cfdump var=#personCLK#>
+
 
 
 
