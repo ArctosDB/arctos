@@ -864,7 +864,7 @@
 				</cfquery>
 				<div>
 					<cfloop query="pgs">
-						<cfquery name="pgs" dbtype="query">
+						<cfquery name="links" dbtype="query">
 							select links from rtn where page=#page# and links is not null group by links order by links
 						</cfquery>
 						Additional information on page #page#
