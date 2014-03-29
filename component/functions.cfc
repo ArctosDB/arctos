@@ -836,7 +836,7 @@
 				<cfset plinks=listappend(plinks,"#field_name#=#fld_value#",chr(7))>
 			</cfloop>
 			<cfset queryaddrow(rtn,1)>
-			<cfset QuerySetCell(rtn, "media_id", funkyPages.media_id, rn)>
+			<cfset QuerySetCell(rtn, "page", funkyPages.page, rn)>
 			<cfset QuerySetCell(rtn, "links", plinks, rn)>
 			<cfset rn=rn+1>
 			<cfdump var=#funkypagedata#>
