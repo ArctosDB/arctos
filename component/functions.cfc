@@ -775,6 +775,7 @@
 				<cfset QuerySetCell(qr, "field_name", r, rn)>
 				<cfset QuerySetCell(qr, "value", v, rn)>
 				<cfset rn=rn+1>
+			</cfloop>
 		</cfloop>
 		
 		<cfdump var=#qr#>
