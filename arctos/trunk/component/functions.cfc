@@ -753,7 +753,7 @@
 		<cfdump var=#flatdocs#>
 		
 
-		<cfset qr=querynew(media_id,field_name,value)>
+		<cfset qr=querynew("media_id,field_name,value")>
 		<cfset rn=1>
 		<cfloop query="flatdocs">
 			<cfloop list="#labels#" index="i" delimiters="|">
