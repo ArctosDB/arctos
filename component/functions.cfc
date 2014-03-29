@@ -842,6 +842,7 @@
 					<br>ismedia
 					<cfset plinks=listappend(plinks,'<a href="/media/#fld_value#">#field_name#=#fld_value#</a>',chr(7))>
 				<cfelse>
+					<br>"#trim(field_name)#" is not "derived from media"
 					<cfset plinks=listappend(plinks,"#field_name#=#fld_value#",chr(7))>
 				</cfif>
 			</cfloop>
