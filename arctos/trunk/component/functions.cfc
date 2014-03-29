@@ -823,6 +823,8 @@
 		<cfquery name="funkypages" dbtype="query">
 			select media_id from dtl group by media_id order by media_id 
 		</cfquery>
+		
+		<cfoutput>
 		<cfloop query="funkyPages">
 			<br>something funky with #media_id#
 			<cfquery name="funkypagenum" dbtype="query">
@@ -833,6 +835,7 @@
 			</cfquery>
 			<cfset plinks="">
 			<cfloop query="funkyPageData">
+				<br>#field_name#
 				<cfif field_name is "derived from media">
 					<cfset plinks=listappend(plinks,'<a href="/media/#fld_value#">#field_name#=#fld_value#</a>',chr(7))>
 				<cfelse>
@@ -845,6 +848,10 @@
 			<cfset rn=rn+1>
 			<cfdump var=#funkypagedata#>
 		</cfloop>
+		
+		</cfoutput>
+		
+		
 return this:
 
 
