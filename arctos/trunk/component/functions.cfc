@@ -736,9 +736,9 @@
 	   <cfargument name="returnHTML" required="false" type="boolean" default="false">
 	   
 	   
-	   <!---  cachedwithin="#createtimespan(0,0,60,0)#"   --->
+	   <!---     --->
 	   
-		<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
+		<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select 
 				media_id,
 				relationships,
@@ -836,7 +836,6 @@
 		</cfloop>
 		
 		<cfif returnHTML is true>
-		returning HTL....
 			<cfquery name="meta" dbtype="query">
 				select mpg,pub_year,volume_number,creator,title from rtn where title is not null group by mpg,pub_year,volume_number,creator,title
 			</cfquery>
@@ -862,19 +861,19 @@
 				<cfquery name="pgs" dbtype="query">
 					select page from rtn where page is not null and links is not null group by page order by page
 				</cfquery>
+				<cfloop query="pgs">
 				<div>
-					<cfloop query="pgs">
-						<cfquery name="links" dbtype="query">
-							select links from rtn where page=#page# and links is not null group by links order by links
-						</cfquery>
-						Additional information on page #page#
-						<cfloop query="links">
-							<br>#links#
-						</cfloop>
+					<cfquery name="links" dbtype="query">
+						select links from rtn where page=#page# and links is not null group by links order by links
+					</cfquery>
+					Additional information from <a href="/document/#urltitle#/#page#">page #page#</a>
+					<ul>
+					<cfloop query="links">
+						<li>#links#</li>
 					</cfloop>
-				
-					
-				</div>
+					</ul>
+					</div>
+				</cfloop>
 			</cfsavecontent>
 			</cfoutput>
 			<cfreturn html>
