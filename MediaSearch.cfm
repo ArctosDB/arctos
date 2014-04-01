@@ -273,6 +273,7 @@
 			media_flat.COORDINATES,
 			media_flat.HASTAGS,
 			media_flat.LASTDATE,
+			media_flat.location,
 			mttitle.label_value title,
 			niceURLNumbers(mttitle.label_value) urltitle">
 		<cfset tabls="media_flat,(select media_id,label_value from media_labels where media_label='title') mttitle">
