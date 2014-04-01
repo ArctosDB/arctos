@@ -244,7 +244,7 @@
 					var theElemID=this.id;
 					var theIDType=this.id.split('_')[0];
 					var theID=this.id.split('_')[1];
-				  	var ptl='/component/functions.cfc?method=getMediaDocumentInfo&&returnformat=plain&returnHTML=true&urltitle=' + theID;
+				  	var ptl='/component/functions.cfc?method=getMediaDocumentInfo&&returnformat=plain&urltitle=' + theID;
 				    jQuery.get(ptl, function(data){
 						jQuery("#" + theElemID).html(data);
 					});
@@ -457,6 +457,11 @@
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
+		<!----
+		<cfif isdefined("session.username") and session.username is "dlm">
+			<cfdump var=#raw#>
+		</cfif>
+		---->
 		<cfif raw.recordcount is 10000>
 			<div class="importantNotification">
 				Note: Some relevant records may not be included. Please try more specific search terms.
@@ -645,7 +650,7 @@
 					&nbsp;
 				</td>
 				<td>
-					<div class="mediaDocumentInformation" id="docInfoDiv_#urltitle#"></div>
+					<div class="mediaDocumentInformation" id="docInfoDiv_#urltitle#"><img src="/images/indicator.gif"></div>
 				</td>
 			<cfelse><!--- not MPD --->
 				<cfset alt=''>
