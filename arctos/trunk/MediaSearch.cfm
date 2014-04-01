@@ -139,6 +139,11 @@
 			</label>
 			<input type="text" name="doc_title" id="doc_title" size="80">
 
+			<label for="earliest_date">
+				Media Content Date (min-max)</a>
+			</label>
+			<input type="text" name="earliest_date" id="earliest_date" size="8">-<input type="text" name="latest_date" id="latest_date" size="8">
+			
 			
 			<label for="min_published_year">
 				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=published year" target="_blank">Document Published Year (min-max)</a>
@@ -381,6 +386,20 @@
 			<cfset srch="#srch# AND is_number(ml_mapubyr.label_value)=1 and ml_mapubyr.label_value <= '#max_published_year#'">
 			<cfset mapurl="#mapurl#&max_published_year=#max_published_year#">
 		</cfif>
+		
+		<cfif (isdefined("earliest_date") and len(earliest_date) gt 0)>
+			<cfset srch="#srch# AND media_flat.earliest_date >= '#earliest_date#'">
+			<cfset mapurl="#mapurl#&earliest_date=#earliest_date#">
+		</cfif>
+		<cfif (isdefined("latest_date") and len(latest_date) gt 0)>
+			<cfset srch="#srch# AND media_flat.latest_date <= '#latest_date#'">
+			<cfset mapurl="#mapurl#&latest_date=#latest_date#">
+		</cfif>
+		
+
+
+
+
 		<cfif isdefined("requireSpecimens") and len(requireSpecimens) gt 0>
 			<cfset mapurl="#mapurl#&requireSpecimens=#requireSpecimens#">
 			<cfset tabls = "#tabls#,media_relations mr_shows_cataloged_item">
