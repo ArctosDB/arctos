@@ -133,6 +133,9 @@
 				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=description" target="_blank">Media Description</a>
 			</label>
 			<input type="text" name="description" id="description" size="80">
+			
+			<label for="location">Media Location</label>
+			<input type="text" name="location" id="location" size="80">
 
 			<label for="doc_title">
 				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=title" target="_blank">Document Title</a>
@@ -440,6 +443,10 @@
 		<cfif isdefined("media_uri") and len(media_uri) gt 0>
 			<cfset srch="#srch# AND upper(media_flat.media_uri) like '%#ucase(media_uri)#%'">
 			<cfset mapurl="#mapurl#&media_uri=#media_uri#">
+		</cfif>
+		<cfif isdefined("location") and len(location) gt 0>
+			<cfset srch="#srch# AND upper(media_flat.location) like '%#ucase(location)#%'">
+			<cfset mapurl="#mapurl#&location=#location#">
 		</cfif>
 		<cfif isdefined("tag") and len(tag) gt 0>
 			<cfset whr="#whr# AND media_flat.media_id IN (select media_id from tag)">
