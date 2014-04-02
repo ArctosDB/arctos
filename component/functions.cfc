@@ -3,8 +3,8 @@
 <cffunction name="splitAgentName" access="remote" returnformat="json">
    	<cfargument name="name" required="true" type="string">
    	<cfargument name="agent_type" required="false" type="string" default="person">
-	<cfif isdefined("agent_type") and len(agent_type) gt 0>
-		<cfset d = querynew("name,nametype,first,middle,last, formatted_name")>
+	<cfif isdefined("agent_type") and len(agent_type) gt 0 and agent_type neq 'person'>
+		<cfset d = querynew("name,nametype,first,middle,last,formatted_name")>
 		<cfset temp = queryaddrow(d,1)>
 		<cfset temp = QuerySetCell(d, "name", name, 1)>
 		<cfreturn d>
