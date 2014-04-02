@@ -34,7 +34,7 @@
 		} else {
 			$("#newPersonAttrs").hide();
 		}
-		parent.resizeCaller();
+		try{parent.resizeCaller();}catch(e){}
 	}
 	function suggestName(ntype){
 		try {
