@@ -126,7 +126,7 @@
 	}
 	function preCreateCheck(){
 		if ($("#forceOverride").val()=="true"){
-			$("#createAgent").submit();
+			return true;
 		}
 		
 		if ($("#agent_type").val()=='person'){
@@ -148,11 +148,10 @@
 				},
 				function (r) {
 					if(r){
-						$("#forceOverride").val('');
+						$("#forceOverride").val('false');
 						var theHTML='There are potential problems with the agent you are trying to create.<br>' + r;
 						theHTML+='<br><span onclick="forceSubmit()" class="likeLink">click here to force creation</span>';
 						$("#preCreateErrors").html(theHTML).addClass('error').show();
-						$("#forceOverride").val('false');
 						return false;
 					}else{
 						$("#forceOverride").val('true');
