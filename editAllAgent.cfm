@@ -152,6 +152,7 @@
 						$("#preCreateErrors").html(theHTML).addClass('error').show();
 						return false;
 					}else{
+						$("#forceOverride").val('true');
 						$("#createAgent").submit();
 					}
 				}
