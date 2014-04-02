@@ -125,7 +125,7 @@
 		$("#createAgent").submit();
 	}
 	function preCreateCheck(){
-
+		$("#createAgent")..preventDefault();
 
 		if ($("#forceOverride").val()=="true"){
 			return true;
