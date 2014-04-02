@@ -125,7 +125,6 @@
 		$("#createAgent").submit();
 	}
 	function preCreateCheck(){
-
 		if ($("#forceOverride").val()=="true"){
 			$("#createAgent").submit();
 		}
@@ -148,12 +147,6 @@
 					last_name : $("#last_name").val()
 				},
 				function (r) {
-	console.log(r);
-	console.log('stop');
-return false;
-
-
-return false;
 					if(r){
 						$("#forceOverride").val('');
 						var theHTML='There are potential problems with the agent you are trying to create.<br>' + r;
@@ -161,17 +154,13 @@ return false;
 						$("#preCreateErrors").html(theHTML).addClass('error').show();
 						return false;
 					}else{
-								$("#createAgent").submit();
-
+						$("#createAgent").submit();
 					}
 				}
 			);
 		}
-} else {
-			return true;
 			//console.log('no handling for ' + $("#agent_type").val());
-		}
-return false;
+		return false;
 	}
 </script>
 <!------------------------------------------------------------------------------------------------------------->
