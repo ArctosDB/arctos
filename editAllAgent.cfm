@@ -128,39 +128,37 @@
 		if ($("#forceOverride").val()=="true"){
 			return true;
 		}
-		
 		if ($("#agent_type").val()=='person'){
 			if ($("#first_name").val().length==0 && $("#last_name").val().length==0 && $("#middle_name").val().length==0){
 				alert('First, middle, or last name is required for person agents. Use the autogenerate button.');
 				$("#forceOverride").val('false');
 				return false;
 			}
-			jQuery.getJSON("/component/functions.cfc",
-				{
-					method : "checkAgent",
-					returnformat : "json",
-					queryformat : 'column',
-					preferred_name : $("#preferred_agent_name").val(),
-					agent_type : $("#agent_type").val(),
-					first_name : $("#first_name").val(),
-					middle_name : $("#middle_name").val(),
-					last_name : $("#last_name").val()
-				},
-				function (r) {
-					if(r){
-						$("#forceOverride").val('false');
-						var theHTML='There are potential problems with the agent you are trying to create.<br>' + r;
-						theHTML+='<br><span onclick="forceSubmit()" class="likeLink">click here to force creation</span>';
-						$("#preCreateErrors").html(theHTML).addClass('error').show();
-						return false;
-					}else{
-						$("#forceOverride").val('true');
-						$("#createAgent").submit();
-					}
-				}
-			);
 		}
-			//console.log('no handling for ' + $("#agent_type").val());
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "checkAgent",
+				returnformat : "json",
+				queryformat : 'column',
+				preferred_name : $("#preferred_agent_name").val(),
+				agent_type : $("#agent_type").val(),
+				first_name : $("#first_name").val(),
+				middle_name : $("#middle_name").val(),
+				last_name : $("#last_name").val()
+			},
+			function (r) {
+				if(r){
+					$("#forceOverride").val('false');
+					var theHTML='There are potential problems with the agent you are trying to create.<br>' + r;
+					theHTML+='<br><span onclick="forceSubmit()" class="likeLink">click here to force creation</span>';
+					$("#preCreateErrors").html(theHTML).addClass('error').show();
+					return false;
+				}else{
+					$("#forceOverride").val('true');
+					$("#createAgent").submit();
+				}
+			}
+		);
 		return false;
 	}
 </script>
