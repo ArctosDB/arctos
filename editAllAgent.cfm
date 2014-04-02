@@ -152,8 +152,9 @@
 						$("#preCreateErrors").html(theHTML).addClass('error').show();
 						return false;
 					}else{
-						$("#forceOverride").val('true');
-						$("#createAgent").submit();
+						//$("#forceOverride").val('true');
+						//$("#createAgent").submit();
+console.log('no crashy');
 					}
 				}
 			);
