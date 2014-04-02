@@ -156,7 +156,6 @@
 					}else{
 						$("#forceOverride").val('true');
 						$("#createAgent").submit();
-						console.log('no crashy');
 					}
 				}
 			);
