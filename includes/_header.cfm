@@ -133,7 +133,7 @@
 							<li><a target="_top" href="/SpecimenSearch.cfm">Specimens</a></li>
 							<li><a target="_top" href="/SpecimenUsage.cfm">Publications/Projects</a></li>
 							<li><a target="_top" href="/taxonomy.cfm">Taxonomy</a></li>
-			                <li><a target="_top" href="/MediaSearch.cfm">Media</a></li>
+			                <li><a target="_top" href="/MediaSearch.cfm">Media/Documents</a></li>
 			                <li><a target="_top" href="/showLocality.cfm">Places</a></li>
 			                <li><a target="_top" href="/info/ctDocumentation.cfm">Code&nbsp;Tables</a></li>
 							<li><a target="_top" href="/googlesearch.cfm">Google&nbsp;Custom&nbsp;(BETA)</a></li>
