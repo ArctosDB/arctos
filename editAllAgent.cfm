@@ -160,8 +160,6 @@
 			return true;
 			//console.log('no handling for ' + $("#agent_type").val());
 		}
-console.log('returning false');
-		return false;
 	}
 </script>
 <!------------------------------------------------------------------------------------------------------------->
