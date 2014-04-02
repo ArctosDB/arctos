@@ -135,6 +135,11 @@
 				alert('First, middle, or last name is required for person agents. Use the autogenerate button.')
 				return false;
 			}
+
+	console.log('stop');
+return false;
+
+
 			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "checkAgent",
