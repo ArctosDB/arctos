@@ -136,9 +136,6 @@
 				return false;
 			}
 
-	console.log('stop');
-return false;
-
 
 			jQuery.getJSON("/component/functions.cfc",
 				{
@@ -153,6 +150,10 @@ return false;
 				},
 				function (r) {
 	console.log(r);
+	console.log('stop');
+return false;
+
+
 return false;
 					if(r){
 						$("#forceOverride").val('');
