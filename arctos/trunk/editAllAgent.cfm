@@ -125,8 +125,6 @@
 		$("#createAgent").submit();
 	}
 	function preCreateCheck(){
-		return true;
-
 		if ($("#forceOverride").val()=="true"){
 			return true;
 		}
@@ -155,8 +153,6 @@
 						return false;
 					}else{
 						return true;
-$("#createAgent").submit();
-
 					}
 				}
 			);
@@ -164,6 +160,7 @@ $("#createAgent").submit();
 			return true;
 			//console.log('no handling for ' + $("#agent_type").val());
 		}
+console.log('returning false');
 		return false;
 	}
 </script>
