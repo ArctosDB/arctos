@@ -125,10 +125,9 @@
 		$("#createAgent").submit();
 	}
 	function preCreateCheck(){
-		$("#createAgent").preventDefault();
 
 		if ($("#forceOverride").val()=="true"){
-			return true;
+			$("#createAgent").submit();
 		}
 		if ($("#agent_type").val()=='person'){
 			if ($("#first_name").val().length==0 && $("#last_name").val().length==0 && $("#middle_name").val().length==0){
@@ -162,7 +161,8 @@ return false;
 						$("#preCreateErrors").html(theHTML).addClass('error').show();
 						return false;
 					}else{
-						return true;
+								$("#createAgent").submit();
+
 					}
 				}
 			);
@@ -171,6 +171,7 @@ return false;
 			return true;
 			//console.log('no handling for ' + $("#agent_type").val());
 		}
+return false;
 	}
 </script>
 <!------------------------------------------------------------------------------------------------------------->
