@@ -125,6 +125,10 @@
 		$("#createAgent").submit();
 	}
 	function preCreateCheck(){
+
+return false;
+
+
 		if ($("#forceOverride").val()=="true"){
 			return true;
 		}
@@ -146,7 +150,7 @@
 				},
 				function (r) {
 	console.log(r);
-return false;
+
 					if(r){
 						$("#forceOverride").val('');
 						var theHTML='There are potential problems with the agent you are trying to create.<br>' + r;
