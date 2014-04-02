@@ -128,9 +128,11 @@
 		if ($("#forceOverride").val()=="true"){
 			$("#createAgent").submit();
 		}
+		
 		if ($("#agent_type").val()=='person'){
 			if ($("#first_name").val().length==0 && $("#last_name").val().length==0 && $("#middle_name").val().length==0){
-				alert('First, middle, or last name is required for person agents. Use the autogenerate button.')
+				alert('First, middle, or last name is required for person agents. Use the autogenerate button.');
+				$("#forceOverride").val('false');
 				return false;
 			}
 			jQuery.getJSON("/component/functions.cfc",
@@ -150,11 +152,12 @@
 						var theHTML='There are potential problems with the agent you are trying to create.<br>' + r;
 						theHTML+='<br><span onclick="forceSubmit()" class="likeLink">click here to force creation</span>';
 						$("#preCreateErrors").html(theHTML).addClass('error').show();
+						$("#forceOverride").val('false');
 						return false;
 					}else{
 						$("#forceOverride").val('true');
-						//$("#createAgent").submit();
-console.log('no crashy');
+						$("#createAgent").submit();
+						console.log('no crashy');
 					}
 				}
 			);
