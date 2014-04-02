@@ -56,7 +56,7 @@
 				</cfloop>
 			</select>
 		</cfif>
-		Search for Media &nbsp;&nbsp;
+		Search for Media and Documents&nbsp;&nbsp;
 		<style>
 			.rdoCtl {
 				font-size:small;
@@ -73,7 +73,7 @@
 			<span class="rdoCtl">Match Any<input type="radio" name="kwType" value="any"></span>
 			<span class="rdoCtl">Match All<input type="radio" name="kwType" value="all" checked="checked"></span>
 			<span class="rdoCtl">Match Phrase<input type="radio" name="kwType" value="phrase"></span>
-			<label for="media_uri">Media URI</label>
+			<label for="media_uri">URI (Internet Address)</label>
 			<input type="text" name="media_uri" id="media_uri" size="90">
 			<table>
 				<tr>
@@ -125,31 +125,31 @@
 				</tr>
 			</table>
 			<label for="created_by_agent">
-				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_RELATIONSHIP&field=created by agent" target="_blank">Media created by Agent (<em>e.g.</em>, field note author, photographer)</a>
+				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_RELATIONSHIP&field=created by agent" target="_blank">Created by Agent (<em>e.g.</em>, field note author, photographer)</a>
 			</label>
 			<input type="text" name="created_by_agent" id="created_by_agent" size="80">
 			
 			<label for="description">
-				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=description" target="_blank">Media Description</a>
+				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=description" target="_blank">Description</a>
 			</label>
 			<input type="text" name="description" id="description" size="80">
 			
-			<label for="location">Media Location</label>
+			<label for="location">Location (geography, specific locality of linked specimens and events)</label>
 			<input type="text" name="location" id="location" size="80">
 
 			<label for="doc_title">
-				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=title" target="_blank">Document Title</a>
+				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=title" target="_blank">Title (documents only)</a>
 			</label>
 			<input type="text" name="doc_title" id="doc_title" size="80">
 
 			<label for="earliest_date">
-				Media Content Date (min-max)</a>
+				Content Date (min-max from linked specimens and events)</a>
 			</label>
 			<input type="text" name="earliest_date" id="earliest_date" size="8">-<input type="text" name="latest_date" id="latest_date" size="8">
 			
 			
 			<label for="min_published_year">
-				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=published year" target="_blank">Document Published Year (min-max)</a>
+				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=made date" target="_blank">Made Date (min-max from Media metadata)</a>
 			</label>
 			<input type="text" name="min_published_year" id="min_published_year" size="8">-<input type="text" name="max_published_year" id="max_published_year" size="8">
 			
@@ -445,7 +445,7 @@
 			<cfset mapurl="#mapurl#&media_uri=#media_uri#">
 		</cfif>
 		<cfif isdefined("location") and len(location) gt 0>
-			<cfset srch="#srch# AND upper(media_flat.location) like '%#ucase(location)#%'">
+			<cfset srch="#srch# AND upper(media_flat.location) like '%#ucase(escapeQuotes(location))#%'">
 			<cfset mapurl="#mapurl#&location=#location#">
 		</cfif>
 		<cfif isdefined("tag") and len(tag) gt 0>
@@ -481,15 +481,14 @@
 			<cfabort>
 		</cfif>
 		
-		cachedwithin="#createtimespan(0,0,60,0)#"
+		
 		
 		
 		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum <= 10000 order by media_flat.media_id"> 
-		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
+		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
 		
-					<cfdump var=#raw#>
 
 
 

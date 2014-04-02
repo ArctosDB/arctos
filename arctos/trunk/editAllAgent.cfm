@@ -153,6 +153,8 @@
 						return false;
 					}else{
 						return true;
+$("#createAgent").submit();
+
 					}
 				}
 			);
