@@ -134,7 +134,7 @@
 			if ($("#first_name").val().length==0 && $("#last_name").val().length==0 && $("#middle_name").val().length==0){
 				alert('First, middle, or last name is required for person agents. Use the autogenerate button.')
 				return false;
-			}
+			} else {
 
 
 			jQuery.getJSON("/component/functions.cfc",
@@ -166,7 +166,8 @@ return false;
 					}
 				}
 			);
-		} else {
+		}
+} else {
 			return true;
 			//console.log('no handling for ' + $("#agent_type").val());
 		}
