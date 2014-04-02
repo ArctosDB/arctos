@@ -2,7 +2,23 @@
 
 <cfoutput>
 
+<script>
+	function rtf(i){
+		return i;
+}
+<form name="x" onsubmit="return rtf(true)">
+<input type="submit" value="true">
+</form>
+<form name="x" onsubmit="return rtf(false)">
+<input type="submit" value="false">
+</form>
 
+</script>
+
+	<!-------
+	
+	
+	
 <cfset remark="this makes [[guid/MVZ:Mamm:1|guid links]] to specimens [[guid/MVZ:Mamm:2]]">
 
 <cfdump var=#remark#>
@@ -41,8 +57,6 @@
 			</cfif>
 		</cfloop>
 	</cfif>
-
-	<!-------
 <cfset variables.fn="#Application.webDirectory#/bnhmMaps/tabfiles/test.xml">
 <cfset variables.encoding="UTF-8">
 
