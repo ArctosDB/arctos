@@ -6,6 +6,8 @@
 	function rtf(i){
 		return i;
 }
+
+</script>
 <form name="x" onsubmit="return rtf(true)">
 <input type="submit" value="true">
 </form>
@@ -13,7 +15,7 @@
 <input type="submit" value="false">
 </form>
 
-</script>
+
 
 	<!-------
 	
