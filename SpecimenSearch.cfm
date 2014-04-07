@@ -178,6 +178,7 @@
 				<table>
 					<tr>
 						<td>					
+							<!----
 							<div class="cboxdiv">
 								<div class="cboxdiv_allnone">
 									<span class="likeLink" onclick="$('input[name^=collection_id]').prop('checked',true);">[ all ]</span>									
@@ -190,14 +191,14 @@
 								</cfloop>
 							</div>
 							
-							<!----
+							---->
 							<select name="collection_id" id="collection_id" size="3" multiple="multiple">
 								<cfloop query="ctInst">
 									<option <cfif thisCollId is ctInst.collection_id>selected="selected" </cfif>value="#ctInst.collection_id#">#ctInst.collection#</option>
 								</cfloop>
 							</select>
 							
-							---->
+							
 						</td>
 						<td>
 							<table>
