@@ -16,7 +16,7 @@
 	</cfcatch>
 </cftry>
 <cfquery name="makeUserTable" datasource="uam_god">
-	create table #session.SpecSrchTab# as select #valuelist(r_d.COLUMN_NAME)# from flat where rownum<20
+	create table #session.SpecSrchTab# as select #valuelist(r_d.COLUMN_NAME)# from flat where rownum<2000
 </cfquery>
 <cfquery name="trc" datasource="uam_god">
 	select count(*) c from #session.SpecSrchTab#
