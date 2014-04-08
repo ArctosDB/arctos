@@ -10,7 +10,7 @@
 	select * from cf_spec_res_cols where category='required' order by DISP_ORDER
 </cfquery>
 	<cfquery name="makeUserTable" datasource="uam_god">
-		create table #session.SpecSrchTab# as select #valuelist(r_d.COLUMN_NAME)#,rownum from flat where rownum<20
+		create table #session.SpecSrchTab# as select #valuelist(r_d.COLUMN_NAME)# from flat where rownum<20
 	</cfquery>
 
 	
