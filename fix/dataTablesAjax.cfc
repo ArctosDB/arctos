@@ -21,15 +21,12 @@
 			<cfset trow=listappend(trow,temp)>
 		</cfloop>
 		<cfset x=listappend(x,trow)>
-		<p>#trow#</p>
 	</cfloop>
 <cfset result='{
 				"Result":"OK",
 				"Records":[' & x & ']}'>
 
-<hr>
 
-#result#
 <!----
 <cfset x='{
  "Result":"OK",
