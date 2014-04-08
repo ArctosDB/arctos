@@ -22,9 +22,7 @@
 		</cfloop>
 		<cfset x=listappend(x,trow)>
 	</cfloop>
-<cfset result='{
-				"Result":"OK",
-				"Records":[' & x & ']}'>
+<cfset result='{"Result":"OK","Records":[' & x & ']}'>
 
 
 <!----
