@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<script type='text/javascript' language="javascript" src='/fix/jtable/jQuery.jtable.min.js'></script>
+<script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
 <link rel="stylesheet" href="<link href="/fix/jtable/themes/basic/jtable_basic.min.css" rel="stylesheet" type="text/css" />" />
 <script type="text/javascript">
     $(document).ready(function () {
