@@ -24,7 +24,6 @@
                 RECORDDATE: {
                     title: 'Record date',
                     width: '30%',
-                    type: 'date',
                     create: false,
                     edit: false
                 }
