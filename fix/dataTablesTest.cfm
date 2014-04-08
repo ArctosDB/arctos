@@ -29,7 +29,7 @@
 				</cfloop>
             }
         });
-        $('#specresults').jtable('load');
+        $('##specresults').jtable('load');
     });
 </script>
 </cfoutput>
