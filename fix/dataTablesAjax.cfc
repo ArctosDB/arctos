@@ -9,6 +9,8 @@
 		from agent where rownum<30
 	</cfquery>
 
+
+<cfoutput>
 	<!--- CF and jtable don't play well together, so roll our own.... ---->
 	
 	<cfset x='{
@@ -37,6 +39,9 @@
 <cfreturn x>
 
 ---->
+
+
+</cfoutput>
 
 <cfreturn result>
 </cffunction>
