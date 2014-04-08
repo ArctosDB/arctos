@@ -3,7 +3,7 @@
 <link href="/fix/jtable/themes/metro/blue/jtable.min.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#PersonTableContainer').jtable({
+        $('#specresults').jtable({
             title: 'Table of people',
 			actions: {
                 listAction: '/fix/dataTablesAjax.cfc?method=t'
@@ -30,12 +30,12 @@
                 }
             }
         });
-        $('#PersonTableContainer').jtable('load');
+        $('#specresults').jtable('load');
     });
 </script>
 
 
-<div id="PersonTableContainer"></div>
+<div id="specresults"></div>
 
 <!----
 <cfif not isdefined("session.resultColumnList")>
