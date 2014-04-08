@@ -1,19 +1,45 @@
 <cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
 <link href="/fix/jtable/themes/metro/blue/jtable.min.css" rel="stylesheet" type="text/css" />
+
+
+<cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select * from cf_spec_res_cols where category='required' order by DISP_ORDER
+</cfquery>
+
+<cfoutput>
+<cfset numFlds=r_d.recordcount>
+<cfset thisLoopNum=1>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#specresults').jtable({
+        $('##specresults').jtable({
             title: 'Table of people',       
 			paging: true, //Enable paging
             pageSize: 10, //Set page size (default: 10)
             sorting: true, //Enable sorting
-            defaultSorting: 'Name ASC', //Set default sorting
+            defaultSorting: 'GUID ASC', //Set default sorting
 			actions: {
                 listAction: '/fix/dataTablesAjax.cfc?method=t'
             },
-            fields: {
-                PERSONID: {
+            fields:  {
+				<cfloop query="r_d">
+					#ucase(COLUMN_NAME)#: {title: '#column_name#'}
+					<cfif thisLoopNum lt numFlds>,</cfif>
+					<cfset thisLoopNum=thisLoopNum+1>
+				</cfloop>
+            }
+        });
+        $('#specresults').jtable('load');
+    });
+</script>
+</cfoutput>
+
+<div id="specresults"></div>
+
+<!----
+
+
+  PERSONID: {
                     key: true,
                     list: false
                 },
@@ -31,16 +57,6 @@
                     create: false,
                     edit: false
                 }
-            }
-        });
-        $('#specresults').jtable('load');
-    });
-</script>
-
-
-<div id="specresults"></div>
-
-<!----
 <cfif not isdefined("session.resultColumnList")>
 	<cfset session.resultColumnList=''>
 </cfif>

@@ -1,5 +1,13 @@
 <cfcomponent>
 <cffunction name="t" access="remote" returnformat="plain" queryFormat="column">
+
+
+<cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select * from cf_spec_res_cols where category='required' order by DISP_ORDER
+</cfquery>
+
+
+
 	<cfquery name="d" datasource="uam_god">
 		select
 			agent_id PersonID,
