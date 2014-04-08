@@ -1,5 +1,5 @@
 <cfcomponent>
-<cffunction name="t" access="remote" >
+<cffunction name="t" access="remote" returnformat="json" >
 <cfset x='{
   "sEcho": 1,
   "iTotalRecords": "57",
