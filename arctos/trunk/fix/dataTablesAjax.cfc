@@ -21,9 +21,9 @@
 				) a where rownum <= #jtStopIndex#
 			) where rnum >= #jtStartIndex#
 	</cfquery>
-	
+	<!----
 	<cfdump var=#d#>
-
+--->
 <cfoutput>
 	<!--- CF and jtable don't play well together, so roll our own.... ---->
 	
