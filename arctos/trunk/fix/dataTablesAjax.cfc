@@ -9,11 +9,19 @@
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from cf_spec_res_cols where category='required' order by DISP_ORDER
 </cfquery>
+	<cfquery name="makeUserTable" datasource="uam_god">
+		create table #session.SpecSrchTab# as select #valuelist(r_d.COLUMN_NAME)#,rownum from flat where rownum<20
+	</cfquery>
 
-
-
+	
+			
+			
 	<cfquery name="d" datasource="uam_god">
-		select * from (select #valuelist(r_d.COLUMN_NAME)#,rownum from flat where rownum<20 order by #jtSorting#) where rownum between #jtStartIndex# and #jtStopIndex#
+		Select * from (
+				Select a.*, rownum rnum From (
+					select * from #session.SpecSrchTab# order by #jtSorting#
+				) a where rownum <= #jtStopIndex#
+			) where rnum >= #jtStartIndex#
 	</cfquery>
 
 <cfoutput>
