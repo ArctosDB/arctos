@@ -10,11 +10,7 @@
 
 	<cfquery name="d" datasource="uam_god">
 		select
-			agent_id PersonID,
-			preferred_agent_name Name,
-			agent_id Age,
-			created_date RecordDate
-		from agent where rownum<30
+			#valuelist(r_d.COLUMN_NAME)# from flat
 	</cfquery>
 
 
