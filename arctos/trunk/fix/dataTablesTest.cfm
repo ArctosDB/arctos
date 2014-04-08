@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
-<link href="/fix/jtable/themes/basic/jtable_basic.min.css" rel="stylesheet" type="text/css" />"
+<link href="/fix/jtable/themes/basic/jtable_basic.min.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     $(document).ready(function () {
         $('#PersonTableContainer').jtable({
