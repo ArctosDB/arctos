@@ -5,12 +5,6 @@
     $(document).ready(function () {
         $('#PersonTableContainer').jtable({
             title: 'Table of people',
-            actions: {
-                listAction: '/GettingStarted/PersonList',
-                createAction: '/GettingStarted/CreatePerson',
-                updateAction: '/GettingStarted/UpdatePerson',
-                deleteAction: '/GettingStarted/DeletePerson'
-            },
             fields: {
                 PersonId: {
                     key: true,
