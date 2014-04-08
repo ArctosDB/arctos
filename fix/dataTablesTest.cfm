@@ -6,7 +6,7 @@
         $('#PersonTableContainer').jtable({
             title: 'Table of people',
 			actions: {
-                listAction: '/fix/dataTablesAjax.cfc?method=t'
+                listAction: '/fix/dataTablesAjax.cfc?returntytype=json&method=t'
             },
             fields: {
                 PersonId: {
