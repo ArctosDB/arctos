@@ -5,6 +5,9 @@
     $(document).ready(function () {
         $('#PersonTableContainer').jtable({
             title: 'Table of people',
+			actions: {
+                listAction: '/fix/dataTablesAjax.cfc'
+            },
             fields: {
                 PersonId: {
                     key: true,
@@ -27,6 +30,7 @@
                 }
             }
         });
+        $('#PersonTableContainer').jtable('load');
     });
 </script>
 
