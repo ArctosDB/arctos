@@ -16,9 +16,11 @@
 	</cfcatch>
 </cftry>
 <cfquery name="makeUserTable" datasource="uam_god">
-		create table #session.SpecSrchTab# as select #valuelist(r_d.COLUMN_NAME)# from flat where rownum<20
-	</cfquery>
-	
+	create table #session.SpecSrchTab# as select #valuelist(r_d.COLUMN_NAME)# from flat where rownum<20
+</cfquery>
+<cfquery name="trc" datasource="uam_god">
+	select count(*) c from #session.SpecSrchTab#
+</cfquery>	
 	
 <cfoutput>
 <cfset numFlds=r_d.recordcount>
@@ -32,7 +34,7 @@
             sorting: true, //Enable sorting
             defaultSorting: 'GUID ASC', //Set default sorting
 			actions: {
-                listAction: '/fix/dataTablesAjax.cfc?method=t'
+                listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
             fields:  {
 				<cfloop query="r_d">

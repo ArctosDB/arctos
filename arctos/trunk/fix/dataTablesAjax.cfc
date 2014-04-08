@@ -13,9 +13,7 @@
 
 	
 			
-	<cfquery name="trc" datasource="uam_god">
-		select count(*) c from #session.SpecSrchTab#
-	</cfquery>
+	
 	
 	<cfquery name="d" datasource="uam_god">
 		Select * from (
@@ -40,7 +38,7 @@
 		<cfset trow="{" & trow & "}">
 		<cfset x=listappend(x,trow)>
 	</cfloop>
-<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
+<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#TotalRecordCount#}'>
 
 <!----
 
