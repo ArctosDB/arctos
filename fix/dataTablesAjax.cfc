@@ -1,3 +1,6 @@
+<cfcomponent>
+<cffunction name="t" access="remote">
+<cfreturn '
 {
   "sEcho": 1,
   "iTotalRecords": "57",
@@ -74,4 +77,7 @@
       "A"
     ]
   ]
-}
+}'>
+</cffunction>
+
+</cfcomponent>
