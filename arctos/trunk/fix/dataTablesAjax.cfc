@@ -13,9 +13,7 @@
 <cfoutput>
 	<!--- CF and jtable don't play well together, so roll our own.... ---->
 	
-	<cfset x='{
-				"Result":"OK",
-				"Records":['>
+	<cfset x=''>
 	<cfloop query="d">
 		<cfset trow="">
 		<cfloop list="#d.columnlist#" index="i">
@@ -25,11 +23,13 @@
 		<cfset x=listappend(x,trow)>
 		<p>#trow#</p>
 	</cfloop>
-<cfset x=x & ']}'>
+<cfset result='{
+				"Result":"OK",
+				"Records":[' & x & ']}'>
 
 <hr>
 
-#x#
+#result#
 <!----
 <cfset x='{
  "Result":"OK",
