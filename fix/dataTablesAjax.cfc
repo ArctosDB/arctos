@@ -1,5 +1,16 @@
 <cfcomponent>
-<cffunction name="t" access="remote" returnformat="json" >
+<cffunction name="t" access="remote" returnformat="json">
+	<cfquery name="result" datasource="uam_god">
+		select
+			agent_id PersonID,
+			preferred_agent_name Name,
+			agent_id Age,
+			created_date RecordDate
+		from agent where rownum<30
+	</cfquery>
+
+
+<!----
 <cfset x='{
  "Result":"OK",
  "Records":[
@@ -11,6 +22,10 @@
 }'>
 
 <cfreturn x>
+
+---->
+
+<cfreturn result>
 </cffunction>
 
 </cfcomponent>
