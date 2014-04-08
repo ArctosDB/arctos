@@ -1,6 +1,6 @@
 <cfcomponent>
 <cffunction name="t" access="remote" returnformat="json" queryFormat="column">
-	<cfquery name="result" datasource="uam_god">
+	<cfquery name="d" datasource="uam_god">
 		select
 			agent_id PersonID,
 			preferred_agent_name Name,
@@ -9,7 +9,20 @@
 		from agent where rownum<30
 	</cfquery>
 
-
+	<!--- CF and jtable don't play well together, so roll our own.... ---->
+	
+	<cfset x='{
+				"Result":"OK",
+				"Records":['>
+	<cfloop query="d">
+		<cfset trow="">
+		<cfloop list="#d.columnlist#" index="i">
+			<cfset trow=trow & '"#i#":"' & evaluate(d[i]) & '"'> 
+			<br>#trow#
+		</cfloop>
+		<p>#trow#</p>
+	</cfloop>
+<cfset x=x & ''>
 <!----
 <cfset x='{
  "Result":"OK",
