@@ -1,6 +1,9 @@
 <cfcomponent>
 <cffunction name="t" access="remote" returnformat="plain" queryFormat="column">
 
+<cfparam name="jtStartIndex" type="integer" default="0">
+<cfparam name="jtPageSize" type="integer" default="10">
+<cfparam name="jtSorting" type="char" default="GUID ASC">
 
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from cf_spec_res_cols where category='required' order by DISP_ORDER
@@ -9,10 +12,8 @@
 
 
 	<cfquery name="d" datasource="uam_god">
-		select
-			#valuelist(r_d.COLUMN_NAME)# from flat where rownum<20
+		select #valuelist(r_d.COLUMN_NAME)# from flat where rownum<20
 	</cfquery>
-
 
 <cfoutput>
 	<!--- CF and jtable don't play well together, so roll our own.... ---->
