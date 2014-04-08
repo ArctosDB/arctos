@@ -1,5 +1,5 @@
 <cfcomponent>
-<cffunction name="t" access="remote" returnformat="json" queryFormat="column">
+<cffunction name="t" access="remote" returnformat="plain" queryFormat="column">
 	<cfquery name="d" datasource="uam_god">
 		select
 			agent_id PersonID,
