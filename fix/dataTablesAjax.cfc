@@ -79,7 +79,7 @@
   ]
 }'>
 
-<cfreturn serializeJson(x)>
+<cfreturn x>
 </cffunction>
 
 </cfcomponent>
