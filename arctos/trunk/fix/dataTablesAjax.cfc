@@ -1,9 +1,9 @@
 <cfcomponent>
 <cffunction name="t" access="remote" returnformat="plain" queryFormat="column">
 
-<cfparam name="jtStartIndex" type="integer" default="0">
-<cfparam name="jtPageSize" type="integer" default="10">
-<cfparam name="jtSorting" type="char" default="GUID ASC">
+<cfparam name="jtStartIndex" type="numeric" default="0">
+<cfparam name="jtPageSize" type="numeric" default="10">
+<cfparam name="jtSorting" type="string" default="GUID ASC">
 
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from cf_spec_res_cols where category='required' order by DISP_ORDER
