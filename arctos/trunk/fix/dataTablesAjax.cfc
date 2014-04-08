@@ -10,7 +10,7 @@
 
 	<cfquery name="d" datasource="uam_god">
 		select
-			#valuelist(r_d.COLUMN_NAME)# from flat
+			#valuelist(r_d.COLUMN_NAME)# from flat where rownum<20
 	</cfquery>
 
 
