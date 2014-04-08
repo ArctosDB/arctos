@@ -38,98 +38,7 @@
 
 <div id="PersonTableContainer"></div>
 
-
-<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js'></script>
-<cfif len(session.displayrows) is 0>
-	<cfset session.displayrows=20>
-</cfif>
-<cfhtmlhead text="<title>Specimen Results</title>">
-<cfoutput>
-<script type="text/javascript" language="javascript">
-jQuery( function($) {
-	$("##customizeButton").live('click', function(e){
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','closeCustomNoRefresh()');
-		document.body.appendChild(bgDiv);
-		var type=this.type;
-		var type=$(this).attr('type');
-		var dval=$(this).attr('dval');
-		var theDiv = document.createElement('div');
-		theDiv.id = 'customDiv';
-		theDiv.className = 'customBox';
-		document.body.appendChild(theDiv);
-		var guts = "/info/SpecimenResultsPrefs.cfm";
-		$('##customDiv').load(guts,{},function(){
-			viewport.init("##customDiv");
-		});
-	});
-	$(".browseLink").live('click', function(e){
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','closeBrowse()');
-		document.body.appendChild(bgDiv);
-		var type=this.type;
-		var type=$(this).attr('type');
-		var dval=$(this).attr('dval');
-		var theDiv = document.createElement('div');
-		theDiv.id = 'browseDiv';
-		theDiv.className = 'sscustomBox';
-		theDiv.style.position="absolute";
-		ih='<span onclick="closeBrowse()" class="likeLink" style="position:absolute;top:0;right:0;color:red;">Close Window</span>';
-		ih+='<p>Search for ' + type + '....'
-		ih+='<br>LIKE <a href="/SpecimenResults.cfm?' + type + '=' + dval + '"> ' + decodeURI(dval) + '</a>';
-		ih+='<br>IS <a href="/SpecimenResults.cfm?' + type + '==' + dval + '"> ' + decodeURI(dval) + '</a></p>';
-		if (type=='scientific_name'){
-			ih+='<p><a href="/name/' + dval + '"> ' + decodeURI(dval) + ' taxonomy</a></p>';
-		}
-		theDiv.innerHTML=ih;
-		document.body.appendChild(theDiv);
-		viewport.init("##browseDiv");
-	});
-  	var ptl='/component/functions.cfc?method=mapUserSpecResults&returnformat=plain';
-    jQuery.get(ptl, function(data){
-		jQuery("##mapGoHere").html(data);
-	});
-});
-function closeBrowse(){
-	var theDiv = document.getElementById('browseDiv');
-	document.body.removeChild(theDiv);
-	var theDiv = document.getElementById('bgDiv');
-	document.body.removeChild(theDiv);
-}
-function removeHelpDiv() {
-	if (document.getElementById('helpDiv')) {
-		jQuery('##helpDiv').remove();
-	}
-}
-</script>
-</cfoutput>
-<div id="loading" class="status">
-	Page loading....
-</div>
-<cfflush>
-<cfoutput>
-<cfif not isdefined("displayrows")>
-	<cfset displayrows = session.displayrows>
-</cfif>
-<cfif not isdefined("SearchParams")>
-	<cfset SearchParams = "">
-</cfif>
-<cfif not isdefined("sciNameOper")>
-	<cfset sciNameOper = "LIKE">
-</cfif>
-<cfif not isdefined("oidOper")>
-	<cfset oidOper = "LIKE">
-</cfif>
-<cfif not isdefined("mapurl")>
-	<cfset mapurl = "null">
-</cfif>
-<cfif action contains ",">
-	<cfset action = left(action,find(",",action)-1)>
-</cfif>
+<!----
 <cfif not isdefined("session.resultColumnList")>
 	<cfset session.resultColumnList=''>
 </cfif>
@@ -194,7 +103,7 @@ function removeHelpDiv() {
 
 	<cfset basQual = "">
 	<cfset mapurl="">
-	<cfinclude template="includes/SearchSql.cfm">
+	<cfinclude template="/includes/SearchSql.cfm">
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 
@@ -779,5 +688,5 @@ If your item needs to be sorted in a special way, then do that here. --->
 </script>
 </cfoutput>
 
-
+---->
 <cfinclude template="/includes/_footer.cfm">
