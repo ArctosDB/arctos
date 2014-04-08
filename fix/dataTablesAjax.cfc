@@ -13,7 +13,7 @@
 
 
 	<cfquery name="d" datasource="uam_god">
-		select * from (select #valuelist(r_d.COLUMN_NAME)# from flat where rownum<20 order by #jtSorting#) where rownum between #jtStartIndex# and #jtStopIndex#
+		select * from (select #valuelist(r_d.COLUMN_NAME)#,rownum from flat where rownum<20 order by #jtSorting#) where rownum between #jtStartIndex# and #jtStopIndex#
 	</cfquery>
 
 <cfoutput>
