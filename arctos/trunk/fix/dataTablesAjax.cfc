@@ -33,7 +33,7 @@
 		<cfset trow="">
 		<cfloop list="#d.columnlist#" index="i">
 			<cfif i is "guid">
-				<cfset temp ='"GUID":"imaguid"'>
+				<cfset temp ='"GUID":"<a target="_blank" href="/guid/' & evaluate("d." & i) &'">' & evaluate("d." & i) & '</a>'>
 			<cfelse>
 				<cfset temp = '"#i#":"' & evaluate("d." & i) & '"'>
 			</cfif>
