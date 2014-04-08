@@ -1,5 +1,5 @@
 <cfcomponent>
-<cffunction name="t" access="remote">
+<cffunction name="t" access="remote" returntype="json">
 <cfreturn '
 {
   "sEcho": 1,
