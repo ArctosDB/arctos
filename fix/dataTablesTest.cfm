@@ -34,8 +34,7 @@
             sorting: true, //Enable sorting
             defaultSorting: 'GUID ASC', //Set default sorting
 			columnResizable: true,
-			multiSorting: true
-			},
+			multiSorting: true,
 			actions: {
                 listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
