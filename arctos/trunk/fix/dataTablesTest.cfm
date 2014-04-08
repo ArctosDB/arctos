@@ -4,7 +4,11 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#specresults').jtable({
-            title: 'Table of people',
+            title: 'Table of people',       
+			paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            defaultSorting: 'Name ASC', //Set default sorting
 			actions: {
                 listAction: '/fix/dataTablesAjax.cfc?method=t'
             },
