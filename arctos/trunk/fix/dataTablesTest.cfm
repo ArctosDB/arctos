@@ -28,11 +28,13 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('##specresults').jtable({
-            title: 'Table of people',       
+            title: 'Specimen Results',       
 			paging: true, //Enable paging
             pageSize: 10, //Set page size (default: 10)
             sorting: true, //Enable sorting
             defaultSorting: 'GUID ASC', //Set default sorting
+			columnResizable: true,
+multiSorting: true
 			actions: {
                 listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
