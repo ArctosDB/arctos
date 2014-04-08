@@ -9,19 +9,19 @@
                 listAction: '/fix/dataTablesAjax.cfc?method=t'
             },
             fields: {
-                PersonId: {
+                PERSONID: {
                     key: true,
                     list: false
                 },
-                Name: {
+                NAME: {
                     title: 'Author Name',
                     width: '40%'
                 },
-                Age: {
+                AGE: {
                     title: 'Age',
                     width: '20%'
                 },
-                RecordDate: {
+                RECORDDATE: {
                     title: 'Record date',
                     width: '30%',
                     type: 'date',
@@ -33,7 +33,6 @@
         $('#PersonTableContainer').jtable('load');
     });
 </script>
-
 
 
 <div id="PersonTableContainer"></div>
