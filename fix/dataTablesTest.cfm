@@ -7,6 +7,19 @@
 	select * from cf_spec_res_cols where category='required' order by DISP_ORDER
 </cfquery>
 
+<cftry>
+<cfquery name="dietabledie" datasource="uam_god">
+		drop table #session.SpecSrchTab#
+	</cfquery>
+	<cfcatch>
+		no can drop sorray
+	</cfcatch>
+</cftry>
+<cfquery name="makeUserTable" datasource="uam_god">
+		create table #session.SpecSrchTab# as select #valuelist(r_d.COLUMN_NAME)# from flat where rownum<20
+	</cfquery>
+	
+	
 <cfoutput>
 <cfset numFlds=r_d.recordcount>
 <cfset thisLoopNum=1>
