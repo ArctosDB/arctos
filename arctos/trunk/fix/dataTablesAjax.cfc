@@ -22,9 +22,14 @@
 			<cfset temp = '"#i#":"' & evaluate("d." & i) & '"'>
 			<cfset trow=listappend(trow,temp)>
 		</cfloop>
+		<cfset x=listappend(x,trow)>
 		<p>#trow#</p>
 	</cfloop>
-<cfset x=x & ''>
+<cfset x=x & ']}'>
+
+<hr>
+
+#x#
 <!----
 <cfset x='{
  "Result":"OK",
