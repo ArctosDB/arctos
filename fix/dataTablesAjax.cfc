@@ -32,7 +32,12 @@
 	<cfloop query="d">
 		<cfset trow="">
 		<cfloop list="#d.columnlist#" index="i">
-			<cfset temp = '"#i#":"' & evaluate("d." & i) & '"'>
+			<cfif i is "guid">
+				<cfset temp ='"GUID":"imaguid"'>
+			<cfelse>
+				<cfset temp = '"#i#":"' & evaluate("d." & i) & '"'>
+			</cfif>
+			
 			<cfset trow=listappend(trow,temp)>
 		</cfloop>
 		<cfset trow="{" & trow & "}">
