@@ -1,6 +1,6 @@
 <cfcomponent>
 <cffunction name="t" access="remote" returntype="json">
-<cfreturn '
+<cfset x= '
 {
   "sEcho": 1,
   "iTotalRecords": "57",
@@ -78,6 +78,8 @@
     ]
   ]
 }'>
+
+<cfreturn serializeJson(x)>
 </cffunction>
 
 </cfcomponent>
