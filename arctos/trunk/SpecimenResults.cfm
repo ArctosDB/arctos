@@ -7,8 +7,8 @@
 <cfoutput>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
-	$('#showsearchterms').click(function() {
-		$('.refineSearchTerms').slideToggle("fast");
+	$('##showsearchterms').click(function() {
+		$('##refineSearchTerms').slideToggle("fast");
 	});
 	$("##customizeButton").live('click', function(e){
 		var bgDiv = document.createElement('div');
