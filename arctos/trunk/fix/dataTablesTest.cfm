@@ -71,20 +71,7 @@
 	select * from cf_spec_res_cols_exp where category='required' order by DISP_ORDER
 </cfquery>
 
-<cftry>
-<cfquery name="dietabledie" datasource="uam_god">
-		drop table #session.SpecSrchTab#
-	</cfquery>
-	<cfcatch>
-		no can drop sorray
-	</cfcatch>
-</cftry>
-<cfquery name="makeUserTable" datasource="uam_god">
-	create table #session.SpecSrchTab# as select #valuelist(r_d.COLUMN_NAME)# from flat where rownum<20000
-</cfquery>
-<cfquery name="trc" datasource="uam_god">
-	select count(*) c from #session.SpecSrchTab#
-</cfquery>	
+
 	
 <cfoutput>
 <cfset numFlds=r_d.recordcount>
@@ -101,7 +88,7 @@
 			multiSorting: true,
 			columnSelectable: false,
 			actions: {
-                listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
+                listAction: '/fix/dataTablesAjax.cfc?method=t'
             },
             fields:  {
 				<cfloop query="r_d">
@@ -114,7 +101,16 @@
             }
         });
         $('##specresults').jtable('load');
-    });
+
+		$('#LoadRecordsButton').click(function (e) {
+	            e.preventDefault();
+	            $('#specresults').jtable('load', {
+	                cat_num: $('#cat_num').val()
+	            });
+	        });
+	    });
+		
+	}
 </script>
 
 
@@ -126,6 +122,11 @@
 		</div>
 	</cfloop>
 </div>
+
+<form name="filter">
+	Cat Number: <input type="text" id="cat_num">
+	<input type="button" id="LoadRecordsButton" value="filter" onclick="filterResults()">
+</form>
 <div id="specresults"></div>
 </cfoutput>
 <!----

@@ -1,5 +1,9 @@
 <cfcomponent>
 <cffunction name="t" access="remote" returnformat="plain" queryFormat="column">
+	<cfargument name="forceRequery" type="boolean" required="no" default="yes">
+	<cfargument name="cat_num" type="numeric" required="no">
+
+	
 
 <cfparam name="jtStartIndex" type="numeric" default="0">
 <cfparam name="jtPageSize" type="numeric" default="10">
@@ -11,10 +15,29 @@
 </cfquery>
 	
 
-	
+	<cfif forceRequery>
 			
 	
 	
+	
+	<cftry>
+<cfquery name="dietabledie" datasource="uam_god">
+		drop table #session.SpecSrchTab#
+	</cfquery>
+	<cfcatch>
+		no can drop sorray
+	</cfcatch>
+</cftry>
+<cfquery name="makeUserTable" datasource="uam_god">
+	create table #session.SpecSrchTab# as select #valuelist(r_d.COLUMN_NAME)# from flat where rownum<20000
+</cfquery>
+<cfquery name="trc" datasource="uam_god">
+	select count(*) c from #session.SpecSrchTab#
+</cfquery>	
+</cfif>
+
+
+
 	<cfquery name="d" datasource="uam_god">
 		Select * from (
 				Select a.*, rownum rnum From (

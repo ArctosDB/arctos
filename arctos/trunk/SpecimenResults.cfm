@@ -155,6 +155,8 @@ function removeHelpDiv() {
 	<cfset basQual = "">
 	<cfset mapurl="">
 	<cfinclude template="includes/SearchSql.cfm">
+	
+	<cfdump var=#mapurl#>
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 
