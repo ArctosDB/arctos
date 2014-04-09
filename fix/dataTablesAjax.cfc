@@ -7,7 +7,7 @@
 
 <cfset jtStopIndex=jtStartIndex+jtPageSize>
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from cf_spec_res_cols where category='required' order by DISP_ORDER
+	select * from cf_spec_res_cols_exp where category='required' order by DISP_ORDER
 </cfquery>
 	
 

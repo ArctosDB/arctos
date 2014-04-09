@@ -2,9 +2,47 @@
 <script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
 <link href="/fix/jtable/themes/metro/blue/jtable.min.css" rel="stylesheet" type="text/css" />
 
+<!--- 
 
+	if this works, global replace cf_spec_res_cols_exp for cf_spec_res_cols
+	
+	create table cf_spec_res_cols_exp as select * from cf_spec_res_cols;
+	create public synonym cf_spec_res_cols_exp for cf_spec_res_cols_exp;
+	grant select on cf_spec_res_cols_exp to public;
+	
+	COLUMN_NAME								    VARCHAR2(38)
+	 SQL_ELEMENT								    VARCHAR2(255)
+	 CATEGORY								    VARCHAR2(255)
+	 CF_SPEC_RES_COLS_ID						   NOT NULL NUMBER
+	 DISP_ORDER							   NOT NULL NUMBER
+
+
+	update cf_spec_res_cols_exp set category='admin' where column_name ='collection_id';
+	update cf_spec_res_cols_exp set category='admin' where column_name ='institution_acronym';
+
+	-- table header display
+	alter table cf_spec_res_cols_exp add thdisplay varchar2(20);
+	
+	update cf_spec_res_cols_exp set thdisplay=COLUMN_NAME;
+		alter table cf_spec_res_cols_exp modify thdisplay varchar2(50);
+
+	update cf_spec_res_cols_exp set thdisplay='GUID' where thdisplay ='guid';
+	update cf_spec_res_cols_exp set thdisplay='ScientificName' where thdisplay ='scientific_name';
+	update cf_spec_res_cols_exp set thdisplay='OtherIDs' where thdisplay ='othercatalognumbers';
+	update cf_spec_res_cols_exp set thdisplay='CoordinateError(m)' where thdisplay ='coordinateuncertaintyinmeters';
+	update cf_spec_res_cols_exp set thdisplay='Country' where thdisplay ='country';
+	update cf_spec_res_cols_exp set thdisplay='State' where thdisplay ='state_prov';
+	update cf_spec_res_cols_exp set thdisplay='Locality' where thdisplay ='spec_locality';
+	update cf_spec_res_cols_exp set thdisplay='VerbatimDate' where thdisplay ='verbatim_date';
+	update cf_spec_res_cols_exp set thdisplay='Parts' where thdisplay ='parts';
+	update cf_spec_res_cols_exp set thdisplay='DecLat' where thdisplay ='dec_lat';
+	update cf_spec_res_cols_exp set thdisplay='DecLong' where thdisplay ='dec_long';
+	update cf_spec_res_cols_exp set thdisplay='Sex' where thdisplay ='sex';
+
+
+--->
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from cf_spec_res_cols where category='required' order by DISP_ORDER
+	select * from cf_spec_res_cols_exp where category='required' order by DISP_ORDER
 </cfquery>
 
 <cftry>
@@ -41,7 +79,7 @@ columnSelectable: false,
             },
             fields:  {
 				<cfloop query="r_d">
-					#ucase(COLUMN_NAME)#: {title: '#column_name#'}
+					#ucase(COLUMN_NAME)#: {title: '#thdisplay#'}
 					<cfif thisLoopNum lt numFlds>,</cfif>
 					<cfset thisLoopNum=thisLoopNum+1>
 				</cfloop>
