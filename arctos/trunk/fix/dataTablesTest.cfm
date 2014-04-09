@@ -79,8 +79,12 @@
 		no can drop sorray
 	</cfcatch>
 </cftry>
+
+<cfif not isdefined("limit")>
+	<cfset limit=20000>
+</cfif>
 <cfquery name="makeUserTable" datasource="uam_god">
-	create table #session.SpecSrchTab# as select #valuelist(r_d.COLUMN_NAME)# from flat where rownum<20000
+	create table #session.SpecSrchTab# as select #valuelist(r_d.COLUMN_NAME)# from flat where rownum<#limit#
 </cfquery>
 <cfquery name="trc" datasource="uam_god">
 	select count(*) c from #session.SpecSrchTab#
