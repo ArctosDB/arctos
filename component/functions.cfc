@@ -7,6 +7,13 @@
 	</cfquery>
 	<cfoutput>
 	<cfsavecontent variable="widget">
+		<script>
+			jQuery( function($) {
+				$('##showsearchterms').click(function() {
+					$('##refineSearchTerms').slideToggle("fast");
+				});
+			});
+		</script>
 		<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 		<div id="refineSearchTerms">
 			This is an experiment; we know it's primitive. Change values and press ENTER or click the button.	
@@ -27,8 +34,11 @@
 								<cfquery name="thisMoreInfo" dbtype="query">
 									select * from cf_search_terms where term='#lcase(thisKey)#'
 								</cfquery>
-								<cfdump var=#thisMoreInfo#>
-								
+								<cfif len(thisMoreInfo.display) gt 0>
+									#thisMoreInfo.display#
+								<cfelse>
+									#thisKey#
+								</cfif>0=								
 							</td>
 							<td>=</td>
 							<td>
