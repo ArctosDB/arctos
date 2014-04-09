@@ -1,5 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="this is only a test">
+
+<style>
+	#cpick {
+		max-height:2em;
+		overflow:auto;
+	}
+</style>
 <script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
 
 <link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
