@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
-<link href="/fix/jtable/themes/metro/blue/jtable.min.css" rel="stylesheet" type="text/css" />
+<link href="/fix/jtable/themes/metro/blue/jtable_jqueryui.min.css" rel="stylesheet" type="text/css" />
 
 <!--- 
 
