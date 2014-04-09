@@ -56,9 +56,7 @@ jQuery( function($) {
     jQuery.get(ptl, function(data){
 		jQuery("##mapGoHere").html(data);
 	});
-	var mapurl=$("##mapURL").val();
-  	var ptl='/component/functions.cfc?method=get_specSrchTermWidget&mapurl=' + mapurl + '&returnformat=plain';
-	
+  	var ptl='/component/functions.cfc?method=get_specSrchTermWidget&returnformat=plain';
 	jQuery.get(ptl, function(data){
 		jQuery("##cntr_refineSearchTerms").html(data);
 	});
@@ -167,6 +165,7 @@ function removeHelpDiv() {
 	<cfset basQual = "">
 	<cfset mapurl="">
 	<cfinclude template="includes/SearchSql.cfm">
+	<cfset session.mapurl=mapurl>
 	<div id="cntr_refineSearchTerms">
 		
 	</div>
@@ -226,6 +225,7 @@ function removeHelpDiv() {
 		<input type="hidden" name="loan_request_coll_id" id="loan_request_coll_id" value="#loan_request_coll_id#">
 	</cfif>
 </form>
+
 <cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		collection_object_id,
