@@ -107,7 +107,7 @@ columnSelectable: false,
         $('##specresults').jtable('load');
     });
 </script>
-</cfoutput>
+
 
 <div id="cpick">
 	Pick Columns
@@ -118,7 +118,7 @@ columnSelectable: false,
 	</cfloop>
 </div>
 <div id="specresults"></div>
-
+</cfoutput>
 <!----
 
 
