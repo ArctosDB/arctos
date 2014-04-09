@@ -15,7 +15,7 @@
 			});
 		</script>
 		<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
-		<div id="refineSearchTerms">
+		<div id="refineSearchTerms" style="display:none;">
 			This is an experiment; we know it's primitive. Change values and press ENTER or click the button.	
 			<form name="refineResults" method="post" action="SpecimenResults.cfm">
 				
