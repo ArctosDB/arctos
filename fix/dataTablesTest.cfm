@@ -92,15 +92,17 @@
             defaultSorting: 'GUID ASC', //Set default sorting
 			columnResizable: true,
 			multiSorting: true,
-columnSelectable: false,
+			columnSelectable: false,
 			actions: {
                 listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
             fields:  {
 				<cfloop query="r_d">
-					#ucase(COLUMN_NAME)#: {title: '#thdisplay#'}
-					<cfif thisLoopNum lt numFlds>,</cfif>
-					<cfset thisLoopNum=thisLoopNum+1>
+					<cfif listfindnocase(session.resultcolumnlist,column_name)>
+						#ucase(COLUMN_NAME)#: {title: '#thdisplay#'}
+						<cfif thisLoopNum lt numFlds>,</cfif>
+						<cfset thisLoopNum=thisLoopNum+1>
+					</cfif>
 				</cfloop>
             }
         });
