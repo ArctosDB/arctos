@@ -7,6 +7,9 @@
 <cfoutput>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
+	$('#showsearchterms').click(function() {
+		$('.refineSearchTerms').slideToggle("fast");
+	});
 	$("##customizeButton").live('click', function(e){
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
@@ -155,36 +158,35 @@ function removeHelpDiv() {
 	<cfset basQual = "">
 	<cfset mapurl="">
 	<cfinclude template="includes/SearchSql.cfm">
-	
-	<cfdump var=#mapurl#>
-	
-	
-	<form name="refineResults" method="post" action="SpecimenResults.cfm">
-		Search Terms
-		<table border>
-		<tr>
-			<th>Term</th>
-			<th></th>
-			<th>Value</th>
-		</tr>
-		<cfloop list="#mapURL#" delimiters="&" index="kvp">
-			<cfif listlen(kvp,"=") is 2>
-				<cfset thisKey=listgetat(kvp,1,"=")>
-				<cfset thisValue=listgetat(kvp,2,"=")>
-				<tr>
-					<td>
-						#thisKey#
-					</td>
-					<td>=</td>
-					<td>
-						<input type="text" name="#thisKey#" value="#thisvalue#" size="50">
-					</td>
-				</tr>
-			</cfif>
-		</cfloop>
-		</table>
-		<input type="submit" value="Requery">
-	</form>
+	<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
+	<div id="refineSearchTerms" style="display: none;">
+		<form name="refineResults" method="post" action="SpecimenResults.cfm">
+			Search Terms
+			<table border>
+			<tr>
+				<th>Term</th>
+				<th></th>
+				<th>Value</th>
+			</tr>
+			<cfloop list="#mapURL#" delimiters="&" index="kvp">
+				<cfif listlen(kvp,"=") is 2>
+					<cfset thisKey=listgetat(kvp,1,"=")>
+					<cfset thisValue=listgetat(kvp,2,"=")>
+					<tr>
+						<td>
+							#thisKey#
+						</td>
+						<td>=</td>
+						<td>
+							<input type="text" name="#thisKey#" value="#thisvalue#" size="50">
+						</td>
+					</tr>
+				</cfif>
+			</cfloop>
+			</table>
+			<input type="submit" value="Requery">
+		</form>
+	</div>
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 
