@@ -109,6 +109,14 @@ columnSelectable: false,
 </script>
 </cfoutput>
 
+<div id="cpick">
+	Pick Columns
+	<cfloop query="r_d">
+		<div>
+			#thdisplay#<input type="checkbox" name="#COLUMN_NAME#" id="#COLUMN_NAME#">
+		</div>
+	</cfloop>
+</div>
 <div id="specresults"></div>
 
 <!----
