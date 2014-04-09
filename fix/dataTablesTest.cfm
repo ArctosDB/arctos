@@ -1,7 +1,22 @@
 <cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
-<link href="/fix/jtable/themes/metro/blue/jtable_jqueryui.min.css" rel="stylesheet" type="text/css" />
-
+<link href="/fix/jtable/themes/jqueryui/jtable_jqueryui.min.css" rel="stylesheet" title="jtable_jqueryui" type="text/css" />
+<link rel="alternate stylesheet" title="jtable_basic"  href="/fix/jtable/themes/basic/jtable_basic.min.css" type="text/css">
+<link rel="alternate stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="lightcolor-gray"  href="/fix/jtable/themes/lightcolor/gray/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="lightcolor-green"  href="/fix/jtable/themes/lightcolor/green/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="lightcolor-orange"  href="/fix/jtable/themes/lightcolor/orange/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="lightcolor-red"  href="/fix/jtable/themes/lightcolor/red/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-blue"  href="/fix/jtable/themes/metro/blue/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-brown"  href="/fix/jtable/themes/metro/brown/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-crimson"  href="/fix/jtable/themes/metro/crimson/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-darkgray"  href="/fix/jtable/themes/metro/darkgray/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-darkorange"  href="/fix/jtable/themes/metro/darkorange/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-green"  href="/fix/jtable/themes/metro/green/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-lightgray"  href="/fix/jtable/themes/metro/lightgray/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-pink"  href="/fix/jtable/themes/metro/pink/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-purple"  href="/fix/jtable/themes/metro/purple/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-red"  href="/fix/jtable/themes/metro/red/jtable.min.css" type="text/css">
 <!--- 
 
 	if this works, global replace cf_spec_res_cols_exp for cf_spec_res_cols
