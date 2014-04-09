@@ -114,9 +114,7 @@
             }
         });
         $('##specresults').jtable('load');
-
-		
-	}
+    });
 </script>
 
 
@@ -131,7 +129,7 @@
 
 <form name="filter">
 	Cat Number: <input type="text" id="cat_num">
-	<input type="button" id="LoadRecordsButton" value="filter" onclick="filterResults()">
+	<input type="button" value="filter" onclick="filterResults()">
 </form>
 <div id="specresults"></div>
 </cfoutput>
