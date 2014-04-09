@@ -157,6 +157,32 @@ function removeHelpDiv() {
 	<cfinclude template="includes/SearchSql.cfm">
 	
 	<cfdump var=#mapurl#>
+	
+	
+	<form name="refineResults" method="post" action="SpecimenResults.cfm">
+		Search Terms
+		<table border>
+		<tr>
+			<th>Term</th>
+			<th></th>
+			<th>Value</th>
+		</tr>
+		<cfloop list="#mapURL#" delimiters="&" index="kvp">
+			<cfif listlen(kvp,"=") is 2>
+				<cfset thisKey=listgetat(kvp,1,"=")>
+				<cfset thisValue=listgetat(kvp,2,"=")>
+				<tr>
+					<td>
+						#thisKey#
+					</td>
+					<td>=</td>
+					<td>#thisValue#</td>
+				</tr>
+			</cfif>
+		</cfloop>
+		</table>
+		<input type="submit" value="Requery">
+	</form>
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 
