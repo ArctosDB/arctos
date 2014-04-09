@@ -176,7 +176,9 @@ function removeHelpDiv() {
 						#thisKey#
 					</td>
 					<td>=</td>
-					<td>#thisValue#</td>
+					<td>
+						<input type="text" name="#thisKey#" value="#thisvalue#" size="50">
+					</td>
 				</tr>
 			</cfif>
 		</cfloop>
