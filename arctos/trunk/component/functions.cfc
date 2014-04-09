@@ -2,7 +2,6 @@
 	
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
-   	<cfargument name="mapurl" required="true" type="string">
 	<cfquery name="cf_search_terms" datasource="cf_dbuser">
 		select * from cf_search_terms
 	</cfquery>
@@ -19,7 +18,7 @@
 					<th></th>
 					<th>Value</th>
 				</tr>
-				<cfloop list="#mapURL#" delimiters="&" index="kvp">
+				<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
 					<cfif listlen(kvp,"=") is 2>
 						<cfset thisKey=listgetat(kvp,1,"=")>
 						<cfset thisValue=listgetat(kvp,2,"=")>
