@@ -24,7 +24,11 @@
 						<cfset thisValue=listgetat(kvp,2,"=")>
 						<tr>
 							<td>
-								#thisKey#
+								<cfquery name="thisMoreInfo" dbtype="query">
+									select * from cf_search_terms where term='#lcase(thisKey)#'
+								</cfquery>
+								<cfdump var=#thisMoreInfo#>
+								
 							</td>
 							<td>=</td>
 							<td>
