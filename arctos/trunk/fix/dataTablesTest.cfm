@@ -115,13 +115,6 @@
         });
         $('##specresults').jtable('load');
 
-		$('#LoadRecordsButton').click(function (e) {
-	            e.preventDefault();
-	            $('#specresults').jtable('load', {
-	                cat_num: $('#cat_num').val()
-	            });
-	        });
-	    });
 		
 	}
 </script>
