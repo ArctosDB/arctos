@@ -1,6 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="this is only a test">
 <script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
-<link href="/fix/jtable/themes/jqueryui/jtable_jqueryui.min.css" rel="stylesheet" title="jtable_jqueryui" type="text/css" />
+
+<link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
+
+<link rel="alternate stylesheet" title="jtable_jqueryui"  href="/fix/jtable/themes/jqueryui/jtable_jqueryui.min.css" type="text/css">
 <link rel="alternate stylesheet" title="jtable_basic"  href="/fix/jtable/themes/basic/jtable_basic.min.css" type="text/css">
 <link rel="alternate stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 <link rel="alternate stylesheet" title="lightcolor-gray"  href="/fix/jtable/themes/lightcolor/gray/jtable.min.css" type="text/css">
