@@ -101,7 +101,7 @@
 			multiSorting: true,
 			columnSelectable: false,
 			actions: {
-                listAction: '/fix/dataTablesAjax.cfc?method=t'
+                listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
             fields:  {
 				<cfloop query="r_d">
