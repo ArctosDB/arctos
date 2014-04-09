@@ -1,4 +1,47 @@
 <cfcomponent>
+	
+<!--------------------------------------------------------------------------------------->
+<cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
+   	<cfargument name="mapurl" required="true" type="string">
+	<cfquery name="cf_search_terms" datasource="cf_dbuser">
+		select * from cf_search_terms
+	</cfquery>
+	<cfoutput>
+	<cfsavecontent variable="widget">
+		<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
+		<div id="refineSearchTerms" style="display: none;">
+			This is an experiment; we know it's primitive. Change values and press ENTER or click the button.	
+			<form name="refineResults" method="post" action="SpecimenResults.cfm">
+				
+				<table border>
+				<tr>
+					<th>Term</th>
+					<th></th>
+					<th>Value</th>
+				</tr>
+				<cfloop list="#mapURL#" delimiters="&" index="kvp">
+					<cfif listlen(kvp,"=") is 2>
+						<cfset thisKey=listgetat(kvp,1,"=")>
+						<cfset thisValue=listgetat(kvp,2,"=")>
+						<tr>
+							<td>
+								#thisKey#
+							</td>
+							<td>=</td>
+							<td>
+								<input type="text" name="#thisKey#" value="#thisvalue#" size="50">
+							</td>
+						</tr>
+					</cfif>
+				</cfloop>
+				</table>
+				<input type="submit" value="Requery">
+			</form>
+		</div>
+	</cfsavecontent>
+	</cfoutput>
+	<cfreturn widget>	
+</cffunction>	
 <!--------------------------------------------------------------------------------------->
 <cffunction name="splitAgentName" access="remote" returnformat="json">
    	<cfargument name="name" required="true" type="string">
