@@ -56,8 +56,9 @@ jQuery( function($) {
     jQuery.get(ptl, function(data){
 		jQuery("##mapGoHere").html(data);
 	});
-  	var ptl='/component/functions.cfc?method=get_specSrchTermWidget&mapurl=#mapurl#&returnformat=plain';
-
+	var mapurl=$("##mapURL").val();
+  	var ptl='/component/functions.cfc?method=get_specSrchTermWidget&mapurl=' + mapurl + '&returnformat=plain';
+	
 	jQuery.get(ptl, function(data){
 		jQuery("##cntr_refineSearchTerms").html(data);
 	});
