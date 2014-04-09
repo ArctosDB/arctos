@@ -38,7 +38,7 @@
 									#thisMoreInfo.display#
 								<cfelse>
 									#thisKey#
-								</cfif>0=								
+								</cfif>							
 							</td>
 							<td>=</td>
 							<td>
