@@ -117,7 +117,7 @@
     });
 </script>
 
-
+<!----
 <div id="cpick">
 	Pick Columns
 	<cfloop query="r_d">
@@ -131,6 +131,8 @@
 	Cat Number: <input type="text" id="cat_num">
 	<input type="button" value="filter" onclick="filterResults()">
 </form>
+
+---->
 <div id="specresults"></div>
 </cfoutput>
 <!----

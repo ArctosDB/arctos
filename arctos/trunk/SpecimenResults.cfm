@@ -56,6 +56,14 @@ jQuery( function($) {
     jQuery.get(ptl, function(data){
 		jQuery("##mapGoHere").html(data);
 	});
+  	var ptl='/component/functions.cfc?method=get_specSrchTermWidget&returnformat=plain';
+
+	jQuery.get(ptl, function(data){
+		jQuery("##cntr_refineSearchTerms").html(data);
+	});
+
+
+
 });
 function closeBrowse(){
 	var theDiv = document.getElementById('browseDiv');
@@ -158,35 +166,8 @@ function removeHelpDiv() {
 	<cfset basQual = "">
 	<cfset mapurl="">
 	<cfinclude template="includes/SearchSql.cfm">
-	<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
-	<div id="refineSearchTerms" style="display: none;">
-		This is an experiment; we know it's primitive. Change values and press ENTER or click the button.	
-		<form name="refineResults" method="post" action="SpecimenResults.cfm">
-			
-			<table border>
-			<tr>
-				<th>Term</th>
-				<th></th>
-				<th>Value</th>
-			</tr>
-			<cfloop list="#mapURL#" delimiters="&" index="kvp">
-				<cfif listlen(kvp,"=") is 2>
-					<cfset thisKey=listgetat(kvp,1,"=")>
-					<cfset thisValue=listgetat(kvp,2,"=")>
-					<tr>
-						<td>
-							#thisKey#
-						</td>
-						<td>=</td>
-						<td>
-							<input type="text" name="#thisKey#" value="#thisvalue#" size="50">
-						</td>
-					</tr>
-				</cfif>
-			</cfloop>
-			</table>
-			<input type="submit" value="Requery">
-		</form>
+	<div id="cntr_refineSearchTerms">
+		
 	</div>
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
