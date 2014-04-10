@@ -13,7 +13,7 @@
 	
 
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ssrch_field_doc order by #gridsortcolumn# #gridsortdirection#">
+		select * from ssrch_field_doc order by #gridsortcolumn# #gridsortdirection#
 	</cfquery>
 </cfoutput>
 	      <cfreturn queryconvertforgrid(data,page,pagesize)/>
