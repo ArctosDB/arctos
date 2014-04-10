@@ -98,7 +98,6 @@
 			<cfinput type="hidden" name="returnAction" value="ajaxGrid">
 			<cfinput type="hidden" name="action" value="saveGridUpdate">
 			<cfgrid attributeCollection="#args#">
-
 				<cfloop list="#ColNameList#" index="thisName">
 					<cfgridcolumn name="#thisName#">
 				</cfloop>
