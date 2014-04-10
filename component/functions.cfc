@@ -2,8 +2,8 @@
 	
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
-	<cfquery name="cf_search_terms" datasource="cf_dbuser">
-		select * from cf_search_terms
+	<cfquery name="ssrch_field_doc" datasource="cf_dbuser">
+		select * from ssrch_field_doc
 	</cfquery>
 	<cfoutput>
 	<cfsavecontent variable="widget">
