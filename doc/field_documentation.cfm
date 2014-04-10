@@ -59,9 +59,17 @@
 	</table>
 	
 	<cfparam name="width" default="1200">
+	<cfparam name="height" default="600">
+	<cfparam name="pageSize" default="20">
 Use this form to adjust the grid layout
 <form name="x" method="post" action="field_documentation.cfm">
+	<label for="width">width</label>
 	<input type="text" name="width" value="#width#">
+	<label for="height">height</label>
+	<input type="text" name="height" value="#height#">
+	<label for="pageSize">pageSize</label>
+	<input type="text" name="pageSize" value="#pageSize#">
+	<br>
 	<input type="submit">
 </form>
 			
@@ -72,13 +80,13 @@ Use this form to adjust the grid layout
 		<cfset ColNameList = valuelist(cNames.column_name)>
 		<cfset ColNameList = replace(ColNameList,"SSRCH_FIELD_DOC_ID","","all")>
 		<cfset args.width="#width#">
-		<cfset args.height="600">
+		<cfset args.height="#height#">
 		<cfset args.stripeRows = true>
 		<cfset args.selectColor = "##D9E8FB">
 		<cfset args.selectmode = "edit">
 		<cfset args.format="html">
 		<cfset args.name="blGrid">
-		<cfset args.pageSize="20">
+		<cfset args.pageSize="#pageSize#">
 		<cfset args.onchange = "cfc:component.docs.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
 		<cfset args.bind="cfc:component.docs.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection})">
 		<cfset args.name="blGrid">
