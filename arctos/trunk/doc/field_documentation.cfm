@@ -59,24 +59,6 @@
 	</table>
 	
 
-		
-		<table border id="t" class="sortable">
-			<tr>
-				<th>CF_VARIABLE</th>
-				<th>DATA_TYPE</th>
-				<th>DISPLAY_TEXT</th>
-				<th>CODE_TABLE</th>
-				<th>DEFINITION</th>
-				<th>PLACEHOLDER_TEXT</th>
-				<th>SEARCH_HINT</th>
-				<th>SPECIMEN_RESULTS_COL</th>
-				<th>DISP_ORDER</th>
-				<th>CATEGORY</th>
-				<th>SQL_ELEMENT</th>
-				<th>DEFINITION</th>
-				<th>DOCUMENTATION_LINK</th>
-			</tr>
-			
 			
 			
 		<cfquery name="cNames" datasource="uam_god">
