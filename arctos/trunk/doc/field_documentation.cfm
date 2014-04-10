@@ -58,7 +58,12 @@
 		</tr>
 	</table>
 	
-
+	<cfparam name="width" default="1200">
+Use this form to adjust the grid layout
+<form name="x" method="post" action="field_documentation.cfm">
+	<input type="text" name="width" value="#width#">
+	<input type="submit">
+</form>
 			
 			
 		<cfquery name="cNames" datasource="uam_god">
@@ -66,7 +71,7 @@
 		</cfquery>
 		<cfset ColNameList = valuelist(cNames.column_name)>
 		<cfset ColNameList = replace(ColNameList,"SSRCH_FIELD_DOC_ID","","all")>
-		<cfset args.width="1200">
+		<cfset args.width="#width#">
 		<cfset args.height="600">
 		<cfset args.stripeRows = true>
 		<cfset args.selectColor = "##D9E8FB">
