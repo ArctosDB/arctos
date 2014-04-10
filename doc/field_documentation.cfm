@@ -22,6 +22,7 @@
 		<tr>
 			<td>cfvar here</td>
 		</tr>
+	</table>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ssrch_field_doc order by colname
 		</cfquery>
