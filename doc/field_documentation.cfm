@@ -90,7 +90,6 @@ Use this form to adjust the grid layout
 		<cfset args.onchange = "cfc:component.docs.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
 		<cfset args.bind="cfc:component.docs.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection})">
 		<cfset args.name="blGrid">
-		<cfset args.pageSize="20">		
 		<cfform method="post" action="field_documentation.cfm">
 			<cfinput type="hidden" name="returnAction" value="ajaxGrid">
 			<cfinput type="hidden" name="action" value="saveGridUpdate">
