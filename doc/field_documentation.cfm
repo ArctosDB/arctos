@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 
 	<cfoutput>
 	
@@ -9,50 +10,111 @@
 		</tr>
 		<tr>
 			<td>CF_VARIABLE</td>
-			<td>cfvar here</td>
-		</tr>
-			<th>CATEGORY</th>
-			<th>CODE_TABLE</th>
-			<th>DATA_TYPE</th>
-			<th>DEFINITION</th>
-			<th>DISPLAY_TEXT</th>
-			<th>DISP_ORDER</th>
-			<th>DOCUMENTATION_LINK</th>
-			<th>PLACEHOLDER_TEXT</th>
-			<th>SEARCH_HINT</th>
-			<th>SPECIMEN_RESULTS_COL</th>
-			<th>SQL_ELEMENT</th>
-			<th>DEFINITION</th>
-			<th>DEFINITION</th>
+			<td>Variable as used by Arctos applications, eg, in specimenresults mapurl</td>
 		</tr>
 		<tr>
-			<td></td>
+			<td>DATA_TYPE</td>
+			<td>"Human-readable" approximation of the datatype accepted by the variable, e.g., "comma-separated list of integers."</td>
+		</tr>
+		<tr>
+			<td>DISPLAY_TEXT</td>
+			<td>"Field label" - "Catalog Number" - keep it short.</td>
+		</tr>
+		<tr>
+			<td>CODE_TABLE</td>
+			<td>Controlling code table. Must be table name only - "ctage_class" - do not guess at this.</td>
+		</tr>
+		<tr>
+			<td>PLACEHOLDER_TEXT</td>
+			<td>Very short snippet to display in the HTML5 "placeholder" element.</td>
+		</tr>
+		<tr>
+			<td>SEARCH_HINT</td>
+			<td>Short "how it works" useful for guiding search.</td>
+		</tr>
+		<tr>
+			<td>SPECIMEN_RESULTS_COL</td>
+			<td>Is the element available as a column in specimenresults? Don't guess at this.</td>
+		</tr>
+		<tr>
+			<td>DISP_ORDER</td>
+			<td>Order (left to right) in which to display columns on specimenresults.</td>
+		</tr>
+		<tr>
+			<td>CATEGORY</td>
+			<td>Category on specimen results. Don't guess at this.</td>
+		</tr>
+		<tr>
+			<td>SQL_ELEMENT</td>
+			<td>SQL to use in building dynamic queries. Don't guess at this.</td>
+		</tr>
+		<tr>
+			<td>DEFINITION</td>
+			<td>Short-ish definition suitable for popup/tooltip documentation</td>
+		</tr>
+		<tr>
+			<td>DOCUMENTATION_LINK</td>
+			<td>Link to further documentation, probably on http://arctosdb.org/.</td>
 		</tr>
 	</table>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from ssrch_field_doc order by colname
+			select * from ssrch_field_doc order by CF_VARIABLE
 		</cfquery>
-		<table border>
+		
+
+		
+		<table border id="t" class="sortable">
 			<tr>
 				<th>CF_VARIABLE</th>
-				<th>CATEGORY</th>
-				<th>CODE_TABLE</th>
 				<th>DATA_TYPE</th>
-				<th>DEFINITION</th>
 				<th>DISPLAY_TEXT</th>
-				<th>DISP_ORDER</th>
-				<th>DOCUMENTATION_LINK</th>
+				<th>CODE_TABLE</th>
+				<th>DEFINITION</th>
 				<th>PLACEHOLDER_TEXT</th>
 				<th>SEARCH_HINT</th>
 				<th>SPECIMEN_RESULTS_COL</th>
+				<th>DISP_ORDER</th>
+				<th>CATEGORY</th>
 				<th>SQL_ELEMENT</th>
 				<th>DEFINITION</th>
-				<th>DEFINITION</th>
+				<th>DOCUMENTATION_LINK</th>
 			</tr>
+			
+			
+			
+		<cfquery name="cNames" datasource="uam_god">
+			select column_name from user_tab_cols where lower(table_name)='ssrch_field_doc' order by internal_column_id
+		</cfquery>
+		<cfset ColNameList = valuelist(cNames.column_name)>
+		<cfset ColNameList = replace(ColNameList,"SSRCH_FIELD_DOC_ID","","all")>
+		<cfset args.width="1200">
+		<cfset args.height="600">
+		<cfset args.stripeRows = true>
+		<cfset args.selectColor = "##D9E8FB">
+		<cfset args.selectmode = "edit">
+		<cfset args.format="html">
+		<cfset args.onchange = "cfc:component.docs.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
+		<cfset args.bind="cfc:component.docs.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection})">
+		<cfset args.name="blGrid">
+		<cfset args.pageSize="20">		
+		<cfform method="post" action="field_documentation.cfm">
+			<cfinput type="hidden" name="returnAction" value="ajaxGrid">
+			<cfinput type="hidden" name="action" value="saveGridUpdate">
+			<cfgrid attributeCollection="#args#">
+
+				<cfloop list="#ColNameList#" index="thisName">
+					<cfgridcolumn name="#thisName#">
+				</cfloop>
+			</cfgrid>
+		</cfform>
+		
+		
+		<!----
+		
 			<cfloop query="d">
 				<tr>
 					<td>
-						<a href="short_doc.cfm?action=edit&short_doc_id=#short_doc_id#">#ColName#</a>
+						<a href="field_documentation.cfm?action=edit&SSRCH_FIELD_DOC_ID=#SSRCH_FIELD_DOC_ID#">#CF_VARIABLE#</a>
 					</td>
 					<td>#display_name#</td>
 					<td>#definition#</td>
@@ -61,9 +123,14 @@
 				</tr>
 			</cfloop>
 		</table>
+		
+		
+		---->
 	</cfoutput>
 	
 
+
+<cfabort>
 
 
 								    VARCHAR2(4000)
@@ -78,7 +145,7 @@
  								    VARCHAR2(4000)
  							    VARCHAR2(4000)
  								    VARCHAR2(4000)
- SSRCH_FIELD_DOC_ID						   NOT NULL VARCHAR2(4000)
+ 						   NOT NULL VARCHAR2(4000)
 
 
 
