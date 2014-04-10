@@ -4,7 +4,13 @@
 	
 	<table border>
 		<tr>
-			<th>CF_VARIABLE</th>
+			<th>Column Name</th>
+			<th>What's it do?</th>
+		</tr>
+		<tr>
+			<td>CF_VARIABLE</td>
+			<td>cfvar here</td>
+		</tr>
 			<th>CATEGORY</th>
 			<th>CODE_TABLE</th>
 			<th>DATA_TYPE</th>
@@ -20,7 +26,7 @@
 			<th>DEFINITION</th>
 		</tr>
 		<tr>
-			<td>cfvar here</td>
+			<td></td>
 		</tr>
 	</table>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
