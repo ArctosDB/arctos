@@ -22,7 +22,7 @@
 
 
 
-<cffunction name="saveEdits" access="remote">
+<cffunction name="editRecord" access="remote">
 	<cfargument name="q" required="yes">
 	<cfoutput>
 		<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
