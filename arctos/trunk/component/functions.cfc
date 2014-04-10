@@ -32,17 +32,17 @@
 						<tr>
 							<td>
 								<cfquery name="thisMoreInfo" dbtype="query">
-									select * from cf_search_terms where term='#lcase(thisKey)#'
+									select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
 								</cfquery>
-								<cfif len(thisMoreInfo.display) gt 0>
-									#thisMoreInfo.display#
+								<cfif len(thisMoreInfo.DISPLAY_TEXT) gt 0>
+									#thisMoreInfo.DISPLAY_TEXT#
 								<cfelse>
 									#thisKey#
 								</cfif>							
 							</td>
 							<td>=</td>
 							<td>
-								<input type="text" name="#thisKey#" value="#thisvalue#" size="50">
+								<input type="text" name="#thisKey#" value="#thisvalue#" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
 							</td>
 						</tr>
 					</cfif>
