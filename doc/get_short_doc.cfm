@@ -2,6 +2,7 @@
 <cfset fld=trim(fld)>
 <cfdump var=#fld#>
 <cfif left(fld,1) is "_" and len(fld) gt 2>
+yup
 	<cfset fld=right(fld,len(fld)-1)>
 </cfif>
 <cfparam name="action" default="nothing">
