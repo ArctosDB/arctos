@@ -767,12 +767,15 @@ function changecustomOtherIdentifier (tgt) {
 	);
 }
 function removeHelpDiv() {
+	$('#bgDiv').remove();
+	$('#helpDiv').remove();
+	/*
 	if(document.getElementById('bgDiv')){
-		jQuery('#bgDiv').remove();
+		$('#bgDiv').remove();
 	}
 	if (document.getElementById('helpDiv')) {
-		jQuery('#helpDiv').remove();
 	}
+	*/
 }
 function changeshowObservations (tgt) {
 	jQuery.getJSON("/component/functions.cfc",
