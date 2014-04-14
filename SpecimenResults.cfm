@@ -70,11 +70,13 @@ function closeBrowse(){
 	var theDiv = document.getElementById('bgDiv');
 	document.body.removeChild(theDiv);
 }
+<!---
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
 		jQuery('##helpDiv').remove();
 	}
 }
+---->
 </script>
 </cfoutput>
 <div id="loading" class="status">
