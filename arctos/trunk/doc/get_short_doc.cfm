@@ -18,6 +18,7 @@
 	<!---
 		This part runs ONLY on arctos.database.museum, the one and only source of this information.
 	--->
+	<cftry>
 	<cfquery name="d" datasource="cf_dbuser">
 		select * from short_doc where  lower(colname) = '#lcase(fld)#'
 	</cfquery>
@@ -42,6 +43,10 @@
 	</cfif>
 	<cfset r=r & '</div>'>
 	<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
+	<cfcatch>
+		<cfsavecontent variable="response"><cfoutput>Error: No further information available.</cfoutput></cfsavecontent>
+	</cfcatch>
+	</cftry>
 	<cfscript>
         getPageContext().getOut().clearBuffer();
         writeOutput(response);
