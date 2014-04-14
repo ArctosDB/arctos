@@ -767,6 +767,8 @@ function changecustomOtherIdentifier (tgt) {
 	);
 }
 function removeHelpDiv() {
+	console.log('removing bgDiv');
+	
 	$('#bgDiv').remove();
 	$('#helpDiv').remove();
 	/*
