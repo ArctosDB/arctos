@@ -1,6 +1,7 @@
 <cfif not isdefined("fld")>bad call<cfabort></cfif>
 <cfset fld=trim(fld)>
-<cfif left(fld,1) is "_" and len(fld) gt 1>
+#fld#--
+<cfif left(fld,1) is "_" and len(fld) gt 2>
 	<cfset fld=right(fld,len(fld)-1)>
 </cfif>
 <cfparam name="action" default="nothing">
