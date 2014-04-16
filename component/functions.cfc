@@ -56,7 +56,6 @@
 										<cfquery name="tct" datasource="cf_dbuser">
 											select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
 										</cfquery>
-										<cfdump var=#tct#>
 										
 										
 										
