@@ -57,6 +57,11 @@
 											select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
 										</cfquery>
 										<cfdump var=#tct#>
+										
+										
+										<cfabort>
+										
+										
 										<cfloop list="#thisMoreInfo.columnlist#" index="i">
 											<cfif i is not "description" and i is not "collection_cde">
 												<cfset ctColName=i>
