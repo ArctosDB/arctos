@@ -21,8 +21,8 @@
 			<td>"Field label" - "Catalog Number" - keep it short.</td>
 		</tr>
 		<tr>
-			<td>CODE_TABLE</td>
-			<td>Controlling code table. Must be table name only - "ctage_class" - do not guess at this.</td>
+			<td>CONTROLLED_VOCABULARY</td>
+			<td>Either 1) controlling code table, name only - "ctage_class," OR 2) comma-separated list of values ("LIKE,IS"). Do not guess at this.</td>
 		</tr>
 		<tr>
 			<td>PLACEHOLDER_TEXT</td>
