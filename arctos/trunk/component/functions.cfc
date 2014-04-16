@@ -66,7 +66,7 @@
 												<cfset ctColName=i>
 											</cfif>
 										</cfloop>
-
+ctColName is #ctColName#
 										<select name="#thisKey#">
 											<cfloop query="tct">
 												<cfset thisVal=evaluate("tct." & ctColName)>
