@@ -34,7 +34,7 @@
 		</tr>
 		<tr>
 			<td>SPECIMEN_RESULTS_COL</td>
-			<td>Is the element available as a column in specimenresults? Don't guess at this.</td>
+			<td>Is the element available as a column in specimenresults? Don't guess at this. 0 or 1</td>
 		</tr>
 		<tr>
 			<td>DISP_ORDER</td>
@@ -58,6 +58,13 @@
 		</tr>
 	</table>
 	
+	<hr>Add a row
+	
+	 scientific_name_scope 
+	
+	<hr>
+	
+	
 	<cfparam name="width" default="1200">
 	<cfparam name="height" default="600">
 	<cfparam name="pageSize" default="20">
@@ -73,7 +80,7 @@ Use this form to adjust the grid layout
 	<input type="submit">
 </form>
 			
-			
+	<hr>		
 		<cfquery name="cNames" datasource="uam_god">
 			select column_name from user_tab_cols where lower(table_name)='ssrch_field_doc' order by internal_column_id
 		</cfquery>
