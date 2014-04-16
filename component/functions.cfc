@@ -15,7 +15,7 @@
 			});
 		</script>
 		<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
-		<div id="refineSearchTerms" style="display:none;">
+		<div id="refineSearchTerms" style="display:block;">
 			<div style="font-size:small;">
 				This is an experiment. Change values and press ENTER or click the button. Use the contact link at the bottom to provide feedback.
 			</div>
@@ -59,7 +59,6 @@
 										<cfdump var=#tct#>
 										
 										
-										<cfabort>
 										
 										
 										<cfloop list="#thisMoreInfo.columnlist#" index="i">
