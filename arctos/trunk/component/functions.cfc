@@ -62,11 +62,17 @@
 										
 										
 										<cfloop list="#thisMoreInfo.columnlist#" index="i">
+										--#i#--
 											<cfif i is not "description" and i is not "collection_cde">
 												<cfset ctColName=i>
 											</cfif>
 										</cfloop>
 ctColName is #ctColName#
+
+
+<cfabort>
+
+
 										<select name="#thisKey#">
 											<cfloop query="tct">
 												<cfset thisVal=evaluate("tct." & ctColName)>
