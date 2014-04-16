@@ -62,14 +62,10 @@
 										
 										
 										<cfloop list="#tct.columnlist#" index="i">
-										--#i#--
 											<cfif i is not "description" and i is not "collection_cde">
 												<cfset ctColName=i>
 											</cfif>
 										</cfloop>
-ctColName is #ctColName#
-
-
 
 
 										<select name="#thisKey#">
