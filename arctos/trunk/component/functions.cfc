@@ -52,7 +52,7 @@
 							<td>=</td>
 							<td>
 								<cfif len(thisMoreInfo.CONTROLLED_VOCABULARY) gt 0>
-									<cfif left(thisMoreInfo,2) is "ct">
+									<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
 										<cfquery name="tct" datasource="cf_dbuser">
 											select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
 										</cfquery>
