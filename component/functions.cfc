@@ -61,7 +61,7 @@
 										
 										
 										
-										<cfloop list="#thisMoreInfo.columnlist#" index="i">
+										<cfloop list="#tct.columnlist#" index="i">
 										--#i#--
 											<cfif i is not "description" and i is not "collection_cde">
 												<cfset ctColName=i>
@@ -70,7 +70,6 @@
 ctColName is #ctColName#
 
 
-<cfabort>
 
 
 										<select name="#thisKey#">
