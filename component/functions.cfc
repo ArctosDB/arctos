@@ -68,6 +68,7 @@
 
 
 										<select name="#thisKey#">
+											<option value=""> [ remove this term ]</option>
 											<cfloop query="tct">
 												<cfset thisVal=evaluate("tct." & ctColName)>
 												<option value="#thisVal#" <cfif thisVal is thisvalue> selected="selected" </cfif>>#thisval#</option>
@@ -75,6 +76,7 @@
 										</select>
 									<cfelse>
 										<select name="#thisKey#">
+											<option value=""> [ remove this term ]</option>
 											<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
 												<option value="#i#" <cfif i is thisvalue> selected="selected" </cfif>>#i#</option>
 											</cfloop>
