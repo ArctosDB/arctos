@@ -51,7 +51,33 @@
 							</td>
 							<td>=</td>
 							<td>
-								<input type="text" name="#thisKey#" value="#thisvalue#" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
+								<cfif len(thisMoreInfo.CONTROLLED_VOCABULARY) gt 0>
+									<cfif left(thisMoreInfo,2) is "ct">
+										<cfquery name="tct" datasource="cf_dbuser">
+											select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
+										</cfquery>
+										<cfloop list="#thisMoreInfo.columnlist#" index="i">
+											<cfif i is not "description" and i is not "collection_cde">
+												<cfset ctColName=i>
+											</cfif>
+										</cfloop>
+
+										<select name="#thisKey#">
+											<cfloop query="tct">
+												<cfset thisVal=evaluate("tct." & ctColName)>
+												<option value="#thisVal#" <cfif thisVal is thisvalue> selected="selected" </cfif>>#thisval#</option>
+											</cfloop>
+										</select>
+									<cfelse>
+										<select name="#thisKey#">
+											<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
+												<option value="#i#" <cfif i is thisvalue> selected="selected" </cfif>>#i#</option>
+											</cfloop>
+										</select>
+									</cfif>
+								<cfelse>
+									<input type="text" name="#thisKey#" value="#thisvalue#" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
+								</cfif>
 							</td>
 						</tr>
 					</cfif>
