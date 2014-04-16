@@ -60,8 +60,23 @@
 	
 	<hr>Add a row
 	
-	 scientific_name_scope 
-	
+
+<form method="post" action="field_documentation.cfm">
+	<input type="hidden" name="action" value="newRow">
+	<label for="CF_VARIABLE">CF_VARIABLE</label>
+	<input type="text" name="CF_VARIABLE" size="80">
+	<label for="DEFINITION">DEFINITION</label>
+	<input type="text" name="DEFINITION" size="80">
+	<label for="CONTROLLED_VOCABULARY">CONTROLLED_VOCABULARY</label>
+	<input type="text" name="CONTROLLED_VOCABULARY" size="80">
+	<label for="DOCUMENTATION_LINK">DOCUMENTATION_LINK</label>
+	<input type="text" name="DOCUMENTATION_LINK" size="80">
+	<label for="PLACEHOLDER_TEXT">PLACEHOLDER_TEXT</label>
+	<input type="text" name="PLACEHOLDER_TEXT" size="80">
+	<label for="SEARCH_HINT">SEARCH_HINT</label>
+	<input type="text" name="SEARCH_HINT" size="80">
+	<br><input type="submit" value="create">
+</form>	
 	<hr>
 	
 	
@@ -129,43 +144,29 @@ Use this form to adjust the grid layout
 	
 
 
-<cfabort>
 
-
-								    VARCHAR2(4000)
- 							   NOT NULL VARCHAR2(4000)
- 								    VARCHAR2(4000)
- 								    VARCHAR2(4000)
- 								    VARCHAR2(4000)
- 								    VARCHAR2(4000)
- 								    VARCHAR2(4000)
- 							    VARCHAR2(4000)
- 							    VARCHAR2(4000)
- 								    VARCHAR2(4000)
- 							    VARCHAR2(4000)
- 								    VARCHAR2(4000)
- 						   NOT NULL VARCHAR2(4000)
-
-
-
-<cfif action is "new">
-	<form name="d" method="post" action="short_doc.cfm">
-		<input type="hidden" name="action" value="insert">
-		<label for="colname">ColName</label>
-		<input type="text" name="colname" id="colname" size="60">
+<cfif action is "newRow">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into ssrch_field_doc
+				(
+					CF_VARIABLE,
+					DEFINITION,
+					CONTROLLED_VOCABULARY,
+					DOCUMENTATION_LINK,
+					PLACEHOLDER_TEXT,
+					SEARCH_HINT
+				) values (
+					'#CF_VARIABLE#',
+					'#DEFINITION#',
+					'#CONTROLLED_VOCABULARY#',
+					'#DOCUMENTATION_LINK#',
+					'#PLACEHOLDER_TEXT#',
+					'#SEARCH_HINT#'
+				)
+		</cfquery>
 		
-		<label for="display_name">display_name</label>
-		<input type="text" name="display_name" id="display_name" size="60">
-		
-		<label for="definition">definition</label>
-		<textarea rows="4" cols="50" name="definition" id="definition"></textarea>
-
-		<label for="search_hint">search_hint</label>
-		<input type="text" name="search_hint" id="search_hint" size="60">
-		<label for="more_info">MoreInfo</label>
-		<input type="text" name="more_info" id="more_info" size="60">
-		<br><input type="submit" value="create record">
-	</form>
+	
+		<cflocation addtoken="false" url="field_documentation.cfm">
 </cfif>
 
 <cfif action is "insert">

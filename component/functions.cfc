@@ -17,7 +17,10 @@
 		<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 		<div id="refineSearchTerms" style="display:block;">
 			<div style="font-size:small;">
-				This is an experiment. Change values and press ENTER or click the button. Use the contact link at the bottom to provide feedback.
+				This is an experiment. 
+				Change values and press ENTER or click the button. 
+				Clear a value to remove it from the search. 
+				Use the contact link at the bottom to provide feedback.
 			</div>
 			<form name="refineResults" method="post" action="SpecimenResults.cfm">
 				
