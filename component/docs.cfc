@@ -45,9 +45,7 @@
 <cfparam name="jtSorting" type="string" default="GUID ASC">
 
 <cfset jtStopIndex=jtStartIndex+jtPageSize>
-<cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select  from ssrch_field_doc
-</cfquery>
+
 	
 <!----
 
