@@ -164,6 +164,8 @@
 		</cfloop>
 		<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
 	</cfoutput>
+	
+	<hr>
 	<cfreturn result>
 </cffunction>
 
