@@ -78,7 +78,7 @@
 			<cfset trow=listappend(trow,temp)>
 		</cfloop>
 		<cfset trow="{" & trow & "}">
-		<cfset result='{"Result":"OK","Record":[#trow#]'>
+		<cfset result='{"Result":"OK","Record":[#trow#]}'>
 
 
 
