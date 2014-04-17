@@ -68,10 +68,14 @@
 		<cfquery name="trc" datasource="uam_god">
 			Select count(*) c from ssrch_field_doc 
 		</cfquery>
+		<cfquery name="new" datasource="uam_god">
+			select * from ssrch_field_doc where CF_VARIABLE='#CF_VARIABLE#'
+		</cfquery>
+		
 		<cfset x=''>
 		<cfset trow="">
-		<cfloop list="CF_VARIABLE,CONTROLLED_VOCABULARY,DATA_TYPE,DEFINITION,DOCUMENTATION_LINK,PLACEHOLDER_TEXT" index="i">
-			<cfset temp = '"#i#":"' & evaluate(i) & '"'>
+		<cfloop list="#new.columnlist#" index="i">
+			<cfset temp = '"#i#":"' & evaluate("new." & i) & '"'>
 			<cfset trow=listappend(trow,temp)>
 		</cfloop>
 		<cfset trow="{" & trow & "}">
