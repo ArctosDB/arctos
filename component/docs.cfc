@@ -88,6 +88,26 @@
 	</cftry>
 	<cfreturn result>
 </cffunction>
+
+
+<!------------------------------------------------------------------------------------------------------------------------------>
+<cffunction name="deleteDocDoc" access="remote" returnformat="plain" queryFormat="column">
+	<cfargument name="SSRCH_FIELD_DOC_ID" type="numeric" required="true">
+	
+	<cftry>
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from  
+				ssrch_field_doc
+			where 
+				SSRCH_FIELD_DOC_ID=#SSRCH_FIELD_DOC_ID#
+		</cfquery>
+		<cfset result='{"Result":"OK","Message":"success"}'>
+		<cfcatch>
+			<cfset result='{"Result":"ERROR","Message":"#cfcatch.message#: #cfcatch.detail#"}'>
+		</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
 <!------------------------------------------------------------------------------------------------------------------------------>
 <cffunction name="updateDocDoc" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="SSRCH_FIELD_DOC_ID" type="numeric" required="true">
