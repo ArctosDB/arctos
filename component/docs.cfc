@@ -56,15 +56,13 @@
 					DEFINITION,
 					CONTROLLED_VOCABULARY,
 					DOCUMENTATION_LINK,
-					PLACEHOLDER_TEXT,
-					SEARCH_HINT
+					PLACEHOLDER_TEXT
 				) values (
 					'#CF_VARIABLE#',
 					'#DEFINITION#',
 					'#CONTROLLED_VOCABULARY#',
 					'#DOCUMENTATION_LINK#',
-					'#PLACEHOLDER_TEXT#',
-					'#SEARCH_HINT#'
+					'#PLACEHOLDER_TEXT#'
 				)
 		</cfquery>
 		<cfset result='{"Result":"OK","Message":"success"}'>
