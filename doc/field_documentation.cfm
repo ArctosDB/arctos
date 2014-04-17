@@ -19,9 +19,16 @@ hi
 			multiSorting: true,
 			columnSelectable: false,
 			actions: {
-                listAction: '/component/docs.cfc?method=listDocDoc'
+                listAction: '/component/docs.cfc?method=listDocDoc',
+updateAction: '/component/docs.cfc?method=updateDocDoc'
             },
             fields:  {
+				 SSRCH_FIELD_DOC_ID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
 				CF_VARIABLE: {title: 'CF_VARIABLE'},
 				CONTROLLED_VOCABULARY: {title: 'CONTROLLED_VOCABULARY'},
 				DATA_TYPE: {title: 'DATA_TYPE'},
