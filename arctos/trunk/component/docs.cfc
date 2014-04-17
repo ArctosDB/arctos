@@ -165,12 +165,15 @@
 		<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
 	</cfoutput>
 	---->
+	<cfset x=''>
 	<cfloop query="d">
 		<cfset response = structNew()>
 		<cfloop list="#d.columnlist#" index="cname">
 			<cfset response["#cname#"]=evaluate("d." & cname)>
 		</cfloop>
 		<cfdump var=#response#>
+		<cfset thisItem=serializeJSON(response)>
+		<cfdump var=#thisItem#>
 	</cfloop>
 
 	
