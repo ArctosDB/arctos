@@ -156,9 +156,9 @@
 		<cfset x=''>
 		<cfloop query="d">
 			<cfset trow="">
-			<cfloop list="#d.columnlist#" index="i">
-				<br>i #i#
-				<cfset temp = '"#i#":"' & evaluate("d." & i) & '"'>
+			<cfloop list="#d.columnlist#" index="cname">
+				<br>cname #cname#
+				<cfset temp = '"#cname#":"' & evaluate("d." & cname) & '"'>
 				<cfset trow=listappend(trow,temp)>
 				<br>#trow#
 			</cfloop>
