@@ -39,7 +39,7 @@
 					PLACEHOLDER_TEXT: {title: 'PLACEHOLDER_TEXT'},
 					CATEGORY: {title: 'CATEGORY'},
 					DISP_ORDER: {title: 'DISP_ORDER'},
-					SPECIMEN_RESULTS_COL: {title: 'SPECIMEN_RESULTS_COL'},
+					SPECIMEN_RESULTS_COL: {title: 'SR'},
 					SQL_ELEMENT: {title: 'SQL_ELEMENT'}
 	            }
 	        });
@@ -76,7 +76,7 @@
 			<td>Short "how it works" useful for guiding search.</td>
 		</tr>
 		<tr>
-			<td>SPECIMEN_RESULTS_COL</td>
+			<td>SR</td>
 			<td>Is the element available as a column in specimenresults? Don't guess at this. 0 or 1</td>
 		</tr>
 		<tr>
