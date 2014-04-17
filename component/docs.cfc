@@ -65,7 +65,7 @@
 		</cfquery>
 		<cfset result='{"Result":"OK","Message":"success"}'>
 		<cfcatch>
-			<cfset result='{"Result":"ERROR","Message":"#cfcatch.detail#"}'>
+			<cfset result='{"Result":"ERROR","Message":"#cfcatch.message#: #cfcatch.detail#"}'>
 		</cfcatch>
 	</cftry>
 	<cfreturn result>
