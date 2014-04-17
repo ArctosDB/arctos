@@ -35,9 +35,9 @@
 				},
 				DOCUMENTATION_LINK: {title: 'DOCUMENTATION_LINK'},
 				SEARCH_HINT: {title: 'SEARCH_HINT'},
-				PLACEHOLDER_TEXT: {title: 'PLACEHOLDER_TEXT'},
+				PLACEHOLDER_TEXT: {title: 'PLACEHOLDER'},
 				CATEGORY: {title: 'CATEGORY'},
-				DISP_ORDER: {title: 'DISP_ORDER'},
+				DISP_ORDER: {title: 'ORD'},
 				SPECIMEN_RESULTS_COL: {title: 'SR'},
 				SQL_ELEMENT: {title: 'SQL_ELEMENT'}
             }
@@ -75,7 +75,7 @@
 		<td>Either 1) controlling code table, name only - "ctage_class," OR 2) comma-separated list of values ("LIKE,IS"). Do not guess at this.</td>
 	</tr>
 	<tr>
-		<td>PLACEHOLDER_TEXT</td>
+		<td>PLACEHOLDER</td>
 		<td>Very short snippet to display in the HTML5 "placeholder" element.</td>
 	</tr>
 	<tr>
@@ -87,7 +87,7 @@
 		<td>Is the element available as a column in specimenresults? Don't guess at this. 0 or 1</td>
 	</tr>
 	<tr>
-		<td>DISP_ORDER</td>
+		<td>ORD</td>
 		<td>Order (left to right) in which to display columns on specimenresults.</td>
 	</tr>
 	<tr>
