@@ -149,7 +149,7 @@
 				) a where rownum <= #jtStopIndex#
 			) where rnum >= #jtStartIndex#
 	</cfquery>
-	
+	<!----
 	<cfoutput>
 		<!--- CF and jtable don't play well together, so roll our own.... ---->
 		<cfset x=''>
@@ -164,7 +164,17 @@
 		</cfloop>
 		<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
 	</cfoutput>
+	---->
+	<cfloop query="d">
+		<cfset response = structNew()>
+		<cfloop list="#d.columnlist#" index="cname">
+			<cfset response["#cname#"]=evaluate("d." & cname)>
+		</cfloop>
+		<cfdump var=#response#>
 
+
+	
+	
 	<cfreturn result>
 </cffunction>
 
