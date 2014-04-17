@@ -1,126 +1,123 @@
 <cfinclude template="/includes/_header.cfm">
-<cfif action is "nothing">
-	<script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
-	<link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
-	<script type="text/javascript">
-	    $(document).ready(function () {
-	        $('#jtdocdoc').jtable({
-	            title: 'Documentation',       
-				paging: true, //Enable paging
-	            pageSize: 10, //Set page size (default: 10)
-	            sorting: true, //Enable sorting
-	            defaultSorting: 'GUID ASC', //Set default sorting
-				columnResizable: true,
-				multiSorting: true,
-				columnSelectable: false,
-				actions: {
-	                listAction: '/component/docs.cfc?method=listDocDoc',
-					updateAction: '/component/docs.cfc?method=updateDocDoc',
-	 				createAction: '/component/docs.cfc?method=createDocDoc',
-	 				deleteAction: '/component/docs.cfc?method=deleteDocDoc',
-	            },
-	            fields:  {
-					 SSRCH_FIELD_DOC_ID: {
-	                    key: true,
-	                    create: false,
-	                    edit: false,
-	                    list: false
-	                },
-					CF_VARIABLE: {title: 'CF_VARIABLE'},
-					DISPLAY_TEXT: {title: 'DISPLAY_TEXT'},
-					CONTROLLED_VOCABULARY: {title: 'VOCABULARY'},
-					DATA_TYPE: {title: 'TYPE'},
-					DEFINITION: {
-						title: 'DEFINITION',
-						type: 'textarea'
-					},
-					DOCUMENTATION_LINK: {title: 'DOCUMENTATION_LINK'},
-					SEARCH_HINT: {title: 'SEARCH_HINT'},
-					PLACEHOLDER_TEXT: {title: 'PLACEHOLDER_TEXT'},
-					CATEGORY: {title: 'CATEGORY'},
-					DISP_ORDER: {title: 'DISP_ORDER'},
-					SPECIMEN_RESULTS_COL: {title: 'SR'},
-					SQL_ELEMENT: {title: 'SQL_ELEMENT'}
-	            }
-	        });
-
- 		$('#LoadRecordsButton').click(function (e) {
-            e.preventDefault();
-            $('#jtdocdoc').jtable('load', {
-                CF_VARIABLE: $('#CF_VARIABLE').val()
-            });
+<script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
+<link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jtdocdoc').jtable({
+            title: 'Documentation',       
+			paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            defaultSorting: 'GUID ASC', //Set default sorting
+			columnResizable: true,
+			multiSorting: true,
+			columnSelectable: false,
+			actions: {
+                listAction: '/component/docs.cfc?method=listDocDoc',
+				updateAction: '/component/docs.cfc?method=updateDocDoc',
+ 				createAction: '/component/docs.cfc?method=createDocDoc',
+ 				deleteAction: '/component/docs.cfc?method=deleteDocDoc',
+            },
+            fields:  {
+				 SSRCH_FIELD_DOC_ID: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+				CF_VARIABLE: {title: 'CF_VARIABLE'},
+				DISPLAY_TEXT: {title: 'DISPLAY_TEXT'},
+				CONTROLLED_VOCABULARY: {title: 'VOCABULARY'},
+				DATA_TYPE: {title: 'TYPE'},
+				DEFINITION: {
+					title: 'DEFINITION',
+					type: 'textarea'
+				},
+				DOCUMENTATION_LINK: {title: 'DOCUMENTATION_LINK'},
+				SEARCH_HINT: {title: 'SEARCH_HINT'},
+				PLACEHOLDER_TEXT: {title: 'PLACEHOLDER_TEXT'},
+				CATEGORY: {title: 'CATEGORY'},
+				DISP_ORDER: {title: 'DISP_ORDER'},
+				SPECIMEN_RESULTS_COL: {title: 'SR'},
+				SQL_ELEMENT: {title: 'SQL_ELEMENT'}
+            }
         });
 
+		$('#LoadRecordsButton').click(function (e) {
+           e.preventDefault();
+           $('#jtdocdoc').jtable('load', {
+               CF_VARIABLE: $('#CF_VARIABLE').val()
+           });
+       });
+       $('#jtdocdoc').jtable('load');
+    });
+</script>
+<cfset title="form-field documentation"> 
+<table border>
+	<tr>
+		<th>Column Name</th>
+		<th>What's it do?</th>
+	</tr>
+	<tr>
+		<td>CF_VARIABLE</td>
+		<td>Variable as used by Arctos applications, eg, in specimenresults mapurl. Must be lower case (to improve internal query performance - variable are not case-sensitive).</td>
+	</tr>
+	<tr>
+		<td>TYPE</td>
+		<td>"Human-readable" approximation of the datatype accepted by the variable, e.g., "comma-separated list of integers."</td>
+	</tr>
+	<tr>
+		<td>DISPLAY_TEXT</td>
+		<td>"Field label" - "Catalog Number" - keep it short.</td>
+	</tr>
+	<tr>
+		<td>VOCABULARY</td>
+		<td>Either 1) controlling code table, name only - "ctage_class," OR 2) comma-separated list of values ("LIKE,IS"). Do not guess at this.</td>
+	</tr>
+	<tr>
+		<td>PLACEHOLDER_TEXT</td>
+		<td>Very short snippet to display in the HTML5 "placeholder" element.</td>
+	</tr>
+	<tr>
+		<td>SEARCH_HINT</td>
+		<td>Short "how it works" useful for guiding search.</td>
+	</tr>
+	<tr>
+		<td>SR</td>
+		<td>Is the element available as a column in specimenresults? Don't guess at this. 0 or 1</td>
+	</tr>
+	<tr>
+		<td>DISP_ORDER</td>
+		<td>Order (left to right) in which to display columns on specimenresults.</td>
+	</tr>
+	<tr>
+		<td>CATEGORY</td>
+		<td>Category on specimen results. Don't guess at this.</td>
+	</tr>
+	<tr>
+		<td>SQL_ELEMENT</td>
+		<td>SQL to use in building dynamic queries. Don't guess at this.</td>
+	</tr>
+	<tr>
+		<td>DEFINITION</td>
+		<td>Short-ish definition suitable for popup/tooltip documentation</td>
+	</tr>
+	<tr>
+		<td>DOCUMENTATION_LINK</td>
+		<td>Link to further documentation, probably on http://arctosdb.org/.</td>
+	</tr>
+</table>
 
-	        $('#jtdocdoc').jtable('load');
-	    });
-	</script>
-	<table border>
-		<tr>
-			<th>Column Name</th>
-			<th>What's it do?</th>
-		</tr>
-		<tr>
-			<td>CF_VARIABLE</td>
-			<td>Variable as used by Arctos applications, eg, in specimenresults mapurl. Must be lower case (to improve internal query performance - variable are not case-sensitive).</td>
-		</tr>
-		<tr>
-			<td>TYPE</td>
-			<td>"Human-readable" approximation of the datatype accepted by the variable, e.g., "comma-separated list of integers."</td>
-		</tr>
-		<tr>
-			<td>DISPLAY_TEXT</td>
-			<td>"Field label" - "Catalog Number" - keep it short.</td>
-		</tr>
-		<tr>
-			<td>VOCABULARY</td>
-			<td>Either 1) controlling code table, name only - "ctage_class," OR 2) comma-separated list of values ("LIKE,IS"). Do not guess at this.</td>
-		</tr>
-		<tr>
-			<td>PLACEHOLDER_TEXT</td>
-			<td>Very short snippet to display in the HTML5 "placeholder" element.</td>
-		</tr>
-		<tr>
-			<td>SEARCH_HINT</td>
-			<td>Short "how it works" useful for guiding search.</td>
-		</tr>
-		<tr>
-			<td>SR</td>
-			<td>Is the element available as a column in specimenresults? Don't guess at this. 0 or 1</td>
-		</tr>
-		<tr>
-			<td>DISP_ORDER</td>
-			<td>Order (left to right) in which to display columns on specimenresults.</td>
-		</tr>
-		<tr>
-			<td>CATEGORY</td>
-			<td>Category on specimen results. Don't guess at this.</td>
-		</tr>
-		<tr>
-			<td>SQL_ELEMENT</td>
-			<td>SQL to use in building dynamic queries. Don't guess at this.</td>
-		</tr>
-		<tr>
-			<td>DEFINITION</td>
-			<td>Short-ish definition suitable for popup/tooltip documentation</td>
-		</tr>
-		<tr>
-			<td>DOCUMENTATION_LINK</td>
-			<td>Link to further documentation, probably on http://arctosdb.org/.</td>
-		</tr>
-	</table>
-	
-	<div class="filtering">
-	    <form>
-	        CF_VARIABLE: <input type="text" name="CF_VARIABLE" id="CF_VARIABLE" />
-	        <button type="submit" id="LoadRecordsButton">Load records</button>
-	    </form>
-	</div>
+<div class="filtering">
+    <form>
+        CF_VARIABLE: <input type="text" name="CF_VARIABLE" id="CF_VARIABLE" />
+        <button type="submit" id="LoadRecordsButton">Load records</button>
+    </form>
+</div>
 
 
-	<div id="jtdocdoc" style="width:95%"></div>
-</cfif>
-<!---------------------------------------------------------->
+<div id="jtdocdoc" style="width:95%"></div>
+<!----------------------------
 <cfif action is "oldform">
 <script src="/includes/sorttable.js"></script>
 
@@ -238,5 +235,5 @@ Use this form to adjust the grid layout
 	
 		<cflocation addtoken="false" url="field_documentation.cfm">
 </cfif>
-
+------------------------------>
 <cfinclude template="/includes/_footer.cfm">
