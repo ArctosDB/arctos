@@ -49,11 +49,25 @@
 	<cfargument name="DOCUMENTATION_LINK" type="string" required="false">
 	<cfargument name="PLACEHOLDER_TEXT" type="string" required="false">
 	
-	
-	<cfset result='{"Result":"ERROR","Message":"this is a test"}'>
-
-
-
+	<cftry>
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				ssrch_field_doc 
+			set  
+				CF_VARIABLE = '#escapeQuotes(CF_VARIABLE)#',
+				CONTROLLED_VOCABULARY = '#escapeQuotes(CONTROLLED_VOCABULARY)#',
+				DATA_TYPE = '#escapeQuotes(DATA_TYPE)#',
+				DEFINITION = '#escapeQuotes(DEFINITION)#',
+				DOCUMENTATION_LINK = '#escapeQuotes(DOCUMENTATION_LINK)#',
+				PLACEHOLDER_TEXT = '#escapeQuotes(PLACEHOLDER_TEXT)#'	
+			where 
+				SSRCH_FIELD_DOC_ID=#SSRCH_FIELD_DOC_ID#
+		</cfquery>
+		<cfset result='{"Result":"OK","Message":"success"}'>
+		<cfcatch>
+			<cfset result='{"Result":"ERROR","Message":"#cfcatch.detail#"}'>
+		</cfcatch>
+	</cftry>
 	<cfreturn result>
 	
 	
