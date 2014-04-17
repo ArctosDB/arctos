@@ -39,7 +39,6 @@
 
 
 <cffunction name="createDocDoc" access="remote" returnformat="plain" queryFormat="column">
-	<cfargument name="SSRCH_FIELD_DOC_ID" type="numeric" required="true">
 	<cfargument name="CF_VARIABLE" type="string" required="true">
 	<cfargument name="CONTROLLED_VOCABULARY" type="string" required="false">
 	<cfargument name="DATA_TYPE" type="string" required="false">
