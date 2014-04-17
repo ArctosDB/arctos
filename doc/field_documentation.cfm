@@ -100,7 +100,7 @@
 			<td>Link to further documentation, probably on http://arctosdb.org/.</td>
 		</tr>
 	</table>
-	<div id="jtdocdoc"></div>
+	<div id="jtdocdoc" style="width:95%"></div>
 </cfif>
 <!---------------------------------------------------------->
 <cfif action is "oldform">
