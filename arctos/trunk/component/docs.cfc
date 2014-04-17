@@ -133,13 +133,15 @@ SSRCH_FIELD_DOC_ID	12503897
 <cfreturn x>
 
 ---->
-
----->
 </cfoutput>
 
 <cfreturn result>
-</cffunction>
+---->
 
+
+
+</cffunction>
+<!---------------------------------->
 <cffunction name="listDocDoc" access="remote" returnformat="plain" queryFormat="column">
 
 <cfparam name="jtStartIndex" type="numeric" default="0">
