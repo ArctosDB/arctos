@@ -28,8 +28,8 @@
 	                },
 					CF_VARIABLE: {title: 'CF_VARIABLE'},
 					DISPLAY_TEXT: {title: 'DISPLAY_TEXT'},
-					CONTROLLED_VOCABULARY: {title: 'CONTROLLED_VOCABULARY'},
-					DATA_TYPE: {title: 'DATA_TYPE'},
+					CONTROLLED_VOCABULARY: {title: 'VOCABULARY'},
+					DATA_TYPE: {title: 'TYPE'},
 					DEFINITION: {
 						title: 'DEFINITION',
 						type: 'textarea'
@@ -56,7 +56,7 @@
 			<td>Variable as used by Arctos applications, eg, in specimenresults mapurl. Must be lower case (to improve internal query performance - variable are not case-sensitive).</td>
 		</tr>
 		<tr>
-			<td>DATA_TYPE</td>
+			<td>TYPE</td>
 			<td>"Human-readable" approximation of the datatype accepted by the variable, e.g., "comma-separated list of integers."</td>
 		</tr>
 		<tr>
@@ -64,7 +64,7 @@
 			<td>"Field label" - "Catalog Number" - keep it short.</td>
 		</tr>
 		<tr>
-			<td>CONTROLLED_VOCABULARY</td>
+			<td>VOCABULARY</td>
 			<td>Either 1) controlling code table, name only - "ctage_class," OR 2) comma-separated list of values ("LIKE,IS"). Do not guess at this.</td>
 		</tr>
 		<tr>
@@ -100,6 +100,15 @@
 			<td>Link to further documentation, probably on http://arctosdb.org/.</td>
 		</tr>
 	</table>
+	
+	<div class="filtering">
+	    <form>
+	        CF_VARIABLE: <input type="text" name="CF_VARIABLE" id="CF_VARIABLE" />
+	        <button type="submit" id="LoadRecordsButton">Load records</button>
+	    </form>
+	</div>
+
+
 	<div id="jtdocdoc" style="width:95%"></div>
 </cfif>
 <!---------------------------------------------------------->
