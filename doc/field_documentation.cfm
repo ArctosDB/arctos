@@ -108,7 +108,7 @@
 	</tr>
 </table>
 
-<hr>Filter reords:
+<hr>Filter records:
 <div class="filtering">
     <form>
         CF_VARIABLE: <input type="text" name="CF_VARIABLE" id="CF_VARIABLE" />
