@@ -172,7 +172,7 @@
 			<cfset response["#cname#"]=evaluate("d." & cname)>
 		</cfloop>
 		<cfset thisItem=serializeJSON(response)>
-		<cfset x=listappend(x,trow)>
+		<cfset x=listappend(x,thisItem)>
 	</cfloop>
 	<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
 
