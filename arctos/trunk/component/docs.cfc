@@ -178,7 +178,7 @@
 		Select * from (
 				Select a.*, rownum rnum From (
 					select * from ssrch_field_doc
-					<cfif len(CF_VARIABLE) gt 0> where CF_VARIABLE like '%#CF_VARIABLE#%'</cfif>
+					<cfif isdefined("CF_VARIABLE") and len(CF_VARIABLE) gt 0> where CF_VARIABLE like '%#CF_VARIABLE#%'</cfif>
 					 order by #jtSorting#
 				) a where rownum <= #jtStopIndex#
 			) where rnum >= #jtStartIndex#
