@@ -108,6 +108,7 @@
 	</tr>
 </table>
 
+<hr>Filter reords:
 <div class="filtering">
     <form>
         CF_VARIABLE: <input type="text" name="CF_VARIABLE" id="CF_VARIABLE" />
@@ -116,7 +117,7 @@
 </div>
 
 
-<div id="jtdocdoc" style="width:95%"></div>
+<div id="jtdocdoc"></div>
 <!----------------------------
 <cfif action is "oldform">
 <script src="/includes/sorttable.js"></script>
