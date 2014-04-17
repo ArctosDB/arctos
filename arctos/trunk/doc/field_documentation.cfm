@@ -25,8 +25,8 @@
                     edit: false,
                     list: false
                 },
-				CF_VARIABLE: {title: 'CF_VARIABLE'},
-				DISPLAY_TEXT: {title: 'DISPLAY_TEXT'},
+				CF_VARIABLE: {title: 'VARIABLE'},
+				DISPLAY_TEXT: {title: 'DISPLAY'},
 				CONTROLLED_VOCABULARY: {title: 'VOCABULARY'},
 				DATA_TYPE: {title: 'TYPE'},
 				DEFINITION: {
@@ -59,7 +59,7 @@
 		<th>What's it do?</th>
 	</tr>
 	<tr>
-		<td>CF_VARIABLE</td>
+		<td>VARIABLE</td>
 		<td>Variable as used by Arctos applications, eg, in specimenresults mapurl. Must be lower case (to improve internal query performance - variable are not case-sensitive).</td>
 	</tr>
 	<tr>
@@ -67,7 +67,7 @@
 		<td>"Human-readable" approximation of the datatype accepted by the variable, e.g., "comma-separated list of integers."</td>
 	</tr>
 	<tr>
-		<td>DISPLAY_TEXT</td>
+		<td>DISPLAY</td>
 		<td>"Field label" - "Catalog Number" - keep it short.</td>
 	</tr>
 	<tr>
