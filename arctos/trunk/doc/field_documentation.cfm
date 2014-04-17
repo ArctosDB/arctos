@@ -21,7 +21,8 @@ hi
 			actions: {
                 listAction: '/component/docs.cfc?method=listDocDoc',
 				updateAction: '/component/docs.cfc?method=updateDocDoc',
- 				createAction: '/component/docs.cfc?method=createDocDoc'
+ 				createAction: '/component/docs.cfc?method=createDocDoc',
+ 				deleteAction: '/component/docs.cfc?method=deleteDocDoc',
             },
             fields:  {
 				 SSRCH_FIELD_DOC_ID: {
