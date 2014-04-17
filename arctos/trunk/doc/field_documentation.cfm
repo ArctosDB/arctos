@@ -10,7 +10,7 @@ hi
 <script type="text/javascript">
     $(document).ready(function () {
         $('#jtdocdoc').jtable({
-            title: 'Specimen Results',       
+            title: 'Documentation',       
 			paging: true, //Enable paging
             pageSize: 10, //Set page size (default: 10)
             sorting: true, //Enable sorting
@@ -20,7 +20,8 @@ hi
 			columnSelectable: false,
 			actions: {
                 listAction: '/component/docs.cfc?method=listDocDoc',
-updateAction: '/component/docs.cfc?method=updateDocDoc'
+				updateAction: '/component/docs.cfc?method=updateDocDoc',
+ 				createAction: '/component/docs.cfc?method=createDocDoc'
             },
             fields:  {
 				 SSRCH_FIELD_DOC_ID: {
