@@ -163,9 +163,13 @@
 </cffunction>
 <!------------------------------------------------------------------------------------------------------------------------------>
 <cffunction name="listDocDoc" access="remote" returnformat="plain" queryFormat="column">
+	<cfargument name="CF_VARIABLE" type="string" required="false">
+		
 	<cfparam name="jtStartIndex" type="numeric" default="0">
 	<cfparam name="jtPageSize" type="numeric" default="10">
 	<cfparam name="jtSorting" type="string" default="CF_VARIABLE ASC">
+	
+	
 	<cfset jtStopIndex=jtStartIndex+jtPageSize>
 	<cfquery name="trc" datasource="uam_god">
 		Select count(*) c from ssrch_field_doc 
@@ -173,7 +177,9 @@
 	<cfquery name="d" datasource="uam_god">
 		Select * from (
 				Select a.*, rownum rnum From (
-					select * from ssrch_field_doc order by #jtSorting#
+					select * from ssrch_field_doc
+					<cfif len(CF_VARIABLE) gt 0> where CF_VARIABLE like '%#CF_VARIABLE#%'</cfif>
+					 order by #jtSorting#
 				) a where rownum <= #jtStopIndex#
 			) where rnum >= #jtStartIndex#
 	</cfquery>
