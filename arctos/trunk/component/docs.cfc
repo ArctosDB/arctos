@@ -48,7 +48,9 @@
 	<cfargument name="DEFINITION" type="string" required="false">
 	<cfargument name="DOCUMENTATION_LINK" type="string" required="false">
 	<cfargument name="PLACEHOLDER_TEXT" type="string" required="false">
-	
+	<cfif not isdefined("escapeQuotes")>
+		<cfinclude template="/includes/functionLib.cfm">
+	</cfif>
 	<cftry>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update 
