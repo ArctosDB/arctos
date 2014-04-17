@@ -65,7 +65,21 @@
 					'#PLACEHOLDER_TEXT#'
 				)
 		</cfquery>
-		<cfset result='{"Result":"OK","Message":"success"}'>
+		<cfquery name="trc" datasource="uam_god">
+			Select count(*) c from ssrch_field_doc 
+		</cfquery>
+		<cfset x=''>
+		<cfset trow="">
+		<cfloop list="CF_VARIABLE,CONTROLLED_VOCABULARY,DATA_TYPE,DEFINITION,DOCUMENTATION_LINK,PLACEHOLDER_TEXT" index="i">
+			<cfset temp = '"#i#":"' & evaluate(i) & '"'>
+			<cfset trow=listappend(trow,temp)>
+		</cfloop>
+		<cfset trow="{" & trow & "}">
+		<cfset x=listappend(x,trow)>
+		<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
+
+
+
 		<cfcatch>
 			<cfset result='{"Result":"ERROR","Message":"#cfcatch.message#: #cfcatch.detail#"}'>
 		</cfcatch>
