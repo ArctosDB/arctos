@@ -27,7 +27,7 @@
 	                    list: false
 	                },
 					CF_VARIABLE: {title: 'CF_VARIABLE'},
-					DISPLAY_TEXT: {title: 'DISPLAY_TEXT'}
+					DISPLAY_TEXT: {title: 'DISPLAY_TEXT'},
 					CONTROLLED_VOCABULARY: {title: 'CONTROLLED_VOCABULARY'},
 					DATA_TYPE: {title: 'DATA_TYPE'},
 					DEFINITION: {
