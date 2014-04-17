@@ -72,15 +72,13 @@
 			select * from ssrch_field_doc where CF_VARIABLE='#CF_VARIABLE#'
 		</cfquery>
 		
-		<cfset x=''>
 		<cfset trow="">
 		<cfloop list="#new.columnlist#" index="i">
 			<cfset temp = '"#i#":"' & evaluate("new." & i) & '"'>
 			<cfset trow=listappend(trow,temp)>
 		</cfloop>
 		<cfset trow="{" & trow & "}">
-		<cfset x=listappend(x,trow)>
-		<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
+		<cfset result='{"Result":"OK","Record":[#trow#]'>
 
 
 
