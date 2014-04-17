@@ -43,6 +43,15 @@
 					SQL_ELEMENT: {title: 'SQL_ELEMENT'}
 	            }
 	        });
+
+ 		$('#LoadRecordsButton').click(function (e) {
+            e.preventDefault();
+            $('#jtdocdoc').jtable('load', {
+                CF_VARIABLE: $('#CF_VARIABLE').val()
+            });
+        });
+
+
 	        $('#jtdocdoc').jtable('load');
 	    });
 	</script>
