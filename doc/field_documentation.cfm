@@ -37,7 +37,7 @@
 
 <div id="jtdocdoc"></div>
 </cfif>
-
+<cfif action is "nothing">
 <script src="/includes/sorttable.js"></script>
 
 	<cfoutput>
@@ -181,7 +181,7 @@ Use this form to adjust the grid layout
 		---->
 	</cfoutput>
 	
-
+</cfif>
 
 
 <cfif action is "newRow">
