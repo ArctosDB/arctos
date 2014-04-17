@@ -171,7 +171,7 @@
 			<cfset response["#cname#"]=evaluate("d." & cname)>
 		</cfloop>
 		<cfdump var=#response#>
-
+	</cfloop>
 
 	
 	
