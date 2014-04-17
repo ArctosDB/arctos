@@ -41,13 +41,34 @@
 
 
 <cffunction name="updateDocDoc" access="remote" returnformat="plain" queryFormat="column">
+	<cfparam name="SSRCH_FIELD_DOC_ID" type="numeric" required="true">
+	<cfparam name="CF_VARIABLE" type="string" required="true">
+	<cfparam name="CONTROLLED_VOCABULARY" type="string" required="false">
+	<cfparam name="DATA_TYPE" type="string" required="false">
+	<cfparam name="DEFINITION" type="string" required="false">
+	<cfparam name="DOCUMENTATION_LINK" type="string" required="false">
+	<cfparam name="PLACEHOLDER_TEXT" type="string" required="false">
+	
+	
+	<cfset result='{"Result":"ERROR","Message":"this is a test"}'>
 
-<cfparam name="jtStartIndex" type="numeric" default="0">
-<cfparam name="jtPageSize" type="numeric" default="10">
-<cfparam name="jtSorting" type="string" default="CF_VARIABLE ASC">
+
+
+	<cfreturn result>
+	
+	
+	<!----
 
 <cfset jtStopIndex=jtStartIndex+jtPageSize>
 
+
+CF_VARIABLE	_day_of_ymd
+CONTROLLED_VOCABULARY	
+DATA_TYPE	test
+DEFINITION	
+DOCUMENTATION_LINK	
+PLACEHOLDER_TEXT	
+SSRCH_FIELD_DOC_ID	12503897
 	
 <!----
 
@@ -113,7 +134,7 @@
 
 ---->
 
-
+---->
 </cfoutput>
 
 <cfreturn result>
