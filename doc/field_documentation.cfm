@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "dtab">
 
-
+hi
 <script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
 
 <link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
@@ -9,7 +9,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('##jtdocdoc').jtable({
+        $('#jtdocdoc').jtable({
             title: 'Specimen Results',       
 			paging: true, //Enable paging
             pageSize: 10, //Set page size (default: 10)
@@ -30,7 +30,7 @@
 				PLACEHOLDER_TEXT: {title: 'PLACEHOLDER_TEXT'}
             }
         });
-        $('##jtdocdoc').jtable('load');
+        $('#jtdocdoc').jtable('load');
     });
 </script>
 
