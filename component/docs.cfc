@@ -156,9 +156,6 @@
 		<cfloop query="d">
 			<cfset trow="">
 			<cfloop list="#d.columnlist#" index="cname">
-				<br>cname: #cname#
-				<cfset cnameval=evaluate("d." & cname)>
-				<br>eval: #cnameval#
 				<cfset temp = '"#cname#":"' & evaluate("d." & cname) & '"'>
 				<cfset trow=listappend(trow,temp)>
 			</cfloop>
@@ -167,8 +164,7 @@
 		</cfloop>
 		<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
 	</cfoutput>
-	
-	<hr>
+
 	<cfreturn result>
 </cffunction>
 
