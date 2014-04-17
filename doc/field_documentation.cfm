@@ -111,7 +111,7 @@
 <div class="filtering">
     <form>
         CF_VARIABLE: <input type="text" name="CF_VARIABLE" id="CF_VARIABLE" />
-        <button type="submit" id="LoadRecordsButton">Load records</button>
+        <button type="submit" id="LoadRecordsButton">Search</button>
     </form>
 </div>
 
