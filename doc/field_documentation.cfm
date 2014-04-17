@@ -1,59 +1,45 @@
 <cfinclude template="/includes/_header.cfm">
-<cfif action is "dtab">
-
-hi
-<script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
-
-<link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
-
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#jtdocdoc').jtable({
-            title: 'Documentation',       
-			paging: true, //Enable paging
-            pageSize: 10, //Set page size (default: 10)
-            sorting: true, //Enable sorting
-            defaultSorting: 'GUID ASC', //Set default sorting
-			columnResizable: true,
-			multiSorting: true,
-			columnSelectable: false,
-			actions: {
-                listAction: '/component/docs.cfc?method=listDocDoc',
-				updateAction: '/component/docs.cfc?method=updateDocDoc',
- 				createAction: '/component/docs.cfc?method=createDocDoc',
- 				deleteAction: '/component/docs.cfc?method=deleteDocDoc',
-            },
-            fields:  {
-				 SSRCH_FIELD_DOC_ID: {
-                    key: true,
-                    create: false,
-                    edit: false,
-                    list: false
-                },
-				CF_VARIABLE: {title: 'CF_VARIABLE'},
-				CONTROLLED_VOCABULARY: {title: 'CONTROLLED_VOCABULARY'},
-				DATA_TYPE: {title: 'DATA_TYPE'},
-				DEFINITION: {
-					title: 'DEFINITION',
-					type: 'textarea'
-				},
-				DOCUMENTATION_LINK: {title: 'DOCUMENTATION_LINK'},
-				PLACEHOLDER_TEXT: {title: 'PLACEHOLDER_TEXT'}
-            }
-        });
-        $('#jtdocdoc').jtable('load');
-    });
-</script>
-
-
-<div id="jtdocdoc"></div>
-</cfif>
 <cfif action is "nothing">
-<script src="/includes/sorttable.js"></script>
-
-	<cfoutput>
-	
+	<script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
+	<link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
+	<script type="text/javascript">
+	    $(document).ready(function () {
+	        $('#jtdocdoc').jtable({
+	            title: 'Documentation',       
+				paging: true, //Enable paging
+	            pageSize: 10, //Set page size (default: 10)
+	            sorting: true, //Enable sorting
+	            defaultSorting: 'GUID ASC', //Set default sorting
+				columnResizable: true,
+				multiSorting: true,
+				columnSelectable: false,
+				actions: {
+	                listAction: '/component/docs.cfc?method=listDocDoc',
+					updateAction: '/component/docs.cfc?method=updateDocDoc',
+	 				createAction: '/component/docs.cfc?method=createDocDoc',
+	 				deleteAction: '/component/docs.cfc?method=deleteDocDoc',
+	            },
+	            fields:  {
+					 SSRCH_FIELD_DOC_ID: {
+	                    key: true,
+	                    create: false,
+	                    edit: false,
+	                    list: false
+	                },
+					CF_VARIABLE: {title: 'CF_VARIABLE'},
+					CONTROLLED_VOCABULARY: {title: 'CONTROLLED_VOCABULARY'},
+					DATA_TYPE: {title: 'DATA_TYPE'},
+					DEFINITION: {
+						title: 'DEFINITION',
+						type: 'textarea'
+					},
+					DOCUMENTATION_LINK: {title: 'DOCUMENTATION_LINK'},
+					PLACEHOLDER_TEXT: {title: 'PLACEHOLDER_TEXT'}
+	            }
+	        });
+	        $('#jtdocdoc').jtable('load');
+	    });
+	</script>
 	<table border>
 		<tr>
 			<th>Column Name</th>
@@ -108,6 +94,15 @@ hi
 			<td>Link to further documentation, probably on http://arctosdb.org/.</td>
 		</tr>
 	</table>
+	<div id="jtdocdoc"></div>
+</cfif>
+<!---------------------------------------------------------->
+<cfif action is "oldform">
+<script src="/includes/sorttable.js"></script>
+
+	<cfoutput>
+	
+	
 	
 	<hr>Add a row
 	
