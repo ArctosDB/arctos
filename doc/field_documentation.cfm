@@ -33,7 +33,10 @@ hi
 				CF_VARIABLE: {title: 'CF_VARIABLE'},
 				CONTROLLED_VOCABULARY: {title: 'CONTROLLED_VOCABULARY'},
 				DATA_TYPE: {title: 'DATA_TYPE'},
-				DEFINITION: {title: 'DEFINITION'},
+				DEFINITION: {
+					title: 'DEFINITION',
+					type: 'textarea'
+				},
 				DOCUMENTATION_LINK: {title: 'DOCUMENTATION_LINK'},
 				PLACEHOLDER_TEXT: {title: 'PLACEHOLDER_TEXT'}
             }
