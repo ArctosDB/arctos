@@ -42,7 +42,7 @@
 
 <cfparam name="jtStartIndex" type="numeric" default="0">
 <cfparam name="jtPageSize" type="numeric" default="10">
-<cfparam name="jtSorting" type="string" default="GUID ASC">
+<cfparam name="jtSorting" type="string" default="CF_VARIABLE ASC">
 
 <cfset jtStopIndex=jtStartIndex+jtPageSize>
 
@@ -76,11 +76,8 @@
 	<cfloop query="d">
 		<cfset trow="">
 		<cfloop list="#d.columnlist#" index="i">
-			<cfif i is "guid">
-				<cfset temp ='"GUID":"<a target=\"_blank\" href=\"/guid/' & evaluate("d." & i) &'\">' & evaluate("d." & i) & '</a>"'>
-			<cfelse>
+		
 				<cfset temp = '"#i#":"' & evaluate("d." & i) & '"'>
-			</cfif>
 			
 			<cfset trow=listappend(trow,temp)>
 		</cfloop>
