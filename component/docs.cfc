@@ -32,11 +32,6 @@
 		</cfquery>
 	</cfoutput>
 </cffunction>
-
-
-
-
-
 <!------------------------------------------------------------------------------------------------------------------------------>
 <cffunction name="createDocDoc" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="CF_VARIABLE" type="string" required="true">
@@ -45,6 +40,13 @@
 	<cfargument name="DEFINITION" type="string" required="false">
 	<cfargument name="DOCUMENTATION_LINK" type="string" required="false">
 	<cfargument name="PLACEHOLDER_TEXT" type="string" required="false">
+	<cfargument name="DISPLAY_TEXT" type="string" required="false">
+	<cfargument name="SEARCH_HINT" type="string" required="false">
+	<cfargument name="CATEGORY" type="string" required="false">
+	<cfargument name="DISP_ORDER" type="string" required="false">
+	<cfargument name="SPECIMEN_RESULTS_COL" type="string" required="false">
+	<cfargument name="SQL_ELEMENT" type="string" required="false">	
+					
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
@@ -56,13 +58,27 @@
 					DEFINITION,
 					CONTROLLED_VOCABULARY,
 					DOCUMENTATION_LINK,
-					PLACEHOLDER_TEXT
+					PLACEHOLDER_TEXT,
+					DATA_TYPE,
+					DISPLAY_TEXT,
+					SEARCH_HINT,
+					CATEGORY,
+					DISP_ORDER,
+					SPECIMEN_RESULTS_COL,
+					SQL_ELEMENT
 				) values (
 					'#CF_VARIABLE#',
-					'#DEFINITION#',
-					'#CONTROLLED_VOCABULARY#',
-					'#DOCUMENTATION_LINK#',
-					'#PLACEHOLDER_TEXT#'
+					'#escapeQuotes(DEFINITION)#',
+					'#escapeQuotes(CONTROLLED_VOCABULARY)#',
+					'#escapeQuotes(DOCUMENTATION_LINK)#',
+					'#escapeQuotes(PLACEHOLDER_TEXT)#',
+					'#escapeQuotes(DATA_TYPE)#',
+					'#escapeQuotes(DISPLAY_TEXT)#',
+					'#escapeQuotes(SEARCH_HINT)#',
+					'#escapeQuotes(CATEGORY)#',
+					'#escapeQuotes(DISP_ORDER)#',
+					'#escapeQuotes(SPECIMEN_RESULTS_COL)#',
+					'#escapeQuotes(SQL_ELEMENT)#'
 				)
 		</cfquery>
 		<cfquery name="trc" datasource="uam_god">
@@ -71,29 +87,21 @@
 		<cfquery name="new" datasource="uam_god">
 			select * from ssrch_field_doc where CF_VARIABLE='#CF_VARIABLE#'
 		</cfquery>
-		
-		<cfset trow="">
-		<cfloop list="#new.columnlist#" index="i">
-			<cfset temp = '"#i#":"' & evaluate("new." & i) & '"'>
-			<cfset trow=listappend(trow,temp)>
+		<cfset response = structNew()>
+		<cfloop list="#new.columnlist#" index="cname">
+			<cfset response["#cname#"]=evaluate("new." & cname)>
 		</cfloop>
-		<cfset trow="{" & trow & "}">
-		<cfset result='{"Result":"OK","Record":[#trow#]}'>
-
-
-
+		<cfset thisItem=serializeJSON(response)>
+		<cfset result='{"Result":"OK","Records":[' & thisItem & '],"TotalRecordCount":#trc.c#}'>
 		<cfcatch>
 			<cfset result='{"Result":"ERROR","Message":"#cfcatch.message#: #cfcatch.detail#"}'>
 		</cfcatch>
 	</cftry>
 	<cfreturn result>
 </cffunction>
-
-
 <!------------------------------------------------------------------------------------------------------------------------------>
 <cffunction name="deleteDocDoc" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="SSRCH_FIELD_DOC_ID" type="numeric" required="true">
-	
 	<cftry>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from  
@@ -117,6 +125,12 @@
 	<cfargument name="DEFINITION" type="string" required="false">
 	<cfargument name="DOCUMENTATION_LINK" type="string" required="false">
 	<cfargument name="PLACEHOLDER_TEXT" type="string" required="false">
+	<cfargument name="DISPLAY_TEXT" type="string" required="false">
+	<cfargument name="SEARCH_HINT" type="string" required="false">
+	<cfargument name="CATEGORY" type="string" required="false">
+	<cfargument name="DISP_ORDER" type="string" required="false">
+	<cfargument name="SPECIMEN_RESULTS_COL" type="string" required="false">
+	<cfargument name="SQL_ELEMENT" type="string" required="false">
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
@@ -130,7 +144,13 @@
 				DATA_TYPE = '#escapeQuotes(DATA_TYPE)#',
 				DEFINITION = '#escapeQuotes(DEFINITION)#',
 				DOCUMENTATION_LINK = '#escapeQuotes(DOCUMENTATION_LINK)#',
-				PLACEHOLDER_TEXT = '#escapeQuotes(PLACEHOLDER_TEXT)#'	
+				PLACEHOLDER_TEXT = '#escapeQuotes(PLACEHOLDER_TEXT)#',
+				DISPLAY_TEXT = '#escapeQuotes(PLACEHOLDER_TEXT)#',
+				SEARCH_HINT = '#escapeQuotes(PLACEHOLDER_TEXT)#',
+				CATEGORY = '#escapeQuotes(PLACEHOLDER_TEXT)#',
+				DISP_ORDER = '#escapeQuotes(PLACEHOLDER_TEXT)#',
+				SPECIMEN_RESULTS_COL = '#escapeQuotes(PLACEHOLDER_TEXT)#',
+				SQL_ELEMENT = '#escapeQuotes(PLACEHOLDER_TEXT)#'
 			where 
 				SSRCH_FIELD_DOC_ID=#SSRCH_FIELD_DOC_ID#
 		</cfquery>
@@ -147,18 +167,6 @@
 	<cfparam name="jtPageSize" type="numeric" default="10">
 	<cfparam name="jtSorting" type="string" default="CF_VARIABLE ASC">
 	<cfset jtStopIndex=jtStartIndex+jtPageSize>
-
-
-
-	
-	<!----
-
-	
-		CF_VARIABLE,CONTROLLED_VOCABULARY,DATA_TYPE,DEFINITION,DOCUMENTATION_LINK,PLACEHOLDER_TEXT
-	
-	--->
-	
-			
 	<cfquery name="trc" datasource="uam_god">
 		Select count(*) c from ssrch_field_doc 
 	</cfquery>
@@ -169,22 +177,6 @@
 				) a where rownum <= #jtStopIndex#
 			) where rnum >= #jtStartIndex#
 	</cfquery>
-	<!----
-	<cfoutput>
-		<!--- CF and jtable don't play well together, so roll our own.... ---->
-		<cfset x=''>
-		<cfloop query="d">
-			<cfset trow="">
-			<cfloop list="#d.columnlist#" index="cname">
-				<cfset temp = '"#cname#":"' & evaluate("d." & cname) & '"'>
-				<cfset trow=listappend(trow,temp)>
-			</cfloop>
-			<cfset trow="{" & trow & "}">
-			<cfset x=listappend(x,trow)>
-		</cfloop>
-		<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
-	</cfoutput>
-	---->
 	<cfset x=''>
 	<cfloop query="d">
 		<cfset response = structNew()>
@@ -195,9 +187,6 @@
 		<cfset x=listappend(x,thisItem)>
 	</cfloop>
 	<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
-
-	
-	
 	<cfreturn result>
 </cffunction>
 
