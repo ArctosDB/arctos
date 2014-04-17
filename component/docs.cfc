@@ -41,13 +41,13 @@
 
 
 <cffunction name="updateDocDoc" access="remote" returnformat="plain" queryFormat="column">
-	<cfparam name="SSRCH_FIELD_DOC_ID" type="numeric" required="true">
-	<cfparam name="CF_VARIABLE" type="string" required="true">
-	<cfparam name="CONTROLLED_VOCABULARY" type="string" required="false">
-	<cfparam name="DATA_TYPE" type="string" required="false">
-	<cfparam name="DEFINITION" type="string" required="false">
-	<cfparam name="DOCUMENTATION_LINK" type="string" required="false">
-	<cfparam name="PLACEHOLDER_TEXT" type="string" required="false">
+	<cfargument name="SSRCH_FIELD_DOC_ID" type="numeric" required="true">
+	<cfargument name="CF_VARIABLE" type="string" required="true">
+	<cfargument name="CONTROLLED_VOCABULARY" type="string" required="false">
+	<cfargument name="DATA_TYPE" type="string" required="false">
+	<cfargument name="DEFINITION" type="string" required="false">
+	<cfargument name="DOCUMENTATION_LINK" type="string" required="false">
+	<cfargument name="PLACEHOLDER_TEXT" type="string" required="false">
 	
 	
 	<cfset result='{"Result":"ERROR","Message":"this is a test"}'>
