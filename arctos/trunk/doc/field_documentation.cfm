@@ -26,7 +26,8 @@
 	                    edit: false,
 	                    list: false
 	                },
-					CF_VARIABLE: {title: 'CF_VARIABLE'},
+					CF_VARIABLE: {title: 'CF_VARIABLE'},,
+					DISPLAY_TEXT: {title: 'DISPLAY_TEXT'}
 					CONTROLLED_VOCABULARY: {title: 'CONTROLLED_VOCABULARY'},
 					DATA_TYPE: {title: 'DATA_TYPE'},
 					DEFINITION: {
@@ -34,7 +35,12 @@
 						type: 'textarea'
 					},
 					DOCUMENTATION_LINK: {title: 'DOCUMENTATION_LINK'},
-					PLACEHOLDER_TEXT: {title: 'PLACEHOLDER_TEXT'}
+					SEARCH_HINT: {title: 'SEARCH_HINT'},
+					PLACEHOLDER_TEXT: {title: 'PLACEHOLDER_TEXT'},
+					CATEGORY: {title: 'CATEGORY'},
+					DISP_ORDER: {title: 'DISP_ORDER'},
+					SPECIMEN_RESULTS_COL: {title: 'SPECIMEN_RESULTS_COL'},
+					SQL_ELEMENT: {title: 'SQL_ELEMENT'}
 	            }
 	        });
 	        $('#jtdocdoc').jtable('load');
@@ -47,7 +53,7 @@
 		</tr>
 		<tr>
 			<td>CF_VARIABLE</td>
-			<td>Variable as used by Arctos applications, eg, in specimenresults mapurl</td>
+			<td>Variable as used by Arctos applications, eg, in specimenresults mapurl. Must be lower case (to improve internal query performance - variable are not case-sensitive).</td>
 		</tr>
 		<tr>
 			<td>DATA_TYPE</td>
