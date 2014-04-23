@@ -93,8 +93,12 @@
 </cfloop>
 <!---- session.resultColumnList should now be correct.... ---->
 
-<cfdump var=#session.resultColumnList#>
 
+<cfset session.resultColumnList=valuelist(reqd.CF_VARIABLE)>
+
+
+
+<cfdump var=#session.resultColumnList#>
 
 <cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
 <cfif len(session.CustomOtherIdentifier) gt 0>
