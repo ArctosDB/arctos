@@ -43,7 +43,9 @@
 			---->
 			<cfset response["#i#"]=temp>
 		</cfloop>
+		<cfdump var=#response#>
 		<cfset thisItem=serializeJSON(response)>
+		<cfdump var=#thisItem#>
 		<cfset x=x & thisItem>
 		<!----
 		<cfset trow="">
