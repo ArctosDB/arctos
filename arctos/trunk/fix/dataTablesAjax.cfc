@@ -35,24 +35,33 @@
 	<cfloop query="d">
 		<cfset response = structNew()>
 		<cfloop list="#d.columnlist#" index="i">
+			<!---
 			<br>#i#
+			
+			---->
 			<cfif i neq "RNUM">
+				<!---
 				<br>not rnum
+				---->
 				<cfset temp = evaluate("d." & i)>
+				
+				<cfset response["#i#"]=temp>
+				
+				
 			</cfif>
 			<!----
 			<cfif i is "guid">
 				<cfset temp ='<a target="_blank" href="/guid/#temp#">#temp#</a>'>
 			</cfif>
 			---->
-			<cfset response["#i#"]=temp>
+			
 		</cfloop>
 		
-		<cfdump var=#response#>
 		
 		
 		<!----
-		
+				<cfdump var=#response#>
+
 		---->
 		<cfset thisItem=serializeJSON(response)>
 		
