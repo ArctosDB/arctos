@@ -79,8 +79,8 @@
 	select * from r_d where category='required'
 </cfquery>
 <cfloop query="reqd">
-	<cfif ListFindNoCase(session.resultColumnList,COLUMN_NAME) is 0>
-		<cfset session.resultColumnList = ListAppend(session.resultColumnList, COLUMN_NAME)>
+	<cfif ListFindNoCase(session.resultColumnList,CF_VARIABLE) is 0>
+		<cfset session.resultColumnList = ListAppend(session.resultColumnList, CF_VARIABLE)>
 	</cfif>
 </cfloop>
 <cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
@@ -106,9 +106,9 @@
 
 
 <cfloop query="r_d">
-	<cfif left(column_name,1) is not "_" and (
-		ListFindNoCase(session.resultColumnList,column_name) gt 0 OR category is 'required')>
-		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
+	<cfif left(CF_VARIABLE,1) is not "_" and (
+		ListFindNoCase(session.resultColumnList,CF_VARIABLE) gt 0 OR category is 'required')>
+		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #CF_VARIABLE#">
 	</cfif>
 </cfloop>
 <cfif ListFindNoCase(session.resultColumnList,"_elev_in_m") gt 0>
@@ -241,8 +241,8 @@ made  #session.SpecSrchTab#
             },
             fields:  {
 				<cfloop query="r_d">
-					<cfif listfindnocase(session.resultcolumnlist,column_name)>
-						#ucase(COLUMN_NAME)#: {title: '#thdisplay#'}
+					<cfif listfindnocase(session.resultcolumnlist,CF_VARIABLE)>
+						#ucase(CF_VARIABLE)#: {title: '#thdisplay#'}
 						<cfif thisLoopNum lt numFlds>,</cfif>
 						<cfset thisLoopNum=thisLoopNum+1>
 					</cfif>
