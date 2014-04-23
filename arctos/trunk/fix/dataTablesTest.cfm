@@ -73,7 +73,7 @@
 
 
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from cf_spec_res_cols order by disp_order
+	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL is not null order by disp_order
 </cfquery>
 <cfquery name="reqd" dbtype="query">
 	select * from r_d where category='required'
