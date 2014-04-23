@@ -70,11 +70,11 @@
 
 
 
-
-
+<!--- everything that MIGHT be returned ---->
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL is not null order by disp_order
 </cfquery>
+<!--- stuff that MUST be returned --->
 <cfquery name="reqd" dbtype="query">
 	select * from r_d where category='required'
 </cfquery>
@@ -83,6 +83,11 @@
 		<cfset session.resultColumnList = ListAppend(session.resultColumnList, CF_VARIABLE)>
 	</cfif>
 </cfloop>
+<!---- session.resultColumnList should now be correct.... ---->
+
+<cfdump var=#session.resultColumnList#>
+
+
 <cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
 <cfif len(session.CustomOtherIdentifier) gt 0>
 	<cfset basSelect = "#basSelect#
