@@ -186,7 +186,7 @@
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
 
-
+made  #session.SpecSrchTab#
 
 
 <!-----
