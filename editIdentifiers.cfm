@@ -2,6 +2,28 @@
 <cfset title = "Edit Identifiers">
 <cfif action is "nothing">
 	<script>
+
+		function cloneFullCatalogedItem(collection_object_id){
+			jQuery('#cloned').css("display", "inline").html('<img src="/images/indicator.gif">Creating clone(s) - hold tight.....');
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "cloneFullCatalogedItem",
+					collection_object_id : collection_object_id,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+console.log(r);
+					
+if (r == 'spiffy') {
+						var q='created ' + $("#numRecs").val() + ' clones in bulkloader.';
+					} else {
+						var q='cloning failed.';
+					}
+					jQuery('#cloned').css("display", "inline").html(q);
+				}
+			);
+		}
 		function cloneCatalogedItem(collection_object_id){
 			jQuery('#cloned').css("display", "inline").html('<img src="/images/indicator.gif">Creating clone(s) - hold tight.....');
 			jQuery.getJSON("/component/functions.cfc",
@@ -44,9 +66,16 @@
 		where
 			collection_object_id=#collection_object_id#
 	</cfquery>
-	<span class="likeLink" onclick="document.getElementById('cThis').style.display='block';">[ Clone This Record ]</span>
+	
 	<div id="cThis" style="display:none; border:2px solid green;">
-		Data from this cataloged item will be inserted into the Bulkloader, where you
+		<span class="likeLink" onclick="document.getElementById('cThis').style.display='block';">[ Clone This Record ]</span>
+		Option One: Click <span class="likeLink"  onclick="cloneFullCatalogedItem(#collection_object_id#)" >here</span> to clone this ENTIRE record, including parts, containers, loan history, etc.
+		<hr>
+		
+		
+		
+		Option Two: Click
+		, where you
 		may further edit the record or flag it to load, as with any other new record.
 		<br>Check specimen remarks in the bulkloader for things that might have been missed - this
 		application has limited handling of agents, identifiers, attributes, and parts.

@@ -115,8 +115,6 @@
         <button type="submit" id="LoadRecordsButton">Search</button>
     </form>
 </div>
-
-
 <div id="jtdocdoc"></div>
 <!----------------------------
 <cfif action is "oldform">

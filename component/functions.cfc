@@ -1,5 +1,25 @@
 <cfcomponent>
+
+
+
+<!--------------------------------------------------------------------------------------------------------->
+<cffunction name="cloneFullCatalogedItem" access="remote" output="true">
+	<cfargument name="collection_object_id" type="numeric" required="yes">
+	<cfquery name="guid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select guid from flat where collection_object_id=#collection_object_id#
+	</cfquery>
+	<cfstoredproc 
+	    dataSource="user_login" 
+	    procedure="clone_cataloged_item" 
+	    password = "#decrypt(session.epw,session.sessionKey)#" 
+	    result = "newguid" 
+	    returnCode = "yes" 
+	    username = "#session.dbuser#">
 	
+
+	<cfreturn newguid>
+</cffunction>
+<!------------------------------------------------------->	
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
 	<cfquery name="ssrch_field_doc" datasource="cf_dbuser">
