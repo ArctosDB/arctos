@@ -133,7 +133,7 @@
 
 	<cfset basQual = "">
 	<cfset mapurl="">
-	<cfinclude template="includes/SearchSql.cfm">
+	<cfinclude template="/includes/SearchSql.cfm">
 	<cfset session.mapurl=mapurl>
 	<div id="cntr_refineSearchTerms">
 		
