@@ -66,9 +66,8 @@ if (r == 'spiffy') {
 		where
 			collection_object_id=#collection_object_id#
 	</cfquery>
-	
-	<div id="cThis" style="display:none; border:2px solid green;">
 		<span class="likeLink" onclick="document.getElementById('cThis').style.display='block';">[ Clone This Record ]</span>
+	<div id="cThis" style="display:none; border:2px solid green;">
 		Option One: Click <span class="likeLink"  onclick="cloneFullCatalogedItem(#collection_object_id#)" >here</span> to clone this ENTIRE record, including parts, containers, loan history, etc.
 		<hr>
 		
