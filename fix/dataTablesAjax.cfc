@@ -33,16 +33,6 @@
 	
 		</cfquery>
 		
-		<cfloop list="#new.columnlist#" index="cname">
-			<cfset response["#cname#"]=evaluate("new." & cname)>
-		</cfloop>
-		<cfset thisItem=serializeJSON(response)>
-		<cfset result='{"Result":"OK","Records":[' & thisItem & '],"TotalRecordCount":#trc.c#}'>
-		<cfcatch>
-			<cfset result='{"Result":"ERROR","Message":"#cfcatch.message#: #cfcatch.detail#"}'>
-		</cfcatch>
-	</cftry>
-	<cfreturn result>
 	
 	
 	
