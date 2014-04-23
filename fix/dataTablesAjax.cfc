@@ -36,7 +36,8 @@
 		<cfset response = structNew()>
 		<cfloop list="#d.columnlist#" index="i">
 			<br>#i#
-			<cfif i is not "RNUM">
+			<cfif i neq "RNUM">
+				<br>not rnum
 				<cfset temp = evaluate("d." & i)>
 			</cfif>
 			<!----
