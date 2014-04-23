@@ -242,7 +242,7 @@ made  #session.SpecSrchTab#
             fields:  {
 				<cfloop query="r_d">
 					<cfif listfindnocase(session.resultcolumnlist,CF_VARIABLE)>
-						#ucase(CF_VARIABLE)#: {title: '#thdisplay#'}
+						#ucase(CF_VARIABLE)#: {title: '#DISPLAY_TEXT#'}
 						<cfif thisLoopNum lt numFlds>,</cfif>
 						<cfset thisLoopNum=thisLoopNum+1>
 					</cfif>
@@ -318,7 +318,7 @@ made  #session.SpecSrchTab#
 	<!----
 
 	<cfif session.username is "dlm">
-		<cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sesTHDISPLAYsionKey)#">
 			select * from cf_spec_res_cols
 			where column_name in ('dec_lat','dec_long','collection','cat_num','scientific_name','othercatalognumbers')
 			order by disp_order
