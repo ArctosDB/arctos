@@ -219,7 +219,7 @@ made  #session.SpecSrchTab#
 
 
 <cfquery name="trc" datasource="uam_god">
-	select count(*) c from #session.SpecSrchTab#
+	select count(*) c from #session.dbuser#.#session.SpecSrchTab#
 </cfquery>	
 	
 <cfoutput>
