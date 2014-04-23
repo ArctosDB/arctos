@@ -6,7 +6,7 @@
 <cffunction name="cloneFullCatalogedItem" access="remote" output="true">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfquery name="guid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select clone_cataloged_item(guid) from flat where collection_object_id=#collection_object_id#
+		select guid from flat where collection_object_id=#collection_object_id#
 	</cfquery>
 
 
