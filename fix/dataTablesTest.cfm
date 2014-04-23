@@ -67,6 +67,129 @@
 
 
 --->
+
+
+
+
+
+<cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select * from cf_spec_res_cols order by disp_order
+</cfquery>
+<cfquery name="reqd" dbtype="query">
+	select * from r_d where category='required'
+</cfquery>
+<cfloop query="reqd">
+	<cfif ListFindNoCase(session.resultColumnList,COLUMN_NAME) is 0>
+		<cfset session.resultColumnList = ListAppend(session.resultColumnList, COLUMN_NAME)>
+	</cfif>
+</cfloop>
+<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
+<cfif len(session.CustomOtherIdentifier) gt 0>
+	<cfset basSelect = "#basSelect#
+		,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+		'#session.CustomOtherIdentifier#' as myCustomIdType,
+		to_number(ConcatSingleOtherIdInt(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
+</cfif>
+
+
+	<!----
+
+	<cfif session.username is "dlm">
+		<cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_spec_res_cols
+			where column_name in ('dec_lat','dec_long','collection','cat_num','scientific_name','othercatalognumbers')
+			order by disp_order
+		</cfquery>
+	</cfif>
+	---->
+
+
+
+<cfloop query="r_d">
+	<cfif left(column_name,1) is not "_" and (
+		ListFindNoCase(session.resultColumnList,column_name) gt 0 OR category is 'required')>
+		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
+	</cfif>
+</cfloop>
+<cfif ListFindNoCase(session.resultColumnList,"_elev_in_m") gt 0>
+	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
+</cfif>
+<cfif ListFindNoCase(session.resultColumnList,"_day_of_ymd") gt 0>
+	<cfset basSelect = "#basSelect#, getYearCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) AS YearColl,
+		getMonthCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) MonColl,
+		getDayCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) DayColl ">
+	<!----
+	<cfset basSelect = "#basSelect#,getYearCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) ddddYearColl,
+		getMonthCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) ddddMonColl,
+		getDayCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) ddddDayColl">
+		---->
+</cfif>
+<cfif ListFindNoCase(session.resultColumnList,"_original_elevation") gt 0>
+	<cfset basSelect = "#basSelect#,#session.flatTableName#.MINIMUM_ELEVATION,#session.flatTableName#.MAXIMUM_ELEVATION,#session.flatTableName#.ORIG_ELEV_UNITS">
+</cfif>
+	<cfset basFrom = " FROM #session.flatTableName#">
+	<cfset basJoin = "">
+	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
+
+	<cfset basQual = "">
+	<cfset mapurl="">
+	<cfinclude template="includes/SearchSql.cfm">
+	<cfset session.mapurl=mapurl>
+	<div id="cntr_refineSearchTerms">
+		
+	</div>
+	<!--- wrap everything up in a string --->
+	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
+
+	<cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
+	<!--- require some actual searching --->
+	<cfset srchTerms="">
+	<cfloop list="#mapurl#" delimiters="&" index="t">
+		<cfset tt=listgetat(t,1,"=")>
+		<cfset srchTerms=listappend(srchTerms,tt)>
+	</cfloop>
+	<!--- remove standard criteria that kill Oracle... --->
+	<!----
+	<cfif listcontains(srchTerms,"ShowObservations")>
+		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'ShowObservations'))>
+	</cfif>
+	---->
+	<cfif listcontains(srchTerms,"collection_id")>
+		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
+	</cfif>
+
+	<!--- ... and abort if there's nothing left --->
+	<cfif len(srchTerms) is 0>
+		<CFSETTING ENABLECFOUTPUTONLY=0>
+		<font color="##FF0000" size="+2">You must enter some search criteria!</font>
+		<cfabort>
+	</cfif>
+<cfset thisTableName = "SearchResults_#left(session.sessionKey,10)#">
+<!--- try to kill any old tables that they may have laying around --->
+<cftry>
+	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		drop table #session.SpecSrchTab#
+	</cfquery>
+	<cfcatch><!--- not there, so what? --->
+	</cfcatch>
+</cftry>
+<!---- build a temp table --->
+<cfset checkSql(SqlString)>
+<cfif isdefined("debug") and debug is true>
+	#preserveSingleQuotes(SqlString)#
+</cfif>
+
+
+
+<cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
+<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	#preserveSingleQuotes(SqlString)#
+</cfquery>
+
+
+
+
+<!-----
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from cf_spec_res_cols_exp where category='required' order by DISP_ORDER
 </cfquery>
@@ -80,12 +203,21 @@
 	</cfcatch>
 </cftry>
 
-<cfif not isdefined("limit")>
-	<cfset limit=20000>
-</cfif>
+
+
+
 <cfquery name="makeUserTable" datasource="uam_god">
 	create table #session.SpecSrchTab# as select #valuelist(r_d.COLUMN_NAME)# from flat where rownum<#limit#
 </cfquery>
+
+
+
+---->
+<cfif not isdefined("limit")>
+	<cfset limit=20000>
+</cfif>
+
+
 <cfquery name="trc" datasource="uam_god">
 	select count(*) c from #session.SpecSrchTab#
 </cfquery>	
