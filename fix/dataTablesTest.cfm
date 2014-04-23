@@ -78,6 +78,10 @@
 <cfquery name="reqd" dbtype="query">
 	select * from r_d where category='required'
 </cfquery>
+
+<cfdump var=#reqd#>
+
+
 <cfloop query="reqd">
 	<cfif ListFindNoCase(session.resultColumnList,CF_VARIABLE) is 0>
 		<cfset session.resultColumnList = ListAppend(session.resultColumnList, CF_VARIABLE)>
