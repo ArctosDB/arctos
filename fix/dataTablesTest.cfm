@@ -245,7 +245,7 @@ made  #session.SpecSrchTab#
                 listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
             fields:  {
-				<cfloop query="r_d">
+				<cfloop query="reqd">
 					<cfif listfindnocase(session.resultcolumnlist,CF_VARIABLE)>
 						#ucase(CF_VARIABLE)#: {title: '#DISPLAY_TEXT#'}
 						<cfif thisLoopNum lt numFlds>,</cfif>
