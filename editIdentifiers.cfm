@@ -66,7 +66,7 @@ console.log(r);
 	<div id="cThis" style="display:none; border:2px solid green;">
 		Option One: Click <span class="likeLink"  onclick="cloneFullCatalogedItem(#collection_object_id#)" >here</span> 
 		to IMMEDIATELY clone this ENTIRE record, including parts, containers, loan history, etc.
-		<br>USE THIS OPTION WITH CAUTION. There is not review process, and the insert is immediate.
+		<br>USE THIS OPTION WITH CAUTION. There is no review process; the insert is immediate.
 		<br>You can encumber and delete accidental insertions.
 		<br>The new record will take about a minute to become available to the interfaces; immediately clicking the
 		returned GUID will probably 404 - grab a cup of coffee and then reload.
