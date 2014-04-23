@@ -15,11 +15,7 @@
 				function (r) {
 console.log(r);
 					
-if (r == 'spiffy') {
-						var q='created ' + $("#numRecs").val() + ' clones in bulkloader.';
-					} else {
-						var q='cloning failed.';
-					}
+						var q='created <a href="/guid/' + r + '">' + r + '</a>'';
 					jQuery('#cloned').css("display", "inline").html(q);
 				}
 			);
@@ -68,7 +64,12 @@ if (r == 'spiffy') {
 	</cfquery>
 		<span class="likeLink" onclick="document.getElementById('cThis').style.display='block';">[ Clone This Record ]</span>
 	<div id="cThis" style="display:none; border:2px solid green;">
-		Option One: Click <span class="likeLink"  onclick="cloneFullCatalogedItem(#collection_object_id#)" >here</span> to clone this ENTIRE record, including parts, containers, loan history, etc.
+		Option One: Click <span class="likeLink"  onclick="cloneFullCatalogedItem(#collection_object_id#)" >here</span> 
+		to IMMEDIATELY clone this ENTIRE record, including parts, containers, loan history, etc.
+		<br>USE THIS OPTION WITH CAUTION. There is not review process, and the insert is immediate.
+		<br>You can encumber and delete accidental insertions.
+		<br>The new record will take about a minute to become available to the interfaces; immediately clicking the
+		returned GUID will probably 404 - grab a cup of coffee and then reload.
 		<hr>
 		
 		
