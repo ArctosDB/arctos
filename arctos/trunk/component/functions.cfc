@@ -9,6 +9,14 @@
 		select clone_cataloged_item(guid) from flat where collection_object_id=#collection_object_id#
 	</cfquery>
 
+
+	<cfstoredproc procedure="clone_cataloged_item" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#"> 
+		<cfprocparam cfsqltype="cf_sql_varchar" value="#guid.guid#"> 
+		<cfprocparam cfsqltype="cf_sql_varchar" type="out" variable="newguid"> 
+	</cfstoredproc>
+	
+	
+	
 	<cfreturn guid.guid>
 </cffunction>
 <!------------------------------------------------------->	
