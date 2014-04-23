@@ -31,12 +31,6 @@
 	
 	
 	
-		</cfquery>
-		
-	
-	
-	
-	
 	<cfset x=''>
 	<cfloop query="d">
 		<cfset response = structNew()>
