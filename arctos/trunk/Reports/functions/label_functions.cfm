@@ -4,35 +4,27 @@
 	<cfquery name="orig" dbtype="query">
 		select * from d
 	</cfquery>
+	<cfset origColList=orig.columnList>	
+	<!--- get rid of the 1::many stuff --->
+	<cfif listcontains(origColList,"PART_NAME")>
+		<cfset origColList=listdeleteat(origColList,listfind(origColList,'PART_NAME'))>
+	</cfif>
+	<cfif listcontains(origColList,"LOT_COUNT")>
+		<cfset origColList=listdeleteat(origColList,listfind(origColList,'LOT_COUNT'))>
+	</cfif>
+	<cfif listcontains(origColList,"ATTRIBUTE_TYPE")>
+		<cfset origColList=listdeleteat(origColList,listfind(origColList,'ATTRIBUTE_TYPE'))>
+	</cfif>
+	<cfif listcontains(origColList,"ATTRIBUTE_VALUE")>
+		<cfset origColList=listdeleteat(origColList,listfind(origColList,'ATTRIBUTE_VALUE'))>
+	</cfif>
 	<cfquery name="d" dbtype="query">
 		select 
-			collector_number,
-			scientific_name,
-			family,
-			higher_geog,
-			guid,
-			cat_num,
-			collectors,
-			spec_locality,
-			coordinates,
-			determiner,
-			field_number,
-			verbatim_date
+			#origColList#
 		from
 			orig
 		group by 
-			collector_number,
-			scientific_name,
-			family,
-			higher_geog,
-			guid,
-			cat_num,
-			collectors,
-			spec_locality,
-			coordinates,
-			determiner,
-			field_number,
-			verbatim_date
+			#origColList#
 	</cfquery>
     <cfset Ar_individual_summary  = ArrayNew(1)>
 	<cfset Ar_part_name = ArrayNew(1)>
