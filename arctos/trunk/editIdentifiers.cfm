@@ -15,7 +15,7 @@
 				function (r) {
 console.log(r);
 					
-						var q='created <a href="/guid/' + r + '">' + r + '</a>'';
+						var q='created <a href="/guid/' + r + '">' + r + '</a>';
 					jQuery('#cloned').css("display", "inline").html(q);
 				}
 			);
