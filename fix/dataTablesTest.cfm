@@ -74,6 +74,10 @@
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL is not null order by disp_order
 </cfquery>
+
+
+
+<cfdump var=#r_d#>
 <!--- stuff that MUST be returned --->
 <cfquery name="reqd" dbtype="query">
 	select * from r_d where category='required'
