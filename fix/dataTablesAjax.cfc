@@ -36,9 +36,11 @@
 		<cfset response = structNew()>
 		<cfloop list="#d.columnlist#" index="i">
 			<cfset temp = evaluate("d." & i)>
+			<!----
 			<cfif i is "guid">
 				<cfset temp ='<a target="_blank" href="/guid/#temp#">#temp#</a>'>
 			</cfif>
+			---->
 			<cfset response["#i#"]=temp>
 		</cfloop>
 		<cfset thisItem=serializeJSON(response)>
