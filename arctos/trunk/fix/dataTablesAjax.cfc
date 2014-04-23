@@ -35,7 +35,9 @@
 	<cfloop query="d">
 		<cfset response = structNew()>
 		<cfloop list="#d.columnlist#" index="i">
-			<cfset temp = evaluate("d." & i)>
+			<cfif i is not "rnum">
+				<cfset temp = evaluate("d." & i)>
+			</cfif>
 			<!----
 			<cfif i is "guid">
 				<cfset temp ='<a target="_blank" href="/guid/#temp#">#temp#</a>'>

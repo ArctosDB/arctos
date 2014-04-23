@@ -77,13 +77,11 @@
 
 
 
-<cfdump var=#r_d#>
 <!--- stuff that MUST be returned --->
 <cfquery name="reqd" dbtype="query">
 	select * from r_d where category='required'
 </cfquery>
 
-<cfdump var=#reqd#>
 
 
 <cfloop query="reqd">
