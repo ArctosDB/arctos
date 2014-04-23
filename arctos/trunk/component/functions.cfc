@@ -16,8 +16,8 @@
 	    returnCode = "yes" 
 	    username = "#session.dbuser#">
 	    
-	      <cfprocparam type = "IN" CFSQLType = CF_SQL_VARCHAR value = "#guid.guid#">
-    <cfprocparam type = "OUT" CFSQLType = CF_SQL_VARCHAR variable = pr_newguid>
+	      <cfprocparam type = "IN" CFSQLType = "CF_SQL_VARCHAR" value = "#guid.guid#">
+    <cfprocparam type = "OUT" CFSQLType = "CF_SQL_VARCHAR" variable = "pr_newguid">
 	
 	
 	</cfstoredproc>
