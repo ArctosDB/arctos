@@ -15,7 +15,7 @@
 			
 	
 	
-	<cfquery name="d" datasource="uam_god">
+	<cfquery name="d"datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		Select * from (
 				Select a.*, rownum rnum From (
 					select * from #session.SpecSrchTab# order by #jtSorting#
