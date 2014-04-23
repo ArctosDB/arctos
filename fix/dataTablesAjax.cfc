@@ -28,8 +28,38 @@
 <cfoutput>
 	<!--- CF and jtable don't play well together, so roll our own.... ---->
 	
+	
+	
+	
+		</cfquery>
+		
+		<cfloop list="#new.columnlist#" index="cname">
+			<cfset response["#cname#"]=evaluate("new." & cname)>
+		</cfloop>
+		<cfset thisItem=serializeJSON(response)>
+		<cfset result='{"Result":"OK","Records":[' & thisItem & '],"TotalRecordCount":#trc.c#}'>
+		<cfcatch>
+			<cfset result='{"Result":"ERROR","Message":"#cfcatch.message#: #cfcatch.detail#"}'>
+		</cfcatch>
+	</cftry>
+	<cfreturn result>
+	
+	
+	
+	
 	<cfset x=''>
 	<cfloop query="d">
+		<cfset response = structNew()>
+		<cfloop list="#d.columnlist#" index="i">
+			<cfset temp = evaluate("d." & i)>
+			<cfif i is "guid">
+				<cfset temp ='<a target="_blank" href="/guid/#temp#">#temp#</a>"'>
+			</cfif>
+			<cfset response["#i#"]=temp>
+		</cfloop>
+		<cfset thisItem=serializeJSON(response)>
+		<cfset x=x & thisItem>
+		<!----
 		<cfset trow="">
 		<cfloop list="#d.columnlist#" index="i">
 			<cfif i is "guid">
@@ -37,11 +67,15 @@
 			<cfelse>
 				<cfset temp = '"#i#":"' & evaluate("d." & i) & '"'>
 			</cfif>
-			
+			<cfset response["#cname#"]=evaluate("new." & cname)>
 			<cfset trow=listappend(trow,temp)>
 		</cfloop>
 		<cfset trow="{" & trow & "}">
 		<cfset x=listappend(x,trow)>
+		
+		
+		---->
+		
 	</cfloop>
 <cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#TotalRecordCount#}'>
 
