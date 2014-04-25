@@ -36,8 +36,7 @@
 				DOCUMENTATION_LINK: {title: 'DOCUMENTATION_LINK'},
 				SEARCH_HINT: {title: 'SEARCH_HINT'},
 				PLACEHOLDER_TEXT: {title: 'PLACEHOLDER'},
-				CATEGORY: {title: 'CATEGORY'},
-				DISP_ORDER: {title: 'ORD',
+				CATEGORY: {title: 'CATEGORY',
 					options: { 
 						'locality': 'locality', 
 						'specimen': 'specimen',
@@ -47,6 +46,7 @@
 						'curatorial': 'curatorial'
 					}
 				},
+				DISP_ORDER: {title: 'ORD'},
 				SPECIMEN_RESULTS_COL: {
 					title: 'SR',
 					type: 'radiobutton',
