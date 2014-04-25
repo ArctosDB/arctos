@@ -1,3 +1,7 @@
+
+<cfset session.resultColumnList=''>
+
+
 <cfinclude template="/includes/_header.cfm">
 
 
