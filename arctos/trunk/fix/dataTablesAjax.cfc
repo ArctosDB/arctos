@@ -39,7 +39,7 @@
 			<br>#i#
 			
 			---->
-			<cfif i neq "RNUM">
+			<cfif i neq "RNUM" and i neq 'COLLECTION_OBJECT_ID'>
 				<!---
 				<br>not rnum
 				---->
