@@ -37,7 +37,16 @@
 				SEARCH_HINT: {title: 'SEARCH_HINT'},
 				PLACEHOLDER_TEXT: {title: 'PLACEHOLDER'},
 				CATEGORY: {title: 'CATEGORY'},
-				DISP_ORDER: {title: 'ORD'},
+				DISP_ORDER: {title: 'ORD',
+					options: { 
+						'locality': 'locality', 
+						'specimen': 'specimen',
+						'required': 'required',
+						'sort': 'sort',
+						'attribute': 'attribute',
+						'curatorial': 'curatorial'
+					}
+				},
 				SPECIMEN_RESULTS_COL: {
 					title: 'SR',
 					type: 'radiobutton',
@@ -95,7 +104,10 @@
 	</tr>
 	<tr>
 		<td>ORD</td>
-		<td>Order (left to right) in which to display columns on specimenresults.</td>
+		<td>Order (left to right) in which to display columns on specimenresults. This is a unique number and serves only to order things. If "1" and "2" exist,
+			and you need a value in between, just use 1.5. Don't worry about whole numbers or gaps. The data will periodically be "integerized"; don't try to find
+			permanent value in the numbers you supply.
+		</td>
 	</tr>
 	<tr>
 		<td>CATEGORY</td>
