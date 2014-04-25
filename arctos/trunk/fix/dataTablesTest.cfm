@@ -230,6 +230,25 @@ made  #session.SpecSrchTab#
             }
         });
         $('##specresults').jtable('load');
+
+		$("##customizeButton").live('click', function(e){
+			var bgDiv = document.createElement('div');
+			bgDiv.id = 'bgDiv';
+			bgDiv.className = 'bgDiv';
+			bgDiv.setAttribute('onclick','closeCustomNoRefresh()');
+			document.body.appendChild(bgDiv);
+			var type=this.type;
+			var type=$(this).attr('type');
+			var dval=$(this).attr('dval');
+			var theDiv = document.createElement('div');
+			theDiv.id = 'customDiv';
+			theDiv.className = 'customBox';
+			document.body.appendChild(theDiv);
+			var guts = "/info/SpecimenResultsPrefs.cfm";
+			$('##customDiv').load(guts,{},function(){
+				viewport.init("##customDiv");
+			});
+		});
     });
 </script>
 
@@ -255,6 +274,11 @@ made  #session.SpecSrchTab#
 </form>
 
 ---->
+
+						<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
+
+
+
 <div id="specresults"></div>
 </cfoutput>
 <!----
