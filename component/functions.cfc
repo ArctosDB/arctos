@@ -24,7 +24,7 @@
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget_exp" access="remote" returnformat="plain">
 	<cfquery name="ssrch_field_doc" datasource="cf_dbuser">
-		select * from ssrch_field_doc
+		select * from ssrch_field_doc order by disp_order
 	</cfquery>
 	<cfoutput>
 	<cfsavecontent variable="widget">
@@ -34,6 +34,9 @@
 					$('##refineSearchTerms').slideToggle("fast");
 				});
 			});
+function setThisName(tv){
+	$("##newTerm").attr('name',tv);
+}
 		</script>
 		<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 		<div id="refineSearchTerms" style="display:block;">
@@ -51,9 +54,11 @@
 					<th></th>
 					<th>Value</th>
 				</tr>
+				<CFSET KEYLIST="">
 				<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
 					<cfif listlen(kvp,"=") is 2>
 						<cfset thisKey=listgetat(kvp,1,"=")>
+						<cfset keylist=listappend(keylist,thisKey)>
 						<cfset thisValue=listgetat(kvp,2,"=")>
 						<tr>
 							<td>
@@ -112,6 +117,26 @@
 							</td>
 						</tr>
 					</cfif>
+					<cfquery name="newkeys" dbtype="query">
+						SELECT * FROM ssrch_field_doc WHERE CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
+					</cfquery>
+
+					<tr>
+						<td>
+						
+							<select name="newTerm" id="newTerm" onchange="setThisName(this.value);">
+								<option value=''>Add new term</option>
+								<cfloop query="newkeys">
+									<option value="#cf_variable#">#DISPLAY_TEXT#</option>
+								</cfloop>
+							</select>
+							
+						</td>
+						<td>=</td>
+						<td>
+							<input type="text" name="newValue" id="newvalue" size="50">
+						</td>
+					</tr>
 				</cfloop>
 				</table>
 				<input type="submit" value="Requery">

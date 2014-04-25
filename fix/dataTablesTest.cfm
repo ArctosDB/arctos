@@ -28,6 +28,9 @@
 	<link rel="alternate stylesheet" title="metro-pink"  href="/fix/jtable/themes/metro/pink/jtable.min.css" type="text/css">
 	<link rel="alternate stylesheet" title="metro-purple"  href="/fix/jtable/themes/metro/purple/jtable.min.css" type="text/css">
 	<link rel="alternate stylesheet" title="metro-red"  href="/fix/jtable/themes/metro/red/jtable.min.css" type="text/css">
+	
+	
+	<br>Click View/Page Style in your browser to try alternative CSS
 <!--- 
 
 	if this works, global replace cf_spec_res_cols_exp for cf_spec_res_cols
@@ -74,12 +77,6 @@
 
 
 
-
-
-<p>
-	pre-select: #session.resultColumnList#
-</p>
-
 <cfif not isdefined("session.resultColumnList") or len(session.resultColumnList) is 0>
 	<cfset session.resultColumnList='GUID'>
 </cfif>
@@ -97,9 +94,6 @@
 	<cfdump var=#session.resultColumnList#>
 	
 	
-	<p>
-	post-select: #session.resultColumnList#
-</p>
 	<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
 	<cfif len(session.CustomOtherIdentifier) gt 0>
 		<cfset basSelect = "#basSelect#
@@ -152,9 +146,7 @@
 	<cfset mapurl="">
 	<cfinclude template="/includes/SearchSql.cfm">
 	<cfset session.mapurl=mapurl>
-	<div id="cntr_refineSearchTerms">
-		
-	</div>
+	<div id="cntr_refineSearchTerms"></div>
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 
@@ -201,15 +193,11 @@
 <cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
 
 
-<cfdump var=#sqlstring#>
 
 
 <cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
-
-made  #session.SpecSrchTab#
-
 
 <!-----
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
