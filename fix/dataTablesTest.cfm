@@ -79,6 +79,10 @@
 <p>
 	pre-select: #session.resultColumnList#
 </p>
+
+<cfif not isdefined(session.resultColumnList) or len(session.resultColumnList) is 0>
+	<cfset session.resultColumnList='GUID'>
+</cfif>
 	<cfquery name="usercols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from (
 			select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL is not null and cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
