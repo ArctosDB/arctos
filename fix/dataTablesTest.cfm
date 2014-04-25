@@ -67,6 +67,15 @@
 
 
 --->
+
+
+
+<cfoutput>
+
+
+
+
+
 <p>
 	pre-select: #session.resultColumnList#
 </p>
@@ -216,7 +225,7 @@ made  #session.SpecSrchTab#
 	select count(*) c from #session.dbuser#.#session.SpecSrchTab#
 </cfquery>	
 	
-<cfoutput>
+
 
 	<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
 
