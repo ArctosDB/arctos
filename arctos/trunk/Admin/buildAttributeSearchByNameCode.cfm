@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select ATTRIBUTE_TYPE from ctattribute_type group by order by ATTRIBUTE_TYPE
+			select ATTRIBUTE_TYPE from ctattribute_type group by ATTRIBUTE_TYPE order by ATTRIBUTE_TYPE
 		</cfquery>
 		
 		<cfquery name="fattrorder" datasource="uam_god">
