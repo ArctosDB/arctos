@@ -42,8 +42,8 @@
 					title: 'SR',
 					type: 'radiobutton',
                     	options: { 
-							'1': 'no',
-                            '2': 'yes'
+							null: 'no',
+                            '1': 'yes'
 						}
 				},
 				SQL_ELEMENT: {title: 'SQL_ELEMENT'}
