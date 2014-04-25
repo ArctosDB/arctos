@@ -88,7 +88,8 @@
 		</cfquery>
 		
 		
-		
+			<cfset x=''>
+
 		
 		
 			<cfloop query="d">
