@@ -50,7 +50,6 @@
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
-	<cftry>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into ssrch_field_doc
 				(
@@ -84,19 +83,26 @@
 		<cfquery name="trc" datasource="uam_god">
 			Select count(*) c from ssrch_field_doc 
 		</cfquery>
-		<cfquery name="new" datasource="uam_god">
+		<cfquery name="d" datasource="uam_god">
 			select * from ssrch_field_doc where CF_VARIABLE='#CF_VARIABLE#'
 		</cfquery>
+		
+		
+		
+		
+		
+			<cfloop query="d">
 		<cfset response = structNew()>
-		<cfloop list="#new.columnlist#" index="cname">
-			<cfset response["#cname#"]=evaluate("new." & cname)>
+		<cfloop list="#d.columnlist#" index="cname">
+			<cfset response["#cname#"]=evaluate("d." & cname)>
 		</cfloop>
 		<cfset thisItem=serializeJSON(response)>
-		<cfset result='{"Result":"OK","Records":[' & thisItem & '],"TotalRecordCount":#trc.c#}'>
-		<cfcatch>
-			<cfset result='{"Result":"ERROR","Message":"#cfcatch.message#: #cfcatch.detail#"}'>
-		</cfcatch>
-	</cftry>
+		<cfset x=listappend(x,thisItem)>
+	</cfloop>
+	<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
+	
+	
+	
 	<cfreturn result>
 </cffunction>
 <!------------------------------------------------------------------------------------------------------------------------------>
