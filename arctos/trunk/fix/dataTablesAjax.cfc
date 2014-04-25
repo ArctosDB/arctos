@@ -26,7 +26,10 @@
 	<cfdump var=#d#>
 --->
 <cfoutput>
-	<!--- CF and jtable don't play well together, so roll our own.... ---->
+	<!--- 
+		CF and jtable don't play well together, so roll our own.... 
+		parseJSON makes horrid invalud datatype assumptions, so we can't use that either.	
+	---->
 	
 	
 	
@@ -35,12 +38,13 @@
 	<cfloop query="d">
 		<cfset trow="">
 		<cfloop list="#d.columnlist#" index="i">
+			<cfset theData=evaluate("d." & i)>
+			<cfset theData=replace(theData,'"','\"',"all")>
 			<cfif i is "guid">
-				<cfset temp ='"GUID":"<a target=\"_blank\" href=\"/guid/' & evaluate("d." & i) &'\">' & evaluate("d." & i) & '</a>"'>
+				<cfset temp ='"GUID":"<a target=\"_blank\" href=\"/guid/' & theData &'\">' &theData & '</a>"'>
 			<cfelse>
-				<cfset temp = '"#i#":"' & evaluate("d." & i) & '"'>
+				<cfset temp = '"#i#":"' & theData & '"'>
 			</cfif>
-			<cfset response["#i#"]=evaluate("d." & i)>
 			<cfset trow=listappend(trow,temp)>
 		</cfloop>
 		<cfset trow="{" & trow & "}">
