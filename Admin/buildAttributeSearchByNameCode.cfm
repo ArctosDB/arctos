@@ -59,7 +59,7 @@
 				<cfset n=n+1>	
 				<cfsavecontent variable="ss">
 					<cfscript>
-						v='<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>'
+						v='<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>';
 					</cfscript>
 					
 					
