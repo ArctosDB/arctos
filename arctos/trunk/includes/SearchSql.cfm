@@ -2190,6 +2190,10 @@
 <cfif isdefined("attribute_operator") AND len(attribute_operator) gt 0>
 	<cfset attOper_1=attribute_operator>
 </cfif>
+<!---- use DDL/admin/buildCFCodeToQueryAttributeByName.sql to build this code ---->
+
+
+<!--- end of code built by DDL/admin/buildCFCodeToQueryAttributeByName.sql ---->
 <cfif isdefined("attribute_value") AND len(attribute_value) gt 0>
 	<cfset attribute_value_1=attribute_value>
 </cfif>
