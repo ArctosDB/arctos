@@ -68,7 +68,11 @@
 
 --->
 <cfquery name="usercols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from ssrch_field_doc where cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
+	select CF_VARIABLE,DISPLAY_TEXT from (
+		select CF_VARIABLE,DISPLAY_TEXT,disp_order from ssrch_field_doc where cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
+		union
+		select CF_VARIABLE,DISPLAY_TEXT,disp_order from ssrch_field_doc where category='required'
+	) group by CF_VARIABLE,DISPLAY_TEXT order by disp_order
 </cfquery>
 
 <cfdump var=#usercols#>
