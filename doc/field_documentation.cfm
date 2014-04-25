@@ -42,7 +42,7 @@
 					title: 'SR',
 					type: 'radiobutton',
                     	options: { 
-							null: 'no',
+							'0': 'no',
                             '1': 'yes'
 						}
 				},
