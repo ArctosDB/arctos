@@ -85,9 +85,9 @@
 </cfif>
 	<cfquery name="usercols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from (
-			select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL is not null and cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
+			select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL =1 and cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
 			union
-			select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL is not null and category='required'
+			select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL =1 and category='required'
 		) group by CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT order by disp_order
 	</cfquery>
 	
