@@ -255,13 +255,15 @@ made  #session.SpecSrchTab#
                 listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
             fields:  {
-				<cfloop query="reqd">
-					<cfif listfindnocase(session.resultcolumnlist,CF_VARIABLE)>
-						#ucase(CF_VARIABLE)#: {title: '#DISPLAY_TEXT#'}
-						<cfif thisLoopNum lt numFlds>,</cfif>
-						<cfset thisLoopNum=thisLoopNum+1>
-					</cfif>
-				</cfloop>
+GUID: {title: 'GUID'}
+, DEC_LAT: {title: 'Decimal Latitude'}
+, DEC_LONG: {title: 'Decimal Longitude'}
+, SEX: {title: 'Sex'}
+, COUNTRY: {title: 'Country'}
+, STATE_PROV: {title: 'State/Province'}
+, SPEC_LOCALITY: {title: 'Specific Locality'}
+, SCIENTIFIC_NAME: {title: 'Identified As'}
+, VERBATIM_DATE: {title: 'Verbatim Date'}			
             }
         });
         $('##specresults').jtable('load');
@@ -269,6 +271,18 @@ made  #session.SpecSrchTab#
 </script>
 
 <!----
+
+
+	<cfloop query="reqd">
+					<cfif listfindnocase(session.resultcolumnlist,CF_VARIABLE)>
+						#ucase(CF_VARIABLE)#: {title: '#DISPLAY_TEXT#'}
+						<cfif thisLoopNum lt numFlds>,</cfif>
+						<cfset thisLoopNum=thisLoopNum+1>
+					</cfif>
+				</cfloop>
+				
+				
+				
 <div id="cpick">
 	Pick Columns
 	<cfloop query="r_d">
