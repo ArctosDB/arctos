@@ -42,7 +42,7 @@
 	</tr>
 </table>
 <cfquery name="poss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL is not null order by column_name
+	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL is not null order by cf_variable
 </cfquery>
 <cfquery name="attribute" dbtype="query">
 	select * from poss where category='attribute'
@@ -55,19 +55,19 @@
 	select * from poss where category IN ('curatorial','specimen')
 </cfquery>
 <cffunction name="displayColumn">
-	<cfargument name="column_name">
+	<cfargument name="cf_variable">
 	<cfargument name="resultColList">
-	<cfif left(column_name,1) is "_">
-		<cfset cname=right(column_name,len(column_name)-1)>
+	<cfif left(cf_variable,1) is "_">
+		<cfset cname=right(cf_variable,len(cf_variable)-1)>
 	<cfelse>
-		<cfset cname=column_name>
+		<cfset cname=cf_variable>
 	</cfif>
 	<cfset retval = "<tr>">
-	<cfset retval = '#retval#<td align="right"><label for="#lcase(column_name)#">#cname#</label></td>'>
+	<cfset retval = '#retval#<td align="right"><label for="#lcase(cf_variable)#">#cname#</label></td>'>
 	<cfset retval = '#retval#<td align="left"><input type="checkbox" 
-			name="#column_name#"
-			id="#lcase(column_name)#"'>
-	<cfif listfindnocase(resultColList,column_name)> 
+			name="#cf_variable#"
+			id="#lcase(cf_variable)#"'>
+	<cfif listfindnocase(resultColList,cf_variable)> 
 		<cfset retval = '#retval#checked="checked"'>
 	</cfif>
 	<cfset retval = '#retval#onchange="if(this.checked==true){crcloo(this.name,''in'')}else{crcloo(this.name,''out'')};"></td></tr>'>
@@ -84,18 +84,18 @@
 		<tr>
 			<td align="center" valign="top">
 				Locality
-				<span class="infoLink" onclick="checkAllById('#lcase(valuelist(locality.column_name))#')">[check all]</span>
-				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(locality.column_name))#')">[check none]</span>
+				<span class="infoLink" onclick="checkAllById('#lcase(valuelist(locality.cf_variable))#')">[check all]</span>
+				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(locality.cf_variable))#')">[check none]</span>
 			</td>
 			<td align="center">
 				Random
-				<span class="infoLink" onclick="checkAllById('#lcase(valuelist(curatorial.column_name))#')">[check all]</span>
-				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(curatorial.column_name))#')">[check none]</span>
+				<span class="infoLink" onclick="checkAllById('#lcase(valuelist(curatorial.cf_variable))#')">[check all]</span>
+				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(curatorial.cf_variable))#')">[check none]</span>
 			</td>
 			<td align="center">
 				Attributes
-				<span class="infoLink" onclick="checkAllById('#lcase(valuelist(attribute.column_name))#')">[check all]</span>
-				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(attribute.column_name))#')">[check none]</span>
+				<span class="infoLink" onclick="checkAllById('#lcase(valuelist(attribute.cf_variable))#')">[check all]</span>
+				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(attribute.cf_variable))#')">[check none]</span>
 			</td>
 		</tr>
 		<tr>
@@ -103,7 +103,7 @@
 				<div style="height:350px; text-align:right; overflow:auto;position:relative;">
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="locality">
-					#displayColumn(column_name,session.resultColumnList)#
+					#displayColumn(cf_variable,session.resultColumnList)#
 				</cfloop>
 			</table>
 				</div>
@@ -112,7 +112,7 @@
 				<div style="height:350px; text-align:right; overflow:auto;position:relative;">
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="curatorial">
-					#displayColumn(column_name,session.resultColumnList)#					
+					#displayColumn(cf_variable,session.resultColumnList)#					
 				</cfloop>
 			</table>
 				</div>
@@ -121,7 +121,7 @@
 				<div style="height:350px; text-align:right; overflow:auto;position:relative;">
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="attribute">	
-					#displayColumn(column_name,session.resultColumnList)#			
+					#displayColumn(cf_variable,session.resultColumnList)#			
 				</cfloop>
 			</table>
 				</div>
