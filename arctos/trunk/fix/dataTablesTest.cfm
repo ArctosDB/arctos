@@ -205,7 +205,7 @@ made  #session.SpecSrchTab#
 </cfquery>	
 	
 <cfoutput>
-<cfset numFlds=r_d.recordcount>
+<cfset numFlds=usercols.recordcount>
 <cfset thisLoopNum=1>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -222,12 +222,10 @@ made  #session.SpecSrchTab#
                 listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
             fields:  {	
-				<cfloop query="reqd">
-					<cfif listfindnocase(session.resultcolumnlist,CF_VARIABLE)>
-						#ucase(CF_VARIABLE)#: {title: '#DISPLAY_TEXT#'}
-						<cfif thisLoopNum lt numFlds>,</cfif>
-						<cfset thisLoopNum=thisLoopNum+1>
-					</cfif>
+				<cfloop query="usercols">
+					#ucase(CF_VARIABLE)#: {title: '#DISPLAY_TEXT#'}
+					<cfif thisLoopNum lt numFlds>,</cfif>
+					<cfset thisLoopNum=thisLoopNum+1>
 				</cfloop>
             }
         });
