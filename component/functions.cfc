@@ -35,7 +35,7 @@
 				});
 			});
 function setThisName(tv){
-	$("##newTerm").attr('name',tv);
+	$("##newValue").attr('name',tv);
 }
 		</script>
 		<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
@@ -134,7 +134,7 @@ function setThisName(tv){
 						</td>
 						<td>=</td>
 						<td>
-							<input type="text" name="newValue" id="newvalue" size="50">
+							<input type="text" name="newValue" id="newValue" size="50">
 						</td>
 					</tr>
 				</cfloop>
