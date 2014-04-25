@@ -126,7 +126,7 @@
 					<tr>
 						<td>
 						
-							<select name="newTerm" id="newTerm" onchange="setThisName(this.value);">
+							<select id="newTerm" onchange="setThisName(this.value);">
 								<option value=''>Add new term</option>
 								<cfloop query="newkeys">
 									<option value="#cf_variable#">#DISPLAY_TEXT#</option>
