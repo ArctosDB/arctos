@@ -24,7 +24,7 @@
 			<cfquery name="tctl" datasource="uam_god">
 				select ATTRIBUTE_TYPE,VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where ATTRIBUTE_TYPE='#ATTRIBUTE_TYPE#' 
 			</cfquery>
-			<cfset attrvar=replace(replace(ATTRIBUTE_TYPE,' ','_','all'),'-','_','all')>
+			<cfset attrvar=replace(replace(replace(ATTRIBUTE_TYPE,' ','_','all'),'-','_','all'),"/","_","all")>
 			<cfset x="
 				insert into ssrch_field_doc (
 					CATEGORY,
@@ -60,9 +60,9 @@
 				<cfsavecontent variable="ss">
 					
 					
-					<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>
+					&lt;cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0&gt;
 						hi
-					</cfif>				<!------------
+					&lt;/cfif&gt;				&lt;!------------
 					
 					<cfscript>
 						<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>';
