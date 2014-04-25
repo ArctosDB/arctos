@@ -34,9 +34,9 @@
 					$('##refineSearchTerms').slideToggle("fast");
 				});
 			});
-function setThisName(tv){
-	$("##newValue").attr('name',tv);
-}
+			function setThisName(tv){
+				$("##newValue").attr('name',tv);
+			}
 		</script>
 		<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 		<div id="refineSearchTerms" style="display:block;">
@@ -118,7 +118,7 @@ function setThisName(tv){
 						</tr>
 					</cfif>
 					<cfquery name="newkeys" dbtype="query">
-						SELECT * FROM ssrch_field_doc WHERE CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
+						SELECT * FROM ssrch_field_doc WHERE specimen_query_term=1 and CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
 					</cfquery>
 
 					<tr>
