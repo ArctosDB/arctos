@@ -113,7 +113,7 @@
 	</tr>
 	<tr>
 		<td>SST</td>
-		<td>Is cf_variable available as a specimen results query term?</td>
+		<td>Is cf_variable available as a specimen results query term? Variable must be handled by /includes/SearchSQL</td>
 	</tr>
 	
 	
@@ -131,7 +131,13 @@
 	</tr>
 	<tr>
 		<td>SQL_ELEMENT</td>
-		<td>SQL to use in building dynamic queries. Don't guess at this.</td>
+		<td>
+			SQL to use in building dynamic queries. Don't guess at this. 
+			<br>To pull from FLAT, use flatTableName.{flat column name} - this is case sensitive. Do not hard-code in flat or filtered_flat.
+			<br>use any Oracle function
+			<br>Only hard-code table names if you KNOW they'll be included in specimenresults. (Hint: none are.)
+		
+		</td>
 	</tr>
 	<tr>
 		<td>DEFINITION</td>

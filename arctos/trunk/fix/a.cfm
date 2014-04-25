@@ -1,6 +1,8 @@
 
 <cfset session.resultColumnList=''>
 
+<cfabort>
+
 
 <cfinclude template="/includes/_header.cfm">
 
