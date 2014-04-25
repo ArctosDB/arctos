@@ -59,7 +59,7 @@
 				<cfset n=n+1>	
 				<cfsavecontent variable="ss">
 					<cfset x='<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>'>
-					<cfset x=x & chr(10) & '<cfset mapurl = "#mapurl#&#attrvar#=#attrvar#">'>
+					<cfset x=x & chr(10) & '<cfset mapurl = "##mapurl##&#attrvar#=#attrvar#">'>
 					#x#
 					
 					
