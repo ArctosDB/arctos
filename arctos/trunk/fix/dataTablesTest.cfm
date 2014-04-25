@@ -67,6 +67,9 @@
 
 
 --->
+<p>
+	pre-select: #session.resultColumnList#
+</p>
 	<cfquery name="usercols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from (
 			select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
@@ -79,6 +82,10 @@
 	
 	<cfdump var=#session.resultColumnList#>
 	
+	
+	<p>
+	post-select: #session.resultColumnList#
+</p>
 	<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
 	<cfif len(session.CustomOtherIdentifier) gt 0>
 		<cfset basSelect = "#basSelect#
@@ -164,6 +171,11 @@
 
 
 <cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
+
+
+<cfdump var=#sqlstring#>
+
+
 <cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
