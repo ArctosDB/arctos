@@ -40,7 +40,7 @@
 			<cfelse>
 				<cfset temp = '"#i#":"' & evaluate("d." & i) & '"'>
 			</cfif>
-			<cfset response["#cname#"]=evaluate("new." & cname)>
+			<cfset response["#i#"]=evaluate("new." & i)>
 			<cfset trow=listappend(trow,temp)>
 		</cfloop>
 		<cfset trow="{" & trow & "}">
