@@ -38,7 +38,14 @@
 				PLACEHOLDER_TEXT: {title: 'PLACEHOLDER'},
 				CATEGORY: {title: 'CATEGORY'},
 				DISP_ORDER: {title: 'ORD'},
-				SPECIMEN_RESULTS_COL: {title: 'SR'},
+				SPECIMEN_RESULTS_COL: {
+					title: 'SR',
+					type: 'radiobutton',
+                    	options: { 
+							'1': 'no',
+                            '2': 'yes'
+						}
+				},
 				SQL_ELEMENT: {title: 'SQL_ELEMENT'}
             }
         });
