@@ -23,8 +23,8 @@
 				<cfloop list="#d.columnlist#" index="i">
 					<cfset theData=evaluate("d." & i)>
 					<cfset theData=replace(theData,'"','\"',"all")>
-					<cfset theData=replace(theData,'{','\{',"all")>
-					<cfset theData=replace(theData,'}','\}',"all")>
+					<cfset theData=replace(theData,'{','X',"all")>
+					<cfset theData=replace(theData,'}','X',"all")>
 					<cfset theData=replace(theData,'[','\[',"all")>
 					<cfset theData=replace(theData,']','\]',"all")>
 					
