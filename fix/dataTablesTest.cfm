@@ -250,6 +250,18 @@ made  #session.SpecSrchTab#
 			});
 		});
     });
+	function closeCustom() {
+		var theDiv = document.getElementById('customDiv');
+		document.body.removeChild(theDiv);
+		var murl='/fix/dataTablesTest.cfm?' + document.getElementById('mapURL').value;
+		window.location=murl;
+	}
+	function closeCustomNoRefresh() {
+		var theDiv = document.getElementById('customDiv');
+		document.body.removeChild(theDiv);	
+		var theDiv = document.getElementById('bgDiv');
+		document.body.removeChild(theDiv);
+	}
 </script>
 
 <!----
