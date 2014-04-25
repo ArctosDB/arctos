@@ -56,7 +56,7 @@
                             '1': 'yes'
 						}
 				},
-				ch_bool_ssterm: {
+				specimen_query_term: {
 					title: 'SST',
 					type: 'radiobutton',
                     	options: { 

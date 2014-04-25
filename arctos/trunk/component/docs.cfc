@@ -46,7 +46,7 @@
 	<cfargument name="DISP_ORDER" type="string" required="false">
 	<cfargument name="SPECIMEN_RESULTS_COL" type="string" required="false">
 	<cfargument name="SQL_ELEMENT" type="string" required="false">	
-	<cfargument name="ch_bool_ssterm" type="string" required="false">	
+	<cfargument name="specimen_query_term" type="string" required="false">	
 	
 					
 	<cfif not isdefined("escapeQuotes")>
@@ -67,7 +67,7 @@
 					DISP_ORDER,
 					SPECIMEN_RESULTS_COL,
 					SQL_ELEMENT,
-					ch_bool_ssterm
+					specimen_query_term
 				) values (
 					'#CF_VARIABLE#',
 					'#escapeQuotes(DEFINITION)#',
@@ -81,7 +81,7 @@
 					'#escapeQuotes(DISP_ORDER)#',
 					'#escapeQuotes(SPECIMEN_RESULTS_COL)#',
 					'#escapeQuotes(SQL_ELEMENT)#',
-					'#ch_bool_ssterm#'
+					'#specimen_query_term#'
 				)
 		</cfquery>
 		<cfquery name="trc" datasource="uam_god">
@@ -142,7 +142,7 @@
 	<cfargument name="DISP_ORDER" type="string" required="false">
 	<cfargument name="SPECIMEN_RESULTS_COL" type="string" required="false">
 	<cfargument name="SQL_ELEMENT" type="string" required="false">
-	<cfargument name="ch_bool_ssterm" type="string" required="false">
+	<cfargument name="specimen_query_term" type="string" required="false">
 	
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
@@ -164,7 +164,7 @@
 				DISP_ORDER = '#escapeQuotes(DISP_ORDER)#',
 				SPECIMEN_RESULTS_COL = '#escapeQuotes(SPECIMEN_RESULTS_COL)#',
 				SQL_ELEMENT = '#escapeQuotes(SQL_ELEMENT)#',
-				ch_bool_ssterm = '#escapeQuotes(ch_bool_ssterm)#'
+				specimen_query_term = '#escapeQuotes(specimen_query_term)#'
 			where 
 				SSRCH_FIELD_DOC_ID=#SSRCH_FIELD_DOC_ID#
 		</cfquery>
