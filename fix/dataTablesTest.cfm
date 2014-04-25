@@ -1,33 +1,33 @@
 <cfinclude template="/includes/_header.cfm">
-<cfset title="this is only a test">
-
-<style>
-	#cpick {
-		max-height:2em;
-		overflow:auto;
-	}
-</style>
-<script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
-
-<link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
-
-<link rel="alternate stylesheet" title="jtable_jqueryui"  href="/fix/jtable/themes/jqueryui/jtable_jqueryui.min.css" type="text/css">
-<link rel="alternate stylesheet" title="jtable_basic"  href="/fix/jtable/themes/basic/jtable_basic.min.css" type="text/css">
-<link rel="alternate stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="lightcolor-gray"  href="/fix/jtable/themes/lightcolor/gray/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="lightcolor-green"  href="/fix/jtable/themes/lightcolor/green/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="lightcolor-orange"  href="/fix/jtable/themes/lightcolor/orange/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="lightcolor-red"  href="/fix/jtable/themes/lightcolor/red/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-blue"  href="/fix/jtable/themes/metro/blue/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-brown"  href="/fix/jtable/themes/metro/brown/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-crimson"  href="/fix/jtable/themes/metro/crimson/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-darkgray"  href="/fix/jtable/themes/metro/darkgray/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-darkorange"  href="/fix/jtable/themes/metro/darkorange/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-green"  href="/fix/jtable/themes/metro/green/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-lightgray"  href="/fix/jtable/themes/metro/lightgray/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-pink"  href="/fix/jtable/themes/metro/pink/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-purple"  href="/fix/jtable/themes/metro/purple/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-red"  href="/fix/jtable/themes/metro/red/jtable.min.css" type="text/css">
+	<cfset title="this is only a test">
+	
+	<style>
+		#cpick {
+			max-height:2em;
+			overflow:auto;
+		}
+	</style>
+	<script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
+	
+	<link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
+	
+	<link rel="alternate stylesheet" title="jtable_jqueryui"  href="/fix/jtable/themes/jqueryui/jtable_jqueryui.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="jtable_basic"  href="/fix/jtable/themes/basic/jtable_basic.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="lightcolor-gray"  href="/fix/jtable/themes/lightcolor/gray/jtable.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="lightcolor-green"  href="/fix/jtable/themes/lightcolor/green/jtable.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="lightcolor-orange"  href="/fix/jtable/themes/lightcolor/orange/jtable.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="lightcolor-red"  href="/fix/jtable/themes/lightcolor/red/jtable.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="metro-blue"  href="/fix/jtable/themes/metro/blue/jtable.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="metro-brown"  href="/fix/jtable/themes/metro/brown/jtable.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="metro-crimson"  href="/fix/jtable/themes/metro/crimson/jtable.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="metro-darkgray"  href="/fix/jtable/themes/metro/darkgray/jtable.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="metro-darkorange"  href="/fix/jtable/themes/metro/darkorange/jtable.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="metro-green"  href="/fix/jtable/themes/metro/green/jtable.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="metro-lightgray"  href="/fix/jtable/themes/metro/lightgray/jtable.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="metro-pink"  href="/fix/jtable/themes/metro/pink/jtable.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="metro-purple"  href="/fix/jtable/themes/metro/purple/jtable.min.css" type="text/css">
+	<link rel="alternate stylesheet" title="metro-red"  href="/fix/jtable/themes/metro/red/jtable.min.css" type="text/css">
 <!--- 
 
 	if this works, global replace cf_spec_res_cols_exp for cf_spec_res_cols
@@ -67,45 +67,32 @@
 
 
 --->
-<cfquery name="usercols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select CF_VARIABLE,DISPLAY_TEXT,disp_order from (
-		select CF_VARIABLE,DISPLAY_TEXT,disp_order from ssrch_field_doc where cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
-		union
-		select CF_VARIABLE,DISPLAY_TEXT,disp_order from ssrch_field_doc where category='required'
-	) group by CF_VARIABLE,DISPLAY_TEXT,disp_order order by disp_order
-</cfquery>
-<cfset session.resultColumnList=valuelist(usercols.CF_VARIABLE)>
-<!---- session.resultColumnList should now be correct and current.... ---->
-
-<cfdump var=#session.resultColumnList#>
-
-<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
-<cfif len(session.CustomOtherIdentifier) gt 0>
-	<cfset basSelect = "#basSelect#
-		,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-		'#session.CustomOtherIdentifier#' as myCustomIdType,
-		to_number(ConcatSingleOtherIdInt(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
-</cfif>
-
-
-	<!----
-
-	<cfif session.username is "dlm">
-		<cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_spec_res_cols
-			where column_name in ('dec_lat','dec_long','collection','cat_num','scientific_name','othercatalognumbers')
-			order by disp_order
-		</cfquery>
+	<cfquery name="usercols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select CF_VARIABLE,DISPLAY_TEXT,disp_order from (
+			select CF_VARIABLE,DISPLAY_TEXT,disp_order from ssrch_field_doc where cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
+			union
+			select CF_VARIABLE,DISPLAY_TEXT,disp_order from ssrch_field_doc where category='required'
+		) group by CF_VARIABLE,DISPLAY_TEXT,disp_order order by disp_order
+	</cfquery>
+	<cfset session.resultColumnList=valuelist(usercols.CF_VARIABLE)>
+	<!---- session.resultColumnList should now be correct and current.... ---->
+	
+	<cfdump var=#session.resultColumnList#>
+	
+	<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
+	<cfif len(session.CustomOtherIdentifier) gt 0>
+		<cfset basSelect = "#basSelect#
+			,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+			'#session.CustomOtherIdentifier#' as myCustomIdType,
+			to_number(ConcatSingleOtherIdInt(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
 	</cfif>
-	---->
 
-
-
-	<cfif left(CF_VARIABLE,1) is not "_" and (
-		ListFindNoCase(session.resultColumnList,CF_VARIABLE) gt 0 OR category is 'required')>
-		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #CF_VARIABLE#">
-	</cfif>
-</cfloop>
+	<cfloop query="usercols">
+		<cfif left(CF_VARIABLE,1) is not "_" and (
+			ListFindNoCase(session.resultColumnList,CF_VARIABLE) gt 0 OR category is 'required')>
+			<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #CF_VARIABLE#">
+		</cfif>
+	</cfloop>
 <cfif ListFindNoCase(session.resultColumnList,"_elev_in_m") gt 0>
 	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
 </cfif>
