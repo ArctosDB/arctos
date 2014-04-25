@@ -62,7 +62,11 @@
 					
 					&lt;cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0&gt;
 						hi
-					&lt;/cfif&gt;				&lt;!------------
+					&lt;/cfif&gt;				
+					
+					
+					
+					<!------------
 					
 					<cfscript>
 						<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>';
