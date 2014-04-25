@@ -170,7 +170,6 @@
 
 made  #session.SpecSrchTab#
 
-	<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
 
 <!-----
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -206,6 +205,11 @@ made  #session.SpecSrchTab#
 </cfquery>	
 	
 <cfoutput>
+
+	<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
+
+
+
 <cfset numFlds=usercols.recordcount>
 <cfset thisLoopNum=1>
 <script type="text/javascript">
