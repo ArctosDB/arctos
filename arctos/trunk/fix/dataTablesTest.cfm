@@ -294,6 +294,11 @@ made  #session.SpecSrchTab#
 				viewport.init("##customDiv");
 			});
 		});
+
+		var ptl='/component/functions.cfc?method=get_specSrchTermWidget&returnformat=plain';
+		jQuery.get(ptl, function(data){
+			jQuery("##cntr_refineSearchTerms").html(data);
+		});
     });
 	function closeCustom() {
 		var theDiv = document.getElementById('customDiv');
@@ -334,7 +339,7 @@ made  #session.SpecSrchTab#
 
 						<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
 
-
+<div id="cntr_refineSearchTerms"></div>
 
 <div id="specresults"></div>
 </cfoutput>
