@@ -56,6 +56,14 @@
                             '1': 'yes'
 						}
 				},
+				ch_bool_ssterm: {
+					title: 'SST',
+					type: 'radiobutton',
+                    	options: { 
+							'0': 'no',
+                            '1': 'yes'
+						}
+				},
 				SQL_ELEMENT: {title: 'SQL_ELEMENT'}
             }
         });
@@ -101,13 +109,20 @@
 	</tr>
 	<tr>
 		<td>SR</td>
-		<td>Is the element available as a column in specimenresults? Don't guess at this. 0 or 1</td>
+		<td>Is the element available as a column in specimenresults?</td>
 	</tr>
 	<tr>
+		<td>SST</td>
+		<td>Is cf_variable available as a specimen results query term?</td>
+	</tr>
+	
+	
+	<tr>
 		<td>ORD</td>
-		<td>Order (left to right) in which to display columns on specimenresults. This is a unique number and serves only to order things. If "1" and "2" exist,
+		<td>Order (left to right) in which to display columns on specimenresults (and elsewhere). 
+		This is a unique number and serves only to order things. If "1" and "2" exist,
 			and you need a value in between, just use 1.5. Don't worry about whole numbers or gaps. The data will periodically be "integerized"; don't try to find
-			permanent value in the numbers you supply.
+			permanent value in the numbers you supply. Use this to group terms within category, to keep related columns close together, etc.
 		</td>
 	</tr>
 	<tr>

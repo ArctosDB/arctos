@@ -91,7 +91,6 @@
 	<cfset session.resultColumnList=valuelist(usercols.CF_VARIABLE)>
 	<!---- session.resultColumnList should now be correct and current.... ---->
 	
-	<cfdump var=#session.resultColumnList#>
 	
 	
 	<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
