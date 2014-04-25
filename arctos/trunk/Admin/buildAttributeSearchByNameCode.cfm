@@ -56,13 +56,15 @@
 				
 				<cfset n=n+1>	
 				<cfsavecontent variable="ss">
+					
+					
+					i like crackers
+					<!------------
+					
 					<cfscript>
-						v='<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>';
+						<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>';
 					</cfscript>
 					
-					
-					
-					<!------------
 					<cfset mapurl = "#mapurl#&attribute_type_1=#attribute_type_1#">
 					<cfif basJoin does not contain " attributes_1 ">
 						<cfset basJoin = " #basJoin# INNER JOIN v_attributes attributes_1 ON (#session.flatTableName#.collection_object_id = attributes_1.collection_object_id)">
