@@ -42,7 +42,7 @@
 	</tr>
 </table>
 <cfquery name="poss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from cf_spec_res_cols order by column_name
+	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL is not null order by column_name
 </cfquery>
 <cfquery name="attribute" dbtype="query">
 	select * from poss where category='attribute'
