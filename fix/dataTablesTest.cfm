@@ -295,7 +295,7 @@ made  #session.SpecSrchTab#
 			});
 		});
 
-		var ptl='/component/functions.cfc?method=get_specSrchTermWidget&returnformat=plain';
+		var ptl='/component/functions.cfc?method=get_specSrchTermWidget_exp&returnformat=plain';
 		jQuery.get(ptl, function(data){
 			jQuery("##cntr_refineSearchTerms").html(data);
 		});
