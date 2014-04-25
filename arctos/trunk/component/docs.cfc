@@ -145,12 +145,12 @@
 				DEFINITION = '#escapeQuotes(DEFINITION)#',
 				DOCUMENTATION_LINK = '#escapeQuotes(DOCUMENTATION_LINK)#',
 				PLACEHOLDER_TEXT = '#escapeQuotes(PLACEHOLDER_TEXT)#',
-				DISPLAY_TEXT = '#escapeQuotes(PLACEHOLDER_TEXT)#',
-				SEARCH_HINT = '#escapeQuotes(PLACEHOLDER_TEXT)#',
-				CATEGORY = '#escapeQuotes(PLACEHOLDER_TEXT)#',
-				DISP_ORDER = '#escapeQuotes(PLACEHOLDER_TEXT)#',
-				SPECIMEN_RESULTS_COL = '#escapeQuotes(PLACEHOLDER_TEXT)#',
-				SQL_ELEMENT = '#escapeQuotes(PLACEHOLDER_TEXT)#'
+				DISPLAY_TEXT = '#escapeQuotes(DISPLAY_TEXT)#',
+				SEARCH_HINT = '#escapeQuotes(SEARCH_HINT)#',
+				CATEGORY = '#escapeQuotes(CATEGORY)#',
+				DISP_ORDER = '#escapeQuotes(DISP_ORDER)#',
+				SPECIMEN_RESULTS_COL = '#escapeQuotes(SPECIMEN_RESULTS_COL)#',
+				SQL_ELEMENT = '#escapeQuotes(SQL_ELEMENT)#'
 			where 
 				SSRCH_FIELD_DOC_ID=#SSRCH_FIELD_DOC_ID#
 		</cfquery>
