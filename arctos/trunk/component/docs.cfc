@@ -100,7 +100,7 @@
 		<cfset thisItem=serializeJSON(response)>
 		<cfset x=listappend(x,thisItem)>
 	</cfloop>
-	<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
+	<cfset result='{"Result":"OK","Record":[' & x & ']}'>
 	
 	
 	
