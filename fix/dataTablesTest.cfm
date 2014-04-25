@@ -67,11 +67,15 @@
 
 
 --->
+<cfquery name="usercols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select * from ssrch_field_doc where cf_variable in ( (#listqualify(lcase(session.resultColumnList),chr(39))#)
+</cfquery>
 
-
+<cfdump var=#usercols#>
 
 <!--- everything that MIGHT be returned ---->
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	
 	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL is not null order by disp_order
 </cfquery>
 
@@ -254,16 +258,14 @@ made  #session.SpecSrchTab#
 			actions: {
                 listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
-            fields:  {
-GUID: {title: 'GUID'}
-, DEC_LAT: {title: 'Decimal Latitude'}
-, DEC_LONG: {title: 'Decimal Longitude'}
-, SEX: {title: 'Sex'}
-, COUNTRY: {title: 'Country'}
-, STATE_PROV: {title: 'State/Province'}
-, SPEC_LOCALITY: {title: 'Specific Locality'}
-, SCIENTIFIC_NAME: {title: 'Identified As'}
-, VERBATIM_DATE: {title: 'Verbatim Date'}			
+            fields:  {	
+				<cfloop query="reqd">
+					<cfif listfindnocase(session.resultcolumnlist,CF_VARIABLE)>
+						#ucase(CF_VARIABLE)#: {title: '#DISPLAY_TEXT#'}
+						<cfif thisLoopNum lt numFlds>,</cfif>
+						<cfset thisLoopNum=thisLoopNum+1>
+					</cfif>
+				</cfloop>
             }
         });
         $('##specresults').jtable('load');
@@ -273,13 +275,7 @@ GUID: {title: 'GUID'}
 <!----
 
 
-	<cfloop query="reqd">
-					<cfif listfindnocase(session.resultcolumnlist,CF_VARIABLE)>
-						#ucase(CF_VARIABLE)#: {title: '#DISPLAY_TEXT#'}
-						<cfif thisLoopNum lt numFlds>,</cfif>
-						<cfset thisLoopNum=thisLoopNum+1>
-					</cfif>
-				</cfloop>
+
 				
 				
 				
