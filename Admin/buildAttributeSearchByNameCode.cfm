@@ -58,12 +58,9 @@
 				
 				<cfset n=n+1>	
 				<cfsavecontent variable="ss">
+					<cfset x='<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>'>
 					
-					
-					&lt;cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0&gt;
-						hi
-					&lt;/cfif&gt;				
-					
+					#x#
 					
 					
 					<!------------
