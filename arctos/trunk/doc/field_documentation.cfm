@@ -38,6 +38,7 @@
 				PLACEHOLDER_TEXT: {title: 'PLACEHOLDER'},
 				CATEGORY: {title: 'CATEGORY',
 					options: { 
+						'': '-not specresults-',
 						'locality': 'locality', 
 						'specimen': 'specimen',
 						'required': 'required',
