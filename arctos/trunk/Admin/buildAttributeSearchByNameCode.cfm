@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-	<cfoutput>
+	
 		<cfquery name="d" datasource="uam_god">
 			select ATTRIBUTE_TYPE from ctattribute_type group by ATTRIBUTE_TYPE order by ATTRIBUTE_TYPE
 		</cfquery>
@@ -25,6 +25,7 @@
 				select ATTRIBUTE_TYPE,VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where ATTRIBUTE_TYPE='#ATTRIBUTE_TYPE#' 
 			</cfquery>
 			<cfset attrvar=replace(replace(replace(ATTRIBUTE_TYPE,' ','_','all'),'-','_','all'),"/","_","all")>
+			<cfoutput>
 			<cfset x="
 				insert into ssrch_field_doc (
 					CATEGORY,
@@ -55,12 +56,10 @@
 					#n#,
 					1
 				);">
-				
+				</cfoutput>
 				<cfset n=n+1>	
 				<cfsavecontent variable="ss">
-					<cfset x='<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>'>
-					
-					#x#
+					<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>
 					
 					
 					<!------------
@@ -141,5 +140,5 @@
 				variables.josrch_field_doc.close();
 				variables.f_ss_doc.close();
 			</cfscript>
-	</cfoutput>
+	
 <cfinclude template="/includes/_footer.cfm">
