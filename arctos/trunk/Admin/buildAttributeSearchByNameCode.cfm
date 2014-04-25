@@ -52,10 +52,8 @@
 					1,
 					#n#,
 					1
-				)">
-				<cfscript>
-					variables.josrch_field_doc.writeLine(x);
-				</cfscript>	
+				);">
+				
 				<cfset n=n+1>	
 				<cfsavecontent variable="ss">
 					<cfscript>
@@ -122,9 +120,19 @@
 					
 					
 				</cfsavecontent>
+				
+				<cfscript>
+					variables.josrch_field_doc.writeLine(x);
+					variables.f_ss_doc.writeLine(ss);
+
+
+				</cfscript>	
+				
+				
 			</cfloop>
 			<cfscript>	
 				variables.josrch_field_doc.close();
+				variables.f_ss_doc.close();
 			</cfscript>
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
