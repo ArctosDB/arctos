@@ -5,7 +5,7 @@
 		</cfquery>
 		
 		<cfquery name="fattrorder" datasource="uam_god">
-			select min(DISP_ORDER) mdo from srch_field_doc where CATEGORY='attribute'
+			select min(DISP_ORDER) mdo from ssrch_field_doc where CATEGORY='attribute'
 		</cfquery>
 		
 		<cfset n=fattrorder.mdo>
@@ -24,7 +24,7 @@
 			</cfquery>
 			<cfset attrvar=replace(replace(ATTRIBUTE_TYPE,' ','_','all'),'-','_','all')>
 			<cfset x="
-				insert into srch_field_doc (
+				insert into ssrch_field_doc (
 					CATEGORY,
 					CF_VARIABLE,
 					CONTROLLED_VOCABULARY,
