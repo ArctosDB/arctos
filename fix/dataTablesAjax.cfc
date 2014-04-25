@@ -33,6 +33,23 @@
 	
 	<cfset x=''>
 	<cfloop query="d">
+		<cfset trow="">
+		<cfloop list="#d.columnlist#" index="i">
+			<cfif i is "guid">
+				<cfset temp ='"GUID":"<a target=\"_blank\" href=\"/guid/' & evaluate("d." & i) &'\">' & evaluate("d." & i) & '</a>"'>
+			<cfelse>
+				<cfset temp = '"#i#":"' & evaluate("d." & i) & '"'>
+			</cfif>
+			<cfset response["#cname#"]=evaluate("new." & cname)>
+			<cfset trow=listappend(trow,temp)>
+		</cfloop>
+		<cfset trow="{" & trow & "}">
+		<cfset x=listappend(x,trow)>
+		
+		
+		<!----
+		
+		
 		<cfset response = structNew()>
 		<cfloop list="#d.columnlist#" index="i">
 			<!---
@@ -72,19 +89,7 @@
 		
 		
 		<cfset x=x & thisItem>
-		<!----
-		<cfset trow="">
-		<cfloop list="#d.columnlist#" index="i">
-			<cfif i is "guid">
-				<cfset temp ='"GUID":"<a target=\"_blank\" href=\"/guid/' & evaluate("d." & i) &'\">' & evaluate("d." & i) & '</a>"'>
-			<cfelse>
-				<cfset temp = '"#i#":"' & evaluate("d." & i) & '"'>
-			</cfif>
-			<cfset response["#cname#"]=evaluate("new." & cname)>
-			<cfset trow=listappend(trow,temp)>
-		</cfloop>
-		<cfset trow="{" & trow & "}">
-		<cfset x=listappend(x,trow)>
+		
 		
 		
 		---->
