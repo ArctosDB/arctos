@@ -86,6 +86,8 @@
 			select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where category='required'
 		) group by CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT order by disp_order
 	</cfquery>
+	
+	<cfdump var=#usercols#>
 	<cfset session.resultColumnList=valuelist(usercols.CF_VARIABLE)>
 	<!---- session.resultColumnList should now be correct and current.... ---->
 	
