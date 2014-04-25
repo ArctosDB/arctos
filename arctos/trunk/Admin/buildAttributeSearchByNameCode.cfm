@@ -16,7 +16,9 @@
 
 		<cfscript>
 			variables.josrch_field_doc = createObject('Component', '/component.FileWriter').init(variables.f_srch_field_doc, variables.encoding, 32768);
-			variables.josrch_field_doc.writeLine("delete from srch_field_doc where CATEGORY='attribute';"); 
+			variables.josrch_field_doc.writeLine("delete from srch_field_doc where CATEGORY='attribute';");
+			variables.f_ss_doc = createObject('Component', '/component.FileWriter').init(variables.f_ss_doc, variables.encoding, 32768);
+
 		</cfscript>
 		<cfloop query="d">
 			<cfquery name="tctl" datasource="uam_god">
@@ -125,7 +127,7 @@
 				
 				<cfscript>
 					variables.josrch_field_doc.writeLine(x);
-					variables.f_ss_doc.writeLine(x);
+					variables.f_ss_doc.writeLine(ss);
 
 
 
