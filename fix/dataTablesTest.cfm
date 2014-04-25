@@ -68,7 +68,7 @@
 
 --->
 <cfquery name="usercols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from ssrch_field_doc where cf_variable in ((#listqualify(lcase(session.resultColumnList),chr(39))#))
+	select * from ssrch_field_doc where cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
 </cfquery>
 
 <cfdump var=#usercols#>
