@@ -104,12 +104,16 @@
 			to_number(ConcatSingleOtherIdInt(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
 	</cfif>
 
+<!----
 	<cfloop query="usercols">
 		<cfif left(CF_VARIABLE,1) is not "_" and (
 			ListFindNoCase(session.resultColumnList,CF_VARIABLE) gt 0 OR category is 'required')>
 			<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #CF_VARIABLE#">
 		</cfif>
 	</cfloop>
+	
+	---->
+	
 	
 	<!----
 <cfif ListFindNoCase(session.resultColumnList,"_elev_in_m") gt 0>
