@@ -170,6 +170,7 @@
 
 made  #session.SpecSrchTab#
 
+	<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
 
 <!-----
 <cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
