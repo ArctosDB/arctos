@@ -23,6 +23,12 @@
 				<cfloop list="#d.columnlist#" index="i">
 					<cfset theData=evaluate("d." & i)>
 					<cfset theData=replace(theData,'"','\"',"all")>
+					<cfset theData=replace(theData,'{','\{',"all")>
+					<cfset theData=replace(theData,'}','\}',"all")>
+					<cfset theData=replace(theData,'[','\[',"all")>
+					<cfset theData=replace(theData,']','\]',"all")>
+					
+					
 					<cfif i is "guid">
 						<cfset temp ='"GUID":"<a target=\"_blank\" href=\"/guid/' & theData &'\">' &theData & '</a>"'>
 					<cfelse>
