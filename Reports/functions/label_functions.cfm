@@ -30,6 +30,7 @@
 	<cfset Ar_part_name = ArrayNew(1)>
 	<cfset Ar_storage = ArrayNew(1)>
 	<cfset Ar_hasTissues = ArrayNew(1)>
+	<cfset Ar_partsWithCount = ArrayNew(1)>
 	<cfset i=1>
 	<cfloop query="d">
 		<cfset ic=0>
@@ -44,8 +45,14 @@
 		<cfset tissues=''>
 		<cfset storage='unknown'>
 		<cfset part='unknown'>
+		<cfset pwc=''>
 		<cfset rlc=0>
 		<cfloop query="parts">
+			<cfif len(pwc) is 0>
+				<cfset pwc="#lot_count# #part_name#">
+			<cfelse>
+				<cfset pwc="#pwc#, #lot_count# #part_name#">
+			</cfif>
 			<cfif part_name contains "frozen">
 				<cfset tissues=part_name>
 			<cfelseif part_name contains "ethanol">
@@ -59,9 +66,9 @@
 				<cfset rlc=rlc+lot_count>
 			</cfif>
 		</cfloop>
-		<cfset Ar_individual_summary[i] = 'test'>
 		<cfset Ar_part_name[i] = part>
 		<cfset Ar_hasTissues[i] = tissues>
+		<cfset Ar_partsWithCount[i] = pwc>
 		<cfset Ar_individual_summary[i] = rlc & ' ' & part>
 		<cfset i=i+1>		
 	</cfloop>
@@ -69,6 +76,9 @@
 	<cfset temp=queryAddColumn(d,"part_name","VarChar",Ar_part_name)>
 	<cfset temp=queryAddColumn(d,"storage","VarChar",Ar_storage)>
 	<cfset temp=queryAddColumn(d,"hasTissues","VarChar",Ar_hasTissues)>
+	<cfset temp=queryAddColumn(d,"partsWithCount","VarChar",Ar_partsWithCount)>
+	
+	
   <cfreturn d>
 </cffunction>
 <!-------------------------------------------------------------->
