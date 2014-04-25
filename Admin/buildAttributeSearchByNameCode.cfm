@@ -125,7 +125,8 @@
 				
 				<cfscript>
 					variables.josrch_field_doc.writeLine(x);
-					variables.f_ss_doc.writeLine(ss);
+					variables.f_ss_doc.writeLine(x);
+
 
 
 				</cfscript>	
