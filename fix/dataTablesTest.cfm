@@ -110,6 +110,8 @@
 			<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #CF_VARIABLE#">
 		</cfif>
 	</cfloop>
+	
+	<!----
 <cfif ListFindNoCase(session.resultColumnList,"_elev_in_m") gt 0>
 	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
 </cfif>
@@ -126,6 +128,7 @@
 <cfif ListFindNoCase(session.resultColumnList,"_original_elevation") gt 0>
 	<cfset basSelect = "#basSelect#,#session.flatTableName#.MINIMUM_ELEVATION,#session.flatTableName#.MAXIMUM_ELEVATION,#session.flatTableName#.ORIG_ELEV_UNITS">
 </cfif>
+---->
 	<cfset basFrom = " FROM #session.flatTableName#">
 	<cfset basJoin = "">
 	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
