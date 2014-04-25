@@ -68,41 +68,14 @@
 
 --->
 <cfquery name="usercols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select CF_VARIABLE,DISPLAY_TEXT from (
+	select CF_VARIABLE,DISPLAY_TEXT,disp_order from (
 		select CF_VARIABLE,DISPLAY_TEXT,disp_order from ssrch_field_doc where cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
 		union
 		select CF_VARIABLE,DISPLAY_TEXT,disp_order from ssrch_field_doc where category='required'
-	) group by CF_VARIABLE,DISPLAY_TEXT order by disp_order
+	) group by CF_VARIABLE,DISPLAY_TEXT,disp_order order by disp_order
 </cfquery>
-
-<cfdump var=#usercols#>
-
-<!--- everything that MIGHT be returned ---->
-<cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	
-	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL is not null order by disp_order
-</cfquery>
-
-
-
-<!--- stuff that MUST be returned --->
-<cfquery name="reqd" dbtype="query">
-	select * from r_d where category='required'
-</cfquery>
-
-
-
-<cfloop query="reqd">
-	<cfif ListFindNoCase(session.resultColumnList,CF_VARIABLE) is 0>
-		<cfset session.resultColumnList = ListAppend(session.resultColumnList, CF_VARIABLE)>
-	</cfif>
-</cfloop>
-<!---- session.resultColumnList should now be correct.... ---->
-
-
-<cfset session.resultColumnList=valuelist(reqd.CF_VARIABLE)>
-
-
+<cfset session.resultColumnList=valuelist(usercols.CF_VARIABLE)>
+<!---- session.resultColumnList should now be correct and current.... ---->
 
 <cfdump var=#session.resultColumnList#>
 
@@ -128,7 +101,6 @@
 
 
 
-<cfloop query="r_d">
 	<cfif left(CF_VARIABLE,1) is not "_" and (
 		ListFindNoCase(session.resultColumnList,CF_VARIABLE) gt 0 OR category is 'required')>
 		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #CF_VARIABLE#">
