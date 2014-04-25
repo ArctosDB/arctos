@@ -80,7 +80,7 @@
 	pre-select: #session.resultColumnList#
 </p>
 
-<cfif not isdefined(session.resultColumnList) or len(session.resultColumnList) is 0>
+<cfif not isdefined("session.resultColumnList") or len(session.resultColumnList) is 0>
 	<cfset session.resultColumnList='GUID'>
 </cfif>
 	<cfquery name="usercols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
