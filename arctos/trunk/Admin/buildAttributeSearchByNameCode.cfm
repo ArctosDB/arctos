@@ -60,8 +60,9 @@
 				<cfsavecontent variable="ss">
 					
 					
-					i like crackers
-					<!------------
+					<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>
+						hi
+					</cfif>				<!------------
 					
 					<cfscript>
 						<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>';
