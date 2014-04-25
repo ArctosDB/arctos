@@ -27,6 +27,7 @@
 					<cfset theData=replace(theData,'}','X',"all")>
 					<cfset theData=replace(theData,'[','\[',"all")>
 					<cfset theData=replace(theData,']','\]',"all")>
+					<cfset theData=replace(theData,chr(10),'C10',"all")>
 					
 					
 					<cfif i is "guid">
