@@ -66,7 +66,7 @@
 				---->
 				<cfsavecontent variable="ss">
 					<cfset x='<cfif isdefined("#attrvar#")>'>
-					<cfset x=x & '<cfset mapurl = "##mapurl##&#attrvar#=###attrvar###">'>
+					<cfset x=x & chr(10) & '<cfset mapurl = "##mapurl##&#attrvar#=###attrvar###">'>
 					<cfset x=x & '<cfset basJoin = " ##basJoi#n# INNER JOIN v_attributes t_#attrvar# ON (##session.flatTableName##.collection_object_id = t_#attrvar#.collection_object_id)">'>
 					<cfset x=x & '<cfset basQual = " ##basQual## AND t_#attrvar#.attribute_type = ''#ATTRIBUTE_TYPE#''">'>
 					<cfset x=x & '<cfif session.flatTableName is not "flat">'>
