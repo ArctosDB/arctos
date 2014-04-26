@@ -1,23 +1,17 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
 	
-		<cfquery name="dispo" datasource="uam_god">
-			select disp_order from ssrch_field_doc order by disp_order
-		</cfquery>
 		
-		<cfdump var=#dispo#>
-	
-
 
 
 		<cfquery name="d" datasource="uam_god">
 			select ATTRIBUTE_TYPE from ctattribute_type group by ATTRIBUTE_TYPE order by ATTRIBUTE_TYPE
 		</cfquery>
 		<cfquery name="fattrorder" datasource="uam_god">
-			select min(DISP_ORDER) mdo from ssrch_field_doc where CATEGORY='attribute'
+			select max(DISP_ORDER) mdo from ssrch_field_doc
 		</cfquery>
 		
-		<cfset n=ceiling(fattrorder.mdo)>
+		<cfset n=ceiling(fattrorder.mdo) +1>
 		
 			
 		<cfset variables.encoding="UTF-8">
