@@ -206,10 +206,15 @@
 		<cfloop list="#d.columnlist#" index="i">
 			<cfset theData=evaluate("d." & i)>
 			
-			<cfdump var=#theData#>
+			d1:<cfdump var=#theData#>
 			
 			<cfset theData=replace(theData,'"','\"',"all")>
 			<cfset theData=replace(theData,chr(10),'<br>',"all")>
+			
+			d3:<cfdump var=#theData#>
+			
+			
+			
 			<cfset temp = '"#i#":"' & theData & '"'>
 			<cfdump var=#temp#>
 			<cfset trow=listappend(trow,temp)>
