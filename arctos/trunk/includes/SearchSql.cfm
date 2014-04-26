@@ -177,7 +177,7 @@
             <cfset srchval=right(SNV_results,len(SNV_results)-1)>
         <cfelse>
             <cfset oper="like">
-            <cfset srchval="'%#ucase((SNV_results)#%'">
+            <cfset srchval="'%#ucase(SNV_results)#%'">
          </cfif>
         <cfset basQual = " #basQual# AND upper(t_SNV_results.attribute_value) #oper# #srchval#">
     </cfif>

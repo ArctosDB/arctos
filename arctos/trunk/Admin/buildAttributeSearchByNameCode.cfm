@@ -75,7 +75,7 @@
 			<cfset x=x & chr(10) & '            <cfset srchval=right(#attrvar#,len(#attrvar#)-1)>'>
 			<cfset x=x & chr(10) & '        <cfelse>'>
 			<cfset x=x & chr(10) & '            <cfset oper="like">'>
-			<cfset x=x & chr(10) & '            <cfset srchval="''%##ucase((#attrvar#)##%''">'>
+			<cfset x=x & chr(10) & '            <cfset srchval="''%##ucase(#attrvar#)##%''">'>
 			<cfset x=x & chr(10) & '         </cfif>'>
 			<cfset x=x & chr(10) & '        <cfset basQual = " ##basQual## AND upper(t_#attrvar#.attribute_value) ##oper## ##srchval##">'>
 			<cfset x=x & chr(10) & '    </cfif>'>
