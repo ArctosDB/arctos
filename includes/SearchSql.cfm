@@ -141,24 +141,19 @@
 		<cfelseif  left(age_class,1) is "!">
 			<cfset oper="!=">
 			<cfset srchval="'#ucase(right(age_class,len(age_class)-1))#'">
-		<!----
 		<cfelseif  left(age_class,1) is "<">
-			<cfset oper="lessthan">
-			<cfset srchval=ucase(right(age_class,len(age_class)-1))>
+			<cfset oper="<">
+			<cfset srchval=right(age_class,len(age_class)-1)>
 		<cfelseif  left(age_class,1) is ">">
-			<cfset oper="greaterthan">
-			<cfset srchval=ucase(right(age_class,len(age_class)-1))>
-		---->
+			<cfset oper=">">
+			<cfset srchval=right(age_class,len(age_class)-1)>
 		<cfelse>
 			<cfset oper="like">
 			<cfset srchval="'%#ucase(age_class)#%'">
 		</cfif>
 		<cfset basQual = " #basQual# AND upper(t_age_class.attribute_value) #oper# #srchval#">'>
 	</cfif>
-	
 </cfif>
-
-
 
 
 <cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
