@@ -73,7 +73,6 @@
 			<cfset x=x & chr(10) & '    <cfif session.flatTableName is not "flat">'>
 			<cfset x=x & chr(10) & '        <cfset basQual = " ##basQual## AND t_#attrvar#.is_encumbered = 0">'>
 			<cfset x=x & chr(10) & '    </cfif>'>
-			<cfset x=x & chr(10) & '    <cfset extendedErrorMsg=listappend(extendedErrorMsg,''Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and <a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">code table datatypes</a> documentation.'',";")>'> 
 			<cfset x=x & chr(10) & '    <cfset schunits="">'>
 			<cfset x=x & chr(10) & '    <cfif len(#attrvar#) gt 0>'>
 			<cfset x=x & chr(10) & '        <cfset oper=left(#attrvar#,1)>'>
