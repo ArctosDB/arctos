@@ -154,11 +154,9 @@
 		<cfset basQual = " #basQual# AND upper(t_age_class.attribute_value) #oper# #srchval#">'>
 	</cfif>
 </cfif>
-
-
 <cfif isdefined("SNV_results")>
     <cfset mapurl = "#mapurl#&SNV_results=#SNV_results#">
-    <cfset basJoin = " #basJoi22.1 INNER JOIN v_attributes t_SNV_results ON (#session.flatTableName#.collection_object_id = t_SNV_results.collection_object_id)">
+    <cfset basJoin = " #basJoin# INNER JOIN v_attributes t_SNV_results ON (#session.flatTableName#.collection_object_id = t_SNV_results.collection_object_id)">
     <cfset basQual = " #basQual# AND t_SNV_results.attribute_type = 'SNV results'">
     <cfif session.flatTableName is not "flat">
         <cfset basQual = " #basQual# AND t_SNV_results.is_encumbered = 0">
@@ -184,8 +182,6 @@
         <cfset basQual = " #basQual# AND upper(t_SNV_results.attribute_value) #oper# #srchval#">
     </cfif>
 </cfif>
-
-
 
 
 <cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
