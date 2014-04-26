@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+	<cfset title="attribtue search builder thingee">
 	<cfoutput>
 	
 		
