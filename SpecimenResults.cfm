@@ -276,6 +276,9 @@ function removeHelpDiv() {
 			<li>
 				<a href="/contact.cfm">Contact us</a> if you still can't find what you need. We'll help if we can.
 			</li>
+			<cfif isdefined("extendedErrorMsg") and len(extendedErrorMsg) gt 0>
+				<li>#extendedErrorMsg#</li>
+			</cfif>
 		</ul>
 	</div>
 	<cfabort>

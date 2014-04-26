@@ -1,3 +1,4 @@
+<cfset extendedErrorMsg="">
 <cfif not isdefined("basQual")>
 	<cfset basQual = "">
 </cfif>
@@ -106,6 +107,59 @@
 
 
 <!--------------------------- / end old stuff --------------------------------------->
+
+
+
+
+<cfif isdefined("age_class")>
+	<cfset mapurl = "#mapurl#&age_class=#age_class#">
+	<cfset basJoin = " #basJoin# INNER JOIN v_attributes t_age_class ON (#session.flatTableName#.collection_object_id =t_age_class.collection_object_id)">
+	<cfset basQual = " #basQual# AND t_age_class.attribute_type = 'age class'">
+	<cfif session.flatTableName is not "flat">
+		<cfset basQual = " #basQual# AND t_age_class.is_encumbered = 0">
+	</cfif>
+	<cfset extendedErrorMsg=listappend(extendedErrorMsg,'Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and <a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">code table datatypes</a> documentation.',";")> 
+	<!--- if they passed in only the variable, all we need is the join and encumbrance check ----> 
+	<cfif len(age_class) gt 0>
+		<!--- they also passed in some limitations ---->
+		<!--- 
+			for categorical and string attributes, accept:
+				{value} - contains
+				={value} - exact case-insensitive
+				!{value} - not value
+			for number+units attributes, accept:
+				{value} - contains
+				={value} - exact case-insensitive
+				!{value} - not value	
+				<{value} - less than - numeric only
+				>{value} - greater than - numeric only
+				[=!<>] number-space-units
+		--->
+		<cfif left(age_class,1) is "=">
+			<cfset oper="=">
+			<cfset srchval="'#ucase(right(age_class,len(age_class)-1))#'">
+		<cfelseif  left(age_class,1) is "!">
+			<cfset oper="!=">
+			<cfset srchval="'#ucase(right(age_class,len(age_class)-1))#'">
+		<!----
+		<cfelseif  left(age_class,1) is "<">
+			<cfset oper="lessthan">
+			<cfset srchval=ucase(right(age_class,len(age_class)-1))>
+		<cfelseif  left(age_class,1) is ">">
+			<cfset oper="greaterthan">
+			<cfset srchval=ucase(right(age_class,len(age_class)-1))>
+		---->
+		<cfelse>
+			<cfset oper="like">
+			<cfset srchval="'%#ucase(age_class)#%'">
+		</cfif>
+	</cfif>
+	<cfset basQual = " #basQual# AND upper(t_age_class.attribute_value) #oper# '#srchval#'">'>
+</cfif>
+
+
+
+
 <cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
 	<cfset mapurl = "#mapurl#&cataloged_item_type=#cataloged_item_type#">
 	<cfset basQual = "#basQual#  AND  #session.flatTableName#.cataloged_item_type='#cataloged_item_type#'" >
@@ -1042,6 +1096,8 @@
 	<cfset basQual = " #basQual# AND #session.flatTableName#.made_date <= '#end_made_date#'">
 	<cfset mapurl = "#mapurl#&end_made_date=#end_made_date#">
 </cfif>
+
+
 <cfif isdefined("family") AND len(family) gt 0>
 	<cfset mapurl = "#mapurl#&family=#family#">
 	<cfif left(family,1) is '='>
