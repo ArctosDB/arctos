@@ -20,36 +20,36 @@
 				select ATTRIBUTE_TYPE,VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where ATTRIBUTE_TYPE='#ATTRIBUTE_TYPE#' 
 			</cfquery>
 			<cfset attrvar=replace(replace(replace(ATTRIBUTE_TYPE,' ','_','all'),'-','_','all'),"/","_","all")>
-			<cfset v="insert into ssrch_field_doc (
-					CATEGORY,
-					CF_VARIABLE,
-					CONTROLLED_VOCABULARY,
-					DATA_TYPE,
-					DEFINITION,
-					DISPLAY_TEXT,
-					DOCUMENTATION_LINK,
-					PLACEHOLDER_TEXT,
-					SEARCH_HINT,
-					SQL_ELEMENT,
-					SPECIMEN_RESULTS_COL,
-					DISP_ORDER,
-					SPECIMEN_QUERY_TERM
-				) values (
-					'attribute',
-					'#attrvar#',
-					'#tctl.VALUE_CODE_TABLE#',
-					'',
-					'',
-					'#ATTRIBUTE_TYPE#',
-					'',
-					'#ATTRIBUTE_TYPE#',
-					'',
-					'concatAttributeValue(flatTableName.collection_object_id,''#ATTRIBUTE_TYPE#''),
-					1,
-					#n#,
-					1
-				);
-			">
+<cfset v="insert into ssrch_field_doc (
+		CATEGORY,
+		CF_VARIABLE,
+		CONTROLLED_VOCABULARY,
+		DATA_TYPE,
+		DEFINITION,
+		DISPLAY_TEXT,
+		DOCUMENTATION_LINK,
+		PLACEHOLDER_TEXT,
+		SEARCH_HINT,
+		SQL_ELEMENT,
+		SPECIMEN_RESULTS_COL,
+		DISP_ORDER,
+		SPECIMEN_QUERY_TERM
+	) values (
+		'attribute',
+		'#attrvar#',
+		'#tctl.VALUE_CODE_TABLE#',
+		'',
+		'',
+		'#ATTRIBUTE_TYPE#',
+		'',
+		'#ATTRIBUTE_TYPE#',
+		'',
+		'concatAttributeValue(flatTableName.collection_object_id,''#ATTRIBUTE_TYPE#''),
+		1,
+		#n#,
+		1
+	);
+">
 			
 			<cfset n=n+1>
 			<cfset x='<cfif isdefined("#attrvar#")>'>
@@ -66,31 +66,21 @@
 			<cfset x=x & chr(10) & '            <cfset srchval="''##ucase(right(#attrvar#,len(#attrvar#)-1))##''">'>
 			<cfset x=x & chr(10) & '        <cfelseif  left(#attrvar#,1) is "!">'>				
 			<cfset x=x & chr(10) & '            <cfset oper="!=">'>	
-			
-						p
 			<cfset x=x & chr(10) & '            <cfset srchval="''##ucase(right(#attrvar#,len(#attrvar#)-1))##''">'>
 			<cfset x=x & chr(10) & '        <cfelseif  left(#attrvar#,1) is "<">'>
 			<cfset x=x & chr(10) & '            <cfset oper="<">'>
 			<cfset x=x & chr(10) & '            <cfset srchval=right(#attrvar#,len(#attrvar#)-1)>'>
 			<cfset x=x & chr(10) & '        <cfelseif  left(#attrvar#,1) is ">">'>
 			<cfset x=x & chr(10) & '            <cfset oper=">">'>
-			
-			q
-			
-			
 			<cfset x=x & chr(10) & '            <cfset srchval=right(#attrvar#,len(#attrvar#)-1)>'>
 			<cfset x=x & chr(10) & '        <cfelse>'>
 			<cfset x=x & chr(10) & '            <cfset oper="like">'>
-			d
 			<cfset x=x & chr(10) & '            <cfset srchval="''%##ucase((#attrvar#)##%''">'>
 			<cfset x=x & chr(10) & '         </cfif>'>
 			<cfset x=x & chr(10) & '        <cfset basQual = " ##basQual## AND upper(t_#attrvar#.attribute_value) ##oper## ##srchval##">'>
 			<cfset x=x & chr(10) & '    </cfif>'>
 			<cfset x=x & chr(10) &  '</cfif>'>
 			<cfset x=x & chr(10)>
-			
-			z
-			
 			
 			<cfscript>
 				variables.josrch_field_doc.writeLine(v);
