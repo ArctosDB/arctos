@@ -68,10 +68,10 @@
 <cfset n=n+1>
 <cfset x='<cfif isdefined("#attrvar#")>'>
 <cfset x=x & chr(10) & '    <cfset mapurl = "##mapurl##&#attrvar#=###attrvar###">'>
-<cfset x=x & chr(10) & '    <cfset basJoin = " ##basJoin## INNER JOIN v_attributes t_#attrvar# ON (##session.flatTableName##.collection_object_id = t_#attrvar#.collection_object_id)">'>
-<cfset x=x & chr(10) & '    <cfset basQual = " ##basQual## AND t_#attrvar#.attribute_type = ''#ATTRIBUTE_TYPE#''">'>
+<cfset x=x & chr(10) & '    <cfset basJoin = " ##basJoin## INNER JOIN v_attributes tbl_#attrvar# ON (##session.flatTableName##.collection_object_id = tbl_#attrvar#.collection_object_id)">'>
+<cfset x=x & chr(10) & '    <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_type = ''#ATTRIBUTE_TYPE#''">'>
 <cfset x=x & chr(10) & '    <cfif session.flatTableName is not "flat">'>
-<cfset x=x & chr(10) & '        <cfset basQual = " ##basQual## AND t_#attrvar#.is_encumbered = 0">'>
+<cfset x=x & chr(10) & '        <cfset basQual = " ##basQual## AND tbl_#attrvar#.is_encumbered = 0">'>
 <cfset x=x & chr(10) & '    </cfif>'>
 <cfset x=x & chr(10) & '    <cfset schunits="">'>
 <cfset x=x & chr(10) & '    <cfif len(#attrvar#) gt 0>'>
@@ -92,11 +92,11 @@
 	<cfset x=x & chr(10) & '     </cfif>'> 
 </cfif>
 <cfset x=x & chr(10) & '      <cfif len(schunits) gt 0>'>  
-<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_meters(t_#attrvar#.attribute_value,t_#attrvar#.attribute_units) ##oper## to_meters(##schTerm##,''##schunits##'')">'>  
+<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_meters(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_meters(##schTerm##,''##schunits##'')">'>  
 <cfset x=x & chr(10) & '     <cfelseif oper is not "like" and len(schunits) is 0>'> 
-<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND upper(t_#attrvar#.attribute_value) ##oper## ''##escapeQuotes(schTerm)##''">'>  
+<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND upper(tbl_#attrvar#.attribute_value) ##oper## ''##escapeQuotes(schTerm)##''">'>  
 <cfset x=x & chr(10) & '     <cfelse>'> 
-<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND upper(t_#attrvar#.attribute_value) like ''%##ucase(escapeQuotes(schTerm))##%''">'>  
+<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND upper(tbl_#attrvar#.attribute_value) like ''%##ucase(escapeQuotes(schTerm))##%''">'>  
 <cfset x=x & chr(10) & '     </cfif>'> 
 <cfset x=x & chr(10) & '    </cfif>'>
 <cfset x=x & chr(10) &  '</cfif>'>
