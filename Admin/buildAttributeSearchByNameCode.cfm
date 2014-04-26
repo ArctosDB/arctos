@@ -124,15 +124,14 @@
 		<p>Probably a good idea to run this and then reload this page.</p>
 <textarea rows="10" cols="80">
 declare 
-	n number;
-
-	begin
-		n:=1;
-		for r in (select disp_order from ssrch_field_doc where DISP_ORDER is not null order by DISP_ORDER) loop
-			update ssrch_field_doc set disp_order=n where disp_order=r.disp_order;
-			n:=n+1;
-		end loop;
-	end;
+  n number;
+  begin
+    n:=1;
+    for r in (select disp_order from ssrch_field_doc where DISP_ORDER is not null order by DISP_ORDER) loop
+      update ssrch_field_doc set disp_order=n where disp_order=r.disp_order;
+      n:=n+1;
+    end loop;
+end;
 /
 </textarea>
 		
