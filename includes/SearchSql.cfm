@@ -187,6 +187,8 @@
 <cfset numattrschops="=,!,<,>">
 
 <cfif isdefined("breadth")>
+
+	<cfoutput>
     <cfset mapurl = "#mapurl#&breadth=#breadth#">
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes t_breadth ON (#session.flatTableName#.collection_object_id = t_breadth.collection_object_id)">
     <cfset basQual = " #basQual# AND t_breadth.attribute_type = 'breadth'">
@@ -218,7 +220,7 @@ im goin in
 		</cfif>
 	out	
 		
-		<cfoutput>
+	
 		<p>
 			oper: #oper#
 		</p>
