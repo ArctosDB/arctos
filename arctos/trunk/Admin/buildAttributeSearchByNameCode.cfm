@@ -79,7 +79,7 @@
 					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset srchval="''##ucase(right(#attrvar#,len(#attrvar#)-1))##''">'>
 					<cfset x=x & chr(10) &  chr(9) & chr(9) & '<cfelseif  left(#attrvar#,1) is "!">'>				
 					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset oper="!=">'>				
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset srchval="'##ucase(right(#attrvar#,len(#attrvar#)-1))##'">'>
+					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset srchval="''##ucase(right(#attrvar#,len(#attrvar#)-1))##''">'>
 					<cfset x=x & chr(10) &  chr(9) & chr(9) & '<cfelseif  left(#attrvar#,1) is "<">'>
 					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset oper="<">'>
 					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset srchval=right(#attrvar#,len(#attrvar#)-1)>'>
@@ -88,7 +88,7 @@
 					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset srchval=right(#attrvar#,len(#attrvar#)-1)>'>
 					<cfset x=x & chr(10) &  chr(9) & chr(9) & '<cfelse>'>
 					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset oper="like">'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset srchval="'%#ucase((#attrvar#)#%'">'>
+					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset srchval="''%#ucase((#attrvar#)#%''">'>
 					<cfset x=x & chr(10) &  chr(9) & chr(9) & '</cfif>'>
 					<cfset x=x & chr(10) &  chr(9) & chr(9) & '<cfset basQual = " ##basQual## AND upper(t_#attrvar#.attribute_value) ##oper## ##srchval##">'>'>
 					<cfset x=x & chr(10) &  chr(9) & '</cfif>'>
