@@ -270,12 +270,22 @@ function removeHelpDiv() {
 				Arctos fields may not be what you expect them to be.
 			</li>
 			<li>
+				Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and 
+				<a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">attribute data definitions</a> documentation for terms,
+				vocabulary, and standards.
+			</li>
+			<li>
 				<a href="/googlesearch.cfm">Try our Google search</a>. Not everything in Arctos
 				is indexed in Google, but it may provide a starting point to locate specific items.
 			</li>
 			<li>
 				<a href="/contact.cfm">Contact us</a> if you still can't find what you need. We'll help if we can.
 			</li>
+			
+			    <cfset extendedErrorMsg=listappend(extendedErrorMsg,'',";")>
+
+
+
 			<cfif isdefined("extendedErrorMsg") and len(extendedErrorMsg) gt 0>
 				<li>#extendedErrorMsg#</li>
 			</cfif>
