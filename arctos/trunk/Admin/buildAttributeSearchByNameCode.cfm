@@ -56,27 +56,52 @@
 					1
 				);">
 				
-				<cfset n=n+1>	
+				<cfset n=n+1>
+				
+				<!----
+					sql will accept:
+						attribute, with space, dash, slash replaced with underscore, eg, age_class=....
+						attribute value as attribute (as above)
+					
+				---->
 				<cfsavecontent variable="ss">
 					<cfset x='<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>'>
-					<cfset x=x & chr(10) & '<cfset mapurl = "##mapurl##&#attrvar#=###attrvar###">'>
+					<cfset x=x & '<cfset mapurl = "##mapurl##&#attrvar#=###attrvar###">'>
+					<cfset x=x & '<cfset basJoin = " #basJoin# INNER JOIN v_attributes t_#attrvar# ON (##session.flatTableName##.collection_object_id = t_#attrvar#.collection_object_id)">'>
+					<cfset x=x & '<cfif session.flatTableName is not "flat">'>
+					<cfset x=x & '<cfset basQual = " #basQual# AND t_#attrvar#.is_encumbered = 0">'>
+					<cfset x=x & '</cfif>'>
+					<cfset x=x & '<cfset basQual = " #basQual# AND t_#attrvar#.attribute_type = '#ATTRIBUTE_TYPE#'">'>
+					<cfset x=x & '<cfif left(#attrvar#,1) is "=">'>
+					<cfset x=x & '<cfset basQual = " #basQual# AND upper(t_#attrvar#.attribute_value) = '#ucase(right(family,len(family)-1))#'">'>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
+					<cfset x=x & ''>
 					#x#
 					
 					
 					<!------------
 					
-					<cfscript>
-						<cfif isdefined("#attrvar#") AND len(#attrvar#) gt 0>';
-					</cfscript>
 					
 					
-					<cfif basJoin does not contain " attributes_1 ">
-						<cfset basJoin = " #basJoin# INNER JOIN v_attributes attributes_1 ON (#session.flatTableName#.collection_object_id = attributes_1.collection_object_id)">
-					</cfif>
-					<cfif session.flatTableName is not "flat">
-						<cfset basQual = " #basQual# AND attributes_1.is_encumbered = 0">
-					</cfif>
-					<cfset basQual = " #basQual# AND attributes_1.attribute_type = '#attribute_type_1#'">
+						
+					
+					<
 					<cfif not isdefined("attOper_1") or len(#attOper_1#) is 0>
 						<cfset attOper_1 = "equals">
 					</cfif>
