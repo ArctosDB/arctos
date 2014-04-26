@@ -183,7 +183,7 @@
     </cfif>
 </cfif>
 
-
+<cfset attrunits="M,METERS,METER,FT,FEET,FOOT,KM,KILOMETER,KILOMETERS,MM,MILLIMETER,MILLIMETERS,CM,CENTIMETER,CENTIMETERS,MI,MILE,MILES,YD,YARD,YARDS,FM,FATHOM,FATHOMS">
 <cfset numattrschops="=,!,<,>">
 <cfif isdefined("breadth")>
     <cfset mapurl = "#mapurl#&breadth=#breadth#">
@@ -205,9 +205,10 @@
 
 		<cfset schunits=''>
 
-		<cfif listlen(breadth," ") is 2 and isnumeric(listdeleteat(schTerm,2," "))>
-			<cfset schunits=listgetat(schTerm,2," ")>
-            <cfset schTerm=listdeleteat(schTerm,2," ")>
+		<cfif listfindnocase(trim(rereplace(schTerm,'[0-9]',"")),attrunits)>
+			<cfset 
+			<cfset schunits=trim(rereplace(schTerm,'[0-9]',""))>
+            <cfset schTerm=replace(schTerm,schunits,"")>
 		</cfif>
 		
 		
