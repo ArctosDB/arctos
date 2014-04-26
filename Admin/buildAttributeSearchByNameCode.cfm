@@ -51,7 +51,6 @@
 				);
 			">
 			
-			x
 			<cfset n=n+1>
 			<cfset x='<cfif isdefined("#attrvar#")>'>
 			<cfset x=x & chr(10) & '    <cfset mapurl = "##mapurl##&#attrvar#=###attrvar###">'>
@@ -66,7 +65,9 @@
 			<cfset x=x & chr(10) & '            <cfset oper="=">'>
 			<cfset x=x & chr(10) & '            <cfset srchval="''##ucase(right(#attrvar#,len(#attrvar#)-1))##''">'>
 			<cfset x=x & chr(10) & '        <cfelseif  left(#attrvar#,1) is "!">'>				
-			<cfset x=x & chr(10) & '            <cfset oper="!=">'>				
+			<cfset x=x & chr(10) & '            <cfset oper="!=">'>	
+			
+			z			
 			<cfset x=x & chr(10) & '            <cfset srchval="''##ucase(right(#attrvar#,len(#attrvar#)-1))##''">'>
 			<cfset x=x & chr(10) & '        <cfelseif  left(#attrvar#,1) is "<">'>
 			<cfset x=x & chr(10) & '            <cfset oper="<">'>
