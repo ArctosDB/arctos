@@ -121,8 +121,8 @@
 			<!--- completely unrelated, but here's a handy time to integerize disp_order.
 		
 		---->
-		<p>Probably a good idea to run this and then reload this page.</p>
-<textarea rows="10" cols="80">
+		<p>To avoid strange fractions and gaps, run this, commit, and then reload this page.</p>
+<textarea rows="10" cols="1000">
 declare 
   n number;
   begin
