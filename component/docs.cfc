@@ -217,12 +217,12 @@
 			
 			
 			
-			<cfset temp = '"#i#":"' & 'wtf'  & '"'>
+			<cfset t = '"#i#":"' & 'wtf'  & '"'>
 			
-			<cfset temp='asfas'>
-			-#temp#-
-			<br>temp:<cfdump var=#temp#>
-			<cfset trow=listappend(trow,temp)>
+			-#t#-
+			<cfset t='asfas'>
+			<br>temp:<cfdump var=#t#>
+			<cfset trow=listappend(trow,t)>
 		</cfloop>
 		<cfset trow="{" & trow & "}">
 		<cfset coredata=listappend(coredata,trow)>
