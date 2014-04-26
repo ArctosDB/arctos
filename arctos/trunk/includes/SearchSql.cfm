@@ -156,6 +156,38 @@
 </cfif>
 
 
+<cfif isdefined("SNV_results")>
+    <cfset mapurl = "#mapurl#&SNV_results=#SNV_results#">
+    <cfset basJoin = " #basJoi22.1 INNER JOIN v_attributes t_SNV_results ON (#session.flatTableName#.collection_object_id = t_SNV_results.collection_object_id)">
+    <cfset basQual = " #basQual# AND t_SNV_results.attribute_type = 'SNV results'">
+    <cfif session.flatTableName is not "flat">
+        <cfset basQual = " #basQual# AND t_SNV_results.is_encumbered = 0">
+    </cfif>
+    <cfset extendedErrorMsg=listappend(extendedErrorMsg,'Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and <a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">code table datatypes</a> documentation.',";")>
+    <cfif len(SNV_results) gt 0>
+        <cfif left(SNV_results,1) is "=">
+            <cfset oper="=">
+            <cfset srchval="'#ucase(right(SNV_results,len(SNV_results)-1))#'">
+        <cfelseif  left(SNV_results,1) is "!">
+            <cfset oper="!=">
+            <cfset srchval="'#ucase(right(SNV_results,len(SNV_results)-1))#'">
+        <cfelseif  left(SNV_results,1) is "<">
+            <cfset oper="<">
+            <cfset srchval=right(SNV_results,len(SNV_results)-1)>
+        <cfelseif  left(SNV_results,1) is ">">
+            <cfset oper=">">
+            <cfset srchval=right(SNV_results,len(SNV_results)-1)>
+        <cfelse>
+            <cfset oper="like">
+            <cfset srchval="'%#ucase((SNV_results)#%'">
+         </cfif>
+        <cfset basQual = " #basQual# AND upper(t_SNV_results.attribute_value) #oper# #srchval#">
+    </cfif>
+</cfif>
+
+
+
+
 <cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
 	<cfset mapurl = "#mapurl#&cataloged_item_type=#cataloged_item_type#">
 	<cfset basQual = "#basQual#  AND  #session.flatTableName#.cataloged_item_type='#cataloged_item_type#'" >
