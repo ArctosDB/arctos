@@ -25,7 +25,7 @@
 		<cfset x=x&'<cfset charattrschops="=,!"><cfset numattrschops="=,!,<,>">'>
 		<cfscript>
 			variables.josrch_field_doc = createObject('Component', '/component.FileWriter').init(variables.f_srch_field_doc, variables.encoding, 32768);
-			variables.josrch_field_doc.writeLine("delete from ssrch_field_doc where CATEGORY='attribute';");
+			variables.josrch_field_doc.writeLine("delete from ssrch_field_doc where CATEGORY='attribute';#chr(10)#");
 			variables.f_ss_doc = createObject('Component', '/component.FileWriter').init(variables.f_ss_doc, variables.encoding, 32768);
 			variables.f_ss_doc.writeLine(x);
 		</cfscript>
@@ -59,7 +59,7 @@
 	'',
 	'#ATTRIBUTE_TYPE#',
 	'',
-	'concatAttributeValue(flatTableName.collection_object_id,''#ATTRIBUTE_TYPE#''),
+	'concatAttributeValue(flatTableName.collection_object_id,'#ATTRIBUTE_TYPE#'),
 	1,
 	#n#,
 	1
