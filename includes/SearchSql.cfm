@@ -202,6 +202,14 @@
 			<cfset oper="">
 			<cfset schTerm=breadth>
 		</cfif>
+
+
+		<cfif listlen(breadth," ") is 2>
+			<cfset schunits=listgetat(stchterm,2," ")>
+            <cfset schTerm=listdeleteat(schTerm,2," ")>
+		</cfif>
+		
+		
 		<cfoutput>
 		<p>
 			oper: #oper#
@@ -209,7 +217,14 @@
 		<p>
 			schTerm: #schTerm#
 		</p>
+		<p>
+			schunits: #schunits#
+		</p>
+		<p>
+			schTerm: #schTerm#
+		</p>
 		</cfoutput>
+		
         <cfif left(breadth,1) is "=">
             <cfset oper="=">
 			<cfset stchterm=right(breadth,len(breadth)-1)>
@@ -231,10 +246,7 @@
 			<cfset stchterm=breadth>
             <cfset srchval="'%#ucase(breadth)#%'">
          </cfif>
-		<cfif listlen(breadth," ") is 2>
-			<cfset schunits=listgetat(stchterm,2," ")>
-            <cfset srchval=listdeleteat(srchval,2," ")>
-		</cfif>
+		
 		
         <cfset basQual = " #basQual# AND upper(t_breadth.attribute_value) #oper# #srchval#">
     </cfif>
