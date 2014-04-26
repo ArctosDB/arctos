@@ -205,6 +205,9 @@
 		<cfset trow="">
 		<cfloop list="#d.columnlist#" index="i">
 			<cfset theData=evaluate("d." & i)>
+			
+			<cfdump var=#theData#>
+			
 			<cfset theData=replace(theData,'"','\"',"all")>
 			<cfset theData=replace(theData,chr(10),'<br>',"all")>
 			<cfset temp = '"#i#":"' & theData & '"'>
