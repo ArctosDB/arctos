@@ -153,8 +153,9 @@
 			<cfset oper="like">
 			<cfset srchval="'%#ucase(age_class)#%'">
 		</cfif>
+		<cfset basQual = " #basQual# AND upper(t_age_class.attribute_value) #oper# #srchval#">'>
 	</cfif>
-	<cfset basQual = " #basQual# AND upper(t_age_class.attribute_value) #oper# #srchval#">'>
+	
 </cfif>
 
 
