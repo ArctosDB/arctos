@@ -185,10 +185,10 @@
 
 <cfset attrunits="M,METERS,METER,FT,FEET,FOOT,KM,KILOMETER,KILOMETERS,MM,MILLIMETER,MILLIMETERS,CM,CENTIMETER,CENTIMETERS,MI,MILE,MILES,YD,YARD,YARDS,FM,FATHOM,FATHOMS">
 <cfset numattrschops="=,!,<,>">
-
+	<cfoutput>
 <cfif isdefined("breadth")>
 
-	<cfoutput>
+
     <cfset mapurl = "#mapurl#&breadth=#breadth#">
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes t_breadth ON (#session.flatTableName#.collection_object_id = t_breadth.collection_object_id)">
     <cfset basQual = " #basQual# AND t_breadth.attribute_type = 'breadth'">
@@ -209,7 +209,7 @@
 		<cfset schunits=''>
 im goin in
 
-<br>rerep=#rereplace(schTerm,'[0-9]',"")#
+<br>rerep= #rereplace(schTerm,'[0-9]',"")#
 		<cfif listfindnocase(trim(rereplace(schTerm,'[0-9]',"")),attrunits)>
 			<cfset schunits=trim(rereplace(schTerm,'[0-9]','','all'))>
 			<br>schunits--: #schunits#
@@ -245,11 +245,11 @@ im goin in
 	
 	
 	
-	</cfoutput>
+
 </cfif>
 
 
-
+	</cfoutput>
 
 
 
