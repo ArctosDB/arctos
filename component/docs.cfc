@@ -198,6 +198,8 @@
 			) where rnum >= #jtStartIndex#
 	</cfquery>
 	
+	
+	<cfdump var=#d#>
 	<cfset x=''>
 	<cfloop query="d">
 		<cfset trow="">
