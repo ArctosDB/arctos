@@ -184,6 +184,74 @@
 </cfif>
 
 
+<cfset numattrschops="=,!,<,>">
+<cfif isdefined("breadth")>
+    <cfset mapurl = "#mapurl#&breadth=#breadth#">
+    <cfset basJoin = " #basJoin# INNER JOIN v_attributes t_breadth ON (#session.flatTableName#.collection_object_id = t_breadth.collection_object_id)">
+    <cfset basQual = " #basQual# AND t_breadth.attribute_type = 'breadth'">
+    <cfif session.flatTableName is not "flat">
+        <cfset basQual = " #basQual# AND t_breadth.is_encumbered = 0">
+    </cfif>
+    <cfset extendedErrorMsg=listappend(extendedErrorMsg,'Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and <a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">code table datatypes</a> documentation.',";")>
+    <cfif len(breadth) gt 0>
+		<cfset oper=left(breadth,1)>
+		<cfif listfind(numattrschops,oper)>
+			we got a valid search operator
+			<cfset schTerm=ucase(right(breadth,len(breadth)-1))>
+		<cfelse>
+			<cfset oper="">
+			<cfset schTerm=breadth>
+		</cfif>
+		
+		<p>
+			oper: #oper#
+		</p>
+		<p>
+			schTerm: #schTerm#
+		</p>
+		
+        <cfif left(breadth,1) is "=">
+            <cfset oper="=">
+			<cfset stchterm=right(breadth,len(breadth)-1)>
+            <cfset srchval="'#ucase(right(breadth,len(breadth)-1))#'">
+        <cfelseif  left(breadth,1) is "!">
+            <cfset oper="!=">
+			<cfset stchterm=right(breadth,len(breadth)-1)>
+            <cfset srchval="'#ucase(right(breadth,len(breadth)-1))#'">
+        <cfelseif  left(breadth,1) is "<">
+            <cfset oper="<">
+			<cfset stchterm=right(breadth,len(breadth)-1)>
+            <cfset srchval=right(breadth,len(breadth)-1)>
+        <cfelseif  left(breadth,1) is ">">
+            <cfset oper=">">
+			<cfset stchterm=right(breadth,len(breadth)-1)>
+            <cfset srchval=right(breadth,len(breadth)-1)>
+        <cfelse>
+            <cfset oper="like">
+			<cfset stchterm=breadth>
+            <cfset srchval="'%#ucase(breadth)#%'">
+         </cfif>
+		<cfif listlen(breadth," ") is 2>
+			<cfset schunits=listgetat(stchterm,2," ")>
+            <cfset srchval=listdeleteat(srchval,2," ")>
+		</cfif>
+		
+        <cfset basQual = " #basQual# AND upper(t_breadth.attribute_value) #oper# #srchval#">
+    </cfif>
+</cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
 	<cfset mapurl = "#mapurl#&cataloged_item_type=#cataloged_item_type#">
 	<cfset basQual = "#basQual#  AND  #session.flatTableName#.cataloged_item_type='#cataloged_item_type#'" >
