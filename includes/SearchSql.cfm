@@ -202,14 +202,14 @@
 			<cfset oper="">
 			<cfset schTerm=breadth>
 		</cfif>
-		
+		<cfoutput>
 		<p>
 			oper: #oper#
 		</p>
 		<p>
 			schTerm: #schTerm#
 		</p>
-		
+		</cfoutput>
         <cfif left(breadth,1) is "=">
             <cfset oper="=">
 			<cfset stchterm=right(breadth,len(breadth)-1)>
