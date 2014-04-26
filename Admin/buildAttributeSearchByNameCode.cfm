@@ -1,7 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
 	
-
+		<cfquery name="dispo" datasource="uam_god">
+			select disp_order from ssrch_field_doc order by disp_order
+		</cfquery>
+		
+		<cfdump var=#dispo#>
+	
 
 
 
