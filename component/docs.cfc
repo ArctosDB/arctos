@@ -218,6 +218,8 @@
 			
 			
 			<cfset temp = '"#i#":"' & 'wtf'  & '"'>
+			
+			<cfset temp='asfas'>
 			-#temp#-
 			<br>temp:<cfdump var=#temp#>
 			<cfset trow=listappend(trow,temp)>
