@@ -203,6 +203,7 @@
 			<cfset schTerm=breadth>
 		</cfif>
 
+		<cfset schunits=''>
 
 		<cfif listlen(breadth," ") is 2>
 			<cfset schunits=listgetat(stchterm,2," ")>
