@@ -209,8 +209,9 @@
 		<cfset schunits=''>
 		<!---- if numeric ---->
 		<cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
-		<cfif not listfindnocase(attrunits,schunits)>
-            <cfset schTerm=replace(schTerm,schunits,"")>		
+		<cfif len(temp) gt 0 and listfindnocase(attrunits,temp)>
+            <cfset schTerm=replace(schTerm,schunits,"")>
+			<cfset schunits=temp>	
 		</cfif>
 	out	
 		
