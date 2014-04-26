@@ -210,6 +210,8 @@
 			<br>schunits: #schunits#
 			<!-------->
             <cfset schTerm=replace(schTerm,schunits,"")>
+		<cfelse>
+		nope
 		</cfif>
 		
 		
