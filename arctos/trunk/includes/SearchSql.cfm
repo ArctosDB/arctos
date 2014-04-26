@@ -210,7 +210,7 @@
 im goin in
 
 <br>rerep= #rereplace(schTerm,'[0-9]',"")#
-		<cfif listfindnocase(trim(rereplace(schTerm,'[0-9]',"")),attrunits)>
+		<cfif listfindnocase(attrunits,trim(rereplace(schTerm,'[0-9]',"")))>
 			<cfset schunits=trim(rereplace(schTerm,'[0-9]','','all'))>
 			<br>schunits--: #schunits#
 			<!-------->
