@@ -34,7 +34,7 @@
 			<cfquery name="tctl" datasource="uam_god">
 				select ATTRIBUTE_TYPE,VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where ATTRIBUTE_TYPE='#ATTRIBUTE_TYPE#' 
 			</cfquery>
-			<cfset attrvar=replace(replace(replace(ATTRIBUTE_TYPE,' ','_','all'),'-','_','all'),"/","_","all")>
+			<cfset attrvar=lcase(trim(replace(replace(replace(ATTRIBUTE_TYPE,' ','_','all'),'-','_','all'),"/","_","all")))>
 <cfset v="insert into ssrch_field_doc (
 	CATEGORY,
 	CF_VARIABLE,
