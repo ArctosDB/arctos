@@ -198,7 +198,8 @@
         <cfset basQual = " #basQual# AND t_breadth.is_encumbered = 0">
     </cfif>
     <cfset extendedErrorMsg=listappend(extendedErrorMsg,'Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and <a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">code table datatypes</a> documentation.',";")>
-    <cfif len(breadth) gt 0>
+    <cfset schunits=''>
+	<cfif len(breadth) gt 0>
 		<cfset oper=left(breadth,1)>
 		<cfif listfind(numattrschops,oper)>
 			<cfset schTerm=ucase(right(breadth,len(breadth)-1))>
@@ -206,32 +207,13 @@
 			<cfset oper="like">
 			<cfset schTerm=ucase(breadth)>
 		</cfif>
-		<cfset schunits=''>
 		<!---- if numeric ---->
 		<cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
 		<cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
             <cfset schTerm=replace(schTerm,temp,"")>
 			<cfset schunits=temp>	
 		</cfif>
-	out	
-		
-	
-		<p>
-			oper: #oper#
-		</p>
-		<p>
-			schTerm: #schTerm#
-		</p>
-		<p>
-			schunits: #schunits#
-		</p>
-		<p>
-			schTerm: #schTerm#
-		</p>
-		
-		
         <cfif len(schunits) gt 0>
-			<!--- the only way to get here is by passing in a number+units --->
 			<cfset basQual = " #basQual# AND to_meters(t_breadth.attribute_value,t_breadth.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
         <cfelseif oper is not "like" and len(schunits) is 0>
 			<cfset basQual = " #basQual# AND upper(t_breadth.attribute_value) #oper# '#schTerm#')">
@@ -239,10 +221,6 @@
              <cfset basQual = " #basQual# AND upper(t_breadth.attribute_value) like '%#ucase(schTerm)#%'">
          </cfif>
     </cfif>
-	
-	
-	
-
 </cfif>
 
 
