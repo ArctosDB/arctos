@@ -65,32 +65,32 @@
 					
 				---->
 					<cfset x='<cfif isdefined("#attrvar#")>'>
-					<cfset x=x & chr(10) & chr(9) & '<cfset mapurl = "##mapurl##&#attrvar#=###attrvar###">'>
-					<cfset x=x & chr(10) & chr(9) & '<cfset basJoin = " ##basJoi#n# INNER JOIN v_attributes t_#attrvar# ON (##session.flatTableName##.collection_object_id = t_#attrvar#.collection_object_id)">'>
-					<cfset x=x & chr(10) &  chr(9) & '<cfset basQual = " ##basQual## AND t_#attrvar#.attribute_type = ''#ATTRIBUTE_TYPE#''">'>
-					<cfset x=x & chr(10) &  chr(9) &  '<cfif session.flatTableName is not "flat">'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & '<cfset basQual = " ##basQual## AND t_#attrvar#.is_encumbered = 0">'>
-					<cfset x=x & chr(10) &  chr(9) &  '</cfif>'>
-					<cfset x=x & chr(10) &  chr(9) &  '<cfset extendedErrorMsg=listappend(extendedErrorMsg,''Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and <a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">code table datatypes</a> documentation.'',";")>'> 
-					<cfset x=x & chr(10) &  chr(9) &  '<cfif len(#attrvar#) gt 0>'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & '<cfif left(#attrvar#,1) is "=">'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset oper="=">'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset srchval="''##ucase(right(#attrvar#,len(#attrvar#)-1))##''">'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & '<cfelseif  left(#attrvar#,1) is "!">'>				
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset oper="!=">'>				
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset srchval="''##ucase(right(#attrvar#,len(#attrvar#)-1))##''">'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & '<cfelseif  left(#attrvar#,1) is "<">'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset oper="<">'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset srchval=right(#attrvar#,len(#attrvar#)-1)>'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & '<cfelseif  left(#attrvar#,1) is ">">'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset oper=">">'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset srchval=right(#attrvar#,len(#attrvar#)-1)>'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & '<cfelse>'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset oper="like">'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & chr(9) & '<cfset srchval="''%##ucase((#attrvar#)##%''">'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & '</cfif>'>
-					<cfset x=x & chr(10) &  chr(9) & chr(9) & '<cfset basQual = " ##basQual## AND upper(t_#attrvar#.attribute_value) ##oper## ##srchval##">'>'>
-					<cfset x=x & chr(10) &  chr(9) & '</cfif>'>
+					<cfset x=x & chr(10) & '    <cfset mapurl = "##mapurl##&#attrvar#=###attrvar###">'>
+					<cfset x=x & chr(10) & '    <cfset basJoin = " ##basJoi#n# INNER JOIN v_attributes t_#attrvar# ON (##session.flatTableName##.collection_object_id = t_#attrvar#.collection_object_id)">'>
+					<cfset x=x & chr(10) & '    <cfset basQual = " ##basQual## AND t_#attrvar#.attribute_type = ''#ATTRIBUTE_TYPE#''">'>
+					<cfset x=x & chr(10) & '    <cfif session.flatTableName is not "flat">'>
+					<cfset x=x & chr(10) & '        <cfset basQual = " ##basQual## AND t_#attrvar#.is_encumbered = 0">'>
+					<cfset x=x & chr(10) & '    </cfif>'>
+					<cfset x=x & chr(10) & '    <cfset extendedErrorMsg=listappend(extendedErrorMsg,''Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and <a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">code table datatypes</a> documentation.'',";")>'> 
+					<cfset x=x & chr(10) & '    <cfif len(#attrvar#) gt 0>'>
+					<cfset x=x & chr(10) & '        <cfif left(#attrvar#,1) is "=">'>
+					<cfset x=x & chr(10) & '            <cfset oper="=">'>
+					<cfset x=x & chr(10) & '            <cfset srchval="''##ucase(right(#attrvar#,len(#attrvar#)-1))##''">'>
+					<cfset x=x & chr(10) & '        <cfelseif  left(#attrvar#,1) is "!">'>				
+					<cfset x=x & chr(10) & '            <cfset oper="!=">'>				
+					<cfset x=x & chr(10) & '            <cfset srchval="''##ucase(right(#attrvar#,len(#attrvar#)-1))##''">'>
+					<cfset x=x & chr(10) & '        <cfelseif  left(#attrvar#,1) is "<">'>
+					<cfset x=x & chr(10) & '            <cfset oper="<">'>
+					<cfset x=x & chr(10) & '            <cfset srchval=right(#attrvar#,len(#attrvar#)-1)>'>
+					<cfset x=x & chr(10) & '        <cfelseif  left(#attrvar#,1) is ">">'>
+					<cfset x=x & chr(10) & '            <cfset oper=">">'>
+					<cfset x=x & chr(10) & '            <cfset srchval=right(#attrvar#,len(#attrvar#)-1)>'>
+					<cfset x=x & chr(10) & '        <cfelse>'>
+					<cfset x=x & chr(10) & '            <cfset oper="like">'>
+					<cfset x=x & chr(10) & '            <cfset srchval="''%##ucase((#attrvar#)##%''">'>
+					<cfset x=x & chr(10) & '         </cfif>'>
+					<cfset x=x & chr(10) & '        <cfset basQual = " ##basQual## AND upper(t_#attrvar#.attribute_value) ##oper## ##srchval##">'>'>
+					<cfset x=x & chr(10) & '    </cfif>'>
 					<cfset x=x & chr(10) &  '</cfif>'>
 					<cfset x=x & chr(10)>
 				
@@ -167,5 +167,15 @@
 				variables.josrch_field_doc.close();
 				variables.f_ss_doc.close();
 			</cfscript>
+			
+			This app just builds text.
+			<p>
+				Get the SQL to update ssrch_field_doc <a href="/download/srch_field_doc.sql">here</a>
+			</p>
+			
+			<p>
+				Get the CFML to update specimen search <a href="/download/specsrch.txt">here</a>
+			</p>
+			
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
