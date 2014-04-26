@@ -199,24 +199,16 @@
     <cfif len(breadth) gt 0>
 		<cfset oper=left(breadth,1)>
 		<cfif listfind(numattrschops,oper)>
-			we got a valid search operator
 			<cfset schTerm=ucase(right(breadth,len(breadth)-1))>
 		<cfelse>
 			<cfset oper="like">
 			<cfset schTerm=ucase(breadth)>
 		</cfif>
-
-		<cfset schunits=''>
-im goin in
-<cfset schunits=trim(rereplace(schTerm,"[0-9]","","all"))>
-<br>rerep= #rereplace(schTerm,'[0-9]',"")#
-		<cfif listfindnocase(attrunits,schunits)>
-			
-			<br>schunits--: #schunits#
-			<!-------->
-            <cfset schTerm=replace(schTerm,schunits,"")>
-		<cfelse>
-		nope - #listfindnocase(attrunits,schunits)#
+		<!---- if numeric ---->
+		<cfset schunits=trim(rereplace(schTerm,"[0-9]","","all"))>
+		<cfif not listfindnocase(attrunits,schunits)>
+			<cfset schunits=''>
+            <cfset schTerm=replace(schTerm,schunits,"")>		
 		</cfif>
 	out	
 		
@@ -235,10 +227,12 @@ im goin in
 		</p>
 		
 		
-        <cfif oper is not "like">
+        <cfif oper is not "like" and len(schunits) gt 0>
 			<!--- the only way to get here is by passing in a number+units --->
 			<cfset basQual = " #basQual# AND to_meters(t_breadth.attribute_value,t_breadth.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
-        <cfelse>
+        <cfelseif oper is not "like" and len(schunits) is 0>
+			<cfset basQual = " #basQual# AND upper(t_breadth.attribute_value) #oper# '#schTerm#')">
+		<cfelse>
              <cfset basQual = " #basQual# AND upper(t_breadth.attribute_value) like '%#ucase(schTerm)#%'">
          </cfif>
     </cfif>
