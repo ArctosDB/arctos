@@ -109,7 +109,7 @@
 <!--------------------------- / end old stuff --------------------------------------->
 
 
-
+<!----
 
 <cfif isdefined("age_class")>
 	<cfset mapurl = "#mapurl#&age_class=#age_class#">
@@ -225,6 +225,95 @@
 
 
 	</cfoutput>
+---->
+
+<cfset attrunits="M,METERS,METER,FT,FEET,FOOT,KM,KILOMETER,KILOMETERS,MM,MILLIMETER,MILLIMETERS,CM,CENTIMETER,CENTIMETERS,MI,MILE,MILES,YD,YARD,YARDS,FM,FATHOM,FATHOMS"><cfset charattrschops="=,!"><cfset numattrschops="=,!,<,>">
+<cfif isdefined("SNV_results")>
+    <cfset mapurl = "#mapurl#&SNV_results=#SNV_results#">
+    <cfset basJoin = " #basJoin# INNER JOIN v_attributes t_SNV_results ON (#session.flatTableName#.collection_object_id = t_SNV_results.collection_object_id)">
+    <cfset basQual = " #basQual# AND t_SNV_results.attribute_type = 'SNV results'">
+    <cfif session.flatTableName is not "flat">
+        <cfset basQual = " #basQual# AND t_SNV_results.is_encumbered = 0">
+    </cfif>
+    <cfset extendedErrorMsg=listappend(extendedErrorMsg,'Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and <a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">code table datatypes</a> documentation.',";")>
+    <cfset schunits="">
+    <cfif len(SNV_results) gt 0>
+        <cfset oper=left(SNV_results,1)>
+        <cfif listfind(charattrschops,oper)>
+            <cfset schTerm=ucase(right(SNV_results,len(SNV_results)-1))>
+        <cfelse>
+            <cfset oper="like"><cfset schTerm=ucase(SNV_results)>
+        </cfif>
+      <cfif len(schunits) gt 0>
+         <cfset basQual = " #basQual# AND to_meters(t_SNV_results.attribute_value,t_SNV_results.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
+     <cfelseif oper is not "like" and len(schunits) is 0>
+         <cfset basQual = " #basQual# AND upper(t_SNV_results.attribute_value) #oper# '#escapeQuotes(schTerm)#')">
+     <cfelse>
+         <cfset basQual = " #basQual# AND upper(t_SNV_results.attribute_value) like '%#ucase(escapeQuotes(schTerm))#%'">
+     </cfif>
+    </cfif>
+</cfif>
+
+<cfif isdefined("age_class")>
+    <cfset mapurl = "#mapurl#&age_class=#age_class#">
+    <cfset basJoin = " #basJoin# INNER JOIN v_attributes t_age_class ON (#session.flatTableName#.collection_object_id = t_age_class.collection_object_id)">
+    <cfset basQual = " #basQual# AND t_age_class.attribute_type = 'age class'">
+    <cfif session.flatTableName is not "flat">
+        <cfset basQual = " #basQual# AND t_age_class.is_encumbered = 0">
+    </cfif>
+    <cfset extendedErrorMsg=listappend(extendedErrorMsg,'Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and <a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">code table datatypes</a> documentation.',";")>
+    <cfset schunits="">
+    <cfif len(age_class) gt 0>
+        <cfset oper=left(age_class,1)>
+        <cfif listfind(charattrschops,oper)>
+            <cfset schTerm=ucase(right(age_class,len(age_class)-1))>
+        <cfelse>
+            <cfset oper="like"><cfset schTerm=ucase(age_class)>
+        </cfif>
+      <cfif len(schunits) gt 0>
+         <cfset basQual = " #basQual# AND to_meters(t_age_class.attribute_value,t_age_class.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
+     <cfelseif oper is not "like" and len(schunits) is 0>
+         <cfset basQual = " #basQual# AND upper(t_age_class.attribute_value) #oper# '#escapeQuotes(schTerm)#')">
+     <cfelse>
+         <cfset basQual = " #basQual# AND upper(t_age_class.attribute_value) like '%#ucase(escapeQuotes(schTerm))#%'">
+     </cfif>
+    </cfif>
+</cfif>
+
+
+
+<cfif isdefined("breadth")>
+    <cfset mapurl = "#mapurl#&breadth=#breadth#">
+    <cfset basJoin = " #basJoin# INNER JOIN v_attributes t_breadth ON (#session.flatTableName#.collection_object_id = t_breadth.collection_object_id)">
+    <cfset basQual = " #basQual# AND t_breadth.attribute_type = 'breadth'">
+    <cfif session.flatTableName is not "flat">
+        <cfset basQual = " #basQual# AND t_breadth.is_encumbered = 0">
+    </cfif>
+    <cfset extendedErrorMsg=listappend(extendedErrorMsg,'Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and <a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">code table datatypes</a> documentation.',";")>
+    <cfset schunits="">
+    <cfif len(breadth) gt 0>
+        <cfset oper=left(breadth,1)>
+        <cfif listfind(numattrschops,oper)>
+            <cfset schTerm=ucase(right(breadth,len(breadth)-1))>
+        <cfelse>
+            <cfset oper="like"><cfset schTerm=ucase(breadth)>
+        </cfif>
+     <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
+     <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
+         <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
+     </cfif>
+      <cfif len(schunits) gt 0>
+         <cfset basQual = " #basQual# AND to_meters(t_breadth.attribute_value,t_breadth.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
+     <cfelseif oper is not "like" and len(schunits) is 0>
+         <cfset basQual = " #basQual# AND upper(t_breadth.attribute_value) #oper# '#escapeQuotes(schTerm)#')">
+     <cfelse>
+         <cfset basQual = " #basQual# AND upper(t_breadth.attribute_value) like '%#ucase(escapeQuotes(schTerm))#%'">
+     </cfif>
+    </cfif>
+</cfif>
+
+
+
 
 
 
