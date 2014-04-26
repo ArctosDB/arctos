@@ -205,7 +205,7 @@
 
 		<cfset schunits=''>
 
-		<cfif listlen(breadth," ") is 2>
+		<cfif listlen(breadth," ") is 2 and isnumeric(listdeleteat(schTerm,2," "))>
 			<cfset schunits=listgetat(schTerm,2," ")>
             <cfset schTerm=listdeleteat(schTerm,2," ")>
 		</cfif>
@@ -227,17 +227,11 @@
 		</cfoutput>
 		
         <cfif oper is not "like">
-            <cfset srchval="'#schTerm#'">
+			<!--- the only way to get here is by passing in a number+units --->
+			<cfset basQual = " #basQual# AND to_meters(t_breadth.attribute_value,t_breadth.attribute_units) #oper# to_meters(#schTerm#,#schunits#)">
         <cfelse>
-            <cfset srchval="'%#schTerm#%'">
+             <cfset basQual = " #basQual# AND upper(t_breadth.attribute_value) like '%ucase(#schTerm)#%'">
          </cfif>
-		
-		
-        <cfset basQual = " #basQual# AND upper(t_breadth.attribute_value) #oper# #srchval#">
-		<cfif len(schunits) gt 0>
-			        <cfset basQual = " #basQual# AND upper(t_breadth.attribute_units)='#schunits#'">
-
-		</cfif>
     </cfif>
 </cfif>
 
