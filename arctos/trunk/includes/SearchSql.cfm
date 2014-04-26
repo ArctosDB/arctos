@@ -199,7 +199,7 @@
 			we got a valid search operator
 			<cfset schTerm=ucase(right(breadth,len(breadth)-1))>
 		<cfelse>
-			<cfset oper="">
+			<cfset oper="like">
 			<cfset schTerm=breadth>
 		</cfif>
 
@@ -226,30 +226,28 @@
 		</p>
 		</cfoutput>
 		
-        <cfif left(breadth,1) is "=">
-            <cfset oper="=">
+        <cfif oper is "=">
 			<cfset stchterm=right(breadth,len(breadth)-1)>
             <cfset srchval="'#ucase(right(breadth,len(breadth)-1))#'">
-        <cfelseif  left(breadth,1) is "!">
-            <cfset oper="!=">
+        <cfelseif  oper is "!">
 			<cfset stchterm=right(breadth,len(breadth)-1)>
             <cfset srchval="'#ucase(right(breadth,len(breadth)-1))#'">
-        <cfelseif  left(breadth,1) is "<">
-            <cfset oper="<">
+        <cfelseif  oper is "<">
 			<cfset stchterm=right(breadth,len(breadth)-1)>
             <cfset srchval=right(breadth,len(breadth)-1)>
-        <cfelseif  left(breadth,1) is ">">
-            <cfset oper=">">
+        <cfelseif  oper is ">">
 			<cfset stchterm=right(breadth,len(breadth)-1)>
             <cfset srchval=right(breadth,len(breadth)-1)>
         <cfelse>
-            <cfset oper="like">
-			<cfset stchterm=breadth>
             <cfset srchval="'%#ucase(breadth)#%'">
          </cfif>
 		
 		
         <cfset basQual = " #basQual# AND upper(t_breadth.attribute_value) #oper# #srchval#">
+		<cfif len(schunits) gt 0>
+			        <cfset basQual = " #basQual# AND upper(t_breadth.attribute_units)='#schunits#'">
+
+		</cfif>
     </cfif>
 </cfif>
 
