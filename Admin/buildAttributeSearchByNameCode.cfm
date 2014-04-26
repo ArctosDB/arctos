@@ -76,7 +76,7 @@
 					<cfset x=x & '<cfif len(#attrvar#) gt 0>'>
 					<cfset x=x & '<cfif left(#attrvar#,1) is "=">'>
 					<cfset x=x & '<cfset oper="=">'>
-					<cfset x=x & '<cfset srchval="''#ucase(right(#attrvar#,len(#attrvar#)-1))#''">'>
+					<cfset x=x & '<cfset srchval="''##ucase(right(#attrvar#,len(#attrvar#)-1))##''">'>
 					<cfset x=x & ''>
 					<cfset x=x & ''>
 					<cfset x=x & ''>
