@@ -59,7 +59,7 @@
 	'',
 	'#ATTRIBUTE_TYPE#',
 	'',
-	'concatAttributeValue(flatTableName.collection_object_id,'#ATTRIBUTE_TYPE#'),
+	concatAttributeValue(flatTableName.collection_object_id,'#ATTRIBUTE_TYPE#'),
 	1,
 	#n#,
 	1
