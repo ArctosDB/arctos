@@ -10,11 +10,16 @@
 		<cfset variables.encoding="UTF-8">
 		<cfset variables.f_srch_field_doc="#Application.webDirectory#/download/srch_field_doc.sql">
 		<cfset variables.f_ss_doc="#Application.webDirectory#/download/specsrch.txt">
+		
+		<cfset x='<cfset attrunits="M,METERS,METER,FT,FEET,FOOT,KM,KILOMETER,KILOMETERS,MM,MILLIMETER,MILLIMETERS,CM,CENTIMETER,CENTIMETERS,MI,MILE,MILES,YD,YARD,YARDS,FM,FATHOM,FATHOMS">'>
+		<cfset x=x&'<cfset charattrschops="=,!"><cfset numattrschops="=,!,<,>">'>
 		<cfscript>
 			variables.josrch_field_doc = createObject('Component', '/component.FileWriter').init(variables.f_srch_field_doc, variables.encoding, 32768);
 			variables.josrch_field_doc.writeLine("delete from srch_field_doc where CATEGORY='attribute';");
 			variables.f_ss_doc = createObject('Component', '/component.FileWriter').init(variables.f_ss_doc, variables.encoding, 32768);
+				variables.f_ss_doc.writeLine(x);
 		</cfscript>
+			
 		<cfloop query="d">
 			<cfquery name="tctl" datasource="uam_god">
 				select ATTRIBUTE_TYPE,VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where ATTRIBUTE_TYPE='#ATTRIBUTE_TYPE#' 
@@ -51,7 +56,16 @@
 	);
 ">
 			
+		
+		
 			<cfset n=n+1>
+		
+		
+		
+
+
+
+		
 			<cfset x='<cfif isdefined("#attrvar#")>'>
 			<cfset x=x & chr(10) & '    <cfset mapurl = "##mapurl##&#attrvar#=###attrvar###">'>
 			<cfset x=x & chr(10) & '    <cfset basJoin = " ##basJoin## INNER JOIN v_attributes t_#attrvar# ON (##session.flatTableName##.collection_object_id = t_#attrvar#.collection_object_id)">'>
@@ -60,27 +74,39 @@
 			<cfset x=x & chr(10) & '        <cfset basQual = " ##basQual## AND t_#attrvar#.is_encumbered = 0">'>
 			<cfset x=x & chr(10) & '    </cfif>'>
 			<cfset x=x & chr(10) & '    <cfset extendedErrorMsg=listappend(extendedErrorMsg,''Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and <a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">code table datatypes</a> documentation.'',";")>'> 
+			<cfset x=x & chr(10) & '    <cfset schunits="">'>
 			<cfset x=x & chr(10) & '    <cfif len(#attrvar#) gt 0>'>
-			<cfset x=x & chr(10) & '        <cfif left(#attrvar#,1) is "=">'>
-			<cfset x=x & chr(10) & '            <cfset oper="=">'>
-			<cfset x=x & chr(10) & '            <cfset srchval="''##ucase(right(#attrvar#,len(#attrvar#)-1))##''">'>
-			<cfset x=x & chr(10) & '        <cfelseif  left(#attrvar#,1) is "!">'>				
-			<cfset x=x & chr(10) & '            <cfset oper="!=">'>	
-			<cfset x=x & chr(10) & '            <cfset srchval="''##ucase(right(#attrvar#,len(#attrvar#)-1))##''">'>
-			<cfset x=x & chr(10) & '        <cfelseif  left(#attrvar#,1) is "<">'>
-			<cfset x=x & chr(10) & '            <cfset oper="<">'>
-			<cfset x=x & chr(10) & '            <cfset srchval=right(#attrvar#,len(#attrvar#)-1)>'>
-			<cfset x=x & chr(10) & '        <cfelseif  left(#attrvar#,1) is ">">'>
-			<cfset x=x & chr(10) & '            <cfset oper=">">'>
-			<cfset x=x & chr(10) & '            <cfset srchval=right(#attrvar#,len(#attrvar#)-1)>'>
+			<cfset x=x & chr(10) & '        <cfset oper=left(#attrvar#,1)>'>
+			<cfif len(tctl.UNITS_CODE_TABLE) gt 0>
+				<cfset x=x & chr(10) & '        <cfif listfind(numattrschops,oper)>'>
+			<cfelse>
+				<cfset x=x & chr(10) & '        <cfif listfind(charattrschops,oper)>'>
+			</cfif>
+			<cfset x=x & chr(10) & '            <cfset schTerm=ucase(right(#attrvar#,len(#attrvar#)-1))>'>
 			<cfset x=x & chr(10) & '        <cfelse>'>
-			<cfset x=x & chr(10) & '            <cfset oper="like">'>
-			<cfset x=x & chr(10) & '            <cfset srchval="''%##ucase(#attrvar#)##%''">'>
-			<cfset x=x & chr(10) & '         </cfif>'>
-			<cfset x=x & chr(10) & '        <cfset basQual = " ##basQual## AND upper(t_#attrvar#.attribute_value) ##oper## ##srchval##">'>
+			<cfset x=x & chr(10) & '            <cfset oper="like"><cfset schTerm=ucase(#attrvar#)>'>
+			<cfset x=x & chr(10) & '        </cfif>'>
+			<cfif len(tctl.UNITS_CODE_TABLE) gt 0>
+				<cfset x=x & chr(10) & '     <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>'>    
+				<cfset x=x & chr(10) & '     <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>'>  
+				<cfset x=x & chr(10) & '         <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>'>  
+				<cfset x=x & chr(10) & '     </cfif>'> 
+			</cfif>
+			<cfset x=x & chr(10) & '      <cfif len(schunits) gt 0>'>  
+			<cfset x=x & chr(10) & '         <cfset basQual = " #basQual# AND to_meters(t_#attrvar#.attribute_value,t_#attrvar#.attribute_units) ##oper## to_meters(##schTerm##,''##schunits##'')">'>  
+			<cfset x=x & chr(10) & '     <cfelseif oper is not "like" and len(schunits) is 0>'> 
+			<cfset x=x & chr(10) & '         <cfset basQual = " #basQual# AND upper(t_#attrvar#.attribute_value) ##oper## ''##escapeQuotes(schTerm)##'')">'>  
+			<cfset x=x & chr(10) & '     <cfelse>'> 
+			<cfset x=x & chr(10) & '         <cfset basQual = " #basQual# AND upper(t_#attrvar#.attribute_value) like ''%##ucase(escapeQuotes(schTerm))##%''">'>  
+			<cfset x=x & chr(10) & '     </cfif>'> 
 			<cfset x=x & chr(10) & '    </cfif>'>
 			<cfset x=x & chr(10) &  '</cfif>'>
 			<cfset x=x & chr(10)>
+		
+       
+
+
+
 			
 			<cfscript>
 				variables.josrch_field_doc.writeLine(v);
