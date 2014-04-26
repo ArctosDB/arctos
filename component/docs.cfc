@@ -199,6 +199,8 @@
 	</cfquery>
 	
 	
+	<cfoutput>
+	
 	<cfdump var=#d#>
 	<cfset coredata=''>
 	<cfloop query="d">
@@ -223,6 +225,8 @@
 		<cfset trow="{" & trow & "}">
 		<cfset coredata=listappend(coredata,trow)>
 	</cfloop>
+	
+	</cfoutput>
 	<cfset result='{"Result":"OK","Records":[' & coredata & '],"TotalRecordCount":#trc.c#}'>
 			
 	<!-----		
