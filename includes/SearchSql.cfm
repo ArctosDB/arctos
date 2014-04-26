@@ -230,7 +230,7 @@
 		</p>
 		
 		
-        <cfif oper is not "like" and len(schunits) gt 0>
+        <cfif len(schunits) gt 0>
 			<!--- the only way to get here is by passing in a number+units --->
 			<cfset basQual = " #basQual# AND to_meters(t_breadth.attribute_value,t_breadth.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
         <cfelseif oper is not "like" and len(schunits) is 0>
