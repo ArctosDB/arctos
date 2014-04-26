@@ -1,12 +1,16 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
+	
+
+
+
+
 		<cfquery name="d" datasource="uam_god">
 			select ATTRIBUTE_TYPE from ctattribute_type group by ATTRIBUTE_TYPE order by ATTRIBUTE_TYPE
 		</cfquery>
 		<cfquery name="fattrorder" datasource="uam_god">
 			select min(DISP_ORDER) mdo from ssrch_field_doc where CATEGORY='attribute'
 		</cfquery>		
-		<cfset n=fattrorder.mdo>
 		<cfset variables.encoding="UTF-8">
 		<cfset variables.f_srch_field_doc="#Application.webDirectory#/download/srch_field_doc.sql">
 		<cfset variables.f_ss_doc="#Application.webDirectory#/download/specsrch.txt">
@@ -109,5 +113,28 @@
 		<p>
 			Get the CFML to build /includes/SearchSql_attributes.cfm <a href="/download/specsrch.txt">here</a>
 		</p>
+		
+			<!--- completely unrelated, but here's a handy time to integerize disp_order.
+		
+		---->
+		<p>Probably a good idea to run this and then reload this page.</p>
+<textarea rows="10" cols="80">
+declare 
+	n number;
+
+	begin
+		n:=1;
+		for r in (select disp_order from ssrch_field_doc where DISP_ORDER is not null order by DISP_ORDER) loop
+			update ssrch_field_doc set disp_order=n where disp_order=r.disp_order;
+			n:=n+1;
+		end loop;
+	end;
+/
+</textarea>
+		
+		
+		
+
+
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
