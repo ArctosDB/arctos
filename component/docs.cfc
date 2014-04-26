@@ -200,7 +200,7 @@
 	
 	
 	<cfdump var=#d#>
-	<cfset x=''>
+	<cfset coredata=''>
 	<cfloop query="d">
 		<cfset trow="">
 		<cfloop list="#d.columnlist#" index="i">
@@ -216,13 +216,14 @@
 			
 			
 			<cfset temp = '"#i#":"' & theData & '"'>
+			-#temp#-
 			<br>temp:<cfdump var=#temp#>
 			<cfset trow=listappend(trow,temp)>
 		</cfloop>
 		<cfset trow="{" & trow & "}">
-		<cfset x=listappend(x,trow)>
+		<cfset coredata=listappend(coredata,trow)>
 	</cfloop>
-	<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
+	<cfset result='{"Result":"OK","Records":[' & coredata & '],"TotalRecordCount":#trc.c#}'>
 			
 	<!-----		
 			
