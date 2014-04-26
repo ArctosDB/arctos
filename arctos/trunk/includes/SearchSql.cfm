@@ -230,7 +230,7 @@
 			<!--- the only way to get here is by passing in a number+units --->
 			<cfset basQual = " #basQual# AND to_meters(t_breadth.attribute_value,t_breadth.attribute_units) #oper# to_meters(#schTerm#,#schunits#)">
         <cfelse>
-             <cfset basQual = " #basQual# AND upper(t_breadth.attribute_value) like '%ucase(#schTerm)#%'">
+             <cfset basQual = " #basQual# AND upper(t_breadth.attribute_value) like '%#ucase(#schTerm)#%'">
          </cfif>
     </cfif>
 </cfif>
