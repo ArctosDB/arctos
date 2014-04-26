@@ -184,7 +184,9 @@
 </cfif>
 
 <cfset attrunits="M,METERS,METER,FT,FEET,FOOT,KM,KILOMETER,KILOMETERS,MM,MILLIMETER,MILLIMETERS,CM,CENTIMETER,CENTIMETERS,MI,MILE,MILES,YD,YARD,YARDS,FM,FATHOM,FATHOMS">
+<cfset charattrschops="=,!">
 <cfset numattrschops="=,!,<,>">
+
 	<cfoutput>
 <cfif isdefined("breadth")>
 
@@ -204,10 +206,10 @@
 			<cfset oper="like">
 			<cfset schTerm=ucase(breadth)>
 		</cfif>
+		<cfset schunits=''>
 		<!---- if numeric ---->
-		<cfset schunits=trim(rereplace(schTerm,"[0-9]","","all"))>
+		<cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
 		<cfif not listfindnocase(attrunits,schunits)>
-			<cfset schunits=''>
             <cfset schTerm=replace(schTerm,schunits,"")>		
 		</cfif>
 	out	
