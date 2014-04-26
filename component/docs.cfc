@@ -201,26 +201,16 @@
 	
 	<cfoutput>
 	
-	<cfdump var=#d#>
 	<cfset coredata=''>
 	<cfloop query="d">
 		<cfset trow="">
 		<cfloop list="#d.columnlist#" index="i">
 			<cfset theData=evaluate("d." & i)>
-			
-			<br>d1:<cfdump var=#theData#>
-			
 			<cfset theData=replace(theData,'"','\"',"all")>
 			<cfset theData=replace(theData,chr(10),'<br>',"all")>
-			
-			<br>d3:<cfdump var=#theData#>
-			
-			
-			
-			<cfset t = '"#i#":"' & 'wtf'  & '"'>
+			<cfset t = '"#i#":"' & theData  & '"'>
 			
 			-#t#-
-			<cfset t='asfas'>
 			<br>temp:<cfdump var=#t#>
 			<cfset trow=listappend(trow,t)>
 		</cfloop>
