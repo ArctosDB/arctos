@@ -67,13 +67,17 @@
 			<cfset x=x & chr(10) & '        <cfelseif  left(#attrvar#,1) is "!">'>				
 			<cfset x=x & chr(10) & '            <cfset oper="!=">'>	
 			
-			z			
+						p
 			<cfset x=x & chr(10) & '            <cfset srchval="''##ucase(right(#attrvar#,len(#attrvar#)-1))##''">'>
 			<cfset x=x & chr(10) & '        <cfelseif  left(#attrvar#,1) is "<">'>
 			<cfset x=x & chr(10) & '            <cfset oper="<">'>
 			<cfset x=x & chr(10) & '            <cfset srchval=right(#attrvar#,len(#attrvar#)-1)>'>
 			<cfset x=x & chr(10) & '        <cfelseif  left(#attrvar#,1) is ">">'>
 			<cfset x=x & chr(10) & '            <cfset oper=">">'>
+			
+			q
+			
+			
 			<cfset x=x & chr(10) & '            <cfset srchval=right(#attrvar#,len(#attrvar#)-1)>'>
 			<cfset x=x & chr(10) & '        <cfelse>'>
 			<cfset x=x & chr(10) & '            <cfset oper="like">'>
@@ -83,6 +87,10 @@
 			<cfset x=x & chr(10) & '    </cfif>'>
 			<cfset x=x & chr(10) &  '</cfif>'>
 			<cfset x=x & chr(10)>
+			
+			z
+			
+			
 			<cfscript>
 				variables.josrch_field_doc.writeLine(v);
 				variables.f_ss_doc.writeLine(x);
