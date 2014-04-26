@@ -124,7 +124,7 @@
 		
 		---->
 		<p>To avoid strange fractions and gaps, run this, commit, and then reload this page.</p>
-<textarea rows="10" cols="1000">
+<textarea rows="10" cols="100">
 declare 
   n number;
   begin
