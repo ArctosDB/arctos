@@ -25,7 +25,7 @@
 				select ATTRIBUTE_TYPE,VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where ATTRIBUTE_TYPE='#ATTRIBUTE_TYPE#' 
 			</cfquery>
 			<cfset attrvar=replace(replace(replace(ATTRIBUTE_TYPE,' ','_','all'),'-','_','all'),"/","_","all")>
-			<cfset x="
+			<cfset v="
 				insert into ssrch_field_doc (
 					CATEGORY,
 					CF_VARIABLE,
@@ -64,7 +64,6 @@
 						attribute value as attribute (as above)
 					
 				---->
-				<cfsavecontent variable="ss">
 					<cfset x='<cfif isdefined("#attrvar#")>'>
 					<cfset x=x & chr(10) & chr(9) & '<cfset mapurl = "##mapurl##&#attrvar#=###attrvar###">'>
 					<cfset x=x & chr(10) & chr(9) & '<cfset basJoin = " ##basJoi#n# INNER JOIN v_attributes t_#attrvar# ON (##session.flatTableName##.collection_object_id = t_#attrvar#.collection_object_id)">'>
@@ -94,7 +93,7 @@
 					<cfset x=x & chr(10) &  chr(9) & '</cfif>'>
 					<cfset x=x & chr(10) &  '</cfif>'>
 					<cfset x=x & chr(10)>
-					#x#
+				
 					
 					
 					
@@ -153,11 +152,10 @@
 					
 					
 					
-				</cfsavecontent>
 				
 				<cfscript>
-					variables.josrch_field_doc.writeLine(x);
-					variables.f_ss_doc.writeLine(ss);
+					variables.josrch_field_doc.writeLine(v);
+					variables.f_ss_doc.writeLine(x);
 
 
 
