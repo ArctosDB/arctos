@@ -197,6 +197,27 @@
 				) a where rownum <= #jtStopIndex#
 			) where rnum >= #jtStartIndex#
 	</cfquery>
+	
+	<cfset x=''>
+	<cfloop query="d">
+		<cfset trow="">
+		<cfloop list="#d.columnlist#" index="i">
+			<cfset theData=evaluate("d." & i)>
+			<cfset theData=replace(theData,'"','\"',"all")>
+			<cfset theData=replace(theData,chr(10),'<br>',"all")>
+			<cfset temp = '"#i#":"' & theData & '"'>
+			<cfset trow=listappend(trow,temp)>
+		</cfloop>
+		<cfset trow="{" & trow & "}">
+		<cfset x=listappend(x,trow)>
+	</cfloop>
+	<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
+			
+	<!-----		
+			
+			
+	
+	
 	<cfset x=''>
 	<cfloop query="d">
 		<cfset response = structNew()>
@@ -207,6 +228,10 @@
 		<cfset x=listappend(x,thisItem)>
 	</cfloop>
 	<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
+	
+	---->
+	
+	
 	<cfreturn result>
 </cffunction>
 
