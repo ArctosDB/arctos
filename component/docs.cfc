@@ -208,6 +208,7 @@
 			<cfset theData=replace(theData,'"','\"',"all")>
 			<cfset theData=replace(theData,chr(10),'<br>',"all")>
 			<cfset temp = '"#i#":"' & theData & '"'>
+			<cfdump var=#temp#>
 			<cfset trow=listappend(trow,temp)>
 		</cfloop>
 		<cfset trow="{" & trow & "}">
