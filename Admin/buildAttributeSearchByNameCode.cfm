@@ -93,11 +93,11 @@
 				<cfset x=x & chr(10) & '     </cfif>'> 
 			</cfif>
 			<cfset x=x & chr(10) & '      <cfif len(schunits) gt 0>'>  
-			<cfset x=x & chr(10) & '         <cfset basQual = " #basQual# AND to_meters(t_#attrvar#.attribute_value,t_#attrvar#.attribute_units) ##oper## to_meters(##schTerm##,''##schunits##'')">'>  
+			<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_meters(t_#attrvar#.attribute_value,t_#attrvar#.attribute_units) ##oper## to_meters(##schTerm##,''##schunits##'')">'>  
 			<cfset x=x & chr(10) & '     <cfelseif oper is not "like" and len(schunits) is 0>'> 
-			<cfset x=x & chr(10) & '         <cfset basQual = " #basQual# AND upper(t_#attrvar#.attribute_value) ##oper## ''##escapeQuotes(schTerm)##'')">'>  
+			<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND upper(t_#attrvar#.attribute_value) ##oper## ''##escapeQuotes(schTerm)##'')">'>  
 			<cfset x=x & chr(10) & '     <cfelse>'> 
-			<cfset x=x & chr(10) & '         <cfset basQual = " #basQual# AND upper(t_#attrvar#.attribute_value) like ''%##ucase(escapeQuotes(schTerm))##%''">'>  
+			<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND upper(t_#attrvar#.attribute_value) like ''%##ucase(escapeQuotes(schTerm))##%''">'>  
 			<cfset x=x & chr(10) & '     </cfif>'> 
 			<cfset x=x & chr(10) & '    </cfif>'>
 			<cfset x=x & chr(10) &  '</cfif>'>
