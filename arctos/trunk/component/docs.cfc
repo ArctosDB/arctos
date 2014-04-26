@@ -217,7 +217,7 @@
 			
 			
 			
-			<cfset temp = '"#i#":"' & theData & '"'>
+			<cfset temp = '"#i#":"' & 'wtf'  & '"'>
 			-#temp#-
 			<br>temp:<cfdump var=#temp#>
 			<cfset trow=listappend(trow,temp)>
