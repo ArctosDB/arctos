@@ -10,7 +10,11 @@
 		</cfquery>
 		<cfquery name="fattrorder" datasource="uam_god">
 			select min(DISP_ORDER) mdo from ssrch_field_doc where CATEGORY='attribute'
-		</cfquery>		
+		</cfquery>
+		
+		<cfset n=ceiling(fattrorder.mdo)>
+		
+			
 		<cfset variables.encoding="UTF-8">
 		<cfset variables.f_srch_field_doc="#Application.webDirectory#/download/srch_field_doc.sql">
 		<cfset variables.f_ss_doc="#Application.webDirectory#/download/specsrch.txt">
