@@ -67,16 +67,16 @@
 				<cfsavecontent variable="ss">
 					<cfset x='<cfif isdefined("#attrvar#")>'>
 					<cfset x=x & '<cfset mapurl = "##mapurl##&#attrvar#=###attrvar###">'>
-					<cfset x=x & '<cfset basJoin = " #basJoin# INNER JOIN v_attributes t_#attrvar# ON (##session.flatTableName##.collection_object_id = t_#attrvar#.collection_object_id)">'>
+					<cfset x=x & '<cfset basJoin = " ##basJoi#n# INNER JOIN v_attributes t_#attrvar# ON (##session.flatTableName##.collection_object_id = t_#attrvar#.collection_object_id)">'>
 					<cfset x=x & '<cfset basQual = " #basQual# AND t_#attrvar#.attribute_type = ''#ATTRIBUTE_TYPE#''">'>
 					<cfset x=x & '<cfif session.flatTableName is not "flat">'>
-					<cfset x=x & '<cfset basQual = " #basQual# AND t_#attrvar#.is_encumbered = 0">'>
+					<cfset x=x & '<cfset basQual = " ##basQual## AND t_#attrvar#.is_encumbered = 0">'>
 					<cfset x=x & '</cfif>'>
 					<cfset x=x & '<cfset extendedErrorMsg=listappend(extendedErrorMsg,''Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and <a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">code table datatypes</a> documentation.'',";")>'> 
 					<cfset x=x & '<cfif len(#attrvar#) gt 0>'>
-					<cfset x=x & '<cfif left(age_class,1) is "=">'>
+					<cfset x=x & '<cfif left(#attrvar#,1) is "=">'>
 					<cfset x=x & '<cfset oper="=">'>
-					<cfset x=x & '<cfset srchval="''#ucase(right(age_class,len(age_class)-1))#''">'>
+					<cfset x=x & '<cfset srchval="''#ucase(right(#attrvar#,len(#attrvar#)-1))#''">'>
 					<cfset x=x & ''>
 					<cfset x=x & ''>
 					<cfset x=x & ''>
