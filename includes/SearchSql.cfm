@@ -206,7 +206,7 @@
 		<cfset schunits=''>
 
 		<cfif listlen(breadth," ") is 2>
-			<cfset schunits=listgetat(stchterm,2," ")>
+			<cfset schunits=listgetat(schTerm,2," ")>
             <cfset schTerm=listdeleteat(schTerm,2," ")>
 		</cfif>
 		
