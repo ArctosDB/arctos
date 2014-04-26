@@ -200,7 +200,7 @@
 			<cfset schTerm=ucase(right(breadth,len(breadth)-1))>
 		<cfelse>
 			<cfset oper="like">
-			<cfset schTerm=breadth>
+			<cfset schTerm=ucase(breadth)>
 		</cfif>
 
 		<cfset schunits=''>
@@ -226,20 +226,10 @@
 		</p>
 		</cfoutput>
 		
-        <cfif oper is "=">
-			<cfset stchterm=right(breadth,len(breadth)-1)>
-            <cfset srchval="'#ucase(right(breadth,len(breadth)-1))#'">
-        <cfelseif  oper is "!">
-			<cfset stchterm=right(breadth,len(breadth)-1)>
-            <cfset srchval="'#ucase(right(breadth,len(breadth)-1))#'">
-        <cfelseif  oper is "<">
-			<cfset stchterm=right(breadth,len(breadth)-1)>
-            <cfset srchval=right(breadth,len(breadth)-1)>
-        <cfelseif  oper is ">">
-			<cfset stchterm=right(breadth,len(breadth)-1)>
-            <cfset srchval=right(breadth,len(breadth)-1)>
+        <cfif oper is not "like">
+            <cfset srchval="'#schTerm#'">
         <cfelse>
-            <cfset srchval="'%#ucase(breadth)#%'">
+            <cfset srchval="'%#schTerm#%'">
          </cfif>
 		
 		
