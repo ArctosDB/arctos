@@ -233,7 +233,7 @@ im goin in
 		<p>
 			schTerm: #schTerm#
 		</p>
-		</cfoutput>
+		
 		
         <cfif oper is not "like">
 			<!--- the only way to get here is by passing in a number+units --->
@@ -242,6 +242,10 @@ im goin in
              <cfset basQual = " #basQual# AND upper(t_breadth.attribute_value) like '%#ucase(schTerm)#%'">
          </cfif>
     </cfif>
+	
+	
+	
+	</cfoutput>
 </cfif>
 
 
