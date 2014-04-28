@@ -250,7 +250,7 @@
 			columnResizable: true,
 			multiSorting: true,
 			columnSelectable: false,
-			recordsLoaded: itsloaded,
+			recordsLoaded: getPostLoadJunk,
 			actions: {
                 listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
@@ -301,7 +301,12 @@
 		document.body.removeChild(theDiv);
 	}
 
-function itsloaded(){
+function getPostLoadJunk(){
+	var coidlistAR='';
+	$("div[id^='guiddiv_']").each(function() {
+		var id = this.id.split('_')[0];
+		console.log('doid: ' + id);
+});
 	alert('this runs after the data load');
 }
 </script>
