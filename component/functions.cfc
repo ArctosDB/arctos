@@ -97,7 +97,7 @@
 												</cfif>
 											</cfloop>
 											<cfquery name="cto" dbtype="query">
-												select ctColName thisctvalue from tct group by ctColName order by ctColName
+												select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
 											</cfquery>
 											<cfloop query="cto">
 												<div class="likeLink" onclick="$('###thisKey#').val('#thisctvalue#');">#thisctvalue#</div>
