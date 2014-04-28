@@ -181,12 +181,16 @@
 	<cfargument name="SPECIMEN_RESULTS_COL" type="string" required="false">
 	<cfargument name="specimen_query_term" type="string" required="false">
 		
-	<cfparam name="jtStartIndex" type="integer" default="1">
+	<cfparam name="jtStartIndex" type="integer" default="0">
 	<cfparam name="jtPageSize" type="integer" default="10">
 	<cfparam name="jtSorting" type="string" default="CF_VARIABLE ASC">
 	
 	
-	<cfset jtStopIndex=jtStartIndex+jtPageSize>
+	<!--- jtables likes to start at 0, which confuses CF, so.... ---->
+	
+	<cfset theFirstRow=jtStartIndex+1>
+	
+	<cfset theLastRow=theFirstRow+jtPageSize>
 	
 	<!--- new/smalldata: use CF QoQ ---->
 	
@@ -243,7 +247,7 @@
 	
 	<cfset coredata=''>
 	
-		<cfloop query="d" startrow="#jtStartIndex#" endrow="#jtStopIndex#">
+		<cfloop query="d" startrow="#theFirstRow#" endrow="#theLastRow#">
 
 
 
