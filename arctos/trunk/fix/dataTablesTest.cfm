@@ -864,7 +864,6 @@ function insertTypes(idList) {
 
 
 <div id="mapGoHere"></div>
-						<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
 
 <div id="cntr_refineSearchTerms"></div>
 
