@@ -310,8 +310,57 @@ function getPostLoadJunk(){
 	});
 	var coidList = coidlistAR.toString();
 	console.log(coidList);
+insertMedia(coidList);
 	//alert('this runs after the data load');
 }
+
+function insertMedia(c) {
+	var s=document.createElement('DIV');
+	s.id='ajaxStatus';
+	s.className='ajaxStatus';
+	s.innerHTML='Checking for Media...';
+	document.body.appendChild(s);
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "getMedia",
+			idList : idList,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (result) {
+			try{
+				var sBox=document.getElementById('ajaxStatus');
+				sBox.innerHTML='Processing Media....';
+				for (i=0; i<result.ROWCOUNT; ++i) {
+					var sel;
+					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
+					var mid=result.DATA.MEDIA_ID[i];
+					var rel=result.DATA.MEDIA_RELATIONSHIP[i];
+					if (rel=='cataloged_item') {
+						sel='CatItem_' + sid;
+					} else if (rel=='collecting_event') {
+						sel='SpecLocality_' + sid;
+					}
+					if (sel.length>0){
+						var el=document.getElementById(sel);
+						var ns='<a href="/MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
+						ns+='Media';
+						ns+='</a>';
+						el.innerHTML+=ns;
+					}
+				}
+				document.body.removeChild(sBox);
+				}
+			catch(e) {
+				sBox=document.getElementById('ajaxStatus');
+				document.body.removeChild(sBox);
+			}
+		}
+	);
+}
+
+
+
 </script>
 
 <!----

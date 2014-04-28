@@ -32,7 +32,7 @@ function insertTypes(idList) {
 		}
 	);
 }
-function insertMedia(c) {
+function insertMedia(idList) {
 	var s=document.createElement('DIV');
 	s.id='ajaxStatus';
 	s.className='ajaxStatus';
