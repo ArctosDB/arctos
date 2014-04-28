@@ -53,6 +53,7 @@
 					<th>Term</th>
 					<th></th>
 					<th>Value</th>
+					<th>Vocabulary *</th>
 				</tr>
 				<CFSET KEYLIST="">
 				<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
@@ -80,40 +81,28 @@
 							</td>
 							<td>=</td>
 							<td>
+								<!--- attributes take units as part of the variable, so no code tables ---->
+								<input type="text" name="#thisKey#" id="#thisKey#" value="#thisvalue#" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
+								
+							</td>
+							<td>
 								<cfif len(thisMoreInfo.CONTROLLED_VOCABULARY) gt 0>
 									<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
 										<cfquery name="tct" datasource="cf_dbuser">
 											select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
 										</cfquery>
-										
-										
-										
-										
-										<cfloop list="#tct.columnlist#" index="i">
-											<cfif i is not "description" and i is not "collection_cde">
-												<cfset ctColName=i>
-											</cfif>
+										<cfloop query="tct">
+											<cfset thisVal=evaluate("tct." & ctColName)>
+											<span onclick="$('##thisKey').val('#thisVal#');">#thisVal#</span>
 										</cfloop>
-
-
-										<select name="#thisKey#">
-											<option value=""> [ remove this term ]</option>
-											<cfloop query="tct">
-												<cfset thisVal=evaluate("tct." & ctColName)>
-												<option value="#thisVal#" <cfif thisVal is thisvalue> selected="selected" </cfif>>#thisval#</option>
-											</cfloop>
-										</select>
 									<cfelse>
-										<select name="#thisKey#">
-											<option value=""> [ remove this term ]</option>
-											<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
-												<option value="#i#" <cfif i is thisvalue> selected="selected" </cfif>>#i#</option>
-											</cfloop>
-										</select>
+										<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
+											<span onclick="$('##thisKey').val('#i#');">#i#</span>
+										</cfloop>
 									</cfif>
-								<cfelse>
-									<input type="text" name="#thisKey#" value="#thisvalue#" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
 								</cfif>
+							
+							
 							</td>
 						</tr>
 					</cfif>
@@ -141,6 +130,7 @@
 					</tr>
 				</table>
 				<input type="submit" value="Requery">
+				* Please note that attributes will accept non-code-table values: "2 mm" for example.
 			</form>
 		</div>
 	</cfsavecontent>
