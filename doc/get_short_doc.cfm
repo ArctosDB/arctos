@@ -44,10 +44,7 @@
 	<cfset r=r & '</div>'>
 	<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
 	<cfcatch>
-		
-		
-		
-		<cfsavecontent variable="response"><cfoutput><cfdump var=#cfcatch#>Error: No further information available.</cfoutput></cfsavecontent>
+		<cfsavecontent variable="response"><cfoutput>Error: No further information available.</cfoutput></cfsavecontent>
 	</cfcatch>
 	</cftry>
 	<cfscript>

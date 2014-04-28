@@ -153,6 +153,13 @@
 <div class="filtering">
     <form>
         CF_VARIABLE: <input type="text" name="CF_VARIABLE" id="CF_VARIABLE" />
+		SR:
+		<select name="sr" id="sr">
+			<option value=""></option>
+			<option value="1">yes</option>
+			<option value="0">no</option>
+		</select>
+		 <input type="text" name="CF_VARIABLE" id="CF_VARIABLE" />
         <button type="submit" id="LoadRecordsButton">Search</button>
     </form>
 </div>
