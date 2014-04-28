@@ -405,6 +405,8 @@ function insertTypes(idList) {
 
 function injectLoanPick() {
 	var transaction_id=$("transaction_id").val();
+	console.log('fetch loan data for ' + transaction_id);
+
 	if (transaction_id) {
 		var s=document.createElement('DIV');
 		s.id='ajaxStatus';
