@@ -98,11 +98,11 @@
 											</cfloop>
 											<cfloop query="tct">
 												<cfset thisVal=evaluate("tct." & ctColName)>
-												<div class="likeLink" onclick="$('##thisKey#').val('#thisVal#');">#thisVal#</div>
+												<div class="likeLink" onclick="$('###thisKey#').val('#thisVal#');">#thisVal#</div>
 											</cfloop>
 										<cfelse>
 											<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
-												<div class="likeLink"  onclick="$('##thisKey#').val('#i#');">#i#</div>
+												<div class="likeLink"  onclick="$('###thisKey#').val('#i#');">#i#</div>
 											</cfloop>
 										</cfif>
 									</cfif>
