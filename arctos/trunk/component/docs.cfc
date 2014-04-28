@@ -196,6 +196,7 @@
 	
 	<cfquery name="d" datasource="uam_god">
 		select 
+			'CF_VARIABLE=#CF_VARIABLE#&SPECIMEN_RESULTS_COL=#SPECIMEN_RESULTS_COL#&specimen_query_term=#specimen_query_term#' theSrchParams,
 			CATEGORY,
 			CF_VARIABLE,
 			CONTROLLED_VOCABULARY,
@@ -216,6 +217,8 @@
 		order by 
 			#jtSorting#
 	</cfquery>
+	
+	
 	
 	<cfquery name="trc" dbtype="query">
 		Select count(*) c from d 
