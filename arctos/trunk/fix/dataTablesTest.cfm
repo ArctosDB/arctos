@@ -424,8 +424,8 @@ function injectLoanPick() {
 			function (r) {
 		console.log(r);
 		for (i=0; i<r.ROWCOUNT; ++i) {
-			var cid = 'CatItem_' + r.COLLECTION_OBJECT_ID[i];
-			console.log(cid);
+			//var cid = 'CatItem_' + r.COLLECTION_OBJECT_ID[i];
+			console.log('isarow');
 
 			$("##" + cid).append('part crap could go here maybe so.....');
 		}
