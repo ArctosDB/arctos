@@ -777,7 +777,7 @@ function addPartToLoan(partID) {
 <div style="border:2px solid blue;" id="ssControl">
 
 
-<cfif isdefined("transaction_id")>
+<cfif len("transaction_id") gt 0>
 	<cfquery name="isDataLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select LOAN_TYPE from loan where transaction_id=#transaction_id#
 	</cfquery>
