@@ -424,7 +424,7 @@ function injectLoanPick() {
 			function (r) {
 		console.log(r.ROWCOUNT);
 		console.log(r);
-$.each(d, function() {
+$.each(r, function() {
   $.each(this, function(k, v) {
     /// do stuff
 	console.log(k+'='+v);
