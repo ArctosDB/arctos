@@ -4361,7 +4361,7 @@
 				cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
 				specimen_part.collection_object_id=#partID#
 			</cfquery>
-			<cfif #subsample# is 1>
+			<cfif subsample is 1>
 			<cfquery name="parentData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT
 					coll_obj_disposition,
