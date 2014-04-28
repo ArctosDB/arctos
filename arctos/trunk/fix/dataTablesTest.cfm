@@ -302,7 +302,7 @@
 	}
 
 function itsloaded(){
-	console.log('this runs after the data load');
+	alert('this runs after the data load');
 }
 </script>
 
