@@ -192,11 +192,15 @@
 	
 	<cfset theLastRow=theFirstRow+jtPageSize>
 	
-	<!--- new/smalldata: use CF QoQ ---->
+	<!--- new/smalldata: use CF QoQ
+	
+				'CF_VARIABLE=#CF_VARIABLE#&SPECIMEN_RESULTS_COL=#SPECIMEN_RESULTS_COL#&specimen_query_term=#specimen_query_term#' theSrchParams,
+
+
+ ---->
 	
 	<cfquery name="d" datasource="uam_god">
 		select 
-			'CF_VARIABLE=#CF_VARIABLE#&SPECIMEN_RESULTS_COL=#SPECIMEN_RESULTS_COL#&specimen_query_term=#specimen_query_term#' theSrchParams,
 			CATEGORY,
 			CF_VARIABLE,
 			CONTROLLED_VOCABULARY,
