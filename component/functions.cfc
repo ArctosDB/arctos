@@ -96,9 +96,11 @@
 													<cfset ctColName=i>
 												</cfif>
 											</cfloop>
-											<cfloop query="tct">
-												<cfset thisVal=evaluate("tct." & ctColName)>
-												<div class="likeLink" onclick="$('###thisKey#').val('#thisVal#');">#thisVal#</div>
+											<cfquery name="cto" dbtype="query">
+												select ctColName thisctvalue from cto group by ctColName order by ctColName
+											</cfquery>
+											<cfloop query="cto">
+												<div class="likeLink" onclick="$('###thisKey#').val('#thisctvalue#');">#thisctvalue#</div>
 											</cfloop>
 										<cfelse>
 											<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
