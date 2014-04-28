@@ -829,35 +829,40 @@ function addPartToLoan(partID) {
 				onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
 		</td>
 		<cfif willmap.recordcount gt 0>
-			<td><a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">BerkeleyMapper</a></li></td>
-				<!--- far from perfect, but see if we can prevent some frustration by sending fewer bound-to-fail queries to rangemaps ---->
-				<cfquery dbtype="query" name="willItRangeMap">
-					select scientific_name from summary group by scientific_name
-				</cfquery>
-				<cfset gen=''>
-				<cfset sp=''>
-				<cfloop query="willItRangeMap">
-					<cfif listlen(scientific_name," ") is 1>
-						<cfif not listcontains(gen,scientific_name)>
-							<cfset gen=listappend(gen,scientific_name)>
-						</cfif>
-					<cfelseif listlen(scientific_name," ") gte 2>
-						<cfif not listcontains(gen,listgetat(scientific_name,1," "))>
-							<cfset gen=listappend(gen,listgetat(scientific_name,1," "))>
-						</cfif>
-						<cfif not listcontains(sp,listgetat(scientific_name,2," "))>
-							<cfset sp=listappend(sp,listgetat(scientific_name,2," "))>
-						</cfif>
+			<td>
+				<a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">BerkeleyMapper</a>
+			</td>
+			<!--- far from perfect, but see if we can prevent some frustration by sending fewer bound-to-fail queries to rangemaps ---->
+			<cfquery dbtype="query" name="willItRangeMap">
+				select scientific_name from summary group by scientific_name
+			</cfquery>
+			<cfset gen=''>
+			<cfset sp=''>
+			<cfloop query="willItRangeMap">
+				<cfif listlen(scientific_name," ") is 1>
+					<cfif not listcontains(gen,scientific_name)>
+						<cfset gen=listappend(gen,scientific_name)>
 					</cfif>
-				</cfloop>
-				<cfif listlen(gen) is 1 and listlen(sp) is 1>
-					<td><a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">BerkeleyMapper+Rangemaps</a></td>
+				<cfelseif listlen(scientific_name," ") gte 2>
+					<cfif not listcontains(gen,listgetat(scientific_name,1," "))>
+						<cfset gen=listappend(gen,listgetat(scientific_name,1," "))>
+					</cfif>
+					<cfif not listcontains(sp,listgetat(scientific_name,2," "))>
+						<cfset sp=listappend(sp,listgetat(scientific_name,2," "))>
+					</cfif>
 				</cfif>
-				<td><a href="/bnhmMaps/kml.cfm" target="_blank">Google Maps/Google Earth</a></td>
-			</ul>
+			</cfloop>
+			<cfif listlen(gen) is 1 and listlen(sp) is 1>
+				<td>
+					<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">BerkeleyMapper+Rangemaps</a>
+				</td>
+			</cfif>
+			<td>
+				<a href="/bnhmMaps/kml.cfm" target="_blank">Google Maps/Google Earth</a>
+			</td>
 		</cfif>
-		<td nowrap="nowrap">
-			<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
+		<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
+			<td nowrap="nowrap">
 				<select name="goWhere" id="goWhere" size="1">
 					<option value="">Manage...</option>
 					<option value="/Encumbrances.cfm">
@@ -934,10 +939,12 @@ function addPartToLoan(partID) {
 					</option>
 				</select>
 				<input type="button" value="Go" class="lnkBtn" onClick="reporter();">
-			</cfif>
-		</td>
-		<td align="right">
+			</td>
+		</cfif>
+		<td>
 			<a href="/SpecimenResultsHTML.cfm?#mapurl#" class="likeLink">HTML version</a>
+		</td>
+		<td>
 			<a class="likeLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>
 		</td>
 	</tr>
