@@ -250,6 +250,7 @@
 			columnResizable: true,
 			multiSorting: true,
 			columnSelectable: false,
+			completeCallback: 'itsloaded',
 			actions: {
                 listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
@@ -299,6 +300,10 @@
 		var theDiv = document.getElementById('bgDiv');
 		document.body.removeChild(theDiv);
 	}
+
+function itsloaded(){
+	console.log('this runs after the data load');
+}
 </script>
 
 <!----
