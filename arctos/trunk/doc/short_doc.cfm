@@ -1,4 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
+
+deprecated - see /doc/field_documentation.cfm
+
+<cfabort>
+
 <cfif action is "nothing">
 	<a href="short_doc.cfm?action=new">[ new record ]</a>
 	<form name="d" method="post" action="short_doc.cfm">

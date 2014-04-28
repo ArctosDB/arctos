@@ -273,8 +273,8 @@
 										</ul>
 									</li>
 								</cfif>
-								<cfif listfind(formList,"/doc/short_doc.cfm")>
-									<li><a target="_top" href="/doc/short_doc.cfm">Popup Documentation</a></li>
+								<cfif listfind(formList,"/doc/field_documentation.cfm")>
+									<li><a target="_top" href="/doc/field_documentation.cfm">Field-level Documentation</a></li>
 								</cfif>
 							</ul>
 						<li><a target="_top" href="##">Manage Arctos</a>
