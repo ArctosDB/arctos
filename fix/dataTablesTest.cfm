@@ -302,7 +302,7 @@
 	}
 
 function getPostLoadJunk(){
-	var coidlistAR='';
+	var coidlistAR=new Array();
 	$("div[id^='guiddiv_']").each(function() {
 		var id = this.id.split('_')[1];
 		console.log('doid: ' + id);
