@@ -428,7 +428,7 @@ function injectLoanPick() {
 for (i=0; i<r.ROWCOUNT; ++i) {
 	console.log(i);
 	var cid = 'CatItem_' + r.DATA.COLLECTION_OBJECT_ID[i];
-$("##" + cid).append('part crap could go here maybe so.....');
+$("##" + cid).append('<div>part crap could go here maybe so.....<br>ima break</div>');
 }
 		
 
