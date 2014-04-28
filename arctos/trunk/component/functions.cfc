@@ -86,37 +86,34 @@
 							</td>
 							<td>
 								<div style="height:1em; overflow:auto">
-								<cfif len(thisMoreInfo.CONTROLLED_VOCABULARY) gt 0>
-									<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
-										<cfquery name="tct" datasource="cf_dbuser">
-											select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
-										</cfquery>
-										<cfloop list="#tct.columnlist#" index="i">
-											<cfif i is not "description" and i is not "collection_cde">
-												<cfset ctColName=i>
-											</cfif>
-										</cfloop>
-										<cfloop query="tct">
-											<cfset thisVal=evaluate("tct." & ctColName)>
-											<div class="likeLink" onclick="$('##thisKey').val('#thisVal#');">#thisVal#</div>
-										</cfloop>
-									<cfelse>
-										<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
-											<div class="likeLink"  onclick="$('##thisKey').val('#i#');">#i#</div>
-										</cfloop>
+									<cfif len(thisMoreInfo.CONTROLLED_VOCABULARY) gt 0>
+										<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
+											<cfquery name="tct" datasource="cf_dbuser">
+												select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
+											</cfquery>
+											<cfloop list="#tct.columnlist#" index="i">
+												<cfif i is not "description" and i is not "collection_cde">
+													<cfset ctColName=i>
+												</cfif>
+											</cfloop>
+											<cfloop query="tct">
+												<cfset thisVal=evaluate("tct." & ctColName)>
+												<div class="likeLink" onclick="$('##thisKey').val('#thisVal#');">#thisVal#</div>
+											</cfloop>
+										<cfelse>
+											<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
+												<div class="likeLink"  onclick="$('##thisKey').val('#i#');">#i#</div>
+											</cfloop>
+										</cfif>
 									</cfif>
-								</cfif>
-							</div>
-							
+								</div>
 							</td>
 						</tr>
 					</cfif>
-					
 				</cfloop>
 				<cfquery name="newkeys" dbtype="query">
 						SELECT * FROM ssrch_field_doc WHERE specimen_query_term=1 and CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
 					</cfquery>
-
 					<tr>
 						<td>
 						
@@ -135,7 +132,9 @@
 					</tr>
 				</table>
 				<input type="submit" value="Requery">
-				* Please note that attributes will accept non-code-table values: "2 mm" for example.
+				<div style="font-size:x-small">
+					* Attributes will accept non-code-table values and operators: "2 mm" or "<2mm," for example.
+				</div>
 			</form>
 		</div>
 	</cfsavecontent>
