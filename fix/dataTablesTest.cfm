@@ -428,7 +428,59 @@ function injectLoanPick() {
 for (i=0; i<r.ROWCOUNT; ++i) {
 	console.log(i);
 	var cid = 'CatItem_' + r.DATA.COLLECTION_OBJECT_ID[i];
-$("##" + cid).append('<div>part crap could go here maybe so.....<br>ima break</div>');
+
+
+
+		if (document.getElementById(cid)){
+			var theCell = document.getElementById(cid);
+			//theCell.innerHTML='Fetching loan data....';
+			if (lastID == r.DATA.COLLECTION_OBJECT_ID[i]) {
+				theTable += "<tr>";
+			} else {
+				theTable = '<table border width="100%"><tr>';
+			}
+			theTable += '<td nowrap="nowrap" class="specResultPartCell">';
+			theTable += '<i>' + r.DATA.PART_NAME[i];
+			if (r.DATA.SAMPLED_FROM_OBJ_ID[i] > 0) {
+				theTable += '&nbsp;sample';
+			}
+			theTable += "&nbsp;(" + r.DATA.COLL_OBJ_DISPOSITION[i] + ")</i> [" + r.DATA.BARCODE[i] + "]";
+			theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+			theTable += 'Remark:&nbsp;<input type="text" name="item_remark" size="10" id="item_remark_' + r.DATA.PARTID[i] + '">';
+			theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+			theTable += 'Instr.:&nbsp;<input type="text" name="item_instructions" size="10" id="item_instructions_' + r.DATA.PARTID[i] + '">';
+			theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+			theTable += 'Subsample?:&nbsp;<input type="checkbox" name="subsample" id="subsample_' + r.DATA.PARTID[i] + '">';
+			theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+			theTable += '<input type="button" id="theButton_' + r.DATA.PARTID[i] + '"';
+			theTable += ' class="insBtn"';
+			if (r.DATA.TRANSACTION_ID[i] > 0) {
+				theTable += ' onclick="" value="In Loan">';
+			} else {
+				theTable += ' value="Add" onclick="addPartToLoan(';
+				theTable += r.DATA.PARTID[i] + ');">';
+			}
+			if (r.DATA.ENCUMBRANCE_ACTION[i]!==null) {
+				theTable += '<br><i>Encumbrances:&nbsp;' + r.DATA.ENCUMBRANCE_ACTION[i] + '</i>';
+			}
+			theTable +="</td>";
+			if (r.DATA.COLLECTION_OBJECT_ID[i+1] && r.DATA.COLLECTION_OBJECT_ID[i+1] == r.DATA.COLLECTION_OBJECT_ID[i]) {
+				theTable += "</tr>";
+			} else {
+				theTable += "</tr></table>";
+			}
+			lastID = r.DATA.COLLECTION_OBJECT_ID[i];
+
+$("##" + cid).append(theTable);
+
+
+
+
+		}
+
+
+
+
 }
 		
 
