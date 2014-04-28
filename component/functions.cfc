@@ -83,7 +83,6 @@
 							<td>
 								<!--- attributes take units as part of the variable, so no code tables ---->
 								<input type="text" name="#thisKey#" id="#thisKey#" value="#thisvalue#" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
-								
 							</td>
 							<td>
 								<cfif len(thisMoreInfo.CONTROLLED_VOCABULARY) gt 0>
@@ -91,6 +90,11 @@
 										<cfquery name="tct" datasource="cf_dbuser">
 											select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
 										</cfquery>
+										<cfloop list="#tct.columnlist#" index="i">
+											<cfif i is not "description" and i is not "collection_cde">
+												<cfset ctColName=i>
+											</cfif>
+										</cfloop>
 										<cfloop query="tct">
 											<cfset thisVal=evaluate("tct." & ctColName)>
 											<span onclick="$('##thisKey').val('#thisVal#');">#thisVal#</span>
