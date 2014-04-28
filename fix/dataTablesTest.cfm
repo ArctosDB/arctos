@@ -306,8 +306,11 @@ function getPostLoadJunk(){
 	$("div[id^='guiddiv_']").each(function() {
 		var id = this.id.split('_')[1];
 		console.log('doid: ' + id);
-});
-	alert('this runs after the data load');
+		coidlistAR.push(id);
+	});
+	var coidList = coidlistAR.toString();
+	console.log(coidList);
+	//alert('this runs after the data load');
 }
 </script>
 
