@@ -737,37 +737,7 @@ function addPartToLoan(partID) {
 				</ul>
 			</td>		
 			<td>
-				<div style="padding-left:2em;">
-					<cfif willmap.recordcount gt 0>
-						<ul>
-							<li><a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">Map these results in BerkeleyMapper</a></li>
-							<!--- far from perfect, but see if we can prevent some frustration by sending fewer bound-to-fail queries to rangemaps ---->
-							<cfquery dbtype="query" name="willItRangeMap">
-								select scientific_name from summary group by scientific_name
-							</cfquery>
-							<cfset gen=''>
-							<cfset sp=''>
-							<cfloop query="willItRangeMap">
-								<cfif listlen(scientific_name," ") is 1>
-									<cfif not listcontains(gen,scientific_name)>
-										<cfset gen=listappend(gen,scientific_name)>
-									</cfif>
-								<cfelseif listlen(scientific_name," ") gte 2>
-									<cfif not listcontains(gen,listgetat(scientific_name,1," "))>
-										<cfset gen=listappend(gen,listgetat(scientific_name,1," "))>
-									</cfif>
-									<cfif not listcontains(sp,listgetat(scientific_name,2," "))>
-										<cfset sp=listappend(sp,listgetat(scientific_name,2," "))>
-									</cfif>
-								</cfif>
-							</cfloop>
-							<cfif listlen(gen) is 1 and listlen(sp) is 1>
-								<li><a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">Map these results in BerkeleyMapper+Rangemaps</a></li>
-							</cfif>
-							<li><a href="/bnhmMaps/kml.cfm" target="_blank">Map  these results in Google Maps or download for Google Earth</a></li>
-						</ul>
-					</cfif>
-				</div>
+				
 			</td>
 			<td align="right">
 				<div id="mapGoHere"></div>
@@ -838,7 +808,7 @@ function addPartToLoan(partID) {
 	<tr>
 		<td>
 			<table>
-				<tr>
+				<tr>	<!----
 					<td>
 						<cfset numPages= ceiling(summary.recordcount/session.displayrows)>
 						<cfset loopTo=numPages-2>
@@ -858,7 +828,7 @@ function addPartToLoan(partID) {
 						</select>
 					</td>
 					
-					<!----
+				
 					<td>
 						<label for="orderBy1">Order by...</label>
 						<select name="orderBy1" id="orderBy1" size="1" onchange="changeresultSort(this.value)">
@@ -929,6 +899,38 @@ function addPartToLoan(partID) {
 						<span class="controlButton"
 							onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
 					</td>
+					<div style="padding-left:2em;">
+					<cfif willmap.recordcount gt 0>
+						<td><a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">BerkeleyMapper</a></li></td>
+							<!--- far from perfect, but see if we can prevent some frustration by sending fewer bound-to-fail queries to rangemaps ---->
+							<cfquery dbtype="query" name="willItRangeMap">
+								select scientific_name from summary group by scientific_name
+							</cfquery>
+							<cfset gen=''>
+							<cfset sp=''>
+							<cfloop query="willItRangeMap">
+								<cfif listlen(scientific_name," ") is 1>
+									<cfif not listcontains(gen,scientific_name)>
+										<cfset gen=listappend(gen,scientific_name)>
+									</cfif>
+								<cfelseif listlen(scientific_name," ") gte 2>
+									<cfif not listcontains(gen,listgetat(scientific_name,1," "))>
+										<cfset gen=listappend(gen,listgetat(scientific_name,1," "))>
+									</cfif>
+									<cfif not listcontains(sp,listgetat(scientific_name,2," "))>
+										<cfset sp=listappend(sp,listgetat(scientific_name,2," "))>
+									</cfif>
+								</cfif>
+							</cfloop>
+							<cfif listlen(gen) is 1 and listlen(sp) is 1>
+								<td><a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">BerkeleyMapper+Rangemaps</a></td>
+							</cfif>
+							<td><a href="/bnhmMaps/kml.cfm" target="_blank">Google Maps/Google Earth</a></td>
+						</ul>
+					</cfif>
+				</div>
+				
+				
 				</tr>
 			</table>
 		</td>
