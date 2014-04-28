@@ -408,6 +408,9 @@ function injectLoanPick() {
 	console.log('fetch loan data for ' + transaction_id);
 
 	if (transaction_id) {
+
+		var lastID;
+
 		var s=document.createElement('DIV');
 		s.id='ajaxStatus';
 		s.className='ajaxStatus';
@@ -432,6 +435,7 @@ for (i=0; i<r.ROWCOUNT; ++i) {
 
 
 		if (document.getElementById(cid)){
+	
 			var theCell = document.getElementById(cid);
 			//theCell.innerHTML='Fetching loan data....';
 			if (lastID == r.DATA.COLLECTION_OBJECT_ID[i]) {
