@@ -190,7 +190,7 @@
 	
 	<!--- new/smalldata: use CF QoQ ---->
 	
-	<cfquery name="raw" datasource="uam_god">
+	<cfquery name="d" datasource="uam_god">
 		select 
 			CATEGORY,
 			CF_VARIABLE,
@@ -204,20 +204,17 @@
 			SQL_ELEMENT,
 			SPECIMEN_RESULTS_COL,
 			DISP_ORDER,
-			SPECIMEN_QUERY_TERM,
-			rownum rnum
+			SPECIMEN_QUERY_TERM
 		 from ssrch_field_doc where 1=1
-					<cfif isdefined("CF_VARIABLE") and len(CF_VARIABLE) gt 0> and CF_VARIABLE like '%#lcase(CF_VARIABLE)#%'</cfif>
-					<cfif isdefined("SPECIMEN_RESULTS_COL") and len(SPECIMEN_RESULTS_COL) gt 0> and SPECIMEN_RESULTS_COL=#SPECIMEN_RESULTS_COL#</cfif>
-					<cfif isdefined("specimen_query_term") and len(specimen_query_term) gt 0> and specimen_query_term=#specimen_query_term#</cfif>
-					 order by #jtSorting#
+			<cfif isdefined("CF_VARIABLE") and len(CF_VARIABLE) gt 0> and CF_VARIABLE like '%#lcase(CF_VARIABLE)#%'</cfif>
+			<cfif isdefined("SPECIMEN_RESULTS_COL") and len(SPECIMEN_RESULTS_COL) gt 0> and SPECIMEN_RESULTS_COL=#SPECIMEN_RESULTS_COL#</cfif>
+			<cfif isdefined("specimen_query_term") and len(specimen_query_term) gt 0> and specimen_query_term=#specimen_query_term#</cfif>
+		order by 
+			#jtSorting#
 	</cfquery>
 	
-	<cfdump var=#raw#>
-	
-	
-	<cfquery name="d" dbtype="query">
-		select * from raw where 
+	<cfquery name="trc" dbtype="query">
+		Select count(*) c from d 
 	</cfquery>
 
 	
@@ -246,7 +243,11 @@
 	<cfoutput>
 	
 	<cfset coredata=''>
-	<cfloop query="d">
+	
+		<cfloop query="d" startrow="#jtStartIndex#" endrow="#jtStopIndex#">
+
+
+
 		<cfset trow="">
 		<cfloop list="#d.columnlist#" index="i">
 			<cfset theData=evaluate("d." & i)>
