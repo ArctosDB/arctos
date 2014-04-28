@@ -187,6 +187,44 @@
 	
 	
 	<cfset jtStopIndex=jtStartIndex+jtPageSize>
+	
+	<!--- new/smalldata: use CF QoQ ---->
+	
+	<cfquery name="raw" datasource="uam_god">
+		select 
+			CATEGORY,
+			CF_VARIABLE,
+			CONTROLLED_VOCABULARY,
+			DATA_TYPE,
+			DEFINITION,
+			DISPLAY_TEXT,
+			DOCUMENTATION_LINK,
+			PLACEHOLDER_TEXT,
+			SEARCH_HINT,
+			SQL_ELEMENT,
+			SPECIMEN_RESULTS_COL,
+			DISP_ORDER,
+			SPECIMEN_QUERY_TERM,
+			rownum rnum
+		 from ssrch_field_doc where 1=1
+					<cfif isdefined("CF_VARIABLE") and len(CF_VARIABLE) gt 0> and CF_VARIABLE like '%#lcase(CF_VARIABLE)#%'</cfif>
+					<cfif isdefined("SPECIMEN_RESULTS_COL") and len(SPECIMEN_RESULTS_COL) gt 0> and SPECIMEN_RESULTS_COL=#SPECIMEN_RESULTS_COL#</cfif>
+					<cfif isdefined("specimen_query_term") and len(specimen_query_term) gt 0> and specimen_query_term=#specimen_query_term#</cfif>
+					 order by #jtSorting#
+	</cfquery>
+	
+	<cfdump var=#raw#>
+	
+	
+	<cfquery name="d" dbtype="query">
+		select * from raw where 
+	</cfquery>
+
+	
+	<!-----
+	
+	Old/bigdata: handle shit on the server
+
 	<cfquery name="trc" datasource="uam_god">
 		Select count(*) c from ssrch_field_doc 
 	</cfquery>
@@ -201,6 +239,8 @@
 				) a where rownum <= #jtStopIndex#
 			) where rnum >= #jtStartIndex#
 	</cfquery>
+	
+	---->
 	<cfdump var=#d#>
 	
 	<cfoutput>
