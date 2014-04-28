@@ -402,29 +402,18 @@ function insertTypes(idList) {
 }
 
 </script>
-
-<!----
-
-
-
-				
-				
-				
-<div id="cpick">
-	Pick Columns
-	<cfloop query="r_d">
-		<div>
-			#thdisplay#<input type="checkbox" name="#COLUMN_NAME#" id="#COLUMN_NAME#">
-		</div>
-	</cfloop>
-</div>
-
-<form name="filter">
-	Cat Number: <input type="text" id="cat_num">
-	<input type="button" value="filter" onclick="filterResults()">
-</form>
-
----->
+<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select
+		collection_object_id,
+			dec_lat,
+		dec_long,
+			to_number(decode(coordinateuncertaintyinmeters,
+			0,NULL,
+			coordinateuncertaintyinmeters)) coordinateuncertaintyinmeters,
+		scientific_name
+	from 
+		#session.SpecSrchTab#
+</cfquery>
 <div id="mapGoHere"></div>
 						<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
 
