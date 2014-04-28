@@ -423,9 +423,10 @@ function injectLoanPick() {
 				},
 			function (result) {
 		console.log(result);
+for (i=0; i<result.ROWCOUNT; ++i) {
 		var cid = 'CatItem_' + result.COLLECTION_OBJECT_ID[i];
 		$("##" + cid).append('part crap could go here maybe so.....');
-	
+	}
 	/*			
 	
 	var sBox=document.getElementById('ajaxStatus');
