@@ -424,13 +424,10 @@ function injectLoanPick() {
 			function (r) {
 		console.log(r.ROWCOUNT);
 		console.log(r);
-$.each(r, function() {
-  $.each(this, function(k, v) {
-    /// do stuff
-	console.log(k+'='+v);
-  });
-});
 
+for (i=0; i<r.ROWCOUNT; ++i) {
+	console.log(i);
+}
 		
 
 
