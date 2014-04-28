@@ -1591,31 +1591,6 @@
     </cfif>
 </cfif>
 
-<cfif isdefined("title")>
-    <cfset mapurl = "#mapurl#&title=#title#">
-    <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_title ON (#session.flatTableName#.collection_object_id = tbl_title.collection_object_id)">
-    <cfset basQual = " #basQual# AND tbl_title.attribute_type = 'title'">
-    <cfif session.flatTableName is not "flat">
-        <cfset basQual = " #basQual# AND tbl_title.is_encumbered = 0">
-    </cfif>
-    <cfset schunits="">
-    <cfif len(title) gt 0>
-        <cfset oper=left(title,1)>
-        <cfif listfind(charattrschops,oper)>
-            <cfset schTerm=ucase(right(title,len(title)-1))>
-        <cfelse>
-            <cfset oper="like"><cfset schTerm=ucase(title)>
-        </cfif>
-      <cfif len(schunits) gt 0>
-         <cfset basQual = " #basQual# AND to_meters(tbl_title.attribute_value,tbl_title.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
-     <cfelseif oper is not "like" and len(schunits) is 0>
-         <cfset basQual = " #basQual# AND upper(tbl_title.attribute_value) #oper# '#escapeQuotes(schTerm)#'">
-     <cfelse>
-         <cfset basQual = " #basQual# AND upper(tbl_title.attribute_value) like '%#ucase(escapeQuotes(schTerm))#%'">
-     </cfif>
-    </cfif>
-</cfif>
-
 <cfif isdefined("total_length")>
     <cfset mapurl = "#mapurl#&total_length=#total_length#">
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_total_length ON (#session.flatTableName#.collection_object_id = tbl_total_length.collection_object_id)">
@@ -1935,3 +1910,4 @@
      </cfif>
     </cfif>
 </cfif>
+
