@@ -424,14 +424,23 @@ function injectLoanPick() {
 			function (r) {
 		console.log(r.ROWCOUNT);
 		console.log(r);
-		for (i=0; i<r.ROWCOUNT; ++i) {
+$.each(d, function() {
+  $.each(this, function(k, v) {
+    /// do stuff
+	console.log(k+'='+v);
+  });
+});
+
+		
+
+
+	/*			
+	for (i=0; i<r.ROWCOUNT; ++i) {
 			//var cid = 'CatItem_' + r.COLLECTION_OBJECT_ID[i];
 			console.log('isarow: ' + 1);
 
 			//$("##" + cid).append('part crap could go here maybe so.....');
 		}
-	/*			
-	
 	var sBox=document.getElementById('ajaxStatus');
 				try{
 					sBox.innerHTML='Processing Types....';
