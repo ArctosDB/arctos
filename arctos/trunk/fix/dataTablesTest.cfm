@@ -226,6 +226,7 @@
 	<cfset limit=20000>
 </cfif>
 <cfparam name="transaction_id" type="integer" default="">
+	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
 
 
 <cfquery name="trc" datasource="uam_god">
@@ -321,6 +322,7 @@ function getPostLoadJunk(){
 	console.log(coidList);
 	insertMedia(coidList);
 	insertTypes(coidList);
+	injectLoanPick();
 }
 
 function insertMedia(idList) {
@@ -398,6 +400,47 @@ function insertTypes(idList) {
 			}
 			catch(e){}
 			document.body.removeChild(sBox);
+		}
+	);
+}
+
+
+function injectLoanPick(idList) {
+	var s=document.createElement('DIV');
+	s.id='ajaxStatus';
+	s.className='ajaxStatus';
+	s.innerHTML='Feching Loan Pick...';
+	document.body.appendChild(s);
+
+	jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "getLoanPartResults",
+				transaction_id : $("transaction_id").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+		function (result) {
+	console.log(result);
+
+/*			
+
+var sBox=document.getElementById('ajaxStatus');
+			try{
+				sBox.innerHTML='Processing Types....';
+				for (i=0; i<result.ROWCOUNT; ++i) {
+					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
+					var tl=result.DATA.TYPELIST[i];
+					var sel='CatItem_' + sid;
+					if (sel.length>0){
+						var el=document.getElementById(sel);
+						var ns='<div class="showType">' + tl + '</div>';
+						el.innerHTML+=ns;
+					}
+				}
+			}
+			catch(e){}
+			document.body.removeChild(sBox);
+* */
 		}
 	);
 }
