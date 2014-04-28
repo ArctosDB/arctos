@@ -518,6 +518,52 @@ $("##" + cid).append(theTable);
 	} // no transaction_id just abort
 }
 
+
+
+
+
+function addPartToLoan(partID) {
+	var rs = "item_remark_" + partID;
+	var is = "item_instructions_" + partID;
+	var ss = "subsample_" + partID;
+	var remark=document.getElementById(rs).value;
+	var instructions=document.getElementById(is).value;
+	var subsample=document.getElementById(ss).checked;
+	if (subsample==true) {
+		subsample=1;
+	} else {
+		subsample=0;
+	}
+	var transaction_id=document.getElementById('transaction_id').value;
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "addPartToLoan",
+			transaction_id : transaction_id,
+			partID : partID,
+			remark : remark,
+			instructions : instructions,
+			subsample : subsample,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (result) {
+			var rar = result.split("|");
+			var status=rar[0];
+			if (status==1){
+				var b = "theButton_" + rar[1];
+				var theBtn = document.getElementById(b);
+				theBtn.value="In Loan";
+				theBtn.onclick="";	
+			}else{
+				var msg = rar[1];
+				alert('An error occured!\n' + msg);
+			}
+		}
+	);
+}
+
+
+
 </script>
 <cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
