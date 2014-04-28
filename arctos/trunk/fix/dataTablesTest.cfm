@@ -315,11 +315,9 @@ function getPostLoadJunk(){
 	var coidlistAR=new Array();
 	$("div[id^='CatItem_']").each(function() {
 		var id = this.id.split('_')[1];
-		console.log('doid: ' + id);
 		coidlistAR.push(id);
 	});
 	var coidList = coidlistAR.toString();
-	console.log(coidList);
 	insertMedia(coidList);
 	insertTypes(coidList);
 	injectLoanPick();
@@ -405,44 +403,47 @@ function insertTypes(idList) {
 }
 
 
-function injectLoanPick(idList) {
-	var s=document.createElement('DIV');
-	s.id='ajaxStatus';
-	s.className='ajaxStatus';
-	s.innerHTML='Feching Loan Pick...';
-	document.body.appendChild(s);
-
-	jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "getLoanPartResults",
-				transaction_id : $("transaction_id").val(),
-				returnformat : "json",
-				queryformat : 'column'
-			},
-		function (result) {
-	console.log(result);
-
-/*			
-
-var sBox=document.getElementById('ajaxStatus');
-			try{
-				sBox.innerHTML='Processing Types....';
-				for (i=0; i<result.ROWCOUNT; ++i) {
-					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
-					var tl=result.DATA.TYPELIST[i];
-					var sel='CatItem_' + sid;
-					if (sel.length>0){
-						var el=document.getElementById(sel);
-						var ns='<div class="showType">' + tl + '</div>';
-						el.innerHTML+=ns;
+function injectLoanPick() {
+	var transaction_id=$("transaction_id").val();
+	if (transaction_id) {
+		var s=document.createElement('DIV');
+		s.id='ajaxStatus';
+		s.className='ajaxStatus';
+		s.innerHTML='Feching Loan Pick...';
+		document.body.appendChild(s);
+	
+		jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "getLoanPartResults",
+					transaction_id : transaction_id,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+			function (result) {
+		console.log(result);
+	
+	/*			
+	
+	var sBox=document.getElementById('ajaxStatus');
+				try{
+					sBox.innerHTML='Processing Types....';
+					for (i=0; i<result.ROWCOUNT; ++i) {
+						var sid=result.DATA.COLLECTION_OBJECT_ID[i];
+						var tl=result.DATA.TYPELIST[i];
+						var sel='CatItem_' + sid;
+						if (sel.length>0){
+							var el=document.getElementById(sel);
+							var ns='<div class="showType">' + tl + '</div>';
+							el.innerHTML+=ns;
+						}
 					}
 				}
+				catch(e){}
+				document.body.removeChild(sBox);
+	* */
 			}
-			catch(e){}
-			document.body.removeChild(sBox);
-* */
-		}
-	);
+		);
+	} // no transaction_id just abort
 }
 
 </script>
