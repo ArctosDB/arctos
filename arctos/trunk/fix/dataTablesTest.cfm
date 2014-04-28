@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-	<cfset title="this is only a test">
+	<cfset title="SpecimenResults Test">
 	
 	<style>
 		#cpick {
@@ -90,9 +90,6 @@
 	
 	<cfset session.resultColumnList=valuelist(usercols.CF_VARIABLE)>
 	<!---- session.resultColumnList should now be correct and current.... ---->
-	
-	
-	
 	<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
 	<cfif len(session.CustomOtherIdentifier) gt 0>
 		<cfset basSelect = "#basSelect#
@@ -100,47 +97,13 @@
 			'#session.CustomOtherIdentifier#' as myCustomIdType,
 			to_number(ConcatSingleOtherIdInt(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
 	</cfif>
-
-
 	<cfloop query="usercols">
-	<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #CF_VARIABLE#">
-	
-	<!----
-		<cfif left(CF_VARIABLE,1) is not "_" and (
-			ListFindNoCase(session.resultColumnList,CF_VARIABLE) gt 0 OR category is 'required')>
-			<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #CF_VARIABLE#">
-		</cfif>
-		
-		
-		
-		---->
+		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #CF_VARIABLE#">
 	</cfloop>
-	
 
-	
-	
-	<!----
-<cfif ListFindNoCase(session.resultColumnList,"_elev_in_m") gt 0>
-	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
-</cfif>
-<cfif ListFindNoCase(session.resultColumnList,"_day_of_ymd") gt 0>
-	<cfset basSelect = "#basSelect#, getYearCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) AS YearColl,
-		getMonthCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) MonColl,
-		getDayCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) DayColl ">
-	<!----
-	<cfset basSelect = "#basSelect#,getYearCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) ddddYearColl,
-		getMonthCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) ddddMonColl,
-		getDayCollected(#session.flatTableName#.began_date,#session.flatTableName#.ended_date) ddddDayColl">
-		---->
-</cfif>
-<cfif ListFindNoCase(session.resultColumnList,"_original_elevation") gt 0>
-	<cfset basSelect = "#basSelect#,#session.flatTableName#.MINIMUM_ELEVATION,#session.flatTableName#.MAXIMUM_ELEVATION,#session.flatTableName#.ORIG_ELEV_UNITS">
-</cfif>
----->
 	<cfset basFrom = " FROM #session.flatTableName#">
 	<cfset basJoin = "">
 	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
-
 	<cfset basQual = "">
 	<cfset mapurl="">
 	<cfinclude template="/includes/SearchSql.cfm">
@@ -148,7 +111,6 @@
 	<div id="cntr_refineSearchTerms"></div>
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
-
 	<cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
 	<!--- require some actual searching --->
 	<cfset srchTerms="">
@@ -156,12 +118,6 @@
 		<cfset tt=listgetat(t,1,"=")>
 		<cfset srchTerms=listappend(srchTerms,tt)>
 	</cfloop>
-	<!--- remove standard criteria that kill Oracle... --->
-	<!----
-	<cfif listcontains(srchTerms,"ShowObservations")>
-		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'ShowObservations'))>
-	</cfif>
-	---->
 	<cfif listcontains(srchTerms,"collection_id")>
 		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
 	</cfif>
@@ -186,59 +142,19 @@
 <cfif isdefined("debug") and debug is true>
 	#preserveSingleQuotes(SqlString)#
 </cfif>
-
-
-
 <cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
-
-
-
-
 <cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
-
-<!-----
-<cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from cf_spec_res_cols_exp where category='required' order by DISP_ORDER
-</cfquery>
-
-<cftry>
-<cfquery name="dietabledie" datasource="uam_god">
-		drop table #session.SpecSrchTab#
-	</cfquery>
-	<cfcatch>
-		no can drop sorray
-	</cfcatch>
-</cftry>
-
-
-
-
-<cfquery name="makeUserTable" datasource="uam_god">
-	create table #session.SpecSrchTab# as select #valuelist(r_d.COLUMN_NAME)# from flat where rownum<#limit#
-</cfquery>
-
-
-
----->
 <cfif not isdefined("limit")>
 	<cfset limit=20000>
 </cfif>
 <cfparam name="transaction_id" default="">
-	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
-
-
+<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
 <cfquery name="trc" datasource="uam_god">
 	select count(*) c from #session.dbuser#.#session.SpecSrchTab#
 </cfquery>	
-	
-
-
-	<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
-
-
-
+<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
 <cfset numFlds=usercols.recordcount>
 <cfset thisLoopNum=1>
 <script type="text/javascript">
@@ -284,19 +200,14 @@
 				viewport.init("##customDiv");
 			});
 		});
-
 		var ptl='/component/functions.cfc?method=get_specSrchTermWidget_exp&returnformat=plain';
 		jQuery.get(ptl, function(data){
 			jQuery("##cntr_refineSearchTerms").html(data);
 		});
-
-
 		var ptl='/component/functions.cfc?method=mapUserSpecResults&returnformat=plain';
 	    jQuery.get(ptl, function(data){
 			jQuery("##mapGoHere").html(data);
 		});
-
-
     });
 	function closeCustom() {
 		var theDiv = document.getElementById('customDiv');
@@ -311,192 +222,78 @@
 		document.body.removeChild(theDiv);
 	}
 
-function getPostLoadJunk(){
-	var coidlistAR=new Array();
-	$("div[id^='CatItem_']").each(function() {
-		var id = this.id.split('_')[1];
-		coidlistAR.push(id);
-	});
-	var coidList = coidlistAR.toString();
-	insertMedia(coidList);
-	insertTypes(coidList);
-	injectLoanPick();
-}
+	function getPostLoadJunk(){
+		var coidlistAR=new Array();
+		$("div[id^='CatItem_']").each(function() {
+			var id = this.id.split('_')[1];
+			coidlistAR.push(id);
+		});
+		var coidList = coidlistAR.toString();
+		insertMedia(coidList);
+		insertTypes(coidList);
+		injectLoanPick();
+	}
 
-function insertMedia(idList) {
-	var s=document.createElement('DIV');
-	s.id='ajaxStatus';
-	s.className='ajaxStatus';
-	s.innerHTML='Checking for Media...';
-	document.body.appendChild(s);
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "getMedia",
-			idList : idList,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function (result) {
-			try{
-				var sBox=document.getElementById('ajaxStatus');
-				sBox.innerHTML='Processing Media....';
-				for (i=0; i<result.ROWCOUNT; ++i) {
-					var sel;
-					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
-					var mid=result.DATA.MEDIA_ID[i];
-					var rel=result.DATA.MEDIA_RELATIONSHIP[i];
-					if (rel=='cataloged_item') {
-						sel='CatItem_' + sid;
-					} else if (rel=='collecting_event') {
-						sel='SpecLocality_' + sid;
-					}
-					if (sel.length>0){
-						var el=document.getElementById(sel);
-						var ns='<a href="/MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
-						ns+='Media';
-						ns+='</a>';
-						el.innerHTML+=ns;
-					}
-				}
-				document.body.removeChild(sBox);
-				}
-			catch(e) {
-				sBox=document.getElementById('ajaxStatus');
-				document.body.removeChild(sBox);
-			}
-		}
-	);
-}
-
-function insertTypes(idList) {
-	var s=document.createElement('DIV');
-	s.id='ajaxStatus';
-	s.className='ajaxStatus';
-	s.innerHTML='Checking for Types...';
-	document.body.appendChild(s);
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "getTypes",
-			idList : idList,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function (result) {
-			var sBox=document.getElementById('ajaxStatus');
-			try{
-				sBox.innerHTML='Processing Types....';
-				for (i=0; i<result.ROWCOUNT; ++i) {
-					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
-					var tl=result.DATA.TYPELIST[i];
-					var sel='CatItem_' + sid;
-					if (sel.length>0){
-						var el=document.getElementById(sel);
-						var ns='<div class="showType">' + tl + '</div>';
-						el.innerHTML+=ns;
-					}
-				}
-			}
-			catch(e){}
-			document.body.removeChild(sBox);
-		}
-	);
-}
-
-
-function injectLoanPick() {
-	var transaction_id=$("##transaction_id").val();
-	console.log('fetch loan data for ' + transaction_id);
-
-	if (transaction_id) {
-
-		var lastID;
-
+	function insertMedia(idList) {
 		var s=document.createElement('DIV');
 		s.id='ajaxStatus';
 		s.className='ajaxStatus';
-		s.innerHTML='Feching Loan Pick...';
+		s.innerHTML='Checking for Media...';
 		document.body.appendChild(s);
-	
 		jQuery.getJSON("/component/functions.cfc",
-				{
-					method : "getLoanPartResults",
-					transaction_id : transaction_id,
-					returnformat : "json",
-					queryformat : 'column'
-				},
-			function (r) {
-		console.log(r.ROWCOUNT);
-		console.log(r);
-
-for (i=0; i<r.ROWCOUNT; ++i) {
-	console.log(i);
-	var cid = 'CatItem_' + r.DATA.COLLECTION_OBJECT_ID[i];
-
-
-
-		if (document.getElementById(cid)){
-	
-			var theCell = document.getElementById(cid);
-			//theCell.innerHTML='Fetching loan data....';
-			if (lastID == r.DATA.COLLECTION_OBJECT_ID[i]) {
-				theTable += "<tr>";
-			} else {
-				theTable = '<table border width="100%"><tr>';
+			{
+				method : "getMedia",
+				idList : idList,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (result) {
+				try{
+					var sBox=document.getElementById('ajaxStatus');
+					sBox.innerHTML='Processing Media....';
+					for (i=0; i<result.ROWCOUNT; ++i) {
+						var sel;
+						var sid=result.DATA.COLLECTION_OBJECT_ID[i];
+						var mid=result.DATA.MEDIA_ID[i];
+						var rel=result.DATA.MEDIA_RELATIONSHIP[i];
+						if (rel=='cataloged_item') {
+							sel='CatItem_' + sid;
+						} else if (rel=='collecting_event') {
+							sel='SpecLocality_' + sid;
+						}
+						if (sel.length>0){
+							var el=document.getElementById(sel);
+							var ns='<a href="/MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
+							ns+='Media';
+							ns+='</a>';
+							el.innerHTML+=ns;
+						}
+					}
+					document.body.removeChild(sBox);
+					}
+				catch(e) {
+					sBox=document.getElementById('ajaxStatus');
+					document.body.removeChild(sBox);
+				}
 			}
-			theTable += '<td nowrap="nowrap" class="specResultPartCell">';
-			theTable += '<i>' + r.DATA.PART_NAME[i];
-			if (r.DATA.SAMPLED_FROM_OBJ_ID[i] > 0) {
-				theTable += '&nbsp;sample';
-			}
-			theTable += "&nbsp;(" + r.DATA.COLL_OBJ_DISPOSITION[i] + ")</i> [" + r.DATA.BARCODE[i] + "]";
-			theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
-			theTable += 'Remark:&nbsp;<input type="text" name="item_remark" size="10" id="item_remark_' + r.DATA.PARTID[i] + '">';
-			theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
-			theTable += 'Instr.:&nbsp;<input type="text" name="item_instructions" size="10" id="item_instructions_' + r.DATA.PARTID[i] + '">';
-			theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
-			theTable += 'Subsample?:&nbsp;<input type="checkbox" name="subsample" id="subsample_' + r.DATA.PARTID[i] + '">';
-			theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
-			theTable += '<input type="button" id="theButton_' + r.DATA.PARTID[i] + '"';
-			theTable += ' class="insBtn"';
-			if (r.DATA.TRANSACTION_ID[i] > 0) {
-				theTable += ' onclick="" value="In Loan">';
-			} else {
-				theTable += ' value="Add" onclick="addPartToLoan(';
-				theTable += r.DATA.PARTID[i] + ');">';
-			}
-			if (r.DATA.ENCUMBRANCE_ACTION[i]!==null) {
-				theTable += '<br><i>Encumbrances:&nbsp;' + r.DATA.ENCUMBRANCE_ACTION[i] + '</i>';
-			}
-			theTable +="</td>";
-			if (r.DATA.COLLECTION_OBJECT_ID[i+1] && r.DATA.COLLECTION_OBJECT_ID[i+1] == r.DATA.COLLECTION_OBJECT_ID[i]) {
-				theTable += "</tr>";
-			} else {
-				theTable += "</tr></table>";
-			}
-			lastID = r.DATA.COLLECTION_OBJECT_ID[i];
+		);
+	}
 
-$("##" + cid).append(theTable);
-
-
-
-
-		}
-
-
-
-
-}
-		
-
-
-	/*			
-	for (i=0; i<r.ROWCOUNT; ++i) {
-			//var cid = 'CatItem_' + r.COLLECTION_OBJECT_ID[i];
-			console.log('isarow: ' + 1);
-
-			//$("##" + cid).append('part crap could go here maybe so.....');
-		}
-	var sBox=document.getElementById('ajaxStatus');
+	function insertTypes(idList) {
+		var s=document.createElement('DIV');
+		s.id='ajaxStatus';
+		s.className='ajaxStatus';
+		s.innerHTML='Checking for Types...';
+		document.body.appendChild(s);
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "getTypes",
+				idList : idList,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (result) {
+				var sBox=document.getElementById('ajaxStatus');
 				try{
 					sBox.innerHTML='Processing Types....';
 					for (i=0; i<result.ROWCOUNT; ++i) {
@@ -512,58 +309,113 @@ $("##" + cid).append(theTable);
 				}
 				catch(e){}
 				document.body.removeChild(sBox);
-	* */
 			}
 		);
-	} // no transaction_id just abort
-}
-
-
-
-
-
-function addPartToLoan(partID) {
-	var rs = "item_remark_" + partID;
-	var is = "item_instructions_" + partID;
-	var ss = "subsample_" + partID;
-	var remark=document.getElementById(rs).value;
-	var instructions=document.getElementById(is).value;
-	var subsample=document.getElementById(ss).checked;
-	if (subsample==true) {
-		subsample=1;
-	} else {
-		subsample=0;
 	}
-	var transaction_id=document.getElementById('transaction_id').value;
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "addPartToLoan",
-			transaction_id : transaction_id,
-			partID : partID,
-			remark : remark,
-			instructions : instructions,
-			subsample : subsample,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function (result) {
-			var rar = result.split("|");
-			var status=rar[0];
-			if (status==1){
-				var b = "theButton_" + rar[1];
-				var theBtn = document.getElementById(b);
-				theBtn.value="In Loan";
-				theBtn.onclick="";	
-			}else{
-				var msg = rar[1];
-				alert('An error occured!\n' + msg);
-			}
+	function injectLoanPick() {
+		var transaction_id=$("##transaction_id").val();
+		if (transaction_id) {
+			var lastID;
+			var s=document.createElement('DIV');
+			s.id='ajaxStatus';
+			s.className='ajaxStatus';
+			s.innerHTML='Feching Loan Pick...';
+			document.body.appendChild(s);	
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "getLoanPartResults",
+					transaction_id : transaction_id,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					for (i=0; i<r.ROWCOUNT; ++i) {
+						var cid = 'CatItem_' + r.DATA.COLLECTION_OBJECT_ID[i];
+						if (document.getElementById(cid)){
+							var theCell = document.getElementById(cid);
+							if (lastID == r.DATA.COLLECTION_OBJECT_ID[i]) {
+								theTable += "<tr>";
+							} else {
+								theTable = '<table border width="100%"><tr>';
+							}
+							theTable += '<td nowrap="nowrap" class="specResultPartCell">';
+							theTable += '<i>' + r.DATA.PART_NAME[i];
+							if (r.DATA.SAMPLED_FROM_OBJ_ID[i] > 0) {
+								theTable += '&nbsp;sample';
+							}
+							theTable += "&nbsp;(" + r.DATA.COLL_OBJ_DISPOSITION[i] + ")</i> [" + r.DATA.BARCODE[i] + "]";
+							theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+							theTable += 'Remark:&nbsp;<input type="text" name="item_remark" size="10" id="item_remark_' + r.DATA.PARTID[i] + '">';
+							theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+							theTable += 'Instr.:&nbsp;<input type="text" name="item_instructions" size="10" id="item_instructions_' + r.DATA.PARTID[i] + '">';
+							theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+							theTable += 'Subsample?:&nbsp;<input type="checkbox" name="subsample" id="subsample_' + r.DATA.PARTID[i] + '">';
+							theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+							theTable += '<input type="button" id="theButton_' + r.DATA.PARTID[i] + '"';
+							theTable += ' class="insBtn"';
+							if (r.DATA.TRANSACTION_ID[i] > 0) {
+								theTable += ' onclick="" value="In Loan">';
+							} else {
+								theTable += ' value="Add" onclick="addPartToLoan(';
+								theTable += r.DATA.PARTID[i] + ');">';
+							}
+							if (r.DATA.ENCUMBRANCE_ACTION[i]!==null) {
+								theTable += '<br><i>Encumbrances:&nbsp;' + r.DATA.ENCUMBRANCE_ACTION[i] + '</i>';
+							}
+							theTable +="</td>";
+							if (r.DATA.COLLECTION_OBJECT_ID[i+1] && r.DATA.COLLECTION_OBJECT_ID[i+1] == r.DATA.COLLECTION_OBJECT_ID[i]) {
+								theTable += "</tr>";
+							} else {
+								theTable += "</tr></table>";
+							}
+							lastID = r.DATA.COLLECTION_OBJECT_ID[i];
+							$("##" + cid).append(theTable);
+						} // if item isn't in viewport, do nothing
+					} // loopity
+				} // end return fn
+			);
+		} // no transaction_id just abort
+	}
+	
+	function addPartToLoan(partID) {
+		var rs = "item_remark_" + partID;
+		var is = "item_instructions_" + partID;
+		var ss = "subsample_" + partID;
+		var remark=document.getElementById(rs).value;
+		var instructions=document.getElementById(is).value;
+		var subsample=document.getElementById(ss).checked;
+		if (subsample==true) {
+			subsample=1;
+		} else {
+			subsample=0;
 		}
-	);
-}
-
-
-
+		var transaction_id=document.getElementById('transaction_id').value;
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "addPartToLoan",
+				transaction_id : transaction_id,
+				partID : partID,
+				remark : remark,
+				instructions : instructions,
+				subsample : subsample,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (result) {
+				var rar = result.split("|");
+				var status=rar[0];
+				if (status==1){
+					var b = "theButton_" + rar[1];
+					var theBtn = document.getElementById(b);
+					theBtn.value="In Loan";
+					theBtn.onclick="";	
+				}else{
+					var msg = rar[1];
+					alert('An error occured!\n' + msg);
+				}
+			}
+		);
+	}
 </script>
 <cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
