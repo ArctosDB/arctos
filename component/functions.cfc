@@ -85,6 +85,7 @@
 								<input type="text" name="#thisKey#" id="#thisKey#" value="#thisvalue#" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
 							</td>
 							<td>
+								<div style="height:1em; overflow:auto">
 								<cfif len(thisMoreInfo.CONTROLLED_VOCABULARY) gt 0>
 									<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
 										<cfquery name="tct" datasource="cf_dbuser">
@@ -97,15 +98,15 @@
 										</cfloop>
 										<cfloop query="tct">
 											<cfset thisVal=evaluate("tct." & ctColName)>
-											<span onclick="$('##thisKey').val('#thisVal#');">#thisVal#</span>
+											<div class="likeLink" onclick="$('##thisKey').val('#thisVal#');">#thisVal#</div>
 										</cfloop>
 									<cfelse>
 										<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
-											<span onclick="$('##thisKey').val('#i#');">#i#</span>
+											<div class="likeLink"  onclick="$('##thisKey').val('#i#');">#i#</div>
 										</cfloop>
 									</cfif>
 								</cfif>
-							
+							</div>
 							
 							</td>
 						</tr>
