@@ -478,7 +478,6 @@ function insertTypes(idList) {
 
 <form name="controls">
 	<!--- keep stuff around for JS to get at --->
-	<input type="hidden" name="resultList" id="resultList" value="#resultList#">
 	<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
@@ -695,6 +694,8 @@ function insertTypes(idList) {
 							<option value="1,#summary.recordcount#">1 - #summary.recordcount#</option>
 						</select>
 					</td>
+					
+					<!----
 					<td>
 						<label for="orderBy1">Order by...</label>
 						<select name="orderBy1" id="orderBy1" size="1" onchange="changeresultSort(this.value)">
@@ -716,6 +717,7 @@ function insertTypes(idList) {
 							</cfloop>
 						</select>
 					</td>
+					----->
 					<td>
 						<label for="">&nbsp;</label>
 						<span class="controlButton"
