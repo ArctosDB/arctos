@@ -807,135 +807,55 @@ function addPartToLoan(partID) {
 <table border="0" width="100%">
 	<tr>
 		<td>
-			<table>
-				<tr>	<!----
-					<td>
-						<cfset numPages= ceiling(summary.recordcount/session.displayrows)>
-						<cfset loopTo=numPages-2>
-						<label for="page_record">Records...</label>
-						<select name="page_record" id="page_record" size="1" onchange="getSpecResultsData(this.value);">
-							<cfloop from="0" to="#loopTo#" index="i">
-								<cfset bDispVal = (i * session.displayrows + 1)>
-								<cfset eDispval = (i + 1) * session.displayrows>
-								<option value="#bDispVal#,#session.displayrows#">#bDispVal# - #eDispval#</option>
-							</cfloop>
-							<!--- last set of records --->
-							<cfset bDispVal = ((loopTo + 1) * session.displayrows )+ 1>
-							<cfset eDispval = summary.recordcount>
-							<option value="#bDispVal#,#session.displayrows#">#bDispVal# - #eDispval#</option>
-							<!--- all records --->
-							<option value="1,#summary.recordcount#">1 - #summary.recordcount#</option>
-						</select>
-					</td>
-					
-				
-					<td>
-						<label for="orderBy1">Order by...</label>
-						<select name="orderBy1" id="orderBy1" size="1" onchange="changeresultSort(this.value)">
-							<!--- prepend their CustomID and integer sort of their custom ID to the list --->
-							<cfif len(session.CustomOtherIdentifier) gt 0>
-								<option <cfif session.result_sort is "custom_id">selected="selected" </cfif>value="CustomID">#session.CustomOtherIdentifier#</option>
-								<option value="CustomIDInt">#session.CustomOtherIdentifier# (INT)</option>
-							</cfif>
-							<cfloop list="#resultList#" index="i">
-								<option <cfif #session.result_sort# is #i#>selected="selected" </cfif>value="#i#">#i#</option>
-							</cfloop>
-						</select>
-					</td>
-					<td>
-						<label for="orderBy2">...then order by</label>
-						<select name="orderBy2" id="orderBy2" size="1">
-							<cfloop list="#resultList#" index="i">
-								<option value="#i#">#i#</option>
-							</cfloop>
-						</select>
-					</td>
-					----->
-					<td>
-						<label for="">&nbsp;</label>
-						<span class="controlButton"
-							onclick="var pr=document.getElementById('page_record');
-							var c=pr.value;
-							var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
-							if (c=='1,#summary.recordcount#')
-							{var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#;pr.selectedIndex=0;};
-							getSpecResultsData(1,numRec,obv,'ASC');">&uarr;</span>
-					</td>
-					<td>
-						<label for="">&nbsp;</label>
-						<span class="controlButton"
-							onclick="var pr=document.getElementById('page_record');
-								var c=pr.value;
-								var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
-								if (c=='1,#summary.recordcount#')
-									{var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#;pr.selectedIndex=0;};
-								getSpecResultsData(1,numRec,obv,'DESC');">&darr;</span>
-					</td>
-				</tr>
-			</table>
+			<label for="">&nbsp;</label>
+			<input type="hidden" name="killRowList" id="killRowList">
+			<span id="removeChecked"
+				style="display:none;"
+				class="controlButton redButton"
+				onclick="removeItems();">Remove&nbsp;Checked&nbsp;Rows</span>
 		</td>
 		<td>
-			<table>
-				<tr>
-					<td>
-						<label for="">&nbsp;</label>
-						<input type="hidden" name="killRowList" id="killRowList">
-						<span id="removeChecked"
-							style="display:none;"
-							class="controlButton redButton"
-							onclick="removeItems();">Remove&nbsp;Checked&nbsp;Rows</span>
-					</td>
-					<td>
-						<label for="">&nbsp;</label>
-						<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
-					</td>
-					<td>
-						<label for="">&nbsp;</label>
-						<span class="controlButton"
-							onclick="window.open('/SpecimenResultsDownload.cfm?tableName=#session.SpecSrchTab#','_blank');">Download</span>
-					</td>
-					<td>
-						<label for="">&nbsp;</label>
-						<span class="controlButton"
-							onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
-					</td>
-					<div style="padding-left:2em;">
-					<cfif willmap.recordcount gt 0>
-						<td><a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">BerkeleyMapper</a></li></td>
-							<!--- far from perfect, but see if we can prevent some frustration by sending fewer bound-to-fail queries to rangemaps ---->
-							<cfquery dbtype="query" name="willItRangeMap">
-								select scientific_name from summary group by scientific_name
-							</cfquery>
-							<cfset gen=''>
-							<cfset sp=''>
-							<cfloop query="willItRangeMap">
-								<cfif listlen(scientific_name," ") is 1>
-									<cfif not listcontains(gen,scientific_name)>
-										<cfset gen=listappend(gen,scientific_name)>
-									</cfif>
-								<cfelseif listlen(scientific_name," ") gte 2>
-									<cfif not listcontains(gen,listgetat(scientific_name,1," "))>
-										<cfset gen=listappend(gen,listgetat(scientific_name,1," "))>
-									</cfif>
-									<cfif not listcontains(sp,listgetat(scientific_name,2," "))>
-										<cfset sp=listappend(sp,listgetat(scientific_name,2," "))>
-									</cfif>
-								</cfif>
-							</cfloop>
-							<cfif listlen(gen) is 1 and listlen(sp) is 1>
-								<td><a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">BerkeleyMapper+Rangemaps</a></td>
-							</cfif>
-							<td><a href="/bnhmMaps/kml.cfm" target="_blank">Google Maps/Google Earth</a></td>
-						</ul>
-					</cfif>
-				</div>
-				
-				
-				</tr>
-			</table>
+			<label for="">&nbsp;</label>
+			<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
 		</td>
-	
-		
+		<td>
+			<label for="">&nbsp;</label>
+			<span class="controlButton"
+				onclick="window.open('/SpecimenResultsDownload.cfm?tableName=#session.SpecSrchTab#','_blank');">Download</span>
+		</td>
+		<td>
+			<label for="">&nbsp;</label>
+			<span class="controlButton"
+				onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
+		</td>
+		<cfif willmap.recordcount gt 0>
+			<td><a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">BerkeleyMapper</a></li></td>
+				<!--- far from perfect, but see if we can prevent some frustration by sending fewer bound-to-fail queries to rangemaps ---->
+				<cfquery dbtype="query" name="willItRangeMap">
+					select scientific_name from summary group by scientific_name
+				</cfquery>
+				<cfset gen=''>
+				<cfset sp=''>
+				<cfloop query="willItRangeMap">
+					<cfif listlen(scientific_name," ") is 1>
+						<cfif not listcontains(gen,scientific_name)>
+							<cfset gen=listappend(gen,scientific_name)>
+						</cfif>
+					<cfelseif listlen(scientific_name," ") gte 2>
+						<cfif not listcontains(gen,listgetat(scientific_name,1," "))>
+							<cfset gen=listappend(gen,listgetat(scientific_name,1," "))>
+						</cfif>
+						<cfif not listcontains(sp,listgetat(scientific_name,2," "))>
+							<cfset sp=listappend(sp,listgetat(scientific_name,2," "))>
+						</cfif>
+					</cfif>
+				</cfloop>
+				<cfif listlen(gen) is 1 and listlen(sp) is 1>
+					<td><a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">BerkeleyMapper+Rangemaps</a></td>
+				</cfif>
+				<td><a href="/bnhmMaps/kml.cfm" target="_blank">Google Maps/Google Earth</a></td>
+			</ul>
+		</cfif>
 		<td nowrap="nowrap">
 			<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
 				<label for="goWhere">Manage...</label>
@@ -1019,7 +939,7 @@ function addPartToLoan(partID) {
 		</td>
 		<td align="right">
 			<a href="/SpecimenResultsHTML.cfm?#mapurl#" class="likeLink">HTML version</a>
-			<br><a class="likeLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>
+			<a class="likeLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>
 		</td>
 	</tr>
 </table>
