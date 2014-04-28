@@ -181,8 +181,8 @@
 	<cfargument name="SPECIMEN_RESULTS_COL" type="string" required="false">
 	<cfargument name="specimen_query_term" type="string" required="false">
 		
-	<cfparam name="jtStartIndex" type="numeric" default="1">
-	<cfparam name="jtPageSize" type="numeric" default="10">
+	<cfparam name="jtStartIndex" type="integer" default="1">
+	<cfparam name="jtPageSize" type="integer" default="10">
 	<cfparam name="jtSorting" type="string" default="CF_VARIABLE ASC">
 	
 	
@@ -238,7 +238,6 @@
 	</cfquery>
 	
 	---->
-	<cfdump var=#d#>
 	
 	<cfoutput>
 	
