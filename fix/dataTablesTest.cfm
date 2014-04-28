@@ -303,7 +303,7 @@
 
 function getPostLoadJunk(){
 	var coidlistAR=new Array();
-	$("div[id^='guiddiv_']").each(function() {
+	$("div[id^='CatItem_']").each(function() {
 		var id = this.id.split('_')[1];
 		console.log('doid: ' + id);
 		coidlistAR.push(id);
@@ -314,7 +314,7 @@ insertMedia(coidList);
 	//alert('this runs after the data load');
 }
 
-function insertMedia(c) {
+function insertMedia(idList) {
 	var s=document.createElement('DIV');
 	s.id='ajaxStatus';
 	s.className='ajaxStatus';
