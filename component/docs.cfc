@@ -201,6 +201,7 @@
 	
 	<cfquery name="d" datasource="uam_god">
 		select
+			SSRCH_FIELD_DOC_ID,
 			CATEGORY,
 			CF_VARIABLE,
 			CONTROLLED_VOCABULARY,
