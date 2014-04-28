@@ -421,12 +421,14 @@ function injectLoanPick() {
 					returnformat : "json",
 					queryformat : 'column'
 				},
-			function (result) {
-		console.log(result);
-for (i=0; i<result.ROWCOUNT; ++i) {
-		var cid = 'CatItem_' + result.COLLECTION_OBJECT_ID[i];
-		$("##" + cid).append('part crap could go here maybe so.....');
-	}
+			function (r) {
+		console.log(r);
+		for (i=0; i<r.ROWCOUNT; ++i) {
+			var cid = 'CatItem_' + r.COLLECTION_OBJECT_ID[i];
+			console.log(cid);
+
+			$("##" + cid).append('part crap could go here maybe so.....');
+		}
 	/*			
 	
 	var sBox=document.getElementById('ajaxStatus');
