@@ -858,9 +858,8 @@ function addPartToLoan(partID) {
 		</cfif>
 		<td nowrap="nowrap">
 			<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
-				<label for="goWhere">Manage...</label>
 				<select name="goWhere" id="goWhere" size="1">
-					<option value="">::Change Stuff::</option>
+					<option value="">Manage...</option>
 					<option value="/Encumbrances.cfm">
 						Encumbrances
 					</option>
