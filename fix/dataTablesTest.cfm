@@ -225,7 +225,7 @@
 <cfif not isdefined("limit")>
 	<cfset limit=20000>
 </cfif>
-<cfparam name="transaction_id" type="integer" default="">
+<cfparam name="transaction_id" default="">
 	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
 
 
@@ -254,7 +254,7 @@
 			columnSelectable: false,
 			recordsLoaded: getPostLoadJunk,
 			actions: {
-                listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t&addpartsToLoan=#transaction_id#'
+                listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
             fields:  {	
 				<cfloop query="usercols">
