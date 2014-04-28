@@ -12,6 +12,9 @@
 					) a where rownum <= #jtStopIndex#
 				) where rnum >= #jtStartIndex#
 		</cfquery>
+		<cfif isdefined("addpartsToLoan") and len(addpartsToLoan) gt 0 and listfindnocase(session.roles,"MANAGE_TRANSACTIONS")>
+			<cfset transid=addpartsToLoan>
+		</cfif>
 		<cfoutput>
 			<!--- 
 				CF and jtable don't play well together, so roll our own.... 
