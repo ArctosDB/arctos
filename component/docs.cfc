@@ -201,7 +201,7 @@
 				) a where rownum <= #jtStopIndex#
 			) where rnum >= #jtStartIndex#
 	</cfquery>
-	<cfdump var=#trc#>
+	<cfdump var=#d#>
 	
 	<cfoutput>
 	
