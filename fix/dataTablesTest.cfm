@@ -426,7 +426,7 @@ function injectLoanPick() {
 		console.log(r);
 		for (i=0; i<r.ROWCOUNT; ++i) {
 			//var cid = 'CatItem_' + r.COLLECTION_OBJECT_ID[i];
-			console.log('isarow');
+			console.log('isarow: ' + 1);
 
 			//$("##" + cid).append('part crap could go here maybe so.....');
 		}
