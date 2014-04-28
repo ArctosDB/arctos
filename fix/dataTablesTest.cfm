@@ -287,6 +287,14 @@
 		jQuery.get(ptl, function(data){
 			jQuery("##cntr_refineSearchTerms").html(data);
 		});
+
+
+		var ptl='/component/functions.cfc?method=mapUserSpecResults&returnformat=plain';
+	    jQuery.get(ptl, function(data){
+			jQuery("##mapGoHere").html(data);
+		});
+
+
     });
 	function closeCustom() {
 		var theDiv = document.getElementById('customDiv');
@@ -310,8 +318,8 @@ function getPostLoadJunk(){
 	});
 	var coidList = coidlistAR.toString();
 	console.log(coidList);
-insertMedia(coidList);
-	//alert('this runs after the data load');
+	insertMedia(coidList);
+	insertTypes(coidList);
 }
 
 function insertMedia(idList) {
@@ -359,7 +367,39 @@ function insertMedia(idList) {
 	);
 }
 
-
+function insertTypes(idList) {
+	var s=document.createElement('DIV');
+	s.id='ajaxStatus';
+	s.className='ajaxStatus';
+	s.innerHTML='Checking for Types...';
+	document.body.appendChild(s);
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "getTypes",
+			idList : idList,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (result) {
+			var sBox=document.getElementById('ajaxStatus');
+			try{
+				sBox.innerHTML='Processing Types....';
+				for (i=0; i<result.ROWCOUNT; ++i) {
+					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
+					var tl=result.DATA.TYPELIST[i];
+					var sel='CatItem_' + sid;
+					if (sel.length>0){
+						var el=document.getElementById(sel);
+						var ns='<div class="showType">' + tl + '</div>';
+						el.innerHTML+=ns;
+					}
+				}
+			}
+			catch(e){}
+			document.body.removeChild(sBox);
+		}
+	);
+}
 
 </script>
 
@@ -385,7 +425,7 @@ function insertMedia(idList) {
 </form>
 
 ---->
-
+<div id="mapGoHere"></div>
 						<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
 
 <div id="cntr_refineSearchTerms"></div>
