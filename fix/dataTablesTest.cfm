@@ -422,6 +422,7 @@ function injectLoanPick() {
 					queryformat : 'column'
 				},
 			function (r) {
+		console.log(r.ROWCOUNT);
 		console.log(r);
 		for (i=0; i<r.ROWCOUNT; ++i) {
 			//var cid = 'CatItem_' + r.COLLECTION_OBJECT_ID[i];
