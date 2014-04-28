@@ -71,7 +71,10 @@
 		$('#LoadRecordsButton').click(function (e) {
            e.preventDefault();
            $('#jtdocdoc').jtable('load', {
-               CF_VARIABLE: $('#CF_VARIABLE').val()
+               CF_VARIABLE: $('#CF_VARIABLE').val(),
+               SPECIMEN_RESULTS_COL: $('#SPECIMEN_RESULTS_COL').val(),
+               specimen_query_term: $('#specimen_query_term').val(),
+
            });
        });
        $('#jtdocdoc').jtable('load');
@@ -154,12 +157,17 @@
     <form>
         CF_VARIABLE: <input type="text" name="CF_VARIABLE" id="CF_VARIABLE" />
 		SR:
-		<select name="sr" id="sr">
+		<select name="SPECIMEN_RESULTS_COL" id="SPECIMEN_RESULTS_COL">
 			<option value=""></option>
 			<option value="1">yes</option>
 			<option value="0">no</option>
 		</select>
-		 <input type="text" name="CF_VARIABLE" id="CF_VARIABLE" />
+		SST:
+		<select name="specimen_query_term" id="specimen_query_term">
+			<option value=""></option>
+			<option value="1">yes</option>
+			<option value="0">no</option>
+		</select>
         <button type="submit" id="LoadRecordsButton">Search</button>
     </form>
 </div>

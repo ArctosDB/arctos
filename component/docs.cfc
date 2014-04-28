@@ -178,6 +178,8 @@
 <!------------------------------------------------------------------------------------------------------------------------------>
 <cffunction name="listDocDoc" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="CF_VARIABLE" type="string" required="false">
+	<cfargument name="SPECIMEN_RESULTS_COL" type="string" required="false">
+	<cfargument name="specimen_query_term" type="string" required="false">
 		
 	<cfparam name="jtStartIndex" type="numeric" default="0">
 	<cfparam name="jtPageSize" type="numeric" default="10">
@@ -191,8 +193,10 @@
 	<cfquery name="d" datasource="uam_god">
 		Select * from (
 				Select a.*, rownum rnum From (
-					select * from ssrch_field_doc
-					<cfif isdefined("CF_VARIABLE") and len(CF_VARIABLE) gt 0> where CF_VARIABLE like '%#lcase(CF_VARIABLE)#%'</cfif>
+					select * from ssrch_field_doc where 1=1
+					<cfif isdefined("CF_VARIABLE") and len(CF_VARIABLE) gt 0> and CF_VARIABLE like '%#lcase(CF_VARIABLE)#%'</cfif>
+					<cfif isdefined("SPECIMEN_RESULTS_COL") and len(SPECIMEN_RESULTS_COL) gt 0> and SPECIMEN_RESULTS_COL=#SPECIMEN_RESULTS_COL#</cfif>
+					<cfif isdefined("specimen_query_term") and len(specimen_query_term) gt 0> and specimen_query_term=#specimen_query_term#</cfif>
 					 order by #jtSorting#
 				) a where rownum <= #jtStopIndex#
 			) where rnum >= #jtStartIndex#
