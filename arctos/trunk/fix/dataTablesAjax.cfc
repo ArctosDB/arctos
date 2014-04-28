@@ -27,7 +27,7 @@
 					
 					
 					<cfif i is "guid">
-						<cfset temp ='"GUID":"<a target=\"_blank\" href=\"/guid/' & theData &'\">' &theData & '</a>"'>
+						<cfset temp ='"GUID":"<div id=\"guiddiv_#collection_object_id#\"><a target=\"_blank\" href=\"/guid/' & theData &'\">' &theData & '</a></div>"'>
 					<cfelse>
 						<cfset temp = '"#i#":"' & theData & '"'>
 					</cfif>
