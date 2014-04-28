@@ -250,7 +250,7 @@
 			columnResizable: true,
 			multiSorting: true,
 			columnSelectable: false,
-			completeCallback: itsloaded,
+			formCreated: itsloaded,
 			actions: {
                 listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
