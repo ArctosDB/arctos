@@ -22,7 +22,22 @@
 		</cfscript>	
 		<cfloop query="d">
 			<cfquery name="tctl" datasource="uam_god">
-				select ATTRIBUTE_TYPE,VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where ATTRIBUTE_TYPE='#ATTRIBUTE_TYPE#' 
+				select 
+					CTATTRIBUTE_TYPE.ATTRIBUTE_TYPE,
+					CTATTRIBUTE_TYPE.documentation,
+					ctattribute_code_tables.VALUE_CODE_TABLE,
+					ctattribute_code_tables.UNITS_CODE_TABLE 
+				from 
+					CTATTRIBUTE_TYPE,
+					ctattribute_code_tables
+				where 
+					CTATTRIBUTE_TYPE.ATTRIBUTE_TYPE=ctattribute_code_tables.ATTRIBUTE_TYPE (+) and
+					CTATTRIBUTE_TYPE.ATTRIBUTE_TYPE='#ATTRIBUTE_TYPE#'
+				group by
+					CTATTRIBUTE_TYPE.ATTRIBUTE_TYPE,
+					CTATTRIBUTE_TYPE.documentation,
+					ctattribute_code_tables.VALUE_CODE_TABLE,
+					ctattribute_code_tables.UNITS_CODE_TABLE  
 			</cfquery>
 			<cfset attrvar=lcase(trim(replace(replace(replace(ATTRIBUTE_TYPE,' ','_','all'),'-','_','all'),"/","_","all")))>
 <cfset v="insert into ssrch_field_doc (
@@ -43,7 +58,7 @@
 	'attribute',
 	'#attrvar#',
 	'#tctl.VALUE_CODE_TABLE#',
-	'',
+	'#escapeQuotes(tctl.documentation)#',
 	'',
 	'#ATTRIBUTE_TYPE#',
 	'',
