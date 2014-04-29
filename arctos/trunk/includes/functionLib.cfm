@@ -199,6 +199,7 @@
 		<cfset session.displayrows = "#getPrefs.displayRows#">
 		<cfset session.taxaPickPrefs = getPrefs.taxaPickPrefs>
 		<cfset session.resultcolumnlist = "#getPrefs.resultcolumnlist#">
+		<cfset session.ResultsBrowsePrefs=getPrefs.ResultsBrowsePrefs>
 		<cfif len(getPrefs.fancyCOID) gt 0>
 			<cfset session.fancyCOID = getPrefs.fancyCOID>
 		<cfelse>
