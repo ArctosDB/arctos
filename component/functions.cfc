@@ -112,7 +112,7 @@
 							<input type="text" name="#thisKey#" id="#thisKey#" value="#thisvalue#" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
 						</td>
 						<td>
-							<div style="height:1em; overflow:auto">
+							<div style="height:1em; overflow:scroll;">
 								<cfif len(thisMoreInfo.CONTROLLED_VOCABULARY) gt 0>
 									<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
 										<cfquery name="tct" datasource="cf_dbuser">
