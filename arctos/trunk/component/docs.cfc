@@ -1,4 +1,12 @@
 <cfcomponent>
+<cffunction name="jsonEscape">
+	<cfargument name="inpstr" required="yes">
+	<cfset inpstr=replace(inpstr,'"','\"',"all")>
+	<cfset inpstr=replace(inpstr,chr(10),'<br>',"all")>
+	<cfset inpstr=replace(inpstr,chr(9),'<br>',"all")>
+	<cfset inpstr=replace(inpstr,chr(13),'<br>',"all")>
+	<cfreturn inpstr>
+</cffunction>
 <cffunction name="getPage" access="remote">
 	<cfargument name="page" required="yes">
     <cfargument name="pageSize" required="yes">
@@ -100,14 +108,22 @@
 			<cfloop query="d">
 		<cfset response = structNew()>
 		<cfloop list="#d.columnlist#" index="cname">
-			<cfset response["#cname#"]=evaluate("d." & cname)>
+			<cfset response["#cname#"]=jsonEscape(evaluate("d." & cname))>
 		</cfloop>
 		<cfset thisItem=serializeJSON(response)>
 		<cfset x=listappend(x,thisItem)>
 	</cfloop>
 	<cfset result='{"Result":"OK","Record":[' & x & ']}'>
 	<cfcatch>
-			<cfset result='{"Result":"ERROR","Message":["#cfcatch.message# - #cfcatch.detail#"]}'>
+		<cfset msg=cfcatch.message>
+		<cfif isdefined("cfcatch.detail") and len(cfcatch.detail) gt 0>
+			<cfset msg=msg & ': ' & cfcatch.detail>
+		</cfif>
+		<cfif isdefined("cfcatch.sql") and len(cfcatch.sql) gt 0>
+			<cfset msg=msg & ': ' & cfcatch.sql>
+		</cfif>
+		<cfse msg=jsonEscape(msg)>
+		<cfset result='{"Result":"ERROR","Message":["#msg#"]}'>
 	</cfcatch>
 	</cftry>
 	
