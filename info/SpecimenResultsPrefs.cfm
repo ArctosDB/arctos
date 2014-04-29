@@ -42,31 +42,27 @@
 	</tr>
 </table>
 <cfquery name="poss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL =1 order by cf_variable
+	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL=1
 </cfquery>
 <cfquery name="attribute" dbtype="query">
 	select * from poss where category='attribute'
 </cfquery>
 
 <cfquery name="locality" dbtype="query">
-	select * from poss where category='locality'
+	select * from poss where category='locality' order by disp_order
 </cfquery>
 <cfquery name="curatorial" dbtype="query">
-	select * from poss where category IN ('curatorial','specimen')
+	select * from poss where category IN ('curatorial','specimen')  order by disp_order
 </cfquery>
 <cffunction name="displayColumn">
 	<cfargument name="cf_variable">
 	<cfargument name="resultColList">
-	<cfif left(cf_variable,1) is "_">
-		<cfset cname=right(cf_variable,len(cf_variable)-1)>
-	<cfelse>
-		<cfset cname=cf_variable>
-	</cfif>
+	
 	<cfset retval = "<tr>">
-	<cfset retval = '#retval#<td align="right"><label for="#lcase(cf_variable)#">#cname#</label></td>'>
+	<cfset retval = '#retval#<td align="right"><label title="#cf_variable#: #DEFINITION#" for="#cf_variable#">#DISPLAY_TEXT#</label></td>'>
 	<cfset retval = '#retval#<td align="left"><input type="checkbox" 
 			name="#cf_variable#"
-			id="#lcase(cf_variable)#"'>
+			id="#cf_variable#"'>
 	<cfif listfindnocase(resultColList,cf_variable)> 
 		<cfset retval = '#retval#checked="checked"'>
 	</cfif>
