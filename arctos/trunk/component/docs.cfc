@@ -5,6 +5,9 @@
 	<cfset inpstr=replace(inpstr,chr(10),'<br>',"all")>
 	<cfset inpstr=replace(inpstr,chr(9),'<br>',"all")>
 	<cfset inpstr=replace(inpstr,chr(13),'<br>',"all")>
+	<cfset inpstr=replace(inpstr,'<br><br>','<br>',"all")>
+	
+	
 	<cfreturn inpstr>
 </cffunction>
 <cffunction name="getPage" access="remote">
