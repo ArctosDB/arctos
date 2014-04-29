@@ -53,6 +53,10 @@
 			function setThisName(tv){
 				$("##newValue").attr('name',tv);
 			}
+			function removeTerm(key){
+				$("##" + key).remove();
+				$("##row_" + key).remove();
+			}
 		</script>
 		<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 		<cfif session.ResultsBrowsePrefs is 1>
@@ -75,6 +79,7 @@
 					<th></th>
 					<th>Value</th>
 					<th>Vocabulary *</th>
+					<th>Remove</th>
 				</tr>
 				<CFSET KEYLIST="">
 				<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
@@ -88,7 +93,7 @@
 						<cfset keylist=listappend(keylist,thisKey)>
 						<cfset thisValue=''>
 					</cfif>
-					<tr>
+					<tr id="row_#thisKey#">
 						<td>
 							<cfquery name="thisMoreInfo" dbtype="query">
 								select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
@@ -136,6 +141,9 @@
 									</cfif>
 								</cfif>
 							</div>
+						</td>
+						<td>
+							<span onclick="removeTerm('#thisKey#');" class="likeLink"><img src="/images/del.gif"></span>
 						</td>
 					</tr>
 				</cfloop>
