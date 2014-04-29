@@ -29,6 +29,7 @@
 	<cfquery name="ssrch_field_doc" datasource="cf_dbuser">
 		select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 	</cfquery>
+	<cfdump var=#ssrch_field_doc#>
 	<cfoutput>
 	<cfsavecontent variable="widget">
 		<script>
