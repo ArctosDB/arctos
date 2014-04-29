@@ -12,6 +12,27 @@
 	
 	
 	inpstr: <cfdump var=#inpstr#>
+	
+	<cfset inpstr=replacenocase(inpstr,'<br><br>','<br>',"all")>
+	
+	
+	inpstr: <cfdump var=#inpstr#>
+	
+	<cfset inpstr=replacenocase(inpstr,'<br><br>','<br>',"all")>
+	
+	
+	inpstr: <cfdump var=#inpstr#>
+	
+	<cfset inpstr=replacenocase(inpstr,'<br><br>','<br>',"all")>
+	
+	
+	inpstr: <cfdump var=#inpstr#>
+	
+	<cfset inpstr=replacenocase(inpstr,'<br><br>','<br>',"all")>
+	
+	
+	inpstr: <cfdump var=#inpstr#>
+	
 	<cfreturn inpstr>
 </cffunction>
 <cffunction name="getPage" access="remote">
