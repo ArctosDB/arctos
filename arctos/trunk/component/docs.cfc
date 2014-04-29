@@ -122,7 +122,7 @@
 		<cfif isdefined("cfcatch.sql") and len(cfcatch.sql) gt 0>
 			<cfset msg=msg & ': ' & cfcatch.sql>
 		</cfif>
-		<cfse msg=jsonEscape(msg)>
+		<cfset msg=jsonEscape(msg)>
 		<cfset result='{"Result":"ERROR","Message":["#msg#"]}'>
 	</cfcatch>
 	</cftry>
