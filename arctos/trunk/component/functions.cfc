@@ -1,26 +1,17 @@
 <cfcomponent>
 
-
-
 <!--------------------------------------------------------------------------------------------------------->
 <cffunction name="cloneFullCatalogedItem" access="remote" output="true">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfquery name="guid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select guid from flat where collection_object_id=#collection_object_id#
 	</cfquery>
-
-
 	<cfstoredproc procedure="clone_cataloged_item" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#"> 
 		<cfprocparam cfsqltype="cf_sql_varchar" value="#guid.guid#"> 
 		<cfprocparam cfsqltype="cf_sql_varchar" type="out" variable="newguid"> 
 	</cfstoredproc>
-	
-	
-	
 	<cfreturn newguid>
 </cffunction>
-<!------------------------------------------------------->	
-
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget_exp" access="remote" returnformat="plain">
 	<cfquery name="ssrch_field_doc" datasource="cf_dbuser">
@@ -31,8 +22,16 @@
 		<script>
 			jQuery( function($) {
 				$('##showsearchterms').click(function() {
+					if($("##refineSearchTerms").is(":visible")) {
+						var openclose=0;
+					} else {
+						var openclose=1;
+  					}
 					$('##refineSearchTerms').slideToggle("fast");
+console.log(openclose);
 				});
+
+
 			});
 			function setThisName(tv){
 				$("##newValue").attr('name',tv);
