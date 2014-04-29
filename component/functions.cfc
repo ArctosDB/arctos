@@ -134,9 +134,12 @@
 						</tr>
 					</cfif>
 				</cfloop>
+				<cfif len(keylist) is 0>
+					<cfset keylist='doesNotExist'>
+				</cfif>
 				<cfquery name="newkeys" dbtype="query">
-						SELECT * FROM ssrch_field_doc WHERE specimen_query_term=1 and CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
-					</cfquery>
+					SELECT * FROM ssrch_field_doc WHERE specimen_query_term=1 and CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
+				</cfquery>
 					<tr>
 						<td>
 						
