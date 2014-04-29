@@ -107,7 +107,7 @@
 	</cfloop>
 	<cfset result='{"Result":"OK","Record":[' & x & ']}'>
 	<cfcatch>
-			<cfset result='{"Result":"ERROR","message":["#cfcatch.message# - #cfcatch.detail#"]}'>
+			<cfset result='{"Result":"ERROR","Message":["#cfcatch.message# - #cfcatch.detail#"]}'>
 	</cfcatch>
 	</cftry>
 	
