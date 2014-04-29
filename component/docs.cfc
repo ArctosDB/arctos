@@ -9,39 +9,6 @@
 	<cfset inpstr=rereplacenocase(inpstr,'(<br>){2,}','<br>',"all")>
 	<cfreturn inpstr>
 </cffunction>
-<cffunction name="getPage" access="remote">
-	<cfargument name="page" required="yes">
-    <cfargument name="pageSize" required="yes">
-	<cfargument name="gridsortcolumn" required="yes">
-    <cfargument name="gridsortdirection" required="yes">
-	<cfset startrow=page * pageSize>
-	<cfset stoprow=startrow + pageSize>
-	<cfif len(gridsortcolumn) is 0>
-		<cfset gridsortcolumn="SSRCH_FIELD_DOC_ID">
-	</cfif>
-<cfoutput>
-	
-
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ssrch_field_doc order by #gridsortcolumn# #gridsortdirection#
-	</cfquery>
-</cfoutput>
-	      <cfreturn queryconvertforgrid(data,page,pagesize)/>
-</cffunction>
-
-<cffunction name="editRecord" access="remote">
-	<cfargument name="cfgridaction" required="yes">
-    <cfargument name="cfgridrow" required="yes">
-	<cfargument name="cfgridchanged" required="yes">
-	<cfoutput>
-		<cfset colname = StructKeyList(cfgridchanged)>
-		<cfset value = cfgridchanged[colname]>
-		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update ssrch_field_doc set  #colname# = '#value#'
-			where SSRCH_FIELD_DOC_ID=#cfgridrow.SSRCH_FIELD_DOC_ID#
-		</cfquery>
-	</cfoutput>
-</cffunction>
 <!------------------------------------------------------------------------------------------------------------------------------>
 <cffunction name="createDocDoc" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="CF_VARIABLE" type="string" required="true">
@@ -57,8 +24,6 @@
 	<cfargument name="SPECIMEN_RESULTS_COL" type="string" required="false">
 	<cfargument name="SQL_ELEMENT" type="string" required="false">	
 	<cfargument name="specimen_query_term" type="string" required="false">	
-	
-					
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
@@ -101,35 +66,28 @@
 		<cfquery name="d" datasource="uam_god">
 			select * from ssrch_field_doc where CF_VARIABLE='#CF_VARIABLE#'
 		</cfquery>
-		
-		
-			<cfset x=''>
-
-		
-		
-			<cfloop query="d">
-		<cfset response = structNew()>
-		<cfloop list="#d.columnlist#" index="cname">
-			<cfset response["#cname#"]=jsonEscape(evaluate("d." & cname))>
+		<cfset x=''>
+		<cfloop query="d">
+			<cfset response = structNew()>
+			<cfloop list="#d.columnlist#" index="cname">
+				<cfset response["#cname#"]=jsonEscape(evaluate("d." & cname))>
+			</cfloop>
+			<cfset thisItem=serializeJSON(response)>
+			<cfset x=listappend(x,thisItem)>
 		</cfloop>
-		<cfset thisItem=serializeJSON(response)>
-		<cfset x=listappend(x,thisItem)>
-	</cfloop>
-	<cfset result='{"Result":"OK","Record":[' & x & ']}'>
-	<cfcatch>
-		<cfset msg=cfcatch.message>
-		<cfif isdefined("cfcatch.detail") and len(cfcatch.detail) gt 0>
-			<cfset msg=msg & ': ' & cfcatch.detail>
-		</cfif>
-		<cfif isdefined("cfcatch.sql") and len(cfcatch.sql) gt 0>
-			<cfset msg=msg & ': ' & cfcatch.sql>
-		</cfif>
-		<cfset msg=jsonEscape(msg)>
-		<cfset result='{"Result":"ERROR","Message":["#msg#"]}'>
-	</cfcatch>
+		<cfset result='{"Result":"OK","Record":[' & x & ']}'>
+		<cfcatch>
+			<cfset msg=cfcatch.message>
+			<cfif isdefined("cfcatch.detail") and len(cfcatch.detail) gt 0>
+				<cfset msg=msg & ': ' & cfcatch.detail>
+			</cfif>
+			<cfif isdefined("cfcatch.sql") and len(cfcatch.sql) gt 0>
+				<cfset msg=msg & ': ' & cfcatch.sql>
+			</cfif>
+			<cfset msg=jsonEscape(msg)>
+			<cfset result='{"Result":"ERROR","Message":["#msg#"]}'>
+		</cfcatch>
 	</cftry>
-	
-	
 	<cfreturn result>
 </cffunction>
 <!------------------------------------------------------------------------------------------------------------------------------>
@@ -144,7 +102,15 @@
 		</cfquery>
 		<cfset result='{"Result":"OK","Message":"success"}'>
 		<cfcatch>
-			<cfset result='{"Result":"ERROR","Message":"#cfcatch.message#: #cfcatch.detail#"}'>
+			<cfset msg=cfcatch.message>
+			<cfif isdefined("cfcatch.detail") and len(cfcatch.detail) gt 0>
+				<cfset msg=msg & ': ' & cfcatch.detail>
+			</cfif>
+			<cfif isdefined("cfcatch.sql") and len(cfcatch.sql) gt 0>
+				<cfset msg=msg & ': ' & cfcatch.sql>
+			</cfif>
+			<cfset msg=jsonEscape(msg)>
+			<cfset result='{"Result":"ERROR","Message":"#msg#"}'>
 		</cfcatch>
 	</cftry>
 	<cfreturn result>
@@ -192,7 +158,15 @@
 		</cfquery>
 		<cfset result='{"Result":"OK","Message":"success"}'>
 		<cfcatch>
-			<cfset result='{"Result":"ERROR","Message":"#cfcatch.message#: #cfcatch.detail#"}'>
+			<cfset msg=cfcatch.message>
+			<cfif isdefined("cfcatch.detail") and len(cfcatch.detail) gt 0>
+				<cfset msg=msg & ': ' & cfcatch.detail>
+			</cfif>
+			<cfif isdefined("cfcatch.sql") and len(cfcatch.sql) gt 0>
+				<cfset msg=msg & ': ' & cfcatch.sql>
+			</cfif>
+			<cfset msg=jsonEscape(msg)>
+			<cfset result='{"Result":"ERROR","Message":"#msg#"}'>
 		</cfcatch>
 	</cftry>
 	<cfreturn result>
@@ -202,122 +176,66 @@
 	<cfargument name="CF_VARIABLE" type="string" required="false">
 	<cfargument name="SPECIMEN_RESULTS_COL" type="string" required="false">
 	<cfargument name="specimen_query_term" type="string" required="false">
-		
 	<cfparam name="jtStartIndex" type="integer" default="0">
 	<cfparam name="jtPageSize" type="integer" default="10">
 	<cfparam name="jtSorting" type="string" default="CF_VARIABLE ASC">
-	
-	
 	<!--- jtables likes to start at 0, which confuses CF, so.... ---->
-	
 	<cfset theFirstRow=jtStartIndex+1>
-	
 	<cfset theLastRow=theFirstRow+jtPageSize>
-	
-	<!--- new/smalldata: use CF QoQ
-	
-				
-
-
- ---->
-	
-	<cfquery name="d" datasource="uam_god">
-		select
-			SSRCH_FIELD_DOC_ID,
-			CATEGORY,
-			CF_VARIABLE,
-			CONTROLLED_VOCABULARY,
-			DATA_TYPE,
-			DEFINITION,
-			DISPLAY_TEXT,
-			DOCUMENTATION_LINK,
-			PLACEHOLDER_TEXT,
-			SEARCH_HINT,
-			SQL_ELEMENT,
-			SPECIMEN_RESULTS_COL,
-			DISP_ORDER,
-			SPECIMEN_QUERY_TERM
-		 from ssrch_field_doc where 1=1
-			<cfif isdefined("CF_VARIABLE") and len(CF_VARIABLE) gt 0> and CF_VARIABLE like '%#lcase(CF_VARIABLE)#%'</cfif>
-			<cfif isdefined("SPECIMEN_RESULTS_COL") and len(SPECIMEN_RESULTS_COL) gt 0> and SPECIMEN_RESULTS_COL=#SPECIMEN_RESULTS_COL#</cfif>
-			<cfif isdefined("specimen_query_term") and len(specimen_query_term) gt 0> and specimen_query_term=#specimen_query_term#</cfif>
-		order by 
-			#jtSorting#
-	</cfquery>
-	
-	
-	
-	<cfquery name="trc" dbtype="query">
-		Select count(*) c from d 
-	</cfquery>
-
-	
-	<!-----
-	
-	Old/bigdata: handle shit on the server
-
-	<cfquery name="trc" datasource="uam_god">
-		Select count(*) c from ssrch_field_doc 
-	</cfquery>
-	<cfquery name="d" datasource="uam_god">
-		Select * from (
-				Select a.*, rownum rnum From (
-					select * from ssrch_field_doc where 1=1
-					<cfif isdefined("CF_VARIABLE") and len(CF_VARIABLE) gt 0> and CF_VARIABLE like '%#lcase(CF_VARIABLE)#%'</cfif>
-					<cfif isdefined("SPECIMEN_RESULTS_COL") and len(SPECIMEN_RESULTS_COL) gt 0> and SPECIMEN_RESULTS_COL=#SPECIMEN_RESULTS_COL#</cfif>
-					<cfif isdefined("specimen_query_term") and len(specimen_query_term) gt 0> and specimen_query_term=#specimen_query_term#</cfif>
-					 order by #jtSorting#
-				) a where rownum <= #jtStopIndex#
-			) where rnum >= #jtStartIndex#
-	</cfquery>
-	
-	---->
-	
-	<cfoutput>
-	
-	<cfset coredata=''>
-	
-		<cfloop query="d" startrow="#theFirstRow#" endrow="#theLastRow#">
-
-
-
-		<cfset trow="">
-		<cfloop list="#d.columnlist#" index="i">
-			<cfset theData=evaluate("d." & i)>
-			<cfset theData=replace(theData,'"','\"',"all")>
-			<cfset theData=replace(theData,chr(10),'<br>',"all")>
-			<cfset theData=replace(theData,chr(9),'<br>',"all")>
-			<cfset theData=replace(theData,chr(13),'<br>',"all")>
-			<cfset t = '"#i#":"' & theData  & '"'>
-			<cfset trow=listappend(trow,t)>
-		</cfloop>
-		<cfset trow="{" & trow & "}">
-		<cfset coredata=listappend(coredata,trow)>
-	</cfloop>
-	
-	</cfoutput>
-	<cfset result='{"Result":"OK","Records":[' & coredata & '],"TotalRecordCount":#trc.c#}'>
-			
-	<!-----		
-			
-			
-	
-	
-	<cfset x=''>
-	<cfloop query="d">
-		<cfset response = structNew()>
-		<cfloop list="#d.columnlist#" index="cname">
-			<cfset response["#cname#"]=evaluate("d." & cname)>
-		</cfloop>
-		<cfset thisItem=serializeJSON(response)>
-		<cfset x=listappend(x,thisItem)>
-	</cfloop>
-	<cfset result='{"Result":"OK","Records":[' & x & '],"TotalRecordCount":#trc.c#}'>
-	
-	---->
-	
-	
+	<cftry>
+		<cfquery name="d" datasource="uam_god">
+			select
+				SSRCH_FIELD_DOC_ID,
+				CATEGORY,
+				CF_VARIABLE,
+				CONTROLLED_VOCABULARY,
+				DATA_TYPE,
+				DEFINITION,
+				DISPLAY_TEXT,
+				DOCUMENTATION_LINK,
+				PLACEHOLDER_TEXT,
+				SEARCH_HINT,
+				SQL_ELEMENT,
+				SPECIMEN_RESULTS_COL,
+				DISP_ORDER,
+				SPECIMEN_QUERY_TERM
+			 from ssrch_field_doc where 1=1
+				<cfif isdefined("CF_VARIABLE") and len(CF_VARIABLE) gt 0> and CF_VARIABLE like '%#lcase(CF_VARIABLE)#%'</cfif>
+				<cfif isdefined("SPECIMEN_RESULTS_COL") and len(SPECIMEN_RESULTS_COL) gt 0> and SPECIMEN_RESULTS_COL=#SPECIMEN_RESULTS_COL#</cfif>
+				<cfif isdefined("specimen_query_term") and len(specimen_query_term) gt 0> and specimen_query_term=#specimen_query_term#</cfif>
+			order by 
+				#jtSorting#
+		</cfquery>
+		<cfquery name="trc" dbtype="query">
+			Select count(*) c from d 
+		</cfquery>
+		<cfoutput>
+			<cfset coredata=''>
+			<cfloop query="d" startrow="#theFirstRow#" endrow="#theLastRow#">
+				<cfset trow="">
+				<cfloop list="#d.columnlist#" index="i">
+					<cfset theData=evaluate("d." & i)>
+					<cfset theData=jsonEscape(theData)>
+					<cfset t = '"#i#":"' & theData  & '"'>
+					<cfset trow=listappend(trow,t)>
+				</cfloop>
+				<cfset trow="{" & trow & "}">
+				<cfset coredata=listappend(coredata,trow)>
+			</cfloop>
+		</cfoutput>
+		<cfset result='{"Result":"OK","Records":[' & coredata & '],"TotalRecordCount":#trc.c#}'>
+		<cfcatch>
+			<cfset msg=cfcatch.message>
+			<cfif isdefined("cfcatch.detail") and len(cfcatch.detail) gt 0>
+				<cfset msg=msg & ': ' & cfcatch.detail>
+			</cfif>
+			<cfif isdefined("cfcatch.sql") and len(cfcatch.sql) gt 0>
+				<cfset msg=msg & ': ' & cfcatch.sql>
+			</cfif>
+			<cfset msg=jsonEscape(msg)>
+			<cfset result='{"Result":"ERROR","Message":"#msg#"}'>
+		</cfcatch>
+	</cftry>
 	<cfreturn result>
 </cffunction>
-
 </cfcomponent>
