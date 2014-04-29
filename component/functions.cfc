@@ -82,57 +82,62 @@
 						<cfset thisKey=listgetat(kvp,1,"=")>
 						<cfset keylist=listappend(keylist,thisKey)>
 						<cfset thisValue=listgetat(kvp,2,"=")>
-						<tr>
-							<td>
-								<cfquery name="thisMoreInfo" dbtype="query">
-									select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
-								</cfquery>
-								<cfif len(thisMoreInfo.DEFINITION) gt 0>
-									<cfset thisSpanClass="helpLink">
-								<cfelse>
-									<cfset thisSpanClass="">
-								</cfif>
-								<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#">
-								<cfif len(thisMoreInfo.DISPLAY_TEXT) gt 0>
-									#thisMoreInfo.DISPLAY_TEXT#
-								<cfelse>
-									#thisKey#
-								</cfif>
-								</span>					
-							</td>
-							<td>=</td>
-							<td>
-								<!--- attributes take units as part of the variable, so no code tables ---->
-								<input type="text" name="#thisKey#" id="#thisKey#" value="#thisvalue#" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
-							</td>
-							<td>
-								<div style="height:1em; overflow:auto">
-									<cfif len(thisMoreInfo.CONTROLLED_VOCABULARY) gt 0>
-										<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
-											<cfquery name="tct" datasource="cf_dbuser">
-												select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
-											</cfquery>
-											<cfloop list="#tct.columnlist#" index="i">
-												<cfif i is not "description" and i is not "collection_cde">
-													<cfset ctColName=i>
-												</cfif>
-											</cfloop>
-											<cfquery name="cto" dbtype="query">
-												select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
-											</cfquery>
-											<cfloop query="cto">
-												<div class="likeLink" onclick="$('###thisKey#').val('#thisctvalue#');">#thisctvalue#</div>
-											</cfloop>
-										<cfelse>
-											<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
-												<div class="likeLink"  onclick="$('###thisKey#').val('#i#');">#i#</div>
-											</cfloop>
-										</cfif>
-									</cfif>
-								</div>
-							</td>
-						</tr>
+					<cfelse>
+						<!--- variable only - tests for existence of attribtues ---->
+						<cfset thisKey=kvp>
+						<cfset keylist=listappend(keylist,thisKey)>
+						<cfset thisValue=''>
 					</cfif>
+					<tr>
+						<td>
+							<cfquery name="thisMoreInfo" dbtype="query">
+								select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
+							</cfquery>
+							<cfif len(thisMoreInfo.DEFINITION) gt 0>
+								<cfset thisSpanClass="helpLink">
+							<cfelse>
+								<cfset thisSpanClass="">
+							</cfif>
+							<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#">
+							<cfif len(thisMoreInfo.DISPLAY_TEXT) gt 0>
+								#thisMoreInfo.DISPLAY_TEXT#
+							<cfelse>
+								#thisKey#
+							</cfif>
+							</span>					
+						</td>
+						<td>=</td>
+						<td>
+							<!--- attributes take units as part of the variable, so no code tables ---->
+							<input type="text" name="#thisKey#" id="#thisKey#" value="#thisvalue#" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
+						</td>
+						<td>
+							<div style="height:1em; overflow:auto">
+								<cfif len(thisMoreInfo.CONTROLLED_VOCABULARY) gt 0>
+									<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
+										<cfquery name="tct" datasource="cf_dbuser">
+											select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
+										</cfquery>
+										<cfloop list="#tct.columnlist#" index="i">
+											<cfif i is not "description" and i is not "collection_cde">
+												<cfset ctColName=i>
+											</cfif>
+										</cfloop>
+										<cfquery name="cto" dbtype="query">
+											select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
+										</cfquery>
+										<cfloop query="cto">
+											<div class="likeLink" onclick="$('###thisKey#').val('#thisctvalue#');">#thisctvalue#</div>
+										</cfloop>
+									<cfelse>
+										<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
+											<div class="likeLink"  onclick="$('###thisKey#').val('#i#');">#i#</div>
+										</cfloop>
+									</cfif>
+								</cfif>
+							</div>
+						</td>
+					</tr>
 				</cfloop>
 				<cfif len(keylist) is 0>
 					<cfset keylist='doesNotExist'>
