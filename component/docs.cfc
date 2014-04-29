@@ -52,6 +52,7 @@
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
+	<cftry>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into ssrch_field_doc
 				(
@@ -105,7 +106,10 @@
 		<cfset x=listappend(x,thisItem)>
 	</cfloop>
 	<cfset result='{"Result":"OK","Record":[' & x & ']}'>
-	
+	<cfcatch>
+			<cfset result='{"Result":"ERROR","message":["#cfcatch.message# - #cfcatch.detail#"]}'>
+	</cfcatch>
+	</cftry>
 	
 	
 	<cfreturn result>
