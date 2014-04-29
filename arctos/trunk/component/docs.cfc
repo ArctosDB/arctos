@@ -1,5 +1,5 @@
 <cfcomponent>
-<cffunction name="jsonEscape">
+<cffunction name="jsonEscape" access="remote">
 	<cfargument name="inpstr" required="yes">
 	<cfset inpstr=replace(inpstr,'"','\"',"all")>
 	<cfset inpstr=replace(inpstr,chr(10),'<br>',"all")>
