@@ -12,6 +12,18 @@
 	</cfstoredproc>
 	<cfreturn newguid>
 </cffunction>
+<!------------------------------------------------------------------>
+<cffunction name="setResultsBrowsePrefs" access="remote">
+	<cfargument name="val" type="string" required="no">
+	<cfif val is not "1">
+		<cfset val=0>
+	</cfif>
+	<cfquery name="up" datasource="cf_dbuser">
+		UPDATE cf_users SET ResultsBrowsePrefs = #val# WHERE username = '#session.username#'
+	</cfquery>
+	<cfset session.ResultsBrowsePrefs = val>
+	<cfreturn>
+</cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget_exp" access="remote" returnformat="plain">
 	<cfquery name="ssrch_field_doc" datasource="cf_dbuser">
@@ -23,15 +35,20 @@
 			jQuery( function($) {
 				$('##showsearchterms').click(function() {
 					if($("##refineSearchTerms").is(":visible")) {
-						var openclose=0;
+						var v=0;
 					} else {
-						var openclose=1;
+						var v=1;
   					}
 					$('##refineSearchTerms').slideToggle("fast");
-console.log(openclose);
+					jQuery.getJSON("/component/functions.cfc",
+						{
+							method : "setResultsBrowsePrefs",
+							val : v,
+							returnformat : "json",
+							queryformat : 'column'
+						}
+					);
 				});
-
-
 			});
 			function setThisName(tv){
 				$("##newValue").attr('name',tv);
