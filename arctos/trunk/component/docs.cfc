@@ -8,30 +8,10 @@
 	<cfset inpstr=replace(inpstr,chr(13),'<br>',"all")>
 	<cfset inpstr=replace(inpstr,'  ',' ',"all")>
 	
-	<cfset inpstr=replacenocase(inpstr,'<br><br>','<br>',"all")>
 	
 	
-	inpstr: <cfdump var=#inpstr#>
-	
-	<cfset inpstr=replacenocase(inpstr,'<br><br>','<br>',"all")>
-	
-	
-	inpstr: <cfdump var=#inpstr#>
-	
-	<cfset inpstr=replacenocase(inpstr,'<br><br>','<br>',"all")>
-	
-	
-	inpstr: <cfdump var=#inpstr#>
-	
-	<cfset inpstr=replacenocase(inpstr,'<br><br>','<br>',"all")>
-	
-	
-	inpstr: <cfdump var=#inpstr#>
-	
-	<cfset inpstr=replacenocase(inpstr,'<br><br>','<br>',"all")>
-	
-	
-	inpstr: <cfdump var=#inpstr#>
+		<cfset inpstr=rereplacenocase(inpstr,'(<br>){2,}','<br>',"all")>
+
 	
 	<cfreturn inpstr>
 </cffunction>
