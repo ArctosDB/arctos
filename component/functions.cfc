@@ -55,7 +55,12 @@
 			}
 		</script>
 		<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
-		<div id="refineSearchTerms" style="display:block;">
+		<cfif session.ResultsBrowsePrefs is 1>
+			<cfset thisStyle='display:block;'>
+		<cfelse>
+			<cfset thisStyle='display:none;'>
+		</cfif>
+		<div id="refineSearchTerms" style="#thisStyle#">
 			<div style="font-size:small;">
 				This is an experiment. 
 				Change values and press ENTER or click the button. 
