@@ -27,7 +27,7 @@
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget_exp" access="remote" returnformat="plain">
 	<cfquery name="ssrch_field_doc" datasource="cf_dbuser">
-		select * from ssrch_field_doc order by disp_order
+		select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by disp_order,cf_variable
 	</cfquery>
 	<cfoutput>
 	<cfsavecontent variable="widget">
