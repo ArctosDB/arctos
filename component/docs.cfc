@@ -3,13 +3,11 @@
 	<cfargument name="inpstr" required="yes">
 	<cfset inpstr=replace(inpstr,'"','\"',"all")>
 	<cfset inpstr=replace(inpstr,chr(10),'<br>',"all")>
-	<cfset inpstr=replace(inpstr,chr(9),'<br>',"all")>
+	<cfset inpstr=replacenocase(inpstr,chr(9),'<br>',"all")>
 	<cfset inpstr=replace(inpstr,chr(13),'<br>',"all")>
 	<cfset inpstr=replace(inpstr,'  ',' ',"all")>
-	<cfset inpstr=replace(inpstr,'  ',' ',"all")>
 	
-	<cfset inpstr=replace(inpstr,'<br><br>','<br>',"all")>
-	<cfset inpstr=replace(inpstr,'<br><br>','<br>',"all")>
+	<cfset inpstr=replacenocase(inpstr,'<br><br>','<br>',"all")>
 	
 	
 	<cfreturn inpstr>
