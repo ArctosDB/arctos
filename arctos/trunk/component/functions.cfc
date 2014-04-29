@@ -98,6 +98,8 @@
 							<cfquery name="thisMoreInfo" dbtype="query">
 								select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
 							</cfquery>
+							
+							<cfdump var=#thisMoreInfo#>
 							<cfif len(thisMoreInfo.DEFINITION) gt 0>
 								<cfset thisSpanClass="helpLink">
 							<cfelse>
