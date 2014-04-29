@@ -35,9 +35,6 @@ function op_getAgent(agentIdID,agentNameID,agent_name){
 }
 
 
-
-
-
 function checkCSV(obj) {
     var filePath = obj.value;
     var ext = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
@@ -766,18 +763,9 @@ function changecustomOtherIdentifier (tgt) {
 		}
 	);
 }
-function removeHelpDiv() {
-	console.log('removing bgDiv');
-	
+function removeHelpDiv() {	
 	$('#bgDiv').remove();
 	$('#helpDiv').remove();
-	/*
-	if(document.getElementById('bgDiv')){
-		$('#bgDiv').remove();
-	}
-	if (document.getElementById('helpDiv')) {
-	}
-	*/
 }
 function changeshowObservations (tgt) {
 	jQuery.getJSON("/component/functions.cfc",
