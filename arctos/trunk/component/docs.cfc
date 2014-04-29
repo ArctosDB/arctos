@@ -1,6 +1,7 @@
 <cfcomponent>
 <cffunction name="jsonEscape" access="remote">
 	<cfargument name="inpstr" required="yes">
+	inpstr: <cfdump var=#inpstr#>
 	<cfset inpstr=replace(inpstr,'"','\"',"all")>
 	<cfset inpstr=replace(inpstr,chr(10),'<br>',"all")>
 	<cfset inpstr=replacenocase(inpstr,chr(9),'<br>',"all")>
@@ -10,6 +11,7 @@
 	<cfset inpstr=replacenocase(inpstr,'<br><br>','<br>',"all")>
 	
 	
+	inpstr: <cfdump var=#inpstr#>
 	<cfreturn inpstr>
 </cffunction>
 <cffunction name="getPage" access="remote">
