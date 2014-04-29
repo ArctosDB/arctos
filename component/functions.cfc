@@ -103,7 +103,7 @@
 							<cfelse>
 								<cfset thisSpanClass="">
 							</cfif>
-							<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#; #thisMoreInfor.SEARCH_HINT#">
+							<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#; #thisMoreInfo.SEARCH_HINT#">
 							<cfif len(thisMoreInfo.DISPLAY_TEXT) gt 0>
 								#thisMoreInfo.DISPLAY_TEXT#
 							<cfelse>
