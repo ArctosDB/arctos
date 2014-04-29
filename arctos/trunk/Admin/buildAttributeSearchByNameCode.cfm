@@ -24,7 +24,7 @@
 			<cfquery name="tctl" datasource="uam_god">
 				select 
 					CTATTRIBUTE_TYPE.ATTRIBUTE_TYPE,
-					CTATTRIBUTE_TYPE.documentation,
+					CTATTRIBUTE_TYPE.DESCRIPTION,
 					ctattribute_code_tables.VALUE_CODE_TABLE,
 					ctattribute_code_tables.UNITS_CODE_TABLE 
 				from 
@@ -35,7 +35,7 @@
 					CTATTRIBUTE_TYPE.ATTRIBUTE_TYPE='#ATTRIBUTE_TYPE#'
 				group by
 					CTATTRIBUTE_TYPE.ATTRIBUTE_TYPE,
-					CTATTRIBUTE_TYPE.documentation,
+					CTATTRIBUTE_TYPE.DESCRIPTION,
 					ctattribute_code_tables.VALUE_CODE_TABLE,
 					ctattribute_code_tables.UNITS_CODE_TABLE  
 			</cfquery>
@@ -58,7 +58,7 @@
 	'attribute',
 	'#attrvar#',
 	'#tctl.VALUE_CODE_TABLE#',
-	'#escapeQuotes(tctl.documentation)#',
+	'#escapeQuotes(tctl.DESCRIPTION)#',
 	'',
 	'#ATTRIBUTE_TYPE#',
 	'',
