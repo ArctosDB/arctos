@@ -238,7 +238,7 @@
 	function displayMedia(idList){
 		$("div[id^='jsonmedia_']").each(function() {
 			var r = $.parseJSON($("##" + this.id).html());
-			if (r.length>0){
+			if (r.ROWCOUNT>0){
 				var theHTML=new Array();
 				console.log(this.id);
 				
@@ -274,30 +274,6 @@
 				$("##" + this.id).html(theHTML);
 			}
 		});
-	}
-/*
-		for (m=0; m<thisMedia.ROWCOUNT; ++m) {
-							if(thisMedia.DATA.preview_uri[m].length > 0) {
-								pURI=thisMedia.DATA.preview_uri[m];
-							} else {
-								if (thisMedia.DATA.mimecat[m]=='audio'){
-									pURI='images/audioNoThumb.png';
-								} else {
-									pURI='/images/noThumb.jpg';
-								}
-							}
-							theInnerHtml += '<div class="one_thumb">';
-							theInnerHtml += '<a href="/exit.cfm?target=' + thisMedia.DATA.media_uri[m] + '" target="_blank">';
-							theInnerHtml += '<img src="' + pURI + '" class="theThumb"></a>';
-							theInnerHtml += '<p>' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
-							theInnerHtml += '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></p></div>';							
-						}
-					theInnerHtml += '<div class="thumb_spcr">&nbsp;</div></div>';
-					theInnerHtml += '</td>';
-				}		
-
-*/
-
 	}
 
 	function insertMedia(idList) {
