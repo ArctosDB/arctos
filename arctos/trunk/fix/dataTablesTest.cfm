@@ -237,9 +237,11 @@
 
 	function displayMedia(idList){
 		$("div[id^='jsonmedia_']").each(function() {
+			var r = $.parseJSON($("##" + this.id).html());
+			if (r.length){
 			var theHTML=new Array();
 			console.log(this.id);
-			var r = $.parseJSON($("##" + this.id).html());
+			
 			console.log(r);
 			for (i=0; i<r.ROWCOUNT; ++i) {
 				var thisItem='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
@@ -271,6 +273,7 @@
 			}
 			$("##" + this.id).html(theHTML);
 		});
+}
 /*
 		for (m=0; m<thisMedia.ROWCOUNT; ++m) {
 							if(thisMedia.DATA.preview_uri[m].length > 0) {
