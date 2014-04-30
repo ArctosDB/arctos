@@ -254,21 +254,20 @@
 							queryformat : 'column'
 						},
 						function (result) {
-							var thisItem='<div class="one_thumb">';
+							theHTML+='<div class="one_thumb">';
 							console.log(result);
-							thisItem+='<a href="/exit.cfm?target=' + r.DATA.media_uri[i] + '" target="_blank">';
+							theHTML+='<a href="/exit.cfm?target=' + r.DATA.media_uri[i] + '" target="_blank">';
 							
-							thisItem+='<img src="' + result + '" class="theThumb"></a>';
+							theHTML+='<img src="' + result + '" class="theThumb"></a>';
 
-							thisItem+='<p>' + r.DATA.mimecat[i] + ' (' + r.DATA.mime_type[i] + ')';
-							thisItem+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
-							theHTML+=thisItem;
+							theHTML+='<p>' + r.DATA.mimecat[i] + ' (' + r.DATA.mime_type[i] + ')';
+							theHTML+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
 						}
 					);				
 					
 				}
 				theHTML+='<div class="thumb_spcr">&nbsp;</div></div>';
-					
+					console.log(theHTML);
 				$("##" + this.id).html(theHTML);
 			//} else {
 				//$("##" + this.id).html('');
