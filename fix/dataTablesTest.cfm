@@ -267,7 +267,7 @@
 					);				
 					
 				}
-				thisItem+='<div class="thumb_spcr">&nbsp;</div></div>';
+				theHTML+='<div class="thumb_spcr">&nbsp;</div></div>';
 					
 				$("##" + this.id).html(theHTML);
 			//} else {
