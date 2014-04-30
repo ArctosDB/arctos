@@ -249,7 +249,7 @@
 					$.ajax({
 						url: theURL,
 						dataType: 'json',
-						async: false
+						async: false,
 						success: function(result) {
 							console.log('during.....');
 							theHTML+='<div class="one_thumb">';
