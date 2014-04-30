@@ -176,6 +176,12 @@
 	<cfargument name="CF_VARIABLE" type="string" required="false">
 	<cfargument name="SPECIMEN_RESULTS_COL" type="string" required="false">
 	<cfargument name="specimen_query_term" type="string" required="false">
+	<cfargument name="DISPLAY" type="string" required="false">
+	<cfargument name="CATEGORY" type="string" required="false">
+	<cfargument name="SQL_ELEMENT" type="string" required="false">
+	
+		
+		
 	<cfparam name="jtStartIndex" type="integer" default="0">
 	<cfparam name="jtPageSize" type="integer" default="10">
 	<cfparam name="jtSorting" type="string" default="CF_VARIABLE ASC">
@@ -203,6 +209,9 @@
 				<cfif isdefined("CF_VARIABLE") and len(CF_VARIABLE) gt 0> and CF_VARIABLE like '%#lcase(CF_VARIABLE)#%'</cfif>
 				<cfif isdefined("SPECIMEN_RESULTS_COL") and len(SPECIMEN_RESULTS_COL) gt 0> and SPECIMEN_RESULTS_COL=#SPECIMEN_RESULTS_COL#</cfif>
 				<cfif isdefined("specimen_query_term") and len(specimen_query_term) gt 0> and specimen_query_term=#specimen_query_term#</cfif>
+				<cfif isdefined("DISPLAY") and len(DISPLAY) gt 0> and lower(DISPLAY) like '%#lcase(DISPLAY)#%'</cfif>
+				<cfif isdefined("CATEGORY") and len(CATEGORY) gt 0> and lower(CATEGORY) like '%#lcase(CATEGORY)#%'</cfif>
+				<cfif isdefined("SQL_ELEMENT") and len(SQL_ELEMENT) gt 0> and lower(SQL_ELEMENT) like '%#lcase(SQL_ELEMENT)#%'</cfif>
 			order by 
 				#jtSorting#
 		</cfquery>
