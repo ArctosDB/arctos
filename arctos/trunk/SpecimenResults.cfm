@@ -57,9 +57,9 @@ jQuery( function($) {
 		jQuery("##mapGoHere").html(data);
 	});
   	var ptl='/component/functions.cfc?method=get_specSrchTermWidget&returnformat=plain';
-	jQuery.get(ptl, function(data){
-		jQuery("##cntr_refineSearchTerms").html(data);
-	});
+	//jQuery.get(ptl, function(data){
+	//	jQuery("##cntr_refineSearchTerms").html(data);
+	//});
 
 
 

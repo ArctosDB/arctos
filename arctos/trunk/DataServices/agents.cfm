@@ -603,7 +603,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 								) VALUES (
 									SQ_AGENT_NAME_ID.NEXTVAL,
 									#agentID.nextAgentId#,
-									'thisNameType',
+									'#thisNameType#',
 									'#escapeQuotes(trim(thisName))#'
 								)
 							</cfquery>

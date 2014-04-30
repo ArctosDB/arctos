@@ -232,6 +232,11 @@
 		insertMedia(coidList);
 		insertTypes(coidList);
 		injectLoanPick();
+		displayMedia();
+	}
+
+	function displayMedia(idList){
+		
 	}
 
 	function insertMedia(idList) {
