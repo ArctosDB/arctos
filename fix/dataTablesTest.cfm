@@ -238,10 +238,10 @@
 	function displayMedia(idList){
 		$("div[id^='jsonmedia_']").each(function() {
 			console.log(this.id);
-			var data = $.parseJSON($("##" + this.id).html());
-			console.log(data);
-			for (i=0; i<data.ROWCOUNT; ++i) {
-				console.log(data.PREVIEW_URI[i]);
+			var r = $.parseJSON($("##" + this.id).html());
+			console.log(r);
+			for (i=0; i<r.ROWCOUNT; ++i) {
+				console.log(r.DATA.PREVIEW_URI[i]);
 			}
 		});
 
