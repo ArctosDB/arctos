@@ -39,6 +39,11 @@
 <cfif isdefined("any_taxa_term") AND len(any_taxa_term) gt 0>
 	<cfset taxon_name=any_taxa_term>
 </cfif>
+<cfif isdefined("begdate") AND len(begdate) gt 0>
+	<cfset began_date=begdate>
+</cfif>
+
+
 <!---- old taxonomy model used taxon_scope - see if we can translate it to new stuff to not break links ---->
 
 <cfif isdefined("taxon_scope") and len(taxon_scope) gt 0 and isdefined("taxon_term") and len(taxon_term) gt 0>
@@ -848,6 +853,27 @@
 		)" >
 	<cfset mapurl = "#mapurl#&anybarcode=#anybarcode#">
 </cfif>
+
+
+
+
+
+
+
+
+
+<!-- everything above here is in doc/field_documentation.cfm ---->
+
+
+
+
+
+
+
+
+
+
+
 <cfif isdefined("anyContainerId") AND len(anyContainerId) gt 0>
 	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_object_id IN (
 		select
@@ -1220,10 +1246,10 @@
 	<cfset mapurl = "#mapurl#&identified_agent=#identified_agent#">
 	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.IDENTIFIEDBY) LIKE '%#ucase(identified_agent)#%'">
 </cfif>
-<cfif isdefined("begDate") AND len(begDate) gt 0>
-	<cfset mapurl = "#mapurl#&begDate=#begDate#">
+<cfif isdefined("began_date") AND len(began_date) gt 0>
+	<cfset mapurl = "#mapurl#&began_date=#began_date#">
 	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select is_iso8601('#begDate#') isdate from dual
+		select is_iso8601('#began_date#') isdate from dual
 	</cfquery>
 	<cfif isdate.isdate is not "valid">
 		<div class="error">
@@ -1233,7 +1259,7 @@
 		<script>hidePageLoad();</script>
 		<cfabort>
 	</cfif>
-	<cfset basQual = " #basQual# AND #session.flatTableName#.began_date >= '#begDate#'">
+	<cfset basQual = " #basQual# AND #session.flatTableName#.began_date >= '#began_date#'">
 </cfif>
 <cfif isdefined("endDate") AND len(endDate) gt 0>
 	<cfset mapurl = "#mapurl#&endDate=#endDate#">

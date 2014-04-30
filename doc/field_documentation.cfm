@@ -74,7 +74,9 @@
                CF_VARIABLE: $('#CF_VARIABLE').val(),
                SPECIMEN_RESULTS_COL: $('#SPECIMEN_RESULTS_COL').val(),
                specimen_query_term: $('#specimen_query_term').val(),
-
+               DISPLAY: $('#DISPLAY').val(),
+               CATEGORY: $('#CATEGORY').val(),
+               SQL_ELEMENT: $('#SQL_ELEMENT').val()
            });
        });
        $('#jtdocdoc').jtable('load');
@@ -156,6 +158,7 @@
 <div class="filtering">
     <form>
         CF_VARIABLE: <input type="text" name="CF_VARIABLE" id="CF_VARIABLE" />
+		 DISPLAY: <input type="text" name="DISPLAY" id="DISPLAY" />
 		SR:
 		<select name="SPECIMEN_RESULTS_COL" id="SPECIMEN_RESULTS_COL">
 			<option value=""></option>
@@ -168,6 +171,24 @@
 			<option value="1">yes</option>
 			<option value="0">no</option>
 		</select>
+		
+		
+		  CATEGORY:
+		<select name="CATEGORY" id="CATEGORY">
+			<option value=""></option>
+			<option value="locality">locality</option>
+			<option value="specimen">specimen</option>
+			<option value="required">required</option>
+			<option value="sort">sort</option>
+			<option value="attribute">attribute</option>
+			<option value="curatorial">curatorial</option>
+		</select>
+SQL_ELEMENT: <input type="text" name="SQL_ELEMENT" id="SQL_ELEMENT" />
+
+
+			
+			        <button type="reset" id="">clear form</button>
+
         <button type="submit" id="LoadRecordsButton">Search</button>
     </form>
 </div>
