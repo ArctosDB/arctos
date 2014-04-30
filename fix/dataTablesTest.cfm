@@ -241,7 +241,7 @@
 			var r = $.parseJSON($("##" + this.id).html());
 			console.log(r);
 			for (i=0; i<r.ROWCOUNT; ++i) {
-				console.log(r.DATA.PREVIEW_URI[i]);
+				console.log(r.DATA.preview_uri[i]);
 			}
 		});
 
