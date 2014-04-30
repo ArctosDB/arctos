@@ -239,11 +239,10 @@
 		$("div[id^='jsonmedia_']").each(function() {
 			var r = $.parseJSON($("##" + this.id).html());
 			if (r.ROWCOUNT>0){
-				var theHTML='';
+				var theHTML='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
 				console.log(this.id);
 				
 				console.log(r);
-				var thisItem='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
 				for (i=0; i<r.ROWCOUNT; ++i) {
 					
 					jQuery.getJSON("/component/functions.cfc",
@@ -255,11 +254,12 @@
 							queryformat : 'column'
 						},
 						function (result) {
-							//var thisItem='<img src="' + r.DATA.preview_uri[i] + '">';
+							var thisItem='<div class="one_thumb">';
 							console.log(result);
 							thisItem+='<a href="/exit.cfm?target=' + r.DATA.media_uri[i] + '" target="_blank">';
 							
-							thisItem+='<div class="one_thumb"><img src="' + result + '" class="theThumb">';
+							thisItem+='<img src="' + result + '" class="theThumb"></a>';
+
 							thisItem+='<p>' + r.DATA.mimecat[i] + ' (' + r.DATA.mime_type[i] + ')';
 							thisItem+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
 							theHTML+=thisItem;
