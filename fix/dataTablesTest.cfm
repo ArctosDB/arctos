@@ -242,13 +242,48 @@
 			var r = $.parseJSON($("##" + this.id).html());
 			console.log(r);
 			for (i=0; i<r.ROWCOUNT; ++i) {
-				console.log(r.DATA.preview_uri[i]);
+				jQuery.getJSON("/component/functions.cfc",
+					{
+						method : "getMediaPreview",
+						preview_uri : r.DATA.preview_uri[i],
+						media_type : r.DATA.media_type[i],
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function (result) {
+						//var thisItem='<img src="' + r.DATA.preview_uri[i] + '">';
+						console.log(result);
+					}
+				);				
+
+
 				var thisItem='<img src="' + r.DATA.preview_uri[i] + '">';
 				theHTML.push(thisItem);
 			}
 			$("##" + this.id).html(theHTML);
 		});
+/*
+		for (m=0; m<thisMedia.ROWCOUNT; ++m) {
+							if(thisMedia.DATA.preview_uri[m].length > 0) {
+								pURI=thisMedia.DATA.preview_uri[m];
+							} else {
+								if (thisMedia.DATA.mimecat[m]=='audio'){
+									pURI='images/audioNoThumb.png';
+								} else {
+									pURI='/images/noThumb.jpg';
+								}
+							}
+							theInnerHtml += '<div class="one_thumb">';
+							theInnerHtml += '<a href="/exit.cfm?target=' + thisMedia.DATA.media_uri[m] + '" target="_blank">';
+							theInnerHtml += '<img src="' + pURI + '" class="theThumb"></a>';
+							theInnerHtml += '<p>' + thisMedia.DATA.mimecat[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
+							theInnerHtml += '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></p></div>';							
+						}
+					theInnerHtml += '<div class="thumb_spcr">&nbsp;</div></div>';
+					theInnerHtml += '</td>';
+				}		
 
+*/
 
 	}
 
