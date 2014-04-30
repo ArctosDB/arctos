@@ -5,6 +5,9 @@
 		<cfparam name="jtSorting" type="string" default="GUID ASC">
 		<cfset jtStopIndex=jtStartIndex+jtPageSize>
 		
+		<cfset obj = CreateObject("component","component.docs")>
+
+
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			Select * from (
 					Select a.*, rownum rnum From (
@@ -22,9 +25,7 @@
 				<cfset trow="">
 				<cfloop list="#d.columnlist#" index="i">
 					<cfset theData=evaluate("d." & i)>
-					<cfset theData=replace(theData,'"','\"',"all")>
-					<cfset theData=replace(theData,chr(10),' ',"all")>
-					
+					<cfset theData=obj.jsonEscape(theData)>
 					
 					<cfif i is "guid">
 						<cfset temp ='"GUID":"<div id=\"CatItem_#collection_object_id#\"><a target=\"_blank\" href=\"/guid/' & theData &'\">' &theData & '</a></div>"'>
