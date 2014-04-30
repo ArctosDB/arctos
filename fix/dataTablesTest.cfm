@@ -244,7 +244,7 @@
 				
 				console.log(r);
 				for (i=0; i<r.ROWCOUNT; ++i) {
-					
+					console.log('before ajax......');
 					jQuery.getJSON("/component/functions.cfc",
 						{
 							method : "getMediaPreview",
@@ -255,6 +255,8 @@
 							async: false
 						},
 						function (result) {
+
+		console.log('during.....');
 							theHTML+='<div class="one_thumb">';
 							console.log(result);
 							theHTML+='<a href="/exit.cfm?target=' + r.DATA.media_uri[i] + '" target="_blank">';
@@ -267,6 +269,8 @@
 					);				
 					
 				}
+
+console.log('after.....');
 				theHTML+='<div class="thumb_spcr">&nbsp;</div></div>';
 					console.log(theHTML);
 				$("##" + this.id).html(theHTML);
