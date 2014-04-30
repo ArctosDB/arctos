@@ -270,8 +270,8 @@
 				thisItem+='<div class="thumb_spcr">&nbsp;</div></div>';
 					
 				$("##" + this.id).html(theHTML);
-			} else {
-				$("##" + this.id).html('');
+			//} else {
+				//$("##" + this.id).html('');
 			}
 				
 		});
