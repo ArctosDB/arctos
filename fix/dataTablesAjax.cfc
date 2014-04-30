@@ -29,7 +29,7 @@
 					<cfif i is "guid">
 						<cfset temp ='"GUID":"<div id=\"CatItem_#collection_object_id#\"><a target=\"_blank\" href=\"/guid/' & theData &'\">' &theData & '</a></div>"'>
 					<cfelseif i is "media">
-						<cfset temp ='"MEDIA":"<div data-div-type=\"media\">' & theData & '</div>"'>
+						<cfset temp ='"MEDIA":"<div class=\"jsonmedia\">' & theData & '</div>"'>
 					<cfelse>
 						<cfset temp = '"#i#":"' & theData & '"'>
 					</cfif>

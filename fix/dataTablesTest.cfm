@@ -236,7 +236,10 @@
 	}
 
 	function displayMedia(idList){
-		
+			
+		$.each($(".jsonmedia"), function( v ) {
+console.log( v );
+});
 	}
 
 	function insertMedia(idList) {
