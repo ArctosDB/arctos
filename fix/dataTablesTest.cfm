@@ -242,6 +242,7 @@
 			var r = $.parseJSON($("##" + this.id).html());
 			console.log(r);
 			for (i=0; i<r.ROWCOUNT; ++i) {
+				var thisItem='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
 				jQuery.getJSON("/component/functions.cfc",
 					{
 						method : "getMediaPreview",
@@ -253,11 +254,19 @@
 					function (result) {
 						//var thisItem='<img src="' + r.DATA.preview_uri[i] + '">';
 						console.log(result);
+						thisItem+='<a href="/exit.cfm?target=' + r.DATA.media_uri[i] + '" target="_blank">';
+						
+						thisItem+='<div class="one_thumb"><img src="' + result + '" class="theThumb">';
+						thisItem+='<p>' + r.DATA.mimecat[i] + ' (' + r.DATA.mime_type[i] + ')';
+						thisItem+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
 					}
 				);				
+				thisItem+='<div class="thumb_spcr">&nbsp;</div></div>';
 
 
-				var thisItem='<img src="' + r.DATA.preview_uri[i] + '">';
+
+
+				
 				theHTML.push(thisItem);
 			}
 			$("##" + this.id).html(theHTML);
