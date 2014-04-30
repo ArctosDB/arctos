@@ -12,6 +12,7 @@
 			columnResizable: true,
 			multiSorting: true,
 			columnSelectable: false,
+    		noDataAvailable: 'No data available!',
 			actions: {
                 listAction: '/component/docs.cfc?method=listDocDoc',
 				updateAction: '/component/docs.cfc?method=updateDocDoc',
