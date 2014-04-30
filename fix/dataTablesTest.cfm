@@ -245,67 +245,27 @@
 				console.log(r);
 				for (i=0; i<r.ROWCOUNT; ++i) {
 					console.log('before ajax......');
-					
-
-/*
-jQuery.getJSON("/component/functions.cfc",
-						{
-							method : "getMediaPreview",
-							preview_uri : r.DATA.preview_uri[i],
-							media_type : r.DATA.media_type[i],
-							returnformat : "json",
-							queryformat : 'column',
-							async: false
-						},
-						function (result) {
-
-		console.log('during.....');
+					var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + r.DATA.preview_uri[i] + '&media_type=' +  r.DATA.media_type[i] + '&returnformat=json&queryformat=column';
+					$.ajax({
+						url: theURL,
+						dataType: 'json',
+						async: false
+						success: function(result) {
+							console.log('during.....');
 							theHTML+='<div class="one_thumb">';
 							console.log(result);
 							theHTML+='<a href="/exit.cfm?target=' + r.DATA.media_uri[i] + '" target="_blank">';
-							
 							theHTML+='<img src="' + result + '" class="theThumb"></a>';
-
 							theHTML+='<p>' + r.DATA.mimecat[i] + ' (' + r.DATA.mime_type[i] + ')';
 							theHTML+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
 						}
-					);				
-					
-				}
-*/
-
-var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + r.DATA.preview_uri[i] + '&media_type=' +  r.DATA.media_type[i] + '&returnformat=json&queryformat=column';
-
-$.ajax({
-  url: theURL,
-  dataType: 'json',
-  async: false
-  //data: myData,
-  success: function(data) {
-    //stuff
-		console.log('during.....');
-theHTML+='<div class="one_thumb">';
-							console.log(result);
-							theHTML+='<a href="/exit.cfm?target=' + r.DATA.media_uri[i] + '" target="_blank">';
-							
-							theHTML+='<img src="' + result + '" class="theThumb"></a>';
-
-							theHTML+='<p>' + r.DATA.mimecat[i] + ' (' + r.DATA.mime_type[i] + ')';
-							theHTML+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
-
-  }
-});
-
-
-
-console.log('after.....');
-				theHTML+='<div class="thumb_spcr">&nbsp;</div></div>';
+					});
+					console.log('after.....');
+					theHTML+='<div class="thumb_spcr">&nbsp;</div></div>';
 					console.log(theHTML);
-				$("##" + this.id).html(theHTML);
-			//} else {
-				//$("##" + this.id).html('');
+					$("##" + this.id).html(theHTML);
+				}
 			}
-				
 		});
 	}
 
