@@ -279,7 +279,7 @@ var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + r.DA
 $.ajax({
   url: theURL,
   dataType: 'json',
-  async: false,
+  async: false
   //data: myData,
   success: function(data) {
     //stuff
