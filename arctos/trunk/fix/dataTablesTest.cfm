@@ -263,9 +263,11 @@
 					console.log('after.....');
 					
 				}
-			theHTML+='<div class="thumb_spcr">&nbsp;</div></div>';
-					console.log(theHTML);
-					$("##" + this.id).html(theHTML);
+				theHTML+='<div class="thumb_spcr">&nbsp;</div></div>';
+				console.log(theHTML);
+				$("##" + this.id).html(theHTML);
+			} else {
+				$("##" + this.id).html('');
 			}
 		});
 	}
