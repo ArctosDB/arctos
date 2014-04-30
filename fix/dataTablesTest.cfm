@@ -238,7 +238,7 @@
 	function displayMedia(idList){
 		$("div[id^='jsonmedia_']").each(function() {
 			console.log(this.id);
-			var data $.parseJSON($("#" + this.id).html());
+			var data $.parseJSON($("##" + this.id).html());
 			console.log(data);
 
 		});
