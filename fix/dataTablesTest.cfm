@@ -239,12 +239,13 @@
 		$("div[id^='jsonmedia_']").each(function() {
 			var r = $.parseJSON($("##" + this.id).html());
 			if (r.ROWCOUNT>0){
-				var theHTML=new Array();
+				var theHTML='';
 				console.log(this.id);
 				
 				console.log(r);
+				var thisItem='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
 				for (i=0; i<r.ROWCOUNT; ++i) {
-					var thisItem='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
+					
 					jQuery.getJSON("/component/functions.cfc",
 						{
 							method : "getMediaPreview",
@@ -261,18 +262,18 @@
 							thisItem+='<div class="one_thumb"><img src="' + result + '" class="theThumb">';
 							thisItem+='<p>' + r.DATA.mimecat[i] + ' (' + r.DATA.mime_type[i] + ')';
 							thisItem+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
+							theHTML+=thisItem;
 						}
 					);				
-					thisItem+='<div class="thumb_spcr">&nbsp;</div></div>';
-	
-	
-	
-	
 					
-					theHTML.push(thisItem);
 				}
+				thisItem+='<div class="thumb_spcr">&nbsp;</div></div>';
+					
 				$("##" + this.id).html(theHTML);
+			} else {
+				$("##" + this.id).html('');
 			}
+				
 		});
 	}
 
