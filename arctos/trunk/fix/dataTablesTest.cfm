@@ -237,12 +237,16 @@
 
 	function displayMedia(idList){
 		$("div[id^='jsonmedia_']").each(function() {
+			var theHTML=new Array();
 			console.log(this.id);
 			var r = $.parseJSON($("##" + this.id).html());
 			console.log(r);
 			for (i=0; i<r.ROWCOUNT; ++i) {
 				console.log(r.DATA.preview_uri[i]);
+				var thisItem='<img src="' + r.DATA.preview_uri[i] + '">';
+				theHTML.push(thisItem);
 			}
+			$("##" + this.id).html(theHTML);
 		});
 
 
