@@ -251,7 +251,8 @@
 							preview_uri : r.DATA.preview_uri[i],
 							media_type : r.DATA.media_type[i],
 							returnformat : "json",
-							queryformat : 'column'
+							queryformat : 'column',
+							async: false
 						},
 						function (result) {
 							theHTML+='<div class="one_thumb">';
