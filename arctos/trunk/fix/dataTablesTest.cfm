@@ -237,8 +237,6 @@
 
 	function displayMedia(idList){
 		$("div[id^='jsonmedia_']").each(function() {
-					
-
 			var r = $.parseJSON($("##" + this.id).html());
 			if (r.length>0){
 				var theHTML=new Array();
@@ -274,8 +272,9 @@
 					theHTML.push(thisItem);
 				}
 				$("##" + this.id).html(theHTML);
-			});
-		}
+			}
+		});
+	}
 /*
 		for (m=0; m<thisMedia.ROWCOUNT; ++m) {
 							if(thisMedia.DATA.preview_uri[m].length > 0) {
