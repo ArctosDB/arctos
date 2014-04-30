@@ -240,7 +240,9 @@
 			console.log(this.id);
 			var data = $.parseJSON($("##" + this.id).html());
 			console.log(data);
-
+			for (i=0; i<data.ROWCOUNT; ++i) {
+				console.log(data.PREVIEW_URI[i]);
+			}
 		});
 
 
