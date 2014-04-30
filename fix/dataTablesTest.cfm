@@ -236,10 +236,11 @@
 	}
 
 	function displayMedia(idList){
-			
-		$.each($(".jsonmedia"), function( v ) {
-console.log( v );
-});
+		$("div[id^='jsonmedia_']").each(function() {
+			console.log(this.id);
+		});
+
+
 	}
 
 	function insertMedia(idList) {
