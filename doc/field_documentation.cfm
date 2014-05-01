@@ -1,4 +1,24 @@
 <cfinclude template="/includes/_header.cfm">
+
+<cfif action is "integerizeOrder">
+	<cfquery name="makeabiggap" datasource="uam_god">
+			update ssrch_field_doc set disp_order=disp_order+10000 where DISP_ORDER is not null
+	</cfquery>
+	
+	<cfquery name="o" datasource="uam_god">
+		select disp_order from ssrch_field_doc where DISP_ORDER is not null order by DISP_ORDER
+	</cfquery>
+	<cfset n=1>
+	<cfloop query="o">
+		<cfquery name="u" datasource="uam_god">
+			update ssrch_field_doc set disp_order=#n# where disp_order=#o.disp_order#
+		</cfquery>
+		<cfset n=n+1>
+	</cfloop>
+	<cflocation url="field_documentation.cfm" addtoken="false">
+</cfif>
+
+
 <script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
 <link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 <script type="text/javascript">
@@ -215,23 +235,6 @@ SQL_ELEMENT: <input type="text" name="SQL_ELEMENT" id="SQL_ELEMENT" />
 </div>
 <div id="jtdocdoc"></div>
 
-<cfif action is "integerizeOrder">
-	<cfquery name="makeabiggap" datasource="uam_god">
-			update ssrch_field_doc set disp_order=disp_order+10000 where DISP_ORDER is not null
-	</cfquery>
-	
-	<cfquery name="o" datasource="uam_god">
-		select disp_order from ssrch_field_doc where DISP_ORDER is not null order by DISP_ORDER
-	</cfquery>
-	<cfset n=1>
-	<cfloop query="o">
-		<cfquery name="u" datasource="uam_god">
-			update ssrch_field_doc set disp_order=#n# where disp_order=#o.disp_order#
-		</cfquery>
-		<cfset n=n+1>
-	</cfloop>
-	<cflocation url="field_documentation.cfm" addtoken="false">
-</cfif>
 <!----------------------------
 <cfif action is "oldform">
 <script src="/includes/sorttable.js"></script>
