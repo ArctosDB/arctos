@@ -228,7 +228,7 @@ SQL_ELEMENT: <input type="text" name="SQL_ELEMENT" id="SQL_ELEMENT" />
 		</cfquery>
 		<cfset n=n+1>
 	</cfloop>
-	<a href="field_documentation.cfm">done - click to continue</a>
+	<cflocation url="field_documentation.cfm" addtoken="false">
 </cfif>
 <!----------------------------
 <cfif action is "oldform">
