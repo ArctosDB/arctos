@@ -208,9 +208,7 @@
 		</select>
 SQL_ELEMENT: <input type="text" name="SQL_ELEMENT" id="SQL_ELEMENT" />
 
-
-			
-			        <button type="reset" id="">clear form</button>
+<button type="reset" id="">clear form</button>
 
         <button type="submit" id="LoadRecordsButton">Search</button>
     </form>
@@ -218,6 +216,10 @@ SQL_ELEMENT: <input type="text" name="SQL_ELEMENT" id="SQL_ELEMENT" />
 <div id="jtdocdoc"></div>
 
 <cfif action is "integerizeOrder">
+	<cfquery name="makeabiggap" datasource="uam_god">
+			update ssrch_field_doc set disp_order=disp_order+10000 where DISP_ORDER is not null
+	</cfquery>
+	
 	<cfquery name="o" datasource="uam_god">
 		select disp_order from ssrch_field_doc where DISP_ORDER is not null order by DISP_ORDER
 	</cfquery>
