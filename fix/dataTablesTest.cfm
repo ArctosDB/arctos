@@ -169,7 +169,7 @@
 			multiSorting: true,
 			columnSelectable: false,
 			recordsLoaded: getPostLoadJunk,
-			multiSorting: true,
+			multiselect: true,
 			selectingCheckboxes: true,
 			actions: {
                 listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
