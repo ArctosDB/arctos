@@ -222,7 +222,7 @@ SQL_ELEMENT: <input type="text" name="SQL_ELEMENT" id="SQL_ELEMENT" />
 		select disp_order from ssrch_field_doc where DISP_ORDER is not null order by DISP_ORDER
 	</cfquery>
 	<cfset n=1>
-	<cfloop query="0">
+	<cfloop query="o">
 		<cfquery name="u" datasource="uam_god">
 			update ssrch_field_doc set disp_order=#n# where disp_order=#o.disp_order#
 		</cfquery>
