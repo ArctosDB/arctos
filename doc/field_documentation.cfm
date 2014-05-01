@@ -104,7 +104,15 @@
 	</tr>
 	<tr>
 		<td><strong>VARIABLE</strong></td>
-		<td>Variable as used by Arctos applications, eg, in specimenresults mapurl. Must be lower case (to improve internal query performance - variable are not case-sensitive).</td>
+		<td>Variable as used by Arctos applications, eg, in specimenresults mapurl. Will be forced to lower-case. 
+		Must be a <a href="http://livedocs.adobe.com/coldfusion/8/Variables_03.html" target="_blank" class="external">valid ColdFusion variable string</a> and a 
+		<a href="http://docs.oracle.com/cd/E11882_01/server.112/e41084/sql_elements008.htm" target="_blank" class="external">valid Oracle column alias</a>
+		.
+		</td>
+		
+		
+		
+		
 	</tr>
 	<tr>
 		<td>TYPE</td>
