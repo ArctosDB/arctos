@@ -170,13 +170,13 @@
 			columnSelectable: false,
 			recordsLoaded: getPostLoadJunk,
 			multiSorting: true,
-selectingCheckboxes: true,
+			selectingCheckboxes: true,
 			actions: {
                 listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
             fields:  {
 				<cfif len(session.CustomOtherIdentifier) gt 0>
-					MYCUSTOMIDTYPE: {title: '#session.CustomOtherIdentifier#'},
+					MYCUSTOMIDTYPE: {title: 'CustomIDType'},
 					#ucase(session.CustomOtherIdentifier)#: {title: '#session.CustomOtherIdentifier#'},
 				</cfif>
 				<cfloop query="usercols">
