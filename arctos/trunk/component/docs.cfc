@@ -32,7 +32,7 @@
 	
 		
 		<cfif len(SQL_ELEMENT) gt 0>
-			<cfset ttelem=replace(sql_element,"flatTableName.","flat.")>
+			<cfset ttelem=replace(sql_element,"flatTableName.","flat.","all")>
 			<cfquery name="test"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select #preservesinglequotes(ttelem)# as #CF_VARIABLE# from flat where rownum=1
 			</cfquery>
@@ -147,7 +147,7 @@
 	<cftry>
 	
 		<cfif len(SQL_ELEMENT) gt 0>
-			<cfset ttelem=replace(sql_element,"flatTableName.","flat.")>
+			<cfset ttelem=replace(sql_element,"flatTableName.","flat.","all")>
 			<cfquery name="test"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select #preservesinglequotes(ttelem)# as #CF_VARIABLE# from flat where rownum=1
 			</cfquery>
