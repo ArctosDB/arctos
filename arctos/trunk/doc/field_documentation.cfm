@@ -20,22 +20,20 @@
 
 
 <cfif action is "dragsortorder">
+
+<style>
+		.dragger {
+			cursor:move;
+		}
+		
+	</style>
+	
+	
 <!-------
 
 
 
-		function submitForm() {
-			var linkOrderData=$("#sortable").sortable('toArray').join(',');
-			$( "#classificationRowOrder" ).val(linkOrderData);
-			var nccellary = new Array();
-			$.each($("tr[id^='nccell_']"), function() {
-				nccellary.push(this.id);
-		    });
-			var ncls=nccellary.join(',');
-			console.log(ncls);			
-			//$( "#noclassrows" ).val(ncls);
-			//$( "#f1" ).submit();
-		}
+		
 		
 
 		function stoppit(e,v){
@@ -58,6 +56,19 @@
 				handle: '.dragger'
 			});
 		});
+
+function submitForm() {
+			var linkOrderData=$("#sortable").sortable('toArray').join(',');
+			$( "#classificationRowOrder" ).val(linkOrderData);
+			var nccellary = new Array();
+			$.each($("tr[id^='nccell_']"), function() {
+				nccellary.push(this.id);
+		    });
+			var ncls=nccellary.join(',');
+			console.log(ncls);			
+			//$( "#noclassrows" ).val(ncls);
+			//$( "#f1" ).submit();
+		}
 	</script>
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
