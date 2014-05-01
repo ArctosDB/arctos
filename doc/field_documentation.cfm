@@ -173,7 +173,7 @@
 	</tr>
 	<tr>
 		<td>CATEGORY *</td>
-		<td>Category on specimen results.</td>
+		<td>Category on specimen results. Removing required fields may break code; be careful.</td>
 	</tr>
 	<tr>
 		<td>SQL_ELEMENT *</td>
