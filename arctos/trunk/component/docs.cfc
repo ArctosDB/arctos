@@ -225,7 +225,7 @@
 				<cfif isdefined("CF_VARIABLE") and len(CF_VARIABLE) gt 0> and CF_VARIABLE like '%#lcase(CF_VARIABLE)#%'</cfif>
 				<cfif isdefined("SPECIMEN_RESULTS_COL") and len(SPECIMEN_RESULTS_COL) gt 0> and SPECIMEN_RESULTS_COL=#SPECIMEN_RESULTS_COL#</cfif>
 				<cfif isdefined("specimen_query_term") and len(specimen_query_term) gt 0> and specimen_query_term=#specimen_query_term#</cfif>
-				<cfif isdefined("DISPLAY") and len(DISPLAY) gt 0> and lower(DISPLAY) like '%#lcase(DISPLAY)#%'</cfif>
+				<cfif isdefined("DISPLAY") and len(DISPLAY) gt 0> and lower(DISPLAY_TEXT) like '%#lcase(DISPLAY)#%'</cfif>
 				<cfif isdefined("CATEGORY") and len(CATEGORY) gt 0> and lower(CATEGORY) like '%#lcase(CATEGORY)#%'</cfif>
 				<cfif isdefined("SQL_ELEMENT") and len(SQL_ELEMENT) gt 0> and lower(SQL_ELEMENT) like '%#lcase(SQL_ELEMENT)#%'</cfif>
 			order by 
