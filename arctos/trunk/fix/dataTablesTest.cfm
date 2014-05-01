@@ -178,6 +178,7 @@ selectingCheckboxes: true,
 				<cfif len(session.CustomOtherIdentifier) gt 0>
 					MYCUSTOMIDTYPE: {title: '#session.CustomOtherIdentifier#'},
 					#ucase(session.CustomOtherIdentifier)#: {title: '#session.CustomOtherIdentifier#'},
+				</cfif>
 				<cfloop query="usercols">
 					#ucase(CF_VARIABLE)#: {title: '#DISPLAY_TEXT#'}
 					<cfif thisLoopNum lt numFlds>,</cfif>
