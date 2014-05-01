@@ -103,6 +103,7 @@
 		<form name="x" method="post" action="editTaxonomy.cfm">
 			<input type="hidden" name="action" value="cloneClassification_insert">
 			<input type="hidden" name="classification_id" value="#classification_id#">
+			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">			
 			<label for="source">Clone into Source</label>
 			<select name="source" id="source" class="reqdClr">
 				<cfloop query="cttaxonomy_source">
@@ -117,13 +118,23 @@
 <cfif action is "cloneClassification_insert">
 	<cfoutput>
 		<cfquery name="seedClassification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+				select 
 				TAXON_NAME_ID,
 				CLASSIFICATION_ID,
 				TERM,
 				TERM_TYPE,
 				POSITION_IN_CLASSIFICATION 
-			from taxon_term where classification_id='#classification_id#'
+			from 
+				taxon_term 
+			where 
+				taxon_name_id=#taxon_name_id# and 
+				classification_id='#classification_id#'
+			group by
+				TAXON_NAME_ID,
+				CLASSIFICATION_ID,
+				TERM,
+				TERM_TYPE,
+				POSITION_IN_CLASSIFICATION
 		</cfquery>
 		<cfset thisSourceID=CreateUUID()>
 		<cftransaction>

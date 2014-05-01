@@ -85,13 +85,18 @@
 </script>
 <cfset title="form-field documentation">
 
+<!----
 <a href="field_documentation.cfm?action=potential_problems">look for problems in these data</a>
 
 
 <cfquery name="pp" datasource='cf_dbuser'>
-	select * from ssrch_field_doc
+	select * from ssrch_field_doc order by cf_variable
 </cfquery>
-<cfdump var=#pp#>
+<cfloop query="pp">
+
+</cfloop>
+--------->
+
 <table border>
 	<tr>
 		<th>Column Name</th>
