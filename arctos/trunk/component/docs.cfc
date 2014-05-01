@@ -33,7 +33,7 @@
 		
 		<cfif len(SQL_ELEMENT) gt 0>
 			<cfquery name="test"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select #replace(sql_element,"flatTableName.","flat.")# from flat where rownum=1
+				select #preservesinglequotes(replace(sql_element,"flatTableName.","flat."))# from flat where rownum=1
 			</cfquery>
 		</cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
