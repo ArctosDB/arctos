@@ -17,7 +17,9 @@
 	<cflocation url="field_documentation.cfm" addtoken="false">
 </cfif>
 
-
+<cfif action is "saveDragOrderEdits">
+	<cfdump var=#form#>
+</cfif>
 
 <cfif action is "dragsortorder">
 
@@ -65,7 +67,8 @@ function submitForm() {
 				nccellary.push(this.id);
 		    });
 			var ncls=nccellary.join(',');
-			console.log(ncls);			
+			console.log(ncls);
+return false;			
 			//$( "#noclassrows" ).val(ncls);
 			//$( "#f1" ).submit();
 		}
@@ -103,6 +106,7 @@ function submitForm() {
 					</cfloop>
 				</tbody>
 			</table>
+			<input type="submit" value="save sort order">
 </form>
 </cfoutput>
 </cfif>
