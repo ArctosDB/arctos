@@ -34,7 +34,7 @@
 		<cfif len(SQL_ELEMENT) gt 0>
 			<cfset ttelem=replace(sql_element,"flatTableName.","flat.")>
 			<cfquery name="test"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select #preservesinglequotes(ttelem)# #CF_VARIABLE# from flat where rownum=1
+				select #preservesinglequotes(ttelem)# as #CF_VARIABLE# from flat where rownum=1
 			</cfquery>
 		</cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -145,6 +145,13 @@
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
 	<cftry>
+	
+		<cfif len(SQL_ELEMENT) gt 0>
+			<cfset ttelem=replace(sql_element,"flatTableName.","flat.")>
+			<cfquery name="test"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select #preservesinglequotes(ttelem)# as #CF_VARIABLE# from flat where rownum=1
+			</cfquery>
+		</cfif>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update 
 				ssrch_field_doc 
