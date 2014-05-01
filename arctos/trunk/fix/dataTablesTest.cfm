@@ -176,7 +176,7 @@
             },
             fields:  {
 				<cfloop query="usercols">
-					#ucase(CF_VARIABLE)#: {title: '#DISPLAY_TEXT#', tooltip: 'test'}
+					#ucase(CF_VARIABLE)#: {title: '#DISPLAY_TEXT#'}
 					<cfif len(session.CustomOtherIdentifier) gt 0 and thisLoopNum eq 1>,CUSTOMID: {title: '#session.CustomOtherIdentifier#'}</cfif>
 					<cfif thisLoopNum lt numFlds>,</cfif>
 					<cfset thisLoopNum=thisLoopNum+1>
