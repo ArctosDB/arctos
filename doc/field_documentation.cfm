@@ -96,6 +96,8 @@
 </cfoutput>
 </cfif>
 
+
+
 <cfif action is "nothing">
 
 <script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
@@ -183,18 +185,6 @@
     });
 </script>
 <cfset title="form-field documentation">
-
-<!----
-<a href="field_documentation.cfm?action=potential_problems">look for problems in these data</a>
-
-
-<cfquery name="pp" datasource='cf_dbuser'>
-	select * from ssrch_field_doc order by cf_variable
-</cfquery>
-<cfloop query="pp">
-
-</cfloop>
---------->
 
 <table border>
 	<tr>
@@ -316,123 +306,4 @@ SQL_ELEMENT: <input type="text" name="SQL_ELEMENT" id="SQL_ELEMENT" />
 
 
 </cfif>
-<!----------------------------
-<cfif action is "oldform">
-<script src="/includes/sorttable.js"></script>
-
-	<cfoutput>
-	
-	
-	
-	<hr>Add a row
-	
-
-<form method="post" action="field_documentation.cfm">
-	<input type="hidden" name="action" value="newRow">
-	<label for="CF_VARIABLE">CF_VARIABLE</label>
-	<input type="text" name="CF_VARIABLE" size="80">
-	<label for="DEFINITION">DEFINITION</label>
-	<input type="text" name="DEFINITION" size="80">
-	<label for="CONTROLLED_VOCABULARY">CONTROLLED_VOCABULARY</label>
-	<input type="text" name="CONTROLLED_VOCABULARY" size="80">
-	<label for="DOCUMENTATION_LINK">DOCUMENTATION_LINK</label>
-	<input type="text" name="DOCUMENTATION_LINK" size="80">
-	<label for="PLACEHOLDER_TEXT">PLACEHOLDER_TEXT</label>
-	<input type="text" name="PLACEHOLDER_TEXT" size="80">
-	<label for="SEARCH_HINT">SEARCH_HINT</label>
-	<input type="text" name="SEARCH_HINT" size="80">
-	<br><input type="submit" value="create">
-</form>	
-	<hr>
-	
-	
-	<cfparam name="width" default="1200">
-	<cfparam name="height" default="600">
-	<cfparam name="pageSize" default="20">
-Use this form to adjust the grid layout
-<form name="x" method="post" action="field_documentation.cfm">
-	<label for="width">width</label>
-	<input type="text" name="width" value="#width#">
-	<label for="height">height</label>
-	<input type="text" name="height" value="#height#">
-	<label for="pageSize">pageSize</label>
-	<input type="text" name="pageSize" value="#pageSize#">
-	<br>
-	<input type="submit">
-</form>
-			
-	<hr>		
-		<cfquery name="cNames" datasource="uam_god">
-			select column_name from user_tab_cols where lower(table_name)='ssrch_field_doc' order by internal_column_id
-		</cfquery>
-		<cfset ColNameList = valuelist(cNames.column_name)>
-		<cfset ColNameList = replace(ColNameList,"SSRCH_FIELD_DOC_ID","","all")>
-		<cfset args.width="#width#">
-		<cfset args.height="#height#">
-		<cfset args.stripeRows = true>
-		<cfset args.selectColor = "##D9E8FB">
-		<cfset args.selectmode = "edit">
-		<cfset args.format="html">
-		<cfset args.name="blGrid">
-		<cfset args.pageSize="#pageSize#">
-		<cfset args.onchange = "cfc:component.docs.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
-		<cfset args.bind="cfc:component.docs.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection})">
-		<cfset args.name="blGrid">
-		<cfform method="post" action="field_documentation.cfm">
-			<cfinput type="hidden" name="returnAction" value="ajaxGrid">
-			<cfinput type="hidden" name="action" value="saveGridUpdate">
-			<cfgrid attributeCollection="#args#">
-				<cfloop list="#ColNameList#" index="thisName">
-					<cfgridcolumn name="#thisName#">
-				</cfloop>
-			</cfgrid>
-		</cfform>
-		
-		
-		<!----
-		
-			<cfloop query="d">
-				<tr>
-					<td>
-						<a href="field_documentation.cfm?action=edit&SSRCH_FIELD_DOC_ID=#SSRCH_FIELD_DOC_ID#">#CF_VARIABLE#</a>
-					</td>
-					<td>#display_name#</td>
-					<td>#definition#</td>
-					<td>#search_hint#</td>
-					<td>#more_info#</td>
-				</tr>
-			</cfloop>
-		</table>
-		
-		
-		---->
-	</cfoutput>
-	
-</cfif>
-
-
-<cfif action is "newRow">
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			insert into ssrch_field_doc
-				(
-					CF_VARIABLE,
-					DEFINITION,
-					CONTROLLED_VOCABULARY,
-					DOCUMENTATION_LINK,
-					PLACEHOLDER_TEXT,
-					SEARCH_HINT
-				) values (
-					'#CF_VARIABLE#',
-					'#DEFINITION#',
-					'#CONTROLLED_VOCABULARY#',
-					'#DOCUMENTATION_LINK#',
-					'#PLACEHOLDER_TEXT#',
-					'#SEARCH_HINT#'
-				)
-		</cfquery>
-		
-	
-		<cflocation addtoken="false" url="field_documentation.cfm">
-</cfif>
------------------------------->
 <cfinclude template="/includes/_footer.cfm">
