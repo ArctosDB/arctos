@@ -2392,8 +2392,4 @@
 	<cfset basQual = " #basQual# AND #session.flatTableName#.collection_id  IN (#goodCollIds#)">
 </cfif>
 
-
-
-
-
 <cfinclude template="/includes/SearchSql_attributes.cfm">
