@@ -174,7 +174,10 @@ selectingCheckboxes: true,
 			actions: {
                 listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
             },
-            fields:  {	
+            fields:  {
+				<cfif len(session.CustomOtherIdentifier) gt 0>
+					MYCUSTOMIDTYPE: {title: '#session.CustomOtherIdentifier#'},
+					#ucase(session.CustomOtherIdentifier)#: {title: '#session.CustomOtherIdentifier#'},
 				<cfloop query="usercols">
 					#ucase(CF_VARIABLE)#: {title: '#DISPLAY_TEXT#'}
 					<cfif thisLoopNum lt numFlds>,</cfif>
