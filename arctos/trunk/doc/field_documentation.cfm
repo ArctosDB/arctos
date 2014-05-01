@@ -82,7 +82,7 @@ console.log(ncls);
 				</tbody>
 			</table>
 </form>
-
+</cfoutput>
 </cfif>
 
 <cfif action is "nothing">
