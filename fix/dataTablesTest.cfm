@@ -176,7 +176,7 @@
             },
             fields:  {
 				<cfloop query="usercols">
-					#ucase(CF_VARIABLE)#: {title: '#DISPLAY_TEXT#'}<cfif len(session.CustomOtherIdentifier) gt 0 and thisLoopNum eq 1>,#ucase(session.CustomOtherIdentifier)#: {title: '#session.CustomOtherIdentifier#'}<cfset thisLoopNum=thisLoopNum+1></cfif>
+					#ucase(CF_VARIABLE)#: {title: '#DISPLAY_TEXT#'}<cfif len(session.CustomOtherIdentifier) gt 0 and thisLoopNum eq 1>,#ucase(session.CustomOtherIdentifier)#: {title: '#session.CustomOtherIdentifier#'}</cfif>
 					<cfif thisLoopNum lt numFlds>,</cfif>
 					<cfset thisLoopNum=thisLoopNum+1>
 				</cfloop>
