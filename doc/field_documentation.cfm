@@ -4,7 +4,6 @@
 	<cfquery name="makeabiggap" datasource="uam_god">
 			update ssrch_field_doc set disp_order=disp_order+10000 where DISP_ORDER is not null
 	</cfquery>
-	
 	<cfquery name="o" datasource="uam_god">
 		select disp_order from ssrch_field_doc where DISP_ORDER is not null order by DISP_ORDER
 	</cfquery>
@@ -18,6 +17,75 @@
 	<cflocation url="field_documentation.cfm" addtoken="false">
 </cfif>
 
+
+
+<cfif action is "dragsortorder">
+
+
+<script>
+		// copy this with create classification
+		$(function() {
+			$( "#sortable" ).sortable({
+				handle: '.dragger'
+			});
+			
+		function submitForm() {
+			var linkOrderData=$("#sortable").sortable('toArray').join(',');
+			$( "#classificationRowOrder" ).val(linkOrderData);
+			var nccellary = new Array();
+			$.each($("tr[id^='nccell_']"), function() {
+				nccellary.push(this.id);
+		    });
+			var ncls=nccellary.join(',');
+console.log(ncls);			
+//$( "#noclassrows" ).val(ncls);
+			//$( "#f1" ).submit();
+		}
+		
+
+		function stoppit(e,v){
+			$("#stoppit").val('true');
+			$("#" + e).val(v);			
+		}
+	</script>
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select 
+				SSRCH_FIELD_DOC_ID,
+				CATEGORY,
+				CF_VARIABLE,
+				DISPLAY_TEXT,
+				DISP_ORDER
+			 from ssrch_field_doc where DISP_ORDER is not null order by DISP_ORDER
+		</cfquery>
+		
+		
+		
+		<form name="f1" id="f1" method="post" action="field_documentation.cfm">
+			<input type="hidden" name="action" value="saveDragOrderEdits">
+			
+			<table id="clastbl" border="1">
+				<thead>
+					<tr><th>Drag Handle</th><th>CF_VARIABLE</th><th>DISPLAY_TEXT</th><th>CATEGORY</th></tr>
+				</thead>
+				<tbody id="sortable">
+					<cfloop query="d">
+						<tr id="cell_#DISP_ORDER#">
+							<td class="dragger">
+								(drag row here)
+							</td>
+							<td>#CF_VARIABLE#</td>
+							<td>#CATEGORY#</td>
+							<td>#CF_VARIABLE#</td>
+						</tr>
+					</cfloop>
+				</tbody>
+			</table>
+</form>
+
+</cfif>
+
+<cfif action is "nothing">
 
 <script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
 <link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
@@ -235,6 +303,8 @@ SQL_ELEMENT: <input type="text" name="SQL_ELEMENT" id="SQL_ELEMENT" />
 </div>
 <div id="jtdocdoc"></div>
 
+
+</cfif>
 <!----------------------------
 <cfif action is "oldform">
 <script src="/includes/sorttable.js"></script>
