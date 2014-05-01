@@ -144,10 +144,11 @@
 	</tr>
 	<tr>
 		<td><strong>ORD</strong> *</td>
-		<td>Order (left to right) in which to display columns on specimenresults (and elsewhere). 
-		This is a unique number and serves only to order things. If "1" and "2" exist,
-			and you need a value in between, just use 1.5. Don't worry about whole numbers or gaps. The data will periodically be "integerized"; don't try to find
-			permanent value in the numbers you supply. Use this to group terms within category, to keep related columns close together, etc.
+		<td>
+			Order (left to right) in which to display columns on specimenresults (and elsewhere). 
+			Use this to group terms within category, to keep related columns close together, etc.
+			This is a unique number (not integer) and serves only to order things.
+			<a href="field_documentation.cfm?action=integerizeOrder">click here to turn them into sequential integers</a>
 		</td>
 	</tr>
 	<tr>
@@ -216,8 +217,18 @@ SQL_ELEMENT: <input type="text" name="SQL_ELEMENT" id="SQL_ELEMENT" />
 </div>
 <div id="jtdocdoc"></div>
 
-<cfif action is "potential_problems">
-
+<cfif action is "integerizeOrder">
+	<cfquery name="o" datasource="uam_god">
+		select disp_order from ssrch_field_doc where DISP_ORDER is not null order by DISP_ORDER
+	</cfquery>
+	<cfset n=1>
+	<cfloop query="0">
+		<cfquery name="u" datasource="uam_god">
+			update ssrch_field_doc set disp_order=#n# where disp_order=#o.disp_order#
+		</cfquery>
+		<cfset n=n+1>
+	</cfloop>
+	<a href="field_documentation.cfm">done - click to continue</a>
 </cfif>
 <!----------------------------
 <cfif action is "oldform">
