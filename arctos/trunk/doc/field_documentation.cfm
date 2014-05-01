@@ -127,7 +127,7 @@
 		<td>Short "how it works" useful for guiding search.</td>
 	</tr>
 	<tr>
-		<td>SR</td>
+		<td>SR *</td>
 		<td>Is the element available as a column in specimenresults?</td>
 	</tr>
 	<tr>
@@ -137,7 +137,7 @@
 	
 	
 	<tr>
-		<td>ORD</td>
+		<td>ORD *</td>
 		<td>Order (left to right) in which to display columns on specimenresults (and elsewhere). 
 		This is a unique number and serves only to order things. If "1" and "2" exist,
 			and you need a value in between, just use 1.5. Don't worry about whole numbers or gaps. The data will periodically be "integerized"; don't try to find
@@ -145,11 +145,11 @@
 		</td>
 	</tr>
 	<tr>
-		<td>CATEGORY</td>
-		<td>Category on specimen results. Don't guess at this.</td>
+		<td>CATEGORY *</td>
+		<td>Category on specimen results.</td>
 	</tr>
 	<tr>
-		<td>SQL_ELEMENT</td>
+		<td>SQL_ELEMENT *</td>
 		<td>
 			SQL to use in building dynamic queries. Don't guess at this. 
 			<br>To pull from FLAT, use flatTableName.{flat column name} - this is case sensitive. Do not hard-code in flat or filtered_flat.
@@ -167,6 +167,7 @@
 		<td>Link to further documentation, probably on http://arctosdb.org/.</td>
 	</tr>
 </table>
+* must be given as a set: provide all or none
 
 <hr>Filter records:
 <div class="filtering">
