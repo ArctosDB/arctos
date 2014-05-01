@@ -103,7 +103,7 @@
 		<th>What's it do?</th>
 	</tr>
 	<tr>
-		<td>VARIABLE</td>
+		<td><strong>VARIABLE</strong></td>
 		<td>Variable as used by Arctos applications, eg, in specimenresults mapurl. Must be lower case (to improve internal query performance - variable are not case-sensitive).</td>
 	</tr>
 	<tr>
@@ -111,7 +111,7 @@
 		<td>"Human-readable" approximation of the datatype accepted by the variable, e.g., "comma-separated list of integers."</td>
 	</tr>
 	<tr>
-		<td>DISPLAY</td>
+		<td><strong>DISPLAY</strong></td>
 		<td>"Field label" - "Catalog Number" - keep it short.</td>
 	</tr>
 	<tr>
@@ -127,17 +127,15 @@
 		<td>Short "how it works" useful for guiding search.</td>
 	</tr>
 	<tr>
-		<td>SR *</td>
+		<td><strong>SR</strong> *</td>
 		<td>Is the element available as a column in specimenresults?</td>
 	</tr>
 	<tr>
 		<td>SST</td>
 		<td>Is cf_variable available as a specimen results query term? Variable must be handled by /includes/SearchSQL</td>
 	</tr>
-	
-	
 	<tr>
-		<td>ORD *</td>
+		<td><strong>ORD</strong> *</td>
 		<td>Order (left to right) in which to display columns on specimenresults (and elsewhere). 
 		This is a unique number and serves only to order things. If "1" and "2" exist,
 			and you need a value in between, just use 1.5. Don't worry about whole numbers or gaps. The data will periodically be "integerized"; don't try to find
@@ -168,6 +166,7 @@
 	</tr>
 </table>
 * must be given as a set: provide all or none
+<br> <strong>BOLD</strong> elements are required
 
 <hr>Filter records:
 <div class="filtering">
