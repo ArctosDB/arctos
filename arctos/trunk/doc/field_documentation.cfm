@@ -83,7 +83,15 @@
        $('#jtdocdoc').jtable('load');
     });
 </script>
-<cfset title="form-field documentation"> 
+<cfset title="form-field documentation">
+
+<a href="field_documentation.cfm?action=potential_problems">look for problems in these data</a>
+
+
+<cfquery name="pp" datasource='cf_dbuser'>
+	select * from ssrch_field_doc
+</cfquery>
+<cfdump var=#pp#>
 <table border>
 	<tr>
 		<th>Column Name</th>
@@ -194,6 +202,10 @@ SQL_ELEMENT: <input type="text" name="SQL_ELEMENT" id="SQL_ELEMENT" />
     </form>
 </div>
 <div id="jtdocdoc"></div>
+
+<cfif action is "potential_problems">
+
+</cfif>
 <!----------------------------
 <cfif action is "oldform">
 <script src="/includes/sorttable.js"></script>

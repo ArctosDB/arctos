@@ -17,6 +17,8 @@ DO NOT OVERWRITE THIS
 
 until cornell has moved field numbers over to evnet names
 
+moved tohttp://arctos.database.museum/fix/cumv_eventname.cfm?action=showProblems&rownum=10000 
+
 
 
 ---------------------------------------->
