@@ -20,15 +20,10 @@
 
 
 <cfif action is "dragsortorder">
+<!-------
 
 
-<script>
-		// copy this with create classification
-		$(function() {
-			$( "#sortable" ).sortable({
-				handle: '.dragger'
-			});
-			
+
 		function submitForm() {
 			var linkOrderData=$("#sortable").sortable('toArray').join(',');
 			$( "#classificationRowOrder" ).val(linkOrderData);
@@ -37,8 +32,8 @@
 				nccellary.push(this.id);
 		    });
 			var ncls=nccellary.join(',');
-console.log(ncls);			
-//$( "#noclassrows" ).val(ncls);
+			console.log(ncls);			
+			//$( "#noclassrows" ).val(ncls);
 			//$( "#f1" ).submit();
 		}
 		
@@ -47,6 +42,22 @@ console.log(ncls);
 			$("#stoppit").val('true');
 			$("#" + e).val(v);			
 		}
+		
+		
+		
+		
+		
+		
+		
+		----------->
+
+<script>
+		// copy this with create classification
+		$(function() {
+			$( "#sortable" ).sortable({
+				handle: '.dragger'
+			});
+			
 	</script>
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
