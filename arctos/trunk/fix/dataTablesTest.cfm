@@ -176,7 +176,6 @@
             },
             fields:  {
 				<cfif len(session.CustomOtherIdentifier) gt 0>
-					MYCUSTOMIDTYPE: {title: 'CustomIDType'},
 					#ucase(session.CustomOtherIdentifier)#: {title: '#session.CustomOtherIdentifier#'},
 				</cfif>
 				<cfloop query="usercols">
