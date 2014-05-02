@@ -61,9 +61,11 @@
 
 function submitForm() {
 			var linkOrderData=$("#sortable").sortable('toArray').join(',');
+			console.log('linkOrderData: ' + linkOrderData);
+
 			$( "#classificationRowOrder" ).val(linkOrderData);
 			var nccellary = new Array();
-			$.each($("tr[id^='nccell_']"), function() {
+			$.each($("tr[id^='cell_']"), function() {
 				nccellary.push(this.id);
 		    });
 			var ncls=nccellary.join(',');
@@ -106,7 +108,7 @@ return false;
 					</cfloop>
 				</tbody>
 			</table>
-			<input type="submit" value="save sort order">
+			<input type="button" onclick="submitForm();" value="save sort order">
 </form>
 </cfoutput>
 </cfif>
