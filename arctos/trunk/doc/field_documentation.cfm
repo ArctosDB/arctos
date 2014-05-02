@@ -2,7 +2,7 @@
 
 <cfif action is "integerizeOrder">
 	<cfquery name="makeabiggap" datasource="uam_god">
-			update ssrch_field_doc set disp_order=disp_order+10000 where DISP_ORDER is not null
+		update ssrch_field_doc set disp_order=disp_order+10000 where DISP_ORDER is not null
 	</cfquery>
 	<cfquery name="o" datasource="uam_god">
 		select disp_order from ssrch_field_doc where DISP_ORDER is not null order by DISP_ORDER
@@ -18,14 +18,37 @@
 </cfif>
 
 <cfif action is "saveDragOrderEdits">
-	<cfdump var=#form#>
+	<cfif isdefined("DRUGORDER") and len(DRUGORDER) gt 0>
+		<cfquery name="makeabiggap" datasource="uam_god">
+			update ssrch_field_doc set disp_order=disp_order+10000 where DISP_ORDER is not null
+		</cfquery>
+		<cfset n=1>
+		<cfloop list="#DRUGORDER#" index="i">
+			<cfset thisID=listgetat(i,2,"_")>
+			<cfquery name="u" datasource="uam_god">
+				update ssrch_field_doc set disp_order=#n# where SSRCH_FIELD_DOC_ID=#thisID#
+			</cfquery>
+			<cfset n=n+1>
+		</cfloop>
+	</cfif>
+	All done.
+	
+	<p>
+		<a href="field_documentation.cfm?action=dragsortorder">back to drag/sort</a>
+	</p>
+	<p>
+		<a href="field_documentation.cfm">back to edit docs</a>
+	</p>
 </cfif>
 
 <cfif action is "dragsortorder">
 	<style>
 		.dragger {
 			cursor:move;
-		}	
+		}
+		.locality {
+			color:blue;
+		}
 	</style>
 	<script>
 		// copy this with create classification
@@ -34,7 +57,6 @@
 				handle: '.dragger'
 			});
 		});
-
 		function submitForm() {
 			var linkOrderData=$("#sortable").sortable('toArray').join(',');
 			console.log('linkOrderData: ' + linkOrderData);
@@ -42,12 +64,10 @@
 			$( "#f1" ).submit();
 		}
 	</script>
-	<cfoutput>
-	
-	Drag rows to sort.
-	
-	Attributes are automagically generated and are ordered by name - they're not on here.
-	
+	<cfoutput>	
+		Drag rows to sort.
+		<br>
+		Attributes are automagically generated and are ordered by name - they're not on here.
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				SSRCH_FIELD_DOC_ID,
@@ -57,20 +77,16 @@
 				DISP_ORDER
 			 from ssrch_field_doc where CATEGORY!='attribute' and DISP_ORDER is not null order by DISP_ORDER
 		</cfquery>
-		
-		
-		
 		<form name="f1" id="f1" method="post" action="field_documentation.cfm">
 			<input type="hidden" name="action" value="saveDragOrderEdits">
 			<input type="hidden" name="drugorder" id="drugorder" value="">
-			
 			<table id="clastbl" border="1">
 				<thead>
 					<tr><th>Drag Handle</th><th>CF_VARIABLE</th><th>DISPLAY_TEXT</th><th>CATEGORY</th></tr>
 				</thead>
 				<tbody id="sortable">
 					<cfloop query="d">
-						<tr id="cell_#SSRCH_FIELD_DOC_ID#">
+						<tr id="cell_#SSRCH_FIELD_DOC_ID#" class="#CATEGORY#">
 							<td class="dragger">
 								(drag row here)
 							</td>
@@ -82,8 +98,8 @@
 				</tbody>
 			</table>
 			<input type="button" onclick="submitForm();" value="save sort order">
-</form>
-</cfoutput>
+		</form>
+	</cfoutput>
 </cfif>
 
 
@@ -227,7 +243,8 @@
 			Order (left to right) in which to display columns on specimenresults (and elsewhere). 
 			Use this to group terms within category, to keep related columns close together, etc.
 			This is a unique number (not integer) and serves only to order things.
-			<a href="field_documentation.cfm?action=integerizeOrder">click here to turn them into sequential integers</a>
+			<br><a href="field_documentation.cfm?action=integerizeOrder">click here to turn them into sequential integers</a>
+			<br><a href="field_documentation.cfm?action=dragsortorder">click here to drag/sort</a>
 		</td>
 	</tr>
 	<tr>
