@@ -16,7 +16,7 @@
 	</cfloop>
 	<cflocation url="field_documentation.cfm" addtoken="false">
 </cfif>
-
+<!---------------------------------------------------------------------------------------------------------------------------->
 <cfif action is "saveDragOrderEdits">
 	<cfif isdefined("DRUGORDER") and len(DRUGORDER) gt 0>
 		<cfquery name="makeabiggap" datasource="uam_god">
@@ -32,23 +32,27 @@
 		</cfloop>
 	</cfif>
 	All done.
-	
 	<p>
 		<a href="field_documentation.cfm?action=dragsortorder">back to drag/sort</a>
 	</p>
 	<p>
 		<a href="field_documentation.cfm">back to edit docs</a>
 	</p>
+	<p>
+		<a href="field_documentation.cfm?action=integerizeOrder">integerize (this app leaves big gaps in sort order)</a>
+	</p>
 </cfif>
-
+<!---------------------------------------------------------------------------------------------------------------------------->
 <cfif action is "dragsortorder">
 	<style>
 		.dragger {
 			cursor:move;
 		}
 		.locality {
-			color:blue;
+			color:green;
 		}
+		.required {color:red;}
+		.specimen {color:purple;}
 	</style>
 	<script>
 		// copy this with create classification
@@ -68,6 +72,12 @@
 		Drag rows to sort.
 		<br>
 		Attributes are automagically generated and are ordered by name - they're not on here.
+		<br>Users will always see <span class="required">required</span> terms.
+		<br>Users may turn any other option on or off as they wish.
+		<br>GUID should remain at the top.
+		<br>CustomID is hard-coded in after GUID.
+		<br>Clowncolors are CATEGORY - they should probably be grouped in some sort of logical order - "biggest" to "smallest" or related together or some 
+		indescribable combination thereof.	
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				SSRCH_FIELD_DOC_ID,
@@ -101,216 +111,201 @@
 		</form>
 	</cfoutput>
 </cfif>
-
-
-
+<!---------------------------------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
-
-<script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
-<link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#jtdocdoc').jtable({
-            title: 'Documentation',       
-			paging: true, //Enable paging
-            pageSize: 10, //Set page size (default: 10)
-            sorting: true, //Enable sorting
-            defaultSorting: 'GUID ASC', //Set default sorting
-			columnResizable: true,
-			multiSorting: true,
-			columnSelectable: false,
-    		noDataAvailable: 'No data available!',
-			actions: {
-                listAction: '/component/docs.cfc?method=listDocDoc',
-				updateAction: '/component/docs.cfc?method=updateDocDoc',
- 				createAction: '/component/docs.cfc?method=createDocDoc',
- 				deleteAction: '/component/docs.cfc?method=deleteDocDoc',
-            },
-            fields:  {
-				 SSRCH_FIELD_DOC_ID: {
-                    key: true,
-                    create: false,
-                    edit: false,
-                    list: false
-                },
-				CF_VARIABLE: {title: 'VARIABLE'},
-				DISPLAY_TEXT: {title: 'DISPLAY'},
-				CONTROLLED_VOCABULARY: {title: 'VOCABULARY'},
-				DATA_TYPE: {title: 'TYPE'},
-				DEFINITION: {
-					title: 'DEFINITION',
-					type: 'textarea'
-				},
-				DOCUMENTATION_LINK: {title: 'DOCUMENTATION_LINK'},
-				SEARCH_HINT: {title: 'SEARCH_HINT'},
-				PLACEHOLDER_TEXT: {title: 'PLACEHOLDER'},
-				CATEGORY: {title: 'CATEGORY',
-					options: { 
-						'': '-not specresults-',
-						'locality': 'locality', 
-						'specimen': 'specimen',
-						'required': 'required',
-						'sort': 'sort',
-						'attribute': 'attribute',
-						'curatorial': 'curatorial'
-					}
-				},
-				DISP_ORDER: {title: 'ORD'},
-				SPECIMEN_RESULTS_COL: {
-					title: 'SR',
-					type: 'radiobutton',
-                    	options: { 
-							'0': 'no',
-                            '1': 'yes'
+	<script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
+	<link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
+	<script type="text/javascript">
+	    $(document).ready(function () {
+	        $('#jtdocdoc').jtable({
+	            title: 'Documentation',       
+				paging: true, //Enable paging
+	            pageSize: 10, //Set page size (default: 10)
+	            sorting: true, //Enable sorting
+	            defaultSorting: 'GUID ASC', //Set default sorting
+				columnResizable: true,
+				multiSorting: true,
+				columnSelectable: false,
+	    		noDataAvailable: 'No data available!',
+				actions: {
+	                listAction: '/component/docs.cfc?method=listDocDoc',
+					updateAction: '/component/docs.cfc?method=updateDocDoc',
+	 				createAction: '/component/docs.cfc?method=createDocDoc',
+	 				deleteAction: '/component/docs.cfc?method=deleteDocDoc',
+	            },
+	            fields:  {
+					 SSRCH_FIELD_DOC_ID: {
+	                    key: true,
+	                    create: false,
+	                    edit: false,
+	                    list: false
+	                },
+					CF_VARIABLE: {title: 'VARIABLE'},
+					DISPLAY_TEXT: {title: 'DISPLAY'},
+					CONTROLLED_VOCABULARY: {title: 'VOCABULARY'},
+					DATA_TYPE: {title: 'TYPE'},
+					DEFINITION: {
+						title: 'DEFINITION',
+						type: 'textarea'
+					},
+					DOCUMENTATION_LINK: {title: 'DOCUMENTATION_LINK'},
+					SEARCH_HINT: {title: 'SEARCH_HINT'},
+					PLACEHOLDER_TEXT: {title: 'PLACEHOLDER'},
+					CATEGORY: {title: 'CATEGORY',
+						options: { 
+							'': '-not specresults-',
+							'locality': 'locality', 
+							'specimen': 'specimen',
+							'required': 'required',
+							'sort': 'sort',
+							'attribute': 'attribute',
+							'curatorial': 'curatorial'
 						}
-				},
-				SPECIMEN_QUERY_TERM: {
-					title: 'SST',
-					type: 'radiobutton',
-                    	options: { 
-							'0': 'no',
-                            '1': 'yes'
-						}
-				},
-				SQL_ELEMENT: {title: 'SQL_ELEMENT'}
-            }
-        });
-
-		$('#LoadRecordsButton').click(function (e) {
-           e.preventDefault();
-           $('#jtdocdoc').jtable('load', {
-               CF_VARIABLE: $('#CF_VARIABLE').val(),
-               SPECIMEN_RESULTS_COL: $('#SPECIMEN_RESULTS_COL').val(),
-               specimen_query_term: $('#specimen_query_term').val(),
-               DISPLAY: $('#DISPLAY').val(),
-               CATEGORY: $('#CATEGORY').val(),
-               SQL_ELEMENT: $('#SQL_ELEMENT').val()
-           });
-       });
-       $('#jtdocdoc').jtable('load');
-    });
-</script>
-<cfset title="form-field documentation">
-
-<table border>
-	<tr>
-		<th>Column Name</th>
-		<th>What's it do?</th>
-	</tr>
-	<tr>
-		<td><strong>VARIABLE</strong></td>
-		<td>Variable as used by Arctos applications, eg, in specimenresults mapurl. Will be forced to lower-case. 
-		Must be a <a href="http://livedocs.adobe.com/coldfusion/8/Variables_03.html" target="_blank" class="external">valid ColdFusion variable string</a> and a 
-		<a href="http://docs.oracle.com/cd/E11882_01/server.112/e41084/sql_elements008.htm" target="_blank" class="external">valid Oracle column alias</a>
-		.
-		</td>
-		
-		
-		
-		
-	</tr>
-	<tr>
-		<td>TYPE</td>
-		<td>"Human-readable" approximation of the datatype accepted by the variable, e.g., "comma-separated list of integers."</td>
-	</tr>
-	<tr>
-		<td><strong>DISPLAY</strong></td>
-		<td>"Field label" - "Catalog Number" - keep it short.</td>
-	</tr>
-	<tr>
-		<td>VOCABULARY</td>
-		<td>Either 1) controlling code table, name only - "ctage_class," OR 2) comma-separated list of values ("LIKE,IS"). Do not guess at this.</td>
-	</tr>
-	<tr>
-		<td>PLACEHOLDER</td>
-		<td>Very short snippet to display in the HTML5 "placeholder" element.</td>
-	</tr>
-	<tr>
-		<td>SEARCH_HINT</td>
-		<td>Short "how it works" useful for guiding search.</td>
-	</tr>
-	<tr>
-		<td><strong>SR</strong> *</td>
-		<td>Is the element available as a column in specimenresults?</td>
-	</tr>
-	<tr>
-		<td>SST</td>
-		<td>Is cf_variable available as a specimen results query term? Variable must be handled by /includes/SearchSQL</td>
-	</tr>
-	<tr>
-		<td><strong>ORD</strong> *</td>
-		<td>
-			Order (left to right) in which to display columns on specimenresults (and elsewhere). 
-			Use this to group terms within category, to keep related columns close together, etc.
-			This is a unique number (not integer) and serves only to order things.
-			<br><a href="field_documentation.cfm?action=integerizeOrder">click here to turn them into sequential integers</a>
-			<br><a href="field_documentation.cfm?action=dragsortorder">click here to drag/sort</a>
-		</td>
-	</tr>
-	<tr>
-		<td>CATEGORY *</td>
-		<td>Category on specimen results. Removing required fields may break code; be careful.</td>
-	</tr>
-	<tr>
-		<td>SQL_ELEMENT *</td>
-		<td>
-			SQL to use in building dynamic queries. Don't guess at this. 
-			<br>To pull from FLAT, use flatTableName.{flat column name} - this is case sensitive. Do not hard-code in flat or filtered_flat.
-			<br>use any Oracle function
-			<br>Only hard-code table names if you KNOW they'll be included in specimenresults. (Hint: none are.)
-		
-		</td>
-	</tr>
-	<tr>
-		<td>DEFINITION</td>
-		<td>Short-ish definition suitable for popup/tooltip documentation</td>
-	</tr>
-	<tr>
-		<td>DOCUMENTATION_LINK</td>
-		<td>Link to further documentation, probably on http://arctosdb.org/.</td>
-	</tr>
-</table>
-* must be given as a set: provide all or none
-<br> <strong>BOLD</strong> elements are required
-
-<hr>Filter records:
-<div class="filtering">
-    <form>
-        CF_VARIABLE: <input type="text" name="CF_VARIABLE" id="CF_VARIABLE" />
-		 DISPLAY: <input type="text" name="DISPLAY" id="DISPLAY" />
-		SR:
-		<select name="SPECIMEN_RESULTS_COL" id="SPECIMEN_RESULTS_COL">
-			<option value=""></option>
-			<option value="1">yes</option>
-			<option value="0">no</option>
-		</select>
-		SST:
-		<select name="specimen_query_term" id="specimen_query_term">
-			<option value=""></option>
-			<option value="1">yes</option>
-			<option value="0">no</option>
-		</select>
-		
-		
-		  CATEGORY:
-		<select name="CATEGORY" id="CATEGORY">
-			<option value=""></option>
-			<option value="locality">locality</option>
-			<option value="specimen">specimen</option>
-			<option value="required">required</option>
-			<option value="sort">sort</option>
-			<option value="attribute">attribute</option>
-			<option value="curatorial">curatorial</option>
-		</select>
-SQL_ELEMENT: <input type="text" name="SQL_ELEMENT" id="SQL_ELEMENT" />
-
-<button type="reset" id="">clear form</button>
-
-        <button type="submit" id="LoadRecordsButton">Search</button>
-    </form>
-</div>
-<div id="jtdocdoc"></div>
-
-
+					},
+					DISP_ORDER: {title: 'ORD'},
+					SPECIMEN_RESULTS_COL: {
+						title: 'SR',
+						type: 'radiobutton',
+	                    	options: { 
+								'0': 'no',
+	                            '1': 'yes'
+							}
+					},
+					SPECIMEN_QUERY_TERM: {
+						title: 'SST',
+						type: 'radiobutton',
+	                    	options: { 
+								'0': 'no',
+	                            '1': 'yes'
+							}
+					},
+					SQL_ELEMENT: {title: 'SQL_ELEMENT'}
+	            }
+	        });
+	
+			$('#LoadRecordsButton').click(function (e) {
+	           e.preventDefault();
+	           $('#jtdocdoc').jtable('load', {
+	               CF_VARIABLE: $('#CF_VARIABLE').val(),
+	               SPECIMEN_RESULTS_COL: $('#SPECIMEN_RESULTS_COL').val(),
+	               specimen_query_term: $('#specimen_query_term').val(),
+	               DISPLAY: $('#DISPLAY').val(),
+	               CATEGORY: $('#CATEGORY').val(),
+	               SQL_ELEMENT: $('#SQL_ELEMENT').val()
+	           });
+	       });
+	       $('#jtdocdoc').jtable('load');
+	    });
+	</script>
+	<cfset title="form-field documentation">
+	<table border>
+		<tr>
+			<th>Column Name</th>
+			<th>What's it do?</th>
+		</tr>
+		<tr>
+			<td><strong>VARIABLE</strong></td>
+			<td>Variable as used by Arctos applications, eg, in specimenresults mapurl. Will be forced to lower-case. 
+			Must be a <a href="http://livedocs.adobe.com/coldfusion/8/Variables_03.html" target="_blank" class="external">valid ColdFusion variable string</a> and a 
+			<a href="http://docs.oracle.com/cd/E11882_01/server.112/e41084/sql_elements008.htm" target="_blank" class="external">valid Oracle column alias</a>
+			.
+			</td>
+		</tr>
+		<tr>
+			<td>TYPE</td>
+			<td>"Human-readable" approximation of the datatype accepted by the variable, e.g., "comma-separated list of integers."</td>
+		</tr>
+		<tr>
+			<td><strong>DISPLAY</strong></td>
+			<td>"Field label" - "Catalog Number" - keep it short.</td>
+		</tr>
+		<tr>
+			<td>VOCABULARY</td>
+			<td>Either 1) controlling code table, name only - "ctage_class," OR 2) comma-separated list of values ("LIKE,IS"). Do not guess at this.</td>
+		</tr>
+		<tr>
+			<td>PLACEHOLDER</td>
+			<td>Very short snippet to display in the HTML5 "placeholder" element.</td>
+		</tr>
+		<tr>
+			<td>SEARCH_HINT</td>
+			<td>Short "how it works" useful for guiding search.</td>
+		</tr>
+		<tr>
+			<td><strong>SR</strong> *</td>
+			<td>Is the element available as a column in specimenresults?</td>
+		</tr>
+		<tr>
+			<td>SST</td>
+			<td>Is cf_variable available as a specimen results query term? Variable must be handled by /includes/SearchSQL</td>
+		</tr>
+		<tr>
+			<td><strong>ORD</strong> *</td>
+			<td>
+				Order (left to right) in which to display columns on specimenresults (and elsewhere). 
+				Use this to group terms within category, to keep related columns close together, etc.
+				This is a unique number (not integer) and serves only to order things.
+				<br><a href="field_documentation.cfm?action=integerizeOrder">click here to turn them into sequential integers</a>
+				<br><a href="field_documentation.cfm?action=dragsortorder">click here to drag/sort</a>
+			</td>
+		</tr>
+		<tr>
+			<td>CATEGORY *</td>
+			<td>Category on specimen results. Removing required fields may break code; be careful.</td>
+		</tr>
+		<tr>
+			<td>SQL_ELEMENT *</td>
+			<td>
+				SQL to use in building dynamic queries. Don't guess at this. 
+				<br>To pull from FLAT, use flatTableName.{flat column name} - this is case sensitive. Do not hard-code in flat or filtered_flat.
+				<br>use any Oracle function
+				<br>Only hard-code table names if you KNOW they'll be included in specimenresults. (Hint: none are.)
+			</td>
+		</tr>
+		<tr>
+			<td>DEFINITION</td>
+			<td>Short-ish definition suitable for popup/tooltip documentation</td>
+		</tr>
+		<tr>
+			<td>DOCUMENTATION_LINK</td>
+			<td>Link to further documentation, probably on http://arctosdb.org/.</td>
+		</tr>
+	</table>
+	* must be given as a set: provide all or none
+	<br> <strong>BOLD</strong> elements are required
+	
+	<hr>Filter records:
+	<div class="filtering">
+	    <form>
+	        CF_VARIABLE: <input type="text" name="CF_VARIABLE" id="CF_VARIABLE" />
+			 DISPLAY: <input type="text" name="DISPLAY" id="DISPLAY" />
+			SR:
+			<select name="SPECIMEN_RESULTS_COL" id="SPECIMEN_RESULTS_COL">
+				<option value=""></option>
+				<option value="1">yes</option>
+				<option value="0">no</option>
+			</select>
+			SST:
+			<select name="specimen_query_term" id="specimen_query_term">
+				<option value=""></option>
+				<option value="1">yes</option>
+				<option value="0">no</option>
+			</select>
+			CATEGORY:
+			<select name="CATEGORY" id="CATEGORY">
+				<option value=""></option>
+				<option value="locality">locality</option>
+				<option value="specimen">specimen</option>
+				<option value="required">required</option>
+				<option value="sort">sort</option>
+				<option value="attribute">attribute</option>
+				<option value="curatorial">curatorial</option>
+			</select>
+			SQL_ELEMENT: <input type="text" name="SQL_ELEMENT" id="SQL_ELEMENT" />
+			<button type="reset" id="">clear form</button>
+	        <button type="submit" id="LoadRecordsButton">Search/Filter</button>
+	    </form>
+	</div>
+	<div id="jtdocdoc"></div>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
