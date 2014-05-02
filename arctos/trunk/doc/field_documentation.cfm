@@ -78,7 +78,7 @@
 		<br>GUID should remain at the top.
 		<br>CustomID is hard-coded in after GUID.
 		<br>Clowncolors are by CATEGORY - they should probably be grouped in some sort of logical order - "biggest" to "smallest" or related together or some 
-		indescribable combination thereof.	
+		indescribable combination thereof. Use the edit form to change CATEGORY.
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				SSRCH_FIELD_DOC_ID,
