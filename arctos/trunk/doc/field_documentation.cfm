@@ -69,7 +69,7 @@
 		}
 	</script>
 	<cfoutput>	
-		Drag rows to sort.
+		Drag rows to sort specimen results columns.
 		<br>
 		Attributes are automagically generated and are ordered by name - they're not on here. 
 		SEX (the one hard-coded attribute) should probably remain near the bottom - other attributes will follow, in alphabetical order
