@@ -22,36 +22,12 @@
 </cfif>
 
 <cfif action is "dragsortorder">
-
-<style>
+	<style>
 		.dragger {
 			cursor:move;
-		}
-		
+		}	
 	</style>
-	
-	
-<!-------
-
-
-
-		
-		
-
-		function stoppit(e,v){
-			$("#stoppit").val('true');
-			$("#" + e).val(v);			
-		}
-		
-		
-		
-		
-		
-		
-		
-		----------->
-
-<script>
+	<script>
 		// copy this with create classification
 		$(function() {
 			$( "#sortable" ).sortable({
@@ -59,20 +35,11 @@
 			});
 		});
 
-function submitForm() {
+		function submitForm() {
 			var linkOrderData=$("#sortable").sortable('toArray').join(',');
 			console.log('linkOrderData: ' + linkOrderData);
-
-			$( "#classificationRowOrder" ).val(linkOrderData);
-			var nccellary = new Array();
-			$.each($("tr[id^='cell_']"), function() {
-				nccellary.push(this.id);
-		    });
-			var ncls=nccellary.join(',');
-			console.log(ncls);
-return false;			
-			//$( "#noclassrows" ).val(ncls);
-			//$( "#f1" ).submit();
+			$( "#drugorder" ).val(linkOrderData);
+			$( "#f1" ).submit();
 		}
 	</script>
 	<cfoutput>
@@ -95,6 +62,7 @@ return false;
 		
 		<form name="f1" id="f1" method="post" action="field_documentation.cfm">
 			<input type="hidden" name="action" value="saveDragOrderEdits">
+			<input type="hidden" name="drugorder" value="">
 			
 			<table id="clastbl" border="1">
 				<thead>
