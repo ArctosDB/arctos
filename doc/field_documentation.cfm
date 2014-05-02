@@ -62,7 +62,7 @@
 		
 		<form name="f1" id="f1" method="post" action="field_documentation.cfm">
 			<input type="hidden" name="action" value="saveDragOrderEdits">
-			<input type="hidden" name="drugorder" value="">
+			<input type="hidden" name="drugorder" id="drugorder" value="">
 			
 			<table id="clastbl" border="1">
 				<thead>
