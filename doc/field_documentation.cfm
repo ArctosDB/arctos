@@ -76,6 +76,11 @@ return false;
 		}
 	</script>
 	<cfoutput>
+	
+	Drag rows to sort.
+	
+	Attributes are automagically generated and are ordered by name - they're not on here.
+	
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				SSRCH_FIELD_DOC_ID,
@@ -83,7 +88,7 @@ return false;
 				CF_VARIABLE,
 				DISPLAY_TEXT,
 				DISP_ORDER
-			 from ssrch_field_doc where DISP_ORDER is not null order by DISP_ORDER
+			 from ssrch_field_doc where CATEGORY!='attribute' and DISP_ORDER is not null order by DISP_ORDER
 		</cfquery>
 		
 		
@@ -97,7 +102,7 @@ return false;
 				</thead>
 				<tbody id="sortable">
 					<cfloop query="d">
-						<tr id="cell_#DISP_ORDER#">
+						<tr id="cell_#SSRCH_FIELD_DOC_ID#">
 							<td class="dragger">
 								(drag row here)
 							</td>
