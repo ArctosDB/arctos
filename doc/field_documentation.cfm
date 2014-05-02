@@ -71,12 +71,13 @@
 	<cfoutput>	
 		Drag rows to sort.
 		<br>
-		Attributes are automagically generated and are ordered by name - they're not on here.
+		Attributes are automagically generated and are ordered by name - they're not on here. 
+		SEX (the one hard-coded attribute) should probably remain near the bottom - other attributes will follow, in alphabetical order
 		<br>Users will always see <span class="required">required</span> terms.
 		<br>Users may turn any other option on or off as they wish.
 		<br>GUID should remain at the top.
 		<br>CustomID is hard-coded in after GUID.
-		<br>Clowncolors are CATEGORY - they should probably be grouped in some sort of logical order - "biggest" to "smallest" or related together or some 
+		<br>Clowncolors are by CATEGORY - they should probably be grouped in some sort of logical order - "biggest" to "smallest" or related together or some 
 		indescribable combination thereof.	
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
