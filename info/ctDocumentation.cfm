@@ -206,7 +206,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 						<cfif is_Tissue eq 1>yes<cfelse>no</cfif>
 					</td>
 					<td>
-						#Documentation#
+						#DESCRIPTION#
 					</td>
 				</tr>
 			</cfloop>
