@@ -995,6 +995,11 @@
 	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_id IN ( #collection_id# )" >
 	<cfset mapurl = "#mapurl#&collection_id=#collection_id#">
 </cfif>
+
+<cfif isdefined("guid_prefix") AND len(guid_prefix) gt 0>
+	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_id IN ( select collection_id from collection where upper(guid_prefix)='#ucase(guid_prefix)#' )" >
+	<cfset mapurl = "#mapurl#&guid_prefix=#guid_prefix#">
+</cfif>
 <cfif isdefined("session.collection") and len(session.collection) gt 0>
 	<cfset collection_cde=session.collection>
 </cfif>
