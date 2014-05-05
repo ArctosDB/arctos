@@ -96,6 +96,7 @@
 			<tr>
 				<td>#COUNTOFCATALOGEDITEM#</td>
 				<cfloop list="#groupby#" index="x">
+					<br>loooping for #x#
 					<cfif len(evaluate("getData." & x)) is 0>
 						<cfset thisVal='NULL'>
 					<cfelse>
