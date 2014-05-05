@@ -158,7 +158,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 		<cfquery name="allCTs" datasource="uam_god">
 			select distinct(table_name) as tablename from sys.user_tables where table_name like 'CT%' order by table_name
 		</cfquery>
-		<table border>
+		<table border id="t" class="sortable">
 			<tr>
 				<th>Attribute</th>
 				<th>Value Code Table</th>
@@ -180,13 +180,11 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				</tr>
 			</cfloop>
 		</table>
-		
-		
 	<cfelseif table is "ctspecimen_part_name">
 		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctspecimen_part_name order by part_name,collection_cde,is_tissue
 		</cfquery>
-		<table border>
+		<table border id="t" class="sortable">
 			<tr>
 				<th>Part_Name</th>
 				<th>Collection</th>
@@ -211,8 +209,6 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				</tr>
 			</cfloop>
 		</table>
-		
-			
 	<cfelse>
 		<cfloop list="#docs.columnlist#" index="colName">
 			<cfif colName is not "COLLECTION_CDE" and colName is not "DESCRIPTION">
