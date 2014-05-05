@@ -179,7 +179,40 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 					<td>
 				</tr>
 			</cfloop>
-		</table>	
+		</table>
+		
+		
+	<cfelseif table is "ctspecimen_part_name">
+		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from ctspecimen_part_name order by part_name,collection_cde,is_tissue
+		</cfquery>
+		<table border>
+			<tr>
+				<th>Part_Name</th>
+				<th>Collection</th>
+				<th>IsTissue</th>
+				<th>Documentation</th>
+			</tr>
+			<cfset i=1>
+			<cfloop query="ctspecimen_part_name">
+				<tr>
+					<td>
+						#Part_Name#
+					</td>
+					<td>
+						#collection_cde#
+					</td>
+					<td>
+						<cfif isTissue eq 1>yes<cfelse>no</cfif>
+					</td>
+					<td>
+						#Documentation#
+					</td>
+				</tr>
+			</cfloop>
+		</table>
+		
+			
 	<cfelse>
 		<cfloop list="#docs.columnlist#" index="colName">
 			<cfif colName is not "COLLECTION_CDE" and colName is not "DESCRIPTION">
