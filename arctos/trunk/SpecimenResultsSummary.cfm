@@ -80,7 +80,6 @@
 		</tr>
 		<cfloop query="getData">
 			<cfset thisLink=mapurl>
-			<br>thisLink: #thisLink#
 			<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
 			<!---
 				mapURL probably contains taxon_scope
@@ -96,16 +95,13 @@
 			<tr>
 				<td>#COUNTOFCATALOGEDITEM#</td>
 				<cfloop list="#groupby#" index="x">
-					<br>loooping for #x#
 					<cfif len(evaluate("getData." & x)) is 0>
 						<cfset thisVal='NULL'>
 					<cfelse>
 						<cfset thisVal=evaluate("getData." & x )>
 					</cfif>
 					
-					<br>thisVal: #thisVal#
 					<cfif thisLink contains x>
-						<br>tvcx
 						<!--- 
 							they searched for something that they also grouped by
 							REMOVE the thing they searched (eg, more general)
