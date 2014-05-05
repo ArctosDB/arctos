@@ -20,7 +20,7 @@
 	--->
 	<cftry>
 	<cfquery name="d" datasource="cf_dbuser">
-		select * from ssrch_field_doc where  cf_variable = '#lcase(fld)#'
+		select * from ssrch_field_doc where cf_variable = '#lcase(fld)#'
 	</cfquery>
 	<cfset r='<div position="relative">'>
 	<cfif addCtl is 1>

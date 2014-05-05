@@ -80,6 +80,7 @@
 		</tr>
 		<cfloop query="getData">
 			<cfset thisLink=mapurl>
+			<br>thisLink: #thisLink#
 			<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
 			<!---
 				mapURL probably contains taxon_scope
