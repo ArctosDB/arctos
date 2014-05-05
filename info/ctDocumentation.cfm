@@ -203,7 +203,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 						#collection_cde#
 					</td>
 					<td>
-						<cfif isTissue eq 1>yes<cfelse>no</cfif>
+						<cfif is_Tissue eq 1>yes<cfelse>no</cfif>
 					</td>
 					<td>
 						#Documentation#
