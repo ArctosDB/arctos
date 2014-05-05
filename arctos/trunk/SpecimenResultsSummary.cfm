@@ -104,6 +104,7 @@
 					
 					<br>thisVal: #thisVal#
 					<cfif thisLink contains x>
+						<br>tvcx
 						<!--- 
 							they searched for something that they also grouped by
 							REMOVE the thing they searched (eg, more general)
