@@ -118,10 +118,17 @@
 						<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
 					</cfif>
 					<!----
+					
+					why was this commented out?? Hopefully adding it doesn't break something evil! without it, 
+					/SpecimenResultsSummary.cfm?state_prov=Alaska&collection_id=1&groupBy=species&debug=1
+					
+					just returns everything, NOT species-only
+					
+					---->
 					<cfif thisLink does not contain x>
 						<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
 					</cfif>
-					----->
+					<!---- end mysterious comment ----->
 					<cfset oneLine=oneline & ',"#thisVal#"'>
 					<td>#thisVal#</td>
 				</cfloop>
