@@ -101,6 +101,8 @@
 					<cfelse>
 						<cfset thisVal=evaluate("getData." & x )>
 					</cfif>
+					
+					<br>thisVal: #thisVal#
 					<cfif thisLink contains x>
 						<!--- 
 							they searched for something that they also grouped by
