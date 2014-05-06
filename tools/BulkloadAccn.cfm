@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfsetting requesttimeout="600">
-
+<cfset title="bulkload accession">
 <!---
 
 drop table cf_temp_accn;
@@ -17,17 +17,17 @@ create table cf_temp_accn (
 	TRANS_REMARKS varchar2(255),
 	IS_PUBLIC_FG number,
 	TRANS_AGENT_1  varchar2(255),
-	NEW_TRANS_AGENT_ROLE_1  varchar2(255), 
+	TRANS_AGENT_ROLE_1  varchar2(255), 
 	TRANS_AGENT_2  varchar2(255),
-	NEW_TRANS_AGENT_ROLE_2  varchar2(255),
+	TRANS_AGENT_ROLE_2  varchar2(255),
 	TRANS_AGENT_3  varchar2(255),
-	NEW_TRANS_AGENT_ROLE_3  varchar2(255),
+	TRANS_AGENT_ROLE_3  varchar2(255),
 	TRANS_AGENT_4  varchar2(255),
-	NEW_TRANS_AGENT_ROLE_4  varchar2(255),
+	TRANS_AGENT_ROLE_4  varchar2(255),
 	TRANS_AGENT_5  varchar2(255),
-	NEW_TRANS_AGENT_ROLE_5  varchar2(255),
+	TRANS_AGENT_ROLE_5  varchar2(255),
 	TRANS_AGENT_6  varchar2(255),
-	NEW_TRANS_AGENT_ROLE_6  varchar2(255),
+	TRANS_AGENT_ROLE_6  varchar2(255),
 	i$status varchar2(255),
 	i$collection_id number,
 	i$agent_id_1 number,
@@ -38,7 +38,14 @@ create table cf_temp_accn (
 	i$agent_id_6 number
 	);
 			
-		
+ALTER TABLE cf_temp_accn ADD CONSTRAINT fk_temp_accn_ACCN_TYPE FOREIGN KEY (ACCN_TYPE) REFERENCES ctACCN_TYPE(ACCN_TYPE);
+ALTER TABLE cf_temp_accn ADD CONSTRAINT fk_temp_accn_ACCN_TYPE FOREIGN KEY (ACCN_STATUS) REFERENCES ctACCN_STATUS(ACCN_STATUS);
+ALTER TABLE cf_temp_accn ADD CONSTRAINT fk_temp_accn_T_AGNT_RL_1 FOREIGN KEY (TRANS_AGENT_ROLE_1) REFERENCES ctTRANS_AGENT_ROLE(TRANS_AGENT_ROLE);
+ALTER TABLE cf_temp_accn ADD CONSTRAINT fk_temp_accn_T_AGNT_RL_2 FOREIGN KEY (TRANS_AGENT_ROLE_2) REFERENCES ctTRANS_AGENT_ROLE(TRANS_AGENT_ROLE);
+ALTER TABLE cf_temp_accn ADD CONSTRAINT fk_temp_accn_T_AGNT_RL_3 FOREIGN KEY (TRANS_AGENT_ROLE_3) REFERENCES ctTRANS_AGENT_ROLE(TRANS_AGENT_ROLE);
+ALTER TABLE cf_temp_accn ADD CONSTRAINT fk_temp_accn_T_AGNT_RL_4 FOREIGN KEY (TRANS_AGENT_ROLE_4) REFERENCES ctTRANS_AGENT_ROLE(TRANS_AGENT_ROLE);
+ALTER TABLE cf_temp_accn ADD CONSTRAINT fk_temp_accn_T_AGNT_RL_5 FOREIGN KEY (TRANS_AGENT_ROLE_5) REFERENCES ctTRANS_AGENT_ROLE(TRANS_AGENT_ROLE);
+ALTER TABLE cf_temp_accn ADD CONSTRAINT fk_temp_accn_T_AGNT_RL_6 FOREIGN KEY (TRANS_AGENT_ROLE_6) REFERENCES ctTRANS_AGENT_ROLE(TRANS_AGENT_ROLE);
 
 create public synonym cf_temp_accn for cf_temp_accn;
 grant all on cf_temp_accn to coldfusion_user;
@@ -55,6 +62,12 @@ grant select on cf_temp_accn to public;
     end;
 /
 sho err
+
+
+
+
+
+
 --->
 
 <cfif action is "nothing">
@@ -67,17 +80,17 @@ Step 1: Upload a comma-delimited text file (csv).
 </p>
 			
 	<ul>
-		<li style="text-align:left;" id="guid_prefix" class="helpLink">GUID_PREFIX</li>
-		<li style="text-align:left;" id="ACCN_NUMBER" class="helpLink">ACCN_NUMBER</li>
-		<li style="text-align:left;" id="ACCN_TYPE" class="helpLink">ACCN_TYPE</li>
-		<li style="text-align:left;" id="ACCN_STATUS" class="helpLink">ACCN_STATUS</li>
-		<li style="text-align:left;" id="NATURE_OF_MATERIAL" class="helpLink">NATURE_OF_MATERIAL</li>
+		<li style="text-align:left;" id="guid_prefix" class="helpLink">GUID_PREFIX (required)</li>
+		<li style="text-align:left;" id="ACCN_NUMBER" class="helpLink">ACCN_NUMBER (required)</li>
+		<li style="text-align:left;" id="ACCN_TYPE" class="helpLink">ACCN_TYPE (required)</li>
+		<li style="text-align:left;" id="ACCN_STATUS" class="helpLink">ACCN_STATUS (required)</li>
+		<li style="text-align:left;" id="NATURE_OF_MATERIAL" class="helpLink">NATURE_OF_MATERIAL (required)</li>
 		<li style="text-align:left;" id="ESTIMATED_COUNT" class="helpLink">ESTIMATED_COUNT</li>
 		<li style="text-align:left;" id="TRANS_DATE" class="helpLink">TRANS_DATE</li>
 		<li style="text-align:left;" id="TRANS_REMARKS" class="helpLink">TRANS_REMARKS</li>
-		<li style="text-align:left;" id="IS_PUBLIC_FG" class="helpLink">IS_PUBLIC_FG</li>
-		<li style="text-align:left;" id="TRANS_AGENT" class="helpLink">TRANS_AGENT_n</li>
-		<li style="text-align:left;" id="TRANS_AGENT_ROLE" class="helpLink">TRANS_AGENT_ROLE_n</li>
+		<li style="text-align:left;" id="IS_PUBLIC_FG" class="helpLink">IS_PUBLIC_FG (required; 0=no or 1=yes)</li>
+		<li style="text-align:left;" id="TRANS_AGENT" class="helpLink">TRANS_AGENT_n (1-6)</li>
+		<li style="text-align:left;" id="TRANS_AGENT_ROLE" class="helpLink">TRANS_AGENT_ROLE_n (1-6)</li>
 	</ul>	
 		
 <cfform name="d" method="post" enctype="multipart/form-data">
@@ -88,8 +101,6 @@ Step 1: Upload a comma-delimited text file (csv).
 
 </cfif>
 <!------------------------------------------------------->
-
-
 <cfif action is "template">
 	<cfoutput>
 		<cfquery name="q" datasource="uam_god">
@@ -109,15 +120,12 @@ Step 1: Upload a comma-delimited text file (csv).
 	</cfoutput>
 </cfif>
 
-
 <!------------------------------------------------------->
-
-<!------------------------------------------------------->
-<cfif #action# is "getFile">
+<cfif action is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from cf_temp_agents
+		delete from CF_TEMP_ACCN
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
@@ -155,88 +163,44 @@ Step 1: Upload a comma-delimited text file (csv).
 				</cfloop>
 			</cfif>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into cf_temp_agents (#colNames#) values (#preservesinglequotes(colVals)#)
+				insert into CF_TEMP_ACCN (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
 	</cfloop>
 </cfoutput>
-
- 
-	<cflocation url="BulkloadAgents.cfm?action=validate">
-
+<cflocation url="BulkloadAccn.cfm?action=validate" addtoken="false">
 </cfif>
 <!------------------------------------------------------->
-<!------------------------------------------------------->
-<cfif #action# is "validate">
+<cfif action is "validate">
 <cfoutput>
+<cfquery name="gaid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	update CF_TEMP_ACCN set 
+		i$agent_id_1=getAgentID(TRANS_AGENT_1),
+		i$agent_id_2=getAgentID(TRANS_AGENT_2),
+		i$agent_id_3=getAgentID(TRANS_AGENT_3),
+		i$agent_id_4=getAgentID(TRANS_AGENT_4),
+		i$agent_id_5=getAgentID(TRANS_AGENT_5),
+		i$agent_id_6=getAgentID(TRANS_AGENT_6)
+</cfquery>
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from cf_temp_agents
+	select * from CF_TEMP_ACCN
 </cfquery>
-<cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	update cf_temp_agents set status='missing_data'
-	where agent_type is null OR
-	preferred_name is null
-</cfquery>
-<cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	update cf_temp_agents set status='bad_type'
-	where status is null AND (
-		agent_type not in (select agent_type from ctagent_type))
-</cfquery>
-<cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	update cf_temp_agents set status='bad_prefix'
-	where status is null AND 
-	prefix is not null and (
-		prefix not in (select prefix from ctprefix))
-</cfquery>
-<cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	update cf_temp_agents set status='bad_suffix'
-	where status is null AND 
-	suffix is not null and (
-		suffix not in (select suffix from ctsuffix))
-</cfquery>
-<cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	update cf_temp_agents set status='last_name_required'
-	where status is null AND 
-		agent_type ='person' and
-		last_name is null
-</cfquery>
-<cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	update cf_temp_agents set status='not_a_person'
-	where status is null AND 
-	agent_type != 'person' and (
-		suffix is not null OR
-		prefix is not null OR
-		birth_date is not null OR
-		death_date is not null OR
-		first_name is not null OR
-		middle_name is not null OR
-		last_name is not null)
-</cfquery>
-<cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	update cf_temp_agents set status='missing_name_type'
-	where status is null AND 
-	other_name is not null and other_name_type is null
-</cfquery>
-<cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	update cf_temp_agents set status='bad_name_type'
-	where status is null AND 
-	other_name is not null and other_name_type is not null and
-	other_name_type not in (select agent_name_type from ctagent_name_type)
-</cfquery>
-<cfquery name="setStatus3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	update cf_temp_agents set status='bad_name_type'
-	where status is null AND 
-	other_name_2 is not null and other_name_type_2 is not null and
-	other_name_type_2 not in (select agent_name_type from ctagent_name_type)
-</cfquery>
-<cfquery name="setStatus4" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	update cf_temp_agents set status='bad_name_type'
-	where status is null AND 
-	other_name_3 is not null and other_name_type_3 is not null and
-	other_name_type_3 not in (select agent_name_type from ctagent_name_type)
-</cfquery>
+<cfloop query="d">
+	<cfset status="">
+	<cfif len(TRANS_AGENT_1) gt 0 and len(i$agent_id_1) is 0>
+		<cfset status=listappend(status,'TRANS_AGENT_1 could not be resolved.',';')>
+	</cfif>
+	
+	<cfif len(status) gt 0>
+		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update CF_TEMP_ACCN set i$status='#status#' where i$key=#i$key#
+		</cfquery>
+
+	</cfif>
+</cfloop>
+
 <cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from cf_temp_agents where status is not null
+	select * from CF_TEMP_ACCN where i$status is not null
 </cfquery>
 
 <cfif bads.recordcount gt 0>
@@ -244,7 +208,7 @@ Step 1: Upload a comma-delimited text file (csv).
 	<cfdump var=#bads#>
 <cfelse>
 	Review the dump below. If everything seems OK, 
-	<a href="BulkloadAgents.cfm?action=loadData">click here to proceed</a>.
+	<a href="BulkloadAccn.cfm?action=loadData">click here to proceed</a>.
 	<cfdump var=#d#>
 </cfif>
 
@@ -256,6 +220,8 @@ Step 1: Upload a comma-delimited text file (csv).
 
 <cfoutput>
 	
+	
+	b;a bla <cfabort>
 		
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_agents
