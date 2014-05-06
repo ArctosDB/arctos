@@ -36,8 +36,8 @@
 				<cfset r=r & '>[ More Information ]</div>'>
 		</cfif>
 		
-		<cfif len(d.VOCABULARY) gt 0>
-				<cfset r=r & '#VOCABULARY#'>
+		<cfif len(d.CONTROLLED_VOCABULARY) gt 0>
+				<cfset r=r & '#CONTROLLED_VOCABULARY#'>
 				
 		</cfif>
 	<cfelse>
@@ -49,7 +49,7 @@
 	<cfset r=r & '</div>'>
 	<cfsavecontent variable="response"><cfoutput>#r#</cfoutput></cfsavecontent>
 	<cfcatch>
-		<cfsavecontent variable="response"><cfoutput>Error: No further information available.</cfoutput></cfsavecontent>
+		<cfsavecontent variable="response"><cfoutput>Error: No further information available.</cfoutput><cfdump var=#cfcatch#></cfsavecontent>
 	</cfcatch>
 	</cftry>
 	<cfscript>
