@@ -59,64 +59,27 @@ sho err
 
 <cfif action is "nothing">
 Step 1: Upload a comma-delimited text file (csv). 
-Include column headings, spelled exactly as below. 
-
-guid_prefix varchar2(255) not null,
-	ACCN_NUMBER varchar2(255) not null,
-	ACCN_TYPE varchar2(255) not null,
-	ACCN_STATUS varchar2(255) not null,
-	NATURE_OF_MATERIAL varchar2(255) not null,
-	ESTIMATED_COUNT number,
-	TRANS_DATE date,
-	TRANS_REMARKS varchar2(255),
-	IS_PUBLIC_FG number,
-	TRANS_AGENT_1  varchar2(255),
-	NEW_TRANS_AGENT_ROLE_1  varchar2(255), 
-	TRANS_AGENT_2  varchar2(255),
-	NEW_TRANS_AGENT_ROLE_2  varchar2(255),
-	TRANS_AGENT_3  varchar2(255),
-	NEW_TRANS_AGENT_ROLE_3  varchar2(255),
-	TRANS_AGENT_4  varchar2(255),
-	NEW_TRANS_AGENT_ROLE_4  varchar2(255),
-	TRANS_AGENT_5  varchar2(255),
-	NEW_TRANS_AGENT_ROLE_5  varchar2(255),
-	TRANS_AGENT_6  varchar2(255),
-	NEW_TRANS_AGENT_ROLE_6  varchar2(255),
-	i$status varchar2(255),
-	i$collection_id number,
-	i$agent_id_1 number,
-	i$agent_id_2 number,
-	i$agent_id_3 number,
-	i$agent_id_4 number,
-	i$agent_id_5 number,
-	i$agent_id_6 number
-	);
+<p>
+<a href="BulkloadAccn.cfm?action=template">get CSV template</a>
+</p>
+<p>
+	Columns
+</p>
 			
 	<ul>
-		<li id="guid_prefix" class="helpLink">GUID_PREFIX</li>
-		<li id="ACCN_NUMBER" class="helpLink">ACCN_NUMBER</li>
+		<li style="text-align:left;" id="guid_prefix" class="helpLink">GUID_PREFIX</li>
+		<li style="text-align:left;" id="ACCN_NUMBER" class="helpLink">ACCN_NUMBER</li>
+		<li style="text-align:left;" id="ACCN_TYPE" class="helpLink">ACCN_TYPE</li>
+		<li style="text-align:left;" id="ACCN_STATUS" class="helpLink">ACCN_STATUS</li>
+		<li style="text-align:left;" id="NATURE_OF_MATERIAL" class="helpLink">NATURE_OF_MATERIAL</li>
+		<li style="text-align:left;" id="ESTIMATED_COUNT" class="helpLink">ESTIMATED_COUNT</li>
+		<li style="text-align:left;" id="TRANS_DATE" class="helpLink">TRANS_DATE</li>
+		<li style="text-align:left;" id="TRANS_REMARKS" class="helpLink">TRANS_REMARKS</li>
+		<li style="text-align:left;" id="IS_PUBLIC_FG" class="helpLink">IS_PUBLIC_FG</li>
+		<li style="text-align:left;" id="TRANS_AGENT" class="helpLink">TRANS_AGENT_n</li>
+		<li style="text-align:left;" id="TRANS_AGENT_ROLE" class="helpLink">TRANS_AGENT_ROLE_n</li>
 	</ul>	
-			
-Columns in <span style="color:red">red</span> are required; others are optional:
-<ul>
-	<li style="color:red">agent_type</li>
-	<li style="color:red">preferred_name</li>
-	<li>first_name (agent_type="person" only)</li>
-	<li>middle_name (agent_type="person" only)</li>
-	<li>last_name (agent_type="person" only)</li>
-	<li>birth_date (agent_type="person" only; format 1-Jan-2000)</li>
-	<li>death_date (agent_type="person" only; format 1-Jan-2000)</li>
-	<li>agent_remark</li>
-	<li>prefix (agent_type="person" only)</li>
-	<li>suffix (agent_type="person" only)</li>
-	<li>other_name_type (second name type)</li>
-	<li>other_name (second name)</li>
-    <li>other_name_type_2</li>
-	<li>other_name_2</li>
-    <li>other_name_type_3</li>
-	<li>other_name_3</li>				 
-</ul>
-
+		
 <cfform name="d" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Action" value="getFile">
 	<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
