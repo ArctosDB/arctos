@@ -38,7 +38,7 @@
 		
 		<cfif len(d.CONTROLLED_VOCABULARY) gt 0>
 			<cfif left(d.CONTROLLED_VOCABULARY,2) is "CT">
-				<cfset vocab='<a class="docMoreInfo" href="/info/ctDocumentation.cfm?table=#d.DOCUMENTATION_LINK#"
+				<cfset vocab='<a class="docMoreInfo" href="/info/ctDocumentation.cfm?table=#d.DOCUMENTATION_LINK#"'>
 				<cfif addCtl is 1>
 					<cfset vocab=vocab & ' target="_docMoreWin" onclick="removeHelpDiv()"'>
 				</cfif>
