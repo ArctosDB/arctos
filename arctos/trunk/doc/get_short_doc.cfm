@@ -37,7 +37,7 @@
 		</cfif>
 		
 		<cfif len(d.CONTROLLED_VOCABULARY) gt 0>
-				<cfset r=r & '#CONTROLLED_VOCABULARY#'>
+				<cfset r=r & '#d.CONTROLLED_VOCABULARY#'>
 				
 		</cfif>
 	<cfelse>
