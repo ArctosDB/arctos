@@ -90,7 +90,7 @@ Step 1: Upload a comma-delimited text file (csv).
 		<li style="text-align:left;" id="TRANS_DATE" class="helpLink">TRANS_DATE</li>
 		<li style="text-align:left;" id="RECEIVED_DATE" class="helpLink">RECEIVED_DATE</li>
 		<li style="text-align:left;" id="TRANS_REMARKS" class="helpLink">TRANS_REMARKS</li>
-		<li style="text-align:left;" id="IS_PUBLIC_FG" class="helpLink">IS_PUBLIC_FG (required; 0=no or 1=yes)</li>
+		<li style="text-align:left;" id="IS_PUBLIC_FG" class="helpLink">IS_PUBLIC_FG (1=yes; anything else=no)</li>
 		<li style="text-align:left;" id="TRANS_AGENT" class="helpLink">TRANS_AGENT_n (1-6)</li>
 		<li style="text-align:left;" id="TRANS_AGENT_ROLE" class="helpLink">TRANS_AGENT_ROLE_n (1-6)</li>
 	</ul>	
@@ -188,7 +188,10 @@ Step 1: Upload a comma-delimited text file (csv).
 	update CF_TEMP_ACCN set 
 		i$collection_id=(select collection_id from collection where collection.guid_prefix=CF_TEMP_ACCN.guid_prefix)
 </cfquery>
-
+<cfquery name="cid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	update CF_TEMP_ACCN set 
+		IS_PUBLIC_FG=0 where IS_PUBLIC_FG != 1
+</cfquery>
 <cfquery name="dup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	update 
 		CF_TEMP_ACCN 
@@ -200,7 +203,7 @@ Step 1: Upload a comma-delimited text file (csv).
 
 
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from CF_TEMP_ACCN
+	select * from CF_TEMP_ACCN where i$status is null
 </cfquery>
 <cfloop query="d">
 	<cfset status="">
@@ -245,37 +248,6 @@ Step 1: Upload a comma-delimited text file (csv).
 	</cfquery>
 	<cftransaction>
 	<cfloop query="getTempData">
-	i$key number not null,
-	guid_prefix varchar2(255) not null,
-	ACCN_NUMBER varchar2(255) not null,
-	ACCN_TYPE varchar2(255) not null,
-	ACCN_STATUS varchar2(255) not null,
-	NATURE_OF_MATERIAL varchar2(4000) not null,
-	ESTIMATED_COUNT number,
-	TRANS_DATE date,
-	TRANS_REMARKS varchar2(4000),
-	IS_PUBLIC_FG number,
-	TRANS_AGENT_1  varchar2(255),
-	TRANS_AGENT_ROLE_1  varchar2(255), 
-	TRANS_AGENT_2  varchar2(255),
-	TRANS_AGENT_ROLE_2  varchar2(255),
-	TRANS_AGENT_3  varchar2(255),
-	TRANS_AGENT_ROLE_3  varchar2(255),
-	TRANS_AGENT_4  varchar2(255),
-	TRANS_AGENT_ROLE_4  varchar2(255),
-	TRANS_AGENT_5  varchar2(255),
-	TRANS_AGENT_ROLE_5  varchar2(255),
-	TRANS_AGENT_6  varchar2(255),
-	TRANS_AGENT_ROLE_6  varchar2(255),
-	i$status varchar2(255),
-	 number,
-	i$agent_id_1 number,
-	i$agent_id_2 number,
-	i$agent_id_3 number,
-	i$agent_id_4 number,
-	i$agent_id_5 number,
-	i$agent_id_6 number
-	);
 		<cfquery name="newTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO trans (
 				TRANSACTION_ID,
@@ -297,8 +269,8 @@ Step 1: Upload a comma-delimited text file (csv).
 				<cfif len(#NATURE_OF_MATERIAL#) gt 0>
 					,'#NATURE_OF_MATERIAL#'
 				</cfif>
-				<cfif len(#REMARKS#) gt 0>
-					,'#REMARKS#'
+				<cfif len(#TRANS_REMARKS#) gt 0>
+					,'#TRANS_REMARKS#'
 				</cfif>,
 				#is_public_fg#
 			)
