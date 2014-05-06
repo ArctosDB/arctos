@@ -118,7 +118,7 @@ function saveThisAnnotation() {
 		{
 			method : "hashString",
 			string : captcha,
-			returnformat : "json",
+			returnformat : "json"
 		},
 		function(r) {
 			if (r != captchaHash){
