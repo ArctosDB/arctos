@@ -169,7 +169,7 @@ drop table temp;
 		<a href="deleteSpecByEncumbrance.cfm?action=goAway&encumbrance_id=#encumbrance_id#">[ delete everything ]</a>
 		</p>
 		<p>
-		<a href="SpecimenDetail.cfm?encumbrance_id=#encumbrance_id#&loan_number=*">[ check for items on loan ]</a>
+		<a href="/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#&loan_number=*">[ check for items on loan ]</a>
 		</p>
 		<br>
 

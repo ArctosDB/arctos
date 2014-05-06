@@ -624,10 +624,21 @@
 					project_name, project.project_id
 		</cfquery>
 		<cfquery name="isLoanedItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT loan_item.collection_object_id FROM
-			loan_item,specimen_part
-			WHERE loan_item.collection_object_id=specimen_part.collection_object_id AND
-			specimen_part.derived_from_cat_item=#one.collection_object_id#
+			SELECT 
+				loan_item.collection_object_id 
+			FROM
+				loan_item,
+				specimen_part
+			WHERE 
+				loan_item.collection_object_id=specimen_part.collection_object_id AND
+				specimen_part.derived_from_cat_item=#one.collection_object_id#
+			UNION
+			SELECT 
+				loan_item.collection_object_id 
+			FROM
+				loan_item
+			WHERE 
+				loan_item.collection_object_id=#one.collection_object_id# 
 		</cfquery>
 		</td>
 		<td valign="top" width="50%">
