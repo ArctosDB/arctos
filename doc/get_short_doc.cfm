@@ -38,11 +38,11 @@
 		
 		<cfif len(d.CONTROLLED_VOCABULARY) gt 0>
 			<cfif left(d.CONTROLLED_VOCABULARY,2) is "CT">
-				<cfset vocab='<a class="docMoreInfo" href="/info/ctDocumentation.cfm?table=#d.DOCUMENTATION_LINK#"'>
+				<cfset vocab='<a class="docMoreInfo" href="/info/ctDocumentation.cfm?table=#d.CONTROLLED_VOCABULARY#"'>
 				<cfif addCtl is 1>
 					<cfset vocab=vocab & ' target="_docMoreWin" onclick="removeHelpDiv()"'>
 				</cfif>
-				<cfset vocab=vocab & '>[ More Information ]</a>'>
+				<cfset vocab=vocab & '>[ Controlled Vocabulary ]</a>'>
 			<cfelse>
 				<cfset vocab='<div class="docSrchTip">Vocabulary: #d.CONTROLLED_VOCABULARY#</div>'>
 			</cfif>
