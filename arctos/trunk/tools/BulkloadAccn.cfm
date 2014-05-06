@@ -189,8 +189,7 @@ Step 1: Upload a comma-delimited text file (csv).
 		i$collection_id=(select collection_id from collection where collection.guid_prefix=CF_TEMP_ACCN.guid_prefix)
 </cfquery>
 <cfquery name="cid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	update CF_TEMP_ACCN set 
-		IS_PUBLIC_FG=0 where IS_PUBLIC_FG != 1
+	update CF_TEMP_ACCN set IS_PUBLIC_FG=0 where IS_PUBLIC_FG is null or IS_PUBLIC_FG != 1
 </cfquery>
 <cfquery name="dup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	update 
