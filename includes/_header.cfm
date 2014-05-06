@@ -185,6 +185,7 @@
 											<li><a target="_top" href="/tools/uploadMedia.cfm">upload images</a></li>
 											<li><a target="_top" href="/tools/BulkloadRedirect.cfm">bulkload redirects</a></li>
 											<li><a target="_top" href="/tools/BulkloadSpecimenEvent.cfm">bulkload specimen-events</a></li>
+											<li><a target="_top" href="/tools/BulkloadAccn.cfm">bulkload accessions</a></li>
 											<!----
 											<li><a target="_top" href="/tools/BulkloadGeoref.cfm">Bulkload Georeference</a></li>
 											---->
