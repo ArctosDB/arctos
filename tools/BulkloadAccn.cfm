@@ -188,6 +188,17 @@ Step 1: Upload a comma-delimited text file (csv).
 	update CF_TEMP_ACCN set 
 		i$collection_id=(select collection_id from collection where collection.guid_prefix=CF_TEMP_ACCN.guid_prefix)
 </cfquery>
+
+<cfquery name="dup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	update 
+		CF_TEMP_ACCN 
+	set 
+		i$status='duplicate accn number' 
+	where 
+		i$collection_id || ':' || ACCN_NUMBER in (select collection_id || ':' || accn_number from trans,accn where trans.transaction_id=accn.transaction_id)
+</cfquery>
+
+
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from CF_TEMP_ACCN
 </cfquery>
@@ -274,7 +285,7 @@ Step 1: Upload a comma-delimited text file (csv).
 				<cfif len(#NATURE_OF_MATERIAL#) gt 0>
 					,NATURE_OF_MATERIAL
 				</cfif>
-				<cfif len(#REMARKS#) gt 0>
+				<cfif len(#TRANS_REMARKS#) gt 0>
 					,TRANS_REMARKS
 				</cfif>,
 				is_public_fg
