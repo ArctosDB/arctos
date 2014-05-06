@@ -11,10 +11,10 @@ create table cf_temp_accn (
 	ACCN_NUMBER varchar2(255) not null,
 	ACCN_TYPE varchar2(255) not null,
 	ACCN_STATUS varchar2(255) not null,
-	NATURE_OF_MATERIAL varchar2(255) not null,
+	NATURE_OF_MATERIAL varchar2(4000) not null,
 	ESTIMATED_COUNT number,
 	TRANS_DATE date,
-	TRANS_REMARKS varchar2(255),
+	TRANS_REMARKS varchar2(4000),
 	IS_PUBLIC_FG number,
 	TRANS_AGENT_1  varchar2(255),
 	TRANS_AGENT_ROLE_1  varchar2(255), 
@@ -182,11 +182,18 @@ Step 1: Upload a comma-delimited text file (csv).
 		i$agent_id_5=getAgentID(TRANS_AGENT_5),
 		i$agent_id_6=getAgentID(TRANS_AGENT_6)
 </cfquery>
+<cfquery name="cid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	update CF_TEMP_ACCN set 
+		i$collection_id=(select collection_id from collection where collection.guid_prefix=CF_TEMP_ACCN.guid_prefix)
+</cfquery>
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from CF_TEMP_ACCN
 </cfquery>
 <cfloop query="d">
 	<cfset status="">
+	<cfif len(i$collection_id) is 0>
+		<cfset status=listappend(status,'guid_prefix could not be resolved.',';')>
+	</cfif>
 	<cfif len(TRANS_AGENT_1) gt 0 and len(i$agent_id_1) is 0>
 		<cfset status=listappend(status,'TRANS_AGENT_1 could not be resolved.',';')>
 	</cfif>
