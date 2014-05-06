@@ -1401,7 +1401,6 @@
 </cfif>
 <cfif isdefined("loan_number") and len(loan_number) gt 0>
 	<cfset mapurl = "#mapurl#&loan_number=#loan_number#">
-	
 	<cfset basQual = " #basQual# AND #session.flatTableName#.collection_object_id in (
 		select collection_object_id from loan,loan_item where loan.transaction_id=loan_item.transaction_id">
 	<cfif left(loan_number,1) is '='>
@@ -1422,28 +1421,6 @@
 		<cfset basQual = " #basQual# AND upper(loan.loan_number) LIKE '%#ucase(loan_number)#%'">
 	</cfif>
 	<cfset basQual = " #basQual# )">
-	
-	
-	<!----
-	
-	<cfif basJoin does not contain " specimen_part ">
-		<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON (#session.flatTableName#.collection_object_id=specimen_part.derived_from_cat_item) ">
-	</cfif>
-	<cfif basJoin does not contain " loan_item ">
-		<cfset basJoin = " #basJoin# INNER JOIN loan_item ON (specimen_part.collection_object_id=loan_item.collection_object_id) ">
-	</cfif>
-	<cfif basJoin does not contain " loan ">
-		<cfset basJoin = " #basJoin# INNER JOIN loan ON (loan_item.transaction_id=loan.transaction_id) ">
-	</cfif>
-	<cfif left(loan_number,1) is '='>
-		<cfset basQual = " #basQual# AND upper(loan.loan_number) = '#ucase(right(loan_number,len(loan_number)-1))#'">
-	<cfelseif loan_number is "*">
-		<!--- don't do anything, just make the join --->
-	<cfelse>
-		<cfset basQual = " #basQual# AND upper(loan.loan_number) LIKE '%#ucase(loan_number)#%'">
-	</cfif>
-	--->
-	
 </cfif>
 <cfif isdefined("accn_agency") and len(accn_agency) gt 0>
 	<cfset mapurl = "#mapurl#&accn_agency=#accn_agency#">

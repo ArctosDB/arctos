@@ -163,9 +163,14 @@ drop table temp;
 			<br />You have been warned.
 			<br />
 			If you are really sure about this, push the button.
-			<br />Otherwise, <a href="/SpecimenSearch.cfm">go somewhere safe</a>
+			<br />Otherwise, <a href="/">go somewhere safe</a>
 		</p>
+		<p>
 		<a href="deleteSpecByEncumbrance.cfm?action=goAway&encumbrance_id=#encumbrance_id#">[ delete everything ]</a>
+		</p>
+		<p>
+		<a href="SpecimenDetail.cfm?encumbrance_id=#encumbrance_id#&loan_number=*">[ check for items on loan ]</a>
+		</p>
 		<br>
 
 		<a href="deleteSpecByEncumbrance.cfm?action=getSQL&encumbrance_id=#encumbrance_id#">[ get the SQL ]</a>
