@@ -92,15 +92,10 @@ guid_prefix varchar2(255) not null,
 	i$agent_id_6 number
 	);
 			
-		<ul>
-			<li id="guid_prefix" class="helpLink"> GUID Prefix</li>
-		</ul>	
-<table border>
-	<tr>
-		<td><span id="_guid_prefix" class="helpLink"> GUID Prefix </span></td>
-		<td></td>
-	</tr>
-</table>
+	<ul>
+		<li id="guid_prefix" class="helpLink">GUID_PREFIX</li>
+		<li id="ACCN_NUMBER" class="helpLink">ACCN_NUMBER</li>
+	</ul>	
 			
 Columns in <span style="color:red">red</span> are required; others are optional:
 <ul>
