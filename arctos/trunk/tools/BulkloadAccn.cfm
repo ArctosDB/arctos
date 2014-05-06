@@ -14,6 +14,7 @@ create table cf_temp_accn (
 	NATURE_OF_MATERIAL varchar2(4000) not null,
 	ESTIMATED_COUNT number,
 	TRANS_DATE date,
+	RECEIVED_DATE date,
 	TRANS_REMARKS varchar2(4000),
 	IS_PUBLIC_FG number,
 	TRANS_AGENT_1  varchar2(255),
@@ -87,6 +88,7 @@ Step 1: Upload a comma-delimited text file (csv).
 		<li style="text-align:left;" id="NATURE_OF_MATERIAL" class="helpLink">NATURE_OF_MATERIAL (required)</li>
 		<li style="text-align:left;" id="ESTIMATED_COUNT" class="helpLink">ESTIMATED_COUNT</li>
 		<li style="text-align:left;" id="TRANS_DATE" class="helpLink">TRANS_DATE</li>
+		<li style="text-align:left;" id="RECEIVED_DATE" class="helpLink">RECEIVED_DATE</li>
 		<li style="text-align:left;" id="TRANS_REMARKS" class="helpLink">TRANS_REMARKS</li>
 		<li style="text-align:left;" id="IS_PUBLIC_FG" class="helpLink">IS_PUBLIC_FG (required; 0=no or 1=yes)</li>
 		<li style="text-align:left;" id="TRANS_AGENT" class="helpLink">TRANS_AGENT_n (1-6)</li>
@@ -221,7 +223,7 @@ Step 1: Upload a comma-delimited text file (csv).
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "loadData">
+<cfif action is "loadData">
 
 <cfoutput>
 	
@@ -232,49 +234,107 @@ Step 1: Upload a comma-delimited text file (csv).
 	</cfquery>
 	<cftransaction>
 	<cfloop query="getTempData">
-		<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			insert into agent ( AGENT_ID,AGENT_TYPE ,AGENT_REMARKS , PREFERRED_AGENT_NAME_ID)
-			values (sq_agent_id.nextval,'#agent_type#','#agent_remark#',#agent_name_id#)
-		</cfquery>
-		<cfquery name="newAgentName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			insert into agent_name ( AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME )
-			values (sq_agent_name_id.nextval,sq_agent_id.currval,'preferred','#preferred_name#')
-		</cfquery>
-		
-		<cfif #agent_type# is "person">
-			<cfquery name="newProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into person (PERSON_ID,PREFIX,LAST_NAME,FIRST_NAME,
-					MIDDLE_NAME,SUFFIX,BIRTH_DATE,DEATH_DATE)
-				values (sq_agent_id.currval,'#PREFIX#','#LAST_NAME#','#FIRST_NAME#',
-					'#MIDDLE_NAME#','#SUFFIX#','#dateformat(BIRTH_DATE,"yyyy-mm-dd")#', '#dateformat(DEATH_DATE,"yyyy-mm-dd")#')
+	i$key number not null,
+	guid_prefix varchar2(255) not null,
+	ACCN_NUMBER varchar2(255) not null,
+	ACCN_TYPE varchar2(255) not null,
+	ACCN_STATUS varchar2(255) not null,
+	NATURE_OF_MATERIAL varchar2(4000) not null,
+	ESTIMATED_COUNT number,
+	TRANS_DATE date,
+	TRANS_REMARKS varchar2(4000),
+	IS_PUBLIC_FG number,
+	TRANS_AGENT_1  varchar2(255),
+	TRANS_AGENT_ROLE_1  varchar2(255), 
+	TRANS_AGENT_2  varchar2(255),
+	TRANS_AGENT_ROLE_2  varchar2(255),
+	TRANS_AGENT_3  varchar2(255),
+	TRANS_AGENT_ROLE_3  varchar2(255),
+	TRANS_AGENT_4  varchar2(255),
+	TRANS_AGENT_ROLE_4  varchar2(255),
+	TRANS_AGENT_5  varchar2(255),
+	TRANS_AGENT_ROLE_5  varchar2(255),
+	TRANS_AGENT_6  varchar2(255),
+	TRANS_AGENT_ROLE_6  varchar2(255),
+	i$status varchar2(255),
+	 number,
+	i$agent_id_1 number,
+	i$agent_id_2 number,
+	i$agent_id_3 number,
+	i$agent_id_4 number,
+	i$agent_id_5 number,
+	i$agent_id_6 number
+	);
+		<cfquery name="newTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO trans (
+				TRANSACTION_ID,
+				TRANS_DATE,
+				collection_id,
+				TRANSACTION_TYPE
+				<cfif len(#NATURE_OF_MATERIAL#) gt 0>
+					,NATURE_OF_MATERIAL
+				</cfif>
+				<cfif len(#REMARKS#) gt 0>
+					,TRANS_REMARKS
+				</cfif>,
+				is_public_fg
+			) VALUES (
+				sq_transaction_id.nextval,
+				'#dateformat(TRANS_DATE,"yyyy-mm-dd")#',
+				'#i$collection_id#',
+				'accn'
+				<cfif len(#NATURE_OF_MATERIAL#) gt 0>
+					,'#NATURE_OF_MATERIAL#'
+				</cfif>
+				<cfif len(#REMARKS#) gt 0>
+					,'#REMARKS#'
+				</cfif>,
+				#is_public_fg#
+			)
 			</cfquery>
-		</cfif>
-		<cfif len(#OTHER_NAME#) gt 0>
-			<cfset agent_name_id = #agent_name_id# + 1>
-			<cfquery name="newAgentName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into agent_name ( AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME )
-				values (sq_agent_name_id.nextval,sq_agent_id.currval,'#OTHER_NAME_TYPE#','#OTHER_NAME#')
+			<cfquery name="newAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				INSERT INTO accn (
+					TRANSACTION_ID,
+					ACCN_TYPE
+					,accn_number
+					,RECEIVED_DATE,
+					ACCN_STATUS,
+					estimated_count      
+					)
+				VALUES (
+					sq_transaction_id.currval,
+					'#accn_type#'
+					,'#accn_number#'
+					,'#dateformat(TRANS_DATE,"yyyy-mm-dd")#',
+					'#accn_status#',
+					<cfif len(estimated_count) gt 0>
+						#estimated_count#
+					<cfelse>
+						null
+					</cfif>
+					)
 			</cfquery>
-		</cfif>
-        <cfif len(#OTHER_NAME_2#) gt 0>
-			<cfset agent_name_id = #agent_name_id# + 1>
-			<cfquery name="newAgentName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into agent_name ( AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME )
-				values (sq_agent_name_id.nextval,sq_agent_id.currval,'#OTHER_NAME_TYPE_2#','#OTHER_NAME_2#')
-			</cfquery>
-		</cfif>
-        <cfif len(#OTHER_NAME_3#) gt 0>
-			<cfset agent_name_id = #agent_name_id# + 1>
-			<cfquery name="newAgentName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into agent_name ( AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME )
-				values (sq_agent_name_id.nextval,sq_agent_id.currval,'#OTHER_NAME_TYPE_3#','#OTHER_NAME_3#')
-			</cfquery>
-		</cfif>
-	</cfloop>
+			<cfloop from="1" to="6" index="i">
+				<cfset thisAgentID=evaluate("i$agent_id_" & i)>
+				<cfset thisAgentRole=evaluate("TRANS_AGENT_ROLE_" & i)>
+				<cfif len(thisAgentID) gt 0 and len(thisAgentRole) gt 0>
+					<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into trans_agent (
+							transaction_id,
+							agent_id,
+							trans_agent_role
+						) values (
+							sq_transaction_id.currval,
+							#thisAgentID#,
+							'#thisAgentRole#'
+						)
+					</cfquery>
+				</cfif>
+			</cfloop>
+		</cfloop>
 	</cftransaction>
 
 	Spiffy, all done.
 </cfoutput>
 </cfif>
-
 <cfinclude template="/includes/_footer.cfm">
