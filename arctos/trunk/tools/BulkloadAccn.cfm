@@ -92,7 +92,9 @@ guid_prefix varchar2(255) not null,
 	i$agent_id_6 number
 	);
 			
-			
+		<ul>
+			<li id="guid_prefix" class="helpLink"> GUID Prefix</li>
+		</ul>	
 <table border>
 	<tr>
 		<td><span id="_guid_prefix" class="helpLink"> GUID Prefix </span></td>
