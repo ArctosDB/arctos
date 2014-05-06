@@ -197,12 +197,10 @@ Step 1: Upload a comma-delimited text file (csv).
 	<cfif len(TRANS_AGENT_1) gt 0 and len(i$agent_id_1) is 0>
 		<cfset status=listappend(status,'TRANS_AGENT_1 could not be resolved.',';')>
 	</cfif>
-	
 	<cfif len(status) gt 0>
 		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update CF_TEMP_ACCN set i$status='#status#' where i$key=#i$key#
 		</cfquery>
-
 	</cfif>
 </cfloop>
 
@@ -228,10 +226,9 @@ Step 1: Upload a comma-delimited text file (csv).
 <cfoutput>
 	
 	
-	b;a bla <cfabort>
 		
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_agents
+		select * from CF_TEMP_ACCN
 	</cfquery>
 	<cftransaction>
 	<cfloop query="getTempData">
