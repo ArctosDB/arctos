@@ -35,6 +35,11 @@
 				</cfif>
 				<cfset r=r & '>[ More Information ]</div>'>
 		</cfif>
+		
+		<cfif len(d.VOCABULARY) gt 0>
+				<cfset r=r & '#VOCABULARY#'>
+				
+		</cfif>
 	<cfelse>
 		<cfset r=r & '<div class="docTitle">No documentation is available for #fld#.</div>'>
 		<cfmail subject="doc not found" to="#Application.PageProblemEmail#" from="docMIA@#Application.fromEmail#" type="html">
