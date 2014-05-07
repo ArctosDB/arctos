@@ -77,6 +77,9 @@
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Count</th>
+			<cfif basSelect contains "individualcount">
+				<th>Sum(individualcount)</th>
+			</cfif>
 			<cfloop list="#groupby#" index="x">
 				<cfif x is "phylclass">
 					<cfset x="Class">
@@ -103,6 +106,9 @@
 			<cfset thisLink="#thisLink#&scientific_name_match_type=exact">			
 			<tr>
 				<td>#COUNTOFCATALOGEDITEM#</td>
+				<cfif basSelect contains "individualcount">
+					<td>#individualcount#</td>
+				</cfif>
 				<cfloop list="#groupby#" index="x">
 					<cfif len(evaluate("getData." & x)) is 0>
 						<cfset thisVal='NULL'>
