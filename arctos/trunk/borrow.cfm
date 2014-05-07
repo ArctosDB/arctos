@@ -585,6 +585,11 @@
 		 	onClick="window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick', 
 				'resizable,scrollbars=yes,width=600,height=600')">	
 	</form>
+	
+		<a href="/Reports/report_printer.cfm?transaction_id=#transaction_id#">[ Print ]</a>
+
+
+
 </td>	
 	</tr></table>
 <hr>
