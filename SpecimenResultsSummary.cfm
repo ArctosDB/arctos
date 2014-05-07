@@ -67,7 +67,11 @@
 	<cfset dlPath = "#Application.DownloadPath#">
 	<cfset variables.encoding="UTF-8">
 	<cfset variables.fileName="#Application.webDirectory#/download/ArctosSpecimenSummary.csv">
-	<cfset header ="Count,#groupBy#,Link">
+	<cfset header ="Count,">
+	<cfif basSelect contains "individualcount">
+		<cfset header=header & ',individualcount'>
+	</cfif>
+	<cfset header=header & "#groupBy#,Link">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		variables.joFileWriter.writeLine(ListQualify(header,'"'));
@@ -93,6 +97,9 @@
 		<cfloop query="getData">
 			<cfset thisLink=mapurl>
 			<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
+			<cfif basSelect contains "individualcount">
+				<cfset oneLine=oneLine & ',"#individualcount#"'>
+			</cfif>
 			<!---
 				mapURL probably contains taxon_scope
 				We have to over-ride that here to get the
