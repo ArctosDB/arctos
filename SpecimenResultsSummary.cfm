@@ -27,7 +27,9 @@ sum(#session.flatTableName#.individualcount) individualcount">
 <cfset SqlString = replace(SqlString, "group by,","group by ")>
 <cfset SqlString = "#SqlString# order by">
 <cfloop list="#groupBy#" index="x">
-	<cfset SqlString = "#SqlString#,#session.flatTableName#.#x#">
+	<cfif x is not "individualcount">
+ 		<cfset SqlString = "#SqlString#,#session.flatTableName#.#x#">
+	</cfif>
 </cfloop>
 <cfset SqlString = replace(SqlString, "order by,","order by ")>
 <cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
