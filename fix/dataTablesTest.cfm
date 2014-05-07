@@ -198,7 +198,7 @@
 			theDiv.id = 'customDiv';
 			theDiv.className = 'customBox';
 			document.body.appendChild(theDiv);
-			var guts = "/info/SpecimenResultsPrefs.cfm";
+			var guts = "/info/SpecimenResultsPrefs_exp.cfm";
 			$('##customDiv').load(guts,{},function(){
 				viewport.init("##customDiv");
 			});
