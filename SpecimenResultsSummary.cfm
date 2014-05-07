@@ -4,13 +4,10 @@
 <cfif not isdefined("groupBy")>
 	<cfset groupBy='scientific_name'>
 </cfif>
-<cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem">
+<cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem,
+,sum(#session.flatTableName#.individualcount) individualcount">
 <cfloop list="#groupBy#" index="x">
-	<cfif x is "individualcount">
-		<cfset basSelect = "#basSelect#	,sum(#session.flatTableName#.#x#) #x#">
-	<cfelse>
-		<cfset basSelect = "#basSelect#	,#session.flatTableName#.#x#">
-	</cfif>
+	<cfset basSelect = "#basSelect#	,#session.flatTableName#.#x#">
 </cfloop>
 <cfset basFrom = " FROM #session.flatTableName#">
 <cfset basJoin = "">
