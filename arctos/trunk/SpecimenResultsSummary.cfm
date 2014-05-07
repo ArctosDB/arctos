@@ -6,7 +6,11 @@
 </cfif>
 <cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem">
 <cfloop list="#groupBy#" index="x">
-	<cfset basSelect = "#basSelect#	,#session.flatTableName#.#x#">
+	<cfif x is "individualcount">
+		<cfset basSelect = "#basSelect#	,sum(#session.flatTableName#.#x#) #x#">
+	<cfelse>
+		<cfset basSelect = "#basSelect#	,#session.flatTableName#.#x#">
+	</cfif>
 </cfloop>
 <cfset basFrom = " FROM #session.flatTableName#">
 <cfset basJoin = "">
