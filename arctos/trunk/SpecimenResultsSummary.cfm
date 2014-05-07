@@ -4,12 +4,14 @@
 <cfif not isdefined("groupBy")>
 	<cfset groupBy='scientific_name'>
 </cfif>
-<cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem,
-sum(#session.flatTableName#.individualcount) individualcount">
+<cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem ">
+<cfif listcontainsnocase(groupBy,"individualcount")>
+	<cfset basSelect = "#basSelect#, sum(#session.flatTableName#.individualcount) individualcount">
+	<cfset groupBy=listdeleteat(listfindnocase(groupBy,'individualcount'))>
+</cfif>
+
 <cfloop list="#groupBy#" index="x">
-	<cfif x is not "individualcount">
-		<cfset basSelect = "#basSelect#	,#session.flatTableName#.#x#">
-	</cfif>
+	<cfset basSelect = "#basSelect#	,#session.flatTableName#.#x#">
 </cfloop>
 <cfset basFrom = " FROM #session.flatTableName#">
 <cfset basJoin = "">
