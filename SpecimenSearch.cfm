@@ -115,6 +115,7 @@
 					<option value="sea">Sea</option>
 					<option value="spec_locality">Specific Locality</option>
 					<option value="year">Year</option>
+					<option value="individualcount">individualcount</option>
 				</select>
 			</div>
 			<div id="kmlDiv1" style="display:none;border:1px solid green;padding:.5em;">
