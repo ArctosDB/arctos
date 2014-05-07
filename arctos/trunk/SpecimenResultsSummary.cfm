@@ -7,7 +7,7 @@
 <cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem ">
 <cfif listcontainsnocase(groupBy,"individualcount")>
 	<cfset basSelect = "#basSelect#, sum(#session.flatTableName#.individualcount) individualcount">
-	<cfset groupBy=listdeleteat(listfindnocase(groupBy,'individualcount'))>
+	<cfset groupBy=listdeleteat(groupBy,listfindnocase(groupBy,'individualcount'))>
 </cfif>
 
 <cfloop list="#groupBy#" index="x">
