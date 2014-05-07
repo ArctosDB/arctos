@@ -5,9 +5,11 @@
 	<cfset groupBy='scientific_name'>
 </cfif>
 <cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem,
-,sum(#session.flatTableName#.individualcount) individualcount">
+sum(#session.flatTableName#.individualcount) individualcount">
 <cfloop list="#groupBy#" index="x">
-	<cfset basSelect = "#basSelect#	,#session.flatTableName#.#x#">
+	<cfif x is not "individualcount">
+		<cfset basSelect = "#basSelect#	,#session.flatTableName#.#x#">
+	</cfif>
 </cfloop>
 <cfset basFrom = " FROM #session.flatTableName#">
 <cfset basJoin = "">
@@ -18,7 +20,9 @@
 <!--- wrap everything up in a string --->
 <cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by">
 <cfloop list="#groupBy#" index="x">
-	<cfset SqlString = "#SqlString#,#session.flatTableName#.#x#">
+	<cfif x is not "individualcount">
+		<cfset SqlString = "#SqlString#,#session.flatTableName#.#x#">
+	</cfif>	
 </cfloop>
 <cfset SqlString = replace(SqlString, "group by,","group by ")>
 <cfset SqlString = "#SqlString# order by">
