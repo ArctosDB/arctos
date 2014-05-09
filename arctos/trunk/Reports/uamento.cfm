@@ -49,15 +49,17 @@
 	select max(numIDs) mnid from idrem
 </cfquery>
 <cfdump var=#mid#>
+<cfset header='CAT_NUM,barcodes,COLLECTING_METHOD,COLLECTORS,COUNTRY,STATE_PROV,HABITAT,MIN_ELEV_IN_M,MAX_ELEV_IN_M,SPEC_LOCALITY,BEGAN_DATE,ENDED_DATE,DEC_LAT,DEC_LONG,COORDINATEUNCERTAINTYINMETERS,PHYLORDER,PHYLCLASS,ID_DATE,IDENTIFIED_BY,SCI_NAME_WITH_AUTH,SUBFAMILY,TRIBE,SCIENTIFIC_NAME,FAMILY,COLL_EVENT_REMARKS'>
 
-
+<cfloop from="1" to="#mid.numIDs#">
+	<cfset header='#header#,id_remark_#i#'>
+</cfloop>
 
 <cfdump var=#idrem#>
 <cfoutput>
 <cfset fname = "uamento.csv">
 <cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 <cfset variables.encoding="UTF-8">
-<cfset header='CAT_NUM,barcodes,COLLECTING_METHOD,COLLECTORS,COUNTRY,STATE_PROV,HABITAT,MIN_ELEV_IN_M,MAX_ELEV_IN_M,SPEC_LOCALITY,BEGAN_DATE,ENDED_DATE,DEC_LAT,DEC_LONG,COORDINATEUNCERTAINTYINMETERS,PHYLORDER,PHYLCLASS,ID_DATE,IDENTIFIED_BY,SCI_NAME_WITH_AUTH,SUBFAMILY,TRIBE,SCIENTIFIC_NAME,FAMILY,COLL_EVENT_REMARKS'>
 <cfscript>
 	variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	variables.joFileWriter.writeLine(header);
