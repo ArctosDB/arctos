@@ -93,4 +93,5 @@
 <!-----
 <a href="/download.cfm?file=#fname#">/download.cfm?file=#fname#</a>
 ---->
+<cfinclude template="/includes/_footer.cfm">
 </cfoutput>
