@@ -78,6 +78,10 @@ maxNumIDRemark: #maxNumIDRemark#
 	variables.joFileWriter.writeLine(header);
 </cfscript>
 <cfloop query="getData">
+	<cfquery name="thisRem" dbtype="query">
+		select identification_remarks from raw where guid='#guid#' order by identification_id
+	</cfquery>
+
 	<cfset oneLine = "">
 	<cfloop list="#basheader#" index="c" delimiters=",">
 		<cfset thisData = evaluate("getData." & c)>
