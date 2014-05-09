@@ -1,6 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
+		flat.guid,
 		flat.CAT_NUM,
 		flat.COLLECTING_METHOD,
 		flat.COLLECTORS,
@@ -26,6 +27,7 @@
 		flat.FAMILY,
 		concatpartbarcode(flat.collection_object_id) barcodes,
 		flat.COLL_EVENT_REMARKS,
+		identification.identification_id,
 		identification.identification_remarks
 	from
 		flat,
@@ -40,6 +42,10 @@
 	from raw group by
 	CAT_NUM,barcodes,COLLECTING_METHOD,COLLECTORS,COUNTRY,STATE_PROV,HABITAT,MIN_ELEV_IN_M,MAX_ELEV_IN_M,SPEC_LOCALITY,BEGAN_DATE,ENDED_DATE,DEC_LAT,DEC_LONG,COORDINATEUNCERTAINTYINMETERS,PHYLORDER,PHYLCLASS,ID_DATE,IDENTIFIED_BY,SCI_NAME_WITH_AUTH,SUBFAMILY,TRIBE,SCIENTIFIC_NAME,FAMILY,COLL_EVENT_REMARKS
 </cfquery>
+<cfquery name="idrem" dbtype="query">
+	select guid,identification_remarks, count(*) c numIDs from raw group by guid,identification_remarks
+</cfquery>
+<cfdump var=#idrem#>
 <cfoutput>
 <cfset fname = "uamento.csv">
 <cfset variables.fileName="#Application.webDirectory#/download/#fname#">
