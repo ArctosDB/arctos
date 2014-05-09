@@ -45,7 +45,7 @@
 	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL=1
 </cfquery>
 <cfquery name="attribute" dbtype="query">
-	select * from poss where category='attribute'
+	select * from poss where category='attribute' order by disp_order
 </cfquery>
 
 <cfquery name="locality" dbtype="query">

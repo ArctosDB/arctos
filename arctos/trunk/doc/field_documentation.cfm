@@ -240,7 +240,7 @@
 			<td>Is the element available as a column in specimenresults?</td>
 		</tr>
 		<tr>
-			<td>SST</td>
+			<td><strong>SST</strong></td>
 			<td>Is cf_variable available as a specimen results query term? Variable must be handled by /includes/SearchSQL</td>
 		</tr>
 		<tr>
@@ -277,7 +277,10 @@
 	</table>
 	* must be given as a set: provide all or none
 	<br> <strong>BOLD</strong> elements are required
-	
+	<p>
+		NOTE: Do not change category=attribute records. They are periodically auto-generated from the relevant code tables and 
+		anything you do here will be lost. Add documentation directly to CTATTRIBUTE_TYPE.
+	</p>
 	<hr>Filter records:
 	<div class="filtering">
 	    <form>
