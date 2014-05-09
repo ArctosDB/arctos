@@ -78,9 +78,7 @@ maxNumIDRemark: #maxNumIDRemark#
 	variables.joFileWriter.writeLine(header);
 </cfscript>
 <cfloop query="getData">
-	<cfquery name="thisRem" dbtype="query">
-		select identification_remarks from raw where guid='#guid#' order by identification_id
-	</cfquery>
+	
 
 	<cfset oneLine = "">
 	<cfloop list="#basheader#" index="c" delimiters=",">
@@ -92,6 +90,12 @@ maxNumIDRemark: #maxNumIDRemark#
 			<cfset oneLine = '#oneLine#,"#thisData#"'>
 		</cfif>
 		<cfset oneLine = trim(oneLine)>
+	</cfloop>
+	<cfquery name="thisRem" dbtype="query">
+		select identification_remarks from raw where guid='#guid#' order by identification_id
+	</cfquery>
+	<cfloop query="thisRem">
+		<cfset oneLine = '#oneLine#,"#identification_remarks#"'>
 	</cfloop>
 	<cfscript>
 		variables.joFileWriter.writeLine(oneLine);
