@@ -52,6 +52,7 @@
 
 <cfoutput>
 
+		<cfset header=basheader>
 
 
 
@@ -60,7 +61,7 @@
 <cfif maxNumIDRemark gt 0>
 maxNumIDRemark: #maxNumIDRemark#
 	<cfloop from="1" to="#maxNumIDRemark#" index="i">
-		<cfset header='#basheader#,id_remark_#i#'>
+		<cfset header='#header#,id_remark_#i#'>
 	</cfloop>
 </cfif>
 
