@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		flat.CAT_NUM,
 		flat.COLLECTING_METHOD,
@@ -19,18 +19,26 @@
 		flat.PHYLCLASS,
 		flat.MADE_DATE ID_DATE,
 		flat.IDENTIFIEDBY IDENTIFIED_BY,
-		FORMATTED_SCIENTIFIC_NAME SCI_NAME_WITH_AUTH,
+		flat.FORMATTED_SCIENTIFIC_NAME SCI_NAME_WITH_AUTH,
 		flat.SUBFAMILY,
 		flat.TRIBE,
 		flat.SCIENTIFIC_NAME,
 		flat.FAMILY,
 		concatpartbarcode(flat.collection_object_id) barcodes,
-		flat.COLL_EVENT_REMARKS
+		flat.COLL_EVENT_REMARKS,
+		identification.identification_remarks
 	from
 		flat,
+		identification,
 		#session.specsrchtab#
 	where
+		flat.collection_object_id=identification.collection_object_id and
 		flat.collection_object_id=#session.specsrchtab#.collection_object_id
+</cfquery>
+<cfquery name="getData" dbtype="query">
+	select CAT_NUM,barcodes,COLLECTING_METHOD,COLLECTORS,COUNTRY,STATE_PROV,HABITAT,MIN_ELEV_IN_M,MAX_ELEV_IN_M,SPEC_LOCALITY,BEGAN_DATE,ENDED_DATE,DEC_LAT,DEC_LONG,COORDINATEUNCERTAINTYINMETERS,PHYLORDER,PHYLCLASS,ID_DATE,IDENTIFIED_BY,SCI_NAME_WITH_AUTH,SUBFAMILY,TRIBE,SCIENTIFIC_NAME,FAMILY,COLL_EVENT_REMARKS
+	from raw group by
+	CAT_NUM,barcodes,COLLECTING_METHOD,COLLECTORS,COUNTRY,STATE_PROV,HABITAT,MIN_ELEV_IN_M,MAX_ELEV_IN_M,SPEC_LOCALITY,BEGAN_DATE,ENDED_DATE,DEC_LAT,DEC_LONG,COORDINATEUNCERTAINTYINMETERS,PHYLORDER,PHYLCLASS,ID_DATE,IDENTIFIED_BY,SCI_NAME_WITH_AUTH,SUBFAMILY,TRIBE,SCIENTIFIC_NAME,FAMILY,COLL_EVENT_REMARKS
 </cfquery>
 <cfoutput>
 <cfset fname = "uamento.csv">
