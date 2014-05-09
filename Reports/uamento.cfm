@@ -49,9 +49,16 @@
 <cfquery name="mid" dbtype="query">
 	select max(numIDs) mnid from idrem
 </cfquery>
+
+<cfoutput>
+
+
+
+
 <cfdump var=#mid#>
 <cfset maxNumIDRemark=mid.mnid>
 <cfif maxNumIDRemark gt 0>
+maxNumIDRemark: #maxNumIDRemark#
 	<cfloop from="1" to="#maxNumIDRemark#">
 		<cfset header='#header#,id_remark_#i#'>
 	</cfloop>
@@ -61,7 +68,7 @@
 
 
 <cfdump var=#idrem#>
-<cfoutput>
+
 <cfset fname = "uamento.csv">
 <cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 <cfset variables.encoding="UTF-8">
