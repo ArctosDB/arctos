@@ -43,17 +43,22 @@
 	CAT_NUM,barcodes,COLLECTING_METHOD,COLLECTORS,COUNTRY,STATE_PROV,HABITAT,MIN_ELEV_IN_M,MAX_ELEV_IN_M,SPEC_LOCALITY,BEGAN_DATE,ENDED_DATE,DEC_LAT,DEC_LONG,COORDINATEUNCERTAINTYINMETERS,PHYLORDER,PHYLCLASS,ID_DATE,IDENTIFIED_BY,SCI_NAME_WITH_AUTH,SUBFAMILY,TRIBE,SCIENTIFIC_NAME,FAMILY,COLL_EVENT_REMARKS
 </cfquery>
 <cfquery name="idrem" dbtype="query">
-	select guid,identification_remarks, count(*) as numIDs from raw group by guid,identification_remarks
+	select guid,identification_remarks, count(*) as numIDs from raw where len(identification_remarks) gt 0 group by guid,identification_remarks
 </cfquery>
+<cfset header='CAT_NUM,barcodes,COLLECTING_METHOD,COLLECTORS,COUNTRY,STATE_PROV,HABITAT,MIN_ELEV_IN_M,MAX_ELEV_IN_M,SPEC_LOCALITY,BEGAN_DATE,ENDED_DATE,DEC_LAT,DEC_LONG,COORDINATEUNCERTAINTYINMETERS,PHYLORDER,PHYLCLASS,ID_DATE,IDENTIFIED_BY,SCI_NAME_WITH_AUTH,SUBFAMILY,TRIBE,SCIENTIFIC_NAME,FAMILY,COLL_EVENT_REMARKS'>
 <cfquery name="mid" dbtype="query">
 	select max(numIDs) mnid from idrem
 </cfquery>
 <cfdump var=#mid#>
-<cfset header='CAT_NUM,barcodes,COLLECTING_METHOD,COLLECTORS,COUNTRY,STATE_PROV,HABITAT,MIN_ELEV_IN_M,MAX_ELEV_IN_M,SPEC_LOCALITY,BEGAN_DATE,ENDED_DATE,DEC_LAT,DEC_LONG,COORDINATEUNCERTAINTYINMETERS,PHYLORDER,PHYLCLASS,ID_DATE,IDENTIFIED_BY,SCI_NAME_WITH_AUTH,SUBFAMILY,TRIBE,SCIENTIFIC_NAME,FAMILY,COLL_EVENT_REMARKS'>
+<cfset maxNumIDRemark=mid.mnid>
+<cfif maxNumIDRemark gt 0>
+	<cfloop from="1" to="#maxNumIDRemark#">
+		<cfset header='#header#,id_remark_#i#'>
+	</cfloop>
+</cfif>
 
-<cfloop from="1" to="#mid.numIDs#">
-	<cfset header='#header#,id_remark_#i#'>
-</cfloop>
+
+
 
 <cfdump var=#idrem#>
 <cfoutput>
