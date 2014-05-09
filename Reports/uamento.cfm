@@ -43,7 +43,7 @@
 	CAT_NUM,barcodes,COLLECTING_METHOD,COLLECTORS,COUNTRY,STATE_PROV,HABITAT,MIN_ELEV_IN_M,MAX_ELEV_IN_M,SPEC_LOCALITY,BEGAN_DATE,ENDED_DATE,DEC_LAT,DEC_LONG,COORDINATEUNCERTAINTYINMETERS,PHYLORDER,PHYLCLASS,ID_DATE,IDENTIFIED_BY,SCI_NAME_WITH_AUTH,SUBFAMILY,TRIBE,SCIENTIFIC_NAME,FAMILY,COLL_EVENT_REMARKS
 </cfquery>
 <cfquery name="idrem" dbtype="query">
-	select guid,identification_remarks, count(*) c numIDs from raw group by guid,identification_remarks
+	select guid,identification_remarks, count(*) as numIDs from raw group by guid,identification_remarks
 </cfquery>
 <cfdump var=#idrem#>
 <cfoutput>
