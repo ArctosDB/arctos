@@ -82,7 +82,7 @@
 	variables.joFileWriter.close();
 </cfscript>
 
-<a href="/download.cfm?file=#fname">/download.cfm?file=#fname</a>
+<a href="/download.cfm?file=#fname#">/download.cfm?file=#fname#</a>
 <!-----
 <cflocation url="/download.cfm?file=#fname#" addtoken="false">
 ---->
