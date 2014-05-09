@@ -2,7 +2,7 @@
 	<cfset title="attribtue search builder thingee">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select ATTRIBUTE_TYPE from ctattribute_type group by ATTRIBUTE_TYPE order by ATTRIBUTE_TYPE
+			select ATTRIBUTE_TYPE from ctattribute_type group by ATTRIBUTE_TYPE order by lower(ATTRIBUTE_TYPE)
 		</cfquery>
 		<cfquery name="fattrorder" datasource="uam_god">
 			select max(DISP_ORDER) mdo from ssrch_field_doc

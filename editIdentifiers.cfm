@@ -2,7 +2,6 @@
 <cfset title = "Edit Identifiers">
 <cfif action is "nothing">
 	<script>
-
 		function cloneFullCatalogedItem(collection_object_id){
 			jQuery('#cloned').css("display", "inline").html('<img src="/images/indicator.gif">Creating clone(s) - hold tight.....');
 			jQuery.getJSON("/component/functions.cfc",
@@ -13,9 +12,7 @@
 					queryformat : 'column'
 				},
 				function (r) {
-console.log(r);
-					
-						var q='created <a href="/guid/' + r + '">' + r + '</a>';
+					var q='created <a href="/guid/' + r + '">' + r + '</a>';
 					jQuery('#cloned').css("display", "inline").html(q);
 				}
 			);
@@ -45,7 +42,6 @@ console.log(r);
 		}
 	</script>
 	<cfoutput>
-
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select collection,collection_id from collection ORDER BY COLLECTION
 	</cfquery>
@@ -71,11 +67,8 @@ console.log(r);
 		<br>The new record will take about a minute to become available to the interfaces; immediately clicking the
 		returned GUID will probably 404 - grab a cup of coffee and then reload.
 		<hr>
-		
-		
-		
-		Option Two: Click
-		, where you
+		Option Two: Click <span class="likeLink"  onclick="cloneCatalogedItem(#collection_object_id#)" >here</span>
+		to create a record in the bulkloader, where you
 		may further edit the record or flag it to load, as with any other new record.
 		<br>Check specimen remarks in the bulkloader for things that might have been missed - this
 		application has limited handling of agents, identifiers, attributes, and parts.
