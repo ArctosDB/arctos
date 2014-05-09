@@ -45,6 +45,13 @@
 <cfquery name="idrem" dbtype="query">
 	select guid,identification_remarks, count(*) as numIDs from raw group by guid,identification_remarks
 </cfquery>
+<cfquery name="mid" dbtype="query">
+	select max(numIDs) mnid from idrem
+</cfquery>
+<cfdump var=#mid#>
+
+
+
 <cfdump var=#idrem#>
 <cfoutput>
 <cfset fname = "uamento.csv">
@@ -74,5 +81,9 @@
 <cfscript>
 	variables.joFileWriter.close();
 </cfscript>
+
+<a href="/download.cfm?file=#fname">/download.cfm?file=#fname</a>
+<!-----
 <cflocation url="/download.cfm?file=#fname#" addtoken="false">
+---->
 </cfoutput>
