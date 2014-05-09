@@ -45,7 +45,7 @@
 <cfquery name="idrem" dbtype="query">
 	select guid,identification_remarks, count(*) as numIDs from raw  group by guid,identification_remarks
 </cfquery>
-<cfset header='CAT_NUM,barcodes,COLLECTING_METHOD,COLLECTORS,COUNTRY,STATE_PROV,HABITAT,MIN_ELEV_IN_M,MAX_ELEV_IN_M,SPEC_LOCALITY,BEGAN_DATE,ENDED_DATE,DEC_LAT,DEC_LONG,COORDINATEUNCERTAINTYINMETERS,PHYLORDER,PHYLCLASS,ID_DATE,IDENTIFIED_BY,SCI_NAME_WITH_AUTH,SUBFAMILY,TRIBE,SCIENTIFIC_NAME,FAMILY,COLL_EVENT_REMARKS'>
+<cfset basheader='CAT_NUM,barcodes,COLLECTING_METHOD,COLLECTORS,COUNTRY,STATE_PROV,HABITAT,MIN_ELEV_IN_M,MAX_ELEV_IN_M,SPEC_LOCALITY,BEGAN_DATE,ENDED_DATE,DEC_LAT,DEC_LONG,COORDINATEUNCERTAINTYINMETERS,PHYLORDER,PHYLCLASS,ID_DATE,IDENTIFIED_BY,SCI_NAME_WITH_AUTH,SUBFAMILY,TRIBE,SCIENTIFIC_NAME,FAMILY,COLL_EVENT_REMARKS'>
 <cfquery name="mid" dbtype="query">
 	select max(numIDs) mnid from idrem
 </cfquery>
@@ -60,7 +60,7 @@
 <cfif maxNumIDRemark gt 0>
 maxNumIDRemark: #maxNumIDRemark#
 	<cfloop from="1" to="#maxNumIDRemark#" index="i">
-		<cfset header='#header#,id_remark_#i#'>
+		<cfset header='#basheader#,id_remark_#i#'>
 	</cfloop>
 </cfif>
 
@@ -78,7 +78,7 @@ maxNumIDRemark: #maxNumIDRemark#
 </cfscript>
 <cfloop query="getData">
 	<cfset oneLine = "">
-	<cfloop list="#header#" index="c" delimiters=",">
+	<cfloop list="#basheader#" index="c" delimiters=",">
 		<cfset thisData = evaluate("getData." & c)>
 		<cfset thisData=replace(thisData,'"','""','all')>
 		<cfif len(oneLine) is 0>
