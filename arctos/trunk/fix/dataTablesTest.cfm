@@ -187,320 +187,298 @@
 	</cfif>
 	<cfset collObjIdList = valuelist(summary.collection_object_id)>
 	<cfparam name="transaction_id" default="">
-<form name="controls">
-	<!--- keep stuff around for JS to get at --->
-	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
-	<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
-	<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
-	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
-	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
-	<!---- see if users have searched for min-max/max-mar error ---->
-	<cfset userSrchMaxErr=99999999999999999999999>
-	<cfset precisionmapurl=mapurl>
-	<cfif mapurl contains "max_max_error">
-		<cfloop list="#mapurl#" delimiters="&?" index="i">
-			<cfif listgetat(i,1,"=") is "max_max_error">
-				<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "max_max_error=[^&]+&?", "")>
-				<cfset userSrchMaxErr=listgetat(i,2,"=")>
-			<cfelseif listgetat(i,1,"=") is "min_max_error">
-				<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "min_max_error=[^&]+&?", "")>
-				<cfset meu=listgetat(i,2,"=")>
-			<cfelseif listgetat(i,1,"=") is "max_error_units">
-				<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "max_error_units=[^&]+&?", "")>
-			</cfif>
-		</cfloop>
-	</cfif>
-	<cfif isdefined("meu") and meu is not "m">
-		<cfif meu is "ft">
-			<cfset userSrchMaxErr=userSrchMaxErr * .3048>
-		<cfelseif meu is "km">
-			<cfset userSrchMaxErr=userSrchMaxErr * 1000>
-		<cfelseif meu is "mi">
-			<cfset userSrchMaxErr=userSrchMaxErr * 1609.344>
-		<cfelseif meu is "yd">
-			<cfset userSrchMaxErr=userSrchMaxErr * .9144>
-		</cfif>
-	</cfif>
-	<cfquery dbtype="query" name="willmap">
-		select * from summary where dec_lat is not null
-	</cfquery>
-	<cfquery dbtype="query" name="noerr">
-		select count(*) c from willmap where coordinateuncertaintyinmeters is null
-	</cfquery>
-	<cfquery dbtype="query" name="err_lt100">
-		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <= 100
-	</cfquery>
-	<cfquery dbtype="query" name="err_lt1000">
-		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=1000
-	</cfquery>
-	<cfquery dbtype="query" name="err_lt10000">
-		select count(*) c from summary where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=10000
-	</cfquery>
-	<cfquery dbtype="query" name="haserr">
-		select count(*) c from willmap where coordinateuncertaintyinmeters is not null
-	</cfquery>
-	<div id="cntr_refineSearchTerms"></div>
-
-
-
-
-
-	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
-	<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
-	<table width="100%">
-		<tr>
-			<td>
-				<strong>Found #summary.recordcount# specimens.</strong>
-				<span class="infoLink" onclick="alert('The following links are ADDITIVE; the \'1000 meter\' link contains the \'100 meter\' specimens.\nIf your previous search included precision, or followed a link such as these, then these links may return records that were not in your previous query.')">
-					about these links
-				</span>
-				<ul>
-					<cfif err_lt100.c gt 0 and userSrchMaxErr gte 100>
-						<li>
-							<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate precision of 100 meters or less.
-						</li>
-					</cfif>
-					<cfif err_lt1000.c gt 0 and userSrchMaxErr gte 1000>
-						<li>
-							<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=1000">#val(err_lt1000.c)# specimens</a> have a coordinate precision of 1 kilometer or less.
-						</li>
-					</cfif>
-					<cfif err_lt10000.c gt 0 and userSrchMaxErr gte 10000>
-						<li>
-							<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=10000">#val(err_lt10000.c)# specimens</a> have a coordinate precision of 10 kilometers or less.
-						</li>
-					</cfif>
-					<cfif haserr.c gt 0>
-						<li>
-							<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=99999999999999999999999">#val(haserr.c)# specimens</a> have a coordinate precision.
-						</li>
-					</cfif>
-					<cfif willmap.recordcount gt 0 and willmap.recordcount neq haserr.c>
-						<li>
-							<a href="/SpecimenResults.cfm?#precisionmapurl#&isGeoreferenced=true">#val(willmap.recordcount)# specimens</a> have coordinates.
-						</li>
-					</cfif>
-					<cfif noerr.c gt 0>
-						<li>
-							<a href="/SpecimenResults.cfm?#precisionmapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
-						</li>
-					</cfif>
-					<cfif numWillNotMap gt 0>
-						<li>
-							<a href="/SpecimenResults.cfm?#precisionmapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
-						</li>
-					</cfif>
-				</ul>
-			</td>
-			<td align="right">
-				<div id="mapGoHere"></div>
-			</td>
-		</tr>
-	</table>		
-<div style="border:2px solid blue;" id="ssControl">
-
-
-<cfif len(transaction_id) gt 0>
-	<cfquery name="isDataLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select LOAN_TYPE from loan where transaction_id=#transaction_id#
-	</cfquery>
-	<cfif isDataLoan.LOAN_TYPE is 'data'>
-		<input type="hidden" name="isDataLoan" id="isDataLoan" value="yes">
-		<br>You are adding cataloged items to a data loan.
-		<br>Customize, turn on Remove Rows option to remove anything that should not be added to this loan.
-		<br>Then <span class="likeLink" onclick="confirmAddAllDL();">Add All Cataloged Items to this Data Loan</span>
-	<cfelse>
-		<cfquery name="commonParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
-				part_name,
-				count(*) numRecWithThisPart
-			from
-				specimen_part,
-				#session.SpecSrchTab#
-			where
-				specimen_part.derived_from_cat_item=#session.SpecSrchTab#.collection_object_id and
-				specimen_part.sampled_from_obj_id is null
-			group by
-				part_name
-		</cfquery>
-		<cfquery name="partsForLoan" dbtype="query">
-			select part_name from commonParts where numRecWithThisPart=#summary.recordcount#
-			group by part_name order by part_name
-		</cfquery>
-		<cfif partsForLoan.recordcount gte 1>
-			<br>Customize, turn on Remove Rows option to remove anything that should not be added to this loan, them you can
-			use this form to add an item from all found specimens (not necessarily just the ones visible on this page)
-			to your loan.
-			<p>
-				For all specimens, add this:
-			</p>
-			<label for="part_name">Part Name</label>
-			<select name="part_name" id="part_name">
-				<cfloop query="partsForLoan">
-					<option value="#part_name#">#part_name#</option>
-				</cfloop>
-			</select>
-			<br>
-			<input type="button" value="Add All to this Loan" onclick="confirmAddAllPartLoan();">
-		<cfelse>
-			<br>No common Parts - group-add tools not available.
-		</cfif>
-		<br><a href="/tools/loanBulkload.cfm?action=downloadForBulkSpecSrchRslt&transaction_id=#transaction_id#">Download in loan bulkloader format</a>
-		<input type="hidden" name="isDataLoan" id="isDataLoan" value="no">
-	</cfif>
-	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
-	<cfset mapURL=listappend(mapurl,"transaction_id=#transaction_id#","&")>
-	<br><a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
-</cfif>
-<cfset session.mapURL=mapURL>
-
-<table border="0" width="100%">
-	<tr>
-		<td>
-			<label for="">&nbsp;</label>
-			<input type="hidden" name="killRowList" id="killRowList">
-			<span id="removeChecked"
-				style="display:none;"
-				class="controlButton redButton"
-				onclick="removeItems();">Remove&nbsp;Checked&nbsp;Rows</span>
-		</td>
-		<td>
-			<label for="">&nbsp;</label>
-			<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
-		</td>
-		<td>
-			<label for="">&nbsp;</label>
-			<span class="controlButton"
-				onclick="window.open('/SpecimenResultsDownload.cfm?tableName=#session.SpecSrchTab#','_blank');">Download</span>
-		</td>
-		<td>
-			<label for="">&nbsp;</label>
-			<span class="controlButton"
-				onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
-		</td>
-		<cfif willmap.recordcount gt 0>
-			<td>
-				<a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">BerkeleyMapper</a>
-			</td>
-			<!--- far from perfect, but see if we can prevent some frustration by sending fewer bound-to-fail queries to rangemaps ---->
-			<cfquery dbtype="query" name="willItRangeMap">
-				select scientific_name from summary group by scientific_name
-			</cfquery>
-			<cfset gen=''>
-			<cfset sp=''>
-			<cfloop query="willItRangeMap">
-				<cfif listlen(scientific_name," ") is 1>
-					<cfif not listcontains(gen,scientific_name)>
-						<cfset gen=listappend(gen,scientific_name)>
-					</cfif>
-				<cfelseif listlen(scientific_name," ") gte 2>
-					<cfif not listcontains(gen,listgetat(scientific_name,1," "))>
-						<cfset gen=listappend(gen,listgetat(scientific_name,1," "))>
-					</cfif>
-					<cfif not listcontains(sp,listgetat(scientific_name,2," "))>
-						<cfset sp=listappend(sp,listgetat(scientific_name,2," "))>
-					</cfif>
+	<form name="controls">
+		<!--- keep stuff around for JS to get at --->
+		<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
+		<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
+		<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
+		<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
+		<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
+		<!---- see if users have searched for min-max/max-mar error ---->
+		<cfset userSrchMaxErr=99999999999999999999999>
+		<cfset precisionmapurl=mapurl>
+		<cfif mapurl contains "max_max_error">
+			<cfloop list="#mapurl#" delimiters="&?" index="i">
+				<cfif listgetat(i,1,"=") is "max_max_error">
+					<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "max_max_error=[^&]+&?", "")>
+					<cfset userSrchMaxErr=listgetat(i,2,"=")>
+				<cfelseif listgetat(i,1,"=") is "min_max_error">
+					<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "min_max_error=[^&]+&?", "")>
+					<cfset meu=listgetat(i,2,"=")>
+				<cfelseif listgetat(i,1,"=") is "max_error_units">
+					<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "max_error_units=[^&]+&?", "")>
 				</cfif>
 			</cfloop>
-			<cfif listlen(gen) is 1 and listlen(sp) is 1>
-				<td>
-					<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">BerkeleyMapper+Rangemaps</a>
-				</td>
+		</cfif>
+		<cfif isdefined("meu") and meu is not "m">
+			<cfif meu is "ft">
+				<cfset userSrchMaxErr=userSrchMaxErr * .3048>
+			<cfelseif meu is "km">
+				<cfset userSrchMaxErr=userSrchMaxErr * 1000>
+			<cfelseif meu is "mi">
+				<cfset userSrchMaxErr=userSrchMaxErr * 1609.344>
+			<cfelseif meu is "yd">
+				<cfset userSrchMaxErr=userSrchMaxErr * .9144>
 			</cfif>
-			<td>
-				<a href="/bnhmMaps/kml.cfm" target="_blank">Google Maps/Google Earth</a>
-			</td>
 		</cfif>
-		<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
-			<td nowrap="nowrap">
-				<select name="goWhere" id="goWhere" size="1">
-					<option value="">Manage...</option>
-					<option value="/Encumbrances.cfm">
-						Encumbrances
-					</option>
-					<option value="/multiIdentification.cfm">
-						Identification
-					</option>
-					<option value="/multiAgent.cfm">
-						Agents
-					</option>
-					<option value="/findContainer.cfm?showControl=1">
-						Part Locations
-					</option>
-					<option value="/bulkCollEvent.cfm">
-						Collecting Events
-					</option>
-					<option value="/bulkSpecimenEvent.cfm">
-						Specimen Events
-					</option>
-					<!----
-					<option value="/compDGR.cfm">
-						MSB<->DGR
-					</option>
-					---->
-					<option value="/addAccn.cfm">
-						Accession
-					</option>
-
-					<option value="/tools/bulkPart.cfm">
-						Modify Parts
-					</option>
-
-					<option value="">::Print Stuff::</option>
-					<option value="/Reports/report_printer.cfm?report=uam_mamm_vial">
-						UAM Mammals Vial Labels
-					</option>
-					<option value="/Reports/report_printer.cfm?report=uam_mamm_box">
-						UAM Mammals Box Labels
-					</option>
-					<option value="/Reports/report_printer.cfm?report=MSB_vial_label">
-						MSB Mammals Vial Labels
-					</option>
-					<cfif isdefined('permit_num') and len(permit_num) gt 0>
-						<option value="/Reports/permit.cfm">
-							MVZ Permit Report
-						</option>
+		<cfquery dbtype="query" name="willmap">
+			select * from summary where dec_lat is not null
+		</cfquery>
+		<cfquery dbtype="query" name="noerr">
+			select count(*) c from willmap where coordinateuncertaintyinmeters is null
+		</cfquery>
+		<cfquery dbtype="query" name="err_lt100">
+			select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <= 100
+		</cfquery>
+		<cfquery dbtype="query" name="err_lt1000">
+			select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=1000
+		</cfquery>
+		<cfquery dbtype="query" name="err_lt10000">
+			select count(*) c from summary where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=10000
+		</cfquery>
+		<cfquery dbtype="query" name="haserr">
+			select count(*) c from willmap where coordinateuncertaintyinmeters is not null
+		</cfquery>
+		<div id="cntr_refineSearchTerms"></div>
+		<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
+		<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
+		<table width="100%">
+			<tr>
+				<td>
+					<strong>Found #summary.recordcount# specimens.</strong>
+					<span class="infoLink" onclick="alert('The following links are ADDITIVE; the \'1000 meter\' link contains the \'100 meter\' specimens.\nIf your previous search included precision, or followed a link such as these, then these links may return records that were not in your previous query.')">
+						about these links
+					</span>
+					<ul>
+						<cfif err_lt100.c gt 0 and userSrchMaxErr gte 100>
+							<li>
+								<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate precision of 100 meters or less.
+							</li>
+						</cfif>
+						<cfif err_lt1000.c gt 0 and userSrchMaxErr gte 1000>
+							<li>
+								<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=1000">#val(err_lt1000.c)# specimens</a> have a coordinate precision of 1 kilometer or less.
+							</li>
+						</cfif>
+						<cfif err_lt10000.c gt 0 and userSrchMaxErr gte 10000>
+							<li>
+								<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=10000">#val(err_lt10000.c)# specimens</a> have a coordinate precision of 10 kilometers or less.
+							</li>
+						</cfif>
+						<cfif haserr.c gt 0>
+							<li>
+								<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=99999999999999999999999">#val(haserr.c)# specimens</a> have a coordinate precision.
+							</li>
+						</cfif>
+						<cfif willmap.recordcount gt 0 and willmap.recordcount neq haserr.c>
+							<li>
+								<a href="/SpecimenResults.cfm?#precisionmapurl#&isGeoreferenced=true">#val(willmap.recordcount)# specimens</a> have coordinates.
+							</li>
+						</cfif>
+						<cfif noerr.c gt 0>
+							<li>
+								<a href="/SpecimenResults.cfm?#precisionmapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
+							</li>
+						</cfif>
+						<cfif numWillNotMap gt 0>
+							<li>
+								<a href="/SpecimenResults.cfm?#precisionmapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
+							</li>
+						</cfif>
+					</ul>
+				</td>
+				<td align="right">
+					<div id="mapGoHere"></div>
+				</td>
+			</tr>
+		</table>		
+		<div style="border:2px solid blue;" id="ssControl">
+			<cfif len(transaction_id) gt 0>
+				<cfquery name="isDataLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select LOAN_TYPE from loan where transaction_id=#transaction_id#
+				</cfquery>
+				<cfif isDataLoan.LOAN_TYPE is 'data'>
+					<input type="hidden" name="isDataLoan" id="isDataLoan" value="yes">
+					<br>You are adding cataloged items to a data loan.
+					<br>Customize, turn on Remove Rows option to remove anything that should not be added to this loan.
+					<br>Then <span class="likeLink" onclick="confirmAddAllDL();">Add All Cataloged Items to this Data Loan</span>
+				<cfelse>
+					<cfquery name="commonParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select 
+							part_name,
+							count(*) numRecWithThisPart
+						from
+							specimen_part,
+							#session.SpecSrchTab#
+						where
+							specimen_part.derived_from_cat_item=#session.SpecSrchTab#.collection_object_id and
+							specimen_part.sampled_from_obj_id is null
+						group by
+							part_name
+					</cfquery>
+					<cfquery name="partsForLoan" dbtype="query">
+						select part_name from commonParts where numRecWithThisPart=#summary.recordcount#
+						group by part_name order by part_name
+					</cfquery>
+					<cfif partsForLoan.recordcount gte 1>
+						<br>Customize, turn on Remove Rows option to remove anything that should not be added to this loan, them you can
+						use this form to add an item from all found specimens (not necessarily just the ones visible on this page)
+						to your loan.
+						<p>
+							For all specimens, add this:
+						</p>
+						<label for="part_name">Part Name</label>
+						<select name="part_name" id="part_name">
+							<cfloop query="partsForLoan">
+								<option value="#part_name#">#part_name#</option>
+							</cfloop>
+						</select>
+						<br>
+						<input type="button" value="Add All to this Loan" onclick="confirmAddAllPartLoan();">
+					<cfelse>
+						<br>No common Parts - group-add tools not available.
 					</cfif>
-					<option value="/Reports/kenai.cfm">
-						download bug .tex
-					</option>
-					<option value="/Reports/uamento.cfm">
-						download UAM Ento CSV
-					</option>
-					<option value="/Reports/print_nk.cfm">
-						Print NK pages
-					</option>
-					<option value="/Reports/report_printer.cfm?report=ala_label">
-						ALA Labels
-					</option>
-					<!----
-					<option value="/bnhmMaps/SpecimensByLocality.cfm">
-						Map By Locality
-					</option>
-					---->
-					<option value="/info/part_data_download.cfm">
-						Parts table/download
-					</option>
-                    <option value="/SpecimenResultsDownload.cfm?action=bulkloaderFormat">
-						Download for Bulkloader
-					</option>
-                    <option value="/Reports/report_printer.cfm">
-						Print Any Report
-					</option>
-				</select>
-				<input type="button" value="Go" class="lnkBtn" onClick="reporter();">
-			</td>
-		</cfif>
-		<td>
-			<a href="/SpecimenResultsHTML.cfm?#mapurl#" class="likeLink">HTML version</a>
-		</td>
-		<td>
-			<a class="likeLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>
-		</td>
-	</tr>
-</table>
-</div>
-</form>
-<div id="specresults"></div>
+					<br><a href="/tools/loanBulkload.cfm?action=downloadForBulkSpecSrchRslt&transaction_id=#transaction_id#">Download in loan bulkloader format</a>
+					<input type="hidden" name="isDataLoan" id="isDataLoan" value="no">
+				</cfif>
+				<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
+				<cfset mapURL=listappend(mapurl,"transaction_id=#transaction_id#","&")>
+				<br><a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
+			</cfif>
+			<cfset session.mapURL=mapURL>
+	
+		<table border="0" width="100%">
+			<tr>
+				<td>
+					<label for="">&nbsp;</label>
+					<input type="hidden" name="killRowList" id="killRowList">
+					<span id="removeChecked" style="display:none;" class="controlButton redButton" onclick="removeItems();">Remove&nbsp;Checked&nbsp;Rows</span>
+				</td>
+				<td>
+					<label for="">&nbsp;</label>
+					<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
+				</td>
+				<td>
+					<label for="">&nbsp;</label>
+					<span class="controlButton" onclick="window.open('/SpecimenResultsDownload.cfm?tableName=#session.SpecSrchTab#','_blank');">Download</span>
+				</td>
+				<td>
+					<label for="">&nbsp;</label>
+					<span class="controlButton" onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
+				</td>
+				<cfif willmap.recordcount gt 0>
+					<td>
+						<a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">BerkeleyMapper</a>
+					</td>
+					<!--- far from perfect, but see if we can prevent some frustration by sending fewer bound-to-fail queries to rangemaps ---->
+					<cfquery dbtype="query" name="willItRangeMap">
+						select scientific_name from summary group by scientific_name
+					</cfquery>
+					<cfset gen=''>
+					<cfset sp=''>
+					<cfloop query="willItRangeMap">
+						<cfif listlen(scientific_name," ") is 1>
+							<cfif not listcontains(gen,scientific_name)>
+								<cfset gen=listappend(gen,scientific_name)>
+							</cfif>
+						<cfelseif listlen(scientific_name," ") gte 2>
+							<cfif not listcontains(gen,listgetat(scientific_name,1," "))>
+								<cfset gen=listappend(gen,listgetat(scientific_name,1," "))>
+							</cfif>
+							<cfif not listcontains(sp,listgetat(scientific_name,2," "))>
+								<cfset sp=listappend(sp,listgetat(scientific_name,2," "))>
+							</cfif>
+						</cfif>
+					</cfloop>
+					<cfif listlen(gen) is 1 and listlen(sp) is 1>
+						<td>
+							<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">BerkeleyMapper+Rangemaps</a>
+						</td>
+					</cfif>
+					<td>
+						<a href="/bnhmMaps/kml.cfm" target="_blank">Google Maps/Google Earth</a>
+					</td>
+				</cfif>
+				<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
+					<td nowrap="nowrap">
+						<select name="goWhere" id="goWhere" size="1">
+							<option value="">Manage...</option>
+							<option value="/Encumbrances.cfm">
+								Encumbrances
+							</option>
+							<option value="/multiIdentification.cfm">
+								Identification
+							</option>
+							<option value="/multiAgent.cfm">
+								Agents
+							</option>
+							<option value="/findContainer.cfm?showControl=1">
+								Part Locations
+							</option>
+							<option value="/bulkCollEvent.cfm">
+								Collecting Events
+							</option>
+							<option value="/bulkSpecimenEvent.cfm">
+								Specimen Events
+							</option>
+							<option value="/addAccn.cfm">
+								Accession
+							</option>
+		
+							<option value="/tools/bulkPart.cfm">
+								Modify Parts
+							</option>
+		
+							<option value="">::Print Stuff::</option>
+							<option value="/Reports/report_printer.cfm?report=uam_mamm_vial">
+								UAM Mammals Vial Labels
+							</option>
+							<option value="/Reports/report_printer.cfm?report=uam_mamm_box">
+								UAM Mammals Box Labels
+							</option>
+							<option value="/Reports/report_printer.cfm?report=MSB_vial_label">
+								MSB Mammals Vial Labels
+							</option>
+							<cfif isdefined('permit_num') and len(permit_num) gt 0>
+								<option value="/Reports/permit.cfm">
+									MVZ Permit Report
+								</option>
+							</cfif>
+							<option value="/Reports/kenai.cfm">
+								download bug .tex
+							</option>
+							<option value="/Reports/uamento.cfm">
+								download UAM Ento CSV
+							</option>
+							<option value="/Reports/print_nk.cfm">
+								Print NK pages
+							</option>
+							<option value="/Reports/report_printer.cfm?report=ala_label">
+								ALA Labels
+							</option>
+							<option value="/info/part_data_download.cfm">
+								Parts table/download
+							</option>
+		                    <option value="/SpecimenResultsDownload.cfm?action=bulkloaderFormat">
+								Download for Bulkloader
+							</option>
+		                    <option value="/Reports/report_printer.cfm">
+								Print Any Report
+							</option>
+						</select>
+						<input type="button" value="Go" class="lnkBtn" onClick="reporter();">
+					</td>
+				</cfif>
+				<td>
+					<a href="/SpecimenResultsHTML.cfm?#mapurl#" class="likeLink">HTML version</a>
+				</td>
+				<td>
+					<a class="likeLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	</form>
+	<div id="specresults"></div>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
