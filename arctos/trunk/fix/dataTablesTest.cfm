@@ -144,9 +144,6 @@
 			#session.SpecSrchTab#
 	</cfquery>
 	<cfif summary.recordcount is 0>
-		<script>
-			hidePageLoad();
-		</script>
 		<div>
 			Your query returned no results.
 			<ul>
@@ -189,11 +186,7 @@
 		<cfabort>
 	</cfif>
 	<cfset collObjIdList = valuelist(summary.collection_object_id)>
-	<script>
-		hidePageLoad();
-	</script>
-
-<cfparam name="transaction_id" default="">
+	<cfparam name="transaction_id" default="">
 <form name="controls">
 	<!--- keep stuff around for JS to get at --->
 	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
@@ -246,10 +239,7 @@
 	<cfquery dbtype="query" name="haserr">
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null
 	</cfquery>
-	
-	
-	
-		<div id="cntr_refineSearchTerms"></div>
+	<div id="cntr_refineSearchTerms"></div>
 
 
 
