@@ -92,109 +92,106 @@
 	<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from #session.SpecSrchTab#
 	</cfquery>
-
 	<cfset numFlds=usercols.recordcount>
 	<cfset thisLoopNum=1>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('##specresults').jtable({
-            title: 'Specimen Results',       
-			paging: true, //Enable paging
-            pageSize: 10, //Set page size (default: 10)
-            sorting: true, //Enable sorting
-            defaultSorting: 'GUID ASC', //Set default sorting
-			columnResizable: true,
-			multiSorting: true,
-			columnSelectable: false,
-			recordsLoaded: getPostLoadJunk,
-			multiselect: true,
-			selectingCheckboxes: true,
-			actions: {
-                listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
-            },
-            fields:  {
-				<cfloop query="usercols">
-					#ucase(CF_VARIABLE)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
-					<cfif len(session.CustomOtherIdentifier) gt 0 and thisLoopNum eq 1>,CUSTOMID: {title: '#session.CustomOtherIdentifier#'}</cfif>
-					<cfif thisLoopNum lt numFlds>,</cfif>
-					<cfset thisLoopNum=thisLoopNum+1>
-				</cfloop>
-            }
-        });
-        $('##specresults').jtable('load');
-		var ptl='/component/functions.cfc?method=get_specSrchTermWidget_exp&returnformat=plain';
-		jQuery.get(ptl, function(data){
-			jQuery("##cntr_refineSearchTerms").html(data);
-		});
-		var ptl='/component/functions.cfc?method=mapUserSpecResults&returnformat=plain';
-	    jQuery.get(ptl, function(data){
-			jQuery("##mapGoHere").html(data);
-		});
-    });
-	
-
-</script>
-<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select
-		collection_object_id,
-			dec_lat,
-		dec_long,
-			to_number(decode(coordinateuncertaintyinmeters,
-			0,NULL,
-			coordinateuncertaintyinmeters)) coordinateuncertaintyinmeters,
-		scientific_name
-	from 
-		#session.SpecSrchTab#
-</cfquery>
-<cfif summary.recordcount is 0>
+	<script type="text/javascript">
+	    $(document).ready(function () {
+	        $('##specresults').jtable({
+	            title: 'Specimen Results',       
+				paging: true, //Enable paging
+	            pageSize: 10, //Set page size (default: 10)
+	            sorting: true, //Enable sorting
+	            defaultSorting: 'GUID ASC', //Set default sorting
+				columnResizable: true,
+				multiSorting: true,
+				columnSelectable: false,
+				recordsLoaded: getPostLoadJunk,
+				multiselect: true,
+				selectingCheckboxes: true,
+				actions: {
+	                listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
+	            },
+	            fields:  {
+					<cfloop query="usercols">
+						#ucase(CF_VARIABLE)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
+						<cfif len(session.CustomOtherIdentifier) gt 0 and thisLoopNum eq 1>,CUSTOMID: {title: '#session.CustomOtherIdentifier#'}</cfif>
+						<cfif thisLoopNum lt numFlds>,</cfif>
+						<cfset thisLoopNum=thisLoopNum+1>
+					</cfloop>
+	            }
+	        });
+	        $('##specresults').jtable('load');
+			var ptl='/component/functions.cfc?method=get_specSrchTermWidget_exp&returnformat=plain';
+			jQuery.get(ptl, function(data){
+				jQuery("##cntr_refineSearchTerms").html(data);
+			});
+			var ptl='/component/functions.cfc?method=mapUserSpecResults&returnformat=plain';
+		    jQuery.get(ptl, function(data){
+				jQuery("##mapGoHere").html(data);
+			});
+	    });
+	</script>
+	<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			collection_object_id,
+				dec_lat,
+			dec_long,
+				to_number(decode(coordinateuncertaintyinmeters,
+				0,NULL,
+				coordinateuncertaintyinmeters)) coordinateuncertaintyinmeters,
+			scientific_name
+		from 
+			#session.SpecSrchTab#
+	</cfquery>
+	<cfif summary.recordcount is 0>
+		<script>
+			hidePageLoad();
+		</script>
+		<div>
+			Your query returned no results.
+			<ul>
+				<li>Check your form input, or use the Clear Form button to start over.</li>
+				<li>
+					If you searched by taxonomy, consult <a href="/taxonomy.cfm" class="novisit">Arctos Taxonomy</a>.
+					Taxa are often synonymized and revised, and may not be consistent across collections. Previous Identifications,
+					which are separate from the taxonomy used in Identifications, may be located using the scientific name
+					"is/was/cited/related" option.
+				</li>
+				<li>
+					Try broadening your search criteria. Try the next-higher geographic element, remove criteria, or use a substring match.
+					Don't assume we've accurately or predictably recorded data.
+				</li>
+				<li>
+					 Not all specimens have coordinates - the spatial query tool will not locate all specimens.
+				</li>
+				<li>
+					Use dropdowns or partial word matches instead of text strings, which may be entered in unexpected ways.
+					"Doe" is a good choice for a collector if "John P. Doe" didn't match anything, for example.
+				</li>
+				<li>
+					Read the documentation for individual search fields (click the title of the field to see documentation).
+					Arctos fields may not be what you expect them to be.
+				</li>
+				<li>
+					Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and 
+					<a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">attribute data definitions</a> documentation for terms,
+					vocabulary, and standards.
+				</li>
+				<li>
+					<a href="/googlesearch.cfm">Try our Google search</a>. Not everything in Arctos
+					is indexed in Google, but it may provide a starting point to locate specific items.
+				</li>
+				<li>
+					<a href="/contact.cfm">Contact us</a> if you still can't find what you need. We'll help if we can.
+				</li>
+			</ul>
+		</div>
+		<cfabort>
+	</cfif>
+	<cfset collObjIdList = valuelist(summary.collection_object_id)>
 	<script>
 		hidePageLoad();
 	</script>
-	<div>
-		Your query returned no results.
-		<ul>
-			<li>Check your form input, or use the Clear Form button to start over.</li>
-			<li>
-				If you searched by taxonomy, consult <a href="/taxonomy.cfm" class="novisit">Arctos Taxonomy</a>.
-				Taxa are often synonymized and revised, and may not be consistent across collections. Previous Identifications,
-				which are separate from the taxonomy used in Identifications, may be located using the scientific name
-				"is/was/cited/related" option.
-			</li>
-			<li>
-				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, or use a substring match.
-				Don't assume we've accurately or predictably recorded data.
-			</li>
-			<li>
-				 Not all specimens have coordinates - the spatial query tool will not locate all specimens.
-			</li>
-			<li>
-				Use dropdowns or partial word matches instead of text strings, which may be entered in unexpected ways.
-				"Doe" is a good choice for a collector if "John P. Doe" didn't match anything, for example.
-			</li>
-			<li>
-				Read the documentation for individual search fields (click the title of the field to see documentation).
-				Arctos fields may not be what you expect them to be.
-			</li>
-			<li>
-				Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and 
-				<a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">attribute data definitions</a> documentation for terms,
-				vocabulary, and standards.
-			</li>
-			<li>
-				<a href="/googlesearch.cfm">Try our Google search</a>. Not everything in Arctos
-				is indexed in Google, but it may provide a starting point to locate specific items.
-			</li>
-			<li>
-				<a href="/contact.cfm">Contact us</a> if you still can't find what you need. We'll help if we can.
-			</li>
-		</ul>
-	</div>
-	<cfabort>
-</cfif>
-<cfset collObjIdList = valuelist(summary.collection_object_id)>
-<script>
-	hidePageLoad();
-</script>
 
 <cfparam name="transaction_id" default="">
 <form name="controls">
@@ -304,9 +301,6 @@
 						</li>
 					</cfif>
 				</ul>
-			</td>		
-			<td>
-				
 			</td>
 			<td align="right">
 				<div id="mapGoHere"></div>
@@ -517,8 +511,6 @@
 </table>
 </div>
 </form>
-<div id="mapGoHere"></div>
-<div id="cntr_refineSearchTerms"></div>
 <div id="specresults"></div>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
