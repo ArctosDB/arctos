@@ -1,27 +1,21 @@
 $("#customizeButton").live('click', function(e){
-		var bgDiv = document.createElement('div');
-			bgDiv.id = 'bgDiv';
-			bgDiv.className = 'bgDiv';
-			bgDiv.setAttribute('onclick','closeCustomNoRefresh()');
-			document.body.appendChild(bgDiv);
-			var type=this.type;
-			var type=$(this).attr('type');
-			var dval=$(this).attr('dval');
-			var theDiv = document.createElement('div');
-			theDiv.id = 'customDiv';
-			theDiv.className = 'customBox';
-			document.body.appendChild(theDiv);
-			var guts = "/info/SpecimenResultsPrefs_exp.cfm";
-			$('#customDiv').load(guts,{},function(){
-				viewport.init("#customDiv");
-			});
-		});
-
-
-
-
-
-
+	var bgDiv = document.createElement('div');
+	bgDiv.id = 'bgDiv';
+	bgDiv.className = 'bgDiv';
+	bgDiv.setAttribute('onclick','closeCustomNoRefresh()');
+	document.body.appendChild(bgDiv);
+	var type=this.type;
+	var type=$(this).attr('type');
+	var dval=$(this).attr('dval');
+	var theDiv = document.createElement('div');
+	theDiv.id = 'customDiv';
+	theDiv.className = 'customBox';
+	document.body.appendChild(theDiv);
+	var guts = "/info/SpecimenResultsPrefs_exp.cfm";
+	$('#customDiv').load(guts,{},function(){
+		viewport.init("#customDiv");
+	});
+});
 function closeCustom() {
 	var theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
@@ -34,7 +28,6 @@ function closeCustomNoRefresh() {
 	var theDiv = document.getElementById('bgDiv');
 	document.body.removeChild(theDiv);
 }
-
 function getPostLoadJunk(){
 	var coidlistAR=new Array();
 	$("div[id^='CatItem_']").each(function() {
@@ -47,7 +40,6 @@ function getPostLoadJunk(){
 	injectLoanPick();
 	displayMedia();
 }
-
 function displayMedia(idList){
 	$("div[id^='jsonmedia_']").each(function() {
 		var r = $.parseJSON($("#" + this.id).html());
@@ -75,7 +67,6 @@ function displayMedia(idList){
 		}
 	});
 }
-
 function insertMedia(idList) {
 	var s=document.createElement('DIV');
 	s.id='ajaxStatus';
@@ -120,7 +111,6 @@ function insertMedia(idList) {
 		}
 	);
 }
-
 function insertTypes(idList) {
 	var s=document.createElement('DIV');
 	s.id='ajaxStatus';
@@ -218,7 +208,6 @@ function injectLoanPick() {
 		);
 	} // no transaction_id just abort
 }
-
 function addPartToLoan(partID) {
 	var rs = "item_remark_" + partID;
 	var is = "item_instructions_" + partID;
@@ -258,7 +247,6 @@ function addPartToLoan(partID) {
 		}
 	);
 }
-
 function reporter() {
 	var f=document.getElementById('goWhere').value;
 	var t='#session.SpecSrchTab#';
