@@ -1,92 +1,41 @@
 <cfinclude template="/includes/_header.cfm">
-	<cfset title="SpecimenResults Test">
-	
-	<style>
-		#cpick {
-			max-height:2em;
-			overflow:auto;
-		}
-	</style>
-	<script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
-	
-	<link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
-	
-	<link rel="alternate stylesheet" title="jtable_jqueryui"  href="/fix/jtable/themes/jqueryui/jtable_jqueryui.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="jtable_basic"  href="/fix/jtable/themes/basic/jtable_basic.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="lightcolor-gray"  href="/fix/jtable/themes/lightcolor/gray/jtable.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="lightcolor-green"  href="/fix/jtable/themes/lightcolor/green/jtable.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="lightcolor-orange"  href="/fix/jtable/themes/lightcolor/orange/jtable.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="lightcolor-red"  href="/fix/jtable/themes/lightcolor/red/jtable.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="metro-blue"  href="/fix/jtable/themes/metro/blue/jtable.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="metro-brown"  href="/fix/jtable/themes/metro/brown/jtable.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="metro-crimson"  href="/fix/jtable/themes/metro/crimson/jtable.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="metro-darkgray"  href="/fix/jtable/themes/metro/darkgray/jtable.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="metro-darkorange"  href="/fix/jtable/themes/metro/darkorange/jtable.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="metro-green"  href="/fix/jtable/themes/metro/green/jtable.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="metro-lightgray"  href="/fix/jtable/themes/metro/lightgray/jtable.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="metro-pink"  href="/fix/jtable/themes/metro/pink/jtable.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="metro-purple"  href="/fix/jtable/themes/metro/purple/jtable.min.css" type="text/css">
-	<link rel="alternate stylesheet" title="metro-red"  href="/fix/jtable/themes/metro/red/jtable.min.css" type="text/css">
-	
-	
-<!--- 
-
-	if this works, global replace cf_spec_res_cols_exp for cf_spec_res_cols
-	
-	create table cf_spec_res_cols_exp as select * from cf_spec_res_cols;
-	create public synonym cf_spec_res_cols_exp for cf_spec_res_cols_exp;
-	grant select on cf_spec_res_cols_exp to public;
-	
-	COLUMN_NAME								    VARCHAR2(38)
-	 SQL_ELEMENT								    VARCHAR2(255)
-	 CATEGORY								    VARCHAR2(255)
-	 CF_SPEC_RES_COLS_ID						   NOT NULL NUMBER
-	 DISP_ORDER							   NOT NULL NUMBER
-
-
-	update cf_spec_res_cols_exp set category='admin' where column_name ='collection_id';
-	update cf_spec_res_cols_exp set category='admin' where column_name ='institution_acronym';
-
-	-- table header display
-	alter table cf_spec_res_cols_exp add thdisplay varchar2(20);
-	
-	update cf_spec_res_cols_exp set thdisplay=COLUMN_NAME;
-		alter table cf_spec_res_cols_exp modify thdisplay varchar2(50);
-
-	update cf_spec_res_cols_exp set thdisplay='GUID' where thdisplay ='guid';
-	update cf_spec_res_cols_exp set thdisplay='ScientificName' where thdisplay ='scientific_name';
-	update cf_spec_res_cols_exp set thdisplay='OtherIDs' where thdisplay ='othercatalognumbers';
-	update cf_spec_res_cols_exp set thdisplay='CoordinateError(m)' where thdisplay ='coordinateuncertaintyinmeters';
-	update cf_spec_res_cols_exp set thdisplay='Country' where thdisplay ='country';
-	update cf_spec_res_cols_exp set thdisplay='State' where thdisplay ='state_prov';
-	update cf_spec_res_cols_exp set thdisplay='Locality' where thdisplay ='spec_locality';
-	update cf_spec_res_cols_exp set thdisplay='VerbatimDate' where thdisplay ='verbatim_date';
-	update cf_spec_res_cols_exp set thdisplay='Parts' where thdisplay ='parts';
-	update cf_spec_res_cols_exp set thdisplay='DecLat' where thdisplay ='dec_lat';
-	update cf_spec_res_cols_exp set thdisplay='DecLong' where thdisplay ='dec_long';
-	update cf_spec_res_cols_exp set thdisplay='Sex' where thdisplay ='sex';
-
-
---->
-
-
-
+<cfset title="Specimen Results">
+<script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
+<link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
+<!----
+<link rel="alternate stylesheet" title="jtable_jqueryui"  href="/fix/jtable/themes/jqueryui/jtable_jqueryui.min.css" type="text/css">
+<link rel="alternate stylesheet" title="jtable_basic"  href="/fix/jtable/themes/basic/jtable_basic.min.css" type="text/css">
+<link rel="alternate stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="lightcolor-gray"  href="/fix/jtable/themes/lightcolor/gray/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="lightcolor-green"  href="/fix/jtable/themes/lightcolor/green/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="lightcolor-orange"  href="/fix/jtable/themes/lightcolor/orange/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="lightcolor-red"  href="/fix/jtable/themes/lightcolor/red/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-blue"  href="/fix/jtable/themes/metro/blue/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-brown"  href="/fix/jtable/themes/metro/brown/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-crimson"  href="/fix/jtable/themes/metro/crimson/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-darkgray"  href="/fix/jtable/themes/metro/darkgray/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-darkorange"  href="/fix/jtable/themes/metro/darkorange/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-green"  href="/fix/jtable/themes/metro/green/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-lightgray"  href="/fix/jtable/themes/metro/lightgray/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-pink"  href="/fix/jtable/themes/metro/pink/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-purple"  href="/fix/jtable/themes/metro/purple/jtable.min.css" type="text/css">
+<link rel="alternate stylesheet" title="metro-red"  href="/fix/jtable/themes/metro/red/jtable.min.css" type="text/css">
+---->
 <cfoutput>
-
-
-
 <cfif not isdefined("session.resultColumnList") or len(session.resultColumnList) is 0>
 	<cfset session.resultColumnList='GUID'>
 </cfif>
-	<cfquery name="usercols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from (
-			select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL =1 and cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
-			union
-			select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL =1 and category='required'
-		) group by CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT order by disp_order
-	</cfquery>
-	
+<cfquery name="usercols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from (
+		select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL=1 and cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
+		union
+		select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL=1 and category='required'
+	) group by CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT order by disp_order
+</cfquery>
+
+<cfdump var=#usercols#>
+
+
 	<cfset session.resultColumnList=valuelist(usercols.CF_VARIABLE)>
 	<!---- session.resultColumnList should now be correct and current.... ---->
 	<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
