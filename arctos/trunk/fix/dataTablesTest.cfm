@@ -30,7 +30,6 @@
 	<link rel="alternate stylesheet" title="metro-red"  href="/fix/jtable/themes/metro/red/jtable.min.css" type="text/css">
 	
 	
-	<br>Click View/Page Style in your browser to try alternative CSS
 <!--- 
 
 	if this works, global replace cf_spec_res_cols_exp for cf_spec_res_cols
