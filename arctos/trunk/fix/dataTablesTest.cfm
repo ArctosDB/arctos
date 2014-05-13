@@ -1,6 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Specimen Results">
 <script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
+<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js'></script>
+
 <link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 <!----
 <link rel="alternate stylesheet" title="jtable_jqueryui"  href="/fix/jtable/themes/jqueryui/jtable_jqueryui.min.css" type="text/css">
@@ -90,14 +92,9 @@
 	<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from #session.SpecSrchTab#
 	</cfquery>
-<!----
-<cfquery name="trc" datasource="uam_god">
-	select count(*) c from #session.dbuser#.#session.SpecSrchTab#
-</cfquery>
----->	
-<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
-<cfset numFlds=usercols.recordcount>
-<cfset thisLoopNum=1>
+
+	<cfset numFlds=usercols.recordcount>
+	<cfset thisLoopNum=1>
 <script type="text/javascript">
     $(document).ready(function () {
         $('##specresults').jtable({
@@ -126,24 +123,7 @@
         });
         $('##specresults').jtable('load');
 
-		$("##customizeButton").live('click', function(e){
-			var bgDiv = document.createElement('div');
-			bgDiv.id = 'bgDiv';
-			bgDiv.className = 'bgDiv';
-			bgDiv.setAttribute('onclick','closeCustomNoRefresh()');
-			document.body.appendChild(bgDiv);
-			var type=this.type;
-			var type=$(this).attr('type');
-			var dval=$(this).attr('dval');
-			var theDiv = document.createElement('div');
-			theDiv.id = 'customDiv';
-			theDiv.className = 'customBox';
-			document.body.appendChild(theDiv);
-			var guts = "/info/SpecimenResultsPrefs_exp.cfm";
-			$('##customDiv').load(guts,{},function(){
-				viewport.init("##customDiv");
-			});
-		});
+		
 		var ptl='/component/functions.cfc?method=get_specSrchTermWidget_exp&returnformat=plain';
 		jQuery.get(ptl, function(data){
 			jQuery("##cntr_refineSearchTerms").html(data);
@@ -475,6 +455,7 @@
 <form name="controls">
 	<!--- keep stuff around for JS to get at --->
 	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
+	<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
 	<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
