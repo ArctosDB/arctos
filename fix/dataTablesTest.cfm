@@ -22,22 +22,19 @@
 <link rel="alternate stylesheet" title="metro-red"  href="/fix/jtable/themes/metro/red/jtable.min.css" type="text/css">
 ---->
 <cfoutput>
-<cfif not isdefined("session.resultColumnList") or len(session.resultColumnList) is 0>
-	<cfset session.resultColumnList='GUID'>
-</cfif>
-<cfquery name="usercols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from (
-		select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL=1 and cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
-		union
-		select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL=1 and category='required'
-	) group by CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT order by disp_order
-</cfquery>
-
-<cfdump var=#usercols#>
-
-
-	<cfset session.resultColumnList=valuelist(usercols.CF_VARIABLE)>
-	<!---- session.resultColumnList should now be correct and current.... ---->
+	<cfif not isdefined("session.resultColumnList") or len(session.resultColumnList) is 0>
+		<cfset session.resultColumnList='GUID'>
+	</cfif>
+	<cfquery name="usercols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from (
+			select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL=1 and cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
+			union
+			select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL=1 and category='required'
+		) 
+		group by CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT 
+		order by disp_order
+	</cfquery>
+<cfset session.resultColumnList=valuelist(usercols.CF_VARIABLE)>
 	<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
 	<cfif len(session.CustomOtherIdentifier) gt 0>
 		<cfset basSelect = "#basSelect#
@@ -48,7 +45,6 @@
 	<cfloop query="usercols">
 		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #CF_VARIABLE#">
 	</cfloop>
-
 	<cfset basFrom = " FROM #session.flatTableName#">
 	<cfset basJoin = "">
 	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
@@ -56,7 +52,6 @@
 	<cfset mapurl="">
 	<cfinclude template="/includes/SearchSql.cfm">
 	<cfset session.mapurl=mapurl>
-	<div id="cntr_refineSearchTerms"></div>
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 	<cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
@@ -69,39 +64,37 @@
 	<cfif listcontains(srchTerms,"collection_id")>
 		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
 	</cfif>
-
 	<!--- ... and abort if there's nothing left --->
 	<cfif len(srchTerms) is 0>
 		<CFSETTING ENABLECFOUTPUTONLY=0>
 		<font color="##FF0000" size="+2">You must enter some search criteria!</font>
 		<cfabort>
 	</cfif>
-<cfset thisTableName = "SearchResults_#left(session.sessionKey,10)#">
-<!--- try to kill any old tables that they may have laying around --->
-<cftry>
-	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		drop table #session.SpecSrchTab#
+	<!--- try to kill any old tables that they may have laying around --->
+	<cftry>
+		<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			drop table #session.SpecSrchTab#
+		</cfquery>
+		<cfcatch><!--- not there, so what? --->
+		</cfcatch>
+	</cftry>
+	<!---- build a temp table --->
+	<cfset checkSql(SqlString)>
+	<cfif isdefined("debug") and debug is true>
+		#preserveSingleQuotes(SqlString)#
+	</cfif>
+	<cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
+	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		#preserveSingleQuotes(SqlString)#
 	</cfquery>
-	<cfcatch><!--- not there, so what? --->
-	</cfcatch>
-</cftry>
-<!---- build a temp table --->
-<cfset checkSql(SqlString)>
-<cfif isdefined("debug") and debug is true>
-	#preserveSingleQuotes(SqlString)#
-</cfif>
-<cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
-<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	#preserveSingleQuotes(SqlString)#
-</cfquery>
-<cfif not isdefined("limit")>
-	<cfset limit=20000>
-</cfif>
-<cfparam name="transaction_id" default="">
-<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
+	<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from #session.SpecSrchTab#
+	</cfquery>
+<!----
 <cfquery name="trc" datasource="uam_god">
 	select count(*) c from #session.dbuser#.#session.SpecSrchTab#
-</cfquery>	
+</cfquery>
+---->	
 <input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
 <cfset numFlds=usercols.recordcount>
 <cfset thisLoopNum=1>
@@ -477,8 +470,11 @@
 <script>
 	hidePageLoad();
 </script>
+
+<cfparam name="transaction_id" default="">
 <form name="controls">
 	<!--- keep stuff around for JS to get at --->
+	<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
 	<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
@@ -527,6 +523,15 @@
 	<cfquery dbtype="query" name="haserr">
 		select count(*) c from willmap where coordinateuncertaintyinmeters is not null
 	</cfquery>
+	
+	
+	
+		<div id="cntr_refineSearchTerms"></div>
+
+
+
+
+
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
 	<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
 	<table width="100%">
