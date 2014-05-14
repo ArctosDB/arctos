@@ -94,8 +94,6 @@
 	</cfquery>
 	<cfset numFlds=usercols.recordcount>
 	<cfset thisLoopNum=1>
-	<cfparam name="jtStartIndex" default="0">
-
 	<script type="text/javascript">
 	    $(document).ready(function () {
 	        $('##specresults').jtable({
@@ -114,7 +112,7 @@
           		selectingCheckboxes: true, //Show checkboxes on first column
             	selectOnRowClick: false, //Enable this to only select using checkboxes
 				actions: {
-	                listAction: '/component/functions.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults&jtStartIndex=#jtStartIndex#'
+	                listAction: '/component/functions.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults'
 	            },
 	            fields:  {
 					 COLLECTION_OBJECT_ID: {
