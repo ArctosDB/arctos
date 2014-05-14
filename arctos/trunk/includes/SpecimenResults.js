@@ -264,18 +264,17 @@ function reporter() {
 	var reportWin=window.open(u);
 }
 function removeRows() {
-		console.log('i work');
-	var rtr=$("#removethese").val();
+	console.log('i work');
 	var $selectedRows = $('#specresults').jtable('selectedRows');
 	console.log($selectedRows);
-	
-	
-	 if ($selectedRows.length > 0) {
-         //Show selected rows
+	if ($selectedRows.length > 0) {
+		var ecoid=[];
          $selectedRows.each(function () {
              var record = $(this).data('record');
-             $('#removethese').append( ',' + record.COLLECTION_OBJECT_ID  );
+             ecoid.push(record);
+             //$('#removethese').append( ',' + record.COLLECTION_OBJECT_ID  );
          });
+         console.log(ecoid);
      }
 	
 }
