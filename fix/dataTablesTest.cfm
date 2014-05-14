@@ -139,7 +139,6 @@
                         var record = $(this).data('record');
                         $('##SelectedRowList').append( '<b>COLLECTION_OBJECT_ID</b>: ' + record.COLLECTION_OBJECT_ID  );
                     });
-					console.log(
                 } else {
                     //No rows selected
                     $('##SelectedRowList').append('No row selected! Select rows to see here...');
