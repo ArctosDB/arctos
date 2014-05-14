@@ -266,6 +266,9 @@ function reporter() {
 function removeRows() {
 	var rtr=$("#removethese").val();
 	var $selectedRows = $('#specresults').jtable('selectedRows');
+	console.log("$selectedRows");
+	
+	
 	 if ($selectedRows.length > 0) {
          //Show selected rows
          $selectedRows.each(function () {
