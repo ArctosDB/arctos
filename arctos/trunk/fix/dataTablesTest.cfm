@@ -108,17 +108,46 @@
 				recordsLoaded: getPostLoadJunk,
 				multiselect: true,
 				selectingCheckboxes: true,
+  				selecting: true, //Enable selecting
+          		selectingCheckboxes: true, //Show checkboxes on first column
+            	//selectOnRowClick: false, //Enable this to only select using checkboxes
 				actions: {
 	                listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
 	            },
 	            fields:  {
+					 COLLECTION_OBJECT_ID: {
+	                    key: true,
+	                    create: false,
+	                    edit: false,
+	                    list: false
+	                },
 					<cfloop query="usercols">
 						#ucase(CF_VARIABLE)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
 						<cfif len(session.CustomOtherIdentifier) gt 0 and thisLoopNum eq 1>,CUSTOMID: {title: '#session.CustomOtherIdentifier#'}</cfif>
 						<cfif thisLoopNum lt numFlds>,</cfif>
 						<cfset thisLoopNum=thisLoopNum+1>
 					</cfloop>
-	            }
+	            },
+				selectionChanged: function () {
+               	 //Get all selected rows
+               	 var $selectedRows = $('#specresults').jtable('selectedRows');
+ 
+                $('#SelectedRowList').empty();
+                if ($selectedRows.length > 0) {
+                    //Show selected rows
+                    $selectedRows.each(function () {
+                        var record = $(this).data('record');
+                        $('#SelectedRowList').append(
+                            '<b>StudentId</b>: ' + record.StudentId +
+                            '<br /><b>Name</b>:' + record.Name + '<br /><br />'
+                            );
+                    });
+					console.log(
+                } else {
+                    //No rows selected
+                    $('#SelectedRowList').append('No row selected! Select rows to see here...');
+                }
+            },
 	        });
 	        $('##specresults').jtable('load');
 			var ptl='/component/functions.cfc?method=get_specSrchTermWidget_exp&returnformat=plain';
