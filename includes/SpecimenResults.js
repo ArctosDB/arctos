@@ -277,6 +277,7 @@ function removeRows() {
          console.log(ecoid);
          var rurl=$("#mapURL").val() + '&exclCollObjId=' + ecoid.join(',');
          console.log(rurl);
+         document.location=rurl;
      }
 	
 	
