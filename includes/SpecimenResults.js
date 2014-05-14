@@ -263,3 +263,15 @@ function reporter() {
 	u += '&sort=' + s;
 	var reportWin=window.open(u);
 }
+function removeRows() {
+	var rtr=$("#removethese").val();
+	var $selectedRows = $('##specresults').jtable('selectedRows');
+	 if ($selectedRows.length > 0) {
+         //Show selected rows
+         $selectedRows.each(function () {
+             var record = $(this).data('record');
+             $('##removethese').append( ',' + record.COLLECTION_OBJECT_ID  );
+         });
+     }
+	
+}
