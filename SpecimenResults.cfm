@@ -130,7 +130,7 @@
 	            } 
 	        });
 	        $('##specresults').jtable('load');
-			var ptl='/component/functions.cfc?method=get_specSrchTermWidget_exp&returnformat=plain';
+			var ptl='/component/functions.cfc?method=get_specSrchTermWidget&returnformat=plain';
 			jQuery.get(ptl, function(data){
 				jQuery("##cntr_refineSearchTerms").html(data);
 			});
