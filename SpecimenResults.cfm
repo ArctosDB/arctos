@@ -114,7 +114,7 @@
           		selectingCheckboxes: true, //Show checkboxes on first column
             	selectOnRowClick: false, //Enable this to only select using checkboxes
 				actions: {
-	                listAction: '/component/functions.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults&jtStartIndex=#jtStartIndex#';
+	                listAction: '/component/functions.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults&jtStartIndex=#jtStartIndex#'
 	            },
 	            fields:  {
 					 COLLECTION_OBJECT_ID: {
