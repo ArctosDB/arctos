@@ -204,10 +204,7 @@
 		<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
 		<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
 		<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
-		<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
-		<input type="text" name="removethese" id="removethese" >
-		
-		
+		<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">		
 		<!---- see if users have searched for min-max/max-mar error ---->
 		<cfset userSrchMaxErr=99999999999999999999999>
 		<cfset precisionmapurl=mapurl>
@@ -364,23 +361,15 @@
 		<table border="0" width="100%">
 			<tr>
 				<td>
-					<label for="">&nbsp;</label>
-					<input type="hidden" name="killRowList" id="killRowList">
-					<span id="removeChecked" style="display:none;" class="controlButton redButton" onclick="removeItems();">Remove&nbsp;Checked&nbsp;Rows</span>
-				</td>
-				<td>
-					<label for="">&nbsp;</label>
 					<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
 				</td>
 				<td id="removeRowsCell">
-					<span class="controlButton" onclick="removeRows();">Remove Checked</span>
+					<span class="controlButton" onclick="removeRows();">Remove Checked Rows</span>
 				</td>
 				<td>
-					<label for="">&nbsp;</label>
 					<span class="controlButton" onclick="window.open('/SpecimenResultsDownload.cfm?tableName=#session.SpecSrchTab#','_blank');">Download</span>
 				</td>
 				<td>
-					<label for="">&nbsp;</label>
 					<span class="controlButton" onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
 				</td>
 				<cfif willmap.recordcount gt 0>
