@@ -264,6 +264,7 @@ function reporter() {
 	var reportWin=window.open(u);
 }
 function removeRows() {
+		console.log('i work');
 	var rtr=$("#removethese").val();
 	var $selectedRows = $('#specresults').jtable('selectedRows');
 	console.log("$selectedRows");
