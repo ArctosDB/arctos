@@ -94,6 +94,8 @@
 	</cfquery>
 	<cfset numFlds=usercols.recordcount>
 	<cfset thisLoopNum=1>
+	<cfparam name="jtStartIndex" default="0">
+
 	<script type="text/javascript">
 	    $(document).ready(function () {
 	        $('##specresults').jtable({
@@ -112,7 +114,7 @@
           		selectingCheckboxes: true, //Show checkboxes on first column
             	selectOnRowClick: false, //Enable this to only select using checkboxes
 				actions: {
-	                listAction: '/component/functions.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults&jtStartIndex=' + $("#jtStartIndex").val();
+	                listAction: '/component/functions.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults&jtStartIndex=#jtStartIndex#';
 	            },
 	            fields:  {
 					 COLLECTION_OBJECT_ID: {
@@ -198,7 +200,6 @@
 	</cfif>
 	<cfset collObjIdList = valuelist(summary.collection_object_id)>
 	<cfparam name="transaction_id" default="">
-	<cfparam name="jtStartIndex" default="0">
 	<form name="controls">
 		<!--- keep stuff around for JS to get at --->
 		<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
