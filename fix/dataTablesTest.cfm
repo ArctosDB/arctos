@@ -132,7 +132,7 @@
                	 //Get all selected rows
                	 var $selectedRows = $('##specresults').jtable('selectedRows');
  
-                $('#SelectedRowList').empty();
+                $('##SelectedRowList').empty();
                 if ($selectedRows.length > 0) {
                     //Show selected rows
                     $selectedRows.each(function () {
