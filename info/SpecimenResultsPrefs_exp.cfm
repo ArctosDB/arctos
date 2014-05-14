@@ -17,30 +17,6 @@
 		</td>
 	</tr>
 </table>
-<table>
-	<tr>
-		<td style="border:1px solid green;padding:.2em;">
-			<span style="font-size:smaller;font-weight:bold">Rows Per Page: </span>
-			<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1">
-				<option <cfif session.displayRows is "10"> selected </cfif> value="10">10</option>
-				<option  <cfif session.displayRows is "20"> selected </cfif> value="20" >20</option>
-				<option  <cfif session.displayRows is "50"> selected </cfif> value="50">50</option>
-				<option  <cfif session.displayRows is "100"> selected </cfif> value="100">100</option>
-			</select>
-		</td>
-		<td style="border:1px solid green;padding:.2em;">
-			<span style="font-size:smaller;font-weight:bold">Row-Removal Option: </span>
-			<select name="killRow" id="killRow" onchange="changekillRows(this.value)">
-				<option value="0" <cfif session.killRow neq 1> selected="selected" </cfif>>No</option>
-				<option value="1" <cfif session.killRow is 1> selected="selected" </cfif>>Yes</option>
-			</select>
-			<!---
-			
-			<input type="checkbox" name="killRows" id="killRows" onchange=";changekillRows();" <cfif session.killrow is 1>checked="checked"</cfif>>
-			--->
-		</td>
-	</tr>
-</table>
 <cfquery name="poss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL=1
 </cfquery>
