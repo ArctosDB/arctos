@@ -112,7 +112,7 @@
           		selectingCheckboxes: true, //Show checkboxes on first column
             	selectOnRowClick: false, //Enable this to only select using checkboxes
 				actions: {
-	                listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
+	                listAction: '/components/functions.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults'
 	            },
 	            fields:  {
 					 COLLECTION_OBJECT_ID: {
