@@ -264,24 +264,17 @@ function reporter() {
 	var reportWin=window.open(u);
 }
 function removeRows() {
-	console.log('i work');
 	var $selectedRows = $('#specresults').jtable('selectedRows');
-	console.log($selectedRows);
 	if ($selectedRows.length > 0) {
 		var ecoid=[];
          $selectedRows.each(function () {
              var record = $(this).data('record');
              ecoid.push(record.COLLECTION_OBJECT_ID);
-             //$('#removethese').append( ',' + record.COLLECTION_OBJECT_ID  );
          });
          console.log(ecoid);
          var rurl='/fix/dataTablesTest.cfm?' + $("#mapURL").val() + '&exclCollObjId=' + ecoid.join(',');
-         console.log(rurl);
          document.location=rurl;
+     } else {
+    	 alert('select rows then click');
      }
-	
-	
-	
-	
-	
 }
