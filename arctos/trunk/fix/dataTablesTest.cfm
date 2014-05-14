@@ -110,7 +110,7 @@
 				selectingCheckboxes: true,
   				selecting: true, //Enable selecting
           		selectingCheckboxes: true, //Show checkboxes on first column
-            	//selectOnRowClick: false, //Enable this to only select using checkboxes
+            	selectOnRowClick: false, //Enable this to only select using checkboxes
 				actions: {
 	                listAction: '/fix/dataTablesAjax.cfc?totalRecordCount=#trc.c#&method=t'
 	            },
@@ -127,23 +127,7 @@
 						<cfif thisLoopNum lt numFlds>,</cfif>
 						<cfset thisLoopNum=thisLoopNum+1>
 					</cfloop>
-	            },
-				selectionChanged: function () {
-               	 //Get all selected rows
-               	 var $selectedRows = $('##specresults').jtable('selectedRows');
- 
-                $('##SelectedRowList').empty();
-                if ($selectedRows.length > 0) {
-                    //Show selected rows
-                    $selectedRows.each(function () {
-                        var record = $(this).data('record');
-                        $('##SelectedRowList').append( '<b>COLLECTION_OBJECT_ID</b>: ' + record.COLLECTION_OBJECT_ID  );
-                    });
-                } else {
-                    //No rows selected
-                    $('##SelectedRowList').append('No row selected! Select rows to see here...');
-                }
-            },
+	            }
 	        });
 	        $('##specresults').jtable('load');
 			var ptl='/component/functions.cfc?method=get_specSrchTermWidget_exp&returnformat=plain';
@@ -221,6 +205,9 @@
 		<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
 		<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 		<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
+		<input type="text" name="removethese" id="removethese" >
+		
+		
 		<!---- see if users have searched for min-max/max-mar error ---->
 		<cfset userSrchMaxErr=99999999999999999999999>
 		<cfset precisionmapurl=mapurl>
@@ -384,6 +371,9 @@
 				<td>
 					<label for="">&nbsp;</label>
 					<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
+				</td>
+				<td id="removeRowsCell">
+					<span class="controlButton" onclick="removeRows();">Remove Checked</span>
 				</td>
 				<td>
 					<label for="">&nbsp;</label>
