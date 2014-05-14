@@ -127,7 +127,23 @@
 						<cfif thisLoopNum lt numFlds>,</cfif>
 						<cfset thisLoopNum=thisLoopNum+1>
 					</cfloop>
-	            }
+	            } ,       selectionChanged: function () {
+                  //Get all selected rows
+                  var $selectedRows = $('##specresults').jtable('selectedRows');
+ 
+                  $('##removethese').empty();
+                if ($selectedRows.length > 0) {
+                    //Show selected rows
+                    $selectedRows.each(function () {
+                        var record = $(this).data('record');
+                        $('##removethese').append( ',' + record.COLLECTION_OBJECT_ID  );
+                    });
+                } else {
+                    //No rows selected
+                    $('##SelectedRowList').append('No row selected! Select rows to see here...');
+                }
+            }
+
 	        });
 	        $('##specresults').jtable('load');
 			var ptl='/component/functions.cfc?method=get_specSrchTermWidget_exp&returnformat=plain';
