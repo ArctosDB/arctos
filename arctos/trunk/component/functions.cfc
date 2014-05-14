@@ -25,7 +25,7 @@
 	<cfreturn>
 </cffunction>
 <!--------------------------------------------------------------------------------------->
-<cffunction name="get_specSrchTermWidget_exp" access="remote" returnformat="plain">
+<cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
 	<cfquery name="ssrch_field_doc" datasource="cf_dbuser">
 		select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 	</cfquery>
@@ -179,107 +179,7 @@
 	</cfsavecontent>
 	</cfoutput>
 	<cfreturn widget>	
-</cffunction>	
-<!--------------------------------------------------------------------------------------->
-<cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
-	<cfquery name="ssrch_field_doc" datasource="cf_dbuser">
-		select * from ssrch_field_doc
-	</cfquery>
-	<cfoutput>
-	<cfsavecontent variable="widget">
-		<script>
-			jQuery( function($) {
-				$('##showsearchterms').click(function() {
-					$('##refineSearchTerms').slideToggle("fast");
-				});
-			});
-		</script>
-		<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
-		<div id="refineSearchTerms" style="display:block;">
-			<div style="font-size:small;">
-				This is an experiment. 
-				Change values and press ENTER or click the button. 
-				Clear a value to remove it from the search. 
-				Use the contact link at the bottom to provide feedback.
-			</div>
-			<form name="refineResults" method="post" action="SpecimenResults.cfm">
-				
-				<table border>
-				<tr>
-					<th>Term</th>
-					<th></th>
-					<th>Value</th>
-				</tr>
-				<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
-					<cfif listlen(kvp,"=") is 2>
-						<cfset thisKey=listgetat(kvp,1,"=")>
-						<cfset thisValue=listgetat(kvp,2,"=")>
-						<tr>
-							<td>
-								<cfquery name="thisMoreInfo" dbtype="query">
-									select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
-								</cfquery>
-								<cfif len(thisMoreInfo.DEFINITION) gt 0>
-									<cfset thisSpanClass="helpLink">
-								<cfelse>
-									<cfset thisSpanClass="">
-								</cfif>
-								<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#">
-								<cfif len(thisMoreInfo.DISPLAY_TEXT) gt 0>
-									#thisMoreInfo.DISPLAY_TEXT#
-								<cfelse>
-									#thisKey#
-								</cfif>
-								</span>					
-							</td>
-							<td>=</td>
-							<td>
-								<cfif len(thisMoreInfo.CONTROLLED_VOCABULARY) gt 0>
-									<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
-										<cfquery name="tct" datasource="cf_dbuser">
-											select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
-										</cfquery>
-										
-										
-										
-										
-										<cfloop list="#tct.columnlist#" index="i">
-											<cfif i is not "description" and i is not "collection_cde">
-												<cfset ctColName=i>
-											</cfif>
-										</cfloop>
-
-
-										<select name="#thisKey#">
-											<option value=""> [ remove this term ]</option>
-											<cfloop query="tct">
-												<cfset thisVal=evaluate("tct." & ctColName)>
-												<option value="#thisVal#" <cfif thisVal is thisvalue> selected="selected" </cfif>>#thisval#</option>
-											</cfloop>
-										</select>
-									<cfelse>
-										<select name="#thisKey#">
-											<option value=""> [ remove this term ]</option>
-											<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
-												<option value="#i#" <cfif i is thisvalue> selected="selected" </cfif>>#i#</option>
-											</cfloop>
-										</select>
-									</cfif>
-								<cfelse>
-									<input type="text" name="#thisKey#" value="#thisvalue#" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
-								</cfif>
-							</td>
-						</tr>
-					</cfif>
-				</cfloop>
-				</table>
-				<input type="submit" value="Requery">
-			</form>
-		</div>
-	</cfsavecontent>
-	</cfoutput>
-	<cfreturn widget>	
-</cffunction>	
+</cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="splitAgentName" access="remote" returnformat="json">
    	<cfargument name="name" required="true" type="string">

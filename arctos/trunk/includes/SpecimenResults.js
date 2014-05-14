@@ -11,7 +11,7 @@ $("#customizeButton").live('click', function(e){
 	theDiv.id = 'customDiv';
 	theDiv.className = 'customBox';
 	document.body.appendChild(theDiv);
-	var guts = "/info/SpecimenResultsPrefs_exp.cfm";
+	var guts = "/info/SpecimenResultsPrefs.cfm";
 	$('#customDiv').load(guts,{},function(){
 		viewport.init("#customDiv");
 	});
@@ -19,7 +19,7 @@ $("#customizeButton").live('click', function(e){
 function closeCustom() {
 	var theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
-	var murl='/fix/dataTablesTest.cfm?' + document.getElementById('mapURL').value;
+	var murl='SpecimenResults.cfm?' + document.getElementById('mapURL').value;
 	window.location=murl;
 }
 function closeCustomNoRefresh() {
@@ -272,7 +272,7 @@ function removeRows() {
              ecoid.push(record.COLLECTION_OBJECT_ID);
          });
          console.log(ecoid);
-         var rurl='/fix/dataTablesTest.cfm?' + $("#mapURL").val() + '&exclCollObjId=' + ecoid.join(',');
+         var rurl='/SpecimenResults.cfm?' + $("#mapURL").val() + '&exclCollObjId=' + ecoid.join(',');
          document.location=rurl;
      } else {
     	 alert('select rows then click');
