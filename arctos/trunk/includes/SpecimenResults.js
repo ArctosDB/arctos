@@ -267,7 +267,7 @@ function removeRows() {
 		console.log('i work');
 	var rtr=$("#removethese").val();
 	var $selectedRows = $('#specresults').jtable('selectedRows');
-	console.log("$selectedRows");
+	console.log($selectedRows);
 	
 	
 	 if ($selectedRows.length > 0) {
