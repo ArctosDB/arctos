@@ -271,10 +271,12 @@ function removeRows() {
 		var ecoid=[];
          $selectedRows.each(function () {
              var record = $(this).data('record');
-             ecoid.push(record);
+             ecoid.push(record.COLLECTION_OBJECT_ID);
              //$('#removethese').append( ',' + record.COLLECTION_OBJECT_ID  );
          });
          console.log(ecoid);
+         var rurl=$("#mapURL").val() & '&exclCollObjId=' & ecoid.split(',');
+         console.log(rurl);
      }
 	
 }
