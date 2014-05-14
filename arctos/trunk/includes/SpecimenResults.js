@@ -275,7 +275,7 @@ function removeRows() {
              //$('#removethese').append( ',' + record.COLLECTION_OBJECT_ID  );
          });
          console.log(ecoid);
-         var rurl=$("#mapURL").val() & '&exclCollObjId=' & ecoid.join(',');
+         var rurl=$("#mapURL").val() + '&exclCollObjId=' + ecoid.join(',');
          console.log(rurl);
      }
 	
