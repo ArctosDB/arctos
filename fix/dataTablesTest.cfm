@@ -130,22 +130,19 @@
 	            },
 				selectionChanged: function () {
                	 //Get all selected rows
-               	 var $selectedRows = $('#specresults').jtable('selectedRows');
+               	 var $selectedRows = $('##specresults').jtable('selectedRows');
  
                 $('#SelectedRowList').empty();
                 if ($selectedRows.length > 0) {
                     //Show selected rows
                     $selectedRows.each(function () {
                         var record = $(this).data('record');
-                        $('#SelectedRowList').append(
-                            '<b>StudentId</b>: ' + record.StudentId +
-                            '<br /><b>Name</b>:' + record.Name + '<br /><br />'
-                            );
+                        $('##SelectedRowList').append( '<b>COLLECTION_OBJECT_ID</b>: ' + record.COLLECTION_OBJECT_ID  );
                     });
 					console.log(
                 } else {
                     //No rows selected
-                    $('#SelectedRowList').append('No row selected! Select rows to see here...');
+                    $('##SelectedRowList').append('No row selected! Select rows to see here...');
                 }
             },
 	        });
@@ -160,6 +157,8 @@
 			});
 	    });
 	</script>
+	
+	<div id="SelectedRowList"></div>
 	<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			collection_object_id,
