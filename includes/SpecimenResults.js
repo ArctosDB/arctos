@@ -265,12 +265,12 @@ function reporter() {
 }
 function removeRows() {
 	var rtr=$("#removethese").val();
-	var $selectedRows = $('##specresults').jtable('selectedRows');
+	var $selectedRows = $('#specresults').jtable('selectedRows');
 	 if ($selectedRows.length > 0) {
          //Show selected rows
          $selectedRows.each(function () {
              var record = $(this).data('record');
-             $('##removethese').append( ',' + record.COLLECTION_OBJECT_ID  );
+             $('#removethese').append( ',' + record.COLLECTION_OBJECT_ID  );
          });
      }
 	
