@@ -182,7 +182,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 		</table>
 	<cfelseif table is "ctspecimen_part_name">
 		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from ctspecimen_part_name order by part_name,collection_cde,is_tissue <cfif len(coln) gt 0> where collection_cde='#coln#'</cfif>
+			select * from ctspecimen_part_name <cfif len(coln) gt 0> where collection_cde='#coln#'</cfif> order by part_name,collection_cde,is_tissue 
 		</cfquery>
 		<table border id="t" class="sortable">
 			<tr>
