@@ -149,7 +149,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 		</table>
 	<cfelseif table is "ctattribute_code_tables">
 		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select distinct(attribute_type) from ctAttribute_type
+			select distinct(attribute_type) from ctAttribute_type <cfif len(coln) gt 0> where collection_cde='#coln#'</cfif>
 		</cfquery>
 		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			Select * from ctattribute_code_tables
@@ -182,7 +182,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 		</table>
 	<cfelseif table is "ctspecimen_part_name">
 		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from ctspecimen_part_name order by part_name,collection_cde,is_tissue
+			select * from ctspecimen_part_name order by part_name,collection_cde,is_tissue <cfif len(coln) gt 0> where collection_cde='#coln#'</cfif>
 		</cfquery>
 		<table border id="t" class="sortable">
 			<tr>
