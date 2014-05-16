@@ -250,9 +250,10 @@ function addPartToLoan(partID) {
 function reporter() {
 	var f=document.getElementById('goWhere').value;
 	var t='#session.SpecSrchTab#';
-	var o1=document.getElementById('orderBy1').value;
-	var o2=document.getElementById('orderBy2').value;
-	var s=o1 + ',' + o2;
+	//var o1=document.getElementById('orderBy1').value;
+	//var o2=document.getElementById('orderBy2').value;
+	//var s=o1 + ',' + o2;
+	var s='guid';
 	var u = f;
 	var sep="?";
 	if (f.indexOf('?') > 0) {
