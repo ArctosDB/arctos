@@ -264,6 +264,27 @@
 		 <cflocation url="Encumbrances.cfm?Action=listEncumbrances&encumbrance_id=#encumbrance_id#">
 	</cfoutput>
 </cfif>
+<!-------------------------------------------------------------------------------------------->
+<cfif action is "remListedItems">
+	<cfoutput>
+		<cfquery name="encDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from coll_object_encumbrance where encumbrance_id=#encumbrance_id# and collection_object_id in (select collection_object_id from #table_name#)
+		</cfquery>
+		<p>
+			Listed specimens have been unencumbered.
+		</p>
+		<p>
+			<a href="/Encumbrances.cfm?Action=listEncumbrances&encumbrance_id=#encumbrance_id#">Return to Encumbrances</a>
+		</p>
+		<p>
+			<a href="/SpecimenResults.cfm?#session.mapURL#">Return to Specimen Results</a>
+		</p>
+	</cfoutput>
+</cfif>
+
+
+
+
 
 
 <!-------------------------------------------------------------------------------------------->
