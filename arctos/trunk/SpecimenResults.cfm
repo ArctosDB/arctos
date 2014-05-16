@@ -472,7 +472,7 @@
 								Print Any Report
 							</option>
 						</select>
-						<input type="button" value="Go" class="lnkBtn" onClick="reporter();">
+						<input type="button" value="Go" class="lnkBtn" onClick="reporter('#session.SpecSrchTab#');">
 					</td>
 				</cfif>
 				<td>
