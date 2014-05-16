@@ -247,9 +247,9 @@ function addPartToLoan(partID) {
 		}
 	);
 }
-function reporter() {
+function reporter(tablename) {
 	var f=document.getElementById('goWhere').value;
-	var t='#session.SpecSrchTab#';
+	var t=tablename;
 	//var o1=document.getElementById('orderBy1').value;
 	//var o2=document.getElementById('orderBy2').value;
 	//var s=o1 + ',' + o2;
