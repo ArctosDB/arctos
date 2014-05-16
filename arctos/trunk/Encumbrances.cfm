@@ -274,19 +274,13 @@
 			Listed specimens have been unencumbered.
 		</p>
 		<p>
-			<a href="/Encumbrances.cfm?Action=listEncumbrances&encumbrance_id=#encumbrance_id#">Return to Encumbrances</a>
+			<a href="/Encumbrances.cfm?Action=listEncumbrances&encumbrance_id=#encumbrance_id#">Manage selected Encumbrance</a>
 		</p>
 		<p>
 			<a href="/SpecimenResults.cfm?#session.mapURL#">Return to Specimen Results</a>
 		</p>
 	</cfoutput>
 </cfif>
-
-
-
-
-
-
 <!-------------------------------------------------------------------------------------------->
 <cfif #Action# is "updateEncumbrance">
 <cfset title = "Update Encumbrance">

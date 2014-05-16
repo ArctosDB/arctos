@@ -249,6 +249,10 @@ function addPartToLoan(partID) {
 }
 function reporter(tablename) {
 	var f=document.getElementById('goWhere').value;
+	if (f.length==0) {
+		alert ('Pick a tool, then click the button.');
+		return false;
+	}
 	var t=tablename;
 	//var o1=document.getElementById('orderBy1').value;
 	//var o2=document.getElementById('orderBy2').value;
