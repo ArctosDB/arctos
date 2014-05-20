@@ -12,7 +12,7 @@
 	from
 		flat
 	where
-		flat.collection_object_id=#table_name#.collection_object_id
+		flat.collection_object_id in (select collection_object_id from #table_name#)
 	order by to_number(flat.cat_num)	
 </cfquery>
 <cfset fname = "bugs.tex">
