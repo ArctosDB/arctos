@@ -2,19 +2,17 @@
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		flat.spec_locality,
-		round(accepted_lat_long.DEC_LAT,4) DEC_LAT,
-		round(accepted_lat_long.DEC_LONG,4) DEC_LONG,
-		accepted_lat_long.MAX_ERROR_DISTANCE,
-		accepted_lat_long.MAX_ERROR_UNITS,
+		round(flat.DEC_LAT,4) DEC_LAT,
+		round(flat.DEC_LONG,4) DEC_LONG,
+		flat.MAX_ERROR_DISTANCE,
+		flat.MAX_ERROR_UNITS,
 		flat.began_date,
 		collectors,
 		flat.CAT_NUM
 	from
-		flat,
-		accepted_lat_long
+		flat
 	where
-		flat.locality_id=accepted_lat_long.locality_id (+) and
-		flat.collection_object_id IN (select collection_object_id from #table_name#)
+		flat.collection_object_id=#table_name#.collection_object_id
 	order by to_number(flat.cat_num)	
 </cfquery>
 <cfset fname = "bugs.tex">
