@@ -436,12 +436,17 @@
 							</option>
 		
 							<option value="">::Print Stuff::</option>
+							
+							<!----
 							<option value="/Reports/report_printer.cfm?report=uam_mamm_vial">
 								UAM Mammals Vial Labels
 							</option>
 							<option value="/Reports/report_printer.cfm?report=uam_mamm_box">
 								UAM Mammals Box Labels
 							</option>
+							
+														---->
+
 							<option value="/Reports/report_printer.cfm?report=MSB_vial_label">
 								MSB Mammals Vial Labels
 							</option>
