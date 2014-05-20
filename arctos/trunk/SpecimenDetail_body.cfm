@@ -425,7 +425,7 @@
 						</cfif>
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Event Date:</td>
-							<td id="SDCellRight">#began_date#<cfif ended_date neq began_date>-#ended_date#</cfif></td>
+							<td id="SDCellRight">#began_date#<cfif ended_date neq began_date> to #ended_date#</cfif></td>
 						</tr>
 						<tr>
 							<td></td>
