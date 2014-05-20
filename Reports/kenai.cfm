@@ -4,8 +4,8 @@
 		flat.spec_locality,
 		round(flat.DEC_LAT,4) DEC_LAT,
 		round(flat.DEC_LONG,4) DEC_LONG,
-		flat.MAX_ERROR_DISTANCE,
-		flat.MAX_ERROR_UNITS,
+		flat.COORDINATEUNCERTAINTYINMETERS MAX_ERROR_DISTANCE,
+		'm' MAX_ERROR_UNITS,
 		flat.began_date,
 		collectors,
 		flat.CAT_NUM
