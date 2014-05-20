@@ -94,12 +94,11 @@
 			select distinct(scientific_name) scientific_name from getMapData
 		</cfquery>
 		<cfquery name="getClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select phylclass,genus,species,genus || ' ' || species scientific_name from filtered_flat where scientific_name in
+			select phylclass,species from filtered_flat where scientific_name in
 			 (#ListQualify(valuelist(species.scientific_name), "'")#)
 			 group by
-			 phylclass,genus || ' ' || species,genus,species
+			 phylclass,species
 		</cfquery>
-		<cfdump var=#getClass#>
 		<cfif getClass.recordcount is not 1 or (
 				getClass.phylclass is not 'Amphibia' and getClass.phylclass is not 'Mammalia' and getClass.phylclass is not 'Aves'
 			)>
@@ -113,27 +112,29 @@
 			<script>
 				document.getElementById('status').style.display='none';
 			</script>
+			
+			<cfdump var=#getClass#>
 			<cfabort>
 		</cfif>
 		<cfscript>
 			a=chr(9) & '<gisdata>' & chr(10) &
-			chr(9) & chr(9) & '<layer title="#getClass.genus# #getClass.species#" name="mamm" location="#getClass.genus# #getClass.species#" legend="1" active="1" url="">' & chr(10);
+			chr(9) & chr(9) & '<layer title="#getClass.species#" name="mamm" location="#getClass.species#" legend="1" active="1" url="">' & chr(10);
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 		<cfset i=1>
 		<cfif getClass.phylclass is 'Amphibia'>
 			<cfscript>
-				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#getClass.genus#+#getClass.species#/binomial/gaa_2011]]>' & chr(10);
+				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#replace(getClass.species," ","+","all")#/binomial/gaa_2011]]>' & chr(10);
 				variables.joFileWriter.writeLine(a);
 			</cfscript>
 		<cfelseif getClass.phylclass is 'Mammalia'>
 			<cfscript>
-				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#getClass.genus#+#getClass.species#/sci_name/mamm_2009]]>' & chr(10);
+				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#replace(getClass.species," ","+","all")#/sci_name/mamm_2009]]>' & chr(10);
 				variables.joFileWriter.writeLine(a);
 			</cfscript>
 		<cfelseif getClass.phylclass is 'Aves'>
 			<cfscript>
-				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#getClass.genus#+#getClass.species#/sci_name/birds_2009]]>' & chr(10);
+				a=chr(9) & chr(9) & chr(9) & '<![CDATA[http://berkeleymapper.berkeley.edu/v2/speciesrange/#replace(getClass.species," ","+","all")#/sci_name/birds_2009]]>' & chr(10);
 				variables.joFileWriter.writeLine(a);
 			</cfscript>
 		</cfif>

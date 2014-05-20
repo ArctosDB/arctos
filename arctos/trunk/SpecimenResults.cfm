@@ -437,7 +437,7 @@
 		
 							<option value="">::Print Stuff::</option>
 							
-							<!----
+							
 							<option value="/Reports/report_printer.cfm?report=uam_mamm_vial">
 								UAM Mammals Vial Labels
 							</option>
@@ -445,7 +445,7 @@
 								UAM Mammals Box Labels
 							</option>
 							
-														---->
+											
 
 							<option value="/Reports/report_printer.cfm?report=MSB_vial_label">
 								MSB Mammals Vial Labels
@@ -461,9 +461,11 @@
 							<option value="/Reports/uamento.cfm">
 								download UAM Ento CSV
 							</option>
+								<!----
 							<option value="/Reports/print_nk.cfm">
 								Print NK pages
 							</option>
+									---->
 							<option value="/Reports/report_printer.cfm?report=ala_label">
 								ALA Labels
 							</option>
