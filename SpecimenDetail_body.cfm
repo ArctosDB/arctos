@@ -423,19 +423,15 @@
 								</tr>
 							</div>
 						</cfif>
-						<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
-							<cfset thisDate = verbatim_date>
-						<cfelseif (
-							(verbatim_date is not began_date) OR
-				 			(verbatim_date is not ended_date)
-							) AND began_date is ended_date>
-							<cfset thisDate = "#verbatim_date# (#began_date#)">
-						<cfelse>
-							<cfset thisDate = "#verbatim_date# (#began_date# - #ended_date#)">
-						</cfif>
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Event Date:</td>
-							<td id="SDCellRight">#thisDate#</td>
+							<td id="SDCellRight">#began_date#<cfif ended_date neq began_date>-#ended_date#</cfif></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td id="SDCellRight" class="detailCellSmall">
+								Verbatim Date: #verbatim_date#
+							</td>
 						</tr>
 						<cfif len(VERIFICATIONSTATUS) gt 0>
 							<div class="detailBlock">
