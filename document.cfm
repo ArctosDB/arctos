@@ -281,7 +281,7 @@
 				if ($("##pg").val()!=$("##pt").val()){
 					$("##pt").val('');
 				}
-				loadTAG(#cpg.media_id#,'#cpg.media_uri#','#tag_id#');
+				loadTAG(#cpg.media_id#,'#cpg.media_uri#');
 			});
 		</script>
 	</cfif>
