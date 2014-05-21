@@ -113,7 +113,7 @@
 	</cfloop>
 	<!---- then loop over select things from their results ---->
 	<cfloop list="#srchcols.columnlist#" index="thisKey">
-		<cfif not listcontainsnocase(stuffToIgnore,c) and  not listcontainsnocase(keylist,c)>
+		<cfif not listcontainsnocase(stuffToIgnore,thisKey) and  not listcontainsnocase(keylist,thisKey)>
 			<cfquery name="thisMoreInfo" dbtype="query">
 				select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
 			</cfquery>
