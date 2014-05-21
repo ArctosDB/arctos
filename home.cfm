@@ -684,7 +684,7 @@ border-bottom:1px solid black;
 <p><strong >Features:</strong>
 <ul>
 	<li>Vaporware-free since 2001. All this stuff and much more really exists in a usable state, and we'll never claim
-		proposed or limited funtionality exists.
+		proposed or limited functionality exists.
 	</li>
 	<li>
 		<a href="http://arctosdb.org/documentation/media/" target="_blank" class="external">Media</a>
