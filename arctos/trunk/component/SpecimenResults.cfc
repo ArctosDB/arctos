@@ -157,6 +157,7 @@
 								</td>
 								<td>
 									<select onchange="$('###c#').val(this.value);">
+										<option value=""></option>
 										<cfloop query="dvt">
 											<cfset thisValue=evaluate("dvt." & c)>	
 											<option value="#thisValue#" style="font-weight:bold">#thisValue#</option>
@@ -169,18 +170,9 @@
 												<cfif alreadyGotOne.c neq 1>
 													<option value="#thisctvalue#">#thisctvalue#</option>
 												</cfif>
-											
 											</cfloop>
 										</cfif>
 									</select>
-<!----
-								
-									<div style="height:1em; overflow:scroll;">
-										<cfloop query="dvt">
-																			
-											<div class="likeLink" onclick="$('###c#').val('#thisValue#');">#thisValue#</div>
-									</cfloop>
-									=----->
 								</td>
 								<td>
 									<span onclick="removeTerm('#c#');" class="likeLink"><img src="/images/del.gif"></span>
