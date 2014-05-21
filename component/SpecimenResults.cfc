@@ -141,11 +141,6 @@
 			<cfelse>
 				<cfset id="">
 			</cfif>
-			
-			
-			
-						
-		
 			<cfset temp = queryaddrow(sugntab,1)>
 			<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
 			<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
@@ -156,20 +151,9 @@
 			<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
 			<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
 			<cfset idx=idx+1>
-		
-		
-		
-		
-			
-			
-			
-			
 		</cfif>
 	</cfloop>
-	
-	
-	<cfdump var=#sugntab#>	
-				
+					
 	<cfsavecontent variable="widget">
 		<script>
 			jQuery( function($) {
@@ -220,11 +204,52 @@
 						<th>Vocabulary *</th>
 						<th>Remove</th>
 					</tr>
+					<cfloop query="sugntab">
+						<cfif len(sugntab.DEFINITION) gt 0>
+							<cfset thisSpanClass="helpLink">
+						<cfelse>
+							<cfset thisSpanClass="">
+						</cfif>
+						<tr id="row_#c#">
+							<td>
+								<span class="#thisSpanClass#" id="_#sugntab.key#" title="#sugntab.DEFINITION#">
+									<cfif len(sugntab.DISPLAY_TEXT) gt 0>
+										#sugntab.DISPLAY_TEXT#
+									<cfelse>
+										#sugntab.key#
+									</cfif>
+								</span>
+							</td>
+								<td>
+									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#sugntab.val#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
+								</td>
+								<td>
+									<select onchange="$('##sugntab.key').val(this.value);">
+										<option value=""></option>
+										<cfloop list="#sugntab.vocab#" index="v" delimiters="|">
+											<cfif listcontainsnocase(sugntab.indata,v,"|")>
+												<cfset thisStyle="font-weight:bold;">
+											<cfelse>
+												<cfset thisStyle="">
+											</cfif>
+											<option value="#v#" style="#thisStyle#">#v#</option>
+										</cfloop>
+									</select>
+								</td>
+								<td>
+									<span onclick="removeTerm('#c#');" class="likeLink"><img src="/images/del.gif"></span>
+								</td>
+							</tr>
+					</cfloop>
+
+					
+					
+					
 					<!-----
 						Show:
 							All values on which they searched
 							select values they have turned on in results
-					----->
+					
 					
 					<cfloop list="#srchcols.columnlist#" index="c">
 						<cfif not listcontainsnocase(stuffToIgnore,c) and  not listcontainsnocase(keylist,c)>
@@ -384,6 +409,13 @@
 							</td>
 						</tr>
 					</cfloop>
+					
+					
+					
+					----->
+					
+					
+					
 					<cfif len(keylist) is 0>
 						<cfset keylist='doesNotExist'>
 					</cfif>
