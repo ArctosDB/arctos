@@ -159,7 +159,7 @@
 									<select onchange="$('###c#').val(this.value);">
 										<cfloop query="dvt">
 											<cfset thisValue=evaluate("dvt." & c)>	
-											<option value="#thisValue#">D: #thisValue#</option>
+											<option value="#thisValue#" style="font-weight:bold">#thisValue#</option>
 										</cfloop>
 										<cfif isdefined("cto")>
 											<cfloop query="cto">
@@ -167,7 +167,7 @@
 													select count(*) c from dvt where #c#='#thisctvalue#'
 												</cfquery>
 												<cfif alreadyGotOne.c neq 1>
-													<option value="#thisctvalue#">CT: #thisctvalue#</option>
+													<option value="#thisctvalue#">#thisctvalue#</option>
 												</cfif>
 											
 											</cfloop>
