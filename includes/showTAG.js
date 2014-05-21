@@ -108,6 +108,10 @@ jQuery(document).ready(function () {
 			modArea(tagID);
 		});
 		jQuery("div .refDiv, .highlight").live('click', function(e){
+			
+			console.log('clicked refDiv');
+			
+			
 			var tagID='refPane_' + this.id.replace('refDiv_','');
 			$('#navDiv').scrollTo( $('#' + tagID), 800 );
 		});
