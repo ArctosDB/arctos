@@ -159,12 +159,12 @@
 									<select onchange="$('###c#').val(this.value);">
 										<cfloop query="dvt">
 											<cfset thisValue=evaluate("dvt." & c)>	
-											<option value="#thisValue#">#thisValue#</option>
+											<option value="#thisValue#">D: #thisValue#</option>
 										</cfloop>
 										<cfif isdefined("cto")>
 											<cfloop query="cto">
 												
-											<option value="#thisctvalue#"CT->#thisctvalue#</option>
+											<option value="#thisctvalue#">CT: #thisctvalue#</option>
 											</cfloop>
 										</cfif>
 									</select>
