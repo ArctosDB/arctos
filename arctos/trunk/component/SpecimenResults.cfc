@@ -269,12 +269,6 @@
 		</cfquery>
 		<cfif ts.recordcount gt 0>
 			<cfset tl=valuelist(ts.type_status,";")>
-			
-			<!----
-			<cfloop query="ts">
-				<cfset tl=listappend(tl,ts.type_status,";")>
-			</cfloop>
-			----->
 			<cfset t = queryaddrow(theResult,1)>
 			<cfset t = QuerySetCell(theResult, "collection_object_id", "#cid#", r)>
 			<cfset t = QuerySetCell(theResult, "typeList", "#tl#", r)>
@@ -289,7 +283,6 @@
 	</cftry>
 	<cfreturn theResult>
 </cffunction>
-
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getLoanPartResults" access="remote">
 	<cfargument name="transaction_id" type="numeric" required="yes">
