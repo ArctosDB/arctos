@@ -216,9 +216,7 @@
 								<div style="height:1em; overflow:scroll;">
 									<cfloop query="dvt">
 										<cfset thisValue=evaluate("dvt." & c)>									
-										<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#">
-											<div class="likeLink" onclick="$('###c#').val('#thisValue#');">#thisValue#</div>
-										</span>
+										<div class="likeLink" onclick="$('###c#').val('#thisValue#');">#thisValue#</div>
 								</cfloop>
 							</td>
 							<td>
