@@ -194,7 +194,6 @@
 				</li>
 			</ul>
 		</div>
-		<cfabort>
 	</cfif>
 	<cfset collObjIdList = valuelist(summary.collection_object_id)>
 	<cfparam name="transaction_id" default="">
