@@ -51,6 +51,9 @@
 		<cfelse>
 			<cfset pg=p>
 		</cfif>
+		<cfif len(tag_id) gt 0>
+			got tagID<cfdump var=#tag_id#>
+		</cfif>
 		<cfcatch>
 			<cfset pg=1>
 			<cfset tag_id="">
