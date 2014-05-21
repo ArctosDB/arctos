@@ -77,7 +77,7 @@
 			}
 		</script>
 		<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
-		<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</span>
+		<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
 		<cfif session.ResultsBrowsePrefs is 1>
 			<cfset thisStyle='display:block;'>
 		<cfelse>
