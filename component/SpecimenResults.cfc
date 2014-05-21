@@ -154,6 +154,7 @@
 			<cfset idx=idx+1>
 		</cfif>
 	</cfloop>
+	<cfdump var=#sugntab#>
 	<cfsavecontent variable="widget">
 		<script>
 			jQuery( function($) {
@@ -239,10 +240,10 @@
 										</select>
 									<cfelseif len(sugntab.indata) gt 0>
 										<!---- no controlled vocab, just provide list of INDATA values ---->
+										<cfset thisStyle="font-weight:bold;">
 										<select onchange="$('###sugntab.key#').val(this.value);">
 											<option value=""></option>
 											<cfloop list="#sugntab.indata#" index="v" delimiters="|">
-												<cfset thisStyle="font-weight:bold;">
 												<option value="#v#" style="#thisStyle#">#v#</option>
 											</cfloop>
 										</select>
