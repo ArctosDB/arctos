@@ -166,6 +166,7 @@
 												<cfquery name="alreadyGotOne" dbtype="query">
 													select count(*) c from dvt where #c#='#thisctvalue#'
 												</cfquery>
+												<cfdump var=#alreadyGotOne#>
 												<cfif alreadyGotOne.c is 0>
 													<option value="#thisctvalue#">CT: #thisctvalue#</option>
 												</cfif>
