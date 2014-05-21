@@ -270,7 +270,7 @@
 		<cfif ts.recordcount gt 0>
 			<cfset tl="">
 			<cfloop query="ts">
-				<cfset tl=listappend(tl,ts.type_status,";")>
+				<cfset tl=listappend(tl,ts.type_status,"; ")>
 			</cfloop>
 			<cfset t = queryaddrow(theResult,1)>
 			<cfset t = QuerySetCell(theResult, "collection_object_id", "#cid#", r)>
