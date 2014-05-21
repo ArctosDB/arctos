@@ -313,31 +313,26 @@ function loadInitial() {
 }
 function scrollToLabel(id) {
 	try{
-	var divID='refDiv_' + id;
-	var paneID='refPane_' + id;
-	$("div .highlight").removeClass("highlight").addClass("refDiv");
-	$("div .refPane_highlight").removeClass("refPane_highlight");
-	$("#" + divID).removeClass("refDiv").addClass("highlight");
-	$("#" + paneID).addClass('refPane_highlight');
-	$('#navDiv').scrollTo( $('#' + paneID), 800 );
-	}
-	catch(e){console.log('try failed')}
-	
-	
-}
-	
+		var divID='refDiv_' + id;
+		var paneID='refPane_' + id;
+		$("div .highlight").removeClass("highlight").addClass("refDiv");
+		$("div .refPane_highlight").removeClass("refPane_highlight");
+		$("#" + divID).removeClass("refDiv").addClass("highlight");
+		$("#" + paneID).addClass('refPane_highlight');
+		$('#navDiv').scrollTo( $('#' + paneID), 800 );
+	}catch(e){}
+}	
 function scrollToTag(id) {
 	try{
-	var divID='refDiv_' + id;
-	var paneID='refPane_' + id;
-	$("div .highlight").removeClass("highlight").addClass("refDiv");
-	$("div .refPane_highlight").removeClass("refPane_highlight");
-	$("#" + divID).removeClass("refDiv").addClass("highlight");
-	$("#" + paneID).addClass('refPane_highlight');
-	document.location.hash = id;
-	$(document).scrollTo( $('#' + divID), 800 );
-	}catch(e){console.log('try failed')}
-	
+		var divID='refDiv_' + id;
+		var paneID='refPane_' + id;
+		$("div .highlight").removeClass("highlight").addClass("refDiv");
+		$("div .refPane_highlight").removeClass("refPane_highlight");
+		$("#" + divID).removeClass("refDiv").addClass("highlight");
+		$("#" + paneID).addClass('refPane_highlight');
+		document.location.hash = id;
+		$(document).scrollTo( $('#' + divID), 800 );
+	}catch(e){}
 }
 function modArea(id) {
 	var divID='refDiv_' + id;
@@ -367,8 +362,6 @@ function modArea(id) {
 		$('#navDiv').scrollTo( $('#' + paneID), 800 );
 	} catch(e){}
 }
-
-
 function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 	if (refStr==null){refStr='';}
 	if (remark==null){remark='';}

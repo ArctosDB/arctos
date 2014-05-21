@@ -8,40 +8,29 @@ $.fn.getImg2Tag = function(src, f){
 		this.appendChild(i);
 	});
 }
-
-
-
 function scrollToLabel(id) {
 	try{
-	var divID='refDiv_' + id;
-	var paneID='refPane_' + id;
-	$("div .highlight").removeClass("highlight").addClass("refDiv");
-	$("div .refPane_highlight").removeClass("refPane_highlight");
-	$("#" + divID).removeClass("refDiv").addClass("highlight");
-	$("#" + paneID).addClass('refPane_highlight');
-	$('#navDiv').scrollTo( $('#' + paneID), 800 );
-	}
-	catch(e){console.log('try failed')}
-	
-	
+		var divID='refDiv_' + id;
+		var paneID='refPane_' + id;
+		$("div .highlight").removeClass("highlight").addClass("refDiv");
+		$("div .refPane_highlight").removeClass("refPane_highlight");
+		$("#" + divID).removeClass("refDiv").addClass("highlight");
+		$("#" + paneID).addClass('refPane_highlight');
+		$('#navDiv').scrollTo( $('#' + paneID), 800 );
+	}catch(e){}
 }
-	
 function scrollToTag(id) {
 	try{
-	var divID='refDiv_' + id;
-	var paneID='refPane_' + id;
-	$("div .highlight").removeClass("highlight").addClass("refDiv");
-	$("div .refPane_highlight").removeClass("refPane_highlight");
-	$("#" + divID).removeClass("refDiv").addClass("highlight");
-	$("#" + paneID).addClass('refPane_highlight');
-	document.location.hash = id;
-	$(document).scrollTo( $('#' + divID), 800 );
-	}catch(e){console.log('try failed')}
-	
+		var divID='refDiv_' + id;
+		var paneID='refPane_' + id;
+		$("div .highlight").removeClass("highlight").addClass("refDiv");
+		$("div .refPane_highlight").removeClass("refPane_highlight");
+		$("#" + divID).removeClass("refDiv").addClass("highlight");
+		$("#" + paneID).addClass('refPane_highlight');
+		document.location.hash = id;
+		$(document).scrollTo( $('#' + divID), 800 );
+	}catch(e){}
 }
-
-
-
 function loadTAG(mid,muri){
 	$("imgDiv").html('Loading image and tags.....');
 	var d='<div id="navDiv"><div id="info"></div>';
@@ -103,54 +92,54 @@ function loadInitial(){
 }
 
 jQuery(document).ready(function () { 
-		jQuery("div .refDiv").live('mouseover', function(e){
-			var tagID=this.id.replace('refDiv_','');
-			modArea(tagID);
-		});
-		jQuery("div .refDiv, .highlight").live('click', function(e){
-			var numID=this.id.replace('refDiv_','');
-			scrollToTag(numID);
-			scrollToLabel(numID);
-		});
-		jQuery("div[class^='refPane_']").live('mouseover', function(e){
-			var tagID=this.id.replace('refPane_','');
-			modArea(tagID);
-		});
-		jQuery("div[class^='refPane_']").live('click', function(e){
-			var numID=this.id.replace('refPane_','');
-			scrollToTag(numID);
-			scrollToLabel(numID);
-		});
+	jQuery("div .refDiv").live('mouseover', function(e){
+		var tagID=this.id.replace('refDiv_','');
+		modArea(tagID);
 	});
+	jQuery("div .refDiv, .highlight").live('click', function(e){
+		var numID=this.id.replace('refDiv_','');
+		scrollToTag(numID);
+		scrollToLabel(numID);
+	});
+	jQuery("div[class^='refPane_']").live('mouseover', function(e){
+		var tagID=this.id.replace('refPane_','');
+		modArea(tagID);
+	});
+	jQuery("div[class^='refPane_']").live('click', function(e){
+		var numID=this.id.replace('refPane_','');
+		scrollToTag(numID);
+		scrollToLabel(numID);
+	});
+});
 
-	function addArea(id,t,l,h,w) {
-		var dv='<div id="refDiv_' + id + '" class=refDiv style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
-		$("#imgDiv").append(dv);
-	}		
-	function modArea(id) {
-		var divID='refDiv_' + id;
-		var paneID='refPane_' + id;
-		$("div .highlight").removeClass("highlight").addClass("refDiv");
-		$("div .refPane_highlight").removeClass("refPane_highlight");
-		// add editing classes to our 2 objects		
-		$("#" + divID).removeClass("refDiv").addClass("highlight");
-		$("#" + paneID).addClass('refPane_highlight');
-	}
-	function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
-		if (refStr==null){refStr='';}
-		if (remark==null){remark='';}
-		var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
-		d+='TAG Type: ' + reftype;
-		if(reflink && refStr){
-			if (reftype!='agent'){
-				d+='<br>Reference: <a href="' + reflink + '" target="_blank">' + refStr + '</a>';
-			} else {
-				d+='<br>Reference: ' + refStr;
-			}
-		}	
-		if(remark){
-			var newremark=remark.replace(/\[\[(.+?)\]\]/g, "<a href='/guid/$1'>$1</a>");
-			d+='<br>Remark: ' + newremark;
+function addArea(id,t,l,h,w) {
+	var dv='<div id="refDiv_' + id + '" class=refDiv style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
+	$("#imgDiv").append(dv);
+}		
+function modArea(id) {
+	var divID='refDiv_' + id;
+	var paneID='refPane_' + id;
+	$("div .highlight").removeClass("highlight").addClass("refDiv");
+	$("div .refPane_highlight").removeClass("refPane_highlight");
+	// add editing classes to our 2 objects		
+	$("#" + divID).removeClass("refDiv").addClass("highlight");
+	$("#" + paneID).addClass('refPane_highlight');
+}
+function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
+	if (refStr==null){refStr='';}
+	if (remark==null){remark='';}
+	var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
+	d+='TAG Type: ' + reftype;
+	if(reflink && refStr){
+		if (reftype!='agent'){
+			d+='<br>Reference: <a href="' + reflink + '" target="_blank">' + refStr + '</a>';
+		} else {
+			d+='<br>Reference: ' + refStr;
 		}
-		$("#editRefDiv").append(d);
+	}	
+	if(remark){
+		var newremark=remark.replace(/\[\[(.+?)\]\]/g, "<a href='/guid/$1'>$1</a>");
+		d+='<br>Remark: ' + newremark;
 	}
+	$("#editRefDiv").append(d);
+}
