@@ -194,6 +194,12 @@
 			<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from #session.SpecSrchTab#
 			</cfquery>
+			<cfset stuffToIgnore="guid">
+			<cfloop list="#srchcols.columnlist#" index="c">
+				<cfif not listcontainsnocase(stuffToIgnore,c)>
+					#c#.....
+				</cfif>
+			</cfloop>
 			<cfdump var=#srchcols#>
 			
 		</div>
