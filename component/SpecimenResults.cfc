@@ -196,11 +196,17 @@
 																						<select onchange="$('###thisKey#').val(this.value);">
 
 											<cfloop query="cto">
+											
+											
+											<cfquery name="isInResults" dbtype="query">
+												select count(*) as c from srchcols where #thisKey#='#thisctvalue#'
+											</cfquery>
+											
 											<!----
 												<div class="likeLink" onclick="$('###thisKey#').val('#thisctvalue#');">#thisctvalue#</div>
 												---->
 												
-												<option value="#thisctvalue#">#thisctvalue#</option>
+												<option value="#thisctvalue#">#thisctvalue# (#isInResults.c#)</option>
 											</cfloop>
 											
 																						</select>
