@@ -180,6 +180,9 @@
 						<cfquery name="dvt" dbtype="query">
 							select #c# from srchcols group by #c# order by #c#
 						</cfquery>
+						<cfquery name="thisMoreInfo" dbtype="query">
+							select * from ssrch_field_doc where CF_VARIABLE='#lcase(c)#'
+						</cfquery>
 						<tr>
 							<td>
 								#c#
@@ -188,7 +191,12 @@
 								=
 							</td>
 							<td>
-								<cfloop query="dvt">#evaluate("dvt." & c)#<br></cfloop>
+								<input type="text" name="#c#" id="#c#" value="" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
+							</td>
+							<td>
+								<cfloop query="dvt">
+									<div class="likeLink" onclick="$('###c#').val('##evaluate("dvt." & c)##');">##evaluate("dvt." & c)##</div>
+								</cfloop>
 							</td>
 							<td>btn</td>
 						</tr>
