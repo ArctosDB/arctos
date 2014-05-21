@@ -167,7 +167,7 @@
 													select count(*) c from dvt where #c#='#thisctvalue#'
 												</cfquery>
 												<cfdump var=#alreadyGotOne#>
-												<cfif alreadyGotOne.c is 0>
+												<cfif alreadyGotOne.c neq 1>
 													<option value="#thisctvalue#">CT: #thisctvalue#</option>
 												</cfif>
 											
