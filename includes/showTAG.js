@@ -123,14 +123,15 @@ jQuery(document).ready(function () {
 		});
 		
 		jQuery("div[class^='refPane_']").live('click', function(e){
-			var tagID='refDiv_' + this.id.replace('refPane_','');
+			var numID=this.id.replace('refPane_','')
+			var tagID='refDiv_' + numID;
 			$(document).scrollTo( $('#' + tagID), 800 );
 			
 			
-			console.log('clicked refDiv' + tagID);
+			console.log('clicked refDiv' + numID);
 
 			
-			scrollToTag(tagID);
+			scrollToTag(numID);
 			
 		});
 	});
