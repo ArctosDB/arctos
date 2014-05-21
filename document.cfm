@@ -63,7 +63,7 @@
 	</cfif>
 	<cfset action="show">
 </cfif>
-
+-----#tag_id#------------
 <cfif action is 'srchResult'>
 <cfoutput >
 	<cfset basSQL="select
