@@ -131,11 +131,20 @@
 									<input type="text" name="#c#" id="#c#" value="" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
 								</td>
 								<td>
+									<select onchange="$('###c#').val(this.value);">
+											<cfloop query="dvt">
+												<cfset thisValue=evaluate("dvt." & c)>	
+												<option value="#thisValue#">#thisValue#</option>
+											</cfloop>
+									</select>
+<!----
+								
 									<div style="height:1em; overflow:scroll;">
 										<cfloop query="dvt">
-											<cfset thisValue=evaluate("dvt." & c)>									
+																			
 											<div class="likeLink" onclick="$('###c#').val('#thisValue#');">#thisValue#</div>
 									</cfloop>
+									=----->
 								</td>
 								<td>
 									<span onclick="removeTerm('#c#');" class="likeLink"><img src="/images/del.gif"></span>
