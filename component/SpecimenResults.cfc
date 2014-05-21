@@ -226,7 +226,7 @@
 								<td>
 									<cfif len(sugntab.vocab) gt 0>
 										<!---- controlled vocab - loop through it, make indata values BOLD ---->
-										<select onchange="$('##sugntab.key').val(this.value);">
+										<select onchange="$('###sugntab.key#').val(this.value);">
 											<option value=""></option>
 											<cfloop list="#sugntab.vocab#" index="v" delimiters="|">
 												<cfif listcontainsnocase(sugntab.indata,v,"|")>
@@ -239,7 +239,7 @@
 										</select>
 									<cfelseif len(sugntab.indata) gt 0>
 										<!---- no controlled vocab, just provide list of INDATA values ---->
-										<select onchange="$('##sugntab.key').val(this.value);">
+										<select onchange="$('###sugntab.key#').val(this.value);">
 											<option value=""></option>
 											<cfloop list="#sugntab.indata#" index="v" delimiters="|">
 												<cfset thisStyle="font-weight:bold;">
