@@ -172,7 +172,6 @@
 				</cfquery>
 					<tr>
 						<td>
-						
 							<select id="newTerm" onchange="setThisName(this.value);">
 								<option value=''>Add new term</option>
 								<cfloop query="newkeys">
@@ -192,6 +191,11 @@
 					* Attributes will accept non-code-table values and operators: "2 mm" or "<2mm," for example.
 				</div>
 			</form>
+			<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from #session.SpecSrchTab#
+			</cfquery>
+			<cfdump var=#srchcols#>
+			
 		</div>
 	</cfsavecontent>
 	</cfoutput>
