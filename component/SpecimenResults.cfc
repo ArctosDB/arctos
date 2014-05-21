@@ -112,6 +112,7 @@
 		<cfset idx=idx+1>
 	</cfloop>
 	<!---- then loop over select things from their results ---->
+	<cfset thisValue="">
 	<cfloop list="#srchcols.columnlist#" index="thisKey">
 		<cfif not listcontainsnocase(stuffToIgnore,thisKey) and  not listcontainsnocase(keylist,thisKey)>
 			<cfquery name="thisMoreInfo" dbtype="query">
