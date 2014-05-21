@@ -224,17 +224,19 @@
 									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#sugntab.val#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
 								</td>
 								<td>
-									<select onchange="$('##sugntab.key').val(this.value);">
-										<option value=""></option>
-										<cfloop list="#sugntab.vocab#" index="v" delimiters="|">
-											<cfif listcontainsnocase(sugntab.indata,v,"|")>
-												<cfset thisStyle="font-weight:bold;">
-											<cfelse>
-												<cfset thisStyle="">
-											</cfif>
-											<option value="#v#" style="#thisStyle#">#v#</option>
-										</cfloop>
-									</select>
+									<cfif len(sugntab.vocab) gt 0>
+										<select onchange="$('##sugntab.key').val(this.value);">
+											<option value=""></option>
+											<cfloop list="#sugntab.vocab#" index="v" delimiters="|">
+												<cfif listcontainsnocase(sugntab.indata,v,"|")>
+													<cfset thisStyle="font-weight:bold;">
+												<cfelse>
+													<cfset thisStyle="">
+												</cfif>
+												<option value="#v#" style="#thisStyle#">#v#</option>
+											</cfloop>
+										</select>
+									</cfif>
 								</td>
 								<td>
 									<span onclick="removeTerm('#sugntab.key#');" class="likeLink"><img src="/images/del.gif"></span>
