@@ -58,7 +58,8 @@
 		-- select things from their results
 		-- existing search value, when available
 	---->
-	<cfset sugntab = querynew("key,val,possiblevalues")>
+	<cfset sugntab = querynew("key,val,vocab,definition,display_text,placeholder_text,search_hint")>
+
 
 	<cfset idx=1>
 	<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
@@ -71,9 +72,19 @@
 			<cfset thisValue=''>
 			<cfset temp = queryaddrow(sugntab,1)>
 		</cfif>
+		<cfquery name="thisMoreInfo" dbtype="query">
+			select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
+		</cfquery>
+							
+							
 		<cfset temp = queryaddrow(sugntab,1)>
 		<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
-		<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>	
+		<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
+		<cfset temp = QuerySetCell(sugntab, "vocab", 'pending...', idx)>
+		<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
+		<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
+		<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
+		<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
 		<cfset idx=idx+1>
 	</cfloop>
 	
