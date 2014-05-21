@@ -109,33 +109,15 @@ jQuery(document).ready(function () {
 		});
 		jQuery("div .refDiv, .highlight").live('click', function(e){
 			var numID=this.id.replace('refDiv_','');
-			
-			console.log('clicked refDiv');
-			
-			
-			//var tagID='refPane_' + numID;
-			
-
 			scrollToTag(numID);
 			scrollToLabel(numID);
-			//$('#navDiv').scrollTo( $('#' + tagID), 800 );
 		});
-		
-			
 		jQuery("div[class^='refPane_']").live('mouseover', function(e){
 			var tagID=this.id.replace('refPane_','');
 			modArea(tagID);
 		});
-		
 		jQuery("div[class^='refPane_']").live('click', function(e){
 			var numID=this.id.replace('refPane_','');
-			//var tagID='refDiv_' + numID;
-			//$(document).scrollTo( $('#' + tagID), 800 );
-			
-			
-			console.log('clicked refDiv' + numID);
-
-			
 			scrollToTag(numID);
 			scrollToLabel(numID);
 		});
@@ -167,7 +149,8 @@ jQuery(document).ready(function () {
 			}
 		}	
 		if(remark){
-			d+='<br>Remark: ' + remark;
+			var newremark=remark.replace(/\[\[(.+?)\]\]/g, "<a href='/guid/$1'>$1</a>");
+			d+='<br>Remark: ' + newremark;
 		}
 		$("#editRefDiv").append(d);
 	}
