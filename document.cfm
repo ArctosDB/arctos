@@ -54,13 +54,8 @@
 		<cfif len(tag_id) gt 0>
 			<cfoutput>
 			<div style="border:2px solid red;">
-				You got here with an experimental deprecated URL format, which will not work indefinitely.
-				
-				Please update your records to #application.serverRootURL#/document/#ttl#/#pg#/###tag_id#
-				<!---- 
-				
-				---->
-				#tag_id#
+				You got here with a deprecated URL.
+				Please update your records to <a href="/document/#ttl#/#pg#/###tag_id#">#application.serverRootURL#/document/#ttl#/#pg#/###tag_id#</a>
 			</div>
 			</cfoutput>
 		</cfif>
