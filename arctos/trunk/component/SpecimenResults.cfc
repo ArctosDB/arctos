@@ -161,7 +161,7 @@
 											<cfset thisValue=evaluate("dvt." & c)>	
 											<option value="#thisValue#">#thisValue#</option>
 										</cfloop>
-										<cfif isdefined(cto)>
+										<cfif isdefined("cto")>
 											<cfloop query="cto">
 												
 											<option value="#thisctvalue#"CT->#thisctvalue#</option>
