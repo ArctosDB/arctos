@@ -195,7 +195,8 @@
 							</td>
 							<td>
 								<cfloop query="dvt">
-									<div class="likeLink" onclick="$('###c#').val('##evaluate("dvt." & c)##');">##evaluate("dvt." & c)##</div>
+									<cfset thisValue=evaluate("dvt." & c)>
+									<div class="likeLink" onclick="$('###c#').val('###thisValue#');">#thisValue#</div>
 								</cfloop>
 							</td>
 							<td>btn</td>
