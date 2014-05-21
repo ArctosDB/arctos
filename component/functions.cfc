@@ -758,10 +758,13 @@
 <!------------------------------------------------------------------->
 <cffunction name="getMediaDocumentInfo" access="remote">
    <cfargument name="urltitle" required="true" type="string">
+	<cftry>
 	<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select get_document_media_pageinfo('#urltitle#') result from dual
 	</cfquery>
 	<cfreturn flatdocs.result>
+	<cfcatch><cfreturn cfcatch.message></cfcatch>
+	</cftry>
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getMediaPreview" access="remote">
