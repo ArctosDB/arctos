@@ -117,7 +117,7 @@ jQuery(document).ready(function () {
 			
 
 			scrollToTag(numID);
-			scrollToLabel(numID)''
+			scrollToLabel(numID);
 			//$('#navDiv').scrollTo( $('#' + tagID), 800 );
 		});
 		
@@ -137,7 +137,7 @@ jQuery(document).ready(function () {
 
 			
 			scrollToTag(numID);
-			scrollToLabel(numID)''
+			scrollToLabel(numID);
 		});
 	});
 
