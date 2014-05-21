@@ -112,7 +112,7 @@
           		selectingCheckboxes: true, //Show checkboxes on first column
             	selectOnRowClick: false, //Enable this to only select using checkboxes
 				actions: {
-	                listAction: '/component/functions.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults'
+	                listAction: '/component/SpecimenResults.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults'
 	            },
 	            fields:  {
 					 COLLECTION_OBJECT_ID: {
@@ -130,11 +130,11 @@
 	            } 
 	        });
 	        $('##specresults').jtable('load');
-			var ptl='/component/functions.cfc?method=get_specSrchTermWidget&returnformat=plain';
+			var ptl='/component/SpecimenResults.cfc?method=get_specSrchTermWidget&returnformat=plain';
 			jQuery.get(ptl, function(data){
 				jQuery("##cntr_refineSearchTerms").html(data);
 			});
-			var ptl='/component/functions.cfc?method=mapUserSpecResults&returnformat=plain';
+			var ptl='/component/SpecimenResults.cfc?method=mapUserSpecResults&returnformat=plain';
 		    jQuery.get(ptl, function(data){
 				jQuery("##mapGoHere").html(data);
 			});

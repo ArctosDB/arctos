@@ -73,7 +73,7 @@ function insertMedia(idList) {
 	s.className='ajaxStatus';
 	s.innerHTML='Checking for Media...';
 	document.body.appendChild(s);
-	jQuery.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
 			method : "getMedia",
 			idList : idList,
@@ -117,7 +117,7 @@ function insertTypes(idList) {
 	s.className='ajaxStatus';
 	s.innerHTML='Checking for Types...';
 	document.body.appendChild(s);
-	jQuery.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
 			method : "getTypes",
 			idList : idList,
@@ -153,7 +153,7 @@ function injectLoanPick() {
 		s.className='ajaxStatus';
 		s.innerHTML='Feching Loan Pick...';
 		document.body.appendChild(s);	
-		jQuery.getJSON("/component/functions.cfc",
+		jQuery.getJSON("/component/SpecimenResults.cfc",
 			{
 				method : "getLoanPartResults",
 				transaction_id : transaction_id,
@@ -280,6 +280,6 @@ function removeRows() {
          var rurl='/SpecimenResults.cfm?' + $("#mapURL").val() + '&exclCollObjId=' + ecoid.join(',');
          document.location=rurl;
      } else {
-    	 alert('select rows then click');
+    	 alert('select rows, then click');
      }
 }

@@ -370,8 +370,6 @@
 								<td id="SDCellRight">#collecting_event_name#</td>
 							</tr>
 						</cfif>
-
-
 						<cfif len(spec_locality) gt 0>
 							<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">Specific Locality:</td>
@@ -441,9 +439,6 @@
 								</tr>
 							</div>
 						</cfif>
-						
-						
-						
 						<cfif len(one.associated_species) gt 0>
 						<div class="detailBlock">
 							<tr class="detailData">
@@ -452,8 +447,6 @@
 							</tr>
 						</div>
 					</cfif>
-					
-					
 						<tr>
 							<td colspan="2">
 								<table width="100%">
@@ -487,8 +480,6 @@
 														</td>
 													</tr>
 												</cfif>
-												
-												
 												<cfif len(orig_elev_units) gt 0>
 													<tr>
 														<td align="right">Elevation</td>
@@ -501,8 +492,6 @@
 														<td align="left">#MIN_DEPTH# to #MAX_DEPTH# #DEPTH_UNITS#</td>
 													</tr>
 												</cfif>
-												
-
 											</table>
 										</td>
 										<td valign="top" align="right"><!---- map here --->
@@ -562,11 +551,7 @@
 					</table>
 				</div>
 			</cfloop>
-
-
-
 			</div>
-
 <!------------------------------------ collectors ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">Collectors
@@ -699,8 +684,7 @@
 					</div>
 					<cfloop query="rels">
 						<cfquery name="relcache" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-							select * from cf_relations_cache where COLL_OBJ_OTHER_ID_NUM_ID=#COLL_OBJ_OTHER_ID_NUM_ID#
-							order by term
+							select * from cf_relations_cache where COLL_OBJ_OTHER_ID_NUM_ID=#COLL_OBJ_OTHER_ID_NUM_ID# order by term
 						</cfquery>
 						<cfset thisClass="">
 						<cfif id_references is "same individual as">
@@ -724,7 +708,6 @@
 										#TERM#@#dateformat(CACHEDATE,"yyyy-mm-dd")#: #VALUE#
 									</div>
 								</cfloop>
-
 							</div>
 						</div>
 					</cfloop>
@@ -790,75 +773,6 @@
 	order by
 		part_name
 </cfquery>
-<!-------
-<cfquery name="pAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select
-						 part_attribute_id,
-						 ,
-						 ,
-						 ,
-						 ,
-						 ,
-						 ,
-
-					from
-						,
-
-					where
-						specimen_part_attribute.determined_by_agent_id=preferred_agent_name.agent_id (+) and
-						collection_object_id=#partID#
-				</cfquery>
-				<tr bgcolor="#bgc#">
-					<td colspan="8" align="center">
-						<cfif pAtt.recordcount gt 0>
-						<table border>
-							<tr>
-								<th>Attribute</th>
-								<th>Value</th>
-								<th>Units</th>
-								<th>Date</th>
-								<th>DeterminedBy</th>
-								<th>Remark</th>
-							</tr>
-							<cfloop query="pAtt">
-								<tr>
-									<td>#attribute_type#</td>
-									<td>
-										#attribute_value#&nbsp;
-									</td>
-									<td>
-										#attribute_units#&nbsp;
-									</td>
-									<td>
-										#dateformat(determined_date,"yyyy-mm-dd")#&nbsp;
-									</td>
-									<td>
-										#agent_name#&nbsp;
-									</td>
-									<td>
-										#attribute_remark#&nbsp;
-									</td>
-								</tr>
-							</cfloop>
-						</td>
-					</table>
-					<cfelse>
-						--no attributes--
-					</cfif>
-
-
-
-
-
-
-
-
-
-
-				---------->
-
-
-
 <cfquery name="mPart" dbtype="query">
 	select * from parts where sampled_from_obj_id is null order by part_name
 </cfquery>
@@ -945,10 +859,6 @@
 										</td>
 									</tr>
 								</cfif>
-
-
-
-
 								<cfquery name="sPart" dbtype="query">
 									select * from parts where sampled_from_obj_id=#part_id#
 								</cfquery>
@@ -973,7 +883,6 @@
 					</span>
 				</div>
 			</div>
-
 <!------------------------------------ attributes ---------------------------------------------->
 			<cfif len(attribute.attribute_type) gt 0>
 				<div class="detailCell">
@@ -1344,8 +1253,7 @@
 					</span>
 				</CFIF>
 			</cfif>
-		</div>
-		
+		</div>		
 		<div class="detailBlock">
             <span class="detailData">
 				<div class="thumbs">
