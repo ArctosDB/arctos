@@ -117,8 +117,8 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
-	<script type='text/javascript' language="javascript" src='/fix/jtable/jquery.jtable.min.js'></script>
-	<link rel="stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
+	<script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
+	<link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 	<script type="text/javascript">
 	    $(document).ready(function () {
 	        $('#jtdocdoc').jtable({
