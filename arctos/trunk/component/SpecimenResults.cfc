@@ -193,9 +193,18 @@
 											<cfquery name="cto" dbtype="query">
 												select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
 											</cfquery>
+																						<select onchange="$('###thisKey#').val(this.value);">
+
 											<cfloop query="cto">
+											<!----
 												<div class="likeLink" onclick="$('###thisKey#').val('#thisctvalue#');">#thisctvalue#</div>
+												---->
+												
+												<option value="#thisctvalue#">#thisctvalue#</option>
 											</cfloop>
+											
+																						</select>
+
 										<cfelse>
 											<select onchange="$('###thisKey#').val(this.value);">
 											<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
