@@ -104,7 +104,6 @@ function loadTAG(mid,muri){
 	d+='<div id="editRefDiv"></div>';
 	d+='</form>';	
 	$("#navDiv").append(d);
-	
 	$('#imgDiv').getImg2Tag($("#imgURL").val(),function() {
 		$("#imgH").val($('#theImage').height());
 		$("#imgW").val($('#theImage').width());
