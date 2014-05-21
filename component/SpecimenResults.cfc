@@ -103,6 +103,12 @@
 						<th>Vocabulary *</th>
 						<th>Remove</th>
 					</tr>
+					<!-----
+						Show:
+							All values on which they searched
+							select values they have turned on in results
+					----->
+					
 					<cfloop list="#srchcols.columnlist#" index="c">
 						<cfif not listcontainsnocase(stuffToIgnore,c) and  not listcontainsnocase(keylist,c)>
 							<cfset keylist=listappend(keylist,c)>
@@ -117,6 +123,25 @@
 							<cfelse>
 								<cfset thisSpanClass="">
 							</cfif>
+							<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
+								<cfquery name="tct" datasource="cf_dbuser">
+									select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
+								</cfquery>
+								<cfloop list="#tct.columnlist#" index="i">
+									<cfif i is not "description" and i is not "collection_cde">
+										<cfset ctColName=i>
+									</cfif>
+								</cfloop>
+								<cfquery name="cto" dbtype="query">
+									select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
+								</cfquery>
+							</cfif>
+											
+											
+											
+											
+							
+							
 							<tr id="row_#c#">
 								<td>
 									<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#">
@@ -132,10 +157,16 @@
 								</td>
 								<td>
 									<select onchange="$('###c#').val(this.value);">
-											<cfloop query="dvt">
-												<cfset thisValue=evaluate("dvt." & c)>	
-												<option value="#thisValue#">#thisValue#</option>
+										<cfloop query="dvt">
+											<cfset thisValue=evaluate("dvt." & c)>	
+											<option value="#thisValue#">#thisValue#</option>
+										</cfloop>
+										<cfif isdefined(cto)>
+											<cfloop query="cto">
+												
+											<option value="#thisctvalue#"CT->#thisctvalue#</option>
 											</cfloop>
+										</cfif>
 									</select>
 <!----
 								
