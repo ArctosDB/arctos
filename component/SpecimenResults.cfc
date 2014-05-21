@@ -194,10 +194,15 @@
 			<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from #session.SpecSrchTab#
 			</cfquery>
-			<cfset stuffToIgnore="guid">
+			<cfset stuffToIgnore="guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,SEX,VERBATIM_DATE">
+			
 			<cfloop list="#srchcols.columnlist#" index="c">
 				<cfif not listcontainsnocase(stuffToIgnore,c)>
+					<cfquery name="dvt" dbtype="query">
+						select #c# from srchcols group by #c# order by #c#
+					</cfquery>
 					#c#.....
+					<cfdump var=#dvt#>
 				</cfif>
 			</cfloop>
 			<cfdump var=#srchcols#>
