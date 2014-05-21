@@ -125,6 +125,13 @@ jQuery(document).ready(function () {
 		jQuery("div[class^='refPane_']").live('click', function(e){
 			var tagID='refDiv_' + this.id.replace('refPane_','');
 			$(document).scrollTo( $('#' + tagID), 800 );
+			
+			
+			console.log('clicked refDiv' + tagID);
+
+			
+			scrollToTag(tagID);
+			
 		});
 	});
 
