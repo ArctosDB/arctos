@@ -197,9 +197,14 @@
 												<div class="likeLink" onclick="$('###thisKey#').val('#thisctvalue#');">#thisctvalue#</div>
 											</cfloop>
 										<cfelse>
+											<select onchange="$('###thisKey#').val(this.value);">
 											<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
+												<!-----
 												<div class="likeLink"  onclick="$('###thisKey#').val('#i#');">#i#</div>
+												----->
+												<option value="#i#">#i#</option>
 											</cfloop>
+											</select>
 										</cfif>
 									</cfif>
 								</div>
