@@ -68,7 +68,7 @@ $.fn.getImg2Tag = function(src, f){
 		this.appendChild(i);
 	});
 }
-function loadTAG(mid,muri,tid){
+function loadTAG(mid,muri){
 	$("imgDiv").text('Loading image and tags.....');
 	var d='<div id="navDiv"><div id="info"></div></div>';
 	$('body').append(d);
@@ -108,7 +108,7 @@ function loadTAG(mid,muri,tid){
 	$('#imgDiv').getImg2Tag($("#imgURL").val(),function() {
 		$("#imgH").val($('#theImage').height());
 		$("#imgW").val($('#theImage').width());
-		loadInitial(tid);	
+		loadInitial();	
 	});
 }
 function saveTagEdit(id){
@@ -268,7 +268,7 @@ $("span[id^='killRefClk_']").live('click', function(e){
 		);
 	}
 });
-function loadInitial(tid) {
+function loadInitial() {
 	$.getJSON("/component/tag.cfc",
 		{
 			method : "getTags",
@@ -312,10 +312,6 @@ function loadInitial(tid) {
 		setTimeout(function() {scrollToTag(hash);},1000);
 		setTimeout(function() {scrollToLabel(hash);},1000);
 	}
-	//if(tid){
-		//setTimeout(function() {scrollToTag(tid);},1000);
-	//	setTimeout(function() {scrollToLabel(tid);},1000);
-	//}
 }
 function scrollToLabel(id) {
 	try{
