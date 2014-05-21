@@ -163,8 +163,13 @@
 										</cfloop>
 										<cfif isdefined("cto")>
 											<cfloop query="cto">
-												
-											<option value="#thisctvalue#">CT: #thisctvalue#</option>
+												<cfquery name="alreadyGotOne" dbtype="query">
+													select count(*) c from dvt where #c#='#thisctvalue#'
+												</cfquery>
+												<cfif alreadyGotOne.c is 0>
+													<option value="#thisctvalue#">CT: #thisctvalue#</option>
+												</cfif>
+											
 											</cfloop>
 										</cfif>
 									</select>
