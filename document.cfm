@@ -39,25 +39,27 @@
 	</cftry>
 	<cfif listlen(request.rdurl,"/") gte gPos+2>
 		<cftry>
-		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
-		<cfset tag_id="">
-		<cfif listlen(p,"?&") gt 1>
-			<!---- accept ?tag_id=... ---->
-			<cfset pg=listgetat(p,1,"?&")>
-			<cfset tag_id=listgetat(p,2,"?&")>
-			<cfif listlen(tag_id,"=") gt 1>
-				<cfset tag_id=listgetat(tag_id,2,"=")>
-			</cfif>			
-		<cfelseif listlen(p,"##") gt 1>
-			<!--- or #tagid ---->
-			got hash....
-			<cfset tag_id=listgetat(p,2,'##')>
-		</cfif>
-		<cfcatch>
-			<cfset pg=1>
+			<cfset p=listgetat(request.rdurl,gPos+2,"/")>
 			<cfset tag_id="">
-		</cfcatch>
-	</cftry>
+			<cfset pg=p>
+			<cfif listlen(p,"?&") gt 1>
+				<!---- accept ?tag_id=... ---->
+				<cfset pg=listgetat(p,1,"?&")>
+				<cfset tag_id=listgetat(p,2,"?&")>
+				<cfif listlen(tag_id,"=") gt 1>
+					<cfset tag_id=listgetat(tag_id,2,"=")>
+				</cfif>			
+			<cfelseif listlen(p,"##") gt 1>
+				<!--- or #tagid ---->
+				got hash....
+				<cfset pg=listgetat(p,1,'##')>
+				<cfset tag_id=listgetat(p,2,'##')>
+			</cfif>
+			<cfcatch>
+				<cfset pg=1>
+				<cfset tag_id="">
+			</cfcatch>
+		</cftry>
 	</cfif>
 	<cfset action="show">
 </cfif>
