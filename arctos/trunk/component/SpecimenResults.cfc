@@ -58,7 +58,7 @@
 		-- select things from their results
 		-- existing search value, when available
 	---->
-	<cfset sugntab = querynew("key,val,vocab,definition,display_text,placeholder_text,search_hint")>
+	<cfset sugntab = querynew("key,val,vocab,indata,definition,display_text,placeholder_text,search_hint")>
 
 
 	<cfset idx=1>
@@ -91,11 +91,21 @@
 		<cfelse>
 			<cfset v=listchangedelims(thisMoreInfo.CONTROLLED_VOCABULARY,"|")>				
 		</cfif>				
-							
+		<cfif listcontainsnocase(srchcols.columnlist,thisKey)
+			<cfquery name="dvt" dbtype="query">
+				select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
+			</cfquery>
+			<cfset id=valuelist(dvt.vals,"|")>
+		<cfelse>
+			<cfset id="">
+		</cfif>
+		
+												
 		<cfset temp = queryaddrow(sugntab,1)>
 		<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
 		<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
 		<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
+		<cfset temp = QuerySetCell(sugntab, "indata", id, idx)>
 		<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
 		<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
 		<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
