@@ -77,6 +77,7 @@
 			}
 		</script>
 		<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
+		<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</span>
 		<cfif session.ResultsBrowsePrefs is 1>
 			<cfset thisStyle='display:block;'>
 		<cfelse>
@@ -91,169 +92,151 @@
 			</div>
 			<form name="refineResults" method="get" action="/SpecimenResults.cfm">
 				<table border>
-				<tr>
-					<th>Term</th>
-					<th></th>
-					<th>Value</th>
-					<th>Vocabulary *</th>
-					<th>Remove</th>
-				</tr>
-				<CFSET KEYLIST="">
-				<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
-					<cfif listlen(kvp,"=") is 2>
-						<cfset thisKey=listgetat(kvp,1,"=")>
-						<cfset keylist=listappend(keylist,thisKey)>
-						<cfset thisValue=listgetat(kvp,2,"=")>
-					<cfelse>
-						<!--- variable only - tests for existence of attribtues ---->
-						<cfset thisKey=replace(kvp,'=','','all')>
-						<cfset keylist=listappend(keylist,thisKey)>
-						<cfset thisValue=''>
+					<tr>
+						<th>Term</th>
+						<th></th>
+						<th>Value</th>
+						<th>Vocabulary *</th>
+						<th>Remove</th>
+					</tr>
+					<CFSET KEYLIST="">
+					<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
+						<cfif listlen(kvp,"=") is 2>
+							<cfset thisKey=listgetat(kvp,1,"=")>
+							<cfset keylist=listappend(keylist,thisKey)>
+							<cfset thisValue=listgetat(kvp,2,"=")>
+						<cfelse>
+							<!--- variable only - tests for existence of attribtues ---->
+							<cfset thisKey=replace(kvp,'=','','all')>
+							<cfset keylist=listappend(keylist,thisKey)>
+							<cfset thisValue=''>
+						</cfif>
+						<tr id="row_#thisKey#">
+							<td>
+								<cfquery name="thisMoreInfo" dbtype="query">
+									select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
+								</cfquery>
+								<cfif len(thisMoreInfo.DEFINITION) gt 0>
+									<cfset thisSpanClass="helpLink">
+								<cfelse>
+									<cfset thisSpanClass="">
+								</cfif>
+								<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#">
+									<cfif len(thisMoreInfo.DISPLAY_TEXT) gt 0>
+										#thisMoreInfo.DISPLAY_TEXT#
+									<cfelse>
+										#thisKey#
+									</cfif>
+								</span>					
+							</td>
+							<td>=</td>
+							<td>
+								<!--- attributes take units as part of the variable, so no code tables ---->
+								<input type="text" name="#thisKey#" id="#thisKey#" value="#thisvalue#" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
+							</td>
+							<td>
+								<div style="height:1em; overflow:scroll;">
+									<cfif len(thisMoreInfo.CONTROLLED_VOCABULARY) gt 0>
+										<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
+											<cfquery name="tct" datasource="cf_dbuser">
+												select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
+											</cfquery>
+											<cfloop list="#tct.columnlist#" index="i">
+												<cfif i is not "description" and i is not "collection_cde">
+													<cfset ctColName=i>
+												</cfif>
+											</cfloop>
+											<cfquery name="cto" dbtype="query">
+												select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
+											</cfquery>
+											<cfloop query="cto">
+												<div class="likeLink" onclick="$('###thisKey#').val('#thisctvalue#');">#thisctvalue#</div>
+											</cfloop>
+										<cfelse>
+											<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
+												<div class="likeLink"  onclick="$('###thisKey#').val('#i#');">#i#</div>
+											</cfloop>
+										</cfif>
+									</cfif>
+								</div>
+							</td>
+							<td>
+								<span onclick="removeTerm('#thisKey#');" class="likeLink"><img src="/images/del.gif"></span>
+							</td>
+						</tr>
+					</cfloop>
+					<cfif len(keylist) is 0>
+						<cfset keylist='doesNotExist'>
 					</cfif>
-					<tr id="row_#thisKey#">
-						<td>
+					<cfquery name="newkeys" dbtype="query">
+						SELECT * FROM ssrch_field_doc WHERE specimen_query_term=1 and CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
+					</cfquery>
+					<cfset stuffToIgnore="guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,SEX,VERBATIM_DATE">
+					<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select * from #session.SpecSrchTab#
+					</cfquery>
+					<cfloop list="#srchcols.columnlist#" index="c">
+						<cfif not listcontainsnocase(stuffToIgnore,c) and  not listcontainsnocase(keylist,c) >
+							<cfquery name="dvt" dbtype="query">
+								select #c# from srchcols group by #c# order by #c#
+							</cfquery>
 							<cfquery name="thisMoreInfo" dbtype="query">
-								select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
+								select * from ssrch_field_doc where CF_VARIABLE='#lcase(c)#'
 							</cfquery>
 							<cfif len(thisMoreInfo.DEFINITION) gt 0>
 								<cfset thisSpanClass="helpLink">
 							<cfelse>
 								<cfset thisSpanClass="">
 							</cfif>
-							<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#">
-								<cfif len(thisMoreInfo.DISPLAY_TEXT) gt 0>
-									#thisMoreInfo.DISPLAY_TEXT#
-								<cfelse>
-									#thisKey#
-								</cfif>
-							</span>					
-						</td>
-						<td>=</td>
-						<td>
-							<!--- attributes take units as part of the variable, so no code tables ---->
-							<input type="text" name="#thisKey#" id="#thisKey#" value="#thisvalue#" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
-						</td>
-						<td>
-							<div style="height:1em; overflow:scroll;">
-								<cfif len(thisMoreInfo.CONTROLLED_VOCABULARY) gt 0>
-									<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
-										<cfquery name="tct" datasource="cf_dbuser">
-											select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
-										</cfquery>
-										<cfloop list="#tct.columnlist#" index="i">
-											<cfif i is not "description" and i is not "collection_cde">
-												<cfset ctColName=i>
-											</cfif>
-										</cfloop>
-										<cfquery name="cto" dbtype="query">
-											select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
-										</cfquery>
-										<cfloop query="cto">
-											<div class="likeLink" onclick="$('###thisKey#').val('#thisctvalue#');">#thisctvalue#</div>
-										</cfloop>
-									<cfelse>
-										<cfloop list="#thisMoreInfo.CONTROLLED_VOCABULARY#" index="i">
-											<div class="likeLink"  onclick="$('###thisKey#').val('#i#');">#i#</div>
-										</cfloop>
-									</cfif>
-								</cfif>
-							</div>
-						</td>
-						<td>
-							<span onclick="removeTerm('#thisKey#');" class="likeLink"><img src="/images/del.gif"></span>
-						</td>
-					</tr>
-				</cfloop>
-				<cfif len(keylist) is 0>
-					<cfset keylist='doesNotExist'>
-				</cfif>
-				<cfquery name="newkeys" dbtype="query">
-					SELECT * FROM ssrch_field_doc WHERE specimen_query_term=1 and CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
-				</cfquery>
-				
-				
-				
-				
-				
-				
-				
-				<cfset stuffToIgnore="guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,SEX,VERBATIM_DATE">
-				<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select * from #session.SpecSrchTab#
-				</cfquery>
-				<cfloop list="#srchcols.columnlist#" index="c">
-					<cfif not listcontainsnocase(stuffToIgnore,c) and  not listcontainsnocase(keylist,c) >
-						<cfquery name="dvt" dbtype="query">
-							select #c# from srchcols group by #c# order by #c#
-						</cfquery>
-						<cfquery name="thisMoreInfo" dbtype="query">
-							select * from ssrch_field_doc where CF_VARIABLE='#lcase(c)#'
-						</cfquery>
-						<cfif len(thisMoreInfo.DEFINITION) gt 0>
-							<cfset thisSpanClass="helpLink">
-						<cfelse>
-							<cfset thisSpanClass="">
+							<tr id="row_#c#">
+								<td>
+									<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#">
+										<cfif len(thisMoreInfo.DISPLAY_TEXT) gt 0>
+											#thisMoreInfo.DISPLAY_TEXT#
+										<cfelse>
+											#c#
+										</cfif>
+									</span>
+								</td>
+								<td>
+									=
+								</td>
+								<td>
+									<input type="text" name="#c#" id="#c#" value="" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
+								</td>
+								<td>
+									<div style="height:1em; overflow:scroll;">
+										<cfloop query="dvt">
+											<cfset thisValue=evaluate("dvt." & c)>									
+											<div class="likeLink" onclick="$('###c#').val('#thisValue#');">#thisValue#</div>
+									</cfloop>
+								</td>
+								<td>
+									<span onclick="removeTerm('#c#');" class="likeLink"><img src="/images/del.gif"></span>
+								</td>
+							</tr>
 						</cfif>
-						
-						
-						<tr id="row_#c#">
+					</cfloop>
+						<tr>
 							<td>
-								<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#">
-									<cfif len(thisMoreInfo.DISPLAY_TEXT) gt 0>
-										#thisMoreInfo.DISPLAY_TEXT#
-									<cfelse>
-										#c#
-									</cfif>
-								</span>
+								<select id="newTerm" onchange="setThisName(this.value);">
+									<option value=''>Add new term</option>
+									<cfloop query="newkeys">
+										<option value="#cf_variable#">#DISPLAY_TEXT#</option>
+									</cfloop>
+								</select>
 							</td>
+							<td>=</td>
 							<td>
-								=
-							</td>
-							<td>
-								<input type="text" name="#c#" id="#c#" value="" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
-							</td>
-							<td>
-								<div style="height:1em; overflow:scroll;">
-									<cfloop query="dvt">
-										<cfset thisValue=evaluate("dvt." & c)>									
-										<div class="likeLink" onclick="$('###c#').val('#thisValue#');">#thisValue#</div>
-								</cfloop>
-							</td>
-							<td>
-								<span onclick="removeTerm('#c#');" class="likeLink"><img src="/images/del.gif"></span>
+								<input type="text" name="newValue" id="newValue" size="50">
 							</td>
 						</tr>
-					</cfif>
-				</cfloop>
-					
-					
-					
-					<tr>
-						<td>
-							<select id="newTerm" onchange="setThisName(this.value);">
-								<option value=''>Add new term</option>
-								<cfloop query="newkeys">
-									<option value="#cf_variable#">#DISPLAY_TEXT#</option>
-								</cfloop>
-							</select>
-							
-						</td>
-						<td>=</td>
-						<td>
-							<input type="text" name="newValue" id="newValue" size="50">
-						</td>
-					</tr>
-					
-				</table>
+					</table>
 				<input type="submit" value="Requery">
 				<div style="font-size:x-small">
 					* Attributes will accept non-code-table values and operators: "2 mm" or "<2mm," for example.
 				</div>
 			</form>
-			
-			
-			
-			
 		</div>
 	</cfsavecontent>
 	</cfoutput>
