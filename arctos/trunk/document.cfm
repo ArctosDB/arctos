@@ -22,7 +22,7 @@
 	<cfoutput>
 		<cfif r.pg gt 0 and len(r.ttl) gt 0>
 			<cfheader statuscode="301" statustext="Moved permanently">
-			<cfheader name="Location" value="/document/#r.ttl#/#r.pg#?tag_id=#tag_id#">
+			<cfheader name="Location" value="/document/#r.ttl#/#r.pg#/##tag_id#">
 		<cfelse>
 			fail
 			<cfabort>
@@ -42,7 +42,7 @@
 		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
 		<cfif listlen(p,"?&") gt 1>
 			<cfset pg=listgetat(p,1,"?&")>
-			<cfset tag_id=listgetat(p,2,"?&")>
+			<cfset tag_id=listgetat(p,2,"?&#")>
 			<cfif listlen(tag_id,"=") gt 1>
 				<cfset tag_id=listgetat(tag_id,2,"=")>
 			<cfelse>
