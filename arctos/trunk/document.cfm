@@ -40,8 +40,8 @@
 	<cfif listlen(request.rdurl,"/") gte gPos+2>
 		<cftry>
 		<cfset p=listgetat(request.rdurl,gPos+2,"/")>
-		<cfif listlen(p,"?&") gt 1>
-			<cfset pg=listgetat(p,1,"?&")>
+		<cfif listlen(p,"?&##") gt 1>
+			<cfset pg=listgetat(p,1,"?&##")>
 			<cfset tag_id=listgetat(p,2,"?&")>
 			<cfif listlen(tag_id,"=") gt 1>
 				<cfset tag_id=listgetat(tag_id,2,"=")>
