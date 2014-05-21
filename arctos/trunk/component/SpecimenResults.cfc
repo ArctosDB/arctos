@@ -210,7 +210,7 @@
 						<cfelse>
 							<cfset thisSpanClass="">
 						</cfif>
-						<tr id="row_#c#">
+						<tr id="row_#sugntab.key#">
 							<td>
 								<span class="#thisSpanClass#" id="_#sugntab.key#" title="#sugntab.DEFINITION#">
 									<cfif len(sugntab.DISPLAY_TEXT) gt 0>
