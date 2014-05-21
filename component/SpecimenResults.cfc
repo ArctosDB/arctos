@@ -44,10 +44,19 @@
 
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
+	<cfoutput>
 	<cfquery name="ssrch_field_doc" datasource="cf_dbuser">
 		select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 	</cfquery>
-	<cfoutput>
+	<cfquery name="newkeys" dbtype="query">
+		SELECT * FROM ssrch_field_doc WHERE specimen_query_term=1 and CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
+	</cfquery>
+	<cfset stuffToIgnore="guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,SEX,VERBATIM_DATE">
+	<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from #session.SpecSrchTab#
+	</cfquery>
+					
+					
 	<cfsavecontent variable="widget">
 		<script>
 			jQuery( function($) {
@@ -94,12 +103,53 @@
 				<table border>
 					<tr>
 						<th>Term</th>
-						<th></th>
 						<th>Value</th>
 						<th>Vocabulary *</th>
 						<th>Remove</th>
 					</tr>
 					<CFSET KEYLIST="">
+					<cfloop list="#srchcols.columnlist#" index="c">
+						<cfif not listcontainsnocase(stuffToIgnore,c) and  not listcontainsnocase(keylist,c)>
+							<cfset keylist=listappend(keylist,c)>
+							<cfquery name="dvt" dbtype="query">
+								select #c# from srchcols group by #c# order by #c#
+							</cfquery>
+							<cfquery name="thisMoreInfo" dbtype="query">
+								select * from ssrch_field_doc where CF_VARIABLE='#lcase(c)#'
+							</cfquery>
+							<cfif len(thisMoreInfo.DEFINITION) gt 0>
+								<cfset thisSpanClass="helpLink">
+							<cfelse>
+								<cfset thisSpanClass="">
+							</cfif>
+							<tr id="row_#c#">
+								<td>
+									<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#">
+										<cfif len(thisMoreInfo.DISPLAY_TEXT) gt 0>
+											#thisMoreInfo.DISPLAY_TEXT#
+										<cfelse>
+											#c#
+										</cfif>
+									</span>
+								</td>
+								<td>
+									<input type="text" name="#c#" id="#c#" value="" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
+								</td>
+								<td>
+									<div style="height:1em; overflow:scroll;">
+										<cfloop query="dvt">
+											<cfset thisValue=evaluate("dvt." & c)>									
+											<div class="likeLink" onclick="$('###c#').val('#thisValue#');">#thisValue#</div>
+									</cfloop>
+								</td>
+								<td>
+									<span onclick="removeTerm('#c#');" class="likeLink"><img src="/images/del.gif"></span>
+								</td>
+							</tr>
+						</cfif>
+					</cfloop>
+					
+					
 					<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
 						<cfif listlen(kvp,"=") is 2>
 							<cfset thisKey=listgetat(kvp,1,"=")>
@@ -129,7 +179,6 @@
 									</cfif>
 								</span>					
 							</td>
-							<td>=</td>
 							<td>
 								<!--- attributes take units as part of the variable, so no code tables ---->
 								<input type="text" name="#thisKey#" id="#thisKey#" value="#thisvalue#" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
@@ -168,55 +217,8 @@
 					<cfif len(keylist) is 0>
 						<cfset keylist='doesNotExist'>
 					</cfif>
-					<cfquery name="newkeys" dbtype="query">
-						SELECT * FROM ssrch_field_doc WHERE specimen_query_term=1 and CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
-					</cfquery>
-					<cfset stuffToIgnore="guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,SEX,VERBATIM_DATE">
-					<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select * from #session.SpecSrchTab#
-					</cfquery>
-					<cfloop list="#srchcols.columnlist#" index="c">
-						<cfif not listcontainsnocase(stuffToIgnore,c) and  not listcontainsnocase(keylist,c) >
-							<cfquery name="dvt" dbtype="query">
-								select #c# from srchcols group by #c# order by #c#
-							</cfquery>
-							<cfquery name="thisMoreInfo" dbtype="query">
-								select * from ssrch_field_doc where CF_VARIABLE='#lcase(c)#'
-							</cfquery>
-							<cfif len(thisMoreInfo.DEFINITION) gt 0>
-								<cfset thisSpanClass="helpLink">
-							<cfelse>
-								<cfset thisSpanClass="">
-							</cfif>
-							<tr id="row_#c#">
-								<td>
-									<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#">
-										<cfif len(thisMoreInfo.DISPLAY_TEXT) gt 0>
-											#thisMoreInfo.DISPLAY_TEXT#
-										<cfelse>
-											#c#
-										</cfif>
-									</span>
-								</td>
-								<td>
-									=
-								</td>
-								<td>
-									<input type="text" name="#c#" id="#c#" value="" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
-								</td>
-								<td>
-									<div style="height:1em; overflow:scroll;">
-										<cfloop query="dvt">
-											<cfset thisValue=evaluate("dvt." & c)>									
-											<div class="likeLink" onclick="$('###c#').val('#thisValue#');">#thisValue#</div>
-									</cfloop>
-								</td>
-								<td>
-									<span onclick="removeTerm('#c#');" class="likeLink"><img src="/images/del.gif"></span>
-								</td>
-							</tr>
-						</cfif>
-					</cfloop>
+					
+					
 						<tr>
 							<td>
 								<select id="newTerm" onchange="setThisName(this.value);">
@@ -226,7 +228,6 @@
 									</cfloop>
 								</select>
 							</td>
-							<td>=</td>
 							<td>
 								<input type="text" name="newValue" id="newValue" size="50">
 							</td>
