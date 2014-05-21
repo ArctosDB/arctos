@@ -29,8 +29,6 @@
 		</cfif>
 	</cfoutput>
 </cfif>
-
-request.rdurl==<cfdump var=#request.rdurl#>
 <cfif listlen(request.rdurl,"/") gt 1>
 	<cfset gPos=listfindnocase(request.rdurl,"document","/")>
 	<cftry>
@@ -40,45 +38,10 @@ request.rdurl==<cfdump var=#request.rdurl#>
 		</cfcatch>
 	</cftry>
 	<cfif listlen(request.rdurl,"/") gte gPos+2>
-	
-	00000trying------
-		<cftry>
-			<cfset p=listgetat(request.rdurl,gPos+2,"/")>
-			
-			
-			p is <cfdump var=#p#>
-			<cfset tag_id="">
-			<cfset pg=p>
-			<cfif listlen(p,"?&") gt 1>
-				<!---- accept ?tag_id=... ---->
-				<cfset pg=listgetat(p,1,"?&")>
-				<cfset tag_id=listgetat(p,2,"?&")>
-				<cfif listlen(tag_id,"=") gt 1>
-					<cfset tag_id=listgetat(tag_id,2,"=")>
-				</cfif>			
-			<cfelseif listlen(p,"##") gt 1>
-				<!--- or #tagid ---->
-				got hash....
-				<cfset pg=listgetat(p,1,'##')>
-				<cfset tag_id=listgetat(p,2,'##')>
-			</cfif>
-			<cfcatch>
-			
-			===catch===
-			<cfdump var=#cfcatch#>
-				<cfset pg=1>
-				<cfset tag_id="">
-			</cfcatch>
-		</cftry>
+		<cfset pg=listgetat(request.rdurl,gPos+2,"/")>
 	</cfif>
 	<cfset action="show">
 </cfif>
-
-
-<cfoutput>
------#tag_id#------------
-
-</cfoutput>
 <cfif action is 'srchResult'>
 <cfoutput >
 	<cfset basSQL="select
