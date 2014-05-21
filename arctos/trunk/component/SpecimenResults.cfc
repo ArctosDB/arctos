@@ -48,9 +48,6 @@
 	<cfquery name="ssrch_field_doc" datasource="cf_dbuser">
 		select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 	</cfquery>
-	<cfquery name="newkeys" dbtype="query">
-		SELECT * FROM ssrch_field_doc WHERE specimen_query_term=1 and CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
-	</cfquery>
 	<cfset stuffToIgnore="guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,SEX,VERBATIM_DATE">
 	<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from #session.SpecSrchTab#
@@ -215,8 +212,9 @@
 					<cfif len(keylist) is 0>
 						<cfset keylist='doesNotExist'>
 					</cfif>
-					
-					
+					<cfquery name="newkeys" dbtype="query">
+						SELECT * FROM ssrch_field_doc WHERE specimen_query_term=1 and CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
+					</cfquery>
 						<tr>
 							<td>
 								<select id="newTerm" onchange="setThisName(this.value);">
