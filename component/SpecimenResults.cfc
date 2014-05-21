@@ -91,7 +91,7 @@
 		<cfelse>
 			<cfset v=listchangedelims(thisMoreInfo.CONTROLLED_VOCABULARY,"|")>				
 		</cfif>				
-		<cfif listcontainsnocase(srchcols.columnlist,thisKey)
+		<cfif listcontainsnocase(srchcols.columnlist,thisKey)>
 			<cfquery name="dvt" dbtype="query">
 				select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
 			</cfquery>
