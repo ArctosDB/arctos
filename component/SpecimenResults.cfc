@@ -154,6 +154,8 @@
 			<cfset idx=idx+1>
 		</cfif>
 	</cfloop>
+	
+	<cfdump var=#sugntab#>
 	<cfsavecontent variable="widget">
 		<script>
 			jQuery( function($) {
