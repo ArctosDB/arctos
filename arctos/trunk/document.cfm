@@ -53,6 +53,10 @@
 		</cfif>
 		<cfif len(tag_id) gt 0>
 			got tagID<cfdump var=#tag_id#>
+			<div style="border:2px solid red;">
+				You got here with an experimental deprecated URL format, which will not work indefinitely. 
+				Please update your records to #application.serverRootURL#/document/#r.ttl#/#r.pg#/###tag_id#
+			</div>
 		</cfif>
 		<cfcatch>
 			<cfset pg=1>
