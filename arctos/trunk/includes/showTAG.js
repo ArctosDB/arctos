@@ -108,12 +108,17 @@ jQuery(document).ready(function () {
 			modArea(tagID);
 		});
 		jQuery("div .refDiv, .highlight").live('click', function(e){
+			var numID=this.id.replace('refDiv_','');
 			
 			console.log('clicked refDiv');
 			
 			
-			var tagID='refPane_' + this.id.replace('refDiv_','');
-			$('#navDiv').scrollTo( $('#' + tagID), 800 );
+			//var tagID='refPane_' + numID;
+			
+
+			scrollToTag(numID);
+			scrollToLabel(numID)''
+			//$('#navDiv').scrollTo( $('#' + tagID), 800 );
 		});
 		
 			
@@ -123,16 +128,16 @@ jQuery(document).ready(function () {
 		});
 		
 		jQuery("div[class^='refPane_']").live('click', function(e){
-			var numID=this.id.replace('refPane_','')
-			var tagID='refDiv_' + numID;
-			$(document).scrollTo( $('#' + tagID), 800 );
+			var numID=this.id.replace('refPane_','');
+			//var tagID='refDiv_' + numID;
+			//$(document).scrollTo( $('#' + tagID), 800 );
 			
 			
 			console.log('clicked refDiv' + numID);
 
 			
 			scrollToTag(numID);
-			
+			scrollToLabel(numID)''
 		});
 	});
 
