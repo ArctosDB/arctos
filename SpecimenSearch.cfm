@@ -63,7 +63,7 @@
 		</td>
 	</tr>
 </table>
-<form method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues();">
+<form method="get" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues();">
 <table>
 	<tr>
 		<td valign="top">
@@ -86,7 +86,6 @@
 				<option  value="/bnhmMaps/kml.cfm?action=newReq">KML</option>
 				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
 				<option  value="SpecimenGraph.cfm">Graph</option>
-				<option  value="/fix/dataTablesTest.cfm">Experimental</option>
 			</select>
 		</td>
 		<td align="left">
