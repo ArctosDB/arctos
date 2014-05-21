@@ -237,7 +237,7 @@
 									</select>
 								</td>
 								<td>
-									<span onclick="removeTerm('#c#');" class="likeLink"><img src="/images/del.gif"></span>
+									<span onclick="removeTerm('#sugntab.key#');" class="likeLink"><img src="/images/del.gif"></span>
 								</td>
 							</tr>
 					</cfloop>
