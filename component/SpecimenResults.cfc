@@ -72,8 +72,8 @@
 			<cfset temp = queryaddrow(sugntab,1)>
 		</cfif>
 		<cfset temp = queryaddrow(sugntab,1)>
-		<cfset temp = QuerySetCell(d, "key", thisKey, idx)>	
-		<cfset temp = QuerySetCell(d, "val", thisValue, idx)>	
+		<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
+		<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>	
 		<cfset idx=idx+1>
 	</cfloop>
 	
