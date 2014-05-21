@@ -121,11 +121,11 @@
 								<cfset thisSpanClass="">
 							</cfif>
 							<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#">
-							<cfif len(thisMoreInfo.DISPLAY_TEXT) gt 0>
-								#thisMoreInfo.DISPLAY_TEXT#
-							<cfelse>
-								#thisKey#
-							</cfif>
+								<cfif len(thisMoreInfo.DISPLAY_TEXT) gt 0>
+									#thisMoreInfo.DISPLAY_TEXT#
+								<cfelse>
+									#thisKey#
+								</cfif>
 							</span>					
 						</td>
 						<td>=</td>
@@ -171,6 +171,12 @@
 					SELECT * FROM ssrch_field_doc WHERE specimen_query_term=1 and CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
 				</cfquery>
 				
+				
+				
+				
+				
+				
+				
 				<cfset stuffToIgnore="guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,SEX,VERBATIM_DATE">
 				<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select * from #session.SpecSrchTab#
@@ -183,9 +189,22 @@
 						<cfquery name="thisMoreInfo" dbtype="query">
 							select * from ssrch_field_doc where CF_VARIABLE='#lcase(c)#'
 						</cfquery>
-						<tr>
+						<cfif len(thisMoreInfo.DEFINITION) gt 0>
+							<cfset thisSpanClass="helpLink">
+						<cfelse>
+							<cfset thisSpanClass="">
+						</cfif>
+						
+						
+						<tr id="row_#c#">
 							<td>
-								#c#
+								<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#">
+									<cfif len(thisMoreInfo.DISPLAY_TEXT) gt 0>
+										#thisMoreInfo.DISPLAY_TEXT#
+									<cfelse>
+										#c#
+									</cfif>
+								</span>
 							</td>
 							<td>
 								=
@@ -196,10 +215,22 @@
 							<td>
 								<cfloop query="dvt">
 									<cfset thisValue=evaluate("dvt." & c)>
-									<div class="likeLink" onclick="$('###c#').val('###thisValue#');">#thisValue#</div>
+									<cfif len(thisMoreInfo.DEFINITION) gt 0>
+								<cfset thisSpanClass="helpLink">
+							<cfelse>
+								<cfset thisSpanClass="">
+							</cfif>
+							
+							
+														<div style="height:1em; overflow:scroll;">
+
+							<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#">
+									<div class="likeLink" onclick="$('###c#').val('##thisValue#');">#thisValue#</div>
 								</cfloop>
 							</td>
-							<td>btn</td>
+							<td>
+								<span onclick="removeTerm('#c#');" class="likeLink"><img src="/images/del.gif"></span>
+							</td>
 						</tr>
 					</cfif>
 				</cfloop>
