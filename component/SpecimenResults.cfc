@@ -55,8 +55,7 @@
 	<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from #session.SpecSrchTab#
 	</cfquery>
-					
-					
+	<CFSET KEYLIST="">				
 	<cfsavecontent variable="widget">
 		<script>
 			jQuery( function($) {
@@ -107,7 +106,6 @@
 						<th>Vocabulary *</th>
 						<th>Remove</th>
 					</tr>
-					<CFSET KEYLIST="">
 					<cfloop list="#srchcols.columnlist#" index="c">
 						<cfif not listcontainsnocase(stuffToIgnore,c) and  not listcontainsnocase(keylist,c)>
 							<cfset keylist=listappend(keylist,c)>
