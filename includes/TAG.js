@@ -326,8 +326,9 @@ function scrollToLabel(id) {
 	$("#" + divID).removeClass("refDiv").addClass("highlight");
 	$("#" + paneID).addClass('refPane_highlight');
 	$('#navDiv').scrollTo( $('#' + paneID), 800 );
-	catch(e){console.log('try failed')}
 	}
+	catch(e){console.log('try failed')}
+	
 	
 }
 	
@@ -341,8 +342,8 @@ function scrollToTag(id) {
 	$("#" + paneID).addClass('refPane_highlight');
 	document.location.hash = id;
 	$(document).scrollTo( $('#' + divID), 800 );
-	catch(e){console.log('try failed')}
-	}
+	}catch(e){console.log('try failed')}
+	
 }
 function modArea(id) {
 	var divID='refDiv_' + id;
