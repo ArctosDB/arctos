@@ -55,7 +55,7 @@
 			<cfoutput>
 			<div style="border:2px solid red;">
 				You got here with an experimental deprecated URL format, which will not work indefinitely. 
-				Please update your records to #application.serverRootURL#/document/#r.ttl#/#r.pg#/###tag_id#
+				Please update your records to #application.serverRootURL#/document/ttl#/#pg#/###tag_id#
 			</div>
 			</cfoutput>
 		</cfif>
