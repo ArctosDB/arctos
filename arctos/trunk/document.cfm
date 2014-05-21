@@ -29,6 +29,8 @@
 		</cfif>
 	</cfoutput>
 </cfif>
+
+request.rdurl==<cfdump var=#request.rdurl#>
 <cfif listlen(request.rdurl,"/") gt 1>
 	<cfset gPos=listfindnocase(request.rdurl,"document","/")>
 	<cftry>
