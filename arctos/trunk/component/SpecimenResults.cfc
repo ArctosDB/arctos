@@ -52,7 +52,33 @@
 	<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from #session.SpecSrchTab#
 	</cfquery>
-	<CFSET KEYLIST="">				
+	<CFSET KEYLIST="">
+	<!--- pre-build table of
+		-- things they searched on
+		-- select things from their results
+		-- existing search value, when available
+	---->
+	<cfset sugntab = querynew("key,val,possiblevalues")>
+
+	<cfset idx=1>
+	<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
+		<cfif listlen(kvp,"=") is 2>
+			<cfset thisKey=listgetat(kvp,1,"=")>
+			<cfset thisValue=listgetat(kvp,2,"=")>
+		<cfelse>
+			<!--- variable only - tests for existence of attribtues ---->
+			<cfset thisKey=replace(kvp,'=','','all')>
+			<cfset thisValue=''>
+			<cfset temp = queryaddrow(sugntab,1)>
+		</cfif>
+		<cfset temp = queryaddrow(sugntab,1)>
+		<cfset temp = QuerySetCell(d, "key", thisKey, idx)>	
+		<cfset temp = QuerySetCell(d, "val", thisValue, idx)>	
+		<cfset idx=idx+1>
+	</cfloop>
+	
+	<cfdump var=#sugntab#>	
+				
 	<cfsavecontent variable="widget">
 		<script>
 			jQuery( function($) {
@@ -136,12 +162,6 @@
 									select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
 								</cfquery>
 							</cfif>
-											
-											
-											
-											
-							
-							
 							<tr id="row_#c#">
 								<td>
 									<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#">
