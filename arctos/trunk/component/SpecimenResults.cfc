@@ -182,7 +182,7 @@
 					select * from #session.SpecSrchTab#
 				</cfquery>
 				<cfloop list="#srchcols.columnlist#" index="c">
-					<cfif not listcontainsnocase(stuffToIgnore,c)>
+					<cfif not listcontainsnocase(stuffToIgnore,c) and  not listcontainsnocase(keylist,c) >
 						<cfquery name="dvt" dbtype="query">
 							select #c# from srchcols group by #c# order by #c#
 						</cfquery>
