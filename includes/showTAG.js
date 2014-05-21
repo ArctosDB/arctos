@@ -8,7 +8,40 @@ $.fn.getImg2Tag = function(src, f){
 		this.appendChild(i);
 	});
 }
+
+
+
+function scrollToLabel(id) {
+	try{
+	var divID='refDiv_' + id;
+	var paneID='refPane_' + id;
+	$("div .highlight").removeClass("highlight").addClass("refDiv");
+	$("div .refPane_highlight").removeClass("refPane_highlight");
+	$("#" + divID).removeClass("refDiv").addClass("highlight");
+	$("#" + paneID).addClass('refPane_highlight');
+	$('#navDiv').scrollTo( $('#' + paneID), 800 );
+	}
+	catch(e){console.log('try failed')}
 	
+	
+}
+	
+function scrollToTag(id) {
+	try{
+	var divID='refDiv_' + id;
+	var paneID='refPane_' + id;
+	$("div .highlight").removeClass("highlight").addClass("refDiv");
+	$("div .refPane_highlight").removeClass("refPane_highlight");
+	$("#" + divID).removeClass("refDiv").addClass("highlight");
+	$("#" + paneID).addClass('refPane_highlight');
+	document.location.hash = id;
+	$(document).scrollTo( $('#' + divID), 800 );
+	}catch(e){console.log('try failed')}
+	
+}
+
+
+
 function loadTAG(mid,muri){
 	$("imgDiv").html('Loading image and tags.....');
 	var d='<div id="navDiv"><div id="info"></div>';
@@ -64,7 +97,6 @@ function loadInitial(){
 		);
 	if (document.location.hash) {
 		var hash=document.location.hash.substring(1);
-		console.log('hash=' + hash);
 		setTimeout(function() {scrollToTag(hash);},1000);
 		setTimeout(function() {scrollToLabel(hash);},1000);
 	}

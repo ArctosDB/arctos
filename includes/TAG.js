@@ -307,7 +307,6 @@ function loadInitial() {
 	);
 	if (document.location.hash) {
 		var hash=document.location.hash.substring(1);
-		console.log('hash=' + hash);
 		setTimeout(function() {scrollToTag(hash);},1000);
 		setTimeout(function() {scrollToLabel(hash);},1000);
 	}
