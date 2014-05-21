@@ -185,7 +185,10 @@
 								#c#
 							</td>
 							<td>
-								<cfloop query="dvt">#evaluate("dvt." & c)#</cfloop>
+								=
+							</td>
+							<td>
+								<cfloop query="dvt">#evaluate("dvt." & c)#<br></cfloop>
 							</td>
 							<td>btn</td>
 						</tr>
