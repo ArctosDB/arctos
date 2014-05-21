@@ -306,9 +306,11 @@ function loadInitial(tid) {
 			}
 		}
 	);
-	
-	console.log('document.location.hash=' + document.location.hash);
-	
+	if (document.location.hash) {
+		console.log('document.location.hash=' + document.location.hash);
+		setTimeout(function() {scrollToTag(tid);},1000);
+		setTimeout(function() {scrollToLabel(tid);},1000);
+	}
 	//if(tid){
 		//setTimeout(function() {scrollToTag(tid);},1000);
 	//	setTimeout(function() {scrollToLabel(tid);},1000);
