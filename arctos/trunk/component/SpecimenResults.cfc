@@ -197,16 +197,23 @@
 
 											<cfloop query="cto">
 											
+											<cfif listcontainsnocase(srchcols.columnlist,thisKey)>
 											
-											<cfquery name="isInResults" dbtype="query">
+												<cfquery name="isInResults" dbtype="query">
 												select count(*) as c from srchcols where #thisKey#='#thisctvalue#'
 											</cfquery>
+											<cfset thisIsInResults=true>
+											<cfelse>
+												
+											<cfset thisIsInResults=false>
+											</cfif>
+											
 											
 											<!----
 												<div class="likeLink" onclick="$('###thisKey#').val('#thisctvalue#');">#thisctvalue#</div>
 												---->
 												
-												<option value="#thisctvalue#">#thisctvalue# (#isInResults.c#)</option>
+												<option value="#thisctvalue#">#thisctvalue# (#thisIsInResults#)</option>
 											</cfloop>
 											
 																						</select>
