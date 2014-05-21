@@ -60,7 +60,7 @@
 	---->
 	<cfset sugntab = querynew("key,val,vocab,indata,definition,display_text,placeholder_text,search_hint")>
 
-
+	<!---- first loop over the things they searched for ---->
 	<cfset idx=1>
 	<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
 		<cfif listlen(kvp,"=") is 2>
@@ -72,6 +72,7 @@
 			<cfset thisValue=''>
 			<cfset temp = queryaddrow(sugntab,1)>
 		</cfif>
+		<cfset keylist=listappend(keylist,thisKey)>
 		<cfquery name="thisMoreInfo" dbtype="query">
 			select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
 		</cfquery>
@@ -99,8 +100,6 @@
 		<cfelse>
 			<cfset id="">
 		</cfif>
-		
-												
 		<cfset temp = queryaddrow(sugntab,1)>
 		<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
 		<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
@@ -112,6 +111,62 @@
 		<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
 		<cfset idx=idx+1>
 	</cfloop>
+	<!---- then loop over select things from their results ---->
+	<cfloop list="#srchcols.columnlist#" index="thisKey">
+		<cfif not listcontainsnocase(stuffToIgnore,c) and  not listcontainsnocase(keylist,c)>
+			<cfquery name="thisMoreInfo" dbtype="query">
+				select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
+			</cfquery>
+			<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
+				<cfquery name="tct" datasource="cf_dbuser">
+					select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
+				</cfquery>
+				<cfloop list="#tct.columnlist#" index="i">
+					<cfif i is not "description" and i is not "collection_cde">
+						<cfset ctColName=i>
+					</cfif>
+				</cfloop>
+				<cfquery name="cto" dbtype="query">
+					select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
+				</cfquery>
+				<cfset v=valuelist(cto.thisctvalue,"|")>
+			<cfelse>
+				<cfset v=listchangedelims(thisMoreInfo.CONTROLLED_VOCABULARY,"|")>				
+			</cfif>
+			<cfif listcontainsnocase(srchcols.columnlist,thisKey)>
+				<cfquery name="dvt" dbtype="query">
+					select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
+				</cfquery>
+				<cfset id=valuelist(dvt.vals,"|")>
+			<cfelse>
+				<cfset id="">
+			</cfif>
+			
+			
+			
+						
+		
+			<cfset temp = queryaddrow(sugntab,1)>
+			<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
+			<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
+			<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
+			<cfset temp = QuerySetCell(sugntab, "indata", id, idx)>
+			<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
+			<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
+			<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
+			<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
+			<cfset idx=idx+1>
+		
+		
+		
+		
+			
+			
+			
+			
+		</cfif>
+	</cfloop>
+	
 	
 	<cfdump var=#sugntab#>	
 				
