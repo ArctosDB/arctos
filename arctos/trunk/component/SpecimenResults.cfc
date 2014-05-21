@@ -213,19 +213,11 @@
 								<input type="text" name="#c#" id="#c#" value="" placeholder="#thisMoreInfo.PLACEHOLDER_TEXT#" size="50">
 							</td>
 							<td>
-								<cfloop query="dvt">
-									<cfset thisValue=evaluate("dvt." & c)>
-									<cfif len(thisMoreInfo.DEFINITION) gt 0>
-								<cfset thisSpanClass="helpLink">
-							<cfelse>
-								<cfset thisSpanClass="">
-							</cfif>
-							
-							
-														<div style="height:1em; overflow:scroll;">
-
-							<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#">
-									<div class="likeLink" onclick="$('###c#').val('##thisValue#');">#thisValue#</div>
+								<div style="height:1em; overflow:scroll;">
+									<cfloop query="dvt">
+										<span class="#thisSpanClass#" id="_#thisMoreInfo.CF_VARIABLE#" title="#thisMoreInfo.DEFINITION#">
+											<div class="likeLink" onclick="$('###c#').val('##thisValue#');">#thisValue#</div>
+										</span>
 								</cfloop>
 							</td>
 							<td>
