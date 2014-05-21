@@ -170,6 +170,30 @@
 				<cfquery name="newkeys" dbtype="query">
 					SELECT * FROM ssrch_field_doc WHERE specimen_query_term=1 and CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
 				</cfquery>
+				
+				<cfset stuffToIgnore="guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,SEX,VERBATIM_DATE">
+				<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select * from #session.SpecSrchTab#
+				</cfquery>
+				<cfloop list="#srchcols.columnlist#" index="c">
+					<cfif not listcontainsnocase(stuffToIgnore,c)>
+						<cfquery name="dvt" dbtype="query">
+							select #c# from srchcols group by #c# order by #c#
+						</cfquery>
+						<tr>
+							<td>
+								#c#
+							</td>
+							<td>
+								<cfloop query="dvt">#evaluate("dvt." & c)#</cfloop>
+							</td>
+							<td>btn</td>
+						</tr>
+					</cfif>
+				</cfloop>
+					
+					
+					
 					<tr>
 						<td>
 							<select id="newTerm" onchange="setThisName(this.value);">
@@ -185,27 +209,16 @@
 							<input type="text" name="newValue" id="newValue" size="50">
 						</td>
 					</tr>
+					
 				</table>
 				<input type="submit" value="Requery">
 				<div style="font-size:x-small">
 					* Attributes will accept non-code-table values and operators: "2 mm" or "<2mm," for example.
 				</div>
 			</form>
-			<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from #session.SpecSrchTab#
-			</cfquery>
-			<cfset stuffToIgnore="guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,SEX,VERBATIM_DATE">
 			
-			<cfloop list="#srchcols.columnlist#" index="c">
-				<cfif not listcontainsnocase(stuffToIgnore,c)>
-					<cfquery name="dvt" dbtype="query">
-						select #c# from srchcols group by #c# order by #c#
-					</cfquery>
-					#c#.....
-					<cfdump var=#dvt#>
-				</cfif>
-			</cfloop>
-			<cfdump var=#srchcols#>
+			
+			
 			
 		</div>
 	</cfsavecontent>
