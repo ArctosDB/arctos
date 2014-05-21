@@ -89,8 +89,7 @@
 				Clear a value to remove it from the search. 
 				Use the contact link at the bottom to provide feedback.
 			</div>
-			<form name="refineResults" method="get" action="/fix/dataTablesTest.cfm">
-				
+			<form name="refineResults" method="get" action="/SpecimenResults.cfm">
 				<table border>
 				<tr>
 					<th>Term</th>
