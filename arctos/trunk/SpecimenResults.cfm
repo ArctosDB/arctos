@@ -187,6 +187,10 @@
 			map.fitBounds(bounds);
 
 	    });
+
+		function resizeMap(s){
+		$("##spresmapdiv").removeClass().addClass(s);
+}
 	</script>
 	
 	<div id="SelectedRowList"></div>
@@ -334,6 +338,10 @@
 					
 					<div id="spresmapdiv"></div>
 
+				</td>
+				<td>
+					<span class="likeLink" onclick="resizeMap('smallMap');">small</span>
+					<span class="likeLink" onclick="resizeMap('bigMap');">big</span>
 				</td>
 			</tr>
 		</table>
