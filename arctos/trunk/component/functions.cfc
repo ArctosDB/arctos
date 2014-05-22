@@ -4228,6 +4228,25 @@
 	</cftry>
 	<cfreturn result>
 </cffunction>
+
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="changeUserPreference" access="remote">
+	<cfargument name="pref" type="string" required="yes">
+	<cfargument name="val" type="string" required="yes">
+	<cftry>
+			<cfquery name="up" datasource="cf_dbuser">
+				UPDATE cf_users SET
+					#pref# = '#val#'
+				WHERE username = '#session.username#'
+			</cfquery>
+			<cfset session.#pref# = "#val#">
+		<cfset result="success">
+	<cfcatch>
+		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="changekillRows" access="remote">
 	<cfargument name="tgt" type="string" required="yes">

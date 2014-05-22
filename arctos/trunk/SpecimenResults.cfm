@@ -188,19 +188,29 @@
 			   bounds.extend(markers[i].getPosition());
 			}
 			map.fitBounds(bounds);
-google.maps.event.trigger(map, 'resize');
-map.setZoom( map.getZoom() );
+//google.maps.event.trigger(map, 'resize');
+//map.setZoom( map.getZoom() );
 	    });
 
 		function resizeMap(s){
 			$("##spresmapdiv").removeClass().addClass(s);
-x = map.getZoom();
-    c = map.getCenter();
-    google.maps.event.trigger(map, 'resize');
-    map.setZoom(x);
-    map.setCenter(c);
-
-
+			x = map.getZoom();
+		    c = map.getCenter();
+		    google.maps.event.trigger(map, 'resize');
+		    map.setZoom(x);
+		    map.setCenter(c);
+			jQuery.getJSON("/component/function.cfc",
+				{
+					method : "changeUserPreference",
+					pref : "srmapclass",
+					val : s,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (result) {
+					console.log(result);
+				}
+			);
 		}
 	</script>
 	
@@ -343,15 +353,12 @@ x = map.getZoom();
 				<td  class="valigntop" width="65%">
 					<div id="cntr_refineSearchTerms"></div>
 				</td>
-				
-				
 				<td class="valigntop" align="center">
-					
 					<div id="spresmapdiv" class="#session.srmapclass#"></div>
 					<div style="text-align:center">
 						<span class="infoLink" onclick="resizeMap('tinymap');">tiny</span>~
 						<span class="infoLink" onclick="resizeMap('smallmap');">small</span>~
-						<span class="infoLink" onclick="resizeMap('largemap');">large</span>
+						<span class="infoLink" onclick="resizeMap('largemap');">large</span>~
 						<span class="infoLink" onclick="resizeMap('hugemap');">huge</span>
 					</div>
 				</td>
