@@ -190,7 +190,7 @@
 				};
 
  google.maps.event.addListener(marker, 'click', function() {
-            infowindow.setContent(this.i);
+            infowindow.setContent(this.contentString);
             infowindow.open(map, this);
         });
 
