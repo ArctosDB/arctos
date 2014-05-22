@@ -417,7 +417,7 @@ function queryByViewport(){
 }
 
 function checkMapBB(){
-	if ($("#nelat").length>0 && ($("#nelong").length>0 && ($("#swlat").length>0 && ($("#swlong").length>0) {
+	if ($("#nelat").length>0 && $("#nelong").length>0 && $("#swlat").length>0 && $("#swlong").length>0) {
 		var sw=new google.maps.LatLng(swlat, swlong);
 		var ne=new google.maps.LatLng(nelat, nelong);
 		map.fitBounds(nw,ne);
