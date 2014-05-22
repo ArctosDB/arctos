@@ -418,7 +418,7 @@ function checkMapBB(){
 	if ($("#nelat").length>0 && $("#nelong").length>0 && $("#swlat").length>0 && $("#swlong").length>0) {
 		var sw=new google.maps.LatLng($("#swlat").val(), $("#swlong").val());
 		var ne=new google.maps.LatLng($("#nelat").val(), $("#nelong").val());
-		  var bounds = new google.maps.LatLngBounds(sw,ne);
+		var bounds = new google.maps.LatLngBounds(sw,ne);
 		map.fitBounds(bounds);
 	}
 }
