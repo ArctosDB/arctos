@@ -343,6 +343,8 @@ function queryByViewport(){
 
 	var theBounds=map.getBounds();
 		var nelat=theBounds.getNorthEast().lat();
+		console.log(nelat);
+		
 		var NELong=theBounds.getNorthEast().lng();
 		var SWLat=theBounds.getSouthWest().lat();
 		var SWLong=theBounds.getSouthWest().lng();
@@ -356,7 +358,7 @@ function queryByViewport(){
 			function (result) {
 				$('#stermwdgtbl tr:last').after(result);
 				$("#newTerm option[value='nelat']").remove();			
-				$("#coordinates").val(nelat);
+				$("#nelat").val(nelat);
 			}
 		);
 		
