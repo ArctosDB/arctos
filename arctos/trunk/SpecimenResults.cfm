@@ -176,7 +176,7 @@
 	<cfloop query="hascoords">
 		<script>
 		
-		var center new google.maps.LatLng(#dec_lat#, #dec_long#);
+		var center= new google.maps.LatLng(#dec_lat#, #dec_long#);
 		
 			 var populationOptions = {
       strokeColor: '##FF0000',
