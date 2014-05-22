@@ -40,7 +40,14 @@
 #map_canvas { height: 500px;width:100%; }
 
 
-#spresmapdiv { height: 500px;width:100%; }
+#spresmapdiv { 
+	height: 250px;
+	width:250px;
+	resize:both;
+	overflow:auto;
+	border:5px solid black; 
+}
+
 
 
 
