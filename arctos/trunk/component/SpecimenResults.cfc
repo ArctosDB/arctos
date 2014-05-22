@@ -63,6 +63,10 @@
 
 	<!---- first loop over the things they searched for ---->
 	<cfset idx=1>
+	
+	
+	
+	<cfdump var=#session.mapURL#>
 	<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
 		<cfif listlen(kvp,"=") is 2>
 			<cfset thisKey=listgetat(kvp,1,"=")>
@@ -83,6 +87,10 @@
 			</cfquery>
 			
 			<cfdump var=#tct#>
+			
+			
+			
+			
 			<cfloop list="#tct.columnlist#" index="i">
 				<cfif i is not "description" and i is not "collection_cde">
 					<cfset ctColName=i>
