@@ -39,6 +39,12 @@
 }
 #map_canvas { height: 500px;width:100%; }
 
+
+#spresmapdiv { height: 500px;width:100%; }
+
+
+
+
 .relCacheDiv {
 	border:1px dashed green;
 	padding:.1em;

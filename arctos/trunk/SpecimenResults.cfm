@@ -337,7 +337,7 @@
 				<td align="right">
 					<div class="valignbottom" id="mapGoHere"></div>
 					
-					<div id="map_canvas"></div>
+					<div id="spresmapdiv"></div>
 
 				</td>
 			</tr>
