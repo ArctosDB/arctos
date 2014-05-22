@@ -142,6 +142,8 @@
 
 
 
+	  	initialize();
+
 	    });
 	</script>
 	
