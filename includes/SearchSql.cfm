@@ -122,6 +122,10 @@
 	<cfset mapurl = "#mapurl#&rcoords=#rcoords#">
 	<cfset basQual = "#basQual#  AND  round(#session.flatTableName#.dec_lat,1) || ',' || round(#session.flatTableName#.dec_long,1)='#rcoords#'" >
 </cfif>
+<cfif isdefined("coordinates") AND len(coordinates) gt 0>
+	<cfset mapurl = "#mapurl#&coordinates=#coordinates#">
+	<cfset basQual = "#basQual#  AND  #session.flatTableName#.dec_lat=#listgetat(coordinates,1)# and #session.flatTableName#.dec_long=#listgetat(coordinates,2)#" >
+</cfif>
 <cfif isdefined("isGeoreferenced") AND len(isGeoreferenced) gt 0>
 	<cfset mapurl = "#mapurl#&isGeoreferenced=#isGeoreferenced#">
 	<cfif isGeoreferenced is true>
