@@ -285,6 +285,8 @@ function removeRows() {
 }
 
 function addCoordinates(c){
+	
+	console.log(c);
 	if($("#refineSearchTerms").is(":visible")) {
 		if ($("#coordinates").length){
 			$("#coordinates").val(c);
