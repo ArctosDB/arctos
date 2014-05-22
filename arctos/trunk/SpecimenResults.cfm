@@ -238,7 +238,7 @@
 		group by
 			dec_lat,
 			dec_long,
-			round(coordinateuncertaintyinmeters)
+			coordinateuncertaintyinmeters
 	</cfquery>
 	
 	<cfset cfgml="">
