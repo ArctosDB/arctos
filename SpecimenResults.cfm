@@ -185,14 +185,10 @@ map: map
 
 
 
-google.maps.event.addListener(marker, 'click', (function(marker, i) {
-return function() {
-infowindow.setContent(contentString);
-infowindow.open(map, marker);
-}
-})(marker, i));
-
-
+ google.maps.event.addListener(markers[i], 'click', function() {
+            infowindow.setContent(ContentString);
+            infowindow.open(map,this);
+            });        
 
 
 /*
