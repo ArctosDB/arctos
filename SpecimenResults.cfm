@@ -170,7 +170,7 @@
 			#session.SpecSrchTab#
 	</cfquery>
 	<cfquery name="hascoords" dbtype="query">
-		select dec_lat,dec_long,coordinateuncertaintyinmeters from summary wgere dec_lat is not null group by
+		select dec_lat,dec_long,coordinateuncertaintyinmeters from summary where dec_lat is not null group by
 		dec_lat,dec_long,coordinateuncertaintyinmeters
 	</cfquery>
 	<cfloop query="hascoords">
