@@ -12,7 +12,8 @@
 
 <style>
  .ssw_sngselect{max-width:30em;};
-	#spresmapdiv { border:1px solid green; height:200px;}
+
+#spresmapdiv { height: 500px;width:100%; }
 
 </style>
 <!----
