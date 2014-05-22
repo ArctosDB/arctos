@@ -362,46 +362,60 @@ function queryByViewport(){
 					$("#nelat").val(nelat);
 				}
 			);
+		} else {
+			$("#nelat").val(nelat);
 		}
-		jQuery.getJSON("/component/SpecimenResults.cfc",
-			{
-				method : "specSrchTermWidget_addrow",
-				term : "nelong",
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (result) {
-				$('#stermwdgtbl tr:last').after(result);
-				$("#newTerm option[value='nelong']").remove();			
-				$("#nelong").val(nelong);
-			}
-		);
-		jQuery.getJSON("/component/SpecimenResults.cfc",
-			{
-				method : "specSrchTermWidget_addrow",
-				term : "swlat",
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (result) {
-				$('#stermwdgtbl tr:last').after(result);
-				$("#newTerm option[value='swlat']").remove();			
-				$("#swlat").val(swlat);
-			}
-		);
-		jQuery.getJSON("/component/SpecimenResults.cfc",
-			{
-				method : "specSrchTermWidget_addrow",
-				term : "swlong",
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (result) {
-				$('#stermwdgtbl tr:last').after(result);
-				$("#newTerm option[value='swlong']").remove();			
-				$("#swlong").val(swlong);
-			}
-		);
+		if ($("#nelong").length==0) {
+			jQuery.getJSON("/component/SpecimenResults.cfc",
+				{
+					method : "specSrchTermWidget_addrow",
+					term : "nelong",
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (result) {
+					$('#stermwdgtbl tr:last').after(result);
+					$("#newTerm option[value='nelong']").remove();			
+					$("#nelong").val(nelong);
+				}
+			);
+		} else {
+			$("#nelong").val(nelong);
+		}
+		if ($("#swlat").length==0) {
+			jQuery.getJSON("/component/SpecimenResults.cfc",
+				{
+					method : "specSrchTermWidget_addrow",
+					term : "swlat",
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (result) {
+					$('#stermwdgtbl tr:last').after(result);
+					$("#newTerm option[value='swlat']").remove();			
+					$("#swlat").val(swlat);
+				}
+			);
+		} else {
+			$("#swlat").val(swlat);
+		}
+		if ($("#swlong").length==0) {
+			jQuery.getJSON("/component/SpecimenResults.cfc",
+				{
+					method : "specSrchTermWidget_addrow",
+					term : "swlong",
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (result) {
+					$('#stermwdgtbl tr:last').after(result);
+					$("#newTerm option[value='swlong']").remove();			
+					$("#swlong").val(swlong);
+				}
+			);
+		} else {
+			$("#swlong").val(swlong);
+		}
 		
 		
 		
