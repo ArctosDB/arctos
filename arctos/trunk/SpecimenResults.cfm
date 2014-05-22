@@ -175,7 +175,8 @@
 				});
 
 
-				var contentString = '<a href="/SpecimenResults.cfm?coordinates=' + lat + ',' + lon + '">all specimens from coordinates</a>';
+				//var contentString = '<a href="/SpecimenResults.cfm?coordinates=' + lat + ',' + lon + '">all specimens from coordinates</a>';
+				var contentString='<span class="likeLink" onclick="addCoordinates(' + lat + ',' + lon + ');">add to criteria</span>';
 
 				markers.push(marker);
 			 	var circleoptn = {
@@ -227,6 +228,10 @@
 				}
 			);
 		}
+
+function addCoordinates(c){
+	alert(c);
+}
 	</script>
 	
 	<div id="SelectedRowList"></div>
