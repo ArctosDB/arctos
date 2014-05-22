@@ -161,15 +161,18 @@ initialize();
 			var arrCP = cfgml.split( ";" );
 			for (var i=0; i < arrCP.length; i++){
 				var p=arrCP[i];
-				console.log( p );
-				var cpa=p.split("|");
-				var c=cpa[0];
-				var r=cpa[1];	
+				var cpa=p.split(",");
+console.log(cpa);
+var lat=cpa[0];
+val lon=cpa[1];
+var r=cpa[2];	
 
-				console.log('c: ' + c);
+
+				console.log('lat: ' + lat);
+console.log('long: ' + lon);
 
 				console.log('r: ' + r)
-				var center= new google.maps.LatLng(c);
+				var center= new google.maps.LatLng(lat, lon);
 						console.log('center: ' + center)
 
 
@@ -270,7 +273,7 @@ var r=35078;
 		<cfelse>
 			<cfset radius=coordinateuncertaintyinmeters>
 		</cfif>
-		<cfset cep="#dec_lat#,#dec_long#|#radius#">
+		<cfset cep="#dec_lat#,#dec_long#,#radius#">
 		<cfset cfgml=listappend(cfgml,cep,';')>
 		
 		<!----
