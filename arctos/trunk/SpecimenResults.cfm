@@ -154,7 +154,7 @@
 initialize();
 
 
- 		
+/* 		
 
 			var cfgml=$("##cfgml").val();
 			console.log('running for cfgml: ' + cfgml);
@@ -190,10 +190,11 @@ initialize();
 			});
 
 
-/*
-		
 
-var center= new google.maps.LatLng(64,-148);
+	*/	
+
+var center= new google.maps.LatLng(33.8941953000,-108.3791432000);
+var r=97924;
  var populationOptions = {
 			      strokeColor: '##FF0000',
 			      strokeOpacity: 0.8,
@@ -202,13 +203,13 @@ var center= new google.maps.LatLng(64,-148);
 			      fillOpacity: 0.35,
 			      map: map,
 			      center: center,
-			      radius: 30000
+			      radius: parseInt(r);
 			    };
 
     cityCircle = new google.maps.Circle(populationOptions);
 
 
-*/
+
 
 	    });
 	</script>
