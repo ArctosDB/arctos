@@ -169,7 +169,7 @@
 				var marker = new google.maps.Marker({
 				    position: center,
 				    map: map,
-				    title: ns + "specimens. Error in m=" + r
+				    title: ns + " specimens. Error(m)=" + r
 				});
 				markers.push(marker);
 			 	var circleoptn = {
@@ -189,8 +189,6 @@
 			   bounds.extend(markers[i].getPosition());
 			}
 			map.fitBounds(bounds);
-//google.maps.event.trigger(map, 'resize');
-//map.setZoom( map.getZoom() );
 	    });
 
 		function resizeMap(s){
