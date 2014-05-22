@@ -152,9 +152,9 @@
 				<cfquery name="tct" datasource="cf_dbuser">
 					select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
 				</cfquery>
-				<cfloop list="#tct.columnlist#" index="i">
-					<cfif i is not "description" and i is not "collection_cde">
-						<cfset ctColName=i>
+				<cfloop list="#tct.columnlist#" index="thecolname">
+					<cfif thecolname is not "description" and thecolname is not "collection_cde">
+						<cfset ctColName=thecolname>
 					</cfif>
 				</cfloop>
 				<cfquery name="cto" dbtype="query">
