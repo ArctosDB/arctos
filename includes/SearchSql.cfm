@@ -1651,7 +1651,7 @@
 	<cfif compare(country,"NULL") is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.country is null">
 	<cfelse>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.country = '#Country#'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.country) like '%#ucase(country)#%'">
 	</cfif>
 	<cfset mapurl = "#mapurl#&Country=#Country#">
 </cfif>
