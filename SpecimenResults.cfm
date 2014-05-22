@@ -187,6 +187,7 @@
 
 */
 
+		initialize();
 
 var center= new google.maps.LatLng(64,-148);
  var populationOptions = {
@@ -202,7 +203,6 @@ var center= new google.maps.LatLng(64,-148);
 
     cityCircle = new google.maps.Circle(populationOptions);
 
-		initialize();
 
 
 
