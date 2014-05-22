@@ -297,7 +297,7 @@ function removeRows() {
 
 var map;
 var bounds;
-var rectangle;
+//var rectangle;
 function initialize() {
 	var mapOptions = {
 		zoom: 3,
@@ -309,16 +309,16 @@ function initialize() {
 	map = new google.maps.Map(document.getElementById('spresmapdiv'),mapOptions);
 	
 
-	var mcd = document.createElement('div');
-	mcd.id='mcd';
-	mcd.style.cursor="pointer";
-	var cImg=document.createElement("img");
-	cImg.src='/images/selector.png';
-	mcd.appendChild(cImg);
-	map.controls[google.maps.ControlPosition.TOP_CENTER].push(mcd);
-	google.maps.event.addDomListener(mcd, 'click', function() {
-	  selectControlClicked();
-	});
+	//var mcd = document.createElement('div');
+	//mcd.id='mcd';
+	//mcd.style.cursor="pointer";
+	//var cImg=document.createElement("img");
+	//cImg.src='/images/selector.png';
+	//mcd.appendChild(cImg);
+	//map.controls[google.maps.ControlPosition.TOP_CENTER].push(mcd);
+	//google.maps.event.addDomListener(mcd, 'click', function() {
+	//  selectControlClicked();
+	//});
 	
 	
 	
