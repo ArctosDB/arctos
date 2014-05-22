@@ -154,7 +154,7 @@
 initialize();
 
 
-/* 		
+
 
 			var cfgml=$("##cfgml").val();
 			console.log('running for cfgml: ' + cfgml);
@@ -183,7 +183,7 @@ initialize();
 			    };
 			console.log(populationOptions);
 
-    cityCircle = new google.maps.Circle(populationOptions);
+    		cityCircle = new google.maps.Circle(populationOptions);
 
 
 }
@@ -191,8 +191,8 @@ initialize();
 
 
 
-	*/	
 
+/* 		
 var center= new google.maps.LatLng(33.8941953000,-108.3791432000);
 var r=97924;
  var populationOptions = {
@@ -226,7 +226,7 @@ var r=35078;
 
     cityCircle = new google.maps.Circle(populationOptions);
 
-
+*/
 
 	    });
 	</script>
