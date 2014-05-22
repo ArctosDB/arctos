@@ -246,7 +246,9 @@ jQuery.getJSON("/component/SpecimenResults.cfc",
 					queryformat : 'column'
 				},
 function (result) {
-			$("##coordinates").val(c);
+$('##stermwdgtbl tr:last').after(result);
+							$("##newTerm option[value='"coordinates"']").remove();			
+$("##coordinates").val(c);
 		}
 			);
 
