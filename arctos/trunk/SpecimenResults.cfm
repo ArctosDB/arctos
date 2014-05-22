@@ -168,14 +168,14 @@
 				var lon=cpa[2];
 				var r=cpa[3];					
 				var center=new google.maps.LatLng(lat, lon);
-				var marker = new google.maps.Marker({
+				markers[i]  = new google.maps.Marker({
 				    position: center,
 				    map: map,
 				    title: ns + " specimens. Error(m)=" + r,
 					 infoWindowIndex : i
 				});
 				var contentString='<span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add to criteria</span>';
-				markers.push(marker);
+				//markers.push(marker);
 			 	var circleoptn = {
 					strokeColor: '##FF0000',
 					strokeOpacity: 0.8,
