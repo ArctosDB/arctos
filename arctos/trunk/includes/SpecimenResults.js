@@ -306,7 +306,7 @@ function initialize() {
 	    panControl: true,
 	    scaleControl: true
 	};
-	map = new google.maps.Map(document.getElementById('spresmapdiv'),mapOptions);
+	map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
 	
 
 	var mcd = document.createElement('div');
