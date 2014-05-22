@@ -328,7 +328,7 @@
 		<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
 		
 		<div style="resize:both;overflow:auto;">
-		<table width="100%">
+		<table width="100%" height="100%">
 			<tr>
 				<td  class="valigntop" width="65%">
 					<div id="cntr_refineSearchTerms"></div>
