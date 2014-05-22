@@ -327,22 +327,20 @@
 		<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
 		<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
 		
-		<div style="resize:both;overflow:auto;">
-		<table width="100%" height="100%">
+		<table width="100%">
 			<tr>
 				<td  class="valigntop" width="65%">
 					<div id="cntr_refineSearchTerms"></div>
 				</td>
 				
 				
-				<td align="center">
-					<div class="valignbottom" id="mapGoHere"></div>
+				<td class="valigntop">
 					
 					<div id="spresmapdiv"></div>
 
 				</td>
 			</tr>
-		</table></div>
+		</table>
 		<!----
 		<table width="100%">
 			<tr>
