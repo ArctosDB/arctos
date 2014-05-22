@@ -173,7 +173,7 @@
 
 
 
-marker[i] = new google.maps.Marker({
+markers[i] = new google.maps.Marker({
 position: center,
 map: map
 });
