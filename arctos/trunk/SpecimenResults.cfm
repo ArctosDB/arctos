@@ -169,6 +169,34 @@
 		from 
 			#session.SpecSrchTab#
 	</cfquery>
+	<cfquery name="hascoords">
+		select dec_lat,dec_long,coordinateuncertaintyinmeters from summary wgere dec_lat is not null group by
+		dec_lat,dec_long,coordinateuncertaintyinmeters
+	</cfquery>
+	<cfloop query="hascoords">
+		<script>
+		
+		var center: new google.maps.LatLng(#dec_lat#, #dec_long#);
+		
+			 var populationOptions = {
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: map,
+      center: center,
+      radius: #coordinateuncertaintyinmeters#
+    };
+
+    cityCircle = new google.maps.Circle(populationOptions);
+
+
+			 ,
+		</script>
+	</cfloop>
+	
+	
 	<cfif summary.recordcount is 0>
 		<div>
 			Your query returned no results.
