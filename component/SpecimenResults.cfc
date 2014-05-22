@@ -77,6 +77,8 @@
 			<cfset thisValue=''>
 			<cfset temp = queryaddrow(sugntab,1)>
 		</cfif>
+		
+		<br>thisKey: #thisKey#
 		<cfset keylist=listappend(keylist,thisKey)>
 		<cfquery name="thisMoreInfo" dbtype="query">
 			select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
