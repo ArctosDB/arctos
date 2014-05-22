@@ -314,7 +314,8 @@
 									</cfif>
 								</td>
 								<td>
-									<span onclick="removeTerm('#sugntab.key#');" class="likeLink"><img src="/images/del.gif"></span>
+									<span onclick="$('###sugntab.key#').val('');" class="likeLink">[ clear ]</span>
+									<span onclick="$('###sugntab.key#').val('_');" class="likeLink">[ require ]</span>
 								</td>
 							</tr>
 					</cfloop>
