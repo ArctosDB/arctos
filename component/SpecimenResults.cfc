@@ -117,13 +117,16 @@
 									val : v,
 									returnformat : "json",
 									queryformat : 'column'
+								},
+								function() {
+									var ptl='/component/SpecimenResults.cfc?method=get_specSrchTermWidget&returnformat=plain';
+									jQuery.get(ptl, function(data){
+										jQuery("##cntr_refineSearchTerms").html(data);
+									});
 								}
 							);
 							// they had it off, give them the option of turning it on and then fetch with data when they do
-							var ptl='/component/SpecimenResults.cfc?method=get_specSrchTermWidget&returnformat=plain';
-							jQuery.get(ptl, function(data){
-								jQuery("##cntr_refineSearchTerms").html(data);
-							});
+							
 						});
 					});
 				</script>
