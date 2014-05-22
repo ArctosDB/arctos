@@ -100,6 +100,11 @@
 		<cfelse>
 			<cfset id="">
 		</cfif>
+		
+					<br>#idx#: adding #thiskey#
+
+
+
 		<cfset temp = queryaddrow(sugntab,1)>
 		
 		<cfset temp = QuerySetCell(sugntab, "iid", idx, idx)>
@@ -117,7 +122,7 @@
 	<cfset thisValue="">
 	<cfloop list="#srchcols.columnlist#" index="thisKey">
 		<cfif not listcontainsnocase(stuffToIgnore,thisKey) and  not listcontainsnocase(keylist,thisKey)>
-			<br>adding #thiskey#
+			<br>#idx#: adding #thiskey#
 			<cfquery name="thisMoreInfo" dbtype="query">
 				select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
 			</cfquery>
