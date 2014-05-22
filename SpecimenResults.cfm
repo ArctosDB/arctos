@@ -173,23 +173,22 @@
 
 
 
-markers[i] = new google.maps.Marker({
-position: center,
-map: map
-});
+ var marker = new google.maps.Marker({
+            position: center,
+            map: map,
+            title: ns,
+contentString: contentString
+        });
  
 //markers.push(marker);
  
 
 			var contentString='<span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">' + i + 'add to criteria</span>';
 
-
-
- google.maps.event.addListener(markers[i], 'click', function() {
-            infowindow.setContent(contentString);
-            infowindow.open(map,this);
-            });        
-
+google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent(this.contentString);
+            infowindow.open(map, this);
+        });
 
 /*
 				markers[i]  = new google.maps.Marker({
