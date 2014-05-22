@@ -250,9 +250,22 @@
 		<cfquery dbtype="query" name="haserr">
 			select count(*) c from willmap where coordinateuncertaintyinmeters is not null
 		</cfquery>
-		<div id="cntr_refineSearchTerms"></div>
 		<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
 		<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
+		
+		<table width="100%">
+			<tr>
+				<td  width="60%">
+							<div id="cntr_refineSearchTerms"></div>
+
+				</td>
+				
+				
+				<td align="right">
+					<div id="mapGoHere"></div>
+				</td>
+			</tr>
+		</table>
 		<table width="100%">
 			<tr>
 				<td>
@@ -297,9 +310,6 @@
 							</li>
 						</cfif>
 					</ul>
-				</td>
-				<td align="right">
-					<div id="mapGoHere"></div>
 				</td>
 			</tr>
 		</table>		
@@ -430,23 +440,16 @@
 							<option value="/addAccn.cfm">
 								Accession
 							</option>
-		
 							<option value="/tools/bulkPart.cfm">
 								Modify Parts
 							</option>
-		
 							<option value="">::Print Stuff::</option>
-							
-							
 							<option value="/Reports/report_printer.cfm?report=uam_mamm_vial">
 								UAM Mammals Vial Labels
 							</option>
 							<option value="/Reports/report_printer.cfm?report=uam_mamm_box">
 								UAM Mammals Box Labels
 							</option>
-							
-											
-
 							<option value="/Reports/report_printer.cfm?report=MSB_vial_label">
 								MSB Mammals Vial Labels
 							</option>
