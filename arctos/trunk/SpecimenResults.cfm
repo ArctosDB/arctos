@@ -206,9 +206,6 @@
 					val : s,
 					returnformat : "json",
 					queryformat : 'column'
-				},
-				function (result) {
-					console.log(result);
 				}
 			);
 		}
