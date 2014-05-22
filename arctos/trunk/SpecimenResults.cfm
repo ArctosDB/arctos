@@ -161,14 +161,15 @@
 			for (var i=0; i < arrCP.length; i++){
 				var p=arrCP[i];
 				var cpa=p.split(",");
-				var lat=cpa[0];
-				var lon=cpa[1];
-				var r=cpa[2];					
+				var ns=cpa[0];
+				var lat=cpa[1];
+				var lon=cpa[2];
+				var r=cpa[3];					
 				var center=new google.maps.LatLng(lat, lon);
 				var marker = new google.maps.Marker({
 				    position: center,
 				    map: map,
-				    title:"Error in m: " + r
+				    title: ns + "specimens. Error in m=" + r
 				});
 				markers.push(marker);
 			 	var circleoptn = {
@@ -225,8 +226,19 @@
 			#session.SpecSrchTab#
 	</cfquery>
 	<cfquery name="hascoords" dbtype="query">
-		select dec_lat,dec_long,coordinateuncertaintyinmeters from summary where dec_lat is not null group by
-		dec_lat,dec_long,coordinateuncertaintyinmeters
+		select 
+			count(*) numspecs,
+			dec_lat,
+			dec_long,
+			round(coordinateuncertaintyinmeters) coordinateuncertaintyinmeters
+		from 
+			summary 
+		where 
+			dec_lat is not null 
+		group by
+			dec_lat,
+			dec_long,
+			round(coordinateuncertaintyinmeters)
 	</cfquery>
 	
 	<cfset cfgml="">
@@ -238,7 +250,7 @@
 			<cfelse>
 				<cfset radius=coordinateuncertaintyinmeters>
 			</cfif>
-			<cfset cep="#dec_lat#,#dec_long#,#radius#">
+			<cfset cep="#numspecs#,#dec_lat#,#dec_long#,#radius#">
 			<cfset cfgml=listappend(cfgml,cep,';')>
 			<cfset cpc=cpc+1>
 		</cfif>
