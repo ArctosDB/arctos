@@ -231,6 +231,17 @@
 
 function addCoordinates(c){
 	alert(c);
+
+if($("##refineSearchTerms").is(":visible")) {
+	if ($("##coordinates")){
+	alert('coordinates');
+} else{alert(noco');
+}
+} else {
+	alert('turn search terms on, then try that');
+		}
+
+
 }
 	</script>
 	
