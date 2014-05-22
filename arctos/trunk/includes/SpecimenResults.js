@@ -284,16 +284,30 @@ function removeRows() {
      }
 }
 
-
-
-
-
-
-
+function addCoordinates(c){
+	if($("##refineSearchTerms").is(":visible")) {
+		if ($("##coordinates").length){
+			$("##coordinates").val(c);
+		} else {
+			jQuery.getJSON("/component/SpecimenResults.cfc",
+				{
+					method : "specSrchTermWidget_addrow",
+					term : "coordinates",
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (result) {
+					$('##stermwdgtbl tr:last').after(result);
+					$("##newTerm option[value='coordinates']").remove();			
+					$("##coordinates").val(c);
+				}
+			);
+		}
+	} else {
+		alert('turn search terms on, then try that');
+	}
+}
 // google maps experiment
-
-
-
 
 var map;
 var bounds;
@@ -307,22 +321,23 @@ function initialize() {
 	    scaleControl: true
 	};
 	map = new google.maps.Map(document.getElementById('spresmapdiv'),mapOptions);
-	
-
-	//var mcd = document.createElement('div');
-	//mcd.id='mcd';
-	//mcd.style.cursor="pointer";
-	//var cImg=document.createElement("img");
-	//cImg.src='/images/selector.png';
-	//mcd.appendChild(cImg);
-	//map.controls[google.maps.ControlPosition.TOP_CENTER].push(mcd);
-	//google.maps.event.addDomListener(mcd, 'click', function() {
-	//  selectControlClicked();
-	//});
-	
-	
-	
 }
-
+function resizeMap(s){
+	$("#spresmapdiv").removeClass().addClass(s);
+	x = map.getZoom();
+    c = map.getCenter();
+    google.maps.event.trigger(map, 'resize');
+    map.setZoom(x);
+    map.setCenter(c);
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changeUserPreference",
+			pref : "srmapclass",
+			val : s,
+			returnformat : "json",
+			queryformat : 'column'
+		}
+	);
+}
 
 
