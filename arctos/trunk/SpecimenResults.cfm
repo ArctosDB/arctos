@@ -179,10 +179,10 @@
 		var center: new google.maps.LatLng(#dec_lat#, #dec_long#);
 		
 			 var populationOptions = {
-      strokeColor: '#FF0000',
+      strokeColor: '##FF0000',
       strokeOpacity: 0.8,
       strokeWeight: 2,
-      fillColor: '#FF0000',
+      fillColor: '##FF0000',
       fillOpacity: 0.35,
       map: map,
       center: center,
