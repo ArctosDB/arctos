@@ -169,6 +169,7 @@
 		from 
 			#session.SpecSrchTab#
 	</cfquery>
+	<!----
 	<cfquery name="hascoords" dbtype="query">
 		select dec_lat,dec_long,coordinateuncertaintyinmeters from summary where dec_lat is not null group by
 		dec_lat,dec_long,coordinateuncertaintyinmeters
@@ -199,7 +200,7 @@
 
 		</script>
 	</cfloop>
-	
+	---->
 	
 	<cfif summary.recordcount is 0>
 		<div>
