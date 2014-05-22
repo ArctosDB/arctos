@@ -164,7 +164,7 @@ initialize();
 				var cpa=p.split(",");
 console.log(cpa);
 var lat=cpa[0];
-val lon=cpa[1];
+var lon=cpa[1];
 var r=cpa[2];	
 
 
