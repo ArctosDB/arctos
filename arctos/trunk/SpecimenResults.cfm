@@ -183,7 +183,7 @@ markers.push(marker);
  
 google.maps.event.addListener(marker, 'click', (function(marker, i) {
 return function() {
-infowindow.setContent(contentString);
+infowindow.setContent(center);
 infowindow.open(map, marker);
 }
 })(marker, i));
