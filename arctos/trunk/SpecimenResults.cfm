@@ -190,9 +190,9 @@ initialize();
 
 
 
-/* 		
-var center= new google.maps.LatLng(33.8941953000,-108.3791432000);
-var r=97924;
+		
+var center= new google.maps.LatLng(64.0803000000,-139.5261000000);
+var r=60.96;
  var populationOptions = {
 			      strokeColor: '##FF0000',
 			      strokeOpacity: 0.8,
@@ -207,7 +207,7 @@ var r=97924;
     cityCircle = new google.maps.Circle(populationOptions);
 
 
-
+/* 
 
 var center= new google.maps.LatLng(13.7833300000,-89.1833300000);
 var r=35078;
