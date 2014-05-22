@@ -12,7 +12,7 @@
 
 <style>
  .ssw_sngselect{max-width:30em;};
-	#map_canvas { border:1px solid green; }
+	#spresmapdiv { border:1px solid green; }
 
 </style>
 <!----
@@ -338,7 +338,7 @@
 				<td align="right">
 					<div class="valignbottom" id="mapGoHere"></div>
 					
-					<div id="map_canvas"></div>
+					<div id="spresmapdiv"></div>
 
 				</td>
 			</tr>
