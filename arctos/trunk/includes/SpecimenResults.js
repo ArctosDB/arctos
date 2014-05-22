@@ -307,6 +307,8 @@ function initialize() {
 	    scaleControl: true
 	};
 	map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
+	
+	/*
 	var mcd = document.createElement('div');
 	mcd.id='mcd';
 	mcd.style.cursor="pointer";
@@ -356,6 +358,8 @@ function initialize() {
 		var bounds = map.getBounds();
 		searchBox.setBounds(bounds);
 	});
+	
+	*/
 }
 
 
