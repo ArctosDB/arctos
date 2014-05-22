@@ -346,8 +346,6 @@ function queryByViewport(){
 	var swlat=theBounds.getSouthWest().lat();
 	var swlong=theBounds.getSouthWest().lng();
 	if ($("#nelat").length==0) {
-		console.log('adding nelat to ' + nelat);
-
 		jQuery.getJSON("/component/SpecimenResults.cfc",
 			{
 				method : "specSrchTermWidget_addrow",
@@ -362,7 +360,6 @@ function queryByViewport(){
 			}
 		);
 	} else {
-		console.log('flipping nelat to ' + nelat);
 		$("#nelat").val(nelat);
 	}
 	if ($("#nelong").length==0) {
@@ -419,7 +416,6 @@ function queryByViewport(){
 }
 function checkMapBB(){
 	if ($("#nelat").length>0 && $("#nelong").length>0 && $("#swlat").length>0 && $("#swlong").length>0) {
-		console.log('found some stuff.....');
 		var sw=new google.maps.LatLng($("#swlat").val(), $("#swlong").val());
 		var ne=new google.maps.LatLng($("#nelat").val(), $("#nelong").val());
 		  var bounds = new google.maps.LatLngBounds(sw,ne);
