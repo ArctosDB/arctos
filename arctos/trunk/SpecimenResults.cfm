@@ -185,8 +185,8 @@
 			   bounds.extend(markers[i].getPosition());
 			}
 			map.fitBounds(bounds);
-
-			google.maps.event.trigger(map, "resize");
+google.maps.event.trigger(map, 'resize');
+map.setZoom( map.getZoom() );
 	    });
 
 		function resizeMap(s){
