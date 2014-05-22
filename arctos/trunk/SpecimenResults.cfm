@@ -150,7 +150,6 @@
 				jQuery("##mapGoHere").html(data);
 			});
 
-/*
 
 			initialize();
 			var markers = [];
@@ -186,8 +185,7 @@
 			   bounds.extend(markers[i].getPosition());
 			}
 			map.fitBounds(bounds);
-* 
-* */
+
 	    });
 	</script>
 	
