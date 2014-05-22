@@ -159,22 +159,25 @@
 			$.each( arrCP, function( i,p ) {
 				console.log( p );
 				var cpa=p.split("|");
+				var c=cpa[0];
+				var r=cpa[1];	
 
-				console.log('c: ' + cpa[0]);
+				console.log('c: ' + c);
 
-				console.log('r: ' + cpa[1])
-				var center= new google.maps.LatLng(cpa[0]);
+				console.log('r: ' + r)
+				var center= new google.maps.LatLng(c);
 		
 			 var populationOptions = {
-      strokeColor: '##FF0000',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: '##FF0000',
-      fillOpacity: 0.35,
-      map: map,
-      center: center,
-      radius: cpa[1]
-    };
+			      strokeColor: '##FF0000',
+			      strokeOpacity: 0.8,
+			      strokeWeight: 2,
+			      fillColor: '##FF0000',
+			      fillOpacity: 0.35,
+			      map: map,
+			      center: center,
+			      radius: r
+			    };
+			console.log(populationOptions);
 
     cityCircle = new google.maps.Circle(populationOptions);
 
