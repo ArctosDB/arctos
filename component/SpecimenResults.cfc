@@ -41,11 +41,69 @@
 	</cfoutput>
 	<cfreturn result>
 </cffunction>
+<!--------------------------------------------------------------------------------------->
+
+<cffunction name="specSrchTermWidget_addrow" access="remote" returnformat="plain">
+	<cfparam name="term" type="string" required="true">
+	<!---- takes a term, returns a table row for get_specSrchTermWidget ---->
+	<cfquery name="tquery" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+		select * from ssrch_field_doc where cf_variable='#lcase(term)#'
+	</cfquery>
+	<cfif left(tquery.CONTROLLED_VOCABULARY,2) is "ct">
+		<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+			select * from #tquery.CONTROLLED_VOCABULARY#
+		</cfquery>
+		<cfloop list="#tct.columnlist#" index="tcname">
+			<cfif tcname is not "description" and tcname is not "collection_cde">
+				<cfset ctColName=tcname>
+			</cfif>
+		</cfloop>		
+		<cfquery name="cto" dbtype="query">
+			select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
+		</cfquery>
+		<cfset v=valuelist(cto.thisctvalue,"|")>
+	<cfelse>
+		<cfset v=listchangedelims(tquery.CONTROLLED_VOCABULARY,"|")>				
+	</cfif>
+	<cfif len(tquery.DEFINITION) gt 0>
+		<cfset thisSpanClass="helpLink">
+	<cfelse>
+		<cfset thisSpanClass="">
+	</cfif>			
+	<cfsavecontent variable="row">
+		<tr id="row_#term#">
+			<td>
+				<span class="#thisSpanClass#" id="_#term#" title="#tquery.DEFINITION#">
+					<cfif len(sugntab.DISPLAY_TEXT) gt 0>
+						#sugntab.DISPLAY_TEXT#
+					<cfelse>
+						#sugntab.key#
+					</cfif>
+				</span>
+			</td>
+			<td>
+				<input type="text" name="#term#" id="#term#" value="" placeholder="#tquery.PLACEHOLDER_TEXT#" size="50">
+			</td>
+			<td>
+				<select onchange="$('###sugntab.key#').val(this.value);">
+					<option value=""></option>
+					<cfloop query="cto">
+						<option value="#thisctvalue#">#thisctvalue#</option>
+					</cfloop>
+				</select>
+			</td>
+			<td>
+				<span onclick="removeTerm('#term#');" class="likeLink"><img src="/images/del.gif"></span>
+			</td>
+		</tr>
+	</cfsavecontent>
+	<cfreturn row>		
+</cffunction>
 
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
 	<cfoutput>
-	<cfquery name="ssrch_field_doc" datasource="cf_dbuser">
+	<cfquery name="ssrch_field_doc" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 	</cfquery>
 	<cfset stuffToIgnore="guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,SEX,VERBATIM_DATE">
@@ -172,8 +230,17 @@
 					);
 				});
 			});
-			function setThisName(tv){
-				$("##newValue").attr('name',tv);
+			function addARow(tv){
+				jQuery.getJSON("/component/functions.cfc",
+					{
+						method : "specSrchTermWidget_addrow",
+						term : tv,
+						returnformat : "plain"
+					},
+					function (result) {
+						$("#stermwdgtbl").append(result);
+					}
+				);
 			}
 			function removeTerm(key){
 				$("##" + key).remove();
@@ -195,7 +262,7 @@
 				Use the contact link at the bottom to provide feedback.
 			</div>
 			<form name="refineResults" method="get" action="/SpecimenResults.cfm">
-				<table border>
+				<table id="stermwdgtbl" border>
 					<tr>
 						<th>Term</th>
 						<th>Value</th>
@@ -255,11 +322,11 @@
 						<cfset keylist='doesNotExist'>
 					</cfif>
 					<cfquery name="newkeys" dbtype="query">
-						SELECT * FROM ssrch_field_doc WHERE specimen_query_term=1 and CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
+						SELECT * FROM ssrch_field_doc WHERE CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
 					</cfquery>
 						<tr>
 							<td>
-								<select id="newTerm" onchange="setThisName(this.value);">
+								<select id="newTerm" onchange="addARow(this.value);">
 									<option value=''>Add new term</option>
 									<cfloop query="newkeys">
 										<option value="#cf_variable#">#DISPLAY_TEXT#</option>
