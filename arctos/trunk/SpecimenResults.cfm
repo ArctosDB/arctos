@@ -328,7 +328,7 @@
 		
 		<table width="100%">
 			<tr>
-				<td  width="60%">
+				<td  width="75%">
 					<div class="valigntop" id="cntr_refineSearchTerms"></div>
 				</td>
 				
