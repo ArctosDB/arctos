@@ -185,7 +185,7 @@
 			<cfset radius=coordinateuncertaintyinmeters>
 		</cfif>
 		<cfset cep="#dec_lat#,#dec_long#|#radius#">
-		<cfset cfgml=listappen(cfgml,cep,';')>
+		<cfset cfgml=listappend(cfgml,cep,';')>
 		
 		<!----
 		<script>
