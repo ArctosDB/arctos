@@ -59,6 +59,7 @@
 		-- existing search value, when available
 	---->
 	<cfset sugntab = querynew("iid,key,val,vocab,indata,definition,display_text,placeholder_text,search_hint")>
+	<cfdump var=#sugntab#>
 
 	<!---- first loop over the things they searched for ---->
 	<cfset idx=1>
@@ -117,6 +118,12 @@
 		<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
 		<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
 		<cfset idx=idx+1>
+		
+					<br>#idx#: addED #thiskey#
+			<cfdump var=#sugntab#>
+
+
+
 	</cfloop>
 	<!---- then loop over select things from their results ---->
 	<cfset thisValue="">
@@ -163,6 +170,8 @@
 			<cfset idx=idx+1>
 			
 				<br>#idx#: addED #thiskey#
+							<cfdump var=#sugntab#>
+
 		</cfif>
 	</cfloop>
 	
