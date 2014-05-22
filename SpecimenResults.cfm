@@ -210,6 +210,9 @@ function checkMapBB(){
 		console.log('found some stuff.....');
 		var sw=new google.maps.LatLng(swlat, swlong);
 		var ne=new google.maps.LatLng(nelat, nelong);
+
+		console.log('gonna fit map to ' + sw + ne);
+
 		map.fitBounds(sw,ne);
 		console.log('fit map to ' + sw + ne);
 	}
