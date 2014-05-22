@@ -203,7 +203,7 @@ var r=97924;
 			      fillOpacity: 0.35,
 			      map: map,
 			      center: center,
-			      radius: parseInt(r);
+			      radius: parseInt(r)
 			    };
 
     cityCircle = new google.maps.Circle(populationOptions);
