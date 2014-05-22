@@ -13,8 +13,6 @@
 <style>
  .ssw_sngselect{max-width:30em;};
 
-#spresmapdiv { height: 500px;width:100%; }
-
 </style>
 <!----
 <link rel="alternate stylesheet" title="jtable_jqueryui"  href="/fix/jtable/themes/jqueryui/jtable_jqueryui.min.css" type="text/css">
@@ -339,7 +337,7 @@
 				<td align="right">
 					<div class="valignbottom" id="mapGoHere"></div>
 					
-					<div id="spresmapdiv"></div>
+					<div id="map_canvas"></div>
 
 				</td>
 			</tr>
