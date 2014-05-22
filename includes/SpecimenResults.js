@@ -346,6 +346,8 @@ function queryByViewport(){
 	var swlat=theBounds.getSouthWest().lat();
 	var swlong=theBounds.getSouthWest().lng();
 	if ($("#nelat").length==0) {
+		console.log('adding nelat to ' + nelat);
+
 		jQuery.getJSON("/component/SpecimenResults.cfc",
 			{
 				method : "specSrchTermWidget_addrow",
@@ -360,6 +362,7 @@ function queryByViewport(){
 			}
 		);
 	} else {
+		console.log('flipping nelat to ' + nelat);
 		$("#nelat").val(nelat);
 	}
 	if ($("#nelong").length==0) {
