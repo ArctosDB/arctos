@@ -262,7 +262,7 @@
 				
 				
 				<td align="right">
-					<div id="mapGoHere"></div>
+					<div class="valignbottom" id="mapGoHere"></div>
 				</td>
 			</tr>
 		</table>
