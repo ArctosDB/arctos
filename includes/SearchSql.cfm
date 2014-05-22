@@ -1923,7 +1923,9 @@
 </cfif>
 <cfif isdefined("county") AND len(county) gt 0>
 	<cfif compare(County,"NULL") is 0>
-		<cfset basQual = " #basQual# AND County is null">
+		<cfset basQual = " #basQual# AND #session.flatTableName#.County is null">
+	<cfelseif left(county,1) is '='>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.County) = '#right(County,len(County)-1)#'">
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(County) LIKE '%#UCASE(County)#%'">
 	</cfif>
