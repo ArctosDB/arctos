@@ -173,12 +173,12 @@
 
 
 
-marker = new google.maps.Marker({
+marker[i] = new google.maps.Marker({
 position: center,
 map: map
 });
  
-markers.push(marker);
+//markers.push(marker);
  
 
 			var contentString='<span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">' + i + 'add to criteria</span>';
