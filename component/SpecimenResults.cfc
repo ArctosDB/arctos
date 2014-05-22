@@ -231,7 +231,7 @@
 				});
 			});
 			function addARow(tv){
-				jQuery.getJSON("/component/functions.cfc",
+				jQuery.getJSON("/component/SpecimenResults.cfc",
 					{
 						method : "specSrchTermWidget_addrow",
 						term : tv,
