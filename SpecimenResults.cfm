@@ -185,7 +185,7 @@ initialize();
 
     		cityCircle = new google.maps.Circle(populationOptions);
 
-
+		}
 
 
 
