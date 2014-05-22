@@ -155,6 +155,10 @@
 
 			var cfgml=$("##cfgml").val();
 			console.log('running for cfgml: ' + cfgml);
+			var arrCP = cfgml.split( ";" );
+			$.each( arrCP, function( key, value ) {
+				console.log( key + ": " + value );
+			});
 
 	    });
 	</script>
