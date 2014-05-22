@@ -341,6 +341,7 @@
 				</td>
 			</tr>
 		</table>
+		<strong>Found #summary.recordcount# specimens.</strong>
 		<!----
 		<table width="100%">
 			<tr>
