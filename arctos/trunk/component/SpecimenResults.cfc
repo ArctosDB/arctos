@@ -100,7 +100,146 @@
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
 	<cfoutput>
-	<cfif session.resultsbrowseprefs neq 1>
+		<cfif session.resultsbrowseprefs neq 1>
+			<cfsavecontent variable="widget">
+				<script>
+					jQuery( function($) {
+						$('##showsearchterms').click(function() {
+							if($("##refineSearchTerms").is(":visible")) {
+								var v=0;
+							} else {
+								var v=1;
+		  					}
+							$('##refineSearchTerms').slideToggle("fast");
+							jQuery.getJSON("/component/functions.cfc",
+								{
+									method : "setResultsBrowsePrefs",
+									val : v,
+									returnformat : "json",
+									queryformat : 'column'
+								}
+							);
+						});
+					});
+				</script>
+				<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
+				<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
+			</cfsavecontent>
+			<cfreturn widget>
+		</cfif>
+		
+		<cfquery name="ssrch_field_doc" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+			select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
+		</cfquery>
+		<cfset stuffToIgnore="guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,SEX,VERBATIM_DATE">
+		<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from #session.SpecSrchTab#
+		</cfquery>
+		<CFSET KEYLIST="">
+		<!--- pre-build table of
+			-- things they searched on
+			-- select things from their results
+			-- existing search value, when available
+		---->
+		<cfset sugntab = querynew("key,val,vocab,indata,definition,display_text,placeholder_text,search_hint")>
+		<!---- first loop over the things they searched for ---->
+		<cfset idx=1>
+		<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
+			<!--- deal with equal prefix=exact match --->
+			<cfset kvp=replace(kvp,"=","|","first")>
+			<cfif listlen(kvp,"|") is 2>
+				<cfset thisKey=listgetat(kvp,1,"|")>
+				<cfset thisValue=listgetat(kvp,2,"|")>
+			<cfelse>
+				<!--- variable only - tests for existence of attribtues ---->
+				<cfset thisKey=replace(kvp,'|','','all')>
+				<cfset thisValue=''>
+			</cfif>
+			<cfset keylist=listappend(keylist,thisKey)>
+			<cfquery name="thisMoreInfo" dbtype="query">
+				select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
+			</cfquery>
+				<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
+					<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+						select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
+					</cfquery>
+					<cfloop list="#tct.columnlist#" index="tcname">
+						<cfif tcname is not "description" and tcname is not "collection_cde">
+							<cfset ctColName=tcname>
+						</cfif>
+					</cfloop>		
+					<cfquery name="cto" dbtype="query">
+						select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
+					</cfquery>
+					<cfset v=valuelist(cto.thisctvalue,"|")>
+				<cfelse>
+					<cfset v=listchangedelims(thisMoreInfo.CONTROLLED_VOCABULARY,"|")>				
+				</cfif>				
+				<cfif listcontainsnocase(srchcols.columnlist,thisKey)>
+					<cfquery name="dvt" dbtype="query">
+						select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
+					</cfquery>
+					<cfset indatavals=valuelist(dvt.vals,"|")>
+				<cfelse>
+					<cfset indatavals="">
+				</cfif>
+				<cfset temp = queryaddrow(sugntab,1)>
+				<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
+				<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
+				<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
+				<cfset temp = QuerySetCell(sugntab, "indata", indatavals, idx)>
+				<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
+				<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
+				<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
+				<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
+				<cfset idx=idx+1>
+		</cfloop>
+		<!---- then loop over select things from their results ---->
+		<cfset thisValue="">
+		<cfloop list="#srchcols.columnlist#" index="thisKey">
+			<cfif not listcontainsnocase(stuffToIgnore,thisKey) and  not listcontainsnocase(keylist,thisKey)>
+				<cfset keylist=listappend(keylist,thisKey)>
+				<cfquery name="thisMoreInfo" dbtype="query">
+					select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
+				</cfquery>
+				<cfif thisMoreInfo.recordcount is 1>
+					<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
+						<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+							select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
+						</cfquery>
+						<cfloop list="#tct.columnlist#" index="thecolname">
+							<cfif thecolname is not "description" and thecolname is not "collection_cde">
+								<cfset ctColName=thecolname>
+							</cfif>
+						</cfloop>
+						<cfquery name="cto" dbtype="query">
+							select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
+						</cfquery>
+						<cfset v=valuelist(cto.thisctvalue,"|")>
+					<cfelse>
+						<cfset v=listchangedelims(thisMoreInfo.CONTROLLED_VOCABULARY,"|")>				
+					</cfif>
+					<cfif listcontainsnocase(srchcols.columnlist,thisKey)>
+						<cfquery name="dvt" dbtype="query">
+							select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
+						</cfquery>
+						<cfset indatavals=valuelist(dvt.vals,"|")>
+					<cfelse>
+						<cfset indatavals="">
+					</cfif>
+					<cfset temp = queryaddrow(sugntab,1)>
+					<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
+					<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
+					<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
+					<cfset temp = QuerySetCell(sugntab, "indata", indatavals, idx)>
+					<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
+					<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
+					<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
+					<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
+					<cfset idx=idx+1>
+				</cfif>
+			</cfif>
+		</cfloop>
 		<cfsavecontent variable="widget">
 			<script>
 				jQuery( function($) {
@@ -140,249 +279,93 @@
 				}
 			</script>
 			<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
-			<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>	</cfif>
-		</cfsavecontent>
-		<cfreturn widget>
-	</cfif>
-	
-	<cfquery name="ssrch_field_doc" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
-		select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
-	</cfquery>
-	<cfset stuffToIgnore="guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,SEX,VERBATIM_DATE">
-	<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from #session.SpecSrchTab#
-	</cfquery>
-	<CFSET KEYLIST="">
-	<!--- pre-build table of
-		-- things they searched on
-		-- select things from their results
-		-- existing search value, when available
-	---->
-	<cfset sugntab = querynew("key,val,vocab,indata,definition,display_text,placeholder_text,search_hint")>
-	<!---- first loop over the things they searched for ---->
-	<cfset idx=1>
-	<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
-		<!--- deal with equal prefix=exact match --->
-		<cfset kvp=replace(kvp,"=","|","first")>
-		<cfif listlen(kvp,"|") is 2>
-			<cfset thisKey=listgetat(kvp,1,"|")>
-			<cfset thisValue=listgetat(kvp,2,"|")>
-		<cfelse>
-			<!--- variable only - tests for existence of attribtues ---->
-			<cfset thisKey=replace(kvp,'|','','all')>
-			<cfset thisValue=''>
-		</cfif>
-		<cfset keylist=listappend(keylist,thisKey)>
-		<cfquery name="thisMoreInfo" dbtype="query">
-			select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
-		</cfquery>
-			<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
-				<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
-					select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
-				</cfquery>
-				<cfloop list="#tct.columnlist#" index="tcname">
-					<cfif tcname is not "description" and tcname is not "collection_cde">
-						<cfset ctColName=tcname>
-					</cfif>
-				</cfloop>		
-				<cfquery name="cto" dbtype="query">
-					select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
-				</cfquery>
-				<cfset v=valuelist(cto.thisctvalue,"|")>
+			<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
+			<cfif session.ResultsBrowsePrefs is 1>
+				<cfset thisStyle='display:block;'>
 			<cfelse>
-				<cfset v=listchangedelims(thisMoreInfo.CONTROLLED_VOCABULARY,"|")>				
-			</cfif>				
-			<cfif listcontainsnocase(srchcols.columnlist,thisKey)>
-				<cfquery name="dvt" dbtype="query">
-					select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
-				</cfquery>
-				<cfset indatavals=valuelist(dvt.vals,"|")>
-			<cfelse>
-				<cfset indatavals="">
+				<cfset thisStyle='display:none;'>
 			</cfif>
-			<cfset temp = queryaddrow(sugntab,1)>
-			<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
-			<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
-			<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
-			<cfset temp = QuerySetCell(sugntab, "indata", indatavals, idx)>
-			<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
-			<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
-			<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
-			<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
-			<cfset idx=idx+1>
-	</cfloop>
-	<!---- then loop over select things from their results ---->
-	<cfset thisValue="">
-	<cfloop list="#srchcols.columnlist#" index="thisKey">
-		<cfif not listcontainsnocase(stuffToIgnore,thisKey) and  not listcontainsnocase(keylist,thisKey)>
-			<cfset keylist=listappend(keylist,thisKey)>
-			<cfquery name="thisMoreInfo" dbtype="query">
-				select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
-			</cfquery>
-			<cfif thisMoreInfo.recordcount is 1>
-				<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
-					<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
-						select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
-					</cfquery>
-					<cfloop list="#tct.columnlist#" index="thecolname">
-						<cfif thecolname is not "description" and thecolname is not "collection_cde">
-							<cfset ctColName=thecolname>
-						</cfif>
-					</cfloop>
-					<cfquery name="cto" dbtype="query">
-						select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
-					</cfquery>
-					<cfset v=valuelist(cto.thisctvalue,"|")>
-				<cfelse>
-					<cfset v=listchangedelims(thisMoreInfo.CONTROLLED_VOCABULARY,"|")>				
-				</cfif>
-				<cfif listcontainsnocase(srchcols.columnlist,thisKey)>
-					<cfquery name="dvt" dbtype="query">
-						select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
-					</cfquery>
-					<cfset indatavals=valuelist(dvt.vals,"|")>
-				<cfelse>
-					<cfset indatavals="">
-				</cfif>
-				<cfset temp = queryaddrow(sugntab,1)>
-				<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
-				<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
-				<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
-				<cfset temp = QuerySetCell(sugntab, "indata", indatavals, idx)>
-				<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
-				<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
-				<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
-				<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
-				<cfset idx=idx+1>
-			</cfif>
-		</cfif>
-	</cfloop>
-	<cfsavecontent variable="widget">
-		<script>
-			jQuery( function($) {
-				$('##showsearchterms').click(function() {
-					if($("##refineSearchTerms").is(":visible")) {
-						var v=0;
-					} else {
-						var v=1;
-  					}
-					$('##refineSearchTerms').slideToggle("fast");
-					jQuery.getJSON("/component/functions.cfc",
-						{
-							method : "setResultsBrowsePrefs",
-							val : v,
-							returnformat : "json",
-							queryformat : 'column'
-						}
-					);
-				});
-			});
-			function addARow(tv){
-				jQuery.getJSON("/component/SpecimenResults.cfc",
-					{
-						method : "specSrchTermWidget_addrow",
-						term : tv,
-						returnformat : "json"
-					},
-					function (result) {
-						$('##stermwdgtbl tr:last').after(result);
-						$("##newTerm option[value='" + tv + "']").remove();
-					}
-				);
-			}
-			function removeTerm(key){
-				$("##" + key).remove();
-				$("##row_" + key).remove();
-			}
-		</script>
-		<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
-		<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
-		<cfif session.ResultsBrowsePrefs is 1>
-			<cfset thisStyle='display:block;'>
-		<cfelse>
-			<cfset thisStyle='display:none;'>
-		</cfif>
-		<div id="refineSearchTerms" style="#thisStyle#">
-			<div style="font-size:small;">
-				This is an experiment. 
-				Change values and press ENTER or click the button. 
-				Clear a value to remove it from the search. 
-				Use the contact link at the bottom to provide feedback.
-			</div>
-			<form name="refineResults" method="get" action="/SpecimenResults.cfm">
-				<table id="stermwdgtbl" border>
-					<tr>
-						<th>Term</th>
-						<th>Value</th>
-						<th>Vocabulary *</th>
-						<th>Remove</th>
-					</tr>
-					<cfloop query="sugntab">
-						<cfif len(sugntab.DEFINITION) gt 0>
-							<cfset thisSpanClass="helpLink">
-						<cfelse>
-							<cfset thisSpanClass="">
-						</cfif>
-						<tr id="row_#sugntab.key#">
-							<td>
-								<span class="#thisSpanClass#" id="_#sugntab.key#" title="#sugntab.DEFINITION#">
-									#sugntab.DISPLAY_TEXT#
-								</span>
-							</td>
-								<td>
-									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#sugntab.val#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
-								</td>
-								<td>
-									<cfif len(sugntab.vocab) gt 0>
-										<!---- controlled vocab - loop through it, make indata values BOLD ---->
-										<select onchange="$('###sugntab.key#').val(this.value);">
-											<option value=""></option>
-											<cfloop list="#sugntab.vocab#" index="v" delimiters="|">
-												<cfif listcontainsnocase(sugntab.indata,v,"|")>
-													<cfset thisStyle="font-weight:bold;">
-												<cfelse>
-													<cfset thisStyle="">
-												</cfif>
-												<option value="#v#" style="#thisStyle#">#v#</option>
-											</cfloop>
-										</select>
-									<cfelseif len(sugntab.indata) gt 0>
-										<!---- no controlled vocab, just provide list of INDATA values ---->
-										<cfset thisStyle="font-weight:bold;">
-										<select onchange="$('###sugntab.key#').val(this.value);">
-											<option value=""></option>
-											<cfloop list="#sugntab.indata#" index="v" delimiters="|">
-												<option value="#v#" style="#thisStyle#">#v#</option>
-											</cfloop>
-										</select>
-									</cfif>
-								</td>
-								<td>
-									<span onclick="$('###sugntab.key#').val('');" class="likeLink">[ clear ]</span>
-									<span onclick="$('###sugntab.key#').val('_');" class="likeLink">[ require ]</span>
-								</td>
-							</tr>
-					</cfloop>
-					</table>
-					<cfif len(keylist) is 0>
-						<cfset keylist='doesNotExist'>
-					</cfif>
-					<cfquery name="newkeys" dbtype="query">
-						SELECT * FROM ssrch_field_doc WHERE CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
-					</cfquery>
-					<select id="newTerm" onchange="addARow(this.value);">
-						<option value=''>Add a row....</option>
-						<cfloop query="newkeys">
-							<option value="#cf_variable#">#DISPLAY_TEXT#</option>
-						</cfloop>
-					</select>
-				<input type="submit" value="Requery">
-				<div style="font-size:x-small">
-					* Attributes will accept non-code-table values and operators: "2 mm" or "<2mm," for example.
+			<div id="refineSearchTerms" style="#thisStyle#">
+				<div style="font-size:small;">
+					This is an experiment. 
+					Change values and press ENTER or click the button. 
+					Clear a value to remove it from the search. 
+					Use the contact link at the bottom to provide feedback.
 				</div>
-			</form>
-		</div>
-	</cfsavecontent>
+				<form name="refineResults" method="get" action="/SpecimenResults.cfm">
+					<table id="stermwdgtbl" border>
+						<tr>
+							<th>Term</th>
+							<th>Value</th>
+							<th>Vocabulary *</th>
+							<th>Remove</th>
+						</tr>
+						<cfloop query="sugntab">
+							<cfif len(sugntab.DEFINITION) gt 0>
+								<cfset thisSpanClass="helpLink">
+							<cfelse>
+								<cfset thisSpanClass="">
+							</cfif>
+							<tr id="row_#sugntab.key#">
+								<td>
+									<span class="#thisSpanClass#" id="_#sugntab.key#" title="#sugntab.DEFINITION#">
+										#sugntab.DISPLAY_TEXT#
+									</span>
+								</td>
+									<td>
+										<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#sugntab.val#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
+									</td>
+									<td>
+										<cfif len(sugntab.vocab) gt 0>
+											<!---- controlled vocab - loop through it, make indata values BOLD ---->
+											<select onchange="$('###sugntab.key#').val(this.value);">
+												<option value=""></option>
+												<cfloop list="#sugntab.vocab#" index="v" delimiters="|">
+													<cfif listcontainsnocase(sugntab.indata,v,"|")>
+														<cfset thisStyle="font-weight:bold;">
+													<cfelse>
+														<cfset thisStyle="">
+													</cfif>
+													<option value="#v#" style="#thisStyle#">#v#</option>
+												</cfloop>
+											</select>
+										<cfelseif len(sugntab.indata) gt 0>
+											<!---- no controlled vocab, just provide list of INDATA values ---->
+											<cfset thisStyle="font-weight:bold;">
+											<select onchange="$('###sugntab.key#').val(this.value);">
+												<option value=""></option>
+												<cfloop list="#sugntab.indata#" index="v" delimiters="|">
+													<option value="#v#" style="#thisStyle#">#v#</option>
+												</cfloop>
+											</select>
+										</cfif>
+									</td>
+									<td>
+										<span onclick="$('###sugntab.key#').val('');" class="likeLink">[ clear ]</span>
+										<span onclick="$('###sugntab.key#').val('_');" class="likeLink">[ require ]</span>
+									</td>
+								</tr>
+						</cfloop>
+						</table>
+						<cfif len(keylist) is 0>
+							<cfset keylist='doesNotExist'>
+						</cfif>
+						<cfquery name="newkeys" dbtype="query">
+							SELECT * FROM ssrch_field_doc WHERE CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
+						</cfquery>
+						<select id="newTerm" onchange="addARow(this.value);">
+							<option value=''>Add a row....</option>
+							<cfloop query="newkeys">
+								<option value="#cf_variable#">#DISPLAY_TEXT#</option>
+							</cfloop>
+						</select>
+					<input type="submit" value="Requery">
+					<div style="font-size:x-small">
+						* Attributes will accept non-code-table values and operators: "2 mm" or "<2mm," for example.
+					</div>
+				</form>
+			</div>
+		</cfsavecontent>
 	</cfoutput>
 	<cfreturn widget>	
 </cffunction>
