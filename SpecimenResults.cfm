@@ -191,6 +191,13 @@ map.setZoom( map.getZoom() );
 
 		function resizeMap(s){
 			$("##spresmapdiv").removeClass().addClass(s);
+x = map.getZoom();
+    c = map.getCenter();
+    google.maps.event.trigger(map, 'resize');
+    map.setZoom(x);
+    map.setCenter(c);
+
+
 		}
 	</script>
 	
