@@ -156,7 +156,6 @@
 
 			initialize();
 			var markers = [];
---
     var infowindow = new google.maps.InfoWindow();
 
 			var cfgml=$("##cfgml").val();
