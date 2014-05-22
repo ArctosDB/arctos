@@ -170,7 +170,8 @@ initialize();
 
 				console.log('r: ' + r)
 				var center= new google.maps.LatLng(c);
-		
+						console.log('center: ' + center)
+
 			 var populationOptions = {
 			      strokeColor: '##FF0000',
 			      strokeOpacity: 0.8,
