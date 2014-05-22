@@ -203,6 +203,10 @@
 			}
 			map.fitBounds(bounds);
 	    });
+function queryByViewport(){
+var b=map.getBounds();
+console.log(b);
+}
 	</script>
 	
 	<div id="SelectedRowList"></div>
@@ -367,7 +371,8 @@
 						<span class="infoLink" onclick="resizeMap('tinymap');">tiny</span>~
 						<span class="infoLink" onclick="resizeMap('smallmap');">small</span>~
 						<span class="infoLink" onclick="resizeMap('largemap');">large</span>~
-						<span class="infoLink" onclick="resizeMap('hugemap');">huge</span>
+						<span class="infoLink" onclick="resizeMap('hugemap');">huge</span>~
+						<span class="infoLink" onclick="queryByViewport();">QueryByViewport</span>
 					</div>
 				</td>
 			</tr>
