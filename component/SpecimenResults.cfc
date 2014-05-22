@@ -270,8 +270,8 @@
 							}
 						);
 					});
-// after this loads, check if we need to recenter the map.....
-checkMapBB();
+					// after this loads, check if we need to recenter the map.....
+					checkMapBB();
 				});
 				function addARow(tv){
 					jQuery.getJSON("/component/SpecimenResults.cfc",
