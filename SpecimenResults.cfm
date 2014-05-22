@@ -190,9 +190,9 @@
 
 		   		crcl = new google.maps.Circle(circleoptn);
 				
+console.log(contentString);
 
-
-google.maps.event.addListener(markers[i], 'click', function() { 
+			google.maps.event.addListener(markers[i], 'click', function() { 
             infowindow.setContent(contentString); 
             infowindow.open(map,this); 
             }); 
