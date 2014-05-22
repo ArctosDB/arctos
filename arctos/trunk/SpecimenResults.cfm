@@ -179,56 +179,7 @@
             		infowindow.setContent(this.contentString);
             		infowindow.open(map, this);
         		});
-
-/*
-				markers[i]  = new google.maps.Marker({
-				    position: center,
-				    map: map,
-				    title: ns + " specimens. Error(m)=" + r,
-infoWindowIndex: 'iwi' + i
-				});
-				//markers.push(marker);
-			 	var circleoptn = {
-					strokeColor: '##FF0000',
-					strokeOpacity: 0.8,
-					strokeWeight: 2,
-					fillColor: '##FF0000',
-					fillOpacity: 0.35,
-					map: map,
-					center: center,
-					radius: parseInt(r)
-				};
-
-
-		   		crcl = new google.maps.Circle(circleoptn);
-				
-console.log(contentString);
-
-			google.maps.event.addListener(markers[i], 'click', function(marker, i) { 
-            infowindow.setContent(contentString); 
-console.log(contentString);
-            infowindow.setContent(this.infoWindowIndex);
-            infowindow.open(map,this); 
-            }); 
-*/
-/*
-
- var infowindow = new google.maps.InfoWindow({
-      content: contentString
-  });
-
-
- google.maps.event.addListener(marker, 'click', function() {
-    infowindow.open(map,marker);
-  });
-
-*/
 			}
-
-
-
-
-
 			var bounds = new google.maps.LatLngBounds();
 			for (var i=0; i < markers.length; i++) {
 			   bounds.extend(markers[i].getPosition());
