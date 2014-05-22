@@ -12,6 +12,8 @@
 
 <style>
  .ssw_sngselect{max-width:30em;};
+	#map_canvas { border:1px solid green; }
+
 </style>
 <!----
 <link rel="alternate stylesheet" title="jtable_jqueryui"  href="/fix/jtable/themes/jqueryui/jtable_jqueryui.min.css" type="text/css">
