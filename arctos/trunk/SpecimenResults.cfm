@@ -186,7 +186,8 @@
 					position: center,
             		map: map,
             		title: ns + ' specimens; Error(m)=' + r,
-					contentString: contentString
+					contentString: contentString,
+ 					zIndex: 10
         		});
  				markers.push(marker);
  				var contentString='<span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add point to search</span>';
