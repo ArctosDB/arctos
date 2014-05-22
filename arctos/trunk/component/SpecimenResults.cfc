@@ -75,11 +75,7 @@
 			<tr id="row_#term#">
 				<td>
 					<span class="#thisSpanClass#" id="_#term#" title="#tquery.DEFINITION#">
-						<cfif len(tquery.DISPLAY_TEXT) gt 0>
-							#tquery.DISPLAY_TEXT#
-						<cfelse>
-							#term#
-						</cfif>
+						#tquery.DISPLAY_TEXT#
 					</span>
 				</td>
 				<td>
@@ -101,7 +97,6 @@
 	</cfoutput>
 	<cfreturn row>		
 </cffunction>
-
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
 	<cfoutput>
@@ -240,8 +235,8 @@
 						returnformat : "json"
 					},
 					function (result) {
-	console.log('appending row: ' + result);
 						$('##stermwdgtbl tr:last').after(result);
+						$("##newTerm option[value='" + tv + "']").remove();
 					}
 				);
 			}
@@ -317,26 +312,19 @@
 								</td>
 							</tr>
 					</cfloop>
+					</table>
 					<cfif len(keylist) is 0>
 						<cfset keylist='doesNotExist'>
 					</cfif>
 					<cfquery name="newkeys" dbtype="query">
 						SELECT * FROM ssrch_field_doc WHERE CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
 					</cfquery>
-						<tr>
-							<td>
-								<select id="newTerm" onchange="addARow(this.value);">
-									<option value=''>Add new term</option>
-									<cfloop query="newkeys">
-										<option value="#cf_variable#">#DISPLAY_TEXT#</option>
-									</cfloop>
-								</select>
-							</td>
-							<td>
-								<input type="text" name="newValue" id="newValue" size="50">
-							</td>
-						</tr>
-					</table>
+					<select id="newTerm" onchange="addARow(this.value);">
+						<option value=''>Add a row....</option>
+						<cfloop query="newkeys">
+							<option value="#cf_variable#">#DISPLAY_TEXT#</option>
+						</cfloop>
+					</select>
 				<input type="submit" value="Requery">
 				<div style="font-size:x-small">
 					* Attributes will accept non-code-table values and operators: "2 mm" or "<2mm," for example.
