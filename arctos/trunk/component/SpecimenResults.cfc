@@ -131,65 +131,22 @@
 		<cfquery name="thisMoreInfo" dbtype="query">
 			select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
 		</cfquery>
-		<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
-			<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
-				select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
-			</cfquery>
-			<cfloop list="#tct.columnlist#" index="tcname">
-				<cfif tcname is not "description" and tcname is not "collection_cde">
-					<cfset ctColName=tcname>
-				</cfif>
-			</cfloop>		
-			<cfquery name="cto" dbtype="query">
-				select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
-			</cfquery>
-			<cfset v=valuelist(cto.thisctvalue,"|")>
-		<cfelse>
-			<cfset v=listchangedelims(thisMoreInfo.CONTROLLED_VOCABULARY,"|")>				
-		</cfif>				
-		<cfif listcontainsnocase(srchcols.columnlist,thisKey)>
-			<cfquery name="dvt" dbtype="query">
-				select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
-			</cfquery>
-			<cfset indatavals=valuelist(dvt.vals,"|")>
-		<cfelse>
-			<cfset indatavals="">
-		</cfif>
-		<cfset temp = queryaddrow(sugntab,1)>
-		<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
-		<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
-		<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
-		<cfset temp = QuerySetCell(sugntab, "indata", indatavals, idx)>
-		<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
-		<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
-		<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
-		<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
-		<cfset idx=idx+1>
-	</cfloop>
-	<!---- then loop over select things from their results ---->
-	<cfset thisValue="">
-	<cfloop list="#srchcols.columnlist#" index="thisKey">
-		<cfif not listcontainsnocase(stuffToIgnore,thisKey) and  not listcontainsnocase(keylist,thisKey)>
-			<cfset keylist=listappend(keylist,thisKey)>
-			<cfquery name="thisMoreInfo" dbtype="query">
-				select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
-			</cfquery>
 			<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
 				<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 					select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
 				</cfquery>
-				<cfloop list="#tct.columnlist#" index="thecolname">
-					<cfif thecolname is not "description" and thecolname is not "collection_cde">
-						<cfset ctColName=thecolname>
+				<cfloop list="#tct.columnlist#" index="tcname">
+					<cfif tcname is not "description" and tcname is not "collection_cde">
+						<cfset ctColName=tcname>
 					</cfif>
-				</cfloop>
+				</cfloop>		
 				<cfquery name="cto" dbtype="query">
 					select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
 				</cfquery>
 				<cfset v=valuelist(cto.thisctvalue,"|")>
 			<cfelse>
 				<cfset v=listchangedelims(thisMoreInfo.CONTROLLED_VOCABULARY,"|")>				
-			</cfif>
+			</cfif>				
 			<cfif listcontainsnocase(srchcols.columnlist,thisKey)>
 				<cfquery name="dvt" dbtype="query">
 					select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
@@ -208,6 +165,51 @@
 			<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
 			<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
 			<cfset idx=idx+1>
+	</cfloop>
+	<!---- then loop over select things from their results ---->
+	<cfset thisValue="">
+	<cfloop list="#srchcols.columnlist#" index="thisKey">
+		<cfif not listcontainsnocase(stuffToIgnore,thisKey) and  not listcontainsnocase(keylist,thisKey)>
+			<cfset keylist=listappend(keylist,thisKey)>
+			<cfquery name="thisMoreInfo" dbtype="query">
+				select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
+			</cfquery>
+			<cfif thisMoreInfo.recordcount is 1>
+				<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
+					<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+						select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
+					</cfquery>
+					<cfloop list="#tct.columnlist#" index="thecolname">
+						<cfif thecolname is not "description" and thecolname is not "collection_cde">
+							<cfset ctColName=thecolname>
+						</cfif>
+					</cfloop>
+					<cfquery name="cto" dbtype="query">
+						select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
+					</cfquery>
+					<cfset v=valuelist(cto.thisctvalue,"|")>
+				<cfelse>
+					<cfset v=listchangedelims(thisMoreInfo.CONTROLLED_VOCABULARY,"|")>				
+				</cfif>
+				<cfif listcontainsnocase(srchcols.columnlist,thisKey)>
+					<cfquery name="dvt" dbtype="query">
+						select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
+					</cfquery>
+					<cfset indatavals=valuelist(dvt.vals,"|")>
+				<cfelse>
+					<cfset indatavals="">
+				</cfif>
+				<cfset temp = queryaddrow(sugntab,1)>
+				<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
+				<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
+				<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
+				<cfset temp = QuerySetCell(sugntab, "indata", indatavals, idx)>
+				<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
+				<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
+				<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
+				<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
+				<cfset idx=idx+1>
+			</cfif>
 		</cfif>
 	</cfloop>
 	<cfsavecontent variable="widget">
