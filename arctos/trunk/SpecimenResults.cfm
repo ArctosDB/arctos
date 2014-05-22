@@ -336,7 +336,7 @@
 				
 				<td class="valigntop">
 					
-					<div id="spresmapdiv"></div>
+					<div id="spresmapdiv" class="smallmap"></div>
 
 				</td>
 				<td>
