@@ -422,13 +422,13 @@ function checkMapBB(){
 		console.log('found some stuff.....');
 		var sw=new google.maps.LatLng($("#swlat").val(), $("#swlong").val());
 		var ne=new google.maps.LatLng($("#nelat").val(), $("#nelong").val());
-
+		  var bounds = new google.maps.LatLngBounds(sw,ne);
 console.log(sw);
 console.log(ne);
 
 		console.log('gonna fit map to ' + sw + ne);
 
-		map.fitBounds(sw,ne);
+		map.fitBounds(bounds);
 		console.log('fit map to ' + sw + ne);
 	}
 }
