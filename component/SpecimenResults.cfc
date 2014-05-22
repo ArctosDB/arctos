@@ -241,7 +241,7 @@
 					},
 					function (result) {
 	console.log('appending row: ' + result);
-						$('#stermwdgtbl tr:last').after(result);
+						$('##stermwdgtbl tr:last').after(result);
 					}
 				);
 			}
@@ -281,11 +281,7 @@
 						<tr id="row_#sugntab.key#">
 							<td>
 								<span class="#thisSpanClass#" id="_#sugntab.key#" title="#sugntab.DEFINITION#">
-									<cfif len(sugntab.DISPLAY_TEXT) gt 0>
-										#sugntab.DISPLAY_TEXT#
-									<cfelse>
-										#sugntab.key#
-									</cfif>
+									#sugntab.DISPLAY_TEXT#
 								</span>
 							</td>
 								<td>
