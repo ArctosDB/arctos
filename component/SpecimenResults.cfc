@@ -161,6 +161,8 @@
 			<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
 			<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
 			<cfset idx=idx+1>
+			
+				<br>#idx#: addED #thiskey#
 		</cfif>
 	</cfloop>
 	
