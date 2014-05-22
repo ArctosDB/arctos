@@ -191,7 +191,13 @@ initialize();
 
 
 
-		
+
+/* 
+
+* 
+* 
+* 
+* 		
 var center= new google.maps.LatLng(64.0803000000,-139.5261000000);
 var r=60.96;
  var populationOptions = {
@@ -207,9 +213,10 @@ var r=60.96;
 
     cityCircle = new google.maps.Circle(populationOptions);
 
-
-/* 
-
+* 
+* 
+* 
+* 
 var center= new google.maps.LatLng(13.7833300000,-89.1833300000);
 var r=35078;
  var populationOptions = {
