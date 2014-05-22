@@ -168,12 +168,36 @@
 				var lon=cpa[2];
 				var r=cpa[3];					
 				var center=new google.maps.LatLng(lat, lon);
+
+
+
+				var contentString='<span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add to criteria</span>';
+
+
+marker = new google.maps.Marker({
+position: center,
+map: map
+});
+ 
+markers.push(marker);
+ 
+google.maps.event.addListener(marker, 'click', (function(marker, i) {
+return function() {
+infowindow.setContent(contentString);
+infowindow.open(map, marker);
+}
+})(marker, i));
+
+
+
+
+/*
 				markers[i]  = new google.maps.Marker({
 				    position: center,
 				    map: map,
-				    title: ns + " specimens. Error(m)=" + r
+				    title: ns + " specimens. Error(m)=" + r,
+infoWindowIndex: 'iwi' + i
 				});
-				var contentString='<span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add to criteria</span>';
 				//markers.push(marker);
 			 	var circleoptn = {
 					strokeColor: '##FF0000',
@@ -191,13 +215,13 @@
 				
 console.log(contentString);
 
-			google.maps.event.addListener(markers[i], 'click', function() { 
+			google.maps.event.addListener(markers[i], 'click', function(marker, i) { 
             infowindow.setContent(contentString); 
 console.log(contentString);
-            infowindow.setContent(this.title);
+            infowindow.setContent(this.infoWindowIndex);
             infowindow.open(map,this); 
             }); 
-
+*/
 /*
 
  var infowindow = new google.maps.InfoWindow({
