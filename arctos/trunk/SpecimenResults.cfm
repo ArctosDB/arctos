@@ -156,8 +156,8 @@
 
 			initialize();
 			var markers = [];
-
-
+--
+    var infowindow = new google.maps.InfoWindow();
 
 			var cfgml=$("##cfgml").val();
 			var arrCP = cfgml.split( ";" );
@@ -193,7 +193,12 @@
 				
 
 
+google.maps.event.addListener(markers[i], 'click', function() { 
+            infowindow.setContent(ContentString); 
+            infowindow.open(map,this); 
+            }); 
 
+/*
 
  var infowindow = new google.maps.InfoWindow({
       content: contentString
@@ -204,7 +209,7 @@
     infowindow.open(map,marker);
   });
 
-
+*/
 			}
 
 
