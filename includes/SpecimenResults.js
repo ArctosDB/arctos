@@ -285,9 +285,9 @@ function removeRows() {
 }
 
 function addCoordinates(c){
-	if($("##refineSearchTerms").is(":visible")) {
-		if ($("##coordinates").length){
-			$("##coordinates").val(c);
+	if($("#refineSearchTerms").is(":visible")) {
+		if ($("#coordinates").length){
+			$("#coordinates").val(c);
 		} else {
 			jQuery.getJSON("/component/SpecimenResults.cfc",
 				{
@@ -297,9 +297,9 @@ function addCoordinates(c){
 					queryformat : 'column'
 				},
 				function (result) {
-					$('##stermwdgtbl tr:last').after(result);
-					$("##newTerm option[value='coordinates']").remove();			
-					$("##coordinates").val(c);
+					$('#stermwdgtbl tr:last').after(result);
+					$("#newTerm option[value='coordinates']").remove();			
+					$("#coordinates").val(c);
 				}
 			);
 		}
