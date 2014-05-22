@@ -227,7 +227,6 @@
 	</cfquery>
 	<cfquery name="hascoords" dbtype="query">
 		select 
-			count(*) as numspecs,
 			dec_lat,
 			dec_long,
 			round(coordinateuncertaintyinmeters) as coordinateuncertaintyinmeters
