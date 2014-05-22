@@ -123,7 +123,7 @@
 			<cfset thisValue=listgetat(kvp,2,"=")>
 		<cfelse>
 			<!--- variable only - tests for existence of attribtues ---->
-			<cfset thisKey=replace(kvp,'=','','all')>
+			<cfset thisKey=replace(kvp,'=','','first')>
 			<cfset thisValue=''>
 		</cfif>
 			<br>thisKey=#thisKey#
