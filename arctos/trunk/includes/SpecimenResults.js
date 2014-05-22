@@ -304,7 +304,7 @@ function initialize() {
 	    center: new google.maps.LatLng(55, -135),
 	    mapTypeId: google.maps.MapTypeId.ROADMAP,
 	    panControl: false,
-	    scaleControl: false
+	    scaleControl: true
 	};
 	map = new google.maps.Map(document.getElementById('spresmapdiv'),mapOptions);
 	
