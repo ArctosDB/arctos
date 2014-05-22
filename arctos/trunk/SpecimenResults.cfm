@@ -169,7 +169,8 @@
 				var marker = new google.maps.Marker({
 				    position: center,
 				    map: map,
-				    title: ns + " specimens. Error(m)=" + r
+				    title: ns + " specimens. Error(m)=" + r,
+					 infoWindowIndex : i
 				});
 				var contentString='<span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add to criteria</span>';
 				markers.push(marker);
@@ -183,6 +184,19 @@
 					center: center,
 					radius: parseInt(r)
 				};
+
+
+google.maps.event.addListener(marker, 'click', 
+            function(event)
+            {
+                map.panTo(event.latLng);
+                infoWindows[this.infoWindowIndex].open(map, this);
+            }
+        );
+
+
+ infoWindows.push(infoWindow);
+        //markers.push(marker);
 		   		crcl = new google.maps.Circle(circleoptn);
 				var infowindow = new google.maps.InfoWindow({
 					content: contentString
@@ -191,6 +205,11 @@
 					infowindow.open(map,marker);
 				});
 			}
+
+
+
+
+
 			var bounds = new google.maps.LatLngBounds();
 			for (var i=0; i < markers.length; i++) {
 			   bounds.extend(markers[i].getPosition());
