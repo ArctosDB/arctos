@@ -117,7 +117,6 @@
 	<!---- first loop over the things they searched for ---->
 	<cfset idx=1>
 	<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
-		<br>kvp=#kvp#
 		<!--- deal with equal prefix=exact match --->
 		<cfset kvp=replace(kvp,"=","|","first")>
 		<cfif listlen(kvp,"|") is 2>
@@ -128,10 +127,6 @@
 			<cfset thisKey=replace(kvp,'|','','all')>
 			<cfset thisValue=''>
 		</cfif>
-			<br>thisKey=#thisKey#
-				<br>thisValue=#thisValue#
-				
-				
 		<cfset keylist=listappend(keylist,thisKey)>
 		<cfquery name="thisMoreInfo" dbtype="query">
 			select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
