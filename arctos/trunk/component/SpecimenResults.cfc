@@ -69,34 +69,36 @@
 		<cfset thisSpanClass="helpLink">
 	<cfelse>
 		<cfset thisSpanClass="">
-	</cfif>			
-	<cfsavecontent variable="row">
-		<tr id="row_#term#">
-			<td>
-				<span class="#thisSpanClass#" id="_#term#" title="#tquery.DEFINITION#">
-					<cfif len(tquery.DISPLAY_TEXT) gt 0>
-						#tquery.DISPLAY_TEXT#
-					<cfelse>
-						#term#
-					</cfif>
-				</span>
-			</td>
-			<td>
-				<input type="text" name="#term#" id="#term#" value="" placeholder="#tquery.PLACEHOLDER_TEXT#" size="50">
-			</td>
-			<td>
-				<select onchange="$('###term#').val(this.value);">
-					<option value=""></option>
-					<cfloop list="#vlist#" index="v" delimiters="|">
-						<option value="#v#">#v#</option>
-					</cfloop>
-				</select>
-			</td>
-			<td>
-				<span onclick="removeTerm('#term#');" class="likeLink"><img src="/images/del.gif"></span>
-			</td>
-		</tr>
-	</cfsavecontent>
+	</cfif>
+	<cfoutput>	
+		<cfsavecontent variable="row">
+			<tr id="row_#term#">
+				<td>
+					<span class="#thisSpanClass#" id="_#term#" title="#tquery.DEFINITION#">
+						<cfif len(tquery.DISPLAY_TEXT) gt 0>
+							#tquery.DISPLAY_TEXT#
+						<cfelse>
+							#term#
+						</cfif>
+					</span>
+				</td>
+				<td>
+					<input type="text" name="#term#" id="#term#" value="" placeholder="#tquery.PLACEHOLDER_TEXT#" size="50">
+				</td>
+				<td>
+					<select onchange="$('###term#').val(this.value);">
+						<option value=""></option>
+						<cfloop list="#vlist#" index="v" delimiters="|">
+							<option value="#v#">#v#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<span onclick="removeTerm('#term#');" class="likeLink"><img src="/images/del.gif"></span>
+				</td>
+			</tr>
+		</cfsavecontent>
+	</cfoutput>
 	<cfreturn row>		
 </cffunction>
 
