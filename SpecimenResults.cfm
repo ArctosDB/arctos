@@ -178,7 +178,8 @@
 					fillOpacity: 0.35,
 					map: map,
 					center: center,
-					radius: parseInt(r)
+					radius: parseInt(r),
+					zIndex:-99
 				};
 				crcl = new google.maps.Circle(circleoptn);
 				var marker = new google.maps.Marker({
