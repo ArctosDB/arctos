@@ -1,5 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Specimen Results">
+<cfif not isdefined("session.srmapclass") or len(session.srmapclass) is 0>
+	<cfset session.srmapclass='smallmap'>
+</cfif>
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
 <script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js'></script>
 
@@ -344,12 +347,12 @@ x = map.getZoom();
 				
 				<td class="valigntop">
 					
-					<div id="spresmapdiv" class="smallmap"></div>
+					<div id="spresmapdiv" class="#session.srmapclass#"></div>
+					<span class="infoLink" onclick="resizeMap('tinymap');">tiny</span>~
+					<span class="infoLink" onclick="resizeMap('smallmap');">small</span>~
+					<span class="infoLink" onclick="resizeMap('largemap');">large</span>
+					<span class="infoLink" onclick="resizeMap('hugemap');">huge</span>
 
-				</td>
-				<td>
-					<span class="likeLink" onclick="resizeMap('smallmap');">small</span>
-					<span class="likeLink" onclick="resizeMap('bigmap');">big</span>
 				</td>
 			</tr>
 		</table>

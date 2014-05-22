@@ -44,16 +44,22 @@
 	border:5px solid green;
 }
 
+.tinymap {
+	height: 100px;
+	width:100px;
+}
 .smallmap {
 	height: 250px;
 	width:250px;
 }
-.bigmap {
-	height: 600px;
-	width:600px;
+.largemap {
+	height: 400px;
+	width:400px;
 }
-
-
+.hugemap {
+	height: 800px;
+	width:800px;
+}
 
 .relCacheDiv {
 	border:1px dashed green;

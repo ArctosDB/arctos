@@ -142,6 +142,7 @@
 	<cfset session.meta_keywords = portalInfo.meta_keywords>
 	<cfset session.stylesheet = portalInfo.stylesheet>
 	<cfset session.header_credit = portalInfo.header_credit>
+	
 	<cfreturn true>
 </cffunction>
 <!----------------------------------------------------------->
@@ -231,6 +232,7 @@
 		<cfelse>
 			<cfset session.killRow=0>
 		</cfif>
+		<cfset session.srmapclass = getPrefs.srmapclass>
 		<cfset session.locSrchPrefs=getPrefs.locSrchPrefs>
 		<cfquery name="logLog" datasource="cf_dbuser">
 			update cf_users set last_login = sysdate where username = '#session.username#'
