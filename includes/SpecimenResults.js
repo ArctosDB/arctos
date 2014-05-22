@@ -423,7 +423,7 @@ function checkMapBB(){
 		console.log('found some stuff.....');
 		var sw=new google.maps.LatLng(swlat, swlong);
 		var ne=new google.maps.LatLng(nelat, nelong);
-		map.fitBounds(nw,ne);
-		console.log('fit map to ' + nw + ne);
+		map.fitBounds(sw,ne);
+		console.log('fit map to ' + sw + ne);
 	}
 }
