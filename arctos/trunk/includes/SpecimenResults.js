@@ -303,8 +303,8 @@ function initialize() {
 		zoom: 3,
 	    center: new google.maps.LatLng(55, -135),
 	    mapTypeId: google.maps.MapTypeId.ROADMAP,
-	    panControl: true,
-	    scaleControl: true
+	    panControl: false,
+	    scaleControl: false
 	};
 	map = new google.maps.Map(document.getElementById('spresmapdiv'),mapOptions);
 	
