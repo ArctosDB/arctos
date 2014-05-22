@@ -156,8 +156,7 @@
 
 			initialize();
 			var markers = [];
-    var infowindow = new google.maps.InfoWindow();
-
+    		var infowindow = new google.maps.InfoWindow();
 			var cfgml=$("##cfgml").val();
 			var arrCP = cfgml.split( ";" );
 			for (var i=0; i < arrCP.length; i++){
@@ -168,26 +167,18 @@
 				var lon=cpa[2];
 				var r=cpa[3];					
 				var center=new google.maps.LatLng(lat, lon);
-
-
-
-
-
- var marker = new google.maps.Marker({
-            position: center,
-            map: map,
-            title: ns,
-contentString: contentString
-        });
- markers.push(marker);
- 
-
-			var contentString='<span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">' + i + 'add to criteria</span>';
-
-google.maps.event.addListener(marker, 'click', function() {
-            infowindow.setContent(this.contentString);
-            infowindow.open(map, this);
-        });
+				var marker = new google.maps.Marker({
+					position: center,
+            		map: map,
+            		title: ns,
+					contentString: contentString
+        		});
+ 				markers.push(marker);
+ 				var contentString='<span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add point to search</span>';
+				google.maps.event.addListener(marker, 'click', function() {
+            		infowindow.setContent(this.contentString);
+            		infowindow.open(map, this);
+        		});
 
 /*
 				markers[i]  = new google.maps.Marker({
