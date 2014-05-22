@@ -118,12 +118,14 @@
 	<cfset idx=1>
 	<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
 		<br>kvp=#kvp#
-		<cfif listlen(kvp,"=") is 2>
-			<cfset thisKey=listgetat(kvp,1,"=")>
-			<cfset thisValue=listgetat(kvp,2,"=")>
+		<!--- deal with equal prefix=exact match --->
+		<cfset kvp=replace(kvp,"==","|=","all")>
+		<cfif listlen(kvp,"|") is 2>
+			<cfset thisKey=listgetat(kvp,1,"|")>
+			<cfset thisValue=listgetat(kvp,2,"|")>
 		<cfelse>
 			<!--- variable only - tests for existence of attribtues ---->
-			<cfset thisKey=replace(kvp,'=','','first')>
+			<cfset thisKey=replace(kvp,'|','','all')>
 			<cfset thisValue=''>
 		</cfif>
 			<br>thisKey=#thisKey#
