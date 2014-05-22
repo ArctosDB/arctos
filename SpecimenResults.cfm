@@ -151,7 +151,10 @@
 
 
 
-/*	  		
+initialize();
+
+
+ 		
 
 			var cfgml=$("##cfgml").val();
 			console.log('running for cfgml: ' + cfgml);
@@ -175,7 +178,7 @@
 			      fillOpacity: 0.35,
 			      map: map,
 			      center: center,
-			      radius: r
+			      radius: parseInt(r)
 			    };
 			console.log(populationOptions);
 
@@ -185,9 +188,9 @@
 
 			});
 
-*/
 
-		initialize();
+/*
+		
 
 var center= new google.maps.LatLng(64,-148);
  var populationOptions = {
@@ -204,7 +207,7 @@ var center= new google.maps.LatLng(64,-148);
     cityCircle = new google.maps.Circle(populationOptions);
 
 
-
+*/
 
 	    });
 	</script>
