@@ -239,7 +239,7 @@
 						<cfset indatavals="">
 					</cfif>
 					<cfset temp = queryaddrow(sugntab,1)>
-					<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
+					<cfset temp = QuerySetCell(sugntab, "key", lcase(thisKey), idx)>	
 					<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
 					<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
 					<cfset temp = QuerySetCell(sugntab, "indata", indatavals, idx)>
