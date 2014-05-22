@@ -1921,13 +1921,18 @@
 	<cfset basQual = " #basQual# AND upper(higher_geog) LIKE '%#ucase(higher_geog)#%'">
 	<cfset mapurl = "#mapurl#&higher_geog=#higher_geog#">
 </cfif>
+
+<cfif isdefined("datum") AND len(datum) gt 0>
+	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.datum) LIKE '%#UCASE(datum)#%'">
+	<cfset mapurl = "#mapurl#&datum=#datum#">
+</cfif>
 <cfif isdefined("county") AND len(county) gt 0>
 	<cfif compare(County,"NULL") is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.County is null">
 	<cfelseif left(county,1) is '='>
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.County) = '#right(County,len(County)-1)#'">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper(County) LIKE '%#UCASE(County)#%'">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.County) LIKE '%#UCASE(County)#%'">
 	</cfif>
 	<cfset mapurl = "#mapurl#&county=#county#">
 </cfif>
