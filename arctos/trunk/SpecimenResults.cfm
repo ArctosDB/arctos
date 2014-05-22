@@ -227,10 +227,10 @@
 	</cfquery>
 	<cfquery name="hascoords" dbtype="query">
 		select 
-			count(*) numspecs,
+			count(*) as numspecs,
 			dec_lat,
 			dec_long,
-			round(coordinateuncertaintyinmeters) coordinateuncertaintyinmeters
+			round(coordinateuncertaintyinmeters) as coordinateuncertaintyinmeters
 		from 
 			summary 
 		where 
