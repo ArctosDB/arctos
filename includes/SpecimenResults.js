@@ -39,6 +39,7 @@ function getPostLoadJunk(){
 	insertTypes(coidList);
 	injectLoanPick();
 	displayMedia();
+	console.log('going to run checkMapBB now....');
 	checkMapBB();
 }
 
