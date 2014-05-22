@@ -151,7 +151,10 @@
 
 
 
-	  	initialize();
+	  		initialize();
+
+			var cfgml=$("##cfgml").val();
+			console.log('running for cfgml: ' + cfgml);
 
 	    });
 	</script>
@@ -173,12 +176,18 @@
 		select dec_lat,dec_long,coordinateuncertaintyinmeters from summary where dec_lat is not null group by
 		dec_lat,dec_long,coordinateuncertaintyinmeters
 	</cfquery>
+	
+	<cfset cfgml="">
 	<cfloop query="hascoords">
 		<cfif len(coordinateuncertaintyinmeters) is 0>
 			<cfset radius=0>
 		<cfelse>
 			<cfset radius=coordinateuncertaintyinmeters>
 		</cfif>
+		<cfset cep="#dec_lat#,#dec_long#|#radius#">
+		<cfset cfgml=listappen(cfgml,cep,';')>
+		
+		<!----
 		<script>
 		
 		var center= new google.maps.LatLng(#dec_lat#, #dec_long#);
@@ -198,7 +207,11 @@
 
 
 		</script>
+		---->
 	</cfloop>
+	
+	
+	<input id="cfgml" value="#cfgml#">
 	
 	<cfif summary.recordcount is 0>
 		<div>
