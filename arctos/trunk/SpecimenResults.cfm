@@ -218,18 +218,25 @@
 			collection_object_id,
 				dec_lat,
 			dec_long,
-				to_number(decode(coordinateuncertaintyinmeters,
-				0,NULL,
-				coordinateuncertaintyinmeters)) coordinateuncertaintyinmeters,
+				round(
+					to_number(
+						decode(
+							coordinateuncertaintyinmeters,
+							0,NULL,
+							coordinateuncertaintyinmeters
+						)
+					)
+				) coordinateuncertaintyinmeters,
 			scientific_name
 		from 
 			#session.SpecSrchTab#
 	</cfquery>
 	<cfquery name="hascoords" dbtype="query">
 		select 
+			count(*) as numspecs,
 			dec_lat,
 			dec_long,
-			round(coordinateuncertaintyinmeters) as coordinateuncertaintyinmeters
+			coordinateuncertaintyinmeters
 		from 
 			summary 
 		where 
