@@ -61,9 +61,7 @@
 		<cfquery name="cto" dbtype="query">
 			select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
 		</cfquery>
-		<cfset vlist=valuelist(cto.thisctvalue,"|")>
-	<cfelse>
-		<cfset vlist=listchangedelims(tquery.CONTROLLED_VOCABULARY,"|")>				
+			
 	</cfif>
 	<cfif len(tquery.DEFINITION) gt 0>
 		<cfset thisSpanClass="helpLink">
@@ -82,12 +80,14 @@
 					<input type="text" name="#term#" id="#term#" value="" placeholder="#tquery.PLACEHOLDER_TEXT#" size="50">
 				</td>
 				<td>
-					<select onchange="$('###term#').val(this.value);">
-						<option value=""></option>
-						<cfloop list="#vlist#" index="v" delimiters="|">
-							<option value="#v#">#v#</option>
-						</cfloop>
-					</select>
+					<cfif isdefined("cto")>
+						<select onchange="$('###term#').val(this.value);">
+							<option value=""></option>
+							<cfloop query="cto">
+								<option value="#thisctvalue#">#thisctvalue#</option>
+							</cfloop>
+						</select>
+					</cfif>
 				</td>
 				<td>
 					<span onclick="removeTerm('#term#');" class="likeLink"><img src="/images/del.gif"></span>
