@@ -81,7 +81,6 @@
 			<!--- variable only - tests for existence of attribtues ---->
 			<cfset thisKey=replace(kvp,'=','','all')>
 			<cfset thisValue=''>
-			<cfset temp = queryaddrow(sugntab,1)>
 		</cfif>
 	
 	
