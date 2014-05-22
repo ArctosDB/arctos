@@ -348,11 +348,12 @@ x = map.getZoom();
 				<td class="valigntop">
 					
 					<div id="spresmapdiv" class="#session.srmapclass#"></div>
-					<span class="infoLink" onclick="resizeMap('tinymap');">tiny</span>~
-					<span class="infoLink" onclick="resizeMap('smallmap');">small</span>~
-					<span class="infoLink" onclick="resizeMap('largemap');">large</span>
-					<span class="infoLink" onclick="resizeMap('hugemap');">huge</span>
-
+					<div style="text-align:center">
+						<span class="infoLink" onclick="resizeMap('tinymap');">tiny</span>~
+						<span class="infoLink" onclick="resizeMap('smallmap');">small</span>~
+						<span class="infoLink" onclick="resizeMap('largemap');">large</span>
+						<span class="infoLink" onclick="resizeMap('hugemap');">huge</span>
+					</div>
 				</td>
 			</tr>
 		</table>
