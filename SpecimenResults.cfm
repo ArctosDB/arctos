@@ -175,7 +175,7 @@
 				});
 
 
-				var contentString = '<a href="/SpecimenResults.cfm?coordinates=' + lat + ',' + lon + '">open</a>';
+				var contentString = '<a href="/SpecimenResults.cfm?coordinates=' + lat + ',' + lon + '">all specimens from coordinates</a>';
 
 				markers.push(marker);
 			 	var circleoptn = {
