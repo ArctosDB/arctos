@@ -221,8 +221,12 @@
 		</cfif>
 	</cfloop>
 	
-	
-	<input id="cfgml" value="#cfgml#">
+	<cfif cpc gte 500>
+		<div style="border:2 px solid red; padding:1em;margin:1em;">
+			Only the first 500 localities are mapped.
+		</div>
+	</cfif>
+	<input type="hidden" id="cfgml" value="#cfgml#">
 	
 	<cfif summary.recordcount is 0>
 		<div>
