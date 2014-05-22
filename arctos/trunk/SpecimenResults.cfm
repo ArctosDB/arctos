@@ -160,7 +160,9 @@
 				console.log( p );
 				var cpa=p.split("|");
 
+				console.log('c: ' + cpa[0]);
 
+				console.log('r: ' + cpa[1])
 				var center= new google.maps.LatLng(cpa[0]);
 		
 			 var populationOptions = {
