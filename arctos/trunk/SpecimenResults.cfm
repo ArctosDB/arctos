@@ -174,6 +174,11 @@
 		dec_lat,dec_long,coordinateuncertaintyinmeters
 	</cfquery>
 	<cfloop query="hascoords">
+		<cfif len(coordinateuncertaintyinmeters) is 0>
+			<cfset radius=0>
+		<cfelse>
+			<cfset radius=coordinateuncertaintyinmeters>
+		</cfif>
 		<script>
 		
 		var center= new google.maps.LatLng(#dec_lat#, #dec_long#);
@@ -186,7 +191,7 @@
       fillOpacity: 0.35,
       map: map,
       center: center,
-      radius: #coordinateuncertaintyinmeters#
+      radius: #radius#
     };
 
     cityCircle = new google.maps.Circle(populationOptions);
