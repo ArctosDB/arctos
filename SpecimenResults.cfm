@@ -159,7 +159,8 @@ initialize();
 			var cfgml=$("##cfgml").val();
 			console.log('running for cfgml: ' + cfgml);
 			var arrCP = cfgml.split( ";" );
-			$.each( arrCP, function( i,p ) {
+			for (var i=0; i < arrCP.length; i++){
+				var p=arrCP[i];
 				console.log( p );
 				var cpa=p.split("|");
 				var c=cpa[0];
@@ -185,7 +186,6 @@ initialize();
     		cityCircle = new google.maps.Circle(populationOptions);
 
 
-			});
 
 
 
