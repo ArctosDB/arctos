@@ -203,10 +203,7 @@
 			}
 			map.fitBounds(bounds);
 	    });
-function queryByViewport(){
-var b=map.getBounds();
-console.log(b);
-}
+
 	</script>
 	
 	<div id="SelectedRowList"></div>

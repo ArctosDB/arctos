@@ -338,5 +338,29 @@ function resizeMap(s){
 		}
 	);
 }
+function queryByViewport(){
 
+
+	var theBounds=map.getBounds();
+		var nelat=theBounds.getNorthEast().lat();
+		var NELong=theBounds.getNorthEast().lng();
+		var SWLat=theBounds.getSouthWest().lat();
+		var SWLong=theBounds.getSouthWest().lng();
+		jQuery.getJSON("/component/SpecimenResults.cfc",
+			{
+				method : "specSrchTermWidget_addrow",
+				term : "nelat",
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (result) {
+				$('#stermwdgtbl tr:last').after(result);
+				$("#newTerm option[value='nelat']").remove();			
+				$("#coordinates").val(nelat);
+			}
+		);
+		
+		
+
+	}
 
