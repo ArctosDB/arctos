@@ -41,13 +41,8 @@
 
 
 #spresmapdiv { 
-	min-height: 150px;
-	min-width:150px;
-    max-height:600px;
-    max-width:600px;
-	border:1px solid black; 
-    margin:1em;
-    padding:1em;
+	height: 250px;
+	width:250px;
 }
 
 
