@@ -199,7 +199,7 @@
 		    google.maps.event.trigger(map, 'resize');
 		    map.setZoom(x);
 		    map.setCenter(c);
-			jQuery.getJSON("/component/function.cfc",
+			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "changeUserPreference",
 					pref : "srmapclass",
