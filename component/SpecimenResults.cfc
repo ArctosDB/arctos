@@ -237,10 +237,11 @@
 					{
 						method : "specSrchTermWidget_addrow",
 						term : tv,
-						returnformat : "plain"
+						returnformat : "json"
 					},
 					function (result) {
-						$("##stermwdgtbl").append(result);
+	console.log('appending row: ' + result);
+						$('#stermwdgtbl tr:last').after(result);
 					}
 				);
 			}
