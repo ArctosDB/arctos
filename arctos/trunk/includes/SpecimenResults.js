@@ -421,5 +421,6 @@ function checkMapBB(){
 		var sw=new google.maps.LatLng(swlat, swlong);
 		var ne=new google.maps.LatLng(nelat, nelong);
 		map.fitBounds(nw,ne);
+		console.log('fit map to ' + nw + ne);
 	}
 }
