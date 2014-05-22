@@ -139,6 +139,9 @@
 		    jQuery.get(ptl, function(data){
 				jQuery("##mapGoHere").html(data);
 			});
+
+
+
 	    });
 	</script>
 	
@@ -256,12 +259,15 @@
 		<table width="100%">
 			<tr>
 				<td  width="60%">
-					<div id="cntr_refineSearchTerms"></div>
+					<div class="valigntop" id="cntr_refineSearchTerms"></div>
 				</td>
 				
 				
 				<td align="right">
 					<div class="valignbottom" id="mapGoHere"></div>
+					
+					<div id="map_canvas"></div>
+
 				</td>
 			</tr>
 		</table>
