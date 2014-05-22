@@ -276,7 +276,6 @@ function removeRows() {
              var record = $(this).data('record');
              ecoid.push(record.COLLECTION_OBJECT_ID);
          });
-         console.log(ecoid);
          var rurl='/SpecimenResults.cfm?' + $("#mapURL").val() + '&exclCollObjId=' + ecoid.join(',');
          document.location=rurl;
      } else {
@@ -285,8 +284,6 @@ function removeRows() {
 }
 
 function addCoordinates(c){
-	
-	console.log(c);
 	if($("#refineSearchTerms").is(":visible")) {
 		if ($("#coordinates").length){
 			$("#coordinates").val(c);
