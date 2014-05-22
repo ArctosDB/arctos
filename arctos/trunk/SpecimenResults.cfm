@@ -195,7 +195,7 @@ console.log(contentString);
 			google.maps.event.addListener(markers[i], 'click', function() { 
             infowindow.setContent(contentString); 
 console.log(contentString);
-
+            infowindow.setContent(this.infoWindowIndex);
             infowindow.open(map,this); 
             }); 
 
