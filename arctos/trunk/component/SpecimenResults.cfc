@@ -74,10 +74,10 @@
 		<tr id="row_#term#">
 			<td>
 				<span class="#thisSpanClass#" id="_#term#" title="#tquery.DEFINITION#">
-					<cfif len(sugntab.DISPLAY_TEXT) gt 0>
-						#sugntab.DISPLAY_TEXT#
+					<cfif len(tquery.DISPLAY_TEXT) gt 0>
+						#tquery.DISPLAY_TEXT#
 					<cfelse>
-						#sugntab.key#
+						#term#
 					</cfif>
 				</span>
 			</td>
