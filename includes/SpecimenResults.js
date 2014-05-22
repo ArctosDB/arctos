@@ -416,3 +416,19 @@ function queryByViewport(){
 		$("#swlong").val(swlong);
 	}
 }
+function checkMapBB(){
+	console.log('hi i am checkMapBB');
+	if ($("##nelat").length>0 && $("##nelong").length>0 && $("##swlat").length>0 && $("##swlong").length>0) {
+		console.log('found some stuff.....');
+		var sw=new google.maps.LatLng($("##swlat").val(), $("##swlong").val());
+		var ne=new google.maps.LatLng($("##nelat").val(), $("##nelong").val());
+
+console.log(sw);
+console.log(ne);
+
+		console.log('gonna fit map to ' + sw + ne);
+
+		map.fitBounds(sw,ne);
+		console.log('fit map to ' + sw + ne);
+	}
+}
