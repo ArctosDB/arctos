@@ -71,8 +71,9 @@
 	
 	
 	
-		<br>#idx#: start loop  pppppreeeeeepreddddump
-					<cfdump var=#sugntab#>
+		<br>#idx#: start loop  pppppreeeeeepreddddump<cfdump var=#sugntab#>
+		
+		
 		<cfif listlen(kvp,"=") is 2>
 			<cfset thisKey=listgetat(kvp,1,"=")>
 			<cfset thisValue=listgetat(kvp,2,"=")>
@@ -82,27 +83,47 @@
 			<cfset thisValue=''>
 			<cfset temp = queryaddrow(sugntab,1)>
 		</cfif>
-		
+	
+	
+	
+			<br>#idx#: start loop  2 pppppreeeeeepreddddump<cfdump var=#sugntab#>
+	
 		<br>thisKey: #thisKey#
 		<cfset keylist=listappend(keylist,thisKey)>
 		<cfquery name="thisMoreInfo" dbtype="query">
 			select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
 		</cfquery>
+		
+		
+		
+		
+				<br>#idx#: start loop  3 pppppreeeeeepreddddump<cfdump var=#sugntab#>
+
 		<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
 			<cfquery name="tct" datasource="cf_dbuser">
 				select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
 			</cfquery>
 			
+			
+			
+					<br>#idx#: start loop 4  pppppreeeeeepreddddump<cfdump var=#sugntab#>
+
 			<cfdump var=#tct#>
 			
+					<br>#idx#: start loop 5  pppppreeeeeepreddddump<cfdump var=#sugntab#>
+
 			
 			
-			
-			<cfloop list="#tct.columnlist#" index="i">
-				<cfif i is not "description" and i is not "collection_cde">
-					<cfset ctColName=i>
+			<cfloop list="#tct.columnlist#" index="tcname">
+				<cfif tcname is not "description" and tcname is not "collection_cde">
+					<cfset ctColName=tcname>
 				</cfif>
 			</cfloop>
+			
+			
+			
+					<br>#idx#: start loop 6 pppppreeeeeepreddddump<cfdump var=#sugntab#>
+
 			<cfquery name="cto" dbtype="query">
 				select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
 			</cfquery>
