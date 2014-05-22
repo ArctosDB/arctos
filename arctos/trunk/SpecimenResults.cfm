@@ -186,7 +186,7 @@ map: map
 
 
  google.maps.event.addListener(markers[i], 'click', function() {
-            infowindow.setContent(ContentString);
+            infowindow.setContent(contentString);
             infowindow.open(map,this);
             });        
 
