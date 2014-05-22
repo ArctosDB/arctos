@@ -113,9 +113,11 @@
 		<cfelse>
 			<cfset id="">
 		</cfif>
+					
+					<br>#idx#: adding #thiskey# - preddddump
 					<cfdump var=#sugntab#>
 
-					<br>#idx#: adding #thiskey#
+					
 
 
 
@@ -132,7 +134,7 @@
 		<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
 		<cfset idx=idx+1>
 		
-					<br>#idx#: addED #thiskey#
+					<br>#idx#: addED #thiskey# - postaddump
 			<cfdump var=#sugntab#>
 
 
