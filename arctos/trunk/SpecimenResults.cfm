@@ -211,6 +211,23 @@ var r=97924;
 
 
 
+var center= new google.maps.LatLng(13.7833300000,-89.1833300000);
+var r=35078;
+ var populationOptions = {
+			      strokeColor: '##FF0000',
+			      strokeOpacity: 0.8,
+			      strokeWeight: 2,
+			      fillColor: '##FF0000',
+			      fillOpacity: 0.35,
+			      map: map,
+			      center: center,
+			      radius: parseInt(r)
+			    };
+
+    cityCircle = new google.maps.Circle(populationOptions);
+
+
+
 	    });
 	</script>
 	
