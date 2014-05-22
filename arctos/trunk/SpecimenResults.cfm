@@ -154,7 +154,8 @@
 initialize();
 
 
-
+	var markers = [];
+		var bounds = new google.maps.LatLngBounds();
 
 			var cfgml=$("##cfgml").val();
 			console.log('running for cfgml: ' + cfgml);
@@ -183,6 +184,10 @@ var marker = new google.maps.Marker({
     map: map,
     title:"Error in m: " + r
 });
+
+			markers.push(marker);
+
+
 			 var populationOptions = {
 			      strokeColor: '##FF0000',
 			      strokeOpacity: 0.8,
@@ -200,6 +205,11 @@ var marker = new google.maps.Marker({
 		}
 
 
+		var bounds = new google.maps.LatLngBounds();
+for (var i=0; i < markers.length; i++) {
+   bounds.extend(markers[i].getPosition();
+}
+map.fitBounds(bounds);
 
 
 
