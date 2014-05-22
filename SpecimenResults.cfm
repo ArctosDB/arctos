@@ -256,8 +256,7 @@
 		<table width="100%">
 			<tr>
 				<td  width="60%">
-							<div id="cntr_refineSearchTerms"></div>
-
+					<div id="cntr_refineSearchTerms"></div>
 				</td>
 				
 				
@@ -266,6 +265,7 @@
 				</td>
 			</tr>
 		</table>
+		<!----
 		<table width="100%">
 			<tr>
 				<td>
@@ -312,7 +312,8 @@
 					</ul>
 				</td>
 			</tr>
-		</table>		
+		</table>
+		---->
 		<div style="border:2px solid blue;" id="ssControl">
 			<cfif len(transaction_id) gt 0>
 				<cfquery name="isDataLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
