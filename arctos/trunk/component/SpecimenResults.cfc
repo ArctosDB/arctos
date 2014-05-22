@@ -109,9 +109,9 @@
 			<cfquery name="dvt" dbtype="query">
 				select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
 			</cfquery>
-			<cfset id=valuelist(dvt.vals,"|")>
+			<cfset indatavals=valuelist(dvt.vals,"|")>
 		<cfelse>
-			<cfset id="">
+			<cfset indatavals="">
 		</cfif>
 					
 					<br>#idx#: adding #thiskey# - preddddump
@@ -127,7 +127,7 @@
 		<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
 		<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
 		<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
-		<cfset temp = QuerySetCell(sugntab, "indata", id, idx)>
+		<cfset temp = QuerySetCell(sugntab, "indata", indatavals, idx)>
 		<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
 		<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
 		<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
@@ -168,16 +168,16 @@
 				<cfquery name="dvt" dbtype="query">
 					select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
 				</cfquery>
-				<cfset id=valuelist(dvt.vals,"|")>
+				<cfset indatavals=valuelist(dvt.vals,"|")>
 			<cfelse>
-				<cfset id="">
+				<cfset indatavals="">
 			</cfif>
 			<cfset temp = queryaddrow(sugntab,1)>
 			<cfset temp = QuerySetCell(sugntab, "iid", idx, idx)>
 			<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
 			<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
 			<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
-			<cfset temp = QuerySetCell(sugntab, "indata", id, idx)>
+			<cfset temp = QuerySetCell(sugntab, "indata", indatavals, idx)>
 			<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
 			<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
 			<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
