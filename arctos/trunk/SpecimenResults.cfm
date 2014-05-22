@@ -170,6 +170,17 @@
 				var lon=cpa[2];
 				var r=cpa[3];					
 				var center=new google.maps.LatLng(lat, lon);
+				var circleoptn = {
+					strokeColor: '##FF0000',
+					strokeOpacity: 0.8,
+					strokeWeight: 2,
+					fillColor: '##FF0000',
+					fillOpacity: 0.35,
+					map: map,
+					center: center,
+					radius: parseInt(r)
+				};
+				crcl = new google.maps.Circle(circleoptn);
 				var marker = new google.maps.Marker({
 					position: center,
             		map: map,
@@ -182,17 +193,7 @@
             		infowindow.setContent(this.contentString);
             		infowindow.open(map, this);
         		});
-				var circleoptn = {
-					strokeColor: '##FF0000',
-					strokeOpacity: 0.8,
-					strokeWeight: 2,
-					fillColor: '##FF0000',
-					fillOpacity: 0.35,
-					map: map,
-					center: center,
-					radius: parseInt(r)
-				};
-				crcl = new google.maps.Circle(circleoptn);
+				
 			}
 			var bounds = new google.maps.LatLngBounds();
 			for (var i=0; i < markers.length; i++) {
