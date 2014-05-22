@@ -327,6 +327,7 @@
 		<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
 		<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
 		
+		<div style="resize:both;overflow:auto;">
 		<table width="100%">
 			<tr>
 				<td  class="valigntop" width="65%">
@@ -341,7 +342,7 @@
 
 				</td>
 			</tr>
-		</table>
+		</table></div>
 		<!----
 		<table width="100%">
 			<tr>
