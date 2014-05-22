@@ -90,7 +90,8 @@
 					</cfif>
 				</td>
 				<td>
-					<span onclick="removeTerm('#term#');" class="likeLink"><img src="/images/del.gif"></span>
+					<span onclick="$('###term#').val('');" class="likeLink">[ clear ]</span>
+					<span onclick="$('###term#').val('_');" class="likeLink">[ require ]</span>
 				</td>
 			</tr>
 		</cfsavecontent>
@@ -138,7 +139,6 @@
 			</cfsavecontent>
 			<cfreturn widget>
 		</cfif>
-		
 		<cfquery name="ssrch_field_doc" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 			select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 		</cfquery>
@@ -309,7 +309,7 @@
 							<th>Term</th>
 							<th>Value</th>
 							<th>Vocabulary *</th>
-							<th>Remove</th>
+							<th>Controls</th>
 						</tr>
 						<cfloop query="sugntab">
 							<cfif len(sugntab.DEFINITION) gt 0>
