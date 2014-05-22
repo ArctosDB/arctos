@@ -158,6 +158,9 @@
 			var markers = [];
 			var cfgml=$("##cfgml").val();
 			var arrCP = cfgml.split( ";" );
+
+var contentString = 'click to find all specimens from these (exact) coordinates';
+
 			for (var i=0; i < arrCP.length; i++){
 				var p=arrCP[i];
 				var cpa=p.split(",");
@@ -183,6 +186,19 @@
 					radius: parseInt(r)
 				};
 		   		crcl = new google.maps.Circle(circleoptn);
+
+ var infowindow = new google.maps.InfoWindow({
+      content: contentString
+  });
+
+
+ google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(map,marker);
+  });
+
+		
+
+
 			}
 			var bounds = new google.maps.LatLngBounds();
 			for (var i=0; i < markers.length; i++) {
