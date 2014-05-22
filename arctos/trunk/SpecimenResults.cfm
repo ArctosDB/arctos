@@ -171,7 +171,7 @@
 
 
 
-				var contentString='<span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add to criteria</span>';
+			 contentString='<span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">' + i + 'add to criteria</span>';
 
 
 marker = new google.maps.Marker({
@@ -183,7 +183,7 @@ markers.push(marker);
  
 google.maps.event.addListener(marker, 'click', (function(marker, i) {
 return function() {
-infowindow.setContent('marker' + i);
+infowindow.setContent(contentString);
 infowindow.open(map, marker);
 }
 })(marker, i));
