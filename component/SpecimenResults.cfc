@@ -58,22 +58,10 @@
 		-- select things from their results
 		-- existing search value, when available
 	---->
-	<cfset sugntab = querynew("iid,key,val,vocab,indata,definition,display_text,placeholder_text,search_hint")>
-	<cfdump var=#sugntab#>
-
+	<cfset sugntab = querynew("key,val,vocab,indata,definition,display_text,placeholder_text,search_hint")>
 	<!---- first loop over the things they searched for ---->
 	<cfset idx=1>
-	
-	
-	
-	<cfdump var=#session.mapURL#>
 	<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
-	
-	
-	
-		<br>#idx#: start loop  pppppreeeeeepreddddump<cfdump var=#sugntab#>
-		
-		
 		<cfif listlen(kvp,"=") is 2>
 			<cfset thisKey=listgetat(kvp,1,"=")>
 			<cfset thisValue=listgetat(kvp,2,"=")>
@@ -82,47 +70,19 @@
 			<cfset thisKey=replace(kvp,'=','','all')>
 			<cfset thisValue=''>
 		</cfif>
-	
-	
-	
-			<br>#idx#: start loop  2 pppppreeeeeepreddddump<cfdump var=#sugntab#>
-	
-		<br>thisKey: #thisKey#
 		<cfset keylist=listappend(keylist,thisKey)>
 		<cfquery name="thisMoreInfo" dbtype="query">
 			select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
 		</cfquery>
-		
-		
-		
-		
-				<br>#idx#: start loop  3 pppppreeeeeepreddddump<cfdump var=#sugntab#>
-
 		<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
-			<cfquery name="tct" datasource="cf_dbuser">
+			<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 				select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
 			</cfquery>
-			
-			
-			
-					<br>#idx#: start loop 4  pppppreeeeeepreddddump<cfdump var=#sugntab#>
-
-			<cfdump var=#tct#>
-			
-					<br>#idx#: start loop 5  pppppreeeeeepreddddump<cfdump var=#sugntab#>
-
-			
-			
 			<cfloop list="#tct.columnlist#" index="tcname">
 				<cfif tcname is not "description" and tcname is not "collection_cde">
 					<cfset ctColName=tcname>
 				</cfif>
-			</cfloop>
-			
-			
-			
-					<br>#idx#: start loop 6 pppppreeeeeepreddddump<cfdump var=#sugntab#>
-
+			</cfloop>		
 			<cfquery name="cto" dbtype="query">
 				select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
 			</cfquery>
@@ -138,17 +98,7 @@
 		<cfelse>
 			<cfset indatavals="">
 		</cfif>
-					
-					<br>#idx#: adding #thiskey# - preddddump
-					<cfdump var=#sugntab#>
-
-					
-
-
-
 		<cfset temp = queryaddrow(sugntab,1)>
-		
-		<cfset temp = QuerySetCell(sugntab, "iid", idx, idx)>
 		<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
 		<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
 		<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
@@ -158,23 +108,16 @@
 		<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
 		<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
 		<cfset idx=idx+1>
-		
-					<br>#idx#: addED #thiskey# - postaddump
-			<cfdump var=#sugntab#>
-
-
-
 	</cfloop>
 	<!---- then loop over select things from their results ---->
 	<cfset thisValue="">
 	<cfloop list="#srchcols.columnlist#" index="thisKey">
 		<cfif not listcontainsnocase(stuffToIgnore,thisKey) and  not listcontainsnocase(keylist,thisKey)>
-			<br>#idx#: adding #thiskey#
 			<cfquery name="thisMoreInfo" dbtype="query">
 				select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
 			</cfquery>
 			<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
-				<cfquery name="tct" datasource="cf_dbuser">
+				<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 					select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
 				</cfquery>
 				<cfloop list="#tct.columnlist#" index="thecolname">
@@ -198,7 +141,6 @@
 				<cfset indatavals="">
 			</cfif>
 			<cfset temp = queryaddrow(sugntab,1)>
-			<cfset temp = QuerySetCell(sugntab, "iid", idx, idx)>
 			<cfset temp = QuerySetCell(sugntab, "key", thisKey, idx)>	
 			<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
 			<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
@@ -208,14 +150,8 @@
 			<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
 			<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
 			<cfset idx=idx+1>
-			
-				<br>#idx#: addED #thiskey#
-							<cfdump var=#sugntab#>
-
 		</cfif>
 	</cfloop>
-	
-	<cfdump var=#sugntab#>
 	<cfsavecontent variable="widget">
 		<script>
 			jQuery( function($) {
