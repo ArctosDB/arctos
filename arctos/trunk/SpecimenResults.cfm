@@ -170,7 +170,7 @@
 				var marker = new google.maps.Marker({
 					position: center,
             		map: map,
-            		title: ns,
+            		title: ns + ' specimens; Error(m)=' + r,
 					contentString: contentString
         		});
  				markers.push(marker);
