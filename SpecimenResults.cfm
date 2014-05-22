@@ -151,110 +151,40 @@
 
 
 
-initialize();
-
-
-	var markers = [];
-		var bounds = new google.maps.LatLngBounds();
-
+			initialize();
+			var markers = [];
 			var cfgml=$("##cfgml").val();
-			console.log('running for cfgml: ' + cfgml);
 			var arrCP = cfgml.split( ";" );
 			for (var i=0; i < arrCP.length; i++){
 				var p=arrCP[i];
 				var cpa=p.split(",");
-console.log(cpa);
-var lat=cpa[0];
-var lon=cpa[1];
-var r=cpa[2];	
-
-
-				console.log('lat: ' + lat);
-console.log('long: ' + lon);
-
-				console.log('r: ' + r)
-				var center= new google.maps.LatLng(lat, lon);
-						console.log('center: ' + center)
-
-
-
-
-var marker = new google.maps.Marker({
-    position: center,
-    map: map,
-    title:"Error in m: " + r
-});
-
-			markers.push(marker);
-
-
-			 var populationOptions = {
-			      strokeColor: '##FF0000',
-			      strokeOpacity: 0.8,
-			      strokeWeight: 2,
-			      fillColor: '##FF0000',
-			      fillOpacity: 0.35,
-			      map: map,
-			      center: center,
-			      radius: parseInt(r)
-			    };
-			console.log(populationOptions);
-
-    		cityCircle = new google.maps.Circle(populationOptions);
-
-		}
-
-
-		var bounds = new google.maps.LatLngBounds();
-for (var i=0; i < markers.length; i++) {
-   bounds.extend(markers[i].getPosition());
-}
-map.fitBounds(bounds);
-
-
-
-/* 
-
-* 
-* 
-* 
-* 		
-var center= new google.maps.LatLng(64.0803000000,-139.5261000000);
-var r=60.96;
- var populationOptions = {
-			      strokeColor: '##FF0000',
-			      strokeOpacity: 0.8,
-			      strokeWeight: 2,
-			      fillColor: '##FF0000',
-			      fillOpacity: 0.35,
-			      map: map,
-			      center: center,
-			      radius: parseInt(r)
-			    };
-
-    cityCircle = new google.maps.Circle(populationOptions);
-
-* 
-* 
-* 
-* 
-var center= new google.maps.LatLng(13.7833300000,-89.1833300000);
-var r=35078;
- var populationOptions = {
-			      strokeColor: '##FF0000',
-			      strokeOpacity: 0.8,
-			      strokeWeight: 2,
-			      fillColor: '##FF0000',
-			      fillOpacity: 0.35,
-			      map: map,
-			      center: center,
-			      radius: parseInt(r)
-			    };
-
-    cityCircle = new google.maps.Circle(populationOptions);
-
-*/
-
+				var lat=cpa[0];
+				var lon=cpa[1];
+				var r=cpa[2];					
+				var center=new google.maps.LatLng(lat, lon);
+				var marker = new google.maps.Marker({
+				    position: center,
+				    map: map,
+				    title:"Error in m: " + r
+				});
+				markers.push(marker);
+			 	var circleoptn = {
+					strokeColor: '##FF0000',
+					strokeOpacity: 0.8,
+					strokeWeight: 2,
+					fillColor: '##FF0000',
+					fillOpacity: 0.35,
+					map: map,
+					center: center,
+					radius: parseInt(r)
+				};
+		   		crcl = new google.maps.Circle(circleoptn);
+			}
+			var bounds = new google.maps.LatLngBounds();
+			for (var i=0; i < markers.length; i++) {
+			   bounds.extend(markers[i].getPosition());
+			}
+			map.fitBounds(bounds);
 	    });
 	</script>
 	
