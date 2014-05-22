@@ -159,7 +159,6 @@
 			var cfgml=$("##cfgml").val();
 			var arrCP = cfgml.split( ";" );
 
-var contentString = 'click to find all specimens from these (exact) coordinates';
 
 			for (var i=0; i < arrCP.length; i++){
 				var p=arrCP[i];
@@ -174,6 +173,10 @@ var contentString = 'click to find all specimens from these (exact) coordinates'
 				    map: map,
 				    title: ns + " specimens. Error(m)=" + r
 				});
+
+
+				var contentString = '<a href="/SpecimenResults.cfm?coordinates=' + lat + ',' + lon + '">open</a>';
+
 				markers.push(marker);
 			 	var circleoptn = {
 					strokeColor: '##FF0000',
