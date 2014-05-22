@@ -345,7 +345,7 @@ x = map.getZoom();
 				</td>
 				
 				
-				<td class="valigntop">
+				<td class="valigntop" align="center">
 					
 					<div id="spresmapdiv" class="#session.srmapclass#"></div>
 					<div style="text-align:center">
