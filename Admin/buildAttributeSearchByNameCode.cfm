@@ -80,7 +80,7 @@
 <cfset x=x & chr(10) & '        <cfset basQual = " ##basQual## AND tbl_#attrvar#.is_encumbered = 0">'>
 <cfset x=x & chr(10) & '    </cfif>'>
 <cfset x=x & chr(10) & '    <cfset schunits="">'>
-<cfset x=x & chr(10) & '    <cfif len(#attrvar#) gt 0>'>
+<cfset x=x & chr(10) & '    <cfif #attrvar# neq "_">'>
 <cfset x=x & chr(10) & '        <cfset oper=left(#attrvar#,1)>'>
 <cfif len(tctl.UNITS_CODE_TABLE) gt 0>
 	<cfset x=x & chr(10) & '        <cfif listfind(numattrschops,oper)>'>
