@@ -238,7 +238,7 @@
 						returnformat : "plain"
 					},
 					function (result) {
-						$("#stermwdgtbl").append(result);
+						$("##stermwdgtbl").append(result);
 					}
 				);
 			}
