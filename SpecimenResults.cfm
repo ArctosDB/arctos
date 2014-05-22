@@ -222,11 +222,7 @@
 		</cfif>
 	</cfloop>
 	
-	<cfif cpc gte 500>
-		<div style="border:2px solid red; padding:1em;margin:1em;text-align:center;">
-			Only the first 500 localities are mapped.
-		</div>
-	</cfif>
+	
 	<input type="hidden" id="cfgml" value="#cfgml#">
 	
 	<cfif summary.recordcount is 0>
@@ -342,6 +338,11 @@
 			</tr>
 		</table>
 		<strong>Found #summary.recordcount# specimens.</strong>
+		<cfif cpc gte 500>
+			(The inline map contains only the first 500 localities.)
+		</cfif>
+	
+		
 		<!----
 		<table width="100%">
 			<tr>
