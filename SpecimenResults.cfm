@@ -172,6 +172,14 @@ initialize();
 				var center= new google.maps.LatLng(c);
 						console.log('center: ' + center)
 
+
+
+
+var marker = new google.maps.Marker({
+    position: center,
+    map: map,
+    title:"Error in m: " + r
+});
 			 var populationOptions = {
 			      strokeColor: '##FF0000',
 			      strokeOpacity: 0.8,
