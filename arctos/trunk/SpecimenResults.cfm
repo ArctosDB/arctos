@@ -186,11 +186,12 @@
 			}
 			map.fitBounds(bounds);
 
+			google.maps.event.trigger(map, "resize");
 	    });
 
 		function resizeMap(s){
-		$("##spresmapdiv").removeClass().addClass(s);
-}
+			$("##spresmapdiv").removeClass().addClass(s);
+		}
 	</script>
 	
 	<div id="SelectedRowList"></div>
