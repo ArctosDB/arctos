@@ -329,8 +329,8 @@
 		
 		<table width="100%">
 			<tr>
-				<td  width="75%">
-					<div class="valigntop" id="cntr_refineSearchTerms"></div>
+				<td  class="valigntop" width="65%">
+					<div id="cntr_refineSearchTerms"></div>
 				</td>
 				
 				
