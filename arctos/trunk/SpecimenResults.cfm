@@ -156,8 +156,9 @@
 
 			initialize();
 			var markers = [];
-    infoWindows = Array();
 
+
+    var infowindow = new google.maps.InfoWindow();
 
 			var cfgml=$("##cfgml").val();
 			var arrCP = cfgml.split( ";" );
@@ -188,17 +189,15 @@
 					radius: parseInt(r)
 				};
 
-google.maps.event.addListener(marker, 'click', function() {
-        this.infowindow.open(map, this);
-
-});
+ google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent(this.infoWindowIndex);
+            infowindow.open(map, this);
+        });
 
  //infoWindows.push(infoWindow);
         //markers.push(marker);
 		   		crcl = new google.maps.Circle(circleoptn);
-				var infowindow = new google.maps.InfoWindow({
-					content: contentString
-				});
+				
 			}
 
 
