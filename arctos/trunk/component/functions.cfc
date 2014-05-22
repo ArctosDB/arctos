@@ -4239,7 +4239,7 @@
 					#pref# = '#val#'
 				WHERE username = '#session.username#'
 			</cfquery>
-			<cfset session.#pref# = "#val#">
+			<cfset "session.#pref#" = "#val#">
 		<cfset result="success">
 	<cfcatch>
 		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
