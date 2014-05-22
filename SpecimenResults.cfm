@@ -340,8 +340,8 @@
 
 				</td>
 				<td>
-					<span class="likeLink" onclick="resizeMap('smallMap');">small</span>
-					<span class="likeLink" onclick="resizeMap('bigMap');">big</span>
+					<span class="likeLink" onclick="resizeMap('smallmap');">small</span>
+					<span class="likeLink" onclick="resizeMap('bigmap');">big</span>
 				</td>
 			</tr>
 		</table>
