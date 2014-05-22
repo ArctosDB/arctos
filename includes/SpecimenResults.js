@@ -345,9 +345,9 @@ function queryByViewport(){
 		var nelat=theBounds.getNorthEast().lat();
 		console.log(nelat);
 		
-		var NELong=theBounds.getNorthEast().lng();
-		var SWLat=theBounds.getSouthWest().lat();
-		var SWLong=theBounds.getSouthWest().lng();
+		var nelong=theBounds.getNorthEast().lng();
+		var swlat=theBounds.getSouthWest().lat();
+		var swlong=theBounds.getSouthWest().lng();
 		jQuery.getJSON("/component/SpecimenResults.cfc",
 			{
 				method : "specSrchTermWidget_addrow",
@@ -361,6 +361,46 @@ function queryByViewport(){
 				$("#nelat").val(nelat);
 			}
 		);
+		jQuery.getJSON("/component/SpecimenResults.cfc",
+			{
+				method : "specSrchTermWidget_addrow",
+				term : "nelong",
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (result) {
+				$('#stermwdgtbl tr:last').after(result);
+				$("#newTerm option[value='nelong']").remove();			
+				$("#nelong").val(nelong);
+			}
+		);
+		jQuery.getJSON("/component/SpecimenResults.cfc",
+			{
+				method : "specSrchTermWidget_addrow",
+				term : "swlat",
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (result) {
+				$('#stermwdgtbl tr:last').after(result);
+				$("#newTerm option[value='swlat']").remove();			
+				$("#swlat").val(swlat);
+			}
+		);
+		jQuery.getJSON("/component/SpecimenResults.cfc",
+			{
+				method : "specSrchTermWidget_addrow",
+				term : "swlong",
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (result) {
+				$('#stermwdgtbl tr:last').after(result);
+				$("#newTerm option[value='swlong']").remove();			
+				$("#swlong").val(swlong);
+			}
+		);
+		
 		
 		
 
