@@ -207,36 +207,18 @@
 	</cfquery>
 	
 	<cfset cfgml="">
+	<cfset cpc=1>
 	<cfloop query="hascoords">
-		<cfif len(coordinateuncertaintyinmeters) is 0>
-			<cfset radius=0>
-		<cfelse>
-			<cfset radius=coordinateuncertaintyinmeters>
+		<cfif cpc lt 500>
+			<cfif len(coordinateuncertaintyinmeters) is 0>
+				<cfset radius=0>
+			<cfelse>
+				<cfset radius=coordinateuncertaintyinmeters>
+			</cfif>
+			<cfset cep="#dec_lat#,#dec_long#,#radius#">
+			<cfset cfgml=listappend(cfgml,cep,';')>
+			<cfset cpc=cpc+1>
 		</cfif>
-		<cfset cep="#dec_lat#,#dec_long#,#radius#">
-		<cfset cfgml=listappend(cfgml,cep,';')>
-		
-		<!----
-		<script>
-		
-		var center= new google.maps.LatLng(#dec_lat#, #dec_long#);
-		
-			 var populationOptions = {
-      strokeColor: '##FF0000',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: '##FF0000',
-      fillOpacity: 0.35,
-      map: map,
-      center: center,
-      radius: #radius#
-    };
-
-    cityCircle = new google.maps.Circle(populationOptions);
-
-
-		</script>
-		---->
 	</cfloop>
 	
 	
