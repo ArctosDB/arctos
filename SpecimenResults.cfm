@@ -179,8 +179,7 @@
             title: ns,
 contentString: contentString
         });
- 
-//markers.push(marker);
+ markers.push(marker);
  
 
 			var contentString='<span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">' + i + 'add to criteria</span>';
