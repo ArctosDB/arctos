@@ -235,8 +235,21 @@ function addCoordinates(c){
 if($("##refineSearchTerms").is(":visible")) {
 	if ($("##coordinates").length){
 	alert('coordinates');
+$("##coordinates").val(c);
 } else{
 alert('noco');
+jQuery.getJSON("/component/SpecimenResults.cfc",
+				{
+					method : "specSrchTermWidget_addrow",
+					term : "coordinates",
+					returnformat : "json",
+					queryformat : 'column'
+				},
+function (result) {
+			$("##coordinates").val(c);
+		}
+			);
+
 }
 } else {
 	alert('turn search terms on, then try that');
