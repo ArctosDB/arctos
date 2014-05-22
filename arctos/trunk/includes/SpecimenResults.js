@@ -321,10 +321,6 @@ function initialize() {
 	});
 	
 	
-	google.maps.event.addListener(map, 'bounds_changed', function() {
-		var bounds = map.getBounds();
-		searchBox.setBounds(bounds);
-	});
 	
 }
 
