@@ -222,7 +222,7 @@
 	</cfloop>
 	
 	<cfif cpc gte 500>
-		<div style="border:2 px solid red; padding:1em;margin:1em;">
+		<div style="border:2px solid red; padding:1em;margin:1em;">
 			Only the first 500 localities are mapped.
 		</div>
 	</cfif>
