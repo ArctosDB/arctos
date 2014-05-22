@@ -233,7 +233,7 @@ function addCoordinates(c){
 	alert(c);
 
 if($("##refineSearchTerms").is(":visible")) {
-	if ($("##coordinates")){
+	if ($("##coordinates").length){
 	alert('coordinates');
 } else{
 alert('noco');
