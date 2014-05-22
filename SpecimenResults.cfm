@@ -208,8 +208,11 @@ function checkMapBB(){
 	console.log('hi i am checkMapBB');
 	if ($("##nelat").length>0 && $("##nelong").length>0 && $("##swlat").length>0 && $("##swlong").length>0) {
 		console.log('found some stuff.....');
-		var sw=new google.maps.LatLng(swlat, swlong);
+		var sw=new google.maps.LatLng($("##swlat").val(), swlong);
 		var ne=new google.maps.LatLng(nelat, nelong);
+
+console.log($("##swlat").val());
+console.log(ne);
 
 		console.log('gonna fit map to ' + sw + ne);
 
