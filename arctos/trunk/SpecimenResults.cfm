@@ -334,7 +334,7 @@
 				</td>
 				
 				
-				<td align="right">
+				<td align="center">
 					<div class="valignbottom" id="mapGoHere"></div>
 					
 					<div id="spresmapdiv"></div>
