@@ -348,19 +348,21 @@ function queryByViewport(){
 		var nelong=theBounds.getNorthEast().lng();
 		var swlat=theBounds.getSouthWest().lat();
 		var swlong=theBounds.getSouthWest().lng();
-		jQuery.getJSON("/component/SpecimenResults.cfc",
-			{
-				method : "specSrchTermWidget_addrow",
-				term : "nelat",
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (result) {
-				$('#stermwdgtbl tr:last').after(result);
-				$("#newTerm option[value='nelat']").remove();			
-				$("#nelat").val(nelat);
-			}
-		);
+		if ($("#nelat").length==0) {
+			jQuery.getJSON("/component/SpecimenResults.cfc",
+				{
+					method : "specSrchTermWidget_addrow",
+					term : "nelat",
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (result) {
+					$('#stermwdgtbl tr:last').after(result);
+					$("#newTerm option[value='nelat']").remove();			
+					$("#nelat").val(nelat);
+				}
+			);
+		}
 		jQuery.getJSON("/component/SpecimenResults.cfc",
 			{
 				method : "specSrchTermWidget_addrow",
