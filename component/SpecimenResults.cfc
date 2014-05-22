@@ -44,7 +44,7 @@
 <!--------------------------------------------------------------------------------------->
 
 <cffunction name="specSrchTermWidget_addrow" access="remote" returnformat="plain">
-	<cfparam name="term" type="string" required="true">
+	<cfparam name="term" type="string">
 	<!---- takes a term, returns a table row for get_specSrchTermWidget ---->
 	<cfquery name="tquery" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from ssrch_field_doc where cf_variable='#lcase(term)#'
