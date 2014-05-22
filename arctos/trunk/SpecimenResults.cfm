@@ -207,7 +207,7 @@ var marker = new google.maps.Marker({
 
 		var bounds = new google.maps.LatLngBounds();
 for (var i=0; i < markers.length; i++) {
-   bounds.extend(markers[i].getPosition();
+   bounds.extend(markers[i].getPosition());
 }
 map.fitBounds(bounds);
 
