@@ -168,6 +168,7 @@
 	<cfset thisValue="">
 	<cfloop list="#srchcols.columnlist#" index="thisKey">
 		<cfif not listcontainsnocase(stuffToIgnore,thisKey) and  not listcontainsnocase(keylist,thisKey)>
+			<cfset keylist=listappend(keylist,thisKey)>
 			<cfquery name="thisMoreInfo" dbtype="query">
 				select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
 			</cfquery>
