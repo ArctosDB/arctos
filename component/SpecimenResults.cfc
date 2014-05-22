@@ -100,6 +100,51 @@
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
 	<cfoutput>
+	<cfif session.resultsbrowseprefs neq 1>
+		<cfsavecontent variable="widget">
+			<script>
+				jQuery( function($) {
+					$('##showsearchterms').click(function() {
+						if($("##refineSearchTerms").is(":visible")) {
+							var v=0;
+						} else {
+							var v=1;
+	  					}
+						$('##refineSearchTerms').slideToggle("fast");
+						jQuery.getJSON("/component/functions.cfc",
+							{
+								method : "setResultsBrowsePrefs",
+								val : v,
+								returnformat : "json",
+								queryformat : 'column'
+							}
+						);
+					});
+				});
+				function addARow(tv){
+					jQuery.getJSON("/component/SpecimenResults.cfc",
+						{
+							method : "specSrchTermWidget_addrow",
+							term : tv,
+							returnformat : "json"
+						},
+						function (result) {
+							$('##stermwdgtbl tr:last').after(result);
+							$("##newTerm option[value='" + tv + "']").remove();
+						}
+					);
+				}
+				function removeTerm(key){
+					$("##" + key).remove();
+					$("##row_" + key).remove();
+				}
+			</script>
+			<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
+			<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>	</cfif>
+		</cfsavecontent>
+		<cfreturn widget>
+	</cfif>
+	
 	<cfquery name="ssrch_field_doc" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 	</cfquery>
