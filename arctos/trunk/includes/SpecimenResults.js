@@ -1,4 +1,22 @@
 $("#customizeButton").live('click', function(e){
+	
+	
+	var guts = "/info/SpecimenResultsPrefs.cfm";
+
+	
+			var $dialog = $('<div></div>')
+				.load(guts);
+				.dialog({
+					autoOpen: false,
+					title: $link.attr('title'),
+					width: 500,
+					height: 300
+				});
+
+		
+	
+	
+	/*
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
@@ -15,6 +33,8 @@ $("#customizeButton").live('click', function(e){
 	$('#customDiv').load(guts,{},function(){
 		viewport.init("#customDiv");
 	});
+	
+	*/
 });
 function closeCustom() {
 	var theDiv = document.getElementById('customDiv');
