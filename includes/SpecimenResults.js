@@ -3,14 +3,16 @@ $("#customizeButton").live('click', function(e){
 	
 	var guts = "/info/SpecimenResultsPrefs.cfm";
 
-	
-			var $dialog = $('<div></div>').load(guts);
-				.dialog({
-					autoOpen: false,
-					title: $link.attr('title'),
-					width: 500,
-					height: 300
-				});
+	$('<div>').dialog({
+        modal: true,
+        open: function ()
+        {
+            $(this).load(guts);
+        },         
+        height: 400,
+        width: 400,
+        title: 'Dynamically Loaded Page'
+    });
 
 		
 	
