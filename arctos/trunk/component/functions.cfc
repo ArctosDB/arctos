@@ -3935,15 +3935,15 @@
 	<cfset result="OK">
 	<cfif in_or_out is "in">
 		<cfloop list="#ColumnList#" index="i">
-		<cfif not ListFindNoCase(session.resultColumnList,i,",")>
-			<cfset session.resultColumnList = ListAppend(session.resultColumnList, i,",")>
-		</cfif>
+			<cfif not ListFindNoCase(session.resultColumnList,i,",")>
+				<cfset session.resultColumnList = ListAppend(session.resultColumnList, i,",")>
+			</cfif>
 		</cfloop>
 	<cfelse>
 		<cfloop list="#ColumnList#" index="i">
-		<cfif ListFindNoCase(session.resultColumnList,i,",")>
-			<cfset session.resultColumnList = ListDeleteAt(session.resultColumnList, ListFindNoCase(session.resultColumnList,i,","),",")>
-		</cfif>
+			<cfif ListFindNoCase(session.resultColumnList,i,",")>
+				<cfset session.resultColumnList = ListDeleteAt(session.resultColumnList, ListFindNoCase(session.resultColumnList,i,","),",")>
+			</cfif>
 		</cfloop>
 	</cfif>
 	<cfquery name ="upDb" datasource="cf_dbuser">

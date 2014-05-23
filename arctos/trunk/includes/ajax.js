@@ -298,9 +298,7 @@ dateFormat.i18n = {
 Date.prototype.format = function (mask, utc) {
 	return dateFormat(this, mask, utc);
 };
-function success_crcloo(){
-	return false;
-}
+
 function crcloo (ColumnList,in_or_out) {
 	jQuery.getJSON("/component/functions.cfc",
 		{
@@ -310,9 +308,21 @@ function crcloo (ColumnList,in_or_out) {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_crcloo
+		function (r){
+			console.log('back from crcloo: ' + r);
+		}
+		
 	);
 }
+
+
+function checkAllById(list) {
+	
+	crcloo(list,'in');
+}
+
+
+/*
 function checkAllById(list) {
 	var a = list.split(',');
 	for (i=0; i<a.length; ++i) {
@@ -322,7 +332,7 @@ function checkAllById(list) {
 		}
 	}
 }
-
+*/
 function uncheckAllById(list) {
 	crcloo(list,'out');
 	var a = list.split(',');
