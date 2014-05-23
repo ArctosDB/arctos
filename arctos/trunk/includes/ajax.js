@@ -320,7 +320,6 @@ function checkAllById(list) {
 }
 
 function uncheckAllById(list) {
-	console.log(list);
 	var a = list.split(',');
 	
 	crcloo(list,'out');
