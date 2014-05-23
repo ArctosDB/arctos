@@ -389,7 +389,7 @@ function resizeMap(s){
 	);
 }
 function queryByViewport(){
-	if !($("#refineSearchTerms").is(":visible")) {
+	if (! $("#refineSearchTerms").is(":visible")) {
 		alert('Turn on the refine widget, then try that click.');
 		return false;
 	}
