@@ -4,7 +4,7 @@ $("#customizeButton").live('click', function(e){
 	var guts = "/info/SpecimenResultsPrefs.cfm";
 
 	
-			var $dialog = $('<div></div>')
+			var $dialog = $('<div></div>');
 				.load(guts);
 				.dialog({
 					autoOpen: false,
