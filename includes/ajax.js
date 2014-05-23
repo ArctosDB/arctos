@@ -320,7 +320,9 @@ function checkAllById(list) {
 }
 
 function uncheckAllById(list) {
+	consle.log(list);
 	var a = list.split(',');
+	
 	crcloo(list,'out');
 	jQuery.each( a, function( i, val ) {
 		$( "#" + val).prop('checked', false);
