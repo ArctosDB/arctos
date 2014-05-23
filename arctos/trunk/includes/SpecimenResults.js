@@ -11,6 +11,7 @@ $("#customizeButton").live('click', function(e){
         },         
         height:'auto',
         width:'auto',
+        position:"center",
         title: 'Dynamically Loaded Page'
     });
 
