@@ -313,17 +313,22 @@ function crcloo (ColumnList,in_or_out) {
 
 function checkAllById(list) {
 	var a = list.split(',');
+	console.log(list);
 	jQuery.each( a, function( i, val ) {
 		$( "#" + val).prop('checked', true);
+		console.log(val);
+
 	});
 	crcloo(list,'in');
 }
 
 function uncheckAllById(list) {
 	var a = list.split(',');
-	
+	console.log(list);
+
 	jQuery.each( a, function( i, val ) {
 		$( "#" + val).prop('checked', false);
+		console.log(val);
 	});
 	crcloo(list,'out');
 
