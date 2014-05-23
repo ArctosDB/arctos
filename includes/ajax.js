@@ -307,11 +307,7 @@ function crcloo (ColumnList,in_or_out) {
 			in_or_out : in_or_out,
 			returnformat : "json",
 			queryformat : 'column'
-		},
-		function (r){
-			console.log('back from crcloo: ' + r);
 		}
-		
 	);
 }
 
