@@ -315,57 +315,21 @@ function crcloo (ColumnList,in_or_out) {
 	);
 }
 
-
 function checkAllById(list) {
-console.log(list);
-
 	crcloo(list,'in');
 	var a = list.split(',');
-
 	jQuery.each( a, function( i, val ) {
 		$( "#" + val).prop('checked', true);
-		console.log(val);
-
 	});
 }
 
 function uncheckAllById(list) {
-	
-	console.log(list);
-
 	var a = list.split(',');
-
-	
 	crcloo(list,'out');
 	jQuery.each( a, function( i, val ) {
 		$( "#" + val).prop('checked', false);
-		console.log(val)
-
 	});
 }
-/*
-function checkAllById(list) {
-	var a = list.split(',');
-	for (i=0; i<a.length; ++i) {
-		if (document.getElementById(a[i])) {
-			document.getElementById(a[i]).checked=true;
-			crcloo(a[i],'in');
-		}
-	}
-}
-
-function uncheckAllById(list) {
-	crcloo(list,'out');
-	var a = list.split(',');
-	for (i=0; i<a.length; ++i) {
-		if (document.getElementById(a[i])) {
-			document.getElementById(a[i]).checked=false;
-		}
-	}
-}
-
-
-*/
 
 function goPickParts (collection_object_id,transaction_id) {
 	var url='/picks/internalAddLoanItemTwo.cfm?collection_object_id=' + collection_object_id +"&transaction_id=" + transaction_id;
