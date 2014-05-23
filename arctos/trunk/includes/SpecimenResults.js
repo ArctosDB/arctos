@@ -9,8 +9,8 @@ $("#customizeButton").live('click', function(e){
         {
             $(this).load(guts);
         },         
-       // height: 400,
-        //width: 400,
+        height: 85%,
+        width: 85%,
         title: 'Dynamically Loaded Page'
     });
 
