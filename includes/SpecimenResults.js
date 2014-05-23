@@ -389,6 +389,11 @@ function resizeMap(s){
 	);
 }
 function queryByViewport(){
+	if !($("#refineSearchTerms").is(":visible")) {
+		alert('Turn on the refine widget, then try that click.');
+		return false;
+	}
+		
 	var theBounds=map.getBounds();
 	var nelat=theBounds.getNorthEast().lat();		
 	var nelong=theBounds.getNorthEast().lng();
