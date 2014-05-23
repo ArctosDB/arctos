@@ -35,7 +35,6 @@
 <cffunction name="displayColumn">
 	<cfargument name="cf_variable">
 	<cfargument name="resultColList">
-	
 	<cfset retval = "<tr>">
 	<cfset retval = '#retval#<td align="right"><label title="#cf_variable#: #DEFINITION#" for="#cf_variable#">#DISPLAY_TEXT#</label></td>'>
 	<cfset retval = '#retval#<td align="left"><input type="checkbox" 

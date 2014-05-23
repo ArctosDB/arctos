@@ -323,6 +323,7 @@ console.log(list);
 
 	jQuery.each( list, function( i, val ) {
 		$( "#" + i).prop('checked', true);
+		console.log(i);
 	});
 }
 
@@ -335,6 +336,8 @@ function uncheckAllById(list) {
 	crcloo(list,'out');
 	jQuery.each( list, function( i, val ) {
 		$( "#" + i).prop('checked', false);
+		console.log(i);
+
 	});
 }
 /*
