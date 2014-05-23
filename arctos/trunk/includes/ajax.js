@@ -323,7 +323,7 @@ console.log(list);
 	var a = list.split(',');
 
 	jQuery.each( a, function( i, val ) {
-		$( "#" + i).prop('checked', true);
+		$( "#" + val).prop('checked', true);
 		console.log(i);		
 		console.log(val);
 
@@ -339,7 +339,7 @@ function uncheckAllById(list) {
 	
 	crcloo(list,'out');
 	jQuery.each( a, function( i, val ) {
-		$( "#" + i).prop('checked', false);
+		$( "#" + val).prop('checked', false);
 		console.log(i);	
 		console.log(val)
 
@@ -355,7 +355,7 @@ function checkAllById(list) {
 		}
 	}
 }
-*/
+
 function uncheckAllById(list) {
 	crcloo(list,'out');
 	var a = list.split(',');
@@ -365,6 +365,10 @@ function uncheckAllById(list) {
 		}
 	}
 }
+
+
+*/
+
 function goPickParts (collection_object_id,transaction_id) {
 	var url='/picks/internalAddLoanItemTwo.cfm?collection_object_id=' + collection_object_id +"&transaction_id=" + transaction_id;
 	mywin=windowOpener(url,'myWin','height=300,width=800,resizable,location,menubar ,scrollbars ,status ,titlebar,toolbar');
