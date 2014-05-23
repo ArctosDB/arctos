@@ -50,7 +50,6 @@
 <div align="right" style="width:100%;">
 <form name="setPrefs" method="post" action="SpecimenResultsPrefs.cfm">
 	<input type="hidden" name="action" value="set">
-
 	<table border width="100%">
 		<tr>
 			<td align="center" valign="top">
@@ -71,7 +70,7 @@
 		</tr>
 		<tr>
 			<td valign="top" align="center" nowrap="nowrap">
-				<div style="height:350px; text-align:right; overflow:auto;position:relative;">
+				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="locality">
 					#displayColumn(cf_variable,session.resultColumnList)#
@@ -80,7 +79,7 @@
 				</div>
 			</td>
 			<td valign="top" align="center" nowrap="nowrap">
-				<div style="height:350px; text-align:right; overflow:auto;position:relative;">
+				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="curatorial">
 					#displayColumn(cf_variable,session.resultColumnList)#					
@@ -89,7 +88,7 @@
 				</div>
 			</td>
 			<td valign="top" align="center" nowrap="nowrap">
-				<div style="height:350px; text-align:right; overflow:auto;position:relative;">
+				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="attribute">	
 					#displayColumn(cf_variable,session.resultColumnList)#			
