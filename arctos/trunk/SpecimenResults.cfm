@@ -36,7 +36,26 @@
 <link rel="alternate stylesheet" title="metro-purple"  href="/fix/jtable/themes/metro/purple/jtable.min.css" type="text/css">
 <link rel="alternate stylesheet" title="metro-red"  href="/fix/jtable/themes/metro/red/jtable.min.css" type="text/css">
 ---->
+
+<script>
+ $(function() {
+$( "#dialog" ).dialog();
+});
+</script>
 <cfoutput>
+
+
+
+
+
+
+
+
+<div id="dialog" title="Basic dialog">
+<p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+</div>
+
+
 	<cfif not isdefined("session.resultColumnList") or len(session.resultColumnList) is 0>
 		<cfset session.resultColumnList='GUID'>
 	</cfif>
