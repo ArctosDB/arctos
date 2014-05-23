@@ -70,7 +70,7 @@
 		</tr>
 		<tr>
 			<td valign="top" align="center" nowrap="nowrap">
-				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
+				<div style="height:350px; text-align:right; overflow:auto;position:relative;padding-right:2em;">
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="locality">
 					#displayColumn(cf_variable,session.resultColumnList)#
@@ -79,7 +79,7 @@
 				</div>
 			</td>
 			<td valign="top" align="center" nowrap="nowrap">
-				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
+				<div style="height:350px; text-align:right; overflow:auto;position:relative;padding-right:2em;">
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="curatorial">
 					#displayColumn(cf_variable,session.resultColumnList)#					
@@ -88,7 +88,7 @@
 				</div>
 			</td>
 			<td valign="top" align="center" nowrap="nowrap">
-				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
+				<div style="height:350px; text-align:right; overflow:auto;position:relative;padding-right:2em;;">
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="attribute">	
 					#displayColumn(cf_variable,session.resultColumnList)#			
