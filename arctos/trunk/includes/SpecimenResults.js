@@ -12,7 +12,15 @@ $("#customizeButton").live('click', function(e){
 	                modal: true,
 	                position: ['center', 'center'],
 	                title: 'About Ricky',
-	                width: 'auto'
+	                width: 'auto',
+	                buttons     : {
+	                    "Any Button"    : function(){
+	                        alert('Yep, you clicked it.')
+	                    },
+	                    "OK"    : function(){
+	                        $(this).dialog('close');
+	                    }
+	                }
 	            }).bind('dialogclose', function() {
 	                jdialog.dialog('destroy');
 	            }).load(guts, function() {
