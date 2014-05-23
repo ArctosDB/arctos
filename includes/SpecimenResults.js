@@ -1,75 +1,29 @@
 $("#customizeButton").live('click', function(e){
 	var guts = "/info/SpecimenResultsPrefs.cfm";
     $("<div class='popupDialog'><img src='/images/indicator.gif'></div>")
-        .dialog({
-            autoOpen: true,
-            closeOnEscape: true,
-            height: 'auto',
-            modal: true,
-            position: ['center', 'center'],
-            title: 'Customize results and downloads. Excessive options adversely affect performance.',
-            width: 'auto',
-            buttons     : {
-                "Save and refresh" : function(){
-                	closeCustom();
-                }
-            }
-        }).load(guts, function() {
-            $(this).dialog("option", "position", ['center', 'center'] );
-            });
- 
-        $(window).resize(function() {
-            $(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-        });
-	 
-	
-	/*
-	$('<div>').dialog({
+    .dialog({
+        autoOpen: true,
+        closeOnEscape: true,
+        height: 'auto',
         modal: true,
-        open: function ()
-        {
-            $(this).load(guts);
-        },        
-        height:'auto',
-        width:'auto',
         position: ['center', 'center'],
-        title: 'Dynamically Loaded Page'
+        title: 'Customize results and downloads. Excessive options adversely affect performance.',
+        width: 'auto',
+        buttons : {
+            "Save and refresh" : function(){
+            	closeCustom();
+            }
+        }
+    }).load(guts, function() {
+        $(this).dialog("option", "position", ['center', 'center'] );
     });
-
-		*/
-	
-	
-	/*
-	var bgDiv = document.createElement('div');
-	bgDiv.id = 'bgDiv';
-	bgDiv.className = 'bgDiv';
-	bgDiv.setAttribute('onclick','closeCustomNoRefresh()');
-	document.body.appendChild(bgDiv);
-	var type=this.type;
-	var type=$(this).attr('type');
-	var dval=$(this).attr('dval');
-	var theDiv = document.createElement('div');
-	theDiv.id = 'customDiv';
-	theDiv.className = 'customBox';
-	document.body.appendChild(theDiv);
-	var guts = "/info/SpecimenResultsPrefs.cfm";
-	$('#customDiv').load(guts,{},function(){
-		viewport.init("#customDiv");
-	});
-	
-	*/
+    $(window).resize(function() {
+    	$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+    });
 });
 function closeCustom() {
-	//var theDiv = document.getElementById('customDiv');
-	//document.body.removeChild(theDiv);
 	var murl='SpecimenResults.cfm?' + $("#mapURL").val();
 	window.location=murl;
-}
-function closeCustomNoRefresh() {
-	var theDiv = document.getElementById('customDiv');
-	document.body.removeChild(theDiv);	
-	var theDiv = document.getElementById('bgDiv');
-	document.body.removeChild(theDiv);
 }
 function getPostLoadJunk(){
 	var coidlistAR=new Array();

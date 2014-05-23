@@ -312,20 +312,21 @@ function crcloo (ColumnList,in_or_out) {
 }
 
 function checkAllById(list) {
-	crcloo(list,'in');
 	var a = list.split(',');
 	jQuery.each( a, function( i, val ) {
 		$( "#" + val).prop('checked', true);
 	});
+	crcloo(list,'in');
 }
 
 function uncheckAllById(list) {
 	var a = list.split(',');
 	
-	crcloo(list,'out');
 	jQuery.each( a, function( i, val ) {
 		$( "#" + val).prop('checked', false);
 	});
+	crcloo(list,'out');
+
 }
 
 function goPickParts (collection_object_id,transaction_id) {
