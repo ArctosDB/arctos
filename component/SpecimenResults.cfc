@@ -354,8 +354,7 @@
 										</cfif>
 									</td>
 									<td>
-										<span onclick="$('###sugntab.key#').val('');" class="likeLink">[ clear ]</span>
-										<span onclick="$('###sugntab.key#').val('_');" class="likeLink">[ require ]</span>
+										<span onclick="$('###sugntab.key#').val('');" class="likeLink">[ clear ]</span>&nbsp;<span onclick="$('###sugntab.key#').val('_');" class="likeLink">[ require ]</span>
 									</td>
 								</tr>
 						</cfloop>
