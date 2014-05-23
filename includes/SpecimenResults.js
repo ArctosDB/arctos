@@ -3,19 +3,39 @@ $("#customizeButton").live('click', function(e){
 	
 	var guts = "/info/SpecimenResultsPrefs.cfm";
 
+	
+	        $("<div class='popupDialog'><img src='/images/indicator.gif'></div>")
+	            .dialog({
+	                autoOpen: true,
+	                closeOnEscape: true,
+	                height: 'auto',
+	                modal: true,
+	                position: ['center', 'center'],
+	                title: 'About Ricky',
+	                width: 'auto'
+	            }).bind('dialogclose', function() {
+	                jdialog.dialog('destroy');
+	            }).load(guts, function() {
+	                $(this).dialog("option", "position", ['center', 'center'] );
+	            });
+	 
+	 
+	 
+	
+	/*
 	$('<div>').dialog({
         modal: true,
         open: function ()
         {
             $(this).load(guts);
-        },         
+        },        
         height:'auto',
         width:'auto',
         position: ['center', 'center'],
         title: 'Dynamically Loaded Page'
     });
 
-		
+		*/
 	
 	
 	/*
