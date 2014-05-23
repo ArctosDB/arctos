@@ -48,8 +48,6 @@
 	<cfreturn retval>
 </cffunction>
 <cfoutput>
-
-
 <div align="right" style="width:100%;">
 <form name="setPrefs" method="post" action="SpecimenResultsPrefs.cfm">
 	<input type="hidden" name="action" value="set">
@@ -58,18 +56,18 @@
 		<tr>
 			<td align="center" valign="top">
 				Locality
-				<span class="infoLink" onclick="checkAllById('#lcase(valuelist(locality.cf_variable))#')">[check all]</span>
-				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(locality.cf_variable))#')">[check none]</span>
+				<span class="likeLink" onclick="checkAllById('#lcase(valuelist(locality.cf_variable))#')">[check all]</span>
+				<span class="likeLink" onclick="uncheckAllById('#lcase(valuelist(locality.cf_variable))#')">[check none]</span>
 			</td>
 			<td align="center">
 				Random
-				<span class="infoLink" onclick="checkAllById('#lcase(valuelist(curatorial.cf_variable))#')">[check all]</span>
-				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(curatorial.cf_variable))#')">[check none]</span>
+				<span class="likeLink" onclick="checkAllById('#lcase(valuelist(curatorial.cf_variable))#')">[check all]</span>
+				<span class="likeLink" onclick="uncheckAllById('#lcase(valuelist(curatorial.cf_variable))#')">[check none]</span>
 			</td>
 			<td align="center">
 				Attributes
-				<span class="infoLink" onclick="checkAllById('#lcase(valuelist(attribute.cf_variable))#')">[check all]</span>
-				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(attribute.cf_variable))#')">[check none]</span>
+				<span class="likeLink" onclick="checkAllById('#lcase(valuelist(attribute.cf_variable))#')">[check all]</span>
+				<span class="likeLink" onclick="uncheckAllById('#lcase(valuelist(attribute.cf_variable))#')">[check none]</span>
 			</td>
 		</tr>
 		<tr>
@@ -102,7 +100,6 @@
 			</td>
 		</tr>
 	</table>
-	<button value="save"></button>
 </form>
 </div>
 </cfoutput>
