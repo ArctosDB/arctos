@@ -322,7 +322,7 @@
 							<tr id="row_#sugntab.key#">
 								<td>
 									<span class="#thisSpanClass#" id="_#sugntab.key#" title="#sugntab.DEFINITION#">
-										#sugntab.DISPLAY_TEXT#
+										#replace(sugntab.DISPLAY_TEXT," ","&nbsp;","all")#
 									</span>
 								</td>
 									<td>
