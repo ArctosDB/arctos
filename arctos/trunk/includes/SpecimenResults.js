@@ -69,9 +69,9 @@ $("#customizeButton").live('click', function(e){
 	*/
 });
 function closeCustom() {
-	var theDiv = document.getElementById('customDiv');
-	document.body.removeChild(theDiv);
-	var murl='SpecimenResults.cfm?' + document.getElementById('mapURL').value;
+	//var theDiv = document.getElementById('customDiv');
+	//document.body.removeChild(theDiv);
+	var murl='SpecimenResults.cfm?' + $("#mapURL").val();
 	window.location=murl;
 }
 function closeCustomNoRefresh() {
