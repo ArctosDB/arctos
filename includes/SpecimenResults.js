@@ -19,7 +19,9 @@ $("#customizeButton").live('click', function(e){
 	                $(this).dialog("option", "position", ['center', 'center'] );
 	            });
 	 
-	 
+	        $(window).resize(function() {
+	            $(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	        });
 	 
 	
 	/*
