@@ -1,32 +1,26 @@
 $("#customizeButton").live('click', function(e){
-	
-	
 	var guts = "/info/SpecimenResultsPrefs.cfm";
-
-	
-	        $("<div class='popupDialog'><img src='/images/indicator.gif'></div>")
-	            .dialog({
-	                autoOpen: true,
-	                closeOnEscape: true,
-	                height: 'auto',
-	                modal: true,
-	                position: ['center', 'center'],
-	                title: 'Customize results and downloads. Excessive options adversely affect performance.',
-	                width: 'auto',
-	                buttons     : {
-	                    "Save and refresh" : function(){
-	                    	closeCustom();
-	                    }
-	                }
-	            }).bind('dialogclose', function() {
-	                jdialog.dialog('destroy');
-	            }).load(guts, function() {
-	                $(this).dialog("option", "position", ['center', 'center'] );
-	            });
-	 
-	        $(window).resize(function() {
-	            $(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-	        });
+    $("<div class='popupDialog'><img src='/images/indicator.gif'></div>")
+        .dialog({
+            autoOpen: true,
+            closeOnEscape: true,
+            height: 'auto',
+            modal: true,
+            position: ['center', 'center'],
+            title: 'Customize results and downloads. Excessive options adversely affect performance.',
+            width: 'auto',
+            buttons     : {
+                "Save and refresh" : function(){
+                	closeCustom();
+                }
+            }
+        }).load(guts, function() {
+            $(this).dialog("option", "position", ['center', 'center'] );
+            });
+ 
+        $(window).resize(function() {
+            $(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+        });
 	 
 	
 	/*
