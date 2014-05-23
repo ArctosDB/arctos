@@ -23,14 +23,14 @@
 	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL=1
 </cfquery>
 <cfquery name="attribute" dbtype="query">
-	select * from poss where category='attribute' order by disp_order
+	select * from poss where category='attribute' order by cf_variable
 </cfquery>
 
 <cfquery name="locality" dbtype="query">
-	select * from poss where category='locality' order by disp_order
+	select * from poss where category='locality' order by cf_variable
 </cfquery>
 <cfquery name="curatorial" dbtype="query">
-	select * from poss where category IN ('curatorial','specimen')  order by disp_order
+	select * from poss where category IN ('curatorial','specimen')  order by cf_variable
 </cfquery>
 <cffunction name="displayColumn">
 	<cfargument name="cf_variable">
