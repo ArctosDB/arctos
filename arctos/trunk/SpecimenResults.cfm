@@ -204,7 +204,6 @@
 			map.fitBounds(bounds);
 	    });
 	</script>
-	<span class="likeLink" onclick="checkMapBB();">checkMapBB</span>
 	<div id="SelectedRowList"></div>
 	<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
