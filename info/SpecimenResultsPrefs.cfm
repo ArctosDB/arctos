@@ -100,6 +100,7 @@
 			</td>
 		</tr>
 	</table>
+	<button value="save"></button>
 </form>
 </div>
 </cfoutput>
