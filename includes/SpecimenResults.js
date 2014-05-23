@@ -14,11 +14,8 @@ $("#customizeButton").live('click', function(e){
 	                title: 'Customize results and downloads. Excessive options adversely affect performance.',
 	                width: 'auto',
 	                buttons     : {
-	                    "Any Button"    : function(){
+	                    "Save and refresh" : function(){
 	                    	closeCustom();
-	                    },
-	                    "OK"    : function(){
-	                        $(this).dialog('close');
 	                    }
 	                }
 	            }).bind('dialogclose', function() {
