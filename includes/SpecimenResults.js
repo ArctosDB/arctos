@@ -9,7 +9,7 @@ $("#customizeButton").live('click', function(e){
         {
             $(this).load(guts);
         },         
-       // height: 85%,
+        height:'auto',
         width:'auto',
         title: 'Dynamically Loaded Page'
     });
