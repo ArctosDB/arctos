@@ -11,11 +11,11 @@ $("#customizeButton").live('click', function(e){
 	                height: 'auto',
 	                modal: true,
 	                position: ['center', 'center'],
-	                title: 'About Ricky',
+	                title: 'Customize results and downloads. Excessive options adversely affect performance.',
 	                width: 'auto',
 	                buttons     : {
 	                    "Any Button"    : function(){
-	                        alert('Yep, you clicked it.')
+	                    	closeCustom();
 	                    },
 	                    "OK"    : function(){
 	                        $(this).dialog('close');

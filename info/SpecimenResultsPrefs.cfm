@@ -1,4 +1,5 @@
 <!---<cfinclude template="/includes/_frameHeader.cfm">--->
+<!----
 <table width="100%" cellpadding="0" cellspacing="0">
 	<tr>
 		<td rowspan="2" valign="top"><span style="font-size:.85em;font-style:italic;">
@@ -17,6 +18,7 @@
 		</td>
 	</tr>
 </table>
+---->
 <cfquery name="poss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL=1
 </cfquery>
