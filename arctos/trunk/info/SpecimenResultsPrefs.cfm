@@ -19,6 +19,26 @@
 	</tr>
 </table>
 ---->
+
+
+<cffunction name="displayColumn">
+	<cfargument name="cf_variable">
+	<cfargument name="resultColList">
+	<cfargument name="definition">
+	<cfargument name="display_text">
+	<cfset retval = "<tr>">
+	<cfset retval = '#retval#<td align="right"><label title="#cf_variable#: #DEFINITION#" for="#cf_variable#">#DISPLAY_TEXT#</label></td>'>
+	<cfset retval = '#retval#<td align="left"><input type="checkbox" 
+			name="#cf_variable#"
+			id="#cf_variable#"'>
+	<cfif listfindnocase(resultColList,cf_variable)> 
+		<cfset retval = '#retval#checked="checked"'>
+	</cfif>
+	<cfset retval = '#retval#onchange="if(this.checked==true){crcloo(this.name,''in'')}else{crcloo(this.name,''out'')};"></td></tr>'>
+	<cfreturn retval>
+</cffunction>
+
+<!------------------------------------>
 <cfquery name="poss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from ssrch_field_doc where SPECIMEN_RESULTS_COL=1
 </cfquery>
@@ -32,20 +52,6 @@
 <cfquery name="curatorial" dbtype="query">
 	select * from poss where category IN ('curatorial','specimen')  order by cf_variable
 </cfquery>
-<cffunction name="displayColumn">
-	<cfargument name="cf_variable">
-	<cfargument name="resultColList">
-	<cfset retval = "<tr>">
-	<cfset retval = '#retval#<td align="right"><label title="#cf_variable#: #DEFINITION#" for="#cf_variable#">#DISPLAY_TEXT#</label></td>'>
-	<cfset retval = '#retval#<td align="left"><input type="checkbox" 
-			name="#cf_variable#"
-			id="#cf_variable#"'>
-	<cfif listfindnocase(resultColList,cf_variable)> 
-		<cfset retval = '#retval#checked="checked"'>
-	</cfif>
-	<cfset retval = '#retval#onchange="if(this.checked==true){crcloo(this.name,''in'')}else{crcloo(this.name,''out'')};"></td></tr>'>
-	<cfreturn retval>
-</cffunction>
 <cfoutput>
 <div align="right" style="width:100%;">
 <form name="setPrefs" method="post" action="SpecimenResultsPrefs.cfm">
@@ -73,7 +79,7 @@
 				<div style="height:350px; text-align:right; overflow:auto;position:relative;padding-right:2em;">
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="locality">
-					#displayColumn(cf_variable,session.resultColumnList)#
+					#displayColumn(cf_variable,session.resultColumnList,definition,display_text)#
 				</cfloop>
 			</table>
 				</div>
@@ -82,7 +88,7 @@
 				<div style="height:350px; text-align:right; overflow:auto;position:relative;padding-right:2em;">
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="curatorial">
-					#displayColumn(cf_variable,session.resultColumnList)#					
+					#displayColumn(cf_variable,session.resultColumnList,definition,display_text)#					
 				</cfloop>
 			</table>
 				</div>
@@ -91,7 +97,7 @@
 				<div style="height:350px; text-align:right; overflow:auto;position:relative;padding-right:2em;;">
 			<table cellpadding="0" cellspacing="0" width="100%">
 				<cfloop query="attribute">	
-					#displayColumn(cf_variable,session.resultColumnList)#			
+					#displayColumn(cf_variable,session.resultColumnList,definition,display_text)#			
 				</cfloop>
 			</table>
 				</div>
