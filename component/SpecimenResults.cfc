@@ -143,8 +143,6 @@
 			select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 		</cfquery>
 		<cfset stuffToIgnore="locality_remarks,specimen_event_remark,identification_remarks,made_date,Accession,guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,SEX,VERBATIM_DATE">
-		
-		 
 		<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from #session.SpecSrchTab#
 		</cfquery>
@@ -292,6 +290,9 @@
 					$("##" + key).remove();
 					$("##row_" + key).remove();
 				}
+				function clearAll(){
+					$("#refineResults").find("input[type=text]").val("");
+				}
 			</script>
 			<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
@@ -307,7 +308,7 @@
 					Clear a value to remove it from the search. 
 					Use the contact link at the bottom to provide feedback.
 				</div>
-				<form name="refineResults" method="get" action="/SpecimenResults.cfm">
+				<form name="refineResults" id="refineResults" method="get" action="/SpecimenResults.cfm">
 					<table id="stermwdgtbl" border>
 						<tr>
 							<th>Term</th>
@@ -373,6 +374,7 @@
 								<option value="#cf_variable#">#DISPLAY_TEXT#</option>
 							</cfloop>
 						</select>
+						<input type="button" onclick="clearAll();" value="Clear All">
 					<input type="submit" value="Requery">
 					<div style="font-size:x-small">
 						* Attributes will accept non-code-table values and operators: "2 mm" or "<2mm," for example.
