@@ -291,7 +291,7 @@
 					$("##row_" + key).remove();
 				}
 				function clearAll(){
-					$("#refineResults").find("input[type=text]").val("");
+					$("##refineResults").find("input[type=text]").val("");
 				}
 			</script>
 			<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
