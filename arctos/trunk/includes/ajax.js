@@ -218,7 +218,7 @@ function jqalert(output_msg, title_msg)
 
 function saveSearch(returnURL){
 	var uniqid = Date.now();
-	var sName=prompt("Saving search:\n" + returnURL + " \n Name your saved search (or copy and paste the link above). \n  Accept the suggestion or type your own (unique) search name.\n  Manage or email saved searches from your profile.", uniqid);
+	var sName=prompt("Saving search:\n\n" + returnURL + " \n Name your saved search (or copy and paste the link above). \n  Accept the suggestion or type your own (unique) search name.\n  Manage or email saved searches from your profile.", uniqid);
 	if (sName!==null){
 		var sn=encodeURIComponent(sName);
 		var ru=encodeURI(returnURL);
