@@ -182,6 +182,29 @@ function closeAnnotation() {
 }
 
 function saveSearch(returnURL){
+	
+	var uniqid = Date.now();
+	  var dialogObj = $("<div style='display:none'>"+uniqid+"</div>");
+	    $(body).append(dialogObj);
+	    $(dialogObj).dialog({
+	      resizable: false,
+	      height:140,
+	      modal: true,
+	      buttons: {
+	        "OK": function() {
+	         success();
+	          $( this ).dialog( "close" );
+	        },
+	        Cancel: function() {
+	          $( this ).dialog( "close" );
+	        }
+	      }
+	    });
+}
+
+
+
+function saveSearch_alertOldDeleteIfModalWorks(returnURL){
 	var uniqid = Date.now();
 	var sName=prompt("Name your saved search. \n  Copy and paste the suggestion or type your own (unique) search name.\n  Manage or email saved searches from your profile.", uniqid);
 	if (sName!==null){
