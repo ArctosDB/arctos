@@ -180,31 +180,23 @@ function closeAnnotation() {
 	var theDiv = document.getElementById('annotateDiv');
 	document.body.removeChild(theDiv);
 }
+window.alert = function(message){
+    $(document.createElement('div'))
+        .attr({title: 'Alert', 'class': 'alert'})
+        .html(message)
+        .dialog({
+            buttons: {OK: function(){$(this).dialog('close');}},
+            close: function(){$(this).remove();},
+            draggable: true,
+            modal: true,
+            resizable: false,
+            width: 'auto'
+        });
+};
+
+
 
 function saveSearch(returnURL){
-	
-	var uniqid = Date.now();
-	  var dialogObj = $("<div style='display:none'>"+uniqid+"</div>");
-	    $(body).append(dialogObj);
-	    $(dialogObj).dialog({
-	      resizable: false,
-	      height:140,
-	      modal: true,
-	      buttons: {
-	        "OK": function() {
-	         success();
-	          $( this ).dialog( "close" );
-	        },
-	        Cancel: function() {
-	          $( this ).dialog( "close" );
-	        }
-	      }
-	    });
-}
-
-
-
-function saveSearch_alertOldDeleteIfModalWorks(returnURL){
 	var uniqid = Date.now();
 	var sName=prompt("Name your saved search. \n  Copy and paste the suggestion or type your own (unique) search name.\n  Manage or email saved searches from your profile.", uniqid);
 	if (sName!==null){
