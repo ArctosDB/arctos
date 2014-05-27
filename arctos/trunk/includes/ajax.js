@@ -195,10 +195,30 @@ window.alert = function(message){
 };
 
 
+function jqalert(output_msg, title_msg)
+{
+    if (!title_msg)
+        title_msg = 'Alert';
+
+    if (!output_msg)
+        output_msg = 'No Message to Display.';
+
+    $("<div></div>").html(output_msg).dialog({
+        title: title_msg,
+        resizable: false,
+        modal: true,
+        buttons: {
+            "Ok": function() 
+            {
+                $( this ).dialog( "close" );
+            }
+        }
+    });
+}
 
 function saveSearch(returnURL){
 	var uniqid = Date.now();
-	var sName=prompt("Name your saved search. \n  Copy and paste the suggestion or type your own (unique) search name.\n  Manage or email saved searches from your profile.", uniqid);
+	var sName=prompt(returnURL + " \n Name your saved search. \n  Copy and paste the suggestion or type your own (unique) search name.\n  Manage or email saved searches from your profile.", uniqid);
 	if (sName!==null){
 		var sn=encodeURIComponent(sName);
 		var ru=encodeURI(returnURL);
