@@ -296,6 +296,8 @@
 			</script>
 			<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
+			
+			
 			<cfif session.ResultsBrowsePrefs is 1>
 				<cfset thisStyle='display:block;'>
 			<cfelse>
@@ -303,10 +305,7 @@
 			</cfif>
 			<div id="refineSearchTerms" style="#thisStyle#">
 				<div style="font-size:small;">
-					This is an experiment. 
-					Change values and press ENTER or click the button. 
-					Clear a value to remove it from the search. 
-					Use the contact link at the bottom to provide feedback.
+					This is an experiment. <a href="/contact.cfm?">Contact us</a> to provide feedback.
 				</div>
 				<form name="refineResults" id="refineResults" method="get" action="/SpecimenResults.cfm">
 					<table id="stermwdgtbl" border>
