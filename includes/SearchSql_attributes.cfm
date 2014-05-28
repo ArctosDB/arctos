@@ -1160,7 +1160,7 @@
 		<br>t2-: ::#t2#::
 		
 		
-								<cfset t2=replace(t2,schunits,"")>
+								<cfset t2=replacenocase(t2,schunits,"")>
 
 		<br>t2su: ::#t2#::
 
