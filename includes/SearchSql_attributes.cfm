@@ -1133,7 +1133,7 @@
             <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
         
 		
-		<cfelseif temp='-'>
+		<cfelseif temp eq '-'>
 		<p>
 			here we are now....
 		</p>
