@@ -93,7 +93,7 @@
 	'#tctl.VALUE_CODE_TABLE#',
 	'#escapeQuotes(tctl.DESCRIPTION)#',
 	'#ATTRIBUTE_TYPE#',
-	'http://arctosdb.org/documentation/attributes/#attribute_search',
+	'http://arctosdb.org/documentation/attributes/##attribute_search',
 	'#ATTRIBUTE_TYPE#',
 	'#srchhint#',
 	'concatAttributeValue(flatTableName.collection_object_id,''#ATTRIBUTE_TYPE#'')',
