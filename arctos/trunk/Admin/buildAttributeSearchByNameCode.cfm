@@ -125,6 +125,15 @@
 
 <!--- if units-controlled attribute, then ..... ---->
 <cfif len(tctl.UNITS_CODE_TABLE) gt 0>
+	
+	<!---- 
+		what can happen here:	
+			x=y -- case-insensitive substring of value
+			x==y - case-insensitive string of value
+			x=!y - x not like (nocase) y
+	---->
+	
+	
 	<cfif tctl.UNITS_CODE_TABLE is "ctlength_units">
 		<cfset asrchlst="attrLengthUnits">
 	<cfelseif tctl.UNITS_CODE_TABLE is "ctweight_units">
@@ -149,19 +158,51 @@
 	<cfset x=x & chr(10) & '         </cfif>'>
 	
 	<cfif asrchlst is "attrLengthUnits">
-		<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_meters(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_meters(##schTerm##,''##schunits##'')">'>
+		<cfset x=x & chr(10) & '         <cfif len(schunits) gt 0>'>
+		<cfset x=x & chr(10) & '             <cfset basQual = " ##basQual## AND to_meters(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_meters(##schTerm##,''##schunits##'')">'>
+		<cfset x=x & chr(10) & '         <cfelse>'>
+		<cfset x=x & chr(10) & '             <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ##schTerm##">'>
+		<cfset x=x & chr(10) & '         </cfif>'>
 	<cfelseif asrchlst is "attrWeightUnits">
+		<cfset x=x & chr(10) & '         <cfif len(schunits) gt 0>'>
 		<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_grams(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_grams(##schTerm##,''##schunits##'')">'>
+		<cfset x=x & chr(10) & '         <cfelse>'>
+		<cfset x=x & chr(10) & '             <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ##schTerm##">'>
+		<cfset x=x & chr(10) & '         </cfif>'>
+	
+	
 	<cfelseif asrchlst is "attrTimeUnits">
+		<cfset x=x & chr(10) & '         <cfif len(schunits) gt 0>'>
 		<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_days(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_days(##schTerm##,''##schunits##'')">'>
+		<cfset x=x & chr(10) & '         <cfelse>'>
+		<cfset x=x & chr(10) & '             <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ##schTerm##">'>
+		<cfset x=x & chr(10) & '         </cfif>'>
+		
+		
+		
 	<cfelse>
+		<cfset x=x & chr(10) & '         <cfif len(schunits) gt 0>'>
 		<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ##schTerm## and tbl_#attrvar#.attribute_units=''##schunits##'' ">'>
+		<cfset x=x & chr(10) & '         <cfelse>'>
+		<cfset x=x & chr(10) & '             <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ##schTerm##">'>
+		<cfset x=x & chr(10) & '         </cfif>'>
+		
+		
+		
+		
+		
 	</cfif>
 	
 	
 	
 <cfelse>
-	<!---- value code tables and free text have the same handler ---->
+	<!---- 
+		value code tables and free text have the same handler 
+		what can happen here:	
+			x=y -- case-insensitive substring
+			x==y - case-insensitive string
+			x=!y - x not like (nocase) y
+	---->
 	<cfset x=x & chr(10) & '        <cfset oper=left(#attrvar#,1)>'>
 	<cfset x=x & chr(10) & '            <cfif listfind(charattrschops,oper)>'>
 	<cfset x=x & chr(10) & '            <cfset schTerm=ucase(right(#attrvar#,len(#attrvar#)-1))>'>
