@@ -1166,7 +1166,7 @@
 
 
 
-			<cfset t2=trim(replacenocase(replace(replace(numeric_age,low,"","first"),"-",""),schunits,""))>
+			<cfset high=trim(replacenocase(replace(replace(numeric_age,low,"","first"),"-",""),schunits,""))>
 			
 		<br>t2: ::#t2#::
 			
@@ -1177,7 +1177,6 @@
 </p>
 
 
-			<cfset high=listgetat(numeric_age,2,"-")>
 		
 		<p>
 
