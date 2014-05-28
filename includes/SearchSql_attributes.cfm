@@ -1361,7 +1361,7 @@
             	</cfif>
          </cfif>
     <cfif oper is "between">
-               	<cfset basQual = " #basQual# AND to_days(tbl_numeric_age.attribute_value,tbl_numeric_agee.attribute_units) #oper# to_days(#low#,'#schunits#') and to_days(#high#,'#schunits#')">
+               	<cfset basQual = " #basQual# AND to_days(tbl_numeric_age.attribute_value,tbl_numeric_age.attribute_units) #oper# to_days(#low#,'#schunits#') and to_days(#high#,'#schunits#')">
          <cfelseif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_days(tbl_numeric_age.attribute_value,tbl_numeric_age.attribute_units) #oper# to_days(#schTerm#,'#schunits#')">
          <cfelse>
@@ -2138,3 +2138,4 @@
          </cfif>
     </cfif>
 </cfif>
+
