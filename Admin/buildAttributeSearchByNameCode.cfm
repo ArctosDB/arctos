@@ -41,10 +41,9 @@
 			</cfquery>
 			<cfset attrvar=lcase(trim(replace(replace(replace(ATTRIBUTE_TYPE,' ','_','all'),'-','_','all'),"/","_","all")))>
 			<cfif len(tctl.VALUE_CODE_TABLE) gt 0>
-				<cfset srchhint='Search for underbar (_) to require #ATTRIBUTE_TYPE#. You may prefix value with "=" to require an exact match. "=male" matches onyl male, "male" matches male and female.'>
-			<cfelseif len(tctl.UNITS_CODE_TABLE) gt 0>
-				<cfset srchhint='Search for underbar (_) to require #ATTRIBUTE_TYPE#. Prefix value with "=","<",">","!=" Suffix with appropriate units. "<5mm" or "!= 2 years'>
-
+				<cfset srchhint='Search for underbar (_) to require #ATTRIBUTE_TYPE#. Prefix value with "=","<",">","!" (exact, less than, more than, is not). Suffix with appropriate units. "<5mm" or "! 2 years'>
+			<cfelse>
+				<cfset srchhint='Search for underbar (_) to require #ATTRIBUTE_TYPE#. You may prefix with "=" to require an exact match, or "!" to exclude a value. "=male" matches only male, "male" matches male and fe<strong>male</strong>, "!male" matches everything except male.'>
 			</cfif>
 <cfset v="insert into ssrch_field_doc (
 	CATEGORY,
@@ -69,7 +68,7 @@
 	'#ATTRIBUTE_TYPE#',
 	'',
 	'#ATTRIBUTE_TYPE#',
-	'',
+	'#srchhint#',
 	'concatAttributeValue(flatTableName.collection_object_id,''#ATTRIBUTE_TYPE#'')',
 	1,
 	#n#,
@@ -97,6 +96,7 @@
 <cfset x=x & chr(10) & '        <cfelse>'>
 <cfset x=x & chr(10) & '            <cfset oper="like"><cfset schTerm=ucase(#attrvar#)>'>
 <cfset x=x & chr(10) & '        </cfif>'>
+<cfset x=x & chr(10) & '        <cfif oper is "!"><cfset oper="!="></cfif>'>
 <cfif len(tctl.UNITS_CODE_TABLE) gt 0>
 	<cfset x=x & chr(10) & '     <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>'>    
 	<cfset x=x & chr(10) & '     <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>'>  
