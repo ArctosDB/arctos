@@ -305,7 +305,7 @@
 			</cfif>
 			<div id="refineSearchTerms" style="#thisStyle#">
 				<div style="font-size:small;">
-					This is an experiment. <a href="/contact.cfm?">Contact us</a> to provide feedback.
+					This is an experiment. <a href="/contact.cfm?ref=SpecimenResultsWidget">Contact us</a> to provide feedback.
 				</div>
 				<form name="refineResults" id="refineResults" method="get" action="/SpecimenResults.cfm">
 					<table id="stermwdgtbl" border>
