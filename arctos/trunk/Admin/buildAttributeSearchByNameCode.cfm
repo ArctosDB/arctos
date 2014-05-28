@@ -33,7 +33,7 @@
 		 </cfloop>
 		 #attrunits#
 		 
-		<cfset x=x&'<cfset attrunits="M,METERS,METER,FT,FEET,FOOT,KM,KILOMETER,KILOMETERS,MM,MILLIMETER,MILLIMETERS,CM,CENTIMETER,CENTIMETERS,MI,MILE,MILES,YD,YARD,YARDS,FM,FATHOM,FATHOMS">'>
+		<cfset x=x&'<cfset attrunits="#attrunits#">'>
 		<cfset x=x&'<cfset charattrschops="=,!"><cfset numattrschops="=,!,<,>">'>
 		<cfscript>
 			variables.josrch_field_doc = createObject('Component', '/component.FileWriter').init(variables.f_srch_field_doc, variables.encoding, 32768);
