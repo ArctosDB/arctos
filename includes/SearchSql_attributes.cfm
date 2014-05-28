@@ -1133,7 +1133,7 @@
             <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
         
 		
-		<cfelseif left(temp,1) eq '-' and listfindnocase(attrTimeUnits,replace(temp,"-"))>
+		<cfelseif left(temp,1) eq '-' and listfindnocase(attrTimeUnits,replace(temp,"-",""))>
 		<p>
 			here we are now....
 		</p>
