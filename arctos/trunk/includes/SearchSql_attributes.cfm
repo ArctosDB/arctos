@@ -1134,61 +1134,18 @@
         
 		
 		<cfelseif left(temp,1) eq '-' and listfindnocase(attrTimeUnits,trim(replace(temp,"-","")))>
-		<p>
-			here we are now....
-		</p>
-		
-		
-					<cfset schunits=trim(replace(temp,"-",""))>
-
-
-<p>
-
-		<br>schunits: ::#schunits#::
-
-</p>
+			<cfset schunits=trim(replace(temp,"-",""))>
 			<cfset low=trim(listgetat(numeric_age,1,"-"))>
-			
-						<cfset t2=replace(numeric_age,low,"","first")>
-
-
-		<br>t2: ::#t2#::
-
-
-						<cfset t2=replace(t2,"-","")>
-
-		<br>t2-: ::#t2#::
-		
-		
-								<cfset t2=replacenocase(t2,schunits,"")>
-
-		<br>t2su: ::#t2#::
-
-
-
 			<cfset high=trim(replacenocase(replace(replace(numeric_age,low,"","first"),"-",""),schunits,""))>
-			
-		<br>t2: ::#t2#::
-			
-			<p>
-
-		<br>low: ::#low#::
-
-</p>
-
-
-		
-		<p>
-
-		<br>high: ::#high#::
-
-</p>	
 			<cfset schTerm=trim(replace(replace(replace(numeric_age,schunits,""),low,""),high,""))>
-			 <cfset oper="between">
+			<cfif len(low) gt 0 and len(high) gt 0 and len(schunits) gt 0>
+				<cfset oper="between">
+			</cfif>
+			
 		</cfif>
 		
 		
-        <cfif oper is "between" and isdefined("low") and len(low) gt 0 and isdefined("high") and len(high) gt 0 and  len(schunits) gt 0>
+        <cfif oper is "between">
          	<cfset basQual = " #basQual# AND to_days(tbl_numeric_age.attribute_value,tbl_numeric_age.attribute_units) #oper# to_days(#low#,'#schunits#') and to_days(#high#,'#schunits#')">
 		<cfelseif len(schunits) gt 0>
          	<cfset basQual = " #basQual# AND to_days(tbl_numeric_age.attribute_value,tbl_numeric_age.attribute_units) #oper# to_days(#schTerm#,'#schunits#')">
