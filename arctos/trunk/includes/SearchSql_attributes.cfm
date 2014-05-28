@@ -95,7 +95,7 @@
         </cfif>
         <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
-     <cfif len(temp) gt 0 and listfindnocase(,temp) and isnumeric(replace(schTerm,temp,""))>
+     <cfif len(temp) gt 0 and listfindnocase('XXXX',temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
      </cfif>
       <cfif len(schunits) gt 0>
@@ -1339,7 +1339,7 @@
         </cfif>
         <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
-     <cfif len(temp) gt 0 and listfindnocase(,temp) and isnumeric(replace(schTerm,temp,""))>
+     <cfif len(temp) gt 0 and listfindnocase('XXXX',temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
      </cfif>
       <cfif len(schunits) gt 0>
