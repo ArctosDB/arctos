@@ -96,7 +96,12 @@
 			</tr>
 		</cfsavecontent>
 	</cfoutput>
-	<cfreturn row>		
+	<cfset objData = {
+attrtype = tquery.CATEGORY,
+row = row
+} />
+	
+	<cfreturn objData>		
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
