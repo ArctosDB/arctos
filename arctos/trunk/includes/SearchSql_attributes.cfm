@@ -1169,6 +1169,7 @@
 
 <cfif isdefined("numeric_age") and len(numeric_age) gt 0>
     <cfset mapurl = "#mapurl#&numeric_age=#numeric_age#">
+	got #numeric_age#
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_numeric_age ON (#session.flatTableName#.collection_object_id = tbl_numeric_age.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_numeric_age.attribute_type = 'numeric age'">
     <cfif session.flatTableName is not "flat">
