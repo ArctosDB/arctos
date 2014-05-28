@@ -120,19 +120,10 @@
 <cfset x=x & chr(10) & '    <cfif session.flatTableName is not "flat">'>
 <cfset x=x & chr(10) & '        <cfset basQual = " ##basQual## AND tbl_#attrvar#.is_encumbered = 0">'>
 <cfset x=x & chr(10) & '    </cfif>'>
-<cfset x=x & chr(10) & '    <cfset schunits="">'>
-<cfset x=x & chr(10) & '    <cfif #attrvar# neq "_">'>
-<cfset x=x & chr(10) & '        <cfset oper=left(#attrvar#,1)>'>
-<cfif len(tctl.UNITS_CODE_TABLE) gt 0>
-	<cfset x=x & chr(10) & '        <cfif listfind(numattrschops,oper)>'>
-<cfelse>
-	<cfset x=x & chr(10) & '        <cfif listfind(charattrschops,oper)>'>
-</cfif>
-<cfset x=x & chr(10) & '            <cfset schTerm=ucase(right(#attrvar#,len(#attrvar#)-1))>'>
-<cfset x=x & chr(10) & '        <cfelse>'>
-<cfset x=x & chr(10) & '            <cfset oper="like"><cfset schTerm=ucase(#attrvar#)>'>
-<cfset x=x & chr(10) & '        </cfif>'>
-<cfset x=x & chr(10) & '        <cfif oper is "!"><cfset oper="!="></cfif>'>
+<cfset x=x & chr(10) & '    <cfif #attrvar# neq "_">'><!--- if it does, we're done here ---->
+
+
+<!--- if units-controlled attribute, then ..... ---->
 <cfif len(tctl.UNITS_CODE_TABLE) gt 0>
 	<cfif tctl.UNITS_CODE_TABLE is "ctlength_units">
 		<cfset asrchlst="attrLengthUnits">
@@ -143,13 +134,19 @@
 	<cfelse>
 		<cfset asrchlst="'XXXX'">
 	</cfif>
+	
+	<cfset x=x & chr(10) & '    <cfset schunits="">'>
+	<cfset x=x & chr(10) & '    <cfset oper=left(#attrvar#,1)>'>
+	<cfset x=x & chr(10) & '    <cfif listfind(numattrschops,oper)>'>
+	<cfset x=x & chr(10) & '        <cfset schTerm=ucase(right(#attrvar#,len(#attrvar#)-1))>'>
+	<cfset x=x & chr(10) & '    <cfelse>'>
+	<cfset x=x & chr(10) & '        <cfset oper="like"><cfset schTerm=ucase(#attrvar#)>'>
+	<cfset x=x & chr(10) & '    </cfif>'>
+	<cfset x=x & chr(10) & '    <cfif oper is "!"><cfset oper="!="></cfif>'>
 	<cfset x=x & chr(10) & '     <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>'>    
 	<cfset x=x & chr(10) & '     <cfif len(temp) gt 0 and listfindnocase(#asrchlst#,temp) and isnumeric(replace(schTerm,temp,""))>'>  
 	<cfset x=x & chr(10) & '         <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>'>  
-	<cfset x=x & chr(10) & '     </cfif>'> 
-</cfif>
-<cfset x=x & chr(10) & '      <cfif len(schunits) gt 0>'>
-<cfif len(tctl.UNITS_CODE_TABLE) gt 0>
+	<cfset x=x & chr(10) & '     </cfif>'>
 	
 	<cfif asrchlst is "attrLengthUnits">
 		<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_meters(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_meters(##schTerm##,''##schunits##'')">'>
@@ -160,15 +157,28 @@
 	<cfelse>
 		<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ##schTerm## and tbl_#attrvar#.attribute_units=''##schunits##'' ">'>
 	</cfif>
+	
+	
+	
+<cfelse>
+	<!---- value code tables and free text have the same handler ---->
+	<cfset x=x & chr(10) & '    <cfset oper=left(#attrvar#,1)>'>
+	<cfset x=x & chr(10) & '        <cfif listfind(charattrschops,oper)>'>
+	<cfset x=x & chr(10) & '        <cfset schTerm=ucase(right(#attrvar#,len(#attrvar#)-1))>'>
+	<cfset x=x & chr(10) & '    <cfelse>'>
+	<cfset x=x & chr(10) & '        <cfset oper="like"><cfset schTerm=ucase(#attrvar#)>'>
+	<cfset x=x & chr(10) & '    </cfif>'>
+	<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND upper(tbl_#attrvar#.attribute_value) like ''%##ucase(escapeQuotes(schTerm))##%''">'>  
+	
+	
 </cfif>
-<cfset x=x & chr(10) & '     <cfelseif oper is not "like" and len(schunits) is 0>'> 
-<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND upper(tbl_#attrvar#.attribute_value) ##oper## ''##escapeQuotes(schTerm)##''">'>  
-<cfset x=x & chr(10) & '     <cfelse>'> 
-<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND upper(tbl_#attrvar#.attribute_value) like ''%##ucase(escapeQuotes(schTerm))##%''">'>  
-<cfset x=x & chr(10) & '     </cfif>'> 
-<cfset x=x & chr(10) & '    </cfif>'>
+
+
 <cfset x=x & chr(10) &  '</cfif>'>
+
 <cfset x=x & chr(10)>
+
+
 			<cfscript>
 				variables.josrch_field_doc.writeLine(v);
 				variables.f_ss_doc.writeLine(x);
