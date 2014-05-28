@@ -1138,10 +1138,19 @@
 			here we are now....
 		</p>
 		
+			<cfset low=listgetat(numeric_age,1,"-")>
+			<cfset high=listgetat(numeric_age,2,"-")>
+		
+			<cfset schunits=trim(replace(temp,"-",""))>
+			
+			<cfset schTerm=trim(replace(replace(replace(numeric_age,schunits,""),low,""),high,""))>
+			 <cfset oper="between">
 		</cfif>
 		
 		
-         <cfif len(schunits) gt 0>
+        <cfif oper is "between" and isdefined("low") and len(low) gt 0 and isdefined("high") and len(high) gt 0 and   len(schunits) gt 0>
+         	<cfset basQual = " #basQual# AND to_days(tbl_numeric_age.attribute_value,tbl_numeric_age.attribute_units) #oper# to_days(#low#,'#schunits#' and to_days(#high#,'#schunits#')">
+		<cfelseif len(schunits) gt 0>
          	<cfset basQual = " #basQual# AND to_days(tbl_numeric_age.attribute_value,tbl_numeric_age.attribute_units) #oper# to_days(#schTerm#,'#schunits#')">
          <cfelse>
              <cfset basQual = " #basQual# AND tbl_numeric_age.attribute_value #oper# '#schTerm#'">
