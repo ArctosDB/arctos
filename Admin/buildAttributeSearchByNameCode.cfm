@@ -65,6 +65,10 @@
 				<cfset srchhint='Search for underbar (_) to require #ATTRIBUTE_TYPE#. Prefix value with "=","<",">","!" (exact, less than, more than, is not). Suffix with appropriate units. "<5mm" or "! 2 years'>
 			<cfelseif tctl.UNITS_CODE_TABLE is "ctlength_units">
 				<cfset srchhint='Search for underbar (_) to require #ATTRIBUTE_TYPE#. You may prefix with "=" to require an exact match, or "!" to exclude a value. "=male" matches only male, "male" matches male and fe<strong>male</strong>, "!male" matches everything except male.'>
+			<cfelse>
+				<cfset srchhint='Search for underbar (_) to require #ATTRIBUTE_TYPE#. Prefix value with "=" or "!" (exact, is not).'>
+			
+				
 			</cfif>
 <cfset v="insert into ssrch_field_doc (
 	CATEGORY,
