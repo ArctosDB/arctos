@@ -19,16 +19,25 @@
 			select length_units from ctlength_units where upper(length_units) not in (#listqualify(canconvert,"'")#) group by length_units
 		</cfquery>
 		<cfset attrLengthUnits=valuelist(ctlu.length_units)>
+		<cfset attrLengthUnits=listappend(attrLengthUnits,canconvert)>
 		
+		
+		
+		
+		<cfset canconvert="G,GRAMS,GRAM,KG,KILOGRAM,KILOGRAMS,LB,POUND,POUNDS,OZ,OUNCE,OUNCES">
 		<cfquery name="ctwu" datasource="uam_god">
-			select weight_units from ctweight_units group by weight_units
+			select weight_units from ctweight_units where upper(weight_units) not in (#listqualify(canconvert,"'")#)  group by weight_units
 		</cfquery>
 		<cfset attrWeightUnits=valuelist(ctwu.weight_units)>
-
+		<cfset attrWeightUnits=listappend(attrWeightUnits,canconvert)>
+		
+		
+		<cfset canconvert="D,DAY,DAYS,H,HOUR,HOURS,M,MONTH,MONTHS,WEEK,WEEKS,YR,YEAR,YEARS">
 		<cfquery name="cttu" datasource="uam_god">
-			select NUMERIC_AGE_UNITS time_units from CTNUMERIC_AGE_UNITS group by NUMERIC_AGE_UNITS
+			select NUMERIC_AGE_UNITS time_units from CTNUMERIC_AGE_UNITS  where upper(NUMERIC_AGE_UNITS) not in (#listqualify(canconvert,"'")#)  group by NUMERIC_AGE_UNITS
 		</cfquery>
 		<cfset attrTimeUnits=valuelist(cttu.time_units)>
+		<cfset attrTimeUnits=listappend(attrTimeUnits,canconvert)>
 
 		 
 		<cfset x=x&'<cfset attrLengthUnits="#attrLengthUnits#">'>
@@ -139,8 +148,16 @@
 	<cfset x=x & chr(10) & '         <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>'>  
 	<cfset x=x & chr(10) & '     </cfif>'> 
 </cfif>
-<cfset x=x & chr(10) & '      <cfif len(schunits) gt 0>'>  
-<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_meters(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_meters(##schTerm##,''##schunits##'')">'>  
+<cfset x=x & chr(10) & '      <cfif len(schunits) gt 0>'>
+<cfif asrchlst is "attrLengthUnits">
+	<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_meters(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_meters(##schTerm##,''##schunits##'')">'>
+<cfelseif asrchlst is "attrWeightUnits">
+	<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_grams(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_grams(##schTerm##,''##schunits##'')">'>
+<cfelseif asrchlst is "attrTimeUnits">
+	<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_days(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_days(##schTerm##,''##schunits##'')">'>
+<cfelse>
+	<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ##schTerm## and tbl_#attrvar#.attribute_units=''##schunits##'' ">'>
+</cfif>
 <cfset x=x & chr(10) & '     <cfelseif oper is not "like" and len(schunits) is 0>'> 
 <cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND upper(tbl_#attrvar#.attribute_value) ##oper## ''##escapeQuotes(schTerm)##''">'>  
 <cfset x=x & chr(10) & '     <cfelse>'> 
