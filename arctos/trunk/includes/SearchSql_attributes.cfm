@@ -1126,7 +1126,7 @@
         <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
 		
 		
-		<br>temp: <cfdump var=#temp#>
+		<br>temp: ::#temp#::
 		
 		
         <cfif len(temp) gt 0 and listfindnocase(attrTimeUnits,temp) and isnumeric(replace(schTerm,temp,""))>
