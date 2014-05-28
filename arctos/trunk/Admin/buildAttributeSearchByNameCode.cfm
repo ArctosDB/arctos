@@ -205,7 +205,7 @@
 	<cfelseif asrchlst is "attrTimeUnits">
 		
 		<cfset x=x & chr(10) & '    <cfif oper is "between">'>     
-		<cfset x=x & chr(10) & '               	<cfset basQual = " ##basQual## AND to_days(tbl_#attrvar#.attribute_value,tbl_#attrvar#e.attribute_units) ##oper## to_days(##low##,''##schunits##'') and to_days(##high##,''##schunits##'')">'>
+		<cfset x=x & chr(10) & '               	<cfset basQual = " ##basQual## AND to_days(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_days(##low##,''##schunits##'') and to_days(##high##,''##schunits##'')">'>
 		<cfset x=x & chr(10) & '         <cfelseif len(schunits) gt 0>'>
 		<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_days(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_days(##schTerm##,''##schunits##'')">'>
 		
