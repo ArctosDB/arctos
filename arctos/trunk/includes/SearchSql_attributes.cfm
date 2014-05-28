@@ -1123,7 +1123,12 @@
         <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
         <cfif len(temp) gt 0 and listfindnocase(attrTimeUnits,temp) and isnumeric(replace(schTerm,temp,""))>
             <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
-         </cfif>
+        
+		
+		<cfelseif len(temp) gt 0  and listfindnocase(attrTimeUnits,temp) and isnumeric(replace(replace(schTerm,'-',''),temp,""))>
+		here we are now....
+		
+		</cfif>
          <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_days(tbl_numeric_age.attribute_value,tbl_numeric_age.attribute_units) #oper# to_days(#schTerm#,'#schunits#')">
          <cfelse>
