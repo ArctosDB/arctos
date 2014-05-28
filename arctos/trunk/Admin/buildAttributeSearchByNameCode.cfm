@@ -102,7 +102,7 @@
 	'#tctl.VALUE_CODE_TABLE#',
 	'#escapeQuotes(tctl.DESCRIPTION)#',
 	'#ATTRIBUTE_TYPE#',
-	'http://arctosdb.org/documentation/attributes/##attribute_search',
+	'http://arctosdb.org/documentation/attributes/##attribute_api',
 	'#ATTRIBUTE_TYPE#',
 	'#srchhint#',
 	'concatAttributeValue(flatTableName.collection_object_id,''#ATTRIBUTE_TYPE#'')',
@@ -169,7 +169,11 @@
 	<cfset x=x & chr(10) & '            <cfset oper="like"><cfset schTerm=ucase(#attrvar#)>'>
 	<cfset x=x & chr(10) & '        </cfif>'>
 	<cfset x=x & chr(10) & '        <cfif oper is "!"><cfset oper="!="></cfif>'>
-	<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND upper(tbl_#attrvar#.attribute_value) ##oper## ''%##ucase(escapeQuotes(schTerm))##%''">'>  
+	<cfset x=x & chr(10) & '        <cfif oper is "like">'>
+	<cfset x=x & chr(10) & '            <cfset basQual = " ##basQual## AND upper(tbl_#attrvar#.attribute_value) ##oper## ''%##ucase(escapeQuotes(schTerm))##%''">'>  
+	<cfset x=x & chr(10) & '	    <cfelse>'>
+	<cfset x=x & chr(10) & '            <cfset basQual = " ##basQual## AND upper(tbl_#attrvar#.attribute_value) ##oper## ''##ucase(escapeQuotes(schTerm))##''">'>
+	<cfset x=x & chr(10) & '	    </cfif>'>
 	
 	
 </cfif>
