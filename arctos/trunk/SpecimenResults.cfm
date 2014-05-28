@@ -143,6 +143,9 @@
 	            } 
 	        });
 	        $('##specresults').jtable('load');
+
+
+/*
 			jQuery("##cntr_refineSearchTerms").html("<img src='/images/indicator.gif'>");
 			var ptl='/component/SpecimenResults.cfc?method=get_specSrchTermWidget&returnformat=plain';
 			jQuery.get(ptl, function(data){
@@ -209,6 +212,8 @@
 		       bounds.extend(extendPoint2);
 		    }
 			map.fitBounds(bounds);
+
+*/
 	    });
 	</script>
 	<div id="SelectedRowList"></div>
