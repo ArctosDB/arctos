@@ -322,15 +322,18 @@ function initialize() {
 function resizeMap(s){
 	var bounds=map.getBounds();
 	
+console.log(bounds);
 
 	$("#spresmapdiv").removeClass().addClass(s);
 	x = map.getZoom();
     c = map.getCenter();
     google.maps.event.trigger(map, 'resize');
     
-    map.fitBounds(bounds);
     map.setZoom(x);
     map.setCenter(c);
+    
+    map.fitBounds(bounds);
+
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "changeUserPreference",
