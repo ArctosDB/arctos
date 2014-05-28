@@ -40,6 +40,12 @@
 					ctattribute_code_tables.UNITS_CODE_TABLE  
 			</cfquery>
 			<cfset attrvar=lcase(trim(replace(replace(replace(ATTRIBUTE_TYPE,' ','_','all'),'-','_','all'),"/","_","all")))>
+			<cfif len(tctl.VALUE_CODE_TABLE) gt 0>
+				<cfset srchhint='Search for underbar (_) to require #ATTRIBUTE_TYPE#. You may prefix value with "=" to require an exact match. "=male" matches onyl male, "male" matches male and female.'>
+			<cfelseif len(tctl.UNITS_CODE_TABLE) gt 0>
+				<cfset srchhint='Search for underbar (_) to require #ATTRIBUTE_TYPE#. Prefix value with "=","<",">","!=" Suffix with appropriate units. "<5mm" or "!= 2 years'>
+
+			</cfif>
 <cfset v="insert into ssrch_field_doc (
 	CATEGORY,
 	CF_VARIABLE,

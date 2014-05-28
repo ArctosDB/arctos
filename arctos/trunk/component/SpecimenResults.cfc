@@ -376,7 +376,7 @@
 						<input type="reset" value="Reset Filters">
 					<input type="submit" value="Requery">
 					<div style="font-size:x-small">
-						* Attributes will accept non-code-table values and operators: "2 mm" or "<2mm," for example.
+						* Click on a term for search help.
 					</div>
 				</form>
 			</div>
