@@ -135,18 +135,18 @@
 		<cfset asrchlst="'XXXX'">
 	</cfif>
 	
-	<cfset x=x & chr(10) & '    <cfset schunits="">'>
-	<cfset x=x & chr(10) & '    <cfset oper=left(#attrvar#,1)>'>
-	<cfset x=x & chr(10) & '    <cfif listfind(numattrschops,oper)>'>
-	<cfset x=x & chr(10) & '        <cfset schTerm=ucase(right(#attrvar#,len(#attrvar#)-1))>'>
-	<cfset x=x & chr(10) & '    <cfelse>'>
-	<cfset x=x & chr(10) & '        <cfset oper="like"><cfset schTerm=ucase(#attrvar#)>'>
-	<cfset x=x & chr(10) & '    </cfif>'>
-	<cfset x=x & chr(10) & '    <cfif oper is "!"><cfset oper="!="></cfif>'>
-	<cfset x=x & chr(10) & '     <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>'>    
-	<cfset x=x & chr(10) & '     <cfif len(temp) gt 0 and listfindnocase(#asrchlst#,temp) and isnumeric(replace(schTerm,temp,""))>'>  
-	<cfset x=x & chr(10) & '         <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>'>  
-	<cfset x=x & chr(10) & '     </cfif>'>
+	<cfset x=x & chr(10) & '        <cfset schunits="">'>
+	<cfset x=x & chr(10) & '        <cfset oper=left(#attrvar#,1)>'>
+	<cfset x=x & chr(10) & '        <cfif listfind(numattrschops,oper)>'>
+	<cfset x=x & chr(10) & '            <cfset schTerm=ucase(right(#attrvar#,len(#attrvar#)-1))>'>
+	<cfset x=x & chr(10) & '        <cfelse>'>
+	<cfset x=x & chr(10) & '            <cfset oper="like"><cfset schTerm=ucase(#attrvar#)>'>
+	<cfset x=x & chr(10) & '        </cfif>'>
+	<cfset x=x & chr(10) & '        <cfif oper is "!"><cfset oper="!="></cfif>'>
+	<cfset x=x & chr(10) & '        <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>'>    
+	<cfset x=x & chr(10) & '        <cfif len(temp) gt 0 and listfindnocase(#asrchlst#,temp) and isnumeric(replace(schTerm,temp,""))>'>  
+	<cfset x=x & chr(10) & '            <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>'>  
+	<cfset x=x & chr(10) & '         </cfif>'>
 	
 	<cfif asrchlst is "attrLengthUnits">
 		<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_meters(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_meters(##schTerm##,''##schunits##'')">'>
@@ -162,17 +162,18 @@
 	
 <cfelse>
 	<!---- value code tables and free text have the same handler ---->
-	<cfset x=x & chr(10) & '    <cfset oper=left(#attrvar#,1)>'>
-	<cfset x=x & chr(10) & '        <cfif listfind(charattrschops,oper)>'>
-	<cfset x=x & chr(10) & '        <cfset schTerm=ucase(right(#attrvar#,len(#attrvar#)-1))>'>
-	<cfset x=x & chr(10) & '    <cfelse>'>
-	<cfset x=x & chr(10) & '        <cfset oper="like"><cfset schTerm=ucase(#attrvar#)>'>
-	<cfset x=x & chr(10) & '    </cfif>'>
-	<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND upper(tbl_#attrvar#.attribute_value) like ''%##ucase(escapeQuotes(schTerm))##%''">'>  
+	<cfset x=x & chr(10) & '        <cfset oper=left(#attrvar#,1)>'>
+	<cfset x=x & chr(10) & '            <cfif listfind(charattrschops,oper)>'>
+	<cfset x=x & chr(10) & '            <cfset schTerm=ucase(right(#attrvar#,len(#attrvar#)-1))>'>
+	<cfset x=x & chr(10) & '        <cfelse>'>
+	<cfset x=x & chr(10) & '            <cfset oper="like"><cfset schTerm=ucase(#attrvar#)>'>
+	<cfset x=x & chr(10) & '        </cfif>'>
+	<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND upper(tbl_#attrvar#.attribute_value) ##oper## ''%##ucase(escapeQuotes(schTerm))##%''">'>  
 	
 	
 </cfif>
 
+<cfset x=x & chr(10) &  '    </cfif>'>
 
 <cfset x=x & chr(10) &  '</cfif>'>
 
