@@ -15,7 +15,7 @@
 		<!---- get all units code tables, plus ass in the stuff we can guess via eg, to_meters function ---->
 		<cfset attrunits="M,METERS,METER,FT,FEET,FOOT,KM,KILOMETER,KILOMETERS,MM,MILLIMETER,MILLIMETERS,CM,CENTIMETER,CENTIMETERS,MI,MILE,MILES,YD,YARD,YARDS,FM,FATHOM,FATHOMS">
 		<cfquery name="uct" datasource="uam_god">
-			select UNITS_CODE_TABLE from ctattribute_code_tables group by UNITS_CODE_TABLE
+			select UNITS_CODE_TABLE from ctattribute_code_tables where UNITS_CODE_TABLE is not null group by UNITS_CODE_TABLE
 		 </cfquery>
 		 <cfloop query="uct">
 		 	<cfquery name="tct" datasource="uam_god">
