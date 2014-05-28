@@ -1150,7 +1150,7 @@
 			<cfset low=trim(listgetat(numeric_age,1,"-"))>
 			
 			
-			<cfset t2=replace(numeric_age,low,"","first")>
+			<cfset t2=trim(replace(replace(replace(numeric_age,low,"","first"),"-",""),schunits,""))>
 			
 		<br>t2: ::#t2#::
 			
