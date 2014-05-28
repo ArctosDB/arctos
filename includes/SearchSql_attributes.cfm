@@ -14,6 +14,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(abundance)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_abundance.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -32,6 +33,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(age)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_age.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -50,6 +52,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(age_class)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_age_class.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -116,6 +119,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(body_condition)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_body_condition.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -182,6 +186,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(bursa)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_bursa.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -248,6 +253,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(caste)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_caste.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -266,6 +272,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(clutch_size)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_clutch_size.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -284,6 +291,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(clutch_size_of_nest_parasite)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_clutch_size_of_nest_parasite.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -302,6 +310,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(colors)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_colors.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -392,6 +401,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(description)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_description.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -410,6 +420,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(diploid_number)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_diploid_number.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -548,6 +559,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(experimental_infection)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_experimental_infection.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -590,6 +602,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(fat_deposition)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_fat_deposition.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -776,6 +789,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(image_confirmed)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_image_confirmed.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -794,6 +808,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(incubation_stage)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_incubation_stage.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -812,6 +827,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(location_in_host)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_location_in_host.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -830,6 +846,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(molt_condition)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_molt_condition.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -872,6 +889,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(nest_description)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_nest_description.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -890,6 +908,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(nest_phenology)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_nest_phenology.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -908,6 +927,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(number_of_labels)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_number_of_labels.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -974,6 +994,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(parasite_yes_no)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_parasite_yes_no.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -992,6 +1013,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(parasites_found)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_parasites_found.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1034,6 +1056,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(reproductive_data)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_reproductive_data.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1052,6 +1075,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(sex)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_sex.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1070,6 +1094,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(skull_ossification)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_skull_ossification.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1112,6 +1137,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(snv_results)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_snv_results.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1130,6 +1156,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(soft_part_color)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_soft_part_color.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1148,6 +1175,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(soft_parts)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_soft_parts.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1166,6 +1194,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(stomach_contents)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_stomach_contents.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1208,6 +1237,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(tail_condition)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_tail_condition.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1298,6 +1328,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(trap_identifier)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_trap_identifier.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1316,6 +1347,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(trap_type)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_trap_type.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1334,6 +1366,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(unformatted_measurements)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_unformatted_measurements.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1352,6 +1385,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(verbatim_host_age)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_verbatim_host_age.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1370,6 +1404,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(verbatim_host_id)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_verbatim_host_id.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1388,6 +1423,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(verbatim_host_sex)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_verbatim_host_sex.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
@@ -1406,6 +1442,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(verbatim_preservation_date)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
          <cfset basQual = " #basQual# AND upper(tbl_verbatim_preservation_date.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
     </cfif>
 </cfif>
