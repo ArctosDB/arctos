@@ -320,10 +320,13 @@ function initialize() {
 	map = new google.maps.Map(document.getElementById('spresmapdiv'),mapOptions);
 }
 function resizeMap(s){
+	var theBounds=map.getBounds();
 	$("#spresmapdiv").removeClass().addClass(s);
 	x = map.getZoom();
     c = map.getCenter();
     google.maps.event.trigger(map, 'resize');
+    
+    map.fitBounds(bounds);
     map.setZoom(x);
     map.setCenter(c);
 	jQuery.getJSON("/component/functions.cfc",
@@ -335,7 +338,6 @@ function resizeMap(s){
 			queryformat : 'column'
 		}
 	);
-	console.log(markers);
 }
 function queryByViewport(){
 	if (! $("#refineSearchTerms").is(":visible")) {
