@@ -168,6 +168,7 @@
 	<cfset x=x & chr(10) & '        <cfelse>'>
 	<cfset x=x & chr(10) & '            <cfset oper="like"><cfset schTerm=ucase(#attrvar#)>'>
 	<cfset x=x & chr(10) & '        </cfif>'>
+	<cfset x=x & chr(10) & '        <cfif oper is "!"><cfset oper="!="></cfif>'>
 	<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND upper(tbl_#attrvar#.attribute_value) ##oper## ''%##ucase(escapeQuotes(schTerm))##%''">'>  
 	
 	
