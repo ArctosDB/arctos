@@ -161,13 +161,13 @@
 		<cfset x=x & chr(10) & '         <cfif len(schunits) gt 0>'>
 		<cfset x=x & chr(10) & '             <cfset basQual = " ##basQual## AND to_meters(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_meters(##schTerm##,''##schunits##'')">'>
 		<cfset x=x & chr(10) & '         <cfelse>'>
-		<cfset x=x & chr(10) & '             <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ##schTerm##">'>
+		<cfset x=x & chr(10) & '             <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ''##schTerm##''">'>
 		<cfset x=x & chr(10) & '         </cfif>'>
 	<cfelseif asrchlst is "attrWeightUnits">
 		<cfset x=x & chr(10) & '         <cfif len(schunits) gt 0>'>
 		<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_grams(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_grams(##schTerm##,''##schunits##'')">'>
 		<cfset x=x & chr(10) & '         <cfelse>'>
-		<cfset x=x & chr(10) & '             <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ##schTerm##">'>
+		<cfset x=x & chr(10) & '             <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ''##schTerm##''">'>
 		<cfset x=x & chr(10) & '         </cfif>'>
 	
 	
@@ -175,7 +175,7 @@
 		<cfset x=x & chr(10) & '         <cfif len(schunits) gt 0>'>
 		<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND to_days(tbl_#attrvar#.attribute_value,tbl_#attrvar#.attribute_units) ##oper## to_days(##schTerm##,''##schunits##'')">'>
 		<cfset x=x & chr(10) & '         <cfelse>'>
-		<cfset x=x & chr(10) & '             <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ##schTerm##">'>
+		<cfset x=x & chr(10) & '             <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ''##schTerm##''">'>
 		<cfset x=x & chr(10) & '         </cfif>'>
 		
 		
@@ -184,7 +184,7 @@
 		<cfset x=x & chr(10) & '         <cfif len(schunits) gt 0>'>
 		<cfset x=x & chr(10) & '         <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ##schTerm## and tbl_#attrvar#.attribute_units=''##schunits##'' ">'>
 		<cfset x=x & chr(10) & '         <cfelse>'>
-		<cfset x=x & chr(10) & '             <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ##schTerm##">'>
+		<cfset x=x & chr(10) & '             <cfset basQual = " ##basQual## AND tbl_#attrvar#.attribute_value ##oper## ''##schTerm##''">'>
 		<cfset x=x & chr(10) & '         </cfif>'>
 		
 		
