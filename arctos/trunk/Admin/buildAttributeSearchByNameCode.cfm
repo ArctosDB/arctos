@@ -121,11 +121,11 @@
 <cfset x=x & chr(10) & '        </cfif>'>
 <cfset x=x & chr(10) & '        <cfif oper is "!"><cfset oper="!="></cfif>'>
 <cfif len(tctl.UNITS_CODE_TABLE) gt 0>
-	<cfif UNITS_CODE_TABLE is "ctlength_units">
+	<cfif tctl.UNITS_CODE_TABLE is "ctlength_units">
 		<cfset asrchlst="attrLengthUnits">
-	<cfelseif UNITS_CODE_TABLE is "ctweight_units">
+	<cfelseif tctl.UNITS_CODE_TABLE is "ctweight_units">
 		<cfset asrchlst="attrWeightUnits">
-	<cfelseif UNITS_CODE_TABLE is "ctnumeric_age_units">
+	<cfelseif tctl.UNITS_CODE_TABLE is "ctnumeric_age_units">
 		<cfset asrchlst="attrTimeUnits">
 	<cfelse>
 		<cfset asrchlst="">
