@@ -97,7 +97,7 @@
 		</cfsavecontent>
 	</cfoutput>
 	
-	<cfreturn rpw>		
+	<cfreturn row>		
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
