@@ -335,6 +335,7 @@ function resizeMap(s){
 			queryformat : 'column'
 		}
 	);
+	console.log(markers);
 }
 function queryByViewport(){
 	if (! $("#refineSearchTerms").is(":visible")) {
