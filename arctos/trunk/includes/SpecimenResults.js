@@ -1,3 +1,6 @@
+var map;
+var bounds;
+
 $(document).ready(function () {
 	       
 			jQuery("#cntr_refineSearchTerms").html("<img src='/images/indicator.gif'>");
@@ -10,8 +13,7 @@ $(document).ready(function () {
 				jQuery("#mapGoHere").html(data);
 			});
 
-
-			initialize();
+		    initialize();
 			var markers = [];
     		var infowindow = new google.maps.InfoWindow();
 			var cfgml=$("#cfgml").val();
@@ -381,8 +383,7 @@ function addCoordinates(c){
 }
 // google maps experiment
 
-var map;
-var bounds;
+
 //var rectangle;
 function initialize() {
 	var mapOptions = {
@@ -399,10 +400,12 @@ function resizeMap(s){
 	$("#spresmapdiv").removeClass().addClass(s);
 	x = map.getZoom();
     c = map.getCenter();
-    map.fitBounds(bounds);
     google.maps.event.trigger(map, 'resize');
     map.setZoom(x);
     map.setCenter(c);
+    
+    map.fitBounds(bounds);
+
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "changeUserPreference",
