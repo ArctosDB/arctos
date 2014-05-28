@@ -15,6 +15,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(abundance)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_abundance.attribute_value,tbl_abundance.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -40,6 +41,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(age)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_age.attribute_value,tbl_age.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -65,6 +67,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(age_class)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_age_class.attribute_value,tbl_age_class.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -90,6 +93,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(appraised_value)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -119,6 +123,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(axillary_girth)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -148,6 +153,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(body_condition)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_body_condition.attribute_value,tbl_body_condition.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -173,6 +179,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(body_width)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -202,6 +209,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(breadth)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -231,6 +239,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(bursa)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_bursa.attribute_value,tbl_bursa.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -256,6 +265,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(bursa_length)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -285,6 +295,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(carapace_length)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -314,6 +325,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(caste)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_caste.attribute_value,tbl_caste.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -339,6 +351,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(clutch_size)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_clutch_size.attribute_value,tbl_clutch_size.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -364,6 +377,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(clutch_size_of_nest_parasite)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_clutch_size_of_nest_parasite.attribute_value,tbl_clutch_size_of_nest_parasite.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -389,6 +403,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(colors)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_colors.attribute_value,tbl_colors.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -414,6 +429,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(crown_rump_length)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -443,6 +459,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(curvilinear_length)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -472,6 +489,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(depth)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -501,6 +519,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(description)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_description.attribute_value,tbl_description.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -526,6 +545,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(diploid_number)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_diploid_number.attribute_value,tbl_diploid_number.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -551,6 +571,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(ear_from_crown)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -580,6 +601,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(ear_from_notch)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -609,6 +631,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(egg_content_weight)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -638,6 +661,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(eggshell_thickness)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -667,6 +691,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(embryo_weight)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -696,6 +721,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(experimental_infection)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_experimental_infection.attribute_value,tbl_experimental_infection.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -721,6 +747,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(extension)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -750,6 +777,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(fat_deposition)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_fat_deposition.attribute_value,tbl_fat_deposition.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -775,6 +803,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(forearm_length)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -804,6 +833,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(gonad)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -833,6 +863,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(head_length)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -862,6 +893,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(head_width)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -891,6 +923,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(height)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -920,6 +953,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(hind_foot_with_claw)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -949,6 +983,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(hind_foot_without_claw)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -978,6 +1013,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(image_confirmed)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_image_confirmed.attribute_value,tbl_image_confirmed.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1003,6 +1039,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(incubation_stage)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_incubation_stage.attribute_value,tbl_incubation_stage.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1028,6 +1065,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(location_in_host)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_location_in_host.attribute_value,tbl_location_in_host.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1053,6 +1091,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(molt_condition)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_molt_condition.attribute_value,tbl_molt_condition.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1078,6 +1117,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(neck_width)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -1107,6 +1147,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(nest_description)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_nest_description.attribute_value,tbl_nest_description.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1132,6 +1173,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(nest_phenology)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_nest_phenology.attribute_value,tbl_nest_phenology.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1157,6 +1199,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(number_of_labels)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_number_of_labels.attribute_value,tbl_number_of_labels.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1166,10 +1209,9 @@
      </cfif>
     </cfif>
 </cfif>
-<cfoutput>
+
 <cfif isdefined("numeric_age") and len(numeric_age) gt 0>
     <cfset mapurl = "#mapurl#&numeric_age=#numeric_age#">
-	<br>got #numeric_age#
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_numeric_age ON (#session.flatTableName#.collection_object_id = tbl_numeric_age.collection_object_id)">
     <cfset basQual = " #basQual# AND tbl_numeric_age.attribute_type = 'numeric age'">
     <cfif session.flatTableName is not "flat">
@@ -1178,17 +1220,12 @@
     <cfset schunits="">
     <cfif numeric_age neq "_">
         <cfset oper=left(numeric_age,1)>
-		<br>oper: #oper#
         <cfif listfind(numattrschops,oper)>
             <cfset schTerm=ucase(right(numeric_age,len(numeric_age)-1))>
-		<br>schTerm: #schTerm#
         <cfelse>
-		<br>else....
             <cfset oper="like"><cfset schTerm=ucase(numeric_age)>
         </cfif>
-		<cfif oper is "!">
-			<cfset oper="!=">
-		</cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -1202,7 +1239,7 @@
      </cfif>
     </cfif>
 </cfif>
-</cfoutput>
+
 <cfif isdefined("ovum") and len(ovum) gt 0>
     <cfset mapurl = "#mapurl#&ovum=#ovum#">
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_ovum ON (#session.flatTableName#.collection_object_id = tbl_ovum.collection_object_id)">
@@ -1218,6 +1255,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(ovum)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -1247,6 +1285,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(parasite_yes_no)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_parasite_yes_no.attribute_value,tbl_parasite_yes_no.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1272,6 +1311,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(parasites_found)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_parasites_found.attribute_value,tbl_parasites_found.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1297,6 +1337,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(purchase_value)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -1326,6 +1367,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(reproductive_data)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_reproductive_data.attribute_value,tbl_reproductive_data.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1351,6 +1393,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(sex)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_sex.attribute_value,tbl_sex.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1376,6 +1419,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(skull_ossification)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_skull_ossification.attribute_value,tbl_skull_ossification.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1401,6 +1445,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(snout_vent_length)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -1430,6 +1475,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(snv_results)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_snv_results.attribute_value,tbl_snv_results.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1455,6 +1501,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(soft_part_color)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_soft_part_color.attribute_value,tbl_soft_part_color.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1480,6 +1527,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(soft_parts)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_soft_parts.attribute_value,tbl_soft_parts.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1505,6 +1553,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(stomach_contents)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_stomach_contents.attribute_value,tbl_stomach_contents.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1530,6 +1579,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(tail_base_width)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -1559,6 +1609,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(tail_condition)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_tail_condition.attribute_value,tbl_tail_condition.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1584,6 +1635,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(tail_length)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -1613,6 +1665,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(total_length)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -1642,6 +1695,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(tragus_length)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -1671,6 +1725,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(trap_identifier)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_trap_identifier.attribute_value,tbl_trap_identifier.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1696,6 +1751,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(trap_type)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_trap_type.attribute_value,tbl_trap_type.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1721,6 +1777,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(unformatted_measurements)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_unformatted_measurements.attribute_value,tbl_unformatted_measurements.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1746,6 +1803,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(verbatim_host_age)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_verbatim_host_age.attribute_value,tbl_verbatim_host_age.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1771,6 +1829,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(verbatim_host_id)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_verbatim_host_id.attribute_value,tbl_verbatim_host_id.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1796,6 +1855,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(verbatim_host_sex)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_verbatim_host_sex.attribute_value,tbl_verbatim_host_sex.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1821,6 +1881,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(verbatim_preservation_date)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
       <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_meters(tbl_verbatim_preservation_date.attribute_value,tbl_verbatim_preservation_date.attribute_units) #oper# to_meters(#schTerm#,'#schunits#')">
      <cfelseif oper is not "like" and len(schunits) is 0>
@@ -1846,6 +1907,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(weight)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -1875,6 +1937,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(width)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
@@ -1904,6 +1967,7 @@
         <cfelse>
             <cfset oper="like"><cfset schTerm=ucase(wing_chord)>
         </cfif>
+        <cfif oper is "!"><cfset oper="!="></cfif>
      <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
      <cfif len(temp) gt 0 and listfindnocase(attrunits,temp) and isnumeric(replace(schTerm,temp,""))>
          <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
