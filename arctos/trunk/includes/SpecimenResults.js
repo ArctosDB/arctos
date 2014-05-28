@@ -320,7 +320,9 @@ function initialize() {
 	map = new google.maps.Map(document.getElementById('spresmapdiv'),mapOptions);
 }
 function resizeMap(s){
-	var theBounds=map.getBounds();
+	var bounds=map.getBounds();
+	
+
 	$("#spresmapdiv").removeClass().addClass(s);
 	x = map.getZoom();
     c = map.getCenter();
