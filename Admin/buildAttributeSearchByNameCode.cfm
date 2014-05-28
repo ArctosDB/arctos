@@ -128,7 +128,7 @@
 	<cfelseif tctl.UNITS_CODE_TABLE is "ctnumeric_age_units">
 		<cfset asrchlst="attrTimeUnits">
 	<cfelse>
-		<cfset asrchlst="">
+		<cfset asrchlst="'XXXX'">
 	</cfif>
 	<cfset x=x & chr(10) & '     <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>'>    
 	<cfset x=x & chr(10) & '     <cfif len(temp) gt 0 and listfindnocase(#asrchlst#,temp) and isnumeric(replace(schTerm,temp,""))>'>  
