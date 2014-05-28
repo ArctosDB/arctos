@@ -1104,6 +1104,9 @@
     </cfif>
 </cfif>
 
+
+
+<cfoutput>
 <cfif isdefined("numeric_age") and len(numeric_age) gt 0>
     <cfset mapurl = "#mapurl#&numeric_age=#numeric_age#">
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_numeric_age ON (#session.flatTableName#.collection_object_id = tbl_numeric_age.collection_object_id)">
@@ -1121,14 +1124,23 @@
         </cfif>
         <cfif oper is "!"><cfset oper="!="></cfif>
         <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
+		
+		
+		<br>temp: <cfdump var=#temp#>
+		
+		
         <cfif len(temp) gt 0 and listfindnocase(attrTimeUnits,temp) and isnumeric(replace(schTerm,temp,""))>
             <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
         
 		
 		<cfelseif len(temp) gt 0  and listfindnocase(attrTimeUnits,temp) and isnumeric(replace(replace(schTerm,'-',''),temp,""))>
-		here we are now....
+		<p>
+			here we are now....
+		</p>
 		
 		</cfif>
+		
+		
          <cfif len(schunits) gt 0>
          <cfset basQual = " #basQual# AND to_days(tbl_numeric_age.attribute_value,tbl_numeric_age.attribute_units) #oper# to_days(#schTerm#,'#schunits#')">
          <cfelse>
@@ -1137,6 +1149,8 @@
     </cfif>
 </cfif>
 
+
+</cfoutput>
 <cfif isdefined("ovum") and len(ovum) gt 0>
     <cfset mapurl = "#mapurl#&ovum=#ovum#">
     <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_ovum ON (#session.flatTableName#.collection_object_id = tbl_ovum.collection_object_id)">
