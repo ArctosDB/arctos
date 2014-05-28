@@ -29,7 +29,7 @@
 			<cfquery name="cto" dbtype="query">
 				select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
 			</cfquery>
-			<cfset attrunits=listappend(attrunits,valuelist(cto.thisctvalue)>
+			<cfset attrunits=listappend(attrunits,valuelist(cto.thisctvalue))>
 		 </cfloop>
 		 #attrunits#
 		 
