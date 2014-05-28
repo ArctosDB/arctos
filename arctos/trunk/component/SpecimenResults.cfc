@@ -283,9 +283,10 @@
 							returnformat : "json"
 						},
 						function (result) {
-							
 							$('##stermwdgtbl tr:last').after(result.ROW);
-							$("##newTerm option[value='" + tv + "']").remove();
+							if (result.ATTRTYPE != 'attribute'){
+								$("##newTerm option[value='" + tv + "']").remove();
+							}
 						}
 					);
 				}
