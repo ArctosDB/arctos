@@ -1147,8 +1147,12 @@
 		<br>schunits: ::#schunits#::
 
 </p>
-			<cfset low=listgetat(numeric_age,1,"-")>
+			<cfset low=trim(listgetat(numeric_age,1,"-"))>
 			
+			
+			<cfset t2=replace(numeric_age,low,"","first")>
+			
+		<br>t2: ::#t2#::
 			
 			<p>
 
