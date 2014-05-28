@@ -96,9 +96,8 @@
 			</tr>
 		</cfsavecontent>
 	</cfoutput>
-	<cfset r = {attrtype = tquery.CATEGORY,row = row} />
 	
-	<cfreturn r>		
+	<cfreturn rpw>		
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
@@ -283,10 +282,8 @@
 							returnformat : "json"
 						},
 						function (result) {
-							$('##stermwdgtbl tr:last').after(result.ROW);
-							if (result.ATTRTYPE != 'attribute'){
-								$("##newTerm option[value='" + tv + "']").remove();
-							}
+							$('##stermwdgtbl tr:last').after(result);
+							$("##newTerm option[value='" + tv + "']").remove();
 						}
 					);
 				}
