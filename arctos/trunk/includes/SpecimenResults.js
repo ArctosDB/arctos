@@ -313,16 +313,13 @@ function injectLoanPick() {
 								theTable += '<br><i>Encumbrances:&nbsp;' + r.DATA.ENCUMBRANCE_ACTION[i] + '</i>';
 							}
 							theTable +="</td></tr>";
-							
-							
-						}
-						if (gotsomething){
-							theTable +='</table>';
-							$("#CatItem_" + x).append(theTable);
-							console.log('append this to the table');
 						}
 					}
-					
+					if (gotsomething){
+						theTable +='</table>';
+						$("#CatItem_" + x).append(theTable);
+						console.log('append this to the table');
+					}
 					console.log('END table....');
 
 				});
