@@ -306,7 +306,7 @@ function injectLoanPick() {
 						} else {
 							theTable += "</tr></table>";
 						}
-						lastID = r.DATA.COLLECTION_OBJECT_ID[i];
+						var lastID = r.DATA.COLLECTION_OBJECT_ID[i];
 						$("#" + cid).append(theTable);
 					} // if item isn't in viewport, do nothing
 				} // loopity
