@@ -260,7 +260,8 @@ function injectLoanPick() {
 						
 						
 						console.log('running for ' + cid);
-						
+						console.log('lastID:' + lastID);
+						console.log('r.DATA.COLLECTION_OBJECT_ID[i]:' + r.DATA.COLLECTION_OBJECT_ID[i]);
 						
 						
 						var theCell = document.getElementById(cid);
