@@ -284,7 +284,7 @@ function injectLoanPick() {
 					
 					console.log('start table....');
 					for (i=0; i<r.ROWCOUNT; ++i) {
-						if (r.DATA.COLLECTION_OBJECT_ID[i]===x){
+						if (r.DATA.COLLECTION_OBJECT_ID[i]==x){
 							console.log('x=' + x + '; add row for part ' + r.DATA.PART_NAME[i]);
 						}
 						
