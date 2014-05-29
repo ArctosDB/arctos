@@ -282,17 +282,16 @@ function injectLoanPick() {
 				$("div[id^='CatItem_']").each(function(){ 
 					var x=this.id.split(/_(.+)?/)[1];
 					
-					console.log(this.id);
-					console.log(x);
+					console.log('start table....');
+					for (i=0; i<r.ROWCOUNT; ++i) {
+						if (r.DATA.COLLECTION_OBJECT_ID[i]===x){
+							console.log('x=' + x + '; add row for part ' + r.DATA.PART_NAME[i]);
+						}
+						
+					}
+					
+					console.log('END table....');
 
-					currentPage.push(this.id); 
-					
-					
-					
-					var theseParts=getObjects(r.DATA,'COLLECTION_OBJECT_ID',x);
-
-					console.log('theseParts');
-					console.log(theseParts);
 				});
 				
 				console.log(currentPage);
