@@ -259,7 +259,8 @@ function injectLoanPick() {
 				// this will return stuff that's not on this page and we don't care.
 				// get ID of visible stuff
 				var divList = $("div[id^='CatItem_']");
-				console.log('divList: ' + divList)
+				console.log('divList follows ');
+				console.log(divList);
 			}
 			
 			
