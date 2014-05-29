@@ -273,12 +273,6 @@ function injectLoanPick() {
 				queryformat : 'column'
 			},
 			function (r) {
-				// this will return stuff that's not on this page and we don't care.
-				// get ID of visible stuff
-				var divList = $("div[id^='CatItem_']");
-				console.log('divList follows ');
-				console.log(divList);
-				
 				$("div[id^='CatItem_']").each(function(){ 
 					var x=this.id.split(/_(.+)?/)[1];
 					
@@ -314,14 +308,15 @@ function injectLoanPick() {
 							}
 							theTable +="</td></tr>";
 						}
+						
 					}
+					
 					if (gotsomething){
 						theTable +='</table>';
 						$("#CatItem_" + x).append(theTable);
 						console.log('append this to the table');
 					}
 					console.log('END table....');
-
 				});
 				
 				console.log(currentPage);
