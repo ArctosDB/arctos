@@ -288,7 +288,7 @@ function injectLoanPick() {
 					
 					
 					
-					var theseParts=getObjects(r,'COLLECTION_OBJECT_ID',x)l
+					var theseParts=getObjects(r,'COLLECTION_OBJECT_ID',x);
 
 					console.log('theseParts');
 					console.log(theseParts);
