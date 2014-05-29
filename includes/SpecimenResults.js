@@ -263,7 +263,11 @@ function injectLoanPick() {
 				console.log(divList);
 				
 				$("div[id^='CatItem_']").each(function(){ 
+					var x=this.id.split(/_(.+)?/)[1];
+					
 					console.log(this.id);
+					console.log(x);
+
 					currentPage.push(this.id); 
 				});
 				
