@@ -266,7 +266,7 @@ function injectLoanPick() {
 						
 						var theCell = document.getElementById(cid);
 						if (lastID == r.DATA.COLLECTION_OBJECT_ID[i]) {
-							var theTable += "<tr>";
+							theTable += "<tr>";
 						} else {
 							var theTable = '<table border width="100%"><tr>';
 						}
