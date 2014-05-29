@@ -280,10 +280,10 @@ function injectLoanPick() {
 					
 					var gotsomething=false;
 					
-					
+					var theTable='<table border width="100%">';
+
 					
 					for (i=0; i<r.ROWCOUNT; ++i) {
-						var theTable='<table border width="100%">';
 						if (r.DATA.COLLECTION_OBJECT_ID[i]==x){
 							gotsomething=true;
 							console.log('x=' + x + '; add row for part ' + r.DATA.PART_NAME[i]);
