@@ -277,8 +277,12 @@ function injectLoanPick() {
 					var x=this.id.split(/_(.+)?/)[1];
 					
 					console.log('start table....');
+					
+					var gotsomething=false;
+					
+					
+					
 					for (i=0; i<r.ROWCOUNT; ++i) {
-						var gotsomething=false;
 						var theTable='<table border width="100%">';
 						if (r.DATA.COLLECTION_OBJECT_ID[i]==x){
 							gotsomething=true;
