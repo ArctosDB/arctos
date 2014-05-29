@@ -1,4 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
+<cfif not isdefined("session.RESULTSBROWSEPREFS")>
+	<cfset session.RESULTSBROWSEPREFS=0>
+</cfif>
 <cfset title="Specimen Results">
 <cfif not isdefined("session.srmapclass") or len(session.srmapclass) is 0>
 	<cfset session.srmapclass='smallmap'>

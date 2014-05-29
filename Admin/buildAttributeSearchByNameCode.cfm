@@ -232,9 +232,6 @@
 			Get the CFML to build /includes/SearchSql_attributes.cfm <a href="/download/specsrch.txt">here</a>
 		</p>
 		
-			<!--- completely unrelated, but here's a handy time to integerize disp_order.
-		
-		---->
 		<p>To avoid strange fractions and gaps, run this, commit, and then reload this page.</p>
 <textarea rows="10" cols="100">
 declare 
