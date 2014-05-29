@@ -319,8 +319,6 @@ function injectLoanPick() {
 					console.log('END table....');
 				});
 				
-				console.log(currentPage);
-
 			}
 			
 			
