@@ -241,24 +241,20 @@ function insertTypes(idList) {
 
 
 function getObjects(obj, key, val) {
-    var retv = [];
-
-    if(jQuery.isPlainOBject(obj))
-    {
-        if(obj[key] === val) // may want to add obj.hasOwnProperty(key) here.
-            retv.push(obj);
-
-        var objects = jQuery.grep(obj, function(elem) {
-            return (jQuery.isArray(elem) || jQuery.isPlainObject(elem));
-        });
-
-        retv.concat(jQuery.map(objects, function(elem){
-            return getObjects(elem, key, val);
-        }));
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getObjects(obj[i], key, val));
+        } else if (i == key && obj[key] == val) {
+            objects.push(obj);
+        }
     }
-
-    return retv;
+    return objects;
 }
+
+
+
 
 function injectLoanPick() {
 	var transaction_id=$("#transaction_id").val();
@@ -293,7 +289,7 @@ function injectLoanPick() {
 					
 					
 					
-					var theseParts=getObjects(r,'COLLECTION_OBJECT_ID',x);
+					var theseParts=getObjects(r.DATA,'COLLECTION_OBJECT_ID',x);
 
 					console.log('theseParts');
 					console.log(theseParts);
