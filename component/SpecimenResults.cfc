@@ -101,6 +101,10 @@
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
+	<cfif not isdefined("session.RESULTSBROWSEPREFS")>
+		<cfset session.RESULTSBROWSEPREFS=0>
+	</cfif>
+	<cftry>
 	<cfoutput>
 		<cfif session.resultsbrowseprefs neq 1>
 			<cfsavecontent variable="widget">
@@ -186,8 +190,8 @@
 					<cfset v=valuelist(cto.thisctvalue,"|")>
 				<cfelse>
 					<cfset v=listchangedelims(thisMoreInfo.CONTROLLED_VOCABULARY,"|")>				
-				</cfif>				
-				<cfif listcontainsnocase(srchcols.columnlist,thisKey)>
+				</cfif>
+				<cfif listfindnocase(srchcols.columnlist,thisKey)>
 					<cfquery name="dvt" dbtype="query">
 						select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
 					</cfquery>
@@ -209,7 +213,7 @@
 		<!---- then loop over select things from their results ---->
 		<cfset thisValue="">
 		<cfloop list="#srchcols.columnlist#" index="thisKey">
-			<cfif not listcontainsnocase(stuffToIgnore,thisKey) and  not listcontainsnocase(keylist,thisKey)>
+			<cfif not listfindnocase(stuffToIgnore,thisKey) and  not listfindnocase(keylist,thisKey)>
 				<cfset keylist=listappend(keylist,thisKey)>
 				<cfquery name="thisMoreInfo" dbtype="query">
 					select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
@@ -231,7 +235,7 @@
 					<cfelse>
 						<cfset v=listchangedelims(thisMoreInfo.CONTROLLED_VOCABULARY,"|")>				
 					</cfif>
-					<cfif listcontainsnocase(srchcols.columnlist,thisKey)>
+					<cfif listfindnocase(srchcols.columnlist,thisKey)>
 						<cfquery name="dvt" dbtype="query">
 							select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
 						</cfquery>
@@ -337,7 +341,7 @@
 											<select class="ssw_sngselect" onchange="$('###sugntab.key#').val(this.value);">
 												<option value=""></option>
 												<cfloop list="#sugntab.vocab#" index="v" delimiters="|">
-													<cfif listcontainsnocase(sugntab.indata,v,"|")>
+													<cfif listfindnocase(sugntab.indata,v,"|")>
 														<cfset thisStyle="font-weight:bold;">
 													<cfelse>
 														<cfset thisStyle="">
@@ -383,6 +387,11 @@
 			</div>
 		</cfsavecontent>
 	</cfoutput>
+	<cfcatch>
+		<cf_logError subject="specimenresults widget error" attributeCollection=#cfcatch#>
+		<cfreturn "An error occurred">
+	</cfcatch>
+	</cftry>
 	<cfreturn widget>	
 </cffunction>
 <!-------------------------------------------------->
