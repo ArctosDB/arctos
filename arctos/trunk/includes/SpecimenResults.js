@@ -239,6 +239,22 @@ function insertTypes(idList) {
 }
 
 
+
+function getObjects(obj, key, val) {
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getObjects(obj[i], key, val));
+        } else if (i == key && obj[key] == val) {
+            objects.push(obj);
+        }
+    }
+    return objects;
+}
+
+
+
 function injectLoanPick() {
 	var transaction_id=$("#transaction_id").val();
 	if (transaction_id) {
@@ -269,6 +285,13 @@ function injectLoanPick() {
 					console.log(x);
 
 					currentPage.push(this.id); 
+					
+					
+					
+					var theseParts=getObjects(r,'COLLECTION_OBJECT_ID',x)l
+
+					console.log('theseParts');
+					console.log(theseParts);
 				});
 				
 				console.log(currentPage);
