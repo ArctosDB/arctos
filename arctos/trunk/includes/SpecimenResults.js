@@ -266,14 +266,16 @@ function injectLoanPick() {
 						
 						var theCell = document.getElementById(cid);
 						if (lastID == r.DATA.COLLECTION_OBJECT_ID[i]) {
+							console.log(lastID + ' is not ' + r.DATA.COLLECTION_OBJECT_ID[i]);
 							theTable += "<tr>";
 						} else {
+							console.log(lastID + ' is equal to ' + r.DATA.COLLECTION_OBJECT_ID[i]);
 							var theTable = '<table border width="100%"><tr>';
 						}
 						theTable += '<td nowrap="nowrap" class="specResultPartCell">';
 						
 						
-						theTable +=  lastID + '<    lastid::::currrentID    >' + r.DATA.COLLECTION_OBJECT_ID[i];
+						theTable +=  lastID + '<    lastID::::currrentID    >' + r.DATA.COLLECTION_OBJECT_ID[i];
 							
 							
 							
