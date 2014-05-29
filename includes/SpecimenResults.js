@@ -271,6 +271,12 @@ function injectLoanPick() {
 							var theTable = '<table border width="100%"><tr>';
 						}
 						theTable += '<td nowrap="nowrap" class="specResultPartCell">';
+						
+						
+						theTable +=  r.DATA.COLLECTION_OBJECT_ID[i]);
+							
+							
+							
 						theTable += '<i>' + r.DATA.PART_NAME[i];
 						if (r.DATA.SAMPLED_FROM_OBJ_ID[i] > 0) {
 							theTable += '&nbsp;sample';
