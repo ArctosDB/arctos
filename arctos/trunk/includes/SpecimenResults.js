@@ -260,11 +260,6 @@ function injectLoanPick() {
 	var transaction_id=$("#transaction_id").val();
 	if (transaction_id) {
 		$( "body" ).append('<div id="ajaxStatus" class="ajaxStatus">Feching Loan Pick...</div>')
-		
-		
-		var lastID;
-		var currentPage = [];
-		
 		jQuery.getJSON("/component/SpecimenResults.cfc",
 			{
 				method : "getLoanPartResults",
@@ -275,18 +270,11 @@ function injectLoanPick() {
 			function (r) {
 				$("div[id^='CatItem_']").each(function(){ 
 					var x=this.id.split(/_(.+)?/)[1];
-					
-					console.log('start table....');
-					
-					var gotsomething=false;
-					
+					var gotsomething=false;					
 					var theTable='<table border width="100%">';
-
-					
 					for (i=0; i<r.ROWCOUNT; ++i) {
 						if (r.DATA.COLLECTION_OBJECT_ID[i]==x){
 							gotsomething=true;
-							console.log('x=' + x + '; add row for part ' + r.DATA.PART_NAME[i]);
 							theTable+='<tr><td nowrap="nowrap" class="specResultPartCell"><i>' + r.DATA.PART_NAME[i];
 							if (r.DATA.SAMPLED_FROM_OBJ_ID[i] > 0) {
 								theTable += '&nbsp;sample';
@@ -312,39 +300,15 @@ function injectLoanPick() {
 							}
 							theTable +="</td></tr>";
 						}
-						
 					}
 					
 					if (gotsomething){
 						theTable +='</table>';
 						$("#CatItem_" + x).append(theTable);
-						console.log('append this to the table');
 					}
-					console.log('END table....');
 				});
-				
+				$("#ajaxStatus").remove();
 			}
-			
-			
-				/*
-						
-					
-						if (r.DATA.COLLECTION_OBJECT_ID[i+1] && r.DATA.COLLECTION_OBJECT_ID[i+1] == r.DATA.COLLECTION_OBJECT_ID[i]) {
-							theTable += "</tr>";
-						} else {
-							theTable += "</tr></table>";
-						}
-						var lastID = r.DATA.COLLECTION_OBJECT_ID[i];
-						$("#" + cid).append(theTable);
-					} // if item isn't in viewport, do nothing
-				
-				} // loopity
-			} // end return fn
-			
-			
-				*/
-			
-			
 		);
 	} // no transaction_id just abort
 }
