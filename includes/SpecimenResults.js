@@ -273,7 +273,7 @@ function injectLoanPick() {
 						theTable += '<td nowrap="nowrap" class="specResultPartCell">';
 						
 						
-						theTable +=  lastID + '::::' + r.DATA.COLLECTION_OBJECT_ID[i];
+						theTable +=  lastID + '<lastid::::currrentID>' + r.DATA.COLLECTION_OBJECT_ID[i];
 							
 							
 							
