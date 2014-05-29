@@ -260,7 +260,9 @@ function injectLoanPick() {
 				// get ID of visible stuff
 				var divList = $("div[id^='CatItem_']");
 				console.log('divList: ' + divList)
-				
+			}
+			
+			
 				/*
 				for (i=0; i<r.ROWCOUNT; ++i) {
 					var cid = 'CatItem_' + r.DATA.COLLECTION_OBJECT_ID[i];
@@ -319,9 +321,14 @@ function injectLoanPick() {
 						var lastID = r.DATA.COLLECTION_OBJECT_ID[i];
 						$("#" + cid).append(theTable);
 					} // if item isn't in viewport, do nothing
-					*/
+				
 				} // loopity
 			} // end return fn
+			
+			
+				*/
+			
+			
 		);
 	} // no transaction_id just abort
 }
