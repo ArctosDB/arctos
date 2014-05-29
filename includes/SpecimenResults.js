@@ -284,10 +284,15 @@ function injectLoanPick() {
 					
 					console.log('start table....');
 					for (i=0; i<r.ROWCOUNT; ++i) {
+						var gotsomething=false;
 						if (r.DATA.COLLECTION_OBJECT_ID[i]==x){
+							gotsomething=true;
 							console.log('x=' + x + '; add row for part ' + r.DATA.PART_NAME[i]);
 						}
-						
+						if (gotsomething){
+							
+							console.log('append this to the table');
+						}
 					}
 					
 					console.log('END table....');
