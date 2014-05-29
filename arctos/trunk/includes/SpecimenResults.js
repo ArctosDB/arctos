@@ -273,7 +273,7 @@ function injectLoanPick() {
 						theTable += '<td nowrap="nowrap" class="specResultPartCell">';
 						
 						
-						theTable +=  r.DATA.COLLECTION_OBJECT_ID[i]);
+						theTable +=  r.DATA.COLLECTION_OBJECT_ID[i];
 							
 							
 							
