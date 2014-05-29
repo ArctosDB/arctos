@@ -266,9 +266,9 @@ function injectLoanPick() {
 						
 						var theCell = document.getElementById(cid);
 						if (lastID == r.DATA.COLLECTION_OBJECT_ID[i]) {
-							theTable += "<tr>";
+							var theTable += "<tr>";
 						} else {
-							theTable = '<table border width="100%"><tr>';
+							var theTable = '<table border width="100%"><tr>';
 						}
 						theTable += '<td nowrap="nowrap" class="specResultPartCell">';
 						theTable += '<i>' + r.DATA.PART_NAME[i];
