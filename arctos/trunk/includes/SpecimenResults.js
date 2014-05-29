@@ -1,6 +1,24 @@
 var map;
 var bounds;
 
+function confirmAddAllDL(){
+	var yesno=confirm('Are you sure you want to add all these specimens to the data loan?');
+	if (yesno==true) {
+		document.location='/Loan.cfm?action=addAllDataLoanItems&transaction_id=' + $("#transaction_id").val();  		
+ 	} else {
+	  	return false;
+  	}
+}
+function confirmAddAllPartLoan(){
+	var part_name=$("#part_name").val();
+	var msg='Are you sure you want to add all found ' + part_name + ' to the loan?';
+	var yesno=confirm(msg);
+	if (yesno==true) {
+		document.location='/Loan.cfm?action=addAllSrchResultLoanItems&transaction_id=' + $("#transaction_id").val() + '&part_name=' + encodeURIComponent(part_name);  		
+ 	} else {
+	  	return false;
+  	}
+}
 $(document).ready(function () {
 	       
 			jQuery("#cntr_refineSearchTerms").html("<img src='/images/indicator.gif'>");
@@ -239,6 +257,12 @@ function injectLoanPick() {
 				for (i=0; i<r.ROWCOUNT; ++i) {
 					var cid = 'CatItem_' + r.DATA.COLLECTION_OBJECT_ID[i];
 					if (document.getElementById(cid)){
+						
+						
+						console.log('running for ' + cid);
+						
+						
+						
 						var theCell = document.getElementById(cid);
 						if (lastID == r.DATA.COLLECTION_OBJECT_ID[i]) {
 							theTable += "<tr>";
