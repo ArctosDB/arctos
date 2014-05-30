@@ -13,7 +13,7 @@
 				) a where rownum <= #jtStopIndex#
 			) where rnum >= #jtStartIndex#
 	</cfquery>
-	<cfset session.collObjIdList = valuelist(result.collection_object_id)>
+	<cfset session.collObjIdList = valuelist(d.collection_object_id)>
 	<cfoutput>
 		<!--- 
 			CF and jtable don't play well together, so roll our own.... 
