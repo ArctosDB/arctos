@@ -167,6 +167,8 @@
 		from 
 			#session.SpecSrchTab#
 	</cfquery>
+	
+
 	<cfquery name="hascoords" dbtype="query">
 		select 
 			count(*) as numspecs,
