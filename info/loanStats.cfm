@@ -67,7 +67,7 @@
 		</select>
 		
 		
-	<br><input type="submit" value="filter">
+	<br><input type="submit" value="go">
 </form>
 <cfif action is "srch">
 <cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -173,6 +173,19 @@
 		RETURN_DUE_DATE,
 		TRANS_DATE
 </cfquery>
+
+
+	<cfset clist="Collection,Loan,Type,LoanedTo,Status,TransDate,DueDate,ItemsLoaned,Citations">
+		
+	<cfset fileDir = "#Application.webDirectory#">
+	<cfset variables.encoding="UTF-8">
+	<cfset fname = "loan-citation-stats.csv">
+	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(ListQualify(clist,'"')); 
+	</cfscript>
+	
 	<h2>Loan Statistics</h2>
 <div style="background-color:lightgray;font-size:small;padding:1em; width:50%; align:center;margin-left:3em;margin:1em;">
 	Citations apply to cataloged items and do not reflect activity resulting from any particular loan.
@@ -196,14 +209,18 @@
 		<th>Citations</th>
 	</tr>
 	<cfloop query="loanData">
+		<cfset oneLine = '"#collection#","#loan_number#","#loan_type#","#loaned_to#","#LOAN_STATUS#","#dateformat(TRANS_DATE,"yyyy-mm-dd")#","#dateformat(RETURN_DUE_DATE,"yyyy-mm-dd")#","#CntCatNum#","#cntCited#"'>
+		<cfscript>
+			variables.joFileWriter.writeLine(oneLine);
+		</cfscript>
 		<tr>
 			<td nowrap="nowrap">#collection#</td>
 			<td nowrap="nowrap"><a href="/Loan.cfm?action=editLoan&TRANSACTION_ID=#TRANSACTION_ID#">#loan_number#</a></td>
 			<td nowrap="nowrap">#loan_type#</td>
 			<td nowrap="nowrap">#loaned_to#</td>
 			<td>#LOAN_STATUS#</td>
-			<td nowrap="nowrap">#dateformat(TRANS_DATE,"dd mmm yyyy")#&nbsp;</td>
-			<td nowrap="nowrap">#dateformat(RETURN_DUE_DATE,"dd mmm yyyy")#&nbsp;</td>
+			<td nowrap="nowrap">#dateformat(TRANS_DATE,"yyyy-mm-dd")#&nbsp;</td>
+			<td nowrap="nowrap">#dateformat(RETURN_DUE_DATE,"yyyy-mm-dd")#&nbsp;</td>
 			<td>
 				<a href="/SpecimenResults.cfm?loan_trans_id=#loanData.TRANSACTION_ID#&collection_id=#loanData.collection_id#">#CntCatNum#</a>
 			</td>
@@ -212,7 +229,13 @@
 			</td>
 		</tr>
 	</cfloop>
+	<cfscript>	
+		variables.joFileWriter.close();
+	</cfscript>	
 </table>
+
+		<a href="/download/#fname#">CSV</a>
+
 </cfif>
 
 </cfoutput>
