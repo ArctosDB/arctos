@@ -21,6 +21,9 @@
 			}
 	    });
 	</script>
+	<style>
+		.collectionCell {vertical-align:text-bottom;}
+	</style>
 	<cfoutput>
 		<meta name="keywords" content="#session.meta_keywords#">
     	<LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico?v=3">	
