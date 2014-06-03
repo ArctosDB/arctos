@@ -200,6 +200,8 @@
 		Click headers to sort.
 	</p>
 </div>
+<p><a href="/download/#fname#">CSV</a></p>
+
 <table border id="t" class="sortable">
 	<tr>
 		<th>Collection</th>
@@ -240,7 +242,6 @@
 	</cfscript>	
 </table>
 
-		<a href="/download/#fname#">CSV</a>
 
 </cfif>
 
