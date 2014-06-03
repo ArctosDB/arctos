@@ -57,12 +57,12 @@
 							<tr>
 								<td align="left" valign="bottom" nowrap="nowrap" id="collectionCell" class="collectionCell">
 									<cfif len(session.collection_link_text) gt 0>
-									<a target="_top" href="#session.collection_url#" class="novisit">
-										<span class="headerCollectionText">
-												#session.collection_link_text#
-										</span>
-									</a>
-									<br>
+										<a target="_top" href="#session.collection_url#" class="novisit">
+											<span class="headerCollectionText">
+													#session.collection_link_text#
+											</span>
+										</a>
+										<br>
 									</cfif>
 									<a target="_top" href="#session.institution_url#" class="novisit">
 										<span class="headerInstitutionText">
@@ -71,13 +71,15 @@
 									</a>
 								</td>
 							</tr>
-							<tr>
-								<td colspan="2" id="creditCell">
-									<span  class="hdrCredit">
-										#session.header_credit#
-									</span>
-								</td>
-							</tr>
+							<cfif len(session.header_credit) gt 0>
+								<tr>
+									<td colspan="2" id="creditCell">
+										<span  class="hdrCredit">
+											#session.header_credit#
+										</span>
+									</td>
+								</tr>
+							</cfif>
 						</table>
 					</td>
 				</tr>
