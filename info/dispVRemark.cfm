@@ -18,7 +18,7 @@
 			<option value="#collection_id#">#collection#</option>
 		</cfloop>
 	</select>
-	<label for="disposition">part or catitem disposition in...</label>
+	<label for="disposition">part disposition in...</label>
 	<select name="disposition" multiple="multiple" size="10">
 		<cfloop query="disp">
 			<option value="#coll_obj_disposition#">#coll_obj_disposition#</option>
@@ -35,14 +35,12 @@
 <cfset sql="
 			select
 		    guid_prefix || ':' || cat_num cat_num,
-		    cco.coll_obj_disposition catitemdisp,
 		    spo.coll_obj_disposition spdisp,
 		    cir.coll_object_remarks cirem,
 		    spr.coll_object_remarks sprem
 		from
 		    cataloged_item,
 		    collection,
-		    coll_object cco,
 		    specimen_part,
 		    coll_object spo,
 		    coll_object_remark cir,
@@ -50,17 +48,11 @@
 		where
 		    cataloged_item.collection_id in (#collection_id#) and
 		    cataloged_item.collection_id=collection.collection_id and
-		    cataloged_item.collection_object_id=cco.collection_object_id and
 		    cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
 		    specimen_part.collection_object_id=spo.collection_object_id and
 		    specimen_part.collection_object_id=spr.collection_object_id (+) and
 		    cataloged_item.collection_object_id=cir.collection_object_id (+) and
-		    (
-		        cco.coll_obj_disposition in (">
-	<cfset sql=sql & listqualify(disposition,"'")>
-	<cfset sql=sql & "
-		        ) or
-		        spo.coll_obj_disposition not in (">
+		   spo.coll_obj_disposition not in (">
 		        
 	<cfset sql=sql & listqualify(disposition,"'")>
 	<cfset sql=sql & "
@@ -78,7 +70,6 @@
 		    )
 			group by
 				 guid_prefix || ':' || cat_num,
-		    cco.coll_obj_disposition,
 		    spo.coll_obj_disposition,
 		    cir.coll_object_remarks,
 		    spr.coll_object_remarks	
@@ -93,7 +84,6 @@
 	<table border id="t" class="sortable">
 		<tr>
 			<td>specimen</td>
-			<td>catItemDispn</td>
 			<td>PartDispn</td>
 			<td>CatItemRemark</td>
 			<td>Partremark</td>
@@ -101,7 +91,6 @@
 	<cfloop query="d">
 		<tr>
 			<td><a href="/guid/#cat_num#">#cat_num#</a></td>
-			<td>#catitemdisp#</td>
 			<td>#spdisp#</td>
 			<td>#cirem#</td>
 			<td>#sprem#</td>
