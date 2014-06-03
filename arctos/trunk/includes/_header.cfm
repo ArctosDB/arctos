@@ -44,7 +44,7 @@
 			</div>
 		</cfif>
 		<div id="header_color" style='background-color:#session.header_color#;'>
-			<table width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
+			<table border width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
 				<tr>
 					<td width="95" nowrap="nowrap" class="headerImageCell" id="headerImageCell">
 						<a target="_top" href="#session.collection_url#"><img src="#session.header_image#" alt="Arctos" border="0"></a>
@@ -52,7 +52,7 @@
 					<td align="left">
 						<table>
 							<tr>
-								<td align="left" valig="bottom" nowrap="nowrap" id="collectionCell" class="collectionCell">
+								<td align="left" valign="bottom" nowrap="nowrap" id="collectionCell" class="collectionCell">
 									<cfif len(session.collection_link_text) gt 0>
 									<a target="_top" href="#session.collection_url#" class="novisit">
 										<span class="headerCollectionText">
