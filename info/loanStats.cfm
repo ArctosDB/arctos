@@ -174,7 +174,8 @@
 		loaned_to,
 		LOAN_STATUS,
 		RETURN_DUE_DATE,
-		TRANS_DATE
+		TRANS_DATE,
+		trans_remarks
 </cfquery>
 
 
