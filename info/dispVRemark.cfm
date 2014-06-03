@@ -106,28 +106,6 @@
 	
 	
 	
-	<cfloop query="getData">
-		<cfloop list="#clist#" index="c">
-			<cfset thisData = evaluate("getData." & c)>
-			<cfset thisData=replace(thisData,'"','""','all')>			
-			<cfif len(oneLine) is 0>
-				<cfset oneLine = '"#thisData#"'>
-			<cfelse>
-				<cfset oneLine = '#oneLine#,"#thisData#"'>
-			</cfif>
-		</cfloop>
-		<cfset oneLine = trim(oneLine)>
-		<cfscript>
-			variables.joFileWriter.writeLine(oneLine);
-		</cfscript>
-	</cfloop>
-	<cfscript>	
-		variables.joFileWriter.close();
-	</cfscript>
-	
-	
-	
-	
 	<cfloop query="d">
 		<cfset oneLine = '"#cat_num#","#spdisp#","#cirem#","#sprem#"'>
 		<cfscript>
