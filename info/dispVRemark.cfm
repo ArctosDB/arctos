@@ -18,7 +18,12 @@
 			<option value="#collection_id#">#collection#</option>
 		</cfloop>
 	</select>
-	<label for="disposition">part disposition in...</label>
+	<label for="disposition">part disposition....</label>
+	
+	<select name="pdoper">
+		<option value="in">IN</option>
+		<option value="not in">NOT IN</option>
+	</select>
 	<select name="disposition" multiple="multiple" size="10">
 		<cfloop query="disp">
 			<option value="#coll_obj_disposition#">#coll_obj_disposition#</option>
@@ -31,8 +36,8 @@
 
 </cfif>
 <cfif action is "go">
-		<script src="/includes/sorttable.js"></script>
-<cfset sql="
+	<script src="/includes/sorttable.js"></script>
+	<cfset sql="
 			select
 		    guid_prefix || ':' || cat_num cat_num,
 		    spo.coll_obj_disposition spdisp,
@@ -52,11 +57,10 @@
 		    specimen_part.collection_object_id=spo.collection_object_id and
 		    specimen_part.collection_object_id=spr.collection_object_id (+) and
 		    cataloged_item.collection_object_id=cir.collection_object_id (+) and
-		   spo.coll_obj_disposition not in (">
+		   spo.coll_obj_disposition #pdoper# (">
 		        
 	<cfset sql=sql & listqualify(disposition,"'")>
 	<cfset sql=sql & "
-				        )
 		    ) and
 		    (">
 		    
