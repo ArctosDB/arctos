@@ -82,7 +82,8 @@
 	RETURN_DUE_DATE,
 	TRANS_DATE,
 	count(distinct(derived_from_cat_item)) CntCatNum,
-	count(distinct(citationID)) cntCited
+	count(distinct(citationID)) cntCited,
+	trans_remarks
 	from (
 		select 
 			collection,
@@ -95,7 +96,8 @@
 			RETURN_DUE_DATE,
 			TRANS_DATE,
 			specimen_part.derived_from_cat_item,
-			citation.collection_object_id citationID
+			citation.collection_object_id citationID,
+			trans_remarks
 		from
 			loan,
 			trans,
@@ -120,7 +122,8 @@
 			RETURN_DUE_DATE,
 			TRANS_DATE,
 			specimen_part.derived_from_cat_item,
-			citation.collection_object_id citationID
+			citation.collection_object_id citationID,
+			trans_remarks
 		from
 			loan,
 			trans,
@@ -175,7 +178,7 @@
 </cfquery>
 
 
-	<cfset clist="Collection,Loan,Type,LoanedTo,Status,TransDate,DueDate,ItemsLoaned,Citations">
+	<cfset clist="Collection,Loan,Type,LoanedTo,Status,TransDate,DueDate,ItemsLoaned,Citations,TransRemarks">
 		
 	<cfset fileDir = "#Application.webDirectory#">
 	<cfset variables.encoding="UTF-8">
@@ -207,9 +210,10 @@
 		<th>Due Date</th>
 		<th>Items Loaned</th>
 		<th>Citations</th>
+		<th>TransRemarks</th>
 	</tr>
 	<cfloop query="loanData">
-		<cfset oneLine = '"#collection#","#loan_number#","#loan_type#","#loaned_to#","#LOAN_STATUS#","#dateformat(TRANS_DATE,"yyyy-mm-dd")#","#dateformat(RETURN_DUE_DATE,"yyyy-mm-dd")#","#CntCatNum#","#cntCited#"'>
+		<cfset oneLine = '"#collection#","#loan_number#","#loan_type#","#loaned_to#","#LOAN_STATUS#","#dateformat(TRANS_DATE,"yyyy-mm-dd")#","#dateformat(RETURN_DUE_DATE,"yyyy-mm-dd")#","#CntCatNum#","#cntCited#","#trans_remarks#"'>
 		<cfscript>
 			variables.joFileWriter.writeLine(oneLine);
 		</cfscript>
