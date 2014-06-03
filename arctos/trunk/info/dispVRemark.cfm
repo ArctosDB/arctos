@@ -40,6 +40,7 @@
 	<cfset sql="
 			select
 		    guid_prefix || ':' || cat_num cat_num,
+		    specimen_part.part_name,
 		    spo.coll_obj_disposition spdisp,
 		    cir.coll_object_remarks cirem,
 		    spr.coll_object_remarks sprem
@@ -88,12 +89,13 @@
 	<table border id="t" class="sortable">
 		<tr>
 			<td>specimen</td>
+			<td>part</td>
 			<td>PartDispn</td>
 			<td>CatItemRemark</td>
 			<td>Partremark</td>
 		</tr>
 		
-		<cfset clist="specimen,PartDispn,CatItemRemark,Partremark">
+		<cfset clist="specimen,part,PartDispn,CatItemRemark,Partremark">
 		
 	<cfset fileDir = "#Application.webDirectory#">
 	<cfset variables.encoding="UTF-8">
@@ -107,12 +109,13 @@
 	
 	
 	<cfloop query="d">
-		<cfset oneLine = '"#cat_num#","#spdisp#","#cirem#","#sprem#"'>
+		<cfset oneLine = '"#cat_num#","#part_name#","#spdisp#","#cirem#","#sprem#"'>
 		<cfscript>
 			variables.joFileWriter.writeLine(oneLine);
 		</cfscript>
 		<tr>
 			<td><a href="/guid/#cat_num#">#cat_num#</a></td>
+			<td>#part_name#</td>
 			<td>#spdisp#</td>
 			<td>#cirem#</td>
 			<td>#sprem#</td>
