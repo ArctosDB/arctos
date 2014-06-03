@@ -11,7 +11,6 @@
 <cfquery name="ctLoanStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select loan_status from ctloan_status order by loan_status
 </cfquery>
-
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select * from collection order by collection
 </cfquery>
@@ -25,6 +24,7 @@
 
 <cfoutput>
 <form name="f" method="get" action="loanStats.cfm">
+	<input type="hidden" name="action" value="srch">
 	<label for="collectionid">Collection
 						</label>
 						<select name="collectionid" size="1" id="collectionid">
@@ -69,6 +69,7 @@
 		
 	<br><input type="submit" value="filter">
 </form>
+<cfif action is "srch">
 <cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select 
 	collection,
@@ -212,7 +213,7 @@
 		</tr>
 	</cfloop>
 </table>
-
+</cfif>
 
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
