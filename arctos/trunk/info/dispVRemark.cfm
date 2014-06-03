@@ -92,15 +92,65 @@
 			<td>CatItemRemark</td>
 			<td>Partremark</td>
 		</tr>
+		
+		<cfset clist="specimen,PartDispn,CatItemRemark,Partremark">
+		
+	<cfset fileDir = "#Application.webDirectory#">
+	<cfset variables.encoding="UTF-8">
+	<cfset fname = "disv_v_remark.csv">
+	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(ListQualify(clist,'"')); 
+	</cfscript>
+	
+	
+	
+	<cfloop query="getData">
+		<cfloop list="#clist#" index="c">
+			<cfset thisData = evaluate("getData." & c)>
+			<cfset thisData=replace(thisData,'"','""','all')>			
+			<cfif len(oneLine) is 0>
+				<cfset oneLine = '"#thisData#"'>
+			<cfelse>
+				<cfset oneLine = '#oneLine#,"#thisData#"'>
+			</cfif>
+		</cfloop>
+		<cfset oneLine = trim(oneLine)>
+		<cfscript>
+			variables.joFileWriter.writeLine(oneLine);
+		</cfscript>
+	</cfloop>
+	<cfscript>	
+		variables.joFileWriter.close();
+	</cfscript>
+	
+	
+	
+	
 	<cfloop query="d">
+		<cfset oneLine = '"#cat_num#","#spdisp#","#cirem#","#sprem#"'>
+		<cfscript>
+			variables.joFileWriter.writeLine(oneLine);
+		</cfscript>
 		<tr>
 			<td><a href="/guid/#cat_num#">#cat_num#</a></td>
 			<td>#spdisp#</td>
 			<td>#cirem#</td>
 			<td>#sprem#</td>
 		</tr>
-	</cfloop>	
+	</cfloop>
+	
+	<cfscript>	
+		variables.joFileWriter.close();
+	</cfscript>	
 	</table>
+	
+	
+		<a href="/download/#fname#">CSV</a>
+
+
+
 </cfif>
 	</cfoutput>
 
