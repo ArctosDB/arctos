@@ -23,7 +23,7 @@
 	</script>
 	<style>
 		.collectionCell {vertical-align:text-bottom;}
-		.headerImageCell {padding:1em;}
+		.headerImageCell {padding:.3em 1em .3em .3em;}
 	</style>
 	<cfoutput>
 		<meta name="keywords" content="#session.meta_keywords#">
