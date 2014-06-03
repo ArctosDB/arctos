@@ -232,6 +232,7 @@
 			<td><a href="/SpecimenResults.cfm?loan_trans_id=#loanData.TRANSACTION_ID#&collection_id=#loanData.collection_id#&type_status=any">
 					#cntCited#</a>&nbsp;
 			</td>
+			<td>#trans_remarks#</td>
 		</tr>
 	</cfloop>
 	<cfscript>	
