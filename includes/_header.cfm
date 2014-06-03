@@ -52,7 +52,7 @@
 					<td width="95" nowrap="nowrap" class="headerImageCell" id="headerImageCell">
 						<a target="_top" href="#session.collection_url#"><img src="#session.header_image#" alt="Arctos" border="0"></a>
 					</td>
-					<td align="left">
+					<td align="left" valign="bottom">
 						<table>
 							<tr>
 								<td align="left" valign="bottom" nowrap="nowrap" id="collectionCell" class="collectionCell">
