@@ -52,7 +52,7 @@
 					<td align="left">
 						<table>
 							<tr>
-								<td align="left" nowrap="nowrap" id="collectionCell" class="collectionCell">
+								<td align="left" valig="bottom" nowrap="nowrap" id="collectionCell" class="collectionCell">
 									<cfif len(session.collection_link_text) gt 0>
 									<a target="_top" href="#session.collection_url#" class="novisit">
 										<span class="headerCollectionText">
