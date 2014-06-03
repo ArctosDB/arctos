@@ -43,7 +43,7 @@
 		<tr>
 			<td align="left" valign="middle">
 			 <a href="/home.cfm">
-			    <img SRC="/images/arctos.gif" BORDER=0 ALT="[ Link to home page. ]">
+			    <img SRC="/images/Arctos-generic-footer.png" BORDER=0 ALT="[ Link to home page. ]">
 				</a>
 			 </td>
 			<td>
