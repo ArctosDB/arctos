@@ -47,7 +47,7 @@
 			</div>
 		</cfif>
 		<div id="header_color" style='background-color:#session.header_color#;'>
-			<table border width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
+			<table width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
 				<tr>
 					<td width="95" nowrap="nowrap" class="headerImageCell" id="headerImageCell">
 						<a target="_top" href="#session.collection_url#"><img src="#session.header_image#" alt="Arctos" border="0"></a>
