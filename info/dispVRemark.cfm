@@ -75,6 +75,7 @@
 		    )
 			group by
 				 guid_prefix || ':' || cat_num,
+		    specimen_part.part_name,
 		    spo.coll_obj_disposition,
 		    cir.coll_object_remarks,
 		    spr.coll_object_remarks	
