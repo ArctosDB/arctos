@@ -53,7 +53,7 @@
 						<a target="_top" href="#session.collection_url#"><img src="#session.header_image#" alt="Arctos" border="0"></a>
 					</td>
 					<td align="left" valign="bottom" cellpadding="0" cellspacing="0">
-						<table>
+						<table cellpadding="0" cellspacing="0">
 							<tr>
 								<td align="left" valign="bottom" nowrap="nowrap" id="collectionCell" class="collectionCell">
 									<cfif len(session.collection_link_text) gt 0>
