@@ -535,11 +535,15 @@
 				var thisval = $(this).val();
 				var relatedElementID=this.id.replace("type_","");    
 				var relatedElement=$("#" + relatedElementID).val();
+				
+				/*
 				if(thisval == "display_name") {
 					dv_value_element=relatedElementID;
 					dv_value=relatedElement;
 					dv_element=this.id;
 			    }
+			    
+			    */
 				if(thisval == "author_text") {			
 					speciesauthor=relatedElement;
 			    }
@@ -549,8 +553,10 @@
 				if(thisval == "nomenclatural_code" && relatedElement=='ICBN') {
 					formatstyle='icbn';			
 				}
-				// on initial load ONLY, save display name
 			});
+			
+			/*
+			
 			if (! dv_element){
 				// add a row for display_name	
 				nc_addARow();
@@ -558,6 +564,8 @@
 				$('#ncterm_type_' + n).val('display_name');
 				dv_element='ncterm_type_' + n;
 			}
+			
+			*/
 			// and this point, there should be a display_name and we should know it's ID.
 			$("input[name^='term_type_']").each(function() {
 		    	var thisval = $(this).val();
@@ -620,6 +628,26 @@
 				formattedname=formattedname.replace(/<\/i> <i>/g, ' ').trim();
 				$("#dng").val(formattedname);
 			}
+		}
+		function useDNG(){
+			var dn=$("#dng").val();
+			var idOfDisplayRow;
+			$('input').each(function(){
+   				 if( $(this).val()=='display_value' ){
+   				 	idOfDisplayRow=this.id;
+   				 }	
+   				 	
+			});
+
+
+			console.log(idOfDisplayRow);
+			
+			if (idOfDisplayRow.length){
+				console.log('dv row exists');
+				
+			} else {
+				console.log('make a row');
+				}	
 		}
 	</script>
 	<cfoutput>
@@ -777,8 +805,13 @@
 			<p>
 				<!--- flag to override atuoguess @displayname - keep it on for the duration os editing a classification one tripped---->
 				<div style="border:2px solid red;padding:2em;margin:2em;">
-					IMPORTANT!! Classifications should generally have a "display_name" value, which is an HTML-formatted
+					IMPORTANT!! Classifications should generally have a (one!) non-classification term 
+					"display_name" value, which is an HTML-formatted
 					namestring including authors, infraspecific rank, etc., according to discipline-specific traditions.
+					<p>
+						Add to or edit the form above, edit the guess box below and click "use," or click "use" to accept our
+						suggestion.
+					</p>
 					<label for="dng">Our guess at display_name</label>
 					<input id="dng" size="80">
 				<input type="button" onclick="useDNG();" value="Use this suggestion">
