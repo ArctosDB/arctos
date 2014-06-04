@@ -142,7 +142,11 @@ function displayMedia(idList){
 				if (r.DATA.mimecat[i]=='audio' && r.DATA.media_uri[i].split('.').pop()=='mp3'){
 					theHTML+='<div class="one_thumb">';
 					theHTML+='<audio controls>';
-					theHTML+='<source src="' & r.DATA.media_uri[i] & '" type="audio/mp3">';
+					theHTML+='<source src="' + r.DATA.media_uri[i] + '" type="audio/mp3">';
+					theHTML+='<a href="/exit.cfm?target=' + r.DATA.media_uri[i] + '" target="_blank">download</a>';
+				
+				
+				
 					theHTML+='</audio> ';
 					theHTML+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
 
