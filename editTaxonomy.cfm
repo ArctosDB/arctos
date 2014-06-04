@@ -646,9 +646,9 @@
 			var vc=idOfDisplayRow.replace('type_','');
 			$("#" + vc).val(dn);
 		}
-		function scrollDNW (dnWarning) {
+		function scrollDNW () {
 		    $('html, body').animate({
-		        scrollTop: $("#elementtoScrollToID").offset().top
+		        scrollTop: $("#dnWarning").offset().top
 		    }, 2000);
 		}
 	</script>
@@ -713,7 +713,6 @@
 			</ul>
 		</p>
 		<form name="f1" id="f1" method="post" action="editTaxonomy.cfm">
-		
 			<input type="button" onclick="submitForm();" value="Save Edits">
 			<input type="button" onclick="scrollDNW();" value="See display_name suggestions">
 			<input type="hidden" name="action" value="saveClassEdits">
