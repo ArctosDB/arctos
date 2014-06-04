@@ -631,49 +631,20 @@
 		}
 		function useDNG(){
 			var dn=$("#dng").val();
-			
-			console.log('dn ' + dn);
-			
-			
 			var idOfDisplayRow;
 			$("input:text").each(function(){
-				console.log($(this).val());
 				 if( $(this).val()=='display_name' ){
-   				 	console.log('using ' + this.id);
    				 	idOfDisplayRow=this.id;
-   					console.log(idOfDisplayRow);
    				 }	
-   				 
-   				 
-   				    					console.log('outif' + idOfDisplayRow);
-   				 
    			});
 			if(typeof idOfDisplayRow === 'undefined'){	
-				console.log('make a row');
-				
-				
-				
 				nc_addARow();
 				var n=parseInt($("#numnoclassrs").val());
 				$('#ncterm_type_' + n).val('display_name');
 				idOfDisplayRow='ncterm_type_' + n;
-				
-				
-				
-			} else {
-				console.log('row exists');
-				console.log(idOfDisplayRow);
-			}	
-			
-			
+			}
 			var vc=idOfDisplayRow.replace('type_','');
-			
-							console.log(vc);
-			
-						$("#" + vc).val(dn);
-			
-			
-			console.log('alert or die....' + idOfDisplayRow);
+			$("#" + vc).val(dn);
 		}
 	</script>
 	<cfoutput>
@@ -835,8 +806,8 @@
 					"display_name" value, which is an HTML-formatted
 					namestring including authors, infraspecific rank, etc., according to discipline-specific traditions.
 					<p>
-						Add to or edit the form above, edit the guess box below and click "use," or click "use" to accept our
-						suggestion.
+						Add to or edit the form above, edit the guess box below and click "use," or just click "use" to accept our
+						suggestion. Check the form before saving.
 					</p>
 					<label for="dng">Our guess at display_name</label>
 					<input id="dng" size="80">
@@ -844,9 +815,6 @@
 				</div>
 				<input type="button" onclick="submitForm();" value="Save Edits">
 			</p>
-			<div id="originalDisplayName">
-				
-			</div>
 			<p>
 				If you haven't yet saved, you can <a href="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#">refresh this page</a>
 			</p>
