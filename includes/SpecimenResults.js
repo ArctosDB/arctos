@@ -141,7 +141,10 @@ function displayMedia(idList){
 			for (i=0; i<r.ROWCOUNT; ++i) {
 				
 				console.log(r.DATA.media_type[i]);
-				var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + r.DATA.preview_uri[i] + '&media_type=' +  r.DATA.media_type[i] + '&returnformat=json&queryformat=column';
+				console.log(r.DATA.mimecat[i]);
+				
+				
+				var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + r.DATA.preview_uri[i] + '&media_type=' +  r.DATA.mimecat[i] + '&returnformat=json&queryformat=column';
 				$.ajax({
 					url: theURL,
 					dataType: 'json',
