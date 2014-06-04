@@ -350,6 +350,8 @@
 	<cfif not isdefined("application.subnet_blacklist")>
 		<cfset application.subnet_blacklist="">
 	</cfif>
+	
+	<!---- get ip address - run this is onSessionStart AND onRequestStart! ---->
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
 	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
@@ -365,7 +367,8 @@
 			<cfset request.ipaddress=listgetat(request.ipaddress,1,",")>
 		</cfif>
 	</cfif>
-	
+	<!---- END get ip address - run this is onSessionStart AND onRequestStart! ---->
+
 	<!----
 		
 		The blacklist list is out of control, so this adds the ability to block entire subnets at the CF level.
@@ -419,6 +422,24 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://arctos.database.museum/">
 	</cfif>
+	<!---- get ip address - run this is onSessionStart AND onRequestStart! ---->
+	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
+		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
+	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
+		<CFSET request.ipaddress=CGI.Remote_Addr>
+	<cfelse>
+		<cfset request.ipaddress=''>
+	</CFIF>
+	<cfif request.ipaddress contains ",">
+		<cfset ip1=listgetat(request.ipaddress,1,",")>
+		<cfif ip1 contains "172." or ip1 contains "192." or ip1 contains "10." or ip1 is "127.0.0.1">
+			<cfset request.ipaddress=listgetat(request.ipaddress,2,",")>
+		<cfelse>
+			<cfset request.ipaddress=listgetat(request.ipaddress,1,",")>
+		</cfif>
+	</cfif>
+	<!---- END get ip address - run this is onSessionStart AND onRequestStart! ---->
+	
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfif cgi.script_name is not "/errors/missing.cfm">
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
