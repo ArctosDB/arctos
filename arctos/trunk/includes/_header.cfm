@@ -22,7 +22,7 @@
 	    });
 	</script>
 	<style>
-		.collectionCell {vertical-align:text-bottom;}
+		.collectionCell {vertical-align:text-bottom;padding:.3em 1em .1em .3em;}
 		.headerImageCell {padding:.3em 1em .3em .3em;}
 	</style>
 	<cfoutput>
