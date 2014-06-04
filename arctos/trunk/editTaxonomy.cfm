@@ -631,7 +631,7 @@
 		}
 		function useDNG(){
 			var dn=$("#dng").val();
-			$(input[type=text]).each(function(){
+			$("input:text").each(function(){
 				
 				console.log($(this).val());
 				
