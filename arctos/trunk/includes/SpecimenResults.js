@@ -139,24 +139,24 @@ function displayMedia(idList){
 		if (r.ROWCOUNT>0){
 			var theHTML='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
 			for (i=0; i<r.ROWCOUNT; ++i) {
-				
-				console.log(r.DATA.media_type[i]);
-				console.log(r.DATA.mimecat[i]);
-				
-				
-				var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + r.DATA.preview_uri[i] + '&media_type=' +  r.DATA.mimecat[i] + '&returnformat=json&queryformat=column';
-				$.ajax({
-					url: theURL,
-					dataType: 'json',
-					async: false,
-					success: function(result) {
-						theHTML+='<div class="one_thumb">';
-						theHTML+='<a href="/exit.cfm?target=' + r.DATA.media_uri[i] + '" target="_blank">';
-						theHTML+='<img src="' + result + '" class="theThumb"></a>';
-						theHTML+='<p>' + r.DATA.mimecat[i] + ' (' + r.DATA.mime_type[i] + ')';
-						theHTML+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
-					}
-				});
+				if (r.DATA.mimecat[i]=='audio' && r.DATA.media_uri[i].split('.').pop()=='mp3'){
+					
+					theHTML+='this is an mp3';
+				} else {
+					var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + r.DATA.preview_uri[i] + '&media_type=' +  r.DATA.mimecat[i] + '&returnformat=json&queryformat=column';
+					$.ajax({
+						url: theURL,
+						dataType: 'json',
+						async: false,
+						success: function(result) {
+							theHTML+='<div class="one_thumb">';
+							theHTML+='<a href="/exit.cfm?target=' + r.DATA.media_uri[i] + '" target="_blank">';
+							theHTML+='<img src="' + result + '" class="theThumb"></a>';
+							theHTML+='<p>' + r.DATA.mimecat[i] + ' (' + r.DATA.mime_type[i] + ')';
+							theHTML+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
+						}
+					});
+				}
 			}
 			theHTML+='<div class="thumb_spcr">&nbsp;</div></div>';
 			$("#" + this.id).html(theHTML);
