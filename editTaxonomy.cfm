@@ -633,6 +633,7 @@
 			var dn=$("#dng").val();
 			$('input').each(function(){
    				 if( $(this).val()=='display_value' ){
+   				 	console.log($(this).val());
    				 	var idOfDisplayRow=this.id;
    				 }	
    				 	
