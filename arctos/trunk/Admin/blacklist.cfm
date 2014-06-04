@@ -1,8 +1,10 @@
 <cfset title="Manage IP and subnet blocking">
 <cfinclude template="/includes/_header.cfm">
-<cfif action is 'tf'>
-	hello
-</cfif>
+<!----
+	Release blocks after a period of time.
+	Just ignore everything that's timed out
+---->
+<cfset expiresIn="180">
 
 <cfoutput>
 <cfif action is "subnet">
@@ -12,6 +14,8 @@
 			subnet 
 		from 
 			uam.blacklist_subnet
+		where
+			sysdate-INSERT_DATE<#expiresIn#
 	</cfquery>
 	<a href="blacklist.cfm">blacklist home</a>
 	<h2>Currently Blocked Subnets</h2>
@@ -66,8 +70,11 @@
 			to_char(listdate,'YYYY-MM-DD') listdate
 		from 
 			uam.blacklist 
-		where 
-			substr(ip,1,instr(ip,'.',1,2)-1) not in (select subnet from blacklist_subnet)
+		where
+			sysdate-LISTDATE<#expiresIn#
+			substr(ip,1,instr(ip,'.',1,2)-1) not in (
+				select subnet from blacklist_subnet where sysdate-INSERT_DATE<#expiresIn#
+			)
 	</cfquery>
 	<cfquery name="sn" dbtype="query">
 		select subnet from q group by subnet order by subnet
@@ -111,7 +118,7 @@
 		delete from blacklist_subnet where subnet='#subnet#'
 	</cfquery>
 	
-	Subnet #subnet# has been removed from the blacklist. You must send email to the network folks to remove the firewall blacklist.
+	Subnet #subnet# has been removed from the blacklist. You must send email to the network folks to remove and firewall blacklists.
 	
 	<p>
 		You must now <a href="/Admin/blacklist.cfm">continue to the main blacklist page</a> to push the changes to the application.
@@ -133,13 +140,23 @@
 		check subnet format 999.999<cfabort>
 	</cfif>	
 	<cftry>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		insert into blacklist_subnet (subnet) values ('#subnet#')
-	</cfquery>
-	
-	Subnet #subnet# has been added to the blacklist. You should probably send email to the network folks and also 
-	blacklist it at the firewall.
-	
+		<!--- see if it's expired; if it is, just re-up ---->
+		<cfquery name="exists" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from blacklist_subnet where subnet in ('#subnet#')
+		</cfquery>
+		<cfif len(exists.SUBNET) gt 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update blacklist_subnet set INSERT_DATE=sysdate where subnet in ('#subnet#')
+			</cfquery>
+			Subnet #subnet# has been <strong>RE</strong>added to the blacklist. You should definitely send email to the network folks and also 
+		blacklist it at the firewall.
+		<cfelse>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into blacklist_subnet (subnet) values ('#subnet#')
+			</cfquery>
+			Subnet #subnet# has been added to the blacklist. You should probably send email to the network folks and also 
+			blacklist it at the firewall.
+		</cfif>
 	<p>
 		You must <a href="/Admin/blacklist.cfm">continue to the main blacklist page</a> to push the changes to the application.
 	</p>
@@ -155,15 +172,18 @@
 			ip 
 		from 
 			uam.blacklist 
-		where  
-			substr(ip,1,instr(ip,'.',1,2)-1) not in (select subnet from blacklist_subnet)
+		where
+			sysdate-LISTDATE<#expiresIn# and
+			substr(ip,1,instr(ip,'.',1,2)-1) not in (
+				select subnet from blacklist_subnet where sysdate-INSERT_DATE<#expiresIn#
+			)
 	</cfquery>
 	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			subnet 
 		from 
 			uam.blacklist_subnet
-	</cfquery>
+	</cfquery>			
 	<p>
 		IMPORTANT NOTE: IPs for blocked subnets are NOT included here. <a href="blacklist.cfm?action=subnet">manage blocked subnets</a>
 	</p>
@@ -197,13 +217,26 @@
 		<cfabort>
 	</cfif>
 	<cftry>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		insert into uam.blacklist (ip) values ('#trim(ip)#')
-	</cfquery>
-	<cflocation url="/Admin/blacklist.cfm">
-	<cfcatch>
-		<cfdump var=#cfcatch#>
-	</cfcatch>
+		
+		<!--- see if it's expired; if it is, just re-up ---->
+		<cfquery name="exists" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from uam.blacklist where ip in  ('#trim(ip)#')
+		</cfquery>
+		<cfif len(exists.IP) gt 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update blacklist set LISTDATE=sysdate where IP in ('#trim(ip)#')
+			</cfquery>
+			Reupped the blacklist for #ip#; <strong>repeat offender alert</strong>
+		<cfelse>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into uam.blacklist (ip) values ('#trim(ip)#')
+			</cfquery>
+			Added #ip#
+		</cfif>
+		<cflocation url="/Admin/blacklist.cfm">
+		<cfcatch>
+			<cfdump var=#cfcatch#>
+		</cfcatch>
 	</cftry>
 </cfif>
 <!------------------------------------------>
