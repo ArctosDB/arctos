@@ -257,6 +257,7 @@ sho err
 		</cfquery>
 		<cftransaction>
 			<cfloop query="getTempData">
+				loading #collection_object_id#<br>
 				<!---<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				 	{EXEC parse_other_id(#collection_object_id#, '#new_other_id_number#', '#new_other_id_type#')}
 				</cfquery>
