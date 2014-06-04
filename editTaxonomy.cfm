@@ -646,10 +646,22 @@
    			});
 			if(typeof idOfDisplayRow === 'undefined'){	
 				console.log('make a row');
+				
+				
+				
+				nc_addARow();
+				var n=parseInt($("#numnoclassrs").val());
+				$('#ncterm_type_' + n).val('display_name');
+				idOfDisplayRow='ncterm_type_' + n;
+				
+				
+				
 			} else {
 				console.log('row exists');
 				console.log(idOfDisplayRow);
 			}	
+			
+			$("#" + idOfDisplayRow).val(dn);
 			console.log('alert or die....' + idOfDisplayRow);
 		}
 	</script>
