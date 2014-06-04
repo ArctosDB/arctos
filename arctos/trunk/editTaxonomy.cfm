@@ -812,6 +812,7 @@
 					<label for="dng">Our guess at display_name</label>
 					<input id="dng" size="80">
 				<input type="button" onclick="useDNG();" value="Use this suggestion">
+				<input type="button" onclick="guessAtDisplayName();" value="Refresh suggestion">
 				</div>
 				<input type="button" onclick="submitForm();" value="Save Edits">
 			</p>
