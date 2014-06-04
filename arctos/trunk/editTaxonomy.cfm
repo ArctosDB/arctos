@@ -636,7 +636,7 @@
 				console.log($(this).val());
 				
 				
-   				 if( $(this).val()=='display_value' ){
+   				 if( $(this).val()=='display_name' ){
    				 	
    				 	var idOfDisplayRow=this.id;
    				 }	
