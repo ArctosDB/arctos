@@ -642,7 +642,7 @@
 
 			console.log(idOfDisplayRow);
 			
-			if (idOfDisplayRow.length){
+			if (idOfDisplayRow.length>0){
 				console.log('dv row exists');
 				
 			} else {
