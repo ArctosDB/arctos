@@ -646,6 +646,11 @@
 			var vc=idOfDisplayRow.replace('type_','');
 			$("#" + vc).val(dn);
 		}
+		function scrollDNW (dnWarning) {
+		    $('html, body').animate({
+		        scrollTop: $("#elementtoScrollToID").offset().top
+		    }, 2000);
+		}
 	</script>
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -710,6 +715,7 @@
 		<form name="f1" id="f1" method="post" action="editTaxonomy.cfm">
 		
 			<input type="button" onclick="submitForm();" value="Save Edits">
+			<input type="button" onclick="scrollDNW();" value="See display_name suggestions">
 			<input type="hidden" name="action" value="saveClassEdits">
 			<input type="hidden" name="classification_id" id="classification_id" value="#classification_id#">
 			<input type="hidden" name="taxon_name_id" id="taxon_name_id" value="#thisname.taxon_name_id#">
@@ -789,7 +795,7 @@
 			</table>
 			<span class="likeLink" onclick="addARow();">[ add a row ]</span>
 			<p>
-				<div style="border:2px solid red;padding:2em;margin:2em;">
+				<div id="dnWarning" style="border:2px solid red;padding:2em;margin:2em;">
 					<p>
 						IMPORTANT!! Classifications should generally have a (one!) non-classification term 
 						"display_name" with corresponding HTML-formatted, discipline-specific value, 
