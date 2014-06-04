@@ -631,41 +631,26 @@
 		}
 		function useDNG(){
 			var dn=$("#dng").val();
-			
 			var idOfDisplayRow;
-			
-			
 			$("input:text").each(function(){
-				
 				console.log($(this).val());
-				
-				
-   				 if( $(this).val()=='display_name' ){
+				 if( $(this).val()=='display_name' ){
    				 	console.log('using ' + this.id);
-   				 	var idOfDisplayRow=this.id;
-   				 	
-   				 									console.log(idOfDisplayRow);
-   				 	
+   				 	idOfDisplayRow=this.id;
+   					console.log(idOfDisplayRow);
    				 }	
-   				 	
-			});
-
-
-			
-		 if(typeof idOfDisplayRow === 'undefined'){	
+   				 
+   				 
+   				    					console.log('outif' + idOfDisplayRow);
+   				 
+   			});
+			if(typeof idOfDisplayRow === 'undefined'){	
 				console.log('make a row');
-		} else {
-	
-					console.log('row exists');
-								console.log(idOfDisplayRow);
-					
-	
-	
-				}	
-				
-				
-				
-				console.log('alert or die....' + idOfDisplayRow);
+			} else {
+				console.log('row exists');
+				console.log(idOfDisplayRow);
+			}	
+			console.log('alert or die....' + idOfDisplayRow);
 		}
 	</script>
 	<cfoutput>
