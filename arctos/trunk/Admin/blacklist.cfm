@@ -224,7 +224,7 @@
 		</cfquery>
 		<cfif len(exists.IP) gt 0>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update blacklist set LISTDATE=sysdate where IP in ('#trim(ip)#')
+				update uam.blacklist set LISTDATE=sysdate where IP in ('#trim(ip)#')
 			</cfquery>
 			Reupped the blacklist for #ip#; <strong>repeat offender alert</strong>
 		<cfelse>
