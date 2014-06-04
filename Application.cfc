@@ -17,19 +17,14 @@
 	<cfif isdefined("session.username") and session.username is "dlm">
 		<cfdump var=#exception#>
 	</cfif>
-		
-	
 	<cfif showErr is 1>
 		<cfset subject="">
-		<!--- it's a real error --->
-		<!--- get rid of hack attempts etc first ---->
 		<cfif isdefined("exception.Sql") and exception.sql contains "@@version">
 			<cflocation url="/errors/autoblacklist.cfm">
 			<cfreturn/>
 		</cfif>
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfif cgi.HTTP_USER_AGENT contains "slurp">
-				<!--- friggin yahoo ignoring robots.txt - buh-bye, biatchez.... --->
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
@@ -43,8 +38,7 @@
 				</cfif>
 			</cfif>
 		</cfif>
-		<cfset subject=replace(subject,'[Macromedia][Oracle JDBC Driver][Oracle]','','all')>
-		
+		<cfset subject=replace(subject,'[Macromedia][Oracle JDBC Driver][Oracle]','','all')>		
 		<cfif subject is "ORA-00933: SQL command not properly ended">
 			<!--- see if it's the viagra ad asshats again ---->
 			<cfif isdefined("exception.sql") and exception.sql contains 'href="http://'>
@@ -52,9 +46,7 @@
 				<cfabort>
 			</cfif>
 		</cfif>
-		
 		<cfif subject is "ORA-00907: missing right parenthesis">
-			<!--- see if it's the sql injection asshats ---->
 			<cfif isdefined("exception.sql") and exception.sql contains '1%'>
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
@@ -72,8 +64,6 @@
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
-		 
-	
 		<cf_logError subject="#subject#" attributeCollection=#exception#>
 		<table cellpadding="10">
 			<tr>
@@ -148,30 +138,6 @@
 		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
 		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
 		<cfset Application.AppVersion= "prod">
-
-
-
-		<!----
-		<cfset Application.serverRootUrl="http://arctos.database.museum">
-		<cfset Application.fromEmail="arctos.database.museum">
-		<cfset application.gmap_api_key="AIzaSyA7u0Kb5JlhHlkdgsTmG0zYtg1LXxpn8HY">
-		<cfset Application.webDirectory = "/corral/tg/uaf/arctos_prod">
-		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
-		<cfset Application.bugReportEmail = "arctos.database@gmail.com,gordon.jarrell@gmail.com">
-		<cfset Application.technicalEmail = "arctos.database@gmail.com,gordon.jarrell@gmail.com">
-		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
-		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
-		<cfset Application.genBankPrid = "3849">
-		<cfset Application.genBankUsername="uam">
-		<cfset Application.convertPath = "/usr/local/bin/convert">
-		<cfset Application.genBankPwd=encrypt("bU7$f%Nu","genbank")>
-		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
-		<cfset Application.Google_uacct = "UA-315170-1">
-		<cfset Application.InstitutionBlurb = "">
-		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
-		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
-
-		---->
     <cfelseif serverName contains "harvard.edu">
 		<cfset Application.svn = "/usr/bin/svn">
 		<cfset Application.webDirectory = "/var/www/html/arctosv.2.2.2">
@@ -259,16 +225,12 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
 		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
-
-
 		<cfmail subject="bad app start" to="arctos.database@gmail.com" from="badAppStart@#application.fromEmail#" type="html">
-			Idon't know who I am
+			I don't know who I am
 			serverName=<cfdump var="#serverName#">
 			<cfdump var=#cgi# label="cgi">
 		</cfmail>
 	</cfif>
-	
-	
 	<cftry>
 		<cfquery name="d" datasource="uam_god">
 			select ip from uam.blacklist where sysdate-LISTDATE<180
@@ -311,7 +273,6 @@
 	<cfif not directoryExists("#Application.webDirectory#/download")>
 		<cfdirectory action="create" directory="#Application.webDirectory#/download" mode="744">
 	</cfif>
-	
 	<cfif not FileExists("#Application.webDirectory#/log/log.txt")> 
 	    <cffile action="write" file="#Application.webDirectory#/log/log.txt" output=""> 
 	</cfif>
@@ -321,36 +282,27 @@
 	<cfif not FileExists("#Application.webDirectory#/log/missingGUIDlog.txt")> 
 	    <cffile action="write" file="#Application.webDirectory#/log/missingGUIDlog.txt" output=""> 
 	</cfif>
-	
 	<cfif not FileExists("#Application.webDirectory#/log/blacklistlog.txt")> 
 	    <cffile action="write" file="#Application.webDirectory#/log/blacklistlog.txt" output=""> 
 	</cfif>
 	<cfif not FileExists("#Application.webDirectory#/log/emaillog.txt")> 
 	    <cffile action="write" file="#Application.webDirectory#/log/emaillog.txt" output=""> 
 	</cfif>
-	
 	<cfif not FileExists("#Application.webDirectory#/log/request.txt")> 
 	    <cffile action="write" file="#Application.webDirectory#/log/request.txt" output=""> 
 	</cfif>
-	
-	
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onSessionStart" output="true">
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
-	
-	
-	
-	
 	<cfif not isdefined("application.blacklist")>
 		<cfset application.blacklist="">
 	</cfif>
 	<cfif not isdefined("application.subnet_blacklist")>
 		<cfset application.subnet_blacklist="">
 	</cfif>
-	
 	<!---- get ip address - run this is onSessionStart AND onRequestStart! ---->
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
@@ -368,14 +320,6 @@
 		</cfif>
 	</cfif>
 	<!---- END get ip address - run this is onSessionStart AND onRequestStart! ---->
-
-	<!----
-		
-		The blacklist list is out of control, so this adds the ability to block entire subnets at the CF level.
-		
-		This also serves as a backup of firewall blocking.
-		
-	---->
 	<cfif listlen(request.ipaddress,".") is 4>
 		<cfset requestingSubnet=listgetat(request.ipaddress,1,".") & "." & listgetat(request.ipaddress,2,".")>
 	<cfelse>
@@ -389,7 +333,6 @@
 			<cfabort>
 		</cfif>
 	</cfif>
-	
 	<cfif listfind(application.blacklist,request.ipaddress)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
@@ -398,11 +341,6 @@
 			<cfabort>
 		</cfif>
 	</cfif>
-	
-	
-	
-	
-	
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
@@ -439,7 +377,6 @@
 		</cfif>
 	</cfif>
 	<!---- END get ip address - run this is onSessionStart AND onRequestStart! ---->
-	
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfif cgi.script_name is not "/errors/missing.cfm">
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
@@ -451,13 +388,9 @@
 	<cfif request.rdurl contains chr(195) & chr(151)>
 		<cfset request.rdurl=replace(request.rdurl,chr(195) & chr(151),chr(215))>
 	</cfif>
-	
 	<!--- a unique identifier to tie "short" log entries to the raw dump file ---->
-	
 	<cfset request.uuid=CreateUUID()>
-	
 	<!--- uncomment for a break from googlebot
-
 	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
 		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
 		<cfheader name="retry-after" value="3600"/>
@@ -465,18 +398,7 @@
 		<cfreturn false>
 		<cfabort>
 	</cfif>
-
 	---->
-	
-	<!---- moved to onSessionStart 
-	
-	
-	
-	
-	----->
-	
-	
-	
 	<cfset nono="passwd,proc">
 	<cfloop list="#cgi.query_string#" delimiters="./," index="i">
 		<cfif listfindnocase(nono,i)>
@@ -538,8 +460,7 @@
 		</cfscript>
 		<cfabort>
 	</cfif>
-	<!--- keep people/bots from browsing a dev server
-		--->
+	<!--- keep people/bots from browsing a dev server--->
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" or cgi.HTTP_HOST is "arctos-test.tacc.utexas.edu">
 		<cfset cPath=GetTemplatePath()>
 		<cfif
