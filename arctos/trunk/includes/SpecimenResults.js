@@ -140,8 +140,14 @@ function displayMedia(idList){
 			var theHTML='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
 			for (i=0; i<r.ROWCOUNT; ++i) {
 				if (r.DATA.mimecat[i]=='audio' && r.DATA.media_uri[i].split('.').pop()=='mp3'){
+					theHTML+='<div class="one_thumb">';
+					theHTML+='<audio controls>';
+					theHTML+='<source src="' & r.DATA.media_uri[i] & '" type="audio/mp3">';
+					theHTML+='</audio> ';
+					theHTML+='<br><a target="_blank" href="/media/' + r.DATA.media_id[i] + '">Media Detail</a></p></div>';
+
 					
-					theHTML+='this is an mp3';
+				
 				} else {
 					var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + r.DATA.preview_uri[i] + '&media_type=' +  r.DATA.mimecat[i] + '&returnformat=json&queryformat=column';
 					$.ajax({
