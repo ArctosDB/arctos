@@ -627,12 +627,8 @@
 			}
 			if (formattedname) {
 				formattedname=formattedname.replace(/<\/i> <i>/g, ' ').trim();
-				$("#" + dv_value_element).val(formattedname);
+				$("#dng").val(formattedname);
 			}
-		}
-		function stoppit(e,v){
-			$("#stoppit").val('true');
-			$("#" + e).val(v);			
 		}
 	</script>
 	<cfoutput>
@@ -789,10 +785,13 @@
 			<span class="likeLink" onclick="addARow();">[ add a row ]</span>
 			<p>
 				<!--- flag to override atuoguess @displayname - keep it on for the duration os editing a classification one tripped---->
-				<cfif not isdefined("stoppit")>
-					<cfset stoppit=''>
-				</cfif>
-				<input type="hidden" id="stoppit" name="stoppit" value="#stoppit#">
+				<div style="border:2px solid red;padding:2em;margin:2em;">
+					IMPORTANT!! Classifications should generally have a "display_name" value, which is an HTML-formatted
+					namestring including authors, infraspecific rank, etc., according to discipline-specific traditions.
+					<label for="dng">Our guess at display_name</label>
+					<input id="dng" size="80">
+				<input type="button" onclick="useDNG();" value="Use this suggestion">
+				</div>
 				<input type="button" onclick="submitForm();" value="Save Edits">
 			</p>
 			<div id="originalDisplayName">

@@ -85,7 +85,7 @@ sho err
 			<td>existing_other_id_number</td>
 			<td>yes</td>
 			<td>
-				Value of the existing_other_id_type
+				Value of the existing_other_id
 			</td>
 			<td>
 				used to find the specimen; in conjunction with existing_other_id_number, must resolve to exactly one cataloged item
@@ -95,11 +95,10 @@ sho err
 			<td>new_other_id_number</td>
 			<td>yes</td>
 			<td>
-				catalog number when existing_other_id_type is "catalog number", or value corresponding to
-				existing_other_id_type
+				catalog number when existing_other_id_type is "catalog number", or value corresponding to new_other_id_type
 			</td>
 			<td>
-				used to find the specimen; in conjunction with existing_other_id_type, must resolve to exactly one cataloged item
+				value of identifier to add
 			</td>
 		</tr>
 		<tr>
@@ -110,16 +109,6 @@ sho err
 			</td>
 			<td>
 				type of identifier to add
-			</td>
-		</tr>
-		<tr>
-			<td>new_other_id_number</td>
-			<td>yes</td>
-			<td>
-				-
-			</td>
-			<td>
-				Value of new identifier
 			</td>
 		</tr>
 		<tr>
