@@ -649,7 +649,7 @@
 		function scrollDNW () {
 		    $('html, body').animate({
 		        scrollTop: $("#dnWarning").offset().top
-		    }, 2000);
+		    }, 1000);
 		}
 	</script>
 	<cfoutput>
