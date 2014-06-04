@@ -239,6 +239,7 @@ sho err
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "showCheck">
+<cfoutput>
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_oids
 	</cfquery>
@@ -253,6 +254,7 @@ sho err
 	<cfelse>
 		<a href="BulkloadOtherId.cfm?action=loadData">checks out...proceed to load #raw.recordcount# new IDs</a>
 	</cfif>
+</cfoutput>
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "loadData">
