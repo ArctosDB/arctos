@@ -171,7 +171,7 @@
 <cfif action is "nothing">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
-			ip 
+			ip,LISTDATE
 		from 
 			uam.blacklist 
 		where
@@ -185,6 +185,8 @@
 			subnet 
 		from 
 			uam.blacklist_subnet
+		where 
+			sysdate-INSERT_DATE<#expiresIn#
 	</cfquery>			
 	<p>
 		IMPORTANT NOTE: IPs for blocked subnets are NOT included here. <a href="blacklist.cfm?action=subnet">manage blocked subnets</a>
@@ -203,14 +205,23 @@
 		<br><input type="submit" value="blacklist">
 	</form>
 	
-
-	<cfloop query="d">
-		<br>#ip# <a href="blacklist.cfm?action=del&ip=#ip#">Remove</a>
-		<a href="http://whois.domaintools.com/#ip#" target="_blank">whois</a>
-	</cfloop>
-			<!----------
-
-	-------------->
+	<table border id="t" class="sortable">
+		<tr>
+			<th>IP</th>
+			<th>listdate</th>
+			<th>tools</th>
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>#ip#</td>
+				<td>#listdate#</td>
+				<td>
+					<a href="blacklist.cfm?action=del&ip=#ip#">Remove</a>
+					<a href="http://whois.domaintools.com/#ip#" target="_blank">whois</a>
+				</td>
+			</tr>
+		</cfloop>
+	</table>
 </cfif>
 <!------------------------------------------>
 <cfif action is "ins">
