@@ -790,12 +790,14 @@
 			<span class="likeLink" onclick="addARow();">[ add a row ]</span>
 			<p>
 				<div style="border:2px solid red;padding:2em;margin:2em;">
-					IMPORTANT!! Classifications should generally have a (one!) non-classification term 
-					"display_name" with corresponding HTML-formatted, discipline-specific value, 
-					including authors, infraspecific rank, etc. This is stored in FLAT.FORMATTED_SCIENTIFIC_NAME and used on many forms and 
-					labels. This suggestion is based on other data, including kingdom, nomenclatural_code, genus, species, 
-					"subspecies" (including var., forma, etc.), infraspecific rank (such as var., forma, etc.), and infraspecific_author. 
+					<p>
+						IMPORTANT!! Classifications should generally have a (one!) non-classification term 
+						"display_name" with corresponding HTML-formatted, discipline-specific value, 
+						including authors, infraspecific rank, etc. This is stored in FLAT.FORMATTED_SCIENTIFIC_NAME and used on many forms and 
+						labels. This suggestion is based on other data, including kingdom, nomenclatural_code, genus, species, 
+						"subspecies" (including var., forma, etc.), infraspecific rank (such as var., forma, etc.), and infraspecific_author. 
 					<strong>Bad suggestions here are an indication of missing or malformed data.</strong>
+					</p>
 					<label for="dng">Our guess at display_name</label>
 					<input id="dng" size="80">
 					<input type="button" onclick="useDNG();" value="Use this suggestion">
