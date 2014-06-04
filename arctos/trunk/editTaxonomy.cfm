@@ -665,7 +665,14 @@
 				console.log(idOfDisplayRow);
 			}	
 			
-			$("#" + idOfDisplayRow).val(dn);
+			
+			var vc=replace(idOfDisplayRow,'type_','');
+			
+							console.log(vc);
+			
+						$("#" + vc).val(dn);
+			
+			
 			console.log('alert or die....' + idOfDisplayRow);
 		}
 	</script>
