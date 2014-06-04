@@ -169,6 +169,7 @@
 </cfif>
 <!------------------------------------------>
 <cfif action is "nothing">
+	<script src="/includes/sorttable.js"></script>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			ip,LISTDATE
