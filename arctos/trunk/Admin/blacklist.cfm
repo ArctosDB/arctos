@@ -71,7 +71,7 @@
 		from 
 			uam.blacklist 
 		where
-			sysdate-LISTDATE<#expiresIn#
+			sysdate-LISTDATE<#expiresIn# and
 			substr(ip,1,instr(ip,'.',1,2)-1) not in (
 				select subnet from blacklist_subnet where sysdate-INSERT_DATE<#expiresIn#
 			)
