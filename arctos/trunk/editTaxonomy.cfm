@@ -631,9 +631,13 @@
 		}
 		function useDNG(){
 			var dn=$("#dng").val();
-			$('input').each(function(){
+			$(input[type=text]).each(function(){
+				
+				console.log($(this).val());
+				
+				
    				 if( $(this).val()=='display_value' ){
-   				 	console.log($(this).val());
+   				 	
    				 	var idOfDisplayRow=this.id;
    				 }	
    				 	
