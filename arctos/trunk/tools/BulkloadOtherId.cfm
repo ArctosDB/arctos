@@ -239,14 +239,19 @@ sho err
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "showCheck">
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_oids where status is not null
+	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_oids
 	</cfquery>
+	<cfquery name="data" dbtype="query">
+		select * from raw  where status is not null
+	</cfquery>
+			
+				
 	<cfif data.recordcount gt 0>
 		You must fix everything in the table below and reload your file to continue.
 		<cfdump var=#data#>
 	<cfelse>
-		<a href="BulkloadOtherId.cfm?action=loadData">checks out...proceed to load</a>
+		<a href="BulkloadOtherId.cfm?action=loadData">checks out...proceed to load #raw.recordcount# new IDs</a>
 	</cfif>
 </cfif>
 <!------------------------------------------------------->
