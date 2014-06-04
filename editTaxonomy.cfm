@@ -639,7 +639,6 @@
 			});
 
 
-			console.log(idOfDisplayRow);
 			
 			
 			if (typeof idOfDisplayRow === 'undefined') {
