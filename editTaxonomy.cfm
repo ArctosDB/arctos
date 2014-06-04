@@ -637,7 +637,7 @@
 				
 				
    				 if( $(this).val()=='display_name' ){
-   				 	
+   				 	console.log('using ' + this.id);
    				 	var idOfDisplayRow=this.id;
    				 }	
    				 	
