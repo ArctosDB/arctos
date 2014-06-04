@@ -180,6 +180,8 @@ function closeAnnotation() {
 	var theDiv = document.getElementById('annotateDiv');
 	document.body.removeChild(theDiv);
 }
+
+/*
 window.alert = function(message){
     $(document.createElement('div'))
         .attr({title: 'Alert', 'class': 'alert'})
@@ -193,7 +195,7 @@ window.alert = function(message){
             width: 'auto'
         });
 };
-
+*/
 
 function jqalert(output_msg, title_msg)
 {
