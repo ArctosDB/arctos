@@ -631,10 +631,9 @@
 		}
 		function useDNG(){
 			var dn=$("#dng").val();
-			var idOfDisplayRow;
 			$('input').each(function(){
    				 if( $(this).val()=='display_value' ){
-   				 	idOfDisplayRow=this.id;
+   				 	var idOfDisplayRow=this.id;
    				 }	
    				 	
 			});
@@ -642,11 +641,16 @@
 
 			console.log(idOfDisplayRow);
 			
-			if (idOfDisplayRow.length>0){
-				console.log('dv row exists');
-				
-			} else {
+			
+			if (typeof idOfDisplayRow === 'undefined') {
 				console.log('make a row');
+} else {
+	
+					console.log(row exists');
+								console.log(idOfDisplayRow);
+					
+	
+	
 				}	
 		}
 	</script>
