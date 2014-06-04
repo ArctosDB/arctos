@@ -645,10 +645,9 @@
 
 
 			
-			
-			if (typeof idOfDisplayRow === 'undefined') {
+		 if(typeof idOfDisplayRow === 'undefined'){	
 				console.log('make a row');
-} else {
+		} else {
 	
 					console.log('row exists');
 								console.log(idOfDisplayRow);
@@ -656,6 +655,10 @@
 	
 	
 				}	
+				
+				
+				
+				console.log('alert or die....' + idOfDisplayRow);
 		}
 	</script>
 	<cfoutput>
