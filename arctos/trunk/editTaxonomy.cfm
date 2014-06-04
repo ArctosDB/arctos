@@ -646,7 +646,7 @@
 				console.log('make a row');
 } else {
 	
-					console.log(row exists');
+					console.log('row exists');
 								console.log(idOfDisplayRow);
 					
 	
