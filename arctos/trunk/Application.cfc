@@ -271,11 +271,11 @@
 	
 	<cftry>
 		<cfquery name="d" datasource="uam_god">
-			select ip from uam.blacklist
+			select ip from uam.blacklist where sysdate-LISTDATE<180
 		</cfquery>
 		<cfset Application.blacklist=valuelist(d.ip)>
 		<cfquery name="sn" datasource="uam_god">
-			select subnet from uam.blacklist_subnet
+			select subnet from uam.blacklist_subnet where sysdate-INSERT_DATE<180
 		</cfquery>
 		<cfset application.subnet_blacklist=valuelist(sn.subnet)>
 	<cfcatch>
@@ -340,52 +340,10 @@
 <cffunction name="onSessionStart" output="true">
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
-</cffunction>
-<!-------------------------------------------------------------->
-<cffunction name="onRequestStart" returnType="boolean" output="true">
-	<cfif cgi.HTTP_HOST contains "altai.corral.tacc.utexas.edu">
-		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
-		<cfabort>
-	<cfelseif cgi.HTTP_HOST contains "meta-1.corral.tacc.utexas.edu">
-		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfheader name="Location" value="http://arctos.database.museum/">
-		<cfabort>
-	<cfelseif cgi.HTTP_HOST contains "web.arctos.database.museum">
-		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfheader name="Location" value="http://arctos.database.museum/">
-		<cfabort>
-	<cfelseif cgi.HTTP_HOST contains "arctos.tacc.utexas.edu">
-		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfheader name="Location" value="http://arctos.database.museum/">
-	</cfif>
-	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
-	<cfif cgi.script_name is not "/errors/missing.cfm">
-		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
-	</cfif>
-	<cfset request.rdurl=replace("/" & request.rdurl,"//","/","all")>
-	<cfif right(request.rdurl,1) is "?">
-		<cfset request.rdurl=left(request.rdurl,len(request.rdurl)-1)>
-	</cfif>
-	<cfif request.rdurl contains chr(195) & chr(151)>
-		<cfset request.rdurl=replace(request.rdurl,chr(195) & chr(151),chr(215))>
-	</cfif>
 	
-	<!--- a unique identifier to tie "short" log entries to the raw dump file ---->
 	
-	<cfset request.uuid=CreateUUID()>
 	
-	<!--- uncomment for a break from googlebot
-
-	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
-		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
-		<cfheader name="retry-after" value="3600"/>
-		Down for maintenance
-		<cfreturn false>
-		<cfabort>
-	</cfif>
-
-	---->
+	
 	<cfif not isdefined("application.blacklist")>
 		<cfset application.blacklist="">
 	</cfif>
@@ -437,6 +395,67 @@
 			<cfabort>
 		</cfif>
 	</cfif>
+	
+	
+	
+	
+	
+</cffunction>
+<!-------------------------------------------------------------->
+<cffunction name="onRequestStart" returnType="boolean" output="true">
+	<cfif cgi.HTTP_HOST contains "altai.corral.tacc.utexas.edu">
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
+		<cfabort>
+	<cfelseif cgi.HTTP_HOST contains "meta-1.corral.tacc.utexas.edu">
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="http://arctos.database.museum/">
+		<cfabort>
+	<cfelseif cgi.HTTP_HOST contains "web.arctos.database.museum">
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="http://arctos.database.museum/">
+		<cfabort>
+	<cfelseif cgi.HTTP_HOST contains "arctos.tacc.utexas.edu">
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="http://arctos.database.museum/">
+	</cfif>
+	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
+	<cfif cgi.script_name is not "/errors/missing.cfm">
+		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
+	</cfif>
+	<cfset request.rdurl=replace("/" & request.rdurl,"//","/","all")>
+	<cfif right(request.rdurl,1) is "?">
+		<cfset request.rdurl=left(request.rdurl,len(request.rdurl)-1)>
+	</cfif>
+	<cfif request.rdurl contains chr(195) & chr(151)>
+		<cfset request.rdurl=replace(request.rdurl,chr(195) & chr(151),chr(215))>
+	</cfif>
+	
+	<!--- a unique identifier to tie "short" log entries to the raw dump file ---->
+	
+	<cfset request.uuid=CreateUUID()>
+	
+	<!--- uncomment for a break from googlebot
+
+	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
+		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
+		<cfheader name="retry-after" value="3600"/>
+		Down for maintenance
+		<cfreturn false>
+		<cfabort>
+	</cfif>
+
+	---->
+	
+	<!---- moved to onSessionStart 
+	
+	
+	
+	
+	----->
+	
+	
+	
 	<cfset nono="passwd,proc">
 	<cfloop list="#cgi.query_string#" delimiters="./," index="i">
 		<cfif listfindnocase(nono,i)>

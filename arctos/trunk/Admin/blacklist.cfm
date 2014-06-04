@@ -3,6 +3,8 @@
 <!----
 	Release blocks after a period of time.
 	Just ignore everything that's timed out
+	
+	THIS IS ALSO HARD_CODED IN Application.cfc
 ---->
 <cfset expiresIn="180">
 
