@@ -139,6 +139,8 @@ function displayMedia(idList){
 		if (r.ROWCOUNT>0){
 			var theHTML='<div class="shortThumb"><div class="thumb_spcr">&nbsp;</div>';
 			for (i=0; i<r.ROWCOUNT; ++i) {
+				
+				console.log(r.DATA.media_type[i]);
 				var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + r.DATA.preview_uri[i] + '&media_type=' +  r.DATA.media_type[i] + '&returnformat=json&queryformat=column';
 				$.ajax({
 					url: theURL,
