@@ -509,10 +509,6 @@
 		}
 
 		function guessAtDisplayName(caller) {
-			if ($("#stoppit").val() == "true"){
-				// they've clicked the "use old value" link - stop making suggestions for this editing suggestion
-				return false;
-			}
 			// if this is being called by an element, check if that element is the value
 			// of display_name. If so, just exit. Otherwise, rock on.
 			if(caller && caller.substring(0, 2) == "nc") {
@@ -554,11 +550,6 @@
 					formatstyle='icbn';			
 				}
 				// on initial load ONLY, save display name
-				if (thisval=='display_name' && ! caller) {
-					var undoSuggest='display_value may have been automatically added and/or updated.<br>';
-					undoSuggest+='<span class="likeLink" onclick="stoppit(\'' + relatedElementID + '\',\'' + relatedElement + '\');">reset to ' + relatedElement + '</span>';
-					$("#originalDisplayName").html(undoSuggest);
-				}
 			});
 			if (! dv_element){
 				// add a row for display_name	
@@ -876,7 +867,7 @@
 				</cfquery>
 			</cfloop>
 		</cftransaction>
-		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#&stoppit=#stoppit#" addtoken="false">
+		<cflocation url="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
