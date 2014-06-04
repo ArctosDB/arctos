@@ -695,17 +695,6 @@
 			Important randomness:
 			<ul>
 				<li>
-					Term type <span class="isterm">display_name</span> is (when appropriate and available) stored as FLAT.FORMATTED_SCIENTIFIC_NAME. 
-					This form will suggest display names
-					based on other data, including <span class="isterm">kingdom</span>, <span class="isterm">nomenclatural_code</span>, 
-					<span class="isterm">genus</span>, <span class="isterm">species</span>, 
-					"<span class="isterm">subspecies</span>" 
-					(including <span class="isterm">var.</span>, <span class="isterm">forma</span>, etc.), infraspecific rank (
-					such as <span class="isterm">var.</span>, <span class="isterm">forma</span>, etc.), and <span class="isterm">infraspecific_author</span>. 
-					Click the link at the bottom of the page to reset and stop suggestions for this editing session.
-					 <span class="isterm">Display_name</span> should include HTML markup, which can be easily stripped off when appropriate.
-				</li>
-				<li>
 					<span class="isterm">Species</span> are binomials, not specific epithets: "Poa abbreviata" rather than "abbreviata."
 				</li>
 				<li>
@@ -800,19 +789,17 @@
 			</table>
 			<span class="likeLink" onclick="addARow();">[ add a row ]</span>
 			<p>
-				<!--- flag to override atuoguess @displayname - keep it on for the duration os editing a classification one tripped---->
 				<div style="border:2px solid red;padding:2em;margin:2em;">
 					IMPORTANT!! Classifications should generally have a (one!) non-classification term 
-					"display_name" value, which is an HTML-formatted
-					namestring including authors, infraspecific rank, etc., according to discipline-specific traditions.
-					<p>
-						Add to or edit the form above, edit the guess box below and click "use," or just click "use" to accept our
-						suggestion. Check the form before saving.
-					</p>
+					"display_name" with corresponding HTML-formatted, discipline-specific value, 
+					including authors, infraspecific rank, etc. This is stored in FLAT.FORMATTED_SCIENTIFIC_NAME and used on many forms and 
+					labels. This suggestion is based on other data, including kingdom, nomenclatural_code, genus, species, 
+					"subspecies" (including var., forma, etc.), infraspecific rank (such as var., forma, etc.), and infraspecific_author. 
+					<strong>Bad suggestions here are an indication of missing or malformed data.</strong>
 					<label for="dng">Our guess at display_name</label>
 					<input id="dng" size="80">
-				<input type="button" onclick="useDNG();" value="Use this suggestion">
-				<input type="button" onclick="guessAtDisplayName();" value="Refresh suggestion">
+					<input type="button" onclick="useDNG();" value="Use this suggestion">
+					<input type="button" onclick="guessAtDisplayName();" value="Refresh suggestion">
 				</div>
 				<input type="button" onclick="submitForm();" value="Save Edits">
 			</p>
