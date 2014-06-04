@@ -666,7 +666,7 @@
 			}	
 			
 			
-			var vc=replace(idOfDisplayRow,'type_','');
+			var vc=idOfDisplayRow.replace('type_','');
 			
 							console.log(vc);
 			
