@@ -195,7 +195,7 @@ window.alert = function(message){
             width: 'auto'
         });
 };
-*/
+
 
 function jqalert(output_msg, title_msg)
 {
@@ -217,6 +217,11 @@ function jqalert(output_msg, title_msg)
         }
     });
 }
+
+
+*/
+
+
 
 function saveSearch(returnURL){
 	var uniqid = Date.now();
