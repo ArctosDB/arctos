@@ -235,10 +235,18 @@ sho err
 				UPDATE cf_temp_oids SET collection_object_id = #collObj.collection_object_id# where
 				key = #key#
 			</cfquery>
+			
+			
+			
+			update....
 		<cfelse>
 			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update cf_temp_oids set status='#err#' where key=#key#
 			</cfquery>
+			
+			
+			
+			error.....
 		</cfif>
 	</cfloop>
 	
