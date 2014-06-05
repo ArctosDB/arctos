@@ -290,7 +290,7 @@ sho err
 		where
 			status is null and
 			collection_object_id is not null and
-			(collection_object_id,new_other_id_type,new_other_id_number,nvl(new_other_id_references,'self') IN
+			(collection_object_id,new_other_id_type,new_other_id_number,nvl(new_other_id_references,'self')) IN
 			(
 				select 
 					collection_object_id,other_id_type, display_value,id_references
