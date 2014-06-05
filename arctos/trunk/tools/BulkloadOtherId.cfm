@@ -212,13 +212,6 @@ sho err
 					cat_num=#existing_other_id_number#
 			</cfquery>
 		</cfif>
-		
-		<cfdump var=#collObj#>
-		
-		
-		
-		
-		
 		<cfif collObj.recordcount is not 1>
 			<cfset err=listappend(err,"#data.guid_prefix# #data.existing_other_id_number# #data.existing_other_id_type# matches #collObj.recordcount# records.")>
 		</cfif>
@@ -235,22 +228,12 @@ sho err
 				UPDATE cf_temp_oids SET collection_object_id = #collObj.collection_object_id# where
 				key = #key#
 			</cfquery>
-			
-			
-			
-			update....
 		<cfelse>
 			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update cf_temp_oids set status='#err#' where key=#key#
 			</cfquery>
-			
-			
-			
-			error.....
 		</cfif>
 	</cfloop>
-	
-	
 	<cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update 
 			cf_temp_oids 
@@ -275,18 +258,6 @@ sho err
 					coll_obj_other_id_num
 			)		
 	</cfquery>
-	
-	
-	
-	<cfquery name="sda" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from  
-			cf_temp_oids	
-	</cfquery>
-	<cfdump var=#sda#>
-	
-	
-	
-	<cfabort>
 	<cflocation url="BulkloadOtherId.cfm?action=showCheck" addtoken="false">
 </cfoutput>
 </cfif>
@@ -298,11 +269,26 @@ sho err
 	</cfquery>
 	<cfquery name="data" dbtype="query">
 		select * from raw  where status is not null
-	</cfquery>
-			
-				
+	</cfquery>			
 	<cfif data.recordcount gt 0>
 		You must fix everything in the table below and reload your file to continue.
+		<cfset d="status,guid_prefix,EXISTING_OTHER_ID_TYPE,EXISTING_OTHER_ID_NUMBER,NEW_OTHER_ID_TYPE,NEW_OTHER_ID_NUMBER,NEW_OTHER_ID_REFERENCES">
+		<cfset variables.encoding="UTF-8">
+		<cfset variables.fileName="#Application.webDirectory#/download/BulkloadOtherId_reject.csv">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine(d);
+		</cfscript>
+		<cfloop query="raw">
+			<cfset d='"#status#","#guid_prefix#","#EXISTING_OTHER_ID_TYPE#","#EXISTING_OTHER_ID_NUMBER#","#NEW_OTHER_ID_TYPE#","#NEW_OTHER_ID_NUMBER#","#NEW_OTHER_ID_REFERENCES#"'>
+			<cfscript>
+				variables.joFileWriter.writeLine(d);
+			</cfscript>
+		</cfloop>
+		<cfscript>
+			variables.joFileWriter.close();
+		</cfscript>
+		<a href="/download.cfm?file=BulkloadOtherId_reject.csv">CSV</a> (delete status column to re-load)
 		<cfdump var=#data#>
 	<cfelse>
 		<a href="BulkloadOtherId.cfm?action=loadData">checks out...proceed to load #raw.recordcount# new IDs</a>
