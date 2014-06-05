@@ -273,6 +273,17 @@ sho err
 	</cfquery>
 	
 	----->
+	
+	
+	
+	<cfquery name="sda" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from  
+			cf_temp_oids	
+	</cfquery>
+	<cfdump var=#sda#>
+	
+	
+	
 	<cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from  
 			cf_temp_oids 
