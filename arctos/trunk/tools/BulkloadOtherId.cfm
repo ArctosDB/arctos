@@ -236,7 +236,7 @@ sho err
 	</cfloop>
 	<cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_oids set status='identifier exists' where (
-			collection_object_id, new_other_id_type,new_other_id_number, new_other_id_references) in 
+			collection_object_id, new_other_id_type,new_other_id_number, new_other_id_references) not in 
 			(select collection_object_id,other_id_type,display_value,id_references from coll_obj_other_id_num)		
 	</cfquery>
 
