@@ -290,10 +290,10 @@ sho err
 		where
 			status is null and
 			collection_object_id is not null and
-			(collection_object_id) IN
+			(collection_object_id,new_other_id_type) IN
 			(
 				select 
-					collection_object_id
+					collection_object_id,other_id_type
 				from 
 					coll_obj_other_id_num
 			)		
