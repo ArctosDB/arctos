@@ -212,6 +212,13 @@ sho err
 					cat_num=#existing_other_id_number#
 			</cfquery>
 		</cfif>
+		
+		<cfdump var=#collObj#>
+		
+		
+		
+		
+		
 		<cfif collObj.recordcount is not 1>
 			<cfset err=listappend(err,"#data.guid_prefix# #data.existing_other_id_number# #data.existing_other_id_type# matches #collObj.recordcount# records.")>
 		</cfif>
