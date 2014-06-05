@@ -288,12 +288,23 @@ sho err
 		<cfscript>
 			variables.joFileWriter.close();
 		</cfscript>
-		<a href="/download.cfm?file=BulkloadOtherId_reject.csv">CSV</a> (delete status column to re-load)
+		<p><a href="/download.cfm?file=BulkloadOtherId_reject.csv">CSV</a> (delete status column to re-load)</p>
+		<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
+		
 		<cfdump var=#data#>
 	<cfelse>
 		<a href="BulkloadOtherId.cfm?action=loadData">checks out...proceed to load #raw.recordcount# new IDs</a>
 	</cfif>
 </cfoutput>
+</cfif>
+<!------------------------------------------------------->
+<cfif action is "deleteAlreadyExists">
+	<cfoutput>
+		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from cf_temp_oids where status='identifier exists'
+		</cfquery>
+		<cflocation url="BulkloadOtherId.cfm?action=validate" addtoken="false">
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "loadData">
