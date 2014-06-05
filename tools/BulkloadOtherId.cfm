@@ -251,7 +251,6 @@ sho err
 	</cfloop>
 	
 	
-	<!-----
 	<cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update 
 			cf_temp_oids 
@@ -260,19 +259,22 @@ sho err
 		where
 			status is null and
 			collection_object_id is not null and
-			(collection_object_id, new_other_id_type,new_other_id_number, new_other_id_references) IN
+			(
+				collection_object_id,
+				new_other_id_type,
+				new_other_id_number,
+				nvl(new_other_id_references,'self')
+			) IN
 			(
 				select 
 					collection_object_id,
 					other_id_type,
 					display_value,
-					id_references 
+					id_references
 				from 
 					coll_obj_other_id_num
 			)		
 	</cfquery>
-	
-	----->
 	
 	
 	
@@ -283,22 +285,6 @@ sho err
 	<cfdump var=#sda#>
 	
 	
-	
-	<cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from  
-			cf_temp_oids 
-		where
-			status is null and
-			collection_object_id is not null and
-			(collection_object_id,new_other_id_type,new_other_id_number,nvl(new_other_id_references,'self')) IN
-			(
-				select 
-					collection_object_id,other_id_type, display_value,id_references
-				from 
-					coll_obj_other_id_num
-			)		
-	</cfquery>
-	<cfdump var=#alreadyGotOne#>
 	
 	<cfabort>
 	<cflocation url="BulkloadOtherId.cfm?action=showCheck" addtoken="false">
