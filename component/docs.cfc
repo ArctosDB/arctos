@@ -1,13 +1,13 @@
 <cfcomponent>
 <cffunction name="jsonEscape" access="remote">
 	<cfargument name="inpstr" required="yes">
+	<cfset inpstr=replace(inpstr,'\','\\',"all")>
 	<cfset inpstr=replace(inpstr,'"','\"',"all")>
 	<cfset inpstr=replace(inpstr,chr(10),'<br>',"all")>
 	<cfset inpstr=replacenocase(inpstr,chr(9),'<br>',"all")>
 	<cfset inpstr=replace(inpstr,chr(13),'<br>',"all")>
 	<cfset inpstr=replace(inpstr,'  ',' ',"all")>
 	<cfset inpstr=rereplacenocase(inpstr,'(<br>){2,}','<br>',"all")>
-	<cfset inpstr=replace(inpstr,'\','\\',"all")>
 	<cfreturn inpstr>
 </cffunction>
 <!------------------------------------------------------------------------------------------------------------------------------>

@@ -762,10 +762,11 @@
 	<cfset mapurl = "#mapurl#&media_type=#media_type#">
 	<cfif basJoin does not contain " ci_media_relations ">
 		<cfset basJoin = " #basJoin# INNER JOIN media_relations ci_media_relations ON (#session.flatTableName#.collection_object_id = ci_media_relations.related_primary_key)">
+	    <cfset basQual = "#basQual#  AND ci_media_relations.media_relationship='shows cataloged_item'">
 	</cfif>
-    <cfif media_type is not "any">
+    <cfif media_type is not "any" and media_type is not "_">
         <cfset basJoin = " #basJoin# INNER JOIN media ci_media ON (ci_media_relations.media_id = ci_media.media_id)">
-        <cfset basQual = "#basQual#  AND ci_media.media_type = '#media_type#' and ci_media_relations.media_relationship='shows cataloged_item'">
+        <cfset basQual = "#basQual#  AND ci_media.media_type = '#media_type#'">
     </cfif>
 </cfif>
 <cfif isdefined("mime_type") AND len(mime_type) gt 0>
