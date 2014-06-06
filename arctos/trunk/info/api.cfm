@@ -188,50 +188,41 @@
 </cfif>
 <cfif action is "specsrch">
 	<cfquery name="st" datasource="cf_dbuser">
-		select * from cf_search_terms order by term
+		select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 	</cfquery>
 		Base URL: #Application.serverRootUrl#/SpecimenResults.cfm
+	
 	<table border>
 		<tr>
 			<th>term</th>
 			<th>display</th>
 			<th>values</th>
-			<th>comment</th>
+			<th>definition</th>
+			<th>documentation</th>
+			<th>searchhint</th>
 		</tr>
-		<cfloop query="st">
-			<cfif left(code_table,2) is "CT">
-				<cftry>
-				<cfquery name="docs" datasource="cf_dbuser">
-					select * from #code_table#
-				</cfquery>
-				<cfloop list="#docs.columnlist#" index="colName">
-					<cfif #colName# is not "COLLECTION_CDE" and #colName# is not "DESCRIPTION">
-						<cfset theColumnName = #colName#>
-					</cfif>
-				</cfloop>
-				<cfquery name="theRest" dbtype="query">
-					select #theColumnName# from docs
-						group by #theColumnName#
-						order by #theColumnName#
-				</cfquery>
-				<cfset ct="">
-				<cfloop query="theRest">
-					<cfset ct=ct & evaluate(theColumnName) & "<br>">
-				</cfloop>
-				<cfcatch>
-					<cfset ct="fail: #code_table#: #cfcatch.message# #cfcatch.detail# #cfcatch.sql#">
-				</cfcatch>
-				</cftry>
-			<cfelse>
-				<cfset ct=code_table>
-			</cfif>
-			<tr>				
-				<td valign="top">#term#</td>
-				<td valign="top">#display#</td>
-				<td valign="top">#ct#</td>
-				<td valign="top">#definition#</td>
-			</tr>
-		</cfloop>
+		<cfoutput>
+			<cfloop query="st">
+				<tr>				
+					<td valign="top">#CF_VARIABLE#</td>
+					<td valign="top">#DISPLAY_TEXT#</td>
+					<td valign="top">
+						<cfif left(CONTROLLED_VOCABULARY,2) is "ct">
+							<a href="/info/ctDocumentation.cfm?table=#CONTROLLED_VOCABULARY#">#CONTROLLED_VOCABULARY#</a>
+						<cfelse>
+							#CONTROLLED_VOCABULARY#
+						</cfif>
+					</td>
+					<td valign="top">#definition#</td>
+					<td valign="top">
+						<cfif len(DOCUMENTATION_LINK) gt 0>
+							<a href="#DOCUMENTATION_LINK#">#DOCUMENTATION_LINK#</a>
+						</cfif>
+					</td>
+					<td valign="top">#SEARCH_HINT#</td>
+				</tr>
+			</cfloop>
+		</cfoutput>
 	</table>
 </cfif>
 <cfif action is "kml">
