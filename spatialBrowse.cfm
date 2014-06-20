@@ -2,6 +2,7 @@
 <cfset title="Spatially browse all Arctos records">
 <!--- setup
 
+drop table temp_gmapsrch;
 
 create table temp_gmapsrch as select
 	scientific_name,
@@ -18,6 +19,7 @@ group by
 create index ix_temp_gmapsrch_sn on temp_gmapsrch(scientific_name) tablespace uam_idx_1;
 create index ix_temp_gmapsrch_c on temp_gmapsrch(c) tablespace uam_idx_1;
 
+drop table gmap_srch;
 
 create table gmap_srch (
 	coordinates varchar2(255),
@@ -106,7 +108,7 @@ drop index ix_temp_gmapsrch_c;
 	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=places" type="text/javascript"></script>'>
 </cfoutput>
 <script language="javascript" type="text/javascript">
-	var tableID='1eI0xLA9tXOVC53QnRxc6L32G72SFtqFVJT4COos';
+	var tableID='1DF_kVyrwkqJ2YU07FKAHFQCIDbM7xeTNLPdju8ih';
 
 	function initialize() {
 		var chicago = new google.maps.LatLng(64.8333333333,-147.7166666667);
