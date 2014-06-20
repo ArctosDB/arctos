@@ -382,11 +382,13 @@
 			from
 				locality,
 				collecting_event,
+				specimen_event,
 				cataloged_item,
 				collection
 			where
 				locality.locality_id = collecting_event.locality_id AND
-				collecting_event.collecting_event_id = cataloged_item.collecting_event_id AND
+				collecting_event.collecting_event_id = specimen_event.collecting_event_id AND
+				specimen_event.collection_object_id=cataloged_item.collection_object_id AND
 			 	cataloged_item.collection_id=collection.collection_id and
 			 	geog_auth_rec_id=#geog_auth_rec_id#
 			 group by
@@ -1370,54 +1372,54 @@ You deleted a collecting event.
 <cfif action is "saveGeogEdits">
 	<cfoutput>
 	<cfset srcAuth = #replace(source_authority,"'","''")#>
-	<cfset sql = "UPDATE geog_auth_rec SET source_authority = '#srcAuth#'
+	<cfset sql = "UPDATE geog_auth_rec SET source_authority = '#escapeQuotes(srcAuth)#'
 		,valid_catalog_term_fg = #valid_catalog_term_fg#">
 	<cfif len(#continent_ocean#) gt 0>
-		<cfset sql = "#sql#,continent_ocean = '#continent_ocean#'">
+		<cfset sql = "#sql#,continent_ocean = '#escapeQuotes(continent_ocean)#'">
 	<cfelse>
 		<cfset sql = "#sql#,continent_ocean = null">
 	</cfif>
 
 	<cfif len(#country#) gt 0>
-		<cfset sql = "#sql#,country = '#country#'">
+		<cfset sql = "#sql#,country = '#escapeQuotes(country)#'">
 	<cfelse>
 		<cfset sql = "#sql#,country = null">
 	</cfif>
 
 	<cfif len(#state_prov#) gt 0>
-		<cfset sql = "#sql#,state_prov = '#state_prov#'">
+		<cfset sql = "#sql#,state_prov = '#escapeQuotes(state_prov)#'">
 	<cfelse>
 		<cfset sql = "#sql#,state_prov = null">
 	</cfif>
 
 	<cfif len(#county#) gt 0>
-		<cfset sql = "#sql#,county = '#county#'">
+		<cfset sql = "#sql#,county = '#escapeQuotes(county)#'">
 	<cfelse>
 		<cfset sql = "#sql#,county = null">
 	</cfif>
 
 	<cfif len(#quad#) gt 0>
-		<cfset sql = "#sql#,quad = '#quad#'">
+		<cfset sql = "#sql#,quad = '#escapeQuotes(quad)#'">
 	<cfelse>
 		<cfset sql = "#sql#,quad = null">
 	</cfif>
 	<cfif len(#feature#) gt 0>
-		<cfset sql = "#sql#,feature = '#feature#'">
+		<cfset sql = "#sql#,feature = '#escapeQuotes(feature)#'">
 	<cfelse>
 		<cfset sql = "#sql#,feature = null">
 	</cfif>
 	<cfif len(#island_group#) gt 0>
-		<cfset sql = "#sql#,island_group = '#island_group#'">
+		<cfset sql = "#sql#,island_group = '#escapeQuotes(island_group)#'">
 	<cfelse>
 		<cfset sql = "#sql#,island_group = null">
 	</cfif>
 	<cfif len(#island#) gt 0>
-		<cfset sql = "#sql#,island = '#island#'">
+		<cfset sql = "#sql#,island = '#escapeQuotes(island)#'">
 	<cfelse>
 		<cfset sql = "#sql#,island = null">
 	</cfif>
 	<cfif len(#sea#) gt 0>
-		<cfset sql = "#sql#,sea = '#sea#'">
+		<cfset sql = "#sql#,sea = '#escapeQuotes(sea)#'">
 	<cfelse>
 		<cfset sql = "#sql#,sea = null">
 	</cfif>
@@ -1464,36 +1466,38 @@ INSERT INTO geog_auth_rec (
 	<cfif len(#sea#) gt 0>
 		,sea
 	</cfif>
+	,SOURCE_AUTHORITY
 		)
 	VALUES (
 		#nextGEO.nextid#
 		<cfif len(#continent_ocean#) gt 0>
-		,'#continent_ocean#'
+		,'#escapeQuotes(continent_ocean)#'
 	</cfif>
 	<cfif len(#country#) gt 0>
-		,'#country#'
+		,'#escapeQuotes(country)#'
 	</cfif>
 	<cfif len(#state_prov#) gt 0>
-		,'#state_prov#'
+		,'#escapeQuotes(state_prov)#'
 	</cfif>
 	<cfif len(#county#) gt 0>
-		,'#county#'
+		,'#escapeQuotes(county)#'
 	</cfif>
 	<cfif len(#quad#) gt 0>
-		,'#quad#'
+		,'#escapeQuotes(quad)#'
 	</cfif>
 	<cfif len(#feature#) gt 0>
-		,'#feature#'
+		,'#escapeQuotes(feature)#'
 	</cfif>
 	<cfif len(#island_group#) gt 0>
-		,'#island_group#'
+		,'#escapeQuotes(island_group)#'
 	</cfif>
 	<cfif len(#island#) gt 0>
-		,'#island#'
+		,'#escapeQuotes(island)#'
 	</cfif>
 	<cfif len(#sea#) gt 0>
-		,'#sea#'
+		,'#escapeQuotes(sea)#'
 	</cfif>
+	,'#escapeQuotes(SOURCE_AUTHORITY)#'
 )
 </cfquery>
 <cflocation addtoken="no" url="Locality.cfm?Action=editGeog&geog_auth_rec_id=#nextGEO.nextid#">
@@ -1868,7 +1872,7 @@ INSERT INTO geog_auth_rec (
 		<th>IslandGroup</th>
 		<th>Island</th>
 		<th>Sea</th>
-		<th>Feature</th>	
+		<th>Authority</th>
 	</tr>
 <cfloop query="localityResults">
 <tr>
@@ -1886,6 +1890,13 @@ INSERT INTO geog_auth_rec (
 	<td>#ISLAND_GROUP#</td>
 	<td>#ISLAND#</td>
 	<td>#SEA#</td>
+	<td>
+		<cfif left(SOURCE_AUTHORITY,4) is 'http'>
+			<a href="#SOURCE_AUTHORITY#" class="external" target="_blank">#SOURCE_AUTHORITY#</a>
+		<cfelse>
+			#SOURCE_AUTHORITY#	
+		</cfif>
+	</td>
   </tr>
 </cfloop>
 </cfoutput>

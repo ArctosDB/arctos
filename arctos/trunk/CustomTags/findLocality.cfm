@@ -12,7 +12,8 @@
 		FEATURE,
 		ISLAND ,
 		ISLAND_GROUP,
-		SEA
+		SEA,
+		SOURCE_AUTHORITY
 
 ">
 <cfset frm=" from geog_auth_rec">

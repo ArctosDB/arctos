@@ -298,6 +298,14 @@ from geog_auth_rec where rownum<10
 			<cfset thisState=replace(thisState,'City',"")>
 			<cfset thisState=replace(thisState,'Depto.',"")>
 			<cfset thisState=replace(thisState,'Departamento',"")>
+			<cfset thisState=replace(thisState,'Kabupaten',"")>
+			<cfset thisState=replace(thisState,'La',"")>
+			<cfset thisState=replace(thisState,'Del',"")>
+			<cfset thisState=replace(thisState,'De',"")>
+			<cfset thisState=replace(thisState,'De',"")>
+			<cfset thisState=replace(thisState,'District',"")>
+			<cfset thisState=replace(thisState,'Governorate',"")>
+			
 
 			<cfset thisState=rereplace(thisState,'\(.*\)','')>
 
