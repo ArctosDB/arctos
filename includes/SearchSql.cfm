@@ -762,11 +762,10 @@
 	<cfset mapurl = "#mapurl#&media_type=#media_type#">
 	<cfif basJoin does not contain " ci_media_relations ">
 		<cfset basJoin = " #basJoin# INNER JOIN media_relations ci_media_relations ON (#session.flatTableName#.collection_object_id = ci_media_relations.related_primary_key)">
-	    <cfset basQual = "#basQual#  AND ci_media_relations.media_relationship='shows cataloged_item'">
 	</cfif>
-    <cfif media_type is not "any" and media_type is not "_">
+    <cfif media_type is not "any">
         <cfset basJoin = " #basJoin# INNER JOIN media ci_media ON (ci_media_relations.media_id = ci_media.media_id)">
-        <cfset basQual = "#basQual#  AND ci_media.media_type = '#media_type#'">
+        <cfset basQual = "#basQual#  AND ci_media.media_type = '#media_type#' and ci_media_relations.media_relationship='shows cataloged_item'">
     </cfif>
 </cfif>
 <cfif isdefined("mime_type") AND len(mime_type) gt 0>
@@ -1597,19 +1596,12 @@
 				* change semicolon to comma
 				* change chr(10) to comma
 		---->
-	
-			<cfdump var=#OIDNum#>
-
-	
 		<cfset oidList=replace(OIDNum,' ',',','all')>
 		<cfset oidList=replace(oidList,';',',','all')>
 		<cfset oidList=replace(oidList,chr(10),',','all')>
 		<cfset oidList=replace(oidList,chr(13),',','all')>
-		
+		<cfset oidList=replace(oidList,chr(9),',','all')>
 		<cfset oidList=replace(oidList,",,",',','all')>
-		
-		<cfdump var=#oidList#>
-		
 		<cfset basQual = " #basQual# AND upper(otherIdSearch.display_value) IN ( #ListQualify(oidList,'''')# ) " >
 		
 		
