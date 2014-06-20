@@ -486,7 +486,7 @@
 		<cfloop query="pubs">
 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<p class="indent">
-					#full_citation#
+					<a href="/publication/#publication_id#">#full_citation#</a>
 				</p>	
 				<ul>
 					<li><a href="javascript: openAnnotation('publication_id=#publication_id#')">Annotate</a></li>
