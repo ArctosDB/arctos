@@ -10,11 +10,7 @@
 	<cfquery name="isValid" datasource="uam_god" >
 		select ROLE_NAME from cf_form_permissions 
 		where form_path = '#replace(cgi.script_name,"//","/","all")#'
-	</cfquery>
-	
-	<cfdump var=#isValid#>
-	
-	
+	</cfquery>	
 	<cfif isValid.recordcount is 0>
 		<cfthrow message="uncontrolled form" detail="This is an uncontrolled/locked form." errorCode="403">
 	<cfelseif valuelist(isValid.role_name) is not "public">
