@@ -3,9 +3,21 @@
 			<cfthrow message = "Local IP cannot be blacklisted" errorCode = "127001">
 			<cfabort>
 		</cfif>
-		<cfquery name="d" datasource="uam_god">
-			insert into uam.blacklist (ip) values ('#trim(request.ipaddress)#')
+		
+		
+		<cfquery name="exists" datasource="uam_god">
+			select ip from uam.blacklist where ip='#trim(request.ipaddress)#'
 		</cfquery>
+		<cfif len(exists.ip) gt 0>
+			<cfquery name="d" datasource="uam_god">
+				update uam.blacklist set LISTDATE=sysdate where ip='#trim(request.ipaddress)#'
+			</cfquery>
+		<cfelse>
+			<cfquery name="d" datasource="uam_god">
+				insert into uam.blacklist (ip) value ('#trim(request.ipaddress)#')
+			</cfquery>
+		</cfif>
+		
 		<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
 	
 		inserted and added to app BL.....
