@@ -14,7 +14,7 @@
 			</cfquery>
 		<cfelse>
 			<cfquery name="d" datasource="uam_god">
-				insert into uam.blacklist (ip) value ('#trim(request.ipaddress)#')
+				insert into uam.blacklist (ip) values ('#trim(request.ipaddress)#')
 			</cfquery>
 		</cfif>
 		
