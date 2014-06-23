@@ -12,10 +12,15 @@
 			<cfquery name="d" datasource="uam_god">
 				update uam.blacklist set LISTDATE=sysdate where ip='#trim(request.ipaddress)#'
 			</cfquery>
+			
+			update uam.blacklist set LISTDATE=sysdate where ip='#trim(request.ipaddress)#'
 		<cfelse>
 			<cfquery name="d" datasource="uam_god">
 				insert into uam.blacklist (ip) values ('#trim(request.ipaddress)#')
 			</cfquery>
+			
+			
+				insert into uam.blacklist (ip) values ('#trim(request.ipaddress)#')
 		</cfif>
 		
 		<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
