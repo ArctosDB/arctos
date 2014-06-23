@@ -4,7 +4,7 @@
 			<cfabort>
 		</cfif>
 		
-		
+		<cfoutput>
 		<cfquery name="exists" datasource="uam_god">
 			select ip from uam.blacklist where ip='#trim(request.ipaddress)#'
 		</cfquery>
@@ -26,6 +26,12 @@
 		<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
 	
 		inserted and added to app BL.....
+		
+		
+		
+		</cfoutput>
+		
+		
 		
 		<cf_logError subject="autoblacklist">
 		<cfinclude template="/errors/gtfo.cfm">
