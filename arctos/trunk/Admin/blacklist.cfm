@@ -81,6 +81,11 @@
 	<cfquery name="sn" dbtype="query">
 		select subnet from q group by subnet order by subnet
 	</cfquery>
+	
+	
+	<cfset inet_address = CreateObject("java", "java.net.InetAddress")>
+
+
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Subnet</th>
@@ -88,6 +93,7 @@
 			<th>firstblock</th>
 			<th>lastblock</th>
 			<th>whois</th>
+			<th>hostname</th>
 			<th>block subnet</th>
 		</tr>
 		<cfloop query="sn">
@@ -108,6 +114,17 @@
 					<td>#sndata.firstblock#</td>
 					<td>#sndata.lastblock#</td>
 					<td><a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">[ whois ]</a></td>
+					
+					
+					
+					
+<cfset host_name = inet_address.getByName("#subnet#.1.1").getHostName()>
+
+<td>#host_name#</td>
+
+
+
+
 					<td><a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">[ block this subnet ]</a></td>
 				</tr>
 			</cfif>	
