@@ -29,6 +29,11 @@
 		</script>
 		<cfabort>
 		<cfcatch>
+		
+		
+			<cfdump var=#cfcatch#>
+			
+			
 			<cfif cfcatch.message is not "[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: unique constraint (UAM.IU_BLACKLIST_IP) violated">
 				<cfmail subject="Autoblacklist Fail" to="#Application.PageProblemEmail#" from="blfail@#application.fromEmail#" type="html">
 					Auto-blacklisting failed.
@@ -50,6 +55,7 @@
 					<hr>catch dump
 					<cfdump var=#cfcatch#>
 				</cfmail>
+			
 			</cfif>
 		</cfcatch>
 	</cftry>
