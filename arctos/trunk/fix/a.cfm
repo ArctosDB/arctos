@@ -1,6 +1,6 @@
-
-<cfset session.resultColumnList=''>
-
+<cfset inet_address = CreateObject("java", "java.net.InetAddress")>
+<cfset host_name = inet_address.getByName("66.249.66.99").getHostName()>
+<cfoutput>#host_name#</cfoutput>
 <cfabort>
 
 
