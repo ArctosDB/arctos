@@ -25,6 +25,12 @@
 		</cfif>
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfif cgi.HTTP_USER_AGENT contains "slurp">
+				<!--- yahoo ignoring robots.txt - buh-bye.... --->
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
+			<cfif cgi.REQUEST_METHOD is "OPTIONS">
+				<!--- MS crazy hundreds of requests thing.... --->
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
