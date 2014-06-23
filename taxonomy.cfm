@@ -177,10 +177,10 @@
 	<ul>
 		<cfif len(taxon_name) gt 0>
 			<cfif left(taxon_name,1) is "=">
-				<cfset whr=whr & " and upper(scientific_name) = '#ucase(right(taxon_name,len(taxon_name)-1))#'">
+				<cfset whr=whr & " and upper(scientific_name) = '#escapeQuotes(ucase(right(taxon_name,len(taxon_name)-1)))#'">
 				<li>scientific_name IS #right(taxon_name,len(taxon_name)-1)#</li>
 			<cfelseif left(taxon_name,1) is "%">
-				<cfset whr=whr & " and upper(scientific_name) like '%#ucase(right(taxon_name,len(taxon_name)-1))#%'">
+				<cfset whr=whr & " and upper(scientific_name) like '%#ucase(escapeQuotes(right(taxon_name,len(taxon_name)-1)))#%'">
 				<li>scientific_name CONTAINS #taxon_term#</li>
 			<cfelse>
 				<cfset whr=whr & " and upper(scientific_name) like '#ucase(escapeQuotes(taxon_name))#%'">
@@ -197,10 +197,10 @@
 				<cfset whr=whr & " and upper(term) = '#ucase(right(taxon_term,len(taxon_term)-1))#'">
 				<li>taxa term IS #right(taxon_term,len(taxon_term)-1)#</li>
 			<cfelseif left(taxon_term,1) is "%">
-				<cfset whr=whr & " and upper(term) like '%#ucase(right(taxon_term,len(taxon_term)-1))#%'">
+				<cfset whr=whr & " and upper(term) like '%#escapeQuotes(ucase(right(taxon_term,len(taxon_term)-1)))#%'">
 				<li>taxa term CONTAINS #taxon_term#</li>
 			<cfelse>
-				<cfset whr=whr & " and upper(term) like '#ucase(taxon_term)#%'">
+				<cfset whr=whr & " and upper(term) like '#escapeQuotes(ucase(taxon_term))#%'">
 				<li>taxa term STARTS WITH #taxon_term#</li>
 			</cfif>			  
 		</cfif>
@@ -211,16 +211,16 @@
 			</cfif>
 			
 			<cfif  left(term_type,1) is "=">
-				<cfset whr=whr & " and upper(term_type) = '#ucase(right(term_type,len(term_type)-1))#'">
+				<cfset whr=whr & " and upper(term_type) = '#escapeQuotes(ucase(right(term_type,len(term_type)-1)))#'">
 				<li>term type IS #right(term_type,len(term_type)-1)#</li>
 			<cfelseif term_type is "NULL">
 				<cfset whr=whr & " and term_type is null">
 				<li>term type IS NULL</li>
 			<cfelseif left(term_type,1) is "%">
-				<cfset whr=whr & " and upper(term_type) like '%#ucase(right(term_type,len(term_type)-1))#%'">
+				<cfset whr=whr & " and upper(term_type) like '%#escapeQuotes(ucase(right(term_type,len(term_type)-1)))#%'">
 				<li>term type CONTAINS #term_type#</li>
 			<cfelse>
-				<cfset whr=whr & " and upper(term_type) like '#ucase(term_type)#%'">
+				<cfset whr=whr & " and upper(term_type) like '#escapeQuotes(ucase(term_type))#%'">
 				<li>term type STARTS WITH #term_type#</li>
 			</cfif>			  
 		</cfif>
@@ -229,7 +229,7 @@
 				<cfset tabls=tabls & " , taxon_term">
 				<cfset tbljoin=tbljoin & " AND taxon_name.taxon_name_id=taxon_term.taxon_name_id">
 			</cfif>
-			<cfset whr=whr & " and upper(source) like '#ucase(source)#%'">
+			<cfset whr=whr & " and upper(source) like '#escapeQuotes(ucase(source))#%'">
 			<li>source STARTS WITH #source#</li>
 		</cfif>
 		<cfif len(common_name) gt 0>
