@@ -22,6 +22,7 @@
 				function (result) {
 
 var idstr="c_" + ip;
+alert(idstr);
 
 alert($("##"+idstr).html());
 
