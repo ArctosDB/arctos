@@ -12,6 +12,13 @@ grant all on cf_dataentry_settings to data_entry;
 ---->
 	<script>
 		jQuery(document).ready(function() {
+
+
+	$("#assigned_date").datepicker();
+
+
+
+/*
 			var oidt4 =$("#other_id_num_type_4").val();
 			var oidv4=$("#other_id_num_4").val();
 
@@ -34,6 +41,10 @@ grant all on cf_dataentry_settings to data_entry;
 					$("#other_id_num_4").val(guid);
 				}
 			}
+* 
+* 
+* 
+* */
 		});
 	</script>
 	
@@ -117,7 +128,7 @@ grant all on cf_dataentry_settings to data_entry;
 			</h4>
 			
 			<input type="hidden" name="collecting_event_id" value="">
-			<label for="">Click the button to pick an event. The Verbatim Locality of the event you pick will go here.</label>
+			<label for="">Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
 			<input type="text" size="50" name="cepick">
 			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
 			<br><input type="submit" value="Create this Specimen/Event" class="savBtn">
