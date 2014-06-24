@@ -153,8 +153,8 @@ grant all on cf_dataentry_settings to data_entry;
 				</td>
 			</tr>
 			
-			<tr>
-				<td colspan="4" id="opnPickEventTD" style="display:none;">
+			<tr id="opnPickEventTD" style="display:none;">
+				<td colspan="4" >
 					<input type="hidden" name="collecting_event_id" value="">
 					<label for="">Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
 					<input type="text" size="50" name="cepick">
