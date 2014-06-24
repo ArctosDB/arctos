@@ -58,6 +58,9 @@ grant all on cf_dataentry_settings to data_entry;
         select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
      </cfquery>
 	
+	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+        select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
+     </cfquery>
 	
 		<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from  cf_temp_specevent  where UUID='#UUID#'
