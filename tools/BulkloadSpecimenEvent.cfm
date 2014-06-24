@@ -394,11 +394,10 @@ grant all on cf_temp_specevent to coldfusion_user;
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_specevent where upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfset util = CreateObject("component","component.utilities")>
+	<cfset  util = CreateObject("component","component.utilities")>
 
 	
-	<cfset obj = CreateObject("component","component.functions")>
-	<cfset csv = obj.QueryToCSV2(
+	<cfset csv = util.QueryToCSV2(
 		Query=mine)>
 
 
