@@ -88,6 +88,15 @@ grant all on cf_dataentry_settings to data_entry;
 	
 	
 		
+		<cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select datum from ctdatum order by datum
+	    </cfquery>
+		<cfquery name="ctgeorefmethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       	select georefmethod from ctgeorefmethod order by georefmethod
+	    </cfquery>
+		<cfquery name="ctverificationstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       	select verificationstatus from ctverificationstatus order by verificationstatus
+	    </cfquery>
 
 	<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
