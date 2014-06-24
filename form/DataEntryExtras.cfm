@@ -55,6 +55,7 @@ grant all on cf_dataentry_settings to data_entry;
 				$("#opnPickLocalityDiv").show();
 			} else {
 				alert('I have no idea what to do with ' + opn);
+			}
 		}
 
 
