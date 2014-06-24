@@ -31,7 +31,7 @@
 <strong>Create New Project:</strong>
 <script>
 	function countChar(val) {
-    	if (val.value.length >= 100) {
+    	if (val.length >= 100) {
 			$("#chrcnt").removeClass();
 		}else{
 			$("#chrcnt").addClass('redBorder');
