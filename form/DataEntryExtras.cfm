@@ -12,8 +12,8 @@ grant all on cf_dataentry_settings to data_entry;
 ---->
 	<script>
 		jQuery(document).ready(function() {
-			var oidv4=$("#other_id_num_type_4").val();
-			var oidt4=$("#other_id_num_4").val();
+			var oidt4 =$("#other_id_num_type_4").val();
+			var oidv4=$("#other_id_num_4").val();
 
 
 			console.log(oidt4 + '::' + oidt4.length );
