@@ -322,7 +322,7 @@ grant all on cf_dataentry_settings to data_entry;
 							<tr>
 								<td>
 									<label for="orig_lat_long_units">Coordinate Units</label>
-									<select name="orig_lat_long_units" id="orig_lat_long_units"	onChange="pickLL(this.value);">
+									<select name="orig_lat_long_units" id="orig_lat_long_units"	onChange="switchActive(this.value);">
 										<option value=""></option>
 										<cfloop query="ctunits">
 										  <option value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
