@@ -13,6 +13,8 @@ grant all on cf_dataentry_settings to data_entry;
 add more stuff to data entry via bulkloaders....
 
 <cfoutput>
+
+looking for #collection_object_id#
 <!-----
 
 <script>
