@@ -50,7 +50,7 @@ grant all on cf_dataentry_settings to data_entry;
 			if (opn=='pickEvent'){
 				alert('running with ' + opn);
 				$("#opnPickLocalityDiv").hide();
-				$("#opnPickEventDiv").show();
+				$("#opnPickEventDiv").addClass('importantNotification').show();
 			} else if (opn=='pickLocality'){
 				alert('running with ' + opn);
 				$("#opnPickEventDiv").hide();
