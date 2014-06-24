@@ -403,9 +403,27 @@ grant all on cf_temp_specevent to coldfusion_user;
 		Fields=mine.columnlist)>
 
 
-	<cfdump var=#csv#>
+
+	<cffile action = "write"
+    file = "#Application.webDirectory#/download/BulkloadSpecimenEventData.csv"
+    output = "#csv#"
+    addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkloadSpecimenEventData.csv" addtoken="false">
+	
+	
+	
 	
 	<!----
+	
+	
+	
+	
+	<cfset variables.fileName="#Application.webDirectory#/download/BulkSpecimenEventData.csv">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(clist);
+	</cfscript>
+	<cfdump var=#csv#>
 	<cfset clist=mine.columnlist>
 	<cfset variables.encoding="UTF-8">
 	<cfset variables.fileName="#Application.webDirectory#/download/BulkSpecimenEventData.csv">
