@@ -115,6 +115,8 @@ grant all on cf_dataentry_settings to data_entry;
 			<h4>
 				Collecting Event
 			</h4>
+			
+			<input type="hidden" name="collecting_event_id" value="">
 			<label for="">Click the button to pick an event. The Verbatim Locality of the event you pick will go here.</label>
 			<input type="text" size="50" name="cepick">
 			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
