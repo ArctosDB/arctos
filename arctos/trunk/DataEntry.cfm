@@ -1084,7 +1084,11 @@
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=download">[ download ]</a>
 						<select name="more" onchange="addMoreStuff(this.value);">
 							<option value="">Add more...</option>
+							<option value="help">About</option>
 							<option value="seeWhatsThere">Check Existing</option>
+							<option value="newSE_pickEvent">Add Specimen Event; Pick Collecting Event</option>
+							
+							
 						</select>
 						<span onclick="addMoreStuff(#collection_object_id#)" class="likeLink">[ more data ]</span>
 
