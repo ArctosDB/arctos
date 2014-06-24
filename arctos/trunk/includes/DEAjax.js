@@ -31,10 +31,7 @@ function addMoreStuff(mode){
 	
 	
 	
-	var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid;
-	if (mode=='seeWhatsThere') {
-		guts+='&action=seeWhatsThere';		
-	}
+	var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid + '&action=' + mode;
 	
 	
 	
