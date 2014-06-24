@@ -13,7 +13,7 @@ grant all on cf_dataentry_settings to data_entry;
 	<script>
 		jQuery(document).ready(function() {
 			$("#assigned_date").datepicker();
-
+	
 
 
 /*
@@ -44,6 +44,15 @@ grant all on cf_dataentry_settings to data_entry;
 * 
 * */
 		});
+		function celgtype(opn){
+			if (opn=='pickEvent'){
+				$("#opnPickEventTD").show();
+			}
+
+		}
+
+
+
 	</script>
 	
 	To use this form, other_id_num_type4 MUST be a UUID, and other_id_val_4 MUST be a unique identifier. It 
@@ -106,50 +115,56 @@ grant all on cf_dataentry_settings to data_entry;
 					<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
 					<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(now(),'yyyy-mm-dd')#" class="reqdClr">
 				</td>
+				<td>
+					<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
+					<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+						<option value="unverified">unverified</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
-				<td colspan="3">
+				<td colspan="2">
 					<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
 					<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="" size="75">
+				</td>
+				<td colspan="2">
+					<label for="habitat">Habitat</label>
+					<input type="text" name="habitat" id="habitat" size="75">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
+					<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
+						<option value=""></option>
+						<cfloop query="ctcollecting_source">
+							<option value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td colspan="2">
+					<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
+					<input type="text" name="collecting_method" id="collecting_method" value="" size="75">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<span class="likeLink" onclick="celgtype('pickEvent')">Option 1: Pick collecting event</span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="4" id="opnPickEventTD" style="display:none;">
+					<input type="hidden" name="collecting_event_id" value="">
+					<label for="">Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
+					<input type="text" size="50" name="cepick">
+					<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
 				</td>
 			</tr>
 		</table>
 		
 		
-		
 
-			
-
-			<label for="habitat">Habitat</label>
-			<input type="text" name="habitat" id="habitat" size="75">
-
-			<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
-			<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
-				<option value=""></option>
-				<cfloop query="ctcollecting_source">
-					<option value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
-				</cfloop>
-			</select>
-			<span class="infoLink" onclick="getCtDoc('ctcollecting_source');">Define</span>
-
-			<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
-			<input type="text" name="collecting_method" id="collecting_method" value="" size="75">
-
-			<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
-			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
-				<option value="unverified">unverified</option>
-			</select>
-			<h4>
-				Collecting Event
-			</h4>
-			
-			<input type="hidden" name="collecting_event_id" value="">
-			<label for="">Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
-			<input type="text" size="50" name="cepick">
-			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
-			<br><input type="submit" value="Create this Specimen/Event" class="savBtn">
-			
-			
 			
 			<!----
 			
