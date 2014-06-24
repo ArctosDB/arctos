@@ -32,7 +32,7 @@ alert($("##"+idstr).html());
 
 					$("##c_" + ip).html('hi');
 
-					$("##c_" + ip).html(result);
+					$("td[id='" + idstr + "']").html(result);
 
 alert($("##c_" + ip).html());
 				}
