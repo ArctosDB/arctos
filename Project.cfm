@@ -71,7 +71,7 @@
 				<br>
 				<input type="submit" value="Create Project" class="insBtn">
 				<br>
-				You can add Agents, Publications, Media, Transactions, and Taxonomy after you create the basic project.
+				Create to add Agents, Publications, Media, Transactions, and Taxonomy.
 			</form>
 </cfoutput>
 </cfif>
