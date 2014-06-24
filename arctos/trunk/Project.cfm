@@ -34,7 +34,7 @@
     	if (val.value.length >= 100) {
 			$("#chrcnt").removeClass();
 		}else{
-			$("#chrcnt").addClass('redBorder);
+			$("#chrcnt").addClass('redBorder');
         }
 	}
 </script>
