@@ -36,7 +36,6 @@ grant all on cf_dataentry_settings to data_entry;
 			}
 		});
 	</script>
-	<input type="hidden" id="#uuid#">
 	
 	To use this form, other_id_num_type4 MUST be a UUID, and other_id_val_4 MUST be a unique identifier. It 
 	is recommended to allow the application to generate these values; simply leave other_id_4 NULL to do so.
@@ -72,6 +71,10 @@ grant all on cf_dataentry_settings to data_entry;
 			<cfdump var=#ese#>
 		</cfif>
 
+		<br>Add a specimen-event:
+		<form name="theForm" id="theForm">
+		<input type="hidden" id="#uuid#">
+	
 		<input type="hidden" name="nothing" id="nothing">
 		<label for="specimen_event_type">Specimen/Event Type</label>
 		<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
@@ -81,7 +84,7 @@ grant all on cf_dataentry_settings to data_entry;
 		</select>
 		<label for="assigned_by_agent_name">Event Assigned by Agent</label>
 		<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" size="40" value="#session.dbuser#"
-			 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc',this.value); return false;"
+			 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','theForm',this.value); return false;"
 			 onKeyPress="return noenter(event);">
 		<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#session.myAgentId#">
 		<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
@@ -114,8 +117,13 @@ grant all on cf_dataentry_settings to data_entry;
 			</h4>
 			<label for="">Click the button to pick an event. The Verbatim Locality of the event you pick will go here.</label>
 			<input type="text" size="50" name="cepick">
-			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','loc_new','cepick');">
+			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
 			<br><input type="submit" value="Create this Specimen/Event" class="savBtn">
+			
+			
+			</form>
+			
+			
 looking for #uuid#
 
 
