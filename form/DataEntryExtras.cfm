@@ -88,6 +88,9 @@ grant all on cf_dataentry_settings to data_entry;
 	
 	
 		
+		<cfquery name="ctgeoreference_protocol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select georeference_protocol from ctgeoreference_protocol order by georeference_protocol
+		</cfquery>
 		<cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	    	select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS order by lat_long_error_units
 	    </cfquery>
