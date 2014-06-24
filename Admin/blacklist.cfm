@@ -20,7 +20,7 @@
 					queryformat : 'column'
 				},
 				function (result) {
-					$("#c_" + ip).html(result);
+					$("##c_" + ip).html(result);
 				}
 			);
 		}
