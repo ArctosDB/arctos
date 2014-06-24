@@ -412,18 +412,19 @@ grant all on cf_temp_specevent to coldfusion_user;
 				<a href="BulkloadSpecimenEvent.cfm?action=deleteMine">delete all of your data from the staging table</a>
 			</p>
 		<cfquery name="willload" dbtype="query">
-			select count(*) c from mine where status != 'valid'
+			select count(*) c from mine where status = 'valid'
 		</cfquery>
-		<cfif willload.recordcount neq 1>
-			<p>
-				Not all of your data will load. 
-					<p>
-			<a href="BulkloadSpecimenEvent.cfm?action=validateFromFile">validate your records</a>
-		</p>
-			</p>
-		<cfelse>
+		<cfif willload.recordcount eq mine.recordcount>
 			<p>
 				The data should load. Check them one more time, then <a href="BulkloadSpecimenEvent.cfm?action=validateFromFile">proceed to load</a>
+			</p>
+			
+		<cfelse>
+			<p>
+				Not all of your data will load. 
+			</p>
+			<p>
+				<a href="BulkloadSpecimenEvent.cfm?action=validateFromFile">validate your records</a>
 			</p>
 		</cfif>
 	
