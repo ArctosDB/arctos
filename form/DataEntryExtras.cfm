@@ -7,9 +7,9 @@ create table cf_dataentry_settings (
 
 create or replace public synonym cf_dataentry_settings for cf_dataentry_settings;
 grant all on cf_dataentry_settings to data_entry;
+<cfinclude template="/includes/alwaysInclude.cfm">
 
 ---->
-<cfinclude template="/includes/alwaysInclude.cfm">
 	<script>
 		jQuery(document).ready(function() {
 			var oidv4=$("#other_id_num_type_4").val();
