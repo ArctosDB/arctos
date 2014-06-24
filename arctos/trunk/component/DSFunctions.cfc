@@ -2,7 +2,10 @@
 	<cffunction name="getHostInfo" access="remote">
 		<cfargument name="ip" type="string" required="yes">
 		<cfset inet_address = CreateObject("java", "java.net.InetAddress")>
-		<cfset host_name = inet_address.getByName("#ip#")>
+		<cfset host_name = inet_address.getByName("#ip#").getHostName()>
+		<cfset getCanonicalHostName = inet_address.getByName("#ip#").getCanonicalHostName()>
+		
+		<cfdump var=#getCanonicalHostName#>
 		<cfreturn host_name>
 	</cffunction>
 	<!--------------------------------------------------------------------------->
