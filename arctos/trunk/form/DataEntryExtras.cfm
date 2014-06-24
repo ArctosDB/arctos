@@ -74,33 +74,23 @@ grant all on cf_dataentry_settings to data_entry;
 			 if (OrigUnits!==null) {
 				 OrigUnits=$("#orig_lat_long_units").val();
 			 };
-			var a=document.getElementById('dms');
-			var b=document.getElementById('ddm');
-			var c=document.getElementById('dd');
-			var u=document.getElementById('utm');
-			var d=document.getElementById('lat_long_meta');
-			var gg=document.getElementById('orig_lat_long_units');
-		 	a.className='noShow';
-			b.className='noShow';
-			c.className='noShow';
-			u.className='noShow';
-			d.className='noShow';
-			var isSomething = OrigUnits.length;
-			if (isSomething > 0) {
-				d.className='doShow';
-				gg.className='reqdClr';
-			}	else {
-				gg.className='';
-				gg.value='';
-			}
+			$("#dms").hide();
+			$("#ddm").hide();
+			$("#dd").hide();
+			$("#utm").hide();
+			$("#lat_long_meta").hide();
 			if (OrigUnits == 'deg. min. sec.') {
-				a.className='doShow';
+				$("#lat_long_meta").show();
+				$("#dms").show();
 			} else if (OrigUnits == 'decimal degrees') {
-				c.className='doShow';
+				$("#lat_long_meta").show();
+				$("#dd").show();
 			} else if (OrigUnits == 'degrees dec. minutes') {
-				b.className='doShow';
+				$("#lat_long_meta").show();
+				$("#ddm").show();
 			} else if (OrigUnits == 'UTM') {
-				u.className='doShow';
+				$("#lat_long_meta").show();
+				$("#utm").show();
 			}
 
 
@@ -376,7 +366,7 @@ grant all on cf_dataentry_settings to data_entry;
 							
 							<tr>
 										<td>
-											<div id="lat_long_meta" class="noShow">
+											<div id="lat_long_meta"  style="display:none;">
 												<table cellpadding="0" cellspacing="0">
 													<tr>
 														<td align="right"><span class="f11a">Max Error</span></td>
@@ -422,7 +412,7 @@ grant all on cf_dataentry_settings to data_entry;
 													</tr>
 												</table>
 											</div>
-											<div id="dms" class="noShow">
+											<div id="dms" style="display:none;">
 												<table cellpadding="0" cellspacing="0">
 													<tr>
 														<td align="right"><span class="f11a">Lat Deg</span></td>
@@ -490,7 +480,7 @@ grant all on cf_dataentry_settings to data_entry;
 													</tr>
 												</table>
 											</div>
-											<div id="ddm" class="noShow">
+											<div id="ddm"  style="display:none;">
 												<table cellpadding="0" cellspacing="0">
 													<tr>
 														<td align="right"><span class="f11a">Lat Deg</span></td>
@@ -556,7 +546,7 @@ grant all on cf_dataentry_settings to data_entry;
 													</tr>
 												</table>
 											</div>
-											<div id="dd" class="noShow">
+											<div id="dd"  style="display:none;">
 												<span class="f11a">Dec Lat</span>
 												<input type="text"
 													 name="dec_lat"
@@ -570,7 +560,7 @@ grant all on cf_dataentry_settings to data_entry;
 														id="dec_long"
 														class="reqdClr">
 											</div>
-											<div id="utm" class="noShow">
+											<div id="utm"  style="display:none;">
 												<span class="f11a">UTM Zone</span>
 												<input type="text"
 													 name="utm_zone"
