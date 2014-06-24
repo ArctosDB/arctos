@@ -33,7 +33,7 @@
 	function countChar(val) {
     	if (val.value.length >= 100) {
 			$("#chrcnt").removeClass();
-		else
+		}else{
 			$("#chrcnt").addClass('redBorder);
         }
 	}
