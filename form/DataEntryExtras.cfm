@@ -1,15 +1,35 @@
-<!----
+<cfif action is "seeWhatsThere">
+	<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from  cf_temp_specevent  where UUID='#UUID#'
+	</cfquery>
+	<cfif ese.recordcount is 0>
+		<p>There are no external specimen-events for this UUID/entry</p>
+	<cfelse>
+		<p>There are #ese.recordcount# external specimen-events for this UUID/entry</p>
+		<cfdump var=#ese#>
+	</cfif>
+</cfif>
+<cfif action is "help">
+	<p>
+		This form extends the specimen bulkloader to include non-specimen bulkloaders.....
+	</p>
+	<p>
+		To use this form, other_id_num_type4 MUST be a UUID, and other_id_val_4 MUST be a unique identifier. It 
+		is recommended to allow the application to generate these values; simply leave other_id_4 NULL to do so.
+	</p>
+	<p>
+		The UUID is the link to related records created here; do not alter or remove it until all data have been
+		loaded and associated with the proper specimen. After all data are loaded, it's OK to delete the UUID.
+	</p>
+</cfif>
 
-create table cf_dataentry_settings (
-	username varchar2(60) not null,
-	numberAgents number
-);
+<cfparam name="createSpecimenEvent" default="false">
+<cfparam name="pickCollectingEvent" default="false">
 
-create or replace public synonym cf_dataentry_settings for cf_dataentry_settings;
-grant all on cf_dataentry_settings to data_entry;
-<cfinclude template="/includes/alwaysInclude.cfm">
-
----->
+<cfif action is "newSE_pickEvent">
+	<cfset createSpecimenEvent=true>
+	<cfset pickCollectingEvent=true>
+</cfif>
 	<script>
 		jQuery(document).ready(function() {
 			$("#assigned_date").datepicker();
@@ -120,18 +140,10 @@ console.log(OrigUnits);
 
 	</script>
 	
-	To use this form, other_id_num_type4 MUST be a UUID, and other_id_val_4 MUST be a unique identifier. It 
-	is recommended to allow the application to generate these values; simply leave other_id_4 NULL to do so.
-	<p>
-		The UUID is the link to related records created here; do not alter or remove it until all data have been
-		loaded and associated with the proper specimen. After all data are loaded, it's OK to delete the UUID.
-	</p>
-
+	
 	<cfoutput>
 	
-	<cfif action is "seeWhatsThere">
-		hello I am seeWhatsThere....
-	</cfif>
+
 		
 		<cfquery name="ctgeoreference_protocol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select georeference_protocol from ctgeoreference_protocol order by georeference_protocol
@@ -166,15 +178,7 @@ console.log(OrigUnits);
 		<cfquery name="ctOrigElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select orig_elev_units from ctorig_elev_units
 	    </cfquery>
-		<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from  cf_temp_specevent  where UUID='#UUID#'
-		</cfquery>
-		<cfif ese.recordcount is 0>
-			<p>There are no external specimen-events for this UUID/entry</p>
-		<cfelse>
-			<p>There are #ese.recordcount# external specimen-events for this UUID/entry</p>
-			<cfdump var=#ese#>
-		</cfif>
+		
 
 		<br>Add a specimen-event:
 		<form name="theForm" id="theForm">
