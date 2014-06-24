@@ -46,10 +46,15 @@ grant all on cf_dataentry_settings to data_entry;
 		});
 		function celgtype(opn){
 			if (opn=='pickEvent'){
-				$("#opnPickEventTD").show();
-			}
-
+				$("#opnPickLocalityDiv").hide();
+				$("#opnPickEventDiv").show();
+			} else if (opn=='pickLocality'){
+				$("#opnPickEventDiv").hide();
+				$("#opnPickLocalityDiv").show();
 		}
+
+
+
 
 
 
@@ -150,17 +155,34 @@ grant all on cf_dataentry_settings to data_entry;
 			<tr>
 				<td colspan="4">
 					<span class="likeLink" onclick="celgtype('pickEvent')">Option 1: Pick collecting event</span>
+					<br><span class="likeLink" onclick="celgtype('pickLocality')">Option 2: Enter collecting event, pick Locality</span>
 				</td>
 			</tr>
 			
-			<tr id="opnPickEventTD" style="display:none;">
+			<tr>
 				<td colspan="4" >
+					<div id="opnPickEventDiv" style="display:none;">
 					<input type="hidden" name="collecting_event_id" value="">
 					<label for="">Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
 					<input type="text" size="50" name="cepick">
 					<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
+					</div>
 				</td>
 			</tr>
+			
+			
+			<tr>
+				<td colspan="4" >
+					<div id="opnPickLocalityDiv" style="display:none;">
+					<input type="hidden" name="collecting_event_id" value="">
+					<label for="">bl alb asln Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
+					<input type="text" size="50" name="cepick">
+					<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
+					</div>
+				</td>
+			</tr>
+			
+			
 		</table>
 		
 		
