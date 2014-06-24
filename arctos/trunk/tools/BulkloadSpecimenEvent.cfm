@@ -72,6 +72,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 -- see /Arctos/DDL/migration/6.4_DataEntry1ToMany.sql
 ---->
 <cfinclude template="/includes/_header.cfm">
+<cfset title="Bulkload Specimen Events">
 <cfset thecolumns="guid,ASSIGNED_BY_AGENT,ASSIGNED_DATE,SPECIMEN_EVENT_REMARK,SPECIMEN_EVENT_TYPE,COLLECTING_METHOD,COLLECTING_SOURCE,VERIFICATIONSTATUS,HABITAT,COLLECTING_EVENT_ID,COLLECTING_EVENT_NAME,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,LAT_DEG,DEC_LAT_MIN,LAT_MIN,LAT_SEC,LAT_DIR,LONG_DEG,DEC_LONG_MIN,LONG_MIN,LONG_SEC,LONG_DIR,DEC_LAT,DEC_LONG,DATUM,UTM_ZONE,UTM_EW,UTM_NS,ORIG_LAT_LONG_UNITS,LOCALITY_ID,SPEC_LOCALITY,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL,LOCALITY_NAME,GEOG_AUTH_REC_ID,HIGHER_GEOG">
 <cfif action is "makeTemplate">
 	<cfset header=thecolumns>
@@ -108,10 +109,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 				<a href="BulkloadSpecimenEvent.cfm?action=managemystuff">Manage your existing #mine.recordcount# records</a>
 			</p>
 		</cfif>
-	
-
-
-	</cfoutput>
+		</cfoutput>
 	<table border>
 		<tr>
 			<th>Column</th>
@@ -394,63 +392,13 @@ grant all on cf_temp_specevent to coldfusion_user;
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_specevent where upper(username)='#ucase(session.username)#'
 	</cfquery>
-	
 	<cfset  util = CreateObject("component","component.utilities")>
-
-	
-	<cfset csv = util.QueryToCSV2(
-		Query=mine,
-		Fields=mine.columnlist)>
-
-
-
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
 	<cffile action = "write"
-    file = "#Application.webDirectory#/download/BulkloadSpecimenEventData.csv"
-    output = "#csv#"
-    addNewLine = "no">
+	    file = "#Application.webDirectory#/download/BulkloadSpecimenEventData.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkloadSpecimenEventData.csv" addtoken="false">
-	
-	
-	
-	
-	<!----
-	
-	
-	
-	
-	<cfset variables.fileName="#Application.webDirectory#/download/BulkSpecimenEventData.csv">
-	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(clist);
-	</cfscript>
-	<cfdump var=#csv#>
-	<cfset clist=mine.columnlist>
-	<cfset variables.encoding="UTF-8">
-	<cfset variables.fileName="#Application.webDirectory#/download/BulkSpecimenEventData.csv">
-	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(clist);
-	</cfscript>
-		
-		
-		
-		
-			variables.joFileWriter.close();
-		<cflocation url="/download.cfm?file=BulkloadAccn.csv" addtoken="false">
-		<a href="/download/BulkloadAccn.csv">Click here if your file does not automatically download.</a>
-		
-		
-		
-		
-	<cfset header=clist>
-	<cffile action = "write"
-    file = "#Application.webDirectory#/download/BulkloadSpecimenEvent.csv"
-    output = "#header#"
-    addNewLine = "no">
-	<cflocation url="/download.cfm?file=BulkloadSpecimenEvent.csv" addtoken="false">
-	
-	
-	---->
 </cfif>
 <!---------------------------------------------------------------------------->
 
@@ -460,8 +408,6 @@ grant all on cf_temp_specevent to coldfusion_user;
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_specevent where upper(username)='#ucase(session.username)#'
 		</cfquery>
-		
-		
 		<cfset clist=mine.columnlist>
 		<cfset clist=listdeleteat(clist,listfind(clist,'STATUS'))>
 		<cfset clist=listdeleteat(clist,listfind(clist,'GUID'))>
@@ -470,10 +416,12 @@ grant all on cf_temp_specevent to coldfusion_user;
 		<p>
 			You have #mine.recordcount# records in the staging table.
 		</p>
-		
-			<p>
-				<a href="BulkloadSpecimenEvent.cfm?action=deleteMine">delete all of your data from the staging table</a>
-			</p>
+		<p>
+			<a href="BulkloadSpecimenEvent.cfm?action=deleteMine">delete all of your data from the staging table</a>
+		</p>
+		<p>
+			<a href="BulkloadSpecimenEvent.cfm?action=getCSV">Download as CSV</a>
+		</p>
 		<cfquery name="willload" dbtype="query">
 			select count(*) c from mine where status = 'valid'
 		</cfquery>
@@ -484,15 +432,12 @@ grant all on cf_temp_specevent to coldfusion_user;
 			
 		<cfelse>
 			<p>
-				Not all of your data will load. 
-			</p>
-			<p>
-				<a href="BulkloadSpecimenEvent.cfm?action=validateFromFile">validate your records</a>
+				Your data require <a href="BulkloadSpecimenEvent.cfm?action=validateFromFile">validation</a>
 			</p>
 		</cfif>
-	
-	
-
+		<p>
+			Use the Contact link in the footer to tell us what Tools would be useful here.
+		</p>
 		<table border id="t" class="sortable">
 			<tr>
 				<th>Tools</th>
@@ -505,7 +450,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 			</tr>
 			<cfloop query="mine">
 				<tr>
-					<td>---</td>
+					<td>-none-</td>
 					<td>#status#</td>
 					<td>#GUID#</td>
 					<td>#UUID#</td>
@@ -526,9 +471,6 @@ grant all on cf_temp_specevent to coldfusion_user;
 	<cflocation url="BulkloadSpecimenEvent.cfm" addtoken="false">
 </cfif>
 <!------------------------------------------------------------------------------------------------>
-
-<!---------------------------------------------------------------------------->
-
 <cfif action is "getFileData">
 	<cfoutput>
 		
