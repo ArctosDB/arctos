@@ -20,21 +20,8 @@
 					queryformat : 'column'
 				},
 				function (result) {
-
-var idstr="c_" + ip;
-alert(idstr);
-
-
-alert($("td[id='" + idstr + "']").html());
-
-
-alert($("##"+idstr).html());
-
-					$("##c_" + ip).html('hi');
-
+					var idstr="c_" + ip;
 					$("td[id='" + idstr + "']").html(result);
-
-alert($("##c_" + ip).html());
 				}
 			);
 		}
