@@ -392,10 +392,13 @@ grant all on cf_temp_specevent to coldfusion_user;
 <!---------------------------------------------------------------------------->
 
 <cfif action is "managemystuff">
+	<script src="/includes/sorttable.js"></script>
 	<cfoutput>
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_specevent where upper(username)='#ucase(session.username)#'
 		</cfquery>
+		
+		
 		<cfset clist=mine.columnlist>
 		<cfset clist=listdeleteat(clist,listfind(clist,'STATUS'))>
 		<cfset clist=listdeleteat(clist,listfind(clist,'GUID'))>
@@ -404,7 +407,28 @@ grant all on cf_temp_specevent to coldfusion_user;
 		<p>
 			You have #mine.recordcount# records in the staging table.
 		</p>
-		<script src="/includes/sorttable.js"></script>
+		
+			<p>
+				<a href="BulkloadSpecimenEvent.cfm?action=deleteMine">delete all of your data from the staging table</a>
+			</p>
+		<cfquery name="willload" dbtype="query">
+			select count(*) c from mine where status != 'valid'
+		</cfquery>
+		<cfif willload.recordcount neq 1>
+			<p>
+				Not all of your data will load. 
+					<p>
+			<a href="BulkloadSpecimenEvent.cfm?action=validateFromFile">validate your records</a>
+		</p>
+			</p>
+		<cfelse>
+			<p>
+				The data should load. Check them one more time, then <a href="BulkloadSpecimenEvent.cfm?action=validateFromFile">proceed to load</a>
+			</p>
+		</cfif>
+	
+	
+
 		<table border id="t" class="sortable">
 			<tr>
 				<th>Tools</th>
@@ -428,6 +452,50 @@ grant all on cf_temp_specevent to coldfusion_user;
 				</tr>
 			</cfloop>
 		</table>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------------------------>
+<cfif action is "deleteMine">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from cf_temp_specevent  where upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cflocation url="BulkloadSpecimenEvent.cfm" addtoken="false">
+</cfif>
+<!------------------------------------------------------------------------------------------------>
+
+<cfif action is "beenValidated">
+	<cfoutput>
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_specevent  where upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfquery name="willload" dbtype="query">
+		select count(*) c from data where status is not null
+	</cfquery>
+	<cfif willload.c gt 0>
+		stage1 validation failed - fix errors and reload
+	<cfelse>
+		<a href="BulkloadSpecimenEvent.cfm?action=load">continue to upload</a>
+	</cfif>
+	<cfset clist=listprepend(thecolumns,'status')>
+	<table border>
+		<tr>
+			<cfloop list="#clist#" index="i">
+				<th>#i#</th>
+			</cfloop>
+		</tr>
+		<cfloop query="data">
+			<tr>
+				<cfloop list="#clist#" index="i">
+					<td>#evaluate("data." & i)#</td>
+				</cfloop>
+			</tr>
+		</cfloop>
+	</table>
+	</cfoutput>
+</cfif>
+
+
+
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
@@ -697,6 +765,9 @@ grant all on cf_temp_specevent to coldfusion_user;
 				<cfset s=listappend(s,'Either HIGHER_GEOG or GEOG_AUTH_REC_ID is required.',';')>
 			</cfif>
 		</cfif>
+		<cfif len(s) eq 0>
+			<cfset s='valid'>
+		</cfif>
 		<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update 
 				cf_temp_specevent 
@@ -709,38 +780,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 				status='#s#' where key=#key#
 		</cfquery>
 	</cfloop>
-	<cflocation url="BulkloadSpecimenEvent.cfm?action=beenValidated" addtoken="false">
-</cfif>
-<!------------------------------------------------------------------------------------------------>	
-<cfif action is "beenValidated">
-	<cfoutput>
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_specevent
-	</cfquery>
-	<cfquery name="willload" dbtype="query">
-		select count(*) c from data where status is not null
-	</cfquery>
-	<cfif willload.c gt 0>
-		stage1 validation failed - fix errors and reload
-	<cfelse>
-		<a href="BulkloadSpecimenEvent.cfm?action=load">continue to upload</a>
-	</cfif>
-	<cfset clist=listprepend(thecolumns,'status')>
-	<table border>
-		<tr>
-			<cfloop list="#clist#" index="i">
-				<th>#i#</th>
-			</cfloop>
-		</tr>
-		<cfloop query="data">
-			<tr>
-				<cfloop list="#clist#" index="i">
-					<td>#evaluate("data." & i)#</td>
-				</cfloop>
-			</tr>
-		</cfloop>
-	</table>
-	</cfoutput>
+	<cflocation url="BulkloadSpecimenEvent.cfm?action=managemystuff" addtoken="false">
 </cfif>
 <!------------------------------------------------------------------------------------------------>	
 <cfif action is "load">
