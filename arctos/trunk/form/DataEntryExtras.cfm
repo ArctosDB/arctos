@@ -359,7 +359,7 @@ grant all on cf_dataentry_settings to data_entry;
 							</tr>
 							<tr>
 								<td>
-									<div id="lat_long_meta"  style="display:none;">
+									<div id="lat_long_meta">
 										<table cellpadding="0" cellspacing="0">
 											<tr>
 												<td align="right"><span class="f11a">Max Error</span></td>
