@@ -463,9 +463,9 @@ function loadedEditRecord(){
 	theURL+='&collection_object_id=' + $("#collection_object_id").val();
 	
 	
-	if (typeof window.history.pushState == 'function') {
-	  history.replaceState({}, 'DataEntry', theURL);
-	}
+	//if (typeof window.history.pushState == 'function') {
+	 // history.replaceState({}, 'DataEntry', theURL);
+	//}
 }
 
 function loadRecordEdit (collection_object_id) {
