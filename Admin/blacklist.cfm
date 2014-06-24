@@ -20,6 +20,8 @@
 					queryformat : 'column'
 				},
 				function (result) {
+					$("##c_" + ip).html('hi');
+
 					$("##c_" + ip).html(result);
 				}
 			);
