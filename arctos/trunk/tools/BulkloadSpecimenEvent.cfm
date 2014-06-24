@@ -396,7 +396,32 @@ grant all on cf_temp_specevent to coldfusion_user;
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_specevent where upper(username)='#ucase(session.username)#'
 		</cfquery>
-		<cfdump var=#mine#>
+		<cfset clist=mine.columnlist>
+		<cfset clist=listdeleteat(clist,listfind(clist,'STATUS'))>
+		<cfset clist=listdeleteat(clist,listfind(clist,'GUID'))>
+		<cfset clist=listdeleteat(clist,listfind(clist,'UUID'))>
+		<cfset clist=listdeleteat(clist,listfind(clist,'KEY'))>
+		<p>
+			You have #mine.recordcount# records in the staging table.
+		</p>
+		<script src="/includes/sorttable.js"></script>
+		<table border id="t" class="sortable">
+			<tr>
+				<th>Tools</th>
+				<th>Status</th>
+				<cfloop list="#clist#" index="i">
+					<th>#i#</th>
+				</cfloop>
+			</tr>
+			<cfloop query="mine">
+				<tr>
+					<cfloop list="#clist#" index="i">
+						<cfset tval=evaluate("mine." & i)>
+						<td>#tval#</td>
+					</cfloop>
+				</tr>
+			</cfloop>
+		</table>
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
@@ -428,7 +453,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 				</cfquery>
 			</cfif>
 		</cfloop>
-		<cflocation url="BulkloadSpecimenEvent.cfm?action=validateFromFile" addtoken="false">
+		<cflocation url="BulkloadSpecimenEvent.cfm?action=managemystuff" addtoken="false">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
