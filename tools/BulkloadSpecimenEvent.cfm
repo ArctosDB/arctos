@@ -415,6 +415,8 @@ grant all on cf_temp_specevent to coldfusion_user;
 			</tr>
 			<cfloop query="mine">
 				<tr>
+					<td>---</td>
+					<td>#status#</td>
 					<cfloop list="#clist#" index="i">
 						<cfset tval=evaluate("mine." & i)>
 						<td>#tval#</td>
