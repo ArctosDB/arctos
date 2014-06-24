@@ -7,7 +7,6 @@ function addMoreStuff(collection_object_id){
 	//console.log(oidv4);
 
 	if (oidt4.length > 0){
-		alert('got len');
 		if (oidt4 != 'UUID') {
 			alert('You cannot use this form unless other ID 4 is NULL or UUID.');
 			return false;
@@ -23,31 +22,27 @@ function addMoreStuff(collection_object_id){
 			var uuid=$("#other_id_num_4").val();
 		}
 	}
-	
-	
-	
-
-		var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid;
-	    $("<div class='popupDialog'><img src='/images/indicator.gif'></div>")
-	    .dialog({
-	        autoOpen: true,
-	        closeOnEscape: true,
-	        height: 'auto',
-	        modal: true,
-	        position: ['center', 'center'],
-	        title: 'Add data to non-specimen bulkloaders',
-	        width: 'auto',
-	        //buttons : {
-	        //    "Save and refresh" : function(){
-	         //   	closeCustom();
-	        //    }
-	       // }
-	    }).load(guts, function() {
-	        $(this).dialog("option", "position", ['center', 'center'] );
-	    });
-	    $(window).resize(function() {
-	    	$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-	    });
+	var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid;
+    $("<div class='popupDialog'><img src='/images/indicator.gif'></div>")
+    .dialog({
+        autoOpen: true,
+        closeOnEscape: true,
+        height: 'auto',
+        modal: true,
+        position: ['center', 'center'],
+        title: 'Add data to non-specimen bulkloaders',
+        width: 'auto',
+        //buttons : {
+        //    "Save and refresh" : function(){
+         //   	closeCustom();
+        //    }
+       // }
+    }).load(guts, function() {
+        $(this).dialog("option", "position", ['center', 'center'] );
+    });
+    $(window).resize(function() {
+    	$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+    });
 }
 jQuery(document).ready(function() {
 	$( "#georeference_source" ).autocomplete({
