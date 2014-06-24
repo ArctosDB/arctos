@@ -136,7 +136,7 @@
 					
 					
 
-					<td id="c_#subnet#.1.1"><span class="likeLink" onclick="getHostInfo('#subnet#.1.1')";>get host info</span></td>
+					<td id="c_#subnet#.1.1"><span class="likeLink" onclick="getHostInfo('#subnet#.1.1');">get host info</span></td>
 
 
 
