@@ -51,6 +51,7 @@ grant all on cf_dataentry_settings to data_entry;
 			} else if (opn=='pickLocality'){
 				$("#opnPickEventDiv").hide();
 				$("#opnPickLocalityDiv").show();
+			}
 		}
 
 
