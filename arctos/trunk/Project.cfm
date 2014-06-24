@@ -16,7 +16,15 @@
 	}
 	function removeAgent(i) {
 	 	$("#agent_name_" + i).val('deleted');
-	 	$("#projAgentRow" + i).removeClass().addClass('red');}
+	 	$("#projAgentRow" + i).removeClass().addClass('red');
+	}
+	function countChar(val) {
+    	if (val.length >= 100) {
+			$("#chrcnt").removeClass();
+		}else{
+			$("#chrcnt").addClass('redBorder');
+        }
+	}
 </script>
 <cfif action is "nothing">
 	<cfheader statuscode="301" statustext="Moved permanently">
@@ -29,15 +37,6 @@
 <cfif Action is "makeNew">
 	<cfset title="create project">
 <strong>Create New Project:</strong>
-<script>
-	function countChar(val) {
-    	if (val.length >= 100) {
-			$("#chrcnt").removeClass();
-		}else{
-			$("#chrcnt").addClass('redBorder');
-        }
-	}
-</script>
 <cfoutput>
 	<form name="project" action="Project.cfm" method="post">
 		<input type="hidden" name="Action" value="createNew">
@@ -123,6 +122,13 @@
 <!------------------------------------------------------------------------------------------->
 <cfif action is "editProject">
 	<cfset title="Edit Project">
+	<script>
+		jQuery(document).ready(function() {
+			countChar($("#project_description").val());
+		});
+	</script>
+	
+	
 	<cfoutput>
 		<strong>Edit Project</strong> <a href="/ProjectDetail.cfm?project_id=#project_id#">[ Detail Page ]</a>
 		<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -280,8 +286,9 @@
 						</td>
 					</tr>
 				</table>
-				<label for="project_description" class="likeLink" onClick="getDocs('project','description')">Description</label>
-				<textarea name="project_description" id="project_description" cols="80" rows="6">#proj.project_description#</textarea>
+				<label for="project_description" class="likeLink" onClick="getDocs('project','description')">Description 
+					<span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span></label>
+				<textarea name="project_description" id="project_description" cols="80" rows="6" onkeyup="countChar(this.value)">#proj.project_description#</textarea>
 				<label for="project_remarks">Remarks</label>
 				<textarea name="project_remarks" id="project_remarks" cols="80" rows="3">#proj.project_remarks#</textarea>
 				<a name="agent"></a>
