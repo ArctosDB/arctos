@@ -70,7 +70,6 @@ grant all on cf_dataentry_settings to data_entry;
 		}
 
 		function pickLL(OrigUnits){
-			alert(OrigUnits);
 			 if (OrigUnits!==null) {
 				 OrigUnits=$("#orig_lat_long_units").val();
 			 };
@@ -83,7 +82,7 @@ grant all on cf_dataentry_settings to data_entry;
 				$("#lat_long_meta").show();
 				$("#dms").show();
 			} else if (OrigUnits == 'decimal degrees') {
-				$("#lat_long_meta").show();
+				$("#lat_long_meta").addClass('importantNotification').show();
 				$("#dd").show();
 			} else if (OrigUnits == 'degrees dec. minutes') {
 				$("#lat_long_meta").show();
