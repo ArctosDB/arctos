@@ -82,6 +82,12 @@ grant all on cf_dataentry_settings to data_entry;
 				$("#lat_long_meta").show();
 				$("#dms").show();
 			} else if (OrigUnits == 'decimal degrees') {
+
+
+	alert('dd');
+
+
+
 				$("#lat_long_meta").addClass('importantNotification').show();
 				$("#dd").show();
 			} else if (OrigUnits == 'degrees dec. minutes') {
