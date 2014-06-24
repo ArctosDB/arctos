@@ -27,42 +27,17 @@
 <cfparam name="pickCollectingEvent" default="false">
 
 <cfif action is "newSE_pickEvent">
+	<cfset action="addSpecimenEvent">
 	<cfset createSpecimenEvent=true>
 	<cfset pickCollectingEvent=true>
 </cfif>
+
+<cfif createSpecimenEvent is true>
 	<script>
 		jQuery(document).ready(function() {
 			$("#assigned_date").datepicker();
 	
 
-
-/*
-			var oidt4 =$("#other_id_num_type_4").val();
-			var oidv4=$("#other_id_num_4").val();
-
-
-			//console.log(oidt4 + '::' + oidt4.length );
-			//console.log(oidv4);
-
-			if (oidt4.length > 0){
-				alert('got len');
-				if (oidt4 != 'UUID') {
-					alert('You cannot use this form unless other ID 4 is NULL or UUID.');
-					$('.ui-dialog-content').dialog('close');
-				}
-			} else {
-				if (oidt4 != 'UUID') {
-					$("#other_id_num_type_4").val('UUID');
-				}
-				if (oidv4.length == 0){
-					var guid='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0,v=c=='x'?r:r&0x3|0x8;return v.toString(16);});
-					$("#other_id_num_4").val(guid);
-				}
-			}
-* 
-* 
-* 
-* */
 		});
 		function celgtype(opn){
 			if (opn=='pickEvent'){
@@ -238,24 +213,21 @@ console.log(OrigUnits);
 					<input type="text" name="collecting_method" id="collecting_method" value="" size="75">
 				</td>
 			</tr>
-			<tr>
-				<td colspan="4">
-					<span class="likeLink" onclick="celgtype('pickEvent')">Option 1: Pick collecting event</span>
-					<br><span class="likeLink" onclick="celgtype('pickLocality')">Option 2: Enter collecting event, pick Locality</span>
-					<br><span class="likeLink" onclick="celgtype('enterLocality')">Option 3: Enter collecting event and Locality</span>
-				</td>
-			</tr>
+			<cfif pickCollectingEvent>
 			
-			<tr>
-				<td colspan="4" >
-					<div id="opnPickEventDiv" style="display:none;">
-						<input type="hidden" name="collecting_event_id" value="">
-						<label for="">Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
-						<input type="text" size="50" name="cepick">
-						<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
-					</div>
-				</td>
-			</tr>		
+				<tr>
+					<td colspan="4" >
+						<div id="opnPickEventDiv" style="display:none;">
+							<input type="hidden" name="collecting_event_id" value="">
+							<label for="">Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
+							<input type="text" size="50" name="cepick">
+							<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
+						</div>
+					</td>
+				</tr>
+			
+			</cfif>	
+			<cfif 1=2>
 			<tr>
 				<td colspan="4" >
 					<div id="opnEnterEventDiv" style="display:none;">
@@ -1039,4 +1011,9 @@ other_id_num_type_4
 	
 	
 	---->
+	
+	</cfif>
 </cfoutput>
+
+
+</cfif>
