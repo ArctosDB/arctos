@@ -24,6 +24,10 @@
 var idstr="c_" + ip;
 alert(idstr);
 
+
+alert($("input[td='" + idstr + ']").html());
+
+
 alert($("##"+idstr).html());
 
 					$("##c_" + ip).html('hi');
