@@ -45,23 +45,31 @@ grant all on cf_dataentry_settings to data_entry;
 * */
 		});
 		function celgtype(opn){
-
-	alert('got ' + opn);
 			if (opn=='pickEvent'){
-				alert('running with ' + opn);
+				//alert('running with ' + opn);
+				$("#opnEnterEventDiv").hide();
 				$("#opnPickLocalityDiv").hide();
 				$("#opnPickEventDiv").show();
+				$("#opnEnterkLocalityDiv").hide();
 			} else if (opn=='pickLocality'){
-				alert('running with ' + opn);
+				//alert('running with ' + opn);
 				$("#opnPickEventDiv").hide();
+				$("#opnEnterEventDiv").show();
 				$("#opnPickLocalityDiv").show();
+				$("#opnEnterkLocalityDiv").hide();
+			} else if (opn=='enterLocality'){
+				//alert('running with ' + opn);
+				$("#opnPickEventDiv").hide();
+				$("#opnEnterEventDiv").show();
+				$("#opnPickLocalityDiv").hide();
+				$("#opnEnterkLocalityDiv").show();
+
 			} else {
 				alert('I have no idea what to do with ' + opn);
 			}
 		}
 
-
-
+			
 
 
 
@@ -163,6 +171,13 @@ grant all on cf_dataentry_settings to data_entry;
 				<td colspan="4">
 					<span class="likeLink" onclick="celgtype('pickEvent')">Option 1: Pick collecting event</span>
 					<br><span class="likeLink" onclick="celgtype('pickLocality')">Option 2: Enter collecting event, pick Locality</span>
+					<br><span class="likeLink" onclick="celgtype('enterLocality')">Option 3: Enter collecting event and Locality</span>
+					
+					
+					
+					
+					
+					
 				</td>
 			</tr>
 			
@@ -175,20 +190,98 @@ grant all on cf_dataentry_settings to data_entry;
 						<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
 					</div>
 				</td>
+			</tr>		
+			<tr>
+				<td colspan="4" >
+					<div id="opnEnterEventDiv" style="display:none;">
+						<table>
+							<tr>
+								<td colspan="3">
+									<label for="verbatim_locality">Verbatim Locality</label>
+									<input type="text" name="verbatim_locality" class="reqdClr" size="80" id="verbatim_locality">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="verbatim_date">VerbatimDate</label>
+									<input type="text" name="verbatim_date" class="reqdClr" id="verbatim_date" size="20">
+								</td>
+								<td>
+									<label for="began_date">BeginDate</label>
+									<input type="text" name="began_date" class="reqdClr" id="began_date" size="20">
+								</td>
+								<td>
+									<label for="ended_date">EndDate</label>
+									<input type="text" name="ended_date" class="reqdClr" id="ended_date" size="20">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<label for="coll_event_remarks">Collecting Event Remarks</label>
+									<input type="text" name="coll_event_remarks" size="80" id="coll_event_remarks">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</td>
 			</tr>
-			
-			
 			<tr>
 				<td colspan="4" >
 					<div id="opnPickLocalityDiv" style="display:none;">
-						<input type="hidden" name="collecting_event_id" value="">
-						<label for="">bl alb asln Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
-						<input type="text" size="50" name="cepick">
-						<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
+						
+						
+						<table>
+												<tr>
+													<td align="right"><span class="f11a">Locality Nickname</span></td>
+													<td>
+														<input type="text" name="locality_name" class="" id="locality_name" size="60"
+															onchange="LocalityPick('locality_id','spec_locality','dataEntry',this.value);">
+													</td>
+													<td id="d_locality_id">
+													<span class="f11a">Existing&nbsp;LocalityID</span>
+													</td><td>
+														<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
+													</td>
+													<td>
+														<span class="infoLink" id="localityPicker"
+															onclick="LocalityPick('locality_id','theForm','dataEntry',''); return false;">
+															Pick&nbsp;Locality
+														</span>
+													</td>
+												</tr>
+											</table>
 					</div>
 				</td>
 			</tr>
 			
+			<tr>
+				<td colspan="4" >
+					<div id="opnEnterkLocalityDiv" style="display:none;">
+						
+						
+						<table>
+												<tr>
+													<td align="right"><span class="f11a">Locality type stuff here yo</span></td>
+													<td>
+														<input type="text" name="locality_name" class="" id="locality_name" size="60"
+															onchange="LocalityPick('locality_id','spec_locality','dataEntry',this.value);">
+													</td>
+													<td id="d_locality_id">
+													<span class="f11a">Existing&nbsp;LocalityID</span>
+													</td><td>
+														<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
+													</td>
+													<td>
+														<span class="infoLink" id="localityPicker"
+															onclick="LocalityPick('locality_id','theForm','dataEntry',''); return false;">
+															Pick&nbsp;Locality
+														</span>
+													</td>
+												</tr>
+											</table>
+					</div>
+				</td>
+			</tr>		
 			
 		</table>
 		
@@ -198,36 +291,8 @@ grant all on cf_dataentry_settings to data_entry;
 			<!----
 			
 			
-			
-				<tr>
-										<td align="right"><span class="f11a">Verbatim Locality</span></td>
-										<td>
-											<input type="text"  name="verbatim_locality"
-												class="reqdClr" size="80"
-												id="verbatim_locality">
-											<span class="infoLink" onclick="document.getElementById('verbatim_locality').value=document.getElementById('spec_locality').value;">
-												&nbsp;Use&nbsp;Specloc
-											</span>
-										</td>
-									</tr>
-									<tr>
-										<td align="right"><span class="f11a">VerbatimDate</span></td>
-										<td>
-											<input type="text" name="verbatim_date" class="reqdClr" id="verbatim_date" size="20">
-											<span class="infoLink"
-												onClick="copyVerbatim($('##verbatim_date').val());">--></span>
-											<span class="f11a">Begin</span>
-											<input type="text" name="began_date" class="reqdClr"  id="began_date" size="10">
-											<span class="infoLink" onclick="copyBeganEnded();">>></span>
-											<span class="f11a">End</span>
-											<input type="text" name="ended_date" class="reqdClr"  id="ended_date" size="10">
-											<span class="infoLink" onclick="copyAllDates('ended_date');">Copy2All</span>
-										</td>
-									</tr>
 									<tr id="d_coll_event_remarks">
-										<td align="right"><span class="f11a">CollEvntRemk</span></td>
-										<td>
-											<input type="text" name="coll_event_remarks" size="80" id="coll_event_remarks">
+										
 										</td>
 									</tr>
 									<tr>
