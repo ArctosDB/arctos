@@ -463,41 +463,6 @@ grant all on cf_temp_specevent to coldfusion_user;
 </cfif>
 <!------------------------------------------------------------------------------------------------>
 
-<cfif action is "beenValidated">
-	<cfoutput>
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_specevent  where upper(username)='#ucase(session.username)#'
-	</cfquery>
-	<cfquery name="willload" dbtype="query">
-		select count(*) c from data where status is not null
-	</cfquery>
-	<cfif willload.c gt 0>
-		stage1 validation failed - fix errors and reload
-	<cfelse>
-		<a href="BulkloadSpecimenEvent.cfm?action=load">continue to upload</a>
-	</cfif>
-	<cfset clist=listprepend(thecolumns,'status')>
-	<table border>
-		<tr>
-			<cfloop list="#clist#" index="i">
-				<th>#i#</th>
-			</cfloop>
-		</tr>
-		<cfloop query="data">
-			<tr>
-				<cfloop list="#clist#" index="i">
-					<td>#evaluate("data." & i)#</td>
-				</cfloop>
-			</tr>
-		</cfloop>
-	</table>
-	</cfoutput>
-</cfif>
-
-
-
-	</cfoutput>
-</cfif>
 <!---------------------------------------------------------------------------->
 
 <cfif action is "getFileData">
