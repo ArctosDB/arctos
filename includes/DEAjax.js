@@ -1,3 +1,29 @@
+function addMoreStuff(collection_object_id){
+	
+
+		var guts = "/form/DataEntryExtras.cfm?collection_object_id=" + collection_object_id;
+	    $("<div class='popupDialog'><img src='/images/indicator.gif'></div>")
+	    .dialog({
+	        autoOpen: true,
+	        closeOnEscape: true,
+	        height: 'auto',
+	        modal: true,
+	        position: ['center', 'center'],
+	        title: 'Customize results and downloads. Excessive options adversely affect performance.',
+	        width: 'auto',
+	        buttons : {
+	            "Save and refresh" : function(){
+	            	closeCustom();
+	            }
+	        }
+	    }).load(guts, function() {
+	        $(this).dialog("option", "position", ['center', 'center'] );
+	    });
+	    $(window).resize(function() {
+	    	$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	    });
+	});
+}
 jQuery(document).ready(function() {
 	$( "#georeference_source" ).autocomplete({
 		source: '/component/functions.cfc?method=ac_georeference_source',

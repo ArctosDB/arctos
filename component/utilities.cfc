@@ -41,9 +41,7 @@
 				<cfset LOCAL.RowData[ LOCAL.ColumnIndex ] = """#LOCAL.ColumnNames[ LOCAL.ColumnIndex ]#""" />
 	 		</cfloop>
 	 		<!--- Append the row data to the string buffer. --->
-	 		
-	 		
-			<cfset ArrayAppend(LOCAL.Rows,ArrayToList( LOCAL.RowData, ARGUMENTS.Delimiter )) />
+	 		<cfset ArrayAppend(LOCAL.Rows,ArrayToList( LOCAL.RowData, ARGUMENTS.Delimiter )) />
 	 	</cfif>
 		<!---
 			Now that we have dealt with any header value, let's
@@ -64,18 +62,11 @@
 	 			<cfif isdate(LOCAL.querydata) and len(LOCAL.querydata) eq 21>
 					<cfset LOCAL.querydata = dateformat(local.querydata,"yyyy-mm-dd")>
 				</cfif>
-	 			
 	 			<cfset LOCAL.RowData[ LOCAL.ColumnIndex ] = """#Replace( local.querydata, """", """""", "all" )#""" />
-	 		
-	 		
-	 		
-	 		
-	 		
 	 		</cfloop>
 	 		<!--- Append the row data to the string buffer. --->
 			<cfset ArrayAppend(LOCAL.Rows,ArrayToList( LOCAL.RowData, ARGUMENTS.Delimiter )) />
 	 	</cfloop>
-		 
 		<!---
 			Return the CSV value by joining all the rows together
 			into one string.

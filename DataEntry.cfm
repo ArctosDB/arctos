@@ -1082,6 +1082,8 @@
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=sqlTab">[ SQL ]</a>
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=viewTable">[ Java ]</a>
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=download">[ download ]</a>
+						<span onclick="addMoreStuff(#collection_object_id#)" class="likeLink">[ more data ]</span>
+
 
 					</td>
 					<td align="right" width="16%" nowrap="nowrap">
