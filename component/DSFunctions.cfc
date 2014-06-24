@@ -1,4 +1,11 @@
 <cfcomponent>
+	<cffunction name="getHostInfo" access="remote">
+		<cfargument name="ip" type="string" required="yes">
+		<cfset inet_address = CreateObject("java", "java.net.InetAddress")>
+		<cfset host_name = inet_address.getByName("#ip#").getHostName()>
+		<cfreturn host_name>
+	</cffunction>
+	<!--------------------------------------------------------------------------->
 	<cffunction name="upDSGeog" access="remote">
 		<cfargument name="pkey" type="numeric" required="yes">
 		<cfargument name="geog" type="string" required="yes">
