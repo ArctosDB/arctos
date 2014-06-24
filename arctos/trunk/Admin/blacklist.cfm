@@ -10,6 +10,22 @@
 
 <cfoutput>
 <cfif action is "subnet">
+	<script>
+		function getHostInfo(ip){
+			jQuery.getJSON("/component/DSFunctions.cfc",
+				{
+					method : "getHostInfo",
+					ip : ip,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (result) {
+					$("#c_" + ip).html(result);
+				}
+			);
+		}
+	</script>
+
 	<script src="/includes/sorttable.js"></script>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
@@ -83,7 +99,6 @@
 	</cfquery>
 	
 	
-	<cfset inet_address = CreateObject("java", "java.net.InetAddress")>
 
 
 	<table border id="t" class="sortable">
@@ -118,9 +133,8 @@
 					
 					
 					
-<cfset host_name = inet_address.getByName("#subnet#.1.1").getHostName()>
 
-<td>#host_name#</td>
+					<td id="c_#subnet#.1.1"><span class="likeLink" onclick="getHostInfo('#subnet#.1.1')";>get host info</span></td>
 
 
 
