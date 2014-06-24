@@ -10,11 +10,28 @@ grant all on cf_dataentry_settings to data_entry;
 
 ---->
 <cfinclude template="/includes/alwaysInclude.cfm">
+	<script>
+		jQuery(document).ready(function() {
+			var oidv4=$("#other_id_num_type_4").val();
+			var oidt4=$("#other_id_num_4").val();
+
+
+			console.log(oidv4);
+			console.log(oidt4);
+		});
+	</script>
+
 add more stuff to data entry via bulkloaders....
 
 <cfoutput>
 
 looking for #collection_object_id#
+
+
+other_id_num_type_4
+
+
+
 <!-----
 
 <script>
