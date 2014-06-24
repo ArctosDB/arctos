@@ -20,9 +20,15 @@
 					queryformat : 'column'
 				},
 				function (result) {
+
+
+alert($("##c_" + ip).html();
+
 					$("##c_" + ip).html('hi');
 
 					$("##c_" + ip).html(result);
+
+alert($("##c_" + ip).html();
 				}
 			);
 		}
