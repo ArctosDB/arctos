@@ -91,7 +91,7 @@ grant all on cf_dataentry_settings to data_entry;
 			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="" size="75">
 
 			<label for="habitat">Habitat</label>
-			<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
+			<input type="text" name="habitat" id="habitat" size="75">
 
 			<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
 			<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
