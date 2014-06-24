@@ -69,7 +69,9 @@ grant all on cf_dataentry_settings to data_entry;
 			}
 		}
 
-			
+		function pickLL(units){
+			alert(units);
+		}
 
 
 
@@ -90,7 +92,6 @@ grant all on cf_dataentry_settings to data_entry;
 	<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 	</cfquery>
-	
 	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
      </cfquery>
@@ -98,6 +99,9 @@ grant all on cf_dataentry_settings to data_entry;
 	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
      </cfquery>
+	<cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+       select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by orig_lat_long_units
+    </cfquery>
 	
 		<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from  cf_temp_specevent  where UUID='#UUID#'
@@ -172,12 +176,6 @@ grant all on cf_dataentry_settings to data_entry;
 					<span class="likeLink" onclick="celgtype('pickEvent')">Option 1: Pick collecting event</span>
 					<br><span class="likeLink" onclick="celgtype('pickLocality')">Option 2: Enter collecting event, pick Locality</span>
 					<br><span class="likeLink" onclick="celgtype('enterLocality')">Option 3: Enter collecting event and Locality</span>
-					
-					
-					
-					
-					
-					
 				</td>
 			</tr>
 			
@@ -228,28 +226,29 @@ grant all on cf_dataentry_settings to data_entry;
 			<tr>
 				<td colspan="4" >
 					<div id="opnPickLocalityDiv" style="display:none;">
-						
-						
 						<table>
-												<tr>
-													<td align="right"><span class="f11a">Locality Nickname</span></td>
-													<td>
-														<input type="text" name="locality_name" class="" id="locality_name" size="60"
-															onchange="LocalityPick('locality_id','spec_locality','dataEntry',this.value);">
-													</td>
-													<td id="d_locality_id">
-													<span class="f11a">Existing&nbsp;LocalityID</span>
-													</td><td>
-														<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
-													</td>
-													<td>
-														<span class="infoLink" id="localityPicker"
-															onclick="LocalityPick('locality_id','theForm','dataEntry',''); return false;">
-															Pick&nbsp;Locality
-														</span>
-													</td>
-												</tr>
-											</table>
+							<tr>
+								<td>
+									<label for="locality_name">Pick Locality By Nickname</label>
+									<input type="text" name="locality_name" class="" id="locality_name" size="60"
+										onchange="LocalityPick('locality_id','pickedSpecloc','theForm',this.value);">
+								</td>
+								<td>
+									<span class="likeLink" id="localityPicker"
+										onclick="LocalityPick('locality_id','pickedSpecloc','theForm',''); return false;">
+										Click here to Pick&nbsp;Locality
+									</span>
+								</td>
+								<td>
+									<label for="locality_id">Picked LocalityID</label>
+									<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
+								</td>
+								<td>
+									<label for="pickedSpecloc">Picked SpecificLocality</label>
+									<input type="text" name="pickedSpecloc" id="pickedSpecloc" class="readClr" size="60">
+								</td>
+							</tr>
+						</table>
 					</div>
 				</td>
 			</tr>
@@ -257,28 +256,316 @@ grant all on cf_dataentry_settings to data_entry;
 			<tr>
 				<td colspan="4" >
 					<div id="opnEnterkLocalityDiv" style="display:none;">
-						
-						
 						<table>
-												<tr>
-													<td align="right"><span class="f11a">Locality type stuff here yo</span></td>
-													<td>
-														<input type="text" name="locality_name" class="" id="locality_name" size="60"
-															onchange="LocalityPick('locality_id','spec_locality','dataEntry',this.value);">
-													</td>
-													<td id="d_locality_id">
-													<span class="f11a">Existing&nbsp;LocalityID</span>
-													</td><td>
-														<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
-													</td>
-													<td>
-														<span class="infoLink" id="localityPicker"
-															onclick="LocalityPick('locality_id','theForm','dataEntry',''); return false;">
-															Pick&nbsp;Locality
-														</span>
-													</td>
-												</tr>
-											</table>
+							<tr>
+								<td>
+									<label for="higher_geog">Pick Higher Geography</label>
+									<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" size="80"
+										onchange="getGeog('nothing',this.id,'dataEntry',this.value)">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="spec_locality">Specific Locality</label>
+									<input type="text" name="spec_locality" class="reqdClr" id="spec_locality" size="80">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="locality_remarks">Locality Remarks</label>
+									<input type="text" name="locality_remarks" class="" id="locality_remarks" size="80">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<td>
+												<label for+"orig_elev_units">Elevation Units</label>
+												<select name="orig_elev_units" size="1" id="orig_elev_units">
+													<option value=""></option>
+													<cfloop query="ctOrigElevUnits">
+														<option value="#orig_elev_units#">#orig_elev_units#</option>
+													</cfloop>
+												</select>
+											</td>
+											<td>
+												<label for+"minimum_elevation">MinElevation</label>
+												<input type="text" name="minimum_elevation" size="4" id="minimum_elevation">
+											</td>
+											<td>
+												<label for+"maximum_elevation">MaxElevation</label>
+												<input type="text" name="maximum_elevation" size="4" id="maximum_elevation">
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="orig_lat_long_units">Coordinate Units</label>
+									<select name="orig_lat_long_units" id="orig_lat_long_units"	onChange="pickLL(this.value);">
+										<option value=""></option>
+										<cfloop query="ctunits">
+										  <option value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
+										</cfloop>
+									</select>
+									<span style="font-size:small" class="likeLink" onclick="geolocate()">[ geolocate ]</span>
+									<div id="geoLocateResults" style="font-size:small"></div>
+								</td>
+							</tr>
+							
+							
+							
+							
+							
+							
+							<tr>
+										<td>
+											<div id="lat_long_meta" class="noShow">
+												<table cellpadding="0" cellspacing="0">
+													<tr>
+														<td align="right"><span class="f11a">Max Error</span></td>
+														<td>
+															<input type="text" name="max_error_distance" id="max_error_distance" size="10">
+															<select name="max_error_units" size="1" id="max_error_units">
+																<option value=""></option>
+																<cfloop query="cterror">
+																  <option value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
+																</cfloop>
+															</select>
+														</td>
+													</tr>
+													<tr>
+														<td align="right"><span class="f11a">Datum</span></td>
+														<td>
+															<select name="datum" size="1" class="reqdClr" id="datum">
+																<option value=""></option>
+																<cfloop query="ctdatum">
+																	<option value="#datum#">#datum#</option>
+																</cfloop>
+															</select>
+														</td>
+													</tr>
+
+
+													<tr>
+														<td align="right"><span class="f11a">Georeference Source</span></td>
+														<td colspan="3" nowrap="nowrap">
+															<input type="text" name="georeference_source" id="georeference_source"  class="reqdClr" size="60">
+														</td>
+													</tr>
+													<tr>
+														<td align="right"><span class="f11a">Georeference Protocol</span></td>
+														<td>
+															<select name="georeference_protocol" size="1" class="reqdClr" style="width:130px" id="georeference_protocol">
+																<option value=""></option>
+																<cfloop query="ctgeoreference_protocol">
+																	<option value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
+																</cfloop>
+															</select>
+														</td>
+													</tr>
+												</table>
+											</div>
+											<div id="dms" class="noShow">
+												<table cellpadding="0" cellspacing="0">
+													<tr>
+														<td align="right"><span class="f11a">Lat Deg</span></td>
+														<td>
+															<input type="text" name="latdeg" size="4" id="latdeg" class="reqdClr">
+														</td>
+														<td align="right"><span class="f11a">Min</span></td>
+														<td>
+															<input type="text"
+																 name="LATMIN"
+																size="4"
+																id="latmin"
+																class="reqdClr">
+														</td>
+														<td align="right"><span class="f11a">Sec</span></td>
+														<td>
+															<input type="text"
+																 name="latsec"
+																size="6"
+																id="latsec"
+																class="reqdClr">
+															</td>
+														<td align="right"><span class="f11a">Dir</span></td>
+														<td>
+															<select name="latdir" size="1" id="latdir" class="reqdClr">
+																<option value=""></option>
+																<option value="N">N</option>
+																<option value="S">S</option>
+															  </select>
+														</td>
+													</tr>
+													<tr>
+														<td align="right"><span class="f11a">Long Deg</span></td>
+														<td>
+															<input type="text"
+																name="longdeg"
+																size="4"
+																id="longdeg"
+																class="reqdClr">
+														</td>
+														<td align="right"><span class="f11a">Min</span></td>
+														<td>
+															<input type="text"
+																name="longmin"
+																size="4"
+																id="longmin"
+																class="reqdClr">
+														</td>
+														<td align="right"><span class="f11a">Sec</span></td>
+														<td>
+															<input type="text"
+																 name="longsec"
+																size="6"
+																id="longsec"
+																class="reqdClr">
+														</td>
+														<td align="right"><span class="f11a">Dir</span></td>
+														<td>
+															<select name="longdir" size="1" id="longdir" class="reqdClr">
+																<option value=""></option>
+																<option value="E">E</option>
+																<option value="W">W</option>
+															  </select>
+														</td>
+													</tr>
+												</table>
+											</div>
+											<div id="ddm" class="noShow">
+												<table cellpadding="0" cellspacing="0">
+													<tr>
+														<td align="right"><span class="f11a">Lat Deg</span></td>
+														<td>
+															<input type="text"
+																 name="decLAT_DEG"
+																size="4"
+																id="decLAT_DEG"
+																class="reqdClr"
+																onchange="dataEntry.latdeg.value=this.value;">
+														</td>
+														<td align="right"><span class="f11a">Dec Min</span></td>
+														<td>
+															<input type="text"
+																name="dec_lat_min"
+																 size="8"
+																id="dec_lat_min"
+																class="reqdClr">
+														</td>
+														<td align="right"><span class="f11a">Dir</span></td>
+														<td>
+															<select name="decLAT_DIR"
+																size="1"
+																id="decLAT_DIR"
+																class="reqdClr"
+																onchange="dataEntry.latdir.value=this.value;">
+																<option value=""></option>
+																<option value="N">N</option>
+																<option value="S">S</option>
+															</select>
+														</td>
+													</tr>
+													<tr>
+														<td align="right"><span class="f11a">Long Deg</span></td>
+														<td>
+															<input type="text"
+																name="decLONGDEG"
+																size="4"
+																id="decLONGDEG"
+																class="reqdClr"
+																onchange="dataEntry.longdeg.value=this.value;">
+														</td>
+														<td align="right"><span class="f11a">Dec Min</span></td>
+														<td>
+															<input type="text"
+																name="DEC_LONG_MIN"
+																size="8"
+																id="dec_long_min"
+																class="reqdClr">
+														</td>
+														<td align="right"><span class="f11a">Dir</span></td>
+														<td>
+															<select name="decLONGDIR"
+																 size="1"
+																id="decLONGDIR"
+																class="reqdClr"
+																onchange="dataEntry.longdir.value=this.value;">
+																<option value=""></option>
+																<option value="E">E</option>
+																<option value="W">W</option>
+															</select>
+														</td>
+													</tr>
+												</table>
+											</div>
+											<div id="dd" class="noShow">
+												<span class="f11a">Dec Lat</span>
+												<input type="text"
+													 name="dec_lat"
+													size="8"
+													id="dec_lat"
+													class="reqdClr">
+												<span class="f11a">Dec Long</span>
+													<input type="text"
+														 name="dec_long"
+														size="8"
+														id="dec_long"
+														class="reqdClr">
+											</div>
+											<div id="utm" class="noShow">
+												<span class="f11a">UTM Zone</span>
+												<input type="text"
+													 name="utm_zone"
+													size="8"
+													id="utm_zone"
+													class="reqdClr">
+												<span class="f11a">UTM E/W</span>
+												<input type="text"
+													 name="utm_ew"
+													size="8"
+													id="utm_ew"
+													class="reqdClr">
+												<span class="f11a">UTM N/S</span>
+												<input type="text"
+													 name="utm_ns"
+													size="8"
+													id="utm_ns"
+													class="reqdClr">
+											</div>
+										</td>
+									</tr>
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							<!----
+							<tr>
+								<td>
+									<div id="llmeta">
+										<table>
+											<tr>
+												<td>
+													
+												</td>
+											</tr>
+										</table>
+									</div>
+								</td>
+							</tr>
+							---->
+						</table>
 					</div>
 				</td>
 			</tr>		
@@ -291,89 +578,11 @@ grant all on cf_dataentry_settings to data_entry;
 			<!----
 			
 			
-									<tr id="d_coll_event_remarks">
-										
+								
+									
 										</td>
 									</tr>
-									<tr>
-										<td colspan="2" id="dateConvertStatus"></td>
-									</tr>
-								</table>
-							</div><!--- end item --->
-						</div><!--- end sort_collevent --->
-						<div class="wrapper" id="sort_locality">
-							<div class="item">
-								<div class="celltitle">Locality <span class="likeLink" onClick="getDocs('locality','top')">[ documentation ]</span></div>
-								<table cellspacing="0" cellpadding="0" class="fs">
-									<tr>
-										<td align="right"><span class="f11a">Higher Geog</span></td>
-										<td>
-											<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" size="80"
-												onchange="getGeog('nothing',this.id,'dataEntry',this.value)">
-										</td>
-									</tr>
-									<tr>
-										<td colspan="2">
-											<table>
-												<tr>
-													<td align="right"><span class="f11a">Locality Nickname</span></td>
-													<td>
-														<input type="text" name="locality_name" class="" id="locality_name" size="60"
-															onchange="LocalityPick('locality_id','spec_locality','dataEntry',this.value);">
-													</td>
-													<td id="d_locality_id">
-													<span class="f11a">Existing&nbsp;LocalityID</span>
-													</td><td>
-														<input type="hidden" id="fetched_locid">
-														<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
-													</td>
-													<td>
-														<span class="infoLink" id="localityPicker"
-															onclick="LocalityPick('locality_id','spec_locality','dataEntry',''); return false;">
-															Pick&nbsp;Locality
-														</span>
-														<span class="infoLink"
-															id="localityUnPicker"
-															style="display:none;"
-															onclick="unpickLocality()">
-															Depick&nbsp;Locality
-														</span>
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									<tr>
-										<td align="right"><span class="f11a">Spec Locality</span></td>
-										<td>
-											<input type="text" name="spec_locality" class="reqdClr" id="spec_locality" size="80">
-											<span class="infoLink" onclick="document.getElementById('spec_locality').value=document.getElementById('verbatim_locality').value;">
-												&nbsp;Use&nbsp;VerbLoc
-											</span>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="2" id="d_orig_elev_units">
-											<span class="f11a">Elevation&nbsp;(min-max)&nbsp;between</span>
-											<input type="text" name="minimum_elevation" size="4" id="minimum_elevation">
-											<span class="infoLink"
-												onclick="document.getElementById('maximum_elevation').value=document.getElementById('minimum_elevation').value";>&nbsp;>>&nbsp;</span>
-											<input type="text" name="maximum_elevation" size="4" id="maximum_elevation">
-											<select name="orig_elev_units" size="1" id="orig_elev_units">
-												<option value=""></option>
-												<cfloop query="ctOrigElevUnits">
-													<option value="#orig_elev_units#">#orig_elev_units#</option>
-												</cfloop>
-											</select>
-										</td>
-									</tr>
-
-									<tr id="d_locality_remarks">
-										<td align="right"><span class="f11a">LocalityRemk</span></td>
-										<td>
-											<input type="text" name="locality_remarks" size="80" id="locality_remarks">
-										</td>
-									</tr>
+\
 								</table><!----- /locality ---------->
 							</div><!--- end item --->
 						</div><!--- end sort_locality --->
