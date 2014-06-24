@@ -27,7 +27,6 @@
 <cfparam name="pickCollectingEvent" default="false">
 
 <cfif action is "newSE_pickEvent">
-	<cfset action="addSpecimenEvent">
 	<cfset createSpecimenEvent=true>
 	<cfset pickCollectingEvent=true>
 </cfif>
@@ -217,12 +216,10 @@ console.log(OrigUnits);
 			
 				<tr>
 					<td colspan="4" >
-						<div id="opnPickEventDiv" style="display:none;">
-							<input type="hidden" name="collecting_event_id" value="">
-							<label for="">Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
-							<input type="text" size="50" name="cepick">
-							<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
-						</div>
+						<input type="hidden" name="collecting_event_id" value="">
+						<label for="">Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
+						<input type="text" size="50" name="cepick">
+						<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
 					</td>
 				</tr>
 			
