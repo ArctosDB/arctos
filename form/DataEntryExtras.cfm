@@ -16,8 +16,8 @@ grant all on cf_dataentry_settings to data_entry;
 			var oidt4=$("#other_id_num_4").val();
 
 
+			console.log(oidt4 + '::' + oidt4.length );
 			console.log(oidv4);
-			console.log(oidt4);
 
 			if (oidt4.length > 0 && oidt4 != 'UUID') {
 				alert('You cannot use this form unless other ID 4 is NULL or UUID.');
