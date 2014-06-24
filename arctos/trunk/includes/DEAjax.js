@@ -22,7 +22,6 @@ function addMoreStuff(collection_object_id){
 	    $(window).resize(function() {
 	    	$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 	    });
-	});
 }
 jQuery(document).ready(function() {
 	$( "#georeference_source" ).autocomplete({
