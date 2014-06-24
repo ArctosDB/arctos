@@ -141,7 +141,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			</tr>
 			<cfloop query="docs">
 				<tr>
-					<td>#OTHER_ID_TYPE#</td>
+					<td name="#OTHER_ID_TYPE#">#OTHER_ID_TYPE#</td>
 					<td>#description#</td>
 					<td>#BASE_URL#</td>
 				</tr>
@@ -167,7 +167,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			<cfset i=1>
 			<cfloop query="thisRec">
 				<tr>
-					<td>
+					<td name="#attribute_type#">
 						<a href="ctDocumentation.cfm?table=CTATTRIBUTE_TYPE&field=#attribute_type#">#attribute_type#</a>
 					</td>
 					<td>
@@ -194,7 +194,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			<cfset i=1>
 			<cfloop query="ctspecimen_part_name">
 				<tr>
-					<td>
+					<td name="#Part_Name#">
 						#Part_Name#
 					</td>
 					<td>
