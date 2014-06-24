@@ -168,11 +168,11 @@ grant all on cf_dataentry_settings to data_entry;
 			
 			<tr>
 				<td colspan="4" >
-					<div id="opnPickEventDiv" style="display:none;">
-					<input type="hidden" name="collecting_event_id" value="">
-					<label for="">Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
-					<input type="text" size="50" name="cepick">
-					<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
+					<div id="opnPickEventDiv">
+						<input type="hidden" name="collecting_event_id" value="">
+						<label for="">Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
+						<input type="text" size="50" name="cepick">
+						<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
 					</div>
 				</td>
 			</tr>
@@ -180,11 +180,11 @@ grant all on cf_dataentry_settings to data_entry;
 			
 			<tr>
 				<td colspan="4" >
-					<div id="opnPickLocalityDiv" style="display:none;">
-					<input type="hidden" name="collecting_event_id" value="">
-					<label for="">bl alb asln Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
-					<input type="text" size="50" name="cepick">
-					<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
+					<div id="opnPickLocalityDiv" >
+						<input type="hidden" name="collecting_event_id" value="">
+						<label for="">bl alb asln Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
+						<input type="text" size="50" name="cepick">
+						<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
 					</div>
 				</td>
 			</tr>
