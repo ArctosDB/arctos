@@ -3,10 +3,7 @@ function addMoreStuff(mode){
 		return;
 	}
 	
-	var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid;
-	if (mode=='seeWhatsThere') {
-		guts+='&action=seeWhatsThere';		
-	}
+	
 	var oidt4 =$("#other_id_num_type_4").val();
 	var oidv4=$("#other_id_num_4").val();
 
@@ -30,6 +27,16 @@ function addMoreStuff(mode){
 			var uuid=$("#other_id_num_4").val();
 		}
 	}
+	
+	
+	
+	
+	var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid;
+	if (mode=='seeWhatsThere') {
+		guts+='&action=seeWhatsThere';		
+	}
+	
+	
 	
     $("<div class='popupDialog'><img src='/images/indicator.gif'></div>")
     .dialog({
