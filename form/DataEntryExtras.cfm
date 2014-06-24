@@ -48,9 +48,11 @@ grant all on cf_dataentry_settings to data_entry;
 
 	alert('got ' + opn);
 			if (opn=='pickEvent'){
+				alert('running with ' + opn);
 				$("#opnPickLocalityDiv").hide();
 				$("#opnPickEventDiv").show();
 			} else if (opn=='pickLocality'){
+				alert('running with ' + opn);
 				$("#opnPickEventDiv").hide();
 				$("#opnPickLocalityDiv").show();
 			} else {
