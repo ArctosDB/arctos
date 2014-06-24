@@ -76,12 +76,12 @@ grant all on cf_dataentry_settings to data_entry;
 console.log(OrigUnits);
 
 
-
+/*
 
 			 if (OrigUnits!==null) {
 				 OrigUnits=$("#orig_lat_long_units").val();
 			 };
-
+*/
 console.log(OrigUnits);
 
 
