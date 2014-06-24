@@ -227,7 +227,7 @@ console.log(OrigUnits);
 				</tr>
 			
 			</cfif>	
-			<cfif 1=2>
+			<cfif action is "itsnot">
 			<tr>
 				<td colspan="4" >
 					<div id="opnEnterEventDiv" style="display:none;">
