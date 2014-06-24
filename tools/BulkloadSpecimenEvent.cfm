@@ -91,7 +91,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 		Localities and events will be re-used if possible or created if nothing suitable exists.
 	</p>
 	<p>
-		Coordiantes will go to collecting_event (verbatim coordinates) and locality. Pre-create events and use collecting_event_id if you need more control.
+		Coordinates will go to collecting_event (verbatim coordinates) and locality. Pre-create events and use collecting_event_id if you need more control.
 	</p>
 	<p>
 		This form will happily make duplicates. Be careful!
@@ -388,6 +388,50 @@ grant all on cf_temp_specevent to coldfusion_user;
 			   size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file" class="savBtn">
 	</cfform>
+</cfif>
+<!---------------------------------------------------------------------------->
+<cfif action is "getCSV">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_specevent where upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfset util = CreateObject("component","component.utilities")>
+
+	
+	<cfset obj = CreateObject("component","component.functions")>
+	<cfset csv = obj.QueryToCSV2(
+		Query=mine)>
+
+
+	<cfdump var=#csv#>
+	
+	<!----
+	<cfset clist=mine.columnlist>
+	<cfset variables.encoding="UTF-8">
+	<cfset variables.fileName="#Application.webDirectory#/download/BulkSpecimenEventData.csv">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		variables.joFileWriter.writeLine(clist);
+	</cfscript>
+		
+		
+		
+		
+			variables.joFileWriter.close();
+		<cflocation url="/download.cfm?file=BulkloadAccn.csv" addtoken="false">
+		<a href="/download/BulkloadAccn.csv">Click here if your file does not automatically download.</a>
+		
+		
+		
+		
+	<cfset header=clist>
+	<cffile action = "write"
+    file = "#Application.webDirectory#/download/BulkloadSpecimenEvent.csv"
+    output = "#header#"
+    addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkloadSpecimenEvent.csv" addtoken="false">
+	
+	
+	---->
 </cfif>
 <!---------------------------------------------------------------------------->
 
