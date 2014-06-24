@@ -49,7 +49,13 @@ grant all on cf_dataentry_settings to data_entry;
 	<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from  cf_temp_specevent  where UUID='#UUID#'
 	</cfquery>
-	<cfdump var=#ese#>
+	<cfif ese.recordcount is 0>
+		<p>There are no external specimen-events for this UUID/entry</p>
+	<cfelse>
+		<p>There are #ese.recordcount# external specimen-events for this UUID/entry</p>
+		<cfdump var=#ese#>
+	</cfif>
+
 	
 looking for #uuid#
 
