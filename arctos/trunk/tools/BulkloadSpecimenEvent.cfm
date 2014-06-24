@@ -99,16 +99,19 @@ grant all on cf_temp_specevent to coldfusion_user;
 	<p>
 		<a href="BulkloadSpecimenEvent.cfm?action=makeTemplate">download a CSV template</a>
 	</p>
+	<cfoutput>
+		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_specevent where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<cfif mine.recordcount gt 0>
+			<p>
+				<a href="BulkloadSpecimenEvent.cfm?action=managemystuff">Manage your existing #mine.recordcount# records</a>
+			</p>
+		</cfif>
 	
-	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_specevent where upper(username)='#ucase(session.username)#'
-	</cfquery>
-	<cfif mine.recordcount gt 0>
-		<p>
-			<a href="BulkloadSpecimenEvent.cfm?action=managemystuff">Manage your existing #mine.recordcount# records</a>
-		</p>
-	</cfif>
 
+
+	</cfoutput>
 	<table border>
 		<tr>
 			<th>Column</th>
