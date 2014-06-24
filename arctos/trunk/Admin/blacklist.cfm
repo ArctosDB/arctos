@@ -21,8 +21,9 @@
 				},
 				function (result) {
 
+var idstr="c_" + ip;
 
-alert($("##c_" + ip).html());
+alert($("##"+idstr).html());
 
 					$("##c_" + ip).html('hi');
 
