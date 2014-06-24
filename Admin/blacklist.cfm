@@ -25,7 +25,7 @@ var idstr="c_" + ip;
 alert(idstr);
 
 
-alert($("input[td='" + idstr + ']").html());
+alert($("input[td='" + idstr + "']").html());
 
 
 alert($("##"+idstr).html());
