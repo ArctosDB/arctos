@@ -213,7 +213,7 @@ console.log(OrigUnits);
 					<input type="text" name="collecting_method" id="collecting_method" value="" size="75">
 				</td>
 			</tr>
-			<cfif pickCollectingEvent>
+			<cfif pickCollectingEvent is true>
 			
 				<tr>
 					<td colspan="4" >
