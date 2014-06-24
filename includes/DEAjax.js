@@ -461,6 +461,8 @@ function loadedEditRecord(){
 		theURL+='&ImAGod=yes';
 	}
 	theURL+='&collection_object_id=' + $("#collection_object_id").val();
+	
+	
 	if (typeof window.history.pushState == 'function') {
 	  history.replaceState({}, 'DataEntry', theURL);
 	}
@@ -679,10 +681,13 @@ function loadRecordEnter(collection_object_id){
 		}
 	);
 	// show URL that they can't try to save or anything clever
-	var theURL='/DataEntry.cfm';
-	if (typeof window.history.pushState == 'function') {
-	  history.replaceState({}, 'DataEntry', theURL);
-	}
+	
+	// EDIT THIS BACK IN FOR PROD!!!!!
+	
+	//var theURL='/DataEntry.cfm';
+	//if (typeof window.history.pushState == 'function') {
+	 // history.replaceState({}, 'DataEntry', theURL);
+//	}
 }
 
 function editLast() {
