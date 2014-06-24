@@ -103,6 +103,9 @@ grant all on cf_dataentry_settings to data_entry;
        select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by orig_lat_long_units
     </cfquery>
 	
+		<cfquery name="ctOrigElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       	select orig_elev_units from ctorig_elev_units
+	    </cfquery>
 		<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from  cf_temp_specevent  where UUID='#UUID#'
 		</cfquery>
