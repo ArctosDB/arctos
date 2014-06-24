@@ -5,8 +5,7 @@
 		<cfset host_name = inet_address.getByName("#ip#").getHostName()>
 		<cfset getCanonicalHostName = inet_address.getByName("#ip#").getCanonicalHostName()>
 		
-		<cfdump var=#getCanonicalHostName#>
-		<cfreturn host_name>
+		<cfreturn host_name & ': ' & getCanonicalHostName>
 	</cffunction>
 	<!--------------------------------------------------------------------------->
 	<cffunction name="upDSGeog" access="remote">
