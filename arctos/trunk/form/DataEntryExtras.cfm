@@ -19,8 +19,11 @@ grant all on cf_dataentry_settings to data_entry;
 			console.log(oidt4 + '::' + oidt4.length );
 			console.log(oidv4);
 
-			if (oidt4.length > 0 && oidt4 != 'UUID') {
-				alert('You cannot use this form unless other ID 4 is NULL or UUID.');
+			if (oidt4.length > 0){
+				alert('got len');
+				if (oidt4 != 'UUID') {
+					alert('You cannot use this form unless other ID 4 is NULL or UUID.');
+				}
 			} else {
 				alert('all OK');
 			}
