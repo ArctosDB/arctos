@@ -70,6 +70,14 @@ grant all on cf_dataentry_settings to data_entry;
 		}
 
 		function pickLL(OrigUnits){
+
+
+
+console.log(OrigUnits);
+
+
+
+
 			 if (OrigUnits!==null) {
 				 OrigUnits=$("#orig_lat_long_units").val();
 			 };
