@@ -73,6 +73,10 @@ grant all on cf_dataentry_settings to data_entry;
 			 if (OrigUnits!==null) {
 				 OrigUnits=$("#orig_lat_long_units").val();
 			 };
+
+console.log(OrigUnits);
+
+
 			$("#dms").hide();
 			$("#ddm").hide();
 			$("#dd").hide();
