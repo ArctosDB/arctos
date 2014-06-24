@@ -16,8 +16,8 @@ grant all on cf_dataentry_settings to data_entry;
 			var oidv4=$("#other_id_num_4").val();
 
 
-			console.log(oidt4 + '::' + oidt4.length );
-			console.log(oidv4);
+			//console.log(oidt4 + '::' + oidt4.length );
+			//console.log(oidv4);
 
 			if (oidt4.length > 0){
 				alert('got len');
@@ -36,12 +36,22 @@ grant all on cf_dataentry_settings to data_entry;
 			}
 		});
 	</script>
-
-add more stuff to data entry via bulkloaders....
+	<input type="hidden" id="#uuid#">
+	
+	To use this form, other_id_num_type4 MUST be a UUID, and other_id_val_4 MUST be a unique identifier. It 
+	is recommended to allow the application to generate these values; simply leave other_id_4 NULL to do so.
+	<p>
+		The UUID is the link to related records created here; do not alter or remove it until all data have been
+		loaded and associated with the proper specimen. After all data are loaded, it's OK to delete the UUID.
+	</p>
 
 <cfoutput>
-
-looking for #collection_object_id#
+	<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from  cf_temp_specevent  where UUID='#UUID#'
+	</cfquery>
+	<cfdump var=#ese#>
+	
+looking for #uuid#
 
 
 other_id_num_type_4
