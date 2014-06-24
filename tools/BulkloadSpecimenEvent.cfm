@@ -66,14 +66,10 @@ create or replace public synonym cf_temp_specevent for cf_temp_specevent;
 
 grant all on cf_temp_specevent to coldfusion_user;
 
-CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_specevent for each row
-    begin
-    	if :NEW.key is null then
-    		select somerandomsequence.nextval into :new.key from dual;
-    	end if;
-    end;
-/
 
+
+-- convert this to a run-on-demand by-user app so that we can use it from data entry
+-- see /Arctos/DDL/migration/6.4_DataEntry1ToMany.sql
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfset thecolumns="guid,ASSIGNED_BY_AGENT,ASSIGNED_DATE,SPECIMEN_EVENT_REMARK,SPECIMEN_EVENT_TYPE,COLLECTING_METHOD,COLLECTING_SOURCE,VERIFICATIONSTATUS,HABITAT,COLLECTING_EVENT_ID,COLLECTING_EVENT_NAME,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,LAT_DEG,DEC_LAT_MIN,LAT_MIN,LAT_SEC,LAT_DIR,LONG_DEG,DEC_LONG_MIN,LONG_MIN,LONG_SEC,LONG_DIR,DEC_LAT,DEC_LONG,DATUM,UTM_ZONE,UTM_EW,UTM_NS,ORIG_LAT_LONG_UNITS,LOCALITY_ID,SPEC_LOCALITY,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL,LOCALITY_NAME,GEOG_AUTH_REC_ID,HIGHER_GEOG">
@@ -95,11 +91,24 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 		Localities and events will be re-used if possible or created if nothing suitable exists.
 	</p>
 	<p>
-		Coordiantes will go to collecting_event (verbatim coordinates) and locality. Pre-create events if you need more control.
+		Coordiantes will go to collecting_event (verbatim coordinates) and locality. Pre-create events and use collecting_event_id if you need more control.
+	</p>
+	<p>
+		This form will happily make duplicates. Be careful!
 	</p>
 	<p>
 		<a href="BulkloadSpecimenEvent.cfm?action=makeTemplate">download a CSV template</a>
 	</p>
+	
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_specevent where upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfif mine.recordcount gt 0>
+		<p>
+			<a href="BulkloadSpecimenEvent.cfm?action=managemystuff">Manage your existing #mine.recordcount# records</a>
+		</p>
+	</cfif>
+
 	<table border>
 		<tr>
 			<th>Column</th>
@@ -378,11 +387,20 @@ CREATE OR REPLACE TRIGGER cf_temp_specevent_key before insert ON cf_temp_speceve
 	</cfform>
 </cfif>
 <!---------------------------------------------------------------------------->
+
+<cfif action is "managemystuff">
+	<cfoutput>
+		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_specevent where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<cfdump var=#mine#>
+	</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------->
+
 <cfif action is "getFileData">
 	<cfoutput>
-		<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from cf_temp_specevent
-		</cfquery>
+		
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 		<cfset fileContent=replace(fileContent,"'","''","all")>
 		<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
