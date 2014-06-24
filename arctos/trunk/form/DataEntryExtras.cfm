@@ -23,7 +23,7 @@ grant all on cf_dataentry_settings to data_entry;
 				alert('got len');
 				if (oidt4 != 'UUID') {
 					alert('You cannot use this form unless other ID 4 is NULL or UUID.');
-					$( ".popupDialog" ).dialog( "destroy" );
+					$('.ui-dialog-content').dialog('close');
 				}
 			} else {
 				alert('all OK');
