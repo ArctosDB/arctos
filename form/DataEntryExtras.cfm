@@ -45,13 +45,16 @@ grant all on cf_dataentry_settings to data_entry;
 * */
 		});
 		function celgtype(opn){
+
+	alert('got ' + opn);
 			if (opn=='pickEvent'){
 				$("#opnPickLocalityDiv").hide();
 				$("#opnPickEventDiv").show();
 			} else if (opn=='pickLocality'){
 				$("#opnPickEventDiv").hide();
 				$("#opnPickLocalityDiv").show();
-			}
+			} else {
+				alert('I have no idea what to do with ' + opn);
 		}
 
 
