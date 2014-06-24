@@ -45,18 +45,74 @@ grant all on cf_dataentry_settings to data_entry;
 		loaded and associated with the proper specimen. After all data are loaded, it's OK to delete the UUID.
 	</p>
 
-<cfoutput>
-	<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from  cf_temp_specevent  where UUID='#UUID#'
-	</cfquery>
-	<cfif ese.recordcount is 0>
-		<p>There are no external specimen-events for this UUID/entry</p>
-	<cfelse>
-		<p>There are #ese.recordcount# external specimen-events for this UUID/entry</p>
-		<cfdump var=#ese#>
-	</cfif>
-
+	<cfoutput>
 	
+	
+		
+
+	<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
+	</cfquery>
+	
+	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+        select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
+     </cfquery>
+	
+	
+		<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from  cf_temp_specevent  where UUID='#UUID#'
+		</cfquery>
+		<cfif ese.recordcount is 0>
+			<p>There are no external specimen-events for this UUID/entry</p>
+		<cfelse>
+			<p>There are #ese.recordcount# external specimen-events for this UUID/entry</p>
+			<cfdump var=#ese#>
+		</cfif>
+
+		<input type="hidden" name="nothing" id="nothing">
+		<label for="specimen_event_type">Specimen/Event Type</label>
+		<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
+			<cfloop query="ctspecimen_event_type">
+				<option value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+		    </cfloop>
+		</select>
+		<label for="assigned_by_agent_name">Event Assigned by Agent</label>
+		<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" size="40" value="#session.dbuser#"
+			 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc',this.value); return false;"
+			 onKeyPress="return noenter(event);">
+		<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#session.myAgentId#">
+		<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
+		<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(now(),'yyyy-mm-dd')#" class="reqdClr">
+
+			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
+			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="" size="75">
+
+			<label for="habitat">Habitat</label>
+			<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
+
+			<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
+			<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
+				<option value=""></option>
+				<cfloop query="ctcollecting_source">
+					<option value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
+				</cfloop>
+			</select>
+			<span class="infoLink" onclick="getCtDoc('ctcollecting_source');">Define</span>
+
+			<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
+			<input type="text" name="collecting_method" id="collecting_method" value="" size="75">
+
+			<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
+			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+				<option value="unverified">unverified</option>
+			</select>
+			<h4>
+				Collecting Event
+			</h4>
+			<label for="">Click the button to pick an event. The Verbatim Locality of the event you pick will go here.</label>
+			<input type="text" size="50" name="cepick">
+			<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','loc_new','cepick');">
+			<br><input type="submit" value="Create this Specimen/Event" class="savBtn">
 looking for #uuid#
 
 
