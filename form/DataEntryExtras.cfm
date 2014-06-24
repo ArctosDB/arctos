@@ -69,8 +69,44 @@ grant all on cf_dataentry_settings to data_entry;
 			}
 		}
 
-		function pickLL(units){
-			alert(units);
+		function pickLL(OrigUnits){
+			alert(OrigUnits);
+			 if (OrigUnits!==null) {
+				 OrigUnits=$("#orig_lat_long_units").val();
+			 };
+			var a=document.getElementById('dms');
+			var b=document.getElementById('ddm');
+			var c=document.getElementById('dd');
+			var u=document.getElementById('utm');
+			var d=document.getElementById('lat_long_meta');
+			var gg=document.getElementById('orig_lat_long_units');
+		 	a.className='noShow';
+			b.className='noShow';
+			c.className='noShow';
+			u.className='noShow';
+			d.className='noShow';
+			var isSomething = OrigUnits.length;
+			if (isSomething > 0) {
+				d.className='doShow';
+				gg.className='reqdClr';
+			}	else {
+				gg.className='';
+				gg.value='';
+			}
+			if (OrigUnits == 'deg. min. sec.') {
+				a.className='doShow';
+			} else if (OrigUnits == 'decimal degrees') {
+				c.className='doShow';
+			} else if (OrigUnits == 'degrees dec. minutes') {
+				b.className='doShow';
+			} else if (OrigUnits == 'UTM') {
+				u.className='doShow';
+			}
+
+
+
+
+
 		}
 
 
@@ -322,7 +358,7 @@ grant all on cf_dataentry_settings to data_entry;
 							<tr>
 								<td>
 									<label for="orig_lat_long_units">Coordinate Units</label>
-									<select name="orig_lat_long_units" id="orig_lat_long_units"	onChange="switchActive(this.value);">
+									<select name="orig_lat_long_units" id="orig_lat_long_units"	onChange="pickLL(this.value);">
 										<option value=""></option>
 										<cfloop query="ctunits">
 										  <option value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
