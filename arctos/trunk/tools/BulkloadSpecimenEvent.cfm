@@ -409,6 +409,8 @@ grant all on cf_temp_specevent to coldfusion_user;
 			<tr>
 				<th>Tools</th>
 				<th>Status</th>
+				<th>GUID</th>
+				<th>UUID</th>
 				<cfloop list="#clist#" index="i">
 					<th>#i#</th>
 				</cfloop>
@@ -417,6 +419,8 @@ grant all on cf_temp_specevent to coldfusion_user;
 				<tr>
 					<td>---</td>
 					<td>#status#</td>
+					<td>#GUID#</td>
+					<td>#UUID#</td>
 					<cfloop list="#clist#" index="i">
 						<cfset tval=evaluate("mine." & i)>
 						<td>#tval#</td>
