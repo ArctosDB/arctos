@@ -1,7 +1,33 @@
 function addMoreStuff(collection_object_id){
+	var oidt4 =$("#other_id_num_type_4").val();
+	var oidv4=$("#other_id_num_4").val();
+
+
+	//console.log(oidt4 + '::' + oidt4.length );
+	//console.log(oidv4);
+
+	if (oidt4.length > 0){
+		alert('got len');
+		if (oidt4 != 'UUID') {
+			alert('You cannot use this form unless other ID 4 is NULL or UUID.');
+			return false;
+		}
+	} else {
+		if (oidt4 != 'UUID') {
+			$("#other_id_num_type_4").val('UUID');
+		}
+		if (oidv4.length == 0){
+			var uuid='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0,v=c=='x'?r:r&0x3|0x8;return v.toString(16);});
+			$("#other_id_num_4").val(uuid);
+		} else {
+			var uuid=$("#other_id_num_4").val();
+		}
+	}
+	
+	
 	
 
-		var guts = "/form/DataEntryExtras.cfm?collection_object_id=" + collection_object_id;
+		var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid;
 	    $("<div class='popupDialog'><img src='/images/indicator.gif'></div>")
 	    .dialog({
 	        autoOpen: true,
