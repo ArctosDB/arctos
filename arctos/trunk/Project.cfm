@@ -29,6 +29,15 @@
 <cfif Action is "makeNew">
 	<cfset title="create project">
 <strong>Create New Project:</strong>
+<script>
+	function countChar(val) {
+    	if (val.value.length >= 100) {
+			$("#chrcnt").removeClass();
+		else
+			$("#chrcnt").addClass('redBorder);
+        }
+	}
+</script>
 <cfoutput>
 	<form name="project" action="Project.cfm" method="post">
 		<input type="hidden" name="Action" value="createNew">
@@ -53,9 +62,10 @@
 				<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
 				<input type="text" name="end_date" id="end_date">
 				<label for="end_date" class="likeLink" onClick="getDocs('project','description')">
-					Description (Include what, why, how, who cares. Be <i>descriptive</i>. Minimum 100 characters to show up in search.)
+					Description Include what, why, how, who cares. Be <i>descriptive</i>.
+					<span id="chrcnt" class="redBorder">Minimum 100 characters to show up in search.</span>
 				</label>
-				<textarea name="project_description" id="project_description" cols="80" rows="6"></textarea>
+				<textarea name="project_description" id="project_description" cols="80" rows="6" onkeyup="countChar(this.value)"></textarea>
 				<label for="project_remarks">Remarks</label>
 				<textarea name="project_remarks" id="project_remarks" cols="80" rows="3"></textarea>
 				<br>
