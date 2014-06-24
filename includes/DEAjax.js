@@ -1,4 +1,12 @@
-function addMoreStuff(collection_object_id){
+function addMoreStuff(mode){
+	if (mode.length==0){
+		return;
+	}
+	
+	var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid;
+	if (mode=='seeWhatsThere') {
+		guts+='&action=seeWhatsThere';		
+	}
 	var oidt4 =$("#other_id_num_type_4").val();
 	var oidv4=$("#other_id_num_4").val();
 
@@ -22,7 +30,7 @@ function addMoreStuff(collection_object_id){
 			var uuid=$("#other_id_num_4").val();
 		}
 	}
-	var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid;
+	
     $("<div class='popupDialog'><img src='/images/indicator.gif'></div>")
     .dialog({
         autoOpen: true,

@@ -129,7 +129,9 @@ console.log(OrigUnits);
 
 	<cfoutput>
 	
-	
+	<cfif action is "seeWhatsThere">
+		hello I am seeWhatsThere....
+	</cfif>
 		
 		<cfquery name="ctgeoreference_protocol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select georeference_protocol from ctgeoreference_protocol order by georeference_protocol

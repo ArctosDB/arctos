@@ -1082,6 +1082,10 @@
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=sqlTab">[ SQL ]</a>
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=viewTable">[ Java ]</a>
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=download">[ download ]</a>
+						<select name="more" onchange="addMoreStuff(this.value);">
+							<option value="">Add more...</option>
+							<option value="seeWhatsThere">Check Existing</option>
+						</select>
 						<span onclick="addMoreStuff(#collection_object_id#)" class="likeLink">[ more data ]</span>
 
 
