@@ -42,7 +42,7 @@ function addMoreStuff(mode){
 	
 	
 	
-    $("<div class='popupDialog'><img src='/images/indicator.gif'></div>")
+    $("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>")
     .dialog({
         autoOpen: true,
         closeOnEscape: true,

@@ -184,14 +184,15 @@
 				)
 				
 			</cfquery>
-
+			<cfset fatalerrstr='success'>
 		
 
 
 
 
-			<cfreturn fatalerrstr>
 		</cfif>
+		
+			<cfreturn fatalerrstr>
 	</cfoutput>
 </cffunction>
 
