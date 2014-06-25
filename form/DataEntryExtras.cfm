@@ -135,21 +135,27 @@
 		function saveSpecimenEvent(){
 			$("#theForm input, #theForm select").each(function(){
 				console.log(this.id);
-				// we need visible elements, 
-				if ($(this).attr('type') == 'hidden'){
-					console.log('is a hidden element');
+				
+				if ($(this).attr('type') != 'hidden'){
+					
 				}
+			// only care about visible elements 
 			if ( $(this).is(":visible") ) {
 				console.log('is visible');
+				// if it's required, make sure there's a value
+				if ($(this).attr('class') == 'reqdClr'){
+					console.log('is a required element');
+					if ($(this).val().length==0){
+						console.log('required and has no value - throw an error...');
+						$(this).addClass('redBorder');
+					}
+				}
+				
 			}
 
 
-			if ($(this).attr('class') == 'reqdClr'){
-				console.log('is a required element');
-			}
-			if ($(this).val().length==0){
-				console.log('has not value');
-			}
+			
+			
 			
 		/*
 			    if (!this.value.length) {
