@@ -177,7 +177,7 @@
 
 		
 		<form name="theForm" id="theForm">
-		<input type="hidden" id="#uuid#">
+		<input type="hidden" id="uuid" value="#uuid#">
 		<input type="hidden" name="nothing" id="nothing">
 		<input type="hidden" name="letype" id="letype" value="pick_event">
 		<br>Add a specimen-event:

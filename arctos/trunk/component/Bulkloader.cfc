@@ -21,14 +21,83 @@
 				<cfset fatalerrstr="">
 
 
+	<!--- check basic/always requirements ---->
+	<cfset alwaysRequired="UUID,ASSIGNED_BY_AGENT">
+	
+	<cfloop list="#alwaysRequired#" index="i">
+		<cfset thisVal=evaluate("variables." & i)>
+		<cfif len(thisVal) is 0>
+			<cfset fatalerrstr=listappend(fatalerrstr,'#i# is required',';')>
+		</cfif>
+	</cfloop>
+	
+	
+	<!-------
+	<cfif len(variables.uuid) is 0>
+		<cfset fatalerrstr=listappend(fatalerrstr,'UUID failure!',';')>
+	</cfif>
+	<cfif len(variables.uuid) is 0>
+		<cfset fatalerrstr=listappend(fatalerrstr,'UUID failure!',';')>
+	</cfif>
+	
+	ASSIGNED_BY_AGENT
+	
+	
+	uuid
+	---->
 
 	<cfif variables.letype is "pick_event">
-			<cfif len(variables.collecting_event_id) is 0>
-				<cfset fatalerrstr='You did not pick a collecting event.'>
-			</cfif>
+		<cfif len(variables.collecting_event_id) is 0>
+			<cfset fatalerrstr=listappend(fatalerrstr,'You did not pick a collecting event.',';')>
 		</cfif>
+	<cfelseif variables.letype is "pick_event">
+	</cfif>
 		
 		
+		
+		
+		
+	function typeEvent(oo){
+		if (oo=='on'){
+			// clicked from "pick event" to "type event"
+			// pick event off
+			$("#opnPickEventDiv").hide();
+			// type event on
+			$("#opnEnterEventDiv").show();
+			// pick locality on
+			$("#opnPickLocalityDiv").show();
+			// type locality off
+			$("#opnEnterkLocalityDiv").hide();
+			
+			$("#letype").val('type_event');
+		} else {
+			// clicked from "type event" to "pick event"
+			// pick event on
+			$("#opnPickEventDiv").show();
+			// type event off
+			$("#opnEnterEventDiv").hide();
+			// all locality off
+			$("#opnPickLocalityDiv").hide();
+			$("#opnEnterkLocalityDiv").hide();
+			$("#letype").val('pick_event');
+		}
+	}
+	function typeLocality(oo){
+		if (oo=='on'){
+			// clicked from "pick locality" to "type locality"
+			$("#opnPickLocalityDiv").hide();
+			$("#opnEnterkLocalityDiv").show();
+			$("#letype").val('type_locality');
+		} else {
+			$("#opnPickLocalityDiv").show();
+			$("#opnEnterkLocalityDiv").hide();
+			$("#letype").val('pick_locality');
+		}
+	}
+
+
+
+
 		
 		
 		<!----
