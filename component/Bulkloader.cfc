@@ -48,13 +48,15 @@
 		<cfset required=listappend(required,temp)>
 		<cfif len(orig_elev_units) gt 0 or len(minimum_elevation) gt 0 or len(maximum_elevation) gt 0>
 			<cfif len(orig_elev_units) is 0 or len(minimum_elevation) is 0 or len(maximum_elevation) is 0>
-			<cfset fatalerrstr=listappend(fatalerrstr,'(orig_elev_units,minimum_elevation,maximum_elevation) must be all or none',';')>
+				<cfset fatalerrstr=listappend(fatalerrstr,'(orig_elev_units,minimum_elevation,maximum_elevation) must be all or none',';')>
+			</cfif>
 		</cfif>		
 		<cfif len(orig_lat_long_units) gt 0>
 			<cfif len(max_error_distance) gt 0 or len(max_error_units) gt 0>
 				<cfif len(max_error_distance) is 0 or len(max_error_units) is 0>
-				<cfset fatalerrstr=listappend(fatalerrstr,'(max_error_distance,max_error_units) must be all or none',';')>
-			</cfif>	
+					<cfset fatalerrstr=listappend(fatalerrstr,'(max_error_distance,max_error_units) must be all or none',';')>
+				</cfif>
+			</cfif>
 			<cfset temp="datum,georeference_source,georeference_protocol">
 			<cfset required=listappend(required,temp)>
 			<cfif orig_lat_long_units is "decimal degrees">
