@@ -133,6 +133,8 @@
 		}
 
 		function saveSpecimenEvent(){
+			// assigned_by_agent_id is always required
+
 			$("#theForm input, #theForm select").each(function(){
 				console.log(this.id);
 				
