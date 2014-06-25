@@ -1088,7 +1088,7 @@
 							<option value="seeWhatsThere">Check Existing</option>
 							<option value="addSE">Add Specimen Event</option>
 						</select>
-						<span class="likeLink" onclick="addMoreStuff("##more").val());">go</span>
+						<span class="likeLink" onclick="addMoreStuff($'##more').val());">go</span>
 					</td>
 					<td align="right" width="16%" nowrap="nowrap">
 						<span id="recCount">#whatIds.recordcount#</span> records <cfif whatIds.recordcount is 1000>(limit)</cfif>
