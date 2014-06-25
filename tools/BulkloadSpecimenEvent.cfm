@@ -401,6 +401,24 @@ grant all on cf_temp_specevent to coldfusion_user;
 	<cflocation url="/download.cfm?file=BulkloadSpecimenEventData.csv" addtoken="false">
 </cfif>
 <!---------------------------------------------------------------------------->
+<cfif action is "getGuidUUID">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select uuid from cf_temp_specevent where upper(username)='#ucase(session.username)#' and guid is null group by uuid
+	</cfquery>
+	<cfloop quey="mine">
+		<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select guid from flat,coll_obj_other_id_num where flat.collection_object_id=coll_obj_other_id_num.collection_object_id and
+			other_id_type='UUID' and display_value='#uuid#'
+		</cfquery>
+		<cfif gg.recordcount is 1>
+			<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update cf_temp_specevent set guid='#gg.guid#' where uuid='#uuid#'
+			</cfquery>
+		</cfif>
+	</cfloop>
+	<cflocation url="BulkloadSpecimenEvent.cfm?action=managemystuff" addtoken="false">
+</cfif>
+<!---------------------------------------------------------------------------->
 
 <cfif action is "managemystuff">
 	<script src="/includes/sorttable.js"></script>
@@ -429,8 +447,16 @@ grant all on cf_temp_specevent to coldfusion_user;
 			<p>
 				The data should load. Check them one more time, then <a href="BulkloadSpecimenEvent.cfm?action=validateFromFile">proceed to load</a>
 			</p>
-			
-		<cfelse>
+		</cfif>
+		<cfquery name="nog" dbtype="query">
+			select count(*) c from mine where guid is null
+		</cfquery> 
+		<cfif nog.c gt 0>
+			<p>
+				<a href="BulkloadSpecimenEvent.cfm?action=getGuidUUID">Find GUIDs from UUID</a>
+			</p>
+		</cfif>
+		<cfif nog.c is 0 and  willload.recordcount neq mine.recordcount>
 			<p>
 				Your data require <a href="BulkloadSpecimenEvent.cfm?action=validateFromFile">validation</a>
 			</p>
