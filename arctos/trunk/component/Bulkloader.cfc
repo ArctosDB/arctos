@@ -17,14 +17,14 @@
 			<cfdump var="#k#">
 		</cfloop>
 		
-
+<cfdump var=#variables#>
 				<cfset fatalerrstr="">
 
 		<!----
 		
 		
 		
-				<cfdump var=#variables#>
+				
 		
 		
 		<cfset fatalerrstr="">
