@@ -33,6 +33,9 @@
 
 <cfif action is "addSE">
 	<script>
+	
+		/// everything here is copy/pasted from DE and then injected into the same page, so it shared ID - bla - cheat with find
+
 		jQuery(document).ready(function() {
 			$("#assigned_date").datepicker();
 	
@@ -64,10 +67,13 @@
 		}
 
 		function pickLL(OrigUnits){
+	
+			var dms=$("#mptab").find("[id='dms']");
+			var ddm=$("#mptab").find("[id='ddm']");
+			var dd=$("#mptab").find("[id='dd']");
+			var utm=$("#mptab").find("[id='utm']");
+			var lat_long_meta=$("#mptab").find("[id='lat_long_meta']");
 
-
-
-console.log(OrigUnits);
 
 
 /*
@@ -76,17 +82,16 @@ console.log(OrigUnits);
 				 OrigUnits=$("#orig_lat_long_units").val();
 			 };
 */
-console.log(OrigUnits);
 
 
-			$("#dms").hide();
-			$("#ddm").hide();
-			$("#dd").hide();
-			$("#utm").hide();
-			$("#lat_long_meta").hide();
+			dms.hide();
+			ddm.hide();
+			dd.hide();
+			utm.hide();
+			lat_long_meta.hide();
 			if (OrigUnits == 'deg. min. sec.') {
-				$("#lat_long_meta").show();
-				$("#dms").show();
+				lat_long_meta.show();
+				dms.show();
 			} else if (OrigUnits == 'decimal degrees') {
 
 
@@ -356,7 +361,7 @@ console.log(OrigUnits);
 							</tr>
 							<tr>
 								<td>
-									<div id="lat_long_meta">
+									<div id="lat_long_meta" style="display:none;">
 										<table cellpadding="0" cellspacing="0">
 											<tr>
 												<td align="right"><span class="f11a">Max Error</span></td>
