@@ -27,6 +27,10 @@
 
 
 <cfif action is "addSE">
+
+	<style>
+		.grpDiv {border:1px solid green;}
+	</style>
 	<script>
 	
 		/// everything here is copy/pasted from DE and then injected into the same page, so it shared ID - bla - cheat with find
