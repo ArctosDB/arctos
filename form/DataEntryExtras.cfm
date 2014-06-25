@@ -297,8 +297,9 @@
 							<tr>
 								<td colspan="4">
 									
-									<label for="opnPickLocalityDiv">Pick a Locality</label>
+									
 									<div id="opnPickLocalityDiv">
+									<label for="opnPickLocalityDiv">Pick a Locality</label>
 										<table>
 											<tr>
 												<td>
