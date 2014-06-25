@@ -9,20 +9,52 @@
 		
 		<cfdump var=#q#>
 		
-		
 		<cfloop list="#q#" index="kv" delimiters="&">
 			<cfset k=listfirst(kv,"=")>
 			<cfset v=replace(kv,k & "=",'')>
 			<cfset "#k#"=urldecode(v)>
-			<cfdump var="#k#">
 		</cfloop>
-		
-<cfdump var=#variables#>
-				<cfset fatalerrstr="">
+		<cfset fatalerrstr="">
 
 
-	<!--- check basic/always requirements ---->
-	<cfset alwaysRequired="UUID,assigned_by_agent_name,assigned_date,collecting_source">
+	<cfset required="UUID,assigned_by_agent_name,assigned_date,collecting_source">
+	<cfif variables.letype is "pick_event">
+		<cfset required=listappend(required,"collecting_event_id")>
+	</cfif>
+	
+	<!--- 
+		options:
+			pick_event=require collecting event ID
+			type_event=require event stuff + locality_id
+			type_locality: require event stuff, locality stuff, geog_auth_rec_id
+			pick_locality: require locality_id
+			
+		extension:
+			under type_locality ONLY
+				check orig_lat_long_units
+					if not null then require
+						datum n such
+					if DD then require....	
+	--->
+	<cfif variables.letype is "pick_event">
+		<cfset required=listappend(required,"collecting_event_id")>
+	<cfelseif variables.letype is "type_event">
+		<cfset temp="locality_id,verbatim_locality,verbatim_date,began_date,ended_date">
+		<cfset required=listappend(required,temp)>
+	<cfelseif variables.letype is "type_locality">
+		<cfset temp="geog_auth_rec_id,verbatim_locality,verbatim_date,began_date,ended_date,spec_locality">
+		<cfif len(orig_elev_units) gt 0 or len(minimum_elevation) gt 0 or len(maximum_elevation) gt 0>
+			<cfset fatalerrstr='elevcheck...'>
+		</cfif>		
+				
+				
+				
+							
+							
+										
+	</cfif>
+	
+	
 	
 	<cfloop list="#alwaysRequired#" index="i">
 		<cfset thisVal=evaluate("variables." & i)>
