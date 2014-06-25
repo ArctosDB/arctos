@@ -12,6 +12,12 @@
 			<cfset v=replace(kv,k & "=",'')>
 			<cfset "variables.#k#"=urldecode(v)>
 		</cfloop>
+		<cfset fatalerrstr="">
+		<cfif variables.letype is "pick_event">
+			<cfif len(variables.collecting_event_id) is 0>
+				<cfset fatalerrstr='You did not pick a collecting event.'>
+			</cfif>
+		</cfif>
 		
 		<!----
 		<cfset sql = "INSERT INTO bulkloader (">
@@ -55,6 +61,9 @@
 		</cftry>
 		<cfreturn result>
 		----->
+		<cfif len(fatalerrstr) gt 0>
+			<cfreturn fatalerrstr>
+		</cfif>
 		<cfreturn 'component doing stuff'>
 	</cfoutput>
 </cffunction>

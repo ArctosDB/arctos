@@ -81,33 +81,6 @@
 
 
 
-
-
-		function celgtype(opn){
-			if (opn=='pickEvent'){
-				//alert('running with ' + opn);
-				$("#opnEnterEventDiv").hide();
-				$("#opnPickLocalityDiv").hide();
-				$("#opnPickEventDiv").show();
-				$("#opnEnterkLocalityDiv").hide();
-			} else if (opn=='pickLocality'){
-				//alert('running with ' + opn);
-				$("#opnPickEventDiv").hide();
-				$("#opnEnterEventDiv").show();
-				$("#opnPickLocalityDiv").show();
-				$("#opnEnterkLocalityDiv").hide();
-			} else if (opn=='enterLocality'){
-				//alert('running with ' + opn);
-				$("#opnPickEventDiv").hide();
-				$("#opnEnterEventDiv").show();
-				$("#opnPickLocalityDiv").hide();
-				$("#opnEnterkLocalityDiv").show();
-
-			} else {
-				alert('I have no idea what to do with ' + opn);
-			}
-		}
-
 		function pickLL(OrigUnits){
 	
 			var dms=$("#mptab").find("[id='dms']");
@@ -206,7 +179,7 @@
 		<form name="theForm" id="theForm">
 		<input type="hidden" id="#uuid#">
 		<input type="hidden" name="nothing" id="nothing">
-		<input type="hidden" name="letype" id="letype">
+		<input type="hidden" name="letype" id="letype" value="pick_event">
 		<br>Add a specimen-event:
 		<table id="mptab">
 			<tr>
