@@ -132,7 +132,21 @@
 			}
 		}
 
+		function saveSpecimenEvent(){
+			$("#theForm input").each(function(){
+				console.log(this.id);
 
+		/*
+			    if (!this.value.length) {
+			        if (this.id == 'zipCode') {
+			            //do some zip code validation
+			        }else if ( $(this).is(":visible") ) {
+			            //do some regular validation
+			        }       
+			    }
+* */
+			});
+		}
 
 	</script>
 	
@@ -295,9 +309,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="4">
-									
-									
+								<td colspan="4">									
 									<div class="grpDiv" id="opnPickLocalityDiv">
 									<label for="opnPickLocalityDiv">Pick a Locality</label>
 										<table>
@@ -307,17 +319,13 @@
 													<input type="text" name="locality_name" class="" id="locality_name" size="60"
 														onchange="LocalityPick('locality_id','pickedSpecloc','theForm',this.value);">
 													<input type="button" class="picBtn" value="more pick options" 
-														onclick="LocalityPick('locality_id','pickedSpecloc','theForm',''); return false;">									
-												</td>
-												<td>
-													<label for="locality_id">Picked LocalityID</label>
-													<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
+														onclick="LocalityPick('locality_id','pickedSpecloc','theForm',''); return false;">
+														<input type="hidden" name="locality_id" id="locality_id" class="readClr" size="8">							
 												</td>
 												<td>
 													<label for="pickedSpecloc">Picked SpecificLocality</label>
 													<input type="text" name="pickedSpecloc" id="pickedSpecloc" class="readClr" size="60">
 													<input type="button" class="lnkBtn" value="Type Locality Instead" onclick="typeLocality('on');">
-				
 												</td>
 											</tr>
 										</table>
@@ -620,6 +628,7 @@
 				</td>
 			</tr>		
 		</table>
+		<input type="button" onclick="saveSpecimenEvent()" value="Save Event">
 	</form>
 			
 			
