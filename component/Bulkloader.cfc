@@ -16,7 +16,7 @@
 		<cfset fatalerrstr="">
 
 
-	<cfset required="UUID,assigned_by_agent_name,assigned_date,collecting_source">
+	<cfset required="UUID,assigned_by_agent,assigned_date,collecting_source">
 	<cfif variables.letype is "pick_event">
 		<cfset required=listappend(required,"collecting_event_id")>
 	</cfif>
@@ -93,73 +93,105 @@
 				insert into cf_temp_specevent (
 					status,
 					UUID
-					guid varchar2(60) not null,
-					ASSIGNED_BY_AGENT varchar2(255),
-					ASSIGNED_DATE varchar2(255),
-					SPECIMEN_EVENT_REMARK varchar2(255),
-					SPECIMEN_EVENT_TYPE varchar2(255),
-					COLLECTING_METHOD varchar2(255),
-					COLLECTING_SOURCE varchar2(255),
-					VERIFICATIONSTATUS varchar2(255),
-					HABITAT varchar2(255),
-					COLLECTING_EVENT_ID NUMBER,
-					VERBATIM_DATE varchar2(255),
-					VERBATIM_LOCALITY varchar2(255),
-					COLL_EVENT_REMARKS varchar2(255),
-					BEGAN_DATE varchar2(255),
-					ENDED_DATE varchar2(255),
-					COLLECTING_EVENT_NAME varchar2(255),
-					LAT_DEG NUMBER,
-					DEC_LAT_MIN NUMBER,
-					LAT_MIN NUMBER,
-					LAT_SEC NUMBER,
-					LAT_DIR NUMBER,
-					LONG_DEG NUMBER,
-					DEC_LONG_MIN NUMBER,
-					LONG_MIN NUMBER,
-					LONG_SEC NUMBER,
-					LONG_DIR NUMBER,
-					DEC_LAT NUMBER,
-					DEC_LONG NUMBER,
-					DATUM varchar2(255),
-					UTM_ZONE varchar2(255),
-					UTM_EW varchar2(255),
-					UTM_NS varchar2(255),
-					ORIG_LAT_LONG_UNITS varchar2(255),
-					LOCALITY_ID NUMBER,
-					SPEC_LOCALITY varchar2(255),
-					MINIMUM_ELEVATION NUMBER,
-					MAXIMUM_ELEVATION NUMBER,
-					ORIG_ELEV_UNITS varchar2(255),
-					MIN_DEPTH NUMBER,
-					MAX_DEPTH NUMBER,
-					DEPTH_UNITS varchar2(255),
-					MAX_ERROR_DISTANCE NUMBER,
-					MAX_ERROR_UNITS varchar2(255),
-					LOCALITY_REMARKS varchar2(255),
-					GEOREFERENCE_SOURCE varchar2(255),
-					GEOREFERENCE_PROTOCOL varchar2(255),
-					LOCALITY_NAME varchar2(255),
-					GEOG_AUTH_REC_ID NUMBER,
-					HIGHER_GEOG varchar2(255),
-					l_collection_object_id number,
-					l_collecting_event_id number,
-					l_locality_id number,
-					l_geog_auth_rec_id number,
-					l_event_assigned_id number
+					ASSIGNED_BY_AGENT,
+					ASSIGNED_DATE,
+					SPECIMEN_EVENT_REMARK,
+					SPECIMEN_EVENT_TYPE,
+					COLLECTING_METHOD,
+					COLLECTING_SOURCE,
+					VERIFICATIONSTATUS,
+					HABITAT,
+					COLLECTING_EVENT_ID,
+					VERBATIM_DATE,
+					VERBATIM_LOCALITY,
+					COLL_EVENT_REMARKS,
+					BEGAN_DATE,
+					ENDED_DATE,
+					LAT_DEG,
+					DEC_LAT_MIN,
+					LAT_MIN,
+					LAT_SEC,
+					LAT_DIR,
+					LONG_DEG,
+					DEC_LONG_MIN,
+					LONG_MIN,
+					LONG_SEC,
+					LONG_DIR,
+					DEC_LAT,
+					DEC_LONG,
+					DATUM,
+					UTM_ZONE,
+					UTM_EW,
+					UTM_NS,
+					ORIG_LAT_LONG_UNITS,
+					LOCALITY_ID,
+					SPEC_LOCALITY,
+					MINIMUM_ELEVATION,
+					MAXIMUM_ELEVATION,
+					ORIG_ELEV_UNITS,
+					
+					MAX_ERROR_DISTANCE,
+					MAX_ERROR_UNITS,
+					LOCALITY_REMARKS,
+					GEOREFERENCE_SOURCE,
+					GEOREFERENCE_PROTOCOL,
+					HIGHER_GEOG
+				) values (
+					'linked to bulkloader',
+					'#UUID#',
+					'#ASSIGNED_BY_AGENT#',
+					'#ASSIGNED_DATE#',
+					'#SPECIMEN_EVENT_REMARK#',
+					'#SPECIMEN_EVENT_TYPE#',
+					'#COLLECTING_METHOD#',
+					'#COLLECTING_SOURCE#',
+					'#VERIFICATIONSTATUS#',
+					'#HABITAT#',
+					<cfif len(COLLECTING_EVENT_ID) gt 0>#COLLECTING_EVENT_ID#<cfelse>NULL</cfif>,
+					'#VERBATIM_DATE#',
+					'#VERBATIM_LOCALITY#',
+					'#COLL_EVENT_REMARKS#',
+					'#BEGAN_DATE#',
+					'#ENDED_DATE#',
+					<cfif len(LAT_DEG) gt 0>#LAT_DEG#<cfelse>NULL</cfif>,
+					<cfif len(DEC_LAT_MIN) gt 0>#DEC_LAT_MIN#<cfelse>NULL</cfif>,
+					<cfif len(LAT_MIN) gt 0>#LAT_MIN#<cfelse>NULL</cfif>,
+					<cfif len(LAT_SEC) gt 0>#LAT_SEC#<cfelse>NULL</cfif>,
+					'#LAT_DIR#',
+					<cfif len(LONG_DEG) gt 0>#LONG_DEG#<cfelse>NULL</cfif>,
+					<cfif len(DEC_LONG_MIN) gt 0>#DEC_LONG_MIN#<cfelse>NULL</cfif>,
+					<cfif len(LONG_MIN) gt 0>#LONG_MIN#<cfelse>NULL</cfif>,
+					<cfif len(LONG_SEC) gt 0>#LONG_SEC#<cfelse>NULL</cfif>,
+					'#LONG_DIR#',
+					<cfif len(DEC_LAT) gt 0>#DEC_LAT#<cfelse>NULL</cfif>,
+					<cfif len(DEC_LONG) gt 0>#DEC_LONG#<cfelse>NULL</cfif>,
+					'#DATUM#',
+					'#UTM_ZONE#',
+					<cfif len(UTM_EW) gt 0>#UTM_EW#<cfelse>NULL</cfif>,
+					<cfif len(UTM_NS) gt 0>#UTM_NS#<cfelse>NULL</cfif>,
+					'#ORIG_LAT_LONG_UNITS#',
+					<cfif len(LOCALITY_ID) gt 0>#LOCALITY_ID#<cfelse>NULL</cfif>,
+					'#SPEC_LOCALITY#',
+					<cfif len(MINIMUM_ELEVATION) gt 0>#MINIMUM_ELEVATION#<cfelse>NULL</cfif>,
+					<cfif len(MAXIMUM_ELEVATION) gt 0>#MAXIMUM_ELEVATION#<cfelse>NULL</cfif>,
+					'#ORIG_ELEV_UNITS#',
+					<cfif len(MAX_ERROR_DISTANCE) gt 0>#MAX_ERROR_DISTANCE#<cfelse>NULL</cfif>,
+					'#MAX_ERROR_UNITS#',
+					'#LOCALITY_REMARKS#',
+					'#GEOREFERENCE_SOURCE#',
+					'#GEOREFERENCE_PROTOCOL#',
+					'#HIGHER_GEOG#'
+				)
+				
 			</cfquery>
 
 		
-		
-	
-);
 
 
 
 
 			<cfreturn fatalerrstr>
 		</cfif>
-		<cfreturn 'component doing stuff'>
 	</cfoutput>
 </cffunction>
 
