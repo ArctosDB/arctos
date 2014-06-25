@@ -1086,10 +1086,7 @@
 							<option value="">Add more...</option>
 							<option value="help">About</option>
 							<option value="seeWhatsThere">Check Existing</option>
-							<option value="newSE_pickEvent">Add Specimen Event; Pick Collecting Event</option>
-							<option value="newSE_enterEventPickLocality">Add Specimen Event; Enter Collecting Event, Pick Locality</option>
-							
-							
+							<option value="addSE">Add Specimen Event</option>
 						</select>
 		
 					</td>
