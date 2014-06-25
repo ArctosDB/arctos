@@ -1,16 +1,10 @@
 function addMoreStuff(mode){
+	$("#more").val('');
 	if (mode.length==0){
 		return;
 	}
-	
-	
 	var oidt4 =$("#other_id_num_type_4").val();
 	var oidv4=$("#other_id_num_4").val();
-
-
-	//console.log(oidt4 + '::' + oidt4.length );
-	//console.log(oidv4);
-
 	if (oidt4.length > 0){
 		if (oidt4 != 'UUID') {
 			alert('You cannot use this form unless other ID 4 is NULL or UUID.');
@@ -24,47 +18,32 @@ function addMoreStuff(mode){
 			var uuid='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0,v=c=='x'?r:r&0x3|0x8;return v.toString(16);});
 			$("#other_id_num_4").val(uuid);
 		} else {
-			
-			console.log('pulling ' + $("#other_id_num_4").val());
-			
 			var uuid=$("#other_id_num_4").val();
 		}
-	}
-	
-	if (uuid=='undefined'){
-		
+	}	
+	if (uuid=='undefined'){	
 		alert('bad uuid');
 		return false;
 	}
-	
-	
 	var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid + '&action=' + mode;
-	
-	
-	
-    $("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>")
-    .dialog({
-        autoOpen: true,
-        closeOnEscape: true,
-        height: 'auto',
-        modal: true,
-        position: ['center', 'center'],
-        title: 'Add data to non-specimen bulkloaders',
-        width: 'auto',
-        close: function() {
-            $( this ).remove();
-          },
-        //buttons : {
-        //    "Save and refresh" : function(){
-         //   	closeCustom();
-        //    }
-       // }
-    }).load(guts, function() {
-        $(this).dialog("option", "position", ['center', 'center'] );
-    });
-    $(window).resize(function() {
-    	$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-    });
+	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'center'],
+		title: 'Add data to non-specimen bulkloaders',
+		width: 'auto',
+		close: function() {
+			$( this ).remove();
+		},
+		}).load(guts, function() {
+			$(this).dialog("option", "position", ['center', 'center'] );
+		});
+		$(window).resize(function() {
+			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+		}
+	);
 }
 jQuery(document).ready(function() {
 	$( "#georeference_source" ).autocomplete({
