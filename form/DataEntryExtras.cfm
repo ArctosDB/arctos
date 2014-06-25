@@ -5,15 +5,35 @@
 	<cfif ese.recordcount is 0>
 		<p>There are no external specimen-events for this UUID/entry</p>
 	<cfelse>
-		<p>There are #ese.recordcount# external specimen-events for this UUID/entry</p>
-		<cfdump var=#ese#>
+		<cfoutput>
+			<p>There are #ese.recordcount# external specimen-events for this UUID/entry. (View details under 
+			<a href="/tools/BulkloadSpecimenEvent.cfm?action=managemystuff" target="_blank">EnterData/BatchTools</a>.) </p>
+			<table border>
+				<tr>
+					<th>SPECIMEN_EVENT_TYPE</th>
+					<th>Geog</th>
+					<th>Locality</th>
+					<th>Event</th>
+				</tr>
+				<cfloop query="ese">
+					<tr>
+						<td>#SPECIMEN_EVENT_TYPE#</td>
+						<td>#HIGHER_GEOG#</td>
+						<td>#SPEC_LOCALITY# (#LOCALITY_ID#)</td>
+						<td>#VERBATIM_LOCALITY# @#VERBATIM_DATE# (#COLLECTING_EVENT_ID#)</td>
+					</tr>
+				</cfloop>
+			</table>
+		</cfoutput>
 	</cfif>
 </cfif>
 <cfif action is "help">
 	<p>
 		This form extends the specimen bulkloader to include non-specimen bulkloaders. This is a limited-scope form and certain limitations exist.
-		For Specimen-events, limitations may be bypassed by pre-creating collecting events. 
-		
+		For specimen-events, most limitations may be bypassed by pre-creating collecting events or localities. 
+	</p>
+	<p>
+		After specimens exist, load data through EnterData/BatchTools.
 	</p>
 	<p>
 		To use this form, other_id_num_type4 MUST be a UUID, and other_id_val_4 MUST be a unique identifier. It 
@@ -119,26 +139,21 @@
 				data: {
 					method:  "saveNewSpecimenEvent",
 					q: $('#theForm').serialize()
-			},
-			success: function(r) {
-				if (r=='success'){
-					var retVal = confirm("Success! Click OK to close this, of cancel to create another specimen-event.");
-					if( retVal == true ){
-				    	$("#dialog").dialog('close');
-				 	} 
-				} else {
-					alert('Error: ' + r);
+				},
+				success: function(r) {
+					if (r=='success'){
+						var retVal = confirm("Success! Click OK to close this, of cancel to create another specimen-event.");
+						if( retVal == true ){
+					    	$("#dialog").dialog('close');
+					 	} 
+					} else {
+						alert('Error: ' + r);
+					}
+				},
+				error: function (xhr, textStatus, errorThrown){
+				    alert(errorThrown);
 				}
-
-
-
-		},
-		error: function (xhr, textStatus, errorThrown){
-		    // show error
-		    alert(errorThrown);
-		  }
-		});
-
+			});
 
 		}
 
