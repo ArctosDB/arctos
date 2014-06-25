@@ -28,21 +28,10 @@
 <cfparam name="enterCollectingEvent" default="false">
 <cfparam name="pickLocality" default="false">
 
-<cfif action is "newSE_pickEvent">
-	<cfset createSpecimenEvent=true>
-	<cfset pickCollectingEvent=true>
-</cfif>
-
-<cfif action is "newSE_enterEventPickLocality">
-	<cfset createSpecimenEvent=true>
-	<cfset enterCollectingEvent=true>
-	<cfset pickLocality=true>
-</cfif>
 
 
 
-
-<cfif createSpecimenEvent is true>
+<cfif action is addSE>
 	<script>
 		jQuery(document).ready(function() {
 			$("#assigned_date").datepicker();
@@ -223,7 +212,8 @@ console.log(OrigUnits);
 					<input type="text" name="collecting_method" id="collecting_method" value="" size="75">
 				</td>
 			</tr>
-			<cfif pickCollectingEvent is true>
+			
+			
 				<tr>
 					<td colspan="4" >
 						<input type="hidden" name="collecting_event_id" value="">
@@ -232,8 +222,8 @@ console.log(OrigUnits);
 						<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
 					</td>
 				</tr>
-			</cfif>
-			<cfif enterCollectingEvent is true>
+
+
 				<tr>
 					<td colspan="4" >
 						<table>
@@ -266,8 +256,9 @@ console.log(OrigUnits);
 						</table>
 					</td>
 				</tr>
-			</cfif>
-			<cfif pickLocality is true>
+			
+			
+			
 				<tr>
 					<td colspan="4" >
 						<div id="opnPickLocalityDiv" style="display:none;">
@@ -297,9 +288,7 @@ console.log(OrigUnits);
 						</div>
 					</td>
 				</tr>
-			</cfif>
-			
-			<cfif action is "itsnot">
+		
 			
 			
 			
