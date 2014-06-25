@@ -45,7 +45,7 @@ function addMoreStuff(mode){
         title: 'Add data to non-specimen bulkloaders',
         width: 'auto',
         close: function() {
-            $( this ).dialog( "destroy" );
+            $( this ).remove();
           },
         //buttons : {
         //    "Save and refresh" : function(){
