@@ -25,11 +25,22 @@
 
 <cfparam name="createSpecimenEvent" default="false">
 <cfparam name="pickCollectingEvent" default="false">
+<cfparam name="enterCollectingEvent" default="false">
+<cfparam name="pickLocality" default="false">
 
 <cfif action is "newSE_pickEvent">
 	<cfset createSpecimenEvent=true>
 	<cfset pickCollectingEvent=true>
 </cfif>
+
+<cfif action is "newSE_enterEventPickLocality">
+	<cfset createSpecimenEvent=true>
+	<cfset enterCollectingEvent=true>
+	<cfset pickLocality=true>
+</cfif>
+
+
+
 
 <cfif createSpecimenEvent is true>
 	<script>
@@ -213,7 +224,6 @@ console.log(OrigUnits);
 				</td>
 			</tr>
 			<cfif pickCollectingEvent is true>
-			
 				<tr>
 					<td colspan="4" >
 						<input type="hidden" name="collecting_event_id" value="">
@@ -222,12 +232,10 @@ console.log(OrigUnits);
 						<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
 					</td>
 				</tr>
-			
-			</cfif>	
-			<cfif action is "itsnot">
-			<tr>
-				<td colspan="4" >
-					<div id="opnEnterEventDiv" style="display:none;">
+			</cfif>
+			<cfif enterCollectingEvent is true>
+				<tr>
+					<td colspan="4" >
 						<table>
 							<tr>
 								<td colspan="3">
@@ -256,38 +264,44 @@ console.log(OrigUnits);
 								</td>
 							</tr>
 						</table>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="4" >
-					<div id="opnPickLocalityDiv" style="display:none;">
-						<table>
-							<tr>
-								<td>
-									<label for="locality_name">Pick Locality By Nickname</label>
-									<input type="text" name="locality_name" class="" id="locality_name" size="60"
-										onchange="LocalityPick('locality_id','pickedSpecloc','theForm',this.value);">
-								</td>
-								<td>
-									<span class="likeLink" id="localityPicker"
-										onclick="LocalityPick('locality_id','pickedSpecloc','theForm',''); return false;">
-										Click here to Pick&nbsp;Locality
-									</span>
-								</td>
-								<td>
-									<label for="locality_id">Picked LocalityID</label>
-									<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
-								</td>
-								<td>
-									<label for="pickedSpecloc">Picked SpecificLocality</label>
-									<input type="text" name="pickedSpecloc" id="pickedSpecloc" class="readClr" size="60">
-								</td>
-							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>
+					</td>
+				</tr>
+			</cfif>
+			<cfif pickLocality is true>
+				<tr>
+					<td colspan="4" >
+						<div id="opnPickLocalityDiv" style="display:none;">
+							<table>
+								<tr>
+									<td>
+										<label for="locality_name">Pick Locality By Nickname</label>
+										<input type="text" name="locality_name" class="" id="locality_name" size="60"
+											onchange="LocalityPick('locality_id','pickedSpecloc','theForm',this.value);">
+									</td>
+									<td>
+										<span class="likeLink" id="localityPicker"
+											onclick="LocalityPick('locality_id','pickedSpecloc','theForm',''); return false;">
+											Click here to Pick&nbsp;Locality
+										</span>
+									</td>
+									<td>
+										<label for="locality_id">Picked LocalityID</label>
+										<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
+									</td>
+									<td>
+										<label for="pickedSpecloc">Picked SpecificLocality</label>
+										<input type="text" name="pickedSpecloc" id="pickedSpecloc" class="readClr" size="60">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</cfif>
+			
+			<cfif action is "itsnot">
+			
+			
 			
 			<tr>
 				<td colspan="4" >
