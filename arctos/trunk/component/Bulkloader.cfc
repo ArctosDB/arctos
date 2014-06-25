@@ -11,6 +11,7 @@
 			<cfset k=listfirst(kv,"=")>
 			<cfset v=replace(kv,k & "=",'')>
 			<cfset "#k#"=urldecode(v)>
+			<cfdump var="#k#">
 		</cfloop>
 		
 		<cfdump var=#variables#>
