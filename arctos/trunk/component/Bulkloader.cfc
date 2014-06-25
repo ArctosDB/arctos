@@ -92,7 +92,7 @@
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into cf_temp_specevent (
 					status,
-					UUID
+					UUID,
 					ASSIGNED_BY_AGENT,
 					ASSIGNED_DATE,
 					SPECIMEN_EVENT_REMARK,
