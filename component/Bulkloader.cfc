@@ -10,7 +10,7 @@
 		<cfloop list="#q#" index="kv" delimiters="&">
 			<cfset k=listfirst(kv,"=")>
 			<cfset v=replace(kv,k & "=",'')>
-			<cfset "variables.#k#"=urldecode(v)>
+			<cfset "#k#"=urldecode(v)>
 		</cfloop>
 		
 		<cfdump var=#variables#>
