@@ -31,7 +31,7 @@
 
 
 
-<cfif action is addSE>
+<cfif action is "addSE">
 	<script>
 		jQuery(document).ready(function() {
 			$("#assigned_date").datepicker();
