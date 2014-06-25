@@ -18,7 +18,8 @@
 		</cfloop>
 		
 
-		
+				<cfset fatalerrstr="">
+
 		<!----
 		
 		
