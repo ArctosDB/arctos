@@ -55,8 +55,9 @@
 		/// everything here is copy/pasted from DE and then injected into the same page, so it shared ID - bla - cheat with find
 		jQuery(document).ready(function() {
 			$("#assigned_date").datepicker();
-			$("#began_date").datepicker();
-			$("#ended_date").datepicker();
+			$("#mptab").find("[id='began_date']").datepicker();
+			$("#mptab").find("[id='ended_date']").datepicker();
+
 		});
 
 		function typeEvent(oo){
