@@ -34,6 +34,7 @@ function addMoreStuff(mode){
 	if (uuid=='undefined'){
 		
 		alert('bad uuid');
+		return false;
 	}
 	
 	
