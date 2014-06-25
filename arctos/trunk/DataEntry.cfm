@@ -1082,13 +1082,13 @@
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=sqlTab">[ SQL ]</a>
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=viewTable">[ Java ]</a>
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=download">[ download ]</a>
-						<select name="more" onchange="addMoreStuff(this.value);">
+						<select id="more" name="more" onchange="addMoreStuff(this.value);">
 							<option value="">Add more...</option>
 							<option value="help">About</option>
 							<option value="seeWhatsThere">Check Existing</option>
 							<option value="addSE">Add Specimen Event</option>
 						</select>
-		
+						<span class="likeLink" onclick="addMoreStuff("##more").val());">go</span>
 					</td>
 					<td align="right" width="16%" nowrap="nowrap">
 						<span id="recCount">#whatIds.recordcount#</span> records <cfif whatIds.recordcount is 1000>(limit)</cfif>
