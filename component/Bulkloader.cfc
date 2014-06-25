@@ -44,7 +44,7 @@
 		<cfset temp="locality_id,verbatim_locality,verbatim_date,began_date,ended_date">
 		<cfset required=listappend(required,temp)>
 	<cfelseif variables.letype is "type_locality">
-		<cfset temp="geog_auth_rec_id,verbatim_locality,verbatim_date,began_date,ended_date,spec_locality">
+		<cfset temp="HIGHER_GEOG,verbatim_locality,verbatim_date,began_date,ended_date,spec_locality">
 		<cfset required=listappend(required,temp)>
 		<cfif len(orig_elev_units) gt 0 or len(minimum_elevation) gt 0 or len(maximum_elevation) gt 0>
 			<cfif len(orig_elev_units) is 0 or len(minimum_elevation) is 0 or len(maximum_elevation) is 0>
