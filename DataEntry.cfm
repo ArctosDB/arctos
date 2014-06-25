@@ -1087,12 +1087,11 @@
 							<option value="help">About</option>
 							<option value="seeWhatsThere">Check Existing</option>
 							<option value="newSE_pickEvent">Add Specimen Event; Pick Collecting Event</option>
+							<option value="newSE_enterEventPickLocality">Add Specimen Event; Enter Collecting Event, Pick Locality</option>
 							
 							
 						</select>
-						<span onclick="addMoreStuff(#collection_object_id#)" class="likeLink">[ more data ]</span>
-
-
+		
 					</td>
 					<td align="right" width="16%" nowrap="nowrap">
 						<span id="recCount">#whatIds.recordcount#</span> records <cfif whatIds.recordcount is 1000>(limit)</cfif>
