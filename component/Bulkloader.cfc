@@ -12,6 +12,10 @@
 			<cfset v=replace(kv,k & "=",'')>
 			<cfset "variables.#k#"=urldecode(v)>
 		</cfloop>
+		
+		<cfdump var=#variables#>
+		
+		
 		<cfset fatalerrstr="">
 		<cfif variables.letype is "pick_event">
 			<cfif len(variables.collecting_event_id) is 0>
