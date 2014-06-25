@@ -95,19 +95,18 @@
 			} else if (OrigUnits == 'decimal degrees') {
 
 
-	alert('dd');
 
 
-				$("#mptab").find("[id='lat_long_meta']").addClass('importantNotification').show();
+				lat_long_meta.show();
 
 
-				$("#dd").show();
+				dd.show();
 			} else if (OrigUnits == 'degrees dec. minutes') {
-				$("#lat_long_meta").show();
-				$("#ddm").show();
+				lat_long_meta.show();
+				ddm.show();
 			} else if (OrigUnits == 'UTM') {
-				$("#lat_long_meta").show();
-				$("#utm").show();
+				lat_long_meta.show();
+				ddm.show();
 			}
 
 
