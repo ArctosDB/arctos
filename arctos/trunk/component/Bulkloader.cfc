@@ -153,7 +153,7 @@
 					'#COLL_EVENT_REMARKS#',
 					'#BEGAN_DATE#',
 					'#ENDED_DATE#',
-					<cfif len(LAT_DEG) gt 0>#LAT_DEG#<cfelse>NULL</cfif>,
+					<cfif len(LATDEG) gt 0>#LATDEG#<cfelse>NULL</cfif>,
 					<cfif len(DEC_LAT_MIN) gt 0>#DEC_LAT_MIN#<cfelse>NULL</cfif>,
 					<cfif len(LAT_MIN) gt 0>#LAT_MIN#<cfelse>NULL</cfif>,
 					<cfif len(LAT_SEC) gt 0>#LAT_SEC#<cfelse>NULL</cfif>,
