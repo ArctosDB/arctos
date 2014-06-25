@@ -172,11 +172,11 @@
 	    </cfquery>
 		
 
-		<br>Add a specimen-event:
+		
 		<form name="theForm" id="theForm">
 		<input type="hidden" id="#uuid#">
 		<input type="hidden" name="nothing" id="nothing">
-		
+		<br>Add a specimen-event:
 		<table id="mptab">
 			<tr>
 				<td>
@@ -232,6 +232,7 @@
 			</tr>
 			<tr>
 				<td colspan="4">
+					<label for="opnPickEventDiv">Pick a collecting event</label>
 					<div id="opnPickEventDiv" >
 						<table>
 							<tr>
@@ -239,12 +240,19 @@
 									<label for="">Find Collecting Event by Nickname</label>
 									<input type="text" name="collecting_event_name" class="" id="collecting_event_name" size="60"
 										onchange="findCollEvent('collecting_event_id','theForm','cepick',this.value);">
-									<input type="button" class="picBtn" value="more pick options" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
 								</td>
 								<td colspan="2">
 									<input type="hidden" name="collecting_event_id" value="">
 									<label for="">(Verbatim Locality of picked Events will go here)</label>
 									<input type="text" size="50" name="cepick" class="readClr" readonly="readonly">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" >
+								
+									<input type="button" class="picBtn" value="more pick options" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
+								</td>
+								<td colspan="2">
 									<input type="button" class="lnkBtn" value="Type Event Instead" onclick="typeEvent('on');">
 								</td>
 							</tr>
@@ -254,6 +262,7 @@
 			</tr>
 			<tr>
 				<td colspan="4">
+					<label for="opnEnterEventDiv">Create a collecting event</label>
 					<div id="opnEnterEventDiv" style="display:none;">
 						<table>
 							<tr>
@@ -287,6 +296,8 @@
 							</tr>
 							<tr>
 								<td colspan="4">
+									
+									<label for="opnPickLocalityDiv">Pick a Locality</label>
 									<div id="opnPickLocalityDiv">
 										<table>
 											<tr>
@@ -319,6 +330,8 @@
 			</tr>
 			<tr>
 				<td colspan="4" >
+					
+					<label for="opnPickLocalityDiv">Create a Locality</label>
 					<div id="opnEnterkLocalityDiv" style="display:none;">
 						<table>
 							<tr>
