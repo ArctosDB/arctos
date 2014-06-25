@@ -234,7 +234,7 @@
 				<td colspan="4">
 					<label for="opnPickEventDiv">Pick a collecting event</label>
 					<div id="opnPickEventDiv" >
-						<table>
+						<table width="100%">
 							<tr>
 								<td colspan="2" >
 									<label for="">Find Collecting Event by Nickname</label>
