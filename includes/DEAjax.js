@@ -30,7 +30,7 @@ function addMoreStuff(mode){
 		autoOpen: true,
 		closeOnEscape: true,
 		height: 'auto',
-		modal: true,
+		modal: false,
 		position: ['center', 'center'],
 		title: 'Add data to non-specimen bulkloaders',
 		width: 'auto',
