@@ -41,13 +41,12 @@ function addMoreStuff(mode){
 			$(this).dialog("option", "position", ['center', 'center'] );
 		});
 		$(window).resize(function() {
-			fluidDialog();
-			//$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 		});
-		$(document).on("dialogopen", ".ui-dialog", function (event, ui) {
-		    fluidDialog();
-		});
-	);
+		
+		
+	
+		
 }
 
 function fluidDialog() {
