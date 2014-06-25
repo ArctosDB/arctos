@@ -39,15 +39,29 @@
 
 	function typeEvent(oo){
 		if (oo=='on'){
+			// clicked from "pick event" to "type event"
+			// pick event off
 			$("#opnPickEventDiv").hide();
+			// type event on
 			$("#opnEnterEventDiv").show();
+			// pick locality on
+			$("#opnPickLocalityDiv").show();
+			// type locality off
+			$("#opnEnterkLocalityDiv").hide();
 		} else {
+			// clicked from "type event" to "pick event"
+			// pick event on
 			$("#opnPickEventDiv").show();
+			// type event off
 			$("#opnEnterEventDiv").hide();
+			// all locality off
+			$("#opnPickLocalityDiv").hide();
+			$("#opnEnterkLocalityDiv").hide();
 		}
 	}
 	function typeLocality(oo){
 		if (oo=='on'){
+			// clicked from "pick locality" to "type locality"
 			$("#opnPickLocalityDiv").hide();
 			$("#opnEnterkLocalityDiv").show();
 		} else {
@@ -181,11 +195,11 @@
 					<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#session.myAgentId#">
 				</td>
 				<td>
-					<label for="assigned_date" class="infoLink" onClick="getDocs('locality','assigned_date')">Specimen/Event Assigned Date</label>
+					<label for="assigned_date">Specimen/Event Assigned Date</label>
 					<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(now(),'yyyy-mm-dd')#" class="reqdClr">
 				</td>
 				<td>
-					<label for="VerificationStatus" class="likeLink" onClick="getDocs('lat_long','verification_status')">Verification Status</label>
+					<label for="VerificationStatus">Verification Status</label>
 					<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
 						<option value="unverified">unverified</option>
 					</select>
@@ -203,7 +217,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
+					<label for="collecting_source">Collecting Source</label>
 					<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
 						<option value=""></option>
 						<cfloop query="ctcollecting_source">
@@ -212,7 +226,7 @@
 					</select>
 				</td>
 				<td colspan="2">
-					<label for="collecting_method" onClick="getDocs('collecting_event','collecting_method')" class="infoLink">Collecting Method</label>
+					<label for="collecting_method" class="infoLink">Collecting Method</label>
 					<input type="text" name="collecting_method" id="collecting_method" value="" size="75">
 				</td>
 			</tr>
@@ -290,7 +304,6 @@
 												<td>
 													<label for="pickedSpecloc">Picked SpecificLocality</label>
 													<input type="text" name="pickedSpecloc" id="pickedSpecloc" class="readClr" size="60">
-													
 													<input type="button" class="lnkBtn" value="Type Locality Instead" onclick="typeLocality('on');">
 				
 												</td>
@@ -304,12 +317,6 @@
 					</div>
 				</td>
 			</tr>
-			
-			
-			
-			
-			
-			
 			<tr>
 				<td colspan="4" >
 					<div id="opnEnterkLocalityDiv" style="display:none;">
