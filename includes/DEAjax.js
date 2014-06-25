@@ -24,11 +24,17 @@ function addMoreStuff(mode){
 			var uuid='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0,v=c=='x'?r:r&0x3|0x8;return v.toString(16);});
 			$("#other_id_num_4").val(uuid);
 		} else {
+			
+			console.log('pulling ' + $("#other_id_num_4").val());
+			
 			var uuid=$("#other_id_num_4").val();
 		}
 	}
 	
-	
+	if (uuid=='undefined'){
+		
+		alert('bad uuid');
+	}
 	
 	
 	var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid + '&action=' + mode;
