@@ -261,7 +261,7 @@ console.log(OrigUnits);
 			
 				<tr>
 					<td colspan="4" >
-						<div id="opnPickLocalityDiv" style="display:none;">
+						<div id="opnPickLocalityDiv">
 							<table>
 								<tr>
 									<td>
@@ -294,7 +294,7 @@ console.log(OrigUnits);
 			
 			<tr>
 				<td colspan="4" >
-					<div id="opnEnterkLocalityDiv" style="display:none;">
+					<div id="opnEnterkLocalityDiv" >
 						<table>
 							<tr>
 								<td>
