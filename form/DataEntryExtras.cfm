@@ -124,7 +124,7 @@
 				if (r=='success'){
 					var retVal = confirm("Success! Click OK to close this, of cancel to create another specimen-event.");
 					if( retVal == true ){
-				    	$("#dialog").dialog.close();
+				    	$("#dialog").dialog('close');
 				 	} 
 				} else {
 					alert('Error: ' + r);
