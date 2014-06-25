@@ -7,6 +7,9 @@
 	<cfargument name="q" required="yes">
 	<cfoutput>
 		
+		<cfdump var=#q#>
+		
+		
 		<cfloop list="#q#" index="kv" delimiters="&">
 			<cfset k=listfirst(kv,"=")>
 			<cfset v=replace(kv,k & "=",'')>
@@ -14,7 +17,13 @@
 			<cfdump var="#k#">
 		</cfloop>
 		
-		<cfdump var=#variables#>
+
+		
+		<!----
+		
+		
+		
+				<cfdump var=#variables#>
 		
 		
 		<cfset fatalerrstr="">
@@ -24,7 +33,9 @@
 			</cfif>
 		</cfif>
 		
-		<!----
+		
+		
+		
 		<cfset sql = "INSERT INTO bulkloader (">
 		<cfset flds = "">
 		<cfset data = "">
