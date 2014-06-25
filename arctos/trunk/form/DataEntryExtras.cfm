@@ -1012,7 +1012,6 @@ other_id_num_type_4
 	
 	---->
 	
-	</cfif>
 </cfoutput>
 
 
