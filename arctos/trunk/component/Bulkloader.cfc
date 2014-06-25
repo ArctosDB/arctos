@@ -1,4 +1,68 @@
 <cfcomponent>
+
+
+
+<!----------------------------------------------------------------------------------------->
+<cffunction name="saveNewSpecimenEvent" access="remote" returnformat="json" queryformat="column">
+	<cfargument name="q" required="yes">
+	<cfoutput>
+		
+		<cfloop list="#q#" index="kv" delimiters="&">
+			<cfset k=listfirst(kv,"=")>
+			<cfset v=replace(kv,k & "=",'')>
+			<cfset "variables.#k#"=urldecode(v)>
+		</cfloop>
+		
+		<!----
+		<cfset sql = "INSERT INTO bulkloader (">
+		<cfset flds = "">
+		<cfset data = "">
+		<cfloop query="getCols">
+			<cfif isDefined("variables.#column_name#")>
+				<cfif column_name is not "collection_object_id">
+					<cfset flds = "#flds#,#column_name#">
+					<cfset thisData = evaluate("variables." & column_name)>
+					<cfset thisData = replace(thisData,"'","''","all")>
+					<cfset data = "#data#,'#thisData#'">
+				</cfif>
+			</cfif>
+		</cfloop>
+		<cfset flds = trim(flds)>
+		<cfset flds=right(flds,len(flds)-1)>
+		<cfset data = trim(data)>
+		<cfset data=right(data,len(data)-1)>
+		<cfset flds = "collection_object_id,#flds#">
+		<cfset data = "bulkloader_PKEY.nextval,#data#">
+		<cfset sql = "insert into bulkloader (#flds#) values (#data#)">
+		<cftry>
+			<cftransaction>
+				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					#preservesinglequotes(sql)#
+				</cfquery>
+				<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select bulkloader_PKEY.currval as currval from dual
+				</cfquery>
+				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select bulkloader_PKEY.currval collection_object_id, bulk_check_one(bulkloader_PKEY.currval) rslt from dual
+				</cfquery>
+			</cftransaction>
+		<cfcatch>
+			<cfset result = querynew("COLLECTION_OBJECT_ID,RSLT")>
+			<cfset temp = queryaddrow(result,1)>
+			<cfset temp = QuerySetCell(result, "COLLECTION_OBJECT_ID", collection_object_id, 1)>
+			<cfset temp = QuerySetCell(result, "rslt",  cfcatch.message & "; " &  cfcatch.detail & "; " &  cfcatch.sql, 1)>
+		</cfcatch>
+		</cftry>
+		<cfreturn result>
+		----->
+		<cfreturn 'component doing stuff'>
+	</cfoutput>
+</cffunction>
+
+
+
+
+
 <cffunction name="my_last_record" access="remote">
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select max(collection_object_id) collection_object_id from bulkloader where enteredby='#session.username#'
