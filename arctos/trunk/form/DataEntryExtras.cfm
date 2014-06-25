@@ -11,7 +11,9 @@
 </cfif>
 <cfif action is "help">
 	<p>
-		This form extends the specimen bulkloader to include non-specimen bulkloaders.....
+		This form extends the specimen bulkloader to include non-specimen bulkloaders. This is a limited-scope form and certain limitations exist.
+		For Specimen-events, limitations may be bypassed by pre-creating collecting events. 
+		
 	</p>
 	<p>
 		To use this form, other_id_num_type4 MUST be a UUID, and other_id_val_4 MUST be a unique identifier. It 
@@ -22,13 +24,6 @@
 		loaded and associated with the proper specimen. After all data are loaded, it's OK to delete the UUID.
 	</p>
 </cfif>
-
-<cfparam name="createSpecimenEvent" default="false">
-<cfparam name="pickCollectingEvent" default="false">
-<cfparam name="enterCollectingEvent" default="false">
-<cfparam name="pickLocality" default="false">
-
-
 
 
 <cfif action is "addSE">
@@ -200,15 +195,24 @@
 			
 			
 				<tr>
-					<td colspan="4" >
+					<td colspan="2" >
+						<label for="">Type a collecting event nickname to find an existing event</label>
+						<input type="text" name="collecting_event_name" class="" id="collecting_event_name" size="60"
+							onchange="findCollEvent('collecting_event_id','theForm','cepick',this.value);">
+					</td>
+					<td colspan="2">
 						<input type="hidden" name="collecting_event_id" value="">
-						<label for="">Click the button to pick an event - Verbatim Locality will go here - or fill in event info.</label>
+						<label for="">Verbatim Locality of selected Event will go here</label>
 						<input type="text" size="50" name="cepick">
 						<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
+						<input type="button" class="picBtn" value="Type Event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
+						
+															
+															
 					</td>
 				</tr>
 
-
+			<div id="opnEnterEventDiv" style="display:none;">
 				<tr>
 					<td colspan="4" >
 						<table>
@@ -241,12 +245,13 @@
 						</table>
 					</td>
 				</tr>
+				</div>
 			
 			
 			
 				<tr>
 					<td colspan="4" >
-						<div id="opnPickLocalityDiv">
+						<div id="opnPickLocalityDiv"  style="display:none;">
 							<table>
 								<tr>
 									<td>
@@ -279,7 +284,7 @@
 			
 			<tr>
 				<td colspan="4" >
-					<div id="opnEnterkLocalityDiv" >
+					<div id="opnEnterkLocalityDiv" style="display:none;">
 						<table>
 							<tr>
 								<td>
@@ -334,8 +339,10 @@
 										  <option value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
 										</cfloop>
 									</select>
+									<!----
 									<span style="font-size:small" class="likeLink" onclick="geolocate()">[ geolocate ]</span>
 									<div id="geoLocateResults" style="font-size:small"></div>
+									---->
 								</td>
 							</tr>
 							<tr>
