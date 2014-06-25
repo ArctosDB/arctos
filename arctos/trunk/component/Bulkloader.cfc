@@ -88,129 +88,75 @@
 	</cfloop>
 	
 	
-	<!-------
-	<cfif len(variables.uuid) is 0>
-		<cfset fatalerrstr=listappend(fatalerrstr,'UUID failure!',';')>
-	</cfif>
-	<cfif len(variables.uuid) is 0>
-		<cfset fatalerrstr=listappend(fatalerrstr,'UUID failure!',';')>
-	</cfif>
+		<cfif len(fatalerrstr) is 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into cf_temp_specevent (
+					status,
+					UUID
+					guid varchar2(60) not null,
+					ASSIGNED_BY_AGENT varchar2(255),
+					ASSIGNED_DATE varchar2(255),
+					SPECIMEN_EVENT_REMARK varchar2(255),
+					SPECIMEN_EVENT_TYPE varchar2(255),
+					COLLECTING_METHOD varchar2(255),
+					COLLECTING_SOURCE varchar2(255),
+					VERIFICATIONSTATUS varchar2(255),
+					HABITAT varchar2(255),
+					COLLECTING_EVENT_ID NUMBER,
+					VERBATIM_DATE varchar2(255),
+					VERBATIM_LOCALITY varchar2(255),
+					COLL_EVENT_REMARKS varchar2(255),
+					BEGAN_DATE varchar2(255),
+					ENDED_DATE varchar2(255),
+					COLLECTING_EVENT_NAME varchar2(255),
+					LAT_DEG NUMBER,
+					DEC_LAT_MIN NUMBER,
+					LAT_MIN NUMBER,
+					LAT_SEC NUMBER,
+					LAT_DIR NUMBER,
+					LONG_DEG NUMBER,
+					DEC_LONG_MIN NUMBER,
+					LONG_MIN NUMBER,
+					LONG_SEC NUMBER,
+					LONG_DIR NUMBER,
+					DEC_LAT NUMBER,
+					DEC_LONG NUMBER,
+					DATUM varchar2(255),
+					UTM_ZONE varchar2(255),
+					UTM_EW varchar2(255),
+					UTM_NS varchar2(255),
+					ORIG_LAT_LONG_UNITS varchar2(255),
+					LOCALITY_ID NUMBER,
+					SPEC_LOCALITY varchar2(255),
+					MINIMUM_ELEVATION NUMBER,
+					MAXIMUM_ELEVATION NUMBER,
+					ORIG_ELEV_UNITS varchar2(255),
+					MIN_DEPTH NUMBER,
+					MAX_DEPTH NUMBER,
+					DEPTH_UNITS varchar2(255),
+					MAX_ERROR_DISTANCE NUMBER,
+					MAX_ERROR_UNITS varchar2(255),
+					LOCALITY_REMARKS varchar2(255),
+					GEOREFERENCE_SOURCE varchar2(255),
+					GEOREFERENCE_PROTOCOL varchar2(255),
+					LOCALITY_NAME varchar2(255),
+					GEOG_AUTH_REC_ID NUMBER,
+					HIGHER_GEOG varchar2(255),
+					l_collection_object_id number,
+					l_collecting_event_id number,
+					l_locality_id number,
+					l_geog_auth_rec_id number,
+					l_event_assigned_id number
+			</cfquery>
+
+		
+		
 	
-	ASSIGNED_BY_AGENT
-	
-	
-	uuid
-	---->
-
-
-		
-		
-		<!----
-		
-		
-		
-				
-	<cfif variables.letype is "pick_event">
-		<cfif len(variables.collecting_event_id) is 0>
-			<cfset fatalerrstr=listappend(fatalerrstr,'You did not pick a collecting event.',';')>
-		</cfif>
-	<cfelseif variables.letype is "pick_event">
-	</cfif>
-		
-		
-		
-		
-		
-	function typeEvent(oo){
-		if (oo=='on'){
-			// clicked from "pick event" to "type event"
-			// pick event off
-			$("#opnPickEventDiv").hide();
-			// type event on
-			$("#opnEnterEventDiv").show();
-			// pick locality on
-			$("#opnPickLocalityDiv").show();
-			// type locality off
-			$("#opnEnterkLocalityDiv").hide();
-			
-			$("#letype").val('type_event');
-		} else {
-			// clicked from "type event" to "pick event"
-			// pick event on
-			$("#opnPickEventDiv").show();
-			// type event off
-			$("#opnEnterEventDiv").hide();
-			// all locality off
-			$("#opnPickLocalityDiv").hide();
-			$("#opnEnterkLocalityDiv").hide();
-			$("#letype").val('pick_event');
-		}
-	}
-	function typeLocality(oo){
-		if (oo=='on'){
-			// clicked from "pick locality" to "type locality"
-			$("#opnPickLocalityDiv").hide();
-			$("#opnEnterkLocalityDiv").show();
-			$("#letype").val('type_locality');
-		} else {
-			$("#opnPickLocalityDiv").show();
-			$("#opnEnterkLocalityDiv").hide();
-			$("#letype").val('pick_locality');
-		}
-	}
+);
 
 
 
-		
-		
-		<cfset fatalerrstr="">
-	
-		
-		
-		
-		
-		<cfset sql = "INSERT INTO bulkloader (">
-		<cfset flds = "">
-		<cfset data = "">
-		<cfloop query="getCols">
-			<cfif isDefined("variables.#column_name#")>
-				<cfif column_name is not "collection_object_id">
-					<cfset flds = "#flds#,#column_name#">
-					<cfset thisData = evaluate("variables." & column_name)>
-					<cfset thisData = replace(thisData,"'","''","all")>
-					<cfset data = "#data#,'#thisData#'">
-				</cfif>
-			</cfif>
-		</cfloop>
-		<cfset flds = trim(flds)>
-		<cfset flds=right(flds,len(flds)-1)>
-		<cfset data = trim(data)>
-		<cfset data=right(data,len(data)-1)>
-		<cfset flds = "collection_object_id,#flds#">
-		<cfset data = "bulkloader_PKEY.nextval,#data#">
-		<cfset sql = "insert into bulkloader (#flds#) values (#data#)">
-		<cftry>
-			<cftransaction>
-				<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					#preservesinglequotes(sql)#
-				</cfquery>
-				<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select bulkloader_PKEY.currval as currval from dual
-				</cfquery>
-				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select bulkloader_PKEY.currval collection_object_id, bulk_check_one(bulkloader_PKEY.currval) rslt from dual
-				</cfquery>
-			</cftransaction>
-		<cfcatch>
-			<cfset result = querynew("COLLECTION_OBJECT_ID,RSLT")>
-			<cfset temp = queryaddrow(result,1)>
-			<cfset temp = QuerySetCell(result, "COLLECTION_OBJECT_ID", collection_object_id, 1)>
-			<cfset temp = QuerySetCell(result, "rslt",  cfcatch.message & "; " &  cfcatch.detail & "; " &  cfcatch.sql, 1)>
-		</cfcatch>
-		</cftry>
-		<cfreturn result>
-		----->
-		<cfif len(fatalerrstr) gt 0>
+
 			<cfreturn fatalerrstr>
 		</cfif>
 		<cfreturn 'component doing stuff'>
