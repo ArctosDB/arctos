@@ -36,6 +36,17 @@
 	
 
 		});
+
+	function typeEvent(oo){
+		if (oo=='on'){
+			$("#opnPickEventDiv").hide();
+			$("#opnEnterEventDiv").show();
+		} else {
+			$("#opnPickEventDiv").show();
+			$("#opnEnterEventDiv").hide();
+		}
+	}
+
 		function celgtype(opn){
 			if (opn=='pickEvent'){
 				//alert('running with ' + opn);
@@ -192,26 +203,23 @@
 					<input type="text" name="collecting_method" id="collecting_method" value="" size="75">
 				</td>
 			</tr>
-			
+			<div id="opnPickEventDiv" style="display:none;">
 			
 				<tr>
 					<td colspan="2" >
 						<label for="">Type a collecting event nickname to find an existing event</label>
 						<input type="text" name="collecting_event_name" class="" id="collecting_event_name" size="60"
 							onchange="findCollEvent('collecting_event_id','theForm','cepick',this.value);">
+						<input type="button" class="picBtn" value="or Pick Event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
 					</td>
 					<td colspan="2">
 						<input type="hidden" name="collecting_event_id" value="">
-						<label for="">Verbatim Locality of selected Event will go here</label>
+						<label for="">(Verbatim Locality of picked Events will go here)</label>
 						<input type="text" size="50" name="cepick">
-						<input type="button" class="picBtn" value="pick new event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
-						<input type="button" class="picBtn" value="Type Event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
-						
-															
-															
+						<input type="button" class="picBtn" value="Type Event Instead" onclick="typeEvent('on');">
 					</td>
 				</tr>
-
+			</div>
 			<div id="opnEnterEventDiv" style="display:none;">
 				<tr>
 					<td colspan="4" >
@@ -220,6 +228,8 @@
 								<td colspan="3">
 									<label for="verbatim_locality">Verbatim Locality</label>
 									<input type="text" name="verbatim_locality" class="reqdClr" size="80" id="verbatim_locality">
+									<input type="button" class="picBtn" value="Back to Pick Event" onclick="typeEvent('off');">
+								</td>
 								</td>
 							</tr>
 							<tr>
