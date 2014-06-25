@@ -33,7 +33,7 @@
 		For specimen-events, most limitations may be bypassed by pre-creating collecting events or localities. 
 	</p>
 	<p>
-		After specimens exist, load data through EnterData/BatchTools.
+		After specimens exist, load data through <a href="/tools/BulkloadSpecimenEvent.cfm?action=managemystuff" target="_blank">EnterData/BatchTools</a>.
 	</p>
 	<p>
 		To use this form, other_id_num_type4 MUST be a UUID, and other_id_val_4 MUST be a unique identifier. It 
@@ -52,64 +52,57 @@
 		.grpDiv {border:1px solid green;}
 	</style>
 	<script>
-	
 		/// everything here is copy/pasted from DE and then injected into the same page, so it shared ID - bla - cheat with find
-
 		jQuery(document).ready(function() {
 			$("#assigned_date").datepicker();
-	
-
+			$("#began_date").datepicker();
+			$("#ended_date").datepicker();
 		});
 
-	function typeEvent(oo){
-		if (oo=='on'){
-			// clicked from "pick event" to "type event"
-			// pick event off
-			$("#opnPickEventDiv").hide();
-			// type event on
-			$("#opnEnterEventDiv").show();
-			// pick locality on
-			$("#opnPickLocalityDiv").show();
-			// type locality off
-			$("#opnEnterkLocalityDiv").hide();
-			
-			$("#letype").val('type_event');
-		} else {
-			// clicked from "type event" to "pick event"
-			// pick event on
-			$("#opnPickEventDiv").show();
-			// type event off
-			$("#opnEnterEventDiv").hide();
-			// all locality off
-			$("#opnPickLocalityDiv").hide();
-			$("#opnEnterkLocalityDiv").hide();
-			$("#letype").val('pick_event');
+		function typeEvent(oo){
+			if (oo=='on'){
+				// clicked from "pick event" to "type event"
+				// pick event off
+				$("#opnPickEventDiv").hide();
+				// type event on
+				$("#opnEnterEventDiv").show();
+				// pick locality on
+				$("#opnPickLocalityDiv").show();
+				// type locality off
+				$("#opnEnterkLocalityDiv").hide();
+				
+				$("#letype").val('type_event');
+			} else {
+				// clicked from "type event" to "pick event"
+				// pick event on
+				$("#opnPickEventDiv").show();
+				// type event off
+				$("#opnEnterEventDiv").hide();
+				// all locality off
+				$("#opnPickLocalityDiv").hide();
+				$("#opnEnterkLocalityDiv").hide();
+				$("#letype").val('pick_event');
+			}
 		}
-	}
-	function typeLocality(oo){
-		if (oo=='on'){
-			// clicked from "pick locality" to "type locality"
-			$("#opnPickLocalityDiv").hide();
-			$("#opnEnterkLocalityDiv").show();
-			$("#letype").val('type_locality');
-		} else {
-			$("#opnPickLocalityDiv").show();
-			$("#opnEnterkLocalityDiv").hide();
-			$("#letype").val('pick_locality');
+		function typeLocality(oo){
+			if (oo=='on'){
+				// clicked from "pick locality" to "type locality"
+				$("#opnPickLocalityDiv").hide();
+				$("#opnEnterkLocalityDiv").show();
+				$("#letype").val('type_locality');
+			} else {
+				$("#opnPickLocalityDiv").show();
+				$("#opnEnterkLocalityDiv").hide();
+				$("#letype").val('pick_locality');
+			}
 		}
-	}
 
-
-
-		function pickLL(OrigUnits){
-	
+		function pickLL(OrigUnits){	
 			var dms=$("#mptab").find("[id='dms']");
 			var ddm=$("#mptab").find("[id='ddm']");
 			var dd=$("#mptab").find("[id='dd']");
 			var utm=$("#mptab").find("[id='utm']");
 			var lat_long_meta=$("#mptab").find("[id='lat_long_meta']");
-
-
 			dms.hide();
 			ddm.hide();
 			dd.hide();
@@ -154,16 +147,9 @@
 				    alert(errorThrown);
 				}
 			});
-
 		}
-
 	</script>
-	
-	
 	<cfoutput>
-	
-
-		
 		<cfquery name="ctgeoreference_protocol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select georeference_protocol from ctgeoreference_protocol order by georeference_protocol
 		</cfquery>
@@ -179,469 +165,460 @@
 		<cfquery name="ctverificationstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select verificationstatus from ctverificationstatus order by verificationstatus
 	    </cfquery>
-
-	<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
-	</cfquery>
-	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-        select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
-     </cfquery>
-	
-	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-        select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
-     </cfquery>
-	<cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-       select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by orig_lat_long_units
-    </cfquery>
-	
+		<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select specimen_event_type from ctspecimen_event_type order by specimen_event_type
+		</cfquery>
+		<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	        select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
+	     </cfquery>
+		<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	        select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
+	     </cfquery>
+		<cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by orig_lat_long_units
+	    </cfquery>
 		<cfquery name="ctOrigElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select orig_elev_units from ctorig_elev_units
 	    </cfquery>
-		
-
-		
+	    <label for="theForm">Add Specimen-Event:</label>
 		<form name="theForm" id="theForm">
-		<input type="hidden" id="uuid" name="uuid" value="#uuid#">
-		<input type="hidden" name="nothing" id="nothing">
-		<input type="hidden" name="letype" id="letype" value="pick_event">
-		<br>Add a specimen-event:
-		<table id="mptab">
-			<tr>
-				<td>
-					<label for="specimen_event_type">Specimen/Event Type</label>
-					<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
-						<cfloop query="ctspecimen_event_type">
-							<option value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
-					    </cfloop>
-					</select>
-				</td>
-				<td>
-					<label for="assigned_by_agent">Event Assigned by Agent</label>
-					<input type="text" name="assigned_by_agent" id="assigned_by_agent" class="reqdClr" size="40" value="#session.dbuser#"
-						 onchange="getAgent('assigned_by_agent_id','assigned_by_agent','theForm',this.value); return false;"
-						 onKeyPress="return noenter(event);">
-					<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#session.myAgentId#">
-				</td>
-				<td>
-					<label for="assigned_date">Specimen/Event Assigned Date</label>
-					<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(now(),'yyyy-mm-dd')#" class="reqdClr">
-				</td>
-				<td>
-					<label for="VerificationStatus">Verification Status</label>
-					<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
-						<option value="unverified">unverified</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
-					<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="" size="75">
-				</td>
-				<td colspan="2">
-					<label for="habitat">Habitat</label>
-					<input type="text" name="habitat" id="habitat" size="75">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<label for="collecting_source">Collecting Source</label>
-					<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
-						<option value=""></option>
-						<cfloop query="ctcollecting_source">
-							<option value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td colspan="2">
-					<label for="collecting_method" class="infoLink">Collecting Method</label>
-					<input type="text" name="collecting_method" id="collecting_method" value="" size="75">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="4">
-					<div class="grpDiv" id="opnPickEventDiv" >
-					<label for="opnPickEventDiv">Pick a collecting event</label>
-						<table width="100%">
-							<tr>
-								<td  >
-									<label for="">Find Collecting Event by Nickname</label>
-									<input type="text" name="collecting_event_name" class="" id="collecting_event_name" size="60"
-										onchange="findCollEvent('collecting_event_id','theForm','cepick',this.value);">
-								</td>
-								<td>
-									<input type="button" class="picBtn" value="more pick options" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
-								</td>
-								<td>
-									<input type="hidden" id="collecting_event_id" name="collecting_event_id" value="">
-									<label for="">(Verbatim Locality of picked Events will go here)</label>
-									<input type="text" size="50" name="cepick" class="readClr" readonly="readonly">
-								</td>
-								<td><input type="button" class="lnkBtn" value="Type Event Instead" onclick="typeEvent('on');"></td>
-							</tr>
-							
-						</table>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="4">
-					<div class="grpDiv" id="opnEnterEventDiv" style="display:none;">
-					<label for="opnEnterEventDiv">Create a collecting event</label>
-						<table>
-							<tr>
-								<td colspan="3">
-									<label for="verbatim_locality">Verbatim Locality</label>
-									<input type="text" name="verbatim_locality" class="reqdClr" size="80" id="verbatim_locality">
-								</td>
-								<td>
-									<input type="button" class="lnkBtn" value="Back to Pick Event" onclick="typeEvent('off');">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<label for="verbatim_date">VerbatimDate</label>
-									<input type="text" name="verbatim_date" class="reqdClr" id="verbatim_date" size="40">
-								</td>
-								<td>
-									<label for="began_date">BeginDate</label>
-									<input type="text" name="began_date" class="reqdClr" id="began_date" size="20">
-								</td>
-								<td>
-									<label for="ended_date">EndDate</label>
-									<input type="text" name="ended_date" class="reqdClr" id="ended_date" size="20">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="3">
-									<label for="coll_event_remarks">Collecting Event Remarks</label>
-									<input type="text" name="coll_event_remarks" size="80" id="coll_event_remarks">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="4">									
-									<div class="grpDiv" id="opnPickLocalityDiv">
-									<label for="opnPickLocalityDiv">Pick a Locality</label>
+			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
+			<input type="hidden" name="nothing" id="nothing">
+			<input type="hidden" name="letype" id="letype" value="pick_event">
+			<table id="mptab">
+				<tr>
+					<td>
+						<label for="specimen_event_type">Specimen/Event Type</label>
+						<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
+							<cfloop query="ctspecimen_event_type">
+								<option value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+						    </cfloop>
+						</select>
+					</td>
+					<td>
+						<label for="assigned_by_agent">Event Assigned by Agent</label>
+						<input type="text" name="assigned_by_agent" id="assigned_by_agent" class="reqdClr" size="40" value="#session.dbuser#"
+							 onchange="getAgent('assigned_by_agent_id','assigned_by_agent','theForm',this.value); return false;"
+							 onKeyPress="return noenter(event);">
+						<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#session.myAgentId#">
+					</td>
+					<td>
+						<label for="assigned_date">Specimen/Event Assigned Date</label>
+						<input type="text" name="assigned_date" id="assigned_date" value="#dateformat(now(),'yyyy-mm-dd')#" class="reqdClr">
+					</td>
+					<td>
+						<label for="VerificationStatus">Verification Status</label>
+						<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+							<option value="unverified">unverified</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
+						<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="" size="75">
+					</td>
+					<td colspan="2">
+						<label for="habitat">Habitat</label>
+						<input type="text" name="habitat" id="habitat" size="75">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label for="collecting_source">Collecting Source</label>
+						<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
+							<option value=""></option>
+							<cfloop query="ctcollecting_source">
+								<option value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td colspan="2">
+						<label for="collecting_method" class="infoLink">Collecting Method</label>
+						<input type="text" name="collecting_method" id="collecting_method" value="" size="75">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<div class="grpDiv" id="opnPickEventDiv" >
+						<label for="opnPickEventDiv">Pick a collecting event</label>
+							<table width="100%">
+								<tr>
+									<td  >
+										<label for="">Find Collecting Event by Nickname</label>
+										<input type="text" name="collecting_event_name" class="" id="collecting_event_name" size="60"
+											onchange="findCollEvent('collecting_event_id','theForm','cepick',this.value);">
+									</td>
+									<td>
+										<input type="button" class="picBtn" value="more pick options" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
+									</td>
+									<td>
+										<input type="hidden" id="collecting_event_id" name="collecting_event_id" value="">
+										<label for="">(Verbatim Locality of picked Events will go here)</label>
+										<input type="text" size="50" name="cepick" class="readClr" readonly="readonly">
+									</td>
+									<td><input type="button" class="lnkBtn" value="Type Event Instead" onclick="typeEvent('on');"></td>
+								</tr>
+								
+							</table>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<div class="grpDiv" id="opnEnterEventDiv" style="display:none;">
+						<label for="opnEnterEventDiv">Create a collecting event</label>
+							<table>
+								<tr>
+									<td colspan="3">
+										<label for="verbatim_locality">Verbatim Locality</label>
+										<input type="text" name="verbatim_locality" class="reqdClr" size="80" id="verbatim_locality">
+									</td>
+									<td>
+										<input type="button" class="lnkBtn" value="Back to Pick Event" onclick="typeEvent('off');">
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<label for="verbatim_date">VerbatimDate</label>
+										<input type="text" name="verbatim_date" class="reqdClr" id="verbatim_date" size="40">
+									</td>
+									<td>
+										<label for="began_date">BeginDate</label>
+										<input type="text" name="began_date" class="reqdClr" id="began_date" size="20">
+									</td>
+									<td>
+										<label for="ended_date">EndDate</label>
+										<input type="text" name="ended_date" class="reqdClr" id="ended_date" size="20">
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3">
+										<label for="coll_event_remarks">Collecting Event Remarks</label>
+										<input type="text" name="coll_event_remarks" size="80" id="coll_event_remarks">
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">									
+										<div class="grpDiv" id="opnPickLocalityDiv">
+										<label for="opnPickLocalityDiv">Pick a Locality</label>
+											<table>
+												<tr>
+													<td>
+														<label for="locality_name">Pick Locality By Nickname</label>
+														<input type="text" name="locality_name" class="" id="locality_name" size="60"
+															onchange="LocalityPick('locality_id','pickedSpecloc','theForm',this.value);">
+														<input type="button" class="picBtn" value="more pick options" 
+															onclick="LocalityPick('locality_id','pickedSpecloc','theForm',''); return false;">
+															<input type="hidden" name="locality_id" id="locality_id" class="readClr" size="8">							
+													</td>
+													<td>
+														<label for="pickedSpecloc">Picked SpecificLocality</label>
+														<input type="text" name="pickedSpecloc" id="pickedSpecloc" class="readClr" size="60">
+														<input type="button" class="lnkBtn" value="Type Locality Instead" onclick="typeLocality('on');">
+													</td>
+												</tr>
+											</table>
+											
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4" >
+						
+						<div class="grpDiv" id="opnEnterkLocalityDiv" style="display:none;">
+							<label for="opnPickLocalityDiv">Create a Locality</label>
+							<table>
+								<tr>
+									<td>
+										<label for="higher_geog">Pick Higher Geography</label>
+										<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" size="80"
+											onchange="getGeog('nothing',this.id,'dataEntry',this.value)">
+											
+										<input type="button" class="lnkBtn" value="Pick Locality Instead" onclick="typeLocality('off');">
+	
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label for="spec_locality">Specific Locality</label>
+										<input type="text" name="spec_locality" class="reqdClr" id="spec_locality" size="80">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label for="locality_remarks">Locality Remarks</label>
+										<input type="text" name="locality_remarks" class="" id="locality_remarks" size="80">
+									</td>
+								</tr>
+								<tr>
+									<td>
 										<table>
 											<tr>
 												<td>
-													<label for="locality_name">Pick Locality By Nickname</label>
-													<input type="text" name="locality_name" class="" id="locality_name" size="60"
-														onchange="LocalityPick('locality_id','pickedSpecloc','theForm',this.value);">
-													<input type="button" class="picBtn" value="more pick options" 
-														onclick="LocalityPick('locality_id','pickedSpecloc','theForm',''); return false;">
-														<input type="hidden" name="locality_id" id="locality_id" class="readClr" size="8">							
+													<label for+"orig_elev_units">Elevation Units</label>
+													<select name="orig_elev_units" size="1" id="orig_elev_units">
+														<option value=""></option>
+														<cfloop query="ctOrigElevUnits">
+															<option value="#orig_elev_units#">#orig_elev_units#</option>
+														</cfloop>
+													</select>
 												</td>
 												<td>
-													<label for="pickedSpecloc">Picked SpecificLocality</label>
-													<input type="text" name="pickedSpecloc" id="pickedSpecloc" class="readClr" size="60">
-													<input type="button" class="lnkBtn" value="Type Locality Instead" onclick="typeLocality('on');">
+													<label for+"minimum_elevation">MinElevation</label>
+													<input type="text" name="minimum_elevation" size="4" id="minimum_elevation">
+												</td>
+												<td>
+													<label for+"maximum_elevation">MaxElevation</label>
+													<input type="text" name="maximum_elevation" size="4" id="maximum_elevation">
 												</td>
 											</tr>
 										</table>
-										
-									</div>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="4" >
-					
-					<div class="grpDiv" id="opnEnterkLocalityDiv" style="display:none;">
-						<label for="opnPickLocalityDiv">Create a Locality</label>
-						<table>
-							<tr>
-								<td>
-									<label for="higher_geog">Pick Higher Geography</label>
-									<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" size="80"
-										onchange="getGeog('nothing',this.id,'dataEntry',this.value)">
-										
-									<input type="button" class="lnkBtn" value="Pick Locality Instead" onclick="typeLocality('off');">
-
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<label for="spec_locality">Specific Locality</label>
-									<input type="text" name="spec_locality" class="reqdClr" id="spec_locality" size="80">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<label for="locality_remarks">Locality Remarks</label>
-									<input type="text" name="locality_remarks" class="" id="locality_remarks" size="80">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<table>
-										<tr>
-											<td>
-												<label for+"orig_elev_units">Elevation Units</label>
-												<select name="orig_elev_units" size="1" id="orig_elev_units">
-													<option value=""></option>
-													<cfloop query="ctOrigElevUnits">
-														<option value="#orig_elev_units#">#orig_elev_units#</option>
-													</cfloop>
-												</select>
-											</td>
-											<td>
-												<label for+"minimum_elevation">MinElevation</label>
-												<input type="text" name="minimum_elevation" size="4" id="minimum_elevation">
-											</td>
-											<td>
-												<label for+"maximum_elevation">MaxElevation</label>
-												<input type="text" name="maximum_elevation" size="4" id="maximum_elevation">
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<label for="orig_lat_long_units">Coordinate Units</label>
-									<select name="orig_lat_long_units" id="orig_lat_long_units"	onChange="pickLL(this.value);">
-										<option value=""></option>
-										<cfloop query="ctunits">
-										  <option value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
-										</cfloop>
-									</select>
-									<!----
-									<span style="font-size:small" class="likeLink" onclick="geolocate()">[ geolocate ]</span>
-									<div id="geoLocateResults" style="font-size:small"></div>
-									---->
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div id="lat_long_meta" style="display:none;">
-										<table cellpadding="0" cellspacing="0">
-											<tr>
-												<td align="right"><span class="f11a">Max Error</span></td>
-												<td>
-													<input type="text" name="max_error_distance" id="max_error_distance" size="10">
-													<select name="max_error_units" size="1" id="max_error_units">
-														<option value=""></option>
-														<cfloop query="cterror">
-														  <option value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
-														</cfloop>
-													</select>
-												</td>
-											</tr>
-											<tr>
-												<td align="right"><span class="f11a">Datum</span></td>
-												<td>
-													<select name="datum" size="1" class="reqdClr" id="datum">
-														<option value=""></option>
-														<cfloop query="ctdatum">
-															<option value="#datum#">#datum#</option>
-														</cfloop>
-													</select>
-												</td>
-											</tr>
-
-
-											<tr>
-												<td align="right"><span class="f11a">Georeference Source</span></td>
-												<td colspan="3" nowrap="nowrap">
-													<input type="text" name="georeference_source" id="georeference_source"  class="reqdClr" size="60">
-												</td>
-											</tr>
-											<tr>
-												<td align="right"><span class="f11a">Georeference Protocol</span></td>
-												<td>
-													<select name="georeference_protocol" size="1" class="reqdClr" style="width:130px" id="georeference_protocol">
-														<option value=""></option>
-														<cfloop query="ctgeoreference_protocol">
-															<option value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
-														</cfloop>
-													</select>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<div id="dms" style="display:none;">
-										<table cellpadding="0" cellspacing="0">
-											<tr>
-												<td align="right"><span class="f11a">Lat Deg</span></td>
-												<td>
-													<input type="text" name="latdeg" size="4" id="latdeg" class="reqdClr">
-												</td>
-												<td align="right"><span class="f11a">Min</span></td>
-												<td>
-													<input type="text"
-														 name="LATMIN"
-														size="4"
-														id="latmin"
-														class="reqdClr">
-												</td>
-												<td align="right"><span class="f11a">Sec</span></td>
-												<td>
-													<input type="text"
-														 name="latsec"
-														size="6"
-														id="latsec"
-														class="reqdClr">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label for="orig_lat_long_units">Coordinate Units</label>
+										<select name="orig_lat_long_units" id="orig_lat_long_units"	onChange="pickLL(this.value);">
+											<option value=""></option>
+											<cfloop query="ctunits">
+											  <option value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
+											</cfloop>
+										</select>
+										<!----
+										<span style="font-size:small" class="likeLink" onclick="geolocate()">[ geolocate ]</span>
+										<div id="geoLocateResults" style="font-size:small"></div>
+										---->
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div id="lat_long_meta" style="display:none;">
+											<table cellpadding="0" cellspacing="0">
+												<tr>
+													<td align="right"><span class="f11a">Max Error</span></td>
+													<td>
+														<input type="text" name="max_error_distance" id="max_error_distance" size="10">
+														<select name="max_error_units" size="1" id="max_error_units">
+															<option value=""></option>
+															<cfloop query="cterror">
+															  <option value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
+															</cfloop>
+														</select>
 													</td>
-												<td align="right"><span class="f11a">Dir</span></td>
-												<td>
-													<select name="latdir" size="1" id="latdir" class="reqdClr">
-														<option value=""></option>
-														<option value="N">N</option>
-														<option value="S">S</option>
-													  </select>
-												</td>
-											</tr>
-											<tr>
-												<td align="right"><span class="f11a">Long Deg</span></td>
-												<td>
-													<input type="text"
-														name="longdeg"
-														size="4"
-														id="longdeg"
-														class="reqdClr">
-												</td>
-												<td align="right"><span class="f11a">Min</span></td>
-												<td>
-													<input type="text"
-														name="longmin"
-														size="4"
-														id="longmin"
-														class="reqdClr">
-												</td>
-												<td align="right"><span class="f11a">Sec</span></td>
-												<td>
-													<input type="text"
-														 name="longsec"
-														size="6"
-														id="longsec"
-														class="reqdClr">
-												</td>
-												<td align="right"><span class="f11a">Dir</span></td>
-												<td>
-													<select name="longdir" size="1" id="longdir" class="reqdClr">
-														<option value=""></option>
-														<option value="E">E</option>
-														<option value="W">W</option>
-													  </select>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<div id="ddm"  style="display:none;">
-										<table cellpadding="0" cellspacing="0">
-											<tr>
-												<td align="right"><span class="f11a">Lat Deg</span></td>
-												<td>
-													<input type="text"
-														 name="decLAT_DEG"
-														size="4"
-														id="decLAT_DEG"
-														class="reqdClr"
-														onchange="dataEntry.latdeg.value=this.value;">
-												</td>
-												<td align="right"><span class="f11a">Dec Min</span></td>
-												<td>
-													<input type="text"
-														name="dec_lat_min"
-														 size="8"
-														id="dec_lat_min"
-														class="reqdClr">
-												</td>
-												<td align="right"><span class="f11a">Dir</span></td>
-												<td>
-													<select name="decLAT_DIR"
-														size="1"
-														id="decLAT_DIR"
-														class="reqdClr"
-														onchange="dataEntry.latdir.value=this.value;">
-														<option value=""></option>
-														<option value="N">N</option>
-														<option value="S">S</option>
-													</select>
-												</td>
-											</tr>
-											<tr>
-												<td align="right"><span class="f11a">Long Deg</span></td>
-												<td>
-													<input type="text"
-														name="decLONGDEG"
-														size="4"
-														id="decLONGDEG"
-														class="reqdClr"
-														onchange="dataEntry.longdeg.value=this.value;">
-												</td>
-												<td align="right"><span class="f11a">Dec Min</span></td>
-												<td>
-													<input type="text"
-														name="DEC_LONG_MIN"
-														size="8"
-														id="dec_long_min"
-														class="reqdClr">
-												</td>
-												<td align="right"><span class="f11a">Dir</span></td>
-												<td>
-													<select name="decLONGDIR"
-														 size="1"
-														id="decLONGDIR"
-														class="reqdClr"
-														onchange="dataEntry.longdir.value=this.value;">
-														<option value=""></option>
-														<option value="E">E</option>
-														<option value="W">W</option>
-													</select>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<div id="dd"  style="display:none;">
-										<span class="f11a">Dec Lat</span>
-										<input type="text"
-											 name="dec_lat"
-											size="8"
-											id="dec_lat"
-											class="reqdClr">
-										<span class="f11a">Dec Long</span>
-											<input type="text"
-												 name="dec_long"
-												size="8"
-												id="dec_long"
-												class="reqdClr">
-									</div>
-									<div id="utm" style="display:none;">
-										<span class="f11a">UTM Zone</span>
-										<input type="text"
-											 name="utm_zone"
-											size="8"
-											id="utm_zone"
-											class="reqdClr">
-										<span class="f11a">UTM E/W</span>
-										<input type="text"
-											 name="utm_ew"
-											size="8"
-											id="utm_ew"
-											class="reqdClr">
-										<span class="f11a">UTM N/S</span>
-										<input type="text"
-											 name="utm_ns"
-											size="8"
-											id="utm_ns"
-											class="reqdClr">
-									</div>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>		
-		</table>
-		<input type="button" onclick="saveSpecimenEvent()" value="Save Event">
-	</form>
+												</tr>
+												<tr>
+													<td align="right"><span class="f11a">Datum</span></td>
+													<td>
+														<select name="datum" size="1" class="reqdClr" id="datum">
+															<option value=""></option>
+															<cfloop query="ctdatum">
+																<option value="#datum#">#datum#</option>
+															</cfloop>
+														</select>
+													</td>
+												</tr>
 	
-</cfoutput>
-
-
+	
+												<tr>
+													<td align="right"><span class="f11a">Georeference Source</span></td>
+													<td colspan="3" nowrap="nowrap">
+														<input type="text" name="georeference_source" id="georeference_source"  class="reqdClr" size="60">
+													</td>
+												</tr>
+												<tr>
+													<td align="right"><span class="f11a">Georeference Protocol</span></td>
+													<td>
+														<select name="georeference_protocol" size="1" class="reqdClr" style="width:130px" id="georeference_protocol">
+															<option value=""></option>
+															<cfloop query="ctgeoreference_protocol">
+																<option value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
+															</cfloop>
+														</select>
+													</td>
+												</tr>
+											</table>
+										</div>
+										<div id="dms" style="display:none;">
+											<table cellpadding="0" cellspacing="0">
+												<tr>
+													<td align="right"><span class="f11a">Lat Deg</span></td>
+													<td>
+														<input type="text" name="latdeg" size="4" id="latdeg" class="reqdClr">
+													</td>
+													<td align="right"><span class="f11a">Min</span></td>
+													<td>
+														<input type="text"
+															 name="LATMIN"
+															size="4"
+															id="latmin"
+															class="reqdClr">
+													</td>
+													<td align="right"><span class="f11a">Sec</span></td>
+													<td>
+														<input type="text"
+															 name="latsec"
+															size="6"
+															id="latsec"
+															class="reqdClr">
+														</td>
+													<td align="right"><span class="f11a">Dir</span></td>
+													<td>
+														<select name="latdir" size="1" id="latdir" class="reqdClr">
+															<option value=""></option>
+															<option value="N">N</option>
+															<option value="S">S</option>
+														  </select>
+													</td>
+												</tr>
+												<tr>
+													<td align="right"><span class="f11a">Long Deg</span></td>
+													<td>
+														<input type="text"
+															name="longdeg"
+															size="4"
+															id="longdeg"
+															class="reqdClr">
+													</td>
+													<td align="right"><span class="f11a">Min</span></td>
+													<td>
+														<input type="text"
+															name="longmin"
+															size="4"
+															id="longmin"
+															class="reqdClr">
+													</td>
+													<td align="right"><span class="f11a">Sec</span></td>
+													<td>
+														<input type="text"
+															 name="longsec"
+															size="6"
+															id="longsec"
+															class="reqdClr">
+													</td>
+													<td align="right"><span class="f11a">Dir</span></td>
+													<td>
+														<select name="longdir" size="1" id="longdir" class="reqdClr">
+															<option value=""></option>
+															<option value="E">E</option>
+															<option value="W">W</option>
+														  </select>
+													</td>
+												</tr>
+											</table>
+										</div>
+										<div id="ddm"  style="display:none;">
+											<table cellpadding="0" cellspacing="0">
+												<tr>
+													<td align="right"><span class="f11a">Lat Deg</span></td>
+													<td>
+														<input type="text"
+															 name="decLAT_DEG"
+															size="4"
+															id="decLAT_DEG"
+															class="reqdClr"
+															onchange="dataEntry.latdeg.value=this.value;">
+													</td>
+													<td align="right"><span class="f11a">Dec Min</span></td>
+													<td>
+														<input type="text"
+															name="dec_lat_min"
+															 size="8"
+															id="dec_lat_min"
+															class="reqdClr">
+													</td>
+													<td align="right"><span class="f11a">Dir</span></td>
+													<td>
+														<select name="decLAT_DIR"
+															size="1"
+															id="decLAT_DIR"
+															class="reqdClr"
+															onchange="dataEntry.latdir.value=this.value;">
+															<option value=""></option>
+															<option value="N">N</option>
+															<option value="S">S</option>
+														</select>
+													</td>
+												</tr>
+												<tr>
+													<td align="right"><span class="f11a">Long Deg</span></td>
+													<td>
+														<input type="text"
+															name="decLONGDEG"
+															size="4"
+															id="decLONGDEG"
+															class="reqdClr"
+															onchange="dataEntry.longdeg.value=this.value;">
+													</td>
+													<td align="right"><span class="f11a">Dec Min</span></td>
+													<td>
+														<input type="text"
+															name="DEC_LONG_MIN"
+															size="8"
+															id="dec_long_min"
+															class="reqdClr">
+													</td>
+													<td align="right"><span class="f11a">Dir</span></td>
+													<td>
+														<select name="decLONGDIR"
+															 size="1"
+															id="decLONGDIR"
+															class="reqdClr"
+															onchange="dataEntry.longdir.value=this.value;">
+															<option value=""></option>
+															<option value="E">E</option>
+															<option value="W">W</option>
+														</select>
+													</td>
+												</tr>
+											</table>
+										</div>
+										<div id="dd"  style="display:none;">
+											<span class="f11a">Dec Lat</span>
+											<input type="text"
+												 name="dec_lat"
+												size="8"
+												id="dec_lat"
+												class="reqdClr">
+											<span class="f11a">Dec Long</span>
+												<input type="text"
+													 name="dec_long"
+													size="8"
+													id="dec_long"
+													class="reqdClr">
+										</div>
+										<div id="utm" style="display:none;">
+											<span class="f11a">UTM Zone</span>
+											<input type="text"
+												 name="utm_zone"
+												size="8"
+												id="utm_zone"
+												class="reqdClr">
+											<span class="f11a">UTM E/W</span>
+											<input type="text"
+												 name="utm_ew"
+												size="8"
+												id="utm_ew"
+												class="reqdClr">
+											<span class="f11a">UTM N/S</span>
+											<input type="text"
+												 name="utm_ns"
+												size="8"
+												id="utm_ns"
+												class="reqdClr">
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>		
+			</table>
+			<input type="button" onclick="saveSpecimenEvent()" value="Save Event">
+		</form>
+	</cfoutput>
 </cfif>
