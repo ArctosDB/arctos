@@ -46,6 +46,19 @@
 			$("#opnEnterEventDiv").hide();
 		}
 	}
+	function typeLocality(oo){
+		if (oo=='on'){
+			$("#opnPickLocalityDiv").hide();
+			$("#opnEnterkLocalityDiv").show();
+		} else {
+			$("#opnPickLocalityDiv").show();
+			$("#opnEnterkLocalityDiv").hide();
+		}
+	}
+
+
+
+
 
 		function celgtype(opn){
 			if (opn=='pickEvent'){
@@ -209,16 +222,16 @@
 						<table>
 							<tr>
 								<td colspan="2" >
-									<label for="">Type a collecting event nickname to find an existing event</label>
+									<label for="">Find Collecting Event by Nickname</label>
 									<input type="text" name="collecting_event_name" class="" id="collecting_event_name" size="60"
 										onchange="findCollEvent('collecting_event_id','theForm','cepick',this.value);">
-									<input type="button" class="picBtn" value="or Pick Event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
+									<input type="button" class="picBtn" value="more pick options" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
 								</td>
 								<td colspan="2">
 									<input type="hidden" name="collecting_event_id" value="">
 									<label for="">(Verbatim Locality of picked Events will go here)</label>
 									<input type="text" size="50" name="cepick" class="readClr" readonly="readonly">
-									<input type="button" class="picBtn" value="Type Event Instead" onclick="typeEvent('on');">
+									<input type="button" class="lnkBtn" value="Type Event Instead" onclick="typeEvent('on');">
 								</td>
 							</tr>
 						</table>
@@ -258,42 +271,42 @@
 									<input type="text" name="coll_event_remarks" size="80" id="coll_event_remarks">
 								</td>
 							</tr>
+							<tr>
+								<td colspan="4">
+									<div id="opnPickLocalityDiv">
+										<table>
+											<tr>
+												<td>
+													<label for="locality_name">Pick Locality By Nickname</label>
+													<input type="text" name="locality_name" class="" id="locality_name" size="60"
+														onchange="LocalityPick('locality_id','pickedSpecloc','theForm',this.value);">
+													<input type="button" class="picBtn" value="more pick options" 
+														onclick="LocalityPick('locality_id','pickedSpecloc','theForm',''); return false;">									
+												</td>
+												<td>
+													<label for="locality_id">Picked LocalityID</label>
+													<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
+												</td>
+												<td>
+													<label for="pickedSpecloc">Picked SpecificLocality</label>
+													<input type="text" name="pickedSpecloc" id="pickedSpecloc" class="readClr" size="60">
+													
+													<input type="button" class="lnkBtn" value="Type Locality Instead" onclick="typeLocality('on');">
+				
+												</td>
+											</tr>
+										</table>
+										
+									</div>
+								</td>
+							</tr>
 						</table>
 					</div>
 				</td>
 			</tr>
 			
 			
-				<tr>
-					<td colspan="4" >
-						<div id="opnPickLocalityDiv"  style="display:none;">
-							<table>
-								<tr>
-									<td>
-										<label for="locality_name">Pick Locality By Nickname</label>
-										<input type="text" name="locality_name" class="" id="locality_name" size="60"
-											onchange="LocalityPick('locality_id','pickedSpecloc','theForm',this.value);">
-									</td>
-									<td>
-										<span class="likeLink" id="localityPicker"
-											onclick="LocalityPick('locality_id','pickedSpecloc','theForm',''); return false;">
-											Click here to Pick&nbsp;Locality
-										</span>
-									</td>
-									<td>
-										<label for="locality_id">Picked LocalityID</label>
-										<input type="text" name="locality_id" id="locality_id" class="readClr" size="8">
-									</td>
-									<td>
-										<label for="pickedSpecloc">Picked SpecificLocality</label>
-										<input type="text" name="pickedSpecloc" id="pickedSpecloc" class="readClr" size="60">
-									</td>
-								</tr>
-							</table>
-						</div>
-					</td>
-				</tr>
-		
+			
 			
 			
 			
@@ -306,6 +319,9 @@
 									<label for="higher_geog">Pick Higher Geography</label>
 									<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" size="80"
 										onchange="getGeog('nothing',this.id,'dataEntry',this.value)">
+										
+									<input type="button" class="lnkBtn" value="Pick Locality Instead" onclick="typeLocality('off');">
+
 								</td>
 							</tr>
 							<tr>
