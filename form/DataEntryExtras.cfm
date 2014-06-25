@@ -203,55 +203,65 @@
 					<input type="text" name="collecting_method" id="collecting_method" value="" size="75">
 				</td>
 			</tr>
-			<div id="opnPickEventDiv" style="display:none;">
-			
-				<tr>
-					<td colspan="2" >
-						<label for="">Type a collecting event nickname to find an existing event</label>
-						<input type="text" name="collecting_event_name" class="" id="collecting_event_name" size="60"
-							onchange="findCollEvent('collecting_event_id','theForm','cepick',this.value);">
-						<input type="button" class="picBtn" value="or Pick Event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
-					</td>
-					<td colspan="2">
-						<input type="hidden" name="collecting_event_id" value="">
-						<label for="">(Verbatim Locality of picked Events will go here)</label>
-						<input type="text" size="50" name="cepick" class="readClr" readonly="readonly">
-						<input type="button" class="picBtn" value="Type Event Instead" onclick="typeEvent('on');">
-					</td>
-				</tr>
-			</div>
-			<div id="opnEnterEventDiv" style="display:none;">
-				<tr>
-					<td colspan="3">
-						<label for="verbatim_locality">Verbatim Locality</label>
-						<input type="text" name="verbatim_locality" class="reqdClr" size="80" id="verbatim_locality">
-					</td>
-					<td>
-						<input type="button" class="lnkBtn" value="Back to Pick Event" onclick="typeEvent('off');">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<label for="verbatim_date">VerbatimDate</label>
-						<input type="text" name="verbatim_date" class="reqdClr" id="verbatim_date" size="40">
-					</td>
-					<td>
-						<label for="began_date">BeginDate</label>
-						<input type="text" name="began_date" class="reqdClr" id="began_date" size="20">
-					</td>
-					<td>
-						<label for="ended_date">EndDate</label>
-						<input type="text" name="ended_date" class="reqdClr" id="ended_date" size="20">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="3">
-						<label for="coll_event_remarks">Collecting Event Remarks</label>
-						<input type="text" name="coll_event_remarks" size="80" id="coll_event_remarks">
-					</td>
-				</tr>
-			</div>
-			
+			<tr>
+				<td colspan="4">
+					<div id="opnPickEventDiv" style="display:none;">
+						<table>
+							<tr>
+								<td colspan="2" >
+									<label for="">Type a collecting event nickname to find an existing event</label>
+									<input type="text" name="collecting_event_name" class="" id="collecting_event_name" size="60"
+										onchange="findCollEvent('collecting_event_id','theForm','cepick',this.value);">
+									<input type="button" class="picBtn" value="or Pick Event" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
+								</td>
+								<td colspan="2">
+									<input type="hidden" name="collecting_event_id" value="">
+									<label for="">(Verbatim Locality of picked Events will go here)</label>
+									<input type="text" size="50" name="cepick" class="readClr" readonly="readonly">
+									<input type="button" class="picBtn" value="Type Event Instead" onclick="typeEvent('on');">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<div id="opnEnterEventDiv" style="display:none;">
+						<table>
+							<tr>
+								<td colspan="3">
+									<label for="verbatim_locality">Verbatim Locality</label>
+									<input type="text" name="verbatim_locality" class="reqdClr" size="80" id="verbatim_locality">
+								</td>
+								<td>
+									<input type="button" class="lnkBtn" value="Back to Pick Event" onclick="typeEvent('off');">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<label for="verbatim_date">VerbatimDate</label>
+									<input type="text" name="verbatim_date" class="reqdClr" id="verbatim_date" size="40">
+								</td>
+								<td>
+									<label for="began_date">BeginDate</label>
+									<input type="text" name="began_date" class="reqdClr" id="began_date" size="20">
+								</td>
+								<td>
+									<label for="ended_date">EndDate</label>
+									<input type="text" name="ended_date" class="reqdClr" id="ended_date" size="20">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<label for="coll_event_remarks">Collecting Event Remarks</label>
+									<input type="text" name="coll_event_remarks" size="80" id="coll_event_remarks">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
 			
 			
 				<tr>
