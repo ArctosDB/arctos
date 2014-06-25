@@ -93,7 +93,9 @@ console.log(OrigUnits);
 	alert('dd');
 
 
-				$("#mptab).find("[id='lat_long_meta']').addClass('importantNotification').show();
+				$("#mptab).find("[id='lat_long_meta']").addClass('importantNotification').show();
+
+
 				$("#dd").show();
 			} else if (OrigUnits == 'degrees dec. minutes') {
 				$("#lat_long_meta").show();
