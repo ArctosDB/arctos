@@ -142,6 +142,14 @@
 				console.log('is visible');
 			}
 
+
+			if ($(this).attr('class') == 'reqdClr'){
+				console.log('is a required element');
+			}
+			if ($(this).val().length==0){
+				console.log('has not value');
+			}
+			
 		/*
 			    if (!this.value.length) {
 			        if (this.id == 'zipCode') {
