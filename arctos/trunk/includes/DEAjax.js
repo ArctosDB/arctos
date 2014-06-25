@@ -43,7 +43,7 @@ function addMoreStuff(mode){
 		$(window).resize(function() {
 			fluidDialog();
 			//$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-		}
+		});
 		$(document).on("dialogopen", ".ui-dialog", function (event, ui) {
 		    fluidDialog();
 		});
