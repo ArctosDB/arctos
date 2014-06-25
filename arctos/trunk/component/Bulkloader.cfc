@@ -46,6 +46,14 @@
 	uuid
 	---->
 
+
+		
+		
+		<!----
+		
+		
+		
+				
 	<cfif variables.letype is "pick_event">
 		<cfif len(variables.collecting_event_id) is 0>
 			<cfset fatalerrstr=listappend(fatalerrstr,'You did not pick a collecting event.',';')>
@@ -97,14 +105,6 @@
 
 
 
-
-		
-		
-		<!----
-		
-		
-		
-				
 		
 		
 		<cfset fatalerrstr="">
