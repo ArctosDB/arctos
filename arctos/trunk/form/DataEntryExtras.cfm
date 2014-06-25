@@ -135,6 +135,7 @@
 		function saveSpecimenEvent(){
 			$("#theForm input, #theForm select").each(function(){
 				console.log(this.id);
+				// we need visible elements, 
 				if ($(this).attr('type') == 'hidden'){
 					console.log('is a hidden element');
 				}
@@ -277,7 +278,7 @@
 									<input type="button" class="picBtn" value="more pick options" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
 								</td>
 								<td>
-									<input type="hidden" name="collecting_event_id" value="">
+									<input type="hidden" id="collecting_event_id" name="collecting_event_id" value="">
 									<label for="">(Verbatim Locality of picked Events will go here)</label>
 									<input type="text" size="50" name="cepick" class="readClr" readonly="readonly">
 								</td>
