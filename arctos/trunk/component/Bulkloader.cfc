@@ -22,7 +22,7 @@
 
 
 	<!--- check basic/always requirements ---->
-	<cfset alwaysRequired="UUID,ASSIGNED_BY_AGENT">
+	<cfset alwaysRequired="UUID,assigned_by_agent_name,assigned_date,collecting_source">
 	
 	<cfloop list="#alwaysRequired#" index="i">
 		<cfset thisVal=evaluate("variables." & i)>
