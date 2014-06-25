@@ -75,15 +75,6 @@
 			var lat_long_meta=$("#mptab").find("[id='lat_long_meta']");
 
 
-
-/*
-
-			 if (OrigUnits!==null) {
-				 OrigUnits=$("#orig_lat_long_units").val();
-			 };
-*/
-
-
 			dms.hide();
 			ddm.hide();
 			dd.hide();
@@ -93,26 +84,15 @@
 				lat_long_meta.show();
 				dms.show();
 			} else if (OrigUnits == 'decimal degrees') {
-
-
-
-
 				lat_long_meta.show();
-
-
 				dd.show();
 			} else if (OrigUnits == 'degrees dec. minutes') {
 				lat_long_meta.show();
 				ddm.show();
 			} else if (OrigUnits == 'UTM') {
 				lat_long_meta.show();
-				ddm.show();
+				utm.show();
 			}
-
-
-
-
-
 		}
 
 
