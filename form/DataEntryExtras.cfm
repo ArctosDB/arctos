@@ -52,6 +52,8 @@
 			$("#opnPickLocalityDiv").show();
 			// type locality off
 			$("#opnEnterkLocalityDiv").hide();
+			
+			$("#letype").val('type_event');
 		} else {
 			// clicked from "type event" to "pick event"
 			// pick event on
@@ -61,6 +63,7 @@
 			// all locality off
 			$("#opnPickLocalityDiv").hide();
 			$("#opnEnterkLocalityDiv").hide();
+			$("#letype").val('pick_event');
 		}
 	}
 	function typeLocality(oo){
@@ -68,9 +71,11 @@
 			// clicked from "pick locality" to "type locality"
 			$("#opnPickLocalityDiv").hide();
 			$("#opnEnterkLocalityDiv").show();
+			$("#letype").val('type_locality');
 		} else {
 			$("#opnPickLocalityDiv").show();
 			$("#opnEnterkLocalityDiv").hide();
+			$("#letype").val('pick_locality');
 		}
 	}
 
@@ -133,42 +138,26 @@
 		}
 
 		function saveSpecimenEvent(){
-			// assigned_by_agent_id is always required
-
-			$("#theForm input, #theForm select").each(function(){
-				console.log(this.id);
-				
-				if ($(this).attr('type') != 'hidden'){
-					
-				}
-			// only care about visible elements 
-			if ( $(this).is(":visible") ) {
-				console.log('is visible');
-				// if it's required, make sure there's a value
-				if ($(this).attr('class') == 'reqdClr'){
-					console.log('is a required element');
-					if ($(this).val().length==0){
-						console.log('required and has no value - throw an error...');
-						$(this).addClass('redBorder');
-					}
-				}
-				
-			}
+			// serialize everything and send it to the server for processing
+			$.ajax({
+				url: "/component/Bulkloader.cfc?queryformat=column",
+				type: "POST",
+				dataType: "json",
+				data: {
+					method:  "saveNewSpecimenEvent",
+					q: $('#theForm').serialize()
+			},
+			success: function(r) {
+				console.log('saved');
+				console.log(r);
+		},
+		error: function (xhr, textStatus, errorThrown){
+		    // show error
+		    alert(errorThrown);
+		  }
+		});
 
 
-			
-			
-			
-		/*
-			    if (!this.value.length) {
-			        if (this.id == 'zipCode') {
-			            //do some zip code validation
-			        }else if ( $(this).is(":visible") ) {
-			            //do some regular validation
-			        }       
-			    }
-* */
-			});
 		}
 
 	</script>
@@ -217,6 +206,7 @@
 		<form name="theForm" id="theForm">
 		<input type="hidden" id="#uuid#">
 		<input type="hidden" name="nothing" id="nothing">
+		<input type="hidden" name="letype" id="letype">
 		<br>Add a specimen-event:
 		<table id="mptab">
 			<tr>
