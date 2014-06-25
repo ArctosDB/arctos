@@ -56,7 +56,7 @@
 	
 	
 	
-	<cfloop list="#alwaysRequired#" index="i">
+	<cfloop list="#required#" index="i">
 		<cfset thisVal=evaluate("variables." & i)>
 		<cfif len(thisVal) is 0>
 			<cfset fatalerrstr=listappend(fatalerrstr,'#i# is required',';')>
