@@ -31,7 +31,9 @@ function addMoreStuff(mode){
 		closeOnEscape: true,
 		height: 'auto',
 		modal: true,
-		position: ['center', 'center'],
+		position : ['center',],
+		dialogClass : 'fixed-dialog',
+		//position: ['auto', 'auto'],
 		title: 'Add data to non-specimen bulkloaders',
 		width: 'auto',
 		close: function() {
