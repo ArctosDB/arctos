@@ -233,7 +233,7 @@
 			<tr>
 				<td colspan="4">
 					<label for="opnPickEventDiv">Pick a collecting event</label>
-					<div id="opnPickEventDiv" >
+					<div class="grpDiv" id="opnPickEventDiv" >
 						<table width="100%">
 							<tr>
 								<td colspan="2" >
@@ -263,7 +263,7 @@
 			<tr>
 				<td colspan="4">
 					<label for="opnEnterEventDiv">Create a collecting event</label>
-					<div id="opnEnterEventDiv" style="display:none;">
+					<div class="grpDiv" id="opnEnterEventDiv" style="display:none;">
 						<table>
 							<tr>
 								<td colspan="3">
@@ -332,7 +332,7 @@
 				<td colspan="4" >
 					
 					<label for="opnPickLocalityDiv">Create a Locality</label>
-					<div id="opnEnterkLocalityDiv" style="display:none;">
+					<div class="grpDiv" id="opnEnterkLocalityDiv" style="display:none;">
 						<table>
 							<tr>
 								<td>
