@@ -121,8 +121,18 @@
 					q: $('#theForm').serialize()
 			},
 			success: function(r) {
-				console.log('saved');
-				console.log(r);
+				if (r=='success'){
+					var retVal = confirm("Success! Click OK to close this, of cancel to create another specimen-event.");
+				   if( retVal == true ){
+				     $("#dialog").dialog.close();
+				 } else {
+
+	alert('Error: ' + r);
+}
+				
+
+
+
 		},
 		error: function (xhr, textStatus, errorThrown){
 		    // show error
