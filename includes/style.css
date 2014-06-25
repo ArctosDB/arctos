@@ -1,3 +1,4 @@
+.fixed-dialog { position:"fixed" }
 .importantNotification {
 	margin:1em;
 	display:inline-block;
