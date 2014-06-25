@@ -27,7 +27,7 @@
 	</style>
 	<cfoutput>
 		<meta name="keywords" content="#session.meta_keywords#">
-    	<LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico?v=3">	
+    	<LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico?v=4">	
     	<meta http-equiv="content-type" content="text/html; charset=utf-8">
    		<cfif len(trim(session.stylesheet)) gt 0>
 			<cfset ssName = replace(session.stylesheet,".css","","all")>
