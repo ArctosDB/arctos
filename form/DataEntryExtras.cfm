@@ -205,7 +205,7 @@
 			</tr>
 			<tr>
 				<td colspan="4">
-					<div id="opnPickEventDiv" style="display:none;">
+					<div id="opnPickEventDiv" >
 						<table>
 							<tr>
 								<td colspan="2" >
