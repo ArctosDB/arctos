@@ -114,7 +114,7 @@
 			// serialize everything and send it to the server for processing
 			$.ajax({
 				url: "/component/Bulkloader.cfc?queryformat=column",
-				type: "POST",
+				type: "GET",
 				dataType: "json",
 				data: {
 					method:  "saveNewSpecimenEvent",
