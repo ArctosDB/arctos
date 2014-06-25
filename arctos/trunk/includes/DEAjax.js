@@ -30,7 +30,8 @@ function addMoreStuff(mode){
 		autoOpen: true,
 		closeOnEscape: true,
 		height: 'auto',
-		modal: false,
+		modal: true,
+		fluid: true,
 		position: ['center', 'center'],
 		title: 'Add data to non-specimen bulkloaders',
 		width: 'auto',
@@ -41,10 +42,13 @@ function addMoreStuff(mode){
 			$(this).dialog("option", "position", ['center', 'center'] );
 		});
 		$(window).resize(function() {
-			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+			fluidDialog();
+			//$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 		});
 		
-		
+		$(document).on("dialogopen", ".ui-dialog", function (event, ui) {
+		    fluidDialog();
+		});
 	
 		
 }
