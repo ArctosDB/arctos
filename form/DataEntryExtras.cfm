@@ -94,7 +94,7 @@ console.log(OrigUnits);
 
 
 
-				$("#lat_long_meta").addClass('importantNotification').show();
+				$("#mptab).find('id="lat_long_meta"').addClass('importantNotification').show();
 				$("#dd").show();
 			} else if (OrigUnits == 'degrees dec. minutes') {
 				$("#lat_long_meta").show();
@@ -159,7 +159,7 @@ console.log(OrigUnits);
 		<input type="hidden" id="#uuid#">
 		<input type="hidden" name="nothing" id="nothing">
 		
-		<table>
+		<table id="mptab">
 			<tr>
 				<td>
 					<label for="specimen_event_type">Specimen/Event Type</label>
