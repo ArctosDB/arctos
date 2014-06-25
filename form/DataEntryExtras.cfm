@@ -240,26 +240,22 @@
 					<label for="opnPickEventDiv">Pick a collecting event</label>
 						<table width="100%">
 							<tr>
-								<td colspan="2" >
+								<td  >
 									<label for="">Find Collecting Event by Nickname</label>
 									<input type="text" name="collecting_event_name" class="" id="collecting_event_name" size="60"
 										onchange="findCollEvent('collecting_event_id','theForm','cepick',this.value);">
 								</td>
-								<td colspan="2">
+								<td>
+									<input type="button" class="picBtn" value="more pick options" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
+								</td>
+								<td>
 									<input type="hidden" name="collecting_event_id" value="">
 									<label for="">(Verbatim Locality of picked Events will go here)</label>
 									<input type="text" size="50" name="cepick" class="readClr" readonly="readonly">
 								</td>
+								<td><input type="button" class="lnkBtn" value="Type Event Instead" onclick="typeEvent('on');"></td>
 							</tr>
-							<tr>
-								<td colspan="2" >
-								
-									<input type="button" class="picBtn" value="more pick options" onclick="findCollEvent('collecting_event_id','theForm','cepick');">
-								</td>
-								<td colspan="2">
-									<input type="button" class="lnkBtn" value="Type Event Instead" onclick="typeEvent('on');">
-								</td>
-							</tr>
+							
 						</table>
 					</div>
 				</td>
