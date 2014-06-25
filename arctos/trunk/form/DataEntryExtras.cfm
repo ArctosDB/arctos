@@ -133,7 +133,7 @@
 		}
 
 		function saveSpecimenEvent(){
-			$("#theForm input,select").each(function(){
+			$("#theForm input, #theForm select").each(function(){
 				console.log(this.id);
 				if ($(this).attr('type') == 'hidden'){
 					console.log('is a hidden element');
