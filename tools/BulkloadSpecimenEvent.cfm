@@ -405,7 +405,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select uuid from cf_temp_specevent where upper(username)='#ucase(session.username)#' and guid is null group by uuid
 	</cfquery>
-	<cfloop quey="mine">
+	<cfloop query="mine">
 		<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select guid from flat,coll_obj_other_id_num where flat.collection_object_id=coll_obj_other_id_num.collection_object_id and
 			other_id_type='UUID' and display_value='#uuid#'
