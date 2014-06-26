@@ -39,7 +39,8 @@ function addMoreStuff(mode){
 		},
 	}).load(guts, function() {
 		$(this).dialog("option", "position", ['center', 'center'] );
-	}).$(window).resize(function() {
+	});
+	$(window).resize(function() {
 		//fluidDialog();
 		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 	});		
