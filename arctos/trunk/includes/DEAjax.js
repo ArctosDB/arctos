@@ -45,9 +45,6 @@ function addMoreStuff(mode){
 		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 	});	
 	
-	 $( "#dialog" ).dialog({
-	       resize: $(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-	    });
 }
 
 
