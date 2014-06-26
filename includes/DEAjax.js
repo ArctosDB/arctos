@@ -37,17 +37,12 @@ function addMoreStuff(mode){
 		close: function() {
 			$( this ).remove();
 		},
-		}).load(guts, function() {
-			$(this).dialog("option", "position", ['center', 'center'] );
-		});
-		$(window).resize(function() {
-			//fluidDialog();
-			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-		});
-		
-		
-	
-		
+	}).load(guts, function() {
+		$(this).dialog("option", "position", ['center', 'center'] );
+	}).$(window).resize(function() {
+		//fluidDialog();
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});		
 }
 
 
