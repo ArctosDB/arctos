@@ -1,3 +1,8 @@
+body {
+	font-family:Arial, Helvetica, sans-serif;
+	background-color:#FFFFFF;
+}
+	
 .importantNotification {
 	margin:1em;
 	display:inline-block;
@@ -480,7 +485,6 @@ label.badPickLbl {
 	padding-left:5px;	
 	color:#2B547E;
 	font-size:small;
-	font-family:Arial, Helvetica, sans-serif;
 	display:block;
 }
 .mediaLink:hover {
@@ -622,7 +626,6 @@ label.badPickLbl {
 	cursor:pointer;
 	color:#2B547E;
 	font-size:.65em;
-	font-family:Arial, Helvetica, sans-serif;
 }
 .secControl:hover {
 	color:#FF0000;
@@ -676,7 +679,6 @@ td.lbl {
 	cursor:pointer;
 	color:#2B547E;
 	font-size:.6em;
-	font-family:Arial, Helvetica, sans-serif;
 	}
 .detailEditCell:hover {
 	color:#FF0000;
@@ -699,12 +701,10 @@ td#SDCellRight{
 	font-size:1em;
 }
 .headerInstitutionText {
-	font-family:Arial, Helvetica, sans-serif;
 	color:#000066; 
 	font-weight:bold;
 }
 .headerCollectionText {
-	font-family:Arial, Helvetica, sans-serif;
 	font-size:24px;
 	color:#000066;
 }
@@ -714,7 +714,6 @@ td#SDCellRight{
 	color:#2B547E;
 	float:right;
 	cursor:pointer;
-	font-family:Arial, Helvetica, sans-serif;}
 }
 .annotateSpace:hover {
 	color:#FF0000;
@@ -834,12 +833,8 @@ redCheck{
 
 .infoLink ,.infoLink a:visited {
 	cursor:pointer;
-
 	color:#2B547E;
-
-	font-size:.65em;
-
-	font-family:Arial, Helvetica, sans-serif;}
+	font-size:.65em;}
 
 .infoLink:hover {
 
@@ -913,8 +908,7 @@ redCheck{
 	padding: 0px 5px 0px 5px;
 	margin: 0px;
 	font-weight:bolder;
-	font-size:small;
-	font-family:Arial, Helvetica, sans-serif;}	
+	font-size:small;}	
 #navbar span, span.active {
 	color: green;
 	background-color:#E7E7E7;
@@ -926,8 +920,7 @@ redCheck{
 	padding: 0px 5px 0px 5px;
 	margin: 0px;
 	font-weight:bolder;
-	font-size:small;
-	font-family:Arial, Helvetica, sans-serif;}
+	font-size:small;}
 #navbar a.active {
 	background-color:#000000;
 	color:green; }
@@ -1109,7 +1102,6 @@ div.group {
 	color:	#666666;
 	font-size:10pt;
 	font-weight:bold;
-	font-family: Arial, Helvetica, sans-serif;
 	background-color:#99CCFF;
 	border-color: #336666;
 	border:1px solid;
@@ -1132,7 +1124,6 @@ div.group {
 
 	font-weight:bold;
 
-	font-family: Arial, Helvetica, sans-serif;
 
 	background-color:#99CCFF;
 
@@ -1144,11 +1135,6 @@ div.group {
 
 	text-align:center;}
 
-body {
-
-	font-family:arial,sans-serif;
-
-	background-color:#FFFFFF;}
 
 a:link {
 
@@ -1208,73 +1194,42 @@ table.newRec {
 
 	border-spacing:0;}
 input.savBtn {
-
    	color:	#666666;
-
    	font-size:10pt;
-
 	font-weight:bold;
-
-	font-family: Arial, Helvetica, sans-serif;
-
 	background-color:#FBD29B;
-
 	border:1px solid;
-
-	border-color: #336666;}
-
-input.lnkBtn {
-
-	color:	#666666;
-
-	font-size:10pt;
-
-	font-weight:bold;
-
-	font-family: Arial, Helvetica, sans-serif;
-
-	background-color:#99CCFF;
-
 	border-color: #336666;
-
-	border:1px solid;}
+}
+input.lnkBtn {
+	color:	#666666;
+	font-size:10pt;
+	font-weight:bold;
+	background-color:#99CCFF;
+	border-color: #336666;
+	border:1px solid;
+}
 .controlButton:hover, input.qutBtn:hover, input.delBtn:hover, input.picBtn:hover, input.clrBtn:hover, input.lnkBtn:hover, input.schBtn:hover, input.insBtn:hover,input.savBtn:hover {
 	border-color:#FF6633;
 	cursor:pointer;
 } 
 
 input.schBtn {
-
 	color:#666666;
-
 	font-size:10pt;
-
 	font-weight:bold;
-
-	font-family:Arial, Helvetica, sans-serif;
-
 	background-color:#CCCC99;
-
 	border-color:#336666;
-
-	border:1px solid;}
-
-
+	border:1px solid;
+}
 input.clrBtn {
-
 	color:	#666666;
-
 	font-size:10pt;
-
 	font-weight:bold;
-
-	font-family: Arial, Helvetica, sans-serif;
-
 	background-color:#FFCC00;
-
 	border-color: #336666;
-
-	border:1px solid;}
+	border:1px solid;
+}
 
 input.insBtn {
 
@@ -1294,8 +1249,6 @@ input.picBtn {
 
 	font-weight:bold;
 
-	font-family: Arial, Helvetica, sans-serif;
-
 	background-color:#CCCC99;
 
 	border-color: #336666;
@@ -1310,7 +1263,6 @@ input.delBtn {
 
 	font-weight:bold;
 
-	font-family: Arial, Helvetica, sans-serif;
 
 	background-color:#FF9966;
 
@@ -1326,7 +1278,6 @@ input.qutBtn {
 
 	font-weight:bold;
 
-	font-family: Arial, Helvetica, sans-serif;
 
 	background-color:#FFFF00  ;
 
