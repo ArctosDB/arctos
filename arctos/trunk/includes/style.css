@@ -492,7 +492,7 @@ label.badPickLbl {
 	text-decoration: underline;
 }
 .mediaLink:visited {
-	color:#2B547E;
+	color:#003B5C;
 }
 .ajaxStatus{
 	background-color:yellow;
@@ -624,7 +624,7 @@ label.badPickLbl {
 	float:right;
 	padding-right:1em;
 	cursor:pointer;
-	color:#2B547E;
+	color:#003B5C;
 	font-size:.65em;
 }
 .secControl:hover {
@@ -711,7 +711,7 @@ td#SDCellRight{
 .annotateSpace, .annotateSpace a:visited .annotateSpace a {
 	font-size:.75em;
 	font-weight:bold;
-	color:#2B547E;
+	color:#003B5C;
 	float:right;
 	cursor:pointer;
 }
@@ -833,7 +833,7 @@ redCheck{
 
 .infoLink ,.infoLink a:visited {
 	cursor:pointer;
-	color:#2B547E;
+	color:#003B5C;
 	font-size:.65em;}
 
 .infoLink:hover {
@@ -856,7 +856,7 @@ redCheck{
 	font-size:.75em;
 
 	font-weight:bold;
-	color:#2B547E;
+	color:#003B5C;
 
 	float:right;
 
@@ -1405,7 +1405,7 @@ ul.sf-menu li li li.sfHover ul {
 	text-decoration:none;
 }
 .sf-menu a, .sf-menu a:visited  { /* visited pseudo selector so IE6 applies text colour*/
-	color:			#0000FF;
+	color:			#003B5C;
 }
 .sf-menu li {
 	background:		#E7E7E7;
