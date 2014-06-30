@@ -494,10 +494,13 @@ grant all on cf_temp_specevent to coldfusion_user;
 		</form>
 	</cfoutput>
 </cfif>
-deleteChecked
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "deleteChecked">
 	<cfdump var=#form#>
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from cf_temp_specevent  where key in (#listqualify,key,"'")#
+	</cfquery>
+	<cflocation url="BulkloadSpecimenEvent.cfm?action=managemystuff" addtoken="false">
 </cfif>
 
 <!------------------------------------------------------------------------------------------------>
