@@ -505,23 +505,23 @@ grant all on cf_temp_specevent to coldfusion_user;
 			If the UUID has been changed or the bulkloader record deleted, the information here may be irretrievably lost.
 		</p>
 	<cfelse>
-		<table border>
-			<tr>
-				<th>Record in Data Entry</th>
-				<th>EnteredBy</th>
-				<th>EnteredDate</th>
-			</tr>
-			<cfloop query="data">
+		<cfoutput>
+			<table border>
 				<tr>
-					<td><a href="/DataEntry.cfm?action=edit&collection_object_id=#collection_object_id#">#collection_object_id#</a></td>
-					<td>#enteredby#</td>
-					<td>#ENTEREDTOBULKDATE#</td>
+					<th>Record in Data Entry</th>
+					<th>EnteredBy</th>
+					<th>EnteredDate</th>
 				</tr>
-			</cfloop>
-		</table>
-	
+				<cfloop query="data">
+					<tr>
+						<td><a href="/DataEntry.cfm?action=edit&collection_object_id=#collection_object_id#">#collection_object_id#</a></td>
+						<td>#enteredby#</td>
+						<td>#ENTEREDTOBULKDATE#</td>
+					</tr>
+				</cfloop>
+			</table>
+		</cfoutput>
 	</cfif>
-	<cfdump var=#data#>
 </cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "deleteMine">
