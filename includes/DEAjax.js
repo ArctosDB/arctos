@@ -1,29 +1,11 @@
 function addMoreStuff(mode){
-	
-	console.log('here we go now');
-	
-	
 	$("#more").val('');
 	if (mode.length==0){
 		return;
 	}
-	
-	
-	
-	
 	var oidt4 =$("#other_id_num_type_4").val();
 	var oidv4=$("#other_id_num_4").val();
-	
-	
-	console.log('oidt4: ' + oidt4);
-	console.log('oidv4: ' + oidv4);
-	
-
 	if (oidt4.length > 0){
-		
-		console.log('checking oid4type');
-		
-		
 		if (oidt4 != 'UUID') {
 			alert('You cannot use this form unless other ID 4 is NULL or UUID.');
 			return false;
@@ -39,25 +21,16 @@ function addMoreStuff(mode){
 			}
 		}
 	} else {
-		console.log('NOT checking type');
 		if (oidt4 != 'UUID') {
-			console.log('setting....');
-			
 			$("#other_id_num_type_4").val('UUID');
 		}
 		if (oidv4.length == 0){
-			console.log('making UUID');
 			var uuid='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0,v=c=='x'?r:r&0x3|0x8;return v.toString(16);});
 			$("#other_id_num_4").val(uuid);
 		} else {
-			console.log('found UUID');
 			var uuid=$("#other_id_num_4").val();
 		}
-	}
-	
-	
-	
-	
+	}	
 	if (uuid===undefined){	
 		alert('bad uuid');
 		return false;
@@ -80,11 +53,8 @@ function addMoreStuff(mode){
 	$(window).resize(function() {
 		//fluidDialog();
 		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-	});	
-	
+	});
 }
-
-
 
 jQuery(document).ready(function() {
 	$( "#georeference_source" ).autocomplete({

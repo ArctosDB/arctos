@@ -502,7 +502,6 @@ grant all on cf_temp_specevent to coldfusion_user;
 	</cfquery>
 	<cflocation url="BulkloadSpecimenEvent.cfm?action=managemystuff" addtoken="false">
 </cfif>
-
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "findUUID">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
