@@ -55,8 +55,8 @@
 		/// everything here is copy/pasted from DE and then injected into the same page, so it shared ID - bla - cheat with find
 		jQuery(document).ready(function() {
 			$("#assigned_date").datepicker();
-			$("#mptab").find("[id='began_date']").datepicker();
-			$("#mptab").find("[id='ended_date']").datepicker();
+			$("#began_date1']").datepicker();
+			$("#ended_date1']").datepicker();
 
 		});
 
@@ -181,7 +181,7 @@
 		<cfquery name="ctOrigElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select orig_elev_units from ctorig_elev_units
 	    </cfquery>
-	    <label for="theForm">Add Specimen-Event:</label>
+	    <label for="theForm">Add Specimen-Event</label>
 		<form name="theForm" id="theForm">
 			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
 			<input type="hidden" name="nothing" id="nothing">
@@ -286,11 +286,11 @@
 									</td>
 									<td>
 										<label for="began_date">BeginDate</label>
-										<input type="text" name="began_date" class="reqdClr" id="began_date" size="20">
+										<input type="text" name="began_date" class="reqdClr" id="began_date1" size="20">
 									</td>
 									<td>
 										<label for="ended_date">EndDate</label>
-										<input type="text" name="ended_date" class="reqdClr" id="ended_date" size="20">
+										<input type="text" name="ended_date" class="reqdClr" id="ended_date1" size="20">
 									</td>
 								</tr>
 								<tr>
