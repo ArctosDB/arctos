@@ -464,9 +464,11 @@ grant all on cf_temp_specevent to coldfusion_user;
 		<p>
 			Use the Contact link in the footer to tell us what Tools would be useful here.
 		</p>
+		<form name="d" method="post" action="BulkloadSpecimenEvent.cfm">
+		<input type="hidden" name="action" value="deleteChecked">
 		<table border id="t" class="sortable">
 			<tr>
-				<th>Tools</th>
+				<th>Delete</th>
 				<th>Status</th>
 				<th>GUID</th>
 				<th>UUID</th>
@@ -476,7 +478,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 			</tr>
 			<cfloop query="mine">
 				<tr>
-					<td>-none-</td>
+					<td><input typr="checkbox" name="key" value="#key#"></td>
 					<td>#status#</td>
 					<td>#GUID#</td>
 					<td><a href="BulkloadSpecimenEvent.cfm?action=findUUID&uuid=#uuid#">#UUID#</a></td>
@@ -487,9 +489,16 @@ grant all on cf_temp_specevent to coldfusion_user;
 				</tr>
 			</cfloop>
 		</table>
+		<br>
+		<input type="submit" value="delete checked records">
+		</form>
 	</cfoutput>
 </cfif>
-
+deleteChecked
+<!------------------------------------------------------------------------------------------------>
+<cfif action is "deleteChecked">
+	<cfdump var=#form#>
+</cfif>
 
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "findUUID">
