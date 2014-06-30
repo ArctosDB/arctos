@@ -18,7 +18,7 @@ function addMoreStuff(mode){
 	console.log('oidt4: ' + oidt4);
 	console.log('oidv4: ' + oidv4);
 	
-	
+
 	if (oidt4.length > 0){
 		
 		console.log('checking oid4type');
@@ -27,6 +27,16 @@ function addMoreStuff(mode){
 		if (oidt4 != 'UUID') {
 			alert('You cannot use this form unless other ID 4 is NULL or UUID.');
 			return false;
+		} else {
+			// there is an existing UUID -make sure there's a corresponding value
+			if (oidv4.length==0){
+				// no value, create
+				var uuid='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0,v=c=='x'?r:r&0x3|0x8;return v.toString(16);});
+				$("#other_id_num_4").val(uuid);
+			} else {
+				// is value, use
+				var uuid=$("#other_id_num_4").val();
+			}
 		}
 	} else {
 		console.log('NOT checking type');
