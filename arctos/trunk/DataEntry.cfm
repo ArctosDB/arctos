@@ -1053,7 +1053,7 @@
 				    </div><!-- end right-col -->
 				</div><!---- end bodywrapperthingee ---->
 
-			<table cellpadding="0" cellspacing="0" width="100%" border style="background-color:##339999">
+			<table cellpadding="0" cellspacing="0" width="100%" style="background-color:##339999">
 				<tr>
 					<td width="15%">
 						<span id="theNewButton" style="display:none;">
