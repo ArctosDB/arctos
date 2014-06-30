@@ -1053,14 +1053,14 @@
 				    </div><!-- end right-col -->
 				</div><!---- end bodywrapperthingee ---->
 
-			<table cellpadding="0" cellspacing="0" width="100%" style="background-color:##339999">
+			<table cellpadding="0" cellspacing="0" width="100%" border style="background-color:##339999">
 				<tr>
-					<td width="16%">
+					<td width="15%">
 						<span id="theNewButton" style="display:none;">
 							<input type="button" value="Save This As A New Record" class="insBtn" onclick="saveNewRecord();"/>
 						 </span>
 					</td>
-					<td width="16%">
+					<td width="15%">
 						<span id="enterMode" style="display:none">
 							<input type="button"
 								value="Edit Your Last Record"
@@ -1071,13 +1071,13 @@
 							<input type="button" value="Clone This Record" class="lnkBtn" onclick="createClone()">
 						</span>
 					</td>
-					<td width="16%" nowrap="nowrap">
+					<td width="15%" nowrap="nowrap">
 						 <span id="theSaveButton" style="display:none;">
 							<input type="button" value="Save Edits" class="savBtn" onclick="saveEditedRecord();" />
 							<input type="button" value="Delete Record" class="delBtn" onclick="deleteThisRec();" />
 						</span>
 					</td>
-					<td width="16%">
+					<td width="29%">
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=ajaxGrid">[ AJAX ]</a>
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=sqlTab">[ SQL ]</a>
 						<a href="/Bulkloader/browseBulk.cfm?enteredby=#session.username#&action=viewTable">[ Java ]</a>
@@ -1089,7 +1089,7 @@
 							<option value="addSE">Add Specimen Event</option>
 						</select>
 					</td>
-					<td align="right" width="16%" nowrap="nowrap">
+					<td align="right" width="15%" nowrap="nowrap">
 						<span id="recCount">#whatIds.recordcount#</span> records <cfif whatIds.recordcount is 1000>(limit)</cfif>
 							<span id="browseThingy">
 								 - Jump to
