@@ -1,10 +1,24 @@
 function addMoreStuff(mode){
+	
+	console.log('here we go now');
+	
+	
 	$("#more").val('');
 	if (mode.length==0){
 		return;
 	}
+	
+	
+	
+	
 	var oidt4 =$("#other_id_num_type_4").val();
 	var oidv4=$("#other_id_num_4").val();
+	
+	
+	console.log('oidt4: ' + oidt4);
+	console.log('oidv4: ' + oidv4);
+	
+	
 	if (oidt4.length > 0){
 		if (oidt4 != 'UUID') {
 			alert('You cannot use this form unless other ID 4 is NULL or UUID.');
@@ -25,7 +39,11 @@ function addMoreStuff(mode){
 			console.log('found UUID');
 			var uuid=$("#other_id_num_4").val();
 		}
-	}	
+	}
+	
+	
+	
+	
 	if (uuid===undefined){	
 		alert('bad uuid');
 		return false;
