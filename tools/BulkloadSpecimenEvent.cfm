@@ -496,6 +496,31 @@ grant all on cf_temp_specevent to coldfusion_user;
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection_object_id, enteredby,ENTEREDTOBULKDATE from bulkloader  where OTHER_ID_NUM_4='#uuid#'
 	</cfquery>
+	<cfif data.recordcount is 0>
+		Bulkloader record not found!
+		<p>
+			If the record has been loaded, try <a href="BulkloadSpecimenEvent.cfm?action=getGuidUUID">Find GUIDs from UUID</a>.
+		</p>
+		<p>
+			If the UUID has been changed or the bulkloader record deleted, the information here may be irretrievably lost.
+		</p>
+	<cfelse>
+		<table border>
+			<tr>
+				<th>Record in Data Entry</th>
+				<th>EnteredBy</th>
+				<th>EnteredDate</th>
+			</tr>
+			<cfloop query="data">
+				<tr>
+					<td><a href="/DataEntry.cfm?action=edit&collection_object_id=#collection_object_id#">#collection_object_id#</a></td>
+					<td>#enteredby#</td>
+					<td>#ENTEREDTOBULKDATE#</td>
+				</tr>
+			</cfloop>
+		</table>
+	
+	</cfif>
 	<cfdump var=#data#>
 </cfif>
 <!------------------------------------------------------------------------------------------------>
