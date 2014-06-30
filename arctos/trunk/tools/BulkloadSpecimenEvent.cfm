@@ -479,7 +479,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 					<td>-none-</td>
 					<td>#status#</td>
 					<td>#GUID#</td>
-					<td>#UUID#</td>
+					<td><a href="BulkloadSpecimenEvent.cfm?action=findUUID&uuid=#uuid#">#UUID#</a></td>
 					<cfloop list="#clist#" index="i">
 						<cfset tval=evaluate("mine." & i)>
 						<td>#tval#</td>
@@ -488,6 +488,15 @@ grant all on cf_temp_specevent to coldfusion_user;
 			</cfloop>
 		</table>
 	</cfoutput>
+</cfif>
+
+
+<!------------------------------------------------------------------------------------------------>
+<cfif action is "findUUID">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select collection_object_id, enteredby,ENTEREDTOBULKDATE from bulkloader  where OTHER_ID_NUM_4='#uuid#'
+	</cfquery>
+	<cfdump var=#data#>
 </cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "deleteMine">
