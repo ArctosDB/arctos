@@ -20,12 +20,16 @@ function addMoreStuff(mode){
 	
 	
 	if (oidt4.length > 0){
+		
+		console.log('checking oid4type');
+		
+		
 		if (oidt4 != 'UUID') {
 			alert('You cannot use this form unless other ID 4 is NULL or UUID.');
 			return false;
 		}
 	} else {
-		console.log('here');
+		console.log('NOT checking type');
 		if (oidt4 != 'UUID') {
 			console.log('setting....');
 			
