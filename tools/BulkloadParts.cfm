@@ -326,7 +326,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		<p>
 			You have #mine.recordcount# records in the staging table.
 		</p>
-		<cfif session.roles contains "manage_collection")>
+		<cfif session.roles contains "manage_collection">
 			<p>
 				You have manage_collection, so you can "take" records from people in your collection.
 				<br>NOT ALL OF THESE ARE NECESSARILY YOUR SPECIMENS!!
