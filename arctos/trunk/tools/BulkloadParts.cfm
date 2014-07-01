@@ -486,6 +486,49 @@ validate
 		select * from cf_temp_parts where validated_status is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
+	
+	<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_parts set COLLECTION_OBJECT_ID = (
+			select 
+				cataloged_item.collection_object_id 
+			from
+				cataloged_item,
+				collection
+			WHERE
+				cataloged_item.collection_id = collection.collection_id and
+				collection.guid_prefix = cf_temp_parts.guid_prefix and
+				cat_num=cf_temp_attributes.other_id_number
+		) where other_id_type = 'catalog number'
+	</cfquery>
+	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+		update cf_temp_parts set COLLECTION_OBJECT_ID = (
+			select 
+				cataloged_item.collection_object_id 
+			from
+				cataloged_item,
+				collection,
+				coll_obj_other_id_num
+			WHERE
+				cataloged_item.collection_id = collection.collection_id and
+				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
+				collection.guid_prefix = cf_temp_parts.guid_prefix and
+				other_id_type = cf_temp_attributes.other_id_type and
+				display_value = cf_temp_attributes.other_id_number and
+				cat_num=cf_temp_attributes.other_id_number
+		) where other_id_type != 'catalog number'
+	</cfquery>
+	
+	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+		update cf_temp_parts set validated_status = validated_status || ';Invalid cataloged item'
+		where collection_object_id is null and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
+	
+	
+	
+	
+	
+	<!----
 	<cfloop query="data">
 		<cfif other_id_type is "catalog number">
 			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -537,6 +580,7 @@ validate
 				<br>fail...
 			</cfif>
 		</cfloop>
+		---->
 		<!---
 			Things that can happen here:
 				1) Upload a part that doesn't exist
