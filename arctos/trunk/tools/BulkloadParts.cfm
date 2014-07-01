@@ -43,7 +43,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 <cfinclude template="/includes/_header.cfm">
 
 
-
+<cfset title="Bulkload Parts">
 
 
 
@@ -355,6 +355,9 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		<cfset clist=listdeleteat(clist,listfind(clist,'KEY'))>
 		<p>
 			You have #mine.recordcount# records in the staging table.
+		</p>
+		<p>
+			<a href="BulkloadParts.cfm">Load more records</a>
 		</p>
 		<cfif session.roles contains "manage_collection">
 			<p>
