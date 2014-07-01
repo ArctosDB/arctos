@@ -429,45 +429,47 @@ grant all on cf_temp_specevent to coldfusion_user;
 <!---------------------------------------------------------------------------->
 
 <cfif action is "takeStudentRecords">
-	<cfquery name="d" datasource="uam_god">
-		select count(*) c,username from cf_temp_specevent where upper(username) != '#ucase(session.username)#' and upper(username) in (
-		select 
-			grantee
-		from 
-			dba_role_privs
-		where 
-			granted_role in (
-        		select 
-					c.portal_name 
-				from 
-					dba_role_privs d, 
-					cf_collection c
-        		where 
-					d.granted_role = c.portal_name
-        			and d.grantee = '#ucase(session.username)#'
-			)
-			and grantee in (select grantee from dba_role_privs where granted_role = 'DATA_ENTRY')
-		) group by username order by username
-	</cfquery>
-	<form name="d" method="post" action="BulkloadSpecimenEvent.cfm">
-		<input type="hidden" name="action" value="saveClaimed">
-		<table border id="t" class="sortable">
-			<tr>
-				<th>Claim</th>
-				<th>User</th>
-				<th>Count</th>
-			</tr>
-			<cfloop query="d">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select count(*) c,username from cf_temp_specevent where upper(username) != '#ucase(session.username)#' and upper(username) in (
+			select 
+				grantee
+			from 
+				dba_role_privs
+			where 
+				granted_role in (
+	        		select 
+						c.portal_name 
+					from 
+						dba_role_privs d, 
+						cf_collection c
+	        		where 
+						d.granted_role = c.portal_name
+	        			and d.grantee = '#ucase(session.username)#'
+				)
+				and grantee in (select grantee from dba_role_privs where granted_role = 'DATA_ENTRY')
+			) group by username order by username
+		</cfquery>
+		<form name="d" method="post" action="BulkloadSpecimenEvent.cfm">
+			<input type="hidden" name="action" value="saveClaimed">
+			<table border id="t" class="sortable">
 				<tr>
-					<td><input type="checkbox" name="username" value="#username#"></td>
-					<td>#username#</td>
-					<td>#c#</td>
+					<th>Claim</th>
+					<th>User</th>
+					<th>Count</th>
 				</tr>
-			</cfloop>
-		</table>
-		<br>
-		<input type="submit" value="Claim all checked records for checked users">
+				<cfloop query="d">
+					<tr>
+						<td><input type="checkbox" name="username" value="#username#"></td>
+						<td>#username#</td>
+						<td>#c#</td>
+					</tr>
+				</cfloop>
+			</table>
+			<br>
+			<input type="submit" value="Claim all checked records for checked users">
 		</form>
+	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
 
