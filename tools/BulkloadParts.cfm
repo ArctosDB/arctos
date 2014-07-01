@@ -69,6 +69,20 @@ grant all on cf_temp_parts to uam_query,uam_update;
 
 <!----------------------------------------->
 <cfif action is "nothing">
+
+	<cfoutput>
+		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_parts where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<cfif mine.recordcount gt 0>
+			<p>
+				<a href="BulkloadParts.cfm?action=managemystuff">Manage your existing #mine.recordcount# records</a>
+			</p>
+		</cfif>
+		</cfoutput>
+		
+		
+		
 	This form will probably do something strange and mess up all your data. Try it out with a very small 
 	representative sample first.
 	<p>
