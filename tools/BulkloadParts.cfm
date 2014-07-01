@@ -445,9 +445,8 @@ validate
 			validated_status = validated_status || ';Invalid part_name'
 		where 
 			upper(username)='#ucase(session.username)#' and 
-			part_name|| '|' ||collection_cde NOT IN (
-				select part_name|| '|' ||collection_cde from ctspecimen_part_name
-			)
+		 	part_name NOT IN (
+        	select part_name from ctspecimen_part_name where collection_cde=(select collection_cde from collection where guid_prefix=cf_temp_parts.guid_prefix)
 	</cfquery>
 	<cfquery name="isValid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update 
