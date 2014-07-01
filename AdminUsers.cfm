@@ -105,7 +105,7 @@
 			</div>
 			<cfabort>
 		</cfif>
-		<!--- roles that the user does not have but the administrator DOES have --->
+		<!--- grantables: roles that the user does not have but the administrator DOES have --->
 		<cfquery name="ctRoleName" datasource="uam_god">
 			select 
 				role_name 
@@ -132,12 +132,8 @@
 						upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
 						upper(grantee) = '#ucase(session.username)#'
 				)	
-		</cfquery>
-		
-		<cfdump var=#ctRoleName#>
-		
-		
-		<!---- roles that the user does have ---->
+		</cfquery>		
+		<!---- roles that the user already has ---->
 		<cfquery name="roles" datasource="uam_god">
 			select 
 				granted_role role_name
