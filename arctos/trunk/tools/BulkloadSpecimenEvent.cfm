@@ -457,9 +457,9 @@ grant all on cf_temp_specevent to coldfusion_user;
 				<th>User</th>
 				<th>Count</th>
 			</tr>
-			<cfloop query="mine">
+			<cfloop query="d">
 				<tr>
-					<td><input type="checkbox" name="grantee" value="#grantee#"></td>
+					<td><input type="checkbox" name="username" value="#username#"></td>
 					<td>#username#</td>
 					<td>#c#</td>
 				</tr>
