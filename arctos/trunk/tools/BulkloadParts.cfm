@@ -428,6 +428,9 @@ validate
 		where
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
+	
+	
+	<!-----
 	<cfquery name="validateGotParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update 
 			cf_temp_parts 
@@ -592,6 +595,13 @@ validate
 			where validated_status='VALID' 
 		</cfquery>
 		---->
+		
+		----->
+		
+		
+		
+		
+		
 		<br>after bads....
 		<cfquery name="tt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select validated_status,count(*) c from cf_temp_parts group by validated_status
@@ -621,7 +631,6 @@ validate
 			where validated_status = 'NOTE: PART EXISTS' AND
 			use_existing = 1
 		</cfquery>
-		
 		
 		<!----
 		<cflocation url="BulkloadParts.cfm?action=checkValidate">
