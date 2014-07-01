@@ -564,7 +564,7 @@ label.badPickLbl {
 	text-decoration: underline;
 }
 .mediaLink:visited {
-	color:#003B5C;
+	color:#660099;
 }
 .ajaxStatus{
 	background-color:yellow;
@@ -698,7 +698,7 @@ label.badPickLbl {
 	float:right;
 	padding-right:1em;
 	cursor:pointer;
-	color:#003B5C;
+	color:#660099;
 	font-size:.65em;
 }
 .secControl:hover {
@@ -785,7 +785,7 @@ td#SDCellRight{
 .annotateSpace, .annotateSpace a:visited .annotateSpace a {
 	font-size:.75em;
 	font-weight:bold;
-	color:#003B5C;
+	color:#660099;
 	float:right;
 	cursor:pointer;
 }
@@ -902,7 +902,7 @@ redCheck{
 
 .infoLink ,.infoLink a:visited {
 	cursor:pointer;
-	color:#003B5C;
+	color:#660099;
 	font-size:.65em;}
 
 .infoLink:hover {
@@ -1147,7 +1147,7 @@ a:visited:hover {
 
 a:visited {
 	text-decoration: none;
-	color:#003B5C
+	color:#660099
 	}
 
 a:hover  {
