@@ -422,7 +422,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 
 <cfif action is "managemystuff">
 	<script src="/includes/sorttable.js"></script>
-	<cfoutput>
+	<cfoutput>	
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_specevent where upper(username)='#ucase(session.username)#'
 		</cfquery>
@@ -433,6 +433,12 @@ grant all on cf_temp_specevent to coldfusion_user;
 		<cfset clist=listdeleteat(clist,listfind(clist,'KEY'))>
 		<p>
 			You have #mine.recordcount# records in the staging table.
+		</p>
+		<cfif session.roles contains "manage_collection")>
+		
+		</cfif>
+		<p>
+			
 		</p>
 		<p>
 			<a href="BulkloadSpecimenEvent.cfm?action=deleteMine">delete all of your data from the staging table</a>

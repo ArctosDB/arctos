@@ -122,6 +122,11 @@
 						upper(grantee) = '#ucase(username)#'
 				)
 		</cfquery>
+		
+		<cfdump var=#ctRoleName#>
+		
+		
+		
 		<cfquery name="roles" datasource="uam_god">
 			select 
 				granted_role role_name
