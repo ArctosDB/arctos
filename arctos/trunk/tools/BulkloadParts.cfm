@@ -2,6 +2,11 @@
 	
 <!---- relies on table
 
+
+SEE MIGRATION/6.4
+
+
+
 drop table cf_temp_parts;
 
 CREATE TABLE cf_temp_parts (
@@ -36,10 +41,14 @@ grant all on cf_temp_parts to uam_query,uam_update;
 
 ---->
 <cfinclude template="/includes/_header.cfm">
+<cfset numPartAttrs=6>
 <!------------------------------------------------------->
-<cfif action is "csv">
+<cfif action is "template">
 	<cfoutput>
-		<cfset d="institution_acronym,collection_cde,other_id_type,other_id_number,part_name,disposition,lot_count,remarks,use_existing,container_barcode,condition">
+		<cfset d="guid_prefix,other_id_type,other_id_number,part_name,disposition,lot_count,remarks,use_existing,container_barcode,condition">
+		<cfloop from="1" to="#numPartAttrs#" index="#i#">
+			<cfset d=d & ",PART_ATTRIBUTE_TYPE_#i#,PART_ATTRIBUTE_VALUE_#i#,PART_ATTRIBUTE_UNITS_#i#,PART_ATTRIBUTE_DATE_#i#,PART_ATTRIBUE_DETERMINER_#i#,PART_ATTRIBUE_REMARK_#i#">
+		</cfloop>
 		<cfset variables.encoding="UTF-8">
 		<cfset variables.fileName="#Application.webDirectory#/download/BulkloadParts.csv">
 		<cfscript>
@@ -73,19 +82,60 @@ grant all on cf_temp_parts to uam_query,uam_update;
 			<li>Move existing parts between containers - use <a href="BulkloadPartContainer.cfm">BulkloadPartContainer</a> instead</li>
 		</ul>
 	</p>
-	Step 1: Upload a comma-delimited text file including column headings. (<a href="BulkloadParts.cfm?action=csv">download BulkloadParts.csv template</a>)
-	Columns in <span style="color:red">red</span> are required; others are optional:
-	<ul>
-		<li style="color:red">institution_acronym</li>
-		<li style="color:red">collection_cde</li>
-		<li style="color:red">other_id_type ("catalog number" is OK)</li>
-		<li style="color:red">other_id_number</li>
-		<li style="color:red">part_name</li>
-		<li style="color:red">disposition</li>
-		<li style="color:red">lot_count</li>
-		<li>remarks</li>		
-		<li style="color:red">use_existing
-			<span style="font-size:smaller;font-style:italic;padding-left:20px;">
+	Step 1: Upload a comma-delimited text file including column headings. (<a href="BulkloadParts.cfm?action=template">download BulkloadParts.csv template</a>)
+	<table border>
+		<tr>
+			<th>Column</th>
+			<th>Required?</th>
+			<th>Description</th>
+			<th>Links</th>
+		</tr>
+		<tr>
+			<td>guid_prefix</td>
+			<td>yes</td>
+			<td>UAM:Mamm - first two parts of tripartite GUID in specimen URL, or from manage collection</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>other_id_type</td>
+			<td>yes</td>
+			<td>Code table value or "catalog number" (given as integer)</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CTCOLL_OTHER_ID_TYPE</a></td>
+		</tr>
+		<tr>
+			<td>other_id_number</td>
+			<td>yes</td>
+			<td>value of identifier ("23")</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>part_name</td>
+			<td>yes</td>
+			<td>part to create</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTSPECIMEN_PART_NAME">CTSPECIMEN_PART_NAME</a></td>
+		</tr>
+		<tr>
+			<td>disposition</td>
+			<td>yes</td>
+			<td>part disposition</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTCOLL_OBJ_DISP">CTCOLL_OBJ_DISP</a></td>
+		</tr>
+		<tr>
+			<td>lot_count</td>
+			<td>yes</td>
+			<td>integer</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>remarks</td>
+			<td>no</td>
+			<td>part remarks</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>use_existing</td>
+			<td>yes</td>
+			<td>
 				<ul>
 					<li>0: create a new part regardless of current parts</li>
 					<li>1: use existing parts when:
@@ -97,18 +147,61 @@ grant all on cf_temp_parts to uam_query,uam_update;
 						</ul>
 					</li>
 				</ul>
-			</span>	
-		</li>
-		<li>container_barcode
-			<span style="font-size:smaller;font-style:italic;padding-left:20px;">
-				<ul>
-					<li>Container barcode in which to place this part</li>
-				</ul>
-			</span>	
-		</li>	
-		<li>change_container_type</li>
-		<li style="color:red">condition</li>		 
-	</ul>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>container_barcode</td>
+			<td>no</td>
+			<td>Container barcode (eg, barcode on Nunc tube) in which to place this part</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>change_container_type</td>
+			<td>no</td>
+			<td>New type of container - change a "label" to a real container</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTCONTAINER_TYPE">CTCONTAINER_TYPE</a></td>
+		</tr>
+		<tr>
+			<td>PART_ATTRIBUTE_TYPE_n</td>
+			<td>no</td>
+			<td>part attribute</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTSPECPART_ATTRIBUTE_TYPE">CTSPECPART_ATTRIBUTE_TYPE</a></td>
+		</tr>
+		<tr>
+			<td>PART_ATTRIBUTE_VALUE_n</td>
+			<td>if PART_ATTRIBUTE_TYPE_n is given</td>
+			<td>value of part attribute</td>
+			<td>various</td>
+		</tr>
+		<tr>
+			<td>PART_ATTRIBUTE_UNITS_n</td>
+			<td>for PART_ATTRIBUTE_TYPE_n types requiring units</td>
+			<td>units of PART_ATTRIBUTE_TYPE_n</td>
+			<td>various</td>
+		</tr>
+		<tr>
+			<td>PART_ATTRIBUTE_DATE_n</td>
+			<td>no</td>
+			<td>date for PART_ATTRIBUTE_TYPE_n; day-date format only</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>PART_ATTRIBUE_DETERMINER_n</td>
+			<td>no</td>
+			<td>determiner for PART_ATTRIBUTE_TYPE_n; agent_name</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>PART_ATTRIBUE_REMARK_m</td>
+			<td>no</td>
+			<td>remark for PART_ATTRIBUTE_TYPE_n</td>
+			<td></td>
+		</tr>
+	</table>
+	
+	
+			
 	<cfform name="atts" method="post" enctype="multipart/form-data" action="BulkloadParts.cfm">
 		<input type="hidden" name="action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
@@ -116,14 +209,25 @@ grant all on cf_temp_parts to uam_query,uam_update;
 	</cfform>
 </cfif>
 <!------------------------------------------------------->
+
+<cfif action is "getCSV">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_parts where upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/BulkloadSpecimenPartData.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkloadSpecimenPartData.csv" addtoken="false">
+</cfif>
+<!------------------------------------------------------->
 <cfif action is "getFile">
 <cfoutput>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
-	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from cf_temp_parts
-	</cfquery>
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
@@ -145,67 +249,162 @@ grant all on cf_temp_parts to uam_query,uam_update;
 			</cfquery>
 		</cfif>
 	</cfloop>
-	<cflocation url="BulkloadParts.cfm?action=validate">
+	<cflocation url="BulkloadParts.cfm?action=managemystuff">
 </cfoutput>
 </cfif>
+
+
+<!------------------------------------------------------------------------------------------------>
+<cfif action is "deleteMine">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from cf_temp_parts  where upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cflocation url="BulkloadParts.cfm" addtoken="false">
+</cfif>
+<!---------------------------------------------------------------------------->
+
+<cfif action is "managemystuff">
+	<script src="/includes/sorttable.js"></script>
+	<cfoutput>	
+		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_parts where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<cfset clist=mine.columnlist>
+		<cfset clist=listdeleteat(clist,listfind(clist,'STATUS'))>
+		<cfset clist=listdeleteat(clist,listfind(clist,'KEY'))>
+		<p>
+			You have #mine.recordcount# records in the staging table.
+		</p>
+		<cfif session.roles contains "manage_collection")>
+			<p>
+				You have manage_collection, so you can "take" records from people in your collection.
+				<br>NOT ALL OF THESE ARE NECESSARILY YOUR SPECIMENS!!
+				<br>Use this with great caution. You may need to coordinate with other curatorial staff or involve a DBA.
+				<a href="BulkloadParts.cfm?action=takeStudentRecords">Check for records entered by people in your collection(s)</a>
+			</p>
+			
+		</cfif>
+		<p>
+			
+		</p>
+		<p>
+			<a href="BulkloadParts.cfm?action=deleteMine">delete all of your data from the staging table</a>
+		</p>
+		<p>
+			<a href="BulkloadParts.cfm?action=getCSV">Download as CSV</a>
+		</p>
+		<cfquery name="willload" dbtype="query">
+			select count(*) c from mine where status = 'valid'
+		</cfquery>
+		<cfif willload.recordcount eq mine.recordcount>
+			<p>
+				The data should load. Check them one more time, then <a href="BulkloadParts.cfm?action=validateFromFile">proceed to load</a>
+			</p>
+		</cfif>
+		<form name="d" method="post" action="BulkloadParts.cfm">
+		<input type="hidden" name="action" value="deleteChecked">
+		<table border id="t" class="sortable">
+			<tr>
+				<th>Delete</th>
+				<th>Status</th>
+				<cfloop list="#clist#" index="i">
+					<th>#i#</th>
+				</cfloop>
+			</tr>
+			<cfloop query="mine">
+				<tr>
+					<td><input type="checkbox" name="key" value="#key#"></td>
+					<td>#status#</td>
+					<cfloop list="#clist#" index="i">
+						<cfset tval=evaluate("mine." & i)>
+						<td>#tval#</td>
+					</cfloop>
+				</tr>
+			</cfloop>
+		</table>
+		<br>
+		<input type="submit" value="delete checked records">
+		</form>
+	</cfoutput>
+</cfif>
+
+
 <!------------------------------------------------------->
 <cfif action is "validate">
 validate
 <cfoutput>
 	<cfquery name="getParentContainerId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_parts set parent_container_id = 
-		(select container_id from container where container.barcode = cf_temp_parts.CONTAINER_BARCODE)
+		update 
+			cf_temp_parts 
+		set 
+			parent_container_id = (select container_id from container where container.barcode = cf_temp_parts.CONTAINER_BARCODE)
+		where
+			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="validateGotParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_parts set validated_status = validated_status || ';Container Barcode not found'
-		where CONTAINER_BARCODE is not null and parent_container_id is null
+		update 
+			cf_temp_parts 
+		set 
+			validated_status = validated_status || ';Container Barcode not found'
+		where 
+			CONTAINER_BARCODE is not null and 
+			parent_container_id is null and 
+			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_parts set validated_status = validated_status || ';Invalid part_name'
-		where part_name|| '|' ||collection_cde NOT IN (
-			select part_name|| '|' ||collection_cde from ctspecimen_part_name
+		update 
+			cf_temp_parts 
+		set 
+			validated_status = validated_status || ';Invalid part_name'
+		where 
+			upper(username)='#ucase(session.username)#' and 
+			part_name|| '|' ||collection_cde NOT IN (
+				select part_name|| '|' ||collection_cde from ctspecimen_part_name
 			)
-			OR part_name is null
 	</cfquery>
 	<cfquery name="isValid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_parts set validated_status = validated_status || ';Invalid use_existing flag'
-			where use_existing not in ('0','1') OR
-			use_existing is null
+		update 
+			cf_temp_parts 
+		set 
+			validated_status = validated_status || ';Invalid use_existing flag'
+		where 
+			upper(username)='#ucase(session.username)#' and
+			(use_existing not in ('0','1') OR use_existing is null)
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_parts set validated_status = validated_status || ';Invalid container_barcode'
-		where container_barcode NOT IN (
-			select barcode from container where barcode is not null
+		update 
+			cf_temp_parts 
+		set 
+			validated_status = validated_status || ';Invalid container_barcode'
+		where 
+			container_barcode NOT IN (
+				select barcode from container where barcode is not null
 			)
-		AND container_barcode is not null
+		AND container_barcode is not null and
+		upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_parts set validated_status = validated_status || ';Invalid DISPOSITION'
-		where DISPOSITION NOT IN (
-			select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP
-			)
-			OR disposition is null
+		update 
+			cf_temp_parts 
+		set 
+			validated_status = validated_status || ';Invalid DISPOSITION'
+		where 
+			DISPOSITION NOT IN (select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP) and
+			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_parts set validated_status = validated_status || ';Invalid CONTAINER_TYPE'
-		where change_container_type NOT IN (
-			select container_type from ctcontainer_type
-			)
-			AND change_container_type is null
-	</cfquery>
-	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_parts set validated_status = validated_status || ';Invalid CONDITION'
-		where CONDITION is null
-	</cfquery>
-	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_parts set validated_status = validated_status || ';Invalid LOT_COUNT'
-		where (
-			LOT_COUNT is null OR
-			is_number(lot_count) = 0
-			)
+		update 
+			cf_temp_parts 
+		set 
+			validated_status = validated_status || ';Invalid CONTAINER_TYPE'
+		where 
+			change_container_type NOT IN (select container_type from ctcontainer_type) AND 
+			change_container_type is null and
+			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_parts where validated_status is null
+		select * from cf_temp_parts where validated_status is null and
+			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfloop query="data">
 		<cfif other_id_type is "catalog number">
@@ -217,9 +416,9 @@ validate
 						collection
 					WHERE
 						cataloged_item.collection_id = collection.collection_id and
-						collection.collection_cde = '#collection_cde#' and
-						collection.institution_acronym = '#institution_acronym#' and
-						cat_num='#other_id_number#'
+						collection.guid_prefix = '#guid_prefix#' and
+						cat_num='#other_id_number#' and
+						upper(username)='#ucase(session.username)#'
 				</cfquery>
 			<cfelse>
 				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -232,10 +431,10 @@ validate
 					WHERE
 						coll_obj_other_id_num.collection_object_id = cataloged_item.collection_object_id and
 						cataloged_item.collection_id = collection.collection_id and
-						collection.collection_cde = '#collection_cde#' and
-						collection.institution_acronym = '#institution_acronym#' and
+						collection.guid_prefix = '#guid_prefix#' and
 						other_id_type = '#other_id_type#' and
-						display_value = '#other_id_number#'
+						display_value = '#other_id_number#' and
+						upper(username)='#ucase(session.username)#'
 				</cfquery>
 			</cfif>
 			<cfif collObj.recordcount is 1>					

@@ -420,6 +420,56 @@ grant all on cf_temp_specevent to coldfusion_user;
 </cfif>
 <!---------------------------------------------------------------------------->
 
+<cfif action is "saveClaimed">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_specevent set username='#session.username#' where username in (#listqualify(username,"'")#)
+	</cfquery>
+	<cflocation url="BulkloadSpecimenEvent.cfm?action=managemystuff" addtoken="false">
+</cfif>
+<!---------------------------------------------------------------------------->
+
+<cfif action is "takeStudentRecords">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select 
+			grantee
+		from 
+			dba_role_privs
+		where 
+			granted_role in (
+        		select 
+					c.portal_name 
+				from 
+					dba_role_privs d, 
+					cf_collection c
+        		where 
+					d.granted_role = c.portal_name
+        			and d.grantee = '#ucase(session.username)#'
+			)
+			and grantee in (select grantee from dba_role_privs where granted_role = 'DATA_ENTRY')
+			group by grantee order by grantee
+	</cfquery>
+	<form name="d" method="post" action="BulkloadSpecimenEvent.cfm">
+		<input type="hidden" name="action" value="saveClaimed">
+		<table border id="t" class="sortable">
+			<tr>
+				<th>Claim</th>
+				<th>User</th>
+				<th>Count</th>
+			</tr>
+			<cfloop query="mine">
+				<tr>
+					<td><input type="checkbox" name="username" value="#username#"></td>
+					<td>#status#</td>
+					<td>#GUID#</td>
+				</tr>
+			</cfloop>
+		</table>
+		<br>
+		<input type="submit" value="Claim all checked records for checked users">
+		</form>
+</cfif>
+<!---------------------------------------------------------------------------->
+
 <cfif action is "managemystuff">
 	<script src="/includes/sorttable.js"></script>
 	<cfoutput>	
@@ -435,7 +485,13 @@ grant all on cf_temp_specevent to coldfusion_user;
 			You have #mine.recordcount# records in the staging table.
 		</p>
 		<cfif session.roles contains "manage_collection")>
-		
+			<p>
+				You have manage_collection, so you can "take" records from people in your collection.
+				<br>NOT ALL OF THESE ARE NECESSARILY YOUR SPECIMENS!!
+				<br>Use this with great caution. You may need to coordinate with other curatorial staff or involve a DBA.
+				<a href="BulkloadSpecimenEvent.cfm?action=takeStudentRecords">Check for records entered by people in your collection(s)</a>
+			</p>
+			
 		</cfif>
 		<p>
 			
@@ -502,7 +558,6 @@ grant all on cf_temp_specevent to coldfusion_user;
 </cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "deleteChecked">
-	<cfdump var=#form#>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_specevent  where key in (#listqualify(key,"'")#)
 	</cfquery>
