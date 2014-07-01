@@ -426,7 +426,8 @@ validate
 		set 
 			parent_container_id = (select container_id from container where container.barcode = cf_temp_parts.CONTAINER_BARCODE)
 		where
-			upper(username)='#ucase(session.username)#'
+			upper(username)='#ucase(session.username)#' and
+			container.barcode = cf_temp_parts.CONTAINER_BARCODE
 	</cfquery>
 	
 	
