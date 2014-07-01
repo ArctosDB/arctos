@@ -497,7 +497,7 @@ validate
 			WHERE
 				cataloged_item.collection_id = collection.collection_id and
 				collection.guid_prefix = cf_temp_parts.guid_prefix and
-				cat_num=cf_temp_attributes.other_id_number
+				cat_num=cf_temp_parts.other_id_number
 		) where other_id_type = 'catalog number'
 	</cfquery>
 	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
@@ -512,9 +512,9 @@ validate
 				cataloged_item.collection_id = collection.collection_id and
 				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
 				collection.guid_prefix = cf_temp_parts.guid_prefix and
-				other_id_type = cf_temp_attributes.other_id_type and
-				display_value = cf_temp_attributes.other_id_number and
-				cat_num=cf_temp_attributes.other_id_number
+				other_id_type = cf_temp_parts.other_id_type and
+				display_value = cf_temp_parts.other_id_number and
+				cat_num=cf_temp_parts.other_id_number
 		) where other_id_type != 'catalog number'
 	</cfquery>
 	
