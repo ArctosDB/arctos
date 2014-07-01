@@ -51,7 +51,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 <!------------------------------------------------------->
 <cfif action is "template">
 	<cfoutput>
-		<cfset d="guid_prefix,other_id_type,other_id_number,part_name,disposition,lot_count,remarks,use_existing,container_barcode,condition">
+		<cfset d="guid_prefix,other_id_type,other_id_number,part_name,condition,disposition,lot_count,remarks,use_existing,container_barcode">
 		<cfloop from="1" to="#numPartAttrs#" index="i">
 			<cfset d=d & ",PART_ATTRIBUTE_TYPE_#i#,PART_ATTRIBUTE_VALUE_#i#,PART_ATTRIBUTE_UNITS_#i#,PART_ATTRIBUTE_DATE_#i#,PART_ATTRIBUE_DETERMINER_#i#,PART_ATTRIBUE_REMARK_#i#">
 		</cfloop>
@@ -120,6 +120,14 @@ grant all on cf_temp_parts to uam_query,uam_update;
 			<td>yes</td>
 			<td>part to create</td>
 			<td><a href="/info/ctDocumentation.cfm?table=CTSPECIMEN_PART_NAME">CTSPECIMEN_PART_NAME</a></td>
+		</tr>
+		
+		
+		<tr>
+			<td>condition</td>
+			<td>yes</td>
+			<td>part condition</td>
+			<td></td>
 		</tr>
 		<tr>
 			<td>disposition</td>
@@ -383,7 +391,13 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		</form>
 	</cfoutput>
 </cfif>
-
+<!------------------------------------------------------------------------------------------------>
+<cfif action is "deleteChecked">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from cf_temp_parts  where key in (#listqualify(key,"'")#)
+	</cfquery>
+	<cflocation url="BulkloadParts.cfm?action=managemystuff" addtoken="false">
+</cfif>
 <!------------------------------------------------------->
 <cfif action is "validate">
 validate
