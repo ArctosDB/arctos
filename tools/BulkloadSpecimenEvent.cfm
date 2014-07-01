@@ -429,7 +429,8 @@ grant all on cf_temp_specevent to coldfusion_user;
 <!---------------------------------------------------------------------------->
 
 <cfif action is "takeStudentRecords">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="d" datasource="uam_god">
+		select count(*) c,username from cf_temp_specevent where upper(username) != '#ucase(session.username)#' and upper(username) in (
 		select 
 			grantee
 		from 
@@ -446,7 +447,7 @@ grant all on cf_temp_specevent to coldfusion_user;
         			and d.grantee = '#ucase(session.username)#'
 			)
 			and grantee in (select grantee from dba_role_privs where granted_role = 'DATA_ENTRY')
-			group by grantee order by grantee
+		) group by username order by username
 	</cfquery>
 	<form name="d" method="post" action="BulkloadSpecimenEvent.cfm">
 		<input type="hidden" name="action" value="saveClaimed">
@@ -458,9 +459,9 @@ grant all on cf_temp_specevent to coldfusion_user;
 			</tr>
 			<cfloop query="mine">
 				<tr>
-					<td><input type="checkbox" name="username" value="#username#"></td>
-					<td>#status#</td>
-					<td>#GUID#</td>
+					<td><input type="checkbox" name="grantee" value="#grantee#"></td>
+					<td>#username#</td>
+					<td>#c#</td>
 				</tr>
 			</cfloop>
 		</table>
@@ -484,7 +485,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 		<p>
 			You have #mine.recordcount# records in the staging table.
 		</p>
-		<cfif session.roles contains "manage_collection")>
+		<cfif session.roles contains "manage_collection">
 			<p>
 				You have manage_collection, so you can "take" records from people in your collection.
 				<br>NOT ALL OF THESE ARE NECESSARILY YOUR SPECIMENS!!
