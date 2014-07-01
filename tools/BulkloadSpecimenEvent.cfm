@@ -491,8 +491,9 @@ grant all on cf_temp_specevent to coldfusion_user;
 			<p>
 				You have manage_collection, so you can "take" records from people in your collection.
 				<br>NOT ALL OF THESE ARE NECESSARILY YOUR SPECIMENS!!
-				<br>Use this with great caution. You may need to coordinate with other curatorial staff or involve a DBA.
-				<a href="BulkloadSpecimenEvent.cfm?action=takeStudentRecords">Check for records entered by people in your collection(s)</a>
+				<br>Use this with great caution, especially if the originating user has acess to multiple collections. 
+				You may need to coordinate with other curatorial staff or involve a DBA.
+				<br><a href="BulkloadSpecimenEvent.cfm?action=takeStudentRecords">Check for records entered by people in your collection(s)</a>
 			</p>
 			
 		</cfif>
@@ -1184,3 +1185,4 @@ grant all on cf_temp_specevent to coldfusion_user;
 		</cfloop>
 	</cfoutput>
 </cfif>
+<cfinclude template="/includes/_footer.cfm">
