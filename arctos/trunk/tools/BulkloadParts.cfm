@@ -427,11 +427,10 @@ validate
 			parent_container_id = (select container_id from container where container.barcode = cf_temp_parts.CONTAINER_BARCODE)
 		where
 			upper(username)='#ucase(session.username)#' and
-			container.barcode = cf_temp_parts.CONTAINER_BARCODE
+			CONTAINER_BARCODE is not null
 	</cfquery>
 	
 	
-	<!-----
 	<cfquery name="validateGotParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update 
 			cf_temp_parts 
@@ -450,16 +449,7 @@ validate
 		where 
 			upper(username)='#ucase(session.username)#' and 
 		 	part_name NOT IN (
-        	select part_name from ctspecimen_part_name where collection_cde=(select collection_cde from collection where guid_prefix=cf_temp_parts.guid_prefix)
-	</cfquery>
-	<cfquery name="isValid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			cf_temp_parts 
-		set 
-			validated_status = validated_status || ';Invalid use_existing flag'
-		where 
-			upper(username)='#ucase(session.username)#' and
-			(use_existing not in ('0','1') OR use_existing is null)
+        	select part_name from ctspecimen_part_name where collection_cde=(select collection_cde from collection where guid_prefix=cf_temp_parts.guid_prefix))
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update 
@@ -489,7 +479,7 @@ validate
 			validated_status = validated_status || ';Invalid CONTAINER_TYPE'
 		where 
 			change_container_type NOT IN (select container_type from ctcontainer_type) AND 
-			change_container_type is null and
+			change_container_type is not null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
