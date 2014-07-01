@@ -42,7 +42,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 ---->
 <cfinclude template="/includes/_header.cfm">
 
-<!----
+
 
 
 
@@ -216,7 +216,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 </cfif>
 <!------------------------------------------------------->
 
-
+<!----
 <cfif action is "getCSV">
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_parts where upper(username)='#ucase(session.username)#'
