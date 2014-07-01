@@ -66,6 +66,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		<a href="/download/BulkloadParts.csv">Click here if your file does not automatically download.</a>
 	</cfoutput>
 </cfif>
+<!----
 <!----------------------------------------->
 <cfif action is "nothing">
 	This form will probably do something strange and mess up all your data. Try it out with a very small 
@@ -216,7 +217,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 </cfif>
 <!------------------------------------------------------->
 
-<!----
+
 <cfif action is "getCSV">
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_parts where upper(username)='#ucase(session.username)#'
