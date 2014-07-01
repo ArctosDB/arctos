@@ -58,7 +58,7 @@ label.badPickLbl{color:red;width:15em;height:2em;background-image:url(/images/ca
 .showType{font-size:small;color:green;border:1px dotted green;padding-left:5px}
 .pickBox{border:2px solid green;z-index:2001;background-color:gray;position:absolute;width:50%;top:20%;left:20%;padding:12px}
 .mediaLink{padding-left:5px;color:#2B547E;font-size:small;display:block}
-.mediaLink:visited{color:#003B5C}
+.mediaLink:visited{color:#609}
 .ajaxStatus{background-color:#FF0;position:absolute;top:5em;right:0;font-size:small;padding:5px}
 .hdrCredit{font-size:small}
 .ac_results{border:1px solid #000;background-color:#FFF;overflow:hidden;z-index:99999;padding:0}
@@ -82,7 +82,7 @@ label.badPickLbl{color:red;width:15em;height:2em;background-image:url(/images/ca
 .sscustomBox{border:3px solid green;z-index:9999;position:absolute;top:5%;left:5%;background-color:#FFF;max-width:60em;padding:.5em}
 .secHead{background-color:#D3D3D3}
 .secLabel{float:left;font-weight:700}
-.secControl,.infoLink a:visited{float:right;padding-right:1em;cursor:pointer;color:#003B5C;font-size:.65em}
+.secControl,.infoLink a:visited{float:right;padding-right:1em;cursor:pointer;color:#609;font-size:.65em}
 .secDiv{border:1px solid green;width:50em;margin-left:1em}
 td.lbl{width:15em;text-align:right;padding-right:5px}
 .innerDetailLabel{color:#000;font-weight:400}
@@ -97,7 +97,7 @@ td#SDCellRight{text-align:left;vertical-align:top;row-span:1}
 .detailElements{font-size:1em}
 .headerInstitutionText{color:#006;font-weight:700}
 .headerCollectionText{font-size:24px;color:#006}
-.annotateSpace,.annotateSpace a:visited .annotateSpace a{font-size:.75em;font-weight:700;color:#003B5C;float:right;cursor:pointer}
+.annotateSpace,.annotateSpace a:visited .annotateSpace a{font-size:.75em;font-weight:700;color:#609;float:right;cursor:pointer}
 .specResultPartCell{font-size:small;border:none}
 .popDivControl{position:absolute;top:0;right:0;cursor:pointer;color:#2B547E;font-size:.85em;border:1px solid red;padding:3px}
 .windowCloser{float:right;clear:left;position:relative;top:0;cursor:pointer;color:#2B547E;font-size:.85em}
@@ -112,7 +112,7 @@ table.specResultTab td{-moz-border-radius:0;border-color:gray;border-style:solid
 div.code{font-size:smaller;color:#2F4F4F}
 span.helpDiv{position:relative;z-index:2001;color:#00F;text-decoration:none}
 redCheck{border:5px solid red}
-.infoLink,.infoLink a:visited{cursor:pointer;color:#003B5C;font-size:.65em}
+.infoLink,.infoLink a:visited{cursor:pointer;color:#609;font-size:.65em}
 .pageHelp,.pagehelp a:visited{font-size:.75em;font-weight:700;color:blue;float:right}
 .error{position:absolute;font-size:1.2em;color:red;border:2px solid red;text-align:center;top:50%;left:20%;background-color:#FFF;z-index:20;margin:10px;padding:.5em}
 .status{position:absolute;top:50%;right:50%;z-index:998;background-color:green;color:#FFF;font-size:large;font-weight:700;padding:15px}
@@ -137,7 +137,7 @@ div.group{background-color:#EFEFEF;border:3px solid #EFEFEF;padding:5px}
 .controlButton{color:#666;font-size:10pt;font-weight:700;background-color:#9CF;border:1px solid;text-align:center;cursor:hand;text-decoration:none;border-color:#366;padding:2px}
 .linkButton{color:#666;font-size:10pt;font-weight:700;background-color:#9CF;border:1px solid;text-align:center;border-color:#366;padding:2px}
 a:link{text-decoration:none;color:blue}
-a:visited{text-decoration:none;color:#003B5C}
+a:visited{text-decoration:none;color:#609}
 .evenRow{background-color:#E5E5E5}
 .oddRow{background-color:#F5F5F5}
 .indent{text-indent:-2em;padding-left:2em}
