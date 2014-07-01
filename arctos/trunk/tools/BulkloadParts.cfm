@@ -282,8 +282,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 	<cflocation url="BulkloadParts.cfm?action=managemystuff">
 </cfoutput>
 </cfif>
-
-
+<!------------------------------------------------------->
 <cfif action is "takeStudentRecords">
 	<cfoutput>
 		<a href="BulkloadSpecimenEvent.cfm?action=managemystuff">back to my stuff</a>
@@ -358,6 +357,8 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		</p>
 		<p>
 			<a href="BulkloadParts.cfm">Load more records</a>
+		</p><p>
+			<a href="BulkloadParts.cfm?action=validate">validate records</a>
 		</p>
 		<cfif session.roles contains "manage_collection">
 			<p>
@@ -621,7 +622,11 @@ validate
 			where validated_status = 'NOTE: PART EXISTS' AND
 			use_existing = 1
 		</cfquery>
+		
+		
+		<!----
 		<cflocation url="BulkloadParts.cfm?action=checkValidate">
+		---->
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
