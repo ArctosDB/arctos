@@ -254,6 +254,57 @@ grant all on cf_temp_parts to uam_query,uam_update;
 </cfif>
 
 
+<cfif action is "takeStudentRecords">
+	<cfoutput>
+		<a href="BulkloadSpecimenEvent.cfm?action=managemystuff">back to my stuff</a>
+		<cfquery name="d" datasource="uam_god">
+			select count(*) c,username from cf_temp_parts where upper(username) != '#ucase(session.username)#' and upper(username) in (
+			select 
+				grantee
+			from 
+				dba_role_privs
+			where 
+				granted_role in (
+	        		select 
+						c.portal_name 
+					from 
+						dba_role_privs d, 
+						cf_collection c
+	        		where 
+						d.granted_role = c.portal_name
+	        			and d.grantee = '#ucase(session.username)#'
+				)
+				and grantee in (select grantee from dba_role_privs where granted_role = 'DATA_ENTRY')
+			) group by username order by username
+		</cfquery>
+		<form name="d" method="post" action="BulkloadParts.cfm">
+			<input type="hidden" name="action" value="saveClaimed">
+			<table border id="t" class="sortable">
+				<tr>
+					<th>Claim</th>
+					<th>User</th>
+					<th>Count</th>
+				</tr>
+				<cfloop query="d">
+					<tr>
+						<td><input type="checkbox" name="username" value="#username#"></td>
+						<td>#username#</td>
+						<td>#c#</td>
+					</tr>
+				</cfloop>
+			</table>
+			<br>
+			<input type="submit" value="Claim all checked records for checked users">
+		</form>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------------------------>
+<cfif action is "saveClaimed">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_parts set username='#session.username#' where username in (#listqualify(username,"'")#)
+	</cfquery>
+	<cflocation url="BulkloadParts.cfm?action=managemystuff" addtoken="false">
+</cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "deleteMine">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -284,9 +335,6 @@ grant all on cf_temp_parts to uam_query,uam_update;
 			</p>
 			
 		</cfif>
-		<p>
-			
-		</p>
 		<p>
 			<a href="BulkloadParts.cfm?action=deleteMine">delete all of your data from the staging table</a>
 		</p>

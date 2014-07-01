@@ -430,6 +430,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 
 <cfif action is "takeStudentRecords">
 	<cfoutput>
+		<a href="BulkloadSpecimenEvent.cfm?action=managemystuff">back to my stuff</a>
 		<cfquery name="d" datasource="uam_god">
 			select count(*) c,username from cf_temp_specevent where upper(username) != '#ucase(session.username)#' and upper(username) in (
 			select 
