@@ -48,6 +48,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 
 
 <cfset numPartAttrs=6>
+<!----
 <!------------------------------------------------------->
 <cfif action is "template">
 	<cfoutput>
@@ -66,7 +67,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		<a href="/download/BulkloadParts.csv">Click here if your file does not automatically download.</a>
 	</cfoutput>
 </cfif>
-<!----
+
 <!----------------------------------------->
 <cfif action is "nothing">
 	This form will probably do something strange and mess up all your data. Try it out with a very small 
