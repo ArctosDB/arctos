@@ -48,12 +48,11 @@ grant all on cf_temp_parts to uam_query,uam_update;
 
 
 <cfset numPartAttrs=6>
-<!----
 <!------------------------------------------------------->
 <cfif action is "template">
 	<cfoutput>
 		<cfset d="guid_prefix,other_id_type,other_id_number,part_name,disposition,lot_count,remarks,use_existing,container_barcode,condition">
-		<cfloop from="1" to="#numPartAttrs#" index="#i#">
+		<cfloop from="1" to="#numPartAttrs#" index="i">
 			<cfset d=d & ",PART_ATTRIBUTE_TYPE_#i#,PART_ATTRIBUTE_VALUE_#i#,PART_ATTRIBUTE_UNITS_#i#,PART_ATTRIBUTE_DATE_#i#,PART_ATTRIBUE_DETERMINER_#i#,PART_ATTRIBUE_REMARK_#i#">
 		</cfloop>
 		<cfset variables.encoding="UTF-8">
@@ -385,7 +384,6 @@ grant all on cf_temp_parts to uam_query,uam_update;
 	</cfoutput>
 </cfif>
 
----->
 <!------------------------------------------------------->
 <cfif action is "validate">
 validate
