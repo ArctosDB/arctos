@@ -786,7 +786,7 @@ validate
 					<cfset thisAttrRem=evaluate("PART_ATTRIBUE_REMARK_" & i)>
 					<cfquery name="nattr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					 	insert into specimen_part_attribute (
-					 		PART_ATTRIBUTE_ID
+					 		PART_ATTRIBUTE_ID,
 					 		COLLECTION_OBJECT_ID,
 					 		ATTRIBUTE_TYPE ,
 					 		ATTRIBUTE_VALUE,
