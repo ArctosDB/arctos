@@ -613,7 +613,15 @@ validate
 			 	getAgentId(PART_ATTRIBUE_DETERMINER_#i#) is not null
 		</cfquery>
 	</cfloop>
-	
+	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_parts 
+			set 
+				status = 'valid'
+			where 
+				upper(username)='#ucase(session.username)#' and
+				status is null
+		</cfquery>
 	
 		<cflocation url="BulkloadParts.cfm?action=manageMyStuff">
 		
