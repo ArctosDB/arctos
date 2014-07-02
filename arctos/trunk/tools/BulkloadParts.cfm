@@ -533,7 +533,7 @@ validate
 		update 
 			cf_temp_parts set USE_PART_ID = (
 				select 
-					collection_object_id 
+					specimen_part.collection_object_id 
 				from
 					specimen_part,
 					coll_obj_cont_hist,
