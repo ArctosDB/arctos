@@ -380,7 +380,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		</cfquery>
 		<cfif willload.recordcount eq mine.recordcount>
 			<p>
-				The data should load. Check them one more time, then <a href="BulkloadParts.cfm?action=validateFromFile">proceed to load</a>
+				The data should load. Check them one more time, then <a href="BulkloadParts.cfm?action=loadToDb">proceed to load</a>
 			</p>
 		</cfif>
 		<form name="d" method="post" action="BulkloadParts.cfm">
@@ -620,75 +620,6 @@ validate
 		<!----
 		---->
 </cfoutput>
-</cfif>
-<!------------------------------------------------------->
-<cfif action is "checkValidate">
-<style>
- .int {font-size:xx-small;color:green;}
-</style>
-	<cfoutput>
-	<cfquery name="inT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_parts
-	</cfquery>
-	<table border>
-		<tr>
-			<td>Problem</td>
-			<td>IA:CC</td>
-			<td>ID_TYPE</td>
-			<td>ID_NUMBER</td>
-			<td>part_name</td>
-			<td>disposition</td>
-			<td>lot_count</td>
-			<td>remarks</td>
-			<td>condition</td>
-			<td>Container_Barcode</td>
-			<td>use_existing</td>
-			<td>change_container_type</td>
-		</tr>
-		<cfloop query="inT">
-			<tr>
-				<td>
-					<span class="int">#key#</span>
-					<span class="int"> #collection_object_id# </span>
-					<span class="int"> \#validated_status#\ </span>
-					<cfif len(collection_object_id) gt 0 and validated_status is 'VALID'>
-						<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="_blank">Specimen</a>
-					<cfelseif left(validated_status,5) is 'NOTE:'>
-						<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="_blank">Specimen</a> (#validated_status#)
-					<cfelse>
-						#validated_status#					
-					</cfif>
-				</td>
-				<td>#institution_acronym#:#collection_cde#</td>
-				<td>#OTHER_ID_TYPE#</td>
-				<td>#OTHER_ID_NUMBER#</td>
-				<td>
-					<span class="int">#use_part_id#</span>
-					#part_name#
-				</td>
-				<td>#disposition#</td>
-				<td>#lot_count#</td>
-				<td>#remarks#</td>
-				<td>#condition#</td>
-				<td>
-					<span class="int">#parent_container_id#</span>
-					#Container_Barcode#
-				</td>
-				<td>#use_existing#</td>
-				<td>#change_container_type#</td>				
-			</tr>
-		</cfloop>
-	</table>
-	</cfoutput>
-	<cfquery name="allValid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) as cnt from cf_temp_parts where substr(validated_status,1,5) NOT IN
-			('VALID','NOTE:')
-	</cfquery>
-	<cfif allValid.cnt is 0>
-		<a href="BulkloadParts.cfm?action=loadToDb">Load these parts....</a>
-	<cfelse>
-		You must fix everything above to proceed.
-	</cfif>
 </cfif>
 <!-------------------------------------------------------------------------------------------->
 <cfif action is "loadToDb">
