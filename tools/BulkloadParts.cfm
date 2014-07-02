@@ -435,7 +435,7 @@ validate
 		update 
 			cf_temp_parts 
 		set 
-			validated_status = validated_status || ';Container Barcode not found'
+			status = status || ';Container Barcode not found'
 		where 
 			CONTAINER_BARCODE is not null and 
 			parent_container_id is null and 
@@ -445,7 +445,7 @@ validate
 		update 
 			cf_temp_parts 
 		set 
-			validated_status = validated_status || ';Invalid part_name'
+			status = status || ';Invalid part_name'
 		where 
 			upper(username)='#ucase(session.username)#' and 
 		 	part_name NOT IN (
@@ -455,7 +455,7 @@ validate
 		update 
 			cf_temp_parts 
 		set 
-			validated_status = validated_status || ';Invalid container_barcode'
+			status = status || ';Invalid container_barcode'
 		where 
 			container_barcode NOT IN (
 				select barcode from container where barcode is not null
@@ -467,7 +467,7 @@ validate
 		update 
 			cf_temp_parts 
 		set 
-			validated_status = validated_status || ';Invalid DISPOSITION'
+			status = status || ';Invalid DISPOSITION'
 		where 
 			DISPOSITION NOT IN (select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP) and
 			upper(username)='#ucase(session.username)#'
@@ -476,14 +476,14 @@ validate
 		update 
 			cf_temp_parts 
 		set 
-			validated_status = validated_status || ';Invalid CONTAINER_TYPE'
+			status = status || ';Invalid CONTAINER_TYPE'
 		where 
 			change_container_type NOT IN (select container_type from ctcontainer_type) AND 
 			change_container_type is not null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_parts where validated_status is null and
+		select * from cf_temp_parts where status is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	
@@ -519,7 +519,7 @@ validate
 	</cfquery>
 	
 	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
-		update cf_temp_parts set validated_status = validated_status || ';Invalid cataloged item'
+		update cf_temp_parts set status = status || ';Invalid cataloged item'
 		where collection_object_id is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
@@ -529,7 +529,7 @@ validate
 			update 
 				cf_temp_parts 
 			set 
-				validated_status = validated_status || ';Invalid PART_ATTRIBUTE_TYPE_#i#'
+				status = status || ';Invalid PART_ATTRIBUTE_TYPE_#i#'
 			where 
 				upper(username)='#ucase(session.username)#' and 
 				PART_ATTRIBUTE_TYPE_#i# is not null and 
@@ -539,7 +539,7 @@ validate
 			update 
 				cf_temp_parts 
 			set 
-				validated_status = validated_status || ';PART_ATTRIBUTE_VALUE_#i# is required when PART_ATTRIBUTE_TYPE_#i# is given'
+				status = status || ';PART_ATTRIBUTE_VALUE_#i# is required when PART_ATTRIBUTE_TYPE_#i# is given'
 			where 
 				upper(username)='#ucase(session.username)#' and 
 				PART_ATTRIBUTE_TYPE_#i# is not null and 
@@ -552,7 +552,7 @@ validate
 			update 
 				cf_temp_parts 
 			set 
-				validated_status = validated_status || ';PART_ATTRIBUTE_DATE_#i# is invalid'
+				status = status || ';PART_ATTRIBUTE_DATE_#i# is invalid'
 			where 
 				upper(username)='#ucase(session.username)#' and 
 				PART_ATTRIBUTE_TYPE_#i# is not null and 
@@ -565,7 +565,7 @@ validate
 			update 
 				cf_temp_parts 
 			set 
-				validated_status = validated_status || ';PART_ATTRIBUE_DETERMINER_#i# is invalid'
+				status = status || ';PART_ATTRIBUE_DETERMINER_#i# is invalid'
 			where 
 				upper(username)='#ucase(session.username)#' and 
 				PART_ATTRIBUTE_TYPE_#i# is not null and 
@@ -605,7 +605,7 @@ validate
 		---->
 		<br>before bads....
 		<cfquery name="tt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select validated_status,count(*) c from cf_temp_parts group by validated_status
+			select status,count(*) c from cf_temp_parts group by status
 		</cfquery>
 		<cfdump var=#tt#>
 		<!----
@@ -644,16 +644,16 @@ validate
 		
 		<br>after bads....
 		<cfquery name="tt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select validated_status,count(*) c from cf_temp_parts group by validated_status
+			select status,count(*) c from cf_temp_parts group by status
 		</cfquery>
 		<cfdump var=#tt#>
 		
 		<cfquery name="gonenowback" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_parts set validated_status='VALID' where validated_status is null
+			update cf_temp_parts set status='VALID' where status is null
 		</cfquery>
 		<br>after reuip....
 		<cfquery name="tt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select validated_status,count(*) c from cf_temp_parts group by validated_status
+			select status,count(*) c from cf_temp_parts group by status
 		</cfquery>
 		<cfdump var=#tt#>
 		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -661,14 +661,14 @@ validate
 			select container_id
 			from container where
 			barcode=container_barcode)
-			where substr(validated_status,1,5) IN ('VALID','NOTE:')
+			where substr(status,1,5) IN ('VALID','NOTE:')
 		</cfquery>
 		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_parts set (use_part_id) = (
 			select min(specimen_part.collection_object_id)			
 			from specimen_part where
 			cf_temp_parts.part_name=specimen_part.part_name)
-			where validated_status = 'NOTE: PART EXISTS' AND
+			where status = 'NOTE: PART EXISTS' AND
 			use_existing = 1
 		</cfquery>
 		
