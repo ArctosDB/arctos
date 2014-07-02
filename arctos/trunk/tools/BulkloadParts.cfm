@@ -525,13 +525,53 @@ validate
 	</cfquery>
 	
 	<cfloop from="1" to="#numPartAttrs#" index="i">
-		<cfset thisPartAttr=evaluate("PART_ATTRIBUTE_TYPE_" & i)>
-		<cfif len(thisPartAttr) gt 0>
-			got an attribute....
-		</cfif>
-		<!----
-		<cfset d=d & ",PART_ATTRIBUTE_TYPE_#i#,PART_ATTRIBUTE_VALUE_#i#,PART_ATTRIBUTE_UNITS_#i#,PART_ATTRIBUTE_DATE_#i#,PART_ATTRIBUE_DETERMINER_#i#,PART_ATTRIBUE_REMARK_#i#">
-		---->
+		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_parts 
+			set 
+				validated_status = validated_status || ';Invalid PART_ATTRIBUTE_TYPE_#i#'
+			where 
+				upper(username)='#ucase(session.username)#' and 
+				PART_ATTRIBUTE_TYPE_#i# is not null and 
+			 	PART_ATTRIBUTE_TYPE_#i# NOT IN (select ATTRIBUTE_TYPE from CTSPECPART_ATTRIBUTE_TYPE)
+		</cfquery>
+		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_parts 
+			set 
+				validated_status = validated_status || ';PART_ATTRIBUTE_VALUE_#i# is required when PART_ATTRIBUTE_TYPE_#i# is given'
+			where 
+				upper(username)='#ucase(session.username)#' and 
+				PART_ATTRIBUTE_TYPE_#i# is not null and 
+			 	PART_ATTRIBUTE_VALUE_#i# is null
+		</cfquery>
+		<!--- units is not used at this point - add as necessary ---->
+		<!---- there is no type/value/units relationship - add as necessary ---->
+		
+		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_parts 
+			set 
+				validated_status = validated_status || ';PART_ATTRIBUTE_DATE_#i# is invalid'
+			where 
+				upper(username)='#ucase(session.username)#' and 
+				PART_ATTRIBUTE_TYPE_#i# is not null and 
+			 	PART_ATTRIBUTE_DATE_#i# is not null and (
+			 		is_iso8601(PART_ATTRIBUTE_DATE_#i#) != 'valid' or
+			 		length(PART_ATTRIBUTE_DATE_#i#)!=10
+			 	)
+		</cfquery>
+		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_parts 
+			set 
+				validated_status = validated_status || ';PART_ATTRIBUE_DETERMINER_#i# is invalid'
+			where 
+				upper(username)='#ucase(session.username)#' and 
+				PART_ATTRIBUTE_TYPE_#i# is not null and 
+			 	PART_ATTRIBUE_DETERMINER_#i# is not null and 
+			 	getAgentId(PART_ATTRIBUE_DETERMINER_#i#) is not null
+		</cfquery>
 	</cfloop>
 	
 	
