@@ -1,3 +1,18 @@
+
+<cfif action is "addPart">
+	<cfoutput>
+		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       	select part_name from ctspecimen_part_name where collection_cde='#collection_cde#' group by part_name order by part_name
+	    </cfquery>
+	    <label for="theForm">Add Specimen-Event</label>
+		<form name="theForm" id="theForm">
+			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
+			<input type="hidden" name="nothing" id="nothing">
+			<input type="hidden" name="letype" id="letype" value="pick_event">
+			<table id="mptab">
+	</cfoutput>	
+</cfif>
+
 <cfif action is "seeWhatsThere">
 	<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from  cf_temp_specevent  where UUID='#UUID#'

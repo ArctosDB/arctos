@@ -35,7 +35,8 @@ function addMoreStuff(mode){
 		alert('bad uuid');
 		return false;
 	}
-	var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid + '&action=' + mode;
+	var collection_cde=$("#collection_cde").val();
+	var guts = "/form/DataEntryExtras.cfm?uuid=" + uuid + '&action=' + mode + '&collection_cde=' + collection_cde;
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
