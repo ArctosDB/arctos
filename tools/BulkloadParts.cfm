@@ -524,63 +524,28 @@ validate
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	
-	
-	
-	
-	
-	<!----
-	<cfloop query="data">
-		<cfif other_id_type is "catalog number">
-			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					SELECT 
-						collection_object_id
-					FROM
-						cataloged_item,
-						collection
-					WHERE
-						cataloged_item.collection_id = collection.collection_id and
-						collection.guid_prefix = '#guid_prefix#' and
-						cat_num='#other_id_number#' and
-						upper(username)='#ucase(session.username)#'
-				</cfquery>
-			<cfelse>
-				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					SELECT 
-						coll_obj_other_id_num.collection_object_id
-					FROM
-						coll_obj_other_id_num,
-						cataloged_item,
-						collection
-					WHERE
-						coll_obj_other_id_num.collection_object_id = cataloged_item.collection_object_id and
-						cataloged_item.collection_id = collection.collection_id and
-						collection.guid_prefix = '#guid_prefix#' and
-						other_id_type = '#other_id_type#' and
-						display_value = '#other_id_number#' and
-						upper(username)='#ucase(session.username)#'
-				</cfquery>
-			</cfif>
-			<cfif collObj.recordcount is 1>					
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					UPDATE 
-						cf_temp_parts 
-					SET 
-						collection_object_id = #collObj.collection_object_id#,
-						validated_status='VALID'
-					where
-						key = #key#
-				</cfquery>
-				<br>updating #key# to #collObj.collection_object_id#
-			<cfelse>				
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					UPDATE cf_temp_parts SET validated_status = 
-					validated_status || ';#data.institution_acronym# #data.collection_cde# #data.other_id_type# #data.other_id_number# could not be found.' 
-					where key = #key#
-				</cfquery>
-				<br>fail...
-			</cfif>
-		</cfloop>
+	<cfloop from="1" to="#numPartAttrs#" index="i">
+		<cfset thisPartAttr=evaluate("PART_ATTRIBUTE_TYPE_" & i)>
+		<cfif len(thisPartAttr) gt 0>
+			got an attribute....
+		</cfif>
+		<!----
+		<cfset d=d & ",PART_ATTRIBUTE_TYPE_#i#,PART_ATTRIBUTE_VALUE_#i#,PART_ATTRIBUTE_UNITS_#i#,PART_ATTRIBUTE_DATE_#i#,PART_ATTRIBUE_DETERMINER_#i#,PART_ATTRIBUE_REMARK_#i#">
 		---->
+	</cfloop>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		<!---
 			Things that can happen here:
 				1) Upload a part that doesn't exist
