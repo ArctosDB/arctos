@@ -523,6 +523,46 @@ validate
 		where collection_object_id is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
+	<!---
+		"not containers" are:
+			0: CONTAINER ZERO
+			476089: UAM PARENTLESS VOID
+			397630: MVZ PARENTLESS VOID
+	---->
+	<cfquery name="getExistingPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+		update 
+			cf_temp_parts set USE_PART_ID = (
+				select 
+					collection_object_id 
+				from
+					specimen_part,
+					coll_obj_cont_hist,
+					container
+				where
+					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+					coll_obj_cont_hist.container_id=container.container_id and
+					container.parent_container_id in (0,476089,397630) and
+					specimen_part.derived_from_cat_item=cf_temp_parts.collection_object_id
+			)
+		where
+			collection_object_id is not null and
+			USE_EXISTING=1 and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfquery name="getExistingPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+		update 
+			cf_temp_parts set PARENT_CONTAINER_ID = (
+				select 
+					container_id 
+				from
+					container
+				where
+					barcode=cf_temp_parts.CONTAINER_BARCODE
+				)
+		where
+			CONTAINER_BARCODE is not null and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
 	
 	<cfloop from="1" to="#numPartAttrs#" index="i">
 		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -575,105 +615,9 @@ validate
 	</cfloop>
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		<!---
-			Things that can happen here:
-				1) Upload a part that doesn't exist
-					Solution: create a new part, optionally put it in a container that they specify in the upload.
-				2) Upload a part that already exists
-					a) use_existing = 1
-						1) part is in a container
-							Solution: warn them, create new part, optionally put it in a container that they've specified
-						 2) part is NOT already in a container
-						 	Solution: put the existing part into the new container that they've specified or, if
-						 	they haven't specified a new container, ignore this line as it does nothing.
-					b) use_existing = 0
-						1) part is in a container
-							Solution: warn them, create a new part, optionally put it in the container they've specified
-						2) part is not in a container
-							Solution: same: warning and new part		
-		---->
-		<br>before bads....
-		<cfquery name="tt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select status,count(*) c from cf_temp_parts group by status
-		</cfquery>
-		<cfdump var=#tt#>
-		<!----
-		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_parts 
-			set 
-				(validated_status) = (
-				select 
-					decode(parent_container_id,
-					0,'NOTE: PART EXISTS IN CONTAINER ZERO',
-					476089,'NOTE: PART EXISTS IN UAM PARENTLESS VOID',
-					397630,'NOTE: PART EXISTS IN MVZ PARENTLESS VOID',
-					'NOTE: PART EXISTS IN PARENT CONTAINER')	
-					from 
-						specimen_part,
-						coll_obj_cont_hist,
-						container 
-					where
-						specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id AND
-						coll_obj_cont_hist.container_id = container.container_id AND
-						derived_from_cat_item = cf_temp_parts.collection_object_id AND
-						cf_temp_parts.part_name=specimen_part.part_name
-					group by 
-						parent_container_id
-				)
-			where validated_status='VALID' 
-		</cfquery>
-		---->
-		
-		----->
-		
-		
-		
-		
-		
-		<br>after bads....
-		<cfquery name="tt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select status,count(*) c from cf_temp_parts group by status
-		</cfquery>
-		<cfdump var=#tt#>
-		
-		<cfquery name="gonenowback" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_parts set status='VALID' where status is null
-		</cfquery>
-		<br>after reuip....
-		<cfquery name="tt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select status,count(*) c from cf_temp_parts group by status
-		</cfquery>
-		<cfdump var=#tt#>
-		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_parts set (parent_container_id) = (
-			select container_id
-			from container where
-			barcode=container_barcode)
-			where substr(status,1,5) IN ('VALID','NOTE:')
-		</cfquery>
-		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_parts set (use_part_id) = (
-			select min(specimen_part.collection_object_id)			
-			from specimen_part where
-			cf_temp_parts.part_name=specimen_part.part_name)
-			where status = 'NOTE: PART EXISTS' AND
-			use_existing = 1
-		</cfquery>
+		<cflocation url="BulkloadParts.cfm?action=manageMyStuff">
 		
 		<!----
-		<cflocation url="BulkloadParts.cfm?action=checkValidate">
 		---->
 </cfoutput>
 </cfif>
@@ -753,130 +697,186 @@ validate
 		select * from cf_temp_parts
 	</cfquery>
 	<cftransaction>
-	<cfloop query="getTempData">
-	<cfif len(use_part_id) is 0 AND len(parent_container_id) gt 0>
-		<!--- new part, add container --->
-		<cfquery name="NEXTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select sq_collection_object_id.nextval NEXTID from dual
-		</cfquery>
-		<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			INSERT INTO coll_object (
-				COLLECTION_OBJECT_ID,
-				COLL_OBJECT_TYPE,
-				ENTERED_PERSON_ID,
-				COLL_OBJECT_ENTERED_DATE,
-				LAST_EDITED_PERSON_ID,
-				COLL_OBJ_DISPOSITION,
-				LOT_COUNT,
-				CONDITION,
-				FLAGS )
-			VALUES (
-				#NEXTID.NEXTID#,
-				'SP',
-				#session.myagentid#,
-				sysdate,
-				#session.myagentid#,
-				'#DISPOSITION#',
-				#lot_count#,
-				'#condition#',
-				0 )		
-		</cfquery>
-		<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			INSERT INTO specimen_part (
-				COLLECTION_OBJECT_ID,
-				PART_NAME,
-				DERIVED_FROM_cat_item 
-			) VALUES (
-				#NEXTID.NEXTID#,
-				'#PART_NAME#',
-				#collection_object_id#
-			)
-		</cfquery>
-		<cfif len(remarks) gt 0>
-			<!---- new remark --->
-			<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
-				VALUES (#NEXTID.NEXTID#, '#remarks#')
-			</cfquery>
-		</cfif>
-		<cfif len(container_barcode) gt 0>
-			<cfquery name="part_container_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					container_id
-				from 
-					coll_obj_cont_hist
-				where
-					collection_object_id = #NEXTID.NEXTID#
-			</cfquery>
+	<!----
+		OPTIONS;
+			1) came in WITHOUT use_part_id and WITH parent_container_id:
+				create a part and put it in a container
+			2) came in WITH use_part_id and WITH parent_container_id:
+				move an existing part
+			3) came in WITHOUT use_part_id and WITHOUT parent_container_id:
+				create a part, no containers
+			4) something else
+				abort
+	---->
+		<cfloop query="getTempData">
+			<cfif len(use_part_id) is 0 AND len(parent_container_id) gt 0><!--- 1 ---->
+				<!--- new part, add container --->
+				<cfquery name="NEXTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select sq_collection_object_id.nextval NEXTID from dual
+				</cfquery>
+				<cfset thisPartID=NEXTID.NEXTID>
+				<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO coll_object (
+						COLLECTION_OBJECT_ID,
+						COLL_OBJECT_TYPE,
+						ENTERED_PERSON_ID,
+						COLL_OBJECT_ENTERED_DATE,
+						LAST_EDITED_PERSON_ID,
+						COLL_OBJ_DISPOSITION,
+						LOT_COUNT,
+						CONDITION,
+						FLAGS )
+					VALUES (
+						#thisPartID#,
+						'SP',
+						#session.myagentid#,
+						sysdate,
+						#session.myagentid#,
+						'#DISPOSITION#',
+						#lot_count#,
+						'#condition#',
+						0 )		
+				</cfquery>
+				<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO specimen_part (
+						COLLECTION_OBJECT_ID,
+						PART_NAME,
+						DERIVED_FROM_cat_item 
+					) VALUES (
+						#thisPartID#,
+						'#PART_NAME#',
+						#collection_object_id#
+					)
+				</cfquery>
+				<cfif len(remarks) gt 0>
+					<!---- new remark --->
+					<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
+						VALUES (#thisPartID#, '#remarks#')
+					</cfquery>
+				</cfif>
+				<!--- only got here if we have a container ---->
+				<cfquery name="part_container_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select 
+						container_id
+					from 
+						coll_obj_cont_hist
+					where
+						collection_object_id = #thisPartID#
+				</cfquery>
 				<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update container set parent_container_id=#parent_container_id# 
 					where container_id = #part_container_id.container_id#
 				</cfquery>
-			<cfif len(change_container_type) gt 0>
+				<cfif len(change_container_type) gt 0>
+					<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update container set 
+						container_type='#change_container_type#'
+						where container_id=#parent_container_id# 
+					</cfquery>
+				</cfif>
+			<cfelseif len(parent_container_id) gt 0 and len(use_part_id) gt 0> <!---- 2 ----->
+			<!--- there is an existing matching container that is not in a parent_container;
+				all we need to do is move the container to a parent IF it exists and is specified, or nothing otherwise --->
+				<cfset thisPartID=use_part_id>
 				<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update container set 
-					container_type='#change_container_type#'
-					where container_id=#parent_container_id# 
+					update 
+						container 
+					set 
+						parent_container_id=#parent_container_id# 
+					where 
+						container_id = (select container_id from coll_obj_cont_hist where collection_object_id = #thisPartID#)
 				</cfquery>
+			<cfelseif len(parent_container_id) is 0 and len(use_part_id) is 0><!--- 3 ---->
+				<!--- new part, no container --->
+				<cfquery name="NEXTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select sq_collection_object_id.nextval NEXTID from dual
+				</cfquery>
+				<cfset thisPartID=NEXTID.NEXTID>
+				<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO coll_object (
+						COLLECTION_OBJECT_ID,
+						COLL_OBJECT_TYPE,
+						ENTERED_PERSON_ID,
+						COLL_OBJECT_ENTERED_DATE,
+						LAST_EDITED_PERSON_ID,
+						COLL_OBJ_DISPOSITION,
+						LOT_COUNT,
+						CONDITION,
+						FLAGS )
+					VALUES (
+						#thisPartID#,
+						'SP',
+						#session.myagentid#,
+						sysdate,
+						#session.myagentid#,
+						'#DISPOSITION#',
+						#lot_count#,
+						'#condition#',
+						0 )		
+				</cfquery>
+				<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO specimen_part (
+						COLLECTION_OBJECT_ID,
+						PART_NAME,
+						DERIVED_FROM_cat_item 
+					) VALUES (
+						#thisPartID#,
+						'#PART_NAME#',
+						#collection_object_id#
+					)
+				</cfquery>
+				<cfif len(remarks) gt 0>
+					<!---- new remark --->
+					<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
+						VALUES (#thisPartID#, '#remarks#')
+					</cfquery>
+				</cfif>
+			<cfelse>
+				oops - no handler for that combination!
+				<cfabort>
 			</cfif>
-		</cfif>
-	<cfelseif len(parent_container_id) gt 0 and len(use_part_id) gt 0>
-	<!--- there is an existing matching container that is not in a parent_container;
-		all we need to do is move the container to a parent IF it exists and is specified, or nothing otherwise --->
-		<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update container set parent_container_id=#parent_container_id# 
-			where container_id = #use_part_id#
-		</cfquery>
-	<cfelseif len(parent_container_id) is 0 and len(use_part_id) is 0>
-		<!--- new part, no container --->
-		<cfquery name="NEXTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select sq_collection_object_id.nextval NEXTID from dual
-		</cfquery>
-		<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			INSERT INTO coll_object (
-				COLLECTION_OBJECT_ID,
-				COLL_OBJECT_TYPE,
-				ENTERED_PERSON_ID,
-				COLL_OBJECT_ENTERED_DATE,
-				LAST_EDITED_PERSON_ID,
-				COLL_OBJ_DISPOSITION,
-				LOT_COUNT,
-				CONDITION,
-				FLAGS )
-			VALUES (
-				#NEXTID.NEXTID#,
-				'SP',
-				#session.myagentid#,
-				sysdate,
-				#session.myagentid#,
-				'#DISPOSITION#',
-				#lot_count#,
-				'#condition#',
-				0 )		
-		</cfquery>
-		<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			INSERT INTO specimen_part (
-				COLLECTION_OBJECT_ID,
-				PART_NAME,
-				DERIVED_FROM_cat_item 
-			) VALUES (
-				#NEXTID.NEXTID#,
-				'#PART_NAME#',
-				#collection_object_id#
-			)
-		</cfquery>
-		<cfif len(remarks) gt 0>
-			<!---- new remark --->
-			<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
-				VALUES (#NEXTID.NEXTID#, '#remarks#')
-			</cfquery>
-		</cfif>
-	<cfelse>
-		oops - no handler
-		<cfabort>
-	</cfif>
-	</cfloop>
+			<cfloop from="1" to="#numPartAttrs#" index="i">
+				<cfset thisAttr=evaluate("PART_ATTRIBUTE_TYPE_" & i)>
+				<cfif len(thisAttr) gt 0>
+					<cfset thisAttrVal=evaluate("PART_ATTRIBUTE_VALUE_" & i)>
+					<cfset thisAttrUnit=evaluate("PART_ATTRIBUTE_UNITS_" & i)>
+					<cfset thisAttrDate=evaluate("PART_ATTRIBUTE_DATE_" & i)>
+					<cfset thisAttrDetr=evaluate("PART_ATTRIBUE_DETERMINER_" & i)>
+					<cfset thisAttrRem=evaluate("PART_ATTRIBUE_REMARK_" & i)>
+					<cfquery name="nattr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					 	insert into specimen_part_attribute (
+					 		PART_ATTRIBUTE_ID
+					 		COLLECTION_OBJECT_ID,
+					 		ATTRIBUTE_TYPE ,
+					 		ATTRIBUTE_VALUE,
+					 		ATTRIBUTE_UNITS,
+					 		DETERMINED_DATE,
+					 		DETERMINED_BY_AGENT_ID,
+					 		ATTRIBUTE_REMARK
+					 	) values (
+					 		sq_PART_ATTRIBUTE_ID.nextval,
+					 		#thisPartID#.
+					 		'#thisAttr#',
+					 		'#thisAttrVal#',
+					 		'#thisAttrUnit#',
+					 		<cfif len(thisAttrDate) gt 0>
+					 			'#thisAttrDate#',
+					 		<cfelse>
+					 			NULL,
+					 		</cfif>
+					 		<cfif len(thisAttrDetr) gt 0>
+					 			getAgentID('#thisAttrDetr#'),
+					 		<cfelse>
+					 			NULL,
+					 		</cfif>
+					 		'#escapeQuotes(thisAttrRem)#'
+					 	)			 		
+					</cfquery>
+				</cfif>
+			</cfloop>	
+		</cfloop>
 	</cftransaction>
 	Spiffy, all done.
 	<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(getTempData.collection_object_id)#">
