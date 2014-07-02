@@ -796,7 +796,7 @@ validate
 					 		ATTRIBUTE_REMARK
 					 	) values (
 					 		sq_PART_ATTRIBUTE_ID.nextval,
-					 		#thisPartID#.
+					 		#thisPartID#,
 					 		'#thisAttr#',
 					 		'#thisAttrVal#',
 					 		'#thisAttrUnit#',
