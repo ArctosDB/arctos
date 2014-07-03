@@ -4,11 +4,14 @@
 		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select part_name from ctspecimen_part_name where collection_cde='#collection_cde#' group by part_name order by part_name
 	    </cfquery>
-	    <label for="theForm">Add Specimen-Event</label>
+	    <cfquery name="CTSPECPART_ATTRIBUTE_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       	select ATTRIBUTE_TYPE from CTSPECPART_ATTRIBUTE_TYPE group by ATTRIBUTE_TYPE  order by ATTRIBUTE_TYPE
+	    </cfquery>
+	    <label for="theForm">Add Specimen Part</label>
 		<form name="theForm" id="theForm">
 			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
 			<input type="hidden" name="nothing" id="nothing">
-			<input type="hidden" name="letype" id="letype" value="pick_event">
+			
 			<table id="mptab">
 	</cfoutput>	
 </cfif>
