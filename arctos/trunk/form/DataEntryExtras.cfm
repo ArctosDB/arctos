@@ -15,10 +15,6 @@
 			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
 			<input type="hidden" name="nothing" id="nothing">
 			
-<form name="newPart" method="post" action="editParts.cfm">
-	<input type="hidden" name="Action" value="newPart">
-	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-	<input type="hidden" name="institution_acronym" value="#getParts.institution_acronym#">
 
     <table>
       <tr> 
