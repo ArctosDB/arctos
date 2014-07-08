@@ -85,7 +85,7 @@
 					<th>Remark</th>
 				</tr>
 			</table>
-			<cfloop from="1" to="6">
+			<cfloop from="1" to="6" index="i">
 				<tr>
 					<td>
 							<select name="part_attribute_type_#i#" id="part_attribute_type_#i#" size="1"  class="reqdClr">
