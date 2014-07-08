@@ -7,12 +7,55 @@
 	    <cfquery name="CTSPECPART_ATTRIBUTE_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select ATTRIBUTE_TYPE from CTSPECPART_ATTRIBUTE_TYPE group by ATTRIBUTE_TYPE  order by ATTRIBUTE_TYPE
 	    </cfquery>
+		<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
+		</cfquery>
 	    <label for="theForm">Add Specimen Part</label>
 		<form name="theForm" id="theForm">
 			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
 			<input type="hidden" name="nothing" id="nothing">
 			
-			<table id="mptab">
+<form name="newPart" method="post" action="editParts.cfm">
+	<input type="hidden" name="Action" value="newPart">
+	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+	<input type="hidden" name="institution_acronym" value="#getParts.institution_acronym#">
+
+    <table>
+      <tr> 
+        <td>
+			<label for="part_name">Part Name</label>
+			<input type="text" name="part_name" id="part_name" class="reqdClr"
+				onchange="findPart(this.id,this.value,'#getParts.collection_cde#');" 
+				onkeypress="return noenter(event);">
+		</td>
+      </tr>
+	   <tr> 
+        <td>
+			<label for="lot_count">Count</label><input type="text" name="lot_count" class="reqdClr" size="2"></td>
+      </tr>
+      <tr> 
+        <td><label for="coll_obj_disposition">Disposition</label><select name="coll_obj_disposition" size="1"  class="reqdClr">
+            <cfloop query="ctDisp">
+              <option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+            </cfloop>
+          </select></td>
+      </tr>
+      <tr> 
+        <td><label for="condition">Condition</label><input type="text" name="condition" class="reqdClr"></td>
+      </tr>
+	    <tr> 
+        <td><label for="coll_object_remarks">Remarks</label><input type="text" name="coll_object_remarks"></td>
+      </tr>
+      <tr> 
+        <td colspan="2"><div align="center"> 
+           <input type="submit" value="Create" class="insBtn">
+          </div></td>
+      </tr>
+	  
+    </table>
+
+
+
 	</cfoutput>	
 </cfif>
 
