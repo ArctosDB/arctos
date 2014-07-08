@@ -52,11 +52,7 @@
 			<input type="text" name="container_barcode">
 		</td>
         <td>
-			<label for="container_barcode">Barcode</label>
-			<input type="text" name="container_barcode">
-		</td>
-        <td>
-			<label for="change_container_type">Change Type</label>
+			<label for="change_container_type">Change Container Type</label>
 			<select name="container_barcode" size="1"  class="reqdClr">
 				<option value=""></option>
 	            <cfloop query="ctcontainer_type">
@@ -107,7 +103,7 @@
 					<td>
 						<input type="text" name="part_attribute_determiner_#i#" id="part_attribute_determiner_#i#"
 							onchange="getAgent('nothing','part_attribute_determiner_#i#','theForm',this.value); return false;"
-							 onKeyPress="return noenter(event);">>
+							 onKeyPress="return noenter(event);">
 						
 
 					</td>
