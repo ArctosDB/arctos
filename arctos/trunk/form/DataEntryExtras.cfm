@@ -1,5 +1,20 @@
 
 <cfif action is "addPart">
+	<script>
+		jQuery(document).ready(function() {
+
+			$("select[id^='part_attribute_date_']").each(function(e){
+				var gid='part_attribute_date_' + String(e+1);
+				$("#" + gid").datepicker();
+			});
+		});
+	</script>
+
+
+
+
+
+
 	<cfoutput>
 		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select part_name from ctspecimen_part_name where collection_cde='#collection_cde#' group by part_name order by part_name
@@ -44,16 +59,12 @@
 			<input type="text" name="lot_count" class="reqdClr" size="2">
 		</td>
         <td>
-			<label for="lot_count">Count</label>
-			<input type="text" name="lot_count" class="reqdClr" size="2">
-		</td>
-        <td>
 			<label for="container_barcode">Barcode</label>
 			<input type="text" name="container_barcode">
 		</td>
         <td>
 			<label for="change_container_type">Change Container Type</label>
-			<select name="container_barcode" size="1"  class="reqdClr">
+			<select name="container_barcode" size="1">
 				<option value=""></option>
 	            <cfloop query="ctcontainer_type">
 	              <option value="#ctcontainer_type.container_type#">#ctcontainer_type.container_type#</option>
