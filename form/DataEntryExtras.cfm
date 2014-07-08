@@ -7,10 +7,12 @@
 				var gid='part_attribute_date_' + String(e+1);
 				$("#" + gid).datepicker();
 $("#" + gid).addClass('red');
+console.log(gid);
+
+
 			});
 		});
 	</script>
-
 
 
 
