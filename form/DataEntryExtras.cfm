@@ -21,7 +21,7 @@
         <td>
 			<label for="part_name">Part Name</label>
 			<input type="text" name="part_name" id="part_name" class="reqdClr"
-				onchange="findPart(this.id,this.value,'#getParts.collection_cde#');" 
+				onchange="findPart(this.id,this.value,'#collection_cde#');" 
 				onkeypress="return noenter(event);">
 		</td>
       </tr>
