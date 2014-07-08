@@ -19,7 +19,17 @@
 		<cfquery name="s" datasource="uam_god">
 			select status, count(*) c from cf_temp_media where username='#username#' group by status
 		</cfquery>
-		<cfmail to="#e.address#" bcc="arctos.database@gmail.com" subject="media bulkloader" cc="arctos.database@gmail.com" from="bulkmedia@#Application.fromEmail#" type="html">
+		
+		<cfif len(e.address) is 0>
+			<cfset mailto="arctos.database@gmail.com">
+			<cfset msubj="media bulkloader: no contact info">
+		<cfelse>
+		
+			<cfset mailto=e.address>
+			<cfset msubj="media bulkloader">
+			
+		</cfif>
+		<cfmail to="#mailto#" bcc="arctos.database@gmail.com" subject="#msubj#" cc="arctos.database@gmail.com" from="bulkmedia@#Application.fromEmail#" type="html">
 			Dear #username#,
 			<p>
 				The following records are in the Media Bulkloader:
