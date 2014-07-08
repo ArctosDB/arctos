@@ -84,7 +84,6 @@
 					<th>Determiner</th>
 					<th>Remark</th>
 				</tr>
-			</table>
 			<cfloop from="1" to="6" index="i">
 				<tr>
 					<td>
@@ -118,6 +117,8 @@
 				</tr>
 				
 			</cfloop>
+			
+			</table>
 		</td>
 	</tr>
 	  
