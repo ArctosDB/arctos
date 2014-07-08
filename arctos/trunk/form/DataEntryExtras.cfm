@@ -10,6 +10,9 @@
 		<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
 		</cfquery>
+		<cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select container_type from ctcontainer_type order by container_type
+		</cfquery>
 	    <label for="theForm">Add Specimen Part</label>
 		<form name="theForm" id="theForm">
 			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
@@ -24,33 +27,105 @@
 				onchange="findPart(this.id,this.value,'#collection_cde#');" 
 				onkeypress="return noenter(event);">
 		</td>
-      </tr>
-	   <tr> 
         <td>
-			<label for="lot_count">Count</label><input type="text" name="lot_count" class="reqdClr" size="2"></td>
+			<label for="coll_obj_disposition">Disposition</label>
+			<select name="coll_obj_disposition" size="1"  class="reqdClr">
+	            <cfloop query="ctDisp">
+	              <option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+	            </cfloop>
+	          </select>
+		</td>
+        <td>
+			<label for="condition">Condition</label>
+			<input type="text" name="condition" class="reqdClr">
+		</td>
+        <td>
+			<label for="lot_count">Count</label>
+			<input type="text" name="lot_count" class="reqdClr" size="2">
+		</td>
+        <td>
+			<label for="lot_count">Count</label>
+			<input type="text" name="lot_count" class="reqdClr" size="2">
+		</td>
+        <td>
+			<label for="container_barcode">Barcode</label>
+			<input type="text" name="container_barcode">
+		</td>
+        <td>
+			<label for="container_barcode">Barcode</label>
+			<input type="text" name="container_barcode">
+		</td>
+        <td>
+			<label for="change_container_type">Change Type</label>
+			<select name="container_barcode" size="1"  class="reqdClr">
+				<option value=""></option>
+	            <cfloop query="ctcontainer_type">
+	              <option value="#ctcontainer_type.container_type#">#ctcontainer_type.container_type#</option>
+	            </cfloop>
+	          </select>
+		</td>
+      
+	
+	
       </tr>
-      <tr> 
-        <td><label for="coll_obj_disposition">Disposition</label><select name="coll_obj_disposition" size="1"  class="reqdClr">
-            <cfloop query="ctDisp">
-              <option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
-            </cfloop>
-          </select></td>
-      </tr>
-      <tr> 
-        <td><label for="condition">Condition</label><input type="text" name="condition" class="reqdClr"></td>
-      </tr>
-	    <tr> 
-        <td><label for="coll_object_remarks">Remarks</label><input type="text" name="coll_object_remarks"></td>
-      </tr>
-      <tr> 
-        <td colspan="2"><div align="center"> 
-           <input type="submit" value="Create" class="insBtn">
-          </div></td>
-      </tr>
+	<tr>
+		<td rowspan="8">
+			Attributes
+		</td>
+	</tr>
+	<tr>
+		<td rowspan="8">
+			<table border>
+				<tr>
+					<th>Type</th>
+					<th>Value</th>
+					<th>Units</th>
+					<th>Date</th>
+					<th>Determiner</th>
+					<th>Remark</th>
+				</tr>
+			</table>
+			<cfloop from="1" to="6">
+				<tr>
+					<td>
+							<select name="part_attribute_type_#i#" id="part_attribute_type_#i#" size="1"  class="reqdClr">
+								<option value=""></option>
+					            <cfloop query="CTSPECPART_ATTRIBUTE_TYPE">
+					              <option value="#CTSPECPART_ATTRIBUTE_TYPE.ATTRIBUTE_TYPE#">#CTSPECPART_ATTRIBUTE_TYPE.ATTRIBUTE_TYPE#</option>
+					            </cfloop>
+					          </select>
+	          
+					</td>
+					<td>
+						<input type="text" name="part_attribute_value_#i#" id="part_attribute_value_#i#">
+					</td>
+					<td>
+						<input type="text" name="part_attribute_units_#i#" id="part_attribute_units_#i#">
+					</td>
+					<td>
+						<input type="text" name="part_attribute_date_#i#" id="part_attribute_date_#i#">
+					</td>
+					<td>
+						<input type="text" name="part_attribute_determiner_#i#" id="part_attribute_determiner_#i#"
+							onchange="getAgent('nothing','part_attribute_determiner_#i#','theForm',this.value); return false;"
+							 onKeyPress="return noenter(event);">>
+						
+
+					</td>
+					<td>
+						<input type="text" name="part_attribute_remark_#i#" id="part_attribute_remark_#i#">
+					</td>
+				</tr>
+				
+			</cfloop>
+		</td>
+	</tr>
 	  
+	  
+	  
+
+
     </table>
-
-
 
 	</cfoutput>	
 </cfif>
