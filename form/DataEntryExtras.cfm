@@ -69,12 +69,12 @@
 	
       </tr>
 	<tr>
-		<td rowspan="8">
+		<td colspan="8">
 			Attributes
 		</td>
 	</tr>
 	<tr>
-		<td rowspan="8">
+		<td colspan="8">
 			<table border>
 				<tr>
 					<th>Type</th>
