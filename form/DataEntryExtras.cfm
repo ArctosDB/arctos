@@ -62,7 +62,7 @@
 			<label for="part_name">Part Name</label>
 			<input type="text" name="part_name" id="part_name" class="reqdClr"
 				onchange="findPart(this.id,this.value,'#collection_cde#');" 
-				onkeypress="return noenter(event);">
+				onkeypress="return noenter(event);" required>
 		</td>
         <td>
 			<label for="disposition">Disposition</label>
