@@ -6,7 +6,7 @@
 			    $(this).datepicker();
 			});
 		});
-		function savePart(){
+		function saveSpecimenPart(){
 			// serialize everything and send it to the server for processing
 			$.ajax({
 				url: "/component/Bulkloader.cfc?queryformat=column",
@@ -156,6 +156,7 @@
 
 
     </table>
+			<input type="button" onclick="saveSpecimenPart()" value="Save Part">
 
 	</cfoutput>	
 </cfif>
