@@ -81,6 +81,10 @@
 			<input type="text" name="lot_count" class="reqdClr" size="2">
 		</td>
         <td>
+			<label for="remarks">Remark</label>
+			<input type="text" name="remarks" id="remarks">
+		</td>
+        <td>
 			<label for="container_barcode">Barcode</label>
 			<input type="text" name="container_barcode">
 		</td>
