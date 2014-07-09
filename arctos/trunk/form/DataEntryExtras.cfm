@@ -50,8 +50,8 @@
 		<cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_type from ctcontainer_type order by container_type
 		</cfquery>
-	    <label for="theForm">Add Specimen Part</label>
-		<form name="theForm" id="theForm">
+	    <label for="theForm"></label>Add Specimen Part</label>
+		<form name="theForm" onsubmit="saveSpecimenPart();" id="theForm">
 			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
 			<input type="hidden" name="nothing" id="nothing">
 			
@@ -161,6 +161,7 @@
 
     </table>
 			<input type="button" onclick="saveSpecimenPart()" value="Save Part">
+			<input type="submit">
 
 	</cfoutput>	
 </cfif>
