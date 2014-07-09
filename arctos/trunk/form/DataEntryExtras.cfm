@@ -90,7 +90,7 @@
 		</td>
         <td>
 			<label for="change_container_type">Change Container Type</label>
-			<select name="container_barcode" size="1">
+			<select name="container_barcode" id="container_barcode" size="1">
 				<option value=""></option>
 	            <cfloop query="ctcontainer_type">
 	              <option value="#ctcontainer_type.container_type#">#ctcontainer_type.container_type#</option>
