@@ -4,10 +4,11 @@
 		jQuery(document).ready(function() {
 
 			$("select[id^='part_attribute_date_']").each(function(e){
-				var gid='part_attribute_date_' + String(e+1);
-				$("#" + gid).datepicker();
-				$("#" + gid).addClass('red');
-			alert(gid);
+				//var gid='part_attribute_date_' + String(e+1);
+				//$("#" + gid).datepicker();
+				//$("#" + gid).addClass('red');
+    $(this).datepicker();
+			//alert(gid);
 
 
 			});
