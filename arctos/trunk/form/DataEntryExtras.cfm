@@ -2,23 +2,35 @@
 <cfif action is "addPart">
 	<script>
 		jQuery(document).ready(function() {
-
-console.log('ready....');
-
-
 			$("input[id^='part_attribute_date_']").each(function(e){
-				//var gid='part_attribute_date_' + String(e+1);
-				//$("#" + gid).datepicker();
-				//$("#" + gid).addClass('red');
-    $(this).datepicker();
-console.log(this);
-
-
-			//alert(gid);
-
-
+			    $(this).datepicker();
 			});
 		});
+		function savePart(){
+			// serialize everything and send it to the server for processing
+			$.ajax({
+				url: "/component/Bulkloader.cfc?queryformat=column",
+				type: "GET",
+				dataType: "json",
+				data: {
+					method:  "saveNewSpecimenPart",
+					q: $('#theForm').serialize()
+				},
+				success: function(r) {
+					if (r=='success'){
+						var retVal = confirm("Success! Click OK to close this, of cancel to create another specimen part.");
+						if( retVal == true ){
+					    	$("#dialog").dialog('close');
+					 	} 
+					} else {
+						alert('Error: ' + r);
+					}
+				},
+				error: function (xhr, textStatus, errorThrown){
+				    alert(errorThrown);
+				}
+			});
+		}
 	</script>
 
 
