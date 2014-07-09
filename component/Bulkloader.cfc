@@ -1,6 +1,147 @@
 <cfcomponent>
 
 
+<!----------------------------------------------------------------------------------------->
+<cffunction name="saveNewSpecimenPart" access="remote" returnformat="json" queryformat="column">
+	<cfargument name="q" required="yes">
+	<cfoutput>
+		
+		
+		<cfloop list="#q#" index="kv" delimiters="&">
+			<cfset k=listfirst(kv,"=")>
+			<cfset v=replace(kv,k & "=",'')>
+			<cfset "#k#"=urldecode(v)>
+		</cfloop>
+		<cfset fatalerrstr="">
+
+
+	<cfset required="UUID,PART_NAME,DISPOSITION,CONDITION,LOT_COUNT">
+	
+	<cfloop list="#required#" index="i">
+		<cfset thisVal=evaluate("variables." & i)>
+		<cfif len(thisVal) is 0>
+			<cfset fatalerrstr=listappend(fatalerrstr,'#i# is required',';')>
+		</cfif>
+	</cfloop>
+	
+	
+		<cfif len(fatalerrstr) is 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into cf_temp_parts (
+					status,
+					OTHER_ID_TYPE,
+					OTHER_ID_NUMBER,
+					PART_NAME,
+					DISPOSITION,
+					CONDITION,
+					LOT_COUNT,
+					REMARKS,
+					USE_EXISTING,
+					CONTAINER_BARCODE,
+					CHANGE_CONTAINER_TYPE,
+					PART_ATTRIBUTE_TYPE_1,
+					PART_ATTRIBUTE_VALUE_1,
+					PART_ATTRIBUTE_UNITS_1,
+					PART_ATTRIBUTE_DATE_1,
+					PART_ATTRIBUE_DETERMINER_1,
+					PART_ATTRIBUE_REMARK_1,
+					PART_ATTRIBUTE_TYPE_2,
+					PART_ATTRIBUTE_VALUE_2,
+					PART_ATTRIBUTE_UNITS_2,
+					PART_ATTRIBUTE_DATE_2,
+					PART_ATTRIBUE_DETERMINER_2,
+					PART_ATTRIBUE_REMARK_2,
+					PART_ATTRIBUTE_TYPE_3,
+					PART_ATTRIBUTE_VALUE_3,
+					PART_ATTRIBUTE_UNITS_3,
+					PART_ATTRIBUTE_DATE_3,
+					PART_ATTRIBUE_DETERMINER_3,
+					PART_ATTRIBUE_REMARK_3,
+					PART_ATTRIBUTE_TYPE_4,
+					PART_ATTRIBUTE_VALUE_4,
+					PART_ATTRIBUTE_UNITS_4,
+					PART_ATTRIBUTE_DATE_4,
+					PART_ATTRIBUE_DETERMINER_4,
+					PART_ATTRIBUE_REMARK_4,
+					PART_ATTRIBUTE_TYPE_5,
+					PART_ATTRIBUTE_VALUE_5,
+					PART_ATTRIBUTE_UNITS_5,
+					PART_ATTRIBUTE_DATE_5,
+					PART_ATTRIBUE_DETERMINER_5,
+					PART_ATTRIBUE_REMARK_5,
+					PART_ATTRIBUTE_TYPE_6,
+					PART_ATTRIBUTE_VALUE_6,
+					PART_ATTRIBUTE_UNITS_6,
+					PART_ATTRIBUTE_DATE_6,
+					PART_ATTRIBUE_DETERMINER_6,
+					PART_ATTRIBUE_REMARK_6,
+					USERNAME
+				) values (
+					'linked to bulkloader',
+					'UUID',
+					'#uuid#',
+					'#PART_NAME#',
+					'#DISPOSITION#',
+					'#CONDITION#',
+					#LOT_COUNT#,
+					'#escapeQuotes(REMARKS)#',
+					0,
+					'#CONTAINER_BARCODE#',
+					'#CHANGE_CONTAINER_TYPE#',
+					'#PART_ATTRIBUTE_TYPE_1#',
+					'#PART_ATTRIBUTE_VALUE_1#',
+					'#PART_ATTRIBUTE_UNITS_1#',
+					'#PART_ATTRIBUTE_DATE_1#',
+					'#PART_ATTRIBUE_DETERMINER_1#',
+					'#PART_ATTRIBUE_REMARK_1#',
+					'#PART_ATTRIBUTE_TYPE_2#',
+					'#PART_ATTRIBUTE_VALUE_2#',
+					'#PART_ATTRIBUTE_UNITS_2#',
+					'#PART_ATTRIBUTE_DATE_2#',
+					'#PART_ATTRIBUE_DETERMINER_2#',
+					'#PART_ATTRIBUE_REMARK_2#',
+					'#PART_ATTRIBUTE_TYPE_3#',
+					'#PART_ATTRIBUTE_VALUE_3#',
+					'#PART_ATTRIBUTE_UNITS_3#',
+					'#PART_ATTRIBUTE_DATE_3#',
+					'#PART_ATTRIBUE_DETERMINER_3#',
+					'#PART_ATTRIBUE_REMARK_3#',
+					'#PART_ATTRIBUTE_TYPE_4#',
+					'#PART_ATTRIBUTE_VALUE_4#',
+					'#PART_ATTRIBUTE_UNITS_4#',
+					'#PART_ATTRIBUTE_DATE_4#',
+					'#PART_ATTRIBUE_DETERMINER_4#',
+					'#PART_ATTRIBUE_REMARK_4#',
+					'#PART_ATTRIBUTE_TYPE_5#',
+					'#PART_ATTRIBUTE_VALUE_5#',
+					'#PART_ATTRIBUTE_UNITS_5#',
+					'#PART_ATTRIBUTE_DATE_5#',
+					'#PART_ATTRIBUE_DETERMINER_5#',
+					'#PART_ATTRIBUE_REMARK_5#',
+					'#PART_ATTRIBUTE_TYPE_6#',
+					'#PART_ATTRIBUTE_VALUE_6#',
+					'#PART_ATTRIBUTE_UNITS_6#',
+					'#PART_ATTRIBUTE_DATE_6#',
+					'#PART_ATTRIBUE_DETERMINER_6#',
+					'#PART_ATTRIBUE_REMARK_6#',
+					'#session.USERNAME#'
+				)
+			</cfquery>
+			<cfset fatalerrstr='success'>
+		
+
+
+
+
+		</cfif>
+		
+			<cfreturn fatalerrstr>
+	</cfoutput>
+</cffunction>
+
+
+
+
 
 <!----------------------------------------------------------------------------------------->
 <cffunction name="saveNewSpecimenEvent" access="remote" returnformat="json" queryformat="column">
