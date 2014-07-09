@@ -4,6 +4,9 @@
 <!----------------------------------------------------------------------------------------->
 <cffunction name="saveNewSpecimenPart" access="remote" returnformat="json" queryformat="column">
 	<cfargument name="q" required="yes">
+	<cfif not isdefined("escapeQuotes")>
+		<cfinclude template="/includes/functionLib.cfm">
+	</cfif>
 	<cfoutput>
 		
 		
