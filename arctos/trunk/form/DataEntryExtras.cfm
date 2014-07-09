@@ -65,8 +65,8 @@
 				onkeypress="return noenter(event);">
 		</td>
         <td>
-			<label for="coll_obj_disposition">Disposition</label>
-			<select name="coll_obj_disposition" size="1"  class="reqdClr">
+			<label for="disposition">Disposition</label>
+			<select name="disposition" id="disposition" size="1"  class="reqdClr">
 	            <cfloop query="ctDisp">
 	              <option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
 	            </cfloop>
@@ -74,7 +74,7 @@
 		</td>
         <td>
 			<label for="condition">Condition</label>
-			<input type="text" name="condition" class="reqdClr">
+			<input type="text" name="condition" id="condition" class="reqdClr">
 		</td>
         <td>
 			<label for="lot_count">Count</label>
