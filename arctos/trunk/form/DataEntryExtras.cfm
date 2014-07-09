@@ -78,7 +78,7 @@
 		</td>
         <td>
 			<label for="lot_count">Count</label>
-			<input type="text" name="lot_count" class="reqdClr" size="2">
+			<input type="number" name="lot_count" class="reqdClr" size="2">
 		</td>
         <td>
 			<label for="remarks">Remark</label>
