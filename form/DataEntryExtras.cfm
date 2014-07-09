@@ -62,7 +62,7 @@
 			<label for="part_name">Part Name</label>
 			<input type="text" name="part_name" id="part_name" class="reqdClr"
 				onchange="findPart(this.id,this.value,'#collection_cde#');" 
-				onkeypress="return noenter(event);" required>
+				onkeypress="return noenter(event);" required="required">
 		</td>
         <td>
 			<label for="disposition">Disposition</label>
@@ -78,7 +78,7 @@
 		</td>
         <td>
 			<label for="lot_count">Count</label>
-			<input type="number" name="lot_count" class="reqdClr" size="2">
+			<input type="text" pattern="\d*" name="lot_count" required="required" size="2">
 		</td>
         <td>
 			<label for="remarks">Remark</label>
