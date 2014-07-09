@@ -14,6 +14,7 @@
 			<cfset k=listfirst(kv,"=")>
 			<cfset v=replace(kv,k & "=",'')>
 			<cfset "#k#"=urldecode(v)>
+			<br>#k# = #v#
 		</cfloop>
 		<cfset fatalerrstr="">
 
