@@ -8,51 +8,31 @@
 			$( "#theForm" ).submit(function( event ) {
 				alert( "Handler for .submit() called." );
 				event.preventDefault();
-$.ajax({
-				url: "/component/Bulkloader.cfc?queryformat=column",
-				type: "GET",
-				dataType: "json",
-				data: {
-					method:  "saveNewSpecimenPart",
-					q: $('#theForm').serialize()
-				},
-				success: function(r) {
-					if (r=='success'){
-						var retVal = confirm("Success! Click OK to close this, of cancel to create another specimen part.");
-						if( retVal == true ){
-					    	$("#dialog").dialog('close');
-					 	} 
-					} else {
-						alert('Error: ' + r);
+				$.ajax({
+					url: "/component/Bulkloader.cfc?queryformat=column",
+					type: "GET",
+					dataType: "json",
+					data: {
+						method:  "saveNewSpecimenPart",
+						q: $('#theForm').serialize()
+					},
+					success: function(r) {
+						if (r=='success'){
+							var retVal = confirm("Success! Click OK to close this, or CANCEL to create another specimen part.");
+							if( retVal == true ){
+						    	$("#dialog").dialog('close');
+						 	} 
+						} else {
+							alert('Error: ' + r);
+						}
+					},
+					error: function (xhr, textStatus, errorThrown){
+					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 					}
-				},
-				error: function (xhr, textStatus, errorThrown){
-				    alert(errorThrown);
-
-return false;
-
-
-				}
-			});
-
-
-
-
-
+				});
 			});
 		});
 
-
-
-		
-
-
-
-		function saveSpecimenPart(){
-			
-			
-
-		}
 		function pattrChg(i){
 			if ($("#part_attribute_type_" + i).val().length > 0) {
 				$("#part_attribute_value_" + i).addClass('reqdClr').prop('required',true);
@@ -314,7 +294,7 @@ return false;
 				},
 				success: function(r) {
 					if (r=='success'){
-						var retVal = confirm("Success! Click OK to close this, of cancel to create another specimen-event.");
+						var retVal = confirm("Success! Click OK to close this, or CANCEL to create another specimen-event.");
 						if( retVal == true ){
 					    	$("#dialog").dialog('close');
 					 	} 
