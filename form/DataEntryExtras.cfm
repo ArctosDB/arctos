@@ -5,7 +5,18 @@
 			$("input[id^='part_attribute_date_']").each(function(e){
 			    $(this).datepicker();
 			});
+			$( "#theForm" ).submit(function( event ) {
+				alert( "Handler for .submit() called." );
+				event.preventDefault();
+			});
 		});
+
+
+
+		
+
+
+
 		function saveSpecimenPart(){
 			event.preventDefault();
 			// serialize everything and send it to the server for processing
@@ -79,7 +90,7 @@ return false;
 			select container_type from ctcontainer_type order by container_type
 		</cfquery>
 	    <label for="theForm"></label>Add Specimen Part</label>
-		<form name="theForm" onsubmit="saveSpecimenPart();" id="theForm">
+		<form name="theForm" id="theForm">
 			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
 			<input type="hidden" name="nothing" id="nothing">
 		    <table>
