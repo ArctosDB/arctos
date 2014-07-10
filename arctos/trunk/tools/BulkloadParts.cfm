@@ -349,6 +349,8 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		<cfquery name="clist" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select COLUMN_NAME from user_tab_cols where table_name='CF_TEMP_PARTS' ORDER BY INTERNAL_COLUMN_ID
 		</cfquery>
+		
+		<cfdump var=#clist#>
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_parts where upper(username)='#ucase(session.username)#'
 		</cfquery>
@@ -392,7 +394,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 			<tr>
 				<th>Delete</th>
 				<th>Status</th>
-				<cfloop QUERY="clist">
+				<cfloop query="clist">
 					<th>#column_name#</th>
 				</cfloop>
 			</tr>
