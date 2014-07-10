@@ -350,7 +350,6 @@ grant all on cf_temp_parts to uam_query,uam_update;
 			select column_name from user_tab_cols where table_name='CF_TEMP_PARTS' ORDER BY INTERNAL_COLUMN_ID
 		</cfquery>
 		
-		<cfdump var=#clist#>
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_parts where upper(username)='#ucase(session.username)#'
 		</cfquery>
@@ -366,9 +365,19 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		</p>
 		<p>
 			<a href="BulkloadParts.cfm">Load more records</a>
-		</p><p>
+		</p>
+		<p>
 			<a href="BulkloadParts.cfm?action=validate">validate records</a>
 		</p>
+		
+		<cfquery name="nv" dbtype="query">
+			select count(*) c from mine where guid_prefix is null and other_id_type='UUID'
+		</cfquery>
+		<cfif nv.c gt 0>
+			<p>
+				<a href="BulkloadParts.cfm?action=lookupUUID">get guid_prefix from UUID</a>
+			</p>
+		</cfif>
 		<cfif session.roles contains "manage_collection">
 			<p>
 				You have manage_collection, so you can "take" records from people in your collection.
