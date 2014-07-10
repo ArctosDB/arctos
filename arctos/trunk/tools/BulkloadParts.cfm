@@ -655,8 +655,8 @@ validate
 			where 
 				upper(username)='#ucase(session.username)#' and 
 				PART_ATTRIBUTE_TYPE_#i# is not null and 
-			 	PART_ATTRIBUE_DETERMINER_#i# is not null and 
-			 	getAgentId(PART_ATTRIBUE_DETERMINER_#i#) is not null
+			 	PART_ATTRIBUTE_DETERMINER_#i# is not null and 
+			 	getAgentId(PART_ATTRIBUTE_DETERMINER_#i#) is not null
 		</cfquery>
 	</cfloop>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
