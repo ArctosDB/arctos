@@ -36,6 +36,10 @@ return false;
 				},
 				error: function (xhr, textStatus, errorThrown){
 				    alert(errorThrown);
+
+return false;
+
+
 				}
 			});
 		}
