@@ -466,6 +466,15 @@ grant all on cf_temp_parts to uam_query,uam_update;
 <cfif action is "validate">
 validate
 <cfoutput>
+	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_parts 
+			set 
+				status = NULL
+			where 
+				upper(username)='#ucase(session.username)#'
+		</cfquery>
+
 	<cfquery name="getParentContainerId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update 
 			cf_temp_parts 
@@ -558,8 +567,8 @@ validate
 				cataloged_item.collection_id = collection.collection_id and
 				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
 				collection.guid_prefix = cf_temp_parts.guid_prefix and
-				other_id_type = cf_temp_parts.other_id_type and
-				display_value = cf_temp_parts.other_id_number
+				coll_obj_other_id_num.other_id_type = cf_temp_parts.other_id_type and
+				coll_obj_other_id_num.display_value = cf_temp_parts.other_id_number
 		) where other_id_type != 'catalog number'
 	</cfquery>
 	
