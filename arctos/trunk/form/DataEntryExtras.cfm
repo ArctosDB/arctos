@@ -8,6 +8,14 @@
 		});
 		function saveSpecimenPart(){
 			// serialize everything and send it to the server for processing
+
+
+console.log($('#theForm').serialize());
+
+return false;
+
+
+
 			$.ajax({
 				url: "/component/Bulkloader.cfc?queryformat=column",
 				type: "GET",
