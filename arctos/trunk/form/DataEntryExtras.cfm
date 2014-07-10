@@ -227,7 +227,7 @@
 		For specimen-events, most limitations may be bypassed by pre-creating collecting events or localities. 
 	</p>
 	<p>
-		After specimens exist, load data through <a href="/tools/BulkloadSpecimenEvent.cfm?action=managemystuff" target="_blank">EnterData/BatchTools</a>.
+		After specimens exist, load data through EnterData/BatchTools.
 	</p>
 	<p>
 		To use this form, other_id_num_type4 MUST be a UUID, and other_id_val_4 MUST be a unique identifier. It 
