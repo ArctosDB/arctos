@@ -207,7 +207,7 @@
 						<cfset thisAttr=evaluate("PART_ATTRIBUTE_TYPE_" & i)>
 						<cfset thisVal=evaluate("PART_ATTRIBUTE_VALUE_" & i)>
 						<cfif len(thisAttr) gt 0 and len(thisVal) gt 0>
-							<cfset pattrs=listappens(pattrs,"#thisAttr#=#thisVal#",";")>
+							<cfset pattrs=listappend(pattrs,"#thisAttr#=#thisVal#",";")>
 						</cfif>
 					</cfloop>
 				
