@@ -859,7 +859,7 @@ validate
 					 		'#thisAttrVal#',
 					 		'#thisAttrUnit#',
 					 		<cfif len(thisAttrDate) gt 0>
-					 			'#thisAttrDate#',
+					 			'#dateformat(thisAttrDate,'YYYY-MM-DD')#',
 					 		<cfelse>
 					 			NULL,
 					 		</cfif>
