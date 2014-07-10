@@ -346,6 +346,9 @@ grant all on cf_temp_parts to uam_query,uam_update;
 <cfif action is "managemystuff">
 	<script src="/includes/sorttable.js"></script>
 	<cfoutput>	
+		<cfquery name="clist" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select COLUMN_NAME from user_tab_cold where table_name='CF_TEMP_PARTS' ORDER BY INTERNAL_COLUMN_ID
+		</cfquery>
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_parts where upper(username)='#ucase(session.username)#'
 		</cfquery>
@@ -389,16 +392,16 @@ grant all on cf_temp_parts to uam_query,uam_update;
 			<tr>
 				<th>Delete</th>
 				<th>Status</th>
-				<cfloop list="#clist#" index="i">
-					<th>#i#</th>
+				<cfloop QUERY="clist">
+					<th>#column_name#</th>
 				</cfloop>
 			</tr>
 			<cfloop query="mine">
 				<tr>
 					<td><input type="checkbox" name="key" value="#key#"></td>
 					<td>#status#</td>
-					<cfloop list="#clist#" index="i">
-						<cfset tval=evaluate("mine." & i)>
+					<cfloop query="clist">
+						<cfset tval=evaluate("mine." & column_name)>
 						<td>#tval#</td>
 					</cfloop>
 				</tr>

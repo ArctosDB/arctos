@@ -6,7 +6,6 @@
 			    $(this).datepicker();
 			});
 			$( "#theForm" ).submit(function( event ) {
-				alert( "Handler for .submit() called." );
 				event.preventDefault();
 				$.ajax({
 					url: "/component/Bulkloader.cfc?queryformat=column",
