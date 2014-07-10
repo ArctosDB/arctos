@@ -12,9 +12,8 @@
 
 console.log($('#theForm').serialize());
 
-return false;
 
-
+/*
 
 			$.ajax({
 				url: "/component/Bulkloader.cfc?queryformat=column",
@@ -50,6 +49,10 @@ return false;
 
 				}
 			});
+* 
+* 
+* 
+* */
 		}
 		function pattrChg(i){
 			if ($("#part_attribute_type_" + i).val().length > 0) {
