@@ -840,8 +840,8 @@ validate
 					<cfset thisAttrVal=evaluate("PART_ATTRIBUTE_VALUE_" & i)>
 					<cfset thisAttrUnit=evaluate("PART_ATTRIBUTE_UNITS_" & i)>
 					<cfset thisAttrDate=evaluate("PART_ATTRIBUTE_DATE_" & i)>
-					<cfset thisAttrDetr=evaluate("PART_ATTRIBUE_DETERMINER_" & i)>
-					<cfset thisAttrRem=evaluate("PART_ATTRIBUE_REMARK_" & i)>
+					<cfset thisAttrDetr=evaluate("PART_ATTRIBUTE_DETERMINER_" & i)>
+					<cfset thisAttrRem=evaluate("PART_ATTRIBUTE_REMARK_" & i)>
 					<cfquery name="nattr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					 	insert into specimen_part_attribute (
 					 		PART_ATTRIBUTE_ID,
