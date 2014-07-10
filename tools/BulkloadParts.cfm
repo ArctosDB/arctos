@@ -342,7 +342,35 @@ grant all on cf_temp_parts to uam_query,uam_update;
 	<cflocation url="BulkloadParts.cfm" addtoken="false">
 </cfif>
 <!---------------------------------------------------------------------------->
-
+<cfif action is "getGuidUUID">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select other_id_number from cf_temp_parts where upper(username)='#ucase(session.username)#' and guid_prefix is null 
+		and other_id_type='UUID' and other_id_number is not null
+		group by other_id_number
+	</cfquery>
+	<cfloop query="mine">
+		<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select 
+				guid_prefix 
+			from 
+				collection,
+				cataloged_item,
+				coll_obj_other_id_num 
+			where 
+				collection.collection_id=cataloged_item.collection_id and
+				cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
+				other_id_type='UUID' and 
+				display_value='#other_id_number#'
+		</cfquery>
+		<cfif gg.recordcount is 1>
+			<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update cf_temp_parts set guid_prefix='#gg.guid_prefix#' where other_id_number='#other_id_number#'
+			</cfquery>
+		</cfif>
+	</cfloop>
+	<cflocation url="BulkloadParts.cfm?action=managemystuff" addtoken="false">
+</cfif>
+<!---------------------------------------------------------------------------->
 <cfif action is "managemystuff">
 	<script src="/includes/sorttable.js"></script>
 	<cfoutput>	
@@ -375,7 +403,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		</cfquery>
 		<cfif nv.c gt 0>
 			<p>
-				<a href="BulkloadParts.cfm?action=lookupUUID">get guid_prefix from UUID</a>
+				<a href="BulkloadParts.cfm?action=getGuidUUID">get guid_prefix from UUID</a>
 			</p>
 		</cfif>
 		<cfif session.roles contains "manage_collection">
