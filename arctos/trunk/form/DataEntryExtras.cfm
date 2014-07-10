@@ -7,6 +7,7 @@
 			});
 		});
 		function saveSpecimenPart(){
+			event.preventDefault();
 			// serialize everything and send it to the server for processing
 
 
