@@ -17,6 +17,14 @@
 					q: $('#theForm').serialize()
 				},
 				success: function(r) {
+
+					console.log(r);
+
+return false;
+
+
+
+
 					if (r=='success'){
 						var retVal = confirm("Success! Click OK to close this, of cancel to create another specimen part.");
 						if( retVal == true ){
