@@ -156,6 +156,7 @@
 </cfif>
 
 <cfif action is "seeWhatsThere">
+	<cfset numPartAttrs=6>
 	<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from  cf_temp_specevent  where UUID='#UUID#'
 	</cfquery>
@@ -178,6 +179,42 @@
 						<td>#HIGHER_GEOG#</td>
 						<td>#SPEC_LOCALITY# (#LOCALITY_ID#)</td>
 						<td>#VERBATIM_LOCALITY# @#VERBATIM_DATE# (#COLLECTING_EVENT_ID#)</td>
+					</tr>
+				</cfloop>
+			</table>
+		</cfoutput>
+	</cfif>
+	
+	
+	<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from  cf_temp_parts  where other_id_number='#UUID#'
+	</cfquery>
+	<cfif ese.recordcount is 0>
+		<p>There are no external specimen parts for this UUID/entry</p>
+	<cfelse>
+		<cfoutput>
+			<p>There are #ese.recordcount# external specimen parts for this UUID/entry. (View details under 
+			<a href="/tools/BulkloadParts.cfm?action=managemystuff" target="_blank">EnterData/BatchTools</a>.) </p>
+			<table border>
+				<tr>
+					<th>Part Name</th>
+					<th>Barcode</th>
+					<th>Attributes</th>
+				</tr>
+				<cfloop query="ese">
+					<cfset pattrs="">
+					<cfloop from="1" to="#numPartAttrs#" index="i">
+						<cfset thisAttr=evaluate("PART_ATTRIBUTE_TYPE_" & i)>
+						<cfset thisVal=evaluate("PART_ATTRIBUTE_VALUE_" & i)>
+						<cfif len(thisAttr) gt 0 and len(thisVal) gt 0>
+							<cfset pattrs=listappens(pattrs,"#thisAttr#=#thisVal#",";")>
+						</cfif>
+					</cfloop>
+				
+					<tr>
+						<td>#part_name#</td>
+						<td>#container_barcode#</td>
+						<td>#pattrs#</td>
 					</tr>
 				</cfloop>
 			</table>

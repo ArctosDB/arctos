@@ -424,10 +424,6 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		<cfquery name="willload" dbtype="query">
 			select count(*) c from mine where status = 'valid'
 		</cfquery>
-		
-		
-		<cfdump var=#willload#>
-		<cfdump var=#mine#>
 		<cfif willload.c eq mine.recordcount>
 			<p>
 				The data should load. Check them one more time, then <a href="BulkloadParts.cfm?action=loadToDb">proceed to load</a>
@@ -691,7 +687,7 @@ validate
 <cfif action is "loadToDb">
 <cfoutput>
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_parts
+		select * from cf_temp_parts where upper(username)='#ucase(session.username)#' and status='valid'
 	</cfquery>
 	<cftransaction>
 	<!----
@@ -872,8 +868,12 @@ validate
 					 	)			 		
 					</cfquery>
 				</cfif>
-			</cfloop>	
+			</cfloop>
 		</cfloop>
+		<!--- clean up ---->
+		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete * from cf_temp_parts where upper(username)='#ucase(session.username)#' and status='valid'
+		</cfquery>
 	</cftransaction>
 	Spiffy, all done.
 	<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(getTempData.collection_object_id)#">
