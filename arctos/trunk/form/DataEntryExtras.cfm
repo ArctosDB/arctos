@@ -8,26 +8,7 @@
 			$( "#theForm" ).submit(function( event ) {
 				alert( "Handler for .submit() called." );
 				event.preventDefault();
-			});
-		});
-
-
-
-		
-
-
-
-		function saveSpecimenPart(){
-			event.preventDefault();
-			// serialize everything and send it to the server for processing
-
-
-console.log($('#theForm').serialize());
-
-
-/*
-
-			$.ajax({
+$.ajax({
 				url: "/component/Bulkloader.cfc?queryformat=column",
 				type: "GET",
 				dataType: "json",
@@ -36,14 +17,6 @@ console.log($('#theForm').serialize());
 					q: $('#theForm').serialize()
 				},
 				success: function(r) {
-
-					console.log(r);
-
-return false;
-
-
-
-
 					if (r=='success'){
 						var retVal = confirm("Success! Click OK to close this, of cancel to create another specimen part.");
 						if( retVal == true ){
@@ -61,10 +34,24 @@ return false;
 
 				}
 			});
-* 
-* 
-* 
-* */
+
+
+
+
+
+			});
+		});
+
+
+
+		
+
+
+
+		function saveSpecimenPart(){
+			
+			
+
 		}
 		function pattrChg(i){
 			if ($("#part_attribute_type_" + i).val().length > 0) {
