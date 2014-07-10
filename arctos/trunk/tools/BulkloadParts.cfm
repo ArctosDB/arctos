@@ -347,16 +347,20 @@ grant all on cf_temp_parts to uam_query,uam_update;
 	<script src="/includes/sorttable.js"></script>
 	<cfoutput>	
 		<cfquery name="clist" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select COLUMN_NAME from user_tab_cols where table_name='CF_TEMP_PARTS' ORDER BY INTERNAL_COLUMN_ID
+			select column_name from user_tab_cols where table_name='CF_TEMP_PARTS' ORDER BY INTERNAL_COLUMN_ID
 		</cfquery>
 		
 		<cfdump var=#clist#>
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_parts where upper(username)='#ucase(session.username)#'
 		</cfquery>
+		
+		
+		<!----
 		<cfset clist=mine.columnlist>
 		<cfset clist=listdeleteat(clist,listfind(clist,'STATUS'))>
 		<cfset clist=listdeleteat(clist,listfind(clist,'KEY'))>
+		----->
 		<p>
 			You have #mine.recordcount# records in the staging table.
 		</p>
