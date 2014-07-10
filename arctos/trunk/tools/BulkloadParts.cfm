@@ -424,6 +424,10 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		<cfquery name="willload" dbtype="query">
 			select count(*) c from mine where status = 'valid'
 		</cfquery>
+		
+		
+		<cfdump var=#willload#>
+		<cfdump var=#mine#>
 		<cfif willload.recordcount eq mine.recordcount>
 			<p>
 				The data should load. Check them one more time, then <a href="BulkloadParts.cfm?action=loadToDb">proceed to load</a>
