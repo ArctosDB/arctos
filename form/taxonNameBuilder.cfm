@@ -132,7 +132,7 @@
 		<p>
 			Taxa Formula documentation
 		</p>
-		<div style="width: 80%;height:400px; overflow:scroll;">
+		<div style="width: 800px;height:400px; overflow:scroll;">
 		<table border width="100%">
 			<tr>
 				<th>Taxa_Formula</th>
