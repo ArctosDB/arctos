@@ -5,6 +5,8 @@
 			$("input[id^='part_attribute_date_']").each(function(e){
 			    $(this).datepicker();
 			});
+			
+			
 			$( "#theForm" ).submit(function( event ) {
 				event.preventDefault();
 				$.ajax({
@@ -251,6 +253,9 @@
 			$("#assigned_date").datepicker();
 			$("#began_date1").datepicker();
 			$("#ended_date1").datepicker();
+			$(".reqdClr").each(function(e){
+			    $(this).prop('required',true);
+			});
 
 		});
 
