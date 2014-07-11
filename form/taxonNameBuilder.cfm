@@ -13,12 +13,52 @@
 				minChars: 1,
 				selectFirst:false
 			});
+			jQuery("#t2").autocomplete("/ajax/scientific_name.cfm", {
+				width: 320,
+				max: 50,
+				autofill: false,
+				multiple: false,
+				scroll: true,
+				scrollHeight: 300,
+				matchContains: true,
+				minChars: 1,
+				selectFirst:false
+			});
 			
 			$( "#theForm" ).submit(function( event ) {
 				event.preventDefault();
 
 				console.log('hello');
-				
+				var formula=$("#taxa_formula").val();
+				var s;
+				var t1v=$("#t1").val();
+				var t2v=$("#t2").val();
+
+				if (formula=='A'){
+					s=t1v;
+				} else if (formula=='A / B intergrade'){
+					s=t1v + ' / ' + t2v + ' intergrade';
+				} else if (formula=='A ?'){
+					s=t1v + ' ?';
+				} else if (formula=='A aff.'){
+					s=t1v + ' aff.';
+				} else if (formula=='A cf.'){
+					s=t1v + ' cf.';
+				} else if (formula=='A ssp.'){
+					s=t1v + ' ssp.';
+				} else if (formula=='A sp.'){
+					s=t1v + ' sp.';
+				} else if (formula=='A and B'){
+					s=t1v + ' and ' + t2v;
+				} else if (formula=='A x B'){
+					s=t1v + ' x ' + t2v;
+				} else if (formula=='A or B'){
+					s=t1v + ' or ' + t2v;
+				} else if (formula=='A {string}'){
+					s=t1v + ' {' + ids + '}';
+				}
+				$("#taxon_name").val(s);
+				$("#dialog").dialog('close');
 			});
 			$( "#taxa_formula" ).change(function() {
 				var formula=$("#taxa_formula").val();
@@ -69,7 +109,7 @@
 				<input type="text" name="t1" class="reqdClr" size="40" id="t1">
 			</div>
 			<div id="dt2" style="display:none;">
-				<label for="t2">Type to pick Taxon Name A</label>
+				<label for="t2">Type to pick Taxon Name B</label>
 				<input type="text" name="t2" class="reqdClr" size="40" id="t2">
 			</div>
 			<div id="dts" style="display:none;">
