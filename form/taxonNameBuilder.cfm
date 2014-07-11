@@ -10,7 +10,7 @@
 			});
 			$( "#taxa_formula" ).change(function() {
 				var formula=$("#taxa_formula").val();
-				var theInp;
+				var theInp='';
 
 				if (formula=='A'){
 					// just create a pick
@@ -50,7 +50,7 @@
 			<input type="submit" value="Save To Form">
 		</form>
 		<hr>Documentation
-		<table border>
+		<table border width="600">
 			<tr>
 				<th>Taxa_Formula</th>
 				<th>Documentation</th>
