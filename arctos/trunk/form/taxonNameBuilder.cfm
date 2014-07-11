@@ -55,7 +55,7 @@
 				} else if (formula=='A or B'){
 					s=t1v + ' or ' + t2v;
 				} else if (formula=='A {string}'){
-					s=t1v + ' {' + ids + '}';
+					s=t1v + ' {' + $("#ids").val() + '}';
 				}
 				$("#taxon_name").val(s);
 				$("#dialog").dialog('close');
