@@ -423,7 +423,7 @@
 					</td>
 					<td colspan="2">
 						<label for="habitat">Habitat</label>
-						<input type="text" name="habitat" id="habitat" size="75">
+						<input type="text" name="habitat" id="habitat" size="75" required>
 					</td>
 				</tr>
 				<tr>
