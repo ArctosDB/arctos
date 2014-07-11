@@ -1,4 +1,3 @@
-<cfif action is "addPart">
 	<script>
 		jQuery(document).ready(function() {
 			
@@ -42,4 +41,3 @@ alert( "Handler for .change() called." );
 			<input type="submit" value="Save To Form">
 		</form>
 	</cfoutput>
-</cfif>
