@@ -12,7 +12,7 @@
 				var formula=$("#taxa_formula").val();
 				var theInp;
 
-				if (formula='A'){
+				if (formula=='A'){
 					// just create a pick
 					var theInp='<input type="text" name="t1" class="reqdClr" size="40" id="t1" onchange="taxaPickIdentification(\'nothing\',this.id,\'theForm\',this.value)">';
 				} else {
