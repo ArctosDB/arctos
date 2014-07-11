@@ -1022,7 +1022,9 @@
 													onkeypress="return noenter(event);">
 											</td>
 											<td>
-												<input type="text" name="part_condition_#i#" id="part_condition_#i#" resize="resize">
+											<textarea name="part_condition_#i#" id="part_condition_#i#" rows="1" cols="20"></textarea>
+											<!----
+												<input type="text" name="part_condition_#i#" id="part_condition_#i#">---->
 											</td>
 											<td>
 												<select id="part_disposition_#i#" name="part_disposition_#i#" style="max-width:80px;">
