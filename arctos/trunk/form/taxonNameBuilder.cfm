@@ -30,7 +30,7 @@
 					theInp+='<input type="button" onclick="taxaPickIdentification(\'nothing\',\'t1\',\'theForm\',$(\'#t1\').val())" value="pick">';
 					taxaPickIdentification('nothing','t1','theForm',$('#t1').val());
 				
-} else if (formula=='A / B intergrade' || formula=='A and B' || formula=='A x B' || formula=='A or B' ||){
+} else if (formula=='A / B intergrade' || formula=='A and B' || formula=='A x B' || formula=='A or B'){
 
 } else if (formula=='A {string}'){
 
