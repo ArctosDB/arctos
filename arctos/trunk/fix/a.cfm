@@ -1,6 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 
-<input required>
+<style>
+	#test{resize:both}
+</style>
+<input type="text" id="test" required>
 
 
 
