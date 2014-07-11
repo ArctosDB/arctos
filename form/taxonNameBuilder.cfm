@@ -115,6 +115,9 @@
 		</form>	
 		<hr>Documentation
 		
+		
+		
+		<div style="width: 800px;height:400px; overflow:scroll;">
 		<ul>
 			<li>
 				Type into the "Type to select Taxon Name..." box(es) above to select a taxon name. Make sure you have selected an existing name to avoid 
@@ -132,7 +135,6 @@
 		<p>
 			Taxa Formula documentation
 		</p>
-		<div style="width: 800px;height:400px; overflow:scroll;">
 		<table border width="100%">
 			<tr>
 				<th>Taxa_Formula</th>
