@@ -1022,7 +1022,7 @@
 													onkeypress="return noenter(event);">
 											</td>
 											<td>
-											<textarea name="part_condition_#i#" id="part_condition_#i#" rows="1" cols="20"></textarea>
+												<textarea name="part_condition_#i#" id="part_condition_#i#" rows="1" cols="20"></textarea>
 											<!----
 												<input type="text" name="part_condition_#i#" id="part_condition_#i#">---->
 											</td>
@@ -1045,7 +1045,7 @@
 												<input type="text" name="part_container_label_#i#" id="part_container_label_#i#" size="10">
 											</td>
 											<td>
-												<input type="text" name="part_remark_#i#" id="part_remark_#i#" size="25">
+												<textarea name="part_remark_#i#" id="part_remark_#i#" rows="1" cols="20"></textarea>
 											</td>
 										</tr>
 									</cfloop>
