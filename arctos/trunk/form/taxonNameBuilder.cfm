@@ -14,7 +14,10 @@
 
 				if (formula=='A'){
 					// just create a pick
-					var theInp='<input type="text" name="t1" class="reqdClr" size="40" id="t1" onchange="taxaPickIdentification(\'nothing\',this.id,\'theForm\',this.value)">';
+					theInp='<label for="ti">Taxon Name</label><input type="text" name="t1" class="reqdClr" size="40" id="t1">';
+					theInp+='<input type="button" onclick="taxaPickIdentification(\'nothing\','t1',\'theForm\')" value="pick">';
+					taxaPickIdentification('nothing','t1','theForm');
+
 				} else {
 					alert('That taxa formula is not handled. File a bug report.');
 				}
@@ -40,6 +43,7 @@
 			
 			<label for="taxa_formula">Pick a Formula to get started</label>
 			<select name="taxa_formula" id="taxa_formula" size="1"  required>
+				<option value=""></option>
 				<cfloop query="cttaxa_formula">
 					<option value="#cttaxa_formula.taxa_formula#">#cttaxa_formula.taxa_formula#</option>
 				</cfloop>
