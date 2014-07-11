@@ -152,6 +152,7 @@ input.insBtn{color:#666;font-weight:700;background-color:#9CC;border:1px solid #
 input.delBtn{color:#666;font-size:10pt;font-weight:700;background-color:#F96;border:1px solid;border-color:#366}
 input.qutBtn{color:#666;font-size:10pt;font-weight:700;background-color:#FF0;border:1px solid;border-color:#366}
 input.reqdClr,select.reqdClr,textarea.reqdClr{background-color:#FF3}
+:required {background-color:#FFFF33;}
 input.badPick,select.badPick,textarea.badPick{background-color:#F36}
 .goodPick{background-color:#8BFEB9}
 input.readClr,select.readClr{background-color:#CCC}
