@@ -257,7 +257,36 @@
 			    $(this).prop('required',true);
 			});
 
+			$( "#theForm" ).submit(function( event ) {
+				event.preventDefault();
+				$.ajax({
+					url: "/component/Bulkloader.cfc?queryformat=column",
+					type: "GET",
+					dataType: "json",
+					data: {
+						method:  "saveNewSpecimenEvent",
+						q: $('#theForm').serialize()
+					},
+					success: function(r) {
+						if (r=='success'){
+							var retVal = confirm("Success! Click OK to close this, or CANCEL to create another specimen-event.");
+							if( retVal == true ){
+						    	$("#dialog").dialog('close');
+						 	} 
+						} else {
+							alert('Error: ' + r);
+						}
+					},
+					error: function (xhr, textStatus, errorThrown){
+					    alert(errorThrown);
+					}
+				});
+			});
 		});
+
+
+
+
 
 		function typeEvent(oo){
 			if (oo=='on'){
@@ -321,32 +350,6 @@
 				lat_long_meta.show();
 				utm.show();
 			}
-		}
-
-		function saveSpecimenEvent(){
-			// serialize everything and send it to the server for processing
-			$.ajax({
-				url: "/component/Bulkloader.cfc?queryformat=column",
-				type: "GET",
-				dataType: "json",
-				data: {
-					method:  "saveNewSpecimenEvent",
-					q: $('#theForm').serialize()
-				},
-				success: function(r) {
-					if (r=='success'){
-						var retVal = confirm("Success! Click OK to close this, or CANCEL to create another specimen-event.");
-						if( retVal == true ){
-					    	$("#dialog").dialog('close');
-					 	} 
-					} else {
-						alert('Error: ' + r);
-					}
-				},
-				error: function (xhr, textStatus, errorThrown){
-				    alert(errorThrown);
-				}
-			});
 		}
 	</script>
 	<cfoutput>
@@ -818,7 +821,7 @@
 					</td>
 				</tr>		
 			</table>
-			<input type="button" onclick="saveSpecimenEvent()" value="Save Event">
+			<input type="submit" value="Save Event">
 		</form>
 	</cfoutput>
 </cfif>
