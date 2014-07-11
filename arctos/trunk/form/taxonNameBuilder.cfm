@@ -5,39 +5,62 @@
 			$( "#theForm" ).submit(function( event ) {
 				event.preventDefault();
 
-console.log('hello');
+				console.log('hello');
 				
+			});
+			$( "#taxa_formula" ).change(function() {
+				var formula=$("#taxa_formula").val();
+				var theInp;
+
+				if (formula='A'){
+					// just create a pick
+					var theInp=<input type="text" name="t1" class="reqdClr" size="40" id="t1" onchange="taxaPickIdentification('nothing',this.id,'theForm',this.value)">
+				} else {
+					alert('That taxa formula is not handled. File a bug report.');
+				}
+				$("#btfh").html(theInp);
+			});
+
 		});
+		
 
 
-		$( "#taxa_formula" ).change(function() {
-alert( "Handler for .change() called." );
-});
-
-
-		function pattrChg(i){
-			if ($("#part_attribute_type_" + i).val().length > 0) {
-				$("#part_attribute_value_" + i).addClass('reqdClr').prop('required',true);
-			} else {
-				
-				$("#part_attribute_value_" + i).removeClass().prop('required',false);
-			}
-		}
+		
 	</script>
 
 	<cfoutput>
 		<cfquery name="cttaxa_formula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	       	select taxa_formula from cttaxa_formula group by taxa_formula order by taxa_formula
+	       	select taxa_formula,DESCRIPTION from cttaxa_formula order by taxa_formula
 	    </cfquery>
-	    <label for="theForm"></label>Add Specimen Part</label>
+	    <p>
+	    	Build a Taxon Name
+	    </p>
 		<form name="theForm" id="theForm">
+			<input type="hidden" name="nothing" id="nothing">
+			
 			<label for="taxa_formula">Pick a Formula to get started</label>
 			<select name="taxa_formula" id="taxa_formula" size="1"  required>
 				<cfloop query="cttaxa_formula">
 					<option value="#cttaxa_formula.taxa_formula#">#cttaxa_formula.taxa_formula#</option>
 				</cfloop>
 			</select>
-		
+			<div id="btfh">
+			
+			</div>
 			<input type="submit" value="Save To Form">
 		</form>
+		<hr>Documentation
+		<table border>
+			<tr>
+				<th>Taxa_Formula</th>
+				<th>Documentation</th>
+			</tr>
+			<cfloop query="cttaxa_formula">
+				<tr>
+					<td>#taxa_formula#</td>
+					<td>#DESCRIPTION#</td>
+				</tr>
+			</cfloop>
+		</table>
+		
 	</cfoutput>
