@@ -50,7 +50,8 @@
 			<input type="submit" value="Save To Form">
 		</form>
 		<hr>Documentation
-		<table border width="600">
+		<div style="width: 600px;height:400px; overflow:scroll;">
+		<table border width="100%">
 			<tr>
 				<th>Taxa_Formula</th>
 				<th>Documentation</th>
@@ -62,5 +63,5 @@
 				</tr>
 			</cfloop>
 		</table>
-		
+		</div>
 	</cfoutput>
