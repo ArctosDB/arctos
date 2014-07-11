@@ -126,6 +126,10 @@
 				For the "A {string} formula, select the best (usually most specific) appropriate name, and type the ID string. For example, if the specimen
 				is a "working species" for a new shrew, Taxon A would be "Sorex" and the Identification String might be "Sorex n. sp. undescr##17." 
 			</li>
+			<li>
+				Use taxon name "unidentifiable" sparingly - it should be interpreted as "this might be a whale, redwood, virus, or mineral" rather than "we don't know what
+				kind of bird this is." (Use "Aves" for that.)
+			</li>
 		</ul>
 		<p>
 			Taxa Formula documentation
