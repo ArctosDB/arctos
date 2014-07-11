@@ -27,13 +27,10 @@
 			
 			$( "#theForm" ).submit(function( event ) {
 				event.preventDefault();
-
-				console.log('hello');
 				var formula=$("#taxa_formula").val();
 				var s;
 				var t1v=$("#t1").val();
 				var t2v=$("#t2").val();
-
 				if (formula=='A'){
 					s=t1v;
 				} else if (formula=='A / B intergrade'){
@@ -82,9 +79,7 @@
 					$("#dts").shhideow();
 				}
 			});
-
 		});
-		
 	</script>
 
 	<cfoutput>
@@ -105,11 +100,11 @@
 				</cfloop>
 			</select>
 			<div id="dt1" style="display:none;">
-				<label for="t1">Type to pick Taxon Name A</label>
+				<label for="t1">Type to select Taxon Name A</label>
 				<input type="text" name="t1" class="reqdClr" size="40" id="t1">
 			</div>
 			<div id="dt2" style="display:none;">
-				<label for="t2">Type to pick Taxon Name B</label>
+				<label for="t2">Type to select Taxon Name B</label>
 				<input type="text" name="t2" class="reqdClr" size="40" id="t2">
 			</div>
 			<div id="dts" style="display:none;">
@@ -121,6 +116,20 @@
 		
 		
 		<hr>Documentation
+		
+		<ul>
+			<li>
+				Type into the "Type to select Taxon Name..." box(es) above to select a taxon name. Make sure you have selected an existing name to avoid 
+				loading failures later.
+			</li>
+			<li>
+				For the "A {string} formula, select the best (usually most specific) appropriate name, and type the ID string. For example, if the specimen
+				is a "working species" for a new shrew, Taxon A would be "Sorex" and the Identification String might be "Sorex n. sp. undescr#17." 
+			</li>
+		</ul>
+		<p>
+			Taxa Formula documentation
+		</p>
 		<div style="width: 600px;height:400px; overflow:scroll;">
 		<table border width="100%">
 			<tr>
