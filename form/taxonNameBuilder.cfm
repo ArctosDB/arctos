@@ -14,7 +14,7 @@
 
 				if (formula='A'){
 					// just create a pick
-					var theInp=<input type="text" name="t1" class="reqdClr" size="40" id="t1" onchange="taxaPickIdentification('nothing',this.id,'theForm',this.value)">
+					var theInp='<input type="text" name="t1" class="reqdClr" size="40" id="t1" onchange="taxaPickIdentification('nothing',this.id,'theForm',this.value)">';
 				} else {
 					alert('That taxa formula is not handled. File a bug report.');
 				}
