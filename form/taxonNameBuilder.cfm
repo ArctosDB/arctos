@@ -15,7 +15,7 @@
 				if (formula=='A'){
 					// just create a pick
 					theInp='<label for="ti">Taxon Name</label><input type="text" name="t1" class="reqdClr" size="40" id="t1">';
-					theInp+='<input type="button" onclick="taxaPickIdentification(\'nothing\',\'t1\',\'theForm\',$("#t1").val();)" value="pick">';
+					theInp+='<input type="button" onclick="taxaPickIdentification(\'nothing\',\'t1\',\'theForm\',$("##t1").val();)" value="pick">';
 					taxaPickIdentification('nothing','t1','theForm',$('#t1').val());
 
 				} else {
