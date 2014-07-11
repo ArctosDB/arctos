@@ -1,5 +1,5 @@
 function buildTaxonName(){
-	var guts = "/form/taxonNameBuilder.cfm;
+	var guts = "/form/taxonNameBuilder.cfm";
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
