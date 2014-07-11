@@ -22,23 +22,25 @@
 			});
 			$( "#taxa_formula" ).change(function() {
 				var formula=$("#taxa_formula").val();
-				var theInp='';
-
 				if (formula=='A' || formula=='A ?' || formula=='A aff.' || formula=='A cf.' || formula=='A ssp.' || formula=='A cspf.'){
-					// just create a pick
-					theInp='<label for="ti">Taxon Name</label><input type="text" name="t1" class="reqdClr" size="40" id="t1">';
-					theInp+='<input type="button" onclick="taxaPickIdentification(\'nothing\',\'t1\',\'theForm\',$(\'#t1\').val())" value="pick">';
-					taxaPickIdentification('nothing','t1','theForm',$('#t1').val());
-				
-} else if (formula=='A / B intergrade' || formula=='A and B' || formula=='A x B' || formula=='A or B'){
+					$("#dt1").show();
+					$("#dt2").hide();
+					$("#dts").hide();
+				} else if (formula=='A / B intergrade' || formula=='A and B' || formula=='A x B' || formula=='A or B'){
+					$("#dt1").show();
+					$("#dt2").show();
+					$("#dts").hide();
+				} else if (formula=='A {string}'){
+					$("#dt1").show();
+					$("#dt2").hide();
+					$("#dts").show();
 
-} else if (formula=='A {string}'){
-
-					// just create a pick
 				} else {
 					alert('That taxa formula is not handled. File a bug report.');
+					$("#dt1").hide();
+					$("#dt2").hide();
+					$("#dts").shhideow();
 				}
-				$("#btfh").html(theInp);
 			});
 
 		});
@@ -62,12 +64,22 @@
 					<option value="#cttaxa_formula.taxa_formula#">#cttaxa_formula.taxa_formula#</option>
 				</cfloop>
 			</select>
-			<div id="dt1">
-				<label for="ti">Taxon Name A</label>
+			<div id="dt1" style="display:none;">
+				<label for="t1">Type to pick Taxon Name A</label>
 				<input type="text" name="t1" class="reqdClr" size="40" id="t1">
+			</div>
+			<div id="dt2" style="display:none;">
+				<label for="t2">Type to pick Taxon Name A</label>
+				<input type="text" name="t2" class="reqdClr" size="40" id="t2">
+			</div>
+			<div id="dts" style="display:none;">
+				<label for="ids">Type the Identification string</label>
+				<input type="text" name="ids" class="reqdClr" size="40" id="ids">
 			</div>
 			<input type="submit" value="Save To Form">
 		</form>
+		
+		
 		<hr>Documentation
 		<div style="width: 600px;height:400px; overflow:scroll;">
 		<table border width="100%">
