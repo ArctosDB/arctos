@@ -34,7 +34,7 @@ alert( "Handler for .change() called." );
 			<label for="taxa_formula">Pick a Formula to get started</label>
 			<select name="taxa_formula" id="taxa_formula" size="1"  required>
 				<cfloop query="cttaxa_formula">
-					<option value="#cttaxa_formula.cttaxa_formula#">#cttaxa_formula.cttaxa_formula#</option>
+					<option value="#cttaxa_formula.taxa_formula#">#cttaxa_formula.taxa_formula#</option>
 				</cfloop>
 			</select>
 		
