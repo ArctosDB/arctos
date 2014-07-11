@@ -1,3 +1,26 @@
+function buildTaxonName(){
+	var guts = "/form/taxonNameBuilder.cfm;
+	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'center'],
+		title: 'Build Taxon Name',
+		width: 'auto',
+		close: function() {
+			$( this ).remove();
+		},
+	}).load(guts, function() {
+		$(this).dialog("option", "position", ['center', 'center'] );
+	});
+	$(window).resize(function() {
+		//fluidDialog();
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	
+}
+
 function addMoreStuff(mode){
 	$("#more").val('');
 	if (mode.length==0){
