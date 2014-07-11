@@ -5,10 +5,8 @@
 <cfset variables.encoding="US-ASCII">
 <cfscript>
 	variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-	variables.joFileWriter.writeLine('User-agent: bingbot');
-	variables.joFileWriter.writeLine('crawl-delay: 10');
-	variables.joFileWriter.writeLine('');
 	variables.joFileWriter.writeLine('User-agent: *');
+	variables.joFileWriter.writeLine('crawl-delay: 5');
 </cfscript>	
 <cfset allowedDirectories="Collections">
 <cfquery name="portals" datasource="cf_dbuser">

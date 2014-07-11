@@ -1273,8 +1273,9 @@ input.qutBtn {
 	border:1px solid;}
 
 input.reqdClr, select.reqdClr, textarea.reqdClr {
-
    background-color:#FFFF33; }
+
+:required {background-color:#FFFF33;}
 
 input.badPick, select.badPick, textarea.badPick {
 
