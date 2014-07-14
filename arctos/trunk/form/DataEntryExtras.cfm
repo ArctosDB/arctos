@@ -252,7 +252,7 @@
 			$("#assigned_date").datepicker();
 			$("#began_date1").datepicker();
 			$("#ended_date1").datepicker();
-			$(".reqdClr").each(function(e){
+			$(".reqdClr:visible").each(function(e){
 			    $(this).prop('required',true);
 			});
 
