@@ -4,7 +4,9 @@
 			$("input[id^='part_attribute_date_']").each(function(e){
 			    $(this).datepicker();
 			});
-			
+			$(".reqdClr:visible").each(function(e){
+			    $(this).prop('required',true);
+			});
 			
 			$( "#theForm" ).submit(function( event ) {
 				event.preventDefault();
@@ -64,7 +66,7 @@
 		      <tr> 
 		        <td>
 					<label for="part_name">Part Name</label>
-					<input type="text" name="part_name" id="part_name" class="reqdClr" required="required"
+					<input type="text" name="part_name" id="part_name" class="reqdClr"
 						onchange="findPart(this.id,this.value,'#collection_cde#');" 
 						onkeypress="return noenter(event);">
 				</td>
@@ -78,11 +80,11 @@
 				</td>
 		        <td>
 					<label for="condition">Condition</label>
-					<input type="text" name="condition" id="condition" class="reqdClr" required="required">
+					<input type="text" name="condition" id="condition" class="reqdClr">
 				</td>
 		        <td>
 					<label for="lot_count">Count</label>
-					<input type="text" pattern="\d*" name="lot_count" required="required" class="reqdClr" size="2">
+					<input type="text" pattern="\d*" name="lot_count" class="reqdClr" size="2">
 				</td>
 		        <td>
 					<label for="remarks">Remark</label>
@@ -282,10 +284,6 @@
 				});
 			});
 		});
-
-
-
-
 
 		function typeEvent(oo){
 			if (oo=='on'){
