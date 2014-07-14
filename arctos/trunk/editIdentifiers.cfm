@@ -176,14 +176,13 @@
 	<table>
 	
 <tr #iif(i MOD 2,DE("class='oddRow'"),DE("class='evenRow'"))#>
-			<td>Catalog Number</td>
+			<td>Catalog Number: </td>
 			<td>#cat.guid_prefix#:</td>
 			<input type="hidden" name="oldcat_num" value="#cat.cat_num#">
 			<td><input type="text" name="cat_num" value="#cat.cat_num#" size="12" class="reqdClr"></td>
 	 		<td>
 		 		<span class="infoLink"onClick="window.open('/tools/findGap.cfm','','width=400,height=338, resizable,scrollbars');">[ find gaps ]</span>
 			</td>
-		 	<td>self</td>
 		 </tr>
 		 </table>
 		 
