@@ -50,7 +50,7 @@
 		select MEDIA_LICENSE_ID,DISPLAY from CTMEDIA_LICENSE order by DISPLAY
 	</cfquery>
 	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select source from taxon_term group by source order by source
+		select source from cttaxonomy_source group by source order by source
 	</cfquery>
 	<h2>
 		CAUTION!!
