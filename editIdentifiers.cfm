@@ -162,10 +162,32 @@
 		coll_obj_other_id_num_id
 </cfquery>
 	<h3>Identifiers</h3>
-<b>Edit existing Identifiers:
+	
+
+
+		 
+		 
+		 
+<b>Edit existing Identifiers:</b>
 <form name="ids" method="post" action="editIdentifiers.cfm">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 	<input type="hidden" name="Action" value="saveEdits">
+	
+	<table>
+	
+<tr #iif(i MOD 2,DE("class='oddRow'"),DE("class='evenRow'"))#>
+			<td>Catalog Number</td>
+			<td>#cat.guid_prefix#:</td>
+			<input type="hidden" name="oldcat_num" value="#cat.cat_num#">
+			<td><input type="text" name="cat_num" value="#cat.cat_num#" size="12" class="reqdClr"></td>
+	 		<td>
+		 		<span class="infoLink"onClick="window.open('/tools/findGap.cfm','','width=400,height=338, resizable,scrollbars');">[ find gaps ]</span>
+			</td>
+		 	<td>self</td>
+		 </tr>
+		 </table>
+		 
+		 
 	<cfset i=1>
 	<table>
 		<tr>
@@ -182,16 +204,7 @@
 			</th>
 			<th>Delete</th>
 		</tr>
-		<tr #iif(i MOD 2,DE("class='oddRow'"),DE("class='evenRow'"))#>
-			<td>Catalog Number</td>
-			<td>#cat.guid_prefix#:</td>
-			<input type="hidden" name="oldcat_num" value="#cat.cat_num#">
-			<td><input type="text" name="cat_num" value="#cat.cat_num#" size="12" class="reqdClr"></td>
-	 		<td>
-		 		<span class="infoLink"onClick="window.open('/tools/findGap.cfm','','width=400,height=338, resizable,scrollbars');">[ find gaps ]</span>
-			</td>
-		 	<td>self</td>
-		 </tr>
+		
 		<cfloop query="oids">
 			<input type="hidden" name="coll_obj_other_id_num_id_#i#" value="#coll_obj_other_id_num_id#">
 			 <tr #iif(i MOD 2,DE("class='oddRow'"),DE("class='evenRow'"))#>
