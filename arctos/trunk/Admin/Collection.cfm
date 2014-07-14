@@ -35,7 +35,7 @@
 			WEB_LINK_TEXT,
 			loan_policy_url,
 			guid_prefix,
-			allow_prefix_suffix,
+			catalog_number_format,
 			use_license_id,
 			citation,
 			preferred_taxonomy_source
@@ -91,10 +91,11 @@
 					<input type="text" name="web_link_text" id="web_link_text" value='#colls.web_link_text#' size="50">
 					<label for="descr">Loan Policy URL</label>
 					<input type="text" name="loan_policy_url" id="loan_policy_url" value='#colls.loan_policy_url#' size="50">
-					<label for="allow_prefix_suffix">Allow catnum prefix/suffix?</label>
-					<select name="allow_prefix_suffix" id="allow_prefix_suffix">
-						<option <cfif colls.allow_prefix_suffix is 0>selected="selected" </cfif>value="0">no</option>
-						<option <cfif colls.allow_prefix_suffix is 1>selected="selected" </cfif>value="1">yes</option>
+					<label for="catalog_number_format">Catnum Format</label>
+					<select name="catalog_number_format" id="catalog_number_format">
+						<option <cfif colls.catalog_number_format is "integer">selected="selected" </cfif>value="integer">integer</option>
+						<option <cfif colls.catalog_number_format is "prefix-integer-suffix">selected="prefix-integer-suffix" </cfif>value="prefix-integer-suffix">prefix-integer-suffix</option>
+						<option <cfif colls.catalog_number_format is "string">selected="selected" </cfif>value="string">string</option>
 					</select>
 					<label for="use_license_id">License</label>
 					<select name="use_license_id" id="use_license_id">
@@ -384,7 +385,7 @@
 			web_link='#web_link#',
 			web_link_text='#web_link_text#',
 			loan_policy_url='#loan_policy_url#',
-			allow_prefix_suffix=#allow_prefix_suffix#,
+			catalog_number_format='#catalog_number_format#',
 			use_license_id=#use_license_id#,
 			citation='#escapeQuotes(citation)#',
 			preferred_taxonomy_source='#preferred_taxonomy_source#'
