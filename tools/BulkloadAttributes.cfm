@@ -143,7 +143,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfset sql="insert all ">
 	<cfloop query="qclean">
 		
-		<cfset sql=sql & "insert into cf_temp_attributes (#colnames#,key) values (">
+		<cfset sql=sql & " into cf_temp_attributes (#colnames#,key) values (">
 		<cfloop list="#colnames#" index="i">
 			<cfset sql=sql & "'#evaluate("qClean." & i)#',">
 		</cfloop>
