@@ -79,7 +79,13 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	
 	
 	<cfdump var=#arrResult#>
-	<cfset colNames="">
+	<!--- first array element is column names ---->
+	<cfset colNames=ArrayToList(arrResult[0])>
+	
+	
+		<cfdump var=#colNames#>
+
+	
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 	
 	
