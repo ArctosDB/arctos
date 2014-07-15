@@ -178,7 +178,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		update cf_temp_attributes set DETERMINED_BY_AGENT_ID=getAgentID(determiner)  where upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="attDetFail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_attributes set status=status || '; agent invalid' wgere DETERMINED_BY_AGENT_ID is null and determiner is not null and upper(username)='#ucase(session.username)#'
+		update cf_temp_attributes set status=status || '; agent invalid' where DETERMINED_BY_AGENT_ID is null and determiner is not null and upper(username)='#ucase(session.username)#'
 	</cfquery>
 </cfoutput>
 
