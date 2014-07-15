@@ -31,6 +31,15 @@ default=""""
 hint="This is the qualifier that will wrap around fields that have special characters embeded."
 />
  
+<cfargument
+name="FirstRowIsHeadings"
+type="boolean"
+required="false"
+default="true"
+hint="Set to false if the heading row is absent"
+/>
+
+
  
 <!--- Define the local scope. --->
 <cfset var LOCAL = StructNew() />
@@ -609,9 +618,112 @@ LOCAL.Rows[ LOCAL.RowIndex ][ LOCAL.FieldIndex ]
 Our query has been successfully populated.
 Now, return it.
 --->
+
+
+
+
+
+<cfif FirstRowIsHeadings>
+<cfloop query="LOCAL.Query" startrow="1" endrow="1" >
+<cfloop list="#LOCAL.Query.columnlist#" index="col_name">
+<cfset field = evaluate("LOCAL.Query.#col_name#")>
+<cfset field = replace(field,"-","","ALL")>
+<cfset QueryChangeColumnName(LOCAL.Query,"#col_name#","#field#") >
+</cfloop>
+</cfloop>
+
+<cfset LOCAL.Query.RemoveRows( JavaCast( "int", 0 ), JavaCast( "int", 1 ) ) />
+</cfif>
+
+
+
 <cfreturn LOCAL.Query />
  
 </cffunction>
+
+
+
+
+<cffunction
+name="QueryChangeColumnName"
+access="public"
+output="false"
+returntype="query"
+hint="Changes the column name of the given query.">
+ 
+<!--- Define arguments. --->
+<cfargument
+name="Query"
+type="query"
+required="true"
+/>
+ 
+<cfargument
+name="ColumnName"
+type="string"
+required="true"
+/>
+ 
+<cfargument
+name="NewColumnName"
+type="string"
+required="true"
+/>
+ 
+<cfscript>
+ 
+// Define the local scope.
+var LOCAL = StructNew();
+ 
+// Get the list of column names. We have to get this
+// from the query itself as the "ColdFusion" query
+// may have had an updated column list.
+LOCAL.Columns = ARGUMENTS.Query.GetColumnNames();
+ 
+// Convert to a list so we can find the column name.
+// This version of the array does not have indexOf
+// type functionality we can use.
+LOCAL.ColumnList = ArrayToList(
+LOCAL.Columns
+);
+ 
+// Get the index of the column name.
+LOCAL.ColumnIndex = ListFindNoCase(
+LOCAL.ColumnList,
+ARGUMENTS.ColumnName
+);
+ 
+// Make sure we have found a column.
+if (LOCAL.ColumnIndex){
+ 
+// Update the column name. We have to create
+// our own array based on the list since we
+// cannot directly update the array passed
+// back from the query object.
+LOCAL.Columns = ListToArray(
+LOCAL.ColumnList
+);
+ 
+LOCAL.Columns[ LOCAL.ColumnIndex ] = ARGUMENTS.NewColumnName;
+ 
+// Set the column names.
+ARGUMENTS.Query.SetColumnNames(
+LOCAL.Columns
+);
+ 
+}
+ 
+// Return the query reference.
+return( ARGUMENTS.Query );
+ 
+</cfscript>
+</cffunction>
+
+
+
+
+
+
 
 
 
