@@ -108,6 +108,14 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
+	<cfquery name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+		update 
+			cf_temp_attributes 
+		set 
+			status=null where 
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
+	
 	<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_attributes set COLLECTION_OBJECT_ID = (
 			select 
@@ -142,7 +150,9 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		update 
 			cf_temp_attributes 
 		set 
-			status=status || '; cataloged item not found'
+			status=decode(status,
+				null,'cataloged item not found',
+				status || '; cataloged item not found')
 		where 
 			collection_object_id is null and
 			upper(username)='#ucase(session.username)#'
@@ -152,10 +162,12 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		update 
 			cf_temp_attributes 
 		set 
-			status=status || '; ' || decode (
-				isValidAttribute(ATTRIBUTE,ATTRIBUTE_VALUE,ATTRIBUTE_UNITS,(select collection_cde from collection where collection.guid_prefix=cf_temp_attributes.guid_prefix)),
-				0,'attribute failed validation')
-		where upper(username)='#ucase(session.username)#'
+			status=decode(status,
+				null,'attribute failed validation',
+				status || '; attribute failed validation')
+			where
+				isValidAttribute(ATTRIBUTE,ATTRIBUTE_VALUE,ATTRIBUTE_UNITS,(select collection_cde from collection where collection.guid_prefix=cf_temp_attributes.guid_prefix))=0 and
+				upper(username)='#ucase(session.username)#'
 	</cfquery>
 	
 
@@ -167,21 +179,32 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		update 
 			cf_temp_attributes 
 		set 
-			status=status || '; ' || decode (is_iso8601(ATTRIBUTE_DATE),
-				'valid',NULL,
-				'invalid date'
-			)
-			where ATTRIBUTE_DATE is not null  and upper(username)='#ucase(session.username)#'
+			status=decode(status,
+				null,'invalid date',
+				status || '; invalid date')
+		where 
+			ATTRIBUTE_DATE is not null and 
+			upper(username)='#ucase(session.username)#' and
+			is_iso8601(ATTRIBUTE_DATE)!='valid'
 	</cfquery>
 	
 	<cfquery name="attDet1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_attributes set DETERMINED_BY_AGENT_ID=getAgentID(determiner)  where upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="attDetFail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_attributes set status=status || '; agent invalid' where DETERMINED_BY_AGENT_ID is null and determiner is not null and upper(username)='#ucase(session.username)#'
+		update 
+			cf_temp_attributes 
+		set 
+			status=decode(status,
+				null,'invalid determiner',
+				status || '; invalid determiner')
+		where 
+			DETERMINED_BY_AGENT_ID is null and 
+			determiner is not null and 
+			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	
-		<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
+	<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
 
 </cfoutput>
 
