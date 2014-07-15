@@ -130,7 +130,12 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfdump var=#colNames#>
 
 	
-	
+	<cfquery name="qclean" dbtype="query">
+		select #colnames# from q
+	</cfquery>	
+
+
+	<cfdump var=#qclean#>
 
 		<cfabort>
 
