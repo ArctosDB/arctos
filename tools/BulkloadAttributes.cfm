@@ -246,6 +246,9 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		select count(*) l from datadump where status is not null
 	</cfquery>
 	
+	<p>
+		<a href="BulkloadAttributes.cfm">load more records</a>
+	</p>
 	<cfif pf.recordcount gt 0>
 		Oops - something's hinky. Review the table below and try again.
 		
