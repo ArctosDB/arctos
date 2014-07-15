@@ -88,8 +88,18 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	
 	
 		<cfdump var=#colNames#>
+		
+		
+		<cfset sIDX=listfindnocase(colNames,'status')>
 
-	
+			<cfdump var=#sIDX#>
+			
+			
+			
+		<cfset sIDX=listfindnocase(colNames,'stadsgstus')>
+
+			<cfdump var=#sIDX#>
+
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 	
 	
