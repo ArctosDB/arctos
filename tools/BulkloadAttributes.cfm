@@ -85,29 +85,11 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <!------------------------------------------------------->
 <cfif action is "getFile">
 <cfoutput>
-	
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-	
-	
-	
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset q = util.CSVToQuery(CSV=fileContent)>
-	
-	
-	
-		<cfdump var=#q#>
-
-
-
-
 	<cfset colNames=q.columnList>
 	<!--- disallow some procedural stuff that sometimes ends up in the download/reload CSV --->
-	
-	
-	<cfdump var=#colNames#>
-
-
-			
 	<cfif listfindnocase(colNames,'status') gt 0>
 		<cfset colNames=listdeleteat(colNames,listfindnocase(colNames,'status'))>
 	</cfif>
@@ -123,115 +105,25 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfif listfindnocase(colNames,'USERNAME') gt 0>
 		<cfset colNames=listdeleteat(colNames,listfindnocase(colNames,'USERNAME'))>
 	</cfif>
-	
-	
-	
-	
-	<cfdump var=#colNames#>
-
-	
 	<cfquery name="qclean" dbtype="query">
 		select #colnames# from q
 	</cfquery>	
-
-
-	<cfdump var=#qclean#>
-
-	<br>
-	
-	
 	<cfset sql="insert all ">
-	<cfloop query="qclean">
-		
+	<cfloop query="qclean">		
 		<cfset sql=sql & " into cf_temp_attributes (#colnames#,key) values (">
 		<cfloop list="#colnames#" index="i">
 			<cfset sql=sql & "'#evaluate("qClean." & i)#',">
 		</cfloop>
-		<cfset sql=sql & "NULL)">
-		
+		<cfset sql=sql & "NULL)">	
 	</cfloop>
 	<cfset sql=sql & "SELECT 1 FROM DUAL">
-	
-	
-	<cfdump var=#sql#>
-
-
-
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				#preserveSingleQuotes(sql)#
-			</cfquery>
-
-		<cfabort>
-
-	
-	<cfset theQuery=CSVtoQuery(fileContent)>
-	
-	
-	<cfdump var=#theQuery#>
-		<cfabort>
-	
-	
-	<cfset fileContent=replace(fileContent,"'","''","all")>
-	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
-	
-	
-	
-	<cfdump var=#arrResult#>
-	<!--- first array element is column names ---->
-	<cfset colNames=ArrayToList(arrResult[1])>
-
-	<!--- don't accept internal junk ---->
-	
-	
-
-
-
-
-			<cfdump var=#sIDX#>
-
-	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
-	
-	
-	
-	<!----
-	
-	
-
-
-
-
-
-		<cfset colVals="">
-			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
-				<cfset thisBit=arrResult[o][i]>
-				<cfif o is 1>
-					<cfset colNames="#colNames#,#thisBit#">
-				<cfelse>
-					<cfset colVals="#colVals#,'#thisBit#'">
-				</cfif>
-			</cfloop>
-		<cfif o is 1>
-			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>
-		<cfif len(colVals) gt 1>
-			<cfset colVals=replace(colVals,",","","first")>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into cf_temp_attributes (#colNames#) values (#preservesinglequotes(colVals)#)
-			</cfquery>
-		</cfif>
-		
-		
-		---->
-	</cfloop>
-	
-	<!-----
+	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		#preserveSingleQuotes(sql)#
+	</cfquery>
 	<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
-	--->
 </cfoutput>
 </cfif>
-
 <!------------------------------------------------------->
-
 <cfif action is "getCSV">
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_attributes where upper(username)='#ucase(session.username)#'
