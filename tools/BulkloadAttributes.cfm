@@ -139,13 +139,23 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 
 	<br>
 	
+	
+	
+  
+	insert all
+	<br>
 	<cfloop query="qclean">
-		<hr>insert into cf_temp_attributes (#colnames#,key) values (
+		
+		
+		<br>insert into cf_temp_attributes (#colnames#,key) values (
 		<cfloop list="#colnames#" index="i">
 			'#evaluate("qClean." & i)#',
 		</cfloop>
 		NULL)
+		
 	</cfloop>
+	<br>
+	SELECT 1 FROM DUAL;
 	
 
 		<cfabort>
