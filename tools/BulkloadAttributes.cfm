@@ -107,7 +107,10 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		
 		---->
 	</cfloop>
+	
+	<!-----
 	<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
+	--->
 </cfoutput>
 </cfif>
 
