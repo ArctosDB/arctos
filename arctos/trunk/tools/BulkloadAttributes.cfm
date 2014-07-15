@@ -105,6 +105,22 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
 </cfoutput>
 </cfif>
+
+<!------------------------------------------------------->
+
+<cfif action is "getCSV">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_attributes where upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/BulkloadAttributeData.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkloadAttributeData.csv" addtoken="false">
+</cfif>
+
 <!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
@@ -231,9 +247,21 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfelse>
 		Your data should load. Review the table below and <a href="BulkloadAttributes.cfm?action=loadData">click to continue</a>.
 	</cfif>
+	<script>
+		function cd(){
+			yesDelete = window.confirm('Are you sure you want to delete all of your data in the attributes bulkloader?');
+			if (yesDelete == true) {
+				document.location='BulkloadAttributes.cfm?action=deletemine';
+			}
+		}
+	</script>
 	<p>
-		<a href="BulkloadAttributes.cfm?action=deletemine">delete all of your data</a>
+		<a href="##" onclick="cd();">delete all of your data</a>
 	</p>
+	<p>
+		<a href="BulkloadAttributes.cfm?action=getCSV">get CSV</a>
+	</p>
+	
 	
 	<table border>
 		<tr>
@@ -268,6 +296,16 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		</cfloop>
 	</table>
 </cfoutput>
+</cfif>
+
+
+
+<!------------------------------------------------------->
+<cfif action is "deletemine">
+	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_attributes where upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cflocation url="BulkloadAttributes.cfm" addtoken="false">
 </cfif>
 <!------------------------------------------------------->
 <cfif #action# is "loadData">
