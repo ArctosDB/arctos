@@ -205,8 +205,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		<tr>
 			<th>KEY</th>
 			<th>STATUS</th>
-			<th>COLLECTION_CDE</th>
-			<th>INSTITUTION_ACRONYM</th>
+			<th>GUID_PREFIX</th>
 			<th>OTHER_ID_TYPE</th>
 			<th>OTHER_ID_NUMBER</th>
 			<th>ATTRIBUTE</th>
@@ -221,8 +220,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			<tr>
 				<td>#KEY#</td>
 				<td>#STATUS#</td>
-				<td>#COLLECTION_CDE#</td>
-				<td>#INSTITUTION_ACRONYM#</td>
+				<td>#GUID_PREFIX#</td>
 				<td>#OTHER_ID_TYPE#</td>
 				<td>#OTHER_ID_NUMBER#</td>
 				<td>#ATTRIBUTE#</td>
