@@ -738,7 +738,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	
-	<cfhttp name="artFromCSV"
+	<cfhttp name="artFromCSV" result="#artFromCSV#"
         url="#fileContent#"
         firstRowAsHeaders="true"
         method="get" />
