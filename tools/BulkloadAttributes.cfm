@@ -110,11 +110,11 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	</cfquery>	
 	<cfset sql="insert all ">
 	<cfloop query="qclean">		
-		<cfset sql=sql & " into cf_temp_attributes (#colnames#,key) values (">
+		<cfset sql=sql & " into cf_temp_attributes (#colnames#,status) values (">
 		<cfloop list="#colnames#" index="i">
 			<cfset sql=sql & "'#evaluate("qClean." & i)#',">
 		</cfloop>
-		<cfset sql=sql & "NULL)">	
+		<cfset sql=sql & "'new load')">	
 	</cfloop>
 	<cfset sql=sql & "SELECT 1 FROM DUAL">
 	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
