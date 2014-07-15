@@ -738,19 +738,24 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	
+	<cfhttp name="artFromCSV"
+        url="#fileContent#"
+        firstRowAsHeaders="true"
+        method="get" />
+ 
+<cfdump var="#artFromCSV#" />
 	
 	
-	
-	<cfset theQuery=CSVtoQuery2(fileContent)>
-	
-	
-	<cfdump var=#theQuery#>
 	
 	
 	
 	<cfabort>
 	
 	
+	<cfset theQuery=CSVtoQuery2(fileContent)>
+	
+	
+	<cfdump var=#theQuery#>
 	
 	
 	
