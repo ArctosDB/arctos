@@ -92,8 +92,46 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset q = util.CSVToQuery(CSV=fileContent)>
+	
+	
+	
+		<cfdump var=#q#>
 
-	<cfdump var=#q#>
+
+
+
+	<cfset colNames=q.columnList>
+	<!--- disallow some procedural stuff that sometimes ends up in the download/reload CSV --->
+	
+	
+	<cfdump var=#colNames#>
+
+
+			
+	<cfif listfindnocase(colNames,'status') gt 0>
+		<cfset colNames=listdeleteat(colNames,listfindnocase(colNames,'status'))>
+	</cfif>
+	<cfif listfindnocase(colNames,'COLLECTION_OBJECT_ID') gt 0>
+		<cfset colNames=listdeleteat(colNames,listfindnocase(colNames,'COLLECTION_OBJECT_ID'))>
+	</cfif>
+	<cfif listfindnocase(colNames,'DETERMINED_BY_AGENT_ID') gt 0>
+		<cfset colNames=listdeleteat(colNames,listfindnocase(colNames,'DETERMINED_BY_AGENT_ID'))>
+	</cfif>
+	<cfif listfindnocase(colNames,'KEY') gt 0>
+		<cfset colNames=listdeleteat(colNames,listfindnocase(colNames,'KEY'))>
+	</cfif>
+	<cfif listfindnocase(colNames,'USERNAME') gt 0>
+		<cfset colNames=listdeleteat(colNames,listfindnocase(colNames,'USERNAME'))>
+	</cfif>
+	
+	
+	
+	
+	<cfdump var=#colNames#>
+
+	
+	
+
 		<cfabort>
 
 	
@@ -114,27 +152,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfset colNames=ArrayToList(arrResult[1])>
 
 	<!--- don't accept internal junk ---->
-	<cfset sIDX=listfindnocase(colNames,'status')>
-	<cfset cidIDX=listfindnocase(colNames,'COLLECTION_OBJECT_ID')>			
-	<cfset didIDX=listfindnocase(colNames,'DETERMINED_BY_AGENT_ID')>
-	<cfset kIDX=listfindnocase(colNames,'KEY')>
-	<cfset uIDX=listfindnocase(colNames,'USERNAME')>
-			
-	<cfif sIDX gt 0>
-		<cfset colNames=listdeleteat(colNames,sIDX)>
-	</cfif>
-	<cfif cidIDX gt 0>
-		<cfset colNames=listdeleteat(colNames,cidIDX)>
-	</cfif>
-	<cfif didIDX gt 0>
-		<cfset colNames=listdeleteat(colNames,didIDX)>
-	</cfif>
-	<cfif kIDX gt 0>
-		<cfset colNames=listdeleteat(colNames,kIDX)>
-	</cfif>
-	<cfif uIDX gt 0>
-		<cfset colNames=listdeleteat(colNames,uIDX)>
-	</cfif>
+	
 	
 
 
