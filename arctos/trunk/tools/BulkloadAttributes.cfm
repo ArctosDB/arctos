@@ -1,6 +1,56 @@
 <cfsetting requesttimeout="600">
 
-
+<cffunction name="CSVtoQuery2" access="remote" output="No">
+  <cfargument name="file" required="yes" type="string">
+  <cfargument name="columnlist" required="No" type="string" default="" hint="[Empty] Take the first row as the column header, [Auto] create new column names [Column list]">
+  <cfargument name="fixColumn" required="No" type="boolean" default="Yes" hint="If columnlist taken from the first row of the file, validate names & fix it">
+ 
+  <cfset local.fileReader = createobject("java","java.io.FileReader").init("#arguments.file#")>
+  <cfset local.csvReader = createObject("java","au.com.bytecode.opencsv.CSVReader").init(fileReader, ',', '"', chr(1), false)>
+  <cfset local.array = csvReader.readAll()>
+ 
+  <!--- handle the column name --->
+  <cfswitch expression="#arguments.columnlist#">
+  <cfcase value="">
+  <cfset local.clm = local.array[1]>
+  <cfset local.start = 2>
+  </cfcase>
+  <cfcase value="auto">
+  <cfset local.clm = ArrayNew(1)>
+  <cfloop from="1" to="#ArrayLen(local.array[1])#" index="i">
+  <cfset ArrayAppend(local.clm,'col_#i#')>
+  </cfloop>
+  <cfset local.start = 1>
+  </cfcase>
+  <cfdefaultcase>
+  <cfset local.clm = ListToArray(arguments.columnlist)>
+  <cfset local.start = 1>
+  </cfdefaultcase>
+  </cfswitch>
+  <cfset local.clms = ArrayLen(local.clm)>
+ 
+  <cfif YesNoFormat(arguments.fixColumn)>
+  <!--- validate/fix column names --->
+  <cfloop from="1" to="#local.clms#" index="i">
+ <cfset local.clm[i] = rereplacenocase(trim(local.clm[i]),' |##|"|""|',"",'all')>
+  <cfif not refindnocase('^[a-zA-Z_][a-zA-Z0-9_]*$',local.clm[i])>
+  <cfset local.clm[i] = 'col_#i#'>
+  </cfif>
+  </cfloop>
+  </cfif>
+  <cfset local.q = QueryNew( ArrayToList( local.clm ) )>
+ <!--- convert array to query --->
+  <cfloop from="#local.start#" to="#ArrayLen(local.array)#" index="i">
+  <cfset QueryAddRow(local.q)>
+  <cfloop from="1" to="#local.clms#" index="c">
+ <cfif ArrayIsDefined(local.array[i],c)>
+  <cfset QuerySetCell(local.q,local.clm[c],ToString(local.array[i][c]))>
+ </cfif>
+  </cfloop>
+  </cfloop>
+ 
+  <cfreturn local.q>
+ </cffunction>
 
 <cffunction
 name="CSVToQuery"
@@ -691,7 +741,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	
 	
 	
-	<cfset theQuery=CSVToQuery(fileContent)>
+	<cfset theQuery=CSVtoQuery2(fileContent)>
 	
 	
 	<cfdump var=#theQuery#>
