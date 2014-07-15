@@ -63,44 +63,49 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 </ul>
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="Action" value="getFile">
-			  <input type="file"
-		   name="FiletoUpload"
-		   size="45" onchange="checkCSV(this);">
-			 <input type="submit" value="Upload this file"
-		class="savBtn"
-		onmouseover="this.className='savBtn btnhov'"
-		onmouseout="this.className='savBtn'">
+	<input type="hidden" name="Action" value="getFile">
+	<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
+	<input type="submit" value="Upload this file" class="savBtn">
   </cfform>
-
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "getFile">
+<cfif action is "getFile">
 <cfoutput>
 	
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
+	
+	
+	
+	<cfdump var=#arrResult#>
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
+	
+	
+	
+	<!----
 		<cfset colVals="">
 			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
 				<cfset thisBit=arrResult[o][i]>
-				<cfif #o# is 1>
+				<cfif o is 1>
 					<cfset colNames="#colNames#,#thisBit#">
 				<cfelse>
 					<cfset colVals="#colVals#,'#thisBit#'">
 				</cfif>
 			</cfloop>
-		<cfif #o# is 1>
+		<cfif o is 1>
 			<cfset colNames=replace(colNames,",","","first")>
 		</cfif>
-		<cfif len(#colVals#) gt 1>
+		<cfif len(colVals) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into cf_temp_attributes (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
+		
+		
+		---->
 	</cfloop>
 	<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
 </cfoutput>
