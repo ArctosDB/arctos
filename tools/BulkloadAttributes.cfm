@@ -198,9 +198,17 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	
 	<cfif pf.recordcount gt 0>
 		Oops - something's hinky. Review the table below and try again.
+		
+	<p>
+		<a href="BulkloadAttributes.cfm?action=validate">validate</a>
+	</p>
 	<cfelse>
 		Your data should load. Review the table below and <a href="BulkloadAttributes.cfm?action=loadData">click to continue</a>.
 	</cfif>
+	<p>
+		<a href="BulkloadAttributes.cfm?action=deletemine">delete all of your data</a>
+	</p>
+	
 	<table border>
 		<tr>
 			<th>KEY</th>
