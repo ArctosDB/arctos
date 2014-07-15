@@ -30,10 +30,23 @@ alter table cf_temp_attributes add status varchar2(255);
 sho err
 --->
 <cfinclude template="/includes/_header.cfm">
-<cfif #action# is "nothing">
-
-
-<cfoutput>
+<cfif action is "template">
+	<cfoutput>
+		<cfset d="OTHER_ID_TYPE,OTHER_ID_NUMBER,ATTRIBUTE,ATTRIBUTE_VALUE,ATTRIBUTE_UNITS,ATTRIBUTE_DATE,ATTRIBUTE_METH,DETERMINER,REMARKS,guid_prefix">
+		<cfset variables.encoding="UTF-8">
+		<cfset variables.fileName="#Application.webDirectory#/download/BulkloadAttributesTemplate.csv">
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine(d);
+			variables.joFileWriter.close();
+		</cfscript>
+		<cflocation url="/download.cfm?file=BulkloadAttributesTemplate.csv" addtoken="false">
+		<a href="/download/BulkloadAttributesTemplate.csv">Click here if your file does not automatically download.</a>
+	</cfoutput>
+</cfif>
+<!----------------------------------->
+<cfif action is "nothing">
+	<cfoutput>
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_attributes where upper(username)='#ucase(session.username)#'
 		</cfquery>
@@ -42,45 +55,86 @@ sho err
 				<a href="BulkloadAttributes.cfm?action=managemystuff">Manage your existing #mine.recordcount# records</a>
 			</p>
 		</cfif>
-		</cfoutput>
-		
-		
-		
-		
-		
-		
-		
-Step 1: Upload a comma-delimited text file (csv).
-Include column headings, spelled exactly as below.
-<br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
-	<div id="template" style="display:none;">
-		<label for="t">Copy the existing code and save as a .csv file</label>
-		<textarea rows="2" cols="80" id="t">OTHER_ID_TYPE,OTHER_ID_NUMBER,ATTRIBUTE,ATTRIBUTE_VALUE,ATTRIBUTE_UNITS,ATTRIBUTE_DATE,ATTRIBUTE_METH,DETERMINER,REMARKS,guid_prefix</textarea>
-	</div>
-<p></p>
-
-
-
-
-Columns in <span style="color:red">red</span> are required; others are optional:
-<ul>
-	<li style="color:red">guid_prefix</li>
-	<li style="color:red">OTHER_ID_TYPE ("catalog number" is OK)</li>
-	<li style="color:red">OTHER_ID_NUMBER</li>
-	<li style="color:red">ATTRIBUTE</li>
-	<li style="color:red">ATTRIBUTE_VALUE</li>
-	<li>ATTRIBUTE_UNITS</li>
-	<li>ATTRIBUTE_DATE</li>
-	<li>ATTRIBUTE_METH</li>
-	<li style="color:red">DETERMINER</li>
-	<li>REMARKS</li>
-</ul>
-
-<cfform name="atts" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="Action" value="getFile">
-	<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
-	<input type="submit" value="Upload this file" class="savBtn">
-  </cfform>
+	</cfoutput>	
+	Upload a comma-delimited text file (csv). <a href="BulkloadAttributes.cfm?action=template">Get a template here</a>
+	Include column headings. This form will happily create duplicates; don't just randomly smash buttons. In the event of multiple
+	determinations (varying in value or not), "duplicates" may be correct and desirable.
+	<table border>
+		<tr>
+			<th>Column</th>
+			<th>Required?</th>
+			<th>Wutsit</th>
+			<th>Vocabulary</th>
+		</tr>
+		<tr>
+			<td>guid_prefix</td>
+			<td>yes*</td>
+			<td>
+				UAM:Mamm - first two parts of tripartite GUID in specimen URL, or from manage collection. Specifies collection from which to find the specimens.
+				Guid_prefix is unnecessary ONLY when OTHER_ID_TYPE is "UUID" (associated with records created from the specimen bulkloader)
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>OTHER_ID_TYPE</td>
+			<td>yes</td>
+			<td>Other ID type ("catalog number" is OK)</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CTCOLL_OTHER_ID_TYPE</a></td>
+		</tr>
+		<tr>
+			<td>OTHER_ID_NUMBER</td>
+			<td>yes</td>
+			<td>Value associated with OTHER_ID_NUMBER - integer-only for OTHER_ID_NUMBER=catalog number</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>ATTRIBUTE</td>
+			<td>yes</td>
+			<td>New attribute</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_TYPE">CTATTRIBUTE_TYPE</a></td>
+		</tr>
+		<tr>
+			<td>ATTRIBUTE_VALUE</td>
+			<td>yes</td>
+			<td>varies - see CTATTRIBUTE_CODE_TABLES</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES">CTATTRIBUTE_CODE_TABLES</a></td>
+		</tr>
+		<tr>
+			<td>ATTRIBUTE_UNITS</td>
+			<td>sometimes</td>
+			<td>varies - see CTATTRIBUTE_CODE_TABLES</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES">CTATTRIBUTE_CODE_TABLES</a></td>
+		</tr>
+		<tr>
+			<td>ATTRIBUTE_DATE</td>
+			<td>no</td>
+			<td>ISO8601-format date/time</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>ATTRIBUTE_METH</td>
+			<td>no</td>
+			<td>method</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>DETERMINER</td>
+			<td>yes</td>
+			<td>agent - use preferred name</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>REMARKS</td>
+			<td>no</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<cfform name="atts" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="Action" value="getFile">
+		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
+		<input type="submit" value="Upload this file" class="savBtn">
+	 </cfform>
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "getFile">
