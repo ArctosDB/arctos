@@ -314,7 +314,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <!------------------------------------------------------->
 <cfif action is "deletemine">
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_attributes where upper(username)='#ucase(session.username)#'
+		delete from cf_temp_attributes where upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cflocation url="BulkloadAttributes.cfm" addtoken="false">
 </cfif>
