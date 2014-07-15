@@ -102,7 +102,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			</cfquery>
 		</cfif>
 	</cfloop>
-	<cflocation url="BulkloadAttributes.cfm?action=validate">
+	<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
@@ -180,6 +180,9 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfquery name="attDetFail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_attributes set status=status || '; agent invalid' where DETERMINED_BY_AGENT_ID is null and determiner is not null and upper(username)='#ucase(session.username)#'
 	</cfquery>
+	
+		<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
+
 </cfoutput>
 
 </cfif>
