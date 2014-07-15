@@ -83,7 +83,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	
 	
 	
-	<cfset colNames=arrResult[1]>
+		<cfset colNames=ArrayToList(arrResult[1])>
 	
 	
 	
@@ -97,7 +97,6 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<!----
 	
 	
-		<cfset colNames=ArrayToList(arrResult[0])>
 
 
 
