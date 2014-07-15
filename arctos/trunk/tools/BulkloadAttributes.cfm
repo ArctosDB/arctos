@@ -137,6 +137,17 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 
 	<cfdump var=#qclean#>
 
+	<br>
+	
+	<cfloop query="qclean">
+		<hr>insert into cf_temp_attributes (#colnames#) values (
+		<cfloop list="#colnames#" index="i">
+			'#evaluate("qClean." & i)#'
+		</cfloop>
+		)
+	</cfloop>
+	
+
 		<cfabort>
 
 	
