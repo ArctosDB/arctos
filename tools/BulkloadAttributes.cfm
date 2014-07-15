@@ -140,23 +140,26 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<br>
 	
 	
-	
-  
-	insert all
-	<br>
+	<cfset sql="insert all ">
 	<cfloop query="qclean">
 		
-		
-		<br>insert into cf_temp_attributes (#colnames#,key) values (
+		<cfset sql=sql & "insert into cf_temp_attributes (#colnames#,key) values (">
 		<cfloop list="#colnames#" index="i">
-			'#evaluate("qClean." & i)#',
+			<cfset sql=sql & "'#evaluate("qClean." & i)#',">
 		</cfloop>
-		NULL)
+		<cfset sql=sql & "NULL)">
 		
 	</cfloop>
-	<br>
-	SELECT 1 FROM DUAL;
+	<cfset sql=sql & "SELECT 1 FROM DUAL">
 	
+	
+	<cfdump var=#sql#>
+
+
+
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				#preserveSingleQuotes(sql)#
+			</cfquery>
 
 		<cfabort>
 
