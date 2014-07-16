@@ -102,12 +102,12 @@
 	}
 	catch ( err ){// nothing, just ignore 
 	}
-	// focus on value	$("#attribute_value_" + theNumber).select();
+	// focus on value	$("#attribute_value).select();
 * 
 * 
 * */
 
-
+$("#attribute_value).focus();
 
 
 
