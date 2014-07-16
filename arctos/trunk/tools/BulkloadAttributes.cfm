@@ -246,12 +246,11 @@
 <!------------------------------------------------------->
 <cfif action is "validate">
 	<cfoutput>
-		<cfquery name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+		<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
 			update 
 				cf_temp_attributes 
 			set 
-				status=null where 
-				upper(username)='#ucase(session.username)#'
+				status='checking....' where (username)='#ucase(session.username)#'
 		</cfquery>
 		<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_attributes set COLLECTION_OBJECT_ID = (
@@ -331,6 +330,12 @@
 				DETERMINED_BY_AGENT_ID is null and 
 				determiner is not null and 
 				upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<cfquery name="postsetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+			update 
+				cf_temp_attributes 
+			set 
+				status='valid' where (username)='#ucase(session.username)#'
 		</cfquery>
 		<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
 	</cfoutput>
@@ -484,7 +489,7 @@
 					</cfquery>
 			</cfloop>
 			<cfquery name="delJustLoaded" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				delete * from cf_temp_attributes where upper(username)='#ucase(session.username)#' and status='valid'
+				delete * from cf_temp_attributes where='#ucase(session.username)#' and status='valid'
 			</cfquery>
 		</cftransaction>
 		Spiffy, all done.
