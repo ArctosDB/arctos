@@ -56,6 +56,7 @@
 			a.value = theStr;
 			s.appendChild(a);
 		}
+		$("#attrvalcell").append('<label for="attribute_value">Value</label>');
 		$("#attrvalcell").append(s);
 	} else if (resType == 'units') {
 		var s=document.createElement('SELECT');
@@ -78,12 +79,13 @@
 			a.value = theStr;
 			s.appendChild(a);
 		}
+		$("#attrunitcell").append('<label for="attribute_units">Units</label>');
 		$("#attrunitcell").append(s);
-		var s='<input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
+		var s='<label for="attribute_value">Value</label><input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
 		$("#attrvalcell").append(s);
 
 	} else if (resType == 'NONE') {
-		var s='<input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
+		var s='<label for="attribute_value">Value</label><input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
 		$("#attrvalcell").append(s);
 	} else {
 		alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
