@@ -91,12 +91,11 @@
 		
 		<label for="taxa_formula">Pick a Formula to get started</label>
 		<select name="taxa_formula" id="taxa_formula" size="1"  required>
-			<option value=""></option>
 			<cfloop query="cttaxa_formula">
 				<option value="#cttaxa_formula.taxa_formula#">#cttaxa_formula.taxa_formula#</option>
 			</cfloop>
 		</select>
-		<div id="dt1" style="display:none;">
+		<div id="dt1">
 			<label for="t1">Type to select Taxon Name A</label>
 			<input type="text" name="t1" class="reqdClr" size="40" id="t1" onKeyPress="return noenter(event);">
 		</div>
