@@ -3,7 +3,7 @@
 	jQuery(document).ready(function() {
 		if ($("#taxon_name").val().length > 0){
 
-			$("#t1").val($("#taxon_name").val().autocomplete( "search", $("#taxon_name").val() );
+			$("#t1").val($("#taxon_name").val()).autocomplete( "search", $("#taxon_name").val() );
 		}
 
 		jQuery("#t1").autocomplete("/ajax/scientific_name.cfm", {
