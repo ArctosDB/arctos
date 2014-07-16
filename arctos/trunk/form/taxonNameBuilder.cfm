@@ -1,7 +1,6 @@
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <script>
 	jQuery(document).ready(function() {
-		$("#t1").val($("#taxon_name").val()).focus().autocomplete("search");
 		jQuery("#t1").autocomplete("/ajax/scientific_name.cfm", {
 			width: 320,
 			max: 50,
@@ -25,6 +24,9 @@
 			selectFirst:false
 		});
 		
+
+		$("#t1").val($("#taxon_name").val()).autocomplete("search");
+
 		$( "#theForm" ).submit(function( event ) {
 			event.preventDefault();
 			var formula=$("#taxa_formula").val();
