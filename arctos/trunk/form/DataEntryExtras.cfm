@@ -45,6 +45,7 @@
 							}
 							$("#attrvalcell").append('<label for="attribute_value">Value</label>');
 							$("#attrvalcell").append(s);
+							$("#attribute_value").select();
 						} else if (resType == 'units') {
 							var s=document.createElement('SELECT');
 							s.name='attribute_units';
@@ -70,14 +71,15 @@
 							$("#attrunitcell").append(s);
 							var s='<label for="attribute_value">Value</label><input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
 							$("#attrvalcell").append(s);
-					
+							$("#attribute_value").focus();
 						} else if (resType == 'NONE') {
 							var s='<label for="attribute_value">Value</label><input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
 							$("#attrvalcell").append(s);
+							$("#attribute_value").focus();
 						} else {
 							alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
 						}
-						$("#attribute_value").focus();
+						
 					},
 					error: function (xhr, textStatus, errorThrown){
 					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
@@ -160,91 +162,7 @@
 						<label for="attribute_remark">Remark</label>
 						<textarea name="attribute_remark" id="attribute_remark" rows="1" cols="50"></textarea>
 				</td>
-				<!----
-		        <td>
-					<label for="disposition">Disposition</label>
-					<select name="disposition" id="disposition" size="1"  class="reqdClr">
-			            <cfloop query="ctDisp">
-			              <option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
-			            </cfloop>
-			          </select>
-				</td>
-		        <td>
-					<label for="condition">Condition</label>
-					<input type="text" name="condition" id="condition" class="reqdClr">
-				</td>
-		        <td>
-					<label for="lot_count">Count</label>
-					<input type="text" pattern="\d*" name="lot_count" class="reqdClr" size="2">
-				</td>
-		        <td>
-					<label for="remarks">Remark</label>
-					<input type="text" name="remarks" id="remarks">
-				</td>
-		        <td>
-					<label for="container_barcode">Barcode</label>
-					<input type="text" name="container_barcode">
-				</td>
-		        <td>
-					<label for="change_container_type">Change Container Type</label>
-					<select name="change_container_type" id="change_container_type" size="1">
-						<option value=""></option>
-			            <cfloop query="ctcontainer_type">
-			              <option value="#ctcontainer_type.container_type#">#ctcontainer_type.container_type#</option>
-			            </cfloop>
-			          </select>
-				</td>
-		      </tr>
-			<tr>
-				<td colspan="8">
-					Attributes
-				</td>
 			</tr>
-			<tr>
-				<td colspan="8">
-					<table border>
-						<tr>
-							<th>Type</th>
-							<th>Value</th>
-							<th>Units</th>
-							<th>Date</th>
-							<th>Determiner</th>
-							<th>Remark</th>
-						</tr>
-						<cfloop from="1" to="6" index="i">
-							<tr>
-								<td>
-									<select name="part_attribute_type_#i#" id="part_attribute_type_#i#" size="1" onchange="pattrChg('#i#');">
-										<option value=""></option>
-							            <cfloop query="CTSPECPART_ATTRIBUTE_TYPE">
-							              <option value="#CTSPECPART_ATTRIBUTE_TYPE.ATTRIBUTE_TYPE#">#CTSPECPART_ATTRIBUTE_TYPE.ATTRIBUTE_TYPE#</option>
-							            </cfloop>
-							          </select>
-				          
-								</td>
-								<td>
-									<input type="text" name="part_attribute_value_#i#" id="part_attribute_value_#i#">
-								</td>
-								<td>
-									<input type="text" name="part_attribute_units_#i#" id="part_attribute_units_#i#">
-								</td>
-								<td>
-									<input type="text" name="part_attribute_date_#i#" id="part_attribute_date_#i#">
-								</td>
-								<td>
-									<input type="text" name="part_attribute_determiner_#i#" id="part_attribute_determiner_#i#"
-										onchange="getAgent('nothing','part_attribute_determiner_#i#','theForm',this.value); return false;"
-										 onKeyPress="return noenter(event);">
-								</td>
-								<td>
-									<input type="text" name="part_attribute_remark_#i#" id="part_attribute_remark_#i#">
-								</td>
-							</tr>
-						</cfloop>
-					</table>
-				</td>
-			</tr>
-			---->
     </table>
 	<input type="submit" value="Save Part">
 	</cfoutput>	
