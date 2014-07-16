@@ -2,6 +2,7 @@
  see migration/6.4 for DDL
 --->
 <cfinclude template="/includes/_header.cfm">
+<cfset title="Bulkload Specimen Attributes">
 <cfif action is "template">
 	<cfoutput>
 		<cfset d="OTHER_ID_TYPE,OTHER_ID_NUMBER,ATTRIBUTE,ATTRIBUTE_VALUE,ATTRIBUTE_UNITS,ATTRIBUTE_DATE,ATTRIBUTE_METH,DETERMINER,REMARKS,guid_prefix">
