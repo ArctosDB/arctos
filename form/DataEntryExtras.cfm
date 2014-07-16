@@ -20,15 +20,139 @@
 					},
 					success: function(r) {
 						console.log(r);
+
+
+
+
+
+	var result=r.DATA;
+	var resType=result.V[0];
+	var x;
+	var n=result.V.length;
+
+
+	$("#attrvalcell").html('');
+	$("#attrunitcell").html('');
+
+	if (resType == 'value'){
+		// value pick, no units
+		var s=document.createElement('SELECT');
+		s.name='attribute_value';
+		s.id=s.name;
+		var a = document.createElement("option");
+		a.text = '';
+    	a.value = '';
+		s.appendChild(a);
+		for (i=2;i<result.V.length;i++) {
+			var theStr = result.V[i];
+			if(theStr=='_yes_'){
+				theStr='yes';
+			}
+			if(theStr=='_no_'){
+				theStr='no';
+			}
+			var a = document.createElement("option");
+			a.text = theStr;
+			a.value = theStr;
+			s.appendChild(a);
+		}
+		$("#attrvalcell").append(s);
+	} else if (resType == 'units') {
+		theDiv.innerHTML = ''; // clear it out
+		theText.innerHTML = '';
+		if (n > 2) {
+			var theNewSelect = document.createElement('SELECT');
+			theNewSelect.name = theSelectName;
+			theNewSelect.id = theSelectName;
+			if (resType == 'units') {
+				var sWid = '60px;';
+			} else {
+				var sWid = '90px;';
+			}
+			theNewSelect.style.width=sWid;
+			theNewSelect.className = "";
+			var a = document.createElement("option");
+			a.text = '';
+    		a.value = '';
+			theNewSelect.appendChild(a);// add blank
+			for (i=2;i<result.V.length;i++) {
+				var theStr = result.V[i];
+				if(theStr=='_yes_'){
+					theStr='yes';
+				}
+				if(theStr=='_no_'){
+					theStr='no';
+				}
+				var a = document.createElement("option");
+				a.text = theStr;
+				a.value = theStr;
+				theNewSelect.appendChild(a);
+			}
+			theDiv.appendChild(theNewSelect);
+			if (resType == 'units') {
+				var theNewText = document.createElement('INPUT');
+				theNewText.name = theTextName;
+				theNewText.id = theTextName;	
+				theNewText.type="text";
+				theNewText.style.width='95px';
+				theNewText.className = "";
+				theText.appendChild(theNewText);
+			}
+		}
+	} else if (resType == 'NONE') {
+		theDiv.innerHTML = '';
+		theText.innerHTML = '';
+		var theNewText = document.createElement('INPUT');
+		theNewText.name = theSelectName;
+		theNewText.id = theSelectName;	
+		theNewText.type="text";
+		theNewText.style.width='95px';
+		theNewText.className = "";
+		theDiv.appendChild(theNewText);
+	} else {
+		alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
+	}
+	/*
+	// try to bring old values to new
+	try {
+		$("#attribute_units_" + theNumber).val(oldAttributeUnit);
+	}
+	catch ( err ){// nothing, just ignore
+	}
+	try {
+		$("#attribute_value_" + theNumber).val(oldAttributeValue);
+	}
+	catch ( err ){// nothing, just ignore 
+	}
+	// focus on value	$("#attribute_value_" + theNumber).select();
+* 
+* 
+* */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					},
 					error: function (xhr, textStatus, errorThrown){
 					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 					}
 				});
-
-
-				
-
 			});
 
 			$(".reqdClr:visible").each(function(e){
@@ -84,6 +208,23 @@
 							<option value="#CTATTRIBUTE_TYPE.attribute_type#">#CTATTRIBUTE_TYPE.attribute_type#</option>
 						</cfloop>
 					</select>
+				</td>
+				<td id="attrvalcell">pick an attribute...</td>
+				<td id="attrunitcell">pick an attribute...</td>
+				<td id="attrdatecell">
+					<label for="attribute_date">Determined Date</label>
+					<input type="text" name="attribute_date" id="attribute_date">
+				</td>
+				<td id="attrdetcell">
+					<input type="text" name="determined_by_agent_id" id="determined_by_agent_id">
+					<label for="attribute_determiner">Determiner</label>
+					<input type="text" name="attribute_determiner" id="attribute_determiner"
+						onchange="getAgent('determined_by_agent_id','attribute_determiner','theForm',this.value); return false;"
+						onKeyPress="return noenter(event);">					 
+				</td>
+				<td id="attrmethcell">
+						<label for="determination_method">Method</label>
+						<textarea name="determination_method" id="determination_method" rows="1" cols="50"></textarea>
 				</td>
 				<!----
 		        <td>
