@@ -154,17 +154,19 @@
 						onchange="getAgent('determined_by_agent_id','attribute_determiner','theForm',this.value); return false;"
 						onKeyPress="return noenter(event);">					 
 				</td>
-				<td id="attrmethcell">
+			</tr>
+			<tr>
+				<td colspan="3" id="attrmethcell">
 						<label for="determination_method">Method</label>
 						<textarea name="determination_method" id="determination_method" rows="1" cols="50"></textarea>
 				</td>
-				<td id="attreemcell">
+				<td  colspan="2" id="attreemcell">
 						<label for="attribute_remark">Remark</label>
 						<textarea name="attribute_remark" id="attribute_remark" rows="1" cols="50"></textarea>
 				</td>
 			</tr>
     </table>
-	<input type="submit" value="Save Part">
+	<input type="submit" value="Save Attribute">
 	</cfoutput>	
 </cfif>
 <!------------------------------------------------------------>
