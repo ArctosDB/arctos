@@ -490,7 +490,7 @@
 					</cfquery>
 			</cfloop>
 			<cfquery name="delJustLoaded" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				delete * from cf_temp_attributes where username='#ucase(session.username)#' and status='valid'
+				delete from cf_temp_attributes where username='#ucase(session.username)#' and status='valid'
 			</cfquery>
 		</cftransaction>
 		Spiffy, all done.
