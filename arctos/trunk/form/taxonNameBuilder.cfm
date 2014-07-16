@@ -28,7 +28,8 @@
 		
 		if ($("#taxon_name").val().length > 0){
 
-			$("#t1").val($("#taxon_name").val()).trigger( "change" );
+			$("#t1").val($("#taxon_name").val());
+			$("#t1").trigger( "change" );
 		}
 
 //autocomplete("search",$("#taxon_name").val());
