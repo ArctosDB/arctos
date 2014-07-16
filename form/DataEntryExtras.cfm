@@ -107,7 +107,7 @@
 * 
 * */
 
-$("#attribute_value).focus();
+$("#attribute_value").focus();
 
 
 
