@@ -279,7 +279,7 @@
 					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
 					collection.guid_prefix = cf_temp_attributes.guid_prefix and
 					other_id_type = cf_temp_attributes.other_id_type and
-					display_value = cf_temp_attributes.other_id_number and
+					display_value = cf_temp_attributes.other_id_number
 			) where other_id_type != 'catalog number' and upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cfquery name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
