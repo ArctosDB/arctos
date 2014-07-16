@@ -150,7 +150,7 @@
 				<td id="attrdetcell">
 					<input type="hidden" name="determined_by_agent_id" id="determined_by_agent_id">
 					<label for="attribute_determiner">Determiner</label>
-					<input type="text" name="attribute_determiner" id="attribute_determiner"
+					<input type="text" name="attribute_determiner" id="attribute_determiner" class="reqdClr" value="#session.username#"
 						onchange="getAgent('determined_by_agent_id','attribute_determiner','theForm',this.value); return false;"
 						onKeyPress="return noenter(event);">					 
 				</td>
