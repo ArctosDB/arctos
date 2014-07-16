@@ -1,7 +1,8 @@
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <script>
 	jQuery(document).ready(function() {
-		$("#t1").focus();
+		$("#t1").val($("#taxon_name").val()).focus();
+		
 		jQuery("#t1").autocomplete("/ajax/scientific_name.cfm", {
 			width: 320,
 			max: 50,
