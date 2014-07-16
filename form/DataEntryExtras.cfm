@@ -2,7 +2,6 @@
 <script>
 		jQuery(document).ready(function() {
 			$("#attribute_date").datepicker();
-
 			$( "#attribute_type" ).change(function() {
 				$.ajax({
 					url: "/component/DataEntry.cfc?queryformat=column&returnformat=json",
@@ -122,11 +121,8 @@
 				});
 			});
 		});
-
-	
 	</script>
-
-<cfoutput>
+	<cfoutput>
 		<cfquery name="CTATTRIBUTE_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select attribute_type from CTATTRIBUTE_TYPE where collection_cde='#collection_cde#' group by attribute_type order by attribute_type
 	    </cfquery>
@@ -162,16 +158,16 @@
 			</tr>
 			<tr>
 				<td colspan="3" id="attrmethcell">
-						<label for="determination_method">Method</label>
-						<textarea name="determination_method" id="determination_method" rows="1" cols="50"></textarea>
+					<label for="determination_method">Method</label>
+					<textarea name="determination_method" id="determination_method" rows="1" cols="50"></textarea>
 				</td>
 				<td  colspan="2" id="attreemcell">
-						<label for="attribute_remark">Remark</label>
-						<textarea name="attribute_remark" id="attribute_remark" rows="1" cols="50"></textarea>
+					<label for="attribute_remark">Remark</label>
+					<textarea name="attribute_remark" id="attribute_remark" rows="1" cols="50"></textarea>
 				</td>
 			</tr>
-    </table>
-	<input type="submit" value="Save Attribute">
+	    </table>
+		<input type="submit" value="Save Attribute">
 	</cfoutput>	
 </cfif>
 <!------------------------------------------------------------>
@@ -395,6 +391,33 @@
 						<td>#part_name#</td>
 						<td>#container_barcode#</td>
 						<td>#pattrs#</td>
+					</tr>
+				</cfloop>
+			</table>
+		</cfoutput>
+	</cfif>
+	
+	
+	
+	
+	<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from  cf_temp_attributes  where other_id_number='#UUID#'
+	</cfquery>
+	<cfif ese.recordcount is 0>
+		<p>There are no external specimen attributes for this UUID/entry</p>
+	<cfelse>
+		<cfoutput>
+			<p>There are #ese.recordcount# external specimen attributes for this UUID/entry. (View details under 
+			<a href="/tools/BulkloadAttributes.cfm?action=managemystuff" target="_blank">EnterData/BatchTools</a>.) </p>
+			<table border>
+				<tr>
+					<th>Attribute</th>
+					<th>Value</th>
+				</tr>
+				<cfloop query="ese">
+					<tr>
+						<td>#ATTRIBUTE#</td>
+						<td>#ATTRIBUTE_VALUE# #ATTRIBUTE_UNITS#</td>
 					</tr>
 				</cfloop>
 			</table>
