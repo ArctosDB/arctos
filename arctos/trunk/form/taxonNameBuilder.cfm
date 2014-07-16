@@ -28,11 +28,7 @@
 		
 		if ($("#taxon_name").val().length > 0){
 
-			$("#t1").val($("#taxon_name").val());
-			//$("#t1").trigger( "change" );
-
-//$("#t1").autocomplete('search', 'Microtus');
-$("#t1").trigger('keydown');
+			$("#t1").val($("#taxon_name").val()).trigger('keydown');
 		}
 
 //autocomplete("search",$("#taxon_name").val());
