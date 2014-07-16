@@ -73,7 +73,8 @@
 							var s='<label for="attribute_value">Value</label><input type="number" step="any" class="reqdClr" required name="attribute_value" id="attribute_value">';
 							$("#attrvalcell").append(s);
 							
-							$("#attribute_value").addClass('reqdClr').prop('required',true).focus();
+							$("#attribute_value").focus();
+							$("#attribute_units").addClass('reqdClr').prop('required',true);
 						} else if (resType == 'NONE') {
 							var s='<label for="attribute_value">Value</label><input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
 							$("#attrvalcell").append(s);
