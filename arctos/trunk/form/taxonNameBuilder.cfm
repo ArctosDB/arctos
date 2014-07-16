@@ -98,15 +98,15 @@
 		</select>
 		<div id="dt1" style="display:none;">
 			<label for="t1">Type to select Taxon Name A</label>
-			<input type="text" name="t1" class="reqdClr" size="40" id="t1">
+			<input type="text" name="t1" class="reqdClr" size="40" id="t1" onKeyPress="return noenter(event);">
 		</div>
 		<div id="dt2" style="display:none;">
 			<label for="t2">Type to select Taxon Name B</label>
-			<input type="text" name="t2" class="reqdClr" size="40" id="t2">
+			<input type="text" name="t2" class="reqdClr" size="40" id="t2" onKeyPress="return noenter(event);">
 		</div>
 		<div id="dts" style="display:none;">
 			<label for="ids">Type the Identification string</label>
-			<input type="text" name="ids" class="reqdClr" size="40" id="ids">
+			<input type="text" name="ids" class="reqdClr" size="40" id="ids" onKeyPress="return noenter(event);">
 		</div>
 		<input type="submit" value="Save To Form">
 	</form>	
