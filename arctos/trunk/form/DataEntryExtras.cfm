@@ -70,7 +70,7 @@
 							}
 							$("#attrunitcell").append('<label for="attribute_units">Units</label>');
 							$("#attrunitcell").append(s);
-							var s='<label for="attribute_value">Value</label><input type="number" class="reqdClr" required name="attribute_value" id="attribute_value">';
+							var s='<label for="attribute_value">Value</label><input type="number" step="any" class="reqdClr" required name="attribute_value" id="attribute_value">';
 							$("#attrvalcell").append(s);
 							$("#attribute_value").focus();
 						} else if (resType == 'NONE') {
