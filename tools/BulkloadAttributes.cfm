@@ -364,7 +364,7 @@
 			</p>
 		</cfif>
 		<cfquery name="pf" dbtype="query">
-			select count(*) l from datadump where status is not null
+			select count(*) l from datadump where status != 'valid'
 		</cfquery>
 		<cfif session.roles contains "manage_collection">
 			<p>
@@ -447,7 +447,7 @@
 <cfif action is "loadData">
 	<cfoutput>
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_attributes where upper(username)='#ucase(session.username)#'
+			select * from cf_temp_attributes where upper(username)='#ucase(session.username)#' and status='valid'
 		</cfquery>
 		<cftransaction>
 			<cfloop query="getTempData">
