@@ -1,11 +1,7 @@
 <cfif action is "addAttribute">
 <script>
 		jQuery(document).ready(function() {
-			$("input[id^='part_attribute_date_']").each(function(e){
-			    $(this).datepicker();
-			});
-
-
+			$("#attribute_date").datepicker();
 
 			$( "#attribute_type" ).change(function() {
 				$.ajax({
@@ -19,113 +15,69 @@
 						element: 'nothing'
 					},
 					success: function(r) {
-						console.log(r);
-
-
-
-
-
-	var result=r.DATA;
-	var resType=result.V[0];
-	var x;
-	var n=result.V.length;
-
-
-	$("#attrvalcell").html('');
-	$("#attrunitcell").html('');
-
-	if (resType == 'value'){
-		// value pick, no units
-		var s=document.createElement('SELECT');
-		s.name='attribute_value';
-		s.id=s.name;
-		var a = document.createElement("option");
-		a.text = '';
-    	a.value = '';
-		s.appendChild(a);
-		for (i=2;i<result.V.length;i++) {
-			var theStr = result.V[i];
-			if(theStr=='_yes_'){
-				theStr='yes';
-			}
-			if(theStr=='_no_'){
-				theStr='no';
-			}
-			var a = document.createElement("option");
-			a.text = theStr;
-			a.value = theStr;
-			s.appendChild(a);
-		}
-		$("#attrvalcell").append('<label for="attribute_value">Value</label>');
-		$("#attrvalcell").append(s);
-	} else if (resType == 'units') {
-		var s=document.createElement('SELECT');
-		s.name='attribute_units';
-		s.id=s.name;
-		var a = document.createElement("option");
-		a.text = '';
-    	a.value = '';
-		s.appendChild(a);
-		for (i=2;i<result.V.length;i++) {
-			var theStr = result.V[i];
-			if(theStr=='_yes_'){
-				theStr='yes';
-			}
-			if(theStr=='_no_'){
-				theStr='no';
-			}
-			var a = document.createElement("option");
-			a.text = theStr;
-			a.value = theStr;
-			s.appendChild(a);
-		}
-		$("#attrunitcell").append('<label for="attribute_units">Units</label>');
-		$("#attrunitcell").append(s);
-		var s='<label for="attribute_value">Value</label><input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
-		$("#attrvalcell").append(s);
-
-	} else if (resType == 'NONE') {
-		var s='<label for="attribute_value">Value</label><input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
-		$("#attrvalcell").append(s);
-	} else {
-		alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
-	}
-	/*
-	// try to bring old values to new
-	try {
-		$("#attribute_units_" + theNumber).val(oldAttributeUnit);
-	}
-	catch ( err ){// nothing, just ignore
-	}
-	try {
-		$("#attribute_value_" + theNumber).val(oldAttributeValue);
-	}
-	catch ( err ){// nothing, just ignore 
-	}
-	// focus on value	$("#attribute_value).select();
-* 
-* 
-* */
-
-$("#attribute_value").focus();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+						var result=r.DATA;
+						var resType=result.V[0];
+						var x;
+						var n=result.V.length;
+						$("#attrvalcell").html('');
+						$("#attrunitcell").html('');
+						if (resType == 'value'){
+							// value pick, no units
+							var s=document.createElement('SELECT');
+							s.name='attribute_value';
+							s.id=s.name;
+							var a = document.createElement("option");
+							a.text = '';
+					    	a.value = '';
+							s.appendChild(a);
+							for (i=2;i<result.V.length;i++) {
+								var theStr = result.V[i];
+								if(theStr=='_yes_'){
+									theStr='yes';
+								}
+								if(theStr=='_no_'){
+									theStr='no';
+								}
+								var a = document.createElement("option");
+								a.text = theStr;
+								a.value = theStr;
+								s.appendChild(a);
+							}
+							$("#attrvalcell").append('<label for="attribute_value">Value</label>');
+							$("#attrvalcell").append(s);
+						} else if (resType == 'units') {
+							var s=document.createElement('SELECT');
+							s.name='attribute_units';
+							s.id=s.name;
+							var a = document.createElement("option");
+							a.text = '';
+					    	a.value = '';
+							s.appendChild(a);
+							for (i=2;i<result.V.length;i++) {
+								var theStr = result.V[i];
+								if(theStr=='_yes_'){
+									theStr='yes';
+								}
+								if(theStr=='_no_'){
+									theStr='no';
+								}
+								var a = document.createElement("option");
+								a.text = theStr;
+								a.value = theStr;
+								s.appendChild(a);
+							}
+							$("#attrunitcell").append('<label for="attribute_units">Units</label>');
+							$("#attrunitcell").append(s);
+							var s='<label for="attribute_value">Value</label><input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
+							$("#attrvalcell").append(s);
+					
+						} else if (resType == 'NONE') {
+							var s='<label for="attribute_value">Value</label><input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
+							$("#attrvalcell").append(s);
+						} else {
+							alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
+						}
+						$("#attribute_value").focus();
 					},
 					error: function (xhr, textStatus, errorThrown){
 					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
@@ -144,12 +96,12 @@ $("#attribute_value").focus();
 					type: "GET",
 					dataType: "json",
 					data: {
-						method:  "saveNewSpecimenPart",
+						method:  "saveNewSpecimenAttribute",
 						q: $('#theForm').serialize()
 					},
 					success: function(r) {
 						if (r=='success'){
-							var retVal = confirm("Success! Click OK to close this, or CANCEL to create another specimen part.");
+							var retVal = confirm("Success! Click OK to close this, or CANCEL to create another specimen attribute.");
 							if( retVal == true ){
 						    	$("#dialog").dialog('close');
 						 	} 
@@ -194,7 +146,7 @@ $("#attribute_value").focus();
 					<input type="text" name="attribute_date" id="attribute_date">
 				</td>
 				<td id="attrdetcell">
-					<input type="text" name="determined_by_agent_id" id="determined_by_agent_id">
+					<input type="hidden" name="determined_by_agent_id" id="determined_by_agent_id">
 					<label for="attribute_determiner">Determiner</label>
 					<input type="text" name="attribute_determiner" id="attribute_determiner"
 						onchange="getAgent('determined_by_agent_id','attribute_determiner','theForm',this.value); return false;"
@@ -203,6 +155,10 @@ $("#attribute_value").focus();
 				<td id="attrmethcell">
 						<label for="determination_method">Method</label>
 						<textarea name="determination_method" id="determination_method" rows="1" cols="50"></textarea>
+				</td>
+				<td id="attreemcell">
+						<label for="attribute_remark">Remark</label>
+						<textarea name="attribute_remark" id="attribute_remark" rows="1" cols="50"></textarea>
 				</td>
 				<!----
 		        <td>
