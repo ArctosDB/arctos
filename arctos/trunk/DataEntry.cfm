@@ -1091,6 +1091,7 @@
 							<option value="seeWhatsThere">Check Existing</option>
 							<option value="addSE">Add Specimen Event</option>
 							<option value="addPart">Add Specimen Part</option>
+							<option value="addAttribute">Add Specimen Attribute</option>
 						</select>
 					</td>
 					<td align="right" width="15%" nowrap="nowrap">

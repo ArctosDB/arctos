@@ -1,3 +1,180 @@
+<cfif action is "addAttribute">
+<script>
+		jQuery(document).ready(function() {
+			$("input[id^='part_attribute_date_']").each(function(e){
+			    $(this).datepicker();
+			});
+
+
+
+			$( "#attribute_type" ).change(function() {
+				$.ajax({
+					url: "/component/DataEntry.cfc?queryformat=column",
+					type: "GET",
+					dataType: "json",
+					data: {
+						method:  "getAttCodeTbl",
+						attribute: $( "#attribute_type" ).val(),
+						collection_cde: $( "#collection_cde" ).val(),
+						element: 'nothing'
+					},
+					success: function(r) {
+						console.log(r);
+					},
+					error: function (xhr, textStatus, errorThrown){
+					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+					}
+				});
+
+
+				
+
+			});
+
+			$(".reqdClr:visible").each(function(e){
+			    $(this).prop('required',true);
+			});
+			
+			$( "#theForm" ).submit(function( event ) {
+				event.preventDefault();
+				$.ajax({
+					url: "/component/Bulkloader.cfc?queryformat=column",
+					type: "GET",
+					dataType: "json",
+					data: {
+						method:  "saveNewSpecimenPart",
+						q: $('#theForm').serialize()
+					},
+					success: function(r) {
+						if (r=='success'){
+							var retVal = confirm("Success! Click OK to close this, or CANCEL to create another specimen part.");
+							if( retVal == true ){
+						    	$("#dialog").dialog('close');
+						 	} 
+						} else {
+							alert('Error: ' + r);
+						}
+					},
+					error: function (xhr, textStatus, errorThrown){
+					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+					}
+				});
+			});
+		});
+
+	
+	</script>
+
+<cfoutput>
+		<cfquery name="CTATTRIBUTE_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       	select attribute_type from CTATTRIBUTE_TYPE where collection_cde='#collection_cde#' group by attribute_type order by attribute_type
+	    </cfquery>
+	  
+	    <label for="theForm"></label>Add Specimen Attribute</label>
+		<form name="theForm" id="theForm">
+			<input type="hidden" id="uuid" name="uuid" value="#uuid#">
+			<input type="hidden" name="nothing" id="nothing">
+		    <table>
+		      <tr> 
+		        <td>
+					<label for="attribute_type">Attribute</label>
+					<select name="attribute_type" id="attribute_type">
+						<option value="">pick an attribute....</option>
+						<cfloop query="CTATTRIBUTE_TYPE">
+							<option value="#CTATTRIBUTE_TYPE.attribute_type#">#CTATTRIBUTE_TYPE.attribute_type#</option>
+						</cfloop>
+					</select>
+				</td>
+				<!----
+		        <td>
+					<label for="disposition">Disposition</label>
+					<select name="disposition" id="disposition" size="1"  class="reqdClr">
+			            <cfloop query="ctDisp">
+			              <option value="#ctDisp.coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
+			            </cfloop>
+			          </select>
+				</td>
+		        <td>
+					<label for="condition">Condition</label>
+					<input type="text" name="condition" id="condition" class="reqdClr">
+				</td>
+		        <td>
+					<label for="lot_count">Count</label>
+					<input type="text" pattern="\d*" name="lot_count" class="reqdClr" size="2">
+				</td>
+		        <td>
+					<label for="remarks">Remark</label>
+					<input type="text" name="remarks" id="remarks">
+				</td>
+		        <td>
+					<label for="container_barcode">Barcode</label>
+					<input type="text" name="container_barcode">
+				</td>
+		        <td>
+					<label for="change_container_type">Change Container Type</label>
+					<select name="change_container_type" id="change_container_type" size="1">
+						<option value=""></option>
+			            <cfloop query="ctcontainer_type">
+			              <option value="#ctcontainer_type.container_type#">#ctcontainer_type.container_type#</option>
+			            </cfloop>
+			          </select>
+				</td>
+		      </tr>
+			<tr>
+				<td colspan="8">
+					Attributes
+				</td>
+			</tr>
+			<tr>
+				<td colspan="8">
+					<table border>
+						<tr>
+							<th>Type</th>
+							<th>Value</th>
+							<th>Units</th>
+							<th>Date</th>
+							<th>Determiner</th>
+							<th>Remark</th>
+						</tr>
+						<cfloop from="1" to="6" index="i">
+							<tr>
+								<td>
+									<select name="part_attribute_type_#i#" id="part_attribute_type_#i#" size="1" onchange="pattrChg('#i#');">
+										<option value=""></option>
+							            <cfloop query="CTSPECPART_ATTRIBUTE_TYPE">
+							              <option value="#CTSPECPART_ATTRIBUTE_TYPE.ATTRIBUTE_TYPE#">#CTSPECPART_ATTRIBUTE_TYPE.ATTRIBUTE_TYPE#</option>
+							            </cfloop>
+							          </select>
+				          
+								</td>
+								<td>
+									<input type="text" name="part_attribute_value_#i#" id="part_attribute_value_#i#">
+								</td>
+								<td>
+									<input type="text" name="part_attribute_units_#i#" id="part_attribute_units_#i#">
+								</td>
+								<td>
+									<input type="text" name="part_attribute_date_#i#" id="part_attribute_date_#i#">
+								</td>
+								<td>
+									<input type="text" name="part_attribute_determiner_#i#" id="part_attribute_determiner_#i#"
+										onchange="getAgent('nothing','part_attribute_determiner_#i#','theForm',this.value); return false;"
+										 onKeyPress="return noenter(event);">
+								</td>
+								<td>
+									<input type="text" name="part_attribute_remark_#i#" id="part_attribute_remark_#i#">
+								</td>
+							</tr>
+						</cfloop>
+					</table>
+				</td>
+			</tr>
+			---->
+    </table>
+	<input type="submit" value="Save Part">
+	</cfoutput>	
+</cfif>
+<!------------------------------------------------------------>
 <cfif action is "addPart">
 	<script>
 		jQuery(document).ready(function() {
