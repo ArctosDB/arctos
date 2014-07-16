@@ -24,9 +24,6 @@ var viewport = {
        jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
-$(".ui-widget-overlay").click(function(){
-    $(".ui-dialog-titlebar-close").trigger('click');
-});
 function op_getAgent(agentIdID,agentNameID,agent_name){
 	$("#" + agentNameID).removeClass('goodPick');
 	var url="/picks/op_findAgent.cfm";

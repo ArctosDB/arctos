@@ -18,7 +18,9 @@ function buildTaxonName(){
 		//fluidDialog();
 		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 	});
-	
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
 }
 
 function addMoreStuff(mode){
