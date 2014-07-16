@@ -25,7 +25,7 @@
 		});
 		
 
-		$("#t1").val($("#taxon_name").val()).autocomplete("search");
+		$("#t1").val($("#taxon_name").val()).autocomplete("search",$("#taxon_name").val());
 
 		$( "#theForm" ).submit(function( event ) {
 			event.preventDefault();
