@@ -46,7 +46,7 @@
 							$("#attrvalcell").append('<label for="attribute_value">Value</label>');
 							$("#attrvalcell").append(s);
 							$("#attribute_value").select();
-							$("#attrunitcell").append('<input type="hidden" name="attribute_units" id="attribute_units" value="">';
+							$("#attrunitcell").append('<input type="hidden" name="attribute_units" id="attribute_units" value="">');
 						} else if (resType == 'units') {
 							var s=document.createElement('SELECT');
 							s.name='attribute_units';
@@ -77,7 +77,7 @@
 							var s='<label for="attribute_value">Value</label><input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
 							$("#attrvalcell").append(s);
 							$("#attribute_value").focus();
-							$("#attrunitcell").append('<input type="hidden" name="attribute_units" id="attribute_units" value="">';
+							$("#attrunitcell").append('<input type="hidden" name="attribute_units" id="attribute_units" value="">');
 
 						} else {
 							alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
