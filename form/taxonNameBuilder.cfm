@@ -97,7 +97,7 @@
 		</select>
 		<div id="dt1">
 			<label for="t1">Type to select Taxon Name A</label>
-			<input type="text" name="t1" class="reqdClr" size="40" id="t1" onKeyPress="return noenter(event);">
+			<input type="text" name="t1" class="reqdClr" size="40" id="t1" autofocus onKeyPress="return noenter(event);">
 		</div>
 		<div id="dt2" style="display:none;">
 			<label for="t2">Type to select Taxon Name B</label>
