@@ -1,4 +1,57 @@
 <cfcomponent>
+<!----------------------------------------------------------------------------------------->
+<cffunction name="saveNewSpecimenAttribute" access="remote" returnformat="json" queryformat="column">
+	<cfargument name="q" required="yes">
+	<cfif not isdefined("escapeQuotes")>
+		<cfinclude template="/includes/functionLib.cfm">
+	</cfif>
+	<cfoutput>
+		<cfloop list="#q#" index="kv" delimiters="&">
+			<cfset k=listfirst(kv,"=")>
+			<cfset v=replace(kv,k & "=",'')>
+			<cfset "#k#"=urldecode(v)>
+		</cfloop>
+		<cfset fatalerrstr="">
+		<cfset required="UUID,attribute_value,attribute_determiner">
+		<cfloop list="#required#" index="i">
+			<cfset thisVal=evaluate("variables." & i)>
+			<cfif len(thisVal) is 0>
+				<cfset fatalerrstr=listappend(fatalerrstr,'#i# is required',';')>
+			</cfif>
+		</cfloop>
+		<cfif len(fatalerrstr) is 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into cf_temp_attributes (
+					status,
+					OTHER_ID_TYPE,
+					OTHER_ID_NUMBER,
+					ATTRIBUTE,
+					ATTRIBUTE_VALUE,
+					ATTRIBUTE_UNITS,
+					ATTRIBUTE_DATE,
+					ATTRIBUTE_METH,
+					DETERMINER,
+					REMARKS,
+					USERNAME
+				) values (
+					'linked to bulkloader',
+					'UUID',
+					'#uuid#',
+					'#attribute_type#',
+					'#escapeQuotes(ATTRIBUTE_VALUE)#',
+					'#ATTRIBUTE_UNITS#',
+					'#attribute_date#',
+					'#escapeQuotes(determination_method)#',
+					'#attribute_determiner#',
+					'#escapeQuotes(attribute_remark)#',
+					'#session.USERNAME#'
+				)
+			</cfquery>
+			<cfset fatalerrstr='success'>
+		</cfif>
+		<cfreturn fatalerrstr>
+	</cfoutput>
+</cffunction>
 
 
 <!----------------------------------------------------------------------------------------->
