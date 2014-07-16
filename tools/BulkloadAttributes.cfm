@@ -377,7 +377,7 @@
 				Not everything will load - <a href="BulkloadAttributes.cfm?action=validate">validate</a>
 			</p>
 		<cfelse>
-			Your data should load. Review the table below and <a href="BulkloadAttributes.cfm?action=loadData">click to continue</a>.
+			Your data should load. Review the table below and <a href="BulkloadAttributes.cfm?action=loadData">click to load and delete from this app</a>.
 		</cfif>
 		<p>
 			<a href="##" onclick="cd();">delete all of your data</a>
