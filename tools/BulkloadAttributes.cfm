@@ -187,7 +187,7 @@
 			</cfquery>
 		</cfif>
 	</cfloop>
-	<cflocation url="BulkloadParts.cfm?action=managemystuff" addtoken="false">
+	<cflocation url="BulkloadAttributes.cfm?action=managemystuff" addtoken="false">
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "getFile">
