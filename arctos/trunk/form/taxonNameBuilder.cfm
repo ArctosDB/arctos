@@ -1,6 +1,11 @@
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <script>
 	jQuery(document).ready(function() {
+		if ($("#taxon_name").val().length > 0){
+
+			$("#t1").val($("#taxon_name").val().autocomplete( "search", $("#taxon_name").val() );
+		}
+
 		jQuery("#t1").autocomplete("/ajax/scientific_name.cfm", {
 			width: 320,
 			max: 50,
@@ -24,8 +29,13 @@
 			selectFirst:false
 		});
 		
+		
 
-		$("#t1").val($("#taxon_name").val()).autocomplete("search",$("#taxon_name").val());
+//autocomplete("search",$("#taxon_name").val());
+
+
+
+
 
 		$( "#theForm" ).submit(function( event ) {
 			event.preventDefault();
