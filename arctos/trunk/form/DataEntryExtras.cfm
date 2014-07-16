@@ -134,7 +134,7 @@
 		      <tr> 
 		        <td>
 					<label for="attribute_type">Attribute</label>
-					<select name="attribute_type" id="attribute_type">
+					<select name="attribute_type" id="attribute_type" required>
 						<option value="">pick an attribute....</option>
 						<cfloop query="CTATTRIBUTE_TYPE">
 							<option value="#CTATTRIBUTE_TYPE.attribute_type#">#CTATTRIBUTE_TYPE.attribute_type#</option>
