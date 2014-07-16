@@ -9,7 +9,7 @@
 
 			$( "#attribute_type" ).change(function() {
 				$.ajax({
-					url: "/component/DataEntry.cfc?queryformat=column",
+					url: "/component/DataEntry.cfc?queryformat=column&returnformat=json",
 					type: "GET",
 					dataType: "json",
 					data: {
