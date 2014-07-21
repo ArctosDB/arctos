@@ -492,6 +492,7 @@
 		select distinct collection_object_id from raw
 	</cfquery>
 	<cfset theResult=queryNew("media_id,collection_object_id,media_relationship")>
+	<cfset r=1>
 	<cfloop query="did">
 		<cfquery name="tm" dbtype="query">
 			select media_id from raw where collection_object_id=#collection_object_id#
@@ -500,6 +501,7 @@
 		<cfset t = QuerySetCell(theResult, "collection_object_id", collection_object_id, r)>
 		<cfset t = QuerySetCell(theResult, "media_id", valuelist(tm.media_id), r)>
 		<cfset t = QuerySetCell(theResult, "media_relationship", "cataloged_item", r)>
+		<cfset r=r+1>
 	</cfloop>	
 	
 	
