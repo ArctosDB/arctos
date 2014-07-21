@@ -80,6 +80,9 @@ function addMoreStuff(mode){
 		//fluidDialog();
 		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
 }
 
 jQuery(document).ready(function() {

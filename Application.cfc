@@ -319,7 +319,7 @@
 	</CFIF>
 	<cfif request.ipaddress contains ",">
 		<cfset ip1=listgetat(request.ipaddress,1,",")>
-		<cfif ip1 contains "172." or ip1 contains "192." or ip1 contains "10." or ip1 is "127.0.0.1">
+		<cfif ip1 contains "172.16" or ip1 contains "192.168" or ip1 contains "10." or ip1 is "127.0.0.1">
 			<cfset request.ipaddress=listgetat(request.ipaddress,2,",")>
 		<cfelse>
 			<cfset request.ipaddress=listgetat(request.ipaddress,1,",")>
