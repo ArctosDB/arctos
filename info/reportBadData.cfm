@@ -3,7 +3,7 @@
 	<cfabort>
 </cfif>
 <cfinclude template="/includes/_header.cfm">
-<cfif #Action# is "nothing">
+<cfif action is "nothing">
 <cfset title="Report Data Problems">
 <h2>Report Data Errors</h2>
 <table>
@@ -20,27 +20,15 @@
 	<!--- get summary data ---->
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
-			cataloged_item.collection_object_id id,
-			scientific_name, 
-			cat_num, 
-			collection.collection, 
-			higher_geog,
-			spec_locality
+			#session.flatTableName#.collection_object_id id,
+			#session.flatTableName#scientific_name, 
+			#session.flatTableName#.guid, 
+			#session.flatTableName#.higher_geog,
+			#session.flatTableName#.spec_locality
 		FROM
-			cataloged_item,
-			identification,
-			collection,
-			collecting_event,
-			locality,
-			geog_auth_rec
+			#session.flatTableName#
 		WHERE
-			cataloged_item.collection_object_id = identification.collection_object_id AND
-			identification.accepted_id_fg = 1 AND
-			cataloged_item.collection_id = collection.collection_id AND
-			cataloged_item.collecting_event_id = collecting_event.collecting_event_id AND
-			collecting_event.locality_id = locality.locality_id AND
-			locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND
-			cataloged_item.collection_object_id IN (#collection_object_id#)
+			#session.flatTableName#.collection_object_id IN (#collection_object_id#)
 	</cfquery>
 	
 </cfif>
@@ -82,7 +70,7 @@
 				<table border>
 					<tr>
 						<td nowrap align="center"><strong>Report</strong></td>
-						<td nowrap align="center"><strong>Catalog Number</strong></td>
+						<td nowrap align="center"><strong>Specimen</strong></td>
 						<td nowrap align="center"><strong>Scientific Name</strong></td>
 						<td nowrap align="center"><strong>Higher Geog</strong></td>
 						<td nowrap align="center"><strong>Locality</strong></td>
@@ -103,10 +91,7 @@
 							<br>#newCollObjId#
 							---->
 						</td>
-						<td>
-							<a href="#Application.ServerRootUrl#/SpecimenDetail.cfm?collection_object_id=#id#">
-							#collection# #cat_num#</a>
-							</td>
+						<td><a href="#Application.ServerRootUrl#/guid/#guid#">#guid#</a></td>
 						<td>#scientific_name#</td>
 						<td>#higher_geog#</td>
 						<td>#spec_locality#</td>
