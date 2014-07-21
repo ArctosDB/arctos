@@ -526,7 +526,7 @@
 		</cfquery>
 		<cfset t = queryaddrow(theResult,1)>
 		<cfset t = QuerySetCell(theResult, "collection_object_id", collection_object_id, r)>
-		<cfset t = QuerySetCell(theResult, "typeList", valuelist(tm.media_id,':'), r)>
+		<cfset t = QuerySetCell(theResult, "typeList", valuelist(tm.type_status,':'), r)>
 		<cfset r=r+1>
 	</cfloop>
 	<!----
