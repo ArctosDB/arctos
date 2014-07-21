@@ -167,11 +167,16 @@
 			cataloged_item.collection_object_id IN (#newCollObjId#)
 		GROUP BY address
 	</cfquery>
-	<cfset thisAddress = #Application.DataProblemReportEmail#><!--- always send data problems to SOMEONE, even if we don't 
+	<cfset thisAddress = Application.DataProblemReportEmail><!--- always send data problems to SOMEONE, even if we don't 
 		find additional contacts --->
 	<cfloop query="whatEmails">
 		<cfset thisAddress = "#thisAddress#,#address#">
 	</cfloop>
+	
+	
+	<cfset thisAddress = Application.DataProblemReportEmail>
+	
+	
 	
 	<cfmail to="#thisAddress#" subject="Arctos Bad Data Report" from="BadData@#Application.fromEmail#" type="html">
 		<p>Reported Name: #reported_name# (AKA #session.username#) submitted a data report.</p>
