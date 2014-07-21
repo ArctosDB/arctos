@@ -396,10 +396,6 @@
 			</table>
 		</cfoutput>
 	</cfif>
-	
-	
-	
-	
 	<cfquery name="ese" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from  cf_temp_attributes  where other_id_number='#UUID#'
 	</cfquery>
@@ -426,25 +422,23 @@
 </cfif>
 <cfif action is "help">
 	<p>
-		This form extends the specimen bulkloader to include non-specimen bulkloaders. This is a limited-scope form and certain limitations exist.
-		For specimen-events, most limitations may be bypassed by pre-creating collecting events or localities. 
+		This form extends the specimen bulkloader to include non-specimen bulkloaders. This is a limited-scope form; 
+		for specimen-events, most limitations may be bypassed by pre-creating collecting events or localities. 
 	</p>
 	<p>
-		After specimens exist, load data through EnterData/BatchTools.
+		After specimens exist, load data through the appropriate loader in EnterData/BatchTools.
 	</p>
 	<p>
-		To use this form, other_id_num_type4 MUST be a UUID, and other_id_val_4 MUST be a unique identifier. It 
+		To use this form, other_id_num_type_4 MUST be a UUID, and other_id_val_4 MUST be a unique identifier. It 
 		is recommended to allow the application to generate these values; simply leave other_id_4 NULL to do so.
 	</p>
 	<p>
 		The UUID is the link to related records created here; do not alter or remove it until all data have been
-		loaded and associated with the proper specimen. After all data are loaded, it's OK to delete the UUID.
+		loaded and associated with the proper specimen. After all data are loaded, it's OK but not necessary to delete the UUID.
 	</p>
 </cfif>
-
-
+<!--------------------------------------------------------->
 <cfif action is "addSE">
-
 	<style>
 		.grpDiv {border:1px solid green;}
 	</style>
