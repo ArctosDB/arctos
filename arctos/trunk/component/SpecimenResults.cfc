@@ -450,7 +450,7 @@
 	<cftry>
 	<cfloop list="#idList#" index="cid">
 		<cfloop list="#tableList#" index="tabl">
-			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select getMediaBySpecimen('#tabl#',#cid#) midList from dual
 			</cfquery>
 			<cfif len(mid.midList) gt 0>
@@ -463,13 +463,49 @@
 		</cfloop>
 	</cfloop>
 	<cfcatch>
-				<cfset craps=queryNew("media_id,collection_object_id,media_relationship")>
-				<cfset temp = queryaddrow(craps,1)>
-				<cfset t = QuerySetCell(craps, "collection_object_id", "12", 1)>
-				<cfset t = QuerySetCell(craps, "media_id", "45", 1)>
-				<cfset t = QuerySetCell(craps, "media_relationship", "#cfcatch.message# #cfcatch.detail#", 1)>
-				<cfreturn craps>
-		</cfcatch>
+		<cfset craps=queryNew("media_id,collection_object_id,media_relationship")>
+		<cfset temp = queryaddrow(craps,1)>
+		<cfset t = QuerySetCell(craps, "collection_object_id", "12", 1)>
+		<cfset t = QuerySetCell(craps, "media_id", "45", 1)>
+		<cfset t = QuerySetCell(craps, "media_relationship", "#cfcatch.message# #cfcatch.detail#", 1)>
+		<cfreturn craps>
+	</cfcatch>
+	</cftry>
+	
+	
+	
+	<cfdump var=#theResult#>
+	<cfreturn theResult>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="getMedia__old" access="remote">
+	<cfargument name="idList" type="string" required="yes">
+	<cfset theResult=queryNew("media_id,collection_object_id,media_relationship")>
+	<cfset r=1>
+	<cfset tableList="cataloged_item,collecting_event">
+	<cftry>
+	<cfloop list="#idList#" index="cid">
+		<cfloop list="#tableList#" index="tabl">
+			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select getMediaBySpecimen('#tabl#',#cid#) midList from dual
+			</cfquery>
+			<cfif len(mid.midList) gt 0>
+				<cfset t = queryaddrow(theResult,1)>
+				<cfset t = QuerySetCell(theResult, "collection_object_id", "#cid#", r)>
+				<cfset t = QuerySetCell(theResult, "media_id", "#mid.midList#", r)>
+				<cfset t = QuerySetCell(theResult, "media_relationship", "#tabl#", r)>
+				<cfset r=r+1>
+			</cfif>
+		</cfloop>
+	</cfloop>
+	<cfcatch>
+		<cfset craps=queryNew("media_id,collection_object_id,media_relationship")>
+		<cfset temp = queryaddrow(craps,1)>
+		<cfset t = QuerySetCell(craps, "collection_object_id", "12", 1)>
+		<cfset t = QuerySetCell(craps, "media_id", "45", 1)>
+		<cfset t = QuerySetCell(craps, "media_relationship", "#cfcatch.message# #cfcatch.detail#", 1)>
+		<cfreturn craps>
+	</cfcatch>
 	</cftry>
 	<cfreturn theResult>
 </cffunction>
