@@ -505,13 +505,15 @@
 	<cfargument name="idList" type="string" required="yes">
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select  
+			citation.collection_object_id,
 			type_status || decode(count(*),1,'','(' || count(*) || ')') type_status 
 		from 
 			citation 
 		where 
 			collection_object_id in (#idList#) 
-		group 
-			by type_status
+		group by 
+			collection_object_id,
+			type_status
 	</cfquery>
 	<cfquery name="did" dbtype="query">
 		select distinct collection_object_id from raw
