@@ -21,7 +21,7 @@
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			#session.flatTableName#.collection_object_id id,
-			#session.flatTableName#scientific_name, 
+			#session.flatTableName#.scientific_name, 
 			#session.flatTableName#.guid, 
 			#session.flatTableName#.higher_geog,
 			#session.flatTableName#.spec_locality
