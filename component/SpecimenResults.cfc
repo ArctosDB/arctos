@@ -488,8 +488,7 @@
 	
 	<cfquery name="mcoid" dbtype="query">
 		select collection_object_id from rci union
-				select collection_object_id from rce union
-
+				select collection_object_id from rce 
 	</cfquery>
 	
 	
