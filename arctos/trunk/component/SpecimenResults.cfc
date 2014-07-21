@@ -529,28 +529,6 @@
 		<cfset t = QuerySetCell(theResult, "typeList", valuelist(tm.type_status,'; '), r)>
 		<cfset r=r+1>
 	</cfloop>
-	<!----
-	
-	<cftry>
-	<cfloop list="#idList#" index="cid">
-		<cfquery name="ts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select  type_status || decode(count(*),1,'','(' || count(*) || ')') type_status from citation where collection_object_id=#cid# group by type_status
-		</cfquery>
-		<cfif ts.recordcount gt 0>
-			<cfset tl=valuelist(ts.type_status,";")>
-			<cfset t = queryaddrow(theResult,1)>
-			<cfset t = QuerySetCell(theResult, "collection_object_id", "#cid#", r)>
-			<cfset t = QuerySetCell(theResult, "typeList", "#tl#", r)>
-			<cfset r=r+1>
-		</cfif>
-	</cfloop>
-	<cfcatch>
-		<cfset t = queryaddrow(theResult,1)>
-		<cfset t = QuerySetCell(theResult, "collection_object_id", "-1", 1)>
-		<cfset t = QuerySetCell(theResult, "typeList", "#cfcatch.detail#", 1)>
-	</cfcatch>
-	</cftry>
-	---->
 	<cfreturn theResult>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
