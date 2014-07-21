@@ -201,6 +201,10 @@
 	<cfset mapurl = "#mapurl#&taxon_name_id=#taxon_name_id#">
 </cfif>
 
+<cfif isdefined("formatted_scientific_name") AND len(formatted_scientific_name) gt 0>
+	<cfset mapurl = "#mapurl#&formatted_scientific_name=#formatted_scientific_name#">
+	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.formatted_scientific_name) = '#ucase(escapeQuotes(formatted_scientific_name))#'">
+</cfif>
 <cfif isdefined("scientific_name") AND len(scientific_name) gt 0>
 	<cfif not isdefined("scientific_name_scope") OR len(scientific_name_scope) is 0>
 		<cfset scientific_name_scope = "currentID">
