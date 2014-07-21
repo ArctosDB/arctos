@@ -172,12 +172,6 @@
 	<cfloop query="whatEmails">
 		<cfset thisAddress = "#thisAddress#,#address#">
 	</cfloop>
-	
-	
-	<cfset thisAddress = Application.DataProblemReportEmail>
-	
-	
-	
 	<cfmail to="#thisAddress#" subject="Arctos Bad Data Report" from="BadData@#Application.fromEmail#" type="html">
 		<p>Reported Name: #reported_name# (AKA #session.username#) submitted a data report.</p>
 		
