@@ -458,7 +458,7 @@
 		see v6.3.1 for previous DB-intensive but more specific version
 	---->
 	<cfargument name="idList" type="string" required="yes">
-	<cfquery name="raw" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			flat.collection_object_id,
 			media_relations.media_id
