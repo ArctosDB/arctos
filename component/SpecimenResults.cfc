@@ -485,6 +485,20 @@
 	
 	
 	<cfset theResult=queryNew("media_id,collection_object_id,media_relationship")>
+	
+	<cfquery name="mcoid" dbtype="query">
+		select collection_object_id from rci union
+				select collection_object_id from rce union
+
+	</cfquery>
+	
+	
+	
+		<cfdump var=#mcoid#>
+
+
+
+
 	<cfset r=1>
 	<cfset tableList="cataloged_item,collecting_event">
 	<cftry>
