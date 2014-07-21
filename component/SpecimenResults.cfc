@@ -446,7 +446,11 @@
 	<!----
 		Input: List of cataloged_item.collection_object_id
 		
-		Return: Table of COLLECTION_OBJECT_ID 	MEDIA_ID 	MEDIA_RELATIONSHIP
+		find all media related to any cataloged item in the list by way of
+			-- cataloged_item
+			-- collecting_event
+		
+		Return: Table of COLLECTION_OBJECT_ID 	MEDIA_ID (list)	MEDIA_RELATIONSHIP
 	
 	---->
 
@@ -455,7 +459,7 @@
 	<cfargument name="idList" type="string" required="yes">
 	
 	
-	<cfquery name="rci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			flat.collection_object_id,
 			media_relations.media_id
@@ -466,30 +470,32 @@
 			flat.collection_object_id = media_relations.related_primary_key and
 			SUBSTR(media_relationship,instr(media_relationship,' ',-1)+1)='cataloged_item' and
 			flat.collection_object_id in (#idList#)
-	</cfquery>
-	<cfdump var=#rci#>
-	<cfquery name="rce" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		union
 		select 
 			flat.collection_object_id,
 			media_relations.media_id
 		from 
 			media_relations,
-			flat
+			flat,
+			specimen_event
 		where
-			flat.collecting_event_id = media_relations.related_primary_key and
+			flat.collection_object_id=specimen_event.collection_object_id and
+			specimen_event.collecting_event_id = media_relations.related_primary_key and
 			SUBSTR(media_relationship,instr(media_relationship,' ',-1)+1)='collecting_event' and
-			flat.collection_object_id in (#idList#)					
+			flat.collection_object_id in (#idList#)	
 	</cfquery>
+	<cfdump var=#raw#>
 	
-	<cfdump var=#rce#>
+	<!--- now get distinct collection_object_id ---->
+	
+	<cfquery name="mcoid" dbtype="query">
+		select distinct collection_object_id from raw
+	</cfquery>
 	
 	
 	<cfset theResult=queryNew("media_id,collection_object_id,media_relationship")>
 	
-	<cfquery name="mcoid" dbtype="query">
-		select collection_object_id from rci union
-				select collection_object_id from rce 
-	</cfquery>
+	
 	
 	
 	
