@@ -503,7 +503,6 @@
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getTypes" access="remote">
 	<cfargument name="idList" type="string" required="yes">
-	<cfquery name="ts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	
 	
 	
