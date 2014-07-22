@@ -253,6 +253,17 @@
 			set 
 				status='checking....' where (username)='#ucase(session.username)#'
 		</cfquery>
+		<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+			update 
+				cf_temp_attributes 
+			set 
+				status=decode(status,
+					null,'click "get GUID Prefix" before validating',
+					status || '; click "get GUID Prefix" before validating')
+			where 
+				(username)='#ucase(session.username)#' and
+				guid_prefix is null	
+		</cfquery>
 		<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_attributes set COLLECTION_OBJECT_ID = (
 				select 
@@ -336,7 +347,10 @@
 			update 
 				cf_temp_attributes 
 			set 
-				status='valid' where (username)='#ucase(session.username)#'
+				status='valid'
+			where 
+				status='checking...' and
+				(username)='#ucase(session.username)#'
 		</cfquery>
 		<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
 	</cfoutput>
