@@ -870,7 +870,7 @@ validate
 		</cfloop>
 		<!--- clean up ---->
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete * from cf_temp_parts where upper(username)='#ucase(session.username)#' and status='valid'
+			delete from cf_temp_parts where upper(username)='#ucase(session.username)#' and status='valid'
 		</cfquery>
 	</cftransaction>
 	Spiffy, all done.
