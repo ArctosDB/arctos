@@ -339,6 +339,10 @@ function saveNewRecord () {
 							}
 						);
 					}
+					// do not carry over UUID
+					if ($("#other_id_num_type_4").val()=='UUID'){
+						$("#other_id_num_4").val('');
+					}
 					// switch to enter mode
 					$("#action").val('enter');
 					// reapple any customizations, etc.
