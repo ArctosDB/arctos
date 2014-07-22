@@ -1,3 +1,4 @@
+
 /*
 
 		***********************************IMPORTAN***********************************
@@ -14,7 +15,9 @@
 
 */
 
+/* default "resizable input" */
 
+.smalltextarea {width:15em;height:1em;}
 
 /* apparently unused, but keep it around until we're more sure
 	.hide {visibility:hidden;}
