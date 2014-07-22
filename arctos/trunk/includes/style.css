@@ -20,8 +20,10 @@
 .smalltextarea {width:15em;height:1em;}
 
 /* default "one big line resizable input" */
-.mediumtextarea {width:15em;height:1em;}
+.mediumtextarea {width:30em;height:1em;}
 
+/* default big tetarea */
+.largetextarea {width:30em;height:3em;}
 
 
 /* apparently unused, but keep it around until we're more sure
