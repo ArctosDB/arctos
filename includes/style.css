@@ -15,6 +15,11 @@
 
 */
 
+/* default "not usually used but occasionally huge" input" */
+
+.tinytextarea {width:10em;height:1em;}
+
+
 /* default "resizable input" */
 
 .smalltextarea {width:15em;height:1em;}
