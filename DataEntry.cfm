@@ -395,7 +395,8 @@
 									</tr>
 									<tr id="d_identification_remarks">
 										<td align="right"><span class="f11a">ID Remk</span></td>
-										<td><input type="text" name="identification_remarks" id="identification_remarks" size="80">
+										<td>
+											<textarea rows="1" cols="40" class="mediumtextarea"  name="identification_remarks" id="identification_remarks"></textarea>
 										</td>
 									</tr>
 								</table><!------ /identification -------->
@@ -423,7 +424,7 @@
 									<tr id="d_coll_object_remarks">
 										<td colspan="2">
 											<span class="f11a">Spec&nbsp;Remark</span>
-												<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="60"></textarea>
+												<textarea style="largetextarea" name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="60"></textarea>
 										</td>
 									</tr>
 									<tr>
@@ -592,7 +593,7 @@
 									<tr id="d_coll_event_remarks">
 										<td align="right"><span class="f11a">CollEvntRemk</span></td>
 										<td>
-											<input type="text" name="coll_event_remarks" size="80" id="coll_event_remarks">
+											<textarea rows="1" cols="40" class="mediumtextarea"  name="coll_event_remarks" id="coll_event_remarks"></textarea>
 										</td>
 									</tr>
 									<tr>
@@ -671,7 +672,7 @@
 									<tr id="d_locality_remarks">
 										<td align="right"><span class="f11a">LocalityRemk</span></td>
 										<td>
-											<input type="text" name="locality_remarks" size="80" id="locality_remarks">
+											<textarea rows="1" cols="40" class="mediumtextarea"  name="locality_remarks" id="locality_remarks"></textarea>
 										</td>
 									</tr>
 								</table><!----- /locality ---------->
