@@ -23,11 +23,9 @@
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_attributes where upper(username)='#ucase(session.username)#'
 		</cfquery>
-		<cfif mine.recordcount gt 0>
-			<p>
-				<a href="BulkloadAttributes.cfm?action=managemystuff">Manage your existing #mine.recordcount# records</a>
-			</p>
-		</cfif>
+		<p>
+			<a href="BulkloadAttributes.cfm?action=managemystuff">Manage your existing #mine.recordcount# records</a>
+		</p>
 	</cfoutput>	
 	Upload a comma-delimited text file (csv). <a href="BulkloadAttributes.cfm?action=template">Get a template here</a>
 	Include column headings. This form will happily create duplicates; don't just randomly smash buttons. In the event of multiple
@@ -507,7 +505,7 @@
 				delete from cf_temp_attributes where username='#ucase(session.username)#' and status='valid'
 			</cfquery>
 		</cftransaction>
-		Spiffy, all done.
+		Spiffy, all done. <a href="BulkloadAttributes.cfm">load more Attributes</a>
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
