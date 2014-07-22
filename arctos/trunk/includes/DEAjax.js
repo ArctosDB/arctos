@@ -2313,7 +2313,7 @@ function success_getAttributeStuff (r) {
 		theNewText.id = theSelectName;	
 		//theNewText.type="text";
 		//theNewText.style.width='95px';
-		theNewText.className = "smalltextarea";
+		theNewText.className = "tinytextarea";
 		theDiv.appendChild(theNewText);
 	} else {
 		alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
