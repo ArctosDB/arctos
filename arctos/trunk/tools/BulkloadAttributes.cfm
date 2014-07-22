@@ -251,7 +251,7 @@
 			update 
 				cf_temp_attributes 
 			set 
-				status='checking....' where (username)='#ucase(session.username)#'
+				status=NULL where (username)='#ucase(session.username)#'
 		</cfquery>
 		<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
 			update 
@@ -349,7 +349,7 @@
 			set 
 				status='valid'
 			where 
-				status='checking...' and
+				status is null and
 				(username)='#ucase(session.username)#'
 		</cfquery>
 		<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
