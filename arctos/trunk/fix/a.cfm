@@ -3,8 +3,8 @@
 <style>
 	#test{resize:both}
 </style>
-<input type="text" id="test" required>
 
+<textarea id="text"></textarea>
 
 
 <cfabort>
