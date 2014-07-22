@@ -74,12 +74,10 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_parts where upper(username)='#ucase(session.username)#'
 		</cfquery>
-		<cfif mine.recordcount gt 0>
-			<p>
-				<a href="BulkloadParts.cfm?action=managemystuff">Manage your existing #mine.recordcount# records</a>
-			</p>
-		</cfif>
-		</cfoutput>
+		<p>
+			<a href="BulkloadParts.cfm?action=managemystuff">Manage your existing #mine.recordcount# records</a>
+		</p>
+	</cfoutput>
 		
 		
 		
