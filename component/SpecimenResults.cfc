@@ -458,30 +458,33 @@
 		see v6.3.1 for previous DB-intensive but more specific version
 	---->
 	<cfargument name="idList" type="string" required="yes">
+	<cfif len(idList) is 0>
+		<cfreturn>
+	</cfif>
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
-			flat.collection_object_id,
+			#session.flatTableName#.collection_object_id,
 			media_relations.media_id
 		from 
 			media_relations,
-			flat
+			#session.flatTableName#
 		where
-			flat.collection_object_id = media_relations.related_primary_key and
+			#session.flatTableName#.collection_object_id = media_relations.related_primary_key and
 			SUBSTR(media_relationship,instr(media_relationship,' ',-1)+1)='cataloged_item' and
-			flat.collection_object_id in (#idList#)
+			#session.flatTableName#.collection_object_id in (#idList#)
 		union
 		select 
-			flat.collection_object_id,
+			#session.flatTableName#.collection_object_id,
 			media_relations.media_id
 		from 
 			media_relations,
-			flat,
+			#session.flatTableName#,
 			specimen_event
 		where
-			flat.collection_object_id=specimen_event.collection_object_id and
+			#session.flatTableName#.collection_object_id=specimen_event.collection_object_id and
 			specimen_event.collecting_event_id = media_relations.related_primary_key and
 			SUBSTR(media_relationship,instr(media_relationship,' ',-1)+1)='collecting_event' and
-			flat.collection_object_id in (#idList#)	
+			#session.flatTableName#.collection_object_id in (#idList#)	
 	</cfquery>
 	<cfquery name="did" dbtype="query">
 		select distinct collection_object_id from raw
@@ -503,6 +506,9 @@
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getTypes" access="remote">
 	<cfargument name="idList" type="string" required="yes">
+	<cfif len(idList) is 0>
+		<cfreturn>
+	</cfif>
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select  
 			citation.collection_object_id,
