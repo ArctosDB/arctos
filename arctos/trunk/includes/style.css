@@ -19,6 +19,11 @@
 
 .smalltextarea {width:15em;height:1em;}
 
+/* default "one big line resizable input" */
+.mediumtextarea {width:15em;height:1em;}
+
+
+
 /* apparently unused, but keep it around until we're more sure
 	.hide {visibility:hidden;}
 	

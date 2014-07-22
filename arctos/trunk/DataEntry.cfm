@@ -527,8 +527,7 @@
 									<tr>
 										<td align="right"><span class="f11a">Specimen/Event Remark</span></td>
 										<td>
-											<input type="text"  name="specimen_event_remark" class="" size="80"
-												id="specimen_event_remark">
+											<textarea rows="1" cols="40" class="mediumtextarea"  name="specimen_event_remark" id="specimen_event_remark"></textarea>
 										</td>
 									</tr>
 								</table>
