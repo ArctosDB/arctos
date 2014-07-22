@@ -2308,12 +2308,12 @@ function success_getAttributeStuff (r) {
 	} else if (resType == 'NONE') {
 		theDiv.innerHTML = '';
 		theText.innerHTML = '';
-		var theNewText = document.createElement('INPUT');
+		var theNewText = document.createElement('TEXTAREA');
 		theNewText.name = theSelectName;
 		theNewText.id = theSelectName;	
-		theNewText.type="text";
-		theNewText.style.width='95px';
-		theNewText.className = "";
+		//theNewText.type="text";
+		//theNewText.style.width='95px';
+		theNewText.className = "smalltextarea";
 		theDiv.appendChild(theNewText);
 	} else {
 		alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
