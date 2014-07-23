@@ -6,6 +6,15 @@
 		<cfreturn getCanonicalHostName>
 	</cffunction>
 	<!--------------------------------------------------------------------------->
+	<cffunction name="updatecf_temp_spec_to_geog" access="remote">
+		<cfargument name="old" type="string" required="yes">
+		<cfargument name="new" type="string" required="yes">
+		<cfquery name="gotone" datasource="uam_god">
+			update cf_temp_spec_to_geog set higher_geog='#new#' where spec_locality='#old#'
+		</cfquery>
+		<cfreturn "ok">
+	</cffunction>
+	<!--------------------------------------------------------------------------->
 	<cffunction name="upDSGeog" access="remote">
 		<cfargument name="pkey" type="numeric" required="yes">
 		<cfargument name="geog" type="string" required="yes">
