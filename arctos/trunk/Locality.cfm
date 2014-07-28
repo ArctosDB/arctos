@@ -1438,7 +1438,7 @@ You deleted a collecting event.
 				UPDATE 
 					geog_auth_rec 
 				SET 
-					source_authority = '#escapeQuotes(srcAuth)#',
+					source_authority = '#escapeQuotes(source_authority)#',
 					valid_catalog_term_fg = #valid_catalog_term_fg#,
 					continent_ocean = '#escapeQuotes(continent_ocean)#',
 					country = '#escapeQuotes(country)#',
