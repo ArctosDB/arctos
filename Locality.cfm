@@ -515,6 +515,13 @@
 				</tr>
 				<tr>
 	                <td colspan="4" nowrap align="center">
+	                	<label for="geog_remark">Remarks (why is this unique, how is it different from similar values, etc.)</label>
+	                	<textarea name="geog_remark" id="geog_remark" class="hugetextarea" rows="60" cols="10">#geog_remark#</textarea>
+	                </td>
+				
+				
+				<tr>
+	                <td colspan="4" nowrap align="center">
 						<input type="submit" value="Save Edits"	class="savBtn">
 						<input type="button" value="Delete" class="delBtn"
 							onClick="document.location='Locality.cfm?Action=deleteGeog&geog_auth_rec_id=#geog_auth_rec_id#';">
@@ -1423,6 +1430,8 @@ You deleted a collecting event.
 	<cfelse>
 		<cfset sql = "#sql#,sea = null">
 	</cfif>
+	<cfset sql = "#sql#,geog_remark = '#escapeQuotes(geog_remark)#'">
+	
 	<cfset sql = "#sql# where geog_auth_rec_id = #geog_auth_rec_id#">
 	<cfquery name="edGe" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
@@ -1466,7 +1475,8 @@ INSERT INTO geog_auth_rec (
 	<cfif len(#sea#) gt 0>
 		,sea
 	</cfif>
-	,SOURCE_AUTHORITY
+	,SOURCE_AUTHORITY,
+	geog_remark
 		)
 	VALUES (
 		#nextGEO.nextid#
@@ -1497,7 +1507,8 @@ INSERT INTO geog_auth_rec (
 	<cfif len(#sea#) gt 0>
 		,'#escapeQuotes(sea)#'
 	</cfif>
-	,'#escapeQuotes(SOURCE_AUTHORITY)#'
+	,'#escapeQuotes(SOURCE_AUTHORITY)#',
+	'#escapeQuotes(geog_remark)#
 )
 </cfquery>
 <cflocation addtoken="no" url="Locality.cfm?Action=editGeog&geog_auth_rec_id=#nextGEO.nextid#">
@@ -1873,6 +1884,7 @@ INSERT INTO geog_auth_rec (
 		<th>Island</th>
 		<th>Sea</th>
 		<th>Authority</th>
+		<th>Remark</th>
 	</tr>
 <cfloop query="localityResults">
 <tr>
@@ -1897,6 +1909,7 @@ INSERT INTO geog_auth_rec (
 			#SOURCE_AUTHORITY#	
 		</cfif>
 	</td>
+	<td>#geog_remark#</td>
   </tr>
 </cfloop>
 </cfoutput>
