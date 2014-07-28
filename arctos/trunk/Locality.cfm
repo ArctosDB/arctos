@@ -533,11 +533,9 @@
 				</cfquery>
 				<tr>
 	                <td colspan="4">
-	                		Geog Terms: These are "non-standard" terms that might be useful in finding stuff or clarifying a "higher geog" entry. 
-							They should be somehow equivalent to the entire higher_geog concatenation - don't say something about United States
-							in an entry that includes County. Appropriate here are "official" but obscure names, names in local charactersets (eg, 
-							including accents), or local names. For example, Haiti ("correct" as primary data because that's what Wikipedia uses) 
-							might have alternate terms "Ha•ti" (French) and "Republic of Haiti" (official) and "RŽpublique d'Ha•ti" (official French).
+		                <div class="smaller">
+		                	<strong>Geog Terms</strong> are "non-standard" terms that might be useful in finding stuff or clarifying an entry.
+	                	</div>
 	                </td>
 				</tr>
 				<tr>
