@@ -547,29 +547,29 @@
 				</tr>
 				<tr>
 	                <td colspan="4">
-	                	<label for="new_geog_search_term_2">Add Geog Search Term</label>
 	                	<textarea name="new_geog_search_term_2" id="new_geog_search_term_2" class="longtextarea newRec" rows="30" cols="1"></textarea>
 
 	                </td>
 				</tr>
 				<tr>
 	                <td colspan="4">
-	                	<label for="new_geog_search_term_3">Add Geog Search Term</label>
 	                	<textarea name="new_geog_search_term_3" id="new_geog_search_term_3" class="longtextarea newRec" rows="30" cols="1"></textarea>
 
+	                </td>
+				</tr>
+				<tr>
+	                <td colspan="4">
+	                	<label for="">Geog Search Term</label>
 	                </td>
 				</tr>
 				<cfloop query="geog_search_term">
 					<tr>
 		                <td colspan="4">
-		                	<label for="geog_search_term_#geog_search_term_id#">Geog Search Term</label>
 		                	<textarea name="geog_search_term_#geog_search_term_id#" id="geog_search_term_#geog_search_term_id#" class="longtextarea" rows="30" cols="1">#search_term#</textarea>
 		                	<span class="infoLink" onclick="clearTerm('geog_search_term_#geog_search_term_id#');">delete</span>
-	
 		                </td>
 					</tr>
 				</cfloop>
-				
 				<tr>
 	                <td colspan="4" nowrap align="center">
 						<input type="submit" value="Save Edits"	class="savBtn">
