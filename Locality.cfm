@@ -1512,7 +1512,7 @@ INSERT INTO geog_auth_rec (
 		,'#escapeQuotes(sea)#'
 	</cfif>
 	,'#escapeQuotes(SOURCE_AUTHORITY)#',
-	'#escapeQuotes(geog_remark)#
+	'#escapeQuotes(geog_remark)#'
 )
 </cfquery>
 <cflocation addtoken="no" url="Locality.cfm?Action=editGeog&geog_auth_rec_id=#nextGEO.nextid#">
