@@ -13,7 +13,8 @@
 		ISLAND ,
 		ISLAND_GROUP,
 		SEA,
-		SOURCE_AUTHORITY
+		SOURCE_AUTHORITY,
+		geog_remark
 
 ">
 <cfset frm=" from geog_auth_rec">
