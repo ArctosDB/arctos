@@ -1473,7 +1473,7 @@ You deleted a collecting event.
 				<cfif left(f,17) is "geog_search_term_">
 					<br>got one
 					<cfset thisv=evaluate("form." & f)>
-					<cfset thisID=replace( f,"geog_search_term_","")>
+					<cfset thisID=replacenocase( f,"geog_search_term_","")>
 					<br>#thisv#
 					<br>#thisID#
 				</cfif>
