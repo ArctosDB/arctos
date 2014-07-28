@@ -559,7 +559,7 @@
 				</tr>
 				<tr>
 	                <td colspan="4">
-	                	<label for="">Geog Search Term</label>
+	                	<label for="">Existing Geog Search Term(s)</label>
 	                </td>
 				</tr>
 				<cfloop query="geog_search_term">
