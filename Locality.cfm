@@ -560,7 +560,7 @@
 					<tr>
 		                <td colspan="4">
 		                	<label for="geog_search_term_#geog_search_term_id#">Geog Search Term</label>
-		                	<textarea name="geog_search_term_#geog_search_term_id#" id="geog_search_term_#geog_search_term_id#" class="longtextarea" rows="30" cols="1"></textarea>
+		                	<textarea name="geog_search_term_#geog_search_term_id#" id="geog_search_term_#geog_search_term_id#" class="longtextarea" rows="30" cols="1">#search_term#</textarea>
 		                	<span class="infoLink" onclick="$("##geog_search_term_#geog_search_term_id#").val('delete');">delete</span>
 	
 		                </td>
