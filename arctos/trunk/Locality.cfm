@@ -1469,29 +1469,17 @@ You deleted a collecting event.
 				</cfquery>
 			</cfif>
 			<cfloop list="#form.FieldNames#" index="f">
-				<p>#f#</p>
 				<cfif left(f,17) is "geog_search_term_">
-					<br>got one
 					<cfset thisv=evaluate("form." & f)>
 					<cfset thisID=replacenocase( f,"geog_search_term_","")>
-					<br>#thisv#
-					<br>#thisID#
 					<cfquery name="upst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						update geog_search_term set search_term='#escapequotes(thisv)#' where geog_search_term_id=#thisID#
 					</cfquery>
-
 				</cfif>
 			</cfloop>
-			
 		</cftransaction>
-	
-	
-	
-	
-	<!----
-	<cflocation addtoken="no" url="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">
-	---->
-</cfoutput>
+		<cflocation addtoken="no" url="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">
+	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "makeGeog">
