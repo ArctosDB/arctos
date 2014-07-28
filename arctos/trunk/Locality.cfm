@@ -1472,9 +1472,15 @@ You deleted a collecting event.
 				<cfif left(f,17) is "geog_search_term_">
 					<cfset thisv=evaluate("form." & f)>
 					<cfset thisID=replacenocase( f,"geog_search_term_","")>
-					<cfquery name="upst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						update geog_search_term set search_term='#escapequotes(thisv)#' where geog_search_term_id=#thisID#
-					</cfquery>
+					<cfif thisv is "delete" or len(thisv) eq 0>
+						<cfquery name="upst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							delete from geog_search_term where geog_search_term_id=#thisID#
+						</cfquery>
+					<cfelse>
+						<cfquery name="upst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							update geog_search_term set search_term='#escapequotes(thisv)#' where geog_search_term_id=#thisID#
+						</cfquery>
+					</cfif>
 				</cfif>
 			</cfloop>
 		</cftransaction>
