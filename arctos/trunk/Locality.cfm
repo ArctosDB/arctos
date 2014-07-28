@@ -1476,6 +1476,10 @@ You deleted a collecting event.
 					<cfset thisID=replacenocase( f,"geog_search_term_","")>
 					<br>#thisv#
 					<br>#thisID#
+					<cfquery name="upst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update geog_search_term set search_term='#escapequotes(thisv)#' where geog_search_term_id=#thisID#
+					</cfquery>
+
 				</cfif>
 			</cfloop>
 			
