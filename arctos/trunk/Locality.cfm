@@ -1433,65 +1433,60 @@ You deleted a collecting event.
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "saveGeogEdits">
 	<cfoutput>
-	<cfset srcAuth = #replace(source_authority,"'","''")#>
-	<cfset sql = "UPDATE geog_auth_rec SET source_authority = '#escapeQuotes(srcAuth)#'
-		,valid_catalog_term_fg = #valid_catalog_term_fg#">
-	<cfif len(#continent_ocean#) gt 0>
-		<cfset sql = "#sql#,continent_ocean = '#escapeQuotes(continent_ocean)#'">
-	<cfelse>
-		<cfset sql = "#sql#,continent_ocean = null">
-	</cfif>
-
-	<cfif len(#country#) gt 0>
-		<cfset sql = "#sql#,country = '#escapeQuotes(country)#'">
-	<cfelse>
-		<cfset sql = "#sql#,country = null">
-	</cfif>
-
-	<cfif len(#state_prov#) gt 0>
-		<cfset sql = "#sql#,state_prov = '#escapeQuotes(state_prov)#'">
-	<cfelse>
-		<cfset sql = "#sql#,state_prov = null">
-	</cfif>
-
-	<cfif len(#county#) gt 0>
-		<cfset sql = "#sql#,county = '#escapeQuotes(county)#'">
-	<cfelse>
-		<cfset sql = "#sql#,county = null">
-	</cfif>
-
-	<cfif len(#quad#) gt 0>
-		<cfset sql = "#sql#,quad = '#escapeQuotes(quad)#'">
-	<cfelse>
-		<cfset sql = "#sql#,quad = null">
-	</cfif>
-	<cfif len(#feature#) gt 0>
-		<cfset sql = "#sql#,feature = '#escapeQuotes(feature)#'">
-	<cfelse>
-		<cfset sql = "#sql#,feature = null">
-	</cfif>
-	<cfif len(#island_group#) gt 0>
-		<cfset sql = "#sql#,island_group = '#escapeQuotes(island_group)#'">
-	<cfelse>
-		<cfset sql = "#sql#,island_group = null">
-	</cfif>
-	<cfif len(#island#) gt 0>
-		<cfset sql = "#sql#,island = '#escapeQuotes(island)#'">
-	<cfelse>
-		<cfset sql = "#sql#,island = null">
-	</cfif>
-	<cfif len(#sea#) gt 0>
-		<cfset sql = "#sql#,sea = '#escapeQuotes(sea)#'">
-	<cfelse>
-		<cfset sql = "#sql#,sea = null">
-	</cfif>
-	<cfset sql = "#sql#,geog_remark = '#escapeQuotes(geog_remark)#'">
+		<cftransaction>
+			<cfquery name="edGe" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				UPDATE 
+					geog_auth_rec 
+				SET 
+					source_authority = '#escapeQuotes(srcAuth)#',
+					valid_catalog_term_fg = #valid_catalog_term_fg#,
+					continent_ocean = '#escapeQuotes(continent_ocean)#',
+					country = '#escapeQuotes(country)#',
+					state_prov = '#escapeQuotes(state_prov)#',
+					county = '#escapeQuotes(county)#',
+					quad = '#escapeQuotes(quad)#',
+					feature = '#escapeQuotes(feature)#',
+					island_group = '#escapeQuotes(island_group)#',
+					island = '#escapeQuotes(island)#',
+					sea = '#escapeQuotes(sea)#',
+					geog_remark = '#escapeQuotes(geog_remark)#'
+				where 
+					geog_auth_rec_id = #geog_auth_rec_id#
+			</cfquery>
+			<cfif len(new_geog_search_term_1) gt 0>
+				<cfquery name="ist1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into geog_search_term (geog_auth_rec_id,search_term) values (#geog_auth_rec_id#,'#escapeQuotes(new_geog_search_term_1)#')
+				</cfquery>
+			</cfif>
+			<cfif len(new_geog_search_term_2) gt 0>
+				<cfquery name="ist2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into geog_search_term (geog_auth_rec_id,search_term) values (#geog_auth_rec_id#,'#escapeQuotes(new_geog_search_term_2)#')
+				</cfquery>
+			</cfif>
+			<cfif len(new_geog_search_term_3) gt 0>
+				<cfquery name="ist3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into geog_search_term (geog_auth_rec_id,search_term) values (#geog_auth_rec_id#,'#escapeQuotes(new_geog_search_term_3)#')
+				</cfquery>
+			</cfif>
+			<cfloop list="#form.FieldNames#" index="f">
+				<p>#f#</p>
+				<cfif left(f,17) is "geog_search_term_">
+					<br>got one
+					<cfset thisv=evaluate("form." & f)>
+					<cfset thisID=replace( f,"geog_search_term_","")>
+					<br>#thisv#
+					<br>#thisID#
+				</cfif>
+			</cfloop>
+			
+		</cftransaction>
 	
-	<cfset sql = "#sql# where geog_auth_rec_id = #geog_auth_rec_id#">
-	<cfquery name="edGe" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		#preservesinglequotes(sql)#
-	</cfquery>
+	
+	
+	
+	<!----
 	<cflocation addtoken="no" url="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">
+	---->
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
