@@ -538,7 +538,7 @@
 				<tr>
 	                <td colspan="4">
 	                	<label for="new_geog_search_term_1">Add Geog Search Term</label>
-	                	<textarea name="geog_remark" id="geog_remark" class="mediumtextarea" rows="30" cols="1"></textarea>
+	                	<textarea name="geog_remark" id="geog_remark" class="mediumtextarea newRec" rows="30" cols="1"></textarea>
 
 	                </td>
 				</tr>
