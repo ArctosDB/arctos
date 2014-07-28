@@ -323,6 +323,10 @@
 			</tr>
 			<tr>
 			<td colspan="2">
+<label for="geog_remark">Remarks (why is this unique, how is it different from similar values, etc.)</label>
+	                	<textarea name="geog_remark" id="geog_remark" class="hugetextarea" rows="60" cols="10">#geog_remark#</textarea>			</td>
+		</tr><tr>
+			<td colspan="2">
 				<input type="submit" value="Create" class="insBtn">
 				<input type="button" value="Quit" class="qutBtn" onclick="document.location='Locality.cfm';">
 			</td>
