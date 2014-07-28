@@ -561,7 +561,7 @@
 		                <td colspan="4">
 		                	<label for="geog_search_term_#geog_search_term_id#">Geog Search Term</label>
 		                	<textarea name="geog_search_term_#geog_search_term_id#" id="geog_search_term_#geog_search_term_id#" class="longtextarea" rows="30" cols="1">#search_term#</textarea>
-		                	<span class="infoLink" onclick="$("##geog_search_term_#geog_search_term_id#").val('delete');">delete</span>
+		                	<span class="infoLink" onclick="$(""##geog_search_term_#geog_search_term_id#"").val('');">delete</span>
 	
 		                </td>
 					</tr>
@@ -1472,7 +1472,7 @@ You deleted a collecting event.
 				<cfif left(f,17) is "geog_search_term_">
 					<cfset thisv=evaluate("form." & f)>
 					<cfset thisID=replacenocase( f,"geog_search_term_","")>
-					<cfif thisv is "delete" or len(thisv) eq 0>
+					<cfif len(thisv) eq 0>
 						<cfquery name="upst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							delete from geog_search_term where geog_search_term_id=#thisID#
 						</cfquery>
