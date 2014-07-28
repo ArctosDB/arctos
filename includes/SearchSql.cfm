@@ -1910,9 +1910,12 @@
 	<cfif basJoin does not contain " locality ">
 		<cfset basJoin = " #basJoin# INNER JOIN locality ON (#session.flatTableName#.locality_id = locality.locality_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND
+	<cfset basJoin = " #basJoin# left outer join geog_search_term ON (locality.geog_auth_rec_id = geog_search_term.geog_auth_rec_id)">
+
+	<cfset basQual = " #basQual# AND (
 		upper(#session.flatTableName#.higher_geog) || ' ' || upper(#session.flatTableName#.spec_locality)
-			|| ' ' || upper(#session.flatTableName#.verbatim_locality) || ' ' || upper(locality.S$GEOGRAPHY)  LIKE '%#ucase(escapeQuotes(any_geog))#%'">
+			|| ' ' || upper(#session.flatTableName#.verbatim_locality) || ' ' || upper(locality.S$GEOGRAPHY)  LIKE '%#ucase(escapeQuotes(any_geog))#%') 
+			OR upper(geog_search_term.search_term) like '%#ucase(any_geog)#%' )">
 </cfif>
 <cfif isdefined("geog_auth_rec_id") AND len(geog_auth_rec_id) gt 0>
 	<cfset basQual = " #basQual# AND #session.flatTableName#.geog_auth_rec_id=#geog_auth_rec_id#">
