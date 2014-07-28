@@ -1,6 +1,7 @@
 .tinytextarea {width:10em;height:1em;}
 .smalltextarea {width:15em;height:1em;}
 .mediumtextarea {width:30em;height:1em;}
+.longtextarea {width:60em;height:1em;}
 .largetextarea {width:30em;height:3em;}
 .hugetextarea{width:60em;height:10em;}
 #dialog{font-size:1.4em;}
