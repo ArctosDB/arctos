@@ -556,7 +556,7 @@
 
 	                </td>
 				</tr>
-				<cfloop query="">
+				<cfloop query="geog_search_term">
 					<tr>
 		                <td colspan="4">
 		                	<label for="geog_search_term_#geog_search_term_id#">Geog Search Term</label>
