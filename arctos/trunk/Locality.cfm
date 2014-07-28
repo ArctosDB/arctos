@@ -518,12 +518,30 @@
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-	                <td colspan="4" nowrap align="center">
+	                <td colspan="4">
 	                	<label for="geog_remark">Remarks (why is this unique, how is it different from similar values, etc.)</label>
 	                	<textarea name="geog_remark" id="geog_remark" class="hugetextarea" rows="60" cols="10">#geog_remark#</textarea>
 	                </td>
-				
-				
+				</tr>
+				<cfquery name="geog_search_term" datasource="uam_god">
+					select * from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id#
+				</cfquery>
+				<tr>
+	                <td colspan="4">
+	                		Geog Terms: These are "non-standard" terms that might be useful in finding stuff or clarifying a "higher geog" entry. 
+							They should be somehow equivalent to the entire higher_geog concatenation - don't say something about United States
+							in an entry that includes County. Appropriate here are "official" but obscure names, names in local charactersets (eg, 
+							including accents), or local names. For example, Haiti ("correct" as primary data because that's what Wikipedia uses) 
+							might have alternate terms "Ha•ti" (French) and "Republic of Haiti" (official) and "RŽpublique d'Ha•ti" (official French).
+	                </td>
+				</tr>
+				<tr>
+	                <td colspan="4">
+	                	<label for="new_geog_search_term_1">Add Geog Search Term</label>
+	                	<textarea name="geog_remark" id="geog_remark" class="mediumtextarea" rows="30" cols="1"></textarea>
+
+	                </td>
+				</tr>
 				<tr>
 	                <td colspan="4" nowrap align="center">
 						<input type="submit" value="Save Edits"	class="savBtn">
@@ -537,6 +555,14 @@
 				</tr>
 			</table>
 		</cfform>
+		<hr>
+		
+	
+		
+		
+		<form name="fgeog_search_term" id="fgeog_search_term" method="post" action="Locality.cfm">
+		
+		</form>
 	</cfoutput>
 </cfif>
 
