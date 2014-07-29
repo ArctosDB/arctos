@@ -108,6 +108,7 @@
 						(drag row here)
 					</td>
 					<td>
+						<input type="hidden" name="collector_id_new1" value="">
 						<input type="text" name="name_new1" id="name_new1" value="" class="" 
 							placeholder="Add an Agent"
 							onchange="getAgent('agent_id_new1','name_new1','colls',this.value); return false;"
@@ -130,6 +131,7 @@
 						(drag row here)
 					</td>
 					<td>
+						<input type="hidden" name="collector_id_new2" value="">
 						<input type="text" name="name_new2" id="name_new2" value="" class="" 
 							placeholder="Add an Agent"
 							onchange="getAgent('agent_id_new2','name_new2','colls',this.value); return false;"
