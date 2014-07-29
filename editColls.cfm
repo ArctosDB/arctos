@@ -1,4 +1,5 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+<cfif action is "nothing">
 <cfquery name="ctcollector_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select collector_role from ctcollector_role order by collector_role
 </cfquery>
@@ -154,7 +155,7 @@
 			   
 			
 		
-	
+	</cfif>
 
 </cfoutput> 
 <!------------------------------------------------------------------------------------->
@@ -162,6 +163,16 @@
 <cfoutput>
 
 <cfdump var=#form#>
+
+
+<cfloop list="#ROWORDER#" index="i">
+	<cfset thisID=replacenocase(i,'row_','all')>
+	<br>thisID: #thisID#
+	<cfset thisName=evaluate("NAME_" & thisID)>
+	<br>thisName: #thisName#
+	
+	
+</cfloop>
 <!--------
 	<cfquery name="upColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	UPDATE collector SET
