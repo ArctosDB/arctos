@@ -23,39 +23,34 @@
 		$("#name_" + i).val('DELETE');
 		$("#agent_id_" + i).val('DELETE');
 	}
-
-
-		jQuery(document).ready(function() {
-
-
-
-	$( "#colls" ).submit(function( event ) {
-
-	console.log('I am submitting now....');
-
-
-		event.preventDefault();
-		var linkOrderData=$("#sortable").sortable('toArray').join(',');
-
-		console.log(linkOrderData);
-
-
-	//	$( "#classificationRowOrder" ).val(linkOrderData);
-	//	var nccellary = new Array();
-	//	$.each($("tr[id^='nccell_']"), function() {
-	//		nccellary.push(this.id);
-	//    });
-	//	var ncls=nccellary.join(',');
-	//	$( "#noclassrows" ).val(ncls);
-	//	$( "#f1" ).submit();
-	});
+	jQuery(document).ready(function() {
+		$( "#colls" ).submit(function( event ) {
+	
+		console.log('I am submitting now....');
+	
+	
+			event.preventDefault();
+			var linkOrderData=$("#sortable").sortable('toArray').join(',');
+	
+			console.log(linkOrderData);
+	
+	
+			$( "#roworder" ).val(linkOrderData);
+		//	var nccellary = new Array();
+		//	$.each($("tr[id^='nccell_']"), function() {
+		//		nccellary.push(this.id);
+		//    });
+		//	var ncls=nccellary.join(',');
+		//	$( "#noclassrows" ).val(ncls);
+			$( "#colls" ).submit();
+		});
 	});
 	$(function() {
-			$( "#sortable" ).sortable({
-				handle: '.dragger'
-			});
-			
+		$( "#sortable" ).sortable({
+			handle: '.dragger'
 		});
+		
+	});
 
 
 </script>
@@ -63,7 +58,8 @@
 	<cfset i=1>
 	<form name="colls" id="colls" method="post" action="editColls.cfm" >
 		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-		<input type="hidden" name="action" value="saveedits">
+		<input type="hidden" name="action" value="saveEdits">
+		<input type="hidden" name="roworder" id="roworder" value="">
 		
 		
 			
@@ -110,6 +106,7 @@
 					</td>
 					<td>
 						<input type="text" name="name_new1" id="name_new1" value="" class="" 
+							placeholder="Add an Agent"
 							onchange="getAgent('agent_id_new1','name_new1','colls',this.value); return false;"
 					 		onKeyPress="return noenter(event);">
 						<input type="hidden" name="agent_id_new1" id="agent_id_new1">
@@ -125,11 +122,30 @@
 						<input type="button" class="delBtn" value="delete" onclick="deleteThis('new1');">
 					</td>
 				</tr>
-					
-					
+				<tr class="newRec" id="row_new2">
+					<td class="dragger">
+						(drag row here)
+					</td>
+					<td>
+						<input type="text" name="name_new2" id="name_new2" value="" class="" 
+							placeholder="Add an Agent"
+							onchange="getAgent('agent_id_new2','name_new2','colls',this.value); return false;"
+					 		onKeyPress="return noenter(event);">
+						<input type="hidden" name="agent_id_new2" id="agent_id_new2">
+					</td>
+					<td>
+						 <select name="collector_role_new2" id="collector_role_new2" size="1"  class="reqdClr">
+						 	<cfloop query="ctcollector_role">
+						 		<option	value="#ctcollector_role.collector_role#">#ctcollector_role.collector_role#</option>
+						 	</cfloop>
+						</select>
+					</td>
+					<td>
+						<input type="button" class="delBtn" value="delete" onclick="deleteThis('new2');">
+					</td>
+				</tr>					
 			</tbody>
 		</table>
-		<input type="hidden" name="number_of_collectors" id="number_of_collectors" value="#i#">
 		<br>
 		<input type="submit" value="Save" class="savBtn">	
 		</form>	
@@ -137,49 +153,14 @@
 			
 		
 	
-	<table class="newRec">
-		<tr>
-			<td><strong>Add an Agent:</strong></td>
-		</tr>
-		<tr>
-			<td><form name="newColl" method="post" action="editColls.cfm"  onSubmit="return gotAgentId(this.newagent_id.value)">
-		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-		<input type="hidden" name="Action" value="newColl">
-			
-			Name: <input type="text" name="name" class="reqdClr"
-			onchange="getAgent('newagent_id','name','newColl',this.value); return false;"
-			 onKeyPress="return noenter(event);">
-			<input type="hidden" name="newagent_id">
-			
-		
-	         Role: 
-	          <select name="collector_role" size="1" class="reqdClr">
-						<option value="c">collector</option>
-						<option value="p">preparator</option>
-						
-					</select>
-			Order: 
-				<select name="coll_order" size="1" class="reqdClr">
-					<cfset thisLoop = #getColls.recordcount# +1>
-					<cfloop from="1" index="c" to="#thisLoop#">
-						<option <cfif #c# is #thisLoop#> selected </cfif>
-							value="#c#">#c#</option>
-						
-					</cfloop>
-				</select>
-				
-			<input type="submit" value="Create" class="insBtn"
-	   onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">
-	         
-	        </form></td>
-		</tr>
-	</table>
-<p>
 
 </cfoutput> 
 <!------------------------------------------------------------------------------------->
-<cfif #Action# is "saveEdits">
+<cfif action is "saveEdits">
 <cfoutput>
+
+<cfdump var=#form#>
+<!--------
 	<cfquery name="upColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	UPDATE collector SET
 		<cfif len(#newagent_id#) gt 0>
@@ -196,6 +177,7 @@
 		agent_id=#oldAgent_id#
 		</cfquery>
 		<cflocation url="editColls.cfm?collection_object_id=#collection_object_id#">
+		------------>
 </cfoutput>	
 </cfif>
 <!------------------------------------------------------------------------------------->
