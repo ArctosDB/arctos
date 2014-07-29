@@ -169,6 +169,9 @@
 	    <cfquery name="ctew" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	    	select e_or_w from ctew order by e_or_w
 	    </cfquery>
+	    <cfquery name="ctcollector_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	    	select collector_role from ctcollector_role order by collector_role
+	    </cfquery>
 	    <cfquery name="ctns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	       	select n_or_s from ctns order by n_or_s
 	    </cfquery>
@@ -290,10 +293,9 @@
 											<cfif i is 1 or i is 3 or i is 5><tr></cfif>
 											<td id="d_collector_role_#i#" align="right">
 												<select name="collector_role_#i#" size="1" <cfif i is 1>class="reqdClr"</cfif> id="collector_role_#i#">
-													<option value="c">Collector</option>
-													<cfif i gt 1>
-														<option value="p">Preparator</option>
-													</cfif>
+													<cfloop query="ctcollector_role">
+														<option value="#collector_role#">#collector_role#</option>
+													</cfloop>
 												</select>
 											</td>
 											<td  id="d_collector_agent_#i#" nowrap="nowrap">
