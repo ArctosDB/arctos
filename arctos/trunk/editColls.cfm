@@ -189,7 +189,7 @@
 			update
 	----->
 	<br>thisAgentID: #thisAgentID#
-		<cfif left(i,3) is "new" and thisName neq "DELETE">
+		<cfif left(i,3) is "new" and len(thisAgentID) gt 0 and thisName neq "DELETE">
 			<!--- inserting ---->
 			<br>
 			insert into collector (
