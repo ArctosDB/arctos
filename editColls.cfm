@@ -1,5 +1,10 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfif action is "nothing">
+	<style>
+		.dragger {
+			cursor:move;
+		}
+	</style>
 	<cfquery name="ctcollector_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select collector_role from ctcollector_role order by collector_role
 	</cfquery>
@@ -22,7 +27,7 @@
 	<script>
 		function deleteThis(i){
 			$("#name_" + i).val('DELETE');
-			$("#agent_id_" + i).val('DELETE');
+			$("#agent_id_" + i).val('');
 		}
 		jQuery(document).ready(function() {
 			$( "#colls" ).submit(function( event ) {
@@ -159,15 +164,22 @@
 <cfif action is "saveEdits">
 	<cfoutput>
 		<cfset agntOrdr=1>
-		<cfloop list="#ROWORDER#" index="i">
-			<cfset thisID=replacenocase(i,'row_','','all')>
-			<cfset thisName=evaluate("NAME_" & thisID)>
-			<cfset thisAgentID=evaluate("AGENT_ID_" & thisID)>
-			<cfset thisRole=evaluate("COLLECTOR_ROLE_" & thisID)>
-			<cfset thisCollectorID=evaluate("COLLECTOR_ID_" & thisID)>	
-			<cfif thisCollectorID is "new">
-				<!--- if it's a valid AgentID and they haven't backed out by clicking DELETE, insert ---->
-				<cfif len(thisAgentID) gt 0 and thisName neq "DELETE">
+		
+		<cftransaction>
+		
+			<cfquery name="killall" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				delete from 
+					collector
+				where
+					collection_object_id=#collection_object_id#
+			</cfquery>
+			<cfloop list="#ROWORDER#" index="i">
+				<cfset thisID=replacenocase(i,'row_','','all')>
+				<cfset thisName=evaluate("NAME_" & thisID)>
+				<cfset thisAgentID=evaluate("AGENT_ID_" & thisID)>
+				<cfset thisRole=evaluate("COLLECTOR_ROLE_" & thisID)>
+				<cfset thisCollectorID=evaluate("COLLECTOR_ID_" & thisID)>
+				<cfif len(thisAgentID) gt 0>
 					<cfquery name="nc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into collector (
 							collector_id,
@@ -185,30 +197,8 @@
 					</cfquery>
 					<cfset agntOrdr=agntOrdr+1>
 				</cfif>
-			<cfelse>
-				<!--- either updating or deleting ---->
-				<cfif thisName is "DELETE">
-					<cfquery name="nc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						delete from 
-							collector
-						where
-							collector_id=#thisCollectorID#
-					</cfquery>
-				<cfelse>
-					<cfquery name="nc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						update 
-							collector
-						set 
-							agent_id=#thisAgentID#,
-							collector_role='#thisRole#',
-							coll_order=#agntOrdr#
-						where
-							collector_id=#thisCollectorID#
-					</cfquery>
-					<cfset agntOrdr=agntOrdr+1>
-				</cfif>
-			</cfif>
-		</cfloop>
+			</cfloop>
+		</cftransaction>
 		<cflocation url="editColls.cfm?collection_object_id=#collection_object_id#">
 	</cfoutput>	
 </cfif>
