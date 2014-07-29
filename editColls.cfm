@@ -164,12 +164,74 @@
 
 <cfdump var=#form#>
 
-
+<cfset agntOrdr=1>
 <cfloop list="#ROWORDER#" index="i">
 	<cfset thisID=replacenocase(i,'row_','','all')>
 	<br>thisID: #thisID#
 	<cfset thisName=evaluate("NAME_" & thisID)>
 	<br>thisName: #thisName#
+	<cfset thisAgentID=evaluate("AGENT_ID_" & thisID)>
+	<cfset thisRole=evaluate("COLLECTOR_ROLE_" & thisID)>
+	<cfset thisCollectorID=evaluate("COLLECTOR_ID_" & thisID)>
+	
+	
+	
+	<!---- options:
+		new name, not delete
+			insert
+		new name, delete
+			do nothign
+		old name, delete
+			delete
+		old name, not delete
+			update
+	----->
+	<br>thisAgentID: #thisAgentID#
+		<cfif left(i,3) is "new" and thisName neq "DELETE">
+			<!--- inserting ---->
+			<br>
+			insert into collector (
+				collector_id,
+				collection_object_id,
+				agent_id,
+				collector_role,
+				coll_order
+			) values (
+				sq_collector_id.nextval,
+				#collection_object_id#,
+				#thisAgentID#,
+				'#thisRole#',
+				#agntOrdr#
+			)
+			
+			<cfset agntOrdr=agntOrdr+1>
+		</cfif>
+		<cfif left(i,3) is "row" and thisName neq "DELETE">
+			<!--- inserting ---->
+			<br>
+			update 
+				collector
+			set 
+				agent_id=#thisAgentID#,
+				collector_role='#thisRole#',
+				coll_order=#agntOrdr#
+			where
+				collector_id=#thisCollectorID#
+				
+			<cfset agntOrdr=agntOrdr+1>
+		</cfif>
+		
+		<cfif left(i,3) is "row" and thisName is "DELETE">
+			<!--- inserting ---->
+			<br>
+			delete from 
+				collector
+			where
+				collector_id=#thisCollectorID#
+				
+		</cfif>
+		
+	
 	
 	
 </cfloop>
