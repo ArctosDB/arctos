@@ -164,9 +164,7 @@
 <cfif action is "saveEdits">
 	<cfoutput>
 		<cfset agntOrdr=1>
-		
 		<cftransaction>
-		
 			<cfquery name="killall" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				delete from 
 					collector

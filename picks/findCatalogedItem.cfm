@@ -33,6 +33,9 @@
 <cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
     select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
 </cfquery>
+<cfquery name="ctcollector_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select collector_role from ctcollector_role order by collector_role
+</cfquery>
 <cfoutput>
 	<form name="findCatItem" method="post" action="findCatalogedItem.cfm">
         <input type="hidden" name="collIdFld" value="#collIdFld#">
@@ -57,10 +60,11 @@
 		<table>
 			<tr>
 				<td>
-					<label for="collector_role">Coll/Prep</label>
+					<label for="collector_role">CollectorRole</label>
 					<select name="collector_role" id="collector_role">
-						<option value="c">collector</option>
-						<option value="p">preparator</option>
+						<cfloop query="ctcollector_role">
+							<option value="#ctcollector_role.collector_role#">#ctcollector_role.collector_role#</option>
+						</cfloop>
 					</select>
 				</td>
 				<td>

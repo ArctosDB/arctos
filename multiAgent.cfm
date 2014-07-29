@@ -44,6 +44,9 @@
 		order by
 			guid
 	</cfquery>
+	<cfquery name="ctcollector_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select collector_role from ctcollector_role order by collector_role
+	</cfquery>
 	<h2>
 		Add/Remove collectors for all specimens listed below
 	</h2>
@@ -60,8 +63,9 @@
 		<input type="hidden" name="agent_id">
 		<label for="collector_role">Role</label>		
         <select name="collector_role" size="1"  class="reqdClr">
-			<option value="c">collector</option>
-			<option value="p">preparator</option>
+			<cfloop query="ctcollector_role">
+				<option value="#ctcollector_role.collector_role#">#ctcollector_role.collector_role#</option>
+			</cfloop>
 		</select>
 		<label for="coll_order">Order</label>
 		<select name="coll_order" size="1" class="reqdClr">
@@ -96,10 +100,10 @@
 </tr>
 <cfloop query="ci">
 	<cfquery name="c" dbtype="query">
-		select agent_name from getColls where collector_role='c' and guid='#guid#' order by COLL_ORDER
+		select agent_name from getColls where collector_role='collector' and guid='#guid#' order by COLL_ORDER
 	</cfquery>
 	<cfquery name="p" dbtype="query">
-		select agent_name from getColls where collector_role='p' and guid='#guid#' order by COLL_ORDER
+		select agent_name from getColls where collector_role='preparator' and guid='#guid#' order by COLL_ORDER
 	</cfquery>
     <tr>
 	  <td>
@@ -138,7 +142,7 @@
 		select collection_object_id from #table_name#
 	</cfquery>
 		<cftransaction>
-			<cfif coll_order is "first" and collector_role is 'c'>
+			<cfif coll_order is "first" and collector_role is 'collector'>
 				<!--- bump everything up a notch --->
 				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update 
@@ -158,7 +162,7 @@
 						) values (
 							#collection_object_id#,
 							#agent_id#,
-							'c',
+							'collector',
 							1
 						)
 					</cfquery>				
@@ -170,14 +174,14 @@
 					set 
 						coll_order=coll_order + 1 
 					where
-						collector_role='p' and
+						collector_role='ppreparator' and
 						collection_object_id IN (select collection_object_id from #table_name#)
 				</cfquery>			
 				<cfloop query="cids">
 					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select nvl(max(coll_order),0) +1 m from collector where 
 						collection_object_id=#collection_object_id# and
-						collector_role='c'
+						collector_role='collector'
 					</cfquery>
 					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into collector (
@@ -188,7 +192,7 @@
 						) values (
 							#collection_object_id#,
 							#agent_id#,
-							'c',
+							'collector',
 							#max.m#
 						)
 					</cfquery>
@@ -200,14 +204,14 @@
 					set 
 						coll_order=coll_order + 1 
 					where
-						collector_role='p' and
+						collector_role='ppreparator' and
 						collection_object_id IN (select collection_object_id from #table_name#)
 				</cfquery>			
 				<cfloop query="cids">
 					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select max(coll_order) +1 m from collector where 
 						collection_object_id=#collection_object_id# and
-						collector_role='c'
+						collector_role='ccollector'
 					</cfquery>
 					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into collector (
@@ -218,7 +222,7 @@
 						) values (
 							#collection_object_id#,
 							#agent_id#,
-							'p',
+							'ppreparator',
 							#max.m#
 						)
 					</cfquery>
@@ -238,7 +242,7 @@
 						) values (
 							#collection_object_id#,
 							#agent_id#,
-							'p',
+							'preparator',
 							#max.m#
 						)
 					</cfquery>

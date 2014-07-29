@@ -37,7 +37,7 @@
 			}
 			if (co==true){
 				//parent.jQuery('select[id^="collector_role_"]').val('c');
-				parent.jQuery('select[id^="collector_role_"]').val('Collector');
+				parent.jQuery('select[id^="collector_role_"]').val('collector');
 				parent.jQuery('input[id^="collector_agent_"]').val('');
 
 
