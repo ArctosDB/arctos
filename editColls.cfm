@@ -29,7 +29,7 @@
 		console.log('I am submitting now....');
 	
 	
-			event.preventDefault();
+			//event.preventDefault();
 			var linkOrderData=$("#sortable").sortable('toArray').join(',');
 	
 			console.log(linkOrderData);
@@ -42,7 +42,9 @@
 		//    });
 		//	var ncls=nccellary.join(',');
 		//	$( "#noclassrows" ).val(ncls);
-			$( "#colls" ).submit();
+			//$( "#colls" ).submit();
+
+			return true;
 		});
 	});
 	$(function() {
