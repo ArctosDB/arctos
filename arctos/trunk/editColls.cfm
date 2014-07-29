@@ -176,7 +176,7 @@
 	<cfset thisRole=evaluate("COLLECTOR_ROLE_" & thisID)>
 	<cfset thisCollectorID=evaluate("COLLECTOR_ID_" & thisID)>
 	
-	
+	<hr>
 	
 	<!---- options:
 		new name, not delete
@@ -189,7 +189,7 @@
 			update
 	----->
 	<br>thisAgentID: #thisAgentID#
-		<cfif left(i,3) is "new" and len(thisAgentID) gt 0 and thisName neq "DELETE">
+		<cfif left(thisID,3) is "new" and len(thisAgentID) gt 0 and thisName neq "DELETE">
 			<!--- inserting ---->
 			<br>
 			insert into collector (
@@ -208,7 +208,7 @@
 			
 			<cfset agntOrdr=agntOrdr+1>
 		</cfif>
-		<cfif left(i,3) is "row" and thisName neq "DELETE">
+		<cfif left(thisID,3) is not "row" and thisName neq "DELETE">
 			<!--- inserting ---->
 			<br>
 			update 
@@ -223,7 +223,7 @@
 			<cfset agntOrdr=agntOrdr+1>
 		</cfif>
 		
-		<cfif left(i,3) is "row" and thisName is "DELETE">
+		<cfif left(thisID,3) is not "row" and thisName is "DELETE">
 			<!--- inserting ---->
 			<br>
 			delete from 
