@@ -287,7 +287,7 @@ BEGIN
 			 	77457,
 			 	'No verbatim locality recorded',
 			 	'unknown',
-			 	'c',
+			 	'collector',
 			 	'Herb',
 			 	'UAM',
 			 	'Entered by ALA Imaging Project - more data will be available after images are scanned.',

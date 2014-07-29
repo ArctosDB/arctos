@@ -239,6 +239,10 @@
 			<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 			</cfquery>
+			<cfquery name="ctcollector_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select collector_role from ctcollector_role order by collector_role
+			</cfquery>
+
 			<hr>
 			<br>
 			This form will happily replace all your good values with garbage. There is no finesse. (Load to bulkloader and use SQL browse/edit option.) Reload your text file and start over if you muck it up.
@@ -437,8 +441,9 @@
 							<td>
 								<select name="COLLECTOR_ROLE_#x#" id="COLLECTOR_ROLE_#x#">
 									<option value=""></option>
-									<option value="c">c</option>
-									<option value="p">p</option>
+									<cfloop query="ctcollector_role">
+										<option value="#collector_role#">#collector_role#</option>
+									</cfloop>
 								</select>
 							</td>
 						</tr>
