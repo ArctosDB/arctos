@@ -47,10 +47,10 @@
 		<table id="clastbl" border="1">
 			<thead>
 				<tr>
-					<th>draghandle</th>
+					<th>Drag To Order</th>
 					<th>Agent</th>
 					<th>Role</th>
-					<th>Order</th>
+					<th>Ctl</th>
 				</tr>
 			</thead>
 			<tbody id="sortable">
@@ -62,24 +62,16 @@
 						</td>
 						<td>
 							<input type="text" name="name_#i#" id="name_#i#" value="#getColls.agent_name#" class="reqdClr" 
-								onchange="getAgent('newagent_id','name_#i#','colls',this.value); return false;"
+								onchange="getAgent('agent_id_#i#','name_#i#','colls',this.value); return false;"
 						 		onKeyPress="return noenter(event);">
 							<input type="hidden" name="agent_id_#i#" id="agent_id_#i#">
 						</td>
 						<td>
-							 <select name="collector_role" size="1"  class="reqdClr">
+							 <select name="collector_role_#i#" id="collector_role_#i#" size="1"  class="reqdClr">
 							 	<cfloop query="ctcollector_role">
 							 		<option <cfif getColls.collector_role is ctcollector_role.collector_role> selected="selected" </cfif>
 							 			value="#ctcollector_role.collector_role#">#ctcollector_role.collector_role#</option>
 							 	</cfloop>
-							</select>
-						</td>
-						<td>
-							<select name="coll_order" size="1" class="reqdClr">
-								<cfset thisLoop =getColls.recordcount + 1>
-								<cfloop from="1" index="c" to="#thisLoop#">
-									<option <cfif c is getColls.coll_order> selected="selected" </cfif>value="#c#">#c#</option>
-								</cfloop>
 							</select>
 						</td>
 						<td>
@@ -88,6 +80,29 @@
 					</tr>
 					<cfset i = i+1>
 				</cfloop>
+				<tr class="newRec" id="row_new1">
+					<td class="dragger">
+						(drag row here)
+					</td>
+					<td>
+						<input type="text" name="name_new1" id="name_new1" value="" class="" 
+							onchange="getAgent('agent_id_new1','name_new1','colls',this.value); return false;"
+					 		onKeyPress="return noenter(event);">
+						<input type="hidden" name="agent_id_new1" id="agent_id_new1">
+					</td>
+					<td>
+						 <select name="collector_role_new1" id="collector_role_new1" size="1"  class="reqdClr">
+						 	<cfloop query="ctcollector_role">
+						 		<option	value="#ctcollector_role.collector_role#">#ctcollector_role.collector_role#</option>
+						 	</cfloop>
+						</select>
+					</td>
+					<td>
+						<input type="button" class="delBtn" value="delete" onclick="deleteThis('new1');">
+					</td>
+				</tr>
+					
+					
 			</tbody>
 		</table>
 		<input type="hidden" name="number_of_collectors" id="number_of_collectors" value="#i#">
