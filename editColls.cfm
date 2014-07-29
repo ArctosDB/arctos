@@ -24,7 +24,16 @@
 		$("#agent_id_" + i).val('DELETE');
 	}
 
+
+		jQuery(document).ready(function() {
+
+
+
 	$( "#colls" ).submit(function( event ) {
+
+	console.log('I am submitting now....');
+
+
 		event.preventDefault();
 		var linkOrderData=$("#sortable").sortable('toArray').join(',');
 
@@ -40,7 +49,7 @@
 	//	$( "#noclassrows" ).val(ncls);
 	//	$( "#f1" ).submit();
 	});
-
+	});
 	$(function() {
 			$( "#sortable" ).sortable({
 				handle: '.dragger'
