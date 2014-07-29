@@ -24,7 +24,22 @@
 		$("#agent_id_" + i).val('DELETE');
 	}
 
+	$( "#colls" ).submit(function( event ) {
+		event.preventDefault();
+		var linkOrderData=$("#sortable").sortable('toArray').join(',');
 
+		console.log(linkOrderData);
+
+
+	//	$( "#classificationRowOrder" ).val(linkOrderData);
+	//	var nccellary = new Array();
+	//	$.each($("tr[id^='nccell_']"), function() {
+	//		nccellary.push(this.id);
+	//    });
+	//	var ncls=nccellary.join(',');
+	//	$( "#noclassrows" ).val(ncls);
+	//	$( "#f1" ).submit();
+	});
 
 	$(function() {
 			$( "#sortable" ).sortable({
@@ -37,7 +52,7 @@
 </script>
 <cfoutput>
 	<cfset i=1>
-	<form name="colls" method="post" action="editColls.cfm" >
+	<form name="colls" id="colls" method="post" action="editColls.cfm" >
 		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 		<input type="hidden" name="action" value="saveedits">
 		
