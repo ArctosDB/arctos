@@ -166,7 +166,7 @@
 
 
 <cfloop list="#ROWORDER#" index="i">
-	<cfset thisID=replacenocase(i,'row_','all')>
+	<cfset thisID=replacenocase(i,'row_','','all')>
 	<br>thisID: #thisID#
 	<cfset thisName=evaluate("NAME_" & thisID)>
 	<br>thisName: #thisName#
