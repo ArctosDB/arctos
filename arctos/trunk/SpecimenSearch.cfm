@@ -379,7 +379,7 @@
 				<select name="coll_role" id="coll_role" size="1">
 					<option value="" selected="selected">Agent Role</option>
 					<cfloop query="ctcollector_role">
-						<option value="#ctcollector_role.collector_role#" >"#ctcollector_role.collector_role#</option>
+						<option value="#ctcollector_role.collector_role#">#ctcollector_role.collector_role#</option>
 					</cfloop>
 				</select>
 				<span class="infoLink" onclick="getCtDoc('ctcollector_role',SpecData.coll_role.value);">Define</span>
