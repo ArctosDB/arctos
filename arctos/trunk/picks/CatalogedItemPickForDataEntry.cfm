@@ -26,7 +26,7 @@
 					var a = cList.split(',');
 					for (i=0; i<a.length; ++i) {
 						var n=i+1;
-						eval('opener.document.dataEntry.collector_role_' + n + ".value='c'");
+						eval('opener.document.dataEntry.collector_role_' + n + ".value='collector'");
 						eval('opener.document.dataEntry.collector_agent_' + n + ".value='" + a[i] + "'");
 					}
 				}

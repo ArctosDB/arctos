@@ -205,7 +205,7 @@
 						'unverified',		
 					</cfif>
 					'unknown',
-					'c',
+					'collector',
 					'ES',
 					'UAM',
 					'Locality ID',

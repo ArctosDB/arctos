@@ -362,6 +362,9 @@
 	</table>
 	<div id="e_locality"></div>
 </div>
+<cfquery name="ctcollector_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select collector_role from ctcollector_role order by collector_role
+</cfquery>
 <div class="secDiv">
 	<table class="ssrch">
 		<tr>
@@ -374,10 +377,12 @@
 			<td class="lbl">
 				<span class="helpLink infoLink" id="collector">Help</span>
 				<select name="coll_role" id="coll_role" size="1">
-					<option value="" selected="selected">Collector or Preparator</option>
-					<option value="c" >Collector</option>
-					<option value="p">Preparator</option>
+					<option value="" selected="selected">Agent Role</option>
+					<cfloop query="ctcollector_role">
+						<option value="#ctcollector_role.collector_role#" >"#ctcollector_role.collector_role#</option>
+					</cfloop>
 				</select>
+				<span class="infoLink" onclick="getCtDoc('ctcollector_role',SpecData.coll_role.value);">Define</span>
 			</td>
 			<td class="srch">
 				<input type="text" name="coll" id="coll" size="50">
