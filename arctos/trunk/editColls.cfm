@@ -108,7 +108,7 @@
 						(drag row here)
 					</td>
 					<td>
-						<input type="hidden" name="collector_id_new1" value="">
+						<input type="hidden" name="collector_id_new1" value="new">
 						<input type="text" name="name_new1" id="name_new1" value="" class="" 
 							placeholder="Add an Agent"
 							onchange="getAgent('agent_id_new1','name_new1','colls',this.value); return false;"
@@ -131,7 +131,7 @@
 						(drag row here)
 					</td>
 					<td>
-						<input type="hidden" name="collector_id_new2" value="">
+						<input type="hidden" name="collector_id_new2" value="new">
 						<input type="text" name="name_new2" id="name_new2" value="" class="" 
 							placeholder="Add an Agent"
 							onchange="getAgent('agent_id_new2','name_new2','colls',this.value); return false;"
@@ -168,6 +168,12 @@
 
 <cfset agntOrdr=1>
 <cfloop list="#ROWORDER#" index="i">
+
+<hr>
+
+
+
+
 	<cfset thisID=replacenocase(i,'row_','','all')>
 	<br>thisID: #thisID#
 	<cfset thisName=evaluate("NAME_" & thisID)>
@@ -176,7 +182,7 @@
 	<cfset thisRole=evaluate("COLLECTOR_ROLE_" & thisID)>
 	<cfset thisCollectorID=evaluate("COLLECTOR_ID_" & thisID)>
 	
-	<hr>
+	
 	
 	<!---- options:
 		new name, not delete
@@ -189,51 +195,52 @@
 			update
 	----->
 	<br>thisAgentID: #thisAgentID#
-		<cfif left(thisID,3) is "new" and len(thisAgentID) gt 0 and thisName neq "DELETE">
-			<!--- inserting ---->
-			<br>
-			insert into collector (
-				collector_id,
-				collection_object_id,
-				agent_id,
-				collector_role,
-				coll_order
-			) values (
-				sq_collector_id.nextval,
-				#collection_object_id#,
-				#thisAgentID#,
-				'#thisRole#',
-				#agntOrdr#
-			)
+		<cfif thisCollectorID is "new">
+			<!--- if it's a valid AgentID and they haven't backed out by clicking DELETE, insert ---->
+			<cfif len(thisAgentID) gt 0 and thisName neq "DELETE">
+				<!--- inserting ---->
+				<br>
+				insert into collector (
+					collector_id,
+					collection_object_id,
+					agent_id,
+					collector_role,
+					coll_order
+				) values (
+					sq_collector_id.nextval,
+					#collection_object_id#,
+					#thisAgentID#,
+					'#thisRole#',
+					#agntOrdr#
+				)
+				
+				<cfset agntOrdr=agntOrdr+1>
+			</cfif>
+		
+		<cfelse>
+			<!--- either updating or deleting ---->
+			<cfif thisName is "DELETE">
 			
-			<cfset agntOrdr=agntOrdr+1>
-		</cfif>
-		<cfif left(thisID,3) is not "row" and thisName neq "DELETE">
-			<!--- inserting ---->
-			<br>
-			update 
-				collector
-			set 
-				agent_id=#thisAgentID#,
-				collector_role='#thisRole#',
-				coll_order=#agntOrdr#
-			where
-				collector_id=#thisCollectorID#
+				<br>
+				delete from 
+					collector
+				where
+					collector_id=#thisCollectorID#
 				
-			<cfset agntOrdr=agntOrdr+1>
+			<cfelse>
+				<br>
+				update 
+					collector
+				set 
+					agent_id=#thisAgentID#,
+					collector_role='#thisRole#',
+					coll_order=#agntOrdr#
+				where
+					collector_id=#thisCollectorID#
+					
+				<cfset agntOrdr=agntOrdr+1>
+			</cfif>
 		</cfif>
-		
-		<cfif left(thisID,3) is not "row" and thisName is "DELETE">
-			<!--- inserting ---->
-			<br>
-			delete from 
-				collector
-			where
-				collector_id=#thisCollectorID#
-				
-		</cfif>
-		
-	
 	
 	
 </cfloop>
