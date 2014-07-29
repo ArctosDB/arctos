@@ -87,7 +87,7 @@
 							<input type="text" name="name_#i#" id="name_#i#" value="#getColls.agent_name#" class="reqdClr" 
 								onchange="getAgent('agent_id_#i#','name_#i#','colls',this.value); return false;"
 						 		onKeyPress="return noenter(event);">
-							<input type="hidden" name="agent_id_#i#" id="agent_id_#i#">
+							<input type="hidden" name="agent_id_#i#" id="agent_id_#i#" value="#getColls.agent_id#">
 						</td>
 						<td>
 							 <select name="collector_role_#i#" id="collector_role_#i#" size="1"  class="reqdClr">
