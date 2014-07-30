@@ -292,19 +292,19 @@ console.log('aid=' + aid);
 					</td>
 					<td id="_attribute_value_new">
 					<td id="_attribute_units_new">
-					<td id="remarks_new">
-						<input type="text" name="attribute_remark" id="attribute_remark">
+					<td id="arm">
+						<input type="text" name="attribute_remark_new" id="attribute_remark_new">
 					</td>
-					<td id="determined_date_new">
-						<input type="text" name="determined_date" id="determined_date" class="" size="12">
+					<td id="ddn">
+						<input type="text" name="determined_date_new" id="determined_date_new" class="" size="12">
 					</td>
 					<td id="determination_method_new">
-						<input type="text" name="determination_method" id="determination_method">
+						<input type="text" name="determination_method_new" id="determination_method_new">
 					</td>
-					<td id="agent_name_new">
-						<input type="hidden" name="determined_by_agent_id" id="determined_by_agent_id">
-						<input type="text" name="agent_name" id="agent_name" class=""
-	 						onchange="getAgent('determined_by_agent_id',this.id,'details',this.value); return false;"
+					<td id="ann">
+						<input type="hidden" name="determined_by_agent_id_new" id="determined_by_agent_id_new">
+						<input type="text" name="agent_name_new" id="agent_name_new" class=""
+	 						onchange="getAgent('determined_by_agent_id_new',this.id,'details',this.value); return false;"
 	  						onKeyPress="return noenter(event);">
 					</td>
 					<td>
@@ -565,9 +565,9 @@ console.log('aid=' + aid);
 						,'#attribute_type_new#'
 						,'#attribute_value_new#'
 						,'#attribute_units_new#'
-						,'#ATTRIBUTE_REMARK#'
-						,'#DETERMINED_DATE#'
-						,'#DETERMINATION_METHOD#'
+						,'#ATTRIBUTE_REMARK_new#'
+						,'#DETERMINED_DATE_new#'
+						,'#DETERMINATION_METHOD_new#'
 					)
 				</cfquery>
 			</cfif>
