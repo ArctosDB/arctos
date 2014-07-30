@@ -60,7 +60,14 @@
 		var x;
 		aid='_' + aid;
 		$("#attribute_value" + aid).remove();
-		$("#attribute_units" + aid).remove();	
+		$("#attribute_units" + aid).remove();
+
+
+			$("#determined_date" + aid).addClass('reqdClr');
+			$("#agent_name" + aid).addClass('reqdClr');
+
+
+
 		if (resType == 'value') {
 			var d = '<select name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
 			d+='<option value=""></option>';
@@ -288,14 +295,14 @@
 						<input type="text" name="attribute_remark" id="attribute_remark">
 					</td>
 					<td id="determined_date_new">
-						<input type="text" name="determined_date" id="determined_date" class="reqdClr" size="12">
+						<input type="text" name="determined_date" id="determined_date" class="" size="12">
 					</td>
 					<td id="determination_method_new">
 						<input type="text" name="determination_method" id="determination_method">
 					</td>
 					<td id="agent_name_new">
 						<input type="hidden" name="determined_by_agent_id" id="determined_by_agent_id">
-						<input type="text" name="agent_name" id="agent_name" class="reqdClr"
+						<input type="text" name="agent_name" id="agent_name" class=""
 	 						onchange="getAgent('determined_by_agent_id',this.id,'details',this.value); return false;"
 	  						onKeyPress="return noenter(event);">
 					</td>
