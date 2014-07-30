@@ -43,6 +43,7 @@
 		encumbrances,
 		COLLECTORS,
 		PREPARATORS,
+		concatCollectorAgent(#session.flatTableName#.collection_object_id,'maker') makers,
 		remarks,
 		flags,
 		PHYLCLASS,
@@ -554,7 +555,7 @@
 			</div>
 <!------------------------------------ collectors ---------------------------------------------->
 			<div class="detailCell">
-				<div class="detailLabel">Collectors
+				<div class="detailLabel">Collector(s)
 					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
 					</cfif>
@@ -569,7 +570,7 @@
 <!------------------------------------ preparators ---------------------------------------------->
 			<cfif len(preparators) gt 0>
 				<div class="detailCell">
-					<div class="detailLabel">Preparators
+					<div class="detailLabel">Preparator(s)
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
 						</cfif>
@@ -582,6 +583,27 @@
 					</div>
 				</div>
 			</cfif>
+<!------------------------------------ makers ---------------------------------------------->
+			<cfif len(makers) gt 0>
+				<div class="detailCell">
+					<div class="detailLabel">Maker(s)
+						<cfif oneOfUs is 1>
+							<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">Edit</span>
+						</cfif>
+					</div>
+					<div class="detailBlock">
+						<span class="detailData">
+							<span class="innerDetailLabel"></span>
+							#makers#
+						</span>
+					</div>
+				</div>
+			</cfif>
+			
+			
+			
+			
+			
 			<cfquery name="isProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT project_name, project.project_id project_id FROM
 				project, project_trans
