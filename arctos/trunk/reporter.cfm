@@ -2,7 +2,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/Reports/functions/label_functions.cfm">
 <!-------------------------------------------------------------->
-<cfif #action# is "delete">
+<cfif action is "delete">
     <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         delete from cf_report_sql 
         where report_id=#report_id#
@@ -10,7 +10,7 @@
     <cflocation url="reporter.cfm">
 </cfif>
 <!-------------------------------------------------------------->
-<cfif #action# is "saveEdit">
+<cfif action is "saveEdit">
     <cfif unsafeSql(sql_text)>
         Your SQL is not acceptable.
         <cfabort>
@@ -31,19 +31,17 @@
     <cflocation url="reporter.cfm?action=edit&report_id=#report_id#">
 </cfif>
 <!--------------------------------------------------------------------------------------->
-<cfif #action# is "edit">
+<cfif action is "edit">
     <cfif not isdefined("report_id")>
 	    <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        select report_id from cf_report_sql where report_name='#report_name#'
 	    </cfquery>
         <cflocation url="reporter.cfm?action=edit&report_id=#e.report_id#">
     </cfif>
-
     <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select * from cf_report_sql where report_id='#report_id#'
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
-   
     <form method="get" action="reporter.cfm" enctype="text/plain">
         <input type="hidden" name="action" value="saveEdit">
         <input type="hidden" name="report_id" value="#e.report_id#">
@@ -95,7 +93,7 @@
     </div>
 </cfif>
 <!-------------------------------------------------------------->
-<cfif #action# is "newHandler">
+<cfif action is "newHandler">
      <cfset tc=getTickCount()>
      <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         insert into cf_report_sql (
@@ -110,7 +108,7 @@
     <cflocation url="reporter.cfm?action=edit&report_name=New_Report_#tc#">
 </cfif>
 <!-------------------------------------------------------------->
-<cfif #action# is "clone">
+<cfif action is "clone">
     <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select * from cf_report_sql where report_id='#report_id#'
     </cfquery>
@@ -128,7 +126,7 @@
     <cflocation url="reporter.cfm">
 </cfif>
 <!-------------------------------------------------------------->
-<cfif #action# is "testSQL">
+<cfif action is "testSQL">
     <cfif unsafeSql(test_sql)>
         <div class="error">
              The code you submitted contains illegal characters.
@@ -145,7 +143,7 @@
         
 </cfif>
 <!-------------------------------------------------------------->
-<cfif #action# is "loadTemplate">
+<cfif action is "loadTemplate">
     <cffile action="upload"
     	destination="#Application.webDirectory#/Reports/templates/"
       	nameConflict="overwrite"
