@@ -561,7 +561,7 @@ console.log('aid=' + aid);
 					) VALUES (
 						sq_attribute_id.nextval
 						,#collection_object_id#
-						,#determined_by_agent_id#
+						,#determined_by_agent_id_new#
 						,'#attribute_type_new#'
 						,'#attribute_value_new#'
 						,'#attribute_units_new#'
