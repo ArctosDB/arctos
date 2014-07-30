@@ -1,9 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 
 
-
-<cfhttp method="head" url="http://arctos.database.museum/mediaUploads/jldunnum/Deliaetal2003.jpg"></cfhttp>
-
+<cfoutput>
+<cfhttp method="head" url="#u#"></cfhttp>
+</cfoutput>
 <cfdump var=#cfhttp#>
 
 <cfabort>
