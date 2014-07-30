@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfif action is "nothing">
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="d" datasource="uam_god">
 			select * from cf_global_settings
 		</cfquery>
 		<cfif d.recordcount neq 1>
@@ -60,7 +60,7 @@
 		</form>
 	</cfif>
 	<cfif action is "save">
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="d" datasource="uam_god">
 			update cf_global_settings set 
 				GOOGLE_CLIENT_ID='#GOOGLE_CLIENT_ID#',
 				GOOGLE_PRIVATE_KEY='#GOOGLE_PRIVATE_KEY#',
