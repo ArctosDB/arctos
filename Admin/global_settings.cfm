@@ -57,7 +57,7 @@
 			<label for="DATA_REPORT_EMAIL">DATA_REPORT_EMAIL</label>
 			<textarea name="DATA_REPORT_EMAIL" id="DATA_REPORT_EMAIL" rows="6" cols="50" class="largetextarea">#d.DATA_REPORT_EMAIL#</textarea>
 			<br>
-			<input type="submit" value="saveAll">
+			<input type="submit" value="saveAll" class="savBtn">
 		</form>
 	</cfif>
 	<cfif action is "save">
