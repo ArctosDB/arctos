@@ -167,14 +167,14 @@
 						)
 					</cfquery>				
 				</cfloop>
-			<cfelseif coll_order is "last" and collector_role is 'c'>
+			<cfelseif coll_order is "last" and collector_role is 'collector'>
 				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update 
 						collector 
 					set 
 						coll_order=coll_order + 1 
 					where
-						collector_role='ppreparator' and
+						collector_role='collector' and
 						collection_object_id IN (select collection_object_id from #table_name#)
 				</cfquery>			
 				<cfloop query="cids">
@@ -197,21 +197,21 @@
 						)
 					</cfquery>
 				</cfloop>
-			<cfelseif coll_order is "first" and collector_role is 'p'>
+			<cfelseif coll_order is "first" and collector_role is 'preparator'>
 				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update 
 						collector 
 					set 
 						coll_order=coll_order + 1 
 					where
-						collector_role='ppreparator' and
+						collector_role='preparator' and
 						collection_object_id IN (select collection_object_id from #table_name#)
 				</cfquery>			
 				<cfloop query="cids">
 					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select max(coll_order) +1 m from collector where 
 						collection_object_id=#collection_object_id# and
-						collector_role='ccollector'
+						collector_role='collector'
 					</cfquery>
 					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into collector (
@@ -222,12 +222,12 @@
 						) values (
 							#collection_object_id#,
 							#agent_id#,
-							'ppreparator',
+							'preparator',
 							#max.m#
 						)
 					</cfquery>
 				</cfloop>
-			<cfelseif coll_order is "last" and collector_role is 'p'>
+			<cfelseif coll_order is "last" and collector_role is 'preparator'>
 				<cfloop query="cids">
 					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select max(coll_order) +1 m from collector where 
@@ -243,6 +243,57 @@
 							#collection_object_id#,
 							#agent_id#,
 							'preparator',
+							#max.m#
+						)
+					</cfquery>
+				</cfloop>				
+			</cfif>
+			<cfelseif coll_order is "first" and collector_role is 'maker'>
+				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update 
+						collector 
+					set 
+						coll_order=coll_order + 1 
+					where
+						collector_role='maker' and
+						collection_object_id IN (select collection_object_id from #table_name#)
+				</cfquery>			
+				<cfloop query="cids">
+					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select max(coll_order) +1 m from collector where 
+						collection_object_id=#collection_object_id# and
+						collector_role='maker'
+					</cfquery>
+					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into collector (
+							collection_object_id,
+							agent_id,
+							collector_role,
+							coll_order
+						) values (
+							#collection_object_id#,
+							#agent_id#,
+							'maker',
+							#max.m#
+						)
+					</cfquery>
+				</cfloop>
+			<cfelseif coll_order is "last" and collector_role is 'maker'>
+				<cfloop query="cids">
+					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select max(coll_order) +1 m from collector where 
+						collection_object_id=#collection_object_id#
+					</cfquery>
+					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into collector (
+							collection_object_id,
+							agent_id,
+							collector_role,
+							coll_order
+						) values (
+							#collection_object_id#,
+							#agent_id#,
+							'maker',
 							#max.m#
 						)
 					</cfquery>
