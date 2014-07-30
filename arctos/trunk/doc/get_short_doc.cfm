@@ -50,7 +50,7 @@
 		</cfif>
 	<cfelse>
 		<cfset r=r & '<div class="docTitle">No documentation is available for #fld#.</div>'>
-		<cfmail subject="doc not found" to="#Application.PageProblemEmail#" from="docMIA@#Application.fromEmail#" type="html">
+		<cfmail subject="doc not found" to="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="docMIA@#Application.fromEmail#" type="html">
 			short doc not found for #fld#
 		</cfmail>
 	</cfif>

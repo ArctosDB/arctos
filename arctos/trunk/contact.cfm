@@ -72,7 +72,7 @@
 		</cfif>
 		<cfmail subject="Arctos Contact"
 			replyto="#email#"
-			to="#Application.technicalEmail#"
+			to="#Application.bugReportEmail#"
 			from="contact@#application.fromEmail#" type="html">
 			Name: #name#
 			<br>Email: #email#

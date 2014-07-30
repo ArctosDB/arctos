@@ -203,7 +203,7 @@ do not agree</font>.</a>
 			<li>Click <a href="/home.cfm">here</a> to return to the home page.</li>
 			<li>Use your browser's back button or click <a href="javascript: history.back();">here</a> 
 				if you wish to agree to the terms and proceed with the download.</li>
-			<li><cfoutput><a href="mailto:#application.technicalEmail#">Contact us</a></cfoutput> if you wish to discuss the terms of
+			<li><cfoutput><a href="mailto:#application.DataProblemReportEmail#">Contact us</a></cfoutput> if you wish to discuss the terms of
 				usage.</li>
 		</ul>
 		<br>

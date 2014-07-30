@@ -126,111 +126,69 @@
 	<cfset Application.fromEmail = "#serverName#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
 	<cfset Application.StartupServerName=serverName>
+	
+	<cfquery name="cf_global_settings" datasource="uam_god">
+		select * from cf_global_settings
+	</cfquery>
+	<cfset application.gmap_api_key=cf_global_settings.GMAP_API_KEY>
+	<cfset Application.bugReportEmail = cf_global_settings.BUG_REPORT_EMAIL>	
+	<cfset Application.DataProblemReportEmail = cf_global_settings.DATA_REPORT_EMAIL>
+	<cfset Application.genBankPrid = cf_global_settings.GENBANK_PRID>
+	<cfset Application.genBankUsername=cf_global_settings.GENBANK_USERNAME>
+	<cfset Application.genBankPwd=encrypt("#cf_global_settings.GENBANK_PASSWORD#","genbank")>
+	<cfset Application.Google_uacct = cf_global_settings.GOOGLE_UACCT>
 	<cfif serverName is "arctos.database.museum">
-		<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
+		<cfset Application.convertPath = "/usr/local/bin/convert">
 		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
-		<cfset Application.bugReportEmail = "arctos.database@gmail.com">
-		<cfset Application.technicalEmail = "arctos.database@gmail.com">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
 		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
-		<cfset Application.genBankPrid = "3849">
-		<cfset Application.genBankUsername="uam">
-		<cfset Application.convertPath = "/usr/local/bin/convert">
-		<cfset Application.genBankPwd=encrypt("bU7$f%Nu","genbank")>
 		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
-		<cfset Application.Google_uacct = "UA-315170-1">
 		<cfset Application.InstitutionBlurb = "">
-		<cfset Application.DataProblemReportEmail = "arctos.database@gmail.com">
-		<cfset Application.PageProblemEmail = "arctos.database@gmail.com">
 		<cfset Application.AppVersion= "prod">
     <cfelseif serverName contains "harvard.edu">
 		<cfset Application.svn = "/usr/bin/svn">
 		<cfset Application.webDirectory = "/var/www/html/arctosv.2.2.2">
 		<cfset Application.SpecimenDownloadPath = "/var/www/html/arctosv.2.2.2/download/">
-		<cfset Application.bugReportEmail = "bhaley@oeb.harvard.edu">
-		<cfset Application.technicalEmail = "bhaley@oeb.harvard.edu">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
 		<cfset Application.mapFooterUrl = "#serverRootUrl#/bnhmMaps/BerkMapFooter.html">
-		<cfset Application.genBankPrid = "">
-		<cfset Application.genBankUsername="">
 		<cfset Application.convertPath = "/usr/bin/convert">
-		<cfset Application.genBankPwd=encrypt("Uln1OAzy","genbank")>
 		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
-		<cfset Application.Google_uacct = "">
 		<cfset Application.InstitutionBlurb = "Collections Database, Museum of Comparative Zoology, Harvard University">
-		<cfset Application.DataProblemReportEmail = "bhaley@oeb.harvard.edu">
-		<cfset Application.PageProblemEmail = "bhaley@oeb.harvard.edu">
-    <cfelseif serverName is "login.corral.tacc.utexas.edu">
-		<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
+	<cfelseif serverName is "login.corral.tacc.utexas.edu">
 		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
-		<cfset Application.bugReportEmail = "dustymc@gmail.com">
-		<cfset Application.technicalEmail = "dustymc@gmail.com">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
 		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
-		<cfset Application.genBankPrid = "3849">
-		<cfset Application.genBankUsername="uam">
 		<cfset Application.convertPath = "/usr/local/bin/convert">
-		<cfset Application.genBankPwd=encrypt("bU7$f%Nu","genbank")>
 		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
-		<cfset Application.Google_uacct = "UA-315170-1">
 		<cfset Application.InstitutionBlurb = "">
-		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
-		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
 	<cfelseif serverName is  "arctos-test.tacc.utexas.edu">
-		<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
 		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
-		<cfset Application.bugReportEmail = "dustymc@gmail.com">
-		<cfset Application.technicalEmail = "dustymc@gmail.com">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
 		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
-		<cfset Application.genBankPrid = "3849">
-		<cfset Application.genBankUsername="uam">
 		<cfset Application.convertPath = "/usr/local/bin/convert">
-		<cfset Application.genBankPwd=encrypt("bU7$f%Nu","genbank")>
 		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
-		<cfset Application.Google_uacct = "UA-315170-1">
 		<cfset Application.InstitutionBlurb = "">
-		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
-		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
 		<cfset Application.AppVersion= "thisone">
 	<cfelseif serverName is  "arctos.tacc.utexas.edu">
-		<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
 		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
-		<cfset Application.bugReportEmail = "dustymc@gmail.com">
-		<cfset Application.technicalEmail = "dustymc@gmail.com">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
 		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
-		<cfset Application.genBankPrid = "3849">
-		<cfset Application.genBankUsername="uam">
 		<cfset Application.convertPath = "/usr/local/bin/convert">
-		<cfset Application.genBankPwd=encrypt("bU7$f%Nu","genbank")>
 		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
-		<cfset Application.Google_uacct = "UA-315170-1">
 		<cfset Application.InstitutionBlurb = "">
-		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
-		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
 		<cfset Application.AppVersion= "preprod">
 	<cfelse>
-		<cfset application.gmap_api_key="AIzaSyCcu8ZKOhPYjFVfi7M1B9XQuQni_dzesTw">
 		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
-		<cfset Application.bugReportEmail = "dustymc@gmail.com">
-		<cfset Application.technicalEmail = "dustymc@gmail.com">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
 		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
-		<cfset Application.genBankPrid = "3849">
-		<cfset Application.genBankUsername="uam">
 		<cfset Application.convertPath = "/usr/local/bin/convert">
-		<cfset Application.genBankPwd=encrypt("bU7$f%Nu","genbank")>
 		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
-		<cfset Application.Google_uacct = "UA-315170-1">
 		<cfset Application.InstitutionBlurb = "">
-		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
-		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
 		<cfmail subject="bad app start" to="arctos.database@gmail.com" from="badAppStart@#application.fromEmail#" type="html">
 			I don't know who I am
 			serverName=<cfdump var="#serverName#">
