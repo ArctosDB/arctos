@@ -91,7 +91,7 @@
 			$("#_attribute_value" + aid).append(t);
 			$("#attribute_value" + aid).val($("#val" + aid).val());
 		} else {
-			var t='<input type="text" name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
+			var t='<textarea class="smalltextarea" rows="1" cols="15" name="attribute_value' + aid + '" id="attribute_value' + aid + '"></textarea?';
 			$("#_attribute_value" + aid).append(t);
 			$("#attribute_value" + aid).val($("#val" + aid).val());
 		}
