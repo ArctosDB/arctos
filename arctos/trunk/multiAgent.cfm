@@ -247,7 +247,6 @@
 						)
 					</cfquery>
 				</cfloop>				
-			</cfif>
 			<cfelseif coll_order is "first" and collector_role is 'maker'>
 				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update 
