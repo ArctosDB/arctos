@@ -1,5 +1,6 @@
 .tinytextarea {width:10em;height:1em;}
-.smalltextarea {width:15em;height:1em;}
+.smalltextarea {width:15em;height:1.5em;margin:0.3em;vertical-align:center;}    
+    
 .mediumtextarea {width:30em;height:1em;}
 .longtextarea {width:60em;height:1em;}
 .largetextarea {width:30em;height:3em;}
