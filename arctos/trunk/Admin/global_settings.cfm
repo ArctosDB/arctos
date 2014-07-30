@@ -12,7 +12,7 @@
 			Global DB Settings
 		</h2>
 		<h3>You can break everything here. Please don't.</h3>
-		<form method="post" action="global_settings.cfm">
+		<form method="post" action="global_settings.cfm" name="f" id="f">
 			<input type="hidden" name="action" value="save">
 			
 			<!---- google ---->
@@ -56,7 +56,7 @@
 
 			<label for="DATA_REPORT_EMAIL">DATA_REPORT_EMAIL</label>
 			<textarea name="DATA_REPORT_EMAIL" id="DATA_REPORT_EMAIL" rows="6" cols="50" class="largetextarea">#d.DATA_REPORT_EMAIL#</textarea>
-			
+			<br>
 			<input type="submit" value="saveAll">
 		</form>
 	</cfif>
