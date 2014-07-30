@@ -62,15 +62,14 @@
 		$("#attribute_value" + aid).remove();
 		$("#attribute_units" + aid).remove();
 
-console.log('aid=' + aid);
 
-			$("#determined_date" + aid).addClass('reqdClr');
-			$("#agent_name" + aid).addClass('reqdClr');
+			$("#determined_date" + aid).addClass('reqdClr').prop('required',true);;
+			$("#agent_name" + aid).addClass('reqdClr').prop('required',true);;
 
 
 
 		if (resType == 'value') {
-			var d = '<select name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
+			var d = '<select class="reqdClr" required name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
 			d+='<option value=""></option>';
 			for (i=2;i<result.V.length;i++) {
 				x=result.V[i];
@@ -87,7 +86,7 @@ console.log('aid=' + aid);
 			$("#_attribute_value" + aid).append(d);
 			$("#attribute_value" + aid).val($("#val" + aid).val());
 		} else if (resType == 'units') {
-			var d = '<select name="attribute_units' + aid + '" id="attribute_units' + aid + '">';
+			var d = '<select class="reqdClr" required name="attribute_units' + aid + '" id="attribute_units' + aid + '">';
 			d+='<option value=""></option>';
 			for (i=2;i<result.V.length;i++) {
 				d+='<option value="' + result.V[i] + '">' + result.V[i] + '</option>';
@@ -95,11 +94,11 @@ console.log('aid=' + aid);
 			d+='</select>';
 			$("#_attribute_units" + aid).append(d);
 			$("#attribute_units" + aid).val($("#unit" + aid).val());
-			var t='<input type="text" name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
+			var t='<input type="text" class="reqdClr" required name="attribute_value' + aid + '" id="attribute_value' + aid + '">';
 			$("#_attribute_value" + aid).append(t);
 			$("#attribute_value" + aid).val($("#val" + aid).val());
 		} else {
-			var t='<textarea class="smalltextarea" rows="1" cols="15" name="attribute_value' + aid + '" id="attribute_value' + aid + '"></textarea?';
+			var t='<textarea class="smalltextarea reqdClr" required rows="1" cols="15" name="attribute_value' + aid + '" id="attribute_value' + aid + '"></textarea?';
 			$("#_attribute_value" + aid).append(t);
 			$("#attribute_value" + aid).val($("#val" + aid).val());
 		}
