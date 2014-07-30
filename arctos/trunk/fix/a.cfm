@@ -1,5 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
 
+
+
+<cfhttp method="head" url="http://arctos.database.museum/mediaUploads/jldunnum/Deliaetal2003.jpg"></cfhttp>
+
+<cfdump var=#cfhttp#>
+
+<cfabort>
+
+
 <style>
 	#test{resize:both}
 </style>
