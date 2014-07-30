@@ -22,7 +22,7 @@
 			collector.collection_object_id = #collection_object_id# and
 			collector.agent_id = preferred_agent_name.agent_id 
 		ORDER BY 
-			collector_role, coll_order
+			coll_order
 	</cfquery>
 	<script>
 		function deleteThis(i){
