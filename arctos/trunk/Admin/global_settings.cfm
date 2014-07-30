@@ -50,11 +50,11 @@
 			
 			<!--- contacts ---->
 			
-			<label for="BUG_REPORT_EMAIL">BUG_REPORT_EMAIL</label>
+			<label for="BUG_REPORT_EMAIL">BUG_REPORT_EMAIL (no-space comma-list)</label>
 			<textarea name="BUG_REPORT_EMAIL" id="BUG_REPORT_EMAIL" rows="6" cols="50" class="largetextarea">#d.BUG_REPORT_EMAIL#</textarea>
 														
 
-			<label for="DATA_REPORT_EMAIL">DATA_REPORT_EMAIL</label>
+			<label for="DATA_REPORT_EMAIL">DATA_REPORT_EMAIL (no-space comma-list)</label>
 			<textarea name="DATA_REPORT_EMAIL" id="DATA_REPORT_EMAIL" rows="6" cols="50" class="largetextarea">#d.DATA_REPORT_EMAIL#</textarea>
 			<br>
 			<input type="submit" value="saveAll" class="savBtn">

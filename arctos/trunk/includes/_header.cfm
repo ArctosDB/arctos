@@ -268,7 +268,7 @@
 												<li><a target="_top" href="/CodeTableEditor.cfm">Code Tables</a></li>
 											</cfif>
 											<cfif listfind(formList,"/Admin/global_settings.cfm")>
-												<li><a target="_top" href="/Admin/global_settings.cfm">Global Variables</a></li>
+												<li><a target="_top" href="/Admin/global_settings.cfm">Global Settings</a></li>
 											</cfif>
 											<cfif listfind(formList,"/Admin/Collection.cfm")>
 												<li><a target="_top" href="/Admin/Collection.cfm">Manage Collection</a></li>
