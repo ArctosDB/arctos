@@ -62,6 +62,7 @@
 		$("#attribute_value" + aid).remove();
 		$("#attribute_units" + aid).remove();
 
+console.log('aid=' + aid);
 
 			$("#determined_date" + aid).addClass('reqdClr');
 			$("#agent_name" + aid).addClass('reqdClr');
