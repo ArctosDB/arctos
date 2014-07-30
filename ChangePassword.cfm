@@ -174,7 +174,7 @@
 					<hr>
 					<cfdump var="#CGI#" label="CGI">
 				</cfsavecontent>
-				<cfmail subject="Error" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
+				<cfmail subject="Error" to="#Application.bugReportEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
 					#errortext#
 				</cfmail>
 				<h3>Error in changing password user.</h3>
@@ -254,7 +254,7 @@ You will be redirected soon, or you may use the menu above now.
 
 				#Application.ServerRootUrl#/login.cfm
 
-				If you did not request this change, please reply to #Application.technicalEmail#.
+				If you did not request this change, please reply to #Application.bugReportEmail#.
 			</cfmail>
 		An email containing your new password has been sent to the email address on file. It may take a few minutes to arrive.
 		<cfset initSession()>

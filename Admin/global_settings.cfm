@@ -1,6 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfif action is "nothing">
+		<cfset title="Global Arctos Settings: be careful in here!">
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_global_settings
 		</cfquery>

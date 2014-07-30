@@ -420,7 +420,7 @@ END;
 											<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
 
 
-					<cfmail to="#mailto#" subject="agent merger success" cc="#Application.PageProblemEmail#" from="agentmerge@#Application.fromEmail#" type="html">
+					<cfmail to="#mailto#" subject="agent merger success" cc="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="agentmerge@#Application.fromEmail#" type="html">
 						<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
 					</cfmail>
 					

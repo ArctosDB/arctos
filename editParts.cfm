@@ -389,7 +389,7 @@
 			</cfif>
 			<cfif #isCont.recordcount# gt 1>
 				That barcode has multiple matches!! Something really bad has happened!! Please  
-			 	<a href="mailto:#application.technicalEmail#">contact us</a>!
+			 	<a href="mailto:#application.bugReportEmail#">contact us</a>!
 				<cfabort>
 			</cfif>
 		</cfif>

@@ -53,7 +53,7 @@ including any information that may help us help you!</p>
 This message has been logged. Please submit a <a href="/info/bugs.cfm">bug report</a>
 if you have any additional information that will help us resolve this problem, or 
 use your browser's back button to try again. 
-	<cfmail subject="Broken Query" to="#Application.PageProblemEmail#" from="query.error@arctos.database.museum" type="html">
+	<cfmail subject="Broken Query" to="#Application.bugReportEmail#" from="query.error@arctos.database.museum" type="html">
 		A query died!
 		<cfsavecontent variable="errortext">
 Exceptions:

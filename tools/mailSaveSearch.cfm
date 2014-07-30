@@ -42,7 +42,7 @@
 				-------------------------------------------------<br>
 				<span style="font-size:small">
 				This message was sent from #Application.ServerRootUrl# at the request of an Arctos user. Please report
-				problems to #Application.PageProblemEmail#
+				problems to #Application.bugReportEmail#
 				</span>
 			</p>
 			<p>
@@ -74,7 +74,7 @@
 					-------------------------------------------------<br>
 					<span style="font-size:small">
 					This message was sent from #Application.ServerRootUrl# at the request of an Arctos user. Please report
-					problems to #Application.PageProblemEmail#
+					problems to #Application.bugReportEmail#
 					</span>
 				</p>
 		</cfmail>

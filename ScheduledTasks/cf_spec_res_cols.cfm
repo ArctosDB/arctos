@@ -33,7 +33,7 @@
 		<cfcatch>
 			fail
 			<cftransaction action="rollback" />
-			<cfmail to="#Application.PageProblemEmail#" subject="cf_spec_res_cols job fail" from="scheduler@#Application.fromEmail#" type="html">
+			<cfmail to="#Application.bugReportEmail#" subject="cf_spec_res_cols job fail" from="scheduler@#Application.fromEmail#" type="html">
 				<cfdump var=#cfcatch#>
 			</cfmail>
 		</cfcatch>
