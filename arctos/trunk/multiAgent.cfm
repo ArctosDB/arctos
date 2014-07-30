@@ -71,8 +71,14 @@
 		<select name="coll_order" size="1" class="reqdClr">
 			<option value="first">First</option>
 			<option value="last">Last</option>
-			<option value="FirstOfSelectedType">FirstOfSelectedType</option>
-			<option value="LastOfSelectedType">LastOfSelectedType</option>
+			<!----
+			<option value="beforecollectors">Before Collector(s)</option>
+			<option value="aftercollectors">After Collector(s)</option>
+			<option value="beforepreparators">Before Preparator(s)</option>
+			<option value="afterpreparators">After Preparator(s)</option>
+			<option value="beforemakers">Before Maker(s)</option>
+			<option value="aftermakers">After Maker(s)</option>
+			---->
 		</select>
 		<br>       
 		<input type="button" 
@@ -203,10 +209,7 @@
 				<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					#preserveSingleQuotes(s)#
 				</cfquery>	
-			
-				
-			
-			
+		
 			
 			</cfif> 
 			
