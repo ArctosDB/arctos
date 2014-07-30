@@ -51,10 +51,11 @@
 			<!--- contacts ---->
 			
 			<label for="BUG_REPORT_EMAIL">BUG_REPORT_EMAIL</label>
-			<textarea name="BUG_REPORT_EMAIL" id="BUG_REPORT_EMAIL" rows="6" cols="50" class="largetextarea">#BUG_REPORT_EMAIL#</textarea>
-			
+			<textarea name="BUG_REPORT_EMAIL" id="BUG_REPORT_EMAIL" rows="6" cols="50" class="largetextarea">#d.BUG_REPORT_EMAIL#</textarea>
+														
+
 			<label for="DATA_REPORT_EMAIL">DATA_REPORT_EMAIL</label>
-			<textarea name="DATA_REPORT_EMAIL" id="DATA_REPORT_EMAIL" rows="6" cols="50" class="largetextarea">#DATA_REPORT_EMAIL#</textarea>
+			<textarea name="DATA_REPORT_EMAIL" id="DATA_REPORT_EMAIL" rows="6" cols="50" class="largetextarea">#d.DATA_REPORT_EMAIL#</textarea>
 			
 			<input type="submit" value="saveAll">
 		</form>
