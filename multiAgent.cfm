@@ -168,7 +168,7 @@
 				<!---- insert at one for everything ---->
 				<cfset s="insert all ">
 				<cfloop query="cids">
-					<cfset s=s & "insert into collector (
+					<cfset s=s & " into collector (
 							collection_object_id,
 							agent_id,
 							collector_role,
@@ -187,7 +187,7 @@
 			<cfelseif coll_order is "last">
 				<cfset s="insert all ">
 				<cfloop query="cids">
-					<cfset s=s & "insert into collector (
+					<cfset s=s & " into collector (
 							collection_object_id,
 							agent_id,
 							collector_role,
