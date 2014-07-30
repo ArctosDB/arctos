@@ -71,6 +71,8 @@
 		<select name="coll_order" size="1" class="reqdClr">
 			<option value="first">First</option>
 			<option value="last">Last</option>
+			<option value="FirstOfSelectedType">FirstOfSelectedType</option>
+			<option value="LastOfSelectedType">LastOfSelectedType</option>
 		</select>
 		<br>       
 		<input type="button" 
@@ -94,6 +96,7 @@
 	<th>Accepted ID</th>
 	<th>Collectors</th>
 	<th>Preparators</th>
+	<th>Makers</th>
 	<th>Geog</th>
 	<th>specloc</th>
 	<th>verbatim date</th>
@@ -104,6 +107,9 @@
 	</cfquery>
 	<cfquery name="p" dbtype="query">
 		select agent_name from getColls where collector_role='preparator' and guid='#guid#' order by COLL_ORDER
+	</cfquery>
+	<cfquery name="m" dbtype="query">
+		select agent_name from getColls where collector_role='maker' and guid='#guid#' order by COLL_ORDER
 	</cfquery>
     <tr>
 	  <td>
@@ -127,6 +133,13 @@
 			</div>
 		</cfloop>
 	</td>
+	<td>
+		<cfloop query="m">
+			<div>
+				#agent_name#
+			</div>
+		</cfloop>
+	</td>
 	<td>#higher_geog#&nbsp;</td>
 	<td>#spec_locality#&nbsp;</td>
 	<td>#verbatim_date#&nbsp;</td>
@@ -142,7 +155,64 @@
 		select collection_object_id from #table_name#
 	</cfquery>
 		<cftransaction>
-			<cfif coll_order is "first" and collector_role is 'collector'>
+			<cfif coll_order is "first">
+				<!--- bump everything up to leave a blank ---->
+				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update 
+						collector 
+					set 
+						coll_order=coll_order + 1 
+					where
+						collection_object_id IN (select collection_object_id from #table_name#)
+				</cfquery>
+				<!---- insert at one for everything ---->
+				<cfset s="insert all ">
+				<cfloop query="cids">
+					<cfset s=s & "insert into collector (
+							collection_object_id,
+							agent_id,
+							collector_role,
+							coll_order
+						) values (
+							#collection_object_id#,
+							#agent_id#,
+							'#collector_role#',
+							1
+						)">
+				</cfloop>
+				<cfset s=s & " SELECT * FROM dual">
+				<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					#preserveSingleQuotes(s)#
+				</cfquery>	
+			<cfelseif coll_order is "last">
+				<cfset s="insert all ">
+				<cfloop query="cids">
+					<cfset s=s & "insert into collector (
+							collection_object_id,
+							agent_id,
+							collector_role,
+							coll_order
+						) values (
+							#collection_object_id#,
+							#agent_id#,
+							'#collector_role#',
+							(select nvl(max(coll_order)+1,1) from collector where collection_object_id=#collection_object_id#)
+						)">
+				</cfloop>
+				<cfset s=s & " SELECT * FROM dual">
+				<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					#preserveSingleQuotes(s)#
+				</cfquery>	
+			
+				
+			
+			
+			
+			</cfif> 
+			
+			
+			<!-------------
+			and collector_role is 'collector'>
 				<!--- bump everything up a notch --->
 				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update 
@@ -298,6 +368,7 @@
 					</cfquery>
 				</cfloop>				
 			</cfif>
+			------------------->
 		</cftransaction>
 		<cflocation url="multiAgent.cfm?table_name=#table_name#">
 	</cfoutput>
