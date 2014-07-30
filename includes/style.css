@@ -17,18 +17,18 @@
 
 /* default "not usually used but occasionally huge" input" */
 
-.tinytextarea {width:10em;height:1em;}
+.tinytextarea {width:10em;height:1.5em;margin:0.3em;vertical-align:center;}    
 
 
 /* default "resizable input" */
 
-.smalltextarea {width:15em;height:1em;}
+.smalltextarea {width:15em;height:1.5em;margin:0.3em;vertical-align:center;}    
 
 /* default "one big line resizable input" */
-.mediumtextarea {width:30em;height:1em;}
+.mediumtextarea {width:30em;height:1.5em;margin:0.3em;vertical-align:center;}    
 
 /* default big tetarea */
-.largetextarea {width:30em;height:3em;}
+.largetextarea {width:30em;height:3em;;margin:0.3em;vertical-align:center;}
 
 
 /* apparently unused, but keep it around until we're more sure
