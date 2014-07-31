@@ -2,6 +2,11 @@
 .smalltextarea{width:15em;height:1.5em;margin:.3em;vertical-align:center}
 .mediumtextarea{width:30em;height:1.5em;margin:.3em;vertical-align:center}
 .largetextarea{width:30em;height:3em;margin:.3em;vertical-align:center}
+.hugetextarea {
+    height: 6em;
+    margin: 0.3em;
+    width: 44em;
+}
 #dialog{font-size:1.4em}
 body{font-family:Arial,Helvetica,sans-serif;background-color:#FFF}
 .importantNotification{margin:1em;display:inline-block;padding:1em;border:10px solid red}

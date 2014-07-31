@@ -52,11 +52,11 @@
 			<!--- contacts ---->
 			
 			<label for="BUG_REPORT_EMAIL">BUG_REPORT_EMAIL (no-space comma-list; application problems, but much overlap with data)</label>
-			<textarea name="BUG_REPORT_EMAIL" id="BUG_REPORT_EMAIL" rows="6" cols="50" class="largetextarea">#d.BUG_REPORT_EMAIL#</textarea>
+			<textarea name="BUG_REPORT_EMAIL" id="BUG_REPORT_EMAIL" rows="6" cols="50" class="hugetextarea">#d.BUG_REPORT_EMAIL#</textarea>
 														
 
 			<label for="DATA_REPORT_EMAIL">DATA_REPORT_EMAIL (no-space comma-list data problems, but much overlap with application)</label>
-			<textarea name="DATA_REPORT_EMAIL" id="DATA_REPORT_EMAIL" rows="6" cols="50" class="largetextarea">#d.DATA_REPORT_EMAIL#</textarea>
+			<textarea name="DATA_REPORT_EMAIL" id="DATA_REPORT_EMAIL" rows="6" cols="50" class="hugetextarea">#d.DATA_REPORT_EMAIL#</textarea>
 			<br>
 			<input type="submit" value="saveAll" class="savBtn">
 		</form>
