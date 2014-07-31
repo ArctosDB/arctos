@@ -773,6 +773,8 @@
 	
 	<cfif len(preview_uri) gt 0>
 		<cfhttp method="head" url="#preview_uri#" timeout="1">
+		
+		<cfdump var=#cfhttp#>
 		<cfif isdefined("cfhttp.responseheader.status_code") and cfhttp.responseheader.status_code is 200 and
 			isdefined("cfhttp.responseheader.content-length") and cfhttp.responseheader.content-length lte 64000>
 			<cfreturn preview_uri>
