@@ -765,7 +765,7 @@
 	<cfreturn flatdocs.result>
 	<cfcatch><cfreturn cfcatch.message></cfcatch>
 	</cftry>
-</cffunction
+</cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getMediaPreview" access="remote">
 	<cfargument name="preview_uri" required="true" type="string">
