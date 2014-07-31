@@ -776,7 +776,7 @@
 		
 		<cfdump var=#cfhttp#>
 		<cfif isdefined("cfhttp.responseheader.status_code") and cfhttp.responseheader.status_code is 200 and
-			isdefined("cfhttp.responseheader.content-length") and cfhttp.responseheader.content-length lte 64000>
+		cfhttp.Responseheader["Content-Type"] lte 64000>
 			<cfreturn preview_uri>
 		</cfif>
 	</cfif>
