@@ -777,9 +777,13 @@
 		<cfdump var=#cfhttp#>
 		<cfif isdefined("cfhttp.responseheader.status_code") and cfhttp.responseheader.status_code is 200 and
 			cfhttp.Responseheader["Content-Type"] lte 64000>
+			
+			returning preview.....""
+			
+			
 			<cfreturn preview_uri>
 		</cfif>
-		<cfcatch><cfdump var=#cfcatch#></cfcatch>
+		<cfcatch>CATCH::::<cfdump var=#cfcatch#></cfcatch>
 		</cftry>
 	</cfif>
 	<!--- either no URL, or we failed the fetch-test ---->	
