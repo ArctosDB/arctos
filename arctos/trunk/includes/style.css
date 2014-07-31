@@ -28,9 +28,14 @@
 .mediumtextarea {width:30em;height:1.5em;margin:0.3em;vertical-align:center;}    
 
 /* default big tetarea */
-.largetextarea {width:30em;height:3em;;margin:0.3em;vertical-align:center;}
+.largetextarea {width:30em;height:3em;margin:0.3em;;}
 
-
+/* default "often used for lots of rambling" textarea */
+.hugetextarea {
+    height: 6em;
+    margin: 0.3em;
+    width: 44em;
+}
 /* apparently unused, but keep it around until we're more sure
 	.hide {visibility:hidden;}
 	
