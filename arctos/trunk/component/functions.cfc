@@ -781,7 +781,7 @@
 		</cfif>
 		<cfcatch>
 		caught
-		<cfdump var=#cfcatch>
+		<cfdump var=#cfcatch#>
 		</cfcatch>
 		</cftry>
 	</cfif>
