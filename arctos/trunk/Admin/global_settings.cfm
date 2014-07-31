@@ -24,10 +24,10 @@
 			<input type="text" name="GOOGLE_PRIVATE_KEY" id="GOOGLE_PRIVATE_KEY" size="80" value="#d.GOOGLE_PRIVATE_KEY#">
 			
 			
-			<label for="GOOGLE_UACCT">GOOGLE_UACCT</label>
+			<label for="GOOGLE_UACCT">GOOGLE_UACCT (Analytics logging)</label>
 			<input type="text" name="GOOGLE_UACCT" id="GOOGLE_UACCT" size="80" value="#d.GOOGLE_UACCT#">
 			
-			<label for="GMAP_API_KEY">GMAP_API_KEY</label>
+			<label for="GMAP_API_KEY">GMAP_API_KEY (Public Google APIs)</label>
 			<input type="text" name="GMAP_API_KEY" id="GMAP_API_KEY" size="80" value="#d.GMAP_API_KEY#">
 			
 			<!--- DOIs ---->
@@ -41,21 +41,21 @@
 			<input type="text" name="EZID_SHOULDER" id="EZID_SHOULDER" size="80" value="#d.EZID_SHOULDER#">
 			
 			<!--- genbank ---->
-			<label for="GENBANK_PRID">GENBANK_PRID</label>
+			<label for="GENBANK_PRID">GENBANK_PRID (GenBank data sharing)</label>
 			<input type="text" name="GENBANK_PRID" id="GENBANK_PRID" size="80" value="#d.GENBANK_PRID#">
 			
-			<label for="GENBANK_PASSWORD">GENBANK_PASSWORD</label>
+			<label for="GENBANK_PASSWORD">GENBANK_PASSWORD(GenBank data sharing)</label>
 			<input type="text" name="GENBANK_PASSWORD" id="GENBANK_PASSWORD" size="80" value="#d.GENBANK_PASSWORD#">
-			<label for="GENBANK_USERNAME">GENBANK_USERNAME</label>
+			<label for="GENBANK_USERNAME">GENBANK_USERNAME(GenBank data sharing)</label>
 			<input type="text" name="GENBANK_USERNAME" id="GENBANK_USERNAME" size="80" value="#d.GENBANK_USERNAME#">
 			
 			<!--- contacts ---->
 			
-			<label for="BUG_REPORT_EMAIL">BUG_REPORT_EMAIL (no-space comma-list)</label>
+			<label for="BUG_REPORT_EMAIL">BUG_REPORT_EMAIL (no-space comma-list; application problems, but much overlap with data)</label>
 			<textarea name="BUG_REPORT_EMAIL" id="BUG_REPORT_EMAIL" rows="6" cols="50" class="largetextarea">#d.BUG_REPORT_EMAIL#</textarea>
 														
 
-			<label for="DATA_REPORT_EMAIL">DATA_REPORT_EMAIL (no-space comma-list)</label>
+			<label for="DATA_REPORT_EMAIL">DATA_REPORT_EMAIL (no-space comma-list data problems, but much overlap with application)</label>
 			<textarea name="DATA_REPORT_EMAIL" id="DATA_REPORT_EMAIL" rows="6" cols="50" class="largetextarea">#d.DATA_REPORT_EMAIL#</textarea>
 			<br>
 			<input type="submit" value="saveAll" class="savBtn">

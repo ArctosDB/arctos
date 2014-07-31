@@ -128,9 +128,8 @@
 	<cfset Application.StartupServerName=serverName>
 	
 	<cfquery name="cf_global_settings" datasource="uam_god">
-		select GMAP_API_KEY,BUG_REPORT_EMAIL,DATA_REPORT_EMAIL,GOOGLE_UACCT from cf_global_settings
+		select BUG_REPORT_EMAIL,DATA_REPORT_EMAIL,GOOGLE_UACCT from cf_global_settings
 	</cfquery>
-	<cfset application.gmap_api_key=cf_global_settings.GMAP_API_KEY>
 	<cfset Application.bugReportEmail = cf_global_settings.BUG_REPORT_EMAIL>	
 	<cfset Application.DataProblemReportEmail = cf_global_settings.DATA_REPORT_EMAIL>
 	<cfset Application.Google_uacct = cf_global_settings.GOOGLE_UACCT>
