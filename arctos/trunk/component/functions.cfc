@@ -775,8 +775,14 @@
 		<cftry>
 		<cfhttp method="head" url="#preview_uri#" timeout="1">
 		<cfdump var=#cfhttp#>
+		
+		
+		<cfset x=cfhttp.Responseheader["Content-Length"]>
+		
+		<br>x=#x#
+		<br>
 		<cfif isdefined("cfhttp.responseheader.status_code") and cfhttp.responseheader.status_code is 200 and
-			cfhttp.Responseheader["Content-Type"] lte 64000>
+			cfhttp.Responseheader["Content-Length"] lte 64000>
 			
 			returning preview.....""
 			
