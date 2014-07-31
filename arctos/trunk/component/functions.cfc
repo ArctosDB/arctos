@@ -768,19 +768,31 @@
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="getMediaPreview" access="remote">
-	   <cfargument name="preview_uri" required="true" type="string">
-	   <cfargument name="media_type" required="false" type="string">
-	     <!----
-
-		 it would be just fabulous to check the previews, but cfhttp doesn't seem to time out properly
-	   <cfset r=0>
-	   <cfif len(preview_uri) gt 0>
-			<cfhttp method="head" url="#preview_uri#" timeout="1">
-			<cfif isdefined("cfhttp.responseheader.status_code") and cfhttp.responseheader.status_code is 200>
-				<cfset r=1>
-			</cfif>
+	<cfargument name="preview_uri" required="true" type="string">
+	<cfargument name="media_type" required="false" type="string">
+	
+	<cfif len(preview_uri) gt 0>
+		<cfhttp method="head" url="#preview_uri#" timeout="1">
+		<cfif isdefined("cfhttp.responseheader.status_code") and cfhttp.responseheader.status_code is 200>
+			<cfreturn preview_uri>
 		</cfif>
-		---->
+	</cfif>
+	<!--- either no URL, or we failed the fetch-test ---->	
+	<cfif media_type is "image">
+		<cfreturn "/images/noThumb.jpg">
+	<cfelseif media_type is "audio">
+		<cfreturn "/images/audioNoThumb.png">
+	<cfelseif media_type is "text">
+		<cfreturn "/images/documentNoThumb.png">
+	<cfelseif media_type is "multi-page document">
+		<cfreturn "/images/document_thumbnail.png">
+	<cfelse>
+		<cfreturn "/images/noThumb.jpg">
+	</cfif>
+			
+			
+
+<!---
 		<cfif len(preview_uri) is 0>
 			<cfif media_type is "image">
 				<cfreturn "/images/noThumb.jpg">
@@ -796,6 +808,9 @@
 		<cfelse>
 			<cfreturn preview_uri>
 		</cfif>
+		
+		
+		---->
 </cffunction>
 <!------------------------------------------------------------------->
 <cffunction name="agentCollectionContacts" access="remote">
