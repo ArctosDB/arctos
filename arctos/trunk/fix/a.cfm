@@ -2,7 +2,7 @@
 
 
 <cfoutput>
-<cfhttp method="head" url="#u#"></cfhttp>
+<cfhttp method="head" timeout ="#t#" url="#u#"></cfhttp>
 </cfoutput>
 <cfdump var=#cfhttp#>
 
