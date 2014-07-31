@@ -1,4 +1,7 @@
-<!--- 
+<cfquery name="cf_global_settings" datasource="uam_god">
+	select * from cf_global_settings
+</cfquery>
+	<!--- 
 	builds reciprocal links from GenBank
 	Run daily
 	Run after adding GenBank other IDs
@@ -11,8 +14,8 @@
 <cfsetting requesttimeout="3000" />
 <cfftp action="open" 
 	timeout="3000"
-	username="#Application.genBankUsername#"
-	password="#decrypt(Application.genBankPwd,'genbank')#"
+	username="#cf_global_settings.GENBANK_USERNAME#"
+	password="#cf_global_settings.GENBANK_PASSWORD#"
 	server="ftp-private.ncbi.nih.gov" 
 	connection="genbankn" 
 	passive="true" 

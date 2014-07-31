@@ -36,9 +36,9 @@
 			chr(9) & chr(9) & '<relatedinformation>#Application.serverRootUrl#</relatedinformation>' & chr(10) & 
 			chr(9) & chr(9) & '<abstract>GIS configuration file for media query interface</abstract>' & chr(10) & 
 			chr(9) & chr(9) & '<mapkeyword keyword="media"/>' & chr(10) & 
-			chr(9) & chr(9) & '<header location="#Application.mapHeaderUrl#"/>' & chr(10) & 
+			chr(9) & chr(9) & '<header location="#Application.serverRootUrl#/images/nada.gif"/>' & chr(10) & 
 			chr(9) & chr(9) & '<linkbackheader location="#Application.serverRootUrl#"/>' & chr(10) & 
-			chr(9) & chr(9) & '<footer location="#Application.mapFooterUrl#"/>' & chr(10) & 
+			chr(9) & chr(9) & '<footer location="#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html"/>' & chr(10) & 
 			chr(9) & chr(9) & '<charset name="UTF-8"></charset>' & chr(10) & 
 			chr(9) &'</metadata>';
 		variables.joFileWriter.writeLine(a);

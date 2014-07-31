@@ -765,46 +765,7 @@
 	<cfreturn flatdocs.result>
 	<cfcatch><cfreturn cfcatch.message></cfcatch>
 	</cftry>
-</cffunction>
-<!------------------------------------------------------------------->
-<cffunction name="getMediaPreviewDEBUG" access="remote">
-	<cfargument name="preview_uri" required="true" type="string">
-	<cfargument name="media_type" required="false" type="string">
-	
-	<cfif len(preview_uri) gt 0>
-		<cftry>
-		<cfhttp method="head" url="#preview_uri#" timeout="1">
-		<cfdump var=#cfhttp#>
-		
-		
-		<cfset x=cfhttp.Responseheader["Content-Length"]>
-		
-		<br>x=#x#
-		<br>
-		<cfif isdefined("cfhttp.responseheader.status_code") and cfhttp.responseheader.status_code is 200 and
-			cfhttp.Responseheader["Content-Length"] lte 64000>
-			
-			returning preview.....""
-			
-			
-			<cfreturn preview_uri>
-		</cfif>
-		<cfcatch>CATCH::::<cfdump var=#cfcatch#></cfcatch>
-		</cftry>
-	</cfif>
-	<!--- either no URL, or we failed the fetch-test ---->	
-	<cfif media_type is "image">
-		<cfreturn "/images/noThumb.jpg">
-	<cfelseif media_type is "audio">
-		<cfreturn "/images/audioNoThumb.png">
-	<cfelseif media_type is "text">
-		<cfreturn "/images/documentNoThumb.png">
-	<cfelseif media_type is "multi-page document">
-		<cfreturn "/images/document_thumbnail.png">
-	<cfelse>
-		<cfreturn "/images/noThumb.jpg">
-	</cfif>
-</cffunction>
+</cffunction
 <!------------------------------------------------------------------->
 <cffunction name="getMediaPreview" access="remote">
 	<cfargument name="preview_uri" required="true" type="string">
