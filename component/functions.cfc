@@ -814,7 +814,7 @@
 		<cftry>
 		<cfhttp method="head" url="#preview_uri#" timeout="1">
 		<cfif isdefined("cfhttp.responseheader.status_code") and cfhttp.responseheader.status_code is 200 and
-			cfhttp.Responseheader["Content-Type"] lte 64000>
+			cfhttp.Responseheader["Content-Length"] lte 64000>
 			<cfreturn preview_uri>
 		</cfif>
 		<cfcatch></cfcatch>
