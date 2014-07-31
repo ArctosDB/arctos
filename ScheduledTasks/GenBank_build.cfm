@@ -27,8 +27,10 @@
 		a.collection_id = c.collection_id AND
 		b.other_id_type='GenBank'
 </cfquery>
-
-<cfset header="------------------------------------------------#chr(10)#prid: #Application.genBankPrid##chr(10)#dbase: Nucleotide#chr(10)#!base.url: #Application.ServerRootUrl#/guid/">
+<cfquery name="cf_global_settings" datasource="uam_god">
+	select * from cf_global_settings
+</cfquery>
+<cfset header="------------------------------------------------#chr(10)#prid: #cf_global_settings.GENBANK_PRID##chr(10)#dbase: Nucleotide#chr(10)#!base.url: #Application.ServerRootUrl#/guid/">
 <cffile action="write" file="#Application.webDirectory#/temp/nucleotide.ft" addnewline="no" output="#header#">
 <cfset i=1>
 <cfloop query="nucleotide">
@@ -51,7 +53,7 @@
 		scientific_name not like '%##%' AND
 		d.other_id_type='GenBank'
 </cfquery>
-<cfset header="------------------------------------------------#chr(10)#prid: #Application.genBankPrid##chr(10)#dbase: Taxonomy#chr(10)#!base.url: #Application.ServerRootUrl#/SpecimenResults.cfm?OIDType=GenBank&">
+<cfset header="------------------------------------------------#chr(10)#prid: #cf_global_settings.GENBANK_PRID##chr(10)#dbase: Taxonomy#chr(10)#!base.url: #Application.ServerRootUrl#/SpecimenResults.cfm?OIDType=GenBank&">
 <cffile action="write" file="#Application.webDirectory#/temp/taxonomy.ft" addnewline="no" output="#header#">
 <cfset i=1>
 <cfloop query="taxonomy">
@@ -62,7 +64,7 @@
 	select 
 		distinct(scientific_name) from identification where scientific_name not like '%##%'
 </cfquery>
-<cfset header="------------------------------------------------#chr(10)#prid: #Application.genBankPrid##chr(10)#dbase: Taxonomy#chr(10)#!base.url: #Application.ServerRootUrl#/name/">
+<cfset header="------------------------------------------------#chr(10)#prid: #cf_global_settings.GENBANK_PRID##chr(10)#dbase: Taxonomy#chr(10)#!base.url: #Application.ServerRootUrl#/name/">
 <cffile action="write" file="#Application.webDirectory#/temp/names.ft" addnewline="no" output="#header#">
 <cfset i=1>
 <cfloop query="AllUsedSciNames">
