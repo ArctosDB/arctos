@@ -704,9 +704,7 @@
 				<cfif len(alt) is 0>
 					<cfset alt=media_uri>
 				</cfif>		
-				<cfif len(preview_uri) is 0>
-					<cfset mp = obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
-				</cfif>
+				<cfset mp = obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
 				<td align="middle">
 					<cfif mime_type is "audio/mpeg3">
 						<br>
