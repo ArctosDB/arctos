@@ -52,7 +52,7 @@
 		<cfif len(PreviewToUpload) gt 0>
 	        <cffile action="upload" destination="#Application.sandbox#/" nameConflict="overwrite" fileField="Form.PreviewToUpload" mode="600">
 	        <cfif (CFFILE.FileSize GT (15 * 1024))>
-	        	Preview may not be larger than 15K.
+	        	Preview may not be larger than 15K. Use your back button.
 				<cfabort>
 	        </cfif>
 		    <cfset fileName=cffile.serverfile>
