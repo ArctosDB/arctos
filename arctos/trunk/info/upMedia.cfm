@@ -4,22 +4,22 @@
 		Uploading Media....<br><img src="/images/progressbar.gif">
 	</div>
 	<div id="formDiv">
-	<form name="uploadFile" method="post" enctype="multipart/form-data" action="upMedia.cfm">
-		<input type="hidden" name="action" value="getFile">
-		  <label for="FiletoUpload">Browse your drive for Media....</label>
-		  <input type="file" name="FiletoUpload" id="FiletoUpload" size="90" >
-          <label for="PreviewToUpload">Browse for Thumbnail - leave blank to attempt auto create</label>
-		  <input type="file" name="PreviewToUpload" id="PreviewToUpload" size="90">
-   			<br>
-      <input type="button" 
+		<form name="uploadFile" method="post" enctype="multipart/form-data" action="upMedia.cfm">
+			<input type="hidden" name="action" value="getFile">
+			<label for="FiletoUpload">Browse your drive for Media....</label>
+			<input type="file" name="FiletoUpload" id="FiletoUpload" size="90" >
+	        <label for="PreviewToUpload">Browse for Thumbnail - leave blank to attempt auto create</label>
+			<input type="file" name="PreviewToUpload" id="PreviewToUpload" size="90">
+	   		<br>
+	    	<input type="button" 
 				value="Upload" 
 				class="savBtn"
 				onclick="this.value='Loading....';document.getElementById('formDiv').style.display='none';document.getElementById('progressbar').style.display='';uploadFile.submit();">
-	<input type="button" 
+			<input type="button" 
 				value="Cancel" 
 				class="qutBtn"
 				onclick="parent.removeUpload('')">
-	</form>
+		</form>
 	</div>
 </cfif>
 <cfif action is "getFile">
@@ -51,6 +51,9 @@
 		<cffile action="move" source="#Application.sandbox#/#tempName#.tmp" destination="#loadPath#/#fileName#" nameConflict="error" mode="644">
 		<cfif len(PreviewToUpload) gt 0>
 	        <cffile action="upload" destination="#Application.sandbox#/" nameConflict="overwrite" fileField="Form.PreviewToUpload" mode="600">
+	        <cfif (CFFILE.FileSize GT (15 * 1024))>
+	        	Preview may not be larger than 15K.
+	        </cfif>
 		    <cfset fileName=cffile.serverfile>
 		    <cfset fext=listlast(fileName,".")>
 			<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
