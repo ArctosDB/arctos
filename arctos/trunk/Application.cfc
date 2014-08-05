@@ -421,7 +421,10 @@
 		<cfoutput><cfheader name="Location" value="#rurl#"></cfoutput>
 	</cfif>
 	<cfif listlast(cgi.script_name,".") is "cfm">
-		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#request.rdurl#||#request.uuid#">
+		<cfif len(cgi.query_string) gt 0>
+			<cfset rurl=rurl & "?" & cgi.query_string>
+		</cfif>
+		<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#rurl#||#request.uuid#">
 		<cffile action="append" file="#Application.webDirectory#/log/request.txt" output="#loginfo#">
 	</cfif>
 	<cfreturn true>
