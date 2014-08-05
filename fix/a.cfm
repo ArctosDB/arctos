@@ -29,7 +29,7 @@ alter table temp_mp add mediastatus number;
 <br>--cfhttp--
 <cfdump var=#cfhttp#>
 <br>--cfhttp.Responseheader--
-<cfdump var=#cfhttp#.Responseheader>
+<cfdump var=#cfhttp#.Responseheader#>
 
 <cfset previewfilesize=cfhttp.Responseheader["Content-Length"]>
 <cfset previewstatus=cfhttp.Responseheader.Status_Code>
