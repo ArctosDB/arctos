@@ -37,20 +37,20 @@ alter table temp_mp add mediastatus number;
 <cfdump var=#cfhttp.Responseheader.Status_Code#>
 
 
-<cfset previewfilesize=cfhttp.Responseheader["Content-Length"]>
-<cfset previewstatus=cfhttp.Responseheader.Status_Code>
-<br>-previewstatus--
-<cfdump var=#previewstatus#>
+<cfset pfs=cfhttp.Responseheader["Content-Length"]>
+<cfset ps=cfhttp.Responseheader.Status_Code>
+<br>-ps--
+<cfdump var=#ps#>
 
-<br>previewfilesize: #previewfilesize#
-<br>previewstatus: #previewstatus#
+<br>pfs: #pfs#
+<br>ps: #ps#
 <cfif media_uri contains 'http://web.corral.tacc.utexas.edu'>
-	<cfset mediastatus='on_tacc_nocheck'>
+	<cfset ms='on_tacc_nocheck'>
 <cfelse>
 
 	<cfhttp method="head" timeout="2" url="#media_uri#"></cfhttp>
 	<cfdump var=#cfhttp#>
-	<cfset mediastatus=cfhttp.Responseheader["Status_Code"]>
+	<cfset ms=cfhttp.Responseheader["Status_Code"]>
 </cfif>
 
 
@@ -61,9 +61,9 @@ alter table temp_mp add mediastatus number;
 		temp_mp 
 	set 
 		checkeddate=sysdate,
-		previewfilesize=#previewfilesize#,
-		previewstatus='#previewstatus#',
-		mediastatus='#mediastatus#'
+		previewfilesize=#pfs#,
+		previewstatus='#ps#',
+		mediastatus='#ms#'
 	where 
 		media_id=#media_id#
 </cfquery>
