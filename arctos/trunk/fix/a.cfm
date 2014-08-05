@@ -3,7 +3,7 @@
 
 <cfoutput>
 
-
+<!----
 drop table temp_mp;
 
 create table temp_mp as select media_id,media_uri,PREVIEW_URI from media where PREVIEW_URI is not null;
@@ -13,11 +13,17 @@ alter table temp_mp add previewfilesize number;
 alter table temp_mp add previewstatus number;
 alter table temp_mp add mediastatus number;
 
+---->
+
+
+
 
 <cfquery name="d" datasource="uam_god">
 	select * from temp_mp where checkeddate is null and rownum<10
 </cfquery>
 <cfloop query="d">
+<hr>
+<br>media_id: #media_id#
 
 <cfhttp method="head" timeout="2" url="#PREVIEW_URI#"></cfhttp>
 <cfdump var=#cfhttp#>
@@ -25,6 +31,8 @@ alter table temp_mp add mediastatus number;
 <cfset previewfilesize=cfhttp.Responseheader["Content-Length"]>
 <cfset previewstatus=cfhttp.Responseheader["Status_Code"]>
 
+<br>previewfilesize: #previewfilesize#
+<br>previewstatus: #previewstatus#
 <cfif media_uri contains 'http://web.corral.tacc.utexas.edu'>
 	<cfset mediastatus='on_tacc_nocheck'>
 <cfelse>
@@ -35,6 +43,7 @@ alter table temp_mp add mediastatus number;
 </cfif>
 
 
+<br>mediastatus: #mediastatus#
 
 <cfquery name="u" datasource="uam_god">
 	update 
