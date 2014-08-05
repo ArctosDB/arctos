@@ -175,6 +175,7 @@
 	Cost: moderate/low
 	Growth potential: ??
 --->
+<!---
 <cfschedule action = "update"
     task = "ocr_specimens"
     operation = "HTTPRequest"
@@ -183,12 +184,14 @@
     startTime = "12:31 AM"
     interval = "daily"
     requestTimeOut = "600">
+	---->
 <!--- 
 	ocr_crawl
 	Purpose: Find OCR results at TACC
 	Cost: moderate/low
 	Growth potential: ??
 --->
+<!----
 <cfschedule action = "update"
     task = "ocr_crawl"
     operation = "HTTPRequest"
@@ -197,6 +200,7 @@
     startTime = "12:01 AM"
     interval = "daily"
     requestTimeOut = "300">
+	---->
 <!-----------------------------------   media bulkloader    ------------------------------------------>
 <!--- 
 	MBL_cleanup
