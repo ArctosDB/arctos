@@ -261,6 +261,9 @@
 		where rownum<1001">	
 		
 	</ul>
+	<cfif isdefined("debug") and debug is true>
+		<cfdump var=#sql#>
+	</cfif>
 	<cfquery name="d" datasource="uam_god">
 		#preservesinglequotes(sql)#		
 	</cfquery>
