@@ -55,7 +55,7 @@
 			<textarea name="BUG_REPORT_EMAIL" id="BUG_REPORT_EMAIL" rows="6" cols="50" class="hugetextarea">#d.BUG_REPORT_EMAIL#</textarea>
 														
 
-			<label for="DATA_REPORT_EMAIL">DATA_REPORT_EMAIL (no-space comma-list data problems, but much overlap with application)</label>
+			<label for="DATA_REPORT_EMAIL">DATA_REPORT_EMAIL (no-space comma-list; data problems, but much overlap with application)</label>
 			<textarea name="DATA_REPORT_EMAIL" id="DATA_REPORT_EMAIL" rows="6" cols="50" class="hugetextarea">#d.DATA_REPORT_EMAIL#</textarea>
 			<br>
 			<input type="submit" value="saveAll" class="savBtn">

@@ -51,7 +51,8 @@
 		       <option value="#report_id#">#report_name# (#report_template#)</option>
 		   </cfloop>
 		</select>
-		<input type="submit" value="Print Report">
+		<input type="button" onclick="print.action.value='print';print.submit();" value="Print Report">
+		<input type="button" onclick="print.action.value='datadump';print.submit();" value="Dump Data">
 	</form>
 </cfif>
 <!------------------------------------------------------>
@@ -117,5 +118,64 @@
         overwrite="true">
 	</cfreport>
 </cfif>
+
+
+<!------------------------------------------------------>
+<cfif action is "datadump">
+	<cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	    select * from cf_report_sql where report_id=#report_id#
+	</cfquery>
+	<cfif len(e.sql_text) gt 0>
+		<cfset sql=e.sql_text>
+         <cfif sql contains "##transaction_id##">
+			<cfset sql=replace(sql,"##transaction_id##",#transaction_id#,"all")>
+		</cfif> 
+		<cfif sql contains "##collection_object_id##">
+			<cfset sql=replace(sql,"##collection_object_id##",#collection_object_id#)>
+		</cfif>
+		<cfif sql contains "##container_id##">
+			<cfset sql=replace(sql,"##container_id##",#container_id#)>
+		</cfif>
+		<cfif sql contains "##session.CustomOtherIdentifier##">
+			<cfset sql=replace(sql,"##session.CustomOtherIdentifier##",#session.CustomOtherIdentifier#,"all")>
+		</cfif>
+		<cfif sql contains "##session.SpecSrchTab##">
+			<cfset sql=replace(sql,"##session.SpecSrchTab##",#session.SpecSrchTab#,"all")>
+		</cfif>
+		<cfif sql contains "##session.projectReportTable##">
+			<cfset sql=replace(sql,"##session.projectReportTable##",#session.projectReportTable#,"all")>
+		</cfif>
+		<cfif len(sort) gt 0 and sql does not contain "order by">
+			<cfset ssql=sql & " order by #sort#">
+		<cfelse>
+			<cfset ssql=sql>
+		</cfif>
+		<hr>#ssql#<hr>
+	 	<cftry>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				#preservesinglequotes(ssql)#
+			</cfquery>
+		<cfcatch>
+			<!--- sort can screw the pooch if they try to sort by things that aren't in the query --->
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				#preservesinglequotes(sql)#
+			</cfquery>
+		</cfcatch>
+		</cftry>
+    <cfelse>
+        <!--- need soemthing to pass to the function --->
+        <cfset d="">
+    </cfif>
+    <!---  Can call a custom function here to transform the query --->
+    <cfif len(e.pre_function) gt 0>
+        <cfset d=evaluate(e.pre_function & "(d)")>
+    </cfif>
+	
+	
+	<cfdump var=#d#>
+</cfif>
+
+
+
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">

@@ -222,6 +222,23 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onSessionStart" output="true">
+	<cfif cgi.HTTP_HOST contains "altai.corral.tacc.utexas.edu">
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
+		<cfabort>
+	<cfelseif cgi.HTTP_HOST contains "meta-1.corral.tacc.utexas.edu">
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="http://arctos.database.museum/">
+		<cfabort>
+	<cfelseif cgi.HTTP_HOST contains "web.arctos.database.museum">
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="http://arctos.database.museum/">
+		<cfabort>
+	<cfelseif cgi.HTTP_HOST contains "arctos.tacc.utexas.edu">
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfheader name="Location" value="http://arctos.database.museum/">
+	</cfif>
+	
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
 	<cfif not isdefined("application.blacklist")>
@@ -271,22 +288,6 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
-	<cfif cgi.HTTP_HOST contains "altai.corral.tacc.utexas.edu">
-		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
-		<cfabort>
-	<cfelseif cgi.HTTP_HOST contains "meta-1.corral.tacc.utexas.edu">
-		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfheader name="Location" value="http://arctos.database.museum/">
-		<cfabort>
-	<cfelseif cgi.HTTP_HOST contains "web.arctos.database.museum">
-		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfheader name="Location" value="http://arctos.database.museum/">
-		<cfabort>
-	<cfelseif cgi.HTTP_HOST contains "arctos.tacc.utexas.edu">
-		<cfheader statuscode="301" statustext="Moved permanently">
-		<cfheader name="Location" value="http://arctos.database.museum/">
-	</cfif>
 	<!---- get ip address - run this is onSessionStart AND onRequestStart! ---->
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>

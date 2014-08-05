@@ -139,6 +139,14 @@
   <cfreturn d>
 </cffunction>
 <!-------------------------------------------------------------->
+<cffunction name="get_loan" access="public" returntype="Query">
+    <cf_getLoanFormInfo>
+    <cfquery name="d" dbtype="query">
+        select * from getLoan
+    </cfquery>
+    <cfreturn d>
+</cffunction>
+<!-------------------------------------------------------------->
 <cffunction name="get_loan_trunc" access="public" returntype="Query">
     <cf_getLoanFormInfo>
     <cfquery name="d" dbtype="query">
@@ -375,6 +383,7 @@
 <!---------------------------------------------------------------------->
 <cffunction name="format_uam_vial" access="public" returntype="Query">
     <cfargument name="d" required="true" type="query">
+	
 	<cfset lAr = ArrayNew(1)>
 	<cfset sAr = ArrayNew(1)>
 	<cfset idAr = ArrayNew(1)>
@@ -498,13 +507,11 @@
 		<cfset hf_units = "">
 		<cfset efn_units = "">
 		<cfset weight_units = "">
-			
-
 		<cfloop list="#attributes#" index="attind" delimiters=";">
-			<cfset sPos=find(":",attind)>
+			<cfset sPos=find("=",attind)>
 			<cfif sPos gt 0>
-				<cfset att=left(attind,sPos-1)>
-				<cfset aVal=right(attind,len(attind)-sPos-1)>
+				<cfset att=trim(listgetat(attind,1,"="))>
+				<cfset aVal=trim(listgetat(attind,2,"="))>
 				<cfif #trim(att)# is "total length">
 					<cfset totlen = "#aVal#">
 				<cfelseif #trim(att)# is "tail length">
@@ -543,7 +550,7 @@
 		<cfelse>
 			<cfset meas = "#meas#=X">
 		</cfif>
-		<cfset meas=replace(meas,"mm","","all")>
+		<cfset meas=replace(meas," mm","","all")>
 		<cfset aAr[i] = #meas#>
 			
 		<cfset stripParts = "">
@@ -589,18 +596,10 @@
 		<cfset temp=queryAddColumn(d,"measurements","VarChar",aAr)>
 		<cfset temp=queryAddColumn(d,"formatted_parts","VarChar",pAr)>	
 		<cfset temp=queryAddColumn(d,"formatted_date","VarChar",dAr)>		
-
 	 <cfreturn d>
 </cffunction>
 <!-------------------------------------------------------------->		
 
-<cffunction name="get_loan" access="public" returntype="Query">
-    <cf_getLoanFormInfo>
-    <cfquery name="d" dbtype="query">
-        select * from getLoan
-    </cfquery>
-    <cfreturn d>
-</cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="format_msb" access="public" returntype="Query">
     <cfargument name="d" required="true" type="query">
@@ -1544,12 +1543,11 @@
 	</cfif>
 	<cfreturn finalQ>
 </cffunction>
-
+<!------------------------------------>
 <cffunction name="format_loan_invoice" access="public" returntype="query">
 	<cfargument name="q" required="true" type="query">
 	<cfset i = 1>
 	<cfset datumAr= ArrayNew(1)>
-	
 	<cfloop query="q">
 		<cfif len(datum) gt 0>
 			<cfset fDatum = #datum#>
@@ -1564,8 +1562,6 @@
 		</cfif>
 		<cfset i=i+1>
 	</cfloop>
-	
 	<cfset temp = queryAddColumn(q,"fDatum", "VarChar", datumAr)>
-	
 	<cfreturn q>
 </cffunction>
