@@ -35,7 +35,7 @@
 	      	fileField="Form.PreviewToUpload" mode="777">
 	      	
        <cfif (CFFILE.FileSize GT (15 * 1024))>
-        	Preview may not be larger than 15K. Resize the preview image, or leave it blank to autogenerate.
+        	Preview may not be larger than 15K. (#CFFILE.FileSize#)
 			<cfabort>
         </cfif>
 	    <cfset fileName=cffile.serverfile>
