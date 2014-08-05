@@ -205,33 +205,6 @@ function addTransAgent (id,name,role) {
 
 
 jQuery("#uploadMedia").live('click', function(e){
-	
-	var guts = "/info/upMedia.cfm";
-	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
-		autoOpen: true,
-		closeOnEscape: true,
-		height: 'auto',
-		modal: true,
-		position: ['center', 'center'],
-		title: 'Upload Media',
-		width: 'auto',
-		close: function() {
-			$( this ).remove();
-		},
-	}).load(guts, function() {
-		$(this).dialog("option", "position", ['center', 'center'] );
-	});
-	$(window).resize(function() {
-		//fluidDialog();
-		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-	});
-	$(".ui-widget-overlay").click(function(){
-	    $(".ui-dialog-titlebar-close").trigger('click');
-	});
-});
-
-
-jQuery("#uploadMedia__OLD").live('click', function(e){
 	addBGDiv('removeUpload()');
 	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'uploadDiv';
