@@ -26,10 +26,18 @@
 		<cfcatch><!--- it already exists, do nothing---></cfcatch>
 	</cftry>
     <cfif len(#PreviewToUpload#) gt 0>
+	
+	
+	
         <cffile action="upload"
 	    	destination="#Application.webDirectory#/temp/"
 	      	nameConflict="overwrite"
 	      	fileField="Form.PreviewToUpload" mode="777">
+	      	
+       <cfif (CFFILE.FileSize GT (15 * 1024))>
+        	Preview may not be larger than 15K. Resize the preview image, or leave it blank to autogenerate.
+			<cfabort>
+        </cfif>
 	    <cfset fileName=#cffile.serverfile#>
 	    <cfset dotPos=find(".",fileName)>
 		<cfset name=left(fileName,dotPos-1)>

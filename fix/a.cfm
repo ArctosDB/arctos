@@ -22,7 +22,7 @@ create unique index ix_temp_mid on temp_mp(media_id) tablespace uam_idx_1;
 
 
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_mp where checkeddate is null and rownum<500
+		select * from temp_mp where previewfilesize is null and rownum<500
 	</cfquery>
 	<cfloop query="d">
 		<cfhttp method="head" timeout="2" url="#PREVIEW_URI#"></cfhttp>

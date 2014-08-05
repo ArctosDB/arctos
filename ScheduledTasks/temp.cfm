@@ -16,6 +16,16 @@ alter table temp_mp add mediastatus varchar2(200);
 
 create unique index ix_temp_mid on temp_mp(media_id) tablespace uam_idx_1;
 
+
+select media_id || ': ' || PREVIEWFILESIZE from temp_mp where PREVIEWFILESIZE>15000 order by PREVIEWFILESIZE;
+select media_id || ': ' || PREVIEWFILESIZE from temp_mp where PREVIEWFILESIZE>64000 order by PREVIEWFILESIZE;
+
+
+
+
+ select count(*) from temp_mp where checkeddate is not null;
+
+
 ---->
 
 
