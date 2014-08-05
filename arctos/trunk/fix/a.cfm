@@ -15,12 +15,13 @@ alter table temp_mp add previewfilesize number;
 <cfloop query="d">
 
 <cfhttp method="head" timeout="99" url="#PREVIEW_URI#"></cfhttp>
-
 <cfdump var=#cfhttp#>
+<cfquery name="u" datasource="uam_god">
+	update temp_mp set checkeddate=sysdate,previewfilesize=#cfhttp.content-length# where media_id=#media_id#
+</cfquery>
 
 
 </cfloop>
 
-
-
+	
 </cfoutput>
