@@ -19,7 +19,7 @@ alter table temp_mp add mediastatus varchar2(200);
 
 
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_mp where checkeddate is null and rownum<1000
+		select * from temp_mp where checkeddate is null and rownum<500
 	</cfquery>
 	<cfloop query="d">
 		<cfhttp method="head" timeout="2" url="#PREVIEW_URI#"></cfhttp>
