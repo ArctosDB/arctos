@@ -26,7 +26,10 @@ alter table temp_mp add mediastatus number;
 <br>media_id: #media_id#
 
 <cfhttp method="head" timeout="2" url="#PREVIEW_URI#"></cfhttp>
+<br>--cfhttp--
 <cfdump var=#cfhttp#>
+<br>--cfhttp.Responseheader--
+<cfdump var=#cfhttp#.Responseheader>
 
 <cfset previewfilesize=cfhttp.Responseheader["Content-Length"]>
 <cfset previewstatus=cfhttp.Responseheader.Status_Code>
