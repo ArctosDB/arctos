@@ -1,16 +1,4 @@
 <cfcomponent>
-    <cffunction name="log" output="no">
-        <cfargument name="msg" type="string" required="yes">
-        <cfargument name="file" type="string" required="yes">
-       
-        <cflog text="#msg#"
-             file="#Application.webDirectory#/log/querylog.txt"
-            type="test"
-            thread="yes"
-            date="yes"
-            time="yes"
-            application="yes">
-    </cffunction>
 <!--------------------------------->
 	<cffunction name="QueryToCSV2" access="public" returntype="string" output="false" hint="I take a query and convert it to a comma separated value string.">
 		<cfargument name="Query" type="query" required="true" hint="I am the query being converted to CSV."/>
