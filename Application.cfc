@@ -424,7 +424,8 @@
 	
 		<!---- log an actionable URL ---->
 		
-		
+		<cfset searchParams = "">
+		<cfset returnURL = "">
 		<cfloop list="#StructKeyList(form)#" index="key">
 			<cfif len(#form[key]#) gt 0>
 			
