@@ -424,6 +424,71 @@
 	
 		<!---- log an actionable URL ---->
 		
+		
+		<cfloop list="#StructKeyList(form)#" index="key">
+			<cfif len(#form[key]#) gt 0>
+			
+			<br>formkey: #key#
+			
+					<cfif #key# is not "FIELDNAMES" 
+						AND #key# is not "SEARCHPARAMS" 
+						AND #key# is not "mapurl" 
+						AND #key# is not "cbifurl" 
+						and #key# is not "newquery"
+						and #key# is not "ORDER_ORDER"
+						and #key# is not "ORDER_BY"
+						and #key# is not "newsearch"
+						and #key# is not "STARTROW">
+					<cfif len(#returnURL#) is 0>
+						<cfset returnURL='SpecimenResultsHTML.cfm?#key#=#form[key]#'>
+					<cfelse>
+						<cfset returnURL='#returnURL#&#key#=#form[key]#'>
+					</cfif>			 
+					<cfif #key# is not "detail_level">
+						<cfif len(#searchParams#) is 0>
+							<cfset searchParams='<input type="hidden" name="#key#" value="#form[key]#">'>
+						<cfelse>
+							<cfset searchParams='#searchParams#<input type="hidden" name="#key#" value="#form[key]#">'>
+						</cfif>
+					</cfif>
+				</cfif>
+			 </cfif>
+		</cfloop>
+		<!---- also grab anything from the URL --->
+		<cfloop list="#StructKeyList(url)#" index="key">
+		
+			<br>URLkey: #key#
+			 <cfif len(url[key]) gt 0>
+				 <cfif #key# is not "FIELDNAMES" 
+					AND #key# is not "SEARCHPARAMS" 
+					AND #key# is not "mapurl" 
+					AND #key# is not "cbifurl" 
+					and #key# is not "newquery"
+					and #key# is not "ORDER_ORDER"
+					and #key# is not "ORDER_BY"
+					and #key# is not "newsearch"
+					and #key# is not "STARTROW"
+					and #key# is not "detail_level">
+				 <cfif len(#returnURL#) is 0>
+					<cfset returnURL='SpecimenResultsHTML.cfm?#key#=#url[key]#'>
+				<cfelse>
+					<cfset returnURL='#returnURL#&#key#=#url[key]#'>
+				</cfif>
+				<cfif #key# is not "detail_level">
+					<cfif len(#searchParams#) is 0>
+						<cfset searchParams='<input type="hidden" name="#key#" value="#url[key]#">'>
+					<cfelse>
+						<cfset searchParams='#searchParams#<input type="hidden" name="#key#" value="#url[key]#">'>
+					</cfif>
+				</cfif>
+				</cfif>
+			 </cfif>
+		</cfloop>
+		<cfset strippyReturnURL = replace(returnURL,'"','&quot;','all')>
+		
+		
+		
+		
 		<cfdump var=#form#>
 		
 		<cfdump var=#url#>
