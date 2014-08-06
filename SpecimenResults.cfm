@@ -109,7 +109,7 @@
 		select count(*) c from #session.SpecSrchTab#
 	</cfquery>
 	
-	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#mapurl#||#session.resultColumnList#||#request.uuid#">
+	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#mapurl#||#session.resultColumnList#||#trc.c#||#request.uuid#">
 	<cfthread name="log#request.uuid#" action="run" priority="LOW" loginfo="#loginfo#">
 		<cffile action="append" file="#Application.webDirectory#/log/querylog.txt" output="#loginfo#">
     </cfthread> 
