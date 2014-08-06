@@ -110,17 +110,9 @@
 	</cfquery>
 	
 	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#mapurl#||#session.resultColumnList#||#request.uuid#">
-	<cfthread name="log#request.uuid#" 
-    action="run" 
-    priority="LOW"
-	loginfo="#loginfo#"> 
- 
-	<cffile action="append" file="#Application.webDirectory#/log/querylog.txt" output="#loginfo#">
- 
+	<cfthread name="log#request.uuid#" action="run" priority="LOW" loginfo="#loginfo#">
+		<cffile action="append" file="#Application.webDirectory#/log/querylog.txt" output="#loginfo#">
     </cfthread> 
-	
-	
-	
 	
 	<cfset numFlds=usercols.recordcount>
 	<cfset thisLoopNum=1>
