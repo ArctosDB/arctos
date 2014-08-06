@@ -108,6 +108,12 @@
 	<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from #session.SpecSrchTab#
 	</cfquery>
+	
+	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#mapurl#||#session.resultColumnList#||#request.uuid#">
+
+	<cffile action="append" file="#Application.webDirectory#/log/querylog.txt" output="#loginfo#">
+
+
 	<cfset numFlds=usercols.recordcount>
 	<cfset thisLoopNum=1>
 	<script type="text/javascript">

@@ -218,6 +218,9 @@
 	<cfif not FileExists("#Application.webDirectory#/log/request.txt")> 
 	    <cffile action="write" file="#Application.webDirectory#/log/request.txt" output=""> 
 	</cfif>
+	<cfif not FileExists("#Application.webDirectory#/log/querylog.txt")> 
+	    <cffile action="write" file="#Application.webDirectory#/log/querylog.txt" output=""> 
+	</cfif>
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
