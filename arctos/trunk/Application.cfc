@@ -421,6 +421,15 @@
 		<cfoutput><cfheader name="Location" value="#rurl#"></cfoutput>
 	</cfif>
 	<cfif listlast(cgi.script_name,".") is "cfm">
+	
+		<!---- log an actionable URL ---->
+		
+		<cfdump var=#form#>
+		
+		<cfdump var=#url#>
+		
+		<cfdump var=#cgi#>
+		
 		<cfset rurl=request.rdurl>
 		<cfif len(cgi.query_string) gt 0>
 			<cfset rurl=rurl & "?" & cgi.query_string>
