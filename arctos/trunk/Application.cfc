@@ -430,6 +430,8 @@
 			<cfif len(#form[key]#) gt 0>
 			
 			<br>formkey: #key#
+			<br>val: #form[key]#
+			
 			
 					<cfif #key# is not "FIELDNAMES" 
 						AND #key# is not "SEARCHPARAMS" 
@@ -459,6 +461,7 @@
 		<cfloop list="#StructKeyList(url)#" index="key">
 		
 			<br>URLkey: #key#
+			<br>val: #form[key]#
 			 <cfif len(url[key]) gt 0>
 				 <cfif #key# is not "FIELDNAMES" 
 					AND #key# is not "SEARCHPARAMS" 
