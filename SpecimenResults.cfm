@@ -445,11 +445,6 @@
 							<option value="/Reports/uamento.cfm">
 								download UAM Ento CSV
 							</option>
-								<!----
-							<option value="/Reports/print_nk.cfm">
-								Print NK pages
-							</option>
-									---->
 							<option value="/Reports/report_printer.cfm?report=ala_label">
 								ALA Labels
 							</option>

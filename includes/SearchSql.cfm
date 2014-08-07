@@ -187,6 +187,14 @@
 	<cfset basQual = " #basQual# AND ident_cit_tax.taxon_name_id = #cited_taxon_name_id#">
 	<cfset mapurl = "#mapurl#&cited_taxon_name_id=#cited_taxon_name_id#">
 </cfif>
+<cfif isdefined("cited_scientific_name") AND len(cited_scientific_name) gt 0>
+	<cfif basJoin does not contain " citation ">
+		<cfset basJoin = " #basJoin# INNER JOIN citation cname ON (#session.flatTableName#.collection_object_id = cname.collection_object_id)">
+	</cfif>
+	<cfset basJoin = " #basJoin# INNER JOIN identification cited_name ON (cname.identification_id = cited_name.identification_id)">
+	<cfset basQual = " #basQual# AND upper(cited_name.scientific_name) like '%#ucase(cited_scientific_name)#%'">
+	<cfset mapurl = "#mapurl#&cited_scientific_name=#cited_scientific_name#">
+</cfif>
 <cfif isdefined("taxon_name_id") AND len(taxon_name_id) gt 0>
 	<cfif basJoin does not contain " identification ">
 		<cfset basJoin = " #basJoin# INNER JOIN identification ON
