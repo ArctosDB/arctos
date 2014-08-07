@@ -82,6 +82,7 @@
 			<td>Accepted Name</td>
 			<td>Cited As</td>
 			<td>Citations</td>
+			<td>Specimens</td>
 		</tr>
 	<cfloop query="cit">
 		<tr>
@@ -92,6 +93,9 @@
 				<cfelse>
 					<a href="/SpecimenUsage.cfm?action=search&cited_Sci_Name=#CitName#"><font color="##FF0000">#CitName#</font></a>
 				</cfif>
+			</td>
+			<td>
+				<a href="/SpecimenResults.cfm?cited_scientific_namee=#CitName#&scientific_name=#scientific_name#"><font color="##FF0000">id+citationID</font></a>
 			</td>
 		</tr>
 	</cfloop>
