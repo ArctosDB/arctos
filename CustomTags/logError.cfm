@@ -166,7 +166,7 @@
 
 
 
-sending email now to <cfdump var=#Application.LogEmail#>
+sending email now to <cfdump var=#Application.LogEmail#> subject #exception.subject# from="logs@#application.fromEmail#"
 
 
 <cfmail subject="#exception.subject#" to="#Application.LogEmail#" from="logs@#application.fromEmail#" type="html">
