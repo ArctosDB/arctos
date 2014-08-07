@@ -16,9 +16,6 @@
 		<cfset showErr=0>
 		<cfreturn/>
 	</cfif>
-	<cfif isdefined("session.username") and session.username is "dlm">
-		<cfdump var=#exception#>
-	</cfif>
 	<cfif showErr is 1>
 		<cfset subject="">
 		<cfif isdefined("exception.Sql") and exception.sql contains "@@version">
@@ -96,6 +93,9 @@
 				</td>
 			</tr>
 		</table>
+		<cfif isdefined("session.username") and session.username is "dlm">
+			<cfdump var=#exception#>
+		</cfif>
 		<cfinclude template="/includes/_footer.cfm">
 		<cfif isdefined("exception.errorCode")>
 			<cfif exception.errorCode is "403">
@@ -131,8 +131,6 @@
 	<cfset Application.max_pw_age = 180>
 	<cfset Application.fromEmail = "#serverName#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
-	<cfset Application.StartupServerName=serverName>
-	
 	<cfquery name="cf_global_settings" datasource="uam_god">
 		select LOG_EMAIL,BUG_REPORT_EMAIL,DATA_REPORT_EMAIL,GOOGLE_UACCT from cf_global_settings
 	</cfquery>

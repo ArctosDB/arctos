@@ -36,6 +36,10 @@
     margin: 0.3em;
     width: 44em;
 }
+
+/* specimen results suggest form styling */
+ .ssw_sngselect{max-width:30em;};
+
 /* apparently unused, but keep it around until we're more sure
 	.hide {visibility:hidden;}
 	
