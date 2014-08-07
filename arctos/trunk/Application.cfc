@@ -87,6 +87,9 @@
 							<br>#exception.detail#
 						</cfif>
 						</cfoutput></i>
+					<cfif subject is "Execution timeout expired." and request.rdurl contains "SpecimenResults.cfm">
+						you timed out....
+					</cfif> 
 					</cfif>
 					<p>This message has been logged. Please <a href="/contact.cfm">contact us</a>
 					with any information that might help us to resolve this problem.</p>
