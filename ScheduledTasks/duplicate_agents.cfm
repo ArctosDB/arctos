@@ -413,7 +413,7 @@ END;
 					<cfif len(valuelist(colns.address)) gt 0>
 						<cfset mailto=valuelist(colns.address)>
 					<cfelse>
-						<cfset mailto=Application.bugReportEmail>
+						<cfset mailto=Application.DataProblemReportEmail>
 					</cfif>
 					
 					
@@ -583,7 +583,7 @@ END;
 			
 			
 			<!--------------------->
-			<cfmail to="#Application.DataProblemReportEmail#,#valuelist(colns.address)#" subject="agents marked for merge" cc="arctos.database@gmail.com" from="agentmerge@#Application.fromEmail#" type="html">
+			<cfmail to="#Application.DataProblemReportEmail#,#valuelist(colns.address)#" subject="agents marked for merge" from="agentmerge@#Application.fromEmail#" type="html">
 				<br>Agents have been marked for merger.
 				
 				<br>The following agents are scheduled for merger on #dateformat(dateadd("d",7,detected_date),"yyyy-mm-dd")#.

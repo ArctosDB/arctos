@@ -29,7 +29,7 @@
 			<cfset msubj="media bulkloader">
 			
 		</cfif>
-		<cfmail to="#mailto#" bcc="arctos.database@gmail.com" subject="#msubj#" cc="arctos.database@gmail.com" from="bulkmedia@#Application.fromEmail#" type="html">
+		<cfmail to="#mailto#" bcc="arctos.database@gmail.com" subject="#msubj#" cc="#Application.LogEmail#" from="bulkmedia@#Application.fromEmail#" type="html">
 			Dear #username#,
 			<p>
 				The following records are in the Media Bulkloader:

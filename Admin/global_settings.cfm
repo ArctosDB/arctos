@@ -57,6 +57,10 @@
 
 			<label for="DATA_REPORT_EMAIL">DATA_REPORT_EMAIL (no-space comma-list; data problems, but much overlap with application)</label>
 			<textarea name="DATA_REPORT_EMAIL" id="DATA_REPORT_EMAIL" rows="6" cols="50" class="hugetextarea">#d.DATA_REPORT_EMAIL#</textarea>
+			
+
+			<label for="LOG_EMAIL">LOG_EMAIL (no-space comma-list; normal systems logs; heavy use)</label>
+			<textarea name="LOG_EMAIL" id="LOG_EMAIL" rows="6" cols="50" class="hugetextarea">#d.LOG_EMAIL#</textarea>
 			<br>
 			<input type="submit" value="saveAll" class="savBtn">
 		</form>
@@ -75,7 +79,8 @@
 				GENBANK_PRID='#GENBANK_PRID#',
 				GENBANK_PASSWORD='#GENBANK_PASSWORD#',
 				GENBANK_USERNAME='#GENBANK_USERNAME#',
-				DATA_REPORT_EMAIL='#DATA_REPORT_EMAIL#'			
+				DATA_REPORT_EMAIL='#DATA_REPORT_EMAIL#',
+				LOG_EMAIL='#LOG_EMAIL#'			
 		</cfquery>
 		<cflocation url="global_settings.cfm" addtoken="false">
 	</cfif>

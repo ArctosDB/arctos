@@ -21,7 +21,12 @@ select media_id || ': ' || PREVIEWFILESIZE from temp_mp where PREVIEWFILESIZE>15
 select media_id || ': ' || PREVIEWFILESIZE from temp_mp where PREVIEWFILESIZE>64000 order by PREVIEWFILESIZE;
 
 
+select PREVIEWSTATUS,count(*) from temp_mp group by PREVIEWSTATUS;
 
+select media_id from temp_mp where previewstatus = '404';
+
+
+select mediastatus,count(*) from temp_mp group by mediastatus;
 
  select count(*) from temp_mp where checkeddate is not null;
 
@@ -36,14 +41,30 @@ select media_id || ': ' || PREVIEWFILESIZE from temp_mp where PREVIEWFILESIZE>64
 	</cfquery>
 	<cfloop query="d">
 		<cfhttp method="head" timeout="2" url="#PREVIEW_URI#"></cfhttp>
-		<cfset pfs=cfhttp.Responseheader["Content-Length"]>
-		<cfset ps=cfhttp.Responseheader.Status_Code>
+		<cftry>
+			<cfset pfs=cfhttp.Responseheader["Content-Length"]>
+			<cfcatch>
+				<cfset pfs=0>
+			</cfcatch>
+		</cftry>
+		<cftry>
+			<cfset ps=cfhttp.Responseheader.Status_Code>
+			<cfcatch>
+				<cfset ps='caught_error'>
+			</cfcatch>
+		</cftry>
 		<cfif media_uri contains 'http://web.corral.tacc.utexas.edu'>
 			<cfset ms='on_tacc_nocheck'>
 		<cfelse>
 			<cfhttp method="head" timeout="2" url="#media_uri#"></cfhttp>
-			<cfset ms=cfhttp.Responseheader["Status_Code"]>
+			<cftry>
+				<cfset ms=cfhttp.Responseheader["Status_Code"]>
+				<cfcatch>
+					<cfset ms='caught_error'>
+				</cfcatch>
+			</cftry>
 		</cfif>
+		
 		<cfquery name="u" datasource="uam_god">
 			update 
 				temp_mp 

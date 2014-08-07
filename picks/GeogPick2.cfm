@@ -3,7 +3,7 @@
 <cfoutput>	
 <b>Find Geography:</b>	
   <table border="1">
-    <form name="getHG" method="post" action="GeogPick.cfm">
+    <form name="getHG" method="post" action="GeogPick2.cfm">
       <input type="hidden" name="Action" value="findGeog">
       <input type="hidden" name="geogIdFld" value="#geogIdFld#">
       <input type="hidden" name="highGeogFld" value="#highGeogFld#">

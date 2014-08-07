@@ -66,7 +66,7 @@
 	<cfif len(#whoTo.address#) gt 0>
 		<cfset mailTo = valuelist(whoTo.address)>
 	<cfelse>	
-		<cfset mailTo = #Application.bugReportEmail#>
+		<cfset mailTo = #Application.DataProblemReportEmail#>
 	</cfif>
 
 	
