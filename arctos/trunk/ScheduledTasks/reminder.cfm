@@ -162,7 +162,7 @@
 					sends email and something somewhere is probably misspelled or something
 				 --->
 				<cfloop query="notificationAgents">
-					<cfmail to="#address#" bcc="arctos.database@gmail.com" 
+					<cfmail to="#address#" bcc="#Application.LogEmail#" 
 						subject="Arctos Loan Notification" from="loan_notification@#Application.fromEmail#" type="html">
 						Dear #agent_name#,
 						<p>
@@ -195,7 +195,7 @@
 			<cfif expires_in_days lte 0>
 				<!--- the loan expires on or BEFORE today; also email the collection's loan request agent, if there is one --->
 				<cfloop query="collectionAgents">
-					<cfmail to="#address#" bcc="arctos.database@gmail.com" 
+					<cfmail to="#address#" bcc="#Application.LogEmail#" 
 						subject="Arctos Loan Notification" from="loan_notification@#Application.fromEmail#" type="html">Dear #agent_name#,
 						<p>
 							You are receiving this message because you are listed as a #loan.collection# loan request collection contact. 

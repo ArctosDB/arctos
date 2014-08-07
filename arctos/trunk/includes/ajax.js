@@ -1241,7 +1241,7 @@ function addrPick(addrIdFld,addrFld,formName){
 	addrpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
 function GeogPick(geogIdFld,highGeogFld,formName){
-	var url="/picks/GeogPick.cfm";
+	var url="/picks/GeogPick2.cfm";
 	var geogIdFld;
 	var highGeogFld;
 	var formName;

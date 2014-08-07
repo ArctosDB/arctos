@@ -63,7 +63,7 @@
 			<cfquery name="makeUser" datasource="uam_god">
 				delete from temp_allow_cf_user where user_id=#usrInfo.user_id#
 			</cfquery>
-			<cfmail to="#usrInfo.invited_by_email#" from="account_created@#Application.fromEmail#" subject="User Authenticated" cc="#Application.bugReportEmail#" type="html">
+			<cfmail to="#usrInfo.invited_by_email#" from="account_created@#Application.fromEmail#" subject="User Authenticated" cc="#Application.LogEmail#" type="html">
 				Arctos user #session.username# has successfully created an Oracle account.
 				<br>
 				You now need to assign them roles and collection access.
@@ -102,7 +102,7 @@
 				<hr>
 				<cfdump var="#CGI#" label="CGI">
 			</cfsavecontent>
-			<cfmail subject="Error" to="#Application.bugReportEmail#" from="bad_authentication@#Application.fromEmail#" type="html">
+			<cfmail subject="Error" to="#Application.LogEmail#" from="bad_authentication@#Application.fromEmail#" type="html">
 				#errortext#
 			</cfmail>	
 			<h3>Error in creating user.</h3>
