@@ -11,10 +11,16 @@
 	<cfset showErr=1>
     <cfif isdefined("exception.type") and exception.type eq "coldfusion.runtime.AbortException">
         <cfset showErr=0>
+		
+		
+		--- i am coldfusion.runtime.AbortExceptio ----
 		<cfreturn/>
 	</cfif>
 	<cfif StructKeyExists(form,"C0-METHODNAME")>
 		<cfset showErr=0>
+		
+		
+		--- i am coldfusion.runtime.METHODNAME ----
 		<cfreturn/>
 	</cfif>
 	<cfif isdefined("session.username") and session.username is "dlm">

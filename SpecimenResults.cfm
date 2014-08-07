@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfsetting requesttimeout="2">
 <cfif not isdefined("session.RESULTSBROWSEPREFS")>
 	<cfset session.RESULTSBROWSEPREFS=0>
 </cfif>
