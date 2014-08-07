@@ -8,8 +8,8 @@
 	
 	
 	
-	
-	<cfsetting requesttimeout="200">
+	<!--- don't time out the error handler! --->
+	<cfsetting requesttimeout="300">
 
 
 
@@ -32,6 +32,9 @@
 	<cfif isdefined("session.username") and session.username is "dlm">
 		<cfdump var=#exception#>
 	</cfif>
+	
+	
+	---showErr: #showErr#---
 	<cfif showErr is 1>
 		<cfset subject="">
 		<cfif isdefined("exception.Sql") and exception.sql contains "@@version">
