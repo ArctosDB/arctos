@@ -5,36 +5,20 @@
 <cffunction name="onError">
 	<cfargument name="Exception" required=true/>
 	<cfargument type="String" name="EventName" required=true/>
-	
-	
-	
 	<!--- don't time out the error handler! --->
 	<cfsetting requesttimeout="300">
-
-
-
-	----- I am error -----
 	<cfset showErr=1>
     <cfif isdefined("exception.type") and exception.type eq "coldfusion.runtime.AbortException">
         <cfset showErr=0>
-		
-		
-		--- i am coldfusion.runtime.AbortExceptio ----
 		<cfreturn/>
 	</cfif>
 	<cfif StructKeyExists(form,"C0-METHODNAME")>
 		<cfset showErr=0>
-		
-		
-		--- i am coldfusion.runtime.METHODNAME ----
 		<cfreturn/>
 	</cfif>
 	<cfif isdefined("session.username") and session.username is "dlm">
 		<cfdump var=#exception#>
 	</cfif>
-	
-	
-	---showErr: <cfdump var=#showErr#>
 	<cfif showErr is 1>
 		<cfset subject="">
 		<cfif isdefined("exception.Sql") and exception.sql contains "@@version">
@@ -54,12 +38,14 @@
 			</cfif>
 			<cfset subject="403">
 		<cfelse>
-			<cfif isdefined("exception.detail")>
+			<cfif isdefined("exception.detail") and len(exception.detail) gt 0>
 				<cfif exception.detail contains "[Macromedia][Oracle JDBC Driver][Oracle]ORA-00600">
 					<cfset subject="ORA-00600">
 				<cfelse>
 					<cfset subject="#exception.detail#">
 				</cfif>
+			<cfelseif isdefined("exception.message") and len(exception.message) gt 0>
+				<cfset subject=exception.message>
 			</cfif>
 		</cfif>
 		<cfset subject=replace(subject,'[Macromedia][Oracle JDBC Driver][Oracle]','','all')>		
