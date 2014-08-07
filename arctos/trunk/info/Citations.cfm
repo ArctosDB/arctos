@@ -95,7 +95,7 @@
 				</cfif>
 			</td>
 			<td>
-				<a href="/SpecimenResults.cfm?cited_scientific_namee=#CitName#&scientific_name=#scientific_name#"><font color="##FF0000">id+citationID</font></a>
+				<a href="/SpecimenResults.cfm?cited_scientific_name=#CitName#&scientific_name=#scientific_name#">[ id+citationID ]</a>
 			</td>
 		</tr>
 	</cfloop>
