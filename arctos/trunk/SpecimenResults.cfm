@@ -103,7 +103,7 @@
 		#preserveSingleQuotes(SqlString)#
 	</cfif>
 	<cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
-	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="1">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 	<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
