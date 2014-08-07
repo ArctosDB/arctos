@@ -26,11 +26,14 @@ $(document).ready(function () {
 			jQuery.get(ptl, function(data){
 				jQuery("#cntr_refineSearchTerms").html(data);
 			});
+		/*
 			var ptl='/component/SpecimenResults.cfc?method=mapUserSpecResults&returnformat=plain';
 		    jQuery.get(ptl, function(data){
 				jQuery("#mapGoHere").html(data);
 			});
-
+*/
+			
+			
 		    initialize();
 			var markers = [];
     		var infowindow = new google.maps.InfoWindow();
