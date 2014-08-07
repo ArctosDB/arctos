@@ -34,7 +34,7 @@
 	</cfif>
 	
 	
-	---showErr: #showErr#---
+	---showErr: <cfdump var=#showErr#>
 	<cfif showErr is 1>
 		<cfset subject="">
 		<cfif isdefined("exception.Sql") and exception.sql contains "@@version">
