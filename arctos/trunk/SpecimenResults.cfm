@@ -7,29 +7,9 @@
 	<cfset session.srmapclass='smallmap'>
 </cfif>
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
-<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js'></script>
+<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.min.js'></script>
 <link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 <cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
-
-<!----
-<link rel="alternate stylesheet" title="jtable_jqueryui"  href="/fix/jtable/themes/jqueryui/jtable_jqueryui.min.css" type="text/css">
-<link rel="alternate stylesheet" title="jtable_basic"  href="/fix/jtable/themes/basic/jtable_basic.min.css" type="text/css">
-<link rel="alternate stylesheet" title="lightcolor-blue"  href="/fix/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="lightcolor-gray"  href="/fix/jtable/themes/lightcolor/gray/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="lightcolor-green"  href="/fix/jtable/themes/lightcolor/green/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="lightcolor-orange"  href="/fix/jtable/themes/lightcolor/orange/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="lightcolor-red"  href="/fix/jtable/themes/lightcolor/red/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-blue"  href="/fix/jtable/themes/metro/blue/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-brown"  href="/fix/jtable/themes/metro/brown/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-crimson"  href="/fix/jtable/themes/metro/crimson/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-darkgray"  href="/fix/jtable/themes/metro/darkgray/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-darkorange"  href="/fix/jtable/themes/metro/darkorange/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-green"  href="/fix/jtable/themes/metro/green/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-lightgray"  href="/fix/jtable/themes/metro/lightgray/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-pink"  href="/fix/jtable/themes/metro/pink/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-purple"  href="/fix/jtable/themes/metro/purple/jtable.min.css" type="text/css">
-<link rel="alternate stylesheet" title="metro-red"  href="/fix/jtable/themes/metro/red/jtable.min.css" type="text/css">
----->
 <cfoutput>
 	<cfif not isdefined("session.resultColumnList") or len(session.resultColumnList) is 0>
 		<cfset session.resultColumnList='GUID'>
@@ -165,8 +145,6 @@
 		from 
 			#session.SpecSrchTab#
 	</cfquery>
-	
-
 	<cfquery name="hascoords" dbtype="query">
 		select 
 			count(*) as numspecs,
@@ -182,7 +160,6 @@
 			dec_long,
 			coordinateuncertaintyinmeters
 	</cfquery>
-	
 	<cfset cfgml="">
 	<cfset cpc=1>
 	<cfloop query="hascoords">
@@ -197,10 +174,7 @@
 			<cfset cpc=cpc+1>
 		</cfif>
 	</cfloop>
-	
-	
 	<input type="hidden" id="cfgml" value="#cfgml#">
-	
 	<cfif summary.recordcount is 0>
 		<div>
 			Your query returned no results.
@@ -320,57 +294,6 @@
 		<cfif cpc gte 500>
 			(The inline map contains only the first 500 localities.)
 		</cfif>
-	
-		
-		<!----
-		<table width="100%">
-			<tr>
-				<td>
-					<strong>Found #summary.recordcount# specimens.</strong>
-					<span class="infoLink" onclick="alert('The following links are ADDITIVE; the \'1000 meter\' link contains the \'100 meter\' specimens.\nIf your previous search included precision, or followed a link such as these, then these links may return records that were not in your previous query.')">
-						about these links
-					</span>
-					<ul>
-						<cfif err_lt100.c gt 0 and userSrchMaxErr gte 100>
-							<li>
-								<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=100">#val(err_lt100.c)# specimens</a> have a coordinate precision of 100 meters or less.
-							</li>
-						</cfif>
-						<cfif err_lt1000.c gt 0 and userSrchMaxErr gte 1000>
-							<li>
-								<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=1000">#val(err_lt1000.c)# specimens</a> have a coordinate precision of 1 kilometer or less.
-							</li>
-						</cfif>
-						<cfif err_lt10000.c gt 0 and userSrchMaxErr gte 10000>
-							<li>
-								<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=10000">#val(err_lt10000.c)# specimens</a> have a coordinate precision of 10 kilometers or less.
-							</li>
-						</cfif>
-						<cfif haserr.c gt 0>
-							<li>
-								<a href="/SpecimenResults.cfm?#precisionmapurl#&max_max_error=99999999999999999999999">#val(haserr.c)# specimens</a> have a coordinate precision.
-							</li>
-						</cfif>
-						<cfif willmap.recordcount gt 0 and willmap.recordcount neq haserr.c>
-							<li>
-								<a href="/SpecimenResults.cfm?#precisionmapurl#&isGeoreferenced=true">#val(willmap.recordcount)# specimens</a> have coordinates.
-							</li>
-						</cfif>
-						<cfif noerr.c gt 0>
-							<li>
-								<a href="/SpecimenResults.cfm?#precisionmapurl#&min_max_error=NULL">#val(noerr.c)# specimens</a> have coordinates with no indication of precision.
-							</li>
-						</cfif>
-						<cfif numWillNotMap gt 0>
-							<li>
-								<a href="/SpecimenResults.cfm?#precisionmapurl#&isGeoreferenced=false">#val(numWillNotMap)# specimens</a> do not have coordinates.
-							</li>
-						</cfif>
-					</ul>
-				</td>
-			</tr>
-		</table>
-		---->
 		<div style="border:2px solid blue;" id="ssControl">
 			<cfif len(transaction_id) gt 0>
 				<cfquery name="isDataLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
