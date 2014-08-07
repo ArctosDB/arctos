@@ -143,10 +143,11 @@
 	<cfset Application.StartupServerName=serverName>
 	
 	<cfquery name="cf_global_settings" datasource="uam_god">
-		select BUG_REPORT_EMAIL,DATA_REPORT_EMAIL,GOOGLE_UACCT from cf_global_settings
+		select LOG_EMAIL,BUG_REPORT_EMAIL,DATA_REPORT_EMAIL,GOOGLE_UACCT from cf_global_settings
 	</cfquery>
 	<cfset Application.bugReportEmail = cf_global_settings.BUG_REPORT_EMAIL>	
 	<cfset Application.DataProblemReportEmail = cf_global_settings.DATA_REPORT_EMAIL>
+	<cfset Application.logEmail = cf_global_settings.LOG_EMAIL>
 	<cfset Application.Google_uacct = cf_global_settings.GOOGLE_UACCT>
 	<cfif serverName is "arctos.database.museum">
 		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">
