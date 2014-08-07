@@ -20,20 +20,11 @@ function confirmAddAllPartLoan(){
   	}
 }
 $(document).ready(function () {
-	       
 			jQuery("#cntr_refineSearchTerms").html("<img src='/images/indicator.gif'>");
 			var ptl='/component/SpecimenResults.cfc?method=get_specSrchTermWidget&returnformat=plain';
 			jQuery.get(ptl, function(data){
 				jQuery("#cntr_refineSearchTerms").html(data);
 			});
-		/*
-			var ptl='/component/SpecimenResults.cfc?method=mapUserSpecResults&returnformat=plain';
-		    jQuery.get(ptl, function(data){
-				jQuery("#mapGoHere").html(data);
-			});
-*/
-			
-			
 		    initialize();
 			var markers = [];
     		var infowindow = new google.maps.InfoWindow();
