@@ -5,6 +5,9 @@
 <cffunction name="onError">
 	<cfargument name="Exception" required=true/>
 	<cfargument type="String" name="EventName" required=true/>
+	
+	
+	----- I am error -----
 	<cfset showErr=1>
     <cfif isdefined("exception.type") and exception.type eq "coldfusion.runtime.AbortException">
         <cfset showErr=0>
