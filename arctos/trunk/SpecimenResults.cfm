@@ -1,5 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-<cfsetting requesttimeout="2">
 <cfif not isdefined("session.RESULTSBROWSEPREFS")>
 	<cfset session.RESULTSBROWSEPREFS=0>
 </cfif>
@@ -103,7 +102,7 @@
 		#preserveSingleQuotes(SqlString)#
 	</cfif>
 	<cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
-	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="1">
+	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 	<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
