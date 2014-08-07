@@ -48,7 +48,13 @@
 				<cfset subject=exception.message>
 			</cfif>
 		</cfif>
-		<cfset subject=replace(subject,'[Macromedia][Oracle JDBC Driver][Oracle]','','all')>		
+		<cfset subject=replace(subject,'[Macromedia]','','all')>
+		<cfset subject=replace(subject,'[Oracle JDBC Driver]','','all')>
+		<cfset subject=replace(subject,'[Oracle]','','all')>
+		
+		
+		
+		
 		<cfif subject is "ORA-00933: SQL command not properly ended">
 			<!--- see if it's the viagra ad asshats again ---->
 			<cfif isdefined("exception.sql") and exception.sql contains 'href="http://'>
