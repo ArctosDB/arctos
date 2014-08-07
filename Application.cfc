@@ -7,6 +7,12 @@
 	<cfargument type="String" name="EventName" required=true/>
 	
 	
+	
+	
+	<cfsetting requesttimeout="200">
+
+
+
 	----- I am error -----
 	<cfset showErr=1>
     <cfif isdefined("exception.type") and exception.type eq "coldfusion.runtime.AbortException">
