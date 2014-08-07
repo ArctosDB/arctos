@@ -164,6 +164,11 @@
 <cfset logdata=logdata & "</logEntry>">	
 <cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#logdata#">
 
+
+
+sending email now to <cfdump var=#Application.LogEmail#>
+
+
 <cfmail subject="#exception.subject#" to="#Application.LogEmail#" from="logs@#application.fromEmail#" type="html">
 	<a href="http://network-tools.com/default.asp?prog=network&host=#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
 	<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
