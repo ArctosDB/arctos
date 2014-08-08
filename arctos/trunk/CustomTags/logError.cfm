@@ -186,15 +186,9 @@
 	<cfif structKeyExists(exception,"SUBJECT")>
 		<br>SUBJECT: #exception.SUBJECT#
 	</cfif>
-	
-	<!----
 	<p>
 		This message has been logged in #exception.logfile# as #exception.uuid#
 	</p>
-	
-	
-	
-	---------->
 	<p>Raw exception dump:</p>
 	<cfdump var=#exception# format="html">
 	<cfdump var=#attributes# format="html">
