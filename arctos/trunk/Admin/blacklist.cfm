@@ -196,6 +196,7 @@
 		where
 			sysdate-LISTDATE<#expiresIn# and
 			substr(ip,1,instr(ip,'.',1,2)-1) not in (
+			-- ignore IPs in currently-blocked subnets
 				select subnet from blacklist_subnet where sysdate-INSERT_DATE<#expiresIn#
 			)
 	</cfquery>
@@ -244,8 +245,17 @@
 </cfif>
 <!------------------------------------------>
 <cfif action is "ins">
-	<cfif trim(ip) is "127.0.0.1">
-		<cfthrow message = "Local IP cannot be blacklisted" errorCode = "127001">
+	<cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select protected_ip_list from cf_global_settings
+	</cfquery>
+	<cfif listfind(protected_ip_list.protected_ip_list,trim(request.ipaddress))>
+		<cfset ee="
+			cgi.HTTP_X_Forwarded_For: #cgi.HTTP_X_Forwarded_For#
+			<br>cgi.Remote_Addr: #cgi.Remote_Addr#
+			<br>request.ipaddress: #request.ipaddress#
+			<br>request.requestingSubnet: #request.requestingSubnet#
+		">
+		<cfthrow message = "protected IP cannot be blacklisted" errorCode = "127001" extendedInfo="#ee#">
 		<cfabort>
 	</cfif>
 	<cftry>
