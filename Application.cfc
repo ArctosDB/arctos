@@ -92,7 +92,9 @@
 							We impose no strict limits on the number of records that may be returned, but query time is limited. Following are some
 							suggestions for dealing with timeout problems. Use the Contact link below if you are unable to get what you need.
 							<ul>
-								<li>Click "Ad/Remove Data Fields" and de-select unnecessary columns. Attributes are particularly expensive</li>
+								<li>
+									After a successful search, Click "Ad/Remove Data Fields" and de-select unnecessary columns. Attributes are particularly expensive.								
+								</li>
 								<li>Try a more specific search; use Scientific Name instead of Higher Taxonomy, for example.</li>
 								<li>Add search criteria; perhaps include geography, or draw a bounding box on the map.</li>
 							</ul>
