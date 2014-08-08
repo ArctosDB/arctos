@@ -12,6 +12,15 @@
 	<cfelse>
 		<cfset request.ipaddress=''>
 	</CFIF>
+	
+	<br>CGI.HTTP_X_Forwarded_For: <cfdump var=#CGI.HTTP_X_Forwarded_For#>
+	<br>CGI.Remote_Addr: <cfdump var=#CGI.Remote_Addr#>
+	
+	<!-----
+	
+	---->
+	
+	
 	<cfif listlen(request.ipaddress,",") gt 1>
 		<cfset ip1=listgetat(request.ipaddress,1,",")>
 		<cfif ip1 contains "172.16" or ip1 contains "192.168" or ip1 contains "10." or ip1 is "127.0.0.1">
