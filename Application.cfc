@@ -2,6 +2,50 @@
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
+
+
+
+
+<cffunction name="getIpAddress">
+	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
+		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
+	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
+		<CFSET request.ipaddress=CGI.Remote_Addr>
+	<cfelse>
+		<cfset request.ipaddress=''>
+	</CFIF>
+	<cfif request.ipaddress contains ",">
+		<cfset ip1=listgetat(request.ipaddress,1,",")>
+		<cfif ip1 contains "172.16" or ip1 contains "192.168" or ip1 contains "10." or ip1 is "127.0.0.1">
+			<cfset request.ipaddress=listgetat(request.ipaddress,2,",")>
+		<cfelse>
+			<cfset request.ipaddress=listgetat(request.ipaddress,1,",")>
+		</cfif>
+	</cfif>
+	<!---- END get ip address - run this is onSessionStart AND onRequestStart! ---->
+	<cfif listlen(request.ipaddress,".") is 4>
+		<cfset requestingSubnet=listgetat(request.ipaddress,1,".") & "." & listgetat(request.ipaddress,2,".")>
+	<cfelse>
+		<cfset requestingSubnet="0.0.0.0">
+	</cfif>
+	<cfif listfind(application.subnet_blacklist,requestingSubnet)>
+		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
+			<cfscript>
+				getPageContext().forward("/errors/gtfo.cfm");
+			</cfscript>
+			<cfabort>
+		</cfif>
+	</cfif>
+	<cfif listfind(application.blacklist,request.ipaddress)>
+		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
+			<cfscript>
+				getPageContext().forward("/errors/gtfo.cfm");
+			</cfscript>
+			<cfabort>
+		</cfif>
+	</cfif>
+</cffunction>
+
 <cffunction name="onError">
 	<cfargument name="Exception" required=true/>
 	<cfargument type="String" name="EventName" required=true/>
@@ -309,6 +353,8 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
+
+	<!----
 	<!---- get ip address - run this is onSessionStart AND onRequestStart! ---->
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
@@ -325,6 +371,13 @@
 			<cfset request.ipaddress=listgetat(request.ipaddress,1,",")>
 		</cfif>
 	</cfif>
+	
+	
+	---->
+	
+	<cfset temp=getIpAddress()>
+	
+	
 	<!---- END get ip address - run this is onSessionStart AND onRequestStart! ---->
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfif cgi.script_name is not "/errors/missing.cfm">
