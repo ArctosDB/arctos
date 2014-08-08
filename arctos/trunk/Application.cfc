@@ -6,11 +6,7 @@
 
 
 
-<cffunction name="getIpAddress">
-	
-	<br>CGI.HTTP_X_Forwarded_For: <cfdump var=#CGI.HTTP_X_Forwarded_For#>
-	<br>CGI.Remote_Addr: <cfdump var=#CGI.Remote_Addr#>
-	
+<cffunction name="getIpAddress">	
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
 	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
@@ -31,14 +27,6 @@
 	<cfelse>
 		<cfset requestingSubnet="0.0">
 	</cfif>
-	
-	
-	<p>
-		got IP: <cfdump var=#request.ipaddress#>
-	</p>
-	
-	
-	
 	<cfif listfind(application.subnet_blacklist,requestingSubnet)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>

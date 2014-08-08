@@ -46,7 +46,6 @@
 				<hr>catch dump
 				<cfdump var=#cfcatch#>
 			</cfmail>
-		
 		</cfif>
 	</cfcatch>
 </cftry>
