@@ -41,7 +41,9 @@
 <cfif 
 	isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0 and 
 	isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0 and
-	CGI.HTTP_X_Forwarded_For neq CGI.Remote_Addr>
+	CGI.HTTP_X_Forwarded_For neq CGI.Remote_Addr and
+	 CGI.Remote_Addr neq "129.114.52.171">
+	 <!---- 129.114.52.171 is Arctos' IP ---->
 	<cfset pa="PROXY ALERT: ">
 <cfelse>
 	<cfset pa="">	
