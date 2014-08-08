@@ -13,11 +13,11 @@
 		<cfset request.ipaddress=''>
 	</CFIF>
 	
-	<br>CGI.HTTP_X_Forwarded_For: <cfdump var=#CGI.HTTP_X_Forwarded_For#>
-	<br>CGI.Remote_Addr: <cfdump var=#CGI.Remote_Addr#>
+	
 	
 	<!-----
-	
+	<br>CGI.HTTP_X_Forwarded_For: <cfdump var=#CGI.HTTP_X_Forwarded_For#>
+	<br>CGI.Remote_Addr: <cfdump var=#CGI.Remote_Addr#>
 	---->
 	
 	
