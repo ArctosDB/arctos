@@ -64,6 +64,7 @@
 		</cfif>
 	</cfloop>
 </cfif>
+<CFTRY>
 <cfif isdefined("URL")>
 	<cfloop item="key" collection="#URL#">
 		<cfif len(URL[key]) gt 0>
@@ -71,6 +72,8 @@
 		</cfif>
 	</cfloop>
 </cfif>
+<CFCATCH></CFCATCH>
+</CFTRY>
 <cfif isdefined("session")>
 	<cfloop item="key" collection="#session#">
 		<cfif len(session[key]) gt 0>
