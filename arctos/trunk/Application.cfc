@@ -19,9 +19,9 @@
 		</cfif>
 	</cfif>
 	<cfif listlen(request.ipaddress,".") is 4>
-		<cfset requestingSubnet=listgetat(request.ipaddress,1,".") & "." & listgetat(request.ipaddress,2,".")>
+		<cfset request.requestingSubnet=listgetat(request.ipaddress,1,".") & "." & listgetat(request.ipaddress,2,".")>
 	<cfelse>
-		<cfset requestingSubnet="0.0">
+		<cfset request.requestingSubnet="0.0">
 	</cfif>
 	<cfif listfind(application.subnet_blacklist,requestingSubnet)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">

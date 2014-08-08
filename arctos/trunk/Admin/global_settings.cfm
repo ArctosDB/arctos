@@ -61,6 +61,12 @@
 
 			<label for="LOG_EMAIL">LOG_EMAIL (no-space comma-list; normal systems logs; heavy use)</label>
 			<textarea name="LOG_EMAIL" id="LOG_EMAIL" rows="6" cols="50" class="hugetextarea">#d.LOG_EMAIL#</textarea>
+			
+			protected_ip_list
+			
+			
+			<label for="PROTECTED_IP_LIST">PROTECTED_IP_LIST (never-blacklist IPs)</label>
+			<textarea name="PROTECTED_IP_LIST" id="PROTECTED_IP_LIST" rows="6" cols="50" class="hugetextarea">#d.PROTECTED_IP_LIST#</textarea>
 			<br>
 			<input type="submit" value="saveAll" class="savBtn">
 		</form>
@@ -80,7 +86,8 @@
 				GENBANK_PASSWORD='#GENBANK_PASSWORD#',
 				GENBANK_USERNAME='#GENBANK_USERNAME#',
 				DATA_REPORT_EMAIL='#DATA_REPORT_EMAIL#',
-				LOG_EMAIL='#LOG_EMAIL#'			
+				LOG_EMAIL='#LOG_EMAIL#',
+				PROTECTED_IP_LIST='#PROTECTED_IP_LIST#'					
 		</cfquery>
 		<cflocation url="global_settings.cfm" addtoken="false">
 	</cfif>

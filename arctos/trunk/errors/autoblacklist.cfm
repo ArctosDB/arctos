@@ -1,8 +1,80 @@
-<cftry>
-	<cfif trim(request.ipaddress) is "127.0.0.1">
-		<cfthrow message = "Local IP cannot be blacklisted" errorCode = "127001">
-		<cfabort>
-	</cfif>
+<!--- 
+	INCLUDE this form, and this form alone, to blacklist IP addresses.
+	
+	If ip/subnet already exists in application.blacklist/ application.subnet_blacklist, then log it, show the "justify yourself" form, and abort
+			
+	Never autoblacklist or re-auto-blacklist subnets, so mostly ignore that here
+	
+	If IP is new, add to blacklist
+	
+	If IP is a repeat customer, update and refresh	
+
+	Possibilities:
+	
+		
+		new ip from allowed subnet
+			insert into application.blacklist
+			show the "justify yourself" form
+		existing IP from allowed subnet, expired or otherwise
+		ip
+		
+		
+---->
+<script>
+	try{document.getElementById('loading').style.display='none';}catch(e){}
+</script>
+
+<cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	select protected_ip_list from cf_global_settings
+</cfquery>
+<cfif listfind(protected_ip_list.protected_ip_list,trim(request.ipaddress))>
+	<cfset ee="
+		cgi.HTTP_X_Forwarded_For: #cgi.HTTP_X_Forwarded_For#
+		<br>cgi.Remote_Addr: #cgi.Remote_Addr#
+		<br>request.ipaddress: #request.ipaddress#
+		<br>request.requestingSubnet: #request.requestingSubnet#
+	">
+	<cfthrow message = "protected IP cannot be blacklisted" errorCode = "127001" extendedInfo="#ee#">
+	<cfabort>
+</cfif>
+
+
+<!--- sometimes already-banned IPs end up here due to click-flooding etc. ---->
+<cfif listcontains(application.blacklist,request.ipaddress)>
+	<!--- they're already actively blacklisted - do nothing here---->
+	<cf_logError subject="existing active IP autoblacklisted">
+	<cfinclude template="/errors/gtfo.cfm">
+	<cfabort>
+</cfif>
+<cfif listcontains(application.subnet_blacklist,request.requestingSubnet)>
+	<!--- they're already actively blacklisted - do nothing here---->
+	<cf_logError subject="existing active subnet autoblacklisted">
+	<cfinclude template="/errors/gtfo.cfm">
+	<cfabort>
+</cfif>
+<!--- not currently on the nukelist --->
+<cfquery name="exists" datasource="uam_god">
+	select ip from uam.blacklist where ip='#trim(request.ipaddress)#'
+</cfquery>
+<cfif len(exists.ip) gt 0>
+	<cfquery name="d" datasource="uam_god">
+		update uam.blacklist set LISTDATE=sysdate where ip='#trim(request.ipaddress)#'
+	</cfquery>
+	<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
+	<cf_logError subject="updated autoblacklist">
+	<cfinclude template="/errors/gtfo.cfm">
+	<cfabort>
+<cfelse>
+	<cfquery name="d" datasource="uam_god">
+		insert into uam.blacklist (ip) values ('#trim(request.ipaddress)#')
+	</cfquery>
+	<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
+	<cf_logError subject="new autoblacklist">
+	<cfinclude template="/errors/gtfo.cfm">
+	<cfabort>
+</cfif>
+	
+	<!----
 	<cfoutput>
 		<cfquery name="exists" datasource="uam_god">
 			select ip from uam.blacklist where ip='#trim(request.ipaddress)#'
@@ -20,9 +92,7 @@
 	</cfoutput>
 	<cf_logError subject="autoblacklist">
 	<cfinclude template="/errors/gtfo.cfm">
-	<script>
-		try{document.getElementById('loading').style.display='none';}catch(e){}
-	</script>
+	
 	<cfabort>
 	<cfcatch>
 		<cfif cfcatch.message is not "[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: unique constraint (UAM.IU_BLACKLIST_IP) violated">
@@ -49,3 +119,6 @@
 		</cfif>
 	</cfcatch>
 </cftry>
+
+
+---->
