@@ -38,17 +38,24 @@
 	<cfabort>
 </cfif>
 
-
+<cfif 
+	isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0 and 
+	isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0 and
+	CGI.HTTP_X_Forwarded_For neq CGI.Remote_Addr>
+	<cfset pa="PROXY ALERT: ">
+<cfelse>
+	<cfset pa="">	
+</cfif>
 <!--- sometimes already-banned IPs end up here due to click-flooding etc. ---->
 <cfif listcontains(application.blacklist,request.ipaddress)>
 	<!--- they're already actively blacklisted - do nothing here---->
-	<cf_logError subject="existing active IP autoblacklisted">
+	<cf_logError subject="#pa#existing active IP autoblacklisted">
 	<cfinclude template="/errors/gtfo.cfm">
 	<cfabort>
 </cfif>
 <cfif listcontains(application.subnet_blacklist,request.requestingSubnet)>
 	<!--- they're already actively blacklisted - do nothing here---->
-	<cf_logError subject="existing active subnet autoblacklisted">
+	<cf_logError subject="#pa#existing active subnet autoblacklisted">
 	<cfinclude template="/errors/gtfo.cfm">
 	<cfabort>
 </cfif>
@@ -61,7 +68,7 @@
 		update uam.blacklist set LISTDATE=sysdate where ip='#trim(request.ipaddress)#'
 	</cfquery>
 	<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
-	<cf_logError subject="updated autoblacklist">
+	<cf_logError subject="#pa#updated autoblacklist">
 	<cfinclude template="/errors/gtfo.cfm">
 	<cfabort>
 <cfelse>
@@ -69,7 +76,7 @@
 		insert into uam.blacklist (ip) values ('#trim(request.ipaddress)#')
 	</cfquery>
 	<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
-	<cf_logError subject="new autoblacklist">
+	<cf_logError subject="#pa#new autoblacklist">
 	<cfinclude template="/errors/gtfo.cfm">
 	<cfabort>
 </cfif>
