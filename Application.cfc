@@ -7,6 +7,8 @@
 
 
 <cffunction name="getIpAddress">
+	
+	
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
 	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
@@ -14,7 +16,7 @@
 	<cfelse>
 		<cfset request.ipaddress=''>
 	</CFIF>
-	<cfif request.ipaddress contains ",">
+	<cfif listlen(request.ipaddress,",") gt 1>
 		<cfset ip1=listgetat(request.ipaddress,1,",")>
 		<cfif ip1 contains "172.16" or ip1 contains "192.168" or ip1 contains "10." or ip1 is "127.0.0.1">
 			<cfset request.ipaddress=listgetat(request.ipaddress,2,",")>
@@ -22,11 +24,10 @@
 			<cfset request.ipaddress=listgetat(request.ipaddress,1,",")>
 		</cfif>
 	</cfif>
-	<!---- END get ip address - run this is onSessionStart AND onRequestStart! ---->
 	<cfif listlen(request.ipaddress,".") is 4>
 		<cfset requestingSubnet=listgetat(request.ipaddress,1,".") & "." & listgetat(request.ipaddress,2,".")>
 	<cfelse>
-		<cfset requestingSubnet="0.0.0.0">
+		<cfset requestingSubnet="0.0">
 	</cfif>
 	
 	
@@ -314,12 +315,19 @@
 	
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
-	<cfif not isdefined("application.blacklist")>
-		<cfset application.blacklist="">
-	</cfif>
-	<cfif not isdefined("application.subnet_blacklist")>
-		<cfset application.subnet_blacklist="">
-	</cfif>
+	
+	<cfset temp=getIpAddress()>
+
+	
+	
+	
+	
+	
+	
+	<!----
+	
+	
+	
 	<!---- get ip address - run this is onSessionStart AND onRequestStart! ---->
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
@@ -359,6 +367,10 @@
 			<cfabort>
 		</cfif>
 	</cfif>
+	
+	
+	
+	---->
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
