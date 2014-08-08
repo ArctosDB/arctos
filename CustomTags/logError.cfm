@@ -38,11 +38,8 @@
 <cfelseif exception.subject is "autoblacklist">
 	<cfset theLogFile="blacklistlog.txt">
 </cfif>
-
 <cfset exception.logfile=theLogFile>
 <cfset exception.date='#dateformat(now(),"yyyy-mm-dd")#T#TimeFormat(now(), "HH:mm:ss")#'>
-
-
 <cfif isdefined("form")>
 	<cfloop item="key" collection="#form#">
 		<cfif len(form[key]) gt 0>
@@ -81,9 +78,8 @@
 		</cfif>
 	</cfloop>
 </cfif>
-
 <cfsavecontent variable="rawexc">
-<cf_dumptoxml v=attributes>
+	<cf_dumptoxml v=attributes>
 </cfsavecontent>
 <cfset exception.rawExceptionDump=rawexc>
 <!--- clean up the stuff we don't really care about --->
