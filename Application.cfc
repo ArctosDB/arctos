@@ -104,6 +104,7 @@
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
+		<cftry>
 		<cfif right(request.rdurl,5) is "-1%27">
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
@@ -112,6 +113,8 @@
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
+		<cfcatch>--problem with request.rdurl</cfcatch>
+		</cftry>
 		<cf_logError subject="#subject#" attributeCollection=#exception#>
 		<table cellpadding="10">
 			<tr>
