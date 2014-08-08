@@ -217,6 +217,15 @@
 	<cfset application.blacklist=valuelist(d.ip)>
 	<cfset application.subnet_blacklist=valuelist(sn.subnet)>
 	
+	
+	
+	
+	
+	
+	<cfdump var=#application.subnet_blacklist#>
+	
+	
+	
 	<form name="i" method="post" action="blacklist.cfm">
 		<input type="hidden" name="action" value="ins">
 		<label for="ip">Add IP</label>
