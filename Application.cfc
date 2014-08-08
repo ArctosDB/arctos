@@ -8,6 +8,8 @@
 
 <cffunction name="getIpAddress">
 	
+	<br>CGI.HTTP_X_Forwarded_For: <cfdump var=#CGI.HTTP_X_Forwarded_For#>
+	<br>CGI.Remote_Addr: <cfdump var=#CGI.Remote_Addr#>
 	
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
