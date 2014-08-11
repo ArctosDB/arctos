@@ -312,8 +312,8 @@
 					<div class="detailLabel">Citations</div>
 					<cfloop query="citations">
 						<div class="detailBlock">
-							 #type_status# of <a href="http://arctos.database.museum/name/#taxsciname#">#idsciname#</a><cfif len(OCCURS_PAGE_NUMBER) gt 0>, page #OCCURS_PAGE_NUMBER# in</cfif>
-							 <a href="http://arctos.database.museum/publication/#PUBLICATION_ID#">#short_citation#</a>
+							 #type_status# of <a href="http://arctos.database.museum/name/#taxsciname#">#idsciname#</a><cfif len(OCCURS_PAGE_NUMBER) gt 0>, page #OCCURS_PAGE_NUMBER#</cfif>
+							  in <a href="http://arctos.database.museum/publication/#PUBLICATION_ID#">#short_citation#</a>
 							 <cfif len(media_uri) gt 0>
 							 <cfset mp = obj.getMediaPreview(
 								preview_uri="#preview_uri#",
