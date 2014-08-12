@@ -102,7 +102,7 @@
 		</cffunction>
 		<cfset captcha = makeRandomString()>
 		<cfset captchaHash = hash(captcha)>
-		<cfset imgName=hash(now() & session.sessionid)>
+		<cfset imgName=hash(now() & session.sessionkey)>
 		<cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low"
 		   	overwrite="yes"
 		   	destination="#application.webdirectory#/download/#imgName#.png">
