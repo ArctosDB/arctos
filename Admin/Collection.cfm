@@ -28,6 +28,7 @@
 		select
 			COLLECTION_CDE,
 			INSTITUTION_ACRONYM,
+			INSTITUTION,
 			DESCR,
 			COLLECTION,
 			COLLECTION_ID,
@@ -74,6 +75,8 @@
 					</select>
 					<label for="institution_acronym">Institution Acronym</label>
 					<input type="text" name="institution_acronym" id="institution_acronym" value="#colls.institution_acronym#" class="reqdClr">
+					<label for="institution">Institution</label>
+					<input type="text" name="institution" id="institution" value="#colls.institution#" class="reqdClr">
 					<label for="collection">Collection</label>
 					<input type="text" name="collection" id="collection" value="#colls.collection#" size="50" class="reqdClr">
 					<label for="guid_prefix">GUID Prefix</label>
@@ -381,6 +384,7 @@
 			guid_prefix = '#guid_prefix#',
 			COLLECTION = '#collection#',
 			INSTITUTION_ACRONYM='#institution_acronym#',
+			INSTITUTION='#INSTITUTION#',
 			DESCR='#escapeQuotes(descr)#',
 			web_link='#web_link#',
 			web_link_text='#web_link_text#',
