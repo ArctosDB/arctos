@@ -14,7 +14,7 @@ Themes Compressed: , , , , , , , , , , , , ,, , , , , , , , , ui-lightness, and 
 ---->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
-
+<!----
 
 <link rel="alternate stylesheet" title="ui-lightness" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
 <link rel="alternate stylesheet" title="black-tie" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/black-tie/jquery-ui.css" />
@@ -41,7 +41,7 @@ Themes Compressed: , , , , , , , , , , , , ,, , , , , , , , , ui-lightness, and 
 <link rel="alternate stylesheet" title="ui-darkness" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-darkness/jquery-ui.css" />
 <link rel="alternate stylesheet" title="vader" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/vader/jquery-ui.css" />
 
-
+---->
 <link rel="stylesheet" href="/includes/style.min.css" />
 <script type="text/javascript">
     $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd',changeMonth: true, changeYear: true, constrainInput: false });
