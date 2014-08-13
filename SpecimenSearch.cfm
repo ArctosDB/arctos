@@ -171,7 +171,7 @@
 	<cfelse>
 		<cfset thisCollId = "">
 	</cfif>
-	<table border class="ssrch">
+	<table class="ssrch">
 		<tr>
 			<td colspan="2" class="secHead">
 				<span class="secLabel">Identifiers</span>
