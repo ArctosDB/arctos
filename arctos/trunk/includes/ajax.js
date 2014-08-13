@@ -789,6 +789,23 @@ function changefancyCOID (tgt) {
 		}
 	);
 }
+function changeBigSearch (tgt) {
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changeBigSearch",
+			tgt : tgt,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (result) {
+			if (result == 'success') {
+				var e = document.getElementById('changeBigSearch').className='';
+			} else {
+				alert('An error occured: ' + result);
+			}
+		}
+	);
+}
 function changecustomOtherIdentifier (tgt) {
 	jQuery.getJSON("/component/functions.cfc",
 		{

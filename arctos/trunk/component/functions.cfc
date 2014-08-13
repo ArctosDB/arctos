@@ -3743,6 +3743,32 @@
 	<cfreturn>
 </cffunction>
 <!------------------------------------------------------------------>
+<cffunction name="changeBigSearch" access="remote">
+	<cfargument name="tgt" type="string" required="yes">
+	<cftry>
+			<cfquery name="up" datasource="cf_dbuser">
+				UPDATE cf_users SET
+					bigsearchbox =
+					<cfif tgt is 1>
+						#tgt#
+					<cfelse>
+						NULL
+					</cfif>
+				WHERE username = '#session.username#'
+			</cfquery>
+			<cfif #tgt# gt 0>
+				<cfset session.fancyCOID = "#tgt#">
+			<cfelse>
+				<cfset session.fancyCOID = "">
+			</cfif>
+		<cfset result="success">
+	<cfcatch>
+		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!------------------------------------------------------------------>
 <cffunction name="changefancyCOID" access="remote">
 	<cfargument name="tgt" type="string" required="yes">
 	<cftry>

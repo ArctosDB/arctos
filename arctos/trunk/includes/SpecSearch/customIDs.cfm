@@ -48,6 +48,18 @@ function closeThis(){
 			</select>
 		</td>
 	</tr>
+	<tr>
+		<td class="lbl">
+			Use big (textarea) search boxes:
+		</td>
+		<td class="srch">
+			<select name="bigsearchbox" id="bigsearchbox"
+				size="1" onchange="this.className='red';changeBigSearch(this.value);">
+				<option <cfif session.bigsearchbox is not 1>selected="selected"</cfif> value="">No</option>
+				<option <cfif session.bigsearchbox is 1>selected="selected"</cfif> value="1">Yes</option>
+			</select>
+		</td>
+	</tr>
 	<cfif len(session.roles) gt 0 and session.roles is "public">
 	<tr>
 		<td class="lbl">
