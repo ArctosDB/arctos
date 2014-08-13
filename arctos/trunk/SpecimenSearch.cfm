@@ -157,7 +157,7 @@
 <input type="hidden" name="Action" value="#Action#">
 <div class="secDiv">
 	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		SELECT institution_acronym, collection, collection_id FROM collection order by collection
+		SELECT institution, collection, collection_id FROM collection order by collection
 	</cfquery>
 	<cfif isdefined("collection_id") and len(collection_id) gt 0>
 		<cfset thisCollId = collection_id>
@@ -172,6 +172,14 @@
 				<span class="secControl" id="c_identifiers_cust">Customize</span>
 			</td>
 		</tr>
+		<tr>
+			<td>
+				i am left column
+			</td><td>
+				i am noleft column
+			</td>
+		</tr>
+		<!----
 		<tr>
 			<td class="lbl">
 				<span class="helpLink" id="collection">Collection</span>:
@@ -230,6 +238,8 @@
 				
 			</td>
 		</tr>
+		
+		---->
 	<cfif isdefined("session.CustomOtherIdentifier") and len(session.CustomOtherIdentifier) gt 0>
 		<tr>
 			<td class="lbl">
