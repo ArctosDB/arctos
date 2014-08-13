@@ -143,7 +143,7 @@
 							suggestions for dealing with timeout problems. Use the Contact link below if you are unable to get what you need.
 							<ul>
 								<li>
-									After a successful search, Click "Ad/Remove Data Fields" and de-select unnecessary columns. Attributes are particularly expensive.								
+									After a <a href="/SpecimenResults.cfm?cat_num=1">successful search</a>, Click "Add/Remove Data Fields" and de-select unnecessary columns. Attributes are particularly expensive.								
 								</li>
 								<li>Try a more specific search.
 									<ul>
