@@ -51,7 +51,7 @@
 				<option value="list">in list</option>
 			</select>
 			<cfif ListContains(session.searchBy, 'bigsearchbox') gt 0>
-				<textarea name="OIDNum" id="OIDNum" rows="6" cols="30" wrap="soft"></textarea>
+				<textarea name="OIDNum" id="OIDNum" rows="6" cols="30" class="largetextarea"></textarea>
 			<cfelse>
 				<input type="text" name="OIDNum" id="OIDNum" size="34">
 			</cfif>

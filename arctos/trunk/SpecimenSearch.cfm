@@ -223,7 +223,7 @@
 			</td>
 			<td class="srch">
 				<cfif ListContains(session.searchBy, 'bigsearchbox') gt 0>
-					<textarea name="guid" id="guid" rows="6" cols="40" wrap="soft"></textarea>
+					<textarea name="guid" id="guid" rows="6" cols="40" class="largetextarea"></textarea>
 				<cfelse>
 					<input type="text" name="guid" id="guid" size="21" value="">
 				</cfif>
