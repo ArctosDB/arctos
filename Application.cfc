@@ -145,8 +145,20 @@
 								<li>
 									After a successful search, Click "Ad/Remove Data Fields" and de-select unnecessary columns. Attributes are particularly expensive.								
 								</li>
-								<li>Try a more specific search; use Scientific Name instead of Higher Taxonomy, for example.</li>
-								<li>Add search criteria; perhaps include geography, or draw a bounding box on the map.</li>
+								<li>Try a more specific search.
+									<ul>
+										<li>Scientific Name instead of Higher Taxonomy.</li>
+										<li>Use longer substrings. (<em>E.g.</em>, OtherID contains 1 finds >1.5m specimens and will time out.)</li>
+									</ul>
+								 </li>
+								<li>Add search criteria
+									<ul>
+										<li>include geography</li>
+										<li>draw a bounding box on the map</li>
+										<li>specify collector agent or other ID type</li>
+										<li>Select collection(s)</li>
+									</ul> 
+								</li>								
 							</ul>
 						</p>
 					</cfif> 
