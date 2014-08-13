@@ -53,7 +53,7 @@ function closeThis(){
 			Use big (textarea) search boxes:
 		</td>
 		<td class="srch">
-			<select name="bigsearchbox" id="bigsearchbox"
+			<select name="changeBigSearch" id="changeBigSearch"
 				size="1" onchange="this.className='red';changeBigSearch(this.value);">
 				<option <cfif ListContains(session.searchBy, 'bigsearchbox') eq 0>selected="selected"</cfif> value="">No</option>
 				<option <cfif ListContains(session.searchBy, 'bigsearchbox') gt 0> selected="selected"</cfif> value="1">Yes</option>
