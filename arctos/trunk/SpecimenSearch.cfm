@@ -179,7 +179,37 @@
 				<span class="secControl" id="c_identifiers_cust">Customize</span>
 			</td>
 		</tr>
+		
 		<tr>
+			<td class="lbl">
+				<span class="helpLink" id="collection">Collection</span>:
+			</td>
+			<td class="srch">
+				<cfquery name="cfi" dbtype="query">
+					select institution from ctInst group by institution order by institution
+				</cfquery>
+				<select name="collection_id" id="collection_id" size="3" multiple="multiple">
+					<cfloop query="cfi">
+						<cfquery name="ic" dbtype="query">
+							select collection, collection_id FROM ctInst where institution='#cfi.institution#' order by collection
+						</cfquery>
+						<optgroup label="#institution#">
+							<cfloop query="ic">
+								<option <cfif thisCollId is ic.collection_id>selected="selected" </cfif>value="#ic.collection_id#">#ic.collection#</option>
+							</cfloop>
+						</optgroup>
+					</cfloop>
+					
+					
+				
+				</select>
+			</td>
+		</tr>
+		
+		<!-------
+			
+		<tr>
+		
 			<td colspan="2">
 				<table>
 					<tr>
@@ -236,6 +266,9 @@
 				i am noleft column
 			</td>
 		</tr>
+		
+		
+		--->
 		<!----
 		<tr>
 			<td class="lbl">
