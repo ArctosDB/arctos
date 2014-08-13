@@ -16,8 +16,10 @@ $(function(){
 </script>
 
 <cfoutput>
-
-
+<cfif action is "fs">
+	<cfdump var=#form#>
+</cfif>
+<form method="post" action="a.cfm">
 
 <select name="example-optgroup" multiple="multiple" size="5">
 	<optgroup label="Group One">
@@ -33,6 +35,10 @@ $(function(){
 	</optgroup>
 	</select>
 	
+	
+	<input type="hidden" name="action" value="fs">
+	<input type="submit">
+	</form>
 	
 	
 	
