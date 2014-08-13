@@ -205,7 +205,32 @@
 				</select>
 			</td>
 		</tr>
+		<tr>
+			<td class="lbl">
+				<span class="helpLink" id="cat_num">Catalog&nbsp;Number:</span>
+			</td>
+			<td class="srch">
+				<cfif ListContains(session.searchBy, 'bigsearchbox') gt 0>
+					<textarea name="listcatnum" id="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
+				<cfelse>
+					<input type="text" name="listcatnum" id="listcatnum" size="21" value="">
+				</cfif>
+			</td>
+		</tr>
+		<tr>
+			<td class="lbl">
+				<span class="helpLink" id="guid">GUID:</span>
+			</td>
+			<td class="srch">
+				<cfif ListContains(session.searchBy, 'bigsearchbox') gt 0>
+					<textarea name="guid" id="guid" rows="6" cols="40" wrap="soft"></textarea>
+				<cfelse>
+					<input type="text" name="guid" id="guid" size="21" value="">
+				</cfif>
+			</td>
+		</tr>
 		
+							
 		<!-------
 			
 		<tr>
