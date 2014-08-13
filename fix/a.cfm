@@ -1,8 +1,32 @@
 <cfinclude template="/includes/_header.cfm">
 
+<script>
+$(function(){
+   $("select").multiselect(); 
+});
+</script>
 
 <cfoutput>
 
+
+
+<select name="example-optgroup" multiple="multiple" size="5">
+	<optgroup label="Group One">
+		<option value="option1">Option 1</option>
+		<option value="option2">Option 2</option>
+		<option value="option3">Option 3</option>
+	</optgroup>
+	<optgroup label="Group Two">
+		<option value="option4">Option 4</option>
+		<option value="option5">Option 5</option>
+		<option value="option6">Option 6</option>
+		<option value="option7">Option 7</option>
+	</optgroup>
+	</select>
+	
+	
+	
+	
 <!----
 drop table temp_mp;
 
@@ -16,7 +40,7 @@ alter table temp_mp add mediastatus varchar2(200);
 
 create unique index ix_temp_mid on temp_mp(media_id) tablespace uam_idx_1;
 
----->
+
 
 
 
@@ -46,4 +70,8 @@ create unique index ix_temp_mid on temp_mp(media_id) tablespace uam_idx_1;
 				media_id=#media_id#
 		</cfquery>
 	</cfloop>
+	
+	
+	
+	---->
 </cfoutput>
