@@ -720,7 +720,7 @@
 		jQuery.get("/form/browse.cfm", function(data){
 			 jQuery('body').append(data);
 		})
-	   $("select").multiselect(); 
+	   $("#collection_id").multiselect(); 
 
 	});
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
