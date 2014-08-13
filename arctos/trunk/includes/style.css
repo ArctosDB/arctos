@@ -30,6 +30,10 @@
 /* default big tetarea */
 .largetextarea {width:30em;height:3em;margin:0.3em;;}
 
+/* default long-n-skinny tetarea */
+.longtextarea {width:60em;height:1.5em;margin:0.3em;vertical-align:center;}
+
+
 /* default "often used for lots of rambling" textarea */
 .hugetextarea {
     height: 6em;

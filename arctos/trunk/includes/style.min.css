@@ -7,6 +7,8 @@
     margin: 0.3em;
     width: 44em;
 }
+.longtextarea {width:60em;height:1.5em;margin:0.3em;vertical-align:center;}
+
 .ssw_sngselect{max-width:30em;};
 #dialog{font-size:1.4em}
 body{font-family:Arial,Helvetica,sans-serif;background-color:#FFF}
