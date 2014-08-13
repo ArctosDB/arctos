@@ -177,11 +177,28 @@
 				<table>
 					<tr>
 						<td>
+							<cfquery name="cfi" dbtype="query">
+								select institution from ctInst group by institution order by institution
+							</cfquery>
 							<select name="collection_id" id="collection_id" size="3" multiple="multiple">
-								<cfloop query="ctInst">
-									<option <cfif thisCollId is ctInst.collection_id>selected="selected" </cfif>value="#ctInst.collection_id#">#ctInst.collection#</option>
+								<cfloop query="cfi">
+									<cfquery name="ic" dbtype="query">
+										select collection, collection_id FROM ctInst where institution='#cfi.institution#' order by collection
+									</cfquery>
+									<optgroup label="#institution#">
+										<cfloop query="ic">
+											<option <cfif thisCollId is ic.collection_id>selected="selected" </cfif>value="#ic.collection_id#">#ic.collection#</option>
+										</cfloop>
+									</optgroup>
 								</cfloop>
+								
+								
+							
 							</select>
+							
+	
+	
+	
 						</td>
 						<td>
 							<table>
