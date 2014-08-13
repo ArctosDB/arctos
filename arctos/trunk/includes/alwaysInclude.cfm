@@ -42,15 +42,6 @@ Themes Compressed: , , , , , , , , , , , , ,, , , , , , , , , ui-lightness, and 
 <link rel="alternate stylesheet" title="vader" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/vader/jquery-ui.css" />
 
 
-<link rel="stylesheet"
- title="Gold (right, fixed) + navbar"
- href="../threepart-f.css">
-
-<link rel="alternate stylesheet"
- title="Oldstyle"
- href="http://www.w3.org/StyleSheets/Core/Oldstyle">
-
-
 <link rel="stylesheet" href="/includes/style.min.css" />
 <script type="text/javascript">
     $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd',changeMonth: true, changeYear: true, constrainInput: false });
