@@ -7,6 +7,13 @@
 ---->
 <cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
+
+<script src="/includes/jquery.multiselect.min.js"></script>
+<link rel="stylesheet" href="/includes/jquery.multiselect.css" />
+
+
+
+
 <cfset title="Specimen Search">
 <cfset metaDesc="Search for museum specimens and observations by taxonomy, identifications, specimen attributes, and usage history.">
 <cfoutput>
@@ -713,6 +720,8 @@
 		jQuery.get("/form/browse.cfm", function(data){
 			 jQuery('body').append(data);
 		})
+	   $("select").multiselect(); 
+
 	});
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
