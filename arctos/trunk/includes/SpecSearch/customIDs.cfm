@@ -56,7 +56,7 @@ function closeThis(){
 			<select name="bigsearchbox" id="bigsearchbox"
 				size="1" onchange="this.className='red';changeBigSearch(this.value);">
 				<option <cfif ListContains(session.searchBy, 'bigsearchbox') eq 0>selected="selected"</cfif> value="">No</option>
-				<option <cfif ListContains(session.searchBy, 'bigsearchbox') gt 0> value="1">Yes</option>
+				<option <cfif ListContains(session.searchBy, 'bigsearchbox') gt 0> selected="selected"</cfif> value="1">Yes</option>
 			</select>
 		</td>
 	</tr>
