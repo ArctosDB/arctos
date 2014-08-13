@@ -173,9 +173,9 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td colspan="2">
 				i am left column
-			</td><td>
+			
 				i am noleft column
 			</td>
 		</tr>
