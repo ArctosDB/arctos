@@ -3756,10 +3756,10 @@
 					</cfif>
 				WHERE username = '#session.username#'
 			</cfquery>
-			<cfif #tgt# gt 0>
-				<cfset session.fancyCOID = "#tgt#">
+			<cfif tgt gt 0>
+				<cfset session.searchBy = "bigsearchbox">
 			<cfelse>
-				<cfset session.fancyCOID = "">
+				<cfset session.searchBy = "">
 			</cfif>
 		<cfset result="success">
 	<cfcatch>
