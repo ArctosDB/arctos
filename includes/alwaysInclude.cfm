@@ -15,7 +15,7 @@ Themes Compressed: , , , , , , , , , , , , ,, , , , , , , , , ui-lightness, and 
 
 
 
-<link rel="stylesheet" title="ui-lightness" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
+<link rel="stylesheet" title="ui-lightness" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/ui-lightness/jquery-ui.css" />
 <link rel="alternate stylesheet" title="ui-lightness" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
 <link rel="alternate stylesheet" title="black-tie" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/black-tie/jquery-ui.css" />
 <link rel="alternate stylesheet" title="blitzer" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/blitzer/jquery-ui.css" />
