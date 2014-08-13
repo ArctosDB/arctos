@@ -1,4 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
+<script src="/includes/jquery.multiselect.min.js"></script>
+jquery.multiselect.css
+<link rel="stylesheet" href="/includes/jquery.multiselect.css" />
 
 <script>
 $(function(){
