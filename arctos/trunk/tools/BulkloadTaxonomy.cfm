@@ -106,7 +106,7 @@ sho err
 		select * from cf_temp_taxonomy where 1=2
 	</cfquery>
 	<cffile action = "write" file = "#Application.webDirectory#/download/BulkTaxonomy.csv"
-    	output = "#t.columlist#" addNewLine = "no">
+    	output = "#t.columnlist#" addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkTaxonomy.csv" addtoken="false">
 </cfif>
 <!------------------------------------------------------->
