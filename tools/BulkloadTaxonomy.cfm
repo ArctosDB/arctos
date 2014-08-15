@@ -376,7 +376,7 @@ sho err
 					<cfelseif t is "phylorder">
 						<cfset thisTerm='order'>
 					<cfelse>
-						<cfset thisTerm=t>
+						<cfset thisTerm=lcase(t)>
 					</cfif>
 					<cfquery name="term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into taxon_term ( 
@@ -391,7 +391,7 @@ sho err
 			<cfloop list="#nonClassificationTerms#" index="t">
 				<cfset thisTermVal=evaluate("data." & t)>
 				<cfif len(thisTermVal) gt 0>
-				<cfset thisTerm=t>
+				<cfset thisTerm=lcase(t)>
 					<cfquery name="term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into taxon_term ( 
 							TAXON_TERM_ID,          taxon_name_id,           CLASSIFICATION_ID,TERM,         TERM_TYPE,    SOURCE,LASTDATE
