@@ -348,9 +348,9 @@ sho err
 		select * from cf_temp_taxonomy
 	</cfquery>
 	<cfquery name="isv" dbtype="query">
-		select count(*) c from data where status!='valid'
+		select count(*) c from data where status='valid'
 	</cfquery>
-	<cfif isv.c neq 0>
+	<cfif isv.c neq data.recordcount>
 		validate first<cfabort>
 	</cfif>
 	<cfset sql="insert all ">
