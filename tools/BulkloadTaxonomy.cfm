@@ -9,6 +9,60 @@
 alter table cf_temp_taxonomy add SUBPHYLUM varchar2(255);
 alter table cf_temp_taxonomy modify VALID_CATALOG_TERM_FG null;
 alter table cf_temp_taxonomy modify SOURCE_AUTHORITY null;
+alter table cf_temp_taxonomy modify SUBSPECIES varchar2(255);
+alter table cf_temp_taxonomy modify PHYLCLASS varchar2(255);
+alter table cf_temp_taxonomy modify SUBCLASS varchar2(255);
+alter table cf_temp_taxonomy modify PHYLORDER varchar2(255);
+alter table cf_temp_taxonomy modify SUBORDER varchar2(255);
+alter table cf_temp_taxonomy modify FAMILY varchar2(255);
+alter table cf_temp_taxonomy modify SUBFAMILY varchar2(255);
+
+
+alter table cf_temp_taxonomy modify GENUS varchar2(255);
+alter table cf_temp_taxonomy modify SUBGENUS varchar2(255);
+alter table cf_temp_taxonomy modify SPECIES varchar2(255);
+alter table cf_temp_taxonomy modify SOURCE_AUTHORITY varchar2(255);
+alter table cf_temp_taxonomy modify TRIBE varchar2(255);
+alter table cf_temp_taxonomy modify INFRASPECIFIC_RANK varchar2(255);
+alter table cf_temp_taxonomy modify PHYLUM varchar2(255);
+alter table cf_temp_taxonomy modify PHYLCLASS varchar2(255);
+
+
+
+
+ 								    VARCHAR2(20)
+ 								    VARCHAR2(255)
+ 								    VARCHAR2(30)
+ 								    VARCHAR2(30)
+ SUPERFAMILY								    VARCHAR2(255)
+  								    VARCHAR2(30)
+ 								    VARCHAR2(30)
+ 									    VARCHAR2(30)
+ 								    VARCHAR2(20)
+ 								    VARCHAR2(40)
+ SUBSPECIES								    VARCHAR2(255)
+ VALID_CATALOG_TERM_FG							    NUMBER
+ 							    VARCHAR2(45)
+ SCIENTIFIC_NAME							    VARCHAR2(255)
+ AUTHOR_TEXT								    VARCHAR2(255)
+ 									    VARCHAR2(30)
+ 							    VARCHAR2(20)
+ TAXON_REMARKS								    VARCHAR2(255)
+  								    VARCHAR2(30)
+ KINGDOM								    VARCHAR2(255)
+ NOMENCLATURAL_CODE							    VARCHAR2(255)
+ INFRASPECIFIC_AUTHOR							    VARCHAR2(255)
+ TAXON_STATUS								    VARCHAR2(255)
+ SUBPHYLUM								    VARCHAR2(255)
+ DISPLAY_NAME								    VARCHAR2(255)
+ SOURCE 								    VARCHAR2(255)
+
+UAM@ARCTEST> 
+
+
+
+
+
 
 alter table cf_temp_taxonomy modify NOMENCLATURAL_CODE null;
 
@@ -206,6 +260,7 @@ sho err
 			Do this BEFORE validation and CHECK THE RESULTS. This may not do what you want if you don't specify nomenclatural_code.  
 		</li>
 		<li><a href="BulkloadTaxonomy.cfm?action=validate">validate</a></li>
+		<li><a href="BulkloadTaxonomy.cfm?action=deleteDups">discard duplicate names</a></li>
 		<li><a href="BulkloadTaxonomy.cfm?action=down">download</a></li>
 		<li><a href="BulkloadTaxonomy.cfm?action=nothing">start over</a></li>
 	</ul>		
@@ -213,6 +268,17 @@ sho err
 </cfoutput>
 </cfif>
 
+	
+
+<!------------------------------------------------------->
+<cfif action is "deleteDups">
+	<cfoutput>
+		<cfquery name="bad2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from cf_temp_taxonomy where trim(scientific_name) IN (select trim(scientific_name) from taxon_name)
+		</cfquery>
+		<cflocation url="BulkloadTaxonomy.cfm?action=show" addtoken="false">
+	</cfoutput>
+</cfif>
 <!------------------------------------------------------->
 <cfif action is "autogenmn">
 <cfoutput>
