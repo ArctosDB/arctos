@@ -174,12 +174,24 @@ sho err
 	<cfquery name="isProb" dbtype="query">
 		select count(*) c from data where status ='valid'
 	</cfquery>
-	<cfif isProb.c eq data.recordcount>
-		Data validated. Carefully check the table below, then
-		<a href="BulkloadTaxonomy.cfm?action=loadData">continue to load</a>.
-	</cfif>
+	<p>
+		This form will happily create garbage. CHECK <strong>ALL</strong> DATA CAREFULLY BEFORE LOADING!!!
+	</p>
+	<p>
+		This form is not the preferred method of creating classifications. Use GNITE if you can.
+	</p>
+	<P>
+		Some terms may not mean what you think they do. Ask us (contact link below) if you're uncertain.
+	</P>
+	
 	<ul>
-		<li><a href="BulkloadTaxonomy.cfm?action=autogendispname">Click here to generate display_name - do this BEFORE validation and CHECK THE RESULTS</a></li>
+		<cfif isProb.c eq data.recordcount>
+			<li><strong>Carefully</strong> check the table below, then <a href="BulkloadTaxonomy.cfm?action=loadData">continue to load</a></li>
+		</cfif>
+		<li>
+			<a href="BulkloadTaxonomy.cfm?action=autogendispname">Click here to generate display_name</a> 
+			Do this BEFORE validation and CHECK THE RESULTS. This may not do what you want if you don't specify nomenclatural_code.  
+		</li>
 		<li><a href="BulkloadTaxonomy.cfm?action=autogenmn">Click here to generate multinomials - do this BEFORE validation and CHECK THE RESULTS</a></li>
 		<li><a href="BulkloadTaxonomy.cfm?action=validate">validate</a></li>
 		<li><a href="BulkloadTaxonomy.cfm?action=down">download</a></li>
@@ -248,17 +260,26 @@ sho err
 		<!---- got species or better ---->
 		<cfif len(species) gt 0>
 			<cfset dn="<i>#species#</i>">
-			<cfif len(AUTHOR_TEXT) gt 0>
-				<cfset dn="#dn# #AUTHOR_TEXT#">
-			</cfif>
-			<cfif len(AUTHOR_TEXT) gt 0>
-				<cfset dn="#dn# #AUTHOR_TEXT#">
-			</cfif>
-			<cfif len(subspecies) gt 0>
-				<cfset dn="#dn# #subspecies#">
-			</cfif>
-			<cfif len(INFRASPECIFIC_AUTHOR) gt 0>
-				<cfset dn="#dn# #INFRASPECIFIC_AUTHOR#">
+			<cfif nomenclatural_code is "icbn">
+				<cfif len(AUTHOR_TEXT) gt 0>
+					<cfset dn="#dn# #AUTHOR_TEXT#">
+				</cfif>
+				<cfif len(AUTHOR_TEXT) gt 0>
+					<cfset dn="#dn# #AUTHOR_TEXT#">
+				</cfif>
+				<cfif len(subspecies) gt 0>
+					<cfset dn="#dn# #replace(subspecies,species,'')#">
+				</cfif>
+				<cfif len(INFRASPECIFIC_AUTHOR) gt 0>
+					<cfset dn="#dn# #INFRASPECIFIC_AUTHOR#">
+				</cfif>
+			<cfelse>
+				<cfif len(subspecies) gt 0>
+					<cfset dn="#dn# #replace(subspecies,species,'')#">
+				</cfif>
+				<cfif len(AUTHOR_TEXT) gt 0>
+					<cfset dn="#dn# #AUTHOR_TEXT#">
+				</cfif>
 			</cfif>
 		<cfelseif len(genus) gt 0>
 			<!---- got genus - italicize---->
@@ -288,11 +309,9 @@ sho err
 			<cfset dn="#KINGDOM# #AUTHOR_TEXT#">
 		</cfif>	
 		<cfset dn=trim(dn)>
-		<cfif len(dn) gt 0>
-			<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update cf_temp_taxonomy set display_name='#dn#' where key='#key#'	
-			</cfquery>
-		</cfif>
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update cf_temp_taxonomy set display_name='#dn#' where key='#key#'	
+		</cfquery>
 	</cfloop>
 	<cflocation url="BulkloadTaxonomy.cfm?action=show" addtoken="false">		
 </cfoutput>
