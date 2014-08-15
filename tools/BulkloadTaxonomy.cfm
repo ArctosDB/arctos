@@ -189,10 +189,16 @@ sho err
 			<li><strong>Carefully</strong> check the table below, then <a href="BulkloadTaxonomy.cfm?action=loadData">continue to load</a></li>
 		</cfif>
 		<li>
+			<a href="BulkloadTaxonomy.cfm?action=autogenmn">Click here to generate multinomials</a>
+			<br>Do this BEFORE generating display_name
+			<br>Do this BEFORE validation
+			<br>CHECK THE RESULTS
+		</li>
+		
+		<li>
 			<a href="BulkloadTaxonomy.cfm?action=autogendispname">Click here to generate display_name</a> 
 			Do this BEFORE validation and CHECK THE RESULTS. This may not do what you want if you don't specify nomenclatural_code.  
 		</li>
-		<li><a href="BulkloadTaxonomy.cfm?action=autogenmn">Click here to generate multinomials - do this BEFORE validation and CHECK THE RESULTS</a></li>
 		<li><a href="BulkloadTaxonomy.cfm?action=validate">validate</a></li>
 		<li><a href="BulkloadTaxonomy.cfm?action=down">download</a></li>
 		<li><a href="BulkloadTaxonomy.cfm?action=nothing">start over</a></li>
