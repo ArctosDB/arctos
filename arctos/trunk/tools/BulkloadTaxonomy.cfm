@@ -265,9 +265,6 @@ sho err
 				<cfif len(AUTHOR_TEXT) gt 0>
 					<cfset dn="#dn# #AUTHOR_TEXT#">
 				</cfif>
-				<cfif len(AUTHOR_TEXT) gt 0>
-					<cfset dn="#dn# #AUTHOR_TEXT#">
-				</cfif>
 				<cfif len(subspecies) gt 0>
 					<cfset dn="#dn# <i>#replace(subspecies,species,'')#</i>">
 				</cfif>
