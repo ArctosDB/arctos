@@ -366,7 +366,7 @@ sho err
 			<cfset thisClassID=createUUID()>
 			<cfset thisPosition=1>
 			<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				into taxon_name (taxon_name_id,scientific_name) values (#taxon_name_id#,'#trim(scientific_name)#')
+				insert into taxon_name (taxon_name_id,scientific_name) values (#taxon_name_id#,'#trim(scientific_name)#')
 			</cfquery>
 			<cfloop list="#orderedClassificationTerms#" index="t">
 				<cfset thisTermVal=evaluate("data." & t)>
@@ -379,7 +379,7 @@ sho err
 						<cfset thisTerm=t>
 					</cfif>
 					<cfquery name="term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						into taxon_term ( 
+						insert into taxon_term ( 
 							TAXON_TERM_ID,          taxon_name_id,           CLASSIFICATION_ID,TERM,         TERM_TYPE,    SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 						) values (
 							sq_taxon_term_id.nextval,#taxon_name_id#,'#thisClassID#', '#thisTermVal#','#thisTerm#','TEST',#thisPosition#,sysdate
@@ -393,7 +393,7 @@ sho err
 				<cfif len(thisTermVal) gt 0>
 				<cfset thisTerm=t>
 					<cfquery name="term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						into taxon_term ( 
+						insert into taxon_term ( 
 							TAXON_TERM_ID,          taxon_name_id,           CLASSIFICATION_ID,TERM,         TERM_TYPE,    SOURCE,LASTDATE
 						) values (
 							sq_taxon_term_id.nextval,#taxon_name_id#,'#thisClassID#', '#thisTermVal#','#thisTerm#','TEST',sysdate
