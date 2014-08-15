@@ -172,7 +172,7 @@ sho err
 		select * from cf_temp_taxonomy
 	</cfquery>
 	<cfquery name="isProb" dbtype="query">
-		select count(*) c from data where status !='valid'
+		select count(*) c from data where status ='valid'
 	</cfquery>
 	<cfif isProb.c eq data.recordcount>
 		Data validated. Carefully check the table below, then
