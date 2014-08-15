@@ -7,6 +7,17 @@
  approach: add NULLable columns for every conceiveable rank
 
 alter table cf_temp_taxonomy add SUBPHYLUM varchar2(255);
+alter table cf_temp_taxonomy modify VALID_CATALOG_TERM_FG null;
+alter table cf_temp_taxonomy modify SOURCE_AUTHORITY null;
+
+alter table cf_temp_taxonomy modify NOMENCLATURAL_CODE null;
+
+alter table cf_temp_taxonomy add display_name varchar2(255);
+alter table cf_temp_taxonomy add autogenerate varchar2(255);
+
+
+alter table cf_temp_taxonomy drop column INFRASPECIFIC_RANK;
+
 
 ------------- oldstuff follows ------------
 drop table cf_temp_taxonomy;
@@ -101,10 +112,15 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "nothing">
 	<cfoutput>
-		Load names, optionally with classifications later. 
+		Load names, optionally with classifications. This form will happily create garbage; don't.
+		 
 		Upload a comma-delimited text file (csv). <a href="BulkloadTaxonomy.cfm?action=makeTemplate">[ Get the Template ]</a>
 		 <p>
-		 	You can also pull classification from globalnames.
+		 	You can (and should) also pull classification from globalnames.
+		 </p>
+		 <p>subgeneric terms are multinomial</p>
+		 <p>
+		 	source not in CTTAXONOMY_SOURCE data are not stable
 		 </p>
 		<cfform name="oids" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Action" value="getFile">
@@ -146,7 +162,84 @@ sho err
 			</cfquery>
 		</cfif>
 	</cfloop>
-	<cflocation url="BulkloadTaxonomy.cfm?action=validate" addtoken="false">
+	<cflocation url="BulkloadTaxonomy.cfm?action=postup" addtoken="false">
+</cfoutput>
+</cfif>
+<!------------------------------------------------------->
+<cfif action is "postup">
+<cfoutput>
+		
+		 <p>
+		 	 <a href="BulkloadTaxonomy.cfm?action=autogendispname">Click here to generate display_name - do this BEFORE validation and CHECK THE RESULTS</a>
+		 </p> 
+		 <p>
+		 	 <a href="BulkloadTaxonomy.cfm?action=validate">validate loaded data</a>
+		 </p>
+</cfoutput>
+</cfif>
+<!------------------------------------------------------->
+<cfif action is "autogendispname">
+<cfoutput>
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_taxonomy where display_name is null
+	</cfquery>
+	<cfloop query="data">
+		<!---- got species or better ---->
+		<cfif len(species) gt 0>
+			<cfset dn="<i>#species#</i>">
+			<cfif len(AUTHOR_TEXT) gt 0>
+				<cfset dn="#dn# #AUTHOR_TEXT#">
+			</cfif>
+			<cfif len(AUTHOR_TEXT) gt 0>
+				<cfset dn="#dn# #AUTHOR_TEXT#">
+			</cfif>
+			<cfif len(subspecies) gt 0>
+				<cfset dn="#dn# #subspecies#">
+			</cfif>
+			<cfif len(INFRASPECIFIC_AUTHOR) gt 0>
+				<cfset dn="#dn# #INFRASPECIFIC_AUTHOR#">
+			</cfif>
+		<cfelseif len(genus) gt 0>
+			<!---- got genus - italicize---->
+			<cfset dn="<i>#genus#</i> #AUTHOR_TEXT#">
+		<!--- now just run down the ranks until we find something ---->
+		<cfelseif len(TRIBE) gt 0>
+			<cfset dn="#TRIBE# #AUTHOR_TEXT#">
+		<cfelseif len(SUBFAMILY) gt 0>
+			<cfset dn="#SUBFAMILY# #AUTHOR_TEXT#">
+		<cfelseif len(FAMILY) gt 0>
+			<cfset dn="#FAMILY# #AUTHOR_TEXT#">
+		<cfelseif len(SUPERFAMILY) gt 0>
+			<cfset dn="#SUPERFAMILY# #AUTHOR_TEXT#">
+		<cfelseif len(SUBORDER) gt 0>
+			<cfset dn="#SUBORDER# #AUTHOR_TEXT#">
+		<cfelseif len(PHYLORDER) gt 0>
+			<cfset dn="#PHYLORDER# #AUTHOR_TEXT#">
+		<cfelseif len(SUBCLASS) gt 0>
+			<cfset dn="#SUBCLASS# #AUTHOR_TEXT#">
+		<cfelseif len(PHYLCLASS) gt 0>
+			<cfset dn="#PHYLCLASS# #AUTHOR_TEXT#">
+		<cfelseif len(SUBPHYLUM) gt 0>
+			<cfset dn="#SUBPHYLUM# #AUTHOR_TEXT#">
+		<cfelseif len(PHYLUM) gt 0>
+			<cfset dn="#PHYLUM# #AUTHOR_TEXT#">
+		<cfelseif len(KINGDOM) gt 0>
+			<cfset dn="#KINGDOM# #AUTHOR_TEXT#">
+		</cfif>	
+		<cfset dn=trim(dn)>
+		<cfif len(dn) gt 0>
+			<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update cf_temp_taxonomy set display_name='#dn#' where key='#key#'	
+			</cfquery>
+		</cfif>
+	</cfloop>
+
+		 <p>
+		 	 <a href="BulkloadTaxonomy.cfm?action=validate">now validate - MAKE SURE TO CHECK DISPLAY_NAME!!!!</a>
+		 </p>
+	
+		
+		
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
@@ -155,7 +248,6 @@ sho err
 	<cfquery name="bad2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_taxonomy set status = 'duplicate' where trim(scientific_name) IN (select trim(scientific_name) from taxon_name)
 	</cfquery>
-	
 	<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_taxonomy
 	</cfquery>
@@ -184,24 +276,216 @@ sho err
 	</cfquery>
 	<cfset sql="insert all ">
 	<cfloop query="data">		
-		<cfset sql=sql & " into taxon_name (taxon_name_id,scientific_name) values (	sq_taxon_name_id.nextval,'#trim(scientific_name)#'">
+		<cfset sql=sql & " into taxon_name (taxon_name_id,scientific_name) values (	sq_taxon_name_id.nextval,'#trim(scientific_name)#') ">
 		<cfset thisClassID=createUUID()>
 		<cfset thisRank=1>
 		<cfif len(KINGDOM) gt 0>
 			<cfset sql=sql & " into taxon_term ( 
 								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 							) values (
-								sq_taxon_temp_id.nextval,sq_taxon_name_id.currval,#thisClassID#,'#kingdom#','TEST',#thisRank#,sysdate
-							)">
-		
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#kingdom#','kingdom','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
 		</cfif>
+		<cfif len(PHYLUM) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#PHYLUM#','phylum','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		<cfif len(SUBPHYLUM) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SUBPHYLUM#','subphylum','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		<cfif len(PHYLCLASS) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#PHYLCLASS#','class','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		<cfif len(SUBCLASS) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SUBCLASS#','subclass','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		<cfif len(PHYLORDER) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#PHYLORDER#','order','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		<cfif len(SUBORDER) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SUBORDER#','suborder','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		<cfif len(SUPERFAMILY) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SUPERFAMILY#','superfamily','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		<cfif len(FAMILY) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#FAMILY#','family','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		<cfif len(SUBFAMILY) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SUBFAMILY#','subfamily','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		<cfif len(TRIBE) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#TRIBE#','tribe','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		<cfif len(GENUS) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#GENUS#','genus','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		<cfif len(SUBGENUS) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SUBGENUS#','subgenus','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		<cfif len(SPECIES) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SPECIES#','species','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		<cfif len(SUBSPECIES) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SUBSPECIES#','subspecies','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		<cfif len(SCIENTIFIC_NAME) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SCIENTIFIC_NAME#','scientific_name','TEST',#thisRank#,sysdate
+							) ">
+			<cfset thisRank=thisRank+1>
+		</cfif>
+		
+		
+		<!---- end ordered terms ---->
+		
+		<cfif len(VALID_CATALOG_TERM_FG) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#VALID_CATALOG_TERM_FG#','valid_catalog_term_fg','TEST',sysdate
+							) ">
+		</cfif>
+		<cfif len(SOURCE_AUTHORITY) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SOURCE_AUTHORITY#','source_authority','TEST',sysdate
+							) ">
+		</cfif>
+		<cfif len(SOURCE_AUTHORITY) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#SOURCE_AUTHORITY#','source_authority','TEST',sysdate
+							) ">
+		</cfif>
+		<cfif len(AUTHOR_TEXT) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#AUTHOR_TEXT#','author_text','TEST',sysdate
+							) ">
+		</cfif>
+		<cfif len(AUTHOR_TEXT) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#AUTHOR_TEXT#','author_text','TEST',sysdate
+							) ">
+		</cfif>
+		<cfif len(TAXON_REMARKS) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#TAXON_REMARKS#','taxon_remarks','TEST',sysdate
+							) ">
+		</cfif>
+		<cfif len(NOMENCLATURAL_CODE) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#NOMENCLATURAL_CODE#','nomenclatural_code','TEST',sysdate
+							) ">
+		</cfif>
+		<cfif len(INFRASPECIFIC_AUTHOR) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#INFRASPECIFIC_AUTHOR#','infraspecific_author','TEST',sysdate
+							) ">
+		</cfif>
+		<cfif len(TAXON_STATUS) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,LASTDATE
+							) values (
+								sq_taxon_term_id.nextval,sq_taxon_name_id.currval,'#thisClassID#','#TAXON_STATUS#','infraspetaxon_statuscific_author','TEST',sysdate
+							) ">
+		</cfif>
+		
+		
+		
 	</cfloop>
 	<cfset sql=sql & "SELECT 1 FROM DUAL">
 
-
-
 <cfdump var=#sql#>
 
+
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				#preservesinglequotes(sql)#
+			</cfquery>
 
 
 <!----
