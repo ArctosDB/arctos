@@ -197,7 +197,15 @@ sho err
 	<cfquery name="sphassp" dbtype="query">
 		select count(*) c from data where species like '% %'
 	</cfquery>
+	<cfquery name="sphasnosp" dbtype="query">
+		select count(*) c from data where species is not null and species not like '% %'
+	</cfquery>
 	<cfdump var=#sphassp#>
+	<cfdump var=#sphasnosp#>
+	
+	<cfif sphassp.c gt 0 and sphasnosp.c is 0>
+		mixed<cfabort>
+	</cfif>
 	<cfloop query="data">
 		
 	</cfloop>
