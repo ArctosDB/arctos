@@ -122,8 +122,8 @@ sho err
 		 <p>
 		 	source not in CTTAXONOMY_SOURCE data are not stable
 		 </p>
-		<cfform name="oids" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="Action" value="getFile">
+		<cfform name="oids" method="post" enctype="multipart/form-data" action="BulkloadTaxonomy.cfm">
+			<input type="hidden" name="action" value="getFile">
 			<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 			<input type="submit" value="Upload this file">
   </cfform>
