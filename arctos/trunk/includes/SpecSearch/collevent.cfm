@@ -26,7 +26,7 @@
 				<tr>
 					<td>
 						<label for="begYear">Year</label>
-						<input type="number" min="1600" max="2013" step="1" name="begYear" id="begYear">
+						<input type="number" min="1000" max="2500" step="1" name="begYear" id="begYear">
 					</td>
 					<td>
 						<label for="begMon">Month</label>
@@ -73,7 +73,7 @@
 				<tr>
 					<td>
 						<label for="endYear">Year</label>						
-						<input type="number" min="1600" max="2013" step="1" name="endYear" id="endYear">
+						<input type="number" min="1000" max="2500" step="1" name="endYear" id="endYear">
 					</td>
 					<td>
 						<label for="endMon">Month</label>
