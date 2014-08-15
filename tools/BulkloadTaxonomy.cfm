@@ -13,7 +13,6 @@ alter table cf_temp_taxonomy modify SOURCE_AUTHORITY null;
 alter table cf_temp_taxonomy modify NOMENCLATURAL_CODE null;
 
 alter table cf_temp_taxonomy add display_name varchar2(255);
-alter table cf_temp_taxonomy add autogenerate varchar2(255);
 
 
 alter table cf_temp_taxonomy drop column INFRASPECIFIC_RANK;
@@ -112,7 +111,8 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "nothing">
 	<cfoutput>
-		Load names, optionally with classifications. This form will happily create garbage; don't.
+		Load names, optionally with classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
+		click any buttons unless you KNOW what they do.
 		 
 		Upload a comma-delimited text file (csv). <a href="BulkloadTaxonomy.cfm?action=makeTemplate">[ Get the Template ]</a>
 		 <p>
@@ -162,21 +162,50 @@ sho err
 			</cfquery>
 		</cfif>
 	</cfloop>
-	<cflocation url="BulkloadTaxonomy.cfm?action=postup" addtoken="false">
+	<cflocation url="BulkloadTaxonomy.cfm?action=show" addtoken="false">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif action is "postup">
-<cfoutput>
-		
-		 <p>
-		 	 <a href="BulkloadTaxonomy.cfm?action=autogendispname">Click here to generate display_name - do this BEFORE validation and CHECK THE RESULTS</a>
-		 </p> 
-		 <p>
-		 	 <a href="BulkloadTaxonomy.cfm?action=validate">validate loaded data</a>
-		 </p>
+<cfif action is "show">
+<cfoutput>	 
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_taxonomy
+	</cfquery>
+	<cfquery name="isProb" dbtype="query">
+		select count(*) c from data where status !='valid'
+	</cfquery>
+	<cfif isProb.c eq data.recordcount>
+		Data validated. Carefully check the table below, then
+		<a href="BulkloadTaxonomy.cfm?action=loadData">continue to load</a>.
+	</cfif>
+	<ul>
+		<li><a href="BulkloadTaxonomy.cfm?action=autogendispname">Click here to generate display_name - do this BEFORE validation and CHECK THE RESULTS</a></li>
+		<li><a href="BulkloadTaxonomy.cfm?action=autogenmn">Click here to generate multinomials - do this BEFORE validation and CHECK THE RESULTS</a></li>
+		<li><a href="BulkloadTaxonomy.cfm?action=validate">validate</a></li>
+		<li><a href="BulkloadTaxonomy.cfm?action=down">download</a></li>
+	</ul>		
+	<cfdump var=#valData#>
 </cfoutput>
 </cfif>
+
+<!------------------------------------------------------->
+<cfif action is "autogenmn">
+<cfoutput>
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_taxonomy where genus is not null and species is not null
+	</cfquery>
+	<cfquery name="sphassp" dbtype="query">
+		select count(*) c from data where species like '% %'
+	</cfquery>
+	<cfdump var=#sphassp#>
+	<cfloop query="data">
+		
+	</cfloop>
+</cfoutput>
+</cfif>
+
+
+
 <!------------------------------------------------------->
 <cfif action is "autogendispname">
 <cfoutput>
@@ -233,47 +262,36 @@ sho err
 			</cfquery>
 		</cfif>
 	</cfloop>
-
-		 <p>
-		 	 <a href="BulkloadTaxonomy.cfm?action=validate">now validate - MAKE SURE TO CHECK DISPLAY_NAME!!!!</a>
-		 </p>
-	
-		
-		
+	<cflocation url="BulkloadTaxonomy.cfm?action=show" addtoken="false">		
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "validate">
-<cfoutput>	
+<cfoutput>
+	<cfquery name="remainder" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_taxonomy set status = NULL
+	</cfquery>
 	<cfquery name="bad2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_taxonomy set status = 'duplicate' where trim(scientific_name) IN (select trim(scientific_name) from taxon_name)
 	</cfquery>
-	<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_taxonomy
+	<cfquery name="remainder" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_taxonomy set status = 'valid' where status is null
 	</cfquery>
-	<cfquery name="isProb" dbtype="query">
-		select count(*) c from valData where status is not null
-	</cfquery>
-	<cfif #isProb.c# is 0 or isprob.c is "">
-		Data validated. Carefully check the table below, then
-		<a href="BulkloadTaxonomy.cfm?action=loadData">continue to load</a>.
-	<cfelse>
-		The data you loaded do not validate. See STATUS column below. Fix them all.
-		<a href="BulkloadTaxonomy.cfm?action=down">[ download ]</a>
-	</cfif>
-	<cfdump var=#valData#>
-		<!---
-	<cflocation url="BulkloadCitations.cfm?action=loadData">
-	---->
+	<cflocation url="BulkloadTaxonomy.cfm?action=show" addtoken="false">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "loadData">
-
+<cfif action is "loadData">
 <cfoutput>
 	<cfquery name="data" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_taxonomy
 	</cfquery>
+	<cfquery name="isv" dbtype="query">
+		select count(*) c from data where status!='valid'
+	</cfquery>
+	<cfif isv.c neq 0>
+		validate first<cfabort>
+	</cfif>
 	<cfset sql="insert all ">
 	<cfloop query="data">		
 		<cfset sql=sql & " into taxon_name (taxon_name_id,scientific_name) values (	sq_taxon_name_id.nextval,'#trim(scientific_name)#') ">
