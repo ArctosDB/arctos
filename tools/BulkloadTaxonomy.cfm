@@ -268,14 +268,14 @@ sho err
 					<cfset dn="#dn# #AUTHOR_TEXT#">
 				</cfif>
 				<cfif len(subspecies) gt 0>
-					<cfset dn="#dn# #replace(subspecies,species,'')#">
+					<cfset dn="#dn# <i>#replace(subspecies,species,'')#</i>">
 				</cfif>
 				<cfif len(INFRASPECIFIC_AUTHOR) gt 0>
 					<cfset dn="#dn# #INFRASPECIFIC_AUTHOR#">
 				</cfif>
 			<cfelse>
 				<cfif len(subspecies) gt 0>
-					<cfset dn="#dn# #replace(subspecies,species,'')#">
+					<cfset dn="#dn# <i>#replace(subspecies,species,'')#</i>">
 				</cfif>
 				<cfif len(AUTHOR_TEXT) gt 0>
 					<cfset dn="#dn# #AUTHOR_TEXT#">
@@ -307,7 +307,10 @@ sho err
 			<cfset dn="#PHYLUM# #AUTHOR_TEXT#">
 		<cfelseif len(KINGDOM) gt 0>
 			<cfset dn="#KINGDOM# #AUTHOR_TEXT#">
-		</cfif>	
+		</cfif>
+		
+		<cfset dn=replace(dn,'<i> </i>','')>
+		<cfset dn=replace(dn,'<i></i>','')>
 		<cfset dn=trim(dn)>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cf_temp_taxonomy set display_name='#dn#' where key='#key#'	
