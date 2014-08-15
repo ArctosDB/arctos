@@ -309,8 +309,10 @@ sho err
 			<cfset dn="#KINGDOM# #AUTHOR_TEXT#">
 		</cfif>
 		
+		<cfset dn=replace(dn,'  ',' ','all')>
 		<cfset dn=replace(dn,'</i> <i>','')>
 		<cfset dn=replace(dn,'</i><i>','')>
+		
 		<cfset dn=replace(dn,'  ',' ','all')>
 		<cfset dn=trim(dn)>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
