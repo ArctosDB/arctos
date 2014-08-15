@@ -434,6 +434,7 @@ sho err
 
 	<cftransaction>
 		<cfloop query="data">
+			<br>Loading #scientific_name#
 			<cfquery name="tid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select sq_taxon_name_id.nextval x from dual
 			</cfquery>
