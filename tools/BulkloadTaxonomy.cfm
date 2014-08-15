@@ -6,6 +6,8 @@
 
  approach: add NULLable columns for every conceiveable rank
 
+alter table cf_temp_taxonomy add SUBPHYLUM varchar2(255);
+
 ------------- oldstuff follows ------------
 drop table cf_temp_taxonomy;
 
@@ -195,6 +197,11 @@ sho err
 		</cfif>
 	</cfloop>
 	<cfset sql=sql & "SELECT 1 FROM DUAL">
+
+
+
+<cfdump var=#sql#>
+
 
 
 <!----
