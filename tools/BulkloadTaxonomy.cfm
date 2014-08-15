@@ -2,6 +2,11 @@
 <cfset title="Bulkload Taxonomy">
 <!---- make the table 
 
+ revision to deal with name+classification in new model - seems we're going to have to eventually
+
+ approach: add NULLable columns for every conceiveable rank
+
+------------- oldstuff follows ------------
 drop table cf_temp_taxonomy;
 
 create table cf_temp_taxonomy (
@@ -65,66 +70,39 @@ sho err
 
 <!------------------------------------------------------->
 <cfif action is "down">
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+
+
+
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_taxonomy
 	</cfquery>
-	<cfset ac = d.columnlist>
-	<cfif ListFindNoCase(ac,'KEY')>
-		<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'KEY'))>
-	</cfif>
-	<cfset variables.encoding="UTF-8">
-	<cfset fname = "BulkTaxaDown.csv">
-	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-	<cfset header=trim(ac)>
-	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(header); 
-	</cfscript>
-	<cfloop query="d">
-		<cfset oneLine = "">
-		<cfloop list="#ac#" index="c">
-			<cfset thisData = evaluate(c)>
-			<cfif len(oneLine) is 0>
-				<cfset oneLine = '"#thisData#"'>
-			<cfelse>
-				<cfset thisData=replace(thisData,'"','""','all')>
-				<cfset oneLine = '#oneLine#,"#thisData#"'>
-			</cfif>
-		</cfloop>
-		<cfset oneLine = trim(oneLine)>
-		<cfscript>
-			variables.joFileWriter.writeLine(oneLine);
-		</cfscript>
-	</cfloop>
-	<cfscript>	
-		variables.joFileWriter.close();
-	</cfscript>
-	<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-	<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/BulkTaxaDown.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkTaxaDown.csv" addtoken="false">
+	
+	
+
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "makeTemplate">
-	<cfset header="SCIENTIFIC_NAME">
+	<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_taxonomy where 1=2
+	</cfquery>
 	<cffile action = "write" file = "#Application.webDirectory#/download/BulkTaxonomy.csv"
-    	output = "#header#" addNewLine = "no">
+    	output = "#t.columlist#" addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkTaxonomy.csv" addtoken="false">
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "nothing">
 	<cfoutput>
-		Load bare names. You can add classifications later. Or not. 
+		Load names, optionally with classifications later. 
 		Upload a comma-delimited text file (csv). <a href="BulkloadTaxonomy.cfm?action=makeTemplate">[ Get the Template ]</a>
-		<p>Required fields:
-			<ul>
-				<li>SCIENTIFIC_NAME</li>
-			</ul>
-		</p>
-		
 		 <p>
-		 	Need to load Classifications? <a href="/contact.cfm">Contact us</a>.
-		 </p>
-		 <p>
-		 	You can pull pull classification from globalnames.
+		 	You can also pull classification from globalnames.
 		 </p>
 		<cfform name="oids" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Action" value="getFile">
@@ -173,7 +151,7 @@ sho err
 <cfif action is "validate">
 <cfoutput>	
 	<cfquery name="bad2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_taxonomy set status = 'duplicate' where trim(scientific_name) IN (select trim(scientific_name) from taxonomy)
+		update cf_temp_taxonomy set status = 'duplicate' where trim(scientific_name) IN (select trim(scientific_name) from taxon_name)
 	</cfquery>
 	
 	<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -189,20 +167,7 @@ sho err
 		The data you loaded do not validate. See STATUS column below. Fix them all.
 		<a href="BulkloadTaxonomy.cfm?action=down">[ download ]</a>
 	</cfif>
-		<table border>
-			<tr>
-				<th>KEY</th>
-				<th>STATUS</th>
-				<th>SCIENTIFIC_NAME</th>
-			</tr>
-			<cfloop query="valData">
-				<tr>
-					<td>#KEY#</td>
-					<td>#STATUS#</td>
-					<td>#SCIENTIFIC_NAME#</td>
-				</tr>
-			</cfloop>
-		</table>
+	<cfdump var=#valData#>
 		<!---
 	<cflocation url="BulkloadCitations.cfm?action=loadData">
 	---->
@@ -215,21 +180,40 @@ sho err
 	<cfquery name="data" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_taxonomy
 	</cfquery>
+	<cfset sql="insert all ">
+	<cfloop query="data">		
+		<cfset sql=sql & " into taxon_name (taxon_name_id,scientific_name) values (	sq_taxon_name_id.nextval,'#trim(scientific_name)#'">
+		<cfset thisClassID=createUUID()>
+		<cfset thisRank=1>
+		<cfif len(KINGDOM) gt 0>
+			<cfset sql=sql & " into taxon_term ( 
+								TAXON_TERM_ID,taxon_name_id,CLASSIFICATION_ID,TERM,TERM_TYPE,SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+							) values (
+								sq_taxon_temp_id.nextval,sq_taxon_name_id.currval,#thisClassID#,'#kingdom#','TEST',#thisRank#,sysdate
+							)">
+		
+		</cfif>
+	</cfloop>
+	<cfset sql=sql & "SELECT 1 FROM DUAL">
+
+
+<!----
+	
 	<cftransaction>
-	<cfloop query="data">
-		<cfquery name="newTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			INSERT INTO taxon_name (
-				taxon_name_id,
-				scientific_name
-			) values (
-				sq_taxon_name_id.nextval,
-				'#trim(scientific_name)#'
-			)
-		</cfquery>
+		<cfloop query="data">
+			<cfquery name="newTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				INSERT INTO taxon_name (
+					taxon_name_id,
+					scientific_name
+				) values (
+					sq_taxon_name_id.nextval,
+					'#trim(scientific_name)#'
+				)
+			</cfquery>
 		</cfloop>
 	</cftransaction>
 		
-
+---->
 	Spiffy, all done.
 </cfoutput>
 </cfif>
