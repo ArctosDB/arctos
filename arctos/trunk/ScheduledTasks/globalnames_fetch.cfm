@@ -45,6 +45,10 @@ This REFRESHES data that already exist in Arctos.
 			delete from taxon_term where taxon_name_id=#d.taxon_name_id#
 			and source not in (#listqualify(localSources,chr(39))#)
 		</cfquery>
+		
+		<cfif debug>
+			<cfdump var=#flush_old#>
+		</cfif>
 		<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#d.scientific_name#"></cfhttp>
 		<cfset x=DeserializeJSON(cfhttp.filecontent)>
 		<cfif not structKeyExists(x.data[1],"results")>
