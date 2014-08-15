@@ -195,6 +195,7 @@ sho err
 		<li><a href="BulkloadTaxonomy.cfm?action=autogenmn">Click here to generate multinomials - do this BEFORE validation and CHECK THE RESULTS</a></li>
 		<li><a href="BulkloadTaxonomy.cfm?action=validate">validate</a></li>
 		<li><a href="BulkloadTaxonomy.cfm?action=down">download</a></li>
+		<li><a href="BulkloadTaxonomy.cfm?action=nothing">start over</a></li>
 	</ul>		
 	<cfdump var=#data#>
 </cfoutput>
