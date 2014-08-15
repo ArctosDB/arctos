@@ -184,7 +184,7 @@ sho err
 		<li><a href="BulkloadTaxonomy.cfm?action=validate">validate</a></li>
 		<li><a href="BulkloadTaxonomy.cfm?action=down">download</a></li>
 	</ul>		
-	<cfdump var=#valData#>
+	<cfdump var=#data#>
 </cfoutput>
 </cfif>
 
