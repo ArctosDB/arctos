@@ -353,6 +353,61 @@ sho err
 	<cfif isv.c neq data.recordcount>
 		validate first<cfabort>
 	</cfif>
+	
+	<cfset orderedClassificationTerms="KINGDOM,PHYLUM,SUBPHYLUM,PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,SUBSPECIES,SCIENTIFIC_NAME">
+	<cfset nonClassificationTerms="AUTHOR_TEXT,INFRASPECIFIC_AUTHOR,SOURCE_AUTHORITY,NOMENCLATURAL_CODE,VALID_CATALOG_TERM_FG,TAXON_STATUS,TAXON_REMARKS">
+
+	<cftransaction>
+		<cfloop query="data">
+			<cfquery name="tid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select sq_taxon_name_id.nextval x from dual
+			</cfquery>
+			<cfset taxon_name_id=tid.x>
+			<cfset thisClassID=createUUID()>
+			<cfset thisPosition=1>
+			<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				into taxon_name (taxon_name_id,scientific_name) values (#taxon_name_id#,'#trim(scientific_name)#')
+			</cfquery>
+			<cfloop list="#orderedClassificationTerms#" index="t">
+				<cfset thisTermVal=evaluate("data." & t)>
+				<cfif len(thisTermVal) gt 0>
+					<cfif t is "phylclass">
+						<cfset thisTerm='class'>
+					<cfelseif t is "phylorder">
+						<cfset thisTerm='order'>
+					<cfelse>
+						<cfset thisTerm=t>
+					</cfif>
+					<cfquery name="term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						into taxon_term ( 
+							TAXON_TERM_ID,          taxon_name_id,           CLASSIFICATION_ID,TERM,         TERM_TYPE,    SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
+						) values (
+							sq_taxon_term_id.nextval,#taxon_name_id#,'#thisClassID#', '#thisTermVal#','#thisTerm#','TEST',#thisPosition#,sysdate
+						) 
+					</cfquery>
+					<cfset thisPosition=thisPosition+1>
+				</cfif>
+			</cfloop>
+			<cfloop list="#nonClassificationTerms#" index="t">
+				<cfset thisTermVal=evaluate("data." & t)>
+				<cfif len(thisTermVal) gt 0>
+				<cfset thisTerm=t>
+					<cfquery name="term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						into taxon_term ( 
+							TAXON_TERM_ID,          taxon_name_id,           CLASSIFICATION_ID,TERM,         TERM_TYPE,    SOURCE,LASTDATE
+						) values (
+							sq_taxon_term_id.nextval,#taxon_name_id#,'#thisClassID#', '#thisTermVal#','#thisTerm#','TEST',sysdate
+						) 
+					</cfquery>
+				</cfif>
+			</cfloop>
+		</cfloop>
+	</cftransaction>
+	
+	
+	<!--- sequences super wonky - do it with a billion connects for now....
+	
+	
 	<cfset sql="insert all ">
 	<cfloop query="data">		
 		<cfset sql=sql & " into taxon_name (taxon_name_id,scientific_name) values (	sq_taxon_name_id.nextval,'#trim(scientific_name)#') ">
@@ -566,7 +621,7 @@ sho err
 				#preservesinglequotes(sql)#
 			</cfquery>
 
-
+------>
 <!----
 	
 	<cftransaction>
