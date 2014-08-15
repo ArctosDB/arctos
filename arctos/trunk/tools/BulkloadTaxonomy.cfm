@@ -242,7 +242,7 @@ sho err
 <cfif action is "autogendispname">
 <cfoutput>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_taxonomy where display_name is null
+		select * from cf_temp_taxonomy
 	</cfquery>
 	<cfloop query="data">
 		<!---- got species or better ---->
