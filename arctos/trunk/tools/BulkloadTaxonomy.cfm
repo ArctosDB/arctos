@@ -13,6 +13,7 @@ alter table cf_temp_taxonomy modify SOURCE_AUTHORITY null;
 alter table cf_temp_taxonomy modify NOMENCLATURAL_CODE null;
 
 alter table cf_temp_taxonomy add display_name varchar2(255);
+alter table cf_temp_taxonomy add source varchar2(255);
 
 
 alter table cf_temp_taxonomy drop column INFRASPECIFIC_RANK;
@@ -120,8 +121,13 @@ sho err
 		 </p>
 		 <p>subgeneric terms are multinomial</p>
 		 <p>
-		 	source not in CTTAXONOMY_SOURCE data are not stable
+		 	Source is <a href="/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE">CTTAXONOMY_SOURCE</a>
 		 </p>
+		 
+		 
+		 
+		 
+		 
 		<cfform name="oids" method="post" enctype="multipart/form-data" action="BulkloadTaxonomy.cfm">
 			<input type="hidden" name="action" value="getFile">
 			<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
@@ -334,6 +340,9 @@ sho err
 	</cfquery>
 	<cfquery name="bad2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_taxonomy set status = 'duplicate' where trim(scientific_name) IN (select trim(scientific_name) from taxon_name)
+	</cfquery>
+	<cfquery name="bad2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_taxonomy set status = 'invalid source' where source not in (select source from CTTAXONOMY_SOURCE)
 	</cfquery>
 	<cfquery name="remainder" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_taxonomy set status = 'valid' where status is null
