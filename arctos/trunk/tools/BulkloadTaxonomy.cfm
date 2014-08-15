@@ -191,24 +191,48 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "autogenmn">
 <cfoutput>
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_taxonomy where genus is not null and species is not null
+
+
+	<cfquery name="spwsp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from cf_temp_taxonomy where species is not null and species like '% %'
 	</cfquery>
-	<cfquery name="sphassp" dbtype="query">
-		select count(*) c from data where species like '% %'
-	</cfquery>
-	<cfquery name="sphasnosp" dbtype="query">
-		select count(*) c from data where species is not null and species not like '% %'
-	</cfquery>
-	<cfdump var=#sphassp#>
-	<cfdump var=#sphasnosp#>
-	
-	<cfif sphassp.c gt 0 and sphasnosp.c is 0>
-		mixed<cfabort>
+	<cfif spwsp.c gt 0>
+		This app will only work if all species are monomials.
+		<cfabort>
 	</cfif>
-	<cfloop query="data">
-		
-	</cfloop>
+	<cfquery name="sspwsp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from cf_temp_taxonomy where subspecies is not null and subspecies like '% %'
+	</cfquery>
+	<cfif sspwsp.c gt 0>
+		This app will only work if all subspecies are monomials.
+		<cfabort>
+	</cfif>
+
+	<cfquery name="sspwnsp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from cf_temp_taxonomy where species is null and subspecies is not null
+	</cfquery>
+	<cfif sspwnsp.c gt 0>
+		Subspecies without species - aborting
+		<cfabort>
+	</cfif>
+
+	<cfquery name="genwnsp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from cf_temp_taxonomy where genus is null and species is not null
+	</cfquery>
+	<cfif genwnsp.c gt 0>
+		species without genus - aborting
+		<cfabort>
+	</cfif>
+	<cfquery name="mksp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_taxonomy set species = genus || ' ' || species where genus is not null and species is not null
+	</cfquery>
+	
+	<cfquery name="mksp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_taxonomy set subspecies = species || ' ' || subspecies where species is not null and subspecies is not null
+	</cfquery>
+
+	<cflocation url="BulkloadTaxonomy.cfm?action=show" addtoken="false">		
+	
 </cfoutput>
 </cfif>
 
