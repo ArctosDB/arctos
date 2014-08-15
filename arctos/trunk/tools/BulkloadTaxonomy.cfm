@@ -458,7 +458,7 @@ sho err
 						insert into taxon_term ( 
 							TAXON_TERM_ID,          taxon_name_id,           CLASSIFICATION_ID,TERM,         TERM_TYPE,    SOURCE,POSITION_IN_CLASSIFICATION,LASTDATE
 						) values (
-							sq_taxon_term_id.nextval,#taxon_name_id#,'#thisClassID#', '#thisTermVal#','#thisTerm#','TEST',#thisPosition#,sysdate
+							sq_taxon_term_id.nextval,#taxon_name_id#,'#thisClassID#', '#thisTermVal#','#thisTerm#','#source#',#thisPosition#,sysdate
 						) 
 					</cfquery>
 					<cfset thisPosition=thisPosition+1>
@@ -472,7 +472,7 @@ sho err
 						insert into taxon_term ( 
 							TAXON_TERM_ID,          taxon_name_id,           CLASSIFICATION_ID,TERM,         TERM_TYPE,    SOURCE,LASTDATE
 						) values (
-							sq_taxon_term_id.nextval,#taxon_name_id#,'#thisClassID#', '#thisTermVal#','#thisTerm#','TEST',sysdate
+							sq_taxon_term_id.nextval,#taxon_name_id#,'#thisClassID#', '#thisTermVal#','#thisTerm#','#source#',sysdate
 						) 
 					</cfquery>
 				</cfif>
