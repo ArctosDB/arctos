@@ -47,8 +47,15 @@
 		<cfabort>
 	</cfif>
 		
-	<cfset nono="browse,stories,rutorrent,backend,administrator,rss,feed,Comments,feeds,nyet,setup,exe,invoker,jbossws,jbossmq-httpil,HNAP1,comments,Dashboard,jspa,jiraHNAP1,adimages,jsp,sign_up,trackback,mpx,asp,aspx,connectors,filemanager,editor,fckeditor,signup,register,wp-admin,wp,verify-tldnotify,jmx-console,admin-console,cgi-bin,webcalendar,webcal,calendar,plugins,passwd,mysql,htdocs,PHPADMIN,mysql2,mydbs,dbg,pma2,pma4,scripts,sqladm,mysql2,phpMyAdminLive,_phpMyAdminLive,dbadmin,sqladm,lib,webdav,manager,ehcp,MyAdmin,pma,phppgadmin,dbadmin,myadmin,awstats,version,phpldapadmin,horde,appConf,soapCaller,muieblackcat,@@version,w00tw00t,announce,php,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
+	<cfset nono="app,browse,stories,rutorrent,backend,administrator,rss,feed,Comments,feeds,nyet,setup,exe,invoker,jbossws,jbossmq-httpil,HNAP1,comments,Dashboard,jspa,jiraHNAP1,adimages,jsp,sign_up,trackback,mpx,asp,aspx,connectors,filemanager,editor,fckeditor,signup,register,wp-admin,wp,verify-tldnotify,jmx-console,admin-console,cgi-bin,webcalendar,webcal,calendar,plugins,passwd,mysql,htdocs,PHPADMIN,mysql2,mydbs,dbg,pma2,pma4,scripts,sqladm,mysql2,phpMyAdminLive,_phpMyAdminLive,dbadmin,sqladm,lib,webdav,manager,ehcp,MyAdmin,pma,phppgadmin,dbadmin,myadmin,awstats,version,phpldapadmin,horde,appConf,soapCaller,muieblackcat,@@version,w00tw00t,announce,php,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
 	<cfset fourohthree="dll,png,crossdomain,xml">
+	<cfset browsergarbage="apple-touch-icon-precomposed.png,apple-touch-icon.png,browserconfig.xml">
+	
+	<cfloop list="#request.rdurl#" delimiters="./&+" index="i">
+		<cfif listfindnocase(browsergarbage,i)>
+			<cfthrow detail="Invalid browser-specific file request" message="403: Forbidden" errorcode="403">
+		</cfif>
+	</cfloop>
 	<cfloop list="#request.rdurl#" delimiters="./&+" index="i">
 		<cfif listfindnocase(nono,i)>
 			<cfinclude template="/errors/autoblacklist.cfm">
