@@ -82,7 +82,7 @@
 	
 	
 	<cfquery name="CTCOLLECTION" datasource="uam_god">
-		select collection_id from collection
+		select collection_id from collection where collection_id=#collection_id#
 	</cfquery>
 		
 	<cfloop query="uidtype">
