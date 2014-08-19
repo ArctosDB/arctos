@@ -99,6 +99,10 @@
 			reciprocalRelationship: #reciprocalRelationship#
 		</p>
 		<cfloop query="ctcollection">
+		
+			<p>
+				running for collection #collection_id#
+			</p>
 			<cfquery name="missing" datasource="uam_god">
 				<!--- 
 					all identifiers of type #r1#
