@@ -93,9 +93,9 @@
 		<cfquery name="rr" dbtype="query">
 			select * from ctid_references where r1='#idtype#'
 		</cfquery>
-		
+		<cfset reciprocal=rr.r2>
 		<p>
-			reciprocal: #rr.r2#
+			reciprocal: #reciprocal#
 		</p>
 		<cfloop query="ctcollection">
 			<cfquery name="missing" datasource="uam_god">
@@ -194,20 +194,26 @@ where
 	)
 	and rownum<10
 			</cfquery>
+			
+			<cfif missing.rowcount gt 0>
 			<table border>
 				<tr>
 					<td>my</td>
 					<td>existR</td>
 					<td>theirguid</td>
+					
+					<td>newR</td>
 				</tr>
 				<cfloop query="missing">
 					<tr>
 						<td>#myGUID#</td>
 						<td>#existingRelationship#</td>
 						<td>#theirGUID#</td>
+						<td>#reciprocal#</td>
 					</tr>
 				</cfloop>
 			</table>
+			</cfif>
 		</cfloop>	
 
 		
