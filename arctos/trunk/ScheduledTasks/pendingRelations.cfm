@@ -86,6 +86,9 @@
 	</cfquery>
 		
 	<cfloop query="uidtype">
+		<p>
+			idtype: #idtype#
+		</p>
 		<cfloop query="ctcollection">
 			<cfquery name="missing" datasource="uam_god">
 				<!--- 
