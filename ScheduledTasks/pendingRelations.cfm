@@ -234,7 +234,7 @@
 										'#new_other_id_type#',
 										'#new_other_id_number#',
 										'#new_other_id_references#',
-										sydate
+										sysdate
 									)">
 				</cfloop>
 			</table>
