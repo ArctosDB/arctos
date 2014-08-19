@@ -287,7 +287,6 @@ sho err
 			where 
 				cf_temp_recipr_proc.collection_id=collection.collection_id and 
 				collection.collection_id in (
-					-- hit the VPD
 					select collection_id from cataloged_item
 				) 
 			order by 
@@ -307,7 +306,6 @@ sho err
 		cf_temp_recipr_proc,
 		collection,
 		where cf_temp_recipr_proc.collection_id=collection.collection_id and collection.collection_id in (
-		-- hit the VPD
 		select collection_id from cataloged_item) group by collection.collection,collection.collection_id order by collection.collection
 	</cfquery>
 	<cfif recip.recordcount gt 0>
