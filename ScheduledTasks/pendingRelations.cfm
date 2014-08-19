@@ -91,7 +91,7 @@
 		</p>
 		
 		<cfquery name="rr" dbtype="query">
-			select * from ctid_references where r1=#idtype#
+			select * from ctid_references where r1='#idtype#'
 		</cfquery>
 		
 		<p>
