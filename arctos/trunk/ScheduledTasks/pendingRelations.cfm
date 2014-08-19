@@ -23,7 +23,20 @@
 		found_date date
 	);
 	
-	
+	create public synonym cf_temp_recip_oids for cf_temp_recip_oids;
+	grant all on cf_temp_recip_oids to manage_specimens;
+
+	 CREATE OR REPLACE TRIGGER cf_temp_recip_oids_key
+	 before insert  ON cf_temp_recip_oids
+	 for each row
+	    begin
+	    	if :NEW.key is null then
+	    		select somerandomsequence.nextval into :new.key from dual;
+	    	end if;
+	    end;
+	/
+	sho err
+
 
 --->
 <cfoutput>
@@ -118,7 +131,7 @@
 	<cfif not isdefined("thisCollectionID") or len(thisCollectionID) is 0>
 		up to date <cfabort>
 	</cfif>
-		
+	<cfset sql="insert all ">
 	<cfloop query="uidtype">
 		<cfset thisRelationship=uidtype.idtype>
 		<p>
@@ -128,13 +141,9 @@
 		<cfquery name="rr" dbtype="query">
 			select * from ctid_references where r1='#idtype#'
 		</cfquery>
-		
-		<cfdump var=#rr#>
 		<cfif rr.recordcount is 1>
-			<br>got it: 
 			<cfset reciprocalRelationship=rr.r2>
 		<cfelse>
-			<br>other way
 			<cfquery name="rr" dbtype="query">
 				select * from ctid_references where r2='#idtype#'
 			</cfquery>
@@ -204,229 +213,36 @@
 						<td>#new_other_id_type#</td>
 						<td>#new_other_id_references#</td>
 					</tr>
+					<cfset sql=sql & " into 
+										cf_temp_recip_oids 
+									(
+										key,
+										collection_id,
+										guid_prefix,
+										existing_other_id_type,
+										existing_other_id_number,
+										new_other_id_type,
+										new_other_id_number,
+										new_other_id_references,
+										found_date)
+									) values (
+										somerandomsequence.nextval,
+										#thisCollectionID#,
+										'#guid_prefix#',
+										'#existing_other_id_type#',
+										'#existing_other_id_number#',
+										'#new_other_id_type#',
+										'#new_other_id_number#',
+										'#new_other_id_references#',
+										ssydate
+									)">
 				</cfloop>
 			</table>
 			</cfif>
 	</cfloop>
-	
-	
-	
-	<!----
-	<cfquery name="newOrStale" datasource="uam_god">
-		select
-			coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
-			coll_obj_other_id_num.ID_REFERENCES,
-			coll_obj_other_id_num.OTHER_ID_TYPE,
-			coll_obj_other_id_num.DISPLAY_VALUE,
-			CTCOLL_OTHER_ID_TYPE.BASE_URL
-		from
-			coll_obj_other_id_num,
-			CTCOLL_OTHER_ID_TYPE
-		where
-			coll_obj_other_id_num.ID_REFERENCES != 'self' and
-			coll_obj_other_id_num.OTHER_ID_TYPE=CTCOLL_OTHER_ID_TYPE.OTHER_ID_TYPE and
-			CTCOLL_OTHER_ID_TYPE.BASE_URL is not null and
-			coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID not in (
-				select COLL_OBJ_OTHER_ID_NUM_ID from cf_relations_cache
-			) and
-			rownum<1000
-		UNION
-		select
-			coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
-			coll_obj_other_id_num.ID_REFERENCES,
-			coll_obj_other_id_num.OTHER_ID_TYPE,
-			coll_obj_other_id_num.DISPLAY_VALUE,
-			CTCOLL_OTHER_ID_TYPE.BASE_URL
-		from
-			coll_obj_other_id_num,
-			CTCOLL_OTHER_ID_TYPE,
-			cf_relations_cache
-		where
-			coll_obj_other_id_num.ID_REFERENCES != 'self' and
-			coll_obj_other_id_num.OTHER_ID_TYPE=CTCOLL_OTHER_ID_TYPE.OTHER_ID_TYPE and
-			CTCOLL_OTHER_ID_TYPE.BASE_URL is not null and
-			coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID = cf_relations_cache.COLL_OBJ_OTHER_ID_NUM_ID and
-			sysdate-CACHEDATE > 30 and
-			rownum<1000
-	</cfquery>
-	
-	<br>found #newOrStale.recordcount#
-	<cfloop query="newOrStale">
-		<!--- this should be a web fetch, but see above. Try to be nice about encumbrances, get only public data, etc. --->
-		<cfquery name="fetch" datasource="uam_god">
-			select
-				HIGHER_GEOG || ': ' || SPEC_LOCALITY locality,
-				SCIENTIFIC_NAME,
-				FAMILY
-			from
-				filtered_flat
-			where guid='#OTHER_ID_TYPE#:#DISPLAY_VALUE#'
+		<cfset sql=sql & ' select 1 from dual'>
+		<cfquery name="ins" datasource="uam_god">
+			#preservesinglequotes(sql)#
 		</cfquery>
-		<!---
-			if we get something, update (via delete and insert)
-			if we do NOT get anything, assume the "other system"
-			is just hosed and hang on to whatever we already had
-			That is, do nothing
-		---->
-		<cfif fetch.recordcount is 1>
-			<!---
-				if this becomes something more than SQL, we'll need to alter this to only delete the things
-				that we're going to rebuild
-			---->
-			<cfquery name="ins" datasource="uam_god">
-				delete from cf_relations_cache where COLL_OBJ_OTHER_ID_NUM_ID=#newOrStale.COLL_OBJ_OTHER_ID_NUM_ID#
-			</cfquery>
-			<cfif len(fetch.locality) gt 0>
-				<cfquery name="ins" datasource="uam_god">
-					insert into cf_relations_cache (
-						COLL_OBJ_OTHER_ID_NUM_ID,
-						TERM,
-						VALUE
-					) values (
-						#newOrStale.COLL_OBJ_OTHER_ID_NUM_ID#,
-						'locality',
-						'#fetch.locality#'
-					)
-				</cfquery>
-			</cfif>
-			<cfif len(fetch.SCIENTIFIC_NAME) gt 0>
-				<cfquery name="ins" datasource="uam_god">
-					insert into cf_relations_cache (
-						COLL_OBJ_OTHER_ID_NUM_ID,
-						TERM,
-						VALUE
-					) values (
-						#newOrStale.COLL_OBJ_OTHER_ID_NUM_ID#,
-						'identification',
-						'#fetch.SCIENTIFIC_NAME#'
-					)
-				</cfquery>
-			</cfif>
-			<cfif len(fetch.FAMILY) gt 0>
-				<cfquery name="ins" datasource="uam_god">
-					insert into cf_relations_cache (
-						COLL_OBJ_OTHER_ID_NUM_ID,
-						TERM,
-						VALUE
-					) values (
-						#newOrStale.COLL_OBJ_OTHER_ID_NUM_ID#,
-						'family',
-						'#fetch.FAMILY#'
-					)
-				</cfquery>
-			</cfif>
-		</cfif>
-	</cfloop>
-</cfoutput>
 
-
-
-
-<cfinclude template="/includes/_header.cfm">
-<cfquery name="getRels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from cf_temp_relations where RELATED_COLLECTION_OBJECT_ID is null
-</cfquery>
-<cfoutput>
-	<cfloop query="getRels">
-		<cfif #related_to_num_type# is "catalog number">
-			<cftry>
-			<cfquery name="isOne" datasource="uam_god">
-				select
-					collection_object_id
-				FROM
-					flat
-				where
-					guid = '#related_to_number#'
-			</cfquery>
-			<cfcatch>
-				<cfquery name="nope" datasource="uam_god">
-					update cf_temp_relations set
-						lasttrydate=sysdate,
-						fail_reason='Catalog Number does not exist or is not in UAM Mamm 1234 format'
-					WHERE
-						collection_object_id=#collection_object_id# and
-						related_to_number = '#related_to_number#' and
-						related_to_num_type = '#related_to_num_type#' and
-						relationship = '#relationship#'
-				</cfquery>
-				<cfset isOne = queryNew("collection_object_id")>
-			</cfcatch>
-			</cftry>
-		<cfelse>
-			<cfquery name="isOne" datasource="uam_god">
-				select collection_object_id FROM coll_obj_other_id_num
-				where other_id_type = '#related_to_num_type#' and display_value = '#related_to_number#'
-			</cfquery>
-		</cfif>
-		<cfif #isOne.recordcount# is 0>
-			<cfquery name="nope" datasource="uam_god">
-				update cf_temp_relations set
-					lasttrydate=sysdate,
-					fail_reason='Related cataloged item does not exist.'
-				WHERE
-					collection_object_id=#collection_object_id# and
-					related_to_number = '#related_to_number#' and
-					related_to_num_type = '#related_to_num_type#' and
-					relationship = '#relationship#'
-			</cfquery>
-		<cfelseif #isOne.recordcount# gt 1>
-			<cfquery name="toomany" datasource="uam_god">
-				update cf_temp_relations set
-					lasttrydate=sysdate,
-					fail_reason='More than one cataloged item matched.'
-				WHERE
-					collection_object_id=#collection_object_id# and
-					related_to_number = '#related_to_number#' and
-					related_to_num_type = '#related_to_num_type#' and
-					relationship = '#relationship#'
-			</cfquery>
-		<cfelseif #isOne.recordcount# is 1>
-			<cftry>
-			<cfquery name="insNew" datasource="uam_god">
-				INSERT INTO
-					 BIOL_INDIV_RELATIONS (
-					 	COLLECTION_OBJECT_ID,
-					 	RELATED_COLL_OBJECT_ID,
-					 	BIOL_INDIV_RELATIONSHIP )
-					 VALUES (
-					 	#collection_object_id#,
-					 	#isOne.collection_object_id#,
-					 	'#relationship#' )
-			</cfquery>
-			<cfquery name="justRight" datasource="uam_god">
-				DELETE FROM cf_temp_relations
-				WHERE
-					collection_object_id=#collection_object_id# and
-					related_to_number = '#related_to_number#' and
-					related_to_num_type = '#related_to_num_type#' and
-					relationship = '#relationship#'
-			</cfquery>
-			<cfcatch>
-				<cfquery name="fail" datasource="uam_god">
-					update cf_temp_relations set
-						lasttrydate=sysdate,
-						fail_reason='DB Error. #cfcatch.detail#'
-					WHERE
-						collection_object_id=#collection_object_id# and
-						related_to_number = '#related_to_number#' and
-						related_to_num_type = '#related_to_num_type#' and
-						relationship = '#relationship#'
-				</cfquery>
-			</cfcatch>
-			</cftry>
-			<!---- insert into relationships ---->
-		<cfelse>
-			<cfquery name="faill" datasource="uam_god">
-				update cf_temp_relations set
-					lasttrydate=sysdate,
-					fail_reason='unknown failure!'
-				WHERE
-					collection_object_id=#collection_object_id# and
-					related_to_number = '#related_to_number#' and
-					related_to_num_type = '#related_to_num_type#' and
-					relationship = '#relationship#'
-			</cfquery>
-		</cfif>
-	</cfloop>
-	---->
 </cfoutput>
