@@ -87,13 +87,14 @@
 		
 	<cfloop query="uidtype">
 		<cfloop query="ctcollection">
-			<cfquery name="newOrStale" datasource="uam_god">
+			<cfquery name="missing" datasource="uam_god">
 				<!--- 
 					all identifiers of type #r1#
 					which reference specimens in #collection_id#
 					and do not have reciprocal relationship #r2#	
 					
 				---->
+				<!----
 			
 				select
 					my_collection.guid_prefix,
@@ -111,8 +112,17 @@
 					CTCOLL_OTHER_ID_TYPE.BASE_URL
 				from
 					coll_obj_other_id_num,
+					collection my_collection,
+					cataloged_item my_catitem,
+					collection their_collection,
+					cataloged_item their_catitem,
+					
 					
 				where
+					coll_obj_other_id_num.collection_object_id=their_catitem.collection_object_id and
+					their_catitem.collection_id=their_collection.collection_id
+				
+				
 					coll_obj_other_id_num.ID_REFERENCES != 'self' and
 					coll_obj_other_id_num.OTHER_ID_TYPE=CTCOLL_OTHER_ID_TYPE.OTHER_ID_TYPE and
 					CTCOLL_OTHER_ID_TYPE.BASE_URL is not null and
@@ -138,7 +148,42 @@
 					coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID = cf_relations_cache.COLL_OBJ_OTHER_ID_NUM_ID and
 					sysdate-CACHEDATE > 30 and
 					rownum<1000
+					---->
+					
+					
+					
+					select 
+	their_collection.guid_prefix || ':' || their_catitem.cat_num theirGUID,	
+	coll_obj_other_id_num.ID_REFERENCES existingRelationship,
+	my_collection.guid_prefix || ':' || my_catitem.cat_num myGUID
+from
+	coll_obj_other_id_num,
+	collection my_collection,
+	cataloged_item my_catitem,
+	collection their_collection,
+	cataloged_item their_catitem
+where
+	coll_obj_other_id_num.ID_REFERENCES='host of' and
+	coll_obj_other_id_num.collection_object_id=their_catitem.collection_object_id and
+	their_catitem.collection_id=their_collection.collection_id and
+	OTHER_ID_TYPE=my_collection.guid_prefix and
+	my_collection.collection_id=my_catitem.collection_id and
+	my_catitem.cat_num=display_value
+	and my_collection.collection_id=1 and
+	my_catitem.collection_object_id not in (
+		select
+			coll_obj_other_id_num.collection_object_id
+		from
+			coll_obj_other_id_num,
+			cataloged_item
+		where
+			coll_obj_other_id_num.ID_REFERENCES='parasite of' and
+			coll_obj_other_id_num.collection_object_id=cataloged_item.collection_object_id and
+			cataloged_item.collection_id=1
+	)
 			</cfquery>
+			
+			<cfdump var=#missing#>
 		</cfloop>	
 
 		
