@@ -48,7 +48,7 @@
 	<cfset temp = QuerySetCell(ctid_references, "r2", 'same individual as', i)>
 	<cfset i=i+1>
 	<cfset temp = queryaddrow(ctid_references,1)>
-	<cfset temp = QuerySetCell(ctid_references, "r1", 'TEST---sibling of', i)>
+	<cfset temp = QuerySetCell(ctid_references, "r1", 'sibling of', i)>
 	<cfset temp = QuerySetCell(ctid_references, "r2", 'sibling of', i)>
 	
 	
@@ -61,11 +61,21 @@
 	<cfif c1.recordcount is not 0>
 		<cfthrow message='pendingRelations r1 MIA'>
 	</cfif>
+	<cfquery name="c2" dbtype="query">
+		select r2 from ctid_references where r2 not in (#QuotedValueList(rCTID_REFERENCES.ID_REFERENCES)# )
+	</cfquery>
+	<cfif c2.recordcount is not 0>
+		<cfthrow message='pendingRelations r2 MIA'>
+	</cfif>
 	
-	
-	
-	<cfabort>
-	
+	<cfquery name="uidtype" dbtype="query">
+		select distinct idtype from (
+			select r1 as idtype from ctid_references
+			union
+			select r2 as idtype from ctid_references
+		)
+	</cfquery>
+	<cfdump var=#uidtype#>
 	
 	
 	<cfquery name="CTCOLLECTION" datasource="uam_god">
@@ -75,7 +85,17 @@
 	<cfloop query="CTID_REFERENCES">
 		<cfloop query="ctcollection">
 			<cfquery name="newOrStale" datasource="uam_god">
+				<!--- all identifiers of type #r1#....
+			
 				select
+					my_collection.guid_prefix,
+					my_catitem.cat_num existing_other_id_number,
+					'catalog number' existing_other_id_type,
+					their_collection.guid_prefix new_other_id_type,
+					their_catitem.cat_num new_other_id_number,
+					
+					ctid_references.r2 new_other_id_references
+					 
 					coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
 					coll_obj_other_id_num.ID_REFERENCES,
 					coll_obj_other_id_num.OTHER_ID_TYPE,
@@ -83,7 +103,7 @@
 					CTCOLL_OTHER_ID_TYPE.BASE_URL
 				from
 					coll_obj_other_id_num,
-					CTCOLL_OTHER_ID_TYPE
+					
 				where
 					coll_obj_other_id_num.ID_REFERENCES != 'self' and
 					coll_obj_other_id_num.OTHER_ID_TYPE=CTCOLL_OTHER_ID_TYPE.OTHER_ID_TYPE and
@@ -115,6 +135,10 @@
 
 		
 	</cfloop>
+	
+	
+	
+	<!----
 	<cfquery name="newOrStale" datasource="uam_god">
 		select
 			coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
@@ -331,4 +355,5 @@
 			</cfquery>
 		</cfif>
 	</cfloop>
+	---->
 </cfoutput>
