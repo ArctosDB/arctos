@@ -274,7 +274,7 @@ sho err
 				collection.collection,
 				key,
 				cf_temp_recip_oids.collection_id,
-				guid_prefix,
+				cf_temp_recip_oids.guid_prefix,
 				existing_other_id_type,
 				existing_other_id_number,
 				new_other_id_type,
@@ -292,7 +292,7 @@ sho err
 			order by 
 				collection.collection,
 				new_other_id_references,
-				guid_prefix,
+				cf_temp_recip_oids.guid_prefix,
 				new_other_id_type
 		</cfquery>
 		<cfdump var=#recip#>
