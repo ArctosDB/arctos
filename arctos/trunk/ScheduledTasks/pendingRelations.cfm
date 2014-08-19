@@ -252,9 +252,12 @@
 			</table>
 			</cfif>
 	</cfloop>
+
+	<cfif sql is not "insert all ">
 		<cfset sql=sql & ' select 1 from dual'>
 		<cfquery name="ins" datasource="uam_god">
 			#preservesinglequotes(sql)#
 		</cfquery>
+	</cfif>
 
 </cfoutput>
