@@ -67,13 +67,13 @@
 	<cfif c2.recordcount is not 0>
 		<cfthrow message='pendingRelations r2 MIA'>
 	</cfif>
-	
-	<cfquery name="uidtype" dbtype="query">
-		select distinct idtype from (
+	<cfquery name="t" dbtype="query">
 			select r1 as idtype from ctid_references
 			union
 			select r2 as idtype from ctid_references
-		)
+	</cfquery>
+	<cfquery name="uidtype" dbtype="query">
+		select distinct idtype from t
 	</cfquery>
 	<cfdump var=#uidtype#>
 	
