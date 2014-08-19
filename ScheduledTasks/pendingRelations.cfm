@@ -4,10 +4,32 @@
 
 	Build a bulkloader of potential reciprocal relationships
 	
+	create table cf_temp_recipr_proc (
+		collection_id number,
+		lastdate date
+	);
+	
+	
+	
+	create table cf_temp_recip_oids (
+		key number,
+		collection_id number,
+		guid_prefix varchar2(20) not null,
+		existing_other_id_type varchar2(60) not null,
+		existing_other_id_number varchar2(60) not null,
+		new_other_id_type varchar2(60) not null,
+		new_other_id_number varchar2(60) not null,
+		new_other_id_references varchar2(60),
+		found_date date
+	);
+	
 	
 
 --->
 <cfoutput>
+
+	<cfset interval=24>
+	
 	<!--- hard-code this because we have no better place for it.... --->
 	<cfset ctid_references = querynew("r1,r2")>
 	<cfset temp = queryaddrow(ctid_references,1)>
@@ -80,10 +102,22 @@
 	<cfdump var=#ctid_references#>
 	<cfdump var=#uidtype#>
 	
-	
-	<cfquery name="CTCOLLECTION" datasource="uam_god">
-		select collection_id from collection where collection_id=#collection_id#
+	<!--- see if we can find any collections we don't know about ---->
+	<cfquery name="thisCollection" datasource="uam_god">
+		select min(collection_id) collection_id from collection where collection_id not in (select collection_id from cf_temp_recipr_proc)
 	</cfquery>
+	<cfif thisCollection.recordcount is 0>
+		<!--- see if we can find any collections that haven't been processed since INTERVAL ---->
+		<cfquery name="thisCollection" datasource="uam_god">
+			select min(collection_id) collection_id from cf_temp_recipr_proc where lastdate > sysdate-#interval#/24
+		</cfquery>
+		<cfset thisCollection=thisCollection.collection_id>
+	<cfelse>
+		<cfset thisCollectionID=thisCollection.collection_id>
+	</cfif>
+	<cfif not isdefined("thisCollectionID") or len(thisCollectionID) is 0>
+		up to date <cfabort>
+	</cfif>
 		
 	<cfloop query="uidtype">
 		<cfset thisRelationship=uidtype.idtype>
@@ -110,7 +144,6 @@
 		<p>
 			reciprocalRelationship: #reciprocalRelationship#
 		</p>
-		<cfloop query="ctcollection">
 		
 			<p>
 				running for collection #collection_id#
@@ -137,7 +170,7 @@
 					OTHER_ID_TYPE=my_collection.guid_prefix and
 					my_collection.collection_id=my_catitem.collection_id and
 					my_catitem.cat_num=display_value
-					and my_collection.collection_id=#collection_id# and
+					and my_collection.collection_id=#thisCollectionID# and
 					my_catitem.collection_object_id not in (
 						select
 							coll_obj_other_id_num.collection_object_id
@@ -147,7 +180,7 @@
 						where
 							coll_obj_other_id_num.ID_REFERENCES='#reciprocalRelationship#' and
 							coll_obj_other_id_num.collection_object_id=cataloged_item.collection_object_id and
-							cataloged_item.collection_id=#collection_id#
+							cataloged_item.collection_id=#thisCollectionID#
 					)
 					and rownum<10
 			</cfquery>
@@ -162,9 +195,6 @@
 					<td>new_other_id_type</td>
 					<td>new_other_id_references</td>
 				</tr>
-				
-					
-					
 				<cfloop query="missing">
 					<tr>
 						<td>#guid_prefix#</td>
@@ -177,9 +207,6 @@
 				</cfloop>
 			</table>
 			</cfif>
-		</cfloop>	
-
-		
 	</cfloop>
 	
 	
