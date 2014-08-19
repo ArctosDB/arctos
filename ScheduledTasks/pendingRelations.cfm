@@ -89,6 +89,14 @@
 		<p>
 			idtype: #idtype#
 		</p>
+		
+		<cfquery name="rr" dbtype="query">
+			select * from ctid_references where r1=#idtype#
+		</cfquery>
+		
+		<p>
+			reciprocal: #rr.r2#
+		</p>
 		<cfloop query="ctcollection">
 			<cfquery name="missing" datasource="uam_god">
 				<!--- 
