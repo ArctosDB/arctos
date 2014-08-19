@@ -273,7 +273,7 @@ sho err
 			select 
 				collection.collection,
 				key,
-				cf_temp_recipr_proc.collection_id,
+				cf_temp_recip_oids.collection_id,
 				guid_prefix,
 				existing_other_id_type,
 				existing_other_id_number,
@@ -282,10 +282,10 @@ sho err
 				new_other_id_references,
 				found_date 
 			from 
-				cf_temp_recipr_proc,
+				cf_temp_recip_oids,
 				collection,
 			where 
-				cf_temp_recipr_proc.collection_id=collection.collection_id and 
+				cf_temp_recip_oids.collection_id=collection.collection_id and 
 				collection.collection_id in (
 					select collection_id from cataloged_item
 				) 
@@ -303,9 +303,9 @@ sho err
 <cfoutput>
 	<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection.collection,collection.collection_id, count(*) from 
-		cf_temp_recipr_proc,
+		cf_temp_recip_oids,
 		collection
-		where cf_temp_recipr_proc.collection_id=collection.collection_id and collection.collection_id in (
+		where cf_temp_recip_oids.collection_id=collection.collection_id and collection.collection_id in (
 		select collection_id from cataloged_item) group by collection.collection,collection.collection_id order by collection.collection
 	</cfquery>
 	<cfif recip.recordcount gt 0>
