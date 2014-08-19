@@ -56,7 +56,7 @@
 		select ID_REFERENCES from CTID_REFERENCES where ID_REFERENCES != 'self'
 	</cfquery>
 	<cfquery name="c1" dbtype="query">
-		select r1 from ctid_references where r1 not in (#valuelist(rCTID_REFERENCES.ID_REFERENCES)# )
+		select r1 from ctid_references where r1 not in (#QuotedValueList(rCTID_REFERENCES.ID_REFERENCES)# )
 	</cfquery>
 	<cfif c1.recordcount is not 0>
 		<cfthrow message='pendingRelations r1 MIA'>
