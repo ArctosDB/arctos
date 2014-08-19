@@ -85,7 +85,7 @@
 	<cfloop query="CTID_REFERENCES">
 		<cfloop query="ctcollection">
 			<cfquery name="newOrStale" datasource="uam_god">
-				<!--- all identifiers of type #r1#....
+				<!--- all identifiers of type #r1#.... ---->
 			
 				select
 					my_collection.guid_prefix,
