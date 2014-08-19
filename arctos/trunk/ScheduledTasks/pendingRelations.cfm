@@ -169,7 +169,7 @@ where
 	OTHER_ID_TYPE=my_collection.guid_prefix and
 	my_collection.collection_id=my_catitem.collection_id and
 	my_catitem.cat_num=display_value
-	and my_collection.collection_id=1 and
+	and my_collection.collection_id=#collection_id# and
 	my_catitem.collection_object_id not in (
 		select
 			coll_obj_other_id_num.collection_object_id
@@ -179,8 +179,9 @@ where
 		where
 			coll_obj_other_id_num.ID_REFERENCES='parasite of' and
 			coll_obj_other_id_num.collection_object_id=cataloged_item.collection_object_id and
-			cataloged_item.collection_id=1
+			cataloged_item.collection_id=#collection_id#
 	)
+	and rownum<10
 			</cfquery>
 			
 			<cfdump var=#missing#>
