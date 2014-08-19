@@ -86,16 +86,17 @@
 	</cfquery>
 		
 	<cfloop query="uidtype">
+		<cfset thisRelationship=uidtype.idtype>
 		<p>
-			idtype: #idtype#
+			thisRelationship: #thisRelationship#
 		</p>
 		
 		<cfquery name="rr" dbtype="query">
 			select * from ctid_references where r1='#idtype#'
 		</cfquery>
-		<cfset reciprocal=rr.r2>
+		<cfset reciprocalRelationship=rr.r2>
 		<p>
-			reciprocal: #reciprocal#
+			reciprocalRelationship: #reciprocalRelationship#
 		</p>
 		<cfloop query="ctcollection">
 			<cfquery name="missing" datasource="uam_god">
@@ -174,7 +175,7 @@ from
 	collection their_collection,
 	cataloged_item their_catitem
 where
-	coll_obj_other_id_num.ID_REFERENCES='#idtype#' and
+	coll_obj_other_id_num.ID_REFERENCES='#thisRelationship#' and
 	coll_obj_other_id_num.collection_object_id=their_catitem.collection_object_id and
 	their_catitem.collection_id=their_collection.collection_id and
 	OTHER_ID_TYPE=my_collection.guid_prefix and
@@ -188,7 +189,7 @@ where
 			coll_obj_other_id_num,
 			cataloged_item
 		where
-			coll_obj_other_id_num.ID_REFERENCES='#reciprocal#' and
+			coll_obj_other_id_num.ID_REFERENCES='#reciprocalRelationship#' and
 			coll_obj_other_id_num.collection_object_id=cataloged_item.collection_object_id and
 			cataloged_item.collection_id=#collection_id#
 	)
@@ -202,14 +203,14 @@ where
 					<td>existR</td>
 					<td>theirguid</td>
 					
-					<td>newR</td>
+					<td>reciprocalRelationship</td>
 				</tr>
 				<cfloop query="missing">
 					<tr>
 						<td>#myGUID#</td>
-						<td>#existingRelationship#</td>
+						<td>#existingRelationship# (=#thisRelationship#)</td>
 						<td>#theirGUID#</td>
-						<td>#reciprocal#</td>
+						<td>#reciprocalRelationship#</td>
 					</tr>
 				</cfloop>
 			</table>
