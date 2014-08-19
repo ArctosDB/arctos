@@ -269,6 +269,7 @@
 				collection,
 				cataloged_item
 			where 
+				accn.accn_status != 'complete' and
 				accn.transaction_id=trans.transaction_id and
 				trans.collection_id=collection.collection_id and
 				accn.transaction_id=cataloged_item.accn_id (+) and
