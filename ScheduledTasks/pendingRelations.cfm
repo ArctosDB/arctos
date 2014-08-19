@@ -75,6 +75,9 @@
 	<cfquery name="uidtype" dbtype="query">
 		select distinct idtype from t
 	</cfquery>
+	
+	
+	<cfdump var=#ctid_references#>
 	<cfdump var=#uidtype#>
 	
 	
@@ -82,10 +85,15 @@
 		select collection_id from collection
 	</cfquery>
 		
-	<cfloop query="CTID_REFERENCES">
+	<cfloop query="uidtype">
 		<cfloop query="ctcollection">
 			<cfquery name="newOrStale" datasource="uam_god">
-				<!--- all identifiers of type #r1#.... ---->
+				<!--- 
+					all identifiers of type #r1#
+					which reference specimens in #collection_id#
+					and do not have reciprocal relationship #r2#	
+					
+				---->
 			
 				select
 					my_collection.guid_prefix,
