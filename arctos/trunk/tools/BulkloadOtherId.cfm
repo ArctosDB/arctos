@@ -39,7 +39,7 @@ sho err
 ------>
 <cfif action is "template">
 	<cfoutput>
-		<cfset d="guid_prefix,EXISTING_OTHER_ID_TYPE,EXISTING_OTHER_ID_NUMBER,NEW_OTHER_ID_TYPE,NEW_OTHER_ID_NUMBER,NEW_OTHER_ID_REFERENCES">
+		<cfset d="GUID_PREFIX,EXISTING_OTHER_ID_TYPE,EXISTING_OTHER_ID_NUMBER,NEW_OTHER_ID_TYPE,NEW_OTHER_ID_NUMBER,NEW_OTHER_ID_REFERENCES">
 		<cfset variables.encoding="UTF-8">
 		<cfset variables.fileName="#Application.webDirectory#/download/BulkloadOtherId.csv">
 		<cfscript>
@@ -51,9 +51,21 @@ sho err
 		<a href="/download/BulkloadOtherId.csv">Click here if your file does not automatically download.</a>
 	</cfoutput>
 </cfif>
+<!---------------------------------------------------------------->
 <cfif action is "nothing">
-	Step 1: Upload a comma-delimited text file (csv).
+	<cfoutput>
+		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<cfif mine.recordcount gt 0>
+			<p>
+				<a href="BulkloadOtherId.cfm?action=managemystuff">Manage your existing #mine.recordcount# records</a>
+			</p>
+		</cfif>
+	</cfoutput>
+	Upload a comma-delimited text file (csv).
 	<p><a href="BulkloadOtherId.cfm?action=template">get a template here</a>
+	
 	<table border>
 		<tr>
 			<th>Column</th>
@@ -137,9 +149,6 @@ sho err
 <cfif action is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
-	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from cf_temp_oids
-	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
@@ -154,24 +163,24 @@ sho err
 					<cfset colVals="#colVals#,'#thisBit#'">
 				</cfif>
 			</cfloop>
-		<cfif #o# is 1>
+		<cfif o is 1>
 			<cfset colNames=replace(colNames,",","","first")>
 		</cfif>
-		<cfif len(#colVals#) gt 1>
+		<cfif len(colVals) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into cf_temp_oids (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
 	</cfloop>
-	<cflocation url="BulkloadOtherId.cfm?action=validate" addtoken="false">
+	<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_oids
+		select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfloop query="data">
 		<cfset err="">
@@ -225,7 +234,7 @@ sho err
 		</cfif>
 		<cfif len(err) is 0>
 			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				UPDATE cf_temp_oids SET collection_object_id = #collObj.collection_object_id# where
+				UPDATE cf_temp_oids SET collection_object_id = #collObj.collection_object_id#,STATUS='valid' where
 				key = #key#
 			</cfquery>
 		<cfelse>
@@ -262,10 +271,57 @@ sho err
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif action is "showCheck">
+<cfif action is "getRecip">
+	<cfoutput>
+		<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select 
+				collection.collection,
+				key,
+				cf_temp_recipr_proc.collection_id,
+				guid_prefix,
+				existing_other_id_type,
+				existing_other_id_number,
+				new_other_id_type,
+				new_other_id_number,
+				new_other_id_references,
+				found_date 
+			from 
+				cf_temp_recipr_proc,
+				collection,
+			where 
+				cf_temp_recipr_proc.collection_id=collection.collection_id and 
+				collection.collection_id in (
+					-- hit the VPD
+					select collection_id from cataloged_item
+				) 
+			order by 
+				collection.collection,
+				new_other_id_references,
+				guid_prefix,
+				new_other_id_type
+		</cfquery>
+		<cfdump var=#recip#>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------->
+<cfif action is "managemystuff">
 <cfoutput>
+	<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select collection.collection,collection.collection_id, count(*) from 
+		cf_temp_recipr_proc,
+		collection,
+		where cf_temp_recipr_proc.collection_id=collection.collection_id and collection.collection_id in (
+		-- hit the VPD
+		select collection_id from cataloged_item) group by collection.collection,collection.collection_id order by collection.collection
+	</cfquery>
+	<cfif recip.recordcount gt 0>
+		<p>
+			Reciprocal relationships for your collection(s) have been detected. <a href="BulkloadOtherId.cfm?action=getRecip">check them here</a>
+		</p>
+	</cfif>
+
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_oids
+		select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="data" dbtype="query">
 		select * from raw  where status is not null
@@ -274,7 +330,7 @@ sho err
 		You must fix everything in the table below and reload your file to continue.
 		<cfset d="status,guid_prefix,EXISTING_OTHER_ID_TYPE,EXISTING_OTHER_ID_NUMBER,NEW_OTHER_ID_TYPE,NEW_OTHER_ID_NUMBER,NEW_OTHER_ID_REFERENCES">
 		<cfset variables.encoding="UTF-8">
-		<cfset variables.fileName="#Application.webDirectory#/download/BulkloadOtherId_reject.csv">
+		<cfset variables.fileName="#Application.webDirectory#/download/BulkloadOtherId_down.csv">
 		<cfscript>
 			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 			variables.joFileWriter.writeLine(d);
@@ -288,7 +344,7 @@ sho err
 		<cfscript>
 			variables.joFileWriter.close();
 		</cfscript>
-		<p><a href="/download.cfm?file=BulkloadOtherId_reject.csv">CSV</a> (delete status column to re-load)</p>
+		<p><a href="/download.cfm?file=BulkloadOtherId_down.csv">CSV</a> (delete status column to re-load)</p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
 		
 		<cfdump var=#data#>
@@ -301,7 +357,7 @@ sho err
 <cfif action is "deleteAlreadyExists">
 	<cfoutput>
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from cf_temp_oids where status='identifier exists'
+			delete from cf_temp_oids where  upper(username)='#ucase(session.username)#' and status='identifier exists'
 		</cfquery>
 		<cflocation url="BulkloadOtherId.cfm?action=validate" addtoken="false">
 	</cfoutput>
@@ -310,7 +366,7 @@ sho err
 <cfif action is "loadData">
 	<cfoutput>
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_oids
+			select * from cf_temp_oids where status='valid' and upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cftransaction>
 			<cfloop query="getTempData">
