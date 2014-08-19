@@ -1,4 +1,219 @@
-<cfabort>
+
+
+<!--
+
+	Build a bulkloader of potential reciprocal relationships
+	
+	
+
+--->
+<cfoutput>
+	<!--- hard-code this because we have no better place for it.... --->
+	<cfset ctid_references = querynew("r1,r2")>
+	<cfset temp = queryaddrow(ctid_references,1)>
+	<cfset i=1>
+	<cfset temp = QuerySetCell(ctid_references, "r1", 'ate', i)>
+	<cfset temp = QuerySetCell(ctid_references, "r2", 'eaten by', i)>	
+	<cfset i=i+1>
+	<cfset temp = QuerySetCell(ctid_references, "r1", 'collected from', i)>
+	<cfset temp = QuerySetCell(ctid_references, "r2", 'collected on', i)>
+	<cfset i=i+1>
+	<cfset temp = QuerySetCell(ctid_references, "r1", 'collected with', i)>
+	<cfset temp = QuerySetCell(ctid_references, "r2", 'collected with', i)>
+	<cfset i=i+1>
+	<cfset temp = QuerySetCell(ctid_references, "r1", 'host of', i)>
+	<cfset temp = QuerySetCell(ctid_references, "r2", 'parasite of', i)>
+	<cfset i=i+1>
+	<cfset temp = QuerySetCell(ctid_references, "r1", 'in amplexus with', i)>
+	<cfset temp = QuerySetCell(ctid_references, "r2", 'in amplexus with', i)>
+	<cfset i=i+1>
+	<cfset temp = QuerySetCell(ctid_references, "r1", 'littermate or nestmate of', i)>
+	<cfset temp = QuerySetCell(ctid_references, "r2", 'littermate or nestmate of', i)>
+	<cfset i=i+1>
+	<cfset temp = QuerySetCell(ctid_references, "r1", 'mate of', i)>
+	<cfset temp = QuerySetCell(ctid_references, "r2", 'mate of', i)>
+	<cfset i=i+1>
+	<cfset temp = QuerySetCell(ctid_references, "r1", 'offspring of', i)>
+	<cfset temp = QuerySetCell(ctid_references, "r2", 'parent of', i)>
+	<cfset i=i+1>
+	<cfset temp = QuerySetCell(ctid_references, "r1", 'same individual as', i)>
+	<cfset temp = QuerySetCell(ctid_references, "r2", 'same individual as', i)>
+	<cfset i=i+1>
+	<cfset temp = QuerySetCell(ctid_references, "r1", 'TEST---sibling of', i)>
+	<cfset temp = QuerySetCell(ctid_references, "r2", 'sibling of', i)>
+	
+	
+	<cfquery name="rCTID_REFERENCES" datasource="uam_god">
+		select ID_REFERENCES from CTID_REFERENCES where ID_REFERENCES != 'self'
+	</cfquery>
+	<cfquery name="c1" dbtype="query">
+		select r1 from ctid_references where r1 not in (select ID_REFERENCES from rCTID_REFERENCES)
+	</cfquery>
+	<cfif c1.recordcount is not 0>
+		<cfthrow message='pendingRelations r1 MIA'>
+	</cfif>
+	
+	
+	
+	<cfabort>
+	
+	
+	
+	<cfquery name="CTCOLLECTION" datasource="uam_god">
+		select collection_id from collection
+	</cfquery>
+		
+	<cfloop query="CTID_REFERENCES">
+		<cfloop query="ctcollection">
+			<cfquery name="newOrStale" datasource="uam_god">
+				select
+					coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
+					coll_obj_other_id_num.ID_REFERENCES,
+					coll_obj_other_id_num.OTHER_ID_TYPE,
+					coll_obj_other_id_num.DISPLAY_VALUE,
+					CTCOLL_OTHER_ID_TYPE.BASE_URL
+				from
+					coll_obj_other_id_num,
+					CTCOLL_OTHER_ID_TYPE
+				where
+					coll_obj_other_id_num.ID_REFERENCES != 'self' and
+					coll_obj_other_id_num.OTHER_ID_TYPE=CTCOLL_OTHER_ID_TYPE.OTHER_ID_TYPE and
+					CTCOLL_OTHER_ID_TYPE.BASE_URL is not null and
+					coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID not in (
+						select COLL_OBJ_OTHER_ID_NUM_ID from cf_relations_cache
+					) and
+					rownum<100
+				UNION
+				select
+					coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
+					coll_obj_other_id_num.ID_REFERENCES,
+					coll_obj_other_id_num.OTHER_ID_TYPE,
+					coll_obj_other_id_num.DISPLAY_VALUE,
+					CTCOLL_OTHER_ID_TYPE.BASE_URL
+				from
+					coll_obj_other_id_num,
+					CTCOLL_OTHER_ID_TYPE,
+					cf_relations_cache
+				where
+					coll_obj_other_id_num.ID_REFERENCES != 'self' and
+					coll_obj_other_id_num.OTHER_ID_TYPE=CTCOLL_OTHER_ID_TYPE.OTHER_ID_TYPE and
+					CTCOLL_OTHER_ID_TYPE.BASE_URL is not null and
+					coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID = cf_relations_cache.COLL_OBJ_OTHER_ID_NUM_ID and
+					sysdate-CACHEDATE > 30 and
+					rownum<1000
+			</cfquery>
+		</cfloop>	
+
+		
+	</cfloop>
+	<cfquery name="newOrStale" datasource="uam_god">
+		select
+			coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
+			coll_obj_other_id_num.ID_REFERENCES,
+			coll_obj_other_id_num.OTHER_ID_TYPE,
+			coll_obj_other_id_num.DISPLAY_VALUE,
+			CTCOLL_OTHER_ID_TYPE.BASE_URL
+		from
+			coll_obj_other_id_num,
+			CTCOLL_OTHER_ID_TYPE
+		where
+			coll_obj_other_id_num.ID_REFERENCES != 'self' and
+			coll_obj_other_id_num.OTHER_ID_TYPE=CTCOLL_OTHER_ID_TYPE.OTHER_ID_TYPE and
+			CTCOLL_OTHER_ID_TYPE.BASE_URL is not null and
+			coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID not in (
+				select COLL_OBJ_OTHER_ID_NUM_ID from cf_relations_cache
+			) and
+			rownum<1000
+		UNION
+		select
+			coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
+			coll_obj_other_id_num.ID_REFERENCES,
+			coll_obj_other_id_num.OTHER_ID_TYPE,
+			coll_obj_other_id_num.DISPLAY_VALUE,
+			CTCOLL_OTHER_ID_TYPE.BASE_URL
+		from
+			coll_obj_other_id_num,
+			CTCOLL_OTHER_ID_TYPE,
+			cf_relations_cache
+		where
+			coll_obj_other_id_num.ID_REFERENCES != 'self' and
+			coll_obj_other_id_num.OTHER_ID_TYPE=CTCOLL_OTHER_ID_TYPE.OTHER_ID_TYPE and
+			CTCOLL_OTHER_ID_TYPE.BASE_URL is not null and
+			coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID = cf_relations_cache.COLL_OBJ_OTHER_ID_NUM_ID and
+			sysdate-CACHEDATE > 30 and
+			rownum<1000
+	</cfquery>
+	
+	<br>found #newOrStale.recordcount#
+	<cfloop query="newOrStale">
+		<!--- this should be a web fetch, but see above. Try to be nice about encumbrances, get only public data, etc. --->
+		<cfquery name="fetch" datasource="uam_god">
+			select
+				HIGHER_GEOG || ': ' || SPEC_LOCALITY locality,
+				SCIENTIFIC_NAME,
+				FAMILY
+			from
+				filtered_flat
+			where guid='#OTHER_ID_TYPE#:#DISPLAY_VALUE#'
+		</cfquery>
+		<!---
+			if we get something, update (via delete and insert)
+			if we do NOT get anything, assume the "other system"
+			is just hosed and hang on to whatever we already had
+			That is, do nothing
+		---->
+		<cfif fetch.recordcount is 1>
+			<!---
+				if this becomes something more than SQL, we'll need to alter this to only delete the things
+				that we're going to rebuild
+			---->
+			<cfquery name="ins" datasource="uam_god">
+				delete from cf_relations_cache where COLL_OBJ_OTHER_ID_NUM_ID=#newOrStale.COLL_OBJ_OTHER_ID_NUM_ID#
+			</cfquery>
+			<cfif len(fetch.locality) gt 0>
+				<cfquery name="ins" datasource="uam_god">
+					insert into cf_relations_cache (
+						COLL_OBJ_OTHER_ID_NUM_ID,
+						TERM,
+						VALUE
+					) values (
+						#newOrStale.COLL_OBJ_OTHER_ID_NUM_ID#,
+						'locality',
+						'#fetch.locality#'
+					)
+				</cfquery>
+			</cfif>
+			<cfif len(fetch.SCIENTIFIC_NAME) gt 0>
+				<cfquery name="ins" datasource="uam_god">
+					insert into cf_relations_cache (
+						COLL_OBJ_OTHER_ID_NUM_ID,
+						TERM,
+						VALUE
+					) values (
+						#newOrStale.COLL_OBJ_OTHER_ID_NUM_ID#,
+						'identification',
+						'#fetch.SCIENTIFIC_NAME#'
+					)
+				</cfquery>
+			</cfif>
+			<cfif len(fetch.FAMILY) gt 0>
+				<cfquery name="ins" datasource="uam_god">
+					insert into cf_relations_cache (
+						COLL_OBJ_OTHER_ID_NUM_ID,
+						TERM,
+						VALUE
+					) values (
+						#newOrStale.COLL_OBJ_OTHER_ID_NUM_ID#,
+						'family',
+						'#fetch.FAMILY#'
+					)
+				</cfquery>
+			</cfif>
+		</cfif>
+	</cfloop>
+</cfoutput>
+
+
 
 
 <cfinclude template="/includes/_header.cfm">

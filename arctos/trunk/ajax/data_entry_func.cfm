@@ -686,26 +686,6 @@
 </cffunction>
 <!------------------------------------->
 
-<cffunction name="getContacts" returntype="string">
-	<cfquery name="contacts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
-			collection_contact_id,
-			contact_role,
-			contact_agent_id,
-			agent_name contact_name
-		from
-			collection_contacts,
-			preferred_agent_name
-		where
-			contact_agent_id = agent_id AND
-			collection_id = #collection_id#
-		ORDER BY contact_name,contact_role
-	</cfquery>
-		
-		<cfset result = 'success'>
-		<cfreturn result>
-</cffunction>
-<!------------------------------------->
 <cffunction name="getCollInstFromCollId" returntype="string">
 	<cfargument name="collid" type="numeric" required="yes">
 	<cftry>
