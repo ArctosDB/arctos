@@ -43,6 +43,33 @@
 
 	<cfset interval=24>
 	
+	<!--- see if we can find any collections we don't know about ---->
+	<cfquery name="thisCollection" datasource="uam_god">
+		select min(collection_id) collection_id from collection where collection_id not in (select collection_id from cf_temp_recipr_proc)
+	</cfquery>
+	<cfif thisCollection.recordcount is 0>
+		<!--- see if we can find any collections that haven't been processed since INTERVAL ---->
+		<cfquery name="thisCollection" datasource="uam_god">
+			select min(collection_id) collection_id from cf_temp_recipr_proc where lastdate > sysdate-#interval#/24
+		</cfquery>
+		<cfset thisCollection=thisCollection.collection_id>
+	<cfelse>
+		<cfset thisCollectionID=thisCollection.collection_id>
+	</cfif>
+	<cfif not isdefined("thisCollectionID") or len(thisCollectionID) is 0>
+		up to date <cfabort>
+	</cfif>
+	<cfquery name="deletethisCollection" datasource="uam_god">
+		delete from cf_temp_recip_oids where collection_id=#thisCollectionID#
+	</cfquery>
+	<cfquery name="deletethisCollectionProc" datasource="uam_god">
+		delete from cf_temp_recipr_proc where collection_id=#thisCollectionID#
+	</cfquery>
+	<cfquery name="setLastRun" datasource="uam_god">
+		insert into cf_temp_recipr_proc (lastdate,collection_id) values (sysdate,#thisCollectionID#)
+	</cfquery>
+
+		
 	<!--- hard-code this because we have no better place for it.... --->
 	<cfset ctid_references = querynew("r1,r2")>
 	<cfset temp = queryaddrow(ctid_references,1)>
@@ -115,22 +142,7 @@
 	<cfdump var=#ctid_references#>
 	<cfdump var=#uidtype#>
 	
-	<!--- see if we can find any collections we don't know about ---->
-	<cfquery name="thisCollection" datasource="uam_god">
-		select min(collection_id) collection_id from collection where collection_id not in (select collection_id from cf_temp_recipr_proc)
-	</cfquery>
-	<cfif thisCollection.recordcount is 0>
-		<!--- see if we can find any collections that haven't been processed since INTERVAL ---->
-		<cfquery name="thisCollection" datasource="uam_god">
-			select min(collection_id) collection_id from cf_temp_recipr_proc where lastdate > sysdate-#interval#/24
-		</cfquery>
-		<cfset thisCollection=thisCollection.collection_id>
-	<cfelse>
-		<cfset thisCollectionID=thisCollection.collection_id>
-	</cfif>
-	<cfif not isdefined("thisCollectionID") or len(thisCollectionID) is 0>
-		up to date <cfabort>
-	</cfif>
+	
 	<cfset sql="insert all ">
 	<cfloop query="uidtype">
 		<cfset thisRelationship=uidtype.idtype>
