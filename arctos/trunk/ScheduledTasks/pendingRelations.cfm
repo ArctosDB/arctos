@@ -40,10 +40,10 @@
 
 --->
 <cfoutput>
-
+	<!--- how often to check back, in hours ---->
 	<cfset interval=24>
 	
-	<!--- see if we can find any collections we don't know about ---->
+	<!--- get the "next" collection and do some housekeeping, or die ---->
 	<cfquery name="thisCollection" datasource="uam_god">
 		select min(collection_id) collection_id from collection where collection_id not in (select collection_id from cf_temp_recipr_proc)
 	</cfquery>
@@ -139,16 +139,10 @@
 	</cfquery>
 	
 	
-	<cfdump var=#ctid_references#>
-	<cfdump var=#uidtype#>
-	
-	
 	<cfset sql="insert all ">
 	<cfloop query="uidtype">
 		<cfset thisRelationship=uidtype.idtype>
-		<p>
-			thisRelationship: #thisRelationship#
-		</p>
+		
 		
 		<cfquery name="rr" dbtype="query">
 			select * from ctid_references where r1='#idtype#'
@@ -161,52 +155,45 @@
 			</cfquery>
 			<cfset reciprocalRelationship=rr.r1>			
 		</cfif>
-		
-		<p>
-			reciprocalRelationship: #reciprocalRelationship#
-		</p>
-		
-			<p>
-				running for collection #thisCollectionID#
-			</p>
-			<cfquery name="missing" datasource="uam_god">
-				select 
-					my_collection.guid_prefix guid_prefix,
-					my_catitem.cat_num existing_other_id_number,
-					'catalog number' existing_other_id_type,
-					their_catitem.cat_num new_other_id_number,
-					their_collection.guid_prefix new_other_id_type,
-					'#reciprocalRelationship#' new_other_id_references
-					
-				from
-					coll_obj_other_id_num,
-					collection my_collection,
-					cataloged_item my_catitem,
-					collection their_collection,
-					cataloged_item their_catitem
-				where
-					coll_obj_other_id_num.ID_REFERENCES='#thisRelationship#' and
-					coll_obj_other_id_num.collection_object_id=their_catitem.collection_object_id and
-					their_catitem.collection_id=their_collection.collection_id and
-					OTHER_ID_TYPE=my_collection.guid_prefix and
-					my_collection.collection_id=my_catitem.collection_id and
-					my_catitem.cat_num=display_value
-					and my_collection.collection_id=#thisCollectionID# and
-					my_catitem.collection_object_id not in (
-						select
-							coll_obj_other_id_num.collection_object_id
-						from
-							coll_obj_other_id_num,
-							cataloged_item
-						where
-							coll_obj_other_id_num.ID_REFERENCES='#reciprocalRelationship#' and
-							coll_obj_other_id_num.collection_object_id=cataloged_item.collection_object_id and
-							cataloged_item.collection_id=#thisCollectionID#
-					)
-					and rownum<10
-			</cfquery>
+	
+		<cfquery name="missing" datasource="uam_god">
+			select 
+				my_collection.guid_prefix guid_prefix,
+				my_catitem.cat_num existing_other_id_number,
+				'catalog number' existing_other_id_type,
+				their_catitem.cat_num new_other_id_number,
+				their_collection.guid_prefix new_other_id_type,
+				'#reciprocalRelationship#' new_other_id_references
+				
+			from
+				coll_obj_other_id_num,
+				collection my_collection,
+				cataloged_item my_catitem,
+				collection their_collection,
+				cataloged_item their_catitem
+			where
+				coll_obj_other_id_num.ID_REFERENCES='#thisRelationship#' and
+				coll_obj_other_id_num.collection_object_id=their_catitem.collection_object_id and
+				their_catitem.collection_id=their_collection.collection_id and
+				OTHER_ID_TYPE=my_collection.guid_prefix and
+				my_collection.collection_id=my_catitem.collection_id and
+				my_catitem.cat_num=display_value
+				and my_collection.collection_id=#thisCollectionID# and
+				my_catitem.collection_object_id not in (
+					select
+						coll_obj_other_id_num.collection_object_id
+					from
+						coll_obj_other_id_num,
+						cataloged_item
+					where
+						coll_obj_other_id_num.ID_REFERENCES='#reciprocalRelationship#' and
+						coll_obj_other_id_num.collection_object_id=cataloged_item.collection_object_id and
+						cataloged_item.collection_id=#thisCollectionID#
+				)
+				and rownum<10
+		</cfquery>
 			
-			<cfif missing.recordcount gt 0>
+		<cfif missing.recordcount gt 0>
 			<table border>
 				<tr>
 					<td>guid_prefix</td>
@@ -250,7 +237,7 @@
 									)">
 				</cfloop>
 			</table>
-			</cfif>
+		</cfif>
 	</cfloop>
 
 	<cfif sql is not "insert all ">
