@@ -304,7 +304,7 @@ sho err
 	<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection.collection,collection.collection_id, count(*) from 
 		cf_temp_recipr_proc,
-		collection,
+		collection
 		where cf_temp_recipr_proc.collection_id=collection.collection_id and collection.collection_id in (
 		select collection_id from cataloged_item) group by collection.collection,collection.collection_id order by collection.collection
 	</cfquery>
