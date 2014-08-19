@@ -146,7 +146,7 @@
 		</p>
 		
 			<p>
-				running for collection #collection_id#
+				running for collection #thisCollectionID#
 			</p>
 			<cfquery name="missing" datasource="uam_god">
 				select 
