@@ -54,14 +54,10 @@ sho err
 <!---------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfoutput>
-		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
-		</cfquery>
-		<cfif mine.recordcount gt 0>
+		
 			<p>
-				<a href="BulkloadOtherId.cfm?action=managemystuff">Manage your existing #mine.recordcount# records</a>
+				<a href="BulkloadOtherId.cfm?action=managemystuff">Manage existing and reciprocal records</a>
 			</p>
-		</cfif>
 	</cfoutput>
 	Upload a comma-delimited text file (csv).
 	<p><a href="BulkloadOtherId.cfm?action=template">get a template here</a>
