@@ -59,6 +59,7 @@
 	<cfif not isdefined("thisCollectionID") or len(thisCollectionID) is 0>
 		up to date <cfabort>
 	</cfif>
+	<br>running for collection_id #thisCollectionID#
 	<cfquery name="deletethisCollection" datasource="uam_god">
 		delete from cf_temp_recip_oids where collection_id=#thisCollectionID#
 	</cfquery>
