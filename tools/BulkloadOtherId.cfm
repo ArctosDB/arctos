@@ -283,7 +283,7 @@ sho err
 				found_date 
 			from 
 				cf_temp_recip_oids,
-				collection,
+				collection
 			where 
 				cf_temp_recip_oids.collection_id=collection.collection_id and 
 				collection.collection_id in (
