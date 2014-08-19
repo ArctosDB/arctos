@@ -94,6 +94,8 @@
 		<cfquery name="rr" dbtype="query">
 			select * from ctid_references where r1='#idtype#'
 		</cfquery>
+		
+		<cfdump var=#rr#>
 		<cfset reciprocalRelationship=rr.r2>
 		<p>
 			reciprocalRelationship: #reciprocalRelationship#
@@ -104,100 +106,36 @@
 				running for collection #collection_id#
 			</p>
 			<cfquery name="missing" datasource="uam_god">
-				<!--- 
-					all identifiers of type #r1#
-					which reference specimens in #collection_id#
-					and do not have reciprocal relationship #r2#	
-					
-				---->
-				<!----
-			
-				select
-					my_collection.guid_prefix,
-					my_catitem.cat_num existing_other_id_number,
-					'catalog number' existing_other_id_type,
-					their_collection.guid_prefix new_other_id_type,
-					their_catitem.cat_num new_other_id_number,
-					
-					ctid_references.r2 new_other_id_references
-					 
-					coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
-					coll_obj_other_id_num.ID_REFERENCES,
-					coll_obj_other_id_num.OTHER_ID_TYPE,
-					coll_obj_other_id_num.DISPLAY_VALUE,
-					CTCOLL_OTHER_ID_TYPE.BASE_URL
-				from
-					coll_obj_other_id_num,
-					collection my_collection,
-					cataloged_item my_catitem,
-					collection their_collection,
-					cataloged_item their_catitem,
-					
-					
-				where
-					coll_obj_other_id_num.collection_object_id=their_catitem.collection_object_id and
-					their_catitem.collection_id=their_collection.collection_id
-				
-				
-					coll_obj_other_id_num.ID_REFERENCES != 'self' and
-					coll_obj_other_id_num.OTHER_ID_TYPE=CTCOLL_OTHER_ID_TYPE.OTHER_ID_TYPE and
-					CTCOLL_OTHER_ID_TYPE.BASE_URL is not null and
-					coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID not in (
-						select COLL_OBJ_OTHER_ID_NUM_ID from cf_relations_cache
-					) and
-					rownum<100
-				UNION
-				select
-					coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
-					coll_obj_other_id_num.ID_REFERENCES,
-					coll_obj_other_id_num.OTHER_ID_TYPE,
-					coll_obj_other_id_num.DISPLAY_VALUE,
-					CTCOLL_OTHER_ID_TYPE.BASE_URL
-				from
-					coll_obj_other_id_num,
-					CTCOLL_OTHER_ID_TYPE,
-					cf_relations_cache
-				where
-					coll_obj_other_id_num.ID_REFERENCES != 'self' and
-					coll_obj_other_id_num.OTHER_ID_TYPE=CTCOLL_OTHER_ID_TYPE.OTHER_ID_TYPE and
-					CTCOLL_OTHER_ID_TYPE.BASE_URL is not null and
-					coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID = cf_relations_cache.COLL_OBJ_OTHER_ID_NUM_ID and
-					sysdate-CACHEDATE > 30 and
-					rownum<1000
-					---->
-					
-					
-					
 					select 
-	their_collection.guid_prefix || ':' || their_catitem.cat_num theirGUID,	
-	coll_obj_other_id_num.ID_REFERENCES existingRelationship,
-	my_collection.guid_prefix || ':' || my_catitem.cat_num myGUID
-from
-	coll_obj_other_id_num,
-	collection my_collection,
-	cataloged_item my_catitem,
-	collection their_collection,
-	cataloged_item their_catitem
-where
-	coll_obj_other_id_num.ID_REFERENCES='#thisRelationship#' and
-	coll_obj_other_id_num.collection_object_id=their_catitem.collection_object_id and
-	their_catitem.collection_id=their_collection.collection_id and
-	OTHER_ID_TYPE=my_collection.guid_prefix and
-	my_collection.collection_id=my_catitem.collection_id and
-	my_catitem.cat_num=display_value
-	and my_collection.collection_id=#collection_id# and
-	my_catitem.collection_object_id not in (
-		select
-			coll_obj_other_id_num.collection_object_id
-		from
-			coll_obj_other_id_num,
-			cataloged_item
-		where
-			coll_obj_other_id_num.ID_REFERENCES='#reciprocalRelationship#' and
-			coll_obj_other_id_num.collection_object_id=cataloged_item.collection_object_id and
-			cataloged_item.collection_id=#collection_id#
-	)
-	and rownum<10
+						their_collection.guid_prefix || ':' || their_catitem.cat_num theirGUID,	
+						coll_obj_other_id_num.ID_REFERENCES existingRelationship,
+						my_collection.guid_prefix || ':' || my_catitem.cat_num myGUID
+					from
+						coll_obj_other_id_num,
+						collection my_collection,
+						cataloged_item my_catitem,
+						collection their_collection,
+						cataloged_item their_catitem
+					where
+						coll_obj_other_id_num.ID_REFERENCES='#thisRelationship#' and
+						coll_obj_other_id_num.collection_object_id=their_catitem.collection_object_id and
+						their_catitem.collection_id=their_collection.collection_id and
+						OTHER_ID_TYPE=my_collection.guid_prefix and
+						my_collection.collection_id=my_catitem.collection_id and
+						my_catitem.cat_num=display_value
+						and my_collection.collection_id=#collection_id# and
+						my_catitem.collection_object_id not in (
+							select
+								coll_obj_other_id_num.collection_object_id
+							from
+								coll_obj_other_id_num,
+								cataloged_item
+							where
+								coll_obj_other_id_num.ID_REFERENCES='#reciprocalRelationship#' and
+								coll_obj_other_id_num.collection_object_id=cataloged_item.collection_object_id and
+								cataloged_item.collection_id=#collection_id#
+						)
+						and rownum<10
 			</cfquery>
 			
 			<cfif missing.recordcount gt 0>
