@@ -174,7 +174,7 @@ from
 	collection their_collection,
 	cataloged_item their_catitem
 where
-	coll_obj_other_id_num.ID_REFERENCES='host of' and
+	coll_obj_other_id_num.ID_REFERENCES='#idtype#' and
 	coll_obj_other_id_num.collection_object_id=their_catitem.collection_object_id and
 	their_catitem.collection_id=their_collection.collection_id and
 	OTHER_ID_TYPE=my_collection.guid_prefix and
@@ -188,7 +188,7 @@ where
 			coll_obj_other_id_num,
 			cataloged_item
 		where
-			coll_obj_other_id_num.ID_REFERENCES='parasite of' and
+			coll_obj_other_id_num.ID_REFERENCES='#reciprocal#' and
 			coll_obj_other_id_num.collection_object_id=cataloged_item.collection_object_id and
 			cataloged_item.collection_id=#collection_id#
 	)
