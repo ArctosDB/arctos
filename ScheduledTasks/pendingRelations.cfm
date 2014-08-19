@@ -195,7 +195,7 @@ where
 	and rownum<10
 			</cfquery>
 			
-			<cfif missing.rowcount gt 0>
+			<cfif missing.recordcount gt 0>
 			<table border>
 				<tr>
 					<td>my</td>
