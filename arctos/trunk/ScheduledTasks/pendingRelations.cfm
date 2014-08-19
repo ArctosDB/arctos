@@ -183,8 +183,20 @@ where
 	)
 	and rownum<10
 			</cfquery>
-			
-			<cfdump var=#missing#>
+			<table border>
+				<tr>
+					<td>my</td>
+					<td>existR</td>
+					<td>theirguid</td>
+				</tr>
+				<cfloop query="missing">
+					<tr>
+						<td>#myGUID#</td>
+						<td>#existingRelationship#</td>
+						<td>#theirGUID#</td>
+					</tr>
+				</cfloop>
+			</table>
 		</cfloop>	
 
 		
