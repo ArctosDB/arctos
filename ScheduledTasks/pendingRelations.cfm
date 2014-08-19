@@ -96,7 +96,17 @@
 		</cfquery>
 		
 		<cfdump var=#rr#>
-		<cfset reciprocalRelationship=rr.r2>
+		<cfif rr.recordcount is 1>
+			<br>got it: 
+			<cfset reciprocalRelationship=rr.r2>
+		<cfelse>
+			<br>other way
+			<cfquery name="rr" dbtype="query">
+				select * from ctid_references where r2='#idtype#'
+			</cfquery>
+			<cfset reciprocalRelationship=rr.r1>			
+		</cfif>
+		
 		<p>
 			reciprocalRelationship: #reciprocalRelationship#
 		</p>
