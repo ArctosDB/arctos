@@ -224,7 +224,7 @@
 										new_other_id_type,
 										new_other_id_number,
 										new_other_id_references,
-										found_date)
+										found_date
 									) values (
 										somerandomsequence.nextval,
 										#thisCollectionID#,
