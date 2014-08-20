@@ -546,10 +546,43 @@ sho err
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
+<cfif action is "deleteLocalDuplicate">
+	<cfoutput>
+		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from 
+				cf_temp_oids 
+			where 
+				upper(username)='#ucase(session.username)#' and
+				status like '%local duplicate%' and 
+				key not in (
+					select 
+						key 
+					from
+						cf_temp_oids a
+					where 
+						rowid > (
+							select 
+								min(rowid) 
+							from 
+								cf_temp_oids b 
+							where
+								a.guid_prefix = b.guid_prefix and
+								a.new_other_id_type = b.new_other_id_type and
+								a.new_other_id_number = b.new_other_id_number and
+								nvl(a.new_other_id_references,'self') = nvl(b.new_other_id_references,'self') and
+								a.existing_other_id_type = b.existing_other_id_type and
+								a.existing_other_id_number = b.existing_other_id_number
+						)
+				)
+		</cfquery>
+		<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------->
 <cfif action is "deleteAlreadyExists">
 	<cfoutput>
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from cf_temp_oids where  upper(username)='#ucase(session.username)#' and status='identifier exists'
+			delete from cf_temp_oids where  upper(username)='#ucase(session.username)#' and status like '%identifier exists%'
 		</cfquery>
 		<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 	</cfoutput>
