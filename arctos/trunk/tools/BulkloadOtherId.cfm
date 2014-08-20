@@ -517,9 +517,11 @@ sho err
 			select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cfquery name="data" dbtype="query">
-			select * from raw  where status is not null
+			select * from raw  where status ='valid'
 		</cfquery>			
-		<cfif data.recordcount gt 0>
+		<cfif data.recordcount is raw.recordcount>
+			<a href="BulkloadOtherId.cfm?action=loadData">Finalize load</a>
+		</cfif>
 			<p><a href="BulkloadOtherId.cfm?action=validate">validate</a></p>
 			<cfset d="status,guid_prefix,EXISTING_OTHER_ID_TYPE,EXISTING_OTHER_ID_NUMBER,NEW_OTHER_ID_TYPE,NEW_OTHER_ID_NUMBER,NEW_OTHER_ID_REFERENCES">
 			<cfset variables.encoding="UTF-8">
@@ -541,10 +543,6 @@ sho err
 			<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
 			<p><a href="BulkloadOtherId.cfm?action=deleteLocalDuplicate">Merge "local duplicate" records</a></p>
 			<p><a href="BulkloadOtherId.cfm?action=deleteMine">Delete all existing data</a></p>
-				
-		<cfelse>
-			<a href="BulkloadOtherId.cfm?action=loadData">checks out...proceed to load #raw.recordcount# new IDs</a>
-		</cfif>
 		
 		<table border id="t" class="sortable">
 			<tr>
@@ -597,10 +595,8 @@ sho err
 								nvl(a.new_other_id_references,'self') = nvl(b.new_other_id_references,'self') and
 								a.existing_other_id_type = b.existing_other_id_type and
 								a.existing_other_id_number = b.existing_other_id_number
+							)
 						)
-				)
-				
-				
 		</cfquery>
 		<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 	</cfoutput>
