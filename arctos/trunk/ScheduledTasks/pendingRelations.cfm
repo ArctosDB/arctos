@@ -45,8 +45,8 @@
 		<cfset interval=24>
 	</cfif>
 	<!---- needs a bit of a throttle ---->
-	<cfif not isdefined("recordLimit")>
-		<cfset recordLimit=1000>
+	<cfif not isdefined("limit")>
+		<cfset limit=1000>
 	</cfif>
 	
 	
@@ -54,7 +54,7 @@
 	
 	<!---- allow forcing collection --->
 	
-	<cfif not isdefined("thisCollectionID") or len(thisCollectionID) is 0>
+	<cfif not isdefined("cid") or len(cid) is 0>
 		<!--- get the "next" collection and do some housekeeping, or die ---->
 		<cfquery name="thisCollection" datasource="uam_god">
 			select min(collection_id) collection_id from collection where collection_id not in (select collection_id from cf_temp_recipr_proc)
@@ -64,23 +64,23 @@
 			<cfquery name="thisCollection" datasource="uam_god">
 				select min(collection_id) collection_id from cf_temp_recipr_proc where lastdate < sysdate-#interval#/24
 			</cfquery>
-			<cfset thisCollectionID=thisCollection.collection_id>
+			<cfset cid=thisCollection.collection_id>
 		<cfelse>
-			<cfset thisCollectionID=thisCollection.collection_id>
+			<cfset cid=thisCollection.collection_id>
 		</cfif>
-		<cfif not isdefined("thisCollectionID") or len(thisCollectionID) is 0>
-			up to date - delete from cf_temp_recipr_proc or supply thisCollectionID in the URL to force <cfabort>
+		<cfif not isdefined("cid") or len(cid) is 0>
+			up to date - delete from cf_temp_recipr_proc or supply cid in the URL to force <cfabort>
 		</cfif>
 	</cfif>
-	<br>running for collection_id #thisCollectionID#
+	<br>running for collection_id #cid#
 	<cfquery name="deletethisCollection" datasource="uam_god">
-		delete from cf_temp_recip_oids where collection_id=#thisCollectionID#
+		delete from cf_temp_recip_oids where collection_id=#cid#
 	</cfquery>
 	<cfquery name="deletethisCollectionProc" datasource="uam_god">
-		delete from cf_temp_recipr_proc where collection_id=#thisCollectionID#
+		delete from cf_temp_recipr_proc where collection_id=#cid#
 	</cfquery>
 	<cfquery name="setLastRun" datasource="uam_god">
-		insert into cf_temp_recipr_proc (lastdate,collection_id) values (sysdate,#thisCollectionID#)
+		insert into cf_temp_recipr_proc (lastdate,collection_id) values (sysdate,#cid#)
 	</cfquery>
 
 		
@@ -188,7 +188,7 @@
 				OTHER_ID_TYPE=my_collection.guid_prefix and
 				my_collection.collection_id=my_catitem.collection_id and
 				my_catitem.cat_num=display_value
-				and my_collection.collection_id=#thisCollectionID# and
+				and my_collection.collection_id=#cid# and
 				my_catitem.collection_object_id not in (
 					select
 						coll_obj_other_id_num.collection_object_id
@@ -198,9 +198,9 @@
 					where
 						coll_obj_other_id_num.ID_REFERENCES='#reciprocalRelationship#' and
 						coll_obj_other_id_num.collection_object_id=cataloged_item.collection_object_id and
-						cataloged_item.collection_id=#thisCollectionID#
+						cataloged_item.collection_id=#cid#
 				)
-				and rownum<#recordLimit#
+				and rownum<#limit#
 		</cfquery>
 			
 		<cfif missing.recordcount gt 0>
@@ -237,7 +237,7 @@
 										new_other_id_references,
 										found_date
 									) values (
-										#thisCollectionID#,
+										#cid#,
 										'#guid_prefix#',
 										'#existing_other_id_type#',
 										'#existing_other_id_number#',
