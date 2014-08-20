@@ -452,7 +452,7 @@ sho err
 <cfif action is "claimRecip">
 <cfoutput>
 	<p>
-		Seeing UAM.IX_UCF_TEMP_OIDS_KEY errors? You're tryin to pull something that you've already pulled.
+		Seeing UAM.IX_UCF_TEMP_OIDS_KEY errors? You're trying to pull something that you've already pulled.
 	</p>
 	<cfquery name="gimme" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into cf_temp_oids (
@@ -496,6 +496,9 @@ sho err
 			<p>
 				Always download a CSV backup before using local tools.
 			</p>
+			<p>
+				Records will be deleted when they're successfully loaded.
+			</p>
 		</div>
 		<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select collection.collection,collection.collection_id, count(*) from 
@@ -537,6 +540,7 @@ sho err
 			<p><a href="/download.cfm?file=BulkloadOtherId_down.csv">CSV</a> (delete status column to re-load)</p>
 			<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
 			<p><a href="BulkloadOtherId.cfm?action=deleteLocalDuplicate">Merge "local duplicate" records</a></p>
+			<p><a href="BulkloadOtherId.cfm?action=deleteMine">Delete all existing data</a></p>
 				
 		<cfelse>
 			<a href="BulkloadOtherId.cfm?action=loadData">checks out...proceed to load #raw.recordcount# new IDs</a>
@@ -610,12 +614,31 @@ sho err
 		<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 	</cfoutput>
 </cfif>
+
+
+<!------------------------------------------------------->
+<cfif action is "deleteMine">
+	<cfoutput>
+		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from cf_temp_oids where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
+	</cfoutput>
+</cfif>
 <!------------------------------------------------------->
 <cfif action is "loadData">
 	<cfoutput>
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_oids where status='valid' and upper(username)='#ucase(session.username)#'
+			select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
 		</cfquery>
+		<cfquery name="cv" dbtype="query">
+			select count(*) from getTempData where status='valid' 
+		</cfquery>
+		<cfif getTempData.recordcount is not cv.recordcount>
+			Make everything "valid" and try again.<cfabort>
+		</cfif>
+		
+		
 		<cftransaction>
 			<cfloop query="getTempData">
 				loading #collection_object_id#<br>
@@ -630,6 +653,9 @@ sho err
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#new_other_id_references#">
 				</cfstoredproc>
 			</cfloop>
+			<cfquery name="deleteMine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				delete from cf_temp_oids where status='valid' and upper(username)='#ucase(session.username)#'
+			</cfquery>
 		</cftransaction>
 		Spiffy, all done.
 	</cfoutput>
