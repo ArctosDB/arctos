@@ -486,7 +486,15 @@ sho err
 	<script src="/includes/sorttable.js"></script>
 
 	<cfoutput>
-	
+	<div class="ui-widget">
+<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+<p>
+<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+<strong>Hey!</strong>
+Sample ui-state-highlight style.
+</p>
+</div>
+</div>
 		<div class="ui-state-highlight ui-corner-all">
 			<p><strong>READ THIS!</strong></p>
 			This form creates otherIDs, and pulls suggested reciprocal relationships which may be created as IDs. 
