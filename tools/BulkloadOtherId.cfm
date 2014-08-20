@@ -210,7 +210,7 @@ sho err
 				collection.guid_prefix = cf_temp_oids.guid_prefix and
 				other_id_type = cf_temp_oids.existing_other_id_type and
 				display_value = cf_temp_oids.existing_other_id_number
-		) where existing_other_id_number != 'catalog number' and upper(username)='#ucase(session.username)#'
+		) where existing_other_id_type != 'catalog number' and upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
 		update 
