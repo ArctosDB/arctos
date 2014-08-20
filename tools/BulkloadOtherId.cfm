@@ -474,7 +474,8 @@ sho err
 <cfif action is "claimRecip">
 	<cfoutput>
 		<p>
-			Seeing UAM.IX_UCF_TEMP_OIDS_KEY errors? You're trying to pull something that you've already pulled.
+			Seeing UAM.IX_UCF_TEMP_OIDS_KEY errors? You're trying to pull something that you've already pulled. Delete from your otherID
+			bulkloader and/or get a DBA to run the reciprocal-relationship checker-thingee.
 		</p>
 		<cfquery name="gimme" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into cf_temp_oids (
