@@ -619,9 +619,9 @@ sho err
 			select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cfquery name="cv" dbtype="query">
-			select count(*) from getTempData where status='valid' 
+			select count(*) c from getTempData where status='valid' 
 		</cfquery>
-		<cfif getTempData.recordcount is not cv.recordcount>
+		<cfif getTempData.recordcount is not cv.c>
 			Make everything "valid" and try again.<cfabort>
 		</cfif>
 		<cftransaction>
