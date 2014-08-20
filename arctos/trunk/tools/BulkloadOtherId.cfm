@@ -572,7 +572,7 @@ sho err
 			where 
 				upper(username)='#ucase(session.username)#' and
 				status like '%local duplicate%' and 
-				key not in (
+				key in (
 					select 
 						key 
 					from
