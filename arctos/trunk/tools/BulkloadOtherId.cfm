@@ -291,7 +291,7 @@ sho err
 				collection.collection_id in (
 					select collection_id from cataloged_item
 				)
-				<cfif len(guid_prefix) gt 0>
+				<cfif len(gp) gt 0>
 					and cf_temp_recip_oids.guid_prefix in (#listqualify(gp,"'")#)
 				</cfif>
 			order by 
