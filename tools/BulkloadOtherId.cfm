@@ -487,9 +487,7 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "managemystuff">
 	<script src="/includes/sorttable.js"></script>
-
 	<cfoutput>
-
 		<div class="ui-state-highlight ui-corner-all">
 			<p><strong>READ THIS!</strong></p>
 			This form creates otherIDs, and pulls suggested reciprocal relationships which may be created as IDs. 
@@ -512,7 +510,6 @@ sho err
 				Reciprocal relationships for your collection(s) have been detected. <a href="BulkloadOtherId.cfm?action=getRecip">check them here</a>
 			</p>
 		</cfif>
-	
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
 		</cfquery>
@@ -522,28 +519,11 @@ sho err
 		<cfif data.recordcount is raw.recordcount>
 			<a href="BulkloadOtherId.cfm?action=loadData">Finalize load</a>
 		</cfif>
-			<p><a href="BulkloadOtherId.cfm?action=validate">validate</a></p>
-			<cfset d="status,guid_prefix,EXISTING_OTHER_ID_TYPE,EXISTING_OTHER_ID_NUMBER,NEW_OTHER_ID_TYPE,NEW_OTHER_ID_NUMBER,NEW_OTHER_ID_REFERENCES">
-			<cfset variables.encoding="UTF-8">
-			<cfset variables.fileName="#Application.webDirectory#/download/BulkloadOtherId_down.csv">
-			<cfscript>
-				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-				variables.joFileWriter.writeLine(d);
-			</cfscript>
-			<cfloop query="raw">
-				<cfset d='"#status#","#guid_prefix#","#EXISTING_OTHER_ID_TYPE#","#EXISTING_OTHER_ID_NUMBER#","#NEW_OTHER_ID_TYPE#","#NEW_OTHER_ID_NUMBER#","#NEW_OTHER_ID_REFERENCES#"'>
-				<cfscript>
-					variables.joFileWriter.writeLine(d);
-				</cfscript>
-			</cfloop>
-			<cfscript>
-				variables.joFileWriter.close();
-			</cfscript>
-			<p><a href="/download.cfm?file=BulkloadOtherId_down.csv">CSV</a> (delete status column to re-load)</p>
-			<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
-			<p><a href="BulkloadOtherId.cfm?action=deleteLocalDuplicate">Merge "local duplicate" records</a></p>
-			<p><a href="BulkloadOtherId.cfm?action=deleteMine">Delete all existing data</a></p>
-		
+		<p><a href="BulkloadOtherId.cfm?action=validate">validate</a></p>			
+		<p><a href="BulkloadOtherId.cfm?action=getCSV">CSV</a> (delete status column to re-load)</p>
+		<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
+		<p><a href="BulkloadOtherId.cfm?action=deleteLocalDuplicate">Merge "local duplicate" records</a></p>
+		<p><a href="BulkloadOtherId.cfm?action=deleteMine">Delete all existing data</a></p>
 		<table border id="t" class="sortable">
 			<tr>
 				<th>status</th>
@@ -567,6 +547,19 @@ sho err
 			</cfloop>
 		</table>		
 	</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------->
+<cfif action is "getCSV">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/BulkloadOherIDData.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkloadOherIDData.csv" addtoken="false">
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "deleteLocalDuplicate">
@@ -610,8 +603,6 @@ sho err
 		<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 	</cfoutput>
 </cfif>
-
-
 <!------------------------------------------------------->
 <cfif action is "deleteMine">
 	<cfoutput>
@@ -633,8 +624,6 @@ sho err
 		<cfif getTempData.recordcount is not cv.recordcount>
 			Make everything "valid" and try again.<cfabort>
 		</cfif>
-		
-		
 		<cftransaction>
 			<cfloop query="getTempData">
 				loading #collection_object_id#<br>
