@@ -414,6 +414,8 @@ sho err
 
 <!------------------------------------------------------->
 <cfif action is "managemystuff">
+	<script src="/includes/sorttable.js"></script>
+
 <cfoutput>
 	<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select collection.collection,collection.collection_id, count(*) from 
@@ -454,11 +456,33 @@ sho err
 		</cfscript>
 		<p><a href="/download.cfm?file=BulkloadOtherId_down.csv">CSV</a> (delete status column to re-load)</p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
-		
-		<cfdump var=#data#>
+			
 	<cfelse>
 		<a href="BulkloadOtherId.cfm?action=loadData">checks out...proceed to load #raw.recordcount# new IDs</a>
 	</cfif>
+	
+	<table border id="t" class="sortable">
+		<tr>
+			<th>status</th>
+			<th>guid_prefix</th>
+			<th>existing_other_id_type</th>
+			<th>existing_other_id_number</th>
+			<th>new_other_id_references</th>
+			<th>new_other_id_type</th>
+			<th>new_other_id_number</th>
+		</tr>			
+		<cfloop query="data">
+			<tr>
+				<th>#status#</th>
+				<td>#guid_prefix#</td>
+				<td>#existing_other_id_type#</td>
+				<td>#existing_other_id_number#</td>
+				<td>#new_other_id_references#</td>
+				<td>#new_other_id_type#</td>
+				<td>#new_other_id_number#</td>
+			</tr>
+		</cfloop>
+	</table>		
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
