@@ -51,7 +51,7 @@
 	
 	
 	<cfdump var=#thisCollection#>
-	<cfif thisCollection.recordcount is 0>
+	<cfif len(thisCollection.collection_id) is 0>
 		<br>nothing new
 		<!--- see if we can find any collections that haven't been processed since INTERVAL ---->
 		<cfquery name="thisCollection" datasource="uam_god">
