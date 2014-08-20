@@ -269,7 +269,7 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "getRecip">
 	<script src="/includes/sorttable.js"></script>
-	<cfparam name="guid_prefix" default="">
+	<cfparam name="gp" default="">
 	<cfoutput>
 		<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
@@ -292,7 +292,7 @@ sho err
 					select collection_id from cataloged_item
 				)
 				<cfif len(guid_prefix) gt 0>
-					and cf_temp_recip_oids.guid_prefix in (#listqualify(guid_prefix,"'")#)
+					and cf_temp_recip_oids.guid_prefix in (#listqualify(gp,"'")#)
 				</cfif>
 			order by 
 				collection.collection,
@@ -306,11 +306,11 @@ sho err
 		</cfquery>
 		<form name="filter" method="post" action="BulkloadOtherId.cfm">
 			<input type="hidden" name="action" value="getRecip">
-			<label for="guid_prefix">guid_prefix</label>
-			<select name="guid_prefix" multiple>
+			<label for="gp">guid_prefix</label>
+			<select name="gp" multiple>
 				<option value="">no filter</option>
 				<cfloop query="ctguid_prefix">
-					<option <cfif listcontains(variables.guid_prefix,ctguid_prefix.guid_prefix)> selected="selected" </cfif>value="#ctguid_prefix.guid_prefix#">#ctguid_prefix.guid_prefix#</option>
+					<option <cfif listcontains(gp,ctguid_prefix.guid_prefix)> selected="selected" </cfif>value="#ctguid_prefix.guid_prefix#">#ctguid_prefix.guid_prefix#</option>
 				</cfloop>
 			</select>
 			<br><input type="submit" value="filter">
