@@ -310,7 +310,7 @@ sho err
 			<select name="guid_prefix" multiple>
 				<option value="">no filter</option>
 				<cfloop query="ctguid_prefix">
-					<option value="#guid_prefix#">#guid_prefix#</option>
+					<option <cfif listcontains(variables.guid_prefix,ctguid_prefix.guid_prefix)> selected="selected" </cfif>value="#ctguid_prefix.guid_prefix#">#ctguid_prefix.guid_prefix#</option>
 				</cfloop>
 			</select>
 			<br><input type="submit" value="filter">
