@@ -329,7 +329,10 @@ sho err
 	<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_oids set status='valid' where status is null and upper(username)='#ucase(session.username)#'
 	</cfquery>
+	
+	<!----
 	<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
+	---->
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
