@@ -267,7 +267,7 @@ sho err
 			null,'identifier exists',
 			status || '; identifier exists')
 		where
-			and upper(username)='#ucase(session.username)#' and
+			upper(username)='#ucase(session.username)#' and
 			collection_object_id is not null and
 			(
 				collection_object_id,
