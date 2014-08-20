@@ -200,7 +200,7 @@
 						coll_obj_other_id_num.collection_object_id=cataloged_item.collection_object_id and
 						cataloged_item.collection_id=#cid#
 				)
-				and rownum<#limit#
+				and rownum<=#limit#
 		</cfquery>
 			
 		<cfif missing.recordcount gt 0>
