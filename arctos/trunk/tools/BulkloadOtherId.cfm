@@ -293,23 +293,31 @@ sho err
 			cf_temp_oids 
 		set 
 			status=decode(status,
-			null,'duplicate',
-			status || '; duplicate')
-		where
-			upper(username)='#ucase(session.username)#' and
-			(
+				null,'local duplicate',
+				status || '; local duplicate')
+		where (
+			guid_prefix,
+			new_other_id_type,
+			new_other_id_number,
+			nvl(new_other_id_references,'self'),
+			existing_other_id_type,
+			existing_other_id_number
+			) in (select guid_prefix,
 				new_other_id_type,
 				new_other_id_number,
-				nvl(new_other_id_references,'self')
-			) IN
-			(
-				select 
-					new_other_id_type,
-					new_other_id_number,
-					nvl(new_other_id_references,'self')
-				from 
-					cf_temp_oids
-			)		
+				nvl(new_other_id_references,'self'),
+				existing_other_id_type,
+				existing_other_id_number
+			from
+				cf_temp_oids
+			having count(*) > 1 group by 
+				guid_prefix,
+				new_other_id_type,
+				new_other_id_number,
+				nvl(new_other_id_references,'self'),
+				existing_other_id_type,
+				existing_other_id_number
+			)	
 	</cfquery>
 	
 	<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
