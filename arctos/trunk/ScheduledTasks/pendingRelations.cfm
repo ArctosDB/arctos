@@ -47,11 +47,25 @@
 	<cfquery name="thisCollection" datasource="uam_god">
 		select min(collection_id) collection_id from collection where collection_id not in (select collection_id from cf_temp_recipr_proc)
 	</cfquery>
+	
+	
+	
+	<cfdump var=#thisCollection#>
 	<cfif thisCollection.recordcount is 0>
+	
+	
+	<br>nothing new
 		<!--- see if we can find any collections that haven't been processed since INTERVAL ---->
 		<cfquery name="thisCollection" datasource="uam_god">
 			select min(collection_id) collection_id from cf_temp_recipr_proc where lastdate < sysdate-#interval#/24
 		</cfquery>
+		
+		
+	<cfdump var=#thisCollection#>
+	<cfif thisCollection.recordcount
+			
+			
+			
 		<cfset thisCollection=thisCollection.collection_id>
 	<cfelse>
 		<cfset thisCollectionID=thisCollection.collection_id>
