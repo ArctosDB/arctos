@@ -307,7 +307,7 @@ sho err
 				<th>existing_other_id_number</th>
 				<th>new_other_id_references</th>
 				<th>new_other_id_type</th>
-				<th>new_other_id_references</th>
+				<th>new_other_id_number</th>
 			</tr>
 			<cfloop query="recip">
 				<tr>
@@ -317,7 +317,7 @@ sho err
 					<td>#existing_other_id_number#</td>
 					<td>#new_other_id_references#</td>
 					<td>#new_other_id_type#</td>
-					<td>#new_other_id_references#</td>
+					<td>#new_other_id_number#</td>
 				</tr>
 			</cfloop>
 		</form>
