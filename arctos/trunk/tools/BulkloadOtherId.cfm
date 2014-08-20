@@ -3,7 +3,9 @@
 <cfinclude template="/includes/_header.cfm">
 
 <cfset title="bulkload identifiers">
-
+<p>
+	<a href="BulkloadOtherId.cfm?action=managemystuff">Manage</a>
+</p>
 <!---- make the table
 
 drop table cf_temp_oids;
@@ -53,9 +55,6 @@ sho err
 </cfif>
 <!---------------------------------------------------------------->
 <cfif action is "nothing">
-	<p>
-		<a href="BulkloadOtherId.cfm?action=managemystuff">Manage existing and reciprocal records</a>
-	</p>
 	Upload a comma-delimited text file (csv).
 	<p><a href="BulkloadOtherId.cfm?action=template">get a template here</a>
 	
@@ -399,14 +398,18 @@ sho err
 			<select name="gp" multiple>
 				<option value="">no filter</option>
 				<cfloop query="ctguid_prefix">
-					<option <cfif listcontains(gp,ctguid_prefix.guid_prefix)> selected="selected" </cfif>value="#ctguid_prefix.guid_prefix#">#ctguid_prefix.guid_prefix#</option>
+					<option 
+						<cfif listcontains(gp,ctguid_prefix.guid_prefix)> selected="selected" </cfif>
+						value="#ctguid_prefix.guid_prefix#">#ctguid_prefix.guid_prefix#</option>
 				</cfloop>
 			</select>
 			<label for="ref">references</label>
 			<select name="ref" multiple>
 				<option value="">no filter</option>
 				<cfloop query="ctref">
-					<option <cfif listcontains(ref,ctref.new_other_id_references)> selected="selected" </cfif>value="#ctref.new_other_id_references#">#ctref.new_other_id_references#</option>
+					<option 
+						<cfif listcontains(ref,ctref.new_other_id_references)> selected="selected" </cfif>
+						value="#ctref.new_other_id_references#">#ctref.new_other_id_references#</option>
 				</cfloop>
 			</select>
 			<br><input type="submit" value="filter">
@@ -467,24 +470,13 @@ sho err
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------->
-
 <cfif action is "claimRecip">
-<cfoutput>
-	<p>
-		Seeing UAM.IX_UCF_TEMP_OIDS_KEY errors? You're trying to pull something that you've already pulled.
-	</p>
-	<cfquery name="gimme" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		insert into cf_temp_oids (
-			key,
-			guid_prefix,
-			existing_other_id_type,
-			existing_other_id_number,
-			new_other_id_type,
-			new_other_id_number,
-			new_other_id_references,
-			status
-		) (
-			select
+	<cfoutput>
+		<p>
+			Seeing UAM.IX_UCF_TEMP_OIDS_KEY errors? You're trying to pull something that you've already pulled.
+		</p>
+		<cfquery name="gimme" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into cf_temp_oids (
 				key,
 				guid_prefix,
 				existing_other_id_type,
@@ -492,17 +484,25 @@ sho err
 				new_other_id_type,
 				new_other_id_number,
 				new_other_id_references,
-				'claimed reciprocal'
-			from
-				cf_temp_recip_oids
-			where key in (#key#)
-		)
-	</cfquery>
-	<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
-
-</cfoutput>
+				status
+			) (
+				select
+					key,
+					guid_prefix,
+					existing_other_id_type,
+					existing_other_id_number,
+					new_other_id_type,
+					new_other_id_number,
+					new_other_id_references,
+					'claimed reciprocal'
+				from
+					cf_temp_recip_oids
+				where key in (#key#)
+			)
+		</cfquery>
+		<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
+	</cfoutput>
 </cfif>
-
 <!------------------------------------------------------->
 <cfif action is "managemystuff">
 	<script src="/includes/sorttable.js"></script>
@@ -530,7 +530,24 @@ sho err
 			</p>
 		</cfif>
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
+			select 
+				cf_temp_oids.KEY,
+				cf_temp_oids.COLLECTION_OBJECT_ID,
+				cf_temp_oids.GUID_PREFIX,
+				cf_temp_oids.EXISTING_OTHER_ID_TYPE,
+				cf_temp_oids.EXISTING_OTHER_ID_NUMBER,
+				cf_temp_oids.NEW_OTHER_ID_TYPE,
+				cf_temp_oids.NEW_OTHER_ID_NUMBER,
+				cf_temp_oids.NEW_OTHER_ID_REFERENCES,
+				cf_temp_oids.STATUS,
+				cf_temp_oids.USERNAME,
+				flat.guid
+			from
+				cf_temp_oids,
+				flat
+			where
+				cf_temp_oids.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID (+) and
+				upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cfquery name="data" dbtype="query">
 			select * from raw  where status ='valid'
@@ -538,14 +555,17 @@ sho err
 		<cfif data.recordcount is raw.recordcount>
 			<a href="BulkloadOtherId.cfm?action=loadData">Finalize load</a>
 		</cfif>
+		<p><a href="BulkloadOtherId.cfm?action=nothing">upload CSV</a></p>			
+
 		<p><a href="BulkloadOtherId.cfm?action=validate">validate</a></p>			
-		<p><a href="BulkloadOtherId.cfm?action=getCSV">CSV</a> (delete status column to re-load)</p>
+		<p><a href="BulkloadOtherId.cfm?action=getCSV">download CSV</a> (delete status column to re-load)</p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteLocalDuplicate">Merge "local duplicate" records</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteMine">Delete all existing data</a></p>
 		<table border id="t" class="sortable">
 			<tr>
 				<th>status</th>
+				<th>specimen</th>
 				<th>guid_prefix</th>
 				<th>existing_other_id_type</th>
 				<th>existing_other_id_number</th>
@@ -556,6 +576,7 @@ sho err
 			<cfloop query="raw">
 				<tr>
 					<td>#status#</td>
+					<td>#guid#</td>
 					<td>#guid_prefix#</td>
 					<td>#existing_other_id_type#</td>
 					<td>#existing_other_id_number#</td>
