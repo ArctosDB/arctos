@@ -41,9 +41,17 @@
 --->
 <cfoutput>
 	<!--- how often to check back, in hours ---->
-	<cfset interval=24>
+	<cfif not isdefined("interval")>
+		<cfset interval=24>
+	</cfif>
 	<!---- needs a bit of a throttle ---->
-	<cfset recordLimit=1000>
+	<cfif not isdefined("recordLimit")>
+		<cfset recordLimit=1000>
+	</cfif>
+	
+	
+	
+	
 	
 	<!--- get the "next" collection and do some housekeeping, or die ---->
 	<cfquery name="thisCollection" datasource="uam_god">
