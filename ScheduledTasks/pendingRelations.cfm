@@ -59,7 +59,7 @@
 		</cfquery>
 		<cfdump var=#thisCollection#>
 			
-		<cfset thisCollection=thisCollection.collection_id>
+		<cfset thisCollectionID=thisCollection.collection_id>
 	<cfelse>
 		<cfset thisCollectionID=thisCollection.collection_id>
 	</cfif>
