@@ -576,7 +576,11 @@ sho err
 			<cfloop query="raw">
 				<tr>
 					<td>#status#</td>
-					<td>#guid#</td>
+					<td>
+						<cfif len(guid) gt 0>
+							<a href="/guid/#guid#" target="_blank">#guid#</a>
+						</cfif>
+					</td>
 					<td>#guid_prefix#</td>
 					<td>#existing_other_id_type#</td>
 					<td>#existing_other_id_number#</td>
