@@ -215,7 +215,6 @@
 					<cfset sql=sql & " into 
 										cf_temp_recip_oids 
 									(
-										key,
 										collection_id,
 										guid_prefix,
 										existing_other_id_type,
@@ -225,7 +224,6 @@
 										new_other_id_references,
 										found_date
 									) values (
-										somerandomsequence.nextval,
 										#thisCollectionID#,
 										'#guid_prefix#',
 										'#existing_other_id_type#',
