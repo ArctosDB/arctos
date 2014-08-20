@@ -52,22 +52,25 @@
 	
 	
 	
+	<!---- allow forcing collection --->
 	
-	<!--- get the "next" collection and do some housekeeping, or die ---->
-	<cfquery name="thisCollection" datasource="uam_god">
-		select min(collection_id) collection_id from collection where collection_id not in (select collection_id from cf_temp_recipr_proc)
-	</cfquery>
-	<cfif len(thisCollection.collection_id) is 0>
-		<!--- see if we can find any collections that haven't been processed since INTERVAL ---->
+	<cfif not isdefined("thisCollectionID" or len(thisCollectionID) is 0>
+		<!--- get the "next" collection and do some housekeeping, or die ---->
 		<cfquery name="thisCollection" datasource="uam_god">
-			select min(collection_id) collection_id from cf_temp_recipr_proc where lastdate < sysdate-#interval#/24
+			select min(collection_id) collection_id from collection where collection_id not in (select collection_id from cf_temp_recipr_proc)
 		</cfquery>
-		<cfset thisCollectionID=thisCollection.collection_id>
-	<cfelse>
-		<cfset thisCollectionID=thisCollection.collection_id>
-	</cfif>
-	<cfif not isdefined("thisCollectionID") or len(thisCollectionID) is 0>
-		up to date - delete from cf_temp_recipr_proc to force-run<cfabort>
+		<cfif len(thisCollection.collection_id) is 0>
+			<!--- see if we can find any collections that haven't been processed since INTERVAL ---->
+			<cfquery name="thisCollection" datasource="uam_god">
+				select min(collection_id) collection_id from cf_temp_recipr_proc where lastdate < sysdate-#interval#/24
+			</cfquery>
+			<cfset thisCollectionID=thisCollection.collection_id>
+		<cfelse>
+			<cfset thisCollectionID=thisCollection.collection_id>
+		</cfif>
+		<cfif not isdefined("thisCollectionID") or len(thisCollectionID) is 0>
+			up to date - delete from cf_temp_recipr_proc or supply thisCollectionID in the URL to force <cfabort>
+		</cfif>
 	</cfif>
 	<br>running for collection_id #thisCollectionID#
 	<cfquery name="deletethisCollection" datasource="uam_god">
