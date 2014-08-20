@@ -437,7 +437,7 @@ sho err
 		select * from raw  where status is not null
 	</cfquery>			
 	<cfif data.recordcount gt 0>
-		You must fix everything in the table below and reload your file to continue.
+		<p><a href="BulkloadOtherId.cfm?action=validate">validate</a></p>
 		<cfset d="status,guid_prefix,EXISTING_OTHER_ID_TYPE,EXISTING_OTHER_ID_NUMBER,NEW_OTHER_ID_TYPE,NEW_OTHER_ID_NUMBER,NEW_OTHER_ID_REFERENCES">
 		<cfset variables.encoding="UTF-8">
 		<cfset variables.fileName="#Application.webDirectory#/download/BulkloadOtherId_down.csv">
@@ -473,7 +473,7 @@ sho err
 		</tr>			
 		<cfloop query="data">
 			<tr>
-				<th>#status#</th>
+				<td>#status#</td>
 				<td>#guid_prefix#</td>
 				<td>#existing_other_id_type#</td>
 				<td>#existing_other_id_number#</td>
