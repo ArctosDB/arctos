@@ -42,6 +42,8 @@
 <cfoutput>
 	<!--- how often to check back, in hours ---->
 	<cfset interval=24>
+	<!---- needs a bit of a throttle ---->
+	<cfset recordLimit=1000>
 	
 	<!--- get the "next" collection and do some housekeeping, or die ---->
 	<cfquery name="thisCollection" datasource="uam_god">
@@ -191,6 +193,7 @@
 						coll_obj_other_id_num.collection_object_id=cataloged_item.collection_object_id and
 						cataloged_item.collection_id=#thisCollectionID#
 				)
+				and rownum<#recordLimit#
 		</cfquery>
 			
 		<cfif missing.recordcount gt 0>
