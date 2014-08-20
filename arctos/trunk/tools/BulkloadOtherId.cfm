@@ -172,17 +172,12 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
-
-
 	<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
 		update 
 			cf_temp_oids 
 		set 
 			status=NULL where upper(username)='#ucase(session.username)#'
 	</cfquery>
-	
-	
-	
 	<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_oids set COLLECTION_OBJECT_ID = (
 			select 
@@ -421,6 +416,28 @@ sho err
 			<label for="">Select All</label>
 			<input type="checkbox" id="selecctall">
 			<input type="hidden" name="action" value="claimRecip">
+			
+			<table border id="t" class="sortable">
+			<tr>
+				<th>Claim</th>
+				<th>My Specimen</th>
+				<th>Relationship</th>
+				<th>Related Specimen</th>
+			</tr>
+			<cfloop query="recip">
+				<tr>
+					<td><input type="checkbox" name="key" value="#key#"></td>
+					<td>
+						<a href="/guid/#guid_prefix#:#existing_other_id_number#" target="_blank">#guid_prefix#:#existing_other_id_number#</a>
+					</td>
+					<td>#new_other_id_references#</td>
+					<td>
+						<a href="/guid/#new_other_id_type#:#new_other_id_number#" target="_blank">#new_other_id_type#:#new_other_id_number#</a>
+					</td>
+				</tr>
+			</cfloop>
+			</table>
+			<!--- "long view" - not needed as long as these data come only from the scheduled task; we can make this easier to read.
 			<table border id="t" class="sortable">
 			<tr>
 				<th>Claim</th>
@@ -443,6 +460,8 @@ sho err
 				</tr>
 			</cfloop>
 			</table>
+			
+			---->
 			<input type="submit" value="claim checked records">
 		</form>
 	</cfoutput>
