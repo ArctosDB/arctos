@@ -405,6 +405,7 @@ sho err
 			from
 				cf_temp_recip_oids
 			where key in (#key#)
+		)
 	</cfquery>
 	<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 
