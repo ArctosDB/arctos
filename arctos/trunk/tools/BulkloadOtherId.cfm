@@ -349,6 +349,7 @@ sho err
 		</form>
 			
 		<form name="f" method="post" action="BulkloadOtherId.cfm">
+			<label for="">Select All</label>
 			<input type="checkbox" id="selecctall">
 			<input type="hidden" name="action" value="claimRecip">
 			<table border id="t" class="sortable">
@@ -372,10 +373,44 @@ sho err
 					<td>#new_other_id_number#</td>
 				</tr>
 			</cfloop>
+			</table>
 			<input type="submit" value="claim checked records">
 		</form>
 	</cfoutput>
 </cfif>
+<!------------------------------------------------------->
+
+<cfif action is "claimRecip">
+<cfoutput>
+	<cfquery name="gimme" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into cf_temp_oids (
+			key,
+			guid_prefix,
+			existing_other_id_type,
+			existing_other_id_number,
+			new_other_id_type,
+			new_other_id_number,
+			new_other_id_references,
+			status
+		) (
+			select
+				key,
+				guid_prefix,
+				existing_other_id_type,
+				existing_other_id_number,
+				new_other_id_type,
+				new_other_id_number,
+				new_other_id_references,
+				'claimed reciprocal'
+			from
+				cf_temp_recip_oids
+			where key in (#key#)
+	</cfquery>
+	<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
+
+</cfoutput>
+</cfif>
+
 <!------------------------------------------------------->
 <cfif action is "managemystuff">
 <cfoutput>
@@ -431,7 +466,7 @@ sho err
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from cf_temp_oids where  upper(username)='#ucase(session.username)#' and status='identifier exists'
 		</cfquery>
-		<cflocation url="BulkloadOtherId.cfm?action=validate" addtoken="false">
+		<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------->
