@@ -153,8 +153,6 @@
 	<cfset sql="insert all ">
 	<cfloop query="uidtype">
 		<cfset thisRelationship=uidtype.idtype>
-		
-		
 		<cfquery name="rr" dbtype="query">
 			select * from ctid_references where r1='#idtype#'
 		</cfquery>
@@ -166,7 +164,6 @@
 			</cfquery>
 			<cfset reciprocalRelationship=rr.r1>			
 		</cfif>
-	
 		<cfquery name="missing" datasource="uam_god">
 			select 
 				my_collection.guid_prefix guid_prefix,
@@ -175,7 +172,6 @@
 				their_catitem.cat_num new_other_id_number,
 				their_collection.guid_prefix new_other_id_type,
 				'#reciprocalRelationship#' new_other_id_references
-				
 			from
 				coll_obj_other_id_num,
 				collection my_collection,
@@ -205,6 +201,9 @@
 		</cfquery>
 			
 		<cfif missing.recordcount gt 0>
+			<p>
+				Found #missing.recordcount# records.
+			</p>
 			<table border>
 				<tr>
 					<td>guid_prefix</td>
