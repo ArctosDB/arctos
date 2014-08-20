@@ -233,6 +233,7 @@ sho err
 			null,'new_other_id_references not found',
 			status || '; new_other_id_references not found')
 		where
+			new_other_id_references != 'catalog number' and 
 			new_other_id_references not in (select ID_REFERENCES from CTID_REFERENCES) and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
@@ -244,6 +245,7 @@ sho err
 			null,'existing_other_id_type not found',
 			status || '; existing_other_id_type not found')
 		where
+			existing_other_id_type != 'catalog number' and 
 			existing_other_id_type not in (select OTHER_ID_TYPE from CTCOLL_OTHER_ID_TYPE) and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
