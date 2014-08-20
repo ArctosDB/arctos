@@ -475,8 +475,12 @@ sho err
 
 	<cfoutput>
 	
-		<div class="ui-state-highlight">
-			READ THIS!
+		<div class="ui-state-highlight ui-corner-all">
+			<p><strong>READ THIS!</strong></p>
+			This form creates otherIDs, and pulls suggested reciprocal relationships which may be created as IDs. 
+			<p>
+				Always download a CSV backup before using local tools.
+			</p>
 		</div>
 		<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select collection.collection,collection.collection_id, count(*) from 
