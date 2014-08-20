@@ -175,77 +175,99 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
+
+
+	<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+		update 
+			cf_temp_oids 
+		set 
+			status=NULL where (username)='#ucase(session.username)#'
 	</cfquery>
-	<cfloop query="data">
-		<cfset err="">
-		<cfif len(new_other_id_references) gt 0>
-			<cfquery name="new_other_id_references" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select ID_REFERENCES from CTID_REFERENCES where ID_REFERENCES = '#new_other_id_references#'
-			</cfquery>
-			<cfif new_other_id_references.recordcount is not 1>
-				<cfset err=listappend(err,"new_other_id_references #new_other_id_references# was not found.")>
-			</cfif>
-		</cfif>
-		<cfif existing_other_id_type is not "catalog number">
-			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				SELECT
-					coll_obj_other_id_num.collection_object_id
-				FROM
-					coll_obj_other_id_num,
-					cataloged_item
-				WHERE
-					coll_obj_other_id_num.collection_object_id = cataloged_item.collection_object_id and
-					cataloged_item.collection_id = (
-						select collection_id from collection where
-						upper(collection.guid_prefix) = '#ucase(guid_prefix)#') and
-					other_id_type = '#existing_other_id_type#' and
-					display_value = '#existing_other_id_number#'
-			</cfquery>
-		<cfelse>
-			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				SELECT
-					collection_object_id
-				FROM
-					cataloged_item
-				WHERE
-					cataloged_item.collection_id = (
-						select collection_id from collection where
-							upper(collection.guid_prefix) = '#ucase(guid_prefix)#'
-					) and
-					cat_num=#existing_other_id_number#
-			</cfquery>
-		</cfif>
-		<cfif collObj.recordcount is not 1>
-			<cfset err=listappend(err,"#data.guid_prefix# #data.existing_other_id_number# #data.existing_other_id_type# matches #collObj.recordcount# records.")>
-		</cfif>
-		<cfif len(err) is 0>
-			<cfquery name="isValid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select other_id_type from ctcoll_other_id_type where other_id_type = '#new_other_id_type#'
-			</cfquery>
-			<cfif isValid.recordcount is not 1>
-				<cfset err=listappend(err,"Other ID type #new_other_id_type# matches #isValid.recordcount# records.")>
-			</cfif>
-		</cfif>
-		<cfif len(err) is 0>
-			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				UPDATE cf_temp_oids SET collection_object_id = #collObj.collection_object_id#,STATUS='valid' where
-				key = #key#
-			</cfquery>
-		<cfelse>
-			<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update cf_temp_oids set status='#err#' where key=#key#
-			</cfquery>
-		</cfif>
-	</cfloop>
+	<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_oids set COLLECTION_OBJECT_ID = (
+			select 
+				cataloged_item.collection_object_id 
+			from
+				cataloged_item,
+				collection
+			WHERE
+				cataloged_item.collection_id = collection.collection_id and
+				collection.guid_prefix = cf_temp_oids.guid_prefix and
+				cat_num=cf_temp_oids.existing_other_id_number
+		) where existing_other_id_type = 'catalog number' and upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+		update cf_temp_oids set COLLECTION_OBJECT_ID = (
+			select 
+				cataloged_item.collection_object_id 
+			from
+				cataloged_item,
+				collection,
+				coll_obj_other_id_num
+			WHERE
+				cataloged_item.collection_id = collection.collection_id and
+				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
+				collection.guid_prefix = cf_temp_oids.guid_prefix and
+				other_id_type = cf_temp_oids.existing_other_id_type and
+				display_value = cf_temp_oids.existing_other_id_number
+		) where existing_other_id_number != 'catalog number' and upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfquery name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+		update 
+			cf_temp_oids 
+		set 
+			status=decode(status,
+				null,'cataloged item not found',
+				status || '; cataloged item not found')
+		where 
+			collection_object_id is null and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>	
+	
+	
+	<cfquery name="iva" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+		update 
+			cf_temp_oids 
+		set 
+			status=decode(status,
+			null,'new_other_id_references not found',
+			status || '; new_other_id_references not found')
+		where
+			new_other_id_references not in (select ID_REFERENCES from CTID_REFERENCES) and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfquery name="iva" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+		update 
+			cf_temp_oids 
+		set 
+			status=decode(status,
+			null,'existing_other_id_type not found',
+			status || '; existing_other_id_type not found')
+		where
+			existing_other_id_type not in (select OTHER_ID_TYPE from CTCOLL_OTHER_ID_TYPE) and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfquery name="iva" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+		update 
+			cf_temp_oids 
+		set 
+			status=decode(status,
+			null,'new_other_id_type not found',
+			status || '; new_other_id_type not found')
+		where
+			new_other_id_type not in (select OTHER_ID_TYPE from CTCOLL_OTHER_ID_TYPE) and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
+		
 	<cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update 
 			cf_temp_oids 
 		set 
-			status='identifier exists' 
+			status=decode(status,
+			null,'identifier exists',
+			status || '; identifier exists')
 		where
-			status is null and
+			and upper(username)='#ucase(session.username)#' and
 			collection_object_id is not null and
 			(
 				collection_object_id,
@@ -263,7 +285,35 @@ sho err
 					coll_obj_other_id_num
 			)		
 	</cfquery>
-	<cflocation url="BulkloadOtherId.cfm?action=showCheck" addtoken="false">
+	
+	<cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update 
+			cf_temp_oids 
+		set 
+			status=decode(status,
+			null,'duplicate',
+			status || '; duplicate')
+		where
+			upper(username)='#ucase(session.username)#' and
+			(
+				new_other_id_type,
+				new_other_id_number,
+				nvl(new_other_id_references,'self')
+			) IN
+			(
+				select 
+					new_other_id_type,
+					new_other_id_number,
+					nvl(new_other_id_references,'self')
+				from 
+					cf_temp_oids
+			)		
+	</cfquery>
+	
+	<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_oids set status='valid' where status is null and upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
