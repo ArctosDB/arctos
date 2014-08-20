@@ -269,7 +269,25 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "getRecip">
 	<script src="/includes/sorttable.js"></script>
+	<script>
+		$(document).ready(function() {
+		    $('#selecctall').click(function(event) {  //on click
+		        if(this.checked) { // check select status
+		            $(':checkbox').each(function() { //loop through each checkbox
+		                this.checked = true;  //select all checkboxes with class "checkbox1"              
+		            });
+		        }else{
+		            $(':checkbox').each(function() { //loop through each checkbox
+		                this.checked = false; //deselect all checkboxes with class "checkbox1"                      
+		            });        
+		        }
+		    });
+		   
+		});
+	</script>
+	
 	<cfparam name="gp" default="">
+	<cfparam name="ref" default="">
 	<cfoutput>
 		<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
@@ -294,6 +312,9 @@ sho err
 				<cfif len(gp) gt 0>
 					and cf_temp_recip_oids.guid_prefix in (#listqualify(gp,"'")#)
 				</cfif>
+				<cfif len(ref) gt 0>
+					and cf_temp_recip_oids.new_other_id_references in (#listqualify(ref,"'")#)
+				</cfif>
 			order by 
 				collection.collection,
 				new_other_id_references,
@@ -304,6 +325,10 @@ sho err
 		<cfquery name="ctguid_prefix" dbtype="query">
 			select guid_prefix from recip group by guid_prefix order by guid_prefix
 		</cfquery>
+		<cfquery name="ctref" dbtype="query">
+			select new_other_id_references from recip group by new_other_id_references order by new_other_id_references
+		</cfquery>
+		Filter
 		<form name="filter" method="post" action="BulkloadOtherId.cfm">
 			<input type="hidden" name="action" value="getRecip">
 			<label for="gp">guid_prefix</label>
@@ -313,10 +338,18 @@ sho err
 					<option <cfif listcontains(gp,ctguid_prefix.guid_prefix)> selected="selected" </cfif>value="#ctguid_prefix.guid_prefix#">#ctguid_prefix.guid_prefix#</option>
 				</cfloop>
 			</select>
+			<label for="ref">references</label>
+			<select name="ref" multiple>
+				<option value="">no filter</option>
+				<cfloop query="ctref">
+					<option <cfif listcontains(ref,ctref.new_other_id_references)> selected="selected" </cfif>value="#ctref.new_other_id_references#">#ctref.new_other_id_references#</option>
+				</cfloop>
+			</select>
 			<br><input type="submit" value="filter">
 		</form>
 			
 		<form name="f" method="post" action="BulkloadOtherId.cfm">
+			<input type="checkbox" id="selecctall">
 			<input type="hidden" name="action" value="claimRecip">
 			<table border id="t" class="sortable">
 			<tr>
@@ -330,7 +363,7 @@ sho err
 			</tr>
 			<cfloop query="recip">
 				<tr>
-					<td><input data-ref='#new_other_id_references#' data-collection="#guid_prefix#" type="checkbox" name="key" value="#key#"></td>
+					<td><input type="checkbox" name="key" value="#key#"></td>
 					<td>#guid_prefix#</td>
 					<td>#existing_other_id_type#</td>
 					<td>#existing_other_id_number#</td>
