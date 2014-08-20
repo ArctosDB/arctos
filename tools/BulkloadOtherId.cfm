@@ -414,12 +414,13 @@ sho err
 			</select>
 			<br><input type="submit" value="filter">
 		</form>
-			
+		<hr>
 		<form name="f" method="post" action="BulkloadOtherId.cfm">
 			<label for="">Select All</label>
 			<input type="checkbox" id="selecctall">
 			<input type="hidden" name="action" value="claimRecip">
 			
+			<input type="submit" value="claim checked records">
 			<table border id="t" class="sortable">
 			<tr>
 				<th>Claim</th>
