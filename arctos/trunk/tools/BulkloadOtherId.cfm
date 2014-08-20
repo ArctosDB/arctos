@@ -531,7 +531,7 @@ sho err
 			<th>new_other_id_type</th>
 			<th>new_other_id_number</th>
 		</tr>			
-		<cfloop query="data">
+		<cfloop query="raw">
 			<tr>
 				<td>#status#</td>
 				<td>#guid_prefix#</td>
