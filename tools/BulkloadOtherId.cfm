@@ -292,7 +292,7 @@ sho err
 					select collection_id from cataloged_item
 				)
 				<cfif len(guid_prefix) gt 0>
-					and guid_prefix in (#listqualify(guid_prefix,"'")#)
+					and cf_temp_recip_oids.guid_prefix in (#listqualify(guid_prefix,"'")#)
 				</cfif>
 			order by 
 				collection.collection,
