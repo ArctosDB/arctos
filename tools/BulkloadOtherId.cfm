@@ -180,6 +180,15 @@ sho err
 		set 
 			status=NULL where (username)='#ucase(session.username)#'
 	</cfquery>
+	
+	
+	<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_oids
+	</cfquery>
+	
+	<cfdump var=#wtf#>
+	
+	
 	<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_oids set COLLECTION_OBJECT_ID = (
 			select 
@@ -580,6 +589,8 @@ sho err
 								a.existing_other_id_number = b.existing_other_id_number
 						)
 				)
+				
+				
 		</cfquery>
 		<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 	</cfoutput>
