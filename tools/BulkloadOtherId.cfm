@@ -178,7 +178,7 @@ sho err
 		update 
 			cf_temp_oids 
 		set 
-			status=NULL where (username)='#ucase(session.username)#'
+			status=NULL where upper(username)='#ucase(session.username)#'
 	</cfquery>
 	
 	
@@ -200,7 +200,10 @@ sho err
 				cataloged_item.collection_id = collection.collection_id and
 				collection.guid_prefix = cf_temp_oids.guid_prefix and
 				cat_num=cf_temp_oids.existing_other_id_number
-		) where existing_other_id_type = 'catalog number' and upper(username)='#ucase(session.username)#'
+		) 
+		where 
+			existing_other_id_type = 'catalog number' and 
+			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
 		update cf_temp_oids set COLLECTION_OBJECT_ID = (
@@ -216,7 +219,10 @@ sho err
 				collection.guid_prefix = cf_temp_oids.guid_prefix and
 				other_id_type = cf_temp_oids.existing_other_id_type and
 				display_value = cf_temp_oids.existing_other_id_number
-		) where existing_other_id_type != 'catalog number' and upper(username)='#ucase(session.username)#'
+		) 
+		where 
+			existing_other_id_type != 'catalog number' and 
+			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
 		update 
@@ -301,7 +307,9 @@ sho err
 			status=decode(status,
 				null,'local duplicate',
 				status || '; local duplicate')
-		where (
+		where 
+			upper(username)='#ucase(session.username)#' and
+			(
 			guid_prefix,
 			new_other_id_type,
 			new_other_id_number,
