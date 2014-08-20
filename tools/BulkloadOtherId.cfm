@@ -53,12 +53,9 @@ sho err
 </cfif>
 <!---------------------------------------------------------------->
 <cfif action is "nothing">
-	<cfoutput>
-		
-			<p>
-				<a href="BulkloadOtherId.cfm?action=managemystuff">Manage existing and reciprocal records</a>
-			</p>
-	</cfoutput>
+	<p>
+		<a href="BulkloadOtherId.cfm?action=managemystuff">Manage existing and reciprocal records</a>
+	</p>
 	Upload a comma-delimited text file (csv).
 	<p><a href="BulkloadOtherId.cfm?action=template">get a template here</a>
 	
@@ -476,74 +473,79 @@ sho err
 <cfif action is "managemystuff">
 	<script src="/includes/sorttable.js"></script>
 
-<cfoutput>
-	<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select collection.collection,collection.collection_id, count(*) from 
-		cf_temp_recip_oids,
-		collection
-		where cf_temp_recip_oids.collection_id=collection.collection_id and collection.collection_id in (
-		select collection_id from cataloged_item) group by collection.collection,collection.collection_id order by collection.collection
-	</cfquery>
-	<cfif recip.recordcount gt 0>
-		<p>
-			Reciprocal relationships for your collection(s) have been detected. <a href="BulkloadOtherId.cfm?action=getRecip">check them here</a>
-		</p>
-	</cfif>
-
-	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
-	</cfquery>
-	<cfquery name="data" dbtype="query">
-		select * from raw  where status is not null
-	</cfquery>			
-	<cfif data.recordcount gt 0>
-		<p><a href="BulkloadOtherId.cfm?action=validate">validate</a></p>
-		<cfset d="status,guid_prefix,EXISTING_OTHER_ID_TYPE,EXISTING_OTHER_ID_NUMBER,NEW_OTHER_ID_TYPE,NEW_OTHER_ID_NUMBER,NEW_OTHER_ID_REFERENCES">
-		<cfset variables.encoding="UTF-8">
-		<cfset variables.fileName="#Application.webDirectory#/download/BulkloadOtherId_down.csv">
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(d);
-		</cfscript>
-		<cfloop query="raw">
-			<cfset d='"#status#","#guid_prefix#","#EXISTING_OTHER_ID_TYPE#","#EXISTING_OTHER_ID_NUMBER#","#NEW_OTHER_ID_TYPE#","#NEW_OTHER_ID_NUMBER#","#NEW_OTHER_ID_REFERENCES#"'>
+	<cfoutput>
+	
+		<div class="ui-state-highlight">
+			READ THIS!
+		</div>
+		<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select collection.collection,collection.collection_id, count(*) from 
+			cf_temp_recip_oids,
+			collection
+			where cf_temp_recip_oids.collection_id=collection.collection_id and collection.collection_id in (
+			select collection_id from cataloged_item) group by collection.collection,collection.collection_id order by collection.collection
+		</cfquery>
+		<cfif recip.recordcount gt 0>
+			<p>
+				Reciprocal relationships for your collection(s) have been detected. <a href="BulkloadOtherId.cfm?action=getRecip">check them here</a>
+			</p>
+		</cfif>
+	
+		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<cfquery name="data" dbtype="query">
+			select * from raw  where status is not null
+		</cfquery>			
+		<cfif data.recordcount gt 0>
+			<p><a href="BulkloadOtherId.cfm?action=validate">validate</a></p>
+			<cfset d="status,guid_prefix,EXISTING_OTHER_ID_TYPE,EXISTING_OTHER_ID_NUMBER,NEW_OTHER_ID_TYPE,NEW_OTHER_ID_NUMBER,NEW_OTHER_ID_REFERENCES">
+			<cfset variables.encoding="UTF-8">
+			<cfset variables.fileName="#Application.webDirectory#/download/BulkloadOtherId_down.csv">
 			<cfscript>
+				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 				variables.joFileWriter.writeLine(d);
 			</cfscript>
-		</cfloop>
-		<cfscript>
-			variables.joFileWriter.close();
-		</cfscript>
-		<p><a href="/download.cfm?file=BulkloadOtherId_down.csv">CSV</a> (delete status column to re-load)</p>
-		<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
-			
-	<cfelse>
-		<a href="BulkloadOtherId.cfm?action=loadData">checks out...proceed to load #raw.recordcount# new IDs</a>
-	</cfif>
-	
-	<table border id="t" class="sortable">
-		<tr>
-			<th>status</th>
-			<th>guid_prefix</th>
-			<th>existing_other_id_type</th>
-			<th>existing_other_id_number</th>
-			<th>new_other_id_references</th>
-			<th>new_other_id_type</th>
-			<th>new_other_id_number</th>
-		</tr>			
-		<cfloop query="raw">
+			<cfloop query="raw">
+				<cfset d='"#status#","#guid_prefix#","#EXISTING_OTHER_ID_TYPE#","#EXISTING_OTHER_ID_NUMBER#","#NEW_OTHER_ID_TYPE#","#NEW_OTHER_ID_NUMBER#","#NEW_OTHER_ID_REFERENCES#"'>
+				<cfscript>
+					variables.joFileWriter.writeLine(d);
+				</cfscript>
+			</cfloop>
+			<cfscript>
+				variables.joFileWriter.close();
+			</cfscript>
+			<p><a href="/download.cfm?file=BulkloadOtherId_down.csv">CSV</a> (delete status column to re-load)</p>
+			<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
+			<p><a href="BulkloadOtherId.cfm?action=deleteLocalDuplicate">Merge "local duplicate" records</a></p>
+				
+		<cfelse>
+			<a href="BulkloadOtherId.cfm?action=loadData">checks out...proceed to load #raw.recordcount# new IDs</a>
+		</cfif>
+		
+		<table border id="t" class="sortable">
 			<tr>
-				<td>#status#</td>
-				<td>#guid_prefix#</td>
-				<td>#existing_other_id_type#</td>
-				<td>#existing_other_id_number#</td>
-				<td>#new_other_id_references#</td>
-				<td>#new_other_id_type#</td>
-				<td>#new_other_id_number#</td>
-			</tr>
-		</cfloop>
-	</table>		
-</cfoutput>
+				<th>status</th>
+				<th>guid_prefix</th>
+				<th>existing_other_id_type</th>
+				<th>existing_other_id_number</th>
+				<th>new_other_id_references</th>
+				<th>new_other_id_type</th>
+				<th>new_other_id_number</th>
+			</tr>			
+			<cfloop query="raw">
+				<tr>
+					<td>#status#</td>
+					<td>#guid_prefix#</td>
+					<td>#existing_other_id_type#</td>
+					<td>#existing_other_id_number#</td>
+					<td>#new_other_id_references#</td>
+					<td>#new_other_id_type#</td>
+					<td>#new_other_id_number#</td>
+				</tr>
+			</cfloop>
+		</table>		
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "deleteLocalDuplicate">
