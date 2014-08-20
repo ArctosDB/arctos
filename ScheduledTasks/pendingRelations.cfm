@@ -207,6 +207,9 @@
 			<p>
 				Found #missing.recordcount# records.
 			</p>
+			<cfif limit is missing.recordcount>
+				These results may be truncated. Try adding "limit={integer}" to the URL.
+			</cfif>
 			<table border>
 				<tr>
 					<td>guid_prefix</td>
