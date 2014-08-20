@@ -268,8 +268,8 @@ sho err
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "getRecip">
-		<script src="/includes/sorttable.js"></script>
-
+	<script src="/includes/sorttable.js"></script>
+	<cfparam name="guid_prefix" default="">
 	<cfoutput>
 		<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
@@ -290,13 +290,32 @@ sho err
 				cf_temp_recip_oids.collection_id=collection.collection_id and 
 				collection.collection_id in (
 					select collection_id from cataloged_item
-				) 
+				)
+				<cfif len(guid_prefix) gt 0>
+					and guid_prefix in (#listqualify(guid_prefix,"'")#)
+				</cfif>
 			order by 
 				collection.collection,
 				new_other_id_references,
 				cf_temp_recip_oids.guid_prefix,
 				new_other_id_type
 		</cfquery>
+		
+		<cfquery name="ctguid_prefix" dbtype="query">
+			select guid_prefix from recip group by guid_prefix order by guid_prefix
+		</cfquery>
+		<form name="filter" method="post" action="BulkloadOtherId.cfm">
+			<input type="hidden" name="action" value="getRecip">
+			<label for="guid_prefix">guid_prefix</label>
+			<select name="guid_prefix" multiple>
+				<option value="">no filter</option>
+				<cfloop query="ctguid_prefix">
+					<option value="#guid_prefix#">#guid_prefix#</option>
+				</cfloop>
+			</select>
+			<br><input type="submit" value="filter">
+		</form>
+			
 		<form name="f" method="post" action="BulkloadOtherId.cfm">
 			<input type="hidden" name="action" value="claimRecip">
 			<table border id="t" class="sortable">
@@ -311,7 +330,7 @@ sho err
 			</tr>
 			<cfloop query="recip">
 				<tr>
-					<td><input type="checkbox" name="key" value="#key#"></td>
+					<td><input data-ref='#new_other_id_references#' data-collection="#guid_prefix#" type="checkbox" name="key" value="#key#"></td>
 					<td>#guid_prefix#</td>
 					<td>#existing_other_id_type#</td>
 					<td>#existing_other_id_number#</td>
@@ -320,8 +339,8 @@ sho err
 					<td>#new_other_id_number#</td>
 				</tr>
 			</cfloop>
+			<input type="submit" value="claim checked records">
 		</form>
-		<cfdump var=#recip#>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------->
