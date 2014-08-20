@@ -54,7 +54,7 @@
 	
 	<!---- allow forcing collection --->
 	
-	<cfif not isdefined("thisCollectionID" or len(thisCollectionID) is 0>
+	<cfif not isdefined("thisCollectionID") or len(thisCollectionID) is 0>
 		<!--- get the "next" collection and do some housekeeping, or die ---->
 		<cfquery name="thisCollection" datasource="uam_god">
 			select min(collection_id) collection_id from collection where collection_id not in (select collection_id from cf_temp_recipr_proc)
