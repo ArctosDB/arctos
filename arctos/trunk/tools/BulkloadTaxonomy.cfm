@@ -478,6 +478,21 @@ sho err
 				</cfif>
 			</cfloop>
 		</cfloop>
+		<cfquery name="setrefresh" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into taxon_refresh_log (
+				taxon_name_id,
+				taxon_name) (
+			select
+				taxon_name_id,
+				scientific_name
+			from 
+				taxon_name 
+			where 
+				scientific_name in (
+					select scientific_name from cf_temp_taxonomy
+				)
+			)
+		</cfquery>
 	</cftransaction>
 	
 	
