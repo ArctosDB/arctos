@@ -214,6 +214,7 @@
 	<cfset Application.logEmail = cf_global_settings.LOG_EMAIL>
 	<cfset Application.Google_uacct = cf_global_settings.GOOGLE_UACCT>
 	<cfif serverName is "arctos.database.museum">
+		<cfset Application.version="prod">
 		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
     <cfelseif serverName contains "harvard.edu">

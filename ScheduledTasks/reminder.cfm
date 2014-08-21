@@ -1,4 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
+	
+	<cfset functions = CreateObject("component","component.functions")>
+
 	<cfoutput>		
 		<!--- start of loan code --->
 		<!--- days after and before return_due_date on which to send email. Negative is after ---->
@@ -162,8 +165,15 @@
 					sends email and something somewhere is probably misspelled or something
 				 --->
 				<cfloop query="notificationAgents">
-					<cfmail to="#address#" bcc="#Application.LogEmail#" 
-						subject="Arctos Loan Notification" from="loan_notification@#Application.fromEmail#" type="html">
+					<cfif isdefined("Application.version") and  Application.version is "prod">
+						<cfset subj="Arctos Loan Notification">
+						<cfset maddr=notificationAgents.address>
+					<cfelse>
+						<cfset maddr=application.bugreportemail>
+						<cfset subj="TEST PLEASE IGNORE: #subj#">
+					</cfif>
+					<cfmail to="#maddr#" bcc="#Application.LogEmail#" 
+						subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
 						Dear #agent_name#,
 						<p>
 							You are receiving this message because you are listed as a contact for loan 
@@ -176,8 +186,17 @@
 			</cfif>
 			<!--- and an email for each in-house contact --->
 			<cfloop query="inhouseAgents">
-				<cfmail to="#address#" bcc="arctos.database@gmail.com" 
-					subject="Arctos Loan Notification" from="loan_notification@#Application.fromEmail#" type="html">
+				
+				<cfif isdefined("Application.version") and  Application.version is "prod">
+					<cfset subj="Arctos Loan Notification">
+					<cfset maddr=inhouseAgents.address>
+				<cfelse>
+					<cfset maddr=application.bugreportemail>
+					<cfset subj="TEST PLEASE IGNORE: #subj#">
+				</cfif>
+
+				<cfmail to="#maddr#" bcc="arctos.database@gmail.com" 
+					subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
 					Dear #agent_name#,
 					<p>
 						You are receiving this message because you are listed as in-house contact for loan 
@@ -195,8 +214,17 @@
 			<cfif expires_in_days lte 0>
 				<!--- the loan expires on or BEFORE today; also email the collection's loan request agent, if there is one --->
 				<cfloop query="collectionAgents">
-					<cfmail to="#address#" bcc="#Application.LogEmail#" 
-						subject="Arctos Loan Notification" from="loan_notification@#Application.fromEmail#" type="html">Dear #agent_name#,
+					
+					<cfif isdefined("Application.version") and  Application.version is "prod">
+						<cfset subj="Arctos Loan Notification">
+						<cfset maddr=collectionAgents.address>
+					<cfelse>
+						<cfset maddr=application.bugreportemail>
+						<cfset subj="TEST PLEASE IGNORE: #subj#">
+					</cfif>
+
+					<cfmail to="#maddr#" bcc="#Application.LogEmail#" 
+						subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">Dear #agent_name#,
 						<p>
 							You are receiving this message because you are listed as a #loan.collection# loan request collection contact. 
 							Loan #loan.collection# #loan.loan_number# due date #loan.return_due_date# is not listed as "closed."
@@ -245,7 +273,15 @@
 				<cfquery name="permitExpOneYearIndiv" dbtype="query">
 					select * from permitExpOneYear where CONTACT_AGENT_ID=#CONTACT_AGENT_ID# order by expires_in_days
 				</cfquery>
-				<cfmail to="#permitExpOneYearnames.ADDRESS#" subject="Expiring Permits" from="reminder@#Application.fromEmail#" type="html">
+				<cfif isdefined("Application.version") and  Application.version is "prod">
+					<cfset subj="Expiring Permits">
+					<cfset maddr=permitExpOneYearnames.ADDRESS>
+				<cfelse>
+					<cfset maddr=application.bugreportemail>
+					<cfset subj="TEST PLEASE IGNORE: #subj#">
+				</cfif>
+				
+				<cfmail to="#maddr#" subject="subj" from="reminder@#Application.fromEmail#" type="html">
 					You are receiving this message because you are the contact person for the permits listed below, which are expiring.
 					<p>
 						<cfloop query="permitExpOneYearIndiv">
@@ -281,6 +317,9 @@
 			select collection,collection_id from yearOldAccn group by collection,collection_id
 		</cfquery>
 		<cfloop query="colns">
+			<cfset contact = functions.getCollectionContactEmail(collection_id=collection_id,contact_role="data quality")>
+			
+			<!----
 			<cfquery name="contact" datasource="uam_god">
 				select
 					electronic_address.address
@@ -291,6 +330,8 @@
 					collection_contacts.CONTACT_AGENT_ID=electronic_address.AGENT_ID and
 					collection_contacts.collection_id=#collection_id#
 			</cfquery>
+			
+			---->
 			<cfquery name="data" dbtype="query">
 				select 
 					transaction_id,
@@ -322,10 +363,68 @@
 						</cfloop>
 					</p>
 				</cfsavecontent>
-				<cfmail to="#valuelist(contact.ADDRESS)#" bcc="arctos.database@gmail.com" subject="Bare Accession" from="bare_accession@#Application.fromEmail#" type="html">
+				<cfif isdefined("Application.version") and  Application.version is "prod">
+					<cfset maddr=valuelist(contact.ADDRESS)>
+					<cfset subj="Bare Accession">
+				<cfelse>
+					<cfset maddr=application.bugreportemail>
+					<cfset subj="TEST PLEASE IGNORE: #subj#">
+				</cfif>
+				<cfmail to="#maddr#" bcc="arctos.database@gmail.com" subject="#subj#" from="bare_accession@#Application.fromEmail#" type="html">
 					#msg#
 				</cfmail>
 			</cfif>
 		</cfloop>
+		<!---- pending reciprocal relationships ---->
+		<cfquery name="ff" datasource="uam_god">
+			select 
+				cf_temp_recip_oids.COLLECTION_ID,
+				collection.collection,
+				NEW_OTHER_ID_REFERENCES,
+				count(*) numRecs 
+			from 
+				cf_temp_recip_oids,
+				collection
+			where
+				collection.collection_id=cf_temp_recip_oids.collection_id
+			group by 
+				collection,
+				collection_id,
+				NEW_OTHER_ID_REFERENCES
+		</cfquery>
+		<cfquery name="collection" dbtype="query">
+			select collection,collection_id from ff
+		</cfquery>
+		<cfloop query="collection">
+			<cfquery name="r" dbtype="query">
+				select NEW_OTHER_ID_REFERENCES,numRecs from ff where collection_id=#collection_id# order by NEW_OTHER_ID_REFERENCES
+			</cfquery>
+
+			<cfset contacts = functions.getCollectionContactEmail(collection_id=collection.collection_id,contact_role="data quality")>
+			<cfsavecontent variable="msg">
+				You are receiving this message because you are a data quality contact for collection #collection.collection#.
+				<p>
+					There are specimens with nonreciprocal relationships to your collection.
+				</p>
+				<p>
+					You may create reciprocal relationships by going to the OtherID/Relationship bulkloader, clicking Manage, 
+					then following the link to reciprocal relationships or, after logging in to Arctos, by going to					
+					<a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip">#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip</a>
+				</p>
+				<p>Pending Relationships:</p>
+				<ul>
+					<cfloop query="r">
+						<li>#NEW_OTHER_ID_REFERENCES#: #numRecs#</li>
+					</cfloop>
+				</ul>
+			</cfsavecontent>
+			
+			<cfdump var=#contacts#>
+			
+			<cfdump var=#msg#>
+			
+		</cfloop>
+
+
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
