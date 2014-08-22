@@ -410,7 +410,7 @@
 			select 
 				cf_temp_recip_oids.COLLECTION_ID,
 				collection.collection,
-				NEW_OTHER_ID_REFERENCES,
+				cf_temp_recip_oids.NEW_OTHER_ID_REFERENCES,
 				count(*) numRecs 
 			from 
 				cf_temp_recip_oids,
@@ -418,9 +418,9 @@
 			where
 				collection.collection_id=cf_temp_recip_oids.collection_id
 			group by 
-				collection,
-				collection_id,
-				NEW_OTHER_ID_REFERENCES
+				cf_temp_recip_oids.COLLECTION_ID,
+				collection.collection,
+				cf_temp_recip_oids.NEW_OTHER_ID_REFERENCES
 		</cfquery>
 		<cfquery name="collection" dbtype="query">
 			select collection,collection_id from ff
