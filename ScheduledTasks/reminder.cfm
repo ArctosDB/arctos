@@ -1,6 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset functions = CreateObject("component","component.functions")>
-<cfoutput>		
+<cfoutput>
+		<cfsavecontent variable="emailFooter">
+			<div class="emailFooter">
+				Don't want these messages? Update Collection Contacts.
+				<br>Want these messages? Update Collection Contacts, make sure you have a valid email address.
+				<br>Links not working? Log in, log out, or check encumbrances.
+				<br>Need help? Send email to arctos.database@gmail.com
+			</div>
+		</cfsavecontent>
 	<!--- start of loan code --->
 	<!--- days after and before return_due_date on which to send email. Negative is after ---->
 	<cfset eid="-365,-180,-150,-120,-90,-60,-30,-7,0,7,30">
@@ -179,6 +187,7 @@
 					</p>
 					#contacts#<!--- from cfsavecontent above ---->
 					#common#<!--- from cfsavecontent above ---->
+					#emailFooter#
 				</cfmail>
 			</cfloop>
 		</cfif>
@@ -204,6 +213,7 @@
 					</a>
 				</p>
 				#common#
+				#emailFooter#
 			</cfmail>
 			</cfloop>
 			<cfif expires_in_days lte 0>
@@ -229,6 +239,7 @@
 							</a>
 						</p>
 						#common#
+						#emailFooter#
 					</cfmail>
 				</cfloop>
 			</cfif>
@@ -280,6 +291,7 @@
 							<a href="#Application.ServerRootUrl#/Permit.cfm?Action=search&permit_id=#permit_id#">Permit##: #PERMIT_NUM#</a> expires on #dateformat(exp_date,'yyyy-mm-dd')# (#expires_in_days# days)<br>
 						</cfloop>
 					</p>
+					#emailFooter#
 				</cfmail>
 			</cfloop>
 		</cfloop>
@@ -339,6 +351,7 @@
 							<br>
 						</cfloop>
 					</p>
+					#emailFooter#
 				</cfsavecontent>
 				<cfif isdefined("Application.version") and  Application.version is "prod">
 					<cfset maddr=valuelist(contact.ADDRESS)>
@@ -398,12 +411,7 @@
 							</li>
 						</cfloop>
 					</ul>
-					<div class="emailFooter">
-						Don't want these messages? Update Collection Contacts.
-						<br>Want these messages? Update Collection Contacts, make sure you have a valid email address.
-						<br>Links not working? Log in, log out, or check encumbrances.
-						<br>Need help? Send email to arctos.database@gmail.com
-					</div>
+					#emailfooter#
 				</cfsavecontent>
 				<cfif isdefined("Application.version") and  Application.version is "prod">
 					<cfset subj="Reciprocal Relationship Notification">

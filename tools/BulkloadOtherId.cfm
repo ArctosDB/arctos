@@ -481,7 +481,7 @@ sho err
 			<input type="submit" value="claim checked records">
 		</form>
 		<a name="forceRefreshLinks"></a>
-		<cfquery name="mycollections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="mycollections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select guid_prefix,collection.collection_id from collection,cataloged_item group by guid_prefix,collection.collection_id order by guid_prefix
 		</cfquery>
 
