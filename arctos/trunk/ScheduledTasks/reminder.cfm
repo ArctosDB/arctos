@@ -172,14 +172,13 @@
 						<cfset maddr=notificationAgents.address>
 					<cfelse>
 						<cfset maddr=application.bugreportemail>
-						<cfset subj="TEST PLEASE IGNORE: #subj#">
+						<cfset subj="TEST PLEASE IGNORE: Arctos Loan Notification">
 					</cfif>
 					
 					<br>l to="#maddr#" bcc="#Application.LogEmail#"
 					
 					<br />
 	
-	<cfdump var=#Application.version#>
 	
 	
 	<cfabort>
