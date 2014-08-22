@@ -401,21 +401,7 @@ sho err
 			<li>Click Finalize</li>
 			<li>Use the Contact link below there are complications</li>
 		</ol>
-		<cfquery name="mycollections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select guid_prefix,collection.collection_id from collection,cataloged_item group by guid_prefix,collection.collection_id order by guid_prefix
-		</cfquery>
-
-		<p>
-			These data are refreshed daily; "claiming" or records does NOT remove them from this form. Pulling same-day records twice will error; 
-			delete from your bulkloader to re-pull. You may also force-refresh the reciprocal relationship data with the link(s) below.
-			<ul>
-				<cfloop query="mycollections">
-					<li>
-						<a href="/ScheduledTasks/pendingRelations.cfm?cid=#collection_id#" target="_blank">refresh #guid_prefix#</a>
-					</li>
-				</cfloop>
-			</ul>
-		</p>
+		<a href="##forceRefreshLinks">scroll down</a> to force-refresh
 		<hr>
 		Filter
 		<form name="filter" method="post" action="BulkloadOtherId.cfm">
@@ -494,6 +480,25 @@ sho err
 			---->
 			<input type="submit" value="claim checked records">
 		</form>
+		<a name="forceRefreshLinks"></a>
+		<cfquery name="mycollections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select guid_prefix,collection.collection_id from collection,cataloged_item group by guid_prefix,collection.collection_id order by guid_prefix
+		</cfquery>
+
+		<p>
+			These data are refreshed daily; "claiming" or records does NOT remove them from this form. Pulling same-day records twice will error; 
+			delete from your bulkloader to re-pull. You may also force-refresh the reciprocal relationship data with the link(s) below. 
+			(Let the new page fully load, then close it and refresh this page.)
+			<ul>
+				<cfloop query="mycollections">
+					<li>
+						<a href="/ScheduledTasks/pendingRelations.cfm?cid=#collection_id#" target="_blank">refresh #guid_prefix#</a>
+					</li>
+				</cfloop>
+			</ul>
+		</p>
+		
+		
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------->
