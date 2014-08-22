@@ -422,7 +422,7 @@
 				NEW_OTHER_ID_REFERENCES
 		</cfquery>
 		<cfquery name="collection" dbtype="query">
-			select GUID_PREFIX,collection_id from ff group by GUID_PREFIX,collection_id 
+			select GUID_PREFIX,collection_id,sum(numRecs) totalrecs from ff group by GUID_PREFIX,collection_id 
 		</cfquery>
 		<cfloop query="collection">
 			<cfquery name="r" dbtype="query">
@@ -439,13 +439,21 @@
 					</p>
 					<p>
 						You may create reciprocal relationships by going to the OtherID/Relationship bulkloader, clicking Manage, 
-						then following the link to reciprocal relationships or, after logging in to Arctos, by going to					
-						<a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip">#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip</a>
+						then following the link to reciprocal relationships or, after logging in to Arctos, by using the links below.
+						
+						going to					
 					</p>
 					<p>Pending Relationships:</p>
 					<ul>
+						<li><a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip&gp=#collection.GUID_PREFIX#">
+							All relationships to #collection.GUID_PREFIX# (#collection.totalrecs# relationships)</a>
+						</li>
+						<li><a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip">All relationships to your collections</a></li>
+
 						<cfloop query="r">
-							<li>#NEW_OTHER_ID_REFERENCES#: #numRecs#</li>
+							<li><a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip&gp=#collection.GUID_PREFIX#&ref=#NEW_OTHER_ID_REFERENCES#">
+								#NEW_OTHER_ID_REFERENCES# to #collection.GUID_PREFIX#  (#numRecs# relationships)</a>
+							</li>
 						</cfloop>
 					</ul>
 				</cfsavecontent>
