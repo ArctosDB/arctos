@@ -2,12 +2,6 @@
 	
 	
 	
-	<cfdump var=#Application.version#>
-	
-	
-	<cfabort>
-	
-	
 	<cfset functions = CreateObject("component","component.functions")>
 
 	<cfoutput>		
@@ -182,6 +176,14 @@
 					</cfif>
 					
 					<br>l to="#maddr#" bcc="#Application.LogEmail#"
+					
+					<br />
+	
+	<cfdump var=#Application.version#>
+	
+	
+	<cfabort>
+	
 					<!----
 					<cfmail to="#maddr#" bcc="#Application.LogEmail#" 
 						subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
