@@ -4,7 +4,7 @@
 		<cfsavecontent variable="emailFooter">
 			<div style="font-size:smaller;color:gray;">
 				--
-				Don't want these messages? Update Collection Contacts.
+				<br>Don't want these messages? Update Collection Contacts.
 				<br>Want these messages? Update Collection Contacts, make sure you have a valid email address.
 				<br>Links not working? Log in, log out, or check encumbrances.
 				<br>Need help? Send email to arctos.database@gmail.com
