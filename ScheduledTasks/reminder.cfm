@@ -3,6 +3,11 @@
 	
 	
 	<cfdump var=#Application.version#>
+	
+	
+	<cfabort>
+	
+	
 	<cfset functions = CreateObject("component","component.functions")>
 
 	<cfoutput>		
