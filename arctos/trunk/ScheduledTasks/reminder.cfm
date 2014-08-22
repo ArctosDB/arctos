@@ -1,5 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
 	
+	
+	
+	<cfdump var=#Application.version#>
 	<cfset functions = CreateObject("component","component.functions")>
 
 	<cfoutput>		
@@ -172,6 +175,9 @@
 						<cfset maddr=application.bugreportemail>
 						<cfset subj="TEST PLEASE IGNORE: #subj#">
 					</cfif>
+					
+					<br>l to="#maddr#" bcc="#Application.LogEmail#"
+					<!----
 					<cfmail to="#maddr#" bcc="#Application.LogEmail#" 
 						subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
 						Dear #agent_name#,
@@ -182,6 +188,8 @@
 						#contacts#<!--- from cfsavecontent above ---->
 						#common#<!--- from cfsavecontent above ---->
 					</cfmail>
+					
+					---->
 				</cfloop>
 			</cfif>
 			<!--- and an email for each in-house contact --->
@@ -194,9 +202,10 @@
 					<cfset maddr=application.bugreportemail>
 					<cfset subj="TEST PLEASE IGNORE: #subj#">
 				</cfif>
-
-				<cfmail to="#maddr#" bcc="arctos.database@gmail.com" 
-					subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
+				
+				<br>l to="#maddr#" bcc="#Application.LogEmail#"
+				<!----
+				<cfmail to="#maddr#" bcc="arctos.database@gmail.com" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
 					Dear #agent_name#,
 					<p>
 						You are receiving this message because you are listed as in-house contact for loan 
@@ -210,6 +219,9 @@
 					</p>
 					#common#
 				</cfmail>
+				
+				
+				--->
 			</cfloop>
 			<cfif expires_in_days lte 0>
 				<!--- the loan expires on or BEFORE today; also email the collection's loan request agent, if there is one --->
@@ -222,9 +234,12 @@
 						<cfset maddr=application.bugreportemail>
 						<cfset subj="TEST PLEASE IGNORE: #subj#">
 					</cfif>
-
-					<cfmail to="#maddr#" bcc="#Application.LogEmail#" 
-						subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">Dear #agent_name#,
+					
+					
+					l to="#maddr#" bcc="#Application.LogEmail#" 	subject="#subj#"
+<!----
+					<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
+						Dear #agent_name#,
 						<p>
 							You are receiving this message because you are listed as a #loan.collection# loan request collection contact. 
 							Loan #loan.collection# #loan.loan_number# due date #loan.return_due_date# is not listed as "closed."
@@ -237,6 +252,7 @@
 						</p>
 						#common#
 					</cfmail>
+					---->
 				</cfloop>
 			</cfif>
 			<hr><hr>
@@ -281,6 +297,8 @@
 					<cfset subj="TEST PLEASE IGNORE: #subj#">
 				</cfif>
 				
+				to="#maddr#" subject="subj" from="reminder@#Application.fromEmail#" 
+				<!----
 				<cfmail to="#maddr#" subject="subj" from="reminder@#Application.fromEmail#" type="html">
 					You are receiving this message because you are the contact person for the permits listed below, which are expiring.
 					<p>
@@ -289,6 +307,9 @@
 						</cfloop>
 					</p>
 				</cfmail>
+				
+				
+				---->
 			</cfloop>
 		</cfloop>
 		<!---- year=old accessions with no specimens ---->
@@ -370,9 +391,12 @@
 					<cfset maddr=application.bugreportemail>
 					<cfset subj="TEST PLEASE IGNORE: #subj#">
 				</cfif>
+				 to="#maddr#" bcc="arctos.database@gmail.com" subject="#subj#" from="bare_accession@#Application.fromEmail#"
+				<!----
 				<cfmail to="#maddr#" bcc="arctos.database@gmail.com" subject="#subj#" from="bare_accession@#Application.fromEmail#" type="html">
 					#msg#
 				</cfmail>
+				---->
 			</cfif>
 		</cfloop>
 		<!---- pending reciprocal relationships ---->
