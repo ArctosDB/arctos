@@ -5,7 +5,7 @@
 <cfloop index="i" from="1" to="#numberOtasks#">
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
-<!-----------------------------------   related specimens cache    ------------------------------------------>
+<!-----------------------------------   related specimens     ------------------------------------------>
 <!--- 
 	fetchRelatedInfo
 	Purpose: Cache related-specimen information
@@ -20,6 +20,28 @@
     startTime = "05:51 AM"
     interval = "daily"
     requestTimeOut = "600">
+<!--- 
+	pendingRelations
+	Purpose: Fetch unreciprocated relationships into otherID bulkloader
+	Cost: Fairly low
+	Growth potential: high-ish
+	Interval: 
+		A bare call runs for one collection.
+		Each run starts fresh; old data deletes, new inserts.
+		Should run for every collection every day (notifications go out daily).
+		24h*60m=1440 min/day
+		100 collections
+		run every 10 minutes
+--->
+<cfschedule action = "update"
+    task = "pendingRelations"
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/pendingRelations.cfm"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "0:03 AM"
+    interval = "600"
+    requestTimeOut = "500">
+
 <!-----------------------------------   Agent merge/delete    ------------------------------------------>
 <!--- 
 	duplicate_agents_findDups
