@@ -14,7 +14,7 @@
 			(select agent_id, ADDRESS from electronic_address where ADDRESS_TYPE='e-mail') electronic_address
 		where 
 			preferred_agent_name.agent_id = collection_contacts.CONTACT_AGENT_ID and
-			collection_contacts.CONTACT_AGENT_ID = electronic_address.AGENT_ID (+) and
+			collection_contacts.CONTACT_AGENT_ID = electronic_address.AGENT_ID and
 			CONTACT_ROLE='#contact_role#' and
 			collection_contacts.collection_id=#collection_id#		
 	</cfquery>
