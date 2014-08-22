@@ -435,19 +435,17 @@
 				<cfsavecontent variable="msg">
 					You are receiving this message because you are a data quality contact for collection #collection.GUID_PREFIX#.
 					<p>
-						There are specimens with nonreciprocal relationships to your collection.
+						There are specimens with unreciprocated relationships to your collection.
 					</p>
 					<p>
 						You may create reciprocal relationships by going to the OtherID/Relationship bulkloader, clicking Manage, 
 						then following the link to reciprocal relationships or, after logging in to Arctos, by using the links below.
-						
-						going to					
 					</p>
 					<p>Pending Relationships:</p>
 					<ul>
-						<li><a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip">All relationships to your collections</a></li>
+						<li><a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip">All unreciprocated relationships to your collection(s)</a></li>
 						<li><a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip&gp=#collection.GUID_PREFIX#">
-							All relationships ---> #collection.GUID_PREFIX# (#collection.totalrecs# relationships)</a>
+							All unreciprocated relationships ---> #collection.GUID_PREFIX# (#collection.totalrecs# relationships)</a>
 						</li>
 						<cfloop query="r">
 							<li><a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip&gp=#collection.GUID_PREFIX#&ref=#NEW_OTHER_ID_REFERENCES#">
@@ -456,7 +454,7 @@
 						</cfloop>
 					</ul>
 				</cfsavecontent>
-								<cfdump var=#contacts#>
+				<cfdump var=#contacts#>
 
 				<p>
 					#msg#
