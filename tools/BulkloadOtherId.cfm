@@ -392,14 +392,29 @@ sho err
 			select new_other_id_references from recip group by new_other_id_references order by new_other_id_references
 		</cfquery>
 	
-		These specimens have unreciprocated relationships to your collections. Check the box and click "claim" to pull them into your otherID bulkloader.
-		<br>Click Validate.
-		<br>Click Finalize
-		<br>Done
-		<br>Use the Contact link below there are complications.
-		 
+		These specimens have unreciprocated relationships to your collections. 
+		<ol>
+			<li>
+				Check box(es) and click "claim" to pull them into your otherID bulkloader.
+			</li>
+			<li>Click Validate</li>
+			<li>Click Finalize</li>
+			<li>Use the Contact link below there are complications</li>
+		</ol>
+		<cfquery name="mycollections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select guid_prefix,collection.collection_id from collection,cataloged_item group by guid_prefix,collection.collection_id order by guid_prefix
+		</cfquery>
+
 		<p>
-			These data are refreshed daily; "claiming" or records does NOT remove them from this form. 
+			These data are refreshed daily; "claiming" or records does NOT remove them from this form. Pulling same-day records twice will error; 
+			delete from your bulkloader to re-pull. You may also force-refresh the reciprocal relationship data with the link(s) below.
+			<ul>
+				<cfloop query="mycollections">
+					<li>
+						<a href="/ScheduledTasks/pendingRelations.cfm?cid=#collection_id#" target="_blank">refresh #guid_prefix#</a>
+					</li>
+				</cfloop>
+			</ul>
 		</p>
 		<hr>
 		Filter
@@ -423,7 +438,7 @@ sho err
 						value="#ctref.new_other_id_references#">#ctref.new_other_id_references#</option>
 				</cfloop>
 			</select>
-			<br><input type="submit" value="filter">
+			<br><input type="submit" value="update filter">
 		</form>
 		<hr>
 		<form name="f" method="post" action="BulkloadOtherId.cfm">
