@@ -454,17 +454,23 @@
 						</cfloop>
 					</ul>
 					<div class="emailFooter">
-						Don't want these? Update Collection Contacts.
-						<br>Want these? Update Collection Contacts, make sure you have a valid email address.
+						Don't want these messages? Update Collection Contacts.
+						<br>Want these messages? Update Collection Contacts, make sure you have a valid email address.
 						<br>Links not working? Log in, log out, or check encumbrances.
+						<br>Need help? Send email to arctos.database@gmail.com
 					</div>
 				</cfsavecontent>
-				<cfdump var=#contacts#>
-
-				<p>
+				<cfif isdefined("Application.version") and  Application.version is "prod">
+					<cfset subj="Reciprocal Relationship Notification">
+					<cfset maddr=valuelist(contacts.address)>
+				<cfelse>
+					<br>original TO: #valuelist(contacts.address)#
+					<cfset maddr=application.bugreportemail>
+					<cfset subj="TEST PLEASE IGNORE: Reciprocal Relationship Notification">
+				</cfif>
+				<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="relationship_notification@#Application.fromEmail#" type="html">
 					#msg#
-				</p>
-				
+				</cfmail>				
 			</cfif>
 		</cfloop>
 
