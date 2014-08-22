@@ -1,3 +1,11 @@
+
+.emailFooter:before {
+	content: "--<br>";
+}
+.emailFooter {
+	font-size:smaller;
+	font-color:gray;
+}
 .tinytextarea{width:10em;height:1.5em;margin:.3em;vertical-align:center}
 .smalltextarea{width:15em;height:1.5em;margin:.3em;vertical-align:center}
 .mediumtextarea{width:30em;height:1.5em;margin:.3em;vertical-align:center}
