@@ -484,9 +484,8 @@ sho err
 		<cfquery name="mycollections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select guid_prefix,collection.collection_id from collection,cataloged_item group by guid_prefix,collection.collection_id order by guid_prefix
 		</cfquery>
-
 		<p>
-			These data are refreshed daily; "claiming" or records does NOT remove them from this form. Pulling same-day records twice will error; 
+			These data are refreshed daily; "claiming" or loading records does NOT remove them from this form. Pulling same-day records twice will error; 
 			delete from your bulkloader to re-pull. You may also force-refresh the reciprocal relationship data with the link(s) below. 
 			(Let the new page fully load, then close it and refresh this page.)
 			<ul>
@@ -497,8 +496,6 @@ sho err
 				</cfloop>
 			</ul>
 		</p>
-		
-		
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------->

@@ -2,7 +2,8 @@
 <cfset functions = CreateObject("component","component.functions")>
 <cfoutput>
 		<cfsavecontent variable="emailFooter">
-			<div class="emailFooter">
+			<div style="font-size:smaller;color:gray;">
+				--
 				Don't want these messages? Update Collection Contacts.
 				<br>Want these messages? Update Collection Contacts, make sure you have a valid email address.
 				<br>Links not working? Log in, log out, or check encumbrances.
@@ -243,7 +244,6 @@
 					</cfmail>
 				</cfloop>
 			</cfif>
-			<hr><hr>
 		</cfloop>
 		<!--- end of loan code --->
 		<!----------- permit ------------>
