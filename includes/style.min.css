@@ -1,6 +1,6 @@
 
 .emailFooter:before {
-	content: "--";
+	content: "-- \A";
 }
 .emailFooter {
 	font-size:smaller;
