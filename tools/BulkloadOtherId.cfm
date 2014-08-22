@@ -4,7 +4,7 @@
 
 <cfset title="bulkload identifiers">
 <p>
-	<a href="BulkloadOtherId.cfm?action=managemystuff">Manage</a>
+	<a href="BulkloadOtherId.cfm?action=managemystuff">Manage OtherIDs</a>
 </p>
 <!---- make the table
 
@@ -391,6 +391,17 @@ sho err
 		<cfquery name="ctref" dbtype="query">
 			select new_other_id_references from recip group by new_other_id_references order by new_other_id_references
 		</cfquery>
+	
+		These specimens have unreciprocated relationships to your collections. Check the box and click "claim" to pull them into your otherID bulkloader.
+		<br>Click Validate.
+		<br>Click Finalize
+		<br>Done
+		<br>Use the Contact link below there are complications.
+		 
+		<p>
+			These data are refreshed daily; "claiming" or records does NOT remove them from this form. 
+		</p>
+		<hr>
 		Filter
 		<form name="filter" method="post" action="BulkloadOtherId.cfm">
 			<input type="hidden" name="action" value="getRecip">
