@@ -447,11 +447,11 @@
 					<ul>
 						<li><a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip">All relationships to your collections</a></li>
 						<li><a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip&gp=#collection.GUID_PREFIX#">
-							All relationships to #collection.GUID_PREFIX# (#collection.totalrecs# relationships)</a>
+							All relationships ---> #collection.GUID_PREFIX# (#collection.totalrecs# relationships)</a>
 						</li>
 						<cfloop query="r">
 							<li><a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip&gp=#collection.GUID_PREFIX#&ref=#NEW_OTHER_ID_REFERENCES#">
-								#NEW_OTHER_ID_REFERENCES# to #collection.GUID_PREFIX#  (#numRecs# relationships)</a>
+								#NEW_OTHER_ID_REFERENCES# ---> #collection.GUID_PREFIX#  (#numRecs# relationships)</a>
 							</li>
 						</cfloop>
 					</ul>
