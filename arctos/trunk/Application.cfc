@@ -225,6 +225,7 @@
 		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
 	<cfelseif serverName is  "arctos-test.tacc.utexas.edu">
+		<cfset Application.version="test">
 		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
 	<cfelseif serverName is  "arctos.tacc.utexas.edu">
