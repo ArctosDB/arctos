@@ -408,22 +408,21 @@
 		<!---- pending reciprocal relationships ---->
 		<cfquery name="ff" datasource="uam_god">
 			select 
-				cf_temp_recip_oids.COLLECTION_ID,
-				collection.collection,
-				cf_temp_recip_oids.NEW_OTHER_ID_REFERENCES,
+				COLLECTION_ID,
+				GUID_PREFIX,
+				COLLECTION_ID,
+				NEW_OTHER_ID_REFERENCES,
 				count(*) numRecs 
 			from 
-				cf_temp_recip_oids,
-				collection
-			where
-				collection.collection_id=cf_temp_recip_oids.collection_id
+				cf_temp_recip_oids
 			group by 
-				cf_temp_recip_oids.COLLECTION_ID,
-				collection.collection,
-				cf_temp_recip_oids.NEW_OTHER_ID_REFERENCES
+				COLLECTION_ID,
+				GUID_PREFIX,
+				COLLECTION_ID,
+				NEW_OTHER_ID_REFERENCES
 		</cfquery>
 		<cfquery name="collection" dbtype="query">
-			select collection,collection_id from ff
+			select GUID_PREFIX,collection_id from ff group by GUID_PREFIX,collection_id 
 		</cfquery>
 		<cfloop query="collection">
 			<cfquery name="r" dbtype="query">
@@ -431,28 +430,32 @@
 			</cfquery>
 
 			<cfset contacts = functions.getCollectionContactEmail(collection_id=collection.collection_id,contact_role="data quality")>
-			<cfsavecontent variable="msg">
-				You are receiving this message because you are a data quality contact for collection #collection.collection#.
+			
+			<cfif contacts.recordcount gt 0>
+				<cfsavecontent variable="msg">
+					You are receiving this message because you are a data quality contact for collection #collection.GUID_PREFIX#.
+					<p>
+						There are specimens with nonreciprocal relationships to your collection.
+					</p>
+					<p>
+						You may create reciprocal relationships by going to the OtherID/Relationship bulkloader, clicking Manage, 
+						then following the link to reciprocal relationships or, after logging in to Arctos, by going to					
+						<a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip">#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip</a>
+					</p>
+					<p>Pending Relationships:</p>
+					<ul>
+						<cfloop query="r">
+							<li>#NEW_OTHER_ID_REFERENCES#: #numRecs#</li>
+						</cfloop>
+					</ul>
+				</cfsavecontent>
+								<cfdump var=#contacts#>
+
 				<p>
-					There are specimens with nonreciprocal relationships to your collection.
+					#msg#
 				</p>
-				<p>
-					You may create reciprocal relationships by going to the OtherID/Relationship bulkloader, clicking Manage, 
-					then following the link to reciprocal relationships or, after logging in to Arctos, by going to					
-					<a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip">#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip</a>
-				</p>
-				<p>Pending Relationships:</p>
-				<ul>
-					<cfloop query="r">
-						<li>#NEW_OTHER_ID_REFERENCES#: #numRecs#</li>
-					</cfloop>
-				</ul>
-			</cfsavecontent>
-			
-			<cfdump var=#contacts#>
-			
-			<cfdump var=#msg#>
-			
+				
+			</cfif>
 		</cfloop>
 
 
