@@ -4,7 +4,11 @@
 
 <cfset title="bulkload identifiers">
 <p>
-	<a href="BulkloadOtherId.cfm?action=managemystuff">Manage OtherIDs</a>
+	<a href="BulkloadOtherId.cfm?action=managemystuff">Manage OtherIDs</a>~
+	<a href="http://arctosdb.org/documentation/other-id/">Docs</a>~
+	<a href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CodeTable</a>
+	
+	
 </p>
 <!---- make the table
 
@@ -57,7 +61,9 @@ sho err
 <cfif action is "nothing">
 	Upload a comma-delimited text file (csv).
 	<p><a href="BulkloadOtherId.cfm?action=template">get a template here</a>
-	
+	<p>
+		This form will happily create duplicates, which will not load. Use the provided tools after verification.
+	</p>
 	<table border>
 		<tr>
 			<th>Column</th>
@@ -539,7 +545,7 @@ sho err
 	<cfoutput>
 		<div class="ui-state-highlight ui-corner-all">
 			<p><strong>READ THIS!</strong></p>
-			This form creates otherIDs, and pulls suggested reciprocal relationships which may be created as IDs. 
+			This form creates otherIDs, and pulls suggested reciprocal relationships which may be created as IDs/relationships. 
 			<p>
 				Always download a CSV backup before using local tools.
 			</p>
