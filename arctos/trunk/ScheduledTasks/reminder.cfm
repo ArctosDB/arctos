@@ -453,6 +453,11 @@
 							</li>
 						</cfloop>
 					</ul>
+					<div class="emailFooter">
+						Don't want these? Update Collection Contacts.
+						<br>Want these? Update Collection Contacts, make sure you have a valid email address.
+						<br>Links not working? Log in, log out, or check encumbrances.
+					</div>
 				</cfsavecontent>
 				<cfdump var=#contacts#>
 
