@@ -206,7 +206,7 @@
 					<cfset maddr=inhouseAgents.address>
 				<cfelse>
 					<cfset maddr=application.bugreportemail>
-					<cfset subj="TEST PLEASE IGNORE: #subj#">
+						<cfset subj="TEST PLEASE IGNORE: Arctos Loan Notification">
 				</cfif>
 				
 				<br>l to="#maddr#" bcc="#Application.LogEmail#"
@@ -238,7 +238,7 @@
 						<cfset maddr=collectionAgents.address>
 					<cfelse>
 						<cfset maddr=application.bugreportemail>
-						<cfset subj="TEST PLEASE IGNORE: #subj#">
+						<cfset subj="TEST PLEASE IGNORE: Arctos Loan Notification">
 					</cfif>
 					
 					
@@ -300,7 +300,7 @@
 					<cfset maddr=permitExpOneYearnames.ADDRESS>
 				<cfelse>
 					<cfset maddr=application.bugreportemail>
-					<cfset subj="TEST PLEASE IGNORE: #subj#">
+					<cfset subj="TEST PLEASE IGNORE: Expiring Permits">
 				</cfif>
 				
 				to="#maddr#" subject="subj" from="reminder@#Application.fromEmail#" 
@@ -395,7 +395,7 @@
 					<cfset subj="Bare Accession">
 				<cfelse>
 					<cfset maddr=application.bugreportemail>
-					<cfset subj="TEST PLEASE IGNORE: #subj#">
+					<cfset subj="TEST PLEASE IGNORE:Bare Accession">
 				</cfif>
 				 to="#maddr#" bcc="arctos.database@gmail.com" subject="#subj#" from="bare_accession@#Application.fromEmail#"
 				<!----
