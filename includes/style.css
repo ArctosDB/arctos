@@ -15,20 +15,6 @@
 
 */
 
-
-/* prefix email footers with -- and a linebreak, make the text a little different
-
-.emailFooter:before {
-	content: "-- \A";
-  	white-space: pre;
-}
-.emailFooter {
-	font-size:smaller;
-	color:gray;
-}
-
-
-
 /* default "not usually used but occasionally huge" input" */
 
 .tinytextarea {width:10em;height:1.5em;margin:0.3em;vertical-align:center;}    
