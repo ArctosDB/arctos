@@ -186,9 +186,17 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 				<span class="helpLink" id="collection">Collection</span>:
 			</td>
 			<td class="srch">
+				<select name="collection_id" id="collection_id" size="3" multiple="multiple">
+					<cfloop query="ctInst">
+						<option <cfif thisCollId is ctInst.collection_id>selected="selected" </cfif>value="#ctInst.collection_id#">#ctInst.collection#</option>
+					</cfloop>
+				</select>
+				
+				<!---
 				<cfquery name="cfi" dbtype="query">
 					select institution from ctInst group by institution order by institution
 				</cfquery>
+				
 				<select name="collection_id" id="collection_id" size="3" multiple="multiple">
 					<cfloop query="cfi">
 						<cfquery name="ic" dbtype="query">
@@ -200,10 +208,10 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 							</cfloop>
 						</optgroup>
 					</cfloop>
-					
-					
-				
 				</select>
+				---->
+				
+				
 			</td>
 		</tr>
 		<tr>
