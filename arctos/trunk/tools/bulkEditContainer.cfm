@@ -336,16 +336,15 @@
 				where 
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
-			where cf_temp_lbl2contr.description is not null and 
-			exists (
+			where exists (
 				select
 					1
 				from
 					cf_temp_lbl2contr
 				where
+					cf_temp_lbl2contr.description is not null and
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
-			
 		</cfquery>
 	</cftransaction>
 	<!----
