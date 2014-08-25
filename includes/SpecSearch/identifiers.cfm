@@ -1,3 +1,8 @@
+<script>
+	jQuery(document).ready(function() {
+	   $("#OIDType").multiselect(); 
+	});
+</script>
 <table id="t_identifiers" class="ssrch">
 	<cfoutput>
 		<cfif isdefined("session.portal_id") and session.portal_id gt 0>
