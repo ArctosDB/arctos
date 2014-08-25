@@ -27,7 +27,9 @@
 			<span class="helpLink" id="other_id_type">Other&nbsp;Identifier&nbsp;Type:</span>
 		</td>
 		<td class="srch">
+		<!----
 			<label for="">Apple/click or Ctl/click to select multiple & match any</label>
+			--->
 			<select name="OIDType" id="OIDType" size="5" multiple="multiple"
 				<cfif isdefined("OIDType") and len(OIDType) gt 0>
 					class="reqdClr"
