@@ -350,8 +350,7 @@
 				from 
 					cf_temp_lbl2contr
 				where 
-					cf_temp_lbl2contr.barcode=container.barcode and
-					cf_temp_lbl2contr.container_type != container.container_type
+					cf_temp_lbl2contr.barcode=container.barcode
 			)
 			where exists (
 				select
@@ -359,7 +358,8 @@
 				from
 					cf_temp_lbl2contr
 				where
-					cf_temp_lbl2contr.barcode=container.barcode
+					cf_temp_lbl2contr.barcode=container.barcode and
+					cf_temp_lbl2contr.container_type != container.container_type
 			)
 		</cfquery>
 		
