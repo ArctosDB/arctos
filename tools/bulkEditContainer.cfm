@@ -109,7 +109,7 @@
 			<cfloop list="#colnames#" index="i">
 				<cfset sql=sql & "'#evaluate("qClean." & i)#',">
 			</cfloop>
-			<cfset sql=sql & "'new load')">	
+			<cfset sql=sql & "'')">	
 		</cfloop>
 		<cfset sql=sql & "SELECT 1 FROM DUAL">
 		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
