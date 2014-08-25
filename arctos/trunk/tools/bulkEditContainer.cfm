@@ -350,7 +350,8 @@
 				from 
 					cf_temp_lbl2contr
 				where 
-					cf_temp_lbl2contr.barcode=container.barcode
+					cf_temp_lbl2contr.barcode=container.barcode and
+					cf_temp_lbl2contr.container_type != container.container_type
 			)
 			where exists (
 				select
@@ -361,6 +362,11 @@
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
 		</cfquery>
+		
+		
+		<cfdump var=#changeContainerType#>
+		
+		
 		<cfquery name="description" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update 
 				container 
@@ -388,6 +394,79 @@
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
 		</cfquery>
+		<cfquery name="container_remarks" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				container 
+			set (
+				container.container_remarks
+			)=(
+				select 
+					decode(
+						cf_temp_lbl2contr.container_remarks,
+						'NULL',null,
+						cf_temp_lbl2contr.container_remarks
+					)
+				from 
+					cf_temp_lbl2contr
+				where 
+					cf_temp_lbl2contr.barcode=container.barcode
+			)
+			where exists (
+				select
+					1
+				from
+					cf_temp_lbl2contr
+				where
+					cf_temp_lbl2contr.container_remarks is not null and
+					cf_temp_lbl2contr.barcode=container.barcode
+			)
+		</cfquery>
+		<cfquery name="label" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				container 
+			set (
+				container.label
+			)=(
+				select 
+					cf_temp_lbl2contr.label
+				from 
+					cf_temp_lbl2contr
+				where 
+					cf_temp_lbl2contr.barcode=container.barcode
+			)
+			where exists (
+				select
+					1
+				from
+					cf_temp_lbl2contr
+				where
+					cf_temp_lbl2contr.label is not null and
+					cf_temp_lbl2contr.barcode=container.barcode
+			)
+		</cfquery>
+		<cfquery name="height" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				container 
+			set (
+				container.height
+			)=(
+				select 
+					cf_temp_lbl2contr.height
+				from 
+					cf_temp_lbl2contr
+				where 
+					cf_temp_lbl2contr.barcode=container.barcode
+			)
+			where exists (
+				select
+					1
+				from
+					cf_temp_lbl2contr
+				where
+					cf_temp_lbl2contr.height is not null and
+					cf_temp_lbl2contr.barcode=container.barcode
+			)
+		</cfquery>
 	</cftransaction>
 	<!----
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -397,7 +476,7 @@
 			container.container_type,
 			container.description,
 			container.container_remarks,
-			container.height,
+			container.,
 			container.length,
 			container.width,
 			container.number_positions
