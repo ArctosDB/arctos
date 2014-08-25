@@ -328,7 +328,7 @@
 				select 
 					decode(
 						cf_temp_lbl2contr.description,
-						"NULL",null,
+						'NULL',null,
 						cf_temp_lbl2contr.description
 					)
 				from 
