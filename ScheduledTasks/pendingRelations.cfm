@@ -48,12 +48,7 @@
 	<cfif not isdefined("limit")>
 		<cfset limit=1000>
 	</cfif>
-	
-	
-	
-	
 	<!---- allow forcing collection --->
-	
 	<cfif not isdefined("cid") or len(cid) is 0>
 		<!--- get the "next" collection and do some housekeeping, or die ---->
 		<cfquery name="thisCollection" datasource="uam_god">
