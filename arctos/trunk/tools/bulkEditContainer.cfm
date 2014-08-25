@@ -301,28 +301,28 @@
 						</cfif>
 					</td>
 					<td>
-						<cfif height eq 0>
+						<cfif len(height) eq 0>
 							NO UPDATE
 						<cfelse>
 							#height#
 						</cfif>
 					</td>
 					<td>
-						<cfif length eq 0>
+						<cfif len(length) eq 0>
 							NO UPDATE
 						<cfelse>
 							#length#
 						</cfif>
 					</td>
 					<td>
-						<cfif width eq 0>
+						<cfif len(width) eq 0>
 							NO UPDATE
 						<cfelse>
 							#width#
 						</cfif>
 					</td>
 					<td>
-						<cfif number_positions eq 0>
+						<cfif len(number_positions) eq 0>
 							NO UPDATE
 						<cfelse>
 							#number_positions#
