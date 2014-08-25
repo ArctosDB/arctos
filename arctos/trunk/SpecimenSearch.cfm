@@ -191,7 +191,6 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 						<option <cfif thisCollId is ctInst.collection_id>selected="selected" </cfif>value="#ctInst.collection_id#">#ctInst.collection#</option>
 					</cfloop>
 				</select>
-				
 				<!---
 				<cfquery name="cfi" dbtype="query">
 					select institution from ctInst group by institution order by institution
@@ -386,7 +385,7 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 		</tr>
 		<tr>
 		<td class="lbl">
-			<cfif isdefined("session.fancyCOID") and #session.fancyCOID# is 1>
+			<cfif isdefined("session.fancyCOID") and session.fancyCOID is 1>
 				&nbsp;
 		</td>
 			<td class="srch">
@@ -788,7 +787,6 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 			 jQuery('body').append(data);
 		})
 	   $("#collection_id").multiselect(); 
-
 	});
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
