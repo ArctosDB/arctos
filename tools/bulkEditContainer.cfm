@@ -275,17 +275,59 @@
 			<cfloop query="d">
 				<tr>
 					<td>#barcode#</td>
-					<td>#label#</td>
+					<td>
+						<cfif len(label) eq 0>
+							NO UPDATE
+						<cfelse>
+							#label#
+						</cfif>
+					</td>
 					<td>#status#</td>
 					<td>#note#</td>
 					<td>#old_container_type#</td>
 					<td>#container_type#</td>
-					<td>#description#</td>
-					<td>#container_remarks#</td>
-					<td>#height#</td>
-					<td>#length#</td>
-					<td>#width#</td>
-					<td>#number_positions#</td>
+					<td>
+						<cfif len(description) eq 0>
+							NO UPDATE
+						<cfelse>
+							#description#
+						</cfif>
+					</td>
+					<td>
+						<cfif len(container_remarks) eq 0>
+							NO UPDATE
+						<cfelse>
+							#container_remarks#
+						</cfif>
+					</td>
+					<td>
+						<cfif height eq 0>
+							NO UPDATE
+						<cfelse>
+							#height#
+						</cfif>
+					</td>
+					<td>
+						<cfif length eq 0>
+							NO UPDATE
+						<cfelse>
+							#length#
+						</cfif>
+					</td>
+					<td>
+						<cfif width eq 0>
+							NO UPDATE
+						<cfelse>
+							#width#
+						</cfif>
+					</td>
+					<td>
+						<cfif number_positions eq 0>
+							NO UPDATE
+						<cfelse>
+							#number_positions#
+						</cfif>
+					</td>
 				</tr>
 			</cfloop>
 		</table>
