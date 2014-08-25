@@ -55,7 +55,7 @@
 	<cfinclude template="/errors/gtfo.cfm">
 	<cfabort>
 </cfif>
-<cfif listcontains(application.subnet_blacklist,request.requestingSubnet)>
+<cfif listcontains(application.subnet_blacklist,request.requestingSubnet,",")>
 	<!--- they're already actively blacklisted - do nothing here---->
 	<cf_logError subject="#pa#existing active subnet autoblacklisted">
 	<cfinclude template="/errors/gtfo.cfm">

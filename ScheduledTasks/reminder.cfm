@@ -411,6 +411,11 @@
 							</li>
 						</cfloop>
 					</ul>
+					<p>
+						Specimens in collections to which you do not have access may not be 
+						visible while you're logged in; encumbered specimens may not be visible at all.
+						Contact the appropriate Curators (contact information is under the <a href="/home.cfm">Portals tab</a>) with questions or concerns.
+					</p>
 					#emailfooter#
 				</cfsavecontent>
 				<cfif isdefined("Application.version") and  Application.version is "prod">
