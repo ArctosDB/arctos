@@ -362,11 +362,7 @@
 					cf_temp_lbl2contr.container_type != container.container_type
 			)
 		</cfquery>
-		
-		
-		<cfdump var=#changeContainerType#>
-		
-		
+			
 		<cfquery name="description" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update 
 				container 
@@ -467,6 +463,75 @@
 					cf_temp_lbl2contr.barcode=container.barcode
 			)
 		</cfquery>
+		<cfquery name="length" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				container 
+			set (
+				container.length
+			)=(
+				select 
+					cf_temp_lbl2contr.length
+				from 
+					cf_temp_lbl2contr
+				where 
+					cf_temp_lbl2contr.barcode=container.barcode
+			)
+			where exists (
+				select
+					1
+				from
+					cf_temp_lbl2contr
+				where
+					cf_temp_lbl2contr.length is not null and
+					cf_temp_lbl2contr.barcode=container.barcode
+			)
+		</cfquery>
+		<cfquery name="width" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				container 
+			set (
+				container.width
+			)=(
+				select 
+					cf_temp_lbl2contr.width
+				from 
+					cf_temp_lbl2contr
+				where 
+					cf_temp_lbl2contr.barcode=container.barcode
+			)
+			where exists (
+				select
+					1
+				from
+					cf_temp_lbl2contr
+				where
+					cf_temp_lbl2contr.width is not null and
+					cf_temp_lbl2contr.barcode=container.barcode
+			)
+		</cfquery>
+		<cfquery name="number_positions" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				container 
+			set (
+				container.number_positions
+			)=(
+				select 
+					cf_temp_lbl2contr.number_positions
+				from 
+					cf_temp_lbl2contr
+				where 
+					cf_temp_lbl2contr.barcode=container.barcode
+			)
+			where exists (
+				select
+					1
+				from
+					cf_temp_lbl2contr
+				where
+					cf_temp_lbl2contr.number_positions is not null and
+					cf_temp_lbl2contr.barcode=container.barcode
+			)
+		</cfquery>
 	</cftransaction>
 	<!----
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -477,8 +542,8 @@
 			container.description,
 			container.container_remarks,
 			container.,
-			container.length,
-			container.width,
+			container.,
+			container.,
 			container.number_positions
 		)=(
 			select 
@@ -488,7 +553,7 @@
 				cf_temp_lbl2contr.height,
 				cf_temp_lbl2contr.length,
 				cf_temp_lbl2contr.width,
-				cf_temp_lbl2contr.number_positions
+				cf_temp_lbl2contr.
 			from 
 				cf_temp_lbl2contr
 			where 
