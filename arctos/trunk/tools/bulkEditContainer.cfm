@@ -447,7 +447,11 @@
 				container.height
 			)=(
 				select 
-					cf_temp_lbl2contr.height
+					decode(
+						cf_temp_lbl2contr.height,
+						'0',null,
+						cf_temp_lbl2contr.height
+					)
 				from 
 					cf_temp_lbl2contr
 				where 
@@ -470,7 +474,11 @@
 				container.length
 			)=(
 				select 
-					cf_temp_lbl2contr.length
+					decode(
+						cf_temp_lbl2contr.length,
+						'0',null,
+						cf_temp_lbl2contr.length
+					)
 				from 
 					cf_temp_lbl2contr
 				where 
@@ -493,7 +501,11 @@
 				container.width
 			)=(
 				select 
-					cf_temp_lbl2contr.width
+					decode(
+						cf_temp_lbl2contr.width,
+						'0',null,
+						cf_temp_lbl2contr.width
+					)
 				from 
 					cf_temp_lbl2contr
 				where 
@@ -516,7 +528,11 @@
 				container.number_positions
 			)=(
 				select 
-					cf_temp_lbl2contr.number_positions
+					decode(
+						cf_temp_lbl2contr.number_positions,
+						'0',null,
+						cf_temp_lbl2contr.number_positions
+					)
 				from 
 					cf_temp_lbl2contr
 				where 
