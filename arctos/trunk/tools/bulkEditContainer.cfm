@@ -89,6 +89,9 @@
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 		<cfset  util = CreateObject("component","component.utilities")>
 		<cfset q = util.CSVToQuery(CSV=fileContent)>
+		
+		
+		<cfdump var=#q#>
 		<cfset colNames=q.columnList>
 		<!--- disallow some procedural stuff that sometimes ends up in the download/reload CSV --->
 		<cfif listfindnocase(colNames,'status') gt 0>
