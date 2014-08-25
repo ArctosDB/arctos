@@ -4,7 +4,7 @@
 
 <cfset title="bulkload identifiers">
 <p>
-	<a href="BulkloadOtherId.cfm?action=managemystuff">Manage OtherIDs</a>~
+	<a href="BulkloadOtherId.cfm?action=managemystuff">Manage</a>~
 	<a href="http://arctosdb.org/documentation/other-id/">Docs</a>~
 	<a href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CodeTable</a>
 	
