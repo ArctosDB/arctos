@@ -146,7 +146,6 @@
 						</cfquery>
 						<cfloop query="all_coll">
 							<cfif (institution_acronym is 'UAM' and collection_cde is 'Mamm') or 
-									(institution_acronym is 'UAMObs' and collection_cde is 'Mamm') or
 									(institution_acronym is 'MSB' and collection_cde is 'Mamm') or
 									(institution_acronym is 'MSB' and collection_cde is 'Bird') or
 									(institution_acronym is 'UAM' and collection_cde is 'Fish')>
@@ -166,6 +165,14 @@
 								<!--- MVZ collections share accessions ---->
 								<cfset stg="max(to_number(accn_number)) + 1">
 								<cfset whr=" AND is_number(accn_number)=1">
+							
+							<cfelseif institution_acronym is 'UAMObs' and collection_cde is 'Mamm'>
+									<cfset stg="'#dateformat(now(),"yyyy")#.' || nvl(lpad(max(to_number(substr(accn_number,6,3))) + 1,3,0),'001') || '.#collection_cde#'">
+								<cfset whr=" AND accn_number like '%.MammObs' AND
+									substr(accn_number,1,4) = '#dateformat(now(),"yyyy")#'">
+							
+							
+							
 							<cfelse>
 								<!--- collections who have not asked for a next number suggestion - just show them the last accn used ---->
 								<cfset stg="'last created: ' || accn_number">
