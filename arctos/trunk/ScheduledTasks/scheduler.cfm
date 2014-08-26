@@ -36,7 +36,7 @@
 <cfschedule action = "update"
     task = "pendingRelations"
     operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/pendingRelations.cfm"
+    url = "http://127.0.0.1/ScheduledTasks/pendingRelations.cfm"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "0:03 AM"
     interval = "600"

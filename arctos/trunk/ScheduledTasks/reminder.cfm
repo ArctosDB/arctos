@@ -201,7 +201,7 @@
 				<cfset maddr=application.bugreportemail>
 				<cfset subj="TEST PLEASE IGNORE: Arctos Loan Notification">
 			</cfif>
-			<cfmail to="#maddr#" bcc="arctos.database@gmail.com" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
+			<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
 				Dear #agent_name#,
 				<p>
 					You are receiving this message because you are listed as in-house contact for loan 
@@ -284,7 +284,7 @@
 					<cfset maddr=application.bugreportemail>
 					<cfset subj="TEST PLEASE IGNORE: Expiring Permits">
 				</cfif>
-				<cfmail to="#maddr#" subject="#subj#" from="reminder@#Application.fromEmail#" type="html">
+				<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="reminder@#Application.fromEmail#" type="html">
 					You are receiving this message because you are the contact person for the permits listed below, which are expiring.
 					<p>
 						<cfloop query="permitExpOneYearIndiv">
@@ -360,7 +360,7 @@
 					<cfset maddr=application.bugreportemail>
 					<cfset subj="TEST PLEASE IGNORE:Bare Accession">
 				</cfif>
-				<cfmail to="#maddr#" bcc="arctos.database@gmail.com" subject="#subj#" from="bare_accession@#Application.fromEmail#" type="html">
+				<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="bare_accession@#Application.fromEmail#" type="html">
 					#msg#
 				</cfmail>
 			</cfif>
