@@ -145,7 +145,8 @@
 							select * from collection order by collection
 						</cfquery>
 						<cfloop query="all_coll">
-							<cfif (institution_acronym is 'UAM' and collection_cde is 'Mamm') or
+							<cfif (institution_acronym is 'UAM' and collection_cde is 'Mamm') or 
+									(institution_acronym is 'UAMObs' and collection_cde is 'Mamm') or
 									(institution_acronym is 'MSB' and collection_cde is 'Mamm') or
 									(institution_acronym is 'MSB' and collection_cde is 'Bird') or
 									(institution_acronym is 'UAM' and collection_cde is 'Fish')>
