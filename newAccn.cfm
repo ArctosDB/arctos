@@ -151,7 +151,7 @@
 									(institution_acronym is 'MSB' and collection_cde is 'Bird') or
 									(institution_acronym is 'UAM' and collection_cde is 'Fish')>
 								<!---- these collections use a YYYY.001.COLLECTIONCODE format --->
-								<cfset stg="'#dateformat(now(),"yyyy")#.' || lpad(max(to_number(substr(accn_number,6,3))) + 1,3,0) || '.#collection_cde#'">
+								<cfset stg="'#dateformat(now(),"yyyy")#.' || nvl(lpad(max(to_number(substr(accn_number,6,3))) + 1,3,0),'000') || '.#collection_cde#'">
 								<cfset whr=" AND accn_number like '%.#collection_cde#' AND
 									substr(accn_number,1,4) = '#dateformat(now(),"yyyy")#'">
 							<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Ento')>
