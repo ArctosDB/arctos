@@ -1,9 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulk Edit Container">
-
 <cfset thecolumns="BARCODE,LABEL,OLD_CONTAINER_TYPE,CONTAINER_TYPE,DESCRIPTION,CONTAINER_REMARKS,HEIGHT,LENGTH,WIDTH,NUMBER_POSITIONS">
-
-		
 <cfif action is "makeTemplate">
 	<cfset header=thecolumns>
 	<cffile action = "write"
@@ -12,25 +9,28 @@
     addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkContainerEdit.csv" addtoken="false">
 </cfif>
-
-
-
+<!------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
+	<p>
+		Edit groups of containers by loading CSV.
+	</p>
+	<p>
+		This form is not restricted to labels; it will alter ANY container.
+	</p>
+	<p>
+		This form will happily overwrite existing <strong><em>important</em></strong> information. Use it with caution and make sure you know what it's doing!
+	</p>
 	<p>
 		Upload CSV with the following columns. <a href="bulkEditContainer.cfm?action=makeTemplate">Get a template here</a>
 	</p>
 	<table border>
 		<tr>
 			<th>Column</th>
-			<th>Stuff</th>
+			<th>Description</th>
 		</tr>
 		<tr>
 			<td>BARCODE</td>
 			<td>Required; must be unique.</td>
-		</tr>
-		<tr>
-			<td>LABEL</td>
-			<td>NULL to ignore, new value to update.</td>
 		</tr>
 		<tr>
 			<td>OLD_CONTAINER_TYPE</td>
@@ -38,7 +38,11 @@
 		</tr>
 		<tr>
 			<td>CONTAINER_TYPE</td>
-			<td>New container type. Required. <a href="/info/ctDocumentation.cfm?table=CTCONTAINER_TYPE">CTCONTAINER_TYPE</a></td>
+			<td>Required. New container type. <a href="/info/ctDocumentation.cfm?table=CTCONTAINER_TYPE">CTCONTAINER_TYPE</a></td>
+		</tr>
+		<tr>
+			<td>LABEL</td>
+			<td>Empty (no value) to ignore, new value to update.</td>
 		</tr>
 		<tr>
 			<td>DESCRIPTION</td>
@@ -65,14 +69,6 @@
 			<td>"0" (no quotes)  will update to NULL; blank will be ignored (no updates).</td>
 		</tr>	
 	</table>
-		
-	<p>
-		This form is not restricted to labels; it will alter ANY container.
-	</p>
-	<p>
-		This form will happily overwrite existing important information. Use it with caution and make sure you know what it's doing!
-	</p>
-	
 	<form enctype="multipart/form-data" action="bulkEditContainer.cfm" method="POST">
 		<input type="hidden" name="action" value="getFile">
 		<label for="FiletoUpload">Upload CSV</label>
@@ -81,6 +77,7 @@
 		<input type="submit" value="Upload this file" class="insBtn">
 	</form>
 </cfif>
+<!------------------------------------------------------------------------------------------->
 <cfif action IS "getFile">
 	<cfoutput>
 		<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -89,8 +86,6 @@
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 		<cfset  util = CreateObject("component","component.utilities")>
 		<cfset q = util.CSVToQuery(CSV=fileContent)>
-		
-		
 		<cfset colNames=q.columnList>
 		<!--- disallow some procedural stuff that sometimes ends up in the download/reload CSV --->
 		<cfif listfindnocase(colNames,'status') gt 0>
@@ -117,38 +112,7 @@
 		<cflocation url="bulkEditContainer.cfm?action=validateUpload" addtoken="false">
 	</cfoutput>
 </cfif>
-
-
-<!----
-
-	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-	<cfset fileContent=replace(fileContent,"'","''","all")>
-	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
-	<cfset colNames="">
-	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
-		<cfset colVals="">
-			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
-				<cfset thisBit=arrResult[o][i]>
-				<cfif #o# is 1>
-					<cfset colNames="#colNames#,#thisBit#">
-				<cfelse>
-					<cfset colVals="#colVals#,'#thisBit#'">
-				</cfif>
-			</cfloop>
-		<cfif #o# is 1>
-			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>
-		<cfif len(#colVals#) gt 1>
-			<cfset colVals=replace(colVals,",","","first")>
-			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into cf_temp_lbl2contr (#colNames#) values (#preservesinglequotes(colVals)#)
-			</cfquery>
-		</cfif>
-	</cfloop>
-	<cflocation url="labels2containers.cfm?action=validateUpload" addtoken="false">
-	---->
-	
-<!------------------------------------------>
+<!------------------------------------------------------------------------------------------->
 <cfif action IS "validateUpload">
 	<script src="/includes/sorttable.js"></script>
 	<cfoutput>
@@ -160,9 +124,6 @@
 			where 
 				barcode not in (select barcode from container)
 		</cfquery>
-	
-	
-		
 		<cfquery name="uasdfasps" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update 
 				cf_temp_lbl2contr 
@@ -173,8 +134,6 @@
 				OLD_CONTAINER_TYPE is null and 
 				CONTAINER_TYPE is not null
 		</cfquery>
-			
-			
 		<cfquery name="ups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update 
 				cf_temp_lbl2contr 
@@ -184,9 +143,6 @@
 				status is null and
 				(barcode,old_container_type) not in (select barcode,container_type from container)
 		</cfquery>
-	
-		
-	
 		<cfquery name="upn_descr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update 
 				cf_temp_lbl2contr 
@@ -242,8 +198,6 @@
 				number_positions =0 and 
 				barcode in (select barcode from container where number_positions is not null)
 		</cfquery>
-		
-		
 		<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from cf_temp_lbl2contr where status is not null
 		</cfquery>
@@ -333,7 +287,6 @@
 		</table>
 	</cfoutput>
 </cfif>
-
 <!------------------------------------------>
 <cfif action IS "finalizeUpload">
 
@@ -362,7 +315,6 @@
 					cf_temp_lbl2contr.container_type != container.container_type
 			)
 		</cfquery>
-			
 		<cfquery name="description" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update 
 				container 
@@ -549,42 +501,6 @@
 			)
 		</cfquery>
 	</cftransaction>
-	<!----
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			container 
-		set (
-			container.container_type,
-			container.description,
-			container.container_remarks,
-			container.,
-			container.,
-			container.,
-			container.number_positions
-		)=(
-			select 
-				cf_temp_lbl2contr.container_type,
-				cf_temp_lbl2contr.description,
-				cf_temp_lbl2contr.container_remarks,
-				cf_temp_lbl2contr.height,
-				cf_temp_lbl2contr.length,
-				cf_temp_lbl2contr.width,
-				cf_temp_lbl2contr.
-			from 
-				cf_temp_lbl2contr
-			where 
-				cf_temp_lbl2contr.barcode=container.barcode
-		)
-		where exists (
-			select
-				1
-			from
-				cf_temp_lbl2contr
-			where
-				cf_temp_lbl2contr.barcode=container.barcode
-		)
-	</cfquery>
-	---->
 	all done
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
