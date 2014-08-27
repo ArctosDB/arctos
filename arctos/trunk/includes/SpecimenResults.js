@@ -237,10 +237,9 @@ function resizeMap(s){
 		$("#srmapctrls-nomap").hide();
 		$("#srmapctrls").show();
 		$("#spresmapdiv").show();
-		var bounds=map.getBounds();
 		$("#spresmapdiv").removeClass().addClass(s);
 		
-		SetCenterZoom();
+		initializeMap();
 		
 		/*
 		x = map.getZoom();
