@@ -85,7 +85,7 @@ $(document).ready(function () {
 				$("#srmapctrls-nomap").hide();
 				$("#spresmapdiv").show();
 				$("#srmapctrls").show();
-				resizeMap(smallmap);
+				resizeMap('smallmap');
 			});
 			
 	    });
