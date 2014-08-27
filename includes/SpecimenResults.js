@@ -94,7 +94,8 @@ function SetCenterZoom(){
 	console.log('markers is here:');
 
 	console.log(markers);
-	
+	var bounds = new google.maps.LatLngBounds();
+
 	for (var i=0; i < markers.length; i++) {
 		   bounds.extend(markers[i].getPosition());
 		}
