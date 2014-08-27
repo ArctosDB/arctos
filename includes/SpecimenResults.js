@@ -97,10 +97,14 @@ function SetCenterZoom(){
 	var bounds = new google.maps.LatLngBounds();
 
 	for (var i=0; i < markers.length; i++) {
-		   bounds.extend(markers[i].getPosition());
-		}
+	   bounds.extend(markers[i].getPosition());
+	}
 			// Don't zoom in too far on only one marker
 	    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+	    	
+	    	console.log('in special thingee');
+	    	
+	    	
 	       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
 	       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
 	       bounds.extend(extendPoint1);
