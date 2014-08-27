@@ -19,77 +19,100 @@ function confirmAddAllPartLoan(){
 	  	return false;
   	}
 }
+
+function addMarkers(){
+	// markers are stored in hidden element ID cfgml
+	// pull them out and put them on the map
+	var markers = [];
+	var cfgml=$("#cfgml").val();
+	if (cfgml.length==0){
+		return false;
+	}
+	var arrCP = cfgml.split( ";" );
+	for (var i=0; i < arrCP.length; i++){
+		var p=arrCP[i];
+		var cpa=p.split(",");
+		var ns=cpa[0];
+		var lat=cpa[1];
+		var lon=cpa[2];
+		var r=cpa[3];					
+		var center=new google.maps.LatLng(lat, lon);
+		var circleoptn = {
+			strokeColor: '#FF0000',
+			strokeOpacity: 0.8,
+			strokeWeight: 2,
+			fillColor: '#FF0000',
+			fillOpacity: 0.15,
+			map: map,
+			center: center,
+			radius: parseInt(r),
+			zIndex:-99
+		};
+		crcl = new google.maps.Circle(circleoptn);
+		var marker = new google.maps.Marker({
+			position: center,
+    		map: map,
+    		title: ns + ' specimens; Error(m)=' + r,
+			contentString: contentString,
+				zIndex: 10
+		});
+			markers.push(marker);
+			var contentString= ns + ' specimens; Error(m)=' + r + '<br><span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add point to search</span>';
+		google.maps.event.addListener(marker, 'click', function() {
+    		infowindow.setContent(this.contentString);
+    		infowindow.open(map, this);
+		});
+		
+	}
+	var bounds = new google.maps.LatLngBounds();
+	for (var i=0; i < markers.length; i++) {
+	   bounds.extend(markers[i].getPosition());
+	}
+		// Don't zoom in too far on only one marker
+    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
+       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
+       bounds.extend(extendPoint1);
+       bounds.extend(extendPoint2);
+    }
+	map.fitBounds(bounds);
+}
+function zoomAndCenter(){
+	// show all visible markers and not much else
+	
+	
+	
+	
+	
+	
+	
+}
 $(document).ready(function () {
-			jQuery("#cntr_refineSearchTerms").html("<img src='/images/indicator.gif'>");
-			var ptl='/component/SpecimenResults.cfc?method=get_specSrchTermWidget&returnformat=plain';
-			jQuery.get(ptl, function(data){
-				jQuery("#cntr_refineSearchTerms").html(data);
-			});
-		    initialize();
-			var markers = [];
-    		var infowindow = new google.maps.InfoWindow();
-			var cfgml=$("#cfgml").val();
-			if (cfgml.length==0){
-				return false;
-			}
-			var arrCP = cfgml.split( ";" );
-			for (var i=0; i < arrCP.length; i++){
-				var p=arrCP[i];
-				var cpa=p.split(",");
-				var ns=cpa[0];
-				var lat=cpa[1];
-				var lon=cpa[2];
-				var r=cpa[3];					
-				var center=new google.maps.LatLng(lat, lon);
-				var circleoptn = {
-					strokeColor: '#FF0000',
-					strokeOpacity: 0.8,
-					strokeWeight: 2,
-					fillColor: '#FF0000',
-					fillOpacity: 0.15,
-					map: map,
-					center: center,
-					radius: parseInt(r),
-					zIndex:-99
-				};
-				crcl = new google.maps.Circle(circleoptn);
-				var marker = new google.maps.Marker({
-					position: center,
-            		map: map,
-            		title: ns + ' specimens; Error(m)=' + r,
-					contentString: contentString,
- 					zIndex: 10
-        		});
- 				markers.push(marker);
- 				var contentString= ns + ' specimens; Error(m)=' + r + '<br><span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add point to search</span>';
-				google.maps.event.addListener(marker, 'click', function() {
-            		infowindow.setContent(this.contentString);
-            		infowindow.open(map, this);
-        		});
-				
-			}
-			var bounds = new google.maps.LatLngBounds();
-			for (var i=0; i < markers.length; i++) {
-			   bounds.extend(markers[i].getPosition());
-			}
-   			// Don't zoom in too far on only one marker
-		    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
-		       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
-		       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
-		       bounds.extend(extendPoint1);
-		       bounds.extend(extendPoint2);
-		    }
-			map.fitBounds(bounds);
-			
-			$( "#srmapctrls-nomap" ).click(function() {
-				//("#srmapctrls-nomap").hide();
-				//$("#spresmapdiv").show();
-				//$("#srmapctrls").show();
-				resizeMap('smallmap');
-			//	initialize();
-			});
-			
-	    });
+	jQuery("#cntr_refineSearchTerms").html("<img src='/images/indicator.gif'>");
+	var ptl='/component/SpecimenResults.cfc?method=get_specSrchTermWidget&returnformat=plain';
+	jQuery.get(ptl, function(data){
+		jQuery("#cntr_refineSearchTerms").html(data);
+	});
+    initialize();
+	
+    // add all the markers to the map
+	var infowindow = new google.maps.InfoWindow();
+
+    
+    // call the function to make it purdee
+	addMarkers();
+    
+    /** end map setup **/
+    
+	$( "#srmapctrls-nomap" ).click(function() {
+		//("#srmapctrls-nomap").hide();
+		//$("#spresmapdiv").show();
+		//$("#srmapctrls").show();
+		resizeMap('smallmap');
+	//	initialize();
+	});
+	
+});
 
 
 
