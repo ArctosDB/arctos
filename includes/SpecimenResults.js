@@ -85,7 +85,7 @@ function SetCenterZoom(){
 	*/
 }
 
-}
+
 $(document).ready(function () {
 	jQuery("#cntr_refineSearchTerms").html("<img src='/images/indicator.gif'>");
 	var ptl='/component/SpecimenResults.cfc?method=get_specSrchTermWidget&returnformat=plain';
