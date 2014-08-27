@@ -90,7 +90,8 @@ function SetCenterZoom(){
 	
 	
 	
-	
+
+	console.log('markers is here:');
 
 	console.log(markers);
 	
