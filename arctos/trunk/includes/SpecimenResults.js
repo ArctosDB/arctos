@@ -43,6 +43,10 @@ function SetCenterZoom(){
 
 	console.log(markers);
 	console.log(bounds);
+	
+	
+	
+	/*
 		map.fitBounds(bounds);
 		
 		
