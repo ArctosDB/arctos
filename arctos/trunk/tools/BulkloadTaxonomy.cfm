@@ -26,44 +26,7 @@ alter table cf_temp_taxonomy modify TRIBE varchar2(255);
 alter table cf_temp_taxonomy modify INFRASPECIFIC_RANK varchar2(255);
 alter table cf_temp_taxonomy modify PHYLUM varchar2(255);
 alter table cf_temp_taxonomy modify PHYLCLASS varchar2(255);
-
-
-
-
- 								    VARCHAR2(20)
- 								    VARCHAR2(255)
- 								    VARCHAR2(30)
- 								    VARCHAR2(30)
- SUPERFAMILY								    VARCHAR2(255)
-  								    VARCHAR2(30)
- 								    VARCHAR2(30)
- 									    VARCHAR2(30)
- 								    VARCHAR2(20)
- 								    VARCHAR2(40)
- SUBSPECIES								    VARCHAR2(255)
- VALID_CATALOG_TERM_FG							    NUMBER
- 							    VARCHAR2(45)
- SCIENTIFIC_NAME							    VARCHAR2(255)
- AUTHOR_TEXT								    VARCHAR2(255)
- 									    VARCHAR2(30)
- 							    VARCHAR2(20)
- TAXON_REMARKS								    VARCHAR2(255)
-  								    VARCHAR2(30)
- KINGDOM								    VARCHAR2(255)
- NOMENCLATURAL_CODE							    VARCHAR2(255)
- INFRASPECIFIC_AUTHOR							    VARCHAR2(255)
- TAXON_STATUS								    VARCHAR2(255)
- SUBPHYLUM								    VARCHAR2(255)
- DISPLAY_NAME								    VARCHAR2(255)
- SOURCE 								    VARCHAR2(255)
-
-UAM@ARCTEST> 
-
-
-
-
-
-
+ 
 alter table cf_temp_taxonomy modify NOMENCLATURAL_CODE null;
 
 alter table cf_temp_taxonomy add display_name varchar2(255);
@@ -137,9 +100,6 @@ sho err
 
 <!------------------------------------------------------->
 <cfif action is "down">
-
-
-
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_taxonomy
 	</cfquery>
@@ -150,9 +110,6 @@ sho err
     	output = "#csv#"
     	addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkTaxaDown.csv" addtoken="false">
-	
-	
-
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "makeTemplate">
@@ -168,28 +125,23 @@ sho err
 	<cfoutput>
 		Load names, optionally with classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
 		click any buttons unless you KNOW what they do.
-		 
-		Upload a comma-delimited text file (csv). <a href="BulkloadTaxonomy.cfm?action=makeTemplate">[ Get the Template ]</a>
 		 <p>
-		 	You can (and should) also pull classification from globalnames.
-		 </p>
-		 <p>subgeneric terms are multinomial</p>
-		 <p>
-		 	Source is <a href="/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE">CTTAXONOMY_SOURCE</a>
-		 </p>
-		 
-		 
-		 
-		 
-		 
+			Upload a comma-delimited text file (csv). <a href="BulkloadTaxonomy.cfm?action=makeTemplate">[ Get the Template ]</a>
+		</p>
+		<p>
+			You can (and should) also pull classification from globalnames.
+		</p>
+		<p>subgeneric terms are multinomial</p>
+		<p>
+			Source is <a href="/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE">CTTAXONOMY_SOURCE</a>
+		</p>
 		<cfform name="oids" method="post" enctype="multipart/form-data" action="BulkloadTaxonomy.cfm">
 			<input type="hidden" name="action" value="getFile">
 			<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 			<input type="submit" value="Upload this file">
-  </cfform>
-</cfoutput>
+		</cfform>
+	</cfoutput>
 </cfif>
-
 <!------------------------------------------------------->
 <cfif action is "getFile">
 <cfoutput>
@@ -227,6 +179,7 @@ sho err
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "show">
+<script src="/includes/sorttable.js"></script>
 <cfoutput>	 
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_taxonomy
@@ -243,7 +196,6 @@ sho err
 	<P>
 		Some terms may not mean what you think they do. Ask us (contact link below) if you're uncertain.
 	</P>
-	
 	<ul>
 		<cfif isProb.c eq data.recordcount>
 			<li><strong>Carefully</strong> check the table below, then <a href="BulkloadTaxonomy.cfm?action=loadData">continue to load</a></li>
@@ -254,7 +206,6 @@ sho err
 			<br>Do this BEFORE validation
 			<br>CHECK THE RESULTS
 		</li>
-		
 		<li>
 			<a href="BulkloadTaxonomy.cfm?action=autogendispname">Click here to generate display_name</a> 
 			Do this BEFORE validation and CHECK THE RESULTS. This may not do what you want if you don't specify nomenclatural_code.  
@@ -263,13 +214,26 @@ sho err
 		<li><a href="BulkloadTaxonomy.cfm?action=deleteDups">discard duplicate names</a></li>
 		<li><a href="BulkloadTaxonomy.cfm?action=down">download</a></li>
 		<li><a href="BulkloadTaxonomy.cfm?action=nothing">start over</a></li>
-	</ul>		
-	<cfdump var=#data#>
+	</ul>
+	<cfset h=data.columnlist>
+	<table border id="t" class="sortable">
+		<tr>
+			<cfloop list="#h#" index="i">
+				<th>#i#</th>
+			</cfloop>
+		</tr>
+		<cfloop query="data">
+			<tr>
+				<cfloop list="#h#" index="i">
+					<td>
+						#evaluate("data." & i)#
+					</td>
+				</cfloop>
+			</tr>
+		</cfloop>
+	</table>
 </cfoutput>
 </cfif>
-
-	
-
 <!------------------------------------------------------->
 <cfif action is "deleteDups">
 	<cfoutput>
@@ -281,54 +245,44 @@ sho err
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "autogenmn">
-<cfoutput>
-
-
-	<cfquery name="spwsp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from cf_temp_taxonomy where species is not null and species like '% %'
-	</cfquery>
-	<cfif spwsp.c gt 0>
-		This app will only work if all species are monomials.
-		<cfabort>
-	</cfif>
-	<cfquery name="sspwsp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from cf_temp_taxonomy where subspecies is not null and subspecies like '% %'
-	</cfquery>
-	<cfif sspwsp.c gt 0>
-		This app will only work if all subspecies are monomials.
-		<cfabort>
-	</cfif>
-
-	<cfquery name="sspwnsp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from cf_temp_taxonomy where species is null and subspecies is not null
-	</cfquery>
-	<cfif sspwnsp.c gt 0>
-		Subspecies without species - aborting
-		<cfabort>
-	</cfif>
-
-	<cfquery name="genwnsp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from cf_temp_taxonomy where genus is null and species is not null
-	</cfquery>
-	<cfif genwnsp.c gt 0>
-		species without genus - aborting
-		<cfabort>
-	</cfif>
-	<cfquery name="mksp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_taxonomy set species = genus || ' ' || species where genus is not null and species is not null
-	</cfquery>
-	
-	<cfquery name="mksp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_taxonomy set subspecies = species || ' ' || subspecies where species is not null and subspecies is not null
-	</cfquery>
-
-	<cflocation url="BulkloadTaxonomy.cfm?action=show" addtoken="false">		
-	
-</cfoutput>
+	<cfoutput>
+		<cfquery name="spwsp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from cf_temp_taxonomy where species is not null and species like '% %'
+		</cfquery>
+		<cfif spwsp.c gt 0>
+			This app will only work if all species are monomials.
+			<cfabort>
+		</cfif>
+		<cfquery name="sspwsp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from cf_temp_taxonomy where subspecies is not null and subspecies like '% %'
+		</cfquery>
+		<cfif sspwsp.c gt 0>
+			This app will only work if all subspecies are monomials.
+			<cfabort>
+		</cfif>
+		<cfquery name="sspwnsp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from cf_temp_taxonomy where species is null and subspecies is not null
+		</cfquery>
+		<cfif sspwnsp.c gt 0>
+			Subspecies without species - aborting
+			<cfabort>
+		</cfif>
+		<cfquery name="genwnsp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from cf_temp_taxonomy where genus is null and species is not null
+		</cfquery>
+		<cfif genwnsp.c gt 0>
+			species without genus - aborting
+			<cfabort>
+		</cfif>
+		<cfquery name="mksp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update cf_temp_taxonomy set species = genus || ' ' || species where genus is not null and species is not null
+		</cfquery>	
+		<cfquery name="mksp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update cf_temp_taxonomy set subspecies = species || ' ' || subspecies where species is not null and subspecies is not null
+		</cfquery>
+		<cflocation url="BulkloadTaxonomy.cfm?action=show" addtoken="false">
+	</cfoutput>
 </cfif>
-
-
-
 <!------------------------------------------------------->
 <cfif action is "autogendispname">
 <cfoutput>
@@ -383,8 +337,9 @@ sho err
 			<cfset dn="#PHYLUM# #AUTHOR_TEXT#">
 		<cfelseif len(KINGDOM) gt 0>
 			<cfset dn="#KINGDOM# #AUTHOR_TEXT#">
+		<cfelse>
+			<cfset dn=''>
 		</cfif>
-		
 		<cfset dn=replace(dn,'  ',' ','all')>
 		<cfset dn=replace(dn,'</i> <i>','')>
 		<cfset dn=replace(dn,'</i><i>','')>
@@ -428,10 +383,8 @@ sho err
 	<cfif isv.c neq data.recordcount>
 		validate first<cfabort>
 	</cfif>
-	
 	<cfset orderedClassificationTerms="KINGDOM,PHYLUM,SUBPHYLUM,PHYLCLASS,SUBCLASS,PHYLORDER,SUBORDER,SUPERFAMILY,FAMILY,SUBFAMILY,TRIBE,GENUS,SUBGENUS,SPECIES,SUBSPECIES,SCIENTIFIC_NAME">
 	<cfset nonClassificationTerms="display_name,AUTHOR_TEXT,INFRASPECIFIC_AUTHOR,SOURCE_AUTHORITY,NOMENCLATURAL_CODE,VALID_CATALOG_TERM_FG,TAXON_STATUS,TAXON_REMARKS">
-
 	<cftransaction>
 		<cfloop query="data">
 			<br>Loading #scientific_name#
@@ -478,23 +431,23 @@ sho err
 				</cfif>
 			</cfloop>
 		</cfloop>
-		<cfquery name="setrefresh" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			insert into taxon_refresh_log (
-				taxon_name_id,
-				taxon_name) (
-			select
-				taxon_name_id,
-				scientific_name
-			from 
-				taxon_name 
-			where 
-				scientific_name in (
-					select scientific_name from cf_temp_taxonomy
-				)
-			)
-		</cfquery>
 	</cftransaction>
-	
+	<!---- this can't be in the transaction as it's not publicly available ---->
+	<cfquery name="setrefresh" datasource="uam_god">
+		insert into taxon_refresh_log (
+			taxon_name_id,
+			taxon_name) (
+		select
+			taxon_name_id,
+			scientific_name
+		from 
+			taxon_name 
+		where 
+			scientific_name in (
+				select scientific_name from cf_temp_taxonomy
+			)
+		)
+	</cfquery>
 	
 	<!--- sequences super wonky - do it with a billion connects for now....
 	

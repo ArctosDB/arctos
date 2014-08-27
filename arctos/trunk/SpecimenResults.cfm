@@ -7,7 +7,7 @@
 	<cfset session.srmapclass='smallmap'>
 </cfif>
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
-<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.min.js'></script>
+<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js'></script>
 <link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 <cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
 <cfoutput>
@@ -281,6 +281,7 @@
 				<td class="valigntop" align="center">
 					<div id="spresmapdiv" class="#session.srmapclass#"></div>
 					<div style="text-align:center">
+						<span class="infoLink" onclick="resizeMap('nomap');">none</span>~
 						<span class="infoLink" onclick="resizeMap('tinymap');">tiny</span>~
 						<span class="infoLink" onclick="resizeMap('smallmap');">small</span>~
 						<span class="infoLink" onclick="resizeMap('largemap');">large</span>~
