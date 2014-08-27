@@ -24,17 +24,30 @@ function SetCenterZoom(){
 	// resize and reposition the map to fix the markers
 
 	
-	console.log(markers);
 	
 	
 	
-	/*
-	var markers = [];
+	//var markers = [];
 	var cfgml=$("#cfgml").val();
 	if (cfgml.length==0){
 		return false;
 	}
-	var arrCP = cfgml.split( ";" );
+	var markers = cfgml.split( ";" );
+	
+	
+	
+	var bounds = new google.maps.LatLngBounds();
+	for(i=0;i<markers.length;i++) {
+		 bounds.extend(markers[i].getPosition());
+	}
+
+	console.log(markers);
+	console.log(bounds);
+		map.fitBounds(bounds);
+		
+		
+		
+		
 	for (var i=0; i < arrCP.length; i++){
 		var p=arrCP[i];
 		var cpa=p.split(",");
