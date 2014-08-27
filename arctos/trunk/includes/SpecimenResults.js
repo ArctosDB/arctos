@@ -96,11 +96,10 @@ $(document).ready(function () {
     initialize();
 	
     // add all the markers to the map
-	var infowindow = new google.maps.InfoWindow();
 
     
     // call the function to make it purdee
-	addMarkers();
+	//addMarkers();
     
     /** end map setup **/
     
@@ -465,6 +464,8 @@ function addCoordinates(c){
 
 //var rectangle;
 function initialize() {
+	var infowindow = new google.maps.InfoWindow();
+
 	var mapOptions = {
 		zoom: 3,
 	    center: new google.maps.LatLng(55, -135),
@@ -473,6 +474,11 @@ function initialize() {
 	    scaleControl: true
 	};
 	map = new google.maps.Map(document.getElementById('spresmapdiv'),mapOptions);
+	
+	// now add markers
+	addMarkers();
+
+	
 }
 function queryByViewport(){
 	if (! $("#refineSearchTerms").is(":visible")) {
