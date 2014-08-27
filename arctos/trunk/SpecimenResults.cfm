@@ -286,7 +286,7 @@
 						<span class="infoLink" onclick="resizeMap('smallmap');">small</span>~
 						<span class="infoLink" onclick="resizeMap('largemap');">large</span>~
 						<span class="infoLink" onclick="resizeMap('hugemap');">huge</span>~
-						<span class="infoLink" onclick="queryByViewport();">QueryByViewport</span>
+						<span class="infoLink #session.srmapclass#" onclick="queryByViewport();">QueryByViewport</span>
 					</div>
 				</td>
 			</tr>
