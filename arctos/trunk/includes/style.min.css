@@ -1,4 +1,9 @@
-.tinytextarea{width:10em;height:1.5em;margin:.3em;vertical-align:center}
+	.nomap {
+		display:none;
+	}
+	
+	
+	.tinytextarea{width:10em;height:1.5em;margin:.3em;vertical-align:center}
 .smalltextarea{width:15em;height:1.5em;margin:.3em;vertical-align:center}
 .mediumtextarea{width:30em;height:1.5em;margin:.3em;vertical-align:center}
 .largetextarea{width:30em;height:3em;margin:.3em;vertical-align:center}
