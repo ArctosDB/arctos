@@ -280,7 +280,7 @@
 				</td>
 				<td class="valigntop" align="center">
 					<div id="spresmapdiv" class="#session.srmapclass#"></div>
-					<div style="text-align:center">
+					<div id="srmapctrls" style="text-align:center">
 						<span class="infoLink" onclick="resizeMap('nomap');">none</span>~
 						<span class="infoLink" onclick="resizeMap('tinymap');">tiny</span>~
 						<span class="infoLink" onclick="resizeMap('smallmap');">small</span>~
@@ -288,6 +288,7 @@
 						<span class="infoLink" onclick="resizeMap('hugemap');">huge</span>~
 						<span class="infoLink #session.srmapclass#" onclick="queryByViewport();">QueryByViewport</span>
 					</div>
+					<div id="srmapctrls-nomap" style="display:none;" class="infoLink">show map</div>
 				</td>
 			</tr>
 		</table>
