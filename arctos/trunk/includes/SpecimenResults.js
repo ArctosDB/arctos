@@ -429,7 +429,10 @@ function resizeMap(s){
 		var bounds=map.getBounds();
 		$("#spresmapdiv").removeClass().addClass(s);
 		x = map.getZoom();
+		
+		console.log(x);
 	    c = map.getCenter();
+	    console.log(c);
 	    google.maps.event.trigger(map, 'resize');
 	    map.setZoom(x);
 	    map.setCenter(c);
