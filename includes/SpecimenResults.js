@@ -2,7 +2,7 @@ var map;
 var bounds;
 var markers = new Array();
 
-function initialize() {
+function initializeMap() {
 	
 	// just nuke the old map
 	$("#spresmapdiv").html('');
@@ -61,8 +61,33 @@ function initialize() {
 	
 	
 	// now reposition
-	SetCenterZoom();
+	//SetCenterZoom();
 
+	
+	var bounds = new google.maps.LatLngBounds();
+
+	for (var i=0; i < markers.length; i++) {
+	   bounds.extend(markers[i].getPosition());
+	}
+			// Don't zoom in too far on only one marker
+	    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+	    	
+	    	console.log('in special thingee');
+	    	
+	    	
+	       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
+	       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
+	       bounds.extend(extendPoint1);
+	       bounds.extend(extendPoint2);
+	    }
+	    console.log('fitBounds');
+
+	    console.log(bounds);
+	    
+	    
+		map.fitBounds(bounds);
+		
+		
 	
 }
 
@@ -97,28 +122,7 @@ function SetCenterZoom(){
 	//console.log('markers is here:');
 
 //	console.log(markers);
-	var bounds = new google.maps.LatLngBounds();
-
-	for (var i=0; i < markers.length; i++) {
-	   bounds.extend(markers[i].getPosition());
-	}
-			// Don't zoom in too far on only one marker
-	    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
-	    	
-	    	console.log('in special thingee');
-	    	
-	    	
-	       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
-	       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
-	       bounds.extend(extendPoint1);
-	       bounds.extend(extendPoint2);
-	    }
-	    console.log('fitBounds');
-
-	    console.log(bounds);
-	    
-	    
-		map.fitBounds(bounds);
+	
 	
 	/*
 	 * 	console.log(bounds);
@@ -201,7 +205,7 @@ $(document).ready(function () {
 	jQuery.get(ptl, function(data){
 		jQuery("#cntr_refineSearchTerms").html(data);
 	});
-    initialize();
+    initializeMap();
 	
     // add all the markers to the map
 
