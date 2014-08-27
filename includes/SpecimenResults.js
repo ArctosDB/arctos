@@ -20,11 +20,54 @@ function confirmAddAllPartLoan(){
   	}
 }
 
-function addMarkers(){
-	// markers are stored in hidden element ID cfgml
-	// pull them out and put them on the map
+function SetCenterZoom(){
+	// resize and reposition the map to fix the markers
+
+	
+	console.log(markers);
 	
 	
+	
+	/*
+	var markers = [];
+	var cfgml=$("#cfgml").val();
+	if (cfgml.length==0){
+		return false;
+	}
+	var arrCP = cfgml.split( ";" );
+	for (var i=0; i < arrCP.length; i++){
+		var p=arrCP[i];
+		var cpa=p.split(",");
+		var ns=cpa[0];
+		var lat=cpa[1];
+		var lon=cpa[2];
+		var r=cpa[3];					
+		var center=new google.maps.LatLng(lat, lon);
+		var circleoptn = {
+			strokeColor: '#FF0000',
+			strokeOpacity: 0.8,
+			strokeWeight: 2,
+			fillColor: '#FF0000',
+			fillOpacity: 0.15,
+			map: map,
+			center: center,
+			radius: parseInt(r),
+			zIndex:-99
+		};
+		crcl = new google.maps.Circle(circleoptn);
+		var marker = new google.maps.Marker({
+			position: center,
+    		map: map,
+    		title: ns + ' specimens; Error(m)=' + r,
+			contentString: contentString,
+				zIndex: 10
+		});
+		markers.push(marker);
+		var contentString= ns + ' specimens; Error(m)=' + r + '<br><span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add point to search</span>';
+		google.maps.event.addListener(marker, 'click', function() {
+    		infowindow.setContent(this.contentString);
+    		infowindow.open(map, this);
+		});
 	
 	var bounds = new google.maps.LatLngBounds();
 	for (var i=0; i < markers.length; i++) {
@@ -38,16 +81,10 @@ function addMarkers(){
        bounds.extend(extendPoint2);
     }
 	map.fitBounds(bounds);
+	
+	*/
 }
-function zoomAndCenter(){
-	// show all visible markers and not much else
-	
-	
-	
-	
-	
-	
-	
+
 }
 $(document).ready(function () {
 	jQuery("#cntr_refineSearchTerms").html("<img src='/images/indicator.gif'>");
@@ -482,7 +519,7 @@ function initialize() {
 	
 	
 	// now reposition
-	//SetCenterZoom();
+	SetCenterZoom();
 
 	
 }
