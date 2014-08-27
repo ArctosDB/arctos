@@ -3,6 +3,9 @@ var bounds;
 var markers = new Array();
 
 function initialize() {
+	
+	// just nuke the old map
+	$("#spresmapdiv").html('');
 	var infowindow = new google.maps.InfoWindow();
 
 	var mapOptions = {
