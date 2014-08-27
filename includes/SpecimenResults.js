@@ -83,6 +83,7 @@ $(document).ready(function () {
 			
 			$( "#srmapctrls-nomap" ).click(function() {
 				$("#srmapctrls-nomap").hide();
+				$("#spresmapdiv").show();
 				$("#srmapctrls").show();
 			});
 			
@@ -418,9 +419,11 @@ function resizeMap(s){
 	if (s=='nomap') {
 		$("#srmapctrls-nomap").show();
 		$("#srmapctrls").hide();
+		$("#spresmapdiv").hide();
 	} else {
 		$("#srmapctrls-nomap").hide();
 		$("#srmapctrls").show();
+		$("#spresmapdiv").show();
 		var bounds=map.getBounds();
 		$("#spresmapdiv").removeClass().addClass(s);
 		x = map.getZoom();
