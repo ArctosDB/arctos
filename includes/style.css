@@ -181,7 +181,9 @@ body {
 	
 	#spresmapdiv { 
 	}
-	
+	.nomap {
+		display:none;
+	}
 	.tinymap {
 		height: 100px;
 		width:100px;
