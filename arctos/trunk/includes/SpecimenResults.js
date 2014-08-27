@@ -91,9 +91,9 @@ function SetCenterZoom(){
 	
 	
 
-	console.log('markers is here:');
+	//console.log('markers is here:');
 
-	console.log(markers);
+//	console.log(markers);
 	var bounds = new google.maps.LatLngBounds();
 
 	for (var i=0; i < markers.length; i++) {
@@ -106,6 +106,11 @@ function SetCenterZoom(){
 	       bounds.extend(extendPoint1);
 	       bounds.extend(extendPoint2);
 	    }
+	    console.log('fitBounds');
+
+	    console.log(bounds);
+	    
+	    
 		map.fitBounds(bounds);
 	
 	/*
