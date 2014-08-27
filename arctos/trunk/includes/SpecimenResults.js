@@ -27,7 +27,17 @@ function SetCenterZoom(){
 	
 	
 	
-	//var markers = [];
+	
+
+	console.log(markers);
+	
+	
+	
+	/*
+	 * 	console.log(bounds);
+
+	 * 
+	 * //var markers = [];
 	var cfgml=$("#cfgml").val();
 	if (cfgml.length==0){
 		return false;
@@ -40,13 +50,8 @@ function SetCenterZoom(){
 	for(i=0;i<markers.length;i++) {
 		 bounds.extend(markers[i].getPosition());
 	}
-
-	console.log(markers);
-	console.log(bounds);
 	
 	
-	
-	/*
 		map.fitBounds(bounds);
 		
 		
@@ -493,7 +498,7 @@ function initialize() {
 	
 	
 	
-	var markers = [];
+	var markers = new Array();
 	var cfgml=$("#cfgml").val();
 	if (cfgml.length==0){
 		return false;
