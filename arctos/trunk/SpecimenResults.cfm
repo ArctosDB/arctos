@@ -279,7 +279,6 @@
 					<div id="cntr_refineSearchTerms"></div>
 				</td>
 				<td class="valigntop" align="center">
-					<div id="spresmapdiv" class="#session.srmapclass#"></div>
 					<cfif session.srmapclass is "nomap">
 						<cfset d1="display:none;">
 						<cfset d2="">
@@ -287,6 +286,8 @@
 						<cfset d1="">
 						<cfset d2="display:none;">
 					</cfif>
+					<div id="spresmapdiv" style="#d1#" class="#session.srmapclass#"></div>
+					
 					<div id="srmapctrls" style="text-align:center; #d1#">
 						<span class="infoLink" onclick="resizeMap('nomap');">none</span>~
 						<span class="infoLink" onclick="resizeMap('tinymap');">tiny</span>~
