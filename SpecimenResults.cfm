@@ -281,11 +281,11 @@
 				<td class="valigntop" align="center">
 					<div id="spresmapdiv" class="#session.srmapclass#"></div>
 					<cfif session.srmapclass is "nomap">
-						<cfset d1="">
-						<cfset d2="display:none;">
-					<cfelse>
 						<cfset d1="display:none;">
 						<cfset d2="">
+					<cfelse>
+						<cfset d1="">
+						<cfset d2="display:none;">
 					</cfif>
 					<div id="srmapctrls" style="text-align:center; #d1#">
 						<span class="infoLink" onclick="resizeMap('nomap');">none</span>~
