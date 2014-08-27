@@ -82,9 +82,9 @@ $(document).ready(function () {
 			map.fitBounds(bounds);
 			
 			$( "#srmapctrls-nomap" ).click(function() {
-				$("#srmapctrls-nomap").hide();
-				$("#spresmapdiv").show();
-				$("#srmapctrls").show();
+				//("#srmapctrls-nomap").hide();
+				//$("#spresmapdiv").show();
+				//$("#srmapctrls").show();
 				resizeMap('smallmap');
 			//	initialize();
 			});
