@@ -422,7 +422,6 @@ function resizeMap(s){
 	    google.maps.event.trigger(map, 'resize');
 	    map.setZoom(x);
 	    map.setCenter(c);
-	    
 	    map.fitBounds(bounds);
 	}
 	jQuery.getJSON("/component/functions.cfc",
