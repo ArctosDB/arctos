@@ -94,6 +94,40 @@ $(document).ready(function () {
 
 
 
+function resizeMap(s){
+	if (s=='nomap') {
+		$("#srmapctrls-nomap").show();
+		$("#srmapctrls").hide();
+		$("#spresmapdiv").hide();
+	} else {
+		$("#srmapctrls-nomap").hide();
+		$("#srmapctrls").show();
+		$("#spresmapdiv").show();
+		var bounds=map.getBounds();
+		$("#spresmapdiv").removeClass().addClass(s);
+		x = map.getZoom();
+		
+		console.log(x);
+	    c = map.getCenter();
+	    console.log(c);
+	    google.maps.event.trigger(map, 'resize');
+
+	    map.fitBounds(bounds);
+	    
+	    
+	    map.setZoom(x);
+	    map.setCenter(c);
+	}
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changeUserPreference",
+			pref : "srmapclass",
+			val : s,
+			returnformat : "json",
+			queryformat : 'column'
+		}
+	);
+}
 
 
 $("#customizeButton").live('click', function(e){
@@ -416,37 +450,6 @@ function initialize() {
 	    scaleControl: true
 	};
 	map = new google.maps.Map(document.getElementById('spresmapdiv'),mapOptions);
-}
-function resizeMap(s){
-	if (s=='nomap') {
-		$("#srmapctrls-nomap").show();
-		$("#srmapctrls").hide();
-		$("#spresmapdiv").hide();
-	} else {
-		$("#srmapctrls-nomap").hide();
-		$("#srmapctrls").show();
-		$("#spresmapdiv").show();
-		var bounds=map.getBounds();
-		$("#spresmapdiv").removeClass().addClass(s);
-		x = map.getZoom();
-		
-		console.log(x);
-	    c = map.getCenter();
-	    console.log(c);
-	    google.maps.event.trigger(map, 'resize');
-	    map.setZoom(x);
-	    map.setCenter(c);
-	    map.fitBounds(bounds);
-	}
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "changeUserPreference",
-			pref : "srmapclass",
-			val : s,
-			returnformat : "json",
-			queryformat : 'column'
-		}
-	);
 }
 function queryByViewport(){
 	if (! $("#refineSearchTerms").is(":visible")) {
