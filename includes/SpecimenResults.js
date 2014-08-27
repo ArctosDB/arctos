@@ -86,7 +86,7 @@ $(document).ready(function () {
 				$("#spresmapdiv").show();
 				$("#srmapctrls").show();
 				resizeMap('smallmap');
-				initialize();
+			//	initialize();
 			});
 			
 	    });
