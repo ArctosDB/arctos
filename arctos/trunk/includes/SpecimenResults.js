@@ -223,6 +223,10 @@ function resizeMap(s){
 		$("#spresmapdiv").show();
 		var bounds=map.getBounds();
 		$("#spresmapdiv").removeClass().addClass(s);
+		
+		SetCenterZoom();
+		
+		/*
 		x = map.getZoom();
 		
 		console.log(x);
@@ -235,6 +239,9 @@ function resizeMap(s){
 	    
 	    map.setZoom(x);
 	    map.setCenter(c);
+	    
+	    
+	    */
 	}
 	jQuery.getJSON("/component/functions.cfc",
 		{
