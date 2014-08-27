@@ -80,6 +80,12 @@ $(document).ready(function () {
 		       bounds.extend(extendPoint2);
 		    }
 			map.fitBounds(bounds);
+			
+			$( "#srmapctrls-nomap" ).click(function() {
+				$("#srmapctrls-nomap").hide();
+				$("#srmapctrls").show();
+			});
+			
 	    });
 
 
