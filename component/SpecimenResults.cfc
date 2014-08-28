@@ -500,6 +500,41 @@
 	<cfreturn theResult>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="getPartsForBarcodes" access="remote">
+	<cfargument name="idList" type="string" required="yes">
+	<cfoutput>
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			cataloged_item.COLLECTION_OBJECT_ID,
+			specimen_part.collection_object_id partID,
+			specimen_part.PART_NAME,
+			specimen_part.SAMPLED_FROM_OBJ_ID,
+			coll_object.COLL_OBJ_DISPOSITION,
+			coll_object.LOT_COUNT,
+			coll_object.CONDITION,
+			p1.barcode,
+			p1.container_type
+		from
+			cataloged_item,
+			coll_object,
+			specimen_part,
+			coll_obj_cont_hist,
+			container p0,
+			container p1
+		where
+			cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
+			specimen_part.collection_object_id = coll_object.collection_object_id and
+			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id (+) and
+			coll_obj_cont_hist.container_id=p0.container_id (+) and
+			p0.parent_container_id=p1.container_id (+) and
+			cataloged_item.collection_object_id in (#idList#)
+		order by
+			specimen_part.part_name
+	</cfquery>
+	<cfreturn result>
+	</cfoutput>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getLoanPartResults" access="remote">
 	<cfargument name="transaction_id" type="numeric" required="yes">
 	<cfoutput>
