@@ -177,6 +177,11 @@ test-uam> desc uam_query.query_stats_coll
 			order by 
 				to_char(qs.create_date, 'YYYY-MM')
 		</cfquery>
+		
+		<cfquery name="tot" dbtype="query">
+			select sum(c) totc, sum(s) tots from total
+		</cfquery>
+		<cfdump var=#tot#>
 		<table border="1" class="sortable">
 			<tr>
 				<th>Collection</th>
