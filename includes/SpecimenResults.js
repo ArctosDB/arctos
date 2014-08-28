@@ -282,7 +282,6 @@ function addBarcodes() {
 		var theTable='<table border width="100%"><tr><td>hi</td></tr></table>';
 		
 			$(this).append(theTable);
-		}
 	});
 	
 	
