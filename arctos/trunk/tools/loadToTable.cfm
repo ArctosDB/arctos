@@ -77,6 +77,10 @@ Upload CSV
 					<cfset colVals = "#colVals#,''">
 				</cfloop>
 			</cfif>
+			
+			<br>
+			
+			insert into #session.username#.my_temp_cf (#colNames#) values (#preservesinglequotes(colVals)#)
 			<cfquery name="ins" datasource="uam_god">
 				insert into #session.username#.my_temp_cf (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
