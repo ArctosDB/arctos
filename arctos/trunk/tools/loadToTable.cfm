@@ -45,6 +45,7 @@ Upload CSV
 					<cfset colVals="#colVals#,'#thisBit#'">
 				</cfif>
 			</cfloop>
+			<br>#thisBit#
 		<cfif o is 1>
 			<hr>
 			colNames: <br>
