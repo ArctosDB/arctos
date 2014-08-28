@@ -58,6 +58,10 @@ Upload CSV
 				<cfset s="#s# #x# varchar2(4000),">
 			</cfloop>
 			<cfset s=rereplace(s,",[^,]*$","")  & ")">
+			
+			<br>
+			
+			#preservesinglequotes(s)#				
 			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(s)#							
 			</cfquery>
