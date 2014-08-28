@@ -406,6 +406,7 @@
 						<a href="/bnhmMaps/kml.cfm" target="_blank">Google Maps/Google Earth</a>
 					</td>
 				</cfif>
+				<span onclick="addBarcodes()">addBarcodes</span>
 				<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
 					<td nowrap="nowrap">
 						<select name="goWhere" id="goWhere" size="1">

@@ -277,6 +277,76 @@ function insertTypes(idList) {
 	);
 }
 
+function addBarcodes() {
+	$("div[id^='CatItem_']").each(function(){ 
+		var theTable='<table border width="100%"><tr><td>hi</td></tr></table>';
+		
+			$(this).append(theTable);
+		}
+	});
+	
+	
+	
+	
+	$( "body" ).append('<div id="ajaxStatus" class="ajaxStatus">Feching Loan Pick...</div>')
+
+	
+	
+	
+	var transaction_id=$("#transaction_id").val();
+	if (transaction_id) {
+		$( "body" ).append('<div id="ajaxStatus" class="ajaxStatus">Feching Loan Pick...</div>')
+		jQuery.getJSON("/component/SpecimenResults.cfc",
+			{
+				method : "getLoanPartResults",
+				transaction_id : transaction_id,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				$("div[id^='CatItem_']").each(function(){ 
+					var x=this.id.split(/_(.+)?/)[1];
+					var gotsomething=false;					
+					var theTable='<table border width="100%">';
+					for (i=0; i<r.ROWCOUNT; ++i) {
+						if (r.DATA.COLLECTION_OBJECT_ID[i]==x){
+							gotsomething=true;
+							theTable+='<tr><td nowrap="nowrap" class="specResultPartCell"><i>' + r.DATA.PART_NAME[i];
+							if (r.DATA.SAMPLED_FROM_OBJ_ID[i] > 0) {
+								theTable += '&nbsp;sample';
+							}
+							theTable += "&nbsp;(" + r.DATA.COLL_OBJ_DISPOSITION[i] + ")</i> [" + r.DATA.BARCODE[i] + "]";
+							theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+							theTable += 'Remark:&nbsp;<input type="text" name="item_remark" size="10" id="item_remark_' + r.DATA.PARTID[i] + '">';
+							theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+							theTable += 'Instr.:&nbsp;<input type="text" name="item_instructions" size="10" id="item_instructions_' + r.DATA.PARTID[i] + '">';
+							theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+							theTable += 'Subsample?:&nbsp;<input type="checkbox" name="subsample" id="subsample_' + r.DATA.PARTID[i] + '">';
+							theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+							theTable += '<input type="button" id="theButton_' + r.DATA.PARTID[i] + '"';
+							theTable += ' class="insBtn"';
+							if (r.DATA.TRANSACTION_ID[i] > 0) {
+								theTable += ' onclick="" value="In Loan">';
+							} else {
+								theTable += ' value="Add" onclick="addPartToLoan(';
+								theTable += r.DATA.PARTID[i] + ');">';
+							}
+							if (r.DATA.ENCUMBRANCE_ACTION[i]!==null) {
+								theTable += '<br><i>Encumbrances:&nbsp;' + r.DATA.ENCUMBRANCE_ACTION[i] + '</i>';
+							}
+							theTable +="</td></tr>";
+						}
+					}
+					if (gotsomething){
+						theTable +='</table>';
+						$("#CatItem_" + x).append(theTable);
+					}
+				});
+				$("#ajaxStatus").remove();
+			}
+		);
+	} // no transaction_id just abort
+}
 function injectLoanPick() {
 	var transaction_id=$("#transaction_id").val();
 	if (transaction_id) {
