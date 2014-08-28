@@ -81,5 +81,13 @@ Upload CSV
 	</cfif>
 	<hr>
 	loaded to #session.username#.my_temp_cf
+	
+	
+				<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select * from #session.username#.my_temp_cf
+				</cfquery>
+				
+				<cfdump var=#r#>
+
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
