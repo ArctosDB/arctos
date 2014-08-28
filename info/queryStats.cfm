@@ -197,6 +197,12 @@ test-uam> desc uam_query.query_stats_coll
 					<td>#s#</td>
 				</tr>
 			</cfloop>
+			<tr>
+				<td>TOTALS</td>
+				<td></td>
+				<td>#tot.totc#</td>
+				<td>#tot.tots#</td>
+			</tr>
 		</table>
 	</cfoutput>
 </cfif>
