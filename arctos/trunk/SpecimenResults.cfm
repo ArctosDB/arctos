@@ -222,6 +222,8 @@
 		<!--- keep stuff around for JS to get at --->
 		<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
 		<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
+		<input type="hidden" name="SpecSrchTab" id="SpecSrchTab" value="#session.SpecSrchTab#">
+		
 		<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
 		<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 		<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">		
@@ -361,6 +363,7 @@
 	
 		<table border="0" width="100%">
 			<tr>
+			<!----
 				<td>
 					<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
 				</td>
@@ -373,6 +376,7 @@
 				<td>
 					<span class="controlButton" onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
 				</td>
+				---->
 				<cfif willmap.recordcount gt 0>
 					<!----
 					<td>
@@ -407,25 +411,29 @@
 						</td>
 						---->
 					</cfif>
+				</cfif>
 					<td>
 					
 						<select name="usertools" id="usertools" onchange="pickedTool()">
 							<option value="">Tools</option>
+								<cfif willmap.recordcount gt 0>
 							<option value="BerkeleyMapper">Map results in BerkeleyMapper</option>
 							<cfif listlen(gen) is 1 and listlen(sp) is 1>
 								<option value="BerkeleyMapperRM">Map results in BerkeleyMapper+RangeMap</option>
 							</cfif>
 							<option value="google">Map results in Google Maps/download for Google Earth</option>
+							</cfif>
 							<option value="customize">Add or Remove Data Fields (columns)</option>
-							
-							
+							<option value="removeRows">Remove Checked Rows</option>
+							<option value="saveSearch">Save Search</option>
+							<option value="download">Download</option>
 						</select>
 						
 						<!----
 						<a href="/bnhmMaps/kml.cfm" target="_blank">Google Maps/Google Earth</a>
 						---->
 					</td>
-				</cfif>
+				
 				<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
 					<td nowrap="nowrap">
 						<select name="goWhere" id="goWhere" size="1">

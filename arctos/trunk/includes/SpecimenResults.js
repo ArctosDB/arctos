@@ -118,7 +118,18 @@ function pickedTool(){
 		window.open("/bnhmMaps/kml.cfm", "_blank");
 	} else if (v=='customize') {
 		openCustomize();
+	} else if (v=='removeRows') {
+		removeRows();
+	} else if (v=='saveSearch') {
+		saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?' + $("#mapURL").val());
+	} else if (v=='download') {
+		window.open('/SpecimenResultsDownload.cfm?tableName=' + $("#SpecSrchTab").val(),'_blank');
 	}
+	$("#usertools").val('');
+	
+	
+	
+	
 }
 
 function openCustomize(){
