@@ -101,11 +101,12 @@ $(document).ready(function () {
 		console.log('hi, I am ' + this.value);
 		if (this.value=='BerkeleyMapper'){
 			window.open("/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val(), "_blank");
+		} else if (this.value=='BerkeleyMapperRM') {
+			window.open("/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&" + $("#mapURL").val(), "_blank");
+		} else if (this.value=='google') {
+			window.open("/bnhmMaps/kml.cfm", "_blank");
 		}
 	});
-	
-
-	
 });
 
 function resizeMap(s){
