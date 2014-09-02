@@ -100,7 +100,7 @@ $(document).ready(function () {
 	$("#mapit").change(function() {
 		console.log('hi, I am ' + this.value);
 		if (this.value=='BerkeleyMapper'){
-			window.open("/bnhmMaps/bnhmMapData.cfm?" + $("#mapurl").val(), "_blank");
+			window.open("/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val(), "_blank");
 		}
 	});
 	
