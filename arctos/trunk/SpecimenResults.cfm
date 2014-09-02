@@ -163,7 +163,7 @@
 	<cfset cfgml="">
 	<cfset cpc=1>
 	<cfloop query="hascoords">
-		<cfif cpc lt 500>
+		<cfif cpc lt 1000>
 			<cfif len(coordinateuncertaintyinmeters) is 0>
 				<cfset radius=0>
 			<cfelse>
@@ -301,7 +301,6 @@
 				</td>
 			</tr>
 		</table>
-		
 		<cfif cpc gte 500>
 			(The inline map contains only the first 500 localities.)
 		</cfif>
