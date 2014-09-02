@@ -1,5 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-<!----
 	<script>
 		jQuery(document).ready(function() {
 			$.each($("div[id^='mapgohere-']"), function() {
@@ -13,7 +12,6 @@
 			});
 		});
 	</script>
-	---->
 <style>
 	#annotateSpace {
 		font-size:small;
