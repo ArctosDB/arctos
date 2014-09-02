@@ -88,7 +88,7 @@
 			<div id="headerLinks" style="float:right;position:absolute;top:5px;right:5px;clear:both;">
 		    	<cfif len(session.username) gt 0>
 					<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
-					<cfif isdefined("session.last_login") and len(#session.last_login#) gt 0>
+					<cfif isdefined("session.last_login") and len(session.last_login) gt 0>
 						<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)</span>&nbsp;
 					</cfif>
 					<cfif isdefined("session.needEmailAddr") and session.needEmailAddr is 1>
