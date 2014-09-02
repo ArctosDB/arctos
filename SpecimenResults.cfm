@@ -409,13 +409,13 @@
 					</cfif>
 					<td>
 					
-						<select name="mapit" id="mapit">
-							<option value="">Map These Data</option>
-							<option value="BerkeleyMapper">BerkeleyMapper</option>
+						<select name="usertools" id="usertools">
+							<option value="">Tools</option>
+							<option value="BerkeleyMapper">Map results in BerkeleyMapper</option>
 							<cfif listlen(gen) is 1 and listlen(sp) is 1>
-								<option value="BerkeleyMapperRM">BerkeleyMapper+RangeMap</option>
+								<option value="BerkeleyMapperRM">Map results in BerkeleyMapper+RangeMap</option>
 							</cfif>
-							<option value="google">Google Maps/Google Earth</option>
+							<option value="google">Map results in Google Maps/download for Google Earth</option>
 						</select>
 						
 						<!----
