@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset mapRecordLimit=1000>
 <cfif not isdefined("session.RESULTSBROWSEPREFS")>
 	<cfset session.RESULTSBROWSEPREFS=0>
 </cfif>
@@ -163,7 +164,7 @@
 	<cfset cfgml="">
 	<cfset cpc=1>
 	<cfloop query="hascoords">
-		<cfif cpc lt 1000>
+		<cfif cpc lt mapRecordLimit>
 			<cfif len(coordinateuncertaintyinmeters) is 0>
 				<cfset radius=0>
 			<cfelse>
@@ -301,8 +302,8 @@
 				</td>
 			</tr>
 		</table>
-		<cfif cpc gte 500>
-			(The inline map contains only the first 500 localities.)
+		<cfif cpc gte mapRecordLimit>
+			(The inline map contains only the first #mapRecordLimit# localities.)
 		</cfif>
 		<div style="border:2px solid blue;" id="ssControl">
 			<cfif len(transaction_id) gt 0>
@@ -437,7 +438,7 @@
 				
 				<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
 					<td nowrap="nowrap">
-						<select name="goWhere" id="goWhere" size="1">
+						<select name="goWhere" id="goWhere" size="1" onchange="reporter('#session.SpecSrchTab#');">
 							<option value="">Manage...</option>
 							<option value="/Encumbrances.cfm">
 								Encumbrances
@@ -497,7 +498,9 @@
 								Print Any Report
 							</option>
 						</select>
+						<!----
 						<input type="button" value="Go" class="lnkBtn" onClick="reporter('#session.SpecSrchTab#');">
+						---->
 					</td>
 				</cfif>
 				<td>
