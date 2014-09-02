@@ -115,7 +115,6 @@ function toggleSearchTerms(){
 	} else {
 		var v=1;
 		}
-	//$('#refineSearchTerms').slideToggle("fast");
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "setResultsBrowsePrefs",
@@ -131,7 +130,6 @@ function toggleSearchTerms(){
 					jQuery("#cntr_refineSearchTerms").html(data);
 				});
 			} else {
-				console.log('nukeytime....');
 				$('#refineSearchTerms').remove();
 				$('#aboutSTWH').remove();
 				$('#fbSWT').remove();
