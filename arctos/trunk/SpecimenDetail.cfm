@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<!----
 	<script>
 		jQuery(document).ready(function() {
 			$.each($("div[id^='mapgohere-']"), function() {
@@ -12,6 +13,7 @@
 			});
 		});
 	</script>
+	---->
 <style>
 	#annotateSpace {
 		font-size:small;
@@ -247,9 +249,11 @@ font-weight:bold;
 					#detail.partString#
 				</div>
 			</td>
+			<!----
 			<td valign="top" align="right">
 				<div id="SDheaderMap">
 				 <cfif (len(detail.dec_lat) gt 0 and len(detail.dec_long) gt 0)>
+				 
 					<div id="mapgohere-collection_object_id-#detail.collection_object_id#"></div>
 					<!---
 					<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
@@ -262,6 +266,7 @@ font-weight:bold;
 				</cfif>
 				</div>
 			</td>
+			---->
 		    <td valign="top" align="right">
 		        <div id="annotateSpace">
 					<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
