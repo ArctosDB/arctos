@@ -108,7 +108,9 @@ $(document).ready(function () {
 	});
 	
 	
-	$('#showsearchterms').click(function() {
+
+	
+	$('#showsearchterms').on("click", function() {
 		
 		console.log('clickeytime....');
 
