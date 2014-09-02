@@ -150,7 +150,7 @@
 						});
 					});
 				</script>
-				<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
+				<span class="infoLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			</cfsavecontent>
 			<cfreturn widget>
 		</cfif>
@@ -334,7 +334,7 @@
 					$("##refineResults").find("input[type=text]").val("");
 				}
 			</script>
-			<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
+			<span class="infoLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			
 			
 			<cfif session.ResultsBrowsePrefs is 1>
