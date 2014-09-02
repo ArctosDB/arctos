@@ -117,6 +117,7 @@
 	<cfoutput>
 		<cfif session.resultsbrowseprefs neq 1>
 			<cfsavecontent variable="widget">
+			<!----
 				<script>
 					jQuery( function($) {
 						$('##showsearchterms2').click(function() {
@@ -150,6 +151,7 @@
 						});
 					});
 				</script>
+				----->
 				<span class="infoLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			</cfsavecontent>
 			<cfreturn widget>
@@ -267,6 +269,8 @@
 			</cfif>
 		</cfloop>
 		<cfsavecontent variable="widget">
+		
+		<!---------
 			<script>
 				jQuery( function($) {
 					$('##showsearchterms2').click(function() {
@@ -334,6 +338,7 @@
 					$("##refineResults").find("input[type=text]").val("");
 				}
 			</script>
+			------------->
 			<span class="infoLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			
 			
