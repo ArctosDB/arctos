@@ -409,7 +409,7 @@
 					</cfif>
 					<td>
 					
-						<select name="usertools" id="usertools">
+						<select name="usertools" id="usertools" onchange="pickedTool()">
 							<option value="">Tools</option>
 							<option value="BerkeleyMapper">Map results in BerkeleyMapper</option>
 							<cfif listlen(gen) is 1 and listlen(sp) is 1>
