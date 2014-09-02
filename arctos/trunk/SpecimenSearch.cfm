@@ -789,7 +789,7 @@
 
 
 		$("#collection_id").multiselect({
-			minWidth: "auto"
+			minWidth: "500"
 		});
 	});
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
