@@ -4,7 +4,7 @@
 </cfif>
 <cfset title="Specimen Results">
 <cfif not isdefined("session.srmapclass") or len(session.srmapclass) is 0>
-	<cfset session.srmapclass='none'>
+	<cfset session.srmapclass='nomap'>
 </cfif>
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
 <script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js'></script>
