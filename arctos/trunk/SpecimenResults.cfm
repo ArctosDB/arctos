@@ -302,7 +302,7 @@
 				</td>
 			</tr>
 		</table>
-		<strong>Found #summary.recordcount# specimens.</strong>
+		
 		<cfif cpc gte 500>
 			(The inline map contains only the first 500 localities.)
 		</cfif>
@@ -363,6 +363,9 @@
 	
 		<table border="0" width="100%">
 			<tr>
+			<td>
+				<strong>Found #summary.recordcount# specimens.</strong>
+			</td>
 			<!----
 				<td>
 					<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
