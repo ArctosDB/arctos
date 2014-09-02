@@ -374,13 +374,12 @@
 					<span class="controlButton" onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
 				</td>
 				<cfif willmap.recordcount gt 0>
+					<!----
 					<td>
-						<select name="mapit" id="mapit">
-							<option value="">Map These Data</option>
-							<option value="BerkeleyMapper">BerkeleyMapper</option>
-						</select>
+						
 						<a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">BerkeleyMapper</a>
 					</td>
+					---->
 					<!--- far from perfect, but see if we can prevent some frustration by sending fewer bound-to-fail queries to rangemaps ---->
 					<cfquery dbtype="query" name="willItRangeMap">
 						select scientific_name from summary group by scientific_name
@@ -402,12 +401,26 @@
 						</cfif>
 					</cfloop>
 					<cfif listlen(gen) is 1 and listlen(sp) is 1>
+					<!----
 						<td>
 							<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">BerkeleyMapper+Rangemaps</a>
 						</td>
+						---->
 					</cfif>
 					<td>
+					
+						<select name="mapit" id="mapit">
+							<option value="">Map These Data</option>
+							<option value="BerkeleyMapper">BerkeleyMapper</option>
+							<cfif listlen(gen) is 1 and listlen(sp) is 1>
+								<option value="BerkeleyMapperRM">BerkeleyMapper+RangeMap</option>
+							</cfif>
+							<option value="google">Google Maps/Google Earth</option>
+						</select>
+						
+						<!----
 						<a href="/bnhmMaps/kml.cfm" target="_blank">Google Maps/Google Earth</a>
+						---->
 					</td>
 				</cfif>
 				<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
