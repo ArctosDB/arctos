@@ -475,7 +475,14 @@ function reporter(tablename) {
 	u += sep;
 	u += '&table_name=' + t;
 	u += '&sort=' + s;
-	$("#goWhere").val('');
+	
+
+
+	$("#goWhere").val($("#goWhere option:first").val());
+
+
+	
+	
 	var reportWin=window.open(u);
 }
 function removeRows() {
