@@ -149,7 +149,6 @@
 					});
 				</script>
 				<span class="infoLink" id="showsearchterms">[ Show/Hide Search Terms ]</span>
-				<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
 			</cfsavecontent>
 			<cfreturn widget>
 		</cfif>
@@ -318,8 +317,9 @@
 				<cfset thisStyle='display:none;'>
 			</cfif>
 			<div id="refineSearchTerms" style="#thisStyle#">
+				<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
 				<div style="font-size:small;">
-					This is an experiment. <a href="/contact.cfm?ref=SpecimenResultsWidget">Contact us</a> to provide feedback.
+					<a href="/contact.cfm?ref=SpecimenResultsWidget">Contact us</a> to provide feedback.
 				</div>
 				<form name="refineResults" id="refineResults" method="get" action="/SpecimenResults.cfm">
 					<table id="stermwdgtbl" border>
