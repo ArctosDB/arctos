@@ -416,6 +416,9 @@
 								<option value="BerkeleyMapperRM">Map results in BerkeleyMapper+RangeMap</option>
 							</cfif>
 							<option value="google">Map results in Google Maps/download for Google Earth</option>
+							<option value="customize">Add or Remove Data Fields (columns)</option>
+							
+							
 						</select>
 						
 						<!----
