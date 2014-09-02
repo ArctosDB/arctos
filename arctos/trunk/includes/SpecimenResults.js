@@ -97,8 +97,7 @@ $(document).ready(function () {
 		//$("#srmapctrls").show();
 		resizeMap('smallmap');
 	});
-	$("#mapit").change(function() {
-		console.log('hi, I am ' + this.value);
+	$("#usertools").change(function() {
 		if (this.value=='BerkeleyMapper'){
 			window.open("/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val(), "_blank");
 		} else if (this.value=='BerkeleyMapperRM') {
