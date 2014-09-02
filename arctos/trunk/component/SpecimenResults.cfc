@@ -315,11 +315,15 @@
 			<cfelse>
 				<cfset thisStyle='display:none;'>
 			</cfif>
-			<div id="refineSearchTerms" style="#thisStyle#">
-				<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
-				<div style="font-size:small;">
+			
+			<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
+				<span style="font-size:small;">
 					<a href="/contact.cfm?ref=SpecimenResultsWidget">Contact us</a> to provide feedback.
-				</div>
+				</span>
+				
+				
+			<div id="refineSearchTerms" style="#thisStyle#">
+				
 				<form name="refineResults" id="refineResults" method="get" action="/SpecimenResults.cfm">
 					<table id="stermwdgtbl" border>
 						<tr>
