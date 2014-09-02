@@ -161,7 +161,7 @@
 	</select>
 	&nbsp;&nbsp;&nbsp;<span class="helpLink" id="_is_tissue">Require&nbsp;Tissues?</span><input type="checkbox" name="is_tissue" id="is_tissue" value="1">
 </div>
-<input type="hidden" name="Action" value="#Action#">
+<input type="hidden" name="action" value="#action#">
 <div class="secDiv">
 	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT institution, collection, collection_id FROM collection order by collection
@@ -785,7 +785,9 @@
 		jQuery.get("/form/browse.cfm", function(data){
 			 jQuery('body').append(data);
 		})
-	   $("#collection_id").multiselect(); 
+	   $("#collection_id").multiselect({
+			minWidth: auto;	
+		}); 
 	});
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,

@@ -181,7 +181,6 @@ test-uam> desc uam_query.query_stats_coll
 		<cfquery name="tot" dbtype="query">
 			select sum(c) totc, sum(s) tots from total
 		</cfquery>
-		<cfdump var=#tot#>
 		<table border="1" class="sortable">
 			<tr>
 				<th>Collection</th>
@@ -198,7 +197,7 @@ test-uam> desc uam_query.query_stats_coll
 				</tr>
 			</cfloop>
 			<tr>
-				<td>TOTALS</td>
+				<td>SUM</td>
 				<td></td>
 				<td>#tot.totc#</td>
 				<td>#tot.tots#</td>
