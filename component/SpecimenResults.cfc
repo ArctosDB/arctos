@@ -317,9 +317,7 @@
 			</cfif>
 			
 			<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
-				<span style="font-size:small;">
-					<a href="/contact.cfm?ref=SpecimenResultsWidget">Contact us</a> to provide feedback.
-				</span>
+			<a class="infoLink" href="/contact.cfm?ref=SpecimenResultsWidget">Contact us</a> to provide feedback.
 				
 				
 			<div id="refineSearchTerms" style="#thisStyle#">
