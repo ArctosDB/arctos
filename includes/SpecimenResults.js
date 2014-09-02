@@ -609,6 +609,30 @@ function queryByViewport(){
 		$("#swlong").val(swlong);
 	}
 }
+
+function addARow(tv){
+	jQuery.getJSON("/component/SpecimenResults.cfc",
+		{
+			method : "specSrchTermWidget_addrow",
+			term : tv,
+			returnformat : "json"
+		},
+		function (result) {
+			$('#stermwdgtbl tr:last').after(result);
+			$("#newTerm option[value='" + tv + "']").remove();
+		}
+	);
+}
+function removeTerm(key){
+	$("#" + key).remove();
+	$("#row_" + key).remove();
+}
+function clearAll(){
+	$("##refineResults").find("input[type=text]").val("");
+}
+
+
+
 function checkMapBB(){
 	if ($("#nelat").length>0 && $("#nelong").length>0 && $("#swlat").length>0 && $("#swlong").length>0) {
 		var sw=new google.maps.LatLng($("#swlat").val(), $("#swlong").val());
