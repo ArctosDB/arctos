@@ -147,8 +147,6 @@
 									}
 								}
 							);
-							// they had it off, give them the option of turning it on and then fetch with data when they do
-							
 						});
 					});
 				</script>
@@ -278,6 +276,30 @@
 							var v=1;
 	  					}
 						$('##refineSearchTerms').slideToggle("fast");
+
+						jQuery.getJSON("/component/functions.cfc",
+								{
+									method : "setResultsBrowsePrefs",
+									val : v,
+									returnformat : "json",
+									queryformat : 'column'
+								},
+								function() {
+									if (v==1){
+										jQuery("##cntr_refineSearchTerms").html("<img src='/images/indicator.gif'>");
+										var ptl='/component/SpecimenResults.cfc?method=get_specSrchTermWidget&returnformat=plain';
+										jQuery.get(ptl, function(data){
+											jQuery("##cntr_refineSearchTerms").html(data);
+										});
+									} else {
+										console.log('nukeytime....');
+										$('##aboutSTWH').remove();
+										$('##fbSWT').remove();
+									}
+								}
+							);
+
+/*
 						jQuery.getJSON("/component/functions.cfc",
 							{
 								method : "setResultsBrowsePrefs",
@@ -286,6 +308,7 @@
 								queryformat : 'column'
 							}
 						);
+* */
 					});
 					// after this loads, check if we need to recenter the map.....
 					checkMapBB();
