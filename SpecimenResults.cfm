@@ -375,6 +375,10 @@
 				</td>
 				<cfif willmap.recordcount gt 0>
 					<td>
+						<select name="mapit" id="mapit">
+							<option value="">Map These Data</option>
+							<option value="BerkeleyMapper">BerkeleyMapper</option>
+						</select>
 						<a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">BerkeleyMapper</a>
 					</td>
 					<!--- far from perfect, but see if we can prevent some frustration by sending fewer bound-to-fail queries to rangemaps ---->
