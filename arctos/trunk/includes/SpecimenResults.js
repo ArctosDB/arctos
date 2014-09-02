@@ -106,19 +106,6 @@ $(document).ready(function () {
 			window.open("/bnhmMaps/kml.cfm", "_blank");
 		}
 	});
-	
-	
-
-	
-	$('#showsearchterms').on("click", function() {
-		
-		console.log('clickeytime....');
-
-	
-	});
-	
-	
-	
 });
 
 
@@ -128,7 +115,7 @@ function toggleSearchTerms(){
 	} else {
 		var v=1;
 		}
-	$('#refineSearchTerms').slideToggle("fast");
+	//$('#refineSearchTerms').slideToggle("fast");
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "setResultsBrowsePrefs",
@@ -145,6 +132,7 @@ function toggleSearchTerms(){
 				});
 			} else {
 				console.log('nukeytime....');
+				$('#refineSearchTerms').remove();
 				$('#aboutSTWH').remove();
 				$('#fbSWT').remove();
 			}
