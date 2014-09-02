@@ -785,9 +785,12 @@
 		jQuery.get("/form/browse.cfm", function(data){
 			 jQuery('body').append(data);
 		})
-	   $("#collection_id").multiselect({
-			minWidth: auto;	
-		}); 
+
+
+
+		$("#collection_id").multiselect({
+			minWidth: auto
+		});
 	});
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
