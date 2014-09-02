@@ -106,6 +106,43 @@ $(document).ready(function () {
 			window.open("/bnhmMaps/kml.cfm", "_blank");
 		}
 	});
+	
+	
+	$('##showsearchterms').click(function() {
+		
+		console.log('clickeytime....');
+
+		if($("##refineSearchTerms").is(":visible")) {
+			var v=0;
+		} else {
+			var v=1;
+			}
+		$('##refineSearchTerms').slideToggle("fast");
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "setResultsBrowsePrefs",
+				val : v,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function() {
+				if (v==1){
+					jQuery("##cntr_refineSearchTerms").html("<img src='/images/indicator.gif'>");
+					var ptl='/component/SpecimenResults.cfc?method=get_specSrchTermWidget&returnformat=plain';
+					jQuery.get(ptl, function(data){
+						jQuery("##cntr_refineSearchTerms").html(data);
+					});
+				} else {
+					console.log('nukeytime....');
+					$('##aboutSTWH').remove();
+					$('##fbSWT').remove();
+				}
+			}
+		);
+	});
+	
+	
+	
 });
 
 function pickedTool(){

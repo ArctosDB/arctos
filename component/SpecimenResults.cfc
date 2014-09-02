@@ -119,7 +119,7 @@
 			<cfsavecontent variable="widget">
 				<script>
 					jQuery( function($) {
-						$('##showsearchterms').click(function() {
+						$('##showsearchterms2').click(function() {
 							if($("##refineSearchTerms").is(":visible")) {
 								var v=0;
 							} else {
@@ -269,7 +269,7 @@
 		<cfsavecontent variable="widget">
 			<script>
 				jQuery( function($) {
-					$('##showsearchterms').click(function() {
+					$('##showsearchterms2').click(function() {
 						if($("##refineSearchTerms").is(":visible")) {
 							var v=0;
 						} else {
