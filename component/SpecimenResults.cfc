@@ -117,41 +117,6 @@
 	<cfoutput>
 		<cfif session.resultsbrowseprefs neq 1>
 			<cfsavecontent variable="widget">
-			<!----
-				<script>
-					jQuery( function($) {
-						$('##showsearchterms2').click(function() {
-							if($("##refineSearchTerms").is(":visible")) {
-								var v=0;
-							} else {
-								var v=1;
-		  					}
-							$('##refineSearchTerms').slideToggle("fast");
-							jQuery.getJSON("/component/functions.cfc",
-								{
-									method : "setResultsBrowsePrefs",
-									val : v,
-									returnformat : "json",
-									queryformat : 'column'
-								},
-								function() {
-									if (v==1){
-										jQuery("##cntr_refineSearchTerms").html("<img src='/images/indicator.gif'>");
-										var ptl='/component/SpecimenResults.cfc?method=get_specSrchTermWidget&returnformat=plain';
-										jQuery.get(ptl, function(data){
-											jQuery("##cntr_refineSearchTerms").html(data);
-										});
-									} else {
-										console.log('nukeytime....');
-										$('##aboutSTWH').remove();
-										$('##fbSWT').remove();
-									}
-								}
-							);
-						});
-					});
-				</script>
-				----->
 				<span class="infoLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			</cfsavecontent>
 			<cfreturn widget>
@@ -269,91 +234,15 @@
 			</cfif>
 		</cfloop>
 		<cfsavecontent variable="widget">
-		
-		<!---------
-			<script>
-				jQuery( function($) {
-					$('##showsearchterms2').click(function() {
-						if($("##refineSearchTerms").is(":visible")) {
-							var v=0;
-						} else {
-							var v=1;
-	  					}
-						$('##refineSearchTerms').slideToggle("fast");
-
-						jQuery.getJSON("/component/functions.cfc",
-								{
-									method : "setResultsBrowsePrefs",
-									val : v,
-									returnformat : "json",
-									queryformat : 'column'
-								},
-								function() {
-									if (v==1){
-										jQuery("##cntr_refineSearchTerms").html("<img src='/images/indicator.gif'>");
-										var ptl='/component/SpecimenResults.cfc?method=get_specSrchTermWidget&returnformat=plain';
-										jQuery.get(ptl, function(data){
-											jQuery("##cntr_refineSearchTerms").html(data);
-										});
-									} else {
-										console.log('nukeytime....');
-										$('##aboutSTWH').remove();
-										$('##fbSWT').remove();
-									}
-								}
-							);
-
-/*
-						jQuery.getJSON("/component/functions.cfc",
-							{
-								method : "setResultsBrowsePrefs",
-								val : v,
-								returnformat : "json",
-								queryformat : 'column'
-							}
-						);
-* */
-					});
-					// after this loads, check if we need to recenter the map.....
-					checkMapBB();
-				});
-				function addARow(tv){
-					jQuery.getJSON("/component/SpecimenResults.cfc",
-						{
-							method : "specSrchTermWidget_addrow",
-							term : tv,
-							returnformat : "json"
-						},
-						function (result) {
-							$('##stermwdgtbl tr:last').after(result);
-							$("##newTerm option[value='" + tv + "']").remove();
-						}
-					);
-				}
-				function removeTerm(key){
-					$("##" + key).remove();
-					$("##row_" + key).remove();
-				}
-				function clearAll(){
-					$("##refineResults").find("input[type=text]").val("");
-				}
-			</script>
-			------------->
 			<span class="infoLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
-			
-			
 			<cfif session.ResultsBrowsePrefs is 1>
 				<cfset thisStyle='display:block;'>
 			<cfelse>
 				<cfset thisStyle='display:none;'>
 			</cfif>
-			
 			<a id="aboutSTWH" class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
 			<a id="fbSWT" class="infoLink" href="/contact.cfm?ref=SpecimenResultsWidget">[ provide feedback ]</a>
-				
-				
 			<div id="refineSearchTerms" style="#thisStyle#">
-				
 				<form name="refineResults" id="refineResults" method="get" action="/SpecimenResults.cfm">
 					<table id="stermwdgtbl" border>
 						<tr>
