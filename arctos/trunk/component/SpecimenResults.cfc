@@ -126,6 +126,8 @@
 								var v=1;
 		  					}
 							$('##refineSearchTerms').slideToggle("fast");
+							$('##aboutSTWH').slideToggle("fast");
+							$('##fbSWT').slideToggle("fast");
 							jQuery.getJSON("/component/functions.cfc",
 								{
 									method : "setResultsBrowsePrefs",
@@ -316,8 +318,8 @@
 				<cfset thisStyle='display:none;'>
 			</cfif>
 			
-			<a class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
-			<a class="infoLink" href="/contact.cfm?ref=SpecimenResultsWidget">[ provide feedback ]</a>
+			<a id="aboutSTWH" class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
+			<a id="fbSWT" class="infoLink" href="/contact.cfm?ref=SpecimenResultsWidget">[ provide feedback ]</a>
 				
 				
 			<div id="refineSearchTerms" style="#thisStyle#">
