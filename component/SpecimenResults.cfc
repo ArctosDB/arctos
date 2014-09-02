@@ -141,6 +141,7 @@
 											jQuery("##cntr_refineSearchTerms").html(data);
 										});
 									} else {
+										console.log('nukeytime....');
 										$('##aboutSTWH').remove();
 										$('##fbSWT').remove();
 									}
