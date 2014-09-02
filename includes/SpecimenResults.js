@@ -108,6 +108,43 @@ $(document).ready(function () {
 	});
 });
 
+function pickedTool(){
+	var v=$("#usertools").val();
+	if (v=='BerkeleyMapper'){
+		window.open("/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val(), "_blank");
+	} else if (v=='BerkeleyMapperRM') {
+		window.open("/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&" + $("#mapURL").val(), "_blank");
+	} else if (v=='google') {
+		window.open("/bnhmMaps/kml.cfm", "_blank");
+	} else if (v=='customize') {
+		openCustomize();
+	}
+}
+
+function openCustomize(){
+	var guts = "/info/SpecimenResultsPrefs.cfm";
+    $("<div class='popupDialog'><img src='/images/indicator.gif'></div>")
+    .dialog({
+        autoOpen: true,
+        closeOnEscape: true,
+        height: 'auto',
+        modal: true,
+        position: ['center', 'center'],
+        title: 'Customize results and downloads. Excessive options adversely affect performance.',
+        width: 'auto',
+        buttons : {
+            "Save and refresh" : function(){
+            	closeCustom();
+            }
+        }
+    }).load(guts, function() {
+        $(this).dialog("option", "position", ['center', 'center'] );
+    });
+    $(window).resize(function() {
+    	$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+    });
+	
+}
 function resizeMap(s){
 	if (s=='nomap') {
 		$("#srmapctrls-nomap").show();
