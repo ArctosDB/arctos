@@ -126,8 +126,6 @@
 								var v=1;
 		  					}
 							$('##refineSearchTerms').slideToggle("fast");
-							$('##aboutSTWH').slideToggle("fast");
-							$('##fbSWT').slideToggle("fast");
 							jQuery.getJSON("/component/functions.cfc",
 								{
 									method : "setResultsBrowsePrefs",
@@ -143,6 +141,9 @@
 											jQuery("##cntr_refineSearchTerms").html(data);
 										});
 									}
+								} else {
+									$('##aboutSTWH').remove();
+									$('##fbSWT').remove();
 								}
 							);
 							// they had it off, give them the option of turning it on and then fetch with data when they do
