@@ -140,10 +140,10 @@
 										jQuery.get(ptl, function(data){
 											jQuery("##cntr_refineSearchTerms").html(data);
 										});
+									} else {
+										$('##aboutSTWH').remove();
+										$('##fbSWT').remove();
 									}
-								} else {
-									$('##aboutSTWH').remove();
-									$('##fbSWT').remove();
 								}
 							);
 							// they had it off, give them the option of turning it on and then fetch with data when they do
