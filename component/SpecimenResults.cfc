@@ -124,7 +124,7 @@
 			select #key# from #session.SpecSrchTab# group by #key#
 		</cfquery>
 		<cfquery name="r2" dbtype="query">
-			select v from r union select #key# from currentdata
+			select v from r union all select #key# from currentdata
 		</cfquery>
 		<cfdump var=#r2#>
 		
