@@ -1286,8 +1286,8 @@ function confirmDelete(formName,msg) {
 	yesno=confirm('Are you sure you want to delete ' + msg + '?');
 	//confirmWin=windowOpener("/includes/abort.cfm?formName="+formName+"&msg="+msg,"confirmWin","width=200,height=150,resizable");
 	if (yesno==true) {
-  		txtstrng='document[formName].submit();';
-		eval(txtstrng);
+  		document[formName].submit();
+		//eval(txtstrng);
  	} else {
 	  	return false;
   	}
