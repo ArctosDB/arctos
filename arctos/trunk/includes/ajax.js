@@ -248,9 +248,9 @@ function saveThisAnnotation() {
 						} else {
 							alert('An error occured! \n ' + r);
 						}
+						return true;
 					}
 				);
-				return true;
 			}
 		}
 	);
@@ -1054,13 +1054,14 @@ function closeAndRefresh(){
 	document.body.removeChild(theDiv);
 }
 function getFormValues() {
- 	var theForm=document.getElementById('SpecData');
- 	var nval=theForm.length;
- 	var spAry = new Array();
- 	for (var i=0; i<nval; i++) {
-		var theElement = theForm.elements[i];
-		var element_name = theElement.name;
-		var element_value = theElement.value;
+ 	var theForm,nval,spAry,i,theElement,element_name,element_value,str;
+ 	theForm=document.getElementById('SpecData');
+ 	nval=theForm.length;
+ 	spAry = [];
+ 	for (i=0; i<nval; i++) {
+		theElement = theForm.elements[i];
+		element_name = theElement.name;
+		element_value = theElement.value;
 		if (element_name.length>0 && element_value.length>0 && element_name !='selectedCoords') {
 			var thisPair=element_name + '::' + String(element_value);
 			if (spAry.indexOf(thisPair)==-1) {
@@ -1068,7 +1069,7 @@ function getFormValues() {
 			}
 		}
 	} 	
-	var str=spAry.join("|");
+	str=spAry.join("|");
 	document.cookie = 'schParams=' + str;
  }
 function nada(){
@@ -1127,10 +1128,11 @@ function IsNumeric(sText) {
 }
  function get_cookie ( cookie_name ) {
   var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
-  if ( results )
+  if ( results ) {
     return ( unescape ( results[2] ) );
-  else
+  } else {
     return null;
+  }
 }
 function orapwCheck(p,u) {
 	var regExp = /^[A-Za-z0-9!$%&_?(\-)<>=/:;*\.]$/;
@@ -1195,12 +1197,10 @@ function getDocs(url,anc) {
 }		
 function noenter(e) {
 	var key;
-
     if(window.event)
          key = window.event.keyCode;     //IE
     else
          key = e.which;     //firefox
-
     if(key == 13)
          return false;
     else
