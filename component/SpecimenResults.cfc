@@ -92,6 +92,14 @@
 <!--------------------------------------------------------------------------------------->
 <cffunction name="getVocabulary" access="remote">
 	<cfparam name="key" type="string">
+	<cfparam name="scope" type="string">
+	<cfif scope is "results">
+		<!---- just get values from their data ----->
+		<cfquery name="currentdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select #key# v,1 m from #session.SpecSrchTab# where #key# is not null group by #key# order by #key#
+		</cfquery>
+		<cfreturn currentdata>
+	</cfif>
 	<cfquery name="v" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 		select CONTROLLED_VOCABULARY from ssrch_field_doc where CF_VARIABLE='#key#'
 	</cfquery>
