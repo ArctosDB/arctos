@@ -21,7 +21,7 @@ function fetchSrchWgtVocab(key){
 				h='<select id="svc_' + key + '" class="ssw_sngselect" onchange="$(\'#' + key + '\').val(this.value);">';
 				h+='<option value=""></option>';
 				for (i=0; i<r.ROWCOUNT; ++i) {
-					h+='<option value="' + r.DATA.DATA[i] + ';
+					h+='<option value="' + r.DATA.DATA[i];
 					if (r.DATA.M[i] > 1) {
 						
 						h+='" style="font-weight:bold"';
