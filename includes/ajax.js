@@ -231,26 +231,27 @@ function saveThisAnnotation() {
 			if (r != captchaHash){
 				alert('bad captcha');
 				return false;
-			}
-			$.getJSON("/component/functions.cfc",
-				{
-					method : "addAnnotation",
-					idType : idType,
-					idvalue : idvalue,
-					annotation : annotation,
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				function(r) {
-					//alert('returned: ' + r)
-					if (r == 'success') {
-						closeAnnotation();
-						alert("Your annotations have been saved, and the appropriate curator will be alerted. \n Thank you for helping improve Arctos!");
-					} else {
-						alert('An error occured! \n ' + r);
+			} else {
+				$.getJSON("/component/functions.cfc",
+					{
+						method : "addAnnotation",
+						idType : idType,
+						idvalue : idvalue,
+						annotation : annotation,
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function(r) {
+						if (r == 'success') {
+							closeAnnotation();
+							alert("Your annotations have been saved, and the appropriate curator will be alerted. \n Thank you for helping improve Arctos!");
+						} else {
+							alert('An error occured! \n ' + r);
+						}
 					}
-				}
-			);
+				);
+				return true;
+			}
 		}
 	);
 }
@@ -971,7 +972,7 @@ function changeshowObservations (tgt) {
 }
 
 function saveSpecSrchPref(id,onOff){
-	var savedArray,result,id,onOff,cookieArray,cCookie,idFound;
+	var savedArray,result,cookieArray,cCookie,idFound;
 
 	$.getJSON("/component/functions.cfc",
 		{
@@ -987,7 +988,8 @@ function saveSpecSrchPref(id,onOff){
 			id = savedArray[1];
 			onOff = savedArray[2];
 			if (result == "cookie") {
-				cookieArray = new Array();
+				cookieArray=[];
+				//cookieArray = new Array();
 				cCookie = readCookie("specsrchprefs");
 				idFound = -1;
 				if (cCookie!==null)	{
