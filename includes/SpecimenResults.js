@@ -38,6 +38,8 @@ function initializeMap() {
 			zIndex:-99
 		};
 		crcl = new google.maps.Circle(circleoptn);
+		
+		/*
 		var marker = new google.maps.Marker({
 			position: center,
     		map: map,
@@ -51,6 +53,28 @@ function initializeMap() {
     		infowindow.setContent(this.contentString);
     		infowindow.open(map, this);
 		});
+		
+		*/
+		
+		
+			  marker = new google.maps.Marker({
+			    position: center,
+			    map: map,
+			    title: ns + ' specimens; Error(m)=' + r,
+			    contentString: contentString,
+				zIndex: 10
+			  });
+
+			  google.maps.event.addListener(marker, 'click', (function(marker) {
+			    return function() {
+			      infowindow.setContent("Test");
+			      infowindow.open(map, marker);
+			    }
+			  })(marker));
+			}
+		
+		
+		
 	}
 	var bounds = new google.maps.LatLngBounds();
 	for (var i=0; i < markers.length; i++) {
