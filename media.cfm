@@ -144,9 +144,7 @@
 			<input type="hidden" id="media_id" name="media_id" value="#media_id#">
 			<label for="media_uri">Media URI (<a href="#media.media_uri#" target="_blank">open</a>)</label>
 			<input type="text" name="media_uri" id="media_uri" size="90" value="#media.media_uri#">
-			<cfif media.media_uri contains application.serverRootUrl>
-				<span class="infoLink" onclick="generateMD5()">Generate Checksum</span>
-			</cfif>
+			<span class="infoLink" onclick="generateMD5()">Generate Checksum</span>
 			<label for="preview_uri">Preview URI 
 				<cfif len(media.preview_uri) gt 0>
 					(<a href="#media.preview_uri#" target="_blank">open</a>)
