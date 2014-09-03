@@ -12,55 +12,6 @@
 			});
 		});
 	</script>
-<style>
-	#annotateSpace {
-		font-size:small;
-		padding-left:1em;
-	}
-	#SDheaderCollCatNum {
-		font-size:x-large;
-		font-weight:bold;
-	}
-	#SDheaderCustID {
-		font-size:large;
-		font-weight:bold;
-		padding-left:.5em;
-	}
-	#SDheaderSciName {
-		font-size:larger;
-		font-weight:bold;
-		font-style:italic;
-		padding-left:.5em;
-	}
-	#SDheaderSpecLoc {
-		font-weight:bold;
-	}
-	#SDheaderGeog {
-	}
-	#SDheaderDate {
-	}
-	#navSpace {
-		border:1px solid green;
-		text-align:center;
-		max-width:10em;
-	}
-	#SDheaderMap {
-		padding-left:1em;
-	}
-	#SDheaderPart {
-		padding-left:.5em;
-		font-size:small;
-	}
-	#SDCollCatBlk {
-		padding-right:.5em;
-	}
-	#SDheaderGoBakBtn {
-border:0px solid red;
-font-size:smaller;
-font-weight:bold;
-
-}
-</style>
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
