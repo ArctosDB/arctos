@@ -251,6 +251,7 @@
 							SELECT * FROM ssrch_field_doc WHERE CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
 						</cfquery>
 						<input class="clrBtn" type="reset" value="Reset Filters">
+						<span style="width:10em">&nbsp;</span>
 						<select id="newTerm" onchange="addARow(this.value);">
 							<option value=''>Add a row....</option>
 							<cfloop query="newkeys">
