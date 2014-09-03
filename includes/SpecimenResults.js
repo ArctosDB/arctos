@@ -1,6 +1,12 @@
 var map;
 var bounds;
 var markers = new Array();
+
+function fetchSrchWgtVocab(key){
+	
+	$("#voccell_" + key).html('tatertors');
+	
+}
 function initializeMap() {
 	// just nuke the old map
 	$("#spresmapdiv").html('');
