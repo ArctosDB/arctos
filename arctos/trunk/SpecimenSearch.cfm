@@ -406,14 +406,6 @@
 			</td>
 		</tr>
 		<tr>
-			<!----
-			<td class="lbl">
-				<span class="helpLink" id="_any_taxa_term">Any Taxonomic Element:</span>
-			</td>
-			<td class="srch">
-				<input type="text" name="any_taxa_term" id="any_taxa_term" size="50">
-			</td>
-			---->
 			<td class="lbl">
 				<span class="helpLink" id="_scientific_name">Identification</span>
 			</td>

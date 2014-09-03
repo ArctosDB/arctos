@@ -250,13 +250,13 @@
 						<cfquery name="newkeys" dbtype="query">
 							SELECT * FROM ssrch_field_doc WHERE CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
 						</cfquery>
+						<input class="clrBtn" type="reset" value="Reset Filters">
 						<select id="newTerm" onchange="addARow(this.value);">
 							<option value=''>Add a row....</option>
 							<cfloop query="newkeys">
 								<option value="#cf_variable#">#DISPLAY_TEXT#</option>
 							</cfloop>
 						</select>
-						<input class="clrBtn" type="reset" value="Reset Filters">
 						<input class="schBtn" type="submit" value="Requery">
 					<div style="font-size:x-small">
 						* Click on a term for search help.
