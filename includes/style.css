@@ -34,7 +34,6 @@
 		background-color:#FFFFFF;
 	}
 
-	
 	/* general-purpose big red thingee */	
 	.importantNotification {
 		margin:1em;
@@ -175,6 +174,13 @@
 	/* BEGIN  suggest/browse widget */
 		.ssw_sngselect{
 		 	max-width: 30em;
+		}
+		
+		/* heavier text for use in suggest  */
+		.usedValue {
+			font-weight:bold;
+			font-size: 200%;
+			
 		}
 	/* END  suggest/browse widget */
 
