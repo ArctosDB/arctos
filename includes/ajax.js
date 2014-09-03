@@ -312,7 +312,7 @@ function saveSearch(returnURL,errm){
 	var uniqid,sName,sn,ru,p;
 	uniqid = Date.now();
 	if ( typeof errm !== 'undefined' && errm.length > 0 ) {
-		p="ERROR: " + errm + \n\n;
+		p="ERROR: " + errm + "\n\n";
 	}
 	p+="Saving search for URL:\n\n" + returnURL + " \n\nName your saved search (or copy and \
 		paste the link above).\n\nManage or email saved searches from your profile, or go to /saved/{name of saved search}. Note \
