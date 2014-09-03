@@ -101,7 +101,7 @@ function createMarker(p) {
 	
 	console.log('adding a marker...');
 	console.log(p);
-	 /*
+	
 	var cpa=p.split(",");
 	var ns=cpa[0];
 	var lat=cpa[1];
@@ -119,6 +119,10 @@ function createMarker(p) {
 		radius: parseInt(r),
 		zIndex:-99
 	};
+	
+	 /*
+	  * 
+	  * 
 	crcl = new google.maps.Circle(circleoptn);
 
 	
