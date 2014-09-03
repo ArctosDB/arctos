@@ -153,6 +153,9 @@ var marker = new google.maps.Marker({
 	
 	var contentString= ns + ' specimens; Error(m)=' + r + '<br><span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add point to search</span>';
 
+	
+	crcl = new google.maps.Circle(circleoptn);
+
 	var marker = new google.maps.Marker({
 		position: center,
 		map: map,
