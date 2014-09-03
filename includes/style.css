@@ -1127,7 +1127,7 @@ div.infoBox {
 		a:hover  {
 			text-decoration: underline;
 			color: #CC0000;}
-		
+		/* pretend like it's new */
 		a.novisit {
 			color: blue;}
 	/* END hrefs */

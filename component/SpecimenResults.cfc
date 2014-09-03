@@ -107,20 +107,36 @@
 			</cfif>
 		</cfloop>		
 		<cfquery name="r" dbtype="query">
-			select #ctColName# as data from tct where #ctColName# is not null group by #ctColName# order by #ctColName#
+			select #ctColName# as d from tct where #ctColName# is not null group by #ctColName# order by #ctColName#
 		</cfquery>
-		<cfreturn r>
 	<cfelse>
 		<!--- list ---->
-		<cfset r = querynew("data")>
+		<cfset r = querynew("d")>
 		<cfset idx=1>
 		<cfloop list="#v.CONTROLLED_VOCABULARY#" index="i">
 			<cfset temp = queryaddrow(r,1)>
-			<cfset temp = QuerySetCell(r, "data", i, idx)>
+			<cfset temp = QuerySetCell(r, "d", i, idx)>
 			<cfset idx=idx+1>
 		</cfloop>
-		<cfreturn r>
+		
 	</cfif>
+	<cftry>
+		<cfquery name="currentdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select #key# from #session.SpecSrchTab# group by #key#
+		</cfquery>
+		<cfquery name="r2" dbtype="query">
+			select v, 0 as m from r
+		</cfquery>
+		<cfquery name="return" dbtype="query">
+			update r2 set m=1 where v in (select #key# from currentdata)
+		</cfquery>
+	<cfcatch>
+		<cfdump var=#cfcatch#>
+	</cfcatch>
+		<cfreturn return>
+	</cftry>
+		
+		
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
