@@ -18,14 +18,17 @@ function fetchSrchWgtVocab(key){
 			} else {
 				console.log(r);
 				
-				/*
 				h='<select id="svc_' + key + '" class="ssw_sngselect" onchange="$(\'#' + key + '\').val(this.value);">';
 				h+='<option value=""></option>';
 				for (i=0; i<r.ROWCOUNT; ++i) {
-					h+='<option value="' + r.DATA.DATA[i] + '">' + r.DATA.DATA[i] + '</option>';
+					h+='<option value="' + r.DATA.DATA[i] + ';
+					if (r.DATA.M[i] > 1) {
+						
+						h+='" style="font-weight:bold"';
+					}
+					h+='">' + r.DATA.DATA[i] + '</option>';
 				}
 				h+='</select>';
-				*/	
 			}
 			$("#voccell_" + key).html(h);
 		}
