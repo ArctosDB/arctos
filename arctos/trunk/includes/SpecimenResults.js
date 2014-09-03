@@ -4,7 +4,8 @@ var markers = new Array();
 
 function fetchSrchWgtVocab(key){
 	var h,i;
-	
+	$("#voccell_" + key).html('<img src="/images/indicator.gif">');
+
 	
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
