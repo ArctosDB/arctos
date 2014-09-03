@@ -333,7 +333,7 @@ function saveSearch(returnURL,errm){
 				if(r!='success'){
 					saveSearch(returnURL,r);
 				} else {
-					alert('Saved search' + sn + '. Access it in the My Stuff tab.')
+					alert('Saved search ' + sn + '. Find it in the My Stuff tab.');
 				}
 			}
 		);
@@ -1397,8 +1397,7 @@ function generateMD5() {
 			queryformat : 'column'
 		},
 		function (r){
-			cc=$("#number_of_labels").val(),
-			cc=parseInt(cc)+parseInt(1);
+			cc=parseInt($("#number_of_labels").val()) + parseInt(1);
 			addLabel(cc);
 			lid='label__' + cc;
 			lvid='label_value__' + cc;
