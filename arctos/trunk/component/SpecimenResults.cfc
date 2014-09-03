@@ -366,11 +366,6 @@
 
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
-
-<!----
-	update: 
-		For big code tables, do NOT return data, but a link to get the data
----->
 	<cfif not isdefined("session.RESULTSBROWSEPREFS")>
 		<cfset session.RESULTSBROWSEPREFS=0>
 	</cfif>
@@ -546,7 +541,10 @@
 									<td id="voccell_#sugntab.key#">
 										<cfif len(sugntab.vocab) gt 0>
 											<span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">fetch vocabulary</span>
+										<cfelse>
+										nope
 										</cfif>
+										
 									<!----
 										<cfif len(sugntab.vocab) gt 0>
 											<!---- controlled vocab - loop through it, make indata values BOLD ---->
