@@ -311,7 +311,9 @@ function closeAnnotation() {
 function saveSearch(returnURL,errm){
 	var uniqid,sName,sn,ru,p;
 	uniqid = Date.now();
-	if (errm.length !== 0 ) {
+	if ( typeof errm !== 'undefined' && errm.length > 0 )
+		
+		
 		p="ERROR: " + errm;
 	}
 	p+="Saving search for URL:\n\n" + returnURL + " \n\nName your saved search (or copy and \
