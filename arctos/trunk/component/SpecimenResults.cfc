@@ -507,10 +507,10 @@
 									<td>
 										<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#sugntab.val#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
 									</td>
-									<td>
-									<cfif len(sugntab.vocab) gt 0>
-										click to fetch vocabulary
-									</cfif>
+									<td id="voccell_#sugntab.key#">
+										<cfif len(sugntab.vocab) gt 0>
+											<span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">fetch vocabulary</span>
+										</cfif>
 									<!----
 										<cfif len(sugntab.vocab) gt 0>
 											<!---- controlled vocab - loop through it, make indata values BOLD ---->
