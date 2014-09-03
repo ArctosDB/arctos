@@ -5,8 +5,6 @@ var markers = new Array();
 function fetchSrchWgtVocab(key){
 	var h,i;
 	$("#voccell_" + key).html('<img src="/images/indicator.gif">');
-
-	
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
 			method : "getVocabulary",
@@ -15,31 +13,19 @@ function fetchSrchWgtVocab(key){
 			queryformat : 'column'
 		},
 		function(r) {
-			
-			console.log(r);
 			if (r.DATA.DATA.length===0){
 				h='no suggestions found';				
 			} else {
-				
-
-				
-				
-				
-				
 				h='<select class="ssw_sngselect" onchange="$(\'#' + key + '\').val(this.value);">';
 				h+='<option value=""></option>';
-				
 				for (i=0; i<r.ROWCOUNT; ++i) {
 					h+='<option value="' + r.DATA.DATA[i] + '">' + r.DATA.DATA[i] + '</option>';
 				}
-				h+='</select>';
-	
+				h+='</select>';	
 			}
 			$("#voccell_" + key).html(h);
 		}
 	);
-			
-	
 }
 function initializeMap() {
 	// just nuke the old map
