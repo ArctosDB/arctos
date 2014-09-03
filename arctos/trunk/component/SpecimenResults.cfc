@@ -126,16 +126,9 @@
 		<cfquery name="r2" dbtype="query">
 			select v from r union all select #key# from currentdata
 		</cfquery>
-		<cfdump var=#r2#>
-		<cfquery name="r3" dbtype="query">
+		<cfquery name="rtn" dbtype="query">
 			select v ,count(*) m from r2 group by v
 		</cfquery>
-		<cfdump var=#r3#>
-		<!----
-		<cfquery name="rtn" dbtype="query">
-			update r2 set m=1 where v in (select #key# from currentdata)
-		</cfquery>
-		---->
 	<cfcatch>
 		<cfdump var=#cfcatch#>
 	</cfcatch>
