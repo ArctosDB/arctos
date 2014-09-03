@@ -1400,8 +1400,9 @@ function generateMD5() {
 			cc=parseInt($("#number_of_labels").val()) + parseInt(1);
 			console.log('cc=' + cc);
 			
-			
+			console.log('r=' + r);
 			addLabel(cc, function() {
+				console.log('back from cc');
 				//lid='label__' + cc;
 				//lvid='label_value__' + cc;
 				
