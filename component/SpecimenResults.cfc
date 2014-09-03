@@ -107,7 +107,7 @@
 			</cfif>
 		</cfloop>		
 		<cfquery name="r" dbtype="query">
-			select #ctColName# as d from tct where #ctColName# is not null group by #ctColName# order by #ctColName#
+			select #ctColName# as v from tct where #ctColName# is not null group by #ctColName# order by #ctColName#
 		</cfquery>
 	<cfelse>
 		<!--- list ---->
@@ -115,7 +115,7 @@
 		<cfset idx=1>
 		<cfloop list="#v.CONTROLLED_VOCABULARY#" index="i">
 			<cfset temp = queryaddrow(r,1)>
-			<cfset temp = QuerySetCell(r, "d", i, idx)>
+			<cfset temp = QuerySetCell(r, "v", i, idx)>
 			<cfset idx=idx+1>
 		</cfloop>
 	</cfif>
