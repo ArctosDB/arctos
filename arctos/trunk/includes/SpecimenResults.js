@@ -101,7 +101,7 @@ function createMarker(p) {
 	
 	console.log('adding a marker...');
 	console.log(p);
-	
+	 /*
 	var cpa=p.split(",");
 	var ns=cpa[0];
 	var lat=cpa[1];
@@ -142,13 +142,13 @@ function createMarker(p) {
 	});
 	
 
+	  */
 	
 	
-	 /*
 	var marker = new google.maps.Marker({
         map: map,
-        position: new google.maps.LatLng(lat, lng),
-        icon: '/static/images/iconsets/gmap/iconb' + (i+1) + '.png',
+        position: new google.maps.LatLng(lat, lon),
+        //icon: '/static/images/iconsets/gmap/iconb' + (i+1) + '.png',
     });
     var infowindow = new google.maps.InfoWindow({
         content: 'test string'
@@ -157,7 +157,7 @@ function createMarker(p) {
         infowindow.open(map,marker);
     });
     
-    */
+  
   
 }
 
