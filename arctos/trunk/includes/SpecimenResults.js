@@ -116,13 +116,14 @@ function createMarker(p) {
 		zIndex:-99
 	};
 	crcl = new google.maps.Circle(circleoptn);
+
 	
 	var marker = new google.maps.Marker({
 		position: center,
 		map: map,
 		title: ns + ' specimens; Error(m)=' + r,
 		contentString: contentString,
-			zIndex: 10
+		zIndex: 10
 	});
 	markers.push(marker);
 	var contentString= ns + ' specimens; Error(m)=' + r + '<br><span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add point to search</span>';
@@ -131,10 +132,10 @@ function createMarker(p) {
 		infowindow.open(map, this);
 	});
 	
-	/*
+
 	
 	
-	
+	 /*
 	var marker = new google.maps.Marker({
         map: map,
         position: new google.maps.LatLng(lat, lng),
@@ -147,8 +148,8 @@ function createMarker(p) {
         infowindow.open(map,marker);
     });
     
-    
     */
+  
 }
 
 
