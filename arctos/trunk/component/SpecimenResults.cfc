@@ -326,6 +326,42 @@
 	<cfreturn widget>	
 </cffunction>
 
+<!--------------------------------------------------------------------------------------->
+<cffunction name="getVocabulary" access="remote">
+	<cfparam name="key" type="string">
+	<cfquery name="v" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+		select CONTROLLED_VOCABULARY from ssrch_field_doc where CF_VARIABLE='#key#'
+	</cfquery>
+	<cfif len(v.CONTROLLED_VOCABULARY) is 0>
+		<cfreturn>
+	<cfelseif left(v.CONTROLLED_VOCABULARY,2) is "ct">
+		<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+			select * from #v.CONTROLLED_VOCABULARY#
+		</cfquery>
+		<cfloop list="#tct.columnlist#" index="tcname">
+			<cfif tcname is not "description" and tcname is not "collection_cde">
+				<cfset ctColName=tcname>
+			</cfif>
+		</cfloop>		
+		<cfquery name="r" dbtype="query">
+			select #ctColName# as data from tct group by #ctColName# order by #ctColName#
+		</cfquery>
+		<cfreturn r>
+	<cfelse>
+		<!--- list ---->
+		<cfset r = querynew("data")>
+		<cfset idx=1>
+		<cfloop list="#v.CONTROLLED_VOCABULARY#" index="i">
+			<cfset temp = queryaddrow(r,1)>
+			<cfset temp = QuerySetCell(r, "data", i, idx)>
+			<cfset idx=idx+1>
+		</cfloop>
+		<cfreturn r>
+				
+	
+	</cfif>
+</cffunction>
+
 
 
 <!--------------------------------------------------------------------------------------->

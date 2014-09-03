@@ -6,6 +6,19 @@ function fetchSrchWgtVocab(key){
 	
 	$("#voccell_" + key).html('tatertors');
 	
+	jQuery.getJSON("/component/SpecimenResults.cfc",
+			{
+				method : "getVocabulary",
+				key : key,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				console.log(r);
+			}
+			
+			
+	
 }
 function initializeMap() {
 	// just nuke the old map
