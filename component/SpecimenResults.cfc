@@ -131,9 +131,6 @@
 		</cfloop>
 		<cfreturn r>
 	</cfif>
-	
-
-
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
@@ -162,38 +159,12 @@
 			-- select things from their results
 			-- existing search value, when available
 		---->
-		<cfset sugntab = querynew("key,val,definition,vocab,display_text,placeholder_text,search_hint")>
-		<!---- first loop over the things they searched for ---->
+		<cfset sugntab = querynew("key,val,definition,vocab,display_text,placeholder_text,search_hint,indata")>
+		<!---- BEGIN: first loop over the things in their results so that we can filter OR exapand ---->
 		<cfset idx=1>
-		<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
-			<!--- deal with equal prefix=exact match --->
-			<cfset kvp=replace(kvp,"=","|","first")>
-			<cfif listlen(kvp,"|") is 2>
-				<cfset thisKey=listgetat(kvp,1,"|")>
-				<cfset thisValue=listgetat(kvp,2,"|")>
-			<cfelse>
-				<!--- variable only - tests for existence of attribtues ---->
-				<cfset thisKey=replace(kvp,'|','','all')>
-				<cfset thisValue=''>
-			</cfif>
-			<cfset keylist=listappend(keylist,thisKey)>
-			<cfquery name="thisMoreInfo" dbtype="query">
-				select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
-			</cfquery>	
-			<cfset temp = queryaddrow(sugntab,1)>
-			<cfset temp = QuerySetCell(sugntab, "key", lcase(thisKey), idx)>	
-			<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
-			<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
-			<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
-			<cfset temp = QuerySetCell(sugntab, "vocab", thisMoreInfo.controlled_vocabulary, idx)>
-			<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
-			<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
-			<cfset idx=idx+1>
-		</cfloop>
-		<!---- then loop over select things from their results ---->
 		<cfset thisValue="">
 		<cfloop list="#srchcols.columnlist#" index="thisKey">
-			<cfif not listfindnocase(stuffToIgnore,thisKey) and  not listfindnocase(keylist,thisKey)>
+			<cfif not listfindnocase(stuffToIgnore,thisKey) and not listfindnocase(keylist,thisKey)>
 				<cfset keylist=listappend(keylist,thisKey)>
 				<cfquery name="thisMoreInfo" dbtype="query">
 					select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
@@ -207,10 +178,45 @@
 					<cfset temp = QuerySetCell(sugntab, "vocab", thisMoreInfo.controlled_vocabulary, idx)>
 					<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
 					<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
+					<cfset temp = QuerySetCell(sugntab, "indata", 1, idx)>
 					<cfset idx=idx+1>
 				</cfif>
 			</cfif>
 		</cfloop>
+		
+		<!---- END: first loop over the things in their results so that we can filter OR exapand ---->
+		<!---- BEGIN: then loop over the things they searched for - ignore listtoignore here---->
+		
+		<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
+			<!--- deal with equal prefix=exact match --->
+			<cfset kvp=replace(kvp,"=","|","first")>
+			<cfif listlen(kvp,"|") is 2>
+				<cfset thisKey=listgetat(kvp,1,"|")>
+				<cfset thisValue=listgetat(kvp,2,"|")>
+			<cfelse>
+				<!--- variable only - tests for existence of attribtues ---->
+				<cfset thisKey=replace(kvp,'|','','all')>
+				<cfset thisValue=''>
+			</cfif>
+			<cfif not listfindnocase(keylist,thisKey)>
+				<cfset keylist=listappend(keylist,thisKey)>
+				<cfquery name="thisMoreInfo" dbtype="query">
+					select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
+				</cfquery>	
+				<cfset temp = queryaddrow(sugntab,1)>
+				<cfset temp = QuerySetCell(sugntab, "key", lcase(thisKey), idx)>	
+				<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
+				<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
+				<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
+				<cfset temp = QuerySetCell(sugntab, "vocab", thisMoreInfo.controlled_vocabulary, idx)>
+				<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
+				<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
+				<cfset temp = QuerySetCell(sugntab, "indata", 0, idx)>
+				<cfset idx=idx+1>
+			</cfif>
+		</cfloop>
+		<!---- END: then loop over the things they searched for - ignore listtoignore here---->
+		
 		<cfsavecontent variable="widget">
 			<span class="infoLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			<cfif session.ResultsBrowsePrefs is 1>
@@ -246,7 +252,10 @@
 									</td>
 									<td id="voccell_#sugntab.key#">
 										<cfif len(sugntab.vocab) gt 0>
-											<span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">fetch vocabulary</span>
+											<span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">fetch all vocabulary</span>
+											<cfif sugntab.indata eq 1>
+												or <span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#','results');">fetch distinct results</span>
+											</cfif>
 										<cfelse>
 											&nbsp;
 										</cfif>
