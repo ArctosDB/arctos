@@ -1,5 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-<script type='text/javascript' language="javascript" src='/includes/internalAjax.js'></script>
 <cf_customizeIFrame>
 <cfif action is "nothing">
 	<cfoutput>

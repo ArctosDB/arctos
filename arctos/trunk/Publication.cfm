@@ -1,5 +1,4 @@
 <cfinclude template="includes/_header.cfm">
-<script type='text/javascript' src='/includes/internalAjax.js'></script>
 <cfif action is "nothing" and isdefined("publication_id") and isnumeric(publication_id)>
 	<cfoutput><cflocation url="Publication.cfm?action=edit&publication_id=#publication_id#" addtoken="false"></cfoutput>
 </cfif>

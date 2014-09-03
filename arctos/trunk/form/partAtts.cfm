@@ -1,6 +1,4 @@
 <cfinclude template="/includes/_pickHeader.cfm">
-<script type='text/javascript' language="javascript" src='/includes/internalAjax.js'></script>
-
 <cffunction name="getPartAttrSelect">
 	<cfargument name="u_or_v" type="string">
 	<cfargument name="patype" type="string">

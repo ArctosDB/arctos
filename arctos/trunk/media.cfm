@@ -1,6 +1,5 @@
 <cfset title="Manage Media">
 <cfinclude template="/includes/_header.cfm">
-<script type='text/javascript' src='/includes/internalAjax.js'></script>
 <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select media_relationship from ctmedia_relationship order by media_relationship
 </cfquery>
