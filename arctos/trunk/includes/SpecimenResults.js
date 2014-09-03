@@ -68,7 +68,7 @@ function initializeMap() {
 
 			  google.maps.event.addListener(marker, 'click', (function(marker) {
 			    return function() {
-			      infowindow.setContent("Test");
+			      infowindow.setContent(contentString);
 			      infowindow.open(map, marker);
 			    }
 			  })(marker));
