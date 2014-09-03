@@ -162,6 +162,9 @@ var marker = new google.maps.Marker({
 	});
 	
 	
+	markers.push(marker);
+
+	
 	
     var infowindow = new google.maps.InfoWindow({
         content: contentString
