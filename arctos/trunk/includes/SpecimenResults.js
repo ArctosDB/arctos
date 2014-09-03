@@ -24,7 +24,7 @@ function fetchSrchWgtVocab(key){
 					h+='<option value="' + r.DATA.V[i];
 					if (r.DATA.M[i] > 1) {
 						
-						h+='" style="font-weight:bold"';
+						h+='" class="usedValue"';
 					}
 					h+='">' + r.DATA.V[i] + '</option>';
 				}
