@@ -133,10 +133,10 @@
 	<cfcatch>
 		<cfdump var=#cfcatch#>
 	</cfcatch>
-		<cfreturn rtn>
 	</cftry>
 		
-		
+			<cfreturn rtn>
+
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="get_specSrchTermWidget" access="remote" returnformat="plain">
