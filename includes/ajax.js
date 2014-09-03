@@ -1401,21 +1401,11 @@ function generateMD5() {
 			console.log('cc=' + cc);
 			
 			console.log('r=' + r);
-			addLabel(cc, function() {
-				console.log('back from cc');
-				//lid='label__' + cc;
-				//lvid='label_value__' + cc;
-				
-				$("#label__" + cc).val('MD5 checksum');
-				
-				
-				$("#label_value__" + cc).val(r);
-		       });
-			 
-			 
-			//$("#label_value__" + cc).val('i am a value' + r);
+			addLabel(cc);
 			
-			console.log('after addlabel thingee');
+			$("#label__" + cc).val('MD5 checksum');
+			$("#label_value__" + cc).val(r);
+		    console.log('after addlabel thingee');
 			
 		
 			
