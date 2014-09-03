@@ -1400,14 +1400,31 @@ function generateMD5() {
 			cc=parseInt($("#number_of_labels").val()) + parseInt(1);
 			console.log('cc=' + cc);
 			
-			addLabel(cc);
-			lid='label__' + cc;
+			
+			addLabel(cc, function() {
+				//lid='label__' + cc;
+				//lvid='label_value__' + cc;
+				
+				$("#label__" + cc).val('MD5 checksum');
+				$("#label_value__" + cc).val(result);
+		       });
+			 
+			 
+			 
+			
+			
+			
+		
+			
+			/*
+			 * 	lid='label__' + cc;
 			lvid='label_value__' + cc;
 			
 			$("#" + lid).val('MD5 checksum');
 			$("#" + lvid).val(result);
-			
-			/*
+			 * addLabel(cc);
+			 * 
+			 * 
 			nl=document.getElementById(lid);
 			nlv=document.getElementById(lvid);
 			nl.value='MD5 checksum';
