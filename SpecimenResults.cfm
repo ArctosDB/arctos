@@ -418,17 +418,23 @@
 					
 						<select name="usertools" id="usertools" onchange="pickedTool()">
 							<option value="">Tools</option>
-								<cfif willmap.recordcount gt 0>
-							<option value="BerkeleyMapper">Map results in BerkeleyMapper</option>
-							<cfif listlen(gen) is 1 and listlen(sp) is 1>
-								<option value="BerkeleyMapperRM">Map results in BerkeleyMapper+RangeMap</option>
+							<cfif willmap.recordcount gt 0>
+								<optgroup label="Mapping Tools">
+									<option value="BerkeleyMapper">Map results in BerkeleyMapper</option>
+									<cfif listlen(gen) is 1 and listlen(sp) is 1>
+										<option value="BerkeleyMapperRM">Map results in BerkeleyMapper+RangeMap</option>
+									</cfif>
+									<option value="google">Map results in Google Maps/download for Google Earth</option>
+								</optgroup>
 							</cfif>
-							<option value="google">Map results in Google Maps/download for Google Earth</option>
-							</cfif>
-							<option value="customize">Add or Remove Data Fields (columns)</option>
-							<option value="removeRows">Remove Checked Rows</option>
-							<option value="saveSearch">Save Search</option>
-							<option value="download">Download</option>
+							<optgroup label="Customize Form">
+								<option value="customize">Add or Remove Data Fields (columns)</option>
+								<option value="removeRows">Remove Checked Rows</option>
+							</optgroup>
+							<optgroup label="Data Tools">
+								<option value="saveSearch">Save Search</option>
+								<option value="download">Download</option>
+							</optgroup>
 						</select>
 						
 						<!----
