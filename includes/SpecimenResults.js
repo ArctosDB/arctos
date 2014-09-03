@@ -100,6 +100,8 @@ function createMarker(p) {
 
 	
 	console.log('adding a marker...');
+	console.log(p);
+	
 	var cpa=p.split(",");
 	var ns=cpa[0];
 	var lat=cpa[1];
@@ -127,8 +129,13 @@ function createMarker(p) {
 		contentString: contentString,
 		zIndex: 10
 	});
+	
+	console.log(marker);
+
+	
 	markers.push(marker);
 	var contentString= ns + ' specimens; Error(m)=' + r + '<br><span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add point to search</span>';
+	
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.setContent(this.contentString);
 		infowindow.open(map, this);
