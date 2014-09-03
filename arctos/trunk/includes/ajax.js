@@ -19,14 +19,14 @@ var viewport={
 	return this;
    },
    init: function(el) {
-       jQuery(el).css("left",Math.round(viewport.o().innerWidth/2) + viewport.o().pageXOffset - Math.round(jQuery(el).width()/2));
-       jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
+       $(el).css("left",Math.round(viewport.o().innerWidth/2) + viewport.o().pageXOffset - Math.round($(el).width()/2));
+       $(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round($(el).height()/2));
        }
    };
 
 /* specimen search */
 function setSessionCustomID(v) {
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "setSessionCustomID",
 			val : v,
@@ -81,7 +81,7 @@ function changeTarget(id,tvalue) {
 	document.SpecData.action = tvalue;
 }
 function changeGrp(tid) {
-	var oid,mList,sList,len;
+	var oid,mList,sList,len,i;
 	if (tid == 'groupBy') {
 		oid = 'groupBy1';
 	} else {
@@ -155,8 +155,8 @@ function getMedia(typ,q,tgt,rpp,pg){
 	
 	ptl="/form/inclMedia.cfm?typ=" + typ + "&q=" + q + "&tgt=" +tgt+ "&rpp=" +rpp+ "&pg="+pg;
 	
-	jQuery.get(ptl, function(data){
-		 jQuery('#' + tgt).html(data);
+	$.get(ptl, function(data){
+		 $('#' + tgt).html(data);
 	});
 }
 function blockSuggest (onoff) {
@@ -177,7 +177,7 @@ function blockSuggest (onoff) {
 	);
 }
 function changekillRows (onoff) {
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "changekillRows",
 			tgt : onoff,
@@ -267,7 +267,7 @@ function openAnnotation(q) {
 	theDiv.src = "";
 	document.body.appendChild(theDiv);
 	guts = "/info/annotate.cfm?q=" + q;
-	jQuery('#annotateDiv').load(guts,{},function(){
+	$('#annotateDiv').load(guts,{},function(){
 		viewport.init("#annotateDiv");
 	});
 }
@@ -276,8 +276,8 @@ function npPage(offset,rpp,tnid){
 	var v="?Result_Per_Page=" + rpp + "&offset=" + offset + "&taxon_name_id=" + tnid;
 	stm+=v;
 	$('#imgBrowserCtlDiv').append('<img src="/images/indicator.gif">');
-	jQuery.get(stm, function(data){
-		jQuery('#specTaxMedia').html(data);
+	$.get(stm, function(data){
+		$('#specTaxMedia').html(data);
 	});
 }
 function closeAnnotation() {
@@ -337,7 +337,7 @@ function saveSearch(returnURL){
 	if (sName!==null){
 		sn=encodeURIComponent(sName);
 		ru=encodeURI(returnURL);
-		jQuery.getJSON("/component/functions.cfc",
+		$.getJSON("/component/functions.cfc",
 			{
 				method : "saveSearch",
 				returnURL : ru,
@@ -456,7 +456,7 @@ Date.prototype.format = function (mask, utc) {
 
 */
 function crcloo (ColumnList,in_or_out) {
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "clientResultColumnList",
 			ColumnList : ColumnList,
@@ -471,7 +471,7 @@ function checkAllById(list) {
 	var a;
 	a = list.split(',');
 	//console.log(list);
-	jQuery.each( a, function( i, val ) {
+	$.each( a, function( i, val ) {
 		$( "#" + val).prop('checked', true);
 	//	console.log(val);
 
@@ -484,7 +484,7 @@ function uncheckAllById(list) {
 	a = list.split(',');
 //	console.log(list);
 
-	jQuery.each( a, function( i, val ) {
+	$.each( a, function( i, val ) {
 		$( "#" + val).prop('checked', false);
 	//	console.log(val);
 	});
@@ -504,7 +504,7 @@ function findAccession () {
 	var collection_id,accn_number;
 	collection_id=document.getElementById('collection_id').value;
 	accn_number=document.getElementById('accn_number').value;
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "findAccession",
 			collection_id : collection_id,
@@ -537,7 +537,7 @@ function addPartToContainer () {
 		alert('Something is null');
 		return false;
 	}
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "addPartToContainer",
 			collection_object_id : cid,
@@ -575,7 +575,7 @@ function clonePart() {
 	var other_id_type=document.getElementById('other_id_type').value;
 	var oidnum=document.getElementById('oidnum').value;
 	if (collection_id.length>0 && other_id_type.length>0 && oidnum.length>0) {
-		jQuery.getJSON("/component/functions.cfc",
+		$.getJSON("/component/functions.cfc",
 			{
 				method : "getSpecimen",
 				collection_id : collection_id,
@@ -628,7 +628,7 @@ function newPart (collection_object_id) {
 	    document.body.appendChild(s);
 	    noBarcode=document.getElementById('noBarcode').checked;
 	    noSubsample=document.getElementById('noSubsample').checked;
-	    jQuery.getJSON("/component/functions.cfc",
+	    $.getJSON("/component/functions.cfc",
 			{
 				method : "getParts",
 				collection_id : collection_id,
@@ -749,7 +749,7 @@ function makePart(){
 	coll_object_remarks=document.getElementById('coll_object_remarks').value;
 	barcode=document.getElementById('barcode').value;
 	new_container_type=document.getElementById('new_container_type').value;
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "makePart",
 			collection_object_id : collection_object_id,
@@ -788,7 +788,7 @@ function makePart(){
 	);
 }
 function changeresultSort (tgt) {
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "changeresultSort",
 			tgt : tgt,
@@ -805,7 +805,7 @@ function changeresultSort (tgt) {
 	);
 }
 function changedisplayRows (tgt) {
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "changedisplayRows",
 			tgt : tgt,
@@ -835,17 +835,17 @@ function getAgentInfo(agent_id) {
 	theDiv.className = 'helpBox centered';
 	theDiv.innerHTML='<img src="/images/indicator.gif" style="margin:5em;">';
 	document.body.appendChild(theDiv);
-	//jQuery("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-	jQuery(theDiv).load("/ajax/agentInfo.cfm",{agent_id: agent_id, addCtl: 1});
+	//$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
+	$(theDiv).load("/ajax/agentInfo.cfm",{agent_id: agent_id, addCtl: 1});
 }
 
-jQuery(document).ready(function() {
+$(document).ready(function() {
 	
 	
-	//colorbox = jQuery.colorbox;
+	//colorbox = $.colorbox;
 	
 	
-	jQuery(".helpLink").live('click', function(e){
+	$(".helpLink").live('click', function(e){
 		var id=this.id;
 		removeHelpDiv();
 		var bgDiv = document.createElement('div');
@@ -858,10 +858,10 @@ jQuery(document).ready(function() {
 		theDiv.className = 'helpBox';
 		theDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(theDiv);
-		jQuery("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-		jQuery(theDiv).load("/doc/get_short_doc.cfm",{fld: id, addCtl: 1});
+		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
+		$(theDiv).load("/doc/get_short_doc.cfm",{fld: id, addCtl: 1});
 	});
-	jQuery("#c_collection_cust").click(function(e){
+	$("#c_collection_cust").click(function(e){
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -873,11 +873,11 @@ jQuery(document).ready(function() {
 		cDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(cDiv);
 		var ptl="/includes/SpecSearch/changeCollection.cfm";
-		jQuery(cDiv).load(ptl,{},function(){
+		$(cDiv).load(ptl,{},function(){
 			viewport.init("#customDiv");
 		});
 	});
-	jQuery("#c_identifiers_cust").click(function(e){
+	$("#c_identifiers_cust").click(function(e){
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -889,7 +889,7 @@ jQuery(document).ready(function() {
 		cDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(cDiv);
 		var ptl="/includes/SpecSearch/customIDs.cfm";
-		jQuery(cDiv).load(ptl,{},function(){
+		$(cDiv).load(ptl,{},function(){
 			viewport.init("#customDiv");
 		});
 	});
@@ -899,7 +899,7 @@ function scrollToAnchor(aid){
     $('html,body').animate({scrollTop: aTag.offset().top},'slow');
 }
 function changefancyCOID (tgt) {
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "changefancyCOID",
 			tgt : tgt,
@@ -916,7 +916,7 @@ function changefancyCOID (tgt) {
 	);
 }
 function changeBigSearch (tgt) {
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "changeBigSearch",
 			tgt : tgt,
@@ -933,7 +933,7 @@ function changeBigSearch (tgt) {
 	);
 }
 function changecustomOtherIdentifier (tgt) {
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "changecustomOtherIdentifier",
 			tgt : tgt,
@@ -954,7 +954,7 @@ function removeHelpDiv() {
 	$('#helpDiv').remove();
 }
 function changeshowObservations (tgt) {
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "changeshowObservations",
 			tgt : tgt,
@@ -1000,7 +1000,7 @@ function saveComplete(savedStr){
 	}
 }
 function saveSpecSrchPref(id,onOff){
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "saveSpecSrchPref",
 			id : id,
@@ -1028,8 +1028,8 @@ function showHide(id,onOff) {
 		if (onOff==1) {
 			ptl="/includes/SpecSearch/" + id + ".cfm";
 			ctl.innerHTML='<img src="/images/indicator.gif">';
-			jQuery.get(ptl, function(data){
-				jQuery(tab).html(data);
+			$.get(ptl, function(data){
+				$(tab).html(data);
 				ctl.innerHTML=onText;
 				ctl.setAttribute("onclick","showHide('" + id + "',0)");
 				saveSpecSrchPref(id,onOff);
@@ -1092,7 +1092,7 @@ function readCookie(name) {
 	return null;
 }
 function changeexclusive_collection_id (tgt) {
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "changeexclusive_collection_id",
 			tgt : tgt,
@@ -1172,7 +1172,7 @@ function windowOpener(url, name, args) {
 	popupWins[name].focus();
 }
 function getDocs(url,anc) {
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "get_docs",
 			uri : url,
@@ -1285,9 +1285,8 @@ function confirmDelete(formName,msg) {
 	msg = msg || "this record";
 	yesno=confirm('Are you sure you want to delete ' + msg + '?');
 	//confirmWin=windowOpener("/includes/abort.cfm?formName="+formName+"&msg="+msg,"confirmWin","width=200,height=150,resizable");
-	if (yesno==true) {
+	if (yesno===true) {
   		document[formName].submit();
-		//eval(txtstrng);
  	} else {
 	  	return false;
   	}
@@ -1300,14 +1299,12 @@ function getQuadHelp() {
 	helpWin=windowOpener("/info/quad.cfm","quadHelpWin","width=800,height=600, resizable,scrollbars,status");
 }
 function getLegal(blurb) {
-	var blurb;
 	helpWin=windowOpener("/info/legal.cfm?content="+blurb,"legalWin","width=400,height=338, resizable,scrollbars");
 }	
 function getInfo(subject,id) {
 	infoWin=windowOpener("/info/SpecInfo.cfm?subject=" + subject + "&thisId="+id,"infoWin","width=800,height=500, resizable,scrollbars");
 }	
 function addLoanItem(coll_obj_id) {
-	var coll_obj_id;
 	loanItemWin=windowOpener("/user/loanItem.cfm?collection_object_id="+coll_obj_id,"loanItemWin","width=800,height=500, resizable,scrollbars,toolbar,menubar");
 }
 function findMedia(mediaStringFld,mediaIdFld,media_uri){
@@ -1323,98 +1320,82 @@ function taxaPick(taxonIdFld,taxonNameFld,formName,scientificName){
 	taxapick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
 function taxaPickIdentification(taxonIdFld,taxonNameFld,formName,scientificName){
-	var url="/picks/TaxaPickIdentification.cfm";
-	var taxonIdFld;
-	var taxonNameFld;
-	var formName;
-	var scientificName;
-	var popurl=url+"?taxonIdFld="+taxonIdFld+"&taxonNameFld="+taxonNameFld+"&formName="+formName+"&scientific_name="+scientificName;
+	var url,popurl;
+	url="/picks/TaxaPickIdentification.cfm";
+	popurl=url+"?taxonIdFld="+taxonIdFld+"&taxonNameFld="+taxonNameFld+"&formName="+formName+"&scientific_name="+scientificName;
 	taxapick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 	}
 function CatItemPick(collIdFld,catNumFld,formName,sciNameFld){
-	var url="/picks/CatalogedItemPick.cfm";
-	var collIdFld;
-	var catNumFld;
-	var formName;
-	var sciNameFld;
-	var popurl=url+"?collIdFld="+collIdFld+"&catNumFld="+catNumFld+"&formName="+formName+"&sciNameFld="+sciNameFld;
-	CatItemPick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
+	var url,popurl,w;
+	url="/picks/CatalogedItemPick.cfm";
+	popurl=url+"?collIdFld="+collIdFld+"&catNumFld="+catNumFld+"&formName="+formName+"&sciNameFld="+sciNameFld;
+	w=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
 function findAgentName(agentIdFld,agentNameFld,agentNameString){
-	var url="/picks/findAgentName.cfm";
-	var agentIdFld;
-	var agentNameFld;
-	var agentNameString;
-	var popurl=url+"?agentIdFld="+agentIdFld+"&agentNameFld="+agentNameFld+"&agentName="+agentNameString;
+	var url,popurl;
+	url="/picks/findAgentName.cfm";
+	popurl=url+"?agentIdFld="+agentIdFld+"&agentNameFld="+agentNameFld+"&agentName="+agentNameString;
 	agentpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
 function addrPick(addrIdFld,addrFld,formName){
-	var url="/picks/AddrPick.cfm";
-	var addrIdFld;
-	var addrFld;
-	var formName;
-	var popurl=url+"?addrIdFld="+addrIdFld+"&addrFld="+addrFld+"&formName="+formName;
+	var url,popurl;
+	url="/picks/AddrPick.cfm";
+	popurl=url+"?addrIdFld="+addrIdFld+"&addrFld="+addrFld+"&formName="+formName;
 	addrpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
 function GeogPick(geogIdFld,highGeogFld,formName){
-	var url="/picks/GeogPick2.cfm";
-	var geogIdFld;
-	var highGeogFld;
-	var formName;
-	var popurl=url+"?geogIdFld="+geogIdFld+"&highGeogFld="+highGeogFld+"&formName="+formName;
+	var url,popurl;
+	url="/picks/GeogPick2.cfm";
+	popurl=url+"?geogIdFld="+geogIdFld+"&highGeogFld="+highGeogFld+"&formName="+formName;
 	geogpick=window.open(popurl,"","width=600,height=600, toolbar,resizable,scrollbars,");
 }
 function LocalityPick(localityIdFld,speclocFld,formName,localityNameString){
-	var url="/picks/LocalityPick.cfm";
-	var localityIdFld;
-	var speclocFld;
-	var formName;
-	var fireEvent;
-	var popurl=url+"?localityIdFld="+localityIdFld+"&speclocFld="+speclocFld+"&formName="+formName+"&locality_name="+localityNameString;
+	var url,popurl,fireEvent;
+	url="/picks/LocalityPick.cfm";
+	popurl=url+"?localityIdFld="+localityIdFld+"&speclocFld="+speclocFld+"&formName="+formName+"&locality_name="+localityNameString;
 	localitypick=window.open(popurl,"","width=800,height=600,resizable,scrollbars,");
 }
 function findJournal(journalIdFld,journalNameFld,formName,journalNameString){
-	var url="/picks/findJournal.cfm";
-	var journalIdFld;
-	var journalNameFld;
-	var formName;
-	var journalNameString;
-	var popurl=url+"?journalIdFld="+journalIdFld+"&journalNameFld="+journalNameFld+"&formName="+formName+"&journalName="+journalNameString;;
-	journalpick=window.open(popurl,"","width=400,height=338, toolbar,location,status,menubar,resizable,scrollbars,");
+	var url,popurl,w;
+	url="/picks/findJournal.cfm";
+	popurl=url+"?journalIdFld="+journalIdFld+"&journalNameFld="+journalNameFld+"&formName="+formName+"&journalName="+journalNameString;
+	w=window.open(popurl,"","width=400,height=338, toolbar,location,status,menubar,resizable,scrollbars,");
 }
 function deleteEncumbrance(encumbranceId,collectionObjectId){
-	var url="/picks/DeleteEncumbrance.cfm";
-	var encumbranceId;
-	var collectionObjectId;
-	var popurl=url+"?encumbrance_id="+encumbranceId+"&collection_object_id="+collectionObjectId;
-	deleteEncumbrance=window.open(popurl,"","width=400,height=338, toolbar,location,status,menubar,resizable,scrollbars,");
+	var url,popurl,w;
+	url="/picks/DeleteEncumbrance.cfm";
+	popurl=url+"?encumbrance_id="+encumbranceId+"&collection_object_id="+collectionObjectId;
+	w=window.open(popurl,"","width=400,height=338, toolbar,location,status,menubar,resizable,scrollbars,");
 }
 function getAllSheets() {
+	var Lt,St,rel,x;
 	if( !window.ScriptEngine && navigator.__ice_version ) {
 		return document.styleSheets; }
 	if( document.getElementsByTagName ) {
-		var Lt = document.getElementsByTagName('LINK');
-	    var St = document.getElementsByTagName('STYLE');
+		Lt = document.getElementsByTagName('LINK');
+	    St = document.getElementsByTagName('STYLE');
 	  } else if( document.styleSheets && document.all ) {
-	    var Lt = document.all.tags('LINK'), St = document.all.tags('STYLE');
+	    Lt = document.all.tags('LINK');
+	    St = document.all.tags('STYLE');
 	  } else { return []; }
-	  for( var x = 0, os = []; Lt[x]; x++ ) {
-	    if( Lt[x].rel ) { var rel = Lt[x].rel;
-	    } else if( Lt[x].getAttribute ) { var rel = Lt[x].getAttribute('rel');
-	    } else { var rel = ''; }
+	  for( x = 0, os = []; Lt[x]; x++ ) {
+	    if( Lt[x].rel ) { rel = Lt[x].rel;
+	    } else if( Lt[x].getAttribute ) { rel = Lt[x].getAttribute('rel');
+	    } else { rel = ''; }
 	    if( typeof( rel ) == 'string' &&
 	        rel.toLowerCase().indexOf('style') + 1 ) {
 	      os[os.length] = Lt[x];
 	    }
 	  }
-	  for( var x = 0; St[x]; x++ ) { os[os.length] = St[x]; } return os;
+	  for( x = 0; St[x]; x++ ) { os[os.length] = St[x]; } return os;
 }
 function changeStyle() {
-	for( var x = 0, ss = getAllSheets(); ss[x]; x++ ) {
+	var x,y;
+	for( x = 0, ss = getAllSheets(); ss[x]; x++ ) {
 		if( ss[x].title ) {
 			ss[x].disabled = true;
 		}
-		for( var y = 0; y < arguments.length; y++ ) {
+		for( y = 0; y < arguments.length; y++ ) {
 			if( ss[x].title == arguments[y] ) {
 				ss[x].disabled = false;
 			}
@@ -1500,7 +1481,7 @@ if (self != top) {
 	sf.op = {};
 	sf.IE7fix = function(){
 		var o = sf.op;
-		if ($.browser.msie && $.browser.version > 6 && o.dropShadows && o.animation.opacity!=undefined)
+		if ($.browser.msie && $.browser.version > 6 && o.dropShadows && o.animation.opacity!==undefined)
 			this.toggleClass(sf.c.shadowClass+'-off');
 		};
 	sf.c = {
@@ -1547,7 +1528,7 @@ if (self != top) {
 		}
 	});
 
-})(jQuery);
+})($);
 /******************************************* supersubs (superfish extension) jQuery plugin *********************/
 
 /*
@@ -1638,7 +1619,7 @@ if (self != top) {
 		extraWidth		: 0			// extra width can ensure lines don't sometimes turn over due to slight browser differences in how they round-off values
 	};
 	
-})(jQuery); // plugin code ends
+})($); // plugin code ends
 /******************************************* hoverIntent jQuery plugin ******************************************/
 (function($){
 	/* hoverIntent by Brian Cherne */
@@ -1695,7 +1676,7 @@ if (self != top) {
 			if ( p == this ) { return false; }
 
 			// copy objects to be passed into t (required for event object to be passed in IE)
-			var ev = jQuery.extend({},e);
+			var ev = $.extend({},e);
 			var ob = this;
 
 			// cancel hoverIntent timer if it exists
@@ -1723,4 +1704,4 @@ if (self != top) {
 		return this.mouseover(handleHover).mouseout(handleHover);
 	};
 	
-})(jQuery);
+})($);
