@@ -1,6 +1,5 @@
-var viewport = {
-  	o: function() {
-      	
+var viewport={
+    o: function() {  	
 	if (self.innerHeight) {		
 		this.pageYOffset = self.pageYOffset;
 		this.pageXOffset = self.pageXOffset;
@@ -24,10 +23,114 @@ var viewport = {
        jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
+
+/* specimen search */
+function setSessionCustomID(v) {
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "setSessionCustomID",
+			val : v,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (getResult) {}
+	);
+}
+function setPrevSearch(){
+	var schParam=get_cookie ('schParams');
+	var pAry=schParam.split("|");
+ 	for (var i=0; i<pAry.length; i++) {
+ 		var eAry=pAry[i].split("::");
+ 		var eName=eAry[0];
+ 		var eVl=eAry[1];
+		console.log(eName + '::' + eVl);
+ 		if (document.getElementById(eName)){
+			document.getElementById(eName).value=eVl;
+			if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
+				changeTarget(eName,eVl);
+				console.log(eName + '::' + eVl);
+			}
+		}
+ 	}
+ 	try {
+		setPreviousMap();
+	} catch(e){}
+}
+function changeTarget(id,tvalue) {
+	var otherForm;
+	if(tvalue.length === 0) {
+		tvalue='SpecimenResults.cfm';
+	}
+	if (id =='tgtForm1') {
+		otherForm = document.getElementById('tgtForm');
+	} else {
+		 otherForm = document.getElementById('tgtForm1');
+	}
+	otherForm.value=tvalue;
+	document.getElementById('groupByDiv').style.display='none';
+	document.getElementById('groupByDiv1').style.display='none';
+	document.getElementById('kmlDiv').style.display='none';
+	document.getElementById('kmlDiv1').style.display='none';
+	if (tvalue == 'SpecimenResultsSummary.cfm') {
+		document.getElementById('groupByDiv').style.display='';
+		document.getElementById('groupByDiv1').style.display='';
+	} else if (tvalue=='/bnhmMaps/kml.cfm?action=newReq') {
+		document.getElementById('kmlDiv').style.display='';
+		document.getElementById('kmlDiv1').style.display='';
+	}
+	document.SpecData.action = tvalue;
+}
+function changeGrp(tid) {
+	var oid,mList,sList,len;
+	if (tid == 'groupBy') {
+		oid = 'groupBy1';
+	} else {
+		 oid = 'groupBy';
+	}
+	mList = document.getElementById(tid);
+	sList = document.getElementById(oid);
+	len = mList.length;
+	for (i = 0; i < len; i++) {
+		sList.options[i].selected = false;
+	}
+	for (i = 0; i < len; i++) {
+		if (mList.options[i].selected) {
+			sList.options[i].selected = true;
+		}
+	}
+}
+function resetSSForm(){
+	document.getElementById('SpecData').reset();
+	try {
+		initialize();
+	} catch(e){}
+}
+function r_getSpecSrchPref (result){
+	var j;
+	j=result.split(',');
+	for (var i = 0; i < j.length; i++) {
+		if (j[i].length>0){
+			showHide(j[i],1);
+		}
+	}
+}
+function kmlSync(tid,tval) {
+	var rMostChar;
+	rMostChar=tid.substr(tid.length -1,1);
+	if (rMostChar=='1'){
+		theOtherField=tid.substr(0,tid.length -1);
+	} else {
+		theOtherField=tid + '1';
+	}
+	document.getElementById(theOtherField).value=tval;
+}
+/* specimen search */
+
+
 function op_getAgent(agentIdID,agentNameID,agent_name){
+	var url;
 	$("#" + agentNameID).removeClass('goodPick');
-	var url="/picks/op_findAgent.cfm";
-	var agent_name;
+	url="/picks/op_findAgent.cfm";
 	url+="?agentIdID="+agentIdID+"&agentNameID="+agentNameID+"&agent_name="+agent_name;
 	//console.log(url);
 	$.colorbox({width:"80%",height:"80%", href:url});   
@@ -35,8 +138,10 @@ function op_getAgent(agentIdID,agentNameID,agent_name){
 
 
 function checkCSV(obj) {
-    var filePath = obj.value;
-    var ext = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
+    var filePath,ext;
+    
+    filePath = obj.value;
+    ext = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
     if(ext != 'csv') {
         alert('Only files with the file extension CSV are allowed');
         $("input[type=submit]").hide();
@@ -45,34 +150,31 @@ function checkCSV(obj) {
     }
 }
 function getMedia(typ,q,tgt,rpp,pg){
+	var ptl;
 	$('#imgBrowserCtlDiv').append('<img src="/images/indicator.gif">');
-	var typ;
-	var q;
-	var tgt;
-	var rpp;
-	var pg;
-	var ptl="/form/inclMedia.cfm?typ=" + typ + "&q=" + q + "&tgt=" +tgt+ "&rpp=" +rpp+ "&pg="+pg;
+	
+	ptl="/form/inclMedia.cfm?typ=" + typ + "&q=" + q + "&tgt=" +tgt+ "&rpp=" +rpp+ "&pg="+pg;
 	
 	jQuery.get(ptl, function(data){
 		 jQuery('#' + tgt).html(data);
-	})
+	});
 }
 function blockSuggest (onoff) {
 	$.getJSON("/component/functions.cfc",
-			{
-				method : "changeBlockSuggest",
-				onoff : onoff,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function(r) {
-				if (r == 'success') {
-					$('#browseArctos').html('Suggest Browser disabled. You may turn this feature back on under My Stuff.');
-				} else {
-					alert('An error occured! \n ' + r);
-				}	
-			}
-		);
+		{
+			method : "changeBlockSuggest",
+			onoff : onoff,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(r) {
+			if (r == 'success') {
+				$('#browseArctos').html('Suggest Browser disabled. You may turn this feature back on under My Stuff.');
+			} else {
+				alert('An error occured! \n ' + r);
+			}	
+		}
+	);
 }
 function changekillRows (onoff) {
 	jQuery.getJSON("/component/functions.cfc",
@@ -90,21 +192,26 @@ function changekillRows (onoff) {
 	);
 }
 function findPart(partFld,part_name,collCde){
-	var url="/picks/findPart.cfm";
-	var part_name=part_name.replace('%','_');
-	var popurl=url+"?part_name="+part_name+"&collCde="+collCde+"&partFld="+partFld;
+	var url,popurl;
+	
+	url="/picks/findPart.cfm";
+	part_name=part_name.replace('%','_');
+	popurl=url+"?part_name="+part_name+"&collCde="+collCde+"&partFld="+partFld;
 	partpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
 function isValidEmailAddress(emailAddress) {
-    var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+    var pattern;
+    pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
     return pattern.test(emailAddress);
-};
+}
 function saveThisAnnotation() {
-	var idType = document.getElementById("idtype").value;
-	var idvalue = document.getElementById("idvalue").value;
-	var annotation = document.getElementById("annotation").value;
-	var captchaHash=$("#captchaHash").val();
-	var captcha=$("#captcha").val().toUpperCase();
+	var idType,idvalue,annotation,captchaHash,captcha;
+	
+	idType = document.getElementById("idtype").value;
+	idvalue = document.getElementById("idvalue").value;
+	annotation = document.getElementById("annotation").value;
+	captchaHash=$("#captchaHash").val();
+	captcha=$("#captcha").val().toUpperCase();
 	if (annotation.length <= 20){
 		alert('You must enter an annotation of at least 20 characters to save.');
 		return false;
@@ -147,19 +254,19 @@ function saveThisAnnotation() {
 	);
 }
 function openAnnotation(q) {
-	var bgDiv = document.createElement('div');
+	var bgDiv,theDiv,guts;
+	bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
 	bgDiv.setAttribute('onclick','closeAnnotation()');
 	document.body.appendChild(bgDiv);
-	
-	var theDiv = document.createElement('div');
+	theDiv = document.createElement('div');
 	theDiv.id = 'annotateDiv';
 	theDiv.className = 'annotateBox';
 	theDiv.innerHTML='';
 	theDiv.src = "";
 	document.body.appendChild(theDiv);
-	var guts = "/info/annotate.cfm?q=" + q;
+	guts = "/info/annotate.cfm?q=" + q;
 	jQuery('#annotateDiv').load(guts,{},function(){
 		viewport.init("#annotateDiv");
 	});
@@ -171,12 +278,13 @@ function npPage(offset,rpp,tnid){
 	$('#imgBrowserCtlDiv').append('<img src="/images/indicator.gif">');
 	jQuery.get(stm, function(data){
 		jQuery('#specTaxMedia').html(data);
-	})
+	});
 }
 function closeAnnotation() {
-	var theDiv = document.getElementById('bgDiv');
+	var theDiv;
+	theDiv= document.getElementById('bgDiv');
 	document.body.removeChild(theDiv);
-	var theDiv = document.getElementById('annotateDiv');
+	theDiv = document.getElementById('annotateDiv');
 	document.body.removeChild(theDiv);
 }
 
@@ -223,11 +331,12 @@ function jqalert(output_msg, title_msg)
 
 
 function saveSearch(returnURL){
-	var uniqid = Date.now();
-	var sName=prompt("Saving search for URL:\n\n" + returnURL + " \n\nName your saved search (or copy and paste the link above).\n\nManage or email saved searches from your profile, or go to /saved/{name of saved search}. Note that saved searches, except those sepecifying only GUIDs, are dynamic; results change as data changes.\n\nName of saved search (must be unique):\n", uniqid);
+	var uniqid,sName,sn,ru;
+	uniqid = Date.now();
+	sName=prompt("Saving search for URL:\n\n" + returnURL + " \n\nName your saved search (or copy and paste the link above).\n\nManage or email saved searches from your profile, or go to /saved/{name of saved search}. Note that saved searches, except those sepecifying only GUIDs, are dynamic; results change as data changes.\n\nName of saved search (must be unique):\n", uniqid);
 	if (sName!==null){
-		var sn=encodeURIComponent(sName);
-		var ru=encodeURI(returnURL);
+		sn=encodeURIComponent(sName);
+		ru=encodeURI(returnURL);
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "saveSearch",
@@ -244,8 +353,11 @@ function saveSearch(returnURL){
 		);
 	}
 }
+
+/*
 var dateFormat = function () {
-	var	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
+	var	token;
+	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
 		timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
 		timezoneClip = /[^-+\dA-Z]/g,
 		pad = function (val, len) {
@@ -255,7 +367,8 @@ var dateFormat = function () {
 			return val;
 		};
 	return function (date, mask, utc) {
-		var dF = dateFormat;
+		var dF,_;
+		dF= dateFormat;
 		if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
 			mask = date;
 			date = undefined;
@@ -267,7 +380,7 @@ var dateFormat = function () {
 			mask = mask.slice(4);
 			utc = true;
 		}
-		var	_ = utc ? "getUTC" : "get",
+		_ = utc ? "getUTC" : "get",
 			d = date[_ + "Date"](),
 			D = date[_ + "Day"](),
 			m = date[_ + "Month"](),
@@ -340,6 +453,8 @@ Date.prototype.format = function (mask, utc) {
 	return dateFormat(this, mask, utc);
 };
 
+
+*/
 function crcloo (ColumnList,in_or_out) {
 	jQuery.getJSON("/component/functions.cfc",
 		{
@@ -353,7 +468,8 @@ function crcloo (ColumnList,in_or_out) {
 }
 
 function checkAllById(list) {
-	var a = list.split(',');
+	var a;
+	a = list.split(',');
 	//console.log(list);
 	jQuery.each( a, function( i, val ) {
 		$( "#" + val).prop('checked', true);
@@ -364,7 +480,8 @@ function checkAllById(list) {
 }
 
 function uncheckAllById(list) {
-	var a = list.split(',');
+	var a;
+	a = list.split(',');
 //	console.log(list);
 
 	jQuery.each( a, function( i, val ) {
@@ -376,15 +493,17 @@ function uncheckAllById(list) {
 }
 
 function goPickParts (collection_object_id,transaction_id) {
-	var url='/picks/internalAddLoanItemTwo.cfm?collection_object_id=' + collection_object_id +"&transaction_id=" + transaction_id;
+	var url;
+	url='/picks/internalAddLoanItemTwo.cfm?collection_object_id=' + collection_object_id +"&transaction_id=" + transaction_id;
 	mywin=windowOpener(url,'myWin','height=300,width=800,resizable,location,menubar ,scrollbars ,status ,titlebar,toolbar');
 }
 function hidePageLoad() {
 	$('#loading').hide();
 }
 function findAccession () {
-	var collection_id=document.getElementById('collection_id').value;
-	var accn_number=document.getElementById('accn_number').value;
+	var collection_id,accn_number;
+	collection_id=document.getElementById('collection_id').value;
+	accn_number=document.getElementById('accn_number').value;
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "findAccession",
@@ -393,26 +512,28 @@ function findAccession () {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_findAccession
+		function (result) {
+			if(result>0) {
+				document.getElementById('g_num').className='doShow';
+				document.getElementById('b_num').className='noShow';
+			} else {
+				document.getElementById('g_num').className='noShow';
+				document.getElementById('b_num').className='doShow';
+			}
+		}
 	);
 }
-function success_findAccession(result) {
-	if(result>0) {
-		document.getElementById('g_num').className='doShow';
-		document.getElementById('b_num').className='noShow';
-	} else {
-		document.getElementById('g_num').className='noShow';
-		document.getElementById('b_num').className='doShow';
-	}
-}
+
+
 function addPartToContainer () {
+	var cid,pid1,pid2,parent_barcode,new_container_type;
 	document.getElementById('pTable').className='red';
-	var cid=document.getElementById('collection_object_id').value;
-	var pid1=document.getElementById('part_name').value;
-	var pid2=document.getElementById('part_name_2').value;
-	var parent_barcode=document.getElementById('parent_barcode').value;
-	var new_container_type=document.getElementById('new_container_type').value;
-	if(cid.length==0 || pid1.length==0 || parent_barcode.length==0) {
+	cid=document.getElementById('collection_object_id').value;
+	pid1=document.getElementById('part_name').value;
+	pid2=document.getElementById('part_name_2').value;
+	parent_barcode=document.getElementById('parent_barcode').value;
+	new_container_type=document.getElementById('new_container_type').value;
+	if(cid.length===0 || pid1.length===0 || parent_barcode.length===0) {
 		alert('Something is null');
 		return false;
 	}
@@ -427,28 +548,28 @@ function addPartToContainer () {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_addPartToContainer
+		function (result) {
+			statAry=result.split("|");
+			var status=statAry[0];
+			var msg=statAry[1];
+			document.getElementById('pTable').className='';
+			var mDiv=document.getElementById('msgs');
+			var mhDiv=document.getElementById('msgs_hist');
+			var mh=mDiv.innerHTML + '<hr>' + mhDiv.innerHTML;
+			mhDiv.innerHTML=mh;
+			mDiv.innerHTML=msg;
+			if (status===0){
+				mDiv.className='error';
+			} else {
+				mDiv.className='successDiv';
+				document.getElementById('oidnum').focus();
+				document.getElementById('oidnum').select();
+				getParts();
+			}
+		}
 	);
 }
-function success_addPartToContainer(result) {
-	statAry=result.split("|");
-	var status=statAry[0];
-	var msg=statAry[1];
-	document.getElementById('pTable').className='';
-	var mDiv=document.getElementById('msgs');
-	var mhDiv=document.getElementById('msgs_hist');
-	var mh=mDiv.innerHTML + '<hr>' + mhDiv.innerHTML;
-	mhDiv.innerHTML=mh;
-	mDiv.innerHTML=msg;
-	if (status==0){
-		mDiv.className='error';
-	} else {
-		mDiv.className='successDiv';
-		document.getElementById('oidnum').focus();
-		document.getElementById('oidnum').select();
-		getParts();
-	}
-}
+
 function clonePart() {
 	var collection_id=document.getElementById('collection_id').value;
 	var other_id_type=document.getElementById('other_id_type').value;
@@ -463,46 +584,50 @@ function clonePart() {
 				returnformat : "json",
 				queryformat : 'column'
 			},
-			success_getSpecimen
+			function (r) {
+				if (toString(r.DATA.COLLECTION_OBJECT_ID[0]).indexOf('Error:')>-1) {
+					alert(r.DATA.COLLECTION_OBJECT_ID[0]);	
+				} else {
+					newPart (r.DATA.COLLECTION_OBJECT_ID[0]);
+				}
+			}
 		);
 	} else {
 		alert('Error: cannot resolve ID to specimen.');
 	}
 }
-function success_getSpecimen(r){
-	if (toString(r.DATA.COLLECTION_OBJECT_ID[0]).indexOf('Error:')>-1) {
-		alert(r.DATA.COLLECTION_OBJECT_ID[0]);	
-	} else {
-		newPart (r.DATA.COLLECTION_OBJECT_ID[0]);
-	}
-}
+
 function checkSubmit() {
-	var c=document.getElementById('submitOnChange').checked;
-	if (c==true) {
+	var c;
+	c=document.getElementById('submitOnChange').checked;
+	if (c===true) {
 		addPartToContainer();
 	}
 }	
 function newPart (collection_object_id) {
-	var collection_id=document.getElementById('collection_id').value;
-	var part=document.getElementById('part_name').value;
-	var url="/form/newPart.cfm";
+	var part,url;
+	collection_id=document.getElementById('collection_id').value;
+	part=document.getElementById('part_name').value;
+	url="/form/newPart.cfm";
 	url +="?collection_id=" + collection_id;
 	url +="&collection_object_id=" + collection_object_id;
 	url +="&part=" + part;
 	divpop(url);
 }
  function getParts() {
-	var collection_id=document.getElementById('collection_id').value;
-	var other_id_type=document.getElementById('other_id_type').value;
-	var oidnum=document.getElementById('oidnum').value;
+	var collection_id,other_id_type,oidnum,s,noBarcode,noSubsample,result,sDiv,ocoln,specid,p1,p2,op1,op2,selIndex,coln,idt,idn,ss,option;
+	
+	collection_id=document.getElementById('collection_id').value;
+	other_id_type=document.getElementById('other_id_type').value;
+	oidnum=document.getElementById('oidnum').value;
 	if (collection_id.length>0 && other_id_type.length>0 && oidnum.length>0) {
-		var s=document.createElement('DIV');
+		s=document.createElement('DIV');
 	    s.id='ajaxStatus';
 	    s.className='ajaxStatus';
 	    s.innerHTML='Fetching parts...';
 	    document.body.appendChild(s);
-	    var noBarcode=document.getElementById('noBarcode').checked;
-	    var noSubsample=document.getElementById('noSubsample').checked;
+	    noBarcode=document.getElementById('noBarcode').checked;
+	    noSubsample=document.getElementById('noSubsample').checked;
 	    jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "getParts",
@@ -514,69 +639,69 @@ function newPart (collection_object_id) {
 				returnformat : "json",
 				queryformat : 'column'
 			},
-			success_getParts
+			function (r) {
+				result=r.DATA;	
+				s=document.getElementById('ajaxStatus');
+				document.body.removeChild(s);
+				sDiv=document.getElementById('thisSpecimen');
+				ocoln=document.getElementById('collection_id');
+				specid=document.getElementById('collection_object_id');
+				p1=document.getElementById('part_name');
+				p2=document.getElementById('part_name_2');
+				op1=p1.value;
+				op2=p2.value;
+				p1.options.length=0;
+				p2.options.length=0;
+				selIndex = ocoln.selectedIndex;
+				coln = ocoln.options[selIndex].text;		
+				idt=document.getElementById('other_id_type').value;
+				idn=document.getElementById('oidnum').value;
+				ss=coln + ' ' + idt + ' ' + idn;
+				if (result.PART_NAME[0].indexOf('Error:')>-1) {
+					sDiv.className='error';
+					ss+=' = ' + result.PART_NAME[0];
+					specid.value='';
+					document.getElementById('pTable').className='red';
+				} else {
+					document.getElementById('pTable').className='';
+					sDiv.className='';
+					specid.value=result.COLLECTION_OBJECT_ID[0];
+					option = document.createElement('option');
+					option.setAttribute('value','');
+					option.appendChild(document.createTextNode(''));
+					p2.appendChild(option);
+					
+					for (i=0;i<r.ROWCOUNT;i++) {
+						option = document.createElement('option');
+						option2 = document.createElement('option');
+						option.setAttribute('value',result.PARTID[i]);
+						option2.setAttribute('value',result.PARTID[i]);
+						pStr=result.PART_NAME[i];
+						if (result.BARCODE[i]!==null){
+							pStr+=' [' + result.BARCODE[i] + ']';
+						}
+						option.appendChild(document.createTextNode(pStr));
+						option2.appendChild(document.createTextNode(pStr));
+						p1.appendChild(option);
+						p2.appendChild(option2);
+					}
+					p1.value=op1;
+					p2.value=op2;	
+					ss+=' = ' + result.COLLECTION[0] + ' ' + result.CAT_NUM[0] + ' (' + result.CUSTOMIDTYPE[0] + ' ' + result.CUSTOMID[0] + ')';
+				}
+				sDiv.innerHTML=ss;
+			}
 		);
 	}
  }
-function success_getParts(r) {
-	var	result=r.DATA;	
-	var s=document.getElementById('ajaxStatus');
-	document.body.removeChild(s);
-	var sDiv=document.getElementById('thisSpecimen');
-	var ocoln=document.getElementById('collection_id');
-	var specid=document.getElementById('collection_object_id');
-	var p1=document.getElementById('part_name');
-	var p2=document.getElementById('part_name_2');
-	var op1=p1.value;
-	var op2=p2.value;
-	p1.options.length=0;
-	p2.options.length=0;
-	var selIndex = ocoln.selectedIndex;
-	var coln = ocoln.options[selIndex].text;		
-	var idt=document.getElementById('other_id_type').value;
-	var idn=document.getElementById('oidnum').value;
-	var ss=coln + ' ' + idt + ' ' + idn;
-	if (result.PART_NAME[0].indexOf('Error:')>-1) {
-		sDiv.className='error';
-		ss+=' = ' + result.PART_NAME[0];
-		specid.value='';
-		document.getElementById('pTable').className='red';
-	} else {
-		document.getElementById('pTable').className='';
-		sDiv.className='';
-		specid.value=result.COLLECTION_OBJECT_ID[0];
-		var option = document.createElement('option');
-		option.setAttribute('value','');
-		option.appendChild(document.createTextNode(''));
-		p2.appendChild(option);
-		
-		for (i=0;i<r.ROWCOUNT;i++) {
-			var option = document.createElement('option');
-			var option2 = document.createElement('option');
-			option.setAttribute('value',result.PARTID[i]);
-			option2.setAttribute('value',result.PARTID[i]);
-			var pStr=result.PART_NAME[i];
-			if (result.BARCODE[i]!==null){
-				pStr+=' [' + result.BARCODE[i] + ']';
-			}
-			option.appendChild(document.createTextNode(pStr));
-			option2.appendChild(document.createTextNode(pStr));
-			p1.appendChild(option);
-			p2.appendChild(option2);
-		}
-		p1.value=op1;
-		p2.value=op2;	
-		ss+=' = ' + result.COLLECTION[0] + ' ' + result.CAT_NUM[0] + ' (' + result.CUSTOMIDTYPE[0] + ' ' + result.CUSTOMID[0] + ')';
-	}
-	sDiv.innerHTML=ss;
-}
+
 function divpop (url) {
-	var req;
- 	var bgDiv=document.createElement('div');
+	var req,bgDiv,theDiv;
+ 	bgDiv=document.createElement('div');
 	bgDiv.id='bgDiv';
 	bgDiv.className='bgDiv';
 	document.body.appendChild(bgDiv);
-	var theDiv = document.createElement('div');
+	theDiv = document.createElement('div');
 	theDiv.id = 'ppDiv';
 	theDiv.className = 'pickBox';
 	theDiv.innerHTML='Loading....';
@@ -587,7 +712,7 @@ function divpop (url) {
 	} else if (window.ActiveXObject) {
 	  req = new ActiveXObject("Microsoft.XMLHTTP");
 	}
-	if (req != undefined) {
+	if (req !== undefined) {
 	  req.onreadystatechange = function() {divpopDone(req);};
 	  req.open("GET", url, true);
 	  req.send("");
@@ -615,14 +740,15 @@ function divpopClose(){
 	document.body.removeChild(b);
 }
 function makePart(){
-	var collection_object_id=document.getElementById('collection_object_id').value;
-	var part_name=document.getElementById('npart_name').value;
-	var lot_count=document.getElementById('lot_count').value;
-	var coll_obj_disposition=document.getElementById('coll_obj_disposition').value;
-	var condition=document.getElementById('condition').value;
-	var coll_object_remarks=document.getElementById('coll_object_remarks').value;
-	var barcode=document.getElementById('barcode').value;
-	var new_container_type=document.getElementById('new_container_type').value;
+	var collection_object_id,part_name,lot_count,coll_obj_disposition,condition,coll_object_remarks,barcode,new_container_type,result,status,msg,p,b;
+	collection_object_id=document.getElementById('collection_object_id').value;
+	part_name=document.getElementById('npart_name').value;
+	lot_count=document.getElementById('lot_count').value;
+	coll_obj_disposition=document.getElementById('coll_obj_disposition').value;
+	condition=document.getElementById('condition').value;
+	coll_object_remarks=document.getElementById('coll_object_remarks').value;
+	barcode=document.getElementById('barcode').value;
+	new_container_type=document.getElementById('new_container_type').value;
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "makePart",
@@ -638,13 +764,13 @@ function makePart(){
 			queryformat : 'column'
 		},
 		function (r){
-			var result=r.DATA;
-			var status=result.STATUS[0];
+			result=r.DATA;
+			status=result.STATUS[0];
 			if (status=='error') {
-				var msg=result.MSG[0];
+				msg=result.MSG[0];
 				alert(msg);
 			} else {
-				var msg="Created part: ";
+				msg="Created part: ";
 				msg += result.PART_NAME[0] + " ";
 				if (result.BARCODE[0]!==null) {
 					msg += "barcode " + result.BARCODE[0];
@@ -652,9 +778,9 @@ function makePart(){
 						msg += "( " + result.NEW_CONTAINER_TYPE[0] + ")";
 					}
 				}
-				var p = document.getElementById('ppDiv');
+				p = document.getElementById('ppDiv');
 				document.body.removeChild(p);
-				var b = document.getElementById('bgDiv');
+				b = document.getElementById('bgDiv');
 				document.body.removeChild(b);
 				getParts();
 			}
@@ -886,20 +1012,21 @@ function saveSpecSrchPref(id,onOff){
 	);
 }
 function showHide(id,onOff) {
-	var t='e_' + id;
-	var z='c_' + id;
+	var t,ztab,ctl,offText,onText,ptl;
+	t='e_' + id;
+	z='c_' + id;
 	if (document.getElementById(t) && document.getElementById(z)) {	
-		var tab=document.getElementById(t);
-		var ctl=document.getElementById(z);
+		tab=document.getElementById(t);
+		ctl=document.getElementById(z);
 		if (t=='e_spatial_query'){
-			var offText='Select on Google Map';
-			var onText='Hide Google Map';
+			offText='Select on Google Map';
+			onText='Hide Google Map';
 		} else {
-			var onText='Show Fewer Options';
-			var offText='Show More Options';
+			onText='Show Fewer Options';
+			offText='Show More Options';
 		}
 		if (onOff==1) {
-			var ptl="/includes/SpecSearch/" + id + ".cfm";
+			ptl="/includes/SpecSearch/" + id + ".cfm";
 			ctl.innerHTML='<img src="/images/indicator.gif">';
 			jQuery.get(ptl, function(data){
 				jQuery(tab).html(data);
@@ -916,8 +1043,9 @@ function showHide(id,onOff) {
 	}
 }
 function closeAndRefresh(){
+	var theDiv;
 	document.location=location.href;
-	var theDiv = document.getElementById('customDiv');
+	theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
 }
 function getFormValues() {
@@ -942,21 +1070,24 @@ function nada(){
 	return false;
 }
 function createCookie(name,value,days) {
+	var expires,date;
 	if (days) {
-		var date = new Date();
+		date = new Date();
 		date.setTime(date.getTime()+(days*24*60*60*1000));
-		var expires = "; expires="+date.toGMTString();
+		expires = "; expires="+date.toGMTString();
+	} else {
+		expires = "";
 	}
-	else var expires = "";
 	document.cookie = name+"="+value+expires+"; path=/";
 }
 function readCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0;i < ca.length;i++) {
-		var c = ca[i];
+	var nameEQ,ca,i,c;
+	nameEQ = name + "=";
+	ca = document.cookie.split(';');
+	for(i=0;i < ca.length;i++) {
+		c = ca[i];
 		while (c.charAt(0)==' ') c = c.substring(1,c.length);
-		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+		if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length,c.length);
 	}
 	return null;
 }
@@ -981,7 +1112,7 @@ function IsNumeric(sText) {
    var ValidChars = "0123456789.";
    var IsNumber=true;
    var Char;
-   for (i = 0; i < sText.length && IsNumber == true; i++) { 
+   for (i = 0; i < sText.length && IsNumber === true; i++) { 
       Char = sText.charAt(i); 
       if (ValidChars.indexOf(Char) == -1) {
          IsNumber = false;
@@ -1007,10 +1138,10 @@ function orapwCheck(p,u) {
 		msg='Password must be between ' + minLen + ' and 30 characters.';
 	}
 	if (!p.match(/[a-zA-Z]/)) {
-		msg='Password must contain at least one letter.'
+		msg='Password must contain at least one letter.';
 	}
 	if (!p.match(/\d+/)) {
-		msg='Password must contain at least one number.'
+		msg='Password must contain at least one number.';
 	}
 	if (!p.match(/[!,$,%,&,*,?,_,-,(,),<,>,=,/,:,;,.]/) ) {
 		msg='Password must contain at least one of: !,$,%,&,*,?,_,-,(,),<,>,=,/,:,;.';
@@ -1023,9 +1154,8 @@ function orapwCheck(p,u) {
 	return msg;
 }
 function getCtDoc(table,field) {
-	var table;
-	var field;
-	var fullURL = "/info/ctDocumentation.cfm?table=" + table + "&field=" + field;
+	var fullURL;
+	fullURL = "/info/ctDocumentation.cfm?table=" + table + "&field=" + field;
 	ctDocWin=windowOpener(fullURL,"ctDocWin","width=700,height=400, resizable,scrollbars");
 }
 function windowOpener(url, name, args) {
@@ -1042,16 +1172,6 @@ function windowOpener(url, name, args) {
 	popupWins[name].focus();
 }
 function getDocs(url,anc) {
-	var url;
-	var anc;
-	//var baseUrl = "http://g-arctos.appspot.com/arctosdoc/";
-	//var extension = ".html";
-	//var fullURL = baseUrl + url + extension;
-	//	if (anc != null) {
-	//		fullURL += "#" + anc;
-	//	}
-		
-		
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "get_docs",
@@ -1082,64 +1202,51 @@ function noenter(e) {
          return true;
 }
 function gotAgentId (id) {
-	var id;
-	var len = id.length;
-	if (len == 0) {
+	var len;
+	len = id.length;
+	if (len === 0) {
 	   	alert('Oops! A select box malfunctioned! Try changing the value and leaving with TAB. The background should change to green when you\'ve successfullly run the check routine.');
 		return false;
 	}
 }
 function chgCondition(collection_object_id) {
-	var collection_object_id;
 	helpWin=windowOpener("/picks/condition.cfm?collection_object_id="+collection_object_id,"conditionWin","width=800,height=338, resizable,scrollbars");
 }
 function getLoan(LoanIDFld,LoanNumberFld,loanNumber,collectionID){
-	var url="/picks/getLoan.cfm";
-	var LoanIDFld;
-	var LoanNumberFld;
-	var loanNumber;
-	var collectionID;
-	var oawin=url+"?LoanIDFld="+LoanIDFld+"&LoanNumberFld="+LoanNumberFld+"&loanNumber="+loanNumber+"&agent_name="+collectionID;
+	var url,oawin;
+	url="/picks/getLoan.cfm";
+	oawin=url+"?LoanIDFld="+LoanIDFld+"&LoanNumberFld="+LoanNumberFld+"&loanNumber="+loanNumber+"&agent_name="+collectionID;
 	loanpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
 }
 function getAgent(agentIdFld,agentNameFld,formName,agentNameString,allowCreation){
-	var url="/picks/findAgent.cfm";
-	var agentIdFld;
-	var agentNameFld;
-	var formName;
-	var agentNameString;
-	var allowCreation;
-	var oawin=url+"?agentIdFld="+agentIdFld+"&agentNameFld="+agentNameFld+"&formName="+formName+"&agent_name="+agentNameString+"&allowCreation="+allowCreation;
+	var url,oawin;
+	url="/picks/findAgent.cfm";
+	oawin=url+"?agentIdFld="+agentIdFld+"&agentNameFld="+agentNameFld+"&formName="+formName+"&agent_name="+agentNameString+"&allowCreation="+allowCreation;
 	agentpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
 }
 function getProject(projIdFld,projNameFld,formName,projNameString){
-	var url="/picks/findProject.cfm";
-	var projIdFld;
-	var projNameFld;
-	var formName;
-	var projNameString;
-	var prwin=url+"?projIdFld="+projIdFld+"&projNameFld="+projNameFld+"&formName="+formName+"&project_name="+projNameString;
+	var url,prwin;
+	url="/picks/findProject.cfm";
+	prwin=url+"?projIdFld="+projIdFld+"&projNameFld="+projNameFld+"&formName="+formName+"&project_name="+projNameString;
 	projpickwin=window.open(prwin,"","width=400,height=338, resizable,scrollbars");
 }
 function findCatalogedItem(collIdFld,CatNumStrFld,formName,oidType,oidNum,collID){
-	var url="/picks/findCatalogedItem.cfm";
-	var collIdFld;
-	var CatCollFld;
-	var formName;
-	var oidType;
-	var oidNum;
-	var collCde;
-	var ciWin=url+"?collIdFld="+collIdFld+"&CatNumStrFld="+CatNumStrFld+"&formName="+formName+"&oidType="+oidType+"&oidNum="+oidNum+"&collID="+collID;
+	var url,CatCollFld,ciWin;
+	url="/picks/findCatalogedItem.cfm";
+	
+	ciWin=url+"?collIdFld="+collIdFld+"&CatNumStrFld="+CatNumStrFld+"&formName="+formName+"&oidType="+oidType+"&oidNum="+oidNum+"&collID="+collID;
 	catItemWin=window.open(ciWin,"","width=400,height=338, resizable,scrollbars");
 }
 function findCollEvent(collIdFld,formName,dispField,eventName){
-	var url="/picks/findCollEvent.cfm";
-	var covwin=url+"?collIdFld="+collIdFld+"&dispField="+dispField+"&formName="+formName+"&collecting_event_name="+eventName;
+	var url,covwin;
+	url="/picks/findCollEvent.cfm";
+	covwin=url+"?collIdFld="+collIdFld+"&dispField="+dispField+"&formName="+formName+"&collecting_event_name="+eventName;
 	ColPickwin=window.open(covwin,"","width=800,height=600, resizable,scrollbars");
 }
 function getPublication(pubStringFld,pubIdFld,publication_title,formName){
-	var url="/picks/findPublication.cfm";
-	var pubwin=url+"?pubStringFld="+pubStringFld+"&pubIdFld="+pubIdFld+"&publication_title="+publication_title+"&formName="+formName;
+	var url,pubwin;
+	url="/picks/findPublication.cfm";
+	pubwin=url+"?pubStringFld="+pubStringFld+"&pubIdFld="+pubIdFld+"&publication_title="+publication_title+"&formName="+formName;
 	pubwin=window.open(pubwin,"","width=400,height=338, resizable,scrollbars");
 }
 function getAccn(accnNumber,rtnFldID,InstAcrColnCde){
@@ -1154,33 +1261,32 @@ function getAccn(accnNumber,rtnFldID,InstAcrColnCde){
 function getAccnMedia(idOfTxtFld,idOfPKeyFld){
 	//accnNumber=value submitted by user, optional
 	//collection_id
-	var url="/picks/getAccnMedia.cfm";
-	var pickwin=url+"?idOfTxtFld="+idOfTxtFld+"&idOfPKeyFld="+idOfPKeyFld;
+	var url,pickwin;
+	url="/picks/getAccnMedia.cfm";
+	pickwin=url+"?idOfTxtFld="+idOfTxtFld+"&idOfPKeyFld="+idOfPKeyFld;
 	pickwin=window.open(pickwin,"","width=400,height=338, resizable,scrollbars");
 }
 function getAccn2(accnNumber,colID){
 	//accnNumber=value submitted by user, optional
 	//collection_id
-	var url="/picks/getAccn.cfm";
-	var pickwin=url+"?accnNumber="+accnNumber+"&collectionID="+colID;
+	var url,pickwin;
+	url="/picks/getAccn.cfm";
+	pickwin=url+"?accnNumber="+accnNumber+"&collectionID="+colID;
 	pickwin=window.open(pickwin,"","width=400,height=338, resizable,scrollbars");
 }
 function getGeog(geogIdFld,geogStringFld,formName,geogString){
-	var url="/picks/findHigherGeog.cfm";
-	var geogIdFld;
-	var geogStringFld;
-	var formName;
-	var geogString;
-	var geogwin=url+"?geogIdFld="+geogIdFld+"&geogStringFld="+geogStringFld+"&formName="+formName+"&geogString="+geogString;
+	var url,geogwin;
+	url="/picks/findHigherGeog.cfm";
+	geogwin=url+"?geogIdFld="+geogIdFld+"&geogStringFld="+geogStringFld+"&formName="+formName+"&geogString="+geogString;
 	geogpickwin=window.open(geogwin,"","width=400,height=338, resizable,scrollbars");
 }
 function confirmDelete(formName,msg) {
-	var formName;
-	var msg = msg || "this record";
-	var yesno=confirm('Are you sure you want to delete ' + msg + '?');
+	var yesno,txtstrng;
+	msg = msg || "this record";
+	yesno=confirm('Are you sure you want to delete ' + msg + '?');
 	//confirmWin=windowOpener("/includes/abort.cfm?formName="+formName+"&msg="+msg,"confirmWin","width=200,height=150,resizable");
 	if (yesno==true) {
-  		var txtstrng='document.' + formName + '.submit();';
+  		txtstrng='document[formName].submit();';
 		eval(txtstrng);
  	} else {
 	  	return false;
@@ -1198,8 +1304,6 @@ function getLegal(blurb) {
 	helpWin=windowOpener("/info/legal.cfm?content="+blurb,"legalWin","width=400,height=338, resizable,scrollbars");
 }	
 function getInfo(subject,id) {
-	var subject;
-	var id;
 	infoWin=windowOpener("/info/SpecInfo.cfm?subject=" + subject + "&thisId="+id,"infoWin","width=800,height=500, resizable,scrollbars");
 }	
 function addLoanItem(coll_obj_id) {
@@ -1207,21 +1311,16 @@ function addLoanItem(coll_obj_id) {
 	loanItemWin=windowOpener("/user/loanItem.cfm?collection_object_id="+coll_obj_id,"loanItemWin","width=800,height=500, resizable,scrollbars,toolbar,menubar");
 }
 function findMedia(mediaStringFld,mediaIdFld,media_uri){
-	var url="/picks/findMedia.cfm";
-	var mediaIdFld;
-	var mediaStringFld;
-	var media_uri;
-	var popurl=url+"?mediaIdFld="+mediaIdFld+"&mediaStringFld="+mediaStringFld+"&media_uri="+media_uri;
+	var url,popurl;
+	url="/picks/findMedia.cfm";
+	popurl=url+"?mediaIdFld="+mediaIdFld+"&mediaStringFld="+mediaStringFld+"&media_uri="+media_uri;
 	mediapick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
 function taxaPick(taxonIdFld,taxonNameFld,formName,scientificName){
-var url="/picks/TaxaPick.cfm";
-var taxonIdFld;
-var taxonNameFld;
-var formName;
-var scientificName;
-var popurl=url+"?taxonIdFld="+taxonIdFld+"&taxonNameFld="+taxonNameFld+"&formName="+formName+"&scientific_name="+scientificName;
-taxapick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
+	var url,popurl;
+	url="/picks/TaxaPick.cfm";
+	popurl=url+"?taxonIdFld="+taxonIdFld+"&taxonNameFld="+taxonNameFld+"&formName="+formName+"&scientific_name="+scientificName;
+	taxapick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
 function taxaPickIdentification(taxonIdFld,taxonNameFld,formName,scientificName){
 	var url="/picks/TaxaPickIdentification.cfm";

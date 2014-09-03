@@ -1,5 +1,5 @@
 <script>
-	jQuery(document).ready(function() {
+	$(document).ready(function() {
 		$("#OIDType").multiselect({
 			minWidth: "500",
 			height: "300"
