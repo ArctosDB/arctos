@@ -124,11 +124,15 @@
 			select #key# from #session.SpecSrchTab# group by #key#
 		</cfquery>
 		<cfquery name="r2" dbtype="query">
-			select v, 0 as m from r
+			select v from r union select #key# from currentdata
 		</cfquery>
+		<cfdump var=#r2#>
+		
+		<!----
 		<cfquery name="rtn" dbtype="query">
 			update r2 set m=1 where v in (select #key# from currentdata)
 		</cfquery>
+		---->
 	<cfcatch>
 		<cfdump var=#cfcatch#>
 	</cfcatch>
