@@ -460,8 +460,10 @@
 					<cfset temp = queryaddrow(sugntab,1)>
 					<cfset temp = QuerySetCell(sugntab, "key", lcase(thisKey), idx)>	
 					<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
+					
+					<cfset temp = QuerySetCell(sugntab, "vocab", thisMoreInfo.CONTROLLED_VOCABULARY, idx)>
+					
 					<!-----
-					<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
 					<cfset temp = QuerySetCell(sugntab, "indata", indatavals, idx)>
 					---->
 					<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
@@ -506,8 +508,9 @@
 										<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#sugntab.val#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
 									</td>
 									<td>
-									
-									click to fetch vocabulary
+									<cfif len(sugntab.vocab) gt 0>
+										click to fetch vocabulary
+									</cfif>
 									<!----
 										<cfif len(sugntab.vocab) gt 0>
 											<!---- controlled vocab - loop through it, make indata values BOLD ---->
