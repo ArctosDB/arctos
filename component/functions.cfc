@@ -2059,58 +2059,7 @@
 	</cftry>
 	<cfreturn r>
 </cffunction>
-<!----------------------------------------------->
-<cffunction name="saveNewPartAtt" access="remote">
-	<cfargument name="attribute_type" type="string" required="yes">
-	<cfargument name="partID" type="numeric" required="yes">
-	<cfargument name="attribute_value" type="string" required="yes">
-	<cfargument name="attribute_units" type="string" required="no">
-	<cfargument name="determined_date" type="string" required="no">
-	<cfargument name="determined_by_agent_id" type="string" required="no">
-	<cfargument name="attribute_remark" type="string" required="no">
-	<cfargument name="determined_agent" type="string" required="no">
-
-	<cftry>
-		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			insert into specimen_part_attribute (
-				collection_object_id,
-				attribute_type,
-				attribute_value,
-				attribute_units,
-				determined_date,
-				determined_by_agent_id,
-				attribute_remark
-			) values (
-				#partID#,
-				'#attribute_type#',
-				'#attribute_value#',
-				'#attribute_units#',
-				'#determined_date#',
-				'#determined_by_agent_id#',
-				'#attribute_remark#'
-			)
-		</cfquery>
-		<cfset r=structNew()>
-		<cfset r.status="spiffy">
-		<cfset r.attribute_type=attribute_type>
-		<cfset r.attribute_value=attribute_value>
-		<cfset r.attribute_units=attribute_units>
-		<cfset r.determined_date=determined_date>
-		<cfset r.determined_by_agent_id=determined_by_agent_id>
-		<cfset r.attribute_remark=attribute_remark>
-		<cfset r.determined_agent=determined_agent>
-		<cfreturn r>
-		<cfcatch>
-			<cfset r=structNew()>
-			<cfset r.status="fail">
-			<cfset r.error=cfcatch.message & '; ' & cfcatch.detail>
-		</cfcatch>
-	</cftry>
-	<cfreturn r>
-</cffunction>
-
-
-
+<!----------------------------------------->
 <cffunction name="getPartAttOptions" access="remote">
 	<cfargument name="patype" type="string" required="yes">
 	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
