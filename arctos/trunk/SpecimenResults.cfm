@@ -440,63 +440,66 @@
 					<td nowrap="nowrap">
 						<select name="goWhere" id="goWhere" size="1" onchange="reporter('#session.SpecSrchTab#');">
 							<option value="">Manage...</option>
-							<option value="/Encumbrances.cfm">
-								Encumbrances
-							</option>
-							<option value="/multiIdentification.cfm">
-								Identification
-							</option>
-							<option value="/multiAgent.cfm">
-								Agents
-							</option>
-							<option value="/findContainer.cfm?showControl=1">
-								Part Locations
-							</option>
-							<option value="/bulkCollEvent.cfm">
-								Collecting Events
-							</option>
-							<option value="/bulkSpecimenEvent.cfm">
-								Specimen Events
-							</option>
-							<option value="/addAccn.cfm">
-								Accession
-							</option>
-							<option value="/tools/bulkPart.cfm">
-								Modify Parts
-							</option>
-							<option value="">::Print Stuff::</option>
-							<option value="/Reports/report_printer.cfm?report=uam_mamm_vial">
-								UAM Mammals Vial Labels
-							</option>
-							<option value="/Reports/report_printer.cfm?report=uam_mamm_box">
-								UAM Mammals Box Labels
-							</option>
-							<option value="/Reports/report_printer.cfm?report=MSB_vial_label">
-								MSB Mammals Vial Labels
-							</option>
-							<cfif isdefined('permit_num') and len(permit_num) gt 0>
-								<option value="/Reports/permit.cfm">
-									MVZ Permit Report
+							<optgroup label="Change Stuff">
+								<option value="/Encumbrances.cfm">
+									Encumbrances
 								</option>
-							</cfif>
-							<option value="/Reports/kenai.cfm">
-								download bug .tex
-							</option>
-							<option value="/Reports/uamento.cfm">
-								download UAM Ento CSV
-							</option>
-							<option value="/Reports/report_printer.cfm?report=ala_label">
-								ALA Labels
-							</option>
-							<option value="/info/part_data_download.cfm">
-								Parts table/download
-							</option>
-		                    <option value="/SpecimenResultsDownload.cfm?action=bulkloaderFormat">
-								Download for Bulkloader
-							</option>
-		                    <option value="/Reports/report_printer.cfm">
-								Print Any Report
-							</option>
+								<option value="/multiIdentification.cfm">
+									Identification
+								</option>
+								<option value="/multiAgent.cfm">
+									Agents
+								</option>
+								<option value="/findContainer.cfm?showControl=1">
+									Part Locations
+								</option>
+								<option value="/bulkCollEvent.cfm">
+									Collecting Events
+								</option>
+								<option value="/bulkSpecimenEvent.cfm">
+									Specimen Events
+								</option>
+								<option value="/addAccn.cfm">
+									Accession
+								</option>
+								<option value="/tools/bulkPart.cfm">
+									Modify Parts
+								</option>
+							</optgroup>
+							<optgroup label="Print Stuff">
+								<option value="/Reports/report_printer.cfm?report=uam_mamm_vial">
+									UAM Mammals Vial Labels
+								</option>
+								<option value="/Reports/report_printer.cfm?report=uam_mamm_box">
+									UAM Mammals Box Labels
+								</option>
+								<option value="/Reports/report_printer.cfm?report=MSB_vial_label">
+									MSB Mammals Vial Labels
+								</option>
+								<cfif isdefined('permit_num') and len(permit_num) gt 0>
+									<option value="/Reports/permit.cfm">
+										MVZ Permit Report
+									</option>
+								</cfif>
+								<option value="/Reports/kenai.cfm">
+									download bug .tex
+								</option>
+								<option value="/Reports/uamento.cfm">
+									download UAM Ento CSV
+								</option>
+								<option value="/Reports/report_printer.cfm?report=ala_label">
+									ALA Labels
+								</option>
+								<option value="/info/part_data_download.cfm">
+									Parts table/download
+								</option>
+			                    <option value="/SpecimenResultsDownload.cfm?action=bulkloaderFormat">
+									Download for Bulkloader
+								</option>
+			                    <option value="/Reports/report_printer.cfm">
+									Print Any Report
+								</option>
+							</optgroup>
 						</select>
 						<!----
 						<input type="button" value="Go" class="lnkBtn" onClick="reporter('#session.SpecSrchTab#');">
