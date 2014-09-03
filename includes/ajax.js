@@ -247,7 +247,7 @@ function saveThisAnnotation() {
 		},
 		function(r) {
 			if (r != captchaHash){
-				alert('bad captcha');
+				alert('The CAPTCHA text you entered does not match the image.');
 				return false;
 			} else {
 				$.getJSON("/component/functions.cfc",
