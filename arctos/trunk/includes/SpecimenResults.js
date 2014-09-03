@@ -19,7 +19,13 @@ function initializeMap() {
 	}
 	var arrCP = cfgml.split( ";" );
 	for (var i=0; i < arrCP.length; i++){
+		
+		
 		var p=arrCP[i];
+		
+		createMarker(p);
+
+		/*
 		var cpa=p.split(",");
 		var ns=cpa[0];
 		var lat=cpa[1];
@@ -39,7 +45,7 @@ function initializeMap() {
 		};
 		crcl = new google.maps.Circle(circleoptn);
 		
-		/*
+		
 		var marker = new google.maps.Marker({
 			position: center,
     		map: map,
@@ -54,7 +60,7 @@ function initializeMap() {
     		infowindow.open(map, this);
 		});
 		
-		*/
+		
 		var contentString= ns + ' specimens; Error(m)=' + r + '<br><span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add point to search</span>';
 
 		
@@ -73,7 +79,7 @@ function initializeMap() {
 			    }
 			  })(marker));
 		
-		
+		*/
 		
 	}
 	var bounds = new google.maps.LatLngBounds();
@@ -89,6 +95,63 @@ function initializeMap() {
     }
 	map.fitBounds(bounds);
 }
+
+function createMarker(p) {
+
+	var cpa=p.split(",");
+	var ns=cpa[0];
+	var lat=cpa[1];
+	var lon=cpa[2];
+	var r=cpa[3];					
+	var center=new google.maps.LatLng(lat, lon);
+	var circleoptn = {
+		strokeColor: '#FF0000',
+		strokeOpacity: 0.8,
+		strokeWeight: 2,
+		fillColor: '#FF0000',
+		fillOpacity: 0.15,
+		map: map,
+		center: center,
+		radius: parseInt(r),
+		zIndex:-99
+	};
+	crcl = new google.maps.Circle(circleoptn);
+	
+	var marker = new google.maps.Marker({
+		position: center,
+		map: map,
+		title: ns + ' specimens; Error(m)=' + r,
+		contentString: contentString,
+			zIndex: 10
+	});
+	markers.push(marker);
+	var contentString= ns + ' specimens; Error(m)=' + r + '<br><span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add point to search</span>';
+	google.maps.event.addListener(marker, 'click', function() {
+		infowindow.setContent(this.contentString);
+		infowindow.open(map, this);
+	});
+	
+	/*
+	
+	
+	
+	var marker = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(lat, lng),
+        icon: '/static/images/iconsets/gmap/iconb' + (i+1) + '.png',
+    });
+    var infowindow = new google.maps.InfoWindow({
+        content: 'test string'
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map,marker);
+    });
+    
+    
+    */
+}
+
+
 function confirmAddAllDL(){
 	var yesno=confirm('Are you sure you want to add all these specimens to the data loan?');
 	if (yesno==true) {
