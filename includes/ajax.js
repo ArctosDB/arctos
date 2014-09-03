@@ -1398,6 +1398,8 @@ function generateMD5() {
 		},
 		function (r){
 			cc=parseInt($("#number_of_labels").val()) + parseInt(1);
+			console.log('cc=' + cc);
+			
 			addLabel(cc);
 			lid='label__' + cc;
 			lvid='label_value__' + cc;
