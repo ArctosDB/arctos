@@ -58,26 +58,6 @@
 	<cfquery name="tquery" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from ssrch_field_doc where cf_variable='#lcase(term)#'
 	</cfquery>
-	
-	
-	<!---
-	<cfif left(tquery.CONTROLLED_VOCABULARY,2) is "ct">
-		<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
-			select * from #tquery.CONTROLLED_VOCABULARY#
-		</cfquery>
-		<cfloop list="#tct.columnlist#" index="tcname">
-			<cfif tcname is not "description" and tcname is not "collection_cde">
-				<cfset ctColName=tcname>
-			</cfif>
-		</cfloop>		
-		<cfquery name="cto" dbtype="query">
-			select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
-		</cfquery>
-			
-	</cfif>
-	
-	
-	---->
 	<cfif len(tquery.DEFINITION) gt 0>
 		<cfset thisSpanClass="helpLink">
 	<cfelse>
@@ -94,28 +74,13 @@
 				<td>
 					<input type="text" name="#term#" id="#term#" value="" placeholder="#tquery.PLACEHOLDER_TEXT#" size="50">
 				</td>
-				
-				
-				<!----
-				<td>
-					<cfif isdefined("cto")>
-						<select onchange="$('###term#').val(this.value);">
-							<option value=""></option>
-							<cfloop query="cto">
-								<option value="#thisctvalue#">#thisctvalue#</option>
-							</cfloop>
-						</select>
+				<td id="voccell_#term#">
+					<cfif len(tquery.CONTROLLED_VOCABULARY) gt 0>
+						<span class="likeLink" onclick="fetchSrchWgtVocab('#term#');">fetch vocabulary</span>
+					<cfelse>
+						&nbsp;
 					</cfif>
 				</td>
-				---->
-				
-				<td id="voccell_#term#">
-										<cfif len(tquery.CONTROLLED_VOCABULARY) gt 0>
-											<span class="likeLink" onclick="fetchSrchWgtVocab('#term#');">fetch vocabulary</span>
-										<cfelse>
-											&nbsp;
-										</cfif>
-									</td>
 				<td>
 					<span onclick="$('###term#').val('');" class="likeLink">[ clear ]</span>
 					<span onclick="$('###term#').val('_');" class="likeLink">[ require ]</span>
@@ -362,7 +327,7 @@
 			</cfif>
 		</cfloop>		
 		<cfquery name="r" dbtype="query">
-			select #ctColName# as data from tct group by #ctColName# order by #ctColName#
+			select #ctColName# as data from tct where #ctColName# is not null group by #ctColName# order by #ctColName#
 		</cfquery>
 		<cfreturn r>
 	<cfelse>
