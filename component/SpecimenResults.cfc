@@ -127,13 +127,13 @@
 		<cfquery name="r2" dbtype="query">
 			select v, 0 as m from r
 		</cfquery>
-		<cfquery name="return" dbtype="query">
+		<cfquery name="rtn" dbtype="query">
 			update r2 set m=1 where v in (select #key# from currentdata)
 		</cfquery>
 	<cfcatch>
 		<cfdump var=#cfcatch#>
 	</cfcatch>
-		<cfreturn return>
+		<cfreturn rtn>
 	</cftry>
 		
 		
