@@ -71,21 +71,39 @@
 
 /* default "not usually used but occasionally huge" input" */
 
-.tinytextarea {width:10em;height:1.5em;margin:0.3em;vertical-align:center;}    
+.tinytextarea {
+	width:10em;
+	height:1.5em;
+	margin:0.3em;
+	vertical-align:middle;}    
 
 
 /* default "resizable input" */
 
-.smalltextarea {width:15em;height:1.5em;margin:0.3em;vertical-align:center;}    
+.smalltextarea {
+	width:15em;
+	height:1.5em;
+	margin:0.3em;
+	vertical-align: middle;
+}    
 
 /* default "one big line resizable input" */
-.mediumtextarea {width:30em;height:1.5em;margin:0.3em;vertical-align:center;}    
+.mediumtextarea {
+	width:30em;
+	height:1.5em;
+	margin:0.3em;
+	vertical-align: middle;
+}
 
 /* default big tetarea */
 .largetextarea {width:30em;height:3em;margin:0.3em;;}
 
 /* default long-n-skinny tetarea */
-.longtextarea {width:60em;height:1.5em;margin:0.3em;vertical-align:center;}
+.longtextarea {
+	width:60em;
+	height:1.5em;
+	margin:0.3em;
+	vertical-align: middle;}
 
 
 /* default "often used for lots of rambling" textarea */
@@ -96,7 +114,9 @@
 }
 
 /* specimen results suggest form styling */
- .ssw_sngselect{max-width:30em;};
+.ssw_sngselect{
+ 	max-width: 30em;
+}
 
 /* apparently unused, but keep it around until we're more sure
 	.hide {visibility:hidden;}
@@ -453,7 +473,7 @@ div.shortThumb {
 div.thumbs {
 	border: 1px dashed black;
 	max-width:910px;
-	align:center;
+	text-align:center;
 	margin-left:auto;
 	margin-right:auto;
 }
@@ -847,12 +867,10 @@ table#SD {
 td#SDCellLeft{
 	text-align: right;
 	vertical-align:top;
-	row-span: 1;
 	}
 td#SDCellRight{
 	text-align: left;
 	vertical-align:top;
-	row-span: 1;
 	}
 .detailElements{
 	font-size:1em;
@@ -1199,7 +1217,7 @@ div.group {
 	border:1px solid;
 	padding:2px;
 	text-align:center;
-	cursor:hand;
+	cursor: pointer;
 	text-decoration: none;}	
 .redButton {
 	background-color:red;
@@ -1358,7 +1376,9 @@ input.qutBtn {
 input.reqdClr, select.reqdClr, textarea.reqdClr {
    background-color:#FFFF33; }
 
-:required {background-color:#FFFF33;}
+.required {
+	background-color: #FFFF33;
+}
 
 input.badPick, select.badPick, textarea.badPick {
 
