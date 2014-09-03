@@ -138,7 +138,6 @@ function createMarker(p) {
 
 	
 	markers.push(marker);
-	var contentString= ns + ' specimens; Error(m)=' + r + '<br><span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add point to search</span>';
 	
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.setContent(this.contentString);
@@ -152,7 +151,8 @@ var marker = new google.maps.Marker({
     });
 	  */
 	
-	
+	var contentString= ns + ' specimens; Error(m)=' + r + '<br><span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add point to search</span>';
+
 	var marker = new google.maps.Marker({
 		position: center,
 		map: map,
