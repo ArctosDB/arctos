@@ -25,6 +25,42 @@ var viewport={
        }
    };
 
+$(document).ready(function() {
+	$(".helpLink").live('click', function(e){
+		var id=this.id;
+		removeHelpDiv();
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','removeHelpDiv()');
+		document.body.appendChild(bgDiv);
+		var theDiv = document.createElement('div');
+		theDiv.id = 'helpDiv';
+		theDiv.className = 'helpBox';
+		theDiv.innerHTML='<br>Loading...';
+		document.body.appendChild(theDiv);
+		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
+		$(theDiv).load("/doc/get_short_doc.cfm",{fld: id, addCtl: 1});
+	});
+	
+	$("#c_identifiers_cust").click(function(e){
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','closeAndRefresh()');
+		document.body.appendChild(bgDiv);
+		var cDiv = document.createElement('div');
+		cDiv.id = 'customDiv';
+		cDiv.className = 'sscustomBox';
+		cDiv.innerHTML='<br>Loading...';
+		document.body.appendChild(cDiv);
+		var ptl="/includes/SpecSearch/customIDs.cfm";
+		$(cDiv).load(ptl,{},function(){
+			viewport.init("#customDiv");
+		});
+	});
+});
+
 /* specimen search */
 function setSessionCustomID(v) {
 	$.getJSON("/component/functions.cfc",
@@ -128,14 +164,6 @@ function kmlSync(tid,tval) {
 /* specimen search */
 
 
-function op_getAgent(agentIdID,agentNameID,agent_name){
-	var url;
-	$("#" + agentNameID).removeClass('goodPick');
-	url="/picks/op_findAgent.cfm";
-	url+="?agentIdID="+agentIdID+"&agentNameID="+agentNameID+"&agent_name="+agent_name;
-	//console.log(url);
-	$.colorbox({width:"80%",height:"80%", href:url});   
-}
 
 
 function checkCSV(obj) {
@@ -177,21 +205,7 @@ function blockSuggest (onoff) {
 		}
 	);
 }
-function changekillRows (onoff) {
-	$.getJSON("/component/functions.cfc",
-		{
-			method : "changekillRows",
-			tgt : onoff,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function (result){
-			if (result != 'success') {
-				alert('An error occured: ' + result);
-			}
-		}
-	);
-}
+
 function findPart(partFld,part_name,collCde){
 	var url,popurl;
 	
@@ -290,48 +304,6 @@ function closeAnnotation() {
 	document.body.removeChild(theDiv);
 }
 
-/*
-window.alert = function(message){
-    $(document.createElement('div'))
-        .attr({title: 'Alert', 'class': 'alert'})
-        .html(message)
-        .dialog({
-            buttons: {OK: function(){$(this).dialog('close');}},
-            close: function(){$(this).remove();},
-            draggable: true,
-            modal: true,
-            resizable: false,
-            width: 'auto'
-        });
-};
-
-
-function jqalert(output_msg, title_msg)
-{
-    if (!title_msg)
-        title_msg = 'Alert';
-
-    if (!output_msg)
-        output_msg = 'No Message to Display.';
-
-    $("<div></div>").html(output_msg).dialog({
-        title: title_msg,
-        resizable: false,
-        modal: true,
-        buttons: {
-            "Ok": function() 
-            {
-                $( this ).dialog( "close" );
-            }
-        }
-    });
-}
-
-
-*/
-
-
-
 function saveSearch(returnURL){
 	var uniqid,sName,sn,ru;
 	uniqid = Date.now();
@@ -356,107 +328,6 @@ function saveSearch(returnURL){
 	}
 }
 
-/*
-var dateFormat = function () {
-	var	token;
-	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
-		timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
-		timezoneClip = /[^-+\dA-Z]/g,
-		pad = function (val, len) {
-			val = String(val);
-			len = len || 2;
-			while (val.length < len) val = "0" + val;
-			return val;
-		};
-	return function (date, mask, utc) {
-		var dF,_;
-		dF= dateFormat;
-		if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
-			mask = date;
-			date = undefined;
-		}
-		date = date ? new Date(date) : new Date;
-		if (isNaN(date)) throw SyntaxError("invalid date");
-		mask = String(dF.masks[mask] || mask || dF.masks["default"]);
-		if (mask.slice(0, 4) == "UTC:") {
-			mask = mask.slice(4);
-			utc = true;
-		}
-		_ = utc ? "getUTC" : "get",
-			d = date[_ + "Date"](),
-			D = date[_ + "Day"](),
-			m = date[_ + "Month"](),
-			y = date[_ + "FullYear"](),
-			H = date[_ + "Hours"](),
-			M = date[_ + "Minutes"](),
-			s = date[_ + "Seconds"](),
-			L = date[_ + "Milliseconds"](),
-			o = utc ? 0 : date.getTimezoneOffset(),
-			flags = {
-				d:    d,
-				dd:   pad(d),
-				ddd:  dF.i18n.dayNames[D],
-				dddd: dF.i18n.dayNames[D + 7],
-				m:    m + 1,
-				mm:   pad(m + 1),
-				mmm:  dF.i18n.monthNames[m],
-				mmmm: dF.i18n.monthNames[m + 12],
-				yy:   String(y).slice(2),
-				yyyy: y,
-				h:    H % 12 || 12,
-				hh:   pad(H % 12 || 12),
-				H:    H,
-				HH:   pad(H),
-				M:    M,
-				MM:   pad(M),
-				s:    s,
-				ss:   pad(s),
-				l:    pad(L, 3),
-				L:    pad(L > 99 ? Math.round(L / 10) : L),
-				t:    H < 12 ? "a"  : "p",
-				tt:   H < 12 ? "am" : "pm",
-				T:    H < 12 ? "A"  : "P",
-				TT:   H < 12 ? "AM" : "PM",
-				Z:    utc ? "UTC" : (String(date).match(timezone) || [""]).pop().replace(timezoneClip, ""),
-				o:    (o > 0 ? "-" : "+") + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
-				S:    ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
-			};
-
-		return mask.replace(token, function ($0) {
-			return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
-		});
-	};
-}();
-dateFormat.masks = {
-	"default":      "ddd mmm dd yyyy HH:MM:ss",
-	shortDate:      "m/d/yy",
-	mediumDate:     "mmm d, yyyy",
-	longDate:       "mmmm d, yyyy",
-	fullDate:       "dddd, mmmm d, yyyy",
-	shortTime:      "h:MM TT",
-	mediumTime:     "h:MM:ss TT",
-	longTime:       "h:MM:ss TT Z",
-	isoDate:        "yyyy-mm-dd",
-	isoTime:        "HH:MM:ss",
-	isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
-	isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
-};
-dateFormat.i18n = {
-	dayNames: [
-		"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
-		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-	],
-	monthNames: [
-		"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-		"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
-	]
-};
-Date.prototype.format = function (mask, utc) {
-	return dateFormat(this, mask, utc);
-};
-
-
-*/
 function crcloo (ColumnList,in_or_out) {
 	$.getJSON("/component/functions.cfc",
 		{
@@ -494,38 +365,9 @@ function uncheckAllById(list) {
 
 }
 
-function goPickParts (collection_object_id,transaction_id) {
-	var url;
-	url='/picks/internalAddLoanItemTwo.cfm?collection_object_id=' + collection_object_id +"&transaction_id=" + transaction_id;
-	mywin=windowOpener(url,'myWin','height=300,width=800,resizable,location,menubar ,scrollbars ,status ,titlebar,toolbar');
-}
 function hidePageLoad() {
 	$('#loading').hide();
 }
-function findAccession () {
-	var collection_id,accn_number;
-	collection_id=document.getElementById('collection_id').value;
-	accn_number=document.getElementById('accn_number').value;
-	$.getJSON("/component/functions.cfc",
-		{
-			method : "findAccession",
-			collection_id : collection_id,
-			accn_number : accn_number,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function (result) {
-			if(result>0) {
-				document.getElementById('g_num').className='doShow';
-				document.getElementById('b_num').className='noShow';
-			} else {
-				document.getElementById('g_num').className='noShow';
-				document.getElementById('b_num').className='doShow';
-			}
-		}
-	);
-}
-
 
 function addPartToContainer () {
 	var cid,pid1,pid2,parent_barcode,new_container_type;
@@ -607,6 +449,7 @@ function checkSubmit() {
 	}
 }	
 function newPart (collection_object_id) {
+	// used by clonePart, which is used by part2container.cfm
 	var part,url;
 	collection_id=document.getElementById('collection_id').value;
 	part=document.getElementById('part_name').value;
@@ -698,6 +541,7 @@ function newPart (collection_object_id) {
  }
 
 function divpop (url) {
+	// used by newPart
 	var req,bgDiv,theDiv;
  	bgDiv=document.createElement('div');
 	bgDiv.id='bgDiv';
@@ -721,6 +565,7 @@ function divpop (url) {
 	}
 }
 function divpopDone(req) {
+	// used by divpop
 	if (req.readyState == 4) { // only if req is "loaded"
 		if (req.status == 200) { // only if "OK"
 		  document.getElementById('ppDiv').innerHTML = req.responseText;
@@ -736,6 +581,7 @@ function divpopDone(req) {
 	}
 }
 function divpopClose(){
+	//used by divpop
 	var p = document.getElementById('ppDiv');
 	document.body.removeChild(p);
 	var b = document.getElementById('bgDiv');
@@ -789,41 +635,6 @@ function makePart(){
 		}
 	);
 }
-function changeresultSort (tgt) {
-	$.getJSON("/component/functions.cfc",
-		{
-			method : "changeresultSort",
-			tgt : tgt,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function (result) {
-			if (result == 'success') {
-				var e = document.getElementById('result_sort').className='';
-			} else {
-				alert('An error occured: ' + result);
-			}
-		}
-	);
-}
-function changedisplayRows (tgt) {
-	$.getJSON("/component/functions.cfc",
-		{
-			method : "changedisplayRows",
-			tgt : tgt,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function (result) {
-			if (result == 'success') {
-				document.getElementById('displayRows').className='';
-			} else {
-				alert('An error occured: ' + result);
-			}
-		}
-	);
-}
-
 
 function getAgentInfo(agent_id) {
 	removeHelpDiv();
@@ -841,62 +652,8 @@ function getAgentInfo(agent_id) {
 	$(theDiv).load("/ajax/agentInfo.cfm",{agent_id: agent_id, addCtl: 1});
 }
 
-$(document).ready(function() {
-	
-	
-	//colorbox = $.colorbox;
-	
-	
-	$(".helpLink").live('click', function(e){
-		var id=this.id;
-		removeHelpDiv();
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','removeHelpDiv()');
-		document.body.appendChild(bgDiv);
-		var theDiv = document.createElement('div');
-		theDiv.id = 'helpDiv';
-		theDiv.className = 'helpBox';
-		theDiv.innerHTML='<br>Loading...';
-		document.body.appendChild(theDiv);
-		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-		$(theDiv).load("/doc/get_short_doc.cfm",{fld: id, addCtl: 1});
-	});
-	$("#c_collection_cust").click(function(e){
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','closeAndRefresh()');
-		document.body.appendChild(bgDiv);
-		var cDiv = document.createElement('div');
-		cDiv.id = 'customDiv';
-		cDiv.className = 'sscustomBox';
-		cDiv.innerHTML='<br>Loading...';
-		document.body.appendChild(cDiv);
-		var ptl="/includes/SpecSearch/changeCollection.cfm";
-		$(cDiv).load(ptl,{},function(){
-			viewport.init("#customDiv");
-		});
-	});
-	$("#c_identifiers_cust").click(function(e){
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','closeAndRefresh()');
-		document.body.appendChild(bgDiv);
-		var cDiv = document.createElement('div');
-		cDiv.id = 'customDiv';
-		cDiv.className = 'sscustomBox';
-		cDiv.innerHTML='<br>Loading...';
-		document.body.appendChild(cDiv);
-		var ptl="/includes/SpecSearch/customIDs.cfm";
-		$(cDiv).load(ptl,{},function(){
-			viewport.init("#customDiv");
-		});
-	});
-});
 function scrollToAnchor(aid){
+	// handy shortcut
     var aTag = $("a[name='"+ aid +"']");
     $('html,body').animate({scrollTop: aTag.offset().top},'slow');
 }
@@ -955,25 +712,9 @@ function removeHelpDiv() {
 	$('#bgDiv').remove();
 	$('#helpDiv').remove();
 }
-function changeshowObservations (tgt) {
-	$.getJSON("/component/functions.cfc",
-		{
-			method : "changeshowObservations",
-			tgt : tgt,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function (r) {
-			if (r != 'success') {
-				alert('An error occured: ' + r);
-			}
-		}
-	);
-}
-
 function saveSpecSrchPref(id,onOff){
+	// this function should be (but isn't) used for all search preferences from clicks and functions and whatever
 	var savedArray,result,cookieArray,cCookie,idFound;
-
 	$.getJSON("/component/functions.cfc",
 		{
 			method : "saveSpecSrchPref",
@@ -1017,6 +758,7 @@ function saveSpecSrchPref(id,onOff){
 	);
 }
 function showHide(id,onOff) {
+	// specimensearch pane toggle
 	var t,ztab,ctl,offText,onText,ptl;
 	t='e_' + id;
 	z='c_' + id;
@@ -1048,12 +790,14 @@ function showHide(id,onOff) {
 	}
 }
 function closeAndRefresh(){
+	// used for customizing identifier search prefs - probably could be redone with modal
 	var theDiv;
 	document.location=location.href;
 	theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
 }
 function getFormValues() {
+	// specimen search - "use last" button
  	var theForm,nval,spAry,i,theElement,element_name,element_value,str;
  	theForm=document.getElementById('SpecData');
  	nval=theForm.length;
@@ -1072,9 +816,6 @@ function getFormValues() {
 	str=spAry.join("|");
 	document.cookie = 'schParams=' + str;
  }
-function nada(){
-	return false;
-}
 function createCookie(name,value,days) {
 	var expires,date;
 	if (days) {
@@ -1096,6 +837,14 @@ function readCookie(name) {
 		if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length,c.length);
 	}
 	return null;
+}
+function get_cookie ( cookie_name ) {
+	var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
+	if ( results ) {
+		return ( unescape ( results[2] ) );
+	} else {
+		return null;
+	}
 }
 function changeexclusive_collection_id (tgt) {
 	$.getJSON("/component/functions.cfc",
@@ -1126,14 +875,7 @@ function IsNumeric(sText) {
    }
    return IsNumber;
 }
- function get_cookie ( cookie_name ) {
-  var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
-  if ( results ) {
-    return ( unescape ( results[2] ) );
-  } else {
-    return null;
-  }
-}
+
 function orapwCheck(p,u) {
 	var regExp = /^[A-Za-z0-9!$%&_?(\-)<>=/:;*\.]$/;
 	var minLen=6;
@@ -1161,9 +903,9 @@ function orapwCheck(p,u) {
 	return msg;
 }
 function getCtDoc(table,field) {
-	var fullURL;
-	fullURL = "/info/ctDocumentation.cfm?table=" + table + "&field=" + field;
-	ctDocWin=windowOpener(fullURL,"ctDocWin","width=700,height=400, resizable,scrollbars");
+	var u,w;
+	u = "/info/ctDocumentation.cfm?table=" + table + "&field=" + field;
+	w=windowOpener(u,"ctDocWin","width=700,height=400, resizable,scrollbars");
 }
 function windowOpener(url, name, args) {
 	popupWins = [];
@@ -2444,3 +2186,108 @@ function deleteLink(r){
 	$('#linkRow' + r + ' td:nth-child(1)').addClass('red').text('deleted').append(newElem);
 	$('#linkRow' + r + ' td:nth-child(2)').addClass('red').text('');
 }
+
+/* dont think is used but keep it for now.... */
+
+
+/*
+var dateFormat = function () {
+	var	token;
+	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
+		timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
+		timezoneClip = /[^-+\dA-Z]/g,
+		pad = function (val, len) {
+			val = String(val);
+			len = len || 2;
+			while (val.length < len) val = "0" + val;
+			return val;
+		};
+	return function (date, mask, utc) {
+		var dF,_;
+		dF= dateFormat;
+		if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
+			mask = date;
+			date = undefined;
+		}
+		date = date ? new Date(date) : new Date;
+		if (isNaN(date)) throw SyntaxError("invalid date");
+		mask = String(dF.masks[mask] || mask || dF.masks["default"]);
+		if (mask.slice(0, 4) == "UTC:") {
+			mask = mask.slice(4);
+			utc = true;
+		}
+		_ = utc ? "getUTC" : "get",
+			d = date[_ + "Date"](),
+			D = date[_ + "Day"](),
+			m = date[_ + "Month"](),
+			y = date[_ + "FullYear"](),
+			H = date[_ + "Hours"](),
+			M = date[_ + "Minutes"](),
+			s = date[_ + "Seconds"](),
+			L = date[_ + "Milliseconds"](),
+			o = utc ? 0 : date.getTimezoneOffset(),
+			flags = {
+				d:    d,
+				dd:   pad(d),
+				ddd:  dF.i18n.dayNames[D],
+				dddd: dF.i18n.dayNames[D + 7],
+				m:    m + 1,
+				mm:   pad(m + 1),
+				mmm:  dF.i18n.monthNames[m],
+				mmmm: dF.i18n.monthNames[m + 12],
+				yy:   String(y).slice(2),
+				yyyy: y,
+				h:    H % 12 || 12,
+				hh:   pad(H % 12 || 12),
+				H:    H,
+				HH:   pad(H),
+				M:    M,
+				MM:   pad(M),
+				s:    s,
+				ss:   pad(s),
+				l:    pad(L, 3),
+				L:    pad(L > 99 ? Math.round(L / 10) : L),
+				t:    H < 12 ? "a"  : "p",
+				tt:   H < 12 ? "am" : "pm",
+				T:    H < 12 ? "A"  : "P",
+				TT:   H < 12 ? "AM" : "PM",
+				Z:    utc ? "UTC" : (String(date).match(timezone) || [""]).pop().replace(timezoneClip, ""),
+				o:    (o > 0 ? "-" : "+") + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
+				S:    ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
+			};
+
+		return mask.replace(token, function ($0) {
+			return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
+		});
+	};
+}();
+dateFormat.masks = {
+	"default":      "ddd mmm dd yyyy HH:MM:ss",
+	shortDate:      "m/d/yy",
+	mediumDate:     "mmm d, yyyy",
+	longDate:       "mmmm d, yyyy",
+	fullDate:       "dddd, mmmm d, yyyy",
+	shortTime:      "h:MM TT",
+	mediumTime:     "h:MM:ss TT",
+	longTime:       "h:MM:ss TT Z",
+	isoDate:        "yyyy-mm-dd",
+	isoTime:        "HH:MM:ss",
+	isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
+	isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
+};
+dateFormat.i18n = {
+	dayNames: [
+		"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
+		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+	],
+	monthNames: [
+		"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+		"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+	]
+};
+Date.prototype.format = function (mask, utc) {
+	return dateFormat(this, mask, utc);
+};
+
+
+*/

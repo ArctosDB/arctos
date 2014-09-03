@@ -253,25 +253,6 @@
 			<option value="0" <cfif session.block_suggest neq 1> selected="selected" </cfif>>Allow</option>
 			<option value="1" <cfif session.block_suggest is 1> selected="selected" </cfif>>Block</option>
 		</select>
-		<!----
-		<label for="showObservations">Include Observations?</label>
-		<select name="showObservations" id="showObservations" onchange="changeshowObservations(this.value)">
-			<option value="1" <cfif session.showObservations neq 0> selected="selected" </cfif>>Yes</option>
-			<option value="0" <cfif session.showObservations is 0> selected="selected" </cfif>>No</option>
-		</select>
-		---->
-		<label for="showObservations">Specimen & Taxonomy Records Per Page</label>
-		<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1">
-			<option <cfif session.displayRows is "10"> selected </cfif> value="10">10</option>
-			<option  <cfif session.displayRows is "20"> selected </cfif> value="20" >20</option>
-			<option  <cfif session.displayRows is "50"> selected </cfif> value="50">50</option>
-			<option  <cfif session.displayRows is "100"> selected </cfif> value="100">100</option>
-		</select>
-		<label for="killRows">SpecimenResults Row-Removal Option</label>
-		<select name="killRow" id="killRow" onchange="changekillRows(this.value)">
-			<option value="0" <cfif session.killRow neq 1> selected="selected" </cfif>>No</option>
-			<option value="1" <cfif session.killRow is 1> selected="selected" </cfif>>Yes</option>
-		</select>
 		<label for="customOtherIdentifier">My Other Identifier</label>
 		<select name="customOtherIdentifier" id="customOtherIdentifier"
 			size="1" onchange="this.className='red';changecustomOtherIdentifier(this.value);">

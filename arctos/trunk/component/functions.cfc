@@ -3874,101 +3874,6 @@
 	<cfreturn "cookie">
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
-<cffunction name="findAccession"  access="remote">
-	<cfargument name="collection_id" type="numeric" required="yes">
-	<cfargument name="accn_number" type="string" required="yes">
-	<cftry>
-		<cfquery name="accn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT accn.TRANSACTION_ID FROM accn,trans WHERE
-			accn.TRANSACTION_ID=trans.TRANSACTION_ID AND
-			accn_number = '#accn_number#'
-			and collection_id = #collection_id#
-		</cfquery>
-		<cfif accn.recordcount is 1 and len(accn.transaction_id) gt 0>
-			<cfreturn accn.transaction_id>
-		<cfelse>
-			<cfreturn -1>
-		</cfif>
-		<cfcatch>
-			<cfreturn -1>
-		</cfcatch>
-	</cftry>
-</cffunction>
-
-<cffunction name="jsontest" access="remote">
-		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select '123' a from dual union
-			select '0' a from dual union
-			select '0000' a from dual
-		</cfquery>
-
-		<cfset t=SerializeJSON (123)>
-		<cfdump var=#t#>
-		<cfset result=serializejson(result)>
-		<cfreturn result>
-</cffunction>
-<!----------------------------------------------------------------------------------------------------------------->
-<cffunction name="getSpecResultsData" access="remote">
-	<cfargument name="startrow" type="numeric" required="yes">
-	<cfargument name="numRecs" type="numeric" required="yes">
-	<cfargument name="orderBy" type="string" required="yes">
-	<cfset stopRow = startrow + numRecs -1>
-	<!--- strip Safari idiocy --->
-	<cfset orderBy=replace(orderBy,"%20"," ","all")>
-	<cfset orderBy=replace(orderBy,"%2C",",","all")>
-	<cfset orderBy=replace(orderBy,"_day_of_ymd","YEARCOLL,MONCOLL,DAYCOLL","all")>
-
-
-
-	<cftry>
-		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			Select * from (
-				Select a.*, rownum rnum From (
-					select * from #session.SpecSrchTab# order by #orderBy#
-				) a where rownum <= #stoprow#
-			) where rnum >= #startrow#
-		</cfquery>
-		<cfset collObjIdList = valuelist(result.collection_object_id)>
-		<cfset session.collObjIdList=collObjIdList>
-		<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			 select column_name from user_tab_cols where
-			 upper(table_name)=upper('#session.SpecSrchTab#') order by internal_column_id
-		</cfquery>
-		<cfset clist = result.COLUMNLIST>
-		<cfset t = arrayNew(1)>
-		<cfset temp = queryaddcolumn(result,"COLUMNLIST",t)>
-		<cfset temp = QuerySetCell(result, "COLUMNLIST", "#valuelist(cols.column_name)#", 1)>
-
-		<!----
-		<cfoutput>
-		<cfset jsonResult='{"ROWCOUNT":#result.recordcount#,"COLUMNS":[#listqualify(valuelist(cols.column_name),'"')#'>
-		<cfset jsonResult=jsonResult & '],"DATA":{'>
-		<cfloop list="#valuelist(cols.column_name)#" index="c">
-			<cfset jsonResult=jsonResult & '
-		</cfloop>
-		<hr>#jsonResult#
-		</cfoutput>
-		<cfabort>
-
-
-
-
-
-		{"ROWCOUNT":1,"COLUMNS":["COLLECTION_OBJECT_ID","CUSTOMID","MYCUSTOMIDTYPE","CUSTOMIDINT","COLLECTION","CAT_NUM","SCIENTIFIC_NAME","ACCESSION","SPEC_LOCALITY",
-		"VERBATIM_DATE","DEC_LAT","DEC_LONG","COLLECTION_ID","INSTITUTION_ACRONYM","COLLECTION_CDE","RNUM","COLUMNLIST"],"DATA":{"COLLECTION_OBJECT_ID":[21531530],"CUSTOMID":[null],"MYCUSTOMIDTYPE":["collector number"],"CUSTOMIDINT":[null],"COLLECTION":["DMNS Birds"],"CAT_NUM":[12],"SCIENTIFIC_NAME":["Meleagris gallopavo"],"ACCESSION":[0000],"SPEC_LOCALITY":["no specific locality recorded"],"VERBATIM_DATE":["before 1-Mar-2010"],"DEC_LAT":[null],"DEC_LONG":[null],"COLLECTION_ID":[43],"INSTITUTION_ACRONYM":["DMNS"],"COLLECTION_CDE":["Bird"],"RNUM":[1],"COLUMNLIST":["COLLECTION_OBJECT_ID,CUSTOMID,MYCUSTOMIDTYPE,CUSTOMIDINT,COLLECTION,CAT_NUM,SCIENTIFIC_NAME,ACCESSION,SPEC_LOCALITY,VERBATIM_DATE,DEC_LAT,DEC_LONG,COLLECTION_ID,INSTITUTION_ACRONYM,COLLECTION_CDE"]}}
-
-
-		---->
-	<cfcatch>
-			<cfset result = querynew("collection_object_id,message")>
-			<cfset temp = queryaddrow(result,1)>
-			<cfset temp = QuerySetCell(result, "collection_object_id", "-1", 1)>
-			<cfset temp = QuerySetCell(result, "message", "#cfcatch.Message# #cfcatch.Detail#", 1)>
-		</cfcatch>
-	</cftry>
-	<cfreturn result>
-</cffunction>
-<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="clientResultColumnList" access="remote">
 	<cfargument name="ColumnList" type="string" required="yes">
 	<cfargument name="in_or_out" type="string" required="yes">
@@ -4254,24 +4159,6 @@
 	</cftry>
 	<cfreturn msg>
 </cffunction>
-<!------------------------------------->
-<cffunction name="changeresultSort" access="remote">
-	<cfargument name="tgt" type="string" required="yes">
-	<cftry>
-			<cfquery name="up" datasource="cf_dbuser">
-				UPDATE cf_users SET
-					result_sort = '#tgt#'
-				WHERE username = '#session.username#'
-			</cfquery>
-			<cfset session.result_sort = "#tgt#">
-		<cfset result="success">
-	<cfcatch>
-		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
-	</cfcatch>
-	</cftry>
-	<cfreturn result>
-</cffunction>
-
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="changeUserPreference" access="remote">
 	<cfargument name="pref" type="string" required="yes">
@@ -4290,26 +4177,6 @@
 	</cftry>
 	<cfreturn result>
 </cffunction>
-<!----------------------------------------------------------------------------------------------------------------->
-<cffunction name="changekillRows" access="remote">
-	<cfargument name="tgt" type="string" required="yes">
-	<cftry>
-			<cfif tgt is not 1>
-				<cfset tgt=0>
-			</cfif>
-			<cfquery name="up" datasource="cf_dbuser">
-				UPDATE cf_users SET
-					KILLROW = #tgt#
-				WHERE username = '#session.username#'
-			</cfquery>
-			<cfset session.KILLROW = "#tgt#">
-		<cfset result="success">
-	<cfcatch>
-		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
-	</cfcatch>
-	</cftry>
-	<cfreturn result>
-</cffunction>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="changeBlockSuggest" access="remote">
 	<cfargument name="onoff" type="string" required="yes">
@@ -4320,23 +4187,6 @@
 				WHERE username = '#session.username#'
 			</cfquery>
 			<cfset session.block_suggest = onoff>
-		<cfset result="success">
-	<cfcatch>
-		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
-	</cfcatch>
-	</cftry>
-	<cfreturn result>
-</cffunction>
-<!----------------------------------------------------------------------------------------->
-<cffunction name="changedisplayRows" access="remote">
-	<cfargument name="tgt" type="string" required="yes">
-	<cftry>
-			<cfquery name="up" datasource="cf_dbuser">
-				UPDATE cf_users SET
-					displayrows = #tgt#
-				WHERE username = '#session.username#'
-			</cfquery>
-			<cfset session.displayrows = "#tgt#">
 		<cfset result="success">
 	<cfcatch>
 		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
@@ -4517,28 +4367,6 @@
 	</cfcatch>
 	</cftry>
 	<cfset result = "success">
-	<cfreturn result>
-</cffunction>
-<!----------------------------------------------------------------------------------------------------------------->
-<cffunction name="changeshowObservations" access="remote">
-	<cfargument name="tgt" type="string" required="yes">
-	<cfif tgt is "true">
-		<cfset t = 1>
-	<cfelse>
-		<cfset t = 0>
-	</cfif>
-	<cftry>
-		<cfquery name="up" datasource="cf_dbuser">
-			UPDATE cf_users SET
-				showObservations = #t#
-			WHERE username = '#session.username#'
-		</cfquery>
-		<cfset session.showObservations = "#t#">
-		<cfset result="success">
-		<cfcatch>
-			<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
-		</cfcatch>
-	</cftry>
 	<cfreturn result>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
