@@ -1407,7 +1407,7 @@ function generateMD5() {
 				//lvid='label_value__' + cc;
 				
 				$("#label__" + cc).val('MD5 checksum');
-				$("#label_value__" + cc).val(r);
+				$("#label_value__" + cc).val('i am a value');
 		       });
 			 
 			 
