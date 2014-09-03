@@ -1403,10 +1403,16 @@ function generateMD5() {
 			addLabel(cc);
 			lid='label__' + cc;
 			lvid='label_value__' + cc;
+			
+			$("#" + lid).val('MD5 checksum');
+			$("#" + lvid).val(result);
+			
+			/*
 			nl=document.getElementById(lid);
 			nlv=document.getElementById(lvid);
 			nl.value='MD5 checksum';
 			nlv.value=result;
+			*/
 		}
 	);
 }
