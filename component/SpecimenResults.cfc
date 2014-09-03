@@ -270,7 +270,7 @@
 										<cfif len(sugntab.vocab) gt 0>
 											<!---- controlled vocab - loop through it, make indata values BOLD ---->
 											<select class="ssw_sngselect" onchange="$('###sugntab.key#').val(this.value);">
-												<option value=""></option>
+												<option value="">i am select</option>
 												<cfloop list="#sugntab.vocab#" index="v" delimiters="|">
 													<cfif listfindnocase(sugntab.indata,v,"|")>
 														<cfset thisStyle="font-weight:bold;">
