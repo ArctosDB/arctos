@@ -256,8 +256,8 @@
 								<option value="#cf_variable#">#DISPLAY_TEXT#</option>
 							</cfloop>
 						</select>
-						<input type="reset" value="Reset Filters">
-					<input type="submit" value="Requery">
+						<input class="clrBtn" type="reset" value="Reset Filters">
+						<input class="schBtn" type="submit" value="Requery">
 					<div style="font-size:x-small">
 						* Click on a term for search help.
 					</div>
