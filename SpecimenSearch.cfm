@@ -762,7 +762,7 @@
 		})
 		$("#collection_id").multiselect({
 			minWidth: "500",
-			height: "300"
+			height: "auto"
 		});
 	});
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
