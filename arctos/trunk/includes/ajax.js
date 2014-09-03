@@ -1413,7 +1413,7 @@ function generateMD5() {
 		       });
 			 
 			 
-			$("#label_value__" + cc).val('i am a value' + r);
+			//$("#label_value__" + cc).val('i am a value' + r);
 			
 			console.log('after addlabel thingee');
 			
