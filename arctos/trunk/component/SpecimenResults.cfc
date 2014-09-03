@@ -109,17 +109,6 @@
 		<cfquery name="r" dbtype="query">
 			select #ctColName# as v from tct where #ctColName# is not null group by #ctColName# order by #ctColName#
 		</cfquery>
-	<cfelse>
-		<!--- list ---->
-		<cfset r = querynew("d")>
-		<cfset idx=1>
-		<cfloop list="#v.CONTROLLED_VOCABULARY#" index="i">
-			<cfset temp = queryaddrow(r,1)>
-			<cfset temp = QuerySetCell(r, "v", i, idx)>
-			<cfset idx=idx+1>
-		</cfloop>
-	</cfif>
-	<cftry>
 		<cfquery name="currentdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select #key# from #session.SpecSrchTab# group by #key#
 		</cfquery>
@@ -129,12 +118,21 @@
 		<cfquery name="rtn" dbtype="query">
 			select v ,count(*) m from r2 group by v
 		</cfquery>
-	<cfcatch>
-		<cfdump var=#cfcatch#>
-	</cfcatch>
-	</cftry>
-		
-	<cfreturn rtn>
+		<cfreturn rtn>
+	<cfelse>
+		<!--- list ---->
+		<cfset r = querynew("d,m")>
+		<cfset idx=1>
+		<cfloop list="#v.CONTROLLED_VOCABULARY#" index="i">
+			<cfset temp = queryaddrow(r,1)>
+			<cfset temp = QuerySetCell(r, "v", i, idx)>
+			<cfset temp = QuerySetCell(r, "m", 0, idx)>
+			<cfset idx=idx+1>
+		</cfloop>
+		<cfreturn rtn>
+	</cfif>
+	
+
 
 </cffunction>
 <!--------------------------------------------------------------------------------------->
