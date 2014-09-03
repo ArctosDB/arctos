@@ -1,4 +1,3 @@
-var self;
 var viewport={
     o: function() {  	
 	if (self.innerHeight) {		
@@ -59,6 +58,11 @@ $(document).ready(function() {
 			viewport.init("#customDiv");
 		});
 	});
+	if (self != top) {
+		if (parent.frames[0].thisStyle) {
+			changeStyle(parent.frames[0].thisStyle);
+		}
+	}
 });
 
 /* specimen search */
@@ -948,14 +952,6 @@ function noenter(e) {
     else
          return true;
 }
-function gotAgentId (id) {
-	var len;
-	len = id.length;
-	if (len === 0) {
-	   	alert('Oops! A select box malfunctioned! Try changing the value and leaving with TAB. The background should change to green when you\'ve successfullly run the check routine.');
-		return false;
-	}
-}
 function chgCondition(collection_object_id) {
 	helpWin=windowOpener("/picks/condition.cfm?collection_object_id="+collection_object_id,"conditionWin","width=800,height=338, resizable,scrollbars");
 }
@@ -1031,7 +1027,6 @@ function confirmDelete(formName,msg) {
 	var yesno,txtstrng;
 	msg = msg || "this record";
 	yesno=confirm('Are you sure you want to delete ' + msg + '?');
-	//confirmWin=windowOpener("/includes/abort.cfm?formName="+formName+"&msg="+msg,"confirmWin","width=200,height=150,resizable");
 	if (yesno===true) {
   		document[formName].submit();
  	} else {
@@ -1150,11 +1145,7 @@ function changeStyle() {
 	}
 	if( !ss.length ) { alert( 'Your browser cannot change stylesheets' ); }
 }
-if (self != top) {
-	if (parent.frames[0].thisStyle) {
-		changeStyle(parent.frames[0].thisStyle);
-	}
-}
+
 /******************************************* superfish jQuery plugin ******************************************/
 /*
  * Superfish v1.4.8 - jQuery menu widget
