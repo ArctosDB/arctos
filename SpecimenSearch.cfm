@@ -736,18 +736,7 @@
 </form>
 </cfoutput>
 <script type='text/javascript' language='javascript'>
-	function setSessionCustomID(v) {
-		jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "setSessionCustomID",
-				val : v,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (getResult) {}
-		);
-	}
-	jQuery(document).ready(function() {
+	$(document).ready(function() {
 	  	var tval = document.getElementById('tgtForm').value;
 		changeTarget('tgtForm',tval);
 		changeGrp('groupBy');
@@ -771,9 +760,6 @@
 		jQuery.get("/form/browse.cfm", function(data){
 			 jQuery('body').append(data);
 		})
-
-
-
 		$("#collection_id").multiselect({
 			minWidth: "500",
 			height: "300"
@@ -790,91 +776,5 @@
 		minChars: 1,
 		selectFirst:false
 	});
-	function resetSSForm(){
-		document.getElementById('SpecData').reset();
-		try {
-			initialize();
-		} catch(e){}
-	}
-	function r_getSpecSrchPref (result){
-		var j=result.split(',');
-		for (var i = 0; i < j.length; i++) {
-			if (j[i].length>0){
-				showHide(j[i],1);
-			}
-		}
-	}
-	function kmlSync(tid,tval) {
-		var rMostChar=tid.substr(tid.length -1,1);
-		if (rMostChar=='1'){
-			theOtherField=tid.substr(0,tid.length -1);
-		} else {
-			theOtherField=tid + '1';
-		}
-		document.getElementById(theOtherField).value=tval;
-	}
-	function changeGrp(tid) {
-		if (tid == 'groupBy') {
-			var oid = 'groupBy1';
-		} else {
-			var oid = 'groupBy';
-		}
-		var mList = document.getElementById(tid);
-		var sList = document.getElementById(oid);
-		var len = mList.length;
-		for (i = 0; i < len; i++) {
-			sList.options[i].selected = false;
-		}
-		for (i = 0; i < len; i++) {
-			if (mList.options[i].selected) {
-				sList.options[i].selected = true;
-			}
-		}
-	}
-	function changeTarget(id,tvalue) {
-		if(tvalue.length == 0) {
-			tvalue='SpecimenResults.cfm';
-		}
-		if (id =='tgtForm1') {
-			var otherForm = document.getElementById('tgtForm');
-		} else {
-			var otherForm = document.getElementById('tgtForm1');
-		}
-		otherForm.value=tvalue;
-		document.getElementById('groupByDiv').style.display='none';
-		document.getElementById('groupByDiv1').style.display='none';
-		document.getElementById('kmlDiv').style.display='none';
-		document.getElementById('kmlDiv1').style.display='none';
-		if (tvalue == 'SpecimenResultsSummary.cfm') {
-			document.getElementById('groupByDiv').style.display='';
-			document.getElementById('groupByDiv1').style.display='';
-		} else if (tvalue=='/bnhmMaps/kml.cfm?action=newReq') {
-			document.getElementById('kmlDiv').style.display='';
-			document.getElementById('kmlDiv1').style.display='';
-		}
-		document.SpecData.action = tvalue;
-	}
-	function setPrevSearch(){
-		var schParam=get_cookie ('schParams');
-	
-		console.log(schParam);
-		var pAry=schParam.split("|");
-	 	for (var i=0; i<pAry.length; i++) {
-	 		var eAry=pAry[i].split("::");
-	 		var eName=eAry[0];
-	 		var eVl=eAry[1];
-			console.log(eName + '::' + eVl);
-	 		if (document.getElementById(eName)){
-				document.getElementById(eName).value=eVl;
-				if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
-					changeTarget(eName,eVl);
-					console.log(eName + '::' + eVl);
-				}
-			}
-	 	}
-	 	try {
-			setPreviousMap();
-		} catch(e){}
-	}
 </script>
 <cfinclude template = "includes/_footer.cfm">
