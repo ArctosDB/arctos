@@ -96,7 +96,7 @@
 	<cfif scope is "results">
 		<!---- just get values from their data ----->
 		<cfquery name="currentdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select #key# v,1 m from #session.SpecSrchTab# where #key# is not null group by #key# order by #key#
+			select #key# v,2 m from #session.SpecSrchTab# where #key# is not null group by #key# order by #key#
 		</cfquery>
 		<cfreturn currentdata>
 	</cfif>
