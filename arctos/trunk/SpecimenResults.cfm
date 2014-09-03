@@ -185,14 +185,14 @@
 					If you searched by taxonomy, consult <a href="/taxonomy.cfm" class="novisit">Arctos Taxonomy</a>.
 					Taxa are often synonymized and revised, and may not be consistent across collections. Previous Identifications,
 					which are separate from the taxonomy used in Identifications, may be located using the scientific name
-					"is/was/cited/related" option.
+					"include all IDs" option.
 				</li>
 				<li>
 					Try broadening your search criteria. Try the next-higher geographic element, remove criteria, or use a substring match.
 					Don't assume we've accurately or predictably recorded data.
 				</li>
 				<li>
-					 Not all specimens have coordinates - the spatial query tool will not locate all specimens.
+					 Not all specimens have coordinates, and the spatial query tool will not locate all specimens.
 				</li>
 				<li>
 					Use dropdowns or partial word matches instead of text strings, which may be entered in unexpected ways.

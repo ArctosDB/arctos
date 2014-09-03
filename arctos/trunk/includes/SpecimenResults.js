@@ -24,13 +24,6 @@ function fetchSrchWgtVocab(key){
 				h+='</select>';	
 			}
 			$("#voccell_" + key).html(h);
-			//$("#svc_" + key)[0].size=2;
-			
-			$("#svc_" + key).attr("size",$("#svc_" + key).attr("expandto"));
-	        var x = "select[tabindex='" + (parseInt($("#svc_" + key).attr('tabindex'),10) + 1) + "']";
-	        $(x).fadeTo(50,0);
-	        
-	        
 		}
 	);
 }
