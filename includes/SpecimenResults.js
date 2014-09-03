@@ -164,7 +164,7 @@ var marker = new google.maps.Marker({
 	
 	
     var infowindow = new google.maps.InfoWindow({
-        content: 'test string'
+        content: contentString
     });
     google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map,marker);
