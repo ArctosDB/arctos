@@ -98,6 +98,8 @@ function initializeMap() {
 
 function createMarker(p) {
 
+	
+	console.log('adding a marker...');
 	var cpa=p.split(",");
 	var ns=cpa[0];
 	var lat=cpa[1];
