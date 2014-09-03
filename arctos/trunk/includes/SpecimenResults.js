@@ -55,7 +55,8 @@ function initializeMap() {
 		});
 		
 		*/
-		
+		var contentString= ns + ' specimens; Error(m)=' + r + '<br><span class="likeLink" onclick="addCoordinates(' + "'" + lat + ',' + lon + "'" + ');">add point to search</span>';
+
 		
 			  marker = new google.maps.Marker({
 			    position: center,
