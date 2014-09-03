@@ -16,7 +16,7 @@ function fetchSrchWgtVocab(key){
 			if (r.DATA.DATA.length===0){
 				h='no suggestions found';				
 			} else {
-				h='<select class="ssw_sngselect" onchange="$(\'#' + key + '\').val(this.value);">';
+				h='<select id="svc_' + key + '" class="ssw_sngselect" onchange="$(\'#' + key + '\').val(this.value);">';
 				h+='<option value=""></option>';
 				for (i=0; i<r.ROWCOUNT; ++i) {
 					h+='<option value="' + r.DATA.DATA[i] + '">' + r.DATA.DATA[i] + '</option>';
@@ -24,6 +24,7 @@ function fetchSrchWgtVocab(key){
 				h+='</select>';	
 			}
 			$("#voccell_" + key).html(h);
+			$("#svc_" + key)[0].size=2;
 		}
 	);
 }

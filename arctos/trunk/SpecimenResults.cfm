@@ -8,7 +8,7 @@
 	<cfset session.srmapclass='nomap'>
 </cfif>
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
-<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.min.js'></script>
+<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js'></script>
 <link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 <cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
 <cfoutput>
