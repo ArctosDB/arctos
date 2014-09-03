@@ -25,7 +25,7 @@ function fetchSrchWgtVocab(key){
 				
 				
 				
-				h='<select class="ssw_sngselect" onchange="$(\'' + key + '\').val(this.value);">';
+				h='<select class="ssw_sngselect" onchange="$(\'#' + key + '\').val(this.value);">';
 				h+='<option value=""></option>';
 				
 				for (i=0; i<r.ROWCOUNT; ++i) {
