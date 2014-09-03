@@ -435,6 +435,7 @@
 					
 					<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
 					<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
+					<cfset temp = QuerySetCell(sugntab, "vocab", thisMoreInfo.controlled_vocabulary, idx)>
 					<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
 					<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
 					<cfset idx=idx+1>
