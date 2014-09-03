@@ -110,7 +110,7 @@
 			select #ctColName# as v from tct where #ctColName# is not null group by #ctColName# order by #ctColName#
 		</cfquery>
 		<cfquery name="currentdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select #key# from #session.SpecSrchTab# group by #key#
+			select #key# from #session.SpecSrchTab# where #key# is not null group by #key#
 		</cfquery>
 		<cfquery name="r2" dbtype="query">
 			select v from r union all select #key# from currentdata
