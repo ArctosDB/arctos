@@ -1407,11 +1407,13 @@ function generateMD5() {
 				//lvid='label_value__' + cc;
 				
 				$("#label__" + cc).val('MD5 checksum');
+				
+				
 				$("#label_value__" + cc).val('i am a value');
 		       });
 			 
 			 
-			 
+			$("#label_value__" + cc).val('i am a value');
 			
 			console.log('after addlabel thingee');
 			
