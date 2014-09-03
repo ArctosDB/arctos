@@ -145,15 +145,24 @@ function createMarker(p) {
 		infowindow.open(map, this);
 	});
 	
-
-	  */
-	
-	
-	var marker = new google.maps.Marker({
+var marker = new google.maps.Marker({
         map: map,
         position: new google.maps.LatLng(lat, lon),
         //icon: '/static/images/iconsets/gmap/iconb' + (i+1) + '.png',
     });
+	  */
+	
+	
+	var marker = new google.maps.Marker({
+		position: center,
+		map: map,
+		title: ns + ' specimens; Error(m)=' + r,
+		contentString: contentString,
+		zIndex: 10
+	});
+	
+	
+	
     var infowindow = new google.maps.InfoWindow({
         content: 'test string'
     });
