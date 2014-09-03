@@ -129,7 +129,7 @@
 			<cfset temp = QuerySetCell(r, "m", 0, idx)>
 			<cfset idx=idx+1>
 		</cfloop>
-		<cfreturn rtn>
+		<cfreturn r>
 	</cfif>
 	
 
