@@ -16,7 +16,7 @@ function fetchSrchWgtVocab(key){
 		function(r) {
 			
 			console.log(r);
-			if (r.DATA.DATA,length===0){
+			if (r.DATA.DATA.length===0){
 				h='no suggestions found';				
 			} else
 				h='got some stuff.....';
