@@ -1409,11 +1409,11 @@ function generateMD5() {
 				$("#label__" + cc).val('MD5 checksum');
 				
 				
-				$("#label_value__" + cc).val('i am a value');
+				$("#label_value__" + cc).val(r);
 		       });
 			 
 			 
-			$("#label_value__" + cc).val('i am a value');
+			$("#label_value__" + cc).val('i am a value' + r);
 			
 			console.log('after addlabel thingee');
 			
