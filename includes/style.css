@@ -178,9 +178,8 @@
 		
 		/* heavier text for use in suggest  */
 		.usedValue {
-			font-weight:bold;
-			font-size: 200%;
-			
+			font-weight:900;
+			font-size: 130%;			
 		}
 	/* END  suggest/browse widget */
 
