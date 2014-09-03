@@ -309,9 +309,12 @@ function closeAnnotation() {
 }
 
 function saveSearch(returnURL){
-	var uniqid,sName,sn,ru;
+	var uniqid,sName,sn,ru,p;
 	uniqid = Date.now();
-	sName=prompt("Saving search for URL:\n\n" + returnURL + " \n\nName your saved search (or copy and paste the link above).\n\nManage or email saved searches from your profile, or go to /saved/{name of saved search}. Note that saved searches, except those sepecifying only GUIDs, are dynamic; results change as data changes.\n\nName of saved search (must be unique):\n", uniqid);
+	p="Saving search for URL:\n\n" + returnURL + " \n\nName your saved search (or copy and \" +
+			"paste the link above).\n\nManage or email saved searches from your profile, or go to /saved/{name of saved search}. Note \" +
+			"that saved searches, except those sepecifying only GUIDs, are dynamic; results change as data changes.\n\nName of saved search (must be unique):\n";" +
+	sName=prompt(p, uniqid);
 	if (sName!==null){
 		sn=encodeURIComponent(sName);
 		ru=encodeURI(returnURL);
