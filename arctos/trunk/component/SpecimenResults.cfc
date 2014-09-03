@@ -381,8 +381,9 @@
 			select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 		</cfquery>
 		<cfset stuffToIgnore="locality_remarks,specimen_event_remark,identification_remarks,made_date,Accession,guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,SEX,VERBATIM_DATE">
+		<!---- just need columns ---->
 		<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from #session.SpecSrchTab#
+			select * from #session.SpecSrchTab# where 1=2
 		</cfquery>
 		<CFSET KEYLIST="">
 		<!--- pre-build table of
@@ -390,7 +391,7 @@
 			-- select things from their results
 			-- existing search value, when available
 		---->
-		<cfset sugntab = querynew("key,val,vocab,indata,definition,display_text,placeholder_text,search_hint")>
+		<cfset sugntab = querynew("key,val,definition,vocab,display_text,placeholder_text,search_hint")>
 		<!---- first loop over the things they searched for ---->
 		<cfset idx=1>
 		<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
@@ -408,49 +409,16 @@
 			<cfquery name="thisMoreInfo" dbtype="query">
 				select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
 			</cfquery>
-			<!----
-				
-				<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
-					<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
-						select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
-					</cfquery>
-					<cfloop list="#tct.columnlist#" index="tcname">
-						<cfif tcname is not "description" and tcname is not "collection_cde">
-							<cfset ctColName=tcname>
-						</cfif>
-					</cfloop>		
-					<cfquery name="cto" dbtype="query">
-						select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
-					</cfquery>
-					<cfset v=valuelist(cto.thisctvalue,"|")>
-				<cfelse>
-					<cfset v=listchangedelims(thisMoreInfo.CONTROLLED_VOCABULARY,"|")>				
-				</cfif>
-			---->
-			<!----
-				<cfif listfindnocase(srchcols.columnlist,thisKey)>
-					<cfquery name="dvt" dbtype="query">
-						select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
-					</cfquery>
-					<cfset indatavals=valuelist(dvt.vals,"|")>
-				<cfelse>
-					<cfset indatavals="">
-				</cfif>
-				
-				
-				---->
-				<cfset temp = queryaddrow(sugntab,1)>
-				<cfset temp = QuerySetCell(sugntab, "key", lcase(thisKey), idx)>	
-				<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
-				<!----
-				<cfset temp = QuerySetCell(sugntab, "vocab", v, idx)>
-				<cfset temp = QuerySetCell(sugntab, "indata", indatavals, idx)>
-				---->
-				<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
-				<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
-				<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
-				<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
-				<cfset idx=idx+1>
+		
+			<cfset temp = queryaddrow(sugntab,1)>
+			<cfset temp = QuerySetCell(sugntab, "key", lcase(thisKey), idx)>	
+			<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
+			<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
+			<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
+			<cfset temp = QuerySetCell(sugntab, "vocab", thisMoreInfo.controlled_vocabulary, idx)>
+			<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
+			<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
+			<cfset idx=idx+1>
 		</cfloop>
 		<!---- then loop over select things from their results ---->
 		<cfset thisValue="">
@@ -461,42 +429,10 @@
 					select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
 				</cfquery>
 				<cfif thisMoreInfo.recordcount is 1>
-				
-				<!----
-					<cfif left(thisMoreInfo.CONTROLLED_VOCABULARY,2) is "ct">
-						<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
-							select * from #thisMoreInfo.CONTROLLED_VOCABULARY#
-						</cfquery>
-						<cfloop list="#tct.columnlist#" index="thecolname">
-							<cfif thecolname is not "description" and thecolname is not "collection_cde">
-								<cfset ctColName=thecolname>
-							</cfif>
-						</cfloop>
-						<cfquery name="cto" dbtype="query">
-							select #ctColName# as thisctvalue from tct group by #ctColName# order by #ctColName#
-						</cfquery>
-						<cfset v=valuelist(cto.thisctvalue,"|")>
-					<cfelse>
-						<cfset v=listchangedelims(thisMoreInfo.CONTROLLED_VOCABULARY,"|")>				
-					</cfif>
-					---->
-					<cfif listfindnocase(srchcols.columnlist,thisKey)>
-						<cfquery name="dvt" dbtype="query">
-							select #thisKey# as vals from srchcols group by #thisKey# order by #thisKey#
-						</cfquery>
-						<cfset indatavals=valuelist(dvt.vals,"|")>
-					<cfelse>
-						<cfset indatavals="">
-					</cfif>
 					<cfset temp = queryaddrow(sugntab,1)>
 					<cfset temp = QuerySetCell(sugntab, "key", lcase(thisKey), idx)>	
 					<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
 					
-					<cfset temp = QuerySetCell(sugntab, "vocab", thisMoreInfo.CONTROLLED_VOCABULARY, idx)>
-					
-					<!-----
-					<cfset temp = QuerySetCell(sugntab, "indata", indatavals, idx)>
-					---->
 					<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
 					<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
 					<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
@@ -542,34 +478,8 @@
 										<cfif len(sugntab.vocab) gt 0>
 											<span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">fetch vocabulary</span>
 										<cfelse>
-										nope
+											&nbsp;
 										</cfif>
-										
-									<!----
-										<cfif len(sugntab.vocab) gt 0>
-											<!---- controlled vocab - loop through it, make indata values BOLD ---->
-											<select class="ssw_sngselect" onchange="$('###sugntab.key#').val(this.value);">
-												<option value=""></option>
-												<cfloop list="#sugntab.vocab#" index="v" delimiters="|">
-													<cfif listfindnocase(sugntab.indata,v,"|")>
-														<cfset thisStyle="font-weight:bold;">
-													<cfelse>
-														<cfset thisStyle="">
-													</cfif>
-													<option value="#v#" style="#thisStyle#">#v#</option>
-												</cfloop>
-											</select>
-										<cfelseif len(sugntab.indata) gt 0>
-											<!---- no controlled vocab, just provide list of INDATA values ---->
-											<cfset thisStyle="font-weight:bold;">
-											<select  class="ssw_sngselect" onchange="$('###sugntab.key#').val(this.value);">
-												<option value=""></option>
-												<cfloop list="#sugntab.indata#" index="v" delimiters="|">
-													<option value="#v#" style="#thisStyle#">#v#</option>
-												</cfloop>
-											</select>
-										</cfif>
-										---->
 									</td>
 									<td>
 										<span onclick="$('###sugntab.key#').val('');" class="likeLink">[&nbsp;clear&nbsp;]</span>&nbsp;<span onclick="$('###sugntab.key#').val('_');" class="likeLink">[&nbsp;require&nbsp;]</span>
