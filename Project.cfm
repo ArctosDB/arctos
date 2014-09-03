@@ -1,5 +1,4 @@
 <cfinclude template="includes/_header.cfm">
-<script type='text/javascript' src='/includes/internalAjax.js'></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery("#start_date").datepicker();

@@ -17,7 +17,6 @@
 <cfquery name="ctagent_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_status from ctagent_status order by agent_status
 </cfquery>
-<script type='text/javascript' src='/includes/internalAjax.js'></script>
 <cfif not isdefined("agent_id")>
 	<cfset agent_id = -1>
 </cfif>
