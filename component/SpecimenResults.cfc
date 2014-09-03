@@ -118,7 +118,6 @@
 			<cfset temp = QuerySetCell(r, "d", i, idx)>
 			<cfset idx=idx+1>
 		</cfloop>
-		
 	</cfif>
 	<cftry>
 		<cfquery name="currentdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -135,7 +134,7 @@
 	</cfcatch>
 	</cftry>
 		
-			<cfreturn rtn>
+	<cfreturn rtn>
 
 </cffunction>
 <!--------------------------------------------------------------------------------------->

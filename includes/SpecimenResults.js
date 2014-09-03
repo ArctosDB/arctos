@@ -16,6 +16,9 @@ function fetchSrchWgtVocab(key){
 			if (r.DATA.DATA.length===0){
 				h='no suggestions found';				
 			} else {
+				console.log(r);
+				
+				
 				h='<select id="svc_' + key + '" class="ssw_sngselect" onchange="$(\'#' + key + '\').val(this.value);">';
 				h+='<option value=""></option>';
 				for (i=0; i<r.ROWCOUNT; ++i) {
