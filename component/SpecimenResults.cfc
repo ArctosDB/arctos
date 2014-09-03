@@ -116,12 +116,12 @@
 			select v from r union all select #key# from currentdata
 		</cfquery>
 		<cfquery name="rtn" dbtype="query">
-			select v ,count(*) m from r2 group by v
+			select v ,count(*) m from r2 group by v order by v
 		</cfquery>
 		<cfreturn rtn>
 	<cfelse>
 		<!--- list ---->
-		<cfset r = querynew("d,m")>
+		<cfset r = querynew("v,m")>
 		<cfset idx=1>
 		<cfloop list="#v.CONTROLLED_VOCABULARY#" index="i">
 			<cfset temp = queryaddrow(r,1)>
