@@ -1388,7 +1388,7 @@ function closeUpload(media_uri,preview_uri) {
 	removeUpload();
 }
 function generateMD5() {
-	var cc,lid,lvid,nl,nlv;
+	var cc;
 	$.getJSON("/component/functions.cfc",
 		{
 			method : "genMD5",
@@ -1398,31 +1398,9 @@ function generateMD5() {
 		},
 		function (r){
 			cc=parseInt($("#number_of_labels").val()) + parseInt(1);
-			console.log('cc=' + cc);
-			
-			console.log('r=' + r);
 			addLabel(cc);
-			
 			$("#label__" + cc).val('MD5 checksum');
 			$("#label_value__" + cc).val(r);
-		    console.log('after addlabel thingee');
-			
-		
-			
-			/*
-			 * 	lid='label__' + cc;
-			lvid='label_value__' + cc;
-			
-			$("#" + lid).val('MD5 checksum');
-			$("#" + lvid).val(result);
-			 * addLabel(cc);
-			 * 
-			 * 
-			nl=document.getElementById(lid);
-			nlv=document.getElementById(lvid);
-			nl.value='MD5 checksum';
-			nlv.value=result;
-			*/
 		}
 	);
 }
