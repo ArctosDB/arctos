@@ -3,8 +3,8 @@ var bounds;
 var markers = new Array();
 
 function fetchSrchWgtVocab(key){
+	var h;
 	
-	$("#voccell_" + key).html('tatertors');
 	
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
@@ -14,7 +14,15 @@ function fetchSrchWgtVocab(key){
 			queryformat : 'column'
 		},
 		function(r) {
+			
 			console.log(r);
+			if (r.DATA.DATA,length===0){
+				h='no suggestions found';				
+			} else
+				h='got some stuff.....';
+				console.log(r);
+			
+			$("#voccell_" + key).html(h);
 		}
 	);
 			
