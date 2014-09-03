@@ -476,9 +476,8 @@ function reporter(tablename) {
 	u += '&table_name=' + t;
 	u += '&sort=' + s;
 	
+	$("#goWhere").val($("#goWhere").find('option').first().val());
 
-
-	$("#goWhere").val($("#goWhere option:first").val());
 
 
 	
