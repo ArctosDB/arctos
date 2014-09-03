@@ -1,6 +1,9 @@
 <script>
 	jQuery(document).ready(function() {
-	   $("#OIDType").multiselect(); 
+		$("#OIDType").multiselect({
+			minWidth: "500",
+			height: "300"
+		});
 	});
 </script>
 <table id="t_identifiers" class="ssrch">
