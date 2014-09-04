@@ -781,23 +781,9 @@ function saveSpecSrchPref(id,onOff){
 	);
 }
 function showHide(id,onOff) {
-	
-	console.log('I am showhide, going ' + onOff + ' for ' + id);
-	
-	
 	// specimensearch pane toggle
-	var t,ztab,ctl,offText,onText,ptl;
-	
-	//t='e_' + id;
-	//z='c_' + id;
-	
-	
-	//if (document.getElementById(t) && document.getElementById(z)) {
-	
+	var t,ztab,ctl,offText,onText,ptl,ne;
 	if ( $("#c_" + id).length && $("#e_" + id).length){
-	
-		//tab=document.getElementById(t);
-		//ctl=document.getElementById(z);
 		if (id=='spatial_query'){
 			offText='Select on Google Map';
 			onText='Hide Google Map';
@@ -808,38 +794,24 @@ function showHide(id,onOff) {
 		if (onOff==1) {
 			console.log('turning on');
 			ptl="/includes/SpecSearch/" + id + ".cfm";
-			
-
-			console.log('ptl: ' + ptl);
-			
-			
 			$("#c_" + id).html('<img src="/images/indicator.gif">');
-			
-			
-			console.log('its an image');
-
-			
-			//ctl.innerHTML='<img src="/images/indicator.gif">';
 			$.get(ptl, function(data){
-				
-				console.log('got');
-				console.log('data');
-				
-				
 				$("#e_" + id).html(data);
 				$("#c_" + id).html(onText);
-				//$("#c_" + id).setAttribute("onclick","showHide('" + id + "',0)");
 				
-				jQuery("#c_" + id).unbind('click');
+				ne'<span class="secControl" id="c_' + id + '" onclick="showHide(\'' + id + '\',0)">' + onText + '</span>';
+				$( "#c_" + id ).replaceWith( ne );
+				
+				//jQuery("#c_" + id).unbind('click');
 				
 				
-				$("#c_" + id).click(function() {
-					showHide(id,0); // in yourFunctions.js
-		         });
+				//$("#c_" + id).click(function() {
+					//showHide(id,0); // in yourFunctions.js
+		         //});
 				
 				//<span id="c_curatorial" class="secControl" onclick="showHide('curatorial',1)">Show Fewer Options</span>
 				
-				$("#c_" + id).attr('onclick', '').click(showHide);
+				//$("#c_" + id).attr('onclick', '').click(showHide);
 				
 				console.log('going saveSpecSrchPref');
 
@@ -849,9 +821,14 @@ function showHide(id,onOff) {
 
 			});
 		} else {
-			tab.innerHTML='';
-			ctl.setAttribute("onclick","showHide('" + id + "',1)");
-			ctl.innerHTML=offText;
+			//tab.innerHTML='';
+			$( "#e_" + id ).html('');
+			ne'<span class="secControl" id="c_' + id + '" onclick="showHide(\'' + id + '\',1)">' + offText + '</span>';
+			$( "#c_" + id ).replaceWith( ne );
+			
+			
+			//ctl.setAttribute("onclick","showHide('" + id + "',1)");
+			//ctl.innerHTML=offText;
 			saveSpecSrchPref(id,onOff);
 		}
 	} else {
