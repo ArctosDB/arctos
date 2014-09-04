@@ -240,7 +240,7 @@
 		
 		<!---- END: first loop over the things in their results so that we can filter OR exapand ---->
 		
-		
+		<cfdump var=#sugntab#>
 		<cfsavecontent variable="widget">
 			<span class="infoLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			<cfif session.ResultsBrowsePrefs is 1>
