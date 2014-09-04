@@ -4331,6 +4331,10 @@
 				select specsrchprefs from cf_users
 				where username='#session.username#'
 			</cfquery>
+			
+			<cfdump var=#ins#>
+			
+			
 			<cfset cv=valuelist(ins.specsrchprefs)>
 			<cfif onOff is 1>
 				<cfif not listfind(cv,id)>
