@@ -775,11 +775,12 @@ function saveSpecSrchPref(id,onOff){
 }
 function showHide(id,onOff) {
 	
-	console.log('I am showhide, going ' + onOff);
+	console.log('I am showhide, going ' + onOff + ' for ' + id);
 	
 	
 	// specimensearch pane toggle
 	var t,ztab,ctl,offText,onText,ptl;
+	
 	t='e_' + id;
 	z='c_' + id;
 	if (document.getElementById(t) && document.getElementById(z)) {	
