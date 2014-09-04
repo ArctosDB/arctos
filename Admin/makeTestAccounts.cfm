@@ -91,7 +91,7 @@ Make a test account.
 			delete from agent_name where agent_id =#an.agent_id#
 		</cfquery>
 		<cfquery name="die"  datasource="uam_god">
-			delete from agent where agent_id #an.agent_id#
+			delete from agent where agent_id = #an.agent_id#
 		</cfquery>
 	</cfif>
 	<cftry>
