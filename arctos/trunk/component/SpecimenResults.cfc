@@ -177,9 +177,6 @@
 		---->
 		<!--- a table for stuff that's turned on ---->
 		<cfset sugntab = querynew("key,val,definition,vocab,display_text,placeholder_text,search_hint,indata")>
-
-
-
 		<!---- BEGIN: then loop over the things they searched for 
 			- ignore listtoignore here
 			- update when searched-on value is in the results and so already in the query---->
@@ -196,7 +193,6 @@
 				<cfset thisKey=replace(kvp,'|','','all')>
 				<cfset thisValue=''>
 			</cfif>
-			
 			<cfif not listfindnocase(keylist,thisKey)>
 				<cfset keylist=listappend(keylist,thisKey)>
 				<cfquery name="thisMoreInfo" dbtype="query">
@@ -236,11 +232,8 @@
 					<cfset idx=idx+1>
 				</cfif>
 			</cfif>
-		</cfloop>
-		
+		</cfloop>		
 		<!---- END: first loop over the things in their results so that we can filter OR exapand ---->
-		
-		<cfdump var=#sugntab#>
 		<cfsavecontent variable="widget">
 			<span class="infoLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			<cfif session.ResultsBrowsePrefs is 1>
