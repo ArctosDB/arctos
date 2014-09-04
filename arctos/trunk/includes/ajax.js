@@ -787,10 +787,12 @@ function showHide(id,onOff) {
 		if (id=='spatial_query'){
 			//onText='Hide Google Map';
 
-			onText='<span class="secControl" id="c_' + id + '" onclick="showHide(\'' + id + '\',0)">Hide Google Map</span>';
+			onText='<span class="secControl" style="font-size:.9em;" id="c_' + id + '" onclick="showHide(\'' + id + '\',0)">Hide Google Map</span>';
 
 			//offText='Select on Google Map';
-			onText='<span class="secControl" id="c_' + id + '" onclick="showHide(\'' + id + '\',0)">Select on Google Map</span>';
+			onText='<span class="secControl" style="font-size:.9em;" id="c_' + id + '" onclick="showHide(\'' + id + '\',1)">Select on Google Map</span>';
+			
+
 
 		} else {
 			//onText='Show Fewer Options';
