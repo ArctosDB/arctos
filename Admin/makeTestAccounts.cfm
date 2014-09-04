@@ -7,25 +7,6 @@
 		role_name 
 	from 
 		cf_ctuser_roles 
-	where 
-		upper(role_name) not in (
-			select 
-				upper(granted_role) role_name
-			from 
-				dba_role_privs,
-				cf_ctuser_roles
-			where
-				upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name)
-		) 
-	and upper(role_name) IN (
-		select 
-				upper(granted_role) role_name
-			from 
-				dba_role_privs,
-				cf_ctuser_roles
-			where
-				upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) 
-		)	
 </cfquery>
 <cfdump var=#ctRoleName#>
 	<cfquery name="croles" datasource="uam_god">
