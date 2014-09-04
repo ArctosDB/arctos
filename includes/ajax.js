@@ -814,6 +814,10 @@ function showHide(id,onOff) {
 			
 			//ctl.innerHTML='<img src="/images/indicator.gif">';
 			$.get(ptl, function(data){
+				
+				console.log('got');
+				
+				
 				$("#t_" + id).html(data);
 				$("#c_" + id).html(onText);
 				//$("#c_" + id).setAttribute("onclick","showHide('" + id + "',0)");
