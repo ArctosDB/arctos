@@ -744,7 +744,7 @@ function saveSpecSrchPref(id,onOff){
 		},
 		function (savedStr) {
 			
-			console.log('savedStr:' + );
+			console.log('savedStr:' + savedStr);
 			
 			savedArray = savedStr.split(",");
 			result = savedArray[0];
