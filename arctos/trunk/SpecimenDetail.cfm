@@ -414,7 +414,7 @@
 						<input type="hidden" name="collecting_event_id" value="#detail.collecting_event_id#">
 
 						<ul id="navbar">
-							<li><span onclick="loadEditApp('editIdentification')" class="likeLink" id="BTN_editIdentification">Taxa</span></li>
+							<li><span onclick="loadEditApp('editIdentification')" class="likeLink" id="BTN_editIdentification">Identification</span></li>
 							<li>
 								<span onclick="loadEditApp('addAccn')"	class="likeLink" id="BTN_addAccn">Accn</span>
 							</li>
