@@ -4342,7 +4342,12 @@
 				update cf_users set specsrchprefs='#nv#'
 				where username='#session.username#'
 			</cfquery>
-			<cfcatch><!-- nada --></cfcatch>
+			<cfcatch>
+			
+			<cfreturn "#cfcatch#">
+			
+			
+			<!-- nada --></cfcatch>
 		</cftry>
 		<cfreturn "saved">
 	</cfif>
