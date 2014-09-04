@@ -822,7 +822,7 @@ function showHide(id,onOff) {
 				$("#c_" + id).html(onText);
 				//$("#c_" + id).setAttribute("onclick","showHide('" + id + "',0)");
 				
-				jQuery("#c_" + i).unbind('click');
+				jQuery("#c_" + id).unbind('click');
 				
 				
 				$("#c_" + id).click(function() {
