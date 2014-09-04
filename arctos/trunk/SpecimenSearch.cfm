@@ -748,10 +748,13 @@
 					console.log('cookie: ' + cookie);
 
 					if (cookie != null) {
+
+						console.log('NOTnullcookie: ' + cookie);
 						r_getSpecSrchPref(cookie);
 					}
 				}
 				else
+				console.log('notcookie: ' + cookie);
 					r_getSpecSrchPref(getResult);
 			}
 		);
