@@ -147,6 +147,10 @@ function resetSSForm(){
 	} catch(e){}
 }
 function r_getSpecSrchPref (result){
+	
+	console.log(' i am r_getSpecSrchPref');
+	
+	
 	var j;
 	j=result.split(',');
 	for (var i = 0; i < j.length; i++) {

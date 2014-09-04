@@ -739,8 +739,14 @@
 				queryformat : 'column'
 			},
 			function (getResult) {
+
+				console.log(result);
+
 				if (getResult == "cookie") {
 					var cookie = readCookie("specsrchprefs");
+
+				c	onsole.log(cookie);
+
 					if (cookie != null) {
 						r_getSpecSrchPref(cookie);
 					}
