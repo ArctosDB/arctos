@@ -806,7 +806,7 @@ function showHide(id,onOff) {
 			$("#c_" + id).html('<img src="/images/indicator.gif">');
 			
 			
-			console.log('it's an image');
+			console.log('its an image');
 
 			
 			//ctl.innerHTML='<img src="/images/indicator.gif">';
