@@ -729,6 +729,9 @@ function removeHelpDiv() {
 	$('#helpDiv').remove();
 }
 function saveSpecSrchPref(id,onOff){
+	
+	console.log('saveSpecSrchPref; ' + onOff);
+	
 	// this function should be (but isn't) used for all search preferences from clicks and functions and whatever
 	var savedArray,result,cookieArray,cCookie,idFound;
 	$.getJSON("/component/functions.cfc",
@@ -740,6 +743,9 @@ function saveSpecSrchPref(id,onOff){
 			queryformat : 'column'
 		},
 		function (savedStr) {
+			
+			console.log('savedStr:' + );
+			
 			savedArray = savedStr.split(",");
 			result = savedArray[0];
 			id = savedArray[1];
