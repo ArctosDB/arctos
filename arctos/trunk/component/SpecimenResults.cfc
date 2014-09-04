@@ -175,6 +175,7 @@
 		<!---- BEGIN: then loop over the things they searched for 
 			- ignore listtoignore here
 			- update when searched-on value is in the results and so already in the query---->
+		<cfset idx=1>
 		<cfset thisValue="">
 		<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
 			<!--- deal with equal prefix=exact match --->
@@ -210,7 +211,6 @@
 		
 		
 		<!---- BEGIN: first loop over the things in their results so that we can filter OR exapand ---->
-		<cfset idx=1>
 		<cfset thisValue="">
 		<cfloop list="#srchcols.columnlist#" index="thisKey">
 			<cfif not listfindnocase(stuffToIgnore,thisKey) and not listfindnocase(keylist,thisKey)>
