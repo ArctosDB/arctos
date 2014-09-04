@@ -178,7 +178,7 @@ Make a test account.
 			</cfquery>
 
 	<cfquery name="r" datasource="uam_god">
-				grant CONNECT SESSION to test_#username#
+				grant CONNECT to test_#username#
 			</cfquery>
 
 
