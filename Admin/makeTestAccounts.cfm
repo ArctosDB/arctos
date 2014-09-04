@@ -28,7 +28,7 @@
 Make a test account.
 <form name="f" method="post" action="makeTestAccounts.cfm">
 <input type="hidden" name="action" value="magic">
-<label for="username">username</label>
+<label for="username">username (will be created as test_{whateverYouType}</label>
 <input type="text" name="username" required>
 
 
@@ -73,7 +73,38 @@ Make a test account.
 
 
 <cfif action is 'magic'>
+	<cftry>
+	<cfquery name="die"  datasource="uam_god">
+		delete from cf_user_data where user_id=(select user_id from cf_users where username='test_#username#')
+	</cfquery>
+	<cfcatch><br>no userdata to roll back</cfcatch>
+	</cftry>
+	
+	<cfquery name="die"  datasource="uam_god">
+		delete from cf_users where username='test_#username#'
+	</cfquery>
+		<cftry>
+	<cfquery name="an"  datasource="uam_god">
+		select agent_id from agent_name where agent_name='test_#username#'
+	</cfquery>
+	<cfif len(an.agent_id) gt 0>
+		<cfquery name="die"  datasource="uam_god">
+			delete from agent_name where agent_id =#an.agent_id#
+		</cfquery>
+		<cfquery name="die"  datasource="uam_god">
+			delete from agent where agent_id #an.agent_id#
+		</cfquery>
+	</cfif>
+	<cftry>
+	<cfquery name="die"  datasource="uam_god">
+		drop user 'test_#username#')
+	</cfquery>
+	<cfcatch><br>no user to drop</cfcatch>
+	</cftry>
 
+	
+
+	
 	<cfdump var=#form#>
 <cftransaction>
 	<cfquery name="uid"  datasource="uam_god">
@@ -86,7 +117,7 @@ Make a test account.
 			USER_ID,
 			PW_CHANGE_DATE
 		) values (
-			'#username#',
+			'test_#username#',
 			'#password#',
 			'#uid.x#',
 			sysdate
@@ -132,11 +163,11 @@ Make a test account.
 			sq_agent_name_id.nextval,
 			sq_agent_id.currval,
 			'login',
-			'#username#'
+			'test_#username#'
 		)
 	</cfquery>
 	<cfquery name="an"  datasource="uam_god">
-		create user #username# identified by "#password#"
+		create user test_#username# identified by "#password#"
 	</cfquery>
 
 
@@ -145,7 +176,7 @@ Make a test account.
 	
 	<!----
 			<cfquery name="r" datasource="uam_god">
-				grant #i# to #username#
+				grant #i# to test_#username#
 			</cfquery>
 			---->
 
@@ -153,7 +184,7 @@ Make a test account.
 	
 	<cfloop list="#collections#" index="i">
 			<cfquery name="r" datasource="uam_god">
-				grant #i# to #username#
+				grant #i# to test_#username#
 			</cfquery>
 			
 
