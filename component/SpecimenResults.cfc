@@ -215,6 +215,7 @@
 		<!---- BEGIN: first loop over the things in their results so that we can filter OR exapand ---->
 		<cfset thisValue="">
 		<cfloop list="#srchcols.columnlist#" index="thisKey">
+			<br>thisKey: #thisKey#
 			<cfif not listfindnocase(stuffToIgnore,thisKey) and not listfindnocase(keylist,thisKey)>
 				<cfset keylist=listappend(keylist,thisKey)>
 				<cfquery name="thisMoreInfo" dbtype="query">
