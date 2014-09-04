@@ -84,12 +84,10 @@ function setPrevSearch(){
  		var eAry=pAry[i].split("::");
  		var eName=eAry[0];
  		var eVl=eAry[1];
-		console.log(eName + '::' + eVl);
  		if (document.getElementById(eName)){
 			document.getElementById(eName).value=eVl;
 			if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
 				changeTarget(eName,eVl);
-				console.log(eName + '::' + eVl);
 			}
 		}
  	}
@@ -147,10 +145,6 @@ function resetSSForm(){
 	} catch(e){}
 }
 function r_getSpecSrchPref (result){
-	
-	console.log(' i am r_getSpecSrchPref');
-	
-	
 	var j;
 	j=result.split(',');
 	for (var i = 0; i < j.length; i++) {
@@ -729,9 +723,6 @@ function removeHelpDiv() {
 	$('#helpDiv').remove();
 }
 function saveSpecSrchPref(id,onOff){
-	
-	console.log('saveSpecSrchPref; ' + onOff);
-	
 	// this function should be (but isn't) used for all search preferences from clicks and functions and whatever
 	var savedArray,result,cookieArray,cCookie,idFound;
 	$.getJSON("/component/functions.cfc",
@@ -743,10 +734,6 @@ function saveSpecSrchPref(id,onOff){
 			queryformat : 'column'
 		},
 		function (savedStr) {
-			
-			console.log('savedStr:');
-			console.log(savedStr);
-			
 			savedArray = savedStr.split(",");
 			result = savedArray[0];
 			id = savedArray[1];
@@ -782,7 +769,7 @@ function saveSpecSrchPref(id,onOff){
 }
 function showHide(id,onOff) {
 	// specimensearch pane toggle
-	var t,ztab,ctl,offText,onText,ptl;
+	var offText,onText,ptl;
 	if ( $("#c_" + id).length && $("#e_" + id).length){
 		if (id=='spatial_query'){
 			onText='<span class="secControl" style="font-size:.9em;" id="c_' + id + '" onclick="showHide(\'' + id + '\',0)">Hide Google Map</span>';
@@ -795,24 +782,13 @@ function showHide(id,onOff) {
 			ptl="/includes/SpecSearch/" + id + ".cfm";
 			$("#c_" + id).html('<img src="/images/indicator.gif">');
 			$.get(ptl, function(data){
-				$("#e_" + id).html(data);
-//				$("#c_" + id).html(onText);
-				
+				$("#e_" + id).html(data);				
 				$( "#c_" + id ).replaceWith( onText );
-				
-	
 				saveSpecSrchPref(id,onOff);
-				
-	
 			});
 		} else {
-			//tab.innerHTML='';
 			$( "#e_" + id ).html('');
 			$( "#c_" + id ).replaceWith( offText );
-			
-			
-			//ctl.setAttribute("onclick","showHide('" + id + "',1)");
-			//ctl.innerHTML=offText;
 			saveSpecSrchPref(id,onOff);
 		}		
 	}
