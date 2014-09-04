@@ -15,8 +15,7 @@
 				dba_role_privs,
 				cf_ctuser_roles
 			where
-				upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
-				upper(grantee) = '#ucase(username)#'
+				upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name)
 		) 
 	and upper(role_name) IN (
 		select 
@@ -25,8 +24,7 @@
 				dba_role_privs,
 				cf_ctuser_roles
 			where
-				upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
-				upper(grantee) = '#ucase(session.username)#'
+				upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) 
 		)	
 </cfquery>
 
