@@ -2,6 +2,8 @@
 <cfif application.version is not "test">
 	no<cfabort>
 </cfif>
+
+<cfoutput>
 <cfquery name="ctRoleName" datasource="uam_god">
 	select 
 		role_name 
@@ -159,4 +161,7 @@ Make a test account.
 	
 	
 </cfif>
+
+
+</cfoutput>
 <cfinclude template = "/includes/_footer.cfm">
