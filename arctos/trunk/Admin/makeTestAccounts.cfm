@@ -60,7 +60,7 @@ Make a test account.
 									
 <label for="collections">collections</label>
 
-	<select name="role_name" size="10" multiple required>
+	<select name="collections" size="10" multiple required>
 		<cfloop query="croles">
 			
 				<option value="#role_name#">#role_name#</option>
@@ -174,13 +174,10 @@ Make a test account.
 
 
 	<cfloop list="#userroles#" index="i">
-	<br>#i#
 	
-	<!----
 			<cfquery name="r" datasource="uam_god">
 				grant #i# to test_#username#
 			</cfquery>
-			---->
 
 	</cfloop>
 	
