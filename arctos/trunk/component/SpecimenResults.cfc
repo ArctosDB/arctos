@@ -217,10 +217,14 @@
 		<cfloop list="#srchcols.columnlist#" index="thisKey">
 			<br>thisKey: #thisKey#
 			<cfif not listfindnocase(stuffToIgnore,thisKey) and not listfindnocase(keylist,thisKey)>
+			<br>made it with #thisKey#
 				<cfset keylist=listappend(keylist,thisKey)>
 				<cfquery name="thisMoreInfo" dbtype="query">
 					select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
 				</cfquery>
+				
+						<cfdump var=#thisMoreInfo#>
+
 				<cfif thisMoreInfo.recordcount is 1>
 					<cfset temp = queryaddrow(sugntab,1)>
 					<cfset temp = QuerySetCell(sugntab, "key", lcase(thisKey), idx)>	
