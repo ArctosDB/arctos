@@ -156,7 +156,7 @@
 		<cfquery name="ssrch_field_doc" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,0,0)#">
 			select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 		</cfquery>
-		<cfset stuffToIgnore="locality_remarks,specimen_event_remark,identification_remarks,made_date,Accession,guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,VERBATIM_DATE">
+		<cfset stuffToIgnore="catnum,locality_remarks,specimen_event_remark,identification_remarks,made_date,Accession,guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,VERBATIM_DATE">
 				<cfdump var=#stuffToIgnore#>
 
 		<!---- just need columns ---->
