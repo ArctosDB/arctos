@@ -774,6 +774,10 @@ function saveSpecSrchPref(id,onOff){
 	);
 }
 function showHide(id,onOff) {
+	
+	console.log('I am showhide, going ' + onOff);
+	
+	
 	// specimensearch pane toggle
 	var t,ztab,ctl,offText,onText,ptl;
 	t='e_' + id;
