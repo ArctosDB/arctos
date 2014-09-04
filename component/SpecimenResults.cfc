@@ -218,9 +218,7 @@
 		<!---- BEGIN: first loop over the things in their results so that we can filter OR exapand ---->
 		<cfset thisValue="">
 		<cfloop list="#srchcols.columnlist#" index="thisKey">
-			<br>thisKey: #thisKey#
 			<cfif not listfindnocase(stuffToIgnore,thisKey) and not listfindnocase(keylist,thisKey)>
-			<br>made it with #thisKey#
 				<cfset keylist=listappend(keylist,thisKey)>
 				<cfquery name="thisMoreInfo" dbtype="query">
 					select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
@@ -277,12 +275,11 @@
 										<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#sugntab.val#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
 									</td>
 									<td id="voccell_#sugntab.key#">
+										<cfif len(sugntab.vocab) gt 0>
+											 <span class="infoLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">[ all vocabulary ]</span> 
+										</cfif>
 										<cfif sugntab.indata gt 0 or len(sugntab.vocab) gt 0>
-											fetch
-											<cfif len(sugntab.vocab) gt 0>
-												 <span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">all vocabulary</span> or 
-											</cfif>
-											<span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#','results');">from results</span>
+											<span class="infoLink" onclick="fetchSrchWgtVocab('#sugntab.key#','results');">[ from results ]</span>
 										</cfif>
 									</td>
 									<td>
