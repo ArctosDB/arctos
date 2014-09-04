@@ -739,23 +739,14 @@
 				queryformat : 'column'
 			},
 			function (getResult) {
-
-				console.log(getResult);
-
 				if (getResult == "cookie") {
 					var cookie = readCookie("specsrchprefs");
-
-					console.log('cookie: ' + cookie);
-
 					if (cookie != null) {
-
-						console.log('NOTnullcookie: ' + cookie);
 						r_getSpecSrchPref(cookie);
 					}
-				}
-				else
-				console.log('notcookie: ' + cookie);
+				} else {
 					r_getSpecSrchPref(getResult);
+				}
 			}
 		);
 		jQuery.get("/form/browse.cfm", function(data){
