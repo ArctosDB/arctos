@@ -165,25 +165,14 @@
 			select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 		</cfquery>
 		<cfset stuffToIgnore="locality_remarks,specimen_event_remark,identification_remarks,made_date,Accession,guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,VERBATIM_DATE">
-		<!---- just need columns ---->
 		<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from #session.SpecSrchTab# where 1=2
 		</cfquery>
 		<CFSET KEYLIST="">
-		<!--- pre-build table of
-			-- things they searched on
-			-- select things from their results
-			-- existing search value, when available
-		---->
-		<!--- a table for stuff that's turned on ---->
 		<cfset sugntab = querynew("key,val,definition,vocab,display_text,placeholder_text,search_hint,indata")>
-		<!---- BEGIN: then loop over the things they searched for 
-			- ignore listtoignore here
-			- update when searched-on value is in the results and so already in the query---->
 		<cfset idx=1>
 		<cfset thisValue="">
 		<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
-			<!--- deal with equal prefix=exact match --->
 			<cfset kvp=replace(kvp,"=","|","first")>
 			<cfif listlen(kvp,"|") is 2>
 				<cfset thisKey=listgetat(kvp,1,"|")>
@@ -210,8 +199,6 @@
 				<cfset idx=idx+1>
 			</cfif>
 		</cfloop>
-		<!---- END: then loop over the things they searched for - ignore listtoignore here---->
-		<!---- BEGIN: first loop over the things in their results so that we can filter OR exapand ---->
 		<cfset thisValue="">
 		<cfloop list="#srchcols.columnlist#" index="thisKey">
 			<cfif not listfindnocase(stuffToIgnore,thisKey) and not listfindnocase(keylist,thisKey)>
@@ -233,7 +220,6 @@
 				</cfif>
 			</cfif>
 		</cfloop>		
-		<!---- END: first loop over the things in their results so that we can filter OR exapand ---->
 		<cfsavecontent variable="widget">
 			<span class="infoLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			<cfif session.ResultsBrowsePrefs is 1>
@@ -244,61 +230,56 @@
 			<a id="aboutSTWH" class="infoLink external" href="http://arctosdb.org/how-to/specimen-search-refine/" target="_blank">[ About this Widget ]</a>
 			<a id="fbSWT" class="infoLink" href="/contact.cfm?ref=SpecimenResultsWidget">[ provide feedback ]</a>
 			<div id="refineSearchTerms" style="#thisStyle#">
-				<form name="refineResults" id="refineResults" method="get" action="/SpecimenResults.cfm">
-					<table id="stermwdgtbl" border>
-						<tr>
-							<th>Term</th>
-							<th>Value</th>
-							<th>Vocabulary *</th>
-							<th>Controls</th>
-						</tr>
-						<cfloop query="sugntab">
-							<cfif len(sugntab.DEFINITION) gt 0>
-								<cfset thisSpanClass="helpLink">
-							<cfelse>
-								<cfset thisSpanClass="">
-							</cfif>
-							<tr id="row_#sugntab.key#">
-								<td>
-									<span class="#thisSpanClass#" id="_#sugntab.key#" title="#sugntab.DEFINITION#">
-										#replace(sugntab.DISPLAY_TEXT," ","&nbsp;","all")#
-									</span>
-								</td>
-									<td>
-										<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#sugntab.val#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
-									</td>
-									<td id="voccell_#sugntab.key#">
-										<cfif len(sugntab.vocab) gt 0>
-											 <span class="infoLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">[ all vocabulary ]</span> 
-										</cfif>
-										<cfif sugntab.indata gt 0>
-											<span class="infoLink" onclick="fetchSrchWgtVocab('#sugntab.key#','results');">[ from results ]</span>
-										</cfif>
-									</td>
-									<td>
-										<span onclick="$('###sugntab.key#').val('');" class="likeLink">[&nbsp;clear&nbsp;]</span>&nbsp;<span onclick="$('###sugntab.key#').val('_');" class="likeLink">[&nbsp;require&nbsp;]</span>
-									</td>
-								</tr>
-						</cfloop>
-						</table>
-						<cfif len(keylist) is 0>
-							<cfset keylist='doesNotExist'>
+			<form name="refineResults" id="refineResults" method="get" action="/SpecimenResults.cfm">
+				<table id="stermwdgtbl" border>
+					<tr>
+						<th>Term</th>
+						<th>Value</th>
+						<th>Vocabulary</th>
+						<th>Controls</th>
+					</tr>
+					<cfloop query="sugntab">
+						<cfif len(sugntab.DEFINITION) gt 0>
+							<cfset thisSpanClass="helpLink">
+						<cfelse>
+							<cfset thisSpanClass="">
 						</cfif>
-						<cfquery name="newkeys" dbtype="query">
-							SELECT * FROM ssrch_field_doc WHERE CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
-						</cfquery>
-						<input class="clrBtn" type="reset" value="Reset Filters">
-						<span style="width:10em">&nbsp;</span>
-						<select id="newTerm" onchange="addARow(this.value);">
-							<option value=''>Add a row....</option>
-							<cfloop query="newkeys">
-								<option value="#cf_variable#">#DISPLAY_TEXT#</option>
-							</cfloop>
-						</select>
-						<input class="schBtn" type="submit" value="Requery">
-					<div style="font-size:x-small">
-						* Click on a term for search help.
-					</div>
+						<tr id="row_#sugntab.key#">
+							<td>
+								<span class="#thisSpanClass#" id="_#sugntab.key#" title="#sugntab.DEFINITION#">#replace(sugntab.DISPLAY_TEXT," ","&nbsp;","all")#</span>
+							</td>
+								<td>
+									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#sugntab.val#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
+								</td>
+								<td id="voccell_#sugntab.key#">
+									<cfif len(sugntab.vocab) gt 0>
+										 <span class="infoLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">[ all vocabulary ]</span> 
+									</cfif>
+									<cfif sugntab.indata gt 0>
+										<span class="infoLink" onclick="fetchSrchWgtVocab('#sugntab.key#','results');">[ from results ]</span>
+									</cfif>
+								</td>
+								<td>
+									<span onclick="$('###sugntab.key#').val('');" class="likeLink">[&nbsp;clear&nbsp;]</span>&nbsp;<span onclick="$('###sugntab.key#').val('_');" class="likeLink">[&nbsp;require&nbsp;]</span>
+								</td>
+							</tr>
+					</cfloop>
+					</table>
+					<cfif len(keylist) is 0>
+						<cfset keylist='doesNotExist'>
+					</cfif>
+					<cfquery name="newkeys" dbtype="query">
+						SELECT * FROM ssrch_field_doc WHERE CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
+					</cfquery>
+					<input class="clrBtn" type="reset" value="Reset Filters">
+					<span style="width:10em">&nbsp;</span>
+					<select id="newTerm" onchange="addARow(this.value);">
+						<option value=''>Add a row....</option>
+						<cfloop query="newkeys">
+							<option value="#cf_variable#">#DISPLAY_TEXT#</option>
+						</cfloop>
+					</select>
+					<input class="schBtn" type="submit" value="Requery">
 				</form>
 			</div>
 		</cfsavecontent>
