@@ -63,11 +63,14 @@
 	<cfdump var=#username#>
 		
 		
-		<cfabort>
 		
 		
 		<cfset initSession('#username#','#password#')>
 		
+		<cfdump var=#initSession#>
+		
+		
+		<cfabort>
 		
 		
 		
