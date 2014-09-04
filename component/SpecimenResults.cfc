@@ -314,6 +314,7 @@
 		</cfsavecontent>
 	</cfoutput>
 	<cfcatch>
+		<cfdump var=#cfcatch#>
 		<cf_logError subject="specimenresults widget error" attributeCollection=#cfcatch#>
 		<cfreturn "An error occurred">
 	</cfcatch>
