@@ -816,7 +816,12 @@ function showHide(id,onOff) {
 			$.get(ptl, function(data){
 				$("#t_" + id).html(data);
 				$("#c_" + id).html(onText);
-				$("#c_" + id).setAttribute("onclick","showHide('" + id + "',0)");
+				//$("#c_" + id).setAttribute("onclick","showHide('" + id + "',0)");
+				
+				$('"#c_" + id').click(function() {
+					showHide(id,0); // in yourFunctions.js
+		         });
+				
 				
 				
 				//$("#c_" + id).attr('onclick', '').click(showHide);
