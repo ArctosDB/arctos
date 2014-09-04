@@ -210,7 +210,7 @@
 		</cfloop>
 		<!---- END: then loop over the things they searched for - ignore listtoignore here---->
 		
-		
+		<cfdump var=#srchcols.columnlist#>
 		
 		<!---- BEGIN: first loop over the things in their results so that we can filter OR exapand ---->
 		<cfset thisValue="">
