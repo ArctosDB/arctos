@@ -218,7 +218,7 @@
 			
 			
 			
-			<cfif (sugntab[ "#thisKey#" ].IndexOf( JavaCast( "string", "#thisValue#" ) ) GTE 0)>
+			<cfif (sugntab[ "state_prov" ].IndexOf( JavaCast( "string", "Alaska" ) ) GTE 0)>
 				<br>#thisKey# is in the query updating.....
 				<cfset temp = QuerySetCell(sugntab, "indata", 1, idx)>
 			<cfelse>
