@@ -836,6 +836,8 @@ function showHide(id,onOff) {
 		}
 	} else {
 		console.log('not meet criteria');
+		console.log( $("#c_" + id).length );
+		console.log( $("#e_" + id).length );
 		
 	}
 }
