@@ -823,9 +823,10 @@ function showHide(id,onOff) {
 			$.get(ptl, function(data){
 				
 				console.log('got');
+				console.log('data');
 				
 				
-				$("#t_" + id).html(data);
+				$("#e_" + id).html(data);
 				$("#c_" + id).html(onText);
 				//$("#c_" + id).setAttribute("onclick","showHide('" + id + "',0)");
 				
