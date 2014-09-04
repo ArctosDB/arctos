@@ -106,7 +106,7 @@
 	<cfif len(v.CONTROLLED_VOCABULARY) is 0>
 		<cfreturn>
 	<cfelseif left(v.CONTROLLED_VOCABULARY,2) is "ct">
-		<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="tct" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,0,0)#">
 			select * from #v.CONTROLLED_VOCABULARY#
 		</cfquery>
 		<cfloop list="#tct.columnlist#" index="tcname">
