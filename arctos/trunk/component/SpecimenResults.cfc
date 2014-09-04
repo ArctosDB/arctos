@@ -278,14 +278,12 @@
 										<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#sugntab.val#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
 									</td>
 									<td id="voccell_#sugntab.key#">
+										fetch
 										<cfif len(sugntab.vocab) gt 0>
-											fetch <span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">all vocabulary</span>
-											<cfif sugntab.indata gt 0>
-												or <span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#','results');">from results</span>
+											 <span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">all vocabulary</span> or 
 											</cfif>
-										<cfelse>
-											&nbsp;
-										</cfif>
+												<span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#','results');">from results</span>
+											
 									</td>
 									<td>
 										<span onclick="$('###sugntab.key#').val('');" class="likeLink">[&nbsp;clear&nbsp;]</span>&nbsp;<span onclick="$('###sugntab.key#').val('_');" class="likeLink">[&nbsp;require&nbsp;]</span>
