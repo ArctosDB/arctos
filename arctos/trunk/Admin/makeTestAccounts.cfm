@@ -10,7 +10,6 @@
 	from 
 		cf_ctuser_roles 
 </cfquery>
-<cfdump var=#ctRoleName#>
 	<cfquery name="croles" datasource="uam_god">
 			select granted_role role_name
 			from 
@@ -21,9 +20,11 @@
 			group by granted_role
 			order by granted_role
 		</cfquery>
-		
-	
-<cfdump var=#croles#>		
+	<!----	
+	<cfdump var=#ctRoleName#>
+
+<cfdump var=#croles#>
+---->		
 Make a test account.
 <form name="f" method="post" action="makeTestAccounts.cfm">
 <input type="hidden" name="action" value="magic">
@@ -73,12 +74,11 @@ Make a test account.
 
 <cfif action is 'magic'>
 
-
 <cftransaction>
-	<cfquery name="uid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="uid"  datasource="uam_god">
 		select max(USER_ID) + 1 as x from cf_users
 	</cfquery>
-	<cfquery name="usr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="usr"  datasource="uam_god">
 		insert into cf_users (
 			USERNAME,
 			PASSWORD,
@@ -91,7 +91,7 @@ Make a test account.
 			sysdate
 		)
 	</cfquery>
-	<cfquery name="usr2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="usr2"  datasource="uam_god">
 		insert into cf_user_data (
 			USER_ID,
 			FIRST_NAME,
@@ -110,7 +110,7 @@ Make a test account.
 			'#email#'
 		)
 	</cfquery>
-	<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="a"  datasource="uam_god">
 		insert into agent (
 			AGENT_ID,
 			AGENT_TYPE,
@@ -121,7 +121,7 @@ Make a test account.
 			'#firstname# #lastname#'
 		)
 	</cfquery>
-	<cfquery name="an" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="an"  datasource="uam_god">
 		insert into agent_name(
 			AGENT_NAME_ID,
 			AGENT_ID,
@@ -134,13 +134,13 @@ Make a test account.
 			'#username#'
 		)
 	</cfquery>
-	<cfquery name="an" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="an"  datasource="uam_god">
 		create user #username# identified by "#password#"
 	</cfquery>
 
 
 	<cfloop list="#roles#" index="i">
-			<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="r" datasource="uam_god">
 				grant #i# to #username#
 			</cfquery>
 			
@@ -148,7 +148,7 @@ Make a test account.
 	</cfloop>
 	
 	<cfloop list="#collections#" index="i">
-			<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="r" datasource="uam_god">
 				grant #i# to #username#
 			</cfquery>
 			
