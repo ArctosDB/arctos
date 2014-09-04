@@ -74,6 +74,7 @@ Make a test account.
 
 <cfif action is 'magic'>
 
+	<cfdump var=#form#>
 <cftransaction>
 	<cfquery name="uid"  datasource="uam_god">
 		select max(USER_ID) + 1 as x from cf_users
