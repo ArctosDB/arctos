@@ -177,6 +177,10 @@ Make a test account.
 				grant CREATE SESSION to test_#username#
 			</cfquery>
 
+	<cfquery name="r" datasource="uam_god">
+				grant CONNECT SESSION to test_#username#
+			</cfquery>
+
 
 
 	<cfloop list="#userroles#" index="i">
@@ -195,8 +199,22 @@ Make a test account.
 
 	</cfloop>
 </cftransaction>
-	spiffy, made user - use your back button to do it again:
-	<cfdump var=#form#>
+<p>
+	Made user
+</p>
+<p>
+	Username: test_#username#
+</p>
+
+
+<p>
+	scary unenrypted password: #password#
+</p>
+
+<p>
+	super scary magic link: http://arctos-test.tacc.utexas.edu/login.cfm?action=signIn&username=test_#username#&password=#password#&forceusertest
+
+</p>
 	
 	
 	
