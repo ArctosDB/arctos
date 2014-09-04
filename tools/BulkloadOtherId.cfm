@@ -354,7 +354,6 @@ sho err
 		   
 		});
 	</script>
-	
 	<cfparam name="gp" default="">
 	<cfparam name="ref" default="">
 	<cfoutput>
@@ -390,14 +389,12 @@ sho err
 				cf_temp_recip_oids.guid_prefix,
 				new_other_id_type
 		</cfquery>
-		
 		<cfquery name="ctguid_prefix" dbtype="query">
 			select guid_prefix from recip group by guid_prefix order by guid_prefix
 		</cfquery>
 		<cfquery name="ctref" dbtype="query">
 			select new_other_id_references from recip group by new_other_id_references order by new_other_id_references
 		</cfquery>
-	
 		These specimens have unreciprocated relationships to your collections. 
 		<ol>
 			<li>
