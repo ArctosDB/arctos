@@ -76,7 +76,7 @@ Make a test account.
 
 <cftransaction>
 	<cfquery name="uid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select max(USER_ID) + 1  uid from cf_users
+		select max(USER_ID) + 1 as x from cf_users
 	</cfquery>
 	<cfquery name="usr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into cf_users (
@@ -87,7 +87,7 @@ Make a test account.
 		) values (
 			'#username#',
 			'#password#',
-			'#uid.uid#',
+			'#uid.x#',
 			sysdate
 		)
 	</cfquery>
@@ -101,7 +101,7 @@ Make a test account.
 			ASK_FOR_FILENAME,
 			EMAIL
 		) values (
-			'#uid.uid#',
+			'#uid.x#',
 			'#firstname#',
 			'#lastname#',
 			'testing',
