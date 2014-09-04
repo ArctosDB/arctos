@@ -1,4 +1,4 @@
-<cfinclude template = "includes/_header.cfm">
+<cfinclude template = "/includes/_header.cfm">
 <cfif application.version is not "test">
 	no<cfabort>
 </cfif>
@@ -15,4 +15,8 @@
 <input type="submit">
 </form>
 
-<cfinclude template = "includes/_header.cfm">
+
+<cfif action is 'magic'>
+	<cfdump var=#form#>
+</cfif>
+<cfinclude template = "/includes/_header.cfm">
