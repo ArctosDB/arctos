@@ -172,6 +172,13 @@ Make a test account.
 	</cfquery>
 
 
+
+	<cfquery name="r" datasource="uam_god">
+				grant CREATE SESSION to test_#username#
+			</cfquery>
+
+
+
 	<cfloop list="#userroles#" index="i">
 	
 			<cfquery name="r" datasource="uam_god">
