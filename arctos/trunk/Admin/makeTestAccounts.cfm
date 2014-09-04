@@ -119,7 +119,7 @@ Make a test account.
 			PW_CHANGE_DATE
 		) values (
 			'test_#username#',
-			'#password#',
+			'#hash(password)#',
 			'#uid.x#',
 			sysdate
 		)
