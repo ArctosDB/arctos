@@ -271,9 +271,9 @@
 									</td>
 									<td id="voccell_#sugntab.key#">
 										<cfif len(sugntab.vocab) gt 0>
-											<span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">fetch all vocabulary</span>
+											fetch <span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">all vocabulary</span>
 											<cfif sugntab.indata gt 0>
-												or <span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#','results');">fetch distinct results</span>
+												or <span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#','results');">from results</span>
 											</cfif>
 										<cfelse>
 											&nbsp;
