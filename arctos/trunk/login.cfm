@@ -59,6 +59,13 @@
 <CFIF action is "signIn">
 	<cfoutput>
 		<cfset initSession('#username#','#password#')>
+		
+		
+		<cfdump var=#initSession#>
+		
+		
+		
+		
 		<cfif len(session.username) is 0>
 			<cfset u="/login.cfm?badPW=true&username=#username#">
 			<cfif isdefined("gotopage") and len(gotopage) gt 0>
