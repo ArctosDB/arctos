@@ -167,7 +167,10 @@
 			-- select things from their results
 			-- existing search value, when available
 		---->
+		<!--- a table for stuff that's turned on ---->
 		<cfset sugntab = querynew("key,val,definition,vocab,display_text,placeholder_text,search_hint,indata")>
+		<!---- a table for things they searched on - these contain a value ---->
+
 		<!---- BEGIN: first loop over the things in their results so that we can filter OR exapand ---->
 		<cfset idx=1>
 		<cfset thisValue="">
@@ -193,8 +196,10 @@
 		</cfloop>
 		
 		<!---- END: first loop over the things in their results so that we can filter OR exapand ---->
-		<!---- BEGIN: then loop over the things they searched for - ignore listtoignore here---->
-		
+		<!---- BEGIN: then loop over the things they searched for 
+			- ignore listtoignore here
+			- update when searched-on value is in the results and so already in the query---->
+		<cfset thisValue="">
 		<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
 			<!--- deal with equal prefix=exact match --->
 			<cfset kvp=replace(kvp,"=","|","first")>
@@ -206,6 +211,16 @@
 				<cfset thisKey=replace(kvp,'|','','all')>
 				<cfset thisValue=''>
 			</cfif>
+			<!--- is we already have this term, find it's row_number and update value ---->
+			
+			<cfif (sugntab[ thisKey ].IndexOf( JavaCast( "string", thisValue ) ) GTE 0)>
+				<br>#thisKey# is in the query updating.....
+				<cfset temp = QuerySetCell(sugntab, "indata", 1, idx)>
+			<cfelse>
+			
+			<br>#thiskey# is not there yet
+			</cfif>
+			
 			<cfif not listfindnocase(keylist,thisKey)>
 				<cfset keylist=listappend(keylist,thisKey)>
 				<cfquery name="thisMoreInfo" dbtype="query">
