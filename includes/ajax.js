@@ -813,7 +813,7 @@ function showHide(id,onOff) {
 
 			
 			//ctl.innerHTML='<img src="/images/indicator.gif">';
-			$.get(ptl, function(data){
+			jQuery.get(ptl, function(data){
 				
 				console.log('got');
 				
