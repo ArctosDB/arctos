@@ -785,7 +785,10 @@ function showHide(id,onOff) {
 	//z='c_' + id;
 	
 	
-	if (document.getElementById(t) && document.getElementById(z)) {	
+	//if (document.getElementById(t) && document.getElementById(z)) {
+	
+	if ( $("#c_" + id).length && $("#ce" + id).length){
+	
 		//tab=document.getElementById(t);
 		//ctl=document.getElementById(z);
 		if (id=='spatial_query'){
@@ -831,6 +834,9 @@ function showHide(id,onOff) {
 			ctl.innerHTML=offText;
 			saveSpecSrchPref(id,onOff);
 		}
+	} else {
+		console.log('not meet criteria');
+		
 	}
 }
 function closeAndRefresh(){
