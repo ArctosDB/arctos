@@ -27,7 +27,7 @@
 				upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) 
 		)	
 </cfquery>
-
+<cfdump var=#ctRoleName#>
 	<cfquery name="croles" datasource="uam_god">
 			select granted_role role_name
 			from 
@@ -39,7 +39,8 @@
 			order by granted_role
 		</cfquery>
 		
-			
+	
+<cfdump var=#croles#>		
 Make a test account.
 <form name="f" method="post" action="makeTestAccounts.cfm">
 <input type="hidden" name="action" value="magic">
@@ -66,7 +67,7 @@ Make a test account.
 <label for="roles">roles</label>
 
 
-<select name="roles" size="1" required>
+<select name="roles" size="10" multiple required>
 	<cfloop query="ctRoleName">
 		<option value="#role_name#">#role_name#</option>
 	</cfloop>
@@ -75,7 +76,7 @@ Make a test account.
 									
 <label for="collections">collections</label>
 
-	<select name="role_name" size="1" required>
+	<select name="role_name" size="10" multiple required>
 		<cfloop query="croles">
 			
 				<option value="#role_name#">#role_name#</option>
