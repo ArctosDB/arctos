@@ -98,7 +98,10 @@ Make a test account.
 		<cfquery name="die"  datasource="uam_god">
 			drop user 'test_#username#')
 		</cfquery>
-		<cfcatch><br>no user to drop</cfcatch>
+		<cfcatch><br>no user to drop
+		
+		<cfdump var=#cfcatch#>
+		</cfcatch>
 	</cftry>
 
 	
