@@ -818,13 +818,16 @@ function showHide(id,onOff) {
 				$("#c_" + id).html(onText);
 				//$("#c_" + id).setAttribute("onclick","showHide('" + id + "',0)");
 				
-				$('"#c_" + id').click(function() {
+				jQuery("#c_" + i).unbind('click');
+				
+				
+				$("#c_" + id).click(function() {
 					showHide(id,0); // in yourFunctions.js
 		         });
 				
+				//<span id="c_curatorial" class="secControl" onclick="showHide('curatorial',1)">Show Fewer Options</span>
 				
-				
-				//$("#c_" + id).attr('onclick', '').click(showHide);
+				$("#c_" + id).attr('onclick', '').click(showHide);
 				
 				console.log('going saveSpecSrchPref');
 
