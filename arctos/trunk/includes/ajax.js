@@ -781,12 +781,14 @@ function showHide(id,onOff) {
 	// specimensearch pane toggle
 	var t,ztab,ctl,offText,onText,ptl;
 	
-	t='e_' + id;
-	z='c_' + id;
+	//t='e_' + id;
+	//z='c_' + id;
+	
+	
 	if (document.getElementById(t) && document.getElementById(z)) {	
-		tab=document.getElementById(t);
-		ctl=document.getElementById(z);
-		if (t=='e_spatial_query'){
+		//tab=document.getElementById(t);
+		//ctl=document.getElementById(z);
+		if (id=='spatial_query'){
 			offText='Select on Google Map';
 			onText='Hide Google Map';
 		} else {
@@ -794,13 +796,34 @@ function showHide(id,onOff) {
 			offText='Show More Options';
 		}
 		if (onOff==1) {
+			console.log('turning on');
 			ptl="/includes/SpecSearch/" + id + ".cfm";
-			ctl.innerHTML='<img src="/images/indicator.gif">';
+			
+
+			console.log('ptl: ' + ptl);
+			
+			
+			$("#c_" + id).html('<img src="/images/indicator.gif">');
+			
+			
+			console.log('it's an image');
+
+			
+			//ctl.innerHTML='<img src="/images/indicator.gif">';
 			$.get(ptl, function(data){
-				$(tab).html(data);
-				ctl.innerHTML=onText;
-				ctl.setAttribute("onclick","showHide('" + id + "',0)");
+				$("#t_" + id).html(data);
+				$("#c_" + id).html(onText);
+				$("#c_" + id).setAttribute("onclick","showHide('" + id + "',0)");
+				
+				
+				//$("#c_" + id).attr('onclick', '').click(showHide);
+				
+				console.log('going saveSpecSrchPref');
+
 				saveSpecSrchPref(id,onOff);
+				
+				console.log('back saveSpecSrchPref');
+
 			});
 		} else {
 			tab.innerHTML='';
