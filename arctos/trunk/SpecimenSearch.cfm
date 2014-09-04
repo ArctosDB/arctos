@@ -745,7 +745,7 @@
 				if (getResult == "cookie") {
 					var cookie = readCookie("specsrchprefs");
 
-					console.log(cookie);
+					console.log('cookie: ' + cookie);
 
 					if (cookie != null) {
 						r_getSpecSrchPref(cookie);
