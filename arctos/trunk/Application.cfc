@@ -168,11 +168,6 @@
 				</td>
 			</tr>
 		</table>
-		
-		<cfdump var=#exception#>
-		
-		
-		
 		<cfif isdefined("session.username") and session.username is "dlm">
 			<cfdump var=#exception#>
 		</cfif>

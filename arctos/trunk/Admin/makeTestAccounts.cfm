@@ -100,11 +100,8 @@ Make a test account.
 		</cfquery>
 		<cfcatch><br>no user to drop
 		
-		<cfdump var=#cfcatch#>
 		</cfcatch>
 	</cftry>
-
-	
 
 	
 <cftransaction>
