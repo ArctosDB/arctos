@@ -233,6 +233,7 @@
 			</cfif>
 		</cfloop>
 		
+		<cfdump var=#sugntab#>
 		<!---- END: first loop over the things in their results so that we can filter OR exapand ---->
 		
 		
