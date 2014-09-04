@@ -790,7 +790,7 @@ function showHide(id,onOff) {
 			onText='<span class="secControl" style="font-size:.9em;" id="c_' + id + '" onclick="showHide(\'' + id + '\',0)">Hide Google Map</span>';
 
 			//offText='Select on Google Map';
-			onText='<span class="secControl" style="font-size:.9em;" id="c_' + id + '" onclick="showHide(\'' + id + '\',1)">Select on Google Map</span>';
+			offText='<span class="secControl" style="font-size:.9em;" id="c_' + id + '" onclick="showHide(\'' + id + '\',1)">Select on Google Map</span>';
 			
 
 
