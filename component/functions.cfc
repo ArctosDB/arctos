@@ -4322,8 +4322,11 @@
 <cffunction name="saveSpecSrchPref" access="remote">
 	<cfargument name="id" type="string" required="yes">
 	<cfargument name="onOff" type="numeric" required="yes">
-	<cfif isdefined("session.username") and len(#session.username#) gt 0>
+	<cfif isdefined("session.username") and len(session.username) gt 0>
+	<br> got session
+	<!----
 		<cftry>
+		--->
 			<cfquery name="ins" datasource="cf_dbuser">
 				select specsrchprefs from cf_users
 				where username='#session.username#'
@@ -4342,6 +4345,7 @@
 				update cf_users set specsrchprefs='#nv#'
 				where username='#session.username#'
 			</cfquery>
+			<!----
 			<cfcatch>
 			
 			<cfreturn "#cfcatch#">
@@ -4349,6 +4353,7 @@
 			
 			<!-- nada --></cfcatch>
 		</cftry>
+		---->
 		<cfreturn "saved">
 	</cfif>
 	<cfreturn "cookie,#id#,#onOff#">
