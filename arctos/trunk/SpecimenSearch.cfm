@@ -740,7 +740,7 @@
 			},
 			function (getResult) {
 
-				console.log(result);
+				console.log(getResult);
 
 				if (getResult == "cookie") {
 					var cookie = readCookie("specsrchprefs");
