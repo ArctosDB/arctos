@@ -4323,19 +4323,14 @@
 	<cfargument name="id" type="string" required="yes">
 	<cfargument name="onOff" type="numeric" required="yes">
 	<cfif isdefined("session.username") and len(session.username) gt 0>
-	<br> got session
-	<!----
 		<cftry>
-		--->
 			<cfquery name="ins" datasource="cf_dbuser">
 				select specsrchprefs from cf_users
 				where username='#session.username#'
 			</cfquery>
-			
-			<cfdump var=#ins#>
-			
-			
 			<cfset cv=valuelist(ins.specsrchprefs)>
+			<!--- fallback: do nothing ---->
+			<cfset nv=cv>
 			<cfif onOff is 1>
 				<cfif not listfind(cv,id)>
 					<cfset nv=listappend(cv,id)>
@@ -4349,15 +4344,8 @@
 				update cf_users set specsrchprefs='#nv#'
 				where username='#session.username#'
 			</cfquery>
-			<!----
-			<cfcatch>
-			
-			<cfreturn "#cfcatch#">
-			
-			
-			<!-- nada --></cfcatch>
+			<cfcatch><!-- nada --></cfcatch>
 		</cftry>
-		---->
 		<cfreturn "saved">
 	</cfif>
 	<cfreturn "cookie,#id#,#onOff#">
