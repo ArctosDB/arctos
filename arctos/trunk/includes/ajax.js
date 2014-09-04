@@ -785,50 +785,25 @@ function showHide(id,onOff) {
 	var t,ztab,ctl,offText,onText,ptl;
 	if ( $("#c_" + id).length && $("#e_" + id).length){
 		if (id=='spatial_query'){
-			//onText='Hide Google Map';
-
 			onText='<span class="secControl" style="font-size:.9em;" id="c_' + id + '" onclick="showHide(\'' + id + '\',0)">Hide Google Map</span>';
-
-			//offText='Select on Google Map';
 			offText='<span class="secControl" style="font-size:.9em;" id="c_' + id + '" onclick="showHide(\'' + id + '\',1)">Select on Google Map</span>';
-			
-
-
 		} else {
-			//onText='Show Fewer Options';
 			onText='<span class="secControl" id="c_' + id + '" onclick="showHide(\'' + id + '\',0)">Show Fewer Options</span>';
-			//offText='Show More Options';
 			offText='<span class="secControl" id="c_' + id + '" onclick="showHide(\'' + id + '\',1)">Show More Options</span>';
-
 		}
 		if (onOff==1) {
-			console.log('turning on');
 			ptl="/includes/SpecSearch/" + id + ".cfm";
 			$("#c_" + id).html('<img src="/images/indicator.gif">');
 			$.get(ptl, function(data){
 				$("#e_" + id).html(data);
-				$("#c_" + id).html(onText);
-				
+//				$("#c_" + id).html(onText);
 				
 				$( "#c_" + id ).replaceWith( onText );
 				
-				//jQuery("#c_" + id).unbind('click');
-				
-				
-				//$("#c_" + id).click(function() {
-					//showHide(id,0); // in yourFunctions.js
-		         //});
-				
-				//<span id="c_curatorial" class="secControl" onclick="showHide('curatorial',1)">Show Fewer Options</span>
-				
-				//$("#c_" + id).attr('onclick', '').click(showHide);
-				
-				console.log('going saveSpecSrchPref');
-
+	
 				saveSpecSrchPref(id,onOff);
 				
-				console.log('back saveSpecSrchPref');
-
+	
 			});
 		} else {
 			//tab.innerHTML='';
@@ -839,12 +814,7 @@ function showHide(id,onOff) {
 			//ctl.setAttribute("onclick","showHide('" + id + "',1)");
 			//ctl.innerHTML=offText;
 			saveSpecSrchPref(id,onOff);
-		}
-	} else {
-		console.log('not meet criteria');
-		console.log( $("#c_" + id).length );
-		console.log( $("#e_" + id).length );
-		
+		}		
 	}
 }
 function closeAndRefresh(){
