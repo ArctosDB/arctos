@@ -787,7 +787,7 @@ function showHide(id,onOff) {
 	
 	//if (document.getElementById(t) && document.getElementById(z)) {
 	
-	if ( $("#c_" + id).length && $("#ce" + id).length){
+	if ( $("#c_" + id).length && $("#e_" + id).length){
 	
 		//tab=document.getElementById(t);
 		//ctl=document.getElementById(z);
