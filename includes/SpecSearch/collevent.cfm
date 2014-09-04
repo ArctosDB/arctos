@@ -2,7 +2,7 @@
 	jQuery(document).ready(function() {
 		$("#begDate").datepicker();
 		$("#endDate").datepicker();
-		$("#begMon").multiselect({});
+		$("#inMon").multiselect();
 	});
 </script>
 <cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
