@@ -167,21 +167,26 @@ Make a test account.
 			'test_#username#'
 		)
 	</cfquery>
-	<cfquery name="an"  datasource="uam_god">
-		create user test_#username# identified by "#password#"
+	
+	
+	
+	
+	<cfquery name="makeUser" datasource="uam_god">
+		create user test_#username# identified by "#password#" profile "ARCTOS_USER" default TABLESPACE users QUOTA 1G on users
 	</cfquery>
-
-
-
-	<cfquery name="r" datasource="uam_god">
-				grant CREATE SESSION to test_#username#
-			</cfquery>
-
-	<cfquery name="r" datasource="uam_god">
-				grant CONNECT to test_#username#
-			</cfquery>
-
-
+	<cfquery name="grantConn" datasource="uam_god">
+		grant create session to test_#username#
+	</cfquery>
+	<cfquery name="grantTab" datasource="uam_god">
+		grant create table to test_#username#
+	</cfquery>
+	<cfquery name="grantVPD" datasource="uam_god">
+		grant execute on app_security_context to test_#username#
+	</cfquery>					
+			
+			
+			
+			
 
 	<cfloop list="#userroles#" index="i">
 	
