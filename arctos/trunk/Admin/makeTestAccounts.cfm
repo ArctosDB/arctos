@@ -141,10 +141,13 @@ Make a test account.
 
 
 	<cfloop list="#roles#" index="i">
+	
+	
+	<!----
 			<cfquery name="r" datasource="uam_god">
 				grant #i# to #username#
 			</cfquery>
-			
+			---->
 
 	</cfloop>
 	
