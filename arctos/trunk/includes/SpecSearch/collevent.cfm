@@ -32,7 +32,6 @@
 					<td>
 						<label for="begMon">Month</label>
 						<select name="begMon" id="begMon" size="1">
-							<option value=""></option>
 							<option value="01">January</option>
 							<option value="02">February</option>
 							<option value="03">March</option>
