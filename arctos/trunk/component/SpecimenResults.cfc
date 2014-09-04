@@ -75,7 +75,7 @@
 				</td>
 				<td id="voccell_#term#">
 					<cfif len(tquery.CONTROLLED_VOCABULARY) gt 0>
-						<span class="likeLink" onclick="fetchSrchWgtVocab('#term#');">fetch vocabulary</span>
+						<span class="infoLink" onclick="fetchSrchWgtVocab('#term#');">[ all vocabulary ]</span> 
 					<cfelse>
 						&nbsp;
 					</cfif>
