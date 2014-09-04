@@ -785,13 +785,18 @@ function showHide(id,onOff) {
 	var t,ztab,ctl,offText,onText,ptl;
 	if ( $("#c_" + id).length && $("#e_" + id).length){
 		if (id=='spatial_query'){
-			offText='Select on Google Map';
-			onText='Hide Google Map';
+			//onText='Hide Google Map';
+
+			onText='<span class="secControl" id="c_' + id + '" onclick="showHide(\'' + id + '\',0)">Hide Google Map</span>';
+
+			//offText='Select on Google Map';
+			onText='<span class="secControl" id="c_' + id + '" onclick="showHide(\'' + id + '\',0)">Select on Google Map</span>';
+
 		} else {
 			//onText='Show Fewer Options';
-			onText='<span class="secControl" id="c_' + id + '" onclick="showHide(\'' + id + '\',0)">' + onText + '</span>';
+			onText='<span class="secControl" id="c_' + id + '" onclick="showHide(\'' + id + '\',0)">Show Fewer Options</span>';
 			//offText='Show More Options';
-			offText='<span class="secControl" id="c_' + id + '" onclick="showHide(\'' + id + '\',1)">' + offText + '</span>';
+			offText='<span class="secControl" id="c_' + id + '" onclick="showHide(\'' + id + '\',1)">Show More Options</span>';
 
 		}
 		if (onOff==1) {
