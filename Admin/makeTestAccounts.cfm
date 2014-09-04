@@ -74,16 +74,15 @@ Make a test account.
 
 <cfif action is 'magic'>
 	<cftry>
-	<cfquery name="die"  datasource="uam_god">
-		delete from cf_user_data where user_id=(select user_id from cf_users where username='test_#username#')
-	</cfquery>
-	<cfcatch><br>no userdata to roll back</cfcatch>
+		<cfquery name="die"  datasource="uam_god">
+			delete from cf_user_data where user_id=(select user_id from cf_users where username='test_#username#')
+		</cfquery>
+		<cfcatch><br>no userdata to roll back</cfcatch>
 	</cftry>
 	
 	<cfquery name="die"  datasource="uam_god">
 		delete from cf_users where username='test_#username#'
 	</cfquery>
-		<cftry>
 	<cfquery name="an"  datasource="uam_god">
 		select agent_id from agent_name where agent_name='test_#username#'
 	</cfquery>
@@ -96,10 +95,10 @@ Make a test account.
 		</cfquery>
 	</cfif>
 	<cftry>
-	<cfquery name="die"  datasource="uam_god">
-		drop user 'test_#username#')
-	</cfquery>
-	<cfcatch><br>no user to drop</cfcatch>
+		<cfquery name="die"  datasource="uam_god">
+			drop user 'test_#username#')
+		</cfquery>
+		<cfcatch><br>no user to drop</cfcatch>
 	</cftry>
 
 	
