@@ -202,7 +202,7 @@
 				<cfset temp = QuerySetCell(sugntab, "vocab", thisMoreInfo.controlled_vocabulary, idx)>
 				<cfset temp = QuerySetCell(sugntab, "placeholder_text", thisMoreInfo.placeholder_text, idx)>
 				<cfset temp = QuerySetCell(sugntab, "search_hint", thisMoreInfo.search_hint, idx)>
-				<cfset temp = QuerySetCell(sugntab, "indata", listfindnocase(srchcols.columnlist,thisKey) idx)>
+				<cfset temp = QuerySetCell(sugntab, "indata", listfindnocase(srchcols.columnlist,thisKey), idx)>
 				<cfset idx=idx+1>
 			</cfif>
 		</cfloop>
