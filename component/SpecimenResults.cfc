@@ -278,7 +278,7 @@
 										<cfif len(sugntab.vocab) gt 0>
 											 <span class="infoLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">[ all vocabulary ]</span> 
 										</cfif>
-										<cfif sugntab.indata gt 0 or len(sugntab.vocab) gt 0>
+										<cfif sugntab.indata gt 0>
 											<span class="infoLink" onclick="fetchSrchWgtVocab('#sugntab.key#','results');">[ from results ]</span>
 										</cfif>
 									</td>
