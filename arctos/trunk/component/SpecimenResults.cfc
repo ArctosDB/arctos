@@ -156,7 +156,7 @@
 		<cfquery name="ssrch_field_doc" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,0,0)#">
 			select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 		</cfquery>
-		<cfset stuffToIgnore="catnum,locality_remarks,specimen_event_remark,identification_remarks,made_date,Accession,guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,VERBATIM_DATE">
+		<cfset stuffToIgnore="locality_remarks,specimen_event_remark,identification_remarks,made_date,Accession,guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,VERBATIM_DATE">
 				<cfdump var=#stuffToIgnore#>
 
 		<!---- just need columns ---->
@@ -278,12 +278,13 @@
 										<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#sugntab.val#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
 									</td>
 									<td id="voccell_#sugntab.key#">
+										<cfif sugntab.indata gt 0>
 										fetch
 										<cfif len(sugntab.vocab) gt 0>
 											 <span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">all vocabulary</span> or 
 											</cfif>
 												<span class="likeLink" onclick="fetchSrchWgtVocab('#sugntab.key#','results');">from results</span>
-											
+											</cfif>
 									</td>
 									<td>
 										<span onclick="$('###sugntab.key#').val('');" class="likeLink">[&nbsp;clear&nbsp;]</span>&nbsp;<span onclick="$('###sugntab.key#').val('_');" class="likeLink">[&nbsp;require&nbsp;]</span>
