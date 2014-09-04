@@ -48,10 +48,10 @@ Make a test account.
 <input type="text" name="email" required>
 
 
-<label for="roles">roles</label>
+<label for="userroles">userroles</label>
 
 
-<select name="roles" size="10" multiple required>
+<select name="userroles" size="10" multiple required>
 	<cfloop query="ctRoleName">
 		<option value="#role_name#">#role_name#</option>
 	</cfloop>
@@ -170,8 +170,8 @@ Make a test account.
 	</cfquery>
 
 
-	<cfloop list="#roles#" index="i">
-	
+	<cfloop list="#userroles#" index="i">
+	<br>#i#
 	
 	<!----
 			<cfquery name="r" datasource="uam_god">
