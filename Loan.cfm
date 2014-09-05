@@ -411,6 +411,12 @@
 	<cfquery name="numItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from loan_item where transaction_id=#transaction_id#
 	</cfquery>
+	<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select project_name, project.project_id from project,
+		project_trans where
+		project_trans.project_id =  project.project_id
+		and transaction_id=#transaction_id#
+	</cfquery>
 	<table width="100%" border><tr><td valign="top"><!--- left cell ---->
 	<form name="editloan" id="editloan" action="Loan.cfm" method="post">
 		<input type="hidden" name="action" value="saveEdits">
@@ -573,12 +579,7 @@
 	</td><!---- end left cell --->
 	<td valign="top"><!---- right cell ---->
 		<strong>Projects associated with this loan:</strong>
-		<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select project_name, project.project_id from project,
-			project_trans where
-			project_trans.project_id =  project.project_id
-			and transaction_id=#transaction_id#
-		</cfquery>
+		
 		<ul>
 			<cfif projs.recordcount gt 0>
 				<cfloop query="projs">
