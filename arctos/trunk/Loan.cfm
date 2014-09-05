@@ -97,6 +97,12 @@
 
 function cucAgnt(i){
 	alert(i);
+	if ($("#del_agnt_" + i).prop('checked')===true) {
+		$("#trans_agent_" + i).removeClass().addClass('reqdClr').prop('required',true);
+	} else {
+		$("#trans_agent_" + i).removeClass().prop('required',false);
+	}
+
 }
 	function useThsProjAgnt(n,i) {
 		$("#newProjectAgent").val(n);
