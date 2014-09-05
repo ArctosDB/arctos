@@ -25,8 +25,6 @@
 		//$.noConflict();
 		///jQuery("#birth_date").datepicker();
 	});
-
-
 	function togglePerson(atype){
 		if (atype=='person'){
 			$("#newPersonAttrs").show();
