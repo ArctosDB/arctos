@@ -42,6 +42,7 @@
 		}
 		$('#ids').submit(function(e){
 			e.preventDefault();
+alert('hi');
 			var i;
 			for ( i = 1; i < $("#numberOfIDs").val(); i++ ) {
 				// Logs "try 0", "try 1", ..., "try 4".
