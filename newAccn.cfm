@@ -107,7 +107,7 @@
 							<td>&nbsp;</td>
 							<td colspan="2">
 								<label for="ent_Date">Entry Date:</label>
-								<cfinput type="text" name="ent_Date" id="ent_Date" value="#thisDate#">
+								<input type="text" name="ent_Date" id="ent_Date" value="#thisDate#">
 							</td>
 							<td>
 								<label for="">Has Correspondence?</label>
