@@ -95,7 +95,7 @@
 	});
 
 
-fucntion cucAgnt(i){
+function cucAgnt(i){
 	alert(i);
 }
 	function useThsProjAgnt(n,i) {
