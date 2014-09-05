@@ -3,6 +3,9 @@
 <script type='text/javascript' src='/includes/checkForm.js'></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
+		$(".reqdClr:visible").each(function(e){
+		    $(this).prop('required',true);
+		});
 		$("#made_date").datepicker();
 		$("input[id^='made_date_']").each(function(){
 			$("#" + this.id).datepicker();
