@@ -44,38 +44,20 @@
 
 
 jQuery(document).ready(function() {
-			
-
-console.log('nid: ' + $("#numberOfIDs").val());
-
-
-		$("#formEdit").submit(function(event){
-			event.preventDefault();
-			var i;
-
-			for ( i = 1; i <= $("#numberOfIDs").val(); i++ ) {
-				// Logs "try 0", "try 1", ..., "try 4".
-				console.log( "try " + i );
-
-
-
-
-
-
-
-
-
-				if ($("#delete_" + i).prop('checked')!==true) {
-					console.log('nodelete');
-					if ($("#other_id_prefix_" + i).val().length===0 && $("#other_id_number_" + i).val().length===0 && $("#other_id_suffix_" + i).val().length===0){
-						alert('Prefix, Number, and Suffix may not all be NULL.');
-						$("#trid_" + i).addClass('red');
-					}
+	$("#formEdit").submit(function(event){
+		//event.preventDefault();
+		var i;
+		for ( i = 1; i <= $("#numberOfIDs").val(); i++ ) {
+			if ($("#delete_" + i).prop('checked')!==true) {
+				console.log('nodelete');
+				if ($("#other_id_prefix_" + i).val().length===0 && $("#other_id_number_" + i).val().length===0 && $("#other_id_suffix_" + i).val().length===0){
+					alert('Prefix, Number, and Suffix may not all be NULL.');
+					$("#trid_" + i).addClass('badPick');
+					return false;
 				}
 			}
-			console.log('good to go');
-			return false;
-		});
+		}
+	});
 });
 
 
