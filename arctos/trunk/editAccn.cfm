@@ -47,7 +47,7 @@
 });
 	
 	});
-	function checkReplaceNoPrint(evnt,elem,str){
+	function checkReplaceNoPrint(event,elem){
 		if ($("#" + elem).val().indexOf("[NOPRINT]") >= 0){
 			alert('remove [NOPRINT] from ' + elem);
 			event.preventDefault();
