@@ -542,7 +542,7 @@
 		<br>
 		<input type="submit" value="Save Edits" class="savBtn">
 		<cfif numItems.c is 0>
-			<input type="button" value="Delete Loan" class="delBtn" onClick="deleteLoan('#transaction_id#);">
+			<input type="button" value="Delete Loan" class="delBtn" onClick="deleteLoan('#transaction_id#');">
 		</cfif>
 		<ul>
 			<li><a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#">[ add items ]</a></li>
