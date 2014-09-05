@@ -170,10 +170,10 @@
 
 
 
-$( ('[id^="del_agnt_"]' ).each(function(index) {
+$('[id^="del_agnt_"]' ).each(function(index) {
     $(this).on("click", function(){
         // For the boolean value
-            alert($(this));    
+            alert( $(this) );    
 
     });
 });
