@@ -94,8 +94,12 @@
 		$("#newProjectAgent").val(n);
 		$("#newProjectAgent_id").val(i);
 	}
-
-
+	function deleteLoan(tid){
+		var x=confirm('Delete this loan?');
+		if (x===true){
+			document.location('Loan.cfm?transaction_id=' + tid + '&action=deleLoan');
+		}
+	}
 
 
 	function setAccnNum(i,v) {
@@ -538,7 +542,7 @@
 		<br>
 		<input type="submit" value="Save Edits" class="savBtn">
 		<cfif numItems.c is 0>
-			<input type="button" value="Delete Loan" class="delBtn" onClick="document.location('Loan.cfm?transaction_id=#transaction_id#&action=deleLoan');">
+			<input type="button" value="Delete Loan" class="delBtn" onClick="deleteLoan('#transaction_id#);">
 		</cfif>
 		<ul>
 			<li><a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#">[ add items ]</a></li>
