@@ -57,6 +57,10 @@
 			checkReplaceNoPrint(event,'trans_remarks');
 		});
 		$("#editloan").submit(function(event){
+
+		alert('submit');
+
+
 			// just call the function - it will prevent submission if necessary
 			checkReplaceNoPrint(event,'nature_of_material');
 			checkReplaceNoPrint(event,'loan_instructions');
