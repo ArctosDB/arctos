@@ -1,7 +1,10 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 
-
+<!--------
 	<script>
+	
+
+
 		function t(){alert('t');}
 
 
@@ -33,3 +36,24 @@ alert('hi');
 
 
 	<input type="button" name="t" value="t" class="savBtn" onclick="t()">
+	
+	
+	------------->
+	
+	
+	<script>
+	(function($) {
+    $("form#addFav").submit(function(event) {
+        event.preventDefault();
+        alert("hello");
+    });
+})(jQuery);
+
+</script>
+
+
+
+<form action="" id="addFav">
+     <input type="text" name="name" class="thin-d"/>
+     <input type="submit" value="Send"/>
+</form>
