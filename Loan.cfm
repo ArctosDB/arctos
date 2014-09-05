@@ -97,7 +97,7 @@
 
 function cucAgnt(i){
 	alert(i + ' is '  + $("#del_agnt_" + i).prop('checked'));
-	if ($("#del_agnt_" + i).prop('checked')===true) {
+	if (!$("#del_agnt_" + i).prop('checked')===true) {
 		$("#trans_agent_" + i).removeClass().addClass('reqdClr').prop('required',true);
 	} else {
 		$("#trans_agent_" + i).removeClass().prop('required',false);
