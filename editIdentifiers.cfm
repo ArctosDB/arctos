@@ -46,13 +46,15 @@
 jQuery(document).ready(function() {
 			
 
+console.log('nid: ' + $("#numberOfIDs").val());
+
 
 		$("#formEdit").submit(function(event){
 			event.preventDefault();
 			alert('hi');
 			var i;
 
-			for ( i = 1; i < $("#numberOfIDs").val(); i++ ) {
+			for ( i = 1; i <= $("#numberOfIDs").val(); i++ ) {
 				// Logs "try 0", "try 1", ..., "try 4".
 				console.log( "try " + i );
 			}
