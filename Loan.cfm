@@ -1553,7 +1553,7 @@
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
-<cfif action is "listLoans">
+<cfif action is "removeProjectFromLoan">
 <cfoutput>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from project_trans where PROJECT_ID=#project_id# and TRANSACTION_ID=#transaction_id#
