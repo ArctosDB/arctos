@@ -227,8 +227,37 @@ alert('hi');
 	
 
 
+</cfoutput>
+<script>
+
+
+		$("form#formEdit").submit(function(event){
+
+
+alert('hi');
+
+
+
+			event.preventDefault();
+
+			var i;
+
+/*
+			for ( i = 1; i < $("#numberOfIDs").val(); i++ ) {
+				// Logs "try 0", "try 1", ..., "try 4".
+				console.log( "try " + i );
+			}
+*/
+
+
+			console.log('good to go');
+			return false;
+		});
+
+
+</script>
 		 
-		 
+		 <cfoutput>
 		 
 <b>Edit existing Identifiers:</b>
 <form name="ids" id="formEdit" method="post" action="editIdentifiers.cfm">
