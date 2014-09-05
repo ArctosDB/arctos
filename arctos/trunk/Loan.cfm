@@ -38,6 +38,53 @@
 		right:1em;
 	}
 </style>
+
+<!----
+
+
+
+
+
+		<label for=""><span style="font-size:large">Create a project from this loan</span></label>
+		<label for="newProjectAgent">Project Agent</label>
+		<input type="text" name="newProjectAgent" id="newProjectAgent" size="30" value=""
+			onchange="getAgent('newProjectAgent_id','newProjectAgent','editloan',this.value); return false;"
+		  	onKeyPress="return noenter(event);">
+
+
+
+
+		<input type="hidden" name="newProjectAgent_id" id="newProjectAgent_id" value="">
+		<cfquery name="ctProjAgRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select project_agent_role from ctproject_agent_role order by project_agent_role
+		</cfquery>
+		<label for="">Project Agent Role</label>
+		<select name="project_agent_role" size="1">
+			<cfloop query="ctProjAgRole">
+				<option value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#</option>
+			</cfloop>
+		</select>
+		<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project Title</label>
+		<textarea name="project_name" cols="50" rows="2" ></textarea>
+		<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Project Start Date</label>
+		<input type="text" name="start_date" value="#dateformat(loanDetails.trans_date,"yyyy-mm-dd")#">
+		<label for="">Project End Date</label>
+		<input type="text" name="end_date">
+		<label for="project_description" class="likeLink" onClick="getDocs('project','description')">Project Description</label>
+		<textarea name="project_description"
+			id="project_description" cols="50" rows="6">#loanDetails.loan_description#</textarea>
+		<label for="project_remarks">Project Remark</label>
+		<textarea name="project_remarks" cols="50" rows="3">#loanDetails.trans_remarks#</textarea>
+		<label for="saveNewProject">Check to create project with save</label>
+		<input type="checkbox" value="yes" name="saveNewProject" id="saveNewProject">
+		
+		
+		
+		
+
+
+
+---->
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$("#trans_date").datepicker();
@@ -57,17 +104,21 @@
 			checkReplaceNoPrint(event,'trans_remarks');
 		});
 		$("#editloan").submit(function(event){
-
-		alert('submit');
-
-
 			// just call the function - it will prevent submission if necessary
 			checkReplaceNoPrint(event,'nature_of_material');
 			checkReplaceNoPrint(event,'loan_instructions');
 			checkReplaceNoPrint(event,'loan_description');
 			checkReplaceNoPrint(event,'trans_remarks');
 		});
+		$("#saveNewProject").click(function(event){
+					if ($(this).prop('checked')!==true) {
+alert('check');
+} else {
+alert('nope');
+}
 
+		
+		});
 
 
 
@@ -564,6 +615,8 @@
 			onKeyPress="return noenter(event);">
 		</div>
 		<hr>
+		<div class="newRec">
+
 		<label for=""><span style="font-size:large">Create a project from this loan</span></label>
 		<label for="newProjectAgent">Project Agent</label>
 		<input type="text" name="newProjectAgent" id="newProjectAgent" size="30" value=""
@@ -595,7 +648,8 @@
 		<label for="project_remarks">Project Remark</label>
 		<textarea name="project_remarks" cols="50" rows="3">#loanDetails.trans_remarks#</textarea>
 		<label for="saveNewProject">Check to create project with save</label>
-		<input type="checkbox" value="yes" name="saveNewProject">
+		<input type="checkbox" value="yes" name="saveNewProject" id="saveNewProject">
+		</div>
 	</form>
 	<hr>
 	
