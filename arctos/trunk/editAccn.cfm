@@ -16,13 +16,17 @@
 					{
 						method : "removeNonprinting",
 						orig : $("#nature_of_material").val(),
-						userString : '<br>',
+						userString :'[NOPRINT]',
 						returnformat : "json",
 						queryformat : 'column'
 					},
 					function(r) {
 						if (r.DATA.REPLACED_WITH_USERSTRING[0] != $("#nature_of_material").val()){
-							alert('bad juju');
+							$("#nature_of_material").val(r.DATA.REPLACED_WITH_USERSTRING[0]);
+							msg='The form cannot be submitted: There are nonprinting characters in nature_of_material.\n\n';
+							msg+='Nonprinting characters have been replaced with [NOPRINT]. Remove that to continue.\n\n';
+							msg+='You may use HTML markup for print control: <br> is linebreak';
+							alert(msg);
 						}
 						console.log(r);
 						return false;
