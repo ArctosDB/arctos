@@ -40,6 +40,8 @@
 				}
 			);
 		}
+
+
 		$('#ids').submit(function(e){
 			e.preventDefault();
 alert('hi');
@@ -292,7 +294,7 @@ alert('hi');
 		<cfset nid=i-1>
 		<input type="hidden" value="#nid#" name="numberOfIDs" id="numberOfIDs">
 	</table>
-	<input type="submit" value="Save Changes" class="savBtn">
+	<input type="submit" name="not_submit" value="Save Changes" class="savBtn">
 </form>
 <b>Add New Identifier:</b>
 <form name="newOID" id="newOID" method="post" action="editIdentifiers.cfm">
