@@ -88,8 +88,10 @@
 		});
 
 
+$('body').on('click', '[id^="del_agnt_"]', function() {
 
-$('[id^="del_agnt_"]').on('click', function (e) {
+
+//$('[id^="del_agnt_"]').on('click', function (e) {
    	alert( 'hi' );   
 
 });
