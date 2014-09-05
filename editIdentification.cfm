@@ -5,6 +5,10 @@
 	jQuery(document).ready(function() {
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
+
+			console.log(this);
+
+
 		});
 		$("#made_date").datepicker();
 		$("input[id^='made_date_']").each(function(){
