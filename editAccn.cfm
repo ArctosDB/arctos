@@ -60,7 +60,8 @@
 				orig : $("#" + elem).val(),
 				userString :'[NOPRINT]',
 				returnformat : "json",
-				queryformat : 'column'
+				queryformat : 'column',
+				async: false
 			},
 			function(r) {
 				if (r.DATA.REPLACED_WITH_USERSTRING[0] != $("#" + elem).val()){
