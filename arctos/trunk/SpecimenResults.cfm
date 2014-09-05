@@ -299,7 +299,7 @@
 						<span class="infoLink" onclick="resizeMap('hugemap');">huge</span>~
 						<span class="infoLink #session.srmapclass#" onclick="queryByViewport();">QueryByViewport</span>
 					</div>
-					<div id="srmapctrls-nomap" style="#d2#" class="likeLink">show map</div>
+					<div id="srmapctrls-nomap" style="#d2#" class="likeLink">[ Show Map ]</div>
 				</td>
 			</tr>
 		</table>
