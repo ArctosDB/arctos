@@ -5,6 +5,8 @@ This REFRESHES data that already exist in Arctos.
 ------------------------->
 
 <cfoutput>
+
+	<cfparam name="debug" default="false">
 	<!--- 
 		pipe-delimited list of things to completely ignore 
 		
