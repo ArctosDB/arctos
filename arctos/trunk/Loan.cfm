@@ -100,6 +100,14 @@
 			window.location='Loan.cfm?transaction_id=' + tid + '&action=deleLoan';
 		}
 	}
+	function removeProjectFromLoan(tid,pid){
+		var x=confirm('Unlink this project?');
+		if (x===true){
+			window.location='Loan.cfm?transaction_id=' + tid + '&project_id=' + pid + 'action=unlinkProject';
+		}
+	}
+
+
 
 
 	function setAccnNum(i,v) {
@@ -583,7 +591,10 @@
 		<ul>
 			<cfif projs.recordcount gt 0>
 				<cfloop query="projs">
-					<li><a href="/Project.cfm?Action=editProject&project_id=#project_id#"><strong>#project_name#</strong></a></li>
+					<li>
+						<a href="/Project.cfm?Action=editProject&project_id=#project_id#"><strong>#project_name#</strong></a>
+						<span class="infoLink" onclick="removeProjectFromLoan('#transaction_id#','#project_id#');">[ unlink ]</span>	
+					</li>
 				</cfloop>
 			<cfelse>
 				<li>None</li>
@@ -1540,6 +1551,15 @@
 		</p>
 		<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">Return to Edit Loan</a>	
 	</cfoutput>
+</cfif>
+<!-------------------------------------------------------------------------------------------------->
+<cfif action is "listLoans">
+<cfoutput>
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from project_trans where PROJECT_ID=#project_id# and TRANSACTION_ID=#transaction_id#
+	</cfquery>
+	<cflocation url="Loan.cfm?action=editLoan&transaction_id=#transaction_id#" addtoken="false">
+</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "listLoans">
