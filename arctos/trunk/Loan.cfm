@@ -103,7 +103,7 @@
 	function removeProjectFromLoan(tid,pid){
 		var x=confirm('Unlink this project?');
 		if (x===true){
-			window.location='Loan.cfm?transaction_id=' + tid + '&project_id=' + pid + 'action=unlinkProject';
+			window.location='Loan.cfm?transaction_id=' + tid + '&project_id=' + pid + '&action=unlinkProject';
 		}
 	}
 
