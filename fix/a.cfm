@@ -1,12 +1,10 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 	<script>
-	(function($) {
-	    $("form#addFav").submit(function(event) {
+	    jQuery("form#addFav").submit(function(event) {
 	        event.preventDefault();
 	        alert("hello");
 	    });
-	})(jQuery);
 
 </script>
 
