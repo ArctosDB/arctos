@@ -40,8 +40,53 @@
 				}
 			);
 		}
+		$('#ids').submit(function(){
+			var i;
+			for ( i = 1; i < $("#numberOfIDs").val(); i++ ) {
+				// Logs "try 0", "try 1", ..., "try 4".
+				console.log( "try " + i );
+			}
+
+		});
 	</script>
 	<cfoutput>
+	
+	
+	
+	<!----
+	
+	
+	<td>
+					<input type="text" value="#oids.other_id_prefix#" size="12" name="other_id_prefix_#i#">
+				</td>
+				<td>
+					<input type="number" step="any" value="#oids.other_id_number#" size="12" name="other_id_number_#i#">
+				</td>
+				<td>
+					<input type="text" value="#oids.other_id_suffix#" size="12" name="other_id_suffix_#i#">
+				</td>
+				<td>
+					<select name="id_references_#i#" id="id_references_#i#" size="1">
+						<cfloop query="ctid_references">
+							<option	<cfif ctid_references.id_references is oids.id_references> selected="selected" </cfif>
+								value="#ctid_references.id_references#">#ctid_references.id_references#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<input type="checkbox" id="delete_#i#" name="delete_#i#" value="1">
+					
+
+
+			    if (/* test case not true */) { 
+			        $('#myError').show();
+			        return false; 
+			    }
+			
+			    // ... continue work
+			    
+			    
+			    --->
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select collection,collection_id from collection ORDER BY COLLECTION
 	</cfquery>
@@ -169,7 +214,7 @@
 		 
 		 
 <b>Edit existing Identifiers:</b>
-<form name="ids" method="post" action="editIdentifiers.cfm">
+<form name="ids" id="ids" method="post" action="editIdentifiers.cfm">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 	<input type="hidden" name="Action" value="saveEdits">
 	
@@ -219,7 +264,7 @@
 					<input type="text" value="#oids.other_id_prefix#" size="12" name="other_id_prefix_#i#">
 				</td>
 				<td>
-					<input type="text" value="#oids.other_id_number#" size="12" name="other_id_number_#i#">
+					<input type="number" step="any" value="#oids.other_id_number#" size="12" name="other_id_number_#i#">
 				</td>
 				<td>
 					<input type="text" value="#oids.other_id_suffix#" size="12" name="other_id_suffix_#i#">
@@ -244,7 +289,7 @@
 	<input type="submit" value="Save Changes" class="savBtn">
 </form>
 <b>Add New Identifier:</b>
-<form name="newOID" method="post" action="editIdentifiers.cfm">
+<form name="newOID" id="newOID" method="post" action="editIdentifiers.cfm">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 	<input type="hidden" name="Action" value="newOID">
 	<table class="newRec">
@@ -260,7 +305,7 @@
 				<input type="text" size="12" name="other_id_prefix">
 			</td>
 			<td>
-				<input type="text" size="12" name="other_id_number">
+				<input type="number" step="any" size="12" name="other_id_number">
 			</td>
 			<td>
 				<input type="text" size="12" name="other_id_suffix">
