@@ -26,7 +26,7 @@ alert('hi');
 
 
 	</script>
-<form name="ids" id="formEdit" method="post" action="editIdentifiers.cfm">
+<form  id="formEdit">
 
 	<input type="submit" name="not_submit" value="Save Changes" class="savBtn">
 </form>
