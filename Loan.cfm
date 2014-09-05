@@ -49,6 +49,13 @@
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
 		});
+		$("#newloan").submit(function(event){
+			// just call the function - it will prevent submission if necessary
+			checkReplaceNoPrint(event,'nature_of_material');
+			checkReplaceNoPrint(event,'loan_instructions');
+			checkReplaceNoPrint(event,'loan_description');
+			checkReplaceNoPrint(event,'trans_remarks');
+		});
 	});
 	function setAccnNum(i,v) {
 		var e = document.getElementById('loan_number');
@@ -83,7 +90,7 @@
 <cfset title="New Loan">
 	Initiate a loan: <span class="infoLink" onClick="getDocs('loan')">Help</span>
 	<cfoutput>
-		<form name="newloan" action="Loan.cfm" method="post" onSubmit="return noenter();">
+		<form name="newloan" id="newloan" action="Loan.cfm" method="post" onSubmit="return noenter();">
 			<input type="hidden" name="action" value="makeLoan">
 			<table border>
 				<tr>
