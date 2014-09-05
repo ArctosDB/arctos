@@ -12,6 +12,8 @@
 		$("#editAccn").submit(function(event){
 			event.preventDefault();
 			return checkReplaceNoPrint(event,'nature_of_material');
+
+			$("#editAccn").submit();
 /*
 			event.preventDefault();
 			alert('firing....');
