@@ -5,7 +5,7 @@
         alert("hello");
     });
 </script>
-<form action="" id="addFav">
+<form action="" id="addFav" onsubmit="return false">
      <input type="text" name="name" class="thin-d"/>
      <input type="submit" value="Send"/>
 </form>
