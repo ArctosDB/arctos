@@ -56,6 +56,15 @@
 			checkReplaceNoPrint(event,'loan_description');
 			checkReplaceNoPrint(event,'trans_remarks');
 		});
+		$("#editloan").submit(function(event){
+			// just call the function - it will prevent submission if necessary
+			checkReplaceNoPrint(event,'nature_of_material');
+			checkReplaceNoPrint(event,'loan_instructions');
+			checkReplaceNoPrint(event,'loan_description');
+			checkReplaceNoPrint(event,'trans_remarks');
+		});
+
+
 	});
 	function setAccnNum(i,v) {
 		var e = document.getElementById('loan_number');
@@ -372,7 +381,7 @@ function removeMediaDiv() {
 		select count(*) c from loan_item where transaction_id=#transaction_id#
 	</cfquery>
 	<table width="100%" border><tr><td valign="top"><!--- left cell ---->
-	<form name="editloan" action="Loan.cfm" method="post">
+	<form name="editloan" id="editloan" action="Loan.cfm" method="post">
 		<input type="hidden" name="action" value="saveEdits">
 		<input type="hidden" name="transaction_id" value="#loanDetails.transaction_id#">
 		<strong>Edit Loan #loanDetails.collection# #loanDetails.loan_number#</strong>
