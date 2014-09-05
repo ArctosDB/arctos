@@ -16,11 +16,14 @@
 					{
 						method : "removeNonprinting",
 						orig : $("#nature_of_material").val(),
-						userString : 'X',
+						userString : '<br>',
 						returnformat : "json",
 						queryformat : 'column'
 					},
 					function(r) {
+						if (r.DATA.REPLACED_WITH_USERSTRING[0] != $("#nature_of_material").val()){
+							alert('bad juju');
+						}
 						console.log(r);
 						return false;
 					}
