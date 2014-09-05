@@ -554,12 +554,11 @@
 			</cfif>
 		</ul>
 		<hr>
-		<label for="project_id">Pick a Project to associate with this loan</label>
+		<label for="project_id">Type part of Project name to Pick a Project to associate with this loan</label>
 		<input type="hidden" name="project_id">
 		<input type="text"
 			size="50"
 			name="pick_project_name"
-			class="reqdClr"
 			onchange="getProject('project_id','pick_project_name','editloan',this.value); return false;"
 			onKeyPress="return noenter(event);">
 		<hr>
@@ -577,13 +576,13 @@
 			select project_agent_role from ctproject_agent_role order by project_agent_role
 		</cfquery>
 		<label for="">Project Agent Role</label>
-		<select name="project_agent_role" size="1" class="reqdClr">
+		<select name="project_agent_role" size="1">
 			<cfloop query="ctProjAgRole">
 				<option value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#</option>
 			</cfloop>
 		</select>
 		<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project Title</label>
-		<textarea name="project_name" cols="50" rows="2" class="reqdClr"></textarea>
+		<textarea name="project_name" cols="50" rows="2" ></textarea>
 		<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Project Start Date</label>
 		<input type="text" name="start_date" value="#dateformat(loanDetails.trans_date,"yyyy-mm-dd")#">
 		<label for="">Project End Date</label>
