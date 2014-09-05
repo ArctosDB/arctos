@@ -59,6 +59,7 @@
 	
 	});
 	function checkReplaceNoPrint(event,elem){
+		var msg;
 		if ($("#" + elem).val().indexOf("[NOPRINT]") >= 0){
 			alert('remove [NOPRINT] from ' + elem);
 			event.preventDefault();
@@ -77,7 +78,7 @@
 			success: function(r) {
 				if (r.DATA.REPLACED_WITH_USERSTRING[0] != $("#" + elem).val()){
 					$("#" + elem).val(r.DATA.REPLACED_WITH_USERSTRING[0]);
-					msg='The form cannot be submitted: There are nonprinting characters in ' | elem + '.\n\n';
+					msg='The form cannot be submitted: There are nonprinting characters in ' + elem + '.\n\n';
 					msg+='Nonprinting characters have been replaced with [NOPRINT]. Remove that to continue.\n\n';
 					msg+='You may use HTML markup for print control: <br> is linebreak';
 					alert(msg);
