@@ -58,8 +58,15 @@ jQuery(document).ready(function() {
 			}
 		}
 	});
-});
+	$("#newOID").submit(function(event){
+		if ($("#other_id_prefix").val().length===0 && $("#other_id_number").val().length===0 && $("#other_id_suffix").val().length===0){
+			alert('Prefix, Number, and Suffix may not all be NULL.');
+			$("#trid_new").addClass('badPick');
+			return false;
+		}
+	});
 
+});
 
 
 
@@ -310,7 +317,7 @@ jQuery(document).ready(function() {
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 	<input type="hidden" name="Action" value="newOID">
 	<table class="newRec">
-		<tr>
+		<tr id="trid_new">
 			<td>
 				<select name="other_id_type" id="other_id_type" size="1">
 					<cfloop query="ctType">
@@ -319,13 +326,13 @@ jQuery(document).ready(function() {
 				</select>
 			</td>
 			<td>
-				<input type="text" size="12" name="other_id_prefix">
+				<input type="text" size="12" name="other_id_prefix" id="other_id_prefix">
 			</td>
 			<td>
-				<input type="number" step="any" size="12" name="other_id_number">
+				<input type="number" step="any" size="12" name="other_id_number" id="other_id_number">
 			</td>
 			<td>
-				<input type="text" size="12" name="other_id_suffix">
+				<input type="text" size="12" name="other_id_suffix" id="other_id_suffix">
 			</td>
 			<td>
 				<select name="id_references" id="id_references" size="1">
