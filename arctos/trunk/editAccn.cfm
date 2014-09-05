@@ -10,8 +10,17 @@
 		$("#exp_date").datepicker();
 
 		$("#editAccn").submit(function(event){
+
+			checkReplaceNoPrint(event,'nature_of_material');
+/*
 			event.preventDefault();
 			alert('firing....');
+				if ($("#nature_of_material").val().indexOf("[NOPRINT]") >= 0){
+					alert('remove [NOPRINT]');
+					return false;
+				}
+
+
 				$.getJSON("/component/functions.cfc",
 					{
 						method : "removeNonprinting",
@@ -32,10 +41,37 @@
 						return false;
 					}
 				);
-		});
+* });
+* */
+		
 
 	
 	});
+	function checkReplaceNoPrint(evnt,elem,str){
+		if ($("#" + elem).val().indexOf("[NOPRINT]") >= 0){
+			alert('remove [NOPRINT] from ' + elem);
+			event.preventDefault();
+		}
+		$.getJSON("/component/functions.cfc",
+			{
+				method : "removeNonprinting",
+				orig : $("#" + elem).val(),
+				userString :'[NOPRINT]',
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				if (r.DATA.REPLACED_WITH_USERSTRING[0] != $("#" + elem).val()){
+					$("#" + elem).val(r.DATA.REPLACED_WITH_USERSTRING[0]);
+					msg='The form cannot be submitted: There are nonprinting characters in ' | elem + '.\n\n';
+					msg+='Nonprinting characters have been replaced with [NOPRINT]. Remove that to continue.\n\n';
+					msg+='You may use HTML markup for print control: <br> is linebreak';
+					alert(msg);
+					event.preventDefault();
+				}
+			}
+		);
+	}
 	function addAccnContainer(transaction_id,barcode){
 		$('#newbarcode').addClass('red');
 		$.getJSON("/component/functions.cfc",
