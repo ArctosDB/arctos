@@ -10,7 +10,7 @@
 		$("#exp_date").datepicker();
 
 		$("#editAccn").submit(function(event){
-
+			event.preventDefault();
 			alert('firing....');
 			function replaceNoprint(){
 				$.getJSON("/component/functions.cfc",
