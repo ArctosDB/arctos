@@ -1,5 +1,4 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
-<!----
 <cfset title = "Edit Identifiers">
 <cfif action is "nothing">
 	<script>
@@ -44,24 +43,23 @@
 
 
 
+jQuery(document).ready(function() {
+			
 
 
 		$("#formEdit").submit(function(event){
 			event.preventDefault();
-alert('hi');
+			alert('hi');
 			var i;
 
-/*
 			for ( i = 1; i < $("#numberOfIDs").val(); i++ ) {
 				// Logs "try 0", "try 1", ..., "try 4".
 				console.log( "try " + i );
 			}
-*/
-
-
 			console.log('good to go');
 			return false;
 		});
+});
 
 
 
@@ -225,34 +223,11 @@ alert('hi');
 		coll_obj_other_id_num_id
 </cfquery>
 	<h3>Identifiers</h3>
-	
-</cfoutput>
----->
 
-<script>
-
-
-		$("form#formEdit").submit(function(event){
-
-
-alert('hi');
-
-
-
-			event.preventDefault();
-
-		});
-
-
-</script>
-		 
-		 
 <b>Edit existing Identifiers:</b>
 <form name="ids" id="formEdit" method="post" action="editIdentifiers.cfm">
 
-<!----
 
-		 <cfoutput>
 
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 	<input type="hidden" name="Action" value="saveEdits">
@@ -326,14 +301,12 @@ alert('hi');
 		<input type="hidden" value="#nid#" name="numberOfIDs" id="numberOfIDs">
 	</table>
 	
-	---->
 	<input type="submit" name="not_submit" value="Save Changes" class="savBtn">
 </form>
 
 
 
 
-<!----
 
 
 <b>Add New Identifier:</b>
@@ -449,4 +422,3 @@ alert('hi');
 </cfif>
 <!-------------------------------------------------------->
 <cf_customizeIFrame>
----->
