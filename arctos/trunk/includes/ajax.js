@@ -68,6 +68,9 @@ $(document).ready(function() {
 
 function checkReplaceNoPrint(event,elem){
 	// stops form submission if the passed-in element contains nonprinting characters
+	if (typeof(elem) === 'undefined') {
+       return;
+    };
 	var msg;
 	if ($("#" + elem).val().indexOf("[NOPRINT]") >= 0){
 		alert('remove [NOPRINT] from ' + elem);
