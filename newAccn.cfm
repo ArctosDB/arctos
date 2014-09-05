@@ -3,6 +3,11 @@
 	jQuery(document).ready(function() {
 		$("#rec_date").datepicker();
 		$("#ent_Date").datepicker();
+		$("#newAccn").submit(function(event){
+			// just call the function - it will prevent submission if necessary
+			checkReplaceNoPrint(event,'nature_of_material');
+			checkReplaceNoPrint(event,'remarks');
+		});
 	});
 </script>
 <cfset title = "Create Accession">
@@ -18,7 +23,7 @@
 		select accn_type from ctaccn_type order by accn_type
 	</cfquery>
 	<cfset thisDate = #dateformat(now(),"yyyy-mm-dd")#>
-	<cfform action="newAccn.cfm" method="post" name="newAccn">
+	<form action="newAccn.cfm" method="post" name="newAccn" id="newAccn">
 		<input type="hidden" name="Action" value="createAccession">
 		<table>
 			<tr>
@@ -61,7 +66,7 @@
 						<tr>
 							<td colspan="9">
 								<label for="nature_of_material">Nature of Material:</label>
-								<textarea name="nature_of_material" rows="5" cols="90" class="reqdClr"></textarea>
+								<textarea name="nature_of_material" id="nature_of_material" rows="5" cols="90" class="reqdClr"></textarea>
 							</td>		
 						</tr>
 						<tr>
@@ -95,7 +100,7 @@
 						<tr>
 							<td colspan="6">
 								<label for="remarks">Remarks:</label>
-								<textarea name="remarks" rows="5" cols="90"></textarea>
+								<textarea name="remarks" id="remarks" rows="5" cols="90"></textarea>
 							</td>
 						</tr>
 						<tr>
@@ -232,7 +237,7 @@
 				</td>
 			</tr>
 		</table>
-	</cfform>
+	</form>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
