@@ -14,12 +14,16 @@
 
 			//alert(checkReplaceNoPrint(event,'nature_of_material'));
 
-			if ( checkReplaceNoPrint(event,'nature_of_material') === false) {
-					event.preventDefault();
-			}
+		 checkReplaceNoPrint(event,'nature_of_material');
 
 			//$("#editAccn").submit();
 /*
+* 
+* 
+* 
+* 	if ( checkReplaceNoPrint(event,'nature_of_material') === false) {
+					event.preventDefault();
+			}
 			event.preventDefault();
 			alert('firing....');
 				if ($("#nature_of_material").val().indexOf("[NOPRINT]") >= 0){
@@ -58,10 +62,7 @@
 		if ($("#" + elem).val().indexOf("[NOPRINT]") >= 0){
 			alert('remove [NOPRINT] from ' + elem);
 			event.preventDefault();
-			return false;
 		}
-
-
 		$.ajax({
 			url: "/component/functions.cfc?queryformat=column",
 			type: "GET",
@@ -81,7 +82,6 @@
 					msg+='You may use HTML markup for print control: <br> is linebreak';
 					alert(msg);
 					event.preventDefault();
-					return false;
 				}
 			},
 			error: function (xhr, textStatus, errorThrown){
