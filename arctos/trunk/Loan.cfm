@@ -506,7 +506,7 @@
 				<cfset i=i+1>
 			</cfloop>
 			<cfset na=i-1>
-			<input type="hidden" id="numAgents" name="numAgents" value="#na#">
+			<input type="text" id="numAgents" name="numAgents" value="#na#">
 		</table><!-- end agents table --->
 		<table width="100%">
 			<tr>
