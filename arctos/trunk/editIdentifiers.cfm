@@ -45,8 +45,8 @@
 
 
 
-		$("#ids").submit(function(e){
-			e.preventDefault();
+		$("#formEdit").submit(function(event){
+			event.preventDefault();
 alert('hi');
 			var i;
 
@@ -231,7 +231,7 @@ alert('hi');
 		 
 		 
 <b>Edit existing Identifiers:</b>
-<form name="ids" id="ids" method="post" action="editIdentifiers.cfm">
+<form name="ids" id="formEdit" method="post" action="editIdentifiers.cfm">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 	<input type="hidden" name="Action" value="saveEdits">
 	
