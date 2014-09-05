@@ -15,8 +15,8 @@
 				$.getJSON("/component/functions.cfc",
 					{
 						method : "removeNonprinting",
-						orig : $("#orig").val(),
-						userString : $("#nature_of_material").val(),
+						orig : $("#nature_of_material").val(),
+						userString : 'X',
 						returnformat : "json",
 						queryformat : 'column'
 					},
