@@ -41,6 +41,7 @@
 			);
 		}
 		$('#ids').submit(function(){
+			e.preventDefault();
 			var i;
 			for ( i = 1; i < $("#numberOfIDs").val(); i++ ) {
 				// Logs "try 0", "try 1", ..., "try 4".
