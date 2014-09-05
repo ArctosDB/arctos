@@ -95,6 +95,38 @@
 		}
 		var t=setTimeout("dCount()",500);
 	}
+	function addMediaHere (lnum,tid){
+		$("#mmmsgdiv").html('refresh the page to see just-loaded media.');
+
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','removeMediaDiv()');
+		document.body.appendChild(bgDiv);
+		var theDiv = document.createElement('div');
+		theDiv.id = 'mediaDiv';
+		theDiv.className = 'annotateBox';
+		ctl='<span class="likeLink" style="position:absolute;right:0px;top:0px;padding:5px;color:red;" onclick="removeMediaDiv();">Close Frame</span>';
+		theDiv.innerHTML=ctl;
+		document.body.appendChild(theDiv);
+		jQuery('#mediaDiv').append('<iframe id="mediaIframe" />');
+		jQuery('#mediaIframe').attr('src', '/media.cfm?action=newMedia').attr('width','100%').attr('height','100%');
+	    jQuery('iframe#mediaIframe').load(function() {
+	        jQuery('#mediaIframe').contents().find('#relationship__1').val('documents loan');
+	        jQuery('#mediaIframe').contents().find('#related_value__1').val(lnum);
+	        jQuery('#mediaIframe').contents().find('#related_id__1').val(tid);
+	        viewport.init("#mediaDiv");
+	    });
+	}
+
+	function removeMediaDiv() {
+		if(document.getElementById('bgDiv')){
+			jQuery('#bgDiv').remove();
+		}
+		if (document.getElementById('mediaDiv')) {
+			jQuery('#mediaDiv').remove();
+		}
+	}
 </script>
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
@@ -300,44 +332,7 @@
 			overflow:auto;
 		}
 	</style>
-	
-	<script>
-	function addMediaHere (lnum,tid){
-		$("#mmmsgdiv").html('refresh the page to see just-loaded media.');
 
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','removeMediaDiv()');
-		document.body.appendChild(bgDiv);
-		var theDiv = document.createElement('div');
-		theDiv.id = 'mediaDiv';
-		theDiv.className = 'annotateBox';
-		ctl='<span class="likeLink" style="position:absolute;right:0px;top:0px;padding:5px;color:red;" onclick="removeMediaDiv();">Close Frame</span>';
-		theDiv.innerHTML=ctl;
-		document.body.appendChild(theDiv);
-		jQuery('#mediaDiv').append('<iframe id="mediaIframe" />');
-		jQuery('#mediaIframe').attr('src', '/media.cfm?action=newMedia').attr('width','100%').attr('height','100%');
-	    jQuery('iframe#mediaIframe').load(function() {
-	        jQuery('#mediaIframe').contents().find('#relationship__1').val('documents loan');
-	        jQuery('#mediaIframe').contents().find('#related_value__1').val(lnum);
-	        jQuery('#mediaIframe').contents().find('#related_id__1').val(tid);
-	        viewport.init("#mediaDiv");
-	    });
-	}
-
-function removeMediaDiv() {
-		if(document.getElementById('bgDiv')){
-			jQuery('#bgDiv').remove();
-		}
-		if (document.getElementById('mediaDiv')) {
-			jQuery('#mediaDiv').remove();
-		}
-	}
-	</script>
-	
-	
-	
 	<cfoutput>
 	<cfquery name="loanDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -512,9 +507,9 @@ function removeMediaDiv() {
 		<label for="trans_remarks">Remarks (<span id="lbl_trans_remarks"></span>)</label>
 		<textarea name="trans_remarks" id="trans_remarks" rows="7" cols="60">#loanDetails.trans_remarks#</textarea>
 		<br>
-		<input type="button" value="Save Edits" class="savBtn" onClick="editloan.action.value='saveEdits';submit();">
+		<input type="submit" value="Save Edits" class="savBtn">
 		<cfif numItems.c is 0>
-			<input type="button" value="Delete Loan" class="delBtn" onClick="editloan.action.value='deleLoan';confirmDelete('editloan');">
+			<input type="button" value="Delete Loan" class="delBtn" onClick="document.location('Loan.cfm?transaction_id=#transaction_id#&action=deleLoan');">
 		</cfif>
 		<ul>
 			<li><a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#">[ add items ]</a></li>
@@ -1255,9 +1250,6 @@ function removeMediaDiv() {
 				selectFirst:false
 			});
 		});
-
-
-
 </script>
 	<cfoutput>
 	<div style="float:right; clear:left; border:1px solid black; padding:5px;">
