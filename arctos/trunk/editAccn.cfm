@@ -12,7 +12,7 @@
 		$("#editAccn").submit(function(event){
 		//	event.preventDefault();
 
-			alert(checkReplaceNoPrint(event,'nature_of_material'));
+			//alert(checkReplaceNoPrint(event,'nature_of_material'));
 
 			if ( checkReplaceNoPrint(event,'nature_of_material') === false) {
 					event.preventDefault();
