@@ -44,7 +44,7 @@
 * });
 * */
 		
-
+});
 	
 	});
 	function checkReplaceNoPrint(evnt,elem,str){
