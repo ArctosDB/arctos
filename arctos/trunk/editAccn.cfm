@@ -56,6 +56,35 @@
 			alert('remove [NOPRINT] from ' + elem);
 			return false;
 		}
+
+
+		$.ajax({
+			url: "/component/functions.cfc?queryformat=column",
+			type: "GET",
+			dataType: "json",
+			async: false
+			data: {
+				method:  "removeNonprinting",
+				orig : $("#" + elem).val(),
+				userString :'[NOPRINT]',
+				returnformat : "json"
+			},
+			success: function(r) {
+				if (r.DATA.REPLACED_WITH_USERSTRING[0] != $("#" + elem).val()){
+					$("#" + elem).val(r.DATA.REPLACED_WITH_USERSTRING[0]);
+					msg='The form cannot be submitted: There are nonprinting characters in ' | elem + '.\n\n';
+					msg+='Nonprinting characters have been replaced with [NOPRINT]. Remove that to continue.\n\n';
+					msg+='You may use HTML markup for print control: <br> is linebreak';
+					alert(msg);
+					return false;
+				}
+			},
+			error: function (xhr, textStatus, errorThrown){
+			    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+			}
+		});
+/*
+
 		$.getJSON("/component/functions.cfc",
 			{
 				method : "removeNonprinting",
@@ -76,6 +105,7 @@
 				}
 			}
 		);
+* */
 	}
 	function addAccnContainer(transaction_id,barcode){
 		$('#newbarcode').addClass('red');
