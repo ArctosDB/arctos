@@ -157,7 +157,7 @@
 	<cfoutput>
 		<cfif session.resultsbrowseprefs neq 1>
 			<cfsavecontent variable="widget">
-				<span class="infoLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
+				<span class="likeLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			</cfsavecontent>
 			<cfreturn widget>
 		</cfif>
@@ -221,7 +221,7 @@
 			</cfif>
 		</cfloop>		
 		<cfsavecontent variable="widget">
-			<span class="infoLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
+			<span class="likeLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			<cfif session.ResultsBrowsePrefs is 1>
 				<cfset thisStyle='display:block;'>
 			<cfelse>
