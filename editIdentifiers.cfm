@@ -42,20 +42,29 @@
 		}
 
 
-		$('#ids').submit(function(e){
+
+
+
+		$("#ids").submit(function(e){
 			e.preventDefault();
 alert('hi');
 			var i;
+
+/*
 			for ( i = 1; i < $("#numberOfIDs").val(); i++ ) {
 				// Logs "try 0", "try 1", ..., "try 4".
 				console.log( "try " + i );
 			}
-
+*/
 
 
 			console.log('good to go');
 			return false;
 		});
+
+
+
+
 	</script>
 	<cfoutput>
 	
@@ -296,6 +305,13 @@ alert('hi');
 	</table>
 	<input type="submit" name="not_submit" value="Save Changes" class="savBtn">
 </form>
+
+
+
+
+
+
+
 <b>Add New Identifier:</b>
 <form name="newOID" id="newOID" method="post" action="editIdentifiers.cfm">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
