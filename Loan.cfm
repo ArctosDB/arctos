@@ -88,9 +88,14 @@
 		});
 
 
-$('body').on('click', '[id^="del_agnt_"]' ).each(function(index)  {
-	alert( 'hi' );   
- });
+
+$('[id^="del_agnt_"]').on('click', function (e) {
+   	alert( 'hi' );   
+
+});
+
+
+
 
 
 	});
