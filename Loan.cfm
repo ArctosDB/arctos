@@ -170,7 +170,7 @@
 
 
 $('body').on('click', '[id^="del_agnt_"]' ).each(function(index)  {
-	alert( $(this) );   
+	alert( 'hi' );   
  });
 
 
