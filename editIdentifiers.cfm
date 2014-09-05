@@ -40,7 +40,7 @@
 				}
 			);
 		}
-		$('#ids').submit(function(){
+		$('#ids').submit(function(e){
 			e.preventDefault();
 			var i;
 			for ( i = 1; i < $("#numberOfIDs").val(); i++ ) {
