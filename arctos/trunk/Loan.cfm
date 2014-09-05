@@ -168,8 +168,12 @@
 
 
 
+$('body').on('click', '[id^="del_agnt_"]' ).each(function(index)  {
+alert( $(this) );   
+ });
 
 
+/*
 $('[id^="del_agnt_"]' ).each(function(index) {
     $(this).on("click", function(){
         // For the boolean value
@@ -177,7 +181,7 @@ $('[id^="del_agnt_"]' ).each(function(index) {
 
     });
 });
-
+*/
 
 
 
