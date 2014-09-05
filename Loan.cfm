@@ -97,7 +97,7 @@
 	function deleteLoan(tid){
 		var x=confirm('Delete this loan?');
 		if (x===true){
-			document.location('Loan.cfm?transaction_id=' + tid + '&action=deleLoan');
+			window.location='Loan.cfm?transaction_id=' + tid + '&action=deleLoan';
 		}
 	}
 
