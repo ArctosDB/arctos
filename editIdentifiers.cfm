@@ -51,12 +51,23 @@ console.log('nid: ' + $("#numberOfIDs").val());
 
 		$("#formEdit").submit(function(event){
 			event.preventDefault();
-			alert('hi');
 			var i;
 
 			for ( i = 1; i <= $("#numberOfIDs").val(); i++ ) {
 				// Logs "try 0", "try 1", ..., "try 4".
 				console.log( "try " + i );
+
+
+
+
+
+
+
+
+
+				if ($("#delete_" + i).prop('checked')===true) {
+					console.log('nodelete');
+				}
 			}
 			console.log('good to go');
 			return false;
@@ -73,15 +84,21 @@ console.log('nid: ' + $("#numberOfIDs").val());
 	
 	<!----
 	
-	
-	<td>
-					<input type="text" value="#oids.other_id_prefix#" size="12" name="other_id_prefix_#i#">
+			<select name="other_id_type_#i#" id="other_id_type_#i#" size="1">
+						<cfloop query="ctType">
+							<option	<cfif ctType.other_id_type is oids.other_id_type> selected="selected" </cfif>
+								value="#ctType.other_id_type#">#ctType.other_id_type#</option>
+						</cfloop>
+					</select>
 				</td>
 				<td>
-					<input type="number" step="any" value="#oids.other_id_number#" size="12" name="other_id_number_#i#">
+					<input type="text" value="#oids.other_id_prefix#" size="12" name="other_id_prefix_#i#" id="#i#">
 				</td>
 				<td>
-					<input type="text" value="#oids.other_id_suffix#" size="12" name="other_id_suffix_#i#">
+					<input type="number" step="any" value="#oids.other_id_number#" size="12" name="other_id_number_#i#" id="other_id_number_#i#">
+				</td>
+				<td>
+					<input type="text" value="#oids.other_id_suffix#" size="12" name="other_id_suffix_#i#" id="other_id_suffix_#i#">
 				</td>
 				<td>
 					<select name="id_references_#i#" id="id_references_#i#" size="1">
@@ -93,16 +110,7 @@ console.log('nid: ' + $("#numberOfIDs").val());
 				</td>
 				<td>
 					<input type="checkbox" id="delete_#i#" name="delete_#i#" value="1">
-					
-
-
-			    if (/* test case not true */) { 
-			        $('#myError').show();
-			        return false; 
-			    }
-			
-			    // ... continue work
-			    
+				</td>
 			    
 			    --->
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -277,13 +285,13 @@ console.log('nid: ' + $("#numberOfIDs").val());
 					</select>
 				</td>
 				<td>
-					<input type="text" value="#oids.other_id_prefix#" size="12" name="other_id_prefix_#i#">
+					<input type="text" value="#oids.other_id_prefix#" size="12" name="other_id_prefix_#i#" id="other_id_prefix_#i#">
 				</td>
 				<td>
-					<input type="number" step="any" value="#oids.other_id_number#" size="12" name="other_id_number_#i#">
+					<input type="number" step="any" value="#oids.other_id_number#" size="12" name="other_id_number_#i#" id="other_id_number_#i#">
 				</td>
 				<td>
-					<input type="text" value="#oids.other_id_suffix#" size="12" name="other_id_suffix_#i#">
+					<input type="text" value="#oids.other_id_suffix#" size="12" name="other_id_suffix_#i#" id="other_id_suffix_#i#">
 				</td>
 				<td>
 					<select name="id_references_#i#" id="id_references_#i#" size="1">
