@@ -541,8 +541,10 @@
 		<textarea name="trans_remarks" id="trans_remarks" rows="7" cols="60">#loanDetails.trans_remarks#</textarea>
 		<br>
 		<input type="submit" value="Save Edits" class="savBtn">
-		<cfif numItems.c is 0>
+		<cfif numItems.c is 0 and projs.recordcount lt 1>
 			<input type="button" value="Delete Loan" class="delBtn" onClick="deleteLoan('#transaction_id#');">
+		<cfelse>
+			Delete dependencies to delete loan
 		</cfif>
 		<ul>
 			<li><a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#">[ add items ]</a></li>
