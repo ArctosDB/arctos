@@ -65,7 +65,7 @@ console.log('nid: ' + $("#numberOfIDs").val());
 
 
 
-				if ($("#delete_" + i).prop('checked')===true) {
+				if ($("#delete_" + i).prop('checked')!==true) {
 					console.log('nodelete');
 				}
 			}
