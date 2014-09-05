@@ -57,6 +57,7 @@
 	function checkReplaceNoPrint(event,elem){
 		if ($("#" + elem).val().indexOf("[NOPRINT]") >= 0){
 			alert('remove [NOPRINT] from ' + elem);
+			event.preventDefault();
 			return false;
 		}
 
@@ -79,6 +80,7 @@
 					msg+='Nonprinting characters have been replaced with [NOPRINT]. Remove that to continue.\n\n';
 					msg+='You may use HTML markup for print control: <br> is linebreak';
 					alert(msg);
+					event.preventDefault();
 					return false;
 				}
 			},
