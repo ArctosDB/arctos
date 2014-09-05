@@ -2,7 +2,7 @@
 
 
 	<script>
-		
+		function t(){alert('t');}
 
 
 		$("#formEdit").submit(function(event){
@@ -32,3 +32,5 @@ alert('hi');
 </form>
 
 
+
+	<input type="button" name="t" value="t" class="savBtn" onclick="t()">
