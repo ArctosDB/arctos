@@ -753,7 +753,7 @@
 			 jQuery('body').append(data);
 		})
 		$("#collection_id").multiselect({
-			minWidth: "400",
+			minWidth: "500",
 			height: "300"
 		});
 	});
