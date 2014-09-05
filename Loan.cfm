@@ -88,19 +88,16 @@
 		});
 
 
-$('body').on('click', '[id^="del_agnt_"]', function() {
-
-
-//$('[id^="del_agnt_"]').on('click', function (e) {
-   	alert( 'hi' );   
-
-});
-
 
 
 
 
 	});
+
+
+fucntion cucAgnt(i){
+	alert(i);
+}
 	function useThsProjAgnt(n,i) {
 		$("#newProjectAgent").val(n);
 		$("#newProjectAgent_id").val(i);
@@ -236,7 +233,7 @@ function addTransAgent (id,name,role) {
 				d+=' value="' + data.DATA.TRANS_AGENT_ROLE[a] + '">'+ data.DATA.TRANS_AGENT_ROLE[a] +'</option>';
 			}
   			d+='</td><td>';
-  			d+='<input type="checkbox" name="del_agnt_' + i + '" name="del_agnt_' + i + '" value="1">';
+  			d+='<input type="checkbox" name="del_agnt_' + i + '" name="del_agnt_' + i + '" value="1" onclick="cucAgnt(' + i + ');">';
   			d+='</td><td>';
   			d+='<select id="cloneTransAgent_' + i + '" onchange="cloneTransAgent(' + i + ')" style="width:8em">';
   			d+='<option value=""></option>';
@@ -575,7 +572,7 @@ function addTransAgent (id,name,role) {
 						</select>
 					</td>
 					<td>
-						<input type="checkbox" name="del_agnt_#i#" id="del_agnt_#i#" value="1">
+						<input type="checkbox" name="del_agnt_#i#" id="del_agnt_#i#" value="1" onclick="cucAgnt(#i#);">
 					</td>
 					<td>
 						<select id="cloneTransAgent_#i#" onchange="cloneTransAgent(#i#)" style="width:8em">
