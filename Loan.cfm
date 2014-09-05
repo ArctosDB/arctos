@@ -80,28 +80,24 @@
 				$("#newProjectAgent").removeClass().addClass('reqdClr').prop('required',true);
 				$("#project_agent_role").removeClass().addClass('reqdClr').prop('required',true);
 				$("#project_name").removeClass().addClass('reqdClr').prop('required',true);
-			
-		
-		
-		
-		
-		
-				
-alert('check');
-} else {
-alert('nope');
-
-$("#newProjectAgent").removeClass().prop('required',false);
+			} else {
+				$("#newProjectAgent").removeClass().prop('required',false);
 				$("#project_agent_role").removeClass().prop('required',false);
 				$("#project_name").removeClass().prop('required',false);
-}
-
-		
+			}		
 		});
 
 
 
 	});
+	function useThsProjAgnt(n,i) {
+		$("#newProjectAgent").val(n);
+		$("#newProjectAgent_id").val(i);
+	}
+
+
+
+
 	function setAccnNum(i,v) {
 		var e = document.getElementById('loan_number');
 		e.value=v;
@@ -484,7 +480,10 @@ $("#newProjectAgent").removeClass().prop('required',false);
 							</cfloop>
 						</select>
 					</td>
-					<td><span class="infoLink" onclick="rankAgent('#agent_id#');">Rank</span></td>
+					<td>
+						<span class="infoLink" onclick="rankAgent('#agent_id#');">Rank</span>
+						<span class="infoLink" onclick="useThsProjAgnt('#agent_name#','#agent_id#');">Use@>></span>
+					</td>
 				</tr>
 				<cfset i=i+1>
 			</cfloop>
@@ -626,7 +625,7 @@ $("#newProjectAgent").removeClass().prop('required',false);
 			id="project_description" cols="50" rows="6">#loanDetails.loan_description#</textarea>
 		<label for="project_remarks">Project Remark</label>
 		<textarea name="project_remarks" cols="50" rows="3">#loanDetails.trans_remarks#</textarea>
-		<label for="saveNewProject">Check to create project with save</label>
+		<label for="saveNewProject">Check to create project with save - Click the project in the list above to add more information after save</label>
 		<input type="checkbox" value="yes" name="saveNewProject" id="saveNewProject">
 		</div>
 	</form>
