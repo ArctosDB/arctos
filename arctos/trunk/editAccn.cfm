@@ -10,9 +10,8 @@
 		$("#exp_date").datepicker();
 
 		$("#editAccn").submit(function(event){
-			if (checkReplaceNoPrint(event,'nature_of_material') === false){
-				event.preventDefault();
-			}
+			event.preventDefault();
+			return checkReplaceNoPrint(event,'nature_of_material');
 /*
 			event.preventDefault();
 			alert('firing....');
