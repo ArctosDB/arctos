@@ -67,6 +67,10 @@ console.log('nid: ' + $("#numberOfIDs").val());
 
 				if ($("#delete_" + i).prop('checked')!==true) {
 					console.log('nodelete');
+					if ($("#other_id_prefix_" + i).val().length===0 && $("#other_id_number_" + i).val().length===0 && $("#other_id_suffix_" + i).val().length===0){
+						alert('Prefix, Number, and Suffix may not all be NULL.');
+						$("#trid_" + i).addClass('red');
+					}
 				}
 			}
 			console.log('good to go');
@@ -275,7 +279,7 @@ console.log('nid: ' + $("#numberOfIDs").val());
 		
 		<cfloop query="oids">
 			<input type="hidden" name="coll_obj_other_id_num_id_#i#" value="#coll_obj_other_id_num_id#">
-			 <tr #iif(i MOD 2,DE("class='oddRow'"),DE("class='evenRow'"))#>
+			 <tr id="trid_#i#" #iif(i MOD 2,DE("class='oddRow'"),DE("class='evenRow'"))#>
 				 <td>
 					<select name="other_id_type_#i#" id="other_id_type_#i#" size="1">
 						<cfloop query="ctType">
