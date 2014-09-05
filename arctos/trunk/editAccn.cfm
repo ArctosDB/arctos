@@ -10,110 +10,12 @@
 		$("#exp_date").datepicker();
 
 		$("#editAccn").submit(function(event){
-		//	event.preventDefault();
-
-			//alert(checkReplaceNoPrint(event,'nature_of_material'));
-
-		 checkReplaceNoPrint(event,'nature_of_material');
-		 checkReplaceNoPrint(event,'remarks');
-
-			//$("#editAccn").submit();
-/*
-* 
-* 
-* 
-* 	if ( checkReplaceNoPrint(event,'nature_of_material') === false) {
-					event.preventDefault();
-			}
-			event.preventDefault();
-			alert('firing....');
-				if ($("#nature_of_material").val().indexOf("[NOPRINT]") >= 0){
-					alert('remove [NOPRINT]');
-					return false;
-				}
-
-
-				$.getJSON("/component/functions.cfc",
-					{
-						method : "removeNonprinting",
-						orig : $("#nature_of_material").val(),
-						userString :'[NOPRINT]',
-						returnformat : "json",
-						queryformat : 'column'
-					},
-					function(r) {
-						if (r.DATA.REPLACED_WITH_USERSTRING[0] != $("#nature_of_material").val()){
-							$("#nature_of_material").val(r.DATA.REPLACED_WITH_USERSTRING[0]);
-							msg='The form cannot be submitted: There are nonprinting characters in nature_of_material.\n\n';
-							msg+='Nonprinting characters have been replaced with [NOPRINT]. Remove that to continue.\n\n';
-							msg+='You may use HTML markup for print control: <br> is linebreak';
-							alert(msg);
-						}
-						console.log(r);
-						return false;
-					}
-				);
-* });
-* */
-		
-});
-	
-	});
-	function checkReplaceNoPrint(event,elem){
-		var msg;
-		if ($("#" + elem).val().indexOf("[NOPRINT]") >= 0){
-			alert('remove [NOPRINT] from ' + elem);
-			event.preventDefault();
-		}
-		$.ajax({
-			url: "/component/functions.cfc?queryformat=column",
-			type: "GET",
-			dataType: "json",
-			async: false,
-			data: {
-				method:  "removeNonprinting",
-				orig : $("#" + elem).val(),
-				userString :'[NOPRINT]',
-				returnformat : "json"
-			},
-			success: function(r) {
-				if (r.DATA.REPLACED_WITH_USERSTRING[0] != $("#" + elem).val()){
-					$("#" + elem).val(r.DATA.REPLACED_WITH_USERSTRING[0]);
-					msg='The form cannot be submitted: There are nonprinting characters in ' + elem + '.\n\n';
-					msg+='Nonprinting characters have been replaced with [NOPRINT]. Remove that to continue.\n\n';
-					msg+='You may use HTML markup for print control: <br> is linebreak';
-					alert(msg);
-					event.preventDefault();
-				}
-			},
-			error: function (xhr, textStatus, errorThrown){
-			    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
-			}
+			// just call the function - it will prevent submission if necessary
+			checkReplaceNoPrint(event,'nature_of_material');
+			checkReplaceNoPrint(event,'remarks');
 		});
-/*
-
-		$.getJSON("/component/functions.cfc",
-			{
-				method : "removeNonprinting",
-				orig : $("#" + elem).val(),
-				userString :'[NOPRINT]',
-				returnformat : "json",
-				queryformat : 'column',
-				async: false
-			},
-			function(r) {
-				if (r.DATA.REPLACED_WITH_USERSTRING[0] != $("#" + elem).val()){
-					$("#" + elem).val(r.DATA.REPLACED_WITH_USERSTRING[0]);
-					msg='The form cannot be submitted: There are nonprinting characters in ' | elem + '.\n\n';
-					msg+='Nonprinting characters have been replaced with [NOPRINT]. Remove that to continue.\n\n';
-					msg+='You may use HTML markup for print control: <br> is linebreak';
-					alert(msg);
-					return false;
-				}
-			}
-		);
-* */
-	}
+	});
+	
 	function addAccnContainer(transaction_id,barcode){
 		$('#newbarcode').addClass('red');
 		$.getJSON("/component/functions.cfc",
