@@ -169,10 +169,16 @@
 
 
 
-$('[id^="del_agnt_"]').on(click, function({
-       //...execute my script.php?urlparam=xx....;
-     alert($(this));    
+
+$( ('[id^="del_agnt_"]' ).each(function(index) {
+    $(this).on("click", function(){
+        // For the boolean value
+            alert($(this));    
+
+    });
 });
+
+
 
 
 
