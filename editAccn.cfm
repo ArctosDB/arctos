@@ -7,7 +7,27 @@
 		$("#rec_until_date").datepicker();	
 		$("#issued_date").datepicker();
 		$("#renewed_date").datepicker();
-		$("#exp_date").datepicker();		
+		$("#exp_date").datepicker();
+
+		$("#editAccn").submit(function(event){
+			function replaceNoprint(){
+				$.getJSON("/component/functions.cfc",
+					{
+						method : "removeNonprinting",
+						orig : $("#orig").val(),
+						userString : $("#nature_of_material").val(),
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function(r) {
+						console.log(r);
+						return false;
+					}
+				);
+			}
+		});
+
+	
 	});
 	function addAccnContainer(transaction_id,barcode){
 		$('#newbarcode').addClass('red');
@@ -172,7 +192,7 @@
 		</cfquery>	
 		<div style="clear:both"><strong>Edit Accession</strong></div>
 		<table><tr><td valign="top">
-			<cfform action="editAccn.cfm" method="post" name="editAccn">
+			<cfform action="editAccn.cfm" method="post" name="editAccn" id="editAccn">
 				<input type="hidden" name="action" value="saveChanges">
 				<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
 				<cfset tIA=accnData.collection_id>

@@ -40,36 +40,29 @@
 				}
 			);
 		}
-
-
-
-jQuery(document).ready(function() {
-	$("#formEdit").submit(function(event){
-		//event.preventDefault();
-		var i;
-		for ( i = 1; i <= $("#numberOfIDs").val(); i++ ) {
-			if ($("#delete_" + i).prop('checked')!==true) {
-				console.log('nodelete');
-				if ($("#other_id_prefix_" + i).val().length===0 && $("#other_id_number_" + i).val().length===0 && $("#other_id_suffix_" + i).val().length===0){
+		jQuery(document).ready(function() {
+			$("#formEdit").submit(function(event){
+				//event.preventDefault();
+				var i;
+				for ( i = 1; i <= $("#numberOfIDs").val(); i++ ) {
+					if ($("#delete_" + i).prop('checked')!==true) {
+						console.log('nodelete');
+						if ($("#other_id_prefix_" + i).val().length===0 && $("#other_id_number_" + i).val().length===0 && $("#other_id_suffix_" + i).val().length===0){
+							alert('Prefix, Number, and Suffix may not all be NULL. Check the delete box and save to remove an identifier');
+							$("#trid_" + i).addClass('badPick');
+							return false;
+						}
+					}
+				}
+			});
+			$("#newOID").submit(function(event){
+				if ($("#other_id_prefix").val().length===0 && $("#other_id_number").val().length===0 && $("#other_id_suffix").val().length===0){
 					alert('Prefix, Number, and Suffix may not all be NULL.');
-					$("#trid_" + i).addClass('badPick');
+					$("#trid_new").addClass('badPick');
 					return false;
 				}
-			}
-		}
-	});
-	$("#newOID").submit(function(event){
-		if ($("#other_id_prefix").val().length===0 && $("#other_id_number").val().length===0 && $("#other_id_suffix").val().length===0){
-			alert('Prefix, Number, and Suffix may not all be NULL.');
-			$("#trid_new").addClass('badPick');
-			return false;
-		}
-	});
-
-});
-
-
-
+			});
+		});
 	</script>
 	<cfoutput>
 	
@@ -306,12 +299,6 @@ jQuery(document).ready(function() {
 	
 	<input type="submit" name="not_submit" value="Save Changes" class="savBtn">
 </form>
-
-
-
-
-
-
 <b>Add New Identifier:</b>
 <form name="newOID" id="newOID" method="post" action="editIdentifiers.cfm">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
