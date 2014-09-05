@@ -15,6 +15,7 @@
 			//alert(checkReplaceNoPrint(event,'nature_of_material'));
 
 		 checkReplaceNoPrint(event,'nature_of_material');
+		 checkReplaceNoPrint(event,'remarks');
 
 			//$("#editAccn").submit();
 /*
