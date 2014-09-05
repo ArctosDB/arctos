@@ -5,10 +5,9 @@
 		function t(){alert('t');}
 
 
-		$("#formEdit").submit(function(event){
+		$("form#formEdit").submit(function(event){
 			event.preventDefault();
 alert('hi');
-			var i;
 
 /*
 			for ( i = 1; i < $("#numberOfIDs").val(); i++ ) {
