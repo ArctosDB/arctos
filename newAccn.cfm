@@ -1,17 +1,9 @@
 <cfinclude template="includes/_header.cfm">
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-
-
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
-
-			console.log(this);
-
-
 		});
-
-
 		$("#rec_date").datepicker();
 		$("#ent_Date").datepicker();
 		$("#newAccn").submit(function(event){
