@@ -88,6 +88,10 @@
 		});
 
 
+$('body').on('click', '[id^="del_agnt_"]' ).each(function(index)  {
+	alert( 'hi' );   
+ });
+
 
 	});
 	function useThsProjAgnt(n,i) {
@@ -168,10 +172,6 @@
 
 
 
-
-$('body').on('click', '[id^="del_agnt_"]' ).each(function(index)  {
-	alert( 'hi' );   
- });
 
 
 /*
