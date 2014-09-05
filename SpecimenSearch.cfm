@@ -753,11 +753,10 @@
 			 jQuery('body').append(data);
 		})
 		$("#collection_id").multiselect({
-			//minWidth: "500",
+			minWidth: "400",
 			height: "300"
 		});
 	});
-	$('#collection_id .ui-multiselect').css('width', '100%');
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
 		max: 50,
