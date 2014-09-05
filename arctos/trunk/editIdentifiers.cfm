@@ -47,6 +47,10 @@
 				console.log( "try " + i );
 			}
 
+
+
+			console.log('good to go');
+			return false;
 		});
 	</script>
 	<cfoutput>
