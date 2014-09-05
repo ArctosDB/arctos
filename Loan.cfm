@@ -554,6 +554,7 @@
 			</cfif>
 		</ul>
 		<hr>
+		<div class="newRec">
 		<label for="project_id">Type part of Project name to Pick a Project to associate with this loan</label>
 		<input type="hidden" name="project_id">
 		<input type="text"
@@ -561,6 +562,7 @@
 			name="pick_project_name"
 			onchange="getProject('project_id','pick_project_name','editloan',this.value); return false;"
 			onKeyPress="return noenter(event);">
+		</div>
 		<hr>
 		<label for=""><span style="font-size:large">Create a project from this loan</span></label>
 		<label for="newProjectAgent">Project Agent</label>
