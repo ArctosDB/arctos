@@ -41,25 +41,44 @@
 	}
 
 function checkElevation(){
-	alert('checkElevation');
 	if ($("#minimum_elevation").length>0 || $("#maximum_elevation").length>0 || $("#orig_elev_units").length>0) {
 		$("#minimum_elevation").addClass('reqdClr').prop('required',true);
 		$("#maximum_elevation").addClass('reqdClr').prop('required',true);
 		$("#orig_elev_units").addClass('reqdClr').prop('required',true);
-$("#fs_elevation legend").text('All or none of minimum elevation, maximum elevation, and elevation units are required');
-
+		$("#fs_elevation legend").text('All or none of minimum elevation, maximum elevation, and elevation units are required');
 	} else {
 		$("#minimum_elevation").removeClass().prop('required',false);
 		$("#maximum_elevation").removeClass().prop('required',false);
 		$("#orig_elev_units").removeClass().prop('required',false);
+		$("#fs_elevation legend").text('Elevation');
 	}
 }
+
+function checkDepth(){
+	if ($("#min_depth").length>0 || $("#max_depth").length>0 || $("#depth_units").length>0) {
+		$("#min_depth").addClass('reqdClr').prop('required',true);
+		$("#max_depth").addClass('reqdClr').prop('required',true);
+		$("#depth_units").addClass('reqdClr').prop('required',true);
+		$("#fs_depth").text('All or none of minimum depth, maximum depth, and depth units are required');
+	} else {
+		$("#min_depth").removeClass().prop('required',false);
+		$("#max_depth").removeClass().prop('required',false);
+		$("#depth_units").removeClass().prop('required',false);
+		$("#fs_depth legend").text('Depth');
+	}
+}
+
+
 	jQuery(document).ready(function() {
 		
 
 
 		$( "#minimum_elevation,#maximum_elevation,#orig_elev_units" ).change(function() {
 			checkElevation();
+		});
+
+		$( "#min_depth,#max_depth,#depth_units" ).change(function() {
+			checkDepth();
 		});
 		
  		var map;
@@ -524,20 +543,22 @@ $("#fs_elevation legend").text('All or none of minimum elevation, maximum elevat
 		</table>
 		</div>
 		</fieldset>
+		<fieldset id="fs_depth">
+		<legend>Depth</legend>
 		<table>
 			<tr>
 				<td>
 					<label for="min_depth" onClick="getDocs('locality','depth')" class="likeLink">
 						Min. Depth.
 					</label>
-					<input type="text" name="min_depth" id="min_depth" value="#locDet.min_depth#" size="3">
+					<input  type="number" step="any" name="min_depth" id="min_depth" value="#locDet.min_depth#" size="3">
 				</td>
 				<td>TO</td>
 				<td>
 					<label for="max_depth" class="likeLink" onClick="getDocs('locality','depth')">
 						Max. Depth.
 					</label>
-					<input type="text" name="max_depth"  id="max_depth" value="#locDet.max_depth#" size="3">
+					<input  type="number" step="any" name="max_depth"  id="max_depth" value="#locDet.max_depth#" size="3">
 				</td>
 				<td>
 					<label for="depth_units" class="likeLink" onClick="getDocs('locality','depth')">
@@ -552,6 +573,7 @@ $("#fs_elevation legend").text('All or none of minimum elevation, maximum elevat
 				</td>
 			</tr>
 		</table>
+		</fieldset>
 		<label for="locality_remarks">Locality Remarks</label>
 		<input type="text" name="locality_remarks" id="locality_remarks" value="#stripQuotes(locDet.locality_remarks)#"  size="120">
 		<table>
