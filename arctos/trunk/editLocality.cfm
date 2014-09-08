@@ -59,7 +59,7 @@ function checkDepth(){
 		$("#min_depth").addClass('reqdClr').prop('required',true);
 		$("#max_depth").addClass('reqdClr').prop('required',true);
 		$("#depth_units").addClass('reqdClr').prop('required',true);
-		$("#fs_depth").text('All or none of minimum depth, maximum depth, and depth units are required');
+		$("#fs_depth legend").text('All or none of minimum depth, maximum depth, and depth units are required');
 	} else {
 		$("#min_depth").removeClass().prop('required',false);
 		$("#max_depth").removeClass().prop('required',false);
@@ -81,7 +81,7 @@ function checkCoordinates(){
 		$("#georeference_source").addClass('reqdClr').prop('required',true);
 		$("#georeference_protocol").addClass('reqdClr').prop('required',true);
 		
-		$("#fs_coordinates").text('Coordinates muct be accompanied by datum, source, and protocol');
+		$("#fs_coordinates legend").text('Coordinates muct be accompanied by datum, source, and protocol');
 	} else {
 		
 		$("#dec_lat").removeClass().prop('required',false);
@@ -99,7 +99,7 @@ function checkCoordinateError(){
 		$("#max_error_distance").addClass('reqdClr').prop('required',true);
 		$("#max_error_units").addClass('reqdClr').prop('required',true);
 		
-		$("#fs_coordinates").text('Error distance and units must be paired.');
+		$("#fs_coordinates legend").text('Error distance and units must be paired.');
 	} else {
 		
 	
