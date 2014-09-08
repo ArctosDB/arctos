@@ -1,6 +1,15 @@
 <cfinclude template="includes/_header.cfm">
 <style type="text/css">
 	#map-canvas { height: 300px;width:500px; }
+	
+	legend {
+  padding: 0.2em 0.5em;
+  border:1px solid green;
+  color:green;
+  font-size:90%;
+  text-align:right;
+  }
+
 </style>
 <cfoutput>
 	<script>
