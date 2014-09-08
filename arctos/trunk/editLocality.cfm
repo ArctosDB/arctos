@@ -50,7 +50,7 @@ legend {
 	}
 
 function checkElevation(){
-	if ($("#minimum_elevation").val().length>0 || $("#maximum_elevation").length>0 || $("#orig_elev_units").length>0) {
+	if ($("#minimum_elevation").val().length>0 || $("#maximum_elevation").val().length>0 || $("#orig_elev_units").val().length>0) {
 		$("#minimum_elevation").addClass('reqdClr').prop('required',true);
 		$("#maximum_elevation").addClass('reqdClr').prop('required',true);
 		$("#orig_elev_units").addClass('reqdClr').prop('required',true);
@@ -64,14 +64,6 @@ function checkElevation(){
 }
 
 function checkDepth(){
-
-
-console.log($("#min_depth").val().length);
-console.log($("#max_depth").val().length);
-console.log($("#depth_units").val().length);
-
-
-
 	if ($("#min_depth").val().length>0 || $("#max_depth").val().length>0 || $("#depth_units").val().length>0) {
 		$("#min_depth").addClass('reqdClr').prop('required',true);
 		$("#max_depth").addClass('reqdClr').prop('required',true);
@@ -86,11 +78,11 @@ console.log($("#depth_units").val().length);
 }
 function checkCoordinates(){
 	if (
-		$("#dec_lat").length>0 || 
-		$("#dec_long").length>0 || 
-		$("#datum").length>0 || 
-		$("#georeference_source").length>0 || 
-		$("#georeference_protocol").length>0 
+		$("#dec_lat").val().length>0 || 
+		$("#dec_long").val().length>0 || 
+		$("#datum").val().length>0 || 
+		$("#georeference_source").val().length>0 || 
+		$("#georeference_protocol").val().length>0 
 		) {
 		$("#dec_lat").addClass('reqdClr').prop('required',true);
 		$("#dec_long").addClass('reqdClr').prop('required',true);
@@ -111,7 +103,7 @@ function checkCoordinates(){
 	}
 }
 function checkCoordinateError(){
-	if ($("#max_error_distance").length>0 || $("#max_error_units").length>0 ) {
+	if ($("#max_error_distance").val().length>0 || $("#max_error_units").val().length>0 ) {
 		
 		$("#max_error_distance").addClass('reqdClr').prop('required',true);
 		$("#max_error_units").addClass('reqdClr').prop('required',true);
