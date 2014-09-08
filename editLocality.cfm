@@ -122,7 +122,9 @@ function checkCoordinateError(){
 
 	jQuery(document).ready(function() {
 		
-
+		$(".reqdClr:visible").each(function(e){
+		    $(this).prop('required',true);
+		});
 
 		$( "#minimum_elevation,#maximum_elevation,#orig_elev_units" ).change(function() {
 			checkElevation();
@@ -812,16 +814,16 @@ function checkCoordinateError(){
 		</table>
 		</fieldset>
 		<label for="datum" class="likeLink" onClick="getDocs('lat_long','datum')">Datum</label>
-		<select name="datum" id="datum" size="1" class="reqdClr">
+		<select name="datum" id="datum" size="1">
 			<option value=''></option>
 			<cfloop query="ctdatum">
 				<option <cfif ctdatum.DATUM is locDet.DATUM> selected="selected" </cfif> value="#ctdatum.DATUM#">#ctdatum.DATUM#</option>
 			</cfloop>
 		</select>
 		<label for="georeference_source" class="likeLink" onClick="getDocs('lat_long','georeference_source')">georeference_source</label>
-		<input type="text" name="georeference_source" id="georeference_source" size="120" class="reqdClr" value='#preservesinglequotes(locDet.georeference_source)#' />
+		<input type="text" name="georeference_source" id="georeference_source" size="120" value='#preservesinglequotes(locDet.georeference_source)#' />
 		<label for="georeference_protocol" class="likeLink" onClick="getDocs('lat_long','georeference_protocol')">Georeference Protocol</label>
-		<select name="georeference_protocol" id="georeference_protocol" size="1" class="reqdClr">
+		<select name="georeference_protocol" id="georeference_protocol" size="1">
 			<option value=''></option>
 			<cfloop query="ctgeoreference_protocol">
 				<option
