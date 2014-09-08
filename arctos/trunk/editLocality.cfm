@@ -44,7 +44,12 @@ function checkElevation(){
 	alert('checkElevation');
 }
 	jQuery(document).ready(function() {
-		$( "#minimum_elevation" ).change(function() {
+		
+
+$('#elevation_div').delegate('input', 'change', function(e){
+
+
+//$( "#minimum_elevation" ).change(function() {
 			checkElevation();
 		});
 		
@@ -478,7 +483,7 @@ function checkElevation(){
 		<cfif len(locDet.locality_name) is 0>
 			<span class="infoLink" onclick="$('##locality_name').val('#CreateUUID()#');">create GUID</span>
 		</cfif>
-		<fieldset>
+		<div id="elevation_div">
 		<table>
 			<tr>
 				<td>
@@ -507,6 +512,7 @@ function checkElevation(){
 				</td>
 			</tr>
 		</table>
+		</div>
 		</fieldset>
 		<table>
 			<tr>
