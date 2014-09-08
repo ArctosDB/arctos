@@ -5,8 +5,8 @@
 <cfoutput>
 	<script>
 		function useGL(glat,glon,gerr){
-			$("##MAX_ERROR_DISTANCE").val(gerr);
-			$("##MAX_ERROR_UNITS").val('m');
+			$("##max_error_distance").val(gerr);
+			$("##max_error_units").val('m');
 			$("##datum").val('World Geodetic System 1984');
 			$("##georeference_source").val('GeoLocate');
 			$("##georeference_protocol").val('GeoLocate');
@@ -67,6 +67,48 @@ function checkDepth(){
 		$("#fs_depth legend").text('Depth');
 	}
 }
+function checkCoordinates(){
+	if (
+		$("#dec_lat").length>0 || 
+		$("#dec_long").length>0 || 
+		$("#datum").length>0 || 
+		$("#georeference_source").length>0 || 
+		$("#georeference_protocol").length>0 
+		) {
+		$("#dec_lat").addClass('reqdClr').prop('required',true);
+		$("#dec_long").addClass('reqdClr').prop('required',true);
+		$("#datum").addClass('reqdClr').prop('required',true);
+		$("#georeference_source").addClass('reqdClr').prop('required',true);
+		$("#georeference_protocol").addClass('reqdClr').prop('required',true);
+		
+		$("#fs_coordinates").text('Coordinates muct be accompanied by datum, source, and protocol');
+	} else {
+		
+		$("#dec_lat").removeClass().prop('required',false);
+		$("#dec_long").removeClass().prop('required',false);
+		$("#datum").removeClass().prop('required',false);
+		$("#georeference_source").removeClass().prop('required',false);
+		$("#georeference_protocol").removeClass().prop('required',false);
+		
+		$("#fs_coordinateError legend").text('Coordinates');
+	}
+}
+function checkCoordinateError(){
+	if ($("#max_error_distance").length>0 || $("#max_error_units").length>0 ) {
+		
+		$("#max_error_distance").addClass('reqdClr').prop('required',true);
+		$("#max_error_units").addClass('reqdClr').prop('required',true);
+		
+		$("#fs_coordinates").text('Error distance and units must be paired.');
+	} else {
+		
+	
+		$("#max_error_distance").removeClass().prop('required',false);
+		$("#max_error_units").removeClass().prop('required',false);
+		
+		$("#fs_coordinateError legend").text('Coordinate Error');
+	}
+}
 
 
 	jQuery(document).ready(function() {
@@ -80,7 +122,15 @@ function checkDepth(){
 		$( "#min_depth,#max_depth,#depth_units" ).change(function() {
 			checkDepth();
 		});
+
+		$( "#dec_lat,#dec_long,#max_error_distance,#max_error_units,#datum,#georeference_source,#georeference_protocol" ).change(function() {
+			checkCoordinates();
+		});
+		$( "#max_error_distance,#max_error_units" ).change(function() {
+			checkCoordinateError();
+		});
 		
+
  		var map;
  		var mapOptions = {
         	center: new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val()),
@@ -365,9 +415,9 @@ function checkDepth(){
 			SPEC_LOCALITY,
 			DEC_LAT,
 			DEC_LONG,
-			MAX_ERROR_DISTANCE,
-			MAX_ERROR_UNITS,
-			to_meters(MAX_ERROR_DISTANCE,MAX_ERROR_UNITS) error_in_meters,
+			max_error_distance,
+			max_error_units,
+			to_meters(max_error_distance,max_error_units) error_in_meters,
 			DATUm,
 			georeference_source,
 			georeference_protocol,
@@ -576,15 +626,17 @@ function checkDepth(){
 		</fieldset>
 		<label for="locality_remarks">Locality Remarks</label>
 		<input type="text" name="locality_remarks" id="locality_remarks" value="#stripQuotes(locDet.locality_remarks)#"  size="120">
+		<fieldset id="fs_coordinates">
+			<legend>Coordinates</legend>
 		<table>
 			<tr>
 				<td>
 					<label for="dec_lat">Decimal Latitude</label>
-					<input type="text" name="DEC_LAT" id="dec_lat" value="#locDet.DEC_LAT#" class="">
+					<input  type="number" step="any" min="-90" max="90" name="DEC_LAT" id="dec_lat" value="#locDet.DEC_LAT#" class="">
 				</td>
 				<td>
 					<label for="dec_long">Decimal Longitude</label>
-					<input type="text" name="DEC_LONG" value="#locDet.DEC_LONG#" id="dec_long" class="">
+					<input  type="number" step="any" min="-180" max="180" name="DEC_LONG" value="#locDet.DEC_LONG#" id="dec_long" class="">
 				</td>
 				<td rowspan="3">
 	            	<cfquery name="events" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -723,25 +775,30 @@ function checkDepth(){
 				</td>
 			</tr>
 		</table>
+		<fieldset id="fs_coordinateError">
+			<legend>Coordinate Error</legend>
+		
+		
 		<table>
 			<tr>
 				<td>
 					<input type="hidden" id="error_in_meters" value="#locDet.error_in_meters#">
-					<label for="MAX_ERROR_DISTANCE" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Max Error</label>
-					<input type="text" name="MAX_ERROR_DISTANCE" id="MAX_ERROR_DISTANCE" value="#locDet.MAX_ERROR_DISTANCE#" size="6">
+					<label for="max_error_distance" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Max Error</label>
+					<input type="text" name="max_error_distance" id="max_error_distance" value="#locDet.max_error_distance#" size="6">
 				</td>
 				<td>
-					<label for="MAX_ERROR_UNITS" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Max Error Units</label>
-					<select name="MAX_ERROR_UNITS" size="1" id="MAX_ERROR_UNITS">
+					<label for="max_error_units" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Max Error Units</label>
+					<select name="max_error_units" size="1" id="max_error_units">
 						<option value=""></option>
 						<cfloop query="cterror">
-							<option <cfif cterror.LAT_LONG_ERROR_UNITS is locDet.MAX_ERROR_UNITS> selected="selected" </cfif>
+							<option <cfif cterror.LAT_LONG_ERROR_UNITS is locDet.max_error_units> selected="selected" </cfif>
 								value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
 						</cfloop>
 					</select>
 				</td>
 			</tr>
 		</table>
+		</fieldset>
 		<label for="datum" class="likeLink" onClick="getDocs('lat_long','datum')">Datum</label>
 		<select name="datum" id="datum" size="1" class="reqdClr">
 			<option value=''></option>
@@ -761,6 +818,8 @@ function checkDepth(){
 			</cfloop>
 		</select>
 		<br>
+		</fieldset>
+
 		<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
 		<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
@@ -1067,16 +1126,16 @@ function checkDepth(){
 	<cfoutput>
 
 	<cfset sql = "UPDATE locality SET GEOG_AUTH_REC_ID = #GEOG_AUTH_REC_ID#">
-	<cfset sql = "#sql#,MAX_ERROR_UNITS = '#MAX_ERROR_UNITS#'">
+	<cfset sql = "#sql#,max_error_units = '#max_error_units#'">
 	<cfset sql = "#sql#,DATUM = '#DATUM#'">
 	<cfset sql = "#sql#,georeference_source = '#georeference_source#'">
 	<cfset sql = "#sql#,georeference_protocol = '#georeference_protocol#'">
 	<cfset sql = "#sql#,locality_name = '#locality_name#'">
 
-	<cfif len(MAX_ERROR_DISTANCE) gt 0>
-		<cfset sql = "#sql#,MAX_ERROR_DISTANCE = #MAX_ERROR_DISTANCE#">
+	<cfif len(max_error_distance) gt 0>
+		<cfset sql = "#sql#,max_error_distance = #max_error_distance#">
 	<cfelse>
-		<cfset sql = "#sql#,MAX_ERROR_DISTANCE = null">
+		<cfset sql = "#sql#,max_error_distance = null">
 	</cfif>
 
 	<cfif len(DEC_LAT) gt 0>
@@ -1180,8 +1239,8 @@ function checkDepth(){
 					MAX_DEPTH,
 					DEC_LAT,
 					DEC_LONG,
-					MAX_ERROR_DISTANCE,
-					MAX_ERROR_UNITS,
+					max_error_distance,
+					max_error_units,
 					DATUM,
 					georeference_source,
 					georeference_protocol,
@@ -1200,8 +1259,8 @@ function checkDepth(){
 						MAX_DEPTH,
 						DEC_LAT,
 						DEC_LONG,
-						MAX_ERROR_DISTANCE,
-						MAX_ERROR_UNITS,
+						max_error_distance,
+						max_error_units,
 						DATUM,
 						georeference_source,
 						georeference_protocol,
