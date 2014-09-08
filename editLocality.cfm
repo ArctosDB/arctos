@@ -2,13 +2,19 @@
 <style type="text/css">
 	#map-canvas { height: 300px;width:500px; }
 	
-	legend {
-  padding: 0.2em 0.5em;
-  border:1px solid green;
-  color:green;
-  font-size:90%;
-  text-align:right;
-  }
+fieldset {
+    padding-top:10px;
+    border:1px solid #666;
+    border-radius:8px;
+    box-shadow:0 0 10px #666;
+}
+legend {
+    float:left;
+    margin-top:-20px;
+}
+legend + * {
+    clear:both;
+}
 
 </style>
 <cfoutput>
