@@ -46,10 +46,8 @@ function checkElevation(){
 	jQuery(document).ready(function() {
 		
 
-$('#elevation_div').delegate('input', 'change', function(e){
 
-
-//$( "#minimum_elevation" ).change(function() {
+$( "#minimum_elevation" ,  "#maximum_elevation" ,  "#orig_elev_units" ).change(function() {
 			checkElevation();
 		});
 		
