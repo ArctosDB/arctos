@@ -47,7 +47,7 @@ function checkElevation(){
 		
 
 
-$( "#minimum_elevation" ,  "#maximum_elevation" ,  "#orig_elev_units" ).change(function() {
+$( "#minimum_elevation,#maximum_elevation,#orig_elev_units" ).change(function() {
 			checkElevation();
 		});
 		
