@@ -42,12 +42,17 @@
 
 function checkElevation(){
 	alert('checkElevation');
+	if ($("#minimum_elevation".length>0 || $("#minimum_elevation".length>0 || $("#minimum_elevation".length>0)) {
+		$("#minimum_elevation").addClass('reqdClr');
+	} else {
+		$("#minimum_elevation").removeClass();
+	}
 }
 	jQuery(document).ready(function() {
 		
 
 
-$( "#minimum_elevation,#maximum_elevation,#orig_elev_units" ).change(function() {
+		$( "#minimum_elevation,#maximum_elevation,#orig_elev_units" ).change(function() {
 			checkElevation();
 		});
 		
