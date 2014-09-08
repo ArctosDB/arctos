@@ -42,7 +42,7 @@
 
 function checkElevation(){
 	alert('checkElevation');
-	if ($("#minimum_elevation".length>0 || $("#minimum_elevation".length>0 || $("#minimum_elevation".length>0)) {
+	if ($("#minimum_elevation").length>0 || $("#minimum_elevation").length>0 || $("#minimum_elevation").length>0) {
 		$("#minimum_elevation").addClass('reqdClr');
 	} else {
 		$("#minimum_elevation").removeClass();
