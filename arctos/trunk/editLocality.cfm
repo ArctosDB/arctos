@@ -39,7 +39,15 @@
 	  var d = R * c;
 	  return d.toFixed(3);
 	}
+
+function checkElevation(){
+	alert('checkElevation');
+}
 	jQuery(document).ready(function() {
+		$( ".minimum_elevation" ).change(function() {
+			checkElevation();
+		});
+		
  		var map;
  		var mapOptions = {
         	center: new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val()),
