@@ -476,7 +476,7 @@
 					<label for="minimum_elevation" onClick="getDocs('locality','elevation')" class="likeLink">
 						Min. Elev.
 					</label>
-					<input type="text" name="minimum_elevation" id="minimum_elevation" value="#locDet.minimum_elevation#" size="3">
+					<input type="number" step="any" name="minimum_elevation" id="minimum_elevation" value="#locDet.minimum_elevation#" size="3">
 				</td>
 				<td>TO</td>
 				<td>
