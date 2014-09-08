@@ -50,7 +50,7 @@ legend {
 	}
 
 function checkElevation(){
-	if ($("#minimum_elevation").length>0 || $("#maximum_elevation").length>0 || $("#orig_elev_units").length>0) {
+	if ($("#minimum_elevation").val().length>0 || $("#maximum_elevation").length>0 || $("#orig_elev_units").length>0) {
 		$("#minimum_elevation").addClass('reqdClr').prop('required',true);
 		$("#maximum_elevation").addClass('reqdClr').prop('required',true);
 		$("#orig_elev_units").addClass('reqdClr').prop('required',true);
@@ -66,13 +66,13 @@ function checkElevation(){
 function checkDepth(){
 
 
-console.log($("#min_depth").length);
-console.log($("#max_depth").length);
-console.log($("#depth_units").length);
+console.log($("#min_depth").val().length);
+console.log($("#max_depth").val().length);
+console.log($("#depth_units").val().length);
 
 
 
-	if ($("#min_depth").length>0 || $("#max_depth").length>0 || $("#depth_units").length>0) {
+	if ($("#min_depth").val().length>0 || $("#max_depth").val().length>0 || $("#depth_units").val().length>0) {
 		$("#min_depth").addClass('reqdClr').prop('required',true);
 		$("#max_depth").addClass('reqdClr').prop('required',true);
 		$("#depth_units").addClass('reqdClr').prop('required',true);
