@@ -3,19 +3,13 @@
 	#map-canvas { height: 300px;width:500px; }
 	
 fieldset {
-    padding-top:10px;
-    border:1px solid #666;
-    border-radius:8px;
-    box-shadow:0 0 10px #666;
-}
-legend {
-    float:left;
-    margin-top:-20px;
-}
-legend + * {
-    clear:both;
+    border:0;
+    outline: 1px solid gray;
 }
 
+legend {
+    font-size:85%;
+}
 </style>
 <cfoutput>
 	<script>
