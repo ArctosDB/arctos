@@ -138,7 +138,10 @@ function checkCoordinateError(){
 		$( "#max_error_distance,#max_error_units" ).change(function() {
 			checkCoordinateError();
 		});
-		
+		checkElevation();
+		checkDepth();
+		checkCoordinates();
+		checkCoordinateError();
 
  		var map;
  		var mapOptions = {
