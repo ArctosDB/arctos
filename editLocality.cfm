@@ -42,10 +42,16 @@
 
 function checkElevation(){
 	alert('checkElevation');
-	if ($("#minimum_elevation").length>0 || $("#minimum_elevation").length>0 || $("#minimum_elevation").length>0) {
-		$("#minimum_elevation").addClass('reqdClr');
+	if ($("#minimum_elevation").length>0 || $("#maximum_elevation").length>0 || $("#orig_elev_units").length>0) {
+		$("#minimum_elevation").addClass('reqdClr').prop('required',true);
+		$("#maximum_elevation").addClass('reqdClr').prop('required',true);
+		$("#orig_elev_units").addClass('reqdClr').prop('required',true);
+$("#fs_elevation legend").text('All or none of minimum elevation, maximum elevation, and elevation units are required');
+
 	} else {
-		$("#minimum_elevation").removeClass();
+		$("#minimum_elevation").removeClass().prop('required',false);
+		$("#maximum_elevation").removeClass().prop('required',false);
+		$("#orig_elev_units").removeClass().prop('required',false);
 	}
 }
 	jQuery(document).ready(function() {
@@ -486,7 +492,8 @@ function checkElevation(){
 		<cfif len(locDet.locality_name) is 0>
 			<span class="infoLink" onclick="$('##locality_name').val('#CreateUUID()#');">create GUID</span>
 		</cfif>
-		<div id="elevation_div">
+		<fieldset id="fs_elevation">
+		<legend>Elevation</legend>
 		<table>
 			<tr>
 				<td>
