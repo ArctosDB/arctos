@@ -470,6 +470,7 @@
 		<cfif len(locDet.locality_name) is 0>
 			<span class="infoLink" onclick="$('##locality_name').val('#CreateUUID()#');">create GUID</span>
 		</cfif>
+		<fieldset>
 		<table>
 			<tr>
 				<td>
@@ -483,7 +484,7 @@
 					<label for="maximum_elevation" onClick="getDocs('locality','elevation')" class="likeLink">
 						Max. Elev.
 					</label>
-					<input type="text" name="maximum_elevation" id="maximum_elevation" value="#locDet.maximum_elevation#" size="3">
+					<input type="number" step="any" name="maximum_elevation" id="maximum_elevation" value="#locDet.maximum_elevation#" size="3">
 				</td>
 				<td>
 					<label for="orig_elev_units" onClick="getDocs('locality','elevation')" class="likeLink">
@@ -498,6 +499,7 @@
 				</td>
 			</tr>
 		</table>
+		</fieldset>
 		<table>
 			<tr>
 				<td>
