@@ -64,6 +64,14 @@ function checkElevation(){
 }
 
 function checkDepth(){
+
+
+console.log($("#min_depth").length);
+console.log($("#max_depth").length);
+console.log($("#depth_units").length);
+
+
+
 	if ($("#min_depth").length>0 || $("#max_depth").length>0 || $("#depth_units").length>0) {
 		$("#min_depth").addClass('reqdClr').prop('required',true);
 		$("#max_depth").addClass('reqdClr').prop('required',true);
