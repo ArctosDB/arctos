@@ -44,7 +44,7 @@ function checkElevation(){
 	alert('checkElevation');
 }
 	jQuery(document).ready(function() {
-		$( ".minimum_elevation" ).change(function() {
+		$( "#minimum_elevation" ).change(function() {
 			checkElevation();
 		});
 		
