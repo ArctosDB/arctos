@@ -81,7 +81,7 @@ function checkCoordinates(){
 		$("#georeference_source").addClass('reqdClr').prop('required',true);
 		$("#georeference_protocol").addClass('reqdClr').prop('required',true);
 		
-		$("#fs_coordinates legend").text('Coordinates muct be accompanied by datum, source, and protocol');
+		$("#fs_coordinates legend").text('Coordinates must be accompanied by datum, source, and protocol');
 	} else {
 		
 		$("#dec_lat").removeClass().prop('required',false);
@@ -90,7 +90,7 @@ function checkCoordinates(){
 		$("#georeference_source").removeClass().prop('required',false);
 		$("#georeference_protocol").removeClass().prop('required',false);
 		
-		$("#fs_coordinateError legend").text('Coordinates');
+		$("#fs_coordinates legend").text('Coordinates');
 	}
 }
 function checkCoordinateError(){
@@ -99,7 +99,7 @@ function checkCoordinateError(){
 		$("#max_error_distance").addClass('reqdClr').prop('required',true);
 		$("#max_error_units").addClass('reqdClr').prop('required',true);
 		
-		$("#fs_coordinates legend").text('Error distance and units must be paired.');
+		$("#fs_coordinateError legend").text('Error distance and units must be paired.');
 	} else {
 		
 	
