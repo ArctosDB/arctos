@@ -634,7 +634,7 @@ function checkCoordinateError(){
 					locality 
 				where
 					geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
-					upper(spec_locality)='#ucase(spec_locality)#' and
+					upper(spec_locality)='#ucase(locDet.spec_locality)#' and
 					locality.geog_auth_rec_id != #locDet.geog_auth_rec_id#
 				group by
 					geog_auth_rec.higher_geog,
