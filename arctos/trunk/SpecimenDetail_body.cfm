@@ -132,6 +132,7 @@
 		georeference_protocol,
 		locality_name,
 		higher_geog,
+		geog_auth_rec.SOURCE_AUTHORITY,
 		geog_search_term.SEARCH_TERM
 	from
 		specimen_event,
