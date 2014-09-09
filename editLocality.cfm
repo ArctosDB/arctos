@@ -551,11 +551,7 @@ function checkCoordinateError(){
 		</form>
 	</div>
 	
-	<cfquery name="canEdit" dbtype="query">
-		select count(*) c from vstat where verificationstatus like 'verified by%'
-	</cfquery>
-	<cfdump var=#canEdit#>
-				
+	
 				
 	<span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<table width="100%"><tr><td valign="top">
@@ -848,9 +844,18 @@ function checkCoordinateError(){
 		</select>
 		<br>
 		</fieldset>
-
-		<input type="submit" value="Save" class="savBtn">
-		<input type="button" value="Delete" class="delBtn" onClick="deleteLocality('#locDet.locality_id#');">
+		<cfquery name="canEdit" dbtype="query">
+			select count(*) c from vstat where verificationstatus like 'verified by%'
+		</cfquery>
+		<cfdump var=#canEdit#>
+		<cfif canEdit.c gt 0>
+		<hr>
+			Edits to this locality are disallowed by verificationstatus.
+		<hr>
+		<cfelse>
+			<input type="submit" value="Save" class="savBtn">
+			<input type="button" value="Delete" class="delBtn" onClick="deleteLocality('#locDet.locality_id#');">
+		</cfif>	
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
 		<input type="button" value="Add Collecting Event" class="insBtn"
 			onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
