@@ -597,23 +597,24 @@ function checkCoordinateError(){
 					geog_auth_rec.geog_auth_rec_id
 			</cfquery>
 			<cfif altgeo.recordcount gt 0>
-				<hr>
-				<p>
-					Specimens georeferenced to within ~10 miles of the coordinates used by this specimen
-					do not share Higher Geography. This may cause unpredictability in descriptive queries (or simply be a relic of precise georeferencing).
-					<br>Please consider merging geography or adding search terms where appropriate. 
-				</p>
-				<ul>
-					<cfloop query="altgeo">
-						<li>
-							#altgeo.higher_geog#
-							<a href="/SpecimenResults.cfm?geog_auth_rec_id=#altgeo.geog_auth_rec_id#">Specimens</a>
-							<cfif session.roles contains "manage_geography">
-								<a href="Locality.cfm?action=editGeog&geog_auth_rec_id=#altgeo.geog_auth_rec_id#">Edit</a>
-							</cfif>
-						</li>
-					</cfloop>
-				</ul>
+				<div style="border:1px dashed red; padding:1em;font-size:small;">
+					<p>
+						Specimens georeferenced to within ~10 miles of the coordinates used by this specimen
+						do not share Higher Geography. This may cause unpredictability in descriptive queries (or simply be a relic of precise georeferencing).
+						<br>Please consider merging geography or adding search terms where appropriate. 
+					</p>
+					<ul>
+						<cfloop query="altgeo">
+							<li>
+								#altgeo.higher_geog#
+								<a href="/SpecimenResults.cfm?geog_auth_rec_id=#altgeo.geog_auth_rec_id#">[ Specimens ]</a>
+								<cfif session.roles contains "manage_geography">
+									<a href="Locality.cfm?action=editGeog&geog_auth_rec_id=#altgeo.geog_auth_rec_id#">[ Edit ]</a>
+								</cfif>
+							</li>
+						</cfloop>
+					</ul>
+				</div>
 			</cfif>
 		</cfif>
 			
@@ -644,22 +645,23 @@ function checkCoordinateError(){
 					geog_auth_rec.geog_auth_rec_id
 			</cfquery>
 			<cfif altgeoloc.recordcount gt 0>
-				<hr>
-				<p>
-					Specimens with the same specifific do not share Higher Geography. This may cause unpredictability in descriptive queries.
-					<br>Please consider merging geography or adding search terms where appropriate. 
-				</p>
-				<ul>
-					<cfloop query="altgeoloc">
-						<li>
-							#altgeo.higher_geog#
-							<a href="/SpecimenResults.cfm?geog_auth_rec_id=#altgeoloc.geog_auth_rec_id#">Specimens</a>
-							<cfif session.roles contains "manage_geography">
-								<a href="Locality.cfm?action=editGeog&geog_auth_rec_id=#altgeoloc.geog_auth_rec_id#">Edit</a>
-							</cfif>
-						</li>
-					</cfloop>
-				</ul>
+				<div style="border:1px dashed red; padding:1em;font-size:small;">
+					<p>
+						Specimens with the same specifific do not share Higher Geography. This may cause unpredictability in descriptive queries.
+						<br>Please consider merging geography or adding search terms where appropriate. 
+					</p>
+					<ul>
+						<cfloop query="altgeoloc">
+							<li>
+								#altgeo.higher_geog#
+								<a href="/SpecimenResults.cfm?geog_auth_rec_id=#altgeoloc.geog_auth_rec_id#">[ Specimens ]</a>
+								<cfif session.roles contains "manage_geography">
+									<a href="Locality.cfm?action=editGeog&geog_auth_rec_id=#altgeoloc.geog_auth_rec_id#">[ Edit ]</a>
+								</cfif>
+							</li>
+						</cfloop>
+					</ul>
+				</div>
 			</cfif>
 		</cfif>
 		<label for="locality_name">
