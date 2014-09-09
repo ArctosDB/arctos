@@ -662,7 +662,7 @@ function checkCoordinateError(){
 				</ul>
 			</cfif>
 		</cfif>
-		<label for="locality_name"
+		<label for="locality_name">
 			<span class="likeLink" onClick="getDocs('locality','locality_name')">Locality Nickname</span>
 			<cfif len(locDet.locality_name) is 0>
 				<span class="likeLink" onclick="$('##locality_name').val('#CreateUUID()#');">Generate unique identifier<span>
