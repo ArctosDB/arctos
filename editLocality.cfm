@@ -414,9 +414,7 @@ function checkCoordinateError(){
 		folks are actively editing
 	---->
 	<cfset obj = CreateObject("component","component.functions")>
-	<cfset staticImageMap = obj.getMap(
-		locality_id="#locality_id#",
-		forceOverrideCache=true)>
+	<cfset staticImageMap = obj.getMap(locality_id="#locality_id#",forceOverrideCache=true)>
 	<cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     	select
 			locality.locality_id,
@@ -552,9 +550,21 @@ function checkCoordinateError(){
 			<input type="submit" class="lnkBtn" value="Update Verification Status for all of your specimen_events in this locality to value in pick above">
 		</form>
 	</div>
+	
+	<cfquery name="canEdit" dbtype="query">
+		select count(*) c from vstat where verificationstatus like 'verified by%'
+	</cfquery>
+	<cfdump var=#canEdit#>
+				
+				
 	<span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<table width="100%"><tr><td valign="top">
-	<p><strong>Locality</strong></p>
+	<p>
+		<strong>Locality</strong>
+		<span class="likeLink" onClick="getDocs('lat_long')">[ lat_long help ]</span>
+
+	
+	</p>
 	<form name="locality" id="locality" method="post" action="editLocality.cfm">
         <input type="hidden" id="state_prov" name="state_prov" value="#locDet.state_prov#">
         <input type="hidden" id="country" name="country" value="#locDet.country#">
@@ -798,8 +808,6 @@ function checkCoordinateError(){
 		</table>
 		<fieldset id="fs_coordinateError">
 			<legend>Coordinate Error</legend>
-		
-		
 		<table>
 			<tr>
 				<td>
@@ -852,7 +860,6 @@ function checkCoordinateError(){
 		</cfif>
 		<br>
 		<a href="Locality.cfm?action=findCollEvent&locality_id=#locDet.locality_id#">[ Find all Collecting Events ]</a>
-		<a href="http://manisnet.org/gci2.html" target="_blank" class="external">[ Georef Calculator ]</a>
 		<span class="likeLink" onClick="getDocs('lat_long')">[ lat_long help ]</span>
 	</td>
 	<td valign="top">
