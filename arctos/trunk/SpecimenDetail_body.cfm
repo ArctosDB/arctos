@@ -446,7 +446,7 @@
 									select search_term from rawevent where specimen_event_id=#specimen_event_id# group by search_term order by search_term
 								</cfquery>
 								<cfloop query='geosrchterms'>
-									<div class="detailBlock">
+									<div style="margin-left:1em;" class="detailBlock">
 										<span class="detailCellSmall">#search_term#</span>
 									</div>
 								</cfloop>
