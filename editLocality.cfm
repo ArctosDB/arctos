@@ -618,8 +618,8 @@ function checkCoordinateError(){
 		</cfif>
 			
 			
-		<label for="spec_locality" class="likeLink" onClick="getDocs('locality','specific_locality')">
-			Specific Locality
+		<label for="spec_locality">
+			<span class="likeLink" onClick="getDocs('locality','specific_locality')">Specific Locality</span>
 		</label>
 		<input type="text"id="spec_locality" name="spec_locality" value="#stripQuotes(locDet.spec_locality)#" size="120">
 		
@@ -662,14 +662,15 @@ function checkCoordinateError(){
 				</ul>
 			</cfif>
 		</cfif>
-		<label for="locality_name" class="likeLink" onClick="getDocs('locality','locality_name')">
-			Locality Nickname
+		<label for="locality_name"
+			<span class="likeLink" onClick="getDocs('locality','locality_name')">Locality Nickname</span>
+			<cfif len(locDet.locality_name) is 0>
+				<span class="likeLink" onclick="$('##locality_name').val('#CreateUUID()#');">Generate unique identifier<span>
+			</cfif>
 		</label>
 		<input type="text" id="locality_name" name="locality_name" value="#stripQuotes(locDet.locality_name)#" size="120">
 
-		<cfif len(locDet.locality_name) is 0>
-			<span class="infoLink" onclick="$('##locality_name').val('#CreateUUID()#');">Generate unique identifier<span>
-		</cfif>
+		
 		<fieldset id="fs_elevation">
 		<legend>Elevation</legend>
 		<table>
