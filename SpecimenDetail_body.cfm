@@ -443,7 +443,7 @@
 									#higher_geog#
 								</cfif>
 								<cfquery name="terms" dbtype="query">
-									select search_term from rawevent where specimen_event_id=#specimen_event_id# group by search_term order by serach_term
+									select search_term from rawevent where specimen_event_id=#specimen_event_id# group by search_term order by search_term
 								</cfquery>
 								<cfdump var=#terms#>
 							</td>
