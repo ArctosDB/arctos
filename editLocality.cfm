@@ -557,9 +557,7 @@ function checkCoordinateError(){
 	<table width="100%"><tr><td valign="top">
 	<p>
 		<strong>Locality</strong>
-		<span class="likeLink" onClick="getDocs('places/locality/')">[ Page Help ]</span>
-
-	
+		<span class="likeLink" onClick="getDocs('places/locality/','editlocality')">[ Page Help ]</span>
 	</p>
 	<form name="locality" id="locality" method="post" action="editLocality.cfm">
         <input type="hidden" id="state_prov" name="state_prov" value="#locDet.state_prov#">
