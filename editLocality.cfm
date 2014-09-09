@@ -607,7 +607,7 @@ function checkCoordinateError(){
 						<cfloop query="altgeo">
 							<li>
 								#altgeo.higher_geog#
-								<a href="/SpecimenResults.cfm?geog_auth_rec_id=#altgeo.geog_auth_rec_id#">[ Specimens ]</a>
+								<a href="/SpecimenResults.cfm?geog_auth_rec_id=#altgeo.geog_auth_rec_id#&rcoords=#round(locDet.DEC_LAT,1)#,#round(locDet.DEC_LONG,1)#">[ Specimens ]</a>
 								<cfif session.roles contains "manage_geography">
 									<a href="Locality.cfm?action=editGeog&geog_auth_rec_id=#altgeo.geog_auth_rec_id#">[ Edit ]</a>
 								</cfif>
@@ -647,14 +647,14 @@ function checkCoordinateError(){
 			<cfif altgeoloc.recordcount gt 0>
 				<div style="border:1px dashed red; padding:1em;font-size:small;">
 					<p>
-						Specimens with the same specifific do not share Higher Geography. This may cause unpredictability in descriptive queries.
+						Specimens with the same specific locality do not share Higher Geography. This may cause unpredictability in descriptive queries.
 						<br>Please consider merging geography or adding search terms where appropriate. 
 					</p>
 					<ul>
 						<cfloop query="altgeoloc">
 							<li>
 								#altgeo.higher_geog#
-								<a href="/SpecimenResults.cfm?geog_auth_rec_id=#altgeoloc.geog_auth_rec_id#">[ Specimens ]</a>
+								<a href="/SpecimenResults.cfm?geog_auth_rec_id=#altgeoloc.geog_auth_rec_id#&spec_locality=#locDet.spec_locality#">[ Specimens ]</a>
 								<cfif session.roles contains "manage_geography">
 									<a href="Locality.cfm?action=editGeog&geog_auth_rec_id=#altgeoloc.geog_auth_rec_id#">[ Edit ]</a>
 								</cfif>
