@@ -108,7 +108,7 @@ function checkCoordinateError(){
 		$("#max_error_units").addClass('reqdClr').prop('required',true);
 		$("#fs_coordinateError legend").text('Error distance and units must be paired.');
 		if ($("#dec_lat").val().length === 0 || $("#dec_long").val().length === 0) {
-			$("#fs_coordinateError legend").text.append('; Error may not exist without coordinates.');
+			$("#fs_coordinateError legend").append('; Error may not exist without coordinates.');
 			$("#dec_lat").addClass('reqdClr').prop('required',true);
 			$("#dec_long").addClass('reqdClr').prop('required',true);
 		}
