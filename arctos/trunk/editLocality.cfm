@@ -318,7 +318,11 @@ function checkCoordinateError(){
 			}
 		);
 	}
-
+	function deleteLocality(lid){
+		if(confirm('Are you sure you want to delete this Locality?')){
+			window.location='editLocality.cfm?action=deleteLocality&locality_id=' + lid;
+		}
+	}
 	function cloneLocality(locality_id) {
 		if(confirm('Are you sure you want to create a copy of this locality which you may then edit?')) {
 			var rurl='editLocality.cfm?action=clone&locality_id=' + locality_id;
@@ -834,8 +838,8 @@ function checkCoordinateError(){
 		<br>
 		</fieldset>
 
-		<input type="button" value="Save" class="savBtn" onclick="locality.action.value='saveLocalityEdit';locality.submit();">
-		<input type="button" value="Delete" class="delBtn" onClick="locality.action.value='deleteLocality';confirmDelete('locality');">
+		<input type="submit" value="Save" class="savBtn">
+		<input type="button" value="Delete" class="delBtn" onClick="deleteLocality('#locDet.locality_id#');">
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
 		<input type="button" value="Add Collecting Event" class="insBtn"
 			onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
