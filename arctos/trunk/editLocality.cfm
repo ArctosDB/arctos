@@ -807,7 +807,7 @@ function checkCoordinateError(){
 				<td>
 					<input type="hidden" id="error_in_meters" value="#locDet.error_in_meters#">
 					<label for="max_error_distance" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Max Error</label>
-					<input type="text" name="max_error_distance" id="max_error_distance" value="#locDet.max_error_distance#" size="6">
+					<input type="number" step="any" min="0.000000000001" name="max_error_distance" id="max_error_distance" value="#locDet.max_error_distance#" size="6">
 				</td>
 				<td>
 					<label for="max_error_units" class="likeLink" onClick="getDocs('lat_long','maximum_error')">Max Error Units</label>
