@@ -161,9 +161,9 @@ function changeTarget(id,tvalue) {
 		document.getElementById('kmlDiv').style.display='';
 		document.getElementById('kmlDiv1').style.display='';
 	}
-	document.SpecData.action = tvalue;
+	//document..action = tvalue;
 	
-	
+	$("#SpecData").attr("action", tvalue);
 	console.log('going ' + tvalue);
 }
 function changeGrp(tid) {
