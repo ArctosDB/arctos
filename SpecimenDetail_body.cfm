@@ -435,8 +435,8 @@
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Higher Geography:</td>
 							<td id="SDCellRight">
-								<cfif left(source,4) is "http">
-									<a href="#source#" target="_blank" class="external">#higher_geog#</a>
+								<cfif left(source_authority,4) is "http">
+									<a href="#source_authority#" target="_blank" class="external">#higher_geog#</a>
 								<cfelse>
 									#higher_geog#
 								</cfif>
