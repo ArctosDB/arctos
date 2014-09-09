@@ -27,8 +27,8 @@
 
 		$("#numGeogSrchTerms").val(n);
 
-		$( "#gst" + $("#numGeogSrchTerms").val() ).addClass('reqdClr');
-		$( "#gst" + $("#numGeogSrchTerms").val() ).after( h );
+		$( "#gst1").addClass('reqdClr');
+		$( "#gst1" ).after( h );
 
 
 
