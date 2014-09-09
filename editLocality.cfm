@@ -571,7 +571,7 @@ function checkCoordinateError(){
         <input type="button" value="Change for this Locality" class="picBtn" id="changeGeogButton"
 			onclick="GeogPick('geog_auth_rec_id','higher_geog','locality'); return false;">
 		<cfif session.roles contains "manage_geography">
-			<a href="Locality.cfm?action=editGeog&geog_auth_rec_id=#altgeo.geog_auth_rec_id#">[ Edit Geography]</a>
+			<a href="Locality.cfm?action=editGeog&geog_auth_rec_id=#locDet.geog_auth_rec_id#">[ Edit Geography]</a>
 		</cfif>
 		
 		
