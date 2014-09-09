@@ -585,11 +585,16 @@ function checkCoordinateError(){
 					geog_auth_rec,
 					locality 
 				where
-				geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
-				round(dec_lat,1)=round(#locDet.DEC_LAT#,1) and 
-				round(DEC_LONG,1)=round(#locDet.DEC_LONG#,1) and
-				locality.geog_auth_rec_id != #locDet.geog_auth_rec_id#
-				group by higher_geog order by higher_geog
+					geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
+					round(dec_lat,1)=round(#locDet.DEC_LAT#,1) and 
+					round(DEC_LONG,1)=round(#locDet.DEC_LONG#,1) and
+					locality.geog_auth_rec_id != #locDet.geog_auth_rec_id#
+				group by
+					geog_auth_rec.higher_geog,
+					geog_auth_rec.geog_auth_rec_id
+				order by
+					geog_auth_rec.higher_geog,
+					geog_auth_rec.geog_auth_rec_id
 			</cfquery>
 			<cfif altgeo.recordcount gt 0>
 				<hr>
