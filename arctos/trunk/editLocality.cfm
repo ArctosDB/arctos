@@ -597,7 +597,7 @@ function checkCoordinateError(){
 					geog_auth_rec.geog_auth_rec_id
 			</cfquery>
 			<cfif altgeo.recordcount gt 0>
-				<div style="border:1px dashed red; padding:1em;font-size:small;">
+				<div style="border:1px dashed red; padding:1em;margin:1em;font-size:small;background-color:lightgray;">
 					<p>
 						Specimens georeferenced to within ~10 miles of the coordinates used by this specimen
 						do not share Higher Geography. This may cause unpredictability in descriptive queries (or simply be a relic of precise georeferencing).
@@ -645,7 +645,7 @@ function checkCoordinateError(){
 					geog_auth_rec.geog_auth_rec_id
 			</cfquery>
 			<cfif altgeoloc.recordcount gt 0>
-				<div style="border:1px dashed red; padding:1em;font-size:small;">
+				<div style="border:1px dashed red; padding:1em;margin:1em;font-size:small;background-color:lightgray;">
 					<p>
 						Specimens with the same specific locality do not share Higher Geography. This may cause unpredictability in descriptive queries.
 						<br>Please consider merging geography or adding search terms where appropriate. 
