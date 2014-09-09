@@ -104,11 +104,14 @@ function checkCoordinates(){
 }
 function checkCoordinateError(){
 	if ($("#max_error_distance").val().length>0 || $("#max_error_units").val().length>0 ) {
-		
 		$("#max_error_distance").addClass('reqdClr').prop('required',true);
 		$("#max_error_units").addClass('reqdClr').prop('required',true);
-		
 		$("#fs_coordinateError legend").text('Error distance and units must be paired.');
+		if ($("#dec_lat").val().length === 0 || $("#dec_long").val().length === 0) {
+			$("#fs_coordinateError legend").text.append('; Error may not exist without coordinates.');
+			$("#dec_lat").addClass('reqdClr').prop('required',true);
+			$("#dec_long").addClass('reqdClr').prop('required',true);
+		}
 	} else {
 		
 	
@@ -552,7 +555,7 @@ function checkCoordinateError(){
 	<span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<table width="100%"><tr><td valign="top">
 	<p><strong>Locality</strong></p>
-	<form name="locality" method="post" action="editLocality.cfm">
+	<form name="locality" id="locality" method="post" action="editLocality.cfm">
         <input type="hidden" id="state_prov" name="state_prov" value="#locDet.state_prov#">
         <input type="hidden" id="country" name="country" value="#locDet.country#">
         <input type="hidden" id="county" name="county" value="#locDet.county#">
