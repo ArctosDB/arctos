@@ -599,7 +599,10 @@ function checkCoordinateError(){
 			<cfif altgeo.recordcount gt 0>
 				<div style="border:1px dashed red; padding:1em;margin:1em;font-size:small;background-color:lightgray;">
 					<p>
-						<strong>If you're seeing this, users are failing to find your specimens!</strong>
+						<strong>
+							If you're seeing this, users are 
+							<a href="http://arctosdb.org/documentation/places/higher-geography/#locality" class="external" target="_blank">failing to find your specimens</a>!
+						</strong>
 					</p>
 					<p>
 						Specimens georeferenced to within ~10 miles of the coordinates used by this specimen
@@ -650,7 +653,10 @@ function checkCoordinateError(){
 			<cfif altgeoloc.recordcount gt 0>
 				<div style="border:1px dashed red; padding:1em;margin:1em;font-size:small;background-color:lightgray;">
 					<p>
-						<strong>If you're seeing this, users are failing to find your specimens!</strong>
+						<strong>
+							If you're seeing this, users are 
+							<a href="http://arctosdb.org/documentation/places/higher-geography/#locality" class="external" target="_blank">failing to find your specimens</a>!
+						</strong>
 					</p>
 					<p>
 						Specimens with the same specific locality do not share Higher Geography. This may cause unpredictability in descriptive queries.
