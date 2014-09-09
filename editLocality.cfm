@@ -574,6 +574,33 @@ function checkCoordinateError(){
 			<input type="button" value="Edit Geog Entry" class="lnkBtn"
 				onClick="document.location='Locality.cfm?action=editGeog&geog_auth_rec_id=#locDet.geog_auth_rec_id#'">
 		</cfif>
+		
+		
+		<cfif len(locDet.DEC_LAT) gt 0 and len(locDet.DEC_LONG) gt 0>
+           	<cfquery name="altgeo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select higher_geog from geog_auth_rec,locality where
+				geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
+				round(dec_lat,1)=round(#locDet.DEC_LAT#,1) and 
+				round(DEC_LONG,1)=round(#locDet.DEC_LONG#,1) and
+				locality.geog_auth_rec_id != #locDet.geog_auth_rec_id#
+			</cfquery>
+			<cfif altgeo.recordcount gt 0>
+				<hr>
+				<p>
+					This general area is under multiple geography entries. This may cause unpredictability in descriptive queries.
+					Please consider merging where appropriate. 
+				</p>
+				<ul>
+					<cfloop query="altgeo">
+						<li>
+							#altgeo.higher_geog#
+						</li>
+					</cfloop>
+				</ul>
+			</cfif>
+		</cfif>
+			
+			
 		<label for="spec_locality" class="likeLink" onClick="getDocs('locality','specific_locality')">
 			Specific Locality
 		</label>
