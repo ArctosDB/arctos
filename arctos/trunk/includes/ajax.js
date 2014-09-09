@@ -157,6 +157,9 @@ function changeTarget(id,tvalue) {
 		document.getElementById('kmlDiv1').style.display='';
 	}
 	document.SpecData.action = tvalue;
+	
+	
+	console.log('going ' + tvalue);
 }
 function changeGrp(tid) {
 	var oid,mList,sList,len,i;
