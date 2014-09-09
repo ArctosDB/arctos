@@ -11,7 +11,7 @@
 		console.log('hi');
 
 		var n,h;
-		n=$("#numGeogSrchTerms").val();
+		n=parseInt($("#numGeogSrchTerms").val()) + 1;
 
 		console.log('n');
 
@@ -24,7 +24,7 @@
 
 		console.log(h);
 
-		$("#numGeogSrchTerms").val(parseInt($("#numGeogSrchTerms").val()+1));
+		$("#numGeogSrchTerms").val(n);
 
 		$( "#gst" + n ).insertAfter( h );
 
