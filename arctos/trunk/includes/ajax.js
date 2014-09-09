@@ -135,6 +135,11 @@ function setPrevSearch(){
 	} catch(e){}
 }
 function changeTarget(id,tvalue) {
+	
+	
+	
+	console.log('changeTarget ');
+
 	var otherForm;
 	if(tvalue.length === 0) {
 		tvalue='SpecimenResults.cfm';
