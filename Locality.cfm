@@ -7,6 +7,9 @@
 		$("#ended_date").datepicker();
 	});
 	function addGeoSrchTerm(){
+
+		console.log('hi');
+
 		var n,h;
 		n=$("#numGeogSrchTerms").val();
 		h='<tr id="gst' + n + '"><td colspan="4">';
