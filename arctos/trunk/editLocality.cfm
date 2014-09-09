@@ -557,7 +557,7 @@ function checkCoordinateError(){
 	<table width="100%"><tr><td valign="top">
 	<p>
 		<strong>Locality</strong>
-		<span class="likeLink" onClick="getDocs('lat_long')">[ lat_long help ]</span>
+		<span class="likeLink" onClick="getDocs('places/locality/')">[ Page Help ]</span>
 
 	
 	</p>
