@@ -570,10 +570,10 @@ function checkCoordinateError(){
         <input type="hidden" name="geog_auth_rec_id" value="#locDet.geog_auth_rec_id#">
        	<label for="higher_geog">Higer Geography</label>
 		<input type="text" name="higher_geog" id="higher_geog" value="#locDet.higher_geog#" size="120" class="readClr" readonly="yes">
-        <input type="button" value="Change" class="picBtn" id="changeGeogButton"
+        <input type="button" value="Change for this Locality" class="picBtn" id="changeGeogButton"
 			onclick="GeogPick('geog_auth_rec_id','higher_geog','locality'); return false;">
 		<cfif session.roles contains "manage_geography">
-			<input type="button" value="Edit" class="lnkBtn"
+			<input type="button" value="Edit Geog Entry" class="lnkBtn"
 				onClick="document.location='Locality.cfm?action=editGeog&geog_auth_rec_id=#locDet.geog_auth_rec_id#'">
 		</cfif>
 		<label for="spec_locality" class="likeLink" onClick="getDocs('locality','specific_locality')">
