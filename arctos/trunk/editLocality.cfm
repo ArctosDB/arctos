@@ -571,29 +571,41 @@ function checkCoordinateError(){
         <input type="button" value="Change for this Locality" class="picBtn" id="changeGeogButton"
 			onclick="GeogPick('geog_auth_rec_id','higher_geog','locality'); return false;">
 		<cfif session.roles contains "manage_geography">
-			<input type="button" value="Edit Geog Entry" class="lnkBtn"
-				onClick="document.location='Locality.cfm?action=editGeog&geog_auth_rec_id=#locDet.geog_auth_rec_id#'">
+			<a href="Locality.cfm?action=editGeog&geog_auth_rec_id=#altgeo.geog_auth_rec_id#">[ Edit Geography]</a>
 		</cfif>
 		
 		
 		<cfif len(locDet.DEC_LAT) gt 0 and len(locDet.DEC_LONG) gt 0>
-           	<cfquery name="altgeo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select higher_geog from geog_auth_rec,locality where
+			<!--- ignoring VPDs, check for "close" georeferences that use a different geog entry ---->
+           	<cfquery name="altgeo" datasource="uam_god">
+				select 
+					geog_auth_rec.higher_geog,
+					geog_auth_rec.geog_auth_rec_id
+				from 
+					geog_auth_rec,
+					locality 
+				where
 				geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
 				round(dec_lat,1)=round(#locDet.DEC_LAT#,1) and 
 				round(DEC_LONG,1)=round(#locDet.DEC_LONG#,1) and
 				locality.geog_auth_rec_id != #locDet.geog_auth_rec_id#
+				group by higher_geog order by higher_geog
 			</cfquery>
 			<cfif altgeo.recordcount gt 0>
 				<hr>
 				<p>
-					This general area is under multiple geography entries. This may cause unpredictability in descriptive queries.
-					Please consider merging where appropriate. 
+					Specimens georeferenced to within ~10 miles of the coordinates used by this specimen
+					do not share Higher Geography. This may cause unpredictability in descriptive queries (or simply be a relic of precise georeferencing).
+					<br>Please consider merging geography or adding search terms where appropriate. 
 				</p>
 				<ul>
 					<cfloop query="altgeo">
 						<li>
 							#altgeo.higher_geog#
+							<a href="/SpecimenResults.cfm?geog_auth_rec_id=#altgeo.geog_auth_rec_id#">Specimens</a>
+							<cfif session.roles contains "manage_geography">
+								<a href="Locality.cfm?action=editGeog&geog_auth_rec_id=#altgeo.geog_auth_rec_id#">Edit</a>
+							</cfif>
 						</li>
 					</cfloop>
 				</ul>
