@@ -150,10 +150,6 @@
 	order by
 		specimen_event_type
 </cfquery>
-
-<cfdump var=#rawevent#>
-
-
 <cfquery name="event" dbtype="query">
 	select
 		SPECIMEN_EVENT_ID,
@@ -446,10 +442,14 @@
 								<cfelse>
 									#higher_geog#
 								</cfif>
-								<cfquery name="terms" dbtype="query">
+								<cfquery name="geosrchterms" dbtype="query">
 									select search_term from rawevent where specimen_event_id=#specimen_event_id# group by search_term order by search_term
 								</cfquery>
-								<cfdump var=#terms#>
+								<cfloop query='geosrchterms'>
+									<div class="detailBlock">
+										<span class="detailCellSmall">#search_term#</span>
+									</div>
+								</cfloop>
 							</td>
 						</tr>
 						<cfif verbatim_locality is not spec_locality>
