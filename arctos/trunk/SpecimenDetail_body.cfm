@@ -79,7 +79,7 @@
 		</cfif>
 		collection_object_id = <cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 </cfquery>
-<cfquery name="event" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+<cfquery name="rawevent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		specimen_event.SPECIMEN_EVENT_ID,
 		collecting_event.collecting_event_id,
@@ -92,7 +92,6 @@
 		COLLECTING_SOURCE,
 		VERIFICATIONSTATUS,
 		habitat,
-		collecting_event.COLLECTING_EVENT_ID,
     	locality.LOCALITY_ID,
 		VERBATIM_DATE,
 		VERBATIM_LOCALITY,
@@ -118,6 +117,65 @@
 		collecting_event.DATUM,
 		collecting_event.ORIG_LAT_LONG_UNITS,
 		geog_auth_rec.GEOG_AUTH_REC_ID,
+		geog_auth_rec.SOURCE_AUTHORITY
+		SPEC_LOCALITY,
+		MINIMUM_ELEVATION,
+		MAXIMUM_ELEVATION,
+		ORIG_ELEV_UNITS,
+		MIN_DEPTH,
+		MAX_DEPTH,
+		DEPTH_UNITS,
+		MAX_ERROR_DISTANCE,
+		MAX_ERROR_UNITS,
+		LOCALITY_REMARKS,
+		georeference_source,
+		georeference_protocol,
+		locality_name,
+		higher_geog,
+		geog_search_term.SEARCH_TERM
+	from
+		specimen_event,
+		collecting_event,
+		locality,
+		geog_auth_rec,
+		geog_search_term
+	where
+		specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+		collecting_event.locality_id=locality.locality_id and
+		locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+		geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id (+) and
+		specimen_event.specimen_event_type != 'unaccepted place of collection' and
+		specimen_event.collection_object_id=<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
+	order by
+		specimen_event_type
+</cfquery>
+<cfquery name="event" dbtyp="query">
+	select
+		SPECIMEN_EVENT_ID,
+		collecting_event_id,
+		assigned_by_agent_id,
+		assigned_by_agent_name,
+		assigned_date,
+		specimen_event_remark,
+		specimen_event_type,
+		COLLECTING_METHOD,
+		COLLECTING_SOURCE,
+		VERIFICATIONSTATUS,
+		habitat,
+    	LOCALITY_ID,
+		VERBATIM_DATE,
+		VERBATIM_LOCALITY,
+		COLL_EVENT_REMARKS,
+		BEGAN_DATE,
+		ENDED_DATE,
+		verbatim_coordinates,
+		collecting_event_name,
+		DEC_LAT,
+		DEC_LONG,
+		DATUM,
+		ORIG_LAT_LONG_UNITS,
+		GEOG_AUTH_REC_ID,
+		SOURCE_AUTHORITY
 		SPEC_LOCALITY,
 		MINIMUM_ELEVATION,
 		MAXIMUM_ELEVATION,
@@ -132,19 +190,9 @@
 		georeference_protocol,
 		locality_name,
 		higher_geog
-	from
-		specimen_event,
-		collecting_event,
-		locality,
-		geog_auth_rec
-	where
-		specimen_event.collecting_event_id=collecting_event.collecting_event_id and
-		collecting_event.locality_id=locality.locality_id and
-		locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
-		specimen_event.specimen_event_type != 'unaccepted place of collection' and
-		specimen_event.collection_object_id=<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
-	order by
-		specimen_event_type
+	from 
+		rawevent
+	group by
 </cfquery>
 <style>
 	.acceptedIdDiv {
@@ -332,9 +380,7 @@
 					</cfif>
 				</div>
 				<cfloop query="event">
-
 					<div style="border:1px solid green; margin:1em;">
-
 					<table id="SD_#specimen_event_id#">
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Determination&nbsp;Type:</td>
@@ -348,7 +394,17 @@
 						</tr>
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Higher Geography:</td>
-							<td id="SDCellRight">#higher_geog#</td>
+							<td id="SDCellRight">
+								<cfif left(source,4) is "http">
+									<a href="#source#" target="_blank" class="external">#higher_geog#</a>
+								<cfelse>
+									#higher_geog#
+								</cfif>
+								<cfquery name="terms" dbtype="query">
+									select search_term from rawevent where specimen_event_id=#specimen_event_id# group by search_term order by serach_term
+								</cfquery>
+								<cfdump var=#terms#>
+							</td>
 						</tr>
 						<cfif verbatim_locality is not spec_locality>
 							<cfif len(verbatim_locality) gt 0>

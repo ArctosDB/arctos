@@ -135,32 +135,20 @@ function setPrevSearch(){
 	} catch(e){}
 }
 function changeTarget(id,tvalue) {
-	
-	
-	
-	console.log('changeTarget ');
-
 	var otherForm;
 	if(tvalue.length === 0) {
 		tvalue='SpecimenResults.cfm';
 	}
 	if (id =='tgtForm1') {
-		//otherForm = document.getElementById('tgtForm');
-		$("#tgtForm").val(tvalue);
-		
+		$("#tgtForm").val(tvalue);		
 	} else {
-		// otherForm = document.getElementById('tgtForm1');
 		$("#tgtForm1").val(tvalue);
-	}
-	//otherForm.value=tvalue;
-	
+	}	
 	if (tvalue == 'SpecimenResultsSummary.cfm') {
 		$("#groupByDiv").show();
 		$("#groupByDiv1").show();
 		$("#kmlDiv").hide();
 		$("#kmlDiv1").hide();
-		//document.getElementById('groupByDiv').style.display='';
-		//document.getElementById('groupByDiv1').style.display='';
 	} else if (tvalue=='/bnhmMaps/kml.cfm?action=newReq') {
 		$("#groupByDiv").hide();
 		$("#groupByDiv1").hide();
@@ -172,18 +160,8 @@ function changeTarget(id,tvalue) {
 		$("#kmlDiv").hide();
 		$("#kmlDiv1").hide();
 		
-	}
-	
-	
-	//document.getElementById('groupByDiv').style.display='none';
-	//document.getElementById('groupByDiv1').style.display='none';
-	//document.getElementById('kmlDiv').style.display='none';
-	//document.getElementById('kmlDiv1').style.display='none';
-	
-	//document..action = tvalue;
-	
+	}	
 	$("#SpecData").attr("action", tvalue);
-	console.log('going ' + tvalue);
 }
 function changeGrp(tid) {
 	var oid,mList,sList,len,i;
