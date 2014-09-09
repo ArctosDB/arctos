@@ -11,7 +11,7 @@
 		n=$("#numGeogSrchTerms").val();
 		h='<tr id="gst' + n + '"><td colspan="4">';
 		h+='<textarea name="new_geog_search_term_' + n + '" id="new_geog_search_term_' + n + '" class="longtextarea newRec" rows="30" cols="1"></textarea>'
-		h+=</td></tr>';
+		h+='</td></tr>';
 		$("#numGeogSrchTerms").val(parseInt($("#numGeogSrchTerms").val()+1));
 
 		$( "#gst" + n ).insertAfter( h );
