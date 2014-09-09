@@ -622,13 +622,53 @@ function checkCoordinateError(){
 			Specific Locality
 		</label>
 		<input type="text"id="spec_locality" name="spec_locality" value="#stripQuotes(locDet.spec_locality)#" size="120">
+		
+		<cfif len(locDet.spec_locality) gt 0>
+			<!--- ignoring VPDs, check for "close" georeferences that use a different geog entry ---->
+           	<cfquery name="altgeoloc" datasource="uam_god">
+				select 
+					geog_auth_rec.higher_geog,
+					geog_auth_rec.geog_auth_rec_id
+				from 
+					geog_auth_rec,
+					locality 
+				where
+					geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
+					upper(spec_locality)='#ucase(spec_locality)#' and
+					locality.geog_auth_rec_id != #locDet.geog_auth_rec_id#
+				group by
+					geog_auth_rec.higher_geog,
+					geog_auth_rec.geog_auth_rec_id
+				order by
+					geog_auth_rec.higher_geog,
+					geog_auth_rec.geog_auth_rec_id
+			</cfquery>
+			<cfif altgeoloc.recordcount gt 0>
+				<hr>
+				<p>
+					Specimens with the same specifific do not share Higher Geography. This may cause unpredictability in descriptive queries.
+					<br>Please consider merging geography or adding search terms where appropriate. 
+				</p>
+				<ul>
+					<cfloop query="altgeoloc">
+						<li>
+							#altgeo.higher_geog#
+							<a href="/SpecimenResults.cfm?geog_auth_rec_id=#altgeoloc.geog_auth_rec_id#">Specimens</a>
+							<cfif session.roles contains "manage_geography">
+								<a href="Locality.cfm?action=editGeog&geog_auth_rec_id=#altgeoloc.geog_auth_rec_id#">Edit</a>
+							</cfif>
+						</li>
+					</cfloop>
+				</ul>
+			</cfif>
+		</cfif>
 		<label for="locality_name" class="likeLink" onClick="getDocs('locality','locality_name')">
 			Locality Nickname
 		</label>
 		<input type="text" id="locality_name" name="locality_name" value="#stripQuotes(locDet.locality_name)#" size="120">
 
 		<cfif len(locDet.locality_name) is 0>
-			<span class="infoLink" onclick="$('##locality_name').val('#CreateUUID()#');">create GUID</span>
+			<span class="infoLink" onclick="$('##locality_name').val('#CreateUUID()#');">Generate unique identifier<span>
 		</cfif>
 		<fieldset id="fs_elevation">
 		<legend>Elevation</legend>
