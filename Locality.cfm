@@ -6,6 +6,23 @@
 		$("#began_date").datepicker();
 		$("#ended_date").datepicker();
 	});
+	function addGeoSrchTerm(){
+		var n,h;
+		n=$("#numGeogSrchTerms").val();
+		h='<tr id="gst' + n + '"><td colspan="4">';
+		h+='<textarea name="new_geog_search_term_' + n + '" id="new_geog_search_term_' + n + '" class="longtextarea newRec" rows="30" cols="1"></textarea>'
+		h+=</td></tr>';
+		$("#numGeogSrchTerms").val(parseInt($("#numGeogSrchTerms").val()+1));
+
+		$( "#gst" + n ).insertAfter( h );
+
+
+	}
+
+				
+
+
+
 </script>
 <cfoutput>
 <!--- see if action is duplicated --->
@@ -538,23 +555,13 @@
 	                	</div>
 	                </td>
 				</tr>
-				<tr>
+					<input type="text" name="numGeogSrchTerms" value="1">
+				<tr id="gst1">
 	                <td colspan="4">
-	                	<label for="new_geog_search_term_1">Add Geog Search Term</label>
+	                	<label for="new_geog_search_term_1">
+	                		Add Geog Search Term <span class="likeLink" onclick="addGeoSrchTerm();">[ add a row ]</span>
+	                	</label>
 	                	<textarea name="new_geog_search_term_1" id="new_geog_search_term_1" class="longtextarea newRec" rows="30" cols="1"></textarea>
-
-	                </td>
-				</tr>
-				<tr>
-	                <td colspan="4">
-	                	<textarea name="new_geog_search_term_2" id="new_geog_search_term_2" class="longtextarea newRec" rows="30" cols="1"></textarea>
-
-	                </td>
-				</tr>
-				<tr>
-	                <td colspan="4">
-	                	<textarea name="new_geog_search_term_3" id="new_geog_search_term_3" class="longtextarea newRec" rows="30" cols="1"></textarea>
-
 	                </td>
 				</tr>
 				<tr>
