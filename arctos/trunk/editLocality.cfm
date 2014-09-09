@@ -653,7 +653,7 @@ function checkCoordinateError(){
 					<ul>
 						<cfloop query="altgeoloc">
 							<li>
-								#altgeo.higher_geog#
+								#altgeoloc.higher_geog#
 								<a href="/SpecimenResults.cfm?geog_auth_rec_id=#altgeoloc.geog_auth_rec_id#&spec_locality=#locDet.spec_locality#">[ Specimens ]</a>
 								<cfif session.roles contains "manage_geography">
 									<a href="Locality.cfm?action=editGeog&geog_auth_rec_id=#altgeoloc.geog_auth_rec_id#">[ Edit ]</a>
