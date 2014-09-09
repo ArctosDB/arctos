@@ -149,7 +149,7 @@
 	order by
 		specimen_event_type
 </cfquery>
-<cfquery name="event" dbtyp="query">
+<cfquery name="event" dbtype="query">
 	select
 		SPECIMEN_EVENT_ID,
 		collecting_event_id,
