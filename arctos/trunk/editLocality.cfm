@@ -601,7 +601,7 @@ function checkCoordinateError(){
 					<p>
 						<strong>
 							If you're seeing this, users are 
-							<a href="http://arctosdb.org/documentation/places/higher-geography/#locality" class="external" target="_blank">failing to find your specimens</a>!
+							<a href="http://arctosdb.org/documentation/places/higher-geography/##locality" class="external" target="_blank">failing to find your specimens</a>!
 						</strong>
 					</p>
 					<p>
@@ -655,7 +655,7 @@ function checkCoordinateError(){
 					<p>
 						<strong>
 							If you're seeing this, users are 
-							<a href="http://arctosdb.org/documentation/places/higher-geography/#locality" class="external" target="_blank">failing to find your specimens</a>!
+							<a href="http://arctosdb.org/documentation/places/higher-geography/##locality" class="external" target="_blank">failing to find your specimens</a>!
 						</strong>
 					</p>
 					<p>
