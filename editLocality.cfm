@@ -847,11 +847,10 @@ function checkCoordinateError(){
 		<cfquery name="canEdit" dbtype="query">
 			select count(*) c from vstat where verificationstatus like 'verified by%'
 		</cfquery>
-		<cfdump var=#canEdit#>
 		<cfif canEdit.c gt 0>
-		<hr>
-			Edits to this locality are disallowed by verificationstatus.
-		<hr>
+			<hr>
+				Edits to this locality are disallowed by verificationstatus.
+			<hr>
 		<cfelse>
 			<input type="submit" value="Save" class="savBtn">
 			<input type="button" value="Delete" class="delBtn" onClick="deleteLocality('#locDet.locality_id#');">
