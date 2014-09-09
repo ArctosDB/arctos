@@ -25,12 +25,12 @@
 
 		console.log(h);
 
+
+		$( "#gst" + $("#numGeogSrchTerms").val()).addClass('reqdClr');
+		$( "#gst" + $("#numGeogSrchTerms").val()).after( h );
+
+
 		$("#numGeogSrchTerms").val(n);
-
-		$( "#gst1").addClass('reqdClr');
-		$( "#gst1" ).after( h );
-
-
 
 	}
 
