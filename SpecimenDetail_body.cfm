@@ -193,6 +193,45 @@
 	from 
 		rawevent
 	group by
+		SPECIMEN_EVENT_ID,
+		collecting_event_id,
+		assigned_by_agent_id,
+		assigned_by_agent_name,
+		assigned_date,
+		specimen_event_remark,
+		specimen_event_type,
+		COLLECTING_METHOD,
+		COLLECTING_SOURCE,
+		VERIFICATIONSTATUS,
+		habitat,
+    	LOCALITY_ID,
+		VERBATIM_DATE,
+		VERBATIM_LOCALITY,
+		COLL_EVENT_REMARKS,
+		BEGAN_DATE,
+		ENDED_DATE,
+		verbatim_coordinates,
+		collecting_event_name,
+		DEC_LAT,
+		DEC_LONG,
+		DATUM,
+		ORIG_LAT_LONG_UNITS,
+		GEOG_AUTH_REC_ID,
+		SOURCE_AUTHORITY
+		SPEC_LOCALITY,
+		MINIMUM_ELEVATION,
+		MAXIMUM_ELEVATION,
+		ORIG_ELEV_UNITS,
+		MIN_DEPTH,
+		MAX_DEPTH,
+		DEPTH_UNITS,
+		MAX_ERROR_DISTANCE,
+		MAX_ERROR_UNITS,
+		LOCALITY_REMARKS,
+		georeference_source,
+		georeference_protocol,
+		locality_name,
+		higher_geog
 </cfquery>
 <style>
 	.acceptedIdDiv {
