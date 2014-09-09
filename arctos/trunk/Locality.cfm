@@ -12,9 +12,18 @@
 
 		var n,h;
 		n=$("#numGeogSrchTerms").val();
+
+		console.log('n');
+
+
+
 		h='<tr id="gst' + n + '"><td colspan="4">';
 		h+='<textarea name="new_geog_search_term_' + n + '" id="new_geog_search_term_' + n + '" class="longtextarea newRec" rows="30" cols="1"></textarea>'
 		h+='</td></tr>';
+
+
+		console.log(h);
+
 		$("#numGeogSrchTerms").val(parseInt($("#numGeogSrchTerms").val()+1));
 
 		$( "#gst" + n ).insertAfter( h );
@@ -558,7 +567,7 @@
 	                	</div>
 	                </td>
 				</tr>
-					<input type="text" name="numGeogSrchTerms" value="1">
+					<input type="text" name="numGeogSrchTerms" id="numGeogSrchTerms" value="1">
 				<tr id="gst1">
 	                <td colspan="4">
 	                	<label for="new_geog_search_term_1">
