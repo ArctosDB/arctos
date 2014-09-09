@@ -150,6 +150,10 @@
 	order by
 		specimen_event_type
 </cfquery>
+
+<cfdump var=#rawevent#>
+
+
 <cfquery name="event" dbtype="query">
 	select
 		SPECIMEN_EVENT_ID,
