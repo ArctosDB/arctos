@@ -26,7 +26,7 @@
 
 		$("#numGeogSrchTerms").val(n);
 
-		$( "#gst" + n ).after( h );
+		$( "#gst" + $("#numGeogSrchTerms").val() ).after( h );
 
 
 	}
