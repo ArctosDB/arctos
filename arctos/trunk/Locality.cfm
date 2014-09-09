@@ -7,37 +7,14 @@
 		$("#ended_date").datepicker();
 	});
 	function addGeoSrchTerm(){
-
-		console.log('hi');
-
 		var n,h;
-
 		n=parseInt($("#numGeogSrchTerms").val()) + 1;
-
-		console.log('n');
-
-
-
 		h='<tr id="gst' + n + '"><td colspan="4">';
 		h+='<textarea name="new_geog_search_term_' + n + '" id="new_geog_search_term_' + n + '" class="longtextarea newRec" rows="30" cols="1"></textarea>'
 		h+='</td></tr>';
-
-
-		console.log(h);
-
-
-		$( "#gst" + $("#numGeogSrchTerms").val()).addClass('reqdClr');
 		$( "#gst" + $("#numGeogSrchTerms").val()).after( h );
-
-
 		$("#numGeogSrchTerms").val(n);
-
 	}
-
-				
-
-
-
 </script>
 <cfoutput>
 <!--- see if action is duplicated --->
@@ -1478,21 +1455,14 @@ You deleted a collecting event.
 				where 
 					geog_auth_rec_id = #geog_auth_rec_id#
 			</cfquery>
-			<cfif len(new_geog_search_term_1) gt 0>
-				<cfquery name="ist1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into geog_search_term (geog_auth_rec_id,search_term) values (#geog_auth_rec_id#,'#escapeQuotes(new_geog_search_term_1)#')
-				</cfquery>
-			</cfif>
-			<cfif len(new_geog_search_term_2) gt 0>
-				<cfquery name="ist2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into geog_search_term (geog_auth_rec_id,search_term) values (#geog_auth_rec_id#,'#escapeQuotes(new_geog_search_term_2)#')
-				</cfquery>
-			</cfif>
-			<cfif len(new_geog_search_term_3) gt 0>
-				<cfquery name="ist3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into geog_search_term (geog_auth_rec_id,search_term) values (#geog_auth_rec_id#,'#escapeQuotes(new_geog_search_term_3)#')
-				</cfquery>
-			</cfif>
+			<cfloop from ="1" to="#numGeogSrchTerms#" index="i">
+				<cfset thisTerm=evaluate("new_geog_search_term_" & i)>
+				<cfif len(thisTerm) gt 0>
+					<cfquery name="ist1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into geog_search_term (geog_auth_rec_id,search_term) values (#geog_auth_rec_id#,'#escapeQuotes(thisTerm)#')
+					</cfquery>
+				</cfif>
+			</cfloop>
 			<cfloop list="#form.FieldNames#" index="f">
 				<cfif left(f,17) is "geog_search_term_">
 					<cfset thisv=evaluate("form." & f)>
