@@ -756,6 +756,11 @@
 			minWidth: "500",
 			height: "300"
 		});
+		$("#groupBy,#groupBy1").multiselect({
+			//minWidth: "500",
+			//height: "300"
+		});
+
 	});
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
