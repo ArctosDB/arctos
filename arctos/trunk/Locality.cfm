@@ -11,6 +11,7 @@
 		console.log('hi');
 
 		var n,h;
+
 		n=parseInt($("#numGeogSrchTerms").val()) + 1;
 
 		console.log('n');
@@ -26,7 +27,9 @@
 
 		$("#numGeogSrchTerms").val(n);
 
+		$( "#gst" + $("#numGeogSrchTerms").val() ).addClass('reqdClr');
 		$( "#gst" + $("#numGeogSrchTerms").val() ).after( h );
+
 
 
 	}
