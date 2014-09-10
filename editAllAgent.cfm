@@ -28,25 +28,7 @@
 			var q=$("#fEditAgent").serialize();
 			console.log(q);
 			
-			$.getJSON("/component/agent.cfc",
-				{
-					method : "saveAgent",
-					data : q,
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				function (r) {
-console.log(r);
-/*
-					if(r!='success'){
-						saveSearch(returnURL,r);
-					} else {
-						alert('Saved search ' + sn + '. Find it in the My Stuff tab.');
-					}
-*/
-				}
-			);
-/*
+		
 $.ajax({
 					url: "/component/agent.cfc?queryformat=column&method=saveAgent&returnformat=json",
 					type: "GET",
@@ -59,7 +41,6 @@ $.ajax({
 					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 					}
 				});
-**/
 		});
 	
 	
