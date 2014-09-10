@@ -140,7 +140,7 @@
 			<input type="button" class="lnkBtn" onclick="rankAgent('#agent.agent_id#');" value="Rank">
 		</cfif>
 		
-		<form name="fEditAgent" id="fEditAgent" action="editAllAgent.cfm" method="post" target="_person">
+		<form name="fEditAgent" id="fEditAgent" action="editAllAgent.cfm">
 			<div style="border:1px solid green;padding:.5em;margin:.5em;">
 				<input type="hidden" name="agent_id" id="agent_id" value="#agent.agent_id#">
 				<label for="preferred_agent_name">Preferred Name</label>
@@ -156,7 +156,7 @@
 				<label for="agent_remarks">Agent Remark</label>
 				<input type="text" value="#stripQuotes(agent.agent_remarks)#" name="agent_remarks" id="agent_remarks" size="100">
 			</div>
-			<br><input type="submit">
+			<br><input type="submit" value="ajaxsubmit">
 		</form>
 		<table border>
 				<tr>
