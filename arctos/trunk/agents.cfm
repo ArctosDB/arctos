@@ -38,7 +38,7 @@ var bgDiv = document.createElement('div');
 
 function loadAgentSearch(q){
 	var ptl="/AgentGrid.cfm?" + q;
-		$("#td_rslt").load(ptl,{},function(){
+		$("#td_edit").load(ptl,{},function(){
 			//viewport.init("#customDiv");
 		});
 }
