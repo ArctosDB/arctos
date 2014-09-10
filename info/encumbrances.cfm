@@ -57,7 +57,7 @@
 		REMARKS	
 </cfquery>
 <cfoutput>
-<h2>Active Encumbrances</h2>	
+<h2>All Active Encumbrances</h2>	
 <table border id="t" class="sortable">
 		<tr>
 			<th>Encumbering Agent</th>
@@ -91,5 +91,41 @@
 			</tr>
 		</cfloop>
 	</table>
+<h2>Encumbrances by action and collection</h2>
+
+<cfquery name="eac" dbtype="query">
+	select
+		decode (ENCUMBRANCE,
+			'mask record','mask record',
+			'restrict usage','restrict usage',
+			'hide or alter data') encaction,
+		collection,
+		sum(numberSpecimens) affectedSpecimens
+	from
+		d
+	group by
+		decode (ENCUMBRANCE,
+			'mask record','mask record',
+			'restrict usage','restrict usage',
+			'hide or alter data') encaction,
+		collection
+</cfquery>
+<table border id="t" class="sortable">
+		<tr>
+			<th>Encumbrance Category</th>
+			<th>Collection</th>
+			<th>## Specimens</th>
+		</tr>
+		<cfloop query="eac">
+			<tr>
+				<td>#encaction#</td>
+				<td>#collection#</td>
+				<td>#affectedSpecimens#</td>
+			</tr>
+		</cfloop>
+	</table>
+
 </cfoutput>
+
+
 <cfinclude template="/includes/_footer.cfm">
