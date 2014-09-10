@@ -3,6 +3,7 @@
 <script src="/includes/sorttable.js"></script>
 <cfquery name="d" datasource="uam_god">
 	select
+		collection.collection_id,
 		encumbrance.encumbrance_id,
 		getPreferredAgentName(ENCUMBERING_AGENT_ID) encumberer,
 		EXPIRATION_DATE,
@@ -23,6 +24,7 @@
 		coll_object_encumbrance.COLLECTION_OBJECT_ID=cataloged_item.COLLECTION_OBJECT_ID and
 		cataloged_item.collection_id=collection.collection_id 
 	group by
+		collection.collection_id,
 		encumbrance.encumbrance_id,
 		getPreferredAgentName(ENCUMBERING_AGENT_ID),
 		EXPIRATION_DATE,
@@ -93,6 +95,11 @@
 	</table>
 <h2>Encumbrances by action and collection</h2>
 
+
+<cfquery name="chase" dbtype="query">
+	select collection_id from d group by collection_id
+</cfquery>
+
 <cfquery name="eac" dbtype="query">
 	select
 		decode (ENCUMBRANCE,
@@ -116,12 +123,18 @@
 			<th>Collection</th>
 			<th>## Specimens</th>
 		</tr>
-		<cfloop query="eac">
+		<cfloop query="chase">
+			<cfquery name="rs" dbtype="query">
+				select collection,sum(numberSpecimens) affectedSpecimens from d where collection_id=collection_id
+			</cfquery>
+			<cfdump var=#rs#>
+			<!----
 			<tr>
 				<td>#encaction#</td>
 				<td>#collection#</td>
 				<td>#affectedSpecimens#</td>
 			</tr>
+			---->
 		</cfloop>
 	</table>
 
