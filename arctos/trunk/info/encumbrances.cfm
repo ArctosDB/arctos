@@ -156,24 +156,21 @@
 		<tr>
 			<th>Collection</th>
 			<th>Total Specimens</th>
-			<th>Encumbered Specimens</th>
+			<th>Total Encumbered Specimens</th>
 			<th>Mask Record</th>
 			<th>Restrict Usage</th>
 			<th>Withhold Information</th>
-			<th>% Encumbered</th>
 		</tr>
 		<cfloop query="sencs">
 		
-			<cfset penc=numberformat(100 * (numberEncumberedRecords/collnSize),"99.99")>
 
 			<tr>
 				<td>#collection#</td>
 				<td>#collnSize#</td>
-				<td>#numberEncumberedRecords#</td>
-				<td>#numberMaskedRecords#</td>
-				<td>#numberRestrictedRecords#</td>
-				<td>#numberWithheldRecords#</td>
-				<td>#penc#</td>
+				<td>#numberEncumberedRecords# (#numberformat(100 * (numberEncumberedRecords/collnSize),"99.99")#%)</td>
+				<td>#numberMaskedRecords# (#numberformat(100 * (numberMaskedRecords/collnSize),"99.99")#)</td>
+				<td>#numberRestrictedRecords# (#numberformat(100 * (numberRestrictedRecords/collnSize),"99.99")#)</td>
+				<td>#numberWithheldRecords# (#numberformat(100 * (numberWithheldRecords/collnSize),"99.99")#)</td>
 			</tr>
 		</cfloop>
 	</table>
