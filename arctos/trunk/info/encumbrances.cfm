@@ -148,28 +148,10 @@
     collection.collection
   order by
     collection.collection
+</cfquery>
 <cfdump var=#sencs#>
 
 
-<!----
-<cfquery name="eac" dbtype="query">
-	select
-		decode (ENCUMBRANCE,
-			'mask record','mask record',
-			'restrict usage','restrict usage',
-			'hide or alter data') encaction,
-		collection,
-		sum(numberSpecimens) affectedSpecimens
-	from
-		d
-	group by
-		decode (ENCUMBRANCE,
-			'mask record','mask record',
-			'restrict usage','restrict usage',
-			'hide or alter data') encaction,
-		collection
-</cfquery>
----->
 <table border id="t" class="sortable">
 		<tr>
 			<th>Collection</th>
@@ -191,7 +173,6 @@
 				<td>#numberMaskedRecords#</td>
 				<td>#numberRestrictedRecords#</td>
 				<td>#numberWithheldRecords#</td>
-					
 				<td>#penc#</td>
 			</tr>
 		</cfloop>
