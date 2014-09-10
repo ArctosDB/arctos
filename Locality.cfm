@@ -507,7 +507,7 @@
 					</td>
 					<td colspan="2">
 						<label for="island" class="likeLink" onClick="getDocs('higher_geography','island')">
-							Island
+							Island (prefix with * to force; otherwise will error on potential duplicates)
 						</label>
 						<input type="text" name="island" id="island" value="#island#" size="50">
 					</td>
@@ -515,9 +515,9 @@
 				<tr>
 	                <td colspan="2">
 						<label for="source_authority">
-							Authority
+							Authority (pattern: http://{language}.wikipedia.org/wiki/{article})
 						</label>
-						<input type="url" name="source_authority" id="source_authority" class="reqdClr" value="#source_authority#"  pattern="^https?://*.wikipedia.org/wiki/.+">
+						<input type="url" name="source_authority" id="source_authority" class="reqdClr" value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}">
 					</td>
 	                <td>
 						<label for="valid_catalog_term_fg">
