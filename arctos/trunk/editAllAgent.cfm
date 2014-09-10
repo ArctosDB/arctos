@@ -18,7 +18,22 @@
 	select agent_status from ctagent_status order by agent_status
 </cfquery>
 
+<script>
 
+   
+$(document).ready(function() {
+	$("#fEditAgent").submit(function(event){
+		console.log('form submit');
+		event.preventDefault();
+		var q=$("#fEditAgent").serialize();
+		console.log(q);
+	});
+
+
+
+
+});
+</script>
 
 
 
@@ -140,7 +155,7 @@
 			<input type="button" class="lnkBtn" onclick="rankAgent('#agent.agent_id#');" value="Rank">
 		</cfif>
 		
-		<form name="fEditAgent" id="fEditAgent" action="editAllAgent.cfm">
+		<form name="fEditAgent" id="fEditAgent">
 			<div style="border:1px solid green;padding:.5em;margin:.5em;">
 				<input type="hidden" name="agent_id" id="agent_id" value="#agent.agent_id#">
 				<label for="preferred_agent_name">Preferred Name</label>
