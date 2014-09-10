@@ -285,7 +285,7 @@ window.onload=resizeCaller
 	<table width="100%">
 		<tr>
 			<td>
-				<input type="button" value="Search" class="schBtn" id="goAgentSearch();">
+				<input type="button" value="Search" class="schBtn" id="goAgentSearch">
 			</td>
 			<td><input type="reset" value="Clear Form" class="clrBtn"></td>
 			<td>
