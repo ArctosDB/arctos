@@ -1,5 +1,25 @@
 <cfcomponent>
 
+
+<cffunction name="saveAgent" access="remote">
+	<cfif not isdefined("escapeQuotes")>
+		<cfinclude template="/includes/functionLib.cfm">
+	</cfif>
+	<cftry>
+	<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		UPDATE agent SET 
+			agent_remarks = '#escapeQuotes(agent_remarks)#',
+			agent_type='#agent_type#',
+			preferred_agent_name='#escapeQuotes(preferred_agent_name)#'
+		WHERE
+			agent_id = #agent_id#
+	</cfquery>
+	<cfreturn "success">
+	<cfcatch>
+		<cfreturn cfcatch>
+	</cfcatch>
+	</cftry>
+</cffunction>
 <!------------------------------------->
 
 <cffunction name="findAgents" access="remote">
