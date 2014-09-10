@@ -154,6 +154,7 @@
 			<th>Mask Record</th>
 			<th>Restrict Usage</th>
 			<th>Withhold Information</th>
+			<th>% Encumbered</th>
 		</tr>
 		<cfloop query="col">
 			<cfquery name="cs" dbtype="query">
@@ -164,20 +165,50 @@
 				where 
 					collection_id=#collection_id#
 			</cfquery>
-			<cfquery name="etc" dbtype="query">
+			<cfquery name="totenc" dbtype="query">
 				select 
-					encaction,
-					under c
+					sum(under) as c
 				from 
 					sencs 
 				where 
 					collection_id=#collection_id#
 			</cfquery>
-			<cfdump var=#etc#>
+			<cfquery name="had" dbtype="query">
+				select 
+					under c
+				from 
+					sencs 
+				where 
+					collection_id=#collection_id# and
+					 encaction='hide or alter data'
+			</cfquery>
+			<cfquery name="mr" dbtype="query">
+				select 
+					under c
+				from 
+					sencs 
+				where 
+					collection_id=#collection_id# and
+					 encaction='mask record'
+			</cfquery>
+			<cfquery name="ru" dbtype="query">
+				select 
+					under c
+				from 
+					sencs 
+				where 
+					collection_id=#collection_id# and
+					 encaction='restrict usage'
+			</cfquery>
 			<tr>
 				<td>#col.collection#</td>
 				<td>#cs.c#</td>
-				<td>##</td>
+				<td>#mr.c#</td>
+				<td>#ru.c#</td>
+				<td>#had.c#</td>
+				<cfset penc=cs.c/totenc.c>
+					
+				<td>#penc#</td>
 			</tr>
 		</cfloop>
 	</table>
