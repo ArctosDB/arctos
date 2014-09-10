@@ -54,10 +54,34 @@ var ptl="/editAllAgent.cfm?agent_id=" + aid;
 
 function loadAgentSearch(q){
 $("#td_edit").html('<img src="/images/indicator.gif">');
+
+$.ajax({
+		url: "/component/functions.cfc?queryformat=column",
+		type: "GET",
+		dataType: "json",
+		async: false,
+		data: {
+			method:  "findAgents",
+			q :q,
+			returnformat : "json"
+		},
+		success: function(r) {
+			console.log(r);
+		},
+		error: function (xhr, textStatus, errorThrown){
+		    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+		}
+	});
+
+
+
+/*
 	var ptl="/AgentGrid.cfm?" + q;
 		$("#td_edit").load(ptl,{},function(){
 			//viewport.init("#customDiv");
 		});
+ 
+*/
 }
 
 </script>
