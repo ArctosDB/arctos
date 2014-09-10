@@ -177,7 +177,7 @@
 			<tr>
 				<td>#col.collection#</td>
 				<td>#cs.c#</td>
-				<td>#rsc#</td>
+				<td>##</td>
 			</tr>
 		</cfloop>
 	</table>
