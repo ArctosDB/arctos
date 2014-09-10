@@ -325,9 +325,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="right">Source Authority:</td>
+				<td align="right">Source Authority (Wikipedia URL)</td>
 				<td>
-					<input name="source_authority" id="source_authority" class="reqdClr">
+					<input name="source_authority" id="source_authority" class="reqdClr" pattern="^http:\/\/e.\.wikipedia.org\/wiki\/.*">
 				</td>
 			</tr>
 			<tr>
@@ -547,7 +547,7 @@
 	                	</div>
 	                </td>
 				</tr>
-					<input type="text" name="numGeogSrchTerms" id="numGeogSrchTerms" value="1">
+					<input type="hidden" name="numGeogSrchTerms" id="numGeogSrchTerms" value="1">
 				<tr id="gst1">
 	                <td colspan="4">
 	                	<label for="new_geog_search_term_1">
@@ -1459,7 +1459,7 @@ You deleted a collecting event.
 				<cfset thisTerm=evaluate("new_geog_search_term_" & i)>
 				<cfif len(thisTerm) gt 0>
 					<cfquery name="ist1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						insert into geog_search_term (geog_auth_rec_id,search_term) values (#geog_auth_rec_id#,'#escapeQuotes(thisTerm)#')
+						insert into geog_search_term (geog_auth_rec_id,search_term) values (#geog_auth_rec_id#,trim('#escapeQuotes(thisTerm)#'))
 					</cfquery>
 				</cfif>
 			</cfloop>
