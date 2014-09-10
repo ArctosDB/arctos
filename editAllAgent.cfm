@@ -88,9 +88,6 @@ $(document).ready(function() {
 		       	numSpecs desc,
 		       	collection
 		</cfquery>
-		
-		
-		
 		<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from addr
 			where 
@@ -171,9 +168,8 @@ $(document).ready(function() {
 				<label for="agent_remarks">Agent Remark</label>
 				<input type="text" value="#stripQuotes(agent.agent_remarks)#" name="agent_remarks" id="agent_remarks" size="100">
 			</div>
-			<br><input type="submit" value="ajaxsubmit">
-		</form>
-		<table border>
+			
+			<table border>
 				<tr>
 				<th>
 					<span class="likeLink" onclick="getCtDoc('ctAgent_Status');">Agent Status</span>
@@ -184,53 +180,41 @@ $(document).ready(function() {
 				<th></th>
 			</tr>
 			<tr class="newRec">
-				<form name="status" method="post" action="editAllAgent.cfm">
-					<input type="hidden" name="action" value="newStatus">
-					<input type="hidden" name="agent_id" value="#agent_id#">
-					<td>
-						<select name="agent_status" size="1" class="reqdClr">
-							<option value=""></option>
-							<cfloop query="ctagent_status">
-								<option value="#agent_status#">#agent_status#</option>
-							</cfloop>
-						</select>
-					</td>
-					<td><input type="datetime" class="reqdClr" size="12" name="status_date" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
-					<td><input type="text" size="50" name="status_remark"></td>
-					<td>
-					</td>
-					<td>
-						<input type="submit" value="create" class="insBtn">
-					</td>
-				</form>
+				<td>
+					<select name="new_agent_status" id"new_agent_status" size="1" class="reqdClr">
+						<option value=""></option>
+						<cfloop query="ctagent_status">
+							<option value="#agent_status#">#agent_status#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td><input type="datetime" class="reqdClr" size="12" name="new_status_date" id="new_status_date" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
+				<td><input type="text" size="50" name="new_status_remark" id="new_status_remark"></td>
+				<td>
+				</td>
 			</tr>
 			<cfloop query="status">
 				<tr>
-					<form name="status#agent_status_id#" method="post" action="editAllAgent.cfm">
-						<input type="hidden" name="action">
-						<input type="hidden" name="agent_status_id" value="#agent_status_id#">
-						<input type="hidden" name="agent_id" value="#agent_id#">
-						<td>
-							<select name="agent_status" size="1" class="reqdClr">
-								<option value=""></option>
-								<cfloop query="ctagent_status">
-									<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td><input type="datetime" class="reqdClr" size="12" name="status_date" value="#status_date#"></td>
-						<td><input type="text" size="50" name="status_remark" value="#status_remark#"></td>
-						<td>
-							<span style="font-size:x-small;">(#reported_by# on #dateformat(STATUS_REPORTED_DATE,'yyyy-mm-dd')#)</span>
-						</td>
-						<td>
-							<input type="button" value="update" class="savBtn" onclick="status#agent_status_id#.action.value='updateStatus';status#agent_status_id#.submit();">
-							<input type="button" value="delete" class="delBtn" onclick="status#agent_status_id#.action.value='deleteStatus';confirmDelete('status#agent_status_id#');">
-						</td>
-					</form>
+					<td>
+						<select name="agent_status_#agent_status_id#" id="agent_status_#agent_status_id#" size="1" class="reqdClr">
+							<option value="">DELETE</option>
+							<cfloop query="ctagent_status">
+								<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td><input type="datetime" class="reqdClr" size="12" name="status_date_#agent_status_id#" id="status_date_#agent_status_id#" value="#status_date#"></td>
+					<td><input type="text" size="50" name="status_remark" value="#status_remark#"></td>
+					<td>
+						<span style="font-size:x-small;">(#reported_by# on #dateformat(STATUS_REPORTED_DATE,'yyyy-mm-dd')#)</span>
+					</td>
 				</tr>
 			</cfloop>
-		</table>		
+		</table>
+			
+			<br><input type="submit" value="ajaxsubmit">
+		</form>
+				
 		<cfset i=1>
 		<cfloop query="agentAddrs">
 			<cfif valid_addr_fg is 1>
