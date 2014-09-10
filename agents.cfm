@@ -44,7 +44,13 @@ var bgDiv = document.createElement('div');
 
 
 });
-
+function loadEditAgent(aid){
+$("#td_rslt").html('<img src="/images/indicator.gif">');
+var ptl="/editAllAgent.cfm?agent_id" + aid;
+		$("#td_rslt").load(ptl,{},function(){
+			//viewport.init("#customDiv");
+		});
+}
 
 function loadAgentSearch(q){
 $("#td_edit").html('<img src="/images/indicator.gif">');
