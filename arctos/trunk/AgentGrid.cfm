@@ -1,7 +1,4 @@
-<cfinclude template="includes/_pickHeader.cfm">
-<cfif not isdefined("Action") OR not action is "search">
-	<cfabort>
-</cfif>
+
 <cfoutput>
 	<cfset sql = "SELECT 
 					agent.agent_id,
@@ -72,10 +69,9 @@
 	</cfif>
 	<div style="height:20em; overflow:auto;">
 		<cfloop query="getAgents">
-			<div>
-			 <a href="editAllAgent.cfm?agent_id=#agent_id#" target="_person">#preferred_agent_name#</a> <font size="-1">(#agent_type#: #agent_id#)</font> 
+			<div class="likeLink" onclick="loadEditAgent('#agent_id#');">
+				#preferred_agent_name# <font size="-1">(#agent_type#: #agent_id#)</font> 
 		   </div>
 		</cfloop>
 	</div>
 </cfoutput>
-<cfinclude template="includes/_pickFooter.cfm">
