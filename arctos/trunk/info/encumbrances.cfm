@@ -126,16 +126,23 @@
 		</tr>
 		<cfloop query="chase">
 			<cfquery name="rs" dbtype="query">
-				select collection,sum(numberSpecimens) as affectedSpecimens from d where collection_id=#collection_id# group by collection
+				select 
+					collection,
+					sum(numberSpecimens) as c
+				from 
+					d 
+				where 
+					collection_id=#collection_id# and
+					ENCUMBRANCE_ACTION='mask record'
+				group by 
+					collection
 			</cfquery>
 			<cfdump var=#rs#>
-			<!----
 			<tr>
-				<td>#encaction#</td>
-				<td>#collection#</td>
-				<td>#affectedSpecimens#</td>
+				<td>mask record</td>
+				<td>#rs.collection#</td>
+				<td>#c#</td>
 			</tr>
-			---->
 		</cfloop>
 	</table>
 
