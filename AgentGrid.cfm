@@ -78,4 +78,3 @@
 		</cfloop>
 	</div>
 </cfoutput>
-<cfinclude template="includes/_pickFooter.cfm">
