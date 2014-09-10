@@ -517,7 +517,7 @@
 						<label for="source_authority">
 							Authority
 						</label>
-						<input name="source_authority" id="source_authority" class="reqdClr" value="#source_authority#"  pattern="^https?:*.wikipedia.org/wiki/.*">
+						<input type="url" name="source_authority" id="source_authority" class="reqdClr" value="#source_authority#"  pattern="^https?://*.wikipedia.org/wiki/.+">
 					</td>
 	                <td>
 						<label for="valid_catalog_term_fg">
