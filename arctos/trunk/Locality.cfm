@@ -327,7 +327,7 @@
 			<tr>
 				<td align="right">Source Authority (Wikipedia URL)</td>
 				<td>
-					<input name="source_authority" id="source_authority" class="reqdClr" pattern="^https?:*.wikipedia.org/wiki/.*">
+					<input name="source_authority" id="source_authority" class="reqdClr">
 				</td>
 			</tr>
 			<tr>
@@ -517,7 +517,7 @@
 						<label for="source_authority">
 							Authority
 						</label>
-						<input name="source_authority" id="source_authority" class="reqdClr" value="#source_authority#">
+						<input name="source_authority" id="source_authority" class="reqdClr" value="#source_authority#"  pattern="^https?:*.wikipedia.org/wiki/.*">
 					</td>
 	                <td>
 						<label for="valid_catalog_term_fg">
