@@ -64,6 +64,11 @@ $.ajax({
 		data:  q,
 		success: function(r) {
 			console.log(r);
+
+			if (r.ROWCOUNT===0){
+				$("#td_edit").html('nothing found');
+				return false;
+			}
 			h='<div style="height:20em; overflow:auto;">';
 			for (i=0;i<r.ROWCOUNT;i++) {
 				h+='<div class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
