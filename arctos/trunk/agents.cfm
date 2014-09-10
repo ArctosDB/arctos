@@ -65,9 +65,9 @@ $.ajax({
 		success: function(r) {
 			console.log(r);
 			for (i=0;i<r.ROWCOUNT;i++) {
-				h+='<div class="likeLink" onclick="loadEditAgent(' + r.DATA[i].AGENT_ID + ');">';
-				h+= r.DATA[i].PREFERRED_AGENT_NAME + '<font size="-1">(';
-				h+=r.DATA[i].AGENT_TYPE + ': ' + r.DATA[i].AGENT_ID + ')</font> </div>';
+				h+='<div class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
+				h+= r.DATA.PREFERRED_AGENT_NAME[i] + '<font size="-1">(';
+				h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ')</font> </div>';
 			}
 			$("#td_edit").html(h);
 	
