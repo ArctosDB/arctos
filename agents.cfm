@@ -9,7 +9,7 @@
 
 $(document).ready(function() {
 	jQuery("#status_date").datepicker();
-	$("#formEdit").submit(function(event){
+	$("#agntSearch").submit(function(event){
 		event.preventDefault();
 		loadAgentSearch(q);
 	});
