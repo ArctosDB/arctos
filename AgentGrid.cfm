@@ -19,7 +19,7 @@
 					
 
 	<cfif isdefined("anyName") AND len(anyName) gt 0>
-		<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#ucase(escapeQuotes(anyName))#%'">
+		<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#trim(ucase(escapeQuotes(anyName)))#%'">
 	</cfif>
 	<cfif isdefined("agent_id") AND isnumeric(#agent_id#)>
 		<cfset sql = "#sql# AND agent.agent_id = #agent_id#">
