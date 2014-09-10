@@ -56,15 +56,11 @@ function loadAgentSearch(q){
 $("#td_edit").html('<img src="/images/indicator.gif">');
 
 $.ajax({
-		url: "/component/functions.cfc?queryformat=column",
+		url: "/component/functions.cfc?queryformat=column&method=findAgents&returnformat=json",
 		type: "GET",
 		dataType: "json",
 		async: false,
-		data: {
-			method:  "findAgents",
-			q :q,
-			returnformat : "json"
-		},
+		data:  q,
 		success: function(r) {
 			console.log(r);
 		},
