@@ -208,7 +208,7 @@ window.onload=resizeCaller
 		</td>
 	</tr>
 </table>
-<form name="agntSearch" id="agntSearch" action="AgentGrid.cfm" method="post" target="_pick">
+<form name="agntSearch" id="agntSearch">
 	<input type="hidden" name="Action" value="search">
 	<label for="anyName"><a href="javascript:void(0);" onClick="getDocs('agent','anynamesearch')">Any part of any name</a></label>
 	<input type="text" name="anyName" id="anyName" size="75">
