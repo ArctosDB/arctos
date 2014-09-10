@@ -10,7 +10,12 @@
 $(document).ready(function() {
 	jQuery("#status_date").datepicker();
 	$("#agntSearch").submit(function(event){
+
+	console.log('form submit');
+
+
 		event.preventDefault();
+var q=$("#agntSearch").serialize();
 		loadAgentSearch(q);
 	});
 
