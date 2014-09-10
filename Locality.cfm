@@ -441,7 +441,7 @@
 						<label for="continent_ocean" class="likeLink" onClick="getDocs('higher_geography','continent_ocean')">
 							Continent or Ocean
 						</label>
-						<input type="text" name="continent_ocean" id="continent_ocean" value="#continent_ocean#"></td>
+						<input type="text" name="continent_ocean" id="continent_ocean" value="#continent_ocean#" length="40"></td>
 	                <td>
 						<label for="country" class="likeLink" onClick="getDocs('higher_geography','country')">
 							Country
@@ -452,7 +452,7 @@
 						<label for="state_prov" class="likeLink" onClick="getDocs('higher_geography','state_province')">
 							State/Province
 						</label>
-						<input type="text" name="state_prov" id="state_prov" value="#state_prov#">
+						<input type="text" name="state_prov" id="state_prov" value="#state_prov#" length="60">
 					</td>
 					<td>
 						<label for="sea" class="likeLink" onClick="getDocs('higher_geography','sea')">
@@ -517,7 +517,7 @@
 						<label for="source_authority">
 							Authority (pattern: http://{language}.wikipedia.org/wiki/{article})
 						</label>
-						<input type="url" name="source_authority" id="source_authority" class="reqdClr" value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}" size="60">
+						<input type="url" name="source_authority" id="source_authority" class="reqdClr" required value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}" size="60">
 					</td>
 					<!----
 	                <td>
