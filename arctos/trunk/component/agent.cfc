@@ -16,7 +16,7 @@
 	</cfquery>
 	<cfreturn "success">
 	<cfcatch>
-		<cfreturn cfcatch>
+		<cfreturn cfcatch.message & ': ' & cfcatch.detail>
 	</cfcatch>
 	</cftry>
 </cffunction>
