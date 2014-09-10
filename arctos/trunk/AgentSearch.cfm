@@ -13,6 +13,8 @@
 		jQuery("#status_date").datepicker();
 	});
 </script>
+
+<div style="border:1px solid red;padding:1em;margin:1em;">
 <table width="100%">
 	<tr>
 		<td>
@@ -129,5 +131,6 @@
 		</tr>
 	</table>
 </form>
+</div>
 </cfoutput>	
 <cfinclude template="includes/_pickFooter.cfm">
