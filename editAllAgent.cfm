@@ -17,7 +17,26 @@
 <cfquery name="ctagent_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_status from ctagent_status order by agent_status
 </cfquery>
+<style>
+	#map-canvas { height: 300px;width:500px; }
+	
+fieldset {
+    border:0;
+    outline: 1px solid gray;
+}
 
+legend {
+    font-size:85%;
+}
+
+.goodsave {
+   border:1px solid green;
+}
+.badsave {
+   border:2px solid red;
+}
+
+</style>
 <script>
 
    
@@ -36,9 +55,9 @@ $.ajax({
 					data:  q,
 					success: function(r) {
 						if (r=='success'){
-							$("#fs_fEditAgent legend").text('Save Successful');
+							$("#fs_fEditAgent legend").removeClass().addClass('goodsave').text('Save Successful');
 						} else {
-							$("#fs_fEditAgent legend").text('ERROR!');
+							$("#fs_fEditAgent legend")..removeClass().addClass('badsave').text('ERROR!');
 							alert('An error occurred: ' + r);
 						}
 					},
