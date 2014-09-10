@@ -8,7 +8,7 @@
 
 
 $(document).ready(function() {
-	
+		jQuery("#status_date").datepicker();
 	$("#goAgentSearch").click(function(e){
 		var q=("#agntSearch").serialize();
 		console.log(q);
@@ -183,11 +183,7 @@ window.onload=resizeCaller
 		<tr>
 			<td id="td_search">
 
-<script language="javascript" type="text/javascript">
-	jQuery(document).ready(function() {
-		jQuery("#status_date").datepicker();
-	});
-</script>
+
 
 <div style="border:1px solid red;padding:1em;margin:1em;">
 <table width="100%">
