@@ -201,15 +201,33 @@
 					collection_id=#collection_id# and
 					 encaction='restrict usage'
 			</cfquery>
+			<cfif len( mr.c ) gt 0>
+				<cfset masked=mr.c>
+			<cfelse>
+				<cfset masked=0>
+			</cfif>
+			<cfif len( ru.c ) gt 0>
+				<cfset restricted=ru.c>
+			<cfelse>
+				<cfset restricted=0>
+			</cfif>
+			<cfif len( had.c ) gt 0>
+				<cfset withheld=had.c>
+			<cfelse>
+				<cfset withheld=0>
+			</cfif>
+			
+			<cfset nsee=masked+restricted+withheld>
+
+			<cfset penc=numberformat(100 * (totenc.c/cs.c),"99.99")>
+
 			<tr>
 				<td>#col.collection#</td>
 				<td>#cs.c#</td>
-				<cfset nsee=mr.c+ru.c+had.c>
 				<td>#nsee#</td>
-				<td>#mr.c#</td>
-				<td>#ru.c#</td>
-				<td>#had.c#</td>
-				<cfset penc=numberformat(100 * (totenc.c/cs.c),"99.99")>
+				<td>#masked#</td>
+				<td>#restricted#</td>
+				<td>#withheld#</td>
 					
 				<td>#penc#</td>
 			</tr>
