@@ -441,12 +441,12 @@
 						<label for="continent_ocean" class="likeLink" onClick="getDocs('higher_geography','continent_ocean')">
 							Continent or Ocean
 						</label>
-						<input type="text" name="continent_ocean" id="continent_ocean" value="#continent_ocean#" size="40"></td>
+						<input type="text" name="continent_ocean" id="continent_ocean" value="#continent_ocean#" size="60"></td>
 	                <td>
 						<label for="country" class="likeLink" onClick="getDocs('higher_geography','country')">
 							Country
 						</label>
-						<input type="text" name="country" id="country" size="40" value="#country#">
+						<input type="text" name="country" id="country" size="60" value="#country#">
 					</td>
 				</tr>
 				<tr>
@@ -457,10 +457,10 @@
 						<input type="text" name="state_prov" id="state_prov" value="#state_prov#" size="60">
 					</td>
 					<td>
-						<label for="sea" class="likeLink" onClick="getDocs('higher_geography','sea')" size="40">
+						<label for="sea" class="likeLink" onClick="getDocs('higher_geography','sea')" >
 							Sea
 						</label>
-						<input type="text" name="sea" id="sea" value="#sea#">
+						<input type="text" name="sea" id="sea" value="#sea#" size="60">
 					</td>
 				</tr>
 				<tr>
@@ -468,13 +468,13 @@
 						<label for="county" class="likeLink" onClick="getDocs('higher_geography','county')">
 							County
 						</label>
-						<input type="text" name="county" id="county" value="#county#" size="40">
+						<input type="text" name="county" id="county" value="#county#" size="60">
 					</td>
                 	<td>
 						<label for="quad" class="likeLink" onClick="getDocs('higher_geography','map_name')">
 							Quad
 						</label>
-						<input type="text" name="quad" id="quad" value="#quad#" size="40">
+						<input type="text" name="quad" id="quad" value="#quad#" size="60">
 					</td>
 				</tr>
 				<tr>
@@ -516,7 +516,7 @@
 						<label for="island" class="likeLink" onClick="getDocs('higher_geography','island')">
 							Island (prefix with * to force; otherwise will error on potential duplicates)
 						</label>
-						<input type="text" name="island" id="island" value="#island#" size="50">
+						<input type="text" name="island" id="island" value="#island#" size="60">
 					</td>
 				</tr>
 				<tr>
@@ -524,7 +524,7 @@
 						<label for="source_authority">
 							Authority (pattern: http://{language}.wikipedia.org/wiki/{article})
 						</label>
-						<input type="url" name="source_authority" id="source_authority" class="reqdClr" required value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}" size="60">
+						<input type="url" name="source_authority" id="source_authority" class="reqdClr" required value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}" size="80">
 					</td>
 					<!----
 	                <td>
