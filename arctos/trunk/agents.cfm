@@ -3,7 +3,25 @@
 </cfif>
 <cfinclude template="/includes/_header.cfm">
 
+<style>
+#sidebar, #main {
+    display: table-cell;
+}
 
+#sidebar {
+    width:30%;
+    float: left;
+    background:red;
+}
+
+#main {
+    background: blue;
+
+}
+
+
+
+</style>
 <script>
 
 
@@ -78,25 +96,7 @@ $.ajax({
 </cfquery>
 
 
-<style>
-#sidebar, #main {
-    display: table-cell;
-}
 
-#sidebar {
-    width:100px;
-    float: left;
-    background:red;
-}
-
-#main {
-    background: blue;
-
-}
-
-
-
-</style>
 <cfoutput>
 
 
