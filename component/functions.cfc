@@ -4,6 +4,12 @@
 
 <cffunction name="findAgents" access="remote">
 	<cfoutput>
+	
+	<cfif not isdefined("escapeQuotes")>
+		<cfinclude template="/includes/functionLib.cfm">
+	</cfif>
+	
+	
 	<cfset sql = "SELECT 
 					agent.agent_id,
 					agent.preferred_agent_name,
