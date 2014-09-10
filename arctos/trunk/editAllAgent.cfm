@@ -35,7 +35,12 @@ $.ajax({
 					dataType: "json",
 					data:  q,
 					success: function(r) {
-						console.log(r);
+						if (r=='success'){
+							$("#fs_fEditAgent legend").text('Save Successful');
+						} else {
+							$("#fs_fEditAgent legend").text('ERROR!');
+							alert('An error occurred: ' + r);
+						}
 					},
 					error: function (xhr, textStatus, errorThrown){
 					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
