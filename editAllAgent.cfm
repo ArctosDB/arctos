@@ -31,9 +31,11 @@ legend {
 
 .goodsave {
    border:1px solid green;
+margin:.1em;
 }
 .badsave {
    border:2px solid red;
+	margin:.5em;
 }
 
 </style>
@@ -42,38 +44,75 @@ legend {
    
 	$(document).ready(function() {
 		$("#fEditAgent").submit(function(event){
-			console.log('form submit');
 			event.preventDefault();
 			var q=$("#fEditAgent").serialize();
-			console.log(q);
-			
-		
-$.ajax({
-					url: "/component/agent.cfc?queryformat=column&method=saveAgent&returnformat=json",
-					type: "GET",
-					dataType: "json",
-					data:  q,
-					success: function(r) {
-						if (r=='success'){
-							$("#fs_fEditAgent legend").removeClass().addClass('goodsave').text('Save Successful');
-						} else {
-							$("#fs_fEditAgent legend").removeClass().addClass('badsave').text('ERROR!');
-							alert('An error occurred: ' + r);
-						}
-					},
-					error: function (xhr, textStatus, errorThrown){
-					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+			$.ajax({
+				url: "/component/agent.cfc?queryformat=column&method=saveAgent&returnformat=json",
+				type: "GET",
+				dataType: "json",
+				data:  q,
+				success: function(r) {
+					if (r=='success'){
+						$("#fs_fEditAgent legend").removeClass().addClass('goodsave').text('Save Successful');
+					} else {
+						$("#fs_fEditAgent legend").removeClass().addClass('badsave').text('ERROR!');
+						alert('An error occurred: ' + r);
 					}
-				});
+				},
+				error: function (xhr, textStatus, errorThrown){
+				    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+				}
+			});
+		});
+		$("#fAgentName").submit(function(event){
+			event.preventDefault();
+			var q=$("#fAgentName").serialize();
+			$.ajax({
+				url: "/component/agent.cfc?queryformat=column&method=saveAgentNames&returnformat=json",
+				type: "GET",
+				dataType: "json",
+				data:  q,
+				success: function(r) {
+					if (r=='success'){
+						$("#fs_fAgentName legend").removeClass().addClass('goodsave').text('Save Successful');
+					} else {
+						$("#fs_fAgentName legend").removeClass().addClass('badsave').text('ERROR!');
+						alert('An error occurred: ' + r);
+					}
+				},
+				error: function (xhr, textStatus, errorThrown){
+				    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+				}
+			});
 		});
 	
 	
 	
 	
 	});
+function addAgentName(){
+	$.ajax({
+		url: "/component/agent.cfc?queryformat=column&method=addAgentName&returnformat=json",
+		type: "GET",
+		dataType: "json",
+		data: {
+			agent_type:  $("#agent_name_type_new").val(),
+			agent_name : $("#agent_name_new").val()
+		},
+		success: function(r) {
+			if (r=='success'){
+				$("#fs_fAgentName legend").removeClass().addClass('goodsave').text('Insert Successful');
+			} else {
+				$("#fs_fAgentName legend").removeClass().addClass('badsave').text('ERROR!');
+				alert('An error occurred: ' + r);
+			}
+		},
+		error: function (xhr, textStatus, errorThrown){
+		    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+		}
+	});
+}
 </script>
-
-
 
 
 
@@ -192,48 +231,70 @@ $.ajax({
 			</cfif>
 			<input type="button" class="lnkBtn" onclick="rankAgent('#agent.agent_id#');" value="Rank">
 		</cfif>
-		
-			<div style="border:1px solid green;padding:.5em;margin:.5em;">
-			
-			
-			<fieldset id="fs_fEditAgent">
-				<legend>Edit Agent</legend>
-				<form name="fEditAgent" id="fEditAgent">
+		<fieldset id="fs_fEditAgent">
+			<legend>Edit Agent</legend>
+			<form name="fEditAgent" id="fEditAgent">
 
-					<input type="hidden" name="agent_id" id="agent_id" value="#agent.agent_id#">
-					<label for="preferred_agent_name">Preferred Name</label>
-					<input type="text" value="#stripQuotes(agent.preferred_agent_name)#" name="preferred_agent_name" id="preferred_agent_name" size="50" class="reqdClr">
-					 
-					<label for="agent_type">Agent Type</label>
-					<select name="agent_type" id="agent_type" class="reqdClr">
-						<cfloop query="ctAgent_Type">
-							<option  <cfif ctAgent_Type.agent_type is agent.agent_type> selected="selected" </cfif>
-								value="#ctAgent_Type.agent_type#">#ctAgent_Type.agent_type#</option>
-						</cfloop>
-					</select>
-					<label for="agent_remarks">Agent Remark</label>
-					<input type="text" value="#stripQuotes(agent.agent_remarks)#" name="agent_remarks" id="agent_remarks" size="100">
-				<br><input type="submit" value="ajaxsubmit">
-				</form>
-			</fieldset>
-			
-		
-		<cfset i=1>
-		<br />
-		<label for="anamdv"><span class="likeLink" onClick="getDocs('agent','names')">Agent Names</span></label>
-		<div id="anamdv" style="border:2px solid green;margin:1px;padding:1px;">
-			<label>Agent Names</label>
-			<cfloop query="agent_names">
-				<form name="a#i#" action="editAllAgent.cfm" method="post" target="_person">
-					<input type="hidden" name="action">
-					<input type="hidden" name="agent_name_id" value="#agent_names.agent_name_id#">
-					<input type="hidden" name="agent_id" value="#agent_names.agent_id#">
-					<select name="agent_name_type">
+				<input type="hidden" name="agent_id" id="agent_id" value="#agent.agent_id#">
+				<label for="preferred_agent_name">Preferred Name</label>
+				<input type="text" value="#stripQuotes(agent.preferred_agent_name)#" name="preferred_agent_name" id="preferred_agent_name" size="50" class="reqdClr">
+				 
+				<label for="agent_type">Agent Type</label>
+				<select name="agent_type" id="agent_type" class="reqdClr">
+					<cfloop query="ctAgent_Type">
+						<option  <cfif ctAgent_Type.agent_type is agent.agent_type> selected="selected" </cfif>
+							value="#ctAgent_Type.agent_type#">#ctAgent_Type.agent_type#</option>
+					</cfloop>
+				</select>
+				<label for="agent_remarks">Agent Remark</label>
+				<input type="text" value="#stripQuotes(agent.agent_remarks)#" name="agent_remarks" id="agent_remarks" size="100">
+			<br><input type="submit" value="save agent">
+			</form>
+		</fieldset>
+		<fieldset id="fs_fAgentName">
+			<legend>Agent Names</legend>
+			<form name="fAgentName" id="fAgentName">
+				<div id="divAgentNames">
+				<cfloop query="agent_names">
+					<select name="agent_name_type_#agent_name_id#" id="agent_name_type_#agent_name_id#">
+						<option value="">DELETE</option>
 						<cfloop query="ctNameType">
 							<option  <cfif ctNameType.agent_name_type is agent_names.agent_name_type> selected="selected" </cfif>
 								value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
 						</cfloop>
 					</select>
+					<input type="text" value="#agent_names.agent_name#" name="agent_name_#agent_name_id#" id="agent_name_#agent_name_id#" size="40" required>
+					<cfif agent_name_type is "login">
+						<a href="/AdminUsers.cfm?action=edit&username=#agent_names.agent_name#" class="infoLink">[ Arctos user ]</a>
+					</cfif>
+				</cfloop>
+				</div>
+				<input type="submit" value="save name changes">
+				<div class="newRed">
+					Add a name<br>
+					<select name="agent_name_type_new" id="agent_name_type_new">
+						<cfloop query="ctNameType">
+							<option value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
+						</cfloop>
+					</select>
+					<input type="text" name="agent_name_new" id="agent_name_new" size="40" required>
+					<input type="button" onclick="addAgentName()" value="add name">
+
+				</div>
+			</form>
+		</fieldset>
+		
+		
+		<!-----
+		
+		<br />
+		<label for="anamdv"><span class="likeLink" onClick="getDocs('agent','names')">Agent Names</span></label>
+		<div id="anamdv" style="border:2px solid green;margin:1px;padding:1px;">
+			<label>Agent Names</label>
+				
+					<input type="hidden" name="action">
+					<input type="hidden" name="agent_id" value="#agent_names.agent_id#">
+					
 					<input type="text" value="#agent_names.agent_name#" name="agent_name">
 					<input type="button" value="Update" class="savBtn" onClick="a#i#.action.value='updateName';a#i#.submit();">
 					<input type="button" value="Delete" class="delBtn" onClick="a#i#.action.value='deleteName';confirmDelete('a#i#','this agent name');">
@@ -242,8 +303,7 @@ $.ajax({
 						<a href="/AdminUsers.cfm?action=edit&username=#agent_names.agent_name#" class="infoLink" target="_top">[ Arctos user ]</a>
 					</cfif>
 				</form>
-				<cfset i = i + 1>
-			</cfloop>
+				
 		</div>
 		
 		
@@ -581,6 +641,9 @@ $.ajax({
 					<input type="submit" class="insBtn" value="Create Address">
 				</form>
 			</div>
+			
+			
+			---->
 	</cfoutput>
 </cfif>
 
