@@ -141,7 +141,7 @@
 			<tr>
 				<td>mask record</td>
 				<td>#rs.collection#</td>
-				<td>#c#</td>
+				<td>#rsc#</td>
 			</tr>
 		</cfloop>
 	</table>
