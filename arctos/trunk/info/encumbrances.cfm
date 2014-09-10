@@ -126,7 +126,7 @@
 		</tr>
 		<cfloop query="chase">
 			<cfquery name="rs" dbtype="query">
-				select collection,sum(numberSpecimens) as affectedSpecimens from d where collection_id=#collection_id#
+				select collection,sum(numberSpecimens) as affectedSpecimens from d where collection_id=#collection_id# group by collection
 			</cfquery>
 			<cfdump var=#rs#>
 			<!----
