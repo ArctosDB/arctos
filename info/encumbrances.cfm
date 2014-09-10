@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Active Encumbrances">
 <script src="/includes/sorttable.js"></script>
-<cfquery name="d" datasource="uam_god">
+<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(1,0,0,0)#">
 	select
 		collection.collection_id,
 		encumbrance.encumbrance_id,
@@ -93,10 +93,9 @@
 			</tr>
 		</cfloop>
 	</table>
-<h2>Encumbrances by action and collection</h2>
 
 
-<cfquery name="sencs" datasource="uam_god">
+<cfquery name="sencs" datasource="uam_god" cachedwithin="#createtimespan(1,0,0,0)#">
   select
     collection, 
     count(distinct(cataloged_item.COLLECTION_OBJECT_ID)) collnSize,
@@ -149,6 +148,13 @@
   order by
     collection.collection
 </cfquery>
+<h2>Encumbrances by Type and Collection</h2>
+
+<ul>
+	<li><strong>Hidden</strong>: Data are not publicly available</li>
+	<li><strong>Restricted</strong>: Data are wholly available, but certain conditions (e.g., permission of an agency) are required for use.</li>
+	<li><strong>Withheld</strong> Data are selectively available, specimens are exclused from queries which might be used to reveal restricted data.</li>
+</ul>
 <table border id="t" class="sortable">
 		<tr>
 			<th>Collection</th>
