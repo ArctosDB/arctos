@@ -4,21 +4,35 @@
 <cfinclude template="/includes/_header.cfm">
 
 <style>
+
 #sidebar, #main {
     display: table-cell;
 }
 
 #sidebar {
-    width:30%;
+    width:35%;
     float: left;
-    background:red;
+    padding:1em;
 }
 
-#main {
-    background: blue;
+#agntEditCell {
+   margin:1em;
+    padding:1em;
+    border:1px solid black;
 
 }
+#td_search{
+     margin:.5em;
+    padding:.5em;
+    border:1px solid black;
 
+}
+#agntRslCell{
+     margin:.5em;
+    padding:.5em;
+    border:1px solid black;
+
+}
 
 
 </style>
@@ -65,13 +79,14 @@ $.ajax({
 				$("#agntRslCell").html('nothing found');
 				return false;
 			}
-			h='<div style="height:20em; overflow:auto;">';
+		//	h='<div style="height:20em; overflow:auto;">';
+		h='';
 			for (i=0;i<r.ROWCOUNT;i++) {
 				h+='<div class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
 				h+= r.DATA.PREFERRED_AGENT_NAME[i] + '<font size="-1"> (';
 				h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ')</font> </div>';
 			}
-			h+='</div>';
+			//h+='</div>';
 			$("#agntRslCell").html(h);
 	
 
