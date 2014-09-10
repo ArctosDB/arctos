@@ -13,6 +13,7 @@ $(document).ready(function() {
 $("#goAgentSearch").click(function(e){
 		var q=$("#agntSearch").serialize();
 		console.log(q);
+loadAgentSearch(q);
 /*
 		
 var bgDiv = document.createElement('div');
@@ -36,7 +37,10 @@ var bgDiv = document.createElement('div');
 
 
 function loadAgentSearch(q){
-
+	var ptl="/AgentGrid.cfm?" + q;
+		$("#td_rslt").load(ptl,{},function(){
+			//viewport.init("#customDiv");
+		});
 }
 
 </script>
@@ -308,12 +312,10 @@ window.onload=resizeCaller
 
 			</td>
 			<td id="td_rslt" rowspan="2">
-				<iframe src="/editAllAgent.cfm?agent_id=#agent_id#" name="_person" id="_person" ></iframe>
 			</td>
 		</tr>
 		<tr>
 			<td id="td_edit" valign="top">
-				<iframe src="/AgentGrid.cfm" name="_pick" id="_pick" ></iframe>
 			</td>
 		</tr>
 	</table>
