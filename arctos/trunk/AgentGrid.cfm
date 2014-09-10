@@ -1,4 +1,7 @@
-
+<cfinclude template="includes/_pickHeader.cfm">
+<cfif not isdefined("Action") OR not action is "search">
+	<cfabort>
+</cfif>
 <cfoutput>
 	<cfset sql = "SELECT 
 					agent.agent_id,
@@ -75,3 +78,4 @@
 		</cfloop>
 	</div>
 </cfoutput>
+<cfinclude template="includes/_pickFooter.cfm">
