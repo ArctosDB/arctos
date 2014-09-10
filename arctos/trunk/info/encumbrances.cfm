@@ -151,6 +151,7 @@
 		<tr>
 			<th>Collection</th>
 			<th>Total Specimens</th>
+			<th>Encumbered Specimens</th>
 			<th>Mask Record</th>
 			<th>Restrict Usage</th>
 			<th>Withhold Information</th>
@@ -203,10 +204,12 @@
 			<tr>
 				<td>#col.collection#</td>
 				<td>#cs.c#</td>
+				<cfset nsee=mr.c+ru.c+had.c>
+				<td>#nsee#</td>
 				<td>#mr.c#</td>
 				<td>#ru.c#</td>
 				<td>#had.c#</td>
-				<cfset penc=totenc.c/cs.c>
+				<cfset penc=numberformat(100 * (totenc.c/cs.c),"99.99")>
 					
 				<td>#penc#</td>
 			</tr>
