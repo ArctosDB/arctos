@@ -19,10 +19,10 @@
 				cataloged_item.collection_object_id = identification.collection_object_id AND
 				accepted_id_fg=1 AND
 				cataloged_item.collection_id = collection.collection_id and
-				cataloged_item.collection_object_id=#collection_object_id#
+				cataloged_item.collection_object_id in (#collection_object_id#)
 		</cfquery>
 		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from annotations where collection_object_id=#collection_object_id#
+			select * from annotations where collection_object_id in (#collection_object_id#)
 		</cfquery>
 	<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
