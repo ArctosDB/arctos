@@ -152,8 +152,8 @@
 
 <ul>
 	<li><strong>Hidden</strong>: Data are not publicly available</li>
-	<li><strong>Restricted</strong>: Data are wholly available, but certain conditions (e.g., permission of an agency) are required for use.</li>
-	<li><strong>Withheld</strong> Data are selectively available, specimens are exclused from queries which might be used to reveal restricted data.</li>
+	<li><strong>Restricted</strong>: Data are available, but certain conditions (e.g., permission of an agency) are required for use.</li>
+	<li><strong>Withheld</strong> Data are selectively available, specimens are excluded from queries which might reveal restricted data.</li>
 </ul>
 <table border id="t" class="sortable">
 		<tr>
