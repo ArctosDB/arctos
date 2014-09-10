@@ -87,17 +87,17 @@ window.onload=resizeCaller
 
 	#td_search {
 		height:50%;
-		width:30%;
+		width:35%;
 	}
 	
 	#td_rslt {
 		height:50%;
-		width:70%;
+		width:65%;
 	}
 	
 	#td_edit {
 		height:100%;
-		width:30%;
+		width:35%;
 	}
 	#olTabl {
 		height:100%;
