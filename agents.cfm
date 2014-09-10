@@ -37,6 +37,7 @@ var bgDiv = document.createElement('div');
 
 
 function loadAgentSearch(q){
+$("#td_edit").html('<img src-"/images/indicator.gif">');
 	var ptl="/AgentGrid.cfm?" + q;
 		$("#td_edit").load(ptl,{},function(){
 			//viewport.init("#customDiv");
