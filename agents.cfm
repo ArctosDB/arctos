@@ -8,14 +8,17 @@
 
 
 $(document).ready(function() {
-		jQuery("#status_date").datepicker();
-	
+	jQuery("#status_date").datepicker();
+	$("#formEdit").submit(function(event){
+		event.preventDefault();
+		loadAgentSearch(q);
+	});
+
+/*
+		
 $("#goAgentSearch").click(function(e){
 		var q=$("#agntSearch").serialize();
 		console.log(q);
-loadAgentSearch(q);
-/*
-		
 var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -30,14 +33,16 @@ var bgDiv = document.createElement('div');
 		$(cDiv).load(ptl,{},function(){
 			viewport.init("#customDiv");
 		});
+* 
+* 	});
 * */
-	});
+
 
 });
 
 
 function loadAgentSearch(q){
-$("#td_edit").html('<img src-"/images/indicator.gif">');
+$("#td_edit").html('<img src="/images/indicator.gif">');
 	var ptl="/AgentGrid.cfm?" + q;
 		$("#td_edit").load(ptl,{},function(){
 			//viewport.init("#customDiv");
@@ -292,7 +297,7 @@ window.onload=resizeCaller
 	<table width="100%">
 		<tr>
 			<td>
-				<input type="button" value="Search" class="schBtn" id="goAgentSearch">
+				<input type="submit" value="Search" class="schBtn" id="goAgentSearch">
 			</td>
 			<td><input type="reset" value="Clear Form" class="clrBtn"></td>
 			<td>
