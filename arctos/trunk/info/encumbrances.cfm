@@ -206,7 +206,7 @@
 				<td>#mr.c#</td>
 				<td>#ru.c#</td>
 				<td>#had.c#</td>
-				<cfset penc=cs.c/totenc.c>
+				<cfset penc=totenc.c/cs.c>
 					
 				<td>#penc#</td>
 			</tr>
