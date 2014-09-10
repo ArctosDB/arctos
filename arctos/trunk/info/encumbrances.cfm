@@ -99,7 +99,7 @@
 <cfquery name="chase" dbtype="query">
 	select collection_id from d group by collection_id
 </cfquery>
-
+<!----
 <cfquery name="eac" dbtype="query">
 	select
 		decode (ENCUMBRANCE,
@@ -117,6 +117,7 @@
 			'hide or alter data') encaction,
 		collection
 </cfquery>
+---->
 <table border id="t" class="sortable">
 		<tr>
 			<th>Encumbrance Category</th>
