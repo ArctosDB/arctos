@@ -156,10 +156,18 @@
 		<tr>
 			<th>Collection</th>
 			<th>Total Specimens</th>
-			<th>Total Encumbered Specimens</th>
-			<th>Mask Record</th>
-			<th>Restrict Usage</th>
-			<th>Withhold Information</th>
+			
+			<th>## Encumbered</th>
+			<th>% Encumbered</th>
+			
+			<th>## Hidden</th>
+			<th>% Hidden</th>
+			
+			<th>## Restricted</th>
+			<th>% Restricted</th>
+			
+			<th>## Withheld</th>
+			<th>% Withheld</th>
 		</tr>
 		<cfloop query="sencs">
 		
@@ -167,10 +175,20 @@
 			<tr>
 				<td>#collection#</td>
 				<td>#collnSize#</td>
-				<td>#numberEncumberedRecords# (#numberformat(100 * (numberEncumberedRecords/collnSize),"99.99")#%)</td>
-				<td>#numberMaskedRecords# (#numberformat(100 * (numberMaskedRecords/collnSize),"99.99")#)</td>
-				<td>#numberRestrictedRecords# (#numberformat(100 * (numberRestrictedRecords/collnSize),"99.99")#)</td>
-				<td>#numberWithheldRecords# (#numberformat(100 * (numberWithheldRecords/collnSize),"99.99")#)</td>
+				
+				<td>#numberEncumberedRecords#</td>
+				<td>#numberformat(100 * (numberEncumberedRecords/collnSize),"99.99")#</td>
+				
+				<td>#numberMaskedRecords#</td>
+				<td>#numberformat(100 * (numberMaskedRecords/collnSize),"99.99")#</td>
+				
+				<td>#numberRestrictedRecords#</td>
+				<td>#numberformat(100 * (numberRestrictedRecords/collnSize),"99.99")#</td>
+				
+				
+				<td>#numberWithheldRecords#</td>
+				<td>#numberformat(100 * (numberWithheldRecords/collnSize),"99.99")#</td>
+				
 			</tr>
 		</cfloop>
 	</table>
