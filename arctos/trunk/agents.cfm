@@ -9,8 +9,9 @@
 
 $(document).ready(function() {
 		jQuery("#status_date").datepicker();
-	$("#goAgentSearch").click(function(e){
-		var q=("#agntSearch").serialize();
+	
+$("#goAgentSearch").click(function(e){
+		var q=$("#agntSearch").serialize();
 		console.log(q);
 /*
 		
