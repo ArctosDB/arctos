@@ -170,6 +170,10 @@ $.ajax({
 		</cfif>
 		
 			<div style="border:1px solid green;padding:.5em;margin:.5em;">
+			
+			
+			<fieldset id="fs_fEditAgent">
+				<legend>Edit Agent</legend>
 				<form name="fEditAgent" id="fEditAgent">
 
 					<input type="hidden" name="agent_id" id="agent_id" value="#agent.agent_id#">
@@ -187,7 +191,7 @@ $.ajax({
 					<input type="text" value="#stripQuotes(agent.agent_remarks)#" name="agent_remarks" id="agent_remarks" size="100">
 				<br><input type="submit" value="ajaxsubmit">
 				</form>
-				
+			</fieldset>
 			
 		
 		<cfset i=1>
