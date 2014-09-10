@@ -97,37 +97,59 @@
 
 
 <cfquery name="sencs" datasource="uam_god">
-	select
-		collection.collection_id,
-		collection,		
-		decode (ENCUMBRANCE_ACTION,
-			'mask record','mask record',
-			'restrict usage','restrict usage',
-			'hide or alter data') encaction,
-		count(coll_object_encumbrance.COLLECTION_OBJECT_ID) under,
-		count(cataloged_item.COLLECTION_OBJECT_ID) notunder		
-	from
-		collection,
-		cataloged_item,
-		coll_object_encumbrance,
-		encumbrance
-	where
-		collection.collection_id = cataloged_item.collection_id and
-		cataloged_item.COLLECTION_OBJECT_ID=coll_object_encumbrance.COLLECTION_OBJECT_ID (+) and
-		coll_object_encumbrance.encumbrance_id=encumbrance.encumbrance_id (+)
-	group by
-		collection.collection_id,
-		collection.collection,
-		decode (ENCUMBRANCE_ACTION,
-			'mask record','mask record',
-			'restrict usage','restrict usage',
-			'hide or alter data')
-</cfquery>
+  select
+    collection, 
+    count(distinct(cataloged_item.COLLECTION_OBJECT_ID)) collnSize,
+    count(distinct(allencs.COLLECTION_OBJECT_ID)) numberEncumberedRecords,
+    count(distinct(maskrecord.COLLECTION_OBJECT_ID)) numberMaskedRecords,
+    count(distinct(restrictusage.COLLECTION_OBJECT_ID)) numberRestrictedRecords,
+    count(distinct(infowithheld.COLLECTION_OBJECT_ID)) numberWithheldRecords
+  from
+    collection,
+    cataloged_item,
+    coll_object_encumbrance allencs,
+    (
+        select 
+          collection_object_id 
+        from 
+          coll_object_encumbrance,
+          encumbrance 
+        where 
+          coll_object_encumbrance.encumbrance_id=encumbrance.encumbrance_id and 
+          encumbrance_action='mask record'
+    ) maskrecord,
+    (
+        select 
+          collection_object_id 
+        from 
+          coll_object_encumbrance,
+          encumbrance 
+        where 
+          coll_object_encumbrance.encumbrance_id=encumbrance.encumbrance_id and 
+          encumbrance_action='restrict usage'
+    ) restrictusage,
+    (
+        select 
+          collection_object_id 
+        from 
+          coll_object_encumbrance,
+          encumbrance 
+        where 
+          coll_object_encumbrance.encumbrance_id=encumbrance.encumbrance_id and 
+          encumbrance_action not in ('restrict usage','mask record')
+    ) infowithheld
+  where
+    collection.collection_id = cataloged_item.collection_id and
+    cataloged_item.COLLECTION_OBJECT_ID=allencs.COLLECTION_OBJECT_ID (+) and
+    cataloged_item.COLLECTION_OBJECT_ID=maskrecord.COLLECTION_OBJECT_ID (+) and
+    cataloged_item.COLLECTION_OBJECT_ID=restrictusage.COLLECTION_OBJECT_ID (+) and
+    cataloged_item.COLLECTION_OBJECT_ID=infowithheld.COLLECTION_OBJECT_ID (+)
+  group by
+    collection.collection
+  order by
+    collection.collection
 <cfdump var=#sencs#>
 
-<cfquery name="col" dbtype="query">
-	select collection,collection_id from sencs group by  collection,collection_id order by collection
-</cfquery>
 
 <!----
 <cfquery name="eac" dbtype="query">
@@ -158,77 +180,17 @@
 			<th>Withhold Information</th>
 			<th>% Encumbered</th>
 		</tr>
-		<cfloop query="col">
-			<cfquery name="cs" dbtype="query">
-				select 
-					sum(notunder) as c
-				from 
-					sencs 
-				where 
-					collection_id=#collection_id#
-			</cfquery>
-			<cfquery name="totenc" dbtype="query">
-				select 
-					sum(under) as c
-				from 
-					sencs 
-				where 
-					collection_id=#collection_id#
-			</cfquery>
-			<cfquery name="had" dbtype="query">
-				select 
-					under c
-				from 
-					sencs 
-				where 
-					collection_id=#collection_id# and
-					 encaction='hide or alter data'
-			</cfquery>
-			<cfquery name="mr" dbtype="query">
-				select 
-					under c
-				from 
-					sencs 
-				where 
-					collection_id=#collection_id# and
-					 encaction='mask record'
-			</cfquery>
-			<cfquery name="ru" dbtype="query">
-				select 
-					under c
-				from 
-					sencs 
-				where 
-					collection_id=#collection_id# and
-					 encaction='restrict usage'
-			</cfquery>
-			<cfif len( mr.c ) gt 0>
-				<cfset masked=mr.c>
-			<cfelse>
-				<cfset masked=0>
-			</cfif>
-			<cfif len( ru.c ) gt 0>
-				<cfset restricted=ru.c>
-			<cfelse>
-				<cfset restricted=0>
-			</cfif>
-			<cfif len( had.c ) gt 0>
-				<cfset withheld=had.c>
-			<cfelse>
-				<cfset withheld=0>
-			</cfif>
-			
-			<cfset nsee=masked+restricted+withheld>
-
-			<cfset penc=numberformat(100 * (totenc.c/cs.c),"99.99")>
+		<cfloop query="sencs">
+		
+			<cfset penc=numberformat(100 * (numberEncumberedRecords/collnSize),"99.99")>
 
 			<tr>
-				<td>#col.collection#</td>
-				<td>#cs.c#</td>
-				<td>#nsee#</td>
-				<td>#masked#</td>
-				<td>#restricted#</td>
-				<td>#withheld#</td>
+				<td>#collection#</td>
+				<td>#collnSize#</td>
+				<td>#numberEncumberedRecords#</td>
+				<td>#numberMaskedRecords#</td>
+				<td>#numberRestrictedRecords#</td>
+				<td>#numberWithheldRecords#</td>
 					
 				<td>#penc#</td>
 			</tr>
