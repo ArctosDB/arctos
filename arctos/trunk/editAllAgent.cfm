@@ -263,13 +263,14 @@ function addAgentName(){
 								value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
 						</cfloop>
 					</select>
-					<input type="text" value="#agent_names.agent_name#" name="agent_name_#agent_name_id#" id="agent_name_#agent_name_id#" size="40" required>
+					<input type="text" value="#agent_names.agent_name#" name="agent_name_#agent_name_id#" id="agent_name_#agent_name_id#" size="40" required class="reqdClr">
 					<cfif agent_name_type is "login">
 						<a href="/AdminUsers.cfm?action=edit&username=#agent_names.agent_name#" class="infoLink">[ Arctos user ]</a>
 					</cfif>
 				</cfloop>
 				</div>
 				<input type="submit" value="save name changes">
+			</form>
 				<div class="newRed">
 					Add a name<br>
 					<select name="agent_name_type_new" id="agent_name_type_new">
@@ -281,7 +282,7 @@ function addAgentName(){
 					<input type="button" onclick="addAgentName()" value="add name">
 
 				</div>
-			</form>
+			
 		</fieldset>
 		
 		
