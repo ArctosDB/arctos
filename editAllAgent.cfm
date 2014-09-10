@@ -414,7 +414,7 @@
 		       	collection
 		</cfquery>
 		<div>
-			Collecting Summary - <a href="/info/agentActivity.cfm?agent_id=#agent.agent_id#" target="_self">click for full Agent Activity report</a>
+			Collecting Summary - <a href="/info/agentActivity.cfm?agent_id=#agent.agent_id#" target="_blank">click for full Agent Activity report</a>
 		</div>
 		<table border>
 			<tr>
