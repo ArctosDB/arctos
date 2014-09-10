@@ -71,6 +71,17 @@ var q=$("#agntSearch").serialize();
 		loadAgentSearch(q);
 	});
 
+$("#fEditAgent").submit(function(event){
+
+	console.log('form submit');
+
+
+		event.preventDefault();
+var q=$("#fEditAgent").serialize();
+		console.log(q);
+	});
+
+
 
 
 });
