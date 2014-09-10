@@ -54,6 +54,9 @@ function getUrlParameter(sParam)
 $(document).ready(function() {
 	var agent_id = getUrlParameter('agent_id');
 	console.log('agent_id=' + agent_id);
+	if ( typeof agent_id !== 'undefined' && agent_id.length > 0 ) {
+		loadEditAgent(agent_id);
+	}
 
 
 
