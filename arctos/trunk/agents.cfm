@@ -79,14 +79,13 @@ $.ajax({
 				$("#agntRslCell").html('nothing found');
 				return false;
 			}
-		//	h='<div style="height:20em; overflow:auto;">';
-		h='';
+			h='<div style="height:30em; overflow:scroll;">';
 			for (i=0;i<r.ROWCOUNT;i++) {
 				h+='<div class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
 				h+= r.DATA.PREFERRED_AGENT_NAME[i] + '<font size="-1"> (';
 				h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ')</font> </div>';
 			}
-			//h+='</div>';
+			h+='</div>';
 			$("#agntRslCell").html(h);
 	
 
