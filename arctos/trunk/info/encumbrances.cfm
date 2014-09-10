@@ -123,6 +123,7 @@
 			'restrict usage','restrict usage',
 			'hide or alter data')
 </cfquery>
+<cfdump var=#sencs#>
 
 <cfquery name="col" dbtype="query">
 	select collection,collection_id from sencs group by  collection,collection_id order by collection
