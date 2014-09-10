@@ -327,7 +327,7 @@
 			<tr>
 				<td align="right">Source Authority (Wikipedia URL)</td>
 				<td>
-					<input name="source_authority" id="source_authority" class="reqdClr" pattern="^http:\/\/e.\.wikipedia.org\/wiki\/.*">
+					<input name="source_authority" id="source_authority" class="reqdClr" pattern="^https?:*.wikipedia.org/wiki/.*">
 				</td>
 			</tr>
 			<tr>
