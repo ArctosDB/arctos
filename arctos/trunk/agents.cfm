@@ -38,8 +38,25 @@
 </style>
 <script>
 
-
+function getUrlParameter(sParam)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) 
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) 
+        {
+            return sParameterName[1];
+        }
+    }
+}    
 $(document).ready(function() {
+	var agent_id = getUrlParameter('agent_id');
+	console.log('agent_id=' + agent_id);
+
+
+
 	jQuery("#status_date").datepicker();
 	$("#agntSearch").submit(function(event){
 
