@@ -53,6 +53,7 @@ var ptl="/editAllAgent.cfm?agent_id=" + aid;
 }
 
 function loadAgentSearch(q){
+var h;
 $("#td_edit").html('<img src="/images/indicator.gif">');
 
 $.ajax({
@@ -63,6 +64,14 @@ $.ajax({
 		data:  q,
 		success: function(r) {
 			console.log(r);
+			for (i=0;i<r.ROWCOUNT;i++) {
+				h+='<div class="likeLink" onclick="loadEditAgent(' + r.DATA[i].AGENT_ID + ');">';
+				h+= r.DATA[i].PREFERRED_AGENT_NAME + '<font size="-1">(';
+				h+=r.DATA[i].AGENT_TYPE + ': ' + r.DATA[i].AGENT_ID + ')</font> </div>';
+			}
+			$("#td_edit").html(h);
+	
+
 		},
 		error: function (xhr, textStatus, errorThrown){
 		    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
