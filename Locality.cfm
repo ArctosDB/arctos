@@ -517,8 +517,9 @@
 						<label for="source_authority">
 							Authority (pattern: http://{language}.wikipedia.org/wiki/{article})
 						</label>
-						<input type="url" name="source_authority" id="source_authority" class="reqdClr" value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}">
+						<input type="url" name="source_authority" id="source_authority" class="reqdClr" value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}" size="60">
 					</td>
+					<!----
 	                <td>
 						<label for="valid_catalog_term_fg">
 							Valid?
@@ -529,6 +530,7 @@
 		                    <option <cfif geogdetails.valid_catalog_term_fg is "0"> selected="selected" </cfif>value="0">no</option>
 		                  </select>
 					</td>
+					---->
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
