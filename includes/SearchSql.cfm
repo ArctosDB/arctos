@@ -42,7 +42,9 @@
 <cfif isdefined("begdate") AND len(begdate) gt 0>
 	<cfset began_date=begdate>
 </cfif>
-
+<cfif isdefined("enddate") AND len(enddate) gt 0>
+	<cfset ended_date=enddate>
+</cfif>
 
 <!---- old taxonomy model used taxon_scope - see if we can translate it to new stuff to not break links ---->
 
@@ -1282,10 +1284,10 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND #session.flatTableName#.began_date >= '#began_date#'">
 </cfif>
-<cfif isdefined("endDate") AND len(endDate) gt 0>
-	<cfset mapurl = "#mapurl#&endDate=#endDate#">
+<cfif isdefined("ended_date") AND len(ended_date) gt 0>
+	<cfset mapurl = "#mapurl#&ended_date=#ended_date#">
 	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select is_iso8601('#endDate#') isdate from dual
+		select is_iso8601('#ended_date#') isdate from dual
 	</cfquery>
 	<cfif isdate.isdate is not "valid">
 		<div class="error">
@@ -1295,7 +1297,7 @@
 		<script>hidePageLoad();</script>
 		<cfabort>
 	</cfif>
-	<cfset basQual = " #basQual# AND #session.flatTableName#.ended_date <= '#endDate#'">
+	<cfset basQual = " #basQual# AND #session.flatTableName#.ended_date <= '#ended_date#'">
 </cfif>
 <cfif isdefined("begYear") AND len(begYear) gt 0>
 	<cfif not isYear(begYear)>
