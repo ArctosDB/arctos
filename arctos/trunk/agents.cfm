@@ -187,6 +187,7 @@ window.onload=resizeCaller
 	<table border id="olTabl">
 		<tr>
 			<td id="td_search">
+			i am td_search
 
 
 
@@ -312,10 +313,14 @@ window.onload=resizeCaller
 
 			</td>
 			<td id="td_rslt" rowspan="2">
+			
+			
+			i am td_rslt
 			</td>
 		</tr>
 		<tr>
 			<td id="td_edit" valign="top">
+			i am td_edit
 			</td>
 		</tr>
 	</table>
