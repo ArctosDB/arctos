@@ -149,9 +149,6 @@
   order by
     collection.collection
 </cfquery>
-<cfdump var=#sencs#>
-
-
 <table border id="t" class="sortable">
 		<tr>
 			<th>Collection</th>
