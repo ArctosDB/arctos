@@ -33,9 +33,7 @@ $("#editAddr").submit(function(event){
 				data:  $("#editAddr").serialize(),
 				success: function(r) {
 					console.log(r);
-					if (r.DATA.STATUS[0]=='success'){
-					
-						alert('NOOO error occurred: ' + r);
+					if (r.DATA.STATUS[0]=='success'){					
 						$("#dvaddr_" + (r.DATA.ADDR_ID[0])).html(r.DATA.FORMATTED_ADDR[0]);
 					} else {
 						alert('An error occurred: ' + r.DATA.STATUS[0]);
