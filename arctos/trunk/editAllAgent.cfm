@@ -580,7 +580,8 @@ $.ajax({
 		</fieldset>
 		<input type="submit">
 		</form>
-			
+									<input type="button" onclick="addAgentAddr(#agent_id#)" value="New Address">
+
 		<cfloop query="agentAddrs">
 			<cfif valid_addr_fg is 1>
 				<cfset thisClass="validAddress">
