@@ -22,10 +22,20 @@
 				,ADDR_REMARKS = '#ADDR_REMARKS#'
 			where addr_id=#addr_id#
 		</cfquery>
-		<cfreturn 'spiffy'>
-		
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select 'success' status, addr_id, formatted_addr from addr where addr_id=#addr_id#
+		</cfquery>	
+		<cfreturn d>
 	<cfcatch>
-		<cfreturn cfcatch>
+		<cfset m=cfcatch.message & ': ' & cfcatch.detail>
+		<cfif isdefined("cfcatch.sql")>
+			<cfset m= m & ' SQL:' & cfcatch.sql>
+		</cfif>
+		<cfset d = querynew("status,msg")>
+		<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "status", "fail",1)>
+		<cfset temp = QuerySetCell(d, "msg", m,1)>
+		<cfreturn d>
 	</cfcatch>
 	</cftry>
 </cffunction>
