@@ -32,8 +32,17 @@ $("#editAddr").submit(function(event){
 				data:  $("#editAddr").serialize(),
 				success: function(r) {
 					console.log(r);
-					if (r.DATA.STATUS[0]=='success'){					
-						$("#dvaddr_" + (r.DATA.ADDR_ID[0])).html(r.DATA.FORMATTED_ADDR[0]);
+					if (r.DATA.STATUS[0]=='success'){
+						var x=r.DATA.FORMATTED_ADDR[0];
+console.log(x);
+
+			
+						x = x.replace(/\n/g, '<br>');	
+
+
+console.log(x);
+		
+						$("#dvaddr_" + (r.DATA.ADDR_ID[0])).html(x);
 //$( "#diadiv" ).remove();
 //$(this).closest('.ui-dialog-content').dialog('close'); 
 //$('#dialogdiv').empty().remove();
