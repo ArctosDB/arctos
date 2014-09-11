@@ -38,7 +38,7 @@
 									)
 								</cfquery>
 							</cfif>
-						<cfelseif thisAgentName is "DELETE">
+						<cfelseif thisAgentNameType is "DELETE">
 							<cfquery name="nan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								delete from agent_name where agent_name_id=<cfqueryparam value = "#thisAgentNameID#" CFSQLType = "CF_SQL_INTEGER">
 							</cfquery>
