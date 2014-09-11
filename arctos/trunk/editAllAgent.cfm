@@ -466,19 +466,16 @@ $.ajax({
 			</cfif>
 				#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
 				&nbsp;
-				<input type="button" class="lnkBtn" value="Edit" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">
 				&nbsp;
-\				<div style="margin-left:1em;">
+			<div style="margin-left:1em;">
 					#replace(formatted_addr,chr(10),"<br>","all")#
 				</div>
 			</div>
 		</cfloop>
 			<br />
 			<cfloop query="elecagentAddrs">
-				\\
 				<div style="border:2px solid green;margin:1px;padding:1px;">
 					#address_type#: #address#
-					<input type="button" value="Edit" class="lnkBtn" onclick="elad#i#.action.value='editElecAddr';elad#i#.submit();">
 				</div>
 			</cfloop>
 		<br />
