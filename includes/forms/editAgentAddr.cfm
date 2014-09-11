@@ -18,12 +18,8 @@
 
 
 <script>
-
-   
 	$(document).ready(function() {
-
-
-$("#editAddr").submit(function(event){
+		$("#editAddr").submit(function(event){
 			event.preventDefault();
 			$.ajax({
 				url: "/component/agent.cfc?queryformat=column&method=saveAgentAddrEdit&returnformat=json",
@@ -31,24 +27,11 @@ $("#editAddr").submit(function(event){
 				dataType: "json",
 				data:  $("#editAddr").serialize(),
 				success: function(r) {
-					console.log(r);
 					if (r.DATA.STATUS[0]=='success'){
 						var x=r.DATA.FORMATTED_ADDR[0];
-console.log(x);
-
-			
 						x = x.replace(/\n/g, '<br>');	
-
-
-console.log(x);
-		
 						$("#dvaddr_" + (r.DATA.ADDR_ID[0])).html(x);
-//$( "#diadiv" ).remove();
-//$(this).closest('.ui-dialog-content').dialog('close'); 
-//$('#dialogdiv').empty().remove();
-
-$(".ui-dialog-titlebar-close").trigger('click');
-
+						$(".ui-dialog-titlebar-close").trigger('click');
 					} else {
 						alert('An error occurred: ' + r.DATA.STATUS[0]);
 					}
@@ -58,9 +41,7 @@ $(".ui-dialog-titlebar-close").trigger('click');
 				}
 			});
 		});
-});
-
-
+	});
 </script>
 
 	<cfoutput>
