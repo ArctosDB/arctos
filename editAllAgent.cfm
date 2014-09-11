@@ -137,25 +137,6 @@ margin:.1em;
 
 
 
-$("#dialog").dialog({
-    autoOpen: false,
-    height: $(window).height() - 50,
-    width: $(window).width() - 50,
-    show: {
-        effect: "blind",
-        duration: 400,
-    },
-    hide: {
-        effect: "explode",
-        duration: 400
-    },
-    open: function (event, ui) {
-        $('#content').load('http://www.google.com');
-    }
-});
-
-
-
 	
 	});
 
@@ -206,7 +187,7 @@ function addAgentRelationship(){
 function editAgentAddress (aid){
 console.log('clickypop');
 	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
-    $("#dialog").dialog('open');
+//    $("#dialog").dialog('open');
 
 /*
 
