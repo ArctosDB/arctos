@@ -36,7 +36,7 @@ $("#editAddr").submit(function(event){
 					if (r.DATA.STATUS[0]=='success'){
 					
 						alert('NOOO error occurred: ' + r);
-						$("#dvaddr_" + (r.DATA.ADDR_ID[0]).html(r.DATA.FORMATTED_ADDR[0]);
+						$("#dvaddr_" + (r.DATA.ADDR_ID[0])).html(r.DATA.FORMATTED_ADDR[0]);
 					} else {
 						alert('An error occurred: ' + r.DATA.STATUS[0]);
 					}
