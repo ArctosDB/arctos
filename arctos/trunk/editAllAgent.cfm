@@ -186,9 +186,10 @@ console.log('clickypop');
 	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
 
 
-	var dialog1 = $('<div id="diadiv"></div>').dialog({
+	var dialog1 = $('<div></div>').dialog({
 	    autoOpen: false,
 	    modal: true,
+		attr('id', 'diadiv'),
 	    title: 'hi',
 	    close: function (e, ui) { $(this).remove(); }
 	});
