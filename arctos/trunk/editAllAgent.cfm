@@ -141,7 +141,7 @@ margin:.1em;
 	});
 
 function editAgentAddress (aid){
-	var guts = "includes/forms/editAgentAddr.cfm";
+	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
