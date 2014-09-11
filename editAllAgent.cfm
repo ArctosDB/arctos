@@ -116,6 +116,31 @@ function addAgentStatus(){
 	$('#new_agent_status1').find('option').clone().appendTo('#new_agent_status' + i);
 	$("#nnas").val(i);
 }
+function addAgentStatus(){
+	var i=parseInt($("#nnar").val()) + parseInt(1);
+	var h='<tr id="nar'+i+'" class="newRec"><td>';
+	h+='<select name="agent_relationship_new'+i+'" id="agent_relationship_new'+i+'" size="1"></select> ';
+	h+='</td><td><input type="hidden" name="related_agent_id_new'+i+'" id="related_agent_id_new'+i+'">';
+	h+='<input type="text" name="related_agent_new'+i+'" id="related_agent_new'+i+'" class="reqdClr" ';
+	h+='onchange="getAgent('related_agent_idnew'+i+'',this.id,'fEditAgent',this.value); return false;"';
+	h+='onKeyPress="return noenter(event);">';
+	h+='</td></tr>';
+	$('#nar' + $("#nnar").val()).after(h);
+	$('#agent_relationship_new1').find('option').clone().appendTo('#agent_relationship_new' + i);
+	$("#nnar").val(i);
+
+}
+
+
+
+				
+						
+							
+							
+					
+				
+				
+
 
 </script>
 <!----
