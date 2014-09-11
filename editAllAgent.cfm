@@ -101,7 +101,7 @@ margin:.1em;
 		});
 
 $(document).on("change", '[id^="agent_name_type_new"]', function(){
-   console.log('nnclick');
+   console.log('nnclick: ' + this.id);
 });
 
 
