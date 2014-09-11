@@ -1,122 +1,137 @@
 <cfcomponent>
 
-
-
-
 <cffunction name="saveAgent" access="remote">
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
-	<cfdump var=#url#>
 	<cfoutput>
-<cfloop list="#structKeyList(url)#" index="key">
-	<br>Key: #key#, Value: #url[key]#
-	<cfif left(key,16) is "agent_name_type_">
-		<p>
-			<cfset thisAgentNameID=listlast(key,"_")>
-			
-			<br>thisAgentNameID: #thisAgentNameID#
-			<cfset thisAgentNameType=url["agent_name_type_#thisAgentNameID#"]>
-			<br>thisAgentNameType: #thisAgentNameType#
-			
-			<cfset thisAgentName=url["agent_name_#thisAgentNameID#"]>
-			
-			<br>thisAgentName: #thisAgentName#
-			<cfif thisAgentNameID contains "new" and len(thisAgentName) gt 0>
-				<br>inserting
-			<cfelseif thisAgentName is "DELETE">
-				<br>delete
-			<cfelse>
-				<br>update
-			</cfif>
-		</p>
-	</cfif>
-</cfloop>
-
-<cfloop list="#structKeyList(url)#" index="key">
-	<br>Key: #key#, Value: #url[key]#
-	<cfif left(key,13) is "agent_status_">
-		<p>
-			<cfset thisAgentStatusID=listlast(key,"_")>
-			<br>thisAgentStatusID: #thisAgentStatusID#
-
-			<cfset thisAgentStatus=url["agent_status_#thisAgentStatusID#"]>
-			<br>thisAgentStatus: #thisAgentStatus#
-			
-			<cfset thisAgentStatusDate=url["status_date_#thisAgentStatusID#"]>
-			<br>thisAgentStatusDate: #thisAgentStatusDate#
-			
-			<cfset thisAgentStatusRemark=url["status_remark_#thisAgentStatusID#"]>
-			<br>thisAgentStatusRemark: #thisAgentStatusRemark#
-			
-			
-			<cfif thisAgentStatusID contains "new" and len(thisAgentStatus) gt 0>
-				<br>inserting
-			<cfelseif thisAgentStatus is "DELETE">
-				<br>delete
-			<cfelse>
-				<br>update
-			</cfif>
-		</p>
-	</cfif>
-</cfloop>
-
-
-
-<cfloop list="#structKeyList(url)#" index="key">
-	<br>Key: #key#, Value: #url[key]#
-	<cfif left(key,19) is "agent_relationship_">
-		<p>
-			<cfset thisAgentRelationshipID=listlast(key,"_")>
-			<br>thisAgentRelationshipID: #thisAgentRelationshipID#
-
-			<cfset thisAgentRelationship=url["agent_relationship_#thisAgentRelationshipID#"]>
-			<br>thisAgentRelationship: #thisAgentRelationship#
-			
-			<cfset thisRelatedAgentName=url["related_agent_#thisAgentRelationshipID#"]>
-			<br>thisRelatedAgentName: #thisRelatedAgentName#
-			
-			<cfset thisRelatedAgentID=url["related_agent_id_#thisAgentRelationshipID#"]>
-			<br>thisRelatedAgentID: #thisRelatedAgentID#
-			
-			
-			<cfif thisAgentRelationshipID contains "new" and len(thisAgentRelationship) gt 0>
-				<br>inserting
-			<cfelseif thisAgentRelationship is "DELETE">
-				<br>delete
-			<cfelse>
-				<br>update
-			</cfif>
-		</p>
-	</cfif>
-</cfloop>
-
-
-
-
-</cfoutput>
-
-<cfabort>
-	<cftry>
-	
-	=&agent_relationship_new1=&related_agent_id_new1=&related_agent_new1=
-		<cftransaction>
-			<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				UPDATE agent SET 
-					agent_remarks = '#escapeQuotes(agent_remarks)#',
-					agent_type='#agent_type#',
-					preferred_agent_name='#escapeQuotes(preferred_agent_name)#'
-				WHERE
-					agent_id = #agent_id#
-			</cfquery>
-			
-
-		</cftransaction>
-	<cfreturn "success">
-	<cfcatch>
-		<cfreturn cfcatch.message & ': ' & cfcatch.detail>
-	</cfcatch>
-	</cftry>
+		<cftry>
+			<cftransaction>
+				<!--- agent --->
+				<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					UPDATE agent SET 
+						agent_remarks = '#escapeQuotes(agent_remarks)#',
+						agent_type='#agent_type#',
+						preferred_agent_name='#escapeQuotes(preferred_agent_name)#'
+					WHERE
+						agent_id = #agent_id#
+				</cfquery>
+				<!---- agent names --->
+				<cfloop list="#structKeyList(url)#" index="key">
+					<cfif left(key,16) is "agent_name_type_">
+						<cfset thisAgentNameID=listlast(key,"_")>
+						<cfset thisAgentNameType=url["agent_name_type_#thisAgentNameID#"]>
+						<cfset thisAgentName=url["agent_name_#thisAgentNameID#"]>
+						<cfif thisAgentNameID contains "new">
+							<cfif len(thisAgentName) gt 0>
+								<cfquery name="nan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									INSERT INTO agent_name (
+										agent_name_id,
+										agent_id,
+										agent_name_type,
+										agent_name
+									) VALUES (
+										sq_agent_name_id.nextval,
+										<cfqueryparam value = "#agentID#" CFSQLType = "CF_SQL_INTEGER">,
+										'#thisAgentNameType#',
+										'#escapeQuotes(thisAgentName)#'
+									)
+								</cfquery>
+							</cfif>
+						<cfelseif thisAgentName is "DELETE">
+							<cfquery name="nan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								delete from agent_name where agent_name_id=<cfqueryparam value = "#thisAgentNameID#" CFSQLType = "CF_SQL_INTEGER">
+							</cfquery>
+						<cfelse>
+							<cfquery name="nan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								update 
+									agent_name 
+								set 
+									agent_name='#escapeQuotes(thisAgentName)#',
+									agent_name_type='#thisAgentNameType#'
+								where agent_name_id=<cfqueryparam value = "#thisAgentNameID#" CFSQLType = "CF_SQL_INTEGER">
+							</cfquery>
+						</cfif>
+					</cfif>
+				</cfloop>
+				<!---- relationships ---->
+				<cfloop list="#structKeyList(url)#" index="key">
+					<cfif left(key,19) is "agent_relationship_">
+						<cfset thisAgentRelationshipID=listlast(key,"_")>
+						<cfset thisAgentRelationship=url["agent_relationship_#thisAgentRelationshipID#"]>
+						<cfset thisRelatedAgentName=url["related_agent_#thisAgentRelationshipID#"]>
+						<cfset thisRelatedAgentID=url["related_agent_id_#thisAgentRelationshipID#"]>
+						<cfif thisAgentRelationshipID contains "new" and len(thisAgentRelationship) gt 0>
+							<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								INSERT INTO agent_relations (
+									AGENT_ID,
+									RELATED_AGENT_ID,
+									AGENT_RELATIONSHIP)
+								VALUES (
+									<cfqueryparam value = "#agent_id#" CFSQLType = "CF_SQL_INTEGER">,
+									<cfqueryparam value = "#thisRelatedAgentID#" CFSQLType = "CF_SQL_INTEGER">,
+									'#thisAgentRelationship#')		  
+							</cfquery>
+						<cfelseif thisAgentRelationship is "DELETE">
+							<cfquery name="killRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								delete from agent_relations where agent_relationship_id=<cfqueryparam value = "#thisAgentRelationshipID#" CFSQLType = "CF_SQL_INTEGER">
+							</cfquery>
+						<cfelse>
+							<cfquery name="changeRelated" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								UPDATE agent_relations SET
+									related_agent_id = <cfqueryparam value = "#thisRelatedAgentID#" CFSQLType = "CF_SQL_INTEGER">,
+									agent_relationship='#thisAgentRelationship#'
+								WHERE agent_relationship_id=<cfqueryparam value = "#thisAgentRelationshipID#" CFSQLType = "CF_SQL_INTEGER">
+							</cfquery>
+						</cfif>
+					</cfif>
+				</cfloop>
+				<!---- status ---->
+				<cfloop list="#structKeyList(url)#" index="key">
+					<cfif left(key,13) is "agent_status_">
+						<cfset thisAgentStatusID=listlast(key,"_")>
+						<cfset thisAgentStatus=url["agent_status_#thisAgentStatusID#"]>
+						<cfset thisAgentStatusDate=url["status_date_#thisAgentStatusID#"]>
+						<cfset thisAgentStatusRemark=url["status_remark_#thisAgentStatusID#"]>
+						<cfif thisAgentStatusID contains "new" and len(thisAgentStatus) gt 0>
+							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								insert into agent_status (
+									AGENT_STATUS_ID,
+									AGENT_ID,
+									AGENT_STATUS,
+									STATUS_DATE,
+									STATUS_REMARK
+								) values (
+									sq_AGENT_STATUS_ID.nextval,
+									#agent_id#,
+									'#agent_status#',
+									'#status_date#',
+									'#escapequotes(status_remark)#'
+								)
+							</cfquery>
+						<cfelseif thisAgentStatus is "DELETE">
+							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								delete from  agent_status where agent_status_id=<cfqueryparam value = "#thisAgentStatusID#" CFSQLType = "CF_SQL_INTEGER">
+							</cfquery>
+						<cfelse>
+							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								update agent_status 
+								set
+									AGENT_STATUS='#AGENT_STATUS#',
+									STATUS_DATE='#STATUS_DATE#',
+									STATUS_REMARK='#escapequotes(status_remark)#'
+								where AGENT_STATUS_ID=<cfqueryparam value = "#thisAgentStatusID#" CFSQLType = "CF_SQL_INTEGER">
+							</cfquery>
+						</cfif>
+					</cfif>
+				</cfloop>
+			</cftransaction>
+		<cfreturn "success">
+		<cfcatch>
+			<cfreturn cfcatch.message & ': ' & cfcatch.detail>
+		</cfcatch>
+		</cftry>
+	</cfoutput>
 </cffunction>
 
 
