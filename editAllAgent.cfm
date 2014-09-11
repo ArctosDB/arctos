@@ -217,27 +217,9 @@ console.log('clickypop');
 
 
 
-/*
-
-
-	var dialog1 = $('#dialogdiv').dialog({
-	    autoOpen: false,
-	    modal: true,
-	    title: 'hi',
-	    close: function (e, ui) { $(this).remove(); }
-	});
-$(".ui-widget-overlay").click(function(){
-	    $(".ui-dialog-titlebar-close").trigger('click');
-	});
-dialog1.load(guts).dialog('open');
-*/
-
-
-
 }
 
 </script>
-<div id="dialog">hello</div>
 <!----
 
 
