@@ -246,7 +246,7 @@ console.log('clickypop');
 		height: 'auto',
 		modal: true,
 		position: ['center', 'center'],
-		title: 'Build Taxon Name',
+		title: 'Edit Address',
 		width: 'auto',
 		close: function() {
 			$( this ).remove();
