@@ -460,7 +460,8 @@ $.ajax({
 				</tr>
 			</table>
 		</fieldset>
-		
+		<input type="submit">
+		</form>
 			
 		<cfloop query="agentAddrs">
 			<cfif valid_addr_fg is 1>
