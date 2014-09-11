@@ -228,13 +228,36 @@ function addAgentRelationship(){
 				
 						
 							
-							
+function addAgentAddr(aid){
+		var guts = "includes/forms/editAgentAddr.cfm?action=newAddress&agent_id=" + aid;
+	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'center'],
+		title: 'Add Address',
+		width: 'auto',
+		close: function() {
+			$( this ).remove();
+		},
+	}).load(guts, function() {
+		$(this).dialog("option", "position", ['center', 'center'] );
+	});
+	$(window).resize(function() {
+		//fluidDialog();
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
+}			
 					
 				
 				
 function editAgentAddress (aid){
 console.log('clickypop');
-	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
+	var guts = "includes/forms/editAgentAddr.cfm?action=editAddress&addr_id=" + aid;
 //    $("#dialog").dialog('open');
 
 
