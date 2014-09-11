@@ -29,7 +29,7 @@
 					$("#aow_" + aid).remove();
 					$(".ui-dialog-titlebar-close").trigger('click');
 				} else {
-					alert('An error occurred: ' + r;
+					alert('An error occurred: ' + r);
 				}
 				},
 				error: function (xhr, textStatus, errorThrown){
