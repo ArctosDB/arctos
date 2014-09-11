@@ -36,13 +36,11 @@
 	<cfdump var=#url#>
 	<cfdump var=#form#>
 	
-	
-		<cfloop from="1" to="#arrayLen(url)#" index="i">
-  			<cfset data = url[i]>
-			  <cfloop collection="#data#" item="key">
-			   <br> #key#:#data[key]#
-			  </cfloop> 
-		</cfloop>
+	<cfloop list="#structKeyList(url)#" index="key">
+<cfoutput>
+<br>Key: #key#, Value: #testStruct[key]#
+</cfoutput>
+</cfloop>
 	<cfabort>
 	
 	
