@@ -1,6 +1,4 @@
-<cfif not isdefined("agent_id")>
-	<cfset agent_id=-1>
-</cfif>
+
 <cfinclude template="/includes/_header.cfm">
 
 <style>
@@ -120,7 +118,7 @@
 					</td>
 					<td>
 						<label for="agent_id">AgentID</label>
-						<input type="text" name="agent_id" size="12" id="agent_id">
+						<input type="text" name="agent_id" size="12">
 					</td>
 				</tr>
 			</table>
