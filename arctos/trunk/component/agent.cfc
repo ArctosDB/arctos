@@ -23,7 +23,13 @@
 			where addr_id=#addr_id#
 		</cfquery>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 'success' status, addr_id, formatted_addr from addr where addr_id=#addr_id#
+			select 
+				'success' status, 
+				addr_id, 
+				formatted_addr, 
+				decode(VALID_ADDR_FG,0,'invalid','valid') VALID_ADDR_FG,
+				ADDR_TYPE
+			from addr where addr_id=#addr_id#
 		</cfquery>	
 		<cfreturn d>
 	<cfcatch>

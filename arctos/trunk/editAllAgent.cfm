@@ -16,7 +16,7 @@
 </cfquery>
 <style>
 .validAddress{border:2px solid green;margin:1px;padding:1px;}
-.invalidAddress[border:2px solid red;margin:1px;padding:1px;}
+.invalidAddress{border:2px solid red;margin:1px;padding:1px;}
 
 		
 	#map-canvas { height: 300px;width:500px; }
