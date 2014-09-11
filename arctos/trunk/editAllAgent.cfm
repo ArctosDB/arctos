@@ -139,6 +139,8 @@ margin:.1em;
 
 function editAgentAddress (aid){
 	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
+
+/
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
@@ -153,6 +155,7 @@ function editAgentAddress (aid){
 	}).load(guts, function() {
 		$(this).dialog("option", "position", ['center', 'center'] );
 	});
+*/
 	/*
 	$(window).resize(function() {
 		//fluidDialog();
