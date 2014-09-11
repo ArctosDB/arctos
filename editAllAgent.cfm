@@ -104,8 +104,14 @@ function addAgentName(){
 	h=<input type="text" name="agent_name_new'+i+'" id="agent_name_new'+i+'" size="40" >'>
 	$('#agent_name_type_new' + i).after(h);
 
-/*
-	$.ajax({
+
+}
+</script>
+<!----
+
+
+
+$.ajax({
 		url: "/component/agent.cfc?queryformat=column&method=addAgentName&returnformat=json",
 		type: "GET",
 		dataType: "json",
@@ -141,9 +147,9 @@ function addAgentName(){
 		}
 	});
 * */
-}
-</script>
 
+
+---->
 
 
 <!------------------------------------------------------------------------------------------------------------->
