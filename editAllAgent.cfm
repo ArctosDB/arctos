@@ -181,7 +181,9 @@ function addAgentRelationship(){
 					
 				
 				
-
+function editAgentAddress (aid){
+console.log('clickypop');
+}
 
 </script>
 <!----
