@@ -25,8 +25,11 @@
 					success: function(r) {
 						
 						if (r=='success'){
-							loadEditAgent( $("#agent_id").val() );
 							$(".ui-dialog-titlebar-close").trigger('click');
+
+
+							loadEditAgent( $("#agent_id").val() );
+							
 						} else {
 							alert('An error occurred: ' + r);
 						}
