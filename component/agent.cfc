@@ -162,7 +162,7 @@
 			<cf_logError subject="error caught: saveAgent" attributeCollection=#cfcatch#>
 			<cfset m=cfcatch.message & ': ' & cfcatch.detail>
 			<cfif isdefined("cfcatch.sql")>
-				<cfset m= m & ' ' & cfcatch.sql>
+				<cfset m= m & ' \n\nSQL:\n' & cfcatch.sql>
 			</cfif>
 			<cfreturn m>
 		</cfcatch>
