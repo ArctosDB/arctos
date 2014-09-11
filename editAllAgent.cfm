@@ -587,9 +587,9 @@ $.ajax({
 			<cfelse>
 				<cfset thisClass="invalidAddress">
 			</cfif>
-			<div class="#thisClass#" id="aow_#arrd_id#" style="width:100%; display: table;">
+			<div class="#thisClass#" id="aow_#ADDR_ID#" style="width:100%; display: table;">
 			    <div style="display: table-row">
-			        <div style="display: table-cell;">
+			        <div id="atype_#ADDR_ID#" style="display: table-cell;">
 			        	#addr_type# Address (<cfif valid_addr_fg is 1>valid<cfelse>invalid</cfif>)
 			        </div>
 			        <div style="display: table-cell;text-align:right;">
