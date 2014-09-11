@@ -61,17 +61,19 @@
 						<cfset thisAgentRelationship=url["agent_relationship_#thisAgentRelationshipID#"]>
 						<cfset thisRelatedAgentName=url["related_agent_#thisAgentRelationshipID#"]>
 						<cfset thisRelatedAgentID=url["related_agent_id_#thisAgentRelationshipID#"]>
-						<cfif thisAgentRelationshipID contains "new" and len(thisAgentRelationship) gt 0>
-							<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-								INSERT INTO agent_relations (
-									AGENT_ID,
-									RELATED_AGENT_ID,
-									AGENT_RELATIONSHIP)
-								VALUES (
-									<cfqueryparam value = "#agent_id#" CFSQLType = "CF_SQL_INTEGER">,
-									<cfqueryparam value = "#thisRelatedAgentID#" CFSQLType = "CF_SQL_INTEGER">,
-									'#thisAgentRelationship#')		  
-							</cfquery>
+						<cfif thisAgentRelationshipID contains "new">
+							<cfif len(thisAgentRelationship) gt 0>
+								<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									INSERT INTO agent_relations (
+										AGENT_ID,
+										RELATED_AGENT_ID,
+										AGENT_RELATIONSHIP)
+									VALUES (
+										<cfqueryparam value = "#agent_id#" CFSQLType = "CF_SQL_INTEGER">,
+										<cfqueryparam value = "#thisRelatedAgentID#" CFSQLType = "CF_SQL_INTEGER">,
+										'#thisAgentRelationship#')		  
+								</cfquery>
+							</cfif>
 						<cfelseif thisAgentRelationship is "DELETE">
 							<cfquery name="killRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								delete from agent_relations where agent_relationship_id=<cfqueryparam value = "#thisAgentRelationshipID#" CFSQLType = "CF_SQL_INTEGER">
@@ -93,22 +95,25 @@
 						<cfset thisAgentStatus=url["agent_status_#thisAgentStatusID#"]>
 						<cfset thisAgentStatusDate=url["status_date_#thisAgentStatusID#"]>
 						<cfset thisAgentStatusRemark=url["status_remark_#thisAgentStatusID#"]>
-						<cfif thisAgentStatusID contains "new" and len(thisAgentStatus) gt 0>
-							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-								insert into agent_status (
-									AGENT_STATUS_ID,
-									AGENT_ID,
-									AGENT_STATUS,
-									STATUS_DATE,
-									STATUS_REMARK
-								) values (
-									sq_AGENT_STATUS_ID.nextval,
-									#agent_id#,
-									'#agent_status#',
-									'#status_date#',
-									'#escapequotes(status_remark)#'
-								)
-							</cfquery>
+						<cfif thisAgentStatusID contains "new">
+						
+							<cfif len(thisAgentStatus) gt 0>
+								<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									insert into agent_status (
+										AGENT_STATUS_ID,
+										AGENT_ID,
+										AGENT_STATUS,
+										STATUS_DATE,
+										STATUS_REMARK
+									) values (
+										sq_AGENT_STATUS_ID.nextval,
+										#agent_id#,
+										'#agent_status#',
+										'#status_date#',
+										'#escapequotes(status_remark)#'
+									)
+								</cfquery>
+							</cfif>
 						<cfelseif thisAgentStatus is "DELETE">
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								delete from  agent_status where agent_status_id=<cfqueryparam value = "#thisAgentStatusID#" CFSQLType = "CF_SQL_INTEGER">
