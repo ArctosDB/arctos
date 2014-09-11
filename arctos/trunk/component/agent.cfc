@@ -14,12 +14,21 @@
 				<cfif left(key,16) is "agent_name_type_">
 					<p>
 					<cfset thisAgentNameID=listlast(key,"_")>
+					
 					<br>thisAgentNameID: #thisAgentNameID#
 					<cfset thisAgentNameType=url["agent_name_type_#thisAgentNameID#"]>
 					<br>thisAgentNameType: #thisAgentNameType#
-					<cfset thisAgentName=url[key]>
-					<br>thisAgentName: #thisAgentName#
 					
+					<cfset thisAgentName=url["agent_name_#thisAgentNameID#"]>
+					
+					<br>thisAgentName: #thisAgentName#
+					<cfif thisAgentNameID contains "new" and len(thisAgentName) gt 0>
+						<br>inserting
+					<cfelseif thisAgentName is "DELETE">
+						<br>delete
+					<cfelse>
+						<br>update
+					</cfif>
 					
 					</p>
 				</cfif>
