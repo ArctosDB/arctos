@@ -56,7 +56,8 @@ margin:.1em;
 				data:  $("#fEditAgent").serialize(),
 				success: function(r) {
 					if (r=='success'){
-						$("#fs_fEditAgent legend").removeClass().addClass('goodsave').text('Save Successful');
+						loadEditAgent($("#agent_id").val() );
+						//$("#fs_fEditAgent legend").removeClass().addClass('goodsave').text('Save Successful');
 					} else {
 						$("#fs_fEditAgent legend").removeClass().addClass('badsave').text('ERROR!');
 						alert('An error occurred: ' + r);
