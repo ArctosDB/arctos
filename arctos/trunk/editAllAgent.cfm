@@ -315,32 +315,6 @@ $.ajax({
 				</div>
 			</fieldset>
 		
-		
-		<!-----
-		
-		<br />
-		<label for="anamdv"><span class="likeLink" onClick="getDocs('agent','names')">Agent Names</span></label>
-		<div id="anamdv" style="border:2px solid green;margin:1px;padding:1px;">
-			<label>Agent Names</label>
-				
-					<input type="hidden" name="action">
-					<input type="hidden" name="agent_id" value="#agent_names.agent_id#">
-					
-					<input type="text" value="#agent_names.agent_name#" name="agent_name">
-					<input type="button" value="Update" class="savBtn" onClick="a#i#.action.value='updateName';a#i#.submit();">
-					<input type="button" value="Delete" class="delBtn" onClick="a#i#.action.value='deleteName';confirmDelete('a#i#','this agent name');">
-					<input type="button" class="lnkBtn" value="Copy" onClick="newName.agent_name.value='#agent_names.agent_name#';">
-					<cfif agent_name_type is "login">
-						<a href="/AdminUsers.cfm?action=edit&username=#agent_names.agent_name#" class="infoLink" target="_top">[ Arctos user ]</a>
-					</cfif>
-				</form>
-				
-		</div>
-		
-		
-		
-			</div>
-			
 			<table border>
 				<tr>
 				<th>
@@ -384,6 +358,11 @@ $.ajax({
 			</cfloop>
 		</table>
 			
+		<!-----
+		
+	
+			
+		
 			<br>
 		</form>
 				
