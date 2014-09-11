@@ -57,12 +57,14 @@ margin:.1em;
 				success: function(r) {
 					if (r=='success'){
 
-							console.log('success: reload ' + $("#agent_id").val() );
+						console.log('success: reload ' + $("#agent_id").val() );
 						loadEditAgent( $("#agent_id").val() );
 						//$("#fs_fEditAgent legend").removeClass().addClass('goodsave').text('Save Successful');
 					} else {
 						$("#fs_fEditAgent legend").removeClass().addClass('badsave').text('ERROR!');
-						alert('An error occurred: ' + r);
+						var m='An error occurred and your changes were not saved.\nIn the event of multiple sequential error messages, ';
+						m+='you may need to reload this page to continue.\n';
+						alert (m + r);
 					}
 				},
 				error: function (xhr, textStatus, errorThrown){
