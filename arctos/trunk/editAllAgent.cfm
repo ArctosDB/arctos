@@ -388,7 +388,7 @@ $.ajax({
 							</select>
 						</td>
 						<td><input type="datetime" class="reqdClr" size="12" name="status_date_#agent_status_id#" id="status_date_#agent_status_id#" value="#status_date#"></td>
-						<td><input type="text" size="50" name="status_remark" value="#status_remark#"></td>
+						<td><input type="text" size="50" name="status_remark_#agent_status_id#" id="status_remark_#agent_status_id#" value="#status_remark#"></td>
 						<td>
 							<span style="font-size:x-small;">(#reported_by# on #dateformat(STATUS_REPORTED_DATE,'yyyy-mm-dd')#)</span>
 						</td>

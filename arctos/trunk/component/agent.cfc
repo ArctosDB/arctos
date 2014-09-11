@@ -9,41 +9,63 @@
 	</cfif>
 	<cfdump var=#url#>
 	<cfoutput>
-	<cfloop list="#structKeyList(url)#" index="key">
-				<br>Key: #key#, Value: #url[key]#
-				<cfif left(key,16) is "agent_name_type_">
-					<p>
-					<cfset thisAgentNameID=listlast(key,"_")>
-					
-					<br>thisAgentNameID: #thisAgentNameID#
-					<cfset thisAgentNameType=url["agent_name_type_#thisAgentNameID#"]>
-					<br>thisAgentNameType: #thisAgentNameType#
-					
-					<cfset thisAgentName=url["agent_name_#thisAgentNameID#"]>
-					
-					<br>thisAgentName: #thisAgentName#
-					<cfif thisAgentNameID contains "new" and len(thisAgentName) gt 0>
-						<br>inserting
-					<cfelseif thisAgentName is "DELETE">
-						<br>delete
-					<cfelse>
-						<br>update
-					</cfif>
-					
-					</p>
-				</cfif>
-				
-			</cfloop>
+<cfloop list="#structKeyList(url)#" index="key">
+	<br>Key: #key#, Value: #url[key]#
+	<cfif left(key,16) is "agent_name_type_">
+		<p>
+			<cfset thisAgentNameID=listlast(key,"_")>
+			
+			<br>thisAgentNameID: #thisAgentNameID#
+			<cfset thisAgentNameType=url["agent_name_type_#thisAgentNameID#"]>
+			<br>thisAgentNameType: #thisAgentNameType#
+			
+			<cfset thisAgentName=url["agent_name_#thisAgentNameID#"]>
+			
+			<br>thisAgentName: #thisAgentName#
+			<cfif thisAgentNameID contains "new" and len(thisAgentName) gt 0>
+				<br>inserting
+			<cfelseif thisAgentName is "DELETE">
+				<br>delete
+			<cfelse>
+				<br>update
+			</cfif>
+		</p>
+	</cfif>
+</cfloop>
 
+<cfloop list="#structKeyList(url)#" index="key">
+	<br>Key: #key#, Value: #url[key]#
+	<cfif left(key,13) is "agent_status_">
+		<p>
+			<cfset thisAgentStatusID=listlast(key,"_")>
+			<br>thisAgentStatusID: #thisAgentStatusID#
 
+			<cfset thisAgentStatus=url["agent_status_#thisAgentNameID#"]>
+			<br>thisAgentStatus: #thisAgentStatus#
+			
+			<cfset thisAgentStatusDate=url["status_date_#thisAgentNameID#"]>
+			<br>thisAgentStatusDate: #thisAgentStatusDate#
+			
+			<cfset thisAgentStatusRemark=url["status_remark_#thisAgentNameID#"]>
+			<br>thisAgentStatusRemark: #thisAgentStatusRemark#
+			
+			
+			<cfif thisAgentStatusID contains "new" and len(thisAgentStatus) gt 0>
+				<br>inserting
+			<cfelseif thisAgentStatus is "DELETE">
+				<br>delete
+			<cfelse>
+				<br>update
+			</cfif>
+		</p>
+	</cfif>
+</cfloop>
 </cfoutput>
 
 <cfabort>
 	<cftry>
 	
-	
-
-agent_name_type_10740831=aka&agent_name_10740831=D.+L.+McDonald&agent_name_type_10854068=aka&agent_name_10854068=Dusty+Lee+McDonald&agent_name_type_1021885=aka&agent_name_1021885=Dusty+MacDonald&agent_name_type_10737985=aka&agent_name_10737985=Dusty+McDonald&agent_name_type_10756423=first+name&agent_name_10756423=Dusty&agent_name_type_10812638=last+name&agent_name_10812638=McDonald&agent_name_type_4551=login&agent_name_4551=dlm&agent_name_type_10944645=login&agent_name_10944645=uam&agent_name_type_10794137=middle+name&agent_name_10794137=Lee&agent_name_type_new1=&agent_name_new1=&agent_status_28=born&status_date_28=1973-11-02&status_remark=&new_agent_status1=&new_status_date1=2014-09-10&new_status_remark1=&agent_relationship_new1=&related_agent_id_new1=&related_agent_new1=
+	=&agent_relationship_new1=&related_agent_id_new1=&related_agent_new1=
 		<cftransaction>
 			<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				UPDATE agent SET 
