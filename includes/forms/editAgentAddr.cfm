@@ -47,7 +47,7 @@ alert('NOOO error occurred: ' + r);
 });
 
 
-<script>
+</script>
 
 	<cfoutput>
 	<form name="editAddr" id="editAddr" method="post" action="editAllAgent.cfm">
