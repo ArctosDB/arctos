@@ -128,7 +128,8 @@
 			</cftransaction>
 		<cfreturn "success">
 		<cfcatch>
-			<cfreturn cfcatch.message & ': ' & cfcatch.detail>
+			<cfreturn cfcatch.message & ': ' & cfcatch.detail & ': ' & cfcatch.sql>
+			<cf_logError subject="error caught: saveAgent" attributeCollection=#cfcatch#>
 		</cfcatch>
 		</cftry>
 	</cfoutput>
