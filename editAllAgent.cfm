@@ -358,8 +358,8 @@ $.ajax({
 							</cfloop>
 						</select>
 						<input type="text" name="agent_name_new1" id="agent_name_new1" size="40">
+						<input type="button" onclick="addAgentName()" value="more">
 					</div>
-					<input type="button" onclick="addAgentName()" value="more">
 				</div>
 			</fieldset>
 			<fieldset>
@@ -438,7 +438,7 @@ $.ajax({
 				</tr>
 				<tr id="nar1">
 					<td>
-						<input type="button" onclick="addAgentRelationship()" value="more">
+						
 						<input type="hidden" id="nnar" value="1">
 						<select name="agent_relationship_new1" id="agent_relationship_new1" size="1">
 							<cfloop query="ctRelns">
@@ -451,61 +451,38 @@ $.ajax({
 						<input type="text" name="related_agent_new1" id="related_agent_new1" class="reqdClr"
 							onchange="getAgent('related_agent_idnew1',this.id,'fEditAgent',this.value); return false;"
 							onKeyPress="return noenter(event);">
+						<input type="button" onclick="addAgentRelationship()" value="more">
 					</td>
 				</tr>
-				
 			</table>
 		</fieldset>
 		
-		<br />	<label for="areldv"><span class="likeLink" onClick="getDocs('agent','relations')">Relationships</span></label>
-			<div id="areldv" style="border:2px solid green;margin:1px;padding:1px;">
-				<cfset i=1>
-				<cfloop query="relns">
-					<form name="agentRelations#i#" method="post" action="editAllAgent.cfm">
-						<input type="hidden" name="action">
-						<input type="hidden" name="agent_id" id="agent_id#i#" value="#agent.agent_id#">
-						<input type="hidden" name="related_agent_id" value="#related_agent_id#">
-						<input type="hidden" name="oldRelationship" value="#agent_relationship#">
-						<input type="hidden" name="newRelatedAgentId">
-						<cfset thisReln = agent_relationship>
-						<select name="relationship" size="1">
-							<cfloop query="ctRelns">
-								<option value="#ctRelns.AGENT_RELATIONSHIP#"
-									<cfif #ctRelns.AGENT_RELATIONSHIP# is "#thisReln#">
-										selected="selected"
-									</cfif>
-									>#ctRelns.AGENT_RELATIONSHIP#</option>
-							</cfloop>
-						</select> 
-						<input type="text" name="related_agent" class="reqdClr" value="#agent_name#" id="agent_name#i#"
-							onchange="getAgent('newRelatedAgentId','related_agent','fEditAgent',this.value); return false;"
-							onKeyPress="return noenter(event);">
-						<input type="button" class="savBtn" value="Save" onClick="agentRelations#i#.action.value='changeRelated';agentRelations#i#.submit();">
-						<input type="button" class="delBtn" value="Delete" onClick="agentRelations#i#.action.value='deleteRelated';confirmDelete('agentRelations#i#');">
-					</form>
-					<cfset i=i+1>
-				</cfloop>
+			
+		<cfloop query="agentAddrs">
+			<cfif valid_addr_fg is 1>
+				<div style="border:2px solid green;margin:1px;padding:1px;">
+			<cfelse>
+				<div style="border:2px solid red;margin:1px;padding:1px;">
+			</cfif>
+				#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
+				&nbsp;
+				<input type="button" class="lnkBtn" value="Edit" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">
+				&nbsp;
+\				<div style="margin-left:1em;">
+					#replace(formatted_addr,chr(10),"<br>","all")#
+				</div>
 			</div>
-			<div class="newRec">
-				<label>Add Relationship</label>
-				<form name="newRelationship" method="post" action="editAllAgent.cfm">
-					<input type="hidden" name="action" value="addRelationship">
-					<input type="hidden" name="newRelatedAgentId">
-					<input type="hidden" name="agent_id" value="#agent.agent_id#">
-					<select name="relationship" size="1">
-						<cfloop query="ctRelns"> 
-							<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
-						</cfloop> 
-					</select>
-					<input type="text" name="related_agent" class="reqdClr"
-						onchange="getAgent('newRelatedAgentId','related_agent','newRelationship',this.value); return false;"
-						onKeyPress="return noenter(event);">
-					<input type="submit" class="insBtn" value="Create Relationship">
-				</form>
-			</div>
-			
-			
-			
+		</cfloop>
+			<br />
+			<cfloop query="elecagentAddrs">
+				\\
+				<div style="border:2px solid green;margin:1px;padding:1px;">
+					#address_type#: #address#
+					<input type="button" value="Edit" class="lnkBtn" onclick="elad#i#.action.value='editElecAddr';elad#i#.submit();">
+				</div>
+			</cfloop>
+		<br />
+		
 		<!-----
 		
 	
