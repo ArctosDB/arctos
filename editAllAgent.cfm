@@ -186,7 +186,7 @@ console.log('clickypop');
 	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
 
 
-	var dialog1 = $('<div></div>',{id: 'diadie'}).dialog({
+	var dialog1 = $('#dialogdiv').dialog({
 	    autoOpen: false,
 	    modal: true,
 	    title: 'hi',
@@ -199,6 +199,7 @@ dialog1.load(guts).dialog('open');
 }
 
 </script>
+<div id="dialogdiv"></div>
 <!----
 
 
