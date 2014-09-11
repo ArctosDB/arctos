@@ -99,9 +99,12 @@ margin:.1em;
 				}
 			});
 		});
-		$('[id^="agent_name_type_new"]').on(change(function(event){
-				console.log('nnclick');
-		});
+
+$(document).on("change", '[id^="agent_name_type_new"]', function(){
+   console.log('nnclick');
+});
+
+
 	
 	});
 
