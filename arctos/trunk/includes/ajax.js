@@ -1,7 +1,6 @@
 
 $(document).ready(function() {
 	
-	//$("input[type='date'], input[type='datetime']" ).datepicker();
 	
 	
 	$(".helpLink").live('click', function(e){
@@ -42,6 +41,10 @@ $(document).ready(function() {
 			changeStyle(parent.frames[0].thisStyle);
 		}
 	}
+	
+	
+	$("input[type='date'], input[type='datetime']" ).datepicker();
+
 });
 
 /* agent editing forms */
