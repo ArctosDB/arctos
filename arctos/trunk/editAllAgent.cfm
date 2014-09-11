@@ -98,9 +98,9 @@ margin:.1em;
 function addAgentName(){
 	var i=parseInt($("#nnan").val()) + parseInt(1);
 
-	var h='<div><select name="agent_name_type_new'+i+'" id="agent_name_type_new'+i+'"></select>';
+	var h='<div id="agentnamedv'+i+'"><select name="agent_name_type_new'+i+'" id="agent_name_type_new'+i+'"></select>';
 	h+='<input type="text" name="agent_name_new'+i+'" id="agent_name_new'+i+'" size="40" ></div>';
-	$('#agent_name_new' + $("#nnan").val()).after(h);
+	$('#agentnamedv' + $("#nnan").val()).after(h);
 	$('#agent_name_type_new1').find('option').clone().appendTo('#agent_name_type_new' + i);
 
 	$("#nnan").val(i);
@@ -309,12 +309,14 @@ $.ajax({
 				<div class="newRec">
 					Add Name<br>
 					<input type="hidden" id="nnan" value="1">
-					<select name="agent_name_type_new1" id="agent_name_type_new1">
-						<cfloop query="ctNameType">
-							<option value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
-						</cfloop>
-					</select>
-					<input type="text" name="agent_name_new1" id="agent_name_new1" size="40" required>
+					<div id="agentnamedv1">
+						<select name="agent_name_type_new1" id="agent_name_type_new1">
+							<cfloop query="ctNameType">
+								<option value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
+							</cfloop>
+						</select>
+						<input type="text" name="agent_name_new1" id="agent_name_new1" size="40">
+					</div>
 					<br><input type="button" onclick="addAgentName()" value="more">
 
 				</div>
