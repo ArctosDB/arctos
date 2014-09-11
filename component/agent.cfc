@@ -24,6 +24,10 @@
 			where addr_id=#addr_id#
 		</cfquery>
 		<cfreturn 'spiffy'>
+		
+	<cfcatch>
+		<cfreturn cfcatch>
+	</cfcatch>
 	</cftry>
 </cffunction>
 
