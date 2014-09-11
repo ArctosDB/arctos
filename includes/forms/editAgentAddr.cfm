@@ -27,6 +27,9 @@
 				addr_id:  aid
 			},
 			success: function(r) {
+console.log(r);
+
+
 				if (r=='success'){
 					$("#aow_" + aid).remove();
 					$(".ui-dialog-titlebar-close").trigger('click');
