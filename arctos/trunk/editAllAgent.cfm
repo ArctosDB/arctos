@@ -24,6 +24,7 @@ fieldset {
     border:0;
     outline: 1px solid gray;
 	margin:1em;
+	padding:1em;
 }
 
 legend {
