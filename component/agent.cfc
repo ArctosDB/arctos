@@ -32,15 +32,28 @@
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
+	
+	<cfdump var=#url#>
+	
+	
+	<cfabort>
+	
+	
 	<cftry>
-	<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		UPDATE agent SET 
-			agent_remarks = '#escapeQuotes(agent_remarks)#',
-			agent_type='#agent_type#',
-			preferred_agent_name='#escapeQuotes(preferred_agent_name)#'
-		WHERE
-			agent_id = #agent_id#
-	</cfquery>
+	
+	
+
+agent_name_type_10740831=aka&agent_name_10740831=D.+L.+McDonald&agent_name_type_10854068=aka&agent_name_10854068=Dusty+Lee+McDonald&agent_name_type_1021885=aka&agent_name_1021885=Dusty+MacDonald&agent_name_type_10737985=aka&agent_name_10737985=Dusty+McDonald&agent_name_type_10756423=first+name&agent_name_10756423=Dusty&agent_name_type_10812638=last+name&agent_name_10812638=McDonald&agent_name_type_4551=login&agent_name_4551=dlm&agent_name_type_10944645=login&agent_name_10944645=uam&agent_name_type_10794137=middle+name&agent_name_10794137=Lee&agent_name_type_new1=&agent_name_new1=&agent_status_28=born&status_date_28=1973-11-02&status_remark=&new_agent_status1=&new_status_date1=2014-09-10&new_status_remark1=&agent_relationship_new1=&related_agent_id_new1=&related_agent_new1=
+		<cftransaction>
+			<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				UPDATE agent SET 
+					agent_remarks = '#escapeQuotes(agent_remarks)#',
+					agent_type='#agent_type#',
+					preferred_agent_name='#escapeQuotes(preferred_agent_name)#'
+				WHERE
+					agent_id = #agent_id#
+			</cfquery>
+		</cftransaction>
 	<cfreturn "success">
 	<cfcatch>
 		<cfreturn cfcatch.message & ': ' & cfcatch.detail>
