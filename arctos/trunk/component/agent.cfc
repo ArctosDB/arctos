@@ -90,25 +90,18 @@
 				</cfloop>
 				<!---- status ---->
 				
-				
-				=A.+Goldberg&agent_type=person&agent_remarks=&agent_name_type_10908799=first+name&agent_name_10908799=Aardvark&agent_name_type_10908800=last+name&agent_name_
-				10908800=Goldberg&agent_name_type_new1=&agent_name_new1=&
-				
-				agent_status_new_1=born&status_date_new_1=2014-09-11&status_remark_new_1=&agent_relationship_new1=&related_agent_id_new1=&related_agent_new1=
-				
-				
 				<cfloop list="#structKeyList(url)#" index="key">
 					<cfif left(key,13) is "agent_status_">
 						<cfset thisAgentStatusID=listlast(key,"_")>
 						<cfset thisAgentStatus=url["agent_status_#thisAgentStatusID#"]>
 						<cfset thisAgentStatusDate=url["status_date_#thisAgentStatusID#"]>
 						<cfset thisAgentStatusRemark=url["status_remark_#thisAgentStatusID#"]>
-						
+						<!----
 						<br>thisAgentStatusID: #thisAgentStatusID#
 						<br>thisAgentStatus: #thisAgentStatus#
 						<br>thisAgentStatusDate: #thisAgentStatusDate#
 						<br>thisAgentStatusRemark: #thisAgentStatusRemark#
-						
+						---->
 						
 						<cfif thisAgentStatusID contains "new">
 						
@@ -123,9 +116,9 @@
 									) values (
 										sq_AGENT_STATUS_ID.nextval,
 										#agent_id#,
-										'#agent_status#',
-										'#status_date#',
-										'#escapequotes(status_remark)#'
+										'#thisAgentStatus#',
+										'#thisAgentStatusDate#',
+										'#escapequotes(thisAgentStatusRemark)#'
 									)
 								</cfquery>
 							</cfif>
@@ -137,9 +130,9 @@
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update agent_status 
 								set
-									AGENT_STATUS='#AGENT_STATUS#',
-									STATUS_DATE='#STATUS_DATE#',
-									STATUS_REMARK='#escapequotes(status_remark)#'
+									AGENT_STATUS='#thisAgentStatus#',
+									STATUS_DATE='#thisAgentStatusDate#',
+									STATUS_REMARK='#escapequotes(thisAgentStatusRemark)#'
 								where AGENT_STATUS_ID=<cfqueryparam value = "#thisAgentStatusID#" CFSQLType = "CF_SQL_INTEGER">
 							</cfquery>
 						</cfif>
