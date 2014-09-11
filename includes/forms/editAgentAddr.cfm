@@ -13,28 +13,7 @@
 
 
 	<script>
-		function deleteAgentAddress(aid){
-			$.ajax({
-				url: "/component/agent.cfc?queryformat=column&method=deleteAgentAddrEdit&returnformat=json",
-				type: "GET",
-				dataType: "json",
-				data: {
-					addr_id:  aid
-				},
-				success: function(r) {
-					if (r=='success'){
-						$("#aow_" + aid).remove();
-						$(".ui-dialog-titlebar-close").trigger('click');
-					} else {
-						alert('An error occurred: ' + r);
-					}
-				},
-				error: function (xhr, textStatus, errorThrown){
-				    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
-				}
-			});
-		}
-	
+		
 		$(document).ready(function() {
 			$("#newAddress").submit(function(event){
 				event.preventDefault();
@@ -46,7 +25,7 @@
 					success: function(r) {
 						
 						if (r.DATA.STATUS[0]=='success'){
-							loadEditAgent( $(#"agent_id").val() );
+							loadEditAgent( $("#agent_id").val() );
 							$(".ui-dialog-titlebar-close").trigger('click');
 						} else {
 							alert('An error occurred: ' + r);
@@ -60,7 +39,7 @@
 		});
 	</script>
 
-
+<cfoutput>
 
 	<form name="newAddress" id="newAddress" method="post" action="editAllAgent.cfm">
 					<input type="hidden" name="agent_id" value="#agent_id#">
@@ -150,6 +129,8 @@
 						</tr>
 					</table>
 				</form>
+				
+				</cfoutput>
 </cfif>
 
 <cfif action is "editAddress">
