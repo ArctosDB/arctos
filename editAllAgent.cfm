@@ -185,30 +185,16 @@ function editAgentAddress (aid){
 console.log('clickypop');
 	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
 
+ $("#dialogdiv").dialog({
+                  autoOpen: false,
+                   width: 400, 
+                   height:200,
+                   modal: true
+                  });  
 
-
-$("#dialogdiv").dialog({
-        resizable: false,
-        autoOpen: false,
-        height:140,
-        modal: true,
-        buttons: {
-          'Delete all items': function() {
-            $(this).dialog('close');
-          },
-         Cancel: function() {
-            $(this).dialog('close');
-         }
-       }
-   });
-
-
-
- $.post(guts, function(data){
-            $('#dialogdiv').html(data);
-            $('#dialogdiv').dialog('open');
-       }, "html")};
-
+ $("#dialogdiv").load(guts,function(){
+               $( "#dialogdiv" ).dialog( "open" );   
+              });     
 
 
 
