@@ -36,7 +36,8 @@ $("#editAddr").submit(function(event){
 						$("#dvaddr_" + (r.DATA.ADDR_ID[0])).html(r.DATA.FORMATTED_ADDR[0]);
 //$( "#diadiv" ).remove();
 
-$('#diadiv').dialog('destroy').remove();
+$('.ui-dialog').empty().remove();
+
 					} else {
 						alert('An error occurred: ' + r.DATA.STATUS[0]);
 					}

@@ -189,7 +189,6 @@ console.log('clickypop');
 	var dialog1 = $('<div></div>').dialog({
 	    autoOpen: false,
 	    modal: true,
-		attr('id', 'diadiv'),
 	    title: 'hi',
 	    close: function (e, ui) { $(this).remove(); }
 	});
