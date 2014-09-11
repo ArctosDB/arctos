@@ -89,7 +89,7 @@
 							</cfif>
 						<cfelseif thisAgentRelationship is "DELETE">
 							<cfquery name="killRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-								delete from agent_relations where agent_relationship_id=<cfqueryparam value = "#thisAgentRelationsID#" CFSQLType = "CF_SQL_INTEGER">
+								delete from agent_relations where agent_relations_id=<cfqueryparam value = "#thisAgentRelationsID#" CFSQLType = "CF_SQL_INTEGER">
 							</cfquery>
 						<cfelse>
 							<cfquery name="changeRelated" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -162,7 +162,7 @@
 			<cf_logError subject="error caught: saveAgent" attributeCollection=#cfcatch#>
 			<cfset m=cfcatch.message & ': ' & cfcatch.detail>
 			<cfif isdefined("cfcatch.sql")>
-				<cfset m= m & ' \n\nSQL:\n' & cfcatch.sql>
+				<cfset m= m & ' SQL:' & cfcatch.sql>
 			</cfif>
 			<cfreturn m>
 		</cfcatch>

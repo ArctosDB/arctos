@@ -61,7 +61,7 @@ margin:.1em;
 						loadEditAgent( $("#agent_id").val() );
 						//$("#fs_fEditAgent legend").removeClass().addClass('goodsave').text('Save Successful');
 					} else {
-						$("#fs_fEditAgent legend").removeClass().addClass('badsave').text('ERROR!');
+						//$("#fs_fEditAgent legend").removeClass().addClass('badsave').text('ERROR!');
 						var m='An error occurred and your changes were not saved.\nIn the event of multiple error messages, ';
 						m+='you may need to reload this page to continue. Save incrementally if necessary. \n';
 						alert (m + r);
