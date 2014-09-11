@@ -66,6 +66,15 @@ $(document).ready(function() {
 	}
 });
 
+/* agent editing forms */
+function loadEditAgent(aid){
+	$("#agntEditCell").html('<img src="/images/indicator.gif">');
+	var ptl="/editAllAgent.cfm?agent_id=" + aid;
+	$("#agntEditCell").load(ptl,{},function(){});
+}
+
+/* END agent editing forms */
+
 function checkReplaceNoPrint(event,elem){
 	// stops form submission if the passed-in element contains nonprinting characters
 	
