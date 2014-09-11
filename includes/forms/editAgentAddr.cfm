@@ -34,7 +34,7 @@ $("#editAddr").submit(function(event){
 					console.log(r);
 					if (r.DATA.STATUS[0]=='success'){					
 						$("#dvaddr_" + (r.DATA.ADDR_ID[0])).html(r.DATA.FORMATTED_ADDR[0]);
-$( this ).remove();
+$( "#diadiv" ).remove();
 					} else {
 						alert('An error occurred: ' + r.DATA.STATUS[0]);
 					}
