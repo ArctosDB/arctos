@@ -182,6 +182,9 @@ function addAgentRelationship(){
 				
 				
 function editAgentAddress (aid){
+
+
+/*
 console.log('clickypop');
 	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
 
@@ -196,12 +199,29 @@ $(".ui-widget-overlay").click(function(){
 	    $(".ui-dialog-titlebar-close").trigger('click');
 	});
 dialog1.load(guts).dialog('open');
+*/
 
+$("#dialogdiv").dialog({
+    modal: true,
+    draggable: false,
+    resizable: false,
+    position: ['center', 'top'],
+    show: 'blind',
+    hide: 'blind',
+ autoOpen: false,
+    width: 400,
+    dialogClass: 'ui-dialog-osx',
+    buttons: {
+        "I've read and understand this": function() {
+            $(this).dialog("close");
+        }
+    }
+});
 
 }
 
 </script>
-<div id="dialogdiv"></div>
+<div id="dialogdiv">hello</div>
 <!----
 
 
