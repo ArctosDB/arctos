@@ -7,7 +7,7 @@
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
-	
+	<cfdump var=#url#>
 	<cfoutput>
 	<cfloop list="#structKeyList(url)#" index="key">
 				<br>Key: #key#, Value: #url[key]#
