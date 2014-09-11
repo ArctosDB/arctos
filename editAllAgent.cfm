@@ -424,9 +424,7 @@ $.ajax({
 								<option value="">DELETE</option>
 								<cfloop query="ctRelns">
 									<option value="#ctRelns.AGENT_RELATIONSHIP#"
-										<cfif #ctRelns.AGENT_RELATIONSHIP# is "#thisReln#">
-											selected="selected"
-										</cfif>
+										<cfif ctRelns.AGENT_RELATIONSHIP is relns.AGENT_RELATIONSHIP>selected="selected"</cfif>
 										>#ctRelns.AGENT_RELATIONSHIP#</option>
 								</cfloop>
 							</select> 
