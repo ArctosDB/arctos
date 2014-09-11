@@ -1,9 +1,4 @@
 <cfcomponent>
-
-
-
-deleteAgentAddrEdit
-
 <cffunction name="deleteAgentAddrEdit" access="remote">
 	<cftry>
 		<cfquery name="editAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
