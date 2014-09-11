@@ -56,7 +56,7 @@ margin:.1em;
 				data:  $("#fEditAgent").serialize(),
 				success: function(r) {
 					if (r=='success'){
-						loadEditAgent($("#agent_id").val() );
+						loadEditAgent($("#agent_id").val();
 						//$("#fs_fEditAgent legend").removeClass().addClass('goodsave').text('Save Successful');
 					} else {
 						$("#fs_fEditAgent legend").removeClass().addClass('badsave').text('ERROR!');
@@ -321,7 +321,7 @@ $.ajax({
 		<form name="fEditAgent" id="fEditAgent">
 			<fieldset id="fs_fEditAgent">
 				<legend>Edit Agent</legend>
-				<input type="hidden" name="agent_id" id="agent_id" value="#agent.agent_id#">
+				<input type="hidden" name="agent_id" id="agent_id" value="#agent_id#">
 				<label for="preferred_agent_name">Preferred Name</label>
 				<input type="text" value="#stripQuotes(agent.preferred_agent_name)#" name="preferred_agent_name" id="preferred_agent_name" size="50" class="reqdClr">
 				 
