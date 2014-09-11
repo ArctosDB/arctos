@@ -1,5 +1,32 @@
 <cfcomponent>
 
+
+
+
+<cffunction name="saveAgentAddrEdit" access="remote">
+	<cftry>
+		<cfquery name="editAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			UPDATE addr SET 
+				STREET_ADDR1 = '#STREET_ADDR1#'
+				,STREET_ADDR2 = '#STREET_ADDR2#'
+				,department = '#department#'
+				,institution = '#institution#'
+				,CITY = '#CITY#'
+				,STATE = '#STATE#'
+				,ZIP = '#ZIP#'
+				,COUNTRY_CDE = '#COUNTRY_CDE#'
+				,MAIL_STOP = '#MAIL_STOP#'
+				 ,AGENT_ID = #AGENT_ID#
+				,ADDR_TYPE = '#ADDR_TYPE#'
+				,JOB_TITLE = '#JOB_TITLE#'
+				,VALID_ADDR_FG = '#VALID_ADDR_FG#'
+				,ADDR_REMARKS = '#ADDR_REMARKS#'
+			where addr_id=#addr_id#
+		</cfquery>
+		<cfreturn 'spiffy'>
+	</cftry>
+</cffunction>
+
 <cffunction name="saveAgent" access="remote">
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
