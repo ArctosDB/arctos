@@ -122,7 +122,7 @@ function addAgentStatus(){
 	h+='<select name="agent_relationship_new'+i+'" id="agent_relationship_new'+i+'" size="1"></select> ';
 	h+='</td><td><input type="hidden" name="related_agent_id_new'+i+'" id="related_agent_id_new'+i+'">';
 	h+='<input type="text" name="related_agent_new'+i+'" id="related_agent_new'+i+'" class="reqdClr" ';
-	h+='onchange="getAgent('related_agent_idnew'+i+'',this.id,'fEditAgent',this.value); return false;"';
+	h+='onchange="getAgent(\'related_agent_idnew'+i+'\',this.id,\'fEditAgent\',this.value); return false;"';
 	h+='onKeyPress="return noenter(event);">';
 	h+='</td></tr>';
 	$('#nar' + $("#nnar").val()).after(h);
