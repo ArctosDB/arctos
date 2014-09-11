@@ -578,6 +578,16 @@ $.ajax({
 		</form>
 			
 		<cfloop query="agentAddrs">
+		
+		<div style="display: table;">
+		    <div style="display: table-row">
+		        <div style="display: table-cell;"> Left </div>
+		        <div style="display: table-cell;text-align:right;"> <input type="button" onclick="editAgentAddress('#ADDR_ID#');" value="edit"> </div>
+		    </div>
+			</div>
+			<span style="float-right;">
+			
+			</span>
 			<cfif valid_addr_fg is 1>
 				<div style="border:2px solid green;margin:1px;padding:1px;">
 			<cfelse>
