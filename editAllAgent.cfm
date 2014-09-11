@@ -140,7 +140,31 @@ margin:.1em;
 	
 	});
 
-						
+function editAgentAddress (aid){
+	var guts = "includes/forms/editAgentAddr.cfm";
+	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'center'],
+		title: 'Edit Address',
+		width: 'auto',
+		close: function() {
+			$( this ).remove();
+		},
+	}).load(guts, function() {
+		$(this).dialog("option", "position", ['center', 'center'] );
+	});
+	$(window).resize(function() {
+		//fluidDialog();
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
+
+}				
 
 
 function addAgentName(){
@@ -509,6 +533,7 @@ $.ajax({
 				<div style="border:2px solid red;margin:1px;padding:1px;">
 			</cfif>
 				#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
+				<input type="button" onclick="editAgentAddress('#ADDR_ID#');" value="edit">
 				&nbsp;
 				&nbsp;
 			<div style="margin-left:1em;">
