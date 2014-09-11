@@ -147,7 +147,6 @@
 			<cfif isdefined("cfcatch.sql")>
 				<cfset m= m & ' ' & cfcatch.sql>
 			</cfif>
-			<cfdump var=#cfcatch#>
 			<cfreturn m>
 		</cfcatch>
 		</cftry>
