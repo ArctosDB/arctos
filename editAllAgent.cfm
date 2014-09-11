@@ -15,6 +15,10 @@
 	select agent_status from ctagent_status order by agent_status
 </cfquery>
 <style>
+.validAddress{border:2px solid green;margin:1px;padding:1px;}
+.invalidAddress[border:2px solid red;margin:1px;padding:1px;}
+
+		
 	#map-canvas { height: 300px;width:500px; }
 	
 fieldset {
@@ -578,30 +582,24 @@ $.ajax({
 		</form>
 			
 		<cfloop query="agentAddrs">
-		
-		<div style="display: table;">
-		    <div style="display: table-row">
-		        <div style="display: table-cell;"> Left </div>
-		        <div style="display: table-cell;text-align:right;"> <input type="button" onclick="editAgentAddress('#ADDR_ID#');" value="edit"> </div>
-		    </div>
-			</div>
-			<span style="float-right;">
-			
-			</span>
 			<cfif valid_addr_fg is 1>
-				<div style="border:2px solid green;margin:1px;padding:1px;">
+				<cfset thisClass="validAddress">
 			<cfelse>
-				<div style="border:2px solid red;margin:1px;padding:1px;">
+				<cfset thisClass="invalidAddress">
 			</cfif>
-				<input type="button" onclick="editAgentAddress('#ADDR_ID#');" value="edit">
-				#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
-				
-				&nbsp;
-				&nbsp;
-			<div id="dvaddr_#ADDR_ID#" style="margin-left:1em;">
+			<div class="#thisClass#" id="aow_#arrd_id#" style="width:100%; display: table;">
+			    <div style="display: table-row">
+			        <div style="display: table-cell;">
+			        	#addr_type# Address (<cfif valid_addr_fg is 1>valid<cfelse>invalid</cfif>)
+			        </div>
+			        <div style="display: table-cell;text-align:right;">
+			        	<input type="button" onclick="editAgentAddress('#ADDR_ID#');" value="edit">
+			        </div>
+			    </div>
+		    	<div id="dvaddr_#ADDR_ID#" style="margin-left:1em;">
 					#replace(formatted_addr,chr(10),"<br>","all")#
 				</div>
-			</div>
+			</div>				
 		</cfloop>
 			<br />
 			<cfloop query="elecagentAddrs">
