@@ -45,6 +45,12 @@ margin:.1em;
 
    
 	$(document).ready(function() {
+
+		$(".reqdClr:visible").each(function(e){
+		    $(this).prop('required',true);
+		});
+
+
 		$("#fEditAgent").submit(function(event){
 			event.preventDefault();
 			console.log( $("#fEditAgent").serialize() );
