@@ -1,6 +1,6 @@
 
 <cfquery name="addr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select * from addr where addr+id=#addr_id#
+	select * from addr where addr_id=#addr_id#
 </cfquery>
 
 <cfif addr.recordcount is not 1>
