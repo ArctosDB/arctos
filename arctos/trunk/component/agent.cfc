@@ -38,7 +38,7 @@
 	
 	<cfloop list="#structKeyList(url)#" index="key">
 <cfoutput>
-<br>Key: #key#, Value: #testStruct[key]#
+<br>Key: #key#, Value: #url[key]#
 </cfoutput>
 </cfloop>
 	<cfabort>
