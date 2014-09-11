@@ -90,18 +90,47 @@ margin:.1em;
 	
 	
 	});
+
+
+						
+
+
 function addAgentName(){
+	var i=parseInt($("#nnan").val()) + parseInt(1);
+
+	var h='<select name="agent_name_type_new'+i+'" id="agent_name_type_new'+i+'"></select>';
+	$('#agent_name_type_new' + $("#nnan").val()).after(h);
+	$('#agent_name_type_new1').find('option').clone().appendTo('#agent_name_type_new' + i);
+	h=<input type="text" name="agent_name_new'+i+'" id="agent_name_new'+i+'" size="40" >'>
+	$('#agent_name_type_new' + i).after(h);
+
+/*
 	$.ajax({
 		url: "/component/agent.cfc?queryformat=column&method=addAgentName&returnformat=json",
 		type: "GET",
 		dataType: "json",
 		data: {
-			agent_type:  $("#agent_name_type_new").val(),
+			agent_name_type:  $("#agent_name_type_new").val(),
 			agent_name : $("#agent_name_new").val()
 		},
 		success: function(r) {
 			if (r=='success'){
 				$("#fs_fAgentName legend").removeClass().addClass('goodsave').text('Insert Successful');
+				var h='<select name="agent_name_type_' + r.DATA.AGENT_NAME_ID[0] + '" id="agent_name_type_' + r.DATA.AGENT_NAME_ID[0] + '">';
+						<option value="">DELETE</option>
+						<cfloop query="ctNameType">
+							<option  <cfif ctNameType.agent_name_type is agent_names.agent_name_type> selected="selected" </cfif>
+								value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
+						</cfloop>
+					</select>
+					<input type="text" value="#agent_names.agent_name#" name="agent_name_#agent_name_id#" id="agent_name_#agent_name_id#" size="40" required class="reqdClr">
+					<cfif agent_name_type is "login">
+						<a href="/AdminUsers.cfm?action=edit&username=#agent_names.agent_name#" class="infoLink">[ Arctos user ]</a>
+					</cfif>
+					
+
+
+
 			} else {
 				$("#fs_fAgentName legend").removeClass().addClass('badsave').text('ERROR!');
 				alert('An error occurred: ' + r);
@@ -111,6 +140,7 @@ function addAgentName(){
 		    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 		}
 	});
+* */
 }
 </script>
 
@@ -273,12 +303,13 @@ function addAgentName(){
 			</form>
 				<div class="newRed">
 					Add a name<br>
-					<select name="agent_name_type_new" id="agent_name_type_new">
+					<input id="nnan" value="1">
+					<select name="agent_name_type_new1" id="agent_name_type_new1">
 						<cfloop query="ctNameType">
 							<option value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
 						</cfloop>
 					</select>
-					<input type="text" name="agent_name_new" id="agent_name_new" size="40" required>
+					<input type="text" name="agent_name_new1" id="agent_name_new1" size="40" required>
 					<input type="button" onclick="addAgentName()" value="add name">
 
 				</div>
@@ -1380,17 +1411,7 @@ function addAgentName(){
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->	
-<cfif #Action# is "newName">
-	<cfoutput>
-		<cfquery name="updateName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			INSERT INTO agent_name (
-				agent_name_id, agent_id, agent_name_type, agent_name)
-			VALUES (
-				sq_agent_name_id.nextval, #agent_id#, '#agent_name_type#','#agent_name#')
-		</cfquery>			
-		<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
-	</cfoutput>
-</cfif>
+
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "updateName">
 	<cfoutput>

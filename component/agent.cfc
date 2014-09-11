@@ -1,4 +1,31 @@
 <cfcomponent>
+<cffunction name="saveAgent" access="remote">
+	<cftry>
+	<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select sq_agent_name_id.nextval n from dual
+	</cfquery>
+
+	<cfquery name="updateName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		INSERT INTO agent_name (
+			agent_name_id, agent_id, agent_name_type, agent_name)
+		VALUES (
+			#n.n#, #agent_id#, '#agent_name_type#','#agent_name#')
+	</cfquery>
+		<cfset d = querynew("status,agent_name_id,agent_name_type,agent_name")>
+		<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "status", "success",1)>
+		<cfset temp = QuerySetCell(d, "agent_name_id", n.n,1)>
+		<cfset temp = QuerySetCell(d, "agent_name_type", agent_name_type,1)>
+		<cfset temp = QuerySetCell(d, "agent_name", agent_name,1)>
+		<cfreturn d>
+	<cfcatch>
+		<cfset d = querynew("status")>
+		<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "status", cfcatch.message & ': ' & cfcatch.detail,1)>
+		<cfreturn d>
+	</cfcatch>
+	</cftry>
+</cffunction>
 
 
 <cffunction name="saveAgent" access="remote">
