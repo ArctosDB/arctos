@@ -104,7 +104,6 @@ function addAgentName(){
 	h+='<input type="text" name="agent_name_new'+i+'" id="agent_name_new'+i+'" size="40" ></div>';
 	$('#agentnamedv' + $("#nnan").val()).after(h);
 	$('#agent_name_type_new1').find('option').clone().appendTo('#agent_name_type_new' + i);
-
 	$("#nnan").val(i);
 }
 function addAgentStatus(){
@@ -115,6 +114,7 @@ function addAgentStatus(){
 	h+='<td><input type="text" size="50" name="new_status_remark'+i+'" id="new_status_remark'+i+'"></td><td></td></tr>';
 	$('#nas' + $("#nnas").val()).after(h);
 	$('#new_agent_status1').find('option').clone().appendTo('#new_agent_status' + i);
+	$("#nnas").val(i);
 }
 
 </script>
@@ -239,7 +239,20 @@ $.ajax({
 		<cfquery name="agent_names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from agent_name where agent_id=#agent_id# and agent_name_type!='preferred' order by agent_name_type,agent_name
 		</cfquery>
-		
+		<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select 
+				agent_relations_id,
+				agent_relationship, 
+				agent_name, 
+				related_agent_id
+			from 
+				agent_relations, 
+				agent_name
+			where 
+			  agent_relations.related_agent_id = agent_name.agent_id and
+			  agent_name_type = 'preferred' and
+			  agent_relations.agent_id=#agent.agent_id#
+		</cfquery>
 		
 		<div>
 			AgentID #agent.agent_id# created by #agent.created_by_agent# on #agent.CREATED_DATE#
@@ -321,7 +334,7 @@ $.ajax({
 						</select>
 						<input type="text" name="agent_name_new1" id="agent_name_new1" size="40">
 					</div>
-					<br><input type="button" onclick="addAgentName()" value="more">
+					<input type="button" onclick="addAgentName()" value="more">
 				</div>
 			</fieldset>
 			<fieldset>
@@ -334,20 +347,6 @@ $.ajax({
 					<th>Remark</th>
 					<th></th>
 					<th></th>
-				</tr>
-				<input type="hidden" id="nnas" value="1">
-				<tr id="nas1" class="newRec">
-					<td>
-						<select name="new_agent_status1" id="new_agent_status1" size="1" class="reqdClr">
-							<option value=""></option>
-							<cfloop query="ctagent_status">
-								<option value="#agent_status#">#agent_status#</option>
-							</cfloop>
-						</select>
-					</td>
-					<td><input type="datetime" class="reqdClr" size="12" name="new_status_date1" id="new_status_date1" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
-					<td><input type="text" size="50" name="new_status_remark1" id="new_status_remark1"></td>
-					<td><input type="button" onclick="addAgentStatus()" value="more"></td>
 				</tr>
 				<cfloop query="status">
 					<tr>
@@ -366,8 +365,122 @@ $.ajax({
 						</td>
 					</tr>
 				</cfloop>
+				<input type="hidden" id="nnas" value="1">
+				<tr id="nas1" class="newRec">
+					<td>
+						<select name="new_agent_status1" id="new_agent_status1" size="1" class="reqdClr">
+							<option value=""></option>
+							<cfloop query="ctagent_status">
+								<option value="#agent_status#">#agent_status#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td><input type="datetime" class="reqdClr" size="12" name="new_status_date1" id="new_status_date1" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
+					<td><input type="text" size="50" name="new_status_remark1" id="new_status_remark1"></td>
+					<td><input type="button" onclick="addAgentStatus()" value="more"></td>
+				</tr>
+				
 			</table>
 		</fieldset>
+		<fieldset>
+			<table border>
+				<tr>
+					<th>Relationship
+					<th>RelatedAgent</th>
+				</th>
+				<cfloop query="relns">
+					<tr>
+						<td>
+							<select name="agent_relationship_#agent_relations_id#" id="agent_relationship_#agent_relations_id#" size="1">
+								<option value="">DELETE</option>
+								<cfloop query="ctRelns">
+									<option value="#ctRelns.AGENT_RELATIONSHIP#"
+										<cfif #ctRelns.AGENT_RELATIONSHIP# is "#thisReln#">
+											selected="selected"
+										</cfif>
+										>#ctRelns.AGENT_RELATIONSHIP#</option>
+								</cfloop>
+							</select> 
+						</td>
+						<td>
+							<input type="hidden" name="related_agent_id_#agent_relations_id#" id="related_agent_id_#agent_relations_id#" value="#related_agent_id#">
+							<input type="text" name="related_agent_#agent_relations_id#" id="related_agent_#agent_relations_id#" class="reqdClr" value="#agent_name#"
+								onchange="getAgent('related_agent_id_#agent_relations_id#',this.id,'fEditAgent',this.value); return false;"
+							onKeyPress="return noenter(event);">
+						</td>
+					</tr>
+				</cfloop>
+				</tr>
+				<tr id="nar1">
+					<td>
+						<input type="button" onclick="addAgentRelationship()" value="more">
+						<input type="hidden" id="nnar" value="1">
+						<select name="agent_relationship_new1" id="agent_relationship_new1" size="1">
+							<cfloop query="ctRelns">
+								<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
+							</cfloop>
+						</select> 
+					</td>
+					<td>
+						<input type="hidden" name="related_agent_id_new1" id="related_agent_id_new1">
+						<input type="text" name="related_agent_new1" id="related_agent_new1" class="reqdClr"
+							onchange="getAgent('related_agent_idnew1',this.id,'fEditAgent',this.value); return false;"
+							onKeyPress="return noenter(event);">
+					</td>
+				</tr>
+				
+			</table>
+		</fieldset>
+		
+		<br />	<label for="areldv"><span class="likeLink" onClick="getDocs('agent','relations')">Relationships</span></label>
+			<div id="areldv" style="border:2px solid green;margin:1px;padding:1px;">
+				<cfset i=1>
+				<cfloop query="relns">
+					<form name="agentRelations#i#" method="post" action="editAllAgent.cfm">
+						<input type="hidden" name="action">
+						<input type="hidden" name="agent_id" id="agent_id#i#" value="#agent.agent_id#">
+						<input type="hidden" name="related_agent_id" value="#related_agent_id#">
+						<input type="hidden" name="oldRelationship" value="#agent_relationship#">
+						<input type="hidden" name="newRelatedAgentId">
+						<cfset thisReln = agent_relationship>
+						<select name="relationship" size="1">
+							<cfloop query="ctRelns">
+								<option value="#ctRelns.AGENT_RELATIONSHIP#"
+									<cfif #ctRelns.AGENT_RELATIONSHIP# is "#thisReln#">
+										selected="selected"
+									</cfif>
+									>#ctRelns.AGENT_RELATIONSHIP#</option>
+							</cfloop>
+						</select> 
+						<input type="text" name="related_agent" class="reqdClr" value="#agent_name#" id="agent_name#i#"
+							onchange="getAgent('newRelatedAgentId','related_agent','fEditAgent',this.value); return false;"
+							onKeyPress="return noenter(event);">
+						<input type="button" class="savBtn" value="Save" onClick="agentRelations#i#.action.value='changeRelated';agentRelations#i#.submit();">
+						<input type="button" class="delBtn" value="Delete" onClick="agentRelations#i#.action.value='deleteRelated';confirmDelete('agentRelations#i#');">
+					</form>
+					<cfset i=i+1>
+				</cfloop>
+			</div>
+			<div class="newRec">
+				<label>Add Relationship</label>
+				<form name="newRelationship" method="post" action="editAllAgent.cfm">
+					<input type="hidden" name="action" value="addRelationship">
+					<input type="hidden" name="newRelatedAgentId">
+					<input type="hidden" name="agent_id" value="#agent.agent_id#">
+					<select name="relationship" size="1">
+						<cfloop query="ctRelns"> 
+							<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
+						</cfloop> 
+					</select>
+					<input type="text" name="related_agent" class="reqdClr"
+						onchange="getAgent('newRelatedAgentId','related_agent','newRelationship',this.value); return false;"
+						onKeyPress="return noenter(event);">
+					<input type="submit" class="insBtn" value="Create Relationship">
+				</form>
+			</div>
+			
+			
+			
 		<!-----
 		
 	
@@ -498,62 +611,9 @@ $.ajax({
 					<input type="submit" class="insBtn" value="Create Name">
 				</form>
 			</div>
-			<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					agent_relationship, agent_name, related_agent_id
-				from agent_relations, agent_name
-				where 
-				  agent_relations.related_agent_id = agent_name.agent_id 
-				  and agent_name_type = 'preferred' and
-				  agent_relations.agent_id=#agent.agent_id#
-			</cfquery>
+			
 			<br />
-			<label for="areldv"><span class="likeLink" onClick="getDocs('agent','relations')">Relationships</span></label>
-			<div id="areldv" style="border:2px solid green;margin:1px;padding:1px;">
-				<cfset i=1>
-				<cfloop query="relns">
-					<form name="agentRelations#i#" method="post" action="editAllAgent.cfm">
-						<input type="hidden" name="action">
-						<input type="hidden" name="agent_id" id="agent_id#i#" value="#agent.agent_id#">
-						<input type="hidden" name="related_agent_id" value="#related_agent_id#">
-						<input type="hidden" name="oldRelationship" value="#agent_relationship#">
-						<input type="hidden" name="newRelatedAgentId">
-						<cfset thisReln = agent_relationship>
-						<select name="relationship" size="1">
-							<cfloop query="ctRelns">
-								<option value="#ctRelns.AGENT_RELATIONSHIP#"
-									<cfif #ctRelns.AGENT_RELATIONSHIP# is "#thisReln#">
-										selected="selected"
-									</cfif>
-									>#ctRelns.AGENT_RELATIONSHIP#</option>
-							</cfloop>
-						</select> 
-						<input type="text" name="related_agent" class="reqdClr" value="#agent_name#" id="agent_name#i#"
-							onchange="getAgent('newRelatedAgentId','related_agent','agentRelations#i#',this.value); return false;"
-							onKeyPress="return noenter(event);">
-						<input type="button" class="savBtn" value="Save" onClick="agentRelations#i#.action.value='changeRelated';agentRelations#i#.submit();">
-						<input type="button" class="delBtn" value="Delete" onClick="agentRelations#i#.action.value='deleteRelated';confirmDelete('agentRelations#i#');">
-					</form>
-					<cfset i=i+1>
-				</cfloop>
-			</div>
-			<div class="newRec">
-				<label>Add Relationship</label>
-				<form name="newRelationship" method="post" action="editAllAgent.cfm">
-					<input type="hidden" name="action" value="addRelationship">
-					<input type="hidden" name="newRelatedAgentId">
-					<input type="hidden" name="agent_id" value="#agent.agent_id#">
-					<select name="relationship" size="1">
-						<cfloop query="ctRelns"> 
-							<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
-						</cfloop> 
-					</select>
-					<input type="text" name="related_agent" class="reqdClr"
-						onchange="getAgent('newRelatedAgentId','related_agent','newRelationship',this.value); return false;"
-						onKeyPress="return noenter(event);">
-					<input type="submit" class="insBtn" value="Create Relationship">
-				</form>
-			</div>
+		
 			<br />
 			<div class="newRec">
 				<label>Add Address</label>
