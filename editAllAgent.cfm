@@ -47,12 +47,13 @@ margin:.1em;
 	$(document).ready(function() {
 		$("#fEditAgent").submit(function(event){
 			event.preventDefault();
-			var q=$("#fEditAgent").serialize();
+			console.log($("#fEditAgent").serialize());
+
 			$.ajax({
 				url: "/component/agent.cfc?queryformat=column&method=saveAgent&returnformat=json",
 				type: "POST",
 				dataType: "json",
-				data:  q,
+				data:  $("#fEditAgent").serialize();,
 				success: function(r) {
 					if (r=='success'){
 						$("#fs_fEditAgent legend").removeClass().addClass('goodsave').text('Save Successful');
