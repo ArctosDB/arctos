@@ -1353,7 +1353,7 @@ $("#uploadMedia").live('click', function(e){
 	document.body.appendChild(theDiv);
 	var ptl="/info/upMedia.cfm";
 	theDiv.src=ptl;
-	viewport.init("#uploadDiv");
+	//viewport.init("#uploadDiv");
 });
 function removeUpload() {
 	if(document.getElementById('uploadDiv')){
