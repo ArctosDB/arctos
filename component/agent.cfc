@@ -40,13 +40,13 @@
 			<cfset thisAgentStatusID=listlast(key,"_")>
 			<br>thisAgentStatusID: #thisAgentStatusID#
 
-			<cfset thisAgentStatus=url["agent_status_#thisAgentNameID#"]>
+			<cfset thisAgentStatus=url["agent_status_#thisAgentStatusID#"]>
 			<br>thisAgentStatus: #thisAgentStatus#
 			
-			<cfset thisAgentStatusDate=url["status_date_#thisAgentNameID#"]>
+			<cfset thisAgentStatusDate=url["status_date_#thisAgentStatusID#"]>
 			<br>thisAgentStatusDate: #thisAgentStatusDate#
 			
-			<cfset thisAgentStatusRemark=url["status_remark_#thisAgentNameID#"]>
+			<cfset thisAgentStatusRemark=url["status_remark_#thisAgentStatusID#"]>
 			<br>thisAgentStatusRemark: #thisAgentStatusRemark#
 			
 			
@@ -60,6 +60,40 @@
 		</p>
 	</cfif>
 </cfloop>
+
+
+
+<cfloop list="#structKeyList(url)#" index="key">
+	<br>Key: #key#, Value: #url[key]#
+	<cfif left(key,19) is "agent_relationship_">
+		<p>
+			<cfset thisAgentRelationshipID=listlast(key,"_")>
+			<br>thisAgentRelationshipID: #thisAgentRelationshipID#
+
+			<cfset thisAgentRelationship=url["agent_relationship_#thisAgentRelationshipID#"]>
+			<br>thisAgentRelationship: #thisAgentRelationship#
+			
+			<cfset thisRelatedAgentName=url["related_agent_#thisAgentRelationshipID#"]>
+			<br>thisRelatedAgentName: #thisRelatedAgentName#
+			
+			<cfset thisRelatedAgentID=url["related_agent_id_#thisAgentRelationshipID#"]>
+			<br>thisRelatedAgentID: #thisRelatedAgentID#
+			
+			
+			<cfif thisAgentRelationshipID contains "new" and len(thisAgentRelationship) gt 0>
+				<br>inserting
+			<cfelseif thisAgentRelationship is "DELETE">
+				<br>delete
+			<cfelse>
+				<br>update
+			</cfif>
+		</p>
+	</cfif>
+</cfloop>
+
+
+
+
 </cfoutput>
 
 <cfabort>
