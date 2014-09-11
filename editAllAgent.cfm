@@ -50,7 +50,7 @@ margin:.1em;
 			var q=$("#fEditAgent").serialize();
 			$.ajax({
 				url: "/component/agent.cfc?queryformat=column&method=saveAgent&returnformat=json",
-				type: "GET",
+				type: "POST",
 				dataType: "json",
 				data:  q,
 				success: function(r) {
