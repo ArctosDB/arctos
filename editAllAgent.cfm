@@ -100,7 +100,7 @@ margin:.1em;
 			});
 		});
 
-$(document).on("change", '[id^="agent_name_type_new"]', function(){
+$(document).on("change", '[id^="agent_name_type_new"], [id^="agent_name_new"]', function(){
    console.log('nnclick: ' + this.id);
 });
 
