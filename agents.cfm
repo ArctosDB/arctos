@@ -80,6 +80,199 @@
 	}
 
 </script>
+
+
+
+
+
+
+<script>
+
+   
+	$(document).ready(function() {
+
+		$(".reqdClr:visible").each(function(e){
+		    $(this).prop('required',true);
+		});
+
+
+		$("#fEditAgent").submit(function(event){
+			event.preventDefault();
+			console.log( $("#fEditAgent").serialize() );
+
+			$.ajax({
+				url: "/component/agent.cfc?queryformat=column&method=saveAgent&returnformat=json",
+				type: "GET",
+				dataType: "json",
+				data:  $("#fEditAgent").serialize(),
+				success: function(r) {
+					if (r=='success'){
+
+						console.log('success: reload ' + $("#agent_id").val() );
+						loadEditAgent( $("#agent_id").val() );
+						//$("#fs_fEditAgent legend").removeClass().addClass('goodsave').text('Save Successful');
+					} else {
+						//$("#fs_fEditAgent legend").removeClass().addClass('badsave').text('ERROR!');
+						var m='An error occurred and your changes were not saved.\nIn the event of multiple error messages, ';
+						m+='you may need to reload this page to continue. Save incrementally if necessary. \n';
+						alert (m + r);
+					}
+				},
+				error: function (xhr, textStatus, errorThrown){
+				    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+				}
+			});
+		});
+		$("#fAgentName").submit(function(event){
+			event.preventDefault();
+			var q=$("#fAgentName").serialize();
+			$.ajax({
+				url: "/component/agent.cfc?queryformat=column&method=saveAgentNames&returnformat=json",
+				type: "GET",
+				dataType: "json",
+				data:  q,
+				success: function(r) {
+					if (r=='success'){
+						$("#fs_fAgentName legend").removeClass().addClass('goodsave').text('Save Successful');
+					} else {
+						$("#fs_fAgentName legend").removeClass().addClass('badsave').text('ERROR!');
+						alert('An error occurred: ' + r);
+					}
+				},
+				error: function (xhr, textStatus, errorThrown){
+				    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+				}
+			});
+		});
+
+		$(document).on("change", '[id^="agent_name_type_new"], [id^="agent_name_new"]', function(){
+			var i =  this.id;
+			i=i.replace("agent_name_type_new", ""); 
+			i=i.replace("agent_name_new", ""); 
+			if ( $("#agent_name_type_new" + i).val().length > 0 ||  $("#agent_name_new" + i).val().length > 0 ) {
+				$("#agent_name_type_new" + i).addClass('reqdClr').prop('required',true);
+				$("#agent_name_new" + i).addClass('reqdClr').prop('required',true);
+			} else {
+				$("#agent_name_type_new" + i).removeClass().prop('required',false);
+				$("#agent_name_new" + i).removeClass().prop('required',false);
+			}
+		});
+
+		$(document).on("change", '[id^="agent_status_new"], [id^="status_date_new"]', function(){
+			var i =  this.id;
+			i=i.replace("status_date_new", ""); 
+			i=i.replace("agent_status_new", ""); 
+			if ( $("#agent_status_new" + i).val().length > 0 ||  $("#status_date_new" + i).val().length > 0 ) {
+				$("#agent_status_new" + i).addClass('reqdClr').prop('required',true);
+				$("#status_date_new" + i).addClass('reqdClr').prop('required',true);
+			} else {
+				$("#agent_status_new" + i).removeClass().prop('required',false);
+				$("#status_date_new" + i).removeClass().prop('required',false);
+			}
+		});
+		$(document).on("change", '[id^="agent_relationship_new"], [id^="related_agent_new"]', function(){
+			var i =  this.id;
+			i=i.replace("related_agent_new", ""); 
+			i=i.replace("agent_relationship_new", ""); 
+			if ( $("#agent_relationship_new" + i).val().length > 0 ||  $("#related_agent_new" + i).val().length > 0 ) {
+				$("#agent_relationship_new" + i).addClass('reqdClr').prop('required',true);
+				$("#related_agent_new" + i).addClass('reqdClr').prop('required',true);
+			} else {
+				$("#agent_relationship_new" + i).removeClass().prop('required',false);
+				$("#related_agent_new" + i).removeClass().prop('required',false);
+			}
+		});
+
+
+
+	
+	});
+
+
+function addAgentName(){
+	var i=parseInt($("#nnan").val()) + parseInt(1);
+
+	var h='<div id="agentnamedv'+i+'"><select name="agent_name_type_new'+i+'" id="agent_name_type_new'+i+'"></select>';
+	h+='<input type="text" name="agent_name_new'+i+'" id="agent_name_new'+i+'" size="40" ></div>';
+	$('#agentnamedv' + $("#nnan").val()).after(h);
+	$('#agent_name_type_new1').find('option').clone().appendTo('#agent_name_type_new' + i);
+	$("#nnan").val(i);
+}
+function addAgentStatus(){
+	var i=parseInt($("#nnas").val()) + parseInt(1);
+	var h='<tr id="nas'+i+'" class="newRec"><td>';
+	h+='<select name="agent_status_new'+i+'" id="agent_status_new'+i+'" size="1" class="reqdClr"></select>';
+	h+='</td><td><input type="datetime" size="12" name="status_date_new'+i+'" id="status_date_new'+i+'"></td>';
+	h+='<td><input type="text" size="50" name="status_remark_new'+i+'" id="status_remark_new'+i+'"></td><td></td></tr>';
+	$('#nas' + $("#nnas").val()).after(h);
+	$('#agent_status_new1').find('option').clone().appendTo('#agent_status_new' + i);
+	$("#nnas").val(i);
+}
+function addAgentRelationship(){
+	var i=parseInt($("#nnar").val()) + parseInt(1);
+	var h='<tr id="nar'+i+'" class="newRec"><td>';
+	h+='<select name="agent_relationship_new'+i+'" id="agent_relationship_new'+i+'" size="1"></select> ';
+	h+='</td><td><input type="hidden" name="related_agent_id_new'+i+'" id="related_agent_id_new'+i+'">';
+	h+='<input type="text" name="related_agent_new'+i+'" id="related_agent_new'+i+'" ';
+	h+='onchange="getAgent(\'related_agent_idnew'+i+'\',this.id,\'fEditAgent\',this.value); return false;"';
+	h+='onKeyPress="return noenter(event);">';
+	h+='</td></tr>';
+	$('#nar' + $("#nnar").val()).after(h);
+	$('#agent_relationship_new1').find('option').clone().appendTo('#agent_relationship_new' + i);
+	$("#nnar").val(i);
+
+}
+
+
+
+				
+						
+							
+							
+					
+				
+				
+function editAgentAddress (aid){
+console.log('clickypop');
+	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
+//    $("#dialog").dialog('open');
+
+
+
+
+	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'center'],
+		title: 'Build Taxon Name',
+		width: 'auto',
+		close: function() {
+			$( this ).remove();
+		},
+	}).load(guts, function() {
+		$(this).dialog("option", "position", ['center', 'center'] );
+	});
+	$(window).resize(function() {
+		//fluidDialog();
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
+
+
+
+
+}
+
+</script>
+
+
+
+
+
 <cfset title='Manage Agents'>
 
 <cfquery name="ctagent_name_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
