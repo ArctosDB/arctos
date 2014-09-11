@@ -100,23 +100,43 @@ margin:.1em;
 			});
 		});
 
-$(document).on("change", '[id^="agent_name_type_new"], [id^="agent_name_new"]', function(){
-   console.log('nnclick: ' + this.id);
-var i =  this.id;
-i=i.replace("agent_name_type_new", ""); 
-i=i.replace("agent_name_new", ""); 
-console.log('i is ' + i);
+		$(document).on("change", '[id^="agent_name_type_new"], [id^="agent_name_new"]', function(){
+			var i =  this.id;
+			i=i.replace("agent_name_type_new", ""); 
+			i=i.replace("agent_name_new", ""); 
+			if ( $("#agent_name_type_new" + i).val().length > 0 ||  $("#agent_name_new" + i).val().length > 0 ) {
+				$("#agent_name_type_new" + i).addClass('reqdClr').prop('required',true);
+				$("#agent_name_new" + i).addClass('reqdClr').prop('required',true);
+			} else {
+				$("#agent_name_type_new" + i).removeClass().prop('required',false);
+				$("#agent_name_new" + i).removeClass().prop('required',false);
+			}
+		});
 
-if ( $("#agent_name_type_new" + i).val().length > 0 ||  $("#agent_name_new" + i).val().length > 0 ) {
-	$("#agent_name_type_new" + i).addClass('reqdClr').prop('required',true);
-	$("#agent_name_new" + i).addClass('reqdClr').prop('required',true);
-} else {
-		$("#agent_name_type_new" + i).removeClass().prop('required',false);
-$("#agent_name_new" + i).removeClass().prop('required',false);
-}
-});
-
-
+		$(document).on("change", '[id^="agent_status_new"], [id^="status_date_new"]', function(){
+			var i =  this.id;
+			i=i.replace("status_date_new", ""); 
+			i=i.replace("agent_status_new", ""); 
+			if ( $("#agent_status_new" + i).val().length > 0 ||  $("#status_date_new" + i).val().length > 0 ) {
+				$("#agent_status_new" + i).addClass('reqdClr').prop('required',true);
+				$("#status_date_new" + i).addClass('reqdClr').prop('required',true);
+			} else {
+				$("#agent_status_new" + i).removeClass().prop('required',false);
+				$("#status_date_new" + i).removeClass().prop('required',false);
+			}
+		});
+		$(document).on("change", '[id^="agent_relationship_new"], [id^="related_agent_new"]', function(){
+			var i =  this.id;
+			i=i.replace("related_agent_new", ""); 
+			i=i.replace("agent_relationship_new", ""); 
+			if ( $("#agent_relationship_new" + i).val().length > 0 ||  $("#related_agent_new" + i).val().length > 0 ) {
+				$("#agent_relationship_new" + i).addClass('reqdClr').prop('required',true);
+				$("#related_agent_new" + i).addClass('reqdClr').prop('required',true);
+			} else {
+				$("#agent_relationship_new" + i).removeClass().prop('required',false);
+				$("#related_agent_new" + i).removeClass().prop('required',false);
+			}
+		});
 	
 	});
 
