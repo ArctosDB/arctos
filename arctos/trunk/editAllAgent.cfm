@@ -355,6 +355,7 @@ $.ajax({
 					<input type="hidden" id="nnan" value="1">
 					<div id="agentnamedv1">
 						<select name="agent_name_type_new1" id="agent_name_type_new1">
+							<option value=""></option>
 							<cfloop query="ctNameType">
 								<option value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
 							</cfloop>
@@ -443,6 +444,7 @@ $.ajax({
 						
 						<input type="hidden" id="nnar" value="1">
 						<select name="agent_relationship_new1" id="agent_relationship_new1" size="1">
+							<option value=""></option>
 							<cfloop query="ctRelns">
 								<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
 							</cfloop>
