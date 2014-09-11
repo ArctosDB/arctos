@@ -31,6 +31,15 @@
 						var x=r.DATA.FORMATTED_ADDR[0];
 						x = x.replace(/\n/g, '<br>');	
 						$("#dvaddr_" + (r.DATA.ADDR_ID[0])).html(x);
+
+						x=r.DATA.ADDR_TYPE[0] + ' ' + r.DATA.VALID_ADDR_FG[0];
+						$("#atype_" + (r.DATA.ADDR_ID[0])).html(x);
+						if (r.DATA.VALID_ADDR_FG[0])=='valid'){
+							$("#aow_" + (r.DATA.ADDR_ID[0])).removeClass().addClass('validAddress');
+						} else {
+							$("#aow_" + (r.DATA.ADDR_ID[0])).removeClass().addClass('invalidAddress');
+						}
+
 						$(".ui-dialog-titlebar-close").trigger('click');
 					} else {
 						alert('An error occurred: ' + r.DATA.STATUS[0]);
