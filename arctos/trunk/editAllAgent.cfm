@@ -182,10 +182,10 @@ function addAgentRelationship(){
 				
 				
 function editAgentAddress (aid){
+console.log('clickypop');
 
 
 /*
-console.log('clickypop');
 	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
 
 
