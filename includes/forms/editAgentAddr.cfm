@@ -18,6 +18,27 @@
 
 
 <script>
+	function deleteAgentAddress(aid){
+		$.ajax({
+			url: "/component/agent.cfc?queryformat=column&method=deleteAgentAddrEdit&returnformat=json",
+			type: "GET",
+			dataType: "json",
+			addr_id:  aid,
+			success: function(r) {
+				if (r=='success'){
+					$("#aow_" + aid).remove();
+					$(".ui-dialog-titlebar-close").trigger('click');
+				} else {
+					alert('An error occurred: ' + r;
+				}
+				},
+				error: function (xhr, textStatus, errorThrown){
+				    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+				}
+			});
+		});	
+	}
+
 	$(document).ready(function() {
 		$("#editAddr").submit(function(event){
 			event.preventDefault();
@@ -139,6 +160,7 @@
 				<tr>
 					<td colspan="2">
 						<input type="submit" class="savBtn" value="Save Edits">
+						<input type="button" class="delBtn" onclick="deleteAgentAddress('#addr_id#');" value="Delete Address">
 					</td>
 				</tr>
 			</table>

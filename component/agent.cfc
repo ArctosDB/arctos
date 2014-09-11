@@ -2,7 +2,23 @@
 
 
 
+deleteAgentAddrEdit
 
+<cffunction name="deleteAgentAddrEdit" access="remote">
+	<cftry>
+		<cfquery name="editAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from addr where addr_id=#addr_id#
+		</cfquery>
+		<cfreturn "success">
+	<cfcatch>
+		<cfset m=cfcatch.message & ': ' & cfcatch.detail>
+		<cfif isdefined("cfcatch.sql")>
+			<cfset m= m & ' SQL:' & cfcatch.sql>
+		</cfif>
+		<cfreturn m>
+	</cfcatch>
+	</cftry>
+</cffunction>
 <cffunction name="saveAgentAddrEdit" access="remote">
 	<cftry>
 		<cfquery name="editAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
