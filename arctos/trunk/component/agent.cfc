@@ -1,5 +1,5 @@
 <cfcomponent>
-<cffunction name="saveAgent" access="remote">
+<cffunction name="saveAgentxxx" access="remote">
 	<cftry>
 	<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select sq_agent_name_id.nextval n from dual
