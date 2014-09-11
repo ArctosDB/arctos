@@ -98,13 +98,13 @@ margin:.1em;
 function addAgentName(){
 	var i=parseInt($("#nnan").val()) + parseInt(1);
 
-	var h='<select name="agent_name_type_new'+i+'" id="agent_name_type_new'+i+'"></select>';
+	var h='<br><select name="agent_name_type_new'+i+'" id="agent_name_type_new'+i+'"></select>';
 	$('#agent_name_type_new' + $("#nnan").val()).after(h);
 	$('#agent_name_type_new1').find('option').clone().appendTo('#agent_name_type_new' + i);
 	h='<input type="text" name="agent_name_new'+i+'" id="agent_name_new'+i+'" size="40" >';
 	$('#agent_name_type_new' + i).after(h);
 
-
+	$("#nnan").val(i);
 }
 </script>
 <!----
@@ -307,8 +307,8 @@ $.ajax({
 				</div>
 				<input type="submit" value="save name changes">
 			</form>
-				<div class="newRed">
-					Add a name<br>
+				<div class="newRec">
+					Add Name<br>
 					<input id="nnan" value="1">
 					<select name="agent_name_type_new1" id="agent_name_type_new1">
 						<cfloop query="ctNameType">
@@ -316,7 +316,7 @@ $.ajax({
 						</cfloop>
 					</select>
 					<input type="text" name="agent_name_new1" id="agent_name_new1" size="40" required>
-					<input type="button" onclick="addAgentName()" value="add name">
+					<br><input type="button" onclick="addAgentName()" value="more">
 
 				</div>
 			
