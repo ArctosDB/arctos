@@ -134,6 +134,28 @@ margin:.1em;
 				$("#related_agent_new" + i).removeClass().prop('required',false);
 			}
 		});
+
+
+
+$("#dialog").dialog({
+    autoOpen: false,
+    height: $(window).height() - 50,
+    width: $(window).width() - 50,
+    show: {
+        effect: "blind",
+        duration: 400,
+    },
+    hide: {
+        effect: "explode",
+        duration: 400
+    },
+    open: function (event, ui) {
+        $('#content').load('http://www.google.com');
+    }
+});
+
+
+
 	
 	});
 
@@ -184,20 +206,7 @@ function addAgentRelationship(){
 function editAgentAddress (aid){
 console.log('clickypop');
 	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
-
- $("#dialogdiv").dialog({
-                  autoOpen: false,
-                   width: 400, 
-                   height:200,
-                   modal: true
-                  });  
-
- $("#dialogdiv").load(guts,function(){
-               $( "#dialogdiv" ).dialog( "open" );   
-              });     
-
-
-
+    $("#dialog").dialog('open');
 
 /*
 
@@ -219,7 +228,7 @@ dialog1.load(guts).dialog('open');
 }
 
 </script>
-<div id="dialogdiv">hello</div>
+<div id="dialog">hello</div>
 <!----
 
 
