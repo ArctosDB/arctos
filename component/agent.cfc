@@ -32,6 +32,8 @@
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
+	
+	<cfoutput>
 	<cfloop list="#structKeyList(url)#" index="key">
 				<br>Key: #key#, Value: #url[key]#
 				<cfif left(key,11) is "agent_name_">
@@ -46,7 +48,7 @@
 			</cfloop>
 
 
-
+</cfoutput>
 
 <cfabort>
 	<cftry>
