@@ -183,10 +183,37 @@ function addAgentRelationship(){
 				
 function editAgentAddress (aid){
 console.log('clickypop');
+	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
+
+
+
+$("#dialogdiv").dialog({
+        resizable: false,
+        autoOpen: false,
+        height:140,
+        modal: true,
+        buttons: {
+          'Delete all items': function() {
+            $(this).dialog('close');
+          },
+         Cancel: function() {
+            $(this).dialog('close');
+         }
+       }
+   });
+
+
+
+ $.post(guts, function(data){
+            $('#dialogdiv').html(data);
+            $('#dialogdiv').dialog('open');
+       }, "html")};
+
+
+
 
 
 /*
-	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
 
 
 	var dialog1 = $('#dialogdiv').dialog({
@@ -201,22 +228,7 @@ $(".ui-widget-overlay").click(function(){
 dialog1.load(guts).dialog('open');
 */
 
-$("#dialogdiv").dialog({
-    modal: true,
-    draggable: false,
-    resizable: false,
-    position: ['center', 'top'],
-    show: 'blind',
-    hide: 'blind',
- autoOpen: false,
-    width: 400,
-    dialogClass: 'ui-dialog-osx',
-    buttons: {
-        "I've read and understand this": function() {
-            $(this).dialog("close");
-        }
-    }
-});
+
 
 }
 
