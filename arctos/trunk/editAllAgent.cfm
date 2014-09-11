@@ -196,11 +196,6 @@ $.ajax({
 
 <!------------------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
-	<script language="javascript" type="text/javascript">
-		jQuery(document).ready(function() {
-			$('input[type=datetime]').datepicker();
-		});
-	</script>
 	<cfif not isdefined("agent_id") OR agent_id lt 0 >
 		<cfabort>
 	</cfif>

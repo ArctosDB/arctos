@@ -195,7 +195,7 @@
 							<td align="right">Agent:</td>
 							<td>
 								<cfif len(isAgent.agent_id) gt 0>
-									<a href="/editAllAgent.cfm?agent_id=#isAgent.agent_id#"> [ edit Agent ] </a>
+									<a href="/agents.cfm?agent_id=#isAgent.agent_id#"> [ edit Agent ] </a>
 								<cfelse>
 									Agent not found
 								</cfif>
