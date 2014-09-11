@@ -8,11 +8,43 @@
 
 <cfif addr.recordcount is not 1>
 	not found<cfabort>
-<cfelse>ok
 </cfif>
-	Edit Address:
+
+
+<script>
+
+   
+	$(document).ready(function() {
+
+
+$("#editAddr").submit(function(event){
+			event.preventDefault();
+			var q=
+			$.ajax({
+				url: "/component/agent.cfc?queryformat=column&method=saveAgentAddrEdit&returnformat=json",
+				type: "GET",
+				dataType: "json",
+				data:  $("#editAddr").serialize();,
+				success: function(r) {
+					if (r=='success'){
+alert('NOOO error occurred: ' + r);
+						$("#fs_fAgentName legend").removeClass().addClass('goodsave').text('Save Successful');
+					} else {
+						alert('An error occurred: ' + r);
+					}
+				},
+				error: function (xhr, textStatus, errorThrown){
+				    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+				}
+			});
+		});
+});
+
+
+<script>
+
 	<cfoutput>
-	<form name="editAddr" method="post" action="editAllAgent.cfm">
+	<form name="editAddr" id="editAddr" method="post" action="editAllAgent.cfm">
 		<input type="hidden" name="addr_id" id="addr_id" value="#addr_id#">
 			<table>
 				<tr>
