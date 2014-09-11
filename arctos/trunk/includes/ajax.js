@@ -26,6 +26,10 @@ var viewport={
 
 
 $(document).ready(function() {
+	
+	$('input[type=datetime, input[type=date]').datepicker();
+	
+	
 	$(".helpLink").live('click', function(e){
 		var id=this.id;
 		removeHelpDiv();

@@ -185,7 +185,7 @@ $.ajax({
 					</td>
 					<td>
 						<label for="status_date">Status Date</label>
-						<input type="text" name="status_date" id="status_date" size="15">
+						<input type="date" name="status_date" id="status_date" size="15">
 					</td>
 				</tr>
 			</table>
