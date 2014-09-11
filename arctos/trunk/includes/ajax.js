@@ -27,8 +27,8 @@ var viewport={
 
 $(document).ready(function() {
 	
-	$('input[type=date]').datepicker();
-	$('input[type=datetime]').datepicker();
+	$("input[type='date'], input[type='datetime']" ).datepicker();
+	
 	
 	$(".helpLink").live('click', function(e){
 		var id=this.id;
