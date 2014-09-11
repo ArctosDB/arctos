@@ -122,7 +122,7 @@ function addAgentStatus(){
 	var i=parseInt($("#nnas").val()) + parseInt(1);
 	var h='<tr id="nas'+i+'" class="newRec"><td>';
 	h+='<select name="agent_status_new'+i+'" id="agent_status_new'+i+'" size="1" class="reqdClr"></select>';
-	h+='</td><td><input type="datetime" class="reqdClr" size="12" name="status_date_new'+i+'" id="status_date_new'+i+'"></td>';
+	h+='</td><td><input type="datetime" size="12" name="status_date_new'+i+'" id="status_date_new'+i+'"></td>';
 	h+='<td><input type="text" size="50" name="status_remark_new'+i+'" id="status_remark_new'+i+'"></td><td></td></tr>';
 	$('#nas' + $("#nnas").val()).after(h);
 	$('#agent_status_new1').find('option').clone().appendTo('#agent_status_new' + i);
@@ -133,7 +133,7 @@ function addAgentRelationship(){
 	var h='<tr id="nar'+i+'" class="newRec"><td>';
 	h+='<select name="agent_relationship_new'+i+'" id="agent_relationship_new'+i+'" size="1"></select> ';
 	h+='</td><td><input type="hidden" name="related_agent_id_new'+i+'" id="related_agent_id_new'+i+'">';
-	h+='<input type="text" name="related_agent_new'+i+'" id="related_agent_new'+i+'" class="reqdClr" ';
+	h+='<input type="text" name="related_agent_new'+i+'" id="related_agent_new'+i+'" ';
 	h+='onchange="getAgent(\'related_agent_idnew'+i+'\',this.id,\'fEditAgent\',this.value); return false;"';
 	h+='onKeyPress="return noenter(event);">';
 	h+='</td></tr>';
