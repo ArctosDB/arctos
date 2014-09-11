@@ -110,11 +110,11 @@ function addAgentName(){
 function addAgentStatus(){
 	var i=parseInt($("#nnas").val()) + parseInt(1);
 	var h='<tr id="nas'+i+'" class="newRec"><td>';
-	h+='<select name="new_agent_status'+i+'" id="new_agent_status'+i+'" size="1" class="reqdClr"></select>';
-	h+='</td><td><input type="datetime" class="reqdClr" size="12" name="new_status_date'+i+'" id="new_status_date'+i+'"></td>';
-	h+='<td><input type="text" size="50" name="new_status_remark'+i+'" id="new_status_remark'+i+'"></td><td></td></tr>';
+	h+='<select name="agent_status_new_'+i+'" id="agent_status_new_'+i+'" size="1" class="reqdClr"></select>';
+	h+='</td><td><input type="datetime" class="reqdClr" size="12" name="status_date_new_'+i+'" id="status_date_new_'+i+'"></td>';
+	h+='<td><input type="text" size="50" name="status_remark_new_'+i+'" id="status_remark_new_'+i+'"></td><td></td></tr>';
 	$('#nas' + $("#nnas").val()).after(h);
-	$('#new_agent_status1').find('option').clone().appendTo('#new_agent_status' + i);
+	$('#agent_status_new_1').find('option').clone().appendTo('#agent_status_new_' + i);
 	$("#nnas").val(i);
 }
 function addAgentRelationship(){
@@ -397,15 +397,15 @@ $.ajax({
 				<input type="hidden" id="nnas" value="1">
 				<tr id="nas1" class="newRec">
 					<td>
-						<select name="new_agent_status1" id="new_agent_status1" size="1" class="reqdClr">
+						<select name="agent_status_new_1" id="agent_status_new_1" size="1" class="reqdClr">
 							<option value=""></option>
 							<cfloop query="ctagent_status">
 								<option value="#agent_status#">#agent_status#</option>
 							</cfloop>
 						</select>
 					</td>
-					<td><input type="datetime" class="reqdClr" size="12" name="new_status_date1" id="new_status_date1" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
-					<td><input type="text" size="50" name="new_status_remark1" id="new_status_remark1"></td>
+					<td><input type="datetime" class="reqdClr" size="12" name="status_date_new_1" id="status_date_new_1" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
+					<td><input type="text" size="50" name="status_remark_new_1" id="status_remark_new_1"></td>
 					<td><input type="button" onclick="addAgentStatus()" value="more"></td>
 				</tr>
 				
