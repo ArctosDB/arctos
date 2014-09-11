@@ -23,6 +23,7 @@
 fieldset {
     border:0;
     outline: 1px solid gray;
+	margin:1em;
 }
 
 legend {
@@ -266,10 +267,9 @@ $.ajax({
 			</cfif>
 			<input type="button" class="lnkBtn" onclick="rankAgent('#agent.agent_id#');" value="Rank">
 		</cfif>
-		<fieldset id="fs_fEditAgent">
-			<legend>Edit Agent</legend>
-			<form name="fEditAgent" id="fEditAgent">
-
+		<form name="fEditAgent" id="fEditAgent">
+			<fieldset id="fs_fEditAgent">
+				<legend>Edit Agent</legend>
 				<input type="hidden" name="agent_id" id="agent_id" value="#agent.agent_id#">
 				<label for="preferred_agent_name">Preferred Name</label>
 				<input type="text" value="#stripQuotes(agent.preferred_agent_name)#" name="preferred_agent_name" id="preferred_agent_name" size="50" class="reqdClr">
@@ -283,13 +283,9 @@ $.ajax({
 				</select>
 				<label for="agent_remarks">Agent Remark</label>
 				<input type="text" value="#stripQuotes(agent.agent_remarks)#" name="agent_remarks" id="agent_remarks" size="100">
-			<br><input type="submit" value="save agent">
-			</form>
-		</fieldset>
-		<fieldset id="fs_fAgentName">
-			<legend>Agent Names</legend>
-			<form name="fAgentName" id="fAgentName">
-				<div id="divAgentNames">
+			</fieldset>
+			<fieldset id="fs_fAgentName">
+				<legend>Agent Names</legend>
 				<cfloop query="agent_names">
 					<select name="agent_name_type_#agent_name_id#" id="agent_name_type_#agent_name_id#">
 						<option value="">DELETE</option>
@@ -303,9 +299,6 @@ $.ajax({
 						<a href="/AdminUsers.cfm?action=edit&username=#agent_names.agent_name#" class="infoLink">[ Arctos user ]</a>
 					</cfif>
 				</cfloop>
-				</div>
-				<input type="submit" value="save name changes">
-			</form>
 				<div class="newRec">
 					Add Name<br>
 					<input type="hidden" id="nnan" value="1">
@@ -318,10 +311,8 @@ $.ajax({
 						<input type="text" name="agent_name_new1" id="agent_name_new1" size="40">
 					</div>
 					<br><input type="button" onclick="addAgentName()" value="more">
-
 				</div>
-			
-		</fieldset>
+			</fieldset>
 		
 		
 		<!-----
