@@ -95,6 +95,13 @@
 						<cfset thisAgentStatus=url["agent_status_#thisAgentStatusID#"]>
 						<cfset thisAgentStatusDate=url["status_date_#thisAgentStatusID#"]>
 						<cfset thisAgentStatusRemark=url["status_remark_#thisAgentStatusID#"]>
+						
+						<br>thisAgentStatusID: #thisAgentStatusID#
+						<br>thisAgentStatus: #thisAgentStatus#
+						<br>thisAgentStatusDate: #thisAgentStatusDate#
+						<br>thisAgentStatusRemark: #thisAgentStatusRemark#
+						
+						
 						<cfif thisAgentStatusID contains "new">
 						
 							<cfif len(thisAgentStatus) gt 0>
