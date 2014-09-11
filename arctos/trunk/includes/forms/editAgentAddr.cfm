@@ -34,7 +34,7 @@
 
 						x=r.DATA.ADDR_TYPE[0] + ' ' + r.DATA.VALID_ADDR_FG[0];
 						$("#atype_" + (r.DATA.ADDR_ID[0])).html(x);
-						if (r.DATA.VALID_ADDR_FG[0])=='valid'){
+						if (r.DATA.VALID_ADDR_FG[0]=='valid'){
 							$("#aow_" + (r.DATA.ADDR_ID[0])).removeClass().addClass('validAddress');
 						} else {
 							$("#aow_" + (r.DATA.ADDR_ID[0])).removeClass().addClass('invalidAddress');
