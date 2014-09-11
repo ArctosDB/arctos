@@ -1,7 +1,7 @@
 
 <!----
 <cfinclude template="/includes/alwaysInclude.cfm">
-
+---->
 
 
 
@@ -143,15 +143,5 @@ $('#dialogdiv').empty().remove();
 			</table>
 		</form>
 	</cfoutput>
-	
-	---->
-	<script>
-		function b(){
-			$(".ui-dialog-titlebar-close").trigger('click');
-		}
-	</script>
-	<span onclick="b()">hi</span>hi
-	
-	
-	
+
 	
