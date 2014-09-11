@@ -32,24 +32,23 @@
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
-	
-	<cfdump var=#url#>
-	<cfdump var=#form#>
-	
 	<cfloop list="#structKeyList(url)#" index="key">
-<cfoutput>
-<br>Key: #key#, Value: #url[key]#
-</cfoutput>
-</cfloop>
-	<cfabort>
-	
-	
-	<cfloop from="1" to="#arrayLen(url)#" index="i">
-  <cfset data = ApiData[i]>
-  <cfloop collection="#data#" item="key">
-    #key#:#data[key]#
-  </cfloop> 
-</cfloop>
+				<br>Key: #key#, Value: #url[key]#
+				<cfif left(key,11) is "agent_name_">
+					<cfset thisAgentNameID=listlast(key,"_")>
+					<br>thisAgentNameID: #thisAgentNameID#
+					<cfset thisAgentNameType=url["agent_name_type_#thisAgentNameID#"]>
+					<br>thisAgentNameType: #thisAgentNameType#
+					<cfset thisAgentName=url[key]>
+					<br>thisAgentName: #thisAgentName#
+				</cfif>
+				
+			</cfloop>
+
+
+
+
+<cfabort>
 	<cftry>
 	
 	
@@ -64,6 +63,8 @@ agent_name_type_10740831=aka&agent_name_10740831=D.+L.+McDonald&agent_name_type_
 				WHERE
 					agent_id = #agent_id#
 			</cfquery>
+			
+
 		</cftransaction>
 	<cfreturn "success">
 	<cfcatch>
