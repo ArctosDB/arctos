@@ -183,6 +183,15 @@ function addAgentRelationship(){
 				
 function editAgentAddress (aid){
 console.log('clickypop');
+
+var dialog1 = $("#dialog").dialog({ autoOpen: false,
+  height: 600,
+  width: 350
+});
+
+	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
+
+dialog1.load(guts).dialog('open');
 }
 
 </script>
