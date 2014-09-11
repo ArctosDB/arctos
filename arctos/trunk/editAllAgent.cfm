@@ -153,6 +153,7 @@ function editAgentAddress (aid){
 	}).load(guts, function() {
 		$(this).dialog("option", "position", ['center', 'center'] );
 	});
+	/*
 	$(window).resize(function() {
 		//fluidDialog();
 		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
@@ -160,7 +161,7 @@ function editAgentAddress (aid){
 	$(".ui-widget-overlay").click(function(){
 	    $(".ui-dialog-titlebar-close").trigger('click');
 	});
-
+*/
 }				
 
 
