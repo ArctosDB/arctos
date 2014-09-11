@@ -32,7 +32,7 @@
 										agent_name
 									) VALUES (
 										sq_agent_name_id.nextval,
-										<cfqueryparam value = "#agentID#" CFSQLType = "CF_SQL_INTEGER">,
+										<cfqueryparam value = "#agent_ID#" CFSQLType = "CF_SQL_INTEGER">,
 										'#thisAgentNameType#',
 										'#escapeQuotes(thisAgentName)#'
 									)
