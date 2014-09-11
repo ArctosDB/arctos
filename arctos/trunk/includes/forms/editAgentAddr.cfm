@@ -31,12 +31,11 @@
 				} else {
 					alert('An error occurred: ' + r);
 				}
-				},
-				error: function (xhr, textStatus, errorThrown){
-				    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
-				}
-			});
-		});	
+			},
+			error: function (xhr, textStatus, errorThrown){
+			    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+			}
+		});
 	}
 
 	$(document).ready(function() {
