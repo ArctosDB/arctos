@@ -62,8 +62,8 @@ margin:.1em;
 						//$("#fs_fEditAgent legend").removeClass().addClass('goodsave').text('Save Successful');
 					} else {
 						$("#fs_fEditAgent legend").removeClass().addClass('badsave').text('ERROR!');
-						var m='An error occurred and your changes were not saved.\nIn the event of multiple sequential error messages, ';
-						m+='you may need to reload this page to continue.\n';
+						var m='An error occurred and your changes were not saved.\nIn the event of multiple error messages, ';
+						m+='you may need to reload this page to continue. Save incrementally if necessary. \n';
 						alert (m + r);
 					}
 				},
@@ -344,7 +344,7 @@ $.ajax({
 				<cfloop query="agent_names">
 					<div>
 						<select name="agent_name_type_#agent_name_id#" id="agent_name_type_#agent_name_id#">
-							<option value="">DELETE</option>
+							<option value="DELETE">DELETE</option>
 							<cfloop query="ctNameType">
 								<option  <cfif ctNameType.agent_name_type is agent_names.agent_name_type> selected="selected" </cfif>
 									value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
@@ -386,7 +386,7 @@ $.ajax({
 					<tr>
 						<td>
 							<select name="agent_status_#agent_status_id#" id="agent_status_#agent_status_id#" size="1" class="reqdClr">
-								<option value="">DELETE</option>
+								<option value="DELETE">DELETE</option>
 								<cfloop query="ctagent_status">
 									<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
 								</cfloop>
@@ -426,7 +426,7 @@ $.ajax({
 					<tr>
 						<td>
 							<select name="agent_relationship_#agent_relations_id#" id="agent_relationship_#agent_relations_id#" size="1">
-								<option value="">DELETE</option>
+								<option value="DELETE">DELETE</option>
 								<cfloop query="ctRelns">
 									<option value="#ctRelns.AGENT_RELATIONSHIP#"
 										<cfif ctRelns.AGENT_RELATIONSHIP is relns.AGENT_RELATIONSHIP>selected="selected"</cfif>
