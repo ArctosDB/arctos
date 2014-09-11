@@ -403,14 +403,14 @@ $.ajax({
 				<input type="hidden" id="nnas" value="1">
 				<tr id="nas1" class="newRec">
 					<td>
-						<select name="agent_status_new1" id="agent_status_new1" size="1" class="reqdClr">
+						<select name="agent_status_new1" id="agent_status_new1" size="1">
 							<option value=""></option>
 							<cfloop query="ctagent_status">
 								<option value="#agent_status#">#agent_status#</option>
 							</cfloop>
 						</select>
 					</td>
-					<td><input type="datetime" class="reqdClr" size="12" name="status_date_new1" id="status_date_new1" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
+					<td><input type="datetime" size="12" name="status_date_new1" id="status_date_new1" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
 					<td><input type="text" size="50" name="status_remark_new1" id="status_remark_new1"></td>
 					<td><input type="button" onclick="addAgentStatus()" value="more"></td>
 				</tr>
@@ -457,7 +457,7 @@ $.ajax({
 					</td>
 					<td>
 						<input type="hidden" name="related_agent_id_new1" id="related_agent_id_new1">
-						<input type="text" name="related_agent_new1" id="related_agent_new1" class="reqdClr"
+						<input type="text" name="related_agent_new1" id="related_agent_new1"
 							onchange="getAgent('related_agent_id_new1',this.id,'fEditAgent',this.value); return false;"
 							onKeyPress="return noenter(event);">
 						<input type="button" onclick="addAgentRelationship()" value="more">
