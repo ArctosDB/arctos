@@ -529,11 +529,12 @@ $.ajax({
 			<cfelse>
 				<div style="border:2px solid red;margin:1px;padding:1px;">
 			</cfif>
-				#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
 				<input type="button" onclick="editAgentAddress('#ADDR_ID#');" value="edit">
+				#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
+				
 				&nbsp;
 				&nbsp;
-			<div style="margin-left:1em;">
+			<div id="dvaddr_#ADDR_ID#" style="margin-left:1em;">
 					#replace(formatted_addr,chr(10),"<br>","all")#
 				</div>
 			</div>

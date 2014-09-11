@@ -32,11 +32,13 @@ $("#editAddr").submit(function(event){
 				dataType: "json",
 				data:  $("#editAddr").serialize(),
 				success: function(r) {
-					if (r=='success'){
-alert('NOOO error occurred: ' + r);
-						$("#fs_fAgentName legend").removeClass().addClass('goodsave').text('Save Successful');
+					console.log(r);
+					if (r.DATA.STATUS[0]=='success'){
+					
+						alert('NOOO error occurred: ' + r);
+						$("#dvaddr_" + (r.DATA.ADDR_ID[0]).html(r.DATA.FORMATTED_ADDR[0]);
 					} else {
-						alert('An error occurred: ' + r);
+						alert('An error occurred: ' + r.DATA.STATUS[0]);
 					}
 				},
 				error: function (xhr, textStatus, errorThrown){
