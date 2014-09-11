@@ -11,7 +11,7 @@
 	<cfoutput>
 	<cfloop list="#structKeyList(url)#" index="key">
 				<br>Key: #key#, Value: #url[key]#
-				<cfif left(key,11) is "agent_name_">
+				<cfif left(key,16) is "agent_name_type_">
 					<p>
 					<cfset thisAgentNameID=listlast(key,"_")>
 					<br>thisAgentNameID: #thisAgentNameID#
