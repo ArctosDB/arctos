@@ -56,7 +56,6 @@
 			url: "/component/agent.cfc?queryformat=column&method=findAgents&returnformat=json",
 			type: "GET",
 			dataType: "json",
-			async: false,
 			data:  q,
 			success: function(r) {
 				console.log(r);
