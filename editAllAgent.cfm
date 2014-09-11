@@ -336,17 +336,19 @@ $.ajax({
 			<fieldset id="fs_fAgentName">
 				<legend>Agent Names</legend>
 				<cfloop query="agent_names">
-					<select name="agent_name_type_#agent_name_id#" id="agent_name_type_#agent_name_id#">
-						<option value="">DELETE</option>
-						<cfloop query="ctNameType">
-							<option  <cfif ctNameType.agent_name_type is agent_names.agent_name_type> selected="selected" </cfif>
-								value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
-						</cfloop>
-					</select>
-					<input type="text" value="#agent_names.agent_name#" name="agent_name_#agent_name_id#" id="agent_name_#agent_name_id#" size="40" required class="reqdClr">
-					<cfif agent_name_type is "login">
-						<a href="/AdminUsers.cfm?action=edit&username=#agent_names.agent_name#" class="infoLink">[ Arctos user ]</a>
-					</cfif>
+					<div>
+						<select name="agent_name_type_#agent_name_id#" id="agent_name_type_#agent_name_id#">
+							<option value="">DELETE</option>
+							<cfloop query="ctNameType">
+								<option  <cfif ctNameType.agent_name_type is agent_names.agent_name_type> selected="selected" </cfif>
+									value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
+							</cfloop>
+						</select>
+						<input type="text" value="#agent_names.agent_name#" name="agent_name_#agent_name_id#" id="agent_name_#agent_name_id#" size="40" required class="reqdClr">
+						<cfif agent_name_type is "login">
+							<a href="/AdminUsers.cfm?action=edit&username=#agent_names.agent_name#" class="infoLink">[ Arctos user ]</a>
+						</cfif>
+					</div>
 				</cfloop>
 				<div class="newRec">
 					Add Name<br>
