@@ -192,7 +192,9 @@ console.log('clickypop');
 	    title: 'hi',
 	    close: function (e, ui) { $(this).remove(); }
 	});
-
+$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
 dialog1.load(guts).dialog('open');
 
 
