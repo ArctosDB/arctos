@@ -1,3 +1,4 @@
+/*
 var viewport={
     o: function() {  	
 	if (self.innerHeight) {		
@@ -24,7 +25,7 @@ var viewport={
        }
    };
 
-
+*/
 $(document).ready(function() {
 	
 	$("input[type='date'], input[type='datetime']" ).datepicker();
