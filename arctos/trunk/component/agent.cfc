@@ -16,7 +16,6 @@
 				,ZIP = '#ZIP#'
 				,COUNTRY_CDE = '#COUNTRY_CDE#'
 				,MAIL_STOP = '#MAIL_STOP#'
-				 ,AGENT_ID = #AGENT_ID#
 				,ADDR_TYPE = '#ADDR_TYPE#'
 				,JOB_TITLE = '#JOB_TITLE#'
 				,VALID_ADDR_FG = '#VALID_ADDR_FG#'
