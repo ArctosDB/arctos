@@ -61,6 +61,14 @@
 						<cfset thisAgentRelationship=url["agent_relationship_#thisAgentRelationshipID#"]>
 						<cfset thisRelatedAgentName=url["related_agent_#thisAgentRelationshipID#"]>
 						<cfset thisRelatedAgentID=url["related_agent_id_#thisAgentRelationshipID#"]>
+						
+						
+						<br>thisAgentRelationshipID: #thisAgentRelationshipID#
+						<br>thisAgentRelationship: #thisAgentRelationship#
+						<br>thisRelatedAgentName: #thisRelatedAgentName#
+						<br>thisRelatedAgentID: #thisRelatedAgentID#
+						
+						
 						<cfif thisAgentRelationshipID contains "new">
 							<cfif len(thisAgentRelationship) gt 0>
 								<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
