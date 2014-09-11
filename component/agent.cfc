@@ -57,19 +57,24 @@
 				<!---- relationships ---->
 				<cfloop list="#structKeyList(url)#" index="key">
 					<cfif left(key,19) is "agent_relationship_">
-						<cfset thisAgentRelationshipID=listlast(key,"_")>
-						<cfset thisAgentRelationship=url["agent_relationship_#thisAgentRelationshipID#"]>
-						<cfset thisRelatedAgentName=url["related_agent_#thisAgentRelationshipID#"]>
-						<cfset thisRelatedAgentID=url["related_agent_id_#thisAgentRelationshipID#"]>
+						<cfset thisAgentRelationsID=listlast(key,"_")>
+						<cfset thisAgentRelationship=url["agent_relationship_#thisAgentRelationsID#"]>
+						<cfset thisRelatedAgentName=url["related_agent_#thisAgentRelationsID#"]>
+						<cfset thisRelatedAgentID=url["related_agent_id_#thisAgentRelationsID#"]>
 						
 						
-						<br>thisAgentRelationshipID: #thisAgentRelationshipID#
+						<!----
+						
+						<br>thisAgentRelationsID: #thisAgentRelationsID#
 						<br>thisAgentRelationship: #thisAgentRelationship#
 						<br>thisRelatedAgentName: #thisRelatedAgentName#
 						<br>thisRelatedAgentID: #thisRelatedAgentID#
 						
 						
-						<cfif thisAgentRelationshipID contains "new">
+						---->
+						
+						
+						<cfif thisAgentRelationsID contains "new">
 							<cfif len(thisAgentRelationship) gt 0>
 								<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 									INSERT INTO agent_relations (
@@ -84,14 +89,14 @@
 							</cfif>
 						<cfelseif thisAgentRelationship is "DELETE">
 							<cfquery name="killRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-								delete from agent_relations where agent_relationship_id=<cfqueryparam value = "#thisAgentRelationshipID#" CFSQLType = "CF_SQL_INTEGER">
+								delete from agent_relations where agent_relationship_id=<cfqueryparam value = "#thisAgentRelationsID#" CFSQLType = "CF_SQL_INTEGER">
 							</cfquery>
 						<cfelse>
 							<cfquery name="changeRelated" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								UPDATE agent_relations SET
 									related_agent_id = <cfqueryparam value = "#thisRelatedAgentID#" CFSQLType = "CF_SQL_INTEGER">,
 									agent_relationship='#thisAgentRelationship#'
-								WHERE agent_relationship_id=<cfqueryparam value = "#thisAgentRelationshipID#" CFSQLType = "CF_SQL_INTEGER">
+								WHERE AGENT_RELATIONS_ID=<cfqueryparam value = "#thisAgentRelationsID#" CFSQLType = "CF_SQL_INTEGER">
 							</cfquery>
 						</cfif>
 					</cfif>
