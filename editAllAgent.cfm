@@ -58,7 +58,7 @@ margin:.1em;
 					if (r=='success'){
 
 							console.log('success: reload ' + $("#agent_id").val() );
-						//loadEditAgent( $("#agent_id").val() );
+						loadEditAgent( $("#agent_id").val() );
 						//$("#fs_fEditAgent legend").removeClass().addClass('goodsave').text('Save Successful');
 					} else {
 						$("#fs_fEditAgent legend").removeClass().addClass('badsave').text('ERROR!');
