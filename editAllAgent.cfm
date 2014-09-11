@@ -107,6 +107,16 @@ function addAgentName(){
 
 	$("#nnan").val(i);
 }
+function addAgentStatus(){
+	var i=parseInt($("#nnas").val()) + parseInt(1);
+	var h='<tr id="nas'+i+'" class="newRec"><td>';
+	h+='<select name="new_agent_status'+i+'" id="new_agent_status'+i+'" size="1" class="reqdClr"></select>';
+	h+='</td><td><input type="datetime" class="reqdClr" size="12" name="new_status_date'+i+'" id="new_status_date'+i+'"></td>';
+	h+='<td><input type="text" size="50" name="new_status_remark'+i+'" id="new_status_remark'+i+'"></td><td></td></tr>';
+	$('#nas' + $("#nnas").val()).after(h);
+	$('#new_agent_status1').find('option').clone().appendTo('#new_agent_status' + i);
+}
+
 </script>
 <!----
 
@@ -314,50 +324,50 @@ $.ajax({
 					<br><input type="button" onclick="addAgentName()" value="more">
 				</div>
 			</fieldset>
-		
-			<table border>
-				<tr>
-				<th>
-					<span class="likeLink" onclick="getCtDoc('ctAgent_Status');">Agent Status</span>
-				</th>
-				<th>Status Date</th>
-				<th>Remark</th>
-				<th></th>
-				<th></th>
-			</tr>
-			<tr class="newRec">
-				<td>
-					<select name="new_agent_status" id"new_agent_status" size="1" class="reqdClr">
-						<option value=""></option>
-						<cfloop query="ctagent_status">
-							<option value="#agent_status#">#agent_status#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td><input type="datetime" class="reqdClr" size="12" name="new_status_date" id="new_status_date" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
-				<td><input type="text" size="50" name="new_status_remark" id="new_status_remark"></td>
-				<td>
-				</td>
-			</tr>
-			<cfloop query="status">
-				<tr>
+			<fieldset>
+				<table border>
+					<tr>
+					<th>
+						<span class="likeLink" onclick="getCtDoc('ctAgent_Status');">Agent Status</span>
+					</th>
+					<th>Status Date</th>
+					<th>Remark</th>
+					<th></th>
+					<th></th>
+				</tr>
+				<input type="hidden" id="nnas" value="1">
+				<tr id="nas1" class="newRec">
 					<td>
-						<select name="agent_status_#agent_status_id#" id="agent_status_#agent_status_id#" size="1" class="reqdClr">
-							<option value="">DELETE</option>
+						<select name="new_agent_status1" id="new_agent_status1" size="1" class="reqdClr">
+							<option value=""></option>
 							<cfloop query="ctagent_status">
-								<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
+								<option value="#agent_status#">#agent_status#</option>
 							</cfloop>
 						</select>
 					</td>
-					<td><input type="datetime" class="reqdClr" size="12" name="status_date_#agent_status_id#" id="status_date_#agent_status_id#" value="#status_date#"></td>
-					<td><input type="text" size="50" name="status_remark" value="#status_remark#"></td>
-					<td>
-						<span style="font-size:x-small;">(#reported_by# on #dateformat(STATUS_REPORTED_DATE,'yyyy-mm-dd')#)</span>
-					</td>
+					<td><input type="datetime" class="reqdClr" size="12" name="new_status_date1" id="new_status_date1" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
+					<td><input type="text" size="50" name="new_status_remark1" id="new_status_remark1"></td>
+					<td><input type="button" onclick="addAgentStatus()" value="more"></td>
 				</tr>
-			</cfloop>
-		</table>
-			
+				<cfloop query="status">
+					<tr>
+						<td>
+							<select name="agent_status_#agent_status_id#" id="agent_status_#agent_status_id#" size="1" class="reqdClr">
+								<option value="">DELETE</option>
+								<cfloop query="ctagent_status">
+									<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td><input type="datetime" class="reqdClr" size="12" name="status_date_#agent_status_id#" id="status_date_#agent_status_id#" value="#status_date#"></td>
+						<td><input type="text" size="50" name="status_remark" value="#status_remark#"></td>
+						<td>
+							<span style="font-size:x-small;">(#reported_by# on #dateformat(STATUS_REPORTED_DATE,'yyyy-mm-dd')#)</span>
+						</td>
+					</tr>
+				</cfloop>
+			</table>
+		</fieldset>
 		<!-----
 		
 	
