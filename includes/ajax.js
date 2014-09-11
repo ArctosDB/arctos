@@ -61,7 +61,7 @@ $(document).ready(function() {
 		document.body.appendChild(cDiv);
 		var ptl="/includes/SpecSearch/customIDs.cfm";
 		$(cDiv).load(ptl,{},function(){
-			viewport.init("#customDiv");
+			// viewport.init("#customDiv");
 		});
 	});
 	if (self != top) {
@@ -357,7 +357,7 @@ function openAnnotation(q) {
 	document.body.appendChild(theDiv);
 	guts = "/info/annotate.cfm?q=" + q;
 	$('#annotateDiv').load(guts,{},function(){
-		viewport.init("#annotateDiv");
+		// viewport.init("#annotateDiv");
 	});
 }
 function npPage(offset,rpp,tnid){
@@ -1334,7 +1334,7 @@ function mgPartAtts(partID) {
 	document.body.appendChild(theDiv);
 	var ptl="/form/partAtts.cfm?partID=" + partID;
 	theDiv.src=ptl;
-	viewport.init("#partsAttDiv");
+	// viewport.init("#partsAttDiv");
 }
 
 function closePartAtts() {
@@ -1353,7 +1353,7 @@ $("#uploadMedia").live('click', function(e){
 	document.body.appendChild(theDiv);
 	var ptl="/info/upMedia.cfm";
 	theDiv.src=ptl;
-	//viewport.init("#uploadDiv");
+	//// viewport.init("#uploadDiv");
 });
 function removeUpload() {
 	if(document.getElementById('uploadDiv')){
@@ -1631,7 +1631,7 @@ function manyCatItemToMedia(mid){
 	//document.body.appendChild(theiFrame);
 	//jQuery.get(ptl,function(data){
 	//	document.getElementById('theiFrame').innerHTML=data;
-		viewport.init("#pickDiv");
+	//	viewport.init("#pickDiv");
 	//document.body.appendChild(theDiv);
 	//$('#annotateDiv').append('<iframe id="commentiframe" width="100%" height="100%">');
 	//$('#commentiframe').attr('src', guts);
@@ -1646,7 +1646,7 @@ function rankAgent(agent_id) {
 	var ptl="/includes/forms/agentrank.cfm";			
 	$.get(ptl,{agent_id: agent_id},function(data){
 		document.getElementById('pickDiv').innerHTML=data;
-		viewport.init("#pickDiv");
+		// viewport.init("#pickDiv");
 	});
 }
 function pickThis (fld,idfld,display,aid) {
