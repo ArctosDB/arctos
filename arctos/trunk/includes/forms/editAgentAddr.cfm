@@ -145,7 +145,13 @@ $('#dialogdiv').empty().remove();
 	</cfoutput>
 	
 	---->
+	<script>
+		function b(){
+			$(".ui-dialog-titlebar-close").trigger('click');
+		}
+	</script>
+	<span onclick="b()">hi</span>hi
 	
-	hi
+	
 	
 	
