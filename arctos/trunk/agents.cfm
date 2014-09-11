@@ -223,7 +223,7 @@ $.ajax({
 					</td>
 					<td>
 						<label for="created_date">Created Date</label>
-						<input type="text" name="created_date" id="created_date" size="15">
+						<input type="datetime" name="created_date" id="created_date" size="15">
 					</td>
 				</tr>
 			</table>
