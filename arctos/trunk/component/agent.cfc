@@ -34,11 +34,17 @@
 	</cfif>
 	
 	<cfdump var=#url#>
-	
+	<cfdump var=#form#>
 	
 	<cfabort>
 	
 	
+	<cfloop from="1" to="#arrayLen(url)#" index="i">
+  <cfset data = ApiData[i]>
+  <cfloop collection="#data#" item="key">
+    #key#:#data[key]#
+  </cfloop> 
+</cfloop>
 	<cftry>
 	
 	
