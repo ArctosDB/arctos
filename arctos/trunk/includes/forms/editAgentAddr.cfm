@@ -36,7 +36,9 @@ $("#editAddr").submit(function(event){
 						$("#dvaddr_" + (r.DATA.ADDR_ID[0])).html(r.DATA.FORMATTED_ADDR[0]);
 //$( "#diadiv" ).remove();
 //$(this).closest('.ui-dialog-content').dialog('close'); 
-$('#dialogdiv').empty().remove();
+//$('#dialogdiv').empty().remove();
+
+$(".ui-dialog-titlebar-close").trigger('click');
 
 					} else {
 						alert('An error occurred: ' + r.DATA.STATUS[0]);
