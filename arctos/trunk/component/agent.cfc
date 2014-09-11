@@ -1,4 +1,57 @@
 <cfcomponent>
+
+
+		
+	
+<cffunction name="newAgentAddr" access="remote">
+	<cftry>
+
+		<cfquery name="addr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			INSERT INTO addr (
+				ADDR_ID
+				,STREET_ADDR1
+				,STREET_ADDR2
+				,institution
+				,department
+				,CITY
+				,state
+				,ZIP
+			 	,COUNTRY_CDE
+			 	,MAIL_STOP
+			 	,agent_id
+			 	,addr_type
+			 	,job_title
+				,valid_addr_fg
+				,addr_remarks
+			) VALUES (
+				 sq_addr_id.nextval
+			 	,'#STREET_ADDR1#'
+			 	,'#STREET_ADDR2#'
+			 	,'#institution#'
+			 	,'#department#'
+			 	,'#CITY#'
+			 	,'#state#'
+			 	,'#ZIP#'
+			 	,'#COUNTRY_CDE#'
+			 	,'#MAIL_STOP#'
+			 	,#agent_id#
+			 	,'#addr_type#'
+			 	,'#job_title#'
+			 	,#valid_addr_fg#
+			 	,'#addr_remarks#'
+			)
+		</cfquery>
+		<cfreturn "success">
+	<cfcatch>
+		<cfset m=cfcatch.message & ': ' & cfcatch.detail>
+		<cfif isdefined("cfcatch.sql")>
+			<cfset m= m & ' SQL:' & cfcatch.sql>
+		</cfif>
+		<cfreturn m>
+	</cfcatch>
+	</cftry>
+</cffunction>	
+		
 <cffunction name="deleteAgentAddrEdit" access="remote">
 	<cftry>
 		<cfquery name="editAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
