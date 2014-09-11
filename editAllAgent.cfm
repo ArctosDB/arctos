@@ -116,7 +116,7 @@ function addAgentStatus(){
 	$('#new_agent_status1').find('option').clone().appendTo('#new_agent_status' + i);
 	$("#nnas").val(i);
 }
-function addAgentStatus(){
+function addAgentRelationship(){
 	var i=parseInt($("#nnar").val()) + parseInt(1);
 	var h='<tr id="nar'+i+'" class="newRec"><td>';
 	h+='<select name="agent_relationship_new'+i+'" id="agent_relationship_new'+i+'" size="1"></select> ';
