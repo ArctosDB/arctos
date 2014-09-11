@@ -452,7 +452,7 @@ $.ajax({
 					<td>
 						<input type="hidden" name="related_agent_id_new1" id="related_agent_id_new1">
 						<input type="text" name="related_agent_new1" id="related_agent_new1" class="reqdClr"
-							onchange="getAgent('related_agent_idnew1',this.id,'fEditAgent',this.value); return false;"
+							onchange="getAgent('related_agent_id_new1',this.id,'fEditAgent',this.value); return false;"
 							onKeyPress="return noenter(event);">
 						<input type="button" onclick="addAgentRelationship()" value="more">
 					</td>
