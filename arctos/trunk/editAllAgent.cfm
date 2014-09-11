@@ -1,5 +1,4 @@
-<!----<cfinclude template="/includes/alwaysInclude.cfm">
---->
+<cfinclude template="/includes/alwaysInclude.cfm">
 <cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_name_type as agent_name_type from ctagent_name_type where agent_name_type != 'preferred' order by agent_name_type
 </cfquery>
