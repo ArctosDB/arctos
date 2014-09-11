@@ -26,12 +26,11 @@ hi
 
 $("#editAddr").submit(function(event){
 			event.preventDefault();
-			var q=
 			$.ajax({
 				url: "/component/agent.cfc?queryformat=column&method=saveAgentAddrEdit&returnformat=json",
 				type: "GET",
 				dataType: "json",
-				data:  $("#editAddr").serialize();,
+				data:  $("#editAddr").serialize(),
 				success: function(r) {
 					if (r=='success'){
 alert('NOOO error occurred: ' + r);
