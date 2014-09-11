@@ -24,7 +24,7 @@
 					data:  $("#newAddress").serialize(),
 					success: function(r) {
 						
-						if (r.DATA.STATUS[0]=='success'){
+						if (r=='success'){
 							loadEditAgent( $("#agent_id").val() );
 							$(".ui-dialog-titlebar-close").trigger('click');
 						} else {
