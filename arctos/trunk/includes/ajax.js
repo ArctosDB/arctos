@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 	
-	$("input[type='date'], input[type='datetime']" ).datepicker();
+	//$("input[type='date'], input[type='datetime']" ).datepicker();
 	
 	
 	$(".helpLink").live('click', function(e){
