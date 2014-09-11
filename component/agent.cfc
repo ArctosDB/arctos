@@ -89,6 +89,14 @@
 					</cfif>
 				</cfloop>
 				<!---- status ---->
+				
+				
+				=A.+Goldberg&agent_type=person&agent_remarks=&agent_name_type_10908799=first+name&agent_name_10908799=Aardvark&agent_name_type_10908800=last+name&agent_name_
+				10908800=Goldberg&agent_name_type_new1=&agent_name_new1=&
+				
+				agent_status_new_1=born&status_date_new_1=2014-09-11&status_remark_new_1=&agent_relationship_new1=&related_agent_id_new1=&related_agent_new1=
+				
+				
 				<cfloop list="#structKeyList(url)#" index="key">
 					<cfif left(key,13) is "agent_status_">
 						<cfset thisAgentStatusID=listlast(key,"_")>
