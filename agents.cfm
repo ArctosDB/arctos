@@ -52,15 +52,14 @@ function getUrlParameter(sParam)
     }
 }    
 $(document).ready(function() {
+	jQuery("#status_date").datepicker();
+
 	var agent_id = getUrlParameter('agent_id');
 	console.log('agent_id=' + agent_id);
 	if ( typeof agent_id !== 'undefined' && agent_id.length > 0 ) {
 		loadEditAgent(agent_id);
 	}
-
-
-
-	jQuery("#status_date").datepicker();
+	
 	$("#agntSearch").submit(function(event){
 
 	console.log('form submit');
@@ -85,13 +84,7 @@ var q=$("#fEditAgent").serialize();
 
 
 });
-function loadEditAgent(aid){
-$("#agntEditCell").html('<img src="/images/indicator.gif">');
-var ptl="/editAllAgent.cfm?agent_id=" + aid;
-		$("#agntEditCell").load(ptl,{},function(){
-			//viewport.init("#customDiv");
-		});
-}
+
 
 function loadAgentSearch(q){
 var h;
