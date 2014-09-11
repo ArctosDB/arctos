@@ -23,7 +23,9 @@
 			url: "/component/agent.cfc?queryformat=column&method=deleteAgentAddrEdit&returnformat=json",
 			type: "GET",
 			dataType: "json",
-			addr_id:  aid,
+			data: {
+				addr_id:  aid
+			},
 			success: function(r) {
 				if (r=='success'){
 					$("#aow_" + aid).remove();
