@@ -137,36 +137,6 @@ margin:.1em;
 	
 	});
 
-function editAgentAddress (aid){
-	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
-
-/
-	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
-		autoOpen: true,
-		closeOnEscape: true,
-		height: 'auto',
-		modal: true,
-		position: ['center', 'center'],
-		title: 'Edit Address',
-		width: 'auto',
-		close: function() {
-			$( this ).remove();
-		},
-	}).load(guts, function() {
-		$(this).dialog("option", "position", ['center', 'center'] );
-	});
-*/
-	/*
-	$(window).resize(function() {
-		//fluidDialog();
-		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-	});
-	$(".ui-widget-overlay").click(function(){
-	    $(".ui-dialog-titlebar-close").trigger('click');
-	});
-*/
-}				
-
 
 function addAgentName(){
 	var i=parseInt($("#nnan").val()) + parseInt(1);
@@ -215,6 +185,44 @@ function addAgentRelationship(){
 
 </script>
 <!----
+
+
+
+function editAgentAddress (aid){
+	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
+
+/
+	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'center'],
+		title: 'Edit Address',
+		width: 'auto',
+		close: function() {
+			$( this ).remove();
+		},
+	}).load(guts, function() {
+		$(this).dialog("option", "position", ['center', 'center'] );
+	});
+*/
+	/*
+	$(window).resize(function() {
+		//fluidDialog();
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
+*/
+}				
+
+
+
+
+
+
 
 
 
