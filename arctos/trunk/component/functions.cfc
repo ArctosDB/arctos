@@ -3025,7 +3025,7 @@
 	<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
 		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select sq_AGENT_RANK_ID.nextval r from dual
+			select sq_agent_rank_id.nextval r from dual
 		</cfquery>
 
 		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
