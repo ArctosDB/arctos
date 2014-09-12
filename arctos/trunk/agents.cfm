@@ -52,6 +52,7 @@
 	select agent_status from ctagent_status order by agent_status
 </cfquery>
 <cfoutput>
+<section>
 <div id="oif">
 	<div id="content">
 		<div id="sidebar">
@@ -169,7 +170,7 @@
 		</div>
 	</div>
 </div>
-
+</section>
 <cfinclude template="/includes/_footer.cfm">
 
 </cfoutput>
