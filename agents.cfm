@@ -1,9 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
-#sidebar, #main {
+#leftside, #maincell {
     display: table-cell;
 }
-#sidebar {
+#leftside {
     width:35%;
     float: left;
     padding:1em;
@@ -24,10 +24,24 @@
     padding:.5em;
     border:1px solid black;
 }
-#content {border 2px solid red;}
+#pagewrapper {
+	width: 100%; 
+	display: table;"
+}
 
 #oif{border:3px solid purple}
 </style>
+
+
+<div style="width: 100%; display: table;">
+    <div style="display: table-row">
+        <div style="width: 600px; display: table-cell;"> Left </div>
+        <div style="display: table-cell;"> Right </div>
+    </div>
+</div>
+
+
+
 <script>
 	$(document).ready(function() {
 		var agent_id = getUrlParameter('agent_id');
@@ -54,8 +68,8 @@
 <cfoutput>
 <section>
 <div id="oif">
-	<div id="content">
-		<div id="sidebar">
+	<div id="pagewrapper">
+		<div id="leftside">
 			<div id="td_search">
 				<form name="agntSearch" id="agntSearch">
 					<input type="hidden" name="Action" value="search">
@@ -164,8 +178,8 @@
 				</form>
 			</div>
 		 	<div id="agntRslCell"></div>  
-		</div><!---/sidebar--->
-		<div id="main">
+		</div><!---/leftside--->
+		<div id="maincell">
 		<div id="agntEditCell"></div>
 		</div>
 	</div>
