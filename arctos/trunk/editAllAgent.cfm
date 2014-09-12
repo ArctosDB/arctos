@@ -2,6 +2,7 @@
 ----->
 
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
+<cfinclude template="/includes/functionLib.cfm">
 
 
 
