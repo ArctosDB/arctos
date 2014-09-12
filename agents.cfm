@@ -63,12 +63,6 @@
 
 
 
- open: function (ev, ui) {
-      $('#myIframe').src = 'http://www.w3schools.com';
-    },
-
-
-
 
 
 		$("<iframe id='dialog' class='popupDialog'><img src='/images/indicator.gif'></iframe>").dialog({
