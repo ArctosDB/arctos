@@ -58,8 +58,8 @@
 			loadAgentSearch($("#agntSearch").serialize());
 		});
 	});
-	function createPerson(){
-		var guts = "includes/forms/createagent.cfm";
+	function createAgent(type){
+		var guts = "includes/forms/createagent.cfm?agent_type=" + type;
 
 
 
@@ -208,11 +208,11 @@
 							<input type="button" 
 								value="Create Person" 
 								class="insBtn"
-								onClick="createPerson();">
+								onClick="createAgent('person');">
 							<input type="button" 
-								value="Create New Non-Person Agent" 
+								value="Create Agent" 
 								class="insBtn"
-								onClick="window.open('editAllAgent.cfm?action=newAgent','_person');">
+								onClick="createAgent();">
 							</td>
 						</tr>
 					</table>
