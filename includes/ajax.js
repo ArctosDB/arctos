@@ -132,7 +132,6 @@ function addElectronicAddress(){
 
 }
 
-nnea1
 function editAgentAddress (aid){
 	console.log('clickypop');
 		var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
