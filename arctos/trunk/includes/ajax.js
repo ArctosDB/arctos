@@ -159,7 +159,46 @@ function addAgentAddr(aid){
 	});
 }			
 				
+function rankAgent(agent_id) {
+	var ptl="/includes/forms/agentrank.cfm";			
 
+	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'center'],
+		title: 'Add Address',
+		width: 'auto',
+		close: function() {
+			$( this ).remove();
+		},
+	}).load(ptl, function() {
+		$(this).dialog("option", "position", ['center', 'center'] );
+	});
+	$(window).resize(function() {
+		//fluidDialog();
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
+	
+	
+}
+function rankAgent__OLDNBUSTED(agent_id) {
+	addBGDiv('removePick()');
+	var theDiv = document.createElement('div');
+	theDiv.id = 'pickDiv';
+	theDiv.className = 'pickDiv';
+	theDiv.innerHTML='<br>Loading...';
+	document.body.appendChild(theDiv);
+	var ptl="/includes/forms/agentrank.cfm";			
+	$.get(ptl,{agent_id: agent_id},function(data){
+		document.getElementById('pickDiv').innerHTML=data;
+		// viewport.init("#pickDiv");
+	});
+}
 
 function editAgentAddress (aid){
 		var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
