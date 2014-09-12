@@ -49,7 +49,6 @@ margin:.1em;
 </style>
 
 
-<!----
 <script>
 
    
@@ -234,7 +233,6 @@ console.log('clickypop');
 </script>
 
 
------>
 <!----
 
 
