@@ -355,5 +355,15 @@
 		aagent craeted successfully.
 		
 		If you're seeing this something is broken so file a bug report!
+		
+		
+		
+		<script>
+		
+			//$(".ui-dialog-titlebar-close").trigger('click');
+
+
+							loadEditAgent(#agentID.nextAgentId# );
+		</script>
 	</cfoutput>
 </cfif>
