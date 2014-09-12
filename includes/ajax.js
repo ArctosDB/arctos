@@ -54,6 +54,106 @@ function loadEditAgent(aid){
 	$("#agntEditCell").load(ptl,{},function(){});
 }
 
+function loadAgentSearch(q){
+	var h;
+	$("#agntRslCell").html('<img src="/images/indicator.gif">');
+	$.ajax({
+		url: "/component/agent.cfc?queryformat=column&method=findAgents&returnformat=json",
+		type: "GET",
+		dataType: "json",
+		data:  q,
+		success: function(r) {
+			console.log(r);
+
+			if (r.ROWCOUNT===0){
+				$("#agntRslCell").html('nothing found');
+				return false;
+			}
+			h='<div style="height:30em; overflow:scroll;">';
+			for (i=0;i<r.ROWCOUNT;i++) {
+				h+='<div class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
+				h+= r.DATA.PREFERRED_AGENT_NAME[i] + '<font size="-1"> (';
+				h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ')</font> </div>';
+			}
+			h+='</div>';
+			$("#agntRslCell").html(h);
+		},
+		error: function (xhr, textStatus, errorThrown){
+		    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+		}
+	});
+}
+
+function addAgentName(){
+	var i=parseInt($("#nnan").val()) + parseInt(1);
+
+	var h='<div id="agentnamedv'+i+'"><select name="agent_name_type_new'+i+'" id="agent_name_type_new'+i+'"></select>';
+	h+='<input type="text" name="agent_name_new'+i+'" id="agent_name_new'+i+'" size="40" ></div>';
+	$('#agentnamedv' + $("#nnan").val()).after(h);
+	$('#agent_name_type_new1').find('option').clone().appendTo('#agent_name_type_new' + i);
+	$("#nnan").val(i);
+}
+function addAgentStatus(){
+	var i=parseInt($("#nnas").val()) + parseInt(1);
+	var h='<tr id="nas'+i+'" class="newRec"><td>';
+	h+='<select name="agent_status_new'+i+'" id="agent_status_new'+i+'" size="1" class="reqdClr"></select>';
+	h+='</td><td><input type="datetime" size="12" name="status_date_new'+i+'" id="status_date_new'+i+'"></td>';
+	h+='<td><input type="text" size="50" name="status_remark_new'+i+'" id="status_remark_new'+i+'"></td><td></td></tr>';
+	$('#nas' + $("#nnas").val()).after(h);
+	$('#agent_status_new1').find('option').clone().appendTo('#agent_status_new' + i);
+	$("#nnas").val(i);
+}
+function addAgentRelationship(){
+	var i=parseInt($("#nnar").val()) + parseInt(1);
+	var h='<tr id="nar'+i+'" class="newRec"><td>';
+	h+='<select name="agent_relationship_new'+i+'" id="agent_relationship_new'+i+'" size="1"></select> ';
+	h+='</td><td><input type="hidden" name="related_agent_id_new'+i+'" id="related_agent_id_new'+i+'">';
+	h+='<input type="text" name="related_agent_new'+i+'" id="related_agent_new'+i+'" ';
+	h+='onchange="getAgent(\'related_agent_idnew'+i+'\',this.id,\'fEditAgent\',this.value); return false;"';
+	h+='onKeyPress="return noenter(event);">';
+	h+='</td></tr>';
+	$('#nar' + $("#nnar").val()).after(h);
+	$('#agent_relationship_new1').find('option').clone().appendTo('#agent_relationship_new' + i);
+	$("#nnar").val(i);
+
+}
+
+function editAgentAddress (aid){
+	console.log('clickypop');
+		var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
+//	    $("#dialog").dialog('open');
+
+
+
+
+		$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
+			autoOpen: true,
+			closeOnEscape: true,
+			height: 'auto',
+			modal: true,
+			position: ['center', 'center'],
+			title: 'Build Taxon Name',
+			width: 'auto',
+			close: function() {
+				$( this ).remove();
+			},
+		}).load(guts, function() {
+			$(this).dialog("option", "position", ['center', 'center'] );
+		});
+		$(window).resize(function() {
+			//fluidDialog();
+			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+		});
+		$(".ui-widget-overlay").click(function(){
+		    $(".ui-dialog-titlebar-close").trigger('click');
+		});
+
+
+
+
+	}
+
+
 /* END agent editing forms */
 
 

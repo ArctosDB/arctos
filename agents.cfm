@@ -35,8 +35,6 @@
 
 </style>
 <script>
-
-
 	$(document).ready(function() {
 		var agent_id = getUrlParameter('agent_id');
 		if ( typeof agent_id !== 'undefined' && agent_id.length > 0 ) {
@@ -47,38 +45,6 @@
 			loadAgentSearch($("#agntSearch").serialize());
 		});
 	});
-	
-	
-	function loadAgentSearch(q){
-		var h;
-		$("#agntRslCell").html('<img src="/images/indicator.gif">');
-		$.ajax({
-			url: "/component/agent.cfc?queryformat=column&method=findAgents&returnformat=json",
-			type: "GET",
-			dataType: "json",
-			data:  q,
-			success: function(r) {
-				console.log(r);
-	
-				if (r.ROWCOUNT===0){
-					$("#agntRslCell").html('nothing found');
-					return false;
-				}
-				h='<div style="height:30em; overflow:scroll;">';
-				for (i=0;i<r.ROWCOUNT;i++) {
-					h+='<div class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
-					h+= r.DATA.PREFERRED_AGENT_NAME[i] + '<font size="-1"> (';
-					h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ')</font> </div>';
-				}
-				h+='</div>';
-				$("#agntRslCell").html(h);
-			},
-			error: function (xhr, textStatus, errorThrown){
-			    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
-			}
-		});
-	}
-
 </script>
 
 
