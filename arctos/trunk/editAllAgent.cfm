@@ -166,23 +166,6 @@ margin:.1em;
 	
 	
 
-
-			<select name="#electronic_address_id#" id="electronic_address_type_#electronic_address_id#" size="1">
-						<option value="DELETE">DELETE</option>
-						<cfloop query="CTELECTRONIC_ADDR_TYPE">
-							<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#"
-								<cfif CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE is elecagentAddrs.ADDRESS_TYPE>selected="selected"</cfif>
-							>#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
-						</cfloop>
-					</select>
-					<input type="#ttype#" class="reqdClr" size="25" name="electronic_address_#electronic_address_id#" 
-						id="#electronic_address_id#" value="#ADDRESS#">
-				</div>
-			</cfloop>
-			
-
-
-
 	});
 </script>
 
