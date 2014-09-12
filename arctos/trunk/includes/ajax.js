@@ -88,7 +88,7 @@ function addAgentName(){
 	var i=parseInt($("#nnan").val()) + parseInt(1);
 
 	var h='<div id="agentnamedv'+i+'"><select name="agent_name_type_new'+i+'" id="agent_name_type_new'+i+'"></select>';
-	h+='<input type="text" name="agent_name_new'+i+'" id="agent_name_new'+i+'" size="40" ></div>';
+	h+='<input type="text" name="agent_name_new'+i+'" id="agent_name_new'+i+'" size="40" placeholder="new agent name"></div>';
 	$('#agentnamedv' + $("#nnan").val()).after(h);
 	$('#agent_name_type_new1').find('option').clone().appendTo('#agent_name_type_new' + i);
 	$("#nnan").val(i);
