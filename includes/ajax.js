@@ -130,7 +130,7 @@ function addElectronicAddress(){
 	var h='<div id="eaddiv'+i+'" class="newRec">';
 	h+='<select name="electronic_address_type_new'+i+'" id="electronic_address_type_new'+i+'" size="1"></select> ';
 	h+='<input type="text" class="reqdClr" size="25" name="electronic_address_new'+i+'" id="electronic_address_new'+i+'">';
-	var h='</div>';
+	h+='</div>';
 	
 	
 	console.log(h);
