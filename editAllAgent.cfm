@@ -499,6 +499,8 @@ $.ajax({
 								onKeyPress="return noenter(event);">
 							</td>
 						</tr>
+					
+					</cfloop>
 					<cfloop query="reciprelns">
 						<tr>
 							<td>
