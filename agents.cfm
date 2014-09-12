@@ -72,8 +72,8 @@
 			modal: true,
 			position: ['center', 'center'],
 			title: 'New Agent',
- width:800,
-  height:600
+ 			width:800,
+  			height:600,
 			close: function() {
 				$( this ).remove();
 			},
