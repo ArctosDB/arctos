@@ -53,7 +53,6 @@ function loadEditAgent(aid){
 	var ptl="/editAllAgent.cfm?agent_id=" + aid;
 	$("#agntEditCell").load(ptl,{},function(){
 		history.pushState('data', '', ptl);
-		
 	});
 }
 
@@ -76,7 +75,9 @@ function loadAgentSearch(q){
 			for (i=0;i<r.ROWCOUNT;i++) {
 				h+='<div><span class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
 				h+= r.DATA.PREFERRED_AGENT_NAME[i] + '</span><font size="-1"> (';
-				h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ') <a href="/agents.cfm?agent_id=' +r.DATA.AGENT_ID[i]+' ">[stable link]</a></font></div>';
+				h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ')</font></div>';
+				// no longer needed with history push
+				//<a href="/agents.cfm?agent_id=' +r.DATA.AGENT_ID[i]+' ">[stable link]</a>
 			}
 			h+='</div>';
 			$("#agntRslCell").html(h);
