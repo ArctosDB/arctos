@@ -410,7 +410,7 @@ $.ajax({
 								<option value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
 							</cfloop>
 						</select>
-						<input type="text" name="agent_name_new1" id="agent_name_new1" size="40">
+						<input type="text" name="agent_name_new1" id="agent_name_new1" size="40" placeholder="new agent name">
 						<input type="button" onclick="addAgentName()" value="more">
 					</div>
 				</div>
@@ -486,12 +486,12 @@ $.ajax({
 						</tr>
 					</cfloop>
 					</tr>
-					<tr id="nar1">
+					<tr class="newRec" id="nar1">
 						<td>
 							
 							<input type="hidden" id="nnar" value="1">
 							<select name="agent_relationship_new1" id="agent_relationship_new1" size="1">
-								<option value=""></option>
+								<option value="">Pick New</option>
 								<cfloop query="ctRelns">
 									<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
 								</cfloop>
@@ -501,7 +501,7 @@ $.ajax({
 							<input type="hidden" name="related_agent_id_new1" id="related_agent_id_new1">
 							<input type="text" name="related_agent_new1" id="related_agent_new1"
 								onchange="getAgent('related_agent_id_new1',this.id,'fEditAgent',this.value); return false;"
-								onKeyPress="return noenter(event);">
+								onKeyPress="return noenter(event);" placeholder="pick an agent">
 							<input type="button" onclick="addAgentRelationship()" value="more">
 						</td>
 					</tr>
