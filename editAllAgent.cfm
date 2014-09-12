@@ -538,13 +538,11 @@ $.ajax({
 				<select name="electronic_address_type_new1" id="electronic_address_type_new1" size="1">
 					<option value="">pick new</option>
 					<cfloop query="CTELECTRONIC_ADDR_TYPE">
-						<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#"
-							<cfif CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE is elecagentAddrs.ADDRESS_TYPE>selected="selected"</cfif>
-						>#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
+						<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#">#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
 					</cfloop>
 				</select>
 				<input type="text" class="reqdClr" size="25" name="electronic_address_new1" 
-						id="electronic_address_new1" value="#ADDRESS#">
+						id="electronic_address_new1">
 			</div>
 
 
