@@ -266,8 +266,8 @@
 				<cfloop list="#structKeyList(url)#" index="key">
 					<cfif left(key,24) is "electronic_address_type_">
 						<cfset thisElectronicAddressID=listlast(key,"_")>
-						<cfset thisElectronicAddressType=url["electronic_address_type_#thisAgentStatusID#"]>
-						<cfset thisElectronicAddress=url["electronic_address_#thisAgentStatusID#"]>
+						<cfset thisElectronicAddressType=url["electronic_address_type_#thisElectronicAddressID#"]>
+						<cfset thisElectronicAddress=url["electronic_address_#thisElectronicAddressID#"]>
 						<!----
 						<br>thisAgentStatusID: #thisAgentStatusID#
 						<br>thisAgentStatus: #thisAgentStatus#
