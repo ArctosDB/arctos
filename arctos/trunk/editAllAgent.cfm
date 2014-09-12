@@ -29,9 +29,7 @@
 <style>
 .validAddress{border:2px solid green;margin:1px;padding:1px;}
 .invalidAddress{border:2px solid red;margin:1px;padding:1px;}
-
-		
-	#map-canvas { height: 300px;width:500px; }
+#map-canvas { height: 300px;width:500px; }
 	
 fieldset {
     border:0;
@@ -46,19 +44,14 @@ legend {
 
 .goodsave {
    border:1px solid green;
-margin:.1em;
+	margin:.1em;
 }
 .badsave {
-   border:2px solid red;
+ 	border:2px solid red;
 	margin:.5em;
 }
-
 </style>
-
-
 <script>
-
-   
 	$(document).ready(function() {
 		$("input[type='date'], input[type='datetime']" ).datepicker();
 
@@ -361,9 +354,6 @@ $.ajax({
 			</cfloop>
 		</table>
 		
-		
-		
-		
 		<cfif listcontainsnocase(session.roles,"manage_transactions")>
 			<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
@@ -375,6 +365,7 @@ $.ajax({
 			<input type="button" class="lnkBtn" onclick="rankAgent('#agent.agent_id#');" value="Rank">
 		</cfif>
 		<form name="fEditAgent" id="fEditAgent">
+			<input type="submit" value="save all changes" class="savBtn">
 			<fieldset id="fs_fEditAgent">
 				<legend>Edit Agent</legend>
 				<input type="hidden" name="agent_id" id="agent_id" value="#agent_id#">
@@ -391,7 +382,9 @@ $.ajax({
 				<label for="agent_remarks">Agent Remark</label>
 				<input type="text" value="#stripQuotes(agent.agent_remarks)#" name="agent_remarks" id="agent_remarks" size="100">
 			</fieldset>
+			<input type="submit" value="save all changes" class="savBtn">
 			<fieldset id="fs_fAgentName">
+			
 				<legend>Agent Names</legend>
 				<cfloop query="agent_names">
 					<div>
@@ -423,6 +416,7 @@ $.ajax({
 					</div>
 				</div>
 			</fieldset>
+			<input type="submit" value="save all changes" class="savBtn">
 			<fieldset>
 				<table border>
 					<tr>
@@ -451,120 +445,112 @@ $.ajax({
 						</td>
 					</tr>
 				</cfloop>
-				<input type="hidden" id="nnas" value="1">
-				<tr id="nas1" class="newRec">
-					<td>
-						<select name="agent_status_new1" id="agent_status_new1" size="1">
-							<option value=""></option>
-							<cfloop query="ctagent_status">
-								<option value="#agent_status#">#agent_status#</option>
-							</cfloop>
-						</select>
-					</td>
-					<td><input type="datetime" size="12" name="status_date_new1" id="status_date_new1" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
-					<td><input type="text" size="50" name="status_remark_new1" id="status_remark_new1"></td>
-					<td><input type="button" onclick="addAgentStatus()" value="more"></td>
-				</tr>
-				
-			</table>
-		</fieldset>
-		<fieldset>
-			<table border>
-				<tr>
-					<th>Relationship
-					<th>RelatedAgent</th>
-				</th>
-				<cfloop query="relns">
-					<tr>
+					<input type="hidden" id="nnas" value="1">
+					<tr id="nas1" class="newRec">
 						<td>
-							<select name="agent_relationship_#agent_relations_id#" id="agent_relationship_#agent_relations_id#" size="1">
-								<option value="DELETE">DELETE</option>
+							<select name="agent_status_new1" id="agent_status_new1" size="1">
+								<option value=""></option>
+								<cfloop query="ctagent_status">
+									<option value="#agent_status#">#agent_status#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td><input type="datetime" size="12" name="status_date_new1" id="status_date_new1" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
+						<td><input type="text" size="50" name="status_remark_new1" id="status_remark_new1"></td>
+						<td><input type="button" onclick="addAgentStatus()" value="more"></td>
+					</tr>
+				</table>
+			</fieldset>
+			<input type="submit" value="save all changes" class="savBtn">
+			<fieldset>
+				<table border>
+					<tr>
+						<th>Relationship
+						<th>RelatedAgent</th>
+					</th>
+					<cfloop query="relns">
+						<tr>
+							<td>
+								<select name="agent_relationship_#agent_relations_id#" id="agent_relationship_#agent_relations_id#" size="1">
+									<option value="DELETE">DELETE</option>
+									<cfloop query="ctRelns">
+										<option value="#ctRelns.AGENT_RELATIONSHIP#"
+											<cfif ctRelns.AGENT_RELATIONSHIP is relns.AGENT_RELATIONSHIP>selected="selected"</cfif>
+											>#ctRelns.AGENT_RELATIONSHIP#</option>
+									</cfloop>
+								</select> 
+							</td>
+							<td>
+								<input type="hidden" name="related_agent_id_#agent_relations_id#" id="related_agent_id_#agent_relations_id#" value="#related_agent_id#">
+								<input type="text" name="related_agent_#agent_relations_id#" id="related_agent_#agent_relations_id#" class="reqdClr" value="#agent_name#"
+									onchange="getAgent('related_agent_id_#agent_relations_id#',this.id,'fEditAgent',this.value); return false;"
+								onKeyPress="return noenter(event);">
+							</td>
+						</tr>
+					</cfloop>
+					</tr>
+					<tr id="nar1">
+						<td>
+							
+							<input type="hidden" id="nnar" value="1">
+							<select name="agent_relationship_new1" id="agent_relationship_new1" size="1">
+								<option value=""></option>
 								<cfloop query="ctRelns">
-									<option value="#ctRelns.AGENT_RELATIONSHIP#"
-										<cfif ctRelns.AGENT_RELATIONSHIP is relns.AGENT_RELATIONSHIP>selected="selected"</cfif>
-										>#ctRelns.AGENT_RELATIONSHIP#</option>
+									<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
 								</cfloop>
 							</select> 
 						</td>
 						<td>
-							<input type="hidden" name="related_agent_id_#agent_relations_id#" id="related_agent_id_#agent_relations_id#" value="#related_agent_id#">
-							<input type="text" name="related_agent_#agent_relations_id#" id="related_agent_#agent_relations_id#" class="reqdClr" value="#agent_name#"
-								onchange="getAgent('related_agent_id_#agent_relations_id#',this.id,'fEditAgent',this.value); return false;"
-							onKeyPress="return noenter(event);">
+							<input type="hidden" name="related_agent_id_new1" id="related_agent_id_new1">
+							<input type="text" name="related_agent_new1" id="related_agent_new1"
+								onchange="getAgent('related_agent_id_new1',this.id,'fEditAgent',this.value); return false;"
+								onKeyPress="return noenter(event);">
+							<input type="button" onclick="addAgentRelationship()" value="more">
 						</td>
 					</tr>
-				</cfloop>
-				</tr>
-				<tr id="nar1">
-					<td>
-						
-						<input type="hidden" id="nnar" value="1">
-						<select name="agent_relationship_new1" id="agent_relationship_new1" size="1">
-							<option value=""></option>
-							<cfloop query="ctRelns">
-								<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
+				</table>
+			</fieldset>
+			<input type="submit" value="save all changes" class="savBtn">
+			<fieldset>
+				<legend>Electronic Address</legend>
+				<cfloop query="elecagentAddrs">
+					<cfif ADDRESS_TYPE is "">
+						<cfset ttype='url'>
+					<cfelseif address_type is "e-mail">
+						<cfset ttype='email'>
+					<cfelseif address_type contains "phone" or address_type is "fax">
+						<cfset ttype='tel'>
+					<cfelse>
+						<cfset ttype='text'>
+					</cfif>
+					<div>
+						<select name="electronic_address_type_#electronic_address_id#" id="electronic_address_type_#electronic_address_id#" size="1">
+							<option value="DELETE">DELETE</option>
+							<cfloop query="CTELECTRONIC_ADDR_TYPE">
+								<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#"
+									<cfif CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE is elecagentAddrs.ADDRESS_TYPE>selected="selected"</cfif>
+								>#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
 							</cfloop>
-						</select> 
-					</td>
-					<td>
-						<input type="hidden" name="related_agent_id_new1" id="related_agent_id_new1">
-						<input type="text" name="related_agent_new1" id="related_agent_new1"
-							onchange="getAgent('related_agent_id_new1',this.id,'fEditAgent',this.value); return false;"
-							onKeyPress="return noenter(event);">
-						<input type="button" onclick="addAgentRelationship()" value="more">
-					</td>
-				</tr>
-			</table>
-		</fieldset>
-		<fieldset>
-			<legend>Electronic Address</legend>
-			<cfloop query="elecagentAddrs">
-				<cfif ADDRESS_TYPE is "">
-					<cfset ttype='url'>
-				<cfelseif address_type is "e-mail">
-					<cfset ttype='email'>
-				<cfelseif address_type contains "phone" or address_type is "fax">
-					<cfset ttype='tel'>
-				<cfelse>
-					<cfset ttype='text'>
-				</cfif>
-				
-    
-
-
-				<div>
-					<select name="electronic_address_type_#electronic_address_id#" id="electronic_address_type_#electronic_address_id#" size="1">
-						<option value="DELETE">DELETE</option>
+						</select>
+						<input type="#ttype#" class="reqdClr" size="25" name="electronic_address_#electronic_address_id#" 
+							id="electronic_address_#electronic_address_id#" value="#ADDRESS#">
+					</div>
+				</cfloop>
+				<input type="button" onclick="addElectronicAddress()" value="more">
+				<input type="hidden" id="nnea" value="1">
+				<div class="newRec" id="eaddiv1">
+					<select name="electronic_address_type_new1" id="electronic_address_type_new1" size="1">
+						<option value="">pick new</option>
 						<cfloop query="CTELECTRONIC_ADDR_TYPE">
-							<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#"
-								<cfif CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE is elecagentAddrs.ADDRESS_TYPE>selected="selected"</cfif>
-							>#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
+							<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#">#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
 						</cfloop>
 					</select>
-					<input type="#ttype#" class="reqdClr" size="25" name="electronic_address_#electronic_address_id#" 
-						id="electronic_address_#electronic_address_id#" value="#ADDRESS#">
+					<input type="text" size="25" name="electronic_address_new1" id="electronic_address_new1">
 				</div>
-			</cfloop>
-			<input type="button" onclick="addElectronicAddress()" value="more">
-			<input type="hidden" id="nnea" value="1">
-
-			<div class="newRec" id="eaddiv1">
-				<select name="electronic_address_type_new1" id="electronic_address_type_new1" size="1">
-					<option value="">pick new</option>
-					<cfloop query="CTELECTRONIC_ADDR_TYPE">
-						<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#">#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
-					</cfloop>
-				</select>
-				<input type="text" size="25" name="electronic_address_new1" 
-						id="electronic_address_new1">
-			</div>
-
-
-			
-		</fieldset>
+			</fieldset>
 		
 			
-		<input type="submit">
+			<input type="submit" value="save all changes" class="savBtn">
 		</form>
 		<input type="button" onclick="addAgentAddr(#agent_id#)" value="New Address">
 
