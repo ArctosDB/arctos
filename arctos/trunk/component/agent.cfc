@@ -117,10 +117,10 @@
 	<cfoutput>
 	
 	
-	
+	<!----
 	<cfdump var=#url#>
 	
-	
+	---->
 	
 		<cftry>
 			<cftransaction>
@@ -182,19 +182,15 @@
 						
 						<!----
 						
-						<br>thisAgentRelationsID: #thisAgentRelationsID#
-						<br>thisAgentRelationship: #thisAgentRelationship#
-						<br>thisRelatedAgentName: #thisRelatedAgentName#
-						<br>thisRelatedAgentID: #thisRelatedAgentID#
-						
-						
-						---->
-						
 						
 							<br>thisAgentRelationsID: #thisAgentRelationsID#
 						<br>thisAgentRelationship: ::#thisAgentRelationship#::
 						<br>thisRelatedAgentName: #thisRelatedAgentName#
 						<br>thisRelatedAgentID: #thisRelatedAgentID#
+						
+						---->
+						
+					
 						
 						<cfif thisAgentRelationsID contains "new">
 							<cfif len(thisAgentRelationship) gt 0>
@@ -284,19 +280,20 @@
 						<br>thisElectronicAddressID: #thisAgentStatusID#
 						<br>thisElectronicAddressType: #thisAgentStatus#
 						<br>thisElectronicAddress: #thisAgentStatusDate#
-						---->
 						
-						
+							
 						<br>thisElectronicAddressID: #thisAgentStatusID#
 						<br>thisElectronicAddressType: #thisAgentStatus#
 						<br>thisElectronicAddress: #thisAgentStatusDate#
+						---->
+						
+					
 						
 						
 						<cfif thisElectronicAddressID contains "new">
 							<cfif len(thisElectronicAddressType) gt 0>
 							
 							
-							<br>insert....
 								<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 									INSERT INTO electronic_address (
 										AGENT_ID
@@ -312,7 +309,6 @@
 						<cfelseif thisAgentStatus is "DELETE">
 						
 						
-							<br>delete....
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								delete from  electronic_address where electronic_address_id=<cfqueryparam value = "#thisElectronicAddressID#" CFSQLType = "CF_SQL_INTEGER">
 							</cfquery>
@@ -320,7 +316,6 @@
 						
 						
 						
-						<br>update....
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update electronic_address 
 								set
@@ -338,10 +333,12 @@
 		<cfcatch>
 		
 		<!----
+		
+		<cfdump var=#cfcatch#>
 			---->
 			
 			
-						<cfdump var=#cfcatch#>
+						
 
 			<cf_logError subject="error caught: saveAgent" attributeCollection=#cfcatch#>
 			<cfset m=cfcatch.message & ': ' & cfcatch.detail>
