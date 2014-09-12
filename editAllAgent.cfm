@@ -524,7 +524,46 @@ $.ajax({
 						id="electronic_address_#electronic_address_id#" value="#ADDRESS#">
 				</div>
 			</cfloop>
+			<input type="button" onclick="addElectronicAddress()" value="more">
+									<input type="hidden" id="nnea" value="1">
 
+			<div class="newRec" id="nnea1">
+				<select name="electronic_address_type_new1" id="electronic_address_type_new1" size="1">
+					<option value="">pick new</option>
+					<cfloop query="CTELECTRONIC_ADDR_TYPE">
+						<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#"
+							<cfif CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE is elecagentAddrs.ADDRESS_TYPE>selected="selected"</cfif>
+						>#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
+					</cfloop>
+				</select>
+				<input type="text" class="reqdClr" size="25" name="electronic_address_new1" 
+						id="electronic_address_new1" value="#ADDRESS#">
+			</div>
+
+
+	<tr id="nar1">
+					<td>
+						
+						<input type="hidden" id="nnar" value="1">
+						<select name="agent_relationship_new1" id="agent_relationship_new1" size="1">
+							<option value=""></option>
+							<cfloop query="ctRelns">
+								<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
+							</cfloop>
+						</select> 
+					</td>
+					<td>
+						<input type="hidden" name="related_agent_id_new1" id="related_agent_id_new1">
+						<input type="text" name="related_agent_new1" id="related_agent_new1"
+							onchange="getAgent('related_agent_id_new1',this.id,'fEditAgent',this.value); return false;"
+							onKeyPress="return noenter(event);">
+						<input type="button" onclick="addAgentRelationship()" value="more">
+					</td>
+				</tr>
+			</table>
+			
+			
+			
 		</fieldset>
 		
 			
