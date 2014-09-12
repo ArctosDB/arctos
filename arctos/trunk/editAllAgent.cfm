@@ -60,6 +60,7 @@ margin:.1em;
 
    
 	$(document).ready(function() {
+		$("input[type='date'], input[type='datetime']" ).datepicker();
 
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);

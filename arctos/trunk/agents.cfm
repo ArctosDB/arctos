@@ -9,15 +9,8 @@
     display: table-cell;
 }
 
-
 #leftside {
     width:35%;
-    
-	/*float: left;
-* 
-* display: table-cell;
-* 
-* */
     padding:1em;
 }
 #agntEditCell {
@@ -40,7 +33,6 @@
 #divrow{
 	display: table-row;
 }
-#oif{border:3px solid purple}
 </style>
 
 <!----
