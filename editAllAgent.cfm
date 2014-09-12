@@ -333,14 +333,13 @@ $.ajax({
 		<cfquery name="reciprelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				agent_relations.agent_relationship, 
-				agent_name.agent_name,
+				agent.preferred_agent_name,
 				agent_relations.agent_id
 			from 
 				agent_relations, 
-				agent_name
+				agent
 			where 
-			  agent_relations.agent_id = agent_name.agent_id and
-			  agent_name_type = 'preferred' and
+			  agent_relations.agent_id = agent.agent_id and
 			  agent_relations.related_agent_id=#agent_id#
 		</cfquery>
 		
@@ -506,7 +505,7 @@ $.ajax({
 								#agent_relationship#
 							</td>
 							<td>
-								from <a href="/agents.cfm?agent_id=#agent_id#">#agent_name#</a>
+								from <a href="/agents.cfm?agent_id=#agent_id#">#preferred_agent_name#</a>
 							</td>
 						</tr>
 					</cfloop>
