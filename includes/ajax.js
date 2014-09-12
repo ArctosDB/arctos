@@ -51,7 +51,10 @@ $(document).ready(function() {
 function loadEditAgent(aid){
 	$("#agntEditCell").html('<img src="/images/indicator.gif">');
 	var ptl="/editAllAgent.cfm?agent_id=" + aid;
-	$("#agntEditCell").load(ptl,{},function(){});
+	$("#agntEditCell").load(ptl,{},function(){
+		history.pushState('data', '', ptl);
+		
+	});
 }
 
 function loadAgentSearch(q){
