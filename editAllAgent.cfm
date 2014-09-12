@@ -546,28 +546,6 @@ $.ajax({
 			</div>
 
 
-	<tr id="nar1">
-					<td>
-						
-						<input type="hidden" id="nnar" value="1">
-						<select name="agent_relationship_new1" id="agent_relationship_new1" size="1">
-							<option value=""></option>
-							<cfloop query="ctRelns">
-								<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
-							</cfloop>
-						</select> 
-					</td>
-					<td>
-						<input type="hidden" name="related_agent_id_new1" id="related_agent_id_new1">
-						<input type="text" name="related_agent_new1" id="related_agent_new1"
-							onchange="getAgent('related_agent_id_new1',this.id,'fEditAgent',this.value); return false;"
-							onKeyPress="return noenter(event);">
-						<input type="button" onclick="addAgentRelationship()" value="more">
-					</td>
-				</tr>
-			</table>
-			
-			
 			
 		</fieldset>
 		
