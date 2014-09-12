@@ -343,7 +343,17 @@
 				)
 				</cfquery>
 			</cfif>
-		</cftransaction>			
-		<cflocation url="editAllAgent.cfm?agent_id=#agentID.nextAgentId#">
+		</cftransaction>
+		
+		
+		<!----		
+		<cflocation url="createagent.cfm?action=createagent_id=#agentID.nextAgentId#">
+		
+		
+		---->
+		
+		aagent craeted successfully.
+		
+		If you're seeing this something is broken so file a bug report!
 	</cfoutput>
 </cfif>
