@@ -269,14 +269,22 @@
 						<cfset thisElectronicAddressType=url["electronic_address_type_#thisElectronicAddressID#"]>
 						<cfset thisElectronicAddress=url["electronic_address_#thisElectronicAddressID#"]>
 						<!----
-						<br>thisAgentStatusID: #thisAgentStatusID#
-						<br>thisAgentStatus: #thisAgentStatus#
-						<br>thisAgentStatusDate: #thisAgentStatusDate#
-						<br>thisAgentStatusRemark: #thisAgentStatusRemark#
+						<br>thisElectronicAddressID: #thisAgentStatusID#
+						<br>thisElectronicAddressType: #thisAgentStatus#
+						<br>thisElectronicAddress: #thisAgentStatusDate#
 						---->
+						
+						
+						<br>thisElectronicAddressID: #thisAgentStatusID#
+						<br>thisElectronicAddressType: #thisAgentStatus#
+						<br>thisElectronicAddress: #thisAgentStatusDate#
+						
 						
 						<cfif thisElectronicAddressID contains "new">
 							<cfif len(thisElectronicAddressType) gt 0>
+							
+							
+							<br>insert....
 								<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 									INSERT INTO electronic_address (
 										AGENT_ID
@@ -290,10 +298,17 @@
 								</cfquery>
 							</cfif>
 						<cfelseif thisAgentStatus is "DELETE">
+						
+						
+							<br>delete....
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								delete from  electronic_address where electronic_address_id=<cfqueryparam value = "#thisElectronicAddressID#" CFSQLType = "CF_SQL_INTEGER">
 							</cfquery>
 						<cfelse>
+						
+						
+						
+						<br>update....
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update electronic_address 
 								set
