@@ -541,7 +541,7 @@ $.ajax({
 						<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#">#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
 					</cfloop>
 				</select>
-				<input type="text" class="reqdClr" size="25" name="electronic_address_new1" 
+				<input type="text" size="25" name="electronic_address_new1" 
 						id="electronic_address_new1">
 			</div>
 
