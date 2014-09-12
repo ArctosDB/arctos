@@ -1,5 +1,5 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
-
+<cfif action is "nothing">
 <cfquery name="ctAgent_Type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_type from ctagent_type order by agent_type
 </cfquery>
@@ -145,7 +145,7 @@
 </script>
 	<cfoutput>
 		<strong>Create Agent</strong>
-		<form name="prefdName" action="editAllAgent.cfm" method="post" target="_person" id="createAgent" onsubmit="return preCreateCheck()">
+		<form name="prefdName" id="createAgent" onsubmit="return preCreateCheck()">
 			<input type="hidden" name="action" value="makeNewAgent">
 			<input type="hidden" name="forceOverride" id="forceOverride" value="">
 			<label for="agent_type">Agent Type</label>
@@ -185,3 +185,165 @@
 			</script>
 		</cfif>
 	</cfoutput>
+</cfif>
+
+
+
+
+
+<cfif Action is "makeNewAgent">
+	<cfif not isdefined("first_name")>
+		<cfset first_name="">
+	</cfif>
+	<cfif not isdefined("middle_name")>
+		<cfset middle_name="">
+	</cfif>
+	<cfif not isdefined("last_name")>
+		<cfset last_name="">
+	</cfif>
+	<cfoutput>
+		<cfif not isdefined("forceOverride") or forceOverride is not "true">
+			<cfset probs="">
+			<cfif agent_type is "person">
+				<cfif 
+					(not isdefined("first_name") or len(first_name) is 0) and 
+					(not isdefined("middle_name") and len(middle_name) is 0) and 
+					(not isdefined("last_name") and len(last_name) is 0)>
+					<cfset probs=listappend(probs,"Person agents must have first, middle, and/or last name.",";")>
+				</cfif>
+				<cfif isdefined("first_name") and len(first_name) is 1>
+					<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
+				</cfif>
+				<cfif isdefined("middle_name") and len(middle_name) is 1>
+					<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
+				</cfif>
+				<cfif isdefined("last_name") and len(last_name) is 1>
+					<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
+				</cfif>
+			<cfelse>
+				<cfif 
+					(isdefined("first_name") and len(first_name) gt 0) or 
+					(isdefined("middle_name") and len(middle_name) gt 0) or 
+					(isdefined("last_name") and len(last_name) gt 0)>
+					<cfset probs=listappend(probs,"Non-person agents may not have first, middle, or last name.",";")>
+					<cfabort>
+				</cfif>
+			</cfif>
+			<cfset obj = CreateObject("component","component.functions")>
+			<cfset fnProbs = obj.checkAgent(
+				preferred_name="#preferred_agent_name#",
+				agent_type="#agent_type#",
+				first_name="#first_name#",
+				middle_name="#middle_name#",
+				last_name="#last_name#"
+			)>
+			<cfset probs=listappend(probs,fnProbs,";")>
+			<cfif len(probs) gt 0>
+				<div>
+					There are potential problems with this agent:
+				</div>
+				<ul>
+				<cfloop list="#probs#" index="p" delimiters=";">
+					<li>
+						#p#
+					</li>
+				</cfloop>
+				</ul>
+				<cfset forceURL="/editAllAgent.cfm?action=makeNewAgent&forceOverride=true">
+				<cfloop collection="#form#" item="theField">
+					<cfif theField is not "fieldNames" and theField is not "ACTION">
+						<cfset forceURL=forceURL & "&" & theField & '=' & form[theField]>
+					</cfif>
+				</cfloop>
+				<cfloop collection="#url#" item="theField">
+					<cfif theField is not "fieldNames" and theField is not "ACTION">
+						<cfset forceURL=forceURL & "&" & theField & '=' & url[theField]>
+					</cfif>
+				</cfloop>
+				Use your back button to fix the problems.
+				<p>
+					If you're really sure that you want to create this agent, you can also <a href="#forceURL#">force creation</a>.
+				</p>	
+				<cfabort>			
+			</cfif>
+		</cfif>
+		<cftransaction>
+			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select sq_agent_id.nextval nextAgentId from dual
+			</cfquery>
+			<cfquery name="insAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				INSERT INTO agent (
+					agent_id,
+					agent_type,
+					preferred_agent_name,
+					agent_remarks
+					)
+				VALUES (
+					#agentID.nextAgentId#,
+					'#agent_type#',
+					'#preferred_agent_name#',
+					'#agent_remarks#'
+				)
+			</cfquery>
+			<cfquery name="insPName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				INSERT INTO agent_name (
+					agent_name_id,
+					agent_id,
+					agent_name_type,
+					agent_name
+				) VALUES (
+					sq_agent_name_id.nextval,
+					#agentID.nextAgentId#,
+					'preferred',
+					'#preferred_agent_name#'
+				)
+			</cfquery>
+			<cfif isdefined("first_name") and len(first_name) gt 0>
+				<cfquery name="insFName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO agent_name (
+					agent_name_id,
+					agent_id,
+					agent_name_type,
+					agent_name
+				) VALUES (
+					sq_agent_name_id.nextval,
+					#agentID.nextAgentId#,
+					'first name',
+					'#first_name#'
+				)
+				</cfquery>
+			</cfif>
+			<cfif isdefined("middle_name") and len(middle_name) gt 0>
+				<cfquery name="insMName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO agent_name (
+					agent_name_id,
+					agent_id,
+					agent_name_type,
+					agent_name
+				) VALUES (
+					sq_agent_name_id.nextval,
+					#agentID.nextAgentId#,
+					'middle name',
+					'#middle_name#'
+				)
+				</cfquery>
+			</cfif>
+			<cfif isdefined("last_name") and len(last_name) gt 0>
+				<cfquery name="insLName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					INSERT INTO agent_name (
+					agent_name_id,
+					agent_id,
+					agent_name_type,
+					agent_name
+				) VALUES (
+					sq_agent_name_id.nextval,
+					#agentID.nextAgentId#,
+					'last name',
+					'#last_name#'
+				)
+				</cfquery>
+			</cfif>
+		</cftransaction>			
+		<cflocation url="editAllAgent.cfm?agent_id=#agentID.nextAgentId#">
+	</cfoutput>
+</cfif>
