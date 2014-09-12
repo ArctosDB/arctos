@@ -52,7 +52,7 @@
 		</table>
 		<span class="infoLink" id="t_agentRankDetails" onclick="tog_AgentRankDetail(1)">Show Details</span>
 		<div id="agentRankDetails" style="display:none">
-			<table border>
+			<table id="agntRankTbl" border>
 				<tr>
 					<th>Rank</th>
 					<th>Trans</th>
