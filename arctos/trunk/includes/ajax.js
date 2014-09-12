@@ -63,7 +63,7 @@ function loadAgentSearch(q){
 		dataType: "json",
 		data:  q,
 		success: function(r) {
-			console.log(r);
+			//console.log(r);
 
 			if (r.ROWCOUNT===0){
 				$("#agntRslCell").html('nothing found');
@@ -128,6 +128,34 @@ function addElectronicAddress(){
 	$("#nnea").val(i);
 
 }
+
+
+function addAgentAddr(aid){
+		var guts = "includes/forms/editAgentAddr.cfm?action=newAddress&agent_id=" + aid;
+	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'center'],
+		title: 'Add Address',
+		width: 'auto',
+		close: function() {
+			$( this ).remove();
+		},
+	}).load(guts, function() {
+		$(this).dialog("option", "position", ['center', 'center'] );
+	});
+	$(window).resize(function() {
+		//fluidDialog();
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
+}			
+				
+
 
 function editAgentAddress (aid){
 		var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
