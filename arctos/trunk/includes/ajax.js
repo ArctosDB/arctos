@@ -71,8 +71,8 @@ function loadAgentSearch(q){
 			}
 			h='<div style="height:30em; overflow:scroll;">';
 			for (i=0;i<r.ROWCOUNT;i++) {
-				h+='<div><div class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
-				h+= r.DATA.PREFERRED_AGENT_NAME[i] + '</div><font size="-1"> (';
+				h+='<div><span class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
+				h+= r.DATA.PREFERRED_AGENT_NAME[i] + '</span><font size="-1"> (';
 				h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ') <a href="/agents.cfm?agent_id=' +r.DATA.AGENT_ID[i]+' ">[stable link]</a></font></div>';
 			}
 			h+='</div>';
