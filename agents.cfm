@@ -58,6 +58,38 @@
 			loadAgentSearch($("#agntSearch").serialize());
 		});
 	});
+	function createPerson(){
+	var guts = "includes/forms/createagent.cfm?addr_id=" + aid;
+
+
+
+
+		$("<iframe id='dialog' class='popupDialog'><img src='/images/indicator.gif'></iframe>").dialog({
+			autoOpen: true,
+			closeOnEscape: true,
+			height: 'auto',
+			modal: true,
+			position: ['center', 'center'],
+			title: 'Build Taxon Name',
+			width: 'auto',
+			close: function() {
+				$( this ).remove();
+			},
+		}).load(guts, function() {
+			$(this).dialog("option", "position", ['center', 'center'] );
+		});
+		$(window).resize(function() {
+			//fluidDialog();
+			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+		});
+		$(".ui-widget-overlay").click(function(){
+		    $(".ui-dialog-titlebar-close").trigger('click');
+		});
+
+
+
+
+	}
 </script>
 
 <cfset title='Manage Agents'>
@@ -170,9 +202,9 @@
 							<td><input type="reset" value="Clear Form" class="clrBtn"></td>
 							<td>
 							<input type="button" 
-								value="Create New Person Agent" 
+								value="Create Person" 
 								class="insBtn"
-								onClick="window.open('editAllAgent.cfm?action=newAgent&agent_type=person','_person');">
+								onClick="createPerson();">
 							<input type="button" 
 								value="Create New Non-Person Agent" 
 								class="insBtn"
