@@ -2,6 +2,11 @@
 <cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_name_type as agent_name_type from ctagent_name_type where agent_name_type != 'preferred' order by agent_name_type
 </cfquery>
+<cfquery name="CTELECTRONIC_ADDR_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select ADDRESS_TYPE from CTELECTRONIC_ADDR_TYPE order by ADDRESS_TYPE
+</cfquery>
+
+
 <cfquery name="ctAgent_Type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_type from ctagent_type order by agent_type
 </cfquery>
@@ -578,6 +583,25 @@ $.ajax({
 				</tr>
 			</table>
 		</fieldset>
+		<fieldset>
+			<legend>Electronic Address</legend>
+			<cfloop query="elecagentAddrs">
+				<select name="electronic_address_type_#electronic_address_id#" id="electronic_address_type_#electronic_address_id#" size="1">
+					<option value="DELETE">DELETE</option>
+					<cfloop query="CTELECTRONIC_ADDR_TYPE">
+						<option value="#CTELECTRONIC_ADDR_TYPE.AGENT_RELATIONSHIP#"
+							<cfif CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE is elecagentAddrs.ADDRESS_TYPE>selected="selected"</cfif>
+						>#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
+					</cfloop>
+				</select>
+				<input type="text" class="reqdClr" size="12" name="electronic_address_#electronic_address_id#" 
+					id="electronic_address_#electronic_address_id#" value="#ADDRESS#">
+
+			</cfloop>
+
+		</fieldset>
+		
+			
 		<input type="submit">
 		</form>
 									<input type="button" onclick="addAgentAddr(#agent_id#)" value="New Address">
@@ -603,11 +627,7 @@ $.ajax({
 			</div>				
 		</cfloop>
 			<br />
-			<cfloop query="elecagentAddrs">
-				<div style="border:2px solid green;margin:1px;padding:1px;">
-					#address_type#: #address#
-				</div>
-			</cfloop>
+			
 		<br />
 		
 		<!-----
