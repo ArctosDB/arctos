@@ -82,8 +82,7 @@
 </script>
 
 
-
-
+<!---
 
 
 <script>
@@ -291,7 +290,7 @@ console.log('clickypop');
 }
 
 </script>
-
+---->
 
 
 
