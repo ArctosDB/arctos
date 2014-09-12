@@ -184,6 +184,11 @@
 						---->
 						
 						
+							<br>thisAgentRelationsID: #thisAgentRelationsID#
+						<br>thisAgentRelationship: #thisAgentRelationship#
+						<br>thisRelatedAgentName: #thisRelatedAgentName#
+						<br>thisRelatedAgentID: #thisRelatedAgentID#
+						
 						<cfif thisAgentRelationsID contains "new">
 							<cfif len(thisAgentRelationship) gt 0>
 								<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
