@@ -1,11 +1,23 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
+#pagewrapper {
+	/* encloses tabled content */
+	width: 100%; 
+	display: table;"
+}
 #leftside, #maincell {
     display: table-cell;
 }
+
+
 #leftside {
     width:35%;
-    float: left;
+    
+	/*float: left;
+* 
+* display: table-cell;
+* 
+* */
     padding:1em;
 }
 #agntEditCell {
@@ -24,21 +36,22 @@
     padding:.5em;
     border:1px solid black;
 }
-#pagewrapper {
-	width: 100%; 
-	display: table;"
-}
 
+#divrow{
+	display: table-row;
+}
 #oif{border:3px solid purple}
 </style>
 
-
+<!----
 <div style="width: 100%; display: table;">
     <div style="display: table-row">
         <div style="width: 600px; display: table-cell;"> Left </div>
         <div style="display: table-cell;"> Right </div>
     </div>
 </div>
+
+---->
 
 
 
@@ -67,8 +80,8 @@
 </cfquery>
 <cfoutput>
 <section>
-<div id="oif">
-	<div id="pagewrapper">
+<div id="pagewrapper">
+	<div id="divrow">
 		<div id="leftside">
 			<div id="td_search">
 				<form name="agntSearch" id="agntSearch">
@@ -180,11 +193,12 @@
 		 	<div id="agntRslCell"></div>  
 		</div><!---/leftside--->
 		<div id="maincell">
-		<div id="agntEditCell"></div>
+			<div id="agntEditCell"></div>
 		</div>
-	</div>
-</div>
-</section>
+	</div><!-----divrow---->
+</div><!----pagewrapper---->
+
+
 <cfinclude template="/includes/_footer.cfm">
 
 </cfoutput>
