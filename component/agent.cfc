@@ -306,7 +306,7 @@
 									)
 								</cfquery>
 							</cfif>
-						<cfelseif thisAgentStatus is "DELETE">
+						<cfelseif thisElectronicAddressType is "DELETE">
 						
 						
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
