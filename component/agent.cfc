@@ -261,6 +261,51 @@
 						</cfif>
 					</cfif>
 				</cfloop>
+				
+				
+				<cfloop list="#structKeyList(url)#" index="key">
+					<cfif left(key,24) is "electronic_address_type_">
+						<cfset thisElectronicAddressID=listlast(key,"_")>
+						<cfset thisElectronicAddressType=url["electronic_address_type_#thisAgentStatusID#"]>
+						<cfset thisElectronicAddress=url["electronic_address_#thisAgentStatusID#"]>
+						<!----
+						<br>thisAgentStatusID: #thisAgentStatusID#
+						<br>thisAgentStatus: #thisAgentStatus#
+						<br>thisAgentStatusDate: #thisAgentStatusDate#
+						<br>thisAgentStatusRemark: #thisAgentStatusRemark#
+						---->
+						
+						<cfif thisElectronicAddressID contains "new">
+							<cfif len(thisElectronicAddressType) gt 0>
+								<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									INSERT INTO electronic_address (
+										AGENT_ID
+										,address_type
+									 	,address	
+									 ) VALUES (
+										<cfqueryparam value = "#agent_ID#" CFSQLType = "CF_SQL_INTEGER">
+										,'#thisElectronicAddressType#'
+									 	,'#thisElectronicAddress#'
+									)
+								</cfquery>
+							</cfif>
+						<cfelseif thisAgentStatus is "DELETE">
+							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								delete from  electronic_address where electronic_address_id=<cfqueryparam value = "#thisElectronicAddressID#" CFSQLType = "CF_SQL_INTEGER">
+							</cfquery>
+						<cfelse>
+							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								update electronic_address 
+								set
+									address_type='#thisElectronicAddressType#',
+									address='#thisElectronicAddress#'
+								where
+									electronic_address_id=<cfqueryparam value = "#thisElectronicAddressID#" CFSQLType = "CF_SQL_INTEGER">
+							</cfquery>
+						</cfif>
+					</cfif>
+				</cfloop>
+				
 			</cftransaction>
 		<cfreturn "success">
 		<cfcatch>
