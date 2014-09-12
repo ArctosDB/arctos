@@ -65,7 +65,7 @@
 
 
 
-		$("<iframe src='/includes/forms/createagent.cfm' id='dialog' class='popupDialog'></iframe>").dialog({
+		$("<iframe src='/includes/forms/createagent.cfm' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
 			height: 'auto',
