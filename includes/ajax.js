@@ -1737,10 +1737,30 @@ function saveAgentRank(){
 			if(d.length>0 && d.substring(0,4)=='fail'){
 				alert(d);
 			} else {
+				console.log(d);
+				
+				//agntRankTbl
+				var h ='';
+				/*
+				<tr id="tablr#agent_rank_id#">
+				<td>#agent_rank#</td>
+				<td>#transaction_type#</td>
+				<td nowrap="nowrap">#dateformat(rank_date,"yyyy-mm-dd")#</td>
+				<td nowrap="nowrap">
+					#replace(ranker," ", "&nbsp;","all")#
+					<cfif ranked_by_agent_id is session.myAgentId>
+						<span class="infoLink" onclick="revokeAgentRank('#agent_rank_id#');">revoke</span>
+					</cfif>
+				</td>
+				<td>#remark#</td>
+			</tr>				
+			
 				var ih = 'Thank you for adding an agent rank.';
 				ih+='<p><span class="likeLink" onclick="removePick();rankAgent(' + d + ')">Refresh</span></p>';
 				ih+='<p><span class="likeLink" onclick="removePick();">Done</span></p>';				
 				document.getElementById('pickDiv').innerHTML=ih;
+				
+				*/	 
 			}
 		}
 	); 		
