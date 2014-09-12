@@ -193,7 +193,6 @@
 <cfif Action is "makeNewAgent">
 
 
-<!----
 	<cfif not isdefined("first_name")>
 		<cfset first_name="">
 	</cfif>
@@ -347,37 +346,21 @@
 			</cfif>
 		</cftransaction>
 		
-		---->
 		<!----		
 		<cflocation url="createagent.cfm?action=createagent_id=#agentID.nextAgentId#">
 		
-		</cfoutput>
 		---->
 		
-		aagent craeted successfully.
+		agent craeted successfully.
 		
 		If you're seeing this something is broken so file a bug report!
+	
 		
-		<style>
-			.obvious{margin:3em;border:5px solid red;}
-		</style>
 		
 		<script>
-		
-	console.log('hi');
-		
-			//
-
-parent.loadEditAgent(2072);
-
-parent.$(".ui-dialog-titlebar-close").addClass('obvious').trigger('click');
-
-
-	console.log('gone');
-
-
-
-							//loadEditAgent(#agentID.nextAgentId# );
+			parent.loadEditAgent(#agentID.nextAgentId#);
+			parent.$(".ui-dialog-titlebar-close").addClass('obvious').trigger('click');
 		</script>
-	
+			</cfoutput>
+
 </cfif>
