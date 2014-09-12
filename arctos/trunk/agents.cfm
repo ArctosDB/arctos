@@ -65,7 +65,7 @@
 
 
 
-		$("<iframe id='dialog' class='popupDialog'><img src='/images/indicator.gif'></iframe>").dialog({
+		$("<iframe src='/includes/forms/createagent.cfm' id='dialog' class='popupDialog'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
 			height: 'auto',
