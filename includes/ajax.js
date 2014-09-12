@@ -121,7 +121,7 @@ function addElectronicAddress(){
 	var i=parseInt($("#nnea").val()) + parseInt(1);
 	var h='<div id="nnear'+i+'" class="newRec">';
 	h+='<select name="electronic_address_type_new'+i+'" id="electronic_address_type_new'+i+'" size="1"></select> ';
-	h+='<input type="text" class="reqdClr" size="25" name="electronic_address_new'+i+'" id="electronic_address_new'+i+'" value="#ADDRESS#">';
+	h+='<input type="text" class="reqdClr" size="25" name="electronic_address_new'+i+'" id="electronic_address_new'+i+'">';
 	var h='</div>';
 	$('#nnear' + $("#nnea").val()).after(h);
 	$('#electronic_address_type_new1').find('option').clone().appendTo('#electronic_address_type_new' + i);
