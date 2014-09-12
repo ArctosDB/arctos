@@ -358,7 +358,9 @@
 		
 		If you're seeing this something is broken so file a bug report!
 		
-		
+		<style>
+			.obvious{margin:3em;border:5px solid red;}
+		</style>
 		
 		<script>
 		
@@ -368,7 +370,7 @@
 
 parent.loadEditAgent(2072);
 
-$(".ui-dialog-titlebar-close").addClass('red').trigger('click');
+$(".ui-dialog-titlebar-close").addClass('obvious').trigger('click');
 
 
 	console.log('gone');
