@@ -382,7 +382,6 @@ $.ajax({
 				<label for="agent_remarks">Agent Remark</label>
 				<input type="text" value="#stripQuotes(agent.agent_remarks)#" name="agent_remarks" id="agent_remarks" size="100">
 			</fieldset>
-			<input type="submit" value="save all changes" class="savBtn">
 			<fieldset id="fs_fAgentName">
 			
 				<legend>Agent Names</legend>
@@ -416,7 +415,6 @@ $.ajax({
 					</div>
 				</div>
 			</fieldset>
-			<input type="submit" value="save all changes" class="savBtn">
 			<fieldset>
 				<table border>
 					<tr>
@@ -461,7 +459,6 @@ $.ajax({
 					</tr>
 				</table>
 			</fieldset>
-			<input type="submit" value="save all changes" class="savBtn">
 			<fieldset>
 				<table border>
 					<tr>
@@ -510,7 +507,6 @@ $.ajax({
 					</tr>
 				</table>
 			</fieldset>
-			<input type="submit" value="save all changes" class="savBtn">
 			<fieldset>
 				<legend>Electronic Address</legend>
 				<cfloop query="elecagentAddrs">
@@ -552,7 +548,7 @@ $.ajax({
 			
 			<input type="submit" value="save all changes" class="savBtn">
 		</form>
-		<input type="button" onclick="addAgentAddr(#agent_id#)" value="New Address">
+		<input type="button" onclick="addAgentAddr(#agent_id#)" value="New Address" class="insBtn">
 
 		<cfloop query="agentAddrs">
 			<cfif valid_addr_fg is 1>
