@@ -160,6 +160,11 @@ function addAgentAddr(aid){
 }			
 				
 function rankAgent(agent_id) {
+	
+	
+	
+	console.log('hi');
+	
 	var ptl="/includes/forms/agentrank.cfm";			
 
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
