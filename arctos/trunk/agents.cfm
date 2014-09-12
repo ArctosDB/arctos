@@ -71,12 +71,14 @@
 			height: 'auto',
 			modal: true,
 			position: ['center', 'center'],
-			title: 'Build Taxon Name',
-			width: 'auto',
+			title: 'New Agent',
+ width:800,
+  height:600
 			close: function() {
 				$( this ).remove();
 			},
-		}).append($("<iframe />").attr("src", guts));
+		}).width(800-10).height(600-10);
+		//append($("<iframe />").attr("src", guts));
 		//}).load(guts, function() {
 		//	$(this).dialog("option", "position", ['center', 'center'] );
 		//});
