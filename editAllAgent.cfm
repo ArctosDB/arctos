@@ -163,9 +163,6 @@ margin:.1em;
 				$("#electronic_address_new" + i).removeClass().prop('required',false);
 			}
 		});
-	
-	
-
 	});
 </script>
 
