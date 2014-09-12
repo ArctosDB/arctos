@@ -149,7 +149,40 @@ margin:.1em;
 				$("#related_agent_new" + i).removeClass().prop('required',false);
 			}
 		});
+
+
+		$(document).on("change", '[id^="electronic_address_type_new"], [id^="electronic_address_new"]', function(){
+			var i =  this.id;
+			i=i.replace("electronic_address_type_new", ""); 
+			i=i.replace("electronic_address_new", ""); 
+			if ( $("#electronic_address_type_new" + i).val().length > 0 ||  $("#electronic_address_new" + i).val().length > 0 ) {
+				$("#electronic_address_type_new" + i).addClass('reqdClr').prop('required',true);
+				$("#electronic_address_new" + i).addClass('reqdClr').prop('required',true);
+			} else {
+				$("#electronic_address_type_new" + i).removeClass().prop('required',false);
+				$("#electronic_address_new" + i).removeClass().prop('required',false);
+			}
+		});
 	
+	
+
+
+			<select name="#electronic_address_id#" id="electronic_address_type_#electronic_address_id#" size="1">
+						<option value="DELETE">DELETE</option>
+						<cfloop query="CTELECTRONIC_ADDR_TYPE">
+							<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#"
+								<cfif CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE is elecagentAddrs.ADDRESS_TYPE>selected="selected"</cfif>
+							>#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
+						</cfloop>
+					</select>
+					<input type="#ttype#" class="reqdClr" size="25" name="electronic_address_#electronic_address_id#" 
+						id="#electronic_address_id#" value="#ADDRESS#">
+				</div>
+			</cfloop>
+			
+
+
+
 	});
 </script>
 

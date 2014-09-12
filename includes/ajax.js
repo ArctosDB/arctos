@@ -118,23 +118,11 @@ function addAgentRelationship(){
 
 }
 function addElectronicAddress(){
-	
-	console.log('hi');
-	
 	var i=parseInt($("#nnea").val()) + parseInt(1);
-	
-	console.log(i);
-
-	
-	
 	var h='<div id="eaddiv'+i+'" class="newRec">';
 	h+='<select name="electronic_address_type_new'+i+'" id="electronic_address_type_new'+i+'" size="1"></select> ';
-	h+='<input type="text" class="reqdClr" size="25" name="electronic_address_new'+i+'" id="electronic_address_new'+i+'">';
+	h+='<input type="text" size="25" name="electronic_address_new'+i+'" id="electronic_address_new'+i+'">';
 	h+='</div>';
-	
-	
-	console.log(h);
-	
 	$('#eaddiv' + $("#nnea").val()).after(h);
 	$('#electronic_address_type_new1').find('option').clone().appendTo('#electronic_address_type_new' + i);
 	$("#nnea").val(i);
