@@ -69,7 +69,7 @@ legend {
 				success: function(r) {
 					if (r=='success'){
 
-						console.log('success: reload ' + $("#agent_id").val() );
+						//console.log('success: reload ' + $("#agent_id").val() );
 						loadEditAgent( $("#agent_id").val() );
 						//$("#fs_fEditAgent legend").removeClass().addClass('goodsave').text('Save Successful');
 					} else {
