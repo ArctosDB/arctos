@@ -59,7 +59,7 @@
 		});
 	});
 	function createPerson(){
-	var guts = "includes/forms/createagent.cfm?addr_id=" + aid;
+		var guts = "includes/forms/createagent.cfm";
 
 
 
