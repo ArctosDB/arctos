@@ -330,6 +330,21 @@ $.ajax({
 			  agent_relations.agent_id=#agent.agent_id#
 		</cfquery>
 		
+		<cfquery name="reciprelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select 
+				agent_relations_id,
+				agent_relationship, 
+				agent_name,
+				agent_id
+			from 
+				agent_relations, 
+				agent_name
+			where 
+			  agent_relations.related_agent_id = agent_name.agent_id and
+			  agent_name_type = 'preferred' and
+			  agent_relations.related_agent_id=#agent_id#
+		</cfquery>
+		
 		<div>
 			AgentID #agent.agent_id# created by #agent.created_by_agent# on #agent.CREATED_DATE#
 			<span class="infoLink" onClick="getDocs('agent')">Help</span>
@@ -482,6 +497,15 @@ $.ajax({
 								<input type="text" name="related_agent_#agent_relations_id#" id="related_agent_#agent_relations_id#" class="reqdClr" value="#agent_name#"
 									onchange="getAgent('related_agent_id_#agent_relations_id#',this.id,'fEditAgent',this.value); return false;"
 								onKeyPress="return noenter(event);">
+							</td>
+						</tr>
+					<cfloop query="reciprelns">
+						<tr>
+							<td>
+								#agent_relationship#
+							</td>
+							<td>
+								from <a href="/agents.cfm?agent_id=#agent_id#">#agent_name#</a>
 							</td>
 						</tr>
 					</cfloop>
