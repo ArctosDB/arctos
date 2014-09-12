@@ -115,6 +115,13 @@
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
 	<cfoutput>
+	
+	
+	
+	<cfdump var=#url#>
+	
+	
+	
 		<cftry>
 			<cftransaction>
 				<!--- agent --->
