@@ -532,9 +532,9 @@ $.ajax({
 				</div>
 			</cfloop>
 			<input type="button" onclick="addElectronicAddress()" value="more">
-									<input type="hidden" id="nnea" value="1">
+			<input type="hidden" id="nnea" value="1">
 
-			<div class="newRec" id="nnea1">
+			<div class="newRec" id="eaddiv1">
 				<select name="electronic_address_type_new1" id="electronic_address_type_new1" size="1">
 					<option value="">pick new</option>
 					<cfloop query="CTELECTRONIC_ADDR_TYPE">
@@ -552,7 +552,7 @@ $.ajax({
 			
 		<input type="submit">
 		</form>
-									<input type="button" onclick="addAgentAddr(#agent_id#)" value="New Address">
+		<input type="button" onclick="addAgentAddr(#agent_id#)" value="New Address">
 
 		<cfloop query="agentAddrs">
 			<cfif valid_addr_fg is 1>
