@@ -319,15 +319,14 @@ $.ajax({
 			select 
 				agent_relations_id,
 				agent_relationship, 
-				agent_name, 
+				agent.preferred_agent_name agent_name, 
 				related_agent_id
 			from 
 				agent_relations, 
-				agent_name
+				agent
 			where 
-			  agent_relations.related_agent_id = agent_name.agent_id and
-			  agent_name_type = 'preferred' and
-			  agent_relations.agent_id=#agent.agent_id#
+			  agent_relations.related_agent_id = agent.agent_id and
+			  agent_relations.agent_id=#agent_id#
 		</cfquery>
 		
 		<cfquery name="reciprelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
