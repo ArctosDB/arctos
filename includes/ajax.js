@@ -165,7 +165,7 @@ function rankAgent2(agent_id) {
 	
 	console.log('hi');
 	
-	var ptl="/includes/forms/agentrank.cfm";			
+	var ptl="/includes/forms/agentrank.cfm?agent_id="+agent_id;			
 
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
 		autoOpen: true,
