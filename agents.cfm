@@ -63,6 +63,13 @@
 
 
 
+ open: function (ev, ui) {
+      $('#myIframe').src = 'http://www.w3schools.com';
+    },
+
+
+
+
 
 		$("<iframe id='dialog' class='popupDialog'><img src='/images/indicator.gif'></iframe>").dialog({
 			autoOpen: true,
@@ -75,9 +82,10 @@
 			close: function() {
 				$( this ).remove();
 			},
-		}).load(guts, function() {
-			$(this).dialog("option", "position", ['center', 'center'] );
-		});
+		}).append($("<iframe />").attr("src", guts));
+		//}).load(guts, function() {
+		//	$(this).dialog("option", "position", ['center', 'center'] );
+		//});
 		$(window).resize(function() {
 			//fluidDialog();
 			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
