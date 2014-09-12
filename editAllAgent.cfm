@@ -374,7 +374,7 @@ $.ajax({
 			<cfif rank.recordcount gt 0>
 				Previous Ranking: #valuelist(rank.agent_rank,"; ")#
 			</cfif>
-			<input type="button" class="lnkBtn" onclick="rankAgent('#agent.agent_id#');" value="Rank">
+			<input type="button" class="lnkBtn" onclick="rankAgent2('#agent.agent_id#');" value="Rank">
 		</cfif>
 		<form name="fEditAgent" id="fEditAgent">
 			<input type="submit" value="save all changes" class="savBtn">
