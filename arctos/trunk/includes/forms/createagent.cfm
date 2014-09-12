@@ -368,7 +368,7 @@
 
 parent.loadEditAgent(2072);
 
-$(".ui-dialog-titlebar-close").trigger('click');
+$(".ui-dialog-titlebar-close").addClass('red').trigger('click');
 
 
 	console.log('gone');
