@@ -1740,10 +1740,17 @@ function saveAgentRank(){
 				console.log(d);
 				
 				//agntRankTbl
-				var h ='';
+				var h ='<tr id="tablr' + d + '#"><td>' + $("#agent_rank").val() + '</td>';
+				h+='<td>' + $("#transaction_type").val() + '</td>';
+				h+='<td>' + $("#rank_date").val() + '</td>';
+				h+='<td>- just now - </td>';
+				h+='<td>- you - <span class="infoLink" onclick="revokeAgentRank(\'' + d + '\');">revoke</span></td>';
+				h+='<td>' + $("#remark").val() + '</td>';
+				$("#agntRankTbl").append(h);
+				
 				/*
-				<tr id="tablr#agent_rank_id#">
-				<td>#agent_rank#</td>
+				
+				<td>#agent_rank#
 				<td>#transaction_type#</td>
 				<td nowrap="nowrap">#dateformat(rank_date,"yyyy-mm-dd")#</td>
 				<td nowrap="nowrap">

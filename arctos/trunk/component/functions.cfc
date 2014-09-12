@@ -3025,13 +3025,19 @@
 	<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
 		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select sq_AGENT_RANK_ID.nextval r from dual
+		</cfquery>
+
+		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into agent_rank (
+				AGENT_RANK_ID,
 				agent_id,
 				agent_rank,
 				ranked_by_agent_id,
 				remark,
 				transaction_type
 			) values (
+				#r.r#,
 				#agent_id#,
 				'#agent_rank#',
 				#session.myAgentId#,
@@ -3039,7 +3045,7 @@
 				'#transaction_type#'
 			)
 		</cfquery>
-		<cfreturn agent_id>
+		<cfreturn r.r>
 	<cfcatch>
 		<cfreturn "fail: #cfcatch.Message# #cfcatch.Detail# #cfcatch.sql#">
 	</cfcatch>
