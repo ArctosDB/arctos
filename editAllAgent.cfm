@@ -332,10 +332,10 @@ $.ajax({
 		
 		<cfquery name="reciprelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
-				agent_relations_id,
-				agent_relationship, 
-				agent_name,
-				agent_id
+				agent_relations.agent_relations_id,
+				agent_relations.agent_relationship, 
+				agent_name.agent_name,
+				agent_relations.agent_id
 			from 
 				agent_relations, 
 				agent_name
