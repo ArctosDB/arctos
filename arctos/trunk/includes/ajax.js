@@ -1746,6 +1746,7 @@ function saveAgentRank(){
 				h+='<td>- just now - </td>';
 				h+='<td>- you - <span class="infoLink" onclick="revokeAgentRank(\'' + d + '\');">revoke</span></td>';
 				h+='<td>' + $("#remark").val() + '</td>';
+				tog_AgentRankDetail(1);
 				$("#agntRankTbl").append(h);
 				
 				/*
