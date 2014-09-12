@@ -190,8 +190,10 @@
 
 
 
-
 <cfif Action is "makeNewAgent">
+
+
+<!----
 	<cfif not isdefined("first_name")>
 		<cfset first_name="">
 	</cfif>
@@ -345,11 +347,11 @@
 			</cfif>
 		</cftransaction>
 		
-		
+		---->
 		<!----		
 		<cflocation url="createagent.cfm?action=createagent_id=#agentID.nextAgentId#">
 		
-		
+		</cfoutput>
 		---->
 		
 		aagent craeted successfully.
@@ -360,10 +362,12 @@
 		
 		<script>
 		
+	console.log('hi');
+		
 			//$(".ui-dialog-titlebar-close").trigger('click');
 
-
-							loadEditAgent(#agentID.nextAgentId# );
+loadEditAgent(2072);
+							//loadEditAgent(#agentID.nextAgentId# );
 		</script>
-	</cfoutput>
+	
 </cfif>
