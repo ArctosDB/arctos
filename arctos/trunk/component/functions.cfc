@@ -3049,7 +3049,7 @@
 	<cfcatch>
 		<cfset m="fail: #cfcatch.Message# #cfcatch.Detail#">
 		<cfif isdefined("cfcatch.sql")>
-			<cfset m=m & ': ' & cfcatch.sql
+			<cfset m=m & ': ' & cfcatch.sql>
 		</cfif>
 		<cfreturn m>
 	</cfcatch>
