@@ -3024,11 +3024,10 @@
 	<cfargument name="transaction_type" type="string" required="yes">
 	<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
-		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select sq_agent_rank_id.nextval r from dual
+		<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select sq_agent_rank_id.nextval n from dual
 		</cfquery>
 		
-		<cfdump var=#r#>
 		
 		
 		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -3040,7 +3039,7 @@
 				remark,
 				transaction_type
 			) values (
-				#r.r#,
+				#n.n#,
 				#agent_id#,
 				'#agent_rank#',
 				#session.myAgentId#,
@@ -3048,7 +3047,7 @@
 				'#transaction_type#'
 			)
 		</cfquery>
-		<cfreturn r.r>
+		<cfreturn n.n>
 	<cfcatch>
 		<cfset m="fail: #cfcatch.Message# #cfcatch.Detail#">
 		<cfif isdefined("cfcatch.sql")>
