@@ -586,17 +586,31 @@ $.ajax({
 		<fieldset>
 			<legend>Electronic Address</legend>
 			<cfloop query="elecagentAddrs">
-				<select name="electronic_address_type_#electronic_address_id#" id="electronic_address_type_#electronic_address_id#" size="1">
-					<option value="DELETE">DELETE</option>
-					<cfloop query="CTELECTRONIC_ADDR_TYPE">
-						<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#"
-							<cfif CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE is elecagentAddrs.ADDRESS_TYPE>selected="selected"</cfif>
-						>#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
-					</cfloop>
-				</select>
-				<input type="text" class="reqdClr" size="12" name="electronic_address_#electronic_address_id#" 
-					id="electronic_address_#electronic_address_id#" value="#ADDRESS#">
+				<cfif ADDRESS_TYPE is "">
+					<cfset ttype='url'>
+				<cfelseif address_type is "e-mail">
+					<cfset ttype='email'>
+				<cfelseif address_type contains "phone" or address_type is "fax">
+					<cfset ttype='tel'>
+				<cfelse>
+					<cfset ttype='text'>
+				</cfif>
+				
+    
 
+
+				<div>
+					<select name="electronic_address_type_#electronic_address_id#" id="electronic_address_type_#electronic_address_id#" size="1">
+						<option value="DELETE">DELETE</option>
+						<cfloop query="CTELECTRONIC_ADDR_TYPE">
+							<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#"
+								<cfif CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE is elecagentAddrs.ADDRESS_TYPE>selected="selected"</cfif>
+							>#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
+						</cfloop>
+					</select>
+					<input type="#ttype#" class="reqdClr" size="25" name="electronic_address_#electronic_address_id#" 
+						id="electronic_address_#electronic_address_id#" value="#ADDRESS#">
+				</div>
 			</cfloop>
 
 		</fieldset>
