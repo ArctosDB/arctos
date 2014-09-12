@@ -3047,7 +3047,11 @@
 		</cfquery>
 		<cfreturn r.r>
 	<cfcatch>
-		<cfreturn "fail: #cfcatch.Message# #cfcatch.Detail# #cfcatch.sql#">
+		<cfset m="fail: #cfcatch.Message# #cfcatch.Detail#">
+		<cfif isdefined("cfcatch.sql")>
+			<cfset m=m & ': ' & cfcatch.sql
+		</cfif>
+		<cfreturn m>
 	</cfcatch>
 	</cftry>
 </cffunction>
