@@ -370,7 +370,7 @@
 
 parent.loadEditAgent(2072);
 
-$(".ui-dialog-titlebar-close").addClass('obvious').trigger('click');
+parent.$(".ui-dialog-titlebar-close").addClass('obvious').trigger('click');
 
 
 	console.log('gone');
