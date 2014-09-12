@@ -185,7 +185,7 @@
 						
 						
 							<br>thisAgentRelationsID: #thisAgentRelationsID#
-						<br>thisAgentRelationship: #thisAgentRelationship#
+						<br>thisAgentRelationship: ::#thisAgentRelationship#::
 						<br>thisRelatedAgentName: #thisRelatedAgentName#
 						<br>thisRelatedAgentID: #thisRelatedAgentID#
 						
