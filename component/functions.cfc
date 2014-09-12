@@ -3027,7 +3027,10 @@
 		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select sq_agent_rank_id.nextval r from dual
 		</cfquery>
-
+		
+		<cfdump var=#r#>
+		
+		
 		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into agent_rank (
 				AGENT_RANK_ID,
