@@ -366,7 +366,7 @@
 		
 			//$(".ui-dialog-titlebar-close").trigger('click');
 
-loadEditAgent(2072);
+parent.loadEditAgent(2072);
 							//loadEditAgent(#agentID.nextAgentId# );
 		</script>
 	
