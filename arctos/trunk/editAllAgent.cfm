@@ -164,7 +164,7 @@ legend {
 function pickAgentTest(agentIdFld,agentNameFld,agent_name){
 	var an;
 console.log(agent_name);
-	if ( typeof agent_name === 'undefined') {
+	if ( typeof agent_name != 'undefined') {
 		an=agent_name;	
 	}else {
 		an='';
