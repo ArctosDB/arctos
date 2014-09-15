@@ -1744,7 +1744,6 @@ function saveAgentRank(){
 				//agntRankTbl
 				var h ='<tr id="tablr' + d + '#"><td>' + $("#agent_rank").val() + '</td>';
 				h+='<td>' + $("#transaction_type").val() + '</td>';
-				h+='<td>' + $("#rank_date").val() + '</td>';
 				h+='<td>- just now - </td>';
 				h+='<td>- you - <span class="infoLink" onclick="revokeAgentRank(\'' + d + '\');">revoke</span></td>';
 				h+='<td>' + $("#remark").val() + '</td></tr>';
