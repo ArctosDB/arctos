@@ -75,12 +75,14 @@ function loadAgentSearch(q){
 			for (i=0;i<r.ROWCOUNT;i++) {
 				h+='<div><span class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
 				h+= r.DATA.PREFERRED_AGENT_NAME[i] + '</span><font size="-1"> (';
-				h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ')</font>';
+				h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ')';
 				// no longer needed with history push
-				h+'<a target="_blank" href="/agents.cfm?agent_id=' +r.DATA.AGENT_ID[i]+' ">[new window]</a>';
+				h+'<a target="_blank" href="/agents.cfm?agent_id=' +r.DATA.AGENT_ID[i]+'">[new window]</a></font>';
 			}
 			h+='</div>';
 			$("#agntRslCell").html(h);
+			console.log(h);
+			
 		},
 		error: function (xhr, textStatus, errorThrown){
 		    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
