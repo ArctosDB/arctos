@@ -3,9 +3,13 @@
 <cfoutput>
 	<script>
 		function useAgent(id,str){
-			$("###agentIdFld#").val(id);
-			$("###agentNameFld#").val(str).addClass('goodPick');
-			$(".ui-dialog-titlebar-close").trigger('click');
+
+	console.log('i am useAgent');
+
+
+			parent.$("###agentIdFld#").val(id);
+			parent.$("###agentNameFld#").val(str).addClass('goodPick');
+			parent.$(".ui-dialog-titlebar-close").trigger('click');
 		}
 	</script>
 	<form name="searchForAgent">
