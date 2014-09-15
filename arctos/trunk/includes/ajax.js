@@ -1747,12 +1747,31 @@ function saveAgentRank(){
 				h+='<td>' + $("#rank_date").val() + '</td>';
 				h+='<td>- just now - </td>';
 				h+='<td>- you - <span class="infoLink" onclick="revokeAgentRank(\'' + d + '\');">revoke</span></td>';
-				h+='<td>' + $("#remark").val() + '</td>';
-				tog_AgentRankDetail(1);
+				h+='<td>' + $("#remark").val() + '</td></tr>';
 				$("#agntRankTbl").append(h);
 				
+			
+			
+			
 				/*
 				
+				
+					
+				<tr id="tablr#agent_rank_id#">
+				<td>#agent_rank#</td>
+				<td>#transaction_type#</td>
+				<td nowrap="nowrap">#dateformat(rank_date,"yyyy-mm-dd")#</td>
+				<td nowrap="nowrap">
+					#replace(ranker," ", "&nbsp;","all")#
+					<cfif ranked_by_agent_id is session.myAgentId>
+						<span class="infoLink" onclick="revokeAgentRank('#agent_rank_id#');">revoke</span>
+					</cfif>
+				</td>
+				<td>#remark#</td>
+			</tr>					 
+			
+			
+			
 				<td>#agent_rank#
 				<td>#transaction_type#</td>
 				<td nowrap="nowrap">#dateformat(rank_date,"yyyy-mm-dd")#</td>
