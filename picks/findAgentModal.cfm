@@ -15,7 +15,7 @@
 		<input type="hidden" name="agentIdFld" value="#agentIdFld#">
 		<input type="hidden" name="agentNameFld" value="#agentNameFld#">
 	</form>
-	<cfif len(agent_name) is 0>
+	<cfif len(name) is 0>
 		<cfabort>
 	</cfif>
 	<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
