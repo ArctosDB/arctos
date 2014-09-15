@@ -206,7 +206,7 @@ function rankAgent__OLDNBUSTED(agent_id) {
 }
 
 function editAgentAddress (aid){
-		var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
+		var guts = "includes/forms/editAgentAddr.cfm?action=editAddress&addr_id=" + aid;
 
 
 
