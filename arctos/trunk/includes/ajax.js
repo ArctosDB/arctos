@@ -1825,6 +1825,8 @@ function manyCatItemToMedia(mid){
 	//$('#annotateDiv').append('<iframe id="commentiframe" width="100%" height="100%">');
 	//$('#commentiframe').attr('src', guts);
 }
+
+/*
 function rankAgent(agent_id) {
 	addBGDiv('removePick()');
 	var theDiv = document.createElement('div');
@@ -1838,6 +1840,8 @@ function rankAgent(agent_id) {
 		// viewport.init("#pickDiv");
 	});
 }
+
+*/
 function pickThis (fld,idfld,display,aid) {
 	document.getElementById(fld).value=display;
 	document.getElementById(idfld).value=aid;
