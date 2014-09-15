@@ -3,6 +3,8 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 ---->
 
+<cfif not isdefined("action")><cfset action="nothing"></cfif>
+<cfinclude template="/includes/functionLib.cfm">
 
 	<cfquery name="ctAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select addr_type from ctaddr_type order by addr_type
