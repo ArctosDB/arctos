@@ -158,6 +158,53 @@ legend {
 			}
 		});
 	});
+
+
+
+function pickAgentTest(agentIdFld,agentNameFld,agent_name){
+	var an;
+	if ( typeof agent_name === 'undefined') {
+		an=agent_name;	
+	}else {
+		an='';
+	}
+	var guts = "/picks/findAgentModal.cfm.cfm?agentIdFld=" + agentIdFld + '&agentNameFld=' + agentNameFld + '&agent_name=' + an;
+
+
+
+
+
+		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+			autoOpen: true,
+			closeOnEscape: true,
+			height: 'auto',
+			modal: true,
+			position: ['center', 'center'],
+			title: 'Pick Agent',
+ 			width:800,
+  			height:600,
+			close: function() {
+				$( this ).remove();
+			},
+		}).width(800-10).height(600-10);
+		//append($("<iframe />").attr("src", guts));
+		//}).load(guts, function() {
+		//	$(this).dialog("option", "position", ['center', 'center'] );
+		//});
+		$(window).resize(function() {
+			//fluidDialog();
+			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+		});
+		$(".ui-widget-overlay").click(function(){
+		    $(".ui-dialog-titlebar-close").trigger('click');
+		});
+
+
+
+
+	}
+
+
 </script>
 
 
@@ -522,9 +569,19 @@ $.ajax({
 						</td>
 						<td>
 							<input type="hidden" name="related_agent_id_new1" id="related_agent_id_new1">
+							<!----
 							<input type="text" name="related_agent_new1" id="related_agent_new1"
 								onchange="getAgent('related_agent_id_new1',this.id,'fEditAgent',this.value); return false;"
 								onKeyPress="return noenter(event);" placeholder="pick an agent">
+								---->
+							<input type="text" name="related_agent_new1" id="related_agent_new1"
+								onchange="pickAgentTest('related_agent_id_new1',this.id,this.value); return false;"
+								onKeyPress="return noenter(event);" placeholder="pick an agent">
+								
+								
+								
+								
+								
 							<input type="button" onclick="addAgentRelationship()" value="more">
 						</td>
 					</tr>
