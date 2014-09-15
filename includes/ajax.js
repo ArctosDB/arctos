@@ -81,7 +81,7 @@ function loadAgentSearch(q){
 			}
 			h+='</div>';
 			$("#agntRslCell").html(h);
-			console.log(h);
+			//console.log(h);
 			
 		},
 		error: function (xhr, textStatus, errorThrown){
@@ -165,7 +165,7 @@ function rankAgent(agent_id) {
 	
 	
 	
-	console.log('hi');
+	//console.log('hi');
 	
 	var ptl="/includes/forms/agentrank.cfm?agent_id="+agent_id;			
 
@@ -1741,7 +1741,7 @@ function saveAgentRank(){
 			if(d.length>0 && d.substring(0,4)=='fail'){
 				alert(d);
 			} else {
-				console.log(d);
+				//console.log(d);
 				
 				//agntRankTbl
 				var h ='<tr id="tablr' + d + '"><td>' + $("#agent_rank").val() + '</td>';
