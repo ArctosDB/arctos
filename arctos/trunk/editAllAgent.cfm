@@ -453,7 +453,6 @@ $.ajax({
 					select 
 						group_member_id,
 						MEMBER_AGENT_ID,
-						MEMBER_ORDER,
 						preferred_agent_name					
 					from 
 						group_member,
@@ -461,7 +460,8 @@ $.ajax({
 					where 
 						group_member.MEMBER_AGENT_ID = agent.agent_id AND
 						GROUP_AGENT_ID = #agent_id#
-					order by MEMBER_ORDER					
+					order by 
+						preferred_agent_name					
 				</cfquery>
 				<fieldset>
 					<legend>Group Members</legend>
@@ -476,12 +476,12 @@ $.ajax({
 					</cfloop>
 					<input type="hidden" id="nnga" value="1">
 					<input type="button" onclick="addGroupMember()" value="more">
-
+					<br>Add Group Members
 					<div class="newRec" id="newGroupMembers">
 						<input type="hidden" name="member_agent_id_new1" id="member_agent_id_new1">
 						<input type="text" name="group_member_new1" id="group_member_new1"
 								onchange="pickAgentTest('member_agent_id_new1',this.id,this.value); return false;"
-								onKeyPress="return noenter(event);" placeholder="pick an agent">
+								onKeyPress="return noenter(event);" placeholder="new group member">
 					</div>
 				</fieldset>
 

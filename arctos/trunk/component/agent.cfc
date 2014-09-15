@@ -219,6 +219,43 @@
 						</cfif>
 					</cfif>
 				</cfloop>
+				
+				<!---- group members ---->
+				<cfloop list="#structKeyList(url)#" index="key">
+					<cfif left(key,19) is "member_agent_id_">
+						<cfset thisGroupMemberID=listlast(key,"_")>
+						<cfset thisMemberAgentID=url["member_agent_id_#thisGroupMemberID#"]>
+						<cfset thisMemberAgentName=url["group_member_#thisGroupMemberID#"]>
+						
+					
+						
+						<cfif thisGroupMemberID contains "new">
+							<cfif len(thisMemberAgentID) gt 0>
+								<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									INSERT INTO group_member (
+										GROUP_AGENT_ID,
+										MEMBER_AGENT_ID)
+									VALUES (
+										<cfqueryparam value = "#agent_id#" CFSQLType = "CF_SQL_INTEGER">,
+										<cfqueryparam value = "#thisMemberAgentID#" CFSQLType = "CF_SQL_INTEGER">
+									)		  
+								</cfquery>
+							</cfif>
+						<cfelseif thisMemberAgentName is "DELETE">
+							<cfquery name="killRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								delete from group_member where GROUP_MEMBER_ID=<cfqueryparam value = "#thisMemberAgentID#" CFSQLType = "CF_SQL_INTEGER">
+							</cfquery>
+						<cfelse>
+							<cfquery name="changeRelated" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								UPDATE group_member SET
+									MEMBER_AGENT_ID = <cfqueryparam value = "#thisMemberAgentID#" CFSQLType = "CF_SQL_INTEGER">,
+								WHERE GROUP_MEMBER_ID=<cfqueryparam value = "#thisGroupMemberID#" CFSQLType = "CF_SQL_INTEGER">
+							</cfquery>
+						</cfif>
+					</cfif>
+				</cfloop>
+				
+				
 				<!---- status ---->
 				
 				<cfloop list="#structKeyList(url)#" index="key">
