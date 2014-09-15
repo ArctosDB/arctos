@@ -250,7 +250,7 @@
 						<cfelse>
 							<cfquery name="changeRelated" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								UPDATE group_member SET
-									MEMBER_AGENT_ID = <cfqueryparam value = "#thisMemberAgentID#" CFSQLType = "CF_SQL_INTEGER">,
+									MEMBER_AGENT_ID = <cfqueryparam value = "#thisMemberAgentID#" CFSQLType = "CF_SQL_INTEGER">
 								WHERE GROUP_MEMBER_ID=<cfqueryparam value = "#thisGroupMemberID#" CFSQLType = "CF_SQL_INTEGER">
 							</cfquery>
 						</cfif>
