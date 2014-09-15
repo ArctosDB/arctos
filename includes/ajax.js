@@ -159,7 +159,7 @@ function addAgentAddr(aid){
 	});
 }			
 				
-function rankAgent2(agent_id) {
+function rankAgent(agent_id) {
 	
 	
 	
