@@ -501,7 +501,7 @@ $.ajax({
 				order by 
 					preferred_agent_name					
 			</cfquery>
-				<cfloop query="">
+				<cfloop query="ingroup">
 											<br><a href="/agents.cfm?agent_id=#group_member_id#">[ #preferred_agent_name#]</a>
 
 				</cfloop>
