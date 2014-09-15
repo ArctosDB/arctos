@@ -227,10 +227,15 @@
 						<cfset thisMemberAgentID=url["member_agent_id_#thisGroupMemberID#"]>
 						<cfset thisMemberAgentName=url["group_member_#thisGroupMemberID#"]>
 						<!----
+						
+						---->
+						
 						<br>thisGroupMemberID: #thisGroupMemberID#
 						<br>thisMemberAgentID: #thisMemberAgentID#
 						<br>thisMemberAgentName: #thisMemberAgentName#
-						---->
+						
+						
+						
 						<cfif thisGroupMemberID contains "new">
 							<cfif len(thisMemberAgentID) gt 0>
 								<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
