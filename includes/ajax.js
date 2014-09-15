@@ -98,7 +98,7 @@ function addGroupMember(){
 	h+=' onKeyPress="return noenter(event);" placeholder="pick an agent">';';
 	
 	
-	$('#newGroupMembers').after(h);
+	$('#newGroupMembers').append(h);
 	//$('#agent_name_type_new1').find('option').clone().appendTo('#agent_name_type_new' + i);
 	$("#nnga").val(i);
 }
