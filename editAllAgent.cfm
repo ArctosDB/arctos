@@ -485,10 +485,27 @@ $.ajax({
 								onKeyPress="return noenter(event);" placeholder="new group member">
 					</div>
 				</fieldset>
-
 			</cfif>
 
 		
+			<cfquery name="ingroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select 
+					group_member_id,
+					preferred_agent_name					
+				from 
+					group_member,
+					agent
+				where 
+					group_member.group_member_id = agent.agent_id AND
+					MEMBER_AGENT_ID = #agent_id#
+				order by 
+					preferred_agent_name					
+			</cfquery>
+				<cfloop query="">
+											<br><a href="/agents.cfm?agent_id=#group_member_id#">[ #preferred_agent_name#]</a>
+
+				</cfloop>
+				
 		
 			<fieldset id="fs_fAgentName">
 			
