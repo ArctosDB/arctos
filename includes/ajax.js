@@ -77,7 +77,7 @@ function loadAgentSearch(q){
 				h+= r.DATA.PREFERRED_AGENT_NAME[i] + '</span><font size="-1"> (';
 				h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ')</font>';
 				// no longer needed with history push
-				h+'<a target="_blank" href="/agents.cfm?agent_id=' +r.DATA.AGENT_ID[i]+' ">[new window]</a></div>';
+				h+'<a target="_blank" href="/agents.cfm?agent_id=' +r.DATA.AGENT_ID[i]+' ">[new window]</a>';
 			}
 			h+='</div>';
 			$("#agntRslCell").html(h);
