@@ -1709,6 +1709,7 @@ function addLabel (n) {
 	cc=document.getElementById('number_of_labels');
 	cc.value=parseInt(cc.value)+1;
 }
+/****
 function tog_AgentRankDetail(o){
 	if(o==1){
 		document.getElementById('agentRankDetails').style.display='block';
@@ -1722,6 +1723,7 @@ function tog_AgentRankDetail(o){
 		}); 
 	}
 }
+*/
 function saveAgentRank(){		
 	$.getJSON("/component/functions.cfc",
 		{

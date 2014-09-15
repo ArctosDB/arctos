@@ -32,8 +32,11 @@
 	<cfquery name="cttransaction_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select transaction_type from cttransaction_type order by transaction_type
 	</cfquery>
+	
+	
 	<strong>#agnt.agent_name#</strong> has been ranked #pr.recordcount# times.&nbsp;&nbsp;&nbsp;
 	<cfif pr.recordcount gt 0>
+		<h3>Summary</h3>
 		<cfquery name="s" dbtype="query">
 			select agent_rank, count(*) c from pr group by agent_rank
 		</cfquery>
@@ -52,7 +55,32 @@
 				</tr>
 			</cfloop>
 		</table>
-		<span class="infoLink" id="t_agentRankDetails" onclick="tog_AgentRankDetail(1)">Show Details</span>
+	</cfif>
+	<div class="newRec">
+	<form name="a" method="post" action="agentrank.cfm">
+		<input type="hidden" name="agent_id" id="agent_id" value="#agent_id#">
+		<input type="hidden" name="action" id="action" value="saveRank">
+		<label class="h" for="agent_rank">Add Rank of:</label>
+		<select name="agent_rank" id="agent_rank">
+			<cfloop query="ctagent_rank">
+				<option value="#agent_rank#">#agent_rank#</option>
+			</cfloop>
+		</select>
+		<label class="h"  for="transaction_type">for Transaction Type:</label>
+		<select name="transaction_type" id="transaction_type">
+			<cfloop query="cttransaction_type">
+				<option value="#transaction_type#">#transaction_type#</option>
+			</cfloop>
+		</select>
+		<br><label  class="h" for="remark">Remark: (required for unsatisfactory rankings; encouraged for all)</label>
+		<br><textarea name="remark" id="remark" rows="4" cols="60"></textarea>
+		<br><input type="button" class="savBtn" value="Save" onclick="saveAgentRank()">
+		<input type="button" class="qutBtn" value="Quit" onclick="removePick()">
+	</form>
+	</div>
+	
+	<h3>Details</h3>
+	<cfif pr.recordcount gt 0>
 		<div id="agentRankDetails" style="display:none">
 			<table id="agntRankTbl" border>
 				<tr>
@@ -77,30 +105,6 @@
 					</tr>					 
 				</cfloop>
 			</table>
-			
 		</div>
 	</cfif>
-	<span class="infoLink" id="t_agentRankDetails" onclick="document.getElementById('agentRankCreate').style.display='block';">Add Rank</span>
-	<div id="agentRankCreate" style="display:none">
-	<form name="a" method="post" action="agentrank.cfm">
-		<input type="hidden" name="agent_id" id="agent_id" value="#agent_id#">
-		<input type="hidden" name="action" id="action" value="saveRank">
-		<label class="h" for="agent_rank">Add Rank of:</label>
-		<select name="agent_rank" id="agent_rank">
-			<cfloop query="ctagent_rank">
-				<option value="#agent_rank#">#agent_rank#</option>
-			</cfloop>
-		</select>
-		<label class="h"  for="transaction_type">for Transaction Type:</label>
-		<select name="transaction_type" id="transaction_type">
-			<cfloop query="cttransaction_type">
-				<option value="#transaction_type#">#transaction_type#</option>
-			</cfloop>
-		</select>
-		<br><label  class="h" for="remark">Remark: (required for unsatisfactory rankings; encouraged for all)</label>
-		<br><textarea name="remark" id="remark" rows="4" cols="60"></textarea>
-		<br><input type="button" class="savBtn" value="Save" onclick="saveAgentRank()">
-		<input type="button" class="qutBtn" value="Quit" onclick="removePick()">
-	</form>
-	</div>
 </cfoutput>
