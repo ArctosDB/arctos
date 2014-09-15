@@ -44,7 +44,7 @@
 	</cfquery>
 	<cfif getAgentId.recordcount is 1>
 	<cfoutput>
-		<cfset thisName = #replace(getAgentId.agent_name,"'","\'","all")#>
+		<cfset thisName = #replace(getAgentId.preferred_agent_name,"'","\'","all")#>
 		<script>
 			useAgent('#getAgentId.agent_id#','#thisName#');
 		</script>
