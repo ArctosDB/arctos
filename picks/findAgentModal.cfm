@@ -49,10 +49,10 @@
 		Nothing matched <strong>#name#</strong>. 
 	<cfelse>
 		<cfloop query="getAgentId">
-			<cfset thisName = #replace(agent_name,"'","\'","all")#>
+			<cfset thisName = #replace(preferred_agent_name,"'","\'","all")#>
 			<div>
 				<span onclick="useAgent('#agent_id#','#thisName#')" class="likeLink">
-					#agent_name# (#agent_id#)
+					#thisName# (#agent_id#)
 				</span>
 				<span class="infoLink" onclick="getAgentInfo(#agent_id#);">[ more info ]</span>
 			</div>
