@@ -75,9 +75,9 @@ function loadAgentSearch(q){
 			for (i=0;i<r.ROWCOUNT;i++) {
 				h+='<div><span class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
 				h+= r.DATA.PREFERRED_AGENT_NAME[i] + '</span><font size="-1"> (';
-				h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ')</font></div>';
+				h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ')</font>';
 				// no longer needed with history push
-				//<a href="/agents.cfm?agent_id=' +r.DATA.AGENT_ID[i]+' ">[stable link]</a>
+				h+''<a target="_blank" href="/agents.cfm?agent_id=' +r.DATA.AGENT_ID[i]+' ">[new window]</a></div>';
 			}
 			h+='</div>';
 			$("#agntRslCell").html(h);
