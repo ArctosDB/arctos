@@ -468,7 +468,7 @@ $.ajax({
 					<cfloop query="grpMem">
 						<div>
 							<input type="hidden" name="member_agent_id_#group_member_id#" id="member_agent_id_#group_member_id#" value="#member_agent_id#">
-							<input type="text" name="group_member_#group_member_id#" id="group_member_#group_member_id#"
+							<input type="text" name="group_member_#group_member_id#" id="group_member_#group_member_id#" value="#preferred_agent_name#"
 								onchange="pickAgentTest('member_agent_id_#group_member_id#',this.id,this.value); return false;"
 								onKeyPress="return noenter(event);" placeholder="pick an agent">
 							<input type="button" class="delBtn" onclick="$('##group_member_#group_member_id#').val('DELETE');" value="delete">
