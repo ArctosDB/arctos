@@ -483,7 +483,7 @@ $.ajax({
 					</div>
 				</fieldset>
 
-
+			</cfif>
 
 		
 		
