@@ -161,18 +161,18 @@ legend {
 
 
 
-function pickAgentTest(agentIdFld,agentNameFld,agent_name){
+function pickAgentTest(agentIdFld,agentNameFld,name){
 	var an;
-console.log(agent_name);
-	if ( typeof agent_name != 'undefined') {
-		an=agent_name;	
+console.log(name);
+	if ( typeof name != 'undefined') {
+		an=name;	
 	}else {
 		an='';
 	}
 
 
 console.log(an);
-	var guts = "/picks/findAgentModal.cfm?agentIdFld=" + agentIdFld + '&agentNameFld=' + agentNameFld + '&agent_name=' + an;
+	var guts = "/picks/findAgentModal.cfm?agentIdFld=" + agentIdFld + '&agentNameFld=' + agentNameFld + '&name=' + an;
 
 
 
