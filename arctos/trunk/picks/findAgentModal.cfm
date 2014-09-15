@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_pickHeader.cfm">
-<cfparam name="agent_name" default="">
+<cfparam name="name" default="">
 <cfoutput>
 	<script>
 		function useAgent(id,str){
@@ -8,9 +8,9 @@
 			$(".ui-dialog-titlebar-close").trigger('click');
 		}
 	</script>
-	<form name="searchForAgent" action="findAgent.cfm" method="post">
+	<form name="searchForAgent">
 		<label for="agent_name">Agent Name</label>
-		<input type="text" name="agent_name" id="agent_name" value="#agent_name#">
+		<input type="text" name="name" id="name" value="#name#">
 		<input type="submit" value="Search" class="lnkBtn">
 		<input type="hidden" name="agentIdFld" value="#agentIdFld#">
 		<input type="hidden" name="agentNameFld" value="#agentNameFld#">
@@ -29,8 +29,8 @@
 			agent_type != 'verbatim agent' and
 			agent.agent_id=agent_name.agent_id (+) AND
 			(
-				UPPER(agent_name.agent_name) LIKE '%#ucase(agent_name)#%' or
-				UPPER(agent.preferred_agent_name) LIKE '%#ucase(agent_name)#%'
+				UPPER(agent_name.agent_name) LIKE '%#ucase(name)#%' or
+				UPPER(agent.preferred_agent_name) LIKE '%#ucase(name)#%'
 			)
 		group by 
 			preferred_agent_name,
