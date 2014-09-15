@@ -24,7 +24,7 @@
 			agent.agent_id 
 		from 
 			agent,
-			agent_name, 
+			agent_name
 		where
 			agent_type != 'verbatim agent' and
 			agent.agent_id=agent_name.agent_id (+) AND
