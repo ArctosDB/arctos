@@ -81,7 +81,7 @@
 	
 	<h3>Details</h3>
 	<cfif pr.recordcount gt 0>
-		<div id="agentRankDetails" style="display:none">
+		<div id="agentRankDetails">
 			<table id="agntRankTbl" border>
 				<tr>
 					<th>Rank</th>
