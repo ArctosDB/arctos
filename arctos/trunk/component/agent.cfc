@@ -219,10 +219,10 @@
 						</cfif>
 					</cfif>
 				</cfloop>
-				
+			
 				<!---- group members ---->
 				<cfloop list="#structKeyList(url)#" index="key">
-					<cfif left(key,19) is "member_agent_id_">
+					<cfif left(key,16) is "member_agent_id_">
 						<cfset thisGroupMemberID=listlast(key,"_")>
 						<cfset thisMemberAgentID=url["member_agent_id_#thisGroupMemberID#"]>
 						<cfset thisMemberAgentName=url["group_member_#thisGroupMemberID#"]>
