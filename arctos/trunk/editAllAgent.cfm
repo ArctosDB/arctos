@@ -475,7 +475,9 @@ $.ajax({
 						</div>
 					</cfloop>
 					<input type="hidden" id="nnga" value="1">
-					<div class="newRec">
+					<input type="button" onclick="addGroupMember()" value="more">
+
+					<div class="newRec" id="newGroupMembers">
 						<input type="hidden" name="member_agent_id_new1" id="member_agent_id_new1">
 						<input type="text" name="group_member_new1" id="group_member_new1"
 								onchange="pickAgentTest('member_agent_id_new1',this.id,this.value); return false;"
