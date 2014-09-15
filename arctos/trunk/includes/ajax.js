@@ -95,7 +95,7 @@ function addGroupMember(){
 	var h='<input type="hidden" name="member_agent_id_new'+i+'" id="member_agent_id_new'+i+'">';
 	h+='<input type="text" name="group_member_new'+i+'" id="group_member_new'+i+'"';
 	h+=' onchange="pickAgentTest(\'member_agent_id_new'+i+'\',this.id,this.value); return false;"';
-	h+=' onKeyPress="return noenter(event);" placeholder="pick an agent">';';
+	h+=' onKeyPress="return noenter(event);" placeholder="pick an agent">';
 	
 	
 	$('#newGroupMembers').append(h);
