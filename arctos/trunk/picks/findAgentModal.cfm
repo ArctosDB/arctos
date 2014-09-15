@@ -46,7 +46,7 @@
 		</script>
 	 </cfoutput>
 	<cfelseif getAgentId.recordcount is 0>
-		Nothing matched <strong>#agent_name#</strong>. 
+		Nothing matched <strong>#name#</strong>. 
 	<cfelse>
 		<cfloop query="getAgentId">
 			<cfset thisName = #replace(agent_name,"'","\'","all")#>
