@@ -487,25 +487,30 @@ $.ajax({
 				</fieldset>
 			</cfif>
 
-		
-			<cfquery name="ingroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					group_member_id,
-					preferred_agent_name					
-				from 
-					group_member,
-					agent
-				where 
-					group_member.group_member_id = agent.agent_id AND
-					MEMBER_AGENT_ID = #agent_id#
-				order by 
-					preferred_agent_name					
-			</cfquery>
-				<cfloop query="ingroup">
-											<br><a href="/agents.cfm?agent_id=#group_member_id#">[ #preferred_agent_name#]</a>
+			<fieldset>
+				<legend>Group Membership</legend>
+				<cfquery name="ingroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					  select 
+				          GROUP_AGENT_ID,
+				          preferred_agent_name          
+				        from 
+				          group_member,
+				          agent
+				        where 
+				          group_member.GROUP_AGENT_ID = agent.agent_id AND
+				          MEMBER_AGENT_ID = #agent_id#
+				        order by 
+				          preferred_agent_name    			
+				</cfquery>
+				<cfif ingroup.recordcount is 0>
+					This agent is not a member of any groups
+				<cfelse>
+					<cfloop query="ingroup">
+						<br><a href="/agents.cfm?agent_id=#GROUP_AGENT_ID#">[ #preferred_agent_name#]</a>
+					</cfloop>			
+				</cfif>
+			</fieldset>
 
-				</cfloop>
-				
 		
 			<fieldset id="fs_fAgentName">
 			
