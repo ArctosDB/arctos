@@ -517,7 +517,7 @@ $.ajax({
 				<cfelse>
 					<div style="max-height:6em;overflow:scroll;">
 						<cfloop query="ingroup">
-							<br><a href="/agents.cfm?agent_id=#GROUP_AGENT_ID#">[ #preferred_agent_name#]</a>
+							<br><a href="/agents.cfm?agent_id=#GROUP_AGENT_ID#">#preferred_agent_name#</a>
 						</cfloop>
 					</div>
 				</cfif>
