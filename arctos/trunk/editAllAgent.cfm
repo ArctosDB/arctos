@@ -168,7 +168,7 @@ function pickAgentTest(agentIdFld,agentNameFld,agent_name){
 	}else {
 		an='';
 	}
-	var guts = "/picks/findAgentModal.cfm.cfm?agentIdFld=" + agentIdFld + '&agentNameFld=' + agentNameFld + '&agent_name=' + an;
+	var guts = "/picks/findAgentModal.cfm?agentIdFld=" + agentIdFld + '&agentNameFld=' + agentNameFld + '&agent_name=' + an;
 
 
 
