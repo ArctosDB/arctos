@@ -1218,6 +1218,8 @@ function pickAgentTest(agentIdFld,agentNameFld,name){
 	// semi-experimental jquery modal agent pick
 	// initiated 20140916
 	// if no complaints, replace all picks with this approach
+	
+	($"#" + agentNameFld).addClass('badPick');
 	var an;
 	if ( typeof name != 'undefined') {
 		an=name;	
