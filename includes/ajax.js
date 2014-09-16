@@ -59,12 +59,13 @@ function loadAgentSearch(q){
 		dataType: "json",
 		data:  q,
 		success: function(r) {
-			if (r.ROWCOUNT===0){
-				$("#agntRslCell").html('<span class="importantNotification">Nothing Matched.</span>');
+			if (r.substring(0,5)=='error'){
+				$("#agntRslCell").html('<span class="importantNotification">' + r + '</span>');
+				alert(r);
 				return false;
 			}
-			if (r.substring(0,5)=='error'){
-				alert(r);
+			if (r.ROWCOUNT===0){
+				$("#agntRslCell").html('<span class="importantNotification">Nothing Matched.</span>');
 				return false;
 			}
 			h='<div style="height:30em; overflow:scroll;">';
