@@ -1184,7 +1184,8 @@ function pickAgentTest(agentIdFld,agentNameFld,name){
 	
 	console.log(name);
 	
-	name=name.replace('&','\u0026');
+	
+	name=encodeURIComponent(name);
 	
 	console.log(name);
 
