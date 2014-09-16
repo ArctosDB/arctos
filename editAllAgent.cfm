@@ -351,7 +351,7 @@
 			</cfif>
 		</fieldset>
 		<fieldset id="fs_fAgentName">			
-			<legend>Agent Names</legend>
+			<legend>Agent Names <span class="infoLink" onclick="getCtDoc('ctagent_name_type');">codetable</span></legend>
 			<cfloop query="agent_names">
 				<div>
 					<select name="agent_name_type_#agent_name_id#" id="agent_name_type_#agent_name_id#">
@@ -361,7 +361,7 @@
 								value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
 						</cfloop>
 					</select>
-					<span class="infoLink" onclick="getCtDoc('ctagent_name_type');">Define</span>
+					
 					<input type="text" value="#agent_names.agent_name#" name="agent_name_#agent_name_id#" id="agent_name_#agent_name_id#" size="40" class="reqdClr minput">
 					<cfif agent_name_type is "login">
 						<a href="/AdminUsers.cfm?action=edit&username=#agent_names.agent_name#" class="infoLink">[ Arctos user ]</a>
@@ -385,7 +385,24 @@
 		</fieldset>
 		<fieldset>
 			<legend>Agent Status <span class="likeLink" onclick="getCtDoc('ctAgent_Status');">codetable</span></legend>
-			
+			<div style="display:table">
+			<cfloop query="status">
+				<div style="display: table-row;">
+					<div style="display:table-cell">
+						<select name="agent_status_#agent_status_id#" id="agent_status_#agent_status_id#" size="1" class="reqdClr">
+							<option value="DELETE">DELETE</option>
+							<cfloop query="ctagent_status">
+								<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
+							</cfloop>
+						</select>
+					</div>
+					<div style="display:table-cell">
+						<input type="datetime" class="reqdClr sinput" name="status_date_#agent_status_id#" id=this.name value="#status_date#" placeholder="status date">
+					</div>
+				</div>
+
+			</cfloop>
+			</div>
 			<!----
 			<table border>
 				<tr>
