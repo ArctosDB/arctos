@@ -143,6 +143,9 @@
 	.msinput{
 		width:25em;
 	}
+	.sinput {
+		width:15em;
+	}
 /* END textarea styling and sizing */
 /* BEGIN SpecimenDetail */
 	#annotateSpace {
