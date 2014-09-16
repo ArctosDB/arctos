@@ -183,10 +183,14 @@ dfld=this.id.replace('electronic_address_type_','electronic_address_');
 
 			console.log('dfld: ' + dfld);
 
+
+				$("#" + dfld).clone().attr('type',ntype).insertAfter("#" + dfld).prev().remove();
+
+
+
 /*
 		
 			console.log('ntype: ' + ntype);
-				$("#electronic_address_type_" + i).clone().attr('type',ntype).insertAfter("#electronic_address_type_" + i).prev().remove();
 */
 
 		});
