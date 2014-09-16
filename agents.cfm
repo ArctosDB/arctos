@@ -42,6 +42,26 @@
 			event.preventDefault();
 			loadAgentSearch($("#agntSearch").serialize());
 		});
+
+		$('input').keyup(function() {
+
+	        var empty = false;
+	        $('input').each(function() {
+	            if ($(this).val().length > 0) {
+	                empty = true;
+					console.log($(this) + 'is not empty');
+	            }
+	        });
+	
+	        if (empty) {
+	            $('.actions input').attr('disabled', 'disabled');
+	        } else {
+	            $('.actions input').removeAttr('disabled');
+	        }
+	    });
+
+
+
 	});
 	function createAgent(type){
 		var guts = "includes/forms/createagent.cfm?agent_type=" + type;
@@ -100,7 +120,7 @@
 									</td>
 									<td>
 										<label for="agent_id">AgentID</label>
-										<input type="number" name="agent_id" size="12" placeholder="agent_id>
+										<input type="number" name="agent_id" size="12" placeholder="agent_id">
 									</td>
 								</tr>
 							</table>
