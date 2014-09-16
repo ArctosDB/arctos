@@ -90,10 +90,7 @@ function addGroupMember(){
 	h+='<input type="text" name="group_member_new'+i+'" id="group_member_new'+i+'"';
 	h+=' onchange="pickAgentTest(\'member_agent_id_new'+i+'\',this.id,this.value); return false;"';
 	h+=' onKeyPress="return noenter(event);" placeholder="new group member"></div>';
-	
-	
 	$('#newGroupMembers').append(h);
-	//$('#agent_name_type_new1').find('option').clone().appendTo('#agent_name_type_new' + i);
 	$("#nnga").val(i);
 }
 
@@ -117,7 +114,7 @@ function addAgentStatus(){
 	$('#agent_status_new1').find('option').clone().appendTo('#agent_status_new' + i);
 	
 	
-	//$('#status_date_new'+i ).datepicker();
+	$('#status_date_new'+i ).datepicker();
 
 	
 	
