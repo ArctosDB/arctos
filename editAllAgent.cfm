@@ -282,7 +282,10 @@
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctagent_type');">Define</span>
 			<label for="agent_remarks">Agent Remark</label>
+			<textarea class="largetextarea" name="agent_remarks" id="agent_remarks">#stripQuotes(agent.agent_remarks)#</textarea>
+			<!----
 			<input type="text" value="#stripQuotes(agent.agent_remarks)#" name="agent_remarks" id="agent_remarks" size="100">
+			---->
 		</fieldset>
 		<cfif agent.agent_type is "group">
 			<cfquery name="grpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
