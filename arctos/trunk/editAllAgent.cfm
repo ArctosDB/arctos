@@ -154,8 +154,32 @@ legend {
 			}
 		});
 
+		$(document).on("change", '[id^="electronic_address_type_"]', function(){
+			// change input type
+console.log('this.id: ' + this.id);
+			var i = this.id;
+			var ntype;
+			// might be electronic_address_type_new1,electronic_address_new1,electronic_address_type_2642,electronic_address_2642
+			i=i.replace("electronic_address_type_", ""); 
+			i=i.replace("electronic_address_", ""); 
+			console.log('i: ' + i);
+			if ( $("#electronic_address_type_" + i).val()=='url' ){
+					ntype='url';
+				} else if ( $("#electronic_address_type_" + i).val()=='e-mail' ){
+					ntype='email';
+				} else if ( $("#electronic_address_type_" + i).val().indexOf('phone')>-1 ||  $("#electronic_address_type_" + i).val()=='fax'){
+					ntype='tel';
+				} else {
+					ntype='text';
+				}
+			console.log('ntype: ' + ntype);
+				$("#electronic_address_type_" + i).clone().attr('type',ntype).insertAfter("#electronic_address_type_" + i).prev().remove();
+
+
+		});
 
 		$(document).on("change", '[id^="electronic_address_type_new"], [id^="electronic_address_new"]', function(){
+			// require paired values
 			var i = this.id;
 			var ntype = 'text';
 			i=i.replace("electronic_address_type_new", ""); 
@@ -163,21 +187,6 @@ legend {
 			if ( $("#electronic_address_type_new" + i).val().length > 0 ||  $("#electronic_address_new" + i).val().length > 0 ) {
 				$("#electronic_address_type_new" + i).addClass('reqdClr').prop('required',true);
 				$("#electronic_address_new" + i).addClass('reqdClr').prop('required',true);
-
-				if ( $("#electronic_address_type_new" + i).val()=='url' ){
-					ntype='url';
-				} else if ( $("#electronic_address_type_new" + i).val()=='e-mail' ){
-					ntype='email';
-				} else if ( $("#electronic_address_type_new" + i).val().indexOf('phone')>-1 ||  $("#electronic_address_type_new" + i).val()=='fax'){
-					ntype='tel';
-				}
-
-				$("#electronic_address_type_new" + i).clone().attr('type',ntype).insertAfter("#electronic_address_type_new" + i).prev().remove();
-
-
-
-
-				
 			} else {
 				$("#electronic_address_type_new" + i).removeClass().prop('required',false);
 				$("#electronic_address_new" + i).removeClass().prop('required',false);
