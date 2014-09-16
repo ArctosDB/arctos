@@ -1219,7 +1219,7 @@ function pickAgentTest(agentIdFld,agentNameFld,name){
 	// initiated 20140916
 	// if no complaints, replace all picks with this approach
 	
-	($"#" + agentNameFld).addClass('badPick');
+	$("#" + agentNameFld).addClass('badPick');
 	var an;
 	if ( typeof name != 'undefined') {
 		an=name;	
