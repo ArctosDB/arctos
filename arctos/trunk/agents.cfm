@@ -40,25 +40,17 @@
 		}
 		$("#agntSearch").submit(function(event){
 			event.preventDefault();
-			loadAgentSearch($("#agntSearch").serialize());
-		});
-
-		$('input').keyup(function() {
-
-	        var empty = false;
-	        $('input').each(function() {
+			 $('input').each(function() {
 	            if ($(this).val().length > 0) {
-	                empty = true;
 					console.log($(this).id + 'is not empty');
 	            }
 	        });
-	
-	        if (empty) {
-	            $('.actions input').attr('disabled', 'disabled');
-	        } else {
-	            $('.actions input').removeAttr('disabled');
-	        }
-	    });
+			
+return false;
+			loadAgentSearch($("#agntSearch").serialize());
+		});
+
+		
 
 
 
