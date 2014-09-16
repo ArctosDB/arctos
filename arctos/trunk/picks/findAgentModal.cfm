@@ -4,6 +4,9 @@
 <hr>
 <cfdump var=#name#>
 <hr>
+<hr>
+<cfdump var=#url#>
+<hr>
 	<script>
 		function useAgent(id,str){
 			parent.$("###agentIdFld#").val(id);
