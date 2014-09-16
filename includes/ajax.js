@@ -1184,6 +1184,12 @@ function pickAgentTest(agentIdFld,agentNameFld,name){
 	
 	console.log(name);
 	
+	name=name.replace('&','\u0026');
+	
+	console.log(name);
+
+	
+	
 	$("#" + agentNameFld).addClass('badPick');
 	var an;
 	if ( typeof name != 'undefined') {
