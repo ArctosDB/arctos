@@ -122,7 +122,7 @@ function addAgentRelationship(){
 	h+='</td><td><input type="hidden" name="related_agent_id_new'+i+'" id="related_agent_id_new'+i+'">';
 	h+='<input type="text" name="related_agent_new'+i+'" id="related_agent_new'+i+'" ';
 	h+='onchange="getAgent(\'related_agent_idnew'+i+'\',this.id,\'fEditAgent\',this.value); return false;"';
-	h+='onKeyPress="return noenter(event);" class="mediuminput">';
+	h+='onKeyPress="return noenter(event);" class="mediuminput" placeholder="pick related agent">';
 	h+='</td></tr>';
 	$('#nar' + $("#nnar").val()).after(h);
 	$('#agent_relationship_new1').find('option').clone().appendTo('#agent_relationship_new' + i);
@@ -133,7 +133,7 @@ function addElectronicAddress(){
 	var i=parseInt($("#nnea").val()) + parseInt(1);
 	var h='<div id="eaddiv'+i+'" class="newRec">';
 	h+='<select name="electronic_address_type_new'+i+'" id="electronic_address_type_new'+i+'" size="1"></select> ';
-	h+='<input type="text" class="mediuminput" name="electronic_address_new'+i+'" id="electronic_address_new'+i+'">';
+	h+='<input type="text" class="mediuminput" name="electronic_address_new'+i+'" id="electronic_address_new'+i+'" placeholder="add electronic address">';
 	h+='</div>';
 	$('#eaddiv' + $("#nnea").val()).after(h);
 	$('#electronic_address_type_new1').find('option').clone().appendTo('#electronic_address_type_new' + i);
