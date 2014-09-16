@@ -131,7 +131,8 @@
 				if(r){
 					$("#forceOverride").val('false');
 					var theHTML='There are potential problems with the agent you are trying to create.<br>' + r;
-					theHTML+='<br><span onclick="forceSubmit()" class="likeLink">click here to force creation</span>';
+					theHTML+='<p>If you are absolutely sure that this agent is not a duplicate, you may ';
+					theHTML+='<span onclick="forceSubmit()" class="likeLink">click here to force creation</span></p>';
 					$("#preCreateErrors").html(theHTML).addClass('error').show();
 					return false;
 				}else{
