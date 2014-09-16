@@ -125,7 +125,7 @@
 							<label for="address">Address</label>
 							<input type="text" name="address" id="address" size="75" placeholder="any part of any address">
 						</fieldset>
-						<fieldset>
+						<fieldset class="compact">
 							<table width="100%">
 								<tr>
 									<td>
@@ -152,7 +152,7 @@
 								</tr>
 							</table>
 						</fieldset>
-						<fieldset>
+						<fieldset class="compact">
 							<table width="100%">
 								<tr>
 									<td>
