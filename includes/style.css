@@ -137,10 +137,12 @@
 	    margin: 0.3em;
 	    width: 44em;
 	}
-	.mediuminput {
+	.minput {
 		width:40em;
 	}
-
+	.msinput{
+		width:25em;
+	}
 /* END textarea styling and sizing */
 /* BEGIN SpecimenDetail */
 	#annotateSpace {
