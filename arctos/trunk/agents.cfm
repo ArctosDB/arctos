@@ -85,7 +85,7 @@
 					<form name="agntSearch" id="agntSearch">
 						<fieldset class="compact">
 							<label for="anyName"><a href="javascript:void(0);" onClick="getDocs('agent','anynamesearch')">Any part of any name</a></label>
-							<input type="text" name="anyName" id="anyName" size="75" placeholder="this is the search box you're looking for">
+							<input type="text" name="anyName" id="anyName" class="minput" placeholder="this is the search box you're looking for">
 							<div style="display:table;width:100%;">
 								<div style="display:table-cell">
 									<label for="agent_type">Agent Type</label>
@@ -98,7 +98,7 @@
 								</div>
 								<div style="display:table-cell">
 									<label for="agent_id">AgentID</label>
-									<input type="number" name="agent_id" size="12" placeholder="agent_id">
+									<input type="number" name="agent_id" placeholder="agent_id">
 								</div>
 							</div>
 							<div style="display:table;width:100%;">
@@ -113,13 +113,13 @@
 								</div>
 								<div style="display:table-cell">
 									<label for="agent_name">Agent Name</label>
-									<input type="text" name="agent_name" id="agent_name" size="35" placeholder="non-preferred name">
+									<input type="text" name="agent_name" id="agent_name" class="msinput" placeholder="non-preferred name">
 								</div>
 							</div>
 						</fieldset>
 						<fieldset class="compact">
 							<label for="address">Address</label>
-							<input type="text" name="address" id="address" size="75" placeholder="any part of any address">
+							<input type="text" name="address" id="address" class="minput" placeholder="any part of any address">
 						</fieldset>
 						<fieldset class="compact">
 							<div style="display:table;width:100%;">

@@ -271,7 +271,7 @@
 			<legend>Edit Agent</legend>
 			<input type="hidden" name="agent_id" id="agent_id" value="#agent_id#">
 			<label for="preferred_agent_name">Preferred Name</label>
-			<input type="text" value="#stripQuotes(agent.preferred_agent_name)#" name="preferred_agent_name" id="preferred_agent_name" class="reqdClr mediuminput">
+			<input type="text" value="#stripQuotes(agent.preferred_agent_name)#" name="preferred_agent_name" id="preferred_agent_name" class="reqdClr minput">
 			 
 			<label for="agent_type">Agent Type</label>
 			<select name="agent_type" id="agent_type" class="reqdClr">
@@ -309,7 +309,7 @@
 						<input type="hidden" name="member_agent_id_#group_member_id#" id="member_agent_id_#group_member_id#" value="#member_agent_id#">
 						<input type="text" name="group_member_#group_member_id#" id="group_member_#group_member_id#" value="#preferred_agent_name#"
 							onchange="pickAgentTest('member_agent_id_#group_member_id#',this.id,this.value); return false;"
-							onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr mediuminput">
+							onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
 						<input type="button" class="delBtn" onclick="$('##group_member_#group_member_id#').val('DELETE');" value="delete">
 						<a href="/agents.cfm?agent_id=#member_agent_id#">[ agent]</a>
 					</div>
@@ -319,7 +319,7 @@
 				<label for="newGroupMembers">Add Group Members</label>
 				<div class="newRec" id="newGroupMembers">
 					<input type="hidden" name="member_agent_id_new1" id="member_agent_id_new1">
-					<input type="text" name="group_member_new1" id="group_member_new1" class="mediuminput"
+					<input type="text" name="group_member_new1" id="group_member_new1" class="minput"
 						onchange="pickAgentTest('member_agent_id_new1',this.id,this.value); return false;"
 						onKeyPress="return noenter(event);" placeholder="new group member">
 				</div>
@@ -362,7 +362,7 @@
 						</cfloop>
 					</select>
 					<span class="infoLink" onclick="getCtDoc('ctagent_name_type');">Define</span>
-					<input type="text" value="#agent_names.agent_name#" name="agent_name_#agent_name_id#" id="agent_name_#agent_name_id#" size="40" class="reqdClr mediuminput">
+					<input type="text" value="#agent_names.agent_name#" name="agent_name_#agent_name_id#" id="agent_name_#agent_name_id#" size="40" class="reqdClr minput">
 					<cfif agent_name_type is "login">
 						<a href="/AdminUsers.cfm?action=edit&username=#agent_names.agent_name#" class="infoLink">[ Arctos user ]</a>
 					</cfif>
@@ -378,7 +378,7 @@
 							<option value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
 						</cfloop>
 					</select>
-					<input type="text" name="agent_name_new1" id="agent_name_new1" placeholder="new agent name" class="mediuminput">
+					<input type="text" name="agent_name_new1" id="agent_name_new1" placeholder="new agent name" class="minput">
 					<input type="button" onclick="addAgentName()" value="add a row">
 				</div>
 			</div>
@@ -453,7 +453,7 @@
 							<input type="hidden" name="related_agent_id_#agent_relations_id#" id="related_agent_id_#agent_relations_id#" value="#related_agent_id#">
 							<input type="text" name="related_agent_#agent_relations_id#" id="related_agent_#agent_relations_id#" value="#agent_name#"
 							onchange="pickAgentTest('related_agent_id_#agent_relations_id#',this.id,this.value); return false;"
-							onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr mediuminput">
+							onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
 						</td>
 					</tr>
 				
@@ -483,7 +483,7 @@
 						<input type="hidden" name="related_agent_id_new1" id="related_agent_id_new1">
 						<input type="text" name="related_agent_new1" id="related_agent_new1"
 							onchange="pickAgentTest('related_agent_id_new1',this.id,this.value); return false;"
-							onKeyPress="return noenter(event);" placeholder="pick related agent" class="mediuminput">
+							onKeyPress="return noenter(event);" placeholder="pick related agent" class="minput">
 						<input type="button" onclick="addAgentRelationship()" value="add a row">
 					</td>
 				</tr>
@@ -511,7 +511,7 @@
 						</cfloop>
 					</select>
 					<span class="infoLink" onclick="getCtDoc('CTELECTRONIC_ADDR_TYPE');">Define</span>
-					<input type="#ttype#" class="reqdClr mediuminput" name="electronic_address_#electronic_address_id#" 
+					<input type="#ttype#" class="reqdClr minput" name="electronic_address_#electronic_address_id#" 
 						id="electronic_address_#electronic_address_id#" value="#ADDRESS#">
 				</div>
 			</cfloop>
@@ -524,7 +524,7 @@
 						<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#">#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
 					</cfloop>
 				</select>
-				<input type="text" class="mediuminput" name="electronic_address_new1" id="electronic_address_new1" placeholder="add electronic address">
+				<input type="text" class="minput" name="electronic_address_new1" id="electronic_address_new1" placeholder="add electronic address">
 				<input type="button" onclick="addElectronicAddress()" value="add a row">
 			</div>
 		</fieldset>			
