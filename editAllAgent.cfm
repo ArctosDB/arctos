@@ -1,4 +1,5 @@
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
+<cfinclude template="/includes/functionLib.cfm">
 <cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_name_type as agent_name_type from ctagent_name_type where agent_name_type != 'preferred' order by agent_name_type
 </cfquery>
@@ -18,44 +19,21 @@
 	select agent_status from ctagent_status order by agent_status
 </cfquery>
 <style>
-.validAddress{border:2px solid green;margin:1px;padding:1px;}
-.invalidAddress{border:2px solid red;margin:1px;padding:1px;}
-#map-canvas { height: 300px;width:500px; }
+	.validAddress{border:2px solid green;margin:1px;padding:1px;}
+	.invalidAddress{border:2px solid red;margin:1px;padding:1px;}
 	
-fieldset {
-    border:0;
-    outline: 1px solid gray;
-	margin:1em;
-	padding:1em;
-}
-
-legend {
-    font-size:85%;
-}
-
-.goodsave {
-   border:1px solid green;
-	margin:.1em;
-}
-.badsave {
- 	border:2px solid red;
-	margin:.5em;
-}
-
-::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px;
-}
-::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0,0,0,.5);
-    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-}
+	fieldset {
+	    border:0;
+	    outline: 1px solid gray;
+		margin:1em;
+		padding:1em;
+	}
+	legend {
+	    font-size:85%;
+	}
 </style>
 <script>
 	$(document).ready(function() {
-		$("input[type='date'], input[type='datetime']" ).datepicker();
-
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
 		});
@@ -85,28 +63,7 @@ legend {
 				}
 			});
 		});
-		$("#fAgentName").submit(function(event){
-			event.preventDefault();
-			var q=$("#fAgentName").serialize();
-			$.ajax({
-				url: "/component/agent.cfc?queryformat=column&method=saveAgentNames&returnformat=json",
-				type: "GET",
-				dataType: "json",
-				data:  q,
-				success: function(r) {
-					if (r=='success'){
-						$("#fs_fAgentName legend").removeClass().addClass('goodsave').text('Save Successful');
-					} else {
-						$("#fs_fAgentName legend").removeClass().addClass('badsave').text('ERROR!');
-						alert('An error occurred: ' + r);
-					}
-				},
-				error: function (xhr, textStatus, errorThrown){
-				    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
-				}
-			});
-		});
-
+		
 		$(document).on("change", '[id^="agent_name_type_new"], [id^="agent_name_new"]', function(){
 			var i =  this.id;
 			i=i.replace("agent_name_type_new", ""); 
@@ -176,97 +133,7 @@ legend {
 			}
 		});
 	});
-
-
-
-
-
-
 </script>
-
-
-<!----
-
-
-
-function editAgentAddress (aid){
-	var guts = "includes/forms/editAgentAddr.cfm?addr_id=" + aid;
-
-/
-	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
-		autoOpen: true,
-		closeOnEscape: true,
-		height: 'auto',
-		modal: true,
-		position: ['center', 'center'],
-		title: 'Edit Address',
-		width: 'auto',
-		close: function() {
-			$( this ).remove();
-		},
-	}).load(guts, function() {
-		$(this).dialog("option", "position", ['center', 'center'] );
-	});
-*/
-	/*
-	$(window).resize(function() {
-		//fluidDialog();
-		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-	});
-	$(".ui-widget-overlay").click(function(){
-	    $(".ui-dialog-titlebar-close").trigger('click');
-	});
-*/
-}				
-
-
-
-
-
-
-
-
-
-$.ajax({
-		url: "/component/agent.cfc?queryformat=column&method=addAgentName&returnformat=json",
-		type: "GET",
-		dataType: "json",
-		data: {
-			agent_name_type:  $("#agent_name_type_new").val(),
-			agent_name : $("#agent_name_new").val()
-		},
-		success: function(r) {
-			if (r=='success'){
-				$("#fs_fAgentName legend").removeClass().addClass('goodsave').text('Insert Successful');
-				var h='<select name="agent_name_type_' + r.DATA.AGENT_NAME_ID[0] + '" id="agent_name_type_' + r.DATA.AGENT_NAME_ID[0] + '">';
-						<option value="">DELETE</option>
-						<cfloop query="ctNameType">
-							<option  <cfif ctNameType.agent_name_type is agent_names.agent_name_type> selected="selected" </cfif>
-								value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
-						</cfloop>
-					</select>
-					<input type="text" value="#agent_names.agent_name#" name="agent_name_#agent_name_id#" id="agent_name_#agent_name_id#" size="40" required class="reqdClr">
-					<cfif agent_name_type is "login">
-						<a href="/AdminUsers.cfm?action=edit&username=#agent_names.agent_name#" class="infoLink">[ Arctos user ]</a>
-					</cfif>
-					
-
-
-
-			} else {
-				$("#fs_fAgentName legend").removeClass().addClass('badsave').text('ERROR!');
-				alert('An error occurred: ' + r);
-			}
-		},
-		error: function (xhr, textStatus, errorThrown){
-		    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
-		}
-	});
-* */
-
-
----->
-
 
 <!------------------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
@@ -389,7 +256,6 @@ $.ajax({
 				</tr>
 			</cfloop>
 		</table>
-		
 		<cfif listcontainsnocase(session.roles,"manage_transactions")>
 			<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
@@ -418,9 +284,6 @@ $.ajax({
 				<label for="agent_remarks">Agent Remark</label>
 				<input type="text" value="#stripQuotes(agent.agent_remarks)#" name="agent_remarks" id="agent_remarks" size="100">
 			</fieldset>
-			
-			
-			
 			<cfif agent.agent_type is "group">
 				<cfquery name="grpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select 
@@ -459,7 +322,6 @@ $.ajax({
 					</div>
 				</fieldset>
 			</cfif>
-
 			<fieldset>
 				<legend>Group Membership</legend>
 				<cfquery name="ingroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -485,10 +347,7 @@ $.ajax({
 					</div>
 				</cfif>
 			</fieldset>
-
-		
-			<fieldset id="fs_fAgentName">
-			
+			<fieldset id="fs_fAgentName">			
 				<legend>Agent Names</legend>
 				<cfloop query="agent_names">
 					<div>
@@ -523,13 +382,13 @@ $.ajax({
 			<fieldset>
 				<table border>
 					<tr>
-					<th>
-						<span class="likeLink" onclick="getCtDoc('ctAgent_Status');">Agent Status</span>
-					</th>
-					<th>Status Date</th>
-					<th>Remark</th>
-					<th></th>
-					<th></th>
+						<th>
+							<span class="likeLink" onclick="getCtDoc('ctAgent_Status');">Agent Status</span>
+						</th>
+						<th>Status Date</th>
+						<th>Remark</th>
+						<th></th>
+						<th></th>
 				</tr>
 				<cfloop query="status">
 					<tr>
