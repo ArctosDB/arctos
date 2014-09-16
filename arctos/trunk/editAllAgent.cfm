@@ -156,43 +156,18 @@ legend {
 
 		$(document).on("change", '[id^="electronic_address_type_"]', function(){
 			// change input type
-			console.log('this.id: ' + this.id);
-			
-			//var i = this.id;
 			var ntype,dfld;
-			// might be electronic_address_type_new1,electronic_address_new1,electronic_address_type_2642,electronic_address_2642
-			//i=i.replace("electronic_address_type_", ""); 
-			//i=i.replace("electronic_address_", ""); 
-			//console.log('i: ' + i);
-
-
-console.log($(this).val());
-	if ( $(this).val()=='url' ){
-					ntype='url';
-				} else if ( $(this).val()=='e-mail' ){
-					ntype='email';
-				} else if ( $(this).val().indexOf('phone')>-1 ||  $(this).val()=='fax'){
-					ntype='tel';
-				} else {
-					ntype='text';
-				}
-
-			console.log('ntype: ' + ntype);
-
-dfld=this.id.replace('electronic_address_type_','electronic_address_');
-
-			console.log('dfld: ' + dfld);
-
-
-				$("#" + dfld).clone().attr('type',ntype).insertAfter("#" + dfld).prev().remove();
-
-
-
-/*
-		
-			console.log('ntype: ' + ntype);
-*/
-
+			if ( $(this).val()=='url' ){
+				ntype='url';
+			} else if ( $(this).val()=='e-mail' ){
+				ntype='email';
+			} else if ( $(this).val().indexOf('phone')>-1 ||  $(this).val()=='fax'){
+				ntype='tel';
+			} else {
+				ntype='text';
+			}
+			dfld=this.id.replace('electronic_address_type_','electronic_address_');
+			$("#" + dfld).clone().attr('type',ntype).insertAfter("#" + dfld).prev().remove();
 		});
 
 		$(document).on("change", '[id^="electronic_address_type_new"], [id^="electronic_address_new"]', function(){
@@ -213,52 +188,7 @@ dfld=this.id.replace('electronic_address_type_','electronic_address_');
 
 
 
-function pickAgentTest(agentIdFld,agentNameFld,name){
-	var an;
-//console.log(name);
-	if ( typeof name != 'undefined') {
-		an=name;	
-	}else {
-		an='';
-	}
 
-
-//console.log(an);
-	var guts = "/picks/findAgentModal.cfm?agentIdFld=" + agentIdFld + '&agentNameFld=' + agentNameFld + '&name=' + an;
-
-
-
-
-
-		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
-			autoOpen: true,
-			closeOnEscape: true,
-			height: 'auto',
-			modal: true,
-			position: ['center', 'center'],
-			title: 'Pick Agent',
- 			width:800,
-  			height:600,
-			close: function() {
-				$( this ).remove();
-			},
-		}).width(800-10).height(600-10);
-		//append($("<iframe />").attr("src", guts));
-		//}).load(guts, function() {
-		//	$(this).dialog("option", "position", ['center', 'center'] );
-		//});
-		$(window).resize(function() {
-			//fluidDialog();
-			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-		});
-		$(".ui-widget-overlay").click(function(){
-		    $(".ui-dialog-titlebar-close").trigger('click');
-		});
-
-
-
-
-	}
 
 
 </script>
