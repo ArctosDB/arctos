@@ -35,7 +35,7 @@
 <!---------------------------------------------------------------------->
 <cfif action IS "defineRole">
 	<cfoutput>
-		The following table is authoritative as of #dateformat(now, 'YYYY-MM-DD')#.
+		The following table is authoritative as of #dateformat(now(), 'YYYY-MM-DD')#.
 
 		<cfquery name="d" datasource="uam_god">
 			 SELECT table_name, grantee,
