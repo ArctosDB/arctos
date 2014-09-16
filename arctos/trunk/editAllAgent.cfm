@@ -280,6 +280,8 @@
 						value="#ctAgent_Type.agent_type#">#ctAgent_Type.agent_type#</option>
 				</cfloop>
 			</select>
+							<span class="infoLink" onclick="getCtDoc('ctagent_type');">Define</span>
+
 			<label for="agent_remarks">Agent Remark</label>
 			<input type="text" value="#stripQuotes(agent.agent_remarks)#" name="agent_remarks" id="agent_remarks" size="100">
 		</fieldset>
@@ -334,7 +336,7 @@
 			          group_member.GROUP_AGENT_ID = agent.agent_id AND
 			          MEMBER_AGENT_ID = #agent_id#
 			        order by 
-			          preferred_agent_name    			
+			          preferred_agent_name
 			</cfquery>
 			<cfif ingroup.recordcount is 0>
 				This agent is not a member of any groups
