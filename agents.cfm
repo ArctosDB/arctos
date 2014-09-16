@@ -40,15 +40,19 @@
 		}
 		$("#agntSearch").submit(function(event){
 			event.preventDefault();
+			var empty=true;
 			$("#agntSearch :input").each(function(){
    				console.log(this.id);
 
 	            if ($(this).val().length > 0) {
 					console.log($(this).id + '  is not empty');
+					empty=false;
 	            }
 	        });
-			
-return false;
+			if (empty===true){			
+				alert('Fill in or choose something to search');
+				return false;
+			}
 			loadAgentSearch($("#agntSearch").serialize());
 		});
 
