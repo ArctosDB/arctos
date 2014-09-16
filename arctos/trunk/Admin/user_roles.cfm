@@ -4,16 +4,24 @@
 <cfquery name="current" datasource="uam_god">
 	select * from cf_ctuser_roles order by role_name
 </cfquery>
+The following table summarizes Arctos Operator Roles.
+<div class="importantNotification">
+	Before assigning roles to users, provide them with the "required reading" link from the table below, and ensure that they 
+	understand the responsibilities of working in a shared system.
+</div>
+
 <table border>
 	<tr>
 		<td>Role Name</td>
 		<td>Description</td>
+		<td>Required Reading</td>
 		<td>DB Definition</td>
 	</tr>
 <cfloop query="current">
 	<tr>
 		<td>#role_name#</td>
 		<td>#Description#</td>
+		<td>#required_reading#</td>
 		<td><a href="user_roles.cfm?action=defineRole&role_name=#role_name#">[&nbsp;Def&nbsp;]</a></td>
 	</tr>
 </cfloop>
