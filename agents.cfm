@@ -1,51 +1,36 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
-#pagewrapper {
-	/* encloses tabled content */
-	width: 100%; 
-	display: table;"
-}
-#leftside, #maincell {
-    display: table-cell;
-}
-
-#leftside {
-    width:35%;
-    padding:1em;
-}
-#agntEditCell {
-   margin:1em;
-    padding:1em;
-    border:1px solid black;
-}
-#td_search{
-    margin:.5em;
-    padding:.5em;
-    border:1px solid black;
-}
-
-#agntRslCell{
-    margin:.5em;
-    padding:.5em;
-    border:1px solid black;
-}
-
-#divrow{
-	display: table-row;
-}
+	#pagewrapper {
+		/* encloses tabled content */
+		width: 100%; 
+		display: table;"
+	}
+	#leftside, #maincell {
+	    display: table-cell;
+	}
+	#divrow{
+		display: table-row;
+	}
+	#leftside {
+	    width:35%;
+	    padding:1em;
+	}
+	#agntEditCell {
+	   margin:1em;
+	    padding:1em;
+	    border:1px solid black;
+	}
+	#td_search{
+	    margin:.5em;
+	    padding:.5em;
+	    border:1px solid black;
+	}
+	#agntRslCell{
+	    margin:.5em;
+	    padding:.5em;
+	    border:1px solid black;
+	}
 </style>
-
-<!----
-<div style="width: 100%; display: table;">
-    <div style="display: table-row">
-        <div style="width: 600px; display: table-cell;"> Left </div>
-        <div style="display: table-cell;"> Right </div>
-    </div>
-</div>
-
----->
-
-
 
 <script>
 	$(document).ready(function() {
