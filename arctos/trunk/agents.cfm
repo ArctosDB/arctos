@@ -49,7 +49,7 @@
 	        $('input').each(function() {
 	            if ($(this).val().length > 0) {
 	                empty = true;
-					console.log($(this) + 'is not empty');
+					console.log($(this).id + 'is not empty');
 	            }
 	        });
 	
