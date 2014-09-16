@@ -316,7 +316,7 @@
 				</cfloop>
 				<input type="hidden" id="nnga" value="1">
 				<input type="button" onclick="addGroupMember()" value="add a row">
-				<br>Add Group Members
+				<label for="newGroupMembers">Add Group Members</label>
 				<div class="newRec" id="newGroupMembers">
 					<input type="hidden" name="member_agent_id_new1" id="member_agent_id_new1">
 					<input type="text" name="group_member_new1" id="group_member_new1" class="mediuminput"
