@@ -110,7 +110,7 @@ function addAgentName(){
 function addAgentStatus(){
 	var i=parseInt($("#nnas").val()) + parseInt(1);
 	var h='<tr id="nas'+i+'" class="newRec"><td>';
-	h+='<select name="agent_status_new'+i+'" id="agent_status_new'+i+'" size="1" class="reqdClr"></select>';
+	h+='<select name="agent_status_new'+i+'" id="agent_status_new'+i+'" size="1"></select>';
 	h+='</td><td><input type="datetime" size="12" name="status_date_new'+i+'" id="status_date_new'+i+'"></td>';
 	h+='<td><input type="text" size="50" name="status_remark_new'+i+'" id="status_remark_new'+i+'"></td><td></td></tr>';
 	$('#nas' + $("#nnas").val()).after(h);
