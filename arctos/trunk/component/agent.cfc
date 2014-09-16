@@ -330,23 +330,29 @@
 					agent_name,
 					agent_status
 				WHERE 
-					rownum<100 and agent.agent_id=agent_name.agent_id (+) and
+					agent.agent_id=agent_name.agent_id (+) and
 					agent.agent_id=agent_status.agent_id (+) and
 					agent.agent_id > -1
 					">
+	<cfset srch=false>
 	<cfif isdefined("anyName") AND len(anyName) gt 0>
+		<cfset srch=true>
 		<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#trim(ucase(escapeQuotes(anyName)))#%'">
 	</cfif>
 	<cfif isdefined("agent_id") AND isnumeric(agent_id)>
+		<cfset srch=true>
 		<cfset sql = "#sql# AND agent.agent_id = #agent_id#">
 	</cfif>
 	<cfif isdefined("status_date") AND len(status_date) gt 0>
+		<cfset srch=true>
 		<cfset sql = "#sql# AND status_date #status_date_oper# '#status_date#'">
 	</cfif>
 	<cfif isdefined("agent_status") AND len(agent_status) gt 0>
+		<cfset srch=true>
 		<cfset sql = "#sql# AND agent_status='#agent_status#'">
 	</cfif>			
-	<cfif isdefined("address") AND len(#address#) gt 0>
+	<cfif isdefined("address") AND len(address) gt 0>
+		<cfset srch=true>
 		<cfset sql = "#sql# AND agent.agent_id IN (select agent_id from addr where upper(formatted_addr) like '%#ucase(address)#%')">
 	</cfif>
 	<cfif isdefined("agent_name_type") AND len(agent_name_type) gt 0>
@@ -356,13 +362,16 @@
 		<cfset sql = "#sql# AND agent.agent_type='#agent_type#'">
 	</cfif>
 	<cfif isdefined("agent_name") AND len(agent_name) gt 0>
+		<cfset srch=true>
 		<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#ucase(escapeQuotes(agent_name))#%'">
 	</cfif>
 	<cfif isdefined("created_by") AND len(created_by) gt 0>
+		<cfset srch=true>
 		<cfset sql = "#sql# AND agent.created_by_agent_id in (select agent_id from agent_name where upper(agent_name.agent_name) like '%#ucase(escapeQuotes(created_by))#%')">
 	</cfif>
 	
 	<cfif isdefined("created_date") AND len(created_date) gt 0>
+		<cfset srch=true>
 		<cfif len(created_date) is 4>
 			<cfset filter='YYYY'>
 		<cfelseif len(created_date) is 7>
@@ -378,6 +387,9 @@
 						agent.preferred_agent_name,
 						agent.agent_type">
 	<cfset sql = "#sql# ORDER BY agent.preferred_agent_name">
+	<cfif srch is false>
+		<cfreturn 'error: You must provide criteria to search.'>
+	</cfif>
 	<cfquery name="getAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>

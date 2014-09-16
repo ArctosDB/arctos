@@ -40,26 +40,8 @@
 		}
 		$("#agntSearch").submit(function(event){
 			event.preventDefault();
-			var empty=true;
-			$("#agntSearch :input").each(function(){
-   				console.log(this.name);
-
-	            if ($(this).val().length > 0) {
-					console.log($(this).name + '  is not empty: ' + $(this).val() );
-					empty=false;
-	            }
-	        });
-			if (empty===true){			
-				alert('Fill in or choose something to search');
-				return false;
-			}
 			loadAgentSearch($("#agntSearch").serialize());
 		});
-
-		
-
-
-
 	});
 	function createAgent(type){
 		var guts = "includes/forms/createagent.cfm?agent_type=" + type;
@@ -101,7 +83,6 @@
 			<div id="leftside">
 				<div id="td_search">
 					<form name="agntSearch" id="agntSearch">
-						<input type="hidden" name="Action" value="search">
 						<fieldset>
 							<label for="anyName"><a href="javascript:void(0);" onClick="getDocs('agent','anynamesearch')">Any part of any name</a></label>
 							<input type="text" name="anyName" id="anyName" size="75" placeholder="this is the search box you're looking for">
