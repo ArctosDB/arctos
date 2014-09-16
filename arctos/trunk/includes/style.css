@@ -28,21 +28,34 @@
 */
 
 
-
-.validAddress{border:2px solid green;margin:1px;padding:1px;}
+/* BEGIN agent form */
+	.validAddress{border:2px solid green;margin:1px;padding:1px;}
 	.invalidAddress{border:2px solid red;margin:1px;padding:1px;}
-	
+/* END agent form */
+
+/* BEGIN fieldset styling */
+
+	/* generic */
 	fieldset {
 	    border:0;
 	    outline: 1px solid gray;
 		margin:1em;
 		padding:1em;
+	
+	
 	}
 	legend {
 	    font-size:85%;
 	}
+	/* compact */
+	fieldset.compact{
+		 border:0;
+	    outline: 1px solid gray;
+		margin:.1em;
+		padding:.1em;
+	}
 	
-	
+/* END fieldset styling */
 	
 	
 /* BEGIN site-wide defaults */
@@ -1114,8 +1127,7 @@ label {
 	font-size:12px;
 	font-weight:800;}
 
-fieldset {
-	padding:0;}
+
 
 div.content {
 	margin-left:5px;
