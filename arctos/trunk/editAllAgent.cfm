@@ -159,7 +159,7 @@ legend {
 			console.log('this.id: ' + this.id);
 			
 			//var i = this.id;
-			var ntype;
+			var ntype,dfld;
 			// might be electronic_address_type_new1,electronic_address_new1,electronic_address_type_2642,electronic_address_2642
 			//i=i.replace("electronic_address_type_", ""); 
 			//i=i.replace("electronic_address_", ""); 
@@ -179,6 +179,9 @@ console.log($(this).val());
 
 			console.log('ntype: ' + ntype);
 
+dfld=this.id.replace('electronic_address_type_','electronic_address_');
+
+			console.log('dfld: ' + dfld);
 
 /*
 		
