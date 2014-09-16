@@ -40,7 +40,7 @@
 		}
 		$("#agntSearch").submit(function(event){
 			event.preventDefault();
-			$('#agntSearch *').filter(':input').each(function(){
+			$("#agntSearch :input").each(function(){
    
 	            if ($(this).val().length > 0) {
 					console.log($(this).id + '  is not empty');
