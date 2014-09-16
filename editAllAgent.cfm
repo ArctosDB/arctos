@@ -405,7 +405,7 @@
 					</td>
 					<td><input type="datetime" class="reqdClr" size="12" name="status_date_#agent_status_id#" id="status_date_#agent_status_id#" value="#status_date#"></td>
 					<td>
-						<textarea class="mediumtextarea" name="status_remark_#agent_status_id#" id="status_remark_#agent_status_id#">#stripQuotes(status_remark)#</textarea>
+						<textarea class="mediumtextarea" placeholder="status remark" name="status_remark_#agent_status_id#" id="status_remark_#agent_status_id#">#stripQuotes(status_remark)#</textarea>
 					</td>
 					<td>
 						<span style="font-size:x-small;">(#reported_by# on #dateformat(STATUS_REPORTED_DATE,'yyyy-mm-dd')#)</span>
@@ -424,7 +424,7 @@
 					</td>
 					<td><input type="datetime" size="12" name="status_date_new1" id="status_date_new1" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
 					<td>
-						<textarea class="mediumtextarea" name="status_remark_new1" id="status_remark_new1"></textarea>
+						<textarea class="mediumtextarea" name="status_remark_new1" placeholder="status remark" id="status_remark_new1"></textarea>
 					</td>
 					<td><input type="button" onclick="addAgentStatus()" value="add a row"></td>
 				</tr>
