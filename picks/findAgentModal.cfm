@@ -1,12 +1,6 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 <cfparam name="name" default="">
 <cfoutput>
-<hr>
-<cfdump var=#name#>
-<hr>
-<hr>
-<cfdump var=#url#>
-<hr>
 	<script>
 		function useAgent(id,str){
 			parent.$("###agentIdFld#").val(id);

@@ -159,7 +159,6 @@ function addAgentAddr(aid){
 		$(this).dialog("option", "position", ['center', 'center'] );
 	});
 	$(window).resize(function() {
-		//fluidDialog();
 		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 	});
 	$(".ui-widget-overlay").click(function(){
@@ -175,7 +174,7 @@ function rankAgent(agent_id) {
 		height: 'auto',
 		modal: true,
 		position: ['center', 'center'],
-		title: 'Add Address',
+		title: 'Rank Agent',
 		width: 'auto',
 		close: function() {
 			$( this ).remove();
@@ -184,7 +183,6 @@ function rankAgent(agent_id) {
 		$(this).dialog("option", "position", ['center', 'center'] );
 	});
 	$(window).resize(function() {
-		//fluidDialog();
 		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 	});
 	$(".ui-widget-overlay").click(function(){
@@ -199,7 +197,7 @@ function editAgentAddress (aid){
 			height: 'auto',
 			modal: true,
 			position: ['center', 'center'],
-			title: 'Build Taxon Name',
+			title: 'Edit Address',
 			width: 'auto',
 			close: function() {
 				$( this ).remove();
@@ -208,7 +206,6 @@ function editAgentAddress (aid){
 			$(this).dialog("option", "position", ['center', 'center'] );
 		});
 		$(window).resize(function() {
-			//fluidDialog();
 			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 		});
 		$(".ui-widget-overlay").click(function(){
