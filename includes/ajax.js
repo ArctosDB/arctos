@@ -61,7 +61,7 @@ function loadAgentSearch(q){
 		success: function(r) {
 			console.log(r);
 			
-			if (r.substring(0,5)=='error'){
+			if (r.substring && r.substring(0,5)=='error'){
 				$("#agntRslCell").html('<span class="importantNotification">' + r + '</span>');
 				alert(r);
 				return false;
