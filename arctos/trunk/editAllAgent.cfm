@@ -156,12 +156,28 @@ legend {
 
 
 		$(document).on("change", '[id^="electronic_address_type_new"], [id^="electronic_address_new"]', function(){
-			var i =  this.id;
+			var i = this.id;
+			var ntype = 'text';
 			i=i.replace("electronic_address_type_new", ""); 
 			i=i.replace("electronic_address_new", ""); 
 			if ( $("#electronic_address_type_new" + i).val().length > 0 ||  $("#electronic_address_new" + i).val().length > 0 ) {
 				$("#electronic_address_type_new" + i).addClass('reqdClr').prop('required',true);
 				$("#electronic_address_new" + i).addClass('reqdClr').prop('required',true);
+
+				if ( $("#electronic_address_type_new" + i).val()=='url' ){
+					ntype='url';
+				} else if ( $("#electronic_address_type_new" + i).val()=='e-mail' ){
+					ntype='email';
+				} else if ( $("#electronic_address_type_new" + i).val().indexOf('phone')>-1 ||  $("#electronic_address_type_new" + i).val()=='fax'){
+					ntype='tel';
+				}
+
+				$("#electronic_address_type_new" + i).clone().attr('type',ntype).insertAfter("#electronic_address_type_new" + i).prev().remove();
+
+
+
+
+				
 			} else {
 				$("#electronic_address_type_new" + i).removeClass().prop('required',false);
 				$("#electronic_address_new" + i).removeClass().prop('required',false);
