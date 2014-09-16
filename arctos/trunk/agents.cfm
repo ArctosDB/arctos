@@ -42,7 +42,7 @@
 			event.preventDefault();
 			 $('input').each(function() {
 	            if ($(this).val().length > 0) {
-					console.log($(this).id + 'is not empty');
+					console.log($(this).name + 'is not empty');
 	            }
 	        });
 			
