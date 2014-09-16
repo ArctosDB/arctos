@@ -42,10 +42,10 @@
 			event.preventDefault();
 			var empty=true;
 			$("#agntSearch :input").each(function(){
-   				console.log(this.id);
+   				console.log(this.name);
 
 	            if ($(this).val().length > 0) {
-					console.log($(this).id + '  is not empty');
+					console.log($(this).name + '  is not empty: ' + $(this).val() );
 					empty=false;
 	            }
 	        });
