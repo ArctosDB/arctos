@@ -6,6 +6,9 @@
 <cfif action is "newAddress">
 	<script>		
 		$(document).ready(function() {
+			$(".reqdClr:visible").each(function(e){
+			    $(this).prop('required',true);
+			});
 			$("#newAddress").submit(function(event){
 				event.preventDefault();
 				$.ajax({
@@ -152,6 +155,9 @@
 		}
 	
 		$(document).ready(function() {
+			$(".reqdClr:visible").each(function(e){
+		   		$(this).prop('required',true);
+			});
 			$("#editAddr").submit(function(event){
 				event.preventDefault();
 				$.ajax({
