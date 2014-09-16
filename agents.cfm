@@ -99,7 +99,7 @@
 								</td>
 								<td>
 									<label for="agent_id">AgentID</label>
-									<input type="text" name="agent_id" size="12">
+									<input type="number" name="agent_id" size="12">
 								</td>
 							</tr>
 						</table>

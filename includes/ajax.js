@@ -59,8 +59,6 @@ function loadAgentSearch(q){
 		dataType: "json",
 		data:  q,
 		success: function(r) {
-			console.log(r);
-			
 			if (r.substring && r.substring(0,5)=='error'){
 				$("#agntRslCell").html('<span class="importantNotification">' + r + '</span>');
 				alert(r);
