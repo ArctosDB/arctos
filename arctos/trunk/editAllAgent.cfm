@@ -524,7 +524,7 @@
 						<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#">#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
 					</cfloop>
 				</select>
-				<input type="text" class="mediuminput" name="electronic_address_new1" id="electronic_address_new1">
+				<input type="text" class="mediuminput" name="electronic_address_new1" id="electronic_address_new1" placeholder="add electronic address">
 				<input type="button" onclick="addElectronicAddress()" value="add a row">
 			</div>
 		</fieldset>			
