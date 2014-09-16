@@ -143,7 +143,7 @@ function addElectronicAddress(){
 
 
 function addAgentAddr(aid){
-		var guts = "includes/forms/editAgentAddr.cfm?action=newAddress&agent_id=" + aid;
+	var guts = "includes/forms/editAgentAddr.cfm?action=newAddress&agent_id=" + aid;
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
@@ -179,7 +179,7 @@ function rankAgent(agent_id) {
 		width: 'auto',
 		close: function() {
 			$( this ).remove();
-		},
+		}
 	}).load(ptl, function() {
 		$(this).dialog("option", "position", ['center', 'center'] );
 	});
@@ -203,7 +203,7 @@ function editAgentAddress (aid){
 			width: 'auto',
 			close: function() {
 				$( this ).remove();
-			},
+			}
 		}).load(guts, function() {
 			$(this).dialog("option", "position", ['center', 'center'] );
 		});
@@ -1200,7 +1200,7 @@ function pickAgentTest(agentIdFld,agentNameFld,name){
  			height:600,
 		close: function() {
 			$( this ).remove();
-		},
+		}
 	}).width(800-10).height(600-10);
 	$(window).resize(function() {
 		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
