@@ -83,7 +83,7 @@
 			<div id="leftside">
 				<div id="td_search">
 					<form name="agntSearch" id="agntSearch">
-						<fieldset>
+						<fieldset class="compact">
 							<label for="anyName"><a href="javascript:void(0);" onClick="getDocs('agent','anynamesearch')">Any part of any name</a></label>
 							<input type="text" name="anyName" id="anyName" size="75" placeholder="this is the search box you're looking for">
 							<table width="100%">
@@ -121,7 +121,7 @@
 								</tr>
 							</table>
 						</fieldset>
-						<fieldset>
+						<fieldset class="compact">
 							<label for="address">Address</label>
 							<input type="text" name="address" id="address" size="75" placeholder="any part of any address">
 						</fieldset>
