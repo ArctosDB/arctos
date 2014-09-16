@@ -673,7 +673,7 @@ $.ajax({
 			<fieldset>
 				<legend>Electronic Address</legend>
 				<cfloop query="elecagentAddrs">
-					<cfif ADDRESS_TYPE is "">
+					<cfif ADDRESS_TYPE is "url">
 						<cfset ttype='url'>
 					<cfelseif address_type is "e-mail">
 						<cfset ttype='email'>
