@@ -115,6 +115,12 @@ function addAgentStatus(){
 	h+='<td><input type="text" size="50" name="status_remark_new'+i+'" id="status_remark_new'+i+'"></td><td></td></tr>';
 	$('#nas' + $("#nnas").val()).after(h);
 	$('#agent_status_new1').find('option').clone().appendTo('#agent_status_new' + i);
+	
+	
+	$('#status_date_new'+i ).datepicker();
+
+	
+	
 	$("#nnas").val(i);
 }
 function addAgentRelationship(){
