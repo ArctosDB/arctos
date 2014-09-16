@@ -404,7 +404,12 @@
 						</select>
 					</td>
 					<td><input type="datetime" class="reqdClr" size="12" name="status_date_#agent_status_id#" id="status_date_#agent_status_id#" value="#status_date#"></td>
-					<td><input type="text" size="50" name="status_remark_#agent_status_id#" id="status_remark_#agent_status_id#" value="#status_remark#"></td>
+					<td>
+									<textarea class="mediumtextarea" name="status_remark_#agent_status_id#" id="status_remark_#agent_status_id#">#stripQuotes(status_remark)#</textarea>
+
+						<!----<input type="text" size="50" name="status_remark_#agent_status_id#" id="status_remark_#agent_status_id#" value="#status_remark#">
+						---->
+						</td>
 					<td>
 						<span style="font-size:x-small;">(#reported_by# on #dateformat(STATUS_REPORTED_DATE,'yyyy-mm-dd')#)</span>
 					</td>
@@ -421,7 +426,12 @@
 						</select>
 					</td>
 					<td><input type="datetime" size="12" name="status_date_new1" id="status_date_new1" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
-					<td><input type="text" size="50" name="status_remark_new1" id="status_remark_new1"></td>
+					<td>
+						<textarea class="mediumtextarea" name="status_remark_new1" id="status_remark_new1"></textarea>
+<!----
+						<input type="text" size="50" name="status_remark_new1" id="status_remark_new1">
+		---->				
+						</td>
 					<td><input type="button" onclick="addAgentStatus()" value="add a row"></td>
 				</tr>
 			</table>
