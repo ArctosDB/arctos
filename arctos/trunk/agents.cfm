@@ -3,7 +3,7 @@
 	#pagewrapper {
 		/* encloses tabled content */
 		width: 100%; 
-		display: table;"
+		display: table;
 	}
 	#leftside, #maincell {
 	    display: table-cell;
@@ -175,6 +175,17 @@
 								</tr>
 							</table>
 						</fieldset>
+						<input type="submit" value="Search" class="schBtn" id="goAgentSearch">
+						<input type="reset" value="Clear Form" class="clrBtn">
+						<input type="button" 
+									value="Create Person" 
+									class="insBtn"
+									onClick="createAgent('person');">
+						<input type="button" 
+									value="Create Agent" 
+									class="insBtn"
+									onClick="createAgent();">
+						<!----
 						<table width="100%">
 							<tr>
 								<td>
@@ -193,6 +204,8 @@
 								</td>
 							</tr>
 						</table>
+						
+						---->
 					</form>
 				</div>
 			 	<div id="agntRslCell"></div>  
