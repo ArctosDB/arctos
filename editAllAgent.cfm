@@ -593,9 +593,13 @@ $.ajax({
 							</td>
 							<td>
 								<input type="hidden" name="related_agent_id_#agent_relations_id#" id="related_agent_id_#agent_relations_id#" value="#related_agent_id#">
-								<input type="text" name="related_agent_#agent_relations_id#" id="related_agent_#agent_relations_id#" class="reqdClr" value="#agent_name#"
-									onchange="getAgent('related_agent_id_#agent_relations_id#',this.id,'fEditAgent',this.value); return false;"
-								onKeyPress="return noenter(event);">
+								
+								<input type="text" name="related_agent_#agent_relations_id#" id="related_agent_#agent_relations_id#" value="#agent_name#"
+								onchange="pickAgentTest('related_agent_id_#agent_relations_id#',this.id,this.value); return false;"
+								onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr">
+
+
+
 							</td>
 						</tr>
 					
