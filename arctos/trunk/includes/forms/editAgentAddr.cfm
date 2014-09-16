@@ -2,7 +2,9 @@
 <cfinclude template="/includes/functionLib.cfm">
 <cfquery name="ctAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select addr_type from ctaddr_type order by addr_type
-</cfquery>	
+</cfquery>
+		<span class="likeLink" onClick="getDocs('address')">Help</span>
+
 <cfif action is "newAddress">
 	<script>		
 		$(document).ready(function() {
