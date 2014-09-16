@@ -133,7 +133,7 @@
 									</select>
 								</div>
 								<div style="display:table-cell">
-									<label for="status_date_oper">date match type</label>
+									<label for="status_date_oper">Match</label>
 									<select name="status_date_oper" size="1" id="status_date_oper">
 										<option value="<=">Before</option>
 										<option selected value="=" >At</option>
@@ -153,7 +153,7 @@
 										<input type="text" name="created_by" id="created_by" class="msinput" placeholder="created by agent">
 								</div>
 								<div style="display:table-cell">
-								<label for="create_date_oper">date match type</label>
+								<label for="create_date_oper">Match</label>
 										<select name="create_date_oper" size="1" id="create_date_oper">
 											<option value="<=">Before</option>
 											<option selected value="=" >At</option>
