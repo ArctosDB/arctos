@@ -43,7 +43,7 @@
 			$('#agntSearch *').filter(':input').each(function(){
    
 	            if ($(this).val().length > 0) {
-					console.log($(this).name + 'is not empty');
+					console.log($(this).id + '  is not empty');
 	            }
 	        });
 			
