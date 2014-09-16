@@ -271,7 +271,7 @@
 			<legend>Edit Agent</legend>
 			<input type="hidden" name="agent_id" id="agent_id" value="#agent_id#">
 			<label for="preferred_agent_name">Preferred Name</label>
-			<input type="text" value="#stripQuotes(agent.preferred_agent_name)#" name="preferred_agent_name" id="preferred_agent_name" size="50" class="reqdClr">
+			<input type="text" value="#stripQuotes(agent.preferred_agent_name)#" name="preferred_agent_name" id="preferred_agent_name" class="reqdClr mediuminput">
 			 
 			<label for="agent_type">Agent Type</label>
 			<select name="agent_type" id="agent_type" class="reqdClr">
