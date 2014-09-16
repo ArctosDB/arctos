@@ -1,8 +1,5 @@
 
 $(document).ready(function() {
-	
-	
-	
 	$(".helpLink").live('click', function(e){
 		var id=this.id;
 		removeHelpDiv();
@@ -41,10 +38,7 @@ $(document).ready(function() {
 			changeStyle(parent.frames[0].thisStyle);
 		}
 	}
-	
-	
 	$("input[type='date'], input[type='datetime']" ).datepicker();
-
 });
 
 /* agent editing forms */
@@ -176,13 +170,7 @@ function addAgentAddr(aid){
 }			
 				
 function rankAgent(agent_id) {
-	
-	
-	
-	//console.log('hi');
-	
 	var ptl="/includes/forms/agentrank.cfm?agent_id="+agent_id;			
-
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
@@ -204,29 +192,9 @@ function rankAgent(agent_id) {
 	$(".ui-widget-overlay").click(function(){
 	    $(".ui-dialog-titlebar-close").trigger('click');
 	});
-	
-	
 }
-function rankAgent__OLDNBUSTED(agent_id) {
-	addBGDiv('removePick()');
-	var theDiv = document.createElement('div');
-	theDiv.id = 'pickDiv';
-	theDiv.className = 'pickDiv';
-	theDiv.innerHTML='<br>Loading...';
-	document.body.appendChild(theDiv);
-	var ptl="/includes/forms/agentrank.cfm";			
-	$.get(ptl,{agent_id: agent_id},function(data){
-		document.getElementById('pickDiv').innerHTML=data;
-		// viewport.init("#pickDiv");
-	});
-}
-
 function editAgentAddress (aid){
 		var guts = "includes/forms/editAgentAddr.cfm?action=editAddress&addr_id=" + aid;
-
-
-
-
 		$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
@@ -248,10 +216,6 @@ function editAgentAddress (aid){
 		$(".ui-widget-overlay").click(function(){
 		    $(".ui-dialog-titlebar-close").trigger('click');
 		});
-
-
-
-
 	}
 
 

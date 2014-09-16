@@ -1,19 +1,10 @@
-<!----<cfinclude template="/includes/alwaysInclude.cfm">
------>
-
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
-<cfinclude template="/includes/functionLib.cfm">
-
-
-
 <cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_name_type as agent_name_type from ctagent_name_type where agent_name_type != 'preferred' order by agent_name_type
 </cfquery>
 <cfquery name="CTELECTRONIC_ADDR_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select ADDRESS_TYPE from CTELECTRONIC_ADDR_TYPE order by ADDRESS_TYPE
 </cfquery>
-
-
 <cfquery name="ctAgent_Type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_type from ctagent_type order by agent_type
 </cfquery>
