@@ -167,18 +167,21 @@ legend {
 
 
 console.log($(this).val());
-
-
-/*
-			if ( $("#electronic_address_type_" + i).val()=='url' ){
+	if ( $(this).val()=='url' ){
 					ntype='url';
-				} else if ( $("#electronic_address_type_" + i).val()=='e-mail' ){
+				} else if ( $(this).val()=='e-mail' ){
 					ntype='email';
-				} else if ( $("#electronic_address_type_" + i).val().indexOf('phone')>-1 ||  $("#electronic_address_type_" + i).val()=='fax'){
+				} else if ( $(this).val().indexOf('phone')>-1 ||  $(this).val()=='fax'){
 					ntype='tel';
 				} else {
 					ntype='text';
 				}
+
+			console.log('ntype: ' + ntype);
+
+
+/*
+		
 			console.log('ntype: ' + ntype);
 				$("#electronic_address_type_" + i).clone().attr('type',ntype).insertAfter("#electronic_address_type_" + i).prev().remove();
 */
