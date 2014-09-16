@@ -104,7 +104,7 @@
 								</td>
 							</tr>
 						</table>
-						<label for="address"><a href="javascript:void(0);" onClick="getDocs('agent','address')">Address</a></label>
+						<label for="address">Address</label>
 						<input type="text" name="address" id="address" size="75">
 						<table width="100%">
 							<tr>
