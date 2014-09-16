@@ -394,19 +394,6 @@
 		#preservesinglequotes(sql)#
 	</cfquery>
 	<cfreturn getAgents>
-	<!----
-	<cfif getAgents.recordcount is 0>
-	    <span class="error">Nothing Matched.</span>
-	</cfif>
-	<div style="height:20em; overflow:auto;">
-		<cfloop query="getAgents">
-			<div class="likeLink" onclick="loadEditAgent('#agent_id#');">
-				#preferred_agent_name# <font size="-1">(#agent_type#: #agent_id#)</font> 
-		   </div>
-		</cfloop>
-	</div>
-	---->
 </cfoutput>
 </cffunction>
-
 </cfcomponent>

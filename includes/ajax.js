@@ -68,7 +68,7 @@ function loadAgentSearch(q){
 				$("#agntRslCell").html('<span class="importantNotification">Nothing Matched.</span>');
 				return false;
 			}
-			h='<div style="height:30em; overflow:scroll;">';
+			h='<div style="height:30em; overflow:auto;">';
 			for (i=0;i<r.ROWCOUNT;i++) {
 				h+='<div><span class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
 				h+= r.DATA.PREFERRED_AGENT_NAME[i] + '</span><font size="-1"> (';
