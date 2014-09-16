@@ -41,7 +41,8 @@
 		$("#agntSearch").submit(function(event){
 			event.preventDefault();
 			$("#agntSearch :input").each(function(){
-   
+   				console.log($(this).id);
+
 	            if ($(this).val().length > 0) {
 					console.log($(this).id + '  is not empty');
 	            }
