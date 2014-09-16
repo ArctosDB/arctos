@@ -33,7 +33,7 @@ $(document).ready(function() {
 			// viewport.init("#customDiv");
 		});
 	});
-	if (self != top) {
+	if (self != top && parent != null) {
 		if (parent.frames[0].thisStyle) {
 			changeStyle(parent.frames[0].thisStyle);
 		}
