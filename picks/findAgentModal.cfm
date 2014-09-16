@@ -3,10 +3,6 @@
 <cfoutput>
 	<script>
 		function useAgent(id,str){
-
-	console.log('i am useAgent');
-
-
 			parent.$("###agentIdFld#").val(id);
 			parent.$("###agentNameFld#").val(str).addClass('goodPick');
 			parent.$(".ui-dialog-titlebar-close").trigger('click');

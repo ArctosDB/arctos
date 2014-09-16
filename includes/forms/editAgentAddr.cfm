@@ -1,21 +1,10 @@
-
-<!----
-<cfinclude template="/includes/alwaysInclude.cfm">
----->
-
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
 <cfinclude template="/includes/functionLib.cfm">
-
-	<cfquery name="ctAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select addr_type from ctaddr_type order by addr_type
-	</cfquery>
-	
-	
+<cfquery name="ctAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select addr_type from ctaddr_type order by addr_type
+</cfquery>	
 <cfif action is "newAddress">
-
-
-	<script>
-		
+	<script>		
 		$(document).ready(function() {
 			$("#newAddress").submit(function(event){
 				event.preventDefault();
@@ -25,13 +14,9 @@
 					dataType: "json",
 					data:  $("#newAddress").serialize(),
 					success: function(r) {
-						
 						if (r=='success'){
 							$(".ui-dialog-titlebar-close").trigger('click');
-
-
 							loadEditAgent( $("#agent_id").val() );
-							
 						} else {
 							alert('An error occurred: ' + r);
 						}
@@ -43,112 +28,106 @@
 			});
 		});
 	</script>
-
-<cfoutput>
-
-	<form name="newAddress" id="newAddress" method="post" action="editAllAgent.cfm">
-					<input type="hidden" name="agent_id" value="#agent_id#">
-					<input type="hidden" name="Action" value="newAddress">
-					<table>
-						<tr>
-							<td>
-								<label for="addr_type">Address Type</label>
-								<select name="addr_type" id="addr_type" size="1">
-									<cfloop query="ctAddrType">
-									<option value="#ctAddrType.addr_type#">#ctAddrType.addr_type#</option>
-									</cfloop>
-								</select>
-							</td>
-							<td>
-								<label for="job_title">Job Title</label>
-								<input type="text" name="job_title" id="job_title">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<label for="institution">Institution</label>
-								<input type="text" name="institution" id="institution"size="50" >
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<label for="department">Department</label>
-								<input type="text" name="department" id="department" size="50" >
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<label for="street_addr1">Street Address 1</label>
-								<input type="text" name="street_addr1" id="street_addr1" size="50" class="reqdClr">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<label for="street_addr2">Street Address 2</label>
-								<input type="text" name="street_addr2" id="street_addr2" size="50">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label for="city">City</label>
-								<input type="text" name="city" id="city" class="reqdClr">
-							</td>
-							<td>
-								<label for="state">State</label>
-								<input type="text" name="state" id="state" class="reqdClr">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label for="zip">Zip</label>
-								<input type="text" name="zip" id="zip" class="reqdClr">
-							</td>
-							<td>
-								<label for="country_cde">Country Code</label>
-								<input type="text" name="country_cde" id="country_cde" class="reqdClr">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label for="mail_stop">Mail Stop</label>
-								<input type="text" name="mail_stop" id="mail_stop">
-							</td>
-							<td>
-								<label for="valid_addr_fg">Valid?</label>
-								<select name="valid_addr_fg" id="valid_addr_fg" size="1">
-									<option value="1">yes</option>
-									<option value="0">no</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<label for="addr_remarks">Address Remark</label>
-								<input type="text" name="addr_remarks" id="addr_remarks" size="50">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<input type="submit" class="insBtn" value="Create Address">
-							</td>
-						</tr>
-					</table>
-				</form>
-				
-				</cfoutput>
+	<cfoutput>
+		<form name="newAddress" id="newAddress" method="post" action="editAllAgent.cfm">
+			<input type="hidden" name="agent_id" value="#agent_id#">
+			<input type="hidden" name="Action" value="newAddress">
+			<table>
+				<tr>
+					<td>
+						<label for="addr_type">Address Type</label>
+						<select name="addr_type" id="addr_type" size="1">
+							<cfloop query="ctAddrType">
+							<option value="#ctAddrType.addr_type#">#ctAddrType.addr_type#</option>
+							</cfloop>
+						</select>
+						<span class="infoLink" onclick="getCtDoc('CTADDR_TYPE');">Define</span>
+					</td>
+					<td>
+						<label for="job_title">Job Title</label>
+						<input type="text" name="job_title" id="job_title">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label for="institution">Institution</label>
+						<input type="text" name="institution" id="institution"size="50" >
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label for="department">Department</label>
+						<input type="text" name="department" id="department" size="50" >
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label for="street_addr1">Street Address 1</label>
+						<input type="text" name="street_addr1" id="street_addr1" size="50" class="reqdClr">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label for="street_addr2">Street Address 2</label>
+						<input type="text" name="street_addr2" id="street_addr2" size="50">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="city">City</label>
+						<input type="text" name="city" id="city" class="reqdClr">
+					</td>
+					<td>
+						<label for="state">State</label>
+						<input type="text" name="state" id="state" class="reqdClr">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="zip">Zip</label>
+						<input type="text" name="zip" id="zip" class="reqdClr">
+					</td>
+					<td>
+						<label for="country_cde">Country Code</label>
+						<input type="text" name="country_cde" id="country_cde" class="reqdClr">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="mail_stop">Mail Stop</label>
+						<input type="text" name="mail_stop" id="mail_stop">
+					</td>
+					<td>
+						<label for="valid_addr_fg">Valid?</label>
+						<select name="valid_addr_fg" id="valid_addr_fg" size="1">
+							<option value="1">yes</option>
+							<option value="0">no</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<label for="addr_remarks">Address Remark</label>
+						<input type="text" name="addr_remarks" id="addr_remarks" size="50">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="submit" class="insBtn" value="Create Address">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</cfoutput>
 </cfif>
-
+<!--------------------------->
 <cfif action is "editAddress">
-	
 	<cfquery name="addr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
-		select * from addr where addr_id=#addr_id#
+		select * from addr where addr_id=<cfqueryparam value = "#addr_id#" CFSQLType = "CF_SQL_INTEGER">
 	</cfquery>
-	
 	<cfif addr.recordcount is not 1>
 		not found<cfabort>
 	</cfif>
-	
-	
 	<script>
 		function deleteAgentAddress(aid){
 			$.ajax({
@@ -206,10 +185,9 @@
 			});
 		});
 	</script>
-
 	<cfoutput>
-	<form name="editAddr" id="editAddr" method="post" action="editAllAgent.cfm">
-		<input type="hidden" name="addr_id" id="addr_id" value="#addr_id#">
+		<form name="editAddr" id="editAddr" method="post" action="editAllAgent.cfm">
+			<input type="hidden" name="addr_id" id="addr_id" value="#addr_id#">
 			<table>
 				<tr>
 					<td>
@@ -221,6 +199,7 @@
 								value="#ctAddrType.addr_type#">#ctAddrType.addr_type#</option>
 							</cfloop>
 						</select>
+						<span class="infoLink" onclick="getCtDoc('CTADDR_TYPE');">Define</span>
 					</td>
 					<td>
 						<label for="job_title">Job Title</label>
@@ -300,4 +279,3 @@
 		</form>
 	</cfoutput>
 </cfif>
-	

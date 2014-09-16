@@ -74,12 +74,10 @@
 		<br><label  class="h" for="remark">Remark: (required for unsatisfactory rankings; encouraged for all)</label>
 		<br><textarea name="remark" id="remark" rows="4" cols="60"></textarea>
 		<br><input type="button" class="savBtn" value="Save" onclick="saveAgentRank()">
-		<input type="button" class="qutBtn" value="Quit" onclick="removePick()">
 	</form>
 	</div>
 	
 	<h3>Details</h3>
-	<cfif pr.recordcount gt 0>
 		<div id="agentRankDetails">
 			<table id="agntRankTbl" border>
 				<tr>
@@ -105,5 +103,4 @@
 				</cfloop>
 			</table>
 		</div>
-	</cfif>
 </cfoutput>
