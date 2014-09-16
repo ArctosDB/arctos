@@ -117,7 +117,7 @@ function addAgentStatus(){
 	$('#agent_status_new1').find('option').clone().appendTo('#agent_status_new' + i);
 	
 	
-	$('#status_date_new'+i ).datepicker();
+	//$('#status_date_new'+i ).datepicker();
 
 	
 	
