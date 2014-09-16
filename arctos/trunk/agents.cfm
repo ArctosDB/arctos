@@ -150,7 +150,7 @@
 							<div style="display:table;width:100%;">
 								<div style="display:table-cell">
 								<label for="created_by">Created By</label>
-										<input type="text" name="created_by" id="created_by" size="35" placeholder="created by agent">
+										<input type="text" name="created_by" id="created_by" class="msinput" placeholder="created by agent">
 								</div>
 								<div style="display:table-cell">
 								<label for="create_date_oper">date match type</label>
