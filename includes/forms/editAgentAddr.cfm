@@ -90,7 +90,7 @@
 				<tr>
 					<td>
 						<label for="zip">Zip</label>
-						<input type="text" name="zip" id="zip" class="reqdClr">
+						<input type="text" name="zip" id="zip" class="reqdClr" maxlength="10">
 					</td>
 					<td>
 						<label for="country_cde">Country Code</label>
@@ -251,7 +251,7 @@
 				<tr>
 					<td>
 						<label for="zip">Zip</label>
-						<input type="text" name="zip" id="zip" class="reqdClr" value="#addr.zip#">
+						<input type="text" name="zip" id="zip" class="reqdClr" value="#addr.zip#"  maxlength="10">
 					</td>
 					<td>
 						<label for="country_cde">Country Code</label>
