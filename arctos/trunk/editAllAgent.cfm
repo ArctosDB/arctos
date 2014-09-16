@@ -370,13 +370,13 @@
 				<input type="hidden" id="nnan" value="1">
 				<div id="agentnamedv1">
 					<select name="agent_name_type_new1" id="agent_name_type_new1">
-						<option value=""></option>
+						<option value="">pick name type</option>
 						<cfloop query="ctNameType">
 							<option value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
 						</cfloop>
 					</select>
 					<input type="text" name="agent_name_new1" id="agent_name_new1" size="40" placeholder="new agent name">
-					<input type="button" onclick="addAgentName()" value="more">
+					<input type="button" onclick="addAgentName()" value="add a row">
 				</div>
 			</div>
 		</fieldset>
@@ -411,7 +411,7 @@
 				<tr id="nas1" class="newRec">
 					<td>
 						<select name="agent_status_new1" id="agent_status_new1" size="1">
-							<option value=""></option>
+							<option value="">pick status</option>
 							<cfloop query="ctagent_status">
 								<option value="#agent_status#">#agent_status#</option>
 							</cfloop>
