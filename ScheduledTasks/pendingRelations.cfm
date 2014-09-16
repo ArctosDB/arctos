@@ -87,10 +87,6 @@
 	<cfset temp = QuerySetCell(ctid_references, "r2", 'eaten by', i)>	
 	<cfset i=i+1>
 	<cfset temp = queryaddrow(ctid_references,1)>
-	<cfset temp = QuerySetCell(ctid_references, "r1", 'collected from', i)>
-	<cfset temp = QuerySetCell(ctid_references, "r2", 'collected on', i)>
-	<cfset i=i+1>
-	<cfset temp = queryaddrow(ctid_references,1)>
 	<cfset temp = QuerySetCell(ctid_references, "r1", 'collected with', i)>
 	<cfset temp = QuerySetCell(ctid_references, "r2", 'collected with', i)>
 	<cfset i=i+1>
