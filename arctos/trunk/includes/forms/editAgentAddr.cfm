@@ -113,7 +113,7 @@
 				<tr>
 					<td colspan="2">
 						<label for="addr_remarks">Address Remark</label>
-						<input type="text" name="addr_remarks" id="addr_remarks" size="50">
+						<textarea class="mediumtextarea" name="addr_remarks" id="addr_remarks"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -274,7 +274,7 @@
 				<tr>
 					<td colspan="2">
 						<label for="addr_remarks">Address Remark</label>
-						<input type="text" name="addr_remarks" id="addr_remarks" size="50" value="#addr.addr_remarks#">
+						<textarea class="mediumtextarea" name="addr_remarks" id="addr_remarks">#stripQuotes(addr.addr_remarks)#</textarea>
 					</td>
 				</tr>
 				<tr>
