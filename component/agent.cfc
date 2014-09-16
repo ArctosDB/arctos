@@ -330,7 +330,7 @@
 					agent_name,
 					agent_status
 				WHERE 
-					agent.agent_id=agent_name.agent_id (+) and
+					rownum<100 and agent.agent_id=agent_name.agent_id (+) and
 					agent.agent_id=agent_status.agent_id (+) and
 					agent.agent_id > -1
 					">
