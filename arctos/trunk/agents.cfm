@@ -153,6 +153,8 @@
 							</table>
 						</fieldset>
 						<fieldset class="compact">
+						
+						<!----
 							<table width="100%">
 								<tr>
 									<td>
@@ -174,20 +176,39 @@
 									</td>
 								</tr>
 							</table>
+							---->
+							<div style="display:table;width:100%;">
+								<div style="display:table-cell">
+								<label for="created_by">Created By</label>
+										<input type="text" name="created_by" id="created_by" size="35" placeholder="created by agent">
+								</div>
+								<div style="display:table-cell">
+								<label for="create_date_oper">date match type</label>
+										<select name="create_date_oper" size="1" id="create_date_oper">
+											<option value="<=">Before</option>
+											<option selected value="=" >At</option>
+											<option value=">=">After</option>
+										</select>
+								</div>
+								<div style="display:table-cell">
+								<label for="created_date">Created Date</label>
+										<input type="datetime" name="created_date" id="created_date" size="15" placeholder="created date">
+								</div>
+							</div>
 						</fieldset>
 						<div style="display:table;width:100%;">
 							<div style="display:table-cell;width:25%;">
 								<input type="submit" value="Search" class="schBtn" id="goAgentSearch">
 							</div>
-							<div style="display:table-cell;width:25%;"><input type="reset" value="Clear Form" class="clrBtn"></div>
-							<div style="display:table-cell;width:25%;"><input type="button" 
-									value="Create Person" 
-									class="insBtn"
-									onClick="createAgent('person');"></div>
-							<div style="display:table-cell;width:25%;">	<input type="button" 
-									value="Create Agent" 
-									class="insBtn"
-									onClick="createAgent();"></div>
+							<div style="display:table-cell;width:25%;">
+								<input type="reset" value="Clear Form" class="clrBtn">
+							</div>
+							<div style="display:table-cell;width:25%;">
+								<input type="button" value="Create Person" class="insBtn" onClick="createAgent('person');">
+							</div>
+							<div style="display:table-cell;width:25%;">
+								<input type="button" value="Create Agent" class="insBtn" onClick="createAgent();">
+							</div>
 						</div>
 						
 						
