@@ -1,11 +1,6 @@
-<cfcomponent>
-
-
-		
-	
+<cfcomponent>	
 <cffunction name="newAgentAddr" access="remote">
 	<cftry>
-
 		<cfquery name="addr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO addr (
 				ADDR_ID
@@ -51,7 +46,7 @@
 	</cfcatch>
 	</cftry>
 </cffunction>	
-		
+<!---------------------------------------------------------------->
 <cffunction name="deleteAgentAddrEdit" access="remote">
 	<cftry>
 		<cfquery name="editAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -67,6 +62,7 @@
 	</cfcatch>
 	</cftry>
 </cffunction>
+<!---------------------------------------------------------------->
 <cffunction name="saveAgentAddrEdit" access="remote">
 	<cftry>
 		<cfquery name="editAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -109,19 +105,12 @@
 	</cfcatch>
 	</cftry>
 </cffunction>
-
+<!---------------------------------------------------------------->
 <cffunction name="saveAgent" access="remote">
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
 	<cfoutput>
-	
-	
-	<!----
-	<cfdump var=#url#>
-	
-	---->
-	
 		<cftry>
 			<cftransaction>
 				<!--- agent --->
@@ -178,20 +167,6 @@
 						<cfset thisAgentRelationship=url["agent_relationship_#thisAgentRelationsID#"]>
 						<cfset thisRelatedAgentName=url["related_agent_#thisAgentRelationsID#"]>
 						<cfset thisRelatedAgentID=url["related_agent_id_#thisAgentRelationsID#"]>
-						
-						
-						<!----
-						
-						
-							<br>thisAgentRelationsID: #thisAgentRelationsID#
-						<br>thisAgentRelationship: ::#thisAgentRelationship#::
-						<br>thisRelatedAgentName: #thisRelatedAgentName#
-						<br>thisRelatedAgentID: #thisRelatedAgentID#
-						
-						---->
-						
-					
-						
 						<cfif thisAgentRelationsID contains "new">
 							<cfif len(thisAgentRelationship) gt 0>
 								<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -226,16 +201,6 @@
 						<cfset thisGroupMemberID=listlast(key,"_")>
 						<cfset thisMemberAgentID=url["member_agent_id_#thisGroupMemberID#"]>
 						<cfset thisMemberAgentName=url["group_member_#thisGroupMemberID#"]>
-						<!----
-						<br>thisGroupMemberID: #thisGroupMemberID#
-						<br>thisMemberAgentID: #thisMemberAgentID#
-						<br>thisMemberAgentName: #thisMemberAgentName#
-						
-						---->
-						
-						
-						
-						
 						<cfif thisGroupMemberID contains "new">
 							<cfif len(thisMemberAgentID) gt 0>
 								<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -261,25 +226,14 @@
 						</cfif>
 					</cfif>
 				</cfloop>
-				
-				
 				<!---- status ---->
-				
 				<cfloop list="#structKeyList(url)#" index="key">
 					<cfif left(key,13) is "agent_status_">
 						<cfset thisAgentStatusID=listlast(key,"_")>
 						<cfset thisAgentStatus=url["agent_status_#thisAgentStatusID#"]>
 						<cfset thisAgentStatusDate=url["status_date_#thisAgentStatusID#"]>
 						<cfset thisAgentStatusRemark=url["status_remark_#thisAgentStatusID#"]>
-						<!----
-						<br>thisAgentStatusID: #thisAgentStatusID#
-						<br>thisAgentStatus: #thisAgentStatus#
-						<br>thisAgentStatusDate: #thisAgentStatusDate#
-						<br>thisAgentStatusRemark: #thisAgentStatusRemark#
-						---->
-						
 						<cfif thisAgentStatusID contains "new">
-						
 							<cfif len(thisAgentStatus) gt 0>
 								<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 									insert into agent_status (
@@ -313,31 +267,13 @@
 						</cfif>
 					</cfif>
 				</cfloop>
-				
-				
 				<cfloop list="#structKeyList(url)#" index="key">
 					<cfif left(key,24) is "electronic_address_type_">
 						<cfset thisElectronicAddressID=listlast(key,"_")>
 						<cfset thisElectronicAddressType=url["electronic_address_type_#thisElectronicAddressID#"]>
 						<cfset thisElectronicAddress=url["electronic_address_#thisElectronicAddressID#"]>
-						<!----
-						<br>thisElectronicAddressID: #thisAgentStatusID#
-						<br>thisElectronicAddressType: #thisAgentStatus#
-						<br>thisElectronicAddress: #thisAgentStatusDate#
-						
-							
-						<br>thisElectronicAddressID: #thisAgentStatusID#
-						<br>thisElectronicAddressType: #thisAgentStatus#
-						<br>thisElectronicAddress: #thisAgentStatusDate#
-						---->
-						
-					
-						
-						
 						<cfif thisElectronicAddressID contains "new">
 							<cfif len(thisElectronicAddressType) gt 0>
-							
-							
 								<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 									INSERT INTO electronic_address (
 										AGENT_ID
@@ -351,15 +287,10 @@
 								</cfquery>
 							</cfif>
 						<cfelseif thisElectronicAddressType is "DELETE">
-						
-						
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								delete from  electronic_address where electronic_address_id=<cfqueryparam value = "#thisElectronicAddressID#" CFSQLType = "CF_SQL_INTEGER">
 							</cfquery>
-						<cfelse>
-						
-						
-						
+						<cfelse>						
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update electronic_address 
 								set
@@ -371,19 +302,9 @@
 						</cfif>
 					</cfif>
 				</cfloop>
-				
 			</cftransaction>
 		<cfreturn "success">
 		<cfcatch>
-		
-		<!----
-		
-		<cfdump var=#cfcatch#>
-			---->
-			
-			
-						
-
 			<cf_logError subject="error caught: saveAgent" attributeCollection=#cfcatch#>
 			<cfset m=cfcatch.message & ': ' & cfcatch.detail>
 			<cfif isdefined("cfcatch.sql")>
@@ -394,51 +315,12 @@
 		</cftry>
 	</cfoutput>
 </cffunction>
-
-
-
-
-
-
-<cffunction name="saveAgentxxx" access="remote">
-	<cftry>
-	<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select sq_agent_name_id.nextval n from dual
-	</cfquery>
-
-	<cfquery name="updateName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		INSERT INTO agent_name (
-			agent_name_id, agent_id, agent_name_type, agent_name)
-		VALUES (
-			#n.n#, #agent_id#, '#agent_name_type#','#agent_name#')
-	</cfquery>
-		<cfset d = querynew("status,agent_name_id,agent_name_type,agent_name")>
-		<cfset temp = queryaddrow(d,1)>
-		<cfset temp = QuerySetCell(d, "status", "success",1)>
-		<cfset temp = QuerySetCell(d, "agent_name_id", n.n,1)>
-		<cfset temp = QuerySetCell(d, "agent_name_type", agent_name_type,1)>
-		<cfset temp = QuerySetCell(d, "agent_name", agent_name,1)>
-		<cfreturn d>
-	<cfcatch>
-		<cfset d = querynew("status")>
-		<cfset temp = queryaddrow(d,1)>
-		<cfset temp = QuerySetCell(d, "status", cfcatch.message & ': ' & cfcatch.detail,1)>
-		<cfreturn d>
-	</cfcatch>
-	</cftry>
-</cffunction>
-
-
-<!------------------------------------->
-
+<!---------------------------------------------------------------->
 <cffunction name="findAgents" access="remote">
 	<cfoutput>
-	
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
-	</cfif>
-	
-	
+	</cfif>	
 	<cfset sql = "SELECT 
 					agent.agent_id,
 					agent.preferred_agent_name,
@@ -452,12 +334,10 @@
 					agent.agent_id=agent_status.agent_id (+) and
 					agent.agent_id > -1
 					">
-					
-
 	<cfif isdefined("anyName") AND len(anyName) gt 0>
 		<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#trim(ucase(escapeQuotes(anyName)))#%'">
 	</cfif>
-	<cfif isdefined("agent_id") AND isnumeric(#agent_id#)>
+	<cfif isdefined("agent_id") AND isnumeric(agent_id)>
 		<cfset sql = "#sql# AND agent.agent_id = #agent_id#">
 	</cfif>
 	<cfif isdefined("status_date") AND len(status_date) gt 0>
@@ -490,8 +370,7 @@
 		<cfelseif len(created_date) is 10>
 			<cfset filter='YYYY-MM-DD'>
 		<cfelse>
-			Search created date as YYYY, YYYY-MM, YYYY-MM-DD
-			<cfabort>
+			<cfreturn 'error: Search created date as YYYY, YYYY-MM, YYYY-MM-DD'>
 		</cfif>
 		<cfset sql = "#sql# AND to_char(CREATED_DATE,'#filter#') #create_date_oper# '#created_date#'">
 	</cfif>

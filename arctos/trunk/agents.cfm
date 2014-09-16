@@ -59,7 +59,6 @@
 			},
 		}).width(800-10).height(600-10);
 		$(window).resize(function() {
-			//fluidDialog();
 			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 		});
 		$(".ui-widget-overlay").click(function(){
