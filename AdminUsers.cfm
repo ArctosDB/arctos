@@ -237,14 +237,18 @@
 						<li>Give role "public" to everyone, just because Oracle is goofy</li>
 						<li>Be very cautious in assigning access to shared information, such as agents and places</li>
 						<li>Only members of the Arctos Advisory Committee or their designated representatives should have access to code tables, geography, and taxonomy</li>
-						<li>Role documentation is <a href="Admin/user_roles.cfm">here</a></li>
+						<li>
+							<div class="importantNotification">
+								<a href="Admin/user_roles.cfm">Read this before assigning roles to users</a>
+							</div>
+						</li>
 					</ul>
 				</td>
 			<tr>
 				<td valign="top">
 					<table border>
 						<tr>
-							<td colspan="2">Roles <a href="AdminUsers.cfm?username=#username#&action=dbRole" class="infoLink">[ show roles ]</td>
+							<td colspan="3">Roles <a href="AdminUsers.cfm?username=#username#&action=dbRole" class="infoLink">[ show roles ]</td>
 						</tr>
 						<tr class="newRec">
 							<form name="ar" method="post" action="AdminUsers.cfm">
