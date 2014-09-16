@@ -110,18 +110,9 @@ function addAgentStatus(){
 	h+='<select name="agent_status_new'+i+'" id="agent_status_new'+i+'" size="1"></select>';
 	h+='</td><td><input type="datetime" size="12" name="status_date_new'+i+'" id="status_date_new'+i+'"></td>';
 	h+='<td><textarea class="mediumtextarea" name="status_remark_new'+i+'" id="status_remark_new'+i+'"></textarea></td><td></td></tr>';
-
-		
-		
-		//<input type="text" size="50" name="status_remark_new'+i+'" id="status_remark_new'+i+'">
 	$('#nas' + $("#nnas").val()).after(h);
 	$('#agent_status_new1').find('option').clone().appendTo('#agent_status_new' + i);
-	
-	
 	$('#status_date_new'+i ).datepicker();
-
-	
-	
 	$("#nnas").val(i);
 }
 function addAgentRelationship(){
