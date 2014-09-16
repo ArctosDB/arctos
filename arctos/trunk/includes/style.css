@@ -27,6 +27,24 @@
 
 */
 
+
+
+.validAddress{border:2px solid green;margin:1px;padding:1px;}
+	.invalidAddress{border:2px solid red;margin:1px;padding:1px;}
+	
+	fieldset {
+	    border:0;
+	    outline: 1px solid gray;
+		margin:1em;
+		padding:1em;
+	}
+	legend {
+	    font-size:85%;
+	}
+	
+	
+	
+	
 /* BEGIN site-wide defaults */
 
 	body {
