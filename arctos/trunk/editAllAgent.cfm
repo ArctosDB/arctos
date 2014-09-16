@@ -503,7 +503,7 @@
 						id="electronic_address_#electronic_address_id#" value="#ADDRESS#">
 				</div>
 			</cfloop>
-			<input type="button" onclick="addElectronicAddress()" value="add a row">
+			
 			<input type="hidden" id="nnea" value="1">
 			<div class="newRec" id="eaddiv1">
 				<select name="electronic_address_type_new1" id="electronic_address_type_new1" size="1">
@@ -513,6 +513,7 @@
 					</cfloop>
 				</select>
 				<input type="text" size="25" name="electronic_address_new1" id="electronic_address_new1">
+				<input type="button" onclick="addElectronicAddress()" value="add a row">
 			</div>
 		</fieldset>			
 		<input type="submit" value="save all changes" class="savBtn">
