@@ -37,7 +37,8 @@
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
 		});
-
+		// have to keep this here - it's not called from ajax.js on injected forms
+		$("input[type='date'], input[type='datetime']" ).datepicker();
 		$("#fEditAgent").submit(function(event){
 			event.preventDefault();
 			$.ajax({
