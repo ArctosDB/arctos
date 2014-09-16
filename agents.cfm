@@ -86,7 +86,7 @@
 						<input type="hidden" name="Action" value="search">
 						<fieldset>
 							<label for="anyName"><a href="javascript:void(0);" onClick="getDocs('agent','anynamesearch')">Any part of any name</a></label>
-							<input type="text" name="anyName" id="anyName" size="75">
+							<input type="text" name="anyName" id="anyName" size="75" placeholder="this is the search box you're looking for">
 							<table width="100%">
 								<tr>
 									<td>
@@ -100,7 +100,7 @@
 									</td>
 									<td>
 										<label for="agent_id">AgentID</label>
-										<input type="number" name="agent_id" size="12">
+										<input type="number" name="agent_id" size="12" placeholder="agent_id>
 									</td>
 								</tr>
 							</table>
@@ -117,14 +117,14 @@
 									</td>
 									<td>
 										<label for="agent_name">Agent Name</label>
-										<input type="text" name="agent_name" id="agent_name" size="35">
+										<input type="text" name="agent_name" id="agent_name" size="35" placeholder="non-preferred name">
 									</td>
 								</tr>
 							</table>
 						</fieldset>
 						<fieldset>
 							<label for="address">Address</label>
-							<input type="text" name="address" id="address" size="75">
+							<input type="text" name="address" id="address" size="75" placeholder="any part of any address">
 						</fieldset>
 						<fieldset>
 							<table width="100%">
@@ -148,7 +148,7 @@
 									</td>
 									<td>
 										<label for="status_date">Status Date</label>
-										<input type="date" name="status_date" id="status_date" size="15">
+										<input type="date" name="status_date" id="status_date" size="15" placeholder="status date">
 									</td>
 								</tr>
 							</table>
@@ -158,11 +158,11 @@
 								<tr>
 									<td>
 										<label for="created_by">Created By</label>
-										<input type="text" name="created_by" id="created_by" size="35">
+										<input type="text" name="created_by" id="created_by" size="35" placeholder="created by agent">
 							
 									</td>
 									<td>
-										<label for="create_date_oper">create date match type</label>
+										<label for="create_date_oper">date match type</label>
 										<select name="create_date_oper" size="1" id="create_date_oper">
 											<option value="<=">Before</option>
 											<option selected value="=" >At</option>
@@ -171,7 +171,7 @@
 									</td>
 									<td>
 										<label for="created_date">Created Date</label>
-										<input type="datetime" name="created_date" id="created_date" size="15">
+										<input type="datetime" name="created_date" id="created_date" size="15" placeholder="created date">
 									</td>
 								</tr>
 							</table>
