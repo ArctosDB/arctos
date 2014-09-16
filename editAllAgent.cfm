@@ -156,13 +156,20 @@ legend {
 
 		$(document).on("change", '[id^="electronic_address_type_"]', function(){
 			// change input type
-console.log('this.id: ' + this.id);
-			var i = this.id;
+			console.log('this.id: ' + this.id);
+			
+			//var i = this.id;
 			var ntype;
 			// might be electronic_address_type_new1,electronic_address_new1,electronic_address_type_2642,electronic_address_2642
-			i=i.replace("electronic_address_type_", ""); 
-			i=i.replace("electronic_address_", ""); 
-			console.log('i: ' + i);
+			//i=i.replace("electronic_address_type_", ""); 
+			//i=i.replace("electronic_address_", ""); 
+			//console.log('i: ' + i);
+
+
+console.log($(this).val());
+
+
+/*
 			if ( $("#electronic_address_type_" + i).val()=='url' ){
 					ntype='url';
 				} else if ( $("#electronic_address_type_" + i).val()=='e-mail' ){
@@ -174,7 +181,7 @@ console.log('this.id: ' + this.id);
 				}
 			console.log('ntype: ' + ntype);
 				$("#electronic_address_type_" + i).clone().attr('type',ntype).insertAfter("#electronic_address_type_" + i).prev().remove();
-
+*/
 
 		});
 
