@@ -453,7 +453,7 @@
 							<input type="hidden" name="related_agent_id_#agent_relations_id#" id="related_agent_id_#agent_relations_id#" value="#related_agent_id#">
 							<input type="text" name="related_agent_#agent_relations_id#" id="related_agent_#agent_relations_id#" value="#agent_name#"
 							onchange="pickAgentTest('related_agent_id_#agent_relations_id#',this.id,this.value); return false;"
-							onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr mediuminput">
+							 placeholder="pick an agent" class="reqdClr mediuminput">
 						</td>
 					</tr>
 				
