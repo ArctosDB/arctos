@@ -1,37 +1,42 @@
 <cfinclude template="/includes/_header.cfm">
-<cfif #action# IS "nothing">
-<cfoutput>
-<cfquery name="current" datasource="uam_god">
-	select * from cf_ctuser_roles order by role_name
-</cfquery>
-The following table summarizes Arctos Operator Roles.
-<br>
-<div class="importantNotification">
-	Before assigning roles to users, provide them with the "required reading" link from the table below, and ensure that they 
-	understand the responsibilities of working in a shared system.
-</div>
-
-<table border>
-	<tr>
-		<td>Role Name</td>
-		<td>Description</td>
-		<td>Required Reading</td>
-		<td>DB Definition</td>
-	</tr>
-<cfloop query="current">
-	<tr>
-		<td>#role_name#</td>
-		<td>#Description#</td>
-		<td>#required_reading#</td>
-		<td><a href="user_roles.cfm?action=defineRole&role_name=#role_name#">[&nbsp;Def&nbsp;]</a></td>
-	</tr>
-</cfloop>
-</table>
-</cfoutput>
+<cfset title="User Roles">
+<cfif action IS "nothing">
+	<cfoutput>
+		<cfquery name="current" datasource="uam_god">
+			select * from cf_ctuser_roles order by role_name
+		</cfquery>
+		The following table summarizes Arctos Operator Roles, and may be out of date. Please use the contact link in the footer if you notice errors.
+		<br>The [def] link is the ONLY authoritative "description" of Arctos user roles. Note that roles are additive; "manage_geography" does NOT include SELECT 
+		access to table geog_auth_rec; all users already have such access through the PUBLIC role.
+		<br>
+		<div class="importantNotification">
+			Before assigning roles to users, provide them with the "required reading" link from the table below, and ensure that they 
+			understand the responsibilities of working in a shared system.
+		</div>
+		
+		<table border>
+			<tr>
+				<td>Role Name</td>
+				<td>Description</td>
+				<td>Required Reading</td>
+				<td>DB Definition</td>
+			</tr>
+		<cfloop query="current">
+			<tr>
+				<td>#role_name#</td>
+				<td>#Description#</td>
+				<td>#required_reading#</td>
+				<td><a href="user_roles.cfm?action=defineRole&role_name=#role_name#">[&nbsp;Def&nbsp;]</a></td>
+			</tr>
+		</cfloop>
+		</table>
+	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------->
-<cfif #action# IS "defineRole">
+<cfif action IS "defineRole">
 	<cfoutput>
+		The following table is authoritative as of #dateformat(now, 'YYYY-MM-DD')#.
+
 		<cfquery name="d" datasource="uam_god">
 			 SELECT table_name, grantee,
 				MAX(DECODE(privilege, 'SELECT', 'yes','no')) AS select_priv,
