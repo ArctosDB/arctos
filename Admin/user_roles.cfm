@@ -5,6 +5,7 @@
 	select * from cf_ctuser_roles order by role_name
 </cfquery>
 The following table summarizes Arctos Operator Roles.
+<br>
 <div class="importantNotification">
 	Before assigning roles to users, provide them with the "required reading" link from the table below, and ensure that they 
 	understand the responsibilities of working in a shared system.
