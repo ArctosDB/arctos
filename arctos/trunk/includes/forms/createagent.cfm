@@ -1,149 +1,144 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfif action is "nothing">
-<cfquery name="ctAgent_Type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select agent_type from ctagent_type order by agent_type
-</cfquery>
-
-<script language="javascript" type="text/javascript">
-	jQuery(document).ready(function() {
-		//$.noConflict();
-		///jQuery("#birth_date").datepicker();
-	});
-	function togglePerson(atype){
-		if (atype=='person'){
-			$("#newPersonAttrs").show();
-		} else {
-			$("#newPersonAttrs").hide();
-		}
-		try{parent.resizeCaller();}catch(e){}
-	}
-	function suggestName(ntype){
-		try {
-			var fName=document.getElementById('first_name').value;
-			var mName=document.getElementById('middle_name').value;
-			var lName=document.getElementById('last_name').value;
-			var name='';
-			if (ntype=='initials plus last'){
-				if (fName.length>0){
-					name=fName.substring(0,1) + '. ';
-				}
-				if (mName.length>0){
-					name+=mName.substring(0,1) + '. ';
-				}
-				if (lName.length>0){
-					name+=lName;
-				} else {
-					name='';
-				}
+	<cfquery name="ctAgent_Type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select agent_type from ctagent_type order by agent_type
+	</cfquery>
+	<script language="javascript" type="text/javascript">
+		function togglePerson(atype){
+			if (atype=='person'){
+				$("#newPersonAttrs").show();
+			} else {
+				$("#newPersonAttrs").hide();
 			}
-			if (ntype=='last plus initials'){
-				if (lName.length>0){
-					name=lName + ', ';
+			try{parent.resizeCaller();}catch(e){}
+		}
+		function suggestName(ntype){
+			try {
+				var fName=document.getElementById('first_name').value;
+				var mName=document.getElementById('middle_name').value;
+				var lName=document.getElementById('last_name').value;
+				var name='';
+				if (ntype=='initials plus last'){
 					if (fName.length>0){
-						name+=fName.substring(0,1) + '. ';
+						name=fName.substring(0,1) + '. ';
 					}
 					if (mName.length>0){
 						name+=mName.substring(0,1) + '. ';
 					}
-				} else {
-					name='';
-				}				
-			}
-			if (name.length>0){
-				var rf=document.getElementById('agent_name');
-				var tName=name.replace(/^\s+|\s+$/g,""); // trim spaces
-				if (rf.value.length==0){
-					rf.value=tName;
+					if (lName.length>0){
+						name+=lName;
+					} else {
+						name='';
+					}
 				}
-			}
-		}
-		catch(e){
-		}
-	}
-	function autosuggestPreferredName(){
-		var pname=$("#first_name").val() + ' ' +  $("#middle_name").val() + ' ' + $("#last_name").val();
-		//pname=pname.replace(/^\s+|\s+$/g,"");
-		pname = pname.replace(/\s{2,}/g, ' ');
-		$("#preferred_agent_name").val(pname);
-	}
-	function autosuggestNameComponents(){
-		jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "splitAgentName",
-				returnformat : "json",
-				queryformat : 'column',
-				name : $("#preferred_agent_name").val()
-			},
-			function (r) {
-				if (r.DATA.FORMATTED_NAME[0].length > 0){
-					var sfn=r.DATA.FORMATTED_NAME[0];
-					var sfirstn=r.DATA.FIRST[0];
-					var smdln=r.DATA.MIDDLE[0];
-					var slastn=r.DATA.LAST[0];
-					if (r.DATA.FORMATTED_NAME[0] != $("#preferred_agent_name").val()){
-						var r=confirm("Suggested formatted name does not match the preferred name you entered.\n Press OK to use " + sfn + ' or CANCEL to keep what you entered.');
-						if (r==true){
-  							$("#preferred_agent_name").val(sfn);
+				if (ntype=='last plus initials'){
+					if (lName.length>0){
+						name=lName + ', ';
+						if (fName.length>0){
+							name+=fName.substring(0,1) + '. ';
 						}
+						if (mName.length>0){
+							name+=mName.substring(0,1) + '. ';
+						}
+					} else {
+						name='';
+					}				
+				}
+				if (name.length>0){
+					var rf=document.getElementById('agent_name');
+					var tName=name.replace(/^\s+|\s+$/g,""); // trim spaces
+					if (rf.value.length==0){
+						rf.value=tName;
 					}
-					if ($("#first_name").val().length == 0 && sfirstn.length>0){
-						$("#first_name").val(sfirstn);
-					}
-					if ($("#middle_name").val().length == 0 && smdln.length>0){
-						$("#middle_name").val(smdln);
-					}
-					if ($("#last_name").val().length == 0 && slastn.length>0){
-						$("#last_name").val(slastn);
-					}
-				} else { 
-					alert('Unable to parse input. Please carefully check preferred name format');
 				}
 			}
-		);
-	}
-	function forceSubmit(){
-		$("#forceOverride").val('true');
-		$("#createAgent").submit();
-	}
-	function preCreateCheck(){
-		if ($("#forceOverride").val()=="true"){
-			return true;
-		}
-		if ($("#agent_type").val()=='person'){
-			if ($("#first_name").val().length==0 && $("#last_name").val().length==0 && $("#middle_name").val().length==0){
-				alert('First, middle, or last name is required for person agents. Use the autogenerate button.');
-				$("#forceOverride").val('false');
-				return false;
+			catch(e){
 			}
 		}
-		jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "checkAgent",
-				returnformat : "json",
-				queryformat : 'column',
-				preferred_name : $("#preferred_agent_name").val(),
-				agent_type : $("#agent_type").val(),
-				first_name : $("#first_name").val(),
-				middle_name : $("#middle_name").val(),
-				last_name : $("#last_name").val()
-			},
-			function (r) {
-				if(r){
+		function autosuggestPreferredName(){
+			var pname=$("#first_name").val() + ' ' +  $("#middle_name").val() + ' ' + $("#last_name").val();
+			//pname=pname.replace(/^\s+|\s+$/g,"");
+			pname = pname.replace(/\s{2,}/g, ' ');
+			$("#preferred_agent_name").val(pname);
+		}
+		function autosuggestNameComponents(){
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "splitAgentName",
+					returnformat : "json",
+					queryformat : 'column',
+					name : $("#preferred_agent_name").val()
+				},
+				function (r) {
+					if (r.DATA.FORMATTED_NAME[0].length > 0){
+						var sfn=r.DATA.FORMATTED_NAME[0];
+						var sfirstn=r.DATA.FIRST[0];
+						var smdln=r.DATA.MIDDLE[0];
+						var slastn=r.DATA.LAST[0];
+						if (r.DATA.FORMATTED_NAME[0] != $("#preferred_agent_name").val()){
+							var r=confirm("Suggested formatted name does not match the preferred name you entered.\n Press OK to use " + sfn + ' or CANCEL to keep what you entered.');
+							if (r==true){
+	  							$("#preferred_agent_name").val(sfn);
+							}
+						}
+						if ($("#first_name").val().length == 0 && sfirstn.length>0){
+							$("#first_name").val(sfirstn);
+						}
+						if ($("#middle_name").val().length == 0 && smdln.length>0){
+							$("#middle_name").val(smdln);
+						}
+						if ($("#last_name").val().length == 0 && slastn.length>0){
+							$("#last_name").val(slastn);
+						}
+					} else { 
+						alert('Unable to parse input. Please carefully check preferred name format');
+					}
+				}
+			);
+		}
+		function forceSubmit(){
+			$("#forceOverride").val('true');
+			$("#createAgent").submit();
+		}
+		function preCreateCheck(){
+			if ($("#forceOverride").val()=="true"){
+				return true;
+			}
+			if ($("#agent_type").val()=='person'){
+				if ($("#first_name").val().length==0 && $("#last_name").val().length==0 && $("#middle_name").val().length==0){
+					alert('First, middle, or last name is required for person agents. Use the autogenerate button.');
 					$("#forceOverride").val('false');
-					var theHTML='There are potential problems with the agent you are trying to create.<br>' + r;
-					theHTML+='<p>If you are absolutely sure that this agent is not a duplicate, you may ';
-					theHTML+='<span onclick="forceSubmit()" class="likeLink">click here to force creation</span></p>';
-					$("#preCreateErrors").html(theHTML).addClass('error').show();
 					return false;
-				}else{
-					$("#forceOverride").val('true');
-					$("#createAgent").submit();
 				}
 			}
-		);
-		return false;
-	}
-</script>
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "checkAgent",
+					returnformat : "json",
+					queryformat : 'column',
+					preferred_name : $("#preferred_agent_name").val(),
+					agent_type : $("#agent_type").val(),
+					first_name : $("#first_name").val(),
+					middle_name : $("#middle_name").val(),
+					last_name : $("#last_name").val()
+				},
+				function (r) {
+					if(r){
+						$("#forceOverride").val('false');
+						var theHTML='There are potential problems with the agent you are trying to create.<br>' + r;
+						theHTML+='<p>If you are absolutely sure that this agent is not a duplicate, you may ';
+						theHTML+='<span onclick="forceSubmit()" class="likeLink">click here to force creation</span></p>';
+						$("#preCreateErrors").html(theHTML).addClass('error').show();
+						return false;
+					}else{
+						$("#forceOverride").val('true');
+						$("#createAgent").submit();
+					}
+				}
+			);
+			return false;
+		}
+	</script>
 	<cfoutput>
 		<strong>Create Agent</strong>
 		<form name="prefdName" id="createAgent" onsubmit="return preCreateCheck()">

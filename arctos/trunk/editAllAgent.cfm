@@ -280,8 +280,7 @@
 						value="#ctAgent_Type.agent_type#">#ctAgent_Type.agent_type#</option>
 				</cfloop>
 			</select>
-							<span class="infoLink" onclick="getCtDoc('ctagent_type');">Define</span>
-
+			<span class="infoLink" onclick="getCtDoc('ctagent_type');">Define</span>
 			<label for="agent_remarks">Agent Remark</label>
 			<input type="text" value="#stripQuotes(agent.agent_remarks)#" name="agent_remarks" id="agent_remarks" size="100">
 		</fieldset>
@@ -359,6 +358,7 @@
 								value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
 						</cfloop>
 					</select>
+					<span class="infoLink" onclick="getCtDoc('ctagent_name_type');">Define</span>
 					<input type="text" value="#agent_names.agent_name#" name="agent_name_#agent_name_id#" id="agent_name_#agent_name_id#" size="40" required class="reqdClr">
 					<cfif agent_name_type is "login">
 						<a href="/AdminUsers.cfm?action=edit&username=#agent_names.agent_name#" class="infoLink">[ Arctos user ]</a>
@@ -439,7 +439,8 @@
 										<cfif ctRelns.AGENT_RELATIONSHIP is relns.AGENT_RELATIONSHIP>selected="selected"</cfif>
 										>#ctRelns.AGENT_RELATIONSHIP#</option>
 								</cfloop>
-							</select> 
+							</select>
+							<span class="infoLink" onclick="getCtDoc('CTAGENT_RELATIONSHIP');">Define</span>
 						</td>
 						<td>
 							<input type="hidden" name="related_agent_id_#agent_relations_id#" id="related_agent_id_#agent_relations_id#" value="#related_agent_id#">
@@ -502,6 +503,7 @@
 							>#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
 						</cfloop>
 					</select>
+					<span class="infoLink" onclick="getCtDoc('CTELECTRONIC_ADDR_TYPE');">Define</span>
 					<input type="#ttype#" class="reqdClr" size="25" name="electronic_address_#electronic_address_id#" 
 						id="electronic_address_#electronic_address_id#" value="#ADDRESS#">
 				</div>
