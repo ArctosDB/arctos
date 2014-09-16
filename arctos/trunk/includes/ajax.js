@@ -68,7 +68,7 @@ function loadAgentSearch(q){
 			//console.log(r);
 
 			if (r.ROWCOUNT===0){
-				$("#agntRslCell").html('nothing found');
+				$("#agntRslCell").html('<span class="error">Nothing Matched.</span>');
 				return false;
 			}
 			h='<div style="height:30em; overflow:scroll;">';
