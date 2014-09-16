@@ -369,8 +369,9 @@
 				</div>
 			</cfloop>
 			<div class="newRec">
-				Add Name<br>
 				<input type="hidden" id="nnan" value="1">
+				<input type="button" onclick="addAgentName()" value="add a row">
+				<label for="agentnamedv1">Add Name</label>
 				<div id="agentnamedv1">
 					<select name="agent_name_type_new1" id="agent_name_type_new1">
 						<option value="">pick name type</option>
@@ -379,7 +380,7 @@
 						</cfloop>
 					</select>
 					<input type="text" name="agent_name_new1" id="agent_name_new1" placeholder="new agent name" class="minput">
-					<input type="button" onclick="addAgentName()" value="add a row">
+					
 				</div>
 			</div>
 		</fieldset>
