@@ -175,16 +175,24 @@
 								</tr>
 							</table>
 						</fieldset>
-						<input type="submit" value="Search" class="schBtn" id="goAgentSearch">
-						<input type="reset" value="Clear Form" class="clrBtn">
-						<input type="button" 
+						<div style="display:table;width:100%;">
+							<div style="display:table-cell;width:25%;">
+								<input type="submit" value="Search" class="schBtn" id="goAgentSearch">
+							</div>
+							<div style="display:table-cell;width:25%;"><input type="reset" value="Clear Form" class="clrBtn"></div>
+							<div style="display:table-cell;width:25%;"><input type="button" 
 									value="Create Person" 
 									class="insBtn"
-									onClick="createAgent('person');">
-						<input type="button" 
+									onClick="createAgent('person');"></div>
+							<div style="display:table-cell;width:25%;">	<input type="button" 
 									value="Create Agent" 
 									class="insBtn"
-									onClick="createAgent();">
+									onClick="createAgent();"></div>
+						</div>
+						
+						
+						
+					
 						<!----
 						<table width="100%">
 							<tr>
