@@ -154,7 +154,7 @@ function addAgentAddr(aid){
 		width: 'auto',
 		close: function() {
 			$( this ).remove();
-		},
+		}
 	}).load(guts, function() {
 		$(this).dialog("option", "position", ['center', 'center'] );
 	});
