@@ -380,11 +380,13 @@
 						</cfloop>
 					</select>
 					<input type="text" name="agent_name_new1" id="agent_name_new1" placeholder="new agent name" class="minput">
-					
 				</div>
 			</div>
 		</fieldset>
 		<fieldset>
+			<legend>Agent Status <span class="likeLink" onclick="getCtDoc('ctAgent_Status');">codetable</span></legend>
+			
+			<!----
 			<table border>
 				<tr>
 					<th>
@@ -430,6 +432,7 @@
 					<td><input type="button" onclick="addAgentStatus()" value="add a row"></td>
 				</tr>
 			</table>
+			---->
 		</fieldset>
 		<fieldset>
 			<table border>

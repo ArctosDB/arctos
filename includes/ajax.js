@@ -92,7 +92,7 @@ function addGroupMember(){
 	var h='<div><input type="hidden" name="member_agent_id_new'+i+'" id="member_agent_id_new'+i+'">';
 	h+='<input type="text" name="group_member_new'+i+'" id="group_member_new'+i+'"';
 	h+=' onchange="pickAgentTest(\'member_agent_id_new'+i+'\',this.id,this.value); return false;"';
-	h+=' onKeyPress="return noenter(event);" placeholder="new group member" class="mediuminput"></div>';
+	h+=' onKeyPress="return noenter(event);" placeholder="new group member" class="minput"></div>';
 	$('#newGroupMembers').append(h);
 	$("#nnga").val(i);
 }
@@ -102,7 +102,7 @@ function addAgentName(){
 	var i=parseInt($("#nnan").val()) + parseInt(1);
 
 	var h='<div id="agentnamedv'+i+'"><select name="agent_name_type_new'+i+'" id="agent_name_type_new'+i+'"></select>';
-	h+='<input type="text" name="agent_name_new'+i+'" id="agent_name_new'+i+'" size="40" placeholder="new agent name" class="mediuminput"></div>';
+	h+='<input type="text" name="agent_name_new'+i+'" id="agent_name_new'+i+'" size="40" placeholder="new agent name" class="minput"></div>';
 	$('#agentnamedv' + $("#nnan").val()).after(h);
 	$('#agent_name_type_new1').find('option').clone().appendTo('#agent_name_type_new' + i);
 	$("#nnan").val(i);
@@ -125,7 +125,7 @@ function addAgentRelationship(){
 	h+='</td><td><input type="hidden" name="related_agent_id_new'+i+'" id="related_agent_id_new'+i+'">';
 	h+='<input type="text" name="related_agent_new'+i+'" id="related_agent_new'+i+'" ';
 	h+='onchange="getAgent(\'related_agent_idnew'+i+'\',this.id,\'fEditAgent\',this.value); return false;"';
-	h+='onKeyPress="return noenter(event);" class="mediuminput" placeholder="pick related agent">';
+	h+='onKeyPress="return noenter(event);" class="minput" placeholder="pick related agent">';
 	h+='</td></tr>';
 	$('#nar' + $("#nnar").val()).after(h);
 	$('#agent_relationship_new1').find('option').clone().appendTo('#agent_relationship_new' + i);
@@ -136,7 +136,7 @@ function addElectronicAddress(){
 	var i=parseInt($("#nnea").val()) + parseInt(1);
 	var h='<div id="eaddiv'+i+'" class="newRec">';
 	h+='<select name="electronic_address_type_new'+i+'" id="electronic_address_type_new'+i+'" size="1"></select> ';
-	h+='<input type="text" class="mediuminput" name="electronic_address_new'+i+'" id="electronic_address_new'+i+'" placeholder="add electronic address">';
+	h+='<input type="text" class="minput" name="electronic_address_new'+i+'" id="electronic_address_new'+i+'" placeholder="add electronic address">';
 	h+='</div>';
 	$('#eaddiv' + $("#nnea").val()).after(h);
 	$('#electronic_address_type_new1').find('option').clone().appendTo('#electronic_address_type_new' + i);
