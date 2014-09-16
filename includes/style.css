@@ -65,7 +65,7 @@
 /* END over-ride some annoying jquery-ui stuff */
 
 
-/* BEGIN textarea styling and sizing */
+/* BEGIN input styling and sizing */
 	/* default "not usually used but occasionally huge" input" */
 	.tinytextarea {
 		width:10em;
@@ -105,6 +105,9 @@
 	    height: 6em;
 	    margin: 0.3em;
 	    width: 44em;
+	}
+	.inpw50 {
+		width:50em;
 	}
 
 /* END textarea styling and sizing */
