@@ -84,6 +84,7 @@
 				<div id="td_search">
 					<form name="agntSearch" id="agntSearch">
 						<input type="hidden" name="Action" value="search">
+						<fieldset>
 						<label for="anyName"><a href="javascript:void(0);" onClick="getDocs('agent','anynamesearch')">Any part of any name</a></label>
 						<input type="text" name="anyName" id="anyName" size="75">
 						<table width="100%">
@@ -103,6 +104,8 @@
 								</td>
 							</tr>
 						</table>
+						
+						</fieldset>
 						<label for="address">Address</label>
 						<input type="text" name="address" id="address" size="75">
 						<table width="100%">
