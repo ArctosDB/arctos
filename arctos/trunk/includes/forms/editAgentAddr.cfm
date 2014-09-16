@@ -94,7 +94,7 @@
 					</td>
 					<td>
 						<label for="country_cde">Country Code</label>
-						<input type="text" name="country_cde" id="country_cde" class="reqdClr">
+						<input type="text" name="country_cde" id="country_cde">
 					</td>
 				</tr>
 				<tr>
@@ -255,7 +255,7 @@
 					</td>
 					<td>
 						<label for="country_cde">Country Code</label>
-						<input type="text" name="country_cde" id="country_cde" class="reqdClr" value="#addr.country_cde#">
+						<input type="text" name="country_cde" id="country_cde" value="#addr.country_cde#">
 					</td>
 				</tr>
 				<tr>
