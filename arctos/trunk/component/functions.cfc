@@ -245,7 +245,7 @@
 		<cfset srchLastName=trim(escapeQuotes(srchLastName))>
 		<cfset srchPrefName=trim(escapeQuotes(preferred_name))>
 		
-		<cfset nameVariations="bob,robert;bill,william">
+		<cfset nameVariations="bob,robert;bill,william,billy">
 		
 		<cfoutput>
 		<cfloop list="#nameVariations#" index="p" delimiters=";,">
@@ -253,8 +253,26 @@
 			
 			<cfif listfindnocase(preferred_name,p," ,;_") is 1>
 				<cfset pinlist=listgetat(nameVariations,listcontains(nameVariations,p,';'),';')>
+				<br>pinlist=#pinlist#
+				<cfset thisTermAt=listfindnocase(pinlist,listgetat(srchPrefName,1,' '))>
+				<br>thisTermAt=#thisTermAt#
 				
-								<br>pinlist=#pinlist#
+				
+				<!----
+				select 
+						'nocase name variant match' reason,
+				        agent.agent_id, 
+				        agent.preferred_agent_name
+					from 
+				        agent,
+				        agent_name
+					where 
+				        agent.agent_id=agent_name.agent_id and
+				        (
+				        	<cfloop list="#pinlist#" index="n">
+				        		trim(upper(agent.preferred_agent_name))=trim(upper('#replace(srchPrefName,#'))
+				        	</cfloop>
+				      ---->  	
 
 			</cfif>
 		</cfloop>
