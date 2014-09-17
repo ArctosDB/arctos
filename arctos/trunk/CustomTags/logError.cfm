@@ -1,30 +1,16 @@
 <cfoutput>
-<!-------
-<cftry>
-
--------->
-<cfdump var=#ATTRIBUTES.CAUSE#>
-
-
-
 <cfif isdefined("attributes.cause.message")>
-<br>yep....
 	<cfset exception.message=replace(attributes.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','','all')>
 </cfif>
-
-
-exception.message<cfdump var=#exception.message#>
 <cfif isdefined("attributes.sql")>
 	<cfset exception.sql=attributes.sql>
 </cfif>
-
 <cfif isdefined("attributes.cause") and structKeyExists(attributes.cause,"tagcontext")>
 <cftry>
 	<cfset exception.line=attributes.cause.tagContext[1].line>
 <cfcatch></cfcatch>
 </cftry>
 </cfif>
-
 <!---- see if we can figure out why there's an error ---->
 <!--- first, just see if it's being explicitly handed in ---->
 <cfif isdefined("attributes.subject") and len(attributes.subject) gt 0>
@@ -167,15 +153,6 @@ exception.message<cfdump var=#exception.message#>
 	<cfset logdata=logdata & "<#key#>#replace(replace(exception[key],'=','[EQUALS]','all'),'&','[AND]','all')#</#key#>">
 </cfloop>
 <cfset logdata=logdata & "</logEntry>">
-
-
-
-<cfdump var=#exception#>
-
-
-<cfabort>
-
-
 <cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#logdata#">
 <cfmail subject="#exception.subject#" to="#Application.LogEmail#" from="logs@#application.fromEmail#" type="html">
 	<a href="http://network-tools.com/default.asp?prog=network&host=#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
