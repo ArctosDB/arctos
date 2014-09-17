@@ -15,7 +15,7 @@
 			margin:0 1em 0 0;
 			top:0;
 			left:0;
-			bottom:0
+			bottom:0;
 			background-color:white;
 			text-align:left;
 			z-index:20;}
