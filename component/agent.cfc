@@ -524,7 +524,7 @@
 	<cfset temp=ArrayAppend(nvars, listToArray('Abraham,Abe'))>
 	
 	
-	<cfdump var=#temp#>
+	<cfdump var=#nvars#>
 	
 	<cfabort>
 	
