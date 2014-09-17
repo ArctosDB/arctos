@@ -134,7 +134,7 @@
 					return false;
 				}
 			}
-			$("#createAgent").find(":submit").attr('value','beep boop');
+			$("#createAgent").find(":submit").attr('value','<img src="/images/indicator.gif">');
 			jQuery.getJSON("/component/agent.cfc",
 				{
 					method : "checkAgent",
