@@ -62,7 +62,7 @@
 			$("#preferred_agent_name").val(pname);
 		}
 		function autosuggestNameComponents(){
-			jQuery.getJSON("/component/functions.cfc",
+			jQuery.getJSON("/component/agent.cfc",
 				{
 					method : "splitAgentName",
 					returnformat : "json",
@@ -111,7 +111,7 @@
 					return false;
 				}
 			}
-			jQuery.getJSON("/component/functions.cfc",
+			jQuery.getJSON("/component/agent.cfc",
 				{
 					method : "checkAgent",
 					returnformat : "json",
