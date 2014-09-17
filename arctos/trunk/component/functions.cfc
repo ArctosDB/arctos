@@ -250,6 +250,9 @@
 		<cfoutput>
 		<cfloop list="#nameVariations#" index="p" delimiters=";,">
 			<br>#p#
+			<cfif listfind(preferred_name,p) is 1>
+				<br>MATCG
+			</cfif>
 		</cfloop>
 		</cfoutput>
 		<!--- nocase preferred name match ---->	
