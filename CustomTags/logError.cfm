@@ -5,8 +5,6 @@
 -------->
 <cfdump var=#attributes#>
 
-<cfabort>
-
 
 
 <cfif isdefined("attributes.cause.message")>
@@ -164,7 +162,16 @@
 <cfloop item="key" collection="#exception#">
 	<cfset logdata=logdata & "<#key#>#replace(replace(exception[key],'=','[EQUALS]','all'),'&','[AND]','all')#</#key#>">
 </cfloop>
-<cfset logdata=logdata & "</logEntry>">	
+<cfset logdata=logdata & "</logEntry>">
+
+
+
+<cfdump var=#exception#>
+
+
+<cfabort>
+
+
 <cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#logdata#">
 <cfmail subject="#exception.subject#" to="#Application.LogEmail#" from="logs@#application.fromEmail#" type="html">
 	<a href="http://network-tools.com/default.asp?prog=network&host=#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
