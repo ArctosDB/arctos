@@ -493,6 +493,15 @@
 		<cfif len(first_name) is 1 or len(middle_name) is 1 or len(last_name) is 1>
 			<cfset problems=listappend(problems,'FATAL ERROR: One-character names are disallowed. Abbreviations must be followed by a period.',';')>
 		</cfif>
+		<!--- 
+			period MUST be
+				1) followed by a space, or
+				2) The last character in the preferred name (eg, bla dood Jr.)
+		---->
+		<cfif refind('.*\.[^ ]*$',preferred_name>
+			<cfset problems=listappend(problems,'FATAL ERROR: Periods (except ending) must be followed by a space.',';')>
+		</cfif>
+		
 		<cfset strippedNamePermutations=trim(escapeQuotes(strippedNamePermutations))>	
 		<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>	
 		<!--- if we did not get a first or last name passed in, try to guess from the preferred name string ---->
