@@ -674,21 +674,21 @@
 		<!---- now do the same thing for first name ---->
 		<cfif len(first_name) gt 0 and len(last_name) gt 0>
 			
-			<cfset sqlinlist="">
+			<cfset varFNsql="">
 			<cfoutput>
 			<br>we have a first name
 			<cfloop array="#nvars#" index="p">
 				<cfif listfindnocase(p,first_name)>
 					<cfset varnts=p>
 					<cfset varnts=listdeleteat(varnts,listfindnocase(p,first_name))>
-					<cfset sqlinlist=listappend(sqlinlist,varnts)>
+					<cfset varFNsql=listappend(varFNsql,varnts)>
 				</cfif>
 				
 			</cfloop>
 			
-			
-			<cfdump var=#sqlinlist#>
-			
+			<hr>
+			<cfdump var=#varFNsql#>
+			<hr>
 			<!----
 			<cfif len(sqlinlist) gt 0>
 				<br>dound some first variants
