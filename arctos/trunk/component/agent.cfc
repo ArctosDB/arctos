@@ -651,6 +651,8 @@
 		    
 		
 		<cfset sqlinlist="">
+		
+		<!--- try to find name variants in preferred name ---->
 		<cfset fnOPN=listgetat(srchPrefName,1,' ,;')>
 		<cfset restOPN=trim(replace(srchPrefName,fnOPN,''))>
 
@@ -658,12 +660,20 @@
 			<cfif listfindnocase(p,fnopn)>
 				<cfset varnts=p>
 				<cfset varnts=listdeleteat(varnts,listfindnocase(p,fnopn))>
+				<cfset sqlinlist=listappend(sqlinlist,varnts)>
+				<!----
 				<cfloop list="#varnts#" index="f">
 					<cfset sqlinlist=listappend(sqlinlist,"#f# #restOPN#")>
 				</cfloop>
+				---->
 			</cfif>
-		</cfloop>		
+		</cfloop>
+		
+			
 		<cfset sqlinlist=ucase(sqlinlist)>
+		
+		<cfdump var=#sqlinlist#>
+		<cfabort>
 		<!--- nocase preferred name match ---->	
 		<cfset sql="select 
 						'nocase preferred name match' reason,
