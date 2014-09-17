@@ -114,7 +114,7 @@ drop table temp;
 				cataloged_item.collection_object_id,
 				cat_num,
 				institution_acronym,
-				collection.collection,
+				collection.guid_prefix collection,
 				cat_num,
 				scientific_name,
 				encumbrance,
