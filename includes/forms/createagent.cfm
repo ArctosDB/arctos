@@ -167,7 +167,7 @@
 				<input type="text" name="middle_name" id="middle_name">
 				<label for="last_name">Last Name</label>
 				<input type="text" name="last_name" id="last_name">
-				<br><span class="likeLink" onclick="autosuggestPreferredName();">Autogenerate preferred name from first/middle/last</span>
+				<br><span class="likeLink" onclick="autosuggestPreferredName();">Autogenerate/overwrite preferred name from first/middle/last</span>
 			</div>
 			<label for="agent_remarks">Remarks</label>
 			<input type="text"  size="80" name="agent_remarks" id="agent_remarks">
