@@ -102,7 +102,7 @@
 		}
 
 		function removeErrDiv(){
-			$("#caErrDv").remove();
+			$("#preCreateErrors").html('')..removeClass().hide();
 
 		}
 		function preCreateCheck(){
@@ -133,11 +133,11 @@
 					if(r){
 						$("#forceOverride").val('false');
 						
-						var q='<div id="caErrDv" class="error">There are potential problems with the agent you are trying to create.<p>' + r;
+						var q='There are potential problems with the agent you are trying to create.<p>' + r;
 						q+='</p>If you are absolutely sure that this agent is not a duplicate, you may ';
 
-						q+='<span onclick="forceSubmit()" class="likeLink">click here to force creation</span></p>';
-q+='<span onclick="removeErrDiv()" class="likeLink">return</span>';
+						q+='<p><span onclick="forceSubmit()" class="likeLink">click here to force creation</span></p>';
+q+='<p><span onclick="removeErrDiv()" class="likeLink">return</span></p>';
 						$("#preCreateErrors").html(q).addClass('error').show();
 						
 
