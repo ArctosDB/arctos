@@ -661,33 +661,49 @@
 				<cfset varnts=p>
 				<cfset varnts=listdeleteat(varnts,listfindnocase(p,fnopn))>
 				<cfset sqlinlist=listappend(sqlinlist,varnts)>
-				<!----
-				<cfloop list="#varnts#" index="f">
-					<cfset sqlinlist=listappend(sqlinlist,"#f# #restOPN#")>
-				</cfloop>
-				---->
 			</cfif>
 		</cfloop>
-		
+		<cfif len(sqlinlist) gt 0>
+			<cfset sqlinlist=ucase(sqlinlist)>
+			<cfset varPNsql="">
+			<cfloop list="#sqlinlist#" index="f">
+				<cfset varPNsql=listappend(varPNsql,"replace(upper(agent_name.agent_name),'#ucase(f)#','#ucase(fnOPN)#') = '#ucase(srchPrefName)#'",'|')>
+			</cfloop>
+			<cfset varPNsql=replace(varPNsql,'|',' OR ','all')>
+		</cfif>
+		<!---- now do the same thing for first name ---->
+		<cfif len(first_name) gt 0 and len(last_name) gt 0>
 			
-		<cfset sqlinlist=ucase(sqlinlist)>
-		
-		<cfdump var=#sqlinlist#>
-		
-		
-		<cfset varsql="">
-		
-		
-		<cfoutput>
-		
-		<cfloop list="#sqlinlist#" index="f">
-			<cfset varsql=listappend(varsql,"replace(upper(agent_name.agent_name),'#ucase(f)#','#ucase(fnOPN)#') = '#ucase(srchPrefName)#'",'|')>
-		</cfloop>
-		
-		<cfset varsql=replace(varsql,'|',' OR ','all')>
-		<cfdump var=#varsql#>
-</cfoutput>
-
+			<cfset sqlinlist="">
+			<cfoutput>
+			<br>we have a first name
+			<cfloop array="#nvars#" index="p">
+				<cfif listfindnocase(p,first_name)>
+					<cfset varnts=p>
+					<cfset varnts=listdeleteat(varnts,listfindnocase(p,first_name))>
+					<cfset sqlinlist=listappend(sqlinlist,varnts)>
+				</cfif>
+				
+			</cfloop>
+			
+			
+			<cfdump var=#sqlinlist#>
+			
+			<!----
+			<cfif len(sqlinlist) gt 0>
+				<br>dound some first variants
+				<cfset sqlinlist=ucase(sqlinlist)>
+				<cfset varFNsql="">
+				
+				
+				<cfloop list="#sqlinlist#" index="f">
+				<cfset varFNsql=listappend(varFNsql,"replace(upper(agent_name.agent_name),'#ucase(f)#','#ucase(fnOPN)#') = '#ucase(srchPrefName)#'",'|')>
+			</cfloop>
+			<cfset varPNsql=replace(varPNsql,'|',' OR ','all')>
+			</cfif>
+			---->
+			</cfoutput>
+		</cfif>
 
 		<!--- nocase preferred name match ---->	
 		<cfset sql="select 
@@ -719,10 +735,32 @@
 				    agent.agent_id=agent_name.agent_id and
 					upper(agent_name.agent_name) like '%#ucase(schFormattedName)#%'">	     
 		</cfif>
-		<cfif isdefined("varsql") and len(varsql) gt 0 >
+		<cfif isdefined("varFNsql") and len(varFNsql) gt 0 >
 			<cfset sql=sql & "
 				union select 
-						'nocase name variant match' reason,
+						'nocase first name variant match' reason,
+				        agent.agent_id, 
+				        agent.preferred_agent_name
+					from 
+				        agent,
+				        agent_name firstname,
+				        agent_name lastname
+					where 
+				        agent.agent_id=firstname.agent_id and
+				        agent.agent_id=lastname.agent_id and
+				        lastname.agent_name_type='last' and
+				        firstname.agent_name_type='first' and
+				        upper(lastname.agent_name)='#ucase(escapeQuotes(last_name))#' and
+				        upper(firstname.agent_name) IN
+				        (
+				        	#listqualify(ucase(escapeQuotes(varFNsql,chr(39))))#
+				        )
+				    ">
+		</cfif>
+		<cfif isdefined("varPNsql") and len(varPNsql) gt 0 >
+			<cfset sql=sql & "
+				union select 
+						'nocase preferred name variant match' reason,
 				        agent.agent_id, 
 				        agent.preferred_agent_name
 					from 
@@ -731,7 +769,7 @@
 					where 
 				        agent.agent_id=agent_name.agent_id and
 				        (
-				        	#varsql#
+				        	#varPNsql#
 				        )
 				    ">
 		</cfif>
