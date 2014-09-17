@@ -256,9 +256,13 @@
 				<br>pinlist=#pinlist#
 				<cfset userTermAt=listfindnocase(pinlist,listgetat(srchPrefName,1,' '))>
 				<br>userTermAt=#userTermAt#
+				
+				<cfset sqlinlist="">
 				<cfloop from="1" to="#listlen(pinlist,',')#" index="n">
 					<cfif n is not userTermAt>
 						<br>check for variation #n#...
+						<cfset nStr=listgetat(pinlist,n)>
+						<cfset sqlinlist=listappend(sqlinlist,nStr,'|')>
 					</cfif>
 				</cfloop>
 				
@@ -280,6 +284,8 @@
 
 			</cfif>
 		</cfloop>
+		
+		<hr>sqlinlist: #sqlinlist#
 		</cfoutput>
 		<!--- nocase preferred name match ---->	
 		<cfset sql="select 
