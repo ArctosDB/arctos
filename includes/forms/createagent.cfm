@@ -18,7 +18,8 @@
 			bottom:0;
 			background-color:white;
 			text-align:left;
-			z-index:20;}
+			z-index:20;
+			overflow:auto;}
 	</style>
 	<script language="javascript" type="text/javascript">
 		function togglePerson(atype){
