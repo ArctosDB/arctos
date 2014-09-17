@@ -128,8 +128,6 @@
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="checkAgent" access="remote" returnformat="json">
-
-hi
    	<cfargument name="preferred_name" required="true" type="string">
    	<cfargument name="agent_type" required="true" type="string">
    	<cfargument name="first_name" required="false" type="string" default="">
@@ -248,9 +246,12 @@ hi
 		<cfset srchPrefName=trim(escapeQuotes(preferred_name))>
 		
 		<cfset nameVariations="bob,robert;bill,william">
+		
+		<cfoutput>
 		<cfloop list="#nameVariations#" index="p" delimiters=";,">
 			<br>#p#
 		</cfloop>
+		</cfoutput>
 		<!--- nocase preferred name match ---->	
 		<cfset sql="select 
 						'nocase preferred name match' reason,
