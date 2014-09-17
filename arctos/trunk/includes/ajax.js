@@ -127,7 +127,7 @@ function addAgentRelationship(){
 	var h='<tr id="nar'+i+'" class="newRec"><td>';
 	h+='<select name="agent_relationship_new'+i+'" id="agent_relationship_new'+i+'" size="1"></select> ';
 	h+='</td><td><input type="hidden" name="related_agent_id_new'+i+'" id="related_agent_id_new'+i+'">';
-	h+='<input type="text" name="related_agent_new'+i+" id="related_agent_new'+i+'"';
+	h+='<input type="text" name="related_agent_new'+i+'" id="related_agent_new'+i+'"';
 		h+='onchange="pickAgentTest(\'related_agent_id_new'+i+'\',this.id,this.value); return false;"';
 		h+='onKeyPress="return noenter(event);" placeholder="pick related agent" class="minput">';
 	
