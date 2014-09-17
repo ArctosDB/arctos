@@ -134,7 +134,15 @@
 					return false;
 				}
 			}
-			$("#createAgent").find(":submit").attr('value','<img src="/images/indicator.gif">');
+
+
+
+
+
+			$("#createAgent").find(":submit").css('display', 'none');
+
+			$('<img id="ldgimg">').attr('src', '/images/indicator.gif').insertAfter($("#createAgent").find(":submit"));
+
 			jQuery.getJSON("/component/agent.cfc",
 				{
 					method : "checkAgent",
@@ -147,7 +155,12 @@
 					last_name : $("#last_name").val()
 				},
 				function (r) {
-					$("#createAgent").find(":submit").attr('value','Create Agent');
+
+
+					$("#createAgent").find(":submit").css('display', 'block');
+					$("#ldgimg").remove();
+
+
 
 					if(r){
 						$("#forceOverride").val('false');
