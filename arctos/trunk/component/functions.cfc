@@ -270,9 +270,9 @@
 					<cfif n is not userTermAt>
 						<br>check for variation #n#...
 						<cfset nStr=listgetat(pinlist,n)>
-						<cfset nvar=replace(srchPrefName,listgetat(srchPrefName,1,' '),nStr)>
+						<cfset nvar=ucase(replace(srchPrefName,listgetat(srchPrefName,1,' '),nStr))>
 						<br>nvar: #nvar#
-						<cfset sqlinlist=listappend(sqlinlist,nStr,'|')>
+						<cfset sqlinlist=listappend(sqlinlist,nvar,'|')>
 						
 					</cfif>
 				</cfloop>
