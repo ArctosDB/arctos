@@ -231,7 +231,7 @@ return false;
 						<cfset forceURL=forceURL & "&" & theField & '=' & url[theField]>
 					</cfif>
 				</cfloop>
-				<span class="likeLink" onclick="window.history.back();">
+				<span class="likeLink" onclick="this.history.back();">
 					Return to the editing form
 				</span>
 				
