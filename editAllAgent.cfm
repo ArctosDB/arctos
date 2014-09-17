@@ -409,7 +409,7 @@
 				</cfloop>
 			</div>
 			<input type="hidden" id="nnas" value="1">
-			<div class="newrec">
+			<div class="newRec">
 				<input type="button" onclick="addAgentStatus()" value="add a row">
 				<label for="">Add Agent Status</label>
 				<div style="display:table;">
