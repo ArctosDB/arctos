@@ -658,7 +658,7 @@
 	<cfdump var=#nvars#>
 
 <cfoutput>
-
+<cfset sqlinlist="">
 
 <br>srchPrefName: #srchPrefName#
 
@@ -672,8 +672,10 @@
 				<hr>found
 				<cfset varnts=p>
 				<cfset varnts=listdeleteat(varnts,listfindnocase(p,fnopn))>
-				
 <br>varnts: #varnts#
+				<cfset sqlinlist=listappend(sqlinlist,varnts)>
+<br>sqlinlist: #sqlinlist#
+				
 			</cfif>
 			
 
@@ -699,6 +701,9 @@
 			---->
 		</cfloop>
 		
+		
+		<BR>AFTERLOOP: <br>sqlinlist: #sqlinlist#
+
 		</cfoutput>
 		<!--- nocase preferred name match ---->	
 		<cfset sql="select 
