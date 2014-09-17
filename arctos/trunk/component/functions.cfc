@@ -250,9 +250,11 @@
 		<cfoutput>
 		<cfloop list="#nameVariations#" index="p" delimiters=";,">
 			<br>#p#
-			<cfset matchat=listfindnocase(preferred_name,p," ,;_")
-			<cfif matchat is 1>
-				<br>matchat=#matchat#
+			
+			<cfif listfindnocase(preferred_name,p," ,;_") is 1>
+				<cfset matchat=listcontains(nameVariations,p,';,')>
+								<br>matchat=#matchat#
+
 			</cfif>
 		</cfloop>
 		</cfoutput>
