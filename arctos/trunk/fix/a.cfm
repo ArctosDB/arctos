@@ -3,13 +3,11 @@
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <script src="/includes/jquery.multiselect.min.js"></script>
 
+
+<link rel="stylesheet" href="/includes/jquery.multiselect.css" />
+
+
 <script>
-/*
-    jQuery("form#addFav").submit(function(event) {
-        event.preventDefault();
-        alert("hello");
-    });
-*/
 
 jQuery(document).ready(function() {
 			$("#collection_id").multiselect({
