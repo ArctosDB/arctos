@@ -221,7 +221,7 @@
 					<cfabort>
 				</cfif>
 			</cfif>
-			<cfset obj = CreateObject("component","component.functions")>
+			<cfset obj = CreateObject("component","component.agent")>
 			<cfset fnProbs = obj.checkAgent(
 				preferred_name="#preferred_agent_name#",
 				agent_type="#agent_type#",
