@@ -250,7 +250,7 @@
 		<cfoutput>
 		<cfloop list="#nameVariations#" index="p" delimiters=";,">
 			<br>#p#
-			<cfif listfindnocase(preferred_name,p) is 1>
+			<cfif listfindnocase(preferred_name,p," ,;_") is 1>
 				<br>MATCG
 			</cfif>
 		</cfloop>
