@@ -3,6 +3,21 @@
 	<cfquery name="ctAgent_Type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select agent_type from ctagent_type order by agent_type
 	</cfquery>
+	<style>
+		/* override the error style for this page */
+		
+		.error{
+			position:absolute;
+			font-size:1.2em;
+			color:red;
+			border:5px solid red;
+			padding:1em;
+			margin:1em;
+			top:0;
+			left:0;
+			background-color:white;
+			z-index:20;}
+	</style>
 	<script language="javascript" type="text/javascript">
 		function togglePerson(atype){
 			if (atype=='person'){
