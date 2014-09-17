@@ -411,7 +411,7 @@
 			<input type="hidden" id="nnas" value="1">
 			<input type="button" onclick="addAgentStatus()" value="add a row">
 			<label for="">Add Agent Status</label>
-			<div style="display:table">
+			<div style="display:table;" class="newrec">
 				<div id="nas1" style="display: table-row;">
 					<div style="display:table-cell">
 						<select name="agent_status_new1" id="agent_status_new1" size="1">
