@@ -304,7 +304,7 @@
 		<cfif isdefined("forceOverride") and forceOverride is true>
 			<cfset attributes.subject='Agent force-created'>
 			<cfset attributes.username=session.username>
-			<cfset attributes.cause.message='agent <a href="#Application.serverRootUrl#/agents.cfm?agent_id=#agentID.nextAgentId#">#preferred_agent_name#</a> was just force-created.'>
+			<cfset attributes.cause.message='agent <a href="#Application.serverRootUrl#/agents.cfm?agent_id=agentID.nextAgentId">#preferred_agent_name#</a> was just force-created.'>
 			<cf_logError attributes="#attributes#">
 		</cfif>
 		
