@@ -153,7 +153,7 @@
 						}
 						q+='</ul>';
 						if (r.indexOf('FATAL ERROR')==-1){
-							q+=If you are absolutely sure that this agent is not a duplicate, you may ';
+							q+='If you are absolutely sure that this agent is not a duplicate, you may ';
 							q+='<span onclick="forceSubmit()" class="infoLink">click here to force creation</span>';
 						}
 						q+='<p><span onclick="removeErrDiv()" class="likeLink">return to create agent form</span></p>';
