@@ -701,7 +701,7 @@
 			---->
 		</cfloop>
 		
-		
+		<cfset sqlinlist=ucase(sqlinlist)>
 		<BR>AFTERLOOP: <br>sqlinlist: ::#sqlinlist#::
 
 		</cfoutput>
