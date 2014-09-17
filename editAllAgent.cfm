@@ -407,29 +407,30 @@
 						</div>
 					</div>
 				</cfloop>
-				<input type="hidden" id="nnas" value="1">
-				<input type="button" onclick="addAgentStatus()" value="add a row">
-				<label for="">Add Agent Status</label>
-				<div style="display:table">
-					<div id="nas1" style="display: table-row;">
-						<div style="display:table-cell">
-							<select name="agent_status_new1" id="agent_status_new1" size="1">
-							<option value="">pick status</option>
-							<cfloop query="ctagent_status">
-								<option value="#agent_status#">#agent_status#</option>
-							</cfloop>
-						</select>
-						</div>
-						<div style="display:table-cell">
-							<input type="datetime" class="sinput" name="status_date_new1" id="status_date_new1" value="#dateformat(now(),'yyyy-mm-dd')#">
-						</div>
-						<div style="display:table-cell">
-							<textarea class="mediumtextarea" name="status_remark_new1" placeholder="status remark" id="status_remark_new1"></textarea>
-						</div>
+			</div>
+			<input type="hidden" id="nnas" value="1">
+			<input type="button" onclick="addAgentStatus()" value="add a row">
+			<label for="">Add Agent Status</label>
+			<div style="display:table">
+				<div id="nas1" style="display: table-row;">
+					<div style="display:table-cell">
+						<select name="agent_status_new1" id="agent_status_new1" size="1">
+						<option value="">pick status</option>
+						<cfloop query="ctagent_status">
+							<option value="#agent_status#">#agent_status#</option>
+						</cfloop>
+					</select>
+					</div>
+					<div style="display:table-cell">
+						<input type="datetime" class="sinput" placeholder="status date" name="status_date_new1" id="status_date_new1" value="#dateformat(now(),'yyyy-mm-dd')#">
+					</div>
+					<div style="display:table-cell">
+						<textarea class="mediumtextarea" name="status_remark_new1" placeholder="status remark" id="status_remark_new1"></textarea>
 					</div>
 				</div>
-
 			</div>
+
+			
 			<!----
 			<table border>
 				<tr>
