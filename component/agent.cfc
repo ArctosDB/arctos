@@ -735,7 +735,6 @@
 				    agent.agent_id=agent_name.agent_id and
 					upper(agent_name.agent_name) like '%#ucase(schFormattedName)#%'">	     
 		</cfif>
-		<!-----
 		<cfif isdefined("varFNsql") and len(varFNsql) gt 0 >
 			<cfset sql=sql & "
 				union select 
@@ -758,7 +757,6 @@
 				        )
 				    ">
 		</cfif>
-		---->
 		<cfif isdefined("varPNsql") and len(varPNsql) gt 0 >
 			<cfset sql=sql & "
 				union select 
