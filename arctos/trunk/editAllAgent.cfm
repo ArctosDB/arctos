@@ -397,7 +397,13 @@
 						</select>
 					</div>
 					<div style="display:table-cell">
-						<input type="datetime" class="reqdClr sinput" name="status_date_#agent_status_id#" id=this.name value="#status_date#" placeholder="status date">
+						<input type="datetime" class="reqdClr sinput" name="status_date_#agent_status_id#" id="status_date_#agent_status_id#" value="#status_date#" placeholder="status date">
+					</div>
+					<div style="display:table-cell">
+						<textarea class="mediumtextarea" placeholder="status remark" name="status_remark_#agent_status_id#" id="status_remark_#agent_status_id#">#stripQuotes(status_remark)#</textarea>
+					</div>
+					<div style="display:table-cell;font-size:x-small">
+						#reported_by# on #dateformat(STATUS_REPORTED_DATE,'yyyy-mm-dd')#
 					</div>
 				</div>
 
