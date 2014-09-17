@@ -702,7 +702,7 @@
 		</cfloop>
 		
 		
-		<BR>AFTERLOOP: <br>sqlinlist: #sqlinlist#
+		<BR>AFTERLOOP: <br>sqlinlist: ""#sqlinlist#::
 
 		</cfoutput>
 		<!--- nocase preferred name match ---->	
