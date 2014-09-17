@@ -254,9 +254,13 @@
 			<cfif listfindnocase(preferred_name,p," ,;_") is 1>
 				<cfset pinlist=listgetat(nameVariations,listcontains(nameVariations,p,';'),';')>
 				<br>pinlist=#pinlist#
-				<cfset thisTermAt=listfindnocase(pinlist,listgetat(srchPrefName,1,' '))>
-				<br>thisTermAt=#thisTermAt#
-				
+				<cfset userTermAt=listfindnocase(pinlist,listgetat(srchPrefName,1,' '))>
+				<br>userTermAt=#userTermAt#
+				<cfloop from="1" to="#listlen(pinlist,',')#" index="n">
+					<cfif n is not userTermAt>
+						<br>check for variation #n#...
+					</cfif>
+				</cfloop>
 				
 				<!----
 				select 
