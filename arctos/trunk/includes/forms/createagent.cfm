@@ -121,13 +121,13 @@
 			$("#preCreateErrors").html('').removeClass().hide();
 		}
 		function preCreateCheck(){
-			if ($("#forceOverride").val()=="true"){
+			if ($("#forceOverride").val()==="true"){
 				return true;
 			}
 			if ($("#agent_type").val()=='person'){
 				if ($("#first_name").val().length==0 && $("#last_name").val().length==0 && $("#middle_name").val().length==0){
 					alert('First, middle, or last name is required for person agents. Use the autogenerate button.');
-					//$("#forceOverride").val('false');
+					$("#forceOverride").val('false');
 					return false;
 				}
 			}
@@ -148,8 +148,14 @@
 					if(r){
 						$("#forceOverride").val('false');
 						
-						var q='There are potential problems with the agent you are trying to create.<p>' + r;
-						q+='</p>If you are absolutely sure that this agent is not a duplicate, you may ';
+						var q='There are potential problems with the agent you are trying to create.<ul>';
+
+	 var errs = r.split(";"); 
+for (var i = 0; i < errs.length; i++) {
+    q+='<li>' + errs[i] + '</li>';
+}
+
+						q+='</up>If you are absolutely sure that this agent is not a duplicate, you may ';
 
 						q+='<p><span onclick="forceSubmit()" class="likeLink">click here to force creation</span></p>';
 q+='<p><span onclick="removeErrDiv()" class="likeLink">return</span></p>';
