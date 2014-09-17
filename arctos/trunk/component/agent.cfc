@@ -673,36 +673,14 @@
 		</cfif>
 		<!---- now do the same thing for first name ---->
 		<cfif len(first_name) gt 0 and len(last_name) gt 0>
-			
 			<cfset varFNsql="">
-			<cfoutput>
-			<br>we have a first name
 			<cfloop array="#nvars#" index="p">
 				<cfif listfindnocase(p,first_name)>
 					<cfset varnts=p>
 					<cfset varnts=listdeleteat(varnts,listfindnocase(p,first_name))>
 					<cfset varFNsql=listappend(varFNsql,varnts)>
 				</cfif>
-				
 			</cfloop>
-			
-			<hr>
-			<cfdump var=#varFNsql#>
-			<hr>
-			<!----
-			<cfif len(sqlinlist) gt 0>
-				<br>dound some first variants
-				<cfset sqlinlist=ucase(sqlinlist)>
-				<cfset varFNsql="">
-				
-				
-				<cfloop list="#sqlinlist#" index="f">
-				<cfset varFNsql=listappend(varFNsql,"replace(upper(agent_name.agent_name),'#ucase(f)#','#ucase(fnOPN)#') = '#ucase(srchPrefName)#'",'|')>
-			</cfloop>
-			<cfset varPNsql=replace(varPNsql,'|',' OR ','all')>
-			</cfif>
-			---->
-			</cfoutput>
 		</cfif>
 
 		<!--- nocase preferred name match ---->	
@@ -738,7 +716,7 @@
 		<cfif isdefined("varFNsql") and len(varFNsql) gt 0 >
 			<cfset sql=sql & "
 				union select 
-						'nocase first name variant match' reason,
+						'nocase first name variant+last name match' reason,
 				        agent.agent_id, 
 				        agent.preferred_agent_name
 					from 
@@ -967,9 +945,6 @@
 	    order by
 	    	preferred_agent_name
 	</cfquery>
-	
-	
-	<cfdump var=#isdup#>
 	<cfquery name="daid" dbtype="query">
 		select preferred_agent_name,agent_id from isdup group by preferred_agent_name,agent_id
 	</cfquery>	
