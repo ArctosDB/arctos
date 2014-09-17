@@ -300,10 +300,10 @@
 			</cfif>
 		</cftransaction>
 		<cfif isdefined("forceOverride") and forceOverride is true>
-			<cfset exception.subject='Agent force-created'>
-			<cfset exception.username=session.username>
-			<cfset exception.detail='agent <a href="#Application.serverRootUrl#/agents.cfm?agent_id=#agentID.nextAgentId#">#preferred_agent_name#</a> was just force-created.'>
-			<cf_logError exception="#exception#">
+			<cfset attributes.subject='Agent force-created'>
+			<cfset attributes.username=session.username>
+			<cfset attributes.detail='agent <a href="#Application.serverRootUrl#/agents.cfm?agent_id=#agentID.nextAgentId#">#preferred_agent_name#</a> was just force-created.'>
+			<cf_logError attributes="#attributes#">
 		</cfif>
 		<br>Agent created successfully.
 		If you're seeing this something is broken so file a bug report!
