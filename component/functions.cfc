@@ -246,10 +246,16 @@
 		<cfset srchPrefName=trim(escapeQuotes(preferred_name))>
 		
 		
-		<br>srchPrefName: #srchPrefName#
 		<cfset nameVariations="bob,robert;bill,william,billy">
 		
 		<cfoutput>
+		
+		
+				<br>srchPrefName: #srchPrefName#
+
+
+
+
 		<cfloop list="#nameVariations#" index="p" delimiters=";,">
 			<br>#p#
 			
