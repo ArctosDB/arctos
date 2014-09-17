@@ -117,8 +117,8 @@
 		}
 
 		function removeErrDiv(){
+			$("#forceOverride").val('false');
 			$("#preCreateErrors").html('').removeClass().hide();
-
 		}
 		function preCreateCheck(){
 			if ($("#forceOverride").val()=="true"){
