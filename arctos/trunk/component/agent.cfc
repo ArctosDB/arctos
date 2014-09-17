@@ -661,6 +661,11 @@
 
 
 <br>srchPrefName: #srchPrefName#
+
+<cfset fnopn=listgetat(srchPrefName,1,' ,;')>
+
+<br>fnopn: #fnopn#
+
 		<cfloop array="#nvars#" index="p">
 			<br>p:#p#
 			<cfif listfindnocase(srchPrefName,p," ,;_") is 1>
