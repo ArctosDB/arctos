@@ -16,6 +16,7 @@
 			top:0;
 			left:0;
 			background-color:white;
+			text-align:left;
 			z-index:20;}
 	</style>
 	<script language="javascript" type="text/javascript">
