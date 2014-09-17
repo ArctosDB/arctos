@@ -386,28 +386,49 @@
 		<fieldset>
 			<legend>Agent Status <span class="likeLink" onclick="getCtDoc('ctAgent_Status');">codetable</span></legend>
 			<div style="display:table">
-			<cfloop query="status">
-				<div style="display: table-row;">
-					<div style="display:table-cell">
-						<select name="agent_status_#agent_status_id#" id="agent_status_#agent_status_id#" size="1" class="reqdClr">
-							<option value="DELETE">DELETE</option>
+				<cfloop query="status">
+					<div style="display: table-row;">
+						<div style="display:table-cell">
+							<select name="agent_status_#agent_status_id#" id="agent_status_#agent_status_id#" size="1" class="reqdClr">
+								<option value="DELETE">DELETE</option>
+								<cfloop query="ctagent_status">
+									<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
+								</cfloop>
+							</select>
+						</div>
+						<div style="display:table-cell">
+							<input type="datetime" class="reqdClr sinput" name="status_date_#agent_status_id#" id="status_date_#agent_status_id#" value="#status_date#" placeholder="status date">
+						</div>
+						<div style="display:table-cell">
+							<textarea class="mediumtextarea" placeholder="status remark" name="status_remark_#agent_status_id#" id="status_remark_#agent_status_id#">#stripQuotes(status_remark)#</textarea>
+						</div>
+						<div style="display:table-cell;font-size:x-small">
+							#reported_by# on #dateformat(STATUS_REPORTED_DATE,'yyyy-mm-dd')#
+						</div>
+					</div>
+				</cfloop>
+				<input type="hidden" id="nnas" value="1">
+				<input type="button" onclick="addAgentStatus()" value="add a row">
+				<label for="">Add Agent Status</label>
+				<div style="display:table">
+					<div id="nas1" style="display: table-row;">
+						<div style="display:table-cell">
+							<select name="agent_status_new1" id="agent_status_new1" size="1">
+							<option value="">pick status</option>
 							<cfloop query="ctagent_status">
-								<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
+								<option value="#agent_status#">#agent_status#</option>
 							</cfloop>
 						</select>
-					</div>
-					<div style="display:table-cell">
-						<input type="datetime" class="reqdClr sinput" name="status_date_#agent_status_id#" id="status_date_#agent_status_id#" value="#status_date#" placeholder="status date">
-					</div>
-					<div style="display:table-cell">
-						<textarea class="mediumtextarea" placeholder="status remark" name="status_remark_#agent_status_id#" id="status_remark_#agent_status_id#">#stripQuotes(status_remark)#</textarea>
-					</div>
-					<div style="display:table-cell;font-size:x-small">
-						#reported_by# on #dateformat(STATUS_REPORTED_DATE,'yyyy-mm-dd')#
+						</div>
+						<div style="display:table-cell">
+							<input type="datetime" class="sinput" name="status_date_new1" id="status_date_new1" value="#dateformat(now(),'yyyy-mm-dd')#">
+						</div>
+						<div style="display:table-cell">
+							<textarea class="mediumtextarea" name="status_remark_new1" placeholder="status remark" id="status_remark_new1"></textarea>
+						</div>
 					</div>
 				</div>
 
-			</cfloop>
 			</div>
 			<!----
 			<table border>
