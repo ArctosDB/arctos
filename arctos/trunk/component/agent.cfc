@@ -406,15 +406,23 @@
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
+	<!--- shared rules --->
+	<cfset regexStripJunk='[ .,-]'>
+	<cfset problems="">
+	<cfset disallowCharacters="/,\,&">
+	<cfif preferred_name neq trim(preferred_name)>
+		<cfset problems=listappend(problems,'FATAL ERROR: leading and trailing spaces are prohibitd.',';')>
+	</cfif>
+	<cfloop list="#disallowCharacters#" index="i">
+		<cfif preferred_name contains i>
+			<cfset problems=listappend(problems,'Check name for #i#: do not create unnecessary variations of `unknown.`',';')>
+		</cfif>
+	</cfloop>
+		
 	<cfif agent_type is "person">
-		<cfquery name="CTPREFIX" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select prefix from CTPREFIX
-		</cfquery>
-		<cfquery name="CTsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select suffix from CTsuffix
-		</cfquery>
-		<cfset regexStripJunk='[ .,-]'>
-		<cfset problems="">
+		<cfif (first_name neq trim(first_name)) or (middle_name neq trim(middle_name)) or (last_name neq trim(last_name))>
+			<cfset problems=listappend(problems,'FATAL ERROR: leading and trailing spaces are prohibitd.',';')>
+		</cfif>
 		<!--- list of terms that PROBABLY should not appear in agent names ---->
 		<cfset disallowPersons="Animal,al,alaska,and,Anonymous">
 		<cfset disallowPersons=disallowPersons & ",biol,biology">
@@ -442,7 +450,6 @@
 			Expect some false positives - sorray! 
 		---->
 		<cfset disallowWords="and,or,cat">
-		<cfset disallowCharacters="/,\,&">
 		<cfset strippedUpperFML=ucase(rereplace(first_name & middle_name & last_name,regexStripJunk,"","all"))>
 		<cfset strippedUpperFL=ucase(rereplace(first_name & last_name,regexStripJunk,"","all"))>
 		<cfset strippedUpperLF=ucase(rereplace(last_name & first_name,regexStripJunk,"","all"))>
@@ -457,13 +464,6 @@
 		<cfif len(strippedNamePermutations) is 0>
 			<cfset problems=listappend(problems,'Check apostrophy/single-quote. "O&apos;Neil" is fine. "Jim&apos;s Cat" should be entered as "unknown".',';')>
 		</cfif>
-				
-		<cfloop list="#disallowCharacters#" index="i">
-			<cfif preferred_name contains i>
-				<cfset problems=listappend(problems,'Check name for #i#: do not create unnecessary variations of `unknown.`',';')>
-			</cfif>
-		</cfloop>
-				
 		<cfloop list="#disallowWords#" index="i">
 			<cfif listfindnocase(preferred_name,i," ;,.")>
 				<cfset problems=listappend(problems,'Check name for #i#: do not create unnecessary variations of `unknown.`',';')>
@@ -832,8 +832,6 @@
 						     )">
 		</cfif>
 	<cfelse><!--- not a person --->
-		<cfset regexStripJunk='[ .,-]'>
-		<cfset problems="">
 		<!---- 
 			random lists of things may be indicitave of garbage. 
 				disallowWords are " me AND you" but not "ANDy"
@@ -849,8 +847,7 @@
 					
 					
 		<cfset disallowWords="or,cat,biol,boat,co,Corp,et,illegible,inc,other,uaf,ua,NY,AK,CA,various,Mfg">		
-		
-		<cfset disallowCharacters="/,\,&">		
+
 		<cfset strippedNamePermutations=ucase(rereplace(preferred_name,regexStripJunk,"","all"))>
 		<cfset srchPrefName=trim(escapeQuotes(preferred_name))>
 	
@@ -861,13 +858,7 @@
 		<cfif compare(ucase(preferred_name),preferred_name) eq 0 or compare(lcase(preferred_name),preferred_name) eq 0>
 			<cfset problems=listappend(problems,'Check case: Most agents should be Proper Case.',';')>
 		</cfif>
-			
-		<cfloop list="#disallowCharacters#" index="i">
-			<cfif preferred_name contains i>
-				<cfset problems=listappend(problems,'Check name for #i#: do not create unnecessary variations of `unknown.`',';')>
-			</cfif>
-		</cfloop>
-				
+	
 		<cfloop list="#disallowWords#" index="i">
 			<cfif listfindnocase(preferred_name,i," ;,.")>
 				<cfset problems=listappend(problems,'Check name for #i#: do not create unnecessary variations of `unknown.`',';')>
