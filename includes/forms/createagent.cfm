@@ -123,11 +123,6 @@
 					last_name : $("#last_name").val()
 				},
 				function (r) {
-
-				console.log(r);
-return false;
-
-
 					if(r){
 						$("#forceOverride").val('false');
 						var theHTML='There are potential problems with the agent you are trying to create.<br>' + r;
