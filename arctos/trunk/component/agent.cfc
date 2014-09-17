@@ -702,7 +702,7 @@
 		</cfloop>
 		
 		
-		<BR>AFTERLOOP: <br>sqlinlist: ""#sqlinlist#::
+		<BR>AFTERLOOP: <br>sqlinlist: ::#sqlinlist#::
 
 		</cfoutput>
 		<!--- nocase preferred name match ---->	
@@ -928,6 +928,11 @@
 				
 	</cfif><!--- end agent type check ---->
 	
+	
+	
+	<hr>
+	
+	<cfdump var=#sql#>
 	<cfquery name="isdup" datasource="uam_god">
 		select 
 			agent_id,
