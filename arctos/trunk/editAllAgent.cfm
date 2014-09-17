@@ -73,8 +73,8 @@
 				$("#agent_name_type_new" + i).addClass('reqdClr').prop('required',true);
 				$("#agent_name_new" + i).addClass('reqdClr').prop('required',true);
 			} else {
-				$("#agent_name_type_new" + i).removeClass().prop('required',false);
-				$("#agent_name_new" + i).removeClass().prop('required',false);
+				$("#agent_name_type_new" + i).removeClass('reqdClr').prop('required',false);
+				$("#agent_name_new" + i).removeClass('reqdClr').prop('required',false);
 			}
 		});
 
@@ -86,8 +86,8 @@
 				$("#agent_status_new" + i).addClass('reqdClr').prop('required',true);
 				$("#status_date_new" + i).addClass('reqdClr').prop('required',true);
 			} else {
-				$("#agent_status_new" + i).removeClass().prop('required',false);
-				$("#status_date_new" + i).removeClass().prop('required',false);
+				$("#agent_status_new" + i).removeClass('reqdClr').prop('required',false);
+				$("#status_date_new" + i).removeClass('reqdClr').prop('required',false);
 			}
 		});
 		$(document).on("change", '[id^="agent_relationship_new"], [id^="related_agent_new"]', function(){
@@ -98,8 +98,8 @@
 				$("#agent_relationship_new" + i).addClass('reqdClr').prop('required',true);
 				$("#related_agent_new" + i).addClass('reqdClr').prop('required',true);
 			} else {
-				$("#agent_relationship_new" + i).removeClass().prop('required',false);
-				$("#related_agent_new" + i).removeClass().prop('required',false);
+				$("#agent_relationship_new" + i).removeClass('reqdClr').prop('required',false);
+				$("#related_agent_new" + i).removeClass('reqdClr').prop('required',false);
 			}
 		});
 
@@ -129,8 +129,8 @@
 				$("#electronic_address_type_new" + i).addClass('reqdClr').prop('required',true);
 				$("#electronic_address_new" + i).addClass('reqdClr').prop('required',true);
 			} else {
-				$("#electronic_address_type_new" + i).removeClass().prop('required',false);
-				$("#electronic_address_new" + i).removeClass().prop('required',false);
+				$("#electronic_address_type_new" + i).removeClass('reqdClr').prop('required',false);
+				$("#electronic_address_new" + i).removeClass('reqdClr').prop('required',false);
 			}
 		});
 	});
