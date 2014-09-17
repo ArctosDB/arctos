@@ -106,7 +106,7 @@
 		$(document).on("change", '[id^="electronic_address_type_"]', function(){
 			// change input type
 			var ntype,dfld;
-			if ( $(this).val()=='url' ){
+			if ( $(this).val()=='URL' ){
 				ntype='url';
 			} else if ( $(this).val()=='e-mail' ){
 				ntype='email';
@@ -351,7 +351,7 @@
 			</cfif>
 		</fieldset>
 		<fieldset id="fs_fAgentName">			
-			<legend>Agent Names <span class="likeLink" onclick="getCtDoc('ctagent_name_type');">codetable</span></legend>
+			<legend>Agent Names <span class="likeLink" onclick="getCtDoc('ctagent_name_type');">code table</span></legend>
 			<cfloop query="agent_names">
 				<div>
 					<select name="agent_name_type_#agent_name_id#" id="agent_name_type_#agent_name_id#">
@@ -384,7 +384,7 @@
 			</div>
 		</fieldset>
 		<fieldset>
-			<legend>Agent Status <span class="likeLink" onclick="getCtDoc('ctAgent_Status');">codetable</span></legend>
+			<legend>Agent Status <span class="likeLink" onclick="getCtDoc('ctAgent_Status');">code table</span></legend>
 			<div style="display:table">
 				<cfloop query="status">
 					<div style="display: table-row;">
@@ -540,7 +540,7 @@
 			</table>
 		</fieldset>
 		<fieldset>
-			<legend>Electronic Address</legend>
+			<legend>Electronic Address 	<span class="likeLink" onclick="getCtDoc('CTELECTRONIC_ADDR_TYPE');">code table</span></legend>
 			<cfloop query="elecagentAddrs">
 				<cfif address_type is "url">
 					<cfset ttype='url'>
@@ -560,7 +560,6 @@
 							>#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
 						</cfloop>
 					</select>
-					<span class="infoLink" onclick="getCtDoc('CTELECTRONIC_ADDR_TYPE');">Define</span>
 					<input type="#ttype#" class="reqdClr minput" name="electronic_address_#electronic_address_id#" 
 						id="electronic_address_#electronic_address_id#" value="#ADDRESS#">
 				</div>
