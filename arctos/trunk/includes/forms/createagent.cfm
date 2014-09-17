@@ -100,10 +100,15 @@
 			$("#forceOverride").val('true');
 			$("#createAgent").submit();
 		}
+
+		function removeErrDiv(){
+			$("#caErrDv").remove();
+
+		}
 		function preCreateCheck(){
-			//if ($("#forceOverride").val()=="true"){
-			//	return true;
-		//	}
+			if ($("#forceOverride").val()=="true"){
+				return true;
+			}
 			if ($("#agent_type").val()=='person'){
 				if ($("#first_name").val().length==0 && $("#last_name").val().length==0 && $("#middle_name").val().length==0){
 					alert('First, middle, or last name is required for person agents. Use the autogenerate button.');
@@ -112,7 +117,7 @@
 				}
 			}
 
-/*
+
 			jQuery.getJSON("/component/agent.cfc",
 				{
 					method : "checkAgent",
@@ -128,15 +133,13 @@
 					if(r){
 						$("#forceOverride").val('false');
 						
-						var q='There are potential problems with the agent you are trying to create.\n\n' + r;
-						p+='If you are absolutely sure that this agent is not a duplicate, you may ';
-						p+='click "confirm" to force creation.
+						var q='<div id="caErrDv" class="error">There are potential problems with the agent you are trying to create.<p>' + r;
+						q+='</p>If you are absolutely sure that this agent is not a duplicate, you may ';
 
-//						theHTML+='<span onclick="forceSubmit()" class="likeLink">click here to force creation</span></p>';
-	//					$("#preCreateErrors").html(theHTML).addClass('error').show();
+						q+='<span onclick="forceSubmit()" class="likeLink">click here to force creation</span></p>';
+q+='<span onclick="removeErrDiv()" class="likeLink">return</span>';
+						$("#preCreateErrors").html(q).addClass('error').show();
 						
-var c=confirm(q);
-console.log(c);
 
 return false;
 					}else{
@@ -199,7 +202,8 @@ return false;
 </cfif>
 <!------------------------------------------------>
 <cfif Action is "makeNewAgent">
-	
+	im gonna make an agent or throw a deep error
+	<cfabort>
 	<cfoutput>
 		<cfset obj = CreateObject("component","component.agent")>
 		<cfset fnProbs = obj.checkAgent(
@@ -231,7 +235,7 @@ return false;
 						<cfset forceURL=forceURL & "&" & theField & '=' & url[theField]>
 					</cfif>
 				</cfloop>
-				<span class="likeLink" onclick="this.history.back();">
+				<span class="likeLink" onclick="history.back();">
 					Return to the editing form
 				</span>
 				
