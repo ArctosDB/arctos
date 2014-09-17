@@ -128,6 +128,8 @@
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="checkAgent" access="remote" returnformat="json">
+
+hi
    	<cfargument name="preferred_name" required="true" type="string">
    	<cfargument name="agent_type" required="true" type="string">
    	<cfargument name="first_name" required="false" type="string" default="">
