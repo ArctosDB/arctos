@@ -659,6 +659,8 @@
 
 <cfoutput>
 
+
+<br>srchPrefName: #srchPrefName#
 		<cfloop array="#nvars#" index="p">
 			<br>p:#p#
 			<cfif listfindnocase(srchPrefName,p," ,;_") is 1>
