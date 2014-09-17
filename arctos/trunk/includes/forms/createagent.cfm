@@ -119,7 +119,6 @@
 			$("#status").val('force');
 			$("#createAgent").submit();
 		}
-
 		function removeErrDiv(){
 			// start over
 			$("#status").val('unchecked');
@@ -137,15 +136,8 @@
 					return false;
 				}
 			}
-
-
-
-
-
 			$("#createAgent").find(":submit").css('display', 'none');
-
 			$('<img id="ldgimg">').attr('src', '/images/indicator.gif').insertAfter($("#createAgent").find(":submit"));
-
 			jQuery.getJSON("/component/agent.cfc",
 				{
 					method : "checkAgent",
@@ -158,13 +150,6 @@
 					last_name : $("#last_name").val()
 				},
 				function (r) {
-
-
-					$("#createAgent").find(":submit").css('display', 'block');
-					$("#ldgimg").remove();
-
-
-
 					if(r){
 						var q='There are potential problems with the agent you are trying to create.<ul>';
 	 					var errs = r.split(";"); 
@@ -178,6 +163,8 @@
 						}
 						q+='<p><span onclick="removeErrDiv()" class="likeLink">return to create agent form</span></p>';
 						$("#preCreateErrors").html(q).addClass('error').show();
+						$("#createAgent").find(":submit").css('display', 'block');
+						$("#ldgimg").remove();
 						return false;
 					}else{
 						$("#status").val('pass');
