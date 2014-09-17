@@ -199,67 +199,22 @@ return false;
 </cfif>
 <!------------------------------------------------>
 <cfif Action is "makeNewAgent">
-	<cfif not isdefined("first_name")>
-		<cfset first_name="">
-	</cfif>
-	<cfif not isdefined("middle_name")>
-		<cfset middle_name="">
-	</cfif>
-	<cfif not isdefined("last_name")>
-		<cfset last_name="">
-	</cfif>
+	
 	<cfoutput>
-	
-	i am makeNewAgent
-	
-	
-	<cfabort>
-	
-	
-	
-	
-		<cfif not isdefined("forceOverride") or forceOverride is not "true">
-			<cfset probs="">
-			<cfif agent_type is "person">
-				<cfif 
-					(not isdefined("first_name") or len(first_name) is 0) and 
-					(not isdefined("middle_name") and len(middle_name) is 0) and 
-					(not isdefined("last_name") and len(last_name) is 0)>
-					<cfset probs=listappend(probs,"Person agents must have first, middle, and/or last name.",";")>
-				</cfif>
-				<cfif isdefined("first_name") and len(first_name) is 1>
-					<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
-				</cfif>
-				<cfif isdefined("middle_name") and len(middle_name) is 1>
-					<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
-				</cfif>
-				<cfif isdefined("last_name") and len(last_name) is 1>
-					<cfset probs=listappend(probs,"Abbreviations should be followed by a period.",";")>
-				</cfif>
-			<cfelse>
-				<cfif 
-					(isdefined("first_name") and len(first_name) gt 0) or 
-					(isdefined("middle_name") and len(middle_name) gt 0) or 
-					(isdefined("last_name") and len(last_name) gt 0)>
-					<cfset probs=listappend(probs,"Non-person agents may not have first, middle, or last name.",";")>
-					<cfabort>
-				</cfif>
-			</cfif>
-			<cfset obj = CreateObject("component","component.agent")>
-			<cfset fnProbs = obj.checkAgent(
-				preferred_name="#preferred_agent_name#",
-				agent_type="#agent_type#",
-				first_name="#first_name#",
-				middle_name="#middle_name#",
-				last_name="#last_name#"
-			)>
-			<cfset probs=listappend(probs,fnProbs,";")>
-			<cfif len(probs) gt 0>
+		<cfset obj = CreateObject("component","component.agent")>
+		<cfset fnProbs = obj.checkAgent(
+			preferred_name="#preferred_agent_name#",
+			agent_type="#agent_type#",
+			first_name="#first_name#",
+			middle_name="#middle_name#",
+			last_name="#last_name#"
+		)>
+			<cfif len(fnProbs) gt 0>
 				<div>
 					There are potential problems with this agent:
 				</div>
 				<ul>
-				<cfloop list="#probs#" index="p" delimiters=";">
+				<cfloop list="#fnProbs#" index="p" delimiters=";">
 					<li>
 						#p#
 					</li>
@@ -282,7 +237,11 @@ return false;
 				</p>	
 				<cfabort>			
 			</cfif>
-		</cfif>
+			
+			
+			making agent.....
+			
+			<cfabort>
 		<cftransaction>
 			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select sq_agent_id.nextval nextAgentId from dual
