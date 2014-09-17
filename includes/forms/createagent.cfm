@@ -101,16 +101,18 @@
 			$("#createAgent").submit();
 		}
 		function preCreateCheck(){
-			if ($("#forceOverride").val()=="true"){
-				return true;
-			}
+			//if ($("#forceOverride").val()=="true"){
+			//	return true;
+		//	}
 			if ($("#agent_type").val()=='person'){
 				if ($("#first_name").val().length==0 && $("#last_name").val().length==0 && $("#middle_name").val().length==0){
 					alert('First, middle, or last name is required for person agents. Use the autogenerate button.');
-					$("#forceOverride").val('false');
+					//$("#forceOverride").val('false');
 					return false;
 				}
 			}
+
+/*
 			jQuery.getJSON("/component/agent.cfc",
 				{
 					method : "checkAgent",
@@ -144,6 +146,7 @@ return false;
 				}
 			);
 			return false;
+*/
 		}
 	</script>
 	<cfoutput>
@@ -206,6 +209,15 @@ return false;
 		<cfset last_name="">
 	</cfif>
 	<cfoutput>
+	
+	i am makeNewAgent
+	
+	
+	<cfabort>
+	
+	
+	
+	
 		<cfif not isdefined("forceOverride") or forceOverride is not "true">
 			<cfset probs="">
 			<cfif agent_type is "person">
