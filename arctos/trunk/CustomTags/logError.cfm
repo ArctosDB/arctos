@@ -3,7 +3,7 @@
 <cftry>
 
 -------->
-<cfdump var=#attributes#>
+<cfdump var=#ATTRIBUTES.CAUSE#>
 
 
 
