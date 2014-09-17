@@ -967,6 +967,9 @@
 	    order by
 	    	preferred_agent_name
 	</cfquery>
+	
+	
+	<cfdump var=#isdup#>
 	<cfquery name="daid" dbtype="query">
 		select preferred_agent_name,agent_id from isdup group by preferred_agent_name,agent_id
 	</cfquery>	
