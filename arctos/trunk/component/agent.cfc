@@ -500,8 +500,6 @@
 		---->
 		<cfif preferred_name contains "." and refind('^.*\.[^ ].*$',preferred_name)>
 			<cfset problems=listappend(problems,'FATAL ERROR: Periods (except ending) must be followed by a space.',';')>
-		<cfelse>
-			nope
 		</cfif>
 		
 		<cfset strippedNamePermutations=trim(escapeQuotes(strippedNamePermutations))>	
