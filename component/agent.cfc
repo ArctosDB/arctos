@@ -681,7 +681,7 @@
 		<cfoutput>
 		
 		<cfloop list="#sqlinlist#" index="f">
-			<br>upper(replace(agent_name.agent_name,#fnOPN#,#f#) = upper(#srchPrefName#)
+			<br>upper(replace(agent_name.agent_name,#f#,#fnOPN#) = upper(#srchPrefName#)
 		</cfloop>
 </cfoutput>
 
