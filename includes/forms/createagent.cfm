@@ -231,7 +231,10 @@ return false;
 						<cfset forceURL=forceURL & "&" & theField & '=' & url[theField]>
 					</cfif>
 				</cfloop>
-				Use your back button to fix the problems.
+				<span class="likeLink" onclick="window.history.back();">
+					Return to the editing form
+				</span>
+				
 				<p>
 					If you're really sure that you want to create this agent, you can also <a href="#forceURL#">force creation</a>.
 				</p>	
