@@ -519,7 +519,7 @@
 		
 		
 	
-	<cfset nvars=ArrayNew()>
+	<cfset nvars=ArrayNew(1)>
 		
 	<cfset temp=ArrayAppend(nvars, listToArray('Abraham,Abe'))>
 	<cfset temp=ArrayAppend(nvars, listToArray('Albert,Al,Bert,Alfred,Alonzo'))>
