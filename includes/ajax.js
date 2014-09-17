@@ -109,9 +109,6 @@ function addAgentName(){
 }
 function addAgentStatus(){
 	var i=parseInt($("#nnas").val()) + parseInt(1);
-	
-	
-	//var h='<tr id="nas'+i+'" class="newRec"><td>';
 	var h='<div id="nas'+i+'" style="display: table-row;"><div style="display:table-cell">';
 	h+='<select name="agent_status_new'+i+'" id="agent_status_new'+i+'" size="1"></select>';
 	h+='</div><div style="display:table-cell"><input type="datetime" class="sinput" placeholder="status date" name="status_date_new'+i+'" id="status_date_new'+i+'"></div>';

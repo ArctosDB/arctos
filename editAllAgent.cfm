@@ -431,54 +431,6 @@
 					</div>
 				</div>
 			</div>
-			
-			<!----
-			<table border>
-				<tr>
-					<th>
-						<span class="likeLink" onclick="getCtDoc('ctAgent_Status');">Agent Status</span>
-					</th>
-					<th>Status Date</th>
-					<th>Remark</th>
-					<th>Whodunit</th>
-			</tr>
-			<cfloop query="status">
-				<tr>
-					<td>
-						<select name="agent_status_#agent_status_id#" id="agent_status_#agent_status_id#" size="1" class="reqdClr">
-							<option value="DELETE">DELETE</option>
-							<cfloop query="ctagent_status">
-								<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
-							</cfloop>
-						</select>
-					</td>
-					<td><input type="datetime" class="reqdClr" size="12" name="status_date_#agent_status_id#" id="status_date_#agent_status_id#" value="#status_date#"></td>
-					<td>
-						<textarea class="mediumtextarea" placeholder="status remark" name="status_remark_#agent_status_id#" id="status_remark_#agent_status_id#">#stripQuotes(status_remark)#</textarea>
-					</td>
-					<td>
-						<span style="font-size:x-small;">(#reported_by# on #dateformat(STATUS_REPORTED_DATE,'yyyy-mm-dd')#)</span>
-					</td>
-				</tr>
-			</cfloop>
-				<input type="hidden" id="nnas" value="1">
-				<tr id="nas1" class="newRec">
-					<td>
-						<select name="agent_status_new1" id="agent_status_new1" size="1">
-							<option value="">pick status</option>
-							<cfloop query="ctagent_status">
-								<option value="#agent_status#">#agent_status#</option>
-							</cfloop>
-						</select>
-					</td>
-					<td><input type="datetime" size="12" name="status_date_new1" id="status_date_new1" value="#dateformat(now(),'yyyy-mm-dd')#"></td>
-					<td>
-						<textarea class="mediumtextarea" name="status_remark_new1" placeholder="status remark" id="status_remark_new1"></textarea>
-					</td>
-					<td><input type="button" onclick="addAgentStatus()" value="add a row"></td>
-				</tr>
-			</table>
-			---->
 		</fieldset>
 		<fieldset>
 			<legend>Relationships <span class="likeLink" onclick="getCtDoc('CTAGENT_RELATIONSHIP');">code table</span></legend>
@@ -503,8 +455,8 @@
 						<td>
 							<input type="hidden" name="related_agent_id_#agent_relations_id#" id="related_agent_id_#agent_relations_id#" value="#related_agent_id#">
 							<input type="text" name="related_agent_#agent_relations_id#" id="related_agent_#agent_relations_id#" value="#agent_name#"
-							onchange="pickAgentTest('related_agent_id_#agent_relations_id#',this.id,this.value); return false;"
-							onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
+								onchange="pickAgentTest('related_agent_id_#agent_relations_id#',this.id,this.value); return false;"
+								onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
 						</td>
 					</tr>
 				
@@ -524,7 +476,7 @@
 					<td>
 						<input type="hidden" id="nnar" value="1">
 						<select name="agent_relationship_new1" id="agent_relationship_new1" size="1">
-							<option value="">Pick New</option>
+							<option value="">pick relationship</option>
 							<cfloop query="ctRelns">
 								<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
 							</cfloop>
