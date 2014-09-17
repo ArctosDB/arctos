@@ -61,7 +61,7 @@
 			pname = pname.replace(/\s{2,}/g, ' ');
 			$("#preferred_agent_name").val(pname);
 		}
-		function autosuggestNameComponents(){
+		function autosuggestNameComponents(benice){
 			jQuery.getJSON("/component/agent.cfc",
 				{
 					method : "splitAgentName",
@@ -81,13 +81,13 @@
 	  							$("#preferred_agent_name").val(sfn);
 							}
 						}
-						if ($("#first_name").val().length == 0 && sfirstn.length>0){
+						if (benice===false || ($("#first_name").val().length == 0 && sfirstn.length>0)){
 							$("#first_name").val(sfirstn);
 						}
-						if ($("#middle_name").val().length == 0 && smdln.length>0){
+						if (benice===false || ($("#middle_name").val().length == 0 && smdln.length>0)){
 							$("#middle_name").val(smdln);
 						}
-						if ($("#last_name").val().length == 0 && slastn.length>0){
+						if (benice===false || ($("#last_name").val().length == 0 && slastn.length>0)){
 							$("#last_name").val(slastn);
 						}
 					} else { 
@@ -155,7 +155,12 @@
 			<label for="preferred_agent_name">Preferred Name</label>
 			<input type="text" name="preferred_agent_name" id="preferred_agent_name" size="50" class="reqdClr">
 			<div id="newPersonAttrs" style="display:none;">
-				<br><span class="likeLink" onclick="autosuggestNameComponents();">Autogenerate name components from preferred name</span>
+				<br>
+				Autogenerate name components from preferred name
+				<span class="likeLink" onclick="autosuggestNameComponents(true);">[ if blank ]</span>
+				<span class="likeLink" onclick="autosuggestNameComponents(false);">[ overwrite ]</span>
+				
+				
 				<label for="first_name">First Name</label>
 				<input type="text" name="first_name" id="first_name">
 				<label for="middle_name">Middle Name</label>
