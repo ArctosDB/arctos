@@ -655,14 +655,14 @@
 <cfset temp=ArrayAppend(nvars, 'Zebedee,Zebulon,Zeb')>
     
 
-	<cfdump var=#nvars#>
 
 <cfoutput>
 <cfset sqlinlist="">
 
 <br>srchPrefName: #srchPrefName#
 
-<cfset fnopn=listgetat(srchPrefName,1,' ,;')>
+<cfset fnOPN=listgetat(srchPrefName,1,' ,;')>
+<cfset restOPN=trim(replace(srchPrefName,fnOPN,'')>
 
 <br>fnopn: #fnopn#
 
@@ -673,7 +673,10 @@
 				<cfset varnts=p>
 				<cfset varnts=listdeleteat(varnts,listfindnocase(p,fnopn))>
 <br>varnts: #varnts#
-				<cfset sqlinlist=listappend(sqlinlist,varnts)>
+
+				<cfloop list="#varnts#" index="f">
+					<cfset sqlinlist=listappend(sqlinlist,"#f# #restOPN#")>
+				</cfloop>
 <br>sqlinlist: #sqlinlist#
 				
 			</cfif>
