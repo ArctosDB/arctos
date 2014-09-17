@@ -245,6 +245,8 @@
 		<cfset srchLastName=trim(escapeQuotes(srchLastName))>
 		<cfset srchPrefName=trim(escapeQuotes(preferred_name))>
 		
+		
+		<br>srchPrefName: #srchPrefName#
 		<cfset nameVariations="bob,robert;bill,william,billy">
 		
 		<cfoutput>
