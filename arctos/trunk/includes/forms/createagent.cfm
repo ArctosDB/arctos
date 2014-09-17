@@ -132,8 +132,6 @@
 					return false;
 				}
 			}
-
-
 			jQuery.getJSON("/component/agent.cfc",
 				{
 					method : "checkAgent",
@@ -148,22 +146,16 @@
 				function (r) {
 					if(r){
 						$("#forceOverride").val('false');
-						
 						var q='There are potential problems with the agent you are trying to create.<ul>';
-
-	 var errs = r.split(";"); 
-for (var i = 0; i < errs.length; i++) {
-    q+='<li>' + errs[i] + '</li>';
-}
-
-						q+='</up>If you are absolutely sure that this agent is not a duplicate, you may ';
-
+	 					var errs = r.split(";"); 
+						for (var i = 0; i < errs.length; i++) {
+						    q+='<li>' + errs[i] + '</li>';
+						}
+						q+='</ul>If you are absolutely sure that this agent is not a duplicate, you may ';
 						q+='<span onclick="forceSubmit()" class="infoLink">click here to force creation</span>';
-q+='<p><span onclick="removeErrDiv()" class="likeLink">return to creation form</span></p>';
+						q+='<p><span onclick="removeErrDiv()" class="likeLink">return to creation form</span></p>';
 						$("#preCreateErrors").html(q).addClass('error').show();
-						
-
-return false;
+						return false;
 					}else{
 						$("#forceOverride").val('true');
 						$("#createAgent").submit();
