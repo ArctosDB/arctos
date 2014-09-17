@@ -245,8 +245,24 @@
 		<cfset srchLastName=trim(escapeQuotes(srchLastName))>
 		<cfset srchPrefName=trim(escapeQuotes(preferred_name))>
 		
+		<cfset nameVariations="bob,robert">
+		<cfset t="bob,robert">
+		<cfset nameVariations=listappend(nameVariations,t,';')>
 		
-		<cfset nameVariations="bob,robert;bill,william,billy">
+		<cfset t="bill,william,billy">
+		<cfset nameVariations=listappend(nameVariations,t,';')>
+		
+		<cfset t="ted,teddy,theodore">
+		<cfset nameVariations=listappend(nameVariations,t,';')>
+		
+		
+	
+	<cfset nvars=ArrayNew(1)>
+	<cfset temp=ArrayAppend(nvars, 'Abraham,Abe,Abram')>
+	<cfset temp=ArrayAppend(nvars, 'Agatha,Agnes')>
+
+	<cfdump var=#nvars#>
+
 		<cfloop list="#nameVariations#" index="p" delimiters=";,">
 			<cfif listfindnocase(srchPrefName,p," ,;_") is 1>
 				<cfset pinlist=listgetat(nameVariations,listcontains(nameVariations,p,';'),';')>
