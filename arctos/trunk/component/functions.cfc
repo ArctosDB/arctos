@@ -272,7 +272,7 @@
 						<cfset nStr=listgetat(pinlist,n)>
 						<cfset nvar=ucase(replace(srchPrefName,listgetat(srchPrefName,1,' '),nStr))>
 						<br>nvar: #nvar#
-						<cfset sqlinlist=listappend(sqlinlist,nvar,'|')>
+						<cfset sqlinlist=listappend(sqlinlist,nvar,',')>
 						
 					</cfif>
 				</cfloop>
@@ -297,6 +297,18 @@
 		</cfloop>
 		
 		<hr>sqlinlist: #sqlinlist#
+			select 
+						'nocase name variant match' reason,
+				        agent.agent_id, 
+				        agent.preferred_agent_name
+					from 
+				        agent,
+				        agent_name
+					where 
+				        agent.agent_id=agent_name.agent_id and
+				        upper(agent_name.agent_name) in (#listqualify(sqlinlist,chr(39))#)
+		
+		
 		</cfoutput>
 		<!--- nocase preferred name match ---->	
 		<cfset sql="select 
