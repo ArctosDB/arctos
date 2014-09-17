@@ -521,7 +521,14 @@
 	
 	<cfset nvars=ArrayNew(1)>
 		
-	<cfset temp=ArrayAppend(nvars, 'Abraham,Abe')>
+	<cfset temp=ArrayAppend(nvars, listToArray('Abraham,Abe'))>
+	
+	
+	<cfdump var=#temp#>
+	
+	<cfabort>
+	
+	
 	<cfset temp=ArrayAppend(nvars, 'Albert,Al,Bert,Alfred,Alonzo')>
 	<cfset temp=ArrayAppend(nvars, 'Alexandria,Alexandra,Sandy,Sasha,Cassandra,Cassie,Cassy,Alexander,Alec,Alex,Sasha')>
 	<cfset temp=ArrayAppend(nvars, 'Allen,Alan,Al')>
