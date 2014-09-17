@@ -411,7 +411,7 @@
 	<cfset problems="">
 	<cfset disallowCharacters="/,\,&">
 	<cfif preferred_name neq trim(preferred_name)>
-		<cfset problems=listappend(problems,'FATAL ERROR: leading and trailing spaces are prohibitd.',';')>
+		<cfset problems=listappend(problems,'FATAL ERROR: leading and trailing spaces are prohibited.',';')>
 	</cfif>
 	<cfloop list="#disallowCharacters#" index="i">
 		<cfif preferred_name contains i>
@@ -421,7 +421,7 @@
 		
 	<cfif agent_type is "person">
 		<cfif (first_name neq trim(first_name)) or (middle_name neq trim(middle_name)) or (last_name neq trim(last_name))>
-			<cfset problems=listappend(problems,'FATAL ERROR: leading and trailing spaces are prohibitd.',';')>
+			<cfset problems=listappend(problems,'FATAL ERROR: leading and trailing spaces are prohibited.',';')>
 		</cfif>
 		<!--- list of terms that PROBABLY should not appear in agent names ---->
 		<cfset disallowPersons="Animal,al,alaska,and,Anonymous">
