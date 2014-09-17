@@ -498,7 +498,7 @@
 				1) followed by a space, or
 				2) The last character in the preferred name (eg, bla dood Jr.)
 		---->
-		<cfif refind('.*\.[^ ]*$',preferred_name>
+		<cfif refind('.*\.[^ ]*$',preferred_name)>
 			<cfset problems=listappend(problems,'FATAL ERROR: Periods (except ending) must be followed by a space.',';')>
 		</cfif>
 		
