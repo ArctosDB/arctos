@@ -3,6 +3,10 @@
 <cftry>
 
 -------->
+<cfdump var=#attributes#>
+
+<cfabort>
+
 
 
 <cfif isdefined("attributes.cause.message")>
