@@ -748,8 +748,8 @@
 					where 
 				        agent.agent_id=firstname.agent_id and
 				        agent.agent_id=lastname.agent_id and
-				        lastname.agent_name_type='last' and
-				        firstname.agent_name_type='first' and
+				        lastname.agent_name_type='last name' and
+				        firstname.agent_name_type='first name' and
 				        upper(lastname.agent_name)='#ucase(escapeQuotes(last_name))#' and
 				        upper(firstname.agent_name) IN
 				        (
