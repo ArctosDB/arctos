@@ -974,7 +974,11 @@
 		select * from d order by rcount desc,preferred_agent_name
 	</cfquery>
 	<cfloop query="ff">
-		<cfset thisProb='possible duplicate of <a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#preferred_agent_name#</a> (#reasons#)'>
+		<cfif reasons contains "exact preferred name match">
+			<cfset thisProb='FATAL ERROR: duplicate of <a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#preferred_agent_name#</a> (#reasons#)'>
+		<cfelse>
+			<cfset thisProb='possible duplicate of <a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#preferred_agent_name#</a> (#reasons#)'>
+		</cfif>
 		<cfset problems=listappend(problems,thisProb,';')>
 	</cfloop>
 	<cfreturn problems>
