@@ -681,7 +681,7 @@
 		<cfoutput>
 		
 		<cfloop list="#sqlinlist#" index="f">
-			<cfset varsql=listappend(varsql,"replace(upper(agent_name.agent_name,'#ucase(f)#','#ucase(fnOPN)#')) = '#ucase(srchPrefName)#'",'|')>
+			<cfset varsql=listappend(varsql,"replace(upper(agent_name.agent_name),'#ucase(f)#','#ucase(fnOPN)#') = '#ucase(srchPrefName)#'",'|')>
 		</cfloop>
 		
 		<cfset varsql=replace(varsql,'|',' OR ','all')>
