@@ -252,7 +252,7 @@
 			<br>#p#
 			
 			<cfif listfindnocase(preferred_name,p," ,;_") is 1>
-				<cfset matchat=listcontains(nameVariations,p,';,')>
+				<cfset matchat=listcontains(nameVariations,p,';')>
 								<br>matchat=#matchat#
 
 			</cfif>
