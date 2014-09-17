@@ -1,6 +1,6 @@
 <cfinclude template="includes/_header.cfm">
 <cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select collection, collection_id from collection order by collection
+	select guid_prefix collection, collection_id from collection order by guid_prefix
 </cfquery>
 <!--------------------------------------------------------------------------------->
 <cfif action is "nothing">
@@ -23,7 +23,7 @@
 		flat.spec_locality,
 		flat.verbatim_date,
 		flat.scientific_name,
-		collection.collection,
+		collection.guid_prefix collection,
 		accn.transaction_id,
 		collection.collection_id
 	FROM
