@@ -219,53 +219,9 @@
 </cfif>
 <!------------------------------------------------>
 <cfif Action is "makeNewAgent">
-	im gonna make an agent or throw a deep error
-	<cfabort>
+	
 	<cfoutput>
-		<cfset obj = CreateObject("component","component.agent")>
-		<cfset fnProbs = obj.checkAgent(
-			preferred_name="#preferred_agent_name#",
-			agent_type="#agent_type#",
-			first_name="#first_name#",
-			middle_name="#middle_name#",
-			last_name="#last_name#"
-		)>
-			<cfif len(fnProbs) gt 0>
-				<div>
-					There are potential problems with this agent:
-				</div>
-				<ul>
-				<cfloop list="#fnProbs#" index="p" delimiters=";">
-					<li>
-						#p#
-					</li>
-				</cfloop>
-				</ul>
-				<cfset forceURL="/editAllAgent.cfm?action=makeNewAgent&forceOverride=true">
-				<cfloop collection="#form#" item="theField">
-					<cfif theField is not "fieldNames" and theField is not "ACTION">
-						<cfset forceURL=forceURL & "&" & theField & '=' & form[theField]>
-					</cfif>
-				</cfloop>
-				<cfloop collection="#url#" item="theField">
-					<cfif theField is not "fieldNames" and theField is not "ACTION">
-						<cfset forceURL=forceURL & "&" & theField & '=' & url[theField]>
-					</cfif>
-				</cfloop>
-				<span class="likeLink" onclick="history.back();">
-					Return to the editing form
-				</span>
-				
-				<p>
-					If you're really sure that you want to create this agent, you can also <a href="#forceURL#">force creation</a>.
-				</p>	
-				<cfabort>			
-			</cfif>
-			
-			
-			making agent.....
-			
-			<cfabort>
+		
 		<cftransaction>
 			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select sq_agent_id.nextval nextAgentId from dual
@@ -343,6 +299,12 @@
 				</cfquery>
 			</cfif>
 		</cftransaction>
+		<cfif isdefined("forceOverride") and forceOverride is true>
+			<cfset exception.subject='Agent force-created'>
+			<cfset exception.username=session.username>
+			<cfset exception.detail='agent <a href="#Application.serverRootUrl#/agents.cfm?agent_id=#agentID.nextAgentId#">#preferred_agent_name#</a> was just force-created.'>
+			<cf_logError exception="#exception#">
+		</cfif>
 		<br>Agent created successfully.
 		If you're seeing this something is broken so file a bug report!
 		<script>
