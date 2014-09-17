@@ -115,22 +115,25 @@
 			);
 		}
 		function forceSubmit(){
-			$("#forceOverride").val('true');
+			// force the submit, log it, let them deal with any real errors
+			$("#status").val('force');
 			$("#createAgent").submit();
 		}
 
 		function removeErrDiv(){
-			$("#forceOverride").val('false');
+			// start over
+			$("#status").val('unchecked');
 			$("#preCreateErrors").html('').removeClass().hide();
 		}
 		function preCreateCheck(){
-			if ($("#forceOverride").val()==="true"){
+			// if status is pass or force, just submit the form
+			if ($("#status").val()!="unchecked"){
 				return true;
 			}
 			if ($("#agent_type").val()=='person'){
 				if ($("#first_name").val().length==0 && $("#last_name").val().length==0 && $("#middle_name").val().length==0){
 					alert('First, middle, or last name is required for person agents. Use the autogenerate button.');
-					$("#forceOverride").val('false');
+					$("#status").val('unchecked');
 					return false;
 				}
 			}
@@ -163,7 +166,6 @@
 
 
 					if(r){
-						$("#forceOverride").val('false');
 						var q='There are potential problems with the agent you are trying to create.<ul>';
 	 					var errs = r.split(";"); 
 						for (var i = 0; i < errs.length; i++) {
@@ -178,7 +180,7 @@
 						$("#preCreateErrors").html(q).addClass('error').show();
 						return false;
 					}else{
-						$("#forceOverride").val('true');
+						$("#status").val('pass');
 						$("#createAgent").submit();
 					}
 				}
@@ -190,7 +192,13 @@
 		<strong>Create Agent</strong>
 		<form name="prefdName" id="createAgent" onsubmit="return preCreateCheck()">
 			<input type="hidden" name="action" value="makeNewAgent">
-			<input type="hidden" name="forceOverride" id="forceOverride" value="">
+			<!---
+				possible values here:
+					unchecked: run the checks
+					pass: passed checks, just create agent
+					force: failed checks, creation forced, log it
+			---->
+			<input type="hidden" name="status" id="status" value="unchecked">
 			<label for="agent_type">Agent Type</label>
 			<select name="agent_type" id="agent_type" size="1" class="reqdClr" onchange="togglePerson(this.value);">
 				<option value=""></option>
@@ -314,8 +322,7 @@
 				</cfquery>
 			</cfif>
 		</cftransaction>
-		<cfif isdefined("forceOverride") and forceOverride is true>
-		
+		<cfif isdefined("status") and status is "force">
 			<cfmail subject="force agent creation" to="#Application.bugReportEmail#" from="ForceAgent@#Application.fromEmail#" type="html">
 				#session.username# just force-created agent 
 				<a href="#Application.serverRootUrl#/agents.cfm?agent_id=#agentID.nextAgentId#">#preferred_agent_name#</a>.
