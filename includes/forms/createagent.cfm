@@ -102,7 +102,7 @@
 		}
 
 		function removeErrDiv(){
-			$("#preCreateErrors").html('')..removeClass().hide();
+			$("#preCreateErrors").html('').removeClass().hide();
 
 		}
 		function preCreateCheck(){
