@@ -668,11 +668,13 @@
 
 		<cfloop array="#nvars#" index="p">
 			<br>p:#p#
+			<cfif listfindnocase(p,fnopn)>
+				<hr>found
+			</cfif>
 			
-			
 
 
-
+<!----
 			<cfif listfindnocase(p,fnopn) is 1>
 				<br>it is,,,,
 				<cfset pinlist=listgetat(nameVariations,listcontains(nameVariations,p,';'),';')>
@@ -688,6 +690,9 @@
 					</cfif>
 				</cfloop>
 			</cfif>
+			
+			
+			---->
 		</cfloop>
 		
 		</cfoutput>
