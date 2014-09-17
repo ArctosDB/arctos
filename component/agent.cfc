@@ -666,6 +666,7 @@
 
 <br>fnopn: #fnopn#
 
+<br>ArrayFindNoCase(nvars, fnopn): #ArrayFindNoCase(nvars, fnopn)#
 		<cfloop array="#nvars#" index="p">
 			<br>p:#p#
 			<cfif listfindnocase(srchPrefName,p," ,;_") is 1>
