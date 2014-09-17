@@ -252,8 +252,9 @@
 			<br>#p#
 			
 			<cfif listfindnocase(preferred_name,p," ,;_") is 1>
-				<cfset matchat=listcontains(nameVariations,p,';')>
-								<br>matchat=#matchat#
+				<cfset pinlist=listgetat(nameVariations,listcontains(nameVariations,p,';'),';')>
+				
+								<br>pinlist=#pinlist#
 
 			</cfif>
 		</cfloop>
