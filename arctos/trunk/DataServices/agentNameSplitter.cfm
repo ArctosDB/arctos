@@ -117,7 +117,7 @@ sho err
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_agent_split where preferred_name is not null		
 	</cfquery>
-	<cfset obj = CreateObject("component","component.functions")>
+	<cfset obj = CreateObject("component","component.agent")>
 	<cfloop query="d">
 		<cfset splitAgentName = obj.splitAgentName(name="#preferred_name#")>
 		<cfset checkAgent = obj.checkAgent(preferred_name="#preferred_name#", agent_type='person')>
