@@ -671,7 +671,7 @@
 			<cfif listfindnocase(p,fnopn)>
 				<hr>found
 				<cfset varnts=p>
-				<cfset varnts=listdeleteat(listfindnocase(p,fnopn))>
+				<cfset varnts=listdeleteat(varnts,listfindnocase(p,fnopn))>
 				
 <br>varnts: #varnts#
 			</cfif>
