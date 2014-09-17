@@ -351,7 +351,7 @@
 			</cfif>
 		</fieldset>
 		<fieldset id="fs_fAgentName">			
-			<legend>Agent Names <span class="infoLink" onclick="getCtDoc('ctagent_name_type');">codetable</span></legend>
+			<legend>Agent Names <span class="likeLink" onclick="getCtDoc('ctagent_name_type');">codetable</span></legend>
 			<cfloop query="agent_names">
 				<div>
 					<select name="agent_name_type_#agent_name_id#" id="agent_name_type_#agent_name_id#">
@@ -480,7 +480,8 @@
 			---->
 		</fieldset>
 		<fieldset>
-			<table border>
+			<legend>Relationships <span class="likeLink" onclick="getCtDoc('CTAGENT_RELATIONSHIP');">code table</span></legend>
+			<table >
 				<tr>
 					<th>Relationship
 					<th>RelatedAgent</th>
@@ -496,7 +497,7 @@
 										>#ctRelns.AGENT_RELATIONSHIP#</option>
 								</cfloop>
 							</select>
-							<span class="infoLink" onclick="getCtDoc('CTAGENT_RELATIONSHIP');">Define</span>
+							
 						</td>
 						<td>
 							<input type="hidden" name="related_agent_id_#agent_relations_id#" id="related_agent_id_#agent_relations_id#" value="#related_agent_id#">
