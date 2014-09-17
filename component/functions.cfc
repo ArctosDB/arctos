@@ -247,60 +247,19 @@
 		
 		
 		<cfset nameVariations="bob,robert;bill,william,billy">
-		
-		<cfoutput>
-		
-		
-				<br>srchPrefName: #srchPrefName#
-
-
-
-
 		<cfloop list="#nameVariations#" index="p" delimiters=";,">
-			<br>#p#
-			
 			<cfif listfindnocase(srchPrefName,p," ,;_") is 1>
 				<cfset pinlist=listgetat(nameVariations,listcontains(nameVariations,p,';'),';')>
-				<br>pinlist=#pinlist#
 				<cfset userTermAt=listfindnocase(pinlist,listgetat(srchPrefName,1,' '))>
-				<br>userTermAt=#userTermAt#
-				
 				<cfset sqlinlist="">
 				<cfloop from="1" to="#listlen(pinlist,',')#" index="n">
 					<cfif n is not userTermAt>
-						<br>check for variation #n#...
-						<cfset nStr=listgetat(pinlist,n)>
-						<cfset nvar=ucase(replace(srchPrefName,listgetat(srchPrefName,1,' '),nStr))>
-						<br>nvar: #nvar#
+						<cfset nvar=ucase(replace(srchPrefName,listgetat(srchPrefName,1,' '),listgetat(pinlist,n)))>
 						<cfset sqlinlist=listappend(sqlinlist,nvar,',')>
-						
 					</cfif>
 				</cfloop>
-				
-				<!----
-				select 
-						'nocase name variant match' reason,
-				        agent.agent_id, 
-				        agent.preferred_agent_name
-					from 
-				        agent,
-				        agent_name
-					where 
-				        agent.agent_id=agent_name.agent_id and
-				        (
-				        	<cfloop list="#pinlist#" index="n">
-				        		trim(upper(agent.preferred_agent_name))=trim(upper('#replace(srchPrefName,#'))
-				        	</cfloop>
-				      ---->  	
-
 			</cfif>
 		</cfloop>
-		
-		<hr>sqlinlist: #sqlinlist#
-			
-		
-		
-		</cfoutput>
 		<!--- nocase preferred name match ---->	
 		<cfset sql="select 
 						'nocase preferred name match' reason,
