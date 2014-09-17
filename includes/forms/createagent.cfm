@@ -219,9 +219,7 @@
 </cfif>
 <!------------------------------------------------>
 <cfif Action is "makeNewAgent">
-	
 	<cfoutput>
-		<!----
 		<cftransaction>
 			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select sq_agent_id.nextval nextAgentId from dual
@@ -299,8 +297,6 @@
 				</cfquery>
 			</cfif>
 		</cftransaction>
-		
-		---->
 		<cfif isdefined("forceOverride") and forceOverride is true>
 		
 			<cfmail subject="force agent creation" to="#Application.bugReportEmail#" from="ForceAgent@#Application.fromEmail#" type="html">
@@ -311,15 +307,11 @@
 				</p>
 			</cfmail>
 		</cfif>
-		
-		<!----
 		<br>Agent created successfully.
 		If you're seeing this something is broken so file a bug report!
 		<script>
 			parent.loadEditAgent(#agentID.nextAgentId#);
 			parent.$(".ui-dialog-titlebar-close").addClass('obvious').trigger('click');
 		</script>
-		
-		---->
 	</cfoutput>
 </cfif>
