@@ -8,7 +8,7 @@
 		
 		.error{
 			position:absolute;
-			font-size:1.2em;
+			font-size:1em;
 			color:red;
 			border:5px solid red;
 			padding:1em;
