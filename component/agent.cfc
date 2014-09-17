@@ -657,7 +657,7 @@
 
 	<cfdump var=#nvars#>
 
-
+<cfoutput>
 
 		<cfloop array="#nvars#" index="p">
 			<br>p:#p#
@@ -677,6 +677,8 @@
 				</cfloop>
 			</cfif>
 		</cfloop>
+		
+		</cfoutput>
 		<!--- nocase preferred name match ---->	
 		<cfset sql="select 
 						'nocase preferred name match' reason,
