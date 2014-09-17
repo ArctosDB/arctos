@@ -678,12 +678,12 @@
 		<cfset varsql="">
 		
 		
-		
+		<cfoutput>
 		
 		<cfloop list="#sqlinlist#" index="f">
 			<br>upper(replace(agent_name.agent_name,#fnOPN#,#f#) = upper(#srchPrefName#)
 		</cfloop>
-
+</cfoutput>
 
 
 		<cfabort>
