@@ -684,7 +684,7 @@
 			<cfset varsql=listappend(varsql,"replace(upper(agent_name.agent_name,'#ucase(f)#','#ucase(fnOPN)#')) = '#ucase(srchPrefName)#'",'|')>
 		</cfloop>
 		
-		<cfump var=#varsql#>
+		<cfdump var=#varsql#>
 </cfoutput>
 
 
