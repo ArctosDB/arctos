@@ -297,16 +297,7 @@
 		</cfloop>
 		
 		<hr>sqlinlist: #sqlinlist#
-			select 
-						'nocase name variant match' reason,
-				        agent.agent_id, 
-				        agent.preferred_agent_name
-					from 
-				        agent,
-				        agent_name
-					where 
-				        agent.agent_id=agent_name.agent_id and
-				        upper(agent_name.agent_name) in (#listqualify(sqlinlist,chr(39))#)
+			
 		
 		
 		</cfoutput>
@@ -340,6 +331,20 @@
 				    agent.agent_id=agent_name.agent_id and
 					upper(agent_name.agent_name) like '%#ucase(schFormattedName)#%'">	     
 		</cfif>
+		<cfif isdefined("sqlinlist") and len(sqlinlist) gt 0>
+			<cfset sql=sql & "
+				union select 
+						'nocase name variant match' reason,
+				        agent.agent_id, 
+				        agent.preferred_agent_name
+					from 
+				        agent,
+				        agent_name
+					where 
+				        agent.agent_id=agent_name.agent_id and
+				        upper(agent_name.agent_name) in (#listqualify(sqlinlist,chr(39))#)">
+		</cfif>
+		
 		<cfset sql=sql & "
 			    union 
 				  select
