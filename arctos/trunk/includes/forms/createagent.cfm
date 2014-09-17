@@ -134,6 +134,7 @@
 					return false;
 				}
 			}
+			$("#createAgent").find(":submit").attr('value','beep boop');
 			jQuery.getJSON("/component/agent.cfc",
 				{
 					method : "checkAgent",
@@ -146,6 +147,8 @@
 					last_name : $("#last_name").val()
 				},
 				function (r) {
+					$("#createAgent").find(":submit").attr('value','Create Agent');
+
 					if(r){
 						$("#forceOverride").val('false');
 						var q='There are potential problems with the agent you are trying to create.<ul>';
