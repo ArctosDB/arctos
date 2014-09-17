@@ -753,7 +753,7 @@
 				        upper(lastname.agent_name)='#ucase(escapeQuotes(last_name))#' and
 				        upper(firstname.agent_name) IN
 				        (
-				        	#listqualify(ucase(escapeQuotes(varFNsql,chr(39))))#
+				        	#listqualify(ucase(varFNsql,chr(39)))#
 				        )
 				    ">
 		</cfif>
