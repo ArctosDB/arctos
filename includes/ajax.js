@@ -127,9 +127,17 @@ function addAgentRelationship(){
 	var h='<tr id="nar'+i+'" class="newRec"><td>';
 	h+='<select name="agent_relationship_new'+i+'" id="agent_relationship_new'+i+'" size="1"></select> ';
 	h+='</td><td><input type="hidden" name="related_agent_id_new'+i+'" id="related_agent_id_new'+i+'">';
-	h+='<input type="text" name="related_agent_new'+i+'" id="related_agent_new'+i+'" ';
-	h+='onchange="getAgent(\'related_agent_idnew'+i+'\',this.id,\'fEditAgent\',this.value); return false;"';
-	h+='onKeyPress="return noenter(event);" class="minput" placeholder="pick related agent">';
+	h+='<input type="text" name="related_agent_new'+i+" id="related_agent_new'+i+'"';
+		h+='onchange="pickAgentTest(\'related_agent_id_new'+i+'\',this.id,this.value); return false;"';
+		h+='onKeyPress="return noenter(event);" placeholder="pick related agent" class="minput">';
+	
+	
+	
+	
+	
+	//h+='<input type="text" name="related_agent_new'+i+'" id="related_agent_new'+i+'" ';
+	//h+='onchange="getAgent(\'related_agent_idnew'+i+'\',this.id,\'fEditAgent\',this.value); return false;"';
+	//h+='onKeyPress="return noenter(event);" class="minput" placeholder="pick related agent">';
 	h+='</td></tr>';
 	$('#nar' + $("#nnar").val()).after(h);
 	$('#agent_relationship_new1').find('option').clone().appendTo('#agent_relationship_new' + i);
