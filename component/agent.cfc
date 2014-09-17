@@ -662,14 +662,13 @@
 <br>srchPrefName: #srchPrefName#
 
 <cfset fnOPN=listgetat(srchPrefName,1,' ,;')>
-<cfset restOPN=trim(replace(srchPrefName,fnOPN,'')>
+<cfset restOPN=trim(replace(srchPrefName,fnOPN,''))>
 
 <br>fnopn: #fnopn#
 
 		<cfloop array="#nvars#" index="p">
-			<br>p:#p#
 			<cfif listfindnocase(p,fnopn)>
-				<hr>found
+				<hr>found in #p#
 				<cfset varnts=p>
 				<cfset varnts=listdeleteat(varnts,listfindnocase(p,fnopn))>
 <br>varnts: #varnts#
