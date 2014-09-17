@@ -689,7 +689,6 @@
 </cfoutput>
 
 
-		<cfabort>
 		<!--- nocase preferred name match ---->	
 		<cfset sql="select 
 						'nocase preferred name match' reason,
@@ -720,7 +719,7 @@
 				    agent.agent_id=agent_name.agent_id and
 					upper(agent_name.agent_name) like '%#ucase(schFormattedName)#%'">	     
 		</cfif>
-		<cfif isdefined("sqlinlist") and len(sqlinlist) gt 0 and listlen(sqlinlist) lt 1000>
+		<cfif isdefined("varsql") and len(varsql) gt 0 >
 			<cfset sql=sql & "
 				union select 
 						'nocase name variant match' reason,
@@ -731,7 +730,10 @@
 				        agent_name
 					where 
 				        agent.agent_id=agent_name.agent_id and
-				        upper(agent_name.agent_name) in (#listqualify(sqlinlist,chr(39))#)">
+				        (
+				        	#varsql#
+				        )
+				    ">
 		</cfif>
 		
 		<cfset sql=sql & "
