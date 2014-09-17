@@ -469,13 +469,11 @@
 				<cfset problems=listappend(problems,'Check name for #i#: do not create unnecessary variations of "unknown."',';')>
 			</cfif>
 		</cfloop>
-		<cfif agent_type is "person">
-			<cfloop list="#disallowPersons#" index="i">
-				<cfif listfindnocase(preferred_name,i,"() ;,.")>
-					<cfset problems=listappend(problems,'Check name for #i#: do not create non-person agents as persons."',';')>
-				</cfif>
-			</cfloop>
-		</cfif>
+		<cfloop list="#disallowPersons#" index="i">
+			<cfif listfindnocase(preferred_name,i,"() ;,.")>
+				<cfset problems=listappend(problems,'Check name for #i#: do not create non-person agents as persons."',';')>
+			</cfif>
+		</cfloop>
 		<!--- try to avoid unnecessary acronyms --->
 		<cfif refind('[A-Z]{3,}',preferred_name) gt 0>
 			<cfset problems=listappend(problems,'Check for abbreviations and acronyms. do not create unnecessary variations of "unknown."',';')>
@@ -488,6 +486,12 @@
 		</cfif>
 		<cfif preferred_name contains ".">
 			<cfset problems=listappend(problems,'Check for abbreviations and acronyms. Do not create unnecessary variations of "unknown."',';')>
+		</cfif>
+		<cfif len(first_name) is 0 and len(middle_name) is 0 and len(last_name) is 0>
+			<cfset problems=listappend(problems,'FATAL ERROR: Person agents must have at least one of first, middle, last name.',';')>
+		</cfif>
+		<cfif len(first_name) is 1 or len(middle_name) is 1 or len(last_name) is 1>
+			<cfset problems=listappend(problems,'FATAL ERROR: One-character names are disallowed. Abbreviations must be followed by a period.',';')>
 		</cfif>
 		<cfset strippedNamePermutations=trim(escapeQuotes(strippedNamePermutations))>	
 		<cfset strippedNamePermutations=ListQualify(strippedNamePermutations,"'")>	
@@ -827,6 +831,14 @@
 				disallowCharacters are just that "me/you" and me /  you" and ....	
 			Expect some false positives - sorray! 
 		---->
+		<cfif (isdefined("first_name") and len(first_name) gt 0) or 
+			(isdefined("middle_name") and len(middle_name) gt 0) or 
+			(isdefined("last_name") and len(last_name) gt 0)>
+			<cfset problems=listappend(problems,'FATAL ERROR: Non-person agents may not have first, middle, or last names.',';')>
+		</cfif>
+					
+					
+					
 		<cfset disallowWords="or,cat,biol,boat,co,Corp,et,illegible,inc,other,uaf,ua,NY,AK,CA,various,Mfg">		
 		
 		<cfset disallowCharacters="/,\,&">		
@@ -852,13 +864,7 @@
 				<cfset problems=listappend(problems,'Check name for #i#: do not create unnecessary variations of "unknown."',';')>
 			</cfif>
 		</cfloop>
-		<cfif agent_type is "person">
-			<cfloop list="#disallowPersons#" index="i">
-				<cfif listfindnocase(preferred_name,i,"() ;,.")>
-					<cfset problems=listappend(problems,'Check name for #i#: do not create non-person agents as persons."',';')>
-				</cfif>
-			</cfloop>
-		</cfif>
+	
 		<!--- try to avoid unnecessary acronyms --->
 		<cfif refind('[A-Z]{3,}',preferred_name) gt 0>
 			<cfset problems=listappend(problems,'Check for abbreviations and acronyms. do not create unnecessary variations of "unknown."',';')>
