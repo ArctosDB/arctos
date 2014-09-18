@@ -26,7 +26,7 @@
 
 		// GUID overrides everything
 		if ($("#guid").val().length > 0) {
-			$("#collection").val('');
+			$("#guid_prefix").val('');
 			$("#cat_num").val('');
 			$("#custom_id").val('');
 		}
@@ -39,7 +39,7 @@
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "getCatalogedItemCitation",
-				collection_id : $("#collection").val(),
+				collection_id : $("#guid_prefix").val(),
 				cat_num : $("#cat_num").val(),
 				custom_id : $("#custom_id").val(),
 				guid : $("#guid").val(),
@@ -130,7 +130,7 @@
 			select type_status from ctcitation_type_status order by type_status
 		</cfquery>
 		<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select collection_id,collection from collection order by collection
+			select collection_id,guid_prefix from collection order by guid_prefix
 		</cfquery>
 		<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select nature_of_id from ctnature_of_id order by nature_of_id
@@ -212,11 +212,11 @@
 					<table>
 						<tr>
 							<td>
-								<label for="collection">Collection</label>
-								<select name="collection" id="collection" size="1">
+								<label for="guid_prefix">guid_prefix</label>
+								<select name="guid_prefix" id="guid_prefix" size="1">
 									<option value=""></option>
 									<cfloop query="ctcollection">
-										<option value="#collection_id#">#collection#</option>
+										<option value="#collection_id#">#guid_prefix#</option>
 									</cfloop>
 								</select>
 							</td>
@@ -577,7 +577,7 @@
 				citation.publication_id,
 				citation.collection_object_id,
 				cataloged_item.cat_num,
-				collection.collection,
+				collection.guid_prefix,
 				identification.scientific_name,
 				identification.identification_id idid,
 				citation.occurs_page_number,
@@ -618,7 +618,7 @@
 				publication_id,
 				collection_object_id,
 				cat_num,
-				collection,
+				guid_prefix,
 				occurs_page_number,
 				type_status,
 				citation_remarks,
