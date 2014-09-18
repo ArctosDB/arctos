@@ -88,12 +88,42 @@ border-bottom:1px solid black;
 			collection.INSTITUTION
 	</cfquery>
 	
-	
+	<!---
 	<cfdump var=#coll#>
-	<cfquery name="dist_institution" dbtype="query">
-		select INSTITUTION from coll where INSTITUTION is not null group by INSTITUTION order by INSTITUTION
-	</cfquery>
 	
+	---->
+	<cfquery name="dist_institution" dbtype="query">
+		select INSTITUTION,INSTITUTION_ACRONYM from coll where INSTITUTION is not null group by INSTITUTION,INSTITUTION_ACRONYM order by INSTITUTION
+	</cfquery>
+	<div id="menu">
+		<a href="##top">top</a>
+		<div class="anchortitle">Collections</div>
+		<cfloop query="dist_institution">
+			<br><a href="###lcase(INSTITUTION_ACRONYM)#">#INSTITUTION_ACRONYM#</a>
+		</cfloop>
+		<!----
+		<br><a href="##uam">UAM</a>
+		<br><a href="##cumv">CUMV</a>
+		<br><a href="##msb">MSB</a>
+		<br><a href="##mvz">MVZ</a>
+		<br><a href="##dmns">DMNS</a>
+		<br><a href="##mlz">MLZ</a>
+		<br><a href="##uwymv">UWYMV</a>
+		<br><a href="##wnmu">WNMU</a>
+		<br><a href="##knwr">KNWR</a>
+		<br><a href="##rem">other</a>
+		---->
+		<div class="anchortitle">Topics</div>
+		<br><a href="##features">Features</a>
+		<br><a href="##nodes">Nodes</a>
+		<br><a href="##participation">Participation</a>
+		<br><a href="##requirements">Requirements</a>
+		<br><a href="##browser_compatiblity">Browsers</a>
+		<br><a href="##data_usage">Usage</a>
+		<br><a href="##faq">FAQ</a>
+		<br><a href="##suggest">Suggestions</a>
+
+	</div>
 	<cfloop query="dist_institution">
 		<br>#INSTITUTION#
 		<cfquery name="i_portal" dbtype="query">
