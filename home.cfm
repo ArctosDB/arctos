@@ -85,15 +85,18 @@ border-bottom:1px solid black;
 				cf_collection.collection || ' Collection'),
 			cf_collection.collection_id,
 			guid_prefix,
-			collection.INSTITUTION			
-		order by 
-			collection.INSTITUTION	,
-			cf_collection.collection
+			collection.INSTITUTION
 	</cfquery>
 	
+	
 	<cfdump var=#coll#>
+	<cfquery name="dist_institution">
+		select INSTITUTION from coll group by INSTITUTION order by INSTITUTION
+	</cfquery>
 	
-	
+	<cfloop query="dist_institution">
+		<br>#INSTITUTION#
+	</cfloop>
 	
 	<!----
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
