@@ -61,7 +61,9 @@ border-bottom:1px solid black;
 			loan_policy_url,
 			portal_name,
 			count(cat_num) as cnt,
-			guid_prefix
+			guid_prefix,
+			collection.INSTITUTION,
+			collection.INSTITUTION_ACRONYM
 		from
 			cf_collection,
 			collection,
@@ -83,9 +85,56 @@ border-bottom:1px solid black;
 				null,cf_collection.collection || ' Portal',
 				cf_collection.collection || ' Collection'),
 			cf_collection.collection_id,
-			guid_prefix
-		order by cf_collection.collection
+			guid_prefix,
+			collection.INSTITUTION,
+			collection.INSTITUTION_ACRONYM
 	</cfquery>
+	
+	<!---
+	<cfdump var=#coll#>
+	
+	---->
+	<cfquery name="dist_institution" dbtype="query">
+		select INSTITUTION,INSTITUTION_ACRONYM from coll where INSTITUTION is not null group by INSTITUTION,INSTITUTION_ACRONYM order by INSTITUTION
+	</cfquery>
+	<div id="menu">
+		<a href="##top">top</a>
+		<div class="anchortitle">Collections</div>
+		<cfloop query="dist_institution">
+			<br><a href="###lcase(INSTITUTION_ACRONYM)#">#INSTITUTION_ACRONYM#</a>
+		</cfloop>
+		<!----
+		<br><a href="##uam">UAM</a>
+		<br><a href="##cumv">CUMV</a>
+		<br><a href="##msb">MSB</a>
+		<br><a href="##mvz">MVZ</a>
+		<br><a href="##dmns">DMNS</a>
+		<br><a href="##mlz">MLZ</a>
+		<br><a href="##uwymv">UWYMV</a>
+		<br><a href="##wnmu">WNMU</a>
+		<br><a href="##knwr">KNWR</a>
+		<br><a href="##rem">other</a>
+		---->
+		<div class="anchortitle">Topics</div>
+		<br><a href="##features">Features</a>
+		<br><a href="##nodes">Nodes</a>
+		<br><a href="##participation">Participation</a>
+		<br><a href="##requirements">Requirements</a>
+		<br><a href="##browser_compatiblity">Browsers</a>
+		<br><a href="##data_usage">Usage</a>
+		<br><a href="##faq">FAQ</a>
+		<br><a href="##suggest">Suggestions</a>
+
+	</div>
+	<cfloop query="dist_institution">
+		<br>#INSTITUTION#
+		<cfquery name="i_portal" dbtype="query">
+			select * from coll where INSTITUTION='#INSTITUTION#'
+		</cfquery>
+		<cfdump var=#i_portal#>
+	</cfloop>
+	
+	<!----
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
 	<cfset gotem=''>
 	<cfquery name="uam" dbtype="query">
@@ -680,6 +729,10 @@ border-bottom:1px solid black;
 			</cfloop>
 		</cfif>
 	</table>
+	
+	
+	
+	---->
 	<a name="features"></a>
 <p><strong >Features:</strong>
 <ul>
