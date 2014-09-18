@@ -366,33 +366,12 @@
 				<br><a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
 			</cfif>
 			<cfset session.mapURL=mapURL>
-	
 		<table border="0" width="100%">
 			<tr>
 			<td>
 				<strong>Found #summary.recordcount# specimens.</strong>
 			</td>
-			<!----
-				<td>
-					<span class="controlButton"	id="customizeButton">Add/Remove&nbsp;Data&nbsp;Fields</span>
-				</td>
-				<td id="removeRowsCell">
-					<span class="controlButton" onclick="removeRows();">Remove Checked Rows</span>
-				</td>
-				<td>
-					<span class="controlButton" onclick="window.open('/SpecimenResultsDownload.cfm?tableName=#session.SpecSrchTab#','_blank');">Download</span>
-				</td>
-				<td>
-					<span class="controlButton" onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
-				</td>
-				---->
 				<cfif willmap.recordcount gt 0>
-					<!----
-					<td>
-						
-						<a href="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank" class="external">BerkeleyMapper</a>
-					</td>
-					---->
 					<!--- far from perfect, but see if we can prevent some frustration by sending fewer bound-to-fail queries to rangemaps ---->
 					<cfquery dbtype="query" name="willItRangeMap">
 						select scientific_name from summary group by scientific_name
@@ -413,16 +392,8 @@
 							</cfif>
 						</cfif>
 					</cfloop>
-					<cfif listlen(gen) is 1 and listlen(sp) is 1>
-					<!----
-						<td>
-							<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#" target="_blank" class="external">BerkeleyMapper+Rangemaps</a>
-						</td>
-						---->
-					</cfif>
 				</cfif>
 					<td>
-					
 						<select name="usertools" id="usertools" onchange="pickedTool()">
 							<option value="">Tools: Map, Customize, or Download</option>
 							<cfif willmap.recordcount gt 0>
@@ -443,11 +414,7 @@
 								<option value="download">Download</option>
 							</optgroup>
 						</select>
-						<!----
-						<a href="/bnhmMaps/kml.cfm" target="_blank">Google Maps/Google Earth</a>
-						---->
 					</td>
-				
 				<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
 					<td nowrap="nowrap">
 						<select name="goWhere" id="goWhere" size="1" onchange="reporter('#session.SpecSrchTab#');">

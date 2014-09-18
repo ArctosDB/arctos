@@ -316,15 +316,6 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="right">Valid?</td>
-				<td>
-					<select name="valid_catalog_term_fg" class="reqdClr">
-						<option value="1">yes</option>
-						<option value="0">no</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
 				<td align="right">Source Authority (Wikipedia URL)</td>
 				<td>
 					<input name="source_authority" id="source_authority" class="reqdClr">
@@ -526,19 +517,6 @@
 						</label>
 						<input type="url" name="source_authority" id="source_authority" class="reqdClr" required value="#source_authority#"  pattern="https?://[a-z]{2}.wikipedia.org/wiki/.{1,}" size="80">
 					</td>
-					<!----
-	                <td>
-						<label for="valid_catalog_term_fg">
-							Valid?
-						</label>
-						<select name="valid_catalog_term_fg" id="valid_catalog_term_fg" class="reqdClr">
-		                    <option value=""></option>
-		                    <option <cfif geogdetails.valid_catalog_term_fg is "1"> selected="selected" </cfif>value="1">yes</option>
-		                    <option <cfif geogdetails.valid_catalog_term_fg is "0"> selected="selected" </cfif>value="0">no</option>
-		                  </select>
-					</td>
-					---->
-					<td>&nbsp;</td>
 				</tr>
 				<tr>
 	                <td colspan="4">
@@ -1450,7 +1428,7 @@ You deleted a collecting event.
 					geog_auth_rec 
 				SET 
 					source_authority = '#escapeQuotes(source_authority)#',
-					valid_catalog_term_fg = #valid_catalog_term_fg#,
+					valid_catalog_term_fg = 1,
 					continent_ocean = '#escapeQuotes(continent_ocean)#',
 					country = '#escapeQuotes(country)#',
 					state_prov = '#escapeQuotes(state_prov)#',
@@ -1729,7 +1707,6 @@ INSERT INTO geog_auth_rec (
 				ISLAND,
 				ISLAND_GROUP,
 				SEA,
-				VALID_CATALOG_TERM_FG,
 				SOURCE_AUTHORITY,
 				HIGHER_GEOG
 			from
@@ -1741,7 +1718,7 @@ INSERT INTO geog_auth_rec (
 				locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 				collecting_event.collecting_event_id in (#collecting_event_id#)
 		</cfquery>
-		<cfset clist="COLLECTING_EVENT_ID,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,VERBATIM_COORDINATES,COLLECTING_EVENT_NAME,LOCALITY_ID,SPEC_LOCALITY,DEC_LAT,DEC_LONG,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,DATUM,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL,LOCALITY_NAME,S$ELEVATION,S$GEOGRAPHY,S$DEC_LAT,S$DEC_LONG,S$LASTDATE,GEOG_AUTH_REC_ID,CONTINENT_OCEAN,COUNTRY,STATE_PROV,COUNTY,QUAD,FEATURE,ISLAND,ISLAND_GROUP,SEA,VALID_CATALOG_TERM_FG,SOURCE_AUTHORITY,HIGHER_GEOG">
+		<cfset clist="COLLECTING_EVENT_ID,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,VERBATIM_COORDINATES,COLLECTING_EVENT_NAME,LOCALITY_ID,SPEC_LOCALITY,DEC_LAT,DEC_LONG,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,DATUM,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL,LOCALITY_NAME,S$ELEVATION,S$GEOGRAPHY,S$DEC_LAT,S$DEC_LONG,S$LASTDATE,GEOG_AUTH_REC_ID,CONTINENT_OCEAN,COUNTRY,STATE_PROV,COUNTY,QUAD,FEATURE,ISLAND,ISLAND_GROUP,SEA,SOURCE_AUTHORITY,HIGHER_GEOG">
 
 		<cfset fileDir = "#Application.webDirectory#">
 		<cfset variables.encoding="UTF-8">
