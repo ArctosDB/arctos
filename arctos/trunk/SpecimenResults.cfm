@@ -11,6 +11,10 @@
 <script type='text/javascript' language="javascript" src='/includes/SpecimenResults.min.js'></script>
 <link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 <cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
+<style>
+	#usertools{border:3px solid #417bb5; }
+	#goWhere{border:3px solid #417bb5; }
+</style>
 <cfoutput>
 	<cfif not isdefined("session.resultColumnList") or len(session.resultColumnList) is 0>
 		<cfset session.resultColumnList='GUID'>
