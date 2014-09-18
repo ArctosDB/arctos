@@ -91,11 +91,15 @@ border-bottom:1px solid black;
 	
 	<cfdump var=#coll#>
 	<cfquery name="dist_institution" dbtype="query">
-		select INSTITUTION from coll group by INSTITUTION order by INSTITUTION
+		select INSTITUTION from coll where INSTITUTION is not null group by INSTITUTION order by INSTITUTION
 	</cfquery>
 	
 	<cfloop query="dist_institution">
 		<br>#INSTITUTION#
+		<cfquery name="i_portal" dbtype="query">
+			select * from coll where INSTITUTION='#INSTITUTION#'
+		</cfquery>
+		<cfdump var=#i_portal#>
 	</cfloop>
 	
 	<!----
