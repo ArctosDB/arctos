@@ -424,7 +424,7 @@
 					<td>
 					
 						<select name="usertools" id="usertools" onchange="pickedTool()">
-							<option value="">Map, Customize, Download</option>
+							<option value="">Tools: Map, Customize, or Download</option>
 							<cfif willmap.recordcount gt 0>
 								<optgroup label="Mapping Tools">
 									<option value="BerkeleyMapper">Map results in BerkeleyMapper</option>
