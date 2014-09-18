@@ -90,6 +90,8 @@
 	<cfset thisLoopNum=1>
 	<script type="text/javascript">
 	    $(document).ready(function () {
+			$("##usertools").menu();
+			$("##goWhere").menu();
 	        $('##specresults').jtable({
 	            title: 'Specimen Results',       
 				paging: true, //Enable paging
@@ -437,9 +439,6 @@
 								<option value="download">Download</option>
 							</optgroup>
 						</select>
-						<script>
-							$("##usertools").menu();
-						</script>
 						<!----
 						<a href="/bnhmMaps/kml.cfm" target="_blank">Google Maps/Google Earth</a>
 						---->
