@@ -12,12 +12,9 @@
 	select
 		display_value,
 		a.collection_object_id,
-		c.INSTITUTION_ACRONYM,
-		c.collection,
+		c.guid_prefix collection,
 		a.cat_num,
-		c.collection_cde,
-		c.institution_acronym,
-		c.institution_acronym || ':' || c.collection_cde || ':' || a.cat_num guid
+		c.guid_prefix || ':' || a.cat_num guid
 	FROM
 		cataloged_item a,
 		coll_obj_other_id_num b,

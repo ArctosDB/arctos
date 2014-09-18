@@ -1,3 +1,7 @@
+deprecated - contact a DBA<cfabort>
+
+
+
 <cfinclude template="/includes/_frameHeader.cfm">
 <!------------------------------------------------------------------->
 <cfif #Action# is "nothing">
