@@ -90,7 +90,7 @@ border-bottom:1px solid black;
 	
 	
 	<cfdump var=#coll#>
-	<cfquery name="dist_institution">
+	<cfquery name="dist_institution" dbtype="query">
 		select INSTITUTION from coll group by INSTITUTION order by INSTITUTION
 	</cfquery>
 	
