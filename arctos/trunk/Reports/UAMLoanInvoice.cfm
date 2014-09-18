@@ -262,8 +262,7 @@ Number of rows to print per page:
 select 
 		cat_num, 
 		cataloged_item.collection_object_id,
-		collection.collection_cde,
-		collection.institution_acronym,
+		collection.guid_prefix,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		concatattributevalue(cataloged_item.collection_object_id,'sex') as sex,
 		decode (sampled_from_obj_id,
@@ -343,8 +342,7 @@ select
 		cat_num, 
 		customid,
 		collection_object_id,
-		collection_cde,
-		institution_acronym,
+		guid_prefix,
 		sex,
 		scientific_name,
 		Encumbrance,
@@ -375,8 +373,7 @@ select
 		cat_num, 
 		customid,
 		collection_object_id,
-		collection_cde,
-		institution_acronym,
+		guid_prefix,
 		sex,
 		scientific_name,
 		Encumbrance,
@@ -523,7 +520,7 @@ select
 
 	<tr	#iif(i MOD 2,DE("style='background-color:E5E5E5'"),DE("style='background-color:FFFFFF'"))#	>
 		<td rowspan="#numItemsForThisSpec#">
-			<span class="times10">#institution_acronym#&nbsp;#collection_cde#&nbsp;#cat_num#</span>
+			<span class="times10">#guid_prefix#:#cat_num#</span>
 		</td>
 		<td rowspan="#numItemsForThisSpec#">
 			#CustomID#&nbsp;
@@ -699,7 +696,7 @@ select
 select 
 		cat_num, 
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-		collection_cde,
+		guid_prefix,
 		part_name,
 		condition,
 		loan_number
@@ -708,11 +705,13 @@ select
 		loan,
 		specimen_part, 
 		coll_object,
-		cataloged_item
+		cataloged_item,
+		collection
 	WHERE
 		loan_item.collection_object_id = specimen_part.collection_object_id AND
 		loan.transaction_id = loan_item.transaction_id AND
 		specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
+		cataloged_item.collection_id=collection.collection_id and
 		specimen_part.collection_object_id = coll_object.collection_object_id AND
 		loan_item.transaction_id = #transaction_id#
 	ORDER BY cat_num
@@ -780,7 +779,7 @@ select
 	<tr>
 		<td>
 			<span class="times10">
-			#collection_cde# #cat_num#&nbsp;
+			#guid_prefix#:#cat_num#&nbsp;
 			</span>
 		</td>
 		<td>

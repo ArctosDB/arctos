@@ -57,7 +57,7 @@
 	select container_type from ctContainer_Type order by container_type
 </cfquery>
 <cfquery name="collections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select collection_id, institution_acronym || ' ' || collection_cde coll from collection
+	select collection_id, guid_prefix coll from collection order by guid_prefix
 </cfquery>
 <cfquery name="ctcoll_other_id_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select OTHER_ID_TYPE from
@@ -83,7 +83,7 @@
 				<select name="collection_id" id="collection_id" size="1">
 					<option value=""></option>
 						<cfloop query="collections">
-							<option value="#collection_id#">#coll#</option>
+							<option value="#collection_id#">#guid_prefix#</option>
 				  		</cfloop>
 				</select>
 				<label for="begin_parent_install_date">Earliest Install Date</label>

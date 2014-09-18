@@ -116,7 +116,6 @@
 				flags,
 				cat_num, 
 				collection.collection_cde, 
-				institution_acronym,
 				cataloged_item.collection_object_id collection_object_id, 
 				ATTRIBUTE_ID,
 				agent_name,
