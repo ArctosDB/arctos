@@ -72,7 +72,7 @@
 		<select name="collection_id" size="1" id="collection_id">
 			<option value=""></option>
 			<cfloop query="ctcollection">
-				<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+				<option value="#ctcollection.collection_id#">#ctcollection.guid_prefix#</option>
 			</cfloop>
 		</select>
 		<label for="borrow_number">Borrow Number</label>
@@ -362,7 +362,7 @@
 				NATURE_OF_MATERIAL,
 				TRANS_REMARKS,
 				lender_loan_type,
-				collection.collection
+				collection.guid_prefix collection
 			FROM
 				trans,
 				borrow,
@@ -924,7 +924,7 @@
 					<select name="collection_id" size="1" id="collection_id"  class="reqdClr">
 						<option value=""></option>
 						<cfloop query="ctcollection">
-							<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+							<option value="#ctcollection.collection_id#">#ctcollection.guid_prefix#</option>
 						</cfloop>
 					</select>
 				<td>
