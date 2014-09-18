@@ -113,7 +113,6 @@ drop table temp;
 			select
 				cataloged_item.collection_object_id,
 				cat_num,
-				institution_acronym,
 				collection.guid_prefix collection,
 				cat_num,
 				scientific_name,
