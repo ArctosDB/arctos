@@ -1,4 +1,4 @@
-<cfinclude template="../includes/_pickHeader.cfm">
+<cfinclude template="/includes/_pickHeader.cfm">
 <cfoutput>
 	<cfif not isdefined("ret_val_id")>
 	<cfset ret_val_id =''>
@@ -6,8 +6,8 @@
 <cfif not isdefined("ret_id_id")>
 	<cfset ret_id_id =''>
 </cfif>
-<cfif not isdefined("collection")>
-	<cfset collection =''>
+<cfif not isdefined("guid_prefix")>
+	<cfset guid_prefix =''>
 </cfif>
 <cfif not isdefined("collection_id")>
 	<cfset collection_id =''>
@@ -26,7 +26,7 @@
 <cfif action is "nothing">
 <cfoutput>
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select collection,collection_id from collection group by collection,collection_id order by collection,collection_id 
+		select guid_prefix,collection_id from collection group by guid_prefix,collection_id order by guid_prefix,collection_id 
 	</cfquery>
 	<cfquery name="ctOID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select other_id_type from ctcoll_other_id_type group by other_id_type order by other_id_type 
@@ -50,7 +50,7 @@
 			<cfloop query="ctcollection">
 				<option 
 					<cfif ctcollection.collection_id is cidl.collection_id> selected="selected" </cfif> 
-					value="#collection_id#">#collection#</option>
+					value="#collection_id#">#guid_prefix#</option>
 			</cfloop>
 		</select>
 		<label for="part">Part</label>
@@ -79,7 +79,7 @@
 <cfoutput>
 	<cfset s="select 
 			cat_num,
-			collection.collection,
+			collection.guid_prefix,
 			cataloged_item.collection_object_id,
 			specimen_part.collection_object_id partID,
 			COLL_OBJECT_REMARKS,
@@ -131,7 +131,7 @@
 	</cfif>
 	<cfset s=s & " group by
 			cat_num,
-			collection.collection,
+			collection.guid_prefix,
 			cataloged_item.collection_object_id,
 			specimen_part.collection_object_id,
 			COLL_OBJECT_REMARKS,
@@ -160,7 +160,7 @@
 			<cfloop query="data">
 				<tr>
 					<td>
-						#collection# #cat_num# #PART_NAME# [#barcode#]				
+						#guid_prefix# #cat_num# #PART_NAME# [#barcode#]				
 					</td>
 					<cfif len(#session.CustomOtherIdentifier#) gt 0 >
 						<td>#CustomID#</td>

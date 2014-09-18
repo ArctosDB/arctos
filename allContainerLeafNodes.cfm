@@ -49,8 +49,7 @@
 				scientific_name,
 				part_name,
 				cat_num,
-				cataloged_item.collection_cde,
-				institution_acronym,
+				collection.guid_prefix,
 				coll_object.COLL_OBJ_DISPOSITION
 			FROM
 				coll_obj_cont_hist,
@@ -83,7 +82,7 @@
 			<td>#specData.COLL_OBJ_DISPOSITION#</td>
 			<td>
 				<a href="/SpecimenDetail.cfm?collection_object_id=#specData.collection_object_id#">
-					#specData.institution_acronym# #specData.collection_cde# #specData.cat_num#
+					#specData.guid_prefix# #specData.cat_num#
 				</a>
 			</td>
 			<td>#specData.scientific_name#</td>

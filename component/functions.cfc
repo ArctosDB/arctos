@@ -3220,7 +3220,6 @@
 		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				cat_num,
-				institution_acronym,
 				collection.guid_prefix
 				scientific_name,
 				part_name

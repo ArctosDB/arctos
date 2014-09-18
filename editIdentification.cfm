@@ -21,7 +21,6 @@
 <cfquery name="getID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
 		identification.identification_id,
-		institution_acronym,
 		identification.scientific_name,
 		cat_num,
 		cataloged_item.collection_cde,
@@ -203,7 +202,6 @@
 <cfquery name="distIds" dbtype="query">
 	SELECT
 		identification_id,
-		institution_acronym,
 		scientific_name,
 		cat_num,
 		collection_cde,
@@ -217,7 +215,6 @@
 		getID
 	GROUP BY
 		identification_id,
-		institution_acronym,
 		scientific_name,
 		cat_num,
 		collection_cde,

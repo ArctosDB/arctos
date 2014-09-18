@@ -8,7 +8,7 @@
 ------------>
 <cfoutput>
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select institution_acronym || ':' || collection_cde instccde from collection order by institution_acronym,collection_cde
+		select guid_prefix instccde from collection order by guid_prefix
 	</cfquery>
 	<cfif not isdefined("r_accnNumber")>
 		<cfset r_accnNumber=''>
@@ -39,7 +39,7 @@
 	<cfif len(accnNumber) gt 0>
 		<cfquery name="getAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
-				collection.institution_acronym || ':' || collection.collection_cde instccde,
+				collection.guid_prefix instccde,
 				accn_number
 			FROM
 				accn,
@@ -49,12 +49,11 @@
 				accn.transaction_id=trans.transaction_id and
 				trans.collection_id=collection.collection_id and
 				<cfif len(InstAcrColnCde) gt 0>
-					collection.institution_acronym || ':' || collection.collection_cde='#InstAcrColnCde#' and
+					collection.guid_prefix='#InstAcrColnCde#' and
 				</cfif>
 				upper(accn_number) like '%#ucase(accnNumber)#%'
 			ORDER BY
-				collection.institution_acronym,
-				collection.collection_cde,
+				collection.guid_prefix,
 				accn_number
 		</cfquery>
 		<cfif getAccn.recordcount is 0>

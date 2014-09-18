@@ -5,9 +5,6 @@
 <cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select borrow_status from ctborrow_status
 </cfquery>
-<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select distinct(institution_acronym)  from collection
-</cfquery>
 <cfquery name="cttrans_agent_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select distinct(trans_agent_role)  from cttrans_agent_role order by trans_agent_role
 </cfquery>
