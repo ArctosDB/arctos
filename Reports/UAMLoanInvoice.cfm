@@ -17,7 +17,6 @@
 
 <cfdump var=#getLoan#>
 
-<cfabort>
 
 
 <cfoutput>
