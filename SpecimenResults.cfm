@@ -438,7 +438,7 @@
 							</optgroup>
 						</select>
 						<script>
-							$("#usertools").menu();
+							$("##usertools").menu();
 						</script>
 						<!----
 						<a href="/bnhmMaps/kml.cfm" target="_blank">Google Maps/Google Earth</a>
