@@ -62,7 +62,8 @@ border-bottom:1px solid black;
 			portal_name,
 			count(cat_num) as cnt,
 			guid_prefix,
-			collection.INSTITUTION
+			collection.INSTITUTION,
+			collection.INSTITUTION_ACRONYM
 		from
 			cf_collection,
 			collection,
@@ -85,7 +86,8 @@ border-bottom:1px solid black;
 				cf_collection.collection || ' Collection'),
 			cf_collection.collection_id,
 			guid_prefix,
-			collection.INSTITUTION
+			collection.INSTITUTION,
+			collection.INSTITUTION_ACRONYM
 	</cfquery>
 	
 	<!---
