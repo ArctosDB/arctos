@@ -1307,9 +1307,6 @@ function getLegal(blurb) {
 }	
 function getInfo(subject,id) {
 	infoWin=windowOpener("/info/SpecInfo.cfm?subject=" + subject + "&thisId="+id,"infoWin","width=800,height=500, resizable,scrollbars");
-}	
-function addLoanItem(coll_obj_id) {
-	loanItemWin=windowOpener("/user/loanItem.cfm?collection_object_id="+coll_obj_id,"loanItemWin","width=800,height=500, resizable,scrollbars,toolbar,menubar");
 }
 function findMedia(mediaStringFld,mediaIdFld,media_uri){
 	var url,popurl;

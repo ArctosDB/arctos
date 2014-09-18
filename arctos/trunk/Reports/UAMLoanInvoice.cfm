@@ -1,3 +1,5 @@
+deprecated - contact a DBA<cfabort>
+
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif #action# is "nothing">
 <cfdocument 
@@ -13,9 +15,6 @@
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 
 <cf_getLoanFormInfo>
-
-
-<cfdump var=#getLoan#>
 
 
 
