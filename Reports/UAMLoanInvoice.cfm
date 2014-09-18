@@ -17,6 +17,8 @@
 
 <cfdump var=#getLoan#>
 
+<cfabort>
+
 
 <cfoutput>
 	<cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
