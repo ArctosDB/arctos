@@ -913,7 +913,7 @@
 	<cfquery name="whatSpecs" datasource="uam_god">
 	  	SELECT
 	  		count(cat_num) as numOfSpecs,
-	  		collection,
+	  		guid_prefix collection,
 	  		collection.collection_id
 		from
 			cataloged_item,
@@ -926,7 +926,7 @@
 			specimen_event.collecting_event_id=collecting_event.collecting_event_id and
 			collecting_event.locality_id=<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER">
 		GROUP BY
-			collection,
+			guid_prefix,
 	  		collection.collection_id
 	</cfquery>
 	<cfquery name="whatMedia" datasource="uam_god">
@@ -995,7 +995,7 @@
 	<cfquery name="whatSpecs" datasource="uam_god">
 	  	SELECT
 	  		count(cat_num) as numOfSpecs,
-	  		collection,
+	  		guid_prefix collection,
 	  		collection.collection_id
 		from
 			cataloged_item,
@@ -1006,7 +1006,7 @@
 			cataloged_item.collection_object_id=specimen_event.collection_object_id and
 			specimen_event.collecting_event_id=<cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
 		GROUP BY
-			collection,
+			guid_prefix,
 	  		collection.collection_id
 	</cfquery>
 	<cfquery name="whatMedia" datasource="uam_god">
@@ -1351,7 +1351,7 @@
 			#i# I,
 			cat_num,
 			cataloged_item.collection_object_id,
-			collection,
+			guid_prefix collection,
 			part_name,
 			condition,
 			sampled_from_obj_id,
@@ -3072,7 +3072,7 @@
 					null,part_name,
 					part_name || ' SAMPLE') part_name,
 				cat_num,
-				collection,
+				guid_prefix collection,
 				concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 				'#session.CustomOtherIdentifier#' as CustomIdType
 			from
@@ -3221,8 +3221,7 @@
 			select
 				cat_num,
 				institution_acronym,
-				collection.collection_cde,
-				collection.collection,
+				collection.guid_prefix
 				scientific_name,
 				part_name
 				<cfif len(part_id2) gt 0>
@@ -3241,8 +3240,8 @@
 				cataloged_item.collection_id=collection.collection_id and
 				specimen_part.collection_object_id=#part_id#
 		</cfquery>
-		<cfset r='Moved <a href="/guid/#coll_obj.institution_acronym#:#coll_obj.collection_cde#:#coll_obj.cat_num#">'>
-		<cfset r="#r##coll_obj.collection# #coll_obj.cat_num#">
+		<cfset r='Moved <a href="/guid/#coll_obj.guid_prefix#:#coll_obj.cat_num#">'>
+		<cfset r="#r##coll_obj.coll_obj#:#coll_obj.cat_num#">
 		<cfset r="#r#</a> (<i>#coll_obj.scientific_name#</i>) #coll_obj.part_name#">
 		<cfset r="#r# to container barcode #parent_barcode# (#new_container_type#)">
 		<cfreturn '1|#r#'>>
@@ -3522,7 +3521,9 @@
 			</cfquery>
 			<cfquery name="meta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select cataloged_item.collection_object_id,
-				cat_num,collection,part_name
+				cat_num,
+				collection guid_prefix,
+				part_name
 				from
 				cataloged_item,
 				collection,
@@ -3603,7 +3604,7 @@
 				</cfif>
 				#session.myagentid#,
 				sysdate
-				,'#meta.collection# #meta.cat_num# #meta.part_name#'
+				,'#meta.collection#:#meta.cat_num# #meta.part_name#'
 				<cfif len(#instructions#) gt 0>
 					,'#instructions#'
 				</cfif>

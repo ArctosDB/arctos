@@ -418,7 +418,7 @@
 					<td>
 					
 						<select name="usertools" id="usertools" onchange="pickedTool()">
-							<option value="">Tools</option>
+							<option value="">Map, Customize, Download</option>
 							<cfif willmap.recordcount gt 0>
 								<optgroup label="Mapping Tools">
 									<option value="BerkeleyMapper">Map results in BerkeleyMapper</option>
@@ -437,7 +437,9 @@
 								<option value="download">Download</option>
 							</optgroup>
 						</select>
-						
+						<script>
+							$("#usertools").menu();
+						</script>
 						<!----
 						<a href="/bnhmMaps/kml.cfm" target="_blank">Google Maps/Google Earth</a>
 						---->
