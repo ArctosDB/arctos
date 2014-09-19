@@ -88,6 +88,12 @@ border-bottom:1px solid black;
 			collection.institution
 		order by cf_collection.collection
 	</cfquery>
+	<cfquery name="institution" dbtype="query">
+		select institution from coll group by institution order by institution
+	</cfquery>
+	<cfdump var=#institution#>
+	
+	
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
 	<cfset gotem=''>
 	<cfquery name="uam" dbtype="query">
