@@ -96,15 +96,17 @@ border-bottom:1px solid black;
 		<hr>
 		<br>#institution#
 		<cfquery name="coln" dbtype="query">
-			select * from coll where institution='#institution#' order by collection
+			select * from coll where institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
 		</cfquery>
 		<cfdump var=#coln#>
 		<!----
+		
+		---->
+		
 		<cfloop query="coln">
 			<br>collection=#coln.collection#
 			<br>collection_id=#coll.collection_id#
 		</cfloop>
-		---->
 	</cfloop>
 	
 	
