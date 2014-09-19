@@ -1,4 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
+
+
+
+<div style="display:table">
+	<div style="display:table-row">
+		<div style="display:table-cell">
+			inst
+		</div>
+	</div>
+</div>
 <cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <script src="/includes/jquery.multiselect.min.js"></script>
