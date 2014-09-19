@@ -99,8 +99,8 @@ border-bottom:1px solid black;
 			select * from coll where institution='#institution#' order by collection
 		</cfquery>
 		<cfloop query="coln">
-			<br>collection=#collection#
-			<br>collection_id=#collection_id#
+			<br>collection=#coln.collection#
+			<br>collection_id=#coll.collection_id#
 		</cfloop>
 	</cfloop>
 	
