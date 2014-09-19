@@ -1,6 +1,31 @@
 <cfset title="Arctos Home">
 <cfinclude template="/includes/_header.cfm">
 <style>
+
+.institution_title_div {
+	display:table;
+	border:2px solid purple;
+}
+.institution_title_div {
+	display: table-row;
+	font-size:2em;
+	font-weight:900;
+}
+.collection_row_div {
+	display: table-row;
+	border:2px dotted black;
+}
+.collection_name_div {
+	color:red;
+}
+.collection_description_div {
+	color:green;
+}
+.collection_stats_div {
+	color:purple;
+}
+					
+					
 	.collnTitle {
 		font-weight:bold;
 	}
@@ -41,7 +66,6 @@ border-bottom:1px solid black;
 
 
 
-collection_description_div
 
 
 	.collnDescrCell {
@@ -54,10 +78,9 @@ collection_description_div
 </style>
 <cfoutput>
 
-cachedwithin="#createtimespan(0,0,60,0)#"
 
 
-	<cfquery name="raw" datasource="uam_god" >
+	<cfquery name="raw" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			cf_collection.cf_collection_id,
 			cf_collection.collection,
@@ -95,9 +118,10 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 	</cfquery>
 	
 		<cfloop query="inst">
-			<h2>
-				#institution#
-			</h2>
+			<div class="institution_group_div">
+				<div class="institution_title_div">
+					#institution#
+				</div>
 			<cfquery name="coln" dbtype="query">
 				select * from raw where collection_id is not null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
 			</cfquery>
@@ -140,7 +164,7 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 								<li>no loan policy</li>
 							</cfif>
 								<cfif listlast(collection,' ') is not 'Portal'>
-							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</a></li>
 								</cfif>
 						</ul>
 					</div>
@@ -163,6 +187,7 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 					</td>
 				</tr>
 			</cfloop>
+		</div>
 	</cfloop>
 	</table>
 	
