@@ -1,27 +1,30 @@
 <cfinclude template="/includes/_header.cfm">
 
 <style>
-	.table {display:table}
+	.table {display:table;width:100%}
 	.tr {display:table-row}
 	.td {display:table-cell;border:1px solid black;margin:1em;}
 	.institutiongroup {border:1px dotted green;}
 	.institutionheader {border:1px dotted purple;}
+	.collectionrow {border:1px dotted purple;}
 </style>
 
 <div class="institutiongroup">
 	<div class="institutionheader">
 		inst
 	</div>
-	<div class="table">
-		<div class="tr">
-			<div class="td">
-				<div>stuff</div>
-				<div>nextrow</div>
+	<div class="collectionrow">
+		<div class="table">
+			<div class="tr">
+				<div class="td">
+					<div>stuff</div>
+					<div>nextrow</div>
+				</div>
+				<div class="td">
+					another cell
+				</div>
+					
 			</div>
-			<div class="td">
-				another cell
-			</div>
-				
 		</div>
 	</div>
 </div>
