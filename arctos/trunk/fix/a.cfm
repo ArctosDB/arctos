@@ -8,11 +8,17 @@
 
 <div class="table">
 	<div class="tr">
-		<div style="display:table-cell">
+		<div class="td">
 			inst
 		</div>
 	</div>
 	<div class="tr">
+		<div class="td">
+			another cell
+		</div>
+		<div class="td">
+			another cell
+		</div>
 		<div class="td">
 			another cell
 		</div>
