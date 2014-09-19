@@ -12,7 +12,7 @@
 		MADE_DATE,
 		REMARKS,
 		ENCUMBRANCE_ACTION,
-		collection,
+		guid_prefix,
 		count(coll_object_encumbrance.COLLECTION_OBJECT_ID) numberSpecimens
 	from
 		encumbrance,
@@ -33,7 +33,7 @@
 		MADE_DATE,
 		REMARKS,
 		ENCUMBRANCE_ACTION,
-		collection
+		guid_prefix
 </cfquery>
 
 <cfquery name="encs" dbtype="query">
@@ -81,12 +81,12 @@
 				<td>#dateformat(MADE_DATE,"YYYY-MM-DD")#</td>
 				<td>#REMARKS#</td>
 				<cfquery name="cols" dbtype="query">
-					select collection,numberSpecimens from d where encumbrance_id=#encumbrance_id# order by collection
+					select guid_prefix,numberSpecimens from d where encumbrance_id=#encumbrance_id# order by guid_prefix
 				</cfquery>
 				<td>
 					<cfloop query="cols">
 						<div>
-							#collection#: #numberSpecimens#
+							#guid_prefix#: #numberSpecimens#
 						</div>
 					</cfloop>
 				</td>
@@ -97,7 +97,7 @@
 
 <cfquery name="sencs" datasource="uam_god" cachedwithin="#createtimespan(1,0,0,0)#">
   select
-    collection, 
+    guid_prefix, 
     count(distinct(cataloged_item.COLLECTION_OBJECT_ID)) collnSize,
     count(distinct(allencs.COLLECTION_OBJECT_ID)) numberEncumberedRecords,
     count(distinct(maskrecord.COLLECTION_OBJECT_ID)) numberMaskedRecords,
@@ -144,9 +144,9 @@
     cataloged_item.COLLECTION_OBJECT_ID=restrictusage.COLLECTION_OBJECT_ID (+) and
     cataloged_item.COLLECTION_OBJECT_ID=infowithheld.COLLECTION_OBJECT_ID (+)
   group by
-    collection.collection
+    collection.guid_prefix
   order by
-    collection.collection
+    collection.guid_prefix
 </cfquery>
 <h2>Encumbrances by Type and Collection</h2>
 
@@ -176,7 +176,7 @@
 		
 
 			<tr>
-				<td>#collection#</td>
+				<td>#guid_prefix#</td>
 				<td>#collnSize#</td>
 				
 				<td>#numberEncumberedRecords#</td>
