@@ -15,6 +15,22 @@
 .collection_description{font-size:.9em;margin:1em 2em 1em 2em;font-size:.9em;}
 	
 	
+	#menu {
+		position:fixed;
+		top:20%;
+		left:0;
+		width:6em;
+		border:1px solid green;
+		padding:1em;
+		margin:1em;
+	}
+	
+	#stayright{margin-left:12em;}
+	
+	
+	
+	
+	
 .institution_cell {
 	font-weight:900;
 	font-size:1.5em;
@@ -117,15 +133,7 @@ display:table-cell;
 		font-size:large;
 		font-weight:bold;
 	}
-	#menu {
-		position:fixed;
-		top:20%;
-		left:0;
-		width:6em;
-		border:1px solid green;
-		padding:1em;
-		margin:1em;
-	}
+	
 	#body {
 		margin-left:12em;
 	}
@@ -219,7 +227,7 @@ border-bottom:1px solid black;
 		</div>
 	
 	
-	
+	<div id="stayright">
 	<cfloop query="inst">
 		<cfquery name="coln" dbtype="query">
 			select * from raw where collection_id is not null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
@@ -287,6 +295,7 @@ border-bottom:1px solid black;
 			</cfloop>
 		</div>
 	</cfloop>
+	</div>
 	<!---------
 	<table>
 			<cfquery name="coln" dbtype="query">
