@@ -1,4 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
+
+
+
+hi<cfabort>
 	<script>
 		jQuery(document).ready(function() {
 			$.each($("div[id^='mapgohere-']"), function() {
