@@ -77,9 +77,6 @@ border-bottom:1px solid black;
 	}
 </style>
 <cfoutput>
-
-
-
 	<cfquery name="raw" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			cf_collection.cf_collection_id,
@@ -117,11 +114,11 @@ border-bottom:1px solid black;
 		select institution from raw group by institution order by institution
 	</cfquery>
 	
-		<cfloop query="inst">
-			<div class="institution_group_div">
-				<div class="institution_title_div">
-					#institution#
-				</div>
+	<cfloop query="inst">
+		<div class="institution_group_div">
+			<div class="institution_title_div">
+				#institution#
+			</div>
 			<cfquery name="coln" dbtype="query">
 				select * from raw where collection_id is not null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
 			</cfquery>
@@ -129,7 +126,9 @@ border-bottom:1px solid black;
 				select * from raw where collection_id is null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
 			</cfquery>
 			<cfloop query="coln_portals">
-				<br>#collection# portal....
+				<div class="collection_row_div">
+					#collection# portal....
+				</div>
 			</cfloop>
 			<cfloop query="coln">
 				<cfset coll_dir_name = "#lcase(portal_name)#">
@@ -189,6 +188,13 @@ border-bottom:1px solid black;
 			</cfloop>
 		</div>
 	</cfloop>
+
+
+
+<cfabort>
+
+
+
 	</table>
 	
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
