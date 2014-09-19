@@ -448,7 +448,7 @@
 	</cfif>
 </cfoutput>
 
-<cfset 1=2>
+#kasnf#
 <cfcatch>
 
 <!----
