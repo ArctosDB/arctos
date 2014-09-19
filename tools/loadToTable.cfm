@@ -6,15 +6,12 @@ Upload CSV
 	<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 	<input type="submit" value="Upload CSV" class="savBtn">
  </cfform>
-
-
 <cfoutput>
 	<cfif action is "getFile">
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 	<cfset numberOfColumns = ArrayLen(arrResult[1])>
-	
 	<cftry>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			drop table #session.username#.my_temp_cf			
@@ -45,12 +42,8 @@ Upload CSV
 					<cfset colVals="#colVals#,'#thisBit#'">
 				</cfif>
 			</cfloop>
-			<br>#thisBit#
 		<cfif o is 1>
-			<hr>
-			colNames: <br>
-			#colNames#
-			<hr>
+		
 			<cfset colNames=replace(colNames,",","","first")>
 			<cfset s='create table #session.username#.my_temp_cf ('>
 			<cfset c=1>
@@ -58,11 +51,7 @@ Upload CSV
 				<cfset s="#s# #x# varchar2(4000),">
 			</cfloop>
 			<cfset s=rereplace(s,",[^,]*$","")  & ")">
-			
-			<br>
-			
-			#preservesinglequotes(s)#				
-			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(s)#							
 			</cfquery>
 		</cfif>	
@@ -78,24 +67,18 @@ Upload CSV
 				</cfloop>
 			</cfif>
 			
-			<br>
-			
-			insert into #session.username#.my_temp_cf (#colNames#) values (#preservesinglequotes(colVals)#)
+		
 			<cfquery name="ins" datasource="uam_god">
 				insert into #session.username#.my_temp_cf (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
 	</cfloop>
-	</cfif>
 	<hr>
 	loaded to #session.username#.my_temp_cf
+	</cfif>
 	
 	
-				<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select * from #session.username#.my_temp_cf
-				</cfquery>
 				
-				<cfdump var=#r#>
 
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
