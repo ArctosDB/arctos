@@ -72,7 +72,7 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 		where
 			cf_collection.collection_id=collection.collection_id (+) and
 			collection.collection_id=cataloged_item.collection_id (+) and
-			PUBLIC_PORTAL_FG = 1
+			cf_collection.PUBLIC_PORTAL_FG = 1
 		group by
 			cf_collection.cf_collection_id,
 			cf_collection.collection,
@@ -88,8 +88,13 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 			cf_collection.collection_id,
 			guid_prefix,
 			collection.institution
-		order by cf_collection.collection
 	</cfquery>
+	
+	
+	
+	<cfdump var=#raw#>
+	
+	
 	<cfquery name="inst" dbtype="query">
 		select institution from raw group by institution order by institution
 	</cfquery>
