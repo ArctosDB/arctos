@@ -149,9 +149,9 @@
 </div>
 <input type="hidden" name="action" value="#action#">
 <div class="secDiv">
-	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
-	
 	cachedwithin="#createtimespan(0,0,60,0)#"
+
+	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >	
 		SELECT institution, collection, collection_id FROM collection order by collection
 	</cfquery>
 	<cfif isdefined("collection_id") and len(collection_id) gt 0>
