@@ -194,6 +194,28 @@ border-bottom:1px solid black;
 		select institution from raw group by institution order by institution
 	</cfquery>
 	
+	
+
+		<div id="menu">
+			<a href="##top">top</a>
+			<div class="anchortitle">Collections</div>
+			<cfloop query="inst">
+				<br><a href="###institution_acronym#">#institution_acronym#</a>
+			</cfloop>
+			<div class="anchortitle">Topics</div>
+			<br><a href="##features">Features</a>
+			<br><a href="##nodes">Nodes</a>
+			<br><a href="##participation">Participation</a>
+			<br><a href="##requirements">Requirements</a>
+			<br><a href="##browser_compatiblity">Browsers</a>
+			<br><a href="##data_usage">Usage</a>
+			<br><a href="##faq">FAQ</a>
+			<br><a href="##suggest">Suggestions</a>
+	
+		</div>
+	
+	
+	
 	<cfloop query="inst">
 		<cfquery name="coln" dbtype="query">
 			select * from raw where collection_id is not null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
