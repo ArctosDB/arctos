@@ -4,15 +4,15 @@
 
 
 
-
 .table {display:table;width:100%}
 	.tr {display:table-row}
 	.td {display:table-cell;border:1px solid black;margin:1em;}
-	.institutiongroup {border:1px dotted green;}
-	.institutionheader {border:1px dotted purple;}
+	.institutiongroup {border:1px dotted green;margin:1em;}
+	.institutionheader {border:1px dotted purple;margin:1em;}
 	.collectionrow {border:1px dotted purple;margin-left:3em;}
-	.70%{width:70%;}
-	
+	.widecell{width:70%;}
+	.collection_title{font-size:1.3em;}
+.collection_description{font-size:.9em;}
 	
 	
 	
@@ -213,7 +213,7 @@ border-bottom:1px solid black;
 				<div class="collectionrow">
 					<div class="table">
 						<div class="tr">
-							<div class="td 70%">
+							<div class="td widecell">
 								<div class="collection_title">#collection#</div>
 								<div class="collection_description">#descr#</div>
 							</div>
