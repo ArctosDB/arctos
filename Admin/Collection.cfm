@@ -312,6 +312,12 @@
 	</table>
 	
 	<hr>
+	<h2>Random Disclaimer</h2>
+	<div>
+		None of this is an attempt to prevent changes or assert any values over any other; we (the Arctos Advisory and Steering Committees) simply
+		wish to prevent a uniform front containing unambiguous values. How we accomplish that is, as always, up to the combined efforts of the 
+		Arctos community.
+	</div>
 	<a name="inst"></a>
 	<h2>Institutional Standardization</h2>
 	<div>
