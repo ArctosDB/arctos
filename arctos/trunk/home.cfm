@@ -3,6 +3,44 @@
 <style>
 
 
+.institution_cell {
+	font-weight:900;
+	font-size:1.5em;
+	border-top:2px solid black;
+	padding-top:2em;
+	
+}
+.portal_cell{
+	font-weight:900;
+	margin-left:3em;
+	font-size:1.2em;
+	
+}
+.collection_title_cell {
+	font-weight:900;
+	margin-left:2em;
+	font-size:1.2em;
+	
+}
+
+.collection_description_cell {
+	margin-left:4em;	
+	font-size:.8em;
+
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .institution_group_tbl {
 	/* this surrounds all institution data */
