@@ -76,18 +76,14 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 		group by
 			cf_collection.cf_collection_id,
 			cf_collection.collection,
-			collection.collection_id,
+			cf_collection.collection_id,
 			descr,
 			web_link,
 			web_link_text,
 			loan_policy_url,
 			portal_name,
-			decode(cf_collection.collection_id,
-				null,cf_collection.collection || ' Portal',
-				cf_collection.collection || ' Collection'),
-			cf_collection.collection_id,
 			guid_prefix,
-			collection.institution
+			cf_collection.institution
 	</cfquery>
 	
 	
