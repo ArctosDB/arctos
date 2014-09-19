@@ -236,7 +236,7 @@ content: ": ";
 			<cfquery name="locSpecimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT 
 					count(cataloged_item.cat_num) numOfSpecs, 
-					collection.collection,
+					collection.guid_prefix,
 					collection.collection_id
 				from
 					cataloged_item, 
@@ -249,7 +249,7 @@ content: ": ";
 					specimen_event.collecting_event_id=collecting_event.collecting_event_id and
 					collecting_event.locality_id=#locality.locid# 
 				GROUP BY 
-					collection.collection,
+					collection.guid_prefix,
 					collection.collection_id
 			</cfquery>
 			<div class="grouped">
@@ -269,7 +269,7 @@ content: ": ";
 								<cfif locSpecimen.recordcount gt 0>
 									<cfloop query="locSpecimen">
 										<div>
-											<a href="SpecimenResults.cfm?collection_id=#collection_id#&locality_id=#locality.locid#">[ #numOfSpecs# #collection# Specimens ]</a>
+											<a href="SpecimenResults.cfm?collection_id=#collection_id#&locality_id=#locality.locid#">[ #numOfSpecs# #guid_prefix# Specimens ]</a>
 										</div>
 									</cfloop>	
 								</cfif>
@@ -458,7 +458,7 @@ content: ": ";
 			<cfquery name="evntSpecimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT 
 					count(cataloged_item.cat_num) numOfSpecs, 
-					collection.collection,
+					collection.guid_prefix,
 					collection.collection_id
 				from
 					cataloged_item, 
@@ -467,7 +467,7 @@ content: ": ";
 					cataloged_item.collection_id = collection.collection_id and
 					cataloged_item.collecting_event_id = #event.eventID#
 				GROUP BY 
-					collection.collection,
+					collection.guid_prefix,
 					collection.collection_id
 			</cfquery>
 			
@@ -499,7 +499,7 @@ content: ": ";
 								<cfif evntSpecimen.recordcount gt 0>
 									<cfloop query="evntSpecimen">
 										<div>
-											<a href="SpecimenResults.cfm?collection_id=#collection_id#&collecting_event_id=#event.eventID#">[ #numOfSpecs# #collection# Specimens ]</a>
+											<a href="SpecimenResults.cfm?collection_id=#collection_id#&collecting_event_id=#event.eventID#">[ #numOfSpecs# #guid_prefix# Specimens ]</a>
 										</div>
 									</cfloop>	
 								</cfif>

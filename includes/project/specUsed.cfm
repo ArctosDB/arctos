@@ -1,7 +1,7 @@
 <cfoutput>
 	<cfquery name="getUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT 
-			collection.collection,
+			collection.guid_prefix,
 			collection.collection_id,
 			count(distinct(cataloged_item.collection_object_id)) c
 		FROM 
@@ -17,11 +17,11 @@
 			loan_item.transaction_id = project_trans.transaction_id AND
 			project_trans.project_id = #project_id#
 		group by
-			collection.collection,
+			collection.guid_prefix,
 			collection.collection_id
 		UNION -- data loans
 		SELECT 
-			collection.collection,
+			collection.guid_prefix,
 			collection.collection_id,
 			count(distinct(cataloged_item.collection_object_id)) c
 		FROM 
@@ -35,14 +35,14 @@
 			loan_item.transaction_id = project_trans.transaction_id AND
 			project_trans.project_id = #project_id#
 		group by
-			collection.collection,
+			collection.guid_prefix,
 			collection.collection_id
 	</cfquery>
 	<cfquery name="ts" dbtype="query">
 		select sum(c) totspec from getUsed
 	</cfquery>
 	<cfquery name="nc" dbtype="query">
-			select collection from getUsed group by collection
+			select guid_prefix from getUsed group by guid_prefix
 		</cfquery>
 	<cfif getUsed.recordcount gt 0>
 		<h2>Specimens Used</h2>
@@ -50,7 +50,7 @@
 			<cfloop query="getUsed">
 				<li>
 					<a href="/SpecimenResults.cfm?loan_project_id=#project_id#&collection_id=#collection_id#">
-						#c# #collection# Specimens
+						#c# #guid_prefix# Specimens
 					</a>
 					<a href="/bnhmMaps/bnhmMapData.cfm?loan_project_id=#project_id#&collection_id=#collection_id#"> [ BerkeleyMapper ]</a>
 				</li>
