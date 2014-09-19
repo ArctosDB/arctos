@@ -450,6 +450,12 @@
 
 <cfset 1=2>
 <cfcatch>
+
+<!----
 	<cfdump var=#cfcatch#>
+	
+	--->
+	
+oopsies....
 </cfcatch>
 </cftry>
