@@ -74,11 +74,17 @@
 						</cfloop>
 					</select>
 					<label for="institution_acronym">Institution Acronym</label>
-					<input type="text" name="institution_acronym" id="institution_acronym" value="#colls.institution_acronym#" class="reqdClr">
+					<div>
+						<strong>#colls.institution_acronym#</strong> <a href="#inst">why can't I change this?</a>
+					</div>
 					<label for="institution">Institution</label>
-					<input type="text" name="institution" id="institution" value="#colls.institution#" class="reqdClr">
+					<div>
+						<strong>#colls.institution#</strong> <a href="#inst">why can't I change this?</a>
+					</div>
 					<label for="collection">Collection</label>
-					<input type="text" name="collection" id="collection" value="#colls.collection#" size="50" class="reqdClr">
+					<div>
+						<strong>#colls.collection#</strong> <a href="#coln">why can't I change this?</a>
+					</div>
 					<label for="guid_prefix">GUID Prefix</label>
 					<input type="text" name="guid_prefix" id="guid_prefix" value="#colls.guid_prefix#">
 					<label for="descr">Description</label>
@@ -307,6 +313,24 @@
 </td>
 		</tr>
 	</table>
+	
+	<hr>
+	<a name="inst">
+	<h2>Institutional Standardization</h2>
+	<div>
+		Institution Acronmy and Institution are set by Institutions as a whole in order to present a united front to users, and to allow
+		hierarchical search controls. To change these values, coordinate the change with all collections in your institution and 
+		<a href="/contact.cfm">contact us</a>
+	</div>
+	<a name="coln">
+	<h2>Collection Naming Standardization</h2>
+	<div>
+		Collection has been (more or less) standardized across all collections, and may only be changed with the 
+		agreement of the Arctos community. <a href="/contact.cfm">Contact us</a> or send a message to the Arctos group
+		to initiate changes.
+	</div>
+	
+	
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------->
@@ -383,7 +407,6 @@
 			COLLECTION_CDE = '#collection_cde#',
 			guid_prefix = '#guid_prefix#',
 			COLLECTION = '#collection#',
-			INSTITUTION_ACRONYM='#institution_acronym#',
 			INSTITUTION='#INSTITUTION#',
 			DESCR='#escapeQuotes(descr)#',
 			web_link='#web_link#',
