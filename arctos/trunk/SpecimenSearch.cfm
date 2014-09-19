@@ -152,8 +152,19 @@
 	cachedwithin="#createtimespan(0,0,60,0)#"
 
 	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >	
-		SELECT institution, collection, collection_id FROM collection order by collection
+		SELECT 
+			collection.institution, 
+			collection.collection, 
+			collection.collection_id 
+		FROM 
+			collection,
+			cf_collection 
+		where 
+			collection.collection_id=cf_collection.collection_id and 
+			PUBLIC_PORTAL_FG=1 
+		order by collection.collection
 	</cfquery>
+	
 	<cfif isdefined("collection_id") and len(collection_id) gt 0>
 		<cfset thisCollId = collection_id>
 	<cfelse>
