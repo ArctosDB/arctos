@@ -452,9 +452,9 @@
 
 
 <cfcatch>
-
+<cfdump var=#cfcatch#>
 <!----
-	<cfdump var=#cfcatch#>
+	
 	
 	--->
 	
