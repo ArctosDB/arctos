@@ -41,21 +41,6 @@
 				#preservesinglequotes(sql)#
 			</cfquery>
 		</cfoutput>
-	<cfelseif guid contains " ">
-		<cfset spos=find(" ",reverse(guid))>
-		<cfset cc=left(guid,len(guid)-spos)>
-		<cfset cn=right(guid,spos)>
-		<cfset sql="select collection_object_id from
-				cataloged_item,
-				collection
-			WHERE
-				cataloged_item.collection_id = collection.collection_id AND
-				cat_num = #cn# AND
-				lower(collection.collection)='#lcase(cc)#'">
-		<cfset checkSql(sql)>
-		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			#preservesinglequotes(sql)#
-		</cfquery>
 	</cfif>
 	<cfif isdefined("c.collection_object_id") and len(c.collection_object_id) gt 0>
 		<cfset collection_object_id=c.collection_object_id>
@@ -70,7 +55,7 @@
 
 <cfset detSelect = "
 	SELECT
-		#session.flatTableName#.collection,
+		#session.flatTableName#.guid_prefix,
 		#session.flatTableName#.collection_id,
 		#session.flatTableName#.locality_id,
 		web_link,
@@ -125,8 +110,8 @@
 			</ul>
 		</div>
 	</cfif>
-	<cfset title="#detail.collection# #detail.cat_num#: #detail.scientific_name#">
-	<cfset metaDesc="#detail.collection# #detail.cat_num# (#guid#); #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
+	<cfset title="#detail.guid_prefix#:#detail.cat_num#: #detail.scientific_name#">
+	<cfset metaDesc="#detail.guid_prefix#:#detail.cat_num#; #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
 	<cf_customizeHeader collection_id=#detail.collection_id#>
 	<cfif (detail.verbatim_date is detail.began_date) AND (detail.verbatim_date is detail.ended_date)>
 		<cfset thisDate = detail.verbatim_date>
@@ -148,7 +133,7 @@
 						<td nowrap valign="top">
 							<div id="SDCollCatBlk">
 								<span id="SDheaderCollCatNum">
-									#detail.collection#&nbsp;#detail.cat_num#
+									#detail.guid_prefix#&nbsp;#detail.cat_num#
 								</span>
 								<cfif len(session.CustomOtherIdentifier) gt 0>
 									<div id="SDheaderCustID">

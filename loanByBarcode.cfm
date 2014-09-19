@@ -99,7 +99,7 @@
 				trans_remarks,
 				return_due_date,
 				trans.collection_id,
-				collection.collection,
+				collection.guid_prefix collection,
 				concattransagent(trans.transaction_id,'entered by') enteredby
 			 from 
 				loan, 
@@ -120,7 +120,7 @@
 			select 
 				cat_num, 
 				cataloged_item.collection_object_id,
-				collection,
+				guid_prefix collection,
 				part_name,
 				condition,
 				 sampled_from_obj_id,

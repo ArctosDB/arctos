@@ -386,7 +386,7 @@
 		<cfquery name="specimen" datasource="uam_god">
 			select
 				collection.collection_id,
-				collection.collection,
+				collection.guid_prefix,
 				count(*) c
 			from
 				locality,
@@ -402,9 +402,9 @@
 			 	geog_auth_rec_id=#geog_auth_rec_id#
 			 group by
 			 	collection.collection_id,
-				collection.collection
+				collection.guid_prefix
 			order by
-				collection.collection
+				collection.guid_prefix
 		</cfquery>
 		<div style="border:2px solid blue; background-color:red;">
 			Altering this record will update:
@@ -414,7 +414,7 @@
 				<cfloop query="specimen">
 					<li>
 						<a href="/SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#&collection_id=#specimen.collection_id#">
-							#specimen.c# #collection# specimens
+							#specimen.c# #guid_prefix# specimens
 						</a>
 					</li>
 				</cfloop>
@@ -668,7 +668,7 @@
 		<cfquery name="vstat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				verificationstatus,
-				collection,
+				guid_prefix,
 				count(*) c
 			from
 				specimen_event,
@@ -680,7 +680,7 @@
 				specimen_event.collecting_event_id=#locDet.collecting_event_id#
 			group by
 				verificationstatus,
-				collection
+				guid_prefix
 		</cfquery>
 		<label for="dfs">"Your" specimens in this collecting event:</label>
 		<table id="dfs" border>
@@ -691,7 +691,7 @@
 			</tr>
 			<cfloop query="vstat">
 				<tr>
-					<td>#collection#</td>
+					<td>#guid_prefix#</td>
 					<td>#verificationstatus#</td>
 					<td>#c#</td>
 				</tr>

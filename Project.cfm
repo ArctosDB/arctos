@@ -170,7 +170,7 @@
 		</cfquery>
 		<cfquery name="getLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				collection.collection,
+				collection.guid_prefix,
 				loan.loan_number,
 				loan.transaction_id,
 				nature_of_material,
@@ -186,12 +186,12 @@
 				loan.transaction_id = trans.transaction_id and
 				trans.collection_id=collection.collection_id and
 				project_trans.project_id = #getDetails.project_id#
-			order by collection, loan_number
+			order by guid_prefix, loan_number
 		</cfquery>
 		<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				accn_number,
-				collection,
+				guid_prefix,
 				accn.transaction_id,
 				nature_of_material,
 				trans_remarks
@@ -205,7 +205,7 @@
 				accn.transaction_id = trans.transaction_id and
 				trans.collection_id=collection.collection_id and
 				project_id = #getDetails.project_id#
-				order by collection, accn_number
+				order by guid_prefix, accn_number
 		</cfquery>
 		<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
@@ -404,7 +404,7 @@
 				<cfloop query="getAccns">
 	 				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<a href="editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#">
-							<strong>#collection#  #accn_number#</strong>
+							<strong>#guid_prefix#  #accn_number#</strong>
 						</a>
 						<a href="/Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#">
 							[ Remove ]
@@ -422,7 +422,7 @@
 				<cfloop query="getLoans">
 		 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">
-							<strong>#collection# #loan_number#</strong>
+							<strong>#guid_prefix# #loan_number#</strong>
 						</a>
 						<a href="Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#">
 							[ Remove ]
