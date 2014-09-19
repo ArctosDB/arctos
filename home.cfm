@@ -89,7 +89,7 @@ border-bottom:1px solid black;
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
 	<cfset gotem=''>
 	<cfquery name="uam" dbtype="query">
-		select * from coll where (collection like 'UAM %' or collection like 'Herbarium %') order by collection
+		select * from coll where institution='University of Alaska Museum (UAM)' order by collection
 	</cfquery>
 	<cfset gotem=listappend(gotem,valuelist(uam.cf_collection_id))>
 	<cfquery name="msb" dbtype="query">
