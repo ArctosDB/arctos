@@ -446,9 +446,11 @@
 			openAnnotation('collection_object_id=#collection_object_id#');
 		</script>
 	</cfif>
+	
+	#kasnf#
 </cfoutput>
 
-#kasnf#
+
 <cfcatch>
 
 <!----
