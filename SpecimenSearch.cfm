@@ -24,9 +24,8 @@
 	order by search_name
 </cfquery>
 <style>
-.ui-helper-reset a, ui-helper-reset a:visited {
-		color:blue; !important;
-	}
+/* for some strange reason this won't work from the .css so keep it here...*/
+.ui-helper-reset a, ui-helper-reset a:visited {color:blue; !important;}
 </style>
 <table cellpadding="0" cellspacing="0">
 	<tr>
