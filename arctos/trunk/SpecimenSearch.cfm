@@ -758,7 +758,7 @@
 		})
 		$("#collection_id").multiselect({
 			minWidth: "500",
-			height: "800"
+			height: "300"
 		});
 		$("#groupBy,#groupBy1").multiselect({
 			//minWidth: "500",
