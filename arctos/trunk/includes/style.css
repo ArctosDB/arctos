@@ -247,6 +247,10 @@
 			font-weight:900;
 			font-size: 130%;			
 		}
+		#cntr_refineSearchTerms {
+			max-height:15em;
+			overflow:scroll;
+		}
 	/* END  suggest/browse widget */
 
 	/* BEGIN specimen results maps */
