@@ -6,7 +6,8 @@
 	.td {display:table-cell;border:1px solid black;margin:1em;}
 	.institutiongroup {border:1px dotted green;}
 	.institutionheader {border:1px dotted purple;}
-	.collectionrow {border:1px dotted purple;}
+	.collectionrow {border:1px dotted purple;margin-left:3em;}
+	.70%{width:70%;}
 </style>
 
 <div class="institutiongroup">
@@ -16,7 +17,7 @@
 	<div class="collectionrow">
 		<div class="table">
 			<div class="tr">
-				<div class="td">
+				<div class="td 70%">
 					<div>stuff</div>
 					<div>nextrow</div>
 				</div>
