@@ -5,15 +5,14 @@
 	.tr {display:table-row}
 	.td {display:table-cell;border:1px solid black;margin:1em;}
 	.institutiongroup {border:1px dotted green;}
+	.institutionheader {border:1px dotted purple;}
 </style>
 
 <div class="institutiongroup">
+	<div class="institutionheader">
+		inst
+	</div>
 	<div class="table">
-		<div class="tr">
-			<div class="td">
-				inst
-			</div>
-		</div>
 		<div class="tr">
 			<div class="td">
 				<div>stuff</div>
