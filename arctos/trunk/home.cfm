@@ -98,10 +98,13 @@ border-bottom:1px solid black;
 		<cfquery name="coln" dbtype="query">
 			select * from coll where institution='#institution#' order by collection
 		</cfquery>
+		<cfdump var=#coln#>
+		<!----
 		<cfloop query="coln">
 			<br>collection=#coln.collection#
 			<br>collection_id=#coll.collection_id#
 		</cfloop>
+		---->
 	</cfloop>
 	
 	
