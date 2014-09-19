@@ -2,11 +2,32 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
 
-.institution_title_div {
+
+.institution_group_tbl {
+	/* this surrounds all institution data */
 	display:table;
-	border:2px solid purple;
 }
-.institution_title_div {
+.institution_title_tr, .collection_tr,.collection_description_tr {
+	/* this surrounds all institution data */
+	display:table-row;
+}
+.institution_title_td {
+	/* this surrounds all institution data */
+	display:table-cell;
+	color:purple;
+}
+.collection_name_td {
+	display:table-cell;
+	color:green;
+}
+collection_description_td{
+display:table-cell;
+	color:red;
+}
+		
+		
+		/*
+.institution_title_div_row {
 	display: table-row;
 	font-size:2em;
 	font-weight:900;
@@ -75,6 +96,8 @@ border-bottom:1px solid black;
 	.collnCell {
 		padding-left:1em;
 	}
+* 
+* */
 </style>
 <cfoutput>
 	<cfquery name="raw" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -115,9 +138,11 @@ border-bottom:1px solid black;
 	</cfquery>
 	
 	<cfloop query="inst">
-		<div class="institution_group_div">
-			<div class="institution_title_div">
-				#institution#
+		<div class="institution_group_tbl">
+			<div class="institution_title_tr">
+				<div class="institution_title_td">
+					#institution#
+				</div>
 			</div>
 			<cfquery name="coln" dbtype="query">
 				select * from raw where collection_id is not null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
@@ -126,26 +151,30 @@ border-bottom:1px solid black;
 				select * from raw where collection_id is null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
 			</cfquery>
 			<cfloop query="coln_portals">
-				<div class="collection_row_div">
-					#collection# portal....
+				<div class="collection_tr">
+					<div class="collection_name_td">
+						#collection# portal....
+					</div>
 				</div>
 			</cfloop>
 			<cfloop query="coln">
 				<cfset coll_dir_name = "#lcase(portal_name)#">
-				<div class="collection_row_div">
-					<div class="collection_description_div">
-						<div class="collection_name_div">
-							#collection#
-							<cfif len(guid_prefix) gt 0>
-								(GUID Prefix: <strong>#guid_prefix#</strong>)
-							</cfif>
+				<div class="collection_tr">
+					<div class="collection_description_tr">
+						<div class="collection_name_td">
+								#collection#
+								<cfif len(guid_prefix) gt 0>
+									(GUID Prefix: <strong>#guid_prefix#</strong>)
+								</cfif>
 						</div>
-						<div class="collection_description_div">
-							#descr#
+						<div class="collection_description_tr">
+							<div class="collection_description_td">
+								#descr#
+							</div>
 						</div>
 					</div>
 					
-					<div class="collection_stats_div">
+					<div class="collection_stats_td">
 						<ul>
 							<cfif listlast(collection,' ') is not 'Portal'>
 								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
@@ -168,23 +197,6 @@ border-bottom:1px solid black;
 						</ul>
 					</div>
 				</div>
-				<div class="cddiv">
-				
-				</div>
-				<tr>
-					<td class="collnCell">
-						
-						
-						<cfif len(descr) gt 0>
-							<div class="collnDescrCell">
-								
-							</div>
-						</cfif>
-					</td>
-					<td class="collnSrchCell">
-						
-					</td>
-				</tr>
 			</cfloop>
 		</div>
 	</cfloop>
