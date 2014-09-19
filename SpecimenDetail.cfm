@@ -1,7 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-
-
-
+<cftry>
 	<script>
 		jQuery(document).ready(function() {
 			$.each($("div[id^='mapgohere-']"), function() {
@@ -14,10 +12,7 @@
 				});
 			});
 		});
-	</script>
-	
-	
-	<cftry>
+	</script>	
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
@@ -452,11 +447,9 @@
 		</script>
 	</cfif>
 </cfoutput>
+
+<cfset 1=2>
 <cfcatch>
 	<cfdump var=#cfcatch#>
 </cfcatch>
-
-
-
-
 </cftry>
