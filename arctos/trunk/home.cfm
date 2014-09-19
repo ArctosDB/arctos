@@ -70,6 +70,8 @@
 			cf_collection.institution,
 			replace(collection.institution_acronym,'Obs')
 	</cfquery>
+	
+
 	<cfquery name="inst" dbtype="query">
 		select institution,institution_acronym from raw group by institution,institution_acronym order by institution
 	</cfquery>
@@ -98,6 +100,9 @@
 		Read more about Arctos at our <a href="https://arctosdb.wordpress.com/">Documentation Site</a>, explore some <a href="/random.cfm">random content</a>,
 		or use the links in the header to search for specimens, media, taxonomy, projects and publications, and more. Sign in or create an account to save
 		preferences and searches.
+		<cfquery name="summary" dbtype="query">
+			select sum(cnt) as total_specimens from raw
+		</cfquery>
 		<p>
 			Arctos is currently #summary.total_specimens# specimens and observations in #summary.numCollections# collections. Following the search links below will set your preferences to filter by a specific collection or portal. You may click
 			<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences.
