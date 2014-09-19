@@ -3,22 +3,29 @@
 <style>
 
 
+
 .institution_group_tbl {
 	/* this surrounds all institution data */
 	display:table;
 }
-.institution_title_tr, .collection_tr,.collection_description_tr {
+.institution_title_tr, .collection_tr, .collection_description_tr {
 	/* this surrounds all institution data */
 	display:table-row;
+	border:2px solid red;
 }
 .institution_title_td {
 	/* this surrounds all institution data */
 	display:table-cell;
 	color:purple;
+	font-weight:900;
+	font-size:2em;
 }
 .collection_name_td {
 	display:table-cell;
 	color:green;
+	font-weight:900;
+	font-size: 1.5em;
+	padding-left:2em;
 }
 collection_description_td{
 display:table-cell;
@@ -136,71 +143,72 @@ border-bottom:1px solid black;
 	<cfquery name="inst" dbtype="query">
 		select institution from raw group by institution order by institution
 	</cfquery>
-	
-	<cfloop query="inst">
-		<div class="institution_group_tbl">
-			<div class="institution_title_tr">
-				<div class="institution_title_td">
-					#institution#
-				</div>
-			</div>
+	<table>
+		<cfloop query="inst">
 			<cfquery name="coln" dbtype="query">
 				select * from raw where collection_id is not null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
 			</cfquery>
 			<cfquery name="coln_portals" dbtype="query">
 				select * from raw where collection_id is null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
 			</cfquery>
-			<cfloop query="coln_portals">
-				<div class="collection_tr">
-					<div class="collection_name_td">
-						#collection# portal....
+			<tr>
+				<td>
+					<div class="institution_cell">
+						#institution#
 					</div>
-				</div>
+				</td>
+			</tr>
+			<cfloop query="coln_portals">
+				<tr>
+					<td>
+						<div class="portal_cell">
+							#collection# portal....
+						</div>
+					</td>
+				</tr>
 			</cfloop>
 			<cfloop query="coln">
 				<cfset coll_dir_name = "#lcase(portal_name)#">
-				<div class="collection_tr">
-					<div class="collection_description_tr">
-						<div class="collection_name_td">
-								#collection#
-								<cfif len(guid_prefix) gt 0>
-									(GUID Prefix: <strong>#guid_prefix#</strong>)
-								</cfif>
+				<tr>
+					<td>
+						<div class="collection_title_cell">
+							#collection#
+							<cfif len(guid_prefix) gt 0>
+								(GUID Prefix: <strong>#guid_prefix#</strong>)
+							</cfif>
 						</div>
-						<div class="collection_description_tr">
-							<div class="collection_description_td">
-								#descr#
-							</div>
+						<div class="collection_description_cell">
+							#descr#
 						</div>
-					</div>
-					
-					<div class="collection_stats_td">
-						<ul>
-							<cfif listlast(collection,' ') is not 'Portal'>
-								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
-							<cfelse>
-								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
-							</cfif>
-							<cfif len(web_link) gt 0>
-								<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
-							<cfelse>
-								<li>no home page</li>
-							</cfif>
-							<cfif len(loan_policy_url) gt 0>
-								<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
-							<cfelse>
-								<li>no loan policy</li>
-							</cfif>
+					</td>
+					<td>
+						<div class="collection_stats_cell">
+							<ul>
 								<cfif listlast(collection,' ') is not 'Portal'>
-							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</a></li>
+									<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
+								<cfelse>
+									<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
 								</cfif>
-						</ul>
-					</div>
-				</div>
+								<cfif len(web_link) gt 0>
+									<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
+								<cfelse>
+									<li>no home page</li>
+								</cfif>
+								<cfif len(loan_policy_url) gt 0>
+									<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
+								<cfelse>
+									<li>no loan policy</li>
+								</cfif>
+									<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</a></li>
+									</cfif>
+							</ul>
+						</div>
+					</td>
+				</tr>
 			</cfloop>
-		</div>
-	</cfloop>
-
+		</cfloop>
+	</table>
 
 
 <cfabort>
