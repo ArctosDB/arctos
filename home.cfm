@@ -196,7 +196,7 @@ border-bottom:1px solid black;
 		select institution from raw group by institution order by institution
 	</cfquery>
 	<cfquery name="insta" dbtype="query">
-		select institution_acronym from raw where institution_acronym is not null institution_acronym order by institution_acronym
+		select institution_acronym from raw where institution_acronym is not null group by institution_acronym order by institution_acronym
 	</cfquery>
 	
 
