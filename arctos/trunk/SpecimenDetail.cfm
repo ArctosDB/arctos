@@ -2,7 +2,6 @@
 
 
 
-hi<cfabort>
 	<script>
 		jQuery(document).ready(function() {
 			$.each($("div[id^='mapgohere-']"), function() {
@@ -16,7 +15,9 @@ hi<cfabort>
 			});
 		});
 	</script>
-	<!----
+	
+	
+	<cftry>
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
@@ -28,7 +29,6 @@ hi<cfabort>
 		<cfabort>
 	</cfoutput>
 </cfif>
----->
 <cfif isdefined("guid")>
 	<cfif cgi.script_name contains "/SpecimenDetail.cfm">
 		<cfheader statuscode="301" statustext="Moved permanently">
@@ -452,3 +452,7 @@ hi<cfabort>
 		</script>
 	</cfif>
 </cfoutput>
+<cfcatch>
+	<cfdump var=#cfcatch#>
+</cfcatch>
+</cftry>
