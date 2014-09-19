@@ -61,7 +61,8 @@ border-bottom:1px solid black;
 			loan_policy_url,
 			portal_name,
 			count(cat_num) as cnt,
-			guid_prefix
+			guid_prefix,
+			collection.institution
 		from
 			cf_collection,
 			collection,
@@ -83,7 +84,8 @@ border-bottom:1px solid black;
 				null,cf_collection.collection || ' Portal',
 				cf_collection.collection || ' Collection'),
 			cf_collection.collection_id,
-			guid_prefix
+			guid_prefix,
+			collection.institution
 		order by cf_collection.collection
 	</cfquery>
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
