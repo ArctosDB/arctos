@@ -353,6 +353,16 @@
 		<cfabort>
 	</cfif>
 	---->
+	
+	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
+		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
+		<cfheader name="retry-after" value="3600"/>
+		Down for maintenance
+		<cfreturn false>
+		<cfabort>
+	</cfif>
+	
+	
 	<cfset nono="passwd,proc">
 	<cfloop list="#cgi.query_string#" delimiters="./," index="i">
 		<cfif listfindnocase(nono,i)>
