@@ -175,7 +175,7 @@
 		select 
 			guid_prefix || ':' || cat_num guid, 
 			cataloged_item.collection_object_id,
-			collection,
+			guid_prefix collection,
 			part_name,
 			condition,
 			 sampled_from_obj_id,
@@ -240,7 +240,7 @@
 	<cfquery name="theLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			loan_number,
-			collection,
+			guid_prefix collection,
 			loan_type
 		from
 			loan,
