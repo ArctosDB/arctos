@@ -312,14 +312,14 @@
 	</table>
 	
 	<hr>
-	<a name="inst">
+	<a name="inst"></a>
 	<h2>Institutional Standardization</h2>
 	<div>
 		Institution Acronym and Institution are set by Institutions as a whole in order to present a united front to users, and to allow
 		hierarchical search controls. To change these values, coordinate the change with all collections in your institution and 
 		<a href="/contact.cfm">contact us</a>
 	</div>
-	<a name="coln">
+	<a name="coln"></a>
 	<h2>Collection Naming Standardization</h2>
 	<div>
 		Collection has been (more or less) standardized across all collections, and may only be changed with the 
@@ -327,7 +327,7 @@
 		to initiate changes.
 	</div>
 	
-	<a name="fatalchanges">
+	<a name="fatalchanges"></a>
 	<h2>Other Restrictions</h2>
 	<div>
 		<strong>guid_prefix</strong> is used in forming URLs to specimens. Changing it (after specimens have been "published" on the Internet) is generally a 
