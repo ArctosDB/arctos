@@ -454,8 +454,10 @@
 <cfcatch>
 
 	<cf_logError subject="SpecimenDetail error" attributeCollection=#cfcatch#>
-
-	<cfthrow detail="block not found" errorcode="9945" message="A block of code (search,MediaSearch) was not found in the bnhmMapData template">
+	<div class="error">
+		Oh no! Part of this page has failed to load! 
+		<br>This error has been logged. Please <a href="/contact.cfm?ref=specimendetail">contact us</a> with any useful information.
+	</div>
 
 
 
