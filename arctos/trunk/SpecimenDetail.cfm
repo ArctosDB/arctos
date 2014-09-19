@@ -446,26 +446,12 @@
 			openAnnotation('collection_object_id=#collection_object_id#');
 		</script>
 	</cfif>
-	
-	#kasnf#
 </cfoutput>
-
-
 <cfcatch>
-
 	<cf_logError subject="SpecimenDetail error" attributeCollection=#cfcatch#>
 	<div class="error">
 		Oh no! Part of this page has failed to load! 
 		<br>This error has been logged. Please <a href="/contact.cfm?ref=specimendetail">contact us</a> with any useful information.
 	</div>
-
-
-
-<!----
-
-	
-	--->
-	
-oopsies....
 </cfcatch>
 </cftry>
