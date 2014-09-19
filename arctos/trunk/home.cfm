@@ -193,15 +193,17 @@ border-bottom:1px solid black;
 			collection.institution_acronym
 	</cfquery>
 	<cfquery name="inst" dbtype="query">
-		select institution,institution_acronym from raw group by institution,institution_acronym order by institution
+		select institution from raw group by institution order by institution
 	</cfquery>
-	
+	<cfquery name="insta" dbtype="query">
+		select institution_acronym from raw where institution_acronym is not null institution_acronym order by institution_acronym
+	</cfquery>
 	
 
 		<div id="menu">
 			<a href="##top">top</a>
 			<div class="anchortitle">Collections</div>
-			<cfloop query="inst">
+			<cfloop query="insta">
 				<br><a href="###institution_acronym#">#institution_acronym#</a>
 			</cfloop>
 			<div class="anchortitle">Topics</div>
