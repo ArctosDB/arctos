@@ -48,7 +48,11 @@ border-bottom:1px solid black;
 	}
 </style>
 <cfoutput>
-	<cfquery name="raw" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+
+cachedwithin="#createtimespan(0,0,60,0)#"
+
+
+	<cfquery name="raw" datasource="uam_god" >
 		select
 			cf_collection.cf_collection_id,
 			decode(cf_collection.collection_id,
