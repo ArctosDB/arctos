@@ -12,6 +12,7 @@
 			});
 		});
 	</script>
+	<!----
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
@@ -23,6 +24,7 @@
 		<cfabort>
 	</cfoutput>
 </cfif>
+---->
 <cfif isdefined("guid")>
 	<cfif cgi.script_name contains "/SpecimenDetail.cfm">
 		<cfheader statuscode="301" statustext="Moved permanently">
