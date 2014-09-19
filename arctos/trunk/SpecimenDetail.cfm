@@ -61,7 +61,7 @@
 
 <cfset detSelect = "
 	SELECT
-		#session.flatTableName#.guid_prefix,
+		#session.flatTableName#.guid,
 		#session.flatTableName#.collection_id,
 		#session.flatTableName#.locality_id,
 		web_link,
@@ -116,8 +116,8 @@
 			</ul>
 		</div>
 	</cfif>
-	<cfset title="#detail.guid_prefix#:#detail.cat_num#: #detail.scientific_name#">
-	<cfset metaDesc="#detail.guid_prefix#:#detail.cat_num#; #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
+	<cfset title="#detail.guid#: #detail.scientific_name#">
+	<cfset metaDesc="#detail.guid#; #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
 	<cf_customizeHeader collection_id=#detail.collection_id#>
 	<cfif (detail.verbatim_date is detail.began_date) AND (detail.verbatim_date is detail.ended_date)>
 		<cfset thisDate = detail.verbatim_date>
@@ -139,7 +139,7 @@
 						<td nowrap valign="top">
 							<div id="SDCollCatBlk">
 								<span id="SDheaderCollCatNum">
-									#detail.guid_prefix#&nbsp;#detail.cat_num#
+									#detail.guid#
 								</span>
 								<cfif len(session.CustomOtherIdentifier) gt 0>
 									<div id="SDheaderCustID">
