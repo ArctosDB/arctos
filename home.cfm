@@ -101,7 +101,10 @@
 		or use the links in the header to search for specimens, media, taxonomy, projects and publications, and more. Sign in or create an account to save
 		preferences and searches.
 		<cfquery name="summary" dbtype="query">
-			select sum(cnt) as total_specimens from raw
+			select 
+				sum(cnt) as total_specimens,
+				count(guid_prefix) as numCollections
+			 from raw
 		</cfquery>
 		<p>
 			Arctos is currently #summary.total_specimens# specimens and observations in #summary.numCollections# collections. Following the search links below will set your preferences to filter by a specific collection or portal. You may click
