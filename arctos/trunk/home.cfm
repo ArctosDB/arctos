@@ -201,7 +201,7 @@ border-bottom:1px solid black;
 			collection.institution_acronym
 	</cfquery>
 	<cfquery name="inst" dbtype="query">
-		select institution from raw group by institution order by institution
+		select institution,institution_acronym from raw group by institution,institution_acronym order by institution
 	</cfquery>
 	<cfquery name="insta" dbtype="query">
 		select institution_acronym from raw where institution_acronym is not null group by institution_acronym order by institution_acronym
@@ -235,6 +235,7 @@ border-bottom:1px solid black;
 		<cfquery name="coln_portals" dbtype="query">
 			select * from raw where collection_id is null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
 		</cfquery>
+		<a name="#institution_acronym#"></a>
 		<div class="institutiongroup">
 			<div class="institutionheader">
 				#institution#
