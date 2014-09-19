@@ -1,32 +1,54 @@
-<script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script> 
-
-<br><a href="http://web.corral.tacc.utexas.edu/MVZ/audio/cut/D6230_Cicero_26Jun2006_Pmaculatus2.wav">http://web.corral.tacc.utexas.edu/MVZ/audio/cut/D6230_Cicero_26Jun2006_Pmaculatus2.wav</a>
-
-
-<br><a href="http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6231_Cicero_26Jun2006_Pmaculatus3.mp3">http://web.corral.tacc.utexas.edu/MVZ/audio/mp3/D6231_Cicero_26Jun2006_Pmaculatus3.mp3</a>
+<cfinclude template="/includes/_header.cfm">
+<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
+<script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
+<script src="/includes/jquery.multiselect.min.js"></script>
 
 
-<br><a href="http://altai.corral.tacc.utexas.edu/mediaUploads/dlm/SweetHomeAlabama.mp3">
-http://altai.corral.tacc.utexas.edu/mediaUploads/dlm/SweetHomeAlabama.mp3</a>
+<link rel="stylesheet" href="/includes/jquery.multiselect.css" />
 
 
-http://altai.corral.tacc.utexas.edu/mediaUploads/dlm/SweetHomeAlabama.mp3
+<style>
+	.ui-multiselect-optgroup-label a {font-size:1.4em}
+</style>
 
-<cfhttp method="get" url="http://maps.googleapis.com/maps/api/elevation/json?locations=349.7391536,-104.9847034&sensor=false">
+<script>
 
-</cfhttp>	
-	
-	<cfdump var=#cfhttp#>
-	
-	<cfoutput>
-		#cfhttp.fileContent#
-		
-		
-		<cfset x=DeserializeJSON(cfhttp.fileContent)>
-		
-		<cfdump var=#x#>
-		
-		#x.results[1].elevation#
-	</cfoutput>
-	
-	
+jQuery(document).ready(function() {
+			$("#collection_id").multiselect({
+			minWidth: "500",
+			height: "300"
+		});
+		});
+
+
+</script>
+
+
+<select name="collection_id" id="collection_id" size="3" multiple="multiple">
+		<optgroup label="Natural History Museum of Utah (UMNH)">
+				<option>Amphibian and reptile specimens</option>
+				<option>Bird specimens</option>
+				<option>Insect specimens</option>
+				<option>Mollusc specimens</option>
+		</optgroup>	
+		<optgroup label="Museum of Vertebrate Zoology (MVZ), University of California-Berkeley">
+				<option>Amphibian and reptile observations</option
+				<option>Anatomical preparations</option>
+				<option>Bird eggs/nests</option>
+				<option>Bird observations</option>
+				<option>Bird specimens</option>
+				<option>Mammal specimens</option>>
+		</optgroup>	
+		<optgroup label="University of Alaska Museum (UAM)">
+				<option>Archeology</option>
+				<option>Bird specimens</option>
+				<option>Cryptogam specimens (ALA)</option>
+				<option>Earth Science</option>
+				<option>Invertebrate specimens</option>
+		</optgroup>
+
+</select>
+
+
+
+
