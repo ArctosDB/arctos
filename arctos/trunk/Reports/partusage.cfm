@@ -5,7 +5,7 @@
 
 <cfquery name="p" datasource="uam_god">
 	select
-		collection.collection, 
+		collection.guid_prefix, 
 		collection.collection_id, 
 		specimen_part.part_name,
 		count(distinct(cataloged_item.collection_object_id)) cnt,
@@ -20,7 +20,7 @@
 		specimen_part.part_name=ctspecimen_part_name.part_name and
 		cataloged_item.collection_id=collection.collection_id 
 	group by
-		collection.collection, 
+		collection.guid_prefix, 
 		collection.collection_id, 
 		specimen_part.part_name,
 		ctspecimen_part_name.is_tissue
@@ -38,7 +38,7 @@
 	</tr>
 	<cfloop query="dp">
 		<cfquery name="cp" dbtype="query">
-			select collection,collection_id,cnt from p where part_name='#dp.part_name#' group by collection,collection_id,cnt
+			select guid_prefix,collection_id,cnt from p where part_name='#dp.part_name#' group by guid_prefix,collection_id,cnt
 		</cfquery>
 		<cfquery name="it" dbtype="query">
 			select is_tissue from p where part_name='#dp.part_name#' group by is_tissue
@@ -61,7 +61,7 @@
 			<td>#tc.sc#</td>
 			<td>
 				<cfloop query="cp">
-					<a href="/SpecimenResults.cfm?collection_id=#collection_id#&part_name==#dp.part_name#">#collection#: #cnt#</a><br>
+					<a href="/SpecimenResults.cfm?collection_id=#collection_id#&part_name==#dp.part_name#">#guid_prefix#: #cnt#</a><br>
 				</cfloop>
 			</td>
 		</tr>

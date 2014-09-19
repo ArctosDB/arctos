@@ -29,7 +29,7 @@
 			preferred_agent_name.agent_name,
 			nnName.agent_name collection_agent_name,
 			nnAddr.address collection_email,
-			collection,
+			guid_prefix,
 			collection.collection_id,
 			nature_of_material
 		FROM 
@@ -63,7 +63,7 @@
 			RETURN_DUE_DATE,
 			LOAN_NUMBER,
 			expires_in_days,
-			collection,
+			guid_prefix,
 			nature_of_material,
 			collection_id
 		from
@@ -73,7 +73,7 @@
 			RETURN_DUE_DATE,
 			LOAN_NUMBER,
 			expires_in_days,
-			collection,
+			guid_prefix,
 			nature_of_material,
 			collection_id
 	</cfquery>
@@ -184,7 +184,7 @@
 					Dear #agent_name#,
 					<p>
 						You are receiving this message because you are listed as a contact for loan 
-						#loan.collection# #loan.loan_number#, due date #loan.return_due_date#.
+						#loan.guid_prefix# #loan.loan_number#, due date #loan.return_due_date#.
 					</p>
 					#contacts#<!--- from cfsavecontent above ---->
 					#common#<!--- from cfsavecontent above ---->
@@ -205,7 +205,7 @@
 				Dear #agent_name#,
 				<p>
 					You are receiving this message because you are listed as in-house contact for loan 
-					#loan.collection# #loan.loan_number#, due date #loan.return_due_date#.
+					#loan.guid_prefix# #loan.loan_number#, due date #loan.return_due_date#.
 				</p>
 				<p>
 					You may edit the loan, after signing in to Arctos, at
@@ -230,8 +230,8 @@
 					<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="loan_notification@#Application.fromEmail#" type="html">
 						Dear #agent_name#,
 						<p>
-							You are receiving this message because you are listed as a #loan.collection# loan request collection contact. 
-							Loan #loan.collection# #loan.loan_number# due date #loan.return_due_date# is not listed as "closed."
+							You are receiving this message because you are listed as a #loan.guid_prefix# loan request collection contact. 
+							Loan #loan.guid_prefix# #loan.loan_number# due date #loan.return_due_date# is not listed as "closed."
 						</p>
 						<p>
 							You may edit the loan, after signing in to Arctos, at
@@ -299,7 +299,7 @@
 		<cfquery name="yearOldAccn" datasource="uam_god">
 			select 
 				accn.transaction_id,
-				collection.collection,
+				collection.guid_prefix,
 				collection.collection_id,
 				accn_number,
 				to_char(RECEIVED_DATE,'yyyy-mm-dd') received_date
@@ -318,14 +318,14 @@
 				to_char(sysdate,'YYYY')-to_char(RECEIVED_DATE,'YYYY')>=1
 		</cfquery>
 		<cfquery name="colns" dbtype="query">
-			select collection,collection_id from yearOldAccn group by collection,collection_id
+			select guid_prefix,collection_id from yearOldAccn group by guid_prefix,collection_id
 		</cfquery>
 		<cfloop query="colns">
 			<cfset contact = functions.getCollectionContactEmail(collection_id=collection_id,contact_role="data quality")>
 			<cfquery name="data" dbtype="query">
 				select 
 					transaction_id,
-					collection,
+					guid_prefix,
 					accn_number,
 					received_date
 				from
@@ -333,20 +333,20 @@
 				where collection_id=#collection_id#
 				group by
 					transaction_id,
-					collection,
+					guid_prefix,
 					accn_number,
 					received_date
 			</cfquery>
 			<cfif len(valuelist(contact.ADDRESS)) gt 0>
 				<cfsavecontent variable="msg">
-					You are receiving this message because you are the data quality contact for collection #collection#.
+					You are receiving this message because you are the data quality contact for collection #guid_prefix#.
 					<p>
 						The following accessions are one or more years old and have no specimens attached.
 					</p>
 					<p>
 						<cfloop query="data">
 							<a href="#Application.ServerRootUrl#/editAccn.cfm?Action=edit&transaction_id=#transaction_id#">
-								#collection# #accn_number#
+								#guid_prefix# #accn_number#
 							</a>
 							<br>
 						</cfloop>
