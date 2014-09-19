@@ -452,7 +452,10 @@
 
 
 <cfcatch>
-<cfdump var=#cfcatch#>
+
+<cf_logError subject="SpecimenDetail error" attributeCollection=#cfcatch#>
+
+
 <!----
 	
 	
