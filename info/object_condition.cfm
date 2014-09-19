@@ -5,7 +5,7 @@
 	select 
 		'cataloged item' part_name,
 		cat_num,
-		collection.collection,
+		collection.guid_prefix,
 		scientific_name
 	FROM
 		cataloged_item,
@@ -20,7 +20,7 @@
 	select 
 			part_name,
 			cat_num,
-			collection.collection,
+			collection.guid_prefix,
 			scientific_name
 		FROM
 			cataloged_item,
@@ -35,7 +35,7 @@
 			specimen_part.collection_object_id = #collection_object_id#
 </cfquery>
 
-<strong>Condition History of #itemDetails.collection# #itemDetails.cat_num#
+<strong>Condition History of #itemDetails.guid_prefix# #itemDetails.cat_num#
 (<i>#itemDetails.scientific_name#</i>) #itemDetails.part_name#</strong>
 <cfquery name="cond" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select 

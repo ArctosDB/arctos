@@ -9,7 +9,7 @@
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
-				'Specimen <strong>' || collection.collection || ' ' || cat_num ||
+				'Specimen <strong>' || collection.guid_prefix || ':' || cat_num ||
 				' <i>' || scientific_name || '</i></strong>' summary
 			from 
 				cataloged_item,

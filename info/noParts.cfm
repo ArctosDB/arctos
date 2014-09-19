@@ -4,7 +4,7 @@
 <cfoutput>
 	<h2>Find specimens with no parts</h2>
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select collection_id,collection from collection order by collection
+	select collection_id,guid_prefix from collection order by guid_prefix
 </cfquery>
 <form method="post">
 	<input type="hidden" name="action" value="show">
@@ -12,7 +12,7 @@
 	<select name="collection_id" id="collection_id">
 		<option value="">All</option>
 		<cfloop query="d">
-			<option value="#collection_id#">#collection#</option>
+			<option value="#collection_id#">#guid_prefix#</option>
 		</cfloop>
 	</select>
 	<input type="submit" class="lnkBtn" value="Go">
@@ -24,7 +24,7 @@
 <h2>The following specimens have no parts.</h2>
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select  
-		collection.collection,
+		collection.guid_prefix,
 		cataloged_item.cat_num
 	from 
 		collection, 
@@ -38,7 +38,7 @@
 			and collection.collection_id=#collection_id#
 		</cfif>
 	order by
-		collection.collection,
+		collection.guid_prefix,
 		cat_num
 </cfquery>
 <cfset fileDir = "#Application.webDirectory#">
@@ -46,7 +46,7 @@
 <cfset header="collection,cat_num">
 <cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#header#">
 <cfloop query="d">
-	<cfset oneLine = "#collection#,#cat_num#">
+	<cfset oneLine = "#guid_prefix#,#cat_num#">
 	<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
 </cfloop>
 <br>

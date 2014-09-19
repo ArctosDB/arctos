@@ -16,7 +16,7 @@
 	select distinct(trans_agent_role) from cttrans_agent_role  where trans_agent_role != 'entered by' order by trans_agent_role
 </cfquery>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select * from collection order by collection
+	select * from collection order by guid_prefix
 </cfquery>
 <cfquery name="ctShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select shipped_carrier_method from ctshipped_carrier_method order by shipped_carrier_method
@@ -229,11 +229,10 @@ just fooling idiot cfclipse into using the right colors
 			<table border>
 				<tr>
 					<td>
-						<label for="collection_id">Collection
-						</label>
+						<label for="collection_id">Collection</label>
 						<select name="collection_id" size="1" id="collection_id" class="reqdClr">
 							<cfloop query="ctcollection">
-								<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+								<option value="#ctcollection.collection_id#">#ctcollection.guid_prefix#</option>
 							</cfloop>
 						</select>
 					</td>
@@ -341,7 +340,7 @@ just fooling idiot cfclipse into using the right colors
 			Next Available Loan Number:
 			<br>
 			<cfquery name="all_coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from collection order by collection
+				select * from collection order by guid_prefix
 			</cfquery>
 			<cfloop query="all_coll">
 				<cfif (institution_acronym is 'UAM' and collection_cde is 'Mamm')>
@@ -394,14 +393,14 @@ just fooling idiot cfclipse into using the right colors
 					</cfcatch>
 				</cftry>
 				<cfif len(thisQ.nn) gt 0>
-					<span class="likeLink" onclick="setAccnNum('#collection_id#','#thisQ.nn#')">#collection# #thisQ.nn#</span>
+					<span class="likeLink" onclick="setAccnNum('#collection_id#','#thisQ.nn#')">#guid_prefix# #thisQ.nn#</span>
 					<cfif (institution_acronym is 'MVZ' or institution_acronym is 'MVZObs')>
 						<cfset temp=replace(thisQ.nn,collection_cde,'Data')>
-						<br><span class="infoLink" onclick="setAccnNum('#collection_id#','#temp#')">#collection# #temp#</span>
+						<br><span class="infoLink" onclick="setAccnNum('#collection_id#','#temp#')">#guid_prefix# #temp#</span>
 					</cfif>
 				<cfelse>
 					<span style="font-size:x-small">
-						No data available for #collection#.
+						No data available for #guid_prefix#.
 					</span>
 				</cfif>
 				<br>
@@ -434,7 +433,7 @@ just fooling idiot cfclipse into using the right colors
 			trans_remarks,
 			return_due_date,
 			trans.collection_id,
-			collection.collection,
+			collection.guid_prefix,
 			concattransagent(trans.transaction_id,'entered by') enteredby
 		 from
 			loan,
@@ -478,14 +477,14 @@ just fooling idiot cfclipse into using the right colors
 	<form name="editloan" id="editloan" action="Loan.cfm" method="post">
 		<input type="hidden" name="action" value="saveEdits">
 		<input type="hidden" name="transaction_id" value="#loanDetails.transaction_id#">
-		<strong>Edit Loan #loanDetails.collection# #loanDetails.loan_number#</strong>
+		<strong>Edit Loan #loanDetails.guid_prefix# #loanDetails.loan_number#</strong>
 		<span style="font-size:small;">Entered by #loanDetails.enteredby#</span>
 		<span style="font-size:small;"> (#numItems.c# items)</span>
 		<label for="loan_number">Loan Number</label>
 		<select name="collection_id" id="collection_id" size="1">
 			<cfloop query="ctcollection">
 				<option <cfif ctcollection.collection_id is loanDetails.collection_id> selected </cfif>
-					value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+					value="#ctcollection.collection_id#">#ctcollection.guid_prefix#</option>
 			</cfloop>
 		</select>
 		<input type="text" name="loan_number" id="loan_number" value="#loanDetails.loan_number#" class="reqdClr">
@@ -705,7 +704,7 @@ just fooling idiot cfclipse into using the right colors
 	
 	<strong>Media associated with this loan</strong>
 		<br>
-		<span class="likeLink" onclick="addMediaHere('#loanDetails.collection# #loanDetails.loan_number#','#transaction_id#');">
+		<span class="likeLink" onclick="addMediaHere('#loanDetails.guid_prefix# #loanDetails.loan_number#','#transaction_id#');">
 			Create Media
 		</span>
 		<br><a href="/MediaSearch.cfm" target="_blank">Find Media</a> and edit it to create links to this loan.
@@ -1190,7 +1189,7 @@ just fooling idiot cfclipse into using the right colors
 		<cfif forceCreate is false>
 			<cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select
-					collection,
+					guid_prefix,
 					loan_number
 				from
 					loan,
@@ -1202,7 +1201,7 @@ just fooling idiot cfclipse into using the right colors
 					upper(trim(loan_number))='#ucase(trim(loan_number))#'
 			</cfquery>
 			<cfif alreadyGotOne.recordcount is not 0>
-				It looks like you're trying to re-create loan #alreadyGotOne.collection# #alreadyGotOne.loan_number#.
+				It looks like you're trying to re-create loan #alreadyGotOne.guid_prefix# #alreadyGotOne.loan_number#.
 				<form name="newloan" action="Loan.cfm" method="post">
 					<input type="hidden" name="action" value="makeLoan">
 					<input type="hidden" name="forceCreate" value="true">
@@ -1374,7 +1373,7 @@ just fooling idiot cfclipse into using the right colors
 				<select name="collection_id" size="1">
 					<option value=""></option>
 					<cfloop query="ctcollection">
-						<option value="#collection_id#">#collection#</option>
+						<option value="#collection_id#">#guid_prefix#</option>
 					</cfloop>
 				</select>
 				<input type="text" name="loan_number">
@@ -1634,7 +1633,7 @@ just fooling idiot cfclipse into using the right colors
 		trans_date,
 		project_name,
 		project.project_id pid,
-		collection.collection">
+		collection.guid_prefix">
 	<cfset frm = " from
 		loan,
 		trans,
@@ -1804,7 +1803,7 @@ just fooling idiot cfclipse into using the right colors
 		  	trans_date,
 		   	project_name,
 		 	project.project_id,
-		 	collection.collection
+		 	collection.guid_prefix
 		ORDER BY loan_number">
 	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
@@ -1851,7 +1850,7 @@ just fooling idiot cfclipse into using the right colors
 				</cfquery>
 					<tr>
 						<td colspan="3">
-							<strong>#collection# #loan_number#</strong>
+							<strong>#guid_prefix# #loan_number#</strong>
 							<cfif c.c gt 0>(#c.c# items)</cfif>
 						</td>
 					</tr>
@@ -1963,7 +1962,7 @@ just fooling idiot cfclipse into using the right colors
 			</td>
 		</tr>
 		<cfif csv is true>
-			<cfset d='"#escapeDoubleQuotes(collection)# #escapeDoubleQuotes(loan_number)#"'>
+			<cfset d='"#escapeDoubleQuotes(guid_prefix)# #escapeDoubleQuotes(loan_number)#"'>
 			<cfset d=d &',"#c.c#","#escapeDoubleQuotes(rec_agent)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(nature_of_material)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(loan_type)#"'>
