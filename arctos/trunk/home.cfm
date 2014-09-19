@@ -95,7 +95,62 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 		select institution from raw group by institution order by institution
 	</cfquery>
 	<cfdump var=#inst#>
-	<cfloop query="inst">
+	
+	
+	<table border>	
+		<cfloop query="inst">
+			<tr>
+				<td colspan="4" class="instHeader">
+					#institution#
+				</td>
+			</tr>
+			<cfquery name="coln" dbtype="query">
+				select * from raw where institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
+			</cfquery>
+			<cfloop query="coln">
+				<cfset coll_dir_name = "#lcase(portal_name)#">
+				<tr>
+					<td class="collnCell">
+						#collection#
+						<cfif len(guid_prefix) gt 0>
+							(GUID Prefix: <strong>#guid_prefix#</strong>)
+						</cfif>
+						<cfif len(descr) gt 0>
+							<div class="collnDescrCell">
+								#descr#
+							</div>
+						</cfif>
+					</td>
+					<td class="collnSrchCell">
+						<ul>
+							<cfif listlast(collection,' ') is not 'Portal'>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
+							<cfelse>
+								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
+							</cfif>
+							<cfif len(web_link) gt 0>
+								<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
+							<cfelse>
+								<li>no home page</li>
+							</cfif>
+							<cfif len(loan_policy_url) gt 0>
+								<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
+							<cfelse>
+								<li>no loan policy</li>
+							</cfif>
+								<cfif listlast(collection,' ') is not 'Portal'>
+							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
+								</cfif>
+						</ul>
+					</td>
+				</tr>
+			</cfloop>
+<!----		
+		
+		
+		
+		
+		
 		<hr>
 		<br>#institution#
 		<cfquery name="coln" dbtype="query">
@@ -110,8 +165,9 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 			<br>collection=#coln.collection#
 			<br>collection_id=#coln.collection_id#
 		</cfloop>
+		---->
 	</cfloop>
-	
+	</table>
 	
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
 	<cfset gotem=''>
