@@ -132,17 +132,7 @@ border-bottom:1px solid black;
 		select * from coll where collection like 'CUMV %' order by collection
 	</cfquery>
 	<cfset gotem=listappend(gotem,valuelist(cumv.cf_collection_id))>
-	
-	
-	<cfdump var=#gotem#>
-	
-	
-	
 	<cfset gotEm=listchangedelims(gotEm,',')>
-		<cfdump var=#gotem#>
-
-	
-	<cfset gotem=replace(gotem,',,',',','all')>
 	<cfquery name="rem" dbtype="query">
 		select * from coll where cf_collection_id not in (#gotem#)
 	</cfquery>
