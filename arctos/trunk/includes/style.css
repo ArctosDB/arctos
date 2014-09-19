@@ -102,7 +102,7 @@
 	
 	/* visited links in multiselect are strange, so override them */
 	
-	.ui-helper-reset a, a:visited {
+	.ui-helper-reset a, ui-helper-reset a:visited {
 		color:blue;
 	}
 	
