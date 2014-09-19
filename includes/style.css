@@ -23,9 +23,24 @@
 				DO NOT USE THIS MONSTROSITY IN ANY PRODUCTION ENVIRONMENT!!
 				
 		/**********************************IMPORTANT***********************************
-		
 
-*/
+
+
+
+		/**********************************COLORES***********************************
+			/*
+				The following are the (only) approved Arctos colors.
+				
+					links: blue
+					visited links: 660099
+					hover: CC0000
+				
+			
+			
+			*/
+
+		/**********************************COLORES***********************************
+
 
 
 /* BEGIN agent form */
@@ -84,6 +99,14 @@
 	.ui-multiselect-optgroup-label a {
 		font-size:1.2em
 	}
+	
+	/* visited links in multiselect are strange, so override them */
+	
+	.ui-helper-reset a, a:visited {
+		color:blue;
+	}
+	
+	
 	/* the dialog popups use jQueryUI's .6em and it's hard to read, so.... */
 	#dialog{
 		font-size:1.4em;
