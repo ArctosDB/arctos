@@ -11,7 +11,7 @@
 		<select name="collection_id" size="1">
 			<option value=""></option>
 			<cfloop query="ctcoll">
-				<option value="#collection_id#">#collection#</option>
+				<option value="#collection_id#">#guid_prefix#</option>
 			</cfloop>
 		</select>
 		<input type="button" value="Submit" class="lnkBtn" onclick="coll.action.value='findColl';submit();">
