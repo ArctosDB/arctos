@@ -3,6 +3,20 @@
 <style>
 
 
+
+
+.table {display:table;width:100%}
+	.tr {display:table-row}
+	.td {display:table-cell;border:1px solid black;margin:1em;}
+	.institutiongroup {border:1px dotted green;}
+	.institutionheader {border:1px dotted purple;}
+	.collectionrow {border:1px dotted purple;margin-left:3em;}
+	.70%{width:70%;}
+	
+	
+	
+	
+	
 .institution_cell {
 	font-weight:900;
 	font-size:1.5em;
@@ -181,8 +195,58 @@ border-bottom:1px solid black;
 	<cfquery name="inst" dbtype="query">
 		select institution from raw group by institution order by institution
 	</cfquery>
+	
+	<cfloop query="inst">
+		<cfquery name="coln" dbtype="query">
+			select * from raw where collection_id is not null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
+		</cfquery>
+		<cfquery name="coln_portals" dbtype="query">
+			select * from raw where collection_id is null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
+		</cfquery>
+		<div class="institutiongroup">
+			<div class="institutionheader">
+				#institution#
+			</div>
+			
+			<cfloop query="coln">
+				<div class="collectionrow">
+					<div class="table">
+						<div class="tr">
+							<div class="td 70%">
+								<div>#collection#</div>
+								<div>#descr#</div>
+							</div>
+							<div class="td">
+								<ul>
+									<cfif listlast(collection,' ') is not 'Portal'>
+										<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
+									<cfelse>
+										<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
+									</cfif>
+									<cfif len(web_link) gt 0>
+										<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
+									<cfelse>
+										<li>no home page</li>
+									</cfif>
+									<cfif len(loan_policy_url) gt 0>
+										<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
+									<cfelse>
+										<li>no loan policy</li>
+									</cfif>
+										<cfif listlast(collection,' ') is not 'Portal'>
+									<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</a></li>
+										</cfif>
+								</ul>
+							</div>
+								
+						</div>
+					</div>
+				</div>
+			</cfloop>
+		</div>
+	</cfloop>
+	<!---------
 	<table>
-		<cfloop query="inst">
 			<cfquery name="coln" dbtype="query">
 				select * from raw where collection_id is not null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
 			</cfquery>
@@ -248,7 +312,7 @@ border-bottom:1px solid black;
 		</cfloop>
 	</table>
 
-
+----------->
 <cfabort>
 
 
