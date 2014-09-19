@@ -48,7 +48,7 @@ border-bottom:1px solid black;
 	}
 </style>
 <cfoutput>
-	<cfquery name="coll" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="raw" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			cf_collection.cf_collection_id,
 			decode(cf_collection.collection_id,
@@ -88,15 +88,15 @@ border-bottom:1px solid black;
 			collection.institution
 		order by cf_collection.collection
 	</cfquery>
-	<cfquery name="institution" dbtype="query">
-		select institution from coll group by institution order by institution
+	<cfquery name="inst" dbtype="query">
+		select institution from raw group by institution order by institution
 	</cfquery>
-	<cfdump var=#institution#>
-	<cfloop query="institution">
+	<cfdump var=#inst#>
+	<cfloop query="inst">
 		<hr>
 		<br>#institution#
 		<cfquery name="coln" dbtype="query">
-			select * from coll where institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
+			select * from raw where institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
 		</cfquery>
 		<cfdump var=#coln#>
 		<!----
