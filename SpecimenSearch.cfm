@@ -26,6 +26,7 @@
 <style>
 /* for some strange reason this won't work from the .css so keep it here...*/
 .ui-helper-reset a, ui-helper-reset a:visited {color:blue; !important;}
+.ui-helper-reset a:hover {color:red; !important;}
 </style>
 <table cellpadding="0" cellspacing="0">
 	<tr>
