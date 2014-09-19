@@ -55,9 +55,7 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 	<cfquery name="raw" datasource="uam_god" >
 		select
 			cf_collection.cf_collection_id,
-			decode(cf_collection.collection_id,
-				null,cf_collection.collection || ' Portal',
-				cf_collection.collection || ' Collection') collection,
+			cf_collection.collection,
 			cf_collection.collection_id,
 			descr,
 			web_link,
@@ -66,7 +64,7 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 			portal_name,
 			count(cat_num) as cnt,
 			guid_prefix,
-			collection.institution
+			cf_collection.institution
 		from
 			cf_collection,
 			collection,
