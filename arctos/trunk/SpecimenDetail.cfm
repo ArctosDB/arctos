@@ -453,11 +453,14 @@
 
 <cfcatch>
 
-<cf_logError subject="SpecimenDetail error" attributeCollection=#cfcatch#>
+	<cf_logError subject="SpecimenDetail error" attributeCollection=#cfcatch#>
+
+	<cfthrow detail="block not found" errorcode="9945" message="A block of code (search,MediaSearch) was not found in the bnhmMapData template">
+
 
 
 <!----
-	
+
 	
 	--->
 	
