@@ -105,7 +105,7 @@ border-bottom:1px solid black;
 		
 		<cfloop query="coln">
 			<br>collection=#coln.collection#
-			<br>collection_id=#coll.collection_id#
+			<br>collection_id=#coln.collection_id#
 		</cfloop>
 	</cfloop>
 	
