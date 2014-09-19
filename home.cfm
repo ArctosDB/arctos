@@ -209,12 +209,13 @@ border-bottom:1px solid black;
 			</div>
 			
 			<cfloop query="coln">
+				<cfset coll_dir_name = "#lcase(portal_name)#">
 				<div class="collectionrow">
 					<div class="table">
 						<div class="tr">
 							<div class="td 70%">
-								<div>#collection#</div>
-								<div>#descr#</div>
+								<div class="collection_title">#collection#</div>
+								<div class="collection_description">#descr#</div>
 							</div>
 							<div class="td">
 								<ul>
