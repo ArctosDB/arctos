@@ -107,7 +107,7 @@
 			 from raw
 		</cfquery>
 		<p>
-			Arctos is currently #summary.total_specimens# specimens and observations in #summary.numCollections# collections. Following the search links below will set your preferences to filter by a specific collection or portal. You may click
+			Arctos is currently #numberformat(summary.total_specimens,"999,999")# specimens and observations in #summary.numCollections# collections. Following the search links below will set your preferences to filter by a specific collection or portal. You may click
 			<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences.
 		</p>
 		<cfloop query="inst">
