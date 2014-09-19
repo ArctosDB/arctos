@@ -149,9 +149,7 @@
 </div>
 <input type="hidden" name="action" value="#action#">
 <div class="secDiv">
-	cachedwithin="#createtimespan(0,0,60,0)#"
-
-	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >	
+	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">	
 		SELECT 
 			collection.institution, 
 			collection.collection, 
@@ -164,7 +162,6 @@
 			PUBLIC_PORTAL_FG=1 
 		order by collection.collection
 	</cfquery>
-	
 	<cfif isdefined("collection_id") and len(collection_id) gt 0>
 		<cfset thisCollId = collection_id>
 	<cfelse>
@@ -178,7 +175,6 @@
 				<span class="secControl" id="c_identifiers_cust">Customize</span>
 			</td>
 		</tr>
-		
 		<tr>
 			<td class="lbl">
 				<span class="helpLink" id="collection">Collection</span>:
@@ -199,24 +195,6 @@
 						</optgroup>
 					</cfloop>
 				</select>
-				<!---
-				
-				
-				<select name="collection_id" id="collection_id" size="3" multiple="multiple">
-					<cfloop query="cfi">
-						<cfquery name="ic" dbtype="query">
-							select collection, collection_id FROM ctInst where institution='#cfi.institution#' order by collection
-						</cfquery>
-						<optgroup label="#institution#">
-							<cfloop query="ic">
-								<option <cfif thisCollId is ic.collection_id>selected="selected" </cfif>value="#ic.collection_id#">#ic.collection#</option>
-							</cfloop>
-						</optgroup>
-					</cfloop>
-				</select>
-				---->
-				
-				
 			</td>
 		</tr>
 		<tr>
