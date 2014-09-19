@@ -39,6 +39,11 @@ border-bottom:1px solid black;
 		margin-bottom:1em;
 	}
 
+
+
+collection_description_div
+
+
 	.collnDescrCell {
 		font-size:x-small;
 		padding-left:1em;
@@ -85,43 +90,39 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 			guid_prefix,
 			cf_collection.institution
 	</cfquery>
-	
-	
-	
-	<cfdump var=#raw#>
-	
-	
 	<cfquery name="inst" dbtype="query">
 		select institution from raw group by institution order by institution
 	</cfquery>
-	<cfdump var=#inst#>
 	
-	
-	<table border>	
 		<cfloop query="inst">
-			<tr>
-				<td colspan="4" class="instHeader">
-					#institution#
-				</td>
-			</tr>
+			<h2>
+				#institution#
+			</h2>
 			<cfquery name="coln" dbtype="query">
-				select * from raw where institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
+				select * from raw where collection_id is not null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
 			</cfquery>
+			<cfquery name="coln_portals" dbtype="query">
+				select * from raw where collection_id is null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
+			</cfquery>
+			<cfloop query="coln_portals">
+				<br>#collection# portal....
+			</cfloop>
 			<cfloop query="coln">
 				<cfset coll_dir_name = "#lcase(portal_name)#">
-				<tr>
-					<td class="collnCell">
-						#collection#
-						<cfif len(guid_prefix) gt 0>
-							(GUID Prefix: <strong>#guid_prefix#</strong>)
-						</cfif>
-						<cfif len(descr) gt 0>
-							<div class="collnDescrCell">
-								#descr#
-							</div>
-						</cfif>
-					</td>
-					<td class="collnSrchCell">
+				<div class="collection_row_div">
+					<div class="collection_description_div">
+						<div class="collection_name_div">
+							#collection#
+							<cfif len(guid_prefix) gt 0>
+								(GUID Prefix: <strong>#guid_prefix#</strong>)
+							</cfif>
+						</div>
+						<div class="collection_description_div">
+							#descr#
+						</div>
+					</div>
+					
+					<div class="collection_stats_div">
 						<ul>
 							<cfif listlast(collection,' ') is not 'Portal'>
 								<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
@@ -142,30 +143,26 @@ cachedwithin="#createtimespan(0,0,60,0)#"
 							<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</li>
 								</cfif>
 						</ul>
+					</div>
+				</div>
+				<div class="cddiv">
+				
+				</div>
+				<tr>
+					<td class="collnCell">
+						
+						
+						<cfif len(descr) gt 0>
+							<div class="collnDescrCell">
+								
+							</div>
+						</cfif>
+					</td>
+					<td class="collnSrchCell">
+						
 					</td>
 				</tr>
 			</cfloop>
-<!----		
-		
-		
-		
-		
-		
-		<hr>
-		<br>#institution#
-		<cfquery name="coln" dbtype="query">
-			select * from raw where institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
-		</cfquery>
-		<cfdump var=#coln#>
-		<!----
-		
-		---->
-		
-		<cfloop query="coln">
-			<br>collection=#coln.collection#
-			<br>collection_id=#coln.collection_id#
-		</cfloop>
-		---->
 	</cfloop>
 	</table>
 	
