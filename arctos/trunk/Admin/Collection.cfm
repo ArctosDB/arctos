@@ -44,9 +44,6 @@
   		where
    		collection_id = #collection_id#
 	</cfquery>
-	<cfquery name="ctCollCde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select collection_cde from ctcollection_cde order by collection_cde
-	</cfquery>
 	<cfquery name="CTMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select MEDIA_LICENSE_ID,DISPLAY from CTMEDIA_LICENSE order by DISPLAY
 	</cfquery>
@@ -66,27 +63,27 @@
 					<input type="hidden" name="action" value="modifyCollection">
 					<input type="hidden" name="collection_id" value="#collection_id#">
 					<label for="collection_cde">Collection Type</label>
-					<select name="collection_cde" id="collection_cde" size="1">
-						<cfloop query="ctCollCde">
-							<option
-								<cfif ctCollCde.collection_cde is colls.collection_cde> selected </cfif>
-							value="#ctCollCde.collection_cde#">#ctCollCde.collection_cde#</option>
-						</cfloop>
-					</select>
+					<div>
+						<strong>#colls.collection_cde#</strong> <a href="##inst">why can't I change this?</a>
+					</div>
 					<label for="institution_acronym">Institution Acronym</label>
 					<div>
-						<strong>#colls.institution_acronym#</strong> <a href="#inst">why can't I change this?</a>
+						<strong>#colls.institution_acronym#</strong> <a href="##inst">why can't I change this?</a>
 					</div>
 					<label for="institution">Institution</label>
 					<div>
-						<strong>#colls.institution#</strong> <a href="#inst">why can't I change this?</a>
+						<strong>#colls.institution#</strong> <a href="##inst">why can't I change this?</a>
 					</div>
 					<label for="collection">Collection</label>
 					<div>
-						<strong>#colls.collection#</strong> <a href="#coln">why can't I change this?</a>
+						<strong>#colls.collection#</strong> <a href="##coln">why can't I change this?</a>
 					</div>
 					<label for="guid_prefix">GUID Prefix</label>
-					<input type="text" name="guid_prefix" id="guid_prefix" value="#colls.guid_prefix#">
+					<div>
+						<strong>#colls.guid_prefix#</strong> <a href="##fatalchanges">why can't I change this?</a>
+					</div>
+					
+					
 					<label for="descr">Description</label>
 					<textarea name="descr" id="descr" rows="3" cols="40">#colls.descr#</textarea>
 					<label for="citation">Citation</label>
@@ -318,7 +315,7 @@
 	<a name="inst">
 	<h2>Institutional Standardization</h2>
 	<div>
-		Institution Acronmy and Institution are set by Institutions as a whole in order to present a united front to users, and to allow
+		Institution Acronym and Institution are set by Institutions as a whole in order to present a united front to users, and to allow
 		hierarchical search controls. To change these values, coordinate the change with all collections in your institution and 
 		<a href="/contact.cfm">contact us</a>
 	</div>
@@ -330,6 +327,16 @@
 		to initiate changes.
 	</div>
 	
+	<a name="fatalchanges">
+	<h2>Other Restrictions</h2>
+	<div>
+		<strong>guid_prefix</strong> is used in forming URLs to specimens. Changing it (after specimens have been "published" on the Internet) is generally a 
+		bad idea, but we can accommodate changes by creating redirects to "old" URLs. <a href="/contact.cfm">Contact us</a> is a change to guid_prefix is necessary.
+	</div>
+	<div>
+		<strong>collection_cde</strong> controls code tables and therefore acceptable data. Changing collection_cde requires data confirmation and 
+		possibly migration. <a href="/contact.cfm">Contact us</a> is a change to collection_cde is necessary.
+	</div>
 	
 </cfoutput>
 </cfif>
@@ -404,10 +411,7 @@
 	<cftransaction>
 	<cfquery name="modColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		UPDATE collection SET
-			COLLECTION_CDE = '#collection_cde#',
 			guid_prefix = '#guid_prefix#',
-			COLLECTION = '#collection#',
-			INSTITUTION='#INSTITUTION#',
 			DESCR='#escapeQuotes(descr)#',
 			web_link='#web_link#',
 			web_link_text='#web_link_text#',
