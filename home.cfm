@@ -92,6 +92,17 @@ border-bottom:1px solid black;
 		select institution from coll group by institution order by institution
 	</cfquery>
 	<cfdump var=#institution#>
+	<cfloop query="institution">
+		<hr>
+		<br>#institution#
+		<cfquery name="coln" dbtype="query">
+			select * from coll where institution='#institution#' order by collection
+		</cfquery>
+		<cfloop query="coln">
+			<br>collection=#collection#
+			<br>collection_id=#collection_id#
+		</cfloop>
+	</cfloop>
 	
 	
 	<!--- hard-code some collections in for special treatment, but leave a default "the rest" query too --->
