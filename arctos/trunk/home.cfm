@@ -135,6 +135,13 @@ border-bottom:1px solid black;
 	
 	
 	<cfdump var=#gotem#>
+	
+	
+	
+	<cfset gotEm=listchangedelims(gotEm,',')>
+		<cfdump var=#gotem#>
+
+	
 	<cfset gotem=replace(gotem,',,',',','all')>
 	<cfquery name="rem" dbtype="query">
 		select * from coll where cf_collection_id not in (#gotem#)
