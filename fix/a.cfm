@@ -14,10 +14,8 @@
 	</div>
 	<div class="tr">
 		<div class="td">
-			another cell
-		</div>
-		<div class="td">
-			another cell
+			<div>stuff</div>
+			<div>nextrow</div>
 		</div>
 		<div class="td">
 			another cell
