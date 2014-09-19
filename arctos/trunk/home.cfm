@@ -178,7 +178,7 @@ border-bottom:1px solid black;
 			count(cat_num) as cnt,
 			guid_prefix,
 			cf_collection.institution,
-			collection.institution_acronym
+			replace(collection.institution_acronym,'Obs') institution_acronym
 		from
 			cf_collection,
 			collection,
@@ -198,7 +198,7 @@ border-bottom:1px solid black;
 			portal_name,
 			guid_prefix,
 			cf_collection.institution,
-			collection.institution_acronym
+			replace(collection.institution_acronym,'Obs')
 	</cfquery>
 	<cfquery name="inst" dbtype="query">
 		select institution,institution_acronym from raw group by institution,institution_acronym order by institution
