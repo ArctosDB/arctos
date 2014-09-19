@@ -23,6 +23,11 @@
 	and URL like '%SpecimenResults.cfm%'
 	order by search_name
 </cfquery>
+<style>
+.ui-helper-reset a, ui-helper-reset a:visited {
+		color:blue; !important;
+	}
+</style>
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
