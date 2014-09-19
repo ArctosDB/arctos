@@ -4,26 +4,28 @@
 	.table {display:table}
 	.tr {display:table-row}
 	.td {display:table-cell;border:1px solid black;margin:1em;}
+	.institutiongroup {border:1px dotted green;}
 </style>
 
-<div class="table">
-	<div class="tr">
-		<div class="td">
-			inst
+<div class="institutiongroup">
+	<div class="table">
+		<div class="tr">
+			<div class="td">
+				inst
+			</div>
 		</div>
-	</div>
-	<div class="tr">
-		<div class="td">
-			<div>stuff</div>
-			<div>nextrow</div>
+		<div class="tr">
+			<div class="td">
+				<div>stuff</div>
+				<div>nextrow</div>
+			</div>
+			<div class="td">
+				another cell
+			</div>
+				
 		</div>
-		<div class="td">
-			another cell
-		</div>
-			
 	</div>
 </div>
-
 <!---------------
 
 
