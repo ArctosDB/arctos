@@ -23,11 +23,16 @@
 		border:1px solid green;
 		padding:1em;
 		margin:1em;
+		font-size:.8em;
 	}
 	
 	#stayright{margin-left:12em;}
 	
-	
+	.anchortitle {
+font-weight:bold;
+margin-left:-.8em;
+border-bottom:1px solid black;
+}
 	
 	
 	
@@ -137,11 +142,7 @@ display:table-cell;
 	#body {
 		margin-left:12em;
 	}
-	.anchortitle {
-font-weight:bold;
-margin-left:-.8em;
-border-bottom:1px solid black;
-}
+	
 .q {
 		font-variant: small-caps;
 	}
