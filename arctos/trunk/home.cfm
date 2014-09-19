@@ -6,15 +6,13 @@
 
 .table {display:table;width:100%}
 	.tr {display:table-row}
-	.td {display:table-cell;border:1px solid black;margin:1em;}
-	.institutiongroup {border:1px dotted green;margin:1em;}
-	.institutionheader {border:1px dotted purple;margin:1em;}
-	.collectionrow {border:1px dotted purple;margin-left:3em;}
+	.td {display:table-cell;}
+	.institutiongroup {border:1px dotted green;margin: 1em;padding:1em;}
+	.institutionheader {margin:.1em 0em .2em 0em;font-size:2em;font-weight:900;}
+	.collectionrow {border:1px dotted black;margin:0em 2em 0em 2em;}
 	.widecell{width:70%;}
 	.collection_title{font-size:1.3em;}
-.collection_description{font-size:.9em;}
-	
-	
+.collection_description{font-size:.9em;margin:1em 2em 1em 2em;font-size:.9em;}
 	
 	
 .institution_cell {
@@ -207,7 +205,40 @@ border-bottom:1px solid black;
 			<div class="institutionheader">
 				#institution#
 			</div>
-			
+			<cfloop query="coln_portals">
+				<div class="collectionrow">
+					<div class="table">
+						<div class="tr">
+							<div class="td widecell">
+								<div class="collection_title">#collection#</div>
+								<div class="collection_description">Portals search across multiple related collections</div>
+							</div>
+							<!----
+							<div class="td">
+								<ul>
+									<cfif listlast(collection,' ') is not 'Portal'>
+										<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#cnt#&nbsp;Specimens</a></li>
+									<cfelse>
+										<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
+									</cfif>
+									<cfif len(web_link) gt 0>
+										<li><a href="#web_link#"  class="external" target="_blank">Collection&nbsp;Home&nbsp;Page&nbsp;</a></li>
+									<cfelse>
+										<li>no home page</li>
+									</cfif>
+									<cfif len(loan_policy_url) gt 0>
+										<li><a href="#loan_policy_url#" class="external" target="_blank">Collection&nbsp;Loan&nbsp;Policy</a></li>
+									<cfelse>
+										<li>no loan policy</li>
+									</cfif>
+									<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</a></li>
+								</ul>
+							</div>
+								---->
+						</div>
+					</div>
+				</div>
+			</cfloop>
 			<cfloop query="coln">
 				<cfset coll_dir_name = "#lcase(portal_name)#">
 				<div class="collectionrow">
@@ -234,9 +265,7 @@ border-bottom:1px solid black;
 									<cfelse>
 										<li>no loan policy</li>
 									</cfif>
-										<cfif listlast(collection,' ') is not 'Portal'>
 									<li><a href="/info/publicationbycollection.cfm?collection_id=#collection_id#" target="_blank">Collection Publications</a></li>
-										</cfif>
 								</ul>
 							</div>
 								
