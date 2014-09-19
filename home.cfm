@@ -191,7 +191,7 @@ border-bottom:1px solid black;
 			cf_collection.institution
 	</cfquery>
 	<cfquery name="inst" dbtype="query">
-		select institution from raw group by institution order by institution
+		select institution,institution_acronym from raw group by institution,institution_acronym order by institution
 	</cfquery>
 	
 	
