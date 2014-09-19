@@ -82,7 +82,7 @@
 /* BEGIN over-ride some annoying jquery-ui stuff */
 	/* multiselect outgroup labels are flippin tiny */
 	.ui-multiselect-optgroup-label a {
-		font-size:1.4em
+		font-size:1.2em
 	}
 	/* the dialog popups use jQueryUI's .6em and it's hard to read, so.... */
 	#dialog{
