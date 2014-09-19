@@ -169,7 +169,8 @@ border-bottom:1px solid black;
 			portal_name,
 			count(cat_num) as cnt,
 			guid_prefix,
-			cf_collection.institution
+			cf_collection.institution,
+			collection.institution_acronym
 		from
 			cf_collection,
 			collection,
@@ -188,7 +189,8 @@ border-bottom:1px solid black;
 			loan_policy_url,
 			portal_name,
 			guid_prefix,
-			cf_collection.institution
+			cf_collection.institution,
+			collection.institution_acronym
 	</cfquery>
 	<cfquery name="inst" dbtype="query">
 		select institution,institution_acronym from raw group by institution,institution_acronym order by institution
