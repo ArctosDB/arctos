@@ -73,7 +73,19 @@
 	
 
 	<cfquery name="inst" dbtype="query">
-		select institution,institution_acronym from raw group by institution,institution_acronym order by institution
+		select 
+			institution,
+			institution_acronym 
+		from 
+			raw 
+		where
+			institution is not null and
+			institution_acronym  is not null		
+		group by 
+			institution,
+			institution_acronym 
+		order by 
+			institution
 	</cfquery>
 	
 	<cfdump var=#inst#>
