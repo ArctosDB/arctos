@@ -1,14 +1,56 @@
 <cfinclude template="/includes/_header.cfm">
 
+<style>
+	.table {display:table}
+	.tr {display:table-row}
+	.td {display:table-cell;border:1px solid black;margin:1em;}
+</style>
 
-
-<div style="display:table">
-	<div style="display:table-row">
+<div class="table">
+	<div class="tr">
 		<div style="display:table-cell">
 			inst
 		</div>
 	</div>
+	<div class="tr">
+		<div class="td">
+			another cell
+		</div>
+			
+	</div>
 </div>
+
+<!---------------
+
+
+
+<div style="display:table">
+				<div style="display:table-row">
+					<div style="display:table-cell">
+						<div style="display:table">
+							<div style="display:table-row">
+								<div style="display:table-cell">
+									descrn
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="display:table-row">
+					
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		--------->
+		
+		
+		
+<hr>
+
+
 <cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <script src="/includes/jquery.multiselect.min.js"></script>
