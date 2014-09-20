@@ -365,8 +365,8 @@
 
 
 		<a name="data_usage"></a>
-		<p><strong>Data Usage</strong</p>
 		
+		<p><strong>Data Usage</strong></p>
 		Please see <a href="http://arctosdb.org/home/data/">http://arctosdb.org/home/data/</a> for more information on using Arctos data.
 		
 		<a name="faq"></a>
