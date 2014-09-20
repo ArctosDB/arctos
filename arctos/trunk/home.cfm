@@ -329,6 +329,7 @@
 
 		<a name="requirements"></a>
 		<p><strong>System Requirements</strong></p>
+		
 		We attempt to keep the client-side of Arctos applications as generic as possible,
 		but we have made some exceptions:
 		<ul>
@@ -365,6 +366,7 @@
 
 		<a name="data_usage"></a>
 		<p><strong>Data Usage</strong</p>
+		
 		Please see <a href="http://arctosdb.org/home/data/">http://arctosdb.org/home/data/</a> for more information on using Arctos data.
 		
 		<a name="faq"></a>
