@@ -229,15 +229,17 @@
 			</cfif>
 			<cfquery name="d" datasource="uam_god">
 				select
-					guid,
-					YEAR,
-					institution,
-					collectors,
-					CATALOGED_ITEM_TYPE,
-					scientific_name
+					flat.guid,
+					flat.YEAR,
+					collection.institution,
+					flat.collectors,
+					flat.CATALOGED_ITEM_TYPE,
+					flat.scientific_name
 				from
-					flat
+					flat,
+					collection
 				where
+					flat.collection_id=collection.collection_id and
 					collection_object_id=#collection_object_id#
 			</cfquery>
 			<cfif d.recordcount is not 1>
