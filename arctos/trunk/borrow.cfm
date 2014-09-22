@@ -9,7 +9,7 @@
 	select distinct(trans_agent_role)  from cttrans_agent_role order by trans_agent_role
 </cfquery>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select * from collection order by collection
+	select * from collection order by guid_prefix
 </cfquery>
 <script>
 	jQuery(document).ready(function() {
