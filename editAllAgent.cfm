@@ -156,7 +156,7 @@
 
 	<cfquery name="activitySummary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
-	        collection,
+	        guid_prefix,
 	        min(began_date) earliest,
 	        max(ended_date) latest,
 	        count(*) numSpecs
@@ -173,10 +173,10 @@
 	        cataloged_item.collection_id=collection.collection_id and
 	        collector.agent_id=#agent_id#
 	      group by
-	        collection
+	        guid_prefix
 	       order by
 	       	numSpecs desc,
-	       	collection
+	       	guid_prefix
 	</cfquery>
 	<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from addr
@@ -248,7 +248,7 @@
 		</tr>
 		<cfloop query="activitySummary">
 			<tr>
-				<td>#collection#</td>
+				<td>#guid_prefix#</td>
 				<td>#earliest#</td>
 				<td>#latest#</td>
 				<td>#numSpecs#</td>
