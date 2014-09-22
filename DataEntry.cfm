@@ -110,9 +110,9 @@
 				<cfif theirLast.recordcount gt 0>
 					<cfloop query="theirLast">
 						<cfquery name="temp" dbtype="query">
-							select collection from c where institution_acronym='#instAc#' and collection_cde='#collnCde#'
+							select GUID_PREFIX from c where institution_acronym='#instAc#' and collection_cde='#collnCde#'
 						</cfquery>
-						<option value="#theId#">Your Last #temp.collection#</option>
+						<option value="#theId#">Your Last #temp.GUID_PREFIX#</option>
 					</cfloop>
 				</cfif>
 				<cfloop query="c">
