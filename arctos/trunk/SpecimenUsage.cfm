@@ -5,7 +5,7 @@
 	</cfif>
 	<cfset title = "Search for Results">
 	<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select collection,collection_id from collection order by collection
+		select guid_prefix,collection_id from collection order by guid_prefix
 	</cfquery>
 	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select publication_type from ctpublication_type order by publication_type
@@ -85,7 +85,7 @@
 					<select name="collection_id" id="collection_id" size="1">
 						<option value="">All</option>
 						<cfloop query="ctColl">
-							<option value="#collection_id#">#collection#</option>
+							<option value="#collection_id#">#guid_prefix#</option>
 						</cfloop>
 					</select>
 					<label for="onlyCitePubs">

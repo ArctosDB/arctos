@@ -23,7 +23,7 @@
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
-				collection,
+				guid_prefix,
 				loan_number,
 				loan.transaction_id
 			FROM
@@ -38,7 +38,7 @@
 					and trans.collection_id=#collection_id#
 				</cfif>
 			ORDER BY
-				collection,loan_number
+				guid_prefix,loan_number
 		</cfquery>
 		<cfif d.recordcount is 0>
 			Nothing matched #loan_number#. 
@@ -52,7 +52,7 @@
 		<cfif d.recordcount is 1>
 			<script>
 				opener.document.getElementById('#LoanIDFld#').value='#transaction_id#';
-				opener.document.getElementById('#LoanNumberFld#').value='#collection# #loan_number#';
+				opener.document.getElementById('#LoanNumberFld#').value='#guid_prefix# #loan_number#';
 				opener.document.getElementById('#LoanNumberFld#').style.background='##8BFEB9';
 				self.close();
 			</script>
@@ -60,10 +60,10 @@
 			<tr>
 				<td>
 					<a href="##" onClick="javascript: opener.document.getElementById('#LoanIDFld#').value='#transaction_id#';
-						opener.document.getElementById('#LoanNumberFld#').value='#collection# #loan_number#';
+						opener.document.getElementById('#LoanNumberFld#').value='#guid_prefix# #loan_number#';
 						opener.document.getElementById('#LoanNumberFld#').style.background='##8BFEB9';
 						self.close();
-						">#collection# #loan_number#</a>
+						">#guid_prefix# #loan_number#</a>
 				</td>
 			</tr>
 		</cfif>

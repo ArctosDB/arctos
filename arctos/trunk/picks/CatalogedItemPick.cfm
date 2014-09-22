@@ -1,7 +1,7 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <cfset title = "Cat Item Pick">
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select distinct(collection) from collection order by collection
+	select distinct(guid_prefix) from collection order by guid_prefix
 </cfquery>
 <cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
@@ -21,7 +21,7 @@
         <select name="collection" id="collection" size="1">
 		    <option value="">Any</option>
 			<cfloop query="ctcollection">
-				<option value="#ctcollection.collection#">#ctcollection.collection#</option>
+				<option value="#ctcollection.guid_prefix#">#ctcollection.guid_prefix#</option>
 			</cfloop>
 		</select>
 		<label for="other_id_type">Other ID Type</label>
@@ -41,7 +41,7 @@
 <cfif #Action# is "findItems">
     <cfset sql = "SELECT
 				    cat_num, 
-					collection,
+					guid_prefix,
 					cataloged_item.collection_object_id,
 					scientific_name
 				FROM 
@@ -71,8 +71,8 @@
 		<cfset sql = "#sql#
 			AND cat_num=#cat_num#">
 	</cfif>
-	<cfif len(#collection#) gt 0>
-		<cfset sql = "#sql# AND collection='#collection#'">
+	<cfif len(#guid_prefix#) gt 0>
+		<cfset sql = "#sql# AND guid_prefix='#guid_prefix#'">
 	</cfif>	
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
@@ -85,7 +85,7 @@
         
         </cfif>
         <cfloop query="getItems">
-			<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#collection_object_id#';opener.document.#formName#.#catNumFld#.value='#cat_num_val#';opener.document.#formName#.#sciNameFld#.value='#scientific_name_val#';self.close();">#collection# #cat_num# #scientific_name#</a>
+			<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#collection_object_id#';opener.document.#formName#.#catNumFld#.value='#cat_num_val#';opener.document.#formName#.#sciNameFld#.value='#scientific_name_val#';self.close();">#guid_prefix# #cat_num# #scientific_name#</a>
 		</cfloop>
     </cfoutput>
 

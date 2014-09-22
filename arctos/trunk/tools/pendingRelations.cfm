@@ -41,7 +41,7 @@ END;
 		INSERT_DATE,
 		CF_TEMP_RELATIONS_ID,
 		cat_num,
-		collection
+		guid_prefix
 	from 
 		cf_temp_relations,
 		cataloged_item,
@@ -92,7 +92,7 @@ Pending Relationships
 			<tr>
 				<td>
 					<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
-						#collection# #cat_num#</a>
+						#guid_prefix# #cat_num#</a>
 				</td>
 				<td>
 					#relationship#

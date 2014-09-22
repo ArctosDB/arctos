@@ -41,7 +41,7 @@
 	}
 </script>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select collection,collection_id cid from collection order by collection
+	select guid_prefix,collection_id cid from collection order by guid_prefix
 </cfquery>
 <cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     select distinct(other_id_type) oidt FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
@@ -57,7 +57,7 @@
         <select name="collection_id" id="collection_id" size="1">
 		    <option value="">Any</option>
 			<cfloop query="ctcollection">
-				<option <cfif collection_id is ctcollection.cid> selected="selected" </cfif>value="#ctcollection.cid#">#ctcollection.collection#</option>
+				<option <cfif collection_id is ctcollection.cid> selected="selected" </cfif>value="#ctcollection.cid#">#ctcollection.guid_prefix#</option>
 			</cfloop>
 		</select>
 		<label for="other_id_type">Other ID Type</label>

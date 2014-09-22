@@ -314,7 +314,7 @@
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				specimen_part.collection_object_id partID,
-				collection.collection,
+				collection.guid_prefix,
 				cataloged_item.cat_num,
 				identification.scientific_name,
 				specimen_part.part_name,
@@ -346,7 +346,7 @@
 					and coll_obj_disposition='#existing_coll_obj_disposition#'
 				</cfif>
 			order by
-				collection.collection,cataloged_item.cat_num		
+				collection.guid_prefix,cataloged_item.cat_num		
 		</cfquery>
 		<form name="modPart" method="post" action="bulkPart.cfm">
 			<input type="hidden" name="action" value="delPart2">
@@ -366,7 +366,7 @@
 			</tr>
 			<cfloop query="d">
 				<tr>
-					<td>#collection# #cat_num#</td>
+					<td>#guid_prefix# #cat_num#</td>
 					<td>#scientific_name#</td>
 					<td>#part_name#</td>
 					<td>#condition#</td>
@@ -430,7 +430,7 @@
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				specimen_part.collection_object_id partID,
-				collection.collection,
+				collection.guid_prefix,
 				cataloged_item.cat_num,
 				identification.scientific_name,
 				specimen_part.part_name,
@@ -462,7 +462,7 @@
 					and coll_obj_disposition='#existing_coll_obj_disposition#'
 				</cfif>
 			order by
-				collection.collection,cataloged_item.cat_num		
+				collection.guid_prefix,cataloged_item.cat_num		
 		</cfquery>
 		<form name="modPart" method="post" action="bulkPart.cfm">
 			<input type="hidden" name="action" value="modPart2">
@@ -495,7 +495,7 @@
 			</tr>
 			<cfloop query="d">
 				<tr>
-					<td>#collection# #cat_num#</td>
+					<td>#guid_prefix# #cat_num#</td>
 					<td>#scientific_name#</td>
 					<td>#part_name#</td>
 					<td>#new_part_name#</td>
