@@ -35,7 +35,7 @@
 		and isdefined("collection_cde") and len(collection_cde) gt 0>
 		<cfquery name="cidl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select collection_id from collection where 
-			institution_acronym='#institution_acronym#' and collection_cde='#collection_cde#'
+			guid_prefix='#guid_prefix#'
 		</cfquery>
 		<cfif cidl.recordcount is 1>
 			<cfset collection_id=cidl.collection_id>
