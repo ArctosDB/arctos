@@ -4,7 +4,7 @@
 
 <cfif action is "nothing">
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select collection,collection_id from collection order by collection	
+		select guid_prefix,collection_id from collection order by guid_prefix	
 	</cfquery>
 	<cfquery name="disp" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select coll_obj_disposition from CTCOLL_OBJ_DISP order by coll_obj_disposition	
@@ -15,7 +15,7 @@
 	<label for="collection_id">select collections</label>
 	<select name="collection_id" multiple="multiple" size="10">
 		<cfloop query="c">
-			<option value="#collection_id#">#collection#</option>
+			<option value="#collection_id#">#guid_prefix#</option>
 		</cfloop>
 	</select>
 	<label for="disposition">part disposition....</label>
