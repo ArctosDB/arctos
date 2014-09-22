@@ -220,7 +220,7 @@
 								</cfcatch>
 							</cftry>
 							<tr>
-								<td>#collection#</td>
+								<td>#guid_prefix#</td>
 								<td>
 									<cfif len(thisq.nn) is 0>
 										nothing found
