@@ -4,17 +4,7 @@
 	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from collection
 	</cfquery>
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	<br>this for caches for one hour
+	<br>this form caches for one hour
 	<table border>
 		<tr><th>
 				Metric
@@ -105,14 +95,14 @@
 			select count(*) c from publication
 		</cfquery>
 		<tr>
-			<td>Number Publications</td>
+			<td>Number Publications (<a href="/info/MoreCitationStats.cfm">more detail</a>)</td>
 			<td><input value="#publication.c#"></td>
 		</tr>
 		<cfquery name="project" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(*) c from project
 		</cfquery>
 		<tr>
-			<td>Number Projects</td>
+			<td>Number Projects (<a href="/info/MoreCitationStats.cfm">more detail</a>)</td>
 			<td><input value="#project.c#"></td>
 		</tr>
 		<cfquery name="user_tables" datasource="uam_god"  cachedwithin="#createtimespan(0,0,60,0)#">

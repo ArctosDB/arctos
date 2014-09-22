@@ -127,7 +127,6 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 				trans.transaction_id = loan.transaction_id and
 				loan.loan_type='data' and
 				trans.collection_id = collection.collection_id and
-				collection.institution_acronym=cf_temp_data_loan_item.institution_acronym and
 				collection.guid_prefix=cf_temp_data_loan_item.guid_prefix and
 				loan.loan_number = cf_temp_data_loan_item.loan_number
 			)
