@@ -28,7 +28,7 @@
 		<cfset ShowObservations = "true">
 	</cfif>
 	<cfset basSelect = "SELECT DISTINCT
-		#flatTableName#.collection,
+		#flatTableName#.guid_prefix,
 		#flatTableName#.guid,
 		#flatTableName#.collection_id,
 		#flatTableName#.cat_num,
@@ -164,7 +164,7 @@
 				chr(9) & dec_long &
 				chr(9) & COORDINATEUNCERTAINTYINMETERS &
 				chr(9) & datum &
-				chr(9) & collection;
+				chr(9) & guid_prefix;
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfloop>
