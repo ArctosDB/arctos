@@ -212,7 +212,7 @@
 		 from
 		 	#flatTableName#,
 		 	locality,
-		 	collection
+		 	collection,
 		 	#table_name#
 		 where
 		 	#flatTableName#.locality_id = locality.locality_id and
