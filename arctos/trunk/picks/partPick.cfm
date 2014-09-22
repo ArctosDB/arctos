@@ -31,14 +31,11 @@
 	<cfquery name="ctOID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select other_id_type from ctcoll_other_id_type group by other_id_type order by other_id_type 
 	</cfquery>
-	<cfif isdefined("institution_acronym") and len(institution_acronym) gt 0 
-		and isdefined("collection_cde") and len(collection_cde) gt 0>
+	<cfif isdefined("guid_prefix") and len(guid_prefix) gt 0 >
 		<cfquery name="cidl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select collection_id from collection where 
 			guid_prefix='#guid_prefix#'
 		</cfquery>
-		
-		<cfdump var=#cidl#>
 		<cfif cidl.recordcount is 1>
 			<cfset collection_id=cidl.collection_id>
 		</cfif>
