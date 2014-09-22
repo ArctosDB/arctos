@@ -348,7 +348,7 @@
 		<cfelseif table_name is "loan">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select 
-					collection || ' ' || loan_number data 
+					guid_prefix || ' ' || loan_number data 
 				from 
 					collection,
 					trans, 
@@ -363,7 +363,7 @@
 		<cfelseif table_name is "accn">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select 
-					collection || ' ' || accn_number data 
+					guid_prefix || ' ' || accn_number data 
 				from 
 					collection,
 					trans, 
@@ -380,7 +380,7 @@
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		---->
 			<cfquery name="d" datasource="uam_god">
-				select collection || ' ' || cat_num || ' (' || scientific_name || ')' data from 
+				select guid_prefix || ' ' || cat_num || ' (' || scientific_name || ')' data from 
 				cataloged_item,
                 collection,
                 identification

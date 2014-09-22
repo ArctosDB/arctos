@@ -10,8 +10,8 @@ function closeThis(){
 	select distinct(other_id_type) FROM CTCOLL_OTHER_ID_TYPE ORDER BY other_Id_Type
 </cfquery>
 <cfquery name="collid" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-	select cf_collection_id,collection from cf_collection
-	order by collection
+	select cf_collection_id,INSTITUTION || ' ' || collection collection from cf_collection
+	order by INSTITUTION,collection
 </cfquery>
 <table class="ssrch">
 	<tr>

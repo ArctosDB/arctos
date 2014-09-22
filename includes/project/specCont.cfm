@@ -1,7 +1,7 @@
 <cfoutput>
 	<cfquery name="getContSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT 
-			collection,
+			guid_prefix,
 			collection.collection_id,
 			count(*) c
 		FROM 
@@ -17,7 +17,7 @@
 			project.project_id = project_trans.project_id AND 
 			project.project_id = #project_id#
 		group by
-			collection,
+			guid_prefix,
 			collection.collection_id
 	</cfquery>
 	<cfif getContSpecs.recordcount gt 0>
@@ -26,12 +26,12 @@
 			select sum(c) totspec from getContSpecs
 		</cfquery>
 		<cfquery name="nc" dbtype="query">
-			select collection from getContSpecs group by collection
+			select guid_prefix from getContSpecs group by guid_prefix
 		</cfquery>
 		<ul>
 			<cfloop query="getContSpecs">
 				<li>
-					#c# #collection# <a href="/SpecimenResults.cfm?project_id=#project_id#&collection_id=#collection_id#">Specimens</a>
+					#c# #guid_prefix# <a href="/SpecimenResults.cfm?project_id=#project_id#&collection_id=#collection_id#">Specimens</a>
 					<a href="/bnhmMaps/bnhmMapData.cfm?project_id=#project_id#&collection_id=#collection_id#"> [ BerkeleyMapper ]</a>
 				</li>
 			</cfloop>

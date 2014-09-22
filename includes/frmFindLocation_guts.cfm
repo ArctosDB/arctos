@@ -193,7 +193,7 @@
 		select geology_attribute from ctgeology_attribute order by geology_attribute
 	</cfquery>
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
-		select collection,collection_id from collection order by collection
+		select guid_prefix,collection_id from collection order by guid_prefix
 	</cfquery>
 	<table  cellpadding="0" cellspacign="0">
 		<tr>
@@ -314,7 +314,7 @@
 										<select name="collection_id" id="collection_id" size="1">
 											<option value=""></option>
 											<cfloop query="ctcollection">
-												<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+												<option value="#ctcollection.collection_id#">#ctcollection.guid_prefix#</option>
 											</cfloop>
 										</select>
 									</td>

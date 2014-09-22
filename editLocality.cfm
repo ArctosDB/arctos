@@ -496,7 +496,7 @@ function checkCoordinateError(){
 		<cfquery name="vstat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				verificationstatus,
-				collection,
+				guid_prefix,
 				count(*) c
 			from
 				specimen_event,
@@ -510,7 +510,7 @@ function checkCoordinateError(){
 				collecting_event.locality_id=#locDet.locality_id#
 			group by
 				verificationstatus,
-				collection
+				guid_prefix
 		</cfquery>
 		<label for="dfs">"Your" specimens in this locality:</label>
 		<table id="dfs" border>
@@ -521,7 +521,7 @@ function checkCoordinateError(){
 			</tr>
 			<cfloop query="vstat">
 				<tr>
-					<td>#collection#</td>
+					<td>#guid_prefix#</td>
 					<td>#verificationstatus#</td>
 					<td>#c#</td>
 				</tr>
