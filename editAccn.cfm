@@ -97,7 +97,7 @@
 	select distinct(trans_agent_role) from cttrans_agent_role where trans_agent_role != 'entered by' order by trans_agent_role
 </cfquery>
 <cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select collection,collection_id from collection order by collection
+	select guid_prefix,collection_id from collection order by guid_prefix
 </cfquery>
 <cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select accn_status from ctaccn_status order by accn_status
@@ -145,7 +145,7 @@
 				received_agent_id,
 				trans_remarks,
 				trans_date,
-				collection,
+				guid_prefix,
 				trans.collection_id,
 				CORRESP_FG,
 				concattransagent(trans.transaction_id,'entered by') enteredby,
@@ -190,7 +190,7 @@
 							<select name="collection_id" size="1"  class="reqdClr" id="collection_id">
 								<cfloop query="ctcoll">
 									<option <cfif #ctcoll.collection_id# is #tIA#> selected </cfif>
-									value="#ctcoll.collection_id#">#ctcoll.collection#</option>
+									value="#ctcoll.collection_id#">#ctcoll.guid_prefix#</option>
 								</cfloop>
 							</select>
 						</td>
@@ -444,7 +444,7 @@
 			</ul>
 			--->
 			<br><span class="likeLink"
-					onclick="addMediaHere('#accnData.collection# #accnData.accn_number#','#transaction_id#');">
+					onclick="addMediaHere('#accnData.guid_prefix# #accnData.accn_number#','#transaction_id#');">
 						Create Media
 				</span>&nbsp;~&nbsp;<a href="/MediaSearch.cfm" target="_blank">Link Media</a>
 				<div id="accnMediaDiv"></div>
@@ -514,7 +514,7 @@
 						<select name="collection_id" size="1" id="collection_id">
 							<option value=""></option>
 								<cfloop query="ctcoll">
-									<option value="#ctcoll.collection_id#">#ctcoll.collection#</option>
+									<option value="#ctcoll.collection_id#">#ctcoll.guid_prefix#</option>
 								</cfloop>
 						</select>
 					</td>
@@ -905,7 +905,7 @@
 				</a>
 				 to Project <strong>#sfproj.project_name#</strong>
 			<cfelse>
-				<a href="editAccn.cfm?action=edit&transaction_id=#transaction_id#"><strong>#collection# #accn_number#</strong></a>
+				<a href="editAccn.cfm?action=edit&transaction_id=#transaction_id#"><strong>#guid_prefix# #accn_number#</strong></a>
 				<span style="font-size:smaller">(#accn_status#)</span>
 			</cfif> 
 			<div style="padding-left:2em;">
@@ -935,7 +935,7 @@
 			</div>
 		</div>
 		<cfif csv is true>
-			<cfset d='"#escapeDoubleQuotes(collection)# #escapeDoubleQuotes(accn_number)#"'>
+			<cfset d='"#escapeDoubleQuotes(guid_prefix)# #escapeDoubleQuotes(accn_number)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(accn_status)#"'>
 			<cfset d=d &',"#escapeDoubleQuotes(recFromAgent)#"'>
 			<cfset d=d &',"#DateFormat(received_date, "yyyy-mm-dd")#"'>
