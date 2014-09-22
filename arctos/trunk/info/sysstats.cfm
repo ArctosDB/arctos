@@ -199,7 +199,7 @@
 	<p>List of institutions in Arctos:</p>
 	<ul>
 		<cfloop query="inst">
-			<li>#institutionm#</li>
+			<li>#institution#</li>
 		</cfloop>
 	</ul>
 
