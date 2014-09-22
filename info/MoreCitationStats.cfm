@@ -149,7 +149,7 @@
 	<p>&nbsp;</p>
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
-			collection,
+			guid_prefix,
 			collection.collection_id,
 			count(*) totSpec
 		from 
@@ -158,10 +158,10 @@
 		where
 			collection.collection_id=cataloged_item.collection_id
 		group by
-			collection,
+			guid_prefix,
 			collection.collection_id
 		order by 
-			collection
+			guid_prefix
 	</cfquery>
 	<strong>Usage and results by collection:</strong>
 	<table border="1" id="d" class="sortable">
@@ -238,7 +238,7 @@
 				sum(items_loaned_by_collection)	tot
 			from (
 				select 
-					collection,
+					guid_prefix,
 					count(*) items_loaned_by_collection
 				from
 					collection,
@@ -250,10 +250,10 @@
 					cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
 					specimen_part.collection_object_id=loan_item.collection_object_id and
 					collection.collection_id=#collection_id#
-				group by collection
+				group by guid_prefix
 				union
 				select 
-					collection,
+					guid_prefix,
 					count(*) items_loaned_by_collection
 				from
 					collection,
@@ -263,9 +263,9 @@
 					collection.collection_id=cataloged_item.collection_id and
 					cataloged_item.collection_object_id=loan_item.collection_object_id and
 					collection.collection_id=#collection_id#
-				group by collection
+				group by guid_prefix
 				)
-			 group by collection
+			 group by guid_prefix
 		</cfquery>
 		<cfquery name="loanedSpec" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(distinct(collection_object_id)) tot from (
@@ -305,7 +305,7 @@
 				cataloged_item.collection_id=#collection_id#
 		</cfquery>
 		<tr>
-			<td>#collection#</td>
+			<td>#guid_prefix#</td>
 			<td>#c.totSpec#</td>
 			<cfif c.totSpec gt 0>
 				<cfset percentLoaned=decimalFormat((loanedSpec.tot/c.totSpec) * 100)>
