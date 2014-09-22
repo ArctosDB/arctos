@@ -372,7 +372,7 @@
 					</cfif>
 					<cfquery name="coll" datasource="uam_god">
 						select 
-							collection 
+							guid_prefix 
 						from
 							collection,
 							cataloged_item,
@@ -381,7 +381,7 @@
 							collection.collection_id=cataloged_item.collection_id and
 							cataloged_item.collection_object_id=collector.collection_object_id and
 							collector.agent_id=#id1#
-						group by collection
+						group by guid_prefix
 					</cfquery>
 					<cfif coll.recordcount gt 0>
 						<cfquery name="dates" datasource="uam_god">
@@ -398,7 +398,7 @@
 								collector.agent_id=#id1#
 						</cfquery>
 						<div style="font-size:smaller;">
-							#valuelist(coll.collection)#
+							#valuelist(coll.guid_prefix)#
 							<br>#dates.edate#<cfif dates.edate is not dates.ldate>-#dates.ldate#</cfif> 
 						<div>
 					</cfif>
@@ -535,7 +535,7 @@
 					</cfif>
 					<cfquery name="coll" datasource="uam_god">
 						select 
-							collection 
+							guid_prefix 
 						from
 							collection,
 							cataloged_item,
@@ -544,7 +544,7 @@
 							collection.collection_id=cataloged_item.collection_id and
 							cataloged_item.collection_object_id=collector.collection_object_id and
 							collector.agent_id=#id2#
-						group by collection
+						group by guid_prefix
 					</cfquery>
 					<cfif coll.recordcount gt 0>
 						<cfquery name="dates" datasource="uam_god">
@@ -561,7 +561,7 @@
 								collector.agent_id=#id2#
 						</cfquery>
 						<div style="font-size:smaller;">
-							#valuelist(coll.collection)#
+							#valuelist(coll.guid_prefix)#
 							<br>#dates.edate#<cfif dates.edate is not dates.ldate>-#dates.ldate#</cfif> 
 						<div>
 					</cfif>
