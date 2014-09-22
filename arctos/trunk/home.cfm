@@ -119,8 +119,13 @@
 			 from raw
 		</cfquery>
 		<p>
-			Arctos is currently #numberformat(summary.total_specimens,"999,999")# specimens and observations in #summary.numCollections# collections. Following the search links below will set your preferences to filter by a specific collection or portal. You may click
-			<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences.
+			Arctos is currently #numberformat(summary.total_specimens,"999,999")# specimens and observations in #summary.numCollections# collections.
+			<p>
+				<b>
+					Following the search links below will set your preferences to filter by a specific collection or portal. You may click
+					<a href="/all_all">[ search all collections ]</a> at any time to re-set your preferences.
+				</b>
+			</p>
 		</p>
 		<cfloop query="inst">
 			<cfquery name="coln" dbtype="query">
@@ -458,7 +463,7 @@
 		</div>
 
 		<a name="suggest"></a>
-		<p><strong>Suggestions?</strong></a></p>
+		<p><strong>Suggestions?</strong></p>
 			 The utility of Arctos results from user input.
 			 If you have a suggestion to make, let's hear it.
 			 We accommodate many special requests through custom forms or custom queries,
