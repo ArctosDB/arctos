@@ -37,6 +37,8 @@
 			select collection_id from collection where 
 			guid_prefix='#guid_prefix#'
 		</cfquery>
+		
+		<cfdump var=#cidl#>
 		<cfif cidl.recordcount is 1>
 			<cfset collection_id=cidl.collection_id>
 		</cfif>
