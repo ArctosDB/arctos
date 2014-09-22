@@ -448,7 +448,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 <cfif #action# is "pickPart">
 <cfoutput>
 	<cfquery name="mPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_loan_item where status='multiple parts found'
+		select * from cf_temp_loan_item
 	</cfquery>
 	<table border>
 		<tr>
