@@ -11,31 +11,13 @@
 	<p>
 		You may open KML files of Arctos data using the <a href="/api/kml">KML API</a>. 
 	</p>
-	You may link to specimens with any of the following:
+	You may link to specimens with the following:
 		<ul>
 			<li>
-				#Application.serverRootUrl#/guid/{institution}:{collection}:{catnum}
+				#Application.serverRootUrl#/guid/{guid_prefix}:{catnum}
 				<ul>
 					<li>
 						Example: #Application.serverRootUrl#/guid/UAM:Mamm:1
-					</li>
-				</ul>
-				<br>
-			</li>
-			<li>
-				#Application.serverRootUrl#/specimen/{institution}/{collection}/{catnum}
-				<ul>
-					<li>
-						Example: #Application.serverRootUrl#/specimen/UAM/Mamm/1
-					</li>
-				</ul>
-				<br>
-			</li>
-			<li>
-				#Application.serverRootUrl#/SpecimenDetail.cfm?guid={institution}:{collection}:{catnum}
-				<ul>
-					<li>
-						Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
 					</li>
 				</ul>
 				<br>
@@ -81,7 +63,7 @@
 		Generally, all collections have a portal of the format
 		<ul>
 			<li>
-				#Application.serverRootUrl#/{institution_acronym}_{collection_cde}
+				#Application.serverRootUrl#/{guid_prefix, with colon replaced by underbar}
 				<ul>
 					<li>
 						Example: #Application.serverRootUrl#/uam_mamm
