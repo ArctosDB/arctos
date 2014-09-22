@@ -43,7 +43,6 @@
 					collection
 				where
 					upper(dba_role_privs.granted_role) = upper(replace(collection.guid_prefix,':','_')) and
-					--upper(dba_role_privs.granted_role) = upper(collection.institution_acronym) || '_' || upper(collection.collection_cde) and
 					upper(grantee) = '#ucasename#'
 			</cfquery>
 			<tr>

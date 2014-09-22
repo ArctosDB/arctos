@@ -6,7 +6,6 @@
 		SELECT
 			specimen_part.collection_object_id as partID,
 			part_name,
-			collection.institution_acronym,
 			coll_obj_disposition,
 			condition,
 			sampled_from_obj_id,
@@ -42,9 +41,7 @@
 	<cfset listedParts = "">
 	<form name="parts" method="post" action="editParts.cfm">
 		<input type="hidden" name="action" value="saveEdits">
-		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-		<input type="hidden" name="institution_acronym" value="#getParts.institution_acronym#">
-	
+		<input type="hidden" name="collection_object_id" value="#collection_object_id#">	
 	<table border>
 	<cfloop query="getParts">
 		<cfif len(getParts.partID) gt 0>
@@ -220,8 +217,6 @@
 <form name="newPart" method="post" action="editParts.cfm">
 	<input type="hidden" name="Action" value="newPart">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-	<input type="hidden" name="institution_acronym" value="#getParts.institution_acronym#">
-
     <table>
       <tr> 
         <td><div align="right">Part Name: </div></td>
@@ -350,7 +345,6 @@
 				WHERE
 					barcode = '#thisnewCode#'
 					AND container_type <> 'collection object'
-					AND institution_acronym = '#institution_acronym#'
 			</cfquery>
 			<cfif #isCont.container_type# is 'cryovial label'>
 				<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

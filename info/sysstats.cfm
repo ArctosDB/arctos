@@ -1,55 +1,20 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="system statistics">
 <cfoutput>
-	<cfquery name="d" datasource="uam_god">
-		select collection, institution_acronym, replace(institution_acronym,'Obs') relinst from collection order by collection
+	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select * from collection
 	</cfquery>
-	<cfquery name="i" dbtype="query">
-		select institution_acronym from d group by institution_acronym
-	</cfquery>
-	<cfquery name="ri" dbtype="query">
-		select relinst from d group by relinst
-	</cfquery>
-	<cfquery name="cataloged_item" datasource="uam_god">
-		select count(*) c from cataloged_item
-	</cfquery>
+	
+	
+	
+	
+	
+	
 
-	<cfquery name="noobs" datasource="uam_god">
-		select count(*) c from cataloged_item,collection where cataloged_item.collection_id=collection.collection_id and
-		institution_acronym not like '%Obs'
-	</cfquery>
-	<cfquery name="isobs" datasource="uam_god">
-		select count(*) c from cataloged_item,collection where cataloged_item.collection_id=collection.collection_id and
-		institution_acronym  like '%Obs'
-	</cfquery>
-	<cfquery name="taxonomy" datasource="uam_god">
-		select count(*) c from taxon_name
-	</cfquery>
-	<cfquery name="locality" datasource="uam_god">
-		select count(*) c from locality
-	</cfquery>
-	<cfquery name="media" datasource="uam_god">
-		select count(*) c from media
-	</cfquery>
-	<cfquery name="collecting_event" datasource="uam_god">
-		select count(*) c from collecting_event
-	</cfquery>
-	<cfquery name="agent" datasource="uam_god">
-		select count(*) c from agent
-	</cfquery>
-	<cfquery name="publication" datasource="uam_god">
-		select count(*) c from publication
-	</cfquery>
-
-	<cfquery name="project" datasource="uam_god">
-		select count(*) c from project
-	</cfquery>
-	<cfquery name="user_tables" datasource="uam_god">
-		select TABLE_NAME from user_tables
-	</cfquery>
-	<cfquery name="ct" dbtype="query">
-		select TABLE_NAME from user_tables where table_name like 'CT%'
-	</cfquery>
+	
+	
+	
+	<br>this for caches for one hour
 	<table border>
 		<tr><th>
 				Metric
@@ -64,60 +29,102 @@
 			</td>
 			<td><input value="#d.recordcount#"></td>
 		</tr>
+		<cfquery name="inst" dbtype="query">
+			select institution from d group by institution order by institution
+		</cfquery>
 		<tr>
-			<td>Number Institutions (raw)<a href="##rawinst" class="infoLink">list</a></td>
-			<td><input value="#i.recordcount#"></td>
+			<td>Number Institutions<a href="##rawinst" class="infoLink">list</a></td>
+			<td><input value="#inst.recordcount#"></td>
 		</tr>
-		<tr>
-			<td>Number Institutions ("Obs" removed)
-		<a href="##inst" class="infoLink">list</a>
-		</td>
-			<td><input value="#ri.recordcount#"></td>
-		</tr>
+		
+		<cfquery name="cataloged_item" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select count(*) c from cataloged_item
+		</cfquery>
 		<tr>
 			<td>Total Number Specimens</td>
 			<td><input value="#cataloged_item.c#"></td>
 		</tr>
+		
+		
+		<cfquery name="citype" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select 
+				CATALOGED_ITEM_TYPE,
+				count(*) c 
+			from 
+				cataloged_item
+			group by
+				CATALOGED_ITEM_TYPE
+		</cfquery>
 		<tr>
-			<td>Number Specimens (institution not like %Obs)</td>
-			<td><input value="#noobs.c#"></td>
+			<td>Number Specimens by cataloged_item_type</td>
+			<td>
+				<cfloop query="citype">
+					#CATALOGED_ITEM_TYPE#: <input value="#c#"><br>
+				</cfloop>
+			</td>
 		</tr>
-		<tr>
-			<td>Total Number Observations (institution like %Obs)</td>
-			<td><input value="#isobs.c#"></td>
-		</tr>
+		
+		<cfquery name="taxonomy" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select count(*) c from taxon_name
+		</cfquery>
 		<tr>
 			<td>Number Taxon Names</td>
 			<td><input value="#taxonomy.c#"></td>
 		</tr>
+		<cfquery name="locality" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select count(*) c from locality
+		</cfquery>
 		<tr>
 			<td>Number Localities</td>
 			<td><input value="#locality.c#"></td>
 		</tr>
+		
+		<cfquery name="collecting_event" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select count(*) c from collecting_event
+		</cfquery>
 		<tr>
 			<td>Number Collecting Events</td>
 			<td><input value="#collecting_event.c#"></td>
 		</tr>
+		
+		<cfquery name="media" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select count(*) c from media
+		</cfquery>
 		<tr>
 			<td>Number Media</td>
 			<td><input value="#media.c#"></td>
 		</tr>
+		<cfquery name="agent" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select count(*) c from agent
+		</cfquery>
 		<tr>
 			<td>Number Agents</td>
 			<td><input value="#agent.c#"></td>
 		</tr>
+		<cfquery name="publication" datasource="uam_god"  cachedwithin="#createtimespan(0,0,60,0)#">
+			select count(*) c from publication
+		</cfquery>
 		<tr>
 			<td>Number Publications</td>
 			<td><input value="#publication.c#"></td>
 		</tr>
+		<cfquery name="project" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select count(*) c from project
+		</cfquery>
 		<tr>
 			<td>Number Projects</td>
 			<td><input value="#project.c#"></td>
 		</tr>
+		<cfquery name="user_tables" datasource="uam_god"  cachedwithin="#createtimespan(0,0,60,0)#">
+			select TABLE_NAME from user_tables
+		</cfquery>
 		<tr>
 			<td>Number Tables *</td>
 			<td><input value="#user_tables.recordcount#"></td>
 		</tr>
+		<cfquery name="ct" dbtype="query">
+			select TABLE_NAME from user_tables where table_name like 'CT%'
+		</cfquery>
 		<tr>
 			<td>Number Code Tables *</td>
 			<td><input value="#ct.recordcount#"></td>
@@ -189,21 +196,13 @@
 	</ul>
 	<hr>
 	<a name="rawinst"></a>
-	<p>Unmanipulated list of institutions in Arctos:</p>
+	<p>List of institutions in Arctos:</p>
 	<ul>
-		<cfloop query="i">
-			<li>#institution_acronym#</li>
+		<cfloop query="inst">
+			<li>#institutionm#</li>
 		</cfloop>
 	</ul>
 
-	<hr>
-	<a name="inst"></a>
-	<p>List of institutions in Arctos (OBS replaced):</p>
-	<ul>
-		<cfloop query="ri">
-			<li>#relinst#</li>
-		</cfloop>
-	</ul>
 
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
