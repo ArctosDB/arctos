@@ -191,7 +191,7 @@
 	<p>List of collections in Arctos:</p>
 	<ul>
 		<cfloop query="d">
-			<li>#collection#</li>
+			<li>#institution# #collection#</li>
 		</cfloop>
 	</ul>
 	<hr>
