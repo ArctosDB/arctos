@@ -116,7 +116,7 @@
 					</cfloop>
 				</cfif>
 				<cfloop query="c">
-					<option value="#collection_id#">Enter a new #collection# Record</option>
+					<option value="#collection_id#">Enter a new #GUID_PREFIX# Record</option>
 				</cfloop>
 			</select>
 			<input class="lnkBtn" type="submit" value="Enter Data"/>
