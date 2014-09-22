@@ -231,7 +231,7 @@
 				select
 					guid,
 					YEAR,
-					institution_acronym,
+					institution,
 					collectors,
 					CATALOGED_ITEM_TYPE,
 					scientific_name
@@ -252,38 +252,7 @@
 			<cfelse>
 				<cfset resourcetype="Event">
 			</cfif>
-		
-			<cfif d.institution_acronym is "UAM" or d.institution_acronym is "UAMObs" or d.institution_acronym is "UAMb">
-				<cfset publisher='University of Alaska Museum'>
-			<cfelseif d.institution_acronym is "MSB" or d.institution_acronym is "DGR" or d.institution_acronym is "MSBObs">
-				<cfset publisher='Museum of Southwestern Biology'>
-			<cfelseif d.institution_acronym is "MVZ" or d.institution_acronym is "MVZObs">
-				<cfset publisher="Museum of Vertebrate Zoology">
-			<cfelseif d.institution_acronym is "COA">
-				<cfset publisher="College of the Atlantic">
-			<cfelseif d.institution_acronym is "DMNS">
-				<cfset publisher="Denver Museum of Nature and Science">
-			<cfelseif d.institution_acronym is "HWML">
-				<cfset publisher="Harold W. Manter Laboratory of Parasitology">
-			<cfelseif d.institution_acronym is "KNWR">
-				<cfset publisher="Kenai National Wildlife Refuge">
-			<cfelseif d.institution_acronym is "WNMU">
-				<cfset publisher="Western New Mexico University">
-			<cfelseif d.institution_acronym is "KWP">
-				<cfset publisher="Kenelm W. Philip lepidoptera collection">
-			<cfelseif d.institution_acronym is "UWYMV">
-				<cfset publisher="University of Wyoming">
-			<cfelseif d.institution_acronym is "MLZ">
-				<cfset publisher="Occidental College">
-			<cfelseif d.institution_acronym is "USNPC">
-				<cfset publisher="U. S. National Parasite Collection">
-			<cfelseif d.institution_acronym is "NMU">
-				<cfset publisher="Northern Michigan University">
-			<cfelseif d.institution_acronym is "UWBM">
-				<cfset publisher="University of Washington">
-			<cfelseif d.institution_acronym is "UMNH">
-				<cfset publisher="University of Utah">
-			</cfif>
+			
 			<cfset creator=listgetat(d.collectors,1)>
 			<cfset title=d.guid & ' - ' & d.scientific_name>
 		</cfif>
@@ -310,7 +279,7 @@
 			<label for="publisher">publisher</label>
 			<select name="publisher" id="publisher" size="1">
 				<cfloop query="octinst">
-					<option value="#inst#" <cfif publisher is inst> selected="selected" </cfif> >#inst#</option>
+					<option value="#inst#" <cfif d.institution is octinst.inst> selected="selected" </cfif> >#inst#</option>
 				</cfloop>
 			</select>
 			<label for="creator">creator <a href="http://ezid.cdlib.org/doc/apidoc.html##profile-datacite" target="_blank" class="external">[ more info ]</a></label>
