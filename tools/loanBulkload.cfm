@@ -465,7 +465,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 			<td>
 				Part: <input type="text" name="part#key#" id="part#key#" value="#PART_NAME#">
 				<input type="hidden" name="partid#key#" id="partid#key#">
-				<span class="likeLink" onclick="getPart('partid#key#','part#key#','part=#PART_NAME#&INSTITUTION_ACRONYM=#INSTITUTION_ACRONYM#&COLLECTION_CDE=#COLLECTION_CDE#&id_type=#OTHER_ID_TYPE#&id_value=#OTHER_ID_NUMBER#')">
+				<span class="likeLink" onclick="getPart('partid#key#','part#key#','part=#PART_NAME#&guid_prefix=#guid_prefix#&id_type=#OTHER_ID_TYPE#&id_value=#OTHER_ID_NUMBER#')">
 					pick...
 				</span>
 			</td>
