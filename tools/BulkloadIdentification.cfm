@@ -37,6 +37,11 @@ CREATE OR REPLACE TRIGGER cf_temp_id_key
     	end if;                                
     end;                                                                                            
 /
+
+alter table cf_temp_id rename column collection_cde to guid_prefix;
+alter table cf_temp_id drop column institution_acronym;
+alter table cf_temp_id modify guid_prefix varchar2(30);
+
 sho err
 ------>
 <cfif #action# is "nothing">
@@ -45,12 +50,11 @@ Include column headings, spelled exactly as below.
 <br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
 	<div id="template" style="display:none;">
 		<label for="t">Copy the following code and save as a .csv file</label>
-		<textarea rows="2" cols="80" id="t">collection_cde,institution_acronym,other_id_type,other_id_number,scientific_name,made_date,nature_of_id,accepted_fg,identification_remarks,agent_1,agent_2</textarea>
+		<textarea rows="2" cols="80" id="t">guid_prefix,other_id_type,other_id_number,scientific_name,made_date,nature_of_id,accepted_fg,identification_remarks,agent_1,agent_2</textarea>
 	</div> 
 <p></p>
 <ul>
-	<li style="color:red">institution_acronym</li>
-	<li style="color:red">collection_cde</li>
+	<li style="color:red">guid_prefix</li>
 	<li style="color:red">other_id_type ("catalog number" is OK)</li>
 	<li style="color:red">other_id_number</li>
 	<li style="color:red">scientific_name</li>
@@ -119,8 +123,7 @@ Include column headings, spelled exactly as below.
 		where
 		other_id_type is null or
 		other_id_number is null or
-		collection_cde is null or
-		institution_acronym is null or
+		guid_prefix is null or
 		scientific_name is null or
 		nature_of_id is null or
 		accepted_fg is null or
@@ -143,8 +146,7 @@ Include column headings, spelled exactly as below.
 					WHERE
 						coll_obj_other_id_num.collection_object_id = cataloged_item.collection_object_id and
 						cataloged_item.collection_id = collection.collection_id and
-						collection.collection_cde = '#collection_cde#' and
-						collection.institution_acronym = '#institution_acronym#' and
+						collection.guid_prefix = '#guid_prefix#' and
 						other_id_type = '#trim(other_id_type)#' and
 						display_value = '#trim(other_id_number)#'
 				</cfquery>
@@ -157,8 +159,7 @@ Include column headings, spelled exactly as below.
 						collection
 					WHERE
 						cataloged_item.collection_id = collection.collection_id and
-						collection.collection_cde = '#collection_cde#' and
-						collection.institution_acronym = '#institution_acronym#' and
+						collection.guid_prefix = '#guid_prefix#' and
 						cat_num=#other_id_number#
 				</cfquery>
 			</cfif>
@@ -171,11 +172,10 @@ Include column headings, spelled exactly as below.
 						collection
 					WHERE
 						cataloged_item.collection_id = collection.collection_id and
-						collection.collection_cde = '#collection_cde#' and
-						collection.institution_acronym = '#institution_acronym#' and
+						collection.guid_prefix = '#guid_prefix#' and
 						cat_num=#other_id_number#">
 				<cfelse>
-					<cfset problem = "#problem#; #data.other_id_number# #data.other_id_type# #data.collection_cde# #data.institution_acronym# could not be found">
+					<cfset problem = "#problem#; #data.other_id_number# #data.other_id_type# #data.guid_prefix# could not be found">
 				</cfif>
 			<cfelse>
 				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

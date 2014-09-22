@@ -36,6 +36,9 @@ alter table cf_temp_parts drop column part_modifier;
 alter table cf_temp_parts drop column preserve_method;
 
 
+
+alter table cf_temp_parts rename column collection_cde to guid_prefix;
+
 create or replace public synonym cf_temp_parts for cf_temp_parts;
 grant all on cf_temp_parts to uam_query,uam_update;
 

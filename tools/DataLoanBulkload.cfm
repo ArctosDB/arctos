@@ -14,6 +14,11 @@ status varchar2(255)
 );
 
 
+
+alter table cf_temp_data_loan_item rename column COLLECTION_CDE to guid_prefix;
+alter table cf_temp_data_loan_item modify guid_prefix varchar2(25);
+alter table cf_temp_data_loan_item drop column INSTITUTION_ACRONYM;
+
 create or replace public synonym cf_temp_data_loan_item for cf_temp_data_loan_item;
 grant all on cf_temp_data_loan_item to manage_transactions;
 
@@ -49,8 +54,7 @@ sho err
 Step 1: Upload a file comma-delimited text file (CSV) in the following format. (You may copy the template below and save as .CSV)
  Include column headers. 
 <ul>
-	<li>Institution_Acronym (required)</li>
-	<li>Collection_Cde (required)</li>
+	<li>guid_prefix (required)</li>
 	<li>Other_Id_Type (required. "catalog number" is acceptable)</li>
 	<li>Other_Id_Number (required; display value)</li>
 	<li>Loan_Number (required)</li>
@@ -59,7 +63,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 
 <p>
 <div id="template">
-		<textarea rows="2" cols="80" id="t">INSTITUTION_ACRONYM,COLLECTION_CDE,OTHER_ID_TYPE,OTHER_ID_NUMBER,LOAN_NUMBER</textarea>
+		<textarea rows="2" cols="80" id="t">guid_prefix,OTHER_ID_TYPE,OTHER_ID_NUMBER,LOAN_NUMBER</textarea>
 	</div> 
 
 <cfform name="catnum" method="post" enctype="multipart/form-data">
@@ -124,7 +128,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 				loan.loan_type='data' and
 				trans.collection_id = collection.collection_id and
 				collection.institution_acronym=cf_temp_data_loan_item.institution_acronym and
-				collection.collection_cde=cf_temp_data_loan_item.collection_cde and
+				collection.guid_prefix=cf_temp_data_loan_item.guid_prefix and
 				loan.loan_number = cf_temp_data_loan_item.loan_number
 			)
 	</cfquery>
@@ -145,8 +149,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 						collection
 					where
 						cataloged_item.collection_id = collection.collection_id and
-						collection.institution_acronym = '#institution_acronym#' and
-						collection.collection_cde = '#collection_cde#' and
+						collection.guid_prefix = '#guid_prefix#' and
 						cat_num = '#other_id_number#'
 				</cfquery>
 			<cfelse>
@@ -160,8 +163,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 					where
 						cataloged_item.collection_id = collection.collection_id and
 						cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
-						collection.institution_acronym = '#institution_acronym#' and
-						collection.collection_cde = '#collection_cde#' and
+						collection.guid_prefix = '#guid_prefix#' and
 						display_value = '#other_id_number#' and
 						other_id_type = '#other_id_type#'
 				</cfquery>
