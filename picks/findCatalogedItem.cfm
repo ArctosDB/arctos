@@ -28,7 +28,7 @@
 </cfif>
 <cfset title = "Cat Item Pick">
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select distinct(collection) from collection order by collection
+	select guid_prefix from collection order by guid_prefix
 </cfquery>
 <cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
     select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
@@ -45,7 +45,7 @@
         <select name="collID" id="collID" size="1">
 		    <option value="">Any</option>
 			<cfloop query="ctcollection">
-				<option <cfif collID is collection> selected="selected" </cfif>value="#collection#">#collection#</option>
+				<option <cfif collID is guid_prefix> selected="selected" </cfif>value="#guid_prefix#">#guid_prefix#</option>
 			</cfloop>
 		</select>
 		<label for="oidType">Other ID Type</label>
@@ -85,7 +85,7 @@
 	</cfif>
 	<cfset sql = "SELECT
 			cat_num,
-			collection,
+			guid_prefix,
 			cataloged_item.collection_object_id,
 			scientific_name
 		 FROM
@@ -117,13 +117,13 @@
 			AND display_value IN ( #oidNumList# )">
 	</cfif>
 	<cfif len(collID) gt 0>
-        <cfset sql = "#sql# AND collection='#collID#'">
+        <cfset sql = "#sql# AND guid_prefix='#collID#'">
     </cfif>
 	<cfset sql=sql & " group by cat_num,
-		collection,
+		guid_prefix,
 		cataloged_item.collection_object_id,
 		scientific_name
-		order by collection,cat_num">
+		order by guid_prefix,cat_num">
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
@@ -132,7 +132,7 @@
 		<cfelseif getItems.recordcount is 1>
 			<script>
 				opener.document.#formName#.#collIdFld#.value='#getItems.collection_object_id#';
-				opener.document.#formName#.#CatNumStrFld#.value='#getItems.collection# #getItems.cat_num# (#getItems.scientific_name#)'
+				opener.document.#formName#.#CatNumStrFld#.value='#getItems.guid_prefix# #getItems.cat_num# (#getItems.scientific_name#)'
 				;self.close();
 			</script>
 		<cfelse>
@@ -142,7 +142,7 @@
 			</p>
 			<cfloop query="getItems">
 				<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#collection_object_id#';
-				opener.document.#formName#.#CatNumStrFld#.value='#collection# #cat_num# (#scientific_name#)';self.close();">#collection# #cat_num# #scientific_name#</a>
+				opener.document.#formName#.#CatNumStrFld#.value='#guid_prefix# #cat_num# (#scientific_name#)';self.close();">#guid_prefix# #cat_num# #scientific_name#</a>
 			</cfloop>
 		</cfif>
 </cfoutput>

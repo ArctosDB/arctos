@@ -149,7 +149,9 @@ sho err
 				</cfquery>
 			<cfelse>
 				<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select specimen_part.collection_object_id FROM
+					select 
+						specimen_part.collection_object_id 
+					FROM
 						cataloged_item,
 						specimen_part,
 						coll_obj_other_id_num,

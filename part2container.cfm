@@ -19,7 +19,7 @@
 <cfif #action# is "nothing">
 	<cfoutput>
 	<cfquery name="ctCollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select collection, collection_id FROM collection order by collection
+		select guid_prefix, collection_id FROM collection order by guid_prefix
 	</cfquery>
 	<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select distinct(other_id_type) FROM ctcoll_other_id_type order by other_id_type
@@ -62,7 +62,7 @@
 				<label for="collection_id">Collection</label>
 				<select name="collection_id" id="collection_id" size="1" onchange="getParts()">
 					<cfloop query="ctCollection">
-						<option value="#collection_id#">#collection#</option>
+						<option value="#collection_id#">#guid_prefix#</option>
 					</cfloop>
 				</select>
 			</td>

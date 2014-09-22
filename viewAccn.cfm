@@ -11,7 +11,7 @@
 				received_agent_id,
 				trans_remarks,
 				trans_date,
-				collection,
+				guid_prefix,
 				trans.collection_id,
 				CORRESP_FG,
 				concattransagent(trans.transaction_id,'entered by') enteredby,
@@ -52,9 +52,9 @@
 				agent_name
 		</cfquery>
 		<p>
-			<strong>Accession #d.collection# #d.accn_number#</strong>
+			<strong>Accession #d.guid_prefix# #d.accn_number#</strong>
 		</p>
-		<cfset title="Accession #d.collection# #d.accn_number#">
+		<cfset title="Accession #d.guid_prefix# #d.accn_number#">
 		<br><strong>Obtained by:</strong> #d.accn_type#
 		<br><strong>Status:</strong> #d.accn_status#
 		<br><strong>Received:</strong> 
@@ -229,7 +229,7 @@
 		</p>
 		<cfquery name="spec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
-				collection,
+				guid_prefix,
 				collection.collection_id,
 				count(*) c
 			from 
@@ -239,10 +239,10 @@
 				cataloged_item.collection_id=collection.collection_id and
 				cataloged_item.accn_id=<cfqueryparam value = "#transaction_id#" CFSQLType = "CF_SQL_INTEGER">
 			group by
-				collection,
+				guid_prefix,
 				collection.collection_id
 			order by
-				collection
+				guid_prefix
 		</cfquery>
 		<p>
 		<cfif spec.recordcount gt 0>
@@ -255,7 +255,7 @@
 			<ul>
 				<cfloop query="spec">
 					<li>
-						<a href="/SpecimenResults.cfm?accn_trans_id=#transaction_id#&collection_id=#collection_id#">#c# #collection#</a>
+						<a href="/SpecimenResults.cfm?accn_trans_id=#transaction_id#&collection_id=#collection_id#">#c# #guid_prefix#</a>
 						[ <a href="/bnhmMaps/bnhmMapData.cfm?accn_trans_id=#transaction_id#&collection_id=#collection_id#">BerkeleyMapper</a> ]
 					</li>
 				</cfloop>

@@ -212,7 +212,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 		<tr>
 			<td>ITEM_DESCRIPTION</td>
 			<td>no</td>
-			<td>will default to collection.collection || ' ' || cat_num || ' ' || part_name if left null</td>
+			<td>will default to collection.guid_prefix || ':' || cat_num || ' ' || part_name if left null</td>
 			<td></td>
 		</tr>
 		<tr>
@@ -399,7 +399,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 				cf_temp_loan_item
 			set (ITEM_DESCRIPTION) = (
 				select
-					collection.collection || ' ' || cataloged_item.cat_num || ' ' || specimen_part.part_name
+					collection.guid_prefix || ':' || cataloged_item.cat_num || ' ' || specimen_part.part_name
 				from
 					cataloged_item,
 					collection,
@@ -502,7 +502,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 						cf_temp_loan_item
 						set (ITEM_DESCRIPTION)
 						= (
-							select collection.collection || ' ' || cat_num || ' ' || part_name
+							select collection.guid_prefix || ':' || cat_num || ' ' || part_name
 							from
 							cataloged_item,
 							collection,
