@@ -26,10 +26,14 @@ sho err
 		alter table cf_temp_barcode_parts add status varchar2(255);
 		alter table cf_temp_barcode_parts add parent_container_id number;
 		alter table cf_temp_barcode_parts add part_container_id number;
+		
+				alter table cf_temp_barcode_parts rename column  COLLECTION_CDE to guid_prefix;
+				alter table cf_temp_barcode_parts drop column  INSTITUTION_ACRONYM;
+
 ------------------------------------->
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "makeTemplate">
-	<cfset header="OTHER_ID_TYPE,OTHER_ID_NUMBER,COLLECTION_CDE,INSTITUTION_ACRONYM,PART_NAME,PRINT_FG,NEW_CONTAINER_TYPE,BARCODE">
+	<cfset header="OTHER_ID_TYPE,OTHER_ID_NUMBER,guid_prefix,PART_NAME,PRINT_FG,NEW_CONTAINER_TYPE,BARCODE">
 	<cffile action = "write" 
     file = "#Application.webDirectory#/download/BulkPartContainer.csv"
     output = "#header#"
@@ -44,12 +48,9 @@ sho err
 		<li>
 			<a href="/info/ctDocumentation.cfm?table=ctcoll_other_id_type" target="_blank">[ OTHER_ID_TYPE values ]</a>
 			<br>"catalog number" is also a valid other_id_type.
-		<cfset header=",,
-				
-					PRINT_FG,,">
+		
 		</li>
-		<li>Collection_Cde is case-sensitive, e.g., "Mamm"</li>
-		<li>Institution_Acronym is case-sensitive, e.g., "UAM"</li>
+		<li>guid_prefix is case-sensitive, e.g., "UAM:Mamm"</li>
 		
 		<li>
 			Part_Name is case-sensitive and collection-specific	
@@ -115,8 +116,7 @@ sho err
 <cfif action is "validateFromFile">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select KEY,
-			INSTITutION_ACRONYM,
-			COLLECTION_CDE,
+			guid_prefix,
 			OTHER_ID_TYPE,
 			OTHER_ID_NUMBER oidNum,
 			part_name,
@@ -143,8 +143,7 @@ sho err
 					WHERE
 						cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
 						cataloged_item.collection_id = collection.collection_id AND
-						collection.COLLECTION_CDE='#COLLECTION_CDE#' AND
-						collection.INSTITutION_ACRONYM = '#INSTITutION_ACRONYM#' AND
+						collection.guid_prefix='#guid_prefix#' AND
 						cat_num='#oidnum#' AND
 						part_name='#part_name#'
 				</cfquery>
@@ -159,8 +158,7 @@ sho err
 						cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
 						cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
 						cataloged_item.collection_id = collection.collection_id AND
-						collection.COLLECTION_CDE='#COLLECTION_CDE#' AND
-						collection.INSTITutION_ACRONYM = '#INSTITutION_ACRONYM#' AND
+						collection.guid_prefix='#guid_prefix#' AND
 						other_id_type='#other_id_type#' AND
 						display_value= '#oidnum#' AND
 						part_name='#part_name#'

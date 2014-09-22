@@ -368,9 +368,9 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 						and upper(collection.guid_prefix) = '#ucase(guid_prefix)#' and
 						part_name = '#part_name#' and
 						<cfif other_id_type is "catalog number">
-							and cat_num='#other_id_number#'
+							 cat_num='#other_id_number#'
 						<cfelse>
-							and display_value = '#other_id_number#' and
+							 display_value = '#other_id_number#' and
 							other_id_type = '#other_id_type#'
 						</cfif>
 					</cfif>
@@ -499,7 +499,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 	<cfloop query="mPart">
 		<tr>
 			<td>
-				#INSTITUTION_ACRONYM# #COLLECTION_CDE# #OTHER_ID_TYPE# #OTHER_ID_NUMBER#
+				#guid_prefix# #OTHER_ID_TYPE# #OTHER_ID_NUMBER#
 			</td>
 			<td>
 				Part: <input type="text" name="part#key#" id="part#key#" value="#PART_NAME#">
