@@ -53,6 +53,7 @@
 			</cfloop>
 		</select>
 		<label for="part">Part</label>
+		<cfset collection_cde=listgetat(guid_prefix,2,':')>
 		<input type="text" name="part" id="part" class="reqdClr"
 			value="#part#" size="25"
 			onchange="findPart(this.id,this.value,'#collection_cde#');" 
