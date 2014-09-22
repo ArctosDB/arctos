@@ -5,8 +5,6 @@
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		flat.guid,
-		flat.collection,
-		flat.cat_num,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		specimen_part.part_name,
 		specimen_part.collection_object_id partID,
@@ -43,8 +41,7 @@
 		loan_item.transaction_id=loan.transaction_id (+) and
 		loan.transaction_id=trans.transaction_id (+)
 	order by
-		flat.collection,
-		flat.cat_num,
+		flat.guid,
 		specimen_part.part_name,
 		loan_number
 </cfquery>
@@ -52,8 +49,6 @@
 	select
 		guid,
 		partID,
-		collection,
-		cat_num,
 		CustomID,
 		part_name,
 		barcode,
@@ -66,8 +61,6 @@
 	from raw group by
 		guid,
 		partID,
-		collection,
-		cat_num,
 		CustomID,
 		part_name,
 		barcode,
@@ -96,7 +89,7 @@
 		</tr>
 		<cfloop query="d">
 			<tr>
-				<td><a href="/guid/#guid#">#collection# #cat_num#</a></td>
+				<td><a href="/guid/#guid#">#guid#</a></td>
 				<td>#CustomID#</td>
 				<td nowrap="nowrap">#scientific_name#</td>
 				<td>#began_date#</td>
@@ -138,7 +131,7 @@
 	</table>
 </cfif>
 <cfif action is "download">
-	<cfset ac="CatNum,#session.CustomOtherIdentifier#,ScientificName,BeganDate,EndedDate,VerbatimDate,AccesionedDate,Part,Modifier,Pres,InBarcode,Loan">
+	<cfset ac="GUID,#session.CustomOtherIdentifier#,ScientificName,BeganDate,EndedDate,VerbatimDate,AccesionedDate,Part,Modifier,Pres,InBarcode,Loan">
 	<cfset variables.encoding="UTF-8">
 	<cfset fname = "ArctosData_#left(session.sessionKey,10)#.csv">
 	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
@@ -148,7 +141,7 @@
 		variables.joFileWriter.writeLine(header); 
 	</cfscript>
 	<cfloop query="d">
-		<cfset oneLine = '"#collection# #cat_num#","#CustomID#","#scientific_name#","#began_date#","#ended_date#","#verbatim_date#","#dateformat(received_date,"yyyy-mm-dd")#",'>
+		<cfset oneLine = '"#guid#","#CustomID#","#scientific_name#","#began_date#","#ended_date#","#verbatim_date#","#dateformat(received_date,"yyyy-mm-dd")#",'>
 		<cfif SAMPLED_FROM_OBJ_ID gt 0>
 			<cfset p=part_name & ' (subsample)'>
 		<cfelse>

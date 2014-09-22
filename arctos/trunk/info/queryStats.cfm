@@ -52,7 +52,7 @@ test-uam> desc uam_query.query_stats_coll
 	</p>
 	<cfoutput>
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select collection_id,collection from collection order by collection
+		select collection_id,guid_prefix from collection order by guid_prefix
 	</cfquery>
 <h2>Query Statistics</h2>
 <form method="post" name="f" action="#cgi.script_name#">
@@ -67,7 +67,7 @@ test-uam> desc uam_query.query_stats_coll
 	<select name="collection_id" id="collection_id" multiple="multiple">
 		<option value=""></option>
 		<cfloop query="ctcollection">
-			<option value="#collection_id#">#collection#</option>
+			<option value="#collection_id#">#guid_prefix#</option>
 		</cfloop>
 	</select>
 	<label for="bdate">Begin Date</label>
@@ -94,7 +94,7 @@ test-uam> desc uam_query.query_stats_coll
 	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			uam_query.query_stats.query_id,
-			collection,
+			guid_prefix,
 			QUERY_TYPE,
 			CREATE_DATE,
 			SUM_COUNT,
@@ -129,7 +129,7 @@ test-uam> desc uam_query.query_stats_coll
 		variables.joFileWriter.writeLine(header); 
 	</cfscript>
 	<cfloop query="d">
-		<cfset oneLine = '"#query_id#","#collection#","#QUERY_TYPE#","#CREATE_DATE#","#SUM_COUNT#","#REC_COUNT#","#username#"'>
+		<cfset oneLine = '"#query_id#","#guid_prefix#","#QUERY_TYPE#","#CREATE_DATE#","#SUM_COUNT#","#REC_COUNT#","#username#"'>
 		<cfscript>
 			variables.joFileWriter.writeLine(oneLine);
 		</cfscript>
@@ -148,7 +148,7 @@ test-uam> desc uam_query.query_stats_coll
 		</cfif>
 		<cfquery name="total" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select 
-				collection,
+				guid_prefix,
 				to_char(qs.create_date, 'YYYY-MM') d,
 				count(qsc.query_id) c,
         		sum(qsc.rec_count) s
@@ -172,7 +172,7 @@ test-uam> desc uam_query.query_stats_coll
 					and query_type ='#query_type#'
 				</cfif>
 			group by 
-				collection,
+				guid_prefix,
 				to_char(qs.create_date, 'YYYY-MM')
 			order by 
 				to_char(qs.create_date, 'YYYY-MM')
@@ -190,7 +190,7 @@ test-uam> desc uam_query.query_stats_coll
 			</tr>
 			<cfloop query="total">
 				<tr>
-					<td>#collection#</td>
+					<td>#guid_prefix#</td>
 					<td>#d#</td>
 					<td>#c#</td>
 					<td>#s#</td>
@@ -220,7 +220,7 @@ test-uam> desc uam_query.query_stats_coll
 		<cfquery name="total" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
 				uam_query.query_stats.query_id,
-				collection,
+				guid_prefix,
 				QUERY_TYPE,
 				CREATE_DATE,
 				SUM_COUNT,
@@ -275,7 +275,7 @@ test-uam> desc uam_query.query_stats_coll
 		</table>
 		<cfquery name="smrc" dbtype="query">
 			select 
-				collection,
+				guid_prefix,
 				count(*) c,
 				sum(SUM_COUNT) tot,
 				avg(sum_count) avrg,
@@ -283,7 +283,7 @@ test-uam> desc uam_query.query_stats_coll
 				max(sum_count) maxrec
 			from 
 				total
-			group by collection
+			group by guid_prefix
 		</cfquery>
 		Collection Summary
 		<table border="1" class="sortable">
@@ -297,7 +297,7 @@ test-uam> desc uam_query.query_stats_coll
 			</tr>
 			<cfloop query="smrc">
 				<tr>
-					<td>#collection#</td>
+					<td>#guid_prefix#</td>
 					<td>#c#</td>
 					<td>#tot#</td>
 					<td>#round(avrg)#</td>
@@ -326,7 +326,7 @@ test-uam> desc uam_query.query_stats_coll
 		
 		<cfquery name="sbd" dbtype="query">
 			select
-				collection,
+				guid_prefix,
 				myr,
 				count(*) c,
 				sum(SUM_COUNT) tot,
@@ -338,12 +338,12 @@ test-uam> desc uam_query.query_stats_coll
 			from
 				lcl
 			group by
-				collection,
+				guid_prefix,
 				myr,
 				yr,
 				mm	
 			order by
-				collection,
+				guid_prefix,
 				yr,
 				mm
 		</cfquery>
@@ -380,14 +380,14 @@ test-uam> desc uam_query.query_stats_coll
 		
 		<cfquery name="cbt" dbtype="query">
 			select
-				collection,
+				guid_prefix,
 				sum(SUM_COUNT) tot					
 			from
 				total
 			group by
-				collection
+				guid_prefix
 			order by
-				collection
+				guid_prefix
 		</cfquery>
 		<cfchart format="png" 
 		   style="slanty"
@@ -397,14 +397,14 @@ test-uam> desc uam_query.query_stats_coll
 		    yaxistitle="Number records accessed"> 
 			<cfchartseries type="bar" 
 			    query="cbt" 
-			    itemcolumn="collection" 
+			    itemcolumn="guid_prefix" 
 			    valuecolumn="tot"
 				dataLabelStyle="value">
 			</cfchartseries>
 		</cfchart>
 		
 		<cfquery name="dcol" dbtype="query">
-			select collection from total where collection is not null group by collection
+			select guid_prefix from total where guid_prefix is not null group by guid_prefix
 		</cfquery>
 		<cfloop query="dcol">
 			<cfquery name="q" dbtype="query">
@@ -416,7 +416,7 @@ test-uam> desc uam_query.query_stats_coll
 				from
 					lcl
 				where
-					collection='#collection#'
+					guid_prefix='#guid_prefix#'
 				group by
 					myr,
 					yr,
@@ -431,7 +431,7 @@ test-uam> desc uam_query.query_stats_coll
 				chartWidth="600"
 				format="png" 
 			    xaxistitle="Month" 
-			    yaxistitle="Number #collection# records accessed"> 
+			    yaxistitle="Number #guid_prefix# records accessed"> 
 				<cfchartseries type="bar" 
 				    query="q" 
 				    itemcolumn="myr" 
@@ -452,7 +452,7 @@ test-uam> desc uam_query.query_stats_coll
 		select * from (	
 			select
 				uam_query.query_stats.query_id,
-				collection,
+				guid_prefix,
 				QUERY_TYPE,
 				CREATE_DATE,
 				SUM_COUNT,
@@ -496,7 +496,7 @@ test-uam> desc uam_query.query_stats_coll
 				<td>#QUERY_TYPE#</td>
 				<td>#dateformat(CREATE_DATE,"dd mmm yyyy")#</td>
 				<td>#SUM_COUNT#</td>
-				<td>#collection#</td>
+				<td>#guid_prefix#</td>
 				<td>#REC_COUNT#</td>
 			</tr>
 		</cfloop>

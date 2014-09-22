@@ -2,7 +2,7 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfquery name="ctcollection" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-	select collection,collection_id from collection order by collection
+	select guid_prefix,collection_id from collection order by guid_prefix
 </cfquery>
 <cfif not isdefined("collection_id")>
 	<cfset collection_id="">
@@ -21,7 +21,7 @@
 		<cfset thiscollectionid=collection_id>
 		<cfloop query="ctcollection">
 			<option <cfif thiscollectionid is ctcollection.collection_id> selected="selected" </cfif>
-				value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+				value="#ctcollection.collection_id#">#ctcollection.guid_prefix#</option>
 		</cfloop>
 	</select>
 	<label for="citationonly">
@@ -184,13 +184,13 @@
 			full_citation
 	</cfquery>
 	<cfquery name="coln" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select collection from collection where collection_id=#collection_id#
+		select guid_prefix from collection where collection_id=#collection_id#
 	</cfquery>
 	<cfquery name="countcitations" dbtype="query">
 		select sum(c) n from citations where linkage='citation'
 	</cfquery>
 
-	<br>#pubs.recordcount# publications containing #countcitations.n# direct citations reference the #coln.collection# collection.
+	<br>#pubs.recordcount# publications containing #countcitations.n# direct citations reference the #coln.guid_prefix# collection.
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Publication</th>
