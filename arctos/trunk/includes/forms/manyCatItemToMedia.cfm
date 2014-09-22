@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 <span style="position:absolute;top:0px;right:0px; border:1px solid black;" class="likeLink" onclick="parent.removeMediaMultiCatItem()">X</span>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select distinct(collection) from collection order by collection
+	select distinct(guid_prefix) from collection order by guid_prefix
 </cfquery>
 <cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
@@ -14,7 +14,7 @@
         <select name="collID" id="collID" size="1">
 		    <option value="">Any</option>
 			<cfloop query="ctcollection">
-				<option value="#collection#">#collection#</option>
+				<option value="#guid_prefix#">#guid_prefix#</option>
 			</cfloop>
 		</select>
 		<label for="oidType">Other ID Type</label>
@@ -32,7 +32,7 @@
 	<cfif action is "search">
 		<cfset sql = "SELECT
 						cat_num, 
-						collection,
+						guid_prefix,
 						cataloged_item.collection_object_id,
 						scientific_name,
 						concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
@@ -58,7 +58,7 @@
 				AND display_value IN ( #oidNumList# )">
 		</cfif>
 		<cfif len(collID) gt 0>
-	        <cfset sql = "#sql# AND collection='#collID#'">
+	        <cfset sql = "#sql# AND guid_prefix='#collID#'">
 	    </cfif>
 					
 	
@@ -81,7 +81,7 @@
 				<cfloop query="getItems">
 					<tr>
 						<td>
-							#collection# #cat_num#
+							#guid_prefix# #cat_num#
 						</td>
 						<td>#scientific_name#</td>
 						<td>#CustomID#</td>

@@ -100,19 +100,21 @@
 			    
 			    --->
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select collection,collection_id from collection ORDER BY COLLECTION
+		select guid_prefix,collection_id from collection ORDER BY guid_prefix
 	</cfquery>
 	<cfquery name="ctid_references" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select id_references from ctid_references order by id_references
 	</cfquery>
 	<cfquery name="thisrec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
-			scientific_name,
-			collection_id,
-			collection
+			flat.scientific_name,
+			flat.collection_id,
+			collection.guid_prefix
 		from
-			flat
+			flat,
+			collection
 		where
+			flat.collection_id=collection.collection_id and
 			collection_object_id=#collection_object_id#
 	</cfquery>
 		<span class="likeLink" onclick="document.getElementById('cThis').style.display='block';">[ Clone This Record ]</span>
@@ -153,7 +155,7 @@
 			 <label for="collection_id">in collection</label>
 			<select name="collection_id" id="collection_id">
 				<cfloop query="c">
-					<option <cfif c.collection_id is thisrec.collection_id> selected="selected" </cfif>value="#collection_id#">#collection#</option>
+					<option <cfif c.collection_id is thisrec.collection_id> selected="selected" </cfif>value="#collection_id#">#guid_prefix#</option>
 				</cfloop>
 			</select>
 			<br><input type="button" onclick="cloneCatalogedItem(#collection_object_id#)" value="Create Clone" class="insBtn">

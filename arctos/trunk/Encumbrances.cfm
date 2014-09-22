@@ -509,7 +509,6 @@ UPDATE encumbrance SET
 					concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 					flat.scientific_name,
 					flat.higher_geog,
-					flat.collection,
 					flat.parts,
 					getPreferredAgentName(encumbering_agent_id) encumbering_agent,
 					expiration_date,
