@@ -17,7 +17,7 @@
 <cfif #action# is "nothing">
 <cfoutput>
 	<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select collection,collection_id from collection order by collection
+		select guid_prefix,collection_id from collection order by guid_prefix
 	</cfquery>
 	<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select accn_status from ctaccn_status order by accn_status
@@ -43,7 +43,7 @@
 								<select name="collection_id" size="1" id="collection_id" class="reqdClr">
 										<option selected value="">Pick One...</option>
 										<cfloop query="ctcoll">
-											<option value="#ctcoll.collection_id#">#ctcoll.collection#</option>
+											<option value="#ctcoll.collection_id#">#ctcoll.guid_prefix#</option>
 										</cfloop>
 								</select>
 							</td>
@@ -150,7 +150,7 @@
 							<td>Next Number</td>
 						</tr>
 						<cfquery name="all_coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select * from collection order by collection
+							select * from collection order by guid_prefix
 						</cfquery>
 						<cfloop query="all_coll">
 							<cfif (institution_acronym is 'UAM' and collection_cde is 'Mamm') or 

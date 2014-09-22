@@ -22,7 +22,6 @@
 			concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 			flat.scientific_name,
 			flat.higher_geog,
-			flat.collection,
 			specimen_part.part_name,
 			container.container_type,
 			container.barcode,

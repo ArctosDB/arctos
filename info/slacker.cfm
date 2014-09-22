@@ -9,20 +9,20 @@
 <cfif action is "loanNoSpec">
 	<cfquery name="data" datasource="uam_god">
 		select 
-			collection,loan_number,loan.transaction_id
+			guid_prefix,loan_number,loan.transaction_id
 		from
 		loan,trans,collection
 		where
 		loan.transaction_id=trans.transaction_id and
 		trans.collection_id=collection.collection_id and
 		trans.transaction_id not in (select transaction_id from loan_item)
-		order by collection,loan_number
+		order by guid_prefix,loan_number
 	</cfquery>
 	<cfoutput>
 		<h2>Loans without Specimens</h2>
 		<cfset i=1>
 		<cfloop query="data">
-			<br><a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a>
+			<br><a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#guid_prefix# #loan_number#</a>
 		</cfloop>
 	</cfoutput>
 </cfif>

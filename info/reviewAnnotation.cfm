@@ -11,7 +11,7 @@
 </cfif>
 <cfoutput>
 <cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select collection from collection order by collection
+	select guid_prefix from collection order by guid_prefix
 </cfquery>
 <form name="filter" method="get" action="reviewAnnotation.cfm">
 	<input type="hidden" name="action" value="show">
@@ -22,7 +22,7 @@
 		<option  <cfif type is "publication">selected="selected" </cfif>value="publication">Publication</option>
 		<option  <cfif type is "">selected="selected" </cfif>value="">All Specimens</option>
 		<cfloop query="c">
-			<option  <cfif type is "#collection#">selected="selected" </cfif>value="#collection#">#collection# Specimens</option>
+			<option  <cfif type is "#guid_prefix#">selected="selected" </cfif>value="#guid_prefix#">#guid_prefix# Specimens</option>
 		</cfloop>
 	</select>
 	<label for="reviewed">Reviewed</label>
@@ -187,7 +187,7 @@
 					AND annotations.collection_object_id = #id#
 				</cfif>
 				<cfif isdefined("type") and len(type) gt 0>
-					AND flat.collection = '#type#'
+					AND flat.guid_prefix = '#type#'
 				</cfif>
 				<cfif isdefined("reviewed") and len(reviewed) gt 0>
 					and REVIEWED_FG=#reviewed#

@@ -12,7 +12,7 @@
 	select loan_status from ctloan_status order by loan_status
 </cfquery>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select * from collection order by collection
+	select * from collection order by guid_prefix
 </cfquery>
 <cfquery name="ctLoanType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select loan_type from ctloan_type order by loan_type
@@ -72,7 +72,7 @@
 <cfif action is "srch">
 <cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select 
-	collection,
+	guid_prefix,
 	collection_id,
 	TRANSACTION_ID,
 	loan_number,
@@ -86,7 +86,7 @@
 	trans_remarks
 	from (
 		select 
-			collection,
+			guid_prefix,
 			collection.collection_id,
 			loan.TRANSACTION_ID,
 			loan.loan_number,
@@ -112,7 +112,7 @@
 			loan_item.collection_object_id=specimen_part.collection_object_id (+) and
 			specimen_part.derived_from_cat_item=citation.collection_object_id (+)	union
 		select 
-			collection,
+			guid_prefix,
 			collection.collection_id,
 			loan.TRANSACTION_ID,
 			loan.loan_number,
@@ -166,7 +166,7 @@
 		</cfif>
 	</cfif>
 	group by
-		collection,
+		guid_prefix,
 		collection_id,
 		TRANSACTION_ID,
 		loan_number,
@@ -216,12 +216,12 @@
 		<th>TransRemarks</th>
 	</tr>
 	<cfloop query="loanData">
-		<cfset oneLine = '"#collection#","#loan_number#","#loan_type#","#loaned_to#","#LOAN_STATUS#","#dateformat(TRANS_DATE,"yyyy-mm-dd")#","#dateformat(RETURN_DUE_DATE,"yyyy-mm-dd")#","#CntCatNum#","#cntCited#","#trans_remarks#"'>
+		<cfset oneLine = '"#guid_prefix#","#loan_number#","#loan_type#","#loaned_to#","#LOAN_STATUS#","#dateformat(TRANS_DATE,"yyyy-mm-dd")#","#dateformat(RETURN_DUE_DATE,"yyyy-mm-dd")#","#CntCatNum#","#cntCited#","#trans_remarks#"'>
 		<cfscript>
 			variables.joFileWriter.writeLine(oneLine);
 		</cfscript>
 		<tr>
-			<td nowrap="nowrap">#collection#</td>
+			<td nowrap="nowrap">#guid_prefix#</td>
 			<td nowrap="nowrap"><a href="/Loan.cfm?action=editLoan&TRANSACTION_ID=#TRANSACTION_ID#">#loan_number#</a></td>
 			<td nowrap="nowrap">#loan_type#</td>
 			<td nowrap="nowrap">#loaned_to#</td>
