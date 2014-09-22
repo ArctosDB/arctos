@@ -205,16 +205,18 @@
 			round(to_meters(locality.max_error_distance,locality.max_error_units)) errorInMeters,
 			locality.datum,
 			#flatTableName#.scientific_name,
-			#flatTableName#.collection,
+			collection.guid_prefix,
 			#flatTableName#.spec_locality,
 			#flatTableName#.locality_id,
 			#flatTableName#.verbatim_coordinates
 		 from
 		 	#flatTableName#,
 		 	locality,
+		 	collection
 		 	#table_name#
 		 where
 		 	#flatTableName#.locality_id = locality.locality_id and
+		 	#flatTableName#.collection_id = collection.collection_id and
 		 	locality.dec_lat is not null and
 		 	locality.dec_long is not null and
 		 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
@@ -269,7 +271,7 @@
 		        collection_object_id,
 				cat_num,
 				scientific_name,
-				collection
+				guid_prefix
 			from
 				data
 			where
@@ -287,12 +289,12 @@
 		        collection_object_id,
 				cat_num,
 				scientific_name,
-				collection
+				guid_prefix
 		</cfquery>
 		<cfloop query="loc">
 			<cfscript>
 				kml=chr(9) & chr(9) & chr(9) & '<Placemark>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & '<name>#collection# #cat_num# (#scientific_name#)</name>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & '<name>#guid_prefix# #cat_num# (#scientific_name#)</name>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<Point>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#,0</coordinates>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '</Point>' & chr(10) &
@@ -372,7 +374,7 @@
 			locality.datum,
 			specimen_event.specimen_event_type,
 			#flatTableName#.scientific_name,
-			#flatTableName#.collection,
+			collection.guid_prefix,
 			#flatTableName#.spec_locality,
 			#flatTableName#.locality_id,
 			#flatTableName#.verbatim_coordinates
@@ -381,9 +383,11 @@
 		 	specimen_event,
 		 	collecting_event,
 		 	locality,
+		 	collection,
 		 	#table_name#
 		 where
 		 	#flatTableName#.collection_object_id = specimen_event.collection_object_id and
+		 	#flatTableName#.collection_id = collection.collection_id and
 		 	specimen_event.collecting_event_id=collecting_event.collecting_event_id and
 		 	collecting_event.locality_id=locality.locality_id and
 		 	locality.dec_lat is not null and
@@ -420,7 +424,7 @@
 	</cfscript>
 
 	<cfquery name="colln" dbtype="query">
-		select collection from data group by collection
+		select guid_prefix from data group by guid_prefix
 	</cfquery>
 	<cfloop query="colln">
 		<cfquery name="loc" dbtype="query">
@@ -438,7 +442,7 @@
 			from
 				data
 			where
-				collection='#collection#'
+				guid_prefix='#guid_prefix#'
 			group by
 				dec_lat,
 				dec_long,
@@ -453,7 +457,7 @@
 		</cfquery>
 		<cfscript>
 			kml=chr(9) & chr(9) & '<Folder>' & chr(10) &
-				chr(9) & chr(9) & chr(9) & '<name>#collection#</name>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & '<name>#guid_prefix#</name>' & chr(10) &
 				chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>';
 			variables.joFileWriter.writeLine(kml);
 		</cfscript>
@@ -463,7 +467,7 @@
 					collection_object_id,
 					cat_num,
 					scientific_name,
-					collection
+					guid_prefix
 				from
 					data
 				where
@@ -472,7 +476,7 @@
 					collection_object_id,
 					cat_num,
 					scientific_name,
-					collection
+					guid_prefix
 			</cfquery>
 			<cfscript>
 				kml=chr(9) & chr(9) & chr(9) & '<Placemark>' & chr(10) &
@@ -497,7 +501,7 @@
 			<cfloop query="sdet">
 				<cfscript>
 					kml=kml & '<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">' &
-						'#collection# #cat_num# (<em>#scientific_name#</em>)</a><br/>';
+						'#guid_prefix# #cat_num# (<em>#scientific_name#</em>)</a><br/>';
 				</cfscript>
 			</cfloop>
 			<cfscript>
