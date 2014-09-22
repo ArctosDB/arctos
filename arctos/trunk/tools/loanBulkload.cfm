@@ -382,7 +382,7 @@ alter table cf_temp_loan_item drop column COLLECTION_CDE;
 
 
 			<cfif collObj.recordcount is not 1>
-				<cfset msg="coll object found #collObj.recordcount# times">
+				<cfset msg="coll object found #collObj.recordcount# times - check that part exists and is not on loan">
 			</cfif>
 			<cfquery name="YayCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update
