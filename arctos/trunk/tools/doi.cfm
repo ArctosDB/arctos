@@ -35,6 +35,8 @@
 		<cfset title="">
 		<cfset publisher="">
 		
+		
+		<!----
 		<cfset ctinst=querynew("inst")>
 		<cfset thisRow=1>
 		<cfset queryaddrow(ctinst,1)>
@@ -88,8 +90,9 @@
 		<cfset thisRow = thisRow + 1>
 		<cfset QuerySetCell(ctinst, "inst", "",thisRow)>
 			
-		<cfquery name="octinst" dbtype="query">
-			select inst from ctinst group by inst order by inst
+			---->
+		<cfquery name="octinst" datasource="uam_god">
+			select institution inst from collection group by institution order by institution
 		</cfquery>	
 			
 		<cfif isdefined("media_id") and len(media_id) gt 0>
