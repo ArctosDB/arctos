@@ -48,7 +48,7 @@
 			count(cat_num) as cnt,
 			guid_prefix,
 			cf_collection.institution,
-			replace(collection.institution_acronym,'Obs') institution_acronym
+			replace(replace(collection.institution_acronym,'Obs'),'UAMb','UAM') institution_acronym
 		from
 			cf_collection,
 			collection,
@@ -68,7 +68,7 @@
 			portal_name,
 			guid_prefix,
 			cf_collection.institution,
-			replace(collection.institution_acronym,'Obs')
+			replace(replace(collection.institution_acronym,'Obs'),'UAMb','UAM')
 	</cfquery>
 	
 
