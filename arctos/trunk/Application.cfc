@@ -12,15 +12,7 @@
 	<cfelse>
 		<cfset request.ipaddress=''>
 	</CFIF>
-	
-	
-	
-	<!-----
-	<br>CGI.HTTP_X_Forwarded_For: <cfdump var=#CGI.HTTP_X_Forwarded_For#>
-	<br>CGI.Remote_Addr: <cfdump var=#CGI.Remote_Addr#>
-	---->
-	
-	
+		
 	<cfif listlen(request.ipaddress,",") gt 1>
 		<cfset ip1=listgetat(request.ipaddress,1,",")>
 		<cfif ip1 contains "172.16" or ip1 contains "192.168" or ip1 contains "10." or ip1 is "127.0.0.1">
@@ -353,16 +345,7 @@
 		<cfabort>
 	</cfif>
 	---->
-	
-	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
-		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
-		<cfheader name="retry-after" value="3600"/>
-		Down for maintenance
-		<cfreturn false>
-		<cfabort>
-	</cfif>
-	
-	
+
 	<cfset nono="passwd,proc">
 	<cfloop list="#cgi.query_string#" delimiters="./," index="i">
 		<cfif listfindnocase(nono,i)>
@@ -426,11 +409,6 @@
 	</cfif>
 	<!--- keep people/bots from browsing a dev server--->
 	
-	
-	
-	<!-----
-	
-	
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" or cgi.HTTP_HOST is "arctos-test.tacc.utexas.edu">
 		<cfset cPath=GetTemplatePath()>
 		<cfif
@@ -444,10 +422,6 @@
 			<cflocation url="/errors/dev_login.cfm">
 		</cfif>
 	</cfif>
-	
-	
-	
-	----->
 	<!--- people still have this thing bookmarked --->
 	<cfif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
 		<cfset rurl="http://arctos.database.museum">
