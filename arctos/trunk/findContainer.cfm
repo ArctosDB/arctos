@@ -57,7 +57,7 @@
 	select container_type from ctContainer_Type order by container_type
 </cfquery>
 <cfquery name="collections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select collection_id, guid_prefix coll from collection order by guid_prefix
+	select collection_id, guid_prefix from collection order by guid_prefix
 </cfquery>
 <cfquery name="ctcoll_other_id_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select OTHER_ID_TYPE from
