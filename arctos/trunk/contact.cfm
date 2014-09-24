@@ -35,7 +35,7 @@
 			<cfquery name='temail' datasource="cf_dbuser">
 				select email from cf_users,cf_user_data where
 				cf_users.user_id=cf_user_data.user_id and
-				username='#session.username#'
+				upper(username)='#ucase(session.username)#'
 			</cfquery>
 			<cfset eml=temail.email>
 			<cfset v=captcha>
