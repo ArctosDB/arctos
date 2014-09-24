@@ -3239,6 +3239,8 @@
 				cataloged_item.collection_id=collection.collection_id and
 				specimen_part.collection_object_id=#part_id#
 		</cfquery>
+		
+		<cfdump var=#coll_obj#>
 		<cfset r='Moved <a href="/guid/#coll_obj.guid_prefix#:#coll_obj.cat_num#">'>
 		<cfset r="#r##coll_obj.coll_obj#:#coll_obj.cat_num#">
 		<cfset r="#r#</a> (<i>#coll_obj.scientific_name#</i>) #coll_obj.part_name#">

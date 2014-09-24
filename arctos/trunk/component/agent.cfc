@@ -629,7 +629,7 @@
 		<cfset temp=ArrayAppend(nvars, 'Peter,Pete,Petey,Pate')>
 		
 		<cfset temp=ArrayAppend(nvars, 'Rebecca,Becka,Becky')>
-		<cfset temp=ArrayAppend(nvars, 'Richard,Dick,Rich,Rick,Richey,Dickon,Dickson,Ricky,Rickey')>
+		<cfset temp=ArrayAppend(nvars, 'Ric,Richard,Dick,Rich,Rick,Richey,Dickon,Dickson,Ricky,Rickey')>
 		<cfset temp=ArrayAppend(nvars, 'Robert,Dob,Dobbin,Bob,Bobby,Bobbie,Rob,Robin,Rupert,Hob,Hobkin,Robbie,Robby')>
 		<cfset temp=ArrayAppend(nvars, 'Rodney,Rod,Ronald')>
 		<cfset temp=ArrayAppend(nvars, 'Raymond,Ray')>
