@@ -151,12 +151,14 @@ validate
 		<cfquery name="islbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_type from container where container_id='#container_id#'
 		</cfquery>
+		<!----
 		<cfif islbl.container_type does not contain 'label'>
 			<cfquery name="miap" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update cf_temp_cont_edit set status = 'only_updates_to_labels'
 				where key=#key#
 			</cfquery>
 		</cfif>
+		---->
 		<cfif len(parent_container_id) gt 0>
 			<cfquery name="isplbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select container_type from container where container_id='#parent_container_id#'
