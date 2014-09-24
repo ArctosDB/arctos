@@ -20,7 +20,7 @@
     </cfif>
     <cfoutput>
 	 	<cfquery name="pwExp" datasource="uam_god">
-			select pw_change_date from cf_users where username = '#session.username#'
+			select pw_change_date from cf_users where upper(username) = '#ucase(session.username)#'
 		</cfquery>
 		<cfset pwtime =  round(now() - pwExp.pw_change_date)>
 		<cfset pwage = Application.max_pw_age - pwtime>
@@ -32,10 +32,10 @@
 	    <cfquery name="isDb" datasource="uam_god">
 			select
 			(select count(*) c from all_users where
-			username='#ucase(session.username)#')
+			upper(username)='#ucase(session.username)#')
 			+
 			(select count(*) C from temp_allow_cf_user,
-			cf_users where temp_allow_cf_user.user_id = cf_users.user_id and cf_users.username='#session.username#')
+			cf_users where temp_allow_cf_user.user_id = cf_users.user_id and upper(cf_users.username)='#ucase(session.username)#')
 			cnt
 			from dual
 		</cfquery>
@@ -72,17 +72,6 @@
 			<br>
 	        <input type="submit" value="Save Password Change" class="savBtn">
 	    </form>
-	    <!----
-	    <cfquery name="isGoodEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select email,username from cf_user_data,cf_users
-			 where cf_user_data.user_id = cf_users.user_id and
-			 username= '#session.username#'
-		</cfquery>
-		<cfif len(isGoodEmail.email) gt 0>
-			If you can't remember your old password, we can
-			<a href="ChangePassword?action=findPass&email=#isGoodEmail.email#&username=#isGoodEmail.username#">email a new temporary password</a>.
-		</cfif>
-		---->
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------->
@@ -105,7 +94,7 @@
 <cfif action is "update">
 	<cfoutput>
 	<cfquery name="getPass" datasource="cf_dbuser">
-		select password from cf_users where username = '#session.username#'
+		select password from cf_users where upper(username) = '#ucase(session.username)#'
 	</cfquery>
 	<!----
 	<cfif hash(oldpassword) is not getpass.password>
@@ -128,13 +117,13 @@
 	<!--- Passwords check out for public users, now see if they're a database user --->
 	<cfquery name="isDb" datasource="uam_god">
 		select * from all_users where
-		username='#ucase(session.username)#'
+		upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfif isDb.recordcount is 0>
 		<cfquery name="setPass" datasource="cf_dbuser">
 			UPDATE cf_users SET password = '#hash(newpassword)#',
 			PW_CHANGE_DATE=sysdate
-			WHERE username = '#session.username#'
+			WHERE upper(username) = '#ucase(session.username)#'
 		</cfquery>
 	<cfelse>
 		<cftry>
@@ -147,7 +136,7 @@
 					UPDATE cf_users
 					SET password = '#hash(newpassword)#',
 					PW_CHANGE_DATE=sysdate
-					WHERE username = '#session.username#'
+					WHERE upper(username) = '#ucase(session.username)#'
 				</cfquery>
 			</cftransaction>
 			<cfcatch>
@@ -202,7 +191,7 @@ You will be redirected soon, or you may use the menu above now.
 	<cfquery name="isGoodEmail" datasource="cf_dbuser">
 		select cf_user_data.user_id, email,username from cf_user_data,cf_users
 		 where cf_user_data.user_id = cf_users.user_id and
-		 email = '#email#' and username= '#username#'
+		 email = '#email#' and upper(username)='#ucase(username)#'
 	</cfquery>
 	<cfif isGoodEmail.recordcount neq 1>
 		Sorry, that email wasn't found with your username.

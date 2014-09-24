@@ -11,7 +11,7 @@
 	<!--- no security --->
 	<cfset title = "Edit Identification">
 	<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select nature_of_id from ctnature_of_id
+		select nature_of_id from ctnature_of_id order by nature_of_id
 	</cfquery>
 	<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select taxa_formula from cttaxa_formula order by taxa_formula
@@ -179,6 +179,7 @@
 						</td>
 						<td>
 							<select name="nature_of_id" size="1" class="reqdClr">
+								<option></option>
 								<cfloop query="ctnature">
 									<option  value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
 								</cfloop>
