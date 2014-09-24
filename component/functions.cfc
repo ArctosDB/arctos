@@ -3220,7 +3220,7 @@
 		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				cat_num,
-				collection.guid_prefix
+				collection.guid_prefix,
 				scientific_name,
 				part_name
 				<cfif len(part_id2) gt 0>
@@ -3240,7 +3240,6 @@
 				specimen_part.collection_object_id=#part_id#
 		</cfquery>
 		
-		<cfdump var=#coll_obj#>
 		<cfset r='Moved <a href="/guid/#coll_obj.guid_prefix#:#coll_obj.cat_num#">'>
 		<cfset r="#r##coll_obj.coll_obj#:#coll_obj.cat_num#">
 		<cfset r="#r#</a> (<i>#coll_obj.scientific_name#</i>) #coll_obj.part_name#">
