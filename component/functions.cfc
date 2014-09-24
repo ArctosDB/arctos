@@ -3241,7 +3241,6 @@
 		</cfquery>
 		
 		<cfset r='Moved <a href="/guid/#coll_obj.guid_prefix#:#coll_obj.cat_num#">'>
-		<cfset r="#r##coll_obj.coll_obj#:#coll_obj.cat_num#">
 		<cfset r="#r#</a> (<i>#coll_obj.scientific_name#</i>) #coll_obj.part_name#">
 		<cfset r="#r# to container barcode #parent_barcode# (#new_container_type#)">
 		<cfreturn '1|#r#'>>
