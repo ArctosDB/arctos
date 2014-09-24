@@ -540,7 +540,7 @@ function checkCoordinateError(){
 			<label for="VerificationStatusIs">
 				.....where current verificationstatus IS (leave blank to get everything)
 			</label>
-			<select name="VerificationStatusIs" id="VerificationStatusIs" size="1" class="reqdClr">
+			<select name="VerificationStatusIs" id="VerificationStatusIs" size="1" class="">
 				<option value=""></option>
 				<cfloop query="ctVerificationStatus">
 					<option value="#VerificationStatus#">#VerificationStatus#</option>
