@@ -368,6 +368,8 @@ function setPagePrefs(){
 		return false;
 	}
 	//console.log('made it past return');
+	
+	/*
 	$.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "getPrefs",
@@ -422,6 +424,11 @@ function setPagePrefs(){
 			
 		}
 	);
+	*/
+	
+	console.log('hello');
+	
+	
 }
 
 function saveEditedRecord () {
