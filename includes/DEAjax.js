@@ -381,7 +381,7 @@ function setPagePrefs(){
 			
 			
 			for (i=0;i<columns.length;i++) {
-				var cName=columns[i];
+				//var cName=columns[i];
 				
 				console.log('cName: ' + cName);
 
