@@ -380,7 +380,6 @@ function setPagePrefs(){
 			console.log(columns);
 			
 			
-			/*
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
 				
@@ -418,7 +417,6 @@ function setPagePrefs(){
 			setNewRecDefaults();
 			msg('template loaded - enter data','good');
 			
-			*/
 		}
 	);
 }
