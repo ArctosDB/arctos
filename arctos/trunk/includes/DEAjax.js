@@ -1249,12 +1249,15 @@ function closeCust() {
 	console.log('i am closeCust');
 	$('#bgDiv').remove();
 	$('#popDiv').remove();
-	$('#cDiv').remove();
 	
 
 	/*
 	$('#bgDiv', window.parent.document).remove();
 	$('#popDiv', window.parent.document).remove();
+	
+		$('#cDiv').remove();
+
+
 	$('#cDiv', window.parent.document).remove();
 	
 		$('#theFrame').remove();
