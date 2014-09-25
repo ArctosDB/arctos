@@ -417,8 +417,8 @@ function setPagePrefs(){
 				*/
 			}
 			// stuff requested by collections
-			//setNewRecDefaults();
-			//msg('template loaded - enter data','good');
+			setNewRecDefaults();
+			msg('template loaded - enter data','good');
 			
 		}
 	);
