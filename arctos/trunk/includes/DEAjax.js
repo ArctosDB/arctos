@@ -376,6 +376,9 @@ function setPagePrefs(){
 		},
 		function(r) {
 			var columns=r.COLUMNS;
+			
+			console.log(columns);
+			
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
 				var cVal=eval("r.DATA." + columns[i]);
