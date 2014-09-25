@@ -360,7 +360,6 @@ function saveNewRecord () {
 function setPagePrefs(){
 	// called only in enter data mode
 	msg('setting customizations.....','wait');
-	console.log('setPagePrefs');
 	var mode=$("#action").val();
 	//console.log('mode='+mode);
 	if (mode=='edit'){
