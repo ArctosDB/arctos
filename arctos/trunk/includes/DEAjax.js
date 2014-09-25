@@ -356,7 +356,7 @@ function saveNewRecord () {
 		});
 	}
 }
-function setPagePrefs{
+function setPagePrefs(){
 	
 	console.log('i am setPagePrefs');
 }
