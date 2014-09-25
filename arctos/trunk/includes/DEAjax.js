@@ -1250,13 +1250,15 @@ function closeCust() {
 	$('#bgDiv').remove();
 	$('#popDiv').remove();
 	$('#cDiv').remove();
-	$('#theFrame').remove();
 	
 
 	/*
 	$('#bgDiv', window.parent.document).remove();
 	$('#popDiv', window.parent.document).remove();
 	$('#cDiv', window.parent.document).remove();
+	
+		$('#theFrame').remove();
+
 	$('#theFrame', window.parent.document).remove();
 	setPagePrefs();
 	*/
