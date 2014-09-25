@@ -1246,6 +1246,8 @@ function UAMInvDefault() {
 	});
 }
 function closeCust() {
+	console.log('i am closeCust');
+	/*
 	$('#bgDiv').remove();
 	$('#bgDiv', window.parent.document).remove();
 	$('#popDiv').remove();
@@ -1255,6 +1257,8 @@ function closeCust() {
 	$('#theFrame').remove();
 	$('#theFrame', window.parent.document).remove();
 	setPagePrefs();
+	
+	*/
 }
 function customize(t) {
 	var bgDiv = document.createElement('div');
