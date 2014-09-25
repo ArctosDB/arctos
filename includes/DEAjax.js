@@ -380,10 +380,10 @@ function setPagePrefs(){
 			//console.log(columns);
 			
 			
-			for (i=0;i<columns.length;i++) {
+			//for (i=0;i<columns.length;i++) {
 				//var cName=columns[i];
 				
-				console.log('cName: ' + cName);
+				//console.log('cName: ' + cName);
 
 				//var cVal=eval("r.DATA." + columns[i]);
 				
@@ -415,7 +415,7 @@ function setPagePrefs(){
 					//console.log('visiblecarry d_' + name);
 				}
 				*/
-			}
+			//}
 			// stuff requested by collections
 			setNewRecDefaults();
 			msg('template loaded - enter data','good');
