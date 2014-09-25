@@ -1248,16 +1248,16 @@ function UAMInvDefault() {
 function closeCust() {
 	console.log('i am closeCust');
 	$('#bgDiv').remove();
+	$('#popDiv').remove();
+	$('#cDiv').remove();
+	$('#theFrame').remove();
+	setPagePrefs();
 
 	/*
 	$('#bgDiv', window.parent.document).remove();
-	$('#popDiv').remove();
 	$('#popDiv', window.parent.document).remove();
-	$('#cDiv').remove();
 	$('#cDiv', window.parent.document).remove();
-	$('#theFrame').remove();
 	$('#theFrame', window.parent.document).remove();
-	setPagePrefs();
 	
 	*/
 }
