@@ -360,7 +360,7 @@ function saveNewRecord () {
 function setPagePrefs(){
 	// called only in enter data mode
 	msg('setting customizations.....','wait');
-	//console.log('setPagePrefs');
+	console.log('setPagePrefs');
 	var mode=$("#action").val();
 	//console.log('mode='+mode);
 	if (mode=='edit'){
@@ -383,6 +383,8 @@ function setPagePrefs(){
 				if (cVal==0){
 					$("#" + eName).val('');
 					$("#d_" + eName).hide();
+					console.log('hiding d_' _ name);
+					
 				} else if (cVal==1) {
 					// visible and clear
 					$("#" + eName).val('');
