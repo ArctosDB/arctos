@@ -1247,8 +1247,9 @@ function UAMInvDefault() {
 }
 function closeCust() {
 	console.log('i am closeCust');
-	/*
 	$('#bgDiv').remove();
+
+	/*
 	$('#bgDiv', window.parent.document).remove();
 	$('#popDiv').remove();
 	$('#popDiv', window.parent.document).remove();
