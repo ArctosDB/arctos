@@ -1247,12 +1247,15 @@ function UAMInvDefault() {
 }
 function closeCust() {
 	console.log('i am closeCust');
-	$('#bgDiv').remove();
+	$(".ui-dialog-titlebar-close").trigger('click');
+	setPagePrefs();
+
 	
-	$('#popDiv').remove();
 	/*
 	 * 
-	 * 
+	 * $('#bgDiv').remove();
+	
+	$('#popDiv').remove();
 
 	$('#bgDiv', window.parent.document).remove();
 	$('#popDiv', window.parent.document).remove();
@@ -1265,7 +1268,6 @@ function closeCust() {
 		$('#theFrame').remove();
 
 	$('#theFrame', window.parent.document).remove();
-	setPagePrefs();
 	*/
 }
 
