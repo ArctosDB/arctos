@@ -1248,10 +1248,12 @@ function UAMInvDefault() {
 function closeCust() {
 	console.log('i am closeCust');
 	$('#bgDiv').remove();
-	$('#popDiv').remove();
 	
 
 	/*
+	 * 
+	 * 	$('#popDiv').remove();
+
 	$('#bgDiv', window.parent.document).remove();
 	$('#popDiv', window.parent.document).remove();
 	
