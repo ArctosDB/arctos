@@ -381,8 +381,19 @@ function setPagePrefs(){
 			
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
+				
+				console.log('cName: ' + cName);
+
 				var cVal=eval("r.DATA." + columns[i]);
+				
+
+				console.log('cVal: ' + cVal);
+				
+				
 				var eName=cName.toLowerCase();
+				
+
+				console.log('eName: ' + eName);
 				if (cVal==0){
 					$("#" + eName).val('');
 					$("#d_" + eName).hide();
@@ -392,9 +403,13 @@ function setPagePrefs(){
 					// visible and clear
 					$("#" + eName).val('');
 					$("#d_" + eName).show();
+					
+
+					console.log('visible clear d_' + name);
 				} else {
 					// visible and leave value alone
 					$("#d_" + eName).show();
+					console.log('visiblecarry d_' + name);
 				}
 			}
 			// stuff requested by collections
