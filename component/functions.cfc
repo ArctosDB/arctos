@@ -3521,7 +3521,7 @@
 			<cfquery name="meta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select cataloged_item.collection_object_id,
 				cat_num,
-				collection guid_prefix,
+				guid_prefix collection,
 				part_name
 				from
 				cataloged_item,

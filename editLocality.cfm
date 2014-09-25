@@ -549,10 +549,7 @@ function checkCoordinateError(){
 			<br>
 			<input type="submit" class="lnkBtn" value="Update Verification Status for all of your specimen_events in this locality to value in pick above">
 		</form>
-	</div>
-	
-	
-				
+	</div>		
 	<span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<table width="100%"><tr><td valign="top">
 	<p>
