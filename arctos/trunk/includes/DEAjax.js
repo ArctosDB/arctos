@@ -379,6 +379,8 @@ function setPagePrefs(){
 			
 			console.log(columns);
 			
+			
+			/*
 			for (i=0;i<columns.length;i++) {
 				var cName=columns[i];
 				
@@ -415,6 +417,8 @@ function setPagePrefs(){
 			// stuff requested by collections
 			setNewRecDefaults();
 			msg('template loaded - enter data','good');
+			
+			*/
 		}
 	);
 }
