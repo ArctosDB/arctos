@@ -383,7 +383,7 @@ function setPagePrefs(){
 				if (cVal==0){
 					$("#" + eName).val('');
 					$("#d_" + eName).hide();
-					console.log('hiding d_' _ name);
+					console.log('hiding d_' + name);
 					
 				} else if (cVal==1) {
 					// visible and clear
