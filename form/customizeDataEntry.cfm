@@ -15,20 +15,22 @@ grant all on cf_dataentry_settings to data_entry;
 <cfinclude template="/includes/functionLib.cfm">
 <link rel="stylesheet" href="/includes/style.min.css?v=7" />
 
-
-
-
 <script>
 	var $ = parent.$;
-
 	function toggleTo(e,v){
-		console.log(e);
-		console.log(v);
-		
-		$("#cat :input").val(v);
-		
-		
-		$("#" + e + " :input").val(v);
+		//$("#cat :input").val(v);
+
+
+
+$('#dialog').contents().find('td select',"#" + e).each(function() {
+console.log( $(this));
+});
+
+
+
+	//	$('#dialog').contents().find("select").each(function() {
+
+	//	$("#" + e + " :input").val(v);
 		//$("#" + e + " :input").css('style:border 1px solid red;');
 		//(v);			
 	}
