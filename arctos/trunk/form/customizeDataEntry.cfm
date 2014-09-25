@@ -12,7 +12,7 @@ grant all on cf_dataentry_settings to data_entry;
 ---->
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
 <cfinclude template="/includes/functionLib.cfm">
-
+<link rel="stylesheet" href="/includes/style.min.css?v=7" />
 <script>
 	function toggleTo(e,v){
 		console.log(e);
