@@ -20,11 +20,13 @@ grant all on cf_dataentry_settings to data_entry;
 	function toggleTo(e,v){
 		//$("#cat :input").val(v);
 
+				console.log( e);
+				console.log( v);
 
 
-$('#dialog').contents().find('td select',"#" + e).each(function() {
-console.log( $(this));
-});
+			$('#dialog').contents().find('td select',"#" + e).each(function() {
+				console.log( $(this));
+				});
 
 
 
