@@ -356,8 +356,11 @@ function saveNewRecord () {
 		});
 	}
 }
-
-function setPagePrefs(){
+function setPagePrefs{
+	
+	console.log('i am setPagePrefs');
+}
+function setPagePrefs_____xxx(){
 	// called only in enter data mode
 	msg('setting customizations.....','wait');
 	console.log('setPagePrefs');
