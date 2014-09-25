@@ -24,7 +24,7 @@ grant all on cf_dataentry_settings to data_entry;
 				console.log( v);
 
 
-			$('div select',"#" + e).each(function() {
+			$("#" + e + " select").each(function() {
 				console.log( $(this));
 				});
 
