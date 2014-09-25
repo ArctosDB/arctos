@@ -27,6 +27,8 @@ grant all on cf_dataentry_settings to data_entry;
 			$('#dialog').contents().find("#" + e + " :input").each(function() {
 		
 				console.log( $(this));
+$(this).val(v);
+
 				});
 
 
