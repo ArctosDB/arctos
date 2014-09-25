@@ -1248,7 +1248,7 @@ function UAMInvDefault() {
 function closeCust() {
 	console.log('i am closeCust');
 	$(".ui-dialog-titlebar-close").trigger('click');
-	setPagePrefs();
+	//setPagePrefs();
 
 	
 	/*
