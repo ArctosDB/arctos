@@ -356,11 +356,8 @@ function saveNewRecord () {
 		});
 	}
 }
+
 function setPagePrefs(){
-	
-	console.log('i am setPagePrefs');
-}
-function setPagePrefs_____xxx(){
 	// called only in enter data mode
 	msg('setting customizations.....','wait');
 	console.log('setPagePrefs');
@@ -372,7 +369,6 @@ function setPagePrefs_____xxx(){
 	}
 	//console.log('made it past return');
 	
-	/*
 	$.getJSON("/component/Bulkloader.cfc",
 		{
 			method : "getPrefs",
@@ -385,18 +381,18 @@ function setPagePrefs_____xxx(){
 			//console.log(columns);
 			
 			
-			//for (i=0;i<columns.length;i++) {
-				//var cName=columns[i];
+			for (i=0;i<columns.length;i++) {
+				var cName=columns[i];
 				
 				//console.log('cName: ' + cName);
 
-				//var cVal=eval("r.DATA." + columns[i]);
+				var cVal=eval("r.DATA." + columns[i]);
 				
 
 				//console.log('cVal: ' + cVal);
 				
 				
-				//var eName=cName.toLowerCase();
+				var eName=cName.toLowerCase();
 				
 
 				//console.log('eName: ' + eName);
@@ -425,7 +421,6 @@ function setPagePrefs_____xxx(){
 			
 		}
 	);
-	*/
 	
 	console.log('hello');
 	
