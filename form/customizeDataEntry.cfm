@@ -39,7 +39,7 @@ $('select').each(function() {
     // $(this) now refers to one specific <select> element
     // we append an option to it, like you asked for
     $(this).val(v);
-	console.log($(this).id);
+	console.log( $(this));
 });
 	///	$("select").val(v);
 	}
