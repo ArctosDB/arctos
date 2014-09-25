@@ -35,7 +35,7 @@ grant all on cf_dataentry_settings to data_entry;
 	function toggleAll(v){
 
 		console.log(v);
-$('select').each(function() {
+$('iframe select').each(function() {
     // $(this) now refers to one specific <select> element
     // we append an option to it, like you asked for
     $(this).val(v);
