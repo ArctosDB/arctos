@@ -14,47 +14,19 @@ grant all on cf_dataentry_settings to data_entry;
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
 <cfinclude template="/includes/functionLib.cfm">
 <link rel="stylesheet" href="/includes/style.min.css?v=7" />
-
 <script>
 	var $ = parent.$;
 	function toggleTo(e,v){
-		//$("#cat :input").val(v);
-
-				console.log( e);
-				console.log( v);
-
-
-			$('#dialog').contents().find("#" + e + " :input").each(function() {
-		
-				console.log( $(this));
-$(this).val(v);
-
-				});
-
-
-
-	//	$('#dialog').contents().find("select").each(function() {
-
-	//	$("#" + e + " :input").val(v);
-		//$("#" + e + " :input").css('style:border 1px solid red;');
-		//(v);			
+		$('#dialog').contents().find("#" + e + " :input").each(function() {
+			$(this).val(v);
+		});
 	}
 	function toggleAll(v){
-
-		console.log(v);
-$('#dialog').contents().find("select").each(function() {
-    // $(this) now refers to one specific <select> element
-    // we append an option to it, like you asked for
-    $(this).val(v);
-	console.log( $(this));
-});
-	///	$("select").val(v);
+		$('#dialog').contents().find("select").each(function() {
+    		$(this).val(v);
+		});
 	}
 </script>
-
-
-			
-			
 <style>
 	.fs{
 		border:1px solid green;
