@@ -19,6 +19,8 @@ grant all on cf_dataentry_settings to data_entry;
 
 
 <script>
+	var $ = parent.$;
+
 	function toggleTo(e,v){
 		console.log(e);
 		console.log(v);
