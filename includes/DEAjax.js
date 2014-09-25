@@ -377,7 +377,7 @@ function setPagePrefs(){
 		function(r) {
 			var columns=r.COLUMNS;
 			
-			console.log(columns);
+			//console.log(columns);
 			
 			
 			for (i=0;i<columns.length;i++) {
@@ -398,7 +398,7 @@ function setPagePrefs(){
 				if (cVal==0){
 					$("#" + eName).val('');
 					$("#d_" + eName).hide();
-					console.log('hiding d_' + name);
+					//console.log('hiding d_' + name);
 					
 				} else if (cVal==1) {
 					// visible and clear
@@ -406,11 +406,11 @@ function setPagePrefs(){
 					$("#d_" + eName).show();
 					
 
-					console.log('visible clear d_' + name);
+					//console.log('visible clear d_' + name);
 				} else {
 					// visible and leave value alone
 					$("#d_" + eName).show();
-					console.log('visiblecarry d_' + name);
+					//console.log('visiblecarry d_' + name);
 				}
 			}
 			// stuff requested by collections
