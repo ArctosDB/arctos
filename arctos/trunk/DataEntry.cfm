@@ -391,7 +391,7 @@
 									<tr>
 										<td align="right"><span class="f11a">Date</span></td>
 										<td>
-											<input type="text " name="made_date" id="made_date">
+											<input type="text" name="made_date" id="made_date">
 											<span class="infoLink" onclick="copyAllDates('made_date');">Copy2All</span>
 										</td>
 									</tr>
