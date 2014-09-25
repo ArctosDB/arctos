@@ -398,7 +398,6 @@ function setPagePrefs(){
 
 				//console.log('eName: ' + eName);
 				
-				/*
 				if (cVal==0){
 					$("#" + eName).val('');
 					$("#d_" + eName).hide();
@@ -416,7 +415,6 @@ function setPagePrefs(){
 					$("#d_" + eName).show();
 					//console.log('visiblecarry d_' + name);
 				}
-				*/
 			//}
 			// stuff requested by collections
 			setNewRecDefaults();
