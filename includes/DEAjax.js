@@ -385,16 +385,16 @@ function setPagePrefs(){
 				
 				console.log('cName: ' + cName);
 
-				var cVal=eval("r.DATA." + columns[i]);
+				//var cVal=eval("r.DATA." + columns[i]);
 				
 
-				console.log('cVal: ' + cVal);
+				//console.log('cVal: ' + cVal);
 				
 				
-				var eName=cName.toLowerCase();
+				//var eName=cName.toLowerCase();
 				
 
-				console.log('eName: ' + eName);
+				//console.log('eName: ' + eName);
 				
 				/*
 				if (cVal==0){
