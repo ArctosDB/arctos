@@ -414,7 +414,7 @@ function setPagePrefs(){
 					$("#d_" + eName).show();
 					//console.log('visiblecarry d_' + name);
 				}
-			//}
+			}
 			// stuff requested by collections
 			setNewRecDefaults();
 			msg('template loaded - enter data','good');
