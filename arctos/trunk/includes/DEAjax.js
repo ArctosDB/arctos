@@ -1251,14 +1251,14 @@ function closeCust() {
 	$('#popDiv').remove();
 	$('#cDiv').remove();
 	$('#theFrame').remove();
-	setPagePrefs();
+	
 
 	/*
 	$('#bgDiv', window.parent.document).remove();
 	$('#popDiv', window.parent.document).remove();
 	$('#cDiv', window.parent.document).remove();
 	$('#theFrame', window.parent.document).remove();
-	
+	setPagePrefs();
 	*/
 }
 function customize(t) {
