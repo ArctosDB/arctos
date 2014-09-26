@@ -313,6 +313,9 @@ function setPrevSearch(){
  	 			$("#collection_id").multiselect('refresh');
  			} else if (eName=='OIDType'){
  				var selectedOptions = eVl.split(",");
+ 				console.log('selectedOptions: ' + selectedOptions);
+
+ 				
  				for (x = 0; x < selectedOptions.length; x++) {
  	 			    var optionVal = selectedOptions[x];
  	 			    $("#OIDType").find("option[value="+optionVal+"]").prop("selected", "selected");
