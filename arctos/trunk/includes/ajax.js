@@ -298,7 +298,7 @@ function setSessionCustomID(v) {
 
 function jqueryspecialescape(v){
 	
-	var val = v.replace(/[ !"#$%&'()*+,.\/:;<=>?@^`{|}~]/g, "\\\\$&");
+	var val = v.replace(/[ !"#$%&'()*+,.\/:;<=>?@^`{|}~]/g, "\\$&");
 	return val;
 }
 function setPrevSearch(){
@@ -324,7 +324,7 @@ function setPrevSearch(){
 
  				
  				for (x = 0; x < selectedOptions.length; x++) {
- 	 			    var optionVal = selectedOptions[x];
+ 	 			    var optionVal = jqueryspecialescape(selectedOptions[x]);
  	 			    
  	 			    
  	 			 // var optionVal ='AMMTAP\\:\\ Alaska\\ Marine\\ Mammal\\ Tissue\\ Archival\\ Project';
@@ -334,12 +334,12 @@ function setPrevSearch(){
  	 				console.log('optionVal: ' + optionVal);
  	 			    
  	 				//AMMTAP\\:\\ Alaska\\ Marine\\ Mammal\\ Tissue\\ Archival\\ Project
- 	 			   // $("#OIDType").find("option[value="+optionVal+"]").prop("selected", "selected");
+ 	 			    $("#OIDType").find("option[value="+optionVal+"]").prop("selected", "selected");
  	 			    
- 	 			    $("#OIDType").find("option").filter(function(){
- 	 	 				console.log( $(this));
+ 	 			   // $("#OIDType").find("option").filter(function(){
+ 	 	 			//	console.log( $(this));
 
- 	 			    });
+ 	 			  //  });
  	 			    
  	 			  //  [value="+optionVal+"]").prop("selected", "selected");
 
