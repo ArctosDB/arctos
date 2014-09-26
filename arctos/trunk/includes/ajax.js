@@ -327,10 +327,10 @@ function setPrevSearch(){
  	 			    var optionVal = jqueryspecialescape(selectedOptions[x]);
  	 			    
  	 			    
- 	 			 // var optionVal ='AMMTAP\\:\\ Alaska\\ Marine\\ Mammal\\ Tissue\\ Archival\\ Project';
+ 	 			  var optionVal ='AMMTAP\\:\\ Alaska\\ Marine\\ Mammal\\ Tissue\\ Archival\\ Project';
  	 				console.log('optionVal: ' + optionVal);
  	 			    
- 	 				
+ 	 				//AMMTAP\\:\\ Alaska\\ Marine\\ Mammal\\ Tissue\\ Archival\\ Project
  	 			    $("#OIDType").find("option[value="+optionVal+"]").prop("selected", "selected");
  	 			}
  	 			$("#OIDType").multiselect('refresh');
