@@ -294,6 +294,13 @@ function setSessionCustomID(v) {
 		function (getResult) {}
 	);
 }
+
+
+function jqueryspecialescape(v){
+	
+	var val = v.replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\\\$&");
+	return val;
+}
 function setPrevSearch(){
 	var schParam=get_cookie ('schParams');
 	var pAry=schParam.split("|");
@@ -317,10 +324,11 @@ function setPrevSearch(){
 
  				
  				for (x = 0; x < selectedOptions.length; x++) {
- 	 			    var optionVal = selectedOptions[x];
+ 	 			    var optionVal = jqueryspecialescape(selectedOptions[x]);
  	 			    
  	 				console.log('optionVal: ' + optionVal);
  	 			    
+ 	 				
  	 			    $("#OIDType").find("option[value="+optionVal+"]").prop("selected", "selected");
  	 			}
  	 			$("#OIDType").multiselect('refresh');
