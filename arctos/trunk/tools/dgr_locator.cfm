@@ -1,5 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
 
+	<script type='text/javascript' src='/ajax/core/engine.js'></script>
+	<script type='text/javascript' src='/ajax/core/util.js'></script>
+	<script type='text/javascript' src='/ajax/core/settings.js'></script>
 <script>
 	function hideRow(locator_id) {
 		var theRowStr = "document.getElementById('row" + locator_id + "')";
@@ -272,9 +275,16 @@
 </script>
 <!--- floaty thing that always lives over here --->
 
-	
+	<span style="float:right;">
+		<input type="button"
+			value="Locator Home"
+			class="qutBtn"
+   			onmouseover="this.className='qutBtn btnhov'"
+			onmouseout="this.className='qutBtn'"
+			onClick="document.location='/tools/dgr_locator.cfm';">
+	</span>
 <!------------------------------------------------------------------------->
-<cfif action is "getBox">
+<cfif #action# is "getBox">
 	<cfoutput>
 	<form name="findLoc" method="post" action="dgr_locator.cfm">
 		<input type="hidden" name="action" value="boxView">
@@ -293,27 +303,148 @@
 		<select name="rack" id="seleRack" size="1" onchange="getBoxForRack(this.value)">
 		</select>
 		Box: <select name="box" id="seleBox" size="1">
+
 		</select>
-		<input type="submit" value="GO"	class="lnkBtn">
+		<input type="submit"
+			value="GO"
+			class="lnkBtn"
+   			onmouseover="this.className='lnkBtn btnhov'"
+			onmouseout="this.className='lnkBtn'">
 	</form>
 	</cfoutput>
 </cfif>
 
 
+<!------------------------------------------------------------------------->
+<cfif #action# is "nothing">
+	<form name="findIt" method="post" action="dgr_locator.cfm">
+		<input type="hidden" name="action">
+		<input type="button"
+			value="Find Location by DGR #"
+			class="lnkBtn"
+   			onmouseover="this.className='lnkBtn btnhov'"
+			onmouseout="this.className='lnkBtn'"
+			onClick="findIt.action.value='getLocation';submit();">
+		<br /><input type="button"
+			value="Browse By Box"
+			class="lnkBtn"
+   			onmouseover="this.className='lnkBtn btnhov'"
+			onmouseout="this.className='lnkBtn'"
+			onClick="findIt.action.value='getBox';submit();">
+		<br />
+		<input type="button"
+			value="Create New Freezer"
+			class="insBtn"
+   			onmouseover="this.className='insBtn btnhov'"
+			onmouseout="this.className='insBtn'"
+			onClick="findIt.action.value='newFreezer';submit();">
+	</form>
+</cfif>
+<!------------------------------------------------------------------------->
+<cfif #action# is "getLocation">
+	<form name="findLoc" method="post" action="dgr_locator.cfm">
+		<input type="hidden" name="action" value="findLoc">
+		Comma-delimited list (eg, 1,2,3) OK<br />
+		NK: <input type="text" name="nk" size="60">
+		<input type="submit"
+			value="GO"
+			class="schBtn"
+   			onmouseover="this.className='schBtn btnhov'"
+			onmouseout="this.className='schBtn'">
+	</form>
+</cfif>
+
+<!------------------------------------------------------------------------->
+<cfif #action# is "newFreezer">
+<cfoutput>
+	<form name="nf" method="post" action="dgr_locator.cfm">
+		<input type="hidden" name="action" value="makeFreezer" />
+		Freezer Number:<input type="text" name="freezer" />
+		<br />Number of Racks: <input type="text" name="numrack" />
+		<br />Number of boxes per rack: <input type="text" name="numBox" />
+		<input type="submit" />
+	</form>
+</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------->
+<cfif #action# is "makeFreezer">
+<cfoutput>
+
+	<!--- this query is very slow, so use stored procedure
+
+		makeDGRFreezerPositions ( f in integer, r in integer, b in integer)
+
+		eg,
+
+		makeDGRFreezerPositions (1,40,11)
+
+		creates freezer one which contains 40 racks, eash of which contains 11 boxes, each containing 100 slots
+		--->
+
+		<cfstoredproc datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" procedure="makeDGRFreezerPositions">
+			<cfprocparam cfsqltype="cf_sql_integer" dbvarname="f" value="#freezer#">
+			<cfprocparam cfsqltype="cf_sql_integer" dbvarname="r" value="#numrack#">
+			<cfprocparam cfsqltype="cf_sql_integer" dbvarname="b" value="#numBox#">
+		</cfstoredproc>
+	<!----
+
+	<cfquery name="makeFreezer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			exec makeDGRFreezerPositions (#freezer#,#numrack#,#numBox#)
+		</cfquery>
 
 
+	<cfset numSlots = #numrack# * #numBox# * 100>
+	Freezer Number:#freezer#
+		<br />Number of Racks: #numrack#
+		<br />Number of boxes per rack: #numBox#
+		<br />
+		--#numSlots# slots--
+		<hr />
+	<cfset r=1>
+	<cfset b=1>
+	<cfset sc = 1><!--- current slot count --->
+	<cftransaction>
+	<cfloop from="1" to="#numSlots#" index="s">
+		<cfquery name="ns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into dgr_locator (
+			LOCATOR_ID,
+			FREEZER,
+			RACK,
+			BOX,
+			PLACE
+		) values (
+			dgr_locator_seq.nextval,
+			#freezer#,
+			#r#,
+			#b#,
+			#sc#)
+		</cfquery>
+			<br />
+			<cfset sc = #sc# + 1>
+			<cfif #sc# is 101>
+				<cfset b = #b# + 1>
+				<!--- need new rack? --->
+				<cfif #b# gt #numBox#>
+					<cfset b=1>
+					<cfset r=#r#+1>
+				</cfif>
+				<cfset sc=1>
+			</cfif>
+	</cfloop>
+	</cftransaction>
 
 
-
-
-
-
-
-
-
-
-
-
+	<form name="nf" method="post" action="dgr_locator.cfm">
+		<input type="hidden" name="action" value="" />
+		Freezer Number:<input type="text" name="freezer" />
+		<br />Number of Racks: <input type="text" name="numrack" />
+		<br />Number of boxes per rack: <input type="text" name="numBox" />
+		<input type="submit" />
+	</form>
+	---->
+	spiffy
+</cfoutput>
+</cfif>
 <!------------------------------------------------------------------------->
 <cfif #action# is "findLoc">
 	<cfoutput>
@@ -884,79 +1015,4 @@
 	</div>
 	</cfoutput>
 </cfif>
-<!------------------------------------------------------------------------->
-<cfif action is "nothing">
-	<form name="findIt" method="post" action="dgr_locator.cfm">
-		<input type="hidden" name="action">
-		<input type="button"
-			value="Find Location by DGR #"
-			class="lnkBtn"
-			onClick="findIt.action.value='getLocation';submit();">
-		<br /><input type="button"
-			value="Browse By Box"
-			class="lnkBtn"
-			onClick="findIt.action.value='getBox';submit();">
-		<br />
-		<input type="button"
-			value="Create New Freezer"
-			class="insBtn"
-			onClick="findIt.action.value='newFreezer';submit();">
-	</form>
-</cfif>
-<!------------------------------------------------------------------------->
-<cfif action is "getLocation">
-	<form name="findLoc" method="post" action="dgr_locator.cfm">
-		<input type="hidden" name="action" value="findLoc">
-		Comma-delimited list (eg, 1,2,3) OK<br />
-		NK: <input type="text" name="nk" size="60">
-		<input type="submit"
-			value="GO"
-			class="schBtn">
-	</form>
-</cfif>
-<!------------------------------------------------------------------------->
-<cfif action is "newFreezer">
-<cfoutput>
-	<form name="nf" method="post" action="dgr_locator.cfm">
-		<input type="hidden" name="action" value="makeFreezer" />
-		Freezer Number:<input type="text" name="freezer" />
-		<br />Number of Racks: <input type="text" name="numrack" />
-		<br />Number of boxes per rack: <input type="text" name="numBox" />
-		<input type="submit" />
-	</form>
-</cfoutput>
-</cfif>
-
-<!------------------------------------------------------------------------->
-<cfif #action# is "makeFreezer">
-<cfoutput>
-
-	<!--- this query is very slow, so use stored procedure
-
-		makeDGRFreezerPositions ( f in integer, r in integer, b in integer)
-
-		eg,
-
-		makeDGRFreezerPositions (1,40,11)
-
-		creates freezer one which contains 40 racks, eash of which contains 11 boxes, each containing 100 slots
-		--->
-
-		<cfstoredproc datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" procedure="makeDGRFreezerPositions">
-			<cfprocparam cfsqltype="cf_sql_integer" dbvarname="f" value="#freezer#">
-			<cfprocparam cfsqltype="cf_sql_integer" dbvarname="r" value="#numrack#">
-			<cfprocparam cfsqltype="cf_sql_integer" dbvarname="b" value="#numBox#">
-		</cfstoredproc>
-	spiffy
-</cfoutput>
-</cfif>
-
-<span style="float:right;">
-	<input type="button"
-		value="Locator Home"
-		class="qutBtn"
-  			onmouseover="this.className='qutBtn btnhov'"
-		onmouseout="this.className='qutBtn'"
-		onClick="document.location='/tools/dgr_locator.cfm';">
-</span>
 <cfinclude template="/includes/_footer.cfm">
