@@ -317,18 +317,18 @@ function setPrevSearch(){
  			if (eName=='collection_id'){
  				console.log('setting collection_id to ' + eVl);
  				
- 				var selectedOptions = eVl.split(",");
+ 				//var selectedOptions = eVl.split(",");
  				
- 				console.log('selectedOptions' + selectedOptions);
+ 				//console.log('selectedOptions' + selectedOptions);
 	 		 		
 	 		 		
 	 		 		
- 				for(var i in selectedOptions) {
- 	 			    var optionVal = selectedOptions[i];
- 	 		 		console.log('optionVal: ' + optionVal);
+ 			//	for(var i in selectedOptions) {
+ 	 		//	    var optionVal = selectedOptions[i];
+ 	 		 //		console.log('optionVal: ' + optionVal);
 
  	 			  //  $("#collection_id").find("option[value="+optionVal+"]").prop("selected", "selected");
- 	 			}
+ 	 		//	}
  	 			//$("#collection_id").multiselect('refresh');
  			} else {
  				document.getElementById(eName).value=eVl;
