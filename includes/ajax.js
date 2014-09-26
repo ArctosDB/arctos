@@ -1038,7 +1038,7 @@ function getFormValues() {
 			
 			console.log('saving ' + this.name + '::' + $(this).val());
 			
-			var thisPair=element_name + '::' + String(element_value);
+			var thisPair=(this.name + '::' + String($(this).val());
 			if (spAry.indexOf(thisPair)==-1) {
 				spAry.push(thisPair);
 			}
