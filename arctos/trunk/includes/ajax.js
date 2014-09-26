@@ -322,6 +322,9 @@ function setPrevSearch(){
 			}
 		}
  	}
+ 	
+ 	$("#collection_id").multiselect("refresh");
+ 	
  	try {
 		setPreviousMap();
 	} catch(e){}
