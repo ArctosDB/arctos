@@ -1,4 +1,3 @@
-<!---- this is used by dgr_locator ---->
 <cfsetting enablecfoutputonly="yes">
 <cfinclude template="settings.cfm">
 <cfinclude template="security.cfm">
