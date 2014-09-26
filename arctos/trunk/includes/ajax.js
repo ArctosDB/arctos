@@ -1032,7 +1032,7 @@ function getFormValues() {
 		console.log(this.name);
 		console.log($(this).val());
 		
-		if(!!$(this).val())
+		if(!!$(this).val()){
 			
 		//if (this.name.length && $(this).val().length) {
 			
