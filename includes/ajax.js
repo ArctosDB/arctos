@@ -298,7 +298,7 @@ function setSessionCustomID(v) {
 
 function jqueryspecialescape(v){
 	
-	var val = v.replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~] /g, "\\\\$&");
+	var val = v.replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\\\$&");
 	return val;
 }
 function setPrevSearch(){
@@ -326,6 +326,8 @@ function setPrevSearch(){
  				for (x = 0; x < selectedOptions.length; x++) {
  	 			    var optionVal = jqueryspecialescape(selectedOptions[x]);
  	 			    
+ 	 			    
+ 	 			  var optionVal ='AMMTAP\\:\\ Alaska\\ Marine\\ Mammal\\ Tissue\\ Archival\\ Project';
  	 				console.log('optionVal: ' + optionVal);
  	 			    
  	 				
