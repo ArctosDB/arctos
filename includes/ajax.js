@@ -337,7 +337,7 @@ function setPrevSearch(){
  	 			   // $("#OIDType").find("option[value="+optionVal+"]").prop("selected", "selected");
  	 			    
  	 			    $("#OIDType").find("option").filter(function(){
- 	 	 				console.log('this.value: ' + this.value);
+ 	 	 				console.log('this: ' + $(this));
 
  	 			    });
  	 			    
