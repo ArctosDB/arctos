@@ -1,4 +1,3 @@
-// this is used by dgr locator 
 
 // See: http://www.crockford.com/javascript/jslint.html
 /*global alert, window, document, navigator, DOMParser, XMLHttpRequest */
