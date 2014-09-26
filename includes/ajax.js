@@ -297,6 +297,7 @@ function setSessionCustomID(v) {
 function setPrevSearch(){
 	var schParam=get_cookie ('schParams');
 	var pAry=schParam.split("|");
+	console.log(pAry);
  	for (var i=0; i<pAry.length; i++) {
  		var eAry=pAry[i].split("::");
  		var eName=eAry[0];
