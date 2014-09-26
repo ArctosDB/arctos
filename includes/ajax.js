@@ -1031,6 +1031,11 @@ function getFormValues() {
 	$('#SpecData *').filter(':input').each(function(){
 		console.log(this.name);
 		console.log($(this).val());
+		if (this.name.length>0 && $(this).val().length>0 && this.name !='selectedCoords') {
+			
+			console.log('saving ' + this.name + '::' $(this).val());
+		}
+
 		
 	    //your code here
 	});
