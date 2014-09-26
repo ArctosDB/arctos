@@ -298,7 +298,7 @@ function setSessionCustomID(v) {
 
 function jqueryspecialescape(v){
 	
-	var val = v.replace(/[ !"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\\\$&");
+	var val = v.replace(/[ !"#$%&'()*+,.\/:;<=>?@^`{|}~]/g, "\\\\$&");
 	return val;
 }
 function setPrevSearch(){
