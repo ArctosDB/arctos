@@ -1027,28 +1027,18 @@ function closeAndRefresh(){
 	document.body.removeChild(theDiv);
 }
 function getFormValues() {
-
+	spAry = [];
 	$('#SpecData *').filter(':input').each(function(){
-		console.log(this.name);
-		console.log($(this).val());
-		spAry = [];
 		if(!!$(this).val()){
-			
-		//if (this.name.length && $(this).val().length) {
-			
-			console.log('saving ' + this.name + '::' + $(this).val());
-			
 			var thisPair=(this.name + '::' + String($(this).val()));
 			if (spAry.indexOf(thisPair)==-1) {
 				spAry.push(thisPair);
 			}
-			
-			
 		}
-
-		
-	    //your code here
 	});
+	str=spAry.join("|");
+	document.cookie = 'schParams=' + str;
+
 	/*
  	var theForm,nval,spAry,i,theElement,element_name,element_value,str;
  	theForm=document.getElementById('SpecData');
