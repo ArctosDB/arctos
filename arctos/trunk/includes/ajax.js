@@ -311,7 +311,7 @@ function setPrevSearch(){
  	 			    $("#collection_id").find("option[value="+optionVal+"]").prop("selected", "selected");
  	 			}
  	 			$("#collection_id").multiselect('refresh');
- 			} else if (eName=='collection_id'){
+ 			} else if (eName=='OIDType'){
  				var selectedOptions = eVl.split(",");
  				for (x = 0; x < selectedOptions.length; x++) {
  	 			    var optionVal = selectedOptions[x];
