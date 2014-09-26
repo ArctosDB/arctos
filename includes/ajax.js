@@ -321,9 +321,9 @@ function setPrevSearch(){
  				
  				console.log('selectedOptions: ' + selectedOptions);
 	 		 		
+ 				for (i = 0; i < selectedOptions.length; i++) {
+
 	 		 		
-	 		 		
- 				for(var i in selectedOptions) {
  	 			    var optionVal = selectedOptions[i];
  	 		 		console.log('optionVal: ' + optionVal);
 
