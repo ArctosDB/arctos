@@ -1052,6 +1052,8 @@ function getFormValues() {
 			var thisPair=(this.name + '::' + String($(this).val()));
 			if (spAry.indexOf(thisPair)==-1) {
 				spAry.push(thisPair);
+				
+				console.log('saving ' + thisPair);
 			}
 		}
 	});
