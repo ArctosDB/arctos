@@ -317,6 +317,12 @@ function setPrevSearch(){
  			if (eName=='collection_id'){
  				console.log('setting collection_id to ' + eVl);
  				var selectedOptions = eVl.split(",");
+ 				
+
+	 		 		console.log('selectedOptions' + selectedOptions);
+	 		 		
+	 		 		
+	 		 		
  				for(var i in selectedOptions) {
  	 			    var optionVal = selectedOptions[i];
  	 		 		console.log('setting ' + optionVal);
