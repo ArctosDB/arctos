@@ -301,12 +301,22 @@ function setPrevSearch(){
 	
 	
 	var pAry=schParam.split("|");
+	console.log(pAry);
+
  	for (var i=0; i<pAry.length; i++) {
  		var eAry=pAry[i].split("::");
+ 		console.log(eAry);
+
+ 		
  		var eName=eAry[0];
  		var eVl=eAry[1];
+ 		
  		if (document.getElementById(eName)){
 			document.getElementById(eName).value=eVl;
+			
+		console.log('setting ' + eName + ' to ' + eVl);
+		
+		
 			if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
 				changeTarget(eName,eVl);
 			}
