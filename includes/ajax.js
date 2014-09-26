@@ -324,7 +324,7 @@ function setPrevSearch(){
 
  				
  				for (x = 0; x < selectedOptions.length; x++) {
- 	 			    var optionVal = jqueryspecialescape(selectedOptions[x]);
+ 	 			    var optionVal = selectedOptions[x];
  	 			    
  	 			    
  	 			 // var optionVal ='AMMTAP\\:\\ Alaska\\ Marine\\ Mammal\\ Tissue\\ Archival\\ Project';
@@ -334,7 +334,25 @@ function setPrevSearch(){
  	 				console.log('optionVal: ' + optionVal);
  	 			    
  	 				//AMMTAP\\:\\ Alaska\\ Marine\\ Mammal\\ Tissue\\ Archival\\ Project
- 	 			    $("#OIDType").find("option[value="+optionVal+"]").prop("selected", "selected");
+ 	 			   // $("#OIDType").find("option[value="+optionVal+"]").prop("selected", "selected");
+ 	 			    
+ 	 			    $("#OIDType").find("option").filter(function(){
+ 	 	 				console.log('this.value: ' + this.value);
+
+ 	 			    });
+ 	 			    
+ 	 			  //  [value="+optionVal+"]").prop("selected", "selected");
+
+ 	 			    
+ 	 			//  var value = this.value;
+ 	 		//	$select.find('option').filter(function() {
+ 	 		//	  return this.value == value;
+ 	 		//	}).show();
+ 	 			
+ 	 			
+ 	 			
+ 	 			
+ 	 			
  	 			}
  	 			$("#OIDType").multiselect('refresh');
  			} else if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
