@@ -1030,7 +1030,6 @@ function getFormValues() {
 	// specimen search - "use last" button
 	
 	
-	event.preventDefaults();
 	
  	var theForm,nval,spAry,i,theElement,element_name,element_value,str;
  	theForm=document.getElementById('SpecData');
