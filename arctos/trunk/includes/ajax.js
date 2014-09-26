@@ -1031,7 +1031,10 @@ function getFormValues() {
 	$('#SpecData *').filter(':input').each(function(){
 		console.log(this.name);
 		console.log($(this).val());
-		if (this.name.length && $(this).val().length) {
+		
+		if(!!$(this).val())
+			
+		//if (this.name.length && $(this).val().length) {
 			
 			console.log('saving ' + this.name + '::' + $(this).val());
 		}
