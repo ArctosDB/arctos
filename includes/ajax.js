@@ -321,11 +321,13 @@ function setPrevSearch(){
  				
  				console.log('selectedOptions: ' + selectedOptions);
 	 		 		
- 				for (i = 0; i < selectedOptions.length; i++) {
+ 				for (x = 0; x < selectedOptions.length; x++) {
 
+	 		 		console.log('hi');
 	 		 		
- 	 			    var optionVal = selectedOptions[i];
- 	 		 		console.log('optionVal: ' + optionVal);
+	 		 		
+ 	 			    //var optionVal = selectedOptions[i];
+ 	 		 		//console.log('optionVal: ' + optionVal);
 
  	 			  //  $("#collection_id").find("option[value="+optionVal+"]").prop("selected", "selected");
  	 			}
