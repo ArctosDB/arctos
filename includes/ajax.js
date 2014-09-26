@@ -318,6 +318,9 @@ function setPrevSearch(){
  				
  				for (x = 0; x < selectedOptions.length; x++) {
  	 			    var optionVal = selectedOptions[x];
+ 	 			    
+ 	 				console.log('optionVal: ' + optionVal);
+ 	 			    
  	 			    $("#OIDType").find("option[value="+optionVal+"]").prop("selected", "selected");
  	 			}
  	 			$("#OIDType").multiselect('refresh');
