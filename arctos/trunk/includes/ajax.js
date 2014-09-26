@@ -1031,12 +1031,19 @@ function getFormValues() {
 	$('#SpecData *').filter(':input').each(function(){
 		console.log(this.name);
 		console.log($(this).val());
-		
+		spAry = [];
 		if(!!$(this).val()){
 			
 		//if (this.name.length && $(this).val().length) {
 			
 			console.log('saving ' + this.name + '::' + $(this).val());
+			
+			var thisPair=element_name + '::' + String(element_value);
+			if (spAry.indexOf(thisPair)==-1) {
+				spAry.push(thisPair);
+			}
+			
+			
 		}
 
 		
