@@ -1057,32 +1057,6 @@ function getFormValues() {
 	});
 	str=spAry.join("|");
 	document.cookie = 'schParams=' + str;
-
-	/*
- 	var theForm,nval,spAry,i,theElement,element_name,element_value,str;
- 	theForm=document.getElementById('SpecData');
- 	nval=theForm.length;
- 	spAry = [];
- 	for (i=0; i<nval; i++) {
-		theElement = theForm.elements[i];
-		element_name = theElement.name;
-		element_value = theElement.value;
-		if (element_name.length>0 && element_value.length>0 && element_name !='selectedCoords') {
-			var thisPair=element_name + '::' + String(element_value);
-			if (spAry.indexOf(thisPair)==-1) {
-				spAry.push(thisPair);
-			}
-		}
-	} 	
-	str=spAry.join("|");
-	
-	console.log(str);
-	
-	document.cookie = 'schParams=' + str;
-	
-	return false;
-	
-	*/
  }
 function createCookie(name,value,days) {
 	var expires,date;

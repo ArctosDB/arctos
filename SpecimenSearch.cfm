@@ -61,9 +61,6 @@
 		</td>
 	</tr>
 </table>
-
-
-<span onclick="getFormValues()">getFormValues</span>
 <form method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues();">
 <table>
 	<tr>
