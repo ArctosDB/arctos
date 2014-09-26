@@ -331,7 +331,7 @@ function setPrevSearch(){
 
  	 			    $("#collection_id").find("option[value="+optionVal+"]").prop("selected", "selected");
  	 			}
- 	 			//$("#collection_id").multiselect('refresh');
+ 	 			$("#collection_id").multiselect('refresh');
  			} else {
  				document.getElementById(eName).value=eVl;
  				console.log('setting ' + eName + ' to ' + eVl);
