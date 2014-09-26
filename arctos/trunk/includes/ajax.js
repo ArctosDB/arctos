@@ -316,20 +316,20 @@ function setPrevSearch(){
  			// extra handling required for multiselect
  			if (eName=='collection_id'){
  				console.log('setting collection_id to ' + eVl);
+ 				
  				var selectedOptions = eVl.split(",");
  				
-
-	 		 		console.log('selectedOptions' + selectedOptions);
+ 				console.log('selectedOptions' + selectedOptions);
 	 		 		
 	 		 		
 	 		 		
  				for(var i in selectedOptions) {
  	 			    var optionVal = selectedOptions[i];
- 	 		 		console.log('setting ' + optionVal);
+ 	 		 		console.log('optionVal: ' + optionVal);
 
- 	 			    $("#collection_id").find("option[value="+optionVal+"]").prop("selected", "selected");
+ 	 			  //  $("#collection_id").find("option[value="+optionVal+"]").prop("selected", "selected");
  	 			}
- 	 			$("#collection_id").multiselect('refresh');
+ 	 			//$("#collection_id").multiselect('refresh');
  			} else {
  				document.getElementById(eName).value=eVl;
  				console.log('setting ' + eName + ' to ' + eVl);
