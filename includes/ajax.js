@@ -316,8 +316,9 @@ function setPrevSearch(){
  			// extra handling required for multiselect
  			if (eName=='collection_id'){
  				console.log('setting collection_id to ' + eVl);
- 				for(var i in eVl) {
- 	 			    var optionVal = eVl[i];
+ 				var selectedOptions = eVl.split(",");
+ 				for(var i in selectedOptions) {
+ 	 			    var optionVal = selectedOptions[i];
  	 		 		console.log('setting ' + optionVal);
 
  	 			    $("#collection_id").find("option[value="+optionVal+"]").prop("selected", "selected");
