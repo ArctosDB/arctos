@@ -296,57 +296,34 @@ function setSessionCustomID(v) {
 }
 function setPrevSearch(){
 	var schParam=get_cookie ('schParams');
-	
-	console.log(schParam);
-	
-	
 	var pAry=schParam.split("|");
-	console.log(pAry);
-
  	for (var i=0; i<pAry.length; i++) {
  		var eAry=pAry[i].split("::");
- 		console.log(eAry);
-
- 		
  		var eName=eAry[0];
- 		var eVl=eAry[1];
- 		
+ 		var eVl=eAry[1]; 		
  		if (document.getElementById(eName)){
- 			
  			// extra handling required for multiselect
  			if (eName=='collection_id'){
- 				console.log('setting collection_id to ' + eVl);
- 				
  				var selectedOptions = eVl.split(",");
- 				
- 				console.log('selectedOptions: ' + selectedOptions);
-	 		 		
  				for (x = 0; x < selectedOptions.length; x++) {
-
-	 		 		console.log('hi');
-	 		 		
-	 		 		
  	 			    var optionVal = selectedOptions[x];
- 	 		 		console.log('optionVal: ' + optionVal);
-
  	 			    $("#collection_id").find("option[value="+optionVal+"]").prop("selected", "selected");
  	 			}
  	 			$("#collection_id").multiselect('refresh');
+ 			} else if (eName=='collection_id'){
+ 				var selectedOptions = eVl.split(",");
+ 				for (x = 0; x < selectedOptions.length; x++) {
+ 	 			    var optionVal = selectedOptions[x];
+ 	 			    $("#OIDType").find("option[value="+optionVal+"]").prop("selected", "selected");
+ 	 			}
+ 	 			$("#OIDType").multiselect('refresh');
+ 			} else if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
+ 				changeTarget(eName,eVl);
  			} else {
- 				document.getElementById(eName).value=eVl;
- 				console.log('setting ' + eName + ' to ' + eVl);
+ 				$("#" + eName).val(eVl);
  			}
-			
- 			
-		
-		
-			if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
-				changeTarget(eName,eVl);
-			}
 		}
  	}
- 	
- 	
  	try {
 		setPreviousMap();
 	} catch(e){}
