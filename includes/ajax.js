@@ -1027,10 +1027,13 @@ function closeAndRefresh(){
 	document.body.removeChild(theDiv);
 }
 function getFormValues() {
-	// specimen search - "use last" button
-	
-	
-	
+
+	$('#SpecData *').filter(':input').each(function(){
+		console.log(this.name);
+		
+	    //your code here
+	});
+	/*
  	var theForm,nval,spAry,i,theElement,element_name,element_value,str;
  	theForm=document.getElementById('SpecData');
  	nval=theForm.length;
@@ -1053,6 +1056,8 @@ function getFormValues() {
 	document.cookie = 'schParams=' + str;
 	
 	return false;
+	
+	*/
  }
 function createCookie(name,value,days) {
 	var expires,date;
