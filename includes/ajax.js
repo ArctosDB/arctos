@@ -327,7 +327,10 @@ function setPrevSearch(){
  	 			    var optionVal = jqueryspecialescape(selectedOptions[x]);
  	 			    
  	 			    
- 	 			  var optionVal ='AMMTAP\\:\\ Alaska\\ Marine\\ Mammal\\ Tissue\\ Archival\\ Project';
+ 	 			 // var optionVal ='AMMTAP\\:\\ Alaska\\ Marine\\ Mammal\\ Tissue\\ Archival\\ Project';
+ 	 			  // logs as  AMMTAP\:\ Alaska\ Marine\ Mammal\ Tissue\ Archival\ Project
+ 	 			  
+ 	 			  
  	 				console.log('optionVal: ' + optionVal);
  	 			    
  	 				//AMMTAP\\:\\ Alaska\\ Marine\\ Mammal\\ Tissue\\ Archival\\ Project
