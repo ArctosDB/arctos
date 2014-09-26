@@ -317,9 +317,9 @@ function setPrevSearch(){
  			if (eName=='collection_id'){
  				console.log('setting collection_id to ' + eVl);
  				
- 				//var selectedOptions = eVl.split(",");
+ 				var selectedOptions = eVl.split(",");
  				
- 				//console.log('selectedOptions' + selectedOptions);
+ 				console.log('selectedOptions' + selectedOptions);
 	 		 		
 	 		 		
 	 		 		
