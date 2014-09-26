@@ -1033,7 +1033,7 @@ function getFormValues() {
 		console.log($(this).val());
 		if (this.name.length>0 && $(this).val().length>0 && this.name !='selectedCoords') {
 			
-			console.log('saving ' + this.name + '::' $(this).val());
+			console.log('saving ' + this.name + '::' + $(this).val());
 		}
 
 		
