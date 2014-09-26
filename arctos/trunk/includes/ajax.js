@@ -1030,7 +1030,7 @@ function getFormValues() {
 
 	$('#SpecData *').filter(':input').each(function(){
 		console.log(this.name);
-		console.log(this.val());
+		console.log($(this).val());
 		
 	    //your code here
 	});
