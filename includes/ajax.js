@@ -317,7 +317,9 @@ function setPrevSearch(){
  			if (eName=='collection_id'){
  				console.log('setting collection_id to ' + eVl);
  				for(var i in eVl) {
- 	 			    var optionVal = selectedOptions[i];
+ 	 			    var optionVal = eVl[i];
+ 	 		 		console.log('setting ' + optionVal);
+
  	 			    $("#collection_id").find("option[value="+optionVal+"]").prop("selected", "selected");
  	 			}
  	 			$("#collection_id").multiselect('refresh');
