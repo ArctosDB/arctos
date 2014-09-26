@@ -27,14 +27,24 @@
 /* for some strange reason this won't work from the .css so keep it here...*/
 .ui-helper-reset a, ui-helper-reset a:visited {color:blue; !important;}
 .ui-helper-reset a:hover {color:red; !important;}
+
+
+/* copied from /home.cfm */
+	.table {display:table;width:100%}
+	.tr {display:table-row}
+	.td {display:table-cell;}
+	
+/* copied from /home.cfm */
+
+
 </style>
-<table cellpadding="0" cellspacing="0">
-	<tr>
-		<td>
-			Access to #numberformat(getCount.cnt,",")# records
-		</td>
+
+
+<div class="table">
+	<div class="tr">
+		<div class="td">Access to #numberformat(getCount.cnt,",")# records</div>
 		<cfif hasCanned.recordcount gt 0>
-			<td style="padding-left:2em;padding-right:2em;">
+			<div class="td">
 				Saved Searches: <select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
 					<option value=""></option>
 					<option value="saveSearch.cfm?action=manage">[ Manage ]</option>
@@ -42,42 +52,42 @@
 						<option value="#url#">#SEARCH_NAME#</option><br />
 					</cfloop>
 				</select>
-			</td>
+			</div>
+			<div class="td">
+				<span style="color:red;">
+					<cfif action is "dispCollObj">
+						<p>You are searching for items to add to a loan.</p>
+					<cfelseif action is "encumber">
+						<p>You are searching for items to encumber.</p>
+					<cfelseif action is "collEvent">
+						<p>You are searching for items to change collecting event.</p>
+					<cfelseif action is "identification">
+						<p>You are searching for items to reidentify.</p>
+					<cfelseif action is "addAccn">
+						<p>You are searching for items to reaccession.</p>
+					</cfif>
+				</span>
+			</div>
 		</cfif>
-		<td style="padding-left:2em;padding-right:2em;">
-			<span style="color:red;">
-				<cfif action is "dispCollObj">
-					<p>You are searching for items to add to a loan.</p>
-				<cfelseif action is "encumber">
-					<p>You are searching for items to encumber.</p>
-				<cfelseif action is "collEvent">
-					<p>You are searching for items to change collecting event.</p>
-				<cfelseif action is "identification">
-					<p>You are searching for items to reidentify.</p>
-				<cfelseif action is "addAccn">
-					<p>You are searching for items to reaccession.</p>
-				</cfif>
-			</span>
-		</td>
-	</tr>
-</table>
+	</div>
+</div>
 <form method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues();">
-<table>
-	<tr>
-		<td valign="top">
+<div class="table">
+	<div class="tr">
+		<div class="td">
 			<input type="submit" value="Search" class="schBtn">
-		</td>
-		<td valign="top">
+		</div>
+		<div class="td">
 			<input type="button" name="Reset" value="Clear Form" class="clrBtn" onclick="resetSSForm();">
-		</td>
-		<td valign="top">
+		</div>
+		<div class="td">
 			<input type="button" name="Previous" value="Use Last Values" class="lnkBtn"	onclick="setPrevSearch()">
-		</td>
-		<td align="right" valign="top">
+		</div>
+		<div class="td">
 			&nbsp;&nbsp;&nbsp;See&nbsp;results&nbsp;as:
-		</td>
-		<td valign="top">
-		 	<select name="tgtForm1" id="tgtForm1" size="1"  onChange="changeTarget(this.id,this.value);">
+		</div>
+		<div class="td">
+			<select name="tgtForm1" id="tgtForm1" size="1"  onChange="changeTarget(this.id,this.value);">
 				<option value="">Specimen Records</option>
 				<option value="SpecimenResultsHTML.cfm">HTML Specimen Records</option>
 				<option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
@@ -85,8 +95,8 @@
 				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
 				<option  value="SpecimenGraph.cfm">Graph</option>
 			</select>
-		</td>
-		<td align="left">
+		</div>
+		<div class="td">
 			<div id="groupByDiv1" style="display:none;border:1px solid green;padding:.5em;">
 				<font size="-1"><em><strong>Group by:</strong></em></font><br>
 				<select name="groupBy1" id="groupBy1" multiple size="4" onchange="changeGrp(this.id)">
@@ -140,9 +150,9 @@
 					<option value="1">yes</option>
 				</select>
 			</div>
-		</td>
-	</tr>
-</table>
+		</div>
+	</div>
+</div>
 <div>
 	&nbsp;&nbsp;&nbsp;<span class="helpLink" id="_cataloged_item_type">Type</span>:<select name="cataloged_item_type" id="cataloged_item_type" size="1">
 	<option value="">any</option>
