@@ -297,14 +297,13 @@ function setSessionCustomID(v) {
 
 
 function jqueryspecialescape(v){
-	
+	// escapes special characters - used in jQuery.find
 	var val = v.replace(/[ !"#$%&'()*+,.\/:;<=>?@^`{|}~]/g, "\\$&");
 	return val;
 }
 function setPrevSearch(){
 	var schParam=get_cookie ('schParams');
 	var pAry=schParam.split("|");
-	console.log(pAry);
  	for (var i=0; i<pAry.length; i++) {
  		var eAry=pAry[i].split("::");
  		var eName=eAry[0];
@@ -320,39 +319,9 @@ function setPrevSearch(){
  	 			$("#collection_id").multiselect('refresh');
  			} else if (eName=='OIDType'){
  				var selectedOptions = eVl.split(",");
- 				console.log('selectedOptions: ' + selectedOptions);
-
- 				
  				for (x = 0; x < selectedOptions.length; x++) {
  	 			    var optionVal = jqueryspecialescape(selectedOptions[x]);
- 	 			    
- 	 			    
- 	 			 // var optionVal ='AMMTAP\\:\\ Alaska\\ Marine\\ Mammal\\ Tissue\\ Archival\\ Project';
- 	 			  // logs as  AMMTAP\:\ Alaska\ Marine\ Mammal\ Tissue\ Archival\ Project
- 	 			  
- 	 			  
- 	 				console.log('optionVal: ' + optionVal);
- 	 			    
- 	 				//AMMTAP\\:\\ Alaska\\ Marine\\ Mammal\\ Tissue\\ Archival\\ Project
  	 			    $("#OIDType").find("option[value="+optionVal+"]").prop("selected", "selected");
- 	 			    
- 	 			   // $("#OIDType").find("option").filter(function(){
- 	 	 			//	console.log( $(this));
-
- 	 			  //  });
- 	 			    
- 	 			  //  [value="+optionVal+"]").prop("selected", "selected");
-
- 	 			    
- 	 			//  var value = this.value;
- 	 		//	$select.find('option').filter(function() {
- 	 		//	  return this.value == value;
- 	 		//	}).show();
- 	 			
- 	 			
- 	 			
- 	 			
- 	 			
  	 			}
  	 			$("#OIDType").multiselect('refresh');
  			} else if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
