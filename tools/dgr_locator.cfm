@@ -515,8 +515,7 @@
 				<!--- see if there's something in the main DB --->
 				<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
-						collection,
-						cat_num,
+						guid,
 						flat.collection_object_id,
 						scientific_name,
 						concatAttributeValue(flat.collection_object_id,'SNV results') as snv,
@@ -551,12 +550,12 @@
 						<cfif #thisRec.recordcount# is 0>
 							NOTHING MATCHED!
 						<cfelseif #thisRec.recordcount# is 1>
-							<a href="/SpecimenDetail.cfm?collection_object_id=#thisRec.collection_object_id#">
-								#thisRec.collection# #thisRec.cat_num#</a>
+							<a href="/guid/#thisRec.guid#">
+								#thisRec.guid#</a>
 						<cfelse>
 							<cfloop query="thisRec">
-								<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
-									#thisRec.collection#&nbsp;#cat_num#</a><br />
+								<a href="/guid/#thisRec.guid#">
+									#thisRec.guid#</a><br />
 							</cfloop>
 						</cfif>
 						</td>
