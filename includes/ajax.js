@@ -312,9 +312,21 @@ function setPrevSearch(){
  		var eVl=eAry[1];
  		
  		if (document.getElementById(eName)){
-			document.getElementById(eName).value=eVl;
+ 			
+ 			// extra handling required for multiselect
+ 			if (eName=='collection_id'){
+ 				console.log('setting collection_id to ' + eVl);
+ 				for(var i in eVl) {
+ 	 			    var optionVal = selectedOptions[i];
+ 	 			    $("#collection_id").find("option[value="+optionVal+"]").prop("selected", "selected");
+ 	 			}
+ 	 			$("#collection_id").multiselect('refresh');
+ 			} else {
+ 				document.getElementById(eName).value=eVl;
+ 				console.log('setting ' + eName + ' to ' + eVl);
+ 			}
 			
-		console.log('setting ' + eName + ' to ' + eVl);
+ 			
 		
 		
 			if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
@@ -323,7 +335,6 @@ function setPrevSearch(){
 		}
  	}
  	
- 	$("#collection_id").multiselect("refresh");
  	
  	try {
 		setPreviousMap();
