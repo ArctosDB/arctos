@@ -1044,7 +1044,12 @@ function getFormValues() {
 		}
 	} 	
 	str=spAry.join("|");
+	
+	console.log(str);
+	
 	document.cookie = 'schParams=' + str;
+	
+	return false;
  }
 function createCookie(name,value,days) {
 	var expires,date;
