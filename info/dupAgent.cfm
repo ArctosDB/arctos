@@ -306,7 +306,11 @@
 			<cfset numVarnts=listlen(p)>
 			
 			<br>numVarnts: #numVarnts#
-			<cfloop from="1" to="#numVarnts#-1" index="a1">
+			
+			<cfset lt1=numVarnts-1>
+			
+			<br>lt1: #lt1#
+			<cfloop from="1" to="#lt1#" index="a1">
 			
 			<br>a1: #a1#
 				<cfloop from="2" to="#numVarnts#" index="a2">
