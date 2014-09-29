@@ -301,17 +301,21 @@
 		
 		
 		<cfset numberOfRows=arraylen(nvars)>
-		
-		<p>
-			There are #numberOfRows# agent variation groupings.
-		</p>
 		<cfif not isdefined("thisrow") or len(thisrow) is 0>
 			<cfset thisrow=1>
 		</cfif>
 		<p>
-			You are on #thisrow#. 
+			You are on <strong>#thisrow#</strong> of <strong>#numberOfRows#</strong> agent variation groupings.
+			<cfif thisrow gt 1>
+				<cfset prev=thisrow-1>
+				<a href="/info/dupAgent.cfm?action=nameVariants&thisrow=#prev#">previous</a>
+			</cfif>
+			<cfif thisrow lt numberOfRows>
+				<cfset next=thisrow+1>
+				<a href="/info/dupAgent.cfm?action=nameVariants&thisrow=#next#">next</a>
+			</cfif>
 		</p>
-		
+	
 		<cfset p=nvars[thisrow]>
 		
 			<hr>
