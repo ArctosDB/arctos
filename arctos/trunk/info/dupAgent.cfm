@@ -301,9 +301,104 @@
 		
 		<cfloop array="#nvars#" index="p">
 			<hr>
+			<cfset numVarnts=listlen(p)>
+			<cfloop from="1" to="#numVarnts#-1" index="a1">
+				<cfloop from="2" to="#numVarnts#" index="a2">
+					<p>
+						select 
+				a.preferred_agent_name name1,
+				b.preferred_agent_name name2
+			from 
+				agent a,
+				agent b
+			where
+				a.agent_id!=b.agent_id and
+				a.preferred_agent_name=replace(b.preferred_agent_name,'#a1#','#a2#') 
+					</p>
+				</cfloop>
+			</cfloop>
+			<!----
+									<cfset temp=ArrayAppend(nvars, 'Susan,Sue,Susie,Suzy')>
+
+
+
+			--1:2
+			select 
+				a.preferred_agent_name name1,
+				b.preferred_agent_name name2
+			from 
+				agent a,
+				agent b
+			where
+				a.agent_id!=b.agent_id and
+				a.preferred_agent_name=replace(b.preferred_agent_name,'Susan','Sue') 
+			
+			1:3
+			select 
+				a.preferred_agent_name name1,
+				b.preferred_agent_name name2
+			from 
+				agent a,
+				agent b
+			where
+				a.agent_id!=b.agent_id and
+				a.preferred_agent_name=replace(b.preferred_agent_name,'Susan','Susie') 
+				
+			1:4
+			select 
+				a.preferred_agent_name name1,
+				b.preferred_agent_name name2
+			from 
+				agent a,
+				agent b
+			where
+				a.agent_id!=b.agent_id and
+				a.preferred_agent_name=replace(b.preferred_agent_name,'Susan','Suzy') 
+				
+			2:3
+			select 
+				a.preferred_agent_name name1,
+				b.preferred_agent_name name2
+			from 
+				agent a,
+				agent b
+			where
+				a.agent_id!=b.agent_id and
+				a.preferred_agent_name=replace(b.preferred_agent_name,'Sue','Susie') 
+				
+			2:4
+			select 
+				a.preferred_agent_name name1,
+				b.preferred_agent_name name2
+			from 
+				agent a,
+				agent b
+			where
+				a.agent_id!=b.agent_id and
+				a.preferred_agent_name=replace(b.preferred_agent_name,'Sue','Suzy') 
+				
+			3:4
+			select 
+				a.preferred_agent_name name1,
+				b.preferred_agent_name name2
+			from 
+				agent a,
+				agent b
+			where
+				a.agent_id!=b.agent_id and
+				a.preferred_agent_name=replace(b.preferred_agent_name,'Susie','Suzy') 
+			
+				
+			<cfif numVarnts gt 1>
+				
+			
+				
+
+			</cfif>
 			<cfloop list="#p#" index="i">
 				<br>#i#
 			</cfloop>
+			---->
 		</cfloop>
 		
 </cfif>	
