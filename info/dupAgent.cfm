@@ -304,6 +304,9 @@
 			<cfset numVarnts=listlen(p)>
 			<cfloop from="1" to="#numVarnts#-1" index="a1">
 				<cfloop from="2" to="#numVarnts#" index="a2">
+					<cfset agent1=listgetat(p,a1)>
+					<cfset agent2=listgetat(p,a2)>
+					
 					<p>
 						select 
 				a.preferred_agent_name name1,
@@ -313,7 +316,7 @@
 				agent b
 			where
 				a.agent_id!=b.agent_id and
-				a.preferred_agent_name=replace(b.preferred_agent_name,'#a1#','#a2#') 
+				a.preferred_agent_name=replace(b.preferred_agent_name,'#agent1#','#agent2#') 
 					</p>
 				</cfloop>
 			</cfloop>
