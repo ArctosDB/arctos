@@ -431,8 +431,9 @@
 			<a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=prev&noFNAbbr=#noFNAbbr#&exclRelated=#exclRelated#">[ previous 100 ]</a>
 		</cfif>
 		<a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=next&noFNAbbr=#noFNAbbr#&exclRelated=#exclRelated#">[ next 100 ]</a>
+		<a href="dupAgent.cfm">[ start over ]</a>
 	</cfif>
-	<a href="dupAgent.cfm">[ start over ]</a>
+	
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Agent1</th>
