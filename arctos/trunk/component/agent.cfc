@@ -530,6 +530,8 @@
 		
 		<cfset nvars=ArrayNew(1)>
 		
+		
+		<!--- make any changes here to info/dupAgent as well ---->
 		<cfset temp=ArrayAppend(nvars, 'Abraham,Abe')>
 		<cfset temp=ArrayAppend(nvars, 'Albert,Al,Bert,Alfred,Alonzo')>
 		<cfset temp=ArrayAppend(nvars, 'Alexandria,Alexandra,Sandy,Sasha,Cassandra,Cassie,Cassy,Alexander,Alec,Alex,Sasha')>
@@ -654,7 +656,7 @@
 		<cfset temp=ArrayAppend(nvars, 'Walter,Walt')>
 		<cfset temp=ArrayAppend(nvars, 'Wesley,Wes')>
 		<cfset temp=ArrayAppend(nvars, 'Wilber,Will,Wilbert')>
-		<cfset temp=ArrayAppend(nvars, 'William,Bill,Will,Willy,Willie,Billy,Billie,Bell,Bela,Willie,WIlly,Wilhelm,Willis')>
+		<cfset temp=ArrayAppend(nvars, 'William,Bill,Will,Willy,Willie,Billy,Billie,Bell,Bela,Willie,Wilhelm,Willis')>
 		
 		<cfset temp=ArrayAppend(nvars, 'Virginia,Ginger,Ginny,Jane,Jenni,Jenny,Gina')>
 		<cfset temp=ArrayAppend(nvars, 'Yolanda,Yolonda')>
