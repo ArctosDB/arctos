@@ -302,6 +302,7 @@
 		<cfloop array="#nvars#" index="p">
 			<cfif left(p,1) is "A">
 			<hr>
+			#p#
 			<cfset numVarnts=listlen(p)>
 			<cfloop from="1" to="#numVarnts#-1" index="a1">
 				<cfloop from="2" to="#numVarnts#" index="a2">
