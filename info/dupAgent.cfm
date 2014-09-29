@@ -354,7 +354,7 @@
 				</cfloop>
 			</cfloop>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				#thesql#
+				#preservesinglequotes(thesql)#
 			</cfquery>
 
 			<!----
