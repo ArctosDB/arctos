@@ -333,10 +333,16 @@
 				<cfloop from="2" to="#numVarnts#" index="a2">
 				
 			<br>a2: #a2#
+			
+			
+	          
+	          
 					<cfset agent1=listgetat(p,a1)>
 					<cfset agent2=listgetat(p,a2)>
 					<cfset thisstmt="select 
 						a.preferred_agent_name name1,
+						a.agent_id id1,
+						b.agent_id id2,
 						b.preferred_agent_name name2
 					from 
 						agent a,
