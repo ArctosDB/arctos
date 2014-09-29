@@ -317,7 +317,7 @@
 		</p>
 	
 		<cfset p=nvars[thisrow]>
-		
+		<cfset thesql="">
 			<hr>
 			#p#
 			<cfset numVarnts=listlen(p)>
@@ -335,20 +335,28 @@
 			<br>a2: #a2#
 					<cfset agent1=listgetat(p,a1)>
 					<cfset agent2=listgetat(p,a2)>
-					
-					<p>
-						select 
-				a.preferred_agent_name name1,
-				b.preferred_agent_name name2
-			from 
-				agent a,
-				agent b
-			where
-				a.agent_id!=b.agent_id and
-				a.preferred_agent_name=replace(b.preferred_agent_name,'#agent1#','#agent2#') 
+					<cfset thisstmt="select 
+						a.preferred_agent_name name1,
+						b.preferred_agent_name name2
+					from 
+						agent a,
+						agent b
+					where
+						a.agent_id!=b.agent_id and
+						a.preferred_agent_name=replace(b.preferred_agent_name,'#agent1#','#agent2#')">
+					<cfif len(thesql) is 0>
+						<cfset thesql=thisstmt>
+					<cfelse>
+						<cfset thesql=thesql & ' UNION ' & thisstmt>
+					</cfif>
+				
 					</p>
 				</cfloop>
 			</cfloop>
+			
+			<p>
+			#thesql#
+			</p>
 			<!----
 									<cfset temp=ArrayAppend(nvars, 'Susan,Sue,Susie,Suzy')>
 
