@@ -317,26 +317,18 @@
 		</p>
 	
 		<cfset p=nvars[thisrow]>
+		
+		<p>
+			Running for agent group #p#
+		</p>
+		<p>
+			It will almost always be worthwhile to edit the "good" agent and add the "bad" name variant as a synonym.
+		</p>
 		<cfset thesql="">
-			<hr>
-			#p#
 			<cfset numVarnts=listlen(p)>
-			
-			<br>numVarnts: #numVarnts#
-			
 			<cfset lt1=numVarnts-1>
-			
-			<br>lt1: #lt1#
 			<cfloop from="1" to="#lt1#" index="a1">
-			
-			<br>a1: #a1#
 				<cfloop from="2" to="#numVarnts#" index="a2">
-				
-			<br>a2: #a2#
-			
-			
-	          
-	          
 					<cfset agent1=listgetat(p,a1)>
 					<cfset agent2=listgetat(p,a2)>
 					<cfset thisstmt="select 
@@ -355,98 +347,11 @@
 					<cfelse>
 						<cfset thesql=thesql & ' UNION ' & thisstmt>
 					</cfif>
-				
-					</p>
 				</cfloop>
 			</cfloop>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(thesql)#
-			</cfquery>
-
-			<!----
-									<cfset temp=ArrayAppend(nvars, 'Susan,Sue,Susie,Suzy')>
-
-
-
-			--1:2
-			select 
-				a.preferred_agent_name name1,
-				b.preferred_agent_name name2
-			from 
-				agent a,
-				agent b
-			where
-				a.agent_id!=b.agent_id and
-				a.preferred_agent_name=replace(b.preferred_agent_name,'Susan','Sue') 
-			
-			1:3
-			select 
-				a.preferred_agent_name name1,
-				b.preferred_agent_name name2
-			from 
-				agent a,
-				agent b
-			where
-				a.agent_id!=b.agent_id and
-				a.preferred_agent_name=replace(b.preferred_agent_name,'Susan','Susie') 
-				
-			1:4
-			select 
-				a.preferred_agent_name name1,
-				b.preferred_agent_name name2
-			from 
-				agent a,
-				agent b
-			where
-				a.agent_id!=b.agent_id and
-				a.preferred_agent_name=replace(b.preferred_agent_name,'Susan','Suzy') 
-				
-			2:3
-			select 
-				a.preferred_agent_name name1,
-				b.preferred_agent_name name2
-			from 
-				agent a,
-				agent b
-			where
-				a.agent_id!=b.agent_id and
-				a.preferred_agent_name=replace(b.preferred_agent_name,'Sue','Susie') 
-				
-			2:4
-			select 
-				a.preferred_agent_name name1,
-				b.preferred_agent_name name2
-			from 
-				agent a,
-				agent b
-			where
-				a.agent_id!=b.agent_id and
-				a.preferred_agent_name=replace(b.preferred_agent_name,'Sue','Suzy') 
-				
-			3:4
-			select 
-				a.preferred_agent_name name1,
-				b.preferred_agent_name name2
-			from 
-				agent a,
-				agent b
-			where
-				a.agent_id!=b.agent_id and
-				a.preferred_agent_name=replace(b.preferred_agent_name,'Susie','Suzy') 
-			
-				
-			<cfif numVarnts gt 1>
-				
-			
-				
-
-			</cfif>
-			<cfloop list="#p#" index="i">
-				<br>#i#
-			</cfloop>
-			---->
-		
-		
+			</cfquery>	
 </cfif>	
 		
 <cfif action is "shareFL">
@@ -517,7 +422,7 @@
 	</cfquery>
 	#start# to #stop# Agents that fully share a namestring.
 </cfif>
-<cfif isdefined("d")>
+<cfif isdefined("d") and action is not "nameVariants">
 	<cfif start gt 1>
 		<a href="dupAgent.cfm?action=#action#&start=#start#&stop=#stop#&int=prev&noFNAbbr=#noFNAbbr#&exclRelated=#exclRelated#">[ previous 100 ]</a>
 	</cfif>
