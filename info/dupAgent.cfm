@@ -299,8 +299,21 @@
 		<cfset temp=ArrayAppend(nvars, 'Zachariah,Zach,Zacharias,Zachary,Zeke')>
 		<cfset temp=ArrayAppend(nvars, 'Zebedee,Zebulon,Zeb')>
 		
-		<cfloop array="#nvars#" index="p">
-			<cfif left(p,1) is "A">
+		
+		<cfset numberOfRows=arraylen(nvars)>
+		
+		<p>
+			There are #numberOfRows# agent variation groupings.
+		</p>
+		<cfif not isdefined("thisrow") or len(thisrow) is 0>
+			<cfset thisrow=1>
+		</cfif>
+		<p>
+			You are on #thisrow#. 
+		</p>
+		
+		<cfset p=nvars[thisrow]>
+		
 			<hr>
 			#p#
 			<cfset numVarnts=listlen(p)>
@@ -414,8 +427,7 @@
 				<br>#i#
 			</cfloop>
 			---->
-			</cfif>
-		</cfloop>
+		
 		
 </cfif>	
 		
