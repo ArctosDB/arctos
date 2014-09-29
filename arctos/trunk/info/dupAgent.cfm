@@ -304,8 +304,14 @@
 			<hr>
 			#p#
 			<cfset numVarnts=listlen(p)>
+			
+			<br>numVarnts: #numVarnts#
 			<cfloop from="1" to="#numVarnts#-1" index="a1">
+			
+			<br>a1: #a1#
 				<cfloop from="2" to="#numVarnts#" index="a2">
+				
+			<br>a2: #a2#
 					<cfset agent1=listgetat(p,a1)>
 					<cfset agent2=listgetat(p,a2)>
 					
