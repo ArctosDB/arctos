@@ -353,10 +353,10 @@
 					</p>
 				</cfloop>
 			</cfloop>
-			
-			<p>
-			#thesql#
-			</p>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				#thesql#
+			</cfquery>
+
 			<!----
 									<cfset temp=ArrayAppend(nvars, 'Susan,Sue,Susie,Suzy')>
 
