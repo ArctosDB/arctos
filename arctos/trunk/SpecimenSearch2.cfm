@@ -1,3 +1,10 @@
+
+<!---- replace table layout with CSS experiment ---->
+
+
+
+
+
 <cfinclude template="/includes/_header.cfm">
 <cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>

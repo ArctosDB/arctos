@@ -107,6 +107,14 @@
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
+		
+		<cfif isdefined("cgi.HTTP_REFERER") and cgi.HTTP_REFERER contains "/bash">
+			<cfinclude template="/errors/autoblacklist.cfm">
+			<cfabort>
+		</cfif>
+		
+		
+		
 		<cfif right(request.rdurl,5) is "-1%27">
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
