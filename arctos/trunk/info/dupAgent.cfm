@@ -300,6 +300,7 @@
 		<cfset temp=ArrayAppend(nvars, 'Zebedee,Zebulon,Zeb')>
 		
 		<cfloop array="#nvars#" index="p">
+			<cfif left(p,1) is "A">
 			<hr>
 			<cfset numVarnts=listlen(p)>
 			<cfloop from="1" to="#numVarnts#-1" index="a1">
@@ -402,6 +403,7 @@
 				<br>#i#
 			</cfloop>
 			---->
+			</cfif>
 		</cfloop>
 		
 </cfif>	
