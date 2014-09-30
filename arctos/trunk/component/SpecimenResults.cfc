@@ -168,6 +168,19 @@
 				var data=$("#refineResults").serialize();
 				console.log(data);
 				return false;
+
+var serializedForm = $("#refineResults").serializeArray();
+//trim values
+for(var i =0, len = serializedForm.length;i<len;i++){
+
+	console.log(serializedForm[i]);
+
+
+//  serializedForm[i] = $.trim(serializedForm[i]);
+}
+
+
+
 			});
 		});
 	</script>
