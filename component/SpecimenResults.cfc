@@ -170,6 +170,9 @@
 				return false;
 
 var serializedForm = $("#refineResults").serializeArray();
+
+				console.log(serializedForm);
+
 //trim values
 for(var i =0, len = serializedForm.length;i<len;i++){
 
