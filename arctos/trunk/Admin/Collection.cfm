@@ -4,7 +4,7 @@
 <cfoutput>
 	Find Collection:
 	<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from collection order by collection
+		select * from collection order by guid_prefix
 	</cfquery>
 	<form name="coll" method="post" action="Collection.cfm">
 		<input type="hidden" name="action" value="findColl">
@@ -417,7 +417,6 @@
 	<cftransaction>
 	<cfquery name="modColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		UPDATE collection SET
-			guid_prefix = '#guid_prefix#',
 			DESCR='#escapeQuotes(descr)#',
 			web_link='#web_link#',
 			web_link_text='#web_link_text#',

@@ -248,8 +248,12 @@
 			font-size: 130%;			
 		}
 		#cntr_refineSearchTerms {
-			max-height:15em;
-			overflow:scroll;
+			max-height:25em;
+			overflow:auto;
+		}
+		#ssttble_ctr {
+		max-height:15em;
+			overflow:auto;
 		}
 	/* END  suggest/browse widget */
 

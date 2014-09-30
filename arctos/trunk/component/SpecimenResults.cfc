@@ -231,6 +231,7 @@
 			<a id="fbSWT" class="infoLink" href="/contact.cfm?ref=SpecimenResultsWidget">[ provide feedback ]</a>
 			<div id="refineSearchTerms" style="#thisStyle#">
 			<form name="refineResults" id="refineResults" method="get" action="/SpecimenResults.cfm">
+				<div id="ssttble_ctr">
 				<table id="stermwdgtbl" border>
 					<tr>
 						<th>Term</th>
@@ -265,6 +266,7 @@
 							</tr>
 					</cfloop>
 					</table>
+					</div>
 					<cfif len(keylist) is 0>
 						<cfset keylist='doesNotExist'>
 					</cfif>
