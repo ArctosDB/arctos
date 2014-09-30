@@ -161,6 +161,16 @@
 			</cfsavecontent>
 			<cfreturn widget>
 		</cfif>
+		<script>
+			$(document).ready(function () {
+	$("#refineResults").submit(function(event){
+		event.preventDefault();
+		var data=$("#refineResults").serialize();
+		console.log(data);
+		return false;
+	});
+		});
+		</script>
 		<cfquery name="ssrch_field_doc" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,0,0)#">
 			select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 		</cfquery>
