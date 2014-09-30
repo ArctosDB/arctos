@@ -144,13 +144,6 @@ $(document).ready(function () {
 			window.open("/bnhmMaps/kml.cfm", "_blank");
 		}
 	});
-	
-	$("#refineResults").submit(function(event){
-		event.preventDefault();
-		var data=$("#refineResults").serialize();
-		console.log(data);
-		return false;
-	});
 });
 
 
