@@ -144,6 +144,12 @@ $(document).ready(function () {
 			window.open("/bnhmMaps/kml.cfm", "_blank");
 		}
 	});
+	
+	$("#refineResults").submit(function(event){
+		event.preventDefault();
+		var data=$("#refineResults").serialize();
+		console.log(data);
+	});
 });
 
 
@@ -647,13 +653,8 @@ function addARow(tv){
 		},
 		function (result) {
 			$('#stermwdgtbl tr:last').after(result);
-			$("#newTerm option[value='" + tv + "']").remove();
-			console.log('scrolley....');
-			
+			$("#newTerm option[value='" + tv + "']").remove();			
 			$("#ssttble_ctr").scrollTo( $('#stermwdgtbl tr:last'), 800 );
-			console.log('scrolleyed....');
-
-			
 		}
 	);
 }
