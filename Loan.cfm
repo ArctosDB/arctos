@@ -1813,7 +1813,7 @@ just fooling idiot cfclipse into using the right colors
 	<cfelse>
 			Go to....<select name="nav" id="nav" onchange="document.location=this.value">
 				<option value=""></option>
-				<option value="/SpecimenResults.cfm?loan_permit_trans_id=#valuelist(allLoans.transaction_id)#">Specimen Results</option>
+				<option value="/SpecimenResults.cfm?loan_trans_id=#valuelist(allLoans.transaction_id)#">Specimen Results</option>
 				<option value="/Reports/report_printer.cfm?report=multi_loan_report&transaction_id=#valuelist(allLoans.transaction_id)#">UAM Mammals report</option>
 				<option value="/Reports/report_printer.cfm?transaction_id=#valuelist(allLoans.transaction_id)#">Reporter</option>
 			</select>
