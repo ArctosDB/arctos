@@ -169,7 +169,7 @@
 				console.log(data);
 				return false;
 
-var serializedForm = $("#refineResults").serializeArray();
+var serializedForm = jQuery("#refineResults").serializeArray();
 
 				console.log(serializedForm);
 
