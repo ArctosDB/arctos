@@ -650,7 +650,7 @@ function addARow(tv){
 			$("#newTerm option[value='" + tv + "']").remove();
 			console.log('scrolley....');
 			
-			$(document).scrollTo( $('#stermwdgtbl tr:last'), 800 );
+			$("#ssttble_ctr").scrollTo( $('#stermwdgtbl tr:last'), 800 );
 			console.log('scrolleyed....');
 
 			
