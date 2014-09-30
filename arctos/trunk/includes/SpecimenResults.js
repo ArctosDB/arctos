@@ -149,6 +149,7 @@ $(document).ready(function () {
 		event.preventDefault();
 		var data=$("#refineResults").serialize();
 		console.log(data);
+		return false;
 	});
 });
 
