@@ -228,6 +228,80 @@
 	</cfif>
 	<cfset collObjIdList = valuelist(summary.collection_object_id)>
 	<cfparam name="transaction_id" default="">
+	<!---- see if users have searched for min-max/max-mar error ---->
+	<cfset userSrchMaxErr=99999999999999999999999>
+	<cfset precisionmapurl=mapurl>
+	<cfif mapurl contains "max_max_error">
+		<cfloop list="#mapurl#" delimiters="&?" index="i">
+			<cfif listgetat(i,1,"=") is "max_max_error">
+				<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "max_max_error=[^&]+&?", "")>
+				<cfset userSrchMaxErr=listgetat(i,2,"=")>
+			<cfelseif listgetat(i,1,"=") is "min_max_error">
+				<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "min_max_error=[^&]+&?", "")>
+				<cfset meu=listgetat(i,2,"=")>
+			<cfelseif listgetat(i,1,"=") is "max_error_units">
+				<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "max_error_units=[^&]+&?", "")>
+			</cfif>
+		</cfloop>
+	</cfif>
+	<cfif isdefined("meu") and meu is not "m">
+		<cfif meu is "ft">
+			<cfset userSrchMaxErr=userSrchMaxErr * .3048>
+		<cfelseif meu is "km">
+			<cfset userSrchMaxErr=userSrchMaxErr * 1000>
+		<cfelseif meu is "mi">
+			<cfset userSrchMaxErr=userSrchMaxErr * 1609.344>
+		<cfelseif meu is "yd">
+			<cfset userSrchMaxErr=userSrchMaxErr * .9144>
+		</cfif>
+	</cfif>
+	<cfquery dbtype="query" name="willmap">
+		select * from summary where dec_lat is not null
+	</cfquery>
+	<cfquery dbtype="query" name="noerr">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is null
+	</cfquery>
+	<cfquery dbtype="query" name="err_lt100">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <= 100
+	</cfquery>
+	<cfquery dbtype="query" name="err_lt1000">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=1000
+	</cfquery>
+	<cfquery dbtype="query" name="err_lt10000">
+		select count(*) c from summary where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=10000
+	</cfquery>
+	<cfquery dbtype="query" name="haserr">
+		select count(*) c from willmap where coordinateuncertaintyinmeters is not null
+	</cfquery>
+	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
+	<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
+	
+	<table width="100%">
+		<tr>
+			<td  class="valigntop" width="65%">
+				<div id="cntr_refineSearchTerms"></div>
+			</td>
+			<td class="valigntop" align="center">
+				<cfif session.srmapclass is "nomap">
+					<cfset d1="display:none;">
+					<cfset d2="">
+				<cfelse>
+					<cfset d1="">
+					<cfset d2="display:none;">
+				</cfif>
+				<div id="spresmapdiv" style="#d1#" class="#session.srmapclass#"></div>
+				<div id="srmapctrls" style="text-align:center; #d1#">
+					<span class="infoLink" onclick="resizeMap('nomap');">none</span>~
+					<span class="infoLink" onclick="resizeMap('tinymap');">tiny</span>~
+					<span class="infoLink" onclick="resizeMap('smallmap');">small</span>~
+					<span class="infoLink" onclick="resizeMap('largemap');">large</span>~
+					<span class="infoLink" onclick="resizeMap('hugemap');">huge</span>~
+					<span class="infoLink #session.srmapclass#" onclick="queryByViewport();">QueryByViewport</span>
+				</div>
+				<div id="srmapctrls-nomap" style="#d2#" class="likeLink">[ Show Map ]</div>
+			</td>
+		</tr>
+	</table>
 	<form name="controls">
 		<!--- keep stuff around for JS to get at --->
 		<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
@@ -238,80 +312,6 @@
 		<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
 		<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 		<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">		
-		<!---- see if users have searched for min-max/max-mar error ---->
-		<cfset userSrchMaxErr=99999999999999999999999>
-		<cfset precisionmapurl=mapurl>
-		<cfif mapurl contains "max_max_error">
-			<cfloop list="#mapurl#" delimiters="&?" index="i">
-				<cfif listgetat(i,1,"=") is "max_max_error">
-					<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "max_max_error=[^&]+&?", "")>
-					<cfset userSrchMaxErr=listgetat(i,2,"=")>
-				<cfelseif listgetat(i,1,"=") is "min_max_error">
-					<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "min_max_error=[^&]+&?", "")>
-					<cfset meu=listgetat(i,2,"=")>
-				<cfelseif listgetat(i,1,"=") is "max_error_units">
-					<cfset precisionmapurl = reReplaceNoCase(precisionmapurl, "max_error_units=[^&]+&?", "")>
-				</cfif>
-			</cfloop>
-		</cfif>
-		<cfif isdefined("meu") and meu is not "m">
-			<cfif meu is "ft">
-				<cfset userSrchMaxErr=userSrchMaxErr * .3048>
-			<cfelseif meu is "km">
-				<cfset userSrchMaxErr=userSrchMaxErr * 1000>
-			<cfelseif meu is "mi">
-				<cfset userSrchMaxErr=userSrchMaxErr * 1609.344>
-			<cfelseif meu is "yd">
-				<cfset userSrchMaxErr=userSrchMaxErr * .9144>
-			</cfif>
-		</cfif>
-		<cfquery dbtype="query" name="willmap">
-			select * from summary where dec_lat is not null
-		</cfquery>
-		<cfquery dbtype="query" name="noerr">
-			select count(*) c from willmap where coordinateuncertaintyinmeters is null
-		</cfquery>
-		<cfquery dbtype="query" name="err_lt100">
-			select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <= 100
-		</cfquery>
-		<cfquery dbtype="query" name="err_lt1000">
-			select count(*) c from willmap where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=1000
-		</cfquery>
-		<cfquery dbtype="query" name="err_lt10000">
-			select count(*) c from summary where coordinateuncertaintyinmeters is not null and coordinateuncertaintyinmeters <=10000
-		</cfquery>
-		<cfquery dbtype="query" name="haserr">
-			select count(*) c from willmap where coordinateuncertaintyinmeters is not null
-		</cfquery>
-		<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
-		<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
-		
-		<table width="100%">
-			<tr>
-				<td  class="valigntop" width="65%">
-					<div id="cntr_refineSearchTerms"></div>
-				</td>
-				<td class="valigntop" align="center">
-					<cfif session.srmapclass is "nomap">
-						<cfset d1="display:none;">
-						<cfset d2="">
-					<cfelse>
-						<cfset d1="">
-						<cfset d2="display:none;">
-					</cfif>
-					<div id="spresmapdiv" style="#d1#" class="#session.srmapclass#"></div>
-					<div id="srmapctrls" style="text-align:center; #d1#">
-						<span class="infoLink" onclick="resizeMap('nomap');">none</span>~
-						<span class="infoLink" onclick="resizeMap('tinymap');">tiny</span>~
-						<span class="infoLink" onclick="resizeMap('smallmap');">small</span>~
-						<span class="infoLink" onclick="resizeMap('largemap');">large</span>~
-						<span class="infoLink" onclick="resizeMap('hugemap');">huge</span>~
-						<span class="infoLink #session.srmapclass#" onclick="queryByViewport();">QueryByViewport</span>
-					</div>
-					<div id="srmapctrls-nomap" style="#d2#" class="likeLink">[ Show Map ]</div>
-				</td>
-			</tr>
-		</table>
 		<cfif cpc gte mapRecordLimit>
 			(The inline map contains only the first #mapRecordLimit# localities.)
 		</cfif>
