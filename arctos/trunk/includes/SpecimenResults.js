@@ -648,6 +648,12 @@ function addARow(tv){
 		function (result) {
 			$('#stermwdgtbl tr:last').after(result);
 			$("#newTerm option[value='" + tv + "']").remove();
+			console.log('scrolley....');
+			
+			$scrollTo( $('#stermwdgtbl tr:last'), 800 );
+			console.log('scrolleyed....');
+
+			
 		}
 	);
 }
