@@ -236,7 +236,9 @@
 					<cfset idx=idx+1>
 				</cfif>
 			</cfif>
-		</cfloop>		
+		</cfloop>
+		
+		<cfdump var=#sugntab#>	
 		<cfsavecontent variable="widget">
 			<span class="likeLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			<cfif session.ResultsBrowsePrefs is 1>
