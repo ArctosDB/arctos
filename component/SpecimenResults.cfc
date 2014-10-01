@@ -180,18 +180,18 @@ for(var i =0, len = serializedForm.length;i<len;i++){
 	console.log(serializedForm[i].value);
 
 
-	if (serializedForm[i].value.length === 0){
+	if (serializedForm[i].value.length >  0){
 		nnvals.push(serializedForm[i]);
 	}
 
 
-	console.log(nnvals);
 
 
 
 //  serializedForm[i] = $.trim(serializedForm[i]);
 }
 
+	console.log(nnvals);
 
 
 			});
