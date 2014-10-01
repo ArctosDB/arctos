@@ -199,6 +199,9 @@
 				<cfset thisKey=replace(kvp,'|','','all')>
 				<cfset thisValue=''>
 			</cfif>
+			
+			<br>thisKey: #thisKey#
+			<br>thisValue: #thisValue#
 			<cfif not listfindnocase(keylist,thisKey)>
 				<cfset keylist=listappend(keylist,thisKey)>
 				<cfquery name="thisMoreInfo" dbtype="query">
