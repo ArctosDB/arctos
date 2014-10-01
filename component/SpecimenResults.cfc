@@ -181,7 +181,7 @@ for(var i =0, len = serializedForm.length;i<len;i++){
 
 
 	if (serializedForm[i].value.length >  0){
-		nnvals.push(serializedForm[i]);
+		nnvals.push(serializedForm[i].name + '=' + serializedForm[i].value);
 	}
 
 
@@ -194,14 +194,7 @@ for(var i =0, len = serializedForm.length;i<len;i++){
 	console.log(nnvals);
 
 
-var str = "";
-for (var key in nnvals) {
-    if (str != "") {
-        str += "&";
-    }
-    str += key + "=" + nnvals[key];
-}
-
+var str = nnvals.split('&');
 
 	console.log(str);
 
