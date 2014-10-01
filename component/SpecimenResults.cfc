@@ -167,9 +167,8 @@
 				event.preventDefault();
 				var data=$("#refineResults").serialize();
 				console.log(data);
-				return false;
 
-var serializedForm = jQuery("#refineResults").serializeArray();
+var serializedForm = $("#refineResults").serializeArray();
 
 				console.log(serializedForm);
 
