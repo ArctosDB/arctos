@@ -48,7 +48,7 @@
 	<cfset basQual = "">
 	<cfset mapurl="">
 	<cfinclude template="/includes/SearchSql.cfm">
-	<cfset session.mapurl=urlencode(mapurl)>
+	<cfset session.mapurl=URLEncodedFormat(mapurl)>
 	
 	<cfdump var=#session.mapurl#>
 	
