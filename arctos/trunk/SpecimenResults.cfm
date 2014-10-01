@@ -49,10 +49,6 @@
 	<cfset mapurl="">
 	<cfinclude template="/includes/SearchSql.cfm">
 	<cfset session.mapurl=URLEncodedFormat(mapurl)>
-	
-	<cfdump var=#session.mapurl#>
-	
-	
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 	<cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>

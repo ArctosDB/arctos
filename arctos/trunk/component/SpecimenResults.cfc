@@ -237,8 +237,6 @@
 				</cfif>
 			</cfif>
 		</cfloop>
-		
-		<cfdump var=#sugntab#>	
 		<cfsavecontent variable="widget">
 			<span class="likeLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
 			<cfif session.ResultsBrowsePrefs is 1>
@@ -269,7 +267,7 @@
 								<span class="#thisSpanClass#" id="_#sugntab.key#" title="#sugntab.DEFINITION#">#replace(sugntab.DISPLAY_TEXT," ","&nbsp;","all")#</span>
 							</td>
 								<td>
-									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#URLEncodedFormat(sugntab.val)#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
+									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#sugntab.val#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
 								</td>
 								<td id="voccell_#sugntab.key#">
 									<cfif len(sugntab.vocab) gt 0>
