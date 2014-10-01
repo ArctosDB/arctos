@@ -185,7 +185,7 @@ for(var i =0, len = serializedForm.length;i<len;i++){
 	}
 
 
-	console.log(serializedForm[i]);
+	console.log(serializedForm);
 
 
 
