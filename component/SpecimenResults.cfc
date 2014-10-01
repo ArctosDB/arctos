@@ -190,7 +190,6 @@
 		<cfset idx=1>
 		<cfset thisValue="">
 		
-		<cfdump var="#session.mapURL#">
 		<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
 			<cfset kvp=replace(kvp,"=","|","first")>
 			<cfif listlen(kvp,"|") is 2>
@@ -201,9 +200,6 @@
 				<cfset thisKey=replace(kvp,'|','','all')>
 				<cfset thisValue=''>
 			</cfif>
-			
-			<br>thisKey: #thisKey#
-			<br>thisValue: #thisValue#
 			<cfif not listfindnocase(keylist,thisKey)>
 				<cfset keylist=listappend(keylist,thisKey)>
 				<cfquery name="thisMoreInfo" dbtype="query">
