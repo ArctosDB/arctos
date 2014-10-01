@@ -176,6 +176,8 @@ var serializedForm = $("#refineResults").serializeArray();
 for(var i =0, len = serializedForm.length;i<len;i++){
 
 	console.log(serializedForm[i]);
+	console.log(serializedForm[i].name);
+	console.log(serializedForm[i].value);
 
 
 //  serializedForm[i] = $.trim(serializedForm[i]);
