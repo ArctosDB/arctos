@@ -180,6 +180,15 @@ for(var i =0, len = serializedForm.length;i<len;i++){
 	console.log(serializedForm[i].value);
 
 
+	if (serializedForm[i].value.length === 0){
+		serializedForm.splice(i, 1);
+	}
+
+
+	console.log(serializedForm[i]);
+
+
+
 //  serializedForm[i] = $.trim(serializedForm[i]);
 }
 
