@@ -197,6 +197,7 @@ for(var i =0, len = serializedForm.length;i<len;i++){
 var str = nnvals.join('&');
 
 	console.log(str);
+document.location="/SpecimenResults.cfm?" + str;
 
 			});
 		});
