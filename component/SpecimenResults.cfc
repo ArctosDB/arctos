@@ -192,8 +192,8 @@ for(var i =0, len = serializedForm.length;i<len;i++){
 }
 
 	console.log(nnvals);
-var url = nnvals.join('&');
-	console.log(url);
+var x = nnvals.join('&');
+	console.log(x);
 
 			});
 		});
