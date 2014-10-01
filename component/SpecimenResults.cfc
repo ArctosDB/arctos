@@ -181,7 +181,7 @@ for(var i =0, len = serializedForm.length;i<len;i++){
 
 
 	if (serializedForm[i].value.length >  0){
-		nnvals.push(serializedForm[i].name + '=' + serializedForm[i].value);
+		nnvals.push(serializedForm[i].name + '=' + encodeURIComponent(serializedForm[i].value));
 	}
 
 
