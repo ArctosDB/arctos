@@ -192,8 +192,18 @@ for(var i =0, len = serializedForm.length;i<len;i++){
 }
 
 	console.log(nnvals);
-var x = nnvals.join('&');
-	console.log(x);
+
+
+var str = "";
+for (var key in nnvals) {
+    if (str != "") {
+        str += "&";
+    }
+    str += key + "=" + nnvals[key];
+}
+
+
+	console.log(str);
 
 			});
 		});
