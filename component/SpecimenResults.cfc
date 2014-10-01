@@ -165,40 +165,15 @@
 		$(document).ready(function () {
 			$("#refineResults").submit(function(event){
 				event.preventDefault();
-				var data=$("#refineResults").serialize();
-				console.log(data);
-
-var serializedForm = $("#refineResults").serializeArray();
-var nnvals=[];
-				console.log(serializedForm);
-
-//trim values
-for(var i =0, len = serializedForm.length;i<len;i++){
-
-	console.log(serializedForm[i]);
-	console.log(serializedForm[i].name);
-	console.log(serializedForm[i].value);
-
-
-	if (serializedForm[i].value.length >  0){
-		nnvals.push(serializedForm[i].name + '=' + encodeURIComponent(serializedForm[i].value));
-	}
-
-
-
-
-
-//  serializedForm[i] = $.trim(serializedForm[i]);
-}
-
-	console.log(nnvals);
-
-
-var str = nnvals.join('&');
-
-	console.log(str);
-document.location="/SpecimenResults.cfm?" + str;
-
+				var serializedForm = $("#refineResults").serializeArray();
+				var nnvals=[];
+				for(var i =0, len = serializedForm.length;i<len;i++){
+					if (serializedForm[i].value.length >  0){
+						nnvals.push(serializedForm[i].name + '=' + encodeURIComponent(serializedForm[i].value));
+					}
+				}
+				var str = nnvals.join('&');
+				document.location="/SpecimenResults.cfm?" + str;
 			});
 		});
 	</script>
@@ -292,7 +267,7 @@ document.location="/SpecimenResults.cfm?" + str;
 								<span class="#thisSpanClass#" id="_#sugntab.key#" title="#sugntab.DEFINITION#">#replace(sugntab.DISPLAY_TEXT," ","&nbsp;","all")#</span>
 							</td>
 								<td>
-									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#sugntab.val#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
+									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#URLEncodedFormat(sugntab.val)#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
 								</td>
 								<td id="voccell_#sugntab.key#">
 									<cfif len(sugntab.vocab) gt 0>
