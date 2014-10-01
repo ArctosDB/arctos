@@ -169,7 +169,7 @@
 				console.log(data);
 
 var serializedForm = $("#refineResults").serializeArray();
-
+var nnvals=[];
 				console.log(serializedForm);
 
 //trim values
@@ -181,11 +181,11 @@ for(var i =0, len = serializedForm.length;i<len;i++){
 
 
 	if (serializedForm[i].value.length === 0){
-		serializedForm.splice(i, 1);
+		nnvals.push(serializedForm[i]);
 	}
 
 
-	console.log(serializedForm);
+	console.log(nnvals);
 
 
 
