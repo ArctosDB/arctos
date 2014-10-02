@@ -480,8 +480,7 @@
 
 
 				<cfif thisAcceptedIdFg is 1 and thisTaxaFormula is 'A {string}'>
-							<cfset thisScientificName = evaluate("scientific_name_" & n)>
-
+					<cfset thisScientificName = evaluate("scientific_name_" & n)>
 					<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						UPDATE identification SET
 						scientific_name = '#escapeQuotes(thisScientificName)#',
@@ -495,31 +494,28 @@
 						</cfif>
 						where identification_id=#thisIdentificationId#
 					</cfquery>
-					
-					
-					<p>need to check for taxa.....</p>
-					
-					<p>delete from identification_taxonomy where identification_id=#thisIdentificationId#</p>
-					
-					
-								<cfset numtaxa = evaluate("number_of_taxa_" & n)>
-
-
-
-
+					<cfquery name="killlinks" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						delete from identification_taxonomy where identification_id=#thisIdentificationId#
+					</cfquery>
+					<cfset numtaxa = evaluate("number_of_taxa_" & n)>
 					<cfloop from ="1" to="#numtaxa#" index="i">
 						<cfset thisTaxonName=evaluate("taxon_name_" & n & "_" & i)>
-						<cfif thisTaxonName is "DELETE">
-							<br>delete do nothing
-						<cfelse>
+						<cfif thisTaxonName is not "DELETE">
 							<cfset thisTaxonNameID=evaluate("taxon_name_id_" & n & "_" & i)>
 							<cfif len(thisTaxonNameID) gt 0>
-								<br>insert....#thisTaxonNameID#
+								<cfquery name="newlink" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									insert into identification_taxonomy (
+										IDENTIFICATION_ID,TAXON_NAME_ID,VARIABLE
+									) values (
+										#thisIdentificationId#,
+										#thisTaxonNameID#,
+										'A'
+									)
+								</cfquery>
 							</cfif>
 						</cfif>
 					</cfloop>
 				<cfelse>
-				
 					<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						UPDATE identification SET
 						nature_of_id = '#thisNature#',
@@ -533,8 +529,6 @@
 						where identification_id=#thisIdentificationId#
 					</cfquery>
 				</cfif>
-				
-							
 				<cfloop from="1" to="#thisNumIds#" index="nid">
 					<cftry>
 						<!--- couter does not increment backwards - may be a few empty loops in here ---->
@@ -583,13 +577,8 @@
 				</cfloop>
 			</cfif>
 		</cfloop>
-	</cftransaction>
-	
-	<!----
+	</cftransaction>	
 	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
-	
-	
-	---->
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------->
