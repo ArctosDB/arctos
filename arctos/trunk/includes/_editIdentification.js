@@ -1,3 +1,7 @@
+function deleteAssTax(i,n){
+	$("#taxon_name_" + i + "_" + n).val('DELETE');
+}
+
 function flippedAccepted(c) {
 	var cvs='accepted_id_fg_'+c;
 	var cv=document.getElementById(cvs).value;

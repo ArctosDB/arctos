@@ -303,6 +303,7 @@
 							<input type="text" name="taxon_name_#i#_#n#" id="taxon_name_#i#_#n#" size="50" value="#taxon_name#"
 								onChange="taxaPick('taxon_name_id_#i#_#n#',this.id,'editIdentification',this.value); return false;"
 								onKeyPress="return noenter(event);" placeholder="pick a taxon name">
+								<img src='/images/del.gif' class="likeLink" onclick="deleteAssTax(#i#,#n#)">
 							<input type="hidden" name="taxon_name_id_#i#_#n#" id="taxon_name_id_#i#_#n#" value="#taxon_name_id#">
 						</div>
 						<cfset n=n+1>
