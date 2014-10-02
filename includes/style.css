@@ -100,6 +100,13 @@
 		font-size:1.2em
 	}
 	
+	/* Carla doesn't like linunder
+	.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label {
+    	border-top: 1px solid;
+    	border:bottom: none;
+    	font-weight: bold;
+    	text-align: center;
+	}
 	/* visited links in multiselect are strange, so override them */
 	
 	.ui-helper-reset a, ui-helper-reset a:visited {
