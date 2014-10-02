@@ -89,7 +89,7 @@
          <td>
 		  	<input type="text" name="taxona" id="taxona" class="reqdClr" size="50"
 				onChange="taxaPick('taxona_id','taxona','newID',this.value); return false;"
-				onKeyPress="return noenter(event);">
+				onKeyPress="return noenter(event);" placeholder="pick a taxon name">
 			<input type="hidden" name="taxona_id" id="taxona_id" class="reqdClr">
 		</td>
   	</tr>
@@ -98,7 +98,7 @@
 			<div class="helpLink" id="user_identification">Identification:</div>
 		</td>
          <td>
-		  	<input type="text" name="user_id" id="user_id" size="50">
+		  	<input type="text" name="user_id" id="user_id" size="50" placeholder="type the identification string">
 		</td>
   	</tr>
 	<tr id="taxon_b_row" style="display:none;">
@@ -108,7 +108,7 @@
         <td>
 			<input type="text" name="taxonb" id="taxonb"  size="50"
 				onChange="taxaPick('taxonb_id','taxonb','newID',this.value); return false;"
-				onKeyPress="return noenter(event);">
+				onKeyPress="return noenter(event);" placeholder="pick a taxon name">
 			<input type="hidden" name="taxonb_id" id="taxonb_id">
 		</td>
   	</tr>
