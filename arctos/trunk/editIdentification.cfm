@@ -470,7 +470,52 @@
 					</cfquery>
 
 			<cfelse>
-				<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				
+
+
+
+
+				<cfif accepted_id_fg is 1 and taxa_formula is 'A {string}'>
+				
+					<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						UPDATE identification SET
+						scientific_name = '#escapeQuotes(scientific_name)#',
+						nature_of_id = '#thisNature#',
+						made_date = '#thisMadeDate#',
+						identification_remarks = '#escapeQuotes(thisIdRemark)#'
+						<cfif len(thisPubId) gt 0>
+							,publication_id = #thisPubId#
+						<cfelse>
+							,publication_id = NULL
+						</cfif>
+						where identification_id=#thisIdentificationId#
+					</cfquery>
+					
+					
+					<p>need to check for taxa.....</p>
+					
+					<p>delete from identification_taxonomy where identification_id=#thisIdentificationId#</p>
+					
+					
+								<cfset numtaxa = evaluate("number_of_taxa_" & n)>
+
+
+
+
+					<cfloop from ="1" to="#numtaxa#" index="i">
+						<cfset thisTaxonName=evaluate("taxon_name_" & n & "_" & i)>
+						<cfif thisTaxonName is "DELETE">
+							<br>delete do nothing
+						<cfelse>
+							<cfset thisTaxonNameID=evaluate("taxon_name_id_" & n & "_" & i)>
+							<cfif len(thisTaxonNameID) gt 0>
+								<br>insert....#thisTaxonNameID#
+							</cfif>
+						</cfif>
+					</cfloop>
+				<cfelse>
+				
+					<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						UPDATE identification SET
 						nature_of_id = '#thisNature#',
 						made_date = '#thisMadeDate#',
@@ -480,9 +525,11 @@
 						<cfelse>
 							,publication_id = NULL
 						</cfif>
-					where identification_id=#thisIdentificationId#
-				</cfquery>
-
+						where identification_id=#thisIdentificationId#
+					</cfquery>
+				</cfif>
+				
+							
 				<cfloop from="1" to="#thisNumIds#" index="nid">
 					<cftry>
 						<!--- couter does not increment backwards - may be a few empty loops in here ---->
@@ -532,7 +579,12 @@
 			</cfif>
 		</cfloop>
 	</cftransaction>
+	
+	<!----
 	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
+	
+	
+	---->
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------->
