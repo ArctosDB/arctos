@@ -2,7 +2,7 @@
 <cf_customizeIFrame>
 <cfif action is "nothing">
 	<cfoutput>
-	<cfquery name="getParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
 			specimen_part.collection_object_id as partID,
 			specimen_part.part_name,
@@ -41,6 +41,38 @@
 	</cfquery>
 	<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select coll_obj_disposition from ctcoll_obj_disp order by coll_obj_disposition
+	</cfquery>
+	<cfquery name="getParts" dbtype="query">
+		select 
+			partID,
+			part_name,
+			coll_obj_disposition,
+			condition,
+			sampled_from_obj_id,
+			collection_cde,
+			lot_count,
+			barcode,
+			label,
+			parentContainerId,
+			partContainerId,
+			print_fg,
+			coll_object_remarks
+		from raw
+		group by
+			partID,
+			part_name,
+			coll_obj_disposition,
+			condition,
+			sampled_from_obj_id,
+			collection_cde,
+			lot_count,
+			barcode,
+			label,
+			parentContainerId,
+			partContainerId,
+			print_fg,
+			coll_object_remarks
+		ORDER BY sampled_from_obj_id DESC,part_name ASC
 	</cfquery>
  	<b>Edit #getParts.recordcount# Specimen Parts</b>&nbsp;<span class="infoLink" onClick="getDocs('parts')">help</span>
 	<br><a href="/findContainer.cfm?collection_object_id=#collection_object_id#">Part Locations</a>
