@@ -477,7 +477,7 @@
 
 
 
-				<cfif thisAcceptedIdFg is 1 and taxa_formula is 'A {string}'>
+				<cfif thisAcceptedIdFg is 1 and thisTaxaFormula is 'A {string}'>
 				
 					<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						UPDATE identification SET
