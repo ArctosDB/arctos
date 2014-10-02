@@ -91,9 +91,6 @@
 			---->
 			<cfif not #listcontains(listedParts, getParts.partID)#>
 				<cfset listedParts = "#listedParts#,#getParts.partID#">
-				
-				
-				
 			<cfif i mod 2 eq 0>
 				<cfset bgc = "##C0C0C0">
 			<cfelse>
@@ -177,7 +174,7 @@
 								newPart.coll_object_remarks.value='#coll_object_remarks#';">	
 					</td>
 				</tr>
-				<cfquery name="pAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				<cfquery name="pAtt" dbtype="query">
 					select
 						 part_attribute_id,
 						 attribute_type,
@@ -186,12 +183,10 @@
 						 determined_date,
 						 determined_by_agent_id,
 						 attribute_remark,
-						 agent_name
+						 part_attribute_determiner agent_name
 					from
-						specimen_part_attribute,
-						preferred_agent_name
+						raw
 					where
-						specimen_part_attribute.determined_by_agent_id=preferred_agent_name.agent_id (+) and
 						collection_object_id=#partID#
 				</cfquery>
 				<tr bgcolor="#bgc#">
