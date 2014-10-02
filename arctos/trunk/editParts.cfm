@@ -16,7 +16,7 @@
 			parentContainer.container_id AS parentContainerId,
 			thisContainer.container_id AS partContainerId,
 			parentContainer.print_fg,
-			coll_object_remark.coll_object_remarks
+			coll_object_remark.coll_object_remarks,
 			specimen_part_attribute.part_attribute_id,
 			specimen_part_attribute.attribute_type,
 			specimen_part_attribute.attribute_value,
