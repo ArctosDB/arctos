@@ -3,10 +3,18 @@
 <script type='text/javascript' src='/includes/checkForm.js'></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		$("#made_date").datepicker();
-		$("input[id^='made_date_']").each(function(){
-			$("#" + this.id).datepicker();
+
+
+		$(".reqdClr:visible").each(function(e){
+		    $(this).prop('required',true);
 		});
+
+		$("input[type='date'], input[type='datetime']" ).datepicker();
+
+		//$("#made_date").datepicker();
+		//$("input[id^='made_date_']").each(function(){
+			//$("#" + this.id).datepicker();
+		//});
 	});
 </script>
 <!----------------------------------------------------------------------------------->
@@ -153,7 +161,7 @@
 			<div class="helpLink" id="identification.made_date">ID Date:</div>
 		</td>
         <td>
-			<input type="text" name="made_date" id="made_date">
+			<input type="datetime" class="siput" name="made_date" id="made_date">
 		</td>
 	</tr>
     <tr>
@@ -260,26 +268,32 @@
 			value="#identifiers.recordcount#">
 	<table id="mainTable_#i#">
     	<tr>
-        	<td><div align="right">Scientific Name:</div></td>
-            <td><b><i>#scientific_name#</i></b>
+        	<td><div align="right">Scientific Name:</div>
+				
+				</td>
+            <td><cfif accepted_id_fg is 1 and taxa_formula is 'A {string}'>
+					<input id="scientific_name#i#" name="scientific_name#i#" value="#scientific_name#" class="minput">
+				<cfelse>
+					<b><i>#scientific_name#</i></b>
+				</cfif>
 			</td>
         </tr>
         <tr>
         	<td><div align="right">Accepted?</div></td>
 			<td>
-				<cfif #accepted_id_fg# is 0>
+				<cfif accepted_id_fg is 0>
 					<select name="accepted_id_fg_#i#"
 						id="accepted_id_fg_#i#" size="1"
 						class="reqdClr" onchange="flippedAccepted('#i#')">
 						<option value="1"
-							<cfif #ACCEPTED_ID_FG# is 1> selected </cfif>>yes</option>
+							<cfif ACCEPTED_ID_FG is 1> selected </cfif>>yes</option>
                     	<option
-							<cfif #accepted_id_fg# is 0> selected </cfif>value="0">no</option>
-						<cfif #ACCEPTED_ID_FG# is 0>
+							<cfif accepted_id_fg is 0> selected </cfif>value="0">no</option>
+						<cfif ACCEPTED_ID_FG is 0>
 							<option value="DELETE">DELETE</option>
 						</cfif>
                   	</select>
-					<cfif #ACCEPTED_ID_FG# is 0>
+					<cfif ACCEPTED_ID_FG is 0>
 						<span class="infoLink red" onclick="document.getElementById('accepted_id_fg_#i#').value='DELETE';flippedAccepted('#i#');">Delete</span>
 					</cfif>
 				<cfelse>
@@ -333,7 +347,7 @@
 				<div class="helpLink" id="identification.made_date">ID Date:</div>
 			</td>
             <td>
-				<input type="text" value="#made_date#" name="made_date_#i#" id="made_date_#i#">
+				<input type="datetime" value="#made_date#" name="made_date_#i#" class="sinput" id="made_date_#i#">
            </td>
 		</tr>
         <tr>
