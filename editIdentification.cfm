@@ -252,6 +252,7 @@
 	<input type="hidden" name="number_of_ids" id="number_of_ids" value="#distIds.recordcount#">
 <table border>
 <cfloop query="distIds">
+	<input type="hidden" name="taxa_formula_#i#" id="taxa_formula_#i#" value="#taxa_formula#">
 	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#><td>
 	<cfquery name="identifiers" dbtype="query">
 		select
@@ -442,13 +443,14 @@
 <cfoutput>
 	<cftransaction>
 		<cfloop from="1" to="#NUMBER_OF_IDS#" index="n">
-			<cfset thisAcceptedIdFg = #evaluate("ACCEPTED_ID_FG_" & n)#>
-			<cfset thisIdentificationId = #evaluate("IDENTIFICATION_ID_" & n)#>
-			<cfset thisIdRemark = #evaluate("IDENTIFICATION_REMARKS_" & n)#>
-			<cfset thisMadeDate = #evaluate("MADE_DATE_" & n)#>
-			<cfset thisNature = #evaluate("NATURE_OF_ID_" & n)#>
-			<cfset thisNumIds = #evaluate("NUMBER_OF_IDENTIFIERS_" & n)#>
-			<cfset thisPubId = #evaluate("publication_id_" & n)#>
+			<cfset thisAcceptedIdFg = evaluate("ACCEPTED_ID_FG_" & n)>
+			<cfset thisTaxaFormula = evaluate("taxa_formula" & n)>
+			<cfset thisIdentificationId = evaluate("IDENTIFICATION_ID_" & n)>
+			<cfset thisIdRemark = evaluate("IDENTIFICATION_REMARKS_" & n)>
+			<cfset thisMadeDate = evaluate("MADE_DATE_" & n)>
+			<cfset thisNature = evaluate("NATURE_OF_ID_" & n)>
+			<cfset thisNumIds = evaluate("NUMBER_OF_IDENTIFIERS_" & n)>
+			<cfset thisPubId = evaluate("publication_id_" & n)>
 
 			<cfif thisAcceptedIdFg is 1>
 				<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -475,7 +477,7 @@
 
 
 
-				<cfif accepted_id_fg is 1 and taxa_formula is 'A {string}'>
+				<cfif thisAcceptedIdFg is 1 and taxa_formula is 'A {string}'>
 				
 					<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						UPDATE identification SET
