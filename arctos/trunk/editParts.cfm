@@ -52,7 +52,7 @@
 			---->
 			<cfif not #listcontains(listedParts, getParts.partID)#>
 				<cfset listedParts = "#listedParts#,#getParts.partID#">
-			<cfif #i# mod 2 eq 0>
+			<cfif i mod 2 eq 0>
 				<cfset bgc = "##C0C0C0">
 			<cfelse>
 				<cfset bgc="##F5F5F5">
@@ -85,7 +85,7 @@
 					</td>
 					<td>
 						<label for="condition#i#">Condition&nbsp;<span class="likeLink" style="font-weight:100" onClick="chgCondition('#getParts.partID#')">[ History ]</span></label>
-						<input type="text" name="condition#i#" id="condition#i#" value="#getparts.condition#"  class="reqdClr">
+						<textarea name="condition#i#" id="condition#i#" class="reqdClr mediumtextarea">#getparts.condition#</textarea>
 					</td>
 					<td>
 						<label for="lot_count#i#">##</label>
