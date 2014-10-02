@@ -187,7 +187,7 @@
 					from
 						raw
 					where
-						collection_object_id=#partID#
+						partID=#partID#
 				</cfquery>
 				<tr bgcolor="#bgc#">
 					<td colspan="8" align="center">
