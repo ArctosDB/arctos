@@ -187,6 +187,7 @@
 					from
 						raw
 					where
+						part_attribute_id is not null and
 						partID=#partID#
 				</cfquery>
 				<tr bgcolor="#bgc#">
