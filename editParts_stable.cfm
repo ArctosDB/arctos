@@ -5,31 +5,23 @@
 	<cfquery name="getParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
 			specimen_part.collection_object_id as partID,
-			specimen_part.part_name,
-			coll_object.coll_obj_disposition,
-			coll_object.condition,
-			specimen_part.sampled_from_obj_id,
+			part_name,
+			coll_obj_disposition,
+			condition,
+			sampled_from_obj_id,
 			cataloged_item.collection_cde,
-			coll_object.lot_count,
+			cat_num,
+			lot_count,
 			parentContainer.barcode,
 			parentContainer.label,
 			parentContainer.container_id AS parentContainerId,
 			thisContainer.container_id AS partContainerId,
 			parentContainer.print_fg,
-			coll_object_remark.coll_object_remarks
-			specimen_part_attribute.part_attribute_id,
-			specimen_part_attribute.attribute_type,
-			specimen_part_attribute.attribute_value,
-			specimen_part_attribute.attribute_units,
-			specimen_part_attribute.determined_date,
-			specimen_part_attribute.determined_by_agent_id,
-			getPreferredAgentName(specimen_part_attribute.determined_by_agent_id) part_attribute_determiner,
-			specimen_part_attribute.attribute_remark
+			coll_object_remarks
 		FROM
 			cataloged_item
 			INNER JOIN collection ON (cataloged_item.collection_id = collection.collection_id)
 			LEFT OUTER JOIN specimen_part ON (cataloged_item.collection_object_id = specimen_part.derived_from_cat_item)
-			LEFT OUTER JOIN specimen_part_attribute ON (specimen_part.collection_object_id = specimen_part_attribute.collection_object_id)
 			LEFT OUTER JOIN coll_object ON (specimen_part.collection_object_id = coll_object.collection_object_id)
 			LEFT OUTER JOIN coll_obj_cont_hist ON (specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id)
 			LEFT OUTER JOIN container thisContainer ON (coll_obj_cont_hist.container_id = thisContainer.container_id)
@@ -44,6 +36,7 @@
 	</cfquery>
  	<b>Edit #getParts.recordcount# Specimen Parts</b>&nbsp;<span class="infoLink" onClick="getDocs('parts')">help</span>
 	<br><a href="/findContainer.cfm?collection_object_id=#collection_object_id#">Part Locations</a>
+	<br><a href="##newPart">New</a>
 	<cfset i = 1>
 	<cfset listedParts = "">
 	<form name="parts" method="post" action="editParts.cfm">
@@ -59,9 +52,6 @@
 			---->
 			<cfif not #listcontains(listedParts, getParts.partID)#>
 				<cfset listedParts = "#listedParts#,#getParts.partID#">
-				
-				
-				
 			<cfif i mod 2 eq 0>
 				<cfset bgc = "##C0C0C0">
 			<cfelse>
