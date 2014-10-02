@@ -672,7 +672,7 @@
 			select type_status from ctcitation_type_status order by type_status
 		</cfquery>
 		<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select collection_id,collection from collection order by collection
+			select collection_id,guid_prefix from collection order by guid_prefix
 		</cfquery>
 		<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select nature_of_id from ctnature_of_id
