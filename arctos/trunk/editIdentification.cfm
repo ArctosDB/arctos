@@ -42,16 +42,22 @@
 		identification_agent_id,
 		short_citation,
 		identification.publication_id,
-		taxa_formula
+		taxa_formula,
+		taxon_name.scientific_name taxon_name,
+		taxon_name.taxon_name_id
 	FROM
 		cataloged_item,
 		identification,
 		collection ,
 		identification_agent,
 		preferred_agent_name,
-		publication
+		publication,
+		identification_taxonomy,
+		taxon_name
 	WHERE
 		identification.collection_object_id = cataloged_item.collection_object_id AND
+		identification.identification_id = identification_agent.identification_taxonomy (+) AND
+		identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id (+)
 		identification.identification_id = identification_agent.identification_id (+) AND
 		identification_agent.agent_id = preferred_agent_name.agent_id (+) AND
 		cataloged_item.collection_id=collection.collection_id AND
@@ -221,7 +227,7 @@
 		identification_remarks,
 		short_citation,
 		publication_id,
-		taxa_formula
+		taxa_formula		
 	FROM
 		getID
 	GROUP BY
@@ -276,13 +282,20 @@
 				</td>
             <td>
 				<cfif accepted_id_fg is 1 and taxa_formula is 'A {string}'>
+				
+					<cfquery name="taxa" dbtype="query">
+						select 
+							taxon_name,
+							taxon_name_id from getID where identification_id=#identification_id# order by taxon_name
+					</cfquery>
 					<label for="scientific_name#i#">Identification String</label>
 					<input id="scientific_name#i#" name="scientific_name#i#" value="#scientific_name#" class="minput reqdClr">
 					<br>
-					<label for="x">morestuff</label>
-					<input type="text">
-					<br>
-					<input type="text">
+					<label for="x">Associated Taxa</label>
+					<cfloop query="taxa">
+						
+					<input type="text" value="#taxon_name#">
+					</cfloop>
 				<cfelse>
 					<b><i>#scientific_name#</i></b>
 				</cfif>
