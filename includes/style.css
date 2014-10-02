@@ -838,8 +838,8 @@ td.lbl {
 	margin-left:-10px;
 }
 .detailCellSmall {
-	font-size:.6em;
-	font-weight:normal;
+	font-size:.85em;
+	font-weight:200;
 	color: #444444;
 }
 .detailCell {
