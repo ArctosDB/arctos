@@ -294,8 +294,8 @@
 
 
 
-					<label for="scientific_name#i#">Identification String</label>
-					<input id="scientific_name#i#" name="scientific_name#i#" value="#scientific_name#" class="minput reqdClr">
+					<label for="scientific_name_#i#">Identification String</label>
+					<input id="scientific_name_#i#" name="scientific_name_#i#" value="#scientific_name#" class="minput reqdClr">
 					<br>
 					<label for="x">
 						Associated Taxa <span class="likeLink" onclick="addAssTax(#i#)">Add Taxon</span>
@@ -451,6 +451,9 @@
 			<cfset thisNature = evaluate("NATURE_OF_ID_" & n)>
 			<cfset thisNumIds = evaluate("NUMBER_OF_IDENTIFIERS_" & n)>
 			<cfset thisPubId = evaluate("publication_id_" & n)>
+			<cfset thisScientificName = evaluate("scientific_name_" & n)>
+			
+			
 
 			<cfif thisAcceptedIdFg is 1>
 				<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -481,7 +484,7 @@
 				
 					<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						UPDATE identification SET
-						scientific_name = '#escapeQuotes(scientific_name)#',
+						scientific_name = '#escapeQuotes(thisScientificName)#',
 						nature_of_id = '#thisNature#',
 						made_date = '#thisMadeDate#',
 						identification_remarks = '#escapeQuotes(thisIdRemark)#'
