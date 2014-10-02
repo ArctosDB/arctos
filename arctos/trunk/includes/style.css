@@ -502,6 +502,10 @@
 		max-width:120px;
 		max-height:120px;
 	}
+	.mediaDocumentInformation {
+		max-height:10em;
+		overflow:auto;
+	}
 /* END media */	
 
 /* --------  BEGIN TAG style - DO NOT EDIT THIS STUFF UNLESS YOU REALLY KNOW WHAT YOU'RE DOING! -------------   */
