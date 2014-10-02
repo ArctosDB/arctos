@@ -444,7 +444,7 @@
 	<cftransaction>
 		<cfloop from="1" to="#NUMBER_OF_IDS#" index="n">
 			<cfset thisAcceptedIdFg = evaluate("ACCEPTED_ID_FG_" & n)>
-			<cfset thisTaxaFormula = evaluate("taxa_formula" & n)>
+			<cfset thisTaxaFormula = evaluate("taxa_formula_" & n)>
 			<cfset thisIdentificationId = evaluate("IDENTIFICATION_ID_" & n)>
 			<cfset thisIdRemark = evaluate("IDENTIFICATION_REMARKS_" & n)>
 			<cfset thisMadeDate = evaluate("MADE_DATE_" & n)>
