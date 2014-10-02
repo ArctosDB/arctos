@@ -275,9 +275,14 @@
 				
 				</td>
             <td>
-				accepted_id_fg=#accepted_id_fg#; taxa_formula=#taxa_formula#
 				<cfif accepted_id_fg is 1 and taxa_formula is 'A {string}'>
-					<input id="scientific_name#i#" name="scientific_name#i#" value="#scientific_name#" class="minput">
+					<label for="scientific_name#i#">Identification String</label>
+					<input id="scientific_name#i#" name="scientific_name#i#" value="#scientific_name#" class="minput reqdClr">
+					<br>
+					<label for="x">morestuff</label>
+					<input type="text">
+					<br>
+					<input type="text">
 				<cfelse>
 					<b><i>#scientific_name#</i></b>
 				</cfif>
