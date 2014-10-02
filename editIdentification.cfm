@@ -56,7 +56,7 @@
 		taxon_name
 	WHERE
 		identification.collection_object_id = cataloged_item.collection_object_id AND
-		identification.identification_id = identification_agent.identification_taxonomy (+) AND
+		identification.identification_id = identification_taxonomy.identification_id (+) AND
 		identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id (+) and
 		identification.identification_id = identification_agent.identification_id (+) AND
 		identification_agent.agent_id = preferred_agent_name.agent_id (+) AND
