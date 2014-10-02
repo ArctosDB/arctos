@@ -289,16 +289,12 @@
 							taxon_name,
 							taxon_name_id from getID where identification_id=#identification_id# order by taxon_name
 					</cfquery>
-					
-						<input type="text" name="number_of_taxa_#i#" id="number_of_taxa_#i#" value="#taxa.recordcount#">
-
-
-
+					<input type="hidden" name="number_of_taxa_#i#" id="number_of_taxa_#i#" value="#taxa.recordcount#">
 					<label for="scientific_name_#i#">Identification String</label>
 					<input id="scientific_name_#i#" name="scientific_name_#i#" value="#scientific_name#" class="minput reqdClr">
 					<br>
 					<label for="x">
-						Associated Taxa <span class="likeLink" onclick="addAssTax(#i#)">Add Taxon</span>
+						Associated Taxa <span class="likeLink" onclick="addAssTax(#i#)">[ Add Taxon ]</span>
 					</label>
 					<cfset n=1>
 					<div id="tdiv_#i#">
@@ -306,7 +302,7 @@
 							<div>
 								<input type="text" name="taxon_name_#i#_#n#" id="taxon_name_#i#_#n#" size="50" value="#taxon_name#"
 									onChange="taxaPick('taxon_name_id_#i#_#n#',this.id,'editIdentification',this.value); return false;"
-									onKeyPress="return noenter(event);" placeholder="pick a taxon name">
+									onKeyPress="return noenter(event);" placeholder="pick a taxon name" class="minput reqdClr">
 								<img src='/images/del.gif' class="likeLink" onclick="deleteAssTax(#i#,#n#)">
 								<input type="hidden" name="taxon_name_id_#i#_#n#" id="taxon_name_id_#i#_#n#" value="#taxon_name_id#">
 							</div>
@@ -439,7 +435,7 @@
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
-<cfif #action# is "saveEdits">
+<cfif action is "saveEdits">
 <cfoutput>
 	<cftransaction>
 		<cfloop from="1" to="#NUMBER_OF_IDS#" index="n">
@@ -451,9 +447,6 @@
 			<cfset thisNature = evaluate("NATURE_OF_ID_" & n)>
 			<cfset thisNumIds = evaluate("NUMBER_OF_IDENTIFIERS_" & n)>
 			<cfset thisPubId = evaluate("publication_id_" & n)>
-			
-			
-
 			<cfif thisAcceptedIdFg is 1>
 				<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
@@ -463,22 +456,16 @@
 				</cfquery>
 			</cfif>
 			<cfif thisAcceptedIdFg is "DELETE">
-					<cfquery name="deleteId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						DELETE FROM identification_agent WHERE identification_id = #thisIdentificationId#
-					</cfquery>
-					<cfquery name="deleteTId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						DELETE FROM identification_taxonomy WHERE identification_id = #thisIdentificationId#
-					</cfquery>
-					<cfquery name="deleteId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						DELETE FROM identification WHERE identification_id = #thisIdentificationId#
-					</cfquery>
-
+				<cfquery name="deleteId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					DELETE FROM identification_agent WHERE identification_id = #thisIdentificationId#
+				</cfquery>
+				<cfquery name="deleteTId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					DELETE FROM identification_taxonomy WHERE identification_id = #thisIdentificationId#
+				</cfquery>
+				<cfquery name="deleteId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					DELETE FROM identification WHERE identification_id = #thisIdentificationId#
+				</cfquery>
 			<cfelse>
-				
-
-
-
-
 				<cfif thisAcceptedIdFg is 1 and thisTaxaFormula is 'A {string}'>
 					<cfset thisScientificName = evaluate("scientific_name_" & n)>
 					<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
