@@ -296,19 +296,22 @@
 					<label for="scientific_name#i#">Identification String</label>
 					<input id="scientific_name#i#" name="scientific_name#i#" value="#scientific_name#" class="minput reqdClr">
 					<br>
-					<label for="x">Associated Taxa</label>
+					<label for="x">
+						Associated Taxa <span class="likeLink" onclick="addAssTax(#i#)">Add Taxon</span>
+					</label>
 					<cfset n=1>
-					<cfloop query="taxa">
-						<div>
-							<input type="text" name="taxon_name_#i#_#n#" id="taxon_name_#i#_#n#" size="50" value="#taxon_name#"
-								onChange="taxaPick('taxon_name_id_#i#_#n#',this.id,'editIdentification',this.value); return false;"
-								onKeyPress="return noenter(event);" placeholder="pick a taxon name">
+					<div id="tdiv_#i#">
+						<cfloop query="taxa">
+							<div>
+								<input type="text" name="taxon_name_#i#_#n#" id="taxon_name_#i#_#n#" size="50" value="#taxon_name#"
+									onChange="taxaPick('taxon_name_id_#i#_#n#',this.id,'editIdentification',this.value); return false;"
+									onKeyPress="return noenter(event);" placeholder="pick a taxon name">
 								<img src='/images/del.gif' class="likeLink" onclick="deleteAssTax(#i#,#n#)">
-							<input type="hidden" name="taxon_name_id_#i#_#n#" id="taxon_name_id_#i#_#n#" value="#taxon_name_id#">
-						</div>
-						<cfset n=n+1>
-					</cfloop>
-					
+								<input type="hidden" name="taxon_name_id_#i#_#n#" id="taxon_name_id_#i#_#n#" value="#taxon_name_id#">
+							</div>
+							<cfset n=n+1>
+						</cfloop>
+					</div>
 				<cfelse>
 					<b><i>#scientific_name#</i></b>
 				</cfif>
