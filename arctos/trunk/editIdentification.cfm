@@ -288,13 +288,22 @@
 							taxon_name,
 							taxon_name_id from getID where identification_id=#identification_id# order by taxon_name
 					</cfquery>
+					
+						<input type="text" name="number_of_taxa_#i#" id="number_of_taxa_#i#" value="#taxa.recordcount#">
+
+
+
 					<label for="scientific_name#i#">Identification String</label>
 					<input id="scientific_name#i#" name="scientific_name#i#" value="#scientific_name#" class="minput reqdClr">
 					<br>
 					<label for="x">Associated Taxa</label>
 					<cfloop query="taxa">
-						
-					<input type="text" value="#taxon_name#">
+						<div>
+							<input type="text" name="taxon_name_#i#_#n#" id="taxon_name_#i#_#n#" size="50" value="taxon_name"
+								onChange="taxaPick('taxon_name_id_#i#_#n#',this.id,'editIdentification',this.value); return false;"
+								onKeyPress="return noenter(event);" placeholder="pick a taxon name">
+							<input type="hidden" name="taxon_name_id_#i#_#n#" id="taxon_name_id_#i#_#n#" value="#taxon_name_id#">
+						</div>
 					</cfloop>
 				<cfelse>
 					<b><i>#scientific_name#</i></b>
