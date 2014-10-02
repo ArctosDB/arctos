@@ -30,7 +30,7 @@
 				</cfsavecontent>
 			<cfelse>
 				<cfsavecontent variable="rv">
-					<input name="attribute_value_#paid#" value="#val#">
+					<textarea name="attribute_value_#paid#" id="attribute_value_#paid#" class="reqdClr mediumtextarea">#val#</textarea>
 				</cfsavecontent>
 			</cfif>
 		<cfelseif u_or_v is "u">
@@ -119,7 +119,7 @@
 						value="#agent_name#">
 					</td>
 				<td>
-					<input type="text" name="attribute_remark_#part_attribute_id#" value="#attribute_remark#">
+					<textarea name="attribute_remark_#part_attribute_id#" id="attribute_remark_#part_attribute_id#" class="mediumtextarea">#attribute_remark#</textarea>
 				</td>
 				<td>
 					<input type="checkbox" name="delete_#part_attribute_id#" value="1">

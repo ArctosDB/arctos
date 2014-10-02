@@ -1520,7 +1520,9 @@ function setPartAttOptions(id,patype) {
 	  			$('#v_' + id).html(d);
 				$('#u_' + id).html('');
 			} else {
-				dv='<input type="text" name="' + valElem + '" id="' + valElem + '">';
+				dv='<textarea name="' + valElem + '" id="' + valElem + '" class="mediumtextarea"></textarea>';
+
+				//<input type="text" name="' + valElem + '" id="' + valElem + '">';
 				$('#v_' + id).html(dv);
 				$('#u_' + id).html('');
 			}
