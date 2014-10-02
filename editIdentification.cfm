@@ -451,7 +451,6 @@
 			<cfset thisNature = evaluate("NATURE_OF_ID_" & n)>
 			<cfset thisNumIds = evaluate("NUMBER_OF_IDENTIFIERS_" & n)>
 			<cfset thisPubId = evaluate("publication_id_" & n)>
-			<cfset thisScientificName = evaluate("scientific_name_" & n)>
 			
 			
 
@@ -481,7 +480,8 @@
 
 
 				<cfif thisAcceptedIdFg is 1 and thisTaxaFormula is 'A {string}'>
-				
+							<cfset thisScientificName = evaluate("scientific_name_" & n)>
+
 					<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						UPDATE identification SET
 						scientific_name = '#escapeQuotes(thisScientificName)#',
