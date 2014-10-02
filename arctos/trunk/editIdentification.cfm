@@ -41,7 +41,8 @@
 		identification_remarks,
 		identification_agent_id,
 		short_citation,
-		identification.publication_id
+		identification.publication_id,
+		taxa_formula
 	FROM
 		cataloged_item,
 		identification,
@@ -219,7 +220,8 @@
 		accepted_id_fg,
 		identification_remarks,
 		short_citation,
-		publication_id
+		publication_id,
+		taxa_formula
 	FROM
 		getID
 	GROUP BY
@@ -232,7 +234,8 @@
 		accepted_id_fg,
 		identification_remarks,
 		short_citation,
-		publication_id
+		publication_id,
+		taxa_formula
 	ORDER BY
 		accepted_id_fg DESC,
 		made_date
