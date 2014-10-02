@@ -145,49 +145,56 @@
 		<th>Location</th>
 		<th>Disposition</th>
 		<cfloop query="allCatItems">
-			<cfquery name="freezer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					CONTAINER_ID,
-					PARENT_CONTAINER_ID,
-					CONTAINER_TYPE,
-					DESCRIPTION,
-					PARENT_INSTALL_DATE,
-					CONTAINER_REMARKS,
-					label,
-					level
-				 from container
-				start with container_id=#container_id#
-				connect by prior parent_container_id = container_id 
-				order by level DESC
-			</cfquery>
-			<tr	#iif(a MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-				<td>#guid#</td>
-				<td>#CustomID#&nbsp;</td>
-				<cfset pn=part_name>
-				<cfif is_subsample is "yes">
-					<cfset pn=pn & "(subsample)">
-				</cfif>
-				<td>
-					#pn# 
-				</td>
-				<cfset posn="">
-				<cfloop query="freezer">
-					<cfif CONTAINER_TYPE is "position">
-						<cfset posn=posn & '<span style="font-weight:bold;">[#label#]</span>'>
-					<cfelse>
-						<cfset posn=posn & '[#label#]'>
+			<cfif len(container_id) gt 0>
+				<cfquery name="freezer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select 
+						CONTAINER_ID,
+						PARENT_CONTAINER_ID,
+						CONTAINER_TYPE,
+						DESCRIPTION,
+						PARENT_INSTALL_DATE,
+						CONTAINER_REMARKS,
+						label,
+						level
+					 from container
+					start with container_id=#container_id#
+					connect by prior parent_container_id = container_id 
+					order by level DESC
+				</cfquery>
+			</cfif>
+				<tr	#iif(a MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
+					<td>#guid#</td>
+					<td>#CustomID#&nbsp;</td>
+					<cfset pn=part_name>
+					<cfif is_subsample is "yes">
+						<cfset pn=pn & "(subsample)">
 					</cfif>
-				</cfloop>
-				<td>
-					#posn#
-				</td>
-				<td>#coll_obj_disposition#</td>
-			</tr>
-		<cfset a=a+1>
-			<cfset oneLine='"#guid#","#CustomID#","#pn#","#posn#","#coll_obj_disposition#"'>
-			<cfset oneLine=replace(oneLine,"</span>","","all")>
-			<cfset oneLine=replace(oneLine,'<span style="font-weight:bold;">',"","all")>
-			<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
+					<td>
+						#pn# 
+					</td>
+					<cfif len(container_id) gt 0>
+						<cfset posn="">
+						<cfloop query="freezer">
+							<cfif CONTAINER_TYPE is "position">
+								<cfset posn=posn & '<span style="font-weight:bold;">[#label#]</span>'>
+							<cfelse>
+								<cfset posn=posn & '[#label#]'>
+							</cfif>
+						</cfloop>
+					<cfelse>
+						<cfset posn='no position available'>
+					</cfif>
+					<td>
+						#posn#
+					</td>
+					<td>#coll_obj_disposition#</td>
+				</tr>
+				<cfset a=a+1>
+				<cfset oneLine='"#guid#","#CustomID#","#pn#","#posn#","#coll_obj_disposition#"'>
+				<cfset oneLine=replace(oneLine,"</span>","","all")>
+				<cfset oneLine=replace(oneLine,'<span style="font-weight:bold;">',"","all")>
+				<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
+			
 		</cfloop>
 	</table>
 </cfoutput>
