@@ -103,7 +103,7 @@
 	/* Carla doesn't like linunder */
 	.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label {
     	border-top: 1px solid !important;
-    	border:bottom: none !important;
+    	border-bottom: none !important;
 	}
 	/* visited links in multiselect are strange, so override them */
 	
