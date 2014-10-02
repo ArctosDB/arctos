@@ -329,10 +329,6 @@
 	<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select get_document_media_pageinfo('#urltitle#') result from dual
 	</cfquery>
-	
-	<cfdump var=#flatdocs#>
-	
-	
 	<cfreturn flatdocs.result>
 	<cfcatch><cfreturn cfcatch.message></cfcatch>
 	</cftry>

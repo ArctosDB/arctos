@@ -97,7 +97,7 @@
 /* BEGIN over-ride some annoying jquery-ui stuff */
 	/* multiselect outgroup labels are flippin tiny */
 	.ui-multiselect-optgroup-label a {
-		font-size:1.2em
+		font-size:1.4em
 	}
 	
 	/* Carla doesn't like linunder */
