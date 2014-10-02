@@ -297,6 +297,7 @@
 					<input id="scientific_name#i#" name="scientific_name#i#" value="#scientific_name#" class="minput reqdClr">
 					<br>
 					<label for="x">Associated Taxa</label>
+					<cfset n=1>
 					<cfloop query="taxa">
 						<div>
 							<input type="text" name="taxon_name_#i#_#n#" id="taxon_name_#i#_#n#" size="50" value="taxon_name"
@@ -304,7 +305,9 @@
 								onKeyPress="return noenter(event);" placeholder="pick a taxon name">
 							<input type="hidden" name="taxon_name_id_#i#_#n#" id="taxon_name_id_#i#_#n#" value="#taxon_name_id#">
 						</div>
+						<cfset n=n+1>
 					</cfloop>
+					
 				<cfelse>
 					<b><i>#scientific_name#</i></b>
 				</cfif>
