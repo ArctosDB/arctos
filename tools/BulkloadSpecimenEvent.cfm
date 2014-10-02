@@ -72,6 +72,10 @@ grant all on cf_temp_specevent to coldfusion_user;
 -- see /Arctos/DDL/migration/6.4_DataEntry1ToMany.sql
 ---->
 <cfinclude template="/includes/_header.cfm">
+
+<cfset numberToValidate=2000>
+
+
 <cfset title="Bulkload Specimen Events">
 <cfset thecolumns="guid,ASSIGNED_BY_AGENT,ASSIGNED_DATE,SPECIMEN_EVENT_REMARK,SPECIMEN_EVENT_TYPE,COLLECTING_METHOD,COLLECTING_SOURCE,VERIFICATIONSTATUS,HABITAT,COLLECTING_EVENT_ID,COLLECTING_EVENT_NAME,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,LAT_DEG,DEC_LAT_MIN,LAT_MIN,LAT_SEC,LAT_DIR,LONG_DEG,DEC_LONG_MIN,LONG_MIN,LONG_SEC,LONG_DIR,DEC_LAT,DEC_LONG,DATUM,UTM_ZONE,UTM_EW,UTM_NS,ORIG_LAT_LONG_UNITS,LOCALITY_ID,SPEC_LOCALITY,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL,LOCALITY_NAME,GEOG_AUTH_REC_ID,HIGHER_GEOG">
 <cfif action is "makeTemplate">
@@ -480,6 +484,24 @@ grant all on cf_temp_specevent to coldfusion_user;
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_specevent where upper(username)='#ucase(session.username)#'
 		</cfquery>
+		<cfquery name="summary" dbtype="query">
+			select status,count(*) c from mine group by status order by status
+		</cfquery>
+		<cfif summary.recordcount gt 0>
+			<p>Summary</p>
+			<table border>
+				<tr>
+					<th>Status</th>
+					<th>Count</th>
+				</tr>
+				<cfloop query="summary">
+					<tr>
+						<td>#status#</td>
+						<td>#c#</td>
+					</tr>
+				</cfloop>
+			</table>
+		</cfif>
 		<cfset clist=mine.columnlist>
 		<cfset clist=listdeleteat(clist,listfind(clist,'STATUS'))>
 		<cfset clist=listdeleteat(clist,listfind(clist,'GUID'))>
@@ -505,27 +527,39 @@ grant all on cf_temp_specevent to coldfusion_user;
 			<a href="BulkloadSpecimenEvent.cfm?action=deleteMine">delete all of your data from the staging table</a>
 		</p>
 		<p>
+			<a href="BulkloadSpecimenEvent.cfm?action=nothing">upload from CSV</a>
+		</p>
+		<p>
 			<a href="BulkloadSpecimenEvent.cfm?action=getCSV">Download as CSV</a>
 		</p>
 		<cfquery name="willload" dbtype="query">
 			select count(*) c from mine where status = 'valid'
 		</cfquery>
-		<cfif willload.recordcount eq mine.recordcount>
+		<cfif willload.c eq mine.recordcount>
 			<p>
-				The data should load. Check them one more time, then <a href="BulkloadSpecimenEvent.cfm?action=validateFromFile">proceed to load</a>
+				The data should load. Check them one more time, then <a href="BulkloadSpecimenEvent.cfm?action=load">proceed to load</a>
+				<br>IMPORTANT: Only about 1000 records will load at a time. Records will be DELETED from the specimen-event loader as they are
+				loaded and attached to specimens. If you have a lot of stuff you'll probably have to come back here
+				and click the link a few times.
 			</p>
 		</cfif>
+		<p>
+			Validation only works with NULL status. If you've fixed something, you can 
+			<a href="BulkloadSpecimenEvent.cfm?action=resetStatus">reset non-valid status</a> here
+		</p>
 		<cfquery name="nog" dbtype="query">
 			select count(*) c from mine where guid is null
-		</cfquery> 
+		</cfquery>
 		<cfif nog.c gt 0>
 			<p>
 				<a href="BulkloadSpecimenEvent.cfm?action=getGuidUUID">Find GUIDs from UUID</a>
 			</p>
 		</cfif>
-		<cfif nog.c is 0 and  willload.recordcount neq mine.recordcount>
+		<cfif (len(nog.c) is 0 or nog.c is 0) and  willload.c neq mine.recordcount>
 			<p>
 				Your data require <a href="BulkloadSpecimenEvent.cfm?action=validateFromFile">validation</a>
+				<br>IMPORTANT: Validation is slow; it'll only run on #numberToValidate# records at a time. Click the link,
+				grab a cup of coffee, then click the link again if necessary.
 			</p>
 		</cfif>
 		<p>
@@ -560,6 +594,13 @@ grant all on cf_temp_specevent to coldfusion_user;
 		<input type="submit" value="delete checked records">
 		</form>
 	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------------------------>
+<cfif action is "resetStatus">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_specevent  set status=null where status != 'valid' and upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cflocation url="BulkloadSpecimenEvent.cfm?action=managemystuff" addtoken="false">
 </cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "deleteChecked">
@@ -640,24 +681,26 @@ grant all on cf_temp_specevent to coldfusion_user;
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "validateFromFile">
+<!----
 	<cfquery name="guid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_specevent set status='guid not found'
-		where guid NOT IN (select guid from flat)
+		where upper(username)='#ucase(session.username)#' and guid NOT IN (select guid from flat)
 	</cfquery>
+	---->
 	<cfquery name="SPECIMEN_EVENT_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_specevent set status='SPECIMEN_EVENT_TYPE not found'
-		where SPECIMEN_EVENT_TYPE NOT IN (select SPECIMEN_EVENT_TYPE from CTSPECIMEN_EVENT_TYPE)
+		where upper(username)='#ucase(session.username)#' and SPECIMEN_EVENT_TYPE NOT IN (select SPECIMEN_EVENT_TYPE from CTSPECIMEN_EVENT_TYPE)
 	</cfquery>
 	<cfquery name="COLLECTING_SOURCE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_specevent set status='COLLECTING_SOURCE not found'
-		where COLLECTING_SOURCE NOT IN (select COLLECTING_SOURCE from CTCOLLECTING_SOURCE)
+		where upper(username)='#ucase(session.username)#' and COLLECTING_SOURCE NOT IN (select COLLECTING_SOURCE from CTCOLLECTING_SOURCE)
 	</cfquery>
-
-
-
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_specevent
+		select * from cf_temp_specevent where upper(username)='#ucase(session.username)#' and
+		status is null and
+		rownum<=#numberToValidate#
 	</cfquery>
+	
 	<cfloop query="data">
 		<cfset s=''>
 		<cfset checkEvent=true>
@@ -893,296 +936,311 @@ grant all on cf_temp_specevent to coldfusion_user;
 <!------------------------------------------------------------------------------------------------>	
 <cfif action is "load">
 	<cfoutput>
+		<p>
+			IMPORTANT!! This application will load as many records as it can before it times out. That number varies wildly depending on 
+			how much data must be created, heterogeneity of data being created, and maybe sunspot activity.
+		</p>
+		<p>
+			SCROLL TO THE BOTTOM OF THIS PAGE after it stops loading, which will take a couple minutes. If there are timeout errors, hit reload or 
+			go back to <a href="BulkloadSpecimenEvent.cfm?action=managemystuff">the manage screen</a> and hit load again.
+		</p>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_specevent
+			select * from cf_temp_specevent where status='valid' and upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cfloop query="data">
-			<cfset lcl_locality_id=l_locality_id>
-			<cfset lcl_collecting_event_id=l_collecting_event_id>
-	
-				
-			<cfif lcl_collecting_event_id is 0>
-				<!--- we'll have to find or build an event - see about locality ---->
-				<cfif lcl_locality_id is 0>
-					<!--- we'll have to find or build a locality ---->
-					<!--- coordinates? --->
-					<cfif orig_lat_long_units is 'deg. min. sec.'>
-						<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select  dms_to_string ('#latdeg#','#latmin#','#latsec#','#latdir#','#longdeg#','#longmin#','#longsec#','#longdir#') vc from dual
-						</cfquery>
-						<cfset verbatimcoordinates=data.vc>
-					<cfelseif orig_lat_long_units is 'degrees dec. minutes'>
-						<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select  dm_to_string ('#latdeg#','#dec_lat_min#','#latdir#','#longdeg#','#dec_long_min#''#longdir#') vc from dual
-						</cfquery>
-						<cfset verbatimcoordinates=data.vc>
-					<cfelseif orig_lat_long_units is 'decimal degrees'>
-						<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select  dd_to_string ('#DEC_LAT#','#DEC_LONG#') vc from dual
-						</cfquery>
-						<cfset verbatimcoordinates=data.vc>
-					<cfelseif orig_lat_long_units is 'UTM'>
-						<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select  utm_to_string ('#UTM_NS#','#UTM_EW#','#UTM_ZONE#') vc from dual
-						</cfquery>
-						<cfset verbatimcoordinates=data.vc>
-					<cfelse>
-						<cfset verbatimcoordinates=''>
+			<cftransaction>
+				<cfset lcl_locality_id=l_locality_id>
+				<cfset lcl_collecting_event_id=l_collecting_event_id>
+				<p>
+					running for <a href="/guid/#guid#" target="_blank">#guid#</a>
+					<cfif lcl_collecting_event_id is 0>
+						<!--- we'll have to find or build an event - see about locality ---->
+						<cfif lcl_locality_id is 0>
+							<!--- we'll have to find or build a locality ---->
+							<!--- coordinates? --->
+							<cfif orig_lat_long_units is 'deg. min. sec.'>
+								<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									select  dms_to_string ('#latdeg#','#latmin#','#latsec#','#latdir#','#longdeg#','#longmin#','#longsec#','#longdir#') vc from dual
+								</cfquery>
+								<cfset verbatimcoordinates=data.vc>
+							<cfelseif orig_lat_long_units is 'degrees dec. minutes'>
+								<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									select  dm_to_string ('#latdeg#','#dec_lat_min#','#latdir#','#longdeg#','#dec_long_min#''#longdir#') vc from dual
+								</cfquery>
+								<cfset verbatimcoordinates=data.vc>
+							<cfelseif orig_lat_long_units is 'decimal degrees'>
+								<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									select  dd_to_string ('#DEC_LAT#','#DEC_LONG#') vc from dual
+								</cfquery>
+								<cfset verbatimcoordinates=data.vc>
+							<cfelseif orig_lat_long_units is 'UTM'>
+								<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									select  utm_to_string ('#UTM_NS#','#UTM_EW#','#UTM_ZONE#') vc from dual
+								</cfquery>
+								<cfset verbatimcoordinates=data.vc>
+							<cfelse>
+								<cfset verbatimcoordinates=''>
+							</cfif>
+							<cfquery name="eLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								select nvl(min(locality.locality_id),-1) locality_id
+					            FROM 
+					            	locality
+					            WHERE
+					                geog_auth_rec_id = #l_geog_auth_rec_id# AND
+					                NVL(MAXIMUM_ELEVATION,-1) = NVL('#maximum_elevation#',-1) AND
+					            	NVL(MINIMUM_ELEVATION,-1) = NVL('#minimum_elevation#',-1) AND
+					            	NVL(ORIG_ELEV_UNITS,'NULL') = NVL('#orig_elev_units#','NULL') AND
+					            	NVL(MIN_DEPTH,-1) = nvl('#min_depth#',-1) AND
+					            	NVL(MAX_DEPTH,-1) = nvl('#max_depth#',-1) AND
+					            	NVL(SPEC_LOCALITY,'NULL') = NVL('#spec_locality#','NULL') AND
+					            	NVL(LOCALITY_REMARKS,'NULL') = NVL('#locality_remarks#','NULL') AND
+					            	NVL(DEPTH_UNITS,'NULL') = NVL('#depth_units#','NULL') AND
+					            	NVL(dec_lat,-1) = nvl('#dec_lat#',-1) AND
+					            	NVL(dec_long,-1) = nvl('#dec_long#',-1) AND
+					            	locality_name IS NULL AND -- because we tested that above and will use it if it exists
+					                locality_id not in (select locality_id from geology_attributes)
+							</cfquery>
+							<cfif eLoc.locality_id gt 0>
+								<br>found existing locality
+								<cfset lcl_locality_id=eLoc.locality_id>
+							<cfelse>
+								<!--- make a locality ---->
+								<cfquery name="nLocId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									select sq_locality_id.nextval nv from dual
+								</cfquery>
+								<cfset lid=nLocId.nv>
+								<cfquery name="newLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+									INSERT INTO locality (
+										LOCALITY_ID,
+										GEOG_AUTH_REC_ID,
+										MAXIMUM_ELEVATION,
+										MINIMUM_ELEVATION,
+										ORIG_ELEV_UNITS,
+										SPEC_LOCALITY,
+										LOCALITY_REMARKS,
+										DEPTH_UNITS,
+										MIN_DEPTH,
+										MAX_DEPTH,
+										DEC_LAT,
+										DEC_LONG,
+										MAX_ERROR_DISTANCE,
+										MAX_ERROR_UNITS,
+										DATUM,
+										georeference_source,
+										georeference_protocol
+									)  values (
+										#lid#,
+										#l_geog_auth_rec_id#,
+										<cfif len(MAXIMUM_ELEVATION) gt 0>
+											MAXIMUM_ELEVATION
+										<cfelse>
+											NULL
+										</cfif>,
+										<cfif len(MINIMUM_ELEVATION) gt 0>
+											MINIMUM_ELEVATION
+										<cfelse>
+											NULL
+										</cfif>,
+										'#ORIG_ELEV_UNITS#',
+										'#SPEC_LOCALITY#',
+										'#LOCALITY_REMARKS#',
+										'#DEPTH_UNITS#',
+										<cfif len(MIN_DEPTH) gt 0>
+											MIN_DEPTH
+										<cfelse>
+											NULL
+										</cfif>,
+										<cfif len(MAX_DEPTH) gt 0>
+											MAX_DEPTH
+										<cfelse>
+											NULL
+										</cfif>,
+										<cfif len(DEC_LAT) gt 0>
+											DEC_LAT
+										<cfelse>
+											NULL
+										</cfif>,
+										<cfif len(DEC_LONG) gt 0>
+											DEC_LONG
+										<cfelse>
+											NULL
+										</cfif>,
+										<cfif len(MAX_ERROR_DISTANCE) gt 0>
+											MAX_ERROR_DISTANCE
+										<cfelse>
+											NULL
+										</cfif>,
+										'#MAX_ERROR_UNITS#',
+										'#DATUM#',
+										'#georeference_source#',
+										'#georeference_protocol#'
+									)
+								</cfquery>
+								<cfset lcl_locality_id=lid>
+							</cfif>
+						</cfif>
+						<!--- we should have a locality_id here, so see if we have a collecting_event.---->
+						<cfquery name="findEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							select 
+					    	    nvl(MIN(collecting_event_id),-1) collecting_event_id
+					    	from
+					    	    collecting_event 
+					    	where
+					    	    locality_id = #lcl_locality_id# and
+					    	    nvl(verbatim_date,'NULL') = nvl('#verbatim_date#','NULL') and
+					    	    nvl(VERBATIM_LOCALITY,'NULL') = nvl('#VERBATIM_LOCALITY#','NULL') and
+					    	    nvl(COLL_EVENT_REMARKS,'NULL') = nvl('#COLL_EVENT_REMARKS#','NULL') and
+					    	    nvl(began_date,'NULL') = nvl('#began_date#','NULL') and
+					    	    nvl(ended_date,'NULL') = nvl('#ended_date#','NULL') and
+					    	    COLLECTING_EVENT_NAME IS NULL AND -- or we'd have found it at that check
+					    	    nvl(verbatim_coordinates,'NULL') = nvl('#verbatimcoordinates#','NULL') and
+					    	    nvl(DATUM,'NULL') = nvl('#DATUM#','NULL') and
+					    	    nvl(ORIG_LAT_LONG_UNITS,'NULL') = nvl('#ORIG_LAT_LONG_UNITS#','NULL')
+		   	    		</cfquery>
+		   				<cfif findEvent.collecting_event_id gt 0>
+							<cfset lcl_collecting_event_id=findEvent.collecting_event_id>
+						<cfelse>
+							<!---- make a collecting event ---->
+							<cfquery name="nCevId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								select sq_collecting_event_id.nextval nv from dual
+							</cfquery>
+							<cfset lcl_collecting_event_id=nCevId.nv>
+							<cfquery name="makeEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					    		insert into collecting_event (
+					    			collecting_event_id,
+					    			locality_id,
+					    			verbatim_date,
+					    			VERBATIM_LOCALITY,
+					    			began_date,
+					    			ended_date,
+					    			coll_event_remarks,
+					    			LAT_DEG,
+					    			DEC_LAT_MIN,
+					    			LAT_MIN,
+					    			LAT_SEC,
+					    			LAT_DIR,
+					    			LONG_DEG,
+					    			DEC_LONG_MIN,
+					    			LONG_MIN,
+					    			LONG_SEC,
+					    			LONG_DIR,
+					    			DEC_LAT,
+					    			DEC_LONG,
+					    			DATUM,
+					    			UTM_ZONE,
+					    			UTM_EW,
+					    			UTM_NS,
+					    			ORIG_LAT_LONG_UNITS
+					    		) values (
+					    			#lcl_collecting_event_id#,
+					    			#lcl_locality_id#,
+					    			'#verbatim_date#',
+					    			'#VERBATIM_LOCALITY#',
+					    			'#began_date#',			
+					    			'#ended_date#',
+					    			'#coll_event_remarks#',
+					    			<cfif len(LAT_DEG) gt 0>
+										LAT_DEG
+									<cfelse>
+										NULL
+									</cfif>,
+					    			<cfif len(DEC_LAT_MIN) gt 0>
+										DEC_LAT_MIN
+									<cfelse>
+										NULL
+									</cfif>,
+					    			<cfif len(LAT_MIN) gt 0>
+										LAT_MIN
+									<cfelse>
+										NULL
+									</cfif>,
+					    			<cfif len(LAT_SEC) gt 0>
+										LAT_SEC
+									<cfelse>
+										NULL
+									</cfif>,
+					    			'#LAT_DIR#',
+					    			<cfif len(LONG_DEG) gt 0>
+										LONG_DEG
+									<cfelse>
+										NULL
+									</cfif>,
+					    			<cfif len(DEC_LONG_MIN) gt 0>
+										DEC_LONG_MIN
+									<cfelse>
+										NULL
+									</cfif>,
+					    			<cfif len(LONG_MIN) gt 0>
+										LONG_MIN
+									<cfelse>
+										NULL
+									</cfif>,
+					    			<cfif len(LONG_SEC) gt 0>
+										LONG_SEC
+									<cfelse>
+										NULL
+									</cfif>,
+					    			'#LONG_DIR#',
+					    			<cfif len(DEC_LAT) gt 0>
+										DEC_LAT
+									<cfelse>
+										NULL
+									</cfif>,
+					    			<cfif len(DEC_LONG) gt 0>
+										DEC_LONG
+									<cfelse>
+										NULL
+									</cfif>,
+					    			'#DATUM#',
+					    			'#UTM_ZONE#',
+					    			<cfif len(UTM_EW) gt 0>
+										UTM_EW
+									<cfelse>
+										NULL
+									</cfif>,
+					    			<cfif len(UTM_NS) gt 0>
+										UTM_NS
+									<cfelse>
+										NULL
+									</cfif>,
+					    			'#ORIG_LAT_LONG_UNITS#'
+					    		)
+		   					</cfquery>
+						</cfif>
 					</cfif>
-					<cfquery name="eLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select nvl(min(locality.locality_id),-1) locality_id
-			            FROM 
-			            	locality
-			            WHERE
-			                geog_auth_rec_id = #l_geog_auth_rec_id# AND
-			                NVL(MAXIMUM_ELEVATION,-1) = NVL('#maximum_elevation#',-1) AND
-			            	NVL(MINIMUM_ELEVATION,-1) = NVL('#minimum_elevation#',-1) AND
-			            	NVL(ORIG_ELEV_UNITS,'NULL') = NVL('#orig_elev_units#','NULL') AND
-			            	NVL(MIN_DEPTH,-1) = nvl('#min_depth#',-1) AND
-			            	NVL(MAX_DEPTH,-1) = nvl('#max_depth#',-1) AND
-			            	NVL(SPEC_LOCALITY,'NULL') = NVL('#spec_locality#','NULL') AND
-			            	NVL(LOCALITY_REMARKS,'NULL') = NVL('#locality_remarks#','NULL') AND
-			            	NVL(DEPTH_UNITS,'NULL') = NVL('#depth_units#','NULL') AND
-			            	NVL(dec_lat,-1) = nvl('#dec_lat#',-1) AND
-			            	NVL(dec_long,-1) = nvl('#dec_long#',-1) AND
-			            	locality_name IS NULL AND -- because we tested that above and will use it if it exists
-			                locality_id not in (select locality_id from geology_attributes)
+					<!--- at this point, we should have a collecting event ID, so make the specimen_event --->
+					<cfquery name="makeSpecEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						INSERT INTO specimen_event (
+				            COLLECTION_OBJECT_ID,
+				            COLLECTING_EVENT_ID,
+				            ASSIGNED_BY_AGENT_ID,
+				            ASSIGNED_DATE,
+				            SPECIMEN_EVENT_REMARK,
+				            SPECIMEN_EVENT_TYPE,
+				            COLLECTING_METHOD,
+				            COLLECTING_SOURCE,
+				            VERIFICATIONSTATUS,
+				            HABITAT
+				        ) VALUES (
+				            #l_collection_object_id#,
+				            #lcl_collecting_event_id#,
+				            #l_event_assigned_id#,
+				            '#ASSIGNED_DATE#',
+				            '#SPECIMEN_EVENT_REMARK#',
+				            '#SPECIMEN_EVENT_TYPE#',
+				            '#COLLECTING_METHOD#',
+				            '#COLLECTING_SOURCE#',
+				            '#VERIFICATIONSTATUS#',
+				            '#HABITAT#'
+				        )
 					</cfquery>
-					<cfif eLoc.locality_id gt 0>
-						found existing locality
-						<cfset lcl_locality_id=eLoc.locality_id>
-					<cfelse>
-						<!--- make a locality ---->
-						<cfquery name="nLocId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select sq_locality_id.nextval nv from dual
-						</cfquery>
-						<cfset lid=nLocId.nv>
-						<cfquery name="newLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							INSERT INTO locality (
-								LOCALITY_ID,
-								GEOG_AUTH_REC_ID,
-								MAXIMUM_ELEVATION,
-								MINIMUM_ELEVATION,
-								ORIG_ELEV_UNITS,
-								SPEC_LOCALITY,
-								LOCALITY_REMARKS,
-								DEPTH_UNITS,
-								MIN_DEPTH,
-								MAX_DEPTH,
-								DEC_LAT,
-								DEC_LONG,
-								MAX_ERROR_DISTANCE,
-								MAX_ERROR_UNITS,
-								DATUM,
-								georeference_source,
-								georeference_protocol
-							)  values (
-								#lid#,
-								#l_geog_auth_rec_id#,
-								<cfif len(MAXIMUM_ELEVATION) gt 0>
-									MAXIMUM_ELEVATION
-								<cfelse>
-									NULL
-								</cfif>,
-								<cfif len(MINIMUM_ELEVATION) gt 0>
-									MINIMUM_ELEVATION
-								<cfelse>
-									NULL
-								</cfif>,
-								'#ORIG_ELEV_UNITS#',
-								'#SPEC_LOCALITY#',
-								'#LOCALITY_REMARKS#',
-								'#DEPTH_UNITS#',
-								<cfif len(MIN_DEPTH) gt 0>
-									MIN_DEPTH
-								<cfelse>
-									NULL
-								</cfif>,
-								<cfif len(MAX_DEPTH) gt 0>
-									MAX_DEPTH
-								<cfelse>
-									NULL
-								</cfif>,
-								<cfif len(DEC_LAT) gt 0>
-									DEC_LAT
-								<cfelse>
-									NULL
-								</cfif>,
-								<cfif len(DEC_LONG) gt 0>
-									DEC_LONG
-								<cfelse>
-									NULL
-								</cfif>,
-								<cfif len(MAX_ERROR_DISTANCE) gt 0>
-									MAX_ERROR_DISTANCE
-								<cfelse>
-									NULL
-								</cfif>,
-								'#MAX_ERROR_UNITS#',
-								'#DATUM#',
-								'#georeference_source#',
-								'#georeference_protocol#'
-							)
-						</cfquery>
-						<cfset lcl_locality_id=lid>
-					</cfif>
-				</cfif>
-				<!--- we should have a locality_id here, so see if we have a collecting_event.---->
-				<cfquery name="findEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select 
-			    	    nvl(MIN(collecting_event_id),-1) collecting_event_id
-			    	from
-			    	    collecting_event 
-			    	where
-			    	    locality_id = #lcl_locality_id# and
-			    	    nvl(verbatim_date,'NULL') = nvl('#verbatim_date#','NULL') and
-			    	    nvl(VERBATIM_LOCALITY,'NULL') = nvl('#VERBATIM_LOCALITY#','NULL') and
-			    	    nvl(COLL_EVENT_REMARKS,'NULL') = nvl('#COLL_EVENT_REMARKS#','NULL') and
-			    	    nvl(began_date,'NULL') = nvl('#began_date#','NULL') and
-			    	    nvl(ended_date,'NULL') = nvl('#ended_date#','NULL') and
-			    	    COLLECTING_EVENT_NAME IS NULL AND -- or we'd have found it at that check
-			    	    nvl(verbatim_coordinates,'NULL') = nvl('#verbatimcoordinates#','NULL') and
-			    	    nvl(DATUM,'NULL') = nvl('#DATUM#','NULL') and
-			    	    nvl(ORIG_LAT_LONG_UNITS,'NULL') = nvl('#ORIG_LAT_LONG_UNITS#','NULL')
-   	    		</cfquery>
-   				<cfif findEvent.collecting_event_id gt 0>
-					<cfset lcl_collecting_event_id=findEvent.collecting_event_id>
-				<cfelse>
-					<!---- make a collecting event ---->
-					<cfquery name="nCevId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select sq_collecting_event_id.nextval nv from dual
+					<br>inserted for #l_collection_object_id#
+					<cfquery name="gotit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						delete from cf_temp_specevent where key=#key#
 					</cfquery>
-					<cfset lcl_collecting_event_id=nCevId.nv>
-					<cfquery name="makeEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			    		insert into collecting_event (
-			    			collecting_event_id,
-			    			locality_id,
-			    			verbatim_date,
-			    			VERBATIM_LOCALITY,
-			    			began_date,
-			    			ended_date,
-			    			coll_event_remarks,
-			    			LAT_DEG,
-			    			DEC_LAT_MIN,
-			    			LAT_MIN,
-			    			LAT_SEC,
-			    			LAT_DIR,
-			    			LONG_DEG,
-			    			DEC_LONG_MIN,
-			    			LONG_MIN,
-			    			LONG_SEC,
-			    			LONG_DIR,
-			    			DEC_LAT,
-			    			DEC_LONG,
-			    			DATUM,
-			    			UTM_ZONE,
-			    			UTM_EW,
-			    			UTM_NS,
-			    			ORIG_LAT_LONG_UNITS
-			    		) values (
-			    			#lcl_collecting_event_id#,
-			    			#lcl_locality_id#,
-			    			'#verbatim_date#',
-			    			'#VERBATIM_LOCALITY#',
-			    			'#began_date#',			
-			    			'#ended_date#',
-			    			'#coll_event_remarks#',
-			    			<cfif len(LAT_DEG) gt 0>
-								LAT_DEG
-							<cfelse>
-								NULL
-							</cfif>,
-			    			<cfif len(DEC_LAT_MIN) gt 0>
-								DEC_LAT_MIN
-							<cfelse>
-								NULL
-							</cfif>,
-			    			<cfif len(LAT_MIN) gt 0>
-								LAT_MIN
-							<cfelse>
-								NULL
-							</cfif>,
-			    			<cfif len(LAT_SEC) gt 0>
-								LAT_SEC
-							<cfelse>
-								NULL
-							</cfif>,
-			    			'#LAT_DIR#',
-			    			<cfif len(LONG_DEG) gt 0>
-								LONG_DEG
-							<cfelse>
-								NULL
-							</cfif>,
-			    			<cfif len(DEC_LONG_MIN) gt 0>
-								DEC_LONG_MIN
-							<cfelse>
-								NULL
-							</cfif>,
-			    			<cfif len(LONG_MIN) gt 0>
-								LONG_MIN
-							<cfelse>
-								NULL
-							</cfif>,
-			    			<cfif len(LONG_SEC) gt 0>
-								LONG_SEC
-							<cfelse>
-								NULL
-							</cfif>,
-			    			'#LONG_DIR#',
-			    			<cfif len(DEC_LAT) gt 0>
-								DEC_LAT
-							<cfelse>
-								NULL
-							</cfif>,
-			    			<cfif len(DEC_LONG) gt 0>
-								DEC_LONG
-							<cfelse>
-								NULL
-							</cfif>,
-			    			'#DATUM#',
-			    			'#UTM_ZONE#',
-			    			<cfif len(UTM_EW) gt 0>
-								UTM_EW
-							<cfelse>
-								NULL
-							</cfif>,
-			    			<cfif len(UTM_NS) gt 0>
-								UTM_NS
-							<cfelse>
-								NULL
-							</cfif>,
-			    			'#ORIG_LAT_LONG_UNITS#'
-			    		)
-   					</cfquery>
-				</cfif>
-			</cfif>
-			<!--- at this point, we should have a collecting event ID, so make the specimen_event --->
-			<cfquery name="makeSpecEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				INSERT INTO specimen_event (
-		            COLLECTION_OBJECT_ID,
-		            COLLECTING_EVENT_ID,
-		            ASSIGNED_BY_AGENT_ID,
-		            ASSIGNED_DATE,
-		            SPECIMEN_EVENT_REMARK,
-		            SPECIMEN_EVENT_TYPE,
-		            COLLECTING_METHOD,
-		            COLLECTING_SOURCE,
-		            VERIFICATIONSTATUS,
-		            HABITAT
-		        ) VALUES (
-		            #l_collection_object_id#,
-		            #lcl_collecting_event_id#,
-		            #l_event_assigned_id#,
-		            '#ASSIGNED_DATE#',
-		            '#SPECIMEN_EVENT_REMARK#',
-		            '#SPECIMEN_EVENT_TYPE#',
-		            '#COLLECTING_METHOD#',
-		            '#COLLECTING_SOURCE#',
-		            '#VERIFICATIONSTATUS#',
-		            '#HABITAT#'
-		        )
-			</cfquery>
-			<br>				inserted for #l_collection_object_id#
+					<br>deleted for #l_collection_object_id#
+				</p>
+			</cftransaction>
 		</cfloop>
 	</cfoutput>
 </cfif>

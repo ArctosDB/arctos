@@ -633,7 +633,7 @@
 				publication_id,
 				collection_object_id,
 				cat_num,
-				collection,
+				guid_prefix,
 				occurs_page_number,
 				type_status,
 				citation_remarks,
