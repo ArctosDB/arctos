@@ -278,7 +278,7 @@
 			value="#identifiers.recordcount#">
 	<table id="mainTable_#i#">
     	<tr>
-        	<td><div align="right">Scientific Name:</div>
+        	<td class="valigntop"><div align="right">Scientific Name:</div>
 				
 				</td>
             <td>
