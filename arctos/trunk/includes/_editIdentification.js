@@ -5,7 +5,7 @@ function addAssTax(i){
 	var nnt=parseInt($("#number_of_taxa_" + i).val()) + parseInt(1);
 	var h='<div><input type="text" name="taxon_name_' + i + '_' + nnt + '" id="taxon_name_' + i + '_' + nnt + '" size="50"'; 
 	h+='onChange="taxaPick(\'taxon_name_id_' + i + '_' + nnt + '\',this.id,\'editIdentification\',this.value); return false;"';
-	h+='onKeyPress="return noenter(event);" placeholder="pick a taxon name">';
+	h+='onKeyPress="return noenter(event);" placeholder="pick a taxon name" class="minput reqdClr">';
 	h+='<img src="/images/del.gif" class="likeLink" onclick="deleteAssTax(' + i + ',' + nnt + ')">';
 	h+='<input type="hidden" name="taxon_name_id_' + i + '_' + nnt + '" id="taxon_name_id_' + i + '_' + nnt + '">';
 	h+='</div>';
