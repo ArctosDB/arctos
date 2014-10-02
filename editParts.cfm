@@ -110,7 +110,7 @@
 					</td>
 					<td>
 						<label for="coll_object_remarks#i#">Remark</label>
-						<input type="text" name="coll_object_remarks#i#" id="coll_object_remarks#i#" value="#stripQuotes(getparts.coll_object_remarks)#">
+						<textarea name="coll_object_remarks#i#" id="coll_object_remarks#i#" class="smalltextarea">#stripQuotes(getparts.coll_object_remarks)#</textarea>
 					</td>
 					<td>
 						<label for="print_fg#i#">PrtFg</label>
