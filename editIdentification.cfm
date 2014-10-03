@@ -294,7 +294,9 @@
 					<input id="scientific_name_#i#" name="scientific_name_#i#" value="#scientific_name#" class="minput reqdClr">
 					<br>
 					<label for="x">
-						Associated Taxa <span class="likeLink" onclick="addAssTax(#i#)">[ Add Taxon ]</span>
+						Associated Taxa 
+						<span class="infoLink" onclick="getDocs('identification','astring')">[ help ]</span>
+						<span class="likeLink" onclick="addAssTax(#i#)">[ Add Taxon ]</span>
 					</label>
 					<cfset n=1>
 					<div id="tdiv_#i#">
