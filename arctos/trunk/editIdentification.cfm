@@ -290,13 +290,13 @@
 							taxon_name_id from getID where identification_id=#identification_id# order by taxon_name
 					</cfquery>
 					<input type="hidden" name="number_of_taxa_#i#" id="number_of_taxa_#i#" value="#taxa.recordcount#">
-					<label for="scientific_name_#i#">Identification String</label>
+					<label for="scientific_name_#i#">Identification String (type stuff)</label>
 					<input id="scientific_name_#i#" name="scientific_name_#i#" value="#scientific_name#" class="minput reqdClr">
 					<br>
 					<label for="x">
-						Associated Taxa 
-						<span class="infoLink" onclick="getDocs('identification','astring')">[ help ]</span>
-						<span class="likeLink" onclick="addAssTax(#i#)">[ Add Taxon ]</span>
+						Associated Taxa (pick names to link)
+						<span class="likeLink" onclick="getDocs('identification','astring')">[ help ]</span>
+						<span class="likeLink" onclick="addAssTax(#i#)">[ add a row ]</span>
 					</label>
 					<cfset n=1>
 					<div id="tdiv_#i#">
