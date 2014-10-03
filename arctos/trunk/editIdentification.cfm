@@ -468,7 +468,7 @@
 					DELETE FROM identification WHERE identification_id = #thisIdentificationId#
 				</cfquery>
 			<cfelse>
-				<cfif thisAcceptedIdFg is 1 and thisTaxaFormula is 'A {string}'>
+				<cfif n=1 and thisAcceptedIdFg is 1 and thisTaxaFormula is 'A {string}'>
 					<cfset thisScientificName = evaluate("scientific_name_" & n)>
 					<cfquery name="updateId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						UPDATE identification SET
