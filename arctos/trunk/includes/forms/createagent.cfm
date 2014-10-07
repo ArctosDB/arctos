@@ -22,6 +22,11 @@
 			overflow:auto;}
 	</style>
 	<script language="javascript" type="text/javascript">
+		$(document).ready(function() {
+			$(".reqdClr:visible").each(function(e){
+			    $(this).prop('required',true);
+			});
+		});
 		function togglePerson(atype){
 			if (atype=='person'){
 				$("#newPersonAttrs").show();
