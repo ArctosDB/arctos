@@ -657,7 +657,7 @@
 	<cfif catnum contains "-">
 		<cfset hyphenPosition=find("-",catnum)>
 		<cfif hyphenPosition lt 2>
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(catnum)#'" >
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) LIKE '#ucase(catnum)#'" >
 		<cfelse>
 			<cfset minCatNum=left(catnum,hyphenPosition-1)>
 			<cfset maxCatNum=right(catnum,len(catnum)-hyphenPosition)>
