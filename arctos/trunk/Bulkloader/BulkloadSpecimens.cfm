@@ -171,7 +171,7 @@
 	<ul>
 		<li>
 			<strong>not enough values</strong>: Excel hates you, and has served up invalid CSV. Columns with trailing NULL values have
-			been lopped off. Select all colums to the right of your data, and delete them. Select all columns under your data and delete tehm.
+			been lopped off. Select all colums to the right of your data, and delete them. Select all columns under your data and delete them.
 			Save as CSV.
 		</li>
 		<li><strong>SOME_RANDOM_STRING: invalid identifier</strong>: You've made up a column name. See BulkloaderBuilder.
