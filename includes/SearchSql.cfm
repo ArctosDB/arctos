@@ -671,7 +671,7 @@
 	<cfelseif listlen(catnum,'-') is 2 and isnumeric(listgetat(catnum,1,'-')) and isnumeric(listgetat(catnum,2,'-'))>
 	
 	
-	<cfif compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0) EQ 0>
+	<cfif compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0)) EQ 0>
 		no leading zeroes
 	<cfelse>
 		lading zeroes
