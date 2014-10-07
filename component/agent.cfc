@@ -406,6 +406,9 @@
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
+	<cfif len(trim(preferred_name)) is 0>
+		<cfreturn "FATAL ERROR: Preferred_name is required.">
+	</cfif>
 	<!--- shared rules --->
 	<cfset regexStripJunk='[ .,-]'>
 	<cfset problems="">
