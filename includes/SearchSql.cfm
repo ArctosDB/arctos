@@ -680,14 +680,14 @@
 		<cfset clist="">
 		<cfloop from="#listgetat(catnum,1,'-')#" to="#listgetat(catnum,2,'-')#" index="i">
 			<cfset clist=listappend(clist,i)>
-			<cfif listlen(clist) gte 1000>
-				<div class="error">Catalog number span searches have a 1000 record limit</div>
-				<script>hidePageLoad();</script>
-				<cfabort>
-			</cfif>
-			<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num in ( #ListQualify(clist,'''')# ) " >
 		</cfloop>
-		
+		<cfif listlen(clist) gte 1000>
+			<div class="error">Catalog number span searches have a 1000 record limit</div>
+			<script>hidePageLoad();</script>
+			<cfabort>
+		</cfif>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num in ( #ListQualify(clist,'''')# ) " >
+
 		
 	<cfelse>
 	bad format<cfabort>
