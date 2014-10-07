@@ -670,6 +670,12 @@
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(mid(catnum,2,len(catnum)-1))#'" >
 	<cfelseif listlen(catnum,'-') is 2 and isnumeric(listgetat(catnum,1,'-')) and isnumeric(listgetat(catnum,2,'-'))>
 	
+	
+	<cfif compare(listgetat(catnum,1,'-'), listgetat(catnum,1,'-')*1) EQ 0>
+		no leading zeroes
+	<cfelse>
+		lading zeroes
+	</cfif>
 		range
 		
 		
