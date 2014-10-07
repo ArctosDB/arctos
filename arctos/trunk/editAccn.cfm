@@ -699,7 +699,7 @@
 			trans_remarks,
 			issuedTo.agent_name as issuedTo,
 			issuedBy.agent_name as issuedBy,
-			collection,
+			guid_prefix,
 			project_name,
 			project.project_id pid,
 			estimated_count,
