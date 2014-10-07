@@ -691,7 +691,7 @@
 
 	<cfelseif cat_num contains ",">
 		hascomma
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ucase(ListQualify(cat_num,''''))# ) " >
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ListQualify(ucase(cat_num),'''')# ) " >
 	<cfelse>
 	bad format<cfabort>
 	</cfif>
