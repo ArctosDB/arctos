@@ -689,15 +689,17 @@
 		</cfif>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num in ( #ListQualify(clist,'''')# ) " >
 
-	<cfelseif cat_num contains ",">
+	<cfelseif catnum contains ",">
 		hascomma
-		<br>cat_num: #cat_num#
-		<br>ucase(cat_num): #ucase(cat_num)#
-		<br>ListQualify(cat_num,''''): #ListQualify(cat_num,'''')#
 		
-		<cfabort>
-		<br>ListQualify(ucase(cat_num),''''): #ListQualify(ucase(cat_num),'''')#
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ListQualify(ucase(cat_num),'''')# ) " >
+		
+		
+		<br>catnum: #catnum#
+		<br>ucase(catnum): #ucase(catnum)#
+		<br>ListQualify(catnum,''''): #ListQualify(catnum,'''')#
+		
+		<br>ListQualify(ucase(catnum),''''): #ListQualify(ucase(catnum),'''')#
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ListQualify(ucase(catnum),'''')# ) " >
 	<cfelse>
 	bad format<cfabort>
 	</cfif>
