@@ -656,19 +656,28 @@
 	<!----
 		OPTIONS
 			1) = : force-match whatever's given
-			2) contains % : substring-match whatever's given
-			3) integer-integer : in range
+			2) integer-integer : in range
+			
+			contains % : substring-match whatever's given
+			3) 
 			4) contains comma: in list
 	
 	---->
 	<cfset mapurl = "#mapurl#&catnum=#catnum#">
 	<cfif left(catnum,1) is "=">
+	
+		force-equals
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(mid(catnum,2,len(catnum)-1))#'" >
+	<cfelseif listlen(catnum,'-') is 2 and isnumeric(listgetat(catnum,1,'-') and isnumeric(listgetat(catnum,1,'-')>
+	
+		range
+		
+		
 	<cfelse>
 	bad format<cfabort>
 	</cfif>
 	
-	
+	<cfabort>
 	<!--------
 	<cfif catnum contains "-">
 		<cfset hyphenPosition=find("-",catnum)>
