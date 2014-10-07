@@ -653,6 +653,8 @@
 		collection_object_id from attributes where attribute_type='image confirmed' and attribute_value='yes')" >
 </cfif>
 <cfif isdefined("catnum") and len(trim(catnum)) gt 0>
+
+<cfoutput>
 	<!----
 		OPTIONS
 			1) = : force-match whatever's given
@@ -670,7 +672,7 @@
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(mid(catnum,2,len(catnum)-1))#'" >
 	<cfelseif listlen(catnum,'-') is 2 and isnumeric(listgetat(catnum,1,'-')) and isnumeric(listgetat(catnum,2,'-'))>
 	----#compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0))#---
-	
+	========#numberformat(listgetat(catnum,1,'-'),0)#======
 	<cfif compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0)) EQ 0>
 		no leading zeroes
 	<cfelse>
@@ -682,7 +684,7 @@
 	<cfelse>
 	bad format<cfabort>
 	</cfif>
-	
+	</cfoutput>
 	<cfabort>
 	<!--------
 	<cfif catnum contains "-">
