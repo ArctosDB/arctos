@@ -657,8 +657,8 @@
 <cfoutput>
 	<!----
 		OPTIONS
-			1) = : force-match whatever's given
-			2) integer-integer : in range
+			1) ={string} : force-match whatever's given
+			2) {unpadded integer}-{unpadded integer} : in range
 			
 			contains % : substring-match whatever's given
 			3) 
@@ -670,7 +670,12 @@
 	
 		force-equals
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(mid(catnum,2,len(catnum)-1))#'" >
-	<cfelseif listlen(catnum,'-') is 2 and isnumeric(listgetat(catnum,1,'-')) and isnumeric(listgetat(catnum,2,'-'))>
+	<cfelseif 
+		listlen(catnum,'-') is 2 and 
+		isnumeric(listgetat(catnum,1,'-')) and 
+		isnumeric(listgetat(catnum,2,'-')) and
+		compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0)) EQ 0 and
+		compare(listgetat(catnum,2,'-'), numberformat(listgetat(catnum,2,'-'),0)) EQ 0>
 	----#compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0))#---
 	========#numberformat(listgetat(catnum,1,'-'),0)#======
 	<cfif compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0)) EQ 0>
