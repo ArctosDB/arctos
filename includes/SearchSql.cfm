@@ -653,7 +653,23 @@
 		collection_object_id from attributes where attribute_type='image confirmed' and attribute_value='yes')" >
 </cfif>
 <cfif isdefined("catnum") and len(trim(catnum)) gt 0>
+	<!----
+		OPTIONS
+			1) = : force-match whatever's given
+			2) contains % : substring-match whatever's given
+			3) integer-integer : in range
+			4) contains comma: in list
+	
+	---->
 	<cfset mapurl = "#mapurl#&catnum=#catnum#">
+	<cfif left(catnum,1) is "=">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(mid(catnum,2,len(catnum)-1))#'" >
+	<cfelse>
+	bad format<cfabort>
+	</cfif>
+	
+	
+	<!--------
 	<cfif catnum contains "-">
 		<cfset hyphenPosition=find("-",catnum)>
 		<cfif hyphenPosition lt 2>
@@ -681,6 +697,10 @@
 		<cfset catnum=replace(catnum,';',',','all')>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(catnum,'''')# ) " >
 	</cfif>
+	
+	
+	
+	----------->
 </cfif>
 <cfif isdefined("geology_attribute") AND len(geology_attribute) gt 0>
 	<cfset mapurl = "#mapurl#&geology_attribute=#geology_attribute#">
