@@ -669,7 +669,7 @@
 		force-equals
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(mid(catnum,2,len(catnum)-1))#'" >
 	<cfelseif listlen(catnum,'-') is 2 and isnumeric(listgetat(catnum,1,'-')) and isnumeric(listgetat(catnum,2,'-'))>
-	
+	----#compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0))#---
 	
 	<cfif compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0)) EQ 0>
 		no leading zeroes
