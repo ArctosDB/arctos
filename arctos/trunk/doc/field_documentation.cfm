@@ -63,7 +63,7 @@
 		});
 		function submitForm() {
 			var linkOrderData=$("#sortable").sortable('toArray').join(',');
-			console.log('linkOrderData: ' + linkOrderData);
+			//console.log('linkOrderData: ' + linkOrderData);
 			$( "#drugorder" ).val(linkOrderData);
 			$( "#f1" ).submit();
 		}

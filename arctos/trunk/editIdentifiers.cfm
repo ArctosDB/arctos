@@ -46,7 +46,7 @@
 				var i;
 				for ( i = 1; i <= $("#numberOfIDs").val(); i++ ) {
 					if ($("#delete_" + i).prop('checked')!==true) {
-						console.log('nodelete');
+						//console.log('nodelete');
 						if ($("#other_id_prefix_" + i).val().length===0 && $("#other_id_number_" + i).val().length===0 && $("#other_id_suffix_" + i).val().length===0){
 							alert('Prefix, Number, and Suffix may not all be NULL. Check the delete box and save to remove an identifier');
 							$("#trid_" + i).addClass('badPick');
