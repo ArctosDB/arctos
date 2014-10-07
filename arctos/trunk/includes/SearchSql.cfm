@@ -1029,7 +1029,7 @@
 	<cfif basJoin does not contain " srchColl ">
 		<cfset basJoin = " #basJoin# INNER JOIN collector ON
 			(#session.flatTableName#.collection_object_id = collector.collection_object_id)
-			INNER JOIN agent_name srchColl ON (collector.agent_id = srchColl.agent_id)">
+			INNER JOIN agent srchColl ON (collector.agent_id = srchColl.agent_id)">
 	</cfif>
 	<cfSet basQual = " #basQual# AND srchColl.agent_id in (
 		select agent_id from agent_name where UPPER(agent_name) LIKE '%#UCASE(escapeQuotes(coll))#%'
