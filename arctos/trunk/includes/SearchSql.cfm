@@ -668,7 +668,7 @@
 	
 		force-equals
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(mid(catnum,2,len(catnum)-1))#'" >
-	<cfelseif listlen(catnum,'-') is 2 and isnumeric(listgetat(catnum,1,'-') and isnumeric(listgetat(catnum,1,'-')>
+	<cfelseif listlen(catnum,'-') is 2 and isnumeric(listgetat(catnum,1,'-')) and isnumeric(listgetat(catnum,1,'-'))>
 	
 		range
 		
