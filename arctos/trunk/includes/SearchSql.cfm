@@ -677,6 +677,7 @@
 		compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0)) EQ 0 and
 		compare(listgetat(catnum,2,'-'), numberformat(listgetat(catnum,2,'-'),0)) EQ 0 and
 		listgetat(catnum,1,'-') lt listgetat(catnum,2,'-')>
+		isrange
 		<cfset clist="">
 		<cfloop from="#listgetat(catnum,1,'-')#" to="#listgetat(catnum,2,'-')#" index="i">
 			<cfset clist=listappend(clist,i)>
@@ -688,7 +689,9 @@
 		</cfif>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num in ( #ListQualify(clist,'''')# ) " >
 
-		
+	<cfelseif cat_num contains ",">
+		hascomma
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ListQualify(ucase(cat_num,''''))# ) " >
 	<cfelse>
 	bad format<cfabort>
 	</cfif>
