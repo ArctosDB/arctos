@@ -653,23 +653,11 @@
 		collection_object_id from attributes where attribute_type='image confirmed' and attribute_value='yes')" >
 </cfif>
 <cfif isdefined("catnum") and len(trim(catnum)) gt 0>
-
-<cfoutput>
-	<!----
-		OPTIONS
-			1) ={string} : force-match whatever's given
-			2) {unpadded integer}-{larger unpadded integer} : in range
-			
-			contains % : substring-match whatever's given
-			3) 
-			4) contains comma: in list
-	
-	---->
 	<cfset mapurl = "#mapurl#&catnum=#catnum#">
 	<cfif left(catnum,1) is "=">
-	
-		force-equals
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(mid(catnum,2,len(catnum)-1))#'" >
+	<cfelseif catnum contains ",">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ListQualify(ucase(catnum),'''')# ) " >
 	<cfelseif 
 		listlen(catnum,'-') is 2 and 
 		isnumeric(listgetat(catnum,1,'-')) and 
@@ -677,7 +665,6 @@
 		compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0)) EQ 0 and
 		compare(listgetat(catnum,2,'-'), numberformat(listgetat(catnum,2,'-'),0)) EQ 0 and
 		listgetat(catnum,1,'-') lt listgetat(catnum,2,'-')>
-		isrange
 		<cfset clist="">
 		<cfloop from="#listgetat(catnum,1,'-')#" to="#listgetat(catnum,2,'-')#" index="i">
 			<cfset clist=listappend(clist,i)>
@@ -688,49 +675,10 @@
 			<cfabort>
 		</cfif>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num in ( #ListQualify(clist,'''')# ) " >
-
-	<cfelseif catnum contains ",">
-		hascomma
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ListQualify(ucase(catnum),'''')# ) " >
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) like '#ucase(catnum)#'" >
 	</cfif>
-	</cfoutput>
 	
-	<cfdump var=#basQual#>
-	<cfabort>
-	<!--------
-	<cfif catnum contains "-">
-		<cfset hyphenPosition=find("-",catnum)>
-		<cfif hyphenPosition lt 2>
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(catnum)#'" >
-		<cfelse>
-			<cfset minCatNum=left(catnum,hyphenPosition-1)>
-			<cfset maxCatNum=right(catnum,len(catnum)-hyphenPosition)>
-			<cfif isnumeric(minCatNum) and isnumeric(maxCatNum)>
-				<cfset clist="">
-				<cfloop from="#minCatNum#" to="#maxCatNum#" index="i">
-					<cfset clist=listappend(clist,i)>
-				</cfloop>
-				<cfif listlen(clist) gte 1000>
-					<div class="error">Catalog number span searches have a 1000 record limit</div>
-					<script>hidePageLoad();</script>
-					<cfabort>
-				</cfif>
-				<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num in ( #ListQualify(clist,'''')# ) " >
-			<cfelse>
-				<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) like '#ucase(catnum)#'" >
-			</cfif>
-		</cfif>
-	<cfelse>
-		<cfset catnum=replace(catnum,' ',',','all')>
-		<cfset catnum=replace(catnum,';',',','all')>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num IN ( #ListQualify(catnum,'''')# ) " >
-	</cfif>
-	
-	
-	
-	----------->
 </cfif>
 <cfif isdefined("geology_attribute") AND len(geology_attribute) gt 0>
 	<cfset mapurl = "#mapurl#&geology_attribute=#geology_attribute#">
