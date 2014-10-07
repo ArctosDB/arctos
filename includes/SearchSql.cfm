@@ -676,7 +676,7 @@
 		isnumeric(listgetat(catnum,2,'-')) and
 		compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0)) EQ 0 and
 		compare(listgetat(catnum,2,'-'), numberformat(listgetat(catnum,2,'-'),0)) EQ 0 and
-		isnumeric(listgetat(catnum,1,'-') lt isnumeric(listgetat(catnum,2,'-')>
+		listgetat(catnum,1,'-') lt listgetat(catnum,2,'-')>
 		<cfset clist="">
 		<cfloop from="#listgetat(catnum,1,'-')#" to="#listgetat(catnum,2,'-')#" index="i">
 			<cfset clist=listappend(clist,i)>
