@@ -658,7 +658,7 @@
 	<!----
 		OPTIONS
 			1) ={string} : force-match whatever's given
-			2) {unpadded integer}-{unpadded integer} : in range
+			2) {unpadded integer}-{larger unpadded integer} : in range
 			
 			contains % : substring-match whatever's given
 			3) 
@@ -675,21 +675,26 @@
 		isnumeric(listgetat(catnum,1,'-')) and 
 		isnumeric(listgetat(catnum,2,'-')) and
 		compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0)) EQ 0 and
-		compare(listgetat(catnum,2,'-'), numberformat(listgetat(catnum,2,'-'),0)) EQ 0>
-	----#compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0))#---
-	========#numberformat(listgetat(catnum,1,'-'),0)#======
-	<cfif compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0)) EQ 0>
-		no leading zeroes
-	<cfelse>
-		lading zeroes
-	</cfif>
-		range
+		compare(listgetat(catnum,2,'-'), numberformat(listgetat(catnum,2,'-'),0)) EQ 0 and
+		isnumeric(listgetat(catnum,1,'-') lt isnumeric(listgetat(catnum,2,'-')>
+		<cfset clist="">
+		<cfloop from="#listgetat(catnum,1,'-')#" to="#listgetat(catnum,2,'-')#" index="i">
+			<cfset clist=listappend(clist,i)>
+			<cfif listlen(clist) gte 1000>
+				<div class="error">Catalog number span searches have a 1000 record limit</div>
+				<script>hidePageLoad();</script>
+				<cfabort>
+			</cfif>
+			<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num in ( #ListQualify(clist,'''')# ) " >
+		</cfloop>
 		
 		
 	<cfelse>
 	bad format<cfabort>
 	</cfif>
 	</cfoutput>
+	
+	<cfdump var=#basQual#>
 	<cfabort>
 	<!--------
 	<cfif catnum contains "-">
