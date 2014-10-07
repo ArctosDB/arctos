@@ -691,17 +691,9 @@
 
 	<cfelseif catnum contains ",">
 		hascomma
-		
-		
-		
-		<br>catnum: #catnum#
-		<br>ucase(catnum): #ucase(catnum)#
-		<br>ListQualify(catnum,''''): #ListQualify(catnum,'''')#
-		
-		<br>ListQualify(ucase(catnum),''''): #ListQualify(ucase(catnum),'''')#
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ListQualify(ucase(catnum),'''')# ) " >
 	<cfelse>
-	bad format<cfabort>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) like '#ucase(catnum)#'" >
 	</cfif>
 	</cfoutput>
 	
