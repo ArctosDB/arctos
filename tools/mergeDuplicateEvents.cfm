@@ -36,7 +36,7 @@ All collecting events from this locality:
 		count(*) > 1
 </cfquery>
 <cfdump var=#dups#>
-
+<cftransaction>
 <cfif dups.recordcount is 0>
 	No dups detected - try merging localities first
 <cfelse>
@@ -105,11 +105,41 @@ All collecting events from this locality:
 			Will be merged into....
 		</p>
 		<cfdump var=#master#>
+		
+		<cfif action is "makeMerge">
+			<cfquery name="mergeSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update 
+					specimen_event 
+				set 
+					collecting_event_id=#master.collecting_event_id# 
+				where 
+					collecting_event_id in (#valuelist(thisdups.collecting_event_id)#)
+			</cfquery>
+			<cfquery name="mergeMR" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update 
+					media_relations 
+				set 
+					related_primary_key=#master.collecting_event_id# 
+				where 
+					MEDIA_RELATIONSHIP like '% collecting_event' and
+					related_primary_key in (#valuelist(thisdups.collecting_event_id)#)
+			</cfquery>
+			<cfquery name="deleteEvents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				delete from collecting_event where 
+				collecting_event_id in (#valuelist(thisdups.collecting_event_id)#)
+			</cfquery>
+			<p>
+				This set has been successfully merged
+			</p>
+		</cfif>
 	</cfloop>
-	<p>
-		<a href="mergeDuplicateEvents.cfm?locality_id=#locality_id#&action=makeMerge">Proceed with all of the above mergers</a>
-	</p>
+	<cfif action is not "makeMerge">	
+		<p>
+			<a href="mergeDuplicateEvents.cfm?locality_id=#locality_id#&action=makeMerge">Proceed with all of the above mergers</a>
+		</p>
+	</cfif>
 </cfif>
+</cftransaction>
 </cfoutput>
 
 <cfinclude template="/includes/_footer.cfm">
