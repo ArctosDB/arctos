@@ -143,6 +143,10 @@ All collecting events from this locality:
 		<p>
 			<a href="mergeDuplicateEvents.cfm?locality_id=#locality_id#&action=makeMerge">Proceed with all of the above mergers</a>
 		</p>
+	<cfelse>
+		<p>
+			<a href="/Locality.cfm?action=findCollEvent&locality_id=#locality_id#">return to locality/event list</a>
+		</p>
 	</cfif>
 </cfif>
 </cftransaction>
