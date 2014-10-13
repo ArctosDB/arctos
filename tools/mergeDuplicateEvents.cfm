@@ -1,6 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
-
+<style>
+	.theChosenOne{font-weight:bold;}
+</style>
 <cfset title="merge collecting events">
 <cfif not isdefined("locality_id") or len(locality_id) is 0>
 	need a locality_id to proceed<cfabort>
@@ -18,24 +20,7 @@
 		COLLECTING_EVENT_NAME,
 		DATUM from collecting_event where locality_id=#locality_id#
 </cfquery>
-<hr>
-<cfif action is not "makeMerge">	
-	All collecting events from this locality:
-	<table border id="t" class="sortable">
-		<tr>
-			<cfloop list="#data.columnlist#" index="x">
-				<th>#x#</th>
-			</cfloop>
-		</tr>
-		<cfloop query=#data#>
-			<tr>
-				<cfloop list="#data.columnlist#" index="x">
-					<td>#evaluate("data." & x)#</td>
-				</cfloop>
-			</tr>
-		</cfloop>
-	</table>
-</cfif>
+
 <cfquery name="dups" dbtype="query">
 	select
 		VERBATIM_DATE,
@@ -60,16 +45,47 @@
 	having
 		count(*) > 1
 </cfquery>
-<cfif action is not "makeMerge">
-	<p>
-		Uniques:
-	</p>
-	<cfdump var=#dups#>
-</cfif>
 <cftransaction>
 <cfif dups.recordcount is 0>
-	No dups detected - try merging localities first
+	No duplicates detected - try merging localities first.
+	<p>
+		<a href="/Locality.cfm?action=findCollEvent&locality_id=#locality_id#">return to locality/event list</a>
+	</p>
 <cfelse>
+	<cfif action is not "makeMerge">	
+		All collecting events from this locality:
+		<table border id="t" class="sortable">
+			<tr>
+				<cfloop list="#data.columnlist#" index="x">
+					<th>#x#</th>
+				</cfloop>
+			</tr>
+			<cfloop query=#data#>
+				<tr>
+					<cfloop list="#data.columnlist#" index="x">
+						<td>#evaluate("data." & x)#</td>
+					</cfloop>
+				</tr>
+			</cfloop>
+		</table>
+		<p>
+			Uniques:
+		</p>
+		<table border id="tu" class="sortable">
+			<tr>
+				<cfloop list="#dups.columnlist#" index="x">
+					<th>#x#</th>
+				</cfloop>
+			</tr>
+			<cfloop query=#dups#>
+				<tr>
+					<cfloop list="#dups.columnlist#" index="x">
+						<td>#evaluate("data." & x)#</td>
+					</cfloop>
+				</tr>
+			</cfloop>
+		</table>
+	</cfif>
 	<cfloop query="dups">
 		<cfquery name="thisun" dbtype="query">
 			select * from data where
@@ -113,29 +129,48 @@
 			<cfelse>
 				DATUM is null
 			</cfif>
+			order by collecting_event_id
 		</cfquery>
-		<cfif action is not "makeMerge">	
-			<p>
-				The following Collecting Events are duplicates.
-			</p>
-			<cfdump var=#thisun#>
-		</cfif>
 		<cfquery name="master" dbtype="query">
 			select min(collecting_event_id) as collecting_event_id from thisun
 		</cfquery>
 		<cfquery name="thisdups" dbtype="query">
 			select collecting_event_id from thisun where collecting_event_id != #master.collecting_event_id#
 		</cfquery>
+		
 		<cfif action is not "makeMerge">	
 			<p>
-				If you proceed, these events.....
+				The following set of Collecting Events are duplicates. If you proceed, the row in bold will replace all other rows in all
+				"nodes," and all non-bold rows will be deleted.
 			</p>
-			<cfdump var=#thisdups#>
-			<p>
-				Will be merged into....
-			</p>
-			<cfdump var=#master#>
+			<table border id="t#master.collecting_event_id#" class="sortable">
+				<tr>
+					<th>COLLECTING_EVENT_ID</th>
+					<th>COLLECTING_EVENT_NAME</th>
+					<th>VERBATIM_DATE</th>
+					<th>BEGAN_DATE</th>
+					<th>ENDED_DATE</th>
+					<th>VERBATIM_LOCALITY</th>
+					<th>COLL_EVENT_REMARKS</th>
+					<th>VERBATIM_COORDINATES</th>
+					<th>DATUM</th>
+				</tr>
+				<cfloop query="thisun">
+					<tr <cfif COLLECTING_EVENT_ID is master.collecting_event_id> class="theChosenOne"</cfif>>
+						<td>#COLLECTING_EVENT_ID#</td>
+						<td>#COLLECTING_EVENT_NAME#</td>
+						<td>#VERBATIM_DATE#</td>
+						<td>#BEGAN_DATE#</td>
+						<td>#ENDED_DATE#</td>
+						<td>#VERBATIM_LOCALITY#</td>
+						<td>#COLL_EVENT_REMARKS#</td>
+						<td>#VERBATIM_COORDINATES#</td>
+						<td>#DATUM#</td>
+					</tr>
+				</cfloop>
+			</table>
 		</cfif>
+		
 		<cfif action is "makeMerge">
 			<cfquery name="mergeSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update 
