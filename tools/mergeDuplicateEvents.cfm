@@ -8,10 +8,9 @@
 	select * from collecting_event where locality_id=#locality_id#
 </cfquery>
 <hr>
-	<cfif action is not "makeMerge">	
-
-All collecting events from this locality:
-<cfdump var=#data#>
+<cfif action is not "makeMerge">	
+	All collecting events from this locality:
+	<cfdump var=#data#>
 </cfif>
 <cfquery name="dups" dbtype="query">
 	select
@@ -37,7 +36,12 @@ All collecting events from this locality:
 	having
 		count(*) > 1
 </cfquery>
-<cfdump var=#dups#>
+<cfif action is not "makeMerge">
+	<p>
+		Duplicated detected:
+	</p>
+	<cfdump var=#dups#>
+</cfif>
 <cftransaction>
 <cfif dups.recordcount is 0>
 	No dups detected - try merging localities first
@@ -86,31 +90,27 @@ All collecting events from this locality:
 				DATUM is null
 			</cfif>
 		</cfquery>
-			<cfif action is not "makeMerge">	
-
-		<p>
-			The following Collecting Events are duplicates.
-		</p>
+		<cfif action is not "makeMerge">	
+			<p>
+				The following Collecting Events are duplicates.
+			</p>
+			<cfdump var=#thisun#>
 		</cfif>
-		<cfdump var=#thisun#>
 		<cfquery name="master" dbtype="query">
 			select min(collecting_event_id) as collecting_event_id from thisun
 		</cfquery>
 		<cfquery name="thisdups" dbtype="query">
 			select collecting_event_id from thisun where collecting_event_id != #master.collecting_event_id#
 		</cfquery>
-			<cfif action is not "makeMerge">	
-
-		<p>
-			If you proceed, these events.....
-		</p>
-		
-		<cfdump var=#thisdups#>
-		
-		<p>
-			Will be merged into....
-		</p>
-		<cfdump var=#master#>
+		<cfif action is not "makeMerge">	
+			<p>
+				If you proceed, these events.....
+			</p>
+			<cfdump var=#thisdups#>
+			<p>
+				Will be merged into....
+			</p>
+			<cfdump var=#master#>
 		</cfif>
 		<cfif action is "makeMerge">
 			<cfquery name="mergeSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
