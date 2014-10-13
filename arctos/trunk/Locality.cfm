@@ -1597,6 +1597,10 @@ INSERT INTO geog_auth_rec (
 	
 	
 			<span class="likeLink" onclick="tools.action.value='csvCollEvent';tools.submit();">[ csv ]</span>
+			
+			<a href="/tools/mergeDuplicateEvents.cfm?locality_id=#locality_id#">check for and merge duplicates</a>
+			
+			
 <table border>
 	<tr>
 		<td><b>Geog</b></td>
