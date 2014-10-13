@@ -213,7 +213,7 @@
 		<cfset fatalerrstr="">
 
 
-	<cfset required="UUID,assigned_by_agent,assigned_date,collecting_source">
+	<cfset required="UUID,assigned_by_agent,assigned_date">
 	<cfif variables.letype is "pick_event">
 		<cfset required=listappend(required,"collecting_event_id")>
 	</cfif>

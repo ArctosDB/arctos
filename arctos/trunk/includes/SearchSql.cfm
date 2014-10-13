@@ -1980,6 +1980,9 @@
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_part_attribute ON (specimen_part.collection_object_id = specimen_part_attribute.collection_object_id)">
 	</cfif>
 	<cfset basQual = " #basQual# AND specimen_part_attribute.attribute_type = '#part_attribute#'">
+	<cfif session.flatTableName is not "flat">
+		<cfset basQual = " #basQual# AND (#session.flatTableName#.encumbrances is null or #session.flatTableName#.encumbrances not like '%mask part attribute%') ">
+	</cfif>
 </cfif>
 <cfif isdefined("part_attribute_value") AND len(part_attribute_value) gt 0>
 	<cfset mapurl = "#mapurl#&part_attribute_value=#part_attribute_value#">

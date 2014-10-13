@@ -620,7 +620,7 @@
 				<tr>
 					<td colspan="2">
 						<label for="collecting_source">Collecting Source</label>
-						<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
+						<select name="collecting_source" id="collecting_source" size="1">
 							<option value=""></option>
 							<cfloop query="ctcollecting_source">
 								<option value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>

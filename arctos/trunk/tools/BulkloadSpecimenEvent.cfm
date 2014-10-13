@@ -152,7 +152,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 		</tr>
 		<tr>
 			<td>COLLECTING_SOURCE</td>
-			<td>yes</td>
+			<td>no</td>
 			<td><a href="/info/ctDocumentation.cfm?table=CTCOLLECTING_SOURCE">CTCOLLECTING_SOURCE</a></td>
 		</tr>
 		<tr>
@@ -693,7 +693,9 @@ grant all on cf_temp_specevent to coldfusion_user;
 	</cfquery>
 	<cfquery name="COLLECTING_SOURCE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_specevent set status='COLLECTING_SOURCE not found'
-		where upper(username)='#ucase(session.username)#' and COLLECTING_SOURCE NOT IN (select COLLECTING_SOURCE from CTCOLLECTING_SOURCE)
+		where upper(username)='#ucase(session.username)#' and 
+		COLLECTING_SOURCE is not null and
+		COLLECTING_SOURCE NOT IN (select COLLECTING_SOURCE from CTCOLLECTING_SOURCE)
 	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_specevent where upper(username)='#ucase(session.username)#' and

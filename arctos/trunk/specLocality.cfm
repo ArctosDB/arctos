@@ -505,7 +505,7 @@ function useGL(glat,glon,gerr){
 			<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
 
 			<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
-			<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
+			<select name="collecting_source" id="collecting_source" size="1">
 				<option value=""></option>
 				<cfloop query="ctcollecting_source">
 					<option <cfif ctcollecting_source.COLLECTING_SOURCE is l.COLLECTING_SOURCE> selected="selected" </cfif>
@@ -663,7 +663,7 @@ function useGL(glat,glon,gerr){
 			<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
 
 			<label for="collecting_source" class="infoLink" onClick="getDocs('collecting_source','collecting_method')">Collecting Source</label>
-			<select name="collecting_source" id="collecting_source" size="1" class="reqdClr">
+			<select name="collecting_source" id="collecting_source" size="1">
 				<option value=""></option>
 				<cfloop query="ctcollecting_source">
 					<option value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>

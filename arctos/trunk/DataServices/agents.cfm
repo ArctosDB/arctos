@@ -9,13 +9,6 @@ create table ds_temp_agent (
 	key number not null,
 	agent_type varchar2(255),
 	preferred_name varchar2(255),
-	first_name varchar2(255),
-	middle_name varchar2(255),
-	last_name varchar2(255),
-	birth_date date,
-	death_date date,
-	prefix varchar2(255),
-	suffix varchar2(255),
 	other_name_1  varchar2(255),
 	other_name_type_1   varchar2(255),
 	other_name_2  varchar2(255),
@@ -33,8 +26,9 @@ create table ds_temp_agent (
 	agent_status_date_1 varchar2(255),
 	agent_status_2 varchar2(255),
 	agent_status_date_2 varchar2(255),
-	requires_admin_override number
-	);
+	requires_admin_override number,
+	status varchar2(4000)
+);
 	
 	
 	
@@ -271,19 +265,35 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		</cfif>
 	</cfloop>
 </cfoutput>
-<cflocation url="agents.cfm?action=validate" addtoken="false">
+<cflocation url="agents.cfm?action=splash" addtoken="false">
 </cfif>
+
+
 <!----------------------------------->
-<cfif action is "validate">
-<script src="/includes/sorttable.js"></script>
-<cfoutput>
+<cfif action is "splash">
+	<br> Data loaded to temp table.
+	
+	<p>
+		<a href="agents.cfm?action=validate">Validate (may time out at several hundred rows)</a>
+	</p>
+	<p>
+		<a href="agents.cfm?action=validatecsv">Validate as CSV (can run iteratively)</a>
+		<br>Note: Some browsers will spin forever or otherwise not let you know what's up. Click the button every 5 minutes or
+		so if necessary. Things should progress at a rate of greater than 500 rows per minute (usually much greater), and time out every ~2 minutes.
+	</p>
+</cfif>
 
-	<cfset obj = CreateObject("component","component.functions")>
 
+<!----------------------------------->
+<cfif action is "validatecsv">
 
+<p>
+If you receive a timeout error, just reload - this page will pick up where it stopped
+</p>
+	<cfset obj = CreateObject("component","component.agent")>
 
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_agent
+		select * from ds_temp_agent where status is null
 	</cfquery>
 	<cfquery name="rpn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from ds_temp_agent where preferred_name is null
@@ -292,7 +302,6 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<div class="error">Preferred name is required for every agent.</div>
 		<cfabort>
 	</cfif>
-	
 	<cfquery name="ont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select nt from (
 			select
@@ -316,10 +325,6 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<div class="error">Other name types may not be "preferred"</div>
 		<cfabort>
 	</cfif>
-	
-	
-	
-	
 	<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from ds_temp_agent where agent_type not in (select agent_type from ctagent_type)
 	</cfquery>
@@ -327,8 +332,6 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<div class="error">invalid agent type</div>
 		<cfabort>
 	</cfif>
-	
-	
 	<cfquery name="ctont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select nt from  
 		(
@@ -350,7 +353,130 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		where nt not in (select agent_name_type from ctagent_name_type)
 	</cfquery>
 	<cfif ctont.recordcount gt 0>
-		<div class="error">Unaccepable name type(s): #valuelist(ctont.nt)#</div>
+		<div class="error">Unacceptable name type(s): #valuelist(ctont.nt)#</div>
+		<cfabort>
+	</cfif>
+	<cfloop query="d">
+			<cfset fn="">
+			<cfset mn="">
+			<cfset ln="">
+			
+			<cfloop from="1" to="6" index="i">
+				<cfset thisNameType=evaluate("other_name_type_" & i)>
+				<cfset thisName=evaluate("other_name_" & i)>
+				<cfif thisNameType is "first name">
+					<cfset fn=thisName>
+				<cfelseif thisNameType is "middle name">
+					<cfset mn=thisName>
+				<cfelseif thisNameType is "last name">
+					<cfset ln=thisName>
+				</cfif> 
+			</cfloop>
+			<cfset fnProbs = obj.checkAgent(
+				preferred_name="#preferred_name#",
+				agent_type="#agent_type#",
+				first_name="#fn#",
+				middle_name="#mn#",
+				last_name="#ln#"
+			)>
+			<cfset fnProbs=left(fnProbs,4000)>
+			<cfif len(fnProbs) is 0>
+				<cfset fnProbs='no problems detected'>
+			</cfif>
+			<cfquery name="ud1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update ds_temp_agent set status='#fnProbs#' where key=#key#
+			</cfquery>
+	</cfloop>
+	<p>
+		If you're seeing this and no errors, the check has probably completed. 
+		<a href="agents.cfm?action=getCSV">click here to get CSV</a>. All "status" colunmns should contain something.
+	</p>
+</cfif>
+
+
+<!---------------------------------------------------------------------------->
+<cfif action is "getCSV">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from ds_temp_agent
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/checked_agents.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=checked_agents.csv" addtoken="false">
+</cfif>
+
+
+<!----------------------------------->
+<cfif action is "validate">
+<script src="/includes/sorttable.js"></script>
+<cfoutput>
+	<cfset obj = CreateObject("component","component.agent")>
+
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from ds_temp_agent
+	</cfquery>
+	<cfquery name="rpn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from ds_temp_agent where preferred_name is null
+	</cfquery>
+	<cfif rpn.c is not 0>
+		<div class="error">Preferred name is required for every agent.</div>
+		<cfabort>
+	</cfif>
+	<cfquery name="ont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select nt from (
+			select
+				other_name_type_1 nt
+			from
+				ds_temp_agent
+			union
+			select
+				other_name_type_2 nt
+			from
+				ds_temp_agent
+			union
+			select
+				other_name_type_3 nt
+			from
+				ds_temp_agent
+		)
+		group by nt
+	</cfquery>
+	<cfif listfind(valuelist(ont.nt),"preferred")>
+		<div class="error">Other name types may not be "preferred"</div>
+		<cfabort>
+	</cfif>
+	<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from ds_temp_agent where agent_type not in (select agent_type from ctagent_type)
+	</cfquery>
+	<cfif valuelist(p.c) is not 0>
+		<div class="error">invalid agent type</div>
+		<cfabort>
+	</cfif>
+	<cfquery name="ctont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select nt from  
+		(
+			select
+				other_name_type_1 nt
+			from
+				ds_temp_agent
+			union
+			select
+				other_name_type_2 nt
+			from
+				ds_temp_agent
+			union
+			select
+				other_name_type_3 nt
+			from
+				ds_temp_agent
+		)
+		where nt not in (select agent_name_type from ctagent_name_type)
+	</cfquery>
+	<cfif ctont.recordcount gt 0>
+		<div class="error">Unacceptable name type(s): #valuelist(ctont.nt)#</div>
 		<cfabort>
 	</cfif>
 	
