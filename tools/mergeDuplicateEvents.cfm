@@ -8,9 +8,11 @@
 	select * from collecting_event where locality_id=#locality_id#
 </cfquery>
 <hr>
+	<cfif action is not "makeMerge">	
 
 All collecting events from this locality:
 <cfdump var=#data#>
+</cfif>
 <cfquery name="dups" dbtype="query">
 	select
 		VERBATIM_DATE,
@@ -84,9 +86,12 @@ All collecting events from this locality:
 				DATUM is null
 			</cfif>
 		</cfquery>
+			<cfif action is not "makeMerge">	
+
 		<p>
 			The following Collecting Events are duplicates.
 		</p>
+		</cfif>
 		<cfdump var=#thisun#>
 		<cfquery name="master" dbtype="query">
 			select min(collecting_event_id) as collecting_event_id from thisun
@@ -94,7 +99,8 @@ All collecting events from this locality:
 		<cfquery name="thisdups" dbtype="query">
 			select collecting_event_id from thisun where collecting_event_id != #master.collecting_event_id#
 		</cfquery>
-		
+			<cfif action is not "makeMerge">	
+
 		<p>
 			If you proceed, these events.....
 		</p>
@@ -105,7 +111,7 @@ All collecting events from this locality:
 			Will be merged into....
 		</p>
 		<cfdump var=#master#>
-		
+		</cfif>
 		<cfif action is "makeMerge">
 			<cfquery name="mergeSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update 
@@ -129,7 +135,7 @@ All collecting events from this locality:
 				collecting_event_id in (#valuelist(thisdups.collecting_event_id)#)
 			</cfquery>
 			<p>
-				This set has been successfully merged
+				Collecting event(s) #valuelist(thisdups.collecting_event_id)# have been merged into Collecting event #master.collecting_event_id# 
 			</p>
 		</cfif>
 	</cfloop>
