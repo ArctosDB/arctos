@@ -55,7 +55,7 @@
 	<cfif action is not "makeMerge">	
 		All collecting events from this locality: 
 		<a href="##dups">[scroll to duplicates]</a>
-		<a href="mergeDuplicateEvents.cfm?locality_id=#locality_id#&action=makeMerge">Yea yea, just proceed with all mergers for this locality</a>
+		<a href="mergeDuplicateEvents.cfm?locality_id=#locality_id#&action=makeMerge">Just merge everything possible for this locality</a>
 		
 		<table border id="t" class="sortable">
 			<tr>
