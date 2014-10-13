@@ -8,7 +8,31 @@
 </cfquery>
 
 <cfdump var=#data#>
-
+<cfquery name="dups" dbtype="query">
+	select
+		VERBATIM_DATE,
+		VERBATIM_LOCALITY,
+		COLL_EVENT_REMARKS,
+		BEGAN_DATE,
+		ENDED_DATE,
+		VERBATIM_COORDINATES,
+		COLLECTING_EVENT_NAME,
+		DATUM
+	from
+		data
+	having
+		count(*) > 1
+	group by
+		VERBATIM_DATE,
+		VERBATIM_LOCALITY,
+		COLL_EVENT_REMARKS,
+		BEGAN_DATE,
+		ENDED_DATE,
+		VERBATIM_COORDINATES,
+		COLLECTING_EVENT_NAME,
+		DATUM
+</cfquery>
+<cfdump var=#dups#>
 </cfoutput>
 
 <cfinclude template="/includes/_footer.cfm">
