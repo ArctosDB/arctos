@@ -7,7 +7,9 @@
 <cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from collecting_event where locality_id=#locality_id#
 </cfquery>
+<hr>
 
+All collecting events from this locality:
 <cfdump var=#data#>
 <cfquery name="dups" dbtype="query">
 	select
@@ -40,7 +42,6 @@
 <cfelse>
 	<cfloop query="dups">
 		<cfquery name="thisun" dbtype="query">
-		
 			select * from data where
 			<cfif len(VERBATIM_DATE) gt 0>
 				cast(VERBATIM_DATE as varchar)='#VERBATIM_DATE#' and
@@ -82,22 +83,10 @@
 			<cfelse>
 				DATUM is null
 			</cfif>
-			
-			<!----
-			select * from data where VERBATIM_DATE='26 MAR 1997' and 
-			VERBATIM_LOCALITY='captive'   and 
-			cast(BEGAN_DATE as varchar)='1997-03-26'
-			---->
-			<!----
-			
-			 and 
-			ENDED_DATE='1997-03-26'
-			
-			
-			and COLL_EVENT_REMARKS
-			 and VERBATIM_COORDINATES is null and COLLECTING_EVENT_NAME is null and DATUM is null 
-			----> 
 		</cfquery>
+		<p>
+			The following Collecting Events are duplicates.
+		</p>
 		<cfdump var=#thisun#>
 		<cfquery name="master" dbtype="query">
 			select min(collecting_event_id) as collecting_event_id from thisun
@@ -105,41 +94,18 @@
 		<cfquery name="thisdups" dbtype="query">
 			select collecting_event_id from thisun where collecting_event_id != #master.collecting_event_id#
 		</cfquery>
-		<cfdump var=#master#>
+		
+		<p>
+			If you proceed, these events.....
+		</p>
+		
 		<cfdump var=#thisdups#>
+		
+		<p>
+			Will be merged into....
+		</p>
+		<cfdump var=#master#>
 	</cfloop>
-
-
- COLLECTING_EVENT_ID						   NOT NULL NUMBER
- LOCALITY_ID							   NOT NULL NUMBER
- VERBATIM_DATE								    VARCHAR2(60)
- VERBATIM_LOCALITY							    VARCHAR2(4000)
- COLL_EVENT_REMARKS							    VARCHAR2(4000)
- BEGAN_DATE								    VARCHAR2(22)
- ENDED_DATE								    VARCHAR2(22)
- VERBATIM_COORDINATES							    VARCHAR2(255)
- COLLECTING_EVENT_NAME							    VARCHAR2(255)
- LAT_DEG								    NUMBER
- DEC_LAT_MIN								    NUMBER(8,6)
- LAT_MIN								    NUMBER
- LAT_SEC								    NUMBER(8,6)
- LAT_DIR								    CHAR(1)
- LONG_DEG								    NUMBER
- DEC_LONG_MIN								    NUMBER(10,8)
- LONG_MIN								    NUMBER
- LONG_SEC								    NUMBER(8,6)
- LONG_DIR								    CHAR(1)
- DEC_LAT								    NUMBER(12,10)
- DEC_LONG								    NUMBER(13,10)
- DATUM									    VARCHAR2(55)
- UTM_ZONE								    VARCHAR2(3)
- UTM_EW 								    NUMBER
- UTM_NS 								    NUMBER
- ORIG_LAT_LONG_UNITS							    VARCHAR2(20)
- CACLULATED_DLAT							    NUMBER(12,10)
- CALCULATED_DLONG							    NUMBER(13,10)
-
-
 
 
 </cfif>
