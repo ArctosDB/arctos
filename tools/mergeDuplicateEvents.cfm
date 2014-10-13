@@ -38,7 +38,7 @@
 </cfquery>
 <cfif action is not "makeMerge">
 	<p>
-		Duplicated detected:
+		Duplicates:
 	</p>
 	<cfdump var=#dups#>
 </cfif>
