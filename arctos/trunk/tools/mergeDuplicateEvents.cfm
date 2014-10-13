@@ -20,8 +20,6 @@
 		DATUM
 	from
 		data
-	having
-		count(*) > 1
 	group by
 		VERBATIM_DATE,
 		VERBATIM_LOCALITY,
@@ -31,6 +29,8 @@
 		VERBATIM_COORDINATES,
 		COLLECTING_EVENT_NAME,
 		DATUM
+	having
+		count(*) > 1
 </cfquery>
 <cfdump var=#dups#>
 </cfoutput>
