@@ -106,8 +106,9 @@ All collecting events from this locality:
 		</p>
 		<cfdump var=#master#>
 	</cfloop>
-
-
+	<p>
+		<a href="mergeDuplicateEvents.cfm?locality_id=#locality_id#&action=makeMerge">Proceed with all of the above mergers</a>
+	</p>
 </cfif>
 </cfoutput>
 
