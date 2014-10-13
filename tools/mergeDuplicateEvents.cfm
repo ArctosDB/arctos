@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<script type='text/javascript' src='/includes/_loanReview.js'></script>
+<script src="/includes/sorttable.js"></script>
 
 <cfset title="merge collecting events">
 <cfif not isdefined("locality_id") or len(locality_id) is 0>
@@ -26,8 +26,6 @@
 			</tr>
 		</cfloop>
 	</table>
-
-	<cfdump var=#data#>
 </cfif>
 <cfquery name="dups" dbtype="query">
 	select
