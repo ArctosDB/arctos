@@ -56,6 +56,33 @@
 		All collecting events from this locality:
 		<table border id="t" class="sortable">
 			<tr>
+				<th>COLLECTING_EVENT_ID</th>
+				<th>COLLECTING_EVENT_NAME</th>
+				<th>VERBATIM_DATE</th>
+				<th>BEGAN_DATE</th>
+				<th>ENDED_DATE</th>
+				<th>VERBATIM_LOCALITY</th>
+				<th>COLL_EVENT_REMARKS</th>
+				<th>VERBATIM_COORDINATES</th>
+				<th>DATUM</th>
+			</tr>
+			<cfloop query="data">
+				<tr <cfif COLLECTING_EVENT_ID is master.collecting_event_id> class="theChosenOne"</cfif>>
+					<td>#COLLECTING_EVENT_ID#</td>
+					<td>#COLLECTING_EVENT_NAME#</td>
+					<td>#VERBATIM_DATE#</td>
+					<td>#BEGAN_DATE#</td>
+					<td>#ENDED_DATE#</td>
+					<td>#VERBATIM_LOCALITY#</td>
+					<td>#COLL_EVENT_REMARKS#</td>
+					<td>#VERBATIM_COORDINATES#</td>
+					<td>#DATUM#</td>
+				</tr>
+			</cfloop>
+		</table>
+		<!----
+		<table border id="t" class="sortable">
+			<tr>
 				<cfloop list="#data.columnlist#" index="x">
 					<th>#x#</th>
 				</cfloop>
@@ -68,6 +95,7 @@
 				</tr>
 			</cfloop>
 		</table>
+		---->
 		<p>
 			Uniques:
 		</p>
@@ -168,7 +196,7 @@
 		<cfif action is not "makeMerge">	
 			<p>
 				The following set of Collecting Events are duplicates. If you proceed, the row in bold will replace all other rows in all
-				"nodes," and all non-bold rows will be deleted.
+				data, and all non-bold rows will be deleted.
 			</p>
 			<table border id="t#master.collecting_event_id#" class="sortable">
 				<tr>
