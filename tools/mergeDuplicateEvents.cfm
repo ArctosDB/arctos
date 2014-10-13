@@ -43,7 +43,7 @@
 		
 			select * from data where
 			<cfif len(VERBATIM_DATE) gt 0>
-				VERBATIM_DATE='#VERBATIM_DATE#' and
+				cast(VERBATIM_DATE as varchar)='#VERBATIM_DATE#' and
 			<cfelse>
 				VERBATIM_DATE is null and
 			</cfif>
@@ -63,7 +63,7 @@
 				BEGAN_DATE is null and
 			</cfif>
 			<cfif len(ENDED_DATE) gt 0>
-				ENDED_DATE='#ENDED_DATE#' and
+				cast(ENDED_DATE as varchar)='#ENDED_DATE#' and
 			<cfelse>
 				ENDED_DATE is null and
 			</cfif>
