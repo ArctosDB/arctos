@@ -40,7 +40,7 @@
 <cfelse>
 	<cfloop query="dups">
 		<cfquery name="thisun" dbtype="query">
-		<!----
+		
 			select * from data where
 			<cfif len(VERBATIM_DATE) gt 0>
 				VERBATIM_DATE='#VERBATIM_DATE#' and
@@ -58,7 +58,7 @@
 				COLL_EVENT_REMARKS is null and
 			</cfif>
 			<cfif len(BEGAN_DATE) gt 0>
-				BEGAN_DATE='#BEGAN_DATE#' and
+				cast(BEGAN_DATE as varchar)='#BEGAN_DATE#' and
 			<cfelse>
 				BEGAN_DATE is null and
 			</cfif>
@@ -82,12 +82,12 @@
 			<cfelse>
 				DATUM is null
 			</cfif>
-			---->
 			
+			<!----
 			select * from data where VERBATIM_DATE='26 MAR 1997' and 
 			VERBATIM_LOCALITY='captive'   and 
 			cast(BEGAN_DATE as varchar)='1997-03-26'
-			
+			---->
 			<!----
 			
 			 and 
