@@ -100,7 +100,7 @@
 		</cfquery>
 		<cfdump var=#thisun#>
 		<cfquery name="master" dbtype="query">
-			select min(collecting_event_id) from thisun
+			select min(collecting_event_id) as collecting_event_id from thisun
 		</cfquery>
 		<cfquery name="thisdups" dbtype="query">
 			select collecting_event_id from thisun where collecting_event_id != master.collecting_event_id
