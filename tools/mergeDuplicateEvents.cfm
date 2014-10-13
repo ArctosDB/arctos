@@ -1,4 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
+<script type='text/javascript' src='/includes/_loanReview.js'></script>
+
 <cfset title="merge collecting events">
 <cfif not isdefined("locality_id") or len(locality_id) is 0>
 	need a locality_id to proceed<cfabort>
@@ -10,6 +12,21 @@
 <hr>
 <cfif action is not "makeMerge">	
 	All collecting events from this locality:
+	<table border id="t" class="sortable">
+		<tr>
+			<cfloop list="#data.columnlist#" index="x">
+				<th>#x#</th>
+			</cfloop>
+		</tr>
+		<cfloop query=#data#>
+			<tr>
+				<cfloop list="#data.columnlist#" index="x">
+					<td>#evaluate("data." & x)#</td>
+				</cfloop>
+			</tr>
+		</cfloop>
+	</table>
+
 	<cfdump var=#data#>
 </cfif>
 <cfquery name="dups" dbtype="query">
