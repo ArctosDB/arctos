@@ -53,7 +53,10 @@
 	</p>
 <cfelse>
 	<cfif action is not "makeMerge">	
-		All collecting events from this locality:
+		All collecting events from this locality: 
+		<a href="##dups">[scroll to duplicates]</a><a href="##dups">[scroll to duplicates]</a>
+		<a href="mergeDuplicateEvents.cfm?locality_id=#locality_id#&action=makeMerge">Yea yea, just proceed with all mergers for this locality</a>
+		
 		<table border id="t" class="sortable">
 			<tr>
 				<th>COLLECTING_EVENT_ID</th>
@@ -193,7 +196,8 @@
 			select collecting_event_id from thisun where collecting_event_id != #master.collecting_event_id#
 		</cfquery>
 		
-		<cfif action is not "makeMerge">	
+		<cfif action is not "makeMerge">
+			<a name="dups"></a>
 			<p>
 				The following set of Collecting Events are duplicates. If you proceed, the row in bold will replace all other rows in all
 				data, and all non-bold rows will be deleted.
