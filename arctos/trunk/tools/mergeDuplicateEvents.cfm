@@ -7,7 +7,16 @@
 </cfif>
 <cfoutput>
 <cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from collecting_event where locality_id=#locality_id#
+	select
+		collecting_event_id, 
+		VERBATIM_DATE,
+		VERBATIM_LOCALITY,
+		COLL_EVENT_REMARKS,
+		BEGAN_DATE,
+		ENDED_DATE,
+		VERBATIM_COORDINATES,
+		COLLECTING_EVENT_NAME,
+		DATUM from collecting_event where locality_id=#locality_id#
 </cfquery>
 <hr>
 <cfif action is not "makeMerge">	
