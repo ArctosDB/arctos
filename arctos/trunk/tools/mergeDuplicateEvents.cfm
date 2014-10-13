@@ -72,6 +72,32 @@
 			Uniques:
 		</p>
 		<table border id="tu" class="sortable">
+				<tr>
+					<th>COLLECTING_EVENT_NAME</th>
+					<th>VERBATIM_DATE</th>
+					<th>BEGAN_DATE</th>
+					<th>ENDED_DATE</th>
+					<th>VERBATIM_LOCALITY</th>
+					<th>COLL_EVENT_REMARKS</th>
+					<th>VERBATIM_COORDINATES</th>
+					<th>DATUM</th>
+				</tr>
+				<cfloop query="dups">
+					<tr>
+						<td>#COLLECTING_EVENT_NAME#</td>
+						<td>#VERBATIM_DATE#</td>
+						<td>#BEGAN_DATE#</td>
+						<td>#ENDED_DATE#</td>
+						<td>#VERBATIM_LOCALITY#</td>
+						<td>#COLL_EVENT_REMARKS#</td>
+						<td>#VERBATIM_COORDINATES#</td>
+						<td>#DATUM#</td>
+					</tr>
+				</cfloop>
+			</table>
+			<!----
+			
+			<table border id="tu" class="sortable">
 			<tr>
 				<cfloop list="#dups.columnlist#" index="x">
 					<th>#x#</th>
@@ -85,6 +111,7 @@
 				</tr>
 			</cfloop>
 		</table>
+		---->
 	</cfif>
 	<cfloop query="dups">
 		<cfquery name="thisun" dbtype="query">
