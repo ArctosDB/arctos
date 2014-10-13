@@ -53,7 +53,7 @@
 			<cfif len(COLL_EVENT_REMARKS) gt 0>
 				COLL_EVENT_REMARKS='#COLL_EVENT_REMARKS#' and
 			<cfelse>
-				len(COLL_EVENT_REMARKS) is 0 and
+				COLL_EVENT_REMARKS is null and
 			</cfif>
 			<cfif len(BEGAN_DATE) gt 0>
 				BEGAN_DATE='#BEGAN_DATE#' and
@@ -76,9 +76,9 @@
 				len(COLLECTING_EVENT_NAME) is 0 and
 			</cfif>
 			<cfif len(DATUM) gt 0>
-				DATUM='#DATUM#' and
+				DATUM='#DATUM#'
 			<cfelse>
-				len(DATUM) is 0 and
+				len(DATUM) is 0 
 			</cfif>
 		</cfquery>
 		<cfdump var=#thisun#>
