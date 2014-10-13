@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="merge collecting events">
 <cfif not isdefined("locality_id") or len(locality_id) is 0>
 	need a locality_id to proceed<cfabort>
 </cfif>
@@ -43,12 +44,12 @@
 			<cfif len(VERBATIM_DATE) gt 0>
 				VERBATIM_DATE='#VERBATIM_DATE#' and
 			<cfelse>
-				len(VERBATIM_DATE) is 0 and
+				VERBATIM_DATE is null and
 			</cfif>
 			<cfif len(VERBATIM_LOCALITY) gt 0>
 				VERBATIM_LOCALITY='#VERBATIM_LOCALITY#' and
 			<cfelse>
-				len(VERBATIM_LOCALITY) is 0 and
+				VERBATIM_LOCALITY is null and
 			</cfif>
 			<cfif len(COLL_EVENT_REMARKS) gt 0>
 				COLL_EVENT_REMARKS='#COLL_EVENT_REMARKS#' and
@@ -58,27 +59,27 @@
 			<cfif len(BEGAN_DATE) gt 0>
 				BEGAN_DATE='#BEGAN_DATE#' and
 			<cfelse>
-				len(BEGAN_DATE) is 0 and
+				BEGAN_DATE is null and
 			</cfif>
 			<cfif len(ENDED_DATE) gt 0>
 				ENDED_DATE='#ENDED_DATE#' and
 			<cfelse>
-				len(ENDED_DATE) is 0 and
+				ENDED_DATE is null and
 			</cfif>
 			<cfif len(VERBATIM_COORDINATES) gt 0>
 				VERBATIM_COORDINATES='#VERBATIM_COORDINATES#' and
 			<cfelse>
-				len(VERBATIM_COORDINATES) is 0 and
+				VERBATIM_COORDINATES is null and
 			</cfif>
 			<cfif len(COLLECTING_EVENT_NAME) gt 0>
 				COLLECTING_EVENT_NAME='#COLLECTING_EVENT_NAME#' and
 			<cfelse>
-				len(COLLECTING_EVENT_NAME) is 0 and
+				COLLECTING_EVENT_NAME is null and
 			</cfif>
 			<cfif len(DATUM) gt 0>
 				DATUM='#DATUM#'
 			<cfelse>
-				len(DATUM) is 0 
+				DATUM is null
 			</cfif>
 		</cfquery>
 		<cfdump var=#thisun#>
