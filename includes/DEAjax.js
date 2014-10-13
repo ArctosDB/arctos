@@ -1986,7 +1986,6 @@ function unpickEvent() {
 	$("#began_date").attr("readOnly", false).removeClass().addClass('reqdClr');
 	$("#ended_date").attr("readOnly", false).removeClass().addClass('reqdClr');
 	$("#verbatim_date").attr("readOnly", false).removeClass().addClass('reqdClr');
-	//$("#collecting_source").attr("readOnly", false).removeClass().addClass('reqdClr');
 	$("#verbatim_locality").attr("readOnly", false).removeClass().addClass('reqdClr');
 	$("#coll_event_remarks").attr("readOnly", false).removeClass();
 	$("#collecting_event_name").attr("readOnly", false).removeClass();
@@ -2087,7 +2086,6 @@ function success_pickedEvent(r){
 		$("#verbatim_date").val(result.VERBATIM_DATE[0]).removeClass().addClass('readClr').attr('readonly',true);
 		$("#verbatim_locality").val(result.VERBATIM_LOCALITY[0]).removeClass().addClass('readClr').attr('readonly',true);
 		$("#coll_event_remarks").val(result.COLL_EVENT_REMARKS[0]).removeClass().addClass('readClr').attr('readonly',true);
-		//$("#collecting_source").val(result.COLLECTING_SOURCE[0]).removeClass().addClass('readClr').attr('readonly',true);
 		//$("#collecting_method").val(result.COLLECTING_METHOD[0]).removeClass().addClass('readClr').attr('readonly',true);
 		//$("#habitat_desc").val(result.HABITAT_DESC[0]).removeClass().addClass('readClr').attr('readonly',true);	
 		$("#collecting_event_name").val(result.COLLECTING_EVENT_NAME[0]).removeClass().addClass('readClr').attr('readonly',true);	

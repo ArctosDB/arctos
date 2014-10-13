@@ -492,10 +492,7 @@
 											<table cellspacing="0" cellpadding="0">
 												<tr>
 													<td>
-														<select name="collecting_source"
-															size="1"
-															id="collecting_source"
-															class="reqdClr">
+														<select name="collecting_source" size="1" id="collecting_source">
 															<option value=""></option>
 															<cfloop query="ctcollecting_source">
 																<option value="#collecting_source#">#collecting_source#</option>
