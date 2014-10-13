@@ -965,7 +965,7 @@
 											<cfloop query="patt">
 												<div style="margin-left:1em;" class="detailCellSmall">
 													<strong>#attribute_type#</strong>=
-													<cfif attribute_type is "location" and one.encumbranceDetail contains "mask part attribute location">
+													<cfif not(oneOfUs) and attribute_type is "location" and one.encumbranceDetail contains "mask part attribute location">
 														masked
 													<cfelse>
 														<strong>#attribute_value#</strong>
