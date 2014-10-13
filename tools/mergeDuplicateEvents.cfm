@@ -83,24 +83,8 @@
 				</tr>
 			</cfloop>
 		</table>
-		<!----
-		<table border id="t" class="sortable">
-			<tr>
-				<cfloop list="#data.columnlist#" index="x">
-					<th>#x#</th>
-				</cfloop>
-			</tr>
-			<cfloop query=#data#>
-				<tr>
-					<cfloop list="#data.columnlist#" index="x">
-						<td>#evaluate("data." & x)#</td>
-					</cfloop>
-				</tr>
-			</cfloop>
-		</table>
-		---->
 		<p>
-			Uniques:
+			Duplicated Entries:
 		</p>
 		<table border id="tu" class="sortable">
 				<tr>
@@ -126,23 +110,6 @@
 					</tr>
 				</cfloop>
 			</table>
-			<!----
-			
-			<table border id="tu" class="sortable">
-			<tr>
-				<cfloop list="#dups.columnlist#" index="x">
-					<th>#x#</th>
-				</cfloop>
-			</tr>
-			<cfloop query=#dups#>
-				<tr>
-					<cfloop list="#dups.columnlist#" index="x">
-						<td>#evaluate("data." & x)#</td>
-					</cfloop>
-				</tr>
-			</cfloop>
-		</table>
-		---->
 	</cfif>
 	<cfloop query="dups">
 		<cfquery name="thisun" dbtype="query">
