@@ -84,12 +84,16 @@
 			</cfif>
 			---->
 			
-			select * from data where VERBATIM_DATE='26 MAR 1997' and 
+			select * from data where VERBATIM_DATE='26 MAR 1997'
+			
+			<!----
+			
+			 and 
 			VERBATIM_LOCALITY='captive' and 
 			BEGAN_DATE='1997-03-26' and 
 			ENDED_DATE='1997-03-26'
 			
-			<!----
+			
 			and COLL_EVENT_REMARKS
 			 and VERBATIM_COORDINATES is null and COLLECTING_EVENT_NAME is null and DATUM is null 
 			----> 
