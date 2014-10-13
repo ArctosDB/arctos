@@ -67,7 +67,7 @@
 				<th>DATUM</th>
 			</tr>
 			<cfloop query="data">
-				<tr <cfif COLLECTING_EVENT_ID is master.collecting_event_id> class="theChosenOne"</cfif>>
+				<tr>
 					<td>#COLLECTING_EVENT_ID#</td>
 					<td>#COLLECTING_EVENT_NAME#</td>
 					<td>#VERBATIM_DATE#</td>
