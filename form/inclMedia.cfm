@@ -117,7 +117,7 @@
 				     URI
 			">
 	<cfelseif typ is "collecting_event">
-		<cfset srchall="">
+		<cfset srchall="/MediaSearch.cfm?action=search&collecting_event_id=#q#">
 		<cfset sql="
 		   	select
 		   		media.media_id,
