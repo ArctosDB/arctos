@@ -3,10 +3,17 @@
 		jQuery(document).ready(function(){
 			var transaction_id=$("#transaction_id").val();
 			var ptl="/form/inclMedia.cfm?q=" + transaction_id;
-			var am=ptl+'&typ=accnspecimens&tgt=accnMedia';
+			var am=ptl+'&typ=accnspecimens&tgt=accnspecmedia';
 			jQuery.get(am, function(data){
-				 jQuery('#accnMedia').html(data);
+				 jQuery('#accnspecmedia').html(data);
 			})
+
+			//var am=ptl+'&typ=accnspecimens&tgt=accnMedia';
+			//jQuery.get(am, function(data){
+			//	 jQuery('#accnMedia').html(data);
+			//})
+
+
 
 	</script>
 	<cfoutput>
@@ -278,7 +285,8 @@
 			There are no specimens associated with this accession.
 		</cfif>
 		</p>
-		
+		<div id="accnspecmedia"></div>
+		<!----
 		<cfquery name="specMed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				media.media_id,
@@ -319,5 +327,6 @@
 					</div>
 		        </span>		
 			</div>
+			---->
 	</cfoutput>
 <cfinclude template="includes/_footer.cfm">
