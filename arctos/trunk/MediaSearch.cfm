@@ -419,7 +419,7 @@
 			<cfset srch="#srch# and mr_accn_ci.accn_id=#specimen_accn_id#">
 			<cfset mapurl="#mapurl#&specimen_accn_id=#specimen_accn_id#">			
 		</cfif>
-		<cfif (isdefined("collecting_event_id") and len(specimen_accn_id) gt 0)>
+		<cfif (isdefined("collecting_event_id") and len(collecting_event_id) gt 0)>
 			<cfset tabls = "#tabls#,media_relations mr_collectingevent">	
 			<cfset whr ="#whr# AND media_flat.media_id = mr_collectingevent.media_id AND 
 				mr_collectingevent.media_relationship like '% collecting_event' and 
