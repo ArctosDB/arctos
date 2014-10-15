@@ -121,7 +121,11 @@
 				No projects are associated with this accession.
 			</cfif>
 		</p>
-		<div id="accnMedia"></div>
+		<p>
+			Accession Media
+			<div id="accnMedia"></div>
+		</p>
+		
 		<!----
 		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
@@ -287,7 +291,11 @@
 			There are no specimens associated with this accession.
 		</cfif>
 		</p>
-		<div id="accnspecmedia"></div>
+		<p>
+			Accession Specimens Media
+			<div id="accnspecmedia"></div>
+		</p>
+		
 		<!----
 		<cfquery name="specMed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
