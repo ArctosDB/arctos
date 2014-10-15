@@ -419,6 +419,10 @@
 			<cfset srch="#srch# and mr_accn_ci.accn_id=#specimen_accn_id#">
 			<cfset mapurl="#mapurl#&specimen_accn_id=#specimen_accn_id#">			
 		</cfif>
+		
+		collecting_event
+		
+		
 		<cfif (isdefined("taxon_name_id") and len(taxon_name_id) gt 0)>
 			<cfset mapurl="#mapurl#&taxon_name_id=#taxon_name_id#">			
 			

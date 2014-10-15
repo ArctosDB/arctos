@@ -117,6 +117,7 @@
 				     URI
 			">
 	<cfelseif typ is "collecting_event">
+		<cfset srchall="">
 		<cfset sql="
 		   	select
 		   		media.media_id,
@@ -125,16 +126,16 @@
 		        media.media_type,
 		        media.preview_uri,
 		        concatMediaDescription(media.media_id) description,
-				     DISPLAY,
-				     URI
+				DISPLAY,
+				URI
 			from
 				media,
-				        ctmedia_license,
+				ctmedia_license,
 				media_relations,
 				specimen_event
 			where
 				 media.media_id=media_relations.media_id and
-				        media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
+				 media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
 			     media_relations.media_relationship like '% collecting_event' and
 			     media_relations.related_primary_key=specimen_event.collecting_event_id and
 				specimen_event.collection_object_id=#q#
@@ -145,8 +146,8 @@
 		        media.media_type,
 		        media.preview_uri,
 		        description,
-				     DISPLAY,
-				     URI
+				DISPLAY,
+				URI
 		">
 	<cfelseif typ is "accnspecimens">
 		<cfset srchall="/MediaSearch.cfm?action=search&specimen_accn_id=#q#">
@@ -221,7 +222,10 @@
 	<cfset pp=pg-1>
 	<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
 		Showing Media results #start# - <cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt#
-		[ <a href="#srchall#">[ view details ]</a>
+		<cfif len(srchall) gt 0>
+			[ <a href="#srchall#">[ view details ]</a>
+		</cfif>
+		
 		<cfif cnt GT rpp>
 			<br>
 			<cfif (pg*rpp) GT rpp>
@@ -254,6 +258,7 @@
 								<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
 							</a>
 						</audio>
+						<br><a href="/exit.cfm?target=#media_uri#" download>download MP3</a>
 					<cfelse>
 						<a href="/exit.cfm?target=#media_uri#" target="_blank">
 							<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
