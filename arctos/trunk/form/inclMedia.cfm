@@ -217,7 +217,6 @@ audio { width:140px; }
 			
 					<cfset puri=obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
 					<cfif mime_type is "audio/mpeg3">
-						<br>
 						<audio controls>
 							<source src="#media_uri#" type="audio/mp3">
 							<a href="/exit.cfm?target=#media_uri#" target="_blank">
