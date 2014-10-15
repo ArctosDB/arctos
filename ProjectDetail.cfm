@@ -175,6 +175,7 @@
 		<!---<h2>Projects using contributed specimens</h2>--->
 		<img src="/images/indicator.gif">
 	</div>
+	<h2>Media</h2>
 	<div id="projMedia">
 		<img src="/images/indicator.gif">
 	</div>
