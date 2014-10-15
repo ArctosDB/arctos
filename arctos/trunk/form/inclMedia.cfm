@@ -128,7 +128,7 @@
 				cataloged_item.collection_object_id=media_relations.related_primary_key and
 				media_relations.media_relationship='shows cataloged_item' and
 				media_relations.media_id=media.media_id and
-				cataloged_item.accn_id=<cfqueryparam value = "#q#" CFSQLType = "CF_SQL_INTEGER">'>
+				cataloged_item.accn_id=#q#'>
 				
 				
 				
