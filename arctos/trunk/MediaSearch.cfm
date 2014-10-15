@@ -413,17 +413,16 @@
 		</cfif>
 		<cfif (isdefined("specimen_accn_id") and len(specimen_accn_id) gt 0)>
 			<cfset tabls = "#tabls#,media_relations mr_sp_accn, cataloged_item mr_accn_ci">	
-			<cfset whr ="#whr# AND media_flat.media_id = mr_sp_accn.media_id ">
-			<cfset srch="#srch# AND mr_sp_accn.media_relationship like '% cataloged_item' 
-				and mr_sp_accn.related_primary_key = mr_accn_ci.collection_object_id and
-				mr_accn_ci.accn_id=#specimen_accn_id#">
+			<cfset whr ="#whr# AND media_flat.media_id = mr_sp_accn.media_id AND 
+				mr_sp_accn.media_relationship like '% cataloged_item' and 
+				mr_sp_accn.related_primary_key = mr_accn_ci.collection_object_id ">
+			<cfset srch="#srch# and mr_accn_ci.accn_id=#specimen_accn_id#">
 			<cfset mapurl="#mapurl#&specimen_accn_id=#specimen_accn_id#">
 			
 			
 					
 		</cfif>
 		
-accnspecimens
 
 
 
