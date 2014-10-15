@@ -241,10 +241,7 @@
 			<div class="thumb_spcr">&nbsp;</div>
 			<cfloop query="mediaResultsQuery" startrow="#start#" endrow="#stop#">
             	<cfset puri=obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
-				<cfset alt="Media Preview Image">
-				<cfif len(description) gt 0>
-					<cfset alt=description>
-				</cfif>
+				<cfset alt=description>
 				<cfif len(alt) gt 50>
 					<cfset aTxt=REReplaceNoCase(left(alt,50) & "...","<[^>]*>","","ALL")>
 				<cfelse>
@@ -266,7 +263,7 @@
 					</cfif>
 					<div>#media_type# (#mime_type#) - <a href="/media/#media_id#" target="_blank">Media Details</a></div>
 					<cfif len(uri) gt 0>
-						<div><a href="#URI#">#DISPLAY#</a></div>
+						<div><a href="#URI#">#REReplaceNoCase(left(DISPLAY,50) & "...","<[^>]*>","","ALL")#</a></div>
 					<cfelse>
 						<div>unlicensed</div>
 					</cfif>
