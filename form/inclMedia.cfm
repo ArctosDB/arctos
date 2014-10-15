@@ -26,7 +26,9 @@ audio { width:180px; }
 				     mime_type,
 				     media_type,
 				     preview_uri,
-				     description
+				     description,
+				     DISPLAY,
+				     URI
 				from (
 			   		select
 				        media.media_id,
@@ -34,14 +36,18 @@ audio { width:180px; }
 				        media.mime_type,
 				        media.media_type,
 				        media.preview_uri,
-				        concatMediaDescription(media.media_id) description
+				        concatMediaDescription(media.media_id) description,
+				        DISPLAY,
+				     	URI
 				     from
 				        media,
+				        ctmedia_license,
 				        media_relations,
 				        identification,
 				        identification_taxonomy
 				     where
 				        media.media_id=media_relations.media_id and
+				        media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
 				        media_relations.media_relationship like '% cataloged_item' and
 				        identification.accepted_id_fg=1 and
 				        media_relations.related_primary_key = identification.collection_object_id and
@@ -55,12 +61,16 @@ audio { width:180px; }
 				        media.mime_type,
 				        media.media_type,
 				        media.preview_uri,
-				        concatMediaDescription(media.media_id) description
+				        concatMediaDescription(media.media_id) description,
+				         DISPLAY,
+				     URI
 				     from
 				         media,
+				        ctmedia_license,
 				         media_relations
 				     where
 				         media.media_id=media_relations.media_id and
+				        media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
 				         media_relations.media_relationship like '%taxonomy' and
 				         media_relations.related_primary_key = #q#
 				 ) group by
@@ -69,9 +79,11 @@ audio { width:180px; }
 				    mime_type,
 				    media_type,
 				    preview_uri,
-				    description
+				    description,
+				     DISPLAY,
+				     URI
 			)
-			--where rownum <= 500">
+		">
 	<cfelseif typ is "accn">
 		<cfset sql="
 			   	select
