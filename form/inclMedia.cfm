@@ -147,6 +147,8 @@
 				     URI
 		">
 	<cfelseif typ is "accnspecimens">
+		<cfset srchall="/MediaSearch.cfm?action=search&accn_id=#q#">
+
 		<cfset sql="select 
 				media.media_id,
 				media.preview_uri,
@@ -154,22 +156,21 @@
 				media.media_type,
 				media.mime_type,
 				concatMediaDescription(media.media_id) description,
-				     DISPLAY,
-				     URI
+				DISPLAY,
+				URI
 			from 
 				cataloged_item,
-				collection,
 				media_relations,
 				media,
 				ctmedia_license
 			where
-				cataloged_item.collection_id=collection.collection_id and
 				cataloged_item.collection_object_id=media_relations.related_primary_key and
 				media_relations.media_relationship='shows cataloged_item' and
 				media_relations.media_id=media.media_id and
-				        media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
+				media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
 				cataloged_item.accn_id=#q#">
 	<cfelseif typ is "project">
+		<cfset srchall="/MediaSearch.cfm?action=search&project_id=#q#">
 		<cfset sql=" select distinct 
 	        media.media_id,
 	        media.media_uri,
@@ -218,6 +219,7 @@
 	<cfset pp=pg-1>
 	<div style="width:100%;text-align:center;" id="imgBrowserCtlDiv">
 		Showing Media results #start# - <cfif stop GT cnt> #cnt# <cfelse> #stop# </cfif> of #cnt#
+		[ <a href="#srchall#">[ view details ]</a>
 		<cfif cnt GT rpp>
 			<br>
 			<cfif (pg*rpp) GT rpp>

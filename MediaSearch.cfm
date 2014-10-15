@@ -402,11 +402,34 @@
 		<cfif (isdefined("project_id") and len(project_id) gt 0)>
 			<cfset tabls = "#tabls#,media_relations mr_project">	
 			<cfset whr ="#whr# AND media_flat.media_id = mr_project.media_id ">
-			<cfset srch="#srch# AND mr_project.related_primary_key = #project_id#">
+			<cfset srch="#srch# AND mr_project.media_relationship like '% project' and mr_project.related_primary_key = #project_id#">
 			<cfset mapurl="#mapurl#&project_id=#project_id#">			
 		</cfif>
+		<cfif (isdefined("accn_id") and len(accn_id) gt 0)>
+			<cfset tabls = "#tabls#,media_relations mr_accn">	
+			<cfset whr ="#whr# AND media_flat.media_id = mr_accn.media_id ">
+			<cfset srch="#srch# AND mr_accn.media_relationship like '% accn' and mr_accn.related_primary_key = #accn_id#">
+			<cfset mapurl="#mapurl#&accn_id=#accn_id#">			
+		</cfif>
+		<cfif (isdefined("accn_id") and len(accn_id) gt 0)>
+			<cfset tabls = "#tabls#,media_relations mr_accn">	
+			<cfset whr ="#whr# AND media_flat.media_id = mr_accn.media_id ">
+			<cfset srch="#srch# AND mr_accn.media_relationship like '% project' and mr_accn.related_primary_key = #accn_id#">
+			<cfset mapurl="#mapurl#&accn_id=#accn_id#">			
+		</cfif>
+		<cfif (isdefined("specimen_accn_id") and len(specimen_accn_id) gt 0)>
+			<cfset tabls = "#tabls#,media_relations mr_sp_accn, cataloged_item mr_accn_ci">	
+			<cfset whr ="#whr# AND media_flat.media_id = mr_sp_accn.media_id ">
+			<cfset srch="#srch# AND mr_sp_accn.media_relationship like '% cataloged_item' 
+				and mr_sp_accn.related_primary_key = mr_accn_ci.collection_object_id and
+				mr_accn_ci.accn_id#specimen_accn_id#">
+			<cfset mapurl="#mapurl#&specimen_accn_id=#specimen_accn_id#">
+			
+			
+					
+		</cfif>
 		
-
+accnspecimens
 
 
 
