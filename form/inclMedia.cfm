@@ -211,22 +211,31 @@
 					<cfset aTxt=alt>
 				</cfif>
                <div class="one_thumb">
+			
 					<cfset puri=obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
-
-
-<!----
-
-               		<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
-						<cfinvokeargument name="preview_uri" value="#preview_uri#">
-						<cfinvokeargument name="media_type" value="#media_type#">
-					</cfinvoke>
-					---->
+					<cfif mime_type is "audio/mpeg3">
+						<br>
+						<audio controls>
+							<source src="#media_uri#" type="audio/mp3">
+							<a href="/exit.cfm?target=#media_uri#" target="_blank">
+								<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
+							</a>
+						</audio>
+					<cfelse>
+						<a href="/exit.cfm?target=#media_uri#" target="_blank">
+							<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
+						</a>
+					</cfif>
+					
+					
+					<!----
 	               <a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
                    	<p>
 						#media_type# (#mime_type#)
 	                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
 						<br>#aTxt#
 					</p>
+					---->
 				</div>
 			</cfloop>
 			<div class="thumb_spcr">&nbsp;</div>
