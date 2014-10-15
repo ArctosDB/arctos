@@ -236,6 +236,11 @@ audio { width:180px; }
 						</a>
 					</cfif>
 						<p>
+						<cfif len(uri) gt 0>
+							<a href="#URI#">#DISPLAY#</a>
+						<cfelse>
+							unlicensed
+						</cfif>
 						#media_type# (#mime_type#)
 	                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
 						<br>#aTxt#
