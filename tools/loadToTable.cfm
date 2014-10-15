@@ -8,7 +8,7 @@ Upload CSV
  </cfform>
 <cfoutput>
 	<cfif action is "getFile">
-	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+	<cffile action="READ" file="#FiletoUpload#" variable="fileContent" charset="utf-8">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 	<cfset numberOfColumns = ArrayLen(arrResult[1])>

@@ -88,7 +88,7 @@
 			        media.preview_uri
 			">
 	<cfelseif typ is "collecting_event">
-	<cfset sql="
+		<cfset sql="
 		   	select
 		   		media.media_id,
 		        media.media_uri,
@@ -111,6 +111,28 @@
 		        media.media_type,
 		        media.preview_uri
 		">
+	<cfelseif typ is "accnspecimens">
+		<cfset sql='select 
+				media.media_id,
+				media.preview_uri,
+				media.media_uri,
+				media.media_type,
+				media.mime_type
+			from 
+				cataloged_item,
+				collection,
+				media_relations,
+				media
+			where
+				cataloged_item.collection_id=collection.collection_id and
+				cataloged_item.collection_object_id=media_relations.related_primary_key and
+				media_relations.media_relationship='shows cataloged_item' and
+				media_relations.media_id=media.media_id and
+				cataloged_item.accn_id=<cfqueryparam value = "#q#" CFSQLType = "CF_SQL_INTEGER">'>
+				
+				
+				
+				
 	<cfelse>
 		<cfabort>
 	</cfif>
