@@ -14,6 +14,9 @@
 <cfif not isdefined("pg") or len(pg) eq 0>
 	<cfset pg=1>
 </cfif>
+<style>
+audio { width:140px; }
+</style>
 <cfoutput>
 	<cfif typ is "taxon">
 		<cfset sql="select * from (
