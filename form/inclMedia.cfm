@@ -177,14 +177,15 @@ audio { width:180px; }
 	        media.media_type,
 	        media.preview_uri,
 	        concatMediaDescription(media.media_id) description,
-				     DISPLAY,
-				     URI
+			DISPLAY,
+			URI
 	     from
 	         media,
-	         media_relations
+	         media_relations,
+	         ctmedia_license
 	     where
 	         media.media_id=media_relations.media_id and
-				        media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
+			media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
 	         media_relations.media_relationship like '% project' and
 	         media_relations.related_primary_key = #q#">
 	<cfelse>
