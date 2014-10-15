@@ -490,6 +490,10 @@
 		text-align: center;
 	}
 	div.one_thumb p,div.one_thumb div {
+		width: 180px;
+  		white-space: nowrap;
+  		overflow: hidden;
+ 		text-overflow: ellipsis;
 		font-size:smaller;
 		margin-top:0px;
 	 }
