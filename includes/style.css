@@ -489,7 +489,7 @@
 		overflow:hidden;
 		text-align: center;
 	}
-	div.one_thumb p {
+	div.one_thumb p,div.one_thumb div {
 		font-size:smaller;
 		margin-top:0px;
 	 }
