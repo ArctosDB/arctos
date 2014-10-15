@@ -255,13 +255,14 @@ audio { width:180px; }
 							<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
 						</a>
 					</cfif>
-						<p>
+					<p>
+						#media_type# (#mime_type#)<br>
 						<cfif len(uri) gt 0>
 							<a href="#URI#">#DISPLAY#</a>
 						<cfelse>
 							unlicensed
 						</cfif>
-						#media_type# (#mime_type#)
+						
 	                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
 						<br>#aTxt#
 					</p>
