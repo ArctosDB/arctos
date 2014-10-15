@@ -25,14 +25,16 @@ audio { width:180px; }
 				     media_uri,
 				     mime_type,
 				     media_type,
-				     preview_uri
+				     preview_uri,
+				     description
 				from (
 			   		select
 				        media.media_id,
 				        media.media_uri,
 				        media.mime_type,
 				        media.media_type,
-				        media.preview_uri
+				        media.preview_uri,
+				        concatMediaDescription(media.media_id) description
 				     from
 				        media,
 				        media_relations,
@@ -52,7 +54,8 @@ audio { width:180px; }
 				        media.media_uri,
 				        media.mime_type,
 				        media.media_type,
-				        media.preview_uri
+				        media.preview_uri,
+				        concatMediaDescription(media.media_id) description
 				     from
 				         media,
 				         media_relations
@@ -65,7 +68,8 @@ audio { width:180px; }
 				    media_uri,
 				    mime_type,
 				    media_type,
-				    preview_uri
+				    preview_uri,
+				    description
 			)
 			--where rownum <= 500">
 	<cfelseif typ is "accn">
@@ -75,7 +79,8 @@ audio { width:180px; }
 			        media.media_uri,
 			        media.mime_type,
 			        media.media_type,
-			        media.preview_uri
+			        media.preview_uri,
+			        concatMediaDescription(media.media_id) description
 				from
 					media,
 					media_relations
@@ -88,7 +93,8 @@ audio { width:180px; }
 			        media.media_uri,
 			        media.mime_type,
 			        media.media_type,
-			        media.preview_uri
+			        media.preview_uri,
+			        description
 			">
 	<cfelseif typ is "collecting_event">
 		<cfset sql="
@@ -97,7 +103,8 @@ audio { width:180px; }
 		        media.media_uri,
 		        media.mime_type,
 		        media.media_type,
-		        media.preview_uri
+		        media.preview_uri,
+		        concatMediaDescription(media.media_id) description
 			from
 				media,
 				media_relations,
@@ -112,7 +119,8 @@ audio { width:180px; }
 		        media.media_uri,
 		        media.mime_type,
 		        media.media_type,
-		        media.preview_uri
+		        media.preview_uri,
+		        description
 		">
 	<cfelseif typ is "accnspecimens">
 		<cfset sql="select 
@@ -120,7 +128,8 @@ audio { width:180px; }
 				media.preview_uri,
 				media.media_uri,
 				media.media_type,
-				media.mime_type
+				media.mime_type,
+				concatMediaDescription(media.media_id) description
 			from 
 				cataloged_item,
 				collection,
@@ -138,14 +147,13 @@ audio { width:180px; }
 	        media.media_uri,
 	        media.mime_type,
 	        media.media_type,
-	        media.preview_uri
+	        media.preview_uri,
+	        concatMediaDescription(media.media_id) description
 	     from
 	         media,
-	         media_relations,
-	         media_labels
+	         media_relations
 	     where
 	         media.media_id=media_relations.media_id and
-	         media.media_id=media_labels.media_id (+) and
 	         media_relations.media_relationship like '% project' and
 	         media_relations.related_primary_key = #q#">
 	<cfelse>
@@ -192,22 +200,9 @@ audio { width:180px; }
 		<div class="thumbs">
 			<div class="thumb_spcr">&nbsp;</div>
 			<cfloop query="mediaResultsQuery" startrow="#start#" endrow="#stop#">
-            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select
-						media_label,
-						label_value
-					from
-						media_labels
-					where
-						media_id=#media_id#
-				</cfquery>
-				<cfquery name="desc" dbtype="query">
-					select label_value from labels where media_label='description'
-				</cfquery>
+            	
 				<cfset alt="Media Preview Image">
-				<cfif desc.recordcount is 1>
-					<cfset alt=desc.label_value>
-				</cfif>
+				<cfset alt=description>
 				<cfif len(alt) gt 50>
 					<cfset aTxt=REReplaceNoCase(left(alt,50) & "...","<[^>]*>","","ALL")>
 				<cfelse>
