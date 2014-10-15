@@ -7,7 +7,7 @@
 			jQuery.get(am, function(data){
 				 jQuery('#accnspecmedia').html(data);
 			})
-
+		})
 			//var am=ptl+'&typ=accnspecimens&tgt=accnMedia';
 			//jQuery.get(am, function(data){
 			//	 jQuery('#accnMedia').html(data);
