@@ -264,17 +264,14 @@
 							<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
 						</a>
 					</cfif>
-					<p>
-						#media_type# (#mime_type#)<br>
-						<cfif len(uri) gt 0>
-							<a href="#URI#">#DISPLAY#</a>
-						<cfelse>
-							unlicensed
-						</cfif>
-						
-	                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
-						<br>#aTxt#
-					</p>
+					<div>#media_type# (#mime_type#)</div>
+					<cfif len(uri) gt 0>
+						<div><a href="#URI#">#DISPLAY#</a></div>
+					<cfelse>
+						<div>unlicensed</div>
+					</cfif>
+					<div><a href="/media/#media_id#" target="_blank">Media Details</a></div>
+					<div>#aTxt#</div>
 					
 					<!----
 	               <a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
