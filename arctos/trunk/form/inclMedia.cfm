@@ -240,17 +240,17 @@
 		<div class="thumbs">
 			<div class="thumb_spcr">&nbsp;</div>
 			<cfloop query="mediaResultsQuery" startrow="#start#" endrow="#stop#">
-            	
+            	<cfset puri=obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
 				<cfset alt="Media Preview Image">
-				<cfset alt=description>
+				<cfif len(description) gt 0>
+					<cfset alt=description>
+				</cfif>
 				<cfif len(alt) gt 50>
 					<cfset aTxt=REReplaceNoCase(left(alt,50) & "...","<[^>]*>","","ALL")>
 				<cfelse>
 					<cfset aTxt=alt>
 				</cfif>
                <div class="one_thumb">
-			
-					<cfset puri=obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
 					<cfif mime_type is "audio/mpeg3">
 						<audio controls class="audiothumb">
 							<source src="#media_uri#" type="audio/mp3">
@@ -272,15 +272,6 @@
 					</cfif>
 					<div><a href="/media/#media_id#" target="_blank">Media Details</a></div>
 					<div>#aTxt#</div>
-					
-					<!----
-	               <a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
-                   	<p>
-						#media_type# (#mime_type#)
-	                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
-						<br>#aTxt#
-					</p>
-					---->
 				</div>
 			</cfloop>
 			<div class="thumb_spcr">&nbsp;</div>
