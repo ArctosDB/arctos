@@ -416,7 +416,7 @@
 			<cfset whr ="#whr# AND media_flat.media_id = mr_sp_accn.media_id ">
 			<cfset srch="#srch# AND mr_sp_accn.media_relationship like '% cataloged_item' 
 				and mr_sp_accn.related_primary_key = mr_accn_ci.collection_object_id and
-				mr_accn_ci.accn_id#specimen_accn_id#">
+				mr_accn_ci.accn_id=#specimen_accn_id#">
 			<cfset mapurl="#mapurl#&specimen_accn_id=#specimen_accn_id#">
 			
 			
