@@ -157,6 +157,8 @@
 		</div>
 		<cfabort>
 	</cfif>
+	<cfset obj = CreateObject("component","component.functions")>
+
 	<cfset cnt=mediaResultsQuery.recordcount>
 	<cfset start=(pg*rpp)-(rpp-1)>
 	<cfif start lt 1>
@@ -209,10 +211,16 @@
 					<cfset aTxt=alt>
 				</cfif>
                <div class="one_thumb">
+					<cfset puri=obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
+
+
+<!----
+
                		<cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="puri">
 						<cfinvokeargument name="preview_uri" value="#preview_uri#">
 						<cfinvokeargument name="media_type" value="#media_type#">
 					</cfinvoke>
+					---->
 	               <a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
                    	<p>
 						#media_type# (#mime_type#)
