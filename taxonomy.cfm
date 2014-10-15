@@ -314,24 +314,15 @@
 			         scrollTop: $("##taxondetail").offset().top
 			     }, 1000);
 			}
-			var taxon_name_id=$("##taxon_name_id").val();
-			if (taxon_name_id){
-				var elemsToLoad='mapTax';
-				getMedia('taxon',taxon_name_id,'specTaxMedia','10','1');
-				var elemAry = elemsToLoad.split(",");
-				for(var i=0; i<elemAry.length; i++){
-					load(elemAry[i]);
-				}
-			}
-		});
-		function load(name){
-			var scientific_name=$("##scientific_name").val();
-			var taxon_name_id=$("##taxon_name_id").val();
-			var ptl="/includes/taxonomy/" + name + ".cfm?taxon_name_id=" + taxon_name_id + "&scientific_name=" + scientific_name;
-			jQuery.get(ptl, function(data){
-				 jQuery('##' + name).html(data);
+
+			var am='/form/inclMedia.cfm?typ=taxon&tgt=specTaxMedia&q=' +  $("##taxon_name_id").val();
+			jQuery.get(am, function(data){
+				 jQuery('##specTaxMedia').html(data);
 			})
-		}
+
+
+
+
 	</script>
 	<cfquery name="d" datasource="uam_god">
 		select 
