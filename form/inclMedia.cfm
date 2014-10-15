@@ -146,7 +146,9 @@
 	   	#preservesinglequotes(sql)#
 	</cfquery>
 	<cfif mediaResultsQuery.recordcount is 0>
-		No Media Found
+		<div style="margin-left;2em;font-weight:bold;font-style:italics">
+			No Media Found
+		</div>
 		<cfabort>
 	</cfif>
 	<cfset cnt=mediaResultsQuery.recordcount>
