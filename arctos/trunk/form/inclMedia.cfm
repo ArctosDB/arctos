@@ -161,7 +161,7 @@
 				collection,
 				media_relations,
 				media,
-				        ctmedia_license
+				ctmedia_license
 			where
 				cataloged_item.collection_id=collection.collection_id and
 				cataloged_item.collection_object_id=media_relations.related_primary_key and

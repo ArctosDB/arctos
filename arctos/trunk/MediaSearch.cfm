@@ -399,6 +399,12 @@
 			<cfset srch="#srch# AND media_flat.latest_date <= '#latest_date#'">
 			<cfset mapurl="#mapurl#&latest_date=#latest_date#">
 		</cfif>
+		<cfif (isdefined("project_id") and len(project_id) gt 0)>
+			<cfset tabls = "#tabls#,media_relations mr_project">	
+			<cfset whr ="#whr# AND media_flat.media_id = mr_project.media_id ">
+			<cfset srch="#srch# AND mr_project.related_primary_key = #project_id#">
+			<cfset mapurl="#mapurl#&project_id=#project_id#">			
+		</cfif>
 		
 
 
