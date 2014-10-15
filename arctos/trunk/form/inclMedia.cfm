@@ -112,7 +112,7 @@
 		        media.preview_uri
 		">
 	<cfelseif typ is "accnspecimens">
-		<cfset sql='select 
+		<cfset sql="select 
 				media.media_id,
 				media.preview_uri,
 				media.media_uri,
@@ -128,7 +128,7 @@
 				cataloged_item.collection_object_id=media_relations.related_primary_key and
 				media_relations.media_relationship='shows cataloged_item' and
 				media_relations.media_id=media.media_id and
-				cataloged_item.accn_id=#q#'>
+				cataloged_item.accn_id=#q#">
 				
 				
 				
