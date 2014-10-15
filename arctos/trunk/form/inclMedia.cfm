@@ -19,6 +19,7 @@
 </style>
 <cfoutput>
 	<cfif typ is "taxon">
+		<cfset srchall="/MediaSearch.cfm?action=search&taxon_name_id=#q#">
 		<cfset sql="select * from (
 			   	select
 			   		 media_id,

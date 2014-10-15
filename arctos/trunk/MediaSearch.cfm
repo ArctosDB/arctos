@@ -417,12 +417,38 @@
 				mr_sp_accn.media_relationship like '% cataloged_item' and 
 				mr_sp_accn.related_primary_key = mr_accn_ci.collection_object_id ">
 			<cfset srch="#srch# and mr_accn_ci.accn_id=#specimen_accn_id#">
-			<cfset mapurl="#mapurl#&specimen_accn_id=#specimen_accn_id#">
+			<cfset mapurl="#mapurl#&specimen_accn_id=#specimen_accn_id#">			
+		</cfif>
+		<cfif (isdefined("taxon_name_id") and len(taxon_name_id) gt 0)>
+			<cfset mapurl="#mapurl#&taxon_name_id=#taxon_name_id#">			
 			
-			
-					
+			<cfset srch="#srch# and media_flat.media_id in (
+				select
+					media_relations.media_id
+				from
+					media_relations,
+				    identification,
+				    identification_taxonomy
+				where
+					 media_relations.media_relationship like '% cataloged_item' and
+				     identification.accepted_id_fg=1 and
+				     media_relations.related_primary_key = identification.collection_object_id and
+				     identification.identification_id=identification_taxonomy.identification_id and
+				     identification_taxonomy.taxon_name_id=#taxon_name_id#
+				union
+				select
+					media_relations.media_id
+				from
+					media_relations
+				where
+				   media_relations.media_relationship like '%taxonomy' and
+				   media_relations.related_primary_key = #taxon_name_id#
+			)">
 		</cfif>
 		
+
+
+
 
 
 
