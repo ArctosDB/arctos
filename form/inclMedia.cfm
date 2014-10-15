@@ -258,7 +258,7 @@
 								<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
 							</a>
 						</audio>
-						<br><a href="/exit.cfm?target=#media_uri#" download>download MP3</a>
+						<p><a href="/exit.cfm?target=#media_uri#" download>download MP3</a></p>
 					<cfelse>
 						<a href="/exit.cfm?target=#media_uri#" target="_blank">
 							<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
