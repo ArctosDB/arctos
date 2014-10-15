@@ -15,7 +15,7 @@
 	<cfset pg=1>
 </cfif>
 <style>
-audio { width:140px; }
+audio { width:180px; }
 </style>
 <cfoutput>
 	<cfif typ is "taxon">
@@ -228,7 +228,11 @@ audio { width:140px; }
 							<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
 						</a>
 					</cfif>
-					
+						<p>
+						#media_type# (#mime_type#)
+	                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
+						<br>#aTxt#
+					</p>
 					
 					<!----
 	               <a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
