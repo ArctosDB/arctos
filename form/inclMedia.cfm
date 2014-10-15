@@ -92,12 +92,16 @@ audio { width:180px; }
 			        media.mime_type,
 			        media.media_type,
 			        media.preview_uri,
-			        concatMediaDescription(media.media_id) description
+			        concatMediaDescription(media.media_id) description,
+				     DISPLAY,
+				     URI
 				from
 					media,
+				        ctmedia_license,
 					media_relations
 				where
 					 media.media_id=media_relations.media_id and
+				        media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
 				     media_relations.media_relationship like '% accn' and
 				     media_relations.related_primary_key=#q#
 				group by
@@ -106,7 +110,9 @@ audio { width:180px; }
 			        media.mime_type,
 			        media.media_type,
 			        media.preview_uri,
-			        description
+			        description,
+				     DISPLAY,
+				     URI
 			">
 	<cfelseif typ is "collecting_event">
 		<cfset sql="
@@ -116,13 +122,17 @@ audio { width:180px; }
 		        media.mime_type,
 		        media.media_type,
 		        media.preview_uri,
-		        concatMediaDescription(media.media_id) description
+		        concatMediaDescription(media.media_id) description,
+				     DISPLAY,
+				     URI
 			from
 				media,
+				        ctmedia_license,
 				media_relations,
 				specimen_event
 			where
 				 media.media_id=media_relations.media_id and
+				        media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
 			     media_relations.media_relationship like '% collecting_event' and
 			     media_relations.related_primary_key=specimen_event.collecting_event_id and
 				specimen_event.collection_object_id=#q#
@@ -132,7 +142,9 @@ audio { width:180px; }
 		        media.mime_type,
 		        media.media_type,
 		        media.preview_uri,
-		        description
+		        description,
+				     DISPLAY,
+				     URI
 		">
 	<cfelseif typ is "accnspecimens">
 		<cfset sql="select 
@@ -141,17 +153,21 @@ audio { width:180px; }
 				media.media_uri,
 				media.media_type,
 				media.mime_type,
-				concatMediaDescription(media.media_id) description
+				concatMediaDescription(media.media_id) description,
+				     DISPLAY,
+				     URI
 			from 
 				cataloged_item,
 				collection,
 				media_relations,
-				media
+				media,
+				        ctmedia_license
 			where
 				cataloged_item.collection_id=collection.collection_id and
 				cataloged_item.collection_object_id=media_relations.related_primary_key and
 				media_relations.media_relationship='shows cataloged_item' and
 				media_relations.media_id=media.media_id and
+				        media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
 				cataloged_item.accn_id=#q#">
 	<cfelseif typ is "project">
 		<cfset sql=" select distinct 
@@ -160,12 +176,15 @@ audio { width:180px; }
 	        media.mime_type,
 	        media.media_type,
 	        media.preview_uri,
-	        concatMediaDescription(media.media_id) description
+	        concatMediaDescription(media.media_id) description,
+				     DISPLAY,
+				     URI
 	     from
 	         media,
 	         media_relations
 	     where
 	         media.media_id=media_relations.media_id and
+				        media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
 	         media_relations.media_relationship like '% project' and
 	         media_relations.related_primary_key = #q#">
 	<cfelse>
