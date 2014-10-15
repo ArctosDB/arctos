@@ -261,11 +261,10 @@
 							<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
 						</a>
 					</cfif>
-					<div>#media_type# (#mime_type#) - <a href="/media/#media_id#" target="_blank">Media Details</a></div>
+					<div>#media_type# (#mime_type#)</div>
+					<div><a href="/media/#media_id#" target="_blank">Media Details</a></div>
 					<cfif len(uri) gt 0>
-						<div><a href="#URI#">#REReplaceNoCase(left(DISPLAY,50) & "...","<[^>]*>","","ALL")#</a></div>
-					<cfelse>
-						<div>unlicensed</div>
+						<div><a href="#URI#">#DISPLAY#</a></div>
 					</cfif>
 					<div>#aTxt#</div>
 				</div>
