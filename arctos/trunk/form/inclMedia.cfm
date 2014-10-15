@@ -85,6 +85,7 @@
 			)
 		">
 	<cfelseif typ is "accn">
+		<cfset srchall="/MediaSearch.cfm?action=search&accn_id=#q#">
 		<cfset sql="
 			   	select
 			   		media.media_id,
@@ -147,7 +148,7 @@
 				     URI
 		">
 	<cfelseif typ is "accnspecimens">
-		<cfset srchall="/MediaSearch.cfm?action=search&accn_id=#q#">
+		<cfset srchall="/MediaSearch.cfm?action=search&specimen_accn_id=#q#">
 
 		<cfset sql="select 
 				media.media_id,
