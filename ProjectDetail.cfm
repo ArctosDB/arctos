@@ -43,11 +43,15 @@
 		})
 	}
 	jQuery(document).ready(function(){
-		var elemsToLoad='pubs,specUsed,specCont,projCont,projUseCont,projMedia,projTaxa';
+		var elemsToLoad='pubs,specUsed,specCont,projCont,projUseCont,projTaxa';
 		var elemAry = elemsToLoad.split(",");
 		for(var i=0; i<elemAry.length; i++){
 			load(elemAry[i]);
 		}
+		var am='/form/inclMedia.cfm?q=#project_id#&typ=project&tgt=projMedia';
+		jQuery.get(am, function(data){
+			 jQuery('##projMedia').html(data);
+		})
 	});
 </script>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
