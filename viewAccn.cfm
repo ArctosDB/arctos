@@ -1,5 +1,16 @@
-<cfinclude template="includes/_header.cfm">	
+<cfinclude template="includes/_header.cfm">
+	<script>
+		jQuery(document).ready(function(){
+			var transaction_id=$("#transaction_id").val();
+			var ptl="/form/inclMedia.cfm?q=" + transaction_id;
+			var am=ptl+'&typ=accnspecimens&tgt=accnMedia';
+			jQuery.get(am, function(data){
+				 jQuery('#accnMedia').html(data);
+			})
+
+	</script>
 	<cfoutput>
+		<input type="hidden" id="transaction_id" value="#transaction_id#">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
 				trans.transaction_id,
@@ -101,6 +112,8 @@
 				No projects are associated with this accession.
 			</cfif>
 		</p>
+		<div id="accnMedia"></div>
+		<!----
 		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select 
 				media.media_id,
@@ -164,6 +177,7 @@
 			There are no Media associated with this accession.
 		</cfif>
 		</p>
+		----->
 		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
 				permit.permit_id,
