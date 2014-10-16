@@ -417,6 +417,8 @@ function r_getSpecSrchPref (result){
 		}
 	}
 }
+
+/*
 function kmlSync(tid,tval) {
 	var rMostChar;
 	rMostChar=tid.substr(tid.length -1,1);
@@ -427,6 +429,7 @@ function kmlSync(tid,tval) {
 	}
 	document.getElementById(theOtherField).value=tval;
 }
+*/
 /* specimen search */
 
 
