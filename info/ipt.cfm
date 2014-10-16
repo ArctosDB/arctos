@@ -42,7 +42,8 @@
 			display,
 			uri,
 			collection_cde,
-			institution_acronym
+			institution_acronym,
+			collection.guid_prefix
 		from
 			collection,
 			ctmedia_license
