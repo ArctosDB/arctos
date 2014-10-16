@@ -59,6 +59,8 @@
 <hr>
 
 <cfdump var=#InnerSqlString#>
+<hr>
+
 
 <!--- require some actual searching --->
 <cfset srchTerms="">
