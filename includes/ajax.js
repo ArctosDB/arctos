@@ -334,6 +334,8 @@ function setPrevSearch(){
  	 			
  			} else if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
  				changeTarget(eName,eVl);
+ 				
+ 				console.log('going changeTarget: eName=' + eName + '; eVl=' + eVl);
  			} else {
  				$("#" + eName).val(eVl);
  			}
