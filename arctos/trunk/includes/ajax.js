@@ -1075,12 +1075,14 @@ function getFormValues() {
 			if (spAry.indexOf(thisPair)==-1) {
 				spAry.push(thisPair);
 				
-				//console.log('saving ' + thisPair);
+				console.log('saving ' + thisPair);
 			}
 		}
 	});
 	str=spAry.join("|");
 	document.cookie = 'schParams=' + str;
+	
+
  }
 function createCookie(name,value,days) {
 	var expires,date;
