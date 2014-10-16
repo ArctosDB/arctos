@@ -89,7 +89,7 @@
 		<td align="left">
 			<div id="groupByDiv" style="display:none;border:1px solid green;padding:.5em;">
 				<font size="-1"><em><strong>Group by:</strong></em></font><br>
-				<select name="groupBy" id="groupBy" multiple size="4" onchange="changeGrp(this.id)">
+				<select name="groupBy" id="groupBy" multiple size="4">
 					<option value="kingdom">Kingdom</option>
 					<option value="phylum">Phylum</option>
 					<option value="phylclass">Class</option>
