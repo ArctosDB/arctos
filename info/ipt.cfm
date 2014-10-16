@@ -34,7 +34,7 @@
 	<cfquery name="d" datasource="uam_god">
 		select
 			collection.collection_id,
-			collection.collection,
+			collection.institution || ' ' || collection.collection collection,
 			collection.descr,
 			collection.citation,
 			collection.web_link,
@@ -47,7 +47,7 @@
 			ctmedia_license
 		where
 			collection.USE_LICENSE_ID=ctmedia_license.media_license_id (+)
-			order by collection
+			order by guid_prefix
 	</cfquery>
 	<a name="top"></a>
 	<cfloop query="d">

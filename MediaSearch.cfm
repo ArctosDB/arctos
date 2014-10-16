@@ -426,9 +426,7 @@
 				mr_collectingevent.related_primary_key =mr_specevent.collecting_event_id and
 				mr_specevent.collection_object_id=#specimen_collecting_event_id#">
 			<cfset mapurl="#mapurl#&specimen_collecting_event_id=#specimen_collecting_event_id#">			
-		</cfif>
-		
-		        
+		</cfif>		        
 		<cfif (isdefined("taxon_name_id") and len(taxon_name_id) gt 0)>
 			<cfset mapurl="#mapurl#&taxon_name_id=#taxon_name_id#">			
 			
@@ -455,13 +453,6 @@
 				   media_relations.related_primary_key = #taxon_name_id#
 			)">
 		</cfif>
-		
-
-
-
-
-
-
 		<cfif isdefined("requireSpecimens") and len(requireSpecimens) gt 0>
 			<cfset mapurl="#mapurl#&requireSpecimens=#requireSpecimens#">
 			<cfset tabls = "#tabls#,media_relations mr_shows_cataloged_item">
@@ -537,30 +528,11 @@
 		<cfif len(srch) is 0>
 			<div class="error">You must enter search criteria.</div>
 			<cfabort>
-		</cfif>
-		
-		
-		
-		
-		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum <= 10000 order by media_flat.media_id"> 
-		
-		
-		#preservesinglequotes(ssql)#
-		
-		
-		
+		</cfif>		
+		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum <= 10000 order by media_flat.media_id"> 	
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
-		
-
-
-
-		<!----
-		<cfif isdefined("session.username") and session.username is "dlm">
-			<cfdump var=#raw#>
-		</cfif>
-		---->
 		<cfif raw.recordcount is 10000>
 			<div class="importantNotification">
 				Note: Some relevant records may not be included. Please try more specific search terms.
