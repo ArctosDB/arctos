@@ -37,8 +37,10 @@
 ---->
 
 
+<hr>
 
 
+SqlString: #SqlString#
 <!--- require some actual searching --->
 <cfset srchTerms="">
 <cfloop list="#mapurl#" delimiters="&" index="t">
