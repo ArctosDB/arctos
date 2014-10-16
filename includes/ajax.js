@@ -354,13 +354,7 @@ function changeTarget(id,tvalue) {
 	if(tvalue.length === 0) {
 		tvalue='SpecimenResults.cfm';
 	}
-	/*
-	if (id =='tgtForm1') {
-		$("#tgtForm").val(tvalue);		
-	} else {
-		$("#tgtForm1").val(tvalue);
-	}
-	*/	
+	$("#tgtForm").val(tvalue);
 	if (tvalue == 'SpecimenResultsSummary.cfm') {
 		$("#groupByDiv").show();
 		//$("#groupByDiv1").show();
