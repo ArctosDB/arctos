@@ -69,6 +69,13 @@
 		</td>
 		<td valign="top">
 			<input type="button" name="Reset" value="Clear Form" class="clrBtn" onclick="resetSSForm();">
+			<input type="button" name="Reset" value="getFormValues" class="clrBtn" onclick="getFormValues();">
+			
+			
+			
+			
+			
+			
 		</td>
 		<td valign="top">
 			<input type="button" name="Previous" value="Use Last Values" class="lnkBtn"	onclick="setPrevSearch()">
