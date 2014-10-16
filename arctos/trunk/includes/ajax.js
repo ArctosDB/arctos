@@ -328,13 +328,13 @@ function setPrevSearch(){
  	 			    $("#OIDType").find("option[value="+optionVal+"]").prop("selected", "selected");
  	 			}
  	 			$("#OIDType").multiselect('refresh');
- 			} else if (eName=='groupBy1'){
+ 			} else if (eName=='groupBy'){
  				var selectedOptions = eVl.split(",");
  				for (x = 0; x < selectedOptions.length; x++) {
  	 			    var optionVal = jqueryspecialescape(selectedOptions[x]);
- 	 			    $("#groupBy1").find("option[value="+optionVal+"]").prop("selected", "selected");
+ 	 			    $("#groupBy").find("option[value="+optionVal+"]").prop("selected", "selected");
  	 			}
- 	 			$("#groupBy1").multiselect('refresh');
+ 	 			$("#groupBy").multiselect('refresh');
  	 			
  			} else if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
  				changeTarget(eName,eVl);
