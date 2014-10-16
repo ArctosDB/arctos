@@ -762,7 +762,7 @@
 			minWidth: "500",
 			height: "300"
 		});
-		$("#groupBy,#groupBy1").multiselect({
+		$("#groupBy").multiselect({
 			//minWidth: "500",
 			//height: "300"
 		});
