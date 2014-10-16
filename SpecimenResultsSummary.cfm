@@ -39,8 +39,28 @@
 
 <hr>
 
+<cfset group_cols="">
+<cfset group_cols = groupBy>
+<cfset group_cols=listdeleteat(listfindnocase(group_cols,'collection_object_id'))>
 
-SqlString: #SqlString#
+<cfif listfindnocase(group_cols,'individualcount')>
+	<cfset group_cols=listdeleteat(listfindnocase(group_cols,'individualcount'))>
+</cfif>
+
+
+
+<cfset InnerSqlString = 'select COUNT(#session.flatTableName#.collection_object_id) CountOfCatalogedItem, '>
+<cfif listfindnocase(groupBy,'individualcount')>
+	<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
+</cfif>
+
+<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols# order by #group_cols#'>
+
+
+<hr>
+
+<cfdump var=#InnerSqlString#>
+
 <!--- require some actual searching --->
 <cfset srchTerms="">
 <cfloop list="#mapurl#" delimiters="&" index="t">
