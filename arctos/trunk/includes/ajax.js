@@ -336,7 +336,7 @@ function setPrevSearch(){
  	 			}
  	 			$("#groupBy").multiselect('refresh');
  	 			
- 			} else if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
+ 			} else if (eName=='tgtForm') {
  				changeTarget(eName,eVl);
  				
  				console.log('going changeTarget: eName=' + eName + '; eVl=' + eVl);

@@ -675,6 +675,8 @@
 			<cfabort>
 		</cfif>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num in ( #ListQualify(clist,'''')# ) " >
+	<cfelseif catnum contains "%">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(catnum)#'" >
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) like '#ucase(catnum)#'" >
 	</cfif>
