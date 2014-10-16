@@ -309,6 +309,10 @@ function setPrevSearch(){
  		var eName=eAry[0];
  		var eVl=eAry[1]; 		
  		if (document.getElementById(eName)){
+ 			
+ 			
+				console.log( eName=' + eName + '; eVl=' + eVl);
+
  			// extra handling required for multiselect
  			if (eName=='collection_id'){
  				var selectedOptions = eVl.split(",");
