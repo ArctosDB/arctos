@@ -13,10 +13,15 @@
 	<cfset groupBy=listdeleteat(groupBy,listfindnocase(groupBy,'individualcount'))>
 </cfif>
 ---->
-<cfset basSelect = " SELECT ">
+<cfset prefixed_cols="">
 <cfloop list="#groupBy#" index="x">
-	<cfset basSelect = listappend(basSelect,"#session.flatTableName#.#x#")>
+	<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
 </cfloop>
+
+
+
+<cfset basSelect = " SELECT #prefixed_cols# ">
+
 <cfset basFrom = " FROM #session.flatTableName#">
 <cfset basJoin = "">
 <cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
