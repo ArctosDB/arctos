@@ -49,7 +49,7 @@
 group_cols: #group_cols#
 
 
-<cfset InnerSqlString = 'select COUNT(#session.flatTableName#.collection_object_id) CountOfCatalogedItem, '>
+<cfset InnerSqlString = 'select COUNT(collection_object_id) CountOfCatalogedItem, '>
 <cfif listfindnocase(groupBy,'individualcount')>
 	<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
 </cfif>
