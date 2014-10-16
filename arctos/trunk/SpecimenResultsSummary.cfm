@@ -39,12 +39,11 @@
 
 <hr>
 
-<cfset group_cols="">
 <cfset group_cols = groupBy>
-<cfset group_cols=listdeleteat(listfindnocase(group_cols,'collection_object_id'))>
+<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'collection_object_id'))>
 
 <cfif listfindnocase(group_cols,'individualcount')>
-	<cfset group_cols=listdeleteat(listfindnocase(group_cols,'individualcount'))>
+	<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'individualcount'))>
 </cfif>
 
 
