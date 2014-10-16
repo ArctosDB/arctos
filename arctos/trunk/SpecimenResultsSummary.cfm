@@ -110,7 +110,7 @@ InnerSqlString: #InnerSqlString#
 		<tr>
 			<th>Count</th>
 			<cfif basSelect contains "individualcount">
-				<th>Sum(individualcount)</th>
+				<th>IndividualCount</th>
 			</cfif>
 			<cfloop list="#group_cols#" index="x">
 				<cfif x is "phylclass">
