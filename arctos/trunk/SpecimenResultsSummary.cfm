@@ -5,87 +5,46 @@
 	<cfset groupBy='scientific_name'>
 </cfif>
 <cfoutput>
-<cfset groupBy=listprepend(groupby,"collection_object_id")>
-<!----
-<cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem ">
-<cfif listcontainsnocase(groupBy,"individualcount")>
-	<cfset basSelect = "#basSelect#, sum(#session.flatTableName#.individualcount) individualcount">
-	<cfset groupBy=listdeleteat(groupBy,listfindnocase(groupBy,'individualcount'))>
-</cfif>
----->
-<cfset prefixed_cols="">
-<cfloop list="#groupBy#" index="x">
-	<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
-</cfloop>
-
-
-
-<cfset basSelect = " SELECT #prefixed_cols# ">
-
-<cfset basFrom = " FROM #session.flatTableName#">
-<cfset basJoin = "">
-<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
-<cfset basQual = "">
-<cfset mapurl="">
-<cfinclude template="includes/SearchSql.cfm">
-<!--- wrap everything up in a string --->
-<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by #prefixed_cols#">
-
-<!---
-<cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
-
----->
-
-
-<hr>
-
-<cfset group_cols = groupBy>
-<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'collection_object_id'))>
-
-<cfif listfindnocase(group_cols,'individualcount')>
-	<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'individualcount'))>
-</cfif>
-
-group_cols: #group_cols#
-
-
-<cfset InnerSqlString = 'select COUNT(collection_object_id) CountOfCatalogedItem, '>
-<cfif listfindnocase(groupBy,'individualcount')>
-	<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
-</cfif>
-
-<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols# order by #group_cols#'>
-
-
-<hr>
-
-InnerSqlString: #InnerSqlString#
-<hr>
-
-
-<!--- require some actual searching --->
-<cfset srchTerms="">
-<cfloop list="#mapurl#" delimiters="&" index="t">
-	<cfset tt=listgetat(t,1,"=")>
-	<cfset srchTerms=listappend(srchTerms,tt)>
-</cfloop>
-<!--- remove standard criteria that kill Oracle... --->
-<!----
-<cfif listcontains(srchTerms,"ShowObservations")>
-	<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'ShowObservations'))>
-</cfif>
----->
-<cfif listcontains(srchTerms,"collection_id")>
-	<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
-</cfif>
-<!--- ... and abort if there's nothing left --->
-<cfif len(srchTerms) is 0>
-	<CFSETTING ENABLECFOUTPUTONLY=0>
-	<font color="##FF0000" size="+2">You must enter some search criteria!</font>
-	<cfabort>
-</cfif>
-<cfset checkSql(SqlString)>
-
+	<cfset groupBy=listprepend(groupby,"collection_object_id")>
+	<cfset prefixed_cols="">
+	<cfloop list="#groupBy#" index="x">
+		<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>
+	</cfloop>
+	<cfset basSelect = " SELECT #prefixed_cols# ">
+	<cfset basFrom = " FROM #session.flatTableName#">
+	<cfset basJoin = "">
+	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
+	<cfset basQual = "">
+	<cfset mapurl="">
+	<cfinclude template="includes/SearchSql.cfm">
+	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by #prefixed_cols#">
+	<cfset group_cols = groupBy>
+	<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'collection_object_id'))>	
+	<cfif listfindnocase(group_cols,'individualcount')>
+		<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'individualcount'))>
+	</cfif>
+	<cfset InnerSqlString = 'select COUNT(collection_object_id) CountOfCatalogedItem, '>
+	<cfif listfindnocase(groupBy,'individualcount')>
+		<cfset InnerSqlString = InnerSqlString & 'sum(individualcount) individualcount, '>
+	</cfif>
+	<cfset InnerSqlString = InnerSqlString & '#group_cols# from (#SqlString#) group by #group_cols# order by #group_cols#'>
+	<!--- require some actual searching --->
+	<cfset srchTerms="">
+	<cfloop list="#mapurl#" delimiters="&" index="t">
+		<cfset tt=listgetat(t,1,"=")>
+		<cfset srchTerms=listappend(srchTerms,tt)>
+	</cfloop>
+	<!--- remove standard criteria that kill Oracle... --->
+	<cfif listcontains(srchTerms,"collection_id")>
+		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
+	</cfif>
+	<!--- ... and abort if there's nothing left --->
+	<cfif len(srchTerms) is 0>
+		<CFSETTING ENABLECFOUTPUTONLY=0>
+		<font color="##FF0000" size="+2">You must enter some search criteria!</font>
+		<cfabort>
+	</cfif>
+	<cfset checkSql(SqlString)>
 	<cfif isdefined("debug") and debug is true>
 		#preserveSingleQuotes(InnerSqlString)#
 	</cfif>
@@ -97,7 +56,7 @@ InnerSqlString: #InnerSqlString#
 	<cfset variables.fileName="#Application.webDirectory#/download/ArctosSpecimenSummary.csv">
 	<cfset header ="Count,">
 	<cfif basSelect contains "individualcount">
-		<cfset header=header & ',individualcount'>
+		<cfset header=header & ',IndividualCount'>
 	</cfif>
 	<cfset header=header & "#groupBy#,Link">
 	<cfscript>
