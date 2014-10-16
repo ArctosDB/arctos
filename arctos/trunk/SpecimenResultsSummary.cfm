@@ -1,11 +1,11 @@
 <cfinclude template = "/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfset title="Specimen Results Summary">
-<cfif not isdefined("groupBy")>
+<cfif not isdefined("groupBy") or len(groupBy) is 0>
 	<cfset groupBy='scientific_name'>
 </cfif>
 
-
+<cfset groupBy=listprepend(groupby,"collection_object_id")>
 <!----
 <cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem ">
 <cfif listcontainsnocase(groupBy,"individualcount")>
@@ -13,7 +13,7 @@
 	<cfset groupBy=listdeleteat(groupBy,listfindnocase(groupBy,'individualcount'))>
 </cfif>
 ---->
-<cfset basSelect = " SELECT #session.flatTableName#.collection_object_id ">
+<cfset basSelect = " SELECT ">
 <cfloop list="#groupBy#" index="x">
 	<cfset basSelect = "#basSelect#	,#session.flatTableName#.#x#">
 </cfloop>
