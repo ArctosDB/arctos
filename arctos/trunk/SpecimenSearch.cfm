@@ -85,7 +85,7 @@
 		</td>
 		<td valign="top">
 		 	<select name="tgtForm" id="tgtForm" size="1"  onChange="changeTarget(this.id,this.value);">
-				<option value="">Specimen Records</option>
+				<option value="SpecimenResults.cfm">Specimen Records</option>
 				<option value="SpecimenResultsHTML.cfm">HTML Specimen Records</option>
 				<option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
 				<option  value="/bnhmMaps/kml.cfm?action=newReq">KML</option>
