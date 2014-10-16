@@ -112,7 +112,7 @@ InnerSqlString: #InnerSqlString#
 			<cfif basSelect contains "individualcount">
 				<th>Sum(individualcount)</th>
 			</cfif>
-			<cfloop list="#groupby#" index="x">
+			<cfloop list="#group_cols#" index="x">
 				<cfif x is "phylclass">
 					<cfset x="Class">
 				<cfelseif x is "phylorder">
@@ -144,7 +144,7 @@ InnerSqlString: #InnerSqlString#
 				<cfif basSelect contains "individualcount">
 					<td>#individualcount#</td>
 				</cfif>
-				<cfloop list="#groupby#" index="x">
+				<cfloop list="#group_cols#" index="x">
 					<cfif len(evaluate("getData." & x)) is 0>
 						<cfset thisVal='NULL'>
 					<cfelse>
