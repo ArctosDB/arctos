@@ -76,6 +76,71 @@
 		<td align="right" valign="top">
 			&nbsp;&nbsp;&nbsp;See&nbsp;results&nbsp;as:
 		</td>
+		<td valign="top">
+		 	<select name="tgtForm1" id="tgtForm1" size="1"  onChange="changeTarget(this.id,this.value);">
+				<option value="">Specimen Records</option>
+				<option value="SpecimenResultsHTML.cfm">HTML Specimen Records</option>
+				<option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
+				<option  value="/bnhmMaps/kml.cfm?action=newReq">KML</option>
+				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
+				<option  value="SpecimenGraph.cfm">Graph</option>
+			</select>
+		</td>
+		<td align="left">
+			<div id="groupByDiv1" style="display:none;border:1px solid green;padding:.5em;">
+				<font size="-1"><em><strong>Group by:</strong></em></font><br>
+				<select name="groupBy1" id="groupBy1" multiple size="4" onchange="changeGrp(this.id)">
+					<option value="kingdom">Kingdom</option>
+					<option value="phylum">Phylum</option>
+					<option value="phylclass">Class</option>
+					<option value="phylorder">Order</option>
+					<option value="family">Family</option>
+					<option value="subfamily">Subfamily</option>
+					<option value="tribe">Tribe</option>
+					<option value="subtribe">Subtribe</option>
+					<option value="genus">Genus</option>
+					<option value="scientific_name">Scientific Name</option>
+					<option value="formatted_scientific_name">Formatted Scientific Name</option>
+					<option value="identifiedby">IdentifiedBy</option>
+					<option value="continent_ocean">Continent</option>
+					<option value="country">Country</option>
+					<option value="state_prov">State</option>
+					<option value="county">County</option>
+					<option value="quad">Map Name</option>
+					<option value="feature">Feature</option>
+					<option value="island">Island</option>
+					<option value="island_group">Island Group</option>
+					<option value="sea">Sea</option>
+					<option value="spec_locality">Specific Locality</option>
+					<option value="year">Year</option>
+					<option value="individualcount">individualcount</option>
+				</select>
+			</div>
+			<div id="kmlDiv1" style="display:none;border:1px solid green;padding:.5em;">
+				<font size="-1"><em><strong>KML Options:</strong></em></font><br>
+				<label for="next1">Color By</label>
+				<select name="next1" id="next1" onchange="kmlSync(this.id,this.value)">
+					<option value="colorByCollection">Collection</option>
+					<option value="colorBySpecies">Species</option>
+				</select>
+				<label for="method1">Method</label>
+				<select name="method1"  id="method1" onchange="kmlSync(this.id,this.value)">
+					<option value="download">Download</option>
+					<option value="link">Download Linkfile</option>
+					<option value="gmap">Google Maps</option>
+				</select>
+				<label for="includeTimeSpan1">include Time?</label>
+				<select name="includeTimeSpan1"  id="includeTimeSpan1" onchange="kmlSync(this.id,this.value)">
+					<option value="0">no</option>
+					<option value="1">yes</option>
+				</select>
+				<label for="showErrors1">Show error radii?</label>
+				<select  name="showErrors1" id="showErrors1" onchange="kmlSync(this.id,this.value)">
+					<option value="0">no</option>
+					<option value="1">yes</option>
+				</select>
+			</div>
+		</td>
 	</tr>
 </table>
 <div>
@@ -584,6 +649,7 @@
 		<td valign="top">
 			<input type="button" name="Previous" value="Use Last Values" class="lnkBtn"	onclick="setPrevSearch()">
 		</td>
+		<!----
 		<td valign="top" align="right">
 			<b>See results as:</b>
 		</td>
@@ -658,6 +724,7 @@
 				</select>
 			</div>
 		</td>
+		---->
 	</tr>
 </table>
 <cfif isdefined("transaction_id") and len(transaction_id) gt 0>
