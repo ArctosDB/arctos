@@ -51,15 +51,17 @@
 	</cfquery>
 	<a name="top"></a>
 	<cfloop query="d">
-		<br><a href="###institution_acronym#_#collection_cde#">#institution_acronym#_#collection_cde#</a>
+		<br><a href="###guid_prefix#">#guid_prefix#</a>
 	</cfloop>
 	<cfloop query="d">
-		<br><a name="#institution_acronym#_#collection_cde#" href="##top">scroll to top</a>
+		<br><a name="#guid_prefix#" href="##top">scroll to top</a>
 		<br>
 		<span class="redborder">
 			<br>
 			<label for="">collection</label>
 			<input type="text" size="80" value="#collection#">
+			<label for="">guid_prefix</label>
+			<input type="text" size="80" value="#guid_prefix#">
 			<label for="">descr</label>
 			<textarea rows="6" cols="80">#descr#</textarea>
 			<label for="">citation</label>
