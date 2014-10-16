@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+	<cfset title="IPT/Collection Metadata report">
 	<cfif (isdefined("session.roles") and session.roles contains "coldfusion_user")>
 		<cfset session.iptauthenticated=true>
 	</cfif>
