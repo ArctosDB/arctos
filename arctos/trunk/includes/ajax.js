@@ -354,26 +354,28 @@ function changeTarget(id,tvalue) {
 	if(tvalue.length === 0) {
 		tvalue='SpecimenResults.cfm';
 	}
+	/*
 	if (id =='tgtForm1') {
 		$("#tgtForm").val(tvalue);		
 	} else {
 		$("#tgtForm1").val(tvalue);
-	}	
+	}
+	*/	
 	if (tvalue == 'SpecimenResultsSummary.cfm') {
 		$("#groupByDiv").show();
-		$("#groupByDiv1").show();
+		//$("#groupByDiv1").show();
 		$("#kmlDiv").hide();
-		$("#kmlDiv1").hide();
+		//$("#kmlDiv1").hide();
 	} else if (tvalue=='/bnhmMaps/kml.cfm?action=newReq') {
 		$("#groupByDiv").hide();
-		$("#groupByDiv1").hide();
+		//$("#groupByDiv1").hide();
 		$("#kmlDiv").show();
-		$("#kmlDiv1").show();
+		//$("#kmlDiv1").show();
 	} else {
 		$("#groupByDiv").hide();
-		$("#groupByDiv1").hide();
+		//$("#groupByDiv1").hide();
 		$("#kmlDiv").hide();
-		$("#kmlDiv1").hide();
+		//$("#kmlDiv1").hide();
 		
 	}	
 	$("#SpecData").attr("action", tvalue);
