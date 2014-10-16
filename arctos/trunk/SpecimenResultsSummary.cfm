@@ -15,7 +15,7 @@
 ---->
 <cfset basSelect = " SELECT ">
 <cfloop list="#groupBy#" index="x">
-	<cfset basSelect = "#basSelect#	,#session.flatTableName#.#x#">
+	<cfset basSelect = listappend(basSelect,"#session.flatTableName#.#x#">
 </cfloop>
 <cfset basFrom = " FROM #session.flatTableName#">
 <cfset basJoin = "">
