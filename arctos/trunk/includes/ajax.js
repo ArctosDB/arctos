@@ -380,6 +380,8 @@ function changeTarget(id,tvalue) {
 	}	
 	$("#SpecData").attr("action", tvalue);
 }
+
+/*
 function changeGrp(tid) {
 	var oid,mList,sList,len,i;
 	if (tid == 'groupBy') {
@@ -399,6 +401,7 @@ function changeGrp(tid) {
 		}
 	}
 }
+*/
 function resetSSForm(){
 	document.getElementById('SpecData').reset();
 	try {
