@@ -4,12 +4,16 @@
 <cfif not isdefined("groupBy")>
 	<cfset groupBy='scientific_name'>
 </cfif>
+
+
+<!----
 <cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem ">
 <cfif listcontainsnocase(groupBy,"individualcount")>
 	<cfset basSelect = "#basSelect#, sum(#session.flatTableName#.individualcount) individualcount">
 	<cfset groupBy=listdeleteat(groupBy,listfindnocase(groupBy,'individualcount'))>
 </cfif>
-
+---->
+<cfset basSelect = " SELECT #session.flatTableName#.collection_object_id ">
 <cfloop list="#groupBy#" index="x">
 	<cfset basSelect = "#basSelect#	,#session.flatTableName#.#x#">
 </cfloop>
@@ -22,16 +26,12 @@
 <!--- wrap everything up in a string --->
 <cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by">
 <cfloop list="#groupBy#" index="x">
-	<cfif x is not "individualcount">
-		<cfset SqlString = "#SqlString#,#session.flatTableName#.#x#">
-	</cfif>	
+	<cfset SqlString = "#SqlString#,#session.flatTableName#.#x#">
 </cfloop>
 <cfset SqlString = replace(SqlString, "group by,","group by ")>
 <cfset SqlString = "#SqlString# order by">
 <cfloop list="#groupBy#" index="x">
-	<cfif x is not "individualcount">
- 		<cfset SqlString = "#SqlString#,#session.flatTableName#.#x#">
-	</cfif>
+ 	<cfset SqlString = "#SqlString#,#session.flatTableName#.#x#">
 </cfloop>
 <cfset SqlString = replace(SqlString, "order by,","order by ")>
 <cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
