@@ -4,7 +4,7 @@
 <cfif not isdefined("groupBy") or len(groupBy) is 0>
 	<cfset groupBy='scientific_name'>
 </cfif>
-
+<cfoutput>
 <cfset groupBy=listprepend(groupby,"collection_object_id")>
 <!----
 <cfset basSelect = " SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem ">
@@ -46,6 +46,7 @@
 	<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'individualcount'))>
 </cfif>
 
+group_cols: #group_cols#
 
 
 <cfset InnerSqlString = 'select COUNT(#session.flatTableName#.collection_object_id) CountOfCatalogedItem, '>
@@ -58,7 +59,7 @@
 
 <hr>
 
-<cfdump var=#InnerSqlString#>
+InnerSqlString: #InnerSqlString#
 <hr>
 
 
@@ -84,7 +85,7 @@
 	<cfabort>
 </cfif>
 <cfset checkSql(SqlString)>
-<cfoutput>
+
 	<cfif isdefined("debug") and debug is true>
 		#preserveSingleQuotes(SqlString)#
 	</cfif>
