@@ -311,7 +311,7 @@ function setPrevSearch(){
  		if (document.getElementById(eName)){
  			
  			
-				console.log( 'eName=' + eName + '; eVl=' + eVl);
+				//console.log( 'eName=' + eName + '; eVl=' + eVl);
 
  			// extra handling required for multiselect
  			if (eName=='collection_id'){
@@ -339,7 +339,7 @@ function setPrevSearch(){
  			} else if (eName=='tgtForm') {
  				changeTarget(eName,eVl);
  				
- 				console.log('going changeTarget: eName=' + eName + '; eVl=' + eVl);
+ 			//	console.log('going changeTarget: eName=' + eName + '; eVl=' + eVl);
  			} else {
  				$("#" + eName).val(eVl);
  			}
@@ -1069,7 +1069,7 @@ function getFormValues() {
 			if (spAry.indexOf(thisPair)==-1) {
 				spAry.push(thisPair);
 				
-				console.log('saving ' + thisPair);
+			//	console.log('saving ' + thisPair);
 			}
 		}
 	});
