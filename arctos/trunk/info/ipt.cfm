@@ -180,3 +180,4 @@
 		<br>
 	</cfloop>
 </cfoutput>
+<cfinclude template="/includes/_footer.cfm">
