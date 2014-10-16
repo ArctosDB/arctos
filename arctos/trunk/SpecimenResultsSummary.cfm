@@ -87,10 +87,10 @@ InnerSqlString: #InnerSqlString#
 <cfset checkSql(SqlString)>
 
 	<cfif isdefined("debug") and debug is true>
-		#preserveSingleQuotes(SqlString)#
+		#preserveSingleQuotes(InnerSqlString)#
 	</cfif>
 	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		#preserveSingleQuotes(SqlString)#
+		#preserveSingleQuotes(InnerSqlString)#
 	</cfquery>
 	<cfset dlPath = "#Application.DownloadPath#">
 	<cfset variables.encoding="UTF-8">
