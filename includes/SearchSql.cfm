@@ -227,9 +227,7 @@
 	<cfset mapurl = "#mapurl#&scientific_name_match_type=#scientific_name_match_type#">
 	
 	<cfif scientific_name_scope is "currentID">
-		<cfif scientific_name_match_type is "contains">
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '#ucase(escapeQuotes(scientific_name))#%'">
-		<cfelseif scientific_name_match_type is "exact">
+		<cfif scientific_name_match_type is "exact">
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(escapeQuotes(scientific_name))#'">
 		<cfelseif scientific_name_match_type is "notcontains">
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) NOT LIKE '%#ucase(escapeQuotes(scientific_name))#%'">
@@ -241,6 +239,9 @@
 				<cfset basQual = " #basQual# upper(#session.flatTableName#.scientific_name) like '%#ucase(i)#%' OR ">
 			</cfloop>
 			<cfset basQual = left(basQual,len(basQual)-4) & ")">
+		<cfelse>
+			<!--- old "contains" new "startswith" whatever - just the default ---->
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '#ucase(escapeQuotes(scientific_name))#%'">
 		</cfif>
 	<cfelseif scientific_name_scope is "allID">
 		<cfif basJoin does not contain " identification ">
@@ -676,9 +677,9 @@
 		</cfif>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.cat_num in ( #ListQualify(clist,'''')# ) " >
 	<cfelseif catnum contains "%">
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(catnum)#'" >
-	<cfelse>
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) like '#ucase(catnum)#'" >
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(catnum)#'" >
 	</cfif>
 	
 </cfif>

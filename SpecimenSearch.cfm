@@ -226,132 +226,6 @@
 				</cfif>
 			</td>
 		</tr>
-		
-							
-		<!-------
-			
-		<tr>
-		
-			<td colspan="2">
-				<table>
-					<tr>
-						<td>
-							<cfquery name="cfi" dbtype="query">
-								select institution from ctInst group by institution order by institution
-							</cfquery>
-							<select name="collection_id" id="collection_id" size="3" multiple="multiple">
-								<cfloop query="cfi">
-									<cfquery name="ic" dbtype="query">
-										select collection, collection_id FROM ctInst where institution='#cfi.institution#' order by collection
-									</cfquery>
-									<optgroup label="#institution#">
-										<cfloop query="ic">
-											<option <cfif thisCollId is ic.collection_id>selected="selected" </cfif>value="#ic.collection_id#">#ic.collection#</option>
-										</cfloop>
-									</optgroup>
-								</cfloop>
-								
-								
-							
-							</select>
-							
-	
-	
-	
-						</td>
-						<td>
-							<table>
-								<tr>
-									<td align="right">
-										<span class="helpLink" id="cat_num">Catalog&nbsp;Number:</span>
-									</td><td>
-										<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
-											<textarea name="listcatnum" id="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
-										<cfelse>
-											<input type="text" name="listcatnum" id="listcatnum" size="21" value="">
-										</cfif>
-									</td>
-								</tr>
-								<tr>
-									<td align="right">
-										<span class="helpLink" id="guid">GUID:</span>
-									</td><td>
-										<input type="text" name="guid" id="guid" size="21" value="">
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-				i am left column
-			
-				i am noleft column
-			</td>
-		</tr>
-		
-		
-		--->
-		<!----
-		<tr>
-			<td class="lbl">
-				<span class="helpLink" id="collection">Collection</span>:
-			</td>
-			<td class="srch">
-				<table>
-					<tr>
-						<td>					
-							<!----
-							<div class="cboxdiv">
-								<div class="cboxdiv_allnone">
-									<span class="likeLink" onclick="$('input[name^=collection_id]').prop('checked',true);">[ all ]</span>									
-									<span class="likeLink" onclick="$('input[name^=collection_id]').prop('checked',false);">[ none ]</span>
-								</div>
-								<cfloop query="ctinst">
-									<div class="cboxdiv_option" id="collection_id">
-										<input type="checkbox" name="collection_id" value="#collection_id#"> #collection#
-									</div>
-								</cfloop>
-							</div>
-							
-							---->
-							<select name="collection_id" id="collection_id" size="3" multiple="multiple">
-								<cfloop query="ctInst">
-									<option <cfif thisCollId is ctInst.collection_id>selected="selected" </cfif>value="#ctInst.collection_id#">#ctInst.collection#</option>
-								</cfloop>
-							</select>
-							
-							
-						</td>
-						<td>
-							<table>
-								<tr>
-									<td align="right">
-										<span class="helpLink" id="cat_num">Catalog&nbsp;Number:</span>
-									</td><td>
-										<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
-											<textarea name="listcatnum" id="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
-										<cfelse>
-											<input type="text" name="listcatnum" id="listcatnum" size="21" value="">
-										</cfif>
-									</td>
-								</tr>
-								<tr>
-									<td align="right">
-										<span class="helpLink" id="guid">GUID:</span>
-									</td><td>
-										<input type="text" name="guid" id="guid" size="21" value="">
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-				
-				
-			</td>
-		</tr>
-		
-		---->
 	<cfif isdefined("session.CustomOtherIdentifier") and len(session.CustomOtherIdentifier) gt 0>
 		<tr>
 			<td class="lbl">
@@ -434,7 +308,7 @@
 									<td>
 										<label id="_scientific_name_match_type" class="helpLink" style="text-align:left;" for="scientific_name_match_type">Match Type</label>
 										<select name="scientific_name_match_type" id="scientific_name_match_type">
-											<option value="contains">contains</option>
+											<option value="startswith">starts with</option>
 											<option value="exact">is (case insensitive)</option>
 											<option value="notcontains">does not contain</option>
 											<option value="inlist">comma-list</option>
