@@ -112,10 +112,7 @@
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
-		
-		
-		
-		<cfif right(request.rdurl,5) is "-1%27">
+		<cfif right(request.rdurl,5) is "-1%27" or right(request.rdurl,3) is "%00">
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
