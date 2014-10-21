@@ -673,7 +673,9 @@
 		<hr>
 		l: #l#
 		
-		
+		<cfset l=replace(l,' ','','all')>
+			<hr>
+		l: #l#
 		
 		<hr>
 		#ucase(listqualify(ListChangeDelims(catnum,','),chr(39)))#
