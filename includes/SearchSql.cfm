@@ -658,43 +658,8 @@
 	<cfif left(catnum,1) is "=">
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(mid(catnum,2,len(catnum)-1))#'" >
 	<cfelseif catnum contains "," or catnum contains " " or catnum contains "#chr(9)#" or catnum contains "#chr(10)#" or catnum contains "#chr(13)#">
-		<!----<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ListQualify(ucase(catnum),'''')# ) " >
-		
-		
-		#chr9)# #chr(10)# #chr(13)#
-		
-		
-		
-		--->
-		<cfoutput>
 		<cfset l=ListChangeDelims(catnum,',','#chr(9)##chr(10)##chr(13)#, ;')>
-		<hr>
-		catnum: #catnum#
-		<hr>
-		l: #l#
-		
-		<cfset l=replace(l,' ','','all')>
-			<hr>
-		l: #l#
-		
-		<hr>
-		#ucase(listqualify(ListChangeDelims(catnum,','),chr(39)))#
-		
-			<hr>
-					#ucase(trim(listqualify(ListChangeDelims(catnum,','),chr(39))))#
-
-						<hr>
-
-			
-		</cfoutput>
-	
-		
-		
-			<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.cat_num)  IN (#ucase(listqualify(l,chr(39)))#) ">
-
-
-
-
+		<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.cat_num) IN (#ucase(listqualify(l,chr(39)))#) ">
 	<cfelseif 
 		listlen(catnum,'-') is 2 and 
 		isnumeric(listgetat(catnum,1,'-')) and 
