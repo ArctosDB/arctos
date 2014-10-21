@@ -660,7 +660,7 @@
 	<cfelseif catnum contains ",">
 		<!----<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ListQualify(ucase(catnum),'''')# ) " >
 		--->
-			<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.cat_num)  IN (#ucase(listqualify(ListChangeDelims(cat_num,','),chr(39)))#) ">
+			<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.cat_num)  IN (#ucase(listqualify(ListChangeDelims(catnum,','),chr(39)))#) ">
 
 
 
