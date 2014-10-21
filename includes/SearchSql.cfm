@@ -657,11 +657,11 @@
 	<cfset mapurl = "#mapurl#&catnum=#catnum#">
 	<cfif left(catnum,1) is "=">
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(mid(catnum,2,len(catnum)-1))#'" >
-	<cfelseif catnum contains "," or catnum contains " " or catnum contains "#chr(9)#">
+	<cfelseif catnum contains "," or catnum contains " " or catnum contains "#chr(9)#" or catnum contains "#chr(10)#" or catnum contains "#chr(13)#">
 		<!----<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ListQualify(ucase(catnum),'''')# ) " >
 		--->
 		<cfoutput>
-		<cfset l=ListChangeDelims(catnum,',')>
+		<cfset l=rereplacenocase(catnum,'[, #chr9)##chr(10)##chr(13)#;]',',')>
 		<hr>
 		catnum: #catnum#<hr>
 		l: #l#
