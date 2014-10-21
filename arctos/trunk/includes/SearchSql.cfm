@@ -667,7 +667,7 @@
 		
 		--->
 		<cfoutput>
-		<cfset l=ListChangeDelims(catnum,',','#chr9)#, ;')>
+		<cfset l=ListChangeDelims(catnum,',','#chr(9)#, ;')>
 		<hr>
 		catnum: #catnum#
 		<hr>
