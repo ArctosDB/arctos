@@ -661,9 +661,10 @@
 		<!----<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ListQualify(ucase(catnum),'''')# ) " >
 		--->
 		<cfoutput>
-		<cfset l=rereplacenocase(catnum,'[, #chr9)##chr(10)##chr(13)#;]',',')>
+		<cfset l=ListChangeDelims(catnum,',',', #chr9)##chr(10)##chr(13)#;')>
 		<hr>
-		catnum: #catnum#<hr>
+		catnum: #catnum#
+		<hr>
 		l: #l#
 		
 		
