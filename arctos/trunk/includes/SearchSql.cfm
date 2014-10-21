@@ -660,11 +660,14 @@
 	<cfelseif catnum contains ",">
 		<!----<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ListQualify(ucase(catnum),'''')# ) " >
 		--->
-		
-		
-		
-		
 		<cfoutput>
+		<cfset l=ListChangeDelims(catnum,',')>
+		<hr>
+		catnum: #catnum#<hr>
+		l: #l#
+		
+		
+		
 		<hr>
 		#ucase(listqualify(ListChangeDelims(catnum,','),chr(39)))#
 		
