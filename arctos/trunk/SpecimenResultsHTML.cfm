@@ -1,28 +1,15 @@
 <cfinclude template="/includes/_header.cfm">
 <script>
- function checkUncheck(formName,CollObjValue)
- {
+ function checkUncheck(formName,CollObjValue) {
  	var newStr;
-	 {
-         //if ( document.remove.exclCollObjId.checked )
-		 // this works if ( document.forms['remove'].exclCollObjId.checked )
-		 if ( document.forms[formName].exclCollObjId.checked )
-		  //if ( document["formName"].exclCollObjId.checked )
-		 //orms[\\''\''+tid+\''\\''].eleme  [\''''+tid+''\''
-		 	{
-              newStr = document.reloadThis.exclCollObjId.value + "," + CollObjValue + ",";
-			  document.reloadThis.exclCollObjId.value=newStr;
-			  //alert(newStr);
-			 }
-         else
-		 	{
-              newStr=replaceSubstring(document.reloadThis.exclCollObjId.value, "," + CollObjValue + ",", "");
-			  document.reloadThis.exclCollObjId.value=newStr;
-			  //alert(newStr);
-			 }
-     }
- }
-
+	if ( document.forms[formName].exclCollObjId.checked ){
+		newStr = document.reloadThis.exclCollObjId.value + "," + CollObjValue + ",";
+		document.reloadThis.exclCollObjId.value=newStr;
+ 	}else{
+		newStr=replaceSubstring(document.reloadThis.exclCollObjId.value, "," + CollObjValue + ",", "");
+		document.reloadThis.exclCollObjId.value=newStr;
+	}
+}
 </script>
 <cfset detail_level = 1>
 <!------
