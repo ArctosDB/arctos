@@ -664,8 +664,10 @@
 		
 		<hr>
 		
-		#ucase(listqualify(ListChangeDelims(catnum,','),chr(39)))#
+		<cfoutput>
 		
+		#ucase(listqualify(ListChangeDelims(catnum,','),chr(39)))#
+		</cfoutput>
 		<hr>
 		
 		
