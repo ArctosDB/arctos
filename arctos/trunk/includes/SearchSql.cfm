@@ -662,13 +662,20 @@
 		--->
 		
 		
-		<hr>
+		
 		
 		<cfoutput>
-		
-		#ucase(listqualify(ListChangeDelims(catnum,','),chr(39)))#
-		</cfoutput>
 		<hr>
+		#ucase(listqualify(ListChangeDelims(catnum,','),chr(39)))#
+		
+			<hr>
+					#ucase(ListChangeDelims(catnum,','),chr(39))#
+
+						<hr>
+
+			
+		</cfoutput>
+	
 		
 		
 			<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.cat_num)  IN (#ucase(listqualify(ListChangeDelims(catnum,','),chr(39)))#) ">
