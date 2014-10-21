@@ -658,7 +658,13 @@
 	<cfif left(catnum,1) is "=">
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(mid(catnum,2,len(catnum)-1))#'" >
 	<cfelseif catnum contains ",">
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ListQualify(ucase(catnum),'''')# ) " >
+		<!----<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) in ( #ListQualify(ucase(catnum),'''')# ) " >
+		--->
+			<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.cat_num)  IN (#ucase(listqualify(ListChangeDelims(cat_num,','),chr(39)))#) ">
+
+
+
+
 	<cfelseif 
 		listlen(catnum,'-') is 2 and 
 		isnumeric(listgetat(catnum,1,'-')) and 
