@@ -669,7 +669,7 @@
 		#ucase(listqualify(ListChangeDelims(catnum,','),chr(39)))#
 		
 			<hr>
-					#ucase(ListChangeDelims(catnum,','),chr(39))#
+					#ucase(ListChangeDelims(catnum,','))#
 
 						<hr>
 
