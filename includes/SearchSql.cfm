@@ -690,7 +690,7 @@
 	
 		
 		
-			<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.cat_num)  IN (#ucase(listqualify(ListChangeDelims(catnum,','),chr(39)))#) ">
+			<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.cat_num)  IN (#ucase(listqualify(l,chr(39)))#) ">
 
 
 
