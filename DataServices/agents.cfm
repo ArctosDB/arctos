@@ -9,6 +9,13 @@ create table ds_temp_agent (
 	key number not null,
 	agent_type varchar2(255),
 	preferred_name varchar2(255),
+	first_name varchar2(255),
+	middle_name varchar2(255),
+	last_name varchar2(255),
+	birth_date date,
+	death_date date,
+	prefix varchar2(255),
+	suffix varchar2(255),
 	other_name_1  varchar2(255),
 	other_name_type_1   varchar2(255),
 	other_name_2  varchar2(255),
@@ -27,10 +34,13 @@ create table ds_temp_agent (
 	agent_status_2 varchar2(255),
 	agent_status_date_2 varchar2(255),
 	requires_admin_override number,
-	status varchar2(4000)
-);
+	 status varchar2(4000);
+	);
 	
 	
+	
+	
+	alter table ds_temp_agent add status varchar2(4000);
 	
 create public synonym ds_temp_agent for ds_temp_agent;
 grant all on ds_temp_agent to coldfusion_user;
