@@ -76,6 +76,8 @@
 					<cfset x="Class">
 				<cfelseif x is "phylorder">
 					<cfset x="Order">
+				<cfelseif x is "scientific_name">
+					<cfset x="ScientificName">
 				</cfif>
 				<th>#x#</th>
 			</cfloop>
@@ -116,6 +118,8 @@
 					</cfif>
 					
 					<cfif thisLink contains x>
+					
+						<br>x: #x#
 						<!--- 
 							they searched for something that they also grouped by
 							REMOVE the thing they searched (eg, more general)
