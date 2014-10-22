@@ -81,6 +81,9 @@
 			</cfloop>
 			<th>Specimens</th>
 		</tr>
+		<cfdump var=#getdata#>
+		
+		
 		<cfloop query="getData">
 			<cfset thisLink=mapurl>
 			<br>thisLink: #thisLink#
