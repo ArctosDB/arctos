@@ -131,7 +131,7 @@
 						<br>delPos: #delPos#
 						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 						<br>thisLink: #thisLink#
-						<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
+						<cfset thisLink=listappend(thisLink,"#x#=#URLEncodedFormat(thisVal)#","&")>
 						<br>thisLink: #thisLink#
 					</cfif>
 					<!----
