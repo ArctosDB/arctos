@@ -78,6 +78,14 @@
 					<cfset x="Order">
 				<cfelseif x is "scientific_name">
 					<cfset x="ScientificName">
+				<cfelseif x is "formatted_scientific_name">
+					<cfset x="FormattedScientificName">
+				<cfelseif x is "state_prov">
+					<cfset x="StateOrProvince">
+				<cfelseif x is "island_group">
+					<cfset x="IslandGroup">
+				<cfelseif x is "spec_locality">
+					<cfset x="SpecificLocality">
 				</cfif>
 				<th>#toProperCase(x)#</th>
 			</cfloop>
