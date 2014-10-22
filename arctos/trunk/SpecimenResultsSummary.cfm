@@ -97,7 +97,8 @@
 				<cfset delPos=listcontains(thisLink,"scientific_name_match_type=","?&")>
 				<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 			</cfif>
-			<cfset thisLink="#thisLink#&scientific_name_match_type=exact">			
+			<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
+			<br>thisLink: #thisLink#
 			<tr>
 				<td>#COUNTOFCATALOGEDITEM#</td>
 				<cfif basSelect contains "individualcount">
