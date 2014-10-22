@@ -1601,8 +1601,10 @@ INSERT INTO geog_auth_rec (
 	
 	
 			<span class="likeLink" onclick="tools.action.value='csvCollEvent';tools.submit();">[ csv ]</span>
+			<cfif isdefined("locality_id")>
+				<a href="/tools/mergeDuplicateEvents.cfm?locality_id=#locality_id#">[ find and merge duplicates ]</a>
+			</cfif>
 			
-			<a href="/tools/mergeDuplicateEvents.cfm?locality_id=#locality_id#">[ find and merge duplicates ]</a>
 			
 			
 <table border>
