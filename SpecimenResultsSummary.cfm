@@ -86,6 +86,8 @@
 					<cfset x="IslandGroup">
 				<cfelseif x is "spec_locality">
 					<cfset x="SpecificLocality">
+				<cfelseif x is "continent_ocean">
+					<cfset x="ContinentOrOcean">
 				</cfif>
 				<th>#toProperCase(x)#</th>
 			</cfloop>
