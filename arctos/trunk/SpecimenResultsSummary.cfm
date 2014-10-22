@@ -82,13 +82,9 @@
 				<th>#x#</th>
 			</cfloop>
 			<th>Specimens</th>
-		</tr>
-		<cfdump var=#getdata#>
-		
-		
+		</tr>		
 		<cfloop query="getData">
 			<cfset thisLink=mapurl>
-			<br>thisLink: #thisLink#
 			<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
 			<cfif basSelect contains "individualcount">
 				<cfset oneLine=oneLine & ',"#individualcount#"'>
@@ -104,7 +100,6 @@
 				<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 			</cfif>
 			<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
-			<br>thisLink: #thisLink#
 			<tr>
 				<td>#COUNTOFCATALOGEDITEM#</td>
 				<cfif basSelect contains "individualcount">
@@ -116,10 +111,7 @@
 					<cfelse>
 						<cfset thisVal=evaluate("getData." & x )>
 					</cfif>
-					
-					<cfif thisLink contains x>
-					
-						<br>x: #x#
+					<cfif thisLink contains x>					
 						<!--- 
 							they searched for something that they also grouped by
 							REMOVE the thing they searched (eg, more general)
@@ -128,11 +120,8 @@
 
 						<!--- replace search terms with stuff here ---->
 						<cfset delPos=listcontainsnocase(thisLink,x,"?&")>
-						<br>delPos: #delPos#
 						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
-						<br>thisLink: #thisLink#
 						<cfset thisLink=listappend(thisLink,"#x#=#URLEncodedFormat(thisVal)#","&")>
-						<br>thisLink: #thisLink#
 					</cfif>
 					<!----
 					
