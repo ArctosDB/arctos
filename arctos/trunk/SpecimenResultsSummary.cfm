@@ -88,8 +88,10 @@
 					<cfset x="SpecificLocality">
 				<cfelseif x is "continent_ocean">
 					<cfset x="ContinentOrOcean">
+				<cfelse>
+					<cfset x=toProperCase(x)>
 				</cfif>
-				<th>#toProperCase(x)#</th>
+				<th>#x#</th>
 			</cfloop>
 			<th>Specimens</th>
 		</tr>		
