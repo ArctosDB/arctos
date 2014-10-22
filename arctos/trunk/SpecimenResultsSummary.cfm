@@ -83,6 +83,7 @@
 		</tr>
 		<cfloop query="getData">
 			<cfset thisLink=mapurl>
+			<br>thisLink: #thisLink#
 			<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
 			<cfif basSelect contains "individualcount">
 				<cfset oneLine=oneLine & ',"#individualcount#"'>
