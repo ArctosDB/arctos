@@ -406,11 +406,15 @@
 			order by
 				collection.guid_prefix
 		</cfquery>
+		<cfquery name="sspe" dbtype="query">
+			select sum(c) sct from specimen
+		</cfquery>
 		<div style="border:2px solid blue; background-color:red;">
 			Altering this record will update:
 			<ul>
-				<li>#localities.c# localities</li>
-				<li>#collecting_events.c# collecting events</li>
+				<li>#localities.c# <a href="Locality.cfm?geog_auth_rec_id=#geog_auth_rec_id#&action=findLocality">localities</a></li>
+				<li>#collecting_events.c# <a href="Locality.cfm?geog_auth_rec_id=#geog_auth_rec_id#&action=findCollEvent">collecting events</a></li>
+				<li>#sspe.sct# <a href="/SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#">specimens</a></li>
 				<cfloop query="specimen">
 					<li>
 						<a href="/SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#&collection_id=#specimen.collection_id#">
