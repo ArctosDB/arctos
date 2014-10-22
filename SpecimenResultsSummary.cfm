@@ -128,8 +128,11 @@
 
 						<!--- replace search terms with stuff here ---->
 						<cfset delPos=listcontainsnocase(thisLink,x,"?&")>
+						<br>delPos: #delPos#
 						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
+						<br>thisLink: #thisLink#
 						<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
+						<br>thisLink: #thisLink#
 					</cfif>
 					<!----
 					
