@@ -79,7 +79,7 @@
 				<cfelseif x is "scientific_name">
 					<cfset x="ScientificName">
 				</cfif>
-				<th>#x#</th>
+				<th>#toProperCase(x)#</th>
 			</cfloop>
 			<th>Specimens</th>
 		</tr>		
