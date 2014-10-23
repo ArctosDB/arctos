@@ -74,7 +74,7 @@
 			<th>Count</th>
 			<cfif basSelect contains "individualcount">
 				<th>IndividualCount</th>
-				<cfset dlqcols=listapped(dlqcols,"IndividualCount")>
+				<cfset dlqcols=listAppend(dlqcols,"IndividualCount")>
 			</cfif>
 			<cfloop list="#group_cols#" index="x">
 				<cfif x is "phylclass">
@@ -96,7 +96,7 @@
 				<cfelse>
 					<cfset x=toProperCase(x)>
 				</cfif>
-				<cfset dlqcols=listapped(dlqcols,x)>
+				<cfset dlqcols=listAppend(dlqcols,x)>
 				<th>#x#</th>
 			</cfloop>
 			<th>Specimens</th>
