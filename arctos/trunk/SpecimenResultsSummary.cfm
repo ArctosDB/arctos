@@ -59,17 +59,22 @@
 		<cfset header=header & ',IndividualCount'>
 	</cfif>
 	<cfset header=header & "#groupBy#,Link">
+	<!----
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		variables.joFileWriter.writeLine(ListQualify(header,'"'));
 	</cfscript>
+	---->
 	<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">Save&nbsp;Search</span>
 	<a href="/saveSearch.cfm?action=manage">[ view/manage your saved searches ]</a>
+	
+	<cfset dlqcols="">
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Count</th>
 			<cfif basSelect contains "individualcount">
 				<th>IndividualCount</th>
+				<cfset dlqcols=listapped(dlqcols,"IndividualCount")>
 			</cfif>
 			<cfloop list="#group_cols#" index="x">
 				<cfif x is "phylclass">
@@ -91,11 +96,15 @@
 				<cfelse>
 					<cfset x=toProperCase(x)>
 				</cfif>
+				<cfset dlqcols=listapped(dlqcols,x)>
 				<th>#x#</th>
 			</cfloop>
 			<th>Specimens</th>
-		</tr>		
+		</tr>
+		<cfset dlq = querynew(dlqcols)>
+		<cfset r=1>
 		<cfloop query="getData">
+			<cfset temp=queryaddrow(dlq,1)>
 			<cfset thisLink=mapurl>
 			<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
 			<cfif basSelect contains "individualcount">
@@ -113,9 +122,15 @@
 			</cfif>
 			<cfset thisLink="#thisLink#&scientific_name_match_type=exact">
 			<tr>
-				<td>#COUNTOFCATALOGEDITEM#</td>
+				<td>
+					#COUNTOFCATALOGEDITEM#
+					<cfset temp = QuerySetCell(dlq, "COUNTOFCATALOGEDITEM", COUNTOFCATALOGEDITEM, r)>
+				</td>
 				<cfif basSelect contains "individualcount">
-					<td>#individualcount#</td>
+					<td>
+						#individualcount#
+						<cfset temp = QuerySetCell(dlq, "individualcount", individualcount, r)>
+					</td>
 				</cfif>
 				<cfloop list="#group_cols#" index="x">
 					<cfif len(evaluate("getData." & x)) is 0>
@@ -148,7 +163,10 @@
 					</cfif>
 					<!---- end mysterious comment ----->
 					<cfset oneLine=oneline & ',"#thisVal#"'>
-					<td>#thisVal#</td>
+					<td>
+						#thisVal#
+						<cfset temp = QuerySetCell(dlq, "#x#", thisVal, r)>
+					</td>
 				</cfloop>
 				<cfset thisLink=replace(thisLink,"##","%23","all")>
 				<cfset thisLink=replace(thisLink,"?&","?","all")>
@@ -160,7 +178,12 @@
 				</cfscript>
 				<td><a href="/SpecimenResults.cfm?#thisLink#">specimens</a></td>
 			</tr>
+			<cfset r=r+1>
 		</cfloop>
+		
+		
+		
+		<cfdump var=#dlq#>
 	</table>
 	<cfscript>
 		variables.joFileWriter.close();
