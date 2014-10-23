@@ -51,20 +51,6 @@
 	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(InnerSqlString)#
 	</cfquery>
-	<cfset dlPath = "#Application.DownloadPath#">
-	<cfset variables.encoding="UTF-8">
-	<cfset variables.fileName="#Application.webDirectory#/download/ArctosSpecimenSummary.csv">
-	<cfset header ="Count,">
-	<cfif basSelect contains "individualcount">
-		<cfset header=header & ',IndividualCount'>
-	</cfif>
-	<cfset header=header & "#groupBy#,Link">
-	<!----
-	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(ListQualify(header,'"'));
-	</cfscript>
-	---->
 	<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">Save&nbsp;Search</span>
 	<a href="/saveSearch.cfm?action=manage">[ view/manage your saved searches ]</a>
 	
@@ -107,10 +93,6 @@
 		<cfloop query="getData">
 			<cfset temp=queryaddrow(dlq,1)>
 			<cfset thisLink=mapurl>
-			<cfset oneLine='"#COUNTOFCATALOGEDITEM#"'>
-			<cfif basSelect contains "individualcount">
-				<cfset oneLine=oneLine & ',"#individualcount#"'>
-			</cfif>
 			<!---
 				mapURL probably contains taxon_scope
 				We have to over-ride that here to get the
@@ -163,7 +145,6 @@
 						<cfset thisLink=listappend(thisLink,"#x#=#thisVal#","&")>
 					</cfif>
 					<!---- end mysterious comment ----->
-					<cfset oneLine=oneline & ',"#thisVal#"'>
 					<td>
 						#thisVal#
 						<cfif x is "phylclass">
@@ -191,31 +172,20 @@
 				<cfset thisLink=replace(thisLink,"##","%23","all")>
 				<cfset thisLink=replace(thisLink,"?&","?","all")>
 				<cfset thisLink=replace(thisLink,"&&","&","all")>
-				<cfset oneLine=oneline & ',"#Application.serverRootUrl#/SpecimenResults.cfm?#thisLink#"'>
-				<!----
-				<cfscript>
-					variables.joFileWriter.writeLine(oneLine);
-				</cfscript>
-				---->
 				<td><a href="/SpecimenResults.cfm?#thisLink#">specimens</a></td>
 				<cfset temp = QuerySetCell(dlq, "linktospecimens", "#Application.ServerRootUrl#/SpecimenResults.cfm?#thisLink#", r)>
-
 			</tr>
 			<cfset r=r+1>
 		</cfloop>		
 	</table>
-	<!----
-	<cfscript>
-		variables.joFileWriter.close();
-	</cfscript>
-	---->
-	
-	<cfset  util = CreateObject("component","component.utilities")>
-	<cfset csv = util.QueryToCSV2(Query=dlq,Fields=dlqcols)>
-	<cffile action = "write"
-	    file = "#Application.webDirectory#/download/ArctosSpecimenSummary.csv"
-    	output = "#csv#"
-    	addNewLine = "no">	
+	<cfthread action="run" dlq="#dlq#" dlqcold="#dlqcols#" name="sqsdl">
+		<cfset  util = CreateObject("component","component.utilities")>
+		<cfset csv = util.QueryToCSV2(Query=dlq,Fields=dlqcols)>
+		<cffile action = "write"
+		    file = "#Application.webDirectory#/download/ArctosSpecimenSummary.csv"
+	    	output = "#csv#"
+	    	addNewLine = "no">
+	</cfthread>
 	<a href="/download.cfm?file=ArctosSpecimenSummary.csv">get CSV</a>
 </cfoutput>
 <cfinclude template = "includes/_footer.cfm">
