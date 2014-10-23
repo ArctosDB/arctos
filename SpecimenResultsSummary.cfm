@@ -202,17 +202,20 @@
 
 			</tr>
 			<cfset r=r+1>
-		</cfloop>
-		
-		
-		
-		<cfdump var=#dlq#>
+		</cfloop>		
 	</table>
 	<!----
 	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
 	---->
+	
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=dlq,Fields=dlqcols)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/ArctosSpecimenSummary.csv"
+    	output = "#csv#"
+    	addNewLine = "no">	
 	<a href="/download.cfm?file=ArctosSpecimenSummary.csv">get CSV</a>
 </cfoutput>
 <cfinclude template = "includes/_footer.cfm">
