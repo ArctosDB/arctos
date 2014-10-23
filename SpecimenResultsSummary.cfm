@@ -191,10 +191,11 @@
 				<cfset thisLink=replace(thisLink,"?&","?","all")>
 				<cfset thisLink=replace(thisLink,"&&","&","all")>
 				<cfset oneLine=oneline & ',"#Application.serverRootUrl#/SpecimenResults.cfm?#thisLink#"'>
-				
+				<!----
 				<cfscript>
 					variables.joFileWriter.writeLine(oneLine);
 				</cfscript>
+				---->
 				<td><a href="/SpecimenResults.cfm?#thisLink#">specimens</a></td>
 			</tr>
 			<cfset r=r+1>
@@ -204,9 +205,11 @@
 		
 		<cfdump var=#dlq#>
 	</table>
+	<!----
 	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
+	---->
 	<a href="/download.cfm?file=ArctosSpecimenSummary.csv">get CSV</a>
 </cfoutput>
 <cfinclude template = "includes/_footer.cfm">
