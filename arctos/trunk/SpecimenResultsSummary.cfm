@@ -101,6 +101,7 @@
 			</cfloop>
 			<th>Specimens</th>
 		</tr>
+		<cfset dlqcols=listAppend(dlqcols,"linktospecimens")>
 		<cfset dlq = querynew(dlqcols)>
 		<cfset r=1>
 		<cfloop query="getData">
@@ -197,6 +198,8 @@
 				</cfscript>
 				---->
 				<td><a href="/SpecimenResults.cfm?#thisLink#">specimens</a></td>
+				<cfset temp = QuerySetCell(dlq, "linktospecimens", "#Application.ServerRootUrl#/SpecimenResults.cfm?#thisLink#", r)>
+
 			</tr>
 			<cfset r=r+1>
 		</cfloop>
