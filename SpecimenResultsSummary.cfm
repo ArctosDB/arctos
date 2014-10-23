@@ -68,7 +68,7 @@
 	<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">Save&nbsp;Search</span>
 	<a href="/saveSearch.cfm?action=manage">[ view/manage your saved searches ]</a>
 	
-	<cfset dlqcols="">
+	<cfset dlqcols="CountOfCatalogedItem">
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Count</th>
