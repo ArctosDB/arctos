@@ -195,6 +195,7 @@
 		<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
 		<p>
 		#kvp#
+		<br>#URLDecode(kvp)#
 		</p>
 			<cfset kvp=replace(kvp,"=","|","first")>
 			<cfif listlen(kvp,"|") is 2>
