@@ -1302,7 +1302,7 @@
 	<cfset basQual = " #basQual# AND #session.flatTableName#.ended_date <= '#ended_date#'">
 </cfif>
 <cfif isdefined("begYear") AND len(begYear) gt 0>
-	<cfif not isYear(begYear)>
+	<cfif not isYear(begYear) and compare(begYear,"NULL") is not 0>
 		<div class="error">
 			Begin year must be a 4-digit number.
 		</div>
@@ -1310,7 +1310,11 @@
 		<cfabort>
 	</cfif>
 	<cfset mapurl = "#mapurl#&begYear=#begYear#">
-	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) >= #begYear#">
+	<cfif  compare(begYear,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.began_date is null ">
+	<cfelse>
+		<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,1,4)) >= #begYear#">
+	</cfif>
 </cfif>
 <cfif isdefined("begMon") AND len(begMon) gt 0>
 	<cfset mapurl = "#mapurl#&begMon=#begMon#">
