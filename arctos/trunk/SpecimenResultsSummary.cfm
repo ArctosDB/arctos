@@ -51,8 +51,6 @@
 	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(InnerSqlString)#
 	</cfquery>
-	
-	<cfdump var=#getData#>
 	<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">Save&nbsp;Search</span>
 	<a href="/saveSearch.cfm?action=manage">[ view/manage your saved searches ]</a>
 	
