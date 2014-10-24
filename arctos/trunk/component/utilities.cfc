@@ -138,4 +138,11 @@
 	</cffunction>
 <!----------------------------------------------------------------------------->
 
+<cffunction name="stripQuotes" access="public" output="false" output="false">
+	<cfargument name="inStr" type="string">
+	<cfset inStr = replace(inStr,"#chr(34)#","&quot;","all")>
+	<cfset inStr = replace(inStr,"#chr(39)#","&##39;","all")>
+	<cfset inStr = trim(inStr)>
+	<cfreturn inStr>
+</cffunction>
 </cfcomponent>
