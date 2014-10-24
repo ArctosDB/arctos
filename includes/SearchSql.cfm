@@ -205,7 +205,7 @@
 </cfif>
 
 <cfif isdefined("formatted_scientific_name") AND len(formatted_scientific_name) gt 0>
-	<cfset mapurl = "#mapurl#&formatted_scientific_name=#encodeURIComponent(formatted_scientific_name)#">
+	<cfset mapurl = "#mapurl#&formatted_scientific_name=#URLEncodedFormat(formatted_scientific_name)#">
 	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.formatted_scientific_name) = '#ucase(escapeQuotes(formatted_scientific_name))#'">
 </cfif>
 <cfif isdefined("scientific_name") AND len(scientific_name) gt 0>
