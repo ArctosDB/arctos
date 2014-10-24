@@ -1309,7 +1309,7 @@
 	<cfif  compare(year,"NULL") is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.year is null ">
 	<cfelse>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.year >= #year#">
+		<cfset basQual = " #basQual# AND #session.flatTableName#.year = #year#">
 	</cfif>
 </cfif>
 
