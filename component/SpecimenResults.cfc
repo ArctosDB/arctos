@@ -177,6 +177,7 @@
 			});
 		});
 	</script>
+	<cfset  util = CreateObject("component","component.utilities")>
 	<cfquery name="ssrch_field_doc" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,0,0)#">
 		select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 	</cfquery>
@@ -267,7 +268,7 @@
 								<span class="#thisSpanClass#" id="_#sugntab.key#" title="#sugntab.DEFINITION#">#replace(sugntab.DISPLAY_TEXT," ","&nbsp;","all")#</span>
 							</td>
 								<td>
-									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#escapeQuotes(URLDecode(sugntab.val))#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
+									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#util.stripQuotes(URLDecode(sugntab.val))#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
 								</td>
 								
 								<td id="voccell_#sugntab.key#">
