@@ -183,12 +183,12 @@
 	<cfset mapurl = "#mapurl#&cited_taxon_name_id=#cited_taxon_name_id#">
 </cfif>
 <cfif isdefined("cited_scientific_name") AND len(cited_scientific_name) gt 0>
+	<cfset mapurl = "#mapurl#&cited_scientific_name=#URLEncodedFormat(cited_scientific_name)#">
 	<cfif basJoin does not contain " citation ">
 		<cfset basJoin = " #basJoin# INNER JOIN citation cname ON (#session.flatTableName#.collection_object_id = cname.collection_object_id)">
 	</cfif>
 	<cfset basJoin = " #basJoin# INNER JOIN identification cited_name ON (cname.identification_id = cited_name.identification_id)">
 	<cfset basQual = " #basQual# AND upper(cited_name.scientific_name) like '%#ucase(cited_scientific_name)#%'">
-	<cfset mapurl = "#mapurl#&cited_scientific_name=#cited_scientific_name#">
 </cfif>
 <cfif isdefined("taxon_name_id") AND len(taxon_name_id) gt 0>
 	<cfif basJoin does not contain " identification ">
@@ -215,7 +215,7 @@
 	<cfif not isdefined("scientific_name_match_type") OR len(scientific_name_match_type) is 0>
 		<cfset scientific_name_match_type = "contains">
 	</cfif>
-	<cfset mapurl = "#mapurl#&scientific_name=#scientific_name#">
+	<cfset mapurl = "#mapurl#&scientific_name=#URLEncodedFormat(scientific_name)#">
 	<cfset mapurl = "#mapurl#&scientific_name_scope=#scientific_name_scope#">
 	<cfset mapurl = "#mapurl#&scientific_name_match_type=#scientific_name_match_type#">
 	
