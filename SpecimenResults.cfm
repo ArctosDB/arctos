@@ -373,6 +373,13 @@
 				<br><a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
 			</cfif>
 			<cfset session.mapURL=mapURL>
+			
+			
+				<cfset session.mapurl=URLEncodedFormat(mapurl)>
+
+
+
+
 		<table border="0" width="100%">
 			<tr>
 			<td>
