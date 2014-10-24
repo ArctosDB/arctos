@@ -177,6 +177,12 @@ function toggleSearchTerms(){
 	
 }
 function pickedTool(){
+	
+	
+	
+	console.log('hello');
+	
+	
 	var v;
 	v=$("#usertools").val();
 	if (v=='BerkeleyMapper'){
