@@ -132,6 +132,7 @@
 						<cfset delPos=listcontainsnocase(thisLink,x,"?&")>
 						<cfset thisLink=listdeleteat(thisLink,delPos,"?&")>
 						<cfset thisLink=listappend(thisLink,"#x#=#URLEncodedFormat(thisVal)#","&")>
+						<br>#URLEncodedFormat(thisVal)#
 					</cfif>
 					<!----
 					
