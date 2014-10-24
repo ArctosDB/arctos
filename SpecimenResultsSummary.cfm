@@ -87,7 +87,7 @@
 			</cfloop>
 			<th>Specimens</th>
 		</tr>
-		<cfset dlqcols=listAppend(dlqcols,"linktospecimens")>
+		<cfset dlqcols=listAppend(dlqcols,"linkToSpecimens")>
 		<cfset dlq = querynew(dlqcols)>
 		<cfset r=1>
 		<cfloop query="getData">

@@ -154,7 +154,6 @@
 		<cfset session.RESULTSBROWSEPREFS=0>
 	</cfif>
 	<cftry>
-	
 	<cfif session.resultsbrowseprefs neq 1>
 		<cfsavecontent variable="widget">
 			<span class="likeLink" onclick="toggleSearchTerms()" id="showsearchterms">[ Show/Hide Search Terms ]</span>
