@@ -190,8 +190,8 @@ function pickedTool(){
 	console.log('v='+v);
 
 	if (v=='BerkeleyMapper'){
-		
-		window.open('google.com');
+		window.location.href = 'http://example.com';
+		//window.open('google.com');
 		
 		//window.open("/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val(), "_blank");
 	} else if (v=='BerkeleyMapperRM') {
