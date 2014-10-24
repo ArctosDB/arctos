@@ -201,7 +201,7 @@ function pickedTool(){
 	if (v=='BerkeleyMapper'){
 		openWindow("/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val());
 	} else if (v=='BerkeleyMapperRM') {
-		window.open("/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&" + $("#mapURL").val(), "_blank");
+		openWindow("/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&" + $("#mapURL").val());
 	} else if (v=='google') {
 		openWindow("/bnhmMaps/kml.cfm");
 	} else if (v=='customize') {
@@ -211,7 +211,7 @@ function pickedTool(){
 	} else if (v=='saveSearch') {
 		saveSearch($("#ServerRootUrl").val() + '/SpecimenResults.cfm?' + $("#mapURL").val());
 	} else if (v=='download') {
-		openWindow(('/SpecimenResultsDownload.cfm?tableName=' + $("#SpecSrchTab").val());
+		openWindow('/SpecimenResultsDownload.cfm?tableName=' + $("#SpecSrchTab").val());
 	}
 	$("#usertools").val('');
 }
