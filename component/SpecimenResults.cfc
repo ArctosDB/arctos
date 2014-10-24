@@ -193,10 +193,6 @@
 		
 		<cfdump var=#session.mapURL#>
 		<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
-		<p>
-		#kvp#
-		<br>#URLDecode(kvp)#
-		</p>
 			<cfset kvp=replace(kvp,"=","|","first")>
 			<cfif listlen(kvp,"|") is 2>
 				<cfset thisKey=listgetat(kvp,1,"|")>
@@ -274,8 +270,9 @@
 								<span class="#thisSpanClass#" id="_#sugntab.key#" title="#sugntab.DEFINITION#">#replace(sugntab.DISPLAY_TEXT," ","&nbsp;","all")#</span>
 							</td>
 								<td>
-									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#sugntab.val#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
+									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#URLDecode(sugntab.val)#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
 								</td>
+								
 								<td id="voccell_#sugntab.key#">
 									<cfif len(sugntab.vocab) gt 0>
 										 <span class="infoLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">[ all vocabulary ]</span> 
