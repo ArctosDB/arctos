@@ -176,6 +176,15 @@ function toggleSearchTerms(){
 	);
 	
 }
+function openWindow(t){
+	if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+		window.location.href=t;
+	} else {
+		
+		window.open(t, "_blank");
+	}
+	
+}
 function pickedTool(){
 	
 	
@@ -190,31 +199,19 @@ function pickedTool(){
 	console.log('v='+v);
 
 	if (v=='BerkeleyMapper'){
-		
-		if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
-			window.location.href="/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val();
-		} else {
-			
-			window.open("/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val(), "_blank");
-		}
-		//	alert('Its Safari');}
-		//window.location.href = 'http://example.com';
-		//window.open('google.com');
-		
-		//
+		openWindow("/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val());
 	} else if (v=='BerkeleyMapperRM') {
 		window.open("/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&" + $("#mapURL").val(), "_blank");
 	} else if (v=='google') {
-		window.open("/bnhmMaps/kml.cfm", "_blank");
+		openWindow("/bnhmMaps/kml.cfm");
 	} else if (v=='customize') {
 		openCustomize();
 	} else if (v=='removeRows') {
 		removeRows();
 	} else if (v=='saveSearch') {
-		t=
 		saveSearch($("#ServerRootUrl").val() + '/SpecimenResults.cfm?' + $("#mapURL").val());
 	} else if (v=='download') {
-		window.open('/SpecimenResultsDownload.cfm?tableName=' + $("#SpecSrchTab").val(),'_blank');
+		openWindow(('/SpecimenResultsDownload.cfm?tableName=' + $("#SpecSrchTab").val());
 	}
 	$("#usertools").val('');
 }
