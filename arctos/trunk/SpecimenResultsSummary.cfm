@@ -51,9 +51,10 @@
 	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(InnerSqlString)#
 	</cfquery>
-	<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">Save&nbsp;Search</span>
+	<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResultsSummary.cfm?#mapURL#&groupBy=#groupBy#');">[ Save&nbsp;Search ]</span>
 	<a href="/saveSearch.cfm?action=manage">[ view/manage your saved searches ]</a>
-	
+	<a href="/download.cfm?file=ArctosSpecimenSummary.csv">[ CSV ]</a>
+
 	<cfset dlqcols="CountOfCatalogedItem">
 	<table border id="t" class="sortable">
 		<tr>
@@ -186,6 +187,5 @@
 	    	output = "#csv#"
 	    	addNewLine = "no">
 	</cfthread>
-	<a href="/download.cfm?file=ArctosSpecimenSummary.csv">get CSV</a>
 </cfoutput>
 <cfinclude template = "includes/_footer.cfm">
