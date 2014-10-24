@@ -190,10 +190,18 @@ function pickedTool(){
 	console.log('v='+v);
 
 	if (v=='BerkeleyMapper'){
-		window.location.href = 'http://example.com';
+		
+		if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+			window.location.href="/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val();
+		} else {
+			
+			window.open("/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val(), "_blank");
+		}
+		//	alert('Its Safari');}
+		//window.location.href = 'http://example.com';
 		//window.open('google.com');
 		
-		//window.open("/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val(), "_blank");
+		//
 	} else if (v=='BerkeleyMapperRM') {
 		window.open("/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&" + $("#mapURL").val(), "_blank");
 	} else if (v=='google') {
