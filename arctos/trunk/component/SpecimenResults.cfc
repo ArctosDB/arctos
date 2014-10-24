@@ -267,7 +267,7 @@
 								<span class="#thisSpanClass#" id="_#sugntab.key#" title="#sugntab.DEFINITION#">#replace(sugntab.DISPLAY_TEXT," ","&nbsp;","all")#</span>
 							</td>
 								<td>
-									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#URLDecode(sugntab.val)#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
+									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#escapeQuotes(URLDecode(sugntab.val))#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
 								</td>
 								
 								<td id="voccell_#sugntab.key#">
