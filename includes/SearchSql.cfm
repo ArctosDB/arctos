@@ -1301,6 +1301,26 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND #session.flatTableName#.ended_date <= '#ended_date#'">
 </cfif>
+
+
+
+<cfif isdefined("year") AND len(year) gt 0>
+	<cfif not isYear(year) and compare(year,"NULL") is not 0>
+		<div class="error">
+			Year must be a 4-digit number.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfset mapurl = "#mapurl#&year=#year#">
+	<cfif  compare(year,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.year is null ">
+	<cfelse>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.year >= #year#">
+	</cfif>
+</cfif>
+
+
 <cfif isdefined("begYear") AND len(begYear) gt 0>
 	<cfif not isYear(begYear) and compare(begYear,"NULL") is not 0>
 		<div class="error">
