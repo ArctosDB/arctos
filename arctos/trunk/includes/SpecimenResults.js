@@ -190,7 +190,10 @@ function pickedTool(){
 	console.log('v='+v);
 
 	if (v=='BerkeleyMapper'){
-		window.open("/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val(), "_blank");
+		
+		window.open('google.com');
+		
+		//window.open("/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val(), "_blank");
 	} else if (v=='BerkeleyMapperRM') {
 		window.open("/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&" + $("#mapURL").val(), "_blank");
 	} else if (v=='google') {
