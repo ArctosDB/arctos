@@ -189,9 +189,6 @@
 		<cfset sugntab = querynew("key,val,definition,vocab,display_text,placeholder_text,search_hint,indata")>
 		<cfset idx=1>
 		<cfset thisValue="">
-		
-		
-		<cfdump var=#session.mapURL#>
 		<cfloop list="#session.mapURL#" delimiters="&" index="kvp">
 			<cfset kvp=replace(kvp,"=","|","first")>
 			<cfif listlen(kvp,"|") is 2>
