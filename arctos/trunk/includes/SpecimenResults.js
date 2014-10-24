@@ -185,6 +185,10 @@ function pickedTool(){
 	
 	var v;
 	v=$("#usertools").val();
+	
+	
+	console.log('v='+v);
+
 	if (v=='BerkeleyMapper'){
 		window.open("/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val(), "_blank");
 	} else if (v=='BerkeleyMapperRM') {
