@@ -914,7 +914,13 @@
 	<cfset mapurl = "#mapurl#&anyContainerId=#anyContainerId#">
 </cfif>
 <cfif isdefined("guid") AND len(guid) gt 0>
-	<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.guid)  IN (#ucase(listqualify(ListChangeDelims(guid,','),chr(39)))#) ">
+	<cfset guidList=replace(guid,' ',',','all')>
+	<cfset guidList=replace(guidList,';',',','all')>
+	<cfset guidList=replace(guidList,chr(10),',','all')>
+	<cfset guidList=replace(guidList,chr(13),',','all')>
+	<cfset guidList=replace(guidList,chr(9),',','all')>
+	<cfset guidList=replace(guidList,",,",',','all')>
+	<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.guid)  IN (#ucase(listqualify(guidList,chr(39)))#) ">
 	<cfset mapurl = "#mapurl#&guid=#guid#">
 </cfif>
 
@@ -1259,6 +1265,9 @@
 		<cfset basJoin = " #basJoin# INNER JOIN identification ON (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
 	</cfif>
 	<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 AND identification.nature_of_id = '#nature_of_id#'">
+</cfif>
+<cfif isdefined("identifiedby") and len(identifiedby) gt 0>
+	<cfset identified_agent=identifiedby>
 </cfif>
 <cfif isdefined("identified_agent") AND len(identified_agent) gt 0>
 	<cfset mapurl = "#mapurl#&identified_agent=#identified_agent#">
