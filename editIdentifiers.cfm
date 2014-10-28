@@ -177,6 +177,8 @@
 		coll_obj_other_id_num_id
 	from
 		getIDs
+	where
+		COLL_OBJ_OTHER_ID_NUM_ID is not null
 	group by
 		COLL_OBJ_OTHER_ID_NUM_ID,
 		other_id_prefix,
