@@ -185,19 +185,9 @@ function openWindow(t){
 	}
 	
 }
-function pickedTool(){
-	
-	
-	
-	console.log('hello');
-	
-	
+function pickedTool(){	
 	var v;
 	v=$("#usertools").val();
-	
-	
-	console.log('v='+v);
-
 	if (v=='BerkeleyMapper'){
 		openWindow("/bnhmMaps/bnhmMapData.cfm?" + $("#mapURL").val());
 	} else if (v=='BerkeleyMapperRM') {
