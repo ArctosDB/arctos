@@ -65,40 +65,6 @@
 		});
 	</script>
 	<cfoutput>
-	
-	
-	
-	<!----
-	
-			<select name="other_id_type_#i#" id="other_id_type_#i#" size="1">
-						<cfloop query="ctType">
-							<option	<cfif ctType.other_id_type is oids.other_id_type> selected="selected" </cfif>
-								value="#ctType.other_id_type#">#ctType.other_id_type#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td>
-					<input type="text" value="#oids.other_id_prefix#" size="12" name="other_id_prefix_#i#" id="#i#">
-				</td>
-				<td>
-					<input type="number" step="any" value="#oids.other_id_number#" size="12" name="other_id_number_#i#" id="other_id_number_#i#">
-				</td>
-				<td>
-					<input type="text" value="#oids.other_id_suffix#" size="12" name="other_id_suffix_#i#" id="other_id_suffix_#i#">
-				</td>
-				<td>
-					<select name="id_references_#i#" id="id_references_#i#" size="1">
-						<cfloop query="ctid_references">
-							<option	<cfif ctid_references.id_references is oids.id_references> selected="selected" </cfif>
-								value="#ctid_references.id_references#">#ctid_references.id_references#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td>
-					<input type="checkbox" id="delete_#i#" name="delete_#i#" value="1">
-				</td>
-			    
-			    --->
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select guid_prefix,collection_id from collection ORDER BY guid_prefix
 	</cfquery>
@@ -220,16 +186,14 @@
 		id_references,
 		coll_obj_other_id_num_id
 </cfquery>
+<cfdump var=#oids#>
+
 	<h3>Identifiers</h3>
 
 <b>Edit existing Identifiers:</b>
 <form name="ids" id="formEdit" method="post" action="editIdentifiers.cfm">
-
-
-
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-	<input type="hidden" name="Action" value="saveEdits">
-	
+	<input type="hidden" name="Action" value="saveEdits">	
 	<table>
 	
 <tr #iif(i MOD 2,DE("class='oddRow'"),DE("class='evenRow'"))#>
