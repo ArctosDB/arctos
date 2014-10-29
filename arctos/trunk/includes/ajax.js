@@ -590,6 +590,7 @@ function saveSearch(returnURL,errm){
 			},
 			function (r) {
 				if(r!='success'){
+					alert(r);
 					saveSearch(returnURL,r);
 				} else {
 					
