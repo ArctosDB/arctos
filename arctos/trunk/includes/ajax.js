@@ -599,7 +599,7 @@ function saveSearch(returnURL,errm){
 					url = protocol + '//' + host;
 					
 					
-					alert('Saved search ' + url + '/saved/' + sn + '. Find it in the My Stuff tab.');
+					alert('Saved search \n' + url + '/saved/' + sn + '\n Find it in the My Stuff tab.');
 				}
 			}
 		);
