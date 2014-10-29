@@ -573,7 +573,7 @@ function saveSearch(returnURL,errm){
 	if ( typeof errm !== 'undefined' && errm.length > 0 ) {
 		p="ERROR: " + errm + "\n\n";
 	}
-	p+="Saving search for URL:\n\n" + returnURL + " \n\nName your saved search (or copy and ";
+	p="Saving search for URL:\n\n" + returnURL + " \n\nName your saved search (or copy and ";
 	p+="paste the link above).\n\nManage or email saved searches from your profile, or go to /saved/{name of saved search}. Note ";
 	p+="that saved searches, except those sepecifying only GUIDs, are dynamic; results change as data changes.\n\nName of saved search (must be unique):\n";
 	sName=prompt(p, uniqid);
