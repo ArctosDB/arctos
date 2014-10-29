@@ -591,7 +591,7 @@ function saveSearch(returnURL,errm){
 			function (r) {
 				if(r!='success'){
 					alert(r);
-					if (r=='You must create an account or log in to save searches'){
+					if (r=='You must create an account or log in to save searches.'){
 						
 						return false;	
 					} else {
