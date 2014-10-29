@@ -590,8 +590,9 @@ function saveSearch(returnURL,errm){
 			},
 			function (r) {
 				if(r!='success'){
-					if (r='You must create an account or log in to save searches'){
-						alert(r);
+					alert(r);
+					if (r=='You must create an account or log in to save searches'){
+						
 						return false;	
 					} else {
 						saveSearch(returnURL,r);
