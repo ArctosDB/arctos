@@ -363,7 +363,7 @@ If you receive a timeout error, just reload - this page will pick up where it st
 		where nt not in (select agent_name_type from ctagent_name_type)
 	</cfquery>
 	<cfif ctont.recordcount gt 0>
-		<div class="error">Unacceptable name type(s): #valuelist(ctont.nt)#</div>
+		<div class="error">Unacceptable name type(s): <cfoutput>#valuelist(ctont.nt)#</cfoutput></div>
 		<cfabort>
 	</cfif>
 	<cfloop query="d">
