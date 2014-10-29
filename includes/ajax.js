@@ -590,8 +590,12 @@ function saveSearch(returnURL,errm){
 			},
 			function (r) {
 				if(r!='success'){
-					alert(r);
-					saveSearch(returnURL,r);
+					if (r='You must create an account or log in to save searches'){
+						alert(r);
+						return false;	
+					} else {
+						saveSearch(returnURL,r);
+					}
 				} else {
 					
 					pathArray = window.location.href.split( '/' );
