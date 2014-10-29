@@ -592,7 +592,14 @@ function saveSearch(returnURL,errm){
 				if(r!='success'){
 					saveSearch(returnURL,r);
 				} else {
-					alert('Saved search ' + sn + '. Find it in the My Stuff tab.');
+					
+					pathArray = window.location.href.split( '/' );
+					protocol = pathArray[0];
+					host = pathArray[2];
+					url = protocol + '//' + host;
+					
+					
+					alert('Saved search ' + url + '/saved/ + sn + '. Find it in the My Stuff tab.');
 				}
 			}
 		);
