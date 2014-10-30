@@ -95,6 +95,7 @@ sho err
 				</cfquery>
 			</cfif>
 		</cfloop>
+		<cflocation url="agentPreload.cfm" addtoken="false">
 	</cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_agent_sort order by preferred_name
