@@ -91,6 +91,12 @@ sho err
 			</cfloop>
 			<cfset sql=sql & "'new load')">	
 		</cfloop>
+		
+		
+		<cfdump var=#sql#>
+		
+		
+		
 		<cfset sql=sql & "SELECT 1 FROM DUAL">
 		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preserveSingleQuotes(sql)#
