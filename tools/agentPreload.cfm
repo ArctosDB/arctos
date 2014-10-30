@@ -82,6 +82,10 @@ sho err
 			</cfif>
 		</cfloop>
 		<p>#colNames#</p>
+		
+		<cfquery name="test" dbtype="query">
+			select key from q
+		</cfquery>
 		<cfquery name="qclean" dbtype="query">
 			select #colnames# from q
 		</cfquery>
