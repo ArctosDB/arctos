@@ -58,7 +58,7 @@ sho err
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
 		<input type="submit" value="Upload this file" class="savBtn">
 	</cfform>
-	<cfif isdefined("#FiletoUpload#")>
+	<cfif isdefined("FiletoUpload")>
 	<!--- put this in a temp table --->
 		<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from cf_temp_agent_sort
