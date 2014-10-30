@@ -156,13 +156,13 @@ sho err
 		</cfloop>
 		
 		
-				<cflocation url="agentPreload.cfm" addtoken="false">
 
 
 
 		---------->
 		
-		
+						<cflocation url="agentPreload.cfm" addtoken="false">
+
 	</cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_agent_sort order by preferred_name
@@ -213,6 +213,7 @@ sho err
 				<td>#agent_status_date_1#</td>
 				<td>#agent_status_2#</td>
 				<td>#agent_status_date_2#</td>
+				<td>#status#</td>
 			</tr>
 		</cfloop>
 
