@@ -78,7 +78,7 @@ sho err
 				<cfset colNames=listdeleteat(colNames,listfindnocase(colNames,c))>
 			</cfif>
 		</cfloop>
-		
+		<p>#colNames#</p>
 		<cfquery name="qclean" dbtype="query">
 			select #colnames# from q
 		</cfquery>
