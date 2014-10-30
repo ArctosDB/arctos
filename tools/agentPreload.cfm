@@ -101,11 +101,11 @@ sho err
 		<!--- for some crazy reason this is slow, so bypass for now ---->
 		<cfset sql="insert all ">
 		<cfloop query="qclean">		
-			<cfset sql=sql & " into cf_temp_agent_sort (#colnames#,status) values (">
+			<cfset sql=sql & " into cf_temp_agent_sort (#colnames#) values (">
 			<cfloop list="#colnames#" index="i">
 				<cfset sql=sql & "'#escapeQuotes(evaluate("qClean." & i))#',">
 			</cfloop>
-			<cfset sql=sql & "'new load')">	
+			<cfset sql=sql & ")">	
 		</cfloop>
 		
 		
