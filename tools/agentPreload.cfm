@@ -106,7 +106,7 @@ sho err
 				<cfset sql=sql & "'#escapeQuotes(evaluate("qClean." & i))#',">
 			</cfloop>
 			<cfset sql=sql & ")">
-			<cfset sql=replace("',)","')","all")>
+			<cfset sql=replace(sql,"',)","')","all")>
 		</cfloop>
 		
 		
