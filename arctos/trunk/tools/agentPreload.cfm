@@ -75,7 +75,7 @@ sho err
 		<cfset colNames=q.columnList>
 		<cfloop list="#colNames#" index="c">
 			<cfif not listfindnocase(cols.columnList,c)>
-				<cfset colNames=listdeleteat(listfindnocase(colNames(c)>
+				<cfset colNames=listdeleteat(listfindnocase(colNames(c))>
 			</cfif>
 		</cfloop>
 		
