@@ -233,7 +233,7 @@
 		</cfquery>
 	<cfelse>
 		<cfloop query="qclean">
-			<cfset sql=sql & "insert into cf_temp_attributes (#colnames#,status) values (">
+			<cfset sql="insert into cf_temp_attributes (#colnames#,status) values (">
 			<cfloop list="#colnames#" index="i">
 				<cfset sql=sql & "'#evaluate("qClean." & i)#',">
 			</cfloop>
