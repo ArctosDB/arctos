@@ -72,6 +72,9 @@ sho err
 		
 		<cfset  util = CreateObject("component","component.utilities")>
 		<cfset q = util.CSVToQuery(CSV=fileContent)>
+		
+		
+		<cfdump var=#q#>
 		<cfset colNames=q.columnList>
 		<cfloop list="#colNames#" index="c">
 			<cfif not listfindnocase(cols.columnList,c)>
