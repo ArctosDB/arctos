@@ -77,10 +77,16 @@ sho err
 		<cfdump var=#q#>
 		<cfset colNames=q.columnList>
 		<cfloop list="#colNames#" index="c">
-			<cfif not listfindnocase(cols.columnList,c)>
+			<cfif not listfindnocase(colNames,c)>
 				<cfset colNames=listdeleteat(colNames,listfindnocase(colNames,c))>
 			</cfif>
 		</cfloop>
+		
+		<cfif listfindnocase(colNames,'key')>
+			<cfset colNames=listdeleteat(colNames,listfindnocase(colNames,'key'))>
+		</cfif>
+		
+			
 		<p>#colNames#</p>
 		
 		<cfquery name="test" dbtype="query">
