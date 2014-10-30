@@ -191,6 +191,10 @@
 <!------------------------------------------------------->
 <cfif action is "getFile">
 <cfoutput>
+	<cfif not isdefined("insmeth")>
+		<cfset insmeth='sngle'>
+	</cfif>
+
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset q = util.CSVToQuery(CSV=fileContent)>
@@ -213,19 +217,32 @@
 	</cfif>
 	<cfquery name="qclean" dbtype="query">
 		select #colnames# from q
-	</cfquery>	
-	<cfset sql="insert all ">
-	<cfloop query="qclean">		
-		<cfset sql=sql & " into cf_temp_attributes (#colnames#,status) values (">
-		<cfloop list="#colnames#" index="i">
-			<cfset sql=sql & "'#evaluate("qClean." & i)#',">
-		</cfloop>
-		<cfset sql=sql & "'new load')">	
-	</cfloop>
-	<cfset sql=sql & "SELECT 1 FROM DUAL">
-	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		#preserveSingleQuotes(sql)#
 	</cfquery>
+	<cfif insmeth is 'all'>
+		<cfset sql="insert all ">
+		<cfloop query="qclean">		
+			<cfset sql=sql & " into cf_temp_attributes (#colnames#,status) values (">
+			<cfloop list="#colnames#" index="i">
+				<cfset sql=sql & "'#evaluate("qClean." & i)#',">
+			</cfloop>
+			<cfset sql=sql & "'new load')">	
+		</cfloop>
+		<cfset sql=sql & "SELECT 1 FROM DUAL">
+		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			#preserveSingleQuotes(sql)#
+		</cfquery>
+	<cfelse>
+		<cfloop query="qclean">
+			<cfset sql=sql & "insert into cf_temp_attributes (#colnames#,status) values (">
+			<cfloop list="#colnames#" index="i">
+				<cfset sql=sql & "'#evaluate("qClean." & i)#',">
+			</cfloop>
+			<cfset sql=sql & "'new load')">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				#preserveSingleQuotes(sql)#
+			</cfquery>
+		</cfloop>
+	</cfif>
 	<cflocation url="BulkloadAttributes.cfm?action=manageMyStuff" addtoken="false">
 </cfoutput>
 </cfif>
