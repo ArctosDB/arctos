@@ -63,7 +63,43 @@ sho err
 		<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from cf_temp_agent_sort
 		</cfquery>
+		
+		<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_agent_sort
+		</cfquery>
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+		
+		
+		<cfset  util = CreateObject("component","component.utilities")>
+		<cfset q = util.CSVToQuery(CSV=fileContent)>
+		<cfset colNames=q.columnList>
+		<cfloop list="#colNames#" index="c">
+			<cfif not listfindnocase(cols.columnList,c)>
+				<cfset colNames=listdeleteat(listfindnocase(colNames(c)>
+			</cfif>
+		</cfloop>
+		
+		<cfquery name="qclean" dbtype="query">
+			select #colnames# from q
+		</cfquery>
+		<!--- for some crazy reason this is slow, so bypass for now ---->
+		<cfset sql="insert all ">
+		<cfloop query="qclean">		
+			<cfset sql=sql & " into cf_temp_agent_sort (#colnames#,status) values (">
+			<cfloop list="#colnames#" index="i">
+				<cfset sql=sql & "'#escapeQuotes(evaluate("qClean." & i))#',">
+			</cfloop>
+			<cfset sql=sql & "'new load')">	
+		</cfloop>
+		<cfset sql=sql & "SELECT 1 FROM DUAL">
+		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			#preserveSingleQuotes(sql)#
+		</cfquery>
+		
+		
+		<!----------
+		
+		
 		<cfset fileContent=replace(fileContent,"'","''","all")>
 		<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 		<cfset numberOfColumns = ArrayLen(arrResult[1])>
@@ -95,6 +131,7 @@ sho err
 				</cfquery>
 			</cfif>
 		</cfloop>
+		---------->
 		<cflocation url="agentPreload.cfm" addtoken="false">
 	</cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
