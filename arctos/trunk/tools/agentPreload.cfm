@@ -210,5 +210,4 @@ sho err
 
 					
 </cfoutput>
-<cflocation url="agents.cfm?action=splash" addtoken="false">
 <cfinclude template="/includes/_footer.cfm">
