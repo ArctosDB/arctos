@@ -219,11 +219,12 @@
 		select #colnames# from q
 	</cfquery>
 	<cfif insmeth is 'all'>
+		<!--- for some crazy reason this is slow, so bypass for now ---->
 		<cfset sql="insert all ">
 		<cfloop query="qclean">		
 			<cfset sql=sql & " into cf_temp_attributes (#colnames#,status) values (">
 			<cfloop list="#colnames#" index="i">
-				<cfset sql=sql & "'#evaluate("qClean." & i)#',">
+				<cfset sql=sql & "'#stripQuotes(evaluate("qClean." & i))#',">
 			</cfloop>
 			<cfset sql=sql & "'new load')">	
 		</cfloop>
