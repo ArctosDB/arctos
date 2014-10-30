@@ -236,7 +236,7 @@
 		<cfloop query="qclean">
 			<cfset sql="insert into cf_temp_attributes (#colnames#,status) values (">
 			<cfloop list="#colnames#" index="i">
-				<cfset sql=sql & "'#evaluate("qClean." & i)#',">
+				<cfset sql=sql & "'#escapeQuotes(evaluate("qClean." & i))#',">
 			</cfloop>
 			<cfset sql=sql & "'new load')">
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
