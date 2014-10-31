@@ -58,6 +58,61 @@ sho err
 
 <script src="/includes/sorttable.js"></script>
 
+	<script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
+	<link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
+	
+<script>
+	 $(document).ready(function () {
+        $('#jtdocdoc').jtable({
+            title: 'Agents',       
+			paging: true, //Enable paging
+            pageSize: 100, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            defaultSorting: 'PREFERRED_NAME', //Set default sorting
+			columnResizable: true,
+			multiSorting: true,
+			columnSelectable: false,
+    		noDataAvailable: 'No data available!',
+			actions: {
+                listAction: '/component/agent.cfc?method=listAgentPreload',
+				updateAction: '/component/agent.cfc?method=updateAgentPreload',
+ 				//createAction: '/component/agent.cfc?method=createDocDoc',
+ 				deleteAction: '/component/agent.cfc?method=deleteAgentPreload',
+            },
+
+            fields:  {
+				 KEY: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+				PREFERRED_NAME: {title: 'PREFERRED_NAME'},
+				STATUS: {title: 'STATUS'},
+				AGENT_TYPE: {title: 'AGENT_TYPE'},
+				OTHER_NAME_1: {title: 'OTHER_NAME_1'},
+				OTHER_NAME_TYPE_1: {title: 'OTHER_NAME_TYPE_1'},
+				OTHER_NAME_2: {title: 'OTHER_NAME_2'},
+				OTHER_NAME_TYPE_2: {title: 'OTHER_NAME_TYPE_2'},
+				OTHER_NAME_3: {title: 'OTHER_NAME_3'},
+				OTHER_NAME_TYPE_3: {title: 'OTHER_NAME_TYPE_3'},
+				OTHER_NAME_4: {title: 'OTHER_NAME_4'},
+				OTHER_NAME_TYPE_4: {title: 'OTHER_NAME_TYPE_4'},
+				OTHER_NAME_5: {title: 'OTHER_NAME_5'},
+				OTHER_NAME_TYPE_5: {title: 'OTHER_NAME_TYPE_5'},
+				OTHER_NAME_6: {title: 'OTHER_NAME_6'},
+				OTHER_NAME_TYPE_6: {title: 'OTHER_NAME_TYPE_6'},
+				AGENT_STATUS_1: {title: 'AGENT_STATUS_1'},
+				AGENT_STATUS_DATE_1: {title: 'AGENT_STATUS_DATE_1'},
+				AGENT_STATUS_2: {title: 'AGENT_STATUS_2'},
+				AGENT_STATUS_DATE_2: {title: 'AGENT_STATUS_DATE_2'},
+				AGENT_REMARK: {title: 'AGENT_REMARK'}
+            }
+        });
+
+       $('#jtdocdoc').jtable('load');
+    });
+</script>
 <cfoutput>
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
@@ -119,6 +174,11 @@ sho err
 		
 		<cflocation url="agentPreload.cfm" addtoken="false">
 	</cfif>
+	
+	
+	
+	
+	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_agent_sort order by preferred_name
 	</cfquery>
