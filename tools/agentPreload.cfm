@@ -127,7 +127,7 @@ sho err
 		<cfabort>
 	</cfif>
 	<cfquery name="ckother_name_1">
-		select count(*) from d where other_name_1 is not null
+		select count(*) c from d where other_name_1 is not null
 	</cfquery>
 	<p>
 		Click headers to sort. Check and delete matches and mistakes. Download, change, re-load to alter. Delete will NOT work with over 1000 records at a time.
