@@ -55,7 +55,19 @@ sho err
 		delete from cf_temp_agent_sort where key in (#key#)
 	</cfquery>
 </cfif>
-
+<!------------------------------------------------------->
+<cfif action is "getCSV">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_agent_sort
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/agentPreloads.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=agentPreloads.csv" addtoken="false">
+</cfif>
 <script src="/includes/sorttable.js"></script>
 
 	<script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
@@ -191,7 +203,12 @@ sho err
 	key:
 	<br>N##=OTHER_NAME_## - use these for sorting
 	</p>
-			
+	
+	<a href="agentPreload.cfm?action=getCSV">CSV</a>
+	
+
+
+		
 		<div id="jtdocdoc"></div>
 
 
