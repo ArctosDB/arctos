@@ -49,6 +49,7 @@ sho err
 	------>
 	
 <cfinclude template="/includes/_header.cfm">
+<cfset title="Agent Preview Sorter Linker Thingeemajigger">
 <cfif action is "deleteChecked">
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_agent_sort where key in (#key#)
