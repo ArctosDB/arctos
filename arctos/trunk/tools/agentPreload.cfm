@@ -90,21 +90,21 @@ sho err
 				PREFERRED_NAME: {title: 'PREFERRED_NAME'},
 				STATUS: {title: 'STATUS'},
 				AGENT_TYPE: {title: 'AGENT_TYPE'},
-				OTHER_NAME_1: {title: 'Name1'},
+				OTHER_NAME_1: {title: 'Nm1'},
 				OTHER_NAME_TYPE_1: {title: 'NT1'},
-				OTHER_NAME_2: {title: 'Name2'},
+				OTHER_NAME_2: {title: 'Nm2'},
 				OTHER_NAME_TYPE_2: {title: 'NT2'},
-				OTHER_NAME_3: {title: 'Name3'},
+				OTHER_NAME_3: {title: 'Nm3'},
 				OTHER_NAME_TYPE_3: {title: 'NT3'},
-				OTHER_NAME_4: {title: 'Name4'},
+				OTHER_NAME_4: {title: 'Nm4'},
 				OTHER_NAME_TYPE_4: {title: 'NT4'},
-				OTHER_NAME_5: {title: 'Name5'},
+				OTHER_NAME_5: {title: 'Nm5'},
 				OTHER_NAME_TYPE_5: {title: 'NT5'},
-				OTHER_NAME_6: {title: 'Name6'},
+				OTHER_NAME_6: {title: 'Nm6'},
 				OTHER_NAME_TYPE_6: {title: 'NT6'},
-				AGENT_STATUS_1: {title: 'Stat1'},
+				AGENT_STATUS_1: {title: 'S1'},
 				AGENT_STATUS_DATE_1: {title: 'SD1'},
-				AGENT_STATUS_2: {title: 'Stat2'},
+				AGENT_STATUS_2: {title: 'S2'},
 				AGENT_STATUS_DATE_2: {title: 'SD2'},
 				AGENT_REMARK: {title: 'Remk'}
             }
@@ -179,8 +179,14 @@ sho err
 		<cflocation url="agentPreload.cfm" addtoken="false">
 	</cfif>
 	
-	
-	
+	<p>
+	key:
+	<br>Nm##=OTHER_NAME_##
+	<br>NT##=OTHER_NAME_TYPE_##
+	<br>S##=AGENT_STATUS_##
+	<br>SD##=AGENT_STATUS_DATE_##
+	</p>
+			
 		<div id="jtdocdoc"></div>
 
 
