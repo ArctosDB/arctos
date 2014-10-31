@@ -1,4 +1,15 @@
 <cfcomponent>
+<cffunction name="jsonEscape" access="remote">
+	<cfargument name="inpstr" required="yes">
+	<cfset inpstr=replace(inpstr,'\','\\',"all")>
+	<cfset inpstr=replace(inpstr,'"','\"',"all")>
+	<cfset inpstr=replace(inpstr,chr(10),'<br>',"all")>
+	<cfset inpstr=replacenocase(inpstr,chr(9),'<br>',"all")>
+	<cfset inpstr=replace(inpstr,chr(13),'<br>',"all")>
+	<cfset inpstr=replace(inpstr,'  ',' ',"all")>
+	<cfset inpstr=rereplacenocase(inpstr,'(<br>){2,}','<br>',"all")>
+	<cfreturn inpstr>
+</cffunction>
 <!------------------------------------------------------------------------------------------------------------------------------>
 <cffunction name="listAgentPreload" access="remote" returnformat="plain" queryFormat="column">	
 	<cfparam name="jtStartIndex" type="integer" default="0">
@@ -9,11 +20,11 @@
 	<cfset theLastRow=theFirstRow+jtPageSize>
 	<cftry>
 		<cfquery name="d" datasource="uam_god">
-			select
-				*
-			 from cf_temp_agent_sort
-			order by 
-				#jtSorting#
+			Select * from (
+					Select a.*, rownum rnum From (
+						select * from cf_temp_agent_sort order by #jtSorting#
+					) a where rownum <= #jtStopIndex#
+				) where rnum >= #jtStartIndex#
 		</cfquery>
 		<cfquery name="trc" dbtype="query">
 			Select count(*) c from d 
