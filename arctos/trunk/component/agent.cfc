@@ -114,8 +114,6 @@
 					) a where rownum <= #jtStopIndex#
 				) where rnum >= #jtStartIndex#
 		</cfquery>
-				<cfdump var=#d#>
-
 		<cfquery name="trc"  datasource="uam_god">
 			Select count(*) c from cf_temp_agent_sort 
 		</cfquery>
