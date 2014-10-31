@@ -15,6 +15,8 @@
 	<cfparam name="jtStartIndex" type="integer" default="0">
 	<cfparam name="jtPageSize" type="integer" default="100">
 	<cfparam name="jtSorting" type="string" default="PREFERRED_NAME ASC">
+			<cfset jtStopIndex=jtStartIndex+jtPageSize>
+
 	<!--- jtables likes to start at 0, which confuses CF, so.... ---->
 	<cfset theFirstRow=jtStartIndex+1>
 	<cfset theLastRow=theFirstRow+jtPageSize>
