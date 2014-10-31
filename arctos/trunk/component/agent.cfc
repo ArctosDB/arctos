@@ -1,4 +1,53 @@
-<cfcomponent>	
+<cfcomponent>
+<!------------------------------------------------------------------------------------------------------------------------------>
+<cffunction name="listAgentPreload" access="remote" returnformat="plain" queryFormat="column">	
+	<cfparam name="jtStartIndex" type="integer" default="0">
+	<cfparam name="jtPageSize" type="integer" default="100">
+	<cfparam name="jtSorting" type="string" default="PREFERRED_NAME ASC">
+	<!--- jtables likes to start at 0, which confuses CF, so.... ---->
+	<cfset theFirstRow=jtStartIndex+1>
+	<cfset theLastRow=theFirstRow+jtPageSize>
+	<cftry>
+		<cfquery name="d" datasource="uam_god">
+			select
+				*
+			 from cf_temp_agent_sort
+			order by 
+				#jtSorting#
+		</cfquery>
+		<cfquery name="trc" dbtype="query">
+			Select count(*) c from d 
+		</cfquery>
+		<cfoutput>
+			<cfset coredata=''>
+			<cfloop query="d" startrow="#theFirstRow#" endrow="#theLastRow#">
+				<cfset trow="">
+				<cfloop list="#d.columnlist#" index="i">
+					<cfset theData=evaluate("d." & i)>
+					<cfset theData=jsonEscape(theData)>
+					<cfset t = '"#i#":"' & theData  & '"'>
+					<cfset trow=listappend(trow,t)>
+				</cfloop>
+				<cfset trow="{" & trow & "}">
+				<cfset coredata=listappend(coredata,trow)>
+			</cfloop>
+		</cfoutput>
+		<cfset result='{"Result":"OK","Records":[' & coredata & '],"TotalRecordCount":#trc.c#}'>
+		<cfcatch>
+			<cfset msg=cfcatch.message>
+			<cfif isdefined("cfcatch.detail") and len(cfcatch.detail) gt 0>
+				<cfset msg=msg & ': ' & cfcatch.detail>
+			</cfif>
+			<cfif isdefined("cfcatch.sql") and len(cfcatch.sql) gt 0>
+				<cfset msg=msg & ': ' & cfcatch.sql>
+			</cfif>
+			<cfset msg=jsonEscape(msg)>
+			<cfset result='{"Result":"ERROR","Message":"#msg#"}'>
+		</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+
 <cffunction name="newAgentAddr" access="remote">
 	<cftry>
 		<cfquery name="addr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
