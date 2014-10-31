@@ -40,7 +40,7 @@
 				OTHER_NAME_3 = '#escapeQuotes(OTHER_NAME_3)#',
 				OTHER_NAME_4 = '#escapeQuotes(OTHER_NAME_4)#',
 				OTHER_NAME_5 = '#escapeQuotes(OTHER_NAME_5)#',
-				OTHER_NAME_6 = '#escapeQuotes(OTHER_NAME_6)#',
+				OTHER_NAME_6 = '#escapeQuotes(OTHER_NAME_6)#'
 			where 
 				KEY=#KEY#
 		</cfquery>
