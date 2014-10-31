@@ -11,7 +11,7 @@
 	<cfreturn inpstr>
 </cffunction>
 <!------------------------------------------------------------------------------------------------------------------------------>
-<cffunction name="updateDocDoc" access="remote" returnformat="plain" queryFormat="column">
+<cffunction name="updateAgentPreload" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="KEY" type="numeric" required="true">
 	<cfargument name="PREFERRED_NAME" type="string" required="true">
 	<cfargument name="AGENT_TYPE" type="string" required="false">
