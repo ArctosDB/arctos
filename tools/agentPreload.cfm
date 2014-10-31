@@ -89,9 +89,15 @@ sho err
                 },
 				PREFERRED_NAME: {title: 'PREFERRED_NAME'},
 				AGENT_TYPE: {title: 'AGENT_TYPE'},
-				STATUS: {title: 'STATUS'}
+				STATUS: {title: 'STATUS'},
+				OTHER_NAME_1: {title: 'N1'},
+				OTHER_NAME_2: {title: 'N2'},
+				OTHER_NAME_3: {title: 'N3'},
+				OTHER_NAME_4: {title: 'N4'},
+				OTHER_NAME_5: {title: 'N5'},
+				OTHER_NAME_6: {title: 'N6'},
 /*,
-				OTHER_NAME_1: {title: 'Nm1'},
+				
 				OTHER_NAME_TYPE_1: {title: 'NT1'},
 				OTHER_NAME_2: {title: 'Nm2'},
 				OTHER_NAME_TYPE_2: {title: 'NT2'},
@@ -183,10 +189,7 @@ sho err
 	
 	<p>
 	key:
-	<br>Nm##=OTHER_NAME_##
-	<br>NT##=OTHER_NAME_TYPE_##
-	<br>S##=AGENT_STATUS_##
-	<br>SD##=AGENT_STATUS_DATE_##
+	<br>N##=OTHER_NAME_## - use these for sorting
 	</p>
 			
 		<div id="jtdocdoc"></div>

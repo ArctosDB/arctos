@@ -28,7 +28,13 @@
 							KEY,
 							PREFERRED_NAME,
 							AGENT_TYPE,
-							replace(replace(STATUS,';','<br>'),'FATAL ERROR','<span class="red">FATAL ERROR</span>') STATUS 
+							replace(replace(STATUS,';','<br>'),'FATAL ERROR','<span class="red">FATAL ERROR</span>') STATUS,
+							OTHER_NAME_1,
+							OTHER_NAME_2,
+							OTHER_NAME_3,
+							OTHER_NAME_4,
+							OTHER_NAME_5,
+							OTHER_NAME_6 
 						from cf_temp_agent_sort order by #jtSorting#
 					) a where rownum <= #jtStopIndex#
 				) where rnum >= #jtStartIndex#
