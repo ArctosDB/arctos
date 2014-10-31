@@ -11,7 +11,55 @@
 	<cfreturn inpstr>
 </cffunction>
 <!------------------------------------------------------------------------------------------------------------------------------>
-
+<cffunction name="updateDocDoc" access="remote" returnformat="plain" queryFormat="column">
+	<cfargument name="KEY" type="numeric" required="true">
+	<cfargument name="PREFERRED_NAME" type="string" required="true">
+	<cfargument name="AGENT_TYPE" type="string" required="false">
+	<cfargument name="STATUS" type="string" required="false">
+	<cfargument name="OTHER_NAME_1" type="string" required="false">
+	<cfargument name="OTHER_NAME_2" type="string" required="false">
+	<cfargument name="OTHER_NAME_3" type="string" required="false">
+	<cfargument name="OTHER_NAME_4" type="string" required="false">
+	<cfargument name="OTHER_NAME_5" type="string" required="false">
+	<cfargument name="OTHER_NAME_6" type="string" required="false">
+	<cfif not isdefined("escapeQuotes")>
+		<cfinclude template="/includes/functionLib.cfm">
+	</cfif>
+	<cftry>
+	
+		
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update 
+				cf_temp_agent_sort 
+			set  
+				PREFERRED_NAME = '#escapeQuotes(PREFERRED_NAME)#',
+				AGENT_TYPE = '#escapeQuotes(AGENT_TYPE)#',
+				STATUS = '#escapeQuotes(STATUS)#',
+				OTHER_NAME_1 = '#escapeQuotes(OTHER_NAME_1)#',
+				OTHER_NAME_2 = '#escapeQuotes(OTHER_NAME_2)#',
+				OTHER_NAME_3 = '#escapeQuotes(OTHER_NAME_3)#',
+				OTHER_NAME_4 = '#escapeQuotes(OTHER_NAME_4)#',
+				OTHER_NAME_5 = '#escapeQuotes(OTHER_NAME_5)#',
+				OTHER_NAME_6 = '#escapeQuotes(OTHER_NAME_6)#',
+			where 
+				KEY=#KEY#
+		</cfquery>
+		<cfset result='{"Result":"OK","Message":"success"}'>
+		<cfcatch>
+			<cfset msg=cfcatch.message>
+			<cfif isdefined("cfcatch.detail") and len(cfcatch.detail) gt 0>
+				<cfset msg=msg & ': ' & cfcatch.detail>
+			</cfif>
+			<cfif isdefined("cfcatch.sql") and len(cfcatch.sql) gt 0>
+				<cfset msg=msg & ': ' & cfcatch.sql>
+			</cfif>
+			<cfset msg=jsonEscape(msg)>
+			<cfset result='{"Result":"ERROR","Message":"#msg#"}'>
+		</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!------------------------------------------------------------------------------------------------------------------------------>
 <cffunction name="deleteAgentPreload" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="KEY" type="numeric" required="true">
 	<cftry>
