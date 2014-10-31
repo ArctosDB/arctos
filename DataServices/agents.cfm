@@ -162,12 +162,15 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		create index ix_cf_agent_dupchk_unsa on cf_agent_isitadup (upperstrippedagencyname) tablespace uam_idx_1
 	</cfquery>
 	<cfcatch></cfcatch></cftry>
-	<br>indexes build....
+	<br>indexes rebuilt....
 
 
 
 	<p>
 		<a href="agentNameSplitter.cfm">Agent Name Splitter</a> will accept a list of agent names and return a file that can be used here.
+	</p>
+	<p>
+		<a href="/tools/agentPreload.cfm">Agent Preload Thingee</a> will do things with the CSV which can be downloaded from this app.
 	</p>
 	<p>
 		Note: Due to large influxes of duplicate agents, this form is currently set on "paranoid." File an Issue to change how this form works.
