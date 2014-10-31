@@ -89,6 +89,7 @@ sho err
 			select #colnames# from q
 		</cfquery>
 		<!--- for some crazy reason this is slow, so bypass for now ---->
+		<!----
 		<cfset sql="insert all ">
 		<cfloop query="qclean">		
 			<cfset sql=sql & " into cf_temp_agent_sort (#colnames#) values (">
@@ -102,6 +103,19 @@ sho err
 		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preserveSingleQuotes(sql)#
 		</cfquery>
+		---->
+		<cfloop query="qclean">		
+			<cfset sql="insert into cf_temp_agent_sort (#colnames#) values (">
+			<cfloop list="#colnames#" index="i">
+				<cfset sql=sql & "'#escapeQuotes(evaluate("qClean." & i))#',">
+			</cfloop>
+			<cfset sql=sql & ")">
+			<cfset sql=replace(sql,"',)","')","all")>
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				#preserveSingleQuotes(sql)#
+			</cfquery>
+		</cfloop>
+		
 		<cflocation url="agentPreload.cfm" addtoken="false">
 	</cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
