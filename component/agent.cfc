@@ -26,7 +26,8 @@
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
 	<cftry>
-	
+		<cfset status=replace(status,'<br>',';','all')>
+		<cfset status=replace(status,'<span class="red">FATAL ERROR</span>','FATAL ERROR','all')>
 		
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update 
