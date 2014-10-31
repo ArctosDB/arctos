@@ -11,6 +11,32 @@
 	<cfreturn inpstr>
 </cffunction>
 <!------------------------------------------------------------------------------------------------------------------------------>
+
+<cffunction name="deleteAgentPreload" access="remote" returnformat="plain" queryFormat="column">
+	<cfargument name="KEY" type="numeric" required="true">
+	<cftry>
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from  
+				cf_temp_agent_sort
+			where 
+				KEY=#KEY#
+		</cfquery>
+		<cfset result='{"Result":"OK","Message":"success"}'>
+		<cfcatch>
+			<cfset msg=cfcatch.message>
+			<cfif isdefined("cfcatch.detail") and len(cfcatch.detail) gt 0>
+				<cfset msg=msg & ': ' & cfcatch.detail>
+			</cfif>
+			<cfif isdefined("cfcatch.sql") and len(cfcatch.sql) gt 0>
+				<cfset msg=msg & ': ' & cfcatch.sql>
+			</cfif>
+			<cfset msg=jsonEscape(msg)>
+			<cfset result='{"Result":"ERROR","Message":"#msg#"}'>
+		</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!------------------------------------------------------------------------------------------------------------------------------>
 <cffunction name="listAgentPreload" access="remote" returnformat="plain" queryFormat="column">	
 	<cfparam name="jtStartIndex" type="integer" default="0">
 	<cfparam name="jtPageSize" type="integer" default="100">
