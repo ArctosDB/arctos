@@ -88,8 +88,9 @@ sho err
                     list: false
                 },
 				PREFERRED_NAME: {title: 'PREFERRED_NAME'},
-				STATUS: {title: 'STATUS'},
 				AGENT_TYPE: {title: 'AGENT_TYPE'},
+				STATUS: {title: 'STATUS'}
+/*,
 				OTHER_NAME_1: {title: 'Nm1'},
 				OTHER_NAME_TYPE_1: {title: 'NT1'},
 				OTHER_NAME_2: {title: 'Nm2'},
@@ -107,6 +108,7 @@ sho err
 				AGENT_STATUS_2: {title: 'S2'},
 				AGENT_STATUS_DATE_2: {title: 'SD2'},
 				AGENT_REMARK: {title: 'Remk'}
+* */
             }
         });
 
