@@ -49,7 +49,7 @@ sho err
 	------>
 	
 <cfinclude template="/includes/_header.cfm">
-<cfset title="Agent Preview Sorter Linker Thingeemajigger">
+<cfset title="Agent Preview Sorter Linker Thingee">
 <cfif action is "deleteChecked">
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from cf_temp_agent_sort where key in (#key#)
@@ -162,6 +162,7 @@ sho err
 			<tr>
 				<th>delete</th>
 				<th>preferred_name</th>
+				<th>status</th>
 				<th>agent_type</th>
 				<cfif ckother_name_1.c gt 0>
 					<th>n1</th>
@@ -195,7 +196,6 @@ sho err
 					<th>s2</th>
 					<th>2d2</th>
 				</cfif>
-				<th>status</th>
 			</tr>
 			<cfloop query="d">
 				<tr id="r#key#">
@@ -203,6 +203,7 @@ sho err
 						<input type="checkbox" name="key" value="#key#">
 					</td>
 					<td>#preferred_name#</td>
+					<td>#status#</td>
 					<td>#agent_type#</td>
 					<cfif ckother_name_1.c gt 0>
 						<td>#other_name_1#</td>
@@ -236,8 +237,6 @@ sho err
 						<td>#agent_status_2#</td>
 						<td>#agent_status_date_2#</td>
 					</cfif>
-
-					<td>#status#</td>
 				</tr>
 			</cfloop>
 		</table>
