@@ -111,6 +111,9 @@ sho err
 		Load a file to begin.
 		<cfabort>
 	</cfif>
+	<p>
+		Click headers to sort. Check and delete matches and mistakes. Download, change, re-load to alter. Delete will NOT work with over 1000 records at a time.
+	</p>
 	<form method="post" action="agentPreload.cfm">
 		<input type="hidden" name="action" value="deleteChecked">
 		<input type="submit" value="delete checked rows">
