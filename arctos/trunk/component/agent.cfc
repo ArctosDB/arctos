@@ -45,6 +45,7 @@
 			where 
 				KEY=#KEY#
 		</cfquery>
+		<cfdump var=#data#>
 		<cfset result='{"Result":"OK","Message":"success"}'>
 		<cfcatch>
 			<cfset msg=cfcatch.message>
