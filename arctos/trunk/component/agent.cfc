@@ -121,7 +121,7 @@
 		</cfquery>
 		<cfoutput>
 			<cfset coredata=''>
-			<cfloop query="d" startrow="#theFirstRow#" endrow="#theLastRow#">
+			<cfloop query="d">
 				<cfset trow="">
 				<cfloop list="#d.columnlist#" index="i">
 					<cfset theData=evaluate("d." & i)>
