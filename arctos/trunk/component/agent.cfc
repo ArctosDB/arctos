@@ -24,7 +24,12 @@
 		<cfquery name="d" datasource="uam_god">
 			Select * from (
 					Select a.*, rownum rnum From (
-						select * from cf_temp_agent_sort order by #jtSorting#
+						select 
+							KEY,
+							PREFERRED_NAME,
+							AGENT_TYPE,
+							replace(STATUS,';','<br>') STATUS 
+						from cf_temp_agent_sort order by #jtSorting#
 					) a where rownum <= #jtStopIndex#
 				) where rnum >= #jtStartIndex#
 		</cfquery>
