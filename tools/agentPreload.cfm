@@ -203,7 +203,10 @@ sho err
 						<input type="checkbox" name="key" value="#key#">
 					</td>
 					<td>#preferred_name#</td>
-					<td>#status#</td>
+					<td>
+						<cfset s=replace(status,';','<br>','all')>
+						#s#
+					</td>
 					<td>#agent_type#</td>
 					<cfif ckother_name_1.c gt 0>
 						<td>#other_name_1#</td>
