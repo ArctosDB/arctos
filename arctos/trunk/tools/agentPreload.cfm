@@ -113,6 +113,10 @@ sho err
        $('#jtdocdoc').jtable('load');
     });
 </script>
+
+
+
+
 <cfoutput>
 	<cfform name="atts" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="Action" value="getFile">
@@ -177,7 +181,10 @@ sho err
 	
 	
 	
-	
+		<div id="jtdocdoc"></div>
+
+
+<!--------
 	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_agent_sort order by preferred_name
@@ -305,5 +312,10 @@ sho err
 		</table>
 		<input type="submit" value="delete checked rows">
 	</form>	
+	
+	
+	
+	
+	--------->
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
