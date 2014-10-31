@@ -129,6 +129,29 @@ sho err
 	<cfquery name="ckother_name_1" dbtype="query">
 		select count(*) as c from d where other_name_1 is not null
 	</cfquery>
+	<cfquery name="ckother_name_2" dbtype="query">
+		select count(*) as c from d where other_name_2 is not null
+	</cfquery>
+	<cfquery name="ckother_name_3" dbtype="query">
+		select count(*) as c from d where other_name_3 is not null
+	</cfquery>
+	<cfquery name="ckother_name_4" dbtype="query">
+		select count(*) as c from d where other_name_4 is not null
+	</cfquery>
+	<cfquery name="ckother_name_5" dbtype="query">
+		select count(*) as c from d where other_name_5 is not null
+	</cfquery>
+	<cfquery name="ckother_name_6" dbtype="query">
+		select count(*) as c from d where other_name_6 is not null
+	</cfquery>
+	<cfquery name="ckagent_status_1" dbtype="query">
+		select count(*) as c from d where agent_status_1 is not null
+	</cfquery>
+	<cfquery name="ckagent_status_2" dbtype="query">
+		select count(*) as c from d where agent_status_2 is not null
+	</cfquery>
+	
+	
 	<p>
 		Click headers to sort. Check and delete matches and mistakes. Download, change, re-load to alter. Delete will NOT work with over 1000 records at a time.
 	</p>
@@ -144,20 +167,34 @@ sho err
 					<th>n1</th>
 					<th>t1</th>
 				</cfif>
-				<th>n2</th>
-				<th>t2</th>
-				<th>n3</th>
-				<th>t3</th>
-				<th>n4</th>
-				<th>t4</th>
-				<th>n5</th>
-				<th>t5</th>
-				<th>n6</th>
-				<th>t6</th>
-				<th>s1</th>
-				<th>2d1</th>
-				<th>s2</th>
-				<th>2d2</th>
+				<cfif ckother_name_2.c gt 0>
+					<th>n2</th>
+					<th>t2</th>
+				</cfif>
+				<cfif ckother_name_3.c gt 0>
+					<th>n3</th>
+					<th>t3</th>
+				</cfif>
+				<cfif ckother_name_4.c gt 0>
+					<th>n4</th>
+					<th>t4</th>
+				</cfif>
+				<cfif ckother_name_5.c gt 0>
+					<th>n5</th>
+					<th>t5</th>
+				</cfif>
+				<cfif ckother_name_6.c gt 0>
+					<th>n6</th>
+					<th>t6</th>
+				</cfif>
+				<cfif ckagent_status_1.c gt 0>
+					<th>s1</th>
+					<th>2d1</th>
+				</cfif>
+				<cfif ckagent_status_2.c gt 0>
+					<th>s2</th>
+					<th>2d2</th>
+				</cfif>
 				<th>status</th>
 			</tr>
 			<cfloop query="d">
@@ -171,20 +208,35 @@ sho err
 						<td>#other_name_1#</td>
 						<td>#other_name_type_1#</td>
 					</cfif>
-					<td>#other_name_2#</td>
-					<td>#other_name_type_2#</td>
-					<td>#other_name_3#</td>
-					<td>#other_name_type_3#</td>
-					<td>#other_name_4#</td>
-					<td>#other_name_type_4#</td>
-					<td>#other_name_5#</td>
-					<td>#other_name_type_5#</td>
-					<td>#other_name_6#</td>
-					<td>#other_name_type_6#</td>
-					<td>#agent_status_1#</td>
-					<td>#agent_status_date_1#</td>
-					<td>#agent_status_2#</td>
-					<td>#agent_status_date_2#</td>
+					<cfif ckother_name_2.c gt 0>
+						<td>#other_name_2#</td>
+						<td>#other_name_type_2#</td>
+					</cfif>
+					<cfif ckother_name_3.c gt 0>
+						<td>#other_name_3#</td>
+						<td>#other_name_type_3#</td>
+					</cfif>
+					<cfif ckother_name_4.c gt 0>
+						<td>#other_name_4#</td>
+						<td>#other_name_type_4#</td>
+					</cfif>
+					<cfif ckother_name_5.c gt 0>
+						<td>#other_name_5#</td>
+						<td>#other_name_type_5#</td>
+					</cfif>
+					<cfif ckother_name_6.c gt 0>
+						<td>#other_name_6#</td>
+						<td>#other_name_type_6#</td>
+					</cfif>
+					<cfif ckagent_status_1.c gt 0>
+						<td>#agent_status_1#</td>
+						<td>#agent_status_date_1#</td>
+					</cfif>
+					<cfif ckagent_status_1.c gt 0>
+						<td>#agent_status_2#</td>
+						<td>#agent_status_date_2#</td>
+					</cfif>
+
 					<td>#status#</td>
 				</tr>
 			</cfloop>
