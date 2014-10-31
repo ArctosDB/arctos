@@ -126,6 +126,9 @@ sho err
 		Load a file to begin.
 		<cfabort>
 	</cfif>
+	<cfquery name="ckother_name_1">
+		select count(*) from d where other_name_1 is not null
+	</cfquery>
 	<p>
 		Click headers to sort. Check and delete matches and mistakes. Download, change, re-load to alter. Delete will NOT work with over 1000 records at a time.
 	</p>
@@ -137,8 +140,10 @@ sho err
 				<th>delete</th>
 				<th>preferred_name</th>
 				<th>agent_type</th>
-				<th>n1</th>
-				<th>t1</th>
+				<cfif ckother_name_1.c gt 0>
+					<th>n1</th>
+					<th>t1</th>
+				</cfif>
 				<th>n2</th>
 				<th>t2</th>
 				<th>n3</th>
@@ -162,8 +167,10 @@ sho err
 					</td>
 					<td>#preferred_name#</td>
 					<td>#agent_type#</td>
-					<td>#other_name_1#</td>
-					<td>#other_name_type_1#</td>
+					<cfif ckother_name_1.c gt 0>
+						<td>#other_name_1#</td>
+						<td>#other_name_type_1#</td>
+					</cfif>
 					<td>#other_name_2#</td>
 					<td>#other_name_type_2#</td>
 					<td>#other_name_3#</td>
