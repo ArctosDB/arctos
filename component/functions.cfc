@@ -1309,12 +1309,19 @@
 		<cfset uri="documentation/transaction/accession">
 	<cfelseif uri is "loans">
 		<cfset uri="documentation/transaction/loans">
+	<cfelseif uri is "higher_geography">
+		<cfset uri="documentation//places/higher-geography/">
 	<cfelse>
 		<cfset uri="documentation/#uri#">
 	</cfif>
 	<cfif not isdefined("anchor") or anchor is "undefined" or len(anchor) is 0>
 		<cfset anchor="top">
 	</cfif>
+	
+	
+							
+							
+							
 	<cfset fullURI="http://arctosdb.wordpress.com/#uri#/###anchor#">
 	<cfreturn fullURI>
 	<!---

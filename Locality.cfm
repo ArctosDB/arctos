@@ -512,7 +512,6 @@
 		                  </select>
 					</td>
 					<td >
-					
 						<label for="island" >
 							<span class="likeLink" onClick="getDocs('higher_geography','island')">Island</span>
 							<span class="likeLink" onClick="asterisckificateisland();">
