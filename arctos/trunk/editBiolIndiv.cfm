@@ -251,7 +251,7 @@
 						</td>
 						<td id="_attribute_value_#attribute_id#">
 						hi
-							<input type="hidden" name="val_#attribute_id#" id="val_#attribute_id#" value="#escapeQuotes(attribute_value)#">
+							<input type="hidden" name="val_#attribute_id#" id="val_#attribute_id#" value="#stripQuotes(attribute_value)#">
 						</td>
 						<td id="_attribute_units_#attribute_id#">
 							<input type="hidden" name="unit_#attribute_id#" id="unit_#attribute_id#" value="#attribute_units#">
