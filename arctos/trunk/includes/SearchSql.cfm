@@ -1474,7 +1474,7 @@
 	<cfset basQual = " #basQual# )">
 </cfif>
 <cfif isdefined("accn_agency") and len(accn_agency) gt 0>
-	<cfset mapurl = "#mapurl#&accn_agency=#accn_agency#">
+	<cfset mapurl = "#mapurl#&accn_agency=#URLEncodedFormat(accn_agency)#">
 	<cfif basJoin does not contain " accn ">
 		<cfset basJoin = " #basJoin# INNER JOIN accn ON (#session.flatTableName#.accn_id = accn.transaction_id)">
 	</cfif>
@@ -1550,8 +1550,8 @@
 	<cfif not isdefined("CustomOidOper")>
 		<cfset CustomOidOper = "LIKE">
 	</cfif>
-	<cfset mapurl = "#mapurl#&CustomIdentifierValue=#CustomIdentifierValue#">
-	<cfset mapurl = "#mapurl#&CustomOidOper=#CustomOidOper#">
+	<cfset mapurl = "#mapurl#&CustomIdentifierValue=#URLEncodedFormat(CustomIdentifierValue)#">
+	<cfset mapurl = "#mapurl#&CustomOidOper=#URLEncodedFormat(CustomOidOper)#">
 	<cfif basJoin does not contain " customIdentifier ">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num customIdentifier ON (#session.flatTableName#.collection_object_id = customIdentifier.collection_object_id)">
 	</cfif>
@@ -1580,20 +1580,12 @@
 	</cfif>
 </cfif>
 <cfif isdefined("OIDType") AND len(OIDType) gt 0>
-	<cfset mapurl = "#mapurl#&OIDType=#OIDType#">
+	<cfset mapurl = "#mapurl#&OIDType=#URLEncodedFormat(OIDType)#">
 	<cfif basJoin does not contain " otherIdSearch ">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdSearch ON (#session.flatTableName#.collection_object_id = otherIdSearch.collection_object_id)">
 	</cfif>
-	
 	<cfset oidType=replace(OIDType,"'","''","all")>
-	<cfdump var=#oidType#>
-
-
-
 	<cfset oidType=listqualify(OIDType,chr(39),",")>
-	
-	
-	<cfdump var=#oidType#>
 	<cfset oidType=replace(OIDType,"|",",","all")>
 	<cfset basQual = " #basQual# and otherIdSearch.id_references='self' AND otherIdSearch.other_id_type in (#OIDType#)">
 </cfif>
@@ -1605,7 +1597,7 @@
 	<cfset basQual = " #basQual# AND otherIdRefSearch.id_references = '#id_references#'">
 </cfif>
 <cfif isdefined("related_term_1") AND len(related_term_1) gt 0>
-	<cfset mapurl = "#mapurl#&related_term_1=#related_term_1#">
+	<cfset mapurl = "#mapurl#&related_term_1=#URLEncodedFormat(related_term_1)#">
 	<cfif basJoin does not contain " otherIdRefSearch ">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdRefSearch ON (#session.flatTableName#.collection_object_id = otherIdRefSearch.collection_object_id)">
 	</cfif>
@@ -1615,14 +1607,14 @@
 	<cfset basQual = " #basQual# and otherIdRefSearch.id_references != 'self' AND otherIdRefRelTerms1.term='#related_term_1#'">
 </cfif>
 <cfif isdefined("RelatedOIDType") AND len(RelatedOIDType) gt 0>
-	<cfset mapurl = "#mapurl#&RelatedOIDType=#RelatedOIDType#">
+	<cfset mapurl = "#mapurl#&RelatedOIDType=#URLEncodedFormat(RelatedOIDType)#">
 	<cfif basJoin does not contain " otherIdRefSearch ">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdRefSearch ON (#session.flatTableName#.collection_object_id = otherIdRefSearch.collection_object_id)">
 	</cfif>
 	<cfset basQual = "  #basQual# and otherIdRefSearch.id_references != 'self' AND otherIdRefSearch.other_id_type='#RelatedOIDType#'">
 </cfif>
 <cfif isdefined("related_term_val_1") AND len(related_term_val_1) gt 0>
-	<cfset mapurl = "#mapurl#&related_term_val_1=#related_term_val_1#">
+	<cfset mapurl = "#mapurl#&related_term_val_1=#URLEncodedFormat(related_term_val_1)#">
 	<cfif basJoin does not contain " otherIdRefSearch ">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdRefSearch ON (#session.flatTableName#.collection_object_id = otherIdRefSearch.collection_object_id)">
 	</cfif>
@@ -1636,7 +1628,7 @@
 	<cfif not isdefined("oidOper") OR len(oidOper) is 0>
 		<cfset oidOper = "LIKE">
 	</cfif>
-	<cfset mapurl = "#mapurl#&OIDNum=#OIDNum#">
+	<cfset mapurl = "#mapurl#&OIDNum=#URLEncodedFormat(OIDNum)#">
 	<cfset mapurl = "#mapurl#&oidOper=#oidOper#">
 	<cfif basJoin does not contain " otherIdSearch ">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdSearch ON (#session.flatTableName#.collection_object_id = otherIdSearch.collection_object_id)">
@@ -1659,26 +1651,6 @@
 		<cfset oidList=replace(oidList,chr(9),',','all')>
 		<cfset oidList=replace(oidList,",,",',','all')>
 		<cfset basQual = " #basQual# AND upper(otherIdSearch.display_value) IN ( #ListQualify(oidList,'''')# ) " >
-		
-		
-		
-		<!----
-		<cfset oidList="">
-		<cfloop list="#OIDNum#" delimiters="," index="i">
-			<cfif len(oidList) is 0>
-				<cfset oidList = "AND ( upper(otherIdSearch.display_value) = '#ucase(i)#'">
-			<cfelse>
-				<cfset oidList = "#oidList# OR upper(otherIdSearch.display_value) = '#ucase(i)#'">
-			</cfif>
-		</cfloop>
-		<cfset oidList = "#oidList# )">
-		<cfset basQual = " #basQual# #oidList#">
-		
-		---->
-		
-		
-		
-	
 	</cfif>
 	<cfif session.flatTableName is not "flat">
 		<cfset basQual = " #basQual# AND (#session.flatTableName#.encumbrances is null or #session.flatTableName#.encumbrances not like '%mask original field number%') ">
@@ -1690,7 +1662,7 @@
 	<cfelse>
 		<cfset basQual = " #basQual# AND continent_ocean = '#continent_ocean#'">
 	</cfif>
-	<cfset mapurl = "#mapurl#&continent_ocean=#continent_ocean#">
+	<cfset mapurl = "#mapurl#&continent_ocean=#URLEncodedFormat(continent_ocean)#">
 </cfif>
 <cfif isdefined("sea") AND len(sea) gt 0>
 	<cfif compare(sea,"NULL") is 0>
@@ -1698,7 +1670,7 @@
 	<cfelse>
 		<cfset basQual = " #basQual# AND sea = '#sea#'">
 	</cfif>
-	<cfset mapurl = "#mapurl#&sea=#sea#">
+	<cfset mapurl = "#mapurl#&sea=#URLEncodedFormat(sea)#">
 </cfif>
 <cfif isdefined("Country") AND len(Country) gt 0>
 	<cfif compare(country,"NULL") is 0>
@@ -1706,7 +1678,7 @@
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.country) like '%#ucase(country)#%'">
 	</cfif>
-	<cfset mapurl = "#mapurl#&Country=#Country#">
+	<cfset mapurl = "#mapurl#&Country=#URLEncodedFormat(Country)#">
 </cfif>
 <cfif isdefined("state_prov") AND len(state_prov) gt 0>
 	<cfif compare(state_prov,"NULL") is 0>
