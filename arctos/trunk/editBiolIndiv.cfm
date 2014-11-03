@@ -257,25 +257,24 @@
 							<input type="hidden" name="unit_#attribute_id#" id="unit_#attribute_id#" value="#attribute_units#">
 						</td>
 						<td id="_remarks_#attribute_id#">
-							<input type="text" name="attribute_remark_#attribute_id#" id="attribute_remark_#attribute_id#" value="#attribute_remark#">
+							<input type="text" name="attribute_remark_#attribute_id#" id="attribute_remark_#attribute_id#" value="#stripQuotes(attribute_remark)#">
 						</td>
 						<td id="_determined_date_#attribute_id#">
 							<input type="text" name="determined_date_#attribute_id#" id="determined_date_#attribute_id#" 
 								value="#determined_date#" class="reqdClr" size="12">
 						</td>
 						<td id="_determination_method_#attribute_id#">
-							<input type="text" name="determination_method_#attribute_id#" id="determination_method_#attribute_id#" value="#determination_method#">
+							<input type="text" name="determination_method_#attribute_id#" id="determination_method_#attribute_id#" value="#stripQuotes(determination_method)#">
 						</td>
 						<td id="_agent_name_#attribute_id#">
 							<input type="hidden" name="determined_by_agent_id_#attribute_id#" id="determined_by_agent_id_#attribute_id#" 
 								value="#determined_by_agent_id#">
-							<input type="text" name="agent_name_#attribute_id#" id="agent_name_#attribute_id#" class="reqdClr" value="#agent_name#"
+							<input type="text" name="agent_name_#attribute_id#" id="agent_name_#attribute_id#" class="reqdClr" value="#stripQuotes(agent_name)#"
 		 						onchange="getAgent('determined_by_agent_id_#attribute_id#',this.id,'details',this.value); return false;"
 		  						onKeyPress="return noenter(event);">
 						</td>
 						<td id="attdel_#attribute_id#">
-							<input type="button" id="del_#attribute_id#" value="Delete" class="delBtn"
-								onclick="deleteAttribute('#attribute_id#');">
+							<input type="button" id="del_#attribute_id#" value="Delete" class="delBtn" onclick="deleteAttribute('#attribute_id#');">
 						</td>
 					</tr>
 					<cfset i=i+1>
