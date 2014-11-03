@@ -366,6 +366,10 @@
 	function clearTerm(id){
 		$("#" + id).val('');
 	}
+	function asterisckificateisland(){
+		$("#island").val("*" + $("#island").val());
+	}
+
 </script>
 <cfset title = "Edit Geography">
 	<cfoutput>
@@ -508,8 +512,12 @@
 		                  </select>
 					</td>
 					<td >
-						<label for="island" class="likeLink" onClick="getDocs('higher_geography','island')">
-							Island (prefix with * to force; otherwise will error on potential duplicates)
+					
+						<label for="island" >
+							<span class="likeLink" onClick="getDocs('higher_geography','island')"Island</span>
+							<span class="likeLink" onClick="asterisckificateisland();">
+								[ prefix with * ] to override duplicate detection
+							</span>
 						</label>
 						<input type="text" name="island" id="island" value="#island#" size="60">
 					</td>

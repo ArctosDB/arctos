@@ -16,6 +16,9 @@
 	<cfelse>
 		<cfset http_target=target>
 	</cfif>
+	<cfif target contains "inurl:/content/">
+		<cflocation url="/errors/autoblacklist.cfm">
+	</cfif>
 	<cfhttp url="#http_target#" method="head" timeout="3"></cfhttp>
 	<cfif isdefined("cfhttp.statuscode") and cfhttp.statuscode is "200 OK">
 		<cfset status="200">
