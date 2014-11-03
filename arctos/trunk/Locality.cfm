@@ -515,8 +515,9 @@
 						<label for="island" >
 							<span class="likeLink" onClick="getDocs('higher_geography','island')">Island</span>
 							<span class="likeLink" onClick="asterisckificateisland();">
-								[ prefix with * ] to override duplicate detection
+								[ prefix with * ] 
 							</span>
+							to override duplicate detection
 						</label>
 						<input type="text" name="island" id="island" value="#island#" size="60">
 					</td>
