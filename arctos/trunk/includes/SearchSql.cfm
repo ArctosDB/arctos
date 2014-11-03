@@ -1584,6 +1584,11 @@
 	<cfif basJoin does not contain " otherIdSearch ">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdSearch ON (#session.flatTableName#.collection_object_id = otherIdSearch.collection_object_id)">
 	</cfif>
+	
+	<cfdump var=#oidType#>
+
+
+
 	<cfset oidType=listqualify(OIDType,chr(39),",")>
 	
 	
