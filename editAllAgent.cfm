@@ -498,6 +498,8 @@
 					<cfset ttype='email'>
 				<cfelseif address_type contains "phone" or address_type is "fax">
 					<cfset ttype='tel'>
+				<cfelseif address_type is "home" or address_type is "correspondence" or address_type is "shipping">
+					<cfset ttype='textarea'>
 				<cfelse>
 					<cfset ttype='text'>
 				</cfif>
@@ -510,7 +512,12 @@
 							>#ctaddress_type.ADDRESS_TYPE#</option>
 						</cfloop>
 					</select>
-					<input type="#ttype#" class="reqdClr minput" name="address_#address_id#" id="address_#address_id#" value="#ADDRESS#">
+					<cfif ttype is 'textarea'>
+						<textarea class="reqdClr hugetextarea" name="address_#address_id#" id="address_#address_id#">#ADDRESS#</textarea>
+					<cfelse>
+						<input type="#ttype#" class="reqdClr minput" name="address_#address_id#" id="address_#address_id#" value="#ADDRESS#">
+					</cfif>
+					
 				</div>
 			</cfloop>
 			
