@@ -297,33 +297,6 @@
 			padding:2em;
 		}
 	</style>
-	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select
-			google_client_id,
-			google_private_key
-		from cf_global_settings
-	</cfquery>
-	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select source from cttaxonomy_source order by source
-	</cfquery>
-	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
-	<script>
-		jQuery(document).ready(function(){
-			if (document.location.hash.length == 0) {
-			     $('html, body').animate({
-			         scrollTop: $("##taxondetail").offset().top
-			     }, 1000);
-			}
-
-			var am='/form/inclMedia.cfm?typ=taxon&tgt=specTaxMedia&q=' +  $("##taxon_name_id").val();
-			jQuery.get(am, function(data){
-				 jQuery('##specTaxMedia').html(data);
-			})
-		})
-
-
-
-	</script>
 	<cfquery name="d" datasource="uam_god">
 		select 
 			taxon_name_id,
@@ -349,6 +322,30 @@
 		---->
 		<cfabort>
 	</cfif>
+	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select
+			google_client_id,
+			google_private_key
+		from cf_global_settings
+	</cfquery>
+	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select source from cttaxonomy_source order by source
+	</cfquery>
+	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
+	<script>
+		jQuery(document).ready(function(){
+			if (document.location.hash.length == 0) {
+			     $('html, body').animate({
+			         scrollTop: $("##taxondetail").offset().top
+			     }, 1000);
+			}
+			var am='/form/inclMedia.cfm?typ=taxon&tgt=specTaxMedia&q=' +  $("##taxon_name_id").val();
+			jQuery.get(am, function(data){
+				 jQuery('##specTaxMedia').html(data);
+			})
+		})
+	</script>
+	
 	<cfquery name="scientific_name" dbtype="query">
 		select scientific_name from d group by scientific_name
 	</cfquery>
