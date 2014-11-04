@@ -3,14 +3,11 @@
 <cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_name_type as agent_name_type from ctagent_name_type where agent_name_type != 'preferred' order by agent_name_type
 </cfquery>
-<cfquery name="CTELECTRONIC_ADDR_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select ADDRESS_TYPE from CTELECTRONIC_ADDR_TYPE order by ADDRESS_TYPE
+<cfquery name="CTADDRESS_TYPEE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select ADDRESS_TYPE from CTADDRESS_TYPE order by ADDRESS_TYPE
 </cfquery>
 <cfquery name="ctAgent_Type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select agent_type from ctagent_type order by agent_type
-</cfquery>
-<cfquery name="ctElecAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select address_type from ctelectronic_addr_type order by address_type
 </cfquery>
 <cfquery name="ctRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select AGENT_RELATIONSHIP from CTAGENT_RELATIONSHIP order by AGENT_RELATIONSHIP
@@ -103,34 +100,37 @@
 			}
 		});
 
-		$(document).on("change", '[id^="electronic_address_type_"]', function(){
+
+
+		
+		$(document).on("change", '[id^="address_type_"]', function(){
 			// change input type
 			var ntype,dfld;
-			if ( $(this).val()=='URL' ){
+			if ( $(this).val()=='url' ){
 				ntype='url';
-			} else if ( $(this).val()=='e-mail' ){
+			} else if ( $(this).val()=='email' ){
 				ntype='email';
 			} else if ( $(this).val().indexOf('phone')>-1 ||  $(this).val()=='fax'){
 				ntype='tel';
 			} else {
 				ntype='text';
 			}
-			dfld=this.id.replace('electronic_address_type_','electronic_address_');
+			dfld=this.id.replace('address_type_','address_');
 			$("#" + dfld).clone().attr('type',ntype).insertAfter("#" + dfld).prev().remove();
 		});
 
-		$(document).on("change", '[id^="electronic_address_type_new"], [id^="electronic_address_new"]', function(){
+		$(document).on("change", '[id^="address_type_new"], [id^="address_new"]', function(){
 			// require paired values
 			var i = this.id;
 			var ntype = 'text';
-			i=i.replace("electronic_address_type_new", ""); 
-			i=i.replace("electronic_address_new", ""); 
-			if ( $("#electronic_address_type_new" + i).val().length > 0 ||  $("#electronic_address_new" + i).val().length > 0 ) {
-				$("#electronic_address_type_new" + i).addClass('reqdClr').prop('required',true);
-				$("#electronic_address_new" + i).addClass('reqdClr').prop('required',true);
+			i=i.replace("address_type_new", ""); 
+			i=i.replace("address_new", ""); 
+			if ( $("#address_type_new" + i).val().length > 0 ||  $("#address_new" + i).val().length > 0 ) {
+				$("#address_type_new" + i).addClass('reqdClr').prop('required',true);
+				$("#address_new" + i).addClass('reqdClr').prop('required',true);
 			} else {
-				$("#electronic_address_type_new" + i).removeClass('reqdClr').prop('required',false);
-				$("#electronic_address_new" + i).removeClass('reqdClr').prop('required',false);
+				$("#address_type_new" + i).removeClass('reqdClr').prop('required',false);
+				$("#address_new" + i).removeClass('reqdClr').prop('required',false);
 			}
 		});
 	});
@@ -178,16 +178,11 @@
 	       	numSpecs desc,
 	       	guid_prefix
 	</cfquery>
-	<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from addr
+	<cfquery name="address" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from address
 		where 
 		agent_id = #agent.agent_id#
-		order by valid_addr_fg DESC
-	</cfquery>
-	<cfquery name="elecagentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from electronic_address
-		where 
-		agent_id = #agent.agent_id#
+		order by valid_addr_fg DESC, address_type
 	</cfquery>
 	<cfquery name="status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -493,11 +488,11 @@
 			</table>
 		</fieldset>
 		<fieldset>
-			<legend>Electronic Address 	<span class="likeLink" onclick="getCtDoc('CTELECTRONIC_ADDR_TYPE');">code table</span></legend>
-			<cfloop query="elecagentAddrs">
+			<legend>Address 	<span class="likeLink" onclick="getCtDoc('address_type');">code table</span></legend>
+			<cfloop query="address">
 				<cfif address_type is "url">
 					<cfset ttype='url'>
-				<cfelseif address_type is "e-mail">
+				<cfelseif address_type is "email">
 					<cfset ttype='email'>
 				<cfelseif address_type contains "phone" or address_type is "fax">
 					<cfset ttype='tel'>
@@ -505,33 +500,33 @@
 					<cfset ttype='text'>
 				</cfif>
 				<div>
-					<select name="electronic_address_type_#electronic_address_id#" id="electronic_address_type_#electronic_address_id#" size="1">
+					<select name="address_type_#address_id#" id="address_type_#address_id#" size="1">
 						<option value="DELETE">DELETE</option>
-						<cfloop query="CTELECTRONIC_ADDR_TYPE">
-							<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#"
-								<cfif CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE is elecagentAddrs.ADDRESS_TYPE>selected="selected"</cfif>
-							>#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
+						<cfloop query="ctaddress_type">
+							<option value="#ctaddress_type.ADDRESS_TYPE#"
+								<cfif ctaddress_type.ADDRESS_TYPE is address.ADDRESS_TYPE>selected="selected"</cfif>
+							>#ctaddress_type.ADDRESS_TYPE#</option>
 						</cfloop>
 					</select>
-					<input type="#ttype#" class="reqdClr minput" name="electronic_address_#electronic_address_id#" 
-						id="electronic_address_#electronic_address_id#" value="#ADDRESS#">
+					<input type="#ttype#" class="reqdClr minput" name="address_#address_id#" id="address_#address_id#" value="#ADDRESS#">
 				</div>
 			</cfloop>
 			
 			<input type="hidden" id="nnea" value="1">
 			<div class="newRec" id="eaddiv1">
-				<select name="electronic_address_type_new1" id="electronic_address_type_new1" size="1">
+				<select name="address_type_new1" id="address_type_new1" size="1">
 					<option value="">pick new</option>
-					<cfloop query="CTELECTRONIC_ADDR_TYPE">
-						<option value="#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#">#CTELECTRONIC_ADDR_TYPE.ADDRESS_TYPE#</option>
+					<cfloop query="ctaddress_type">
+						<option value="#ctaddress_type.ADDRESS_TYPE#">#ctaddress_type.ADDRESS_TYPE#</option>
 					</cfloop>
 				</select>
-				<input type="text" class="minput" name="electronic_address_new1" id="electronic_address_new1" placeholder="add electronic address">
-				<input type="button" onclick="addElectronicAddress()" value="add a row">
+				<input type="text" class="minput" name="address_new1" id="address_new1" placeholder="add address">
+				<input type="button" onclick="addAddress()" value="add a row">
 			</div>
 		</fieldset>			
 		<input type="submit" value="save all changes" class="savBtn">
 	</form>
+	<!-----
 	<hr>
 	<fieldset>
 		<legend>Address</legend>
@@ -557,4 +552,5 @@
 			</div>				
 		</cfloop>
 	</fieldset>
+	---------->
 </cfoutput>
