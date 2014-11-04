@@ -156,7 +156,7 @@ function addElectronicAddress(){
 
 }
 
-
+/*
 function addAgentAddr(aid){
 	var guts = "includes/forms/editAgentAddr.cfm?action=newAddress&agent_id=" + aid;
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
@@ -180,7 +180,8 @@ function addAgentAddr(aid){
 	    $(".ui-dialog-titlebar-close").trigger('click');
 	});
 }			
-				
+	
+*/
 function rankAgent(agent_id) {
 	var ptl="/includes/forms/agentrank.cfm?agent_id="+agent_id;			
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
