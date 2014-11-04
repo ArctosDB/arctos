@@ -36,6 +36,13 @@
 </cfloop>
 <cfscript>
 	variables.joFileWriter.writeLine('Disallow: /digir/');
+	// useless bots
+	variables.joFileWriter.writeLine('');
+	variables.joFileWriter.writeLine('User-agent: Slurp');
+	variables.joFileWriter.writeLine('Disallow: /');
+	variables.joFileWriter.writeLine('');
+
+
 	variables.joFileWriter.writeLine('Sitemap: ' & application.serverRootUrl & '/sitemapindex.xml.gz');
 	variables.joFileWriter.close();
 </cfscript>
