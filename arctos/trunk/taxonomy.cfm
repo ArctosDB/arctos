@@ -316,7 +316,8 @@
 			upper(scientific_name)='#ucase(name)#'
 	</cfquery>	
 	<cfif d.recordcount is 0>
-		sorry, we don't see to have data for #name# yet.
+		No data for #name# is available. Please search again, or use the Contact link below to tell us what's missing.
+		<cfinclude template="includes/_footer.cfm">
 		<!----
 		You can <a href="taxonomydemo.cfm?action=createTerm&scientific_name=#name#">create #name#</a>
 		---->
