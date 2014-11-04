@@ -36,9 +36,22 @@
 </cfloop>
 <cfscript>
 	variables.joFileWriter.writeLine('Disallow: /digir/');
+
 	// useless bots
 	variables.joFileWriter.writeLine('');
 	variables.joFileWriter.writeLine('User-agent: Slurp');
+	variables.joFileWriter.writeLine('Disallow: /');
+	variables.joFileWriter.writeLine('');
+	variables.joFileWriter.writeLine('');
+	variables.joFileWriter.writeLine('User-agent: spbot');
+	variables.joFileWriter.writeLine('Disallow: /');
+	variables.joFileWriter.writeLine('');
+	variables.joFileWriter.writeLine('');
+	variables.joFileWriter.writeLine('User-agent: MJ12bot');
+	variables.joFileWriter.writeLine('Disallow: /');
+	variables.joFileWriter.writeLine('');
+	variables.joFileWriter.writeLine('');
+	variables.joFileWriter.writeLine('User-agent: Baiduspider');
 	variables.joFileWriter.writeLine('Disallow: /');
 	variables.joFileWriter.writeLine('');
 
