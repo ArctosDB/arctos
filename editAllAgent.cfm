@@ -112,6 +112,8 @@
 				ntype='email';
 			} else if ( $(this).val().indexOf('phone')>-1 ||  $(this).val()=='fax'){
 				ntype='tel';
+			} else if ( $(this).val()=='shipping' || $(this).val()=='home' || $(this).val()=='correspondence' ||  ){
+				ntype='textarea';
 			} else {
 				ntype='text';
 			}
