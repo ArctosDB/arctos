@@ -318,9 +318,7 @@
 	<cfif d.recordcount is 0>
 		No data for #name# is available. Please search again, or use the Contact link below to tell us what's missing.
 		<cfinclude template="includes/_footer.cfm">
-		<!----
-		You can <a href="taxonomydemo.cfm?action=createTerm&scientific_name=#name#">create #name#</a>
-		---->
+		<cfheader statuscode="404" statustext="Not found">
 		<cfabort>
 	</cfif>
 	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
