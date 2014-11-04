@@ -513,7 +513,7 @@
 						</cfloop>
 					</select>
 					<cfif ttype is 'textarea'>
-						<textarea class="reqdClr hugetextarea" name="address_#address_id#" id="address_#address_id#">#ADDRESS#</textarea>
+						<textarea class="reqdClr addresstextarea" name="address_#address_id#" id="address_#address_id#">#ADDRESS#</textarea>
 					<cfelse>
 						<input type="#ttype#" class="reqdClr minput" name="address_#address_id#" id="address_#address_id#" value="#ADDRESS#">
 					</cfif>
