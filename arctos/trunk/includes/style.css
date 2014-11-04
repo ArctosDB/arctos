@@ -169,6 +169,11 @@
 	    margin: 0.3em;
 	    width: 44em;
 	}
+	.addresstextarea {
+	    height: 8em;
+	    margin: 0.3em;
+	    width: 30em;
+	}
 	.minput {
 		width:40em;
 	}
