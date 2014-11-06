@@ -123,14 +123,18 @@
 			console.log('dfld=' + dfld);
 
 			if (ntype=='textarea'){
-				var newDataElem='<textarea class="reqdClr addresstextarea" name="address_' + dfld + '" id="address_' + dfld + '"></textarea>';
+				var newDataElem='<textarea class="reqdClr addresstextarea" name="' + dfld + '" id="' + dfld + '"></textarea>';
 			} else {
-				var newDataElem='<input type="' + ntype + '" class="reqdClr minput" name="address_' + dfld + '" id="address_' + dfld + '">';
+				var newDataElem='<input type="' + ntype + '" class="reqdClr minput" name="' + dfld + '" id="' + dfld + '">';
 			}
 			console.log('newDataElem=' + newDataElem);
 
+var oldData=$("#" + dfld).val();
+			console.log('oldData=' + oldData);
 
-//			var oldData=$("address_" + dfld).val();
+
+
+//			
 			
 
 
