@@ -460,7 +460,12 @@
 								onchange="pickAgentTest('related_agent_id_#agent_relations_id#',this.id,this.value); return false;"
 								onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
 						</td>
-						<td> #created_by_agent# on #created_on_date#</td>
+						<td>
+							<a href="/agents.cfm?agent_id=#related_agent_id#">[ link ]</a>
+							<div style="display:table-cell;font-size:x-small">
+								Created by #created_by_agent# on #dateformat(created_on_date,'yyyy-mm-dd')#
+							</div>
+						</td>
 					</tr>
 				
 				</cfloop>
