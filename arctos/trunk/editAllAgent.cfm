@@ -399,7 +399,7 @@
 							<select name="agent_status_#agent_status_id#" id="agent_status_#agent_status_id#" size="1" class="reqdClr">
 								<option value="DELETE">DELETE</option>
 								<cfloop query="ctagent_status">
-									<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
+									<option <cfif status.agent_status is agent_status> selected="selected" </cfif> value="#agent_status#">#agent_status#</option>
 								</cfloop>
 							</select>
 						</div>
@@ -569,31 +569,4 @@
 		</fieldset>			
 		<input type="submit" value="save all changes" class="savBtn">
 	</form>
-	<!-----
-	<hr>
-	<fieldset>
-		<legend>Address</legend>
-		<input type="button" onclick="addAgentAddr(#agent_id#)" value="New Address" class="insBtn">
-		<cfloop query="agentAddrs">
-			<cfif valid_addr_fg is 1>
-				<cfset thisClass="validAddress">
-			<cfelse>
-				<cfset thisClass="invalidAddress">
-			</cfif>
-			<div class="#thisClass#" id="aow_#ADDR_ID#" style="width:100%; display: table;">
-			    <div style="display: table-row">
-			        <div id="atype_#ADDR_ID#" style="display: table-cell;">
-			        	#addr_type# Address (<cfif valid_addr_fg is 1>valid<cfelse>invalid</cfif>)
-			        </div>
-			        <div style="display: table-cell;text-align:right;">
-			        	<input type="button" onclick="editAgentAddress('#ADDR_ID#');" value="edit">
-			        </div>
-			    </div>
-		    	<div id="dvaddr_#ADDR_ID#" style="margin-left:1em;">
-					#replace(formatted_addr,chr(10),"<br>","all")#
-				</div>
-			</div>				
-		</cfloop>
-	</fieldset>
-	---------->
 </cfoutput>
