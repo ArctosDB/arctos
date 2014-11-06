@@ -47,12 +47,7 @@
 			round(RETURN_DUE_DATE - sysdate) +1 in (#eid#) and 
 			LOAN_STATUS != 'closed'
 	</cfquery>
-	
-	<cfdump var=#expLoan#>
-	
-	<cfabort>
-	
-	
+
 	<!--- local query to organize and flatten loan data --->
 	<cfquery name="loan" dbtype="query">
 		select
@@ -79,8 +74,8 @@
 		<!--- local queries to organize and flatten loan data --->
 		<cfquery name="inhouseAgents" dbtype="query">
 			select
-				address,
-				agent_name
+				trans_agent_email address,
+				trans_agent_name agent_name
 			from
 				expLoan
 			where
@@ -93,8 +88,8 @@
 		</cfquery>
 		<cfquery name="notificationAgents" dbtype="query">
 			select
-				address,
-				agent_name
+				trans_agent_email address,
+				trans_agent_name agent_name
 			from
 				expLoan
 			where
@@ -105,10 +100,13 @@
 				address,
 				agent_name
 		</cfquery>
+		
+		
+			
 		<cfquery name="collectionAgents" dbtype="query">
 			select
-				collection_agent_name agent_name,
-				collection_email address
+				collection_contact_name agent_name,
+				collection_contact_email address
 			from
 				expLoan
 			where
