@@ -83,8 +83,8 @@
 				trans_agent_role='in-house contact' and
 				address is not null				
 			group by
-				address,
-				agent_name
+				trans_agent_email,
+				trans_agent_name
 		</cfquery>
 		<cfquery name="notificationAgents" dbtype="query">
 			select
@@ -97,8 +97,8 @@
 				trans_agent_role='notification contact' and
 				address is not null
 			group by
-				address,
-				agent_name
+				trans_agent_email,
+				trans_agent_name
 		</cfquery>
 		
 		
@@ -113,8 +113,8 @@
 				transaction_id=#transaction_id# and
 				collection_email is not null
 			group by
-				collection_agent_name,
-				collection_email
+				collection_contact_name,
+				collection_contact_email
 		</cfquery>
 		<!--- the "contact if" section of the form we'll send to notification agents --->		
 		<cfsavecontent variable="contacts">
