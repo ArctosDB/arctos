@@ -536,7 +536,14 @@
 					<cfelse>
 						<input type="#ttype#" class="reqdClr minput" name="address_#address_id#" id="address_#address_id#" value="#ADDRESS#">
 					</cfif>
-					
+					<select name="valid_addr_fg_#address_id#" id="valid_addr_fg_#address_id#" class="reqdClr">
+						<option value="1" <cfif valid_addr_fg is 1> selected="selected" </cfif>>valid</option>
+						<option value="0" <cfif valid_addr_fg is 0> selected="selected" </cfif>>invalid</option>
+					</select>
+					<textarea class="smalltextarea" placeholder="remark" name="address_remark_#address_id#" id="address_remark_#address_id#">#address_remark_#</textarea>
+
+						
+						
 				</div>
 			</cfloop>
 			

@@ -414,37 +414,48 @@
 						</cfif>
 					</cfif>
 				</cfloop>
+				
+				
+				
 				<cfloop list="#structKeyList(url)#" index="key">
-					<cfif left(key,24) is "electronic_address_type_">
-						<cfset thisElectronicAddressID=listlast(key,"_")>
-						<cfset thisElectronicAddressType=url["electronic_address_type_#thisElectronicAddressID#"]>
-						<cfset thisElectronicAddress=url["electronic_address_#thisElectronicAddressID#"]>
-						<cfif thisElectronicAddressID contains "new">
-							<cfif len(thisElectronicAddressType) gt 0>
+					<cfif left(key,24) is "address_type_">
+						<cfset thisAddressID=listlast(key,"_")>
+						<cfset thisAddressType=url["address_type_#thisAddressID#"]>
+						<cfset thisAddress=url["address_#thisAddressID#"]>
+						<cfset thisAddressValidFg=url["valid_addr_fg_#thisAddressID#"]>
+						<cfset thisAddressRemark=url["address_remark_#thisAddressID#"]>
+						<cfif thisAddressID contains "new">
+							<cfif len(thisAddressType) gt 0>
 								<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-									INSERT INTO electronic_address (
+									INSERT INTO address (
 										AGENT_ID
 										,address_type
-									 	,address	
+									 	,address
+									 	,VALID_ADDR_FG
+									 	,ADDRESS_REMARK
 									 ) VALUES (
 										<cfqueryparam value = "#agent_ID#" CFSQLType = "CF_SQL_INTEGER">
-										,'#thisElectronicAddressType#'
-									 	,'#thisElectronicAddress#'
+										,'#thisAddressType#'
+									 	,'#thisAddress#'
+									 	,#thisAddressValidFg#
+									 	,'#escapeQuotes(thisAddressRemark)#'
 									)
 								</cfquery>
 							</cfif>
-						<cfelseif thisElectronicAddressType is "DELETE">
+						<cfelseif thisAddressType is "DELETE">
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-								delete from  electronic_address where electronic_address_id=<cfqueryparam value = "#thisElectronicAddressID#" CFSQLType = "CF_SQL_INTEGER">
+								delete from  address where address_id=<cfqueryparam value = "#thisAddressID#" CFSQLType = "CF_SQL_INTEGER">
 							</cfquery>
 						<cfelse>						
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-								update electronic_address 
+								update address 
 								set
-									address_type='#thisElectronicAddressType#',
-									address='#thisElectronicAddress#'
+									address_type='#thisAddressType#',
+									address='#thisAddress#',
+									VALID_ADDR_FG=#thisAddressValidFg#,
+									ADDRESS_REMARK='#escapeQuotes(thisAddressRemark)#'
 								where
-									electronic_address_id=<cfqueryparam value = "#thisElectronicAddressID#" CFSQLType = "CF_SQL_INTEGER">
+									address_id=<cfqueryparam value = "#thisAddressID#" CFSQLType = "CF_SQL_INTEGER">
 							</cfquery>
 						</cfif>
 					</cfif>
