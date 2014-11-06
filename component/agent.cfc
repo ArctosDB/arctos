@@ -418,13 +418,12 @@
 				
 				
 				<cfloop list="#structKeyList(url)#" index="key">
-					<cfif left(key,24) is "address_type_">
+					<cfif left(key,13) is "address_type_">
 						<cfset thisAddressID=listlast(key,"_")>
 						<cfset thisAddressType=url["address_type_#thisAddressID#"]>
 						<cfset thisAddress=url["address_#thisAddressID#"]>
 						<cfset thisAddressValidFg=url["valid_addr_fg_#thisAddressID#"]>
 						<cfset thisAddressRemark=url["address_remark_#thisAddressID#"]>
-						thisAddressID: #thisAddressID#
 						<cfif thisAddressID contains "new">
 							<cfif len(thisAddressType) gt 0>
 								<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
