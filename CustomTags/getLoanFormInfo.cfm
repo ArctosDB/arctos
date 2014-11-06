@@ -50,6 +50,36 @@
 		trans.transaction_id = 	outside_contact.transaction_id (+) and	
 		trans.transaction_id = 	project_trans.transaction_id (+) and
 		project_trans.project_id =	project_sponsor.project_id (+) and
-		loan.transaction_id=#transaction_id#	
+		loan.transaction_id=#transaction_id#
+	group by
+		trans_date,
+	    concattransagent(trans.transaction_id, 'authorized by'),
+	    concattransagent(trans.transaction_id, 'received by')  ,
+	    concattransagent(trans.transaction_id, 'outside contact'),
+	    concattransagent(trans.transaction_id, 'inside contact'),
+		getAgentNameType(outside_contact.agent_id,'job title'),
+		getAgentNameType(inside_contact.agent_id,'job title'),
+		get_address(inside_contact.agent_id,'Correspondence'),
+		get_address(outside_contact.agent_id,'Correspondence'),
+		get_address(inside_contact.agent_id,'email'),
+		get_address(outside_contact.agent_id,'email'),
+		loan.return_due_date,
+		trans.nature_of_material,
+		trans.trans_remarks,
+		loan.loan_instructions,
+		loan.loan_description,
+		loan.loan_type,
+		loan.loan_number,
+		loan.loan_status,
+		shipment.shipped_date,
+		case when  concattransagent(trans.transaction_id, 'received by') !=  concattransagent(trans.transaction_id, 'outside contact')  then
+			'Attn: ' || concattransagent(trans.transaction_id, 'outside contact') || '<br>' || ship_to_addr.address
+		else
+			ship_to_addr.address
+		end ,
+		ship_from_addr.address ,
+		getPreferredAgentName(shipment.PACKED_BY_AGENT_ID),
+		getPreferredAgentName(project_sponsor.PROJECT_AGENT_ID),
+		PROJECT_AGENT_REMARKS
 </cfquery>
 </cfoutput>
