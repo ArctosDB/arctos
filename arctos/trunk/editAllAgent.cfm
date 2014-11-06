@@ -121,6 +121,27 @@
 			$("#" + dfld).clone().attr('type',ntype).insertAfter("#" + dfld).prev().remove();
 		});
 
+
+
+		<div>
+					<select name="address_type_#address_id#" id="address_type_#address_id#" size="1">
+						<option value="DELETE">DELETE</option>
+						<cfloop query="ctaddress_type">
+							<option value="#ctaddress_type.ADDRESS_TYPE#"
+								<cfif ctaddress_type.ADDRESS_TYPE is address.ADDRESS_TYPE>selected="selected"</cfif>
+							>#ctaddress_type.ADDRESS_TYPE#</option>
+						</cfloop>
+					</select>
+					<cfif ttype is 'textarea'>
+						<textarea class="reqdClr addresstextarea" name="address_#address_id#" id="address_#address_id#">#ADDRESS#</textarea>
+					<cfelse>
+						<input type="#ttype#" class="reqdClr minput" name="address_#address_id#" id="address_#address_id#" value="#ADDRESS#">
+					</cfif>
+					
+
+
+
+
 		$(document).on("change", '[id^="address_type_new"], [id^="address_new"]', function(){
 			// require paired values
 			var i = this.id;
@@ -490,7 +511,7 @@
 			</table>
 		</fieldset>
 		<fieldset>
-			<legend>Address 	<span class="likeLink" onclick="getCtDoc('address_type');">code table</span></legend>
+			<legend>Address 	<span class="likeLink" onclick="getCtDoc('ctaddress_type');">code table</span></legend>
 			<cfloop query="address">
 				<cfif address_type is "url">
 					<cfset ttype='url'>
