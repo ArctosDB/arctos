@@ -459,10 +459,11 @@
 							<input type="text" name="related_agent_#agent_relations_id#" id="related_agent_#agent_relations_id#" value="#agent_name#"
 								onchange="pickAgentTest('related_agent_id_#agent_relations_id#',this.id,this.value); return false;"
 								onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
+							<a href="/agents.cfm?agent_id=#related_agent_id#">[ link ]</a> 
 						</td>
 						<td>
 							<div style="font-size:x-small">
-								<a href="/agents.cfm?agent_id=#related_agent_id#">[ link ]</a> Created by #created_by_agent# on #dateformat(created_on_date,'yyyy-mm-dd')#
+								Created by #created_by_agent# on #dateformat(created_on_date,'yyyy-mm-dd')#
 							</div>
 						</td>
 					</tr>
