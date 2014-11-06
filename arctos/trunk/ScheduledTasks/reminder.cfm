@@ -81,7 +81,7 @@
 			where
 				transaction_id=#transaction_id# and
 				trans_agent_role='in-house contact' and
-				address is not null				
+				trans_agent_email is not null				
 			group by
 				trans_agent_email,
 				trans_agent_name
@@ -95,7 +95,7 @@
 			where
 				transaction_id=#transaction_id# and
 				trans_agent_role='notification contact' and
-				address is not null
+				trans_agent_email is not null
 			group by
 				trans_agent_email,
 				trans_agent_name
@@ -111,7 +111,7 @@
 				expLoan
 			where
 				transaction_id=#transaction_id# and
-				collection_email is not null
+				collection_contact_email is not null
 			group by
 				collection_contact_name,
 				collection_contact_email
