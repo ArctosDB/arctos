@@ -210,7 +210,7 @@
 			agent_relations_id,
 			agent_relationship, 
 			agent.preferred_agent_name agent_name, 
-			related_agent_id
+			related_agent_id,
 			getPreferredAgentName(created_by_agent_id) created_by_agent,
 			to_char(created_on_date,'YYYY-MM-DD') created_on_date
 		from 
