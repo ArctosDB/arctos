@@ -476,6 +476,7 @@
 						<td>
 							from <a href="/agents.cfm?agent_id=#agent_id#">#preferred_agent_name#</a>
 						</td>
+						<td></td>
 					</tr>
 				</cfloop>
 				</tr>
@@ -496,6 +497,7 @@
 							onKeyPress="return noenter(event);" placeholder="pick related agent" class="minput">
 						<input type="button" onclick="addAgentRelationship()" value="add a row">
 					</td>
+					<td></td>
 				</tr>
 			</table>
 		</fieldset>
