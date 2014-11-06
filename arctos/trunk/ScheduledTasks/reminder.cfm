@@ -21,14 +21,14 @@
 	<cfquery name="expLoan" datasource="uam_god">
 		select 
 			loan.transaction_id,
-			to_char(RETURN_DUE_DATE,'dd Month yyyy') return_due_date,
+			to_char(RETURN_DUE_DATE,'yyyy-mm-dd') return_due_date,
 			LOAN_NUMBER,
-			electronic_address.address,
+			get_address(collection_contacts.contact_agent_id,'email') collection_contact_email,
+			getPreferredAgentName(collection_contacts.contact_agent_id) collection_contact_name,
+			get_address(trans_agent.AGENT_ID,'email') trans_agent_email,
+			getPreferredAgentName(trans_agent.AGENT_ID) trans_agent_name,
 			round(RETURN_DUE_DATE - sysdate)+1 expires_in_days,
 			trans_agent.trans_agent_role,
-			preferred_agent_name.agent_name,
-			nnName.agent_name collection_agent_name,
-			nnAddr.address collection_email,
 			guid_prefix,
 			collection.collection_id,
 			nature_of_material
@@ -39,23 +39,22 @@
 			trans_agent,
 			preferred_agent_name,
 			preferred_agent_name nnName,
-			(select * from electronic_address where address_type='e-mail') electronic_address,
-			(select * from electronic_address where address_type='e-mail') nnAddr,
 			(select * from collection_contacts where contact_role='loan request') collection_contacts
 		WHERE
 			loan.transaction_id = trans.transaction_id AND
 			trans.collection_id=collection_contacts.collection_id (+) and
 			trans.collection_id=collection.collection_id and
-			collection_contacts.contact_agent_id=nnName.agent_id (+) and
-			collection_contacts.contact_agent_id=nnAddr.agent_id (+) and
 			trans.transaction_id=trans_agent.transaction_id and
-			trans_agent.agent_id = preferred_agent_name.agent_id AND
-			preferred_agent_name.agent_id = electronic_address.agent_id AND
-			electronic_address.ADDRESS_TYPE='e-mail' AND
 			trans_agent.trans_agent_role in ('notification contact','in-house contact') and
 			round(RETURN_DUE_DATE - sysdate) +1 in (#eid#) and 
 			LOAN_STATUS != 'closed'
 	</cfquery>
+	
+	<cfdump var=#expLoan#>
+	
+	<cfabort>
+	
+	
 	<!--- local query to organize and flatten loan data --->
 	<cfquery name="loan" dbtype="query">
 		select
