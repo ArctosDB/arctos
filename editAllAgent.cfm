@@ -104,6 +104,7 @@
 
 		
 		$(document).on("change", '[id^="address_type_"]', function(){
+			
 			// change input type
 			var ntype,dfld;
 			if ( $(this).val()=='url' ){
@@ -118,7 +119,23 @@
 				ntype='text';
 			}
 			dfld=this.id.replace('address_type_','address_');
-			$("#" + dfld).clone().attr('type',ntype).insertAfter("#" + dfld).prev().remove();
+
+			console.log('dfld=' + dfld);
+
+			if (ntype=='textarea'){
+				var newDataElem='<textarea class="reqdClr addresstextarea" name="address_' + dfld + '" id="address_' + dfld + '"></textarea>';
+			} else {
+				var newDataElem='<input type="' + ntype + '" class="reqdClr minput" name="address_' + dfld + '" id="address_' + dfld + '">';
+			}
+			console.log('newDataElem=' + newDataElem);
+
+
+//			var oldData=$("address_" + dfld).val();
+			
+
+
+			
+	//		$("#" + dfld).clone().attr('type',ntype).insertAfter("#" + dfld).prev().remove();
 		});
 
 
