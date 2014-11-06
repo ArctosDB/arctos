@@ -135,8 +135,6 @@
 					<cfloop query="addr">
 						<br>
 						<span class="blueborder">
-						
-							
 							<label for="">#address_type# address</label>
 							<textarea class="hugetextarea">#address#</textarea>
 						</span>
