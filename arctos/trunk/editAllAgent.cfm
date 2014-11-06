@@ -104,8 +104,6 @@
 
 		
 		$(document).on("change", '[id^="address_type_"]', function(){
-			
-			// change input type
 			var ntype,dfld;
 			if ( $(this).val()=='url' ){
 				ntype='url';
@@ -119,32 +117,14 @@
 				ntype='text';
 			}
 			dfld=this.id.replace('address_type_','address_');
-
-			console.log('dfld=' + dfld);
-
 			if (ntype=='textarea'){
 				var newDataElem='<textarea class="reqdClr addresstextarea" name="' + dfld + '" id="' + dfld + '"></textarea>';
 			} else {
 				var newDataElem='<input type="' + ntype + '" class="reqdClr minput" name="' + dfld + '" id="' + dfld + '">';
 			}
-			console.log('newDataElem=' + newDataElem);
-
-var oldData=$("#" + dfld).val();
-			console.log('oldData=' + oldData);
-
-
-
-
-$("#" + dfld).replaceWith(newDataElem );
-
-$("#" + dfld).val(oldData);
-
-//			
-			
-
-
-			
-	//		$("#" + dfld).clone().attr('type',ntype).insertAfter("#" + dfld).prev().remove();
+			var oldData=$("#" + dfld).val();
+			$("#" + dfld).replaceWith(newDataElem );
+			$("#" + dfld).val(oldData);
 		});
 
 
