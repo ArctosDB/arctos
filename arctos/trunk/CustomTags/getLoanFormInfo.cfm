@@ -1,18 +1,18 @@
 <cfoutput>
 <cfset transaction_id=caller.transaction_id>
 <cfquery name="caller.getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-    SELECT
+       SELECT
 		trans_date,
 	    concattransagent(trans.transaction_id, 'authorized by') authAgentName,
 	    concattransagent(trans.transaction_id, 'received by')   recAgentName,
 	    concattransagent(trans.transaction_id, 'outside contact')   outside_contact_name,
 	    concattransagent(trans.transaction_id, 'inside contact')   inside_contact_name,
-		--getAgentNameType(outside_contact.agent_id,'job title') outside_contact_title,
-		--getAgentNameType(inside_contact.agent_id,'job title') inside_contact_title,
-		--get_address(inside_trans_agent.agent_id,'Correspondence') inside_address,
-		--get_address(outside_trans_agent.agent_id,'Correspondence') outside_address,
-		--get_address(inside_trans_agent.agent_id,'email') inside_email_address,
-		--get_address(outside_trans_agent.agent_id,'email') outside_email_address,
+		getAgentNameType(outside_contact.agent_id,'job title') outside_contact_title,
+		getAgentNameType(inside_contact.agent_id,'job title') inside_contact_title,
+		get_address(inside_contact.agent_id,'Correspondence') inside_address,
+		get_address(outside_contact.agent_id,'Correspondence') outside_address,
+		get_address(inside_contact.agent_id,'email') inside_email_address,
+		get_address(outside_contact.agent_id,'email') outside_email_address,
 		loan.return_due_date,
 		trans.nature_of_material,
 		trans.trans_remarks,
