@@ -291,7 +291,7 @@
 					</cfquery>
 					<input type="hidden" name="number_of_taxa_#i#" id="number_of_taxa_#i#" value="#taxa.recordcount#">
 					<label for="scientific_name_#i#">Identification String (type stuff)</label>
-					<input id="scientific_name_#i#" name="scientific_name_#i#" value="#scientific_name#" class="minput reqdClr">
+					<input id="scientific_name_#i#" name="scientific_name_#i#" value="#escapeQuotes(scientific_name)#" class="minput reqdClr">
 					<br>
 					<label for="x">
 						Associated Taxa (pick names to link)
