@@ -102,6 +102,7 @@
 				select
 					getAgentNameType(CONTACT_AGENT_ID,'first name') first_name,
 					getAgentNameType(CONTACT_AGENT_ID,'last name') last_name,
+					getAgentNameType(CONTACT_AGENT_ID,'job title') job_title,
 					CONTACT_ROLE,
 					CONTACT_AGENT_ID
 				from
@@ -120,57 +121,24 @@
 					<input type="text" size="80" value="#first_name#">
 					<label for="">last_name</label>
 					<input type="text" size="80" value="#last_name#">
+					<label for="">JOB_TITLE</label>
+					<input type="text" size="80" value="#contacts.job_title#">
 					<cfquery name="addr" datasource="uam_god">
 						select
 							*
 						from
-							addr
+							address
 						where
-							addr_type = 'Correspondence' and
 							VALID_ADDR_FG = 1 and
 							agent_id=#CONTACT_AGENT_ID#
 					</cfquery>
 					<cfloop query="addr">
 						<br>
 						<span class="blueborder">
-							<!-----
-							<label for="">ADDR_TYPE</label>
-							<input type="text" size="80" value="#ADDR_TYPE#">
-							<label for="">VALID_ADDR_FG</label>
-							<input type="text" size="80" value="#VALID_ADDR_FG#">
-							----->
-							<label for="">JOB_TITLE</label>
-							<input type="text" size="80" value="#JOB_TITLE#">
-							<label for="">STREET_ADDR1</label>
-							<input type="text" size="80" value="#STREET_ADDR1#">
-							<label for="">STREET_ADDR2</label>
-							<input type="text" size="80" value="#STREET_ADDR2#">
-							<label for="">CITY</label>
-							<input type="text" size="80" value="#CITY#">
-							<label for="">STATE</label>
-							<input type="text" size="80" value="#STATE#">
-							<label for="">ZIP</label>
-							<input type="text" size="80" value="#ZIP#">
-							<label for="">COUNTRY_CDE</label>
-							<input type="text" size="80" value="#COUNTRY_CDE#">
-							<label for="">MAIL_STOP</label>
-							<input type="text" size="80" value="#MAIL_STOP#">
-							<label for="">INSTITUTION</label>
-							<input type="text" size="80" value="#INSTITUTION#">
-							<label for="">DEPARTMENT</label>
-							<input type="text" size="80" value="#DEPARTMENT#">
-						</span>
-					</cfloop>
-					<cfquery name="eaddr" datasource="uam_god">
-						select * from electronic_address where agent_id=#CONTACT_AGENT_ID#
-					</cfquery>
-					<cfloop query="eaddr">
-						<br>
-						<span class="yellowborder">
-							<label for="">ADDRESS_TYPE</label>
-							<input type="text" size="80" value="#ADDRESS_TYPE#">
-							<label for="">ADDRESS</label>
-							<input type="text" size="80" value="#ADDRESS#">
+						
+							
+							<label for="">#address_type# address</label>
+							<textarea class="hugetextarea">#address#</textarea>
 						</span>
 					</cfloop>
 				</span>
