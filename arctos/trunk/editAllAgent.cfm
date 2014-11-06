@@ -461,7 +461,7 @@
 								onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
 						</td>
 						<td>
-							<div style="display:table-cell;font-size:x-small">
+							<div style="font-size:x-small">
 								<a href="/agents.cfm?agent_id=#related_agent_id#">[ link ]</a> Created by #created_by_agent# on #dateformat(created_on_date,'yyyy-mm-dd')#
 							</div>
 						</td>
