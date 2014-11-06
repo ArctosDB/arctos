@@ -45,12 +45,8 @@
 				data:  $("#fEditAgent").serialize(),
 				success: function(r) {
 					if (r=='success'){
-
-						//console.log('success: reload ' + $("#agent_id").val() );
 						loadEditAgent( $("#agent_id").val() );
-						//$("#fs_fEditAgent legend").removeClass().addClass('goodsave').text('Save Successful');
 					} else {
-						//$("#fs_fEditAgent legend").removeClass().addClass('badsave').text('ERROR!');
 						var m='An error occurred and your changes were not saved.\nIn the event of multiple error messages, ';
 						m+='you may need to reload this page to continue. Save incrementally if necessary. \n';
 						alert (m + r);
@@ -94,15 +90,13 @@
 			if ( $("#agent_relationship_new" + i).val().length > 0 ||  $("#related_agent_new" + i).val().length > 0 ) {
 				$("#agent_relationship_new" + i).addClass('reqdClr').prop('required',true);
 				$("#related_agent_new" + i).addClass('reqdClr').prop('required',true);
+				$("#valid_addr_fg_new" + i).addClass('reqdClr').prop('required',true);
 			} else {
 				$("#agent_relationship_new" + i).removeClass('reqdClr').prop('required',false);
 				$("#related_agent_new" + i).removeClass('reqdClr').prop('required',false);
+				$("#valid_addr_fg_new" + i).removeClass('reqdClr').prop('required',false);
 			}
-		});
-
-
-
-		
+		});		
 		$(document).on("change", '[id^="address_type_"]', function(){
 			var ntype,dfld;
 			if ( $(this).val()=='url' ){
@@ -125,11 +119,6 @@
 			var oldData=$("#" + dfld).val();
 			$("#" + dfld).replaceWith(newDataElem );
 			$("#" + dfld).val(oldData);
-		});
-
-
-
-
 		$(document).on("change", '[id^="address_type_new"], [id^="address_new"]', function(){
 			// require paired values
 			var i = this.id;
@@ -400,7 +389,7 @@
 							<select name="agent_status_#agent_status_id#" id="agent_status_#agent_status_id#" size="1" class="reqdClr">
 								<option value="DELETE">DELETE</option>
 								<cfloop query="ctagent_status">
-									<option <cfif status.agent_status is agent_status> selected="selected" </cfif>" value="#agent_status#">#agent_status#</option>
+									<option <cfif status.agent_status is agent_status> selected="selected" </cfif> value="#agent_status#">#agent_status#</option>
 								</cfloop>
 							</select>
 						</div>
@@ -473,7 +462,6 @@
 							</div>
 						</td>
 					</tr>
-				
 				</cfloop>
 				<cfloop query="reciprelns">
 					<tr>
@@ -570,31 +558,4 @@
 		</fieldset>			
 		<input type="submit" value="save all changes" class="savBtn">
 	</form>
-	<!-----
-	<hr>
-	<fieldset>
-		<legend>Address</legend>
-		<input type="button" onclick="addAgentAddr(#agent_id#)" value="New Address" class="insBtn">
-		<cfloop query="agentAddrs">
-			<cfif valid_addr_fg is 1>
-				<cfset thisClass="validAddress">
-			<cfelse>
-				<cfset thisClass="invalidAddress">
-			</cfif>
-			<div class="#thisClass#" id="aow_#ADDR_ID#" style="width:100%; display: table;">
-			    <div style="display: table-row">
-			        <div id="atype_#ADDR_ID#" style="display: table-cell;">
-			        	#addr_type# Address (<cfif valid_addr_fg is 1>valid<cfelse>invalid</cfif>)
-			        </div>
-			        <div style="display: table-cell;text-align:right;">
-			        	<input type="button" onclick="editAgentAddress('#ADDR_ID#');" value="edit">
-			        </div>
-			    </div>
-		    	<div id="dvaddr_#ADDR_ID#" style="margin-left:1em;">
-					#replace(formatted_addr,chr(10),"<br>","all")#
-				</div>
-			</div>				
-		</cfloop>
-	</fieldset>
-	---------->
 </cfoutput>
