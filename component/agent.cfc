@@ -145,113 +145,6 @@
 	</cftry>
 	<cfreturn result>
 </cffunction>
-
-<cffunction name="newAgentAddr" access="remote">
-	<cftry>
-		<cfquery name="addr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			INSERT INTO addr (
-				ADDR_ID
-				,STREET_ADDR1
-				,STREET_ADDR2
-				,institution
-				,department
-				,CITY
-				,state
-				,ZIP
-			 	,COUNTRY_CDE
-			 	,MAIL_STOP
-			 	,agent_id
-			 	,addr_type
-			 	,job_title
-				,valid_addr_fg
-				,addr_remarks
-			) VALUES (
-				 sq_addr_id.nextval
-			 	,'#STREET_ADDR1#'
-			 	,'#STREET_ADDR2#'
-			 	,'#institution#'
-			 	,'#department#'
-			 	,'#CITY#'
-			 	,'#state#'
-			 	,'#ZIP#'
-			 	,'#COUNTRY_CDE#'
-			 	,'#MAIL_STOP#'
-			 	,#agent_id#
-			 	,'#addr_type#'
-			 	,'#job_title#'
-			 	,#valid_addr_fg#
-			 	,'#addr_remarks#'
-			)
-		</cfquery>
-		<cfreturn "success">
-	<cfcatch>
-		<cfset m=cfcatch.message & ': ' & cfcatch.detail>
-		<cfif isdefined("cfcatch.sql")>
-			<cfset m= m & ' SQL:' & cfcatch.sql>
-		</cfif>
-		<cfreturn m>
-	</cfcatch>
-	</cftry>
-</cffunction>	
-<!---------------------------------------------------------------->
-<cffunction name="deleteAgentAddrEdit" access="remote">
-	<cftry>
-		<cfquery name="editAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from addr where addr_id=#addr_id#
-		</cfquery>
-		<cfreturn "success">
-	<cfcatch>
-		<cfset m=cfcatch.message & ': ' & cfcatch.detail>
-		<cfif isdefined("cfcatch.sql")>
-			<cfset m= m & ' SQL:' & cfcatch.sql>
-		</cfif>
-		<cfreturn m>
-	</cfcatch>
-	</cftry>
-</cffunction>
-<!---------------------------------------------------------------->
-<cffunction name="saveAgentAddrEdit" access="remote">
-	<cftry>
-		<cfquery name="editAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			UPDATE addr SET 
-				STREET_ADDR1 = '#STREET_ADDR1#'
-				,STREET_ADDR2 = '#STREET_ADDR2#'
-				,department = '#department#'
-				,institution = '#institution#'
-				,CITY = '#CITY#'
-				,STATE = '#STATE#'
-				,ZIP = '#ZIP#'
-				,COUNTRY_CDE = '#COUNTRY_CDE#'
-				,MAIL_STOP = '#MAIL_STOP#'
-				,ADDR_TYPE = '#ADDR_TYPE#'
-				,JOB_TITLE = '#JOB_TITLE#'
-				,VALID_ADDR_FG = '#VALID_ADDR_FG#'
-				,ADDR_REMARKS = '#ADDR_REMARKS#'
-			where addr_id=#addr_id#
-		</cfquery>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
-				'success' status, 
-				addr_id, 
-				formatted_addr, 
-				decode(VALID_ADDR_FG,0,'invalid','valid') VALID_ADDR_FG,
-				ADDR_TYPE
-			from addr where addr_id=#addr_id#
-		</cfquery>	
-		<cfreturn d>
-	<cfcatch>
-		<cfset m=cfcatch.message & ': ' & cfcatch.detail>
-		<cfif isdefined("cfcatch.sql")>
-			<cfset m= m & ' SQL:' & cfcatch.sql>
-		</cfif>
-		<cfset d = querynew("status,msg")>
-		<cfset temp = queryaddrow(d,1)>
-		<cfset temp = QuerySetCell(d, "status", "fail",1)>
-		<cfset temp = QuerySetCell(d, "msg", m,1)>
-		<cfreturn d>
-	</cfcatch>
-	</cftry>
-</cffunction>
 <!---------------------------------------------------------------->
 <cffunction name="saveAgent" access="remote">
 	<cfif not isdefined("escapeQuotes")>
@@ -414,9 +307,6 @@
 						</cfif>
 					</cfif>
 				</cfloop>
-				
-				
-				
 				<cfloop list="#structKeyList(url)#" index="key">
 					<cfif left(key,13) is "address_type_">
 						<cfset thisAddressID=listlast(key,"_")>
@@ -511,7 +401,7 @@
 	</cfif>			
 	<cfif isdefined("address") AND len(address) gt 0>
 		<cfset srch=true>
-		<cfset sql = "#sql# AND agent.agent_id IN (select agent_id from addr where upper(formatted_addr) like '%#ucase(address)#%')">
+		<cfset sql = "#sql# AND agent.agent_id IN (select agent_id from address where upper(address) like '%#ucase(address)#%')">
 	</cfif>
 	<cfif isdefined("agent_name_type") AND len(agent_name_type) gt 0>
 		<cfset sql = "#sql# AND agent_name_type='#agent_name_type#'">
