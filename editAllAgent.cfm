@@ -134,6 +134,11 @@ var oldData=$("#" + dfld).val();
 
 
 
+
+$("#" + dfld).replaceWith(newDataElem );
+
+
+
 //			
 			
 
