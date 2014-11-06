@@ -556,6 +556,15 @@
 					</cfloop>
 				</select>
 				<input type="text" class="minput" name="address_new1" id="address_new1" placeholder="add address">
+				<select name="valid_addr_fg_new1" id="valid_addr_fg_new1" class="reqdClr">
+						<option value="1">valid</option>
+						<option value="0">invalid</option>
+					</select>
+					<textarea class="smalltextarea" placeholder="remark" name="address_remark_new1" id="address_remark_new1"></textarea>
+
+						
+						
+						
 				<input type="button" onclick="addAddress()" value="add a row">
 			</div>
 		</fieldset>			
