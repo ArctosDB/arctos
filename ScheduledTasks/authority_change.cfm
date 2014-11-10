@@ -134,18 +134,13 @@
 		<cfif action is "sendEmail">
 			<cfquery name="cc" datasource="uam_god">
 				select 
-					electronic_address.address
+					get_address(collection_contacts.CONTACT_AGENT_ID,'email') address
 				FROM 
-					collection_contacts,
-					preferred_agent_name,
-					electronic_address
+					collection_contacts
 				where
-					collection_contacts.CONTACT_AGENT_ID=preferred_agent_name.agent_id and
-					preferred_agent_name.agent_id=electronic_address.agent_id and
-					electronic_address.address_type='e-mail' and
 					collection_contacts.contact_role='data quality'
 				group by 
-					electronic_address.address
+					get_address(collection_contacts.CONTACT_AGENT_ID,'email')
 			</cfquery>
 			<cfsavecontent variable="emailChanges">
 				<p>

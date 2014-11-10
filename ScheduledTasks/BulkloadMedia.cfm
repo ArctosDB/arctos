@@ -14,7 +14,7 @@
 	</cfquery>
 	<cfloop query="who">
 		<cfquery name="e" datasource="uam_god">
-			select address from electronic_address where address_type='e-mail' and agent_id=#user_agent_id#
+			select get_address(#user_agent_id#,'email') address from dual
 		</cfquery>
 		<cfquery name="s" datasource="uam_god">
 			select status, count(*) c from cf_temp_media where username='#username#' group by status
