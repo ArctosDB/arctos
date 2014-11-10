@@ -71,16 +71,12 @@
 				<cfloop query="whatsThere">
 						<cfquery name="cid" datasource="uam_god">
 							select
-								ADDRESS
+								get_address(collection_contacts.CONTACT_AGENT_ID,'email') ADDRESS,
+								guid_prefix
 							from
-								electronic_address,
-								agent,
 								collection_contacts,
 								collection
 							where
-								ADDRESS_TYPE='e-mail' and
-								electronic_address.agent_id=agent.agent_id and
-								agent.agent_id=collection_contacts.CONTACT_AGENT_ID and
 								collection_contacts.collection_id=collection.collection_id and
 								<cfif len(collection_id) lt 1>
 									collection.collection_cde='#collection_cde#' and
@@ -89,44 +85,22 @@
 									collection.collection_id=#collection_id#
 								</cfif>
 						</cfquery>
-						<cfquery name="enteredbyRealName" datasource="uam_god">
+						<cfquery name="enteredbyContact" datasource="uam_god">
 							select
-								preferred_agent_name.agent_name
+								preferred_agent_name.agent_name,
+								get_address(preferred_agent_name.agent_id,'email') ADDRESS
 							from
 								preferred_agent_name,
 								agent_name
 							where
 								preferred_agent_name.agent_id=agent_name.agent_id and
-								agent_name.agent_name='#enteredby#'
+								upper(agent_name.agent_name)='#ucase(enteredby)#'
 						</cfquery>
-						<cfquery name="eid" datasource="uam_god">
-							select
-								ADDRESS
-							from
-								electronic_address,
-								agent_name
-							where
-								ADDRESS_TYPE='e-mail' and
-								electronic_address.agent_id=agent_name.agent_id and
-								agent_name='#enteredby#'
-						</cfquery>
-						<cfquery name="coln" datasource="uam_god">
-							select
-								collection
-							from
-								collection
-							where
-							<cfif len(collection_id) lt 1>
-								collection.collection_cde='#collection_cde#' and
-								collection.institution_acronym='#institution_acronym#'
-							<cfelse>
-								collection.collection_id=#collection_id#
-							</cfif>
-						</cfquery>
+						
 					<tr>
 						<td>#enteredby#</td>
-						<td>#enteredbyRealName.agent_name#</td>
-						<td>#valuelist(eid.address)#</td>
+						<td>#enteredbyContact.agent_name#</td>
+						<td>#enteredbyContact.address)#</td>
 						<td>#coln.collection#</td>
 						<td>#last_enter_date#</td>
 						<td>#valuelist(cid.address)#</td>

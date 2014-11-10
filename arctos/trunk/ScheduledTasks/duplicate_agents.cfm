@@ -45,6 +45,7 @@ END;
 				cf_dup_agent.cf_dup_agent_id,
 				agent_relations.AGENT_ID,
 				agent_relations.RELATED_AGENT_ID,
+				agent_relations.CREATED_BY_AGENT_ID,
 				cf_dup_agent.agent_pref_name,
 				cf_dup_agent.rel_agent_pref_name,
 				detected_date
@@ -65,24 +66,9 @@ END;
 					<!--- if there are non-electronic addresses, merge them and update shipments ---->
 					<cfquery name="addr" datasource="uam_god">
 						select 
-							ADDR_ID,
-							STREET_ADDR1,
-							STREET_ADDR2,
-							CITY,
-							STATE,
-							ZIP,
-							COUNTRY_CDE,
-							MAIL_STOP,
-							FORMATTED_ADDR,
-							AGENT_ID,
-							ADDR_TYPE,
-							JOB_TITLE,
-							VALID_ADDR_FG,
-							ADDR_REMARKS,
-							INSTITUTION,
-							DEPARTMENT
+							adddress
 						from 
-							addr 
+							address 
 						where 
 							agent_id=#bads.agent_id#
 					</cfquery>
@@ -92,68 +78,41 @@ END;
 						<!--- see if there's a functional duplicate ---->
 						<cfquery name="goodHasDupAddr" datasource="uam_god">
 							select 
-								min(addr_id) addr_id 
+								min(address_id) address_id 
 							from 
-								addr 
+								address 
 							where 
 								agent_id=#bads.RELATED_AGENT_ID# and
-								STREET_ADDR1='#STREET_ADDR1#' and
-								nvl(STREET_ADDR2,'NULL')=nvl('#STREET_ADDR2#','NULL') and
-								CITY='#CITY#' and
-								nvl(STATE,'NULL')=nvl('#STATE#','NULL') and
-								nvl(ZIP,'NULL')=nvl('#ZIP#','NULL') and
-								nvl(COUNTRY_CDE,'NULL')=nvl('#COUNTRY_CDE#','NULL') and
-								nvl(MAIL_STOP,'NULL')=nvl('#MAIL_STOP#','NULL') and
-								nvl(JOB_TITLE,'NULL')=nvl('#JOB_TITLE#','NULL') and
-								nvl(INSTITUTION,'NULL')=nvl('#INSTITUTION#','NULL') and
-								nvl(DEPARTMENT,'NULL')=nvl('#DEPARTMENT#','NULL')
+								address='#address#'
 						</cfquery>
-						<cfif len(goodHasDupAddr.addr_id) gt 0>
+						<cfif len(goodHasDupAddr.address_id) gt 0>
 							<!--- the good dup has a dup address; update shipment to use it and delete the old ---->
 							<cfquery name="upShipTo" datasource="uam_god">
-								update shipment set SHIPPED_TO_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_TO_ADDR_ID=#addr.addr_id#
+								update shipment set SHIPPED_TO_ADDR_ID=#goodHasDupAddr.address_id# where SHIPPED_TO_ADDR_ID=#addr.address_id#
 							</cfquery>
 							<cfquery name="upShipFrom" datasource="uam_god">
-								update shipment set SHIPPED_FROM_ADDR_ID=#goodHasDupAddr.addr_id# where SHIPPED_FROM_ADDR_ID=#addr.addr_id#
+								update shipment set SHIPPED_FROM_ADDR_ID=#goodHasDupAddr.address_id# where SHIPPED_FROM_ADDR_ID=#addr.address_id#
 							</cfquery>
 						<cfelse>
 							<!--- create new address, update shipments ---->
 							<cfquery name="newAddrID" datasource="uam_god">
-								select sq_addr_id.nextval nid from dual
+								select sq_address_id.nextval nid from dual
 							</cfquery>
 							<cfquery name="newAddr" datasource="uam_god">
-								insert into addr (
-									ADDR_ID,
-									STREET_ADDR1,
-									STREET_ADDR2,
-									CITY,
-									STATE,
-									ZIP,
-									COUNTRY_CDE,
-									MAIL_STOP,
+								insert into address (
+									address_id,
+									address,
 									AGENT_ID,
-									ADDR_TYPE,
-									JOB_TITLE,
+									ADDRESS_TYPE,
 									VALID_ADDR_FG,
-									ADDR_REMARKS,
-									INSTITUTION,
-									DEPARTMENT
+									ADDRESS_REMARK
 								) values (
 									#newAddrID.nid#,
-									'#escapequotes(addr.STREET_ADDR1)#',
-									'#escapequotes(addr.STREET_ADDR2)#',
-									'#escapequotes(addr.CITY)#',
-									'#escapequotes(addr.STATE)#',
-									'#escapequotes(addr.ZIP)#',
-									'#escapequotes(addr.COUNTRY_CDE)#',
-									'#escapequotes(addr.MAIL_STOP)#',
-									'#bads.related_agent_id#',
-									'#escapequotes(addr.ADDR_TYPE)#',
-									'#escapequotes(addr.JOB_TITLE)#',
+									'#escapequotes(addr.address)#',
+									#addr.AGENT_ID#,
+									'#addr.ADDRESS_TYPE#',
 									#addr.VALID_ADDR_FG#,
-									'#escapequotes(addr.ADDR_REMARKS)#',
-									'#escapequotes(addr.INSTITUTION)#',
-									'#escapequotes(addr.DEPARTMENT)#'
+									'#escapequotes(addr.ADDRESS_REMARK)#'
 								)
 							</cfquery>
 							<cfquery name="upShipTo" datasource="uam_god">
@@ -164,65 +123,46 @@ END;
 							</cfquery>
 						</cfif>
 					</cfloop>
-					<cfquery name="electronic_address" datasource="uam_god">
-						select 
-							AGENT_ID,
-							ADDRESS_TYPE,
-							ADDRESS 
-						from 
-							electronic_address 
-						where 
-							agent_id=#bads.agent_id#
+<br>delete from address where agent_id=#bads.agent_id#
+					<cfquery name="address" datasource="uam_god">
+						delete from address where agent_id=#bads.agent_id#
 					</cfquery>
-					<cfloop query="electronic_address">
-						<cfquery name="hasgood_electronic_address" datasource="uam_god">
-							select 
-								count(*) cnt 
-							from 
-								electronic_address 
+					
+					<!--- grab old collectors ---->
+					<cfquery name="verbatim_collector" datasource="uam_god">
+						insert into attributes (
+							ATTRIBUTE_ID,
+							COLLECTION_OBJECT_ID,
+							DETERMINED_BY_AGENT_ID
+							ATTRIBUTE_TYPE,
+							ATTRIBUTE_VALUE,
+							ATTRIBUTE_REMARK,
+							DETERMINED_DATE
+						) (
+							select
+								sq_ATTRIBUTE_ID.nextval,
+								COLLECTION_OBJECT_ID,
+								#bads.CREATED_BY_AGENT_ID#,
+								'verbatim collector',
+								'#escapeQuotes(bads.agent_pref_name)#', 
+								'Automated insertion from agent merger process - #escapeQuotes(bads.agent_pref_name)# --> #escapeQuotes(bads.rel_agent_pref_name)# for collector role ' || COLLECTOR_ROLE,
+								sysdate
+							from
+								collectors 
 							where 
-								agent_id=#bads.RELATED_AGENT_ID# and
-								ADDRESS_TYPE='#electronic_address.ADDRESS_TYPE#' and
-								ADDRESS='#electronic_address.ADDRESS#'
-						</cfquery>
-						<cfif hasgood_electronic_address.cnt is 0>
-							<!--- no dup, create address ---->
-							<cfquery name="new_electronic_address" datasource="uam_god">
-								insert into electronic_address (
-									AGENT_ID,
-									ADDRESS_TYPE,
-									ADDRESS
-								) values (
-									#bads.RELATED_AGENT_ID#,
-									'#electronic_address.ADDRESS_TYPE#',
-									'#electronic_address.ADDRESS#'
-								)
-							</cfquery>
-						</cfif>
-					</cfloop>
-					<cfquery name="electronic_address" datasource="uam_god">
-						delete from electronic_address where agent_id=#bads.agent_id#
+								agent_id=#bads.agent_id#
+						)
 					</cfquery>
-<br>delete from addr where agent_id=#bads.agent_id#
-					<cfquery name="addr" datasource="uam_god">
-						delete from addr where agent_id=#bads.agent_id#
-					</cfquery>
-					
 					<!--- avoid unique constraint ---->
-					
-					
 					<cfquery name="collector_conflict" datasource="uam_god">
 						delete from collector where agent_id=#bads.agent_id# and collection_object_id in 
 						(select collection_object_id from collector where agent_id=#bads.related_agent_id#)
 					</cfquery>
-					
 					<cfquery name="collector" datasource="uam_god">
 						UPDATE collector SET agent_id = #bads.related_agent_id#
 						WHERE agent_id = #bads.agent_id#
 					</cfquery>
 					
-					
-
 					got collector<br><cfflush>
 					<cfquery name="attributes" datasource="uam_god">
 						update attributes SET determined_by_agent_id=#bads.related_agent_id#
