@@ -506,17 +506,11 @@
 					<cfif publication_agent.c gt 0>
 						<div style="color:red;">publication agent</div>
 					</cfif>
-					<cfquery name="electronic_address" datasource="uam_god">
-						select count(*) c from electronic_address where agent_id=#id1#
+					<cfquery name="address" datasource="uam_god">
+						select count(*) c from address where agent_id=#id1#
 					</cfquery>
-					<cfif electronic_address.c gt 0>
-						<div style="color:red;">electronic_address</div>
-					</cfif>
-					<cfquery name="addr" datasource="uam_god">
-						select count(*) c from addr where agent_id=#id1#
-					</cfquery>
-					<cfif addr.c gt 0>
-						<div style="color:red;">addr</div>
+					<cfif address.c gt 0>
+						<div style="color:red;">address</div>
 					</cfif>
 					<cfquery name="shipment" datasource="uam_god">
 						select 
@@ -534,10 +528,10 @@
 							count(*) c 
 						from
 							shipment,
-							addr
+							address
 						where
-							shipment.SHIPPED_TO_ADDR_ID=addr.addr_id and
-							addr.agent_id=#id1#
+							shipment.SHIPPED_TO_ADDR_ID=address.address_id and
+							address.agent_id=#id1#
 					</cfquery>
 					<cfif ship_to.c gt 0>
 						<div style="color:red;">ship_to</div>
@@ -547,10 +541,10 @@
 							count(*) c 
 						from
 							shipment,
-							addr
+							address
 						where
-							shipment.SHIPPED_FROM_ADDR_ID=addr.addr_id and
-							addr.agent_id=#id1#
+							shipment.SHIPPED_FROM_ADDR_ID=address.address_id and
+							address.agent_id=#id1#
 					</cfquery>
 					<cfif ship_from.c gt 0>
 						<div style="color:red;">ship_from</div>
@@ -669,17 +663,11 @@
 					<cfif publication_agent.c gt 0>
 						<div style="color:red;">publication agent</div>
 					</cfif>
-					<cfquery name="electronic_address" datasource="uam_god">
-						select count(*) c from electronic_address where agent_id=#id2#
+					<cfquery name="address" datasource="uam_god">
+						select count(*) c from address where agent_id=#id2#
 					</cfquery>
-					<cfif electronic_address.c gt 0>
-						<div style="color:red;">electronic_address</div>
-					</cfif>
-					<cfquery name="addr" datasource="uam_god">
-						select count(*) c from addr where agent_id=#id2#
-					</cfquery>
-					<cfif addr.c gt 0>
-						<div style="color:red;">addr</div>
+					<cfif address.c gt 0>
+						<div style="color:red;">address</div>
 					</cfif>
 					<cfquery name="shipment" datasource="uam_god">
 						select 
@@ -697,10 +685,10 @@
 							count(*) c 
 						from
 							shipment,
-							addr
+							address
 						where
-							shipment.SHIPPED_TO_ADDR_ID=addr.addr_id and
-							addr.agent_id=#id2#
+							shipment.SHIPPED_TO_ADDR_ID=address.address_id and
+							address.agent_id=#id2#
 					</cfquery>
 					<cfif ship_to.c gt 0>
 						<div style="color:red;">ship_to</div>
@@ -710,10 +698,10 @@
 							count(*) c 
 						from
 							shipment,
-							addr
+							address
 						where
-							shipment.SHIPPED_FROM_ADDR_ID=addr.addr_id and
-							addr.agent_id=#id2#
+							shipment.SHIPPED_FROM_ADDR_ID=address.address_id and
+							address.agent_id=#id2#
 					</cfquery>
 					<cfif ship_from.c gt 0>
 						<div style="color:red;">ship_from</div>

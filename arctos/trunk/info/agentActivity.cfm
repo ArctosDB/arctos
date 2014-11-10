@@ -120,22 +120,13 @@ Groups:
 			<li><a href="agentActivity.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
 		</cfloop>
 	</ul>							 
-Electronic Address:
-	<cfquery name="electronic_address" datasource="uam_god">
-		select * from electronic_address where agent_id=#agent_id#
+ Address:
+	<cfquery name="address" datasource="uam_god">
+		select * from address where agent_id=#agent_id#
 	</cfquery>
 	<ul>
-		<cfloop query="electronic_address">
+		<cfloop query="address">
 			<li>#ADDRESS_TYPE#: #ADDRESS#</li>
-		</cfloop>
-	</ul>
-Address:	
-	<cfquery name="addr" datasource="uam_god">
-		select replace(formatted_addr,chr(10),'<br>') formatted_addr from addr where agent_id=#agent_id#
-	</cfquery>
-	<ul>
-		<cfloop query="addr">
-			<li>#formatted_addr#</li>
 		</cfloop>
 	</ul>
 Collected or Prepared:

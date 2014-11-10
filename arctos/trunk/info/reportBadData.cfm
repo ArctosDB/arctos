@@ -155,14 +155,13 @@
 	
 	<!--- get the proper emails to report this to --->
 	<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select address from
-			electronic_address,
+		select 
+			get_address(collection_contacts.CONTACT_AGENT_ID,'email') address 
+		from
 			collection_contacts,
 			cataloged_item
 		WHERE
-			electronic_address.agent_id = collection_contacts.contact_agent_id AND
 			collection_contacts.collection_id = cataloged_item.collection_id AND
-			address_type='e-mail' AND
 			contact_role='data quality' AND
 			cataloged_item.collection_object_id IN (#newCollObjId#)
 		GROUP BY address
