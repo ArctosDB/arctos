@@ -100,7 +100,7 @@
 					<tr>
 						<td>#enteredby#</td>
 						<td>#enteredbyContact.agent_name#</td>
-						<td>#enteredbyContact.address)#</td>
+						<td>#enteredbyContact.address#</td>
 						<td>#coln.collection#</td>
 						<td>#last_enter_date#</td>
 						<td>#valuelist(cid.address)#</td>
