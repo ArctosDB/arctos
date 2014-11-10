@@ -100,9 +100,6 @@
 				trans_agent_email,
 				trans_agent_name
 		</cfquery>
-		
-		
-			
 		<cfquery name="collectionAgents" dbtype="query">
 			select
 				collection_contact_name agent_name,
@@ -249,16 +246,13 @@
 					permit_id,
 					EXP_DATE,
 					PERMIT_NUM,
-					ADDRESS,
+					get_address(contact_agent_id,'email') ADDRESS,
 					round(EXP_DATE - sysdate) expires_in_days,
 					EXP_DATE,
 					CONTACT_AGENT_ID
 				FROM
-					permit,
-					electronic_address			
+					permit			
 				WHERE
-					permit.CONTACT_AGENT_ID = electronic_address.agent_id AND
-					ADDRESS_TYPE='e-mail' AND
 					round(EXP_DATE - sysdate) = #inDays#
 			</cfquery>
 			<cfquery name="expYearID" dbtype="query">

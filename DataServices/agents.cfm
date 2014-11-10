@@ -174,6 +174,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 	<p>
 		<a href="/tools/agentPreload.cfm">Agent Preload Thingee</a> will do things with the CSV which can be downloaded from this app.
 	</p>
+	<p>See also /procedures/bulkload_agents.sql</p>
 	<p>
 		Note: Due to large influxes of duplicate agents, this form is currently set on "paranoid." File an Issue to change how this form works.
 		(The interactive form code is preserved as agents_interactive.)
