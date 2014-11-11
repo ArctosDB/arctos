@@ -356,12 +356,22 @@ END;
 						<cfset mailto=Application.DataProblemReportEmail>
 					</cfif>
 					
-					
-											<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
+					<cfif isdefined("Application.version") and  Application.version is "prod">
+						<cfset subj="agent merger success">
+						<cfset maddr=mailto>
+						<cfset testinclude="">
+					<cfelse>
+						<cfset maddr=application.bugreportemail>
+						<cfset subj="TEST PLEASE IGNORE: agent merger success">
+						<cfset testinclude=mailto>
+					</cfif>
+				
+					<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
 
 
-					<cfmail to="#mailto#" subject="agent merger success" cc="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="agentmerge@#Application.fromEmail#" type="html">
+					<cfmail to="#maddr#" subject="#subj#" cc="#Application.bugReportEmail#,#Application.DataProblemReportEmail#" from="agentmerge@#Application.fromEmail#" type="html">
 						<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# is complete.
+						#testinclude#
 					</cfmail>
 					
 					
@@ -523,7 +533,19 @@ END;
 			
 			
 			<!--------------------->
-			<cfmail to="#Application.DataProblemReportEmail#,#valuelist(colns.address)#" subject="agents marked for merge" from="agentmerge@#Application.fromEmail#" type="html">
+			
+			<cfif isdefined("Application.version") and  Application.version is "prod">
+				<cfset subj="agents marked for merge">
+				<cfset maddr=valuelist(colns.address)>
+				<cfset testinclude="">
+			<cfelse>
+				<cfset maddr=application.bugreportemail>
+				<cfset subj="TEST PLEASE IGNORE: agents marked for merge">
+				<cfset testinclude=valuelist(colns.address)>
+			</cfif>
+			
+			
+			<cfmail to="#Application.DataProblemReportEmail#,#maddr#" subject="#subj#" from="agentmerge@#Application.fromEmail#" type="html">
 				<br>Agents have been marked for merger.
 				
 				<br>The following agents are scheduled for merger on #dateformat(dateadd("d",7,detected_date),"yyyy-mm-dd")#.
@@ -551,6 +573,7 @@ END;
 				<br>Marked As Dup On: #dateformat(detected_date,"yyyy-mm-dd")#
 				<br>Last Action: #dateformat(last_date,"yyyy-mm-dd")#
 				<br>Status: #status#
+				<br>#testinclude#
 			</cfmail>
 
 		
