@@ -31,7 +31,7 @@
 		<cfset sql = "#sql# AND agent_status='#agent_status#'">
 	</cfif>			
 	<cfif isdefined("address") AND len(#address#) gt 0>
-		<cfset sql = "#sql# AND agent.agent_id IN (select agent_id from addr where upper(formatted_addr) like '%#ucase(address)#%')">
+		<cfset sql = "#sql# AND agent.agent_id IN (select agent_id from address where upper(address) like '%#ucase(address)#%')">
 	</cfif>
 	<cfif isdefined("agent_name_type") AND len(agent_name_type) gt 0>
 		<cfset sql = "#sql# AND agent_name_type='#agent_name_type#'">
