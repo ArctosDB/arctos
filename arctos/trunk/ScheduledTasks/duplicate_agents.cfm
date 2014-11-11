@@ -66,7 +66,7 @@ END;
 					<!--- if there are non-electronic addresses, merge them and update shipments ---->
 					<cfquery name="addr" datasource="uam_god">
 						select 
-							adddress
+							address
 						from 
 							address 
 						where 
