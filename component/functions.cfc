@@ -518,8 +518,8 @@
 						RECONCILED_BY_PERSON_ID in (#agent_id#)
 		)
 		group by
-			agent_name,
-			ADDRESS
+			getPreferredAgentName(collection_contacts.CONTACT_AGENT_ID),
+			get_address(collection_contacts.CONTACT_AGENT_ID,'email')
 	</cfquery>
 	<cfreturn colns>
 </cffunction>
