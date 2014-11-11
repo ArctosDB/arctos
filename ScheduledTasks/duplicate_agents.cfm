@@ -133,7 +133,7 @@ END;
 						insert into attributes (
 							ATTRIBUTE_ID,
 							COLLECTION_OBJECT_ID,
-							DETERMINED_BY_AGENT_ID
+							DETERMINED_BY_AGENT_ID,
 							ATTRIBUTE_TYPE,
 							ATTRIBUTE_VALUE,
 							ATTRIBUTE_REMARK,
@@ -148,7 +148,7 @@ END;
 								'Automated insertion from agent merger process - #escapeQuotes(bads.agent_pref_name)# --> #escapeQuotes(bads.rel_agent_pref_name)# for collector role ' || COLLECTOR_ROLE,
 								sysdate
 							from
-								collectors 
+								collectors
 							where 
 								agent_id=#bads.agent_id#
 						)
