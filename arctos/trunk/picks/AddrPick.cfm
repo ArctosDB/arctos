@@ -22,10 +22,10 @@
 	</cfif>
 	<cfoutput>
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT agent_name, preferred_agent_name.agent_id, formatted_addr, addr_id,VALID_ADDR_FG from 
-			preferred_agent_name, addr
+			SELECT agent_name, preferred_agent_name.agent_id, address, address_id,VALID_ADDR_FG from 
+			preferred_agent_name, address
 			 where 
-			 preferred_agent_name.agent_id = addr.agent_id (+) AND
+			 preferred_agent_name.agent_id = address.agent_id (+) AND
 			 UPPER(agent_name) LIKE '%#ucase(agentname)#%'				
 		</cfquery>
 	</cfoutput>
@@ -33,8 +33,8 @@
 		
 <br>
 #agent_name#<br>
-<cfif len(#formatted_addr#) gt 0>
-<cfset addr = #replace(formatted_addr,"'","`","ALL")#>
+<cfif len(address) gt 0>
+<cfset addr = #replace(address,"'","`","ALL")#>
 <cfset addr = #replace(addr,"#chr(9)#","-","ALL")#>
 <cfset addr = #replace(addr,"#chr(10)#","-","ALL")#>
 <cfset addr = #replace(addr,"#chr(13)#","-","ALL")#>
