@@ -364,7 +364,7 @@
 	<cfquery name="colns" datasource="uam_god">
 		select
 			getPreferredAgentName(collection_contacts.CONTACT_AGENT_ID) agent_name,
-			get_address(collection_contacts.CONTACT_AGENT_ID,'email') ADDRESS,
+			get_address(collection_contacts.CONTACT_AGENT_ID,'email') ADDRESS
 		from
 			collection_contacts
 		where
