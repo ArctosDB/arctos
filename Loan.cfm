@@ -748,12 +748,12 @@ just fooling idiot cfclipse into using the right colors
     	<cfset s=s+1>
 		<tr	#iif(s MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#><td>
 		<cfquery name="shipped_to_addr_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select formatted_addr from addr where
-			addr_id = #ship.shipped_to_addr_id#
+			select address from address where
+			address_id = #ship.shipped_to_addr_id#
 		</cfquery>
 		<cfquery name="shipped_from_addr_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select formatted_addr from addr where
-			addr_id = #ship.shipped_from_addr_id#
+			select address from address where
+			address_id = #ship.shipped_from_addr_id#
 		</cfquery>
 		<cfquery name="packed_by_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select agent_name from preferred_agent_name where
@@ -788,13 +788,13 @@ just fooling idiot cfclipse into using the right colors
 			</select><span class="infoLink" onclick="getCtDoc('ctshipment_type');">Define</span>
 			<label for="packed_by_agent">Shipped To Address (may format funky until save)</label>
 			<textarea name="shipped_to_addr" id="shipped_to_addr" cols="60" rows="5"
-				readonly="yes" class="reqdClr">#shipped_to_addr_id.formatted_addr#</textarea>
+				readonly="yes" class="reqdClr">#shipped_to_addr_id.address#</textarea>
 			<input type="hidden" name="shipped_to_addr_id" value="#shipped_to_addr_id#">
 			<input type="button" value="Pick Address" class="picBtn"
 				onClick="addrPick('shipped_to_addr_id','shipped_to_addr','shipment#s#'); return false;">
 			<label for="packed_by_agent">Shipped From Address</label>
 			<textarea name="shipped_from_addr" id="shipped_from_addr" cols="60" rows="5"
-				readonly="yes" class="reqdClr">#shipped_from_addr_id.formatted_addr#</textarea>
+				readonly="yes" class="reqdClr">#shipped_from_addr_id.address#</textarea>
 			<input type="hidden" name="shipped_from_addr_id" value="#shipped_from_addr_id#">
 			<input type="button" value="Pick Address" class="picBtn"
 				onClick="addrPick('shipped_from_addr_id','shipped_from_addr','shipment#s#'); return false;">

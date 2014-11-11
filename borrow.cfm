@@ -606,18 +606,18 @@
 				CONTENTS,
 				FOREIGN_SHIPMENT_FG,
 				SHIPPED_TO_ADDR_ID,
-				ship_to.formatted_addr shipped_to_addr,
+				ship_to.address shipped_to_addr,
 				SHIPPED_FROM_ADDR_ID,
-				ship_from.formatted_addr shipped_from_addr
+				ship_from.address shipped_from_addr
 			from
 				shipment,
 				preferred_agent_name pba,
-				addr ship_to,
-				addr ship_from
+				address ship_to,
+				address ship_from
 			where
 				shipment.PACKED_BY_AGENT_ID=pba.agent_id and
-				shipment.SHIPPED_TO_ADDR_ID=ship_to.addr_id and
-				shipment.SHIPPED_FROM_ADDR_ID=ship_from.addr_id and
+				shipment.SHIPPED_TO_ADDR_ID=ship_to.address_id and
+				shipment.SHIPPED_FROM_ADDR_ID=ship_from.address_id and
 				shipment.transaction_id=#transaction_id#
 		</cfquery>
 		<h3>Create Shipment:</h3>
