@@ -532,10 +532,9 @@
 			<legend>
 				Address  
 				<span class="likeLink" onclick="getCtDoc('ctaddress_type');">code table</span>
-				 
-				<span class="likeLink shippingAddress" onclick="getDocs('address','used');">this denotes shipment addresses</span>
+				<span class="likeLink shippingAddress" onclick="getDocs('address');">help</span>
+				<span class="likeLink shippingAddress" onclick="getDocs('address','used');">used shipment address</span>
 				<a href="/info/agentActivity.cfm?agent_id=#agent.agent_id###shipping" target="_blank">shipment details</a>
-				
 			</legend>
 			<cfloop query="address">
 				<cfif address_type is "url">
