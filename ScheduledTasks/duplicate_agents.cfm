@@ -148,7 +148,7 @@ END;
 								'Automated insertion from agent merger process - #escapeQuotes(bads.agent_pref_name)# --> #escapeQuotes(bads.rel_agent_pref_name)# for collector role ' || COLLECTOR_ROLE,
 								sysdate
 							from
-								collectors
+								collector
 							where 
 								agent_id=#bads.agent_id#
 						)
