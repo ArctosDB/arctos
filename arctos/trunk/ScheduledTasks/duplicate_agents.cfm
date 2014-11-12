@@ -332,7 +332,7 @@ END;
 					
 					
 					<cfquery name="killagent" datasource="uam_god">
-						DELETE FROM agent WHERE agent_id = #bads.agent_id#
+						DELETE FROM agent WHERE ,agent_id = #bads.agent_id#
 					</cfquery>
 					del agnt<br><cfflush>
 					
@@ -374,7 +374,6 @@ END;
 						#testinclude#
 					</cfmail>
 					
-					
 					.........commit...
 					<cfcatch>
 					.........rollback...
@@ -402,6 +401,16 @@ END;
 								<cfdump var=#cfcatch#>
 							</cfmail>
 							----->
+							
+							<cfmail to="#Application.PageProblemEmail#" subject="agent merger failed" from="agentmerge@#Application.fromEmail#" type="html">
+								<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed and was rolled back.
+								<br>
+								
+								cleanup SQL: update cf_dup_agent set last_date=sysdate-8,status='pass_email_sent' where AGENT_ID=#bads.agent_id#;
+								<br>cfcatch dump follows.
+								<br>
+								<cfdump var=#cfcatch#>
+							</cfmail>
 					</cfcatch>
 					</cftry>
 				</cftransaction>
