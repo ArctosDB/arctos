@@ -260,6 +260,7 @@
 					round(EXP_DATE - sysdate) IN (#cInt#) 
 					--= #inDays#
 			</cfquery>
+			<cfdump var=#permit#>
 			<cfloop query="permit">
 				<cfif isdefined("Application.version") and  Application.version is "prod">
 					<cfset subj="Expiring Permits">
