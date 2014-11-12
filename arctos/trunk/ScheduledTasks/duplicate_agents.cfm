@@ -113,7 +113,7 @@ END;
 								) values (
 									#newAddrID.nid#,
 									'#escapequotes(addr.address)#',
-									#addr.AGENT_ID#,
+									#bads.related_agent_id#,
 									'#addr.ADDRESS_TYPE#',
 									#addr.VALID_ADDR_FG#,
 									'#escapequotes(addr.ADDRESS_REMARK)#'
@@ -131,7 +131,7 @@ END;
 								) values (
 									#newAddrID.nid#,
 									'#escapequotes(addr.address)#',
-									#addr.AGENT_ID#,
+									#bads.related_agent_id#,
 									'#addr.ADDRESS_TYPE#',
 									#addr.VALID_ADDR_FG#,
 									'#escapequotes(addr.ADDRESS_REMARK)#'
@@ -154,20 +154,12 @@ END;
 						</cfif>
 					</cfloop>
 					
-					
-					
+					<br>							delete from address where  agent_id=#bads.agent_id#
 
-					<cfif len(valuelist(addr.address_id)) gt 0>
-						<br>delete from address where agent_id=#bads.agent_id#
-
-						<cfquery name="address" datasource="uam_god">
-							delete from address where address_id in (#valuelist(addr.address_id)#)
+					<cfquery name="address" datasource="uam_god">
+							delete from address where  agent_id=#bads.agent_id#
 						</cfquery>
-						<br>							delete from address where address_id in (#valuelist(addr.address_id)#)
 
-				<cfelse>
-				<br>no address to delete
-					</cfif>
 					
 					
 					<!--- grab old collectors ---->
