@@ -6,7 +6,7 @@
 	<cfquery name="contacts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select 
 			getPreferredAgentName(collection_contacts.contact_agent_id) agent_name,
-			get_address(collection_contacts.contact_agent_id,'email') contact_agent_id
+			get_address(collection_contacts.contact_agent_id,'email') address
 		from
 			collection_contacts
 		where 
