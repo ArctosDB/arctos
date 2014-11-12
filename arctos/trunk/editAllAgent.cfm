@@ -204,7 +204,7 @@
 		where 
 			agent_id = #agent.agent_id# and
 			address.address_id=shipto.SHIPPED_TO_ADDR_ID (+) and
-			address.address_id=shipto.SHIPPED_FROM_ADDR_ID (+)
+			address.address_id=shipfrom.SHIPPED_FROM_ADDR_ID (+)
 		group by
 			ADDRESS_ID,
 			ADDRESS_TYPE ,
