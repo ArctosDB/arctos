@@ -189,10 +189,31 @@
 	       	guid_prefix
 	</cfquery>
 	<cfquery name="address" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from address
+		select
+			ADDRESS_ID,
+			ADDRESS_TYPE ,
+			ADDRESS,
+			VALID_ADDR_FG,
+			ADDRESS_REMARK,
+			count(shipfrom.transaction_id) numshipfrom,
+			count(shipto.transaction_id) numshipto
+		from 
+			address,
+			shipment shipto,
+			shipment shipfrom 
 		where 
-		agent_id = #agent.agent_id#
-		order by valid_addr_fg DESC, address_type
+			agent_id = #agent.agent_id# and
+			address.address_id=shipto.SHIPPED_TO_ADDR_ID (+) and
+			address.address_id=shipto.SHIPPED_FROM_ADDR_ID (+)
+		group by
+			ADDRESS_ID,
+			ADDRESS_TYPE ,
+			ADDRESS,
+			VALID_ADDR_FG,
+			ADDRESS_REMARK
+		order by 
+			valid_addr_fg DESC, 
+			address_type
 	</cfquery>
 	<cfquery name="status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -508,7 +529,7 @@
 			</table>
 		</fieldset>
 		<fieldset>
-			<legend>Address 	<span class="likeLink" onclick="getCtDoc('ctaddress_type');">code table</span></legend>
+			<legend>Address<span class="likeLink" onclick="getCtDoc('ctaddress_type');">code table</span></legend>
 			<cfloop query="address">
 				<cfif address_type is "url">
 					<cfset ttype='url'>
@@ -530,6 +551,10 @@
 							>#ctaddress_type.ADDRESS_TYPE#</option>
 						</cfloop>
 					</select>
+					<cfif numshipfrom gt 0>#numshipfrom# Shipments From</cfif>
+					<cfif numshipto gt 0>#numshipto# Shipments To</cfif>
+			
+			
 					<cfif ttype is 'textarea'>
 						<textarea class="reqdClr addresstextarea" name="address_#address_id#" id="address_#address_id#">#ADDRESS#</textarea>
 					<cfelse>
