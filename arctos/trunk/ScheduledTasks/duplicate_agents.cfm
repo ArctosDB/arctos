@@ -121,28 +121,6 @@ END;
 							</cfquery>
 							
 							
-								insert into address (
-									address_id,
-									address,
-									AGENT_ID,
-									ADDRESS_TYPE,
-									VALID_ADDR_FG,
-									ADDRESS_REMARK
-								) values (
-									#newAddrID.nid#,
-									'#escapequotes(addr.address)#',
-									#bads.related_agent_id#,
-									'#addr.ADDRESS_TYPE#',
-									#addr.VALID_ADDR_FG#,
-									'#escapequotes(addr.ADDRESS_REMARK)#'
-								)
-								
-								
-								
-							INSERTED....
-							<br>update shipment set SHIPPED_TO_ADDR_ID=#newAddrID.nid# where SHIPPED_TO_ADDR_ID=#addr.address_id#
-							
-
 							<cfquery name="upShipTo" datasource="uam_god">
 								update shipment set SHIPPED_TO_ADDR_ID=#newAddrID.nid# where SHIPPED_TO_ADDR_ID=#addr.address_id#
 							</cfquery>
