@@ -151,19 +151,15 @@
 								<div class="td widecell">
 									<div class="collection_title">#collection#</div>
 									<div class="collection_description">
-										This is a multiple-collection portal. 
+										#descr# 
 									</div>
 								</div>
-								
-								<cfquery name="PortalSpecimenCount" datasource="user_login" username="#coln_portals.dbusername#" password="#coln_portals.dbpwd#">
+								<cfquery name="PortalSpecimenCount" datasource="user_login" username="#coln_portals.dbusername#" password="#coln_portals.dbpwd#" cachedwithin="#createtimespan(0,0,60,0)#">
 									select count(*) c from cataloged_item
 								</cfquery>
-								<cfdump var=#PortalSpecimenCount#>
-								
-
 								<div class="td">
 									<ul>
-										<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
+										<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;#PortalSpecimenCount.c#&nbsp;Specimens</a></li>
 									</ul>
 								</div>
 							</div>
