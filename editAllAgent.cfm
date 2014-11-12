@@ -215,6 +215,7 @@
 			valid_addr_fg DESC, 
 			address_type
 	</cfquery>
+	<cfdump var=#address#>
 	<cfquery name="status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			agent_status_id,
