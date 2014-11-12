@@ -534,7 +534,7 @@
 				<span class="likeLink" onclick="getCtDoc('ctaddress_type');">code table</span>
 				 
 				<span class="likeLink shippingAddress" onclick="getDocs('address','used');">this denotes shipment addresses</span>
-				<a href="/info/agentActivity.cfm?agent_id=#agent.agent_id###shipping" target="_blank">view details</a>
+				<a href="/info/agentActivity.cfm?agent_id=#agent.agent_id###shipping" target="_blank">shipment details</a>
 				
 			</legend>
 			<cfloop query="address">
