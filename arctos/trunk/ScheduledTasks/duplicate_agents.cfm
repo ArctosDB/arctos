@@ -118,6 +118,11 @@ END;
 							</cfquery>
 							INSERTED....
 															update shipment set SHIPPED_TO_ADDR_ID=#newAddrID.nid# where SHIPPED_TO_ADDR_ID=#addr.address_id#
+							<cfquery name="madethis" datasource="uam_god">
+								select * from address where address_id=#newAddrID.nid#
+							</cfquery>
+							
+							<cfdump var=#madethis#>
 
 							<cfquery name="upShipTo" datasource="uam_god">
 								update shipment set SHIPPED_TO_ADDR_ID=#newAddrID.nid# where SHIPPED_TO_ADDR_ID=#addr.address_id#
