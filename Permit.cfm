@@ -1,4 +1,13 @@
 <cfinclude template = "includes/_header.cfm">
+<script>
+<script>
+	$(document).ready(function() {
+		$(".reqdClr:visible").each(function(e){
+		    $(this).prop('required',true);
+		});
+		$("input[type='date'], input[type='datetime']" ).datepicker();
+	});
+</script>
 <!--- no security --->
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select * from ctpermit_type
@@ -541,13 +550,13 @@ where
 		</tr>
 		<tr>
 			<td>Issued Date</td>
-			<td><input type="text" name="issued_Date" value="#dateformat(issued_Date,"yyyy-mm-dd")#"></td>
+			<td><input type="datetime" name="issued_Date" value="#dateformat(issued_Date,"yyyy-mm-dd")#"></td>
 			<td>Renewed Date</td>
-			<td><input type="text" name="renewed_Date" value="#dateformat(renewed_Date,"yyyy-mm-dd")#"></td>
+			<td><input type="datetime" name="renewed_Date" value="#dateformat(renewed_Date,"yyyy-mm-dd")#"></td>
 		</tr>
 		<tr>
 			<td>Expiration Date</td>
-			<td><input type="text" name="exp_Date" value="#dateformat(exp_Date,"yyyy-mm-dd")#"></td>
+			<td><input type="datetime" name="exp_Date" value="#dateformat(exp_Date,"yyyy-mm-dd")#"></td>
 			<td>Permit Number</td>
 			<td><input type="text" name="permit_Num" value="#permit_Num#"></td>
 		</tr>
