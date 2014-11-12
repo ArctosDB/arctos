@@ -253,14 +253,15 @@
 				FROM
 					permit			
 				WHERE
-					round(EXP_DATE - sysdate) = #inDays#
+					round(EXP_DATE - sysdate)<366 
+					--= #inDays#
 			</cfquery>
 			<cfquery name="expYearID" dbtype="query">
 				select CONTACT_AGENT_ID from permitExpOneYear group by CONTACT_AGENT_ID
 			</cfquery>
 			<cfloop query="permitExpOneYear">
 				<cfquery name="permitExpOneYearnames" dbtype="query">
-					select ADDRESS from permitExpOneYear where CONTACT_AGENT_ID=#permitExpOneYear.CONTACT_AGENT_ID#
+					select ADDRESS from permitExpOneYear where address is not null and CONTACT_AGENT_ID=#permitExpOneYear.CONTACT_AGENT_ID#
 					group by ADDRESS
 				</cfquery>
 				<cfquery name="permitExpOneYearIndiv" dbtype="query">
@@ -269,9 +270,11 @@
 				<cfif isdefined("Application.version") and  Application.version is "prod">
 					<cfset subj="Expiring Permits">
 					<cfset maddr=permitExpOneYearnames.ADDRESS>
+					<cfset ft="">
 				<cfelse>
 					<cfset maddr=application.bugreportemail>
 					<cfset subj="TEST PLEASE IGNORE: Expiring Permits">
+					<cfset ft=permitExpOneYearnames.ADDRESS>
 				</cfif>
 				<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="reminder@#Application.fromEmail#" type="html">
 					You are receiving this message because you are the contact person for the permits listed below, which are expiring.
@@ -280,6 +283,7 @@
 							<a href="#Application.ServerRootUrl#/Permit.cfm?Action=search&permit_id=#permit_id#">Permit##: #PERMIT_NUM#</a> expires on #dateformat(exp_date,'yyyy-mm-dd')# (#expires_in_days# days)<br>
 						</cfloop>
 					</p>
+					<br>#ft#
 					#emailFooter#
 				</cfmail>
 			</cfloop>

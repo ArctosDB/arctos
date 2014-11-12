@@ -134,10 +134,6 @@
 			$("#" + dfld).replaceWith(newDataElem );
 			$("#" + dfld).val(oldData);
 		});
-
-
-
-
 		$(document).on("change", '[id^="address_type_new"], [id^="address_new"]', function(){
 			// require paired values
 			var i = this.id;
