@@ -259,6 +259,10 @@
 			<cfquery name="expYearID" dbtype="query">
 				select CONTACT_AGENT_ID from permitExpOneYear group by CONTACT_AGENT_ID
 			</cfquery>
+			
+			<cfdump var=#expYearID#>
+			
+			
 			<cfloop query="permitExpOneYear">
 				<cfquery name="permitExpOneYearnames" dbtype="query">
 					select ADDRESS from permitExpOneYear where address is not null and CONTACT_AGENT_ID=#permitExpOneYear.CONTACT_AGENT_ID#
