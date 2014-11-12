@@ -116,6 +116,9 @@ END;
 									'#escapequotes(addr.ADDRESS_REMARK)#'
 								)
 							</cfquery>
+							INSERTED....
+															update shipment set SHIPPED_TO_ADDR_ID=#newAddrID.nid# where SHIPPED_TO_ADDR_ID=#addr.address_id#
+
 							<cfquery name="upShipTo" datasource="uam_god">
 								update shipment set SHIPPED_TO_ADDR_ID=#newAddrID.nid# where SHIPPED_TO_ADDR_ID=#addr.address_id#
 							</cfquery>
