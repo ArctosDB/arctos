@@ -28,6 +28,7 @@
 	legend {
 	    font-size:85%;
 	}
+	.deleting{border:5px solid orange;margin:1px;padding:1px;}
 </style>
 <script>
 	$(document).ready(function() {
@@ -104,6 +105,11 @@
 		
 		$(document).on("change", '[id^="address_type_"]', function(){
 			var ntype,dfld;
+			dfld=this.id.replace('address_type_','address_');
+			if ( $(this).val()=='DELETE' ){
+				$("#" + dfld).addClass('deleting');
+				return false;
+			}
 			if ( $(this).val()=='url' ){
 				ntype='url';
 			} else if ( $(this).val()=='email' ){
@@ -115,7 +121,7 @@
 			} else {
 				ntype='text';
 			}
-			dfld=this.id.replace('address_type_','address_');
+			
 			if (ntype=='textarea'){
 				var newDataElem='<textarea class="reqdClr addresstextarea" name="' + dfld + '" id="' + dfld + '"></textarea>';
 			} else {
