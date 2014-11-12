@@ -374,7 +374,7 @@ END;
 					
 					
 					<cfquery name="killagent" datasource="uam_god">
-						DELETE FROM agent WHERE ,agent_id = #bads.agent_id#
+						DELETE FROM agent WHERE agent_id = #bads.agent_id#
 					</cfquery>
 					del agnt<br><cfflush>
 					
