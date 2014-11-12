@@ -39,7 +39,7 @@
 <cfset addr = #replace(addr,"#chr(10)#","-","ALL")#>
 <cfset addr = #replace(addr,"#chr(13)#","-","ALL")#>
 <cfset addr=trim(addr)>
-<a href="##" onClick="javascript: opener.document.#formName#.#addrFld#.value='#addr#';opener.document.#formName#.#addrIdFld#.value='#addr_id#';self.close();">
+<a href="##" onClick="javascript: opener.document.#formName#.#addrFld#.value='#addr#';opener.document.#formName#.#addrIdFld#.value='#address_id#';self.close();">
 	<cfif VALID_ADDR_FG is 0><span class="red">#addr#</span><cfelse>#addr#</cfif></a>
 <br>
       <a href="/agents.cfm?agent_id=#agent_id#" target="_blank"><font color="##00FF66">Add 
