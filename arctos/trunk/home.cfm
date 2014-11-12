@@ -40,7 +40,7 @@
 			cf_collection.cf_collection_id,
 			cf_collection.collection,
 			cf_collection.collection_id,
-			descr,
+			cf_collection.descr,
 			web_link,
 			web_link_text,
 			loan_policy_url,
