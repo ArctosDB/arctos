@@ -240,46 +240,43 @@
 		<!--- end of loan code --->
 		<!----------- permit ------------>
 		<cfset cInt = "365,180,30,0">
-		<cfloop list="#cInt#" index="inDays">
-			<!--- 
-				permits have one (optional) contact address
-				just get the stuff that's not NULL and loop with it
-			---->
-			<cfquery name="permit" datasource="uam_god">
-				select
-					permit_id,
-					EXP_DATE,
-					PERMIT_NUM,
-					get_address(contact_agent_id,'email') ADDRESS,
-					round(EXP_DATE - sysdate) expires_in_days,
-					EXP_DATE
-				FROM
-					permit			
-				WHERE
-					get_address(contact_agent_id,'email') is not null and 
-					round(EXP_DATE - sysdate) IN (#cInt#) 
-					--= #inDays#
-			</cfquery>
-			<cfdump var=#permit#>
-			<cfloop query="permit">
-				<cfif isdefined("Application.version") and  Application.version is "prod">
-					<cfset subj="Expiring Permits">
-					<cfset maddr=permit.ADDRESS>
-					<cfset ft="">
-				<cfelse>
-					<cfset maddr=application.bugreportemail>
-					<cfset subj="TEST PLEASE IGNORE: Expiring Permits">
-					<cfset ft=permit.ADDRESS>
-				</cfif>
-				<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="reminder@#Application.fromEmail#" type="html">
-					You are receiving this message because you are the contact person for a permit which expires in #expires_in_days# days.
-					<p>
-						<a href="#Application.ServerRootUrl#/Permit.cfm?Action=search&permit_id=#permit_id#">Permit##: #PERMIT_NUM#</a> expires on #dateformat(exp_date,'yyyy-mm-dd')#<br>
-					</p>
-					<br>#ft#
-					#emailFooter#
-				</cfmail>
-			</cfloop>
+		<!--- 
+			permits have one (optional) contact address
+			just get the stuff that's not NULL and loop with it
+		---->
+		<cfquery name="permit" datasource="uam_god">
+			select
+				permit_id,
+				EXP_DATE,
+				PERMIT_NUM,
+				get_address(contact_agent_id,'email') ADDRESS,
+				round(EXP_DATE - sysdate) expires_in_days,
+				EXP_DATE
+			FROM
+				permit			
+			WHERE
+				get_address(contact_agent_id,'email') is not null and 
+				round(EXP_DATE - sysdate) IN (#cInt#) 
+		</cfquery>
+		<cfdump var=#permit#>
+		<cfloop query="permit">
+			<cfif isdefined("Application.version") and  Application.version is "prod">
+				<cfset subj="Expiring Permits">
+				<cfset maddr=permit.ADDRESS>
+				<cfset ft="">
+			<cfelse>
+				<cfset maddr=application.bugreportemail>
+				<cfset subj="TEST PLEASE IGNORE: Expiring Permits">
+				<cfset ft=permit.ADDRESS>
+			</cfif>
+			<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="reminder@#Application.fromEmail#" type="html">
+				You are receiving this message because you are the contact person for a permit which expires in #expires_in_days# days.
+				<p>
+					<a href="#Application.ServerRootUrl#/Permit.cfm?Action=search&permit_id=#permit_id#">Permit##: #PERMIT_NUM#</a> expires on #dateformat(exp_date,'yyyy-mm-dd')#<br>
+				</p>
+				<br>#ft#
+				#emailFooter#
+			</cfmail>
 		</cfloop>
 		<!---- year=old accessions with no specimens ---->
 		<cfquery name="yearOldAccn" datasource="uam_god">
