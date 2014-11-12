@@ -31,7 +31,7 @@ END;
 
 
 --->
-
+<cfset cookdays=14>
 <cfif action is "nothing">
 	<a href="duplicate_agents.cfm?action=merge">merge</a>
 	<br><a href="duplicate_agents.cfm?action=findDups">findDups</a>
@@ -57,7 +57,7 @@ END;
 				agent_relations.AGENT_ID=cf_dup_agent.AGENT_ID and
 				agent_relations.RELATED_AGENT_ID=cf_dup_agent.RELATED_AGENT_ID and
 				status='pass_email_sent' and
-				round(sysdate-last_date) >= 7
+				round(sysdate-last_date) >= #cookdays#
 		</cfquery>
 		<cfloop query="bads">
 			#cf_dup_agent_id#<br>
@@ -506,7 +506,7 @@ END;
 				(select agent_name from preferred_agent_name where agent_id=#RELATED_AGENT_ID#),
 				sysdate,
 				'new',
-				sysdate-7
+				sysdate-#cookdays#
 			)
 		</cfquery>
 	</cfloop>
@@ -569,7 +569,7 @@ END;
 			<cfmail to="#Application.DataProblemReportEmail#,#maddr#" subject="#subj#" from="agentmerge@#Application.fromEmail#" type="html">
 				<br>Agents have been marked for merger.
 				
-				<br>The following agents are scheduled for merger on #dateformat(dateadd("d",7,detected_date),"yyyy-mm-dd")#.
+				<br>The following agents are scheduled for merger on #dateformat(dateadd("d",#cookdays#,detected_date),"yyyy-mm-dd")#.
 				
 				<br>#findDups.agent_pref_name# is a bad duplicate of #findDups.rel_agent_pref_name#.
 				
