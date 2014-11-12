@@ -48,7 +48,9 @@
 			count(cat_num) as cnt,
 			guid_prefix,
 			cf_collection.institution,
-			replace(replace(collection.institution_acronym,'Obs'),'UAMb','UAM') institution_acronym
+			replace(replace(collection.institution_acronym,'Obs'),'UAMb','UAM') institution_acronym,
+			CF_COLLECTION.DBUSERNAME,
+			CF_COLLECTION.DBPWD
 		from
 			cf_collection,
 			collection,
@@ -69,6 +71,8 @@
 			guid_prefix,
 			cf_collection.institution,
 			replace(replace(collection.institution_acronym,'Obs'),'UAMb','UAM')
+			CF_COLLECTION.DBUSERNAME,
+			CF_COLLECTION.DBPWD
 	</cfquery>
 	
 
@@ -150,6 +154,14 @@
 										This is a multiple-collection portal. 
 									</div>
 								</div>
+								<CFQUERY NAME="PORTALSPECIMENCOUNT" 
+								
+								<cfquery name="PortalSpecimenCount" datasource="user_login" username="#dbusername#" password="#dbpwd#">
+									select count(*) c from collection
+								</cfquery>
+								<cfdump var=#PortalSpecimenCount#>
+								
+
 								<div class="td">
 									<ul>
 										<li><a href="/#coll_dir_name#" target="_top">Search&nbsp;Specimens</a></li>
