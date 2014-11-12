@@ -73,6 +73,11 @@ END;
 							agent_id=#bads.agent_id#
 					</cfquery>
 					
+					
+					<cfdump var=#addr#>
+					
+					
+					
 					<cfloop query="addr">
 						<br>got some addresses.....
 						<!--- see if there's a functional duplicate ---->
@@ -152,6 +157,9 @@ END;
 							</cfquery>
 						</cfif>
 					</cfloop>
+					
+					
+					
 <br>delete from address where agent_id=#bads.agent_id#
 					<cfquery name="address" datasource="uam_god">
 						delete from address where agent_id=#bads.agent_id#
@@ -431,7 +439,7 @@ END;
 							</cfmail>
 							----->
 							
-							<cfmail to="#Application.PageProblemEmail#" subject="agent merger failed" from="agentmerge@#Application.fromEmail#" type="html">
+							<cfmail to="#Application.bugReportEmail#" subject="agent merger failed" from="agentmerge@#Application.fromEmail#" type="html">
 								<br>Agent merger for #bads.agent_pref_name# --> #bads.rel_agent_pref_name# failed and was rolled back.
 								<br>
 								
