@@ -215,7 +215,6 @@
 			valid_addr_fg DESC, 
 			address_type
 	</cfquery>
-	<cfdump var=#address#>
 	<cfquery name="status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			agent_status_id,
@@ -530,7 +529,11 @@
 			</table>
 		</fieldset>
 		<fieldset>
-			<legend>Address<span class="likeLink" onclick="getCtDoc('ctaddress_type');">code table</span><span class="shippingAddress">this denotes shipping addresses</span></legend>
+			<legend>
+				Address  
+				<span class="likeLink" onclick="getCtDoc('ctaddress_type');">code table</span>  
+				<span class="likeLink shippingAddress" onclick="getDocs('address','used');">this denotes shipment addresses</span>
+			</legend>
 			<cfloop query="address">
 				<cfif address_type is "url">
 					<cfset ttype='url'>
