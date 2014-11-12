@@ -560,9 +560,9 @@
 			
 			
 					<cfif ttype is 'textarea'>
-						<textarea class="reqdClr addresstextarea addrClass" name="address_#address_id#" id="address_#address_id#">#ADDRESS#</textarea>
+						<textarea class="reqdClr addresstextarea #addrClass#" name="address_#address_id#" id="address_#address_id#">#ADDRESS#</textarea>
 					<cfelse>
-						<input type="#ttype#" class="reqdClr minput addrClass" name="address_#address_id#" id="address_#address_id#" value="#ADDRESS#">
+						<input type="#ttype#" class="reqdClr minput #addrClass#" name="address_#address_id#" id="address_#address_id#" value="#ADDRESS#">
 					</cfif>
 					<select name="valid_addr_fg_#address_id#" id="valid_addr_fg_#address_id#" class="reqdClr">
 						<option value="1" <cfif valid_addr_fg is 1> selected="selected" </cfif>>valid</option>
