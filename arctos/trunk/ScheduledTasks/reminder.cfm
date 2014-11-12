@@ -258,7 +258,6 @@
 				get_address(contact_agent_id,'email') is not null and 
 				round(EXP_DATE - sysdate) IN (#cInt#) 
 		</cfquery>
-		<cfdump var=#permit#>
 		<cfloop query="permit">
 			<cfif isdefined("Application.version") and  Application.version is "prod">
 				<cfset subj="Expiring Permits">
