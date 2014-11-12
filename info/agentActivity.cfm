@@ -386,6 +386,7 @@ Transactions
 		<cfloop query="shipment">
 			<li>Packed Shipment for <a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#guid_prefix# #loan_number#</a></li>
 		</cfloop>
+		<a name="shipping"></a>
 		<cfquery name="ship_to" datasource="uam_god">
 			select 
 				LOAN_NUMBER,
