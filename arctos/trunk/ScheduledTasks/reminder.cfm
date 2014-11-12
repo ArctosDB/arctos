@@ -307,6 +307,8 @@
 		</cfquery>
 		<cfloop query="colns">
 			<cfset contact = functions.getCollectionContactEmail(collection_id=collection_id,contact_role="data quality")>
+			
+			<cfdump var=#contact#>
 			<cfquery name="data" dbtype="query">
 				select 
 					transaction_id,
