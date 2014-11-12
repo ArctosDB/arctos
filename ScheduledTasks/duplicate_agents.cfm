@@ -148,6 +148,8 @@ END;
 							<cfquery name="upShipTo" datasource="uam_god">
 								update shipment set SHIPPED_TO_ADDR_ID=#newAddrID.nid# where SHIPPED_TO_ADDR_ID=#addr.address_id#
 							</cfquery>
+							<br>update shipment set SHIPPED_FROM_ADDR_ID=#newAddrID.nid# where SHIPPED_FROM_ADDR_ID=#addr.address_id#
+
 							<cfquery name="upShipFrom" datasource="uam_god">
 								update shipment set SHIPPED_FROM_ADDR_ID=#newAddrID.nid# where SHIPPED_FROM_ADDR_ID=#addr.address_id#
 							</cfquery>
