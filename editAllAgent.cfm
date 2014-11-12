@@ -18,7 +18,7 @@
 <style>
 	.validAddress{border:2px solid green;margin:1px;padding:1px;}
 	.invalidAddress{border:2px solid red;margin:1px;padding:1px;}
-	
+	.shippingAddress {border:2px solid red;margin:1px;padding:1px;}
 	fieldset {
 	    border:0;
 	    outline: 1px solid gray;
@@ -530,7 +530,7 @@
 			</table>
 		</fieldset>
 		<fieldset>
-			<legend>Address<span class="likeLink" onclick="getCtDoc('ctaddress_type');">code table</span></legend>
+			<legend>Address<span class="likeLink" onclick="getCtDoc('ctaddress_type');">code table</span><span class="shippingAddress">this denotes shipping addresses</span></legend>
 			<cfloop query="address">
 				<cfif address_type is "url">
 					<cfset ttype='url'>
@@ -552,14 +552,17 @@
 							>#ctaddress_type.ADDRESS_TYPE#</option>
 						</cfloop>
 					</select>
-					<cfif numshipfrom gt 0>#numshipfrom# Shipments From</cfif>
-					<cfif numshipto gt 0>#numshipto# Shipments To</cfif>
+					<cfif numshipfrom gt 0 or numshipto gt 0>
+						<cfset addrClass="shippingAddress">
+					<cfelse>
+						<cfset addrClass="">
+					</cfif>
 			
 			
 					<cfif ttype is 'textarea'>
-						<textarea class="reqdClr addresstextarea" name="address_#address_id#" id="address_#address_id#">#ADDRESS#</textarea>
+						<textarea class="reqdClr addresstextarea addrClass" name="address_#address_id#" id="address_#address_id#">#ADDRESS#</textarea>
 					<cfelse>
-						<input type="#ttype#" class="reqdClr minput" name="address_#address_id#" id="address_#address_id#" value="#ADDRESS#">
+						<input type="#ttype#" class="reqdClr minput addrClass" name="address_#address_id#" id="address_#address_id#" value="#ADDRESS#">
 					</cfif>
 					<select name="valid_addr_fg_#address_id#" id="valid_addr_fg_#address_id#" class="reqdClr">
 						<option value="1" <cfif valid_addr_fg is 1> selected="selected" </cfif>>valid</option>
