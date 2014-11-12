@@ -154,9 +154,8 @@
 										This is a multiple-collection portal. 
 									</div>
 								</div>
-								<CFQUERY NAME="PORTALSPECIMENCOUNT" 
 								
-								<cfquery name="PortalSpecimenCount" datasource="user_login" username="#dbusername#" password="#dbpwd#">
+								<cfquery name="PortalSpecimenCount" datasource="user_login" username="#coln_portals.dbusername#" password="#coln_portals.dbpwd#">
 									select count(*) c from cataloged_item
 								</cfquery>
 								<cfdump var=#PortalSpecimenCount#>
