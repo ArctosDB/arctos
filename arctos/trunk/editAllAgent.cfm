@@ -107,6 +107,7 @@
 			var ntype,dfld;
 			dfld=this.id.replace('address_type_','address_');
 			if ( $(this).val()=='DELETE' ){
+console.log(dfld);
 				$("#" + dfld).addClass('deleting');
 				return false;
 			}
