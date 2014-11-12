@@ -241,51 +241,39 @@
 		<!----------- permit ------------>
 		<cfset cInt = "365,180,30,0">
 		<cfloop list="#cInt#" index="inDays">
-			<cfquery name="permitExpOneYear" datasource="uam_god">
+			<!--- 
+				permits have one (optional) contact address
+				just get the stuff that's not NULL and loop with it
+			---->
+			<cfquery name="permit" datasource="uam_god">
 				select
 					permit_id,
 					EXP_DATE,
 					PERMIT_NUM,
 					get_address(contact_agent_id,'email') ADDRESS,
 					round(EXP_DATE - sysdate) expires_in_days,
-					EXP_DATE,
-					CONTACT_AGENT_ID
+					EXP_DATE
 				FROM
 					permit			
 				WHERE
-					round(EXP_DATE - sysdate)<366 
+					get_address(contact_agent_id,'email') is not null and 
+					round(EXP_DATE - sysdate) IN (#cInt#) 
 					--= #inDays#
 			</cfquery>
-			<cfquery name="expYearID" dbtype="query">
-				select CONTACT_AGENT_ID from permitExpOneYear group by CONTACT_AGENT_ID
-			</cfquery>
-			
-			<cfdump var=#expYearID#>
-			
-			
-			<cfloop query="permitExpOneYear">
-				<cfquery name="permitExpOneYearnames" dbtype="query">
-					select ADDRESS from permitExpOneYear where address is not null and CONTACT_AGENT_ID=#permitExpOneYear.CONTACT_AGENT_ID#
-					group by ADDRESS
-				</cfquery>
-				<cfquery name="permitExpOneYearIndiv" dbtype="query">
-					select * from permitExpOneYear where CONTACT_AGENT_ID=#CONTACT_AGENT_ID# order by expires_in_days
-				</cfquery>
+			<cfloop query="permit">
 				<cfif isdefined("Application.version") and  Application.version is "prod">
 					<cfset subj="Expiring Permits">
-					<cfset maddr=permitExpOneYearnames.ADDRESS>
+					<cfset maddr=permit.ADDRESS>
 					<cfset ft="">
 				<cfelse>
 					<cfset maddr=application.bugreportemail>
 					<cfset subj="TEST PLEASE IGNORE: Expiring Permits">
-					<cfset ft=permitExpOneYearnames.ADDRESS>
+					<cfset ft=permit.ADDRESS>
 				</cfif>
 				<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="reminder@#Application.fromEmail#" type="html">
-					You are receiving this message because you are the contact person for the permits listed below, which are expiring.
+					You are receiving this message because you are the contact person for a permit which expires in #expires_in_days# days.
 					<p>
-						<cfloop query="permitExpOneYearIndiv">
-							<a href="#Application.ServerRootUrl#/Permit.cfm?Action=search&permit_id=#permit_id#">Permit##: #PERMIT_NUM#</a> expires on #dateformat(exp_date,'yyyy-mm-dd')# (#expires_in_days# days)<br>
-						</cfloop>
+						<a href="#Application.ServerRootUrl#/Permit.cfm?Action=search&permit_id=#permit_id#">Permit##: #PERMIT_NUM#</a> expires on #dateformat(exp_date,'yyyy-mm-dd')#<br>
 					</p>
 					<br>#ft#
 					#emailFooter#
