@@ -85,6 +85,7 @@ END;
 								agent_id=#bads.RELATED_AGENT_ID# and
 								address='#address#'
 						</cfquery>
+						<CFDUMP VAR=#goodHasDupAddr#>
 						<cfif len(goodHasDupAddr.address_id) gt 0>
 							<!--- the good dup has a dup address; update shipment to use it and delete the old ---->
 							<cfquery name="upShipTo" datasource="uam_god">
