@@ -1,6 +1,5 @@
 <cfinclude template = "includes/_header.cfm">
 <script>
-<script>
 	$(document).ready(function() {
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
