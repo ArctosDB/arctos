@@ -70,7 +70,7 @@
 			portal_name,
 			guid_prefix,
 			cf_collection.institution,
-			replace(replace(collection.institution_acronym,'Obs'),'UAMb','UAM')
+			replace(replace(collection.institution_acronym,'Obs'),'UAMb','UAM'),
 			CF_COLLECTION.DBUSERNAME,
 			CF_COLLECTION.DBPWD
 	</cfquery>
