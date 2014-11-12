@@ -74,7 +74,6 @@ END;
 					</cfquery>
 					
 					
-					<cfdump var=#addr#>
 					
 					
 					
@@ -90,7 +89,6 @@ END;
 								agent_id=#bads.RELATED_AGENT_ID# and
 								address='#address#'
 						</cfquery>
-						<CFDUMP VAR=#goodHasDupAddr#>
 						<cfif len(goodHasDupAddr.address_id) gt 0>
 							<!--- the good dup has a dup address; update shipment to use it and delete the old ---->
 							<cfquery name="upShipTo" datasource="uam_god">
@@ -158,10 +156,19 @@ END;
 					
 					
 					
-<br>delete from address where agent_id=#bads.agent_id#
-					<cfquery name="address" datasource="uam_god">
-						delete from address where agent_id=#bads.agent_id#
-					</cfquery>
+
+					<cfif len(valuelist(addr.address_id)) gt 0>
+						<br>delete from address where agent_id=#bads.agent_id#
+
+						<cfquery name="address" datasource="uam_god">
+							delete from address where address_id in (#valuelist(addr.address_id)#)
+						</cfquery>
+						<br>							delete from address where address_id in (#valuelist(addr.address_id)#)
+
+				<cfelse>
+				<br>no address to delete
+					</cfif>
+					
 					
 					<!--- grab old collectors ---->
 					<cfquery name="verbatim_collector" datasource="uam_god">
