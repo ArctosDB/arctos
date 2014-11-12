@@ -109,6 +109,7 @@
 			if ( $(this).val()=='DELETE' ){
 console.log(dfld);
 				$("#" + dfld).addClass('deleting');
+				$(this).addClass('deleting');
 				return false;
 			}
 			if ( $(this).val()=='url' ){
