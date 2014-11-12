@@ -157,7 +157,7 @@
 								<CFQUERY NAME="PORTALSPECIMENCOUNT" 
 								
 								<cfquery name="PortalSpecimenCount" datasource="user_login" username="#dbusername#" password="#dbpwd#">
-									select count(*) c from collection
+									select count(*) c from cataloged_item
 								</cfquery>
 								<cfdump var=#PortalSpecimenCount#>
 								
