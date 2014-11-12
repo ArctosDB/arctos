@@ -107,11 +107,12 @@
 			var ntype,dfld;
 			dfld=this.id.replace('address_type_','address_');
 			if ( $(this).val()=='DELETE' ){
-console.log(dfld);
 				$("#" + dfld).addClass('deleting');
 				$(this).addClass('deleting');
 				return false;
 			}
+			$("#" + dfld).removeClass('deleting');
+			$(this).removeClass('deleting');
 			if ( $(this).val()=='url' ){
 				ntype='url';
 			} else if ( $(this).val()=='email' ){
