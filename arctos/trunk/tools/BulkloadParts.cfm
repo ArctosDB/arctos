@@ -701,6 +701,15 @@ validate
 				create a part, no containers
 			4) something else
 				abort
+				
+				
+				
+				
+		Big load? Use this:
+	
+
+
+
 	---->
 		<cfloop query="getTempData">
 			<cfif len(use_part_id) is 0 AND len(parent_container_id) gt 0><!--- 1 ---->

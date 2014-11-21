@@ -5,7 +5,9 @@
 	<cfset groupBy='scientific_name'>
 </cfif>
 <cfoutput>
-	<cfset groupBy=listprepend(groupby,"collection_object_id")>
+	<cfif not listfindnocase(groupby,'collection_object_id')>
+		<cfset groupBy=listprepend(groupby,"collection_object_id")>
+	</cfif>
 	<cfset prefixed_cols="">
 	<cfloop list="#groupBy#" index="x">
 		<cfset prefixed_cols = listappend(prefixed_cols,"#session.flatTableName#.#x#")>

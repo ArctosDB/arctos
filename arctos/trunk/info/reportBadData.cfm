@@ -164,7 +164,7 @@
 			collection_contacts.collection_id = cataloged_item.collection_id AND
 			contact_role='data quality' AND
 			cataloged_item.collection_object_id IN (#newCollObjId#)
-		GROUP BY address
+		GROUP BY get_address(collection_contacts.CONTACT_AGENT_ID,'email')
 	</cfquery>
 	<cfset thisAddress = Application.DataProblemReportEmail><!--- always send data problems to SOMEONE, even if we don't 
 		find additional contacts --->

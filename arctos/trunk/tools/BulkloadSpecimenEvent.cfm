@@ -555,9 +555,10 @@ grant all on cf_temp_specevent to coldfusion_user;
 				<a href="BulkloadSpecimenEvent.cfm?action=getGuidUUID">Find GUIDs from UUID</a>
 			</p>
 		</cfif>
-		<cfif (len(nog.c) is 0 or nog.c is 0) and  willload.c neq mine.recordcount>
+		<cfif willload.c neq mine.recordcount>
 			<p>
 				Your data require <a href="BulkloadSpecimenEvent.cfm?action=validateFromFile">validation</a>
+				<br>IMPORTANT: Records without GUID will be ignored.
 				<br>IMPORTANT: Validation is slow; it'll only run on #numberToValidate# records at a time. Click the link,
 				grab a cup of coffee, then click the link again if necessary.
 			</p>
@@ -689,18 +690,21 @@ grant all on cf_temp_specevent to coldfusion_user;
 	---->
 	<cfquery name="SPECIMEN_EVENT_TYPE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_specevent set status='SPECIMEN_EVENT_TYPE not found'
-		where upper(username)='#ucase(session.username)#' and SPECIMEN_EVENT_TYPE NOT IN (select SPECIMEN_EVENT_TYPE from CTSPECIMEN_EVENT_TYPE)
+		where upper(username)='#ucase(session.username)#' and SPECIMEN_EVENT_TYPE NOT IN (select SPECIMEN_EVENT_TYPE from CTSPECIMEN_EVENT_TYPE) and
+		guid is not null
 	</cfquery>
 	<cfquery name="COLLECTING_SOURCE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_specevent set status='COLLECTING_SOURCE not found'
 		where upper(username)='#ucase(session.username)#' and 
 		COLLECTING_SOURCE is not null and
-		COLLECTING_SOURCE NOT IN (select COLLECTING_SOURCE from CTCOLLECTING_SOURCE)
+		COLLECTING_SOURCE NOT IN (select COLLECTING_SOURCE from CTCOLLECTING_SOURCE) and
+		guid is not null
 	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_specevent where upper(username)='#ucase(session.username)#' and
 		status is null and
-		rownum<=#numberToValidate#
+		rownum<=#numberToValidate# and
+		guid is not null
 	</cfquery>
 	
 	<cfloop query="data">
