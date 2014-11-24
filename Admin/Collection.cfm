@@ -315,7 +315,7 @@
 	<h2>Random Disclaimer</h2>
 	<div>
 		None of this is an attempt to prevent changes or assert any values over any other; we (the Arctos Advisory and Steering Committees) simply
-		wish to prevent a uniform front containing unambiguous values. How we accomplish that is, as always, up to the combined efforts of the 
+		wish to present a uniform front containing unambiguous values. How we accomplish that is, as always, up to the combined efforts of the 
 		Arctos community.
 	</div>
 	<a name="inst"></a>
@@ -340,8 +340,8 @@
 		bad idea, but we can accommodate changes by creating redirects to "old" URLs. <a href="/contact.cfm">Contact us</a> is a change to guid_prefix is necessary.
 	</div>
 	<div>
-		<strong>collection_cde</strong> controls code tables and therefore acceptable data. Changing collection_cde requires data confirmation and 
-		possibly migration. <a href="/contact.cfm">Contact us</a> is a change to collection_cde is necessary.
+		<strong>collection_cde</strong> controls code tables and therefore acceptable data. Changing collection_cde requires data migration. 
+		<a href="/contact.cfm">Contact us</a> is a change to collection_cde is necessary.
 	</div>
 	
 </cfoutput>
