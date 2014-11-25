@@ -285,54 +285,55 @@
 		<cfset hf_units = "">
 		<cfset efn_units = "">
 		<cfset weight_units = "">
-			
 
-		<cfloop list="#attributes#" index="attind" delimiters=";">
-			<cfset sPos=find(":",attind)>
-			<cfif sPos gt 0>
-				<cfset att=left(attind,sPos-1)>
-				<cfset aVal=right(attind,len(attind)-sPos-1)>
-				<cfif #trim(att)# is "total length">
-					<cfset totlen = "#aVal#">
-				<cfelseif #trim(att)# is "tail length">
-					<cfset taillen = "#aVal#">
-				<cfelseif #trim(att)# is "hind foot with claw">
-					<cfset hf = "#aVal#">
-				<cfelseif #trim(att)# is "ear from notch">	
-					<cfset efn = "#aVal#">
-				<cfelseif #trim(att)# is "weight">
-					<cfset weight = "#aVal#">
+		<cfset extDelim=";">
+		<cfset intDelim="=">
+		<cfloop list="#attributes#" index="attind" delimiters="#extDelim#">
+			<cfif listlen(attind,"#intDelim#") is 2>
+				<cfset att=listgetat(attind,1,"#intDelim#")>
+				<cfset aVal=listgetat(attind,2,"#intDelim#")>
+				<cfif trim(att) is "total length">
+					<cfset totlen = trim(aVal)>
+				<cfelseif trim(att) is "tail length">
+					<cfset taillen = trim(aVal)>
+				<cfelseif trim(att) is "hind foot with claw">
+					<cfset hf = trim(aVal)>
+				<cfelseif trim(att) is "ear from notch">	
+					<cfset efn = trim(aVal)>
+				<cfelseif trim(att) is "weight">
+					<cfset weight = trim(aVal)>
 				</cfif>
 			</cfif>
 		</cfloop>
-		<cfif len(#totlen#) gt 0>
-			<cfset meas = #totlen#>
+		
+		<cfif len(totlen) gt 0>
+			<cfset meas = totlen>
 		<cfelse>
 			<cfset meas="X">
 		</cfif>
-		<cfif len(#taillen#) gt 0>
+		<cfif len(taillen) gt 0>
 			<cfset meas = "#meas#-#taillen#">
 		<cfelse>
 			<cfset meas = "#meas#-X">
 		</cfif>
-		<cfif len(#hf#) gt 0>
+		<cfif len(hf) gt 0>
 			<cfset meas = "#meas#-#hf#">
 		<cfelse>
 			<cfset meas = "#meas#-X">
 		</cfif>
-		<cfif len(#efn#) gt 0>
+		<cfif len(efn) gt 0>
 			<cfset meas = "#meas#-#efn#">
 		<cfelse>
 			<cfset meas = "#meas#-X">
 		</cfif>
-		<cfif len(#weight#) gt 0>
+		<cfif len(weight) gt 0>
 			<cfset meas = "#meas#=#weight#">
 		<cfelse>
 			<cfset meas = "#meas#=X">
 		</cfif>
 		<cfset meas=replace(meas,"mm","","all")>
+		<cfset meas=replace(meas," ","","all")>
 		<cfset aAr[i] = #meas#>
-			
 		<cfset stripParts = "">
 		<cfset tiss = "">
 		<cfloop list="#parts#" delimiters=";" index="p">

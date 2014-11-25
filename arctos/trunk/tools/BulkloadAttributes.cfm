@@ -1,5 +1,42 @@
 <!---
  see migration/6.4 for DDL
+
+
+ddl to load big batches:
+
+
+declare
+	-- update if you aren't me....
+	myAgentId number := 2072;
+begin
+	for r in (select * from cf_temp_attributes where username='DLM') loop
+		INSERT INTO attributes (
+			attribute_id,
+			collection_object_id,
+			determined_by_agent_id,
+			attribute_type,
+			attribute_value
+			,attribute_units
+			,attribute_remark
+			,determined_date
+			,determination_method
+		) VALUES (
+			sq_attribute_id.nextval,
+			r.collection_object_id,
+			r.determined_by_agent_id,
+			r.attribute,
+			r.attribute_value,
+			r.attribute_units,
+			r.remarks,
+			r.attribute_date,
+			r.attribute_meth
+		);
+	end loop;
+end;
+/
+
+
+
 --->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkload Specimen Attributes">
