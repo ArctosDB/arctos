@@ -23,7 +23,7 @@
 </cfloop>
 <!--- Bing is stupid ---->
 <cfscript>
-	variables.joFileWriter.writeLine('Disallow:::: /contact.cfm');
+	variables.joFileWriter.writeLine('Disallow: /contact.cfm');
 </cfscript>
 <cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
 <cfset allowedFileList="favicon.ico,robots.txt">
