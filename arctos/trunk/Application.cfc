@@ -412,7 +412,7 @@
 		</cfscript>
 		<cfabort>
 	</cfif>
-	<!--- keep people/bots from browsing a dev server
+	<!--- keep people/bots from browsing a dev server	--->
 	<cfif cgi.HTTP_HOST is "login.corral.tacc.utexas.edu" or cgi.HTTP_HOST is "arctos-test.tacc.utexas.edu">
 		<cfset cPath=GetTemplatePath()>
 		<cfif
@@ -422,11 +422,11 @@
 			cPath does not contain "/contact.cfm" and
 			cPath does not contain "/dumpAll.cfm" and
 			cPath does not contain "/get_short_doc.cfm" and
+			cPath does not contain "/errors/gtfo.cfm" and
 			len(session.username) is 0>
 			<cflocation url="/errors/dev_login.cfm">
 		</cfif>
 	</cfif>	
-	--->
 	<!--- people still have this thing bookmarked --->
 	<cfif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
 		<cfset rurl="http://arctos.database.museum">
