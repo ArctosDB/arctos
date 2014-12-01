@@ -1024,20 +1024,26 @@
 			$("#common_name_" + i).val('');
 		}
 		function addCommonName(){
-			var lncn=$("#newCommonNames input:last").attr("id");
-			console.log(lncn);
+			var cid=$("#newCommonNames input:last").attr("id");
+console.log("cid="+cid);
 
-var tid=lncn.attr("id");
+			//console.log(lncn);
 
-console.log("tid="+tid);
-			var lid=tid.replace('common_name_new','');
-console.log("lid="+lid);
-var nid=parseInt(lid) + 1;
+//var tid=lncn.attr("id");
+
+//onsole.log("tid="+tid);
+	//		var lid=tid.replace('common_name_new','');
+//console.log("lid="+lid);
+
+
+var nid=parseInt(cid.replace('common_name_new','')) + 1;
+console.log("cid="+cid);
+
 console.log("nid="+nid);
 var h='<div><input placeholder="new common name" type="text" id="common_name_new' + nid + '" name="common_name_new' + nid + '" size="50"></div>';
 console.log("h="+h);
 
-$("#" + tid).after(h);
+$("#" + cid).after(h);
 
 
 
