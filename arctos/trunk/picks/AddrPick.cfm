@@ -25,7 +25,8 @@
 			SELECT 
 				preferred_agent_name agent_name, 
 				address.agent_id, 
-				address, 
+				address,
+				address_type,
 				address_id,
 				VALID_ADDR_FG 
 			from 
@@ -37,20 +38,50 @@
 			 	agent.agent_id=address.agent_id (+) AND
 			 UPPER(agent_name) LIKE '%#ucase(agentname)#%'				
 		</cfquery>
-		<cfdump var=#getAgentId#>
 	</cfoutput>
-	<cfoutput query="getAgentId">
-		
+	<cfquery name="da" dbtype="query">
+		select agent_name,agent_id from getAgentId group by  agent_name,agent_id  order by agent_name
+	</cfquery>
+	<cfoutput>
+		<cfloop query="da">
+			<div style="border:1px solid black;margin:1em;">
+				#agent_name# (<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#agent_id#: edit/add address</a>
+				<cfquery name="addrs" dbtype="query">
+					select * from getAgentId where agent_id=#agent_id#
+				</cfquery>
+				<cfloop query="addrs">
+					<cfset addr = replace(address,"'","`","ALL")>
+					<cfset addr = replace(addr,"#chr(9)#","-","ALL")>
+					<cfset addr = replace(addr,"#chr(10)#","-","ALL")>
+					<cfset addr = replace(addr,"#chr(13)#","-","ALL")>
+					<cfset addr=trim(addr)>
+					<cfif VALID_ADDR_FG is 0>
+						<cfset bclr="red">
+					<cfelse>
+						<cfset bclr="green">
+					</cfif>
+
+					<span style="margin:1em;border:1px solid #bclr#">
+						#address_type#:
+						<p>
+							#address
+							<br><span class="likeLink" onclick="opener.document.#formName#.#addrFld#.value='#addr#';opener.document.#formName#.#addrIdFld#.value='#address_id#';self.close();">use this address</span>
+						</p>
+						<br>
+					</span>
+				</cfloop>
+			</div>
+		</cfloop>
+	</cfoutput>
+	
+	<!----
+	<cfoutput query="getAgentId">	
 <br>
-#agent_name#<br>
+<br>
 <cfif len(address) gt 0>
-<cfset addr = #replace(address,"'","`","ALL")#>
-<cfset addr = #replace(addr,"#chr(9)#","-","ALL")#>
-<cfset addr = #replace(addr,"#chr(10)#","-","ALL")#>
-<cfset addr = #replace(addr,"#chr(13)#","-","ALL")#>
-<cfset addr=trim(addr)>
-<a href="##" onClick="javascript: opener.document.#formName#.#addrFld#.value='#addr#';opener.document.#formName#.#addrIdFld#.value='#address_id#';self.close();">
-	<cfif VALID_ADDR_FG is 0><span class="red">#addr#</span><cfelse>#addr#</cfif></a>
+
+<a href="##" onClick="javascript: ">
+	<cfif VALID_ADDR_FG is 0><span class="red">#address#</span><cfelse>#address#</cfif></a>
 <br>
       <a href="/agents.cfm?agent_id=#agent_id#" target="_blank"><font color="##00FF66">Add 
       address for #agent_name# <font size="-2">(new window)</font></font></a> 
@@ -60,5 +91,6 @@
     </cfif>
 <hr>
 	</cfoutput>
+	---->
 </cfif>
 <cfinclude template="../includes/_pickFooter.cfm">
