@@ -51,7 +51,7 @@
 	
 	request.rdurl: #request.rdurl#
 	<cfset browsergarbage="apple-touch-icon-precomposed,apple-touch-icon,browserconfig">
-	<cfif listfindnocase(browsergarbage,request.rdurl,",.")>
+	<cfif listfindnocase(browsergarbage,request.rdurl,"/,.")>
 		<cfthrow detail="Invalid browser-specific file request" message="403: Forbidden" errorcode="403">
 	</cfif>
 	
