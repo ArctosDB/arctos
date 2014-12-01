@@ -24,7 +24,7 @@
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT 
 				preferred_agent_name agent_name, 
-				address.agent_id, 
+				agent.agent_id, 
 				address,
 				address_type,
 				address_id,
@@ -36,7 +36,7 @@
 			 where 
 			 	agent.agent_id=agent_name.agent_id (+) and
 			 	agent.agent_id=address.agent_id (+) AND
-			 UPPER(agent_name) LIKE '%#ucase(agentname)#%'				
+			 UPPER(agent_name.agent_name) LIKE '%#ucase(agentname)#%'				
 		</cfquery>
 	</cfoutput>
 	<cfquery name="da" dbtype="query">
