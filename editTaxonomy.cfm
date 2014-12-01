@@ -1032,8 +1032,8 @@
 var tid=lncn.attr("id");
 
 console.log("tid="+tid);
-			var lid=lncn.id.replace('common_name_new');
-			console.log(lid);
+			var lid=tid.replace('common_name_new');
+console.log("lid="+lid);
 
 
 
