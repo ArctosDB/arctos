@@ -56,7 +56,7 @@
 					<cfelse>
 						<cfset bclr="green">
 					</cfif>
-					<div style="margin-left:1em;border:1px solid #bclr#">
+					<div style="margin:1em;border:1px solid #bclr#">
 						Address Type: #address_type# 
 						<span class="likeLink" onclick="opener.document.#formName#.#addrFld#.value='#jsaddr#';opener.document.#formName#.#addrIdFld#.value='#address_id#';self.close();">[ use this address ]</span>
 						<p style="margin-left:1em">
