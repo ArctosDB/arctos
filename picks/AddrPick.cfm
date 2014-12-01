@@ -45,7 +45,7 @@
 	<cfoutput>
 		<cfloop query="da">
 			<div style="border:1px solid black;margin:1em;">
-				#agent_name# (<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#agent_id#: edit/add address</a>
+				#agent_name# (<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#agent_id#: edit/add address</a>)
 				<cfquery name="addrs" dbtype="query">
 					select * from getAgentId where agent_id=#agent_id#
 				</cfquery>
@@ -61,14 +61,14 @@
 						<cfset bclr="green">
 					</cfif>
 
-					<span style="margin:1em;border:1px solid #bclr#">
-						#address_type#:
-						<p>
+					<div style="margin:1em;border:1px solid #bclr#">
+						Address Type: #address_type#
+						<p style="margin:1em">
 							#address#
 							<br><span class="likeLink" onclick="opener.document.#formName#.#addrFld#.value='#addr#';opener.document.#formName#.#addrIdFld#.value='#address_id#';self.close();">use this address</span>
 						</p>
 						<br>
-					</span>
+					</div>
 				</cfloop>
 			</div>
 		</cfloop>
