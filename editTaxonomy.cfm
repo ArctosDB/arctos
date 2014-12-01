@@ -1044,25 +1044,6 @@
 			var h='<div><input placeholder="new common name" type="text" id="common_name_new' + nid + '" name="common_name_new' + nid + '" size="50">';
 			h+='<span class="infoLink" onclick="deleteCommon(\'new'+nid+'\');">delete</span></div>';
 			$("#" + cid).parent().after(h);
-
-
-
-
-//			var i=parseInt($("#nnea").val()) + parseInt(1);
-	//		var h='<div id="eaddiv'+i+'" class="newRec">';
-		//	h+='<select name="address_type_new'+i+'" id="address_type_new'+i+'" size="1"></select>';
-			//h+='<input type="text" class="minput" name="address_new'+i+'" id="address_new'+i+'" placeholder="add address">';
-			//
-		
-			//h+='<select name="valid_addr_fg_new'+i+'" id="valid_addr_fg_new'+i+'"></select>';
-			
-			//h+='<textarea class="smalltextarea" placeholder="remark" name="address_remark_new'+i+'" id="address_remark_new'+i+'"></textarea>';
-			//h+='</div>';
-			//$('#eaddiv' + $("#nnea").val()).after(h);
-			//$('#address_type_new1').find('option').clone().appendTo('#address_type_new' + i);
-			//$('#valid_addr_fg_new1').find('option').clone().appendTo('#valid_addr_fg_new' + i);
-			//$("#nnea").val(i);
-		
 		}
 
 	</script>
@@ -1228,6 +1209,7 @@
 				<div class="likeLink" onclick="addCommonName()">Add a Row</div>
 				<div>
 					<input placeholder="new common name" type="text" id="common_name_new1" name="common_name_new1" size="50">
+					<span class="infoLink" onclick="deleteCommon('new1');">delete</span>
 				</div>
 			</div>
 			<br><input type="submit" value="save common name changes">
