@@ -1028,6 +1028,10 @@
 		function addCommonName(){
 			var lncn=$("#newCommonNames input:last");
 			console.log(lncn);
+			var lid=lncn.id.replace('common_name_new');
+			console.log(lid);
+
+
 
 //			var i=parseInt($("#nnea").val()) + parseInt(1);
 	//		var h='<div id="eaddiv'+i+'" class="newRec">';
