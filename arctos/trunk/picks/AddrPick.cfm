@@ -48,7 +48,7 @@
 			<div style="border:1px solid black;margin:1em;">
 				#agent_name# (<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#agent_id#: edit/add address</a>)
 				<cfquery name="addrs" dbtype="query">
-					select * from getAgentId where jsaddr is not null and agent_id=#agent_id# order by VALID_ADDR_FG desc, address_type, address
+					select * from getAgentId where jsaddr is not null and agent_id=#agent_id# order by VALID_ADDR_FG desc, address_type, jsaddr
 				</cfquery>
 				<cfloop query="addrs">
 					<cfif VALID_ADDR_FG is 0>
