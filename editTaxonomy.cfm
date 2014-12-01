@@ -1023,10 +1023,8 @@
 		function deleteCommon(i){
 			$("#common_name_" + i).val('');
 		}
-
-
 		function addCommonName(){
-			var lncn=$("#newCommonNames input:last");
+			var lncn=$("#newCommonNames input:last").attr("id");
 			console.log(lncn);
 
 var tid=lncn.attr("id");
