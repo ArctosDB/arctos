@@ -1039,7 +1039,8 @@ console.log("nid="+nid);
 var h='<div><input placeholder="new common name" type="text" id="common_name_new' + nid + '" name="common_name_new' + nid + '" size="50"></div>';
 console.log("h="+h);
 
-$("#tid").val('hello').after(h);
+$("#" + tid).after(h);
+
 
 
 
