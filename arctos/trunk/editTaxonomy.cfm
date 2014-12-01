@@ -1222,22 +1222,8 @@ $("#tid").after(h);
 				<div class="likeLink" onclick="addCommonName()">Add a Row</div>
 				<input placeholder="new common name" type="text" id="common_name_new1" name="common_name_new1" size="50">
 			</div>
-			<input type="submit" value="save common name changes">
+			<br><input type="submit" value="save common name changes">
 		</form>
-
-		<table class="newRec">
-			<tr>
-				<td>
-					<form name="newCommon" method="post" action="editTaxonomy.cfm">
-						<input type="hidden" name="Action" value="newCommon">
-						<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
-						<label for="common_name">New Common Name</label>
-						<input type="text" name="common_name" size="50">
-						<input type="submit" value="Create" class="insBtn">	
-					</form>
-				</td>
-			</tr>
-		</table>
 	</cfoutput>
 </cfif>
 <cfinclude template="includes/_footer.cfm">
