@@ -343,9 +343,12 @@
 			         scrollTop: $("##taxondetail").offset().top
 			     }, 1000);
 			}
-			//jQuery.get(am, function(data){
-			//	 jQuery('##specTaxMedia').html(data);
-			//})
+
+			var am='/form/inclMedia.cfm?typ=taxon&tgt=specTaxMedia&q=' +  $("##taxon_name_id").val();
+
+			jQuery.get(am, function(data){
+				 jQuery('##specTaxMedia').html(data);
+			})
 			var am='/includes/taxonomy/mapTax.cfm?scientific_name=#scientific_name.scientific_name#';
 
 			console.log(am);
