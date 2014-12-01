@@ -347,7 +347,7 @@
 			var am='/form/inclMedia.cfm?typ=taxon&tgt=specTaxMedia&q=' +  $("##taxon_name_id").val();
 
 			jQuery.get(am, function(data){
-				 jQuery('##specTaxMedia').html(data);
+				 jQuery('##taxarangemap').html(data);
 			})
 			var am='/includes/taxonomy/mapTax.cfm?scientific_name=#scientific_name.scientific_name#';
 
@@ -379,7 +379,7 @@
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
 	</cfif>
 	<div id="specTaxMap"></div>
-	<div id="specTaxMedia"></div>
+	<div id="taxarangemap"></div>
 	<div id="f" style="margin:2em;"></div>
 	<cfquery name="related" datasource="uam_god">
 		select
