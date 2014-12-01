@@ -346,7 +346,7 @@
 			jQuery.get(am, function(data){
 				 jQuery('##specTaxMedia').html(data);
 			})
-			var am=/includes/taxonomy/mapTax.cfm?scientific_name=#scientific_name.scientific_name#';
+			var am='/includes/taxonomy/mapTax.cfm?scientific_name=#scientific_name.scientific_name#';
 
 			jQuery.get(am, function(data){
 				 jQuery('##specTaxMap').html(data);
