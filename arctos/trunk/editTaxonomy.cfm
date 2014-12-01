@@ -1041,7 +1041,8 @@
 		function addCommonName(){
 			var cid=$("#newCommonNames input:last").attr("id");
 			var nid=parseInt(cid.replace('common_name_new','')) + 1;
-			var h='<div><input placeholder="new common name" type="text" id="common_name_new' + nid + '" name="common_name_new' + nid + '" size="50"></div>';
+			var h='<div><input placeholder="new common name" type="text" id="common_name_new' + nid + '" name="common_name_new' + nid + '" size="50">';
+			h+='<span class="infoLink" onclick="deleteCommon'new'+nid+');">delete</span></div>';
 			$("#" + cid).parent().after(h);
 
 
@@ -1220,8 +1221,8 @@
 			<cfloop query="common">
 				<div>
 					<input placeholder="common name" type="text" id="common_name_#common_name_id#" name="common_name_#common_name_id#" value="#common_name#" size="50">
+					<span class="infoLink" onclick="deleteCommon(#common_name_id#);">delete</span>
 				</div>
-				<span class="infoLink" onclick="deleteCommon(#common_name_id#);">delete</span>
 			</cfloop>
 			<div id="newCommonNames" class="newRec">
 				<div class="likeLink" onclick="addCommonName()">Add a Row</div>
