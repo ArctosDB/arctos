@@ -359,6 +359,7 @@
 		})
 function loadTaxonomyMap(n,m){
 	var am='/includes/taxonomy/mapTax.cfm?method=' + m + '&scientific_name=' + n;
+	jQuery('##specTaxMap').html('<img src="/images/indicator.gif">');
 	jQuery.get(am, function(data){
 		jQuery('##specTaxMap').html(data);
 	})
