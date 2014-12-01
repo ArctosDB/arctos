@@ -977,28 +977,7 @@
 	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfoutput>
 </cfif>
-<!---------------------------------------------------------------------------------------------------->
-<cfif action is "deleteCommon">
-<cfoutput>
-	<cfquery name="killCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		DELETE FROM 
-			common_name
-		WHERE 
-			common_name_id=#common_name_id#
-	</cfquery>
-	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
-</cfoutput>
-</cfif>
-<!---------------------------------------------------------------------------------------------------->
-<cfif action is "newCommon">
-<cfoutput>
-	<cfquery name="newCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		INSERT INTO common_name (common_name, taxon_name_id)
-		VALUES ('#common_name#', #taxon_name_id#)
-	</cfquery>
-	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
-</cfoutput>
-</cfif>
+
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "saveNewName">
 <cfoutput>
@@ -1040,6 +1019,34 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "editnoclass">
+	<script>
+		function deleteCommon(i){
+			$("#common_name_" + i).val('');
+		}
+
+
+		function addCommonName(){
+			var lncn=$("#newCommonNames input:last").id;
+			console.log(lncn);
+
+//			var i=parseInt($("#nnea").val()) + parseInt(1);
+	//		var h='<div id="eaddiv'+i+'" class="newRec">';
+		//	h+='<select name="address_type_new'+i+'" id="address_type_new'+i+'" size="1"></select>';
+			//h+='<input type="text" class="minput" name="address_new'+i+'" id="address_new'+i+'" placeholder="add address">';
+			//
+		
+			//h+='<select name="valid_addr_fg_new'+i+'" id="valid_addr_fg_new'+i+'"></select>';
+			
+			//h+='<textarea class="smalltextarea" placeholder="remark" name="address_remark_new'+i+'" id="address_remark_new'+i+'"></textarea>';
+			//h+='</div>';
+			//$('#eaddiv' + $("#nnea").val()).after(h);
+			//$('#address_type_new1').find('option').clone().appendTo('#address_type_new' + i);
+			//$('#valid_addr_fg_new1').find('option').clone().appendTo('#valid_addr_fg_new' + i);
+			//$("#nnea").val(i);
+		
+		}
+
+	</script>
 	<cfoutput>	
 		<cfquery name="thisname" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select scientific_name  from taxon_name where taxon_name_id=#taxon_name_id#
@@ -1186,20 +1193,24 @@
 				common_name,
 				common_name_id
 			from common_name where taxon_name_id = #taxon_name_id#
+			order by common_name
 		</cfquery>
 		<span class="likeLink" onClick="getDocs('taxonomy','common_names');">Common Names</span>
-		<cfset i=1>
-		<cfloop query="common">
-			<form name="common#i#" method="post" action="editTaxonomy.cfm">
-				<input type="hidden" name="common_name_id" value="#common_name_id#">
-				<input type="hidden" name="action">
-				<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
-				<input type="text" name="common_name" value="#common_name#" size="50">
-				<input type="button" value="Save" class="savBtn" onClick="common#i#.action.value='saveCommon';submit();">	
-		   		<input type="button" value="Delete" class="delBtn" onClick="common#i#.action.value='deleteCommon';confirmDelete('common#i#');">
-			</form>
-			<cfset i=i+1>
-		</cfloop>
+		<form name="commonname" method="post" action="editTaxonomy.cfm">
+			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
+			<cfset i=1>
+			<cfloop query="common">
+				<input placeholder="common name" type="text" id="common_name_#common_name_id#" name="common_name_#common_name_id#" value="#common_name#" size="50">
+				<span class="infoLink" onclick="deleteCommon(#common_name_id#);">delete</span>
+				<cfset i=i+1>
+			</cfloop>
+			<div id="newCommonNames" class="newRec">
+				<span class="likeLink" onclick="addCommonName()">Add a Row</span>
+				<input placeholder="new common name" type="text" id="common_name_new1" name="common_name_new1" size="50">
+			</div>
+			<input type="submit" value="save common name changes">
+		</form>
+
 		<table class="newRec">
 			<tr>
 				<td>
