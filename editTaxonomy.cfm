@@ -1042,7 +1042,7 @@
 			var cid=$("#newCommonNames input:last").attr("id");
 			var nid=parseInt(cid.replace('common_name_new','')) + 1;
 			var h='<div><input placeholder="new common name" type="text" id="common_name_new' + nid + '" name="common_name_new' + nid + '" size="50">';
-			h+='<span class="infoLink" onclick="deleteCommon'new'+nid+');">delete</span></div>';
+			h+='<span class="infoLink" onclick="deleteCommon(\'new'+nid+'\');">delete</span></div>';
 			$("#" + cid).parent().after(h);
 
 
