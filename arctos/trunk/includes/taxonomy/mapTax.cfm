@@ -5,6 +5,8 @@
 	}
 </style>
 <cfoutput>
+hello
+<cfabort>
 	<cfset internalPath="#Application.webDirectory#/cache/">
 	<cfset externalPath="#Application.ServerRootUrl#/cache/">
 	<cfif not isdefined("method")>

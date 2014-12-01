@@ -329,19 +329,6 @@
 		select source from cttaxonomy_source order by source
 	</cfquery>
 	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
-	<script>
-		jQuery(document).ready(function(){
-			if (document.location.hash.length == 0) {
-			     $('html, body').animate({
-			         scrollTop: $("##taxondetail").offset().top
-			     }, 1000);
-			}
-			var am='/form/inclMedia.cfm?typ=taxon&tgt=specTaxMedia&q=' +  $("##taxon_name_id").val();
-			jQuery.get(am, function(data){
-				 jQuery('##specTaxMedia').html(data);
-			})
-		})
-	</script>
 	
 	<cfquery name="scientific_name" dbtype="query">
 		select scientific_name from d group by scientific_name
@@ -349,6 +336,24 @@
 	<cfquery name="taxon_name_id" dbtype="query">
 		select taxon_name_id from d group by taxon_name_id
 	</cfquery>
+	<script>
+		jQuery(document).ready(function(){
+			if (document.location.hash.length == 0) {
+			     $('html, body').animate({
+			         scrollTop: $("##taxondetail").offset().top
+			     }, 1000);
+			}
+			jQuery.get(am, function(data){
+				 jQuery('##specTaxMedia').html(data);
+			})
+			var am=/includes/taxonomy/mapTax.cfm?scientific_name=#scientific_name.scientific_name#';
+
+			jQuery.get(am, function(data){
+				 jQuery('##specTaxMap').html(data);
+			})
+		})
+	</script>
+	
 	<span class="annotateSpace">
 		<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) cnt from annotations
@@ -368,6 +373,7 @@
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
 	</cfif>
+	<div id="specTaxMap"></div>
 	<div id="specTaxMedia"></div>
 	<div id="f" style="margin:2em;"></div>
 	<cfquery name="related" datasource="uam_god">
