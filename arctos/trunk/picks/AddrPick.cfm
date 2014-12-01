@@ -42,6 +42,7 @@
 	<cfquery name="da" dbtype="query">
 		select agent_name,agent_id from getAgentId group by  agent_name,agent_id  order by agent_name
 	</cfquery>
+	<cfdump var=#da#>
 	<cfoutput>
 		<cfloop query="da">
 			<div style="border:1px solid black;margin:1em;">
