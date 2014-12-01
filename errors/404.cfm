@@ -52,6 +52,8 @@
 	<cfif listfindnocase(browsergarbage,request.rdurl,",.")>
 		<cfthrow detail="Invalid browser-specific file request" message="403: Forbidden" errorcode="403">
 	</cfif>
+	
+	nope...
 	<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
 		<cfif listfindnocase(nono,i)>
 			<cfinclude template="/errors/autoblacklist.cfm">
