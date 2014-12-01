@@ -22,10 +22,19 @@
 	</cfif>
 	<cfoutput>
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT agent_name, preferred_agent_name.agent_id, address, address_id,VALID_ADDR_FG from 
-			preferred_agent_name, address
+			SELECT 
+				preferred_agent_name agent_name, 
+				address.agent_id, 
+				address, 
+				address_id,
+				VALID_ADDR_FG 
+			from 
+				agent,
+				agent_name, 
+				address
 			 where 
-			 preferred_agent_name.agent_id = address.agent_id (+) AND
+			 	agent.agent_id=agent_name.agent_id (+) and
+			 	agent.agent_id=address.agent_id (+) AND
 			 UPPER(agent_name) LIKE '%#ucase(agentname)#%'				
 		</cfquery>
 		<cfdump var=#getAgentId#>
