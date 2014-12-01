@@ -132,7 +132,7 @@
 		<td valign="top">
 			<div style="margin-left:2em;">
 				<!--- and help/about/etc. gets 1/2 ---->
-				<a target="_blank" class="external" href="https://arctosdb.org/documentation/identification/taxonomy/">Taxonomy Documentation</a>
+				<a target="_blank" class="external" href="http://arctosdb.org/documentation/identification/taxonomy/">Taxonomy Documentation</a>
 				<ul>
 					<li id="help_taxon_name">
 						<strong>Taxon Name</strong> is the "namestring" or "scientific name," the "data" that is used to form Identifications and the core
