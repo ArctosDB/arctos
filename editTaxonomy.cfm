@@ -1036,7 +1036,9 @@ console.log("tid="+tid);
 console.log("lid="+lid);
 var nid=parseInt(lid) + 1;
 console.log("nid="+nid);
-var h='<input placeholder="new common name" type="text" id="common_name_new' + nid + '" name="common_name_new' + nid + '" size="50">';
+var h='<div><input placeholder="new common name" type="text" id="common_name_new' + nid + '" name="common_name_new' + nid + '" size="50"></div>';
+console.log("h="+h);
+
 $("#tid").after(h);
 
 
