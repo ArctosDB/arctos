@@ -57,7 +57,7 @@
 						<cfset bclr="green">
 					</cfif>
 					<div style="margin:1em;border:1px solid #bclr#">
-						Address Type: #address_type# 
+						#address_type# (<cfif VALID_ADDR_FG is 0>in</cfif>valid)
 						<span class="likeLink" onclick="opener.document.#formName#.#addrFld#.value='#jsaddr#';opener.document.#formName#.#addrIdFld#.value='#address_id#';self.close();">[ use this address ]</span>
 						<p style="margin-left:1em">
 							#htmladdr#
