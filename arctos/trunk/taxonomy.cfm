@@ -343,9 +343,9 @@
 			         scrollTop: $("##taxondetail").offset().top
 			     }, 1000);
 			}
-			jQuery.get(am, function(data){
-				 jQuery('##specTaxMedia').html(data);
-			})
+			//jQuery.get(am, function(data){
+			//	 jQuery('##specTaxMedia').html(data);
+			//})
 			var am='/includes/taxonomy/mapTax.cfm?scientific_name=#scientific_name.scientific_name#';
 
 			console.log(am);
