@@ -966,55 +966,30 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "saveCommon">
 <cfoutput>
-
-<cfloop list="#structKeyList(form)#" index="key">
-	<br>#key#	
-	<cfif left(key,11) is "COMMON_NAME">
-		<cfset thisCommonNameID=listlast(key,"_")>
-		<cfset thisCommonName=form["COMMON_NAME_#thisCommonNameID#"]>
-		<br>#thisCommonNameID#: #thisCommonNameID#						
-		<br>#thisCommonName#: #thisCommonName#
-		<cfif left(thisCommonNameID,3) is "new">
-			<cfif len(thisCommonName) gt 0>
-				<cfquery name="nwcommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into common_name(TAXON_NAME_ID,COMMON_NAME) values (#TAXON_NAME_ID#,'#escapeQuotes(thisCommonName)#')
-				</cfquery>
-
-				<br>insert into common_name(TAXON_NAME_ID,COMMON_NAME) values (#TAXON_NAME_ID#,'#escapeQuotes(thisCommonName)#')
-				
-									   NOT NULL NUMBER
- 							   NOT NULL VARCHAR2(255)
- COMMON_NAME_ID 						   NOT NULL NUMBER
-....
-			</cfif>
-		<cfelse>
-			<cfif len(thisCommonName) gt 0>
-				<cfquery name="ucommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update common_name set common_name='#escapeQuotes(thisCommonName)#' where common_name_id=#thisCommonNameID#
-				</cfquery>
-update common_name set common_name='#escapeQuotes(thisCommonName)#' where common_name_id=#thisCommonNameID#
+	<cfloop list="#structKeyList(form)#" index="key">
+		<cfif left(key,11) is "COMMON_NAME">
+			<cfset thisCommonNameID=listlast(key,"_")>
+			<cfset thisCommonName=form["COMMON_NAME_#thisCommonNameID#"]>
+			<cfif left(thisCommonNameID,3) is "new">
+				<cfif len(thisCommonName) gt 0>
+					<cfquery name="nwcommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into common_name(TAXON_NAME_ID,COMMON_NAME) values (#TAXON_NAME_ID#,'#escapeQuotes(thisCommonName)#')
+					</cfquery>
+				</cfif>
 			<cfelse>
-				<cfquery name="dcommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					delete from common_name where common_name_id=#thisCommonNameID#
-				</cfquery>
-				delete from common_name  where common_name_id=#thisCommonNameID#
-			</cfif>
-		</cfif>	
-	</cfif>		
+				<cfif len(thisCommonName) gt 0>
+					<cfquery name="ucommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update common_name set common_name='#escapeQuotes(thisCommonName)#' where common_name_id=#thisCommonNameID#
+					</cfquery>
+				<cfelse>
+					<cfquery name="dcommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						delete from common_name where common_name_id=#thisCommonNameID#
+					</cfquery>
+				</cfif>
+			</cfif>	
+		</cfif>		
 	</cfloop>
-					<!--------
-	
-	
-	<cfquery name="upCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		UPDATE
-			common_name
-		SET 
-			common_name = '#common_name#'
-		WHERE 
-			common_name_id=#common_name_id#
-	</cfquery>
 	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
-	-------->
 </cfoutput>
 </cfif>
 
