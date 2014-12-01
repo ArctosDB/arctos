@@ -350,9 +350,9 @@
 
 			console.log(am);
 
-//			jQuery.get(am, function(data){
-	//			 jQuery('##specTaxMap').html(data);
-		//	})
+			jQuery.get(am, function(data){
+			 jQuery('##specTaxMap').html(data);
+			})
 		})
 	</script>
 	
