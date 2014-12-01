@@ -132,9 +132,7 @@
 		<td valign="top">
 			<div style="margin-left:2em;">
 				<!--- and help/about/etc. gets 1/2 ---->
-				<h3>IMPORTANT ANNOUNCEMENT</h3>
-				Arctos taxonomy has changed - 
-				<a target="_blank" class="external" href="https://docs.google.com/document/d/1J1B7NKfaWl1A1wVQUe5rlm6FsfA7-VVUHsCqH-gHA_E/edit?usp=sharing">learn more here</a>.
+				<a target="_blank" class="external" href="https://arctosdb.org/documentation/identification/taxonomy/">Taxonomy Documentation</a>
 				<ul>
 					<li id="help_taxon_name">
 						<strong>Taxon Name</strong> is the "namestring" or "scientific name," the "data" that is used to form Identifications and the core

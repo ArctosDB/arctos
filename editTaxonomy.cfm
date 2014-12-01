@@ -1,5 +1,5 @@
 <cfinclude template="includes/_header.cfm">
-<a target="_blank" class="external" href="https://docs.google.com/document/d/1J1B7NKfaWl1A1wVQUe5rlm6FsfA7-VVUHsCqH-gHA_E/edit">editing guidelines</a>
+<a target="_blank" class="external" href="http://arctosdb.org/documentation/identification/taxonomy/#edit">editing guidelines</a>
 <!------------------------------------------------------------------------------->
 <cfif action is "cloneClassificationNewName">
 	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
