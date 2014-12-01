@@ -1036,7 +1036,8 @@ console.log("tid="+tid);
 console.log("lid="+lid);
 var nid=parseInt(lid) + 1;
 console.log("nid="+nid);
-
+var h='<input placeholder="new common name" type="text" id="common_name_new' + nid + '" name="common_name_new' + nid + '" size="50">';
+$("#tid").after(h);
 
 
 
@@ -1216,7 +1217,7 @@ console.log("nid="+nid);
 				<cfset i=i+1>
 			</cfloop>
 			<div id="newCommonNames" class="newRec">
-				<span class="likeLink" onclick="addCommonName()">Add a Row</span>
+				<div class="likeLink" onclick="addCommonName()">Add a Row</div>
 				<input placeholder="new common name" type="text" id="common_name_new1" name="common_name_new1" size="50">
 			</div>
 			<input type="submit" value="save common name changes">
