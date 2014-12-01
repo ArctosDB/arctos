@@ -16,7 +16,7 @@
 </form>
 <cfif isdefined("search") and #search# is "true">
 	<!--- make sure we're searching for something --->
-	<cfif len(#agentname#) is 0>
+	<cfif len(agentname) is 0>
 		You must enter search criteria.
 		<cfabort>
 	</cfif>
@@ -25,7 +25,8 @@
 			SELECT 
 				preferred_agent_name agent_name, 
 				agent.agent_id, 
-				address,
+				regexp_replace(address,'[^[:print:]]','-') jsaddr,
+				regexp_replace(address,'[^[:print:]]','<br>') htmladdr,
 				address_type,
 				address_id,
 				VALID_ADDR_FG 
@@ -40,33 +41,26 @@
 		</cfquery>
 	</cfoutput>
 	<cfquery name="da" dbtype="query">
-		select agent_name,agent_id from getAgentId group by  agent_name,agent_id  order by agent_name
+		select agent_name,agent_id from getAgentId group by agent_name,agent_id  order by agent_name
 	</cfquery>
-	<cfdump var=#da#>
 	<cfoutput>
 		<cfloop query="da">
 			<div style="border:1px solid black;margin:1em;">
 				#agent_name# (<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">#agent_id#: edit/add address</a>)
 				<cfquery name="addrs" dbtype="query">
-					select * from getAgentId where address is not null and agent_id=#agent_id# order by VALID_ADDR_FG desc, address_type, address
+					select * from getAgentId where jsaddr is not null and agent_id=#agent_id# order by VALID_ADDR_FG desc, address_type, address
 				</cfquery>
 				<cfloop query="addrs">
-					<cfset addr = replace(address,"'","`","ALL")>
-					<cfset addr = replace(addr,"#chr(9)#","-","ALL")>
-					<cfset addr = replace(addr,"#chr(10)#","-","ALL")>
-					<cfset addr = replace(addr,"#chr(13)#","-","ALL")>
-					<cfset addr=trim(addr)>
 					<cfif VALID_ADDR_FG is 0>
 						<cfset bclr="red">
 					<cfelse>
 						<cfset bclr="green">
 					</cfif>
-
 					<div style="margin:1em;border:1px solid #bclr#">
 						Address Type: #address_type#
 						<p style="margin:1em">
-							#address#
-							<br><span class="likeLink" onclick="opener.document.#formName#.#addrFld#.value='#addr#';opener.document.#formName#.#addrIdFld#.value='#address_id#';self.close();">use this address</span>
+							#htmladdr#
+							<br><span class="likeLink" onclick="opener.document.#formName#.#addrFld#.value='#jsaddr#';opener.document.#formName#.#addrIdFld#.value='#address_id#';self.close();">use this address</span>
 						</p>
 						<br>
 					</div>
