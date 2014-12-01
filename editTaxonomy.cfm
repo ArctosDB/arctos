@@ -1026,7 +1026,7 @@
 
 
 		function addCommonName(){
-			var lncn=$("#newCommonNames input:last").attr(id);
+			var lncn=$("#newCommonNames input:last");
 			console.log(lncn);
 
 //			var i=parseInt($("#nnea").val()) + parseInt(1);
