@@ -968,10 +968,17 @@
 <cfoutput>
 
 <cfloop list="#structKeyList(form)#" index="key">
-	<br>#key#				
+	<br>#key#	
+	<cfif left(key,11) is "COMMON_NAME">
+		<cfset thisCommonNameID=listlast(key,"_")>
+		<cfset thisCommonName=form["COMMON_NAME_#thisCommonNameID#"]>
+		<br>#thisCommonNameID#: #thisCommonNameID#						
+		<br>#thisCommonName#: #thisCommonName#						
+						
+	</cfif>		
 	</cfloop>
 					<!--------
-	<cfif left(key,16) is "agent_name_type_">
+	
 	
 	<cfquery name="upCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		UPDATE
