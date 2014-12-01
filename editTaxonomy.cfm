@@ -1025,25 +1025,9 @@
 		}
 		function addCommonName(){
 			var cid=$("#newCommonNames input:last").attr("id");
-console.log("cid="+cid);
-
-			//console.log(lncn);
-
-//var tid=lncn.attr("id");
-
-//onsole.log("tid="+tid);
-	//		var lid=tid.replace('common_name_new','');
-//console.log("lid="+lid);
-
-
-var nid=parseInt(cid.replace('common_name_new','')) + 1;
-console.log("cid="+cid);
-
-console.log("nid="+nid);
-var h='<div><input placeholder="new common name" type="text" id="common_name_new' + nid + '" name="common_name_new' + nid + '" size="50"></div>';
-console.log("h="+h);
-
-$("#" + cid).after(h);
+			var nid=parseInt(cid.replace('common_name_new','')) + 1;
+			var h='<div><input placeholder="new common name" type="text" id="common_name_new' + nid + '" name="common_name_new' + nid + '" size="50"></div>';
+			$("#" + cid).parent().after(h);
 
 
 
@@ -1225,7 +1209,9 @@ $("#" + cid).after(h);
 			</cfloop>
 			<div id="newCommonNames" class="newRec">
 				<div class="likeLink" onclick="addCommonName()">Add a Row</div>
-				<input placeholder="new common name" type="text" id="common_name_new1" name="common_name_new1" size="50">
+				<div>
+					<input placeholder="new common name" type="text" id="common_name_new1" name="common_name_new1" size="50">
+				</div>
 			</div>
 			<br><input type="submit" value="save common name changes">
 		</form>
