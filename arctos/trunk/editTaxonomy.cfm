@@ -1028,7 +1028,10 @@
 		function addCommonName(){
 			var lncn=$("#newCommonNames input:last");
 			console.log(lncn);
-console.log(lncn.id);
+
+var tid=lncn.attr("id");
+
+console.log("tid="+tid);
 			var lid=lncn.id.replace('common_name_new');
 			console.log(lid);
 
