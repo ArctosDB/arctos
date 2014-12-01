@@ -28,6 +28,7 @@
 			 preferred_agent_name.agent_id = address.agent_id (+) AND
 			 UPPER(agent_name) LIKE '%#ucase(agentname)#%'				
 		</cfquery>
+		<cfdump var=#getAgentId#>
 	</cfoutput>
 	<cfoutput query="getAgentId">
 		
