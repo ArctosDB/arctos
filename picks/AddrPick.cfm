@@ -64,7 +64,7 @@
 					<span style="margin:1em;border:1px solid #bclr#">
 						#address_type#:
 						<p>
-							#address
+							#address#
 							<br><span class="likeLink" onclick="opener.document.#formName#.#addrFld#.value='#addr#';opener.document.#formName#.#addrIdFld#.value='#address_id#';self.close();">use this address</span>
 						</p>
 						<br>
