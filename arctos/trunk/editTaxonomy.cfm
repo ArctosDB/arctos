@@ -990,7 +990,7 @@
 		<cfelse>
 			<cfif len(thisCommonName) gt 0>
 				<cfquery name="ucommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update common_name set common_name='#escapeQuotes(thisCommonName)# where common_name_id=#thisCommonNameID#
+					update common_name set common_name='#escapeQuotes(thisCommonName)#' where common_name_id=#thisCommonNameID#
 				</cfquery>
 update common_name set common_name='#escapeQuotes(thisCommonName)#' where common_name_id=#thisCommonNameID#
 			<cfelse>
