@@ -969,6 +969,7 @@
 
 <cfloop list="#structKeyList(form)#" index="key">
 	<br>#key#				
+	</cfloop>
 					<!--------
 	<cfif left(key,16) is "agent_name_type_">
 	
