@@ -20,7 +20,7 @@
 		padding:1em;
 		margin:1em;
 	}
-	.specTaxMedia{
+	#specTaxMedia{
 		width:60%;
 		margin-left:10em;
 	}
