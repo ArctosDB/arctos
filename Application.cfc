@@ -76,6 +76,9 @@
 				<cfabort>
 			</cfif>
 			<cfset subject="403">
+			<cfif isdefined("exception.detail") and exception.detail contains "Invalid browser-specific file request">
+				<cfset subject="browser garbage">
+			</cfif>
 		<cfelse>
 			<cfif isdefined("exception.detail") and len(exception.detail) gt 0>
 				<cfif exception.detail contains "[Macromedia][Oracle JDBC Driver][Oracle]ORA-00600">
