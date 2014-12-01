@@ -371,7 +371,7 @@
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
 	</cfif>
 	<div id="specTaxMedia"></div>
-	<div id="mapTax" style="margin:2em;"></div>
+	<div id="f" style="margin:2em;"></div>
 	<cfquery name="related" datasource="uam_god">
 		select
 			TAXON_RELATIONSHIP,
