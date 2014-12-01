@@ -966,6 +966,12 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "saveCommon">
 <cfoutput>
+
+<cfloop list="#structKeyList(form)#" index="key">
+	<br>#key#				
+					<!--------
+	<cfif left(key,16) is "agent_name_type_">
+	
 	<cfquery name="upCommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		UPDATE
 			common_name
@@ -975,6 +981,7 @@
 			common_name_id=#common_name_id#
 	</cfquery>
 	<cflocation url="editTaxonomy.cfm?Action=editnoclass&taxon_name_id=#taxon_name_id#" addtoken="false">
+	-------->
 </cfoutput>
 </cfif>
 
@@ -1201,11 +1208,12 @@
 		<span class="likeLink" onClick="getDocs('taxonomy','common_names');">Common Names</span>
 		<form name="commonname" method="post" action="editTaxonomy.cfm">
 			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
-			<cfset i=1>
+			<input type="hidden" name="action" value="saveCommon">
 			<cfloop query="common">
-				<input placeholder="common name" type="text" id="common_name_#common_name_id#" name="common_name_#common_name_id#" value="#common_name#" size="50">
+				<div>
+					<input placeholder="common name" type="text" id="common_name_#common_name_id#" name="common_name_#common_name_id#" value="#common_name#" size="50">
+				</div>
 				<span class="infoLink" onclick="deleteCommon(#common_name_id#);">delete</span>
-				<cfset i=i+1>
 			</cfloop>
 			<div id="newCommonNames" class="newRec">
 				<div class="likeLink" onclick="addCommonName()">Add a Row</div>
