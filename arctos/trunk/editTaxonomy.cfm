@@ -973,8 +973,33 @@
 		<cfset thisCommonNameID=listlast(key,"_")>
 		<cfset thisCommonName=form["COMMON_NAME_#thisCommonNameID#"]>
 		<br>#thisCommonNameID#: #thisCommonNameID#						
-		<br>#thisCommonName#: #thisCommonName#						
-						
+		<br>#thisCommonName#: #thisCommonName#
+		<cfif left(thisCommonNameID,3) is "new">
+			<cfif len(thisCommonName) gt 0>
+				<cfquery name="nwcommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into common_name(TAXON_NAME_ID,COMMON_NAME) values (#TAXON_NAME_ID#,'#escapeQuotes(thisCommonName)#')
+				</cfquery>
+
+				<br>insert into common_name(TAXON_NAME_ID,COMMON_NAME) values (#TAXON_NAME_ID#,'#escapeQuotes(thisCommonName)#')
+				
+									   NOT NULL NUMBER
+ 							   NOT NULL VARCHAR2(255)
+ COMMON_NAME_ID 						   NOT NULL NUMBER
+....
+			</cfif>
+		<cfelse>
+			<cfif len(thisCommonName) gt 0>
+				<cfquery name="ucommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update common_name set common_name='#escapeQuotes(thisCommonName)# where common_name_id=#thisCommonNameID#
+				</cfquery>
+update common_name set common_name='#escapeQuotes(thisCommonName)# where common_name_id=#thisCommonNameID#
+			<cfelse>
+				<cfquery name="dcommon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					delete from common_name  where common_name_id=#thisCommonNameID#
+				</cfquery>
+				delete from common_name  where common_name_id=#thisCommonNameID#
+			</cfif>
+		</cfif>	
 	</cfif>		
 	</cfloop>
 					<!--------
