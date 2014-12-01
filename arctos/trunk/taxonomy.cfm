@@ -353,14 +353,16 @@
 			jQuery.get(am, function(data){
 				 jQuery('##specTaxMedia').html(data);
 			})
-			var am='/includes/taxonomy/mapTax.cfm?scientific_name=#scientific_name.scientific_name#';
+			loadTaxonomyMap('#scientific_name.scientific_name#');
 
-			console.log(am);
-
-			jQuery.get(am, function(data){
-			 jQuery('##specTaxMap').html(data);
-			})
+			
 		})
+function loadTaxonomyMap(n,m){
+	var am='/includes/taxonomy/mapTax.cfm?method=' + m + '&scientific_name=' + n';
+	jQuery.get(am, function(data){
+		jQuery('##specTaxMap').html(data);
+	})
+}
 	</script>
 	
 	<span class="annotateSpace">
