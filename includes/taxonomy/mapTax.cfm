@@ -98,9 +98,9 @@
 	</script>
 	<span id="toggleExactmatch">
 		<cfif method is "exact">
-			Showing exact matches - <span class="likeLink" onclick="reloadThis('')"> show matches for '#scientific_name#%'</span>
+			Showing exact matches - <span class="likeLink" onclick="loadTaxonomyMap('#scientific_name#')"> show matches for '#scientific_name#%'</span>
 		<cfelse>
-			Showing fuzzy matches - <span class="likeLink" onclick="reloadThis('exact')"> show matches for exactly '#scientific_name#'</span>
+			Showing fuzzy matches - <span class="likeLink" onclick="loadTaxonomyMap('#scientific_name#','exact')"> show matches for exactly '#scientific_name#'</span>
 		</cfif>
 	</span>
 </cfoutput>
