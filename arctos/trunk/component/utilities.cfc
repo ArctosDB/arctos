@@ -46,10 +46,6 @@
  		<cfargument name="FirstRowIsHeadings" type="boolean" required="false" default="true" hint="Set to false if the heading row is absent"/>
 		
 		
-				<cfdump var=#csv#>
-
-
-
 
 		<cfset var LOCAL = StructNew() />
 		<cfset ARGUMENTS.Delimiter = Left( ARGUMENTS.Delimiter, 1 ) />
