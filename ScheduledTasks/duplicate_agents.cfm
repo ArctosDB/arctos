@@ -489,6 +489,7 @@ END;
 			cf_dup_agent.AGENT_ID is null and
 			cf_dup_agent.RELATED_AGENT_ID is null	
 	</cfquery>
+	<cfdump var=#findDups#>
 	<cfloop query="findDups">
 		<cfquery name="findedDups" datasource="uam_god">
 			insert into cf_dup_agent (
@@ -569,7 +570,7 @@ END;
 			<cfmail to="#Application.DataProblemReportEmail#,#maddr#" subject="#subj#" from="agentmerge@#Application.fromEmail#" type="html">
 				<br>Agents have been marked for merger.
 				
-				<br>The following agents are scheduled for merger on #dateformat(dateadd("d",#cookdays#,detected_date),"yyyy-mm-dd")#.
+				<br>The following agents are scheduled for merger on #dateformat(dateadd("d",cookdays,detected_date),"yyyy-mm-dd")#.
 				
 				<br>#findDups.agent_pref_name# is a bad duplicate of #findDups.rel_agent_pref_name#.
 				
