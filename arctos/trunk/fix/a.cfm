@@ -75,17 +75,27 @@ Taxonomy ,"Formal separation of taxonomy and determinations. Accommodates compos
 </cfsavecontent>
 
 <script src="/includes/sorttable.js"></script>
+<!---
 <cfset  util = CreateObject("component","component.utilities")>
-<cfoutput>
 
 	<cfset d = util.CSVToQuery(csv=#csv#)>
 <cfdump var=#d#>
+---->
+<cfoutput>
+
 <table border id="t" class="sortable">
 	<tr>
 		<cfloop list="#header#" delimiters="," index="h">
 			<th>#h#</th>
 		</cfloop>
 	</tr>
+	<cfloop list="#csv#" index="r" delimiters="#chr(10)#">
+		<tr>
+			<cfloop list="#r#" delimiters="," index="f">
+				<td>#f#</td>
+			</cfloop>
+		</tr>
+	</cfloop>
 </table>
 </cfoutput>
 	<!-------
