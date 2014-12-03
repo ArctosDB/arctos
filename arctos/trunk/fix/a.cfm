@@ -181,6 +181,8 @@ label="CSV File Data"
 <cfoutput>
 <cfloop index="i" from="1" to="#arrayLen(arrData)#">
 	<hr>i=#i#
+	<p></p>
+	#arrData[i]#
 </cfloop>
 
 
