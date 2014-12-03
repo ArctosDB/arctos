@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 
 
 
@@ -73,100 +74,29 @@ Taxonomy ,"Formal separation of taxonomy and determinations. Accommodates compos
 <cfset objMatcher = objPattern.Matcher(JavaCast( "string", strCSV )) />
 <cfset arrData = ArrayNew( 1 ) />
 <cfset ArrayAppend( arrData, ArrayNew( 1 ) ) />
-
-
-
 <cfloop condition="objMatcher.Find()">
- 
-<!--- Get the field token value. --->
-<cfset REQUEST.Value = objMatcher.Group(
-JavaCast( "int", 1 )
-) />
- 
-<!--- Remove the field qualifiers (if any). --->
-<cfset REQUEST.Value = REQUEST.Value.ReplaceAll(
-JavaCast( "string", "^""|""$" ),
-JavaCast( "string", "" )
-) />
- 
-<!--- Unesacepe embedded qualifiers (if any). --->
-<cfset REQUEST.Value = REQUEST.Value.ReplaceAll(
-JavaCast( "string", "(""){2}" ),
-JavaCast( "string", "$1" )
-) />
- 
-<!--- Add the field value to the row array. --->
-<cfset ArrayAppend(
-arrData[ ArrayLen( arrData ) ],
-REQUEST.Value
-) />
- 
- 
-<!---
-Get the delimiter. If no delimiter group was matched,
-this will destroy the variable in the REQUEST scope.
---->
-<cfset REQUEST.Delimiter = objMatcher.Group(
-JavaCast( "int", 2 )
-) />
- 
- 
-<!--- Check for delimiter. --->
-<cfif StructKeyExists( REQUEST, "Delimiter" )>
- 
-<!---
-Check to see if we need to start a new array to
-hold the next row of data. We need to do this if the
-delimiter we just found is NOT a field delimiter.
---->
-<cfif (REQUEST.Delimiter NEQ ",")>
- 
-<!--- Start new row data array. --->
-<cfset ArrayAppend(
-arrData,
-ArrayNew( 1 )
-) />
- 
-</cfif>
- 
-<cfelse>
- 
-<!---
-If there is no delimiter, then we are done parsing
-the CSV file data. Break out rather than just ending
-the loop to make sure we don't get any extra data.
---->
-<cfbreak />
- 
-</cfif>
- 
+	<cfset REQUEST.Value = objMatcher.Group(JavaCast( "int", 1 )) />
+ 	<cfset REQUEST.Value = REQUEST.Value.ReplaceAll(JavaCast( "string", "^""|""$" ),JavaCast( "string", "" )) />
+ 	<cfset REQUEST.Value = REQUEST.Value.ReplaceAll(JavaCast( "string", "(""){2}" ),JavaCast( "string", "$1" )) />
+	<cfset ArrayAppend(arrData[ ArrayLen( arrData ) ],REQUEST.Value) />
+	<cfset REQUEST.Delimiter = objMatcher.Group(JavaCast( "int", 2 )) />
+	<cfif StructKeyExists( REQUEST, "Delimiter" )>
+		<cfif (REQUEST.Delimiter NEQ ",")>
+			<cfset ArrayAppend(arrData,ArrayNew( 1 )) />
+ 		</cfif>
+	<cfelse>
+ 		<cfbreak />
+ 	</cfif>
 </cfloop>
- 
- 
-<!--- Dump out CSV data array. --->
-<cfdump
-var="#arrData#"
-label="CSV File Data"
-/> 
 <cfset q=queryNew(header)>
 <cfoutput>
-<cfloop index="i" from="1" to="#arrayLen(arrData)#">
-	<cfset temp = queryaddrow(q,1)>
-	<hr>i=#i#
-	<cfloop index="f" from="1" to="#arrayLen(arrData[i])#">
-		<cfset temp = QuerySetCell(q, listgetat(header,f), arrData[i][f], i)>
-
-		<br>#f#
-		<br>#arrData[i][f]#
+	<cfloop index="i" from="1" to="#arrayLen(arrData)#">
+		<cfset temp = queryaddrow(q,1)>
+		<cfloop index="f" from="1" to="#arrayLen(arrData[i])#">
+			<cfset temp = QuerySetCell(q, listgetat(header,f), arrData[i][f], i)>
+		</cfloop>
 	</cfloop>
-
-</cfloop>
-
-
-<cfdump var=#q#>
-
-<script src="/includes/sorttable.js"></script>
-
+	
 <table border id="t" class="sortable">
 	<tr>
 		<th>Item</th>
@@ -184,15 +114,6 @@ label="CSV File Data"
 	</cfloop>
 </table>
 
-
-<!---
-
----->
-
-<!----
-
-
---------->
 </cfoutput>
 
 
