@@ -38,7 +38,7 @@ save as CSV, copypasta in below
 </cfsavecontent>
 <!--- CSV, minus header, goes here ---->
 <cfsavecontent variable="csv">
-Front End ,Arctos ,Specify ,CollectionSpace,So what?
+FrontEnd,Arctos,Specify,CollectionSpace,SoWhat
 Back End ,Oracle is an enterprise-class RDBMS known for its concurrency management and stability. ,MySQL is a lightweight open-source RDBMS designed for fast query access. Not designed for archival usage. Limited concurrency management. ,postgres,Oracle is bulletproof and comes with a formalized support community. MySQL is a popular open-source package with many known vulnerabilities
 Batch edits ,Most data; many access points ,None ,in dev,"Most everything in Arctos can be done to multiple specimens concurrently, in ways that reflect handling practices."
 Bulk Import ,No practical record limit. ,2000-row limit. ,in development,Anything from a collector's data file to an entire collection from a legacy database may be imported into Arctos.
