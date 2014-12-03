@@ -35,10 +35,10 @@ save as CSV, copypasta in below
 
 <!--- CSV header ONLY goes here ---->
 <cfsavecontent variable="header">
+FrontEnd,Arctos,Specify,CollectionSpace,SoWhat
 </cfsavecontent>
 <!--- CSV, minus header, goes here ---->
 <cfsavecontent variable="csv">
-FrontEnd,Arctos,Specify,CollectionSpace,SoWhat
 Back End ,Oracle is an enterprise-class RDBMS known for its concurrency management and stability. ,MySQL is a lightweight open-source RDBMS designed for fast query access. Not designed for archival usage. Limited concurrency management. ,postgres,Oracle is bulletproof and comes with a formalized support community. MySQL is a popular open-source package with many known vulnerabilities
 Batch edits ,Most data; many access points ,None ,in dev,"Most everything in Arctos can be done to multiple specimens concurrently, in ways that reflect handling practices."
 Bulk Import ,No practical record limit. ,2000-row limit. ,in development,Anything from a collector's data file to an entire collection from a legacy database may be imported into Arctos.
@@ -74,13 +74,16 @@ Taxon-specific attributes ,"User-definable, infinitely expandable determinations
 Taxonomy ,"Formal separation of taxonomy and determinations. Accommodates composite taxonomy (hybrids, multiple taxa in one object) through identification formulae. Taxonomy pulled from GlobalNames.org",Determinations treated as taxonomy. ,lists (authority),"More than a matter of formality, this allows us to describe complex relationships among and between taxonomy (e.g., multi-generational hybrids are well within our capacities), and to be as precise or as imprecise as the data allow. It also gives us the opportunity to utilize external taxonomic resources, primarily GlobalNames.org, which provides for searchability (e.g., Neotoma-->Muridae) simultaneous with curatorial assertions (e.g., Neotoma-->Cricetidae)."
 </cfsavecontent>
 
+<script src="/includes/sorttable.js"></script>
 
+<table border id="t" class="sortable">
+	<tr>
+		<cfloop list="#header#" delimiters="," index="h">
+			<th>#h#</th>
+		</cfloop>
+	</tr>
+</table>
 
-<cfset  util = CreateObject("component","component.utilities")>
-	<cfset d = util.CSVToQuery(CSV="#csv#")>
-	
-	<cfdump var=#d#>
-	
 	<!-------
 	<cffile action = "write"
 			
@@ -94,9 +97,6 @@ Taxonomy ,"Formal separation of taxonomy and determinations. Accommodates compos
 	
 	
 	
-<script src="/includes/sorttable.js"></script>
-
-<table border id="t" class="sortable">
 
 <style>
 	.table {display:table;width:100%}
