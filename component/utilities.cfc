@@ -39,12 +39,18 @@
 		
 		<cfargument name="CSV" type="string" required="true" hint="This is the CSV string that will be manipulated."/>
 		
-		<cfdump var=#csv#>
 		
 		
  		<cfargument name="Delimiter" type="string" required="false" default="," hint="This is the delimiter that will separate the fields within the CSV value."/>
  		<cfargument name="Qualifier" type="string" required="false" default="""" hint="This is the qualifier that will wrap around fields that have special characters embeded."/>
  		<cfargument name="FirstRowIsHeadings" type="boolean" required="false" default="true" hint="Set to false if the heading row is absent"/>
+		
+		
+				<cfdump var=#csv#>
+
+
+
+
 		<cfset var LOCAL = StructNew() />
 		<cfset ARGUMENTS.Delimiter = Left( ARGUMENTS.Delimiter, 1 ) />
  		<cfif Len( ARGUMENTS.Qualifier )>
