@@ -74,6 +74,8 @@ Taxon-specific attributes ,"User-definable, infinitely expandable determinations
 Taxonomy ,"Formal separation of taxonomy and determinations. Accommodates composite taxonomy (hybrids, multiple taxa in one object) through identification formulae. Taxonomy pulled from GlobalNames.org",Determinations treated as taxonomy. ,lists (authority),"More than a matter of formality, this allows us to describe complex relationships among and between taxonomy (e.g., multi-generational hybrids are well within our capacities), and to be as precise or as imprecise as the data allow. It also gives us the opportunity to utilize external taxonomic resources, primarily GlobalNames.org, which provides for searchability (e.g., Neotoma-->Muridae) simultaneous with curatorial assertions (e.g., Neotoma-->Cricetidae)."
 </cfsavecontent>
 
+<cfdump var=#csv#>
+
 
 <cfset  util = CreateObject("component","component.utilities")>
 	<cfset d = util.CSVToQuery(CSV=#csv#)>
