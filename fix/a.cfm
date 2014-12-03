@@ -38,6 +38,7 @@ save as CSV, copypasta in below
 
 <!--- CSV header ONLY goes here ---->
 <cfsavecontent variable="header">
+FrontEnd,Arctos,Specify,CollectionSpace,SoWhat
 </cfsavecontent>
 <!--- CSV, minus header, goes here ---->
 <cfsavecontent variable="strCSV">
@@ -177,17 +178,22 @@ the loop to make sure we don't get any extra data.
 var="#arrData#"
 label="CSV File Data"
 /> 
-<cfset q=queryNew("FrontEnd,Arctos,Specify,CollectionSpace,SoWhat")>
+<cfset q=queryNew(header)>
 <cfoutput>
 <cfloop index="i" from="1" to="#arrayLen(arrData)#">
+	<cfset temp = queryaddrow(q,1)>
 	<hr>i=#i#
 	<cfloop index="f" from="1" to="#arrayLen(arrData[i])#">
+		<cfset temp = QuerySetCell(q, listgetat(header,f), arrData[i][f], i)>
+
 		<br>#f#
 		<br>#arrData[i][f]#
 	</cfloop>
 
 </cfloop>
 
+
+<cfdump var=#q#>
 
 <script src="/includes/sorttable.js"></script>
 <!---
