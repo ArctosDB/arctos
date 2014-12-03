@@ -178,7 +178,7 @@ var="#arrData#"
 label="CSV File Data"
 /> 
 <cfset q=queryNew("FrontEnd,Arctos,Specify,CollectionSpace,SoWhat")>
-
+<cfoutput>
 <cfloop index="i" from="1" to="#arrayLen(arrData)#">
 	<hr>i=#i#
 </cfloop>
@@ -188,11 +188,6 @@ label="CSV File Data"
 <!---
 
 ---->
-<cfoutput>
-<cfset  util = CreateObject("component","component.utilities")>
-
-	<cfset d = csvq(csv=csv)>
-<cfdump var=#d#>
 
 <!----
 <table border id="t" class="sortable">
