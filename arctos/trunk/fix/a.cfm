@@ -78,7 +78,7 @@ Taxonomy ,"Formal separation of taxonomy and determinations. Accommodates compos
 <cfset  util = CreateObject("component","component.utilities")>
 <cfoutput>
 
-	<cfset csv = util.CSVToQuery(csv=#csv#)>
+	<cfset d = util.CSVToQuery(csv=#csv#)>
 <cfdump var=#d#>
 <table border id="t" class="sortable">
 	<tr>
