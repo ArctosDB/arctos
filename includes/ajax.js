@@ -70,7 +70,7 @@ function loadAgentSearch(q){
 			}
 			h='<div style="height:30em; overflow:auto;">';
 			for (i=0;i<r.ROWCOUNT;i++) {
-				h+='<div><span class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
+				h+='<div>' + i + '<span class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
 				h+= r.DATA.PREFERRED_AGENT_NAME[i] + '</span><font size="-1"> (';
 				h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ')';
 				// no longer needed with history push

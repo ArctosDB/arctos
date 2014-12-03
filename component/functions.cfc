@@ -3837,7 +3837,7 @@
 					1=0
 				</cfif>
 			group by
-				address
+				get_address(collection_contacts.CONTACT_AGENT_ID,'email')
 		</cfquery>
 		<cfquery name="summary" datasource="uam_god">
 			<cfif idType is "COLLECTION_OBJECT_ID">
