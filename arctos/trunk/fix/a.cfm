@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 
 
-<cffunction name="csvq" access="remote" returntype="query" output="false" hint="Converts the given CSV string to a query.">
+<cffunction name="csvq" access="remote" returntype="query" output="true" hint="Converts the given CSV string to a query.">
 		<!--- from http://www.bennadel.com/blog/501-parsing-csv-values-in-to-a-coldfusion-query.htm ---->
 		
 		
