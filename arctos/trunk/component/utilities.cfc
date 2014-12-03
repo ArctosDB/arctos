@@ -36,6 +36,7 @@
 	<!---------------------------------------------------------------------------------------------->
 	<cffunction name="CSVToQuery" access="public" returntype="query" output="false" hint="Converts the given CSV string to a query.">
 		<!--- from http://www.bennadel.com/blog/501-parsing-csv-values-in-to-a-coldfusion-query.htm ---->
+		<cfreturn "hi">
 		
 		<cfargument name="CSV" type="string" required="true" hint="This is the CSV string that will be manipulated."/>
  		<cfargument name="Delimiter" type="string" required="false" default="," hint="This is the delimiter that will separate the fields within the CSV value."/>
