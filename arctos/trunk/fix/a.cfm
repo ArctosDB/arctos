@@ -38,7 +38,7 @@ save as CSV, copypasta in below
 
 <!--- CSV header ONLY goes here ---->
 <cfsavecontent variable="header">
-FrontEnd,Arctos,Specify,CollectionSpace,SoWhat
+Item,Arctos ,Specify ,CollectionSpace,SoWhat
 </cfsavecontent>
 <!--- CSV, minus header, goes here ---->
 <cfsavecontent variable="strCSV">
