@@ -68,14 +68,9 @@ function loadAgentSearch(q){
 				$("#agntRslCell").html('<span class="importantNotification">Nothing Matched.</span>');
 				return false;
 			}
-			
-			console.log(r.ROWCOUNT);
-			
 			h='<div style="height:30em; overflow:auto;">';
 			for (i=0;i<r.ROWCOUNT;i++) {
-				console.log(i);
-				
-				h+='<div>' + i + '<span class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
+				h+='<div><span class="likeLink" onclick="loadEditAgent(' + r.DATA.AGENT_ID[i] + ');">';
 				h+= r.DATA.PREFERRED_AGENT_NAME[i] + '</span><font size="-1"> (';
 				h+=r.DATA.AGENT_TYPE[i] + ': ' + r.DATA.AGENT_ID[i] + ')';
 				// no longer needed with history push
