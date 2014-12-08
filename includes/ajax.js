@@ -1,4 +1,5 @@
- $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd',changeMonth: true, changeYear: true, constrainInput: false });
+//$.datepicker.setDefaults({ dateFormat: 'yy-mm-dd',changeMonth: true, changeYear: true, constrainInput: false });
+
 $(document).ready(function() {
 	$(".helpLink").live('click', function(e){
 		var id=this.id;
