@@ -54,6 +54,9 @@
         <cfset showErr=0>
 		<cfreturn/>
 	</cfif>
+	
+	 
+	 
 	<cfif StructKeyExists(form,"C0-METHODNAME")>
 		<cfset showErr=0>
 		<cfreturn/>
@@ -64,6 +67,12 @@
 			<cflocation url="/errors/autoblacklist.cfm">
 			<cfreturn/>
 		</cfif>
+		<cfif isdefined("exception.Message") and exception.Message contains "missing right parenthesis" and isdefined("request.rdurl") and rdurl contains "ctxsys">
+			<cflocation url="/errors/autoblacklist.cfm">
+			<cfreturn/>
+		</cfif>
+
+
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfif cgi.HTTP_USER_AGENT contains "slurp">
 				<!--- yahoo ignoring robots.txt - buh-bye.... --->
