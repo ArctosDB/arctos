@@ -67,18 +67,20 @@
 			<cflocation url="/errors/autoblacklist.cfm">
 			<cfreturn/>
 		</cfif>
-		<cfif isdefined("exception.Detail")>
-			<cfdump var=#exception.Detail#>
+		<cfif isdefined("exception.Detail") and isdefined("request.rdurl")>
+			<cfif exception.Detail contains "missing right parenthesis"  and request.rdurl contains "ctxsys">
+				<cflocation url="/errors/autoblacklist.cfm">
+				<cfreturn/>
+			</cfif>
+			<cfif exception.Detail contains "network access denied by access control list">
+				<cflocation url="/errors/autoblacklist.cfm">
+				<cfreturn/>
+			</cfif>
+			<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
+				<cflocation url="/errors/autoblacklist.cfm">
+				<cfreturn/>
+			</cfif>
 		</cfif>
-		<cfif isdefined("request.rdurl")>
-			<cfdump var=#request.rdurl#>
-		</cfif>
-		<cfif isdefined("exception.Detail") and exception.Detail contains "missing right parenthesis" and isdefined("request.rdurl") and request.rdurl contains "ctxsys">
-			<cflocation url="/errors/autoblacklist.cfm">
-			<cfreturn/>
-		</cfif>
-
-
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfif cgi.HTTP_USER_AGENT contains "slurp">
 				<!--- yahoo ignoring robots.txt - buh-bye.... --->
