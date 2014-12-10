@@ -37,7 +37,15 @@
 			 where 
 			 	agent.agent_id=agent_name.agent_id (+) and
 			 	agent.agent_id=address.agent_id (+) AND
-			 UPPER(agent_name.agent_name) LIKE '%#ucase(agentname)#%'				
+			 	UPPER(agent_name.agent_name) LIKE '%#ucase(agentname)#%'
+			 group by
+			 	preferred_agent_name, 
+				agent.agent_id, 
+				regexp_replace(address,'[^[:print:]]','-'),
+				regexp_replace(address,'[^[:print:]]','<br>'),
+				address_type,
+				address_id,
+				VALID_ADDR_FG 				
 		</cfquery>
 	</cfoutput>
 	<cfquery name="da" dbtype="query">

@@ -54,9 +54,6 @@
         <cfset showErr=0>
 		<cfreturn/>
 	</cfif>
-	
-	 
-	 
 	<cfif StructKeyExists(form,"C0-METHODNAME")>
 		<cfset showErr=0>
 		<cfreturn/>
