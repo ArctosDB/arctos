@@ -67,7 +67,13 @@
 			<cflocation url="/errors/autoblacklist.cfm">
 			<cfreturn/>
 		</cfif>
-		<cfif isdefined("exception.Message") and exception.Message contains "missing right parenthesis" and isdefined("request.rdurl") and rdurl contains "ctxsys">
+		<cfif isdefined("exception.Message")>
+			<cfdump var=#exception.Message#>
+		</cfif>
+		<cfif isdefined("request.rdurl")>
+			<cfdump var=#request.rdurl#>
+		</cfif>
+		<cfif isdefined("exception.Message") and exception.Message contains "missing right parenthesis" and isdefined("request.rdurl") and request.rdurl contains "ctxsys">
 			<cflocation url="/errors/autoblacklist.cfm">
 			<cfreturn/>
 		</cfif>
