@@ -4,7 +4,7 @@
 
 <cfset title="bulkload identifiers">
 <p>
-	<a href="BulkloadOtherId.cfm?action=managemystuff">Manage</a>~
+	<a href="BulkloadOtherId.cfm?action=managemystuff">Manage Existing Data</a>~
 	<a href="http://arctosdb.org/documentation/other-id/">Docs</a>~
 	<a href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CodeTable</a>
 	
@@ -60,7 +60,9 @@ sho err
 <!---------------------------------------------------------------->
 <cfif action is "nothing">
 	Upload a comma-delimited text file (csv).
-	<p><a href="BulkloadOtherId.cfm?action=template">get a template here</a>
+	<p>
+		<a href="BulkloadOtherId.cfm?action=template">get a upload/data template here</a>
+	</p>
 	<p>
 		This form will happily create duplicates, which will not load. Use the provided tools after verification.
 	</p>
@@ -549,6 +551,12 @@ sho err
 			<p>
 				Records will be deleted when they're successfully loaded.
 			</p>
+			<p>
+				You will see an option to loan when status for all records is "valid." Change status by fixing data and clicking validate.
+			</p>
+			<p>
+				If you cannot see the "finalize loan" link and have clicked anything since you last clicked "validate," click "validate.
+			</p>
 		</div>
 		<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select collection.collection,collection.collection_id, count(*) from 
@@ -594,7 +602,12 @@ sho err
 		<p><a href="BulkloadOtherId.cfm?action=getCSV">download CSV</a> (delete status column to re-load)</p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteLocalDuplicate">Merge "local duplicate" records</a></p>
-		<p><a href="BulkloadOtherId.cfm?action=deleteMine">Delete all existing data</a></p>
+		<p><a href="BulkloadOtherId.cfm?action=deleteMine">Delete all <sup>[1]</sup>existing data</a></p>
+		<span style="margin:1em;padding: 1em; background-color:lightgray; font-size:small;">
+			[1] "All" in this case is extremely limited in scope; it's what you can see here, in this page, right now: things in
+			Arctos' Other ID Bulkloader with username #session.username# attached to them.  
+		</span>
+		<div>&nbsp;</div>
 		<table border id="t" class="sortable">
 			<tr>
 				<th>status</th>

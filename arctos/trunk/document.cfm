@@ -119,6 +119,15 @@
 		</cfif>
 		<cfset basQ=basQ & " and l_year.label_value <= #e_year#">
 	</cfif>
+	
+	<cfif isdefined("description") and len(description) gt 0>
+		<cfif basFrm does not contain "l_description">
+			<cfset basFrm=basFrm & ',media_labels l_description'>
+			<cfset basWhr=basWhr & " and media.media_id=l_description.media_id and
+				l_description.media_label='description'">
+		</cfif>
+		<cfset basQ=basQ & " and l_year.label_value = '#description#'">
+	</cfif>
 
 	<cfset ssql=basSQL & basFrm & basWhr & basQ & " group by l_title.label_value">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
