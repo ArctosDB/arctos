@@ -138,6 +138,14 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
+	
+	
+	
+	<cfdump var=#d#>
+	
+	<cfabort>
+	
+	
 	<cfif d.recordcount is 0>
 		Nothing matched your query.
 	<cfelseif d.recordcount is 1>
