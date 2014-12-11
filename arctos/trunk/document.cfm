@@ -253,6 +253,15 @@
 	<cfset maxPage=qmaxpage.npgs>
 	<cfset title=doc.mtitle>
 	<strong>#doc.mtitle#</strong>
+	<div id="srchDiv">
+		<form method="post" action="/document.cfm">
+			<input type="hidden" name="action" value="findDocumentPage">
+			<input type="hidden" name="urltitle" value="#ttl#">
+			<label for="description">Search document by Description</label>
+			<input type="text" size="50" name="description" id="description" placeholder="description; prefix/suffix with % for substring">
+			<input type="submit" value="search document" class="srchBtn">
+		</form>
+	</div>
 	<cfquery name="cpg" dbtype="query">
 		select media_uri,media_id from doc where page=#pg#
 	</cfquery>
@@ -271,17 +280,7 @@
 	</cfquery>
 	
 	
-	<div id="srchDiv">
-		<form method="post" action="/document.cfm">
-			<input type="hidden" name="action" value="findDocumentPage">
-			<input type="hidden" name="urltitle" value="#ttl#">
-			<label for="description">Description</label>
-			<input type="text" size="50" name="description" id="description" placeholder="description; prefix/suffix with % for substring">
-			<input type="submit" value="search document" class="srchBtn">
-		</form>
-
-
-</div>
+	
 
 
 
