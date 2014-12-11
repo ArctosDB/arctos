@@ -219,7 +219,7 @@
 	
 	
 	<div id="srchDiv">
-		<form method="post" action="document.cfm">
+		<form method="post" action="/document.cfm">
 			<input type="hidden" name="action" value="srchResult">
 			<input type="hidden" name="urltitle" value="#ttl#">
 			<label for="description">Description</label>
