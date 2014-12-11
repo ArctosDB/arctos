@@ -104,12 +104,12 @@
 		<cfif d.recordcount is 0>
 			Nothing matched your query. Use your back button and try again.
 		<cfelseif d.recordcount is 1>
-			<cflocation url="/document/#d.ttl#/#d.pg#" addtoken="false">
+			<cflocation url="/document/#urltitle#/#d.pg#" addtoken="false">
 		<cfelse>
 			<cfset title="document search results">
-			Results:<p></p>
+			<p>Results: Description #description# in #d.title#</p>
 			<cfloop query="d">
-				<a href="/document/#ttl#/#d.pg#">#d.pg#: #label_value#</a><br>
+				<a href="/document/#urltitle#/#d.pg#">#d.pg#: #label_value#</a><br>
 			</cfloop>
 		</cfif>
 	</cfoutput>
