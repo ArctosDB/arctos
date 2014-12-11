@@ -86,7 +86,7 @@
 	<cfset basQ="">
 	
 	<cfif isdefined("urltitle") and len(urltitle) gt 0>
-		<cfset basQ=basQ & " andniceURLNumbers(l_title.label_value)='#urltitle#'">
+		<cfset basQ=basQ & " and niceURLNumbers(l_title.label_value)='#urltitle#'">
 	</cfif>
 	<cfif isdefined("mtitle") and len(mtitle) gt 0>
 		<cfset basQ=basQ & " and l_title.label_value='#mtitle#'">
