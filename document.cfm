@@ -107,7 +107,7 @@
 		
 		<cfabort>
 		
-		
+		<!--------
 	<cfif isdefined("description") and len(description) gt 0>
 		<cfif basFrm does not contain "l_description">
 			<cfset basFrm=basFrm & ',media_labels l_description'>
@@ -181,7 +181,7 @@
 		#preservesinglequotes(ssql)#
 	</cfquery>
 	
-	
+	------------>
 	</cfoutput>
 </cfif>
 
