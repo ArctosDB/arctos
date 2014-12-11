@@ -126,7 +126,7 @@
 			<cfset basWhr=basWhr & " and media.media_id=l_description.media_id and
 				l_description.media_label='description'">
 		</cfif>
-		<cfset basQ=basQ & " and l_year.label_value = '#description#'">
+		<cfset basQ=basQ & " and l_description.label_value = '#description#'">
 	</cfif>
 
 	<cfset ssql=basSQL & basFrm & basWhr & basQ & " group by l_title.label_value">
