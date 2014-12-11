@@ -89,7 +89,6 @@
 				l_title.media_label='title' and
 				l_page.media_label='page' and
 				l_description.media_label='description' and
-				l_title.
 				niceURLNumbers(l_title.label_value)='#urltitle#' and
 				l_description.label_value like '#description#'
 			group by
