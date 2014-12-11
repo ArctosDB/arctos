@@ -117,9 +117,6 @@
 		<cfset basQ=basQ & " and l_description.label_value = '#description#'">
 	</cfif>
 	
-	
-			l_title.label_value,
-		niceURLNumbers(l_title.label_value) ttl ">
 	<cfset basFrm="from
 		media_labels l_title,
 		media">
