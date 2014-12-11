@@ -70,7 +70,7 @@
 </cfif>
 
 <cfif action is 'findDocumentPage'>
-	<cfif not isdefined("rultitle") or len(urltitle) is 0 or not isdefined("description") or len(description) is 0>
+	<cfif not isdefined("urltitle") or len(urltitle) is 0 or not isdefined("description") or len(description) is 0>
 		<cfabort>
 	</cfif>
 	<cfoutput>
