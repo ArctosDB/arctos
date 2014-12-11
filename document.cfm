@@ -109,7 +109,7 @@
 			<cfset title="document search results">
 			<p>Results: Description #description# in #d.title#</p>
 			<cfloop query="d">
-				<a href="/document/#urltitle#/#d.pg#">#d.pg#: #label_value#</a><br>
+				<a href="/document/#urltitle#/#d.pg#">#d.pg#: #d.description#</a><br>
 			</cfloop>
 		</cfif>
 	</cfoutput>
