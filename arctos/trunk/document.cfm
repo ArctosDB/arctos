@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+
 <cfif not isdefined("pg")>
 	<cfset pg=1>
 </cfif>
@@ -83,6 +84,10 @@
 			media_type='multi-page document' and
 			l_title.media_label='title'">
 	<cfset basQ="">
+	
+	<cfif isdefined("urltitle") and len(urltitle) gt 0>
+		<cfset basQ=basQ & " andniceURLNumbers(l_title.label_value)='#urltitle#'">
+	</cfif>
 	<cfif isdefined("mtitle") and len(mtitle) gt 0>
 		<cfset basQ=basQ & " and l_title.label_value='#mtitle#'">
 	</cfif>
@@ -211,6 +216,22 @@
 	<cfquery name="mDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from media_flat where media_id=#cpg.media_id#
 	</cfquery>
+	
+	
+	<div id="srchDiv">
+		<form method="post" action="document.cfm">
+			<input type="hidden" name="action" value="srchResult">
+			<input type="hidden" name="urltitle" value="#ttl#">
+			<label for="description">Description</label>
+			<input type="text" size="50" name="description" id="description">
+			<br><input type="submit" value="search this document" class="srchBtn">
+		</form>
+
+
+</div>
+
+
+
 	<cfsavecontent variable="controls">
 		<table>
 			<tr>
