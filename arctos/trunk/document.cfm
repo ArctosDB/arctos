@@ -76,8 +76,8 @@
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				l_page.media_label pg,
-				l_description.media_label description,
+				l_page.label_value pg,
+				l_description.label_value description,
 				l_title.label_value title
 			from
 				media_labels l_title,
@@ -92,12 +92,12 @@
 				niceURLNumbers(l_title.label_value)='#urltitle#' and
 				l_description.label_value like '#description#'
 			group by
-				l_page.media_label,
-				l_description.media_label,
+				l_page.label_value,
+				l_description.label_value,
 				l_title.label_value
 			order by
-				to_number(l_page.media_label),
-				l_description.media_label,
+				to_number(l_page.label_value),
+				l_description.label_value,
 				l_title.label_value
 		</cfquery>
 		
