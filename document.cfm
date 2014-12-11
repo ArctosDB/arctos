@@ -69,6 +69,124 @@
 	<cfset action="show">
 </cfif>
 
+<cfif action is 'findDocumentPage'>
+	<cfif not isdefined("rultitle") or len(urltitle) is 0 or not isdefined("description") or len(description) is 0>
+		<cfabort>
+	</cfif>
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				l_page.media_label pg,
+				l_description.media_label description,
+				l_title.label_value title
+			from
+				media_labels l_title,
+				media_labels l_page,
+				media_labels l_description
+			where
+				l_title.media_id=l_page.media_id and 
+				l_title.media_id=l_description.media_id and
+				l_title.media_label='title' and
+				l_page.media_label='page' and
+				l_description.media_label='description' and
+				l_title.
+				niceURLNumbers(l_title.label_value)='#urltitle#' and
+				l_description.label_value like '#description#'
+			group by
+				l_page.media_label,
+				l_description.media_label,
+				l_title.label_value
+			order by
+				to_number(l_page.media_label),
+				l_description.media_label,
+				l_title.label_value
+		</cfquery>
+		
+		
+		<cfdump var=#d#>
+		
+		<cfabort>
+		
+		
+	<cfif isdefined("description") and len(description) gt 0>
+		<cfif basFrm does not contain "l_description">
+			<cfset basFrm=basFrm & ',media_labels l_description'>
+			<cfset basWhr=basWhr & " and media.media_id=l_description.media_id and
+				l_description.media_label='description'">
+		</cfif>
+		<cfset basQ=basQ & " and l_description.label_value = '#description#'">
+	</cfif>
+	
+	
+			l_title.label_value,
+		niceURLNumbers(l_title.label_value) ttl ">
+	<cfset basFrm="from
+		media_labels l_title,
+		media">
+	<cfset basWhr="
+		where
+			media.media_id=l_title.media_id and
+			media_type='multi-page document' and
+			l_title.media_label='title'">
+	<cfset basQ="">
+	
+	<cfif isdefined("urltitle") and len(urltitle) gt 0>
+		<cfset basQ=basQ & " and niceURLNumbers(l_title.label_value)='#urltitle#'">
+	</cfif>
+	<cfif isdefined("mtitle") and len(mtitle) gt 0>
+		<cfset basQ=basQ & " and l_title.label_value='#mtitle#'">
+	</cfif>
+	<cfif isdefined("author") and len(author) gt 0>
+		<cfset basFrm=basFrm & ',media_relations,agent_name'>
+		<cfset basWhr=basWhr & " and media.media_id=media_relations.media_id and
+			media_relations.media_relationship='created by agent' and
+			media_relations.related_primary_key=agent_name.agent_id ">
+		<cfset basQ=basQ & "and upper(agent_name) like '%#ucase(escapeQuotes(author))#%'">
+	</cfif>
+	<cfif isdefined("b_year") and len(b_year) gt 0>
+		<cfif not isnumeric(b_year) or len(b_year) neq 4>
+			<div class="error">
+				Years must be given as 4-digit integers. Use your back button.
+			</div>
+			<cfabort>
+		</cfif>
+		<cfset basFrm=basFrm & ',media_labels l_year'>
+		<cfset basWhr=basWhr & " and media.media_id=l_year.media_id and
+			l_year.media_label='published year'">
+		<cfset basQ=basQ & "and l_year.label_value >= #b_year#">
+	</cfif>
+	<cfif isdefined("e_year") and len(e_year) gt 0>
+		<cfif not isnumeric(e_year) or len(e_year) neq 4>
+			<div class="error">
+				Years must be given as 4-digit integers. Use your back button.
+			</div>
+			<cfabort>
+		</cfif>
+		<cfif basFrm does not contain "l_year">
+			<cfset basFrm=basFrm & ',media_labels l_year'>
+			<cfset basWhr=basWhr & " and media.media_id=l_year.media_id and
+				l_year.media_label='published year'">
+		</cfif>
+		<cfset basQ=basQ & " and l_year.label_value <= #e_year#">
+	</cfif>
+	
+	<cfif isdefined("description") and len(description) gt 0>
+		<cfif basFrm does not contain "l_description">
+			<cfset basFrm=basFrm & ',media_labels l_description'>
+			<cfset basWhr=basWhr & " and media.media_id=l_description.media_id and
+				l_description.media_label='description'">
+		</cfif>
+		<cfset basQ=basQ & " and l_description.label_value = '#description#'">
+	</cfif>
+
+	<cfset ssql=basSQL & basFrm & basWhr & basQ & " group by l_title.label_value">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		#preservesinglequotes(ssql)#
+	</cfquery>
+	
+	
+	</cfoutput>
+</cfif>
 
 <cfif action is 'srchResult'>
 <cfoutput >
@@ -228,11 +346,11 @@
 	
 	<div id="srchDiv">
 		<form method="post" action="/document.cfm">
-			<input type="hidden" name="action" value="srchResult">
+			<input type="hidden" name="action" value="findDocumentPage">
 			<input type="hidden" name="urltitle" value="#ttl#">
 			<label for="description">Description</label>
-			<input type="text" size="50" name="description" id="description">
-			<br><input type="submit" value="search this document" class="srchBtn">
+			<input type="text" size="50" name="description" id="description" placeholder="description; prefix/suffix with % for substring">
+			<input type="submit" value="search document" class="srchBtn">
 		</form>
 
 
