@@ -326,7 +326,7 @@
 		<cfset firstpage=1>
 	</cfif>
 	<cfset pageSize="10">
-	<cfset lastpage=firstpage+pageSize>
+	<cfset lastpage=firstpage+pageSize-1>
 	
 	
 	<cftry>
