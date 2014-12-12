@@ -60,10 +60,6 @@
 					select * from getAgentId where jsaddr is not null and agent_id=#agent_id# order by VALID_ADDR_FG desc, address_type, jsaddr
 				</cfquery>
 				<cfloop query="addrs">
-					<hr>#jsaddr#
-					<hr>#stripQuotes(jsaddr)#
-					<hr>#escapeQuotes(jsaddr)#
-				
 					<cfif VALID_ADDR_FG is 0>
 						<cfset bclr="red">
 					<cfelse>
@@ -73,7 +69,7 @@
 						#address_type# (<cfif VALID_ADDR_FG is 0>in</cfif>valid)
 						<span class="likeLink" onclick="opener.document.#formName#.#addrFld#.value='#jsescape(jsaddr)#';opener.document.#formName#.#addrIdFld#.value='#address_id#';self.close();">[ use this address ]</span>
 						<p style="margin-left:1em">
-							#htmladdr#
+							#replace(htmladdr,'<br><br>','<br>','all')#
 						</p>
 						<br>
 					</div>
