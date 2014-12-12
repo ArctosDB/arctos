@@ -327,9 +327,7 @@
 	</cfif>
 	<cfset pageSize="10">
 	<cfset lastpage=firstpage+pageSize>
-	<cfoutput>
-	#page#
-	</cfoutput>
+	
 	
 	<cftry>
 	<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
