@@ -240,7 +240,7 @@
 		<script>
 			// get_document_media_pageinfo is linked to this code. Do not change one without changing the other.
 			function getDocumentMediaPageInfo(urltitle,page){
-				var ptl='/component/functions.cfc?method=getMediaDocumentInfo&returnformat=plain&urltitle=' + urltitle;
+				var ptl='/component/functions.cfc?method=getMediaDocumentInfo&returnformat=plain&urltitle=' + urltitle + '&page=' + page;
 				// containerID is always "docInfoDiv_"+urltitle
 				var containerid="docInfoDiv_"+urltitle;
 
