@@ -325,9 +325,9 @@
 	<cfif not isdefined("page")>
 		<cfset page=1>
 	</cfif>
-	
+	<cfoutput>
 	#page#
-	
+	</cfoutput>
 	
 	<cftry>
 	<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
