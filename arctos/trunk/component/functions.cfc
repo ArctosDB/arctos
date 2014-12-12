@@ -321,7 +321,7 @@
 <!------------------------------------------------------------------->
 <cffunction name="getMediaDocumentInfo" access="remote">
    <cfargument name="urltitle" required="true" type="string">
-   <cfargument name="page" required="false" type="integer">
+   <cfargument name="page" required="false" type="numeric">
 	<cfif not isdefined("page")>
 		<cfset page=1>
 	</cfif>
