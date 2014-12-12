@@ -25,7 +25,7 @@
 			SELECT 
 				preferred_agent_name agent_name, 
 				agent.agent_id, 
-				regexp_replace(replace(replace(address,'[^[:print:]]','-'),'"','``'),'''','`') jsaddr,
+				regexp_replace(address,'[^[:print:]]','-') jsaddr,
 				regexp_replace(address,'[^[:print:]]','<br>') htmladdr,
 				address_type,
 				address_id,
@@ -60,6 +60,10 @@
 					select * from getAgentId where jsaddr is not null and agent_id=#agent_id# order by VALID_ADDR_FG desc, address_type, jsaddr
 				</cfquery>
 				<cfloop query="addrs">
+					<hr>#jsaddr#
+					<hr>#stripQuotes(jsaddr)#
+					<hr>#escapeQuotes(jsaddr)#
+				
 					<cfif VALID_ADDR_FG is 0>
 						<cfset bclr="red">
 					<cfelse>
