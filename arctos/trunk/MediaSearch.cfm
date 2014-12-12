@@ -238,6 +238,16 @@
 	<!----------------------------------------------------------------------------------------->
 	<cfif action is "search">
 		<script>
+			// get_document_media_pageinfo is linked to this code. Do not change one without changing the other.
+			function getDocumentMediaPageInfo(urltitle,page){
+				var ptl='/component/functions.cfc?method=getMediaDocumentInfo&returnformat=plain&urltitle=' + urltitle;
+				// containerID is always "docInfoDiv_"+urltitle
+				var containerid="docInfoDiv_"+urltitle;
+
+				 $.get(ptl, function(data){
+					$("#" + containerid).html(data);
+				});
+			}
 			jQuery(document).ready(function() {
 				$.each($("div[id^='mapgohere-']"), function() {
 					var theElemID=this.id;
@@ -252,10 +262,11 @@
 					var theElemID=this.id;
 					var theIDType=this.id.split('_')[0];
 					var theID=this.id.split('_')[1];
-				  	var ptl='/component/functions.cfc?method=getMediaDocumentInfo&&returnformat=plain&urltitle=' + theID;
-				    jQuery.get(ptl, function(data){
-						jQuery("#" + theElemID).html(data);
-					});
+					getDocumentMediaPageInfo(theID,1);
+				  	//var ptl='/component/functions.cfc?method=getMediaDocumentInfo&&returnformat=plain&urltitle=' + theID;
+				    //jQuery.get(ptl, function(data){
+					//	jQuery("#" + theElemID).html(data);
+					//});
 				});
 			});
 		</script>
