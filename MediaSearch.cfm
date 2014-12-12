@@ -243,7 +243,7 @@
 				var ptl='/component/functions.cfc?method=getMediaDocumentInfo&returnformat=plain&urltitle=' + urltitle + '&page=' + page;
 				// containerID is always "docInfoDiv_"+urltitle
 				var containerid="docInfoDiv_"+urltitle;
-
+				$("#" + containerid).html('<img src="/images/indicator.gif">');
 				 $.get(ptl, function(data){
 					$("#" + containerid).html(data);
 				});
