@@ -321,17 +321,19 @@
 <!------------------------------------------------------------------->
 <cffunction name="getMediaDocumentInfo" access="remote">
    <cfargument name="urltitle" required="true" type="string">
-   <cfargument name="page" required="false" type="integer">
-	<cfif not isdefined("page")>
-		<cfset page=1>
+   <cfargument name="firstpage" required="false" type="integer">
+	<cfif not isdefined("firstpage")>
+		<cfset firstpage=1>
 	</cfif>
+	<cfset pageSize="10">
+	<cfset lastpage=firstpage+pageSize>
 	<cfoutput>
 	#page#
 	</cfoutput>
 	
 	<cftry>
 	<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select get_document_media_pageinfo('#urltitle#') result from dual
+		select get_document_media_pageinfo('#urltitle#',#firstpage#,#lastpage#) result from dual
 	</cfquery>
 	<cfreturn flatdocs.result>
 	<cfcatch><cfreturn cfcatch.message></cfcatch>
