@@ -47,6 +47,7 @@
 				address_id,
 				VALID_ADDR_FG 				
 		</cfquery>
+		<cfdump var=#getAgentId#>
 	</cfoutput>
 	<cfquery name="da" dbtype="query">
 		select agent_name,agent_id from getAgentId group by agent_name,agent_id  order by agent_name
