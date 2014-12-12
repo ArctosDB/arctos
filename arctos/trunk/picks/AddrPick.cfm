@@ -64,13 +64,12 @@
 					<cfelse>
 						<cfset bclr="green">
 					</cfif>
-					<div style="margin:1em;border:1px solid #bclr#">
+					<div style="margin:.5em;border:1px solid #bclr#">
 						#address_type# (<cfif VALID_ADDR_FG is 0>in</cfif>valid)
 						<span class="likeLink" onclick="opener.document.#formName#.#addrFld#.value='#jsescape(jsaddr)#';opener.document.#formName#.#addrIdFld#.value='#address_id#';self.close();">[&nbsp;use&nbsp;this&nbsp;address&nbsp;]</span>
-						<p style="margin-left:1em">
+						<p style="margin-left:.5em">
 							#replace(htmladdr,'<br><br>','<br>','all')#
 						</p>
-						<br>
 					</div>
 				</cfloop>
 			</div>
