@@ -41,7 +41,7 @@
 			 group by
 			 	preferred_agent_name, 
 				agent.agent_id, 
-				regexp_replace(replace(replace(address,'[^[:print:]]','-'),'"','``'),'''','`'),
+				regexp_replace(address,'[^[:print:]]','-'),
 				regexp_replace(address,'[^[:print:]]','<br>'),
 				address_type,
 				address_id,
