@@ -258,7 +258,7 @@
 			<input type="hidden" name="action" value="findDocumentPage">
 			<input type="hidden" name="urltitle" value="#ttl#">
 			<label for="description">Search document by Description</label>
-			<input type="text" size="50" name="description" id="description" placeholder="description; prefix/suffix with % for substring">
+			<input type="text" size="50" name="description" id="description" placeholder="Description; prefix/suffix with % for substring">
 			<input type="submit" value="search document" class="srchBtn">
 		</form>
 	</div>
