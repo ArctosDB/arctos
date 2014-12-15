@@ -127,7 +127,7 @@ sho err
 					found_count,
 					query_type
 				) values (
-					'#guid_prefix#',
+					'#institution_acronym#',
 					'#u#',
 					#ncbi_resultcount#,
 					'specimen_voucher:institution'
