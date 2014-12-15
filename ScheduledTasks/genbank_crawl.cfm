@@ -67,7 +67,7 @@ sho err
 					found_count,
 					query_type
 				) values (
-					'#guid_prefix#',
+					'#institution_acronym#',
 					'#u#',
 					#ncbi_resultcount#,
 					'wild2:institution'
@@ -97,7 +97,7 @@ sho err
 					found_count,
 					query_type
 				) values (
-					'#guid_prefix#',
+					'#institution_acronym#',
 					'#u#',
 					#ncbi_resultcount#,
 					'wild1:institution'
