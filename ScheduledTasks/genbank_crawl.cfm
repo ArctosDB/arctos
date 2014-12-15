@@ -40,7 +40,7 @@ sho err
 		</ul>
 	</cfif>
 	<cfquery name="c" datasource="uam_god">
-		select collection, collection_cde,institution_acronym from collection order by institution_acronym,collection_cde
+		select guid_prefix, collection_cde,institution_acronym from collection order by institution_acronym,collection_cde
 	</cfquery>
 	<cfquery name="inst" dbtype="query">
 		select institution_acronym from c group by institution_acronym order by institution_acronym
@@ -67,7 +67,7 @@ sho err
 					found_count,
 					query_type
 				) values (
-					'#institution_acronym#',
+					'#guid_prefix#',
 					'#u#',
 					#ncbi_resultcount#,
 					'wild2:institution'
@@ -97,7 +97,7 @@ sho err
 					found_count,
 					query_type
 				) values (
-					'#institution_acronym#',
+					'#guid_prefix#',
 					'#u#',
 					#ncbi_resultcount#,
 					'wild1:institution'
@@ -127,7 +127,7 @@ sho err
 					found_count,
 					query_type
 				) values (
-					'#institution_acronym#',
+					'#guid_prefix#',
 					'#u#',
 					#ncbi_resultcount#,
 					'specimen_voucher:institution'
@@ -157,7 +157,7 @@ sho err
 					found_count,
 					query_type
 				) values (
-					'#collection#',
+					'#guid_prefix#',
 					'#u#',
 					#ncbi_resultcount#,
 					'specimen_voucher:collection'
@@ -187,7 +187,7 @@ sho err
 					found_count,
 					query_type
 				) values (
-					'#collection#',
+					'#guid_prefix#',
 					'#u#',
 					#ncbi_resultcount#,
 					'wild1:collection'
@@ -217,7 +217,7 @@ sho err
 					found_count,
 					query_type
 				) values (
-					'#collection#',
+					'#guid_prefix#',
 					'#u#',
 					#ncbi_resultcount#,
 					'wild2:collection'
