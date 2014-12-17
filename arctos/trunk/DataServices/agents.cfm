@@ -242,6 +242,8 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 	</cfform>
 
 </cfif>
+
+<!---------------------------------------------------------------->
 <cfif action is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
@@ -427,271 +429,220 @@ If you receive a timeout error, just reload - this page will pick up where it st
 
 <!----------------------------------->
 <cfif action is "validate">
-<script src="/includes/sorttable.js"></script>
-<cfoutput>
-	<cfset obj = CreateObject("component","component.agent")>
-
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_agent
-	</cfquery>
-	<cfquery name="rpn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from ds_temp_agent where preferred_name is null
-	</cfquery>
-	<cfif rpn.c is not 0>
-		<div class="error">Preferred name is required for every agent.</div>
-		<cfabort>
-	</cfif>
-	<cfquery name="ont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select nt from (
-			select
-				other_name_type_1 nt
-			from
-				ds_temp_agent
-			union
-			select
-				other_name_type_2 nt
-			from
-				ds_temp_agent
-			union
-			select
-				other_name_type_3 nt
-			from
-				ds_temp_agent
-		)
-		group by nt
-	</cfquery>
-	<cfif listfind(valuelist(ont.nt),"preferred")>
-		<div class="error">Other name types may not be "preferred"</div>
-		<cfabort>
-	</cfif>
-	<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) c from ds_temp_agent where agent_type not in (select agent_type from ctagent_type)
-	</cfquery>
-	<cfif valuelist(p.c) is not 0>
-		<div class="error">invalid agent type</div>
-		<cfabort>
-	</cfif>
-	<cfquery name="ctont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select nt from  
-		(
-			select
-				other_name_type_1 nt
-			from
-				ds_temp_agent
-			union
-			select
-				other_name_type_2 nt
-			from
-				ds_temp_agent
-			union
-			select
-				other_name_type_3 nt
-			from
-				ds_temp_agent
-		)
-		where nt not in (select agent_name_type from ctagent_name_type)
-	</cfquery>
-	<cfif ctont.recordcount gt 0>
-		<div class="error">Unacceptable name type(s): #valuelist(ctont.nt)#</div>
-		<cfabort>
-	</cfif>
-	
-	<cfset failedKeyList="">
-	Click headers to sort. Scroll to the bottom of the table to continue.
-	
-	
-	
-	<table border id="theTable" class="sortable">
-		<tr>
-			<th>agent_type</th>
-			<th>preferred_name</th>
-			<th>suggestions</th>
-			<th>other_name_type_1</th>
-			<th>other_name_1</th>
-			<th>other_name_type_2</th>
-			<th>other_name_2</th>
-			<th>other_name_type_3</th>
-			<th>other_name_3</th>
-			<th>other_name_type_4</th>
-			<th>other_name_4</th>
-			<th>other_name_type_5</th>
-			<th>other_name_5</th>
-			<th>other_name_type_6</th>
-			<th>other_name_6</th>
-			<th>agent_status_1</th>
-			<th>agent_status_date_1</th>
-			<th>agent_status_2</th>
-			<th>agent_status_date_2</th>
-			<th>agent_remark</th>
-		</tr>
-		<cfset fileDir = "#Application.webDirectory#">
-		<cfset variables.encoding="UTF-8">
-		<cfset fname = "agent_bulk_down.csv">
-		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-
-		<cfset clist='agent_type,preferred_name,other_name_1,other_name_type_1,other_name_2,other_name_type_2,other_name_3,other_name_type_3,other_name_4,other_name_type_4,other_name_5,other_name_type_5,other_name_6,other_name_type_6,agent_status_1,agent_status_date_1,agent_status_2,agent_status_date_2,agent_remark,suggestions'>
-		<cfset autoColList=listdeleteat(clist,listfindnocase(clist,'suggestions'))>
-			
-		<cfscript>
-			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			variables.joFileWriter.writeLine(ListQualify(clist,'"')); 
-		</cfscript>
-	
-	
-		<cfset hasProbs=false>
+	<script src="/includes/sorttable.js"></script>
+	<cfoutput>
+		<cfset obj = CreateObject("component","component.agent")>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from ds_temp_agent
+		</cfquery>
+		<cfquery name="rpn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from ds_temp_agent where preferred_name is null
+		</cfquery>
+		<cfif rpn.c is not 0>
+			<div class="error">Preferred name is required for every agent.</div>
+			<cfabort>
+		</cfif>
+		<cfquery name="ont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select nt from (
+				select
+					other_name_type_1 nt
+				from
+					ds_temp_agent
+				union
+				select
+					other_name_type_2 nt
+				from
+					ds_temp_agent
+				union
+				select
+					other_name_type_3 nt
+				from
+					ds_temp_agent
+			)
+			group by nt
+		</cfquery>
+		<cfif listfind(valuelist(ont.nt),"preferred")>
+			<div class="error">Other name types may not be "preferred"</div>
+			<cfabort>
+		</cfif>
+		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from ds_temp_agent where agent_type not in (select agent_type from ctagent_type)
+		</cfquery>
+		<cfif valuelist(p.c) is not 0>
+			<div class="error">invalid agent type(s) detected</div>
+			<cfabort>
+		</cfif>
+		<cfquery name="ctont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select nt from  
+			(
+				select
+					other_name_type_1 nt
+				from
+					ds_temp_agent
+				union
+				select
+					other_name_type_2 nt
+				from
+					ds_temp_agent
+				union
+				select
+					other_name_type_3 nt
+				from
+					ds_temp_agent
+			)
+			where nt not in (select agent_name_type from ctagent_name_type)
+		</cfquery>
+		<cfif ctont.recordcount gt 0>
+			<div class="error">Unacceptable name type(s): #valuelist(ctont.nt)#</div>
+			<cfabort>
+		</cfif>
 		
-			
-		<cfloop query="d">
-			<cfset fn="">
-			<cfset mn="">
-			<cfset ln="">
-			
-			<cfloop from="1" to="6" index="i">
-				<cfset thisNameType=evaluate("other_name_type_" & i)>
-				<cfset thisName=evaluate("other_name_" & i)>
-				<cfif thisNameType is "first name">
-					<cfset fn=thisName>
-				<cfelseif thisNameType is "middle name">
-					<cfset mn=thisName>
-				<cfelseif thisNameType is "last name">
-					<cfset ln=thisName>
-				</cfif> 
-			</cfloop>
-			<cfset fnProbs = obj.checkAgent(
-				preferred_name="#preferred_name#",
-				agent_type="#agent_type#",
-				first_name="#fn#",
-				middle_name="#mn#",
-				last_name="#ln#"
-			)>
-			
-				
-			
-			
-			
+		Click headers to sort. Scroll to the bottom of the table to continue.
 		
+		<a href="agents.cfm?action=getCSV">click here to get CSV</a>. All "status" colunmns should contain something.
+	
+		
+		<table border id="theTable" class="sortable">
+			<tr>
+				<th>agent_type</th>
+				<th>preferred_name</th>
+				<th>suggestions</th>
+				<th>other_name_type_1</th>
+				<th>other_name_1</th>
+				<th>other_name_type_2</th>
+				<th>other_name_2</th>
+				<th>other_name_type_3</th>
+				<th>other_name_3</th>
+				<th>other_name_type_4</th>
+				<th>other_name_4</th>
+				<th>other_name_type_5</th>
+				<th>other_name_5</th>
+				<th>other_name_type_6</th>
+				<th>other_name_6</th>
+				<th>agent_status_1</th>
+				<th>agent_status_date_1</th>
+				<th>agent_status_2</th>
+				<th>agent_status_date_2</th>
+				<th>agent_remark</th>
+			</tr>
+			<cfloop query="d">
+				<cfset fn="">
+				<cfset mn="">
+				<cfset ln="">
 			
-				<cfset oneLine = "">
-				<cfloop list="#autoColList#" index="c">
-					<cfset thisData = evaluate("d." & c)>
-					<cfset thisData=replace(thisData,'"','""','all')>
-					<cfif len(oneLine) is 0>
-						<cfset oneLine = '"#thisData#"'>
-					<cfelse>
-						<cfset oneLine = '#oneLine#,"#thisData#"'>
-					</cfif>
+				<cfloop from="1" to="6" index="i">
+					<cfset thisNameType=evaluate("other_name_type_" & i)>
+					<cfset thisName=evaluate("other_name_" & i)>
+					<cfif thisNameType is "first name">
+						<cfset fn=thisName>
+					<cfelseif thisNameType is "middle name">
+						<cfset mn=thisName>
+					<cfelseif thisNameType is "last name">
+						<cfset ln=thisName>
+					</cfif> 
 				</cfloop>
-				<cfset oneLine=oneLine & ',"#fnProbs#"'>
-				<cfset oneLine = trim(oneLine)>
-				<cfscript>
-					variables.joFileWriter.writeLine(oneLine);
-				</cfscript>
-			<tr id="row_#key#">
-				<td>#agent_type#</td>
-				<td>#preferred_name#</td>
-				<td nowrap="nowrap" id="suggested__#key#">
-					<div style="overflow:auto;max-height:10em;">
-						<cfif len(fnProbs) gt 0>
-							<cfset hasProbs=true>
-							<cfset failedKeyList=listappend(failedKeyList,key)>
+				<cfset fnProbs = obj.checkAgent(
+					preferred_name="#preferred_name#",
+					agent_type="#agent_type#",
+					first_name="#fn#",
+					middle_name="#mn#",
+					last_name="#ln#"
+				)>
+				<cfif len(fnProbs) is 0>
+					<cfset fnProbs='no problems detected'>
+				</cfif>
+				<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update ds_temp_agent set status='#escapeQuotes(fnProbs)#' where key=#key#
+				</cfquery>
+
+				<tr id="row_#key#">
+					<td>#agent_type#</td>
+					<td>#preferred_name#</td>
+					<td nowrap="nowrap" id="suggested__#key#">
+						<div style="overflow:auto;max-height:10em;">
 							<cfloop list="#fnProbs#" index="p" delimiters=";">
 								<li>
 									#p#
 								</li>
 							</cfloop>
-						</cfif>
-					</div>
-				</td>
-				<td>#other_name_type_1#</td>
-				<td>#other_name_1#</td>
-				<td>#other_name_type_2#</td>
-				<td>#other_name_2#</td>
-				<td>#other_name_type_3#</td>
-				<td>#other_name_3#</td>
-				<td>#other_name_type_4#</td>
-				<td>#other_name_4#</td>
-				<td>#other_name_type_5#</td>
-				<td>#other_name_5#</td>
-				<td>#other_name_type_6#</td>
-				<td>#other_name_6#</td>
-				<td>#agent_status_1#</td>
-				<td>#agent_status_date_1#</td>
-				<td>#agent_status_2#</td>
-				<td>#agent_status_date_2#</td>
-				<td>#agent_remark#</td>
-				
-				
-				
-		</tr>
-		
-		
-		</cfloop>
-	</table>
-	<cfscript>	
-		variables.joFileWriter.close();
-	</cfscript>
-	
-	
-	<cfif hasProbs is true>
-	
-		<cfif listlen(failedKeyList) lte 1000>
-			<cfset fkl=failedKeyList>
-		<cfelse>
-			<!--- deal with oracle, hopefully not mely anything else....---->
-			<cfset fkl=listgetat(failedKeyList,1)>
-		</cfif>
+						</div>
+					</td>
+					<td>#other_name_type_1#</td>
+					<td>#other_name_1#</td>
+					<td>#other_name_type_2#</td>
+					<td>#other_name_2#</td>
+					<td>#other_name_type_3#</td>
+					<td>#other_name_3#</td>
+					<td>#other_name_type_4#</td>
+					<td>#other_name_4#</td>
+					<td>#other_name_type_5#</td>
+					<td>#other_name_5#</td>
+					<td>#other_name_type_6#</td>
+					<td>#other_name_6#</td>
+					<td>#agent_status_1#</td>
+					<td>#agent_status_date_1#</td>
+					<td>#agent_status_2#</td>
+					<td>#agent_status_date_2#</td>
+					<td>#agent_remark#</td>
+				</tr>
+			</cfloop>
+		</table>	
 		<cfquery name="fails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update ds_temp_agent set requires_admin_override=1 where key in (#fkl#)
+			select count(*) c from ds_temp_agent where status != 'no problems detected'
 		</cfquery>
-		<cfif session.roles contains "manage_codetables">
-			<div style="border:2px solid red;padding:1em;margin:1em;">
-				You have manage_codetables, which should mean that you are a member of the Arctos Advisory Committee.
-				<br>Click <a href="agents.cfm?action=loadData">here</a> to use your awesome powers to load these data as they are. 
-				<br>Be paranoid. Carefully review the suggestions in the table above before continuing.
-			</div>
-		</cfif> 
+		<cfif fails.c gt 0>
+			<cfif session.roles contains "manage_codetables">
+				<div style="border:2px solid red;padding:1em;margin:1em;">
+					You have manage_codetables, which should mean that you are a member of the Arctos Advisory Committee.
+					<br>Click <a href="agents.cfm?action=loadData">here</a> to use your awesome powers to load these data as they are. 
+					<br>Be paranoid. Carefully review the suggestions in the table above before continuing.
+				</div>
+			</cfif> 
+			<p>
+				Potential problems have been detected in your data. You cannot use this form with these data. These should not be taken to mean
+				that anything is "wrong," simply that this application, which is built to avoid the introduction of low-quality data and 
+				duplicate agents, won't deal with them. You can create any name via "create agent," and members of the Arctos Advisory Committee can 
+				override these warnings.
+			</p>
+			<p>
+				This application is not magic, it just looks for things that have caused problems that have occurred in the past. 
+				Be particularly careful of non-person agents (agencies often have many names and acronyms), commonly-changed names (William/Bill, etc.), and "low-quality" agents (J. Smith).
+			</p>
+			<p>
+				"no problems detected" in the "status" column should never be interpreted as "these data are perfect," but rather consider it an indication that 
+				the name may be horribly mangled either in your data or in existing Arctos data. This is especially true for prolific collectors and authors who
+				have donated specimens to or used specimens from multiple collections.
+			</p>
+			<p>
+				Consider using "unknown" for extremely vague agents. Is "Firstname" (or "Lastname" or initials or ....) somehow
+				 functionally more useful than "unknown"? This is always a Curatorial decision, but please consider if a person discovering
+				field notes, labels, or other information that clarify low-quality names would have used a different path or might have had a different result 
+				if coming from agent "unknown" (or, where allowable, simply NULL).
+			</p>
+			<p>
+				If there are a few false alerts, you can enter those agents manually, delete them from your load file, create manually as necessary, and continue.
+			</p>
+			<p>
+				If there are many false alerts, send a DBA your data and an explanation of the problem.
+			</p>
+			<p>
+				If you manually create agents because of something that happened here, there is a high probability that a "not the same as"
+					relationship and a note explaining that relationship is necessary. Eliminating this step may result in inadvertent merger.
+			</p>
+			<p>
+				If you accept suggestions made here, be sure to update the data which uses agents to incorporate the existing spelling. Alternatively,
+				you may add agent_names to the existing agents instead of altering your data.
+			</p>
+			<p>
+				<a href="/download/#fname#">Download CSV with suggestions</a>
+			</p>
+		<cfelse>
+			 No problems detected. Review the data one last time, then click <a href="agents.cfm?action=loadData">here</a> to create agents.
+		</cfif>
 		<p>
-			Potential problems have been detected in your data. You cannot use this form with these data. These should not be taken to mean
-			that anything is "wrong," simply that this application, which is built to avoid the introduction of low-quality data and 
-			duplicate agents, won't deal with them. You can create any name via "create agent," and members of the Arctos Advisory Committee can 
-			override these warnings.
+			See the <a href="agents.cfm?action=splash">agent loader home</a> page for more options.
 		</p>
-		<p>
-			This application is not magic, it just looks for things that have caused problems that have occurred in the past. 
-			Be particularly careful of non-person agents (agencies often have many names and acronyms), commonly-changed names (William/Bill, etc.), and "low-quality" agents (J. Smith).
-		</p>
-		<p>
-			Nothing (NULL) in the "status" column should never be interpreted as "these data are perfect," but rather consider it an indication that 
-			the name may be horribly mangled either in your data or in existing Arctos data. This is especially true for prolific collectors and authors who
-			have donated specimens to or used specimens from multiple collections.
-		</p>
-		<p>
-			Consider using "unknown" for extremely vague agents. Is "Firstname" (or "Lastname" or initials or ....) somehow
-			 functionally more useful than "unknown"? This is always a Curatorial decision, but please consider if a person discovering
-			field notes, labels, or other information that clarify low-quality names would have used a different path or might have had a different result 
-			if coming from agent "unknown" (or, where allowable, simply NULL).
-		</p>
-		<p>
-			If there are a few false alerts, you can enter those agents manually, delete them from your load file, create manually as necessary, and continue.
-		</p>
-		<p>
-			If there are many false alerts, send a DBA your data and an explanation of the problem.
-		</p>
-		<p>
-			If you manually create agents because of something that happened here, there is a high probability that a "not the same as"
-				relationship and a note explaining that relationship is necessary. Eliminating this step may result in inadvertent merger.
-		</p>
-		<p>
-			If you accept suggestions made here, be sure to update the data which uses agents to incorporate the existing spelling. Alternatively,
-			you may add agent_names to the existing agents instead of altering your data.
-		</p>
-		<p>
-			<a href="/download/#fname#">Download CSV with suggestions</a>
-		</p>
-	<cfelse>
-		 No problems detected. Review the data one last time, then click <a href="agents.cfm?action=loadData">here</a> to create agents.
-	</cfif>
-</cfoutput>
+	</cfoutput>
 </cfif>
 <cfif action is "loadData">
 	<cfoutput>
@@ -699,32 +650,20 @@ If you receive a timeout error, just reload - this page will pick up where it st
 			select * from ds_temp_agent
 		</cfquery>
 	
-	
-	
-	<cfquery name="requiresOverride" dbtype="query">
-				select count(*) c from d where status is not null
-			</cfquery>
-			<cfif requiresOverride.c gt 0>
-				<cfthrow detail = "unauthorized agent load" errorCode = "666"
-				    extendedInfo = "@agents.loadData with admin override required and no auth"
-				    message = "You are not allowed to be here.">
-				<cfabort>
-			</cfif>
+		<cfquery name="unvalidated" dbtype="query">
+			select count(*) c from d where status is null
+		</cfquery>
 			
-			
-			made it here
-			
-			
-			
+		<cfif unvalidated.c gt 0>
+			There are unvalidated records in the bulkloader. You can't be here. Try the <a href="agents.cfm?action=splash">agent loader home</a> page.
 			<cfabort>
-			
-			
+		</cfif>
 			
 			
 		<cfif session.roles does not contain "manage_codetables">
 			<!---- doublecheck --->
 			<cfquery name="requiresOverride" dbtype="query">
-				select count(*) c from d where requires_admin_override=1
+				select count(*) c from d where status != 'no problems detected'
 			</cfquery>
 			<cfif requiresOverride.c gt 0>
 				<cfthrow detail = "unauthorized agent load" errorCode = "666"
