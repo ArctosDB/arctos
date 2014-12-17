@@ -60,6 +60,15 @@ grant select on ds_temp_agent to public;
 sho err
 
 
+alter table ds_temp_agent drop column REQUIRES_ADMIN_OVERRIDE;
+alter table ds_temp_agent drop column FIRST_NAME;
+alter table ds_temp_agent drop column MIDDLE_NAME;
+alter table ds_temp_agent drop column LAST_NAME;
+alter table ds_temp_agent drop column BIRTH_DATE;
+alter table ds_temp_agent drop column DEATH_DATE;
+alter table ds_temp_agent drop column PREFIX;
+alter table ds_temp_agent drop column SUFFIX;
+
 create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablespace uam_idx_1;
 
 ---->
@@ -75,9 +84,9 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		
 		<p>
 			<a href="agents.cfm?action=validatecsv">Validate</a>
-			<br>Note: The validation process is comparitively slow. Validation is iterative, so simply reloading your browser will pick up where things left off.
+			<br>Note: The validation process is slow. Validation is iterative, so simply reloading your browser will pick up where things left off.
 			Some browsers will spin forever or otherwise get confused and not let you know what's up. Click the reload button every 5 minutes or
-			so if necessary. Validation should progress at a rate of greater than 500 rows per minute (usually much greater), and time out every ~2 minutes.
+			so if necessary. Validation should progress at a rate of greater than 500 rows per minute (usually much greater), and time out every ~10 minutes.
 			<br>Records with anything in "status" will be ignored. You may <a href="agents.cfm?action=resetstatus">click here to reset status to NULL</a>.
 		</p>
 		<p>
@@ -296,7 +305,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		(The interactive form code is preserved as agents_interactive.)
 	</p>
 	Step 1: Upload a comma-delimited text file (csv). 
-	Include column headings, spelled exactly as below. 
+	Include column headings, spelled exactly as below. This will delete anything currently in the agent bulkloader.
 	<br>
 	<a href="/info/ctDocumentation.cfm?table=ctagent_name_type">Valid agent name types</a>
 	<br>
@@ -523,7 +532,9 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		select * from ds_temp_agent
 	</cfquery>
 	<cfset  util = CreateObject("component","component.utilities")>
-	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cfset fldlst=mine.columnlist>
+	<cfset fldlst=listdeleteat(fldlst,listfindnocase(fldlst,'key'))>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=fldlst)>
 	<cffile action = "write"
 	    file = "#Application.webDirectory#/download/checked_agents.csv"
     	output = "#csv#"
