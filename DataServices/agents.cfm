@@ -411,11 +411,10 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		</cfif>
 	</cfloop>
 </cfoutput>
-<cflocation url="agents.cfm?action=splash" addtoken="false">
+<p>
+	Data loaded. Proceed to the <a href="agents.cfm?action=splash">agent bulkloader home page</a>.
+</p>
 </cfif>
-
-
-
 <!----------------------------------->
 <cfif action is "validatecsv">
 
