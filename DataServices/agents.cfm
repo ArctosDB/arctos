@@ -374,6 +374,14 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 <!---------------------------------------------------------------->
 <cfif action is "getFile">
 <cfoutput>
+
+hi
+
+
+<cfabort>
+
+
+
 	<!--- put this in a temp table --->
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from ds_temp_agent
