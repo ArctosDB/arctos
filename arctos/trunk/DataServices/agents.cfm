@@ -146,7 +146,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 						</div>
 					</cfif>
 					Non-fatal errors have been detected. A member of the Arctos Advisory Committee can force-load these data. Please keep the following in mind. 
-					Further documentation is available at <a href="http://arctosdb.org/documentation/agent/#create">http://arctosdb.org/documentation/agent/#create</a> 
+					Further documentation is available at <a href="http://arctosdb.org/documentation/agent/##create">http://arctosdb.org/documentation/agent/##create</a> 
 					<p>
 						This application errs strongly on the side of preventing the introduction of potentially-problematic agents.
 					</p>
