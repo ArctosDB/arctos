@@ -82,28 +82,12 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 <cfif action is "splash">
 	<cfoutput>
 		
+		
 		<p>
-			<a href="agents.cfm?action=validatecsv">Validate</a>
-			<br>Note: The validation process is slow. Validation is iterative, so simply reloading your browser will pick up where things left off.
-			Some browsers will spin forever or otherwise get confused and not let you know what's up. Click the reload button every 5 minutes or
-			so if necessary. Validation should progress at a rate of greater than 500 rows per minute (usually much greater), and time out every ~10 minutes.
-			<br>Records with anything in "status" will be ignored. You may <a href="agents.cfm?action=resetstatus">click here to reset status to NULL</a>.
-		</p>
-		<p>
-			<a href="agents.cfm?action=getCSV">Download</a> the agent bulkload data (including status and recommendations) as CSV
+			<a href="agents.cfm?action=nothing">Load CSV</a>. This will DELETE anything currently in the loader.
 		</p>
 		<p>
 			<a href="agentNameSplitter.cfm">Agent Name Splitter</a> will accept a list of agent names and return a file that can be bulkloaded here.
-		</p>
-		<p>
-			<a href="agents.cfm?action=viewtable">View Table</a> is a tabular view of the data in the Agent Bulkloader. Large datasets may eat your browser.
-		</p>
-		<p>
-			<a href="/tools/agentPreload.cfm">Agent Preload Thingee</a> will do things with the CSV which can be downloaded from the agent bulkloader. Large datasets
-			are manageable in this tool.
-		</p>
-		<p>
-			<a href="agents.cfm?action=nothing">Click here</a> to load a CSV file of new agents.
 		</p>
 	
 		<cfquery name="smr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -112,6 +96,25 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		<p>
 			There are #smr.c# records in the agent loader.
 		</p>
+		<cfif smr.c gt 0>
+			<p>
+				<a href="agents.cfm?action=validatecsv">Validate</a>
+				<br>Note: The validation process is slow. Validation is iterative, so simply reloading your browser will pick up where things left off.
+				Some browsers will spin forever or otherwise get confused and not let you know what's up. Click the reload button every 5 minutes or
+				so if necessary. Validation should progress at a rate of greater than 500 rows per minute (usually much greater), and time out every ~10 minutes.
+				<br>Records with anything in "status" will be ignored. You may <a href="agents.cfm?action=resetstatus">click here to reset status to NULL</a>.
+			</p>
+			<p>
+				<a href="agents.cfm?action=getCSV">Download</a> the agent bulkload data (including status and recommendations) as CSV
+			</p>
+			<p>
+				<a href="/tools/agentPreload.cfm">Agent Preload Thingee</a> will do things with the CSV which can be downloaded from the agent bulkloader. Large datasets
+				are manageable in this tool.
+			</p>
+			<p>
+				<a href="agents.cfm?action=viewtable">View Table</a> is a tabular view of the data in the Agent Bulkloader. Large datasets may eat your browser.
+			</p>
+		</cfif>
 		<cfquery name="ns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from ds_temp_agent where status is null
 		</cfquery>
