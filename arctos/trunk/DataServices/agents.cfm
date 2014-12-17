@@ -77,6 +77,8 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		union
 		select count(*) chkd from ds_temp_agent
 	</cfquery>
+	
+	<cfdump var=#d#>
 	<cfoutput>
 		<p>
 			There are #d.totl# records in the agent loader. #d.chkd# of them have been checked.
