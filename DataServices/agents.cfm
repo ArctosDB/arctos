@@ -699,12 +699,34 @@ If you receive a timeout error, just reload - this page will pick up where it st
 			select * from ds_temp_agent
 		</cfquery>
 	
+	
+	
+	<cfquery name="requiresOverride" dbtype="query">
+				select count(*) c from d where requires_admin_override=1
+			</cfquery>
+			<cfif requiresOverride.c gt 0>
+				<cfthrow detail = "unauthorized agent load" errorCode = "666"
+				    extendedInfo = "@agents.loadData with admin override required and no auth"
+				    message = "You are not allowed to be here.">
+				<cfabort>
+			</cfif>
+			
+			
+			made it here
+			
+			
+			
+			<cfabort>
+			
+			
+			
+			
 		<cfif session.roles does not contain "manage_codetables">
 			<!---- doublecheck --->
 			<cfquery name="requiresOverride" dbtype="query">
-				select count(*) c from d where requires_admin_override is not null
+				select count(*) c from d where requires_admin_override=1
 			</cfquery>
-			<cfif requiresOverride.c is not 0>
+			<cfif requiresOverride.c gt 0>
 				<cfthrow detail = "unauthorized agent load" errorCode = "666"
 				    extendedInfo = "@agents.loadData with admin override required and no auth"
 				    message = "You are not allowed to be here.">
