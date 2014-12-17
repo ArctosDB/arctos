@@ -71,47 +71,122 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 
 <!----------------------------------->
 <cfif action is "splash">
-
-	<cfquery name="smr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select count(*) totl from ds_temp_agent
-		union
-		select count(*) chkd from ds_temp_agent
-	</cfquery>
-	
-	<cfdump var=#smr#>
 	<cfoutput>
+		
 		<p>
-			There are #smr.totl# records in the agent loader. #smr.chkd# of them have been checked.
+			<a href="agents.cfm?action=validatecsv">Validate</a>
+			<br>Note: The validation process is comparitively slow. Validation is iterative, so simply reloading your browser will pick up where things left off.
+			Some browsers will spin forever or otherwise get confused and not let you know what's up. Click the reload button every 5 minutes or
+			so if necessary. Validation should progress at a rate of greater than 500 rows per minute (usually much greater), and time out every ~2 minutes.
+			<br>Records with anything in "status" will be ignored. You may <a href="agents.cfm?action=resetstatus">click here to reset status to NULL</a>.
 		</p>
+		<p>
+			<a href="agents.cfm?action=getCSV">Download</a> the agent bulkload data (including status and recommendations) as CSV
+		</p>
+		<p>
+			<a href="agentNameSplitter.cfm">Agent Name Splitter</a> will accept a list of agent names and return a file that can be bulkloaded here.
+		</p>
+		<p>
+			<a href="agents.cfm?action=viewtable">View Table</a> is a tabular view of the data in the Agent Bulkloader. Large datasets may eat your browser.
+		</p>
+		<p>
+			<a href="/tools/agentPreload.cfm">Agent Preload Thingee</a> will do things with the CSV which can be downloaded from the agent bulkloader. Large datasets
+			are manageable in this tool.
+		</p>
+		<p>
+			<a href="agents.cfm?action=nothing">Click here</a> to load a CSV file of new agents.
+		</p>
+	
+		<cfquery name="smr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from ds_temp_agent
+		</cfquery>
+		<p>
+			There are #smr.c# records in the agent loader.
+		</p>
+		<cfquery name="ns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from ds_temp_agent where status is null
+		</cfquery>
+		<cfif ns.c is not 0>
+			There are #ns.c# records which have not been validated. Use the link above to validate.
+		<cfelse>
+			<!--- everything validated, see if they all passed ---->
+			<cfquery name="aok" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select count(*) c from ds_temp_agent where status = 'no problems detected'
+			</cfquery>
+			<cfif aok.c is smr.c>
+				All records passed validation.
+				<p>
+					"no problems detected" in the "status" column should never be interpreted as "these data are perfect," but is simply an 
+					indication that Arctos could not detect similarities between your data and existing data. This may be because
+					<ul>
+						<li>Your data are so mangled that comparing them to anything is difficult.</li>
+						<li>The data in Arctos are so mangled that comparing them to anything is difficult.</li>
+						<li>The verification process is busted.</li>
+						<li>Your data are useful representations of new-to-Arctos agents.</li>
+					</ul>
+				</p>
+				<p>
+					Please take a few minutes to spot-check your data against existing Arctos agents before proceeding.
+				</p>
+				<p>
+					<a href="agents.cfm?action=loadData">Proceed to load agents</a>
+				</p>
+			<cfelse>
+				<cfquery name="fatals" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select count(*) c from ds_temp_agent where status like '%FATAL%'
+				</cfquery>
+				<cfif fatals.c gt 0>
+					Fatal errors have been detected. These must be corrected.
+				<cfelse>
+					<cfif session.roles contains "manage_codetables">
+						<div style="border:2px solid red;padding:1em;margin:1em;">
+							You have manage_codetables, which should mean that you are a member of the Arctos Advisory Committee.
+							<br>Click <a href="agents.cfm?action=loadData">here</a> to use your awesome powers to load these data as they are. 
+							<br>Be paranoid. Carefully review the suggestions in the data before continuing.
+						</div>
+					</cfif>
+					Non-fatal errors have been detected. A member of the Arctos Advisory Committee can force-load these data. Please keep the following in mind. 
+					Further documentation is available at <a href="http://arctosdb.org/documentation/agent/#create">http://arctosdb.org/documentation/agent/#create</a> 
+					<p>
+						This application errs strongly on the side of preventing the introduction of potentially-problematic agents.
+					</p>
+					<p>
+						Potential problems are often reflections of the limitations in Arctos data and the pre-load tools. Any user with create agents access may
+						over-ride these warning by creating agents individually, and members of the Arctos Advisory Committee can ignore these warnings in
+						the agent bulkloader.
+					</p>
+					<p>
+						This application is not magic, it just looks for things that have caused problems in the past. 
+						Be particularly careful of non-person agents (agencies often have many names and acronyms), commonly-changed names (William/Bill, etc.),
+						 and "low-quality" agents (J. Smith).
+					</p>
+					<p>
+						We appreciate feedback. Please use the contact link.
+					</p>
+					<p>
+						In the case of any ambiguity (e.g., the sorts of things that cause you to be reading this), a "not the same as" 
+						relationship and agent remarks will prevent future problems.
+					</p>
+					<p>
+						If you are loading agents as part of a bulkload process, you may need to re-map your data. This can be accomplished by changing
+						your data to the suggestions provided by this tool, or by adding "your" agent_names to existing agents.
+					</p>
+				</cfif>
+			</cfif>
+		</cfif>
+
 	</cfoutput>
-
-	
-	<p>
-		<a href="agents.cfm?action=validate">Validate (may time out at several hundred rows)</a>
-	</p>
-	<p>
-		<a href="agents.cfm?action=validatecsv">Validate as CSV (can run iteratively)</a>
-		<br>Note: Some browsers will spin forever or otherwise not let you know what's up. Click the button every 5 minutes or
-		so if necessary. Things should progress at a rate of greater than 500 rows per minute (usually much greater), and time out every ~2 minutes.
-	</p>
-	<p>
-		<a href="agents.cfm?action=getCSV">Download the agent bulkload data as CSV</a>
-	</p>
-	
-	<p>
-		<a href="agentNameSplitter.cfm">Agent Name Splitter</a> will accept a list of agent names and return a file that can be bulkloaded here.
-	</p>
-	<p>
-		<a href="/tools/agentPreload.cfm">Agent Preload Thingee</a> will do things with the CSV which can be downloaded from the agent bulkloader.
-	</p>
-	<p>
-		<a href="agents.cfm?action=nothing">Click here</a> to load a CSV file of new agents.
-	</p>
-	
-	
 </cfif>
-
-
+<!------------------------------------------------>
+<cfif action is "resetstatus">
+	<cfquery name="resetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update ds_temp_agent set status=null
+	</cfquery>
+	<p>
+		Status has been reset. Use the link above, or <a href="agents.cfm?action=validatecsv">proceed to validate</a>
+	</p>
+</cfif>
+<!------------------------------------------------>
 <cfif action is "nothing">
 	<cftry>
 		<cfquery name="flushOldManipTable" datasource="uam_god">
@@ -333,8 +408,9 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 <cfif action is "validatecsv">
 
 <p>
-If you receive a timeout error, just reload - this page will pick up where it stopped
+	If you receive a timeout error, just reload - this page will pick up where it stopped.
 </p>
+
 	<cfset obj = CreateObject("component","component.agent")>
 
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -433,8 +509,10 @@ If you receive a timeout error, just reload - this page will pick up where it st
 			</cfquery>
 	</cfloop>
 	<p>
-		If you're seeing this and no errors, the check has probably completed. 
-		<a href="agents.cfm?action=getCSV">click here to get CSV</a>. All "status" colunmns should contain something.
+		If you're seeing this and no errors, the check has probably completed.
+		<p> 
+			<a href="agents.cfm?action=splash">go to the agent loader home page for options</a>
+		</p>
 	</p>
 </cfif>
 
@@ -455,78 +533,15 @@ If you receive a timeout error, just reload - this page will pick up where it st
 
 
 <!----------------------------------->
-<cfif action is "validate">
+<cfif action is "viewtable">
 	<script src="/includes/sorttable.js"></script>
 	<cfoutput>
-		<cfset obj = CreateObject("component","component.agent")>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ds_temp_agent
 		</cfquery>
-		<cfquery name="rpn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c from ds_temp_agent where preferred_name is null
-		</cfquery>
-		<cfif rpn.c is not 0>
-			<div class="error">Preferred name is required for every agent.</div>
-			<cfabort>
-		</cfif>
-		<cfquery name="ont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select nt from (
-				select
-					other_name_type_1 nt
-				from
-					ds_temp_agent
-				union
-				select
-					other_name_type_2 nt
-				from
-					ds_temp_agent
-				union
-				select
-					other_name_type_3 nt
-				from
-					ds_temp_agent
-			)
-			group by nt
-		</cfquery>
-		<cfif listfind(valuelist(ont.nt),"preferred")>
-			<div class="error">Other name types may not be "preferred"</div>
-			<cfabort>
-		</cfif>
-		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c from ds_temp_agent where agent_type not in (select agent_type from ctagent_type)
-		</cfquery>
-		<cfif valuelist(p.c) is not 0>
-			<div class="error">invalid agent type(s) detected</div>
-			<cfabort>
-		</cfif>
-		<cfquery name="ctont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select nt from  
-			(
-				select
-					other_name_type_1 nt
-				from
-					ds_temp_agent
-				union
-				select
-					other_name_type_2 nt
-				from
-					ds_temp_agent
-				union
-				select
-					other_name_type_3 nt
-				from
-					ds_temp_agent
-			)
-			where nt not in (select agent_name_type from ctagent_name_type)
-		</cfquery>
-		<cfif ctont.recordcount gt 0>
-			<div class="error">Unacceptable name type(s): #valuelist(ctont.nt)#</div>
-			<cfabort>
-		</cfif>
 		
-		Click headers to sort. Scroll to the bottom of the table to continue.
+		Click headers to sort. 
 		
-		<a href="agents.cfm?action=getCSV">click here to get CSV</a>. All "status" colunmns should contain something.
 	
 		
 		<table border id="theTable" class="sortable">
@@ -553,41 +568,12 @@ If you receive a timeout error, just reload - this page will pick up where it st
 				<th>agent_remark</th>
 			</tr>
 			<cfloop query="d">
-				<cfset fn="">
-				<cfset mn="">
-				<cfset ln="">
-			
-				<cfloop from="1" to="6" index="i">
-					<cfset thisNameType=evaluate("other_name_type_" & i)>
-					<cfset thisName=evaluate("other_name_" & i)>
-					<cfif thisNameType is "first name">
-						<cfset fn=thisName>
-					<cfelseif thisNameType is "middle name">
-						<cfset mn=thisName>
-					<cfelseif thisNameType is "last name">
-						<cfset ln=thisName>
-					</cfif> 
-				</cfloop>
-				<cfset fnProbs = obj.checkAgent(
-					preferred_name="#preferred_name#",
-					agent_type="#agent_type#",
-					first_name="#fn#",
-					middle_name="#mn#",
-					last_name="#ln#"
-				)>
-				<cfif len(fnProbs) is 0>
-					<cfset fnProbs='no problems detected'>
-				</cfif>
-				<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update ds_temp_agent set status='#escapeQuotes(fnProbs)#' where key=#key#
-				</cfquery>
-
 				<tr id="row_#key#">
 					<td>#agent_type#</td>
 					<td>#preferred_name#</td>
 					<td nowrap="nowrap" id="suggested__#key#">
 						<div style="overflow:auto;max-height:10em;">
-							<cfloop list="#fnProbs#" index="p" delimiters=";">
+							<cfloop list="#status#" index="p" delimiters=";">
 								<li>
 									#p#
 								</li>
@@ -613,62 +599,7 @@ If you receive a timeout error, just reload - this page will pick up where it st
 					<td>#agent_remark#</td>
 				</tr>
 			</cfloop>
-		</table>	
-		<cfquery name="fails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c from ds_temp_agent where status != 'no problems detected'
-		</cfquery>
-		<cfif fails.c gt 0>
-			<cfif session.roles contains "manage_codetables">
-				<div style="border:2px solid red;padding:1em;margin:1em;">
-					You have manage_codetables, which should mean that you are a member of the Arctos Advisory Committee.
-					<br>Click <a href="agents.cfm?action=loadData">here</a> to use your awesome powers to load these data as they are. 
-					<br>Be paranoid. Carefully review the suggestions in the table above before continuing.
-				</div>
-			</cfif> 
-			<p>
-				Potential problems have been detected in your data. You cannot use this form with these data. These should not be taken to mean
-				that anything is "wrong," simply that this application, which is built to avoid the introduction of low-quality data and 
-				duplicate agents, won't deal with them. You can create any name via "create agent," and members of the Arctos Advisory Committee can 
-				override these warnings.
-			</p>
-			<p>
-				This application is not magic, it just looks for things that have caused problems that have occurred in the past. 
-				Be particularly careful of non-person agents (agencies often have many names and acronyms), commonly-changed names (William/Bill, etc.), and "low-quality" agents (J. Smith).
-			</p>
-			<p>
-				"no problems detected" in the "status" column should never be interpreted as "these data are perfect," but rather consider it an indication that 
-				the name may be horribly mangled either in your data or in existing Arctos data. This is especially true for prolific collectors and authors who
-				have donated specimens to or used specimens from multiple collections.
-			</p>
-			<p>
-				Consider using "unknown" for extremely vague agents. Is "Firstname" (or "Lastname" or initials or ....) somehow
-				 functionally more useful than "unknown"? This is always a Curatorial decision, but please consider if a person discovering
-				field notes, labels, or other information that clarify low-quality names would have used a different path or might have had a different result 
-				if coming from agent "unknown" (or, where allowable, simply NULL).
-			</p>
-			<p>
-				If there are a few false alerts, you can enter those agents manually, delete them from your load file, create manually as necessary, and continue.
-			</p>
-			<p>
-				If there are many false alerts, send a DBA your data and an explanation of the problem.
-			</p>
-			<p>
-				If you manually create agents because of something that happened here, there is a high probability that a "not the same as"
-					relationship and a note explaining that relationship is necessary. Eliminating this step may result in inadvertent merger.
-			</p>
-			<p>
-				If you accept suggestions made here, be sure to update the data which uses agents to incorporate the existing spelling. Alternatively,
-				you may add agent_names to the existing agents instead of altering your data.
-			</p>
-			<p>
-				<a href="/download/#fname#">Download CSV with suggestions</a>
-			</p>
-		<cfelse>
-			 No problems detected. Review the data one last time, then click <a href="agents.cfm?action=loadData">here</a> to create agents.
-		</cfif>
-		<p>
-			See the <a href="agents.cfm?action=splash">agent loader home</a> page for more options.
-		</p>
+		</table>
 	</cfoutput>
 </cfif>
 <cfif action is "loadData">
