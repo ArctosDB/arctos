@@ -66,6 +66,50 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 <cfinclude template="/includes/_header.cfm">
 <cfsetting requesttimeout="600">
 <cfset title="bulkload agents">
+<a href="agents.cfm?action=splash">agent loader home</a>
+
+
+<!----------------------------------->
+<cfif action is "splash">
+
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) totl from ds_temp_agent
+		union
+		select count(*) chkd from ds_temp_agent
+	</cfquery>
+	<cfoutput>
+		<p>
+			There are #d.totl# records in the agent loader. #d.chkd# of them have been checked.
+		</p>
+	</cfoutput>
+
+	
+	<p>
+		<a href="agents.cfm?action=validate">Validate (may time out at several hundred rows)</a>
+	</p>
+	<p>
+		<a href="agents.cfm?action=validatecsv">Validate as CSV (can run iteratively)</a>
+		<br>Note: Some browsers will spin forever or otherwise not let you know what's up. Click the button every 5 minutes or
+		so if necessary. Things should progress at a rate of greater than 500 rows per minute (usually much greater), and time out every ~2 minutes.
+	</p>
+	<p>
+		<a href="agents.cfm?action=getCSV">Download the agent bulkload data as CSV</a>
+	</p>
+	
+	<p>
+		<a href="agentNameSplitter.cfm">Agent Name Splitter</a> will accept a list of agent names and return a file that can be bulkloaded here.
+	</p>
+	<p>
+		<a href="/tools/agentPreload.cfm">Agent Preload Thingee</a> will do things with the CSV which can be downloaded from the agent bulkloader.
+	</p>
+	<p>
+		<a href="agents.cfm?action=nothing">Click here</a> to load a CSV file of new agents.
+	</p>
+	
+	
+</cfif>
+
+
 <cfif action is "nothing">
 	<cftry>
 		<cfquery name="flushOldManipTable" datasource="uam_god">
@@ -168,12 +212,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 
 
 
-	<p>
-		<a href="agentNameSplitter.cfm">Agent Name Splitter</a> will accept a list of agent names and return a file that can be used here.
-	</p>
-	<p>
-		<a href="/tools/agentPreload.cfm">Agent Preload Thingee</a> will do things with the CSV which can be downloaded from this app.
-	</p>
+	
 	<p>See also /procedures/bulkload_agents.sql</p>
 	<p>
 		Note: Due to large influxes of duplicate agents, this form is currently set on "paranoid." File an Issue to change how this form works.
@@ -286,20 +325,6 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 <cflocation url="agents.cfm?action=splash" addtoken="false">
 </cfif>
 
-
-<!----------------------------------->
-<cfif action is "splash">
-	<br> Data loaded to temp table.
-	
-	<p>
-		<a href="agents.cfm?action=validate">Validate (may time out at several hundred rows)</a>
-	</p>
-	<p>
-		<a href="agents.cfm?action=validatecsv">Validate as CSV (can run iteratively)</a>
-		<br>Note: Some browsers will spin forever or otherwise not let you know what's up. Click the button every 5 minutes or
-		so if necessary. Things should progress at a rate of greater than 500 rows per minute (usually much greater), and time out every ~2 minutes.
-	</p>
-</cfif>
 
 
 <!----------------------------------->
