@@ -702,7 +702,7 @@ If you receive a timeout error, just reload - this page will pick up where it st
 	
 	
 	<cfquery name="requiresOverride" dbtype="query">
-				select count(*) c from d where requires_admin_override=1
+				select count(*) c from d where status is not null
 			</cfquery>
 			<cfif requiresOverride.c gt 0>
 				<cfthrow detail = "unauthorized agent load" errorCode = "666"
