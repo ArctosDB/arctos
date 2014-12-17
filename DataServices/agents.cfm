@@ -72,16 +72,16 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 <!----------------------------------->
 <cfif action is "splash">
 
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="smr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) totl from ds_temp_agent
 		union
 		select count(*) chkd from ds_temp_agent
 	</cfquery>
 	
-	<cfdump var=#d#>
+	<cfdump var=#smr#>
 	<cfoutput>
 		<p>
-			There are #d.totl# records in the agent loader. #d.chkd# of them have been checked.
+			There are #smr.totl# records in the agent loader. #smr.chkd# of them have been checked.
 		</p>
 	</cfoutput>
 
