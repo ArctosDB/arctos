@@ -1,4 +1,10 @@
 
+
+<cfset x=test_function()>
+
+<cfdump var=#x#>
+
+
 <!---------------------
 
 
