@@ -42,6 +42,12 @@
 	</cfif>
 </cffunction>
 <!------------------>
+<cffunction name="test_function">
+	<cfreturn "testy">
+</cffunction>
+
+<!------------------>
+
 <cffunction name="onError">
 	<cfargument name="Exception" required=true/>
 	<cfargument type="String" name="EventName" required=true/>
