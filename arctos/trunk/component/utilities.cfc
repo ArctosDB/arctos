@@ -16,6 +16,16 @@
 		</cfloop>
 	</cfif>
 	
+	
+	
+		<cfif isdefined("exception.Sql") and exception.sql contains "@@version">
+			<p>
+					autoblacklist
+				</p>
+			<cfreturn/>
+		</cfif>
+		
+		
 </cffunction>
 <!--------------------------------->
 	<cffunction name="QueryToCSV2" access="public" returntype="string" output="false" hint="I take a query and convert it to a comma separated value string.">

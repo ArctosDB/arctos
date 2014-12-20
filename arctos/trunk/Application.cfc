@@ -55,7 +55,6 @@
 	
 
 	
-	<br>function above
 	<!--- don't time out the error handler! --->
 	<cfsetting requesttimeout="300">
 	<cfset showErr=1>
@@ -69,10 +68,7 @@
 	</cfif>
 	<cfif showErr is 1>
 		<cfset subject="">
-		<cfif isdefined("exception.Sql") and exception.sql contains "@@version">
-			<cflocation url="/errors/autoblacklist.cfm">
-			<cfreturn/>
-		</cfif>
+		<cfset x=f.checkRequest()>
 		<cfif isdefined("exception.Detail") and isdefined("request.rdurl")>
 			<cfif exception.Detail contains "missing right parenthesis"  and request.rdurl contains "ctxsys">
 				<cflocation url="/errors/autoblacklist.cfm">
@@ -379,19 +375,9 @@
 
 
 
-<cfset x=f.checkRequest()>
+	<cfset x=f.checkRequest()>
 
-<!----
 
-<cfset x=f.test_function()>
-	<cfset nono="passwd,proc">
-	<cfloop list="#cgi.query_string#" delimiters="./," index="i">
-		<cfif listfindnocase(nono,i)>
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
-	</cfloop>
-		--->
 
 	<cfparam name="request.fixAmp" type="boolean" default="false">
 	<cfif (NOT request.fixAmp) AND (findNoCase("&amp;", cgi.query_string ) gt 0)>
