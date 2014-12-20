@@ -68,7 +68,8 @@
 	</cfif>
 	<cfif showErr is 1>
 		<cfset subject="">
-		<cfset x=f.checkRequest()>
+		
+		<cfset x=f.checkRequest(exception)>
 		
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfif cgi.HTTP_USER_AGENT contains "slurp">
