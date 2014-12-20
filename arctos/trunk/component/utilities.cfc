@@ -1,6 +1,8 @@
 <cfcomponent>
 <!------------------>
 <cffunction name="checkRequest">
+	<cfargument name="inp" type="any" required="false"/>
+
 	<!---- call this from wherever, check for blacklist-worth stuff ---->
 	<cfif isdefined("cgi.query_string")>
 		<cfset nono="passwd,proc">
@@ -18,7 +20,7 @@
 	
 	
 	
-		<cfif isdefined("exception.Sql") and exception.sql contains "@@version">
+		<cfif isdefined("inp.Sql") and inp.sql contains "@@version">
 			<p>
 					autoblacklist
 				</p>
