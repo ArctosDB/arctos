@@ -72,16 +72,6 @@
 		<cfset x=f.checkRequest(exception)>
 		
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
-			<cfif cgi.HTTP_USER_AGENT contains "slurp">
-				<!--- yahoo ignoring robots.txt - buh-bye.... --->
-				<cfinclude template="/errors/autoblacklist.cfm">
-				<cfabort>
-			</cfif>
-			<cfif cgi.REQUEST_METHOD is "OPTIONS">
-				<!--- MS crazy hundreds of requests thing.... --->
-				<cfinclude template="/errors/autoblacklist.cfm">
-				<cfabort>
-			</cfif>
 			<cfset subject="403">
 			<cfif isdefined("exception.detail") and exception.detail contains "Invalid browser-specific file request">
 				<cfset subject="browser garbage">
@@ -100,36 +90,7 @@
 		<cfset subject=replace(subject,'[Macromedia]','','all')>
 		<cfset subject=replace(subject,'[Oracle JDBC Driver]','','all')>
 		<cfset subject=replace(subject,'[Oracle]','','all')>
-		<cfif subject is "ORA-00933: SQL command not properly ended">
-			<!--- see if it's the viagra ad asshats again ---->
-			<cfif isdefined("exception.sql") and exception.sql contains 'href="http://'>
-				<cfinclude template="/errors/autoblacklist.cfm">
-				<cfabort>
-			</cfif>
-		</cfif>
-		<cfif subject is "ORA-00907: missing right parenthesis">
-			<cfif isdefined("exception.sql") and exception.sql contains '1%'>
-				<cfinclude template="/errors/autoblacklist.cfm">
-				<cfabort>
-			</cfif>
-		</cfif>
-		<cfif isdefined("cgi.HTTP_ACCEPT_ENCODING") and cgi.HTTP_ACCEPT_ENCODING is "identity">
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
 		
-		<cfif isdefined("cgi.HTTP_REFERER") and cgi.HTTP_REFERER contains "/bash">
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
-		<cfif right(request.rdurl,5) is "-1%27" or right(request.rdurl,3) is "%00">
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
-		<cfif left(request.rdurl,6) is "/‰Û#chr(166)#m&">
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
 		<cf_logError subject="#subject#" attributeCollection=#exception#>
 		<table cellpadding="10">
 			<tr>
