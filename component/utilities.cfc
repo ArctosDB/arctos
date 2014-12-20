@@ -6,6 +6,22 @@
 	<cfdump var=#cgi#>
 	
 	
+	<!----- START: stuff in this block is always checked; this is called at onRequestStart ------>
+	
+	checking always-stuff
+	
+	
+	
+	<!----- END: stuff in this block is always checked; this is called at onRequestStart ------>
+	
+	<!----- START: stuff in this block is only checked if there's an error; this is called at onError ------>
+	
+	
+	checking error-stuff
+	
+	
+	
+	
 	<!---- call this from wherever, check for blacklist-worthy stuff ---->
 	<cfif isdefined("cgi.query_string")>
 		<cfset nono="passwd,proc">
