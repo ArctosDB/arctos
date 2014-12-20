@@ -1,6 +1,6 @@
 
 
-<cfset x=test_function()>
+<cfset x=variables.test_function()>
 
 <cfdump var=#x#>
 
