@@ -28,16 +28,19 @@
 		
 		<cfif isdefined("exception.Detail") and isdefined("request.rdurl")>
 			<cfif exception.Detail contains "missing right parenthesis"  and request.rdurl contains "ctxsys">
-				<cflocation url="/errors/autoblacklist.cfm">
-				<cfreturn/>
+<p>
+					autoblacklist
+				</p>				<cfreturn/>
 			</cfif>
 			<cfif exception.Detail contains "network access denied by access control list">
-				<cflocation url="/errors/autoblacklist.cfm">
-				<cfreturn/>
+<p>
+					autoblacklist
+				</p>				<cfreturn/>
 			</cfif>
 			<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
-				<cflocation url="/errors/autoblacklist.cfm">
-				<cfreturn/>
+<p>
+					autoblacklist
+				</p>				<cfreturn/>
 			</cfif>
 		</cfif>
 		
