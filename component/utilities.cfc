@@ -26,6 +26,23 @@
 		</cfif>
 		
 		
+		<cfif isdefined("exception.Detail") and isdefined("request.rdurl")>
+			<cfif exception.Detail contains "missing right parenthesis"  and request.rdurl contains "ctxsys">
+				<cflocation url="/errors/autoblacklist.cfm">
+				<cfreturn/>
+			</cfif>
+			<cfif exception.Detail contains "network access denied by access control list">
+				<cflocation url="/errors/autoblacklist.cfm">
+				<cfreturn/>
+			</cfif>
+			<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
+				<cflocation url="/errors/autoblacklist.cfm">
+				<cfreturn/>
+			</cfif>
+		</cfif>
+		
+		
+		
 </cffunction>
 <!--------------------------------->
 	<cffunction name="QueryToCSV2" access="public" returntype="string" output="false" hint="I take a query and convert it to a comma separated value string.">
