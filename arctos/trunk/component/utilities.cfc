@@ -28,13 +28,13 @@
 		</cfif>
 		
 		
-		<cfif isdefined("exception.Detail") and isdefined("request.rdurl")>
-			<cfif exception.Detail contains "missing right parenthesis"  and request.rdurl contains "ctxsys">
+		<cfif isdefined("inp.Detail") and isdefined("request.rdurl")>
+			<cfif inp.Detail contains "missing right parenthesis"  and request.rdurl contains "ctxsys">
 <p>
 					autoblacklist
 				</p>				<cfreturn/>
 			</cfif>
-			<cfif exception.Detail contains "network access denied by access control list">
+			<cfif inp.Detail contains "network access denied by access control list">
 <p>
 					autoblacklist
 				</p>				<cfreturn/>
