@@ -1,4 +1,8 @@
 <cfcomponent>
+<!------------------>
+<cffunction name="test_function">
+	<cfreturn "testy">
+</cffunction>
 <!--------------------------------->
 	<cffunction name="QueryToCSV2" access="public" returntype="string" output="false" hint="I take a query and convert it to a comma separated value string.">
 		<cfargument name="Query" type="query" required="true" hint="I am the query being converted to CSV."/>

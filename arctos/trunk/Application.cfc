@@ -41,10 +41,7 @@
 		</cfif>
 	</cfif>
 </cffunction>
-<!------------------>
-<cffunction name="test_function">
-	<cfreturn "testy">
-</cffunction>
+
 
 <!------------------>
 
