@@ -2,6 +2,10 @@
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
+
+<cfset f = CreateObject("component","component.utilities")>
+
+
 <cffunction name="getIpAddress">	
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
@@ -48,6 +52,16 @@
 <cffunction name="onError">
 	<cfargument name="Exception" required=true/>
 	<cfargument type="String" name="EventName" required=true/>
+	
+	<br>calling function
+	
+
+<cfset x=f.test_function()>
+
+<cfdump var=#x#>
+
+	
+	<br>function above
 	<!--- don't time out the error handler! --->
 	<cfsetting requesttimeout="300">
 	<cfset showErr=1>
