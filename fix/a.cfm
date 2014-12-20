@@ -1,6 +1,7 @@
+<cfset f = CreateObject("component","component.utilities")>
 
 
-<cfset x=Application.test_function()>
+<cfset x=f.test_function()>
 
 <cfdump var=#x#>
 
