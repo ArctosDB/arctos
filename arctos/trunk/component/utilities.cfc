@@ -7,16 +7,20 @@
 	
 	<!----- START: stuff in this block is always checked; this is called at onRequestStart ------>
 	
-<p></p>	checking always-stuff
+<p>checking always-stuff</p>	
 	
 	
 	
 	<!----- END: stuff in this block is always checked; this is called at onRequestStart ------>
 	
 	<!----- START: stuff in this block is only checked if there's an error; this is called at onError ------>
+	<cfif isdefined("inp")>
+	<p>checking error-stuff</p>
+	</cfif>
+	<!----- END: stuff in this block is only checked if there's an error; this is called at onError ------>
+
 	
 	
-	<p></p>checking error-stuff
 	
 	
 		<cfdump var=#cgi#>
