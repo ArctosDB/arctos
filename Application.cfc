@@ -53,12 +53,6 @@
 	<cfargument name="Exception" required=true/>
 	<cfargument type="String" name="EventName" required=true/>
 	
-	<br>calling function
-	
-
-<cfset x=f.test_function()>
-
-<cfdump var=#x#>
 
 	
 	<br>function above
@@ -382,6 +376,16 @@
 		<cfabort>
 	</cfif>
 	---->
+
+
+	<br>calling function
+	
+
+<cfset x=f.test_function()>
+
+<cfdump var=#x#>
+
+
 
 	<cfset nono="passwd,proc">
 	<cfloop list="#cgi.query_string#" delimiters="./," index="i">
