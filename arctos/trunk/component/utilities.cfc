@@ -1,7 +1,21 @@
 <cfcomponent>
 <!------------------>
-<cffunction name="test_function">
-	<cfreturn "testy">
+<cffunction name="checkRequest">
+	<!---- call this from wherever, check for blacklist-worth stuff ---->
+	<cfif isdefined("cgi.query_string")>
+		<cfset nono="passwd,proc">
+		<cfloop list="#cgi.query_string#" delimiters="./," index="i">
+			<cfif listfindnocase(nono,i)>
+				<!----				<cfinclude template="/errors/autoblacklist.cfm">---->
+				
+				<p>
+					autoblacklist
+				</p>
+				<cfabort>
+			</cfif>
+		</cfloop>
+	</cfif>
+	
 </cffunction>
 <!--------------------------------->
 	<cffunction name="QueryToCSV2" access="public" returntype="string" output="false" hint="I take a query and convert it to a comma separated value string.">
