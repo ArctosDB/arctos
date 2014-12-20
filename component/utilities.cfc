@@ -8,7 +8,7 @@
 		<cfset nono="passwd,proc">
 		<cfloop list="#cgi.query_string#" delimiters="./," index="i">
 			<cfif listfindnocase(nono,i)>
-				<!----				<cfinclude template="/errors/autoblacklist.cfm">---->
+				<!----				---->
 				
 				<p>
 					autoblacklist
@@ -20,7 +20,7 @@
 	
 	
 	
-		<cfif isdefined("inp.Sql") and inp.sql contains "@@version">
+		<cfif isdefined("inp.sql") and inp.sql contains "@@version">
 			<p>
 					autoblacklist
 				</p>
@@ -40,9 +40,8 @@
 				</p>				<cfreturn/>
 			</cfif>
 			<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
-<p>
-					autoblacklist
-				</p>				<cfreturn/>
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
 			</cfif>
 		</cfif>
 		
