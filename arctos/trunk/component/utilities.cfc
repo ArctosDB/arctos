@@ -7,27 +7,10 @@
 	
 	<!----- START: stuff in this block is always checked; this is called at onRequestStart ------>
 	
-<p>checking always-stuff</p>	
+	<p>checking always-stuff</p>	
 	
-	
-	
-	<!----- END: stuff in this block is always checked; this is called at onRequestStart ------>
-	
-	<!----- START: stuff in this block is only checked if there's an error; this is called at onError ------>
-	<cfif isdefined("inp")>
-	<p>checking error-stuff</p>
-	</cfif>
-	<!----- END: stuff in this block is only checked if there's an error; this is called at onError ------>
-
-	
-	
-	
-	
-		<cfdump var=#cgi#>
-
-	
-	<!---- call this from wherever, check for blacklist-worthy stuff ---->
 	<cfif isdefined("cgi.query_string")>
+		<!--- this stuff is never allowed, ever ---->
 		<cfset nono="passwd,proc">
 		<cfloop list="#cgi.query_string#" delimiters="./," index="i">
 			<cfif listfindnocase(nono,i)>
@@ -36,57 +19,22 @@
 			</cfif>
 		</cfloop>
 	</cfif>
-	
-	<cfif isdefined("inp.sql")>
-		<cfif inp.sql contains "@@version">
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
-		<cfif isdefined("inp.detail")>
-			<cfif inp.detail is "ORA-00933: SQL command not properly ended" and  inp.sql contains 'href="http://'>
-				<cfinclude template="/errors/autoblacklist.cfm">
-				<cfabort>
-			</cfif>
-			<cfif inp.detail is "ORA-00907: missing right parenthesis" and  inp.sql contains '1%'>
-				<cfinclude template="/errors/autoblacklist.cfm">
-				<cfabort>
-			</cfif>
-		</cfif>
+	<cfif isdefined("cgi.HTTP_ACCEPT_ENCODING") and cgi.HTTP_ACCEPT_ENCODING is "identity">
+		<cfinclude template="/errors/autoblacklist.cfm">
+		<cfabort>
 	</cfif>
 	
-		
-		<cfif isdefined("cgi.HTTP_ACCEPT_ENCODING") and cgi.HTTP_ACCEPT_ENCODING is "identity">
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
-		
-		<cfif isdefined("cgi.HTTP_REFERER") and cgi.HTTP_REFERER contains "/bash">
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
-		<cfif right(request.rdurl,5) is "-1%27" or right(request.rdurl,3) is "%00">
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
-		<cfif left(request.rdurl,6) is "/‰Û#chr(166)#m&">
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
-		
-		
-	<cfif isdefined("inp.Detail") and isdefined("request.rdurl")>
-		<cfif inp.Detail contains "missing right parenthesis"  and request.rdurl contains "ctxsys">
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
-		<cfif inp.Detail contains "network access denied by access control list">
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
-		<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
+	<cfif isdefined("cgi.HTTP_REFERER") and cgi.HTTP_REFERER contains "/bash">
+		<cfinclude template="/errors/autoblacklist.cfm">
+		<cfabort>
+	</cfif>
+	<cfif right(request.rdurl,5) is "-1%27" or right(request.rdurl,3) is "%00">
+		<cfinclude template="/errors/autoblacklist.cfm">
+		<cfabort>
+	</cfif>
+	<cfif left(request.rdurl,6) is "/‰Û#chr(166)#m&">
+		<cfinclude template="/errors/autoblacklist.cfm">
+		<cfabort>
 	</cfif>
 	<cfif cgi.HTTP_USER_AGENT contains "slurp">
 		<!--- yahoo ignoring robots.txt - buh-bye.... --->
@@ -98,6 +46,60 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
+	<!----- END: stuff in this block is always checked; this is called at onRequestStart ------>
+	
+	<!----- START: stuff in this block is only checked if there's an error; this is called at onError ------>
+	<cfif isdefined("inp")>
+		<p>checking error-stuff</p>
+		<cfif isdefined("inp.sql")>
+			<cfif inp.sql contains "@@version">
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
+			<cfif isdefined("inp.detail")>
+				<cfif inp.detail is "ORA-00933: SQL command not properly ended" and  inp.sql contains 'href="http://'>
+					<cfinclude template="/errors/autoblacklist.cfm">
+					<cfabort>
+				</cfif>
+				<cfif inp.detail is "ORA-00907: missing right parenthesis" and  inp.sql contains '1%'>
+					<cfinclude template="/errors/autoblacklist.cfm">
+					<cfabort>
+				</cfif>
+			</cfif>
+		</cfif>
+		<cfif isdefined("inp.Detail") and isdefined("request.rdurl")>
+			<cfif inp.Detail contains "missing right parenthesis"  and request.rdurl contains "ctxsys">
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
+			<cfif inp.Detail contains "network access denied by access control list">
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
+			<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
+		</cfif>
+	</cfif>
+	<!----- END: stuff in this block is only checked if there's an error; this is called at onError ------>
+
+	
+	
+	
+
+	
+	<!---- call this from wherever, check for blacklist-worthy stuff ---->
+	
+	
+	
+	
+		
+		
+		
+		
+	
+	
 		
 		
 	
