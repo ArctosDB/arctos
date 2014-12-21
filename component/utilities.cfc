@@ -7,7 +7,6 @@
 	
 	<!----- START: stuff in this block is always checked; this is called at onRequestStart ------>
 	
-	<p>checking always-stuff</p>	
 	
 	<cfif isdefined("cgi.query_string")>
 		<!--- this stuff is never allowed, ever ---->
@@ -50,7 +49,6 @@
 	
 	<!----- START: stuff in this block is only checked if there's an error; this is called at onError ------>
 	<cfif isdefined("inp")>
-		<p>checking error-stuff</p>
 		<cfif isdefined("inp.sql")>
 			<cfif inp.sql contains "@@version">
 				<cfinclude template="/errors/autoblacklist.cfm">
