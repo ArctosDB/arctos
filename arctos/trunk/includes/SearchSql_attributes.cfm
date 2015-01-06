@@ -218,6 +218,27 @@
   </cfif>
 </cfif>
 
+<cfif isdefined("brood_parasite_present") and len(brood_parasite_present) gt 0>
+  <cfset mapurl = "#mapurl#&brood_parasite_present=#brood_parasite_present#">
+  <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_brood_parasite_present ON (#session.flatTableName#.collection_object_id = tbl_brood_parasite_present.collection_object_id)">
+  <cfset basQual = " #basQual# AND tbl_brood_parasite_present.attribute_type = 'brood parasite present'">
+  <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_brood_parasite_present.is_encumbered = 0"></cfif>
+  <cfif brood_parasite_present neq "_">
+    <cfset oper=left(brood_parasite_present,1)>
+    <cfif listfind(charattrschops,oper)>
+      <cfset schTerm=ucase(right(brood_parasite_present,len(brood_parasite_present)-1))>
+    <cfelse>
+      <cfset oper="like"><cfset schTerm=ucase(brood_parasite_present)>
+    </cfif>
+    <cfif oper is "!"><cfset oper="!="></cfif>
+    <cfif oper is "like">
+      <cfset basQual = " #basQual# AND upper(tbl_brood_parasite_present.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
+	<cfelse>
+      <cfset basQual = " #basQual# AND upper(tbl_brood_parasite_present.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
+	</cfif>
+  </cfif>
+</cfif>
+
 <cfif isdefined("brood_patch") and len(brood_patch) gt 0>
   <cfset mapurl = "#mapurl#&brood_patch=#brood_patch#">
   <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_brood_patch ON (#session.flatTableName#.collection_object_id = tbl_brood_patch.collection_object_id)">
@@ -446,6 +467,27 @@
   </cfif>
 </cfif>
 
+<cfif isdefined("crop_contents") and len(crop_contents) gt 0>
+  <cfset mapurl = "#mapurl#&crop_contents=#crop_contents#">
+  <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_crop_contents ON (#session.flatTableName#.collection_object_id = tbl_crop_contents.collection_object_id)">
+  <cfset basQual = " #basQual# AND tbl_crop_contents.attribute_type = 'crop contents'">
+  <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_crop_contents.is_encumbered = 0"></cfif>
+  <cfif crop_contents neq "_">
+    <cfset oper=left(crop_contents,1)>
+    <cfif listfind(charattrschops,oper)>
+      <cfset schTerm=ucase(right(crop_contents,len(crop_contents)-1))>
+    <cfelse>
+      <cfset oper="like"><cfset schTerm=ucase(crop_contents)>
+    </cfif>
+    <cfif oper is "!"><cfset oper="!="></cfif>
+    <cfif oper is "like">
+      <cfset basQual = " #basQual# AND upper(tbl_crop_contents.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
+	<cfelse>
+      <cfset basQual = " #basQual# AND upper(tbl_crop_contents.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
+	</cfif>
+  </cfif>
+</cfif>
+
 <cfif isdefined("crown_rump_length") and len(crown_rump_length) gt 0>
   <cfset mapurl = "#mapurl#&crown_rump_length=#crown_rump_length#">
   <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_crown_rump_length ON (#session.flatTableName#.collection_object_id = tbl_crown_rump_length.collection_object_id)">
@@ -511,6 +553,48 @@
     <cfelse>
       <cfset basQual = " #basQual# AND tbl_culmen_length.attribute_value #oper# '#schTerm#'">
     </cfif>
+  </cfif>
+</cfif>
+
+<cfif isdefined("culture_of_origin") and len(culture_of_origin) gt 0>
+  <cfset mapurl = "#mapurl#&culture_of_origin=#culture_of_origin#">
+  <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_culture_of_origin ON (#session.flatTableName#.collection_object_id = tbl_culture_of_origin.collection_object_id)">
+  <cfset basQual = " #basQual# AND tbl_culture_of_origin.attribute_type = 'culture of origin'">
+  <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_culture_of_origin.is_encumbered = 0"></cfif>
+  <cfif culture_of_origin neq "_">
+    <cfset oper=left(culture_of_origin,1)>
+    <cfif listfind(charattrschops,oper)>
+      <cfset schTerm=ucase(right(culture_of_origin,len(culture_of_origin)-1))>
+    <cfelse>
+      <cfset oper="like"><cfset schTerm=ucase(culture_of_origin)>
+    </cfif>
+    <cfif oper is "!"><cfset oper="!="></cfif>
+    <cfif oper is "like">
+      <cfset basQual = " #basQual# AND upper(tbl_culture_of_origin.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
+	<cfelse>
+      <cfset basQual = " #basQual# AND upper(tbl_culture_of_origin.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
+	</cfif>
+  </cfif>
+</cfif>
+
+<cfif isdefined("culture_of_use") and len(culture_of_use) gt 0>
+  <cfset mapurl = "#mapurl#&culture_of_use=#culture_of_use#">
+  <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_culture_of_use ON (#session.flatTableName#.collection_object_id = tbl_culture_of_use.collection_object_id)">
+  <cfset basQual = " #basQual# AND tbl_culture_of_use.attribute_type = 'culture of use'">
+  <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_culture_of_use.is_encumbered = 0"></cfif>
+  <cfif culture_of_use neq "_">
+    <cfset oper=left(culture_of_use,1)>
+    <cfif listfind(charattrschops,oper)>
+      <cfset schTerm=ucase(right(culture_of_use,len(culture_of_use)-1))>
+    <cfelse>
+      <cfset oper="like"><cfset schTerm=ucase(culture_of_use)>
+    </cfif>
+    <cfif oper is "!"><cfset oper="!="></cfif>
+    <cfif oper is "like">
+      <cfset basQual = " #basQual# AND upper(tbl_culture_of_use.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
+	<cfelse>
+      <cfset basQual = " #basQual# AND upper(tbl_culture_of_use.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
+	</cfif>
   </cfif>
 </cfif>
 
@@ -1247,6 +1331,27 @@
   </cfif>
 </cfif>
 
+<cfif isdefined("historical") and len(historical) gt 0>
+  <cfset mapurl = "#mapurl#&historical=#historical#">
+  <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_historical ON (#session.flatTableName#.collection_object_id = tbl_historical.collection_object_id)">
+  <cfset basQual = " #basQual# AND tbl_historical.attribute_type = 'historical'">
+  <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_historical.is_encumbered = 0"></cfif>
+  <cfif historical neq "_">
+    <cfset oper=left(historical,1)>
+    <cfif listfind(charattrschops,oper)>
+      <cfset schTerm=ucase(right(historical,len(historical)-1))>
+    <cfelse>
+      <cfset oper="like"><cfset schTerm=ucase(historical)>
+    </cfif>
+    <cfif oper is "!"><cfset oper="!="></cfif>
+    <cfif oper is "like">
+      <cfset basQual = " #basQual# AND upper(tbl_historical.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
+	<cfelse>
+      <cfset basQual = " #basQual# AND upper(tbl_historical.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
+	</cfif>
+  </cfif>
+</cfif>
+
 <cfif isdefined("image_confirmed") and len(image_confirmed) gt 0>
   <cfset mapurl = "#mapurl#&image_confirmed=#image_confirmed#">
   <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_image_confirmed ON (#session.flatTableName#.collection_object_id = tbl_image_confirmed.collection_object_id)">
@@ -1378,6 +1483,27 @@
   </cfif>
 </cfif>
 
+<cfif isdefined("materials") and len(materials) gt 0>
+  <cfset mapurl = "#mapurl#&materials=#materials#">
+  <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_materials ON (#session.flatTableName#.collection_object_id = tbl_materials.collection_object_id)">
+  <cfset basQual = " #basQual# AND tbl_materials.attribute_type = 'materials'">
+  <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_materials.is_encumbered = 0"></cfif>
+  <cfif materials neq "_">
+    <cfset oper=left(materials,1)>
+    <cfif listfind(charattrschops,oper)>
+      <cfset schTerm=ucase(right(materials,len(materials)-1))>
+    <cfelse>
+      <cfset oper="like"><cfset schTerm=ucase(materials)>
+    </cfif>
+    <cfif oper is "!"><cfset oper="!="></cfif>
+    <cfif oper is "like">
+      <cfset basQual = " #basQual# AND upper(tbl_materials.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
+	<cfelse>
+      <cfset basQual = " #basQual# AND upper(tbl_materials.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
+	</cfif>
+  </cfif>
+</cfif>
+
 <cfif isdefined("maximum_standard_length") and len(maximum_standard_length) gt 0>
   <cfset mapurl = "#mapurl#&maximum_standard_length=#maximum_standard_length#">
   <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_maximum_standard_length ON (#session.flatTableName#.collection_object_id = tbl_maximum_standard_length.collection_object_id)">
@@ -1443,6 +1569,27 @@
     <cfelse>
       <cfset basQual = " #basQual# AND tbl_maximum_total_length.attribute_value #oper# '#schTerm#'">
     </cfif>
+  </cfif>
+</cfif>
+
+<cfif isdefined("media") and len(media) gt 0>
+  <cfset mapurl = "#mapurl#&media=#media#">
+  <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_media ON (#session.flatTableName#.collection_object_id = tbl_media.collection_object_id)">
+  <cfset basQual = " #basQual# AND tbl_media.attribute_type = 'media'">
+  <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_media.is_encumbered = 0"></cfif>
+  <cfif media neq "_">
+    <cfset oper=left(media,1)>
+    <cfif listfind(charattrschops,oper)>
+      <cfset schTerm=ucase(right(media,len(media)-1))>
+    <cfelse>
+      <cfset oper="like"><cfset schTerm=ucase(media)>
+    </cfif>
+    <cfif oper is "!"><cfset oper="!="></cfif>
+    <cfif oper is "like">
+      <cfset basQual = " #basQual# AND upper(tbl_media.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
+	<cfelse>
+      <cfset basQual = " #basQual# AND upper(tbl_media.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
+	</cfif>
   </cfif>
 </cfif>
 
@@ -1565,6 +1712,27 @@
       <cfset basQual = " #basQual# AND upper(tbl_molt_condition.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
 	<cfelse>
       <cfset basQual = " #basQual# AND upper(tbl_molt_condition.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
+	</cfif>
+  </cfif>
+</cfif>
+
+<cfif isdefined("nagpra_category") and len(nagpra_category) gt 0>
+  <cfset mapurl = "#mapurl#&nagpra_category=#nagpra_category#">
+  <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_nagpra_category ON (#session.flatTableName#.collection_object_id = tbl_nagpra_category.collection_object_id)">
+  <cfset basQual = " #basQual# AND tbl_nagpra_category.attribute_type = 'NAGPRA category'">
+  <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_nagpra_category.is_encumbered = 0"></cfif>
+  <cfif nagpra_category neq "_">
+    <cfset oper=left(nagpra_category,1)>
+    <cfif listfind(charattrschops,oper)>
+      <cfset schTerm=ucase(right(nagpra_category,len(nagpra_category)-1))>
+    <cfelse>
+      <cfset oper="like"><cfset schTerm=ucase(nagpra_category)>
+    </cfif>
+    <cfif oper is "!"><cfset oper="!="></cfif>
+    <cfif oper is "like">
+      <cfset basQual = " #basQual# AND upper(tbl_nagpra_category.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
+	<cfelse>
+      <cfset basQual = " #basQual# AND upper(tbl_nagpra_category.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
 	</cfif>
   </cfif>
 </cfif>
@@ -2432,6 +2600,38 @@
   </cfif>
 </cfif>
 
+<cfif isdefined("value") and len(value) gt 0>
+  <cfset mapurl = "#mapurl#&value=#value#">
+  <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_value ON (#session.flatTableName#.collection_object_id = tbl_value.collection_object_id)">
+  <cfset basQual = " #basQual# AND tbl_value.attribute_type = 'value'">
+  <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_value.is_encumbered = 0"></cfif>
+  <cfif value neq "_">
+    <cfset schunits="">
+    <cfset oper=left(value,1)>
+    <cfif listfind(numattrschops,oper)>
+      <cfset schTerm=ucase(right(value,len(value)-1))>
+    <cfelse>
+      <cfset oper="like"><cfset schTerm=ucase(value)>
+    </cfif>
+    <cfif oper is "!"><cfset oper="!="></cfif>
+    <cfset temp=trim(rereplace(schTerm,"[0-9]","","all"))>
+    <cfif len(temp) gt 0 and listfindnocase('XXXX',temp) and isnumeric(replace(schTerm,temp,""))>
+      <cfset schTerm=replace(schTerm,temp,"")><cfset schunits=temp>
+    <cfelseif left(temp,1) eq "-" and listfindnocase(attrTimeUnits,trim(replace(temp,"-","")))>
+      <cfset schunits=trim(replace(temp,"-",""))>
+      <cfset low=trim(listgetat(numeric_age,1,"-"))>
+      <cfset high=trim(replacenocase(replace(replace(numeric_age,low,"","first"),"-",""),schunits,""))>
+      <cfset schTerm=trim(replace(replace(replace(numeric_age,schunits,""),low,""),high,""))>
+      <cfif len(low) gt 0 and len(high) gt 0 and len(schunits) gt 0><cfset oper="between"></cfif>
+    </cfif>
+    <cfif len(schunits) gt 0>
+      <cfset basQual = " #basQual# AND tbl_value.attribute_value #oper# #schTerm# and tbl_value.attribute_units='#schunits#' ">
+    <cfelse>
+      <cfset basQual = " #basQual# AND tbl_value.attribute_value #oper# '#schTerm#'">
+    </cfif>
+  </cfif>
+</cfif>
+
 <cfif isdefined("verbatim_collector") and len(verbatim_collector) gt 0>
   <cfset mapurl = "#mapurl#&verbatim_collector=#verbatim_collector#">
   <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_verbatim_collector ON (#session.flatTableName#.collection_object_id = tbl_verbatim_collector.collection_object_id)">
@@ -2670,5 +2870,26 @@
     <cfelse>
       <cfset basQual = " #basQual# AND tbl_wing_span.attribute_value #oper# '#schTerm#'">
     </cfif>
+  </cfif>
+</cfif>
+
+<cfif isdefined("year_class") and len(year_class) gt 0>
+  <cfset mapurl = "#mapurl#&year_class=#year_class#">
+  <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_year_class ON (#session.flatTableName#.collection_object_id = tbl_year_class.collection_object_id)">
+  <cfset basQual = " #basQual# AND tbl_year_class.attribute_type = 'year class'">
+  <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_year_class.is_encumbered = 0"></cfif>
+  <cfif year_class neq "_">
+    <cfset oper=left(year_class,1)>
+    <cfif listfind(charattrschops,oper)>
+      <cfset schTerm=ucase(right(year_class,len(year_class)-1))>
+    <cfelse>
+      <cfset oper="like"><cfset schTerm=ucase(year_class)>
+    </cfif>
+    <cfif oper is "!"><cfset oper="!="></cfif>
+    <cfif oper is "like">
+      <cfset basQual = " #basQual# AND upper(tbl_year_class.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
+	<cfelse>
+      <cfset basQual = " #basQual# AND upper(tbl_year_class.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
+	</cfif>
   </cfif>
 </cfif>
