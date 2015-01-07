@@ -37,7 +37,7 @@
 	<cfset f = CreateObject("component","component.utilities")>
 
 
-	<cfset x=f.checkRequest(exception)>
+	<cfset x=f.checkRequest()>
 
 
 
