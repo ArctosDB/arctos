@@ -55,8 +55,14 @@
 	errorscheck
 	</p>
 		<cfdump var="#inp#">
-			<cfdump var="#request.rdurl#">
 	
+	
+	<br> request.rdurl:
+	<br><br />
+	
+			<cfdump var="#request.rdurl#">
+	<br
+		
 		<cfif request.rdurl contains "#chr(200)#">
 				
 				hi
