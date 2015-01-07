@@ -37,7 +37,7 @@
 	<cfset f = CreateObject("component","component.utilities")>
 
 
-	<cfset x=f.checkRequest()>
+	<cfset x=f.checkRequest(request.rdurl)>
 
 
 
