@@ -5,7 +5,10 @@
 
 
 	
-	<!----- START: stuff in this block is always checked; this is called at onRequestStart ------>
+	<!----- 
+		START: stuff in this block is always checked; this is called at onRequestStart
+		Performance is important here; keep it clean and minimal
+	 ------>
 	
 	<cfif isdefined("cgi.query_string")>
 		<!--- this stuff is never allowed, ever ---->
@@ -25,32 +28,32 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	
 	<cfif isdefined("cgi.HTTP_REFERER") and cgi.HTTP_REFERER contains "/bash">
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif right(request.rdurl,5) is "-1%27" or right(request.rdurl,3) is "%00">
-		<cfinclude template="/errors/autoblacklist.cfm">
-		<cfabort>
-	</cfif>
-	<cfif left(request.rdurl,6) is "/‰Û#chr(166)#m&">
-		<cfinclude template="/errors/autoblacklist.cfm">
-		<cfabort>
-	</cfif>
-	<cfif cgi.HTTP_USER_AGENT contains "slurp">
+	<cfif isdefined("cgi.HTTP_USER_AGENT") and cgi.HTTP_USER_AGENT contains "slurp">
 		<!--- yahoo ignoring robots.txt - buh-bye.... --->
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif cgi.REQUEST_METHOD is "OPTIONS">
+	<cfif isdefined("cgi.REQUEST_METHOD") and cgi.REQUEST_METHOD is "OPTIONS">
 		<!--- MS crazy hundreds of requests thing.... --->
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
+	<cfif right(request.rdurl,5) is "-1%27" or right(request.rdurl,3) is "%00" or left(request.rdurl,6) is "/‰Û#chr(166)#m&">
+		<cfinclude template="/errors/autoblacklist.cfm">
+		<cfabort>
+	</cfif>
+	
+	
 	<!----- END: stuff in this block is always checked; this is called at onRequestStart ------>
 	
-	<!----- START: stuff in this block is only checked if there's an error; this is called at onError ------>
+	<!----- 
+		START: stuff in this block is only checked if there's an error
+		Performance is unimportant here; this is going to end with an error
+	 ------>
 	<cfif isdefined("inp")>
 	
 	
@@ -82,7 +85,10 @@
 		
 		----->
 		
-		
+		<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
+			<cfinclude template="/errors/autoblacklist.cfm">
+			<cfabort>
+		</cfif>
 		<cfif request.rdurl contains "#chr(96)##chr(195)##chr(136)##chr(197)#">
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
@@ -91,8 +97,16 @@
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
-			
-		<cfif cgi.HTTP_USER_AGENT contains "Synapse">
+		<cfset nono="phppath,fulltext,char,ord_dicom,getmappingxpath,ordsys,chr,drithsx,admin,rand,sys,ctxsys,utl_inaddr,get_host_address,CHANGELOG,attr(,html(,owssvr,backup,uploadify,swf,printenv,inurl,content,etc,proc,environ,reviews,blog,cms,news,asmx,checkupdate,userfiles,updates,server-status,ol,abstractapp,browse,stories,rutorrent,backend,administrator,rss,feed,comment,feeds,nyet,setup,exe,invoker,jbossws,jbossmq-httpil,HNAP1,comments,Dashboard,jspa,jiraHNAP1,adimages,jsp,sign_up,trackback,mpx,asp,aspx,connectors,filemanager,editor,fckeditor,signup,register,wp-admin,wp,verify-tldnotify,jmx-console,admin-console,cgi-bin,webcalendar,webcal,calendar,plugins,passwd,mysql,htdocs,PHPADMIN,mysql2,mydbs,dbg,pma2,pma4,scripts,sqladm,mysql2,phpMyAdminLive,_phpMyAdminLive,dbadmin,sqladm,lib,webdav,manager,ehcp,MyAdmin,pma,phppgadmin,dbadmin,myadmin,awstats,version,phpldapadmin,horde,appConf,soapCaller,muieblackcat,@@version,w00tw00t,announce,php,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
+
+		<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
+			<cfif listfindnocase(nono,i)>
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
+		</cfloop>
+		
+		<cfif isdefined("cgi.HTTP_USER_AGENT") and cgi.HTTP_USER_AGENT contains "Synapse">
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
@@ -102,14 +116,7 @@
 			<cfabort>
 		</cfif>
 		
-		<cfset nono="phppath,fulltext,char,ord_dicom,getmappingxpath,ordsys,chr,drithsx,admin,rand,sys,ctxsys,utl_inaddr,get_host_address,CHANGELOG,attr(,html(,owssvr,backup,uploadify,swf,printenv,inurl,content,etc,proc,environ,reviews,blog,cms,news,asmx,checkupdate,userfiles,updates,server-status,ol,abstractapp,browse,stories,rutorrent,backend,administrator,rss,feed,comment,feeds,nyet,setup,exe,invoker,jbossws,jbossmq-httpil,HNAP1,comments,Dashboard,jspa,jiraHNAP1,adimages,jsp,sign_up,trackback,mpx,asp,aspx,connectors,filemanager,editor,fckeditor,signup,register,wp-admin,wp,verify-tldnotify,jmx-console,admin-console,cgi-bin,webcalendar,webcal,calendar,plugins,passwd,mysql,htdocs,PHPADMIN,mysql2,mydbs,dbg,pma2,pma4,scripts,sqladm,mysql2,phpMyAdminLive,_phpMyAdminLive,dbadmin,sqladm,lib,webdav,manager,ehcp,MyAdmin,pma,phppgadmin,dbadmin,myadmin,awstats,version,phpldapadmin,horde,appConf,soapCaller,muieblackcat,@@version,w00tw00t,announce,php,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
-
-		<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
-			<cfif listfindnocase(nono,i)>
-				<cfinclude template="/errors/autoblacklist.cfm">
-				<cfabort>
-			</cfif>
-		</cfloop>
+		
 		<cfif isdefined("inp.sql")>
 			<cfif inp.sql contains "@@version">
 				<cfinclude template="/errors/autoblacklist.cfm">
@@ -130,8 +137,8 @@
 				</cfif>
 			</cfif>
 		</cfif>
-		<cfif isdefined("inp.Detail") and isdefined("request.rdurl")>
-			<cfif inp.Detail contains "missing right parenthesis"  and request.rdurl contains "ctxsys">
+		<cfif isdefined("inp.Detail")>
+			<cfif inp.Detail contains "missing right parenthesis" and request.rdurl contains "ctxsys">
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
@@ -139,41 +146,10 @@
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
-			<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
-				<cfinclude template="/errors/autoblacklist.cfm">
-				<cfabort>
-			</cfif>
-			
-			
-			
-			
 			
 		</cfif>
 	</cfif>
 	<!----- END: stuff in this block is only checked if there's an error; this is called at onError ------>
-
-	
-	
-	
-
-	
-	<!---- call this from wherever, check for blacklist-worthy stuff ---->
-	
-	
-	
-	
-		
-		
-		
-		
-	
-	
-		
-		
-	
-		
-		
-		
 </cffunction>
 <!--------------------------------->
 	<cffunction name="QueryToCSV2" access="public" returntype="string" output="false" hint="I take a query and convert it to a comma separated value string.">
