@@ -3,11 +3,13 @@
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
 
-	
+
 	
 	<!----- START: stuff in this block is always checked; this is called at onRequestStart ------>
 	
-	
+	<p>
+	alwayscheck
+	</p>
 	<cfif isdefined("cgi.query_string")>
 		<!--- this stuff is never allowed, ever ---->
 		<cfset nono="passwd,proc">
@@ -49,6 +51,9 @@
 	
 	<!----- START: stuff in this block is only checked if there's an error; this is called at onError ------>
 	<cfif isdefined("inp")>
+		<p>
+	errorscheck
+	</p>
 		<cfdump var="#inp#">
 		<cfif isdefined("inp.sql")>
 			<cfif inp.sql contains "@@version">
