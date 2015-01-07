@@ -52,12 +52,16 @@
 	
 	<!----- START: stuff in this block is only checked if there's an error; this is called at onError ------>
 	<cfif isdefined("inp")>
+	
+	
+	<!----
+	
 		<p>
 	errorscheck
 	</p>
 		<cfdump var="#inp#">
-	
-	<!----
+		
+		
 	<br> request.rdurl:
 	<br><br />
 	
