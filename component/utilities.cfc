@@ -63,12 +63,19 @@
 			<cfdump var="#request.rdurl#">
 	<br
 		
+		
+		<cfoutput>
 		<cfloop from="1" to="#len(request.rdurl)#" index="i">
 			<cfset x=mid(request.rdurl,i,1)>
 			<p>
 				#x# ==== #ascii(x)#
 			</p>
 		</cfloop>
+		
+		
+		</cfoutput>
+		
+		
 		<cfif request.rdurl contains "#chr(200)#">
 				
 				hi
