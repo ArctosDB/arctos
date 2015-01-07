@@ -76,7 +76,7 @@
 		</cfoutput>
 		
 		
-		<cfif request.rdurl contains "#chr(96)#">
+		<cfif request.rdurl contains "#chr(96)##chr(195)#">
 				
 				hi
 				
