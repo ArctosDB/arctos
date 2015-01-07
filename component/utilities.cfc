@@ -83,6 +83,14 @@
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
+			<cfif request.rdurl contains "BF%BD%EF%BF%BD%EF%BF%BD%EF%">
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
+			
+			
+			
+			
 		</cfif>
 	</cfif>
 	<!----- END: stuff in this block is only checked if there's an error; this is called at onError ------>
