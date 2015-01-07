@@ -40,28 +40,9 @@
 	<cfset x=f.checkRequest(request.rdurl)>
 
 
-
-	<cfif right(request.rdurl,5) is "-1%27">
-		<cfinclude template="/errors/autoblacklist.cfm">
-		<cfabort>
-	</cfif>
-	<cfif cgi.HTTP_USER_AGENT contains "Synapse">
-		<cfinclude template="/errors/autoblacklist.cfm">
-		<cfabort>
-	</cfif>
-	<cfif isdefined("cgi.HTTP_ACCEPT_ENCODING") and cgi.HTTP_ACCEPT_ENCODING is "identity">
-		<!--- probes ---->
-		<cfinclude template="/errors/autoblacklist.cfm">
-		<cfabort>
-	</cfif>
-	<cfset nono="phppath,fulltext,char,ord_dicom,getmappingxpath,ordsys,chr,drithsx,admin,rand,sys,ctxsys,utl_inaddr,get_host_address,CHANGELOG,attr(,html(,owssvr,backup,uploadify,swf,printenv,inurl,content,etc,proc,environ,reviews,blog,cms,news,asmx,checkupdate,userfiles,updates,server-status,ol,abstractapp,browse,stories,rutorrent,backend,administrator,rss,feed,comment,feeds,nyet,setup,exe,invoker,jbossws,jbossmq-httpil,HNAP1,comments,Dashboard,jspa,jiraHNAP1,adimages,jsp,sign_up,trackback,mpx,asp,aspx,connectors,filemanager,editor,fckeditor,signup,register,wp-admin,wp,verify-tldnotify,jmx-console,admin-console,cgi-bin,webcalendar,webcal,calendar,plugins,passwd,mysql,htdocs,PHPADMIN,mysql2,mydbs,dbg,pma2,pma4,scripts,sqladm,mysql2,phpMyAdminLive,_phpMyAdminLive,dbadmin,sqladm,lib,webdav,manager,ehcp,MyAdmin,pma,phppgadmin,dbadmin,myadmin,awstats,version,phpldapadmin,horde,appConf,soapCaller,muieblackcat,@@version,w00tw00t,announce,php,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
 	<cfset fourohthree="dll,png,crossdomain,xml">
 	<cfset browsergarbage="apple-touch-icon-precomposed,apple-touch-icon,browserconfig,apple-touch-icon-120x120-precomposed">
 	<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
-		<cfif listfindnocase(nono,i)>
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
 		<cfif listfindnocase(fourohthree,i)>
 			<cfthrow detail="You've requested a form which isn't available. This may be an indication of unwanted or malicious software on your computer." message="403: Forbidden" errorcode="403">
 		</cfif>
