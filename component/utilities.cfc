@@ -55,9 +55,15 @@
 	errorscheck
 	</p>
 		<cfdump var="#inp#">
-		
-		<cfif request.rdurl contains "`#chr(200)##chr(381)#">
+			<cfdump var="#request.rdurl#">
+	
+		<cfif request.rdurl contains "#chr(200)#">
+				
+				hi
+				
+				<!---
 				<cfinclude template="/errors/autoblacklist.cfm">
+				---->
 				<cfabort>
 			</cfif>
 			
