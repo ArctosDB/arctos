@@ -55,6 +55,14 @@
 	errorscheck
 	</p>
 		<cfdump var="#inp#">
+		
+		<cfif request.rdurl contains "`#chr(200)##chr(381)#">
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
+			
+			
+			
 		<cfif isdefined("inp.sql")>
 			<cfif inp.sql contains "@@version">
 				<cfinclude template="/errors/autoblacklist.cfm">
@@ -88,10 +96,7 @@
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
-			<cfif request.rdurl contains "`#chr(200)##chr(381)#">
-				<cfinclude template="/errors/autoblacklist.cfm">
-				<cfabort>
-			</cfif>
+			
 			
 			
 			
