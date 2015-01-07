@@ -7,9 +7,6 @@
 	
 	<!----- START: stuff in this block is always checked; this is called at onRequestStart ------>
 	
-	<p>
-	alwayscheck
-	</p>
 	<cfif isdefined("cgi.query_string")>
 		<!--- this stuff is never allowed, ever ---->
 		<cfset nono="passwd,proc">
@@ -19,6 +16,10 @@
 				<cfabort>
 			</cfif>
 		</cfloop>
+	</cfif>
+	<cfif isdefined("cgi.blog_name") and len(cgi.blog_name) gt 0>
+		<cfinclude template="/errors/autoblacklist.cfm">
+		<cfabort>
 	</cfif>
 	<cfif isdefined("cgi.HTTP_ACCEPT_ENCODING") and cgi.HTTP_ACCEPT_ENCODING is "identity">
 		<cfinclude template="/errors/autoblacklist.cfm">
@@ -56,7 +57,7 @@
 	</p>
 		<cfdump var="#inp#">
 	
-	
+	<!----
 	<br> request.rdurl:
 	<br><br />
 	
@@ -74,6 +75,8 @@
 		
 		
 		</cfoutput>
+		
+		----->
 		
 		
 		<cfif request.rdurl contains "#chr(96)##chr(195)##chr(136)##chr(197)#">
