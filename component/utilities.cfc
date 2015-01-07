@@ -2,14 +2,10 @@
 <!------------------>
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
-
-
-	
 	<!----- 
 		START: stuff in this block is always checked; this is called at onRequestStart
 		Performance is important here; keep it clean and minimal
 	 ------>
-	
 	<cfif isdefined("cgi.query_string")>
 		<!--- this stuff is never allowed, ever ---->
 		<cfset nono="passwd,proc">
@@ -46,45 +42,12 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	
-	
 	<!----- END: stuff in this block is always checked; this is called at onRequestStart ------>
-	
 	<!----- 
 		START: stuff in this block is only checked if there's an error
 		Performance is unimportant here; this is going to end with an error
 	 ------>
 	<cfif isdefined("inp")>
-	
-	
-	<!----
-	
-		<p>
-	errorscheck
-	</p>
-		<cfdump var="#inp#">
-		
-		
-	<br> request.rdurl:
-	<br><br />
-	
-			<cfdump var="#request.rdurl#">
-	<br
-		
-		
-		<cfoutput>
-		<cfloop from="1" to="#len(request.rdurl)#" index="i">
-			<cfset x=mid(request.rdurl,i,1)>
-			<p>
-				#x# ==== #asc(x)#
-			</p>
-		</cfloop>
-		
-		
-		</cfoutput>
-		
-		----->
-		
 		<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
@@ -97,10 +60,35 @@
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
-		<cfset nono="phppath,fulltext,char,ord_dicom,getmappingxpath,ordsys,chr,drithsx,admin,rand,sys,ctxsys,utl_inaddr,get_host_address,CHANGELOG,attr(,html(,owssvr,backup,uploadify,swf,printenv,inurl,content,etc,proc,environ,reviews,blog,cms,news,asmx,checkupdate,userfiles,updates,server-status,ol,abstractapp,browse,stories,rutorrent,backend,administrator,rss,feed,comment,feeds,nyet,setup,exe,invoker,jbossws,jbossmq-httpil,HNAP1,comments,Dashboard,jspa,jiraHNAP1,adimages,jsp,sign_up,trackback,mpx,asp,aspx,connectors,filemanager,editor,fckeditor,signup,register,wp-admin,wp,verify-tldnotify,jmx-console,admin-console,cgi-bin,webcalendar,webcal,calendar,plugins,passwd,mysql,htdocs,PHPADMIN,mysql2,mydbs,dbg,pma2,pma4,scripts,sqladm,mysql2,phpMyAdminLive,_phpMyAdminLive,dbadmin,sqladm,lib,webdav,manager,ehcp,MyAdmin,pma,phppgadmin,dbadmin,myadmin,awstats,version,phpldapadmin,horde,appConf,soapCaller,muieblackcat,@@version,w00tw00t,announce,php,cgi,ini,config,client,webmail,roundcubemail,roundcube,HovercardLauncher,README,cube,mail,board,zboard,phpMyAdmin">
+		<!---- random junk that is always indicitive of bot/spam/probe/etc. traffic---->
+		<cfset x="">
+		<cfset x=x & ",@@version">
+		<cfset x=x & ",admin,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
+		<cfset x=x & ",backup,backend,blog,browse,board">		
+		<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,calendar,config,client,cube">
+		<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin">
+		<cfset x=x & ",etc,environ,exe,editor,ehcp">
+		<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor">
+		<cfset x=x & ",getmappingxpath,get_host_address">
+		<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher">
+		<cfset x=x & ",inurl,invoker,ini">
+		<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console">
+		<cfset x=x & ",lib">
+		<cfset x=x & ",mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail">
+		<cfset x=x & ",news,nyet">
+		<cfset x=x & ",ord_dicom,ordsys,owssvr,ol">
+		<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2,pma4,pma,phppgadmin">
+		<cfset x=x & ",rand,reviews,rutorrent,rss,register,roundcubemail,roundcube,README">
+		<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,signup,scripts,sqladm,soapCaller">
+		<cfset x=x & ",trackback">
+		<cfset x=x & "utl_inaddr,uploadify,userfiles,updates">
+		<cfset x=x & ",verify-tldnotify,version">
+		<cfset x=x & ",wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail">
+		<cfset x=x & ",zboard">
+		
 
 		<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
-			<cfif listfindnocase(nono,i)>
+			<cfif listfindnocase(x,i)>
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
