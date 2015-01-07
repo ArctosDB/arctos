@@ -83,7 +83,7 @@
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
-			<cfif request.rdurl contains "BF%BD%EF%BF%BD%EF%BF%BD%EF%">
+			<cfif request.rdurl contains "`#chr(200)##chr(381)#">
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
