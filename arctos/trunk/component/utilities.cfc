@@ -64,7 +64,7 @@
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
 				</cfif>
-				<cfif inp.detail is "ORA-00936: missing expression" and  inp.sql contains "'A=0">
+				<cfif inp.detail contains "ORA-00936" and  inp.sql contains "'A=0">
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
 				</cfif>
