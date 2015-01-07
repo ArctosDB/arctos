@@ -67,7 +67,9 @@
 						<option value="both">Uses and Contributes</option>
 						<option value="neither">Neither Uses nor Contributes</option>
 					</select>
-					<label for="descr_len">Project Description Minimum Length</label>
+					<label for="descr_len">
+						<span class="helpLink" id="project_min_len">Project Description Minimum Length</span>
+					</label>
 					<input name="descr_len" id="descr_len" type="text" value="100">
 				</td>
 				<td>
