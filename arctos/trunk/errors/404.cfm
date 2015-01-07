@@ -33,6 +33,14 @@
 		</cfif>
 		<cfabort>
 	</cfif>
+	
+	<cfset f = CreateObject("component","component.utilities")>
+
+
+	<cfset x=f.checkRequest(exception)>
+
+
+
 	<cfif right(request.rdurl,5) is "-1%27">
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
