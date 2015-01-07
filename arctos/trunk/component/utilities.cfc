@@ -49,6 +49,7 @@
 	
 	<!----- START: stuff in this block is only checked if there's an error; this is called at onError ------>
 	<cfif isdefined("inp")>
+		<cfdump var="inp">
 		<cfif isdefined("inp.sql")>
 			<cfif inp.sql contains "@@version">
 				<cfinclude template="/errors/autoblacklist.cfm">
