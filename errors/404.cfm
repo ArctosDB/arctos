@@ -36,7 +36,7 @@
 	
 	<cfset f = CreateObject("component","component.utilities")>
 
-
+	<!--- pass in the URL to ensure the error side of the checker fires ---->
 	<cfset x=f.checkRequest(request.rdurl)>
 
 
