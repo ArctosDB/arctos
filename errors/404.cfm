@@ -46,6 +46,7 @@
 		<cfif listcontainsnocase(browsergarbage,i)>
 			yup
 			<cfthrow detail="Unsupported browser-specific file request" message="403: Forbidden" errorcode="403">
+			<cfabort>
 		</cfif>
 		<cfif listfindnocase(fourohthree,i)>
 			yup2
