@@ -46,8 +46,8 @@
 		<cfif listfindnocase(fourohthree,i)>
 			<cfthrow detail="You've requested a form which isn't available. This may be an indication of unwanted or malicious software on your computer." message="403: Forbidden" errorcode="403">
 		</cfif>
-		<cfif listfindnocase(browsergarbage,i)>
-			<cfthrow detail="Invalid browser-specific file request" message="403: Forbidden" errorcode="403">
+		<cfif listcontainsnocase(browsergarbage,i)>
+			<cfthrow detail="Unsupported browser-specific file request" message="403: Forbidden" errorcode="403">
 		</cfif>
 	</cfloop>
 	<!--- we don't have a redirect, and it's not on our hitlist, so 404 --->
