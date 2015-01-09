@@ -63,7 +63,7 @@
 		<!---- random junk that is always indicitive of bot/spam/probe/etc. traffic---->
 		<cfset x="">
 		<cfset x=x & ",@@version">
-		<cfset x=x & ",admin,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
+		<cfset x=x & ",account,admin,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
 		<cfset x=x & ",backup,backend,blog,browse,board">		
 		<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,calendar,config,client,cube">
 		<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin">
