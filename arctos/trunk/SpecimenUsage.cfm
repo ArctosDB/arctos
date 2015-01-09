@@ -70,7 +70,7 @@
 					<label for="descr_len">
 						<span class="helpLink" id="project_min_len">Project Description Minimum Length</span>
 					</label>
-					<input name="descr_len" id="descr_len" type="text" value="100" style="border:1px solid red;">
+					<input name="descr_len" id="descr_len" type="number" value="100" style="border:1px solid red;">
 				</td>
 				<td>
 					<h4>Publication</h4>
