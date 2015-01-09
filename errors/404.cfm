@@ -41,7 +41,7 @@
 
 
 	<cfset fourohthree="dll,png,crossdomain,xml">
-	<cfset browsergarbage="apple-touch-icon,browserconfig">
+	<cfset browsergarbage="apple-touch-icon*,browserconfig">
 	<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
 		<cfif listcontainsnocase(browsergarbage,i)>
 			yup
