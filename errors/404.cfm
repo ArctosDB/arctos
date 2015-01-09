@@ -43,12 +43,15 @@
 	<cfset fourohthree="dll,png,crossdomain,xml">
 	<cfset browsergarbage="apple-touch-icon,browserconfig">
 	<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
-		<cfif listfindnocase(fourohthree,i)>
-			<cfthrow detail="You've requested a form which isn't available. This may be an indication of unwanted or malicious software on your computer." message="403: Forbidden" errorcode="403">
-		</cfif>
 		<cfif listcontainsnocase(browsergarbage,i)>
+			yup
 			<cfthrow detail="Unsupported browser-specific file request" message="403: Forbidden" errorcode="403">
 		</cfif>
+		<cfif listfindnocase(fourohthree,i)>
+			yup2
+			<cfthrow detail="You've requested a form which isn't available. This may be an indication of unwanted or malicious software on your computer." message="403: Forbidden" errorcode="403">
+		</cfif>
+		
 	</cfloop>
 	<!--- we don't have a redirect, and it's not on our hitlist, so 404 --->
 	<cfheader statuscode="404" statustext="Not found">
