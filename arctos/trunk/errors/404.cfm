@@ -41,12 +41,7 @@
 
 
 	<cfset fourohthree="dll,png,crossdomain,xml">
-	<cfset browsergarbage="apple-touch-icon">
-	
-	<!----,apple-touch-icon-precomposed,apple-touch-icon-76x76-precomposed,apple-touch-icon-120x120-precomposed,apple-touch-icon-152x152-precomposed,apple-touch-icon-180x180-precomposed">---->
-	<cfset browsergarbage=browsergarbage & ",browserconfig">
-	
-
+	<cfset browsergarbage="apple-touch-icon,browserconfig">
 	<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
 		<cfif listfindnocase(fourohthree,i)>
 			<cfthrow detail="You've requested a form which isn't available. This may be an indication of unwanted or malicious software on your computer." message="403: Forbidden" errorcode="403">
