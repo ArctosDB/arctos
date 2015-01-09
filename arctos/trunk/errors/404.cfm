@@ -42,7 +42,9 @@
 
 	<cfset fourohthree="dll,png,crossdomain,xml">
 	<cfset browsergarbage="apple-touch-icon*,browserconfig">
+	
 	<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
+		<br>checking #browsergarbage# for #i#
 		<cfif listcontainsnocase(browsergarbage,i)>
 			yup
 			<cfthrow detail="Unsupported browser-specific file request" message="403: Forbidden" errorcode="403">
