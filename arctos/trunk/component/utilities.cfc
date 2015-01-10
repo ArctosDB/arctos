@@ -64,7 +64,7 @@
 		<cfset x="">
 		<cfset x=x & ",@@version">
 		<cfset x=x & ",account,admin,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
-		<cfset x=x & ",backup,backend,blog,browse,board">		
+		<cfset x=x & ",backup,backend,blog,browse,board,backup-db,backup-scheduler">		
 		<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,calendar,config,client,cube">
 		<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin">
 		<cfset x=x & ",etc,environ,exe,editor,ehcp">
@@ -79,11 +79,11 @@
 		<cfset x=x & ",ord_dicom,ordsys,owssvr,ol">
 		<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2,pma4,pma,phppgadmin">
 		<cfset x=x & ",rand,reviews,rutorrent,rss,register,roundcubemail,roundcube,README">
-		<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,signup,scripts,sqladm,soapCaller">
+		<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,signup,scripts,sqladm,soapCaller,simple-backup,sedlex">
 		<cfset x=x & ",trackback">
 		<cfset x=x & "utl_inaddr,uploadify,userfiles,updates">
 		<cfset x=x & ",verify-tldnotify,version">
-		<cfset x=x & ",wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail">
+		<cfset x=x & ",wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content">
 		<cfset x=x & ",zboard">
 		
 
