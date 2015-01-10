@@ -73,7 +73,7 @@
 		
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfset subject="403">
-			<cfif isdefined("exception.detail") and exception.detail contains "Invalid browser-specific file request">
+			<cfif isdefined("exception.detail") and exception.detail contains "Unsupported browser-specific file request">
 				<cfset subject="browser garbage">
 			</cfif>
 		<cfelse>
