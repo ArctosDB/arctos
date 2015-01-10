@@ -44,19 +44,12 @@
 	<cfset browsergarbage="apple-touch-icon,browserconfig">
 	
 	<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
-		<br>checking #browsergarbage# for #i#
 		<cfloop list="#browsergarbage#" index="bg">
 			<cfif i contains bg>
-				<br>#i# contains #bg#
+				<cfthrow detail="Unsupported browser-specific file request" message="403: Forbidden" errorcode="403">
 			</cfif>
 		</cfloop>
-		<cfif listcontainsnocase(browsergarbage,i)>
-			yup
-			<cfthrow detail="Unsupported browser-specific file request" message="403: Forbidden" errorcode="403">
-			<cfabort>
-		</cfif>
 		<cfif listfindnocase(fourohthree,i)>
-			yup2
 			<cfthrow detail="You've requested a form which isn't available. This may be an indication of unwanted or malicious software on your computer." message="403: Forbidden" errorcode="403">
 		</cfif>
 		
