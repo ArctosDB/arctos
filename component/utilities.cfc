@@ -104,7 +104,7 @@
 		--->
 		<cfset x="admin">
 		<cfif request.rdurl contains "?">
-			<cfset rf=listgetat(request.rdurl,1,"?">
+			<cfset rf=listgetat(request.rdurl,1,"?")>
 			<cfloop list="#rf#" delimiters="./&+()" index="i">
 				<cfif listfindnocase(x,i)>
 					<cfinclude template="/errors/autoblacklist.cfm">
