@@ -48,6 +48,9 @@
 <cfelse>
 	<cfset pa="">	
 </cfif>
+<cfif not isdefined("bl_reason")>
+	<cfset bl_reason="unknown">
+</cfif>
 <!--- sometimes already-banned IPs end up here due to click-flooding etc. ---->
 <cfif listcontains(application.blacklist,request.ipaddress)>
 	<!--- they're already actively blacklisted - do nothing here---->
@@ -78,7 +81,7 @@
 		insert into uam.blacklist (ip) values ('#trim(request.ipaddress)#')
 	</cfquery>
 	<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
-	<cf_logError subject="#pa#new autoblacklist">
+	<cf_logError subject="#pa#new autoblacklist"  cause.message=bl_reason>
 	<cfinclude template="/errors/gtfo.cfm">
 	<cfabort>
 </cfif>

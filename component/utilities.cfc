@@ -6,6 +6,16 @@
 		START: stuff in this block is always checked; this is called at onRequestStart
 		Performance is important here; keep it clean and minimal
 	 ------>
+	 <!--- 
+	 	these seem to be malicious 99% of the time, but legit traffic often enough that blacklisting them
+	 	isn't a great idea, so just ignore
+	 ----->
+	 <cfif isdefined("cgi.HTTP_ACCEPT_ENCODING") and cgi.HTTP_ACCEPT_ENCODING is "identity">
+		<cfabort>
+	</cfif>
+	<cfif isdefined("cgi.REQUEST_METHOD") and cgi.REQUEST_METHOD is "OPTIONS">
+		<cfabort>
+	</cfif>
 	<cfif isdefined("cgi.query_string")>
 		<!--- this stuff is never allowed, ever ---->
 		<cfset nono="passwd,proc">
@@ -20,10 +30,7 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif isdefined("cgi.HTTP_ACCEPT_ENCODING") and cgi.HTTP_ACCEPT_ENCODING is "identity">
-		<cfinclude template="/errors/autoblacklist.cfm">
-		<cfabort>
-	</cfif>
+	
 	<cfif isdefined("cgi.HTTP_REFERER") and cgi.HTTP_REFERER contains "/bash">
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
@@ -33,12 +40,8 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif isdefined("cgi.REQUEST_METHOD") and cgi.REQUEST_METHOD is "OPTIONS">
-		<!--- MS crazy hundreds of requests thing.... --->
-		<cfinclude template="/errors/autoblacklist.cfm">
-		<cfabort>
-	</cfif>
 	<cfif right(request.rdurl,5) is "-1%27" or right(request.rdurl,3) is "%00" or left(request.rdurl,6) is "/‰Û#chr(166)#m&">
+		<cfset bl_reason='-1%27 in URL'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
@@ -63,8 +66,8 @@
 		<!---- random junk that is always indicitive of bot/spam/probe/etc. traffic---->
 		<cfset x="">
 		<cfset x=x & ",@@version">
-		<cfset x=x & ",account,admin,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
-		<cfset x=x & ",backup,backend,blog,browse,board,backup-db,backup-scheduler">		
+		<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
+		<cfset x=x & ",backup,backend,blog,board,backup-db,backup-scheduler">		
 		<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,calendar,config,client,cube">
 		<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin">
 		<cfset x=x & ",etc,environ,exe,editor,ehcp">
@@ -94,13 +97,28 @@
 			</cfif>
 		</cfloop>
 		
+		<!---- this stuff is sometimes "us" eg, 
+			/errors/forbidden.cfm?ref=/Admin/ 
+			so tread a bit lighter
+			ignore variables part, look only at page/template request
+		--->
+		<cfset x="admin">
+		<cfif request.rdurl contains "?">
+			<cfset rf=listgetat(request.rdurl,1,"?">
+			<cfloop list="#rf#" delimiters="./&+()" index="i">
+				<cfif listfindnocase(x,i)>
+					<cfinclude template="/errors/autoblacklist.cfm">
+					<cfabort>
+				</cfif>
+			</cfloop>
+		</cfif>
+		
 		<cfif isdefined("cgi.HTTP_USER_AGENT") and cgi.HTTP_USER_AGENT contains "Synapse">
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
 		<cfif isdefined("cgi.HTTP_ACCEPT_ENCODING") and cgi.HTTP_ACCEPT_ENCODING is "identity">
-			<!--- probes ---->
-			<cfinclude template="/errors/autoblacklist.cfm">
+			<!--- probes, but also the occasional legit request - do nothing I guess maybe.... ---->
 			<cfabort>
 		</cfif>
 		
@@ -119,7 +137,7 @@
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
 				</cfif>
-				<cfif inp.detail contains "ORA-00936" and  inp.sql contains "'A=0">
+				<cfif (inp.detail contains "ORA-00936" or inp.detail contains "ORA-00907") and  inp.sql contains "'A=0">
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
 				</cfif>
