@@ -81,7 +81,7 @@
 		insert into uam.blacklist (ip) values ('#trim(request.ipaddress)#')
 	</cfquery>
 	<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
-	<cf_logError subject="#pa#new autoblacklist"  message=bl_reason>
+	<cf_logError subject="#pa#new autoblacklist"  message="#bl_reason#">
 	<cfinclude template="/errors/gtfo.cfm">
 	<cfabort>
 </cfif>
