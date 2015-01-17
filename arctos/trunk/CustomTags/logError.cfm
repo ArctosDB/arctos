@@ -178,6 +178,9 @@
 	<cfif structKeyExists(exception,"SUBJECT")>
 		<br>SUBJECT: #exception.SUBJECT#
 	</cfif>
+	<cfif structKeyExists(exception,"MESSAGE")>
+		<br>MESSAGE: #exception.MESSAGE#
+	</cfif>
 	<p>
 		This message has been logged in #exception.logfile# as #exception.uuid#
 	</p>
