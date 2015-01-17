@@ -2,6 +2,9 @@
 <cfif isdefined("attributes.cause.message")>
 	<cfset exception.message=replace(attributes.cause.message,'[Macromedia][Oracle JDBC Driver][Oracle]','','all')>
 </cfif>
+<cfif isdefined("attributes.message")>
+	<cfset exception.message=attributes.message>
+</cfif>
 <cfif isdefined("attributes.sql")>
 	<cfset exception.sql=attributes.sql>
 </cfif>
