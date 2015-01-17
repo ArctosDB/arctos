@@ -21,30 +21,45 @@
 		<cfset nono="passwd,proc">
 		<cfloop list="#cgi.query_string#" delimiters="./," index="i">
 			<cfif listfindnocase(nono,i)>
+				<cfset bl_reason='#i# in query_string'>
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
 		</cfloop>
 	</cfif>
 	<cfif isdefined("cgi.blog_name") and len(cgi.blog_name) gt 0>
+		<cfset bl_reason='cgi.blog_name exists'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
 	
 	<cfif isdefined("cgi.HTTP_REFERER") and cgi.HTTP_REFERER contains "/bash">
+		<cfset bl_reason='HTTP_REFERER contains /bash'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
 	<cfif isdefined("cgi.HTTP_USER_AGENT") and cgi.HTTP_USER_AGENT contains "slurp">
 		<!--- yahoo ignoring robots.txt - buh-bye.... --->
+		<cfset bl_reason='HTTP_USER_AGENT is slurp'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif right(request.rdurl,5) is "-1%27" or right(request.rdurl,3) is "%00" or left(request.rdurl,6) is "/‰Û#chr(166)#m&">
-		<cfset bl_reason='-1%27 in URL'>
+	<cfif right(request.rdurl,5) is "-1%27">
+		<cfset bl_reason='URL ends with -1%27'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
+	<cfif right(request.rdurl,3) is "%00">
+		<cfset bl_reason='URL ends with %00'>
+		<cfinclude template="/errors/autoblacklist.cfm">
+		<cfabort>
+	</cfif>
+	<cfif left(request.rdurl,6) is "/‰Û#chr(166)#m&">
+		<cfset bl_reason='URL starts with /‰Û#chr(166)#m&'>
+		<cfinclude template="/errors/autoblacklist.cfm">
+		<cfabort>
+	</cfif>
+	
 	<!----- END: stuff in this block is always checked; this is called at onRequestStart ------>
 	<!----- 
 		START: stuff in this block is only checked if there's an error
@@ -52,14 +67,12 @@
 	 ------>
 	<cfif isdefined("inp")>
 		<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
+			<cfset bl_reason='URL contains utl_inaddr or get_host_address'>
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
 		<cfif request.rdurl contains "#chr(96)##chr(195)##chr(136)##chr(197)#">
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
-		<cfif right(request.rdurl,5) is "-1%27">
+			<cfset bl_reason='URL contains #chr(96)##chr(195)##chr(136)##chr(197)#'>
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
@@ -92,6 +105,7 @@
 
 		<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
 			<cfif listfindnocase(x,i)>
+				<cfset bl_reason='URL contains #i#'>
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
@@ -107,37 +121,36 @@
 			<cfset rf=listgetat(request.rdurl,1,"?")>
 			<cfloop list="#rf#" delimiters="./&+()" index="i">
 				<cfif listfindnocase(x,i)>
+					<cfset bl_reason='URL contains #i#'>
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
 				</cfif>
 			</cfloop>
 		</cfif>
-		
 		<cfif isdefined("cgi.HTTP_USER_AGENT") and cgi.HTTP_USER_AGENT contains "Synapse">
+				<cfset bl_reason='HTTP_USER_AGENT is Synapse'>
 			<cfinclude template="/errors/autoblacklist.cfm">
 			<cfabort>
 		</cfif>
-		<cfif isdefined("cgi.HTTP_ACCEPT_ENCODING") and cgi.HTTP_ACCEPT_ENCODING is "identity">
-			<!--- probes, but also the occasional legit request - do nothing I guess maybe.... ---->
-			<cfabort>
-		</cfif>
-		
-		
 		<cfif isdefined("inp.sql")>
 			<cfif inp.sql contains "@@version">
+				<cfset bl_reason='SQL contains @@version'>
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
 			<cfif isdefined("inp.detail")>
 				<cfif inp.detail is "ORA-00933: SQL command not properly ended" and  inp.sql contains 'href="http://'>
+				<cfset bl_reason='SQL contains href=...'>
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
 				</cfif>
 				<cfif inp.detail is "ORA-00907: missing right parenthesis" and  inp.sql contains '1%'>
+					<cfset bl_reason='SQL contains 1%'>
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
 				</cfif>
 				<cfif (inp.detail contains "ORA-00936" or inp.detail contains "ORA-00907") and  inp.sql contains "'A=0">
+					<cfset bl_reason='SQL contains A=0'>
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
 				</cfif>
@@ -145,14 +158,15 @@
 		</cfif>
 		<cfif isdefined("inp.Detail")>
 			<cfif inp.Detail contains "missing right parenthesis" and request.rdurl contains "ctxsys">
+					<cfset bl_reason='detail contains ctxsys'>
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
 			<cfif inp.Detail contains "network access denied by access control list">
+					<cfset bl_reason='detail contains network access '>
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
-			
 		</cfif>
 	</cfif>
 	<!----- END: stuff in this block is only checked if there's an error; this is called at onError ------>
