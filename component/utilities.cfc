@@ -65,67 +65,69 @@
 		START: stuff in this block is only checked if there's an error
 		Performance is unimportant here; this is going to end with an error
 	 ------>
-	<cfif isdefined("inp")>
-		<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
-			<cfset bl_reason='URL contains utl_inaddr or get_host_address'>
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
-		<cfif request.rdurl contains "#chr(96)##chr(195)##chr(136)##chr(197)#">
-			<cfset bl_reason='URL contains #chr(96)##chr(195)##chr(136)##chr(197)#'>
-			<cfinclude template="/errors/autoblacklist.cfm">
-			<cfabort>
-		</cfif>
-		<!---- random junk that is always indicitive of bot/spam/probe/etc. traffic---->
-		<cfset x="">
-		<cfset x=x & ",@@version">
-		<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
-		<cfset x=x & ",backup,backend,blog,board,backup-db,backup-scheduler">		
-		<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,calendar,config,client,cube">
-		<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin">
-		<cfset x=x & ",etc,environ,exe,editor,ehcp">
-		<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor">
-		<cfset x=x & ",getmappingxpath,get_host_address">
-		<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher">
-		<cfset x=x & ",inurl,invoker,ini">
-		<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console">
-		<cfset x=x & ",lib">
-		<cfset x=x & ",mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail">
-		<cfset x=x & ",news,nyet">
-		<cfset x=x & ",ord_dicom,ordsys,owssvr,ol">
-		<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2,pma4,pma,phppgadmin">
-		<cfset x=x & ",rand,reviews,rutorrent,rss,register,roundcubemail,roundcube,README">
-		<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,signup,scripts,sqladm,soapCaller,simple-backup,sedlex">
-		<cfset x=x & ",trackback">
-		<cfset x=x & "utl_inaddr,uploadify,userfiles,updates">
-		<cfset x=x & ",verify-tldnotify,version">
-		<cfset x=x & ",wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content">
-		<cfset x=x & ",zboard">
-		
-
-		<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
-			<cfif listfindnocase(x,i)>
-				<cfset bl_reason='URL contains #i#'>
+	<cfif isdefined("inp")
+		<cfif isdefined("request.rdur")>
+			<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
+				<cfset bl_reason='URL contains utl_inaddr or get_host_address'>
 				<cfinclude template="/errors/autoblacklist.cfm">
 				<cfabort>
 			</cfif>
-		</cfloop>
+			<cfif request.rdurl contains "#chr(96)##chr(195)##chr(136)##chr(197)#">
+				<cfset bl_reason='URL contains #chr(96)##chr(195)##chr(136)##chr(197)#'>
+				<cfinclude template="/errors/autoblacklist.cfm">
+				<cfabort>
+			</cfif>
+			<!---- random junk that is always indicitive of bot/spam/probe/etc. traffic---->
+			<cfset x="">
+			<cfset x=x & ",@@version">
+			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
+			<cfset x=x & ",backup,backend,blog,board,backup-db,backup-scheduler">		
+			<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,calendar,config,client,cube">
+			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin">
+			<cfset x=x & ",etc,environ,exe,editor,ehcp">
+			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor">
+			<cfset x=x & ",getmappingxpath,get_host_address">
+			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher">
+			<cfset x=x & ",inurl,invoker,ini">
+			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console">
+			<cfset x=x & ",lib">
+			<cfset x=x & ",mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail">
+			<cfset x=x & ",news,nyet">
+			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol">
+			<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2,pma4,pma,phppgadmin">
+			<cfset x=x & ",rand,reviews,rutorrent,rss,register,roundcubemail,roundcube,README">
+			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,signup,scripts,sqladm,soapCaller,simple-backup,sedlex">
+			<cfset x=x & ",trackback">
+			<cfset x=x & "utl_inaddr,uploadify,userfiles,updates">
+			<cfset x=x & ",verify-tldnotify,version">
+			<cfset x=x & ",wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content">
+			<cfset x=x & ",zboard">
+			
 		
-		<!---- this stuff is sometimes "us" eg, 
-			/errors/forbidden.cfm?ref=/Admin/ 
-			so tread a bit lighter
-			ignore variables part, look only at page/template request
-		--->
-		<cfset x="admin">
-		<cfif request.rdurl contains "?">
-			<cfset rf=listgetat(request.rdurl,1,"?")>
-			<cfloop list="#rf#" delimiters="./&+()" index="i">
+			<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
 				<cfif listfindnocase(x,i)>
 					<cfset bl_reason='URL contains #i#'>
 					<cfinclude template="/errors/autoblacklist.cfm">
 					<cfabort>
 				</cfif>
 			</cfloop>
+			
+			<!---- this stuff is sometimes "us" eg, 
+				/errors/forbidden.cfm?ref=/Admin/ 
+				so tread a bit lighter
+				ignore variables part, look only at page/template request
+			--->
+			<cfset x="admin">
+			<cfif request.rdurl contains "?">
+				<cfset rf=listgetat(request.rdurl,1,"?")>
+				<cfloop list="#rf#" delimiters="./&+()" index="i">
+					<cfif listfindnocase(x,i)>
+						<cfset bl_reason='URL contains #i#'>
+						<cfinclude template="/errors/autoblacklist.cfm">
+						<cfabort>
+					</cfif>
+				</cfloop>
+			</cfif>
 		</cfif>
 		<cfif isdefined("cgi.HTTP_USER_AGENT") and cgi.HTTP_USER_AGENT contains "Synapse">
 				<cfset bl_reason='HTTP_USER_AGENT is Synapse'>
