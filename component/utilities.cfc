@@ -65,8 +65,8 @@
 		START: stuff in this block is only checked if there's an error
 		Performance is unimportant here; this is going to end with an error
 	 ------>
-	<cfif isdefined("inp")
-		<cfif isdefined("request.rdur")>
+	<cfif isdefined("inp")>
+		<cfif isdefined("request.rdurl")>
 			<cfif request.rdurl contains "utl_inaddr" or request.rdurl contains "get_host_address">
 				<cfset bl_reason='URL contains utl_inaddr or get_host_address'>
 				<cfinclude template="/errors/autoblacklist.cfm">
