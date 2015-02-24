@@ -156,6 +156,15 @@
 	<cfset logdata=logdata & "<#key#>#replace(replace(exception[key],'=','[EQUALS]','all'),'&','[AND]','all')#</#key#>">
 </cfloop>
 <cfset logdata=logdata & "</logEntry>">
+
+
+
+		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos">
+
+
+
+
+
 <cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#logdata#">
 <cfmail subject="#exception.subject#" to="#Application.LogEmail#" from="logs@#application.fromEmail#" type="html">
 	<a href="http://network-tools.com/default.asp?prog=network&host=#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
