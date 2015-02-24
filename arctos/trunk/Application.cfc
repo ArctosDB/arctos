@@ -6,33 +6,31 @@
 <cfset f = CreateObject("component","component.utilities")>
 
 
-<cffunction name="getIpAddress">
-	i am getIpAddress
-	
+<cffunction name="getIpAddress">	
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
-		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
+		<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
 	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
-		<CFSET request.ipaddress=CGI.Remote_Addr>
+		<CFSET ipaddress=CGI.Remote_Addr>
 	<cfelse>
-		<cfset request.ipaddress=''>
+		<cfset ipaddress=''>
 	</CFIF>
 		
 		
 	<cfdump var=#request#>
-	<cfif listlen(request.ipaddress,",") gt 1>
-		<cfset ip1=listgetat(request.ipaddress,1,",")>
+	<cfif listlen(ipaddress,",") gt 1>
+		<cfset ip1=listgetat(ipaddress,1,",")>
 		<cfif ip1 contains "172.16" or ip1 contains "192.168" or ip1 contains "10." or ip1 is "127.0.0.1">
-			<cfset request.ipaddress=listgetat(request.ipaddress,2,",")>
+			<cfset ipaddress=listgetat(ipaddress,2,",")>
 		<cfelse>
-			<cfset request.ipaddress=listgetat(request.ipaddress,1,",")>
+			<cfset ipaddress=listgetat(ipaddress,1,",")>
 		</cfif>
 	</cfif>
-	<cfif listlen(request.ipaddress,".") is 4>
-		<cfset request.requestingSubnet=listgetat(request.ipaddress,1,".") & "." & listgetat(request.ipaddress,2,".")>
+	<cfif listlen(ipaddress,".") is 4>
+		<cfset requestingSubnet=listgetat(ipaddress,1,".") & "." & listgetat(ipaddress,2,".")>
 	<cfelse>
-		<cfset request.requestingSubnet="0.0">
+		<cfset requestingSubnet="0.0">
 	</cfif>
-	<cfif listfind(application.subnet_blacklist,request.requestingSubnet)>
+	<cfif listfind(application.subnet_blacklist,requestingSubnet)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
 				getPageContext().forward("/errors/gtfo.cfm");
@@ -40,7 +38,7 @@
 			<cfabort>
 		</cfif>
 	</cfif>
-	<cfif listfind(application.blacklist,request.ipaddress)>
+	<cfif listfind(application.blacklist,ipaddress)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
 				getPageContext().forward("/errors/gtfo.cfm");
@@ -48,6 +46,7 @@
 			<cfabort>
 		</cfif>
 	</cfif>
+	<cfset request.ipaddress=ipaddress>
 </cffunction>
 
 
