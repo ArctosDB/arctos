@@ -217,6 +217,11 @@
 			serverName=<cfdump var="#serverName#">
 			<cfdump var=#cgi# label="cgi">
 		</cfmail>
+		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos">
+		
+		
+		
+		
 		
 		
 	<cftry>
