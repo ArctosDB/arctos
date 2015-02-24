@@ -44,17 +44,17 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif right(request.rdurl,5) is "-1%27">
+	<cfif isdefined("request.rdur") and right(request.rdurl,5) is "-1%27">
 		<cfset bl_reason='URL ends with -1%27'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif right(request.rdurl,3) is "%00">
+	<cfif isdefined("request.rdur") and right(request.rdurl,3) is "%00">
 		<cfset bl_reason='URL ends with %00'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	<cfif left(request.rdurl,6) is "/‰Û#chr(166)#m&">
+	<cfif isdefined("request.rdur") and left(request.rdurl,6) is "/‰Û#chr(166)#m&">
 		<cfset bl_reason='URL starts with /‰Û#chr(166)#m&'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
