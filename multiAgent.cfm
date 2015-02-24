@@ -171,6 +171,8 @@
 					where
 						collection_object_id IN (select collection_object_id from #table_name#)
 				</cfquery>
+				
+				<!----
 				<!---- insert at one for everything ---->
 				<cfset s="insert all ">
 				<cfloop query="cids">
@@ -186,11 +188,64 @@
 							1
 						)">
 				</cfloop>
+				
 				<cfset s=s & " SELECT * FROM dual">
 				<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					#preserveSingleQuotes(s)#
 				</cfquery>	
+				----->
+				
+				<cfloop query="cids">
+					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into collector (
+							collection_object_id,
+							agent_id,
+							collector_role,
+							coll_order
+						) values (
+							#collection_object_id#,
+							#agent_id#,
+							'#collector_role#',
+							1
+						)
+					</cfquery>				
+				</cfloop>
+				
+				
 			<cfelseif coll_order is "last">
+				
+				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update 
+						collector 
+					set 
+						coll_order=coll_order + 1 
+					where
+						collector_role='#collector_role#' and
+						collection_object_id IN (select collection_object_id from #table_name#)
+				</cfquery>			
+				<cfloop query="cids">
+					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select nvl(max(coll_order),0) +1 m from collector where 
+						collection_object_id=#collection_object_id# and
+						collector_role='#collector_role#'
+					</cfquery>
+					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into collector (
+							collection_object_id,
+							agent_id,
+							collector_role,
+							coll_order
+						) values (
+							#collection_object_id#,
+							#agent_id#,
+							'#collector_role#',
+							#max.m#
+						)
+					</cfquery>
+				</cfloop>
+				
+				
+				<!-----
 				<cfset s="insert all ">
 				<cfloop query="cids">
 					<cfset s=s & " into collector (
@@ -209,7 +264,7 @@
 				<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					#preserveSingleQuotes(s)#
 				</cfquery>	
-		
+				----->
 			
 			</cfif> 
 			

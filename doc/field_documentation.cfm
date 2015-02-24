@@ -186,7 +186,21 @@
 					SQL_ELEMENT: {title: 'SQL_ELEMENT'}
 	            }
 	        });
-	
+			$.extend({
+				getUrlVars: function(){
+					var vars = [], hash;
+					var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+					for(var i = 0; i < hashes.length; i++){
+						hash = hashes[i].split('=');
+						vars.push(hash[0]);
+						vars[hash[0]] = hash[1];
+					}
+					return vars;
+				},
+					getUrlVar: function(name){
+					return $.getUrlVars()[name];
+				}
+			});
 			$('#LoadRecordsButton').click(function (e) {
 	           e.preventDefault();
 	           $('#jtdocdoc').jtable('load', {
@@ -198,7 +212,14 @@
 	               SQL_ELEMENT: $('#SQL_ELEMENT').val()
 	           });
 	       });
+	       if ($.getUrlVar("cf_variable") != null) {
+				$('#CF_VARIABLE').val($.getUrlVar("cf_variable"));
+				$('#jtdocdoc').jtable('load', {
+	               CF_VARIABLE: $.getUrlVar("cf_variable")
+	           });
+			} else {
 	       $('#jtdocdoc').jtable('load');
+	       }
 	    });
 	</script>
 	<cfset title="form-field documentation">
