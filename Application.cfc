@@ -210,6 +210,15 @@
 			<cfdump var=#cgi# label="cgi">
 		</cfmail>
 	</cfif>
+	
+	
+	<cfmail subject="good app start" to="arctos.database@gmail.com" from="badAppStart@#application.fromEmail#" type="html">
+			just started
+			serverName=<cfdump var="#serverName#">
+			<cfdump var=#cgi# label="cgi">
+		</cfmail>
+		
+		
 	<cftry>
 		<cfquery name="d" datasource="uam_god">
 			select ip from uam.blacklist where sysdate-LISTDATE<180
