@@ -159,7 +159,7 @@
 
 
 
-		<cfset Application.webDirectory = "/corral/tg/uaf/wwwarctos">
+		<cfset Application.webDirectory = "/usr/local/httpd/htdocs/wwwarctos">
 
 
 
