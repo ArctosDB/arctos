@@ -298,6 +298,8 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
+	onRequestStart
+	
 	<cfset temp=getIpAddress()>
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfif cgi.script_name is not "/errors/missing.cfm">

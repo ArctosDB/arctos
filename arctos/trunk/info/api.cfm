@@ -169,12 +169,17 @@
 	</table>
 </cfif>
 <cfif action is "specsrch">
+	<script src="/includes/sorttable.js"></script>
+	<cfif isdefined("session.roles") and listfindnocase(session.roles,'manage_documentation')>
+		<cfset mdoc=true>
+	<cfelse>
+		<cfset mdoc=false>
+	</cfif>
 	<cfquery name="st" datasource="cf_dbuser">
 		select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 	</cfquery>
-		Base URL: #Application.serverRootUrl#/SpecimenResults.cfm
-	
-	<table border>
+	Base URL: #Application.serverRootUrl#/SpecimenResults.cfm
+	<table border id="t" class="sortable">
 		<tr>
 			<th>term</th>
 			<th>display</th>
@@ -186,7 +191,13 @@
 		<cfoutput>
 			<cfloop query="st">
 				<tr>				
-					<td valign="top">#CF_VARIABLE#</td>
+					<td valign="top">
+						<cfif mdoc>
+							<a href="/doc/field_documentation.cfm?cf_variable=#CF_VARIABLE#">#CF_VARIABLE#</a>
+						<cfelse>
+							#CF_VARIABLE#	
+						</cfif>
+					</td>
 					<td valign="top">#DISPLAY_TEXT#</td>
 					<td valign="top">
 						<cfif left(CONTROLLED_VOCABULARY,2) is "ct">
