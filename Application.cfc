@@ -6,7 +6,9 @@
 <cfset f = CreateObject("component","component.utilities")>
 
 
-<cffunction name="getIpAddress">	
+<cffunction name="getIpAddress">
+	i am getIpAddress
+	
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<CFSET request.ipaddress=CGI.HTTP_X_Forwarded_For>
 	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
@@ -15,6 +17,8 @@
 		<cfset request.ipaddress=''>
 	</CFIF>
 		
+		
+	<cfdump var=#request#>
 	<cfif listlen(request.ipaddress,",") gt 1>
 		<cfset ip1=listgetat(request.ipaddress,1,",")>
 		<cfif ip1 contains "172.16" or ip1 contains "192.168" or ip1 contains "10." or ip1 is "127.0.0.1">
@@ -298,7 +302,6 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
-	onRequestStart
 	
 	<cfset temp=getIpAddress()>
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
