@@ -199,8 +199,6 @@
 			<cfquery name="d" datasource="cf_dbuser">
 				select url from cf_canned_search where upper(search_name)='#ucase(sName)#'
 			</cfquery>
-			
-			<cfdump var=#d#>
 			<cfif d.recordcount is 0>
 				<cfquery name="d" datasource="cf_dbuser">
 					select url from cf_canned_search where upper(search_name)='#ucase(urldecode(sName))#'
@@ -212,18 +210,9 @@
 			</cfif>
 			<cfif d.url contains "#application.serverRootUrl#/SpecimenResults.cfm?">
 				<cfset mapurl=replace(d.url,"#application.serverRootUrl#/SpecimenResults.cfm?","","all")>
-				
-				<cfdump var=#mapurl#>
 				<cfloop list="#mapURL#" delimiters="&" index="i">
 					<cfset t=listgetat(i,1,"=")>
 					<cfset v=listgetat(i,2,"=")>
-					<hr>
-				<cfdump var=#v#>
-				<hr>
-				<cfdump var=#urldecode(v)#>
-				<hr>
-				
-				
 					<cfset "#T#" = "#urldecode(v)#">
 				</cfloop>
 				<cfinclude template="/SpecimenResults.cfm">
