@@ -29,6 +29,19 @@ delete from collector where collection_object_id IN
 		)
 ;
 
+delete from specimen_part_attribute where COLLECTION_OBJECT_ID IN
+		(
+			select 
+				specimen_part.COLLECTION_OBJECT_ID 
+			FROM
+				coll_object_encumbrance,
+				specimen_part
+			WHERE
+				coll_object_encumbrance.collection_object_id=specimen_part.derived_from_cat_item and
+				encumbrance_id = #encumbrance_id#
+		)
+;
+
 delete from specimen_part where derived_from_cat_item IN
 		(
 			select collection_object_id FROM
@@ -221,6 +234,23 @@ drop table temp;
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
+
+
+<cfquery name="spcolattr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	delete from specimen_part_attribute where COLLECTION_OBJECT_ID IN
+		(
+			select 
+				specimen_part.COLLECTION_OBJECT_ID 
+			FROM
+				coll_object_encumbrance,
+				specimen_part
+			WHERE
+				coll_object_encumbrance.collection_object_id=specimen_part.derived_from_cat_item and
+				encumbrance_id = #encumbrance_id#
+		)
+</cfquery>
+
+
 <cfquery name="spcol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	delete from specimen_part where derived_from_cat_item IN
 		(

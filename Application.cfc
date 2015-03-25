@@ -46,6 +46,7 @@
 		</cfif>
 	</cfif>
 	<cfset request.ipaddress=ipaddress>
+	<cfset request.requestingSubnet=requestingSubnet>
 </cffunction>
 
 
