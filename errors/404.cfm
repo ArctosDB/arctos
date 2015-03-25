@@ -33,16 +33,11 @@
 		</cfif>
 		<cfabort>
 	</cfif>
-	
 	<cfset f = CreateObject("component","component.utilities")>
-
 	<!--- pass in the URL to ensure the error side of the checker fires ---->
 	<cfset x=f.checkRequest(request.rdurl)>
-
-
 	<cfset fourohthree="dll,png,crossdomain,xml">
 	<cfset browsergarbage="apple-touch-icon,browserconfig">
-	
 	<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
 		<cfloop list="#browsergarbage#" index="bg">
 			<cfif i contains bg>
@@ -52,7 +47,6 @@
 		<cfif listfindnocase(fourohthree,i)>
 			<cfthrow detail="You've requested a form which isn't available. This may be an indication of unwanted or malicious software on your computer." message="403: Forbidden" errorcode="403">
 		</cfif>
-		
 	</cfloop>
 	<!--- we don't have a redirect, and it's not on our hitlist, so 404 --->
 	<cfheader statuscode="404" statustext="Not found">

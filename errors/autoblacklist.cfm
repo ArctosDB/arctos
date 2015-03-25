@@ -54,13 +54,13 @@
 <!--- sometimes already-banned IPs end up here due to click-flooding etc. ---->
 <cfif listcontains(application.blacklist,request.ipaddress)>
 	<!--- they're already actively blacklisted - do nothing here---->
-	<cf_logError subject="#pa#existing active IP autoblacklisted">
+	<cf_logError subject="#pa#existing active IP autoblacklisted"  message="#bl_reason#">
 	<cfinclude template="/errors/gtfo.cfm">
 	<cfabort>
 </cfif>
 <cfif listcontains(application.subnet_blacklist,request.requestingSubnet,",")>
 	<!--- they're already actively blacklisted - do nothing here---->
-	<cf_logError subject="#pa#existing active subnet autoblacklisted">
+	<cf_logError subject="#pa#existing active subnet autoblacklisted"  message="#bl_reason#">
 	<cfinclude template="/errors/gtfo.cfm">
 	<cfabort>
 </cfif>
@@ -73,7 +73,7 @@
 		update uam.blacklist set LISTDATE=sysdate where ip='#trim(request.ipaddress)#'
 	</cfquery>
 	<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
-	<cf_logError subject="#pa#updated autoblacklist">
+	<cf_logError subject="#pa#updated autoblacklist" message="#bl_reason#">
 	<cfinclude template="/errors/gtfo.cfm">
 	<cfabort>
 <cfelse>
@@ -81,7 +81,7 @@
 		insert into uam.blacklist (ip) values ('#trim(request.ipaddress)#')
 	</cfquery>
 	<cfset application.blacklist=listappend(application.blacklist,trim(request.ipaddress))>
-	<cf_logError subject="#pa#new autoblacklist"  message="#bl_reason#">
+	<cf_logError subject="#pa#new autoblacklist" message="#bl_reason#">
 	<cfinclude template="/errors/gtfo.cfm">
 	<cfabort>
 </cfif>
