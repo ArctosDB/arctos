@@ -118,15 +118,17 @@
 				ignore variables part, look only at page/template request
 			--->
 			<cfset x="admin">
-			<cfif request.rdurl contains "?">
-				<cfset rf=listgetat(request.rdurl,1,"?")>
-				<cfloop list="#rf#" delimiters="./&+()" index="i">
-					<cfif listfindnocase(x,i)>
-						<cfset bl_reason='URL contains #i#'>
-						<cfinclude template="/errors/autoblacklist.cfm">
-						<cfabort>
-					</cfif>
-				</cfloop>
+			<cfif session.roles does not contain "coldfusion_user">
+				<cfif request.rdurl contains "?">
+					<cfset rf=listgetat(request.rdurl,1,"?")>
+					<cfloop list="#rf#" delimiters="./&+()" index="i">
+						<cfif listfindnocase(x,i)>
+							<cfset bl_reason='URL contains #i#'>
+							<cfinclude template="/errors/autoblacklist.cfm">
+							<cfabort>
+						</cfif>
+					</cfloop>
+				</cfif>
 			</cfif>
 		</cfif>
 		<cfif isdefined("cgi.HTTP_USER_AGENT") and cgi.HTTP_USER_AGENT contains "Synapse">
