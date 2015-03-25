@@ -217,9 +217,12 @@
 				<cfloop list="#mapURL#" delimiters="&" index="i">
 					<cfset t=listgetat(i,1,"=")>
 					<cfset v=listgetat(i,2,"=")>
-					
+					<hr>
 				<cfdump var=#v#>
+				<hr>
 				<cfdump var=#urldecode(v)#>
+				<hr>
+				
 				
 					<cfset "#T#" = "#urldecode(v)#">
 				</cfloop>
