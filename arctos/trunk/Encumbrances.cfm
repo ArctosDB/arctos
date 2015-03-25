@@ -245,7 +245,11 @@
 					[ Modify This Encumbrance ]
 				</span>
 				<a href="/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">[ See Specimens ]</a>
-				<a href="/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#">[ Delete Encumbered Specimens ]</a>
+				<cfif listfindnocase(session.roles, "MANAGE_COLLECTION")>
+					<a href="/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#">[ Delete Encumbered Specimens ]</a>
+				<cfelse>
+					Manage_collection access is required to delete.
+				</cfif>
 				<span class="likeLink" onclick="confirmRemoveSpecs('#encumbrance_id#')">
 					[ Remove all specimens from this encumbrance ]
 				</span>

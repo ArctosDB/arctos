@@ -211,19 +211,11 @@
 			<cfdump var=#cgi# label="cgi">
 		</cfmail>
 	</cfif>
-	
-	
 	<cfmail subject="good app start" to="arctos.database@gmail.com" from="badAppStart@#application.fromEmail#" type="html">
-			just started
-			serverName=<cfdump var="#serverName#">
-			<cfdump var=#cgi# label="cgi">
-		</cfmail>
-		
-		
-		
-		
-		
-		
+		just started
+		serverName=<cfdump var="#serverName#">
+		<cfdump var=#cgi# label="cgi">
+	</cfmail>
 	<cftry>
 		<cfquery name="d" datasource="uam_god">
 			select ip from uam.blacklist where sysdate-LISTDATE<180
@@ -314,10 +306,7 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
-	
-	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
-	
-	
+	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>	
 	<cfset temp=getIpAddress()>
 	<cfif cgi.script_name is not "/errors/missing.cfm">
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
