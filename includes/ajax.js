@@ -587,6 +587,8 @@ function saveSearch(returnURL,errm){
 	sName=prompt(p, uniqid);
 	if (sName!==null){
 		sn=encodeURIComponent(sName);
+		
+		console.log(returnURL);
 		ru=encodeURI(returnURL);
 		
 		console.log(ru);
