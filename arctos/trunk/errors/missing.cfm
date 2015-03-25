@@ -217,6 +217,10 @@
 				<cfloop list="#mapURL#" delimiters="&" index="i">
 					<cfset t=listgetat(i,1,"=")>
 					<cfset v=listgetat(i,2,"=")>
+					
+				<cfdump var=#v#>
+				<cfdump var=#urldecode(v)#>
+				
 					<cfset "#T#" = "#urldecode(v)#">
 				</cfloop>
 				<cfinclude template="/SpecimenResults.cfm">
