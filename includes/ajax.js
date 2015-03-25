@@ -588,10 +588,10 @@ function saveSearch(returnURL,errm){
 	if (sName!==null){
 		sn=encodeURIComponent(sName);
 		
-		console.log(returnURL);
-		ru=encodeURI(returnURL);
-		
-		console.log(ru);
+		//console.log(returnURL);
+		//ru=encodeURI(returnURL);
+		ru=returnURL;
+		//console.log(ru);
 		
 		$.getJSON("/component/functions.cfc",
 			{
