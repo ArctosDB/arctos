@@ -1,5 +1,17 @@
 <cfcomponent>
 <!------------------>
+<cffunction name="makeCaptchaString" returnType="string" output="false">
+    <cfscript>
+		var chars = "23456789ABCDEFGHJKMNPQRS";
+		var length = randRange(4,7);
+		var result = "";
+	    for(i=1; i <= length; i++) {
+	        char = mid(chars, randRange(1, len(chars)),1);
+	        result&=char;
+	    }
+	    return result;
+    </cfscript>
+</cffunction>
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
 	<!----- 
