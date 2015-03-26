@@ -97,7 +97,12 @@
 			<cfquery name="stopTrg" datasource="uam_god">
 				alter trigger CF_PW_CHANGE enable
 			</cfquery>
-			<cfmail to="#valuelist(userEmail.adr)#" subject="Arctos Account Unlocked" from="AccountUnlock@#Application.fromEmail#" type="html">
+			<cfmail 
+				to="#valuelist(userEmail.adr)#"
+				cc="#Application.logEmail#"
+				subject="Arctos Account Unlocked" 
+				from="AccountUnlock@#Application.fromEmail#" 
+				type="html">
 				Dear #username#,
 				
 				<p>Your Arctos account has been unlocked and reset by #session.username#.</p>
@@ -115,7 +120,6 @@
 					If you did not request this change, please reply to #Application.bugReportEmail#.
 				</p>
 			</cfmail>
-			<cf_logError subject="user account unlocked" mesage="The account of #username# has been unlocked and reset by #session.username#.">
 			Success - #username# is now unlocked. Please direct them to check their email for a new password.
 		</cftransaction>
 	</cfoutput>
