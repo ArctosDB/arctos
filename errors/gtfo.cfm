@@ -79,6 +79,11 @@
 			<p>
 				#c#
 			</p>
+			<p>
+				Make sure you're logged in, then 
+				<a href="#Application.serverRootUrl#/Admin/blacklist.cfm?action=del&ip=#ipaddress#">[ remove IP restrictions ]</a>. 
+				Subnet blocks must be removed via Arctos forms. Firewall blocks must be removed by network personnel.
+			</p>
 		</cfmail>
 		Your message has been delivered.
 	</cfoutput>
