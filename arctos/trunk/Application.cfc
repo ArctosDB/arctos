@@ -2,10 +2,7 @@
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
-
 <cfset f = CreateObject("component","component.utilities")>
-
-
 <cffunction name="getIpAddress">	
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
@@ -14,8 +11,6 @@
 	<cfelse>
 		<cfset ipaddress=''>
 	</CFIF>
-		
-
 	<cfif listlen(ipaddress,",") gt 1>
 		<cfset ip1=listgetat(ipaddress,1,",")>
 		<cfif ip1 contains "172.16" or ip1 contains "192.168" or ip1 contains "10." or ip1 is "127.0.0.1">
@@ -48,16 +43,10 @@
 	<cfset request.ipaddress=ipaddress>
 	<cfset request.requestingSubnet=requestingSubnet>
 </cffunction>
-
-
 <!------------------>
-
 <cffunction name="onError">
 	<cfargument name="Exception" required=true/>
 	<cfargument type="String" name="EventName" required=true/>
-	
-
-	
 	<!--- don't time out the error handler! --->
 	<cfsetting requesttimeout="300">
 	<cfset showErr=1>
@@ -71,9 +60,7 @@
 	</cfif>
 	<cfif showErr is 1>
 		<cfset subject="">
-		
 		<cfset x=f.checkRequest(exception)>
-		
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfset subject="403">
 			<cfif isdefined("exception.detail") and exception.detail contains "Unsupported browser-specific file request">
@@ -93,7 +80,6 @@
 		<cfset subject=replace(subject,'[Macromedia]','','all')>
 		<cfset subject=replace(subject,'[Oracle JDBC Driver]','','all')>
 		<cfset subject=replace(subject,'[Oracle]','','all')>
-		
 		<cf_logError subject="#subject#" attributeCollection=#exception#>
 		<table cellpadding="10">
 			<tr>
