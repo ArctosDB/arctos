@@ -17,18 +17,55 @@
 		Search the arctos.database gmail account; do not simply assume.
 	</p>
 	<p>
-		The account owner will be required to select a new password.
+		The account owner will be required to select a new password, and must have a valid email address in their
+		user profile. (User profile != agent record.)
 	</p>
 	<p>
-		
+		If you want to proceed, <a href="AdminUsers.cfm?action=submitUnlockOracleAccount&username=#username#">click this</a>.
 	</p>
-	
-
 </cfif>
-										<a href="AdminUsers.cfm?action=unlockOracleAccount&username=#username#">unlock</a>
-
-
-
+<cfif action is "submitUnlockOracleAccount">
+	<cfoutput>
+		<cfset charList = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,z,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,1,2,3,4,5,6,7,8,9,0">
+		<cfset numList="1,2,3,4,5,6,7,8,9,0">
+		<cfset specList="!,$,%,&,_,*,?,-,(,),<,>,=,/,:,;,.">
+		<cfset newPass = "">
+		<cfset cList="#charList#,#numList#,#specList#">
+		<cfset c=0>
+		<cfset i=1>
+		<cfset thisChar = ListGetAt(charList,RandRange(1,listlen(charList)))>
+		<cfset newPass=newPass & thisChar>
+		<cfset thisChar = ListGetAt(numList,RandRange(1,listlen(numList)))>
+		<cfset newPass=newPass & thisChar>
+		<cfset thisChar = ListGetAt(specList,RandRange(1,listlen(specList)))>
+		<cfset newPass=newPass & thisChar>
+		<cfloop from="1" to="6" index="i">
+			<cfset thisChar = ListGetAt(cList,RandRange(1,listlen(cList)))>
+			<cfset newPass=newPass & thisChar>
+		</cfloop>
+		<cftransaction>
+			<cfquery name="uact" datasource="uam_god">
+				alter user #username# account unlock
+			</cfquery>
+			<cfquery name="db" datasource="uam_god">
+				alter user #isGoodEmail.username# identified by "#newPass#"
+			</cfquery>
+			<cfquery name="stopTrg" datasource="uam_god">
+				alter trigger CF_PW_CHANGE disable
+			</cfquery>
+			<cfquery name="setNewPass" datasource="uam_god">
+				UPDATE cf_users SET password = '#hash(newPass)#',
+				pw_change_date=sysdate-91
+				where user_id = #isGoodEmail.user_id#
+			</cfquery>
+			<cfquery name="stopTrg" datasource="uam_god">
+				alter trigger CF_PW_CHANGE enable
+			</cfquery>
+			<cf_logError subject="user account unlocked" mesage="The account of #username# has been unlocked and reset.">
+			Success - #username# is now unlocked. Please direct them to check their email for a new password.
+		</cftransaction>
+	</cfoutput>
+</cfif>
 <cfif Action is "list">
 	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT 
