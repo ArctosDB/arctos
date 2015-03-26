@@ -219,7 +219,12 @@
 								<cfif isDbUser.account_status is "OPEN">
 									Account open and active <a href="AdminUsers.cfm?username=#username#&action=lockUser">[ Lock Account ]</a>
 								<cfelseif len(isDbUser.account_status) gt 0>
-									#isDbUser.account_status# - <a href="/contact.cfm">contact a DBA</a> to unlock the account. 
+									#isDbUser.account_status#
+									<cfif session.roles contains "global_admin">
+										<a href="AdminUsers.cfm?action=unlockOracleAccount&username=#username#">unlock</a>
+									<cfelse>
+										Use the <a href="/contact.cfm">contact</a> link if you need this account unlocked.
+									</cfif>
 								<cfelseif hasInvite.allow is 1>
 									Awaiting User Action
 								<cfelse>

@@ -112,10 +112,11 @@
 				</cfif>
 			</cfloop>
 			
-			<!---- this stuff is sometimes "us" eg, 
-				/errors/forbidden.cfm?ref=/Admin/ 
-				so tread a bit lighter
-				ignore variables part, look only at page/template request
+			<!---- For the Admin folder, which is linked from email, be a little paranoid/cautious
+				and only get obviously-malicious activity			
+				Common requests:
+					/errors/forbidden.cfm?ref=/Admin/ 
+						so tread a bit lighter; ignore variables part, look only at page/template request
 			--->
 			<cfset x="admin">
 			<cfif session.roles does not contain "coldfusion_user">
