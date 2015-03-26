@@ -19,7 +19,7 @@
 		</p>
 		<p>
 			The account owner will be required to select a new password, and must have a valid email address in their
-			user profile. (User profile != agent record.)
+			user profile or agent record.
 		</p>
 		<p>
 			If you want to proceed to unlock account #username#, <a href="AdminUsers.cfm?action=submitUnlockOracleAccount&username=#username#">click this</a>.
@@ -45,6 +45,40 @@
 			<cfset thisChar = ListGetAt(cList,RandRange(1,listlen(cList)))>
 			<cfset newPass=newPass & thisChar>
 		</cfloop>
+		<cfquery name="userEmail" datasource="uam_god">
+			select distinct adr from (
+				select 
+					EMAIL adr
+				from 
+					cf_user_data,
+					cf_users 
+				where 
+					cf_user_data.USER_ID=cf_users.USER_ID and 
+					cf_users.username='#username#'
+				union
+				select 
+					ADDRESS adr
+				from 
+					ADDRESS,
+					agent_name 
+				where 
+					ADDRESS.agent_id=agent_name.agent_id and 
+					ADDRESS_TYPE='email' and
+					AGENT_NAME_TYPE='login' and
+					AGENT_NAME='#username#'
+				union
+				select 
+					ADDRESS adr
+				from 
+					ADDRESS,
+					agent_name 
+				where 
+					ADDRESS.agent_id=agent_name.agent_id and 
+					ADDRESS_TYPE='email' and
+					AGENT_NAME_TYPE='login' and
+					AGENT_NAME='#session.username#'
+			)
+		</cfquery>
 		<cftransaction>
 			<cfquery name="uact" datasource="uam_god">
 				alter user #username# account unlock
@@ -63,7 +97,25 @@
 			<cfquery name="stopTrg" datasource="uam_god">
 				alter trigger CF_PW_CHANGE enable
 			</cfquery>
-			<cf_logError subject="user account unlocked" mesage="The account of #username# has been unlocked and reset.">
+			<cfmail to="#valuelist(userEmail.adr)#" subject="Arctos Account Unlocked" from="AccountUnlock@#Application.fromEmail#" type="html">
+				Dear #username#,
+				
+				<p>Your Arctos account has been unlocked and reset by #session.username#.</p>
+					<p>
+					Your one-time username/password is
+					<blockquote>
+						#username# / #newPass#
+					</blockquote>
+					Use that information to log into Arctos. You will be required to change your password.
+				</p>
+				<p>
+					You may log in at <a href="#Application.ServerRootUrl#/login.cfm">#Application.ServerRootUrl#/login.cfm</a>
+				</p>
+				<p>
+					If you did not request this change, please reply to #Application.bugReportEmail#.
+				</p>
+			</cfmail>
+			<cf_logError subject="user account unlocked" mesage="The account of #username# has been unlocked and reset by #session.username#.">
 			Success - #username# is now unlocked. Please direct them to check their email for a new password.
 		</cftransaction>
 	</cfoutput>
