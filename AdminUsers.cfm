@@ -50,7 +50,7 @@
 				alter user #username# account unlock
 			</cfquery>
 			<cfquery name="db" datasource="uam_god">
-				alter user #isGoodEmail.username# identified by "#newPass#"
+				alter user #username# identified by "#newPass#"
 			</cfquery>
 			<cfquery name="stopTrg" datasource="uam_god">
 				alter trigger CF_PW_CHANGE disable
@@ -58,7 +58,7 @@
 			<cfquery name="setNewPass" datasource="uam_god">
 				UPDATE cf_users SET password = '#hash(newPass)#',
 				pw_change_date=sysdate-91
-				where user_id = #isGoodEmail.user_id#
+				where USERNAME = '#username#'
 			</cfquery>
 			<cfquery name="stopTrg" datasource="uam_god">
 				alter trigger CF_PW_CHANGE enable
