@@ -1,15 +1,3 @@
-<cffunction name="makeRandomString" returnType="string" output="false">
-    <cfscript>
-		var chars = "23456789ABCDEFGHJKMNPQRS";
-		var length = randRange(4,7);
-		var result = "";
-	    for(i=1; i <= length; i++) {
-	        char = mid(chars, randRange(1, len(chars)),1);
-	        result&=char;
-	    }
-	    return result;
-    </cfscript>
-</cffunction>
 <CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 	<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
 <CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
@@ -30,7 +18,9 @@
 	<p>Use the form below to convince us that you
 	are a non-malicious carbon-based life form and we'll happily restore your access.</p>
 	<p>Sometimes the text gets messed up, so just click reload if you can't read it.</p>
-	<cfset captcha = makeRandomString()>
+	
+	<cfset f = CreateObject("component","component.utilities")>
+	<cfset captcha = f.makeCaptchaString()>
 	<cfset captchaHash = hash(captcha)>
 	<cfform name="g" method="post" action="/errors/gtfo.cfm">
 		<input type="hidden" name="action" value="p">
