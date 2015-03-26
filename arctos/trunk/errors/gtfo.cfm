@@ -59,7 +59,6 @@
 		<br><input type="submit" value="go">
 	</cfform>
 </cfif>
-
 <cfif isdefined("action") and action is "p">
 	<cfoutput>
 		<cfif hash(ucase(form.captcha)) neq form.captchaHash>
@@ -79,9 +78,17 @@
 			<p>
 				#c#
 			</p>
+			<hr>
 			<p>
-				Make sure you're logged in, then 
+				If this looks like a legitimate request, make sure you're logged in (you may get blacklisted if you aren't!), then 
 				<a href="#Application.serverRootUrl#/Admin/blacklist.cfm?action=del&ip=#ipaddress#">[ remove IP restrictions ]</a>. 
+			</p>
+			<p>
+				Check the arctos.database email account (search for the IP); 
+				there is probably an autoblacklist notification with a reason. 
+				Inform the user how to avoid the problem in the future. If the request was legitimate and the blacklist should not
+				exist, inform the Arctos development team. 
+			</p>	
 				Subnet blocks must be removed via Arctos forms. Firewall blocks must be removed by network personnel.
 			</p>
 		</cfmail>
