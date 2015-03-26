@@ -8,21 +8,23 @@
 </form>
 <hr>
 <cfif action is "unlockOracleAccount">
-	<p>
-		<strong><em>Do</em></strong> unlock accounts that have timed out due to inactivity, and those that the account owner has
-		guessed at their forgotton password too many times; these are almost always safe.
-	</p>
-	<p>
-		<strong><em>Do not</em></strong> unlock an account if there are any security concerns or suspicious activity. 
-		Search the arctos.database gmail account; do not simply assume.
-	</p>
-	<p>
-		The account owner will be required to select a new password, and must have a valid email address in their
-		user profile. (User profile != agent record.)
-	</p>
-	<p>
-		If you want to proceed, <a href="AdminUsers.cfm?action=submitUnlockOracleAccount&username=#username#">click this</a>.
-	</p>
+	<cfoutput>
+		<p>
+			<strong><em>Do</em></strong> unlock accounts that have timed out due to inactivity, and those that the account owner has
+			guessed at their forgotton password too many times; these are almost always safe.
+		</p>
+		<p>
+			<strong><em>Do not</em></strong> unlock an account if there are any security concerns, suspicious activity, or not indication of
+			why the account was locked.	Search the arctos.database gmail account for information; do not assume anything.
+		</p>
+		<p>
+			The account owner will be required to select a new password, and must have a valid email address in their
+			user profile. (User profile != agent record.)
+		</p>
+		<p>
+			If you want to proceed to unlock account #username#, <a href="AdminUsers.cfm?action=submitUnlockOracleAccount&username=#username#">click this</a>.
+		</p>
+	</cfoutput>
 </cfif>
 <cfif action is "submitUnlockOracleAccount">
 	<cfoutput>
