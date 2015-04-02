@@ -1,7 +1,7 @@
 <cfinclude template="includes/_header.cfm">
 <style type="text/css">
 	#map-canvas { height: 300px;width:500px; }
-	
+
 fieldset {
     border:0;
     outline: 1px solid gray;
@@ -38,6 +38,7 @@ legend {
 		<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=geometry" type="text/javascript"></script>'>
 	</cfoutput>
 <script language="javascript" type="text/javascript">
+
 	rad = function(x) {return x*Math.PI/180;}
 	distHaversine = function(p1, p2) {
 	  var R = 6371; // earth's mean radius in km
@@ -77,28 +78,30 @@ function checkDepth(){
 	}
 }
 function checkCoordinates(){
+
+	console.log('hello i am checkcoordinates');
+
 	if (
-		$("#dec_lat").val().length>0 || 
-		$("#dec_long").val().length>0 || 
-		$("#datum").val().length>0 || 
-		$("#georeference_source").val().length>0 || 
-		$("#georeference_protocol").val().length>0 
+		$("#dec_lat").val().length>0 ||
+		$("#dec_long").val().length>0 ||
+		$("#datum").val().length>0 ||
+		$("#georeference_source").val().length>0 ||
+		$("#georeference_protocol").val().length>0
 		) {
 		$("#dec_lat").addClass('reqdClr').prop('required',true);
 		$("#dec_long").addClass('reqdClr').prop('required',true);
 		$("#datum").addClass('reqdClr').prop('required',true);
 		$("#georeference_source").addClass('reqdClr').prop('required',true);
 		$("#georeference_protocol").addClass('reqdClr').prop('required',true);
-		
+
 		$("#fs_coordinates legend").text('Coordinates must be accompanied by datum, source, and protocol');
 	} else {
-		
 		$("#dec_lat").removeClass().prop('required',false);
 		$("#dec_long").removeClass().prop('required',false);
 		$("#datum").removeClass().prop('required',false);
 		$("#georeference_source").removeClass().prop('required',false);
 		$("#georeference_protocol").removeClass().prop('required',false);
-		
+
 		$("#fs_coordinates legend").text('Coordinates');
 	}
 }
@@ -113,18 +116,18 @@ function checkCoordinateError(){
 			$("#dec_long").addClass('reqdClr').prop('required',true);
 		}
 	} else {
-		
-	
+
+
 		$("#max_error_distance").removeClass().prop('required',false);
 		$("#max_error_units").removeClass().prop('required',false);
-		
+
 		$("#fs_coordinateError legend").text('Coordinate Error');
 	}
 }
 
 
 	jQuery(document).ready(function() {
-		
+
 		$(".reqdClr:visible").each(function(e){
 		    $(this).prop('required',true);
 		});
@@ -220,7 +223,7 @@ function checkCoordinateError(){
 		$("#datum").val('World Geodetic System 1984');
 		$("#georeference_source").val('Google auto-suggest georeference');
 		$("#georeference_protocol").val('Google automated georeference');
-		
+
 	}
 
 	function geolocate(method) {
@@ -549,7 +552,7 @@ function checkCoordinateError(){
 			<br>
 			<input type="submit" class="lnkBtn" value="Update Verification Status for all of your specimen_events in this locality to value in pick above">
 		</form>
-	</div>		
+	</div>
 	<span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<table width="100%"><tr><td valign="top">
 	<p>
@@ -570,20 +573,20 @@ function checkCoordinateError(){
 		<cfif session.roles contains "manage_geography">
 			<a href="Locality.cfm?action=editGeog&geog_auth_rec_id=#locDet.geog_auth_rec_id#">[ Edit Geography]</a>
 		</cfif>
-		
-		
+
+
 		<cfif len(locDet.DEC_LAT) gt 0 and len(locDet.DEC_LONG) gt 0>
 			<!--- ignoring VPDs, check for "close" georeferences that use a different geog entry ---->
            	<cfquery name="altgeo" datasource="uam_god">
-				select 
+				select
 					geog_auth_rec.higher_geog,
 					geog_auth_rec.geog_auth_rec_id
-				from 
+				from
 					geog_auth_rec,
-					locality 
+					locality
 				where
 					geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
-					round(dec_lat,1)=round(#locDet.DEC_LAT#,1) and 
+					round(dec_lat,1)=round(#locDet.DEC_LAT#,1) and
 					round(DEC_LONG,1)=round(#locDet.DEC_LONG#,1) and
 					locality.geog_auth_rec_id != #locDet.geog_auth_rec_id#
 				group by
@@ -597,14 +600,14 @@ function checkCoordinateError(){
 				<div style="border:1px dashed red; padding:1em;margin:1em;font-size:small;background-color:lightgray;">
 					<p>
 						<strong>
-							If you're seeing this, users are 
+							If you're seeing this, users are
 							<a href="http://arctosdb.org/documentation/places/higher-geography/##locality" class="external" target="_blank">failing to find your specimens!</a>
 						</strong>
 					</p>
 					<p>
 						Specimens georeferenced to within ~10 miles of the coordinates used by this specimen
 						do not share Higher Geography. This may cause unpredictability in descriptive queries (or simply be a relic of precise georeferencing).
-						<br>Please consider merging geography or adding search terms where appropriate. 
+						<br>Please consider merging geography or adding search terms where appropriate.
 					</p>
 					<ul>
 						<cfloop query="altgeo">
@@ -620,22 +623,22 @@ function checkCoordinateError(){
 				</div>
 			</cfif>
 		</cfif>
-			
-			
+
+
 		<label for="spec_locality">
 			<span class="likeLink" onClick="getDocs('locality','specific_locality')">Specific Locality</span>
 		</label>
 		<input type="text"id="spec_locality" name="spec_locality" value="#stripQuotes(locDet.spec_locality)#" size="120">
-		
+
 		<cfif len(locDet.spec_locality) gt 0>
 			<!--- ignoring VPDs, check for "close" georeferences that use a different geog entry ---->
            	<cfquery name="altgeoloc" datasource="uam_god">
-				select 
+				select
 					geog_auth_rec.higher_geog,
 					geog_auth_rec.geog_auth_rec_id
-				from 
+				from
 					geog_auth_rec,
-					locality 
+					locality
 				where
 					geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
 					upper(spec_locality)='#ucase(locDet.spec_locality)#' and
@@ -651,13 +654,13 @@ function checkCoordinateError(){
 				<div style="border:1px dashed red; padding:1em;margin:1em;font-size:small;background-color:lightgray;">
 					<p>
 						<strong>
-							If you're seeing this, users are 
+							If you're seeing this, users are
 							<a href="http://arctosdb.org/documentation/places/higher-geography/##locality" class="external" target="_blank">failing to find your specimens!</a>
 						</strong>
 					</p>
 					<p>
 						Specimens with the same specific locality do not share Higher Geography. This may cause unpredictability in descriptive queries.
-						<br>Please consider merging geography or adding search terms where appropriate. 
+						<br>Please consider merging geography or adding search terms where appropriate.
 					</p>
 					<ul>
 						<cfloop query="altgeoloc">
@@ -681,7 +684,7 @@ function checkCoordinateError(){
 		</label>
 		<input type="text" id="locality_name" name="locality_name" value="#stripQuotes(locDet.locality_name)#" size="120">
 
-		
+
 		<fieldset id="fs_elevation">
 		<legend>Elevation</legend>
 		<table>
@@ -948,7 +951,7 @@ function checkCoordinateError(){
 		<cfelse>
 			<input type="submit" value="Save" class="savBtn">
 			<input type="button" value="Delete" class="delBtn" onClick="deleteLocality('#locDet.locality_id#');">
-		</cfif>	
+		</cfif>
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
 		<input type="button" value="Add Collecting Event" class="insBtn"
 			onclick="document.location='Locality.cfm?action=newCollEvent&locality_id=#locDet.locality_id#'">
