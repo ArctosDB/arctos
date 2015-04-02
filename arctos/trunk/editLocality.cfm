@@ -78,41 +78,25 @@ function checkDepth(){
 	}
 }
 function checkCoordinates(){
-
-	console.log('hello i am checkcoordinates');
-
-
-$("#dec_lat").removeClass().prop('required',false);
-
-	console.log('dec_lat is free');
-
 	if (
 		$("#dec_lat").val().length>0 ||
 		$("#dec_long").val().length>0 ||
 		$("#datum").val().length>0 ||
 		$("#georeference_source").val().length>0 ||
 		$("#georeference_protocol").val().length>0
-		) {
-
-				console.log('dec_latlocky');
-
+	) {
 		$("#dec_lat").addClass('reqdClr').prop('required',true);
 		$("#dec_long").addClass('reqdClr').prop('required',true);
 		$("#datum").addClass('reqdClr').prop('required',true);
 		$("#georeference_source").addClass('reqdClr').prop('required',true);
 		$("#georeference_protocol").addClass('reqdClr').prop('required',true);
-
 		$("#fs_coordinates legend").text('Coordinates must be accompanied by datum, source, and protocol');
 	} else {
 		$("#dec_lat").removeClass().prop('required',false);
-
-						console.log('dec_lat unlocky');
-
 		$("#dec_long").removeClass().prop('required',false);
 		$("#datum").removeClass().prop('required',false);
 		$("#georeference_source").removeClass().prop('required',false);
 		$("#georeference_protocol").removeClass().prop('required',false);
-
 		$("#fs_coordinates legend").text('Coordinates');
 	}
 }
@@ -123,18 +107,12 @@ function checkCoordinateError(){
 		$("#fs_coordinateError legend").text('Error distance and units must be paired.');
 		if ($("#dec_lat").val().length === 0 || $("#dec_long").val().length === 0) {
 			$("#fs_coordinateError legend").append('; Error may not exist without coordinates.');
-
-							console.log('dec_latlocky checkCoordinateError');
-
 			$("#dec_lat").addClass('reqdClr').prop('required',true);
 			$("#dec_long").addClass('reqdClr').prop('required',true);
 		}
 	} else {
-
-
 		$("#max_error_distance").removeClass().prop('required',false);
 		$("#max_error_units").removeClass().prop('required',false);
-
 		$("#fs_coordinateError legend").text('Coordinate Error');
 	}
 }
@@ -142,9 +120,9 @@ function checkCoordinateError(){
 
 	jQuery(document).ready(function() {
 
-		//$(".reqdClr:visible").each(function(e){
-		//    $(this).prop('required',true);
-		//});
+		$(".reqdClr:visible").each(function(e){
+		    $(this).prop('required',true);
+		});
 
 		$( "#minimum_elevation,#maximum_elevation,#orig_elev_units" ).change(function() {
 			checkElevation();
