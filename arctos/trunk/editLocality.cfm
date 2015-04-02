@@ -83,6 +83,9 @@ function checkCoordinates(){
 
 
 $("#dec_lat").removeClass().prop('required',false);
+
+	console.log('dec_lat is free');
+
 	if (
 		$("#dec_lat").val().length>0 ||
 		$("#dec_long").val().length>0 ||
