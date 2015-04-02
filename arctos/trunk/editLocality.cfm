@@ -130,9 +130,9 @@ function checkCoordinateError(){
 
 	jQuery(document).ready(function() {
 
-		$(".reqdClr:visible").each(function(e){
-		    $(this).prop('required',true);
-		});
+		//$(".reqdClr:visible").each(function(e){
+		//    $(this).prop('required',true);
+		//});
 
 		$( "#minimum_elevation,#maximum_elevation,#orig_elev_units" ).change(function() {
 			checkElevation();
