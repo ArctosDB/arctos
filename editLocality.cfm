@@ -93,6 +93,9 @@ $("#dec_lat").removeClass().prop('required',false);
 		$("#georeference_source").val().length>0 ||
 		$("#georeference_protocol").val().length>0
 		) {
+
+				console.log('dec_latlocky');
+
 		$("#dec_lat").addClass('reqdClr').prop('required',true);
 		$("#dec_long").addClass('reqdClr').prop('required',true);
 		$("#datum").addClass('reqdClr').prop('required',true);
@@ -102,6 +105,9 @@ $("#dec_lat").removeClass().prop('required',false);
 		$("#fs_coordinates legend").text('Coordinates must be accompanied by datum, source, and protocol');
 	} else {
 		$("#dec_lat").removeClass().prop('required',false);
+
+						console.log('dec_lat unlocky');
+
 		$("#dec_long").removeClass().prop('required',false);
 		$("#datum").removeClass().prop('required',false);
 		$("#georeference_source").removeClass().prop('required',false);
@@ -117,6 +123,9 @@ function checkCoordinateError(){
 		$("#fs_coordinateError legend").text('Error distance and units must be paired.');
 		if ($("#dec_lat").val().length === 0 || $("#dec_long").val().length === 0) {
 			$("#fs_coordinateError legend").append('; Error may not exist without coordinates.');
+
+							console.log('dec_latlocky checkCoordinateError');
+
 			$("#dec_lat").addClass('reqdClr').prop('required',true);
 			$("#dec_long").addClass('reqdClr').prop('required',true);
 		}
