@@ -81,6 +81,8 @@ function checkCoordinates(){
 
 	console.log('hello i am checkcoordinates');
 
+
+$("#dec_lat").removeClass().prop('required',false);
 	if (
 		$("#dec_lat").val().length>0 ||
 		$("#dec_long").val().length>0 ||
