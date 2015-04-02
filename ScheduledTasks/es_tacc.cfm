@@ -1,7 +1,7 @@
 <!---
 	These scripts create Arctos data from data created from the imager and
 	files @tacc. Assumptions:
-	
+
 	Everything is in http://web.corral.tacc.utexas.edu/UAF/es/yyyy_mm_dd folders
 	The folder and all it's contents will be created at once, and will not be subsequently
 	modified. Folder contents are:
@@ -9,23 +9,23 @@
 		jpegs
 			xxxxx.jpg
 			tn_xxxx.jpg
-	
+
 	And a table for the actual files. "imgname" is one of:
 		barcode.[dng|jpg]
 		barcode_[1-99].[dng|jpg]
-		
+
 	create table es_img (
 		imgname varchar2(255),
 		folder varchar2(255),
 		status varchar2(255),
 		chkdate date default sysdate
 	);
-	
+
 	delete from es_img;
-	
+
 	create unique index ui_es_img_imgname on es_img(imgname) tablespace uam_idx_1;
 	alter table es_img modify imgname not null;
-	
+
 
 --->
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
@@ -34,14 +34,14 @@
 	<cfif action is "nothing">
 		<br><a href="es_tacc.cfm?action=getDir">getDir</a>
 		<br><a href="es_tacc.cfm?action=getOneDir">getOneDir</a>
-		
-		
+
+
 		<br><a href="es_tacc.cfm?action=accn_card_media">accn_card_media</a>
 		<br><a href="es_tacc.cfm?action=loc_card_media">loc_card_media</a>
 		<br><a href="es_tacc.cfm?action=spec_media">spec_media</a>
 		<br><a href="es_tacc.cfm?action=spec_media_alreadyentered">spec_media_alreadyentered</a>
 		<br><a href="es_tacc.cfm?action=status">status</a>
-		
+
 	</cfif>
 	<!---------------------------------------------------------------------------------------->
 	<cfif action is "spec_media_alreadyentered">
@@ -54,23 +54,23 @@
 			<cfset barcode=listgetat(imgname,1,"_")>
 			<br>barcode: #barcode#
 			<cfquery name="acn" datasource="uam_god">
-				select 
+				select
 					flat.collection_object_id,
 					flat.guid,
 					flat.scientific_name
-				from 
+				from
 					flat,
 					specimen_part,
 					coll_obj_cont_hist,
 					container p,
-					container c 
-				where 
+					container c
+				where
 					flat.collection_object_id=specimen_part.derived_from_cat_item and
 					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 					coll_obj_cont_hist.container_id=p.container_id and
 					p.parent_container_id=c.container_id and
 					c.barcode = '#barcode#'
-				group by 
+				group by
 					flat.collection_object_id,
 					flat.guid,
 					flat.scientific_name
@@ -80,8 +80,8 @@
 				<cftransaction>
 					<!--- create media --->
 					<cfset d_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/#imgname#.dng'>
-					<cfset j_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/jpegs/#imgname#.jpg'>
-					<cfset t_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/jpegs/tn_#imgname#.jpg'>
+					<cfset j_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/jpg/#imgname#.jpg'>
+					<cfset t_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/tb/tn_#imgname#.jpg'>
 					<cfquery name="nid" datasource="uam_god">
 						select sq_media_id.nextval media_id from dual
 					</cfquery>
@@ -189,7 +189,7 @@
 							2072
 						)
 					</cfquery>
-				
+
 					<cfquery name="lbl_b" datasource="uam_god">
 						insert into  media_labels (
 							MEDIA_ID,
@@ -207,7 +207,7 @@
 						update es_img set status='created_media' where imgname='#imgname#'
 					</cfquery>
 				</cftransaction>
-			</cfif>			
+			</cfif>
 		</cfloop>
 	</cfif>
 	<!---------------------------------------------------------------------------------------->
@@ -221,7 +221,7 @@
 			<cfset barcode=listgetat(imgname,1,"_")>
 			<br>barcode: #barcode#
 			<cfquery name="acn" datasource="uam_god">
-				select * from spec_scan where barcode='#barcode#' and 
+				select * from spec_scan where barcode='#barcode#' and
 					collection_object_id is not null
 			</cfquery>
 			<cfif acn.recordcount gt 0>
@@ -229,8 +229,8 @@
 				<cftransaction>
 					<!--- create media --->
 					<cfset d_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/#imgname#.dng'>
-					<cfset j_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/jpegs/#imgname#.jpg'>
-					<cfset t_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/jpegs/tn_#imgname#.jpg'>
+					<cfset j_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/jpg/#imgname#.jpg'>
+					<cfset t_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/tb/tn_#imgname#.jpg'>
 					<cfquery name="nid" datasource="uam_god">
 						select sq_media_id.nextval media_id from dual
 					</cfquery>
@@ -362,8 +362,8 @@
 					<cfquery name="fg" datasource="uam_god">
 						update es_img set status='created_media' where imgname='#imgname#'
 					</cfquery>
-				</cftransaction>			
-			</cfif>			
+				</cftransaction>
+			</cfif>
 		</cfloop>
 	</cfif>
 	<!---------------------------------------------------------------------------------------->
@@ -384,8 +384,8 @@
 				<cftransaction>
 					<!--- create media --->
 					<cfset d_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/#imgname#.dng'>
-					<cfset j_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/jpegs/#imgname#.jpg'>
-					<cfset t_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/jpegs/tn_#imgname#.jpg'>
+					<cfset j_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/jpg/#imgname#.jpg'>
+					<cfset t_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/tb/tn_#imgname#.jpg'>
 					<cfquery name="nid" datasource="uam_god">
 						select sq_media_id.nextval media_id from dual
 					</cfquery>
@@ -566,8 +566,8 @@
 					<cfquery name="fg" datasource="uam_god">
 						update es_img set status='created_media' where imgname='#imgname#'
 					</cfquery>
-				</cftransaction>			
-			</cfif>			
+				</cftransaction>
+			</cfif>
 		</cfloop>
 	</cfif>
 	<!---------------------------------------------------------------------------------------->
@@ -589,8 +589,8 @@
 					<cftry>
 					<!--- create media --->
 					<cfset d_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/#imgname#.dng'>
-					<cfset j_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/jpegs/#imgname#.jpg'>
-					<cfset t_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/jpegs/tn_#imgname#.jpg'>
+					<cfset j_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/jpg/#imgname#.jpg'>
+					<cfset t_uri='http://web.corral.tacc.utexas.edu/UAF/es/#folder#/tb/tn_#imgname#.jpg'>
 					<cfquery name="nid" datasource="uam_god">
 						select sq_media_id.nextval media_id from dual
 					</cfquery>
@@ -716,8 +716,8 @@
 						</cfquery>
 					</cfcatch>
 					</cftry>
-				</cftransaction>			
-			</cfif>			
+				</cftransaction>
+			</cfif>
 		</cfloop>
 	</cfif>
 	<!---------------------------------------------------------------------------------------->
@@ -730,17 +730,17 @@
 			<!--- goddamned xmlns bug in CF --->
 			<cfset xStr= replace(xStr,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')>
 			<cfset xdir=xmlparse(xStr)>
-			<cfset dir = xmlsearch(xdir, "//td[@class='n']")>	
+			<cfset dir = xmlsearch(xdir, "//td[@class='n']")>
 			<cfloop index="i" from="1" to="#arrayLen(dir)#">
 				<cfset folder = dir[i].XmlChildren[1].xmlText>
 				<br>folder: #folder#
 				<cfif len(folder) is 10 and listlen(folder,"_") is 3><!--- probably a yyyy_mm_dd folder --->
 					<cfquery name="gotFolder" datasource="uam_god">
-						select count(*) c from es_img where folder='#folder#'		
+						select count(*) c from es_img where folder='#folder#'
 					</cfquery>
 					<!---
 					<cfquery name="gotFile" datasource="uam_god">
-						select count(distinct(imgname)) cbc from es_img where folder='#folder#'			
+						select count(distinct(imgname)) cbc from es_img where folder='#folder#'
 					</cfquery>
 					--->
 					<cfif gotFolder.c is 0><!--- been here? --->
@@ -764,27 +764,27 @@
 									) values (
 										'#imgname#',
 										'#folder#'
-									)	
+									)
 								</cfquery>
 								<cfcatch>
 									<br>failed@'#imgname#','#folder#'===#cfcatch.message#: #cfcatch.detail#
 								</cfcatch>
 								</cftry>
-							</cfif> 
+							</cfif>
 						</cfloop>
 					</cfif> <!--- end not been here --->
-				</cfif>		
+				</cfif>
 			</cfloop>
 		</cfif>
 	</cfif><!--- end getDir --->
-	
+
 	<!---------------------------------------------------------------------------------------->
 	<cfif action is "getOneDir">
 		<cfif not isdefined("folder")>
 			call this with URL param folder - folder must be in http://web.corral.tacc.utexas.edu/UAF/es/{folder}
 			<cfabort>
 		</cfif>
-		
+
 		<br>fetching http://web.corral.tacc.utexas.edu/UAF/es/#folder#
 		<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/es/#folder#" charset="utf-8" method="get"></cfhttp>
 		<cfset ximgStr=cfhttp.FileContent>
@@ -804,7 +804,7 @@
 						) values (
 							'#imgname#',
 							'#folder#'
-						)	
+						)
 					</cfquery>
 					<br>added fname: #fname#
 				<cfcatch>
@@ -813,7 +813,7 @@
 				</cftry>
 			<cfelse>
 				<br>#fname# is not a DNG so we're ignoring it.
-			</cfif> 
+			</cfif>
 		</cfloop>
 	</cfif>
 <!------------------------------------------------------->

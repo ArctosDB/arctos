@@ -41,6 +41,12 @@
 		<cfelse>
 			<cfset thisRelationID=-1>
 		</cfif>
+
+		<br>thisRelationship: #thisRelationship#
+
+		<br>thisRelatedId: #thisRelatedId#
+		<br>thisRelationID: #thisRelationID#
+
 		<cfif thisRelationID is -1>
 			<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into media_relations (
@@ -51,14 +57,14 @@
 		<cfelse>
 			<cfif #thisRelationship# is "delete">
 				<cfquery name="upRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					delete from 
+					delete from
 						media_relations
 					where media_relations_id=#thisRelationID#
 				</cfquery>
 			<cfelse>
 				<cftry>
 				<cfquery name="upRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update 
+					update
 						media_relations
 					set
 						media_relationship='#thisRelationship#',
@@ -69,7 +75,7 @@
 					<!--- like a 99% chance this is because someone from another collection has something hooked to the media - we hope.... ---->
 				</cfcatch>
 				</cftry>
-			</cfif>	
+			</cfif>
 		</cfif>
 	</cfloop>
 	<cfloop from="1" to="#number_of_labels#" index="n">
@@ -88,20 +94,20 @@
 		<cfelse>
 			<cfif #thisLabel# is "delete">
 				<cfquery name="upRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					delete from 
+					delete from
 						media_labels
 					where media_label_id=#thisLabelID#
 				</cfquery>
 			<cfelse>
 				<cfquery name="upRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update 
+					update
 						media_labels
 					set
 						media_label='#thisLabel#',
 						label_value='#thisLabelValue#'
 					where media_label_id=#thisLabelID#
-				</cfquery>					
-			</cfif>		
+				</cfquery>
+			</cfif>
 		</cfif>
 	</cfloop>
 	<cflocation url="media.cfm?action=edit&media_id=#media_id#" addtoken="false">
@@ -145,7 +151,7 @@
 			<label for="media_uri">Media URI (<a href="#media.media_uri#" target="_blank">open</a>)</label>
 			<input type="text" name="media_uri" id="media_uri" size="90" value="#media.media_uri#">
 			<span class="infoLink" onclick="generateMD5()">Generate Checksum</span>
-			<label for="preview_uri">Preview URI 
+			<label for="preview_uri">Preview URI
 				<cfif len(media.preview_uri) gt 0>
 					(<a href="#media.preview_uri#" target="_blank">open</a>)
 				</cfif>
@@ -166,7 +172,7 @@
 				</cfloop>
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctmedia_type');">Define</span>
-			
+
 			<label for="media_license_id">License</label>
 			<select name="media_license_id" id="media_license_id">
 				<option value="">NONE</option>
@@ -208,14 +214,14 @@
 					<cfset i=i+1>
 					<br>
 				</cfloop>
-				
+
 				<br><span class="infoLink" id="addRelationship" onclick="addRelation(#i#)">Add Relationship</span>
 			</div>
-			
+
 			<br>
 			<label for="labels">Media Labels <span class="likeLink" onclick="getCtDoc('ctmedia_label');">Define</span></label>
 			<div id="labels" style="border:1px dashed red;">
-			
+
 			<cfset i=1>
 			<cfif labels.recordcount is 0>
 				<!--- seed --->
@@ -245,18 +251,18 @@
 				</div>
 				<cfset i=i+1>
 			</cfloop>
-				
+
 				<span class="infoLink" id="addLabel" onclick="addLabel(#i#)">Add Label</span>
 			</div>
 			<br>
-			<input type="button" 
-				value="Save Edits" 
+			<input type="button"
+				value="Save Edits"
 				class="savBtn"
 				onclick="newMedia.action.value='saveEdit';newMedia.submit();">
 			<cfif relns.recordcount is 0 and labels.recordcount is 0>
-				<input type="button" 
+				<input type="button"
 					value="delete media"
-					class="delBtn" 
+					class="delBtn"
 					onclick="newMedia.action.value='delMedia';confirmDelete('newMedia');">
 			<cfelse>
 				[ delete labels and relationships to delete media ]
@@ -279,7 +285,7 @@
 		</cfif>
 		are unaffected. You should delete them if you don't need them around anymore.
 	</cfoutput>
-	
+
 </cfif>
 
 <!----------------------------------------------------------------------------------------->
@@ -343,10 +349,10 @@
 				<span class="infoLink" id="addLabel" onclick="addLabel(2)">Add Label</span>
 			</div>
 			<br>
-			<input type="submit" 
-				value="Create Media" 
+			<input type="submit"
+				value="Create Media"
 				class="insBtn"
-				onmouseover="this.className='insBtn btnhov'" 
+				onmouseover="this.className='insBtn btnhov'"
 				onmouseout="this.className='insBtn'">
 		</form>
 		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
@@ -359,7 +365,7 @@
 				$("##related_id__1").val('#collection_object_id#');
 			</script>
 		</cfif>
-	</cfoutput>    
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------>
 <cfif action is "saveNew">
@@ -390,13 +396,13 @@
 			<cfset thisTableName=ListLast(thisRelationship," ")>
 			<cfif len(#thisRelationship#) gt 0 and len(#thisRelatedId#) gt 0>
 				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into 
+					insert into
 						media_relations (
 						media_id,media_relationship,related_primary_key
 					)values (
 						#media_id#,'#thisRelationship#',#thisRelatedId#)
 				</cfquery>
-			</cfif>	
+			</cfif>
 		</cfloop>
 		<cfloop from="1" to="#number_of_labels#" index="n">
 			<cfset thisLabel = #evaluate("label__" & n)#>

@@ -35,13 +35,13 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 <cffunction name="getTnPath">
 	<cfargument name="inpStr" type="string" required="yes">
 	<cfset filename=listfirst(listlast(inpStr,"/"),".")>
-	<cfset tnPath=replace(inpStr,"#filename#.dng","jpegs/tn_#filename#.jpg")>
+	<cfset tnPath=replace(inpStr,"#filename#.dng","tb/tn_#filename#.jpg")>
 	<cfreturn "http://web.corral.tacc.utexas.edu/UAF/" & tnPath>
 </cffunction>
 <cffunction name="getJpgPath">
 	<cfargument name="inpStr" type="string" required="yes">
 	<cfset filename=listfirst(listlast(inpStr,"/"),".")>
-	<cfset jpgPath=replace(inpStr,"#filename#.dng","jpegs/#filename#.jpg")>
+	<cfset jpgPath=replace(inpStr,"#filename#.dng","jpg/#filename#.jpg")>
 	<cfreturn "http://web.corral.tacc.utexas.edu/UAF/" & jpgPath>
 </cffunction>
 <cffunction name="getFiletype">
@@ -149,9 +149,9 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 						<cfif getFiletype(f2) is "d">
 							<cfset arrayAppend(dirs,"#cPath2##f2#")>
 							<cfhttp url="http://web.corral.tacc.utexas.edu/UAF/#cPath2##f2#" charset="utf-8" method="get"></cfhttp>
-							
+
 							<cftry>
-							
+
 								<cfset xdir3=XMLparse(trim(replace(cfhttp.FileContent,' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"','')))>
 								<cfset dir3=xmlsearch(xdir3, "//td[@class='n']")>
 								<cfset cPath3=replace(xdir3.html.head.title.xmlText,"Index of /UAF/","")>
@@ -174,9 +174,9 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 								<cfcatch>
 									<p>
 										Error with http://web.corral.tacc.utexas.edu/UAF/#cPath2##f2#
-										
+
 										<cfdump var=#cfcatch#>
-										
+
 										<cfdump var=#cfhttp#>
 									</p>
 								</cfcatch>
@@ -216,7 +216,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 			select fullpath from tacc where
 			filetype='path' and
 			(
-				crawled_path_date is null 
+				crawled_path_date is null
 				-- or round(sysdate-crawled_path_date) > 3
 			) and
 			rownum=1
@@ -239,7 +239,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 			select * from tacc where lower(filetype)='dng' and
 			fullpath like '#path.fullpath#%'
 		</cfquery>
-		
+
 		<cfloop query="c">
 			<cfif arrayfind(files,#fullpath#)>
 				<cfset arrayDeleteAt(files,arrayfind(files,#fullpath#))>
@@ -263,7 +263,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 			</cfcatch>
 			</cftry>
 		</cfloop>
-		
+
 					update tacc set crawled_path_date=sysdate where fullpath='#path.fullpath#'
 
 		<cfquery name="udcd" datasource="uam_god">
@@ -459,7 +459,7 @@ create unique index iu_tacc_fullpath on tacc (fullpath) tablespace uam_idx_1;
 					related_primary_key=#collection_object_id# and
 					media_uri='http://web.corral.tacc.utexas.edu/UAF/#fullpath#'
 			</cfquery>
-			
+
 			<cfdump var=#dng_id#>
 			<cfif len(dng_id.media_id) is 0 or dng_id.recordcount is not 1>
 				<cfquery name="fail" datasource="uam_god">
