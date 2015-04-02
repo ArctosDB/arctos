@@ -231,8 +231,8 @@
 
 
 				<label for="newPartContainerType">and force the new parent container type to...</label>
-				<select name="newPartContainerType" id="newPartContainerType"'size="1" class="reqdClr">
-					<option value="do not change container type"></option>
+				<select name="newPartContainerType" id="newPartContainerType" size="1" class="reqdClr">
+					<option value="">do not change container type</option>
 					<cfloop query="ctContainer_Type">
 						<option  value="#ctContainer_Type.container_type#">#ctContainer_Type.container_type#</option>
 					</cfloop>
