@@ -16,8 +16,11 @@
 	<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select taxa_formula from cttaxa_formula order by taxa_formula
 	</cfquery>
+	<cfquery name="ctContainer_Type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select container_type from ctcontainer_type order by container_type
+	</cfquery>
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		 SELECT 
+		 SELECT
 		 	flat.guid,
 			concatSingleOtherId(flat.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 			flat.scientific_name,
@@ -27,7 +30,7 @@
 			container.barcode,
 			parentcontainer.barcode parentbarcode,
 			parentcontainer.container_type parenttype
-		FROM 
+		FROM
 			#session.SpecSrchTab#,
 			flat,
 			specimen_part,
@@ -35,14 +38,14 @@
 			container part,
 			container,
 			container parentcontainer
-		WHERE 
+		WHERE
 			#session.SpecSrchTab#.collection_object_id=flat.collection_object_id and
 			flat.collection_object_id=specimen_part.derived_from_cat_item (+) and
 			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id (+) and
 			coll_obj_cont_hist.container_id=part.container_id (+) and
 			part.parent_container_id=container.container_id (+) and
 			container.parent_container_id=parentcontainer.container_id (+)
-		ORDER BY 
+		ORDER BY
 			flat.collection_object_id
 	</cfquery>
 	<cfquery name="specimenList" dbtype="query">
@@ -62,20 +65,20 @@
 			guid
 	</cfquery>
 	<cfquery name="distPart" dbtype="query">
-		select 
-			part_name 
-		from 
+		select
+			part_name
+		from
 			raw
 		where
 			barcode is not null
-		group by 
-			part_name 
-		order by 
+		group by
+			part_name
+		order by
 			part_name
 	</cfquery>
 	<cfoutput>
 		<table width="100%"><tr><td width="50%"><!--- left column ---->
-			<h2>Add Identification for ALL Specimens listed below</h2>	
+			<h2>Add Identification for ALL Specimens listed below</h2>
 		    <form name="newID" method="post" action="multiIdentification.cfm">
 		  		<input type="hidden" name="Action" value="createManyNew">
 		    	<table>
@@ -90,22 +93,22 @@
 							<cfset thisForm = "#taxa_formula#">
 							<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr" onchange="newIdFormula(this.value);">
 								<cfloop query="ctFormula">
-									<option 
+									<option
 										<cfif #thisForm# is "#ctFormula.taxa_formula#"> selected </cfif>value="#ctFormula.taxa_formula#">#taxa_formula#</option>
 								</cfloop>
 							</select>
 						</td>
-					</tr>     
-		            <tr> 
+					</tr>
+		            <tr>
 		            	<td><div align="right">Taxon A:</div></td>
 						<td>
-							<input type="text" name="taxona" id="taxona" class="reqdClr" size="50" 
+							<input type="text" name="taxona" id="taxona" class="reqdClr" size="50"
 								onChange="taxaPick('taxona_id','taxona','newID',this.value); return false;"
 								onKeyPress="return noenter(event);">
-							<input type="hidden" name="taxona_id" id="taxona_id"> 
+							<input type="hidden" name="taxona_id" id="taxona_id">
 						</td>
 					</tr>
-					<tr id="userID" style="display:none;"> 
+					<tr id="userID" style="display:none;">
 						<td>
 							<div class="helpLink" id="user_identification">Identification:</div>
 						</td>
@@ -113,57 +116,57 @@
 							<input type="text" name="user_id" id="user_id" size="50">
 						</td>
 					</tr>
-					<tr id="taxon_b_row" style="display:none;"> 
+					<tr id="taxon_b_row" style="display:none;">
 						<td><div align="right">Taxon B:</div></td>
 						<td>
-							<input type="text" name="taxonb" id="taxonb" class="reqdClr" size="50" 
+							<input type="text" name="taxonb" id="taxonb" class="reqdClr" size="50"
 								onChange="taxaPick('taxonb_id','taxonb','newID',this.value); return false;"
 								onKeyPress="return noenter(event);">
 							<input type="hidden" name="taxonb_id" id="taxonb_id">
 						</td>
 					</tr>
-					<tr> 
+					<tr>
 						<td>
 							<div align="right">
 								<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_by')">ID By:</a>
 							</div>
 						</td>
 						<td>
-							<input type="text" name="idBy" class="reqdClr" size="50" 
+							<input type="text" name="idBy" class="reqdClr" size="50"
 								onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
-						 		onkeypress="return noenter(event);"> 
-							<input type="hidden" name="newIdById"> 
+						 		onkeypress="return noenter(event);">
+							<input type="hidden" name="newIdById">
 							<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 						</td>
 					</tr>
-					<tr id="addNewIdBy_two" style="display:none;"> 
+					<tr id="addNewIdBy_two" style="display:none;">
 						<td>
 							<div align="right">
-								ID By:<span class="infoLink" onclick="clearNewIdBy('two');"> clear</span>	
+								ID By:<span class="infoLink" onclick="clearNewIdBy('two');"> clear</span>
 							</div>
 						</td>
 						<td>
-							<input type="text" name="idBy_two" id="idBy_two" class="reqdClr" size="50" 
+							<input type="text" name="idBy_two" id="idBy_two" class="reqdClr" size="50"
 								onchange="getAgent('newIdById_two','idBy_two','newID',this.value); return false;"
-								onkeypress="return noenter(event);"> 
-							<input type="hidden" name="newIdById_two" id="newIdById_two"> 
-							<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
+								onkeypress="return noenter(event);">
+							<input type="hidden" name="newIdById_two" id="newIdById_two">
+							<span class="infoLink" onclick="addNewIdBy('three');">more...</span>
 						</td>
 					</tr>
-					<tr id="addNewIdBy_three" style="display:none;"> 
+					<tr id="addNewIdBy_three" style="display:none;">
 						<td>
 							<div align="right">
-								ID By:<span class="infoLink" onclick="clearNewIdBy('three');"> clear</span>	
+								ID By:<span class="infoLink" onclick="clearNewIdBy('three');"> clear</span>
 							</div>
 						</td>
 						<td>
-							<input type="text" name="idBy_three" id="idBy_three" class="reqdClr" size="50" 
+							<input type="text" name="idBy_three" id="idBy_three" class="reqdClr" size="50"
 								onchange="getAgent('newIdById_three','idBy_three','newID',this.value); return false;"
-								onkeypress="return noenter(event);"> 
-							<input type="hidden" name="newIdById_three" id="newIdById_three"> 			
+								onkeypress="return noenter(event);">
+							<input type="hidden" name="newIdById_three" id="newIdById_three">
 						</td>
 					</tr>
-					<tr> 
+					<tr>
 						<td>
 							<div align="right">
 								<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_date')">ID Date:</a></td>
@@ -171,7 +174,7 @@
 						</td>
 						<td><input type="text" name="made_date" id="made_date"></td>
 					</tr>
-					<tr> 
+					<tr>
 						<td>
 							<div align="right">
 								<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','nature_of_id')"> Nature of ID:</a></td>
@@ -187,14 +190,14 @@
 							<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">define</span>
 						</td>
 					</tr>
-					<tr> 
+					<tr>
 						<td><div align="right">Remarks:</div></td>
 						<td><input type="text" name="identification_remarks" size="50"></td>
 					</tr>
-					<tr> 
+					<tr>
 						<td colspan="2">
-							<div align="center"> 
-								<input type="submit" value="Add Identification to all listed specimens" class="insBtn">	
+							<div align="center">
+								<input type="submit" value="Add Identification to all listed specimens" class="insBtn">
 							</div>
 						</td>
 					</tr>
@@ -205,10 +208,10 @@
 			Move Part Containers
 		</h2>
 		<p style="border:2px solid red; margin:1em;padding:1em;">
-			<strong>Important note:</strong> 
+			<strong>Important note:</strong>
 			<br>This form will NOT install parts.
 			<br>It will move the parent container of the part container.
-			<br>That's usually the thing with a barcode, such as a NUNC tube. 
+			<br>That's usually the thing with a barcode, such as a NUNC tube.
 			<br>Use one of the many other container applications install parts.
 			<br>
 			<strong>Only moveable parts are listed in the table below.</strong>
@@ -225,12 +228,22 @@
 				</select>
 				<label for="newPartContainer">Move parts to container barcode</label>
 				<input type="text" name="newPartContainer" id="newPartContainer">
-				<br> <input type="submit" value="Move selected Parts for all listed specimens" class="savBtn">	
+
+
+				<label for="newPartContainerType">and force the new parent container type to...</label>
+				<select name="newPartContainerType" id="newPartContainerType"'size="1" class="reqdClr">
+					<option value="do not change container type"></option>
+					<cfloop query="ctContainer_Type">
+						<option  value="#ctContainer_Type.container_type#">#ctContainer_Type.container_type#</option>
+					</cfloop>
+				</select>
+
+				<br> <input type="submit" value="Move selected Parts for all listed specimens" class="savBtn">
 			</form>
-			
+
 		</p>
-		</td></tr></table><!---- end header column table ---->	
-		<h3>#specimenList.recordcount# Specimens Being Re-Identified:</h3>		
+		</td></tr></table><!---- end header column table ---->
+		<h3>#specimenList.recordcount# Specimens Being Re-Identified:</h3>
 		*Changes can take a few minutes to show up in this table and in specimenresults.
 		<table width="95%" border="1">
 			<tr>
@@ -251,7 +264,7 @@
 					from
 						raw
 					where
-						barcode is not null and 
+						barcode is not null and
 						guid='#guid#'
 				</cfquery>
 				<cfif p.recordcount gt 0>
@@ -294,24 +307,28 @@
 	container (coll obj)             <---- this parent container ID is a shortcut to what we need to move
 	container (with barcode)         <---- move this thing
 	container (thing that holds the "part barcode"
-	
-------------->
 
+------------->
+	<cfif len(newPartContainerType) gt 0>
+		<cfquery name="updateTargetContainerType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update container set container_type='#newPartContainerType#' where barcode='#newPartContainer#'
+		</cfquery>
+	</cfif>
 	<cfquery name="scannedID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			container 
-		set 
+		update
+			container
+		set
 			parent_container_id=(select container_id from container where barcode='#newPartContainer#')
-		where 
+		where
 			container_id in (
-				select 
+				select
 					part_container.parent_container_id
 				from
 					#session.SpecSrchTab#,
 					specimen_part,
 					coll_obj_cont_hist,
 					container part_container
-				WHERE 
+				WHERE
 					#session.SpecSrchTab#.collection_object_id=specimen_part.derived_from_cat_item and
 					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 					coll_obj_cont_hist.container_id=part_container.container_id and
@@ -321,7 +338,7 @@
 <cflocation url="multiIdentification.cfm" addtoken="no">
 
 </cfoutput>
-</cfif>		
+</cfif>
 <!------------------------------------
 
 <cflocation url="multiIdentification.cfm" addtoken="no">
@@ -365,14 +382,14 @@
 			<cfquery name="theList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select collection_object_id from #session.SpecSrchTab#
 			</cfquery>
-		
 
-		
-		
+
+
+
 	<cftransaction>
 		<cfloop query="theList">
-		
-		
+
+
 		<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
 		</cfquery>
@@ -408,7 +425,7 @@
 				insert into identification_agent (
 					identification_id,
 					agent_id,
-					identifier_order) 
+					identifier_order)
 				values (
 					sq_identification_id.currval,
 					#newIdById#,
@@ -420,7 +437,7 @@
 					insert into identification_agent (
 						identification_id,
 						agent_id,
-						identifier_order) 
+						identifier_order)
 					values (
 						sq_identification_id.currval,
 						#newIdById_two#,
@@ -433,7 +450,7 @@
 					insert into identification_agent (
 						identification_id,
 						agent_id,
-						identifier_order) 
+						identifier_order)
 					values (
 						sq_identification_id.currval,
 						#newIdById_three#,

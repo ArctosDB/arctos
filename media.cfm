@@ -41,12 +41,6 @@
 		<cfelse>
 			<cfset thisRelationID=-1>
 		</cfif>
-
-		<br>thisRelationship: #thisRelationship#
-
-		<br>thisRelatedId: #thisRelatedId#
-		<br>thisRelationID: #thisRelationID#
-
 		<cfif thisRelationID is -1>
 			<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into media_relations (
