@@ -156,7 +156,7 @@ jQuery(document).ready(function() {
 				Something hinky happened. Scans were not saved. See log above, then use your back button.
 			</div>
 		<cfelse>
-			Success. <a href="batchScan.cfm">Scan more</a>
+			Success. <a href="batchScan.cfm?mode=#mode#">Scan more</a>
 		</cfif>
 	</cfoutput>
 </cfif>
