@@ -61,6 +61,7 @@
 <script>
 	jQuery(document).ready(function() {
 		$("#determined_date_new").datepicker();
+		$("input[type='date'], input[type='datetime']" ).datepicker();
 	});
 </script>
 <cfoutput>
@@ -84,7 +85,7 @@
 		where
 			specimen_part_attribute.determined_by_agent_id=preferred_agent_name.agent_id (+) and
 			collection_object_id=#partID#
-	</cfquery>	
+	</cfquery>
 	<form name="f" method="post" action="partAtts.cfm">
 		<input type="hidden" name="partID" value="#partID#">
 		<input type="hidden" name="action">
@@ -109,12 +110,12 @@
 					#getPartAttrSelect('u',attribute_type,attribute_units,part_attribute_id)#
 				</td>
 				<td>
-					<input type="text" name="determined_date_#part_attribute_id#" value="#dateformat(determined_date,"yyyy-mm-dd")#">
+					<input type="datetime" name="determined_date_#part_attribute_id#" value="#dateformat(determined_date,"yyyy-mm-dd")#">
 				</td>
 				<td>
 					<input type="hidden" name="determined_by_agent_id_#part_attribute_id#">
 					<input type="text" name="determined_agent_#part_attribute_id#" id="determined_agent_#part_attribute_id#"
-						onchange="getAgent('determined_by_agent_id_#part_attribute_id#',this.id,'f',this.value);" 
+						onchange="getAgent('determined_by_agent_id_#part_attribute_id#',this.id,'f',this.value);"
 						onkeypress="return noenter(event);"
 						value="#agent_name#">
 					</td>
@@ -129,7 +130,7 @@
 		</cfloop>
 		<input type="hidden" name="patidlist" value="#valuelist(pAtt.part_attribute_id)#">
 		<cfset np=np-1>
-		<input type="hidden" name="numPAtt" value="#np#">	
+		<input type="hidden" name="numPAtt" value="#np#">
 		<tr>
 			<td colspan="6" align="center">
 				<input type="button" onclick="f.action.value='saveEdit';submit();" value="Save Edits" class="savBtn">
@@ -168,7 +169,7 @@
 		</tr>
 	</table>
 	</form>
-</cfoutput>	
+</cfoutput>
 </cfif>
 <cfif action is "insPart">
 	<cfif not isdefined("attribute_value_new")>
@@ -194,7 +195,7 @@
 			'#determined_date_new#',
 			'#determined_id_new#',
 			'#attribute_remark_new#'
-		)	
+		)
 	</cfquery>
 	<cflocation url="partAtts.cfm?partID=#partID#" addtoken="false">
 </cfif>
