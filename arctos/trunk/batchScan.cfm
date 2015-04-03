@@ -5,7 +5,7 @@ jQuery(document).ready(function() {
 	$("#parent_barcode").focus();
 
 	$(document).on("change", '[id^="barcode_"]', function(){
-		console.log($this.val();)
+		console.log($this.val());
 		});
 
 });
