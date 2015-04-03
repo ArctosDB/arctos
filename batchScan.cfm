@@ -3,17 +3,11 @@
 <script>
 jQuery(document).ready(function() {
 	$("#parent_barcode").focus();
-
-	$(document).on("change", '[id^="barcode_"]', function(){
-		var i =  this.id;
-		console.log(i);
-		console.log(this.val());
-		});
-
 });
 </script>
 <cfif action is "nothing">
 <cfoutput>
+	<cfparam name="mode" default="tab">
 	<cfset numberFolders = 100>
 	<cfset colCount=5>
 	<form name="pd" method="post" action="batchScan.cfm">
@@ -33,7 +27,8 @@ jQuery(document).ready(function() {
 		<hr>
 
 		<label for="sheets">Child Barcodes</label>
-		<cfset numCols="3">
+		<cfif mode is "tab">
+			<cfset numCols="3">
 			<div style="border:1px solid green; padding:10px;" id="sheets">
 				<table>
 					<cfset c=1>
@@ -53,10 +48,9 @@ jQuery(document).ready(function() {
 					</cfloop>
 				</table>
 			</div>
-		</td>
-
-	</tr>
-</table>
+		<cfelse>
+			<textarea id="childscans" name="childscans" class="hugetextarea">
+		</cfif>
 </form>
 </cfoutput>
 </cfif>
