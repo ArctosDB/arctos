@@ -50,7 +50,7 @@ jQuery(document).ready(function() {
 				</table>
 			</div>
 		<cfelse>
-			<a href="batchScan.cfm?mode=csv">Go TAB</a>
+			<a href="batchScan.cfm?mode=tab">Go TAB</a>
 			<textarea id="childscans" name="childscans" class="hugetextarea" placeholder="scan comma-delimited list here"></textarea>
 		</cfif>
 </form>
@@ -78,8 +78,15 @@ jQuery(document).ready(function() {
 					<th>GUID</th>
 					<th>Status</th>
 				</tr>
-				<cfloop from="1" to ="#numberFolders#" index="i">
+				<cfif mode is "csv">
+					<cfloop from="1" to="#listlen(childscans)#" INDEX="I">
+					<cfset thisBarcode=i>
+
+				<cfelseif mode is "tab">
+					<cfloop from="1" to ="#numberFolders#" index="i">
 					<cfset thisBarcode=evaluate("barcode_" & i)>
+				</cfif>
+
 					<cfif len(thisBarcode) gt 0>
 						<cfset isDup=true>
 						<cfif not listfind(barcodescanlist,thisBarcode)>
