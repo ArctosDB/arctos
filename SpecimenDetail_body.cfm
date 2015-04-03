@@ -967,7 +967,7 @@
 										<td colspan="6">
 											<cfloop query="patt">
 												<div style="margin-left:1em;" class="detailCellSmall">
-													<table border id="patbl#mPart.collection_object_id#">
+													<table border id="patbl#mPart.part_id#">
 														<tr>
 															<th>
 																Attribute
