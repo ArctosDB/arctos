@@ -968,41 +968,39 @@
 										<td colspan="6">
 											<table border id="patbl#mPart.part_id#" class="detailCellSmall sortable">
 												<tr>
-															<th>
-																Attribute
-															</th>
-														</tr>
-											<cfloop query="patt">
-												<tr>
-													<td>
-														#attribute_type#
-													</td>
+													<th>
+														Attribute
+													</th>
+													<th>
+														Value
+													</th>
+													<th>
+														Date
+													</th>
+													<th>
+														Dtr.
+													</th>
+													<th>
+														Rmk.
+													</th>
 												</tr>
-												<!---
-												<div style="margin-left:1em;" class="detailCellSmall">
-													---->
-
-
-													<strong></strong>=
-													<cfif not(oneOfUs) and attribute_type is "location" and one.encumbranceDetail contains "mask part attribute location">
-														masked
-													<cfelse>
-														<strong>#attribute_value#</strong>
-														<cfif len(attribute_units) gt 0>
-														 	<strong>#attribute_units#</strong>
-														</cfif>
-														<cfif len(determined_date) gt 0>
-														 	determined date=<strong>#dateformat(determined_date,'yyyy-mm-dd')#</strong>
-														</cfif>
-														<cfif len(agent_name) gt 0>
-														 	determined by=<strong>#agent_name#</strong>
-														</cfif>
-														<cfif len(attribute_remark) gt 0>
-														 	remark=<strong>#attribute_remark#</strong>
-														</cfif>
-													</cfif>
-												</div>
-											</cfloop>
+												<cfloop query="patt">
+													<tr>
+														<td>
+															#attribute_type#
+														</td>
+														<td>
+															<cfif not(oneOfUs) and attribute_type is "location" and one.encumbranceDetail contains "mask part attribute location">
+																masked
+															<cfelse>
+																#attribute_value# <cfif len(attribute_units) gt 0>#attribute_units#</cfif>
+															</cfif>
+														</td>
+														<td>#dateformat(determined_date,'yyyy-mm-dd')#</td>
+														<td>#agent_name#</td>
+														<td>#attribute_remark#</td>
+													</tr>
+												</cfloop>
 											</table>
 										</td>
 									</tr>
