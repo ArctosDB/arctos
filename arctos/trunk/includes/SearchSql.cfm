@@ -939,6 +939,10 @@
 	<cfset guidList=replace(guidList,chr(13),',','all')>
 	<cfset guidList=replace(guidList,chr(9),',','all')>
 	<cfset guidList=replace(guidList,",,",',','all')>
+
+	<cfoutput>
+		len guidlist: #listlen(guidList,chr(39))#
+	</cfoutput>
 	<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.guid)  IN (#ucase(listqualify(guidList,chr(39)))#) ">
 	<cfset mapurl = "#mapurl#&guid=#guid#">
 </cfif>
