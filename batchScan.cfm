@@ -12,6 +12,7 @@ jQuery(document).ready(function() {
 	<cfset colCount=5>
 	<form name="pd" method="post" action="batchScan.cfm">
 		<input type="hidden" name="action" value="save">
+		<input type="hidden" name="mode" value="#mode#">
 		<input type="hidden" name="numberFolders" value="#numberFolders#">
 		<label for="parent_barcode">Parent Barcode</label>
 		<input type="text" name="parent_barcode" id="parent_barcode" size="20" class="reqdClr">
