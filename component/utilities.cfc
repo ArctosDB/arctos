@@ -14,11 +14,11 @@
 </cffunction>
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
-	<!----- 
+	<!-----
 		START: stuff in this block is always checked; this is called at onRequestStart
 		Performance is important here; keep it clean and minimal
 	 ------>
-	 <!--- 
+	 <!---
 	 	these seem to be malicious 99% of the time, but legit traffic often enough that blacklisting them
 	 	isn't a great idea, so just ignore
 	 ----->
@@ -44,7 +44,7 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	
+
 	<cfif isdefined("cgi.HTTP_REFERER") and cgi.HTTP_REFERER contains "/bash">
 		<cfset bl_reason='HTTP_REFERER contains /bash'>
 		<cfinclude template="/errors/autoblacklist.cfm">
@@ -71,9 +71,9 @@
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfabort>
 	</cfif>
-	
+
 	<!----- END: stuff in this block is always checked; this is called at onRequestStart ------>
-	<!----- 
+	<!-----
 		START: stuff in this block is only checked if there's an error
 		Performance is unimportant here; this is going to end with an error
 	 ------>
@@ -93,8 +93,8 @@
 			<cfset x="">
 			<cfset x=x & ",@@version">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
-			<cfset x=x & ",backup,backend,blog,board,backup-db,backup-scheduler">		
-			<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,calendar,config,client,cube">
+			<cfset x=x & ",backup,backend,blog,board,backup-db,backup-scheduler">
+			<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,/cgi-sys,calendar,config,client,cube">
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor">
@@ -114,8 +114,8 @@
 			<cfset x=x & ",verify-tldnotify,version">
 			<cfset x=x & ",wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content">
 			<cfset x=x & ",zboard">
-			
-		
+
+
 			<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
 				<cfif listfindnocase(x,i)>
 					<cfset bl_reason='URL contains #i#'>
@@ -123,11 +123,11 @@
 					<cfabort>
 				</cfif>
 			</cfloop>
-			
+
 			<!---- For the Admin folder, which is linked from email, be a little paranoid/cautious
-				and only get obviously-malicious activity			
+				and only get obviously-malicious activity
 				Common requests:
-					/errors/forbidden.cfm?ref=/Admin/ 
+					/errors/forbidden.cfm?ref=/Admin/
 						so tread a bit lighter; ignore variables part, look only at page/template request
 			--->
 			<cfset x="admin">
@@ -225,16 +225,16 @@
 	<!---------------------------------------------------------------------------------------------->
 	<cffunction name="CSVToQuery" access="remote" returntype="query" output="false" hint="Converts the given CSV string to a query.">
 		<!--- from http://www.bennadel.com/blog/501-parsing-csv-values-in-to-a-coldfusion-query.htm ---->
-		
+
 		<cfargument name="CSV" type="string" required="true" hint="This is the CSV string that will be manipulated."/>
-		
-		
-		
+
+
+
  		<cfargument name="Delimiter" type="string" required="false" default="," hint="This is the delimiter that will separate the fields within the CSV value."/>
  		<cfargument name="Qualifier" type="string" required="false" default="""" hint="This is the qualifier that will wrap around fields that have special characters embeded."/>
  		<cfargument name="FirstRowIsHeadings" type="boolean" required="false" default="true" hint="Set to false if the heading row is absent"/>
-		
-		
+
+
 
 		<cfset var LOCAL = StructNew() />
 		<cfset ARGUMENTS.Delimiter = Left( ARGUMENTS.Delimiter, 1 ) />
