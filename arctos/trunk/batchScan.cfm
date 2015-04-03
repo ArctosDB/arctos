@@ -3,6 +3,11 @@
 <script>
 jQuery(document).ready(function() {
 	$("#parent_barcode").focus();
+
+	$(document).on("change", '[id^="barcode_"]', function(){
+		console.log($this.val();)
+		});
+
 });
 </script>
 <cfif action is "nothing">
@@ -14,19 +19,19 @@ jQuery(document).ready(function() {
 		<input type="hidden" name="numberFolders" value="#numberFolders#">
 		<label for="parent_barcode">Parent Barcode</label>
 		<input type="text" name="parent_barcode" id="parent_barcode" size="20" class="reqdClr">
-		<input type="reset" 
+		<input type="reset"
 			class="clrBtn"
 			value="Clear Form"
 			tabindex="-1">
-		&nbsp;&nbsp;&nbsp;	
-		<input type="submit" 
+		&nbsp;&nbsp;&nbsp;
+		<input type="submit"
 			class="savBtn"
 			value="Fill in the table below, then click here to Save"
 			tabindex="-1">
 		<hr>
-					
-		<label for="sheets">Child Barcodes</label>		
-		<cfset numCols="3">		
+
+		<label for="sheets">Child Barcodes</label>
+		<cfset numCols="3">
 			<div style="border:1px solid green; padding:10px;" id="sheets">
 				<table>
 					<cfset c=1>
@@ -35,19 +40,19 @@ jQuery(document).ready(function() {
 							<tr>
 						</cfif>
 							<td>
-								<input type="text" name="barcode_#i#" id="barcode_#i#" size="20" class="reqdClr">&nbsp;&nbsp;	
+								<input type="text" name="barcode_#i#" id="barcode_#i#" size="20" class="reqdClr">&nbsp;&nbsp;
 							</td>
 						<cfset c=c+1>
 						<cfif c is colCount+1>
 							</tr>
 							<cfset c=1>
 						</cfif>
-																				
-					</cfloop>					
+
+					</cfloop>
 				</table>
 			</div>
 		</td>
-		
+
 	</tr>
 </table>
 </form>
@@ -86,24 +91,24 @@ jQuery(document).ready(function() {
 						<cfset barcodescanlist=listappend(barcodescanlist,thisBarcode)>
 						<cfset numberOfBarcodesScanned=numberOfBarcodesScanned+1>
 						<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select 
+							select
 								checkContainerMovement('#parent_barcode#','#thisBarcode#') cmvt
 			 				from
 								dual
 						</cfquery>
 						<cfquery name="guid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select 
-								guid 
-							from 
+							select
+								guid
+							from
 								flat,
 								specimen_part,
 								coll_obj_cont_hist,
 								container part,
-								container 
+								container
 							where
-								flat.collection_object_id=specimen_part.derived_from_cat_item and 
+								flat.collection_object_id=specimen_part.derived_from_cat_item and
 								specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
-								coll_obj_cont_hist.container_id=part.container_id and 
+								coll_obj_cont_hist.container_id=part.container_id and
 								part.parent_container_id=container.container_id and
 								container.barcode='#thisBarcode#'
 						</cfquery>
@@ -117,13 +122,13 @@ jQuery(document).ready(function() {
 						<cfif chk.cmvt is 'pass'>
 							<cfset pf=listappend(pf,"p")>
 							<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-								update 
-									container 
-								set 
+								update
+									container
+								set
 									parent_container_id=(select container_id from container where barcode='#parent_barcode#')
 								where
 									barcode='#thisBarcode#'
-							</cfquery>	
+							</cfquery>
 						<cfelse>
 							<cfset pf=listappend(pf,"f")>
 							<cftransaction action="rollback" />
