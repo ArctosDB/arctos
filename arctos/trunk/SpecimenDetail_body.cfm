@@ -976,7 +976,7 @@
 														 	<strong>#attribute_units#</strong>
 														</cfif>
 														<cfif len(determined_date) gt 0>
-														 	determined date=<strong>#determined_date#</strong>
+														 	determined date=<strong>#dateformat(determined_date,'yyyy-mm-dd')#</strong>
 														</cfif>
 														<cfif len(agent_name) gt 0>
 														 	determined by=<strong>#agent_name#</strong>
