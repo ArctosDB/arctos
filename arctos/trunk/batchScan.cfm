@@ -25,11 +25,16 @@ jQuery(document).ready(function() {
 			class="savBtn"
 			value="Fill in the table below, then click here to Save"
 			tabindex="-1">
+		<cfif mode is "tab">
+			<a href="batchScan.cfm?mode=csv">Go CSV</a>
+		<cfelse>
+			<a href="batchScan.cfm?mode=tab">Go TAB</a>
+		</cfif>
+		</cfif>
 		<hr>
 
 		<label for="sheets">Child Barcodes</label>
 		<cfif mode is "tab">
-			<a href="batchScan.cfm?mode=csv">Go CSV</a>
 			<cfset numCols="3">
 			<div style="border:1px solid green; padding:10px;" id="sheets">
 				<table>
@@ -51,7 +56,6 @@ jQuery(document).ready(function() {
 				</table>
 			</div>
 		<cfelse>
-			<a href="batchScan.cfm?mode=tab">Go TAB</a>
 			<textarea id="childscans" name="childscans" class="hugetextarea" placeholder="scan comma-delimited list here"></textarea>
 		</cfif>
 </form>
