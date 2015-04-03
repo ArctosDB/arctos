@@ -43,7 +43,7 @@ jQuery(document).ready(function() {
 							<tr>
 						</cfif>
 							<td>
-								<input type="text" name="barcode_#i#" id="barcode_#i#" size="20" class="reqdClr">&nbsp;&nbsp;
+								<input type="text" name="barcode_#i#" id="barcode_#i#" size="20" class="" placeholder="scan barcode">&nbsp;&nbsp;
 							</td>
 						<cfset c=c+1>
 						<cfif c is colCount+1>
