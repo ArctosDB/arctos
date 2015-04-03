@@ -192,7 +192,7 @@
 		locality_name,
 		higher_geog,
 		SOURCE_AUTHORITY
-	from 
+	from
 		rawevent
 	group by
 		SPECIMEN_EVENT_ID,
@@ -348,7 +348,7 @@
 										<div style="font-size:.8em;color:gray;">
 											#one.full_taxon_name#
 										</div>
-									</cfif>	
+									</cfif>
 									<cfif len(short_citation) gt 0>
 										sensu <a href="/publication/#publication_id#" target="_mainFrame">
 												#short_citation#
@@ -701,11 +701,11 @@
 					</div>
 				</div>
 			</cfif>
-			
-			
-			
-			
-			
+
+
+
+
+
 			<cfquery name="isProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				SELECT project_name, project.project_id project_id FROM
 				project, project_trans
@@ -729,21 +729,21 @@
 					project_name, project.project_id
 		</cfquery>
 		<cfquery name="isLoanedItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT 
-				loan_item.collection_object_id 
+			SELECT
+				loan_item.collection_object_id
 			FROM
 				loan_item,
 				specimen_part
-			WHERE 
+			WHERE
 				loan_item.collection_object_id=specimen_part.collection_object_id AND
 				specimen_part.derived_from_cat_item=#one.collection_object_id#
 			UNION
-			SELECT 
-				loan_item.collection_object_id 
+			SELECT
+				loan_item.collection_object_id
 			FROM
 				loan_item
-			WHERE 
-				loan_item.collection_object_id=#one.collection_object_id# 
+			WHERE
+				loan_item.collection_object_id=#one.collection_object_id#
 		</cfquery>
 		</td>
 		<td valign="top" width="50%">
@@ -951,6 +951,9 @@
 									where
 										attribute_type is not null and
 										part_id=#part_id#
+									order by
+										attribute_type,
+										determined_date
 									group by
 										attribute_type,
 										attribute_value,
@@ -1381,7 +1384,7 @@
 					</span>
 				</CFIF>
 			</cfif>
-		</div>		
+		</div>
 		<div class="detailBlock">
             <span class="detailData">
 				<div class="thumbs">
@@ -1417,7 +1420,7 @@
 								   	<a href="/exit.cfm?target=#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
 							   			<img src="#puri#" alt="#alt#" class="theThumb">
 									</a>
-								</audio> 
+								</audio>
 								<br><a href="/exit.cfm?target=#findIDs.media_uri#">download MP3</a>
 							<cfelse>
 								<a href="/exit.cfm?target=#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
@@ -1437,7 +1440,7 @@
 	        </span>
 		</div>
 		<cftry>
-			<!--- this thing is dicey sometimes.... ---->		
+			<!--- this thing is dicey sometimes.... ---->
 			<cfquery name="barcode"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select p.barcode from
 				container c,

@@ -646,25 +646,6 @@
    	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_object_id not in (select
 		collection_object_id from attributes where attribute_type='image confirmed' and attribute_value='yes')" >
 </cfif>
-
-
-<cfif isdefined("cntest") and len(trim(cntest)) gt 0>
-	<cfset mapurl = "#mapurl#&cntest=#cntest#">
-	<cfif cntest contains "," or cntest contains " " or cntest contains "#chr(9)#" or cntest contains "#chr(10)#" or cntest contains "#chr(13)#">
-		<cfset l=ListChangeDelims(cntest,',','#chr(9)##chr(10)##chr(13)#, ;')>
-
-		<cfoutput>
-			count: #listlen(l)#
-		</cfoutput>
-		<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.cat_num) IN (#ucase(listqualify(l,chr(39)))#) ">
-
-	<cfelse>
-	fail<cfabort>
-	</cfif>
-
-</cfif>
-
-
 <cfif isdefined("catnum") and len(trim(catnum)) gt 0>
 	<cfset mapurl = "#mapurl#&catnum=#catnum#">
 	<cfif left(catnum,1) is "=">
@@ -939,10 +920,6 @@
 	<cfset guidList=replace(guidList,chr(13),',','all')>
 	<cfset guidList=replace(guidList,chr(9),',','all')>
 	<cfset guidList=replace(guidList,",,",',','all')>
-
-	<cfoutput>
-		len guidlist: #listlen(guidList,chr(39))#
-	</cfoutput>
 	<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.guid)  IN (#ucase(listqualify(guidList,chr(39)))#) ">
 	<cfset mapurl = "#mapurl#&guid=#guid#">
 </cfif>
