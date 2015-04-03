@@ -59,6 +59,15 @@ jQuery(document).ready(function() {
 <!------------------------------------------------------------------------------->
 <cfif action is "save">
 	<cfoutput>
+		<cfif mode is "csv">
+			<cfset bclist=childscans>
+		<cfelse>
+			<cfset bclist=''>
+			<cfloop from="1" to ="#numberFolders#" index="i">
+				<cfset thisBarcode=evaluate("barcode_" & i)>
+				<cfset bclist=listappend(bclist,thisBarcode)>
+			</cfloop>
+		</cfif>
 		<p>
 			Scans are being processed. If you don't see a success message and a link at the bottom of this page, it probably didn't work.
 		</p>
@@ -78,14 +87,8 @@ jQuery(document).ready(function() {
 					<th>GUID</th>
 					<th>Status</th>
 				</tr>
-				<cfif mode is "csv">
-					<cfloop from="1" to="#listlen(childscans)#" INDEX="I">
+				<cfloop from="1" to="#listlen(bclist)#" INDEX="I">
 					<cfset thisBarcode=i>
-
-				<cfelseif mode is "tab">
-					<cfloop from="1" to ="#numberFolders#" index="i">
-					<cfset thisBarcode=evaluate("barcode_" & i)>
-				</cfif>
 
 					<cfif len(thisBarcode) gt 0>
 						<cfset isDup=true>
