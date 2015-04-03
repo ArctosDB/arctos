@@ -967,6 +967,13 @@
 										<td colspan="6">
 											<cfloop query="patt">
 												<div style="margin-left:1em;" class="detailCellSmall">
+													<table border id="patbl#mPart.collection_object_id#">
+														<tr>
+															<th>
+																Attribute
+															</th>
+														</tr>
+													</table>
 													<strong>#attribute_type#</strong>=
 													<cfif not(oneOfUs) and attribute_type is "location" and one.encumbranceDetail contains "mask part attribute location">
 														masked
