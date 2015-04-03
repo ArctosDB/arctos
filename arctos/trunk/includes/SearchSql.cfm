@@ -72,27 +72,27 @@
 	<cfelseif taxon_scope is "anyID_is">
 		<!--- any identification IS ---->
 		<cfset scientific_name=taxon_term>
-		<cfset taxon_term=''>	
+		<cfset taxon_term=''>
 		<cfset scientific_name_scope = "allID">
 		<cfset scientific_name_match_type="exact">
-		
-		
+
+
 	<cfelseif taxon_scope is "anyID_list">
 		<!--- any identification IN LIST ---->
 		<cfset scientific_name_scope = "allID">
 		<cfset scientific_name_match_type="inlist">
 		cfset scientific_name=taxon_term>
-		<cfset taxon_term=''>	
-		
+		<cfset taxon_term=''>
+
 	<cfelseif taxon_scope is "anyID_not">
 		<!--- any identification IS NOT ---->
 		<cfset scientific_name_scope = "allID">
 		<cfset scientific_name_match_type="notcontains">
 		cfset scientific_name=taxon_term>
-		<cfset taxon_term=''>	
-		
-		
-		
+		<cfset taxon_term=''>
+
+
+
 	<cfelseif taxon_scope is "currentTaxonomy">
 		<!--- collection taxonomy LIKE ---->
 		<cfset taxon_name=taxon_term>
@@ -218,7 +218,7 @@
 	<cfset mapurl = "#mapurl#&scientific_name=#URLEncodedFormat(scientific_name)#">
 	<cfset mapurl = "#mapurl#&scientific_name_scope=#scientific_name_scope#">
 	<cfset mapurl = "#mapurl#&scientific_name_match_type=#scientific_name_match_type#">
-	
+
 	<cfif scientific_name_scope is "currentID">
 		<cfif scientific_name_match_type is "exact">
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) = '#ucase(escapeQuotes(scientific_name))#'">
@@ -255,7 +255,7 @@
 
 <cfif isdefined("taxon_name") AND len(taxon_name) gt 0>
 	<!---- version: lots
-		approach: 
+		approach:
 			taxon term: very broad net
 			family, etc: collection's stuff
 		------------>
@@ -273,15 +273,15 @@
 	<cfset currTaxIDs = currTaxIDs & " LIKE '#ucase(escapeQuotes(taxon_name))#%' ">
 	<cfset relTaxIDs = relTaxIDs & " LIKE '#ucase(escapeQuotes(taxon_name))#%' ">
 	<cfset invRelTaxIDs = invRelTaxIDs & " LIKE '#ucase(escapeQuotes(taxon_name))#%' ">
-	
+
 	<cfset combinedTaxIDs=currTaxIDs & " union " & relTaxIDs & " union " & invRelTaxIDs>
-	
-	
+
+
 	<cfset basQual = basQual & " and identification_taxonomy.taxon_name_id in ( #combinedTaxIDs# )">
-	
-	
-	 		
-	<!----	
+
+
+
+	<!----
 		if we have a taxon_term, it may be accompanied by any of the following:
 			taxon_source
 				collection_preferred (DEFAULT) - join to collection source
@@ -294,17 +294,17 @@
 				currentID: identification.accepted_id_fg filter
 				allID: just join to identification
 			taxon_term_match_type
-				contains (default) 
+				contains (default)
 				exact
 				notcontains
 				inlist
 		also do whatever we're doing for related taxa
-		
-		
-		
+
+
+
 		IN seems to perform just as well, and is nice to write SQL to, so.....
-		
-		
+
+
 	<cfif not isdefined("taxon_source") OR len(taxon_source) is 0>
 		<cfset taxon_source = "collection_preferred">
 	</cfif>
@@ -317,13 +317,13 @@
 	<cfif not isdefined("taxon_term_match_type") OR len(taxon_term_match_type) is 0>
 		<cfset taxon_term_match_type = "contains">
 	</cfif>
-	
+
 	<cfset mapurl = "#mapurl#&taxon_name=#taxon_name#">
 	<cfset mapurl = "#mapurl#&taxon_source=#taxon_source#">
 	<cfset mapurl = "#mapurl#&taxon_rank=#taxon_rank#">
 	<cfset mapurl = "#mapurl#&taxon_term_scope=#taxon_term_scope#">
 	<cfset mapurl = "#mapurl#&taxon_term_match_type=#taxon_term_match_type#">
-	
+
 	<cfif basJoin does not contain " identification ">
 		<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
 	</cfif>
@@ -337,7 +337,7 @@
 	<cfset currTaxIDs=" select taxon_name_id from taxon_term where upper(taxon_term.term) ">
 	<cfset relTaxIDs=" select related_taxon_name_id from taxon_relations,taxon_term where taxon_relations.taxon_name_id=taxon_term.taxon_name_id and upper(taxon_term.term) ">
 	<cfset invRelTaxIDs=" select taxon_term.taxon_name_id from taxon_relations,taxon_term where taxon_relations.related_taxon_name_id=taxon_term.taxon_name_id and upper(taxon_term.term) ">
-	
+
 	<cfif taxon_term_match_type is "contains">
 		<cfset currTaxIDs = currTaxIDs & " LIKE '%#ucase(escapeQuotes(taxon_name))#%' ">
 		<cfset relTaxIDs = relTaxIDs & " LIKE '%#ucase(escapeQuotes(taxon_name))#%' ">
@@ -345,7 +345,7 @@
 	<cfelseif taxon_term_match_type is "exact">
 		<cfset currTaxIDs = currTaxIDs & " = '#ucase(escapeQuotes(taxon_name))#' ">
 		<cfset relTaxIDs = relTaxIDs & " = '#ucase(escapeQuotes(taxon_name))#' ">
-		<cfset invRelTaxIDs = invRelTaxIDs & " = '#ucase(escapeQuotes(taxon_name))#' ">		
+		<cfset invRelTaxIDs = invRelTaxIDs & " = '#ucase(escapeQuotes(taxon_name))#' ">
 	<cfelseif taxon_term_match_type is "notcontains">
 		<cfset currTaxIDs = currTaxIDs & " NOT LIKE '%#ucase(escapeQuotes(taxon_name))#%' ">
 	<cfelseif taxon_term_match_type is "inlist">
@@ -353,7 +353,7 @@
 		<cfset relTaxIDs = relTaxIDs & " in ( #listqualify(ucase(taxon_name),chr(39))# ) ">
 		<cfset invRelTaxIDs = invRelTaxIDs & " in ( #listqualify(ucase(taxon_name),chr(39))# ) ">
 	 </cfif>
-	 
+
 	<cfif taxon_source is "all">
 		<!--- do nothing --->
 	<cfelseif taxon_source is "collection_preferred">
@@ -363,30 +363,30 @@
 	 	<cfset relTaxIDs=relTaxIDs & " and taxon_term.source = '#taxon_source#' ">
 	 	<cfset invRelTaxIDs=invRelTaxIDs & " and taxon_term.source = '#taxon_source#' ">
 	 </cfif>
-	 
+
 	 <cfif len(taxon_rank) gt 0>
 		<cfset currTaxIDs = currTaxIDs & " AND taxon_term.term_type = '#taxon_rank#' ">
 		<cfset relTaxIDs = relTaxIDs & " AND taxon_term.term_type = '#taxon_rank#' ">
 		<cfset invRelTaxIDs = invRelTaxIDs & " AND taxon_term.term_type = '#taxon_rank#' ">
 	</cfif>
-		
-	
-	
-	
+
+
+
+
 	<cfif taxon_term_match_type is "notcontains">
 		<cfset combinedTaxIDs=currTaxIDs>
 	<cfelse>
 		<cfset combinedTaxIDs=currTaxIDs & " union " & relTaxIDs & " union " & invRelTaxIDs>
 	</cfif>
-	
-	
+
+
 	<cfset combinedTaxIDs=currTaxIDs>
-	
-	
+
+
 	<cfset basQual = basQual & " and identification_taxonomy.taxon_name_id in ( #combinedTaxIDs# )">
-	
-	
-	
+
+
+
 <!----
 
 
@@ -397,35 +397,35 @@
 			<cfset basQual = " #basQual# AND taxon_term.source = collection.preferred_taxonomy_source ">
 		</cfif>
 	</cfif>
-	
-	
-	
-		 
-    union 
+
+
+
+
+    union
      LIKE '%MARMOTINI%'
     UNION
-		
+
 	<cfif basJoin does not contain " taxon_name ">
 		<cfset basJoin = " #basJoin# inner join taxon_name on (identification_taxonomy.taxon_name_id = taxon_name.taxon_name_id)">
 	</cfif>
 	<cfif basJoin does not contain " taxon_term ">
 		<cfset basJoin = " #basJoin# inner join taxon_term on (taxon_name.taxon_name_id = taxon_term.taxon_name_id)">
 	</cfif>
-	
-	---->
-	
-	
-	
-	
-	
-	<!--- criteria and qualifications --->
-	
-	
-	
 
-	
+	---->
+
+
+
+
+
+	<!--- criteria and qualifications --->
+
+
+
+
+
 	<!----------
-	
+
 		<cfelseif taxon_source is "all">
 		<!--- do nothing --->
 	<cfelse>
@@ -434,7 +434,7 @@
 	<cfif len(taxon_rank) gt 0>
 		<cfset basQual = " #basQual# AND taxon_term.term_type = '#taxon_rank#' ">
 	</cfif>
-	
+
 	<!--- always hit relationships ---->
 	<cfif basJoin does not contain " taxon_relations ">
 		<cfset basJoin = " #basJoin# left outer join taxon_relations on (taxon_name.taxon_name_id = taxon_relations.taxon_name_id)">
@@ -442,11 +442,11 @@
 	<cfset basJoin = " #basJoin# left outer JOIN taxon_term relatedtaxonomy ON (taxon_relations.RELATED_TAXON_NAME_ID = taxon_term.taxon_name_id)">
 	<cfset basJoin = " #basJoin# left outer JOIN taxon_relations invrelations ON (taxon_name.taxon_name_id = invrelations.RELATED_TAXON_NAME_ID)">
 	<cfset basJoin = " #basJoin# left outer JOIN taxon_term invrelatedtaxonomy ON (invrelations.taxon_name_id = invrelatedtaxonomy.taxon_name_id)">
-		
+
 	<cfif taxon_term_match_type is "contains">
 		<cfset basQual = " #basQual# AND (
 			upper(taxon_term.term) LIKE '%#ucase(escapeQuotes(taxon_name))#%' )">
-			
+
 			<!---- OR
 			upper(relatedtaxonomy.term) LIKE '%#ucase(escapeQuotes(taxon_name))#%' OR
 			upper(invrelatedtaxonomy.term) LIKE '%#ucase(escapeQuotes(taxon_name))#%'
@@ -469,23 +469,23 @@
 			upper(relatedtaxonomy.term)  in (#listqualify(ucase(taxon_name),chr(39))#) OR
 			upper(invrelatedtaxonomy.term)  in (#listqualify(ucase(taxon_name),chr(39))#---->
 	</cfif>
-	
-	---------->	
-		
-		
-	
-	
-	
-	
-	
-	
-	
-		
-		
-		
+
+	---------->
+
+
+
+
+
+
+
+
+
+
+
+
 	<!--------------
-		
-		
+
+
 		<cfif taxon_term_match_type is "contains">
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'">
 		<cfelseif taxon_match_type is "exact">
@@ -496,7 +496,7 @@
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.scientific_name) in (#listqualify(ucase(taxon_term),chr(39))#)">
 
 		</cfif>
-		
+
 	<cfelseif taxon_scope is "anyID">
 		<!---- current or previous identifications ---->
 		<cfif basJoin does not contain " identification ">
@@ -534,13 +534,13 @@
 		<cfelseif taxon_match_type is "exact">
 			<cfset basQual = " #basQual# AND ( upper(taxon_term.term) = '#ucase(escapeQuotes(taxon_term))#'">
 		<cfelseif taxon_match_type is "notcontains">
-			<cfset basQual = " #basQual# AND ( upper(taxon_term.term) = '#ucase(escapeQuotes(taxon_term))#' 
+			<cfset basQual = " #basQual# AND ( upper(taxon_term.term) = '#ucase(escapeQuotes(taxon_term))#'
 				OR upper(taxon_name.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%')">
 		<cfelseif taxon_match_type is "inlist">
 			<cfset basQual = " #basQual# AND (upper(taxon_term.term) in (#listqualify(ucase(taxon_term),chr(39))#) OR
 			upper(taxon_name.scientific_name) in (#listqualify(ucase(taxon_term),chr(39))#)">
 		</cfif>
-		
+
 	<cfelseif taxon_scope is "anyID_is">
 		<cfif basJoin does not contain " identification ">
 			<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
@@ -565,7 +565,7 @@
 		</cfif>
 		<cfif basJoin does not contain " taxon_term_aggregate ">
 			<cfset basJoin = " #basJoin# inner join taxon_term_aggregate on (identification_taxonomy.taxon_name_id = taxon_term_aggregate.taxon_name_id)">
-		</cfif>	
+		</cfif>
 		<cfset basQual = " #basQual# AND (
 			upper(taxon_term_aggregate.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%' or
 			upper(taxon_term_aggregate.terms) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
@@ -579,7 +579,7 @@
 		</cfif>
 		<cfif basJoin does not contain " taxon_term_aggregate ">
 			<cfset basJoin = " #basJoin# inner join taxon_term_aggregate on (identification_taxonomy.taxon_name_id = taxon_term_aggregate.taxon_name_id)">
-		</cfif>	
+		</cfif>
 		<cfif basJoin does not contain " taxon_relations ">
 			<cfset basJoin = " #basJoin# left outer join taxon_relations on (taxon_term_aggregate.taxon_name_id = taxon_relations.taxon_name_id)">
 		</cfif>
@@ -596,8 +596,8 @@
 			upper(invrelatedtaxonomy.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%' OR
 			upper(identification.scientific_name) LIKE '%#ucase(escapeQuotes(taxon_term))#%'
 		)">
-		
-		
+
+
 	<cfelseif taxon_scope is "common">
 		<cfif basJoin does not contain " identification ">
 			<cfset basJoin = " #basJoin# inner join identification on (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
@@ -607,7 +607,7 @@
 		</cfif>
 		<cfif basJoin does not contain " taxon_term_aggregate ">
 			<cfset basJoin = " #basJoin# inner join taxon_term_aggregate on (identification_taxonomy.taxon_name_id = taxon_term_aggregate.taxon_name_id)">
-		</cfif>	
+		</cfif>
 		<cfif basJoin does not contain " taxon_relations ">
 			<cfset basJoin = " #basJoin# left outer join taxon_relations on (taxon_term_aggregate.taxon_name_id = taxon_relations.taxon_name_id)">
 		</cfif>
@@ -618,10 +618,10 @@
 		<cfset basJoin = " #basJoin# left outer JOIN common_name ON (taxon_term_aggregate.taxon_name_id = common_name.taxon_name_id)">
 		<cfset basJoin = " #basJoin# left outer JOIN common_name relcommon_name ON (relatedtaxonomy.taxon_name_id = relcommon_name.taxon_name_id)">
 		<cfset basJoin = " #basJoin# left outer JOIN common_name invcommon_name ON (invrelatedtaxonomy.taxon_name_id = invcommon_name.taxon_name_id)">
-		
-		
-		
-		
+
+
+
+
 		<cfset basQual = " #basQual# AND (
 			upper(common_name.common_name) LIKE '%#ucase(taxon_term)#%' OR
 			upper(relcommon_name.common_name) LIKE '%#ucase(taxon_term)#%' OR
@@ -637,7 +637,7 @@
 	<cfelse>
 		not sure what to do with taxon_scope....<cfabort>
 	</cfif>
-	
+
 	----------->
 	------------->
 </cfif>
@@ -646,6 +646,24 @@
    	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_object_id not in (select
 		collection_object_id from attributes where attribute_type='image confirmed' and attribute_value='yes')" >
 </cfif>
+
+
+<cfif isdefined("cntest") and len(trim(cntest)) gt 0>
+	<cfset mapurl = "#mapurl#&cntest=#cntest#">
+	<cfif catnum contains "," or catnum contains " " or catnum contains "#chr(9)#" or catnum contains "#chr(10)#" or catnum contains "#chr(13)#">
+		<cfset l=ListChangeDelims(catnum,',','#chr(9)##chr(10)##chr(13)#, ;')>
+
+		<cfoutput>
+			count: #listlen(l)#
+		</cfoutput>
+		<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.cat_num) IN (#ucase(listqualify(l,chr(39)))#) ">
+
+
+	</cfif>
+
+</cfif>
+
+
 <cfif isdefined("catnum") and len(trim(catnum)) gt 0>
 	<cfset mapurl = "#mapurl#&catnum=#catnum#">
 	<cfif left(catnum,1) is "=">
@@ -653,9 +671,9 @@
 	<cfelseif catnum contains "," or catnum contains " " or catnum contains "#chr(9)#" or catnum contains "#chr(10)#" or catnum contains "#chr(13)#">
 		<cfset l=ListChangeDelims(catnum,',','#chr(9)##chr(10)##chr(13)#, ;')>
 		<cfset basQual = "#basQual#  AND upper(#session.flatTableName#.cat_num) IN (#ucase(listqualify(l,chr(39)))#) ">
-	<cfelseif 
-		listlen(catnum,'-') is 2 and 
-		isnumeric(listgetat(catnum,1,'-')) and 
+	<cfelseif
+		listlen(catnum,'-') is 2 and
+		isnumeric(listgetat(catnum,1,'-')) and
 		isnumeric(listgetat(catnum,2,'-')) and
 		compare(listgetat(catnum,1,'-'), numberformat(listgetat(catnum,1,'-'),0)) EQ 0 and
 		compare(listgetat(catnum,2,'-'), numberformat(listgetat(catnum,2,'-'),0)) EQ 0 and
@@ -675,7 +693,7 @@
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(catnum)#'" >
 	</cfif>
-	
+
 </cfif>
 <cfif isdefined("geology_attribute") AND len(geology_attribute) gt 0>
 	<cfset mapurl = "#mapurl#&geology_attribute=#geology_attribute#">
@@ -972,7 +990,7 @@
 	<cfset basQual = "#basQual#  AND to_char(parent_container.PARENT_INSTALL_DATE,'YYYY-MM-DD""T""HH24:MI:SS') <= '#end_pbcscan_date#'">
 	<cfset mapurl = "#mapurl#&beg_pbcscan_date=#beg_pbcscan_date#">
 </cfif>
-	
+
 <!----
 <cfif isdefined("session.ShowObservations") AND session.ShowObservations is false>
 	<cfset mapurl = "#mapurl#&ShowObservations=false">
@@ -1441,7 +1459,7 @@
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.accession) LIKE '%#ucase(accn_number)#%'">
 		</cfif>
 	</cfif>
-	
+
 </cfif>
 <cfif isdefined("accn_list") and len(accn_list) gt 0>
 	<cfset mapurl = "#mapurl#&accn_list=#accn_list#">
@@ -1638,8 +1656,8 @@
 	<cfelseif oidOper is "IS">
 		<cfset basQual = " #basQual# and otherIdSearch.id_references='self' and upper(otherIdSearch.display_value) = '#ucase(OIDNum)#'">
 	<cfelse>
-		<!---- 
-			list 
+		<!----
+			list
 				* remove spaces
 				* change semicolon to comma
 				* change chr(10) to comma
@@ -1720,7 +1738,7 @@
 		<!---got min, not max - set max to some improbably large number----->
 		<cfset max_max_error=999999999999999999999999999>
 	<cfelseif (isdefined("max_max_error") AND len(max_max_error) gt 0) and ((not isdefined("min_max_error")) or len(min_max_error) eq 0)>
-		<!---got max , not min - set min to some 0---->		
+		<!---got max , not min - set min to some 0---->
 		<cfset min_max_error=0>
 	</cfif>
 	<cfif 	min_max_error contains "," or max_max_error contains ",">
@@ -1737,7 +1755,7 @@
 		<!-- return only records with coordinates BUT with no error ---->
 		<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat is not null and (#session.flatTableName#.COORDINATEUNCERTAINTYINMETERS is null OR #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS=0)">
 	<cfelse>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS 
+		<cfset basQual = " #basQual# AND #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS
 			> to_meters(#min_max_error#,'#max_error_units#') and #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS <= to_meters(#max_max_error#,'#max_error_units#')">
 	</cfif>
 </cfif>
@@ -1772,7 +1790,7 @@
 		<cfif sq_error is true>
 			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
 			<cfif NELong lt 0 and SWLong gt 0><!--- overlaps 180, need a pair of extra statements ----->
-				<cfset basQual = " #basQual# AND 
+				<cfset basQual = " #basQual# AND
 					(
 						(
 							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
@@ -1789,7 +1807,7 @@
 						)
 					)">
 			<cfelse><!--- longitude does not overlap 180 --->
-				<cfset basQual = " #basQual# AND 
+				<cfset basQual = " #basQual# AND
 					(
 						(
 							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
