@@ -965,16 +965,24 @@
 								<cfif patt.recordcount gt 0>
 									<tr>
 										<td colspan="6">
-											<cfloop query="patt">
-												<div style="margin-left:1em;" class="detailCellSmall">
-													<table border id="patbl#mPart.part_id#">
-														<tr>
+											<table border id="patbl#mPart.part_id#" class="detailCellSmall">
+												<tr>
 															<th>
 																Attribute
 															</th>
 														</tr>
-													</table>
-													<strong>#attribute_type#</strong>=
+											<cfloop query="patt">
+												<tr>
+													<td>
+														#attribute_type#
+													</td>
+												</tr>
+												<!---
+												<div style="margin-left:1em;" class="detailCellSmall">
+													---->
+
+
+													<strong></strong>=
 													<cfif not(oneOfUs) and attribute_type is "location" and one.encumbranceDetail contains "mask part attribute location">
 														masked
 													<cfelse>
@@ -994,6 +1002,7 @@
 													</cfif>
 												</div>
 											</cfloop>
+											</table>
 										</td>
 									</tr>
 								</cfif>
