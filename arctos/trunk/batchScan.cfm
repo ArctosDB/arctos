@@ -30,7 +30,6 @@ jQuery(document).ready(function() {
 		<cfelse>
 			<a href="batchScan.cfm?mode=tab">Go TAB</a>
 		</cfif>
-		</cfif>
 		<hr>
 
 		<label for="sheets">Child Barcodes</label>
