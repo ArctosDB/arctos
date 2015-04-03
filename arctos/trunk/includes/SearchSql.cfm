@@ -651,7 +651,7 @@
 <cfif isdefined("cntest") and len(trim(cntest)) gt 0>
 	<cfset mapurl = "#mapurl#&cntest=#cntest#">
 	<cfif catnum contains "," or catnum contains " " or catnum contains "#chr(9)#" or catnum contains "#chr(10)#" or catnum contains "#chr(13)#">
-		<cfset l=ListChangeDelims(catnum,',','#chr(9)##chr(10)##chr(13)#, ;')>
+		<cfset l=ListChangeDelims(cntest,',','#chr(9)##chr(10)##chr(13)#, ;')>
 
 		<cfoutput>
 			count: #listlen(l)#
