@@ -951,9 +951,6 @@
 									where
 										attribute_type is not null and
 										part_id=#part_id#
-									order by
-										attribute_type,
-										determined_date
 									group by
 										attribute_type,
 										attribute_value,
@@ -961,6 +958,9 @@
 										determined_date,
 										attribute_remark,
 										agent_name
+									order by
+										attribute_type,
+										determined_date
 								</cfquery>
 								<cfif patt.recordcount gt 0>
 									<tr>
