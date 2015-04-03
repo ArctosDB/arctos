@@ -28,6 +28,7 @@ jQuery(document).ready(function() {
 
 		<label for="sheets">Child Barcodes</label>
 		<cfif mode is "tab">
+			<a href="batchScan.cfm?mode=csv">Go CSV</a>
 			<cfset numCols="3">
 			<div style="border:1px solid green; padding:10px;" id="sheets">
 				<table>
@@ -49,7 +50,8 @@ jQuery(document).ready(function() {
 				</table>
 			</div>
 		<cfelse>
-			<textarea id="childscans" name="childscans" class="hugetextarea">
+			<a href="batchScan.cfm?mode=csv">Go TAB</a>
+			<textarea id="childscans" name="childscans" class="hugetextarea" placeholder="scan comma-delimited list here"></textarea>
 		</cfif>
 </form>
 </cfoutput>
