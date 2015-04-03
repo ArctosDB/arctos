@@ -1,6 +1,7 @@
 <cfif not isdefined("toProperCase")>
 	<cfinclude template="/includes/_frameHeader.cfm">
 </cfif>
+<script src="/includes/sorttable.js"></script>
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
@@ -965,7 +966,7 @@
 								<cfif patt.recordcount gt 0>
 									<tr>
 										<td colspan="6">
-											<table border id="patbl#mPart.part_id#" class="detailCellSmall">
+											<table border id="patbl#mPart.part_id#" class="detailCellSmall sortable">
 												<tr>
 															<th>
 																Attribute
