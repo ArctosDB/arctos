@@ -93,11 +93,6 @@
 		<cfset dlqcols=listAppend(dlqcols,"linkToSpecimens")>
 		<cfset dlq = querynew(dlqcols)>
 		<cfset r=1>
-
-		<cfdump var=#getData#>
-
-
-
 		<cfloop query="getData">
 			<cfset temp=queryaddrow(dlq,1)>
 			<cfset thisLink=mapurl>
@@ -128,8 +123,6 @@
 						<cfset thisVal='NULL'>
 					<cfelse>
 						<cfset thisVal=evaluate("getData." & x )>
-
-						<br>thisVal: #thisVal#
 					</cfif>
 					<cfif thisLink contains x>
 						<!---
