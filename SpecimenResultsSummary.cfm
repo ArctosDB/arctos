@@ -21,7 +21,7 @@
 	<cfinclude template="includes/SearchSql.cfm">
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual# group by #prefixed_cols#">
 	<cfset group_cols = groupBy>
-	<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'collection_object_id'))>	
+	<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'collection_object_id'))>
 	<cfif listfindnocase(group_cols,'individualcount')>
 		<cfset group_cols=listdeleteat(group_cols,listfindnocase(group_cols,'individualcount'))>
 	</cfif>
@@ -123,9 +123,11 @@
 						<cfset thisVal='NULL'>
 					<cfelse>
 						<cfset thisVal=evaluate("getData." & x )>
+
+						<br>thisVal: #thisVal#
 					</cfif>
-					<cfif thisLink contains x>					
-						<!--- 
+					<cfif thisLink contains x>
+						<!---
 							they searched for something that they also grouped by
 							REMOVE the thing they searched (eg, more general)
 							ADD the thing grouped (eg, more specific)
@@ -137,12 +139,12 @@
 						<cfset thisLink=listappend(thisLink,"#x#=#URLEncodedFormat(thisVal)#","&")>
 					</cfif>
 					<!----
-					
-					why was this commented out?? Hopefully adding it doesn't break something evil! without it, 
+
+					why was this commented out?? Hopefully adding it doesn't break something evil! without it,
 					/SpecimenResultsSummary.cfm?state_prov=Alaska&collection_id=1&groupBy=species&debug=1
-					
+
 					just returns everything, NOT species-only
-					
+
 					---->
 					<cfif thisLink does not contain x>
 						<cfset thisLink=listappend(thisLink,"#x#=#URLEncodedFormat(thisVal)#","&")>
@@ -179,7 +181,7 @@
 				<cfset temp = QuerySetCell(dlq, "linktospecimens", "#Application.ServerRootUrl#/SpecimenResults.cfm?#thisLink#", r)>
 			</tr>
 			<cfset r=r+1>
-		</cfloop>		
+		</cfloop>
 	</table>
 	<cfthread action="run" dlq="#dlq#" dlqcold="#dlqcols#" name="sqsdl">
 		<cfset  util = CreateObject("component","component.utilities")>

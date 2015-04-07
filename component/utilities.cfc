@@ -112,7 +112,7 @@
 			<cfset x=x & ",trackback">
 			<cfset x=x & "utl_inaddr,uploadify,userfiles,updates">
 			<cfset x=x & ",verify-tldnotify,version">
-			<cfset x=x & ",wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content">
+			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content">
 			<cfset x=x & ",zboard">
 
 
