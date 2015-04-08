@@ -23,6 +23,10 @@
 	<script>
 		jQuery(document).ready(function(){
 			getMedia('collecting_event','#collection_object_id#','colEventMedia','2','1');
+
+			getMedia('specimenaccn','#collection_object_id#','SpecAccnMedia','2','1');
+
+
 		});
 	</script>
 </cfoutput>
@@ -1248,6 +1252,10 @@
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('addAccn');">Edit</span>
 					</cfif>
 				</div>
+
+
+
+				<div id="SpecAccnMedia"></div>
 				<div class="detailBlock">
 					<span class="detailData">
 						<cfif oneOfUs is 1>
