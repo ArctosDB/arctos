@@ -139,7 +139,8 @@
 						connect by
 							container.parent_container_id = prior container.container_id
 					)
-				)">
+				)
+			)">
 
 	<cfelseif anyid contains "%" or anyid contains "_">
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) like '#ucase(anyid)#'" >
