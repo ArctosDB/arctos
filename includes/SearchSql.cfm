@@ -112,6 +112,8 @@
 <cfif isdefined("anyid") and len(trim(anyid)) gt 0>
 	<cfset mapurl = "#mapurl#&anyid=#anyid#">
 	<cfif left(anyid,1) is "=">
+
+		hai
 		<cfset v=ucase(mid(anyid,2,len(anyid)-1))>
 		<cfset basQual = " #basQual# AND (
 			upper(#session.flatTableName#.cat_num) = '#v#' or
