@@ -108,6 +108,79 @@
 
 <!--------------------------- / end old stuff --------------------------------------->
 
+
+<cfif isdefined("anyid") and len(trim(anyid)) gt 0>
+	<cfset mapurl = "#mapurl#&anyid=#anyid#">
+	<cfif left(anyid,1) is "=">
+		<cfset v=ucase(mid(anyid,2,len(anyid)-1))>
+		<cfset basQual = " #basQual# AND (
+			upper(#session.flatTableName#.cat_num) = '#v#' or
+			#session.flatTableName#.collection_object_id IN (
+				select
+					derived_from_cat_item
+				from
+					coll_obj_cont_hist,
+					specimen_part
+				where
+					coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id and
+					coll_obj_cont_hist.container_id in (
+						select
+							container.container_id
+						from
+							container,
+							container p
+						where
+							container.parent_container_id=p.container_id (+) and
+							container.container_type='collection object'
+						start with
+							upper(container.barcode)='#trim(ucase(v))#'
+						connect by
+							container.parent_container_id = prior container.container_id
+					)
+				)">
+
+	<cfelseif anyid contains "%" or anyid contains "_">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) like '#ucase(anyid)#'" >
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(anyid)#'" >
+	</cfif>
+</cfif>
+
+
+<cfif isdefined("anybarcode") AND len(anybarcode) gt 0>
+	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_object_id IN (
+		select
+			derived_from_cat_item
+		from
+			coll_obj_cont_hist,
+			specimen_part
+		where
+			coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id and
+			coll_obj_cont_hist.container_id in (
+				select
+					container.container_id
+				from
+					container,
+					container p
+				where
+					container.parent_container_id=p.container_id (+) and
+					container.container_type='collection object'
+				start with
+					upper(container.barcode)='#trim(ucase(anybarcode))#'
+				connect by
+					container.parent_container_id = prior container.container_id
+			)
+		)" >
+	<cfset mapurl = "#mapurl#&anybarcode=#anybarcode#">
+</cfif>
+
+
+
+
+
+
+
+
 <cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
 	<cfset mapurl = "#mapurl#&cataloged_item_type=#cataloged_item_type#">
 	<cfset basQual = "#basQual#  AND  #session.flatTableName#.cataloged_item_type='#cataloged_item_type#'" >
@@ -647,18 +720,6 @@
 		collection_object_id from attributes where attribute_type='image confirmed' and attribute_value='yes')" >
 </cfif>
 
-<cfif isdefined("anyid") and len(trim(anyid)) gt 0>
-	<cfset mapurl = "#mapurl#&anyid=#anyid#">
-	<cfif left(anyid,1) is "=">
-		<cfset v=ucase(mid(anyid,2,len(anyid)-1))>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#v#'">
-
-	<cfelseif anyid contains "%" or anyid contains "_">
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) like '#ucase(anyid)#'" >
-	<cfelse>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(anyid)#'" >
-	</cfif>
-</cfif>
 <cfif isdefined("catnum") and len(trim(catnum)) gt 0>
 	<cfset mapurl = "#mapurl#&catnum=#catnum#">
 	<cfif left(catnum,1) is "=">
