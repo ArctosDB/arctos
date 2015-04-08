@@ -149,10 +149,10 @@
 				DISPLAY,
 				URI
 		">
-	<cfelseif typ is "accnspecimens">
-		<cfset srchall="/MediaSearch.cfm?action=search&specimen_accn_id=#q#">
+	<cfelseif typ is "specimenaccn">
+		<cfset srchall="">
 
-		<cfset sql="select 
+		<cfset sql="select
 				media.media_id,
 				media.preview_uri,
 				media.media_uri,
@@ -161,7 +161,7 @@
 				concatMediaDescription(media.media_id) description,
 				DISPLAY,
 				URI
-			from 
+			from
 				cataloged_item,
 				media_relations,
 				media,
@@ -172,9 +172,33 @@
 				media_relations.media_id=media.media_id and
 				media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
 				cataloged_item.accn_id=#q#">
+
+	<cfelseif typ is "accnspecimens">
+		<cfset srchall="/MediaSearch.cfm?action=search&specimen_accn_id=#q#">
+
+		<cfset sql="select
+				media.media_id,
+				media.preview_uri,
+				media.media_uri,
+				media.media_type,
+				media.mime_type,
+				concatMediaDescription(media.media_id) description,
+				DISPLAY,
+				URI
+			from
+				cataloged_item,
+				media_relations,
+				media,
+				ctmedia_license
+			where
+				cataloged_item.ACCN_ID=media_relations.related_primary_key and
+				media_relations.media_relationship='documents accn' and
+				media_relations.media_id=media.media_id and
+				media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
+				cataloged_item.collection_object_id=#q#">
 	<cfelseif typ is "project">
 		<cfset srchall="/MediaSearch.cfm?action=search&project_id=#q#">
-		<cfset sql=" select distinct 
+		<cfset sql=" select distinct
 	        media.media_id,
 	        media.media_uri,
 	        media.mime_type,
@@ -225,7 +249,7 @@
 		<cfif len(srchall) gt 0>
 			[ <a href="#srchall#">[ view details ]</a>
 		</cfif>
-		
+
 		<cfif cnt GT rpp>
 			<br>
 			<cfif (pg*rpp) GT rpp>
