@@ -7,8 +7,8 @@
 	<a href="BulkloadOtherId.cfm?action=managemystuff">Manage Existing Data</a>~
 	<a href="http://arctosdb.org/documentation/other-id/">Docs</a>~
 	<a href="/info/ctDocumentation.cfm?table=CTCOLL_OTHER_ID_TYPE">CodeTable</a>
-	
-	
+
+
 </p>
 <!---- make the table
 
@@ -179,16 +179,16 @@ sho err
 <!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
-	<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
-		update 
-			cf_temp_oids 
-		set 
+	<cfquery name="presetstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_oids
+		set
 			status=NULL where upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_oids set COLLECTION_OBJECT_ID = (
-			select 
-				cataloged_item.collection_object_id 
+			select
+				cataloged_item.collection_object_id
 			from
 				cataloged_item,
 				collection
@@ -196,15 +196,15 @@ sho err
 				cataloged_item.collection_id = collection.collection_id and
 				collection.guid_prefix = cf_temp_oids.guid_prefix and
 				cat_num=cf_temp_oids.existing_other_id_number
-		) 
-		where 
-			existing_other_id_type = 'catalog number' and 
+		)
+		where
+			existing_other_id_type = 'catalog number' and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_oids set COLLECTION_OBJECT_ID = (
-			select 
-				cataloged_item.collection_object_id 
+			select
+				cataloged_item.collection_object_id
 			from
 				cataloged_item,
 				collection,
@@ -215,52 +215,52 @@ sho err
 				collection.guid_prefix = cf_temp_oids.guid_prefix and
 				other_id_type = cf_temp_oids.existing_other_id_type and
 				display_value = cf_temp_oids.existing_other_id_number
-		) 
-		where 
-			existing_other_id_type != 'catalog number' and 
+		)
+		where
+			existing_other_id_type != 'catalog number' and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfquery name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
-		update 
-			cf_temp_oids 
-		set 
+	<cfquery name="collObj_fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_oids
+		set
 			status=decode(status,
 				null,'cataloged item not found',
 				status || '; cataloged item not found')
-		where 
+		where
 			collection_object_id is null and
 			upper(username)='#ucase(session.username)#'
-	</cfquery>	
-	
-	
-	<cfquery name="iva" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
-		update 
-			cf_temp_oids 
-		set 
+	</cfquery>
+
+
+	<cfquery name="iva" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_oids
+		set
 			status=decode(status,
 			null,'new_other_id_references not found',
 			status || '; new_other_id_references not found')
 		where
-			new_other_id_references != 'catalog number' and 
+			new_other_id_references != 'catalog number' and
 			new_other_id_references not in (select ID_REFERENCES from CTID_REFERENCES) and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfquery name="iva" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
-		update 
-			cf_temp_oids 
-		set 
+	<cfquery name="iva" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_oids
+		set
 			status=decode(status,
 			null,'existing_other_id_type not found',
 			status || '; existing_other_id_type not found')
 		where
-			existing_other_id_type != 'catalog number' and 
+			existing_other_id_type != 'catalog number' and
 			existing_other_id_type not in (select OTHER_ID_TYPE from CTCOLL_OTHER_ID_TYPE) and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfquery name="iva" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
-		update 
-			cf_temp_oids 
-		set 
+	<cfquery name="iva" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_oids
+		set
 			status=decode(status,
 			null,'new_other_id_type not found',
 			status || '; new_other_id_type not found')
@@ -268,11 +268,11 @@ sho err
 			new_other_id_type not in (select OTHER_ID_TYPE from CTCOLL_OTHER_ID_TYPE) and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-		
+
 	<cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			cf_temp_oids 
-		set 
+		update
+			cf_temp_oids
+		set
 			status=decode(status,
 			null,'identifier exists',
 			status || '; identifier exists')
@@ -286,24 +286,24 @@ sho err
 				nvl(new_other_id_references,'self')
 			) IN
 			(
-				select 
+				select
 					collection_object_id,
 					other_id_type,
 					display_value,
 					id_references
-				from 
+				from
 					coll_obj_other_id_num
-			)		
+			)
 	</cfquery>
-	
+
 	<cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			cf_temp_oids 
-		set 
+		update
+			cf_temp_oids
+		set
 			status=decode(status,
 				null,'local duplicate',
 				status || '; local duplicate')
-		where 
+		where
 			upper(username)='#ucase(session.username)#' and
 			(
 			guid_prefix,
@@ -320,20 +320,20 @@ sho err
 				existing_other_id_number
 			from
 				cf_temp_oids
-			having count(*) > 1 group by 
+			having count(*) > 1 group by
 				guid_prefix,
 				new_other_id_type,
 				new_other_id_number,
 				nvl(new_other_id_references,'self'),
 				existing_other_id_type,
 				existing_other_id_number
-			)	
+			)
 	</cfquery>
-	
+
 	<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_oids set status='valid' where status is null and upper(username)='#ucase(session.username)#'
 	</cfquery>
-	
+
 	<cflocation url="BulkloadOtherId.cfm?action=managemystuff" addtoken="false">
 </cfoutput>
 </cfif>
@@ -345,22 +345,22 @@ sho err
 		    $('#selecctall').click(function(event) {  //on click
 		        if(this.checked) { // check select status
 		            $(':checkbox').each(function() { //loop through each checkbox
-		                this.checked = true;  //select all checkboxes with class "checkbox1"              
+		                this.checked = true;  //select all checkboxes with class "checkbox1"
 		            });
 		        }else{
 		            $(':checkbox').each(function() { //loop through each checkbox
-		                this.checked = false; //deselect all checkboxes with class "checkbox1"                      
-		            });        
+		                this.checked = false; //deselect all checkboxes with class "checkbox1"
+		            });
 		        }
 		    });
-		   
+
 		});
 	</script>
 	<cfparam name="gp" default="">
 	<cfparam name="ref" default="">
 	<cfoutput>
 		<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				collection.collection,
 				key,
 				cf_temp_recip_oids.collection_id,
@@ -370,12 +370,12 @@ sho err
 				new_other_id_type,
 				new_other_id_number,
 				new_other_id_references,
-				found_date 
-			from 
+				found_date
+			from
 				cf_temp_recip_oids,
 				collection
-			where 
-				cf_temp_recip_oids.collection_id=collection.collection_id and 
+			where
+				cf_temp_recip_oids.collection_id=collection.collection_id and
 				collection.collection_id in (
 					select collection_id from cataloged_item
 				)
@@ -385,7 +385,7 @@ sho err
 				<cfif len(ref) gt 0>
 					and cf_temp_recip_oids.new_other_id_references in (#listqualify(ref,"'")#)
 				</cfif>
-			order by 
+			order by
 				collection.collection,
 				new_other_id_references,
 				cf_temp_recip_oids.guid_prefix,
@@ -397,7 +397,7 @@ sho err
 		<cfquery name="ctref" dbtype="query">
 			select new_other_id_references from recip group by new_other_id_references order by new_other_id_references
 		</cfquery>
-		These specimens have unreciprocated relationships to your collections. 
+		These specimens have unreciprocated relationships to your collections.
 		<ol>
 			<li>
 				Check box(es) and click "claim" to pull them into your otherID bulkloader.
@@ -415,7 +415,7 @@ sho err
 			<select name="gp" multiple>
 				<option value="">no filter</option>
 				<cfloop query="ctguid_prefix">
-					<option 
+					<option
 						<cfif listcontains(gp,ctguid_prefix.guid_prefix)> selected="selected" </cfif>
 						value="#ctguid_prefix.guid_prefix#">#ctguid_prefix.guid_prefix#</option>
 				</cfloop>
@@ -424,7 +424,7 @@ sho err
 			<select name="ref" multiple>
 				<option value="">no filter</option>
 				<cfloop query="ctref">
-					<option 
+					<option
 						<cfif listcontains(ref,ctref.new_other_id_references)> selected="selected" </cfif>
 						value="#ctref.new_other_id_references#">#ctref.new_other_id_references#</option>
 				</cfloop>
@@ -436,7 +436,7 @@ sho err
 			<label for="">Select All</label>
 			<input type="checkbox" id="selecctall">
 			<input type="hidden" name="action" value="claimRecip">
-			
+
 			<input type="submit" value="claim checked records">
 			<table border id="t" class="sortable">
 			<tr>
@@ -481,7 +481,7 @@ sho err
 				</tr>
 			</cfloop>
 			</table>
-			
+
 			---->
 			<input type="submit" value="claim checked records">
 		</form>
@@ -490,8 +490,8 @@ sho err
 			select guid_prefix,collection.collection_id from collection,cataloged_item group by guid_prefix,collection.collection_id order by guid_prefix
 		</cfquery>
 		<p>
-			These data are refreshed daily; "claiming" or loading records does NOT remove them from this form. Pulling same-day records twice will error; 
-			delete from your bulkloader to re-pull. You may also force-refresh the reciprocal relationship data with the link(s) below. 
+			These data are refreshed daily; "claiming" or loading records does NOT remove them from this form. Pulling same-day records twice will error;
+			delete from your bulkloader to re-pull. You may also force-refresh the reciprocal relationship data with the link(s) below.
 			(Let the new page fully load, then close it and refresh this page.)
 			<ul>
 				<cfloop query="mycollections">
@@ -544,7 +544,7 @@ sho err
 	<cfoutput>
 		<div class="ui-state-highlight ui-corner-all">
 			<p><strong>READ THIS!</strong></p>
-			This form creates otherIDs, and pulls suggested reciprocal relationships which may be created as IDs/relationships. 
+			This form creates otherIDs, and pulls suggested reciprocal relationships which may be created as IDs/relationships.
 			<p>
 				Always download a CSV backup before using local tools.
 			</p>
@@ -552,14 +552,14 @@ sho err
 				Records will be deleted when they're successfully loaded.
 			</p>
 			<p>
-				You will see an option to loan when status for all records is "valid." Change status by fixing data and clicking validate.
+				You will see an option to load when status for all records is "valid." Change status by fixing data and clicking validate.
 			</p>
 			<p>
 				If you cannot see the "finalize loan" link and have clicked anything since you last clicked "validate," click "validate.
 			</p>
 		</div>
 		<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select collection.collection,collection.collection_id, count(*) from 
+			select collection.collection,collection.collection_id, count(*) from
 			cf_temp_recip_oids,
 			collection
 			where cf_temp_recip_oids.collection_id=collection.collection_id and collection.collection_id in (
@@ -571,7 +571,7 @@ sho err
 			</p>
 		</cfif>
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				cf_temp_oids.KEY,
 				cf_temp_oids.COLLECTION_OBJECT_ID,
 				cf_temp_oids.GUID_PREFIX,
@@ -592,20 +592,20 @@ sho err
 		</cfquery>
 		<cfquery name="data" dbtype="query">
 			select * from raw  where status ='valid'
-		</cfquery>			
+		</cfquery>
 		<cfif data.recordcount is raw.recordcount>
 			<a href="BulkloadOtherId.cfm?action=loadData">Finalize load</a>
 		</cfif>
-		<p><a href="BulkloadOtherId.cfm?action=nothing">upload CSV</a></p>			
+		<p><a href="BulkloadOtherId.cfm?action=nothing">upload CSV</a></p>
 
-		<p><a href="BulkloadOtherId.cfm?action=validate">validate</a></p>			
+		<p><a href="BulkloadOtherId.cfm?action=validate">validate</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=getCSV">download CSV</a> (delete status column to re-load)</p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteAlreadyExists">Delete "identifier exists" records</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteLocalDuplicate">Merge "local duplicate" records</a></p>
 		<p><a href="BulkloadOtherId.cfm?action=deleteMine">Delete all <sup>[1]</sup>existing data</a></p>
 		<span style="margin:1em;padding: 1em; background-color:lightgray; font-size:small;">
 			[1] "All" in this case is extremely limited in scope; it's what you can see here, in this page, right now: things in
-			Arctos' Other ID Bulkloader with username #session.username# attached to them.  
+			Arctos' Other ID Bulkloader with username #session.username# attached to them.
 		</span>
 		<div>&nbsp;</div>
 		<table border id="t" class="sortable">
@@ -618,7 +618,7 @@ sho err
 				<th>new_other_id_references</th>
 				<th>new_other_id_type</th>
 				<th>new_other_id_number</th>
-			</tr>			
+			</tr>
 			<cfloop query="raw">
 				<tr>
 					<td>#status#</td>
@@ -635,7 +635,7 @@ sho err
 					<td>#new_other_id_number#</td>
 				</tr>
 			</cfloop>
-		</table>		
+		</table>
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
@@ -655,22 +655,22 @@ sho err
 <cfif action is "deleteLocalDuplicate">
 	<cfoutput>
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from 
-				cf_temp_oids 
-			where 
+			delete from
+				cf_temp_oids
+			where
 				upper(username)='#ucase(session.username)#' and
-				status like '%local duplicate%' and 
+				status like '%local duplicate%' and
 				key in (
-					select 
-						key 
+					select
+						key
 					from
 						cf_temp_oids a
-					where 
+					where
 						rowid > (
-							select 
-								min(rowid) 
-							from 
-								cf_temp_oids b 
+							select
+								min(rowid)
+							from
+								cf_temp_oids b
 							where
 								a.guid_prefix = b.guid_prefix and
 								a.new_other_id_type = b.new_other_id_type and
@@ -709,7 +709,7 @@ sho err
 			select * from cf_temp_oids where upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cfquery name="cv" dbtype="query">
-			select count(*) c from getTempData where status='valid' 
+			select count(*) c from getTempData where status='valid'
 		</cfquery>
 		<cfif getTempData.recordcount is not cv.c>
 			Make everything "valid" and try again.<cfabort>
