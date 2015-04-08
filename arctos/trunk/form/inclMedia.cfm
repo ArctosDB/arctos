@@ -149,7 +149,7 @@
 				DISPLAY,
 				URI
 		">
-	<cfelseif typ is "specimenaccn">
+	<cfelseif typ is "accnspecimens">
 		<cfset srchall="">
 
 		<cfset sql="select
@@ -173,7 +173,7 @@
 				media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
 				cataloged_item.accn_id=#q#">
 
-	<cfelseif typ is "accnspecimens">
+	<cfelseif typ is "specimenaccn">
 		<cfset srchall="/MediaSearch.cfm?action=search&specimen_accn_id=#q#">
 
 		<cfset sql="select
