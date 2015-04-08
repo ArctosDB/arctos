@@ -111,72 +111,24 @@
 
 <cfif isdefined("anyid") and len(trim(anyid)) gt 0>
 	<cfset mapurl = "#mapurl#&anyid=#anyid#">
-	<cfif left(anyid,1) is "=">
+	 <cfif basJoin does not contain "specimen_part">
+        <cfset basJoin = " #basJoin# INNER JOIN specimen_part ON (#session.flatTableName#.collection_object_id = specimen_part.derived_from_cat_item)">
+    </cfif>
+    <cfif basJoin does not contain "coll_obj_cont_hist">
+        <cfset basJoin = " #basJoin# INNER JOIN coll_obj_cont_hist ON (specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id)">
+    </cfif>
+    <cfif basJoin does not contain "coll_obj_container">
+        <cfset basJoin = " #basJoin# INNER JOIN container coll_obj_container ON (coll_obj_cont_hist.container_id = coll_obj_container.container_id)">
+    </cfif>
+    <cfif basJoin does not contain "parent_container">
+        <cfset basJoin = " #basJoin# INNER JOIN container parent_container ON (coll_obj_container.parent_container_id = parent_container.container_id)">
+    </cfif>
+    <cfset basQual = " #basQual# AND (
+	   upper(#session.flatTableName#.cat_num) like '#ucase(anyid)#' OR
+	   parent_container.barcode  like '#ucase(anyid)#'
+	)" >
 
-		hai
-		<cfset v=ucase(mid(anyid,2,len(anyid)-1))>
-		<cfset basQual = " #basQual# AND (
-			upper(#session.flatTableName#.cat_num) = '#v#' or
-			#session.flatTableName#.collection_object_id IN (
-				select
-					derived_from_cat_item
-				from
-					coll_obj_cont_hist,
-					specimen_part
-				where
-					coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id and
-					coll_obj_cont_hist.container_id in (
-						select
-							container.container_id
-						from
-							container,
-							container p
-						where
-							container.parent_container_id=p.container_id (+) and
-							container.container_type='collection object'
-						start with
-							upper(container.barcode)='#trim(ucase(v))#'
-						connect by
-							container.parent_container_id = prior container.container_id
-					)
-				)
-			)">
-
-	<cfelseif anyid contains "%" or anyid contains "_">
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) like '#ucase(anyid)#'" >
-	<cfelse>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(anyid)#'" >
-	</cfif>
 </cfif>
-
-
-<cfif isdefined("anybarcode") AND len(anybarcode) gt 0>
-	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_object_id IN (
-		select
-			derived_from_cat_item
-		from
-			coll_obj_cont_hist,
-			specimen_part
-		where
-			coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id and
-			coll_obj_cont_hist.container_id in (
-				select
-					container.container_id
-				from
-					container,
-					container p
-				where
-					container.parent_container_id=p.container_id (+) and
-					container.container_type='collection object'
-				start with
-					upper(container.barcode)='#trim(ucase(anybarcode))#'
-				connect by
-					container.parent_container_id = prior container.container_id
-			)
-		)" >
-	<cfset mapurl = "#mapurl#&anybarcode=#anybarcode#">
-</cfif>
-
 
 
 
