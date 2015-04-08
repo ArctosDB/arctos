@@ -646,6 +646,19 @@
    	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_object_id not in (select
 		collection_object_id from attributes where attribute_type='image confirmed' and attribute_value='yes')" >
 </cfif>
+
+<cfif isdefined("anyid") and len(trim(anyid)) gt 0>
+	<cfset mapurl = "#mapurl#&anyid=#anyid#">
+	<cfif left(anyid,1) is "=">
+		<cfset v=ucase(mid(anyid,2,len(anyid)-1))>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#v#'">
+
+	<cfelseif anyid contains "%" or anyid contains "_">
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) like '#ucase(anyid)#'" >
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(anyid)#'" >
+	</cfif>
+</cfif>
 <cfif isdefined("catnum") and len(trim(catnum)) gt 0>
 	<cfset mapurl = "#mapurl#&catnum=#catnum#">
 	<cfif left(catnum,1) is "=">
@@ -675,7 +688,6 @@
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.cat_num) = '#ucase(catnum)#'" >
 	</cfif>
-
 </cfif>
 <cfif isdefined("geology_attribute") AND len(geology_attribute) gt 0>
 	<cfset mapurl = "#mapurl#&geology_attribute=#geology_attribute#">
