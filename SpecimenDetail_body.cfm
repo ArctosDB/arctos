@@ -1228,34 +1228,12 @@
 					</cfif>
 				</div>
 <!------------------------------------ accession ---------------------------------------------->
-			<cfquery name="accnMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			    select
-			        media.media_id,
-			        media.media_uri,
-			        media.mime_type,
-			        media.media_type,
-			        media.preview_uri,
-			        label_value descr
-			     from
-			        media,
-					media_relations,
-					(select media_id,label_value from media_labels where media_label='description') media_labels
-			     where
-			        media.media_id=media_relations.media_id and
-			        media.media_id=media_labels.media_id (+) and
-					media_relations.media_relationship like '% accn' and
-					media_relations.related_primary_key=#one.accn_id#
-			</cfquery>
 			<div class="detailCell">
 				<div class="detailLabel">Accession
 					<cfif oneOfUs is 1>
 						<span class="detailEditCell" onclick="window.parent.loadEditApp('addAccn');">Edit</span>
 					</cfif>
 				</div>
-
-
-
-				<div id="SpecAccnMedia"></div>
 				<div class="detailBlock">
 					<span class="detailData">
 						<cfif oneOfUs is 1>
@@ -1263,26 +1241,7 @@
 						<cfelse>
 							<a href="/viewAccn.cfm?transaction_id=#one.accn_id#" target="_blank">#accession#</a>
 						</cfif>
-						<cfif accnMedia.recordcount gt 0>
-							<div class="thumbs">
-								<div class="thumb_spcr">&nbsp;</div>
-								<cfloop query="accnMedia">
-									<cfset puri = obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
-
-									<div class="one_thumb">
-						            	<a href="/exit.cfm?target=#media_uri#" target="_blank">
-							               <img src="#puri#" alt="#descr#" class="theThumb">
-										</a>
-					                   	<p>
-											#media_type# (#mime_type#)
-						                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
-											<br>#descr#
-										</p>
-									</div>
-								</cfloop>
-								<div class="thumb_spcr">&nbsp;</div>
-							</div>
-						</cfif>
+						<div id="SpecAccnMedia"></div>
 					</span>
 				</div>
 			</div>
