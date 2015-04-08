@@ -284,9 +284,16 @@
 						</audio>
 						<div><a href="/exit.cfm?target=#media_uri#" download>download MP3</a></div>
 					<cfelse>
-						<a href="/exit.cfm?target=#media_uri#" target="_blank">
-							<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
-						</a>
+						<cfif media_type is "multi-page document">
+							<a href="/document.cfm?media_id=#media_id#" target="_blank">
+								<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
+							</a>
+						<cfelse>
+							<a href="/exit.cfm?target=#media_uri#" target="_blank">
+								<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
+							</a>
+						</cfif>
+
 					</cfif>
 					<div>#media_type# (#mime_type#)</div>
 					<div><a href="/media/#media_id#" target="_blank">Media Details</a></div>
