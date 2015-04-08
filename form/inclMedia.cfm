@@ -223,9 +223,6 @@
 	   	#preservesinglequotes(sql)#
 	</cfquery>
 
-	<cfdump var=#mediaResultsQuery#>
-
-
 	<cfif mediaResultsQuery.recordcount is 0>
 		<div style="margin-left:2em;font-weight:bold;font-style:italic;">
 			No Media Found
