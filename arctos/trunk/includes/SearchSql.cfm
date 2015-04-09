@@ -123,17 +123,19 @@
     <cfif basJoin does not contain "parent_container">
         <cfset basJoin = " #basJoin# INNER JOIN container parent_container ON (coll_obj_container.parent_container_id = parent_container.container_id)">
     </cfif>
+	 <cfif basJoin does not contain " otherIdSearch ">
+        <cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num otherIdSearch ON (#session.flatTableName#.collection_object_id = otherIdSearch.collection_object_id)">
+    </cfif>
     <cfset basQual = " #basQual# AND (
 	   upper(#session.flatTableName#.cat_num) like '#ucase(anyid)#' OR
-	   parent_container.barcode  like '#ucase(anyid)#'
+	   parent_container.barcode  like '#ucase(anyid)#' OR
+	   upper(#session.flatTableName#.guid) like '#ucase(anyid)#' OR
+	   (otherIdSearch.id_references='self' and upper(otherIdSearch.display_value) LIKE '%#ucase(anyid)#%') OR
+	    upper(#session.flatTableName#.accession) LIKE '%#ucase(anyid)#%'
 	)" >
 
+
 </cfif>
-
-
-
-
-
 
 
 <cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
@@ -1469,7 +1471,6 @@
 			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.accession) LIKE '%#ucase(accn_number)#%'">
 		</cfif>
 	</cfif>
-
 </cfif>
 <cfif isdefined("accn_list") and len(accn_list) gt 0>
 	<cfset mapurl = "#mapurl#&accn_list=#accn_list#">
