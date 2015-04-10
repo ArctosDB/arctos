@@ -45,7 +45,7 @@
 			select media_label,label_value from labels_raw where media_label != 'description'
         </cfquery>
         <cfset alt=findIDs.alt_text>
-			<cfset title = findIDs.desc>
+			<cfset title = findIDs.descr>
             <cfset alt=findIDs.alt_text>
         <cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="mp">
 			<cfinvokeargument name="preview_uri" value="#findIDs.preview_uri#">
@@ -97,8 +97,8 @@
 							<ul><li><a href="/tools/doi.cfm?media_id=#media_id#">get a DOI</a></li></ul>
 						</cfif>
 					</cfif>
-					<cfif len(findIDs.desc) gt 0>
-						<ul><li>#findIDs.desc#</li></ul>
+					<cfif len(findIDs.descr) gt 0>
+						<ul><li>#findIDs.descr#</li></ul>
 					</cfif>
 					<cfif labels.recordcount gt 0>
 						<ul>
