@@ -16,7 +16,6 @@
 			ctmedia_license,
 			doi
 		where
-			media.media_license_id=ctmedia_license.media_license_id (+) and
 			media_flat.media_id=doi.media_id (+) and
 			media_flat.media_id = #media_id#
 	  </cfquery>
