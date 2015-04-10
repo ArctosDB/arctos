@@ -226,7 +226,7 @@
         media.media_type,
         media.preview_uri,
         count(tag.media_id) numTags,
-		concatMediaDescription(media.media_id) description,
+		concatMediaDescription(media.media_id) description
      from
          media,
          media_relations,
