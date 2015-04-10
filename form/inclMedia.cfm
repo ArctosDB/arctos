@@ -218,14 +218,15 @@
 	         media_relations.related_primary_key = #q#">
     <cfelseif typ is "specimen">
         <cfset srchall="/MediaSearch.cfm?collection_object_id=#q#">
-        <cfset sql=" 
+        <cfset sql="
 		 select distinct
         media.media_id,
         media.media_uri,
         media.mime_type,
         media.media_type,
         media.preview_uri,
-        count(tag.media_id) numTags
+        count(tag.media_id) numTags,
+		concatMediaDescription(media.media_id) description,
      from
          media,
          media_relations,
