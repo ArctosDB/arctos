@@ -1310,6 +1310,10 @@
 		</div>
 	</div>
 </cfif>
+
+
+
+<!----
 <cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     select distinct
         media.media_id,
@@ -1421,6 +1425,10 @@
 				</div>
 	        </span>
 		</div>
+		</cfif>
+
+
+		----->
 		<cftry>
 			<!--- this thing is dicey sometimes.... ---->
 			<cfquery name="barcode"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -1455,7 +1463,6 @@
 		<cfcatch></cfcatch>
 		</cftry>
 	</div>
-</cfif>
 	</td><!--- end right half of table --->
 </table>
 <cfif oneOfUs is 1>

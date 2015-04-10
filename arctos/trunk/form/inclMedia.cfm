@@ -216,6 +216,34 @@
 			media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
 	         media_relations.media_relationship like '% project' and
 	         media_relations.related_primary_key = #q#">
+    <cfelseif typ is "specimen">
+        <cfset srchall="/MediaSearch.cfm?collection_object_id=#q#">
+        <cfset sql=" 
+		 select distinct
+        media.media_id,
+        media.media_uri,
+        media.mime_type,
+        media.media_type,
+        media.preview_uri,
+        count(tag.media_id) numTags
+     from
+         media,
+         media_relations,
+         media_labels,
+        tag
+     where
+         media.media_id=media_relations.media_id and
+         media.media_id=media_labels.media_id (+) and
+         media.media_id=tag.media_id (+) and
+         media_relations.media_relationship like '%cataloged_item' and
+         media_relations.related_primary_key = #q#
+    group by
+        media.media_id,
+        media.media_uri,
+        media.mime_type,
+        media.media_type,
+        media.preview_uri
+		">
 	<cfelse>
 		<cfabort>
 	</cfif>
