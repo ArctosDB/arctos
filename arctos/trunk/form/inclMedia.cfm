@@ -28,27 +28,23 @@
 				     media_type,
 				     preview_uri,
 				     description,
-				     DISPLAY,
-				     URI
+				     license
 				from (
 			   		select
-				        media.media_id,
-				        media.media_uri,
-				        media.mime_type,
-				        media.media_type,
-				        media.preview_uri,
-				        concatMediaDescription(media.media_id) description,
-				        DISPLAY,
-				     	URI
+				        media_flat.media_id,
+				        media_flat.media_uri,
+				        media_flat.mime_type,
+				        media_flat.media_type,
+				        media_flat.preview_uri,
+				        alt_text,
+				        license
 				     from
-				        media,
-				        ctmedia_license,
+				        media_flat,
 				        media_relations,
 				        identification,
 				        identification_taxonomy
 				     where
-				        media.media_id=media_relations.media_id and
-				        media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
+				        media_flat.media_id=media_relations.media_id and
 				        media_relations.media_relationship like '% cataloged_item' and
 				        identification.accepted_id_fg=1 and
 				        media_relations.related_primary_key = identification.collection_object_id and
@@ -57,21 +53,19 @@
 				        identification_taxonomy.taxon_name_id=#q#
 				    UNION
 				    select
-				        media.media_id,
-				        media.media_uri,
-				        media.mime_type,
-				        media.media_type,
-				        media.preview_uri,
-				        concatMediaDescription(media.media_id) description,
-				         DISPLAY,
+				        media_flat.media_id,
+				        media_flat.media_uri,
+				        media_flat.mime_type,
+				        media_flat.media_type,
+				        media_flat.preview_uri,,
+                        alt_text,
+                        license
 				     URI
 				     from
-				         media,
-				        ctmedia_license,
+				         media_flat,
 				         media_relations
 				     where
-				         media.media_id=media_relations.media_id and
-				        media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
+				         media_flat.media_id=media_relations.media_id and
 				         media_relations.media_relationship like '%taxonomy' and
 				         media_relations.related_primary_key = #q#
 				 ) group by
@@ -80,140 +74,122 @@
 				    mime_type,
 				    media_type,
 				    preview_uri,
-				    description,
-				     DISPLAY,
-				     URI
+                    alt_text,
+                    license
 			)
 		">
 	<cfelseif typ is "accn">
 		<cfset srchall="/MediaSearch.cfm?action=search&accn_id=#q#">
 		<cfset sql="
 			   	select
-			   		media.media_id,
-			        media.media_uri,
-			        media.mime_type,
-			        media.media_type,
-			        media.preview_uri,
-			        concatMediaDescription(media.media_id) description,
-				     DISPLAY,
-				     URI
+			   		media_flat.media_id,
+			        media_flat.media_uri,
+			        media_flat.mime_type,
+			        media_flat.media_type,
+			        media_flat.preview_uri,
+                    alt_text,
+                    license
 				from
-					media,
-				        ctmedia_license,
+					media_flat,
 					media_relations
 				where
-					 media.media_id=media_relations.media_id and
-				        media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
+					 media_flat.media_id=media_relations.media_id and
 				     media_relations.media_relationship like '% accn' and
 				     media_relations.related_primary_key=#q#
 				group by
-				 	media.media_id,
-			        media.media_uri,
-			        media.mime_type,
-			        media.media_type,
-			        media.preview_uri,
-			        description,
-				     DISPLAY,
-				     URI
+				 	media_flat.media_id,
+			        media_flat.media_uri,
+			        media_flat.mime_type,
+			        media_flat.media_type,
+			        media_flat.preview_uri,
+                    alt_text,
+                    license
 			">
 	<cfelseif typ is "collecting_event">
 		<cfset srchall="/MediaSearch.cfm?action=search&specimen_collecting_event_id=#q#">
 		<cfset sql="
 		   	select
-		   		media.media_id,
-		        media.media_uri,
-		        media.mime_type,
-		        media.media_type,
-		        media.preview_uri,
-		        concatMediaDescription(media.media_id) description,
-				DISPLAY,
-				URI
+		   		media_flat.media_id,
+		        media_flat.media_uri,
+		        media_flat.mime_type,
+		        media_flat.media_type,
+		        media_flat.preview_uri,
+                alt_text,
+                license
 			from
-				media,
-				ctmedia_license,
+				media_flat,
 				media_relations,
 				specimen_event
 			where
-				 media.media_id=media_relations.media_id and
-				 media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
+				 media_flat.media_id=media_relations.media_id and
 			     media_relations.media_relationship like '% collecting_event' and
 			     media_relations.related_primary_key=specimen_event.collecting_event_id and
 				specimen_event.collection_object_id=#q#
 			group by
-			 	media.media_id,
-		        media.media_uri,
-		        media.mime_type,
-		        media.media_type,
-		        media.preview_uri,
-		        description,
-				DISPLAY,
-				URI
+			 	media_flat.media_id,
+		        media_flat.media_uri,
+		        media_flat.mime_type,
+		        media_flat.media_type,
+		        media_flat.preview_uri,
+                alt_text,
+                license
 		">
 	<cfelseif typ is "accnspecimens">
 		<cfset srchall="">
 
 		<cfset sql="select
-				media.media_id,
-				media.preview_uri,
-				media.media_uri,
-				media.media_type,
-				media.mime_type,
-				concatMediaDescription(media.media_id) description,
-				DISPLAY,
-				URI
+				media_flat.media_id,
+				media_flat.preview_uri,
+				media_flat.media_uri,
+				media_flat.media_type,
+				media_flat.mime_type,,
+                alt_text,
+                license
 			from
 				cataloged_item,
 				media_relations,
-				media,
-				ctmedia_license
+				media_flat
 			where
 				cataloged_item.collection_object_id=media_relations.related_primary_key and
 				media_relations.media_relationship='shows cataloged_item' and
-				media_relations.media_id=media.media_id and
-				media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
+				media_relations.media_id=media_flat.media_id and
 				cataloged_item.accn_id=#q#">
 
 	<cfelseif typ is "specimenaccn">
 		<cfset srchall="/MediaSearch.cfm?action=search&specimen_accn_id=#q#">
 
 		<cfset sql="select
-				media.media_id,
-				media.preview_uri,
-				media.media_uri,
-				media.media_type,
-				media.mime_type,
-				concatMediaDescription(media.media_id) description,
-				DISPLAY,
-				URI
+				media_flat.media_id,
+				media_flat.preview_uri,
+				media_flat.media_uri,
+				media_flat.media_type,
+				media_flat.mime_type,
+                alt_text,
+                license
 			from
 				cataloged_item,
 				media_relations,
-				media,
-				ctmedia_license
+				media_flat
 			where
 				cataloged_item.ACCN_ID=media_relations.related_primary_key and
 				media_relations.media_relationship='documents accn' and
-				media_relations.media_id=media.media_id and
-				media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
+				media_relations.media_id=media_flat.media_id and
 				cataloged_item.collection_object_id=#q#">
 	<cfelseif typ is "project">
 		<cfset srchall="/MediaSearch.cfm?action=search&project_id=#q#">
 		<cfset sql=" select distinct
-	        media.media_id,
-	        media.media_uri,
-	        media.mime_type,
-	        media.media_type,
-	        media.preview_uri,
-	        concatMediaDescription(media.media_id) description,
-			DISPLAY,
-			URI
+	        media_flat.media_id,
+	        media_flat.media_uri,
+	        media_flat.mime_type,
+	        media_flat.media_type,
+	        media_flat.preview_uri,
+                alt_text,
+                license
 	     from
-	         media,
-	         media_relations,
-	         ctmedia_license
+	         media_flat,
+	         media_relations
 	     where
-	         media.media_id=media_relations.media_id and
-			media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
+	         media_flat.media_id=media_relations.media_id and
 	         media_relations.media_relationship like '% project' and
 	         media_relations.related_primary_key = #q#">
     <cfelseif typ is "specimen">
@@ -307,7 +283,6 @@
 								<img src="#puri#" alt="#alt_text#" style="max-width:250px;max-height:250px;">
 							</a>
 						</cfif>
-
 					</cfif>
 					<div>#media_type# (#mime_type#)</div>
 					<div><a href="/media/#media_id#" target="_blank">Media Details</a></div>
