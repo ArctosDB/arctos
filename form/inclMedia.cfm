@@ -27,7 +27,7 @@
 				     mime_type,
 				     media_type,
 				     preview_uri,
-				     description,
+				     descr,
 				     license
 				from (
 			   		select
@@ -37,7 +37,8 @@
 				        media_flat.media_type,
 				        media_flat.preview_uri,
 				        alt_text,
-				        license
+				        license,
+				        media_flat.descr
 				     from
 				        media_flat,
 				        media_relations,
@@ -57,9 +58,10 @@
 				        media_flat.media_uri,
 				        media_flat.mime_type,
 				        media_flat.media_type,
-				        media_flat.preview_uri,,
+				        media_flat.preview_uri,
                         alt_text,
-                        license
+                        license,
+                        media_flat.descr
 				     URI
 				     from
 				         media_flat,
@@ -75,7 +77,8 @@
 				    media_type,
 				    preview_uri,
                     alt_text,
-                    license
+                    license,
+					descr
 			)
 		">
 	<cfelseif typ is "accn">
@@ -88,7 +91,8 @@
 			        media_flat.media_type,
 			        media_flat.preview_uri,
                     alt_text,
-                    license
+                    license,
+                        media_flat.descr
 				from
 					media_flat,
 					media_relations
@@ -103,7 +107,8 @@
 			        media_flat.media_type,
 			        media_flat.preview_uri,
                     alt_text,
-                    license
+                    license,
+                        media_flat.descr
 			">
 	<cfelseif typ is "collecting_event">
 		<cfset srchall="/MediaSearch.cfm?action=search&specimen_collecting_event_id=#q#">
@@ -115,7 +120,8 @@
 		        media_flat.media_type,
 		        media_flat.preview_uri,
                 alt_text,
-                license
+                license,
+                        media_flat.descr
 			from
 				media_flat,
 				media_relations,
@@ -132,7 +138,8 @@
 		        media_flat.media_type,
 		        media_flat.preview_uri,
                 alt_text,
-                license
+                license,
+                        media_flat.descr
 		">
 	<cfelseif typ is "accnspecimens">
 		<cfset srchall="">
@@ -144,7 +151,8 @@
 				media_flat.media_type,
 				media_flat.mime_type,,
                 alt_text,
-                license
+                license,
+                        media_flat.descr
 			from
 				cataloged_item,
 				media_relations,
@@ -165,7 +173,8 @@
 				media_flat.media_type,
 				media_flat.mime_type,
                 alt_text,
-                license
+                license,
+                        media_flat.descr
 			from
 				cataloged_item,
 				media_relations,
@@ -184,7 +193,8 @@
 	        media_flat.media_type,
 	        media_flat.preview_uri,
                 alt_text,
-                license
+                license,
+                        media_flat.descr
 	     from
 	         media_flat,
 	         media_relations
@@ -203,7 +213,8 @@
         media_flat.preview_uri,
         media_flat.hastags,
 		alt_text,
-		license
+		license,
+                        media_flat.descr
      from
          media_flat,
          media_relations
@@ -289,7 +300,7 @@
 					<cfif len(license) gt 0>
 						<div>#license#</div>
 					</cfif>
-					<div><!--- description ----></div>
+					<div>#descr#</div>
 				</div>
 			</cfloop>
 			<div class="thumb_spcr">&nbsp;</div>
