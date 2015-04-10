@@ -220,37 +220,21 @@
         <cfset srchall="/MediaSearch.cfm?collection_object_id=#q#">
         <cfset sql="
 		 select distinct
-        media.media_id,
-        media.media_uri,
-        media.mime_type,
-        media.media_type,
-        media.preview_uri,
-        count(tag.media_id) numTags,
-		concatMediaDescription(media.media_id) description,
-		display,
-		uri
+        media_flat.media_id,
+        media_flat.media_uri,
+        media_flat.mime_type,
+        media_flat.media_type,
+        media_flat.preview_uri,
+        media_flat.hastags,
+		alt_text,
+		license
      from
-         media,
-         media_relations,
-         media_labels,
-        tag,
-             ctmedia_license
+         media_flat,
+         media_relations
      where
-        media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
-		media.media_id=media_relations.media_id and
-         media.media_id=media_labels.media_id (+) and
-         media.media_id=tag.media_id (+) and
+		media_flat.media_id=media_relations.media_id and
          media_relations.media_relationship like '%cataloged_item' and
          media_relations.related_primary_key = #q#
-    group by
-        media.media_id,
-        media.media_uri,
-        media.mime_type,
-        media.media_type,
-        media.preview_uri,
-		concatMediaDescription(media.media_id),
-        display,
-        uri
 		">
 	<cfelse>
 		<cfabort>
@@ -304,37 +288,31 @@
 			<div class="thumb_spcr">&nbsp;</div>
 			<cfloop query="mediaResultsQuery" startrow="#start#" endrow="#stop#">
             	<cfset puri=obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
-				<cfset alt=description>
-				<cfif len(alt) gt 50>
-					<cfset aTxt=REReplaceNoCase(left(alt,50) & "...","<[^>]*>","","ALL")>
-				<cfelse>
-					<cfset aTxt=alt>
-				</cfif>
                <div class="one_thumb">
 					<cfif mime_type is "audio/mpeg3">
 						<audio controls class="audiothumb">
 							<source src="#media_uri#" type="audio/mp3">
 							<a href="/exit.cfm?target=#media_uri#" target="_blank">
-								<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
+								<img src="#puri#" alt="#alt_text#" style="max-width:250px;max-height:250px;">
 							</a>
 						</audio>
 						<div><a href="/exit.cfm?target=#media_uri#" download>download MP3</a></div>
 					<cfelse>
 						<cfif media_type is "multi-page document">
 							<a href="/document.cfm?media_id=#media_id#" target="_blank">
-								<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
+								<img src="#puri#" alt="#alt_text#" style="max-width:250px;max-height:250px;">
 							</a>
 						<cfelse>
 							<a href="/exit.cfm?target=#media_uri#" target="_blank">
-								<img src="#puri#" alt="#alt#" style="max-width:250px;max-height:250px;">
+								<img src="#puri#" alt="#alt_text#" style="max-width:250px;max-height:250px;">
 							</a>
 						</cfif>
 
 					</cfif>
 					<div>#media_type# (#mime_type#)</div>
 					<div><a href="/media/#media_id#" target="_blank">Media Details</a></div>
-					<cfif len(uri) gt 0>
-						<div><a href="#URI#">#DISPLAY#</a></div>
+					<cfif len(license) gt 0>
+						<div>#license#</div>
 					</cfif>
 					<div>#aTxt#</div>
 				</div>
