@@ -2,22 +2,23 @@
 <cfoutput>
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
-			media.media_id,
-			media.media_uri,
-			media.mime_type,
-			media.media_type,
-			media.preview_uri,
-			ctmedia_license.uri,
-			ctmedia_license.display,
+			media_flat.media_id,
+			media_flat.media_uri,
+			media_flat.mime_type,
+			media_flat.media_type,
+			media_flat.preview_uri,
+			media_flat.descr,
+			media_flat.alt_text,
+			media_flat.license,
 			doi
 		from
-			media,
+			media_flat,
 			ctmedia_license,
 			doi
 		where
 			media.media_license_id=ctmedia_license.media_license_id (+) and
-			media.media_id=doi.media_id (+) and
-			media.media_id = #media_id#
+			media_flat.media_id=doi.media_id (+) and
+			media_flat.media_id = #media_id#
 	  </cfquery>
 	  <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	  	<cfset h="/media.cfm?action=newMedia">
@@ -44,14 +45,9 @@
         <cfquery name="labels" dbtype="query">
 			select media_label,label_value from labels_raw where media_label != 'description'
         </cfquery>
-        <cfquery name="desc" dbtype="query">
-            select label_value from labels_raw where media_label='description'
-        </cfquery>
-        <cfset alt="#findIDs.media_uri#">
-        <cfif desc.recordcount is 1 and findIDs.recordcount is 1>
-			<cfset title = desc.label_value>
-            <cfset alt=desc.label_value>
-        </cfif>
+        <cfset alt=findIDs.alt_text>
+			<cfset title = findIDs.desc>
+            <cfset alt=findIDs.alt_text>
         <cfinvoke component="/component/functions" method="getMediaPreview" returnVariable="mp">
 			<cfinvokeargument name="preview_uri" value="#findIDs.preview_uri#">
 			<cfinvokeargument name="media_type" value="#findIDs.media_type#">
@@ -77,13 +73,13 @@
 					</cfif>
 					<br>
 					<span style='font-size:small'>#findIDs.media_type#&nbsp;(#findIDs.mime_type#)</span>
-					<cfif len(findIDs.display) gt 0>
+					<cfif len(findIDs.license) gt 0>
 						<br>
-						<span style='font-size:small'>License: <a href="#findIDs.uri#" target="_blank" class="external">#findIDs.display#</a></span>
+						<span style='font-size:small'>#findIDs.license#</span>
 					<cfelse>
 						<br><span style='font-size:small'>unlicensed</span>
 					</cfif>
-					
+
 				</td>
 				<td>
 					<cfif coord.recordcount is 1>
@@ -102,8 +98,8 @@
 							<ul><li><a href="/tools/doi.cfm?media_id=#media_id#">get a DOI</a></li></ul>
 						</cfif>
 					</cfif>
-					<cfif len(desc.label_value) gt 0>
-						<ul><li>#desc.label_value#</li></ul>
+					<cfif len(findIDs.desc) gt 0>
+						<ul><li>#findIDs.desc#</li></ul>
 					</cfif>
 					<cfif labels.recordcount gt 0>
 						<ul>
