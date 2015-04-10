@@ -300,7 +300,7 @@
 					<cfelse>
 						<cfif media_type is "multi-page document">
 							<a href="/document.cfm?media_id=#media_id#" target="_blank">
-								<img src="#puri#" alt="#alt_text#" style="max-width:250px;max-height:250px;">
+								<img src="#puri#" altF="#alt_text#" style="max-width:250px;max-height:250px;">
 							</a>
 						<cfelse>
 							<a href="/exit.cfm?target=#media_uri#" target="_blank">
@@ -314,7 +314,7 @@
 					<cfif len(license) gt 0>
 						<div>#license#</div>
 					</cfif>
-					<div>#aTxt#</div>
+					<div><!--- description ----></div>
 				</div>
 			</cfloop>
 			<div class="thumb_spcr">&nbsp;</div>
