@@ -248,7 +248,7 @@
         media.mime_type,
         media.media_type,
         media.preview_uri,
-		concatMediaDescription(media.media_id) description,
+		concatMediaDescription(media.media_id),
         display,
         uri
 		">
