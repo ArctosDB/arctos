@@ -143,28 +143,31 @@
 			</tr>
 			<cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select
-					media.media_id,
-					media.media_type,
-					media.mime_type,
-					media.preview_uri,
-					media.media_uri
+					media_flat.media_id,
+					media_flat.media_type,
+					media_flat.mime_type,
+					media_flat.preview_uri,
+					media_flat.media_uri,
+					media_flat.descr,
+					media_flat.alt_text
 				from
-					media,
+					media_flat,
 					media_relations
 				where
-					media.media_id=media_relations.related_primary_key and
+					media_flat.media_id=media_relations.related_primary_key and
 					media_relationship like '% media'
 					and media_relations.media_id =#media_id#
-					and media.media_id != #media_id#
+					and media_flat.media_id != #media_id#
 					UNION
-					select media.media_id, media.media_type,
-					media.mime_type, media.preview_uri, media.media_uri
-					from media, media_relations
+					select media_flat.media_id, media_flat.media_type,
+					media_flat.mime_type, media_flat.preview_uri, media_flat.media_uri,media_flat.descr,
+                    media_flat.alt_text
+					from media_flat, media_relations
 					where
-					media.media_id=media_relations.media_id and
+					media_flat.media_id=media_relations.media_id and
 					media_relationship like '% media' and
 					media_relations.related_primary_key=#media_id#
-					and media.media_id != #media_id#
+					and media_flat.media_id != #media_id#
 			</cfquery>
 			<tr>
 				<td colspan="3">
@@ -177,28 +180,14 @@
 									<cfinvokeargument name="preview_uri" value="#preview_uri#">
 									<cfinvokeargument name="media_type" value="#media_type#">
 								</cfinvoke>
-								<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-									select
-									media_label,
-									label_value
-									from
-									media_labels
-									where
-									media_id=#media_id#
-								</cfquery>
-								<cfquery name="desc" dbtype="query">
-									select label_value from labels where media_label='description'
-								</cfquery>
-								<cfset alt="Media Preview Image">
-								<cfif desc.recordcount is 1>
-									<cfset alt=desc.label_value>
-								</cfif>
+
+
 								<div class="one_thumb">
 									<a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#puri#" alt="#alt#" class="theThumb"></a>
 									<p>
 										#media_type# (#mime_type#)
 										<br><a href="/media/#media_id#">Media Details</a>
-										<br>#alt#
+										<br>#alt_text#
 									</p>
 								</div>
 							</cfloop>
