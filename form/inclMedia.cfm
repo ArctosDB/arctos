@@ -247,7 +247,10 @@
         media.media_uri,
         media.mime_type,
         media.media_type,
-        media.preview_uri
+        media.preview_uri,
+		concatMediaDescription(media.media_id) description,
+        display,
+        uri
 		">
 	<cfelse>
 		<cfabort>
