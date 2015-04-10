@@ -226,14 +226,18 @@
         media.media_type,
         media.preview_uri,
         count(tag.media_id) numTags,
-		concatMediaDescription(media.media_id) description
+		concatMediaDescription(media.media_id) description,
+		display,
+		uri
      from
          media,
          media_relations,
          media_labels,
-        tag
+        tag,
+             ctmedia_license
      where
-         media.media_id=media_relations.media_id and
+        media.MEDIA_LICENSE_ID=ctmedia_license.MEDIA_LICENSE_ID (+) and
+		media.media_id=media_relations.media_id and
          media.media_id=media_labels.media_id (+) and
          media.media_id=tag.media_id (+) and
          media_relations.media_relationship like '%cataloged_item' and
