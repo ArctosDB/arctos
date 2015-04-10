@@ -25,6 +25,7 @@
 			getMedia('collecting_event','#collection_object_id#','colEventMedia','2','1');
 
 			getMedia('specimenaccn','#collection_object_id#','SpecAccnMedia','2','1');
+            getMedia('specimen','#collection_object_id#','specMediaDv','2','1');
 
 
 		});
@@ -1311,8 +1312,14 @@
 	</div>
 </cfif>
 
-
-
+  <div class="detailCell">
+	<div class="detailLabel">Media</div>
+	</div>
+<div class="detailBlock">
+            <span class="detailData">
+			<div id="specMediaDv"></div>
+			</div>
+			</div>
 <!----
 <cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     select distinct
