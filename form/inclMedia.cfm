@@ -175,7 +175,7 @@
 				media_flat.mime_type,
                 alt_text,
                 license,
-                        media_flat.descr
+                media_flat.descr
 			from
 				cataloged_item,
 				media_relations,
@@ -215,7 +215,7 @@
         media_flat.hastags,
 		alt_text,
 		license,
-                        media_flat.descr
+        media_flat.descr
      from
          media_flat,
          media_relations
@@ -228,8 +228,8 @@
 		<cfabort>
 	</cfif>
 
-	<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
-	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#"  >
+	<!-------->
+	<cfquery name="mediaResultsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   	#preservesinglequotes(sql)#
 	</cfquery>
 
