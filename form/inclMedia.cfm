@@ -140,7 +140,7 @@
 		        media_flat.preview_uri,
                 alt_text,
                 license,
-                        media_flat.descr
+                 media_flat.descr
 		">
 	<cfelseif typ is "accnspecimens">
 		<cfset srchall="">
@@ -150,10 +150,10 @@
 				media_flat.preview_uri,
 				media_flat.media_uri,
 				media_flat.media_type,
-				media_flat.mime_type,,
+				media_flat.mime_type,
                 alt_text,
                 license,
-                        media_flat.descr
+                media_flat.descr
 			from
 				cataloged_item,
 				media_relations,
