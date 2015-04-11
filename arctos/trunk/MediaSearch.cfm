@@ -10,7 +10,7 @@
 	<cfif action is "nothing">
 	<!----------------------------------------------------------------------------------------->
 	<!----
-	
+
 	<script>
 		jQuery(document).ready(function() {
 
@@ -21,7 +21,7 @@
 
 	</script>
 	---->
-	
+
 	<cfoutput>
 	    <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select media_relationship from ctmedia_relationship order by media_relationship
@@ -64,10 +64,10 @@
 				border:1px dotted green;
 			}
 		</style>
-		
+
 		<table><tr><td><!---------- leftcolumn ---------->
 		<form name="newMedia" method="post" action="">
-			<input type="hidden" name="action" value="search">				
+			<input type="hidden" name="action" value="search">
 			<label for="keyword">Keyword</label>
 			<input type="text" name="keyword" id="keyword" size="40">
 			<span class="rdoCtl">Match Any<input type="radio" name="kwType" value="any"></span>
@@ -91,12 +91,12 @@
 							<option value="" selected="selected">anything</option>
 							<option value="require">require</option>
 							<option value="exclude">exclude</option>
-						</select>	
+						</select>
 					</td>
 				</tr>
 			</table>
-			
-			
+
+
 			<table>
 				<tr>
 					<td>
@@ -128,12 +128,12 @@
 				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_RELATIONSHIP&field=created by agent" target="_blank">Created by Agent (<em>e.g.</em>, field note author, photographer)</a>
 			</label>
 			<input type="text" name="created_by_agent" id="created_by_agent" size="80">
-			
+
 			<label for="description">
 				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=description" target="_blank">Description</a>
 			</label>
 			<input type="text" name="description" id="description" size="80">
-			
+
 			<label for="location">Location (geography, specific locality of linked specimens and events)</label>
 			<input type="text" name="location" id="location" size="80">
 
@@ -146,13 +146,13 @@
 				Content Date (min-max from linked specimens and events)</a>
 			</label>
 			<input type="text" name="earliest_date" id="earliest_date" size="8">-<input type="text" name="latest_date" id="latest_date" size="8">
-			
-			
+
+
 			<label for="min_published_year">
 				<a href="/info/ctDocumentation.cfm?table=CTMEDIA_LABEL&field=made date" target="_blank">Made Date (min-max from Media metadata)</a>
 			</label>
 			<input type="text" name="min_published_year" id="min_published_year" size="8">-<input type="text" name="max_published_year" id="max_published_year" size="8">
-			
+
 			<table>
 				<tr>
 					<td>
@@ -188,26 +188,26 @@
 						<input type="text" name="label_value" id="label_value" size="80">
 					</td>
 				</tr>
-			</table>		
+			</table>
 			<br>
 			<input type="submit" value="Find Media" class="schBtn">
 			<input type="reset" value="reset form" class="clrBtn">
 		</form>
 		</td><td valign="top"><!------------------ rightcolumn------------>
 		<div style="padding:1em;border:2px solid red; margin:1em;">
-			This form has some important limitations. 
+			This form has some important limitations.
 			<ul>
-				
+
 				<li>
 					MIME Type is for computers and defines protocols; Media Type is for people and describes content. A YouTube video is
 					MIME type "text/html" and Media Type "video," for example.
 				</li>
 				<li>
-					Keywords contain information from various relationships. They're intended for exploration, 
+					Keywords contain information from various relationships. They're intended for exploration,
 					and are not great at finding specific Media.
 				</li>
 				<li>
-					Specimen-related Media are findable by catalog number and accepted scientific name. 
+					Specimen-related Media are findable by catalog number and accepted scientific name.
 					To find Media related to specimens by specimen criteria, see <a href="/SpecimenSearch.cfm">SpecimenSearch</a>
 				</li>
 				<li>Agent-related Media are findable by agent name.</li>
@@ -215,10 +215,10 @@
 					Project-related Media are findable by project title or description.
 				</li>
 				<li>
-					Collecting-event related media are findable by higher geography or specific or verbatim locality. 
+					Collecting-event related media are findable by higher geography or specific or verbatim locality.
 				</li>
 				<li>
-					Locality related media are findable by higher geography or specific locality. 
+					Locality related media are findable by higher geography or specific locality.
 				</li>
 				<li>Media-related media are findable my related media URI</li>
 				<li>
@@ -231,7 +231,7 @@
 					Publication-related media are findable by publication title ("full citation").
 				</li>
 			</ul>
-		</div>		
+		</div>
 		</td></tr></table><!--------------- endcolumns -------------->
 	</cfoutput>
 	</cfif>
@@ -274,7 +274,7 @@
 		<cfset session.displayrows=20>
 	</cfif>
 	<cfoutput>
-		<cfset sql = "SELECT 
+		<cfset sql = "SELECT
 			media_flat.MEDIA_ID,
 			media_flat.MEDIA_TYPE,
 			media_flat.MEDIA_URI,
@@ -288,6 +288,7 @@
 			media_flat.HASTAGS,
 			media_flat.LASTDATE,
 			media_flat.location,
+            media_flat.descr,
 			mttitle.label_value title,
 			niceURLNumbers(mttitle.label_value) urltitle">
 		<cfset tabls="media_flat,(select media_id,label_value from media_labels where media_label='title') mttitle">
@@ -299,7 +300,7 @@
 			<cfset relationships=''>
 		</cfif>
 		<cfloop list="#relationships#" delimiters="," index="thisRelationship">
-			<cfset tabls = "#tabls#,media_relations media_relations#n#">			
+			<cfset tabls = "#tabls#,media_relations media_relations#n#">
 			<cfset whr ="#whr# AND media_flat.media_id = media_relations#n#.media_id ">
 			<cfset srch="#srch# AND media_relations#n#.media_relationship = '#thisRelationship#'">
 			<cfif isdefined ("related_primary_key#n#")>
@@ -331,9 +332,9 @@
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_collecting_event1.collecting_event_id AND
 						mr_collecting_event1.locality_id=mr_locality1.locality_id
 						and mr_locality1.geog_auth_rec_id=mr_geog_auth_rec1.geog_auth_rec_id">
-					<cfset srch="#srch# AND 
-						upper(mr_collecting_event1.VERBATIM_LOCALITY) || 
-						upper(mr_geog_auth_rec1.higher_geog) || 
+					<cfset srch="#srch# AND
+						upper(mr_collecting_event1.VERBATIM_LOCALITY) ||
+						upper(mr_geog_auth_rec1.higher_geog) ||
 						upper(mr_locality1.spec_locality) like '%#ucase(relationship1)#%' ">
 				<cfelseif right(relationshiptype1,5) is "media">
 					<cfset tabls = "#tabls#,media mr_media1">
@@ -363,13 +364,13 @@
 					<cfset tabls = "#tabls#,publication mr_publication1">
 					<cfset whr ="#whr# AND media_relations1.related_primary_key=mr_publication1.publication_id ">
 					<cfset srch="#srch# AND upper(mr_publication1.FULL_CITATION) like '%#ucase(relationship1)#%' ">
-				</cfif> 
+				</cfif>
 			</cfif>
-		</cfif>						
+		</cfif>
 		<cfif isdefined("created_by_agent") and len(created_by_agent) gt 0>
 			<cfset mapurl="#mapurl#&created_by_agent=#created_by_agent#">
 			<cfset tabls = "#tabls#,media_relations mr_created_by_agent,agent_name an_created_by_agent">
-			<cfset whr ="#whr# AND media_flat.media_id = mr_created_by_agent.media_id and mr_created_by_agent.MEDIA_RELATIONSHIP='created by agent' and 
+			<cfset whr ="#whr# AND media_flat.media_id = mr_created_by_agent.media_id and mr_created_by_agent.MEDIA_RELATIONSHIP='created by agent' and
 				mr_created_by_agent.related_primary_key=an_created_by_agent.agent_id">
 			<cfset srch="#srch# AND upper(an_created_by_agent.agent_name) like '#ucase(created_by_agent)#%' ">
 		</cfif>
@@ -401,7 +402,7 @@
 			<cfset srch="#srch# AND is_number(ml_mapubyr.label_value)=1 and ml_mapubyr.label_value <= '#max_published_year#'">
 			<cfset mapurl="#mapurl#&max_published_year=#max_published_year#">
 		</cfif>
-		
+
 		<cfif (isdefined("earliest_date") and len(earliest_date) gt 0)>
 			<cfset srch="#srch# AND media_flat.earliest_date >= '#earliest_date#'">
 			<cfset mapurl="#mapurl#&earliest_date=#earliest_date#">
@@ -411,36 +412,36 @@
 			<cfset mapurl="#mapurl#&latest_date=#latest_date#">
 		</cfif>
 		<cfif (isdefined("project_id") and len(project_id) gt 0)>
-			<cfset tabls = "#tabls#,media_relations mr_project">	
+			<cfset tabls = "#tabls#,media_relations mr_project">
 			<cfset whr ="#whr# AND media_flat.media_id = mr_project.media_id ">
 			<cfset srch="#srch# AND mr_project.media_relationship like '% project' and mr_project.related_primary_key = #project_id#">
-			<cfset mapurl="#mapurl#&project_id=#project_id#">			
+			<cfset mapurl="#mapurl#&project_id=#project_id#">
 		</cfif>
 		<cfif (isdefined("accn_id") and len(accn_id) gt 0)>
-			<cfset tabls = "#tabls#,media_relations mr_accn">	
+			<cfset tabls = "#tabls#,media_relations mr_accn">
 			<cfset whr ="#whr# AND media_flat.media_id = mr_accn.media_id ">
 			<cfset srch="#srch# AND mr_accn.media_relationship like '% accn' and mr_accn.related_primary_key = #accn_id#">
-			<cfset mapurl="#mapurl#&accn_id=#accn_id#">			
+			<cfset mapurl="#mapurl#&accn_id=#accn_id#">
 		</cfif>
 		<cfif (isdefined("specimen_accn_id") and len(specimen_accn_id) gt 0)>
-			<cfset tabls = "#tabls#,media_relations mr_sp_accn, cataloged_item mr_accn_ci">	
-			<cfset whr ="#whr# AND media_flat.media_id = mr_sp_accn.media_id AND 
-				mr_sp_accn.media_relationship like '% cataloged_item' and 
+			<cfset tabls = "#tabls#,media_relations mr_sp_accn, cataloged_item mr_accn_ci">
+			<cfset whr ="#whr# AND media_flat.media_id = mr_sp_accn.media_id AND
+				mr_sp_accn.media_relationship like '% cataloged_item' and
 				mr_sp_accn.related_primary_key = mr_accn_ci.collection_object_id ">
 			<cfset srch="#srch# and mr_accn_ci.accn_id=#specimen_accn_id#">
-			<cfset mapurl="#mapurl#&specimen_accn_id=#specimen_accn_id#">			
+			<cfset mapurl="#mapurl#&specimen_accn_id=#specimen_accn_id#">
 		</cfif>
 		<cfif (isdefined("specimen_collecting_event_id") and len(specimen_collecting_event_id) gt 0)>
-			<cfset tabls = "#tabls#,media_relations mr_collectingevent,specimen_event mr_specevent">	
-			<cfset whr ="#whr# AND media_flat.media_id = mr_collectingevent.media_id AND 
-				mr_collectingevent.media_relationship like '% collecting_event' and 
+			<cfset tabls = "#tabls#,media_relations mr_collectingevent,specimen_event mr_specevent">
+			<cfset whr ="#whr# AND media_flat.media_id = mr_collectingevent.media_id AND
+				mr_collectingevent.media_relationship like '% collecting_event' and
 				mr_collectingevent.related_primary_key =mr_specevent.collecting_event_id and
 				mr_specevent.collection_object_id=#specimen_collecting_event_id#">
-			<cfset mapurl="#mapurl#&specimen_collecting_event_id=#specimen_collecting_event_id#">			
-		</cfif>		        
+			<cfset mapurl="#mapurl#&specimen_collecting_event_id=#specimen_collecting_event_id#">
+		</cfif>
 		<cfif (isdefined("taxon_name_id") and len(taxon_name_id) gt 0)>
-			<cfset mapurl="#mapurl#&taxon_name_id=#taxon_name_id#">			
-			
+			<cfset mapurl="#mapurl#&taxon_name_id=#taxon_name_id#">
+
 			<cfset srch="#srch# and media_flat.media_id in (
 				select
 					media_relations.media_id
@@ -539,8 +540,8 @@
 		<cfif len(srch) is 0>
 			<div class="error">You must enter search criteria.</div>
 			<cfabort>
-		</cfif>		
-		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum <= 10000 order by media_flat.media_id"> 	
+		</cfif>
+		<cfset ssql="#sql# FROM #tabls# #whr# #srch# and rownum <= 10000 order by media_flat.media_id">
 		<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			#preservesinglequotes(ssql)#
 		</cfquery>
@@ -553,7 +554,7 @@
 			select * from raw where media_type!='multi-page document'
 		</cfquery>
 		<cfquery name="isdoc" dbtype="query">
-			select 
+			select
 				CAST( 0 AS DECIMAL ) AS  media_id,
 				'' as media_uri,
 				'/images/document_thumbnail.png' preview_uri,
@@ -567,21 +568,23 @@
 				0 as HASTAGS,
 				'2014-03-01' as LASTDATE,
 				title,
-				urltitle
-			from 
+				urltitle,
+				descr
+			from
 				raw where media_type='multi-page document' and urltitle is not null
-			group by 
+			group by
 				media_uri,
 				preview_uri,
 				MEDIA_TYPE,
 				license,
 				MIME_TYPE,
 				title,
-				urltitle
+				urltitle,
+				descr
 		</cfquery>
 		<cfset obj = CreateObject("component","component.functions")>
 		<cfquery name="findIDs" dbtype="query">
-			select 
+			select
 				media_id,
 				media_uri,
 				preview_uri,
@@ -595,11 +598,12 @@
 				HASTAGS,
 				LASTDATE,
 				title,
-				urltitle
+				urltitle,
+				descr
 			from
 				isdoc
 			UNION
-			select 
+			select
 				media_id,
 				media_uri,
 				preview_uri,
@@ -613,7 +617,8 @@
 				HASTAGS,
 				LASTDATE,
 				title,
-				urltitle
+				urltitle,
+				descr
 			from
 				nodoc
 		</cfquery>
@@ -738,7 +743,7 @@
 				<cfset alt=''>
 				<cfset lbl=replace(labels,"==",chr(7),"all")>
 				<cfset rel=replace(findIDs.relationships,"==",chr(7),"all")>
-				
+
 				<cfloop list="#lbl#" index="i" delimiters="|">
 					<cfif listgetat(i,1,chr(7)) is "description">
 						<cfset alt=listgetat(i,2,chr(7))>
@@ -750,7 +755,7 @@
 				</cfif>
 				<cfif len(alt) is 0>
 					<cfset alt=media_uri>
-				</cfif>		
+				</cfif>
 				<cfset mp = obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
 				<td align="middle">
 					<cfif mime_type is "audio/mpeg3">
@@ -765,7 +770,7 @@
 						<br><a href="/exit.cfm?target=#media_uri#" download>download MP3</a>
 					<cfelse>
 						<a href="/exit.cfm?target=#media_uri#" target="_blank" class="#addThisClass#" title="#alt#">
-							<img src="#mp#" alt="#alt#" style="max-width:150px;max-height:150px;">
+							<img src="#mp#" alt="#descr#" style="max-width:150px;max-height:150px;">
 						</a>
 					</cfif>
 					<br><span style = "font-size:small;">#media_type# (#mime_type#)</span>
