@@ -1311,16 +1311,17 @@
 		</div>
 	</div>
 </cfif>
-
-  <div class="detailCell">
-	<div class="detailLabel">Media</div>
+<div class="detailCell">
+	<div class="detailLabel">
+		Media
 	</div>
-<div class="detailBlock">
-            <span class="detailData">
-			<div id="specMediaDv"></div>
-			</div>
-			</div>
-<!----
+	<div class="detailBlock">
+		<span class="detailData">
+		<div id="specMediaDv">
+		</div>
+	</div>
+</div> <!----
+
 <cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     select distinct
         media.media_id,
