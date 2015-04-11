@@ -28,7 +28,8 @@
 				     media_type,
 				     preview_uri,
 				     descr,
-				     license
+				     license,
+				     alt_text
 				from (
 			   		select
 				        media_flat.media_id,
