@@ -124,6 +124,7 @@
 
 			     <br /> <br>t2: #t2#
 			     <cfloop list="#t2#" delimiters="?&" index="x">
+				    <cfset "#x#"=x>
 				    <br>x: #x#
 				</cfloop>
 
