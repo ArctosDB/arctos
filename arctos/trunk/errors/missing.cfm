@@ -109,16 +109,27 @@
 			</cfcatch>
 			</cftry>
 			<cfset gPos=listfindnocase(request.rdurl,"guid","/")>
-			<cfset guid = listgetat(request.rdurl,gPos+1,"/")>
+			<cfset temp = listgetat(request.rdurl,gPos+1,"/")>
 <cfoutput>
 
 
-	guid: #guid#
+	temp: #temp#
 
 
-            <cfif listlen(guid,'?&') gt 1>
+            <cfif listlen(temp,'?&') gt 1>
 			     got params
-			</cfif>
+			     <cfset guid=listgetat(temp,1,"?&")>
+			     <cfset t2=listgetat(temp,2,"?&")>
+			     #t2#
+			<cfelse>
+			     <cfset guid=temp>
+		      </cfif>
+
+
+    guid: #guid#
+
+
+
 
 			</cfoutput>
 			<cfif contentType is "application/rdf+xml">
