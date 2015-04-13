@@ -40,7 +40,7 @@
 </cfif>
 <cfif len(seid) gt 0>
     <script>
-	   $("##SD_#seid#").addClass('highlight');
+	   $("##SD_#seid#").parent().addClass('highlight');
 
 
 
