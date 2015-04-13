@@ -4,7 +4,7 @@
 		<cfset doi = listgetat(request.rdurl,gPos+1,"/")>
 
 		<cfdump var=#doi#>
-		
+
 		<cfset doi=replacenocase(doi,'doi:','')>
 		<!--- dois have slashies in them.... --->
 		<cfif listlen(request.rdurl,"/") is gPos+2>
@@ -110,6 +110,9 @@
 			</cftry>
 			<cfset gPos=listfindnocase(request.rdurl,"guid","/")>
 			<cfset guid = listgetat(request.rdurl,gPos+1,"/")>
+
+
+			<cfoutput>guid: #guid#</cfoutput>
 			<cfif contentType is "application/rdf+xml">
 				<cfinclude template="/SpecimenDetailRDF.cfm">
 			<cfelse>
