@@ -2,6 +2,8 @@
 	<cfinclude template="/includes/_frameHeader.cfm">
 </cfif>
 <script src="/includes/sorttable.js"></script>
+<script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
+
 <cfoutput>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
@@ -28,8 +30,28 @@
             getMedia('specimen','#collection_object_id#','specMediaDv','4','1');
 
 
+            $(document).scrollTo( $('[name="#field#"]:first'), 800 );
+
+
+
+
+
 		});
 	</script>
+
+	<cfif not isdefined("specimen_event_id") or specimen_event_id is "undefined">
+        <cfset specimen_event_id="">
+</cfif>
+<cfif len(specimen_event_id) gt 0>
+    <script>
+        $(document).ready(function () {
+            $(document).scrollTo( $('##SD_#specimen_event_id#'), 800 );
+        });
+    </script>
+</cfif>
+
+
+
 </cfoutput>
 <cfset obj = CreateObject("component","component.functions")>
 <cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
