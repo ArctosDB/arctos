@@ -25,38 +25,25 @@
 	<script>
 		jQuery(document).ready(function(){
 			getMedia('collecting_event','#collection_object_id#','colEventMedia','2','1');
-
 			getMedia('specimenaccn','#collection_object_id#','SpecAccnMedia','2','1');
             getMedia('specimen','#collection_object_id#','specMediaDv','4','1');
-
-
-
-
 		});
 	</script>
-
 	<cfif not isdefined("seid") or seid is "undefined">
-        <cfset seid="">
+		<cfset seid="">
+	</cfif>
+	<style>
+	    .highlightSEID {
+		   background:yellow;
+		}
+	</style>
+	<cfif len(seid) gt 0>
+	    <script>
+	    	jQuery(document).ready(function(){
+	    	   $("##seidd_#seid#").addClass('highlightSEID');
+	        });
+	    </script>
 </cfif>
-<style>
-    .highlightSEID {
-	   background:yellow;
-	}
-</style>
-<cfif len(seid) gt 0>
-    <script>
-		jQuery(document).ready(function(){
-	   $("##seidd_#seid#").addClass('highlightSEID');
-
-});
-
-	</script>
-
-	gonna go do something with seid=#seid#
-
-</cfif>
-
-
 
 </cfoutput>
 <cfset obj = CreateObject("component","component.functions")>
