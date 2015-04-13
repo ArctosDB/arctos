@@ -30,10 +30,6 @@
             getMedia('specimen','#collection_object_id#','specMediaDv','4','1');
 
 
-            $(document).scrollTo( $('[name="#field#"]:first'), 800 );
-
-
-
 
 
 		});
