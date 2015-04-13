@@ -116,7 +116,7 @@
 	guid: #guid#
 
 
-            <cfif listlen(guid,'?') gt 1>
+            <cfif listlen(guid,'?&') gt 1>
 			     got params
 			</cfif>
 
