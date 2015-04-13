@@ -110,9 +110,17 @@
 			</cftry>
 			<cfset gPos=listfindnocase(request.rdurl,"guid","/")>
 			<cfset guid = listgetat(request.rdurl,gPos+1,"/")>
+<cfoutput>
 
 
-			<cfoutput>guid: #guid#</cfoutput>
+	guid: #guid#
+
+
+            <cfif listlen(guid,'?') gt 1>
+			     got params
+			</cfif>
+
+			</cfoutput>
 			<cfif contentType is "application/rdf+xml">
 				<cfinclude template="/SpecimenDetailRDF.cfm">
 			<cfelse>
