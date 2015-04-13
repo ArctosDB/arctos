@@ -94,7 +94,7 @@
 			<cfset x=x & ",@@version">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce">
 			<cfset x=x & ",backup,backend,blog,board,backup-db,backup-scheduler">
-			<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,/cgi-sys,calendar,config,client,cube">
+			<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,cgi-sys,calendar,config,client,cube">
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor">
