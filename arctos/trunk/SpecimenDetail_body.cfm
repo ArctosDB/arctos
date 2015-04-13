@@ -446,8 +446,12 @@
 					<div style="border:1px solid green; margin:1em;" id="seidd_#specimen_event_id#">
 					<table id="SD_#specimen_event_id#">
 						<tr class="detailData">
+                            <td id="SDCellLeft" class="innerDetailLabel" style="font-size;xx-small;">SpecimenEventID:</td>
+                            <td id="SDCellRight">#specimen_event_id#</td>
+                        </tr>
+						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Determination&nbsp;Type:</td>
-							<td id="SDCellRight">#specimen_event_type# (ID: #specimen_event_id#)</td>
+							<td id="SDCellRight">#specimen_event_type#</td>
 						</tr>
 						<tr>
 							<td></td>
