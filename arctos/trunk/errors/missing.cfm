@@ -110,52 +110,25 @@
 			</cftry>
 			<cfset gPos=listfindnocase(request.rdurl,"guid","/")>
 			<cfset temp = listgetat(request.rdurl,gPos+1,"/")>
-<cfoutput>
-
-
-	temp: #temp#
-
-
-            <cfif listlen(temp,'?&') gt 1>
-			     got params
-
-			     <cfset guid=listgetat(temp,1,"?&")>
-			     <cfset t2=listdeleteat(temp,1,"?&")>
-
-			     <br /> <br>t2: #t2#
-			     <cfloop list="#t2#" delimiters="?&" index="x">
-				     <cfif listlen(x,"=") is 2>
-					     <cfset vn=listgetat(x,1,"=")>
-                         <cfset vv=listgetat(x,2,"=")>
-
-				    <cfset "#vn#"=vv>
-				    <br>x: #x#
-				    </cfif>
+			<cfif listlen(temp,'?&') gt 1>
+				<cfset guid=listgetat(temp,1,"?&")>
+				<cfset t2=listdeleteat(temp,1,"?&")>
+				<cfloop list="#t2#" delimiters="?&" index="x">
+					<cfif listlen(x,"=") is 2>
+						<cfset vn=listgetat(x,1,"=")>
+						<cfset vv=listgetat(x,2,"=")>
+						<cfset "#vn#"=vv>
+					</cfif>
 				</cfloop>
-
 			<cfelse>
-			     <cfset guid=temp>
-		      </cfif>
-
-
-    guid: #guid#
-
-
-
-
-			</cfoutput>
+				<cfset guid=temp>
+			</cfif>
 			<cfif contentType is "application/rdf+xml">
 				<cfinclude template="/SpecimenDetailRDF.cfm">
 			<cfelse>
 				<cfinclude template="/SpecimenDetail.cfm">
 			</cfif>
 			<cfcatch>
-
-
-				<cfdump var=#cfcatch#>
-
-
-
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
