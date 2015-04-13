@@ -40,7 +40,7 @@
 	<cfif len(seid) gt 0>
 	    <script>
 	    	jQuery(document).ready(function(){
-	    	   $("##seidd_#seid#").addClass('highlightSEID');
+	    	   $("##seidd_#seid#").addClass('highlightSEID').show();
 	        });
 	    </script>
 </cfif>
@@ -443,12 +443,9 @@
 					</cfif>
 				</div>
 				<cfloop query="event">
-					<div style="border:1px solid green; margin:1em;" id="seidd_#specimen_event_id#" label="I am label">
+					<div style="border:1px solid green; margin:1em;">
+					   <div id="seidd_#specimen_event_id#" style="display:none;">SpecimenEventID: #specimen_event_id#</div>
 					<table id="SD_#specimen_event_id#">
-						<tr class="detailData">
-                            <td id="SDCellLeft" class="innerDetailLabel" style="font-size:xx-small;color:lightgray;">SpecimenEventID:</td>
-                            <td id="SDCellRight" style="font-size:xx-small;color:lightgray;">#specimen_event_id#</td>
-                        </tr>
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Determination&nbsp;Type:</td>
 							<td id="SDCellRight">#specimen_event_type#</td>
