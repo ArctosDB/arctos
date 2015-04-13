@@ -124,7 +124,11 @@
 
 			     <br /> <br>t2: #t2#
 			     <cfloop list="#t2#" delimiters="?&" index="x">
-				    <cfset "#x#"=x>
+				     <cfif listlen(x,"=") is 2>
+					     <cfset vn=listgetat(x,1,"=")>
+                         <cfset vv=listgetat(x,2,"=")>
+
+				    <cfset "#vn#"=vv>
 				    <br>x: #x#
 				</cfloop>
 
