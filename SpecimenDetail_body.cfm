@@ -38,9 +38,14 @@
 	<cfif not isdefined("seid") or seid is "undefined">
         <cfset seid="">
 </cfif>
+<style>
+    .highlightSEID {
+	   border:20px solid yellow;
+	}
+</style>
 <cfif len(seid) gt 0>
     <script>
-	   $("##SD_#seid#").parent().addClass('highlight');
+	   $("##SD_#seid#").parent().addClass('highlightSEID');
 
 
 
