@@ -130,6 +130,7 @@
 
 				    <cfset "#vn#"=vv>
 				    <br>x: #x#
+				    </cfif>
 				</cfloop>
 
 			<cfelse>
