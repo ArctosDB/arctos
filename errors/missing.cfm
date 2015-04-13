@@ -120,6 +120,9 @@
 			     got params
 			     <cfset guid=listgetat(temp,1,"?&")>
 			     <cfset t2=listgetat(temp,2,"?&")>
+			     <cfloop list="#t2#" delimiters="?&" index="x">
+				    <br>x: #x#
+				</cfloop>
 			     #t2#
 			<cfelse>
 			     <cfset guid=temp>
