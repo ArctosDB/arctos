@@ -120,7 +120,7 @@
 			     got params
 
 			     <cfset guid=listgetat(temp,1,"?&")>
-			     <cfset t2=listgetat(temp,2,"?&")>
+			     <cfset t2=listdeleteat(temp,1,"?&")>
 
 			     <br /> <br>t2: #t2#
 			     <cfloop list="#t2#" delimiters="?&" index="x">
