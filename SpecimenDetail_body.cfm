@@ -45,9 +45,10 @@
 </style>
 <cfif len(seid) gt 0>
     <script>
+		jQuery(document).ready(function(){
 	   $("##seidd_#seid#").addClass('highlightSEID');
 
-
+});
 
 	</script>
 
