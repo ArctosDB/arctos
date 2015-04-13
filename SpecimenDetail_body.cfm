@@ -459,7 +459,7 @@
 					<table id="SD_#specimen_event_id#">
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Determination&nbsp;Type:</td>
-							<td id="SDCellRight">#specimen_event_type#</td>
+							<td id="SDCellRight">#specimen_event_type# (ID: #specimen_event_id#)</td>
 						</tr>
 						<tr>
 							<td></td>
