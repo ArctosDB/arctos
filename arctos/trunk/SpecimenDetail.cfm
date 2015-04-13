@@ -54,10 +54,6 @@
 	<cfabort>
 </cfif>
 
-
-<cfdump var=#variables#>
-
-
 <cfset detSelect = "
 	SELECT
 		#session.flatTableName#.guid,
