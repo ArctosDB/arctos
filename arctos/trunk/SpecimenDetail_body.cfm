@@ -39,15 +39,14 @@
 		});
 	</script>
 
-	<cfif not isdefined("specimen_event_id") or specimen_event_id is "undefined">
-        <cfset specimen_event_id="">
+	<cfif not isdefined("seid") or seid is "undefined">
+        <cfset seid="">
 </cfif>
-<cfif len(specimen_event_id) gt 0>
-    <script>
-        $(document).ready(function () {
-            $(document).scrollTo( $('##SD_#specimen_event_id#'), 800 );
-        });
-    </script>
+<cfif len(seid) gt 0>
+
+
+	gonna go do something with seid=#seid#
+
 </cfif>
 
 
