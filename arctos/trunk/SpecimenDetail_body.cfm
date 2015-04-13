@@ -39,7 +39,12 @@
         <cfset seid="">
 </cfif>
 <cfif len(seid) gt 0>
+    <script>
+	   $("##SD_#seid#").addClass('highlight');
 
+
+
+	</script>
 
 	gonna go do something with seid=#seid#
 
