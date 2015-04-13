@@ -12,7 +12,7 @@
 				});
 			});
 		});
-	</script>	
+	</script>
 <cfif isdefined("collection_object_id")>
 	<cfset checkSql(collection_object_id)>
 	<cfoutput>
@@ -53,6 +53,10 @@
 	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cfif>
+
+
+<cfdump var=#variables#>
+
 
 <cfset detSelect = "
 	SELECT
@@ -188,7 +192,7 @@
 			<td valign="top" align="right">
 				<div id="SDheaderMap">
 				 <cfif (len(detail.dec_lat) gt 0 and len(detail.dec_long) gt 0)>
-				 
+
 					<div id="mapgohere-collection_object_id-#detail.collection_object_id#"></div>
 					<!---
 					<cfinvoke component="component.functions" method="getMap" returnvariable="contents">
@@ -450,7 +454,7 @@
 <cfcatch>
 	<cf_logError subject="SpecimenDetail error" attributeCollection=#cfcatch#>
 	<div class="error">
-		Oh no! Part of this page has failed to load! 
+		Oh no! Part of this page has failed to load!
 		<br>This error has been logged. Please <a href="/contact.cfm?ref=specimendetail">contact us</a> with any useful information.
 	</div>
 </cfcatch>
