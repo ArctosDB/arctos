@@ -40,7 +40,7 @@
 </cfif>
 <style>
     .highlightSEID {
-	   border:20px solid yellow;
+	   background:yellow;
 	}
 </style>
 <cfif len(seid) gt 0>
@@ -455,7 +455,7 @@
 					</cfif>
 				</div>
 				<cfloop query="event">
-					<div style="border:1px solid green; margin:1em;" id="seidd_#specimen_event_id#" class="highlightSEID">
+					<div style="border:1px solid green; margin:1em;" id="seidd_#specimen_event_id#">
 					<table id="SD_#specimen_event_id#">
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Determination&nbsp;Type:</td>
