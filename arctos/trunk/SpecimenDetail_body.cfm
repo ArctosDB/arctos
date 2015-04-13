@@ -45,7 +45,7 @@
 </style>
 <cfif len(seid) gt 0>
     <script>
-	   $("##SD_#seid#").parent().addClass('highlightSEID');
+	   $("##seidd_#seid#").addClass('highlightSEID');
 
 
 
@@ -455,7 +455,7 @@
 					</cfif>
 				</div>
 				<cfloop query="event">
-					<div style="border:1px solid green; margin:1em;">
+					<div style="border:1px solid green; margin:1em;" id="seidd_#specimen_event_id#">
 					<table id="SD_#specimen_event_id#">
 						<tr class="detailData">
 							<td id="SDCellLeft" class="innerDetailLabel">Determination&nbsp;Type:</td>
