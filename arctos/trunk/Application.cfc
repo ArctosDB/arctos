@@ -3,7 +3,7 @@
 <cfset This.SessionManagement=true>
 <cfset This.ClientManagement=false>
 <cfset f = CreateObject("component","component.utilities")>
-<cffunction name="getIpAddress">	
+<cffunction name="getIpAddress">
 	<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
 		<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
 	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
@@ -100,7 +100,7 @@
 							suggestions for dealing with timeout problems. Use the Contact link below if you are unable to get what you need.
 							<ul>
 								<li>
-									After a <a href="/SpecimenResults.cfm?cat_num=1">successful search</a>, Click "Add/Remove Data Fields" and de-select unnecessary columns. Attributes are particularly expensive.								
+									After a <a href="/SpecimenResults.cfm?cat_num=1">successful search</a>, Click "Add/Remove Data Fields" and de-select unnecessary columns. Attributes are particularly expensive.
 								</li>
 								<li>Try a more specific search.
 									<ul>
@@ -114,11 +114,11 @@
 										<li>draw a bounding box on the map</li>
 										<li>specify collector agent or other ID type</li>
 										<li>Select collection(s)</li>
-									</ul> 
-								</li>								
+									</ul>
+								</li>
 							</ul>
 						</p>
-					</cfif> 
+					</cfif>
 					</cfif>
 					<p>This message has been logged. Please <a href="/contact.cfm">contact us</a>
 					with any information that might help us to resolve this problem.</p>
@@ -166,7 +166,7 @@
 	<cfquery name="cf_global_settings" datasource="uam_god">
 		select LOG_EMAIL,BUG_REPORT_EMAIL,DATA_REPORT_EMAIL,GOOGLE_UACCT from cf_global_settings
 	</cfquery>
-	<cfset Application.bugReportEmail = cf_global_settings.BUG_REPORT_EMAIL>	
+	<cfset Application.bugReportEmail = cf_global_settings.BUG_REPORT_EMAIL>
 	<cfset Application.DataProblemReportEmail = cf_global_settings.DATA_REPORT_EMAIL>
 	<cfset Application.logEmail = cf_global_settings.LOG_EMAIL>
 	<cfset Application.Google_uacct = cf_global_settings.GOOGLE_UACCT>
@@ -244,26 +244,26 @@
 	<cfif not directoryExists("#Application.webDirectory#/download")>
 		<cfdirectory action="create" directory="#Application.webDirectory#/download" mode="744">
 	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/log.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/log.txt" output=""> 
+	<cfif not FileExists("#Application.webDirectory#/log/log.txt")>
+	    <cffile action="write" file="#Application.webDirectory#/log/log.txt" output="">
 	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/404log.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/404log.txt" output=""> 
+	<cfif not FileExists("#Application.webDirectory#/log/404log.txt")>
+	    <cffile action="write" file="#Application.webDirectory#/log/404log.txt" output="">
 	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/missingGUIDlog.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/missingGUIDlog.txt" output=""> 
+	<cfif not FileExists("#Application.webDirectory#/log/missingGUIDlog.txt")>
+	    <cffile action="write" file="#Application.webDirectory#/log/missingGUIDlog.txt" output="">
 	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/blacklistlog.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/blacklistlog.txt" output=""> 
+	<cfif not FileExists("#Application.webDirectory#/log/blacklistlog.txt")>
+	    <cffile action="write" file="#Application.webDirectory#/log/blacklistlog.txt" output="">
 	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/emaillog.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/emaillog.txt" output=""> 
+	<cfif not FileExists("#Application.webDirectory#/log/emaillog.txt")>
+	    <cffile action="write" file="#Application.webDirectory#/log/emaillog.txt" output="">
 	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/request.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/request.txt" output=""> 
+	<cfif not FileExists("#Application.webDirectory#/log/request.txt")>
+	    <cffile action="write" file="#Application.webDirectory#/log/request.txt" output="">
 	</cfif>
-	<cfif not FileExists("#Application.webDirectory#/log/querylog.txt")> 
-	    <cffile action="write" file="#Application.webDirectory#/log/querylog.txt" output=""> 
+	<cfif not FileExists("#Application.webDirectory#/log/querylog.txt")>
+	    <cffile action="write" file="#Application.webDirectory#/log/querylog.txt" output="">
 	</cfif>
 	<cfreturn true>
 </cffunction>
@@ -285,14 +285,23 @@
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://arctos.database.museum/">
 	</cfif>
-	
+
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfset initSession()>
 	<cfset temp=getIpAddress()>
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
-	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>	
+
+
+	<cfdump var=#cgi.query_string#>
+
+
+	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
+
+	<cfdump var=# request.rdurl#>
+
+
 	<cfset temp=getIpAddress()>
 	<cfif cgi.script_name is not "/errors/missing.cfm">
 		<cfset request.rdurl=cgi.script_name & "?" & request.rdurl>
@@ -384,7 +393,7 @@
 			len(session.username) is 0>
 			<cflocation url="/errors/dev_login.cfm">
 		</cfif>
-	</cfif>	
+	</cfif>
 	<!--- people still have this thing bookmarked --->
 	<cfif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
 		<cfset rurl="http://arctos.database.museum">
