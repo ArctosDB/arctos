@@ -57,7 +57,7 @@
 	}
 	function highlightHelp(id){
 		$(".highlight").removeClass('highlight');
-		$("#help_" + id).addClass('highlight',500);	
+		$("#help_" + id).addClass('highlight',500);
 	}
 </script>
 <!--------- global form defaults -------------->
@@ -80,7 +80,7 @@
 <cfoutput>
 <cfif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
 	<cfquery name="d" datasource="uam_god">
-		select scientific_name from taxon_name where taxon_name_id=<cfqueryparam value = "#taxon_name_id#" CFSQLType = "CF_SQL_INTEGER"> 
+		select scientific_name from taxon_name where taxon_name_id=<cfqueryparam value = "#taxon_name_id#" CFSQLType = "CF_SQL_INTEGER">
 	</cfquery>
 	<cflocation url="/name/#d.scientific_name#" addtoken="false">
 </cfif>
@@ -89,7 +89,7 @@
 	<tr>
 		<td width="50%" valign="top">
 			<!--- search form gets half-width --->
-			<h3>Search Taxonomy (default is case-insensitive STARTS WITH)</h3>			
+			<h3>Search Taxonomy (default is case-insensitive STARTS WITH)</h3>
 			<form ACTION="/taxonomy.cfm" METHOD="get" name="taxa" id="taxa">
 				<label for="taxon_name">Taxon Name</label>
 				<input type="text" name="taxon_name" id="taxon_name" value="#taxon_name#" onfocus="highlightHelp(this.id);">
@@ -147,7 +147,7 @@
 						as name authors).
 					</li>
 					<li id="help_term_type">
-						<strong>Term Type</strong> is the rank ("kingdom") for classification terms, in which role it may be NULL, and the label for 
+						<strong>Term Type</strong> is the rank ("kingdom") for classification terms, in which role it may be NULL, and the label for
 						classification metadata ("author text").
 					</li>
 					<li id="help_source">
@@ -158,7 +158,7 @@
 					<li id="help_common_name">
 						<strong>Common Names</strong> are vernacular term associated with taxon names, and are not necessarily English, correct, or common.
 					</li>
-				</ul>	
+				</ul>
 			</div>
 		</td>
 	</tr>
@@ -170,11 +170,11 @@
 <!---------- search results ------------>
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0 or len(common_name) gt 0 or len(source) gt 0 or len(term_type) gt 0>
 	<h3>Taxonomy Search Results</h3>
-	
+
 	<cfset tabls="taxon_name">
 	<cfset tbljoin="">
 	<cfset whr="">
-	
+
 	Search terms:
 	<ul>
 		<cfif len(taxon_name) gt 0>
@@ -194,9 +194,9 @@
 				<cfset tabls=tabls & " , taxon_term">
 				<cfset tbljoin=tbljoin & " AND taxon_name.taxon_name_id=taxon_term.taxon_name_id">
 			</cfif>
-		
+
 			<cfif  left(taxon_term,1) is "=">
-				<cfset whr=whr & " and upper(term) = '#ucase(right(taxon_term,len(taxon_term)-1))#'">
+				<cfset whr=whr & " and upper(term) = '#escapeQuotes(ucase(right(taxon_term,len(taxon_term)-1)))#'">
 				<li>taxa term IS #right(taxon_term,len(taxon_term)-1)#</li>
 			<cfelseif left(taxon_term,1) is "%">
 				<cfset whr=whr & " and upper(term) like '%#escapeQuotes(ucase(right(taxon_term,len(taxon_term)-1)))#%'">
@@ -204,14 +204,14 @@
 			<cfelse>
 				<cfset whr=whr & " and upper(term) like '#escapeQuotes(ucase(taxon_term))#%'">
 				<li>taxa term STARTS WITH #taxon_term#</li>
-			</cfif>			  
+			</cfif>
 		</cfif>
 		<cfif len(term_type) gt 0>
 			<cfif tabls does not contain "taxon_term">
 				<cfset tabls=tabls & " , taxon_term">
 				<cfset tbljoin=tbljoin & " AND taxon_name.taxon_name_id=taxon_term.taxon_name_id">
 			</cfif>
-			
+
 			<cfif  left(term_type,1) is "=">
 				<cfset whr=whr & " and upper(term_type) = '#escapeQuotes(ucase(right(term_type,len(term_type)-1)))#'">
 				<li>term type IS #right(term_type,len(term_type)-1)#</li>
@@ -224,7 +224,7 @@
 			<cfelse>
 				<cfset whr=whr & " and upper(term_type) like '#escapeQuotes(ucase(term_type))#%'">
 				<li>term type STARTS WITH #term_type#</li>
-			</cfif>			  
+			</cfif>
 		</cfif>
 		<cfif len(source) gt 0>
 			<cfif tabls does not contain "taxon_term">
@@ -239,7 +239,7 @@
 				<cfset tabls=tabls & " , common_name">
 				<cfset tbljoin=tbljoin & " AND taxon_name.taxon_name_id=common_name.taxon_name_id">
 			</cfif>
-		
+
 			<cfif  left(common_name,1) is "=">
 				<cfset whr=whr & " and upper(common_name) = '#escapeQuotes(ucase(right(common_name,len(common_name)-1)))#' ">
 				<li>common name IS #right(common_name,len(common_name)-1)#</li>
@@ -249,25 +249,25 @@
 			<cfelse>
 				<cfset whr=whr & " and upper(common_name) like '#escapeQuotes(ucase(common_name))#%' ">
 				<li>common name STARTS WITH #common_name#</li>
-			</cfif>		
-			
-			
+			</cfif>
+
+
 		</cfif>
-		
-		
+
+
 		<cfset sql="select scientific_name from (select scientific_name from #tabls# where 1=1 #tbljoin# #whr# ">
 
 		<cfset sql=sql & "
 		group by scientific_name
 		order by scientific_name)
-		where rownum<1001">	
-		
+		where rownum<1001">
+
 	</ul>
 	<cfif isdefined("debug") and debug is true>
 		<cfdump var=#sql#>
 	</cfif>
 	<cfquery name="d" datasource="uam_god">
-		#preservesinglequotes(sql)#		
+		#preservesinglequotes(sql)#
 	</cfquery>
 	<cfset title="Taxonomy Search Results">
 	#d.recordcount# results - click results for more information.
@@ -300,7 +300,7 @@
 		}
 	</style>
 	<cfquery name="d" datasource="uam_god">
-		select 
+		select
 			taxon_name_id,
 			scientific_name,
 			term,
@@ -312,11 +312,11 @@
 			lastdate,
 			match_type,
 			regexp_replace(source,'[^A-Za-z]') anchor
-		from 
-			v_mv_sciname_term 
-		where 
+		from
+			v_mv_sciname_term
+		where
 			upper(scientific_name)='#ucase(name)#'
-	</cfquery>	
+	</cfquery>
 	<cfif d.recordcount is 0>
 		No data for #name# is available. Please search again, or use the Contact link below to tell us what's missing.
 		<cfinclude template="includes/_footer.cfm">
@@ -333,7 +333,7 @@
 		select source from cttaxonomy_source order by source
 	</cfquery>
 	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
-	
+
 	<cfquery name="scientific_name" dbtype="query">
 		select scientific_name from d group by scientific_name
 	</cfquery>
@@ -355,7 +355,7 @@
 			})
 			loadTaxonomyMap('#scientific_name.scientific_name#');
 
-			
+
 		})
 function loadTaxonomyMap(n,m){
 	var am='/includes/taxonomy/mapTax.cfm?method=' + m + '&scientific_name=' + n;
@@ -365,7 +365,7 @@ function loadTaxonomyMap(n,m){
 	})
 }
 	</script>
-	
+
 	<span class="annotateSpace">
 		<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) cnt from annotations
@@ -404,7 +404,7 @@ function loadTaxonomyMap(n,m){
 		<p>
 			<h4>Related Taxa (from)</h4>
 			<ul>
-				<cfloop query="related">				
+				<cfloop query="related">
 					<li>
 						#TAXON_RELATIONSHIP# <a href='/name/#scientific_name#'>#scientific_name#</a>
 						<cfif len(RELATION_AUTHORITY) gt 0>(Authority: #RELATION_AUTHORITY#)</cfif>
@@ -520,7 +520,7 @@ function loadTaxonomyMap(n,m){
 					identification_taxonomy.taxon_name_id=#taxon_name_id.taxon_name_id#
 			</cfquery>
 			<cfif citas.c gt 0>
-				<li>	
+				<li>
 					<a href="/SpecimenResults.cfm?cited_taxon_name_id=#taxon_name_id.taxon_name_id#">
 						Specimens cited using #scientific_name.scientific_name#
 					</a>
@@ -538,17 +538,17 @@ function loadTaxonomyMap(n,m){
 		<a class="external" target="_blank" href="http://resolver.globalnames.org/name_resolvers.xml?names=#scientific_name.scientific_name#">[ GlobalNames (XML) ]</a>
 	</cfif>
 	<cfquery name="sources" dbtype="query">
-		select 
+		select
 			source,
 			anchor
-		from 
-			d 
-		where 
-			classification_id is not null 
-		group by 
+		from
+			d
+		where
+			classification_id is not null
+		group by
 			source,
 			anchor
-		order by 
+		order by
 			source
 	</cfquery>
 	<ul>
@@ -602,7 +602,7 @@ function loadTaxonomyMap(n,m){
 				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
 			<cfelseif source is "xxxxx">
 				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
-			
+
 			<cfelse>
 				<cfset srcHTML=source>
 			</cfif>
@@ -615,28 +615,28 @@ function loadTaxonomyMap(n,m){
 			<cfloop query="source_classification">
 				<div class="classificationDiv">
 					<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-						<a href="/editTaxonomy.cfm?action=cloneClassification&taxon_name_id=#taxon_name_id.taxon_name_id#&name=#name#&classification_id=#classification_id#">[ Clone Classification ]</a> 
+						<a href="/editTaxonomy.cfm?action=cloneClassification&taxon_name_id=#taxon_name_id.taxon_name_id#&name=#name#&classification_id=#classification_id#">[ Clone Classification ]</a>
 						<cfif listcontains(valuelist(cttaxonomy_source.source),sources.source)>
 							<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a>
 						<cfelse>
 							[ Editing non-local sources disallowed ]
 						</cfif>
-						<a href="/editTaxonomy.cfm?action=cloneClassificationNewName&name=#name#&classification_id=#classification_id#">[ Clone Classification as new name ]</a> 
-												
+						<a href="/editTaxonomy.cfm?action=cloneClassificationNewName&name=#name#&classification_id=#classification_id#">[ Clone Classification as new name ]</a>
+
 					</cfif>
 					<cfquery name="notclass" dbtype="query">
-						select 
+						select
 							term,
-							term_type 
-						from 
-							d 
-						where 
-							position_in_classification is null and 
+							term_type
+						from
+							d
+						where
+							position_in_classification is null and
 							classification_id='#classification_id#'
-						group by 
+						group by
 							term,
-							term_type 
-						order by 
+							term_type
+						order by
 							term_type,
 							term
 					</cfquery>
@@ -644,22 +644,22 @@ function loadTaxonomyMap(n,m){
 						select gn_score,match_type from d where classification_id='#classification_id#' and gn_score is not null group by gn_score,match_type
 					</cfquery>
 					<cfquery name="thisone" dbtype="query">
-						select 
+						select
 							term,
-							term_type 
-						from 
-							d 
-						where 
-							position_in_classification is not null and 
-							classification_id='#classification_id#' 
-						group by 
+							term_type
+						from
+							d
+						where
+							position_in_classification is not null and
+							classification_id='#classification_id#'
+						group by
 							term,
-							term_type 
-						order by 
-							position_in_classification 
+							term_type
+						order by
+							position_in_classification
 					</cfquery>
-					
-										
+
+
 					<cfquery name="lastdate" dbtype="query">
 						select max(lastdate) as lastdate from d where classification_id='#classification_id#'
 					</cfquery>
@@ -706,19 +706,19 @@ function loadTaxonomyMap(n,m){
 			</cfloop>
 		</div>
 	</cfloop>
-		
+
 	<p>
 		External Links:
 		<cfset srchName = URLEncodedFormat(scientific_name.scientific_name)>
 		<ul>
-		
+
 			<!--- things that we've been asked to link to but which cannot deal with our data
 			<li>
 				<a class="external" target="_blank" href="http://amphibiaweb.org/cgi/amphib_query?where-genus=#one.genus#&where-species=#one.species#">
 					AmphibiaWeb
 				</a>
 			</li>
-			
+
 			END things that we've been asked to link to but which cannot deal with our data ---->
 			<li id="ispecies">
 				<a class="external" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
@@ -733,19 +733,19 @@ function loadTaxonomyMap(n,m){
 					Animal Diversity Web
 				</a>
 			</li>
-			
+
 			<cfset thisSearch = "%22#scientific_name.scientific_name#%22">
 			<cfloop query="common_name">
 				<cfset thisSearch = "#thisSearch# OR %22#common_name#%22">
 			</cfloop>
-			
-			
+
+
 			<li>
 				<a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?name=#srchName#">
 					NCBI
 				</a>
 			</li>
-			
+
 			<li>
 				<a class="external" href="http://google.com/search?q=#thisSearch#" target="_blank">
 					Google
