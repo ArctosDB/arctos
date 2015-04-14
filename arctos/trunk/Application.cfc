@@ -295,14 +295,11 @@
 
 
 
-	<cfdump var=#cgi.query_string#>
 
 
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 
-	<cfdump var=#request.rdurl#>
 
-	<cfset request.rdurl=urlencodedformat(request.rdurl)>
 
 
 
