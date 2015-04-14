@@ -302,7 +302,7 @@
 
 	<cfdump var=#request.rdurl#>
 
-	<cfset x=urlencodedformat(request.rdurl)#
+	<cfset x=urlencodedformat(request.rdurl)>
 
 			<cfdump var=#x#>
 
