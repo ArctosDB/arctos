@@ -547,11 +547,14 @@ function checkCoordinateError(){
 	</div>
 	<span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<table width="100%"><tr><td valign="top">
+	   <form name="locality" id="locality" method="post" action="editLocality.cfm">
+
 	<p>
 		<strong>Locality</strong>
 		<span class="likeLink" onClick="getDocs('places/locality/','editlocality')">[ Page Help ]</span>
+
+            <input type="submit" value="Save Edits" class="savBtn">
 	</p>
-	<form name="locality" id="locality" method="post" action="editLocality.cfm">
         <input type="hidden" id="state_prov" name="state_prov" value="#locDet.state_prov#">
         <input type="hidden" id="country" name="country" value="#locDet.country#">
         <input type="hidden" id="county" name="county" value="#locDet.county#">
@@ -941,7 +944,7 @@ function checkCoordinateError(){
 				Edits to this locality are disallowed by verificationstatus.
 			<hr>
 		<cfelse>
-			<input type="submit" value="Save" class="savBtn">
+			<input type="submit" value="Save Edits" class="savBtn">
 			<input type="button" value="Delete" class="delBtn" onClick="deleteLocality('#locDet.locality_id#');">
 		</cfif>
 		<input type="button" value="Clone Locality" class="insBtn" onClick="cloneLocality(#locality_id#)">
