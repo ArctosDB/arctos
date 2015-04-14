@@ -4,7 +4,7 @@
 
 
 
-<cfloop from="1" to="#length(x)#" index="i">
+<cfloop from="1" to="#len(x)#" index="i">
 	<p>
 		#i#
 		<br>mid(x,i,1): #mid(x,i,1)#
