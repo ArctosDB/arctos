@@ -2,6 +2,10 @@
 
 hello there
 
+sjöstedti
+
+
+
 select preferred_agent_name,replace(preferred_agent_name,'Jr','Jr.') from agent where preferred_agent_name like '% Jr';
 
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
