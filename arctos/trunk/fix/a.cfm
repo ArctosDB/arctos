@@ -1,5 +1,7 @@
 <cfoutput>
 
+<cfset x="sjöstedti">
+
 
 
 <cfloop from="1" to="#len(x)#" index="i">
