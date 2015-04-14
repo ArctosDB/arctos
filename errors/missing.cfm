@@ -140,6 +140,11 @@
 		<cftry>
 			<cfset gPos=listfindnocase(request.rdurl,"name","/")>
 			<cfset name = listgetat(request.rdurl,gPos+1,"/")>
+
+
+			<cfdump var="name">
+
+
 			<cfinclude template="/taxonomy.cfm">
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
