@@ -294,6 +294,8 @@
 <cffunction name="onRequestStart" returnType="boolean" output="true">
 
 
+<cfdump var="#cgi#">
+
 	<cfdump var=#cgi.query_string#>
 
 
