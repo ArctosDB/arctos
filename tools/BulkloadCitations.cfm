@@ -97,13 +97,13 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 <cfif action is "nothing">
 	Step 1: Upload a comma-delimited text file (csv).
 	Include CSV column headings.
-	
+
 	<ul>
 		<li><a href="BulkloadCitations.cfm?action=makeTemplate">Get a template</a></li>
 		<li><a target="_blank" class="external" href="http://arctosdb.org/documentation/publications/specimen-citations/">Citations documentation</a></li>
 	</ul>
 	Citations are a combination of a Publication and an Identification.
-	
+
 	<p>
 		Either full_citation or publication_id will find a publication. full_citation is an exact-string match - HTML markup and trailing spaces and all other
 		characters matter.
@@ -116,12 +116,12 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		</ul>
 		There are several options to select an Identification:
 		<ul>
-			<li>Enter "1" under USE_EXISTING_ACCEPTED_ID to link the citation to the current accepted identification. Use this option cautiously - it 
+			<li>Enter "1" under USE_EXISTING_ACCEPTED_ID to link the citation to the current accepted identification. Use this option cautiously - it
 			severely limits	the utility of citations.</li>
 			<li>
 				Enter "0" under USE_EXISTING_ACCEPTED_ID to create a new Identification/Citation pair.
 				 New Citations created using this application will automatically be "sensu" the publication used in the citation. This option created dedicated
-				 citations and is strongly preferred, even when a publication does not explicitly add Identification information. There are two options for specifying 
+				 citations and is strongly preferred, even when a publication does not explicitly add Identification information. There are two options for specifying
 				 Identifying Agents:
 				 <ul>
 				 	<li>
@@ -129,8 +129,8 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				 		publication explicitly has Agents attached. Not all publications do.
 				 	</li>
 				 	<li>
-				 		Set use_pub_authors to "0" and specify identifying agents under identifier_<em>n</em>. This is appropriate if the publication does not have 
-				 		agents attached. 
+				 		Set use_pub_authors to "0" and specify identifying agents under identifier_<em>n</em>. This is appropriate if the publication does not have
+				 		agents attached.
 				 	</li>
 				 </ul>
 			</li>
@@ -198,14 +198,14 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<td>remarks concerning the citation, or linkage between the specimen and publication</td>
 			<td></td>
 		</tr>
-		
+
 		<tr>
 			<td>USE_EXISTING_ACCEPTED_ID</td>
 			<td>YES</td>
 			<td>0 or 1</td>
 			<td>0==require enough information to create a new Identification; 1==use the existing accepted ID and ignore anything about new Identifications</td>
 		</tr>
-		
+
 		<tr>
 			<td>scientific_name</td>
 			<td>if USE_EXISTING_ACCEPTED_ID is 0</td>
@@ -349,13 +349,13 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		where
 		NATURE_OF_ID not in (select NATURE_OF_ID from ctNATURE_OF_ID)
 	</cfquery>
-	
+
 	<cfquery name="guid_prefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='guid_prefix invalid (check case, colons)'
 		where
 		guid_prefix is not null and guid_prefix not in (select guid_prefix from collection)
 	</cfquery>
-	
+
 	<cfquery name="require_author" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='at least one author required when use_pub_authors is false'
 		where USE_PUB_AUTHORS != 1 and IDENTIFIER_1 is null
@@ -363,7 +363,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_citation where status is null
 	</cfquery>
-	
+
 	<cfloop query="data">
 		<cfset problem="">
 		<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -394,7 +394,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<cfset thisColObjId=-1>
 			<cfset problem = listappend(problem,'specimen not found',";")>
 		</cfif>
-		
+
 		<cfif len(publication_id) is 0>
 			<cfquery name="isPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select publication_id from publication where full_citation = '#full_citation#'
@@ -404,7 +404,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		<cfelse>
 			<cfset thisPubId=publication_id>
 		</cfif>
-		
+
 		<cfif USE_EXISTING_ACCEPTED_ID is 0>
 			<!--- creating a new ID ---->
 			<cfinvoke component="component.functions" method="parseTaxonName" returnvariable="tn">
@@ -435,7 +435,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 					<cfif len(thisPubId) gt 0>
 						,publication_id=#thisPubId#
 					</cfif>
-					
+
 					<cfif len(aid1) gt 0>
 						,agentid1=#aid1#
 					</cfif>
@@ -460,7 +460,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			<!--- using existing identification ---->
 			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				UPDATE cf_temp_citation SET
-					collection_object_id = #thisColObjId#					
+					collection_object_id = #thisColObjId#
 					<cfif len(thisPubId) gt 0>
 						,publication_id=#thisPubId#
 					</cfif>
@@ -469,11 +469,11 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 					key = #key#
 			</cfquery>
 		</cfif>
-		
-		
+
+
 	</cfloop>
 	<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_citation set status='duplicate' where 
+		update cf_temp_citation set status='duplicate' where
 			status is null and key in (
 			select distinct k from cf_temp_citation a,
 			 (select min(key) k, collection_object_id,publication_id
@@ -498,7 +498,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		The data you loaded do not validate. <a href="BulkloadCitations.cfm?action=csv">get the CSV</a>
 	</cfif>
 	<script src="/includes/sorttable.js"></script>
-	<cfset header="STATUS,FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,USE_PUB_AUTHORS,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
+	<cfset header="STATUS,FULL_CITATION,PUBLICATION_ID,GUID_PREFIX,GUID,OTHER_ID_TYPE,OTHER_ID_NUMBER,TYPE_STATUS,OCCURS_PAGE_NUMBER,CITATION_REMARKS,SCIENTIFIC_NAME,ACCEPTED_ID_FG,NATURE_OF_ID,MADE_DATE,USE_PUB_AUTHORS,IDENTIFIER_1,IDENTIFIER_2,IDENTIFIER_3,IDENTIFICATION_REMARKS">
 	<table border id="t" class="sortable">
 		<tr>
 			<cfloop list="#header#" index="i">
@@ -523,6 +523,12 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	</cfquery>
 	<cftransaction>
 	<cfloop query="getTempData">
+	  <br>trying insert for
+       <cfif len(guid) gt 0>
+          <a href="/guid/#guid#">#guid#</a>
+        <cfelse>
+          <a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection_object_id#</a>
+        </cfif>
 		<cfif USE_EXISTING_ACCEPTED_ID is 0>
 			<cfif accepted_id_fg is 1>
 				<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -710,7 +716,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select publication_id,full_citation,status from cf_temp_citation group by publication_id,full_citation,status
 		</cfquery>
-		
+
 		<cfdump var=#getTempData#>
 		<cfif getTempData.recordcount is 0>
 			something very strange happened. Contact a sysadmin.
