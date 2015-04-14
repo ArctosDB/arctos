@@ -299,13 +299,6 @@
 			padding:2em;
 		}
 	</style>
-
-
-	<cfdump var=#name#>
-
-	<cfdump var=#ucase(name)#>
-
-
 	<cfquery name="d" datasource="uam_god">
 		select
 			taxon_name_id,
@@ -324,11 +317,6 @@
 		where
 			upper(scientific_name)='#ucase(name)#'
 	</cfquery>
-
-
-	<cfdump var=#d#>
-
-
 	<cfif d.recordcount is 0>
 		No data for #name# is available. Please search again, or use the Contact link below to tell us what's missing.
 		<cfinclude template="includes/_footer.cfm">
