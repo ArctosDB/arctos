@@ -302,9 +302,8 @@
 
 	<cfdump var=#request.rdurl#>
 
-	<cfset x=urlencodedformat(request.rdurl)>
+	<cfset request.rdurl=urlencodedformat(request.rdurl)>
 
-			<cfdump var=#x#>
 
 
 	<cfset temp=getIpAddress()>
