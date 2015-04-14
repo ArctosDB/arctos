@@ -216,7 +216,7 @@
 	<cfset qual = "#qual# AND orig_elev_units = '#orig_elev_units#'">
 </cfif>
 <cfif isdefined("locality_remarks") and len(#locality_remarks#) gt 0>
-	<cfset qual = "#qual# AND upper(locality_remarks) like '%#ucase(locality_remarks)#%'">
+	<cfset qual = "#qual# AND upper(locality_remarks) like '%#escapeQuotes(ucase(locality_remarks))#%'">
 </cfif>
 <cfif isdefined("continent_ocean") and len(#continent_ocean#) gt 0>
 	<cfset qual = "#qual# AND upper(continent_ocean) LIKE '%#ucase(continent_ocean)#%'">
