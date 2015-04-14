@@ -294,14 +294,17 @@
 <cffunction name="onRequestStart" returnType="boolean" output="true">
 
 
-<cfdump var="#cgi#">
 
 	<cfdump var=#cgi.query_string#>
 
 
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 
-	<cfdump var=# request.rdurl#>
+	<cfdump var=#request.rdurl#>
+
+	<cfset x=urlencodedformat(request.rdurl)#
+
+			<cfdump var=#x#>
 
 
 	<cfset temp=getIpAddress()>
