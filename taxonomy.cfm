@@ -299,6 +299,13 @@
 			padding:2em;
 		}
 	</style>
+
+
+	<cfdump var=#name#>
+
+	<cfdump var=#ucase(name)#>
+
+
 	<cfquery name="d" datasource="uam_god">
 		select
 			taxon_name_id,
