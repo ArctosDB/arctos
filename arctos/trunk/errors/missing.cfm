@@ -142,7 +142,7 @@
 			<cfset name = listgetat(request.rdurl,gPos+1,"/")>
 
 
-			<cfdump var="name">
+			<cfdump var="#name#">
 
 
 			<cfinclude template="/taxonomy.cfm">
