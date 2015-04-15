@@ -210,7 +210,7 @@
 				<cfif ListContains(session.searchBy, 'bigsearchbox') gt 0>
 					<textarea name="listcatnum" id="listcatnum" rows="6" cols="40" class="largetextarea"></textarea>
 				<cfelse>
-					<input type="text" name="listcatnum" id="listcatnum" size="21" value="">
+					<input type="text" name="listcatnum" id="listcatnum" size="50" value="">
 				</cfif>
 			</td>
 		</tr>
@@ -222,7 +222,7 @@
 				<cfif ListContains(session.searchBy, 'bigsearchbox') gt 0>
 					<textarea name="guid" id="guid" rows="6" cols="40" class="largetextarea"></textarea>
 				<cfelse>
-					<input type="text" name="guid" id="guid" size="21" value="">
+					<input type="text" name="guid" id="guid" size="50" value="">
 				</cfif>
 			</td>
 		</tr>
@@ -232,7 +232,7 @@
                 <span class="helpLink" id="anyid">Any Identifier:</span>
             </td>
             <td class="srch">
-                <input type="text" name="anyid" id="anyid" size="21" value="">
+                <input type="text" name="anyid" id="anyid" size="50" value="">
             </td>
         </tr>
 	<cfif isdefined("session.CustomOtherIdentifier") and len(session.CustomOtherIdentifier) gt 0>
