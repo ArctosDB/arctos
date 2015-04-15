@@ -154,17 +154,17 @@
 </div>
 <input type="hidden" name="action" value="#action#">
 <div class="secDiv">
-	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">	
-		SELECT 
-			collection.institution, 
-			collection.collection, 
-			collection.collection_id 
-		FROM 
+	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT
+			collection.institution,
+			collection.collection,
+			collection.collection_id
+		FROM
 			collection,
-			cf_collection 
-		where 
-			collection.collection_id=cf_collection.collection_id and 
-			PUBLIC_PORTAL_FG=1 
+			cf_collection
+		where
+			collection.collection_id=cf_collection.collection_id and
+			PUBLIC_PORTAL_FG=1
 		order by collection.collection
 	</cfquery>
 	<cfif isdefined("collection_id") and len(collection_id) gt 0>
@@ -226,6 +226,15 @@
 				</cfif>
 			</td>
 		</tr>
+
+        <tr>
+            <td class="lbl">
+                <span class="helpLink" id="anyid">Any Identifier:</span>
+            </td>
+            <td class="srch">
+                <input type="text" name="anyid" id="anyid" size="21" value="">
+            </td>
+        </tr>
 	<cfif isdefined("session.CustomOtherIdentifier") and len(session.CustomOtherIdentifier) gt 0>
 		<tr>
 			<td class="lbl">
