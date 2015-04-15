@@ -555,7 +555,7 @@ sho err
 				You will see an option to load when status for all records is "valid." Change status by fixing data and clicking validate.
 			</p>
 			<p>
-				If you cannot see the "finalize loan" link and have clicked anything since you last clicked "validate," click "validate.
+				If you cannot see the "finalize load" link and have clicked anything since you last clicked "validate," click "validate.
 			</p>
 		</div>
 		<cfquery name="recip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

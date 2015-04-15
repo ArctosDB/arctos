@@ -130,7 +130,7 @@
 	   upper(#session.flatTableName#.cat_num) like '#ucase(anyid)#' OR
 	   parent_container.barcode  like '#ucase(anyid)#' OR
 	   upper(#session.flatTableName#.guid) like '#ucase(anyid)#' OR
-	   (otherIdSearch.id_references='self' and upper(otherIdSearch.display_value) LIKE '%#ucase(anyid)#%') OR
+	   (upper(otherIdSearch.display_value) LIKE '%#ucase(anyid)#%') OR
 	    upper(#session.flatTableName#.accession) LIKE '%#ucase(anyid)#%'
 	)" >
 
