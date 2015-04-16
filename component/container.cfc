@@ -5,34 +5,21 @@
 	<cfargument name="parent_barcode" type="string" required="yes">
 	<cfargument name="newdisp" type="string" required="yes">
 	<cfargument name="olddisp" type="string" required="yes">
+    <cfargument name="childContainerType" type="string" required="no">
+    <cfargument name="parentContainerType" type="string" required="no">
 	<cftry>
-		<cfquery name="childID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select container_id,barcode,label,container_type from container where barcode = '#barcode#'
-		</cfquery>
-		<cfquery name="parentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select container_id,barcode,label,container_type from container where barcode = '#parent_barcode#'
-		</cfquery>
-		
-		<cfif #childID.recordcount# is not 1>
-			<cfset result = "fail|Child container not found.">
-			<cfreturn result>
-		</cfif> 
-		
-		<cfif parentID.recordcount is not 1>
-			<cfset result = "fail|Parent container not found.">
-			<cfreturn result>
-		</cfif>
-		<cfset msg="">
-		
 		<cftransaction>
-			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update 
-					container 
-				set 
-					parent_container_id=#parentID.container_id#
-				where
-					container_id = #childID.container_id#
-			</cfquery>
+		<cfstoredproc
+           datasource="user_login"
+           username="#session.dbuser#"
+           password="#decrypt(session.epw,session.sessionKey)#"
+           procedure="moveContainerByBarcode">
+             <cfprocparam cfsqltype="cf_sql_varchar" value="#barcode#">
+             <cfprocparam cfsqltype="cf_sql_varchar" value="#parent_barcode#">
+             <cfprocparam cfsqltype="cf_sql_varchar" value="#childContainerType#">
+             <cfprocparam cfsqltype="cf_sql_varchar" value="#parentContainerType#">
+         </cfstoredproc>
+
 			<cfif len(newdisp) gt 0>
 				<cfquery name="childPartID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
@@ -52,7 +39,7 @@
 						specimen_part.collection_object_id=coll_object.collection_object_id and
 						coll_obj_cont_hist.container_id=partcontainer.container_id and
 						partcontainer.parent_container_id=#childID.container_id#
-				</cfquery>				
+				</cfquery>
 				<cfif childPartID.recordcount is not 1 or len(childPartID.collection_object_id) is 0>
 					<cfset msg='no suitable child part found; disposition not updated'>
 				<cfelse>
@@ -86,7 +73,7 @@
 		<cfreturn result>
 	</cfcatch>
 	</cftry>
-	
+
 	<!------>
 	<cfset result = "bla">
 		<cfreturn result>
@@ -103,7 +90,7 @@
 	</cfif>
 	<cftry>
 		<cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
-			SELECT 
+			SELECT
 				CONTAINER_ID,
 				PARENT_CONTAINER_ID,
 				CONTAINER_TYPE,
@@ -137,7 +124,7 @@
 	<cfargument name="contr_id" required="yes" type="string"><!--- ID of div, just gets passed back --->
 	<cftry>
 		<cfquery name="result" timeout="60" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT 
+			SELECT
 				CONTAINER_ID,
 				PARENT_CONTAINER_ID,
 				CONTAINER_TYPE,
@@ -169,7 +156,7 @@
 <cffunction name="get_containerTree" access="remote">
 	<cfargument name="q" type="string" required="true">
 	<!--- accept a url-type argument, parse it out here --->
-	
+
 	<cfset loan_number="">
 	<cfset cat_num="">
 	<cfset barcode="">
@@ -247,7 +234,7 @@
 		</cfif>
 		<cfset whr = "#whr# AND cataloged_item.collection_object_id IN (#collection_object_id#)">
 	 </cfif>
-	 
+
 	 <cfif len(cat_num) gt 0>
 		<cfif frm does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
@@ -260,7 +247,7 @@
 		</cfif>
 		<cfset whr = "#whr# AND cataloged_item.cat_num IN (#cat_num#)">
 	</cfif>
-	 
+
 	<cfif len(other_id_type) gt 0>
 		<cfif frm does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
@@ -288,7 +275,7 @@
 		</cfif>
 		<cfif frm does not contain " coll_obj_other_id_num ">
 			<cfset frm = "#frm# inner join coll_obj_other_id_num on (cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id)">
-		</cfif>		
+		</cfif>
 		<cfset whr = "#whr# AND upper(display_value) like '#ucase(other_id_value)#'">
 	 </cfif>
 	 <cfif len(barcode) gt 0>
@@ -371,7 +358,7 @@
 	</cfif>
 	 <cfset sql = "#sel# #frm# #whr#">
 	<cfset thisSql = "
-				SELECT 
+				SELECT
 					CONTAINER_ID,
 					nvl(PARENT_CONTAINER_ID,0) PARENT_CONTAINER_ID,
 				CONTAINER_TYPE,
@@ -400,7 +387,7 @@
 					<cfreturn result>
 				</cfcatch>
 			 </cftry>
-			
+
 		 	<cfif #queriedFor.recordcount# is 0>
 				<cfset result = querynew("CONTAINER_ID,MSG")>
 				<cfset temp = queryaddrow(result,1)>
@@ -408,9 +395,9 @@
 				<cfset temp = QuerySetCell(result, "msg", "No records were found.", 1)>
 				<cfreturn result>
 	   		</cfif>
-	   
+
 				 <cfquery name="ro" dbtype="query">
-					select 
+					select
 						CONTAINER_ID,
 						PARENT_CONTAINER_ID,
 						CONTAINER_TYPE,
@@ -451,7 +438,7 @@
 					</cfif>
 	  			</cfloop>
 		<cfreturn result>
-</cffunction>	
+</cffunction>
 <!-------------------------------------------------------------->
 
 
@@ -479,12 +466,12 @@
 	<cfargument name="treeID" required="yes" type="string">
 	<cfargument name="id" required="yes" type="numeric">
 	<cfargument name="pid" required="yes" type="numeric">
-	
-	
+
+
 	   	<cfset result = "#treeID#||success">
 	   	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
 		<cfreturn result>
-</cffunction>	
+</cffunction>
 
 
 
@@ -493,7 +480,7 @@
 <cffunction name="getContChildren" returntype="string">
 	<cfargument name="treeID" required="yes" type="string">
 	<cfargument name="contr_id" required="no" type="string">
-	
+
 	<!--- require some search terms --->
 	<cfif len(#contr_id#) is 0 OR  len(#treeID#) is 0>
 		<cfset result = "#treeID#||You must enter search criteria.">
@@ -503,7 +490,7 @@
 	</cfif>
 			 <cftry>
 			 	 <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
-					SELECT 
+					SELECT
 							CONTAINER_ID,
 						PARENT_CONTAINER_ID,
 						CONTAINER_TYPE,
@@ -521,14 +508,14 @@
 					<cfabort>
 				</cfcatch>
 			 </cftry>
-			
+
 		 	<cfif #queriedFor.recordcount# is 0>
 				<cfset result = "#treeID#||No records were found.">
 				<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
 				<cfreturn result>
 				<cfabort>
 	   		</cfif>
-				
+
 				 <cfset theString = ''>
 	  			<cfloop query="queriedFor">
 						<cfset theString = '#theString#tree_#treeID#.insertNewChild("#PARENT_CONTAINER_ID#",#CONTAINER_ID#,"#label# (#container_type#)",0,0,0,0,"",1);'>
@@ -536,7 +523,7 @@
 	   	<cfset result = "#treeID#||#theString#">
 	   	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
 		<cfreturn result>
-</cffunction>	
+</cffunction>
 
 <!-------------------------------------------------------------->
 
@@ -560,12 +547,12 @@
 	<cfargument name="contr_id" required="no" type="string">
 	<cfargument name="begin_parent_install_date" required="no" type="string">
 	<cfargument name="end_parent_install_date" required="no" type="string">
-	
-	
+
+
 	ppp<cfdump var=#end_parent_install_date#>
-	
+
 	<cfset sel = "
-		SELECT 
+		SELECT
 			 container.container_id">
 	<cfset frm = "
 		 FROM
@@ -573,25 +560,25 @@
 	<cfset whr = " WHERE ">
 	<cfif #srch# is "part">
 	 	<cfset frm = "#frm#,coll_obj_cont_hist,specimen_part,cataloged_item">
-	 	<cfset whr = "#whr# container.container_id = coll_obj_cont_hist.container_id 
+	 	<cfset whr = "#whr# container.container_id = coll_obj_cont_hist.container_id
 	 		AND coll_obj_cont_hist.collection_object_id = specimen_part.collection_object_id
 			AND specimen_part.derived_from_cat_item = cataloged_item.collection_object_id">
 	 <cfelseif #srch# is "container">
-	 	<cfset frm = "#frm#,fluid_container_history">	
+	 	<cfset frm = "#frm#,fluid_container_history">
 		<cfset whr = "#whr# container.container_id = fluid_container_history.container_id (+)">
 	 </cfif>
-	
+
 	 <cfif len(cat_num) gt 0 and cat_num neq "-1">
 		<cfset whr = "#whr# AND cataloged_item.cat_num IN (#cat_num#)">
 	 </cfif>
 	 <cfif len(#other_id_type#) gt 0 and #other_id_type# neq "-1">
-		<cfset frm = "#frm#,coll_obj_other_id_num">	
+		<cfset frm = "#frm#,coll_obj_other_id_num">
 		<cfset whr = "#whr# AND cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+)">
 		<cfset whr = "#whr# AND OTHER_ID_TYPE = '#other_id_type#'">
 	 </cfif>
 	 <cfif len(#other_id_value#) gt 0 and #other_id_value# neq "-1">
 		<cfif #frm# does not contain "coll_obj_other_id_num">
-			<cfset frm = "#frm#,coll_obj_other_id_num">	
+			<cfset frm = "#frm#,coll_obj_other_id_num">
 			<cfset whr = "#whr# AND cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+)">
 		</cfif>
 		<cfset whr = "#whr# AND OTHER_ID_NUM = '#other_id_value#'">
@@ -631,9 +618,9 @@
 	  <cfif len(end_parent_install_date) gt 0 and len(end_parent_install_date) gt 0>
 		<cfset whr = "#whr# AND to_char(PARENT_INSTALL_DATE,'YYYY-MM-DD""T""HH24:MI:SS') <= '#end_parent_install_date#'">
 	 </cfif>
-	 
-	
-	
+
+
+
 	<!--- require some search terms --->
 	<cfif len(#cat_num#) is 0 AND
 		len(#barcode#) is 0 AND
@@ -648,7 +635,7 @@
 		len(begin_parent_install_date) is 0 and
 		len(end_parent_install_date) is 0
 		>
-		
+
 		 <cfset result = querynew("treeID,container_id")>
 		<cfset temp = queryaddrow(result,1)>
 		<cfset temp = QuerySetCell(result, "treeID", "-1", 1)>
@@ -656,7 +643,7 @@
 		<cfreturn result>
 		<cfabort>
 	</cfif>
-	
+
 		<cfset sql = "#sel# #frm# #whr#">
 		<!---
 		<cfset result = querynew("treeID,container_id")>
@@ -667,7 +654,7 @@
 		<cfabort>
 		--->
 		<cfset thisSql = "
-				SELECT 
+				SELECT
 					CONTAINER_ID,
 				PARENT_CONTAINER_ID,
 				CONTAINER_TYPE,
@@ -682,7 +669,7 @@
 				)
 				connect by prior parent_container_id = container_id
 			">
-					
+
 			 <cftry>
 			 	 <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
 					#preservesinglequotes(thisSql)#
@@ -696,7 +683,7 @@
 					<cfabort>
 				</cfcatch>
 			 </cftry>
-			
+
 		 	<cfif #queriedFor.recordcount# is 0>
 				<cfset result = querynew("treeID,container_id")>
 				<cfset temp = queryaddrow(result,1)>
@@ -706,7 +693,7 @@
 				<cfabort>
 	   		</cfif>
 				 <cfquery name="ro" dbtype="query">
-					select 
+					select
 						CONTAINER_ID,
 						PARENT_CONTAINER_ID,
 						CONTAINER_TYPE,
@@ -749,10 +736,10 @@
 						<cfset alreadyGotOne = "#alreadyGotOne#,#CONTAINER_ID#">
 						<cfset i=#i#+1>
 					</cfif>
-					
+
 	  			</cfloop>
 		<cfreturn result>
-</cffunction>	
+</cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="buildTreeScript" returntype="string">
 	<cfargument name="treeID" required="yes" type="string">
@@ -765,9 +752,9 @@
 	<cfargument name="part_name" required="yes" type="string">
 	<cfargument name="collection_id" required="yes" type="string">
 	<cfargument name="contr_id" required="no" type="string">
-	
+
 	<cfset sel = "
-		SELECT 
+		SELECT
 			 container.container_id">
 	<cfset frm = "
 		 FROM
@@ -775,14 +762,14 @@
 	<cfset whr = " WHERE ">
 	<cfif #srch# is "part">
 	 	<cfset frm = "#frm#,coll_obj_cont_hist,specimen_part,cataloged_item">
-	 	<cfset whr = "#whr# container.container_id = coll_obj_cont_hist.container_id 
+	 	<cfset whr = "#whr# container.container_id = coll_obj_cont_hist.container_id
 	 		AND coll_obj_cont_hist.collection_object_id = specimen_part.collection_object_id
 			AND specimen_part.derived_from_cat_item = cataloged_item.collection_object_id">
 	 <cfelseif #srch# is "container">
-	 	<cfset frm = "#frm#,fluid_container_history">	
+	 	<cfset frm = "#frm#,fluid_container_history">
 		<cfset whr = "#whr# container.container_id = fluid_container_history.container_id (+)">
 	 </cfif>
-	
+
 	 <cfif len(#cat_num#) gt 0 and #cat_num# neq "-1">
 		<cfset whr = "#whr# AND cataloged_item.cat_num IN (#cat_num#)">
 	 </cfif>
@@ -815,7 +802,7 @@
 	 <cfif len(#contr_id#) gt 0 and #contr_id# neq "-1">
 		<cfset whr = "#whr# AND container.container_id = #contr_id#">
 	 </cfif>
-	 
+
 	<!--- require some search terms --->
 	<cfif len(#cat_num#) is 0 AND
 		len(#barcode#) is 0 AND
@@ -831,10 +818,10 @@
 		<cfreturn result>
 		<cfabort>
 	</cfif>
-	
+
 		<cfset sql = "#sel# #frm# #whr#">
 		<cfset thisSql = "
-				SELECT 
+				SELECT
 					CONTAINER_ID,
 				PARENT_CONTAINER_ID,
 				CONTAINER_TYPE,
@@ -849,7 +836,7 @@
 				)
 				connect by prior parent_container_id = container_id
 			">
-			
+
 			 <cftry>
 			 	 <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" timeout="60">
 					#preservesinglequotes(thisSql)#
@@ -861,7 +848,7 @@
 					<cfabort>
 				</cfcatch>
 			 </cftry>
-			
+
 		 	<cfif #queriedFor.recordcount# is 0>
 				<cfset result = "#treeID#||No records were found.\#preservesinglequotes(thisSql)#">
 				<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>

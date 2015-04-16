@@ -1,9 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Move a container">
-<cfquery name="CTCOLL_OBJ_DISP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+<cfquery name="CTCOLL_OBJ_DISP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP order by COLL_OBJ_DISPOSITION
 </cfquery>
-
+<cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+       select container_type from ctcontainer_type where container_type!='collection object' order by container_type
+    </cfquery>
 <style>
 	.red {background-color:#FF0000;
 	}
@@ -11,7 +13,7 @@
 	}
 	.yellow {background-color:#FFFF00;
 	}
-	
+
 </style>
 <script>
 	if ( !Date.prototype.toISOString ) {
@@ -49,6 +51,8 @@
 				parent_barcode : $("#parent_barcode").val(),
 				newdisp: $("#newdisp").val(),
 				olddisp: $("#olddisp").val(),
+				childContainerType: $("#childContainerType").val(),
+				parentContainerType: $("#parentContainerType").val(),    
 				returnformat : "json",
 				queryformat : 'column'
 			},
@@ -81,7 +85,7 @@
 			c.className='yellow';
 			p.className ='yellow';
 			var isChild = message.indexOf('Child');
-			var isParent = message.indexOf('Parent');	
+			var isParent = message.indexOf('Parent');
 			if (isChild > -1) {
 				var theChildBarcode = document.getElementById('child_barcode').value;
 				var newMess = '<a href="/EditContainer.cfm?action=newContainer&barcode=' + theChildBarcode + '">' + message + "</a>";
@@ -95,7 +99,7 @@
 			p.focus();
 		}
 	}
-	
+
 		function autosubmit() {
 			var theCheck =  document.getElementById('autoSubmit');
 			var isChecked = theCheck.checked;
@@ -105,6 +109,12 @@
 		}
 </script>
 <cfoutput>
+
+	<div class="infoBox">
+       <a href="batchScan.cfm">Batch Scan</a> is available if your network connection and this form cannot play nicely.
+    </div>
+
+
 	<form name="moveIt" onsubmit="moveThisOne(); return false;">
 
 <table border>
@@ -135,9 +145,38 @@
 			</select>
 		</td>
 	</tr>
+	<tr>
+	   <td>
+		  <label for="parentContainerType">Force-Change Parent Container to type....</label>
+        <select name="parentContainerType" id="parentContainerType" size="1">
+            <option value="">
+                change nothing
+            </option>
+            <cfloop query="ctcontainer_type">
+                <option value="#container_type#">
+                    #container_type#
+                </option>
+            </cfloop>
+        </select>
+		</td>
+		<td>
+          <label for="childContainerType">Force-Change Child Container to type....</label>
+        <select name="childContainerType" id="childContainerType" size="1">
+            <option value="">
+                change nothing
+            </option>
+            <cfloop query="ctcontainer_type">
+                <option value="#container_type#">
+                    #container_type#
+                </option>
+            </cfloop>
+        </select>
+        </td>
+	</tr>
 </table>
 
-		
+              
+
 Containers Moved:<span id="counter" style="background-color:green">0</span>
 <table>
 	<tr>
