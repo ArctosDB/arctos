@@ -52,7 +52,7 @@
 				newdisp: $("#newdisp").val(),
 				olddisp: $("#olddisp").val(),
 				childContainerType: $("#childContainerType").val(),
-				parentContainerType: $("#parentContainerType").val(),    
+				parentContainerType: $("#parentContainerType").val(),
 				returnformat : "json",
 				queryformat : 'column'
 			},
@@ -122,6 +122,7 @@
 		<td colspan="2">
 			<label for="autoSubmit">Check to submit form when ChildBarcode changes</label>
 			<input type="checkbox" name="autoSubmit" id="autoSubmit" />
+			(Set your scanner to transmit a TAB after the barcode.)
 		</td>
 	</tr>
 	<tr>
@@ -175,7 +176,7 @@
 	</tr>
 </table>
 
-              
+
 
 Containers Moved:<span id="counter" style="background-color:green">0</span>
 <table>
