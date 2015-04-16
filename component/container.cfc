@@ -8,6 +8,7 @@
     <cfargument name="childContainerType" type="string" required="no">
     <cfargument name="parentContainerType" type="string" required="no">
 	<cftry>
+		<cfparam name = "msg" default = "">
 		<cftransaction>
 		<cfstoredproc
            datasource="user_login"
