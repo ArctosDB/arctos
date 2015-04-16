@@ -114,19 +114,13 @@
        <a href="batchScan.cfm">Batch Scan</a> is available if your network connection and this form cannot play nicely.
     </div>
 
-
 	<form name="moveIt" onsubmit="moveThisOne(); return false;">
 
-<table border>
-	<tr>
-		<td colspan="2">
+
 			<label for="autoSubmit">Check to submit form when ChildBarcode changes</label>
 			<input type="checkbox" name="autoSubmit" id="autoSubmit" />
 			(Set your scanner to transmit a TAB after the barcode.)
-		</td>
-	</tr>
-	<tr>
-		<td align="right">
+
 			<label for="newdisp">When child barcode contains a specimen part, update part disposition to....</label>
 			<select name="newdisp" id="newdisp">
 				<option value="">-do not update disposition-</option>
@@ -134,20 +128,18 @@
 					<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
 				</cfloop>
 			</select>
-		</td>
-			<td align="right">
 
-			<label for="olddisp">When current disposition is....</label>
+
+			<label for="olddisp">....only when current disposition is....</label>
 			<select name="olddisp" id="olddisp">
 				<option value="">-any value-</option>
 				<cfloop query="CTCOLL_OBJ_DISP">
 					<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
 				</cfloop>
 			</select>
-		</td>
-	</tr>
-	<tr>
-	   <td>
+
+			<div style="border:2px solid red;">
+			Use these with caution. Updating individual container type is dangerous.
 		  <label for="parentContainerType">Force-Change Parent Container to type....</label>
         <select name="parentContainerType" id="parentContainerType" size="1">
             <option value="">
@@ -159,8 +151,7 @@
                 </option>
             </cfloop>
         </select>
-		</td>
-		<td>
+
           <label for="childContainerType">Force-Change Child Container to type....</label>
         <select name="childContainerType" id="childContainerType" size="1">
             <option value="">
@@ -172,9 +163,7 @@
                 </option>
             </cfloop>
         </select>
-        </td>
-	</tr>
-</table>
+            </div>
 
 
 
