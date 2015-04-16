@@ -1,5 +1,5 @@
 
-	
+
 <!---- relies on table
 
 
@@ -81,10 +81,10 @@ grant all on cf_temp_parts to uam_query,uam_update;
 			<a href="BulkloadParts.cfm?action=managemystuff">Manage your existing #mine.recordcount# records</a>
 		</p>
 	</cfoutput>
-		
-		
-		
-	This form will probably do something strange and mess up all your data. Try it out with a very small 
+
+
+
+	This form will probably do something strange and mess up all your data. Try it out with a very small
 	representative sample first.
 	<p>
 		You can use this form to:
@@ -136,8 +136,8 @@ grant all on cf_temp_parts to uam_query,uam_update;
 			<td>part to create</td>
 			<td><a href="/info/ctDocumentation.cfm?table=CTSPECIMEN_PART_NAME">CTSPECIMEN_PART_NAME</a></td>
 		</tr>
-		
-		
+
+
 		<tr>
 			<td>condition</td>
 			<td>yes</td>
@@ -229,9 +229,11 @@ grant all on cf_temp_parts to uam_query,uam_update;
 			<td></td>
 		</tr>
 	</table>
-	
-	
-			
+
+	<div class="importantNotification">
+	   This form will happily create duplicates. Make sure you aren't loading duplicates.
+	</div>
+
 	<cfform name="atts" method="post" enctype="multipart/form-data" action="BulkloadParts.cfm">
 		<input type="hidden" name="action" value="getFile">
 		<input type="file" name="FiletoUpload" size="45" onchange="checkCSV(this);">
@@ -272,7 +274,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 			</cfloop>
 		<cfif o is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(colVals) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -289,18 +291,18 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		<a href="BulkloadSpecimenEvent.cfm?action=managemystuff">back to my stuff</a>
 		<cfquery name="d" datasource="uam_god">
 			select count(*) c,username from cf_temp_parts where upper(username) != '#ucase(session.username)#' and upper(username) in (
-			select 
+			select
 				grantee
-			from 
+			from
 				dba_role_privs
-			where 
+			where
 				granted_role in (
-	        		select 
-						c.portal_name 
-					from 
-						dba_role_privs d, 
+	        		select
+						c.portal_name
+					from
+						dba_role_privs d,
 						cf_collection c
-	        		where 
+	        		where
 						d.granted_role = c.portal_name
 	        			and d.grantee = '#ucase(session.username)#'
 				)
@@ -345,22 +347,22 @@ grant all on cf_temp_parts to uam_query,uam_update;
 <!---------------------------------------------------------------------------->
 <cfif action is "getGuidUUID">
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select other_id_number from cf_temp_parts where upper(username)='#ucase(session.username)#' and guid_prefix is null 
+		select other_id_number from cf_temp_parts where upper(username)='#ucase(session.username)#' and guid_prefix is null
 		and other_id_type='UUID' and other_id_number is not null
 		group by other_id_number
 	</cfquery>
 	<cfloop query="mine">
 		<cfquery name="gg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
-				guid_prefix 
-			from 
+			select
+				guid_prefix
+			from
 				collection,
 				cataloged_item,
-				coll_obj_other_id_num 
-			where 
+				coll_obj_other_id_num
+			where
 				collection.collection_id=cataloged_item.collection_id and
 				cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
-				other_id_type='UUID' and 
+				other_id_type='UUID' and
 				display_value='#other_id_number#'
 		</cfquery>
 		<cfif gg.recordcount is 1>
@@ -374,16 +376,16 @@ grant all on cf_temp_parts to uam_query,uam_update;
 <!---------------------------------------------------------------------------->
 <cfif action is "managemystuff">
 	<script src="/includes/sorttable.js"></script>
-	<cfoutput>	
+	<cfoutput>
 		<cfquery name="clist" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select column_name from user_tab_cols where table_name='CF_TEMP_PARTS' ORDER BY INTERNAL_COLUMN_ID
 		</cfquery>
-		
+
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_parts where upper(username)='#ucase(session.username)#'
 		</cfquery>
-		
-		
+
+
 		<!----
 		<cfset clist=mine.columnlist>
 		<cfset clist=listdeleteat(clist,listfind(clist,'STATUS'))>
@@ -398,7 +400,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		<p>
 			<a href="BulkloadParts.cfm?action=validate">validate records</a>
 		</p>
-		
+
 		<cfquery name="nv" dbtype="query">
 			select count(*) c from mine where guid_prefix is null and other_id_type='UUID'
 		</cfquery>
@@ -414,7 +416,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 				<br>Use this with great caution. You may need to coordinate with other curatorial staff or involve a DBA.
 				<a href="BulkloadParts.cfm?action=takeStudentRecords">Check for records entered by people in your collection(s)</a>
 			</p>
-			
+
 		</cfif>
 		<p>
 			<a href="BulkloadParts.cfm?action=deleteMine">delete all of your data from the staging table</a>
@@ -468,51 +470,51 @@ grant all on cf_temp_parts to uam_query,uam_update;
 validate
 <cfoutput>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_parts 
-			set 
+			update
+				cf_temp_parts
+			set
 				status = NULL
-			where 
+			where
 				upper(username)='#ucase(session.username)#'
 		</cfquery>
 
 	<cfquery name="getParentContainerId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			cf_temp_parts 
-		set 
+		update
+			cf_temp_parts
+		set
 			parent_container_id = (select container_id from container where container.barcode = cf_temp_parts.CONTAINER_BARCODE)
 		where
 			upper(username)='#ucase(session.username)#' and
 			CONTAINER_BARCODE is not null
 	</cfquery>
-	
-	
+
+
 	<cfquery name="validateGotParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			cf_temp_parts 
-		set 
+		update
+			cf_temp_parts
+		set
 			status = status || ';Container Barcode not found'
-		where 
-			CONTAINER_BARCODE is not null and 
-			parent_container_id is null and 
+		where
+			CONTAINER_BARCODE is not null and
+			parent_container_id is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			cf_temp_parts 
-		set 
+		update
+			cf_temp_parts
+		set
 			status = status || ';Invalid part_name'
-		where 
-			upper(username)='#ucase(session.username)#' and 
+		where
+			upper(username)='#ucase(session.username)#' and
 		 	part_name NOT IN (
         	select part_name from ctspecimen_part_name where collection_cde=(select collection_cde from collection where guid_prefix=cf_temp_parts.guid_prefix))
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			cf_temp_parts 
-		set 
+		update
+			cf_temp_parts
+		set
 			status = status || ';Invalid container_barcode'
-		where 
+		where
 			container_barcode NOT IN (
 				select barcode from container where barcode is not null
 			)
@@ -520,21 +522,21 @@ validate
 		upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			cf_temp_parts 
-		set 
+		update
+			cf_temp_parts
+		set
 			status = status || ';Invalid DISPOSITION'
-		where 
+		where
 			DISPOSITION NOT IN (select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP) and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update 
-			cf_temp_parts 
-		set 
+		update
+			cf_temp_parts
+		set
 			status = status || ';Invalid CONTAINER_TYPE'
-		where 
-			change_container_type NOT IN (select container_type from ctcontainer_type) AND 
+		where
+			change_container_type NOT IN (select container_type from ctcontainer_type) AND
 			change_container_type is not null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
@@ -542,11 +544,11 @@ validate
 		select * from cf_temp_parts where status is null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	
+
 	<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_parts set COLLECTION_OBJECT_ID = (
-			select 
-				cataloged_item.collection_object_id 
+			select
+				cataloged_item.collection_object_id
 			from
 				cataloged_item,
 				collection
@@ -556,10 +558,10 @@ validate
 				cat_num=cf_temp_parts.other_id_number
 		) where other_id_type = 'catalog number'
 	</cfquery>
-	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_parts set COLLECTION_OBJECT_ID = (
-			select 
-				cataloged_item.collection_object_id 
+			select
+				cataloged_item.collection_object_id
 			from
 				cataloged_item,
 				collection,
@@ -572,8 +574,8 @@ validate
 				coll_obj_other_id_num.display_value = cf_temp_parts.other_id_number
 		) where other_id_type != 'catalog number'
 	</cfquery>
-	
-	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
+
+	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_parts set status = status || ';Invalid cataloged item'
 		where collection_object_id is null and
 			upper(username)='#ucase(session.username)#'
@@ -584,11 +586,11 @@ validate
 			476089: UAM PARENTLESS VOID
 			397630: MVZ PARENTLESS VOID
 	---->
-	<cfquery name="getExistingPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
-		update 
+	<cfquery name="getExistingPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
 			cf_temp_parts set USE_PART_ID = (
-				select 
-					specimen_part.collection_object_id 
+				select
+					specimen_part.collection_object_id
 				from
 					specimen_part,
 					coll_obj_cont_hist,
@@ -604,11 +606,11 @@ validate
 			USE_EXISTING=1 and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	<cfquery name="getExistingPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">				
-		update 
+	<cfquery name="getExistingPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
 			cf_temp_parts set PARENT_CONTAINER_ID = (
-				select 
-					container_id 
+				select
+					container_id
 				from
 					container
 				where
@@ -618,68 +620,68 @@ validate
 			CONTAINER_BARCODE is not null and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	
+
 	<cfloop from="1" to="#numPartAttrs#" index="i">
 		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_parts 
-			set 
+			update
+				cf_temp_parts
+			set
 				status = status || ';Invalid PART_ATTRIBUTE_TYPE_#i#'
-			where 
-				upper(username)='#ucase(session.username)#' and 
-				PART_ATTRIBUTE_TYPE_#i# is not null and 
+			where
+				upper(username)='#ucase(session.username)#' and
+				PART_ATTRIBUTE_TYPE_#i# is not null and
 			 	PART_ATTRIBUTE_TYPE_#i# NOT IN (select ATTRIBUTE_TYPE from CTSPECPART_ATTRIBUTE_TYPE)
 		</cfquery>
 		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_parts 
-			set 
+			update
+				cf_temp_parts
+			set
 				status = status || ';PART_ATTRIBUTE_VALUE_#i# is required when PART_ATTRIBUTE_TYPE_#i# is given'
-			where 
-				upper(username)='#ucase(session.username)#' and 
-				PART_ATTRIBUTE_TYPE_#i# is not null and 
+			where
+				upper(username)='#ucase(session.username)#' and
+				PART_ATTRIBUTE_TYPE_#i# is not null and
 			 	PART_ATTRIBUTE_VALUE_#i# is null
 		</cfquery>
 		<!--- units is not used at this point - add as necessary ---->
 		<!---- there is no type/value/units relationship - add as necessary ---->
-		
+
 		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_parts 
-			set 
+			update
+				cf_temp_parts
+			set
 				status = status || ';PART_ATTRIBUTE_DATE_#i# is invalid'
-			where 
-				upper(username)='#ucase(session.username)#' and 
-				PART_ATTRIBUTE_TYPE_#i# is not null and 
+			where
+				upper(username)='#ucase(session.username)#' and
+				PART_ATTRIBUTE_TYPE_#i# is not null and
 			 	PART_ATTRIBUTE_DATE_#i# is not null and (
 			 		is_iso8601(PART_ATTRIBUTE_DATE_#i#) != 'valid' or
 			 		length(PART_ATTRIBUTE_DATE_#i#)!=10
 			 	)
 		</cfquery>
 		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_parts 
-			set 
+			update
+				cf_temp_parts
+			set
 				status = status || ';PART_ATTRIBUE_DETERMINER_#i# is invalid'
-			where 
-				upper(username)='#ucase(session.username)#' and 
-				PART_ATTRIBUTE_TYPE_#i# is not null and 
-			 	PART_ATTRIBUTE_DETERMINER_#i# is not null and 
+			where
+				upper(username)='#ucase(session.username)#' and
+				PART_ATTRIBUTE_TYPE_#i# is not null and
+			 	PART_ATTRIBUTE_DETERMINER_#i# is not null and
 			 	getAgentId(PART_ATTRIBUTE_DETERMINER_#i#) is null
 		</cfquery>
 	</cfloop>
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_parts 
-			set 
+			update
+				cf_temp_parts
+			set
 				status = 'valid'
-			where 
+			where
 				upper(username)='#ucase(session.username)#' and
 				status is null
 		</cfquery>
-	
+
 		<cflocation url="BulkloadParts.cfm?action=manageMyStuff">
-		
+
 		<!----
 		---->
 </cfoutput>
@@ -701,12 +703,12 @@ validate
 				create a part, no containers
 			4) something else
 				abort
-				
-				
-				
-				
+
+
+
+
 		Big load? Use this:
-	
+
 
 
 
@@ -738,13 +740,13 @@ validate
 						'#DISPOSITION#',
 						#lot_count#,
 						'#condition#',
-						0 )		
+						0 )
 				</cfquery>
 				<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					INSERT INTO specimen_part (
 						COLLECTION_OBJECT_ID,
 						PART_NAME,
-						DERIVED_FROM_cat_item 
+						DERIVED_FROM_cat_item
 					) VALUES (
 						#thisPartID#,
 						'#PART_NAME#',
@@ -760,22 +762,22 @@ validate
 				</cfif>
 				<!--- only got here if we have a container ---->
 				<cfquery name="part_container_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select 
+					select
 						container_id
-					from 
+					from
 						coll_obj_cont_hist
 					where
 						collection_object_id = #thisPartID#
 				</cfquery>
 				<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update container set parent_container_id=#parent_container_id# 
+					update container set parent_container_id=#parent_container_id#
 					where container_id = #part_container_id.container_id#
 				</cfquery>
 				<cfif len(change_container_type) gt 0>
 					<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						update container set 
+						update container set
 						container_type='#change_container_type#'
-						where container_id=#parent_container_id# 
+						where container_id=#parent_container_id#
 					</cfquery>
 				</cfif>
 			<cfelseif len(parent_container_id) gt 0 and len(use_part_id) gt 0> <!---- 2 ----->
@@ -783,11 +785,11 @@ validate
 				all we need to do is move the container to a parent IF it exists and is specified, or nothing otherwise --->
 				<cfset thisPartID=use_part_id>
 				<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update 
-						container 
-					set 
-						parent_container_id=#parent_container_id# 
-					where 
+					update
+						container
+					set
+						parent_container_id=#parent_container_id#
+					where
 						container_id = (select container_id from coll_obj_cont_hist where collection_object_id = #thisPartID#)
 				</cfquery>
 			<cfelseif len(parent_container_id) is 0 and len(use_part_id) is 0><!--- 3 ---->
@@ -816,13 +818,13 @@ validate
 						'#DISPOSITION#',
 						#lot_count#,
 						'#condition#',
-						0 )		
+						0 )
 				</cfquery>
 				<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					INSERT INTO specimen_part (
 						COLLECTION_OBJECT_ID,
 						PART_NAME,
-						DERIVED_FROM_cat_item 
+						DERIVED_FROM_cat_item
 					) VALUES (
 						#thisPartID#,
 						'#PART_NAME#',
@@ -875,7 +877,7 @@ validate
 					 			NULL,
 					 		</cfif>
 					 		'#escapeQuotes(thisAttrRem)#'
-					 	)			 		
+					 	)
 					</cfquery>
 				</cfif>
 			</cfloop>

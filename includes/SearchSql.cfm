@@ -107,8 +107,6 @@
 
 
 <!--------------------------- / end old stuff --------------------------------------->
-
-
 <cfif isdefined("anyid") and len(trim(anyid)) gt 0>
 	<cfset mapurl = "#mapurl#&anyid=#anyid#">
 	 <cfif basJoin does not contain "specimen_part">
@@ -132,12 +130,8 @@
 	   upper(#session.flatTableName#.guid) like '#ucase(anyid)#' OR
 	   (upper(otherIdSearch.display_value) LIKE '#ucase(anyid)#') OR
 	    upper(#session.flatTableName#.accession) LIKE '#ucase(anyid)#'
-	)" >
-
-
+	)">
 </cfif>
-
-
 <cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
 	<cfset mapurl = "#mapurl#&cataloged_item_type=#cataloged_item_type#">
 	<cfset basQual = "#basQual#  AND  #session.flatTableName#.cataloged_item_type='#cataloged_item_type#'" >
