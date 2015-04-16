@@ -117,9 +117,9 @@
 	<form name="moveIt" onsubmit="moveThisOne(); return false;">
 
 
-			<label for="autoSubmit">Check to submit form when ChildBarcode changes</label>
+			<label for="autoSubmit">Check to submit form when ChildBarcode changes (Set scanner to transmit a TAB after the barcode)</label>
 			<input type="checkbox" name="autoSubmit" id="autoSubmit" />
-			(Set your scanner to transmit a TAB after the barcode.)
+
 
 			<label for="newdisp">When child barcode contains a specimen part, update part disposition to....</label>
 			<select name="newdisp" id="newdisp">
@@ -139,7 +139,7 @@
 			</select>
 
 			<div style="border:2px solid red;">
-			Use these with caution. Updating individual container type is dangerous.
+			<strong>Use these with caution. Updating individual container type is dangerous.</strong>
 		  <label for="parentContainerType">Force-Change Parent Container to type....</label>
         <select name="parentContainerType" id="parentContainerType" size="1">
             <option value="">
