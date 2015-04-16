@@ -397,12 +397,13 @@ grant all on cf_temp_parts to uam_query,uam_update;
         <cfquery name="dupc2" dbtype="query">
 		  select count(*) c from dupc where c > 1
 		</cfquery>
-        <cfdump var=#dupc#>
-        <cfdump var=#dupc2#>
 		<cfif dupc2.c gt 0>
 		  <div class="importantNotification">
 		       Potential duplicates detected. Sort by collection_object_id.
 		    </div>
+		<cfelse>
+		  Caution: Duplicate existing data cannot be detected from here. This form will create duplicate parts.
+		  Make sure the data you are trying to load do not already exist.
 		</cfif>
 		<p>
 			You have #mine.recordcount# records in the staging table.
