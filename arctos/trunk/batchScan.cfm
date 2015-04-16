@@ -153,7 +153,6 @@ jQuery(document).ready(function() {
 							<td>#thisBarcode#</td>
 							<td>#isDup#</td>
 							<td>#valuelist(guid.guid)#</td>
-							<td>#chk.cmvt#</td>
 						</tr>
 						<cfset pf=listappend(pf,"p")>
 						<cfstoredproc
