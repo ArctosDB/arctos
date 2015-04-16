@@ -399,6 +399,11 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		</cfquery>
         <cfdump var=#dupc#>
         <cfdump var=#dupc2#>
+		<cfif dupc2.c gt 0>
+		  <div class="importantNotification">
+		       Potential duplicates detected. Sort by collection_object_id.
+		    </div>
+		</cfif>
 		<p>
 			You have #mine.recordcount# records in the staging table.
 		</p>
