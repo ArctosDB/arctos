@@ -392,7 +392,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 
 
         <cfquery name="dupc" dbtype="query">
-		  select collection_object_id from mine having count(*)>1 group by collection_object_id
+		  select collection_object_id, count(collection_object_id) from mine group by collection_object_id
 		</cfquery>
 
 		<cfdump var=#dupc#>
