@@ -395,8 +395,9 @@ grant all on cf_temp_parts to uam_query,uam_update;
 		  select collection_object_id, count(collection_object_id) as c from mine where collection_object_id is not null group by collection_object_id
 		</cfquery>
         <cfquery name="dupc2" dbtype="query">
-		  select count(*) c from dupc where c > 0
+		  select count(*) c from dupc where c > 1
 		</cfquery>
+        <cfdump var=#dupc#>
         <cfdump var=#dupc2#>
 		<p>
 			You have #mine.recordcount# records in the staging table.
