@@ -122,7 +122,7 @@ jQuery(document).ready(function() {
 					<th>Status</th>
 				</tr>
 				<cfloop from="1" to="#listlen(bclist)#" INDEX="I">
-					<cfset thisBarcode=i>
+					<cfset thisBarcode=listgetat(bclist,i)>
 
 					<cfif len(thisBarcode) gt 0>
 						<cfset isDup=true>
