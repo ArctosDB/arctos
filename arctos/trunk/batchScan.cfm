@@ -23,6 +23,8 @@ jQuery(document).ready(function() {
 		<input type="hidden" name="numberFolders" value="#numberFolders#">
 		<label for="parent_barcode">Parent Barcode</label>
 		<input type="text" name="parent_barcode" id="parent_barcode" size="20" class="reqdClr">
+		<div style="border:2px solid red;">
+            <strong>Use with caution. Updating individual container type is dangerous.</strong>
 		<label for="new_parent_c_type">Change Parent Container to type....</label>
 		<select name="new_parent_c_type" id="new_parent_c_type" size="1">
 			<option value="">
@@ -45,6 +47,7 @@ jQuery(document).ready(function() {
                 </option>
             </cfloop>
         </select>
+		</div>
         <br>
 		<input type="reset"
 			class="clrBtn"

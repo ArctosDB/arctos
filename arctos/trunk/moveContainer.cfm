@@ -139,7 +139,7 @@
 			</select>
 
 			<div style="border:2px solid red;">
-			<strong>Use these with caution. Updating individual container type is dangerous.</strong>
+			<strong>Use with caution. Updating individual container type is dangerous.</strong>
 		  <label for="parentContainerType">Force-Change Parent Container to type....</label>
         <select name="parentContainerType" id="parentContainerType" size="1">
             <option value="">
