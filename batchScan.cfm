@@ -7,6 +7,10 @@ jQuery(document).ready(function() {
 </script>
 <cfif action is "nothing">
 <cfoutput>
+	<cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	   select container_type from ctcontainer_type where container_type!='collection object' order by container_type
+	</cfquery>
+
 	<cfparam name="mode" default="tab">
 	<cfset numberFolders = 100>
 	<cfset colCount=5>
@@ -16,6 +20,29 @@ jQuery(document).ready(function() {
 		<input type="hidden" name="numberFolders" value="#numberFolders#">
 		<label for="parent_barcode">Parent Barcode</label>
 		<input type="text" name="parent_barcode" id="parent_barcode" size="20" class="reqdClr">
+		<label for="new_parent_c_type">Change Parent Container to type....</label>
+		<select name="new_parent_c_type" id="new_parent_c_type" size="1">
+			<option value="">
+				change nothing
+			</option>
+			<cfloop query="ctcontainer_type">
+				<option value="#ctcontainer_type#">
+					#ctcontainer_type#
+				</option>
+			</cfloop>
+		</select>
+		<label for="new_child_c_type">Change ALL scanned children to type....</label>
+        <select name="new_child_c_type" id="new_child_c_type" size="1">
+            <option value="">
+                change nothing
+            </option>
+            <cfloop query="ctcontainer_type">
+                <option value="#ctcontainer_type#">
+                    #ctcontainer_type#
+                </option>
+            </cfloop>
+        </select>
+
 		<input type="reset"
 			class="clrBtn"
 			value="Clear Form"
@@ -63,6 +90,9 @@ jQuery(document).ready(function() {
 <!------------------------------------------------------------------------------->
 <cfif action is "save">
 	<cfoutput>
+		<cfif len(parent_barcode) lt 1>
+		  Parent barcode is required.<cfabort>
+		</cfif>
 		<cfif mode is "csv">
 			<cfset bclist=childscans>
 		<cfelse>
@@ -102,12 +132,6 @@ jQuery(document).ready(function() {
 						</cfif>
 						<cfset barcodescanlist=listappend(barcodescanlist,thisBarcode)>
 						<cfset numberOfBarcodesScanned=numberOfBarcodesScanned+1>
-						<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select
-								checkContainerMovement('#parent_barcode#','#thisBarcode#') cmvt
-			 				from
-								dual
-						</cfquery>
 						<cfquery name="guid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							select
 								guid
@@ -131,21 +155,28 @@ jQuery(document).ready(function() {
 							<td>#valuelist(guid.guid)#</td>
 							<td>#chk.cmvt#</td>
 						</tr>
-						<cfif chk.cmvt is 'pass'>
-							<cfset pf=listappend(pf,"p")>
-							<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-								update
-									container
-								set
-									parent_container_id=(select container_id from container where barcode='#parent_barcode#')
-								where
-									barcode='#thisBarcode#'
-							</cfquery>
-						<cfelse>
-							<cfset pf=listappend(pf,"f")>
-							<cftransaction action="rollback" />
-							<cfabort>
-						</cfif>
+						<cfset pf=listappend(pf,"p")>
+						<cfstoredproc
+						  datasource="user_login"
+						  username="#session.dbuser#"
+						  password="#decrypt(session.epw,session.sessionKey)#"
+						  procedure="moveContainerByBarcode">
+                            <cfprocparam cfsqltype="cf_sql_varchar" value="#thisBarcode#">
+                            <cfprocparam cfsqltype="cf_sql_varchar" value="#parent_barcode#">
+                            <cfprocparam cfsqltype="cf_sql_varchar" value="#new_child_c_type#">
+                            <cfprocparam cfsqltype="cf_sql_varchar" value="#new_parent_c_type#">
+						</cfstoredproc>
+						<!----
+						<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							update
+								container
+							set
+								parent_container_id=(select container_id from container where barcode='#parent_barcode#')
+							where
+								barcode='#thisBarcode#'
+						</cfquery>
+						---->
+
 					</cfif>
 				</cfloop>
 			</table>
