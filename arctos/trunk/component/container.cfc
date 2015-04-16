@@ -32,13 +32,15 @@
 						flat,
 						coll_object,
 						coll_obj_cont_hist,
-						container partcontainer
+						container partcontainer,
+						container partholder
 					where
 						specimen_part.derived_from_cat_item=flat.collection_object_id and
 						specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 						specimen_part.collection_object_id=coll_object.collection_object_id and
 						coll_obj_cont_hist.container_id=partcontainer.container_id and
-						partcontainer.parent_container_id=#childID.container_id#
+						partcontainer.parent_container_id=partholder.container_id and
+						partholder.barcode='#barcode#'
 				</cfquery>
 				<cfif childPartID.recordcount is not 1 or len(childPartID.collection_object_id) is 0>
 					<cfset msg='no suitable child part found; disposition not updated'>
