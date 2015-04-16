@@ -26,8 +26,8 @@ jQuery(document).ready(function() {
 				change nothing
 			</option>
 			<cfloop query="ctcontainer_type">
-				<option value="#ctcontainer_type#">
-					#ctcontainer_type#
+				<option value="#container_type#">
+					#container_type#
 				</option>
 			</cfloop>
 		</select>
@@ -37,8 +37,8 @@ jQuery(document).ready(function() {
                 change nothing
             </option>
             <cfloop query="ctcontainer_type">
-                <option value="#ctcontainer_type#">
-                    #ctcontainer_type#
+                <option value="#container_type#">
+                    #container_type#
                 </option>
             </cfloop>
         </select>
