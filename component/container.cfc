@@ -65,7 +65,7 @@
 				</cfif>
 			</cfif>
 		</cftransaction>
-		<cfset result = "success|#childID.barcode# (#childID.label#, #childID.container_type#) moved to #parentID.barcode# (#parentID.label#, #parentID.container_type#)">
+		<cfset result = "success|#barcode# moved to #parent_barcode#">
 		<cfif len(msg) gt 0>
 			<cfset result=result & '; ' & msg>
 		</cfif>
