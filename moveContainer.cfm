@@ -110,7 +110,7 @@
 </script>
 <cfoutput>
 
-	<div class="infoBox">
+	<div class="infoBox" style="display:table;">
        <a href="batchScan.cfm">Batch Scan</a> is available if your network connection and this form cannot play nicely.
     </div>
 	<form name="moveIt" onsubmit="moveThisOne(); return false;">
@@ -120,7 +120,7 @@
 			<label for="autoSubmit">Check to submit form when ChildBarcode changes (Set scanner to transmit a TAB after the barcode)</label>
 			<input type="checkbox" name="autoSubmit" id="autoSubmit" />
 
-
+<div style="display:table;border:1px solid green;">
 			<label for="newdisp">When child barcode contains a specimen part, update part disposition to....</label>
 			<select name="newdisp" id="newdisp">
 				<option value="">-do not update disposition-</option>
@@ -137,7 +137,7 @@
 					<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
 				</cfloop>
 			</select>
-
+</div>
 			<div style="border:2px solid red;">
 			<strong>Use with caution. Updating individual container type is dangerous.</strong>
 		  <label for="parentContainerType">Force-Change Parent Container to type....</label>
