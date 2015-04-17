@@ -325,7 +325,10 @@
                 <cfelse>
                     <cfset sql=sql & " geologyConcat is null ">
                 </cfif>
-            </cfif>
+            <cfelse>
+			 <!--- just to keep the SQL valid --->
+			 <cfset sql=sql & " 1=1 ">
+			</cfif>
 
 
 
