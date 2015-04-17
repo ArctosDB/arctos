@@ -267,7 +267,7 @@
 		<cfif scientific_name_match_type is "exact">
 			<cfset basQual = " #basQual# AND upper(identification.scientific_name) = '#ucase(escapeQuotes(scientific_name))#'">
 		<cfelseif scientific_name_match_type is "notcontains">
-			<cfset basQual = " #basQual# upper(identification.scientific_name) NOT LIKE '%#ucase(escapeQuotes(scientific_name))#%'">
+			<cfset basQual = " #basQual# AND upper(identification.scientific_name) NOT LIKE '%#ucase(escapeQuotes(scientific_name))#%'">
 		<cfelseif scientific_name_match_type is "inlist">
 			<cfset basQual = " #basQual# AND upper(identification.scientific_name) in (#listqualify(ucase(scientific_name),chr(39))#)">
 		<cfelse><!---- startswith ---->

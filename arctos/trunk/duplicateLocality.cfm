@@ -28,12 +28,13 @@
 					LOCALITY_REMARKS,
 					GEOREFERENCE_SOURCE,
 					GEOREFERENCE_PROTOCOL,
-					LOCALITY_NAME
-				from 
-					locality 
+					LOCALITY_NAME,
+					concatGeologyAttributeDetail(locality_id) geologyConcat
+				from
+					locality
 				where locality_id=#locality_id#
 			</cfquery>
-			
+
 			<cfif not isdefined("GEOG_AUTH_REC_ID")>
 				<cfset GEOG_AUTH_REC_ID=orig.GEOG_AUTH_REC_ID>
 			</cfif>
@@ -85,19 +86,22 @@
 			<cfif not isdefined("LOCALITY_NAME")>
 				<cfset LOCALITY_NAME=orig.LOCALITY_NAME>
 			</cfif>
-			
-			
-			
-		
-		
-		
-		
-		
-		Filter for duplicates (or almost-duplicates). Default values are from the locality you came here from. 
+            <cfif not isdefined("geologyConcat")>
+                <cfset geologyConcat=orig.geologyConcat>
+            </cfif>
+
+
+
+
+
+
+
+
+		Filter for duplicates (or almost-duplicates). Default values are from the referring locality.
 		<br>Empty cells match NULL
 		<br>Enter "ignore" (without the quotes) to IGNORE the term. That is, spec_locality=ignore will match ALL
 		other spec localities; the filter will be only on the remaining terms, and spec_locality will not be considered at all.
-		
+
 		<p>
 			Original values (from locality #locality_id#) are in grayed-out textboxes
 		</p>
@@ -154,11 +158,22 @@
 				<label for="LOCALITY_NAME">LOCALITY_NAME</label>
 				<input type="text" name="LOCALITY_NAME" size="120" value="#LOCALITY_NAME#">
 				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.LOCALITY_NAME#">
+
+				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.geologyConcat#">
+                <label for="geologyConcat">geologyConcat</label>
+                <input type="text" name="geologyConcat" size="120" value="#geologyConcat#">
+                <br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.geologyConcat#">
+
+
+
+
+
+
 				<br>
 				<input type="submit" value="filter table below">
 				<a href="duplicateLocality.cfm?locality_id=#locality_id#">[ change nothing - reset everything ]</a>
 			</form>
-			
+
 			<cfset sql="select
 					LOCALITY_ID,
 					GEOG_AUTH_REC_ID,
@@ -178,11 +193,11 @@
 					GEOREFERENCE_SOURCE,
 					GEOREFERENCE_PROTOCOL,
 					LOCALITY_NAME
-				from 
-					locality 
-				where 
+				from
+					locality
+				where
 					locality_id != #locality_id# and ">
-					
+
 			<cfif GEOG_AUTH_REC_ID is not "ignore">
 				<cfif len(GEOG_AUTH_REC_ID) gt 0>
 					<cfset sql=sql & " GEOG_AUTH_REC_ID=#GEOG_AUTH_REC_ID# and ">
@@ -226,7 +241,7 @@
 					<cfset sql=sql & " MAXIMUM_ELEVATION is null and ">
 				</cfif>
 			</cfif>
-			<cfif ORIG_ELEV_UNITS is not "ignore">				
+			<cfif ORIG_ELEV_UNITS is not "ignore">
 				<cfif len(ORIG_ELEV_UNITS) gt 0>
 					<cfset sql=sql & " ORIG_ELEV_UNITS='#ORIG_ELEV_UNITS#' and ">
 				<cfelse>
@@ -254,14 +269,14 @@
 					<cfset sql=sql & " DEPTH_UNITS is null and ">
 				</cfif>
 			</cfif>
-			<cfif MAX_ERROR_DISTANCE is not "ignore">			
+			<cfif MAX_ERROR_DISTANCE is not "ignore">
 				<cfif len(MAX_ERROR_DISTANCE) gt 0>
 					<cfset sql=sql & " MAX_ERROR_DISTANCE=#MAX_ERROR_DISTANCE# and ">
 				<cfelse>
 					<cfset sql=sql & " MAX_ERROR_DISTANCE is null and ">
 				</cfif>
 			</cfif>
-			<cfif MAX_ERROR_UNITS is not "ignore">				
+			<cfif MAX_ERROR_UNITS is not "ignore">
 				<cfif len(MAX_ERROR_UNITS) gt 0>
 					<cfset sql=sql & " MAX_ERROR_UNITS='#MAX_ERROR_UNITS#' and ">
 				<cfelse>
@@ -303,28 +318,28 @@
 					<cfset sql=sql & " LOCALITY_NAME is null ">
 				</cfif>
 			</cfif>
-				
-				
-				
+
+
+
 			<cfquery name="dups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(sql)# and rownum < 1001
 			</cfquery>
-			
+
 			<hr>
 			<p>
 				The SQL to build the table below is here.
-				
+
 				<br>
-				
-				
+
+
 				In the event you want to merge localities but cannot because they are
 				shared or used in verified events, use the Contact link in the footer or send a DBA email
 				explaining what you're trying to do, and make sure you include this SQL.
 			</p>
-			
+
 			<textarea rows="20" cols="120">#preservesinglequotes(sql)# and rownum < 1001</textarea>
-			
-			
+
+
 			<hr>
 			<cfif dups.recordcount is 100>
 				This form only returns 1000 records. You may have to delete a few sets.
@@ -401,8 +416,8 @@
 				update collecting_event set locality_id=#locality_id# where locality_id in (#deleteLocalityID#)
 			</cfquery>
 			<cfquery name="cleardupsMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update media_relations set related_primary_key=#locality_id# where 
-				media_relationship like '% locality' and 
+				update media_relations set related_primary_key=#locality_id# where
+				media_relationship like '% locality' and
 				related_primary_key in (#deleteLocalityID#)
 			</cfquery>
 			<cfquery name="cleardupsBL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -413,7 +428,7 @@
 			</cfquery>
 		</cftransaction>
 		<cflocation url="duplicateLocality.cfm?locality_id=#locality_id#" addtoken="false">
-		
+
 	</cfif>
 </cfoutput>
 <cfinclude template="includes/_footer.cfm">
