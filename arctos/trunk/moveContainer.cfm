@@ -113,7 +113,7 @@
 	<div class="infoBox">
        <a href="batchScan.cfm">Batch Scan</a> is available if your network connection and this form cannot play nicely.
     </div>
-
+    <br>
 	<form name="moveIt" onsubmit="moveThisOne(); return false;">
 
 
