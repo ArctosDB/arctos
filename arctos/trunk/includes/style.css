@@ -1195,11 +1195,15 @@ div.content {
 .smaller {
 	font-size:.8em;}
 
+
 div.infoBox {
-	background-color:#999999;
-	color:#333333;
-	font-size:smaller;
-	padding:3px;}
+    background-color: #efef8f;
+    border: 1px solid black;
+    display: inline;
+    font-size: smaller;
+    margin: 0.5em;
+    padding: .5em;
+}
 
 
 
