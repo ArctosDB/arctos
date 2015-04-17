@@ -323,7 +323,7 @@
                 <cfif len(geologyConcat) gt 0>
                     <cfset sql=sql & " concatGeologyAttributeDetail(locality_id)='#geologyConcat#' ">
                 <cfelse>
-                    <cfset sql=sql & " geologyConcat is null ">
+                    <cfset sql=sql & " concatGeologyAttributeDetail(locality_id) is null ">
                 </cfif>
             <cfelse>
 			 <!--- just to keep the SQL valid --->
