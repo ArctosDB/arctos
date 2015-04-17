@@ -7,13 +7,7 @@
        select container_type from ctcontainer_type where container_type!='collection object' order by container_type
     </cfquery>
 <style>
-	.red {background-color:#FF0000;
-	}
-	.green {background-color:#00FF00;
-	}
-	.yellow {background-color:#FFFF00;
-	}
-
+	.red {background-color:#FF0000; } .green {background-color:#00FF00; } .yellow {background-color:#FFFF00; } 
 </style>
 <script>
 	if ( !Date.prototype.toISOString ) {
@@ -109,89 +103,112 @@
 		}
 </script>
 <cfoutput>
-
 	<div class="infoBox" style="display:table;">
-       <a href="batchScan.cfm">Batch Scan</a> is available if your network connection and this form cannot play nicely.
-    </div>
+		<a href="batchScan.cfm">
+			Batch Scan
+		</a>
+		is available if your network connection and this form cannot play nicely. 
+	</div>
 	<form name="moveIt" onsubmit="moveThisOne(); return false;">
-
-    <br>
-
-			<label for="autoSubmit">Check to submit form when ChildBarcode changes (Set scanner to transmit a TAB after the barcode)</label>
-			<input type="checkbox" name="autoSubmit" id="autoSubmit" />
-
-<div style="display:table;border:1px solid green;">
-			<label for="newdisp">When child barcode contains a specimen part, update part disposition to....</label>
+		<br>
+		<label for="autoSubmit">
+			Check to submit form when ChildBarcode changes (Set scanner to transmit a TAB after the barcode)
+		</label>
+		<input type="checkbox" name="autoSubmit" id="autoSubmit" />
+		<div style="display:table;border:1px solid green;">
+			<label for="newdisp">
+				When child barcode contains a specimen part, update part disposition to....
+			</label>
 			<select name="newdisp" id="newdisp">
-				<option value="">-do not update disposition-</option>
+				<option value="">
+					-do not update disposition-
+				</option>
 				<cfloop query="CTCOLL_OBJ_DISP">
-					<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
+					<option value="#COLL_OBJ_DISPOSITION#">
+						#COLL_OBJ_DISPOSITION#
+					</option>
 				</cfloop>
 			</select>
-
-
-			<label for="olddisp">....only when current disposition is....</label>
+			<label for="olddisp">
+				....only when current disposition is....
+			</label>
 			<select name="olddisp" id="olddisp">
-				<option value="">-any value-</option>
+				<option value="">
+					-any value-
+				</option>
 				<cfloop query="CTCOLL_OBJ_DISP">
-					<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
+					<option value="#COLL_OBJ_DISPOSITION#">
+						#COLL_OBJ_DISPOSITION#
+					</option>
 				</cfloop>
 			</select>
-</div>
-			<div style="border:2px solid red;">
-			<strong>Use with caution. Updating individual container type is dangerous.</strong>
-		  <label for="parentContainerType">Force-Change Parent Container to type....</label>
-        <select name="parentContainerType" id="parentContainerType" size="1">
-            <option value="">
-                change nothing
-            </option>
-            <cfloop query="ctcontainer_type">
-                <option value="#container_type#">
-                    #container_type#
-                </option>
-            </cfloop>
-        </select>
-
-          <label for="childContainerType">Force-Change Child Container to type....</label>
-        <select name="childContainerType" id="childContainerType" size="1">
-            <option value="">
-                change nothing
-            </option>
-            <cfloop query="ctcontainer_type">
-                <option value="#container_type#">
-                    #container_type#
-                </option>
-            </cfloop>
-        </select>
-            </div>
-
-
-
-Containers Moved:<span id="counter" style="background-color:green">0</span>
-<table>
-	<tr>
-		<input type="hidden" name="action" value="moveIt">
-		<td>
-			<label for="parent_barcode">Parent Barcode</label>
-			<input type="text" name="parent_barcode" id="parent_barcode" autofocus>
-		</td>
-		<td>
-			<label for="child_barcode">Child Barcode</label>
-		  	<input type="text" name="child_barcode" id="child_barcode" onchange="autosubmit();">
-		</td>
-		<td>
-			<label for="">&nbsp;</label>
-			<input type="button" onclick="moveThisOne()" value="Move Container" class="savBtn">
-		</td>
-		<td>
-			<label for="">&nbsp;</label>
-			<input type="reset" value="Clear Form" class="clrBtn">
-		</td>
-</tr>
-</table>
+		</div>
+		<div style="border:2px solid red;">
+			<strong>
+				Use with caution. Updating individual container type is dangerous.
+			</strong>
+			<label for="parentContainerType">
+				Force-Change Parent Container to type....
+			</label>
+			<select name="parentContainerType" id="parentContainerType" size="1">
+				<option value="">
+					change nothing 
+				</option>
+				<cfloop query="ctcontainer_type">
+					<option value="#container_type#">
+						#container_type# 
+					</option>
+				</cfloop>
+			</select>
+			<label for="childContainerType">
+				Force-Change Child Container to type....
+			</label>
+			<select name="childContainerType" id="childContainerType" size="1">
+				<option value="">
+					change nothing 
+				</option>
+				<cfloop query="ctcontainer_type">
+					<option value="#container_type#">
+						#container_type# 
+					</option>
+				</cfloop>
+			</select>
+		</div>
+		Containers Moved:
+		<span id="counter" style="background-color:green">
+			0
+		</span>
+		<table>
+			<tr>
+				<input type="hidden" name="action" value="moveIt">
+				<td>
+					<label for="parent_barcode">
+						Parent Barcode
+					</label>
+					<input type="text" name="parent_barcode" id="parent_barcode" autofocus>
+				</td>
+				<td>
+					<label for="child_barcode">
+						Child Barcode
+					</label>
+					<input type="text" name="child_barcode" id="child_barcode" onchange="autosubmit();">
+				</td>
+				<td>
+					<label for="">
+						&nbsp;
+					</label>
+					<input type="button" onclick="moveThisOne()" value="Move Container" class="savBtn">
+				</td>
+				<td>
+					<label for="">
+						&nbsp;
+					</label>
+					<input type="reset" value="Clear Form" class="clrBtn">
+				</td>
+			</tr>
+		</table>
 	</form>
-
-<div id="result">
-</div>
+	<div id="result">
+	</div>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
