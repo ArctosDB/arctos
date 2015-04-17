@@ -25,28 +25,28 @@ jQuery(document).ready(function() {
 		<input type="text" name="parent_barcode" id="parent_barcode" size="20" class="reqdClr">
 		<div style="border:2px solid red;">
             <strong>Use with caution. Updating individual container type is dangerous.</strong>
-		<label for="new_parent_c_type">Change Parent Container to type....</label>
-		<select name="new_parent_c_type" id="new_parent_c_type" size="1">
-			<option value="">
-				change nothing
-			</option>
-			<cfloop query="ctcontainer_type">
-				<option value="#container_type#">
-					#container_type#
+			<label for="new_parent_c_type">Change Parent Container to type....</label>
+			<select name="new_parent_c_type" id="new_parent_c_type" size="1">
+				<option value="">
+					change nothing
 				</option>
-			</cfloop>
-		</select>
-		<label for="new_child_c_type">Change ALL scanned children to type....</label>
-        <select name="new_child_c_type" id="new_child_c_type" size="1">
-            <option value="">
-                change nothing
-            </option>
-            <cfloop query="ctcontainer_type">
-                <option value="#container_type#">
-                    #container_type#
-                </option>
-            </cfloop>
-        </select>
+				<cfloop query="ctcontainer_type">
+					<option value="#container_type#">
+						#container_type#
+					</option>
+				</cfloop>
+			</select>
+			<label for="new_child_c_type">Change ALL scanned children to type....</label>
+	        <select name="new_child_c_type" id="new_child_c_type" size="1">
+	            <option value="">
+	                change nothing
+	            </option>
+	            <cfloop query="ctcontainer_type">
+	                <option value="#container_type#">
+	                    #container_type#
+	                </option>
+	            </cfloop>
+	        </select>
 		</div>
         <br>
 		<input type="reset"
@@ -56,7 +56,7 @@ jQuery(document).ready(function() {
 		<br>
 		<input type="submit"
 			class="savBtn"
-			value="Fill in the form below, then click here to Save"
+			value="Fill in the form, then click here to Save"
 			tabindex="-1">
 		<br>
 		<cfif mode is "tab">
