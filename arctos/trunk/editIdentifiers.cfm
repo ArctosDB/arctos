@@ -12,7 +12,7 @@
 					queryformat : 'column'
 				},
 				function (r) {
-					var q='created <a href="/guid/' + r + '">' + r + '</a>';
+					var q='created <a target="_blank" href="/guid/' + r + '">' + r + '</a>';
 					jQuery('#cloned').css("display", "inline").html(q);
 				}
 			);
@@ -85,7 +85,7 @@
 		</cfquery>
 		<span class="likeLink" onclick="document.getElementById('cThis').style.display='block';">[ Clone This Record ]</span>
 		<div id="cThis" style="display:none; border:2px solid green;">
-			Option One: Click <span class="likeLink"  onclick="cloneFullCatalogedItem(#collection_object_id#)" >here</span> 
+			Option One: Click <span class="likeLink"  onclick="cloneFullCatalogedItem(#collection_object_id#)" >here</span>
 			to IMMEDIATELY clone this ENTIRE record, including parts, containers, loan history, etc.
 			<br>USE THIS OPTION WITH CAUTION. There is no review process; the insert is immediate.
 			<br>You can encumber and delete accidental insertions.
@@ -191,7 +191,7 @@
 		<b>Edit existing Identifiers:</b>
 		<form name="ids" id="formEdit" method="post" action="editIdentifiers.cfm">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-			<input type="hidden" name="Action" value="saveEdits">	
+			<input type="hidden" name="Action" value="saveEdits">
 			<table>
 				<tr #iif(i MOD 2,DE("class='oddRow'"),DE("class='evenRow'"))#>
 					<input type="hidden" name="oldcat_num" value="#cat.cat_num#">
