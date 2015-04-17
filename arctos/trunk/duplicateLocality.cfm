@@ -191,7 +191,8 @@
 					LOCALITY_REMARKS,
 					GEOREFERENCE_SOURCE,
 					GEOREFERENCE_PROTOCOL,
-					LOCALITY_NAME
+					LOCALITY_NAME,
+                    concatGeologyAttributeDetail(locality_id) geologyConcat
 				from
 					locality
 				where
@@ -318,6 +319,15 @@
 				</cfif>
 			</cfif>
 
+            <cfif geologyConcat is not "ignore">
+                <cfif len(geologyConcat) gt 0>
+                    <cfset sql=sql & " concatGeologyAttributeDetail(locality_id)='#geologyConcat#' ">
+                <cfelse>
+                    <cfset sql=sql & " geologyConcat is null ">
+                </cfif>
+            </cfif>
+
+
 
 
 			<cfquery name="dups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -380,6 +390,12 @@
 						<th>GEOREFERENCE_SOURCE</th>
 						<th>GEOREFERENCE_PROTOCOL</th>
 						<th>LOCALITY_NAME</th>
+                        <th>geologyConcat</th>
+
+						                    <cfset sql=sql & " concatGeologyAttributeDetail(locality_id)='#geologyConcat#' ">
+
+
+
 					</tr>
 					<cfloop query="dups">
 						<tr>
@@ -404,6 +420,9 @@
 							<td>#GEOREFERENCE_SOURCE#</td>
 							<td>#GEOREFERENCE_PROTOCOL#</td>
 							<td>#LOCALITY_NAME#</td>
+                            <td>#geologyConcat#</td>
+
+
 						</tr>
 					</cfloop>
 				</table>
@@ -422,6 +441,10 @@
 			<cfquery name="cleardupsBL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update bulkloader set locality_id=#locality_id# where locality_id in (#deleteLocalityID#)
 			</cfquery>
+
+            <cfquery name="deleteg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+                delete from geology_attributes where locality_id in (#deleteLocalityID#)
+            </cfquery>
 			<cfquery name="delete" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				delete from locality where locality_id in (#deleteLocalityID#)
 			</cfquery>
