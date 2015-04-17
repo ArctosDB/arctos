@@ -56,7 +56,7 @@ jQuery(document).ready(function() {
 		<br>
 		<input type="submit"
 			class="savBtn"
-			value="Fill in the table below, then click here to Save"
+			value="Fill in the form below, then click here to Save"
 			tabindex="-1">
 		<br>
 		<cfif mode is "tab">
@@ -65,7 +65,6 @@ jQuery(document).ready(function() {
 			<a href="batchScan.cfm?mode=tab">Go TAB</a>
 		</cfif>
 		<hr>
-
 		<label for="sheets">Child Barcodes</label>
 		<cfif mode is "tab">
 			<cfset numCols="3">
