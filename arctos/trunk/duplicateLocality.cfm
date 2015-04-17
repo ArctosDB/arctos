@@ -159,7 +159,6 @@
 				<input type="text" name="LOCALITY_NAME" size="120" value="#LOCALITY_NAME#">
 				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.LOCALITY_NAME#">
 
-				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.geologyConcat#">
                 <label for="geologyConcat">geologyConcat</label>
                 <input type="text" name="geologyConcat" size="120" value="#geologyConcat#">
                 <br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.geologyConcat#">
