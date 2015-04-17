@@ -357,6 +357,11 @@
 				This form only returns 1000 records. You may have to delete a few sets.
 			</cfif>
 			Potential Duplicates - check anything that you want to merge with the locality you came from and click the button.
+			<p>
+			 IMPORTANT: "Merge" here means "replace all instances of checked localies with the 'good' locality, and delete
+			 the checked localities." You are wholly responsible for ensuring that everything in the selected locality/localities
+			 is reflected in the retained locality, including geology data.
+			</p>
 			<script>
 				function checkAll() {
 					$('input:checkbox[name="deleteLocalityID"]').prop('checked', true);
@@ -395,7 +400,6 @@
 						<th>LOCALITY_NAME</th>
                         <th>geologyConcat</th>
 
-						                    <cfset sql=sql & " concatGeologyAttributeDetail(locality_id)='#geologyConcat#' ">
 
 
 
