@@ -313,9 +313,9 @@
 			</cfif>
 			<cfif LOCALITY_NAME is not "ignore">
 				<cfif len(LOCALITY_NAME) gt 0>
-					<cfset sql=sql & " LOCALITY_NAME='#LOCALITY_NAME#' ">
+					<cfset sql=sql & " LOCALITY_NAME='#LOCALITY_NAME#' and ">
 				<cfelse>
-					<cfset sql=sql & " LOCALITY_NAME is null ">
+					<cfset sql=sql & " LOCALITY_NAME is null and ">
 				</cfif>
 			</cfif>
 
