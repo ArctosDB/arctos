@@ -292,7 +292,7 @@
 			</cfif>
 			<cfif LOCALITY_REMARKS is not "ignore">
 				<cfif len(LOCALITY_REMARKS) gt 0>
-					<cfset sql=sql & " LOCALITY_REMARKS='#LOCALITY_REMARKS#' and ">
+					<cfset sql=sql & " LOCALITY_REMARKS='#escapeQuotes(LOCALITY_REMARKS)#' and ">
 				<cfelse>
 					<cfset sql=sql & " LOCALITY_REMARKS is null and ">
 				</cfif>
