@@ -27,8 +27,9 @@
 	</style>
 	<cfoutput>
 		<meta name="keywords" content="#session.meta_keywords#">
-    	<LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico?v=5">	
+    	<LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico?v=5">
     	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name=viewport content="width=device-width, initial-scale=1">
    		<cfif len(trim(session.stylesheet)) gt 0>
 			<cfset ssName = replace(session.stylesheet,".css","","all")>
     		<link rel="alternate stylesheet" type="text/css" href="/includes/css/#trim(session.stylesheet)#" title="#trim(ssName)#">
@@ -303,7 +304,7 @@
 											<li><a target="_top" href="/ScheduledTasks/index.cfm">Scheduled Tasks</a></li>
 											<li><a target="_top" href="/Admin/dumpAll.cfm">dump</a></li>
 											<li><a target="_top" href="/tools/imageList.cfm">Image List</a></li>
-											<li><a target="_top" href="/Admin/buildAttributeSearchByNameCode.cfm">Get Attributes Code</a></li>											
+											<li><a target="_top" href="/Admin/buildAttributeSearchByNameCode.cfm">Get Attributes Code</a></li>
 										</ul>
 									</li>
 								</cfif>
