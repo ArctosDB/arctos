@@ -8,7 +8,7 @@
 <cfset title="Specimen Search">
 <cfset metaDesc="Search for museum specimens and observations by taxonomy, identifications, specimen attributes, and usage history.">
 ---->
-<cfoutput>
+
 <cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select count(collection_object_id) as cnt from cataloged_item
 </cfquery>
@@ -53,6 +53,9 @@
 
 
 </style>
+
+
+<cfoutput>
 <div class="tbl">
 	<div class="tr">
 		<div class="td">
