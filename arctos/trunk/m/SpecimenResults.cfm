@@ -27,8 +27,8 @@
 			select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL=1 and cf_variable in (#listqualify(lcase(session.resultColumnList),chr(39))#)
 			union
 			select CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT from ssrch_field_doc where SPECIMEN_RESULTS_COL=1 and category='required'
-		) 
-		group by CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT 
+		)
+		group by CF_VARIABLE,DISPLAY_TEXT,disp_order,SQL_ELEMENT
 		order by disp_order
 	</cfquery>
 	<cfset session.resultColumnList=valuelist(usercols.CF_VARIABLE)>
@@ -48,8 +48,8 @@
 	<cfset basQual = "">
 	<cfset mapurl="">
 	<cfinclude template="/includes/SearchSql.cfm">
-	
-	
+
+
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 	<cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
@@ -91,7 +91,7 @@
 	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#mapurl#||#session.resultColumnList#||#trc.c#||#request.uuid#">
 	<cfthread name="log#request.uuid#" action="run" priority="LOW" loginfo="#loginfo#">
 		<cffile action="append" file="#Application.webDirectory#/log/querylog.txt" output="#loginfo#">
-    </cfthread> 
+    </cfthread>
 	<cfset numFlds=usercols.recordcount>
 	<cfset thisLoopNum=1>
 	<script type="text/javascript">
@@ -99,7 +99,7 @@
 			$("##usertools").menu();
 			$("##goWhere").menu();
 	        $('##specresults').jtable({
-	            title: 'Specimen Results',       
+	            title: 'Specimen Results',
 				paging: true, //Enable paging
 	            pageSize: 10, //Set page size (default: 10)
 	            sorting: true, //Enable sorting
@@ -124,13 +124,16 @@
 	                    edit: false,
 	                    list: false
 	                },
+	                GUID:{title: 'GUID'}
+	                <!----
 					<cfloop query="usercols">
 						#ucase(CF_VARIABLE)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
 						<cfif len(session.CustomOtherIdentifier) gt 0 and thisLoopNum eq 1>,CUSTOMID: {title: '#session.CustomOtherIdentifier#'}</cfif>
 						<cfif thisLoopNum lt numFlds>,</cfif>
 						<cfset thisLoopNum=thisLoopNum+1>
 					</cfloop>
-	            } 
+					---->
+	            }
 	        });
 	        $('##specresults').jtable('load');
 	    });
@@ -151,19 +154,19 @@
 					)
 				) coordinateuncertaintyinmeters,
 			scientific_name
-		from 
+		from
 			#session.SpecSrchTab#
 	</cfquery>
 	<cfquery name="hascoords" dbtype="query">
-		select 
+		select
 			count(*) as numspecs,
 			dec_lat,
 			dec_long,
 			coordinateuncertaintyinmeters
-		from 
-			summary 
-		where 
-			dec_lat is not null 
+		from
+			summary
+		where
+			dec_lat is not null
 		group by
 			dec_lat,
 			dec_long,
@@ -211,7 +214,7 @@
 					Arctos fields may not be what you expect them to be.
 				</li>
 				<li>
-					Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and 
+					Check <a href="/info/ctDocumentation.cfm" target="_blank">code table documentation</a> and
 					<a href="/info/ctDocumentation.cfm?table=CTATTRIBUTE_CODE_TABLES" target="_blank">attribute data definitions</a> documentation for terms,
 					vocabulary, and standards.
 				</li>
@@ -274,7 +277,7 @@
 	</cfquery>
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
 	<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
-	
+
 	<table width="100%">
 		<tr>
 			<td  class="valigntop" width="65%">
@@ -307,10 +310,10 @@
 		<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
 		<input type="hidden" name="SpecSrchTab" id="SpecSrchTab" value="#session.SpecSrchTab#">
 		<input type="hidden" name="ServerRootUrl" id="ServerRootUrl" value="#application.ServerRootUrl#">
-		
+
 		<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
 		<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
-		<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">		
+		<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
 		<cfif cpc gte mapRecordLimit>
 			(The inline map contains only the first #mapRecordLimit# localities.)
 		</cfif>
@@ -326,7 +329,7 @@
 					<br>Then <span class="likeLink" onclick="confirmAddAllDL();">Add All Cataloged Items to this Data Loan</span>
 				<cfelse>
 					<cfquery name="commonParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select 
+						select
 							part_name,
 							count(*) numRecWithThisPart
 						from
