@@ -214,19 +214,10 @@
 				<cfquery name="d" datasource="cf_dbuser">
 					select url from cf_canned_search where upper(search_name)='#ucase(sName)#'
 				</cfquery>
-
-
-				<cfdump var=#d#>
-
-
-
-				<cfif d.recordcount is 0>
+               	<cfif d.recordcount is 0>
 					<cfquery name="d" datasource="cf_dbuser">
 						select url from cf_canned_search where upper(search_name)='#ucase(urldecode(sName))#'
 					</cfquery>
-
-
-
 				</cfif>
 				<cfif d.recordcount is 0>
 					<cfinclude template="/errors/404.cfm">
@@ -240,21 +231,14 @@
 						<cfset v=listgetat(i,2,"=")>
 						<cfset "#T#" = "#urldecode(v)#">
 					</cfloop>
-
-
-					<!----
 					<cfinclude template="/SpecimenResults.cfm">
-					---->
 				<cfelseif left(d.url,7) is "http://">
 					Click to continue: <a href="#d.url#">#d.url#</a>
 				<cfelse>
 					If you are not redirected, please click this link: <a href="/#d.url#">#d.url#</a>
-
-					<!----
 					<script>
 						document.location='/#d.url#';
 					</script>
-					---->
 				</cfif>
 			<cfelse>
 				<cfinclude template="/errors/404.cfm">
