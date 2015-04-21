@@ -23,6 +23,19 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
+	<cfelseif listfindnocase(request.rdurl,'name',"/")>
+	    <cfif replace(replace(request.rdurl,"/","","last"),"/","","all") is "name">
+	        <cfinclude template="/m/taxonomy.cfm">
+	    <cfelse>
+	        <cftry>
+	            <cfset gPos=listfindnocase(request.rdurl,"name","/")>
+	            <cfset name = listgetat(request.rdurl,gPos+1,"/")>
+	            <cfinclude template="/m/taxonomy.cfm">
+	            <cfcatch>
+	                <cfinclude template="/errors/404.cfm">
+	            </cfcatch>
+	        </cftry>
+	    </cfif>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'doi',"/")>
 	<cftry>
