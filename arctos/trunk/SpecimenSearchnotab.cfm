@@ -153,7 +153,7 @@
     </div>
 	 </div>
 	  </div>
-
+<!----
 <div>
 	&nbsp;&nbsp;&nbsp;<span class="helpLink" id="_cataloged_item_type">Type</span>:<select name="cataloged_item_type" id="cataloged_item_type" size="1">
 	<option value="">any</option>
@@ -621,6 +621,7 @@
 		---->
 	</tr>
 </table>
+---->
 <cfif isdefined("transaction_id") and len(transaction_id) gt 0>
 	<input type="hidden" name="transaction_id" value="#transaction_id#">
 </cfif>
