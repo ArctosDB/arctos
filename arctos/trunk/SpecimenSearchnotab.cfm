@@ -33,6 +33,25 @@
 .tbl{display:table;}
 .tr{display:table-row}
 .td{display:table-cell;}
+
+
+    body {
+        font-family:Arial, Helvetica, sans-serif;
+        background-color:#FFFFFF;
+        /* google mobile */
+         font-size: 16px;
+    }
+
+        /* google mobile */
+    .small {
+  font-size: 12px; /* 75% of the baseline */
+}
+
+.large {
+  font-size: 20px; /* 125% of the baseline */
+}
+
+
 </style>
 <div class="tbl">
 	<div class="tr">
