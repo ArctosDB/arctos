@@ -1,4 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
+
+
+<!----
 <cfset mapRecordLimit=1000>
 <cfif not isdefined("session.RESULTSBROWSEPREFS")>
 	<cfset session.RESULTSBROWSEPREFS=0>
@@ -7,6 +10,7 @@
 <cfif not isdefined("session.srmapclass") or len(session.srmapclass) is 0>
 	<cfset session.srmapclass='nomap'>
 </cfif>
+---->
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
 <script type='text/javascript' language="javascript" src='/includes/SpecimenResults.min.js?v=2'></script>
 
