@@ -204,7 +204,7 @@
 		</cftry>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'saved',"/")>
-    <cfoutput
+    <cfoutput>
 	<cftry>
 	   <cfset gPos=listfindnocase(request.rdurl,"saved","/")>
 	   <cfset temp = listgetat(request.rdurl,gPos+1,"/")>
