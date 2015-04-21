@@ -4,6 +4,9 @@
 	<cfparam name="jtStartIndex" type="numeric" default="0">
 	<cfparam name="jtPageSize" type="numeric" default="10">
 	<cfparam name="jtSorting" type="string" default="GUID ASC">
+	<cfif not isdefined("m")>
+	   <cfset m=false>
+	</cfif>
 	<cftry>
 		<cfset jtStopIndex=jtStartIndex+jtPageSize>
 		<cfset obj = CreateObject("component","component.docs")>
@@ -16,9 +19,9 @@
 		</cfquery>
 		<cfset session.collObjIdList = valuelist(d.collection_object_id)>
 		<cfoutput>
-			<!--- 
-				CF and jtable don't play well together, so roll our own.... 
-				parseJSON makes horrid invalud datatype assumptions, so we can't use that either.	
+			<!---
+				CF and jtable don't play well together, so roll our own....
+				parseJSON makes horrid invalud datatype assumptions, so we can't use that either.
 			---->
 			<cfset x=''>
 			<cfloop query="d">
@@ -26,9 +29,13 @@
 				<cfloop list="#d.columnlist#" index="i">
 					<cfset theData=evaluate("d." & i)>
 					<cfset theData=obj.jsonEscape(theData)>
-					
+
 					<cfif i is "guid">
-						<cfset temp ='"GUID":"<div id=\"CatItem_#collection_object_id#\"><a target=\"_blank\" href=\"/guid/' & theData &'\">' &theData & '</a></div>"'>
+						<cfif m is true>
+                            <cfset temp ='"GUID":"<div id=\"CatItem_#collection_object_id#\"><a target=\"_blank\" href=\"/m/guid/' & theData &'\">' &theData & '</a></div>"'>
+						<cfelse>
+                            <cfset temp ='"GUID":"<div id=\"CatItem_#collection_object_id#\"><a target=\"_blank\" href=\"/guid/' & theData &'\">' &theData & '</a></div>"'>
+						</cfif>
 					<cfelseif i is "media">
 						<cfset temp ='"MEDIA":"<div id=\"jsonmedia_#collection_object_id#\">' & theData & '</div>"'>
 					<cfelse>
@@ -62,7 +69,7 @@
 	<cfelse>
 		<cfset thisSpanClass="">
 	</cfif>
-	<cfoutput>	
+	<cfoutput>
 		<cfsavecontent variable="row">
 			<tr id="row_#term#">
 				<td>
@@ -75,7 +82,7 @@
 				</td>
 				<td id="voccell_#term#">
 					<cfif len(tquery.CONTROLLED_VOCABULARY) gt 0>
-						<span class="infoLink" onclick="fetchSrchWgtVocab('#term#');">[ all vocabulary ]</span> 
+						<span class="infoLink" onclick="fetchSrchWgtVocab('#term#');">[ all vocabulary ]</span>
 					<cfelse>
 						&nbsp;
 					</cfif>
@@ -87,7 +94,7 @@
 			</tr>
 		</cfsavecontent>
 	</cfoutput>
-	<cfreturn row>		
+	<cfreturn row>
 </cffunction>
 <!--------------------------------------------------------------------------------------->
 <cffunction name="getVocabulary" access="remote">
@@ -113,7 +120,7 @@
 			<cfif tcname is not "description" and tcname is not "collection_cde">
 				<cfset ctColName=tcname>
 			</cfif>
-		</cfloop>		
+		</cfloop>
 		<cfquery name="r" dbtype="query">
 			select #ctColName# as v from tct where #ctColName# is not null group by #ctColName# order by #ctColName#
 		</cfquery>
@@ -181,7 +188,7 @@
 		select * from ssrch_field_doc where SPECIMEN_QUERY_TERM=1 order by cf_variable
 	</cfquery>
 	<cfset stuffToIgnore="locality_remarks,specimen_event_remark,identification_remarks,made_date,Accession,guid,BEGAN_DATE,COLLECTION_OBJECT_ID,COORDINATEUNCERTAINTYINMETERS,CUSTOMID,CUSTOMIDINT,DEC_LAT,DEC_LONG,ENDED_DATE,MYCUSTOMIDTYPE,VERBATIM_DATE">
-	<cfoutput>	
+	<cfoutput>
 		<cfquery name="srchcols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from #session.SpecSrchTab# where 1=2
 		</cfquery>
@@ -203,9 +210,9 @@
 				<cfset keylist=listappend(keylist,thisKey)>
 				<cfquery name="thisMoreInfo" dbtype="query">
 					select * from ssrch_field_doc where CF_VARIABLE='#lcase(thisKey)#'
-				</cfquery>	
+				</cfquery>
 				<cfset temp = queryaddrow(sugntab,1)>
-				<cfset temp = QuerySetCell(sugntab, "key", lcase(thisKey), idx)>	
+				<cfset temp = QuerySetCell(sugntab, "key", lcase(thisKey), idx)>
 				<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
 				<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
 				<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
@@ -225,7 +232,7 @@
 				</cfquery>
 				<cfif thisMoreInfo.recordcount is 1>
 					<cfset temp = queryaddrow(sugntab,1)>
-					<cfset temp = QuerySetCell(sugntab, "key", lcase(thisKey), idx)>	
+					<cfset temp = QuerySetCell(sugntab, "key", lcase(thisKey), idx)>
 					<cfset temp = QuerySetCell(sugntab, "val", thisValue, idx)>
 					<cfset temp = QuerySetCell(sugntab, "definition", thisMoreInfo.definition, idx)>
 					<cfset temp = QuerySetCell(sugntab, "display_text", thisMoreInfo.display_text, idx)>
@@ -269,10 +276,10 @@
 								<td>
 									<input type="text" name="#sugntab.key#" id="#sugntab.key#" value="#util.stripQuotes(URLDecode(sugntab.val))#" placeholder="#sugntab.PLACEHOLDER_TEXT#" size="50">
 								</td>
-								
+
 								<td id="voccell_#sugntab.key#">
 									<cfif len(sugntab.vocab) gt 0>
-										 <span class="infoLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">[ all vocabulary ]</span> 
+										 <span class="infoLink" onclick="fetchSrchWgtVocab('#sugntab.key#');">[ all vocabulary ]</span>
 									</cfif>
 									<cfif sugntab.indata gt 0>
 										<span class="infoLink" onclick="fetchSrchWgtVocab('#sugntab.key#','results');">[ from results ]</span>
@@ -289,7 +296,7 @@
 						<cfset keylist='doesNotExist'>
 					</cfif>
 					<cfquery name="newkeys" dbtype="query">
-						SELECT * FROM ssrch_field_doc WHERE CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#) 
+						SELECT * FROM ssrch_field_doc WHERE CF_VARIABLE NOT IN  (#listqualify(lcase(keylist),chr(39))#)
 					</cfquery>
 					<input class="clrBtn" type="reset" value="Reset Filters">
 					<span style="width:10em">&nbsp;</span>
@@ -310,22 +317,22 @@
 		<cfreturn "An error occurred">
 	</cfcatch>
 	</cftry>
-	<cfreturn widget>	
+	<cfreturn widget>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getMedia" access="remote">
 	<!----
 		Input: List of cataloged_item.collection_object_id
-		
+
 		find all media related to any cataloged item in the list by way of
 			-- cataloged_item
 			-- collecting_event
-		
-		Return table of 
+
+		Return table of
 			COLLECTION_OBJECT_ID
-			MEDIA_ID (list)	
+			MEDIA_ID (list)
 			MEDIA_RELATIONSHIP (hard-coded to cataloged_item - consider more specificity later, or not because scattering is probably confusing)
-	
+
 		see v6.3.1 for previous DB-intensive but more specific version
 	---->
 	<cfargument name="idList" type="string" required="yes">
@@ -333,10 +340,10 @@
 		<cfreturn>
 	</cfif>
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select 
+		select
 			#session.flatTableName#.collection_object_id,
 			media_relations.media_id
-		from 
+		from
 			media_relations,
 			#session.flatTableName#
 		where
@@ -344,10 +351,10 @@
 			SUBSTR(media_relationship,instr(media_relationship,' ',-1)+1)='cataloged_item' and
 			#session.flatTableName#.collection_object_id in (#idList#)
 		union
-		select 
+		select
 			#session.flatTableName#.collection_object_id,
 			media_relations.media_id
-		from 
+		from
 			media_relations,
 			#session.flatTableName#,
 			specimen_event
@@ -355,7 +362,7 @@
 			#session.flatTableName#.collection_object_id=specimen_event.collection_object_id and
 			specimen_event.collecting_event_id = media_relations.related_primary_key and
 			SUBSTR(media_relationship,instr(media_relationship,' ',-1)+1)='collecting_event' and
-			#session.flatTableName#.collection_object_id in (#idList#)	
+			#session.flatTableName#.collection_object_id in (#idList#)
 	</cfquery>
 	<cfquery name="did" dbtype="query">
 		select distinct collection_object_id from raw
@@ -371,7 +378,7 @@
 		<cfset t = QuerySetCell(theResult, "media_id", valuelist(tm.media_id), r)>
 		<cfset t = QuerySetCell(theResult, "media_relationship", "cataloged_item", r)>
 		<cfset r=r+1>
-	</cfloop>	
+	</cfloop>
 	<cfreturn theResult>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
@@ -381,14 +388,14 @@
 		<cfreturn>
 	</cfif>
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select  
+		select
 			citation.collection_object_id,
-			type_status || decode(count(*),1,'','(' || count(*) || ')') type_status 
-		from 
-			citation 
-		where 
-			collection_object_id in (#idList#) 
-		group by 
+			type_status || decode(count(*),1,'','(' || count(*) || ')') type_status
+		from
+			citation
+		where
+			collection_object_id in (#idList#)
+		group by
 			collection_object_id,
 			type_status
 	</cfquery>
