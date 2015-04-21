@@ -124,7 +124,8 @@
 	                    edit: false,
 	                    list: false
 	                },
-	                GUID:{title: 'GUID'}
+	                GUID:{title: 'GUID'},
+                    SCIENTIFIC_NAME:{title: 'ScientificName'}
 	                <!----
 					<cfloop query="usercols">
 						#ucase(CF_VARIABLE)#: {title: '#replace(DISPLAY_TEXT," ","&nbsp;","all")#'}
