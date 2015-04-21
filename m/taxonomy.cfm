@@ -25,41 +25,7 @@
 		margin-left:10em;
 	}
 </style>
-<script>
-	$(function() {
-		$( "#source" ).autocomplete({
-			source: '/component/functions.cfc?method=ac_nc_source',
-			width: 320,
-			max: 50,
-			autofill: false,
-			multiple: false,
-			scroll: true,
-			scrollHeight: 300,
-			matchContains: true,
-			minChars: 1,
-			selectFirst:false
-		});
-		$( "#term_type" ).autocomplete({
-			source: '/component/functions.cfc?method=ac_alltaxterm_tt',
-			width: 320,
-			max: 50,
-			autofill: false,
-			multiple: false,
-			scroll: true,
-			scrollHeight: 300,
-			matchContains: true,
-			minChars: 1,
-			selectFirst:false
-		});
-	});
-	function resetForm() {
-	    $("#taxa").find("input[type=text], textarea").val("");
-	}
-	function highlightHelp(id){
-		$(".highlight").removeClass('highlight');
-		$("#help_" + id).addClass('highlight',500);
-	}
-</script>
+
 <!--------- global form defaults -------------->
 <cfif not isdefined("taxon_name")>
 	<cfset taxon_name="">
@@ -85,9 +51,7 @@
 	<cflocation url="/name/#d.scientific_name#" addtoken="false">
 </cfif>
 <cfset title="Search Taxonomy">
-<table width="100%">
-	<tr>
-		<td width="50%" valign="top">
+
 			<!--- search form gets half-width --->
 			<h3>Search Taxonomy (default is case-insensitive STARTS WITH)</h3>
 			<form ACTION="/taxonomy.cfm" METHOD="get" name="taxa" id="taxa">
@@ -132,37 +96,7 @@
 			<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 				<br><a target="_blank" href="/editTaxonomy.cfm?action=newName">[ Create a new name ]</a>
 			</cfif>
-		</td>
-		<td valign="top">
-			<div style="margin-left:2em;">
-				<!--- and help/about/etc. gets 1/2 ---->
-				<a target="_blank" class="external" href="http://arctosdb.org/documentation/identification/taxonomy/">Taxonomy Documentation</a>
-				<ul>
-					<li id="help_taxon_name">
-						<strong>Taxon Name</strong> is the "namestring" or "scientific name," the "data" that is used to form Identifications and the core
-						of every Taxonomy record.
-					</li>
-					<li id="help_taxon_term">
-						<strong>Taxon Term</strong> is the data value of either a classification term ("Animalia") or or classification metadata (such
-						as name authors).
-					</li>
-					<li id="help_term_type">
-						<strong>Term Type</strong> is the rank ("kingdom") for classification terms, in which role it may be NULL, and the label for
-						classification metadata ("author text").
-					</li>
-					<li id="help_source">
-						<strong>Source</strong> indicates the source of a classification (NOT a taxon name). Some classifications
-						are <a href="/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE">local</a>; most come from
-						<a href="http://www.globalnames.org/" target="_blank" class="external">GlobalNames</a>.
-					</li>
-					<li id="help_common_name">
-						<strong>Common Names</strong> are vernacular term associated with taxon names, and are not necessarily English, correct, or common.
-					</li>
-				</ul>
-			</div>
-		</td>
-	</tr>
-</table>
+
 
 <!----- always display search ---------->
 
@@ -340,44 +274,7 @@
 	<cfquery name="taxon_name_id" dbtype="query">
 		select taxon_name_id from d group by taxon_name_id
 	</cfquery>
-	<script>
-		jQuery(document).ready(function(){
-			if (document.location.hash.length == 0) {
-			     $('html, body').animate({
-			         scrollTop: $("##taxondetail").offset().top
-			     }, 1000);
-			}
 
-			var am='/form/inclMedia.cfm?typ=taxon&tgt=specTaxMedia&q=' +  $("##taxon_name_id").val();
-
-			jQuery.get(am, function(data){
-				 jQuery('##specTaxMedia').html(data);
-			})
-			loadTaxonomyMap('#scientific_name.scientific_name#');
-
-
-		})
-function loadTaxonomyMap(n,m){
-	var am='/includes/taxonomy/mapTax.cfm?method=' + m + '&scientific_name=' + n;
-	jQuery('##specTaxMap').html('<img src="/images/indicator.gif">');
-	jQuery.get(am, function(data){
-		jQuery('##specTaxMap').html(data);
-	})
-}
-	</script>
-
-	<span class="annotateSpace">
-		<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) cnt from annotations
-			where taxon_name_id = #taxon_name_id.taxon_name_id#
-		</cfquery>
-		<a href="javascript: openAnnotation('taxon_name_id=#taxon_name_id.taxon_name_id#')">
-			[Annotate]
-		<cfif #existingAnnotations.cnt# gt 0>
-			<br>(#existingAnnotations.cnt# existing)
-		</cfif>
-		</a>
-    </span>
 	<input type="hidden" id="scientific_name" value="#scientific_name.scientific_name#">
 	<input type="hidden" id="taxon_name_id" value="#taxon_name_id.taxon_name_id#">
 	<cfset title="Taxonomy Details: #name#">
