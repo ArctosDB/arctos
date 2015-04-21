@@ -739,6 +739,8 @@
 <input type="hidden" name="newQuery" value="1">
 </form>
 </cfoutput>
+
+<!----
 <script type='text/javascript' language='javascript'>
 	$(document).ready(function() {
 	  	var tval = document.getElementById('tgtForm').value;
@@ -786,4 +788,5 @@
 		selectFirst:false
 	});
 </script>
+---->
 <cfinclude template = "includes/_footer.cfm">
