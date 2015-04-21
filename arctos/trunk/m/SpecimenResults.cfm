@@ -179,6 +179,8 @@
 	</cfquery>
 	<cfset cfgml="">
 	<cfset cpc=1>
+
+	<!----
 	<cfloop query="hascoords">
 		<cfif cpc lt mapRecordLimit>
 			<cfif len(coordinateuncertaintyinmeters) is 0>
@@ -192,6 +194,7 @@
 		</cfif>
 	</cfloop>
 	<input type="hidden" id="cfgml" value="#cfgml#">
+	---->
 	<cfif summary.recordcount is 0>
 		<div>
 			Your query returned no results.
