@@ -7,7 +7,39 @@
 
 	hi I am mobile friendly
 
-	<cfabort>
+
+	<cfif listfindnocase(request.rdurl,'guid',"/")>
+
+        <cftry>
+
+            <cfset gPos=listfindnocase(request.rdurl,"guid","/")>
+            <cfset temp = listgetat(request.rdurl,gPos+1,"/")>
+            <cfif listlen(temp,'?&') gt 1>
+                <cfset guid=listgetat(temp,1,"?&")>
+                <cfset t2=listdeleteat(temp,1,"?&")>
+                <cfloop list="#t2#" delimiters="?&" index="x">
+                    <cfif listlen(x,"=") is 2>
+                        <cfset vn=listgetat(x,1,"=")>
+                        <cfset vv=listgetat(x,2,"=")>
+                        <cfset "#vn#"=vv>
+                    </cfif>
+                </cfloop>
+            <cfelse>
+                <cfset guid=temp>
+            </cfif>
+
+                <cfinclude template="/SpecimenDetail.cfm">
+
+            <cfcatch>
+                <cfinclude template="/errors/404.cfm">
+            </cfcatch>
+        </cftry>
+    </cfif>
+
+
+
+
+
 
 
 
