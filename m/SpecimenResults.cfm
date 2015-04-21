@@ -12,7 +12,7 @@
 </cfif>
 ---->
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
-<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.min.js?v=2'></script>
+<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js?v=2'></script>
 
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 
