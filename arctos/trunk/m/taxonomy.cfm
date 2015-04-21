@@ -56,39 +56,19 @@
 			<h3>Search Taxonomy (default is case-insensitive STARTS WITH)</h3>
 			<form ACTION="/taxonomy.cfm" METHOD="get" name="taxa" id="taxa">
 				<label for="taxon_name">Taxon Name</label>
-				<input type="text" name="taxon_name" id="taxon_name" value="#taxon_name#" onfocus="highlightHelp(this.id);">
-				<span class="infoLink" onclick="var e=document.getElementById('taxon_name');e.value='='+e.value;">
-					[ Prefix with = for exact match ]
-				</span>
-				<span class="infoLink" onclick="var e=document.getElementById('taxon_name');e.value='%'+e.value;">
-					[ Prefix with % for contains ]
-				</span>
+				<input type="text" name="taxon_name" id="taxon_name" value="#taxon_name#" >
+
 				<label for="taxon_term">Taxon Term</label>
-				<input type="text" name="taxon_term" id="taxon_term" value="#taxon_term#" onfocus="highlightHelp(this.id);">
-				<span class="infoLink" onclick="var e=document.getElementById('taxon_term');e.value='='+e.value;">
-					[ Prefix with = for exact match ]
-				</span>
-				<span class="infoLink" onclick="var e=document.getElementById('taxon_term');e.value='%'+e.value;">
-					[ Prefix with % for contains ]
-				</span>
+				<input type="text" name="taxon_term" id="taxon_term" value="#taxon_term#" >
+
 				<label for="term_type">Term Type</label>
-				<input type="text" name="term_type" id="term_type" value="#term_type#" onfocus="highlightHelp(this.id);">
-				<span class="infoLink" onclick="var e=document.getElementById('term_type');e.value='='+e.value;">
-					[ Prefix with = for exact match ]
-				</span>
-				<span class="infoLink" onclick="var e=document.getElementById('term_type');e.value='%'+e.value;">
-					[ Prefix with % for contains ]
-				</span>
-				<span class="infoLink" onclick="var e=document.getElementById('term_type').value='NULL';">
-					[ NULL ]
-				</span>
+				<input type="text" name="term_type" id="term_type" value="#term_type#" >
+
 				<label for="source">Source</label>
-				<input type="text" name="source" id="source" value="#source#" onfocus="highlightHelp(this.id);">
+				<input type="text" name="source" id="source" value="#source#" >
 				<label for="common_name">Common Name</label>
-				<input type="text" name="common_name" id="common_name" value="#common_name#" onfocus="highlightHelp(this.id);">
-				<span class="infoLink" onclick="var e=document.getElementById('common_name');e.value='%'+e.value;">
-					[ Prefix with % for contains ]
-				</span>
+				<input type="text" name="common_name" id="common_name" value="#common_name#" >
+
 				<br>
 				<input value="Search" type="submit">&nbsp;&nbsp;&nbsp;
 				<input type="button" onclick="resetForm()" value="Clear Form">
