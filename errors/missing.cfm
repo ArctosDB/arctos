@@ -1,4 +1,13 @@
 <cfif listfindnocase(request.rdurl,'doi',"/")>
+    <!--- mobile handling ---->
+
+	hi I am mobile friendly
+
+	<cfabort>
+
+
+
+<cfelseif listfindnocase(request.rdurl,'doi',"/")>
 	<cftry>
 		<cfset gPos=listfindnocase(request.rdurl,"doi","/")>
 		<cfset doi = listgetat(request.rdurl,gPos+1,"/")>
