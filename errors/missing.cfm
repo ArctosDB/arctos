@@ -246,7 +246,6 @@
 			<cfinclude template="/errors/404.cfm">
 		</cfcatch>
 	</cftry>
-	</Cfoutput>
 <cfelseif cgi.SCRIPT_NAME contains "/DiGIR.php" or request.rdurl contains "/DiGIR.php" or request.rdurl contains "/digir">
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="http://129.237.201.204/arctosdigir/DiGIR.php">
