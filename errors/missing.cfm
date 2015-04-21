@@ -28,7 +28,7 @@
                 <cfset guid=temp>
             </cfif>
 
-                <cfinclude template="/SpecimenDetail.cfm">
+                <cfinclude template="/m/SpecimenDetail.cfm">
 
             <cfcatch>
                 <cfinclude template="/errors/404.cfm">
