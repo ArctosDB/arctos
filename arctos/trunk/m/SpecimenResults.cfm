@@ -107,12 +107,12 @@
 				columnResizable: true,
 				multiSorting: true,
 				columnSelectable: false,
-				recordsLoaded: getPostLoadJunk,
-				multiselect: true,
-				selectingCheckboxes: true,
+				//recordsLoaded: getPostLoadJunk,
+				//multiselect: true,
+				//selectingCheckboxes: true,
   				selecting: true, //Enable selecting
-          		selectingCheckboxes: true, //Show checkboxes on first column
-            	selectOnRowClick: false, //Enable this to only select using checkboxes
+          		//selectingCheckboxes: true, //Show checkboxes on first column
+            	//selectOnRowClick: false, //Enable this to only select using checkboxes
 				pageSizes: [10, 25, 50, 100, 250, 500,5000],
 				actions: {
 	                listAction: '/component/SpecimenResults.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults'
@@ -399,6 +399,7 @@
 						</cfif>
 					</cfloop>
 				</cfif>
+				<!----
 					<td>
 						<select name="usertools" id="usertools" onchange="pickedTool()">
 							<option value="">Tools: Map, Customize, or Download</option>
@@ -421,6 +422,7 @@
 							</optgroup>
 						</select>
 					</td>
+					---->
 				<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
 					<td nowrap="nowrap">
 						<select name="goWhere" id="goWhere" size="1" onchange="reporter('#session.SpecSrchTab#');">
