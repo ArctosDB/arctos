@@ -1,5 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-<cftry>
 
 <cfif isdefined("guid")>
 	<cfif cgi.script_name contains "/SpecimenDetail.cfm">
@@ -1574,11 +1573,3 @@
 	</cfif>
 	--->
 </cfoutput>
-<cfcatch>
-	<cf_logError subject="SpecimenDetail error" attributeCollection=#cfcatch#>
-	<div class="error">
-		Oh no! Part of this page has failed to load!
-		<br>This error has been logged. Please <a href="/contact.cfm?ref=specimendetail">contact us</a> with any useful information.
-	</div>
-</cfcatch>
-</cftry>
