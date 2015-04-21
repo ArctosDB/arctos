@@ -204,40 +204,12 @@
 		</cftry>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'saved',"/")>
-	<Cfoutput>
-
-
-		<cfset gPos=listfindnocase(request.rdurl,"saved","/")>
-        <cfset temp = listgetat(request.rdurl,gPos+1,"/")>
-
-		<br>gPos: #gPos#
-        <br>temp: #temp#
-        <br>listlen(request.rdurl,"/"): #listlen(request.rdurl,"/")#
-
-
-
-
 	<cftry>
-
-
-		<cfset gPos=listfindnocase(request.rdurl,"saved","/")>
-		<cfset temp = listgetat(request.rdurl,gPos+1,"/")>
-
-
-
-		<cfif listlen(request.rdurl,"/") gt 1>
+	   <cfset gPos=listfindnocase(request.rdurl,"saved","/")>
+	   <cfset temp = listgetat(request.rdurl,gPos+1,"/")>
+       <cfif listlen(request.rdurl,"/") gt 1>
 			<cfset sName = listgetat(request.rdurl,gPos+1,"/")>
-
-
-        <br>sName: #sName#
-
-
-
             <cfset sName = listgetat(sName,1,"?&")>
-
-        <br>sName: #sName#
-
-<cfabort>
 			<cfquery name="d" datasource="cf_dbuser">
 				select url from cf_canned_search where upper(search_name)='#ucase(sName)#'
 			</cfquery>
