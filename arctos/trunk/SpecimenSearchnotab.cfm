@@ -32,127 +32,238 @@
 .td{display:table-cell;}
 </style>
 <div class="tbl">
-    <div class="tr">
-	   <div class="td">
-		  Access to #numberformat(getCount.cnt,",")# records
+	<div class="tr">
+		<div class="td">
+			Access to #numberformat(getCount.cnt,",")# records
 		</div>
-       <div class="td">
-		<cfif hasCanned.recordcount gt 0>
-          Saved Searches: <select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
-                    <option value=""></option>
-                    <option value="saveSearch.cfm?action=manage">[ Manage ]</option>
-                    <cfloop query="hasCanned">
-                        <option value="#url#">#SEARCH_NAME#</option><br />
-                    </cfloop>
-                </select>
+		<div class="td">
+			<cfif hasCanned.recordcount gt 0>
+				Saved Searches:
+				<select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
+					<option value="">
+					</option>
+					<option value="saveSearch.cfm?action=manage">
+						[ Manage ]
+					</option>
+					<cfloop query="hasCanned">
+						<option value="#url#">
+							#SEARCH_NAME#
+						</option>
+						<br />
+					</cfloop>
+				</select>
 			</cfif>
-        </div>
-
-       <div class="td">
-		<span style="color:red;">
-                <cfif action is "dispCollObj">
-                    <p>You are searching for items to add to a loan.</p>
-                <cfelseif action is "encumber">
-                    <p>You are searching for items to encumber.</p>
-                <cfelseif action is "collEvent">
-                    <p>You are searching for items to change collecting event.</p>
-                <cfelseif action is "identification">
-                    <p>You are searching for items to reidentify.</p>
-                <cfelseif action is "addAccn">
-                    <p>You are searching for items to reaccession.</p>
-                </cfif>
-            </span>
+		</div>
+		<div class="td">
+			<span style="color:red;">
+				<cfif action is "dispCollObj">
+					<p>
+						You are searching for items to add to a loan.
+					</p>
+				<cfelseif action is "encumber">
+					<p>
+						You are searching for items to encumber.
+					</p>
+				<cfelseif action is "collEvent">
+					<p>
+						You are searching for items to change collecting event.
+					</p>
+				<cfelseif action is "identification">
+					<p>
+						You are searching for items to reidentify.
+					</p>
+				<cfelseif action is "addAccn">
+					<p>
+						You are searching for items to reaccession.
+					</p>
+				</cfif>
+			</span>
 		</div>
 	</div>
-
+</div>
+<form method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues();">
+<div class="tbl">
+	<div class="tr">
+		<div class="td">
+			<input type="submit" value="Search" class="schBtn">
+		</div>
+		<div class="td">
+			<input type="button" name="Reset" value="Clear Form" class="clrBtn" onclick="resetSSForm();">
+		</div>
+		<div class="td">
+			<input type="button" name="Previous" value="Use Last Values" class="lnkBtn"  onclick="setPrevSearch()">
+		</div>
+		<div class="td">
+			&nbsp;&nbsp;&nbsp;See&nbsp;results&nbsp;as:
+		</div>
+		<div class="td">
+			<select name="tgtForm" id="tgtForm" size="1"  onChange="changeTarget(this.id,this.value);">
+				<option value="SpecimenResults.cfm">
+					Specimen Records
+				</option>
+				<option value="SpecimenResultsHTML.cfm">
+					HTML Specimen Records
+				</option>
+				<option  value="/bnhmMaps/bnhmMapData.cfm">
+					BerkeleyMapper Map
+				</option>
+				<option  value="/bnhmMaps/kml.cfm?action=newReq">
+					KML
+				</option>
+				<option value="SpecimenResultsSummary.cfm">
+					Specimen Summary
+				</option>
+				<option  value="SpecimenGraph.cfm">
+					Graph
+				</option>
+			</select>
+		</div>
+		<div class="td">
+			<div id="groupByDiv" style="display:none;border:1px solid green;padding:.5em;">
+				<font size="-1">
+					<em>
+						<strong>
+							Group by:
+						</strong>
+					</em>
+				</font>
+				<br>
+				<select name="groupBy" id="groupBy" multiple size="4">
+					<option value="kingdom">
+						Kingdom
+					</option>
+					<option value="phylum">
+						Phylum
+					</option>
+					<option value="phylclass">
+						Class
+					</option>
+					<option value="phylorder">
+						Order
+					</option>
+					<option value="family">
+						Family
+					</option>
+					<option value="subfamily">
+						Subfamily
+					</option>
+					<option value="tribe">
+						Tribe
+					</option>
+					<option value="subtribe">
+						Subtribe
+					</option>
+					<option value="genus">
+						Genus
+					</option>
+					<option value="scientific_name">
+						Scientific Name
+					</option>
+					<option value="formatted_scientific_name">
+						Formatted Scientific Name
+					</option>
+					<option value="identifiedby">
+						IdentifiedBy
+					</option>
+					<option value="continent_ocean">
+						Continent
+					</option>
+					<option value="country">
+						Country
+					</option>
+					<option value="state_prov">
+						State
+					</option>
+					<option value="county">
+						County
+					</option>
+					<option value="quad">
+						Map Name
+					</option>
+					<option value="feature">
+						Feature
+					</option>
+					<option value="island">
+						Island
+					</option>
+					<option value="island_group">
+						Island Group
+					</option>
+					<option value="sea">
+						Sea
+					</option>
+					<option value="spec_locality">
+						Specific Locality
+					</option>
+					<option value="year">
+						Year
+					</option>
+					<option value="individualcount">
+						IndividualCount
+					</option>
+				</select>
+			</div>
+			<div id="kmlDiv" style="display:none;border:1px solid green;padding:.5em;">
+				<font size="-1">
+					<em>
+						<strong>
+							KML Options:
+						</strong>
+					</em>
+				</font>
+				<br>
+				<label for="next">
+					Color By
+				</label>
+				<select name="next" id="next" >
+					<option value="colorByCollection">
+						Collection
+					</option>
+					<option value="colorBySpecies">
+						Species
+					</option>
+				</select>
+				<label for="method">
+					Method
+				</label>
+				<select name="method"  id="method">
+					<option value="download">
+						Download
+					</option>
+					<option value="link">
+						Download Linkfile
+					</option>
+					<option value="gmap">
+						Google Maps
+					</option>
+				</select>
+				<label for="includeTimeSpan">
+					include Time?
+				</label>
+				<select name="includeTimeSpan"  id="includeTimeSpan" >
+					<option value="0">
+						no
+					</option>
+					<option value="1">
+						yes
+					</option>
+				</select>
+				<label for="showErrors">
+					Show error radii?
+				</label>
+				<select  name="showErrors" id="showErrors" >
+					<option value="0">
+						no
+					</option>
+					<option value="1">
+						yes
+					</option>
+				</select>
+			</div>
+		</div>
+	</div>
 </div>
 
-
-
-<form method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues();">
-
-	<div class="tbl">
-     <div class="tr">
-     <div class="td">
-	<input type="submit" value="Search" class="schBtn">
-	</div>
-     <div class="td">
-   <input type="button" name="Reset" value="Clear Form" class="clrBtn" onclick="resetSSForm();">
-    </div>
-     <div class="td">
-   <input type="button" name="Previous" value="Use Last Values" class="lnkBtn"  onclick="setPrevSearch()">
-    </div>
-     <div class="td">
-  &nbsp;&nbsp;&nbsp;See&nbsp;results&nbsp;as:
-    </div>
-     <div class="td">
- <select name="tgtForm" id="tgtForm" size="1"  onChange="changeTarget(this.id,this.value);">
-                <option value="SpecimenResults.cfm">Specimen Records</option>
-                <option value="SpecimenResultsHTML.cfm">HTML Specimen Records</option>
-                <option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
-                <option  value="/bnhmMaps/kml.cfm?action=newReq">KML</option>
-                <option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
-                <option  value="SpecimenGraph.cfm">Graph</option>
-            </select>
-    </div>
-
-     <div class="td">
-  <div id="groupByDiv" style="display:none;border:1px solid green;padding:.5em;">
-                <font size="-1"><em><strong>Group by:</strong></em></font><br>
-                <select name="groupBy" id="groupBy" multiple size="4">
-                    <option value="kingdom">Kingdom</option>
-                    <option value="phylum">Phylum</option>
-                    <option value="phylclass">Class</option>
-                    <option value="phylorder">Order</option>
-                    <option value="family">Family</option>
-                    <option value="subfamily">Subfamily</option>
-                    <option value="tribe">Tribe</option>
-                    <option value="subtribe">Subtribe</option>
-                    <option value="genus">Genus</option>
-                    <option value="scientific_name">Scientific Name</option>
-                    <option value="formatted_scientific_name">Formatted Scientific Name</option>
-                    <option value="identifiedby">IdentifiedBy</option>
-                    <option value="continent_ocean">Continent</option>
-                    <option value="country">Country</option>
-                    <option value="state_prov">State</option>
-                    <option value="county">County</option>
-                    <option value="quad">Map Name</option>
-                    <option value="feature">Feature</option>
-                    <option value="island">Island</option>
-                    <option value="island_group">Island Group</option>
-                    <option value="sea">Sea</option>
-                    <option value="spec_locality">Specific Locality</option>
-                    <option value="year">Year</option>
-                    <option value="individualcount">IndividualCount</option>
-                </select>
-            </div>
-            <div id="kmlDiv" style="display:none;border:1px solid green;padding:.5em;">
-                <font size="-1"><em><strong>KML Options:</strong></em></font><br>
-                <label for="next">Color By</label>
-                <select name="next" id="next" >
-                    <option value="colorByCollection">Collection</option>
-                    <option value="colorBySpecies">Species</option>
-                </select>
-                <label for="method">Method</label>
-                <select name="method"  id="method">
-                    <option value="download">Download</option>
-                    <option value="link">Download Linkfile</option>
-                    <option value="gmap">Google Maps</option>
-                </select>
-                <label for="includeTimeSpan">include Time?</label>
-                <select name="includeTimeSpan"  id="includeTimeSpan" >
-                    <option value="0">no</option>
-                    <option value="1">yes</option>
-                </select>
-                <label for="showErrors">Show error radii?</label>
-                <select  name="showErrors" id="showErrors" >
-                    <option value="0">no</option>
-                    <option value="1">yes</option>
-                </select>
-            </div>
-    </div>
-	 </div>
-	  </div>
 <!----
 <div>
 	&nbsp;&nbsp;&nbsp;<span class="helpLink" id="_cataloged_item_type">Type</span>:<select name="cataloged_item_type" id="cataloged_item_type" size="1">
