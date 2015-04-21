@@ -206,7 +206,13 @@
 <cfelseif listfindnocase(request.rdurl,'saved',"/")>
 	<Cfoutput>
 	<cftry>
+
+
 		<cfset gPos=listfindnocase(request.rdurl,"saved","/")>
+		<cfset temp = listgetat(request.rdurl,gPos+1,"/")>
+
+
+
 		<cfif listlen(request.rdurl,"/") gt 1>
 			<cfset sName = listgetat(request.rdurl,gPos+1,"/")>
 			<cfquery name="d" datasource="cf_dbuser">
@@ -241,6 +247,7 @@
 			<cfinclude template="/errors/404.cfm">
 		</cfif>
 		<cfcatch>
+			<cfdump var=#cfcatch#>
 			<cfinclude template="/errors/404.cfm">
 		</cfcatch>
 	</cftry>

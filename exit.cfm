@@ -2,9 +2,9 @@
 <cfset title="You are now leaving Arctos.">
 <cfoutput>
 	<cfif not isdefined("target") or len(target) is 0>
-		Improper call of this form.	
-		<cfthrow detail="exit called without target" errorcode="9944" message="A call to the exit form was made without specifying a target.">
-		<cfabort>
+		<cfset bl_reason='exit called without target'>
+        <cfinclude template="/errors/autoblacklist.cfm">
+        <cfabort>
 	</cfif>
 	<cfif left(target,4) is not "http">
 		<!--- hopefully a local resource and not some garbage ---->
@@ -48,14 +48,14 @@
 	</cfquery>
  	<cfif status is "200">
 		<cfheader statuscode="303" statustext="Redirecting to external resource">
-		<cfheader name="Location" value="#http_target#">	
+		<cfheader name="Location" value="#http_target#">
 	<cfelse>
 		<cftry><cfhtmlhead text='<title>An external resource is not responding properly</title>'>
 			<cfcatch type="template">
 			</cfcatch>
 		</cftry>
 		<div style="border:4px solid red; padding:1em;margin:1em;">
-			There may be a problem with the linked resource. 
+			There may be a problem with the linked resource.
 			<p>
 				Status: #status#
 			</p>
@@ -64,10 +64,10 @@
 			<cfelseif  left(status,3) is "404">
 				<p>The external resource does not appear to exist.</p>
 			<cfelseif left(status,3) is "500">
-				<p>The server may be down or misconfigured.</p>			
+				<p>The server may be down or misconfigured.</p>
 			</cfif>
 			<p>
-				Click the following link(s) to attempt to load the resource manually. 
+				Click the following link(s) to attempt to load the resource manually.
 			</p>
 			<p>
 				Please <a href="/contact.cfm?ref=#target#">contact us</a> if you experience additional problems with the link.
