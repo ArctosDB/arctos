@@ -1,3 +1,4 @@
+<cfset action="nothing">
 <!----
 <cfinclude template="/includes/_header.cfm">
 <cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
