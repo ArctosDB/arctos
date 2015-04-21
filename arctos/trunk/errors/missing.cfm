@@ -233,7 +233,7 @@
 
 
 
-            <cfset sName = listgetat(sName,1,"?")>
+            <cfset sName = listgetat(sName,1,"?&")>
 
         <br>sName: #sName#
 
