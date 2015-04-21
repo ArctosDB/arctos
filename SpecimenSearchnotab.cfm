@@ -8,6 +8,10 @@
 <cfset title="Specimen Search">
 <cfset metaDesc="Search for museum specimens and observations by taxonomy, identifications, specimen attributes, and usage history.">
 ---->
+<header>
+
+
+    <meta name=viewport content="width=device-width, initial-scale=1">
 
 <cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select count(collection_object_id) as cnt from cataloged_item
@@ -54,6 +58,8 @@
 
 </style>
 
+</header>
+<body>
 
 <cfoutput>
 <div class="tbl">
@@ -814,4 +820,6 @@
 	});
 </script>
 ---->
+
+</body>
 <cfinclude template = "includes/_footer.cfm">
