@@ -227,6 +227,11 @@
 
 		<cfif listlen(request.rdurl,"/") gt 1>
 			<cfset sName = listgetat(request.rdurl,gPos+1,"/")>
+
+
+        <br>sName: #sName#
+
+
 			<cfquery name="d" datasource="cf_dbuser">
 				select url from cf_canned_search where upper(search_name)='#ucase(sName)#'
 			</cfquery>
