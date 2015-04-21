@@ -1,3 +1,7 @@
+
+<cfdump var=#request.rdurl#>
+
+<cfabort>
 <cfif listfindnocase(request.rdurl,'/m/',"/")>
     <!--- mobile handling ---->
 
