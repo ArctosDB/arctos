@@ -34,6 +34,7 @@
 	            <cfset name = listgetat(request.rdurl,gPos+1,"/")>
 	            <cfinclude template="/m/taxonomy.cfm">
 	            <cfcatch>
+		            <cfdump var=#cfcatch#>
 	                <cfinclude template="/errors/404.cfm">
 	            </cfcatch>
 	        </cftry>
