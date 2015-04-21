@@ -119,7 +119,7 @@
             	//selectOnRowClick: false, //Enable this to only select using checkboxes
 				pageSizes: [10, 25, 50, 100, 250, 500,5000],
 				actions: {
-	                listAction: '/component/SpecimenResults.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults'
+	                listAction: '/component/SpecimenResults.cfc?totalRecordCount=#trc.c#&method=getSpecimenResults&m=true'
 	            },
 	            fields:  {
 					 COLLECTION_OBJECT_ID: {

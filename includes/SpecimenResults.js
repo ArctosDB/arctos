@@ -123,8 +123,8 @@ function confirmAddAllPartLoan(){
 }
 
 $(document).ready(function () {
+	// do NOT process this stuff for mobile
 	 if(window.location.href.indexOf("/m/") > -1) {
-	       alert("your url containsm");
 	       return false;
 	    }
 	jQuery("#cntr_refineSearchTerms").html("<img src='/images/indicator.gif'>");
