@@ -96,8 +96,8 @@
 	<cfset thisLoopNum=1>
 	<script type="text/javascript">
 	    $(document).ready(function () {
-			$("##usertools").menu();
-			$("##goWhere").menu();
+			//$("##usertools").menu();
+			//$("##goWhere").menu();
 	        $('##specresults').jtable({
 	            title: 'Specimen Results',
 				paging: true, //Enable paging
@@ -278,7 +278,7 @@
 	</cfquery>
 	<cfset numWillNotMap=summary.recordcount-willmap.recordcount>
 	<!--- if they came in with min/max, the out-with-min/max urls are wonky so....---->
-
+<!----
 	<table width="100%">
 		<tr>
 			<td  class="valigntop" width="65%">
@@ -305,6 +305,7 @@
 			</td>
 		</tr>
 	</table>
+
 	<form name="controls">
 		<!--- keep stuff around for JS to get at --->
 		<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
@@ -508,6 +509,11 @@
 		</table>
 	</div>
 	</form>
+
+	---->
+
+
+
 	<div id="specresults"></div>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
