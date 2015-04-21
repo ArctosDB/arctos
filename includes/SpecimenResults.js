@@ -123,6 +123,10 @@ function confirmAddAllPartLoan(){
 }
 
 $(document).ready(function () {
+	 if(window.location.href.indexOf("/m/") > -1) {
+	       alert("your url containsm");
+	       return false;
+	    }
 	jQuery("#cntr_refineSearchTerms").html("<img src='/images/indicator.gif'>");
 	var ptl='/component/SpecimenResults.cfc?method=get_specSrchTermWidget&returnformat=plain';
 	jQuery.get(ptl, function(data){
