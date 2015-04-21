@@ -1,4 +1,4 @@
-<cfif listfindnocase(request.rdurl,'doi',"/")>
+<cfif listfindnocase(request.rdurl,'/m/',"/")>
     <!--- mobile handling ---->
 
 	hi I am mobile friendly
