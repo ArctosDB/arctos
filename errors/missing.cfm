@@ -205,6 +205,18 @@
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'saved',"/")>
 	<Cfoutput>
+
+
+		<cfset gPos=listfindnocase(request.rdurl,"saved","/")>
+        <cfset temp = listgetat(request.rdurl,gPos+1,"/")>
+
+		<br>gPos: #gPos#
+        <br>temp: #temp#
+        <br>listlen(request.rdurl,"/"): #listlen(request.rdurl,"/")#
+
+
+
+
 	<cftry>
 
 
