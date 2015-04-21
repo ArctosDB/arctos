@@ -62,6 +62,8 @@
 <body>
 
 <cfoutput>
+
+<!----
 <div class="tbl">
 	<div class="tr">
 		<div class="td">
@@ -294,7 +296,9 @@
 		</div>
 	</div>
 </div>
+---->
 
+boogity
 <!----
 <div>
 	&nbsp;&nbsp;&nbsp;<span class="helpLink" id="_cataloged_item_type">Type</span>:<select name="cataloged_item_type" id="cataloged_item_type" size="1">
