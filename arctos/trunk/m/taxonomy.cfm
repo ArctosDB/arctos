@@ -1,4 +1,4 @@
-<cfinclude template="/includes/_header.cfm">
+<cfinclude template="includes/_header.cfm">
 <style>
 	.reqdToSearchDiv {
 		border:1px solid green;
@@ -623,4 +623,4 @@
 </cfif>
 </cfoutput>
 <!---------------------------------------------------------------------------------------------------->
-<cfinclude template="/includes/_footer.cfm">
+<cfinclude template="includes/_footer.cfm">
