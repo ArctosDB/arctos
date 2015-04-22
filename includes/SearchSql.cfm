@@ -301,7 +301,7 @@
 	<cfset combinedTaxIDs=currTaxIDs & " union " & relTaxIDs & " union " & invRelTaxIDs>
 
 
-	<cfset basQual = basQual & " and ( identification_taxonomy.taxon_name_id in ( #combinedTaxIDs# ) ">
+	<cfset basQual = basQual & " and ( identification_taxonomy.taxon_name_id in ( #combinedTaxIDs# ) )">
 
 
 
