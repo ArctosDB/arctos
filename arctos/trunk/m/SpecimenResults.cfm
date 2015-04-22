@@ -40,7 +40,7 @@
 
 
 	---->
-	<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id,GUID,SCIENTIFIC_NAMe">
+	<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id,#session.flatTableName#.GUID,#session.flatTableName#.SCIENTIFIC_NAMe">
 
 	<cfset basFrom = " FROM #session.flatTableName#">
 	<cfset basJoin = "">
