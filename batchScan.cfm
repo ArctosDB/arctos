@@ -23,11 +23,7 @@ jQuery(document).ready(function() {
 			<input type="hidden" name="action" value="save">
 			<input type="hidden" name="mode" value="#mode#">
 			<input type="hidden" name="numberFolders" value="#numberFolders#">
-			<br>
-			<label for="parent_barcode">
-				Parent Barcode
-			</label>
-			<input type="text" name="parent_barcode" id="parent_barcode" size="20" class="reqdClr">
+
 			<div style="border:2px solid red;">
 				<strong>
 					Use with caution. Updating individual container type is dangerous.
@@ -80,6 +76,11 @@ jQuery(document).ready(function() {
 				</a>
 			</cfif>
 			<hr>
+            <label for="parent_barcode">
+                Parent Barcode
+            </label>
+            <input type="text" name="parent_barcode" id="parent_barcode" size="20" class="reqdClr">
+
 			<label for="sheets">
 				Child Barcodes
 			</label>
