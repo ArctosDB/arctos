@@ -302,7 +302,7 @@
 
 
 	<cfset basQual = basQual & " and ( identification_taxonomy.taxon_name_id in ( #combinedTaxIDs# ) OR
-			upper(identification.scientific_name like '%#escapeQuotes(ucase(taxon_name))#%') ">
+			upper(identification.scientific_name) like '%#escapeQuotes(ucase(taxon_name))#%') ">
 
 
 
