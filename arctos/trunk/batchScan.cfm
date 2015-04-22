@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
 					Use with caution. Updating individual container type is dangerous.
 				</strong>
 				<label for="new_parent_c_type">
-					Change Parent Container to type....
+					On save, force-change Parent Container to type....
 				</label>
 				<select name="new_parent_c_type" id="new_parent_c_type" size="1">
 					<option value="">
@@ -43,7 +43,7 @@ jQuery(document).ready(function() {
 					</cfloop>
 				</select>
 				<label for="new_child_c_type">
-					Change ALL scanned children to type....
+					On save, force-change ALL scanned children to type....
 				</label>
 				<select name="new_child_c_type" id="new_child_c_type" size="1">
 					<option value="">
