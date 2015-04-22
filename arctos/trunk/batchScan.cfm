@@ -13,6 +13,7 @@ jQuery(document).ready(function() {
 			</a>
 			will provide instant feedback and should be preferred over this form.
 		</div>
+		<br>
 		<cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	   select container_type from ctcontainer_type where container_type!='collection object' order by container_type
 	</cfquery>
@@ -68,11 +69,11 @@ jQuery(document).ready(function() {
 			<br>
 			<cfif mode is "tab">
 				<a href="batchScan.cfm?mode=csv">
-					Go CSV
+					CSV mode
 				</a>
 			<cfelse>
 				<a href="batchScan.cfm?mode=tab">
-					Go TAB
+				    TAB mode
 				</a>
 			</cfif>
 			<hr>
