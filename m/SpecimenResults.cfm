@@ -94,7 +94,8 @@
 	<cfthread name="log#request.uuid#" action="run" priority="LOW" loginfo="#loginfo#">
 		<cffile action="append" file="#Application.webDirectory#/log/querylog.txt" output="#loginfo#">
     </cfthread>
-	<cfset numFlds=usercols.recordcount>
+
+
 	<cfset thisLoopNum=1>
 	<script type="text/javascript">
 	    $(document).ready(function () {
