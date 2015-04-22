@@ -62,9 +62,9 @@
 	</label>
 	<input type="text" name="listcatnum" id="listcatnum" size="50" value="">
 	<label for="scientific_name">
-		Taxonomy
+		Scientific Name
 	</label>
-	<input type="text" name="taxon_name" id="taxon_name" size="50" value="" placeholder="Taxonomy">
+	<input type="text" name="scientific_name" id="scientific_name" size="50" value="" placeholder="Scientific Name (Identification)">
 	<label for="scientific_name">
 		Place Name
 	</label>
