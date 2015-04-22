@@ -1,4 +1,4 @@
-<cfinclude template="/includes/_header.cfm">
+<cfinclude template="includes/_header.cfm">
 
 
 <!----
@@ -14,15 +14,16 @@
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
 <script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js?v=2'></script>
 
-<script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 
 <link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
-<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
 <style>
 	#usertools{border:3px solid #417bb5; }
 	#goWhere{border:3px solid #417bb5; }
 </style>
 <cfoutput>
+
+	<cfset session.resultColumnList='GUID,SCIENTIFIC_NAME'>
+	<!----
 	<cfif not isdefined("session.resultColumnList") or len(session.resultColumnList) is 0>
 		<cfset session.resultColumnList='GUID'>
 	</cfif>
@@ -36,16 +37,11 @@
 		order by disp_order
 	</cfquery>
 	<cfset session.resultColumnList=valuelist(usercols.CF_VARIABLE)>
-	<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id">
-	<cfif len(session.CustomOtherIdentifier) gt 0>
-		<cfset basSelect = "#basSelect#
-			,concatSingleOtherId(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-			'#session.CustomOtherIdentifier#' as myCustomIdType,
-			to_number(ConcatSingleOtherIdInt(#session.flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
-	</cfif>
-	<cfloop query="usercols">
-		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #CF_VARIABLE#">
-	</cfloop>
+
+
+	---->
+	<cfset basSelect = " SELECT distinct #session.flatTableName#.collection_object_id,GUID,SCIENTIFIC_NAM">
+
 	<cfset basFrom = " FROM #session.flatTableName#">
 	<cfset basJoin = "">
 	<cfset basWhere = " WHERE #session.flatTableName#.collection_object_id IS NOT NULL ">
@@ -57,6 +53,8 @@
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 	<cfset sqlstring = replace(sqlstring,"flatTableName","#session.flatTableName#","all")>
+
+
 	<!--- require some actual searching --->
 	<cfset srchTerms="">
 	<cfloop list="#mapurl#" delimiters="&" index="t">
@@ -523,4 +521,4 @@
 
 	<div id="specresults"></div>
 </cfoutput>
-<cfinclude template="/includes/_footer.cfm">
+<cfinclude template="includes/_footer.cfm">
