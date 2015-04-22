@@ -137,10 +137,13 @@
 			<div class="sf-mainMenuWrapper">
 				<ul class="sf-menu">
 					<li>
-						<a target="_top" href="/SpecimenSearch.cfm">Specimen</a>
+						<a target="_top" href="SpecimenSearch.cfm">Specimen</a>
 					</li>
 					<li>
-                        <a target="_top" href="/taxonomy.cfm">Taxonomy</a>
+                        <a target="_top" href="taxonomy.cfm">Taxonomy</a>
+                    </li>
+                    <li>
+                        <a target="_top" href="desktop.cfm">Desktop Site</a>
                     </li>
 				</ul>
 			</div>
