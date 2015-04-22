@@ -44,12 +44,7 @@
 </cfif>
 <!--------------------- end init -------------------------->
 <cfoutput>
-<cfif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
-	<cfquery name="d" datasource="uam_god">
-		select scientific_name from taxon_name where taxon_name_id=<cfqueryparam value = "#taxon_name_id#" CFSQLType = "CF_SQL_INTEGER">
-	</cfquery>
-	<cflocation url="/name/#d.scientific_name#" addtoken="false">
-</cfif>
+
 <cfset title="Search Taxonomy">
 
 			<!--- search form gets half-width --->
@@ -237,16 +232,6 @@
 		<cfheader statuscode="404" statustext="Not found">
 		<cfabort>
 	</cfif>
-	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select
-			google_client_id,
-			google_private_key
-		from cf_global_settings
-	</cfquery>
-	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select source from cttaxonomy_source order by source
-	</cfquery>
-	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false" type="text/javascript"></script>'>
 
 	<cfquery name="scientific_name" dbtype="query">
 		select scientific_name from d group by scientific_name
@@ -255,16 +240,9 @@
 		select taxon_name_id from d group by taxon_name_id
 	</cfquery>
 
-	<input type="hidden" id="scientific_name" value="#scientific_name.scientific_name#">
-	<input type="hidden" id="taxon_name_id" value="#taxon_name_id.taxon_name_id#">
 	<cfset title="Taxonomy Details: #name#">
 	<h3>Taxonomy Details for <i>#name#</i></h3>
-	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
-	</cfif>
-	<div id="specTaxMap"></div>
-	<div id="specTaxMedia"></div>
-	<div id="f" style="margin:2em;"></div>
+
 	<cfquery name="related" datasource="uam_god">
 		select
 			TAXON_RELATIONSHIP,
@@ -367,24 +345,20 @@
 			Arctos Links:
 			<ul>
 				<li>
-					<a href="/SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#">
+					<a href="/m/SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#">
 						Specimens currently identified as #scientific_name.scientific_name#
 					</a>
-					<a href="/SpecimenResults.cfm?anyTaxId=#taxon_name_id.taxon_name_id#">
+					<a href="/m/SpecimenResults.cfm?anyTaxId=#taxon_name_id.taxon_name_id#">
 						[ include unaccepted IDs ]
 					</a>
-					<a href="/SpecimenResults.cfm?taxon_name_id=#taxon_name_id.taxon_name_id#">
+					<a href="/m/SpecimenResults.cfm?taxon_name_id=#taxon_name_id.taxon_name_id#">
 						[ exact matches only ]
 					</a>
-					<a href="/SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#&media_type=any">
+					<a href="/m/SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#&media_type=any">
 						[ with Media ]
 					</a>
 				</li>
-				<li>
-					<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&scientific_name=#scientific_name.scientific_name#" class="external" target="_blank">
-						BerkeleyMapper + RangeMaps
-					</a>
-				</li>
+
 			</cfif>
 			 <cfquery name="citas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select
@@ -398,7 +372,7 @@
 			</cfquery>
 			<cfif citas.c gt 0>
 				<li>
-					<a href="/SpecimenResults.cfm?cited_taxon_name_id=#taxon_name_id.taxon_name_id#">
+					<a href="/m/SpecimenResults.cfm?cited_taxon_name_id=#taxon_name_id.taxon_name_id#">
 						Specimens cited using #scientific_name.scientific_name#
 					</a>
 				</li>
@@ -407,13 +381,7 @@
 	</p>
 	<a name="classifications"></a>
 	<h4>Classifications</h4>
-	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-		<a href="/ScheduledTasks/globalnames_fetch.cfm?name=#name#">[ Refresh/pull GlobalNames ]</a>
-		<a href="/editTaxonomy.cfm?action=forceDeleteNonLocal&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Force-delete all non-local metadata ]</a>
-		<a href="/editTaxonomy.cfm?action=newClassification&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Create Classification ]</a>
-		<a class="external" target="_blank" href="http://resolver.globalnames.org/name_resolvers.html?names=#scientific_name.scientific_name#">[ GlobalNames (HTML) ]</a>
-		<a class="external" target="_blank" href="http://resolver.globalnames.org/name_resolvers.xml?names=#scientific_name.scientific_name#">[ GlobalNames (XML) ]</a>
-	</cfif>
+
 	<cfquery name="sources" dbtype="query">
 		select
 			source,
@@ -459,27 +427,6 @@
 				<cfset srcHTML='<a href="http://www.freebase.com/" target="_blank" class="external">#source#</a>'>
 			<cfelseif source is "EOL">
 				<cfset srcHTML='<a href="http://eol.org/" target="_blank" class="external">#source#</a>'>
-			<cfelseif source is "xxxxx">
-				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
-			<cfelseif source is "xxxxx">
-				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
-			<cfelseif source is "xxxxx">
-				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
-			<cfelseif source is "xxxxx">
-				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
-			<cfelseif source is "xxxxx">
-				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
-			<cfelseif source is "xxxxx">
-				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
-			<cfelseif source is "xxxxx">
-				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
-			<cfelseif source is "xxxxx">
-				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
-			<cfelseif source is "xxxxx">
-				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
-			<cfelseif source is "xxxxx">
-				<cfset srcHTML='<a href="xxxxxxx" target="_blank" class="external">#source#</a>'>
-
 			<cfelse>
 				<cfset srcHTML=source>
 			</cfif>
@@ -491,16 +438,7 @@
 			</cfquery>
 			<cfloop query="source_classification">
 				<div class="classificationDiv">
-					<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-						<a href="/editTaxonomy.cfm?action=cloneClassification&taxon_name_id=#taxon_name_id.taxon_name_id#&name=#name#&classification_id=#classification_id#">[ Clone Classification ]</a>
-						<cfif listcontains(valuelist(cttaxonomy_source.source),sources.source)>
-							<a href="/editTaxonomy.cfm?action=editClassification&name=#name#&classification_id=#classification_id#">[ Edit Classification ]</a>
-						<cfelse>
-							[ Editing non-local sources disallowed ]
-						</cfif>
-						<a href="/editTaxonomy.cfm?action=cloneClassificationNewName&name=#name#&classification_id=#classification_id#">[ Clone Classification as new name ]</a>
 
-					</cfif>
 					<cfquery name="notclass" dbtype="query">
 						select
 							term,
