@@ -44,7 +44,7 @@
 	<cfset here=replace(cgi.script_name,"/">
 	<cfdump var=#here#>
 
-	<cfinvoke returnVariable="x" component="component.utilities" method="listcommon" list1="#mobile#" list2="#here#" delim="/.">
+	<cfinvoke returnVariable="x" component="component.utilities" method="listcommon" list1="#mobile#" list2="#here#">
 
 
 
