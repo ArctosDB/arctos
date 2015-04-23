@@ -17,9 +17,9 @@
 		<cfif IsDefined("Cookie.dorm")>
 			<!--- they have an explicit preference, send them there ---->
 			<cfif cookie.dorm is "mobile">
-			  <cfset r=r&'::have mobile cookie: redirect to /m/....'>
+			  <cfset r=r & '::have mobile cookie: redirect to /m/....'>
 			<cfelse>
-	          <cfset r=r&'::have NON cookie: redirect to /{notm}....'>
+	          <cfset r=r & '::have NON cookie: redirect to /{notm}....'>
 			</cfif>
 
 		<cfelse>
@@ -29,17 +29,17 @@
 	            <!---- they are mobile, see if they're on the mobile site ---->
 				<cfif request.rdurl contains "/m/">
 				     <!---- they're already on the mobile site, do nothing ---->
-	                <cfset r=r&'::on mobile device and mobile site, do nothing....'>
+	                <cfset r=r & '::on mobile device and mobile site, do nothing....'>
 				<cfelse>
 				     <!---- they're on a mobile device and have set no preferences, set a cookie and send them to the
 				     mobile site ---->
-				    <cfset r=r&'::on mobile device and desktop site, redir to dm....'>
+				    <cfset r=r & '::on mobile device and desktop site, redir to dm....'>
 				</cfif>
 		</cfif>
 
 	<cfelse>
 	    <!---- we have no mobile page for whatever they're looking for, do nothing ---->
-		<cfset r=r&'::no mobile page exists-RETURN'>
+		<cfset r=r & '::no mobile page exists-RETURN'>
 
 	</cfif>
 
