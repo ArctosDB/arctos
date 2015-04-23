@@ -13,7 +13,7 @@ set a cookie and redirect ---->
 hello I am dm
 
 
-
+<cfset r=replace(r,"//","/","all")>
 <cfif isdefined("r")>
 
 	<cfif r contains "/m/">
