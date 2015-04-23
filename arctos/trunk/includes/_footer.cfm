@@ -42,7 +42,7 @@
 
     <cfset murl="">
     <cfif request.rdurl contains "/guid/" or request.rdurl contains "/name/">
-	   <cfset murl="/m" & request.rdurl
+	   <cfset murl="/m" & request.rdurl>
 	</cfif>
 	<!----
     <cfset mobile="SpecimenSearch,SpecimenResults,name,guid,taxonomy">
