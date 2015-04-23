@@ -2,7 +2,8 @@
 <!------------------>
 
 
-<cffunction name="mobileDesktopRedirect" output="false" returnType="string" access="remote">
+<cffunction name="mobileDesktopRedirect" output="true" returnType="string" access="remote">
+	<br>START mobileDesktopRedirect
 	<!----
 	   This function redirects between mobile and desktop. Possibilities are:
 
@@ -176,6 +177,7 @@
 	</cfoutput>
 
 
+    <br>END mobileDesktopRedirect
 
     <cfreturn r>
 </cffunction>
