@@ -43,7 +43,7 @@
 
 	<cfset here="name">
 
-	<cfinvoke returnVariable ="x" component="component.utilities" method="listcommon" list1="#mobile#" list2="#here#">
+	<cfinvoke returnVariable="x" component="component.utilities" method="listcommon" list1="#mobile#" list2="#here#">
 
 
 <cfdump var=#x#>
