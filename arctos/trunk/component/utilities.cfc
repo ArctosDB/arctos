@@ -13,7 +13,7 @@
 	    request.rdurl contains "taxonomy.cfm" or
 	    request.rdurl contains "SpecimenResults.cfm" or
 	    request.rdurl is "/")>
-		<cfset r=r&'::hasmobile'>
+		<cfset r=r&'::we have a mobile option'>
 		<!--- check to see if they have set a cookie ---->
 		<cfif IsDefined("Cookie.dorm")>
 			<!--- they have an explicit preference and we have a mobile option, send them where they want to be ---->
@@ -24,6 +24,8 @@
 
 				<cfelse>
 				     <cfset r=r & '::have mobile cookie, not on /m/: redirect to /m/....'>
+
+				     <cflocation url="/dm.cfm?r=/m/" & request.rdurl>
 				</cfif>
 			<cfelse>
 			    <cfif request.rdurl contains "/m/">
