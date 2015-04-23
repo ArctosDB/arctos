@@ -20,6 +20,8 @@
 			<cfif cookie.dorm is "mobile">
 				<cfif request.rdurl contains "/m/">
                     <cfset r=r & '::have mobile cookie, already on /m/, do nothing....'>
+					 <cfreturn r>
+
 				<cfelse>
 				     <cfset r=r & '::have mobile cookie, not on /m/: redirect to /m/....'>
 				</cfif>
@@ -28,6 +30,7 @@
                     <cfset r=r & '::have desktop cookie,  on /m/, redirect to desktop....'>
                 <cfelse>
                      <cfset r=r & '::have desktop cookie, not on /m/do nothing....'>
+					 <cfreturn r>
                 </cfif>
 
 
@@ -50,6 +53,7 @@
 				<cfif request.rdurl contains "/m/">
 				     <!---- they're already on the mobile site, do nothing ---->
 	                <cfset r=r & '::on mobile device and mobile site, do nothing....'>
+	                 <cfreturn r>
 				<cfelse>
 				     <!---- they're on a mobile device and have set no preferences, set a cookie and send them to the
 				     mobile site ---->
@@ -62,6 +66,7 @@
                      <!---- they're on a mobile device and have set no preferences, set a cookie and send them to the
                      mobile site ---->
                     <cfset r=r & '::on desktop device and desktop site, do nothing...'>
+					 <cfreturn r>
                 </cfif>
             </cfif>
 		</cfif>
@@ -69,6 +74,7 @@
 	    <!---- we have no mobile page for whatever they're looking for, there is nothing we can do about anything,
 	    stop processing and move on ---->
 		<cfset r=r & '::no mobile page exists-RETURN'>
+		 <cfreturn r>
 	</cfif>
     <cfreturn r>
 </cffunction>
