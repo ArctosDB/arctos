@@ -42,8 +42,10 @@ hello I am dm
 	<cfoutput>
 
 		<!----
-		<cflocation url="#r#" addtoken="false">
+
 		---->
+
+		<cflocation url="#r#" addtoken="false">
 	Click if you are not redirected: <a href="#r#">#r#</a>
 
 	</cfoutput>
