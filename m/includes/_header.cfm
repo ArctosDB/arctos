@@ -146,7 +146,7 @@
 						<cfset durl=replace(replace(request.rdurl,'m/','/'),'//','/','all')>
                         <link rel=”canonical” href=”#durl#”/>
 
-						 <a target="_top" href="desktop.cfm"Desktop Site</a>
+						 <a target="_top" href="desktop.cfm">Desktop Site</a>
 					</li>
                     <li>
 
