@@ -69,6 +69,9 @@
 					---->
 					  <cfset z="/dm.cfm?r=" & replace(request.rdurl,"/m/","/")>
 					  <cfset r=r & '::have desktop cookie,  on /m/, redirect to #z#....'>
+                        <cflocation url="#z#" addtoken="false">
+
+
                 <cfelse>
                      <!---- DEVICE: untested; CURRENT SITE: desktop; DESIRED SITE: desktop; ACTION: return ---->
 				    <!---- want desktop, on desktop, buhbye ---->
