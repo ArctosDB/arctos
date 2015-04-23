@@ -149,9 +149,29 @@
 				</ul>
 			</div>
 			---->
-			<a target="_top" href="/m/SpecimenSearch.cfm">Specimen</a>
-			 <a target="_top" href="/m/taxonomy.cfm">Taxonomy</a>
-			 <a target="_top" id="desktoplink" href="/dm.cfm">Desktop</a>
+			<div width="100%" style="display:table;">
+				<div style="display:table-row;">
+					<div style="display:table-cell;">
+						<a target="_top" href="/m/SpecimenSearch.cfm">
+							Specimen
+						</a>
+					</div>
+					<div style="display:table-cell;">
+						<a target="_top" href="/m/taxonomy.cfm">
+							Taxonomy
+						</a>
+					</div>
+					<div style="display:table-cell;">
+						<a target="_top" id="desktoplink" href="/dm.cfm">
+							Desktop
+						</a>
+					</div>
+				</div>
+			</div>
+
+
+
+
 		</div><!--- end header div --->
 		<cf_rolecheck>
 	</cfoutput>
