@@ -7,11 +7,15 @@
 
 	<cfoutput>
 
-		  <cfset r="calling mobileDesktopRedirect from " & request.rdurl>
-
 
 
 <!----
+
+
+
+          <cfset r="calling mobileDesktopRedirect from " & request.rdurl>
+
+
 	----->
 	<!---- only redirect if they're coming in to something for which we have a mobile page ---->
 	<cfif isdefined("request.rdurl") and (
@@ -23,9 +27,9 @@
 	    request.rdurl is "/")>
 	    <!----
 
+        <cfset r=r&'::we have a mobile option'>
 		---->
 
-		<cfset r=r&'::we have a mobile option'>
 
 
 		<!--- check to see if they have set a cookie ---->
@@ -33,31 +37,41 @@
 			<!--- they have an explicit preference and we have a mobile option, send them where they want to be ---->
 			<cfif cookie.dorm is "mobile">
 				<cfif request.rdurl contains "/m/">
+					 <!---- DEVICE: untested; CURRENT SITE: mobile; DESIRED SITE: mobile; ACTION: return ---->
 					<!----
 
-                     <CFRETURN>
+                      <cfset r=r & '::have mobile cookie, already on /m/, do nothing....'>
+                     <cfreturn r>
 					 ---->
 
-					  <cfset r=r & '::have mobile cookie, already on /m/, do nothing....'>
-                     <cfreturn r>
+                     <CFRETURN>
 
 				<cfelse>
+                     <!---- DEVICE: untested; CURRENT SITE: desktop; DESIRED SITE: mobile; ACTION: redirect ---->
+
 				<!----
 
-                     <cflocation url="#z#" addtoken="false">
+                     <cfset r=r & '::have mobile cookie, not on /m/: redirect to #z#....'>
 				     ---->
                       <cfset z="/dm.cfm?r=/m/" & request.rdurl>
-					 <cfset r=r & '::have mobile cookie, not on /m/: redirect to #z#....'>
+                     <cflocation url="#z#" addtoken="false">
 				</cfif>
 			<cfelse>
 			    <cfif request.rdurl contains "/m/">
+                     <!---- DEVICE: untested; CURRENT SITE: mobile; DESIRED SITE: desktop; ACTION: redirect ---->
+
+
+
+				    <!---- have desktop cookie, on mobile, redirect to desktop ---->
 				    <!----
 
                      <cflocation url="#z#" addtoken="false">
 					---->
-					  <cfset z="/dm.cfm?r=" & request.rdurl>
+					  <cfset z="/dm.cfm?r=" & replace(request.rdurl,"/m/","/")>
 					  <cfset r=r & '::have desktop cookie,  on /m/, redirect to #z#....'>
                 <cfelse>
+                     <!---- DEVICE: untested; CURRENT SITE: desktop; DESIRED SITE: desktop; ACTION: return ---->
+				    <!---- want desktop, on desktop, buhbye ---->
 				<!----
                      <cfset r=r & '::have desktop cookie, not on /m/do nothing....'>
 					 <cfreturn r>
@@ -65,9 +79,11 @@
 					 <cfreturn>
                 </cfif>
 
- <cfset z="/dm.cfm?r=" & replace(request.rdurl,"/m/","/")>
-	          <cfset r=r & '::have NON-mobile cookie: redirect to #z#....'>
 	          <!----
+
+
+            <cfset z="/dm.cfm?r=" & replace(request.rdurl,"/m/","/")>
+              <cfset r=r & '::have NON-mobile cookie: redirect to #z#....'>
 
                      <cflocation url="#z#" addtokn="false">
 
@@ -88,18 +104,46 @@
 
 	            <!---- they are mobile, see if they're on the mobile site ---->
 				<cfif request.rdurl contains "/m/">
+
+                     <!---- DEVICE: mobile; CURRENT SITE: mobile; DESIRED SITE: mobile; ACTION: return ---->
 				     <!---- they're already on the mobile site, do nothing ---->
+
+				     <!----
 	                <cfset r=r & '::on mobile device and mobile site, do nothing....'>
 	                 <cfreturn r>
+	                 ---->
+	                 <cfreturn>
+
 				<cfelse>
+                     <!---- DEVICE: mobile; CURRENT SITE: desktop; DESIRED SITE: mobile; ACTION: redirect ---->
 				     <!---- they're on a mobile device and have set no preferences, set a cookie and send them to the
-				     mobile site ---->
-				    <cfset r=r & '::on mobile device and desktop site, redir to dm....'>
+				     mobile site
+
+
+				     <br /><cfset r=r & '::on mobile device and desktop site, redir to dm....'>
+
+				     ---->
+
+
+
+				      <cfset z="/dm.cfm?r=/m/" & request.rdurl>
+                      <cfset r=r & '::have desktop cookie,  on /m/, redirect to #z#....'>
+
+
+
 				</cfif>
 			<cfelse>
 			     <cfif request.rdurl contains "/m/">
+
+                     <!---- DEVICE: desktop; CURRENT SITE: mobile; DESIRED SITE: desktop; ACTION: redirect ---->
                     <cfset r=r & '::on desktop device and mobile site, redirect to {notM}....'>
+
+                      <cfset z="/dm.cfm?r=" & replace(request.rdurl,"/m/","/")>
+
+
+
 				<cfelse>
+                     <!---- DEVICE: desktop; CURRENT SITE: desktop; DESIRED SITE: desktop; ACTION: return ---->
                      <!---- they're on a mobile device and have set no preferences, set a cookie and send them to the
                      mobile site ---->
                     <cfset r=r & '::on desktop device and desktop site, do nothing...'>
@@ -111,7 +155,7 @@
 	    <!---- we have no mobile page for whatever they're looking for, there is nothing we can do about anything,
 	    stop processing and move on ---->
 		<cfset r=r & '::no mobile page exists-RETURN'>
-		 <cfreturn r>
+		<cfreturn>
 	</cfif>
 
 
