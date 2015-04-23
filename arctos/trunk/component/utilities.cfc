@@ -4,6 +4,7 @@
 
 <cffunction name="mobileDesktopRedirect" output="true" returnType="string" access="remote">
 	<br>START mobileDesktopRedirect
+	<br>cgi.script_name: #cgi.script_name#
 	<!----
 	   This function redirects between mobile and desktop. Possibilities are:
 
