@@ -24,8 +24,8 @@
 
 				<cfelse>
 				     <cfset r=r & '::have mobile cookie, not on /m/: redirect to /m/....'>
-
-				     <cflocation url="/dm.cfm?r=/m/" & request.rdurl>
+                      <cfset z="/dm.cfm?r=/m/" & request.rdurl>
+				     <cflocation url="#z#">
 				</cfif>
 			<cfelse>
 			    <cfif request.rdurl contains "/m/">
