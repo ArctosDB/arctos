@@ -3,6 +3,9 @@
 
 
 <cffunction name="mobileDesktopRedirect" output="false" returnType="string" access="remote">
+
+
+	<cfoutput>
 <!----
 	<cfset r="calling mobileDesktopRedirect from " & request.rdurl>
 	----->
@@ -98,6 +101,12 @@
 		<cfset r=r & '::no mobile page exists-RETURN'>
 		 <cfreturn r>
 	</cfif>
+
+
+	</cfoutput>
+
+
+
     <cfreturn r>
 </cffunction>
 
