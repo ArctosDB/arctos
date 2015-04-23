@@ -149,7 +149,7 @@
 				</ul>
 			</div>
 			---->
-			<div width="100%" style="display:table;">
+			<div style="display:table; width:100%";>
 				<div style="display:table-row;">
 					<div style="display:table-cell;">
 						<a target="_top" href="/m/SpecimenSearch.cfm">
