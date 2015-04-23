@@ -132,6 +132,7 @@
 				</cfif>
 			</div>
 			---->
+			<!----
 			<div class="sf-mainMenuWrapper">
 				<ul class="sf-menu">
 					<li>
@@ -143,10 +144,12 @@
 					<li>
 						 <!--- if JS fails this will send them to a "pick desktop or mobile" - if JS works, this will be changed
 						 in the footer ---->
-						 <a target="_top" id="desktoplink" href="/dm.cfm">Desktop Site</a>
+						 <a target="_top" id="desktoplink" href="/dm.cfm">Desktop</a>
 					</li>
 				</ul>
 			</div>
+			---->
+			<a target="_top" href="/m/SpecimenSearch.cfm">Specimen</a>
 		</div><!--- end header div --->
 		<cf_rolecheck>
 	</cfoutput>
