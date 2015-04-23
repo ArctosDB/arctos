@@ -316,7 +316,7 @@
 	</cfif>
 	---->
 	<cfset x=f.checkRequest()>
-    <cfset m=f.isMobile()>
+    <cfset m=f.mobileDesktopRedirect()>
 	<!----
 	   IF on desktop device
 	       IF on desktop site
