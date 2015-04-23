@@ -41,6 +41,8 @@
 <cfelse>
     <cfset mobile="SpecimenSearch,SpecimenResults,name,guid,taxonomy">
 
+
+    <cfdump var=#request.rdurl#>
 	<cfset here=replace(replace(cgi.script_name,"/",""),".cfm","")>
 	<cfdump var=#here#>
 
