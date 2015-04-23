@@ -48,7 +48,7 @@ pageTracker._trackPageview();
 try {
 
 
-	$("#desktoplink").attr("href", $("#desktoplink").attr('href') + '?r=' + $('link[rel=canonical]').attr('href') );
+	$("#desktoplink").attr("href", $("#desktoplink").attr('href') + '?r=' + encodeURIComponent($('link[rel=canonical]').attr('href')) );
 
 
 
