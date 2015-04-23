@@ -7,13 +7,13 @@
 
 	<cfoutput>
 
-
+ <cfset r="calling mobileDesktopRedirect from " & request.rdurl>
 
 <!----
 
 
 
-          <cfset r="calling mobileDesktopRedirect from " & request.rdurl>
+
 
 
 	----->
