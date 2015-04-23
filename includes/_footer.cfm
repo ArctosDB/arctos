@@ -62,7 +62,6 @@
 					<li>
 						<a HREF="/contact.cfm?ref=<cfoutput>#request.rdurl#</cfoutput>"><font size="-1">Report a bug or request support</font></a>
 					</li>
-					<cfif listcontains(request.rdurl,
 				</ul>
 			</td>
 		</tr>
