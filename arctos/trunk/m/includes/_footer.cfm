@@ -23,7 +23,7 @@
      </cfif>
 <li>
     <link rel="canonical" href="#durl#"/>
-	                       <a HREF="<cfoutput>#=#durl##</cfoutput>"><font size="-1">Desktop Site</font></a>
+	                       <a HREF="<cfoutput>#durl#</cfoutput>"><font size="-1">Desktop Site</font></a>
 
 </li>
 
