@@ -493,7 +493,7 @@
 					</p>
 					<cfif thisone.recordcount gt 0>
 						<p>Classification:
-						<cfset indent=1>
+						<cfset indent=.2>
 						<cfloop query="thisone">
 							<div style="padding-left:#indent#em;">
 								#term#
@@ -511,7 +511,7 @@
 								<a href="#srclnk#">[ from this source ]</a>
 								---->
 							</div>
-							<cfset indent=indent+1>
+							<cfset indent=indent+.2>
 						</cfloop>
 					<cfelse>
 						<p>no classification provided</p>
