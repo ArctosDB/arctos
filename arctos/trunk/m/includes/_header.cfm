@@ -135,10 +135,10 @@
 			<div class="sf-mainMenuWrapper">
 				<ul class="sf-menu">
 					<li>
-						<a target="_top" href="SpecimenSearch.cfm">Specimen</a>
+						<a target="_top" href="/m/SpecimenSearch.cfm">Specimen</a>
 					</li>
 					<li>
-                        <a target="_top" href="taxonomy.cfm">Taxonomy</a>
+                        <a target="_top" href="/m/taxonomy.cfm">Taxonomy</a>
                     </li>
 					<li>
 						 <!--- if JS fails this will send them to a "pick desktop or mobile" - if JS works, this will be changed
