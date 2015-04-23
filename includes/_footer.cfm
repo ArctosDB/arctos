@@ -41,7 +41,7 @@
 <cfelse>
     <cfset mobile="SpecimenSearch,SpecimenResults,name,guid,taxonomy">
 
-	<cfset here="name">
+	<cfset here="namedssgfdsd">
 
 	<cfinvoke returnVariable="x" component="component.utilities" method="listcommon" list1="#mobile#" list2="#here#">
 
