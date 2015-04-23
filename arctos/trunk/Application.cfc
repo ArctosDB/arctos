@@ -317,6 +317,15 @@
 	---->
 	<cfset x=f.checkRequest()>
     <cfset m=f.isMobile()>
+	<!----
+	   IF on desktop device
+	       IF on desktop site
+	                   IF
+	       on desktop site and does not have mobile cookie
+	           do nothing
+	       on desktop site and DOES have mobile cookie 
+	           redirect to /m
+	       
 
 	<cfdump var=#m#>
 
