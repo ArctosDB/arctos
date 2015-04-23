@@ -42,7 +42,8 @@
     <cfset mobile="SpecimenSearch,SpecimenResults,name,guid,taxonomy">
 
 	<cfset test="name">
-	<cfset x=component.utilities.listcommon(mobile,test)>
+
+	<cfinvoke component="component.utilities" method="listcommon">
 
 	#X#
 
