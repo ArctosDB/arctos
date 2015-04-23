@@ -40,6 +40,7 @@ set a cookie and redirect ---->
 
     <cfdump var=#r#>
 	<cfoutput>
+		<cflocation url="#r#">
 	Click if you are not redirected: <a href="#r#">#r#</a>
 
 	</cfoutput>
