@@ -17,7 +17,7 @@
 
 
     <cfif request.rdurl contains "SpecimenResults.cfm" and (isdefined("mapurl") and len(mapurl) gt 0)>
-          <cfset durl="/SpecimenResults.cfm?mapurl=" & mapurl>
+          <cfset durl="/SpecimenResults.cfm?" & mapurl>
     <cfelse>
                         <cfset durl=replace(replace(request.rdurl,'m/','/'),'//','/','all')>
      </cfif>
