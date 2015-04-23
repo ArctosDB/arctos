@@ -317,7 +317,6 @@
 	---->
 
 
-request.rdurl: <cfdump var=#request.rdurl#>
 	<cfset x=f.checkRequest()>
     <cfset m=f.mobileDesktopRedirect()>
 	<!----
@@ -330,7 +329,6 @@ request.rdurl: <cfdump var=#request.rdurl#>
 	           redirect to /m
 
     ---->
-	<cfdump var=#m#>
 
 	<cfparam name="request.fixAmp" type="boolean" default="false">
 	<cfif (NOT request.fixAmp) AND (findNoCase("&amp;", cgi.query_string ) gt 0)>
