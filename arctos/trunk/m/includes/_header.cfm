@@ -147,7 +147,7 @@
 
 
 
-						 <a target="_top" href="/m/desktop.cfm">Desktop Site</a>
+						 <a target="_top" id="desktoplink" href="/m/desktop.cfm">Desktop Site</a>
 					</li>
 				</ul>
 			</div>
