@@ -43,11 +43,6 @@
 				try our <a target="_top" href="/SpecimenSearchHTML.cfm">HTML SpecimenSearch</a> option.
 			</div>
 		</noscript>
-		<cfif cgi.HTTP_USER_AGENT does not contain "Firefox">
-			<div class="browserCheck">
-				Some features of this site may not work in your browser. <a href="/home.cfm##requirements">Learn more</a>
-			</div>
-		</cfif>
 		<div id="header_color" style='background-color:#session.header_color#;'>
 			<table width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
 				<tr>
