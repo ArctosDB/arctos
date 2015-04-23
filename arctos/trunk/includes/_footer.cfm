@@ -66,6 +66,10 @@
 					</li>
 					<cfif len(x) gt 0>
 						 <cfset m=replace("/m/" & request.rdurl,'//','/','all')>
+						 <cfif isdefined("mapurl") and len(mapurl) gt 0>
+						  <cfset m=m&"mapurl=" & mapurl>
+						  <cfdump var=#m#>
+						</cfif>
                         <a HREF="<cfoutput>#m#</cfoutput>"><font size="-1">View in mobile site</font></a>
                     </cfif>
 				</ul>
