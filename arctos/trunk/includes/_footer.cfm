@@ -46,7 +46,7 @@
 	<cfinvoke returnVariable="x" component="component.utilities" method="listcommon" list1="#mobile#" list2="#here#">
 
 
-<cfdump var=#x#>
+
 
 	 <table id="_footerTable">
 		<tr>
@@ -63,6 +63,9 @@
 					<li>
 						<a HREF="/contact.cfm?ref=<cfoutput>#request.rdurl#</cfoutput>"><font size="-1">Report a bug or request support</font></a>
 					</li>
+					<cfif len(x) gt 0>
+                        mobile site
+                    </cfif>
 				</ul>
 			</td>
 		</tr>
