@@ -143,6 +143,8 @@
                         <a target="_top" href="taxonomy.cfm">Taxonomy</a>
                     </li>
 					<li>
+						 <!--- if JS fails this will send them to a "pick desktop or mobile" - if JS works, this will be changed
+						 in the footer ---->
 						 <a target="_top" id="desktoplink" href="/dm.cfm">Desktop Site</a>
 					</li>
 				</ul>
