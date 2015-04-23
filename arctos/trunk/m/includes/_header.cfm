@@ -143,7 +143,7 @@
                         <a target="_top" href="taxonomy.cfm">Taxonomy</a>
                     </li>
 					<li>
-						<cfset durl=replace(request.rdurl,'/m/','/')>
+						<cfset durl=replace(request.rdurl,'m/','/')>
 						durl: #durl#
 
                         <link rel=”canonical” href=”#durl#”/>
