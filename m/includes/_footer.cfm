@@ -22,7 +22,7 @@
                         <cfset durl=replace(replace(request.rdurl,'m/','/'),'//','/','all')>
      </cfif>
 <li>
-    <link rel="canonical" href="#durl#"/>
+    <link rel="canonical" href="<cfoutput>#durl#</cfoutput>"/>
 	                       <a HREF="<cfoutput>#durl#</cfoutput>"><font size="-1">Desktop Site</font></a>
 
 </li>
@@ -46,6 +46,9 @@ pageTracker._trackPageview();
 
 
 try {
+	$("#desktoplink").attr('href').append('?r=' + $('link[rel=canonical]').attr('href'));
+
+
 console.log($('link[rel=canonical]').attr('href'));
 
 } catch(err) {
