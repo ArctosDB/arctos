@@ -182,7 +182,7 @@
 	</cfif>
 	<div class="taxonomyResultsDiv">
 		<cfloop query="d">
-			<br><a href="name/#scientific_name#">#scientific_name#</a>
+			<br><a href="/m/name/#scientific_name#">#scientific_name#</a>
 		</cfloop>
 	</div>
 </cfif>
@@ -258,7 +258,7 @@
 			<ul>
 				<cfloop query="related">
 					<li>
-						#TAXON_RELATIONSHIP# <a href='name/#scientific_name#'>#scientific_name#</a>
+						#TAXON_RELATIONSHIP# <a href='/m/name/#scientific_name#'>#scientific_name#</a>
 						<cfif len(RELATION_AUTHORITY) gt 0>(Authority: #RELATION_AUTHORITY#)</cfif>
 					</li>
 				</cfloop>
@@ -283,7 +283,7 @@
 			<ul>
 				<cfloop query="revrelated">
 					<li>
-						#TAXON_RELATIONSHIP# <a href='name/#scientific_name#'>#scientific_name#</a>
+						#TAXON_RELATIONSHIP# <a href='/m/name/#scientific_name#'>#scientific_name#</a>
 						<cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
 					</li>
 				</cfloop>
@@ -342,16 +342,16 @@
 			Arctos Links:
 			<ul>
 				<li>
-					<a href="SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#">
+					<a href="/m/SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#">
 						Specimens currently identified as #scientific_name.scientific_name#
 					</a>
-					<a href="SpecimenResults.cfm?anyTaxId=#taxon_name_id.taxon_name_id#">
+					<a href="/m/SpecimenResults.cfm?anyTaxId=#taxon_name_id.taxon_name_id#">
 						[ include unaccepted IDs ]
 					</a>
-					<a href="SpecimenResults.cfm?taxon_name_id=#taxon_name_id.taxon_name_id#">
+					<a href="/m/SpecimenResults.cfm?taxon_name_id=#taxon_name_id.taxon_name_id#">
 						[ exact matches only ]
 					</a>
-					<a href="SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#&media_type=any">
+					<a href="/m/SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#&media_type=any">
 						[ with Media ]
 					</a>
 				</li>
@@ -369,7 +369,7 @@
 			</cfquery>
 			<cfif citas.c gt 0>
 				<li>
-					<a href="SpecimenResults.cfm?cited_taxon_name_id=#taxon_name_id.taxon_name_id#">
+					<a href="/m/SpecimenResults.cfm?cited_taxon_name_id=#taxon_name_id.taxon_name_id#">
 						Specimens cited using #scientific_name.scientific_name#
 					</a>
 				</li>
@@ -497,7 +497,7 @@
 						<cfloop query="thisone">
 							<div style="padding-left:#indent#em;">
 								#term#
-								<cfset tlink="/taxonomy.cfm?taxon_term==#term#">
+								<cfset tlink="/m/taxonomy.cfm?taxon_term==#term#">
 								<cfif len(term_type) gt 0>
 									(#term_type#)
 									<cfset ttlink=tlink & "&term_type==#term_type#">
