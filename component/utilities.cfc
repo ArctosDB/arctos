@@ -1,6 +1,6 @@
 <cfcomponent>
 <!------------------>
-<cffunction name="listCommon" output="false" returnType="string">
+<cffunction name="listCommon" output="false" returnType="string" access="remote">
    <cfargument name="list1" type="string" required="true" />
    <cfargument name="list2" type="string" required="true" />
 
