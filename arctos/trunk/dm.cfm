@@ -40,7 +40,10 @@ hello I am dm
 
     <cfdump var=#r#>
 	<cfoutput>
+
+		<!----
 		<cflocation url="#r#" addtoken="false">
+		---->
 	Click if you are not redirected: <a href="#r#">#r#</a>
 
 	</cfoutput>
