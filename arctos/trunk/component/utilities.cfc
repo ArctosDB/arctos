@@ -3,11 +3,18 @@
 
 
 <cffunction name="mobileDesktopRedirect" output="false" returnType="string" access="remote">
+	<!----
+	   This function redirects between mobile and desktop. Possibilities are:
+
+	   1) On desktop device, have no "dorm" cookie--- > desktop site
+	   2) On desktop device, have a "mobile" "dorm" cookie -- > mobile site, we're not sure why
 
 
+	---->
 	<cfoutput>
 
- <cfset r="calling mobileDesktopRedirect from " & request.rdurl>
+
+        <cfset r="calling mobileDesktopRedirect from " & request.rdurl>
 
 <!----
 
@@ -25,12 +32,16 @@
 	    request.rdurl contains "taxonomy.cfm" or
 	    request.rdurl contains "SpecimenResults.cfm" or
 	    request.rdurl is "/")>
+	    <!--- ignore the setter --->
+	    <cfif cgi.script_name is "dm.cfm">
+		  <cfreturn>
+		</cfif>
 	    <!----
 
-        <cfset r=r&'::we have a mobile option'>
+
 		---->
 
-
+        <cfset r=r&'::we have a mobile page option'>
 
 		<!--- check to see if they have set a cookie ---->
 		<cfif IsDefined("Cookie.dorm")>
