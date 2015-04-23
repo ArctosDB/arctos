@@ -315,6 +315,9 @@
 		<cfabort>
 	</cfif>
 	---->
+
+
+request.rdurl: <cfdump var=#request.rdurl#>
 	<cfset x=f.checkRequest()>
     <cfset m=f.mobileDesktopRedirect()>
 	<!----
