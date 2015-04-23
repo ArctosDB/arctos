@@ -82,7 +82,7 @@
 						<a HREF="/contact.cfm?ref=<cfoutput>#request.rdurl#</cfoutput>"><font size="-1">Report a bug or request support</font></a>
 					</li>
 					<cfif len(murl) gt 0>
-                        <a HREF="<cfoutput>#m#</cfoutput>"><font size="-1">View in mobile site</font></a>
+                        <a HREF="<cfoutput>#murl#</cfoutput>"><font size="-1">View in mobile site</font></a>
                     </cfif>
 				</ul>
 			</td>
