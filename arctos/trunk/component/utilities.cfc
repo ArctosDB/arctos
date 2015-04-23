@@ -10,8 +10,7 @@
 	request.rdurl contains "/name/" or
 	request.rdurl contains "SpecimenSearch.cfm" or
     request.rdurl contains "taxonomy.cfm" or
-    request.rdurl contains "SpecimenResults.cfm" or
-	>
+    request.rdurl contains "SpecimenResults.cfm">
 	<cfset r=r&'::hasmobile'>
 
 
