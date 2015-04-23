@@ -41,11 +41,12 @@
 <cfelse>
     <cfset mobile="SpecimenSearch,SpecimenResults,name,guid,taxonomy">
 
-	<cfset test="name">
+	<cfset here="name">
 
-	<cfinvoke component="component.utilities" method="listcommon">
+	<cfinvoke component="component.utilities" method="listcommon" list1="#mobile#" list2="#here#">
 
-	#X#
+
+<cfdump var=#x#>
 
 	 <table id="_footerTable">
 		<tr>
