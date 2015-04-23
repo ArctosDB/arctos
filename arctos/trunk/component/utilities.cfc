@@ -4,7 +4,6 @@
 
 <cffunction name="mobileDesktopRedirect" output="false" returnType="string" access="remote">
 
-
 	<cfset r="">
 	<!---- only redirect if they're coming in to something for which we have a mobile page ---->
 	<cfif isdefined("request.rdurl") and (
