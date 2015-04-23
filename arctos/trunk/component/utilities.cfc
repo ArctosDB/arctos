@@ -12,7 +12,8 @@
 		request.rdurl contains "/name/" or
 		request.rdurl contains "SpecimenSearch.cfm" or
 	    request.rdurl contains "taxonomy.cfm" or
-	    request.rdurl contains "SpecimenResults.cfm")>
+	    request.rdurl contains "SpecimenResults.cfm" or
+	    request.rdurl is "/")>
 		<cfset r=r&'::hasmobile'>
 		<!--- check to see if they have set a cookie ---->
 		<cfif IsDefined("Cookie.dorm")>
