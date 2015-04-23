@@ -20,8 +20,8 @@
 						<cfset durl=replace(replace(request.rdurl,'m/','/'),'//','/','all')>
 					</cfif>
 					<li>
-						<link rel="canonical" href="<cfoutput>/dm.cfm?r=#durl#</cfoutput>"/>
-						<a HREF="<cfoutput>#durl#</cfoutput>">
+						<link rel="canonical" href="<cfoutput>#durl#</cfoutput>"/>
+						<a HREF="<cfoutput>/dm.cfm?r=#durl#</cfoutput>">
 							<font size="-1">
 								Desktop Site
 							</font>
