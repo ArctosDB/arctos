@@ -142,8 +142,14 @@
 					<li>
                         <a target="_top" href="taxonomy.cfm">Taxonomy</a>
                     </li>
+					<li>
+						<cfset durl=replace(request.rdurl,'/m/','/')>
+						durl: #durl#
+
+                        <link rel=”canonical” href=”#durl#”/>
+					</li>
                     <li>
-                        <a target="_top" href="desktop.cfm">Desktop Site</a>
+                        <a target="_top" href="desktop.cfm">Always use desktop</a>
                     </li>
 				</ul>
 			</div>
