@@ -41,8 +41,13 @@
 <cfelse>
 
     <cfset murl="">
-    <cfif request.rdurl contains "/guid/" or request.rdurl contains "/name/">
+    <cfif request.rdurl contains "/guid/" or request.rdurl contains "/name/" or request.rdurl contains "SpecimenSearch.cfm">
 	   <cfset murl="/m" & request.rdurl>
+	<cfelseif request.rdurl contains "SpecimenResults.cfm">
+	   <cfif isdefined("mapurl") and len(mapurl) gt 0>
+		  <cfset murl="/m/SpecimenResults.cfm?mapurl=" & mapurl>
+		</cfif>
+
 	</cfif>
 	<!----
     <cfset mobile="SpecimenSearch,SpecimenResults,name,guid,taxonomy">
