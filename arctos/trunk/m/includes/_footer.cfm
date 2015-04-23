@@ -42,6 +42,7 @@ pageTracker._trackPageview();
 } catch(err) {}</script>
 <cfif not isdefined("title")>
 	<cfset title = "Database Access">
+</cfif>
 <cftry>
 	<cfhtmlhead text='<title>#title#</title>'>
 	<cfcatch type="template">
