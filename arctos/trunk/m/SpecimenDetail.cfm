@@ -1,4 +1,4 @@
-<cfinclude template="/includes/_header.cfm">
+<cfinclude template="includes/_header.cfm">
 
 <cfif isdefined("guid")>
 	<cfif cgi.script_name contains "/SpecimenDetail.cfm">
@@ -1565,7 +1565,6 @@
 
 
 
-	<cfinclude template="/includes/_footer.cfm">
 	<cfif isdefined("showAnnotation") and showAnnotation is "true">
 		<script language="javascript" type="text/javascript">
 			openAnnotation('collection_object_id=#collection_object_id#');
@@ -1573,3 +1572,4 @@
 	</cfif>
 	--->
 </cfoutput>
+    <cfinclude template="includes/_footer.cfm">
