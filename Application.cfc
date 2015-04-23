@@ -319,22 +319,6 @@
 
 	<cfset x=f.checkRequest()>
     <cfset m=f.mobileDesktopRedirect()>
-	<!----
-	   IF on desktop device
-	       IF on desktop site
-	                   IF
-	       on desktop site and does not have mobile cookie
-	           do nothing
-	       on desktop site and DOES have mobile cookie
-	           redirect to /m
-
-    ---->
-
-
-    <cfif isdefined("m")>
-	   <cfdump var=#m#>
-
-	</cfif>
 	<cfparam name="request.fixAmp" type="boolean" default="false">
 	<cfif (NOT request.fixAmp) AND (findNoCase("&amp;", cgi.query_string ) gt 0)>
 		<cfscript>
