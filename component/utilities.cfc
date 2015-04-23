@@ -1,5 +1,19 @@
 <cfcomponent>
 <!------------------>
+<cffunction name="listCommon" output="false" returnType="string">
+   <cfargument name="list1" type="string" required="true" />
+   <cfargument name="list2" type="string" required="true" />
+
+   <cfset var list1Array = ListToArray(arguments.List1) />
+   <cfset var list2Array = ListToArray(arguments.List2) />
+
+   <cfset list1Array.retainAll(list2Array) />
+
+   <!--- Return in list format --->
+   <cfreturn ArrayToList(list1Array) />
+   </cffunction>
+<!------------------>
+
 <cffunction name="makeCaptchaString" returnType="string" output="false">
     <cfscript>
 		var chars = "23456789ABCDEFGHJKMNPQRS";
