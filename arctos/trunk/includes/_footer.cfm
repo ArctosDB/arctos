@@ -51,28 +51,7 @@
 		</cfif>
     <cfelseif request.rdurl contains "taxonomy.cfm">
 	   <cfset murl="/m" & request.rdurl>
-
 	</cfif>
-	<!----
-    <cfset mobile="SpecimenSearch,SpecimenResults,name,guid,taxonomy">
-
-
-    <cfdump var=#request.rdurl#>
-	<cfset here=replace(replace(cgi.script_name,"/",""),".cfm","")>
-	<cfdump var=#here#>
-
-	<cfinvoke returnVariable="x" component="component.utilities" method="listcommon" list1="#mobile#" list2="#here#">
-
-                         <cfset m=replace("/m/" & request.rdurl,'//','/','all')>
-                         <cfset v="">
-                         <cfif isdefined("mapurl") and len(mapurl) gt 0>
-                              <cfset v=v & "&mapurl=" & mapurl>
-                              <cfset v=replace(v,"&","?","first")>
-                              <cfdump var=#v#>
-                        </cfif>
-                        <cfset m=m&v>
-                              <cfdump var=#m#>
------>
 
 
 	 <table id="_footerTable">
@@ -91,7 +70,9 @@
 						<a HREF="/contact.cfm?ref=<cfoutput>#request.rdurl#</cfoutput>"><font size="-1">Report a bug or request support</font></a>
 					</li>
 					<cfif len(murl) gt 0>
-                        <a HREF="<cfoutput>#murl#</cfoutput>"><font size="-1">View in mobile site</font></a>
+						<li>
+                            <a HREF="<cfoutput>#murl#</cfoutput>"><font size="-1">View in mobile site</font></a>
+						</li>
                     </cfif>
 				</ul>
 			</td>
