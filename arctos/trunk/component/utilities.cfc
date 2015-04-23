@@ -40,7 +40,7 @@
 				     <cfset r=r & '::have mobile cookie, not on /m/: redirect to /m/....'>
 				     ---->
                       <cfset z="/dm.cfm?r=/m/" & request.rdurl>
-				     <cflocation url="#z#" addtokn="false">
+				     <cflocation url="#z#" addtoken="false">
 				</cfif>
 			<cfelse>
 			    <cfif request.rdurl contains "/m/">
@@ -48,7 +48,7 @@
                     <cfset r=r & '::have desktop cookie,  on /m/, redirect to desktop....'>
 					---->
 					  <cfset z="/dm.cfm?r=" & request.rdurl>
-                     <cflocation url="#z#" addtokn="false">
+                     <cflocation url="#z#" addtoken="false">
                 <cfelse>
 				<!----
                      <cfset r=r & '::have desktop cookie, not on /m/do nothing....'>
