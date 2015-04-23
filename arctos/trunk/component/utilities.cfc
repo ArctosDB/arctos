@@ -6,8 +6,12 @@
 
 
 	<cfoutput>
+
+		  <cfset r="calling mobileDesktopRedirect from " & request.rdurl>
+
+
+
 <!----
-	<cfset r="calling mobileDesktopRedirect from " & request.rdurl>
 	----->
 	<!---- only redirect if they're coming in to something for which we have a mobile page ---->
 	<cfif isdefined("request.rdurl") and (
