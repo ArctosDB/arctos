@@ -39,6 +39,12 @@
     </table>
     <P>&nbsp;</P>
 <cfelse>
+
+    <cfset murl="">
+    <cfif request.rdurl contains "/guid/" or request.rdurl contains "/name/">
+	   <cfset murl="/m" & request.rdurl
+	</cfif>
+	<!----
     <cfset mobile="SpecimenSearch,SpecimenResults,name,guid,taxonomy">
 
 
@@ -48,7 +54,16 @@
 
 	<cfinvoke returnVariable="x" component="component.utilities" method="listcommon" list1="#mobile#" list2="#here#">
 
-
+                         <cfset m=replace("/m/" & request.rdurl,'//','/','all')>
+                         <cfset v="">
+                         <cfif isdefined("mapurl") and len(mapurl) gt 0>
+                              <cfset v=v & "&mapurl=" & mapurl>
+                              <cfset v=replace(v,"&","?","first")>
+                              <cfdump var=#v#>
+                        </cfif>
+                        <cfset m=m&v>
+                              <cfdump var=#m#>
+----->
 
 
 	 <table id="_footerTable">
@@ -66,16 +81,7 @@
 					<li>
 						<a HREF="/contact.cfm?ref=<cfoutput>#request.rdurl#</cfoutput>"><font size="-1">Report a bug or request support</font></a>
 					</li>
-					<cfif len(x) gt 0>
-						 <cfset m=replace("/m/" & request.rdurl,'//','/','all')>
-						 <cfset v="">
-						 <cfif isdefined("mapurl") and len(mapurl) gt 0>
-							  <cfset v=v & "&mapurl=" & mapurl>
-							  <cfset v=replace(v,"&","?","first")>
-							  <cfdump var=#v#>
-						</cfif>
-						<cfset m=m&v>
-                              <cfdump var=#m#>
+					<cfif len(murl) gt 0>
                         <a HREF="<cfoutput>#m#</cfoutput>"><font size="-1">View in mobile site</font></a>
                     </cfif>
 				</ul>
