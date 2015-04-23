@@ -41,7 +41,7 @@
 <cfelse>
     <cfset mobile="SpecimenSearch,SpecimenResults,name,guid,taxonomy">
 
-	<cfset here=replace(cgi.script_name,"/","")>
+	<cfset here=replace(replace(cgi.script_name,"/",""),",cfm","")>
 	<cfdump var=#here#>
 
 	<cfinvoke returnVariable="x" component="component.utilities" method="listcommon" list1="#mobile#" list2="#here#">
