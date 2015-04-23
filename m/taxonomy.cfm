@@ -68,9 +68,6 @@
 				<input value="Search" type="submit">&nbsp;&nbsp;&nbsp;
 				<input type="button" onclick="resetForm()" value="Clear Form">
 			</form>
-			<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-				<br><a target="_blank" href="/editTaxonomy.cfm?action=newName">[ Create a new name ]</a>
-			</cfif>
 
 
 <!----- always display search ---------->
@@ -185,7 +182,7 @@
 	</cfif>
 	<div class="taxonomyResultsDiv">
 		<cfloop query="d">
-			<br><a href="/name/#scientific_name#">#scientific_name#</a>
+			<br><a href="name/#scientific_name#">#scientific_name#</a>
 		</cfloop>
 	</div>
 </cfif>
@@ -261,7 +258,7 @@
 			<ul>
 				<cfloop query="related">
 					<li>
-						#TAXON_RELATIONSHIP# <a href='/name/#scientific_name#'>#scientific_name#</a>
+						#TAXON_RELATIONSHIP# <a href='name/#scientific_name#'>#scientific_name#</a>
 						<cfif len(RELATION_AUTHORITY) gt 0>(Authority: #RELATION_AUTHORITY#)</cfif>
 					</li>
 				</cfloop>
@@ -286,7 +283,7 @@
 			<ul>
 				<cfloop query="revrelated">
 					<li>
-						#TAXON_RELATIONSHIP# <a href='/name/#scientific_name#'>#scientific_name#</a>
+						#TAXON_RELATIONSHIP# <a href='name/#scientific_name#'>#scientific_name#</a>
 						<cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
 					</li>
 				</cfloop>
@@ -345,16 +342,16 @@
 			Arctos Links:
 			<ul>
 				<li>
-					<a href="/m/SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#">
+					<a href="SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#">
 						Specimens currently identified as #scientific_name.scientific_name#
 					</a>
-					<a href="/m/SpecimenResults.cfm?anyTaxId=#taxon_name_id.taxon_name_id#">
+					<a href="SpecimenResults.cfm?anyTaxId=#taxon_name_id.taxon_name_id#">
 						[ include unaccepted IDs ]
 					</a>
-					<a href="/m/SpecimenResults.cfm?taxon_name_id=#taxon_name_id.taxon_name_id#">
+					<a href="SpecimenResults.cfm?taxon_name_id=#taxon_name_id.taxon_name_id#">
 						[ exact matches only ]
 					</a>
-					<a href="/m/SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#&media_type=any">
+					<a href="SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#&media_type=any">
 						[ with Media ]
 					</a>
 				</li>
@@ -372,7 +369,7 @@
 			</cfquery>
 			<cfif citas.c gt 0>
 				<li>
-					<a href="/m/SpecimenResults.cfm?cited_taxon_name_id=#taxon_name_id.taxon_name_id#">
+					<a href="SpecimenResults.cfm?cited_taxon_name_id=#taxon_name_id.taxon_name_id#">
 						Specimens cited using #scientific_name.scientific_name#
 					</a>
 				</li>
