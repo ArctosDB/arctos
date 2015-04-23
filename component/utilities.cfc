@@ -4,7 +4,6 @@
 
 <cffunction name="mobileDesktopRedirect" output="false" returnType="string" access="remote">
 	<cfset r="">
-
 	<!---- only redirect if they're coming in to something for which we have a mobile page ---->
 	<cfif isdefined("request.rdurl") and (
 	    request.rdurl contains "/guid/" or
@@ -21,7 +20,6 @@
 			<cfelse>
 	          <cfset r=r & '::have NON cookie: redirect to /{notm}....'>
 			</cfif>
-
 		<cfelse>
 		   <!--- see if they're on a mobile device ---->
 	        <cfif reFindNoCase("(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino",CGI.HTTP_USER_AGENT) GT 0 OR
@@ -35,20 +33,22 @@
 				     mobile site ---->
 				    <cfset r=r & '::on mobile device and desktop site, redir to dm....'>
 				</cfif>
+			<cfelse>
+			     <cfif request.rdurl contains "/m/">
+                    <cfset r=r & '::on desktop device and mobile site, redirect to {notM}....'>
+				<cfelse>
+                     <!---- they're on a mobile device and have set no preferences, set a cookie and send them to the
+                     mobile site ---->
+                    <cfset r=r & '::on desktop device and desktop site, do nothing...'>
+                </cfif>
+            </cfif>
 		</cfif>
-
 	<cfelse>
 	    <!---- we have no mobile page for whatever they're looking for, do nothing ---->
 		<cfset r=r & '::no mobile page exists-RETURN'>
-
 	</cfif>
-
-
-
-
     <cfreturn r>
-
-   </cffunction>
+</cffunction>
 
 
 <cffunction name="listCommon" output="false" returnType="string" access="remote">
