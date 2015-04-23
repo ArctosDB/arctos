@@ -64,7 +64,8 @@
 						<a HREF="/contact.cfm?ref=<cfoutput>#request.rdurl#</cfoutput>"><font size="-1">Report a bug or request support</font></a>
 					</li>
 					<cfif len(x) gt 0>
-                        mobile site
+						 <cfset m=replace("/m/" & request.rdurl,'//','/','all')>
+                        <a HREF="<cfoutput>#m#</cfoutput>"><font size="-1">View in mobile site</font></a>
                     </cfif>
 				</ul>
 			</td>
