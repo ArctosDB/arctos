@@ -5,10 +5,9 @@
 
    <cfargument name="list1" type="string" required="true" />
    <cfargument name="list2" type="string" required="true" />
-   <cfargument name="delim" type="string" required="false" default="," />
 
-   <cfset var list1Array = ListToArray(arguments.List1,delim,false,true) />
-   <cfset var list2Array = ListToArray(arguments.List2,delim,false,true) />
+   <cfset var list1Array = ListToArray(arguments.List1) />
+   <cfset var list2Array = ListToArray(arguments.List2) />
 
    <cfset list1Array.retainAll(list2Array) />
 
