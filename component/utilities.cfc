@@ -3,8 +3,9 @@
 
 
 <cffunction name="mobileDesktopRedirect" output="false" returnType="string" access="remote">
-
+<!----
 	<cfset r="calling mobileDesktopRedirect from " & request.rdurl>
+	----->
 	<!---- only redirect if they're coming in to something for which we have a mobile page ---->
 	<cfif isdefined("request.rdurl") and (
 	    request.rdurl contains "/guid/" or
@@ -13,30 +14,49 @@
 	    request.rdurl contains "taxonomy.cfm" or
 	    request.rdurl contains "SpecimenResults.cfm" or
 	    request.rdurl is "/")>
+	    <!----
 		<cfset r=r&'::we have a mobile option'>
+		---->
 		<!--- check to see if they have set a cookie ---->
 		<cfif IsDefined("Cookie.dorm")>
 			<!--- they have an explicit preference and we have a mobile option, send them where they want to be ---->
 			<cfif cookie.dorm is "mobile">
 				<cfif request.rdurl contains "/m/">
+					<!----
                     <cfset r=r & '::have mobile cookie, already on /m/, do nothing....'>
 					 <cfreturn r>
+					 ---->
+					 <CFRETURN>
 
 				<cfelse>
+				<!----
 				     <cfset r=r & '::have mobile cookie, not on /m/: redirect to /m/....'>
+				     ---->
                       <cfset z="/dm.cfm?r=/m/" & request.rdurl>
-				     <cflocation url="#z#">
+				     <cflocation url="#z#" addtokn="false">
 				</cfif>
 			<cfelse>
 			    <cfif request.rdurl contains "/m/">
+				    <!----
                     <cfset r=r & '::have desktop cookie,  on /m/, redirect to desktop....'>
+					---->
+					  <cfset z="/dm.cfm?r=" & request.rdurl>
+                     <cflocation url="#z#" addtokn="false">
                 <cfelse>
+				<!----
                      <cfset r=r & '::have desktop cookie, not on /m/do nothing....'>
 					 <cfreturn r>
+					 ---->
+					 <cfreturn>
                 </cfif>
 
+ <cfset z="/dm.cfm?r=" & replace(request.rdurl,"/m/","/")>
+	          <cfset r=r & '::have NON-mobile cookie: redirect to #z#....'>
+	          <!----
 
-	          <cfset r=r & '::have NON-mobile cookie: redirect to /{notm}....'>
+                     <cflocation url="#z#" addtokn="false">
+
+					---->
 			</cfif>
 		<cfelse>
 		  <!----
