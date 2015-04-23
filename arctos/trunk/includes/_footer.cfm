@@ -73,6 +73,7 @@
 						<li>
                             <a HREF="<cfoutput>#murl#</cfoutput>"><font size="-1">View in mobile site</font></a>
 						</li>
+						<link rel="alternate" media="only screen and (max-width: 640px)" href="<cfoutput>#murl#</cfoutput>" >
                     </cfif>
 				</ul>
 			</td>
