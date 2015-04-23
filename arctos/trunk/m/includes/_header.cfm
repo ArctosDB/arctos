@@ -144,12 +144,12 @@
                     </li>
 					<li>
 						<cfset durl=replace(replace(request.rdurl,'m/','/'),'//','/','all')>
-						durl: #durl#
-
                         <link rel=”canonical” href=”#durl#”/>
+
+						 <a target="_top" href="desktop.cfm"Desktop Site</a>
 					</li>
                     <li>
-                        <a target="_top" href="desktop.cfm">Always use desktop</a>
+
                     </li>
 				</ul>
 			</div>

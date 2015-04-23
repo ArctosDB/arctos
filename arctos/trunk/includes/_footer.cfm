@@ -39,6 +39,14 @@
     </table>
     <P>&nbsp;</P>
 <cfelse>
+    <cfset mobile="SpecimenSearch,SpecimenResults,name,guid,taxonomy">
+
+	<cfset test="name">
+
+	<cfset x=component.utilitities.listcommon(mobile,test)>
+
+	#X#
+
 	 <table id="_footerTable">
 		<tr>
 			<td align="left" valign="middle">
@@ -54,6 +62,7 @@
 					<li>
 						<a HREF="/contact.cfm?ref=<cfoutput>#request.rdurl#</cfoutput>"><font size="-1">Report a bug or request support</font></a>
 					</li>
+					<cfif listcontains(request.rdurl,
 				</ul>
 			</td>
 		</tr>
