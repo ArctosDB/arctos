@@ -1,37 +1,44 @@
-<!--- mobile vs. desktop redirector
+<!---
+    mobile vs. desktop redirector
+	this page should always be called with variable "r" set to wherever we're going.
+
+	If it isn't, make them pick.
+
+	If it is, set a cookie based on the value of r and redirect them
+
+
 set a cookie and redirect ---->
 
-yea yea, working on it.....
+
+
+
+
+
 <cfif isdefined("r")>
-	<cfif request.rdurl contains "/m/">
-	   coming from mobile - redirect to desktop
-	   <cfcookie
-		    name="dorm"
-		    value="desktop"
-		    expires="never"
-		    />
 
-	<cfelse>
+	<cfif r contains "/m/">
+	      redirecting to mobile site....
+	        <cfcookie
+                name="dorm"
+                value="mobile"
+                expires="never"
+                />
+
+
+	    <cfelse>
+	    redirecting to desktop site....
+
+
 	 <cfcookie
-            name="dorm"
-            value="mobile"
-            expires="never"
-            />
+                name="dorm"
+                value="desktop"
+                expires="never"
+                />
 
-	</cfif>
-
-
+	    </cfif>
 
 
-
-    set cookie and redirect
-
-	got....<cfdump var=#r#>
-
-
-
-
-
+    <cfdump var=#r#>
 <cfelse>
-    set cookie & redirect /
+    i'm not sure how you got here....
 </cfif>

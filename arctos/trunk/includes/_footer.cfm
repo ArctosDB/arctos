@@ -47,7 +47,7 @@
 	   <cfif isdefined("mapurl") and len(mapurl) gt 0>
 		  <cfset murl="/m/SpecimenResults.cfm?mapurl=" & mapurl>
 		<cfelse>
-		   <cfset murl="/m/">
+		   <cfset murl="/m">
 		</cfif>
     <cfelseif request.rdurl contains "taxonomy.cfm">
 	   <cfset murl="/m" & request.rdurl>
@@ -71,7 +71,7 @@
 					</li>
 					<cfif len(murl) gt 0>
 						<li>
-                            <a HREF="<cfoutput>#murl#</cfoutput>"><font size="-1">View in mobile site</font></a>
+                            <a HREF="dm.cfm?r=<cfoutput>#murl#</cfoutput>"><font size="-1">View in mobile site</font></a>
 						</li>
 						<link rel="alternate" media="only screen and (max-width: 640px)" href="<cfoutput>#murl#</cfoutput>" >
                     </cfif>
