@@ -46,7 +46,7 @@ pageTracker._trackPageview();
 
 
 try {
-console.log($('link[rel=canonical]'));
+console.log($('link[rel=canonical]').attr('href'));
 
 } catch(err) {
 
