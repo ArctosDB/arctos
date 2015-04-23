@@ -143,10 +143,6 @@
                         <a target="_top" href="taxonomy.cfm">Taxonomy</a>
                     </li>
 					<li>
-
-
-
-
 						 <a target="_top" id="desktoplink" href="/m/desktop.cfm">Desktop Site</a>
 					</li>
 				</ul>
