@@ -143,7 +143,20 @@
                         <a target="_top" href="taxonomy.cfm">Taxonomy</a>
                     </li>
 					<li>
-						<cfset durl=replace(replace(request.rdurl,'m/','/'),'//','/','all')>
+
+
+
+
+
+    <cfif request.rdurl contains "SpecimenResults.cfm" and (isdefined("mapurl") and len(mapurl) gt 0)>
+          <cfset durl="/SpecimenResults.cfm?mapurl=" & mapurl>
+    <cfelse>
+                        <cfset durl=replace(replace(request.rdurl,'m/','/'),'//','/','all')>
+     </cfif>
+
+
+
+
                         <link rel=”canonical” href=”#durl#”/>
                         <cfdump var=#durl#>
 						 <a target="_top" href="/m/desktop.cfm?r=#durl#">Desktop Site</a>
