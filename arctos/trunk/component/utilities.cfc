@@ -35,7 +35,7 @@
 	    request.rdurl contains "SpecimenResults.cfm" or
 	    request.rdurl is "/")>
 	    <!--- ignore the setter --->
-	    <cfif cgi.script_name is "dm.cfm">
+	    <cfif cgi.script_name is "/dm.cfm">
 		  <cfreturn>
 		</cfif>
 	    <!----
