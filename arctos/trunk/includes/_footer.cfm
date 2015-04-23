@@ -46,7 +46,11 @@
 	<cfelseif request.rdurl contains "SpecimenResults.cfm">
 	   <cfif isdefined("mapurl") and len(mapurl) gt 0>
 		  <cfset murl="/m/SpecimenResults.cfm?mapurl=" & mapurl>
+		<cfelse>
+		   <cfset murl="/m/">
 		</cfif>
+    <cfelseif request.rdurl contains "taxonomy.cfm">
+	   <cfset murl="/m" & request.rdurl>
 
 	</cfif>
 	<!----
