@@ -49,7 +49,7 @@
 
 			<!--- search form gets half-width --->
 			<h3>Search Taxonomy (default is case-insensitive STARTS WITH)</h3>
-			<form ACTION="/taxonomy.cfm" METHOD="get" name="taxa" id="taxa">
+			<form ACTION="/m/taxonomy.cfm" METHOD="get" name="taxa" id="taxa">
 				<label for="taxon_name">Taxon Name</label>
 				<input type="text" name="taxon_name" id="taxon_name" value="#taxon_name#" >
 
