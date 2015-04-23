@@ -39,6 +39,10 @@ set a cookie and redirect ---->
 
 
     <cfdump var=#r#>
+	<cfoutput>
+	Click if you are not redirected: <a href="#r#">#r#</a>
+
+	</cfoutput>
 <cfelse>
     i'm not sure how you got here....
 </cfif>
