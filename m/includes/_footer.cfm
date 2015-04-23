@@ -14,13 +14,13 @@
 					<li>
 						<a HREF="/contact.cfm?ref=<cfoutput>#request.rdurl#</cfoutput>"><font size="-1">Report a bug or request support</font></a>
 					</li>
-\					<cfif request.rdurl contains "SpecimenResults.cfm" and (isdefined("mapurl") and len(mapurl) gt 0)>
+					<cfif request.rdurl contains "SpecimenResults.cfm" and (isdefined("mapurl") and len(mapurl) gt 0)>
 						<cfset durl="/SpecimenResults.cfm?" & mapurl>
 					<cfelse>
 						<cfset durl=replace(replace(request.rdurl,'m/','/'),'//','/','all')>
 					</cfif>
 					<li>
-						<link rel="canonical" href="<cfoutput>#durl#</cfoutput>"/>
+						<link rel="canonical" href="<cfoutput>/dm.cfm?r=#durl#</cfoutput>"/>
 						<a HREF="<cfoutput>#durl#</cfoutput>">
 							<font size="-1">
 								Desktop Site

@@ -1,4 +1,5 @@
-<!--- set a cookie and redirect ---->
+<!--- mobile vs. desktop redirector
+set a cookie and redirect ---->
 
 yea yea, working on it.....
 <cfif isdefined("r")>
