@@ -7,7 +7,6 @@
 <cfset r=replace(r,"//","/","all")>
 <cfif isdefined("r")>
 	<cfif r contains "#Application.mobileURL#/">
-		redirecting to mobile site....
 		<cfcookie
 			name="dorm"
 			value="mobile"
@@ -21,6 +20,7 @@
 			/>
 	</cfif>
 	<cfdump var=#r#>
+	<cfabort>
 	<cfoutput>
 		<!----
 			---->
