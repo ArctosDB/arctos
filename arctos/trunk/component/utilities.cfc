@@ -12,7 +12,7 @@
 	<cfreturn r>
 </cffunction>
 <!------------------------------------------------------->
-<cffunction name="mobileDesktopRedirect" output="false" returnType="string" access="remote">
+<cffunction name="mobileDesktopRedirect" output="true" returnType="string" access="remote">
 	<!----
 	   <br>START mobileDesktopRedirect
        <br>cgi.script_name: #cgi.script_name#
@@ -45,6 +45,12 @@
 				<cfelse>
                      <!---- DEVICE: untested; CURRENT SITE: desktop; DESIRED SITE: mobile; ACTION: redirect ---->
                       <cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
+
+					<cfdump var=#z#>
+
+					<cfabort>
+
+
                      <cflocation url="#z#" addtoken="false">
 				</cfif>
 			<cfelse>
