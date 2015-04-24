@@ -24,6 +24,9 @@
 	<style>
 		.collectionCell {vertical-align:text-bottom;padding:0px 0px 7px 0px;}
 		.headerImageCell {padding:.3em 1em .3em .3em;text-align:right;}
+		  @media (max-width: 600px) {
+		#headerLoginDiv{display:none;}
+		}
 	</style>
 	<cfoutput>
 		<meta name="keywords" content="#session.meta_keywords#">
@@ -107,6 +110,7 @@
 					<!--- run this twice to get /// --->
 					<cfset gtp=replace(gtp,"//","/","all")>
 					<cfset gtp=replace(gtp,"//","/","all")>
+					<div id="headerLoginDiv">
 					<form name="logIn" method="post" action="/login.cfm">
 						<input type="hidden" name="action" value="signIn">
 						<input type="hidden" name="gotopage" value="#gtp#">
@@ -132,6 +136,7 @@
 							</tr>
 						</table>
 					</form>
+					</div>
 				</cfif>
 			</div>
 			<div class="sf-mainMenuWrapper">
