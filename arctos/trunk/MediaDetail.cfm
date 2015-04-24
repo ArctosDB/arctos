@@ -1,9 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
 	@media screen{
-    .tbl{display:table}
-	.tbl-row{display:table-row}
-    .tbl-cell{display:table-cell}
+    .tbl{display:table;border:1px solid black;}
+	.tbl-row{display:table-row;border:1px solid black;}
+    .tbl-cell{display:table-cell;border:1px solid black;}
 	}
     @media (max-width: 600px) {
     .tbl{display:block;}
