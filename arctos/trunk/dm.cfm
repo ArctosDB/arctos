@@ -19,8 +19,6 @@
 			expires="never"
 			/>
 	</cfif>
-	<cfdump var=#r#>
-	<cfabort>
 	<cfoutput>
 		<!----
 			---->
