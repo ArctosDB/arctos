@@ -56,7 +56,14 @@
 			<cfelse>
 			    <cfif request.rdurl contains "/m/">
                      <!---- DEVICE: untested; CURRENT SITE: mobile; DESIRED SITE: desktop; ACTION: redirect ---->
-					  <cfset z="/dm.cfm?r=" & replace(request.rdurl,"/m/","/")>
+					  <cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
+
+
+                    <cfdump var=#z#>
+
+                    <cfabort>
+
+
                       <cflocation url="#z#" addtoken="false">
                 <cfelse>
                      <!---- DEVICE: untested; CURRENT SITE: desktop; DESIRED SITE: desktop; ACTION: return ---->
