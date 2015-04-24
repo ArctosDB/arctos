@@ -40,18 +40,7 @@
     <P>&nbsp;</P>
 <cfelse>
 
-    <cfset murl="">
-    <cfif request.rdurl contains "/guid/" or request.rdurl contains "/name/" or request.rdurl contains "SpecimenSearch.cfm">
-	   <cfset murl="/m" & request.rdurl>
-	<cfelseif request.rdurl contains "SpecimenResults.cfm">
-	   <cfif isdefined("mapurl") and len(mapurl) gt 0>
-		  <cfset murl="/m/SpecimenResults.cfm?mapurl=" & mapurl>
-		<cfelse>
-		   <cfset murl="/m">
-		</cfif>
-    <cfelseif request.rdurl contains "taxonomy.cfm">
-	   <cfset murl="/m" & request.rdurl>
-	</cfif>
+
 
 
 	 <table id="_footerTable">
@@ -69,12 +58,31 @@
 					<li>
 						<a HREF="/contact.cfm?ref=<cfoutput>#request.rdurl#</cfoutput>"><font size="-1">Report a bug or request support</font></a>
 					</li>
-					<cfif len(murl) gt 0>
-						<li>
-                            <a HREF="/dm.cfm?r=<cfoutput>#urlencodedformat(murl)#</cfoutput>"><font size="-1">View in mobile site</font></a>
-						</li>
-						<link rel="alternate" media="only screen and (max-width: 640px)" href="<cfoutput>#murl#</cfoutput>" >
-                    </cfif>
+					<!--- if user has set a cookie for mobile device, give them desktop option if there is one ---->
+					<cfif IsDefined("Cookie.dorm") and cookie.dorm is "mobile">
+						<cfset murl="">
+						<cfif request.rdurl contains "/guid/" or request.rdurl contains "/name/" or request.rdurl contains "SpecimenSearch.cfm">
+							<cfset murl="/m" & request.rdurl>
+						<cfelseif request.rdurl contains "SpecimenResults.cfm">
+							<cfif isdefined("mapurl") and len(mapurl) gt 0>
+								<cfset murl="/m/SpecimenResults.cfm?mapurl=" & mapurl>
+							<cfelse>
+								<cfset murl="/m">
+							</cfif>
+						<cfelseif request.rdurl contains "taxonomy.cfm">
+							<cfset murl="/m" & request.rdurl>
+						</cfif>
+						<cfif len(murl) gt 0>
+							<li>
+								<a HREF="/dm.cfm?r=<cfoutput>#urlencodedformat(murl)#</cfoutput>">
+									<font size="-1">
+										View in mobile site
+									</font>
+								</a>
+							</li>
+							<link rel="alternate" media="only screen and (max-width: 640px)" href="<cfoutput>#murl#</cfoutput>" >
+						</cfif>
+					</cfif>
 				</ul>
 			</td>
 		</tr>
