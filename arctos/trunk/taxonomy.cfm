@@ -415,7 +415,7 @@ function loadTaxonomyMap(n,m){
 	</cfquery>
 	<cfif related.recordcount gte 1 or revrelated.recordcount gte 1>
         <p>
-            <h4>Related Tax</h4>
+            <h4>Related Taxa</h4>
             <ul>
                 <cfloop query="related">
                     <li>
@@ -425,7 +425,7 @@ function loadTaxonomyMap(n,m){
                 </cfloop>
 				<cfloop query="revrelated">
                     <li>
-                         <a href='/name/#scientific_name#'>#scientific_name#</a> #TAXON_RELATIONSHIP# #name#
+                         <a href='/name/#scientific_name#'>#scientific_name#</a> &##8594; #TAXON_RELATIONSHIP# &##8594; #name#
                         <cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
                     </li>
                 </cfloop>
