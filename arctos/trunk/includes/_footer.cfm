@@ -71,7 +71,7 @@
 					</li>
 					<cfif len(murl) gt 0>
 						<li>
-                            <a HREF="/dm.cfm?r=<cfoutput>#murl#</cfoutput>"><font size="-1">View in mobile site</font></a>
+                            <a HREF="/dm.cfm?r=<cfoutput>#urlencodedformat(murl)#</cfoutput>"><font size="-1">View in mobile site</font></a>
 						</li>
 						<link rel="alternate" media="only screen and (max-width: 640px)" href="<cfoutput>#murl#</cfoutput>" >
                     </cfif>
