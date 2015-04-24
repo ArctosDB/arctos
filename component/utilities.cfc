@@ -34,6 +34,8 @@
 			cgi.script_name is "/SpecimenResults.cfm")>
 			<!--- check to see if they have set a cookie ---->
 			<cfif IsDefined("Cookie.dorm")>
+
+			we have a cookie<cfabort>
 				<!--- they have an explicit preference and we have a mobile option, send them where they want to be ---->
 				<cfif cookie.dorm is "mobile" and request.rdurl does not contain Application.mobileURL>
 					<!---- DEVICE: untested; CURRENT SITE: desktop; DESIRED SITE: mobile; ACTION: redirect ---->
