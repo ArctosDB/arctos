@@ -6,7 +6,7 @@
 	<cfif q contains Application.mobileURL>
 	   <cfset r=replace(q,Application.mobileURL,'/')>
 	<cfelse>
-	   <cfset r=Application.mobileURL & q & "&ididit!">
+	   <cfset r=Application.mobileURL & "/" & q>
 	</cfif>
     <cfset r=replace(r,'//','/','all')>
 	<cfreturn r>
