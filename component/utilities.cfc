@@ -1,5 +1,9 @@
 <cfcomponent>
 <!------------------>
+<cffunction name="mdflip" output="false" returnType="string" access="remote">
+
+</cffunction>
+<!------------------------------------------------------->
 <cffunction name="mobileDesktopRedirect" output="false" returnType="string" access="remote">
 	<!----
 	   <br>START mobileDesktopRedirect
