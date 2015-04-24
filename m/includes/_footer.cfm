@@ -20,10 +20,8 @@
 						<cfset durl=replace(replace(request.rdurl,'m/','/'),'//','/','all')>
 					</cfif>
 					<li>
-						<cfset x=#urlencodedformat(durl)#>
-						<cfdump var=#x#>
 						<link rel="canonical" href="<cfoutput>#durl#</cfoutput>"/>
-						<a HREF="<cfoutput>/dm.cfm?r=#x#</cfoutput>">
+						<a HREF="<cfoutput>/dm.cfm?r=#urlencodedformat(durl)#</cfoutput>">
 							<font size="-1">
 								Desktop Site
 							</font>
