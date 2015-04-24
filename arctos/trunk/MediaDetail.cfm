@@ -6,9 +6,9 @@
     .tbl-cell{display:table-cell}
 	}
     @media (max-width: 300px) {
-    .tbl{display:block}
-    .tbl-row{display:block}
-    .tbl-cell{displayblock}
+    .tbl{display:none}
+    .tbl-row{display:none}
+    .tbl-cell{display:none}
 }
 </style>
 <cfoutput>
