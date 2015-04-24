@@ -44,9 +44,6 @@
 	<cftry>
 		<cfset gPos=listfindnocase(request.rdurl,"doi","/")>
 		<cfset doi = listgetat(request.rdurl,gPos+1,"/")>
-
-		<cfdump var=#doi#>
-
 		<cfset doi=replacenocase(doi,'doi:','')>
 		<!--- dois have slashies in them.... --->
 		<cfif listlen(request.rdurl,"/") is gPos+2>
