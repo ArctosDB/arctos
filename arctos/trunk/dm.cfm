@@ -6,7 +6,7 @@
 	set a cookie and redirect ---->
 <cfset r=replace(r,"//","/","all")>
 <cfif isdefined("r")>
-	<cfif r contains "/m/">
+	<cfif r contains "#Application.mobileURL#/">
 		redirecting to mobile site....
 		<cfcookie
 			name="dorm"
@@ -36,7 +36,7 @@
 		desktop site
 	</a>
 	or the
-	<a href="/m/">
+	<a href="#Application.mobileURL#">
 		mobile site
 	</a>
 </cfif>
