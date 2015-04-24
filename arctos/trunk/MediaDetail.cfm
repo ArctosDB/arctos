@@ -6,7 +6,7 @@
     .tbl-cell{display:table-cell}
 	}
     @media (max-width: 600px) {
-    .tbl{border:block;}
+    .tbl{display:block;}
     .tbl-row{display:block}
     .tbl-cell{display:block}
 }
