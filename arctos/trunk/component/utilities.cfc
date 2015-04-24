@@ -1,7 +1,7 @@
 <cfcomponent>
 <!------------------>
 <cffunction name="mdflip" output="false" returnType="string" access="remote">
-
+    <!--- translate mobile URLs to desktop and vice-versa --->
 </cffunction>
 <!------------------------------------------------------->
 <cffunction name="mobileDesktopRedirect" output="false" returnType="string" access="remote">
@@ -15,6 +15,8 @@
 	   It's called at onRequestStart in Application.cfc
 	---->
 	<cfoutput>
+		<cf_mdflip >
+
 	<!---- only redirect if they're coming in to something for which we have a mobile page ---->
 	<cfif isdefined("request.rdurl") and (
 	    request.rdurl contains "/guid/" or

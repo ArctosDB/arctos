@@ -316,8 +316,6 @@
 		<cfabort>
 	</cfif>
 	---->
-
-
 	<cfset x=f.checkRequest()>
     <cfset m=f.mobileDesktopRedirect()>
 	<cfparam name="request.fixAmp" type="boolean" default="false">
