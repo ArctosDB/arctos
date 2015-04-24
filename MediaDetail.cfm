@@ -3,7 +3,11 @@
     .tbl{display:table}
 	.tbl-row{display:table-row}
     .tbl-cell{display:table-cell}
-
+    @media (max-width: 300px) {
+    .tbl{display:block}
+    .tbl-row{display:block}
+    .tbl-cell{displayblock}
+}
 </style>
 <cfoutput>
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
