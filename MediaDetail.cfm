@@ -5,8 +5,8 @@
 	.tbl-row{display:table-row}
     .tbl-cell{display:table-cell}
 	}
-    @media (max-width: 300px) {
-    .tbl{display:none}
+    @media (max-width: 600px) {
+    .tbl{border:20px solid blue;}
     .tbl-row{display:none}
     .tbl-cell{display:none}
 }
