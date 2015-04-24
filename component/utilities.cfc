@@ -2,6 +2,14 @@
 <!------------------>
 <cffunction name="mdflip" output="false" returnType="string" access="remote">
     <!--- translate mobile URLs to desktop and vice-versa --->
+    <cfargument name="q" type="string" required="true" />
+	<cfif q contains Application.mobileURL>
+	   <cfset r=replace(q,Application.mobileURL,'/')>
+	<cfelse>
+	   <cfset r=Application.mobileURL & q>
+	</cfif>
+    <cfset r=replace(r,'//','/','all')>
+	<cfreturn r>
 </cffunction>
 <!------------------------------------------------------->
 <cffunction name="mobileDesktopRedirect" output="false" returnType="string" access="remote">
@@ -15,8 +23,6 @@
 	   It's called at onRequestStart in Application.cfc
 	---->
 	<cfoutput>
-		<cf_mdflip >
-
 	<!---- only redirect if they're coming in to something for which we have a mobile page ---->
 	<cfif isdefined("request.rdurl") and (
 	    request.rdurl contains "/guid/" or
@@ -38,7 +44,7 @@
                      <CFRETURN>
 				<cfelse>
                      <!---- DEVICE: untested; CURRENT SITE: desktop; DESIRED SITE: mobile; ACTION: redirect ---->
-                      <cfset z="/dm.cfm?r=/m/" & request.rdurl>
+                      <cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
                      <cflocation url="#z#" addtoken="false">
 				</cfif>
 			<cfelse>
