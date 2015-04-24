@@ -9,6 +9,7 @@
 	   <cfset r=Application.mobileURL & "/" & q>
 	</cfif>
     <cfset r=replace(r,'//','/','all')>
+    <cfset r=replace(r,'//','/','all')>
 	<cfreturn r>
 </cffunction>
 <!------------------------------------------------------->
