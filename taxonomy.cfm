@@ -419,7 +419,7 @@ function loadTaxonomyMap(n,m){
             <ul>
                 <cfloop query="related">
                     <li>
-                        #name# #TAXON_RELATIONSHIP# <a href='/name/#scientific_name#'>#scientific_name#</a>
+                        #name#&8594;#TAXON_RELATIONSHIP#&8594;<a href='/name/#scientific_name#'>#scientific_name#</a>
                         <cfif len(RELATION_AUTHORITY) gt 0>(Authority: #RELATION_AUTHORITY#)</cfif>
                     </li>
                 </cfloop>
