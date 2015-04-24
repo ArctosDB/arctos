@@ -400,19 +400,7 @@ function loadTaxonomyMap(n,m){
 			taxon_relations.related_taxon_name_id=taxon_name.taxon_name_id and
 			taxon_relations.taxon_name_id=#taxon_name_id.taxon_name_id#
 	</cfquery>
-	<cfif related.recordcount gte 1>
-		<p>
-			<h4>Related Taxa (from)</h4>
-			<ul>
-				<cfloop query="related">
-					<li>
-						#TAXON_RELATIONSHIP# <a href='/name/#scientific_name#'>#scientific_name#</a>
-						<cfif len(RELATION_AUTHORITY) gt 0>(Authority: #RELATION_AUTHORITY#)</cfif>
-					</li>
-				</cfloop>
-			</ul>
-		</p>
-	</cfif>
+
 	<cfquery name="revrelated" datasource="uam_god">
 		select
 			TAXON_RELATIONSHIP,
@@ -425,19 +413,25 @@ function loadTaxonomyMap(n,m){
 			taxon_relations.taxon_name_id=taxon_name.taxon_name_id and
 			taxon_relations.related_taxon_name_id=#taxon_name_id.taxon_name_id#
 	</cfquery>
-	<cfif revrelated.recordcount gte 1>
-		<p>
-			<h4>Related Taxa (to)</h4>
-			<ul>
+	<cfif related.recordcount gte 1 or revrelated.recordcount gte 1>
+        <p>
+            <h4>Related Tax</h4>
+            <ul>
+                <cfloop query="related">
+                    <li>
+                        #name# #TAXON_RELATIONSHIP# <a href='/name/#scientific_name#'>#scientific_name#</a>
+                        <cfif len(RELATION_AUTHORITY) gt 0>(Authority: #RELATION_AUTHORITY#)</cfif>
+                    </li>
+                </cfloop>
 				<cfloop query="revrelated">
-					<li>
-						#TAXON_RELATIONSHIP# <a href='/name/#scientific_name#'>#scientific_name#</a>
-						<cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
-					</li>
-				</cfloop>
-			</ul>
-		</p>
-	</cfif>
+                    <li>
+                         <a href='/name/#scientific_name#'>#scientific_name#</a> #TAXON_RELATIONSHIP# #name#
+                        <cfif len(RELATION_AUTHORITY) gt 0>( Authority: #RELATION_AUTHORITY#)</cfif>
+                    </li>
+                </cfloop>
+            </ul>
+        </p>
+    </cfif>
 	<cfquery name="common_name" datasource="uam_god">
 		select
 			common_name
