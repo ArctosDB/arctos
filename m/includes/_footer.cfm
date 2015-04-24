@@ -21,7 +21,7 @@
 					</cfif>
 					<li>
 						<link rel="canonical" href="<cfoutput>#durl#</cfoutput>"/>
-						<a HREF="<cfoutput>/dm.cfm?r=#durl#</cfoutput>">
+						<a HREF="<cfoutput>/dm.cfm?r=#urlencodedformat(durl)#</cfoutput>">
 							<font size="-1">
 								Desktop Site
 							</font>
