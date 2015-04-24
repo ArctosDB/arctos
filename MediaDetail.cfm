@@ -1,8 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
+	@media screen{
     .tbl{display:table}
 	.tbl-row{display:table-row}
     .tbl-cell{display:table-cell}
+	}
     @media (max-width: 300px) {
     .tbl{display:block}
     .tbl-row{display:block}
