@@ -152,18 +152,23 @@
 			<div style="display:table; width:100%";>
 				<div style="display:table-row;">
 					<div style="display:table-cell;">
-						<a target="_top" href="/m/SpecimenSearch.cfm">
-							Specimen
+                        <a target="_top" href="/googlesearch.cfm">
+                            Site Search
+                        </a>
+                    </div>
+					<div style="display:table-cell;">
+						<a target="_top" href="#Application.mobileURL#/SpecimenSearch.cfm">
+							Specimen Search
 						</a>
 					</div>
 					<div style="display:table-cell;">
-						<a target="_top" href="/m/taxonomy.cfm">
-							Taxonomy
+						<a target="_top" href="#Application.mobileURL#/taxonomy.cfm">
+							Taxonomy Search
 						</a>
 					</div>
 					<div style="display:table-cell;">
 						<a target="_top" id="desktoplink" href="/dm.cfm">
-							Desktop
+							Desktop Site
 						</a>
 					</div>
 				</div>
