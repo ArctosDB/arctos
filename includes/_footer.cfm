@@ -58,9 +58,8 @@
 					<li>
 						<a HREF="/contact.cfm?ref=<cfoutput>#request.rdurl#</cfoutput>"><font size="-1">Report a bug or request support</font></a>
 					</li>
-					<!--- if user has set a cookie for mobile device, give them desktop option if there is one ---->
-					<cfif IsDefined("Cookie.dorm") and cookie.dorm is "mobile">
-						<cfset murl="">
+					<!--- for now, just always offer mobile when there is one ---->
+
 						<cfif request.rdurl contains "/guid/" or request.rdurl contains "/name/" or request.rdurl contains "SpecimenSearch.cfm">
 							<cfset murl="/m" & request.rdurl>
 						<cfelseif request.rdurl contains "SpecimenResults.cfm">
@@ -71,6 +70,8 @@
 							</cfif>
 						<cfelseif request.rdurl contains "taxonomy.cfm">
 							<cfset murl="/m" & request.rdurl>
+						<cfelse>
+						  <cfset murl="">
 						</cfif>
 						<cfif len(murl) gt 0>
 							<li>
