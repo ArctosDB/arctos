@@ -36,7 +36,7 @@
 
 
 			<cfdump var=#cookie#>
-			<cfif IsDefined("Cookie.dorm")>
+			<cfif StructKeyExists("Cookie","dorm")>
 
 			we have a cookie<cfabort>
 				<!--- they have an explicit preference and we have a mobile option, send them where they want to be ---->
