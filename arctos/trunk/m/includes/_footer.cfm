@@ -14,6 +14,7 @@
 					<li>
 						<a HREF="/contact.cfm?ref=<cfoutput>#request.rdurl#</cfoutput>"><font size="-1">Report a bug or request support</font></a>
 					</li>
+					<!---- always offer desktop from mobile ---->
 					<cfif request.rdurl contains "SpecimenResults.cfm" and (isdefined("mapurl") and len(mapurl) gt 0)>
 						<cfset durl="/SpecimenResults.cfm?" & mapurl>
 					<cfelse>
