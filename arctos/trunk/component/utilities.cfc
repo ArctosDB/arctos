@@ -44,12 +44,11 @@
 					<!---- DEVICE: untested; CURRENT SITE: desktop; DESIRED SITE: mobile; ACTION: redirect ---->
 					<cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
 					<cflocation url="#z#" addtoken="false">
+				<cfelseif cookie.dorm is not "mobile" and request.rdurl contains Application.mobileURL>
+					<!---- DEVICE: untested; CURRENT SITE: mobile; DESIRED SITE: desktop; ACTION: redirect ---->
+					<cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
+					<cflocation url="#z#" addtoken="false">
 				</cfif>
-			<cfelseif cookie.dorm is not "mobile" and request.rdurl contains Application.mobileURL>
-				<!---- DEVICE: untested; CURRENT SITE: mobile; DESIRED SITE: desktop; ACTION: redirect ---->
-				<cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
-				<cflocation url="#z#" addtoken="false">
-			</cfif>
 		<cfelse>
 
 		no cookie<cfabort>
