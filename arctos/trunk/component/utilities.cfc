@@ -65,7 +65,7 @@
 				<cflocation url="#z#" addtoken="false">
 			</cfif>
 		</cfif>
-
+</cfif>
 
 	</cfoutput>
 	<cfreturn>
