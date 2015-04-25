@@ -41,13 +41,16 @@
 			<cfdump var=#cookie#>
 			<cfif IsDefined("Cookie.dorm")>
 
-			we have a cookie<cfabort>
+			we have a cookie
 				<!--- they have an explicit preference and we have a mobile option, send them where they want to be ---->
 				<cfif cookie.dorm is "mobile" and request.rdurl does not contain Application.mobileURL>
+					<br>mobilecookie
 					<!---- DEVICE: untested; CURRENT SITE: desktop; DESIRED SITE: mobile; ACTION: redirect ---->
 					<cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
 					<cflocation url="#z#" addtoken="false">
 				<cfelseif cookie.dorm is not "mobile" and request.rdurl contains Application.mobileURL>
+
+                    <br>desktopcookie
 					<!---- DEVICE: untested; CURRENT SITE: mobile; DESIRED SITE: desktop; ACTION: redirect ---->
 					<cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
 					<cflocation url="#z#" addtoken="false">
