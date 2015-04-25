@@ -32,9 +32,9 @@
 		<cfif isdefined("request.rdurl") and (
 			request.rdurl contains "/guid/" or
 			request.rdurl contains "/name/" or
-			cgi.script_name is "/SpecimenSearch.cfm" or
-			cgi.script_name is "/taxonomy.cfm" or
-			cgi.script_name is "/SpecimenResults.cfm")>
+			replace(cgi.script_name,"/","","all") is "/SpecimenSearch.cfm" or
+			replace(cgi.script_name,"/","","all") is "/taxonomy.cfm" or
+			replace(cgi.script_name,"/","","all") is "/SpecimenResults.cfm")>
 			<!--- check to see if they have set a cookie ---->
 
 
