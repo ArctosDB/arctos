@@ -33,6 +33,9 @@
 			cgi.script_name is "/taxonomy.cfm" or
 			cgi.script_name is "/SpecimenResults.cfm")>
 			<!--- check to see if they have set a cookie ---->
+
+
+			<cfdump var=#cookie#>
 			<cfif IsDefined("Cookie.dorm")>
 
 			we have a cookie<cfabort>
