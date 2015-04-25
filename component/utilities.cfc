@@ -41,7 +41,7 @@
 			<cfdump var=#cookie#>
 			<cfif IsDefined("Cookie.dorm")>
 
-			we have a cookie
+			we have a cookie #Cookie.dorm#
 				<!--- they have an explicit preference and we have a mobile option, send them where they want to be ---->
 				<cfif cookie.dorm is "mobile" and request.rdurl does not contain Application.mobileURL>
 					<br>mobilecookie
