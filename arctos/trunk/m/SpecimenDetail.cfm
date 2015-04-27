@@ -31,7 +31,20 @@
 	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cfif>
-
+<style>
+    .acceptedIdDiv {
+        border:1px dotted green;
+    }
+    .unAcceptedIdDiv{
+        border:1px dotted gray;
+        background-color:#F8F8F8;
+        color:gray;
+        font-size:.8em;
+    }
+    .taxDetDiv {
+        padding-left:1em;
+    }
+</style>
 <cfset detSelect = "
 	SELECT
 		#session.flatTableName#.guid,
@@ -323,20 +336,7 @@
         higher_geog,
         SOURCE_AUTHORITY
 </cfquery>
-<style>
-    .acceptedIdDiv {
-        border:1px dotted green;
-    }
-    .unAcceptedIdDiv{
-        border:1px dotted gray;
-        background-color:#F8F8F8;
-        color:gray;
-        font-size:.8em;
-    }
-    .taxDetDiv {
-        padding-left:1em;
-    }
-</style>
+
 
 
 <cfoutput query="one">
