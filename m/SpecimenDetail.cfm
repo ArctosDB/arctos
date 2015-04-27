@@ -37,6 +37,7 @@
 	<cfquery name="flatone"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     select * from filtered_flat where guid='#guid#'
 </cfquery>
+<cfset title="#flatone.guid# - #flatone.scientific_name#">
 	<div id="sdFullPage">
 		<div id="sdLeftHalfPage">
 			<div class="sdItemBlock">
