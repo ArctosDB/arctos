@@ -12,6 +12,14 @@
     <cfset r=replace(r,'//','/','all')>
 	<cfreturn r>
 </cffunction>
+
+<cffunction name="isMobileTemplate" output="true" returnType="string" access="remote">
+
+	hello I am isMobileTemplate
+
+<cfreturn "hi">
+
+</cffunction>
 <!------------------------------------------------------->
 <cffunction name="mobileDesktopRedirect" output="true" returnType="string" access="remote">
 
@@ -66,6 +74,10 @@
 
 
 			 <cfoutput>
+
+				 <cfset x=isMobileTemplate()>
+
+
 			 <br>request.rdurl: #request.rdurl#
              <br>Application.mobileURL: #Application.mobileURL#
 
