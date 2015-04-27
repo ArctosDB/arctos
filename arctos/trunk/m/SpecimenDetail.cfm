@@ -1,4 +1,10 @@
 <cfinclude template="includes/_header.cfm">
+
+<style>
+    .acceptedIdDiv { border:1px dotted green; } .unAcceptedIdDiv{ border:1px dotted gray; background-color:#F8F8F8; color:gray; font-size:.8em; } .taxDetDiv { padding-left:1em; }
+</style>
+
+<cfoutput>
 <cfif isdefined("guid")>
 	<!----
 		<cfif cgi.script_name contains "/SpecimenDetail.cfm">
@@ -9,7 +15,6 @@
 		---->
 	<cfset checkSql(guid)>
 	<cfif guid contains ":">
-		<cfoutput>
 			<cfset sql="select collection_object_id from
 				#session.flatTableName#
 				WHERE
@@ -18,7 +23,6 @@
 			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(sql)#
 			</cfquery>
-		</cfoutput>
 	</cfif>
 	<cfif isdefined("c.collection_object_id") and len(c.collection_object_id) gt 0>
 		<cfset collection_object_id=c.collection_object_id>
@@ -30,9 +34,7 @@
 	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cfif>
-<style>
-	.acceptedIdDiv { border:1px dotted green; } .unAcceptedIdDiv{ border:1px dotted gray; background-color:#F8F8F8; color:gray; font-size:.8em; } .taxDetDiv { padding-left:1em; }
-</style>
+
 <cfset detSelect = "
 	SELECT
 	#session.flatTableName#.guid,
@@ -323,7 +325,7 @@
         higher_geog,
         SOURCE_AUTHORITY
 </cfquery>
-<cfoutput query="one">
+<cfloop query="one">
 	<!------------------------------------ Taxonomy ---------------------------------------------->
 	<div class="detailCell">
 		<div class="detailBlock">
@@ -759,11 +761,6 @@
 		<div class="detailCell">
 			<div class="detailLabel">
 				Collector(s)
-				<cfif oneOfUs is 1>
-					<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">
-						Edit
-					</span>
-				</cfif>
 			</div>
 			<div class="detailBlock">
 				<span class="detailData">
@@ -778,11 +775,6 @@
 			<div class="detailCell">
 				<div class="detailLabel">
 					Preparator(s)
-					<cfif oneOfUs is 1>
-						<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">
-							Edit
-						</span>
-					</cfif>
 				</div>
 				<div class="detailBlock">
 					<span class="detailData">
@@ -798,11 +790,6 @@
 			<div class="detailCell">
 				<div class="detailLabel">
 					Maker(s)
-					<cfif oneOfUs is 1>
-						<span class="detailEditCell" onclick="window.parent.loadEditApp('editColls');">
-							Edit
-						</span>
-					</cfif>
 				</div>
 				<div class="detailBlock">
 					<span class="detailData">
@@ -886,11 +873,6 @@
 				<div class="detailCell" style="max-height:200px;overflow:auto;">
 					<div class="detailLabel">
 						Identifiers
-						<cfif oneOfUs is 1>
-							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">
-								Edit
-							</span>
-						</cfif>
 					</div>
 					<cfloop query="ids">
 						<div class="detailBlock">
@@ -915,11 +897,6 @@
 				<div class="detailCell" id="relationshipsCell" style="max-height:200px;overflow:auto;">
 					<div class="detailLabel">
 						Relationships
-						<cfif oneOfUs is 1>
-							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">
-								Edit
-							</span>
-						</cfif>
 					</div>
 					<cfloop query="rels">
 						<cfquery name="relcache" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -1025,15 +1002,9 @@
 				<div class="detailLabel">
 					&nbsp;
 					<!---Parts--->
-					<cfif oneOfUs is 1>
-						<span class="detailEditCell" onclick="window.parent.loadEditApp('editParts');">
-							Edit
-						</span>
-					<cfelse>
 						<span class="detailEditCell" onClick="getInfo('parts','#one.collection_object_id#');">
 							Details
 						</span>
-					</cfif>
 				</div>
 				<div class="detailBlock">
 					<span class="detailData">
@@ -1049,25 +1020,11 @@
 										Condition
 									</span>
 								</th>
-								<cfif oneOfUs is 1>
-									<th>
-										<span class="innerDetailLabel">
-											Disposition
-										</span>
-									</th>
-								</cfif>
 								<th>
 									<span class="innerDetailLabel">
 										Qty
 									</span>
 								</th>
-								<cfif oneOfUs is 1>
-									<th>
-										<span class="innerDetailLabel">
-											Label
-										</span>
-									</th>
-								</cfif>
 								<th>
 									<span class="innerDetailLabel">
 										Remarks
@@ -1082,19 +1039,9 @@
 									<div>
 										#part_condition#
 									</div>
-									<cfif oneOfUs is 1>
-										<div>
-											#part_disposition#
-										</div>
-									</cfif>
 									<div>
 										#lot_count#
 									</div>
-									<cfif oneOfUs is 1>
-										<div>
-											#label#
-										</div>
-									</cfif>
 									<div>
 										#part_remarks#
 									</div>
@@ -1183,19 +1130,9 @@
 										<div>
 											#part_condition#
 										</div>
-										<cfif oneOfUs is 1>
-											<div>
-												#part_disposition#
-											</div>
-										</cfif>
 										<div>
 											#lot_count#
 										</div>
-										<cfif oneOfUs is 1>
-											<div>
-												#label#
-											</div>
-										</cfif>
 										<div>
 											#part_remarks#
 										</div>
@@ -1211,11 +1148,6 @@
 				<div class="detailCell">
 					<div class="detailLabel">
 						<!---Attributes--->
-						<cfif oneOfUs is 1>
-							<span class="detailEditCell" onclick="window.parent.loadEditApp('editBiolIndiv');">
-								Edit
-							</span>
-						</cfif>
 					</div>
 					<cfquery name="sex" dbtype="query">
                         select * from attribute where attribute_type = 'sex'
@@ -1400,11 +1332,6 @@
 			<!------------------------------------ cataloged item ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">
-					<cfif oneOfUs is 1>
-						<span class="detailEditCell" onclick="window.parent.loadEditApp('editBiolIndiv');">
-							Edit
-						</span>
-					</cfif>
 				</div>
 				<cfif len(one.remarks) gt 0>
 					<div class="detailBlock">
@@ -1416,77 +1343,24 @@
 						</span>
 					</div>
 				</cfif>
-				<cfif oneOfUs is 1>
-					<div class="detailBlock">
-						<span class="detailData">
-							<span class="innerDetailLabel">
-								Entered By:
-							</span>
-							#one.EnteredBy# on #dateformat(one.entereddate,"yyyy-mm-dd")#
-						</span>
-					</div>
-					<cfif one.EditedBy is not "unknown" OR len(one.lastdate) is not 0>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">
-									Last Edited By:
-								</span>
-								#one.EditedBy# on #dateformat(one.lastdate,"yyyy-mm-dd")#
-							</span>
-						</div>
-					</cfif>
-					<cfif len(#one.flags#) is not 0>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">
-									Missing (flags):
-								</span>
-								#one.flags#
-							</span>
-						</div>
-					</cfif>
-					<cfif len(one.encumbranceDetail) is not 0>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">
-									Encumbrances:
-								</span>
-								#replace(one.encumbranceDetail,";","
-								<br>
-								","all")#
-							</span>
-						</div>
-					</cfif>
-				</cfif>
 			</div>
 			<!------------------------------------ accession ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">
 					Accession
-					<cfif oneOfUs is 1>
-						<span class="detailEditCell" onclick="window.parent.loadEditApp('addAccn');">
-							Edit
-						</span>
-					</cfif>
 				</div>
 				<div class="detailBlock">
 					<span class="detailData">
-						<cfif oneOfUs is 1>
-							<a href="/editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="_blank">
-								#accession#
-							</a>
-						<cfelse>
 							<a href="/viewAccn.cfm?transaction_id=#one.accn_id#" target="_blank">
 								#accession#
 							</a>
-						</cfif>
 						<div id="SpecAccnMedia">
 						</div>
 					</span>
 				</div>
 			</div>
 			<!------------------------------------ usage ---------------------------------------------->
-			<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0 or (oneOfUs is 1 and isLoanedItem.collection_object_id gt 0)>
+			<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">
 						Usage
@@ -1515,19 +1389,7 @@
 							</span>
 						</div>
 					</cfloop>
-					<cfif isLoanedItem.collection_object_id gt 0 and oneOfUs is 1>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">
-									Loan History:
-								</span>
-								<a href="/Loan.cfm?action=listLoans&collection_object_id=#valuelist(isLoanedItem.collection_object_id)#"
-									target="_mainFrame">
-									Click for loan list
-								</a>
-							</span>
-						</div>
-					</cfif>
+
 				</div>
 			</cfif>
 			<!------------------------------------ Media ---------------------------------------------->
