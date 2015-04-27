@@ -1478,5 +1478,6 @@
 				</cfcatch>
 			</cftry>
 	</div>
+	</cfloop>
 </cfoutput>
 <cfinclude template="includes/_footer.cfm">
