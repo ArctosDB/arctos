@@ -67,6 +67,10 @@
 			     not on the mobile site redirect now......
 			</cfif>
 
+			 <cfif listcontains(Application.mobileURL,request.rdurl ,"/") >
+                 listcontains <cfdump var=#listcontains(Application.mobileURL,request.rdurl ,"/")#>
+            </cfif>
+
 
 
 <cfif request.rdurl contains Application.mobileURL>
