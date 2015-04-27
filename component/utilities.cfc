@@ -28,6 +28,12 @@
 	<p>
 	   on folder: #thisFolder#
 	</p>
+
+	<cfif thisFolder is replace(Application.mobileURL,"/","","all")>
+	   this is a mobile template
+	</cfif>
+
+
 	</cfoutput>
 
 <cfreturn "hi">
