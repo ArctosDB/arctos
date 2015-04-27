@@ -59,7 +59,7 @@
 					<!---- DEVICE: untested; CURRENT SITE: desktop; DESIRED SITE: mobile; ACTION: redirect ---->
 					<cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
 					<cflocation url="#z#" addtoken="false">
-				<cfelseif cookie.dorm is not "mobile" and isMobileTemplate() IS TRUEL>
+				<cfelseif cookie.dorm is not "mobile" and isMobileTemplate() IS TRUE>
 					<!---- DEVICE: untested; CURRENT SITE: mobile; DESIRED SITE: desktop; ACTION: redirect ---->
 					<cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
 					<cflocation url="#z#" addtoken="false">
