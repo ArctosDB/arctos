@@ -845,8 +845,7 @@
 			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
                 SELECT
                     coll_obj_other_id_num.COLL_OBJ_OTHER_ID_NUM_ID,
-                    case when #oneOfUs# != 1 and
-                        concatencumbrances(coll_obj_other_id_num.collection_object_id) like '%mask original field number%' and
+                    case when concatencumbrances(coll_obj_other_id_num.collection_object_id) like '%mask original field number%' and
                         coll_obj_other_id_num.other_id_type = 'original identifier'
                         then 'Masked'
                     else
