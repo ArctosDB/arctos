@@ -36,7 +36,7 @@
 </cfif>
 
 <cfquery name="flatone"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-    select * from flat where guid='#guid#'
+    select * from filtered_flat where guid='#guid#'
 </cfquery>
 
 <cfdump var=#flatone#>
