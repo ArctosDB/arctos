@@ -111,7 +111,6 @@
        #thisDate#
     </div>
 
-	<!-----
 <cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     SELECT
         collection_object_id,
@@ -336,18 +335,10 @@
         padding-left:1em;
     }
 </style>
-<cfset obj = CreateObject("component","component.functions")>
+
+
 <cfoutput query="one">
-    <cfif oneOfUs is 1>
-        <form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
-            <input type="hidden" name="collection_object_id" value="#one.collection_object_id#">
-            <input type="hidden" name="suppressHeader" value="true">
-            <input type="hidden" name="action" value="nothing">
-            <input type="hidden" name="Srch" value="Part">
-    </cfif>
-    <table width="95%" cellpadding="0" cellspacing="0"><!---- full page table ---->
-        <tr>
-            <td valign="top" width="50%">
+
 <!------------------------------------ Taxonomy ---------------------------------------------->
                 <div class="detailCell">
                     <div class="detailLabel">&nbsp;
@@ -502,30 +493,20 @@
             </cfif>
 <!------------------------------------ locality ---------------------------------------------->
             <div class="detailCell">
-                <div class="detailLabel">
-                    <cfif oneOfUs is 1>
-                        <span class="detailEditCell" onclick="window.parent.loadEditApp('specLocality');">Edit</span>
-                    </cfif>
-                </div>
+
                 <cfloop query="event">
+
+
+
                     <div style="border:1px solid green; margin:1em;">
                        <div id="seidd_#specimen_event_id#" style="display:none;font-size:xx-small;">
                            OccurrenceID: #Application.serverRootURL#/guid/#guid#?seid=#specimen_event_id#
                         </div>
-                    <table id="SD_#specimen_event_id#">
-                        <tr class="detailData">
-                            <td id="SDCellLeft" class="innerDetailLabel">Determination&nbsp;Type:</td>
-                            <td id="SDCellRight">#specimen_event_type#</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td id="SDCellRight" class="detailCellSmall">
-                                assigned by #assigned_by_agent_name# on #dateformat(assigned_date,'yyyy-mm-dd')#
-                            </td>
-                        </tr>
-                        <tr class="detailData">
-                            <td id="SDCellLeft" class="innerDetailLabel">Higher Geography:</td>
-                            <td id="SDCellRight">
+                   Determination&nbsp;Type:#specimen_event_type#
+				 assigned by #assigned_by_agent_name# on #dateformat(assigned_date,'yyyy-mm-dd')#
+
+						Higher Geography:
+
                                 <cfif left(source_authority,4) is "http">
                                     <a href="#source_authority#" target="_blank" class="external">#higher_geog#</a>
                                 <cfelse>
@@ -539,8 +520,7 @@
                                         <div class="detailCellSmall">#search_term#</div>
                                     </cfloop>
                                 </div>
-                            </td>
-                        </tr>
+
                         <cfif verbatim_locality is not spec_locality>
                             <cfif len(verbatim_locality) gt 0>
                                 <tr class="detailData">
