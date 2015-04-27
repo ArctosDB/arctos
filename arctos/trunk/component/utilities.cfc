@@ -31,10 +31,7 @@
 </cffunction>
 <!------------------------------------------------------->
 <cffunction name="mobileDesktopRedirect" output="true" returnType="string" access="remote">
-
 	<!----
-
-
 		<br>START mobileDesktopRedirect
 		<br>cgi.script_name: #cgi.script_name#
 		This function redirects between mobile and desktop based on device detection scripts from
@@ -56,18 +53,14 @@
 			replace(cgi.script_name,"/","","all") is "taxonomy.cfm" or
 			replace(cgi.script_name,"/","","all") is "SpecimenResults.cfm")>
 			<!--- check to see if they have set a cookie ---->
-
-
 			<cfif IsDefined("Cookie.dorm")>
 				<!--- they have an explicit preference and we have a mobile option, send them where they want to be ---->
 				<cfif cookie.dorm is "mobile" and isMobileTemplate() is false>
 					<!---- DEVICE: untested; CURRENT SITE: desktop; DESIRED SITE: mobile; ACTION: redirect ---->
-					redirecting to mobile because cookie   <cfabort>
 					<cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
 					<cflocation url="#z#" addtoken="false">
-				<cfelseif cookie.dorm is not "mobile" and request.rdurl contains Application.mobileURL>
+				<cfelseif cookie.dorm is not "mobile" and isMobileTemplate() IS TRUEL>
 					<!---- DEVICE: untested; CURRENT SITE: mobile; DESIRED SITE: desktop; ACTION: redirect ---->
-					redirecting to desktop because cookie  <cfabort>
 					<cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
 					<cflocation url="#z#" addtoken="false">
 				</cfif>
