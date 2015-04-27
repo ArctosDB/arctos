@@ -103,6 +103,8 @@
 			 <cfabort>
 
 			</cfif>
+
+			<!-----
 				 <!--- on a mobile device ---->
 
 
@@ -126,7 +128,6 @@
             </cfif>
 
 
-
 <cfif request.rdurl contains Application.mobileURL>
 already there
 
@@ -140,6 +141,7 @@ redirnothereyet</cfif>
 				<cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
 				<cflocation url="#z#" addtoken="false">
 			</cfif>
+			---->
 		</cfif>
 </cfif>
 
