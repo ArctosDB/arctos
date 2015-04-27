@@ -1,11 +1,13 @@
 <cfinclude template="includes/_header.cfm">
 
 <cfif isdefined("guid")>
+<!----
 	<cfif cgi.script_name contains "/SpecimenDetail.cfm">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="/guid/#guid#">
 		<cfabort>
 	</cfif>
+	---->
 	<cfset checkSql(guid)>
 	<cfif guid contains ":">
 		<cfoutput>
