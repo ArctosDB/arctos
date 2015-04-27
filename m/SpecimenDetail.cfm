@@ -45,15 +45,34 @@
 		<div class="sdItemBlock">
 			<div class="sdRow">
                 <div class="sdOne">
-					  #flatone.guid#: #flatone.scientific_name#
-					  <div class="sdMetadata">
-						Identified By #flatone.IDENTIFIEDBY#
-					   </div>
-					   <div class="sdMetadata">
-						  Taxonomy: #flatone.FULL_TAXON_NAME#
-						</div>
+                	#flatone.guid#: #flatone.scientific_name#
+                	<div class="sdMetadata">
+                		Identified By: #flatone.IDENTIFIEDBY#
+                	</div>
+                    <div class="sdMetadata">
+                        Identified Date: #flatone.MADE_DATE#
+                    </div>
+                    <div class="sdMetadata">
+                        Nature of ID: #flatone.NATURE_OF_ID#
+                    </div>
 
 
+
+
+                	<cfif len(flatone.ID_SENSU) gt 0>
+                		<div class="sdMetadata">
+                			Sensu: #flatone.ID_SENSU#
+                		</div>
+                	</cfif>
+                	<div class="sdMetadata">
+                		Taxonomy: #flatone.FULL_TAXON_NAME#
+                	</div>
+
+                    <cfif len(flatone.PREVIOUSIDENTIFICATIONS) gt 0>
+                        <div class="sdMetadata">
+                            Previous ID: #flatone.PREVIOUSIDENTIFICATIONS#
+                        </div>
+                    </cfif>
 
                 </div>
 
@@ -81,6 +100,32 @@
                             </div>
                         </cfif>
 
+                        <cfif len(flatone.SPECIMEN_EVENT_TYPE) gt 0>
+                          <div class="sdMetadata">
+                             Event Type: #flatone.SPECIMEN_EVENT_TYPE#
+                            </div>
+                        </cfif>
+
+                        <cfif len(flatone.EVENT_ASSIGNED_BY_AGENT) gt 0>
+                          <div class="sdMetadata">
+                             Assigned By: #flatone.EVENT_ASSIGNED_BY_AGENT#
+                            </div>
+                        </cfif>
+                        <cfif len(flatone.EVENT_ASSIGNED_DATE) gt 0>
+                          <div class="sdMetadata">
+                             Assigned Date: #flatone.EVENT_ASSIGNED_DATE#
+                            </div>
+                        </cfif>
+                        <cfif len(flatone.SPECIMEN_EVENT_REMARK) gt 0>
+                          <div class="sdMetadata">
+                             Event Remark: #flatone.SPECIMEN_EVENT_REMARK#
+                            </div>
+                        </cfif>
+
+
+
+
+
 
 
 						</cfif>
@@ -89,7 +134,7 @@
 
                 </div>
                 <div class="sdOne">
-                      Date: #flatone.HIGHER_GEOG#: (#flatone.VERBATIM_DATE#)
+                      Date: #flatone.BEGAN_DATE#- #flatone.ENDED_DATE# (#flatone.VERBATIM_DATE#)
                 </div>
 
 
@@ -128,6 +173,11 @@
                 <cfif len(flatone.COLLECTORS) gt 0>
                       <div class="sdOne">
                           Collector: #flatone.COLLECTORS#
+                    </div>
+                </cfif>
+                <cfif len(flatone.PREPARATORS) gt 0>
+                      <div class="sdOne">
+                          Preparator: #flatone.PREPARATORS#
                     </div>
                 </cfif>
 
@@ -197,53 +247,7 @@
 		</div>
 	</div>
 </div>
-                                                                 DATE
-                                                                 NUMB                                                ER
-                                                                VARC                                                HAR2(4000)
-                                                                              VARC                                                HAR2(4000)
-                                                          VARC                                                HAR2(40)
- SPECIMENDETAILURL                                                          VARC                                                HAR2(255)
- IMAGEURL                                                                   VARC                                                HAR2(121)
- FIELDNOTESURL                                                              VARC                                                HAR2(121)
- CATALOGNUMBERTEXT                                                          VARC                                                HAR2(40)
- COLLECTORNUMBER                                                            VARC                                                HAR2(4000)
- VERBATIMELEVATION                                                          VARC                                                HAR2(84)
- YEAR                                                                       NUMB                                                ER
- MONTH                                                                      NUMB                                                ER
- DAY                                                                        NUMB                                                ER
- STALE_FLAG                                                        NOT NULL NUMB                                                ER
- LASTUSER                                                                   VARC                                                HAR2(38)
- LASTDATE                                                                   DATE
- PARTDETAIL                                                                 VARC                                                HAR2(4000)
- BEGAN_DATE                                                                 VARC                                                HAR2(22)
- ENDED_DATE                                                                 VARC                                                HAR2(22)
- ID_SENSU                                                                   VARC                                                HAR2(255)
- PREPARATORS                                                                VARC                                                HAR2(4000)
- VERBATIM_LOCALITY                                                          VARC                                                HAR2(4000)
- MADE_DATE                                                                  VARC                                                HAR2(22)
- EVENT_ASSIGNED_BY_AGENT                                                    VARC                                                HAR2(255)
- EVENT_ASSIGNED_DATE                                                        DATE
- SPECIMEN_EVENT_REMARK                                                      VARC                                                HAR2(4000)
- SPECIMEN_EVENT_TYPE                                                        VARC                                                HAR2(60)
- COLL_EVENT_REMARKS                                                         VARC                                                HAR2(4000)
- VERBATIM_COORDINATES                                                       VARC                                                HAR2(255)
- COLLECTING_EVENT_NAME                                                      VARC                                                HAR2(255)
- GEOREFERENCE_SOURCE                                                        VARC                                                HAR2(4000)
- GEOREFERENCE_PROTOCOL                                                      VARC                                                HAR2(255)
- LOCALITY_NAME                                                              VARC                                                HAR2(255)
- ENTEREDBY                                                                  VARC                                                HAR2(255)
- ENTEREDDATE                                                                DATE
- FLAGS                                                                      VARC                                                HAR2(255)
- NATURE_OF_ID                                                               VARC                                                HAR2(255)
- CATALOGED_ITEM_TYPE                                                        VARC                                                HAR2(20)
- PREVIOUSIDENTIFICATIONS                                                    VARC                                                HAR2(4000)
- USE_LICENSE_URL                                                            VARC                                                HAR2(4000)
- IDENTIFICATION_REMARKS                                                     VARC                                                HAR2(4000)
- LOCALITY_REMARKS                                                           VARC                                                HAR2(4000)
- FORMATTED_SCIENTIFIC_NAME                                                  VARC                                                HAR2(4000)
- SUBFAMILY                                                                  VARC                                                HAR2(255)
- TRIBE                                                                      VARC                                                HAR2(255)
- SUBTRIBE                                                                   VARC                                                HAR2(255)
+
 
 
 
