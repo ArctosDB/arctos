@@ -1,20 +1,8 @@
 <cfinclude template="includes/_header.cfm">
 <style>
-	.acceptedIdDiv { border:1px dotted green; }
-	.unAcceptedIdDiv{ border:1px dotted gray; background-color:#F8F8F8; color:gray; font-size:.8em; }
-	.taxDetDiv { padding-left:1em; }
-	.sdItemBlock {
-	   border:1px dotted green;
-	 }
-	 .sdMetadata{
-	   font-size:smaller;
-	   margin-left:.5em;
-	  }
-
-
-
-
-
+	.acceptedIdDiv { border:1px dotted green; } .unAcceptedIdDiv{ border:1px dotted gray; background-color:#F8F8F8; color:gray; font-size:.8em; }
+	 .taxDetDiv { padding-left:1em; } .sdItemBlock { border-top:1px dotted green; margin:.2em; }
+	 .sdMetadata{ font-size:smaller; margin-left:.5em; }
 </style>
 <cfoutput>
 	<cfif isdefined("guid")>
@@ -80,8 +68,8 @@
 				<div class="sdItemBlock">
 					Location: #flatone.HIGHER_GEOG#: #flatone.SPEC_LOCALITY#
 					<div class="sdOne">
-                        Date: #flatone.BEGAN_DATE#- #flatone.ENDED_DATE# (#flatone.VERBATIM_DATE#)
-                    </div>
+						Date: #flatone.BEGAN_DATE#- #flatone.ENDED_DATE# (#flatone.VERBATIM_DATE#)
+					</div>
 					<cfif len(flatone.DEC_LAT) gt 0>
 						<div class="sdMetadata">
 							#flatone.DEC_LAT# / #flatone.DEC_LONG#
@@ -96,7 +84,7 @@
 								Error (m): #flatone.COORDINATEUNCERTAINTYINMETERS#
 							</div>
 						</cfif>
-                    </cfif>
+					</cfif>
 					<cfif len(flatone.VERIFICATIONSTATUS) gt 0>
 						<div class="sdMetadata">
 							Verification Status: #flatone.VERIFICATIONSTATUS#
@@ -123,25 +111,25 @@
 						</div>
 					</cfif>
 					<cfif len(flatone.COLLECTING_METHOD) gt 0>
-                        <div class="sdOne">
-                            Collecting Method: #flatone.COLLECTING_METHOD#
-                        </div>
-                    </cfif>
-                    <cfif len(flatone.COLLECTING_SOURCE) gt 0>
-                        <div class="sdOne">
-                            Collecting Source: #flatone.COLLECTING_SOURCE#
-                        </div>
-                    </cfif>
-                    <cfif len(flatone.HABITAT) gt 0>
-                        <div class="sdOne">
-                            Habitat: #flatone.HABITAT#
-                        </div>
-                    </cfif>
-                    <cfif len(flatone.ASSOCIATED_SPECIES) gt 0>
-                        <div class="sdOne">
-                            Associated Species: #flatone.ASSOCIATED_SPECIES#
-                        </div>
-                    </cfif>
+						<div class="sdOne">
+							Collecting Method: #flatone.COLLECTING_METHOD#
+						</div>
+					</cfif>
+					<cfif len(flatone.COLLECTING_SOURCE) gt 0>
+						<div class="sdOne">
+							Collecting Source: #flatone.COLLECTING_SOURCE#
+						</div>
+					</cfif>
+					<cfif len(flatone.HABITAT) gt 0>
+						<div class="sdOne">
+							Habitat: #flatone.HABITAT#
+						</div>
+					</cfif>
+					<cfif len(flatone.ASSOCIATED_SPECIES) gt 0>
+						<div class="sdOne">
+							Associated Species: #flatone.ASSOCIATED_SPECIES#
+						</div>
+					</cfif>
 				</div>
 				<div class="sdItemBlock">
 					<cfif len(flatone.TYPESTATUS) gt 0>
@@ -203,6 +191,8 @@
 				</div>
 			</div>
 		</div>
+		<!---- end sdLeftHalfPage ---->
 	</div>
+	<!---- end sdFullPage ---->
 </cfoutput>
 <cfinclude template="includes/_footer.cfm">
