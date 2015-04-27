@@ -17,6 +17,13 @@
 
 	hello I am isMobileTemplate
 
+	<cfoutput>
+
+	<p>
+
+	analyzing for #request.rdurl#</p>
+	</cfoutput>
+
 <cfreturn "hi">
 
 </cffunction>
