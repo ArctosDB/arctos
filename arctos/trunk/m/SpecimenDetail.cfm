@@ -46,7 +46,133 @@
 			<div class="sdRow">
                 <div class="sdOne">
 					  #flatone.guid#: #flatone.scientific_name#
+					  <div class="sdMetadata">
+						Identified By #flatone.IDENTIFIEDBY#
+					   </div>
+					   <div class="sdMetadata">
+						  Taxonomy: #flatone.FULL_TAXON_NAME#
+						</div>
+
+
+
                 </div>
+
+
+
+                <div class="sdOne">
+                      Location: #flatone.HIGHER_GEOG#: #flatone.SPEC_LOCALITY#
+					    <cfif len(flatone.DEC_LAT) gt 0>
+						  <div class="sdMetadata">
+							 #flatone.DEC_LAT# / #flatone.DEC_LONG#
+							</div>
+							<cfif len(flatone.DATUM) gt 0>
+                          <div class="sdMetadata">
+                             Datum: #flatone.DATUM#
+                            </div>
+                        </cfif>
+						<cfif len(flatone.COORDINATEUNCERTAINTYINMETERS) gt 0>
+                          <div class="sdMetadata">
+                             Error (m): #flatone.COORDINATEUNCERTAINTYINMETERS#
+                            </div>
+                        </cfif>
+						<cfif len(flatone.VERIFICATIONSTATUS) gt 0>
+                          <div class="sdMetadata">
+                             Verification Status: #flatone.VERIFICATIONSTATUS#
+                            </div>
+                        </cfif>
+
+
+
+						</cfif>
+
+
+
+                </div>
+                <div class="sdOne">
+                      Date: #flatone.HIGHER_GEOG#: (#flatone.VERBATIM_DATE#)
+                </div>
+
+
+                   <cfif len(flatone.COLLECTING_METHOD) gt 0>
+                      <div class="sdOne">
+                          Collecting Method: #flatone.COLLECTING_METHOD#
+                    </div>
+                </cfif>
+				 <cfif len(flatone.COLLECTING_SOURCE) gt 0>
+                      <div class="sdOne">
+                          Collecting Source: #flatone.COLLECTING_SOURCE#
+                    </div>
+                </cfif>
+
+				<cfif len(flatone.HABITAT) gt 0>
+                      <div class="sdOne">
+                          Habitat: #flatone.HABITAT#
+                    </div>
+                </cfif>
+
+                 <cfif len(flatone.ASSOCIATED_SPECIES) gt 0>
+                      <div class="sdOne">
+                          Associated Species: #flatone.ASSOCIATED_SPECIES#
+                    </div>
+                </cfif>
+
+
+
+
+
+                <cfif len(flatone.TYPESTATUS) gt 0>
+                      <div class="sdOne">
+                          Citation: #flatone.TYPESTATUS#
+                    </div>
+                </cfif>
+                <cfif len(flatone.COLLECTORS) gt 0>
+                      <div class="sdOne">
+                          Collector: #flatone.COLLECTORS#
+                    </div>
+                </cfif>
+
+
+                <cfif len(flatone.ACCESSION) gt 0>
+                      <div class="sdOne">
+                          Accession: #flatone.ACCESSION#
+                    </div>
+                </cfif>
+				<cfif len(flatone.OTHERCATALOGNUMBERS) gt 0>
+				      <div class="sdOne">
+	                      IDs: #flatone.OTHERCATALOGNUMBERS#
+	                </div>
+				</cfif>
+                <cfif len(flatone.RELATEDCATALOGEDITEMS) gt 0>
+                      <div class="sdOne">
+                          Related: #flatone.RELATEDCATALOGEDITEMS#
+                    </div>
+                </cfif>
+                <cfif len(flatone.SEX) gt 0>
+                      <div class="sdOne">
+                          Sex: #flatone.SEX#
+                    </div>
+                </cfif>
+                <cfif len(flatone.ATTRIBUTES) gt 0>
+                      <div class="sdOne">
+                          Attributes: #flatone.ATTRIBUTES#
+                    </div>
+                </cfif>
+
+
+
+
+
+                <cfif len(flatone.PARTS) gt 0>
+                      <div class="sdOne">
+                          Parts: #flatone.PARTS#
+                    </div>
+                </cfif>
+				 <cfif len(flatone.REMARKS) gt 0>
+                      <div class="sdOne">
+                          Remark: #flatone.REMARKS#
+                    </div>
+                </cfif>
+
             </div>
 
 			<div class="sdRow">
@@ -71,6 +197,54 @@
 		</div>
 	</div>
 </div>
+                                                                 DATE
+                                                                 NUMB                                                ER
+                                                                VARC                                                HAR2(4000)
+                                                                              VARC                                                HAR2(4000)
+                                                          VARC                                                HAR2(40)
+ SPECIMENDETAILURL                                                          VARC                                                HAR2(255)
+ IMAGEURL                                                                   VARC                                                HAR2(121)
+ FIELDNOTESURL                                                              VARC                                                HAR2(121)
+ CATALOGNUMBERTEXT                                                          VARC                                                HAR2(40)
+ COLLECTORNUMBER                                                            VARC                                                HAR2(4000)
+ VERBATIMELEVATION                                                          VARC                                                HAR2(84)
+ YEAR                                                                       NUMB                                                ER
+ MONTH                                                                      NUMB                                                ER
+ DAY                                                                        NUMB                                                ER
+ STALE_FLAG                                                        NOT NULL NUMB                                                ER
+ LASTUSER                                                                   VARC                                                HAR2(38)
+ LASTDATE                                                                   DATE
+ PARTDETAIL                                                                 VARC                                                HAR2(4000)
+ BEGAN_DATE                                                                 VARC                                                HAR2(22)
+ ENDED_DATE                                                                 VARC                                                HAR2(22)
+ ID_SENSU                                                                   VARC                                                HAR2(255)
+ PREPARATORS                                                                VARC                                                HAR2(4000)
+ VERBATIM_LOCALITY                                                          VARC                                                HAR2(4000)
+ MADE_DATE                                                                  VARC                                                HAR2(22)
+ EVENT_ASSIGNED_BY_AGENT                                                    VARC                                                HAR2(255)
+ EVENT_ASSIGNED_DATE                                                        DATE
+ SPECIMEN_EVENT_REMARK                                                      VARC                                                HAR2(4000)
+ SPECIMEN_EVENT_TYPE                                                        VARC                                                HAR2(60)
+ COLL_EVENT_REMARKS                                                         VARC                                                HAR2(4000)
+ VERBATIM_COORDINATES                                                       VARC                                                HAR2(255)
+ COLLECTING_EVENT_NAME                                                      VARC                                                HAR2(255)
+ GEOREFERENCE_SOURCE                                                        VARC                                                HAR2(4000)
+ GEOREFERENCE_PROTOCOL                                                      VARC                                                HAR2(255)
+ LOCALITY_NAME                                                              VARC                                                HAR2(255)
+ ENTEREDBY                                                                  VARC                                                HAR2(255)
+ ENTEREDDATE                                                                DATE
+ FLAGS                                                                      VARC                                                HAR2(255)
+ NATURE_OF_ID                                                               VARC                                                HAR2(255)
+ CATALOGED_ITEM_TYPE                                                        VARC                                                HAR2(20)
+ PREVIOUSIDENTIFICATIONS                                                    VARC                                                HAR2(4000)
+ USE_LICENSE_URL                                                            VARC                                                HAR2(4000)
+ IDENTIFICATION_REMARKS                                                     VARC                                                HAR2(4000)
+ LOCALITY_REMARKS                                                           VARC                                                HAR2(4000)
+ FORMATTED_SCIENTIFIC_NAME                                                  VARC                                                HAR2(4000)
+ SUBFAMILY                                                                  VARC                                                HAR2(255)
+ TRIBE                                                                      VARC                                                HAR2(255)
+ SUBTRIBE                                                                   VARC                                                HAR2(255)
+
 
 
 <hr><hr>
