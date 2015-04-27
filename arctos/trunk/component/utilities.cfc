@@ -92,7 +92,7 @@
 					<cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
 					<cflocation url="#z#" addtoken="false">
 				</cfif>
-		<cfelse>
+		  <cfelse>
 
 		CHECKING....
 
@@ -105,8 +105,8 @@
 				---->
 			<!--- see if they're on a mobile device but not a mobile page ---->
 			<cfif isMobileClient() is true and isMobileTemplate() is false>
-			 mobile client, not mobile page
-			 <cfabort>
+			<cfset z="/dm.cfm?r=" & mdflip(request.rdurl)>
+                <cflocation url="#z#" addtoken="false">
 
 			</cfif>
 
