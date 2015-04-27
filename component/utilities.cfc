@@ -97,7 +97,7 @@
 		CHECKING....
 
 		<P>
-		isMobileClient: #isMobileClient()#>
+		isMobileClient: #isMobileClient()#
 		</P>
 			<!----
 				We have a mobile option and they've expressed no preferences.
