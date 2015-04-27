@@ -997,6 +997,8 @@
 			<cfquery name="mPart" dbtype="query">
     select * from parts where sampled_from_obj_id is null order by part_name
 </cfquery>
+
+<cfdump var=#mPart#>
 			<div class="detailCell">
 				<div class="detailLabel">
 					&nbsp;
