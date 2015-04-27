@@ -95,12 +95,16 @@
 		<cfelse>
 
 		CHECKING....
+
+		<P>
+		isMobileClient: #isMobileClient()#>
+		</P>
 			<!----
 				We have a mobile option and they've expressed no preferences.
 				If they're on a mobile device and NOT a mobile page, redirect them - they're a first-time user
 				---->
 			<!--- see if they're on a mobile device but not a mobile page ---->
-			<cfif isMobileClient is true and isMobileTemplate is false>
+			<cfif  is true and isMobileTemplate is false>
 			 mobile client, not mobile page
 			 <cfabort>
 
