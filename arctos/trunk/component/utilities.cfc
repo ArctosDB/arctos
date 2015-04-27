@@ -22,6 +22,12 @@
 	<p>
 
 	analyzing for #request.rdurl#</p>
+
+	<cfset thisFolder=listgetat(request.rdurl,1,"/")>
+
+	<p>
+	   on folder: #thisFolder#
+	</p>
 	</cfoutput>
 
 <cfreturn "hi">
