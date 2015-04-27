@@ -389,7 +389,9 @@
 					</cfif>
 					<cfquery name="thisTaxLinks" dbtype="query">
                                     select taxsciname from raw_identification where identification_id=#identification_id#
-                                </cfquery> <cfset link=""> <cfset i=1> <cfset thisSciName="#scientific_name#"> <cfloop query="thisTaxLinks"> <cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'> <cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#> <cfset i=i+1> </cfloop> #thisSciName# <cfif not isdefined("metaDesc")> <cfset metaDesc=""> </cfif> <div class="taxDetDiv"> <cfif accepted_id_fg is 1> <div style="font-size:.8em;color:gray;"> #one.full_taxon_name# </div> </cfif> <cfif len(short_citation) gt 0> sensu <a href="/publication/#publication_id#" target="_mainFrame"> #short_citation# </a><br> </cfif> Identified by #agent_name# <cfif len(made_date) gt 0> on #made_date# </cfif> <br>Nature of ID: #nature_of_id# <cfif len(identification_remarks) gt 0> <br>Remarks: #identification_remarks# </cfif> </div> </div>
+                                </cfquery> <cfset link=""> <cfset i=1> <cfset thisSciName="#scientific_name#"> <cfloop query="thisTaxLinks"> <cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'> <cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#> <cfset i=i+1> </cfloop> #thisSciName# <cfif not isdefined("metaDesc")> <cfset metaDesc=""> </cfif> <div class="taxDetDiv">
+								<cfif accepted_id_fg is 1>
+									<div> #one.full_taxon_name# </div> </cfif> <cfif len(short_citation) gt 0> sensu <a href="/publication/#publication_id#" target="_mainFrame"> #short_citation# </a><br> </cfif> Identified by #agent_name# <cfif len(made_date) gt 0> on #made_date# </cfif> <br>Nature of ID: #nature_of_id# <cfif len(identification_remarks) gt 0> <br>Remarks: #identification_remarks# </cfif> </div> </div>
 				</cfloop>
 			</span>
 			</div>
@@ -456,10 +458,8 @@
 		<!------------------------------------ locality ---------------------------------------------->
 		<div class="detailCell">
 			<cfloop query="event">
-				<div style="border:1px solid green; margin:1em;">
-					<div id="seidd_#specimen_event_id#" style="display:none;font-size:xx-small;">
-						OccurrenceID: #Application.serverRootURL#/guid/#guid#?seid=#specimen_event_id#
-					</div>
+				<div>
+
 					Determination&nbsp;Type:#specimen_event_type# assigned by #assigned_by_agent_name# on #dateformat(assigned_date,'yyyy-mm-dd')# Higher Geography:
 					<cfif left(source_authority,4) is "http">
 						<a href="#source_authority#" target="_blank" class="external">
@@ -471,7 +471,7 @@
 					<cfquery name="geosrchterms" dbtype="query">
                                     select search_term from rawevent where specimen_event_id=#specimen_event_id# group by search_term order by search_term
                                 </cfquery>
-					<div style="margin-left:1em;max-height:3em;overflow:auto;" class="detailBlock">
+					<div class="detailBlock">
 						<cfloop query='geosrchterms'>
 							<div class="detailCellSmall">
 								#search_term#
@@ -646,22 +646,22 @@
 															</div>
 														</cfif>
 														<cfif len(DATUM) gt 0>
-															<div style="font-size:.8em;">
+															<div>
 																Datum: #DATUM#
 															</div>
 														</cfif>
 														<cfif len(MAX_ERROR_UNITS) gt 0>
-															<div style="font-size:.8em;">
+															<div>
 																Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#
 															</div>
 														</cfif>
 														<cfif len(georeference_source) gt 0>
-															<div style="font-size:.8em;">
+															<div>
 																Georeference&nbsp;Source: #georeference_source#
 															</div>
 														</cfif>
 														<cfif len(georeference_protocol) gt 0>
-															<div style="font-size:.8em;">
+															<div>
 																Georeference&nbsp;Protocol: #georeference_protocol#
 															</div>
 														</cfif>
@@ -869,7 +869,7 @@
                 select * from oid where id_references='self' order by other_id_type
             </cfquery>
 			<cfif len(ids.other_id_type) gt 0>
-				<div class="detailCell" style="max-height:200px;overflow:auto;">
+				<div class="detailCell">
 					<div class="detailLabel">
 						Identifiers
 					</div>
@@ -893,7 +893,7 @@
                 select * from oid where id_references != 'self' order by id_references,other_id_type
             </cfquery>
 			<cfif len(rels.other_id_type) gt 0>
-				<div class="detailCell" id="relationshipsCell" style="max-height:200px;overflow:auto;">
+				<div class="detailCell" id="relationshipsCell">
 					<div class="detailLabel">
 						Relationships
 					</div>
