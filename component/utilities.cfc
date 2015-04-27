@@ -29,6 +29,9 @@
 	---->
 	<cfoutput>
 		<!---- only redirect if they're coming in to something for which we have a mobile page ---->
+		<cfif cgi.script_name is "/dm.cfm">
+		  <cfreturn>
+		</cfif>
 		<cfif isdefined("request.rdurl") and (
 			request.rdurl contains "/guid/" or
 			request.rdurl contains "/name/" or
