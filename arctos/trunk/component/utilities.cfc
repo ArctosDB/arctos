@@ -69,7 +69,7 @@
 			 <br>request.rdurl: #request.rdurl#
              <br>Application.mobileURL: #Application.mobileURL#
 
-			<br />ExpandPath: #ExpandPath( )#
+			<br />ExpandPath: #ExpandPath("./" )#
             <br />GetCurrentTemplatePath: #GetCurrentTemplatePath( )#
 			</cfoutput>
 			 <cfif request.rdurl contains Application.mobileURL>
