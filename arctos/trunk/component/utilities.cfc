@@ -65,9 +65,12 @@
 				request.rdurl does not contain Application.mobileURL>
 
 
-<cfif request.rdurl does not contain Application.mobileURL>
+<cfif request.rdurl contains Application.mobileURL>
+already there
 
-yes fail</cfif>
+<cfelse>
+
+redirnothereyet</cfif>
 					<cfdump var=#request.rdurl#>
                     <cfdump var=#Application.mobileURL#>
 				<!---- they are mobile, on the desktop site, with no cookies - send them to mobile ---->
