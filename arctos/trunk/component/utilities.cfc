@@ -67,8 +67,6 @@
 			     not on the mobile site redirect now......
 			</cfif>
 
-			</cfif> and
-				not (request.rdurl contains Application.mobileURL)>
 
 
 <cfif request.rdurl contains Application.mobileURL>
