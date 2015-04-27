@@ -65,7 +65,6 @@
 <cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
-<cfoutput>
 <cfif detail.recordcount lt 1>
 	<div class="error">
 		Oops! No specimen was found for that URL.
