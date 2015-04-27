@@ -40,6 +40,39 @@
 </cfquery>
 
 <cfdump var=#flatone#>
+<div id="sdFullPage">
+	<div id="sdLeftHalfPage">
+		<div class="sdItemBlock">
+			<div class="sdRow">
+                <div class="sdOne">
+					  #flatone.guid#: #flatone.scientific_name#
+                </div>
+            </div>
+
+			<div class="sdRow">
+				<div class="sdLabel">
+
+				</div>
+				<div class="sdItem">
+				</div>
+			</div>
+			<div class="sdRow">
+                <div class="sdLabel">
+                </div>
+                <div class="sdItem">
+                </div>
+            </div>
+			<div class="sdRow">
+                <div class="sdLabel">
+                </div>
+                <div class="sdItem">
+                </div>
+            </div>
+		</div>
+	</div>
+</div>
+
+
 <hr><hr>
 
 <cfset detSelect = "
