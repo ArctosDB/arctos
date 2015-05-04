@@ -4,14 +4,14 @@
 	<cfargument name="collection_id" type="numeric" required="yes">
 	<cfargument name="contact_role" type="string" required="yes">
 	<cfquery name="contacts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			getPreferredAgentName(collection_contacts.contact_agent_id) agent_name,
 			get_address(collection_contacts.contact_agent_id,'email') address
 		from
 			collection_contacts
-		where 
+		where
 			CONTACT_ROLE='#contact_role#' and
-			collection_contacts.collection_id=#collection_id#		
+			collection_contacts.collection_id=#collection_id#
 	</cfquery>
 	<cfreturn contacts>
 </cffunction>
@@ -21,9 +21,9 @@
 	<cfquery name="guid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select guid from flat where collection_object_id=#collection_object_id#
 	</cfquery>
-	<cfstoredproc procedure="clone_cataloged_item" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#"> 
-		<cfprocparam cfsqltype="cf_sql_varchar" value="#guid.guid#"> 
-		<cfprocparam cfsqltype="cf_sql_varchar" type="out" variable="newguid"> 
+	<cfstoredproc procedure="clone_cataloged_item" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfprocparam cfsqltype="cf_sql_varchar" value="#guid.guid#">
+		<cfprocparam cfsqltype="cf_sql_varchar" type="out" variable="newguid">
 	</cfstoredproc>
 	<cfreturn newguid>
 </cffunction>
@@ -62,11 +62,11 @@
 		<cfset userString="<br>">
 	</cfif>
 	<cfquery name="result" datasource="uam_god">
-		select 
+		select
 			regexp_replace('#escapeQuotes(orig)#','[^[:print:]]','[X]') replaced_with_x,
 			regexp_replace('#escapeQuotes(orig)#','[^[:print:]]','') replaced_with_nothing,
 			regexp_replace('#escapeQuotes(orig)#','[^[:print:]]',' ') replaced_with_space,
-			regexp_replace('#escapeQuotes(orig)#','[^[:print:]]','#userString#') replaced_with_userString		
+			regexp_replace('#escapeQuotes(orig)#','[^[:print:]]','#userString#') replaced_with_userString
 		from dual
 	</cfquery>
 	<cfreturn result>
@@ -325,7 +325,7 @@
 	<cfif not isdefined("page")>
 		<cfset page=1>
 	</cfif>
-	
+
 	<cftry>
 	<cfquery name="flatdocs"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select get_document_media_pageinfo('#urltitle#',#page#) result from dual
@@ -338,7 +338,7 @@
 <cffunction name="getMediaPreview" access="remote">
 	<cfargument name="preview_uri" required="true" type="string">
 	<cfargument name="media_type" required="false" type="string">
-	
+
 	<cfif len(preview_uri) gt 0>
 		<cftry>
 		<cfhttp method="head" url="#preview_uri#" timeout="1">
@@ -349,7 +349,7 @@
 		<cfcatch></cfcatch>
 		</cftry>
 	</cfif>
-	<!--- either no URL, or we failed the fetch-test ---->	
+	<!--- either no URL, or we failed the fetch-test ---->
 	<cfif media_type is "image">
 		<cfreturn "/images/noThumb.jpg">
 	<cfelseif media_type is "audio">
@@ -1313,11 +1313,11 @@
 	<cfif not isdefined("anchor") or anchor is "undefined" or len(anchor) is 0>
 		<cfset anchor="top">
 	</cfif>
-	
-	
-							
-							
-							
+
+
+
+
+
 	<cfset fullURI="http://arctosdb.wordpress.com/#uri#/###anchor#">
 	<cfreturn fullURI>
 	<!---
@@ -2487,9 +2487,9 @@
 		<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select sq_agent_rank_id.nextval n from dual
 		</cfquery>
-		
-		
-		
+
+
+
 		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into agent_rank (
 				AGENT_RANK_ID,
@@ -2555,7 +2555,7 @@
 	<cfargument name="canned_id" type="numeric" required="yes">
 	<cftry>
 		<cfquery name="res" datasource="cf_dbuser">
-			delete from cf_canned_search where canned_id=#canned_id# and 
+			delete from cf_canned_search where canned_id=#canned_id# and
 			USER_ID in (select USER_ID from cf_users where username='#session.username#')
 		</cfquery>
 		<cfset result="#canned_id#">
@@ -2814,11 +2814,11 @@
 		</cfif>
 		<cfif len(thisContainerId) gt 0>
 			<cfquery name="putItIn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update 
-					container 
+				update
+					container
 				set
 					parent_container_id = #position_id#
-				where 
+				where
 					container_id = #thisContainerId#
 			</cfquery>
 			<cfset result = "#box_position#|#thisID.label#">
@@ -2983,7 +2983,7 @@
 				identification.publication_id=publication.publication_id (+) and
 				identification.identification_id=identification_taxonomy.identification_id (+) and
 				identification_taxonomy.VARIABLE='A' and
-				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) 
+				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+)
 				<cfif isdefined("guid") and len(guid) gt 0>
 					AND upper(collection.guid_prefix || ':' || cataloged_item.cat_num)='#ucase(guid)#'
 				<cfelse>
@@ -2999,6 +2999,20 @@
 						and 0=1
 					</cfif>
 				</cfif>
+			group by
+			    cataloged_item.COLLECTION_OBJECT_ID,
+                collection.guid_prefix || ':' || cataloged_item.cat_num,
+                identification.scientific_name,
+                identification.NATURE_OF_ID,
+                identification.accepted_id_fg,
+                concatidentifiers(cataloged_item.COLLECTION_OBJECT_ID),
+                SHORT_CITATION,
+                identification_remarks,
+                made_date,
+                identification.identification_id,
+                identification_taxonomy.taxon_name_id,
+                concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#'),
+                '#session.CustomOtherIdentifier#'
 			order by
 				accepted_id_fg DESC,
 				scientific_name
@@ -3019,7 +3033,7 @@
 			<cfset temp = QuerySetCell(result, "scientific_name", "Search matched #c# specimens.", 1)>
 		</cfif>
 		<!----
-		
+
 						<cfelseif isdefined("collection_id") and len(collection_id) gt 0 and isdefined("theNum") and len(theNum) gt 0 and isdefined("type") and len(type) gt 0>
 
 
@@ -3242,7 +3256,7 @@
 				cataloged_item.collection_id=collection.collection_id and
 				specimen_part.collection_object_id=#part_id#
 		</cfquery>
-		
+
 		<cfset r='Moved <a href="/guid/#coll_obj.guid_prefix#:#coll_obj.cat_num#">'>
 		<cfset r="#r#</a> (<i>#coll_obj.scientific_name#</i>) #coll_obj.part_name#">
 		<cfset r="#r# to container barcode #parent_barcode# (#new_container_type#)">
@@ -3829,11 +3843,11 @@
 					cataloged_item.collection_object_id=#idvalue#
 				<cfelseif idType is "taxon_name_id">
 					cataloged_item.collection_object_id in (
-						select 
+						select
 							collection_object_id
 						from
 							identification,
-							identification_taxonomy 
+							identification_taxonomy
 						where
 							identification.identification_id=identification_taxonomy.identification_id and
 							identification_taxonomy.taxon_name_id=#idvalue#
@@ -3857,7 +3871,7 @@
 		</cfquery>
 		<cfset mailTo = valuelist(whoTo.address)>
 		<cfset mailTo=listappend(mailTo,Application.DataProblemReportEmail,",")>
-		<cfmail to="#mailTo#" from="annotation@#Application.fromEmail#" subject="Annotation Submitted" type="html">			
+		<cfmail to="#mailTo#" from="annotation@#Application.fromEmail#" subject="Annotation Submitted" type="html">
 			Arctos User #session.username# has submitted an annotation concerning #summary.s#.
 
 			<blockquote>
