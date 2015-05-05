@@ -570,7 +570,7 @@
 				'2014-03-01' as LASTDATE,
 				title,
 				urltitle,
-				descr
+				'' as descr
 			from
 				raw where media_type='multi-page document' and urltitle is not null
 			group by
