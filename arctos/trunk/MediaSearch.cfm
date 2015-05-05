@@ -583,11 +583,6 @@
 				urltitle,
 				descr
 		</cfquery>
-
-
-        <cfdump var=#isdoc#>
-
-
 		<cfset obj = CreateObject("component","component.functions")>
 		<cfquery name="findIDs" dbtype="query">
 			select
