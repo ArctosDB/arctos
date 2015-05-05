@@ -554,7 +554,6 @@
 			select * from raw where media_type!='multi-page document'
 		</cfquery>
 
-		<cfdump var=#nodoc#>
 		<cfquery name="isdoc" dbtype="query">
 			select
 				CAST( 0 AS DECIMAL ) AS  media_id,
@@ -584,6 +583,11 @@
 				urltitle,
 				descr
 		</cfquery>
+
+
+        <cfdump var=#isdoc#>
+
+
 		<cfset obj = CreateObject("component","component.functions")>
 		<cfquery name="findIDs" dbtype="query">
 			select
