@@ -553,6 +553,8 @@
 		<cfquery name="nodoc" dbtype="query">
 			select * from raw where media_type!='multi-page document'
 		</cfquery>
+
+		<cfdump var=#nodoc#>
 		<cfquery name="isdoc" dbtype="query">
 			select
 				CAST( 0 AS DECIMAL ) AS  media_id,
