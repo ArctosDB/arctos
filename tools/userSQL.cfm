@@ -11,13 +11,13 @@
 	        <input type="hidden" name="action" value="run">
 	        <label for="sql">SQL</label>
 	        <textarea name="sql" id="sql" rows="10" cols="80" wrap="soft">#sql#</textarea>
-	        <br>Result: 
+	        <br>Result:
             Table:<input type="radio" name="format" value="table" <cfif #format# is "table"> checked="checked" </cfif>>
                         CSV:<input type="radio" name="format" value="csv" <cfif #format# is "csv"> checked="checked" </cfif>>
             <br>
             <input type="submit" value="Run Query" class="lnkBtn">
 	    </form>
-	    
+	    <a href="https://docs.google.com/document/d/1tkpikzS9XqPDz8jmPkq8Hj7g1bQtl_iB7WmLKRWM5wk/edit" target="_blank" class="external">cheat sheet</a>
 	    <cfif #action# is "run">
 	       <hr>
 
@@ -40,7 +40,7 @@
             <cfif unsafeSql(sql)>
                <div class="error">
                     The code you submitted contains illegal characters.
-                </div> 
+                </div>
             <cfelse>
                 <cftry>
                     <cfif session.username is "uam" or session.username is "uam_update">
