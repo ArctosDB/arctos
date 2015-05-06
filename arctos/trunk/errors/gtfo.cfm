@@ -82,8 +82,6 @@
 			<cfabort>
 		</cfif>
 
-		<cfdump var=#len(email)#>
-        <cfdump var=#len(c)#>
 		<cfif isSubNetBlock is true and (len(email) is 0 or len(c) lt 20)>
 		  <p>You are on a blocked subnet. You must supply an email address and a message of at least 20 characters.</p>
 		  <cfabort>
