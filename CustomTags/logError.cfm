@@ -21,7 +21,7 @@
 <cfelse>
 	<cfset exception.subject='unknown error'>
 </cfif>
-<!--- 
+<!---
 	now see if we can figure out an appropriate logfile
 	make sure all these are initiated in application start
 ----->
@@ -92,7 +92,7 @@
 </cfif>
 <cfif structkeyexists(exception,"mediasrchtab")>
 	<cfset StructDelete(exception, "mediasrchtab")>
-</cfif>	
+</cfif>
 <cfif structkeyexists(exception,"meta_description")>
 	<cfset StructDelete(exception, "meta_description")>
 </cfif>
@@ -158,7 +158,7 @@
 <cfset logdata=logdata & "</logEntry>">
 <cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#logdata#">
 <cfmail subject="#exception.subject#" to="#Application.LogEmail#" from="logs@#application.fromEmail#" type="html">
-	<a href="http://network-tools.com/default.asp?prog=network&host=#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
+	<a href="http://who.is/whois-ip/ip-address/#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
 	<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
 	<cfif structKeyExists(exception,"username")>
 		<br>username: #exception.username#
