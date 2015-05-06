@@ -53,6 +53,7 @@
 	   	<br>
 	    <label for="captcha">Enter the text above</label>
 	    <input type="text" name="captcha" id="captcha" class="reqdClr">
+	    <p></p>
 	    <label for="c">Tell us how you got here</label><br>
         <textarea name="c" id="c" rows="6" cols="50"></textarea>
         <br>
