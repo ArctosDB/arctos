@@ -51,7 +51,7 @@
 
 	    <img src="/download/captcha.png">
 	   	<br>
-	    <label for="captcha">Enter the text above</label>
+	    <label for="captcha">Enter the text above (required)</label>
 	    <input type="text" name="captcha" id="captcha" class="reqdClr">
 	    <p></p>
 	    <label for="c">Tell us how you got here</label><br>
