@@ -66,8 +66,6 @@
 	</cfscript>
 </cffunction>
 <!------------------------------------------------------------------------------------->
-
-<!------------------------------------------------------------------------------------->
 <cffunction name="checkSql" access="public" output="true" returntype="boolean">
     <cfargument name="sql" required="true" type="string">
     <cfset nono="chr,char,update,insert,drop,create,execute,exec,begin,declare,all_tables,session,sys,ascii">
