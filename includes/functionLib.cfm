@@ -30,7 +30,7 @@
 	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
 		<cfset err="Filenames may contain only letters, numbers, dash, and underscore.">
 	</cfif>
-	<cfreturn err>	
+	<cfreturn err>
 </cffunction>
 <cffunction name="isValidCSV">
 	<cfargument name="fileName" required="yes">
@@ -40,7 +40,7 @@
 	<cfif listfindnocase(acceptExtensions,extension) is 0>
 		<cfset err="Only CSV files are accepted.">
 	</cfif>
-	<cfreturn err>	
+	<cfreturn err>
 </cffunction>
 <cffunction name="jsescape">
 	<cfargument name="in" required="yes">
@@ -70,7 +70,7 @@
 <!------------------------------------------------------------------------------------->
 <cffunction name="checkSql" access="public" output="true" returntype="boolean">
     <cfargument name="sql" required="true" type="string">
-    <cfset nono="chr,char,update,insert,delete,drop,create,execute,exec,begin,declare,all_tables,session,sys,ascii">
+    <cfset nono="chr,char,update,insert,drop,create,execute,exec,begin,declare,all_tables,session,sys,ascii">
     <cfset safe=0>
     <cfloop index="i" list="#sql#" delimiters=" .,?!;:%$&""'/|[]{}()#chr(10)##chr(13)##chr(9)#@">
 	    <cfif ListFindNoCase(nono, i)>
@@ -80,6 +80,7 @@
     <cfif safe is 0>
         <cfreturn true>
     <cfelse>
+	    <cfset bl_reason='checkSql caught keyword'>
 		<cfinclude template="/errors/autoblacklist.cfm">
 		<cfreturn false>
     </cfif>
@@ -96,7 +97,7 @@
 	</cfquery>
 	<!--- these things die sometimes ---->
 	<cfif portalInfo.recordcount is 0>
-		<cfthrow 
+		<cfthrow
 			detail = "missing portal"
 			errorCode = "5649"
 			extendedInfo = "portal_id=#portal_id#; portalInfo.dbpwd=#portalInfo.dbpwd#;session.sessionKey=#session.sessionKey#; #cfcatch.detail#"
@@ -107,7 +108,7 @@
 		<cfset session.epw = encrypt(portalInfo.dbpwd,session.sessionKey)>
 		<cfset session.flatTableName = "filtered_flat">
 	<cfelse>
-		<cfset session.flatTableName = "flat">	
+		<cfset session.flatTableName = "flat">
 	</cfif>
 	<cfset session.portal_id=portal_id>
 	<!--- may need to get generic appearance --->
@@ -131,7 +132,7 @@
 			NULL
 		</cfif> where username = '#session.username#'
 	</cfquery>
-	--->	
+	--->
 	<cfset session.header_color = portalInfo.header_color>
 	<cfset session.header_image = portalInfo.header_image>
 	<cfset session.collection_url = portalInfo.collection_url>
@@ -142,7 +143,7 @@
 	<cfset session.meta_keywords = portalInfo.meta_keywords>
 	<cfset session.stylesheet = portalInfo.stylesheet>
 	<cfset session.header_credit = portalInfo.header_credit>
-	
+
 	<cfreturn true>
 </cffunction>
 <!----------------------------------------------------------->
@@ -187,7 +188,7 @@
 		<cfset session.username=username>
 		<cfquery name="dbrole" datasource="uam_god">
 			 select upper(granted_role) role_name
-	         	from 
+	         	from
 	         dba_role_privs,
 	         cf_ctuser_roles
 	         	where
@@ -214,7 +215,7 @@
 		<cfelse>
 			<cfset session.result_sort = "">
 		</cfif>
-		
+
 		<cfset session.CustomOidOper = getPrefs.CustomOidOper>
 
 		<cfif len(getPrefs.CustomOtherIdentifier) gt 0>
@@ -226,7 +227,7 @@
 			<cfset session.searchBy="bigsearchbox">
 		<cfelse>
 			<cfset session.searchBy="">
-		</cfif>	
+		</cfif>
 		<cfif getPrefs.killRow is 1>
 			<cfset session.killRow=1>
 		<cfelse>
@@ -258,7 +259,7 @@
 				</div>
 				<cfabort>
 			</cfif>
-			<cfset session.myAgentId=ckUserName.agent_id>		
+			<cfset session.myAgentId=ckUserName.agent_id>
 		<cfset pwtime =  round(now() - getPrefs.pw_change_date)>
 		<cfset pwage = Application.max_pw_age - pwtime>
 		<cfif pwage lte 0>
@@ -307,19 +308,19 @@
 	<cfset i=1>
 	<cfloop query="relns">
 		<cfset temp = queryaddrow(result,1)>
-		<cfset temp = QuerySetCell(result, "media_relations_id", "#media_relations_id#", i)>	
+		<cfset temp = QuerySetCell(result, "media_relations_id", "#media_relations_id#", i)>
 		<cfset temp = QuerySetCell(result, "media_relationship", "#media_relationship#", i)>
 		<cfset temp = QuerySetCell(result, "created_agent_name", "#agent_name#", i)>
 		<cfset temp = QuerySetCell(result, "related_primary_key", "#related_primary_key#", i)>
 		<cfset table_name = listlast(media_relationship," ")>
 		<cfif table_name is "locality">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					higher_geog || ': ' || spec_locality data 
-				from 
-					locality, 
-					geog_auth_rec 
-				where 
+				select
+					higher_geog || ': ' || spec_locality data
+				from
+					locality,
+					geog_auth_rec
+				where
 					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 					locality.locality_id=#related_primary_key#
 			</cfquery>
@@ -332,13 +333,13 @@
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
 		<cfelseif table_name is "collecting_event">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					higher_geog || ': ' || spec_locality || ' (' || verbatim_date || ')' data 
-				from 
+				select
+					higher_geog || ': ' || spec_locality || ' (' || verbatim_date || ')' data
+				from
 					collecting_event,
-					locality, 
-					geog_auth_rec 
-				where 
+					locality,
+					geog_auth_rec
+				where
 					collecting_event.locality_id=locality.locality_id and
 					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 					collecting_event.collecting_event_id=#related_primary_key#
@@ -347,13 +348,13 @@
             <cfset temp = QuerySetCell(result, "link", "/showLocality.cfm?action=srch&collecting_event_id=#related_primary_key#", i)>
 		<cfelseif table_name is "loan">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					guid_prefix || ' ' || loan_number data 
-				from 
+				select
+					guid_prefix || ' ' || loan_number data
+				from
 					collection,
-					trans, 
-					loan 
-				where 
+					trans,
+					loan
+				where
 					collection.collection_id=trans.collection_id and
 					trans.transaction_id=loan.transaction_id and
 					loan.transaction_id=#related_primary_key#
@@ -362,13 +363,13 @@
             <cfset temp = QuerySetCell(result, "link", "", i)>
 		<cfelseif table_name is "accn">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
-					guid_prefix || ' ' || accn_number data 
-				from 
+				select
+					guid_prefix || ' ' || accn_number data
+				from
 					collection,
-					trans, 
-					accn 
-				where 
+					trans,
+					accn
+				where
 					collection.collection_id=trans.collection_id and
 					trans.transaction_id=accn.transaction_id and
 					accn.transaction_id=#related_primary_key#
@@ -380,7 +381,7 @@
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		---->
 			<cfquery name="d" datasource="uam_god">
-				select guid_prefix || ' ' || cat_num || ' (' || scientific_name || ')' data from 
+				select guid_prefix || ' ' || cat_num || ' (' || scientific_name || ')' data from
 				cataloged_item,
                 collection,
                 identification
@@ -406,14 +407,14 @@
             <cfset temp = QuerySetCell(result, "link", "/SpecimenUsage.cfm?publication_id=#related_primary_key#", i)>
 		<cfelseif #table_name# is "project">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select project_name data from 
+				select project_name data from
 				project where project_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/ProjectDetail.cfm?project_id=#related_primary_key#", i)>
 		<cfelseif table_name is "taxonomy">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select scientific_name data,scientific_name from 
+				select scientific_name data,scientific_name from
 				taxon_name where taxon_name_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
@@ -427,26 +428,26 @@
 </cffunction>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="QueryToCSV" access="public" returntype="string" output="false">
- 
+
 	<!--- Define arguments. --->
 	<cfargument name="Query" type="query" required="true" hint="media query being converted to CSV.">
- 
+
 	<cfargument name="Fields" type="string" required="true" hint="List of query fields to be used when creating the CSV value.">
- 
+
 	<cfargument name="CreateHeaderRow" type="boolean" required="false" default="true" hint="Boolean flag indicator for creating headers or not">
- 
+
 	<cfargument name="Delimiter" type="string" required="false" default="," hint="Field delimiter in the CSV value.">
- 
+
 	<!--- Define the local scope. --->
 	<cfset var LOCAL = {} />
- 
+
 	<!---
 		Set up a column index so that we can
 		iterate over the column names faster than if we used a
 		standard list loop on the passed-in list.
 	--->
 	<cfset LOCAL.ColumnNames = [] />
- 
+
 	<!---
 		Loop over column names and index them numerically. We
 		are going to be treating this struct almost as if it
@@ -454,48 +455,48 @@
 		look-up times on a table are a bit faster than look
 		up times on an array (or so I have been told).
 	--->
-	
+
 	<cfloop index="LOCAL.ColumnName" list="#ARGUMENTS.Fields#" delimiters=",">
- 
+
 		<!--- Store the current column name. --->
 		<cfset ArrayAppend(LOCAL.ColumnNames, Trim( LOCAL.ColumnName ))>
- 
+
 	</cfloop>
- 
+
 	<!--- Store the column count. --->
 	<cfset LOCAL.ColumnCount = ArrayLen( LOCAL.ColumnNames ) />
- 
- 
+
+
 	<!--- Create a short hand for the new line characters. --->
 	<cfset LOCAL.NewLine = (Chr( 13 ) & Chr( 10 )) />
- 
+
 	<!--- Create an array to hold the set of row data. --->
 	<cfset LOCAL.Rows = [] />
- 
- 
+
+
 	<!--- Check to see if we need to add a header row. --->
 	<cfif ARGUMENTS.CreateHeaderRow>
- 
+
 		<!--- Create array to hold row data. --->
 		<cfset LOCAL.RowData = [] />
- 
+
 		<!--- Loop over the column names. --->
 		<cfloop index="LOCAL.ColumnIndex" from="1" to="#LOCAL.ColumnCount#" step="1">
- 
+
 			<!--- Add the field name to the row data. --->
 			<cfset LOCAL.RowData[ LOCAL.ColumnIndex ] = """#LOCAL.ColumnNames[ LOCAL.ColumnIndex ]#""" />
- 
+
 		</cfloop>
- 
+
 		<!--- Append the row data to the string buffer. --->
 		<cfset ArrayAppend(
 			LOCAL.Rows,
 			ArrayToList( LOCAL.RowData, ARGUMENTS.Delimiter )
 			) />
- 
+
 	</cfif>
- 
- 
+
+
 	<!---
 		Now that we have dealt with any header value, let's
 		convert the query body to CSV. When doing this, we are
@@ -503,26 +504,26 @@
 		default since it will be much faster than actually
 		checking to see if a field needs to be qualified.
 	--->
- 
+
 	<!--- Loop over the query. --->
 	<cfloop query="ARGUMENTS.Query">
 		<!--- Create array to hold row data. --->
 		<cfset LOCAL.RowData = [] />
- 
+
 		<!--- Loop over the columns. --->
 		<cfloop index="LOCAL.ColumnIndex" from="1" to="#LOCAL.ColumnCount#"	step="1">
- 
+
 			<!--- Add the field to the row data. --->
 			<cfset LOCAL.RowData[ LOCAL.ColumnIndex ] = """#Replace( ARGUMENTS.Query[ LOCAL.ColumnNames[ LOCAL.ColumnIndex ] ][ ARGUMENTS.Query.CurrentRow ], """", """""", "all" )#""" />
- 
+
 		</cfloop>
-  
+
 		<!--- Append the row data to the string buffer. --->
 		<cfset ArrayAppend(LOCAL.Rows,	ArrayToList(LOCAL.RowData, ARGUMENTS.Delimiter ))>
 	</cfloop>
 
-  
- 
+
+
 	<!---
 		Return the CSV value by joining all the rows together
 		into one string.
@@ -531,9 +532,9 @@
 		LOCAL.Rows,
 		LOCAL.NewLine
 		) />
-		
+
 </cffunction>
-	
+
 <!----------------------------------------------------------------------------------------->
 <cffunction name="roundDown" output="no">
     <cfargument name="target" type="numeric" required="true"/>
@@ -543,40 +544,40 @@
 
 <cfscript>
     /**
-        * Returns a random hexadecimal color    
-        * @return Returns a string.    
-        * @author andy matthews (andy@icglink.com)    
-        * @version 1, 7/22/2005    
-    */   
+        * Returns a random hexadecimal color
+        * @return Returns a string.
+        * @author andy matthews (andy@icglink.com)
+        * @version 1, 7/22/2005
+    */
     function randomHexColor() {
     	var chars = "0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f";
     	var totalChars = 6;
-    	var hexCode = '';     
+    	var hexCode = '';
     	for ( step=1;step LTE totalChars; step = step + 1) {
-    		hexCode = hexCode & ListGetAt(chars,RandRange(1,ListLen(chars)));     
+    		hexCode = hexCode & ListGetAt(chars,RandRange(1,ListLen(chars)));
     	}
         return hexCode;
     }
 </cfscript>
-          
-          
-          
-          
+
+
+
+
 <!----------------------------------------------------------------------------------------->
 <cfscript>
 /**
  * Returns the last index of an occurrence of a substring in a string from a specified starting position.
  * Big update by Shawn Seley (shawnse@aol.com) -
- * UDF was not accepting third arg for start pos 
+ * UDF was not accepting third arg for start pos
  * and was returning results off by one.
  * Modified by RCamden, added var, fixed bug where if no match it return len of str
- * 
- * @param Substr 	 Substring to look for. 
- * @param String 	 String to search. 
- * @param SPos 	 Starting position. 
- * @return Returns the last position where a match is found, or 0 if no match is found. 
- * @author Charles Naumer (shawnse@aol.comcmn@v-works.com) 
- * @version 2, February 14, 2002 
+ *
+ * @param Substr 	 Substring to look for.
+ * @param String 	 String to search.
+ * @param SPos 	 Starting position.
+ * @return Returns the last position where a match is found, or 0 if no match is found.
+ * @author Charles Naumer (shawnse@aol.comcmn@v-works.com)
+ * @version 2, February 14, 2002
  */
 function RFind(substr,str) {
   var rsubstr  = reverse(substr);
@@ -594,11 +595,11 @@ function RFind(substr,str) {
 }
 /**
  * Converts degrees to radians.
- * 
- * @param degrees 	 Angle (in degrees) you want converted to radians. 
- * @return Returns a simple value 
- * @author Rob Brooks-Bilson (rbils@amkor.com) 
- * @version 1.0, July 18, 2001 
+ *
+ * @param degrees 	 Angle (in degrees) you want converted to radians.
+ * @return Returns a simple value
+ * @author Rob Brooks-Bilson (rbils@amkor.com)
+ * @version 1.0, July 18, 2001
  */
 function DegToRad(degrees)
 {
@@ -608,25 +609,25 @@ function DegToRad(degrees)
 
 /**
  * Calculates the arc tangent of the two variables, x and y.
- * 
+ *
  * @param x 	 First value. (Required)
  * @param y 	 Second value. (Required)
- * @return Returns a number. 
- * @author Rick Root (rick.root@webworksllc.com) 
- * @version 1, September 14, 2005 
+ * @return Returns a number.
+ * @author Rick Root (rick.root@webworksllc.com)
+ * @version 1, September 14, 2005
  */
-function atan2(firstArg, secondArg) {    
-	var Math = createObject("java","java.lang.Math");    
-	return Math.atan2(javacast("double",firstArg), javacast("double",secondArg)); 
+function atan2(firstArg, secondArg) {
+	var Math = createObject("java","java.lang.Math");
+	return Math.atan2(javacast("double",firstArg), javacast("double",secondArg));
 }
 
 /**
  * Converts radians to degrees.
- * 
- * @param radians 	 Angle (in radians) you want converted to degrees. 
- * @return Returns a simple value. 
- * @author Rob Brooks-Bilson (rbils@amkor.com) 
- * @version 1.0, July 18, 2001 
+ *
+ * @param radians 	 Angle (in radians) you want converted to degrees.
+ * @return Returns a simple value.
+ * @author Rob Brooks-Bilson (rbils@amkor.com)
+ * @version 1.0, July 18, 2001
  */
 function RadToDeg(radians)
 {
@@ -635,18 +636,18 @@ function RadToDeg(radians)
 
 /**
  * Computes the mathematical function Mod(y,x).
- * 
- * @param y 	 Number to be modded. 
- * @param x 	 Devisor. 
- * @return Returns a numeric value. 
- * @author Tom Nunamaker (tom@toshop.com) 
- * @version 1, February 24, 2002 
+ *
+ * @param y 	 Number to be modded.
+ * @param x 	 Devisor.
+ * @return Returns a numeric value.
+ * @author Tom Nunamaker (tom@toshop.com)
+ * @version 1, February 24, 2002
  */
 function ProperMod(y,x) {
   var modvalue = y - x * int(y/x);
-  
+
   if (modvalue LT 0) modvalue = modvalue + x;
-  
+
   Return ( modvalue );
 }
 </cfscript>
@@ -672,7 +673,7 @@ function ProperMod(y,x) {
      required="true"
      hint="This is the CSV string that will be manipulated."
      />
-      
+
      <cfargument
      name="Delimiter"
      type="string"
@@ -680,7 +681,7 @@ function ProperMod(y,x) {
      default=","
      hint="This is the delimiter that will separate the fields within the CSV value."
      />
-      
+
      <cfargument
      name="Qualifier"
      type="string"
@@ -705,7 +706,7 @@ function ProperMod(y,x) {
      .ToCharArray()
      />
      <cfset ARGUMENTS.CSV = (" " & ARGUMENTS.CSV) />
-      
+
      <!--- Now add the space to each field. --->
      <cfset ARGUMENTS.CSV = ARGUMENTS.CSV.ReplaceAll(
      "([\#ARGUMENTS.Delimiter#\#LOCAL.LineDelimiter#]{1})",
@@ -805,10 +806,10 @@ function ProperMod(y,x) {
      </cfif>
      </cfloop>
      <cfreturn LOCAL.Return />
-      
+
      </cffunction>
-	
-	
+
+
 <cffunction name="toProperCase" output="false">
 	<cfargument name="message" type="string">
 	<cfscript>
@@ -817,20 +818,20 @@ function ProperMod(y,x) {
     for (counter=1;counter LTE strlen;counter=counter + 1)
     {
     		frontpointer = counter + 1;
-    		
+
     		if (Mid(message, counter, 1) is " ")
     		{
-    		 	newstring = newstring & ' ' & ucase(Mid(message, frontpointer, 1)); 
+    		 	newstring = newstring & ' ' & ucase(Mid(message, frontpointer, 1));
     		counter = counter + 1;
     		}
-    	else 
+    	else
     		{
     			if (counter is 1)
     			newstring = newstring & ucase(Mid(message, counter, 1));
     			else
     			newstring = newstring & lcase(Mid(message, counter, 1));
     		}
-    
+
     }
     </cfscript>
 	<cfreturn newstring>
@@ -851,12 +852,12 @@ function ProperMod(y,x) {
 	<cfset var numReq = "">
 	<cfset var reqCompare = "">
 	<cfset var j = "">
-	
+
 	<!--- Use regular expressions to check for the presence banned characters such as tab, space, backspace, etc  and password length--->
 	<cfif ReFind("[[:cntrl:] ]",password) OR len(password) LT length>
 		<cfreturn false>
 	</cfif>
-	
+
 	<!--- random things that Oracle doesn't like --->
 	<!---
 	<cfset badStuff = "=,#,&,*">
@@ -877,7 +878,7 @@ function ProperMod(y,x) {
 		<cfelse>
 			<cfset regex = "[[:#charClass#:]]">
 		</cfif>
-		
+
 		<!--- If regex found, set variable to position found --->
 		<cfset checks["check#replace(charClass,' ','_','all')#"] = ReFind(regex,password)>
 
@@ -908,7 +909,7 @@ function ProperMod(y,x) {
 		<cfreturn false>
 	</cfif>
 	<cfreturn true>
-	
+
 </cffunction>
 <cffunction name="stripQuotes" returntype="string" output="false">
 	<cfargument name="inStr" type="string">
@@ -948,14 +949,14 @@ function ProperMod(y,x) {
 <cfscript>
 /**
  * Calculates the Julian Day for any date in the Gregorian calendar.
- * 
- * @param TheDate 	 Date you want to return the Julian day for. 
- * @return Returns a numeric value. 
- * @author Beau A.C. Harbin (bharbin@figleaf.com) 
- * @version 1, September 4, 2001 
+ *
+ * @param TheDate 	 Date you want to return the Julian day for.
+ * @return Returns a numeric value.
+ * @author Beau A.C. Harbin (bharbin@figleaf.com)
+ * @version 1, September 4, 2001
  */
  function GetJulianDay(){
-	var date = Now();	
+	var date = Now();
 	var year = 0;
 	var month = 0;
 	var day = 0;
@@ -966,8 +967,8 @@ function ProperMod(y,x) {
 	var y = 0;
 	var m = 0;
 	var JulianDay =0;
-        if(ArrayLen(Arguments)) 
-          date = Arguments[1];	
+        if(ArrayLen(Arguments))
+          date = Arguments[1];
 	// The Julian Day begins at noon so in order to calculate the date properly, one must subtract 12 hours
 	date = DateAdd("h", -12, date);
 	year = DatePart("yyyy", date);
@@ -976,16 +977,16 @@ function ProperMod(y,x) {
 	hour = DatePart("h", date);
 	minute = DatePart("n", date);
 	second = DatePart("s", date);
-	
+
 	a = (14-month) \ 12;
 	y = (year+4800) - a;
 	m = (month + (12*a)) - 3;
-	
+
 	JD = (day + ((153*m+2) \ 5) + (y*365) + (y \ 4) - (y \ 100) + (y \ 400)) - 32045;
 	JDTime = NumberFormat(CreateTime(hour, minute, second), ".99999999");
-	
+
 	JulianDay = JD + JDTime;
-	
+
 	return JulianDay;
 }
 Request.GetJulianDay=GetJulianDay;
