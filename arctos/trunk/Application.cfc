@@ -32,6 +32,7 @@
 			<cfabort>
 		</cfif>
 	</cfif>
+	<cfdump var=#requestingSubnet#>
 	<cfif listfind(application.blacklist,ipaddress)>
 		<cfif replace(cgi.script_name,'//','/','all') is not "/errors/gtfo.cfm">
 			<cfscript>
