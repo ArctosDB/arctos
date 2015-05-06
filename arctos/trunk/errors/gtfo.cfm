@@ -69,6 +69,10 @@
 </cfif>
 <cfif isdefined("action") and action is "p">
 	<cfoutput>
+
+
+		<cfdump var=#form.captcha#>
+        <cfdump var=#form.captchaHash#>
 		<cfif hash(ucase(form.captcha)) neq form.captchaHash>
 			You did not enter the right text.
 			<cfabort>
