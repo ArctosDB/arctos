@@ -3,7 +3,7 @@
 <!----
 	Release blocks after a period of time.
 	Just ignore everything that's timed out
-	
+
 	THIS IS ALSO HARD_CODED IN Application.cfc
 ---->
 <cfset expiresIn="180">
@@ -28,9 +28,9 @@
 	</script>
 	<script src="/includes/sorttable.js"></script>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
-			subnet 
-		from 
+		select
+			subnet
+		from
 			uam.blacklist_subnet
 		where
 			sysdate-INSERT_DATE<#expiresIn#
@@ -48,15 +48,15 @@
 			<td>#subnet#</td>
 			<td><a href="http://whois.domaintools.com/#subnet#.1.1" target="_blank">whois</a></td>
 			<td><a href="blacklist.cfm?action=UNblockSubnet&subnet=#subnet#">[ allow this subnet ]</a></td>
-		</tr>		
+		</tr>
 	</cfloop>
-	
+
 	</table>
 	<h2>
 		Unblocked subnets with >2 blocked IPs
 	</h2>
 	<p>
-		Use this with great care. Blocked subnets here should be mirrored in firewall rules, which will require an email to the network folks. 
+		Use this with great care. Blocked subnets here should be mirrored in firewall rules, which will require an email to the network folks.
 		Blocking subnets at the CF level still imposes load on the server.
 	</p>
 	<p>
@@ -67,8 +67,8 @@
 				simultaneously, causing uptime and performance issues for legitimate users. "Flood probes" should be blocked at the firewall.
 			 </li>
 			 <li>
-			 	Some foreign subnets (particularly originating from Eastern Europe) are the origin of continuous probes and no 
-			 	obvious legitimate traffic. These can mask dangerous activity and make keeping up with logfiles burdensome. Consider 
+			 	Some foreign subnets (particularly originating from Eastern Europe) are the origin of continuous probes and no
+			 	obvious legitimate traffic. These can mask dangerous activity and make keeping up with logfiles burdensome. Consider
 			 	blocking these subnets when all other approaches have failed.
 			 </li>
 			 <li>
@@ -80,14 +80,14 @@
 	<p>
 		Everything redirects to the IP list page so that application variables can be properly set. Sorry about the extra click.
 	</p>
-	
+
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			ip,
 			substr(ip,1,instr(ip,'.',1,2)-1) subnet,
 			to_char(listdate,'YYYY-MM-DD') listdate
-		from 
-			uam.blacklist 
+		from
+			uam.blacklist
 		where
 			sysdate-LISTDATE<#expiresIn# and
 			substr(ip,1,instr(ip,'.',1,2)-1) not in (
@@ -109,13 +109,13 @@
 		</tr>
 		<cfloop query="sn">
 			<cfquery name="sndata" dbtype="query">
-				select 
+				select
 					count(*) c,
 					min(listdate) firstblock,
 					max(listdate) lastblock
-				from 
-					q 
-				where 
+				from
+					q
+				where
 					subnet='#subnet#'
 			</cfquery>
 			<cfif sndata.c gt 2>
@@ -128,7 +128,7 @@
 					<td id="c_#subnet#.1.1"><span class="likeLink" onclick="getHostInfo('#subnet#.1.1');">getHostInfo</span></td>
 					<td><a href="blacklist.cfm?action=blockSubnet&subnet=#subnet#">[ block this subnet ]</a></td>
 				</tr>
-			</cfif>	
+			</cfif>
 		</cfloop>
 	</table>
 </cfif>
@@ -137,9 +137,9 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		delete from blacklist_subnet where subnet='#subnet#'
 	</cfquery>
-	
+
 	Subnet #subnet# has been removed from the blacklist. You must send email to the network folks to remove and firewall blacklists.
-	
+
 	<p>
 		You must now <a href="/Admin/blacklist.cfm">continue to the main blacklist page</a> to push the changes to the application.
 	</p>
@@ -158,7 +158,7 @@
 	</cfif>
 	<cfif trim(subnet) is not subnet>
 		check subnet format 999.999<cfabort>
-	</cfif>	
+	</cfif>
 	<cftry>
 		<!--- see if it's expired; if it is, just re-up ---->
 		<cfquery name="exists" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -168,13 +168,13 @@
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update blacklist_subnet set INSERT_DATE=sysdate where subnet in ('#subnet#')
 			</cfquery>
-			Subnet #subnet# has been <strong>RE</strong>added to the blacklist. You should definitely send email to the network folks and also 
+			Subnet #subnet# has been <strong>RE</strong>added to the blacklist. You should definitely send email to the network folks and also
 		blacklist it at the firewall.
 		<cfelse>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into blacklist_subnet (subnet) values ('#subnet#')
 			</cfquery>
-			Subnet #subnet# has been added to the blacklist. You should probably send email to the network folks and also 
+			Subnet #subnet# has been added to the blacklist. You should probably send email to the network folks and also
 			blacklist it at the firewall.
 		</cfif>
 	<p>
@@ -189,10 +189,10 @@
 <cfif action is "nothing">
 	<script src="/includes/sorttable.js"></script>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			ip,LISTDATE
-		from 
-			uam.blacklist 
+		from
+			uam.blacklist
 		where
 			sysdate-LISTDATE<#expiresIn# and
 			substr(ip,1,instr(ip,'.',1,2)-1) not in (
@@ -201,20 +201,21 @@
 			)
 	</cfquery>
 	<cfquery name="sn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
-			subnet 
-		from 
+		select
+			subnet
+		from
 			uam.blacklist_subnet
-		where 
+		where
 			sysdate-INSERT_DATE<#expiresIn#
-	</cfquery>			
+	</cfquery>
+	<cfdump var=#sn#>
 	<p>
 		IMPORTANT NOTE: IPs for blocked subnets are NOT included here. <a href="blacklist.cfm?action=subnet">manage blocked subnets</a>
 	</p>
 	<p>
 		Found #d.recordcount# blocked IPs
 	</p>
-	
+
 	<cfset application.blacklist=valuelist(d.ip)>
 	<cfset application.subnet_blacklist=valuelist(sn.subnet)>
 
@@ -224,7 +225,7 @@
 		<input type="text" name="ip" id="ip">
 		<br><input type="submit" value="blacklist">
 	</form>
-	
+
 	<table border id="t" class="sortable">
 		<tr>
 			<th>IP</th>
@@ -259,7 +260,7 @@
 		<cfabort>
 	</cfif>
 	<cftry>
-		
+
 		<!--- see if it's expired; if it is, just re-up ---->
 		<cfquery name="exists" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from uam.blacklist where ip in  ('#trim(ip)#')
