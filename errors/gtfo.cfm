@@ -84,7 +84,8 @@
 			<cfabort>
 		</cfif>
 		<cfif isSubNetBlock is true and (len(email) is 0 or len(c) lt 20)>
-		  <p>You are on a blocked subnet. You must supply an email address and a message.</p>
+		  <p>You are on a blocked subnet. You must supply an email address and a message of at least 20 characters.</p>
+		  <cfabort>
 		</cfif>
 		<cfif len(email) gt 0 and len(c) gt 0>
 			<cfmail subject="BlackList Objection" replyto="#email#" to="#Application.bugReportEmail#" from="blacklist@#application.fromEmail#" type="html">
