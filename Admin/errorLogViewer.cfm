@@ -1,4 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
+
+toobookoo<cfabort>
 <cffunction name="indentXml" output="false" returntype="string">
   <cfargument name="xml" type="string" required="true" />
   <cfargument name="indent" type="string" default="  "
@@ -60,15 +62,15 @@
 
 </cfoutput>
 <!----
-<cfoutput>	
+<cfoutput>
 	<cfset x=xmlparse("<logs>" & logtxt & "</logs>")>
 	<cfdump var=#x#>
-	
-	
+
+
 	<br />#logtxt#
-	
-	
-	
+
+
+
 </cfoutput>
 ------>
 <cfinclude template="/includes/_footer.cfm">

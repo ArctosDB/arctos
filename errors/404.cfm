@@ -69,7 +69,8 @@
 					queryformat : 'column'
 				},
 				function (d) {
-		  			document.location='/#request.rdurl#';
+		  			//document.location='/#request.rdurl#';
+		  			console.log('/#request.rdurl#');
 				}
 			);
 		}
@@ -122,7 +123,7 @@
 			Occasionally, a specimen is recataloged. You may be able to find them by using Other Identifiers in Specimen Search.
 		</p>
 	</p>
-	
+
 
 	<cfif isGuid is false>
 		<cfset sub="404">
@@ -135,10 +136,10 @@
 		<cfset sub="stoopid safari">
 		<cfset frm="stoopid.safari">
 	</cfif>
-	
-	
+
+
 	<cf_logError subject="#sub#">
-	
+
 	 <p>A message has been sent to the site administrator.</p>
 	 <p>
 	 	Use the tabs in the header to continue navigating Arctos.

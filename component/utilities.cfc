@@ -107,6 +107,10 @@
 </cffunction>
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
+	<cfif session.roles contains "coldfusion_user">
+       <!---- never blacklist "us" ---->
+       <cfreturn>
+    </cfif>
 	<!-----
 		START: stuff in this block is always checked; this is called at onRequestStart
 		Performance is important here; keep it clean and minimal
