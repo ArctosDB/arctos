@@ -382,30 +382,32 @@
 
 
 
-
-		Filter for duplicates (or almost-duplicates). Default values are from the referring locality.
+Filter for duplicates (or almost-duplicates). Default values in gray cells are from the referring locality. Default match is exact, except some fields are case-insensitive (see below). Manipulate text below to adjust fuzziness.
+<ul>
+	<li>
+		Empty cells match NULL.
+	</li>
+	<li>
+		Enter "ignore" (without the quotes) to IGNORE the term. That is, spec_locality=ignore will match ALL other spec localities; the filter will be only on the remaining terms, and spec_locality will not be considered at all.
+	</li>
+	<li>
+		Some criteria (marked below) are case-insensitive. Contact a DBA if that's a problem.
+	</li>
+	<li>
+		Some criteria (marked "operators OK") will accept wildcard operators. Use with caution.
 		<ul>
-		  <li>Empty cells match NULL.</li>
-		  <li>
-			Enter "ignore" (without the quotes) to IGNORE the term. That is, spec_locality=ignore will match ALL
-             other spec localities; the filter will be only on the remaining terms, and spec_locality will not be considered at all.
-		</li>
-        <li>Some criteria (marked in the table below) are case-insensitive. Contact a DBA if that's a problem.
-
-		</li>
-		<li>
-		  Some criteria will accept wildcard operators. Use with caution.
-		      <ul>
-				<li>
-				 _ (underbar, match any single character)
-				</li>
-				<li>% (percent, match any substring)</li>
-				</ul>
-		</li>
-
+			<li>
+				_ (underbar, match any single character)
+			</li>
+			<li>
+				% (percent, match any substring)
+			</li>
 		</ul>
-		<br>
-		<br>
+	</li>
+</ul>
+<br>
+<br>
+
 		<p>
 			Original values (from locality #locality_id#) are in grayed-out textboxes
 		</p>
@@ -656,7 +658,7 @@
 				explaining what you're trying to do, and make sure you include this SQL.
 			</p>
 
-			<textarea rows="20" cols="120">#preservesinglequotes(sql)# and rownum < 1001</textarea>
+			<textarea rows="20" cols="120">#replace(preservesinglequotes(sql),'and','and' & chr(10),'all')# and rownum < 1001</textarea>
 
 
 			<hr>
