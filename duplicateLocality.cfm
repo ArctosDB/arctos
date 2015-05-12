@@ -258,6 +258,11 @@
 					<cfelse>
 					   Nothing to merge. Find almost-duplicates by manipulating criteria <a href="duplicateLocality.cfm?locality_id=#goodLocID.locality_id#">here</a>
 					</cfif>
+                    <br>
+					<a href="/Locality.cfm?action=findLocality&locality_id=#valuelist(thisLocIDs.locality_id)#">view</a>
+
+
+
 
                             </td>
                             <td>#c#</td>
