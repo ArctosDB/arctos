@@ -258,7 +258,6 @@
 					   Nothing to merge. Find almost-duplicates by manipulating criteria <a href="duplicateLocality.cfm?locality_id=#goodLocID.locality_id#">here</a>
 					</cfif>
 
-                                <input type="checkbox" name="deleteLocalityID" value="alknjlasdbhahs">
                             </td>
                             <td>#c#</td>
                             <td>#GEOG_AUTH_REC_ID#</td>
