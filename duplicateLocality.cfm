@@ -245,20 +245,17 @@
                             <td>
 								<cfif c gt 1>
 
-								<cfdump var=#goodLocID#>
-                                <cfdump var=#badLocID#>
 
-								<a href="dupLocality.cfm?action=delete&returnlocalityid=#locality_id#&returnAction=detectdups&locality_id=#goodLocID.locality_id#&deleteLocalityID=#valuelist(badLocID.locality_id)#">merge these localities</a>
+								<a href="duplicateLocality.cfm?action=delete&returnlocalityid=#locality_id#&returnAction=detectdups&locality_id=#goodLocID.locality_id#&deleteLocalityID=#valuelist(badLocID.locality_id)#">merge these localities</a>
 
 
-								returnlocalityid
 
 
 
 
 
 					<cfelse>
-					   Nothing to merge. Find almost-duplicates by manipulating criteria <a href="dupLocality.cfm?locality_id=#goodLocID.locality_id#">here</a>
+					   Nothing to merge. Find almost-duplicates by manipulating criteria <a href="duplicateLocality.cfm?locality_id=#goodLocID.locality_id#">here</a>
 					</cfif>
 
                                 <input type="checkbox" name="deleteLocalityID" value="alknjlasdbhahs">
