@@ -247,7 +247,7 @@
 								<cfif c gt 1>
 
 
-								<a href="duplicateLocality.cfm?action=delete&returnlocalityid=#locality_id#&returnAction=detectdups&locality_id=#goodLocID.locality_id#&deleteLocalityID=#valuelist(badLocID.locality_id)#">merge these localities</a>
+								<a href="duplicateLocality.cfm?action=delete&returnlocalityid=#locality_id#&returnAction=detectdups&locality_id=#goodLocID.locality_id#&deleteLocalityID=#valuelist(badLocID.locality_id)#">[ merge these localities ]</a>
 
 
 
@@ -256,10 +256,10 @@
 
 
 					<cfelse>
-					   Nothing to merge. Find almost-duplicates by manipulating criteria <a href="duplicateLocality.cfm?locality_id=#goodLocID.locality_id#">here</a>
+					   Nothing to merge, check <a href="duplicateLocality.cfm?locality_id=#goodLocID.locality_id#">[ here ]</a>
 					</cfif>
                     <br>
-					<a href="/Locality.cfm?action=findLocality&locality_id=#valuelist(thisLocIDs.locality_id)#">view</a>
+					<a href="/Locality.cfm?action=findLocality&locality_id=#valuelist(thisLocIDs.locality_id)#">[ view ]</a>
 
 
 
