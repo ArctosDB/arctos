@@ -126,8 +126,8 @@
 						<cfquery name="thisLocIDs" dbtype="query">
 						  select locality_id from orig where
 						   GEOG_AUTH_REC_ID=#GEOG_AUTH_REC_ID# and
-			                SPEC_LOCALITY='##' and
-			                DEC_LATY='##'
+			                SPEC_LOCALITY='#SPEC_LOCALITY#' and
+			                DEC_LAT='#DEC_LAT#'
 			                <!---- and
 			                DEC_LONG,
 			                MINIMUM_ELEVATION,
