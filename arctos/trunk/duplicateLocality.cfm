@@ -379,10 +379,28 @@
 
 
 		Filter for duplicates (or almost-duplicates). Default values are from the referring locality.
-		<br>Empty cells match NULL
-		<br>Enter "ignore" (without the quotes) to IGNORE the term. That is, spec_locality=ignore will match ALL
-		other spec localities; the filter will be only on the remaining terms, and spec_locality will not be considered at all.
+		<ul>
+		  <li>Empty cells match NULL.</li>
+		  <li>
+			Enter "ignore" (without the quotes) to IGNORE the term. That is, spec_locality=ignore will match ALL
+             other spec localities; the filter will be only on the remaining terms, and spec_locality will not be considered at all.
+		</li>
+        <li>Some criteria (marked in the table below) are case-insensitive. Contact a DBA if that's a problem.
 
+		</li>
+		<li>
+		  Some criteria will accept wildcard operators. Use with caution.
+		      <ul>
+				<li>
+				 _ (underbar, match any single character)
+				</li>
+				<li>% (percent, match any substring)</li>
+				</ul>
+		</li>
+
+		</ul>
+		<br>
+		<br>
 		<p>
 			Original values (from locality #locality_id#) are in grayed-out textboxes
 		</p>
@@ -391,9 +409,12 @@
 				<label for="GEOG_AUTH_REC_ID">GEOG_AUTH_REC_ID</label>
 				<input type="text" name="GEOG_AUTH_REC_ID" size="120" value="#GEOG_AUTH_REC_ID#">
 				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.GEOG_AUTH_REC_ID#">
-				<label for="SPEC_LOCALITY">SPEC_LOCALITY</label>
+
+				<label for="SPEC_LOCALITY">SPEC_LOCALITY (case insensitive, operators OK)</label>
 				<input type="text" name="SPEC_LOCALITY" size="120" value="#SPEC_LOCALITY#">
 				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.SPEC_LOCALITY#">
+
+
 				<label for="DEC_LAT">DEC_LAT</label>
 				<input type="text" name="DEC_LAT" size="120" value="#DEC_LAT#">
 				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.DEC_LAT#">
@@ -489,14 +510,14 @@
 
 			<cfif spec_locality is not "ignore">
 				<cfif len(SPEC_LOCALITY) gt 0>
-					<cfset sql=sql & " SPEC_LOCALITY='#escapeQuotes(SPEC_LOCALITY)#' and ">
+					<cfset sql=sql & " upper(SPEC_LOCALITY) like '#ucase(escapeQuotes(SPEC_LOCALITY))#' and ">
 				<cfelse>
 					<cfset sql=sql & " SPEC_LOCALITY is null and ">
 				</cfif>
 			</cfif>
 			<cfif DEC_LAT is not "ignore">
 				<cfif len(DEC_LAT) gt 0>
-					<cfset sql=sql & " DEC_LAT=#DEC_LAT# and ">
+					<cfset sql=sql & " DEC_LAT = #DEC_LAT# and ">
 				<cfelse>
 					<cfset sql=sql & " DEC_LAT is null and ">
 				</cfif>
