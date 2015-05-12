@@ -670,8 +670,10 @@ Filter for duplicates (or almost-duplicates). Default values in gray cells are f
 
 			<br>dsql: #dsql#
 
+            <cfset dsql=replace(sql,chr(9),'TAB','all')>
+            <cfset dsql=replace(sql,chr(10),'LINEFEED','all')>
 
-			<textarea rows="20" cols="120">#dsql# and rownum < 1001</textarea>
+			<textarea rows="20" cols="120">#dsql##chr(10)#and rownum < 1001</textarea>
 
 
 			<hr>
