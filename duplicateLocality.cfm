@@ -664,18 +664,8 @@ change specific locality to "Bonanza C%k%". However, be aware that this will als
 
 
             <cfset dsql=replace(sql,chr(9),'','all')>
-<br>dsql: #dsql#
             <cfset dsql=replace(dsql,'  ',' ','all')>
-
-			<br>dsql: #dsql#
-
-
             <cfset dsql=replace(dsql,'and','and' & chr(10),'all')>
-
-			<br>dsql: #dsql#
-
-            <cfset dsql=replace(sql,chr(9),'TAB','all')>
-            <cfset dsql=replace(sql,chr(10),'LINEFEED','all')>
 
 			<textarea rows="20" cols="120">#dsql##chr(10)#and rownum < 1001</textarea>
 
