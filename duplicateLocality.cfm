@@ -71,6 +71,7 @@
                 GEOREFERENCE_PROTOCOL,
                 LOCALITY_NAME,
                 geologyConcat order by
+				count(*),
 				 GEOG_AUTH_REC_ID,
                 SPEC_LOCALITY,
                 DEC_LAT,
