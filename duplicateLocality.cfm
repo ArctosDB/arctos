@@ -659,7 +659,7 @@ Filter for duplicates (or almost-duplicates). Default values in gray cells are f
 			</p>
 
 
-            <cfset dsql=replace(sql,chr(9),'    ','all')>
+            <cfset dsql=replace(sql,chr(9),'TAB','all')>
 
             <cfset dsql=replace(dsql,'        ','    ','all')>
             <cfset dsql=replace(dsql,'and','and' & chr(10),'all')>
