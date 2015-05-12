@@ -7,8 +7,6 @@
 <cfoutput>
 
 	<cfif action is "detectdups">
-	   ello guvna!
-
 	   <cfquery name="orig" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
             select
                 LOCALITY_ID,
@@ -123,15 +121,27 @@
 
                     </tr>
                     <cfloop query="dist">
-						<cfquery name="thisLocIDs" dbtype="query">
-						  select locality_id from orig where
-						   GEOG_AUTH_REC_ID=#GEOG_AUTH_REC_ID# and
-						   <cfif len(SPEC_LOCALITY) gt 0>
-							 SPEC_LOCALITY='#SPEC_LOCALITY#'
-							<cfelse>
-								SPEC_LOCALITY is null
-							</cfif>
-							and
+
+
+
+
+
+
+
+
+
+                        <tr>
+                            <td>
+								<cfif c gt 0>
+								<cfquery name="thisLocIDs" dbtype="query">
+                          select locality_id from orig where
+                           GEOG_AUTH_REC_ID=#GEOG_AUTH_REC_ID# and
+                           <cfif len(SPEC_LOCALITY) gt 0>
+                             SPEC_LOCALITY='#SPEC_LOCALITY#'
+                            <cfelse>
+                                SPEC_LOCALITY is null
+                            </cfif>
+                            and
                            <cfif len(DEC_LAT) gt 0>
                              DEC_LAT=#DEC_LAT#
                             <cfelse>
@@ -156,7 +166,7 @@
                                 MAXIMUM_ELEVATION is null
                             </cfif>
                             and
-							<cfif len(ORIG_ELEV_UNITS) gt 0>
+                            <cfif len(ORIG_ELEV_UNITS) gt 0>
                              ORIG_ELEV_UNITS='#ORIG_ELEV_UNITS#'
                             <cfelse>
                                 ORIG_ELEV_UNITS is null
@@ -227,12 +237,19 @@
                             <cfelse>
                                 geologyConcat is null
                             </cfif>
-						</cfquery>
+                        </cfquery>
+                        <cfquery name="goodLocID" dbtype="query">
+                          select min(locality_id) as locality_id from thisLocIDs
+                        </cfquery>
 
-                        <tr>
-                            <td>
+                        <cfquery name="badLocID" dbtype="query">
+						  select locality_id from thisLocIDs where locality_id != #goodLocID.locality_id#
+						</cfquery>
+								<cfdump var=#goodLocID#>
+                                <cfdump var=#badLocID#>
+					</cfif>
+
                                 <input type="checkbox" name="deleteLocalityID" value="alknjlasdbhahs">
-								<cfdump var=#thisLocIDs#>
                             </td>
                             <td>#c#</td>
                             <td>#GEOG_AUTH_REC_ID#</td>
