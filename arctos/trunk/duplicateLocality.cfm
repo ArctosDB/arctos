@@ -8,7 +8,111 @@
 
 	<cfif action is "detectdups">
 	   ello guvna!
-	   <cfdump var=#locality_id#>
+
+	   <cfquery name="orig" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+            select
+                LOCALITY_ID,
+                GEOG_AUTH_REC_ID,
+                SPEC_LOCALITY,
+                DEC_LAT,
+                DEC_LONG,
+                MINIMUM_ELEVATION,
+                MAXIMUM_ELEVATION,
+                ORIG_ELEV_UNITS,
+                MIN_DEPTH,
+                MAX_DEPTH,
+                DEPTH_UNITS,
+                MAX_ERROR_DISTANCE,
+                MAX_ERROR_UNITS,
+                DATUM,
+                LOCALITY_REMARKS,
+                GEOREFERENCE_SOURCE,
+                GEOREFERENCE_PROTOCOL,
+                LOCALITY_NAME,
+                concatGeologyAttributeDetail(locality_id) geologyConcat
+            from
+                locality
+            where locality_id in (#locality_id#)
+			order by
+                GEOG_AUTH_REC_ID,
+                SPEC_LOCALITY,
+			    DEC_LAT,
+                DEC_LONG,
+                MINIMUM_ELEVATION,
+                MAXIMUM_ELEVATION,
+                ORIG_ELEV_UNITS,
+                MIN_DEPTH,
+                MAX_DEPTH,
+                DEPTH_UNITS,
+                MAX_ERROR_DISTANCE,
+                MAX_ERROR_UNITS,
+                DATUM,
+                LOCALITY_REMARKS,
+                GEOREFERENCE_SOURCE,
+                GEOREFERENCE_PROTOCOL,
+                LOCALITY_NAME,
+                concatGeologyAttributeDetail(locality_id) geologyConcat
+        </cfquery>
+		<p>
+		Found #orig.recordcount# localities
+		</p>
+	           <table border id="t" class="sortable">
+                    <tr>
+                        <th>merge</th>
+                        <th>LOCALITY_ID</th>
+                        <th>GEOG_AUTH_REC_ID</th>
+                        <th>SPEC_LOCALITY</th>
+                        <th>DEC_LAT</th>
+                        <th>DEC_LONG</th>
+                        <th>MINIMUM_ELEVATION</th>
+                        <th>MAXIMUM_ELEVATION</th>
+                        <th>ORIG_ELEV_UNITS</th>
+                        <th>MIN_DEPTH</th>
+                        <th>MAX_DEPTH</th>
+                        <th>DEPTH_UNITS</th>
+                        <th>MAX_ERROR_DISTANCE</th>
+                        <th>MAX_ERROR_UNITS</th>
+                        <th>DATUM</th>
+                        <th>LOCALITY_REMARKS</th>
+                        <th>GEOREFERENCE_SOURCE</th>
+                        <th>GEOREFERENCE_PROTOCOL</th>
+                        <th>LOCALITY_NAME</th>
+                        <th>geologyConcat</th>
+
+
+
+
+                    </tr>
+                    <cfloop query="orig">
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="deleteLocalityID" value="#LOCALITY_ID#">
+                            </td>
+                            <td>#LOCALITY_ID#</td>
+                            <td>#GEOG_AUTH_REC_ID#</td>
+                            <td>#SPEC_LOCALITY#</td>
+                            <td>#DEC_LAT#</td>
+                            <td>#DEC_LONG#</td>
+                            <td>#MINIMUM_ELEVATION#</td>
+                            <td>#MAXIMUM_ELEVATION#</td>
+                            <td>#ORIG_ELEV_UNITS#</td>
+                            <td>#MIN_DEPTH#</td>
+                            <td>#MAX_DEPTH#</td>
+                            <td>#DEPTH_UNITS#</td>
+                            <td>#MAX_ERROR_DISTANCE#</td>
+                            <td>#MAX_ERROR_UNITS#</td>
+                            <td>#DATUM#</td>
+                            <td>#LOCALITY_REMARKS#</td>
+                            <td>#GEOREFERENCE_SOURCE#</td>
+                            <td>#GEOREFERENCE_PROTOCOL#</td>
+                            <td>#LOCALITY_NAME#</td>
+                            <td>#geologyConcat#</td>
+
+
+                        </tr>
+                    </cfloop>
+                </table>
+
 	</cfif>
 	<cfif action is "nothing">
 		<cfif not isdefined("q_spec_locality")>
