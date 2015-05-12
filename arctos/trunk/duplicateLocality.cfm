@@ -123,6 +123,30 @@
 
                     </tr>
                     <cfloop query="dist">
+						<cfquery name="thisLocIDs" dbtype="query">
+						  select locality_id from orig where
+						   GEOG_AUTH_REC_ID=#GEOG_AUTH_REC_ID# and
+			                SPEC_LOCALITY='##' and
+			                DEC_LATY='##'
+			                <!---- and
+			                DEC_LONG,
+			                MINIMUM_ELEVATION,
+			                MAXIMUM_ELEVATION,
+			                ORIG_ELEV_UNITS,
+			                MIN_DEPTH,
+			                MAX_DEPTH,
+			                DEPTH_UNITS,
+			                MAX_ERROR_DISTANCE,
+			                MAX_ERROR_UNITS,
+			                DATUM,
+			                LOCALITY_REMARKS,
+			                GEOREFERENCE_SOURCE,
+			                GEOREFERENCE_PROTOCOL,
+			                LOCALITY_NAME,
+			                geologyConcat
+			                ---->
+						</cfquery>
+						<cfdump var=#thisLocIDs#>
                         <tr>
                             <td>
                                 <input type="checkbox" name="deleteLocalityID" value="alknjlasdbhahs">
