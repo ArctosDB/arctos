@@ -33,10 +33,12 @@
             from
                 locality
             where locality_id in (#locality_id#)
-			order by
-                GEOG_AUTH_REC_ID,
+        </cfquery>
+		<cfquery name="dist" dbtype="query">
+		  select
+		    GEOG_AUTH_REC_ID,
                 SPEC_LOCALITY,
-			    DEC_LAT,
+                DEC_LAT,
                 DEC_LONG,
                 MINIMUM_ELEVATION,
                 MAXIMUM_ELEVATION,
@@ -51,15 +53,52 @@
                 GEOREFERENCE_SOURCE,
                 GEOREFERENCE_PROTOCOL,
                 LOCALITY_NAME,
-                concatGeologyAttributeDetail(locality_id)
-        </cfquery>
+                geologyConcat,
+				count(*) c from orig group by
+				 GEOG_AUTH_REC_ID,
+                SPEC_LOCALITY,
+                DEC_LAT,
+                DEC_LONG,
+                MINIMUM_ELEVATION,
+                MAXIMUM_ELEVATION,
+                ORIG_ELEV_UNITS,
+                MIN_DEPTH,
+                MAX_DEPTH,
+                DEPTH_UNITS,
+                MAX_ERROR_DISTANCE,
+                MAX_ERROR_UNITS,
+                DATUM,
+                LOCALITY_REMARKS,
+                GEOREFERENCE_SOURCE,
+                GEOREFERENCE_PROTOCOL,
+                LOCALITY_NAME,
+                geologyConcat order by
+				 GEOG_AUTH_REC_ID,
+                SPEC_LOCALITY,
+                DEC_LAT,
+                DEC_LONG,
+                MINIMUM_ELEVATION,
+                MAXIMUM_ELEVATION,
+                ORIG_ELEV_UNITS,
+                MIN_DEPTH,
+                MAX_DEPTH,
+                DEPTH_UNITS,
+                MAX_ERROR_DISTANCE,
+                MAX_ERROR_UNITS,
+                DATUM,
+                LOCALITY_REMARKS,
+                GEOREFERENCE_SOURCE,
+                GEOREFERENCE_PROTOCOL,
+                LOCALITY_NAME,
+                geologyConcat
+		</cfquery>
 		<p>
-		Found #orig.recordcount# localities
+		Found #orig.recordcount# localities, #dist.recordcount# unique
 		</p>
 	           <table border id="t" class="sortable">
                     <tr>
                         <th>merge</th>
-                        <th>LOCALITY_ID</th>
+                        <th>count</th>
                         <th>GEOG_AUTH_REC_ID</th>
                         <th>SPEC_LOCALITY</th>
                         <th>DEC_LAT</th>
@@ -83,12 +122,12 @@
 
 
                     </tr>
-                    <cfloop query="orig">
+                    <cfloop query="dist">
                         <tr>
                             <td>
-                                <input type="checkbox" name="deleteLocalityID" value="#LOCALITY_ID#">
+                                <input type="checkbox" name="deleteLocalityID" value="alknjlasdbhahs">
                             </td>
-                            <td>#LOCALITY_ID#</td>
+                            <td>#c#</td>
                             <td>#GEOG_AUTH_REC_ID#</td>
                             <td>#SPEC_LOCALITY#</td>
                             <td>#DEC_LAT#</td>
