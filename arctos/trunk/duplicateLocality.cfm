@@ -405,6 +405,10 @@ Filter for duplicates (or almost-duplicates). Default values in gray cells are f
 		</ul>
 	</li>
 </ul>
+
+For example, if you came in for specific locality "Bonanza Creek" and you want to also find localities of "Bonanza Ck.",
+change specific locality to "Bonanza C%k%". However, be aware that this will also return "Bonanza Creek, other things out here." To include
+"Some prefix, Bonanza Creek, Something" try "%Bonanza C%k%".
 <br>
 <br>
 
