@@ -137,24 +137,96 @@
                             <cfelse>
                                 DEC_LAT is null
                             </cfif>
-
-			                <!---- and
-			                DEC_LONG,
-			                MINIMUM_ELEVATION,
-			                MAXIMUM_ELEVATION,
-			                ORIG_ELEV_UNITS,
-			                MIN_DEPTH,
-			                MAX_DEPTH,
-			                DEPTH_UNITS,
-			                MAX_ERROR_DISTANCE,
-			                MAX_ERROR_UNITS,
-			                DATUM,
-			                LOCALITY_REMARKS,
-			                GEOREFERENCE_SOURCE,
-			                GEOREFERENCE_PROTOCOL,
-			                LOCALITY_NAME,
-			                geologyConcat
-			                ---->
+                            and
+                           <cfif len(DEC_LONG) gt 0>
+                             DEC_LONG=#DEC_LONG#
+                            <cfelse>
+                                DEC_LONG is null
+                            </cfif>
+                            and
+                           <cfif len(MINIMUM_ELEVATION) gt 0>
+                             MINIMUM_ELEVATION=#MINIMUM_ELEVATION#
+                            <cfelse>
+                                MINIMUM_ELEVATION is null
+                            </cfif>
+                            and
+                           <cfif len(MAXIMUM_ELEVATION) gt 0>
+                             MAXIMUM_ELEVATION=#MAXIMUM_ELEVATION#
+                            <cfelse>
+                                MAXIMUM_ELEVATION is null
+                            </cfif>
+                            and
+							<cfif len(ORIG_ELEV_UNITS) gt 0>
+                             ORIG_ELEV_UNITS='#ORIG_ELEV_UNITS#'
+                            <cfelse>
+                                ORIG_ELEV_UNITS is null
+                            </cfif>
+                            and
+                           <cfif len(MIN_DEPTH) gt 0>
+                             MIN_DEPTH=#MIN_DEPTH#
+                            <cfelse>
+                                MIN_DEPTH is null
+                            </cfif>
+                            and
+                           <cfif len(MAX_DEPTH) gt 0>
+                             MAX_DEPTH=#MAX_DEPTH#
+                            <cfelse>
+                                MAX_DEPTH is null
+                            </cfif>
+                            and
+                            <cfif len(DEPTH_UNITS) gt 0>
+                             DEPTH_UNITS='#DEPTH_UNITS#'
+                            <cfelse>
+                                DEPTH_UNITS is null
+                            </cfif>
+                            and
+                           <cfif len(MAX_ERROR_DISTANCE) gt 0>
+                             MAX_ERROR_DISTANCE=#MAX_ERROR_DISTANCE#
+                            <cfelse>
+                                MAX_ERROR_DISTANCE is null
+                            </cfif>
+                            and
+                            <cfif len(MAX_ERROR_UNITS) gt 0>
+                             MAX_ERROR_UNITS='#MAX_ERROR_UNITS#'
+                            <cfelse>
+                                MAX_ERROR_UNITS is null
+                            </cfif>
+                            and
+                            <cfif len(DATUM) gt 0>
+                             DATUM='#DATUM#'
+                            <cfelse>
+                                DATUM is null
+                            </cfif>
+                            and
+                            <cfif len(LOCALITY_REMARKS) gt 0>
+                             LOCALITY_REMARKS='#LOCALITY_REMARKS#'
+                            <cfelse>
+                                LOCALITY_REMARKS is null
+                            </cfif>
+                            and
+                            <cfif len(GEOREFERENCE_SOURCE) gt 0>
+                             GEOREFERENCE_SOURCE='#GEOREFERENCE_SOURCE#'
+                            <cfelse>
+                                GEOREFERENCE_SOURCE is null
+                            </cfif>
+                            and
+                            <cfif len(GEOREFERENCE_PROTOCOL) gt 0>
+                             GEOREFERENCE_PROTOCOL='#GEOREFERENCE_PROTOCOL#'
+                            <cfelse>
+                                GEOREFERENCE_PROTOCOL is null
+                            </cfif>
+                            and
+                            <cfif len(LOCALITY_NAME) gt 0>
+                             LOCALITY_NAME='#LOCALITY_NAME#'
+                            <cfelse>
+                                LOCALITY_NAME is null
+                            </cfif>
+                            and
+                            <cfif len(geologyConcat) gt 0>
+                             geologyConcat='#geologyConcat#'
+                            <cfelse>
+                                geologyConcat is null
+                            </cfif>
 						</cfquery>
 
                         <tr>
