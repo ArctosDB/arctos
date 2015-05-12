@@ -124,16 +124,7 @@
 
 
 
-
-
-
-
-
-
-                        <tr>
-                            <td>
-								<cfif c gt 1>
-								<cfquery name="thisLocIDs" dbtype="query">
+<cfquery name="thisLocIDs" dbtype="query">
                           select locality_id from orig where
                            GEOG_AUTH_REC_ID=#GEOG_AUTH_REC_ID# and
                            <cfif len(SPEC_LOCALITY) gt 0>
@@ -243,10 +234,31 @@
                         </cfquery>
 
                         <cfquery name="badLocID" dbtype="query">
-						  select locality_id from thisLocIDs where locality_id != #goodLocID.locality_id#
-						</cfquery>
+                          select locality_id from thisLocIDs where locality_id != #goodLocID.locality_id#
+                        </cfquery>
+
+
+
+
+
+                        <tr>
+                            <td>
+								<cfif c gt 1>
+
 								<cfdump var=#goodLocID#>
                                 <cfdump var=#badLocID#>
+
+								<a href="dupLocality.cfm?action=delete&returnlocalityid=#locality_id#&returnAction=detectdups&locality_id=#goodLocID.locality_id#&deleteLocalityID=#valuelist(badLocID.locality_id)#">merge these localities</a>
+
+
+								returnlocalityid
+
+
+
+
+
+					<cfelse>
+					   Nothing to merge. Find almost-duplicates by manipulating criteria <a href="dupLocality.cfm?locality_id=#goodLocID.locality_id#">here</a>
 					</cfif>
 
                                 <input type="checkbox" name="deleteLocalityID" value="alknjlasdbhahs">
@@ -648,6 +660,8 @@
 			<form name="d" method="post" action="duplicateLocality.cfm">
 				<input type="hidden" name="locality_id" value="#locality_id#">
 				<input type="hidden" name="action" value="delete">
+                <input type="hidden" name="returnaction" value="nothing">
+                <input type="hidden" name="returnlocalityid" value="#locality_id#">
 				<input type="submit" value="merge checked localities with this locality">
 				<table border id="t" class="sortable">
 					<tr>
@@ -728,7 +742,12 @@
 				delete from locality where locality_id in (#deleteLocalityID#)
 			</cfquery>
 		</cftransaction>
-		<cflocation url="duplicateLocality.cfm?locality_id=#locality_id#" addtoken="false">
+
+
+
+
+
+		<cflocation url="duplicateLocality.cfm?action=#returnaction#&locality_id=#returnlocalityid#" addtoken="false">
 
 	</cfif>
 </cfoutput>
