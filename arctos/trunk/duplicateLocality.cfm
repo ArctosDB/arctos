@@ -658,7 +658,12 @@ Filter for duplicates (or almost-duplicates). Default values in gray cells are f
 				explaining what you're trying to do, and make sure you include this SQL.
 			</p>
 
-			<textarea rows="20" cols="120">#replace(preservesinglequotes(sql),'and','and' & chr(10),'all')# and rownum < 1001</textarea>
+
+            <cfset dsql=replace(sql,chr(9),'    ','all')>
+
+            <cfset dsql=replace(dsql,'        ','    ','all')>
+            <cfset dsql=replace(dsql,'and','and' & chr(10),'all')>
+			<textarea rows="20" cols="120">#dsql# and rownum < 1001</textarea>
 
 
 			<hr>
