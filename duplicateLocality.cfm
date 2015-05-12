@@ -132,7 +132,7 @@
 
                         <tr>
                             <td>
-								<cfif c gt 0>
+								<cfif c gt 1>
 								<cfquery name="thisLocIDs" dbtype="query">
                           select locality_id from orig where
                            GEOG_AUTH_REC_ID=#GEOG_AUTH_REC_ID# and
