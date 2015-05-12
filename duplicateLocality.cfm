@@ -126,8 +126,18 @@
 						<cfquery name="thisLocIDs" dbtype="query">
 						  select locality_id from orig where
 						   GEOG_AUTH_REC_ID=#GEOG_AUTH_REC_ID# and
-			                SPEC_LOCALITY='#SPEC_LOCALITY#' and
-			                DEC_LAT=#DEC_LAT#
+						   <cfif len(SPEC_LOCALITY) gt 0>
+							 SPEC_LOCALITY='#SPEC_LOCALITY#'
+							<cfelse>
+								SPEC_LOCALITY is null
+							</cfif>
+							and
+                           <cfif len(DEC_LAT) gt 0>
+                             DEC_LAT=#DEC_LAT#
+                            <cfelse>
+                                DEC_LAT is null
+                            </cfif>
+
 			                <!---- and
 			                DEC_LONG,
 			                MINIMUM_ELEVATION,
@@ -146,10 +156,11 @@
 			                geologyConcat
 			                ---->
 						</cfquery>
-						<cfdump var=#thisLocIDs#>
+
                         <tr>
                             <td>
                                 <input type="checkbox" name="deleteLocalityID" value="alknjlasdbhahs">
+								<cfdump var=#thisLocIDs#>
                             </td>
                             <td>#c#</td>
                             <td>#GEOG_AUTH_REC_ID#</td>
