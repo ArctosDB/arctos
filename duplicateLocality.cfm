@@ -659,10 +659,9 @@ Filter for duplicates (or almost-duplicates). Default values in gray cells are f
 			</p>
 
 
-            <cfset dsql=replace(sql,chr(9) & chr(9),chr(9),'all')>
-            <cfset dsql=replace(sql,chr(9),'    ','all')>
+            <cfset dsql=replace(sql,chr(9),'','all')>
 <br>dsql: #dsql#
-            <cfset dsql=replace(dsql,'        ','    ','all')>
+            <cfset dsql=replace(dsql,'  ',' ','all')>
 
 			<br>dsql: #dsql#
 
