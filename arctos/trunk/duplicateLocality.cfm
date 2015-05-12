@@ -5,6 +5,11 @@
 </style>
 <cfset title="Duplicate Locality Merger Widget">
 <cfoutput>
+
+	<cfif action is "detectdups">
+	   ello guvna!
+	   <cfdump var=#locality_id#>
+	</cfif>
 	<cfif action is "nothing">
 		<cfif not isdefined("q_spec_locality")>
 			<cfset q_spec_locality='exact'>

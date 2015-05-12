@@ -1860,6 +1860,7 @@ INSERT INTO geog_auth_rec (
 		1000 record limit on mapping, sorry...
 	</cfif>
 	<br /><strong>Your query found #localityResults.recordcount# localities.</strong>
+	<br><a href="/duplicateLocality.cfm?action=detectdups&locality_id=#valuelist(localityResults.locality_id)#" target="_blank">Find Duplicates in Results</a>
 	<table border id="t" class="sortable">
 		<tr>
 			<th><b>Geog</b></th>

@@ -69,8 +69,8 @@
 					queryformat : 'column'
 				},
 				function (d) {
-		  			//document.location='/#request.rdurl#';
-		  			console.log('/#request.rdurl#');
+		  			document.location='#request.rdurl#';
+		  			//console.log('/#request.rdurl#');
 				}
 			);
 		}
