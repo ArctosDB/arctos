@@ -51,7 +51,7 @@
                 GEOREFERENCE_SOURCE,
                 GEOREFERENCE_PROTOCOL,
                 LOCALITY_NAME,
-                concatGeologyAttributeDetail(locality_id) geologyConcat
+                concatGeologyAttributeDetail(locality_id)
         </cfquery>
 		<p>
 		Found #orig.recordcount# localities
