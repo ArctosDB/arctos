@@ -448,10 +448,10 @@
 				<label for="DATUM">DATUM</label>
 				<input type="text" name="DATUM" size="120" value="#DATUM#">
 				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.DATUM#">
-				<label for="LOCALITY_REMARKS">LOCALITY_REMARKS</label>
+				<label for="LOCALITY_REMARKS">LOCALITY_REMARKS  (case insensitive, operators OK)</label>
 				<input type="text" name="LOCALITY_REMARKS" size="120" value="#LOCALITY_REMARKS#">
 				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.LOCALITY_REMARKS#">
-				<label for="GEOREFERENCE_SOURCE">GEOREFERENCE_SOURCE</label>
+				<label for="GEOREFERENCE_SOURCE">GEOREFERENCE_SOURCE  (case insensitive, operators OK)</label>
 				<input type="text" name="GEOREFERENCE_SOURCE" size="120" value="#GEOREFERENCE_SOURCE#">
 				<br><input readonly="readonly" class="readClr" type="text" size="120" value="#orig.GEOREFERENCE_SOURCE#">
 				<label for="GEOREFERENCE_PROTOCOL">GEOREFERENCE_PROTOCOL</label>
@@ -594,14 +594,14 @@
 			</cfif>
 			<cfif LOCALITY_REMARKS is not "ignore">
 				<cfif len(LOCALITY_REMARKS) gt 0>
-					<cfset sql=sql & " LOCALITY_REMARKS='#escapeQuotes(LOCALITY_REMARKS)#' and ">
+					 <cfset sql=sql & " upper(LOCALITY_REMARKS) like '#ucase(escapeQuotes(LOCALITY_REMARKS))#' and ">
 				<cfelse>
 					<cfset sql=sql & " LOCALITY_REMARKS is null and ">
 				</cfif>
 			</cfif>
 			<cfif GEOREFERENCE_SOURCE is not "ignore">
 				<cfif len(GEOREFERENCE_SOURCE) gt 0>
-					<cfset sql=sql & " GEOREFERENCE_SOURCE='#GEOREFERENCE_SOURCE#' and ">
+                     <cfset sql=sql & " upper(GEOREFERENCE_SOURCE) like '#ucase(escapeQuotes(GEOREFERENCE_SOURCE))#' and ">
 				<cfelse>
 					<cfset sql=sql & " GEOREFERENCE_SOURCE is null and ">
 				</cfif>
