@@ -256,7 +256,7 @@
 
 
 					<cfelse>
-					   Nothing to merge, check <a href="duplicateLocality.cfm?locality_id=#goodLocID.locality_id#">[&nbsp;here&nbsp;]</a>
+					  <a href="duplicateLocality.cfm?locality_id=#goodLocID.locality_id#">[&nbsp;fuzzy&nbsp;filter&nbsp;]</a>
 					</cfif>
                     <br>
 					<a href="/Locality.cfm?action=findLocality&locality_id=#valuelist(thisLocIDs.locality_id)#">[&nbsp;view&nbsp;all&nbsp;]</a>
