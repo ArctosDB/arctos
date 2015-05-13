@@ -665,6 +665,15 @@ grant all on cf_temp_specevent to coldfusion_user;
 	<cfoutput>
 
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+
+
+		<cfset x=CSVToQuery(fileContent)>
+
+
+		<cfdump var=#x#>
+
+
+
 		<cfset fileContent=replace(fileContent,"'","''","all")>
 		<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 		<cfset colNames="">
