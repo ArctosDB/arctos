@@ -668,6 +668,8 @@ grant all on cf_temp_specevent to coldfusion_user;
 		<cfset fileContent=replace(fileContent,"'","''","all")>
 		<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 		<cfset colNames="">
+		<cfset hasPoly=0>
+
 		<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 			<cfset colVals="">
 				<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
@@ -683,6 +685,10 @@ grant all on cf_temp_specevent to coldfusion_user;
 				</cfloop>
 			<cfif #o# is 1>
 				<cfset colNames=replace(colNames,",","","first")>
+				<cfif listfindnocase(colNames,'wkt_polygon')>
+				    <cfset hasPoly=listfindnocase(colNames,'wkt_polygon')>
+				    <p>hasPoly: #hasPoly#</p>
+				</cfif>
 			</cfif>
 
 			wkt_polygon
