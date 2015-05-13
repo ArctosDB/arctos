@@ -935,7 +935,7 @@ function checkCoordinateError(){
 		</select>
 		<br>
         <label for="wkt_polygon" class="likeLink" onClick="getDocs('lat_long','wkt_polygon')">wkt_polygon</label>
-		<textarea class="largetextarea">#locDet.wkt_polygon#</textarea>
+		<textarea name="wkt_polygon" id="wkt_polygon" class="largetextarea">#locDet.wkt_polygon#</textarea>
 
 
 		</fieldset>
