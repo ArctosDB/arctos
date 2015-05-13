@@ -1,5 +1,8 @@
 <cfoutput>
 
+#hash('1234')#
+
+
 
 drop table test;
 
