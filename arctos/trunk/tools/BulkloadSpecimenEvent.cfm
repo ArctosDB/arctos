@@ -577,34 +577,74 @@ grant all on cf_temp_specevent to coldfusion_user;
 		<p>
 			Use the Contact link in the footer to tell us what Tools would be useful here.
 		</p>
-		<form name="d" method="post" action="BulkloadSpecimenEvent.cfm">
-		<input type="hidden" name="action" value="deleteChecked">
-		<table border id="t" class="sortable">
-			<tr>
-				<th>Delete</th>
-				<th>Status</th>
-				<th>GUID</th>
-				<th>UUID</th>
-				<cfloop list="#clist#" index="i">
-					<th>#i#</th>
-				</cfloop>
+
+		<p>
+		  select-to-delete/full-view table WILL eat your browser if you have much data.
+		  <br>Don't click <a href="BulkloadSpecimenEvent.cfm?action=showMyTable">here</a> unless you know what you're doing.
+		</p>
+		<cfquery name="st" dbtype="query">
+		  select status,count(*) c from mine group by status
+		</cfquery>
+		Status Summary
+		  <table border id="t" class="sortable">
+            <tr>
+                <th>Status</th>
+                <th>Count</th>
 			</tr>
-			<cfloop query="mine">
-				<tr>
-					<td><input type="checkbox" name="key" value="#key#"></td>
-					<td>#status#</td>
-					<td>#GUID#</td>
-					<td><a href="BulkloadSpecimenEvent.cfm?action=findUUID&uuid=#uuid#">#UUID#</a></td>
-					<cfloop list="#clist#" index="i">
-						<cfset tval=evaluate("mine." & i)>
-						<td>#tval#</td>
-					</cfloop>
-				</tr>
+
+
+
+            <cfloop query="st">
+                <tr>
+                    <td>#status#</td>
+                    <td>#c#</td>
+                </tr>
 			</cfloop>
 		</table>
-		<br>
-		<input type="submit" value="delete checked records">
-		</form>
+		<p>
+
+		</p>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------------------------>
+<cfif action is "showMyTable">
+    <cfoutput>
+
+
+    <cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+        select * from cf_temp_specevent   where upper(username)='#ucase(session.username)#'
+    </cfquery>
+	   <form name="d" method="post" action="BulkloadSpecimenEvent.cfm">
+        <input type="hidden" name="action" value="deleteChecked">
+        <table border id="t" class="sortable">
+            <tr>
+                <th>Delete</th>
+                <th>Status</th>
+                <th>GUID</th>
+                <th>UUID</th>
+                <cfloop list="#clist#" index="i">
+                    <th>#i#</th>
+                </cfloop>
+            </tr>
+
+
+
+            <cfloop query="mine">
+                <tr>
+                    <td><input type="checkbox" name="key" value="#key#"></td>
+                    <td>#status#</td>
+                    <td>#GUID#</td>
+                    <td><a href="BulkloadSpecimenEvent.cfm?action=findUUID&uuid=#uuid#">#UUID#</a></td>
+                    <cfloop list="#clist#" index="i">
+                        <cfset tval=evaluate("mine." & i)>
+                        <td>#tval#</td>
+                    </cfloop>
+                </tr>
+            </cfloop>
+        </table>
+        <br>
+        <input type="submit" value="delete checked records">
+        </form>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------>
