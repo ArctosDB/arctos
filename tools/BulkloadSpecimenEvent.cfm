@@ -609,11 +609,19 @@ grant all on cf_temp_specevent to coldfusion_user;
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "showMyTable">
     <cfoutput>
-
+      <br>Don't click <a href="BulkloadSpecimenEvent.cfm?action=managemystuff">managemystuff</a>
 
     <cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select * from cf_temp_specevent   where upper(username)='#ucase(session.username)#'
     </cfquery>
+
+	   <cfset clist=mine.columnlist>
+        <cfset clist=listdeleteat(clist,listfind(clist,'STATUS'))>
+        <cfset clist=listdeleteat(clist,listfind(clist,'GUID'))>
+        <cfset clist=listdeleteat(clist,listfind(clist,'UUID'))>
+        <cfset clist=listdeleteat(clist,listfind(clist,'KEY'))>
+
+
 	   <form name="d" method="post" action="BulkloadSpecimenEvent.cfm">
         <input type="hidden" name="action" value="deleteChecked">
         <table border id="t" class="sortable">
