@@ -3,6 +3,8 @@
 drop table cf_temp_specevent;
 
 
+alter table cf_temp_specevent add wkt_polygon clob;
+
 create table cf_temp_specevent (
 	key number not null,
 	status varchar2(255),
@@ -77,7 +79,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 
 
 <cfset title="Bulkload Specimen Events">
-<cfset thecolumns="guid,ASSIGNED_BY_AGENT,ASSIGNED_DATE,SPECIMEN_EVENT_REMARK,SPECIMEN_EVENT_TYPE,COLLECTING_METHOD,COLLECTING_SOURCE,VERIFICATIONSTATUS,HABITAT,COLLECTING_EVENT_ID,COLLECTING_EVENT_NAME,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,LAT_DEG,DEC_LAT_MIN,LAT_MIN,LAT_SEC,LAT_DIR,LONG_DEG,DEC_LONG_MIN,LONG_MIN,LONG_SEC,LONG_DIR,DEC_LAT,DEC_LONG,DATUM,UTM_ZONE,UTM_EW,UTM_NS,ORIG_LAT_LONG_UNITS,LOCALITY_ID,SPEC_LOCALITY,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL,LOCALITY_NAME,GEOG_AUTH_REC_ID,HIGHER_GEOG">
+<cfset thecolumns="guid,ASSIGNED_BY_AGENT,ASSIGNED_DATE,SPECIMEN_EVENT_REMARK,SPECIMEN_EVENT_TYPE,COLLECTING_METHOD,COLLECTING_SOURCE,VERIFICATIONSTATUS,HABITAT,COLLECTING_EVENT_ID,COLLECTING_EVENT_NAME,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,LAT_DEG,DEC_LAT_MIN,LAT_MIN,LAT_SEC,LAT_DIR,LONG_DEG,DEC_LONG_MIN,LONG_MIN,LONG_SEC,LONG_DIR,DEC_LAT,DEC_LONG,DATUM,UTM_ZONE,UTM_EW,UTM_NS,ORIG_LAT_LONG_UNITS,LOCALITY_ID,SPEC_LOCALITY,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL,LOCALITY_NAME,GEOG_AUTH_REC_ID,HIGHER_GEOG,wkt_polygon">
 <cfif action is "makeTemplate">
 	<cfset header=thecolumns>
 	<cffile action = "write"
@@ -380,6 +382,15 @@ grant all on cf_temp_specevent to coldfusion_user;
 			</td>
 			<td></td>
 		</tr>
+
+        <tr>
+            <td>wkt_polygon</td>
+            <td>no
+            </td>
+            <td>Well-known text</td>
+        </tr>
+
+
 	</table>
 
 	Upload CSV:
@@ -670,6 +681,10 @@ grant all on cf_temp_specevent to coldfusion_user;
 			<cfif #o# is 1>
 				<cfset colNames=replace(colNames,",","","first")>
 			</cfif>
+
+			wkt_polygon
+
+
 			<cfif len(#colVals#) gt 1>
 				<cfset colVals=replace(colVals,",","","first")>
 				<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
