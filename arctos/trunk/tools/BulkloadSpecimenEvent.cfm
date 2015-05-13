@@ -582,34 +582,16 @@ grant all on cf_temp_specevent to coldfusion_user;
 		  select-to-delete/full-view table WILL eat your browser if you have much data.
 		  <br>Don't click <a href="BulkloadSpecimenEvent.cfm?action=showMyTable">here</a> unless you know what you're doing.
 		</p>
-		<cfquery name="st" dbtype="query">
-		  select status,count(*) c from mine group by status
-		</cfquery>
-		Status Summary
-		  <table border id="t" class="sortable">
-            <tr>
-                <th>Status</th>
-                <th>Count</th>
-			</tr>
 
 
-
-            <cfloop query="st">
-                <tr>
-                    <td>#status#</td>
-                    <td>#c#</td>
-                </tr>
-			</cfloop>
-		</table>
-		<p>
-
-		</p>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "showMyTable">
+	   <script src="/includes/sorttable.js"></script>
+
     <cfoutput>
-      <br>Don't click <a href="BulkloadSpecimenEvent.cfm?action=managemystuff">managemystuff</a>
+      back to <a href="BulkloadSpecimenEvent.cfm?action=managemystuff">managemystuff</a>
 
     <cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
         select * from cf_temp_specevent   where upper(username)='#ucase(session.username)#'
@@ -754,6 +736,17 @@ grant all on cf_temp_specevent to coldfusion_user;
 		COLLECTING_SOURCE NOT IN (select COLLECTING_SOURCE from CTCOLLECTING_SOURCE) and
 		guid is not null
 	</cfquery>
+
+	<cfquery name="geog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+        update cf_temp_specevent set status='HIGHER_GEOG not found'
+        where upper(username)='#ucase(session.username)#' and
+		COLLECTING_EVENT_ID IS NULL AND
+		LOCALITY_ID IS NULL AND
+		GEOG_AUTH_REC_ID IS NULL AND
+		HIGHER_GEOG NOT IN (select HIGHER_GEOG from GEOG_AUTH_REC)
+    </cfquery>
+
+
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_specevent where upper(username)='#ucase(session.username)#' and
 		status is null and
