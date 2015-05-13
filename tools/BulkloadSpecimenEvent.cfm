@@ -679,6 +679,20 @@ grant all on cf_temp_specevent to coldfusion_user;
 cols: #cols#
 </p>
 
+<cfloop query="x">
+
+<hr>
+
+insert into cf_temp_specevent (#cols#) values (
+    <cfloop list="#cols#" index="i">
+	   #i#,
+	</cfloop>
+
+	<hr>
+
+
+</cfloop>
+
 		<cfset fileContent=replace(fileContent,"'","''","all")>
 		<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 		<cfset colNames="">
