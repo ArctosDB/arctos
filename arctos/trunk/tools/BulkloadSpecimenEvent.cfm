@@ -681,6 +681,7 @@ cols: #cols#
 <cfloop query="x">
 
 <hr>
+                <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 
 insert into cf_temp_specevent (#cols#) values (
     <cfloop list="#cols#" index="i">
@@ -690,9 +691,13 @@ insert into cf_temp_specevent (#cols#) values (
 
 		' #evaluate(i)#'
 		</cfif>
-	  ,
+		<cfif i is not listlast(cols)>
+		 ,
+		</cfif>
+
 	</cfloop>
 )
+</cfquery>
 	<hr>
 
 
