@@ -933,9 +933,7 @@ function checkCoordinateError(){
 					value="#ctgeoreference_protocol.georeference_protocol#">#ctgeoreference_protocol.georeference_protocol#</option>
 			</cfloop>
 		</select>
-		<br>
-        <label for="wkt_polygon" class="likeLink" onClick="getDocs('lat_long','wkt_polygon')">wkt_polygon</label>
-		<textarea name="wkt_polygon" id="wkt_polygon" class="largetextarea">#locDet.wkt_polygon#</textarea>
+
 
 
 		</fieldset>
@@ -1042,6 +1040,18 @@ function checkCoordinateError(){
 	</td></tr></table>
 	</form>
 	</span>
+
+	<br>
+        <form name="editwktp" method="post" action="editLocality.cfm">
+            <input type="hidden" name="action" value="editwktp">
+            <input type="hidden" name="locality_id" value="#locDet.locality_id#">
+
+        <label for="wkt_polygon" class="likeLink" onClick="getDocs('lat_long','wkt_polygon')">wkt_polygon</label>
+        <textarea name="wkt_polygon" id="wkt_polygon" class="largetextarea">#locDet.wkt_polygon#</textarea>
+		<input type="submit" value="save">
+	</form>
+
+
 	<hr>
 	<strong>Geology Attributes</strong>
 	<cfif geolDet.recordcount gt 0>
@@ -1316,11 +1326,6 @@ function checkCoordinateError(){
 	<cfelse>
 		<cfset sql = "#sql#,LOCALITY_REMARKS = null">
 	</cfif>
-    <cfif len(#wkt_polygon#) gt 0>
-        <cfset sql = '#sql#,wkt_polygon = <cfqueryparam value="#wkt_polygon#" cfsqltype="cf_sql_clob">'>
-    <cfelse>
-        <cfset sql = "#sql#,wkt_polygon = null">
-    </cfif>
 
 
 
@@ -1333,6 +1338,25 @@ function checkCoordinateError(){
 	<cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
 	</cfoutput>
 </cfif>
+
+
+
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "editwktp">
+    <cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	   update locality set
+	    <cfif len(wkt_polygon) gt 0>
+       wkt_polygon = <cfqueryparam value="#wkt_polygon#" cfsqltype="cf_sql_clob">
+    <cfelse>
+       wkt_polygon = null
+    </cfif>
+	 where locality_id = #locality_id#
+
+	</cfquery>
+    <cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
+
+</cfif>
+
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "deleteLocality">
 <cfoutput>
