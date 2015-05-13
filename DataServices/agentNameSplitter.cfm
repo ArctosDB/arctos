@@ -15,20 +15,20 @@ create table ds_temp_agent_split (
 	agent_remark varchar2(4000),
 	suggestions varchar2(4000)
 	);
-	
+
 
 create or replace public synonym ds_temp_agent_split for ds_temp_agent_split;
 grant all on ds_temp_agent_split to coldfusion_user;
 grant select on ds_temp_agent_split to public;
 
- CREATE OR REPLACE TRIGGER ds_temp_agent_split_key                                         
+ CREATE OR REPLACE TRIGGER ds_temp_agent_split_key
  before insert  ON ds_temp_agent_split
- for each row 
-    begin     
-    	if :NEW.key is null then                                                                                      
+ for each row
+    begin
+    	if :NEW.key is null then
     		select somerandomsequence.nextval into :new.key from dual;
-    	end if;                                
-    end;                                                                                            
+    	end if;
+    end;
 /
 sho err
 ---->
@@ -57,7 +57,7 @@ sho err
 		<li>Suggestions with more "reasons" are typically stronger; a suggestion with >~4 reasons deserves very close scrutiny</li>
 		<li>Suggestions with few reasons, or no suggestions, are about equally likely to be well-formatted, new, unique names, and horribly mangled garbage.</li>
 		<li>
-			Consider tossing low-quality agents (eg, initials only, first name only, common last name only) into agent "unknown" 
+			Consider tossing low-quality agents (eg, initials only, first name only, common last name only) into agent "unknown"
 			(and perhaps an appropriate remarks field)
 		</li>
 		<li>
@@ -95,7 +95,7 @@ sho err
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(colVals) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfif numColsRec lt numberOfColumns>
@@ -105,7 +105,7 @@ sho err
 				</cfloop>
 			</cfif>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into ds_temp_agent_split (#colNames#) values (#preservesinglequotes(colVals)#)				
+				insert into ds_temp_agent_split (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
 	</cfloop>
@@ -115,12 +115,18 @@ sho err
 <cfif action is "validate">
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_agent_split where preferred_name is not null		
+		select * from ds_temp_agent_split where preferred_name is not null and suggestions is null
 	</cfquery>
 	<cfset obj = CreateObject("component","component.agent")>
 	<cfloop query="d">
+
+		  <br>#preferred_name#<cfflush>
+
 		<cfset splitAgentName = obj.splitAgentName(name="#preferred_name#")>
+
 		<cfset checkAgent = obj.checkAgent(preferred_name="#preferred_name#", agent_type='person')>
+
+
 
 		<cfquery name="d" datasource="uam_god">
 			update ds_temp_agent_split set
@@ -135,11 +141,11 @@ sho err
 				suggestions='#checkAgent#'
 			where key=#key#
 		</cfquery>
-		
+
 	</cfloop>
 			<!-----
-	
-			
+
+
 			other_name_1  varchar2(255),
 	other_name_type_1   varchar2(255),
 	other_name_2  varchar2(255),
@@ -148,9 +154,9 @@ sho err
 	other_name_type_3   varchar2(255),
 	other_name_4  varchar2(255),
 	other_name_type_4   varchar2(255),
-	
-	
-	
+
+
+
 			<cfset temp = queryaddrow(d,1)>
 	<cfset temp = QuerySetCell(d, "name", name, 1)>
 	<cfset temp = QuerySetCell(d, "nametype", nametype, 1)>
@@ -158,9 +164,9 @@ sho err
 	<cfset temp = QuerySetCell(d, "middle", trim(middle), 1)>
 	<cfset temp = QuerySetCell(d, "last", trim(last), 1)>
 	<cfset temp = QuerySetCell(d, "formatted_name", trim(formatted_name), 1)>
-	
-	
-		
+
+
+
 		<cfquery name="d" datasource="uam_god">
 			update ds_temp_agent_split set
 				agent_type='person',
@@ -183,11 +189,11 @@ sho err
 				status='#s#'
 			where key=#key#
 		</cfquery>
-		
-		
-			
+
+
+
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_agent_split where preferred_name is not null		
+		select * from ds_temp_agent_split where preferred_name is not null
 	</cfquery>
 	<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select suffix from ctsuffix
@@ -221,7 +227,7 @@ sho err
 				select agent_id from agent_name where agent_name='#thisName#'
 			</cfquery>
 			<cfif isThere.recordcount is 1>
-				<cfset s=listappend(s,"found #isThere.recordcount# match",";")>	
+				<cfset s=listappend(s,"found #isThere.recordcount# match",";")>
 			<cfelseif isThere.recordcount gt 1>
 				<cfset s=listappend(s,"found #isThere.recordcount# matches-merge or make unique",";")>
 			</cfif>
@@ -245,7 +251,7 @@ sho err
 				<cfset tempName=left(tempName,len(tempName)-1)>
 			</cfif>
 			<cfif listlen(tempName," ") is 1>
-				<cfset s=listappend(s,"will not deal with no-space agents",";")>	
+				<cfset s=listappend(s,"will not deal with no-space agents",";")>
 			<cfelseif listlen(tempName," ") is 2>
 				<cfset firstn=listFirst(tempName," ")>
 				<cfset lastn=listLast(tempName," ")>
@@ -275,7 +281,7 @@ sho err
 			</cfif>
 			<cfif s does not contain "found">
 				<cfquery name="ln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select agent_name from preferred_agent_name,person where 
+					select agent_name from preferred_agent_name,person where
 					person.person_id=preferred_agent_name.agent_id and
 					person.last_name='#lastn#'
 					group by agent_name
@@ -315,16 +321,22 @@ sho err
 			where key=#key#
 		</cfquery>
 	</cfloop>
-	
-	
-	
+
+
+
 	---->
+	all done <a href="agentNameSplitter.cfm?action=showTable">move on</a>
+</cfoutput>
+</cfif>
+<cfif action is "showTable">
+	<cfoutput>
+
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_agent_split			
+		select * from ds_temp_agent_split
 	</cfquery>
 	<!--- little bit of ordering --->
-	
-	
+
+
 	<cfset theCols="preferred_name,other_name_type_1,other_name_1,other_name_type_2,other_name_2,other_name_type_3,other_name_3,other_name_type_4,other_name_4,suggestions">
 	<script src="/includes/sorttable.js"></script>
 	<table border id="t" class="sortable">
@@ -346,8 +358,8 @@ sho err
 	<a href="agentNameSplitter.cfm?action=download">[ download ]</a>
 	<br><a href="agentNameSplitter.cfm?action=delete&s=foundOneMatch">[ delete all "found one match" records ]</a>
 	<br><a href="agentNameSplitter.cfm?action=delete&s=pnap">[ delete all "probably not a person" records ]</a>
-	
-		
+
+
 </cfoutput>
 </cfif>
 <cfif action is "delete">
@@ -356,7 +368,7 @@ sho err
 	<cfelseif s is "pnap">
 		<cfset sql="delete from ds_temp_agent_split where status like '%probably not a person%'">
 	</cfif>
-	
+
 	<cfquery name="delete" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preserveSingleQuotes(sql)#
 	</cfquery>
@@ -364,7 +376,7 @@ sho err
 </cfif>
 <cfif action is "download">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from ds_temp_agent_split			
+		select * from ds_temp_agent_split
 	</cfquery>
 	<cfset theCols=data.columnList>
 	<cfset theCols=listdeleteat(theCols,listFindNoCase(theCols,"key"))>
@@ -372,9 +384,9 @@ sho err
 	<cfset variables.fileName="#Application.webDirectory#/download/splitAgentNames.csv">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(theCols); 
+		variables.joFileWriter.writeLine(theCols);
 	</cfscript>
-	
+
 	<cfloop query="data">
 		<cfset d=''>
 		<cfloop list="#theCols#" index="i">
@@ -382,13 +394,13 @@ sho err
 			<cfset d=listappend(d,t,",")>
 		</cfloop>
 		<cfscript>
-			variables.joFileWriter.writeLine(d); 
+			variables.joFileWriter.writeLine(d);
 		</cfscript>
 	</cfloop>
-	<cfscript>	
+	<cfscript>
 		variables.joFileWriter.close();
 	</cfscript>
 	<cflocation url="/download.cfm?file=splitAgentNames.csv" addtoken="false">
-	<a href="/download/splitAgentNames.csv">Click here if your file does not automatically download.</a>		
+	<a href="/download/splitAgentNames.csv">Click here if your file does not automatically download.</a>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
