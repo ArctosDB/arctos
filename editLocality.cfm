@@ -441,7 +441,8 @@ function checkCoordinateError(){
 			s$dec_lat,
 			s$dec_long,
 			to_meters(locality.minimum_elevation,locality.orig_elev_units) min_elev_in_m,
-			to_meters(locality.maximum_elevation,locality.orig_elev_units) max_elev_in_m
+			to_meters(locality.maximum_elevation,locality.orig_elev_units) max_elev_in_m,
+			wkt_polygon
 		from
 			locality,
 			geog_auth_rec
@@ -933,6 +934,10 @@ function checkCoordinateError(){
 			</cfloop>
 		</select>
 		<br>
+        <label for="wkt_polygon" class="likeLink" onClick="getDocs('lat_long','wkt_polygon')">wkt_polygon</label>
+		<textarea class="largetextarea">#wkt_polygon#</textarea>
+
+
 		</fieldset>
 		<cfquery name="canEdit" dbtype="query">
 			select count(*) c from vstat where verificationstatus like 'verified by%'
