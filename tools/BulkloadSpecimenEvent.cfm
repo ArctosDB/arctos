@@ -4,6 +4,7 @@ drop table cf_temp_specevent;
 
 
 alter table cf_temp_specevent add wkt_polygon clob;
+alter table LOCALITY add wkt_polygon clob;
 
 create table cf_temp_specevent (
 	key number not null,
@@ -1046,6 +1047,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 					            	NVL(DEPTH_UNITS,'NULL') = NVL('#depth_units#','NULL') AND
 					            	NVL(dec_lat,-1) = nvl('#dec_lat#',-1) AND
 					            	NVL(dec_long,-1) = nvl('#dec_long#',-1) AND
+                                    NVL(wkt_polygon,'NULL') = nvl('#wkt_polygon#','NULL') AND
 					            	locality_name IS NULL AND -- because we tested that above and will use it if it exists
 					                locality_id not in (select locality_id from geology_attributes)
 							</cfquery>
@@ -1076,7 +1078,8 @@ grant all on cf_temp_specevent to coldfusion_user;
 										MAX_ERROR_UNITS,
 										DATUM,
 										georeference_source,
-										georeference_protocol
+										georeference_protocol,
+										wkt_polygon
 									)  values (
 										#lid#,
 										#l_geog_auth_rec_id#,
@@ -1122,7 +1125,8 @@ grant all on cf_temp_specevent to coldfusion_user;
 										'#MAX_ERROR_UNITS#',
 										'#DATUM#',
 										'#georeference_source#',
-										'#georeference_protocol#'
+										'#georeference_protocol#',
+										'#wkt_polygon#'
 									)
 								</cfquery>
 								<cfset lcl_locality_id=lid>
