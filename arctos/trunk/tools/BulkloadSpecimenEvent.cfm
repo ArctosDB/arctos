@@ -706,7 +706,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 				insert into cf_temp_specevent (#colNames#) values (#preservesinglequotes(colVals)#)
 
                 <cfset colVals=replace(colVals,"'<cfqueryparam","<cfqueryparam","all")>
-                <cfset colVals=replace(colVals,"cfsqltype="cf_sql_clob">'","cfsqltype="cf_sql_clob">","all")>
+                <cfset colVals=replace(colVals,"cfsqltype=""cf_sql_clob"">'","cfsqltype=""cf_sql_clob"">","all")>
 
 				<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into cf_temp_specevent (#colNames#) values (#preservesinglequotes(colVals)#)
