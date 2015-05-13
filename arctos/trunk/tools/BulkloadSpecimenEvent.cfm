@@ -684,9 +684,15 @@ cols: #cols#
 
 insert into cf_temp_specevent (#cols#) values (
     <cfloop list="#cols#" index="i">
-	   #evaluate(i)#,
-	</cfloop>
+		<cfif i is "wkt_polygon">
+		  <cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
+		 <cfelse>
 
+		' #evaluate(i)#'
+		</cfif>
+	  ,
+	</cfloop>
+)
 	<hr>
 
 
