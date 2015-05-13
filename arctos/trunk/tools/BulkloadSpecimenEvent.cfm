@@ -746,6 +746,18 @@ grant all on cf_temp_specevent to coldfusion_user;
 		GEOG_AUTH_REC_ID IS NULL AND
 		HIGHER_GEOG NOT IN (select HIGHER_GEOG from GEOG_AUTH_REC)
     </cfquery>
+	<cfquery name="coordeps" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+        update cf_temp_specevent set status='datum,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL'
+        where upper(username)='#ucase(session.username)#' and
+       orig_lat_long_units is not null AND
+	   (
+	       datum is null or
+	       GEOREFERENCE_SOURCE is null or
+	       GEOREFERENCE_PROTOCOL is null
+	   )
+    </cfquery>
+
+
 
 
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
