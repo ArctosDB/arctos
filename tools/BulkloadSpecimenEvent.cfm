@@ -666,8 +666,9 @@ grant all on cf_temp_specevent to coldfusion_user;
 
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 
+    <cfset  util = CreateObject("component","component.utilities")>
 
-		<cfset x=CSVToQuery(fileContent)>
+		<cfset x=util.CSVToQuery(fileContent)>
 
 
 		<cfdump var=#x#>
