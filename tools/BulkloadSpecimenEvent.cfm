@@ -753,6 +753,10 @@ zero
 
 				</p>
 
+				<cfset ss="insert into cf_temp_specevent (#colNames#) values (#colVals#)">
+				<p>ss
+				<cfdump var=#ss#>
+</p>
 				<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into cf_temp_specevent (#colNames#) values (#preservesinglequotes(colVals)#)
 				</cfquery>
