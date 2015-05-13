@@ -753,7 +753,7 @@ zero
 
 				</p>
 
-				<cfset ss="insert into cf_temp_specevent (#colNames#) values (#colVals#)">
+				<cfset ss="insert into cf_temp_specevent (#colNames#) values (#preservesinglequotes(colVals)#)">
 				<p>ss
 				<cfdump var=#ss#>
 </p>
