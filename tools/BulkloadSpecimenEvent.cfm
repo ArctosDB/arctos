@@ -673,7 +673,11 @@ grant all on cf_temp_specevent to coldfusion_user;
 
 		<cfdump var=#x#>
 
+<cfset cols=x.columnlist>
 
+<p>
+cols: #cols#
+</p>
 
 		<cfset fileContent=replace(fileContent,"'","''","all")>
 		<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
