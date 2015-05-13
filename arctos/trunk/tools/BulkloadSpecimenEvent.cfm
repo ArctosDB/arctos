@@ -733,6 +733,10 @@ zero
                 <cfset colVals=replace(colVals,"'<cfqueryparam","<cfqueryparam","all")>
                 <cfset colVals=replace(colVals,"cfsqltype=""cf_sql_clob"">'","cfsqltype=""cf_sql_clob"">","all")>
 --->
+
+<p>
+<cfdump var=#colVals#>
+</p>
 				<p>
 
 
