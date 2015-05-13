@@ -671,7 +671,6 @@ grant all on cf_temp_specevent to coldfusion_user;
 		<cfset x=util.CSVToQuery(fileContent)>
 
 
-		<cfdump var=#x#>
 
 <cfset cols=x.columnlist>
 
@@ -685,7 +684,7 @@ cols: #cols#
 
 insert into cf_temp_specevent (#cols#) values (
     <cfloop list="#cols#" index="i">
-	   #i#,
+	   #evaluate(i)#,
 	</cfloop>
 
 	<hr>
