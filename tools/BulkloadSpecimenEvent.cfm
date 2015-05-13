@@ -677,8 +677,8 @@ grant all on cf_temp_specevent to coldfusion_user;
 <p>o: #o#</p>
 <p>i: #i#</p>
 
-<cfif o is haspoly>
-<p>o is haspoly - gonna do something special here now....</p>
+<cfif i is haspoly>
+<p>i is haspoly - gonna do something special here now....</p>
 </cfif>
 
 					<p>thisBit: #thisBit#</p>
