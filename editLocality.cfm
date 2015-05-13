@@ -1316,6 +1316,15 @@ function checkCoordinateError(){
 	<cfelse>
 		<cfset sql = "#sql#,LOCALITY_REMARKS = null">
 	</cfif>
+    <cfif len(#wkt_polygon#) gt 0>
+        <cfset sql = '#sql#,wkt_polygon = <cfqueryparam value="#wkt_polygon#" cfsqltype="cf_sql_clob">'>
+    <cfelse>
+        <cfset sql = "#sql#,wkt_polygon = null">
+    </cfif>
+
+
+
+
 
 	<cfset sql = "#sql# where locality_id = #locality_id#">
 	<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
