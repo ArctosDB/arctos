@@ -1048,7 +1048,7 @@ function checkCoordinateError(){
 
         <label for="wkt_polygon" class="likeLink" onClick="getDocs('lat_long','wkt_polygon')">wkt_polygon</label>
         <textarea name="wkt_polygon" id="wkt_polygon" class="largetextarea">#locDet.wkt_polygon#</textarea>
-		<input type="submit" value="save">
+		<br><input class="savBtn" type="submit" value="save WKT">
 	</form>
 
 
@@ -1326,11 +1326,6 @@ function checkCoordinateError(){
 	<cfelse>
 		<cfset sql = "#sql#,LOCALITY_REMARKS = null">
 	</cfif>
-
-
-
-
-
 	<cfset sql = "#sql# where locality_id = #locality_id#">
 	<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(sql)#
@@ -1343,7 +1338,7 @@ function checkCoordinateError(){
 
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "editwktp">
-    <cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	   update locality set
 	    <cfif len(wkt_polygon) gt 0>
        wkt_polygon = <cfqueryparam value="#wkt_polygon#" cfsqltype="cf_sql_clob">
@@ -1351,10 +1346,8 @@ function checkCoordinateError(){
        wkt_polygon = null
     </cfif>
 	 where locality_id = #locality_id#
-
 	</cfquery>
-    <cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
-
+	<cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
 </cfif>
 
 <!---------------------------------------------------------------------------------------------------->
