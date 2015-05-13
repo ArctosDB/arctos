@@ -689,7 +689,7 @@ insert into cf_temp_specevent (#cols#) values (
 		  <cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
 		 <cfelse>
 
-		' #evaluate(i)#'
+		'#stripQuotes(evaluate(i))#'
 		</cfif>
 		<cfif i is not listlast(cols)>
 		 ,
