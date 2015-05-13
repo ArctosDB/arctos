@@ -686,7 +686,12 @@ grant all on cf_temp_specevent to coldfusion_user;
 					<cfif #o# is 1>
 						<cfset colNames="#colNames#,#thisBit#">
 					<cfelse>
-						<cfset colVals="#colVals#,'#thisBit#'">
+					   <cfif i is  haspoly>
+						  <cfset colVals="#colVals#,#thisBit#">
+						<cfelse>
+                          <cfset colVals="#colVals#,'#thisBit#'">
+
+						</cfif>
 					</cfif>
 				</cfloop>
 			<cfif #o# is 1>
@@ -703,7 +708,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 			<cfif len(#colVals#) gt 1>
 				<cfset colVals=replace(colVals,",","","first")>
 
-
+<!----
     <p>
 
 
@@ -714,7 +719,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 
                 <cfset colVals=replace(colVals,"'<cfqueryparam","<cfqueryparam","all")>
                 <cfset colVals=replace(colVals,"cfsqltype=""cf_sql_clob"">'","cfsqltype=""cf_sql_clob"">","all")>
-
+--->
 				<p>
 
 
