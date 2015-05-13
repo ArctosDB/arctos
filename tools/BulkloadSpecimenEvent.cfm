@@ -673,7 +673,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 				<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
 					<cfset thisBit=arrResult[o][i]>
 
-					thisBit: #thisBit#
+					<p>thisBit: #thisBit#</p>
 					<cfif #o# is 1>
 						<cfset colNames="#colNames#,#thisBit#">
 					<cfelse>
