@@ -663,143 +663,26 @@ grant all on cf_temp_specevent to coldfusion_user;
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "getFileData">
 	<cfoutput>
-
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-
-    <cfset  util = CreateObject("component","component.utilities")>
-
+        <cfset  util = CreateObject("component","component.utilities")>
 		<cfset x=util.CSVToQuery(fileContent)>
-
-
-
-<cfset cols=x.columnlist>
-
-<p>
-cols: #cols#
-</p>
-
-<cfloop query="x">
-
-<hr>
-                <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-
-insert into cf_temp_specevent (#cols#) values (
-    <cfloop list="#cols#" index="i">
-		<cfif i is "wkt_polygon">
-		  <cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
-		 <cfelse>
-
-		'#stripQuotes(evaluate(i))#'
-		</cfif>
-		<cfif i is not listlast(cols)>
-		 ,
-		</cfif>
-
-	</cfloop>
-)
-</cfquery>
-	<hr>
-
-
-</cfloop>
-
-		<cfset fileContent=replace(fileContent,"'","''","all")>
-		<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
-		<cfset colNames="">
-		<cfset hasPoly=0>
-
-		<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
-			<cfset colVals="">
-				<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
-					<cfset thisBit=arrResult[o][i]>
-<p>o: #o#</p>
-<p>i: #i#</p>
-
-<cfif i is haspoly>
-
-doing special stuff....
-	<cfif len(thisBit) gt 0>
-	<cfset thisBit='<cfqueryparam value="#thisBit#" cfsqltype="cf_sql_clob">'>
-big
-	<cfelse>
-zero
-       <cfset thisBit='wtfzero'>
-	</cfif>
-
-
-	<p>
-	   thisbit: #thisbit#
-	</p>
-<p>i is haspoly - gonna do something special here now....</p>
-</cfif>
-
-					<p>thisBit: #thisBit#</p>
-					<cfif #o# is 1>
-						<cfset colNames="#colNames#,#thisBit#">
-					<cfelse>
-					   <cfif i is  haspoly>
-						  <cfset colVals="#colVals#,#thisBit#">
-						<cfelse>
-                          <cfset colVals="#colVals#,'#thisBit#'">
-
-						</cfif>
-					</cfif>
-				</cfloop>
-			<cfif #o# is 1>
-				<cfset colNames=replace(colNames,",","","first")>
-				<cfif listfindnocase(colNames,'wkt_polygon')>
-				    <cfset hasPoly=listfindnocase(colNames,'wkt_polygon')>
-				    <p>hasPoly: #hasPoly#</p>
-				</cfif>
-			</cfif>
-
-			wkt_polygon
-
-
-			<cfif len(#colVals#) gt 1>
-				<cfset colVals=replace(colVals,",","","first")>
-
-<!----
-    <p>
-
-
-                insert into cf_temp_specevent (#colNames#) values (#preservesinglequotes(colVals)#)
-
-
-                </p>
-
-                <cfset colVals=replace(colVals,"'<cfqueryparam","<cfqueryparam","all")>
-                <cfset colVals=replace(colVals,"cfsqltype=""cf_sql_clob"">'","cfsqltype=""cf_sql_clob"">","all")>
---->
-
-<p>
-<cfdump var=#colVals#>
-</p>
-				<p>
-
-
-                insert into cf_temp_specevent (#colNames#) values (#preservesinglequotes(colVals)#)
-
-
-				</p>
-
-				<p>
-
-
-                insert into cf_temp_specevent (#colNames#) values (#colVals#)
-
-
-				</p>
-
-				<cfset ss="insert into cf_temp_specevent (#colNames#) values (#preservesinglequotes(colVals)#)">
-				<p>ss
-				<cfdump var=#ss#>
-</p>
-				<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					#ss#
-				</cfquery>
-			</cfif>
-		</cfloop>
+        <cfset cols=x.columnlist>
+        <cfloop query="x">
+            <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	            insert into cf_temp_specevent (#cols#) values (
+	            <cfloop list="#cols#" index="i">
+	               <cfif i is "wkt_polygon">
+	            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
+	                <cfelse>
+	            		'#stripQuotes(evaluate(i))#'
+	            	</cfif>
+	            	<cfif i is not listlast(cols)>
+	            		,
+	            	</cfif>
+	            </cfloop>
+	            )
+            </cfquery>
+        </cfloop>
 		<cflocation url="BulkloadSpecimenEvent.cfm?action=managemystuff" addtoken="false">
 	</cfoutput>
 </cfif>
