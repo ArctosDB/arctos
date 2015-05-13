@@ -704,6 +704,14 @@ grant all on cf_temp_specevent to coldfusion_user;
 				<cfset colVals=replace(colVals,",","","first")>
 
 
+    <p>
+
+
+                insert into cf_temp_specevent (#colNames#) values (#preservesinglequotes(colVals)#)
+
+
+                </p>
+
                 <cfset colVals=replace(colVals,"'<cfqueryparam","<cfqueryparam","all")>
                 <cfset colVals=replace(colVals,"cfsqltype=""cf_sql_clob"">'","cfsqltype=""cf_sql_clob"">","all")>
 
