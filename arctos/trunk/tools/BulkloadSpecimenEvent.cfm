@@ -89,7 +89,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 <cfif action is  "nothing">
 	Use this form to ADD specimen-events.
 	<p>
-		You may NOT create localities with geology attributes from this form - create them in Arctos, name them, and use locality_name here. 
+		You may NOT create localities with geology attributes from this form - create them in Arctos, name them, and use locality_name here.
 		<a href="/contact.cfm">contact us</a> if you need other functionality.
 	</p>
 	<p>
@@ -295,7 +295,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 			<td>LOCALITY_ID</td>
 			<td>no</td>
 			<td>
-				If given, overrides all locality and geog information. 
+				If given, overrides all locality and geog information.
 				LOCALITY_ID gets precedence over LOCALITY_NAME - but don't provide both or you'll confuse yourself.
 			</td>
 		</tr>
@@ -375,7 +375,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 		</tr>
 		<tr>
 			<td>HIGHER_GEOG</td>
-			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if LOCALITY_ID, LOCALITY_NAME, COLLECTING_EVENT_ID, or COLLECTING_EVENT_NAME is not given. 
+			<td>either GEOG_AUTH_REC_ID or HIGHER_GEOG is required if LOCALITY_ID, LOCALITY_NAME, COLLECTING_EVENT_ID, or COLLECTING_EVENT_NAME is not given.
 			GEOG_AUTH_REC_ID gets precedence over HIGHER_GEOG - but don't provide both or you'll confuse yourself.
 			</td>
 			<td></td>
@@ -437,18 +437,18 @@ grant all on cf_temp_specevent to coldfusion_user;
 		<a href="BulkloadSpecimenEvent.cfm?action=managemystuff">back to my stuff</a>
 		<cfquery name="d" datasource="uam_god">
 			select count(*) c,username from cf_temp_specevent where upper(username) != '#ucase(session.username)#' and upper(username) in (
-			select 
+			select
 				grantee
-			from 
+			from
 				dba_role_privs
-			where 
+			where
 				granted_role in (
-	        		select 
-						c.portal_name 
-					from 
-						dba_role_privs d, 
+	        		select
+						c.portal_name
+					from
+						dba_role_privs d,
 						cf_collection c
-	        		where 
+	        		where
 						d.granted_role = c.portal_name
 	        			and d.grantee = '#ucase(session.username)#'
 				)
@@ -480,7 +480,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 
 <cfif action is "managemystuff">
 	<script src="/includes/sorttable.js"></script>
-	<cfoutput>	
+	<cfoutput>
 		<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_specevent where upper(username)='#ucase(session.username)#'
 		</cfquery>
@@ -514,14 +514,14 @@ grant all on cf_temp_specevent to coldfusion_user;
 			<p>
 				You have manage_collection, so you can "take" records from people in your collection.
 				<br>NOT ALL OF THESE ARE NECESSARILY YOUR SPECIMENS!!
-				<br>Use this with great caution, especially if the originating user has acess to multiple collections. 
+				<br>Use this with great caution, especially if the originating user has acess to multiple collections.
 				You may need to coordinate with other curatorial staff or involve a DBA.
 				<br><a href="BulkloadSpecimenEvent.cfm?action=takeStudentRecords">Check for records entered by people in your collection(s)</a>
 			</p>
-			
+
 		</cfif>
 		<p>
-			
+
 		</p>
 		<p>
 			<a href="BulkloadSpecimenEvent.cfm?action=deleteMine">delete all of your data from the staging table</a>
@@ -544,7 +544,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 			</p>
 		</cfif>
 		<p>
-			Validation only works with NULL status. If you've fixed something, you can 
+			Validation only works with NULL status. If you've fixed something, you can
 			<a href="BulkloadSpecimenEvent.cfm?action=resetStatus">reset non-valid status</a> here
 		</p>
 		<cfquery name="nog" dbtype="query">
@@ -652,7 +652,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "getFileData">
 	<cfoutput>
-		
+
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 		<cfset fileContent=replace(fileContent,"'","''","all")>
 		<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
@@ -695,7 +695,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 	</cfquery>
 	<cfquery name="COLLECTING_SOURCE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_specevent set status='COLLECTING_SOURCE not found'
-		where upper(username)='#ucase(session.username)#' and 
+		where upper(username)='#ucase(session.username)#' and
 		COLLECTING_SOURCE is not null and
 		COLLECTING_SOURCE NOT IN (select COLLECTING_SOURCE from CTCOLLECTING_SOURCE) and
 		guid is not null
@@ -706,7 +706,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 		rownum<=#numberToValidate# and
 		guid is not null
 	</cfquery>
-	
+
 	<cfloop query="data">
 		<cfset s=''>
 		<cfset checkEvent=true>
@@ -715,9 +715,9 @@ grant all on cf_temp_specevent to coldfusion_user;
 		<cfset lcl_collecting_event_id = 0>
 		<cfset lcl_locality_id = 0>
 		<cfset lcl_geog_auth_rec_id = 0>
-		
+
 		<cfset lcl_event_assigned_id = 0>
-		
+
 
 		<cfquery name="getCatItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select nvl(collection_object_id,0) collection_object_id from flat where guid='#guid#'
@@ -809,7 +809,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 			</cfif>
 			<cfif len(ORIG_LAT_LONG_UNITS) gt 0>
 				<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select count(*) c from ctORIG_LAT_LONG_UNITS where ORIG_LAT_LONG_UNITS='#ORIG_LAT_LONG_UNITS#'
+					select count(*) c from CTLAT_LONG_UNITS where ORIG_LAT_LONG_UNITS='#ORIG_LAT_LONG_UNITS#'
 				</cfquery>
 				<cfif dd.c is not 1>
 					<cfset s=listappend(s,'ORIG_LAT_LONG_UNITS is not valid',';')>
@@ -819,12 +819,6 @@ grant all on cf_temp_specevent to coldfusion_user;
 				</cfquery>
 				<cfif dd.c is not 1>
 					<cfset s=listappend(s,'DATUM is not valid',';')>
-				</cfif>
-				<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select count(*) c from ctGEOREFERENCE_SOURCE where GEOREFERENCE_SOURCE='#GEOREFERENCE_SOURCE#'
-				</cfquery>
-				<cfif dd.c is not 1>
-					<cfset s=listappend(s,'GEOREFERENCE_SOURCE is not valid',';')>
 				</cfif>
 				<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 					select count(*) c from ctGEOREFERENCE_PROTOCOL where GEOREFERENCE_PROTOCOL='#GEOREFERENCE_PROTOCOL#'
@@ -893,7 +887,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 			</cfif>
 			<cfif len(MAX_ERROR_UNITS) gt 0>
 				<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-					select count(*) c from ctMAX_ERROR_UNITS where MAX_ERROR_UNITS='#DEPTH_UNITS#'
+					select count(*) c from CTLAT_LONG_ERROR_UNITS  where LAT_LONG_ERROR_UNITS='#MAX_ERROR_UNITS#'
 				</cfquery>
 				<cfif dd.c is not 1>
 					<cfset s=listappend(s,'MAX_ERROR_UNITS is not valid',';')>
@@ -926,9 +920,9 @@ grant all on cf_temp_specevent to coldfusion_user;
 			<cfset s='valid'>
 		</cfif>
 		<cfquery name="dd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update 
-				cf_temp_specevent 
-			set 
+			update
+				cf_temp_specevent
+			set
 				l_collection_object_id=#getCatItem.collection_object_id#,
 				l_collecting_event_id=#lcl_collecting_event_id#,
 				l_locality_id=#lcl_locality_id#,
@@ -937,17 +931,19 @@ grant all on cf_temp_specevent to coldfusion_user;
 				status='#s#' where key=#key#
 		</cfquery>
 	</cfloop>
-	<cflocation url="BulkloadSpecimenEvent.cfm?action=managemystuff" addtoken="false">
+
+
+	did some validating - hit reload or go to <a href="BulkloadSpecimenEvent.cfm?action=managemystuff">managemystuff</a> if you think it's done.
 </cfif>
-<!------------------------------------------------------------------------------------------------>	
+<!------------------------------------------------------------------------------------------------>
 <cfif action is "load">
 	<cfoutput>
 		<p>
-			IMPORTANT!! This application will load as many records as it can before it times out. That number varies wildly depending on 
+			IMPORTANT!! This application will load as many records as it can before it times out. That number varies wildly depending on
 			how much data must be created, heterogeneity of data being created, and maybe sunspot activity.
 		</p>
 		<p>
-			SCROLL TO THE BOTTOM OF THIS PAGE after it stops loading, which will take a couple minutes. If there are timeout errors, hit reload or 
+			SCROLL TO THE BOTTOM OF THIS PAGE after it stops loading, which will take a couple minutes. If there are timeout errors, hit reload or
 			go back to <a href="BulkloadSpecimenEvent.cfm?action=managemystuff">the manage screen</a> and hit load again.
 		</p>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -989,7 +985,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 							</cfif>
 							<cfquery name="eLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								select nvl(min(locality.locality_id),-1) locality_id
-					            FROM 
+					            FROM
 					            	locality
 					            WHERE
 					                geog_auth_rec_id = #l_geog_auth_rec_id# AND
@@ -1038,12 +1034,12 @@ grant all on cf_temp_specevent to coldfusion_user;
 										#lid#,
 										#l_geog_auth_rec_id#,
 										<cfif len(MAXIMUM_ELEVATION) gt 0>
-											MAXIMUM_ELEVATION
+											#MAXIMUM_ELEVATION#
 										<cfelse>
 											NULL
 										</cfif>,
 										<cfif len(MINIMUM_ELEVATION) gt 0>
-											MINIMUM_ELEVATION
+											#MINIMUM_ELEVATION#
 										<cfelse>
 											NULL
 										</cfif>,
@@ -1052,27 +1048,27 @@ grant all on cf_temp_specevent to coldfusion_user;
 										'#LOCALITY_REMARKS#',
 										'#DEPTH_UNITS#',
 										<cfif len(MIN_DEPTH) gt 0>
-											MIN_DEPTH
+											#MIN_DEPTH#
 										<cfelse>
 											NULL
 										</cfif>,
 										<cfif len(MAX_DEPTH) gt 0>
-											MAX_DEPTH
+											#MAX_DEPTH#
 										<cfelse>
 											NULL
 										</cfif>,
 										<cfif len(DEC_LAT) gt 0>
-											DEC_LAT
+											#DEC_LAT#
 										<cfelse>
 											NULL
 										</cfif>,
 										<cfif len(DEC_LONG) gt 0>
-											DEC_LONG
+											#DEC_LONG#
 										<cfelse>
 											NULL
 										</cfif>,
 										<cfif len(MAX_ERROR_DISTANCE) gt 0>
-											MAX_ERROR_DISTANCE
+											#MAX_ERROR_DISTANCE#
 										<cfelse>
 											NULL
 										</cfif>,
@@ -1087,10 +1083,10 @@ grant all on cf_temp_specevent to coldfusion_user;
 						</cfif>
 						<!--- we should have a locality_id here, so see if we have a collecting_event.---->
 						<cfquery name="findEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							select 
+							select
 					    	    nvl(MIN(collecting_event_id),-1) collecting_event_id
 					    	from
-					    	    collecting_event 
+					    	    collecting_event
 					    	where
 					    	    locality_id = #lcl_locality_id# and
 					    	    nvl(verbatim_date,'NULL') = nvl('#verbatim_date#','NULL') and
@@ -1142,70 +1138,70 @@ grant all on cf_temp_specevent to coldfusion_user;
 					    			#lcl_locality_id#,
 					    			'#verbatim_date#',
 					    			'#VERBATIM_LOCALITY#',
-					    			'#began_date#',			
+					    			'#began_date#',
 					    			'#ended_date#',
 					    			'#coll_event_remarks#',
 					    			<cfif len(LAT_DEG) gt 0>
-										LAT_DEG
+										#LAT_DEG#
 									<cfelse>
 										NULL
 									</cfif>,
 					    			<cfif len(DEC_LAT_MIN) gt 0>
-										DEC_LAT_MIN
+										#DEC_LAT_MIN#
 									<cfelse>
 										NULL
 									</cfif>,
 					    			<cfif len(LAT_MIN) gt 0>
-										LAT_MIN
+										#LAT_MIN#
 									<cfelse>
 										NULL
 									</cfif>,
 					    			<cfif len(LAT_SEC) gt 0>
-										LAT_SEC
+										#LAT_SEC#
 									<cfelse>
 										NULL
 									</cfif>,
 					    			'#LAT_DIR#',
 					    			<cfif len(LONG_DEG) gt 0>
-										LONG_DEG
+										#LONG_DEG#
 									<cfelse>
 										NULL
 									</cfif>,
 					    			<cfif len(DEC_LONG_MIN) gt 0>
-										DEC_LONG_MIN
+										#DEC_LONG_MIN#
 									<cfelse>
 										NULL
 									</cfif>,
 					    			<cfif len(LONG_MIN) gt 0>
-										LONG_MIN
+										#LONG_MIN#
 									<cfelse>
 										NULL
 									</cfif>,
 					    			<cfif len(LONG_SEC) gt 0>
-										LONG_SEC
+										#LONG_SEC#
 									<cfelse>
 										NULL
 									</cfif>,
 					    			'#LONG_DIR#',
 					    			<cfif len(DEC_LAT) gt 0>
-										DEC_LAT
+										#DEC_LAT#
 									<cfelse>
 										NULL
 									</cfif>,
 					    			<cfif len(DEC_LONG) gt 0>
-										DEC_LONG
+										#DEC_LONG#
 									<cfelse>
 										NULL
 									</cfif>,
 					    			'#DATUM#',
 					    			'#UTM_ZONE#',
 					    			<cfif len(UTM_EW) gt 0>
-										UTM_EW
+										#UTM_EW#
 									<cfelse>
 										NULL
 									</cfif>,
 					    			<cfif len(UTM_NS) gt 0>
-										UTM_NS
+										#UTM_NS#
 									<cfelse>
 										NULL
 									</cfif>,
@@ -1240,7 +1236,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 				            '#HABITAT#'
 				        )
 					</cfquery>
-					<br>inserted for #l_collection_object_id#
+					<br>inserted for <a href="http://arctos.database.museum/SpecimenDetail.cfm?collection_object_id=#l_collection_object_id#">#l_collection_object_id#</a>
 					<cfquery name="gotit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						delete from cf_temp_specevent where key=#key#
 					</cfquery>

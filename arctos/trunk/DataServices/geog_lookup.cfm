@@ -305,7 +305,7 @@ from geog_auth_rec where rownum<10
 			<cfset thisState=replace(thisState,'De',"")>
 			<cfset thisState=replace(thisState,'District',"")>
 			<cfset thisState=replace(thisState,'Governorate',"")>
-			
+
 
 			<cfset thisState=rereplace(thisState,'\(.*\)','')>
 
@@ -376,6 +376,7 @@ from geog_auth_rec where rownum<10
 			<cfset thisCounty=replace(thiscounty,' PROV','','all')>
 			<cfset thisCounty=replace(thiscounty,' DIST','','all')>
 			<cfset thisCounty=replace(thiscounty,' TERR','','all')>
+            <cfset thisCounty=replace(thiscounty,' Borough','','all')>
 		</cfif>
 		<div class="rawdata">
 			RawData==#CONTINENT_OCEAN#:#SEA#:#COUNTRY#:#STATE_PROV#:#COUNTY#:#QUAD#:#FEATURE#:#ISLAND#:#ISLAND_GROUP#
@@ -430,7 +431,7 @@ from geog_auth_rec where rownum<10
 				island is null and
 			</cfif>
 			<cfif len(thisCounty) gt 0>
-				upper(trim(replace(replace(replace(replace(replace(county,'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+				upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
 			<cfelse>
 				county is null
 			</cfif>
@@ -482,7 +483,7 @@ from geog_auth_rec where rownum<10
 					island is null and
 				</cfif>
 				<cfif len(thisCounty) gt 0>
-					upper(trim(replace(replace(replace(replace(replace(county,'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+					upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
 				<cfelse>
 					county is null
 				</cfif>
@@ -530,7 +531,7 @@ from geog_auth_rec where rownum<10
 					island is null and
 				</cfif>
 				<cfif len(thisCounty) gt 0>
-					upper(trim(replace(replace(replace(replace(replace(county,'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+					upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
 				<cfelse>
 					county is null
 				</cfif>
@@ -545,38 +546,48 @@ from geog_auth_rec where rownum<10
 
 		<cfif n eq 1>
 			<cfset thisMethod="componentMatch_noCountry">
+			<cfset gotsomething=false><!---- make sure we don't just return kinda everything --->
 			<cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select HIGHER_GEOG from geog_auth_rec where
 				<cfif len(thisState) gt 0>
+					<cfset gotsomething=true>
 					upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
 					= '#ucase(thisState)#' and
 				<cfelse>
 					state_prov is null and
 				</cfif>
 				<cfif len(thisQuad) gt 0>
+                    <cfset gotsomething=true>
 					upper(quad) = '#ucase(thisQuad)#' and
 				<cfelse>
 					quad is null and
 				</cfif>
 				<cfif len(thisFeature) gt 0>
+                    <cfset gotsomething=true>
 					upper(feature) = '#ucase(thisFeature)#' and
 				<cfelse>
 					feature is null and
 				</cfif>
 				<cfif len(thisIslandGroup) gt 0>
+                    <cfset gotsomething=true>
 					upper(trim(replace(island_group,'Island'))) = '#ucase(thisIslandGroup)#' and
 				<cfelse>
 					 island_group is null and
 				</cfif>
 				<cfif len(thisIsland) gt 0>
+                    <cfset gotsomething=true>
 					upper(trim(replace(island,'Island'))) = '#ucase(thisIsland)#' and
 				<cfelse>
 					island is null and
 				</cfif>
 				<cfif len(thisCounty) gt 0>
-					upper(trim(replace(replace(replace(replace(replace(county,'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+                    <cfset gotsomething=true>
+					upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
 				<cfelse>
 					county is null
+				</cfif>
+				<cfif gotsomething is false>
+				    and 1=2
 				</cfif>
 			</cfquery>
 			<cfloop query="componentMatch">
@@ -602,6 +613,64 @@ from geog_auth_rec where rownum<10
 				<cfset n=n+1>
 			</cfloop>
 		</cfif>
+		<cfif n eq 1 and len(thisCountry) gt 0 and len(thisState) gt 0 and len(thisCounty) gt 0>
+            <cfset thisMethod="componentMatch_CountryStateCounty">
+            <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+                select HIGHER_GEOG from geog_auth_rec where
+                   upper(trim(Country)) = '#ucase(thisCountry)#' and
+                   upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
+                = '#ucase(thisState)#' and
+                upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory'))) = '#ucase(thisCounty)#'
+            </cfquery>
+            <cfloop query="componentMatch">
+                <cfset QueryAddRow(result, 1)>
+                <cfset QuerySetCell(result, "method", thisMethod,n)>
+                <cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
+                <cfset n=n+1>
+            </cfloop>
+        </cfif>
+		<!---- try country:state ---->
+		<cfif n eq 1 and len(thisCountry) gt 0 and len(thisState) gt 0 and len(thisCounty) is 0>
+            <cfset thisMethod="componentMatch_CountryState_NoCounty">
+            <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+                select HIGHER_GEOG from geog_auth_rec where
+                   upper(trim(Country)) = '#ucase(thisCountry)#' and
+				   upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
+                = '#ucase(thisState)#' and
+				county is null
+            </cfquery>
+            <cfloop query="componentMatch">
+                <cfset QueryAddRow(result, 1)>
+                <cfset QuerySetCell(result, "method", thisMethod,n)>
+                <cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
+                <cfset n=n+1>
+            </cfloop>
+        </cfif>
+		<!---- now try unranked junk ---->
+		<cfif n eq 1>
+            <cfset thisMethod="componentMatch_NoRankSubstringMatch">
+			 <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+                select HIGHER_GEOG from geog_auth_rec where 1=1
+				   <cfif len(thisCountry) gt 0>
+					  and upper(trim(Country)) like '%#ucase(thisCountry)#%'
+					</cfif>
+					<cfif len(thisState) gt 0>
+                        and upper(trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(state_prov,'Prov.'),'Community'),'Island'),'kray'),'Ward'),'Territory'),'autonomous oblast'),'okrug'),'Republic of'),'Oblast'),'Parish'),'Municipality'),'Pref.'),'City'),'Depto.')))
+						like '%#ucase(thisState)#%'
+                    </cfif>
+                    <cfif len(thisCounty) gt 0>
+					   and upper(trim(replace(replace(replace(replace(replace(replace(county,'Borough'), 'County'), 'Province'),'Parish'),'District'), 'Territory')))
+					       like '%#ucase(thisCounty)#%'
+                     </cfif>
+            </cfquery>
+            <cfloop query="componentMatch">
+                <cfset QueryAddRow(result, 1)>
+                <cfset QuerySetCell(result, "method", thisMethod,n)>
+                <cfset QuerySetCell(result, "higher_geog", higher_geog,n)>
+                <cfset n=n+1>
+            </cfloop>
+        </cfif>
+
 		<cfif result.recordcount is 1>
 			<cfquery name="upr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update
