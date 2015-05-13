@@ -1126,7 +1126,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 										'#DATUM#',
 										'#georeference_source#',
 										'#georeference_protocol#',
-										'#wkt_polygon#'
+										 <cfqueryparam value="#wkt_polygon#" cfsqltype="cf_sql_clob">
 									)
 								</cfquery>
 								<cfset lcl_locality_id=lid>
