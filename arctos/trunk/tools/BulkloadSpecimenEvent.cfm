@@ -678,7 +678,13 @@ grant all on cf_temp_specevent to coldfusion_user;
 <p>i: #i#</p>
 
 <cfif i is haspoly>
+	<cfif len(thisBit) gt 0>
 	<cfset thisBit='<cfqueryparam value="#thisBit#" cfsqltype="cf_sql_clob">'>
+
+	<cfelse>
+
+       <cfset thisBit='wtfzero'>
+	</cfif>
 <p>i is haspoly - gonna do something special here now....</p>
 </cfif>
 
