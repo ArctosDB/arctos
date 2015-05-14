@@ -268,7 +268,7 @@ function AddPoints(data){
 
 
 
-]
+
 
 		// END add wkt if available
 
