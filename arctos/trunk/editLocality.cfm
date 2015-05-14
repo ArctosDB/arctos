@@ -219,15 +219,20 @@ while( results = regex.exec(wkt) ) {
 }
 
 
-console.log('rings');
+console.log('Rings');
 
-console.log(rings);
+console.log(Rings);
 
 
 var ptsArray=[];
 
 
 var polyLen=Rings.length;
+
+
+console.log('Rings.length');
+
+console.log(Rings.length);
 
 //now we need to draw the polygon for each of inner rings, but reversed
 for(var i=0;i<polyLen;i++){
