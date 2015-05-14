@@ -198,111 +198,46 @@ function checkCoordinateError(){
 
 
 		// add wkt if available
-
-
-
-
-
-		var wkt=$("#wkt_polygon").val(); //this is your WKT string
-
-
-console.log(wkt);
-
-//using regex, we will get the indivudal Rings
-var regex = /\(([^()]+)\)/g;
-var Rings = [];
-
-
-var results;
-while( results = regex.exec(wkt) ) {
-	console.log('results[1]');
-	console.log(results[1]);
-
-
-    Rings.push( results[1] );
-}
-
-
-console.log('Rings');
-
-console.log(Rings);
-
-
-var ptsArray=[];
-
-
-var polyLen=Rings.length;
-
-
-console.log('Rings.length');
-
-console.log(Rings.length);
-
-//now we need to draw the polygon for each of inner rings, but reversed
-for(var i=0;i<polyLen;i++){
-    AddPoints(Rings[i]);
-}
-
-var poly = new google.maps.Polygon({
-    paths: ptsArray,
-    strokeColor: '#DC143C',
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: '#FF7F50',
-    fillOpacity: 0.35
-  });
-
-  poly.setMap(map);
-
-
-
-
-
-//function to add points from individual rings
-function AddPoints(data){
-    //first spilt the string into individual points
-    var pointsData=data.split(",");
-
-console.log('pointsData');
-console.log(pointsData);
-    //iterate over each points data and create a latlong
-    //& add it to the cords array
-    var len=pointsData.length;
-    for (var i=0;i<len;i++)
-    {
-         var xy=pointsData[i].trim().split(" ");
-
-
-console.log('xy');
-console.log(xy);
-
-
-console.log('xy[1]');
-console.log(xy[1]);
-
-
-console.log('xy[0]');
-console.log(xy[0]);
-
-        var pt=new google.maps.LatLng(xy[1],xy[0]);
-        ptsArray.push(pt);
-    }
-
-
-}
-
-
-
-console.log('ptsArray');
-
-
-console.log(ptsArray);
-
-
-
+        var wkt=$("#wkt_polygon").val(); //this is your WKT string
+        if (wkt.length>0){
+			//using regex, we will get the indivudal Rings
+			var regex = /\(([^()]+)\)/g;
+			var Rings = [];
+			var results;
+			while( results = regex.exec(wkt) ) {
+			    Rings.push( results[1] );
+			}
+			var ptsArray=[];
+			var polyLen=Rings.length;
+			//now we need to draw the polygon for each of inner rings, but reversed
+			for(var i=0;i<polyLen;i++){
+			    AddPoints(Rings[i]);
+			}
+			var poly = new google.maps.Polygon({
+			    paths: ptsArray,
+			    strokeColor: '#DC143C',
+			    strokeOpacity: 0.8,
+			    strokeWeight: 2,
+			    fillColor: '#FF7F50',
+			    fillOpacity: 0.35
+			  });
+			  poly.setMap(map);
+        }
+		//function to add points from individual rings, used in adding WKT to the map
+		function AddPoints(data){
+		    //first spilt the string into individual points
+		    var pointsData=data.split(",");
+		    //iterate over each points data and create a latlong
+		    //& add it to the cords array
+		    var len=pointsData.length;
+		    for (var i=0;i<len;i++)
+		    {
+		        var xy=pointsData[i].trim().split(" ");
+		        var pt=new google.maps.LatLng(xy[1],xy[0]);
+		        ptsArray.push(pt);
+		    }
+		}
 		// END add wkt if available
-
-
 		// end map setup
 
 		$("select[id^='geology_attribute_']").each(function(e){
