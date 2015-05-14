@@ -215,7 +215,11 @@ var Rings = [];
 
 var results;
 while( results = regex.exec(wkt) ) {
-    Rings.push( results[i] );
+	console.log('results[1]');
+	console.log(results[1]);
+
+
+    Rings.push( results[1] );
 }
 
 
