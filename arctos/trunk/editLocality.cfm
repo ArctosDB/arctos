@@ -245,10 +245,10 @@ for(var i=0;i<polyLen;i++){
 
 var poly = new google.maps.Polygon({
     paths: ptsArray,
-    strokeColor: '#1E90FF',
+    strokeColor: '#DC143C',
     strokeOpacity: 0.8,
     strokeWeight: 2,
-    fillColor: '#1E90FF',
+    fillColor: '#FF7F50',
     fillOpacity: 0.35
   });
 
