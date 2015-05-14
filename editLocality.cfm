@@ -1080,7 +1080,9 @@ function checkCoordinateError(){
 		<br>Tags:
 			<span style="font-weight:bold;">#locDet.s$geography#</span>
 		<div id="map-canvas"></div>
-		<img src="http://maps.google.com/mapfiles/ms/micons/red-dot.png"> is service-suggested, <img src="http://maps.google.com/mapfiles/ms/micons/green-dot.png"> is curatorially-asserted.
+		<img src="http://maps.google.com/mapfiles/ms/micons/red-dot.png"> is service-suggested,
+		<img src="http://maps.google.com/mapfiles/ms/micons/green-dot.png"> is curatorially-asserted,
+		<span style="border:1px solid ##DC143C;color=##FF7F50;">&nbsp;</span> is WKT.
 	</td></tr></table>
 	</form>
 	</span>
