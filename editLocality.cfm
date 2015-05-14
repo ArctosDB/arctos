@@ -227,6 +227,8 @@ var ptsArray=[];
 console.log('ptsArray');
 
 
+console.log(ptsArray);
+
 var polyLen=Rings.length;
 
 //now we need to draw the polygon for each of inner rings, but reversed
