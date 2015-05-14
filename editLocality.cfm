@@ -209,7 +209,7 @@ function checkCoordinateError(){
 console.log(wkt);
 
 //using regex, we will get the indivudal Rings
-//var regex = /\(([^()]+)\)/g;
+var regex = /\(([^()]+)\)/g;
 var Rings = [];
 
 
