@@ -276,6 +276,14 @@ console.log(pointsData);
 console.log('xy');
 console.log(xy);
 
+
+console.log('xy[1]');
+console.log(xy[1]);
+
+
+console.log('xy[0]');
+console.log(xy[0]);
+
         var pt=new google.maps.LatLng(xy[1],xy[0]);
         ptsArray.push(pt);
     }
