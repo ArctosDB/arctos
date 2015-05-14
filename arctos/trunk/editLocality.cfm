@@ -255,18 +255,26 @@ var poly = new google.maps.Polygon({
   poly.setMap(map);
 
 
+
+
+
 //function to add points from individual rings
 function AddPoints(data){
     //first spilt the string into individual points
     var pointsData=data.split(",");
 
-
+console.log('pointsData');
+console.log(pointsData);
     //iterate over each points data and create a latlong
     //& add it to the cords array
     var len=pointsData.length;
     for (var i=0;i<len;i++)
     {
          var xy=pointsData[i].split(" ");
+
+
+console.log('xy');
+console.log(xy);
 
         var pt=new google.maps.LatLng(xy[1],xy[0]);
         ptsArray.push(pt);
