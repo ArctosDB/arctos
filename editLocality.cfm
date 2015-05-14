@@ -205,15 +205,27 @@ function checkCoordinateError(){
 
 		var wkt=$("#wkt_polygon").val(); //this is your WKT string
 
+
+console.log(wkt);
+
 //using regex, we will get the indivudal Rings
 var regex = /\(([^()]+)\)/g;
 var Rings = [];
+
+
+console.log('rings');
+
+
 var results;
 while( results = regex.exec(wkt) ) {
     Rings.push( results[1] );
 }
 
 var ptsArray=[];
+
+
+console.log('ptsArray');
+
 
 var polyLen=Rings.length;
 
