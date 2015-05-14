@@ -270,7 +270,7 @@ console.log(pointsData);
     var len=pointsData.length;
     for (var i=0;i<len;i++)
     {
-         var xy=pointsData[i].split(" ");
+         var xy=pointsData[i].trim().split(" ");
 
 
 console.log('xy');
