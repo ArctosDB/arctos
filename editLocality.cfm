@@ -1082,7 +1082,7 @@ function checkCoordinateError(){
 		<div id="map-canvas"></div>
 		<img src="http://maps.google.com/mapfiles/ms/micons/red-dot.png"> is service-suggested,
 		<img src="http://maps.google.com/mapfiles/ms/micons/green-dot.png"> is curatorially-asserted,
-		<span style="border:1px solid ##DC143C;background-color:##FF7F50;">&nbsp;&nbsp;&nbsp;</span> is WKT.
+		<span style="border:3px solid ##DC143C;background-color:##FF7F50;">&nbsp;&nbsp;&nbsp;</span> is WKT.
 	</td></tr></table>
 	</form>
 	</span>
