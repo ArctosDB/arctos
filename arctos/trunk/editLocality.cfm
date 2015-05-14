@@ -213,21 +213,19 @@ var regex = /\(([^()]+)\)/g;
 var Rings = [];
 
 
-console.log('rings');
-
-
 var results;
 while( results = regex.exec(wkt) ) {
     Rings.push( results[1] );
 }
 
+
+console.log('rings');
+
+console.log(rings);
+
+
 var ptsArray=[];
 
-
-console.log('ptsArray');
-
-
-console.log(ptsArray);
 
 var polyLen=Rings.length;
 
@@ -269,6 +267,11 @@ function AddPoints(data){
 }
 
 
+
+console.log('ptsArray');
+
+
+console.log(ptsArray);
 
 
 
