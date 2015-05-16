@@ -208,7 +208,6 @@
 		where
 			sysdate-INSERT_DATE<#expiresIn#
 	</cfquery>
-	<cfdump var=#sn#>
 	<p>
 		IMPORTANT NOTE: IPs for blocked subnets are NOT included here. <a href="blacklist.cfm?action=subnet">manage blocked subnets</a>
 	</p>
