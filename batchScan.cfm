@@ -148,7 +148,7 @@ jQuery(document).ready(function() {
 					</th>
 				</tr>
 				<cfloop from="1" to="#listlen(bclist)#" INDEX="I">
-					<cfset thisBarcode=listgetat(bclist,i)>
+					<cfset thisBarcode=trim(listgetat(bclist,i))>
 					<cfif len(thisBarcode) gt 0>
 						<cfset isDup=true>
 						<cfif not listfind(barcodescanlist,thisBarcode)>
