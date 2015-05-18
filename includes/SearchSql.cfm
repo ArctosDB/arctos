@@ -917,7 +917,12 @@
 	<cfif basJoin does not contain " identification ">
 		<cfset basJoin = " #basJoin# INNER JOIN identification ON (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 AND upper(identification.identification_remarks) like '%#ucase(identification_remarks)#%'">
+	<cfif isdefined("scientific_name_scope") and scientific_name_scope is "allID">
+		<cfset mapurl = "#mapurl#&identification_remarks=#identification_remarks#">
+	<cfelse>
+	 	<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
+	</cfif>
+	<cfset basQual = " #basQual#  AND upper(identification.identification_remarks) like '%#ucase(identification_remarks)#%'">
 </cfif>
 
 <cfif isdefined("taxa_formula") AND len(taxa_formula) gt 0>

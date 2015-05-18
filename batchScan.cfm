@@ -188,6 +188,11 @@ jQuery(document).ready(function() {
 							</td>
 						</tr>
 						<cfset pf=listappend(pf,"p")>
+						<hr>
+						<br>thisBarcode: |#thisBarcode#|
+						<br>parent_barcode: |#parent_barcode#|
+						<br>new_child_c_type: |#new_child_c_type#|
+						<br>new_parent_c_type: |#new_parent_c_type#|
 						<cfstoredproc
 							datasource="user_login"
 							username="#session.dbuser#"
