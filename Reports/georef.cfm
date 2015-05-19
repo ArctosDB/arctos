@@ -475,7 +475,7 @@ than those collections which employ more general geography or more verbatim spec
 		calc_elev_fits,
 		decode(number_of_georeferences,0,0,round(calc_elev_fits/number_of_georeferences,2)*100) pct_elev_fits,
 		gref_with_calc_georeference,
-		decode(number_of_georeferences,0,0,round(number_of_georeferences/gref_with_calc_georeference,2)*100) pct_gr_w_c_err
+		decode(number_of_georeferences,0,0,round(gref_with_calc_georeference/number_of_georeferences,2)*100) pct_gr_w_c_err
 	from
 		colln_coords_summary
 </cfquery>
