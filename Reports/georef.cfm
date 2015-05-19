@@ -228,18 +228,58 @@ of which may be georeferenced.</li>
 <cfset thisRow=1>
 
 <cfset queryAddRow(tke,1)>
-<cfset QuerySetCell(tke, "ord", "1", thisRow)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 <cfset QuerySetCell(tke, "col", "guid_prefix", thisRow)>
 <cfset QuerySetCell(tke, "hdr", "Collection", thisRow)>
 <cfset QuerySetCell(tke, "expn", "Collection", thisRow)>
 <cfset thisRow=thisRow+1>
 
 <cfset queryAddRow(tke,1)>
-<cfset QuerySetCell(tke, "ord", "2", thisRow)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 <cfset QuerySetCell(tke, "col", "number_of_specimens", thisRow)>
 <cfset QuerySetCell(tke, "hdr", "##Specimen", thisRow)>
-<cfset QuerySetCell(tke, "expn", "Number of specimens held by the collection", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Number of specimens held by the collection.", thisRow)>
 <cfset thisRow=thisRow+1>
+
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "number_of_georeferences", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "##Georef", thisRow)>
+<cfset QuerySetCell(tke, "expn", ">Number of georeferences among the collection's specimens.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+
+<!----
+	<th class="rotate"></th>
+		<th class="rotate">##Specimen</th>
+		<th class="rotate">##</th>
+		<th class="rotate">##GeorefPerSpecimen</th>
+		<th class="rotate">##SpecimensWithGeoref</th>
+		<th class="rotate">##GeorefWithErr</th>
+		<th class="rotate">##GeorefWithElev</th>
+		<th class="rotate">##Err<1</th>
+		<th class="rotate">##Err<10</th>
+		<th class="rotate">##Err>10</th>
+		<th class="rotate">##ElevWithin</th>
+	</tr>
+	<cfloop query="cs">
+		<tr>
+			<td>##</td>
+			<td>#number_of_specimens#</td>
+			<td>##</td>
+			<td>#georeferences_per_specimen#</td>
+			<td>#specimens_with_georeference#</td>
+			<td>#georeferences_with_error#</td>
+			<td>#georeferences_with_elevation#</td>
+			<td>#calc_error_lt_1#</td>
+			<td>#calc_error_lt_10#</td>
+			<td>#calc_error_gt_10#</td>
+			<td>#calc_elev_fits#</td>
+		</tr>
+
+
+
 
 <cfquery name="meta" dbtype="query">
 	select * from tke order by ord
@@ -262,11 +302,15 @@ of which may be georeferenced.</li>
 
 
 
-
+---->
 
 
 <cfquery name="cs" datasource="uam_god" >
-	select * from colln_coords_summary
+	select
+		guid_prefix,
+		number_of_specimens,
+		number_of_georeferences
+	from colln_coords_summary
 </cfquery>
 
 
@@ -346,7 +390,7 @@ Column Keys
 	</tr>
 	<tr>
 		<td>##Georef</td>
-		<td>Number of georeferences among the collection's specimens.</td>
+		<td</td>
 	</tr>
 	<tr>
 		<td>##GeorefPerSpecimen</td>
