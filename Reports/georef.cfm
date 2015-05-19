@@ -114,10 +114,14 @@ We employ Google's services to obtain independent spatial and descriptive data. 
 	</tr>
 	<cfloop query="#collns#">
 		<cfquery name="geoDet" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select sum(numUsingSpecimens) numgeorefs from
+			select nvl(sum(numUsingSpecimens),0) numgeorefs from
 			colln_coords where guid_prefix='#guid_prefix#'
 		</cfquery>
-		<cfset percentgeorefed=geoDet.numgeorefs/specimencount>
+		<cfif len() gt 0 and geoDet.numgeorefs gt 0>
+			<cfset percentgeorefed=geoDet.numgeorefs/specimencount>
+		<cfelse>
+			<cfset percentgeorefed=0>
+		</cfif>
 		<tr>
 			<td>#guid_prefix#</td>
 			<td>#specimencount#</td>
