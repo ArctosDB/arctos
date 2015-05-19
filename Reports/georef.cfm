@@ -104,7 +104,7 @@ group by
 	<cfloop query="#collns#">
 		<cfquery name="geoDet" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select sum(numUsingSpecimens) numgeorefs from
-			colln_coords where guid_prefix=#guid_prefix#
+			colln_coords where guid_prefix='#guid_prefix#'
 		</cfquery>
 		<tr>
 			<td>#guid_prefix#</td>
