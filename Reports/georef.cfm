@@ -74,7 +74,7 @@ group by
 ;
 
 
-
+create index ix_colln_coords_guid_prefix on colln_coords(guid_prefix) tablespace uam_idx_1;
 
 
 ---->
@@ -82,7 +82,7 @@ group by
 
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
-
+<cfset title="Arctos Georeference Summary">
 
 IMPORTANT JUNK
 <ul>
@@ -127,27 +127,33 @@ of which may be georeferenced.</li>
 		<th>##Spec</th>
 		<th>##HasGeoref</th>
 		<th>Georef/Specm</th>
+		<th>##NoError</th>
 	</tr>
 	<cfloop query="#collns#">
 		<cfquery name="thiscoln" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select * from colln_coords where guid_prefix='#guid_prefix#'
 		</cfquery>
 
-		<cfquery name="geoDet" dbtype="query">
-			select sum(numUsingSpecimens) as numgeorefs from thiscoln
-		</cfquery>
-		<cfif len(geoDet.numgeorefs) is 0>
-			<cfset ngr=0>
-		<cfelse>
-			<cfset ngr=geoDet.numgeorefs>
-		</cfif>
-		<cfset grps=ngr/specimencount>
+
 
 		<tr>
 			<td>#guid_prefix#</td>
 			<td>#specimencount#</td>
 			<td>#geoDet.numgeorefs#</td>
+			<cfquery name="geoDet" dbtype="query">
+				select sum(numUsingSpecimens) as numgeorefs from thiscoln
+			</cfquery>
+			<cfif len(geoDet.numgeorefs) is 0>
+				<cfset ngr=0>
+			<cfelse>
+				<cfset ngr=geoDet.numgeorefs>
+			</cfif>
+			<cfset grps=ngr/specimencount>
 			<td>#grps#</td>
+			<cfquery name="noerr" dbtype="query">
+				select count(*) c from thiscoln where err_m=0 or len(err_m) is 0
+			</cfquery>
+			<td>#noerr.c#</td>
 		</tr>
 	</cfloop>
 </table>
