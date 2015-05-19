@@ -129,14 +129,19 @@ begin
 		select count(*) into gwv from colln_coords where min_elev_m is not null and guid_prefix=r.guid_prefix;
 
 		select count(*) into el1 from colln_coords where
-			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)<1 and guid_prefix=r.guid_prefix;
+			s_err_km is not null and
+			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)<1 and
+			guid_prefix=r.guid_prefix;
 
 		select count(*) into el10 from colln_coords where
-			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)>=1 and
-			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)<10 and guid_prefix=r.guid_prefix;
+			s_err_km is not null and
+			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long) between 1 and 10 and
+			guid_prefix=r.guid_prefix;
 
 		select count(*) into eg10 from colln_coords where
-			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)>10 and guid_prefix=r.guid_prefix;
+			s_err_km is not null and
+			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)>10 and
+			guid_prefix=r.guid_prefix;
 
 		select count(*) into evg from colln_coords where guid_prefix=r.guid_prefix and
 			s_elev_m between min_elev_m and max_elev_m;
