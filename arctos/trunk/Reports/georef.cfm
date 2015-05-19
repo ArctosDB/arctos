@@ -280,11 +280,6 @@ of which may be georeferenced.</li>
 
 
 
-
-<cfquery name="meta" dbtype="query">
-	select * from tke order by ord
-</cfquery>
-
 <table border>
 	<tr>
 		<th>Column</th>
@@ -303,6 +298,11 @@ of which may be georeferenced.</li>
 
 
 ---->
+
+
+<cfquery name="meta" dbtype="query">
+	select * from tke order by ord
+</cfquery>
 
 
 <cfquery name="cs" datasource="uam_god" >
