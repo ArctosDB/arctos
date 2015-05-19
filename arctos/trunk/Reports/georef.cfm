@@ -269,7 +269,7 @@ of which may be georeferenced.</li>
 
 <cfset queryAddRow(tke,1)>
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
-<cfset QuerySetCell(tke, "col", "percent_specimens_georeferenced", thisRow)>
+<cfset QuerySetCell(tke, "col", "pct_spec_geod", thisRow)>
 <cfset QuerySetCell(tke, "hdr", "%SpecGeorefd", thisRow)>
 <cfset QuerySetCell(tke, "expn", "Percentage of specimens with at least one georeference.", thisRow)>
 <cfset thisRow=thisRow+1>
@@ -356,7 +356,7 @@ of which may be georeferenced.</li>
 		number_of_georeferences,
 		round(number_of_georeferences/number_of_specimens,2) georeferences_per_specimen,
 		specimens_with_georeference,
-		round(number_of_specimens/specimens_with_georeference,2) percent_specimens_georeferenced,
+		round(number_of_specimens/specimens_with_georeference,2) pct_spec_geod,
 		georeferences_with_error,
 		georeferences_with_elevation,
 		calc_error_lt_1,
