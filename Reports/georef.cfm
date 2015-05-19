@@ -109,7 +109,7 @@ group by
 		<tr>
 			<td>#guid_prefix#</td>
 			<td>#specimencount#</td>
-			<td>#numgeorefs#</td>
+			<td>#geoDet.numgeorefs#</td>
 		</tr>
 	</cfloop>
 </table>
