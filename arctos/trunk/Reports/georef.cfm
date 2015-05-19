@@ -253,6 +253,7 @@ of which may be georeferenced.</li>
 	<cfloop query="meta">
 		<tr>
 			<td>#hdr#</td>
+			<td>#expn#</td>
 		</tr>
 	</cfloop>
 
