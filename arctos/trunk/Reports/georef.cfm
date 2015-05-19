@@ -81,7 +81,17 @@ group by
 
 
 <cfinclude template="/includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 
+
+IMPORTANT JUNK
+
+This is a cached report and overview. It's not necessarily current or correct. Contact a DBA for an update.
+
+Understanding http://arctosdb.org/documentation/places/specimen-event/ is important. Any specimen may have any number of localities, any
+of which may be georeferenced.
+
+We employ Google's services to obtain independent spatial and descriptive data. GIGO applies.
 
 <cfquery name="collns" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select
@@ -95,21 +105,24 @@ group by
 	group by guid_prefix order by guid_prefix
 </cfquery>
 <cfoutput>
-<table border>
+<table border id="t" class="sortable">
 	<tr>
 		<th>Colln</th>
 		<th>##Spec</th>
 		<th>##HasGeoref</th>
+		<th>%Georef</th>
 	</tr>
 	<cfloop query="#collns#">
 		<cfquery name="geoDet" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select sum(numUsingSpecimens) numgeorefs from
 			colln_coords where guid_prefix='#guid_prefix#'
 		</cfquery>
+		<cfset percentgeorefed=geoDet.numgeorefs/specimencount>
 		<tr>
 			<td>#guid_prefix#</td>
 			<td>#specimencount#</td>
 			<td>#geoDet.numgeorefs#</td>
+			<td>#percentgeorefed#</td>
 		</tr>
 	</cfloop>
 </table>
