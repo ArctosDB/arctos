@@ -84,7 +84,6 @@ create table colln_coords_summary (
 	guid_prefix varchar2(255),
 	number_of_specimens number,
 	number_of_georeferences number,
-	georeferences_per_specimen number,
 	specimens_with_georeference number,
 	georeferences_with_error number,
 	georeferences_with_elevation number,
@@ -98,7 +97,6 @@ create table colln_coords_summary (
 declare
 	ns number;
 	ng number;
-	gps number;
 	gwe number;
 	swg number;
 	gwv number;
@@ -116,7 +114,6 @@ begin
 
 		select count(*) into ng from colln_coords where dec_lat is not null and guid_prefix=r.guid_prefix;
 
-		gps:=ng/ns;
 
 		select count(*) into gwe from colln_coords where err_m is not null and guid_prefix=r.guid_prefix;
 
@@ -144,7 +141,6 @@ begin
 			guid_prefix,
 			number_of_specimens,
 			number_of_georeferences,
-			georeferences_per_specimen,
 			specimens_with_georeference,
 			georeferences_with_error,
 			georeferences_with_elevation,
@@ -156,7 +152,6 @@ begin
 			r.guid_prefix,
 			ns,
 			ng,
-			round(gps,2),
 			swg,
 			gwe,
 			gwv,
@@ -227,6 +222,75 @@ of which may be georeferenced.</li>
 <li>We employ Google's services to obtain independent spatial and descriptive data. GIGO applies.</li>
 </ul>
 <cfoutput>
+
+
+<cfset tke=queryNew("ord","col","hdr","expn")>
+<cfset thisRow=1>
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", "1", thisRow)>
+<cfset QuerySetCell(tke, "col", "guid_prefix", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "Collection", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Collection", thisRow)>
+<cfset thisRow=thisRow+1>
+
+<cfquery name="meta" dbtype="query">
+	select * from tke order by ord
+</cfquery>
+
+<table border>
+	<cfloop query="meta">
+		<tr>
+
+			<th>#hdr#</th>
+	</tr>
+	</cfloop>
+
+
+</table>
+
+
+
+<hr>
+
+
+
+	<th class="rotate"></th>
+		<th class="rotate">##Specimen</th>
+		<th class="rotate">##Georef</th>
+		<th class="rotate">##GeorefPerSpecimen</th>
+		<th class="rotate">##SpecimensWithGeoref</th>
+		<th class="rotate">##GeorefWithErr</th>
+		<th class="rotate">##GeorefWithElev</th>
+		<th class="rotate">##Err<1</th>
+		<th class="rotate">##Err<10</th>
+		<th class="rotate">##Err>10</th>
+		<th class="rotate">##ElevWithin</th>
+	</tr>
+	<cfloop query="cs">
+		<tr>
+			<td>##</td>
+			<td>#number_of_specimens#</td>
+			<td>#number_of_georeferences#</td>
+			<td>#georeferences_per_specimen#</td>
+			<td>#specimens_with_georeference#</td>
+			<td>#georeferences_with_error#</td>
+			<td>#georeferences_with_elevation#</td>
+			<td>#calc_error_lt_1#</td>
+			<td>#calc_error_lt_10#</td>
+			<td>#calc_error_gt_10#</td>
+			<td>#calc_elev_fits#</td>
+		</tr>
+
+
+
+	<cfset result = querynew("CONTAINER_ID,MSG")>
+			<cfset temp = queryaddrow(result,1)>
+			<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
+			<cfset temp = QuerySetCell(result, "msg", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
+			<cfreturn result>
+
+
 Column Keys
 <table border>
 	<tr>
