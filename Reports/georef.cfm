@@ -539,25 +539,43 @@ than those collections which employ more general geography or more verbatim spec
 </cfquery>
 <h3>Summary Data</h3>
 <p>Click headers to sort. Mouseover headers to view explanation.</p>
+<cfset dl_cname="">
+<cfset dl_clongname="">
+<cfset dl_data="">
 <table border id="t" class="sortable">
 	<tr>
 		<cfloop query="meta">
 			<th title="#expn#">#hdr#</th>
+			<cfset dl_cname=listappend(dl_cname,col)>
+			<cfset dl_clongname=listappend(dl_clongname,col)>
 		</cfloop>
 	</tr>
 	<cfloop query="cs">
 		<tr title="#guid_prefix#">
 			<cfloop query="meta">
 				<td>#evaluate("cs." & col)#</td>
+
+				<cfset dl_data=listappend(dl_data,evaluate("cs." & col))>
 			</cfloop>
+
 		</tr>
 	</cfloop>
 </table>
 
+<cfset util = CreateObject("component","component.utilities")>
+<cfset x=util.QueryToCSV2(query="cs")>
+
+
+<cfdump var=#x#>
 
 
 <!-----
 
+
+	<cfargument name="Query" type="query" required="true" hint="I am the query being converted to CSV."/>
+		<cfargument name="Fields" type="string" required="true" hint="I am the list of query fields to be used when creating the CSV value."/>
+	 	<cfargument name="CreateHeaderRow" type="boolean" required="false" default="true" hint="I flag whether or not to create a row of header values."/>
+	 	<cfargument name="Delimiter" type="string" required="false" default="," hint="I am the field delimiter in the CSV value."/>
 
 <cfquery name="collns" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select
