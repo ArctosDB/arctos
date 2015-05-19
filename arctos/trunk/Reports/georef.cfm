@@ -312,34 +312,14 @@ of which may be georeferenced.</li>
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 <cfset QuerySetCell(tke, "col", "calc_elev_fits", thisRow)>
 <cfset QuerySetCell(tke, "hdr", "##ElevWithin", thisRow)>
-<cfset QuerySetCell(tke, "expn", "Number of georeferences in which the calculated elevation (from various webservice queries) falls within the user-
-		specified elevation range.", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Number of georeferences in which the calculated elevation (from various webservice queries) falls within the user-specified elevation range.", thisRow)>
 <cfset thisRow=thisRow+1>
 
-<!----
-		<th class="rotate">##</th>
-		<th class="rotate">##</th>
-		<th class="rotate">##</th>
-		<th class="rotate">##</th>
-		<th class="rotate">##</th>
-		<th class="rotate">##Err<10</th>
-		<th class="rotate">##Err>10</th>
-		<th class="rotate">##</th>
-	</tr>
-	<cfloop query="cs">
-		<tr>
-			<td>##</td>
-			<td>#number_of_specimens#</td>
-			<td>##</td>
-			<td>##</td>
-			<td>##</td>
-			<td>##</td>
-			<td>##</td>
-			<td>##</td>
-			<td>#calc_error_lt_10#</td>
-			<td>##</td>
-			<td>##</td>
-		</tr>
+
+
+<cfquery name="meta" dbtype="query">
+	select * from tke order by ord
+</cfquery>
 
 
 
@@ -354,18 +334,7 @@ of which may be georeferenced.</li>
 			<td>#expn#</td>
 		</tr>
 	</cfloop>
-
-
 </table>
-
-
-
----->
-
-
-<cfquery name="meta" dbtype="query">
-	select * from tke order by ord
-</cfquery>
 
 
 <cfquery name="cs" datasource="uam_god" >
@@ -385,14 +354,11 @@ of which may be georeferenced.</li>
 		colln_coords_summary
 </cfquery>
 
-
-
 <table border id="t" class="sortable">
 	<tr>
 			<cfloop query="meta">
 				<th>#hdr#</th>
 			</cfloop>
-
 	</tr>
 	<cfloop query="cs">
 		<tr>
