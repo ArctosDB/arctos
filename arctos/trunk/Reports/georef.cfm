@@ -128,7 +128,7 @@ of which may be georeferenced.</li>
 			<td>#guid_prefix#</td>
 			<td>#specimencount#</td>
 			<td>#geoDet.numgeorefs#</td>
-			<td>#numberformat(grps,"99.99")#</td>
+			<td>#grps#</td>
 		</tr>
 	</cfloop>
 </table>
