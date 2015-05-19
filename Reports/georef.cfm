@@ -306,6 +306,13 @@ of which may be georeferenced.</li>
 <cfset QuerySetCell(tke, "expn", "Number of georeferences including a curatorial assertion of elevation.", thisRow)>
 <cfset thisRow=thisRow+1>
 
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "pct_geo_w_elev", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "%GeorefWithElev", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Percentage of georeferences containing an assertion of elevation.", thisRow)>
+<cfset thisRow=thisRow+1>
+
 
 <cfset queryAddRow(tke,1)>
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
@@ -372,6 +379,7 @@ of which may be georeferenced.</li>
 		georeferences_with_error,
 		round(georeferences_with_error/number_of_georeferences,2)*100 pct_geo_w_err,
 		georeferences_with_elevation,
+		round(georeferences_with_elevation/number_of_georeferences,2)*100 pct_geo_w_elev,
 		calc_error_lt_1,
 		calc_error_lt_10,
 		calc_error_gt_10,
