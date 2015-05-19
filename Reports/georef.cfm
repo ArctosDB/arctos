@@ -274,7 +274,7 @@ of which may be georeferenced.</li>
 <table border id="t" class="sortable">
 	<tr>
 			<cfloop query="meta">
-				<th>#Column#</th>
+				<th>#hdr#</th>
 			</cfloop>
 
 	</tr>
