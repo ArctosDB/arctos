@@ -538,6 +538,7 @@ than those collections which employ more general geography or more verbatim spec
 		colln_coords_summary
 </cfquery>
 <h3>Summary Data</h3>
+<p>Click headers to sort. Mouseover headers to view explanation.</p>
 <table border id="t" class="sortable">
 	<tr>
 		<cfloop query="meta">
