@@ -564,10 +564,36 @@ than those collections which employ more general geography or more verbatim spec
 
 <cfset util = CreateObject("component","component.utilities")>
 <cfset x=util.QueryToCSV2(query=cs,fields=cs.columnlist)>
+<cffile action = "write"
+	    file = "#Application.webDirectory#/download/georef_stats.csv"
+    	output = "#x#"
+    	addNewLine = "no">
+<a href="/download.cfm?file=georef_stats.csv">get georeference data as CSV</a>
+
+<cfset x=util.QueryToCSV2(query=meta,fields=meta.columnlist)>
+<cffile action = "write"
+	    file = "#Application.webDirectory#/download/georef_meta.csv"
+    	output = "#x#"
+    	addNewLine = "no">
+<a href="/download.cfm?file=georef_meta.csv">get column data as CSV</a>
 
 
 <cfdump var=#x#>
 
+<cfif action is "getCSV">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from ds_temp_agent
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset fldlst=mine.columnlist>
+	<cfset fldlst=listdeleteat(fldlst,listfindnocase(fldlst,'key'))>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=fldlst)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/checked_agents.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=checked_agents.csv" addtoken="false">
+</cfif>
 
 <!-----
 
