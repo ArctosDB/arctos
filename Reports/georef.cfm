@@ -269,6 +269,18 @@ of which may be georeferenced.</li>
 
 <cfset queryAddRow(tke,1)>
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "percent_specimens_georeferenced", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "%SpecGeorefd", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Percentage of specimens with at least one georeference.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+
+
+
+
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 <cfset QuerySetCell(tke, "col", "georeferences_with_error", thisRow)>
 <cfset QuerySetCell(tke, "hdr", "##GeorefWithErr", thisRow)>
 <cfset QuerySetCell(tke, "expn", "Number of georeferences containing an assertion of error. 0 (zero) is considerered legacy data synonymous with NULL, not infinitely precise.", thisRow)>
@@ -344,6 +356,7 @@ of which may be georeferenced.</li>
 		number_of_georeferences,
 		round(number_of_georeferences/number_of_specimens,2) georeferences_per_specimen,
 		specimens_with_georeference,
+		round(number_of_specimens/specimens_with_georeference,2) percent_specimens_georeferenced,
 		georeferences_with_error,
 		georeferences_with_elevation,
 		calc_error_lt_1,
@@ -356,9 +369,9 @@ of which may be georeferenced.</li>
 
 <table border id="t" class="sortable">
 	<tr>
-			<cfloop query="meta">
-				<th>#hdr#</th>
-			</cfloop>
+		<cfloop query="meta">
+			<th>#hdr#</th>
+		</cfloop>
 	</tr>
 	<cfloop query="cs">
 		<tr>
@@ -370,160 +383,6 @@ of which may be georeferenced.</li>
 </table>
 
 
-
-
-
-<hr>
-
-
-<!----
-	<th class="rotate"></th>
-		<th class="rotate">##Specimen</th>
-		<th class="rotate">##Georef</th>
-		<th class="rotate">##GeorefPerSpecimen</th>
-		<th class="rotate">##SpecimensWithGeoref</th>
-		<th class="rotate">##GeorefWithErr</th>
-		<th class="rotate">##GeorefWithElev</th>
-		<th class="rotate">##Err<1</th>
-		<th class="rotate">##Err<10</th>
-		<th class="rotate">##Err>10</th>
-		<th class="rotate">##ElevWithin</th>
-	</tr>
-	<cfloop query="cs">
-		<tr>
-			<td>##</td>
-			<td>#number_of_specimens#</td>
-			<td>#number_of_georeferences#</td>
-			<td>#georeferences_per_specimen#</td>
-			<td>#specimens_with_georeference#</td>
-			<td>#georeferences_with_error#</td>
-			<td>#georeferences_with_elevation#</td>
-			<td>#calc_error_lt_1#</td>
-			<td>#calc_error_lt_10#</td>
-			<td>#calc_error_gt_10#</td>
-			<td>#calc_elev_fits#</td>
-		</tr>
-
-
-	<cfset result = querynew("CONTAINER_ID,MSG")>
-			<cfset temp = queryaddrow(result,1)>
-			<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
-			<cfset temp = QuerySetCell(result, "msg", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
-			<cfreturn result>
-
----->
-Column Keys
-<table border>
-	<tr>
-		<th>Name</th>
-		<th>Explanation</th>
-	</tr>
-	<tr>
-		<td>Collection</td>
-		<td>Collection</td>
-	</tr>
-	<tr>
-		<td>##Specimen</td>
-		<td>Number of specimens held by the collection</td>
-	</tr>
-	<tr>
-		<td>##Georef</td>
-		<td</td>
-	</tr>
-	<tr>
-		<td>##GeorefPerSpecimen</td>
-		<td></td>
-	</tr>
-
-
-
-	<tr>
-		<td>##SpecimensWithGeoref</td>
-		<td></td>
-	</tr>
-
-	<tr>
-		<td>##GeorefWithErr</td>
-		<td>"</td>
-	</tr>
-	<tr>
-		<td>##GeorefWithElev</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>##Err<1</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>##Err<10</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>##Err>10</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>##ElevWithin</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td></td>
-	</tr>
-</table>
-<ul>
-
-</ul>
-
-
-<cfquery name="cs" datasource="uam_god" >
-	select * from colln_coords_summary
-</cfquery>
-<table border id="t" class="sortable">
-	<tr>
-		<th class="rotate">Collection</th>
-		<th class="rotate">##Specimen</th>
-		<th class="rotate">##Georef</th>
-		<th class="rotate">##GeorefPerSpecimen</th>
-		<th class="rotate">##SpecimensWithGeoref</th>
-		<th class="rotate">##GeorefWithErr</th>
-		<th class="rotate">##GeorefWithElev</th>
-		<th class="rotate">##Err<1</th>
-		<th class="rotate">##Err<10</th>
-		<th class="rotate">##Err>10</th>
-		<th class="rotate">##ElevWithin</th>
-	</tr>
-	<cfloop query="cs">
-		<tr>
-			<td>#guid_prefix#</td>
-			<td>#number_of_specimens#</td>
-			<td>#number_of_georeferences#</td>
-			<td>#georeferences_per_specimen#</td>
-			<td>#specimens_with_georeference#</td>
-			<td>#georeferences_with_error#</td>
-			<td>#georeferences_with_elevation#</td>
-			<td>#calc_error_lt_1#</td>
-			<td>#calc_error_lt_10#</td>
-			<td>#calc_error_gt_10#</td>
-			<td>#calc_elev_fits#</td>
-		</tr>
-	</cfloop>
-</table>
-
-
-<cfdump var=#cs#>
 
 <!-----
 
