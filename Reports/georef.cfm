@@ -563,7 +563,7 @@ than those collections which employ more general geography or more verbatim spec
 </table>
 
 <cfset util = CreateObject("component","component.utilities")>
-<cfset x=util.QueryToCSV2(query="cs")>
+<cfset x=util.QueryToCSV2(query=cs)>
 
 
 <cfdump var=#x#>
