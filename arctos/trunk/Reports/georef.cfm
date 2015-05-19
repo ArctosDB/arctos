@@ -77,6 +77,103 @@ group by
 create index ix_colln_coords_guid_prefix on colln_coords(guid_prefix) tablespace uam_idx_1;
 
 
+drop table colln_coords_summary;
+
+
+create table colln_coords_summary (
+	guid_prefix varchar2(255),
+	number_of_specimens number,
+	number_of_georeferences number,
+	georeferences_per_specimen number,
+	georeferences_with_error number,
+	georeferences_with_elevation number,
+	calc_error_lt_1 number,
+	calc_error_lt_10 number,
+	calc_error_gt_10 number,
+	calc_elev_fits number);
+
+
+
+declare
+	ns number;
+	ng number;
+	gps number;
+	gwe number;
+	gwv number;
+	el1 number;
+	el10 number;
+	eg10 number;
+	evg number;
+begin
+
+	delete from colln_coords_summary;
+
+	for r in (select distinct guid_prefix from colln_coords) loop
+		select count(*) into ns from collection,cataloged_item where collection.collection_id=cataloged_item.collection_id and
+			collection.guid_prefix=r.guid_prefix;
+
+		select count(*) into ng from colln_coords where dec_lat is not null and guid_prefix=r.guid_prefix;
+
+		gps:=ns/ng;
+
+		select count(*) into gwe from colln_coords where err_m is not null and guid_prefix=r.guid_prefix;
+
+		select count(*) into gwv from colln_coords where min_elev_m is not null and guid_prefix=r.guid_prefix;
+
+		select count(*) into el1 from colln_coords where
+			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)<1 and guid_prefix=r.guid_prefix;
+
+		select count(*) into el10 from colln_coords where
+			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)<10 and guid_prefix=r.guid_prefix;
+
+		select count(*) into eg10 from colln_coords where
+			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)>10 and guid_prefix=r.guid_prefix;
+
+		select count(*) into evg from colln_coords where guid_prefix=r.guid_prefix and
+			s_elev_m between min_elev_m and max_elev_m;
+
+
+
+
+
+		insert into colln_coords_summary (
+			guid_prefix,
+			number_of_specimens,
+			number_of_georeferences,
+			georeferences_per_specimen,
+			georeferences_with_error,
+			georeferences_with_elevation,
+			calc_error_lt_1,
+			calc_error_lt_10,
+			calc_error_gt_10,
+			calc_elev_fits
+		) values (
+			r.guid_prefix,
+			ns,
+			ng,
+			gps,
+			gwe,
+			gwv,
+			el1,
+			el10,
+			eg10,
+			evg
+		);
+	end loop;
+end;
+/
+
+
+
+		<th>Colln</th>
+		<th>##Spec</th>
+		<th>##HasGeoref</th>
+		<th>Georef/Specm</th>
+		<th>##GeoreferencesWithoutError</th>
+		<th>##GeoreferencesWithElevation</th>
+
+
+
 ---->
 
 
@@ -104,9 +201,14 @@ of which may be georeferenced.</li>
 <li>We employ Google's services to obtain independent spatial and descriptive data. GIGO applies.</li>
 </ul>
 
+<cfoutput>
 
+<cfquery name="cs" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	select * from colln_coords_summary
+</cfquery>
+<cfdump var=#cs#>
 
-
+<!-----
 
 
 <cfquery name="collns" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -163,6 +265,8 @@ of which may be georeferenced.</li>
 		</tr>
 	</cfloop>
 </table>
+
+----->
 </cfoutput>
 
 <cfinclude template="/includes/_footer.cfm">
