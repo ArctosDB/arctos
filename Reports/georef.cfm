@@ -281,14 +281,14 @@ table.sortable tbody tr:nth-child(2n+1) td {
 }
 
 
-tbody.bigtabbdy{
+table.sortable > tbody{
     display:block;
     border: 2px solid black;
     border-collapse: separate;
     border-spacing: 4px;
 }
 
-.sortheader{background-color:none;}
+.sortheader{background-color:transparent;}
 
 </style>
 
