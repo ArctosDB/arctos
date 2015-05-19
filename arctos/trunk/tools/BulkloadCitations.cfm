@@ -311,27 +311,37 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "validate">
+<cfset functions = CreateObject("component","component.functions")>
+
 <cfoutput>
+	<p>
+		If you have a lot of data this will probably time out - just click reload until you see happy text instead of errors.
+	</p>
+	<cfflush>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='missing data'
 		where
+		status is null and
 		(full_citation is null and publication_id is null)
 	</cfquery>
 	<cfquery name="nopub_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='publication_ID not found'
 		where
+		status is null and
 		publication_id is not null and
 		publication_id not in (select publication_id from publication)
 	</cfquery>
 	<cfquery name="nopub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='publication not found'
 		where
+		status is null and
 		publication_id is null and
 		full_citation not in (select full_citation from publication)
 	</cfquery>
 	<cfquery name="data2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='missing data'
 		where
+		status is null and
 		USE_EXISTING_ACCEPTED_ID=0 and (
 		SCIENTIFIC_NAME is null or
 		TYPE_STATUS is null or
@@ -342,23 +352,26 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 	<cfquery name="ctcitation_TYPE_STATUS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='TYPE_STATUS invalid'
 		where
+		status is null and
 		TYPE_STATUS not in (select TYPE_STATUS from ctcitation_TYPE_STATUS)
 	</cfquery>
 	<cfquery name="NATURE_OF_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='NATURE_OF_ID invalid'
 		where
+		status is null and
 		NATURE_OF_ID not in (select NATURE_OF_ID from ctNATURE_OF_ID)
 	</cfquery>
 
 	<cfquery name="guid_prefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='guid_prefix invalid (check case, colons)'
 		where
+		status is null and
 		guid_prefix is not null and guid_prefix not in (select guid_prefix from collection)
 	</cfquery>
 
 	<cfquery name="require_author" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='at least one author required when use_pub_authors is false'
-		where USE_PUB_AUTHORS != 1 and IDENTIFIER_1 is null
+		where status is null and USE_PUB_AUTHORS != 1 and IDENTIFIER_1 is null
 	</cfquery>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_citation where status is null
@@ -368,7 +381,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		<cfset problem="">
 		<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				cataloged_item.COLLECTION_OBJECT_ID
+				distinct cataloged_item.COLLECTION_OBJECT_ID
 			from
 				cataloged_item,
 				collection,
@@ -377,7 +390,9 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				cataloged_item.collection_id=collection.collection_id and
 				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) AND
 				<cfif len(guid) gt 0>
-					upper(collection.guid_prefix || ':' || cataloged_item.cat_num)='#ucase(guid)#'
+					<cfset gp=ucase(listgetat(guid,1,':') & ':' & ucase(listgetat(guid,2,':')>
+					<cfset cn=ucase(listgetat(guid,3,':')>
+					upper(collection.guid_prefix)='#gp#' and  cataloged_item.cat_num='#cn#'
 				<cfelse>
 					upper(collection.guid_prefix)='#ucase(guid_prefix)#' and
 					<cfif other_id_type is "catalog number">
@@ -396,7 +411,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		</cfif>
 
 		<cfif len(publication_id) is 0>
-			<cfquery name="isPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="isPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#"  cachedwithin="#createtimespan(0,0,60,0)#">
 				select publication_id from publication where full_citation = '#full_citation#'
 				group by publication_id
 			</cfquery>
@@ -407,35 +422,57 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 
 		<cfif USE_EXISTING_ACCEPTED_ID is 0>
 			<!--- creating a new ID ---->
+			<cfset tn=functions.parseTaxonName(taxon_name="#SCIENTIFIC_NAME#")>
+			<!----
 			<cfinvoke component="component.functions" method="parseTaxonName" returnvariable="tn">
 				<cfinvokeargument name="taxon_name" value="#SCIENTIFIC_NAME#">
 			</cfinvoke>
+			---->
 			<cfset thisTNID1=tn.taxon_name_id_1>
 			<cfset thisTNID2=tn.taxon_name_id_2>
 			<cfset thisTF=tn.taxa_formula>
 			<cfset problem = listappend(problem,tn.status,";")>
+			<!----
 			<cfinvoke component="component.functions" method="getAgentId" returnvariable="a">
 				<cfinvokeargument name="agent_name" value="#IDENTIFIER_1#">
 			</cfinvoke>
+			---->
+			<cfset a=functions.getAgentId(agent_name="#IDENTIFIER_1#")>
+
+
 			<cfset problem = listappend(problem,a.status,";")>
 			<cfset aid1=a.agent_id>
+
+			<!----
 			<cfinvoke component="component.functions" method="getAgentId" returnvariable="a">
 				<cfinvokeargument name="agent_name" value="#IDENTIFIER_2#">
 			</cfinvoke>
+			---->
+			<cfset a=functions.getAgentId(agent_name="#IDENTIFIER_2#")>
+
+
 			<cfset problem = listappend(problem,a.status,";")>
 			<cfset aid2=a.agent_id>
+
+			<!----
 			<cfinvoke component="component.functions" method="getAgentId" returnvariable="a">
 				<cfinvokeargument name="agent_name" value="#IDENTIFIER_3#">
 			</cfinvoke>
+			---->
+			<cfset a=functions.getAgentId(agent_name="#IDENTIFIER_3#")>
+
 			<cfset problem = listappend(problem,a.status,";")>
 			<cfset aid3=a.agent_id>
+
+			<cfif len(problem) is 0>
+				<cfset problem='valid'>
+			</cfif>
 			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				UPDATE cf_temp_citation SET
 					collection_object_id = #thisColObjId#
 					<cfif len(thisPubId) gt 0>
 						,publication_id=#thisPubId#
 					</cfif>
-
 					<cfif len(aid1) gt 0>
 						,agentid1=#aid1#
 					</cfif>
@@ -457,6 +494,9 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 					key = #key#
 			</cfquery>
 		<cfelse>
+			<cfif len(problem) is 0>
+				<cfset problem='valid'>
+			</cfif>
 			<!--- using existing identification ---->
 			<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				UPDATE cf_temp_citation SET
@@ -469,9 +509,8 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 					key = #key#
 			</cfquery>
 		</cfif>
-
-
 	</cfloop>
+
 	<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_citation set status='duplicate' where
 			status is null and key in (
@@ -483,6 +522,20 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 			a.publication_id = b.publication_id
 		)
 	</cfquery>
+
+
+	<p>
+
+		validation complete <a href="BulkloadCitation.cfm?action=tableview">view in table</a>
+	</p>
+
+
+	</cfoutput>
+</cfif>
+
+<cfif #action# is "tableview">
+<cfoutput>
+
 	<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_citation order by status,
 		other_id_type,
@@ -490,7 +543,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 		full_citation
 	</cfquery>
 	<cfquery name="isProb" dbtype="query">
-		select count(*) c from valData where status is not null
+		select count(*) c from valData where status != 'valid'
 	</cfquery>
 	<cfif #isProb.c# is 0 or len(isprob.c) is 0>
 		Data validated. Double-check below. If everything looks OK, <a href="BulkloadCitations.cfm?action=loadData">proceed to load</a>
@@ -519,7 +572,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 <cfif #action# is "loadData">
 <cfoutput>
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_citation
+		select * from cf_temp_citation where status='valid'
 	</cfquery>
 	<cftransaction>
 	<cfloop query="getTempData">
