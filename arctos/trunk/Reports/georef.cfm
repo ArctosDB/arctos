@@ -110,6 +110,9 @@ begin
 
 	delete from colln_coords_summary;
 
+	-- NOTE: In all the below, "locality" means "distinct values of stuff we're pulling from locality"
+	--    and NOT anything involving locality_id
+
 	for r in (select distinct guid_prefix from colln_coords) loop
 		insert into colln_coords_summary (
 			guid_prefix,
@@ -126,6 +129,7 @@ begin
 		) values (
 			r.guid_prefix,
 			(
+				--number_of_specimens owned by a collection
 				select
 					count(*)
 				from
@@ -136,6 +140,7 @@ begin
 					collection.guid_prefix=r.guid_prefix
 			),
 			(
+				-- number_of_georeferences - number of localities used by a collection
 				select
 					count(*)
 				from
@@ -145,6 +150,7 @@ begin
 					guid_prefix=r.guid_prefix
 			),
 			(
+				-- specimens_with_georeference - number of specimens with at least one georeference
 				select
 					sum(numUsingSpecimens)
 				from
@@ -154,10 +160,13 @@ begin
 					guid_prefix=r.guid_prefix
 			),
 			(
+				--gref_with_calc_georeference - number of localities with both asserted and calculated georeferences
 				select count(*) from colln_coords where
-					guid_prefix=r.guid_prefix and S_ERR_KM is not null
+					guid_prefix=r.guid_prefix and
+					S_ERR_KM is not null -- this will be NULL if either asserted or calculated is MIA
 			),
 			(
+				--georeferences_with_error - number of localities which have asserted georeferences and asserted error
 				select
 					count(*)
 				from
@@ -167,17 +176,20 @@ begin
 					guid_prefix=r.guid_prefix
 			),
 			(
+				-- georeferences_with_elevation - number of localities with a curatorial assertion of elevation
 				select count(*)
 					from colln_coords where min_elev_m is not null and
 					guid_prefix=r.guid_prefix
 			),
 			(
+				--calc_error_lt_1 - number of localities with a difference between asserted and calculated points of <1KM
 				select count(*) from colln_coords where
 					s_err_km is not null and
 					getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)<1 and
 					guid_prefix=r.guid_prefix
 			),
 			(
+				--calc_error_lt_10 - number of localities with a difference between asserted and calculated points between 1 and 10 KM
 				select
 					count(*)
 				from
@@ -188,6 +200,7 @@ begin
 					guid_prefix=r.guid_prefix
 			),
 			(
+				--calc_error_gt_10 - number of localities with a difference between asserted and calculated points above 10 KM
 				select
 					count(*)
 				from
@@ -198,6 +211,7 @@ begin
 					guid_prefix=r.guid_prefix
 			),
 			(
+				--calc_elev_fits -  number of localities where calculated elevation is between asserted
 				select
 					count(*)
 				from
@@ -211,6 +225,14 @@ begin
 end;
 /
 
+-- just for test
+
+create or replace public synonym colln_coords_summary for colln_coords_summary;
+grant select on colln_coords_summary to public;
+
+
+create or replace public synonym colln_coords for colln_coords;
+grant select on colln_coords to public;
 
 
 		<th>Colln</th>
