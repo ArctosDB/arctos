@@ -254,7 +254,7 @@ of which may be georeferenced.</li>
 <hr>
 
 
-
+<!----
 	<th class="rotate"></th>
 		<th class="rotate">##Specimen</th>
 		<th class="rotate">##Georef</th>
@@ -283,14 +283,13 @@ of which may be georeferenced.</li>
 		</tr>
 
 
-
 	<cfset result = querynew("CONTAINER_ID,MSG")>
 			<cfset temp = queryaddrow(result,1)>
 			<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
 			<cfset temp = QuerySetCell(result, "msg", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
 			<cfreturn result>
 
-
+---->
 Column Keys
 <table border>
 	<tr>
