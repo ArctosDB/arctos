@@ -281,6 +281,15 @@ table.sortable tbody tr:nth-child(2n+1) td {
 }
 
 
+tbody{
+    display:block;
+    border: 2px solid black;
+    border-collapse: separate;
+    border-spacing: 4px;
+}
+
+
+
 </style>
 
 
@@ -551,7 +560,7 @@ than those collections which employ more general geography or more verbatim spec
 <cfset dl_cname="">
 <cfset dl_clongname="">
 <cfset dl_data="">
-<table border id="t" class="sortable">
+<table border="0" id="t" class="sortable">
 	<tr class="bigtable">
 		<cfloop query="meta">
 			<th title="#expn#">#hdr#</th>
@@ -559,6 +568,7 @@ than those collections which employ more general geography or more verbatim spec
 			<cfset dl_clongname=listappend(dl_clongname,col)>
 		</cfloop>
 	</tr>
+	<tbody>
 	<cfloop query="cs">
 		<tr title="#guid_prefix#">
 			<cfloop query="meta">
@@ -569,6 +579,7 @@ than those collections which employ more general geography or more verbatim spec
 
 		</tr>
 	</cfloop>
+	</tbody>
 </table>
 
 <cfset util = CreateObject("component","component.utilities")>
