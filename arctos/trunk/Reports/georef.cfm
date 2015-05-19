@@ -124,6 +124,7 @@ begin
 			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)<1 and guid_prefix=r.guid_prefix;
 
 		select count(*) into el10 from colln_coords where
+			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)>=1 and
 			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)<10 and guid_prefix=r.guid_prefix;
 
 		select count(*) into eg10 from colln_coords where
@@ -221,6 +222,77 @@ of which may be georeferenced.</li>
 <li>We employ Google's services to obtain independent spatial and descriptive data. GIGO applies.</li>
 </ul>
 
+Column Keys
+<table border>
+	<tr>
+		<th>Name</th>
+		<th>Explanation</th>
+	</tr>
+	<tr>
+		<td>Collection</td>
+		<td>Collection</td>
+	</tr>
+	<tr>
+		<td>##Specimen</td>
+		<td>Number of specimens held by the collection</td>
+	</tr>
+	<tr>
+		<td>##Georef</td>
+		<td>Number of georeferences among the collection's specimens.</td>
+	</tr>
+	<tr>
+		<td>##GeorefPerSpecimen</td>
+		<td>##Georef/##Specimen. No indication of distribution is implied.</td>
+	</tr>
+	<tr>
+		<td>##GeorefWithErr</td>
+		<td>Number of georeferences containing an assertion of error. 0 (zero) is considerered legacy data synonymous with NULL, not
+		"infinitely precise."</td>
+	</tr>
+	<tr>
+		<td>##GeorefWithElev</td>
+		<td>Number of georeferences including an assertion of elevation</td>
+	</tr>
+	<tr>
+		<td>##Err<1</td>
+		<td>Number of georeferences in which the asserted point (not considering error) and the calculated point (from various webservice queries)
+		are within one kilimeter of each other</td>
+	</tr>
+	<tr>
+		<td>##Err<10</td>
+		<td>Number of georeferences in which the asserted point (not considering error) and the calculated point (from various webservice queries)
+		are more than one and less than ten kilimeters from each other</td>
+	</tr>
+	<tr>
+		<td>##Err>10</td>
+		<td>Number of georeferences in which the asserted point (not considering error) and the calculated point (from various webservice queries)
+		are more than ten kilimeters from each other</td>
+	</tr>
+	<tr>
+		<td>##ElevWithin</td>
+		<td>Number of georeferences in which the calculated elevation (from various webservice queries) falls within the user-
+		specified elevation range.</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+	</tr>
+</table>
+<ul>
+
+</ul>
 <cfoutput>
 
 <cfquery name="cs" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -228,15 +300,33 @@ of which may be georeferenced.</li>
 </cfquery>
 <table border id="t" class="sortable">
 	<tr>
-		<th class="rotate"><div><span>Collection</span></div></th>
+		<th class="rotate">Collection</th>
+		<th class="rotate">##Specimen</th>
+		<th class="rotate">##Georef</th>
+		<th class="rotate">##GeorefPerSpecimen</th>
+		<th class="rotate">##GeorefWithErr</th>
+		<th class="rotate">##GeorefWithElev</th>
+		<th class="rotate">##GeorefWithElev</th>
+		<th class="rotate">##Err<1</th>
+		<th class="rotate">##Err<10</th>
+		<th class="rotate">##Err>10</th>
+		<th class="rotate">##ElevWithin</th>
 	</tr>
 	<cfloop query="cs">
 		<tr>
 			<td>#guid_prefix#</td>
+			<td>#number_of_specimens#</td>
+			<td>#number_of_georeferences#</td>
+			<td>#georeferences_per_specimen#</td>
+			<td>#georeferences_with_error#</td>
+			<td>#georeferences_with_elevation#</td>
+			<td>#calc_error_lt_1#</td>
+			<td>#calc_error_lt_10#</td>
+			<td>#calc_error_gt_10#</td>
+			<td>#calc_elev_fits#</td>
 		</tr>
 	</cfloop>
 </table>
-
 
 
 <cfdump var=#cs#>
