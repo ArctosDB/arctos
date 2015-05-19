@@ -246,15 +246,22 @@ of which may be georeferenced.</li>
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 <cfset QuerySetCell(tke, "col", "number_of_georeferences", thisRow)>
 <cfset QuerySetCell(tke, "hdr", "##Georef", thisRow)>
-<cfset QuerySetCell(tke, "expn", ">Number of georeferences among the collection's specimens.", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Number of georeferences among the collection's specimens.", thisRow)>
 <cfset thisRow=thisRow+1>
 
 
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "georeferences_per_specimen", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "##GeorefPerSpecimen", thisRow)>
+<cfset QuerySetCell(tke, "expn", "##Georef/##Specimen. No indication of distribution is implied.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+
+
 <!----
-	<th class="rotate"></th>
-		<th class="rotate">##Specimen</th>
 		<th class="rotate">##</th>
-		<th class="rotate">##GeorefPerSpecimen</th>
 		<th class="rotate">##SpecimensWithGeoref</th>
 		<th class="rotate">##GeorefWithErr</th>
 		<th class="rotate">##GeorefWithElev</th>
@@ -268,7 +275,7 @@ of which may be georeferenced.</li>
 			<td>##</td>
 			<td>#number_of_specimens#</td>
 			<td>##</td>
-			<td>#georeferences_per_specimen#</td>
+			<td>##</td>
 			<td>#specimens_with_georeference#</td>
 			<td>#georeferences_with_error#</td>
 			<td>#georeferences_with_elevation#</td>
@@ -309,7 +316,8 @@ of which may be georeferenced.</li>
 	select
 		guid_prefix,
 		number_of_specimens,
-		number_of_georeferences
+		number_of_georeferences,.
+		round(number_of_georeferences/number_of_specimens,2) georeferences_per_specimen
 	from colln_coords_summary
 </cfquery>
 
@@ -394,7 +402,7 @@ Column Keys
 	</tr>
 	<tr>
 		<td>##GeorefPerSpecimen</td>
-		<td>##Georef/##Specimen. No indication of distribution is implied.</td>
+		<td></td>
 	</tr>
 
 
