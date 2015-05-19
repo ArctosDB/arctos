@@ -117,11 +117,8 @@ We employ Google's services to obtain independent spatial and descriptive data. 
 			select nvl(sum(numUsingSpecimens),0) numgeorefs from
 			colln_coords where guid_prefix='#guid_prefix#'
 		</cfquery>
-		<cfif len() gt 0 and geoDet.numgeorefs gt 0>
-			<cfset percentgeorefed=geoDet.numgeorefs/specimencount>
-		<cfelse>
-			<cfset percentgeorefed=0>
-		</cfif>
+		<cfset percentgeorefed=geoDet.numgeorefs/specimencount>
+
 		<tr>
 			<td>#guid_prefix#</td>
 			<td>#specimencount#</td>
