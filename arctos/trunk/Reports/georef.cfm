@@ -85,6 +85,7 @@ create table colln_coords_summary (
 	number_of_specimens number,
 	number_of_georeferences number,
 	specimens_with_georeference number,
+	gref_with_calc_georeference number,
 	georeferences_with_error number,
 	georeferences_with_elevation number,
 	calc_error_lt_1 number,
@@ -98,6 +99,7 @@ declare
 	ns number;
 	ng number;
 	gwe number;
+	gwce number;
 	swg number;
 	gwv number;
 	el1 number;
@@ -116,6 +118,13 @@ begin
 
 
 		select count(*) into gwe from colln_coords where err_m is not null and guid_prefix=r.guid_prefix;
+
+		select count(*) into gwce from colln_coords where guid_prefix=r.guid_prefix and S_ERR_KM is not null;
+
+
+
+
+
 
 		select count(*) into gwv from colln_coords where min_elev_m is not null and guid_prefix=r.guid_prefix;
 
@@ -142,6 +151,7 @@ begin
 			number_of_specimens,
 			number_of_georeferences,
 			specimens_with_georeference,
+			gref_with_calc_georeference,
 			georeferences_with_error,
 			georeferences_with_elevation,
 			calc_error_lt_1,
@@ -153,6 +163,7 @@ begin
 			ns,
 			ng,
 			swg,
+			gwce,
 			gwe,
 			gwv,
 			el1,
@@ -277,6 +288,14 @@ than those collections which employ more general geography or more verbatim spec
 <cfset QuerySetCell(tke, "expn", "Number of specimens with at least one georeference.", thisRow)>
 <cfset thisRow=thisRow+1>
 
+
+
+
+
+
+
+
+
 <cfset queryAddRow(tke,1)>
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 <cfset QuerySetCell(tke, "col", "pct_spec_geod", thisRow)>
@@ -293,8 +312,12 @@ than those collections which employ more general geography or more verbatim spec
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 <cfset QuerySetCell(tke, "col", "georeferences_with_error", thisRow)>
 <cfset QuerySetCell(tke, "hdr", "##GeorefWithErr", thisRow)>
-<cfset QuerySetCell(tke, "expn", "Number of georeferences containing an assertion of error. 0 (zero) is considerered legacy data synonymous with NULL, not infinitely precise.", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Number of georeferences containing a curatorial assertion of error. 0 (zero) is considerered legacy data synonymous with NULL, not infinitely precise.", thisRow)>
 <cfset thisRow=thisRow+1>
+
+
+
+
 
 <cfset queryAddRow(tke,1)>
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
@@ -302,6 +325,25 @@ than those collections which employ more general geography or more verbatim spec
 <cfset QuerySetCell(tke, "hdr", "%GeorefWithErr", thisRow)>
 <cfset QuerySetCell(tke, "expn", "Percentage of georeferences containing an assertion of error. 0 (zero) is considerered legacy data synonymous with NULL, not infinitely precise.", thisRow)>
 <cfset thisRow=thisRow+1>
+
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "gref_with_calc_georeference", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "##GeorefWCal", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Number of georeferences also containing a service-derived assertion of error.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "pct_gr_w_c_err", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "%GeorefWCal", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Percentage of georeferences also containing a service-derived assertion of error.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+
+
 
 
 
@@ -431,7 +473,9 @@ than those collections which employ more general geography or more verbatim spec
 		calc_error_gt_10,
 		decode(number_of_georeferences,0,0,round(calc_error_gt_10/number_of_georeferences,2)*100) pct_err_gt_10,
 		calc_elev_fits,
-		decode(number_of_georeferences,0,0,round(calc_elev_fits/number_of_georeferences,2)*100) pct_elev_fits
+		decode(number_of_georeferences,0,0,round(calc_elev_fits/number_of_georeferences,2)*100) pct_elev_fits,
+		gref_with_calc_georeference,
+		decode(number_of_georeferences,0,0,round(number_of_georeferences/gref_with_calc_georeference,2) pct_gr_w_c_err
 	from
 		colln_coords_summary
 </cfquery>
