@@ -546,7 +546,7 @@ than those collections which employ more general geography or more verbatim spec
 		</cfloop>
 	</tr>
 	<cfloop query="cs">
-		<tr>
+		<tr title="#guid_prefix#">
 			<cfloop query="meta">
 				<td>#evaluate("cs." & col)#</td>
 			</cfloop>
