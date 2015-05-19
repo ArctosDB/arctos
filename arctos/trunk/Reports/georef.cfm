@@ -128,6 +128,7 @@ of which may be georeferenced.</li>
 		<th>##HasGeoref</th>
 		<th>Georef/Specm</th>
 		<th>##NoError</th>
+		<th>%GeoreferencesWithNoError</th>
 	</tr>
 	<cfloop query="#collns#">
 		<cfquery name="thiscoln" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -154,6 +155,8 @@ of which may be georeferenced.</li>
 				select count(*) c from thiscoln where (err_m=0 or err_m is null)
 			</cfquery>
 			<td>#noerr.c#</td>
+			<cfset pgrne=ngr/noerr.c>
+			<td>#pgrne#</td>
 		</tr>
 	</cfloop>
 </table>
