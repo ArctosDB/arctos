@@ -533,7 +533,7 @@ than those collections which employ more general geography or more verbatim spec
 		georeferences_with_elevation,
 		decode(number_of_georeferences,0,0,round(georeferences_with_elevation/number_of_georeferences,2)*100) pct_geo_w_elev,
 		calc_error_lt_1,
-		decode(calc_error_lt_1,0,0,round(georeferences_with_error/calc_error_lt_1,2)*100) pct_err_lt_1,
+		decode(georeferences_with_error,0,0,round(calc_error_lt_1/georeferences_with_error,2)*100) pct_err_lt_1,
 		calc_error_lt_10,
 		decode(georeferences_with_error,0,0,round(calc_error_lt_10/georeferences_with_error,2)*100) pct_err_lt_10,
 		calc_error_gt_10,
