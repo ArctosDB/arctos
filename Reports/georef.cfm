@@ -224,7 +224,7 @@ of which may be georeferenced.</li>
 <cfoutput>
 
 
-<cfset tke=queryNew("ord","col","hdr","expn")>
+<cfset tke=queryNew("ord,col,hdr,expn")>
 <cfset thisRow=1>
 
 <cfset queryAddRow(tke,1)>
