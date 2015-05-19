@@ -315,7 +315,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 
 <cfoutput>
 	<p>
-		If you have a lot of data this will probably time out - just click reload until you see happy text instead of errors.
+		If you have a lot of data this will probably time out - wait for timeout, click reload, repeat until you see happy text instead of errors.
 	</p>
 	<cfflush>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -390,8 +390,8 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 				cataloged_item.collection_id=collection.collection_id and
 				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) AND
 				<cfif len(guid) gt 0>
-					<cfset gp=ucase(listgetat(guid,1,':') & ':' & ucase(listgetat(guid,2,':')>
-					<cfset cn=ucase(listgetat(guid,3,':')>
+					<cfset gp=ucase(listgetat(guid,1,':') & ':' & listgetat(guid,2,':'))>
+					<cfset cn=ucase(listgetat(guid,3,':'))>
 					upper(collection.guid_prefix)='#gp#' and  cataloged_item.cat_num='#cn#'
 				<cfelse>
 					upper(collection.guid_prefix)='#ucase(guid_prefix)#' and
@@ -526,7 +526,7 @@ grant all ON CF_TEMP_CITATION to COLDFUSION_USER;
 
 	<p>
 
-		validation complete <a href="BulkloadCitation.cfm?action=tableview">view in table</a>
+		validation complete <a href="BulkloadCitations.cfm?action=tableview">view in table</a>
 	</p>
 
 
