@@ -541,7 +541,7 @@ than those collections which employ more general geography or more verbatim spec
 <table border id="t" class="sortable">
 	<tr>
 		<cfloop query="meta">
-			<th>#hdr#</th>
+			<th title="#expn#">#hdr#</th>
 		</cfloop>
 	</tr>
 	<cfloop query="cs">
