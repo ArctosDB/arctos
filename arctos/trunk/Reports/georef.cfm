@@ -251,7 +251,7 @@ grant select on colln_coords to public;
 <script src="/includes/sorttable.js"></script>
 <cfset title="Arctos Georeference Summary">
 <style>
-th.rotate {
+	tr.bigtable > th {
   /* Something you can count on */
   height: 140px;
   white-space: nowrap;
@@ -549,7 +549,7 @@ than those collections which employ more general geography or more verbatim spec
 <cfset dl_clongname="">
 <cfset dl_data="">
 <table border id="t" class="sortable">
-	<tr>
+	<tr class="bigtable">
 		<cfloop query="meta">
 			<th title="#expn#">#hdr#</th>
 			<cfset dl_cname=listappend(dl_cname,col)>
