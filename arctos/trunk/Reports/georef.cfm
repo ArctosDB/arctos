@@ -296,9 +296,6 @@ of which may be georeferenced.</li>
 
 
 
-
-
-
 <cfset queryAddRow(tke,1)>
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 <cfset QuerySetCell(tke, "col", "georeferences_with_elevation", thisRow)>
@@ -321,12 +318,27 @@ of which may be georeferenced.</li>
 <cfset QuerySetCell(tke, "expn", "Number of georeferences in which the asserted point (not considering error) and the calculated point (from various webservice queries) are within one kilometer of each other.", thisRow)>
 <cfset thisRow=thisRow+1>
 
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "pct_err_lt_1", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "%Err<1", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Percentage of georeferences in which the asserted point (not considering error) and the calculated point (from various webservice queries) are within one kilometer of each other.", thisRow)>
+<cfset thisRow=thisRow+1>
+
 
 <cfset queryAddRow(tke,1)>
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 <cfset QuerySetCell(tke, "col", "calc_error_lt_10", thisRow)>
 <cfset QuerySetCell(tke, "hdr", "##Err<10", thisRow)>
 <cfset QuerySetCell(tke, "expn", "Number of georeferences in which the asserted point (not considering error) and the calculated point (from various webservice queries) are more than one and less than ten kilometers from each other.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "pct_err_lt_10", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "%Err<10", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Percentage of georeferences in which the asserted point (not considering error) and the calculated point (from various webservice queries) are more than one and less than ten kilometers from each other.", thisRow)>
 <cfset thisRow=thisRow+1>
 
 
@@ -339,12 +351,34 @@ of which may be georeferenced.</li>
 <cfset thisRow=thisRow+1>
 
 
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "pct_err_gt_10", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "%Err>10", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Percentage of georeferences in which the asserted point (not considering error) and the calculated point (from various webservice queries) are more than ten kilometers from each other.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+
+
+
 <cfset queryAddRow(tke,1)>
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 <cfset QuerySetCell(tke, "col", "calc_elev_fits", thisRow)>
 <cfset QuerySetCell(tke, "hdr", "##ElevWithin", thisRow)>
 <cfset QuerySetCell(tke, "expn", "Number of georeferences in which the calculated elevation (from various webservice queries) falls within the user-specified elevation range.", thisRow)>
 <cfset thisRow=thisRow+1>
+
+
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "pct_elev_fits", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "%ElevWithin", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Percentage of georeferences in which the calculated elevation (from various webservice queries) falls within the user-specified elevation range.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+
 
 
 
@@ -381,9 +415,13 @@ of which may be georeferenced.</li>
 		georeferences_with_elevation,
 		round(georeferences_with_elevation/number_of_georeferences,2)*100 pct_geo_w_elev,
 		calc_error_lt_1,
+		round(number_of_georeferences/calc_error_lt_1,2)*100 pct_err_lt_1,
 		calc_error_lt_10,
+		round(number_of_georeferences/calc_error_lt_10,2)*100 pct_err_lt_10,
 		calc_error_gt_10,
-		calc_elev_fits
+		round(number_of_georeferences/calc_error_gt_10,2)*100 pct_err_gt_10,
+		calc_elev_fits,
+		round(number_of_georeferences/calc_elev_fits,2)*100 pct_elev_fits
 	from
 		colln_coords_summary
 </cfquery>
