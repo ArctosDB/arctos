@@ -111,46 +111,6 @@ begin
 	delete from colln_coords_summary;
 
 	for r in (select distinct guid_prefix from colln_coords) loop
-		select count(*) into ns from collection,cataloged_item where collection.collection_id=cataloged_item.collection_id and
-			collection.guid_prefix=r.guid_prefix;
-
-		select count(*) into ng from colln_coords where dec_lat is not null and guid_prefix=r.guid_prefix;
-
-
-		select count(*) into gwe from colln_coords where err_m is not null and guid_prefix=r.guid_prefix;
-
-		select count(*) into gwce from colln_coords where guid_prefix=r.guid_prefix and S_ERR_KM is not null;
-
-
-
-
-
-
-		select count(*) into gwv from colln_coords where min_elev_m is not null and guid_prefix=r.guid_prefix;
-
-		select count(*) into el1 from colln_coords where
-			s_err_km is not null and
-			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)<1 and
-			guid_prefix=r.guid_prefix;
-
-		select count(*) into el10 from colln_coords where
-			s_err_km is not null and
-			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long) between 1 and 10 and
-			guid_prefix=r.guid_prefix;
-
-		select count(*) into eg10 from colln_coords where
-			s_err_km is not null and
-			getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)>10 and
-			guid_prefix=r.guid_prefix;
-
-		select count(*) into evg from colln_coords where guid_prefix=r.guid_prefix and
-			s_elev_m between min_elev_m and max_elev_m;
-
-
-		select sum(numUsingSpecimens) into swg from colln_coords where dec_lat is not null and guid_prefix=r.guid_prefix;
-
-
-
 		insert into colln_coords_summary (
 			guid_prefix,
 			number_of_specimens,
@@ -165,16 +125,87 @@ begin
 			calc_elev_fits
 		) values (
 			r.guid_prefix,
-			ns,
-			ng,
-			swg,
-			gwce,
-			gwe,
-			gwv,
-			el1,
-			el10,
-			eg10,
-			evg
+			(
+				select
+					count(*)
+				from
+					collection,
+					cataloged_item
+				where
+					collection.collection_id=cataloged_item.collection_id and
+					collection.guid_prefix=r.guid_prefix
+			),
+			(
+				select
+					count(*)
+				from
+					colln_coords
+				where
+					dec_lat is not null and
+					guid_prefix=r.guid_prefix
+			),
+			(
+				select
+					sum(numUsingSpecimens)
+				from
+					colln_coords
+				where
+					dec_lat is not null and
+					guid_prefix=r.guid_prefix
+			),
+			(
+				select count(*) from colln_coords where
+					guid_prefix=r.guid_prefix and S_ERR_KM is not null
+			),
+			(
+				select
+					count(*)
+				from
+					colln_coords
+				where
+					err_m is not null and
+					guid_prefix=r.guid_prefix
+			),
+			(
+				select count(*)
+					from colln_coords where min_elev_m is not null and
+					guid_prefix=r.guid_prefix
+			),
+			(
+				select count(*) from colln_coords where
+					s_err_km is not null and
+					getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)<1 and
+					guid_prefix=r.guid_prefix
+			),
+			(
+				select
+					count(*)
+				from
+					colln_coords
+				where
+					s_err_km is not null and
+					getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long) between 1 and 10 and
+					guid_prefix=r.guid_prefix
+			),
+			(
+				select
+					count(*)
+				from
+					colln_coords
+				where
+					s_err_km is not null and
+					getHaversineDistance(dec_lat,dec_long,s$dec_lat,s$dec_long)>10 and
+					guid_prefix=r.guid_prefix
+			),
+			(
+				select
+					count(*)
+				from
+					colln_coords
+				where
+					s_elev_m between min_elev_m and max_elev_m and
+					guid_prefix=r.guid_prefix
+			)
 		);
 	end loop;
 end;
@@ -472,15 +503,15 @@ than those collections which employ more general geography or more verbatim spec
 		georeferences_with_elevation,
 		decode(number_of_georeferences,0,0,round(georeferences_with_elevation/number_of_georeferences,2)*100) pct_geo_w_elev,
 		calc_error_lt_1,
-		decode(number_of_georeferences,0,0,round(calc_error_lt_1/number_of_georeferences,2)*100) pct_err_lt_1,
+		decode(georeferences_with_error,0,0,round(calc_error_lt_1/georeferences_with_error,2)*100) pct_err_lt_1,
 		calc_error_lt_10,
-		decode(number_of_georeferences,0,0,round(calc_error_lt_10/number_of_georeferences,2)*100) pct_err_lt_10,
+		decode(georeferences_with_error,0,0,round(calc_error_lt_10/georeferences_with_error,2)*100) pct_err_lt_10,
 		calc_error_gt_10,
-		decode(number_of_georeferences,0,0,round(calc_error_gt_10/number_of_georeferences,2)*100) pct_err_gt_10,
+		decode(georeferences_with_error,0,0,round(calc_error_gt_10/georeferences_with_error,2)*100) pct_err_gt_10,
 		calc_elev_fits,
-		decode(number_of_georeferences,0,0,round(calc_elev_fits/number_of_georeferences,2)*100) pct_elev_fits,
+		decode(georeferences_with_elevation,0,0,round(calc_elev_fits/georeferences_with_elevation,2)*100) pct_elev_fits,
 		gref_with_calc_georeference,
-		decode(number_of_georeferences,0,0,round(gref_with_calc_georeference/number_of_georeferences,2)*100) pct_gr_w_c_err
+		decode(georeferences_with_error,0,0,round(gref_with_calc_georeference/georeferences_with_error,2)*100) pct_gr_w_c_err
 	from
 		colln_coords_summary
 </cfquery>
