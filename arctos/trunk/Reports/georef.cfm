@@ -255,20 +255,76 @@ of which may be georeferenced.</li>
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 <cfset QuerySetCell(tke, "col", "georeferences_per_specimen", thisRow)>
 <cfset QuerySetCell(tke, "hdr", "##GeorefPerSpecimen", thisRow)>
-<cfset QuerySetCell(tke, "expn", "##Georef/##Specimen. No indication of distribution is implied.", thisRow)>
+<cfset QuerySetCell(tke, "expn", "##Georef/##Specimen. No indication of distribution is implied. (Rounded 2 places.)", thisRow)>
 <cfset thisRow=thisRow+1>
 
 
 
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "specimens_with_georeference", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "##SpecimensWithGeoref", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Number of specimens with at least one georeference.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "georeferences_with_error", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "##GeorefWithErr", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Number of georeferences containing an assertion of error. 0 (zero) is considerered legacy data synonymous with NULL, not infinitely precise.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "georeferences_with_elevation", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "##GeorefWithElev", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Number of georeferences including a curatorial assertion of elevation.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "calc_error_lt_1", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "##Err<1", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Number of georeferences in which the asserted point (not considering error) and the calculated point (from various webservice queries) are within one kilometer of each other.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "calc_error_lt_10", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "##Err<10", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Number of georeferences in which the asserted point (not considering error) and the calculated point (from various webservice queries) are more than one and less than ten kilometers from each other.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "calc_error_gt_10", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "##Err>10", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Number of georeferences in which the asserted point (not considering error) and the calculated point (from various webservice queries) are more than ten kilometers from each other.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "calc_elev_fits", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "##ElevWithin", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Number of georeferences in which the calculated elevation (from various webservice queries) falls within the user-
+		specified elevation range.", thisRow)>
+<cfset thisRow=thisRow+1>
+
 <!----
 		<th class="rotate">##</th>
-		<th class="rotate">##SpecimensWithGeoref</th>
-		<th class="rotate">##GeorefWithErr</th>
-		<th class="rotate">##GeorefWithElev</th>
-		<th class="rotate">##Err<1</th>
+		<th class="rotate">##</th>
+		<th class="rotate">##</th>
+		<th class="rotate">##</th>
+		<th class="rotate">##</th>
 		<th class="rotate">##Err<10</th>
 		<th class="rotate">##Err>10</th>
-		<th class="rotate">##ElevWithin</th>
+		<th class="rotate">##</th>
 	</tr>
 	<cfloop query="cs">
 		<tr>
@@ -276,13 +332,13 @@ of which may be georeferenced.</li>
 			<td>#number_of_specimens#</td>
 			<td>##</td>
 			<td>##</td>
-			<td>#specimens_with_georeference#</td>
-			<td>#georeferences_with_error#</td>
-			<td>#georeferences_with_elevation#</td>
-			<td>#calc_error_lt_1#</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
+			<td>##</td>
 			<td>#calc_error_lt_10#</td>
-			<td>#calc_error_gt_10#</td>
-			<td>#calc_elev_fits#</td>
+			<td>##</td>
+			<td>##</td>
 		</tr>
 
 
@@ -317,8 +373,16 @@ of which may be georeferenced.</li>
 		guid_prefix,
 		number_of_specimens,
 		number_of_georeferences,
-		round(number_of_georeferences/number_of_specimens,2) georeferences_per_specimen
-	from colln_coords_summary
+		round(number_of_georeferences/number_of_specimens,2) georeferences_per_specimen,
+		specimens_with_georeference,
+		georeferences_with_error,
+		georeferences_with_elevation,
+		calc_error_lt_1,
+		calc_error_lt_10,
+		calc_error_gt_10,
+		calc_elev_fits
+	from
+		colln_coords_summary
 </cfquery>
 
 
@@ -409,37 +473,32 @@ Column Keys
 
 	<tr>
 		<td>##SpecimensWithGeoref</td>
-		<td>Number of specimens with at least one georeference</td>
+		<td></td>
 	</tr>
 
 	<tr>
 		<td>##GeorefWithErr</td>
-		<td>Number of georeferences containing an assertion of error. 0 (zero) is considerered legacy data synonymous with NULL, not
-		"infinitely precise."</td>
+		<td>"</td>
 	</tr>
 	<tr>
 		<td>##GeorefWithElev</td>
-		<td>Number of georeferences including an assertion of elevation</td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>##Err<1</td>
-		<td>Number of georeferences in which the asserted point (not considering error) and the calculated point (from various webservice queries)
-		are within one kilimeter of each other</td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>##Err<10</td>
-		<td>Number of georeferences in which the asserted point (not considering error) and the calculated point (from various webservice queries)
-		are more than one and less than ten kilimeters from each other</td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>##Err>10</td>
-		<td>Number of georeferences in which the asserted point (not considering error) and the calculated point (from various webservice queries)
-		are more than ten kilimeters from each other</td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>##ElevWithin</td>
-		<td>Number of georeferences in which the calculated elevation (from various webservice queries) falls within the user-
-		specified elevation range.</td>
+		<td></td>
 	</tr>
 	<tr>
 		<td></td>
