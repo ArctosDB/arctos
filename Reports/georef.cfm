@@ -251,24 +251,27 @@ grant select on colln_coords to public;
 <script src="/includes/sorttable.js"></script>
 <cfset title="Arctos Georeference Summary">
 <style>
+
+
 	tr.bigtable > th {
   /* Something you can count on */
   height: 140px;
   white-space: nowrap;
 }
 
-th.rotate > div {
+tr.bigtable > th > a {
   transform:
     /* Magic Numbers */
     translate(25px, 51px)
     /* 45 is really 360 - 45 */
     rotate(315deg);
   width: 30px;
-}
-th.rotate > div > span {
-  border-bottom: 1px solid #ccc;
+   border-bottom: 1px solid #ccc;
   padding: 5px 10px;
 }
+
+
+
 
 table.sortable tbody tr:nth-child(2n) td {
   background: #ffcccc;
