@@ -156,7 +156,7 @@ of which may be georeferenced.</li>
 			</cfquery>
 			<td>#noerr.c#</td>
 			<cfquery name="haselev" dbtype="query">
-				select count(*) c from thiscoln where min_elev_m is not null)
+				select count(*) c from thiscoln where min_elev_m is not null
 			</cfquery>
 			<td>#haselev.c#</td>
 
