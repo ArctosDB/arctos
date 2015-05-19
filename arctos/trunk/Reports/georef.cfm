@@ -409,19 +409,19 @@ of which may be georeferenced.</li>
 		number_of_georeferences,
 		round(number_of_georeferences/number_of_specimens,2) georeferences_per_specimen,
 		specimens_with_georeference,
-		round(specimens_with_georeference/number_of_specimens,2)*100 pct_spec_geod,
+		decode(number_of_specimens,0,0,round(specimens_with_georeference/number_of_specimens,2)*100) pct_spec_geod,
 		georeferences_with_error,
-		round(georeferences_with_error/number_of_georeferences,2)*100 pct_geo_w_err,
+		decode(number_of_georeferences,0,0,round(georeferences_with_error/number_of_georeferences,2)*100) pct_geo_w_err,
 		georeferences_with_elevation,
-		round(georeferences_with_elevation/number_of_georeferences,2)*100 pct_geo_w_elev,
+		decode(number_of_georeferences,0,0,round(georeferences_with_elevation/number_of_georeferences,2)*100) pct_geo_w_elev,
 		calc_error_lt_1,
-		round(number_of_georeferences/calc_error_lt_1,2)*100 pct_err_lt_1,
+		decode(calc_error_lt_1,0,0,round(number_of_georeferences/calc_error_lt_1,2)*100) pct_err_lt_1,
 		calc_error_lt_10,
-		round(number_of_georeferences/calc_error_lt_10,2)*100 pct_err_lt_10,
+		decode(calc_error_lt_10,0,0,round(number_of_georeferences/calc_error_lt_10,2)*100) pct_err_lt_10,
 		calc_error_gt_10,
-		round(number_of_georeferences/calc_error_gt_10,2)*100 pct_err_gt_10,
+		decode(calc_error_gt_10,0,0,round(number_of_georeferences/calc_error_gt_10,2)*100) pct_err_gt_10,
 		calc_elev_fits,
-		round(number_of_georeferences/calc_elev_fits,2)*100 pct_elev_fits
+		decode(calc_elev_fits,0,0,round(number_of_georeferences/calc_elev_fits,2)*100) pct_elev_fits
 	from
 		colln_coords_summary
 </cfquery>
