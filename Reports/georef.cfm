@@ -155,7 +155,11 @@ of which may be georeferenced.</li>
 				select count(*) c from thiscoln where (err_m=0 or err_m is null)
 			</cfquery>
 			<td>#noerr.c#</td>
-			<cfset pgrne=ngr/noerr.c>
+			<cfif len(noerr.c) is 0 or noerr.c is 0>
+				<cfset pgrne=100>
+			<cfelse>
+				<cfset pgrne=ngr/noerr.c>
+			</cfif>
 			<td>#pgrne#</td>
 		</tr>
 	</cfloop>
