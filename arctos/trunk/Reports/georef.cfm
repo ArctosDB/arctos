@@ -320,7 +320,6 @@ Column Keys
 		<th class="rotate">##SpecimensWithGeoref</th>
 		<th class="rotate">##GeorefWithErr</th>
 		<th class="rotate">##GeorefWithElev</th>
-		<th class="rotate">##GeorefWithElev</th>
 		<th class="rotate">##Err<1</th>
 		<th class="rotate">##Err<10</th>
 		<th class="rotate">##Err>10</th>
