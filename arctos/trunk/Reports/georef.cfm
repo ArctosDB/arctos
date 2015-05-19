@@ -127,8 +127,8 @@ of which may be georeferenced.</li>
 		<th>##Spec</th>
 		<th>##HasGeoref</th>
 		<th>Georef/Specm</th>
-		<th>##NoError</th>
-		<th>%GeoreferencesWithNoError</th>
+		<th>##GeoreferencesWithoutError</th>
+		<th>##GeoreferencesWithElevation</th>
 	</tr>
 	<cfloop query="#collns#">
 		<cfquery name="thiscoln" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -155,12 +155,11 @@ of which may be georeferenced.</li>
 				select count(*) c from thiscoln where (err_m=0 or err_m is null)
 			</cfquery>
 			<td>#noerr.c#</td>
-			<cfif len(noerr.c) is 0 or noerr.c is 0>
-				<cfset pgrne=100>
-			<cfelse>
-				<cfset pgrne=ngr/noerr.c>
-			</cfif>
-			<td>#pgrne#</td>
+			<cfquery name="haselev" dbtype="query">
+				select count(*) c from thiscoln where min_elev_m is not null)
+			</cfquery>
+			<td>#haselev.c#</td>
+
 		</tr>
 	</cfloop>
 </table>
