@@ -200,6 +200,15 @@ th.rotate > div > span {
   border-bottom: 1px solid #ccc;
   padding: 5px 10px;
 }
+
+table.sortable tbody tr:nth-child(2n) td {
+  background: #ffcccc;
+}
+table.sortable tbody tr:nth-child(2n+1) td {
+  background: #ccfffff;
+}
+
+
 </style>
 
 
@@ -215,7 +224,7 @@ of which may be georeferenced.</li>
 			old Arctos model allowed only one "accepted" coordinate determination.</li>
 		<li>Some collections have many georeferences because of curatorial practices and discipline-specific data. </li>
 		<li>Some collections were imported from systems with limited capabilities.</li>
-		<li>Some collections where digitized photographically</li>
+		<li>Some collections where digitized photographically.</li>
 	</ul>
  </li>
 <li>We employ Google's services to obtain independent spatial and descriptive data. GIGO applies; collections which employ precise geography
