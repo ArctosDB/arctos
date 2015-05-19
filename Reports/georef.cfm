@@ -538,10 +538,12 @@ than those collections which employ more general geography or more verbatim spec
 		colln_coords_summary
 </cfquery>
 <h3>Summary Data</h3>
-<p>Click headers to sort. Mouseover headers to view explanation.</p>
+<p>
+	Click headers to sort. Mouseover headers to view explanation. Mouseover rows to view GUID. Or
+	<a href="/download.cfm?file=georef_stats.csv">download georeference data as CSV</a> - you might also want
+	the <a href="/download.cfm?file=georef_meta.csv">pretty headers and explanations as CSV</a>.
+</p>
 
-<br><a href="/download.cfm?file=georef_stats.csv">get georeference data as CSV</a>
-<br><a href="/download.cfm?file=georef_meta.csv">get column data as CSV</a>
 
 <cfset dl_cname="">
 <cfset dl_clongname="">
