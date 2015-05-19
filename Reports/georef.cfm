@@ -133,7 +133,7 @@ of which may be georeferenced.</li>
 			select * from colln_coords where guid_prefix='#guid_prefix#'
 		</cfquery>
 
-		<cfquery name="geoDet" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="geoDet" dbtype="query">
 			select sum(numUsingSpecimens) as numgeorefs from thiscoln
 		</cfquery>
 		<cfif len(geoDet.numgeorefs) is 0>
