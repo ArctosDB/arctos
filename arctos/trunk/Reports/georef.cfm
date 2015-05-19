@@ -286,6 +286,18 @@ of which may be georeferenced.</li>
 <cfset QuerySetCell(tke, "expn", "Number of georeferences containing an assertion of error. 0 (zero) is considerered legacy data synonymous with NULL, not infinitely precise.", thisRow)>
 <cfset thisRow=thisRow+1>
 
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
+<cfset QuerySetCell(tke, "col", "pct_geo_w_err", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "%GeorefWithErr", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Percentage of georeferences containing an assertion of error. 0 (zero) is considerered legacy data synonymous with NULL, not infinitely precise.", thisRow)>
+<cfset thisRow=thisRow+1>
+
+
+
+
+
+
 
 <cfset queryAddRow(tke,1)>
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
@@ -358,6 +370,7 @@ of which may be georeferenced.</li>
 		specimens_with_georeference,
 		round(specimens_with_georeference/number_of_specimens,2)*100 pct_spec_geod,
 		georeferences_with_error,
+		round(georeferences_with_error/number_of_georeferences,2)*100 pct_geo_w_err,
 		georeferences_with_elevation,
 		calc_error_lt_1,
 		calc_error_lt_10,
