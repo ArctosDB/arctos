@@ -290,7 +290,29 @@ table.sortable > tbody{
 
 .sortheader{background-color:transparent;}
 
-.tblscroll{height:600px;overflow:auto;"}
+
+
+table.sortable tbody, table.sortable thead
+{
+    display: block;
+}
+
+
+table.sortable > tbody
+{
+   overflow: auto;
+   height: 100px;
+}
+
+
+sortable.sortable > th
+{
+    width: 72px;
+}
+
+
+
+
 
 
 </style>
