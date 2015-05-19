@@ -139,7 +139,6 @@ of which may be georeferenced.</li>
 		<tr>
 			<td>#guid_prefix#</td>
 			<td>#specimencount#</td>
-			<td>#geoDet.numgeorefs#</td>
 			<cfquery name="geoDet" dbtype="query">
 				select sum(numUsingSpecimens) as numgeorefs from thiscoln
 			</cfquery>
@@ -149,6 +148,7 @@ of which may be georeferenced.</li>
 				<cfset ngr=geoDet.numgeorefs>
 			</cfif>
 			<cfset grps=ngr/specimencount>
+			<td>#geoDet.numgeorefs#</td>
 			<td>#grps#</td>
 			<cfquery name="noerr" dbtype="query">
 				select count(*) c from thiscoln where err_m=0 or len(err_m) is 0
