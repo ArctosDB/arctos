@@ -234,6 +234,13 @@ of which may be georeferenced.</li>
 <cfset QuerySetCell(tke, "expn", "Collection", thisRow)>
 <cfset thisRow=thisRow+1>
 
+<cfset queryAddRow(tke,1)>
+<cfset QuerySetCell(tke, "ord", "2", thisRow)>
+<cfset QuerySetCell(tke, "col", "number_of_specimens", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "##Specimen", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Number of specimens held by the collection", thisRow)>
+<cfset thisRow=thisRow+1>
+
 <cfquery name="meta" dbtype="query">
 	select * from tke order by ord
 </cfquery>
@@ -241,9 +248,8 @@ of which may be georeferenced.</li>
 <table border>
 	<cfloop query="meta">
 		<tr>
-
 			<th>#hdr#</th>
-	</tr>
+		</tr>
 	</cfloop>
 
 
