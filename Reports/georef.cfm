@@ -221,7 +221,7 @@ of which may be georeferenced.</li>
  </li>
 <li>We employ Google's services to obtain independent spatial and descriptive data. GIGO applies.</li>
 </ul>
-
+<cfoutput>
 Column Keys
 <table border>
 	<tr>
@@ -293,9 +293,9 @@ Column Keys
 <ul>
 
 </ul>
-<cfoutput>
 
-<cfquery name="cs" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+
+<cfquery name="cs" datasource="uam_god" >
 	select * from colln_coords_summary
 </cfquery>
 <table border id="t" class="sortable">
