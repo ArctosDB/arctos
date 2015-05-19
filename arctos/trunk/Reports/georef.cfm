@@ -151,7 +151,7 @@ of which may be georeferenced.</li>
 			<td>#geoDet.numgeorefs#</td>
 			<td>#grps#</td>
 			<cfquery name="noerr" dbtype="query">
-				select count(*) c from thiscoln where err_m=0 or len(err_m) = 0
+				select count(*) c from thiscoln where (err_m=0 or err_m is null)
 			</cfquery>
 			<td>#noerr.c#</td>
 		</tr>
