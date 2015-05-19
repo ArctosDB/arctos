@@ -281,7 +281,7 @@ table.sortable tbody tr:nth-child(2n+1) td {
 }
 
 
-tbody{
+tbody.bigtabbdy{
     display:block;
     border: 2px solid black;
     border-collapse: separate;
@@ -568,7 +568,7 @@ than those collections which employ more general geography or more verbatim spec
 			<cfset dl_clongname=listappend(dl_clongname,col)>
 		</cfloop>
 	</tr>
-	<tbody>
+	<tbody class="bigtabbdy">
 	<cfloop query="cs">
 		<tr title="#guid_prefix#">
 			<cfloop query="meta">
