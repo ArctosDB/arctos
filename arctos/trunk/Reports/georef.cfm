@@ -122,7 +122,7 @@ of which may be georeferenced.</li>
 			select nvl(sum(numUsingSpecimens),0) numgeorefs from
 			colln_coords where guid_prefix='#guid_prefix#'
 		</cfquery>
-		<cfset grps=round(geoDet.numgeorefs/specimencount))>
+		<cfset grps=round(geoDet.numgeorefs/specimencount)>
 
 		<tr>
 			<td>#guid_prefix#</td>
