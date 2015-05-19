@@ -202,7 +202,9 @@ th.rotate > div > span {
 }
 </style>
 
-IMPORTANT JUNK
+
+<h3>Caveats</h3>
+
 <ul>
 <li>This is a cached report and overview. It's not necessarily current or correct. Contact a DBA for an update.</li>
 <li>Understanding http://arctosdb.org/documentation/places/specimen-event/ is important. Any specimen may have any number of localities, any
@@ -214,12 +216,11 @@ of which may be georeferenced.</li>
 		<li>Some collections have many georeferences because of curatorial practices and discipline-specific data. </li>
 		<li>Some collections were imported from systems with limited capabilities.</li>
 		<li>Some collections where digitized photographically</li>
-		<li></li>
-		<li></li>
-		<li></li>
 	</ul>
  </li>
-<li>We employ Google's services to obtain independent spatial and descriptive data. GIGO applies.</li>
+<li>We employ Google's services to obtain independent spatial and descriptive data. GIGO applies; collections which employ precise geography
+and "good" interpretations of verbatim locality into specific locality will have more accurate calculated data
+than those collections which employ more general geography or more verbatim specific localities.</li>
 </ul>
 <cfoutput>
 
@@ -387,7 +388,7 @@ of which may be georeferenced.</li>
 </cfquery>
 
 
-
+<h3>Column Explanations</h3>
 <table border>
 	<tr>
 		<th>Column</th>
@@ -425,7 +426,7 @@ of which may be georeferenced.</li>
 	from
 		colln_coords_summary
 </cfquery>
-
+<h3>Summary Data</h3>
 <table border id="t" class="sortable">
 	<tr>
 		<cfloop query="meta">
