@@ -89,7 +89,18 @@ IMPORTANT JUNK
 <li>This is a cached report and overview. It's not necessarily current or correct. Contact a DBA for an update.</li>
 <li>Understanding http://arctosdb.org/documentation/places/specimen-event/ is important. Any specimen may have any number of localities, any
 of which may be georeferenced.</li>
-<li></li>
+<li>It is important to understand the history of a collection in context of Arctos before drawing conclusions from these data. In part:
+	<ul>
+		<li>Some collections have many "unaccepted" georeferences because an
+			old Arctos model allowed only one "accepted" coordinate determination.</li>
+		<li>Some collections have many georeferences because of curatorial practices and discipline-specific data. </li>
+		<li>Some collections were imported from systems with limited capabilities.</li>
+		<li>Some collections where digitized photographically</li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+ </li>
 <li>We employ Google's services to obtain independent spatial and descriptive data. GIGO applies.</li>
 </ul>
 
@@ -118,11 +129,19 @@ of which may be georeferenced.</li>
 		<th>Georef/Specm</th>
 	</tr>
 	<cfloop query="#collns#">
-		<cfquery name="geoDet" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select nvl(sum(numUsingSpecimens),0) numgeorefs from
-			colln_coords where guid_prefix='#guid_prefix#'
+		<cfquery name="thiscoln" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select * from colln_coords where guid_prefix='#guid_prefix#'
 		</cfquery>
-		<cfset grps=geoDet.numgeorefs/specimencount>
+
+		<cfquery name="geoDet" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select sum(numUsingSpecimens) as numgeorefs from thiscoln
+		</cfquery>
+		<cfif len(geoDet.numgeorefs) is 0>
+			<cfset ngr=0>
+		<cfelse>
+			<cfset ngr=geoDet.numgeorefs>
+		</cfif>
+		<cfset grps=ngr/specimencount>
 
 		<tr>
 			<td>#guid_prefix#</td>
