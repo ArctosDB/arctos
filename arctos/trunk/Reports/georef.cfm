@@ -85,6 +85,7 @@ create table colln_coords_summary (
 	number_of_specimens number,
 	number_of_georeferences number,
 	georeferences_per_specimen number,
+	specimens_with_georeference number,
 	georeferences_with_error number,
 	georeferences_with_elevation number,
 	calc_error_lt_1 number,
@@ -99,6 +100,7 @@ declare
 	ng number;
 	gps number;
 	gwe number;
+	swg number;
 	gwv number;
 	el1 number;
 	el10 number;
@@ -134,6 +136,7 @@ begin
 			s_elev_m between min_elev_m and max_elev_m;
 
 
+		select sum(numUsingSpecimens) into swg from colln_coords where dec_lat is not null and guid_prefix=r.guid_prefix;
 
 
 
@@ -142,6 +145,7 @@ begin
 			number_of_specimens,
 			number_of_georeferences,
 			georeferences_per_specimen,
+			specimens_with_georeference,
 			georeferences_with_error,
 			georeferences_with_elevation,
 			calc_error_lt_1,
@@ -152,7 +156,8 @@ begin
 			r.guid_prefix,
 			ns,
 			ng,
-			gps,
+			round(gps,2),
+			swg,
 			gwe,
 			gwv,
 			el1,
@@ -244,6 +249,14 @@ Column Keys
 		<td>##GeorefPerSpecimen</td>
 		<td>##Georef/##Specimen. No indication of distribution is implied.</td>
 	</tr>
+
+
+
+	<tr>
+		<td>##SpecimensWithGeoref</td>
+		<td>Number of specimens with at least one georeference</td>
+	</tr>
+
 	<tr>
 		<td>##GeorefWithErr</td>
 		<td>Number of georeferences containing an assertion of error. 0 (zero) is considerered legacy data synonymous with NULL, not
@@ -304,6 +317,7 @@ Column Keys
 		<th class="rotate">##Specimen</th>
 		<th class="rotate">##Georef</th>
 		<th class="rotate">##GeorefPerSpecimen</th>
+		<th class="rotate">##SpecimensWithGeoref</th>
 		<th class="rotate">##GeorefWithErr</th>
 		<th class="rotate">##GeorefWithElev</th>
 		<th class="rotate">##GeorefWithElev</th>
@@ -318,6 +332,7 @@ Column Keys
 			<td>#number_of_specimens#</td>
 			<td>#number_of_georeferences#</td>
 			<td>#georeferences_per_specimen#</td>
+			<td>#specimens_with_georeference#</td>
 			<td>#georeferences_with_error#</td>
 			<td>#georeferences_with_elevation#</td>
 			<td>#calc_error_lt_1#</td>
