@@ -281,36 +281,6 @@ table.sortable tbody tr:nth-child(2n+1) td {
 }
 
 
-table.sortable > tbody{
-    display:block;
-    border: 2px solid black;
-    border-collapse: separate;
-    border-spacing: 4px;
-}
-
-.sortheader{background-color:transparent;}
-
-
-
-table.sortable tbody, table.sortable thead
-{
-    display: block;
-}
-
-
-table.sortable > tbody
-{
-   overflow: auto;
-   height: 100px;
-}
-
-
-sortable.sortable > th
-{
-    width: 72px;
-}
-
-
 
 
 
