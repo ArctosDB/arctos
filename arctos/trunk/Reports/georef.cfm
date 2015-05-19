@@ -85,13 +85,18 @@ group by
 
 
 IMPORTANT JUNK
+<ul>
+<li>This is a cached report and overview. It's not necessarily current or correct. Contact a DBA for an update.</li>
+<li>Understanding http://arctosdb.org/documentation/places/specimen-event/ is important. Any specimen may have any number of localities, any
+of which may be georeferenced.</li>
+<li></li>
+<li>We employ Google's services to obtain independent spatial and descriptive data. GIGO applies.</li>
+</ul>
 
-This is a cached report and overview. It's not necessarily current or correct. Contact a DBA for an update.
 
-Understanding http://arctosdb.org/documentation/places/specimen-event/ is important. Any specimen may have any number of localities, any
-of which may be georeferenced.
 
-We employ Google's services to obtain independent spatial and descriptive data. GIGO applies.
+
+
 
 <cfquery name="collns" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select
@@ -110,20 +115,20 @@ We employ Google's services to obtain independent spatial and descriptive data. 
 		<th>Colln</th>
 		<th>##Spec</th>
 		<th>##HasGeoref</th>
-		<th>%Georef</th>
+		<th>Georef/Specm</th>
 	</tr>
 	<cfloop query="#collns#">
 		<cfquery name="geoDet" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select nvl(sum(numUsingSpecimens),0) numgeorefs from
 			colln_coords where guid_prefix='#guid_prefix#'
 		</cfquery>
-		<cfset percentgeorefed=round((geoDet.numgeorefs/specimencount)*100)>
+		<cfset grps=round(geoDet.numgeorefs/specimencount))>
 
 		<tr>
 			<td>#guid_prefix#</td>
 			<td>#specimencount#</td>
 			<td>#geoDet.numgeorefs#</td>
-			<td>#percentgeorefed#</td>
+			<td>#grps#</td>
 		</tr>
 	</cfloop>
 </table>
