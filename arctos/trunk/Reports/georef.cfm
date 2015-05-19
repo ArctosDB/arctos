@@ -262,6 +262,35 @@ of which may be georeferenced.</li>
 
 
 
+
+
+
+<cfquery name="cs" datasource="uam_god" >
+	select * from colln_coords_summary
+</cfquery>
+
+
+
+<table border id="t" class="sortable">
+	<tr>
+			<cfloop query="meta">
+				<th>#Column#</th>
+			</cfloop>
+
+	</tr>
+	<cfloop query="cs">
+		<tr>
+			<cfloop query="meta">
+				<td>#evaluate("cs." & col)#</td>
+			</cfloop>
+		</tr>
+	</cfloop>
+</table>
+
+
+
+
+
 <hr>
 
 
