@@ -288,7 +288,7 @@ tbody{
     border-spacing: 4px;
 }
 
-
+.sortheader{background-color:none;}
 
 </style>
 
