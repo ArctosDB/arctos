@@ -316,7 +316,7 @@ of which may be georeferenced.</li>
 	select
 		guid_prefix,
 		number_of_specimens,
-		number_of_georeferences,.
+		number_of_georeferences,
 		round(number_of_georeferences/number_of_specimens,2) georeferences_per_specimen
 	from colln_coords_summary
 </cfquery>
