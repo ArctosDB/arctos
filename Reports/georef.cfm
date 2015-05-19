@@ -306,6 +306,7 @@ of which may be georeferenced.</li>
 <li>We employ Google's services to obtain independent spatial and descriptive data. GIGO applies; collections which employ precise geography
 and "good" interpretations of verbatim locality into specific locality will have more accurate calculated data
 than those collections which employ more general geography or more verbatim specific localities.</li>
+<li>Percentages are rounded to 2 places.</li>
 </ul>
 <cfoutput>
 
@@ -341,7 +342,7 @@ than those collections which employ more general geography or more verbatim spec
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 <cfset QuerySetCell(tke, "col", "georeferences_per_specimen", thisRow)>
 <cfset QuerySetCell(tke, "hdr", "##GeorefPerSpecimen", thisRow)>
-<cfset QuerySetCell(tke, "expn", "##Georef/##Specimen. No indication of distribution is implied. (Rounded 2 places.)", thisRow)>
+<cfset QuerySetCell(tke, "expn", "##Georef/##Specimen. No indication of distribution is implied.", thisRow)>
 <cfset thisRow=thisRow+1>
 
 
@@ -532,7 +533,7 @@ than those collections which employ more general geography or more verbatim spec
 		georeferences_with_elevation,
 		decode(number_of_georeferences,0,0,round(georeferences_with_elevation/number_of_georeferences,2)*100) pct_geo_w_elev,
 		calc_error_lt_1,
-		decode(georeferences_with_error,0,0,round(calc_error_lt_1/georeferences_with_error,2)*100) pct_err_lt_1,
+		decode(calc_error_lt_1,0,0,round(georeferences_with_error/calc_error_lt_1,2)*100) pct_err_lt_1,
 		calc_error_lt_10,
 		decode(georeferences_with_error,0,0,round(calc_error_lt_10/georeferences_with_error,2)*100) pct_err_lt_10,
 		calc_error_gt_10,
@@ -546,7 +547,7 @@ than those collections which employ more general geography or more verbatim spec
 </cfquery>
 <h3>Summary Data</h3>
 <p>
-	Click headers to sort. Mouseover headers to view explanation. Mouseover rows to view GUID. Or
+	Click headers to sort. Mouseover headers to view explanation. Mouseover rows to view collection. Or
 	<a href="/download.cfm?file=georef_stats.csv">download georeference data as CSV</a> - you might also want
 	the <a href="/download.cfm?file=georef_meta.csv">pretty headers and explanations as CSV</a>.
 </p>

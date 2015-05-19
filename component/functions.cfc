@@ -2843,7 +2843,7 @@
 		<cfreturn result>
 	</cfif>
 	<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select agent_name, agent_id, '' status from agent_name where upper(agent_name)=trim('#ucase(agent_name)#') group by agent_name,agent_id, ''
+		select '#agent_name#' agent_name, '' status, getAgentID(agent_name) agent_id from dual
 	</cfquery>
 	<cfif t.recordcount is 1>
 		<cfreturn t>
