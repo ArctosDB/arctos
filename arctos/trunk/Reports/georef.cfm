@@ -290,6 +290,9 @@ table.sortable > tbody{
 
 .sortheader{background-color:transparent;}
 
+.tblscroll{height:600px;overflow:auto;"}
+
+
 </style>
 
 
@@ -555,11 +558,18 @@ than those collections which employ more general geography or more verbatim spec
 	<a href="/download.cfm?file=georef_stats.csv">download georeference data as CSV</a> - you might also want
 	the <a href="/download.cfm?file=georef_meta.csv">pretty headers and explanations as CSV</a>.
 </p>
-
+<p>
+	Table displaying crazy? Click a header to sort, it should work itself out.
+</p>
 
 <cfset dl_cname="">
 <cfset dl_clongname="">
 <cfset dl_data="">
+
+<div class="tblscroll">
+
+
+
 <table border="0" id="t" class="sortable">
 	<tr class="bigtable">
 		<cfloop query="meta">
@@ -582,6 +592,7 @@ than those collections which employ more general geography or more verbatim spec
 	</tbody>
 </table>
 
+</div>
 <cfset util = CreateObject("component","component.utilities")>
 <cfset x=util.QueryToCSV2(query=cs,fields=cs.columnlist)>
 <cffile action = "write"
