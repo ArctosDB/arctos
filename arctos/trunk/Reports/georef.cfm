@@ -114,7 +114,7 @@ begin
 
 		select count(*) into ng from colln_coords where dec_lat is not null and guid_prefix=r.guid_prefix;
 
-		gps:=ns/ng;
+		gps:=ng/ns;
 
 		select count(*) into gwe from colln_coords where err_m is not null and guid_prefix=r.guid_prefix;
 
@@ -180,6 +180,26 @@ end;
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfset title="Arctos Georeference Summary">
+<style>
+th.rotate {
+  /* Something you can count on */
+  height: 140px;
+  white-space: nowrap;
+}
+
+th.rotate > div {
+  transform:
+    /* Magic Numbers */
+    translate(25px, 51px)
+    /* 45 is really 360 - 45 */
+    rotate(315deg);
+  width: 30px;
+}
+th.rotate > div > span {
+  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+}
+</style>
 
 IMPORTANT JUNK
 <ul>
@@ -206,6 +226,19 @@ of which may be georeferenced.</li>
 <cfquery name="cs" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select * from colln_coords_summary
 </cfquery>
+<table border id="t" class="sortable">
+	<tr>
+		<th class="rotate"><div><span>Collection</span></div></th>
+	</tr>
+	<cfloop query="cs">
+		<tr>
+			<td>#guid_prefix#</td>
+		</tr>
+	</cfloop>
+</table>
+
+
+
 <cfdump var=#cs#>
 
 <!-----
