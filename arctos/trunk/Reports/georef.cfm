@@ -415,7 +415,7 @@ of which may be georeferenced.</li>
 		georeferences_with_elevation,
 		decode(number_of_georeferences,0,0,round(georeferences_with_elevation/number_of_georeferences,2)*100) pct_geo_w_elev,
 		calc_error_lt_1,
-		decode(number_of_georeferences,0,0,round(calc_error_lt_1,number_of_georeferences,2)*100) pct_err_lt_1,
+		decode(number_of_georeferences,0,0,round(calc_error_lt_1/number_of_georeferences,2)*100) pct_err_lt_1,
 		calc_error_lt_10,
 		decode(calc_error_lt_10,0,0,round(number_of_georeferences/calc_error_lt_10,2)*100) pct_err_lt_10,
 		calc_error_gt_10,
