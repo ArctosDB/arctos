@@ -246,9 +246,13 @@ of which may be georeferenced.</li>
 </cfquery>
 
 <table border>
+	<tr>
+		<th>Column</th>
+		<th>Explanation</th>
+	</tr>
 	<cfloop query="meta">
 		<tr>
-			<th>#hdr#</th>
+			<td>#hdr#</td>
 		</tr>
 	</cfloop>
 
