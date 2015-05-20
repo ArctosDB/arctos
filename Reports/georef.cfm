@@ -259,6 +259,12 @@ sho err;
 <style>
 	tr.bigtable > th { /* Something you can count on */ height: 140px; white-space: nowrap; } tr.bigtable > th > a { transform: /* Magic Numbers */ translate(25px, 51px) /* 45 is really 360 - 45 */ rotate(315deg); width: 30px; border-bottom: 1px solid #ccc; padding: 5px 10px; } table.sortable tbody tr:nth-child(2n) td { background: #ffcccc; } table.sortable tbody tr:nth-child(2n+1) td { background: #ccfffff; }
 </style>
+<h3>Arctos Georeference Report</h3>
+This report provides a summary of the status of georeference data in Arctos. It may be useful in determining how curatorial
+practices can support georeferencing automation. For example, a low "asserted coordinates within a kilometer of suggested
+coordinates" score may be an indication of poor transcriptions of coordinates, low-quality data in specific locality,
+poor choices in selecting geography, or just an indication that a collection has many specimens from places poorly
+supported by the georeferencing services.
 <h3>
 	Caveats
 </h3>
@@ -368,7 +374,7 @@ sho err;
 	<cfset queryAddRow(tke,1)>
 	<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 	<cfset QuerySetCell(tke, "col", "pct_gr_w_c_err", thisRow)>
-	<cfset QuerySetCell(tke, "hdr", "RatGeorefWCal", thisRow)>
+	<cfset QuerySetCell(tke, "hdr", "%GeorefWCal", thisRow)>
 	<cfset QuerySetCell(tke, "expn", "Ratio of georeferences also containing a service-derived assertion of coordinates.", thisRow)>
 	<cfset thisRow=thisRow+1>
 	<cfset queryAddRow(tke,1)>
