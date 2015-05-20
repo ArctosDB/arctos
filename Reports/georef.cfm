@@ -532,10 +532,9 @@
 				<cfloop query="cs">
 					<tr title="#guid_prefix#">
 						<cfloop query="meta">
-							<td>
-								#evaluate("cs." & col)#
-							</td>
-							<cfset dl_data=listappend(dl_data,evaluate("cs." & col))>
+							<cfset tv=evaluate("cs." & col)>
+							<td>#tv#</td>
+							<cfset dl_data=listappend(dl_data,tv)>
 						</cfloop>
 					</tr>
 				</cfloop>
