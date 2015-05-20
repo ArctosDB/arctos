@@ -379,7 +379,7 @@
 	<cfset thisRow=thisRow+1>
 
 
-	<!-- IDK what this was supposed to be....
+	<!---- IDK what this was supposed to be....
 	<cfset queryAddRow(tke,1)>
 	<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 	<cfset QuerySetCell(tke, "col", "rat_gr_w_c_err", thisRow)>
