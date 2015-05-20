@@ -361,18 +361,16 @@ sho err;
 	<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 	<cfset QuerySetCell(tke, "col", "gref_with_calc_georeference", thisRow)>
 	<cfset QuerySetCell(tke, "hdr", "##GeorefWCal", thisRow)>
-	<cfset QuerySetCell(tke, "expn", "Number of georeferences also containing a service-derived assertion of error.", thisRow)>
+	<cfset QuerySetCell(tke, "expn", "Number of georeferences also containing a service-derived assertion of coordinates.", thisRow)>
 	<cfset thisRow=thisRow+1>
 
 
-	<!---- IDK what this was supposed to be....
 	<cfset queryAddRow(tke,1)>
 	<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
-	<cfset QuerySetCell(tke, "col", "rat_gr_w_c_err", thisRow)>
+	<cfset QuerySetCell(tke, "col", "pct_gr_w_c_err", thisRow)>
 	<cfset QuerySetCell(tke, "hdr", "RatGeorefWCal", thisRow)>
-	<cfset QuerySetCell(tke, "expn", "Ratio of georeferences with of georeferences also containing a service-derived assertion of error.", thisRow)>
+	<cfset QuerySetCell(tke, "expn", "Ratio of georeferences also containing a service-derived assertion of coordinates.", thisRow)>
 	<cfset thisRow=thisRow+1>
-	---->
 	<cfset queryAddRow(tke,1)>
 	<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 	<cfset QuerySetCell(tke, "col", "georeferences_with_elevation", thisRow)>
@@ -479,7 +477,8 @@ sho err;
 		decode(number_of_georeferences,0,0,round(calc_error_gt_10/number_of_georeferences,2)*100) pct_err_gt_10,
 		calc_elev_fits,
 		decode(georeferences_with_elevation,0,0,round(calc_elev_fits/georeferences_with_elevation,2)*100) pct_elev_fits,
-		gref_with_calc_georeference
+		gref_with_calc_georeference,
+		decode(number_of_georeferences,0,0,round(gref_with_calc_georeference/number_of_georeferences,2)*100) pct_gr_w_c_err
 	from
 		colln_coords_summary
 </cfquery>
