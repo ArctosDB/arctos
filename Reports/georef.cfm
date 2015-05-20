@@ -264,7 +264,8 @@ This report provides a summary of the status of georeference data in Arctos. It 
 practices can support georeferencing automation. For example, a low "asserted coordinates within a kilometer of suggested
 coordinates" score may be an indication of poor transcriptions of coordinates, low-quality data in specific locality,
 poor choices in selecting geography, or just an indication that a collection has many specimens from places poorly
-supported by the georeferencing services.
+supported by the georeferencing services. Such a score is not an indication that anything is necessarily "wrong";
+one would expect such a condition in a collection which downloads GPS data and provides only general descriptive data, for example.
 <h3>
 	Caveats
 </h3>
