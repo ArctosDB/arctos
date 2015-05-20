@@ -358,6 +358,7 @@
 											<li><a target="_top" href="/info/dupAgent.cfm">Duplicate Agents</a></li>
 											<li><a target="_top" href="/Reports/partusage.cfm">Part Usage</a></li>
 											<li><a target="_top" href="/info/dispVRemark.cfm">Disposition vs. Remark</a></li>
+											<li><a target="_top" href="/Reports/georef.cfm">Georeference Statistics</a></li>
 										</ul>
 									</li>
 									 <li><a target="_top" href="##">Data Services</a>
