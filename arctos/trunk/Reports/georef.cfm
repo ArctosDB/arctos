@@ -29,9 +29,10 @@ where
 -- nope...
 drop table spec_coords
 
+drop table colln_coords
 
 create table colln_coords as select
-  count(*) numUsingSpecimens,
+  count(distinct(cataloged_item.collection_object_id)) numUsingSpecimens,
   guid_prefix,
   locality.dec_lat,
   locality.dec_long,
@@ -95,10 +96,10 @@ create table colln_coords_summary (
 
 
 
-declare
-	ns number;
-	ng number;
-	gwe number;
+
+CREATE OR REPLACE PROCEDURE CACHE_GEOREF_STATS IS
+	numGeoRefedSpecimens number;
+	v_number_of_georeferences number;
 	gwce number;
 	swg number;
 	gwv number;
@@ -107,13 +108,92 @@ declare
 	eg10 number;
 	evg number;
 begin
+	-- Expensive, but easy to maintain and seldom-run procedure to gather some georef stats
 
 	delete from colln_coords_summary;
+
+	execute immediate 'drop table colln_coords';
+
+	-- create a "summary" table - slow, but speeds up other stuff
+	create table colln_coords as select
+	  count(distinct(cataloged_item.collection_object_id)) numUsingSpecimens,
+	  guid_prefix,
+	  locality.dec_lat,
+	  locality.dec_long,
+	  locality.s$dec_lat,
+	  locality.s$dec_long,
+	  to_meters(locality.MAX_ERROR_DISTANCE,locality.MAX_ERROR_UNITS) err_m,
+	  getHaversineDistance(locality.dec_lat,locality.dec_long,locality.s$dec_lat,locality.s$dec_long) s_err_km,
+	  to_meters(locality.MINIMUM_ELEVATION,locality.ORIG_ELEV_UNITS) min_elev_m,
+	  to_meters(locality.MAXIMUM_ELEVATION,locality.ORIG_ELEV_UNITS) max_elev_m,
+	  locality.s$elevation s_elev_m,
+	  geog_auth_rec.higher_geog,
+	  locality.S$GEOGRAPHY
+	from
+	  cataloged_item,
+	  collection,
+	  specimen_event,
+	  collecting_event,
+	  locality,
+	  geog_auth_rec
+	where
+	  cataloged_item.collection_id=collection.collection_id and
+	  cataloged_item.collection_object_id=specimen_event.collection_object_id and
+	  specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+	  collecting_event.locality_id=locality.locality_id and
+	  locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+	  locality.dec_lat is not null
+	group by
+	  guid_prefix,
+	  locality.dec_lat,
+	  locality.dec_long,
+	  locality.s$dec_lat,
+	  locality.s$dec_long,
+	  to_meters(locality.MAX_ERROR_DISTANCE,locality.MAX_ERROR_UNITS),
+	  getHaversineDistance(locality.dec_lat,locality.dec_long,locality.s$dec_lat,locality.s$dec_long),
+	  to_meters(locality.MINIMUM_ELEVATION,locality.ORIG_ELEV_UNITS),
+	  to_meters(locality.MAXIMUM_ELEVATION,locality.ORIG_ELEV_UNITS),
+	  locality.s$elevation,
+	  geog_auth_rec.higher_geog,
+	  locality.S$GEOGRAPHY
+	;
+
+
 
 	-- NOTE: In all the below, "locality" means "distinct values of stuff we're pulling from locality"
 	--    and NOT anything involving locality_id
 
-	for r in (select distinct guid_prefix from colln_coords) loop
+	for r in (select guid_prefix, count(*) c from COLLECTION ,
+					cataloged_item
+				where
+					collection.collection_id=cataloged_item.collection_id group by guid_prefix) loop
+
+		 -- total distinct "georeferences" used by the collection
+
+
+
+
+
+
+		-- specimens having at least one georeference
+		 select
+		  count(distinct(cataloged_item.collection_object_id)) into numGeoRefedSpecimens
+		from
+		  cataloged_item,
+		  collection,
+		  specimen_event,
+		  collecting_event,
+		  locality
+		where
+		  cataloged_item.collection_id=collection.collection_id and
+		  cataloged_item.collection_object_id=specimen_event.collection_object_id and
+		  specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+		  collecting_event.locality_id=locality.locality_id and
+		  locality.dec_lat is not null and
+		collection.guid_prefix=r.guid_prefix
+		;
+
+
 		insert into colln_coords_summary (
 			guid_prefix,
 			number_of_specimens,
@@ -128,37 +208,18 @@ begin
 			calc_elev_fits
 		) values (
 			r.guid_prefix,
-			(
-				--number_of_specimens owned by a collection
-				select
-					count(*)
-				from
-					collection,
-					cataloged_item
-				where
-					collection.collection_id=cataloged_item.collection_id and
-					collection.guid_prefix=r.guid_prefix
-			),
+			r.c,
 			(
 				-- number_of_georeferences - number of localities used by a collection
+				-- colln_coords already filteres for asserted coordinates
 				select
 					count(*)
 				from
 					colln_coords
 				where
-					dec_lat is not null and
 					guid_prefix=r.guid_prefix
 			),
-			(
-				-- specimens_with_georeference - number of specimens with at least one georeference
-				select
-					sum(numUsingSpecimens)
-				from
-					colln_coords
-				where
-					dec_lat is not null and
-					guid_prefix=r.guid_prefix
-			),
+			numGeoRefedSpecimens,
 			(
 				--gref_with_calc_georeference - number of localities with both asserted and calculated georeferences
 				select count(*) from colln_coords where
@@ -224,6 +285,10 @@ begin
 	end loop;
 end;
 /
+
+
+exec CACHE_GEOREF_STATS;
+
 
 -- just for test
 
@@ -294,13 +359,16 @@ table.sortable tbody tr:nth-child(2n+1) td {
 <li>This is a cached report and overview. It's not necessarily current or correct. Contact a DBA for an update.</li>
 <li>Understanding http://arctosdb.org/documentation/places/specimen-event/ is important. Any specimen may have any number of localities, any
 of which may be georeferenced.</li>
-<li>It is important to understand the history of a collection in context of Arctos before drawing conclusions from these data. In part:
+<li>It is important to understand the history of a collection in the context of Arctos before drawing conclusions from these data. In part:
 	<ul>
 		<li>Some collections have many "unaccepted" georeferences because an
 			old Arctos model allowed only one "accepted" coordinate determination.</li>
 		<li>Some collections have many georeferences because of curatorial practices and discipline-specific data. </li>
 		<li>Some collections were imported from systems with limited capabilities.</li>
-		<li>Some collections where digitized photographically.</li>
+		<li>Some collections were digitized photographically, and incrementally add data from various sources.</li>
+		<li>Some collections and disciplines create few georeferences/specimen (e.g., many thousands of insects from a trap)
+		while some create many (e.g., GPS data for individually-trapped mice). "Legacy" (e.g., transcribed from field notebooks) and "modern"
+		(e.g., downloaded from GPS) data vary similarly.</li>
 	</ul>
  </li>
 <li>We employ Google's services to obtain independent spatial and descriptive data. GIGO applies; collections which employ precise geography
@@ -340,19 +408,21 @@ than those collections which employ more general geography or more verbatim spec
 
 <cfset queryAddRow(tke,1)>
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
-<cfset QuerySetCell(tke, "col", "georeferences_per_specimen", thisRow)>
-<cfset QuerySetCell(tke, "hdr", "##GeorefPerSpecimen", thisRow)>
-<cfset QuerySetCell(tke, "expn", "##Georef/##Specimen. No indication of distribution is implied.", thisRow)>
+<cfset QuerySetCell(tke, "col", "specimens_with_georeference", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "##SpecimensWithGeoref", thisRow)>
+<cfset QuerySetCell(tke, "expn", "Number of specimens with at least one georeference.", thisRow)>
 <cfset thisRow=thisRow+1>
+
 
 
 
 <cfset queryAddRow(tke,1)>
 <cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
-<cfset QuerySetCell(tke, "col", "specimens_with_georeference", thisRow)>
-<cfset QuerySetCell(tke, "hdr", "##SpecimensWithGeoref", thisRow)>
-<cfset QuerySetCell(tke, "expn", "Number of specimens with at least one georeference.", thisRow)>
+<cfset QuerySetCell(tke, "col", "georeferences_per_specimen", thisRow)>
+<cfset QuerySetCell(tke, "hdr", "##GeorefPerSpecimen", thisRow)>
+<cfset QuerySetCell(tke, "expn", "##Georef/##Specimen. No indication of distribution is implied.", thisRow)>
 <cfset thisRow=thisRow+1>
+
 
 
 
