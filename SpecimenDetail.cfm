@@ -96,22 +96,6 @@
 </cfquery>
 
 <cfoutput>
-
-
-	<cfif detail.recordcount lt 1>
-		<div class="error">
-			Oops! No specimen was found for that URL.
-			<ul>
-				<li>Did you mis-type the URL?</li>
-				<li>
-					Did you click a link? <a href="/info/bugs.cfm">Tell us about it</a>.
-				</li>
-				<li>
-					You may need to log out or change your preferences to access all public data.
-				</li>
-			</ul>
-		</div>
-	</cfif>
 	<cfset title="#detail.guid#: #detail.scientific_name#">
 	<cfset metaDesc="#detail.guid#; #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
 	<cf_customizeHeader collection_id=#detail.collection_id#>
