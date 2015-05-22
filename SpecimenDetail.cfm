@@ -37,7 +37,7 @@
 					#session.flatTableName#,
 					flat check_vpd
 				WHERE
-					#session.flatTableName#.collection_object_id=flat.collection_object_id and
+					#session.flatTableName#.collection_object_id=check_vpd.collection_object_id and
 					upper(#session.flatTableName#.guid)='#ucase(guid)#'">
 			<cfset checkSql(sql)>
 			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
