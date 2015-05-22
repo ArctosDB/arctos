@@ -457,6 +457,11 @@
 	</cfif>
 </cfoutput>
 <cfcatch>
+
+	<cfdump var=#cfcatch#>
+
+
+
 	<cf_logError subject="SpecimenDetail error" attributeCollection=#cfcatch#>
 	<div class="error">
 		Oh no! Part of this page has failed to load!
