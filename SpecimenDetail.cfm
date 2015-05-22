@@ -34,10 +34,8 @@
 	<cfif guid contains ":">
 		<cfoutput>
 			<cfset sql="select #session.flatTableName#.collection_object_id from
-					#session.flatTableName#,
-					flat check_vpd
+					#session.flatTableName#
 				WHERE
-					#session.flatTableName#.collection_object_id=check_vpd.collection_object_id and
 					upper(#session.flatTableName#.guid)='#ucase(guid)#'">
 			<cfset checkSql(sql)>
 			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
