@@ -293,6 +293,14 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
+
+	<cfif not isdefined("session.roles")>
+		<cfinclude template="/includes/functionLib.cfm">
+		<cfset initSession()>
+	</cfif>
+
+
+
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset temp=getIpAddress()>
 	<cfif cgi.script_name is not "/errors/missing.cfm">

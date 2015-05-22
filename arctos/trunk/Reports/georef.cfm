@@ -356,13 +356,13 @@ one would expect such a condition in a collection which downloads GPS data and p
 	<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 	<cfset QuerySetCell(tke, "col", "georeferences_with_error", thisRow)>
 	<cfset QuerySetCell(tke, "hdr", "##GeorefWithErr", thisRow)>
-	<cfset QuerySetCell(tke, "expn", "Number of georeferences containing a curatorial assertion of error. 0 (zero) is considerered legacy data synonymous with NULL, not infinitely precise.", thisRow)>
+	<cfset QuerySetCell(tke, "expn", "Number of georeferences containing a curatorial assertion of error. 0 (zero) is considered legacy data synonymous with NULL, not infinitely precise.", thisRow)>
 	<cfset thisRow=thisRow+1>
 	<cfset queryAddRow(tke,1)>
 	<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
 	<cfset QuerySetCell(tke, "col", "pct_geo_w_err", thisRow)>
 	<cfset QuerySetCell(tke, "hdr", "%GeorefWithErr", thisRow)>
-	<cfset QuerySetCell(tke, "expn", "Percentage of georeferences containing an assertion of error. 0 (zero) is considerered legacy data synonymous with NULL, not infinitely precise.", thisRow)>
+	<cfset QuerySetCell(tke, "expn", "Percentage of georeferences containing an assertion of error. 0 (zero) is considered legacy data synonymous with NULL, not infinitely precise.", thisRow)>
 	<cfset thisRow=thisRow+1>
 	<cfset queryAddRow(tke,1)>
 	<cfset QuerySetCell(tke, "ord", thisRow, thisRow)>
