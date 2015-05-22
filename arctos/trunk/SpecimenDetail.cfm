@@ -42,11 +42,16 @@
 				#preservesinglequotes(sql)#
 			</cfquery>
 
-			<cfdump var=#c#>
+
+			<!--- run this here - it is striped with VPDs - if we can't get what we need, we're in teh wrong partision --->
 
 
-			<cfabort>
+			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select count(*) cnt from annotations
+						where collection_object_id = #detail.collection_object_id#
+					</cfquery>
 
+					<cfdump var=#existingAnnotations#>
 
 		</cfoutput>
 	</cfif>
@@ -211,10 +216,7 @@
 			---->
 		    <td valign="top" align="right">
 		        <div id="annotateSpace">
-					<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						select count(*) cnt from annotations
-						where collection_object_id = #detail.collection_object_id#
-					</cfquery>
+
 					<span class="likeLink" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')">
 						[&nbsp;Report&nbsp;Bad&nbsp;Data&nbsp;]
 					</span>
@@ -455,11 +457,6 @@
 	</cfif>
 </cfoutput>
 <cfcatch>
-
-	<cfdump var=#cfcatch#>
-
-
-
 	<cf_logError subject="SpecimenDetail error" attributeCollection=#cfcatch#>
 	<div class="error">
 		Oh no! Part of this page has failed to load!
