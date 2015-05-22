@@ -33,7 +33,7 @@
 	<cfset checkSql(guid)>
 	<cfif guid contains ":">
 		<cfoutput>
-			<cfset sql="select collection_object_id from
+			<cfset sql="select #session.flatTableName#.collection_object_id from
 					#session.flatTableName#,
 					flat check_vpd
 				WHERE
