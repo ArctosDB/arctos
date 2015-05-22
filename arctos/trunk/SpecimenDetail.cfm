@@ -45,7 +45,7 @@
 
 			<!--- run this here - it is striped with VPDs - if we can't get what we need, we're in teh wrong partision --->
 
-
+#session.dbuser#
 			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select count(*) cnt from annotations
 						where collection_object_id = #c.collection_object_id#
