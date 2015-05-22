@@ -48,7 +48,7 @@
 
 			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select count(*) cnt from annotations
-						where collection_object_id = #detail.collection_object_id#
+						where collection_object_id = #c.collection_object_id#
 					</cfquery>
 
 					<cfdump var=#existingAnnotations#>
