@@ -4,7 +4,7 @@
 		$("#b_ent_date").datepicker();
 		$("#e_ent_date").datepicker();
 		$("#rec_date").datepicker();
-		$("#rec_until_date").datepicker();	
+		$("#rec_until_date").datepicker();
 		$("#issued_date").datepicker();
 		$("#renewed_date").datepicker();
 		$("#exp_date").datepicker();
@@ -15,7 +15,7 @@
 			checkReplaceNoPrint(event,'remarks');
 		});
 	});
-	
+
 	function addAccnContainer(transaction_id,barcode){
 		$('#newbarcode').addClass('red');
 		$.getJSON("/component/functions.cfc",
@@ -30,13 +30,13 @@
 			if (r.STATUS == 'success') {
 				$('#newbarcode').removeClass('red').val('').focus();
 				var d='<div id="tc_' + r.BARCODE + '">' + r.BARCODE + '&nbsp;<span class="infoLink" onclick="removeAccnContainer(' + r.TRANSACTION_ID + ',\'' + r.BARCODE + '\')">Remove</span></div>';
-				$('#existingAccnContainers').append(d);					
+				$('#existingAccnContainers').append(d);
 			} else {
 				alert('An error occured! \n ' + r.ERROR);
 				$('#newbarcode').focus();
-			}	
+			}
 		}
-	);	
+	);
 	}
 	function removeAccnContainer(transaction_id,barcode){
 		$('#newbarcode').addClass('red');
@@ -55,9 +55,9 @@
 			} else {
 				alert('An error occured! \n ' + r.ERROR);
 				$('#newbarcode').focus();
-			}	
+			}
 		}
-	);	
+	);
 	}
 	function removeMediaDiv() {
 		if(document.getElementById('bgDiv')){
@@ -88,7 +88,7 @@
 	        viewport.init("#mediaDiv");
 	    });
 	}
-</script>		
+</script>
 <cfset title="Edit Accession">
 <cfif not isdefined("project_id")>
 	<cfset project_id = -1>
@@ -132,7 +132,7 @@
 			jQuery(document).ready(function() {
 				getMedia('accn','#transaction_id#','accnMediaDiv','6','1');
 			});
-		</script>	
+		</script>
 		<cfset title="Edit Accession">
 		<cfquery name="accnData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
@@ -152,7 +152,7 @@
 				estimated_count,
 				is_public_fg
 			FROM
-				trans, 
+				trans,
 				accn,
 				collection
 			WHERE
@@ -161,9 +161,9 @@
 				trans.transaction_id = #transaction_id#
 		</cfquery>
 		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select 
+			select
 				trans_agent_id,
-				trans_agent.agent_id, 
+				trans_agent.agent_id,
 				agent_name,
 				trans_agent_role
 			from
@@ -176,7 +176,7 @@
 			order by
 				trans_agent_role,
 				agent_name
-		</cfquery>	
+		</cfquery>
 		<div style="clear:both"><strong>Edit Accession</strong></div>
 		<table><tr><td valign="top">
 			<cfform action="editAccn.cfm" method="post" name="editAccn" id="editAccn">
@@ -218,10 +218,10 @@
 						</td>
 						<td>
 							<label for="rec_date">Received Date</label>
-							<cfinput type="text" 
+							<cfinput type="text"
 								name="rec_date"
-								value="#DateFormat(accnData.received_date, 'yyyy-mm-dd')#" 
-								size="10" 
+								value="#DateFormat(accnData.received_date, 'yyyy-mm-dd')#"
+								size="10"
 								id="rec_date">
 						</td>
 						<td>
@@ -229,14 +229,14 @@
 								Est. Cnt.
 							</label>
 							<cfinput type="text" validate="integer"
-								message="##Specimens must be a number" name="estimated_count" 
+								message="##Specimens must be a number" name="estimated_count"
 								value="#accnData.estimated_count#" size="10" id="estimated_count">
 						</td>
 					</tr>
 					<tr>
 						<td colspan="6">
 							<label for="nature_of_material">Nature of Material:</label>
-							<textarea name="nature_of_material" rows="5" cols="90"  class="reqdClr" 
+							<textarea name="nature_of_material" rows="5" cols="90"  class="reqdClr"
 								id="nature_of_material">#accnData.nature_of_material#</textarea>
 						</td>
 					</tr>
@@ -261,7 +261,7 @@
 											<cfset thisRole = #trans_agent_role#>
 											<select name="trans_agent_role_#trans_agent_id#">
 												<cfloop query="cttrans_agent_role">
-													<option 
+													<option
 														<cfif #trans_agent_role# is #thisRole#> selected="selected"</cfif>
 														value="#trans_agent_role#">#trans_agent_role#</option>
 												</cfloop>
@@ -290,7 +290,7 @@
 										</select>
 									</td>
 									<td>&nbsp;</td>
-								</tr>				
+								</tr>
 							</table>
 						</td>
 					</tr>
@@ -302,7 +302,7 @@
 					</tr>
 					<tr>
 						<td colspan="3">
-							<em>Entered by</em> 
+							<em>Entered by</em>
 							<strong>#accnData.enteredby#</strong> <em>on</em> <strong>#dateformat(accnData.trans_date,'yyyy-mm-dd')#</strong>
 						</td>
 						<td colspan="2">
@@ -319,21 +319,21 @@
 								<option <cfif #accnData.is_public_fg# is "0">selected</cfif> value="0">private</option>
 							</select>
 						</td>
-						
+
 					</tr>
 					<tr>
 						<td colspan="6" align="center">
-						<input type="submit" value="Save Changes" class="savBtn">	
+						<input type="submit" value="Save Changes" class="savBtn">
 				 		<input type="button" value="Quit without saving" class="qutBtn"
 							onclick = "document.location = 'editAccn.cfm'">
 						<input type="button" value="Delete" class="delBtn" onClick="editAccn.action.value='deleteAccn';confirmDelete('editAccn');">
-					
-					
-					
+
+
+
 						<input type="button" value="Specimen List" class="lnkBtn"
-						 	onclick = "window.open('SpecimenResults.cfm?accn_trans_id=#transaction_id#');">	
+						 	onclick = "window.open('SpecimenResults.cfm?accn_trans_id=#transaction_id#');">
 				       	<input type="button" value="BerkeleyMapper" class="lnkBtn"
-							onclick = "window.open('/bnhmMaps/bnhmMapData.cfm?accn_number=#accnData.accn_number#','_blank');">	
+							onclick = "window.open('/bnhmMaps/bnhmMapData.cfm?accn_number=#accnData.accn_number#','_blank');">
 						</td>
 					</tr>
 				</table>
@@ -373,7 +373,7 @@
 			<ul>
 				<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select project_name, project.project_id from project,
-					project_trans where 
+					project_trans where
 					project_trans.project_id =  project.project_id
 					and transaction_id=#transaction_id#
 				</cfquery>
@@ -392,11 +392,11 @@
 					<td>
 						<label for="project_name">New Project</label>
 						<input type="hidden" name="project_id">
-						<input type="text" 
+						<input type="text"
 							size="50"
 							name="project_name"
-							id="project_name" 
-							class="reqdClr" 
+							id="project_name"
+							class="reqdClr"
 							onchange="getProject('project_id','project_name','editAccn',this.value); return false;"
 							onKeyPress="return noenter(event);">
 					</td>
@@ -407,13 +407,13 @@
 			<strong>Media associated with this Accn:</strong>
 			<!---
 			<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
+				select
 					media.media_id,
 					preview_uri,
 					media_uri,
 					media_type,
 					label_value
-				from 
+				from
 					media,
 					media_relations,
 					(select * from media_labels where media_label='description') media_labels
@@ -450,7 +450,7 @@
 				<div id="accnMediaDiv"></div>
 		</div>
 		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			SELECT 
+			SELECT
 				permit.permit_id,
 				issuedBy.agent_name as IssuedByAgent,
 				issuedTo.agent_name as IssuedToAgent,
@@ -459,11 +459,11 @@
 				exp_date,
 				permit_Num,
 				permit_Type,
-				permit_remarks	
+				permit_remarks
 			FROM
-				permit, 
-				permit_trans, 
-				preferred_agent_name issuedTo, 
+				permit,
+				permit_trans,
+				preferred_agent_name issuedTo,
 				preferred_agent_name issuedBy
 			WHERE
 				permit.permit_id = permit_trans.permit_id AND
@@ -472,21 +472,21 @@
 				permit_trans.transaction_id = #accnData.transaction_id#
 		</cfquery>
 		<div style="float:left;width:55%;">
-			<br><strong>Permits:</strong>  
+			<br><strong>Permits:</strong>
 			<cfloop query="getPermits">
-				<p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to #IssuedToAgent# by #IssuedByAgent# on #dateformat(issued_date,"yyyy-mm-dd")#. <cfif len(#renewed_date#) gt 0> (renewed #renewed_date#)</cfif>Expires #dateformat(exp_date,"yyyy-mm-dd")#  <cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif> 
+				<p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to #IssuedToAgent# by #IssuedByAgent# on #dateformat(issued_date,"yyyy-mm-dd")#. <cfif len(#renewed_date#) gt 0> (renewed #renewed_date#)</cfif>Expires #dateformat(exp_date,"yyyy-mm-dd")#  <cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif>
 				<form name="killPerm#currentRow#" method="post" action="editAccn.cfm">
 					<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
 					<input type="hidden" name="action" value="delePermit">
 					<input type="hidden" name="permit_id" value="#permit_id#">
-					 <input type="submit" value="Remove this Permit" class="delBtn">	
+					 <input type="submit" value="Remove this Permit" class="delBtn">
 				</form>
 			</cfloop>
 			<form name="addPermit" action="editAccn.cfm" method="post">
 				<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
 				<input type="hidden" name="permit_id">
 				  <input type="button" value="Add a permit" class="picBtn"
-			   		onClick="javascript: window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick', 
+			   		onClick="javascript: window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick',
 						'resizable,scrollbars=yes,width=600,height=600')">
 			</form>
 		</td></tr></table>
@@ -605,7 +605,7 @@
 							<td>
 								<label  for="b_ent_date">Entry Date:</label>
 								<input type="text" name="b_ent_date" id="b_ent_date">
-							</td> 
+							</td>
 							<td>
 								<label for="e_ent_date">Until: (leave blank otherwise)</label>
 								<input type='text' name='e_ent_date' id='e_ent_date'>
@@ -617,7 +617,7 @@
 							<td>
 								<label  for="rec_date">Received Date:</label>
 								<input type="text" name="rec_date" id="rec_date">
-							</td> 
+							</td>
 							<td>
 								<label for="rec_until_date">Until: (leave blank otherwise)</label>
 								<input type='text' name='rec_until_date' id='rec_until_date'>
@@ -655,7 +655,7 @@
 					</td>
 					<td>
 						<label  for="IssuedByAgent">Permit Number</label>
-						<input type="text" name="permit_num" id="permit_num">			
+						<input type="text" name="permit_num" id="permit_num">
 					</td>
 				</tr>
 				<tr>
@@ -665,21 +665,21 @@
 							<option value=""></option>
 							<cfloop query="ctPermitType">
 								<option value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
-							</cfloop>				
+							</cfloop>
 						</select>
 					</td>
 					<td>
 						<label  for="permit_remarks">Remarks</label>
 						<input type="text" name="permit_remarks" id="permit_remarks">
-					</td>		
+					</td>
 				<tr>
 					<td colspan="4" align="center">
-				 		<input type="submit" value="Find Accession" class="schBtn">	
+				 		<input type="submit" value="Find Accession" class="schBtn">
 						<input type="button" value="Create a new accession" class="insBtn"
-							onClick="document.location = 'newAccn.cfm';">	
-						<input type="button" value="Clear Form" class="clrBtn" onClick="document.location='editAccn.cfm';">	
+							onClick="document.location = 'newAccn.cfm';">
+						<input type="button" value="Clear Form" class="clrBtn" onClick="document.location='editAccn.cfm';">
 						<input type="button" value="Add Specimens to an Accn" class="lnkBtn"
-						   onclick = "window.open('SpecimenSearch.cfm?action=addAccn');">	
+						   onclick = "window.open('SpecimenSearch.cfm?action=addAccn');">
 					</td>
 				</tr>
 			</table>
@@ -690,7 +690,7 @@
 <cfif #action# is "findAccessions">
 <cfset title = "Accession Search Results">
 	<cfoutput>
-		<cfset sel = "SELECT 
+		<cfset sel = "SELECT
 			trans.transaction_id,
 			accn_number,
 			nature_of_material,
@@ -705,8 +705,8 @@
 			estimated_count,
 			concattransagent(trans.transaction_id,'entered by') ENTAGENT,
 			concattransagent(trans.transaction_id,'received from') RECFROMAGENT">
-		<cfset frm=" from 
-		 	accn, 
+		<cfset frm=" from
+		 	accn,
 			trans,
 			permit_trans,
 			permit,
@@ -723,22 +723,22 @@
 			trans.transaction_id = project_trans.transaction_id (+) and
 			project_trans.project_id = project.project_id (+) AND
 			trans.collection_id=collection.collection_id ">
-		
-		
+
+
 		<cfif isdefined("accn_media") AND len(accn_media) gt 0>
 			<cfset frm="#frm#,media_relations">
 			<cfset sql="#sql# and media_relations.media_relationship like '% accn' and accn.transaction_id = media_relations.related_primary_key">
 		</cfif>
-		
+
 		<cfif isdefined("trans_agent_role_1") AND len(#trans_agent_role_1#) gt 0>
 			<cfset frm="#frm#,trans_agent trans_agent_1">
 			<cfset sql="#sql# and trans.transaction_id = trans_agent_1.transaction_id">
 			<cfset sql = "#sql# AND trans_agent_1.trans_agent_role = '#trans_agent_role_1#'">
 		</cfif>
-		
-		
-		
-		
+
+
+
+
 		<cfif isdefined("agent_1") AND len(#agent_1#) gt 0>
 			<cfif #sql# does not contain "trans_agent_1">
 				<cfset frm="#frm#,trans_agent trans_agent_1">
@@ -746,7 +746,7 @@
 			</cfif>
 			<cfset frm="#frm#,preferred_agent_name trans_agent_name_1">
 			<cfset sql="#sql# and trans_agent_1.agent_id = trans_agent_name_1.agent_id">
-			<cfset sql = "#sql# AND upper(trans_agent_name_1.agent_name) like '%#ucase(agent_1)#%'">
+			<cfset sql = "#sql# AND upper(trans_agent_name_1.agent_name) like '%#escapeQuotes(ucase(agent_1))#%'">
 		</cfif>
 		<cfif isdefined("trans_agent_role_2") AND len(#trans_agent_role_2#) gt 0>
 			<cfset frm="#frm#,trans_agent trans_agent_2">
@@ -760,7 +760,7 @@
 			</cfif>
 			<cfset frm="#frm#,preferred_agent_name trans_agent_name_2">
 			<cfset sql="#sql# and trans_agent_2.agent_id = trans_agent_name_2.agent_id">
-			<cfset sql = "#sql# AND upper(trans_agent_name_2.agent_name) like '%#ucase(agent_2)#%'">
+			<cfset sql = "#sql# AND upper(trans_agent_name_2.agent_name) like '%#escapeQuotes(ucase(agent_2))#%'">
 		</cfif>
 		<cfif isdefined("trans_agent_role_3") AND len(#trans_agent_role_3#) gt 0>
 			<cfset frm="#frm#,trans_agent trans_agent_3">
@@ -774,7 +774,7 @@
 			</cfif>
 			<cfset frm="#frm#,preferred_agent_name trans_agent_name_3">
 			<cfset sql="#sql# and trans_agent_3.agent_id = trans_agent_name_3.agent_id">
-			<cfset sql = "#sql# AND upper(trans_agent_name_3.agent_name) like '%#ucase(agent_3)#%'">
+			<cfset sql = "#sql# AND upper(trans_agent_name_3.agent_name) like '%#escapeQuotes(ucase(agent_3))#%'">
 		</cfif>
 		<cfif isdefined("collection_id") and len(#collection_id#) gt 0>
 			<cfset sql = "#sql# AND trans.collection_id = #collection_id#">
@@ -784,14 +784,14 @@
 				<cfset sql = "#sql# AND accn_number = '#accn_number#'">
 			<cfelse>
 				<cfset sql = "#sql# AND upper(accn_number) LIKE '%#ucase(accn_number)#%'">
-			</cfif>				
+			</cfif>
 		</cfif>
 		<cfif  isdefined("accn_status") and len(#accn_status#) gt 0>
 			<cfset sql = "#sql# AND accn_status = '#accn_status#'">
 		</cfif>
 		<cfif  isdefined("rec_date") and len(#rec_date#) gt 0>
 			<cfif isdefined("rec_until_date") and len(#rec_until_date#) gt 0>
-				<cfset sql = "#sql# AND upper(received_date) between to_date('#rec_date#', 'yyyy-mm-dd') 
+				<cfset sql = "#sql# AND upper(received_date) between to_date('#rec_date#', 'yyyy-mm-dd')
 					and to_date('#rec_until_date#', 'yyyy-mm-dd')">
 			<cfelse>
 				<cfset sql = "#sql# AND upper(received_date) like to_date('#rec_date#', 'yyyy-mm-dd')">
@@ -802,7 +802,7 @@
 		</cfif>
 		<cfif  isdefined("rec_agent") and len(#rec_agent#) gt 0>
 			<cfset frm = "#frm#,agent_name">
-			<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#ucase(rec_agent)#%' 
+			<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#ucase(rec_agent)#%'
 				AND trans.received_agent_id = agent_name.agent_id">
 		</cfif>
 		<cfif  isdefined("trans_agency") and len(#trans_agency#) gt 0>
@@ -818,7 +818,7 @@
 			<cfif not isdefined("e_ent_date") or len(e_ent_date) is 0>
 				<cfset e_ent_date=b_ent_date>
 			</cfif>
-			
+
 			<cfset sql = "#sql# AND TRANS_DATE between '#b_ent_date#' and '#e_ent_date#'">
 		</cfif>
 		<cfif isdefined("IssuedByAgent") and len(#IssuedByAgent#) gt 0>
@@ -908,7 +908,7 @@
 			<cfelse>
 				<a href="editAccn.cfm?action=edit&transaction_id=#transaction_id#"><strong>#guid_prefix# #accn_number#</strong></a>
 				<span style="font-size:smaller">(#accn_status#)</span>
-			</cfif> 
+			</cfif>
 			<div style="padding-left:2em;">
 				Received from: <strong>#recFromAgent#</strong>
 				<br>Received date: <strong>#DateFormat(received_date, "yyyy-mm-dd")#</strong>
@@ -932,7 +932,7 @@
 							<a href="/Project.cfm?action=editProject&project_id=#p.pid#"><strong>#P.project_name#</strong></a><BR>
 						</cfloop>
 					</div>
-				</CFIF>	
+				</CFIF>
 			</div>
 		</div>
 		<cfif csv is true>
@@ -947,12 +947,12 @@
 			<cfscript>
 				variables.joFileWriter.writeLine(d);
 			</cfscript>
-		</cfif>	
+		</cfif>
 		<cfset i=i+1>
 	</cfoutput>
-	
 
-	
+
+
 	<cfif csv is true>
 		<cfscript>
 			variables.joFileWriter.close();
@@ -961,15 +961,15 @@
 			<cflocation url="/download.cfm?file=#dlFile#" addtoken="false">
 		</cfoutput>
 	</cfif>
-	
-	
-	
+
+
+
 </cfif>
 <!------------------------------------------------------------------------------------------->
 <cfif #action# is "delePermit">
 	<cfoutput>
 		<cfquery name="killPerm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and 
+			DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and
 			permit_id=#permit_id#
 		</cfquery>
 		<cflocation url="editAccn.cfm?action=edit&transaction_id=#transaction_id#">
@@ -996,7 +996,7 @@
 					ACCN_STATUS = '#accn_status#'
 					<cfif len(estimated_count) gt 0>
 						,estimated_count=#estimated_count#
-					</cfif> 
+					</cfif>
 					WHERE transaction_id = #transaction_id#
 			</cfquery>
 			<cfquery name="updateTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
