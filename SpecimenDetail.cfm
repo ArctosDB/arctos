@@ -41,6 +41,8 @@
 			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				#preservesinglequotes(sql)#
 			</cfquery>
+
+			<cfdump var=#c#>
 		</cfoutput>
 	</cfif>
 	<cfif isdefined("c.collection_object_id") and len(c.collection_object_id) gt 0>
