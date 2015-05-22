@@ -45,6 +45,11 @@
 			</cfquery>
 
 			<cfdump var=#c#>
+
+
+			<cfabort>
+
+
 		</cfoutput>
 	</cfif>
 	<cfif isdefined("c.collection_object_id") and len(c.collection_object_id) gt 0>
