@@ -471,7 +471,7 @@ one would expect such a condition in a collection which downloads GPS data and p
 		number_of_georeferences,
 		round(number_of_georeferences/number_of_specimens,2) georeferences_per_specimen,
 		specimens_with_georeference,
-		decode(number_of_specimens,0,0,round(specimens_with_georeference/number_of_specimens,2)) pct_spec_geod,
+		decode(number_of_specimens,0,0,round(specimens_with_georeference/number_of_specimens,2)*100) pct_spec_geod,
 		georeferences_with_error,
 		decode(number_of_georeferences,0,0,round(georeferences_with_error/number_of_georeferences,2)*100) pct_geo_w_err,
 		georeferences_with_elevation,
