@@ -24,6 +24,10 @@
 		width:60%;
 		margin-left:10em;
 	}
+	#common_name{
+		max-height:10em;
+		overflow:auto;
+	}
 </style>
 <script>
 	$(function() {
@@ -443,6 +447,7 @@ function loadTaxonomyMap(n,m){
 	<cfif common_name.recordcount gte 1>
 		<p>
 			<h4>Common Name(s)</h4>
+			<div id="common_name">
 			<ul>
 				<cfloop query="common_name">
 					<li>
@@ -450,6 +455,7 @@ function loadTaxonomyMap(n,m){
 					</li>
 				</cfloop>
 			</ul>
+			</div>
 		</p>
 	</cfif>
 	<cfquery name="tax_pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
