@@ -304,16 +304,19 @@
 									taxa_formula,
 									short_citation,
 									identification.publication_id,
-									taxon_name.scientific_name taxsciname
+									taxon_name.scientific_name taxsciname,
+									common_name.common_name
 								FROM
 									identification,
 									publication,
 									identification_taxonomy,
-									taxon_name
+									taxon_name,
+									common_name
 								WHERE
 									identification.publication_id=publication.publication_id (+) and
 									identification.identification_id=identification_taxonomy.identification_id (+) and
 									identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id (+) and
+									identification_taxonomy.taxon_name_id=common_name.taxon_name_id (+) and
 									identification.collection_object_id = #collection_object_id#
 							</cfquery>
 							<cfquery name="identification" dbtype="query">
