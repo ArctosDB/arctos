@@ -5,7 +5,7 @@
 
 
  <cfquery name="c" datasource="uam_god" >
-	select * from publication where doi is null
+	select * from publication where doi is null and rownum<10
  </cfquery>
 <cfdump var=#c#>
 
