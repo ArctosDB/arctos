@@ -364,7 +364,8 @@
 									select distinct taxsciname from raw_identification where identification_id=#identification_id#
 								</cfquery>
 								<cfquery name="thisCommonName" dbtype="query">
-									select distinct common_name from raw_identification where identification_id=#identification_id#
+									select distinct common_name from raw_identification where common_name is not null and
+									 identification_id=#identification_id#
 									order by common_name
 								</cfquery>
 								<cfdump var=#thisCommonName#>
