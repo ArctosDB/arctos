@@ -368,7 +368,6 @@
 									 identification_id=#identification_id#
 									order by common_name
 								</cfquery>
-								<cfdump var=#thisCommonName#>
 								<cfset link="">
 								<cfset i=1>
 								<cfset thisSciName="#scientific_name#">
@@ -382,11 +381,19 @@
 									<cfset metaDesc="">
 								</cfif>
 								<div class="taxDetDiv">
+
+
+								<!----
 									<cfif accepted_id_fg is 1>
 										<div class="taxaMeta">
 											#one.full_taxon_name#
 										</div>
 									</cfif>
+									---->
+									<div class="taxaMeta">
+											#one.full_taxon_name#
+										</div>
+
 									<cfif thisCommonName.recordcount gt 0>
 										<div class="taxaMeta">
 											#valuelist(thisCommonName.common_name,'; ')#
