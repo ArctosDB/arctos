@@ -355,6 +355,10 @@
 								<cfquery name="thisTaxLinks" dbtype="query">
 									select distinct taxsciname from raw_identification where identification_id=#identification_id#
 								</cfquery>
+								<cfquery name="thisCommonName" dbtype="query">
+									select distinct common_name from raw_identification where identification_id=#identification_id#
+									order by common_name
+								</cfquery>
 								<cfset link="">
 								<cfset i=1>
 								<cfset thisSciName="#scientific_name#">
@@ -373,6 +377,13 @@
 											#one.full_taxon_name#
 										</div>
 									</cfif>
+									<cfif thisCommonName.recordcount gt 0>
+										<div style="font-size:.8em;color:gray;">
+											#valuelist(thisCommonName.common_name,'; 'e#
+										</div>
+									</cfif>
+
+
 									<cfif len(short_citation) gt 0>
 										sensu <a href="/publication/#publication_id#" target="_mainFrame">
 												#short_citation#
