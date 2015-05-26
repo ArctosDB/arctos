@@ -353,7 +353,7 @@
 						        	<div class="unAcceptedIdDiv">
 						        </cfif>
 								<cfquery name="thisTaxLinks" dbtype="query">
-									select taxsciname from identification where identification_id=#identification_id#
+									select distinct taxsciname from raw_identification where identification_id=#identification_id#
 								</cfquery>
 								<cfset link="">
 								<cfset i=1>
