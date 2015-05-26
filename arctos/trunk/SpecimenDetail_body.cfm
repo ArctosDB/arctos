@@ -40,7 +40,9 @@
 			font-size:.8em;
 			color:gray;
 			 padding-left: .5em;
-    			text-indent:-.5em;
+    		text-indent:-.5em;
+			max-height:2.5em;
+			overflow:auto;
 }
 	</style>
 	<cfif len(seid) gt 0>
