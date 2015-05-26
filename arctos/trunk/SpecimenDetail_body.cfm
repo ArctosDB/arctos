@@ -367,6 +367,7 @@
 									select distinct common_name from raw_identification where identification_id=#identification_id#
 									order by common_name
 								</cfquery>
+								<cfdump var=#thisCommonName#>
 								<cfset link="">
 								<cfset i=1>
 								<cfset thisSciName="#scientific_name#">
