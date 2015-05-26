@@ -1,6 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
+<cfsetting requesttimeout="600">
+
 <cfset title="Bulkload Identification">
-<!---- make the table 
+<!---- make the table
 
 drop table cf_temp_id;
 drop public synonym cf_temp_id;
@@ -28,14 +30,14 @@ create table cf_temp_id (
 create public synonym cf_temp_id for cf_temp_id;
 grant select,insert,update,delete on cf_temp_id to manage_specimens;
 
-CREATE OR REPLACE TRIGGER cf_temp_id_key                                         
- before insert  ON cf_temp_id  
- for each row 
-    begin     
-    	if :NEW.key is null then                                                                                      
+CREATE OR REPLACE TRIGGER cf_temp_id_key
+ before insert  ON cf_temp_id
+ for each row
+    begin
+    	if :NEW.key is null then
     		select somerandomsequence.nextval into :new.key from dual;
-    	end if;                                
-    end;                                                                                            
+    	end if;
+    end;
 /
 
 alter table cf_temp_id rename column collection_cde to guid_prefix;
@@ -44,41 +46,36 @@ alter table cf_temp_id modify guid_prefix varchar2(30);
 
 sho err
 ------>
-<cfif #action# is "nothing">
-Step 1: Upload a comma-delimited text file (csv). 
-Include column headings, spelled exactly as below. 
-<br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
-	<div id="template" style="display:none;">
-		<label for="t">Copy the following code and save as a .csv file</label>
-		<textarea rows="2" cols="80" id="t">guid_prefix,other_id_type,other_id_number,scientific_name,made_date,nature_of_id,accepted_fg,identification_remarks,agent_1,agent_2</textarea>
-	</div> 
-<p></p>
-<ul>
-	<li style="color:red">guid_prefix</li>
-	<li style="color:red">other_id_type ("catalog number" is OK)</li>
-	<li style="color:red">other_id_number</li>
-	<li style="color:red">scientific_name</li>
-	<li>made_date</li>
-	<li style="color:red">nature_of_id</li>
-	<li style="color:red">accepted_fg (0 [no] or 1 [yes])</li>
-	<li>identification_remarks</li>
-	<li style="color:red">agent_1</li>
-	<li>agent_2</li>
-</ul>
-
-<cfform name="oids" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="Action" value="getFile">
-	<input type="file"
-		name="FiletoUpload"
-		size="45" onchange="checkCSV(this);">
-	<input type="submit" value="Upload this file" #saveClr#>
-</cfform>
+<cfif action is "nothing">
+	Upload a comma-delimited text file (csv).Include column headings, spelled exactly as below.
+	<br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
+		<div id="template" style="display:none;">
+			<label for="t">Copy the following code and save as a .csv file</label>
+			<textarea rows="2" cols="80" id="t">guid_prefix,other_id_type,other_id_number,scientific_name,made_date,nature_of_id,accepted_fg,identification_remarks,agent_1,agent_2</textarea>
+		</div>
+	<p></p>
+	<ul>
+		<li style="color:red">guid_prefix</li>
+		<li style="color:red">other_id_type ("catalog number" is OK)</li>
+		<li style="color:red">other_id_number</li>
+		<li style="color:red">scientific_name</li>
+		<li>made_date</li>
+		<li style="color:red">nature_of_id</li>
+		<li style="color:red">accepted_fg (0 [no] or 1 [yes])</li>
+		<li>identification_remarks</li>
+		<li style="color:red">agent_1</li>
+		<li>agent_2</li>
+	</ul>
+	<cfform name="oids" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="Action" value="getFile">
+		<input type="file"
+			name="FiletoUpload"
+			size="45" onchange="checkCSV(this);">
+		<input type="submit" value="Upload this file" #saveClr#>
+	</cfform>
 </cfif>
 <!------------------------------------------------------->
-<!------------------------------------------------------->
-
-<!------------------------------------------------------->
-<cfif #action# is "getFile">
+<cfif action is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -86,9 +83,9 @@ Include column headings, spelled exactly as below.
 	</cfquery>
 
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-	
+
 	<cfset fileContent=replace(fileContent,"'","''","all")>
-	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />	
+	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
@@ -102,42 +99,105 @@ Include column headings, spelled exactly as below.
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into cf_temp_id (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
-	</cfloop>	
-	<cflocation url="BulkloadIdentification.cfm?action=validate" addtoken="false">	
+	</cfloop>
+	data uploaded - <a href="BulkloadIdentification.cfm?action=validate">continue to validation</a>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-
-<!------------------------------------------------------->
-<cfif #action# is "validate">
-<cfoutput>
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_id set status='missing data'
-		where
-		other_id_type is null or
-		other_id_number is null or
-		guid_prefix is null or
-		scientific_name is null or
-		nature_of_id is null or
-		accepted_fg is null or
-		agent_1 is null
-	</cfquery>
-	
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_id where status is null
-	</cfquery>
-	<cfloop query="data">
-		<cfset problem="">
-		<cfif other_id_type is not "catalog number">
-			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					SELECT 
+<cfif action is "validate">
+	<cfoutput>
+		<p>
+			validating
+		</p>
+		<p>
+			this might take some time....
+		</p>
+		<p>
+			if you have more than ~500 records you might need to reload a few times....
+		</p>
+		<p>
+			if your browser is still spinning after ~5 minutes, it's probably stuck; stop and reload
+		</p>
+		<cfflush>
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update cf_temp_id set status='missing data'
+			where
+			other_id_type is null or
+			other_id_number is null or
+			guid_prefix is null or
+			scientific_name is null or
+			nature_of_id is null or
+			accepted_fg is null or
+			agent_1 is null
+		</cfquery>
+		<cfquery name="noid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	        update cf_temp_id set status='invalid nature_of_id' where nature_of_id not in (select nature_of_id from ctnature_of_id) and
+			status is null
+	    </cfquery>
+		<cfquery name="accepted_fg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	        update cf_temp_id set status='invalid accepted_fg' where accepted_fg not in (0,1) and
+	        status is null
+	    </cfquery>
+		<cfquery name="AGENT_1_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	        update
+			  cf_temp_id
+			set
+			  AGENT_1_ID=getAgentId(agent_1)
+		   where status is null
+	    </cfquery>
+		<cfquery name="AGENT_2_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	        update
+	          cf_temp_id
+	        set
+	          AGENT_2_ID=getAgentId(agent_2)
+	       where status is null and
+		   agent_2 is not null
+	    </cfquery>
+		<cfquery name="AGENT_1_ST" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	        update
+	          cf_temp_id
+	        set
+	          status='agent_1 not found' where AGENT_1_ID is null and status is null
+	    </cfquery>
+		<cfquery name="AGENT_2_ST" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	        update
+	          cf_temp_id
+	        set
+	          status='agent_2 not found' where agent_2 is not null and AGENT_2_ID is null and status is null
+	    </cfquery>
+		<cfquery name="BADFORMULA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	        update
+	          cf_temp_id
+	        set
+	          status='This form will not handle multi-taxa formulae or A-string IDs. File a bug report.'
+			where
+			  STATUS IS NULL AND (
+			       scientific_name LIKE '% / %' or
+	               scientific_name LIKE '% or %' or
+	               scientific_name LIKE '% and %' or
+	               scientific_name LIKE '% x %' or
+	               scientific_name LIKE '%{%' or
+	               scientific_name LIKE '%}%'
+			  )
+	    </cfquery>
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_id where status is null and rownum<500
+		</cfquery>
+		<cfloop query="data">
+			<cfset problem="">
+			<cfset coid="">
+			<cfset tnid="">
+			<cfset tf="">
+			<cfif other_id_type is not "catalog number">
+				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					SELECT
 						coll_obj_other_id_num.collection_object_id
 					FROM
 						coll_obj_other_id_num,
@@ -147,12 +207,12 @@ Include column headings, spelled exactly as below.
 						coll_obj_other_id_num.collection_object_id = cataloged_item.collection_object_id and
 						cataloged_item.collection_id = collection.collection_id and
 						collection.guid_prefix = '#guid_prefix#' and
-						other_id_type = '#trim(other_id_type)#' and
-						display_value = '#trim(other_id_number)#'
+						coll_obj_other_id_num.other_id_type = '#trim(other_id_type)#' and
+						coll_obj_other_id_num.display_value = '#trim(other_id_number)#'
 				</cfquery>
 			<cfelse>
 				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					SELECT 
+					SELECT
 						collection_object_id
 					FROM
 						cataloged_item,
@@ -160,28 +220,13 @@ Include column headings, spelled exactly as below.
 					WHERE
 						cataloged_item.collection_id = collection.collection_id and
 						collection.guid_prefix = '#guid_prefix#' and
-						cat_num=#other_id_number#
+						cataloged_item.cat_num=#other_id_number#
 				</cfquery>
 			</cfif>
-			<cfif #collObj.recordcount# is not 1>
-				<cfif len(#problem#) is 0>
-					<cfset problem = "SELECT 
-						collection_object_id
-					FROM
-						cataloged_item,
-						collection
-					WHERE
-						cataloged_item.collection_id = collection.collection_id and
-						collection.guid_prefix = '#guid_prefix#' and
-						cat_num=#other_id_number#">
-				<cfelse>
-					<cfset problem = "#problem#; #data.other_id_number# #data.other_id_type# #data.guid_prefix# could not be found">
-				</cfif>
+			<cfif collObj.recordcount is not 1>
+				<cfset problem=listappend(problem,"#data.other_id_number# #data.other_id_type# #data.guid_prefix# could not be found",";")>
 			<cfelse>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					UPDATE cf_temp_id SET collection_object_id = #collObj.collection_object_id# where
-					key = #key#
-				</cfquery>
+				<cfset coid=collObj.collection_object_id>
 			</cfif>
 			<cfif right(scientific_name,4) is " sp.">
 				<cfset scientific_name=left(scientific_name,len(scientific_name) -4)>
@@ -199,107 +244,117 @@ Include column headings, spelled exactly as below.
 				<cfset  tf = "A">
 				<cfset TaxonomyTaxonName="#scientific_name#">
 			</cfif>
-
-			<cfquery name="isTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				SELECT taxon_name_id FROM taxon_name WHERE scientific_name = '#TaxonomyTaxonName#'
-			</cfquery>
-			<cfif #isTaxa.recordcount# is not 1>
-				<cfif len(#problem#) is 0>
-					<cfset problem = "taxonomy not found">
-				<cfelse>
-					<cfset problem = "#problem#; taxonomy not found">
-				</cfif>
+			<cfquery name="isTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+                SELECT taxon_name_id FROM taxon_name WHERE scientific_name = '#TaxonomyTaxonName#'
+            </cfquery>
+			<cfif isTaxa.recordcount is not 1>
+				<cfset problem=listappend(problem,"taxonomy not found",";")>
+			<cfelse>
+				<cfset tnid=isTaxa.taxon_name_id>
+			</cfif>
+			<cfif len(problem) is 0>
+				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+                    UPDATE cf_temp_id SET
+                       taxon_name_id = #tnid#,
+                       taxa_formula='#tf#',
+                       collection_object_id=#coid#,
+					   status='valid'
+                    where key = #key#
+                </cfquery>
 			<cfelse>
 				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					UPDATE cf_temp_id SET taxon_name_id = #isTaxa.taxon_name_id#,taxa_formula='#tf#' where
-					key = #key#
-				</cfquery>
-			</cfif>
-			<cfquery name="noid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select count(*) c from ctnature_of_id where nature_of_id='#nature_of_id#'
-			</cfquery>
-			<cfif #noid.c# is not 1>
-				<cfif len(#problem#) is 0>
-					<cfset problem = "nature_of_id not found">
-				<cfelse>
-					<cfset problem = "#problem#; nature_of_id not found">
-				</cfif>
-			</cfif>
-			<cfif accepted_fg is not 1 and accepted_fg is not 0>
-				<cfif len(#problem#) is 0>
-					<cfset problem = "accepted_fg must be 1 or 0">
-				<cfelse>
-					<cfset problem = "#problem#; accepted_fg must be 1 or 0">
-				</cfif>
-			</cfif>
-			<cfquery name="a1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select agent_id from agent_name where agent_name='#agent_1#'
-			</cfquery>
-			<cfif #a1.recordcount# is not 1>
-				<cfif len(#problem#) is 0>
-					<cfset problem = "agent_1 matched #a1.recordcount# records">
-				<cfelse>
-					<cfset problem = "#problem#; agent_1 matched #a1.recordcount# records">
-				</cfif>
-			<cfelse>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					UPDATE cf_temp_id SET agent_1_id = #a1.agent_id# where
-					key = #key#
-				</cfquery>
-			</cfif>
-			<cfif len(agent_2) gt 0>
-				<cfquery name="a2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select agent_id from agent_name where agent_name='#agent_2#'
-				</cfquery>
-				<cfif #a2.recordcount# is not 1>
-					<cfif len(#problem#) is 0>
-						<cfset problem = "agent_2 matched #a2.recordcount# records">
-					<cfelse>
-						<cfset problem = "#problem#; agent_2 matched #a2.recordcount# records">
-					</cfif>
-				<cfelse>
-					<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						UPDATE cf_temp_id SET agent_2_id = #a2.agent_id# where
-						key = #key#
-					</cfquery>
-				</cfif>
-			</cfif>
-			<cfif len(#problem#) gt 0>
-				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					UPDATE cf_temp_id SET status = '#problem#' where
-					key = #key#
-				</cfquery>
+                    UPDATE cf_temp_id SET status = '#problem#' where key = #key#
+                </cfquery>
 			</cfif>
 		</cfloop>
-		
-		<cfquery name="valData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cf_temp_id order by status,
-			other_id_type,
-			other_id_number
-		</cfquery>
-		<cfquery name="isProb" dbtype="query">
-			select count(*) c from valData where status is not null
-		</cfquery>
-		 #isProb.c#
-		<cfif #isProb.c# is 0 or len(isprob.c) is 0>
-			Data validated. Double-check below. If everything looks OK, <a href="BulkloadIdentification.cfm?action=loadData">proceed to load</a>
-		<cfelse>
-			The data you loaded do not validate. See STATUS column below.
-		</cfif>
-		<cfdump var=#valData#>
-		<!---
-	<cflocation url="BulkloadCitations.cfm?action=loadData">
-	---->
+		validation has either finished or timed out - reload, you should quicky get here - if not, reload again or check the table for status
+		<a href="BulkloadIdentification.cfm?action=table">
+			view in table
+		</a>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------->
+<cfif action is "table">
+<script src="/includes/sorttable.js"></script>
+<cfoutput>
+
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+        select * from cf_temp_id order by status,
+            other_id_type,
+            other_id_number
+    </cfquery>
+
+        <cfquery name="isProb" dbtype="query">
+            select count(*) c from d where status != 'valid' and status != 'loaded'
+        </cfquery>
+        <cfif #isProb.c# is 0 or len(isprob.c) is 0>
+            Data validated. Double-check the table. If everything looks OK, <a href="BulkloadIdentification.cfm?action=loadData">proceed to load</a>
+        <cfelse>
+            The data you loaded do not validate. See STATUS column in the table.
+        </cfif>
+
+
+
+
+
+	<table border id="t" class="sortable">
+	   <tr>
+          <th>status</th>
+		  <th>guid_prefix</th>
+          <th>other_id_type</th>
+          <th>other_id_number</th>
+          <th>scientific_name</th>
+          <th>made_date</th>
+          <th>nature_of_id</th>
+          <th>accepted_fg</th>
+          <th>identification_remarks</th>
+          <th>agent_1</th>
+          <th>agent_2</th>
+		</tr>
+
+		<cfloop query="d">
+		 <tr>
+          <td>#status#</td>
+          <td>#guid_prefix#</td>
+          <td>#other_id_type#</td>
+          <td>#other_id_number#</td>
+          <td>#scientific_name#</td>
+          <td>#made_date#</td>
+          <td>#nature_of_id#</td>
+          <td>#accepted_fg#</td>
+          <td>#identification_remarks#</td>
+          <td>#agent_1#</td>
+          <td>#agent_2#</td>
+        </tr>
+		</cfloop>
+
+
+
+	</table>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
 <cfif #action# is "loadData">
-<cfoutput>		
+<cfoutput>
+	<p>
+	   data are loading
+	</p>
+	<p>
+	   if your browser isn't doing anything after ~5 minutes, it's probably stuck.
+	</p>
+	<p>
+	   If you see the finished message below, and a reload completes quickly, it's probably done.
+	</p>
+	<p>
+	   <a href="BulkloadIdentification.cfm?action=table"> check in table</a> to be sure; all status should be "loaded"
+	</p>
+
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_id
+		select * from cf_temp_id where status='valid'
 	</cfquery>
-	<cftransaction>
+
 	<cfloop query="getTempData">
+		<cftransaction>
 		<cfif ACCEPTED_FG is 1>
 			<cfquery name="whackOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update identification set ACCEPTED_ID_FG=0 where COLLECTION_OBJECT_ID=#COLLECTION_OBJECT_ID#
@@ -323,7 +378,7 @@ Include column headings, spelled exactly as below.
 				#ACCEPTED_FG#,
 				'#IDENTIFICATION_REMARKS#',
 				'#TAXA_FORMULA#',
-				'#SCIENTIFIC_NAME#'				
+				'#SCIENTIFIC_NAME#'
 			)
 		</cfquery>
 		<cfquery name="insertidt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -362,28 +417,14 @@ Include column headings, spelled exactly as below.
 			</cfquery>
 		</cfif>
 		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_id set status='loaded' where key=#key#			
+			update cf_temp_id set status='loaded' where key=#key#
 		</cfquery>
+		</cftransaction>
 	</cfloop>
-	</cftransaction>
-<cflocation url="BulkloadIdentification.cfm?action=allDone">
+
+    <p>If you're seeing this, it's probably done - but check the table</p>
+
 </cfoutput>
 </cfif>
-<!-------------------------------------------------------------------------->
-<cfif #action# is "allDone">
-	<cfoutput>
-		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c from cf_temp_id where status != 'loaded'
-		</cfquery>
-		<cfif #getTempData.c# is not 0>
-			Something very strange happened. Contact a sysadmin.
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from cf_temp_id
-			</cfquery>
-			<cfdump var=#d#>		
-		<cfelse>
-			Spiffy! Tis done.
-		</cfif>
-	</cfoutput>
-</cfif>
+
 <cfinclude template="/includes/_footer.cfm">
