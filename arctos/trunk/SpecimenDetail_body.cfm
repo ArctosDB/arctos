@@ -379,7 +379,7 @@
 									</cfif>
 									<cfif thisCommonName.recordcount gt 0>
 										<div style="font-size:.8em;color:gray;">
-											#valuelist(thisCommonName.common_name,'; 'e#
+											#valuelist(thisCommonName.common_name,'; ')#
 										</div>
 									</cfif>
 
