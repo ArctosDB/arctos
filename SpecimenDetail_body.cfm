@@ -304,16 +304,19 @@
 									taxa_formula,
 									short_citation,
 									identification.publication_id,
-									taxon_name.scientific_name taxsciname
+									taxon_name.scientific_name taxsciname,
+									common_name.common_name
 								FROM
 									identification,
 									publication,
 									identification_taxonomy,
-									taxon_name
+									taxon_name,
+									common_name
 								WHERE
 									identification.publication_id=publication.publication_id (+) and
 									identification.identification_id=identification_taxonomy.identification_id (+) and
 									identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id (+) and
+									identification_taxonomy.taxon_name_id=common_name.taxon_name_id (+) and
 									identification.collection_object_id = #collection_object_id#
 							</cfquery>
 							<cfquery name="identification" dbtype="query">
@@ -352,6 +355,10 @@
 								<cfquery name="thisTaxLinks" dbtype="query">
 									select taxsciname from raw_identification where identification_id=#identification_id#
 								</cfquery>
+								<cfquery name="thisCommonName" dbtype="query">
+									select common_name from raw_identification where identification_id=#identification_id#
+									order by common_name
+								</cfquery>
 								<cfset link="">
 								<cfset i=1>
 								<cfset thisSciName="#scientific_name#">
@@ -368,6 +375,11 @@
 									<cfif accepted_id_fg is 1>
 										<div style="font-size:.8em;color:gray;">
 											#one.full_taxon_name#
+										</div>
+									</cfif>
+									<cfif thisCommonName.recordcount gt 0>
+										<div style="font-size:.8em;color:gray;">
+											#valuelist(thisCommonName.common_name)#
 										</div>
 									</cfif>
 									<cfif len(short_citation) gt 0>

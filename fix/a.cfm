@@ -9,6 +9,10 @@
  </cfquery>
 <cfdump var=#c#>
 
+<cfhttp url="http://www.crossref.org/openurl/?pid=dlmcdonald@alaska.edu&format=unixref"></cfhttp>
+
+<cfdump var=#cfhttp#>
+
 
 <cfinclude template="/includes/_footer.cfm">
 </cfoutput>
