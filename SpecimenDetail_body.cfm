@@ -36,6 +36,12 @@
 	    .highlightSEID {
 		   background:yellow;
 		}
+		.taxaMeta{
+			font-size:.8em;
+			color:gray;
+			 padding-left: .5em;
+    			text-indent:-.5em;
+}
 	</style>
 	<cfif len(seid) gt 0>
 	    <script>
@@ -373,12 +379,12 @@
 								</cfif>
 								<div class="taxDetDiv">
 									<cfif accepted_id_fg is 1>
-										<div style="font-size:.8em;color:gray;">
+										<div class="taxaMeta">
 											#one.full_taxon_name#
 										</div>
 									</cfif>
 									<cfif thisCommonName.recordcount gt 0>
-										<div style="font-size:.8em;color:gray;">
+										<div class="taxaMeta">
 											#valuelist(thisCommonName.common_name,'; ')#
 										</div>
 									</cfif>
