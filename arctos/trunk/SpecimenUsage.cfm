@@ -219,7 +219,7 @@
 		<cfif isdefined("year") AND isnumeric(year)>
 			<cfset go="yes">
 			<cfset whr = "#whr# AND (
-				#year# between start_date AND end_date
+				'#year#' between start_date AND end_date or start_date like '#year#%' or end_date like '#year#%'
 				)">
 		</cfif>
 		<cfif isdefined("proj_pub_remark") AND len(proj_pub_remark) gt 0>
