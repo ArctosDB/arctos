@@ -362,9 +362,13 @@
 								<cfset link="">
 								<cfset i=1>
 								<cfset thisSciName="#scientific_name#">
+								<br>thisSciName: #thisSciName#
 								<cfloop query="thisTaxLinks">
 									<cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'>
+									<br>thisLink: #thisLink#
 									<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
+
+									<br>thisSciName: #thisSciName#
 									<cfset i=i+1>
 								</cfloop>
 								#thisSciName#
@@ -377,6 +381,7 @@
 											#one.full_taxon_name#
 										</div>
 									</cfif>
+
 									<cfif thisCommonName.recordcount gt 0>
 										<div style="font-size:.8em;color:gray;">
 											#valuelist(thisCommonName.common_name)#
