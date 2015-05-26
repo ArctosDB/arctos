@@ -264,7 +264,7 @@
         <cfset temp=ArrayAppend(nvars, 'Sharon,Sharyn,Sharrey,Sharrie,Sharry,Shar,Sharey,Sharie,Sheron,Sheryn,Sheryl,Cheryl')>
         <cfset temp=ArrayAppend(nvars, 'Shaun,Sean,Shawn,Shane,Shayne')>
         <cfset temp=ArrayAppend(nvars, 'Stephen,Steve,Steven')>
-        <cfset temp=ArrayAppend(nvars, 'Stephanie,Steph,Steffi,Stephy,Steffy')>
+        <cfset temp=ArrayAppend(nvars, 'Stephanie,Steph,Steffi,Stephy,Steffy,Stepfanie')>
         <cfset temp=ArrayAppend(nvars, 'Susan,Sue,Susie,Suzy')>
 
 
