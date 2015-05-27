@@ -18,7 +18,7 @@ create table colln_coords_summary (
 
 create table colln_coords (
 	numUsingSpecimens number,
-	guid_prefix varchar2(4000,
+	guid_prefix varchar2(4000),
 	dec_lat number,
 	dec_long number,
 	s$dec_lat number,
@@ -28,7 +28,7 @@ create table colln_coords (
 	min_elev_m number,
 	max_elev_m number,
 	s_elev_m number,
-	higher_geog varchar2(4000,
+	higher_geog varchar2(4000),
 	S$GEOGRAPHY varchar2(4000)
 );
 
@@ -252,6 +252,10 @@ end;
 sho err;
 
 
+to refresh:
+
+exec CACHE_GEOREF_STATS
+
 	---->
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
@@ -271,8 +275,8 @@ one would expect such a condition in a collection which downloads GPS data and p
 </h3>
 <ul>
 	<li>
-		This is a cached report and overview. It's not necessarily current or correct. Contact a DBA or run the code in the source of this page
-		 for an update.
+		This is a cached report and overview. It's not necessarily current or correct. Contact a DBA or exec CACHE_GEOREF_STATS (see page source)
+		for an update.
 	</li>
 	<li>
 		Understanding http://arctosdb.org/documentation/places/specimen-event/ is important. Any specimen may have any number of localities, any of which may be georeferenced.
