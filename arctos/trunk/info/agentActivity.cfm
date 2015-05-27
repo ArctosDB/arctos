@@ -26,6 +26,85 @@ Agent Names:
 			</li>
 		</cfloop>
 	</ul>
+
+	Agent Relationships:
+	<cfquery name="agent_relations" datasource="uam_god">
+		select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
+		from agent_relations,preferred_agent_name
+		where
+		agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
+		agent_relations.agent_id=#agent_id#
+	</cfquery>
+	<ul>
+		<cfloop query="agent_relations">
+			<li>#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
+		</cfloop>
+	</ul>
+	<cfquery name="agent_relations" datasource="uam_god">
+		select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id
+		from agent_relations,preferred_agent_name
+		where
+		agent_relations.agent_id=preferred_agent_name.agent_id and
+		RELATED_AGENT_ID=#agent_id#
+	</cfquery>
+	<ul>
+		<cfloop query="agent_relations">
+			<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
+		</cfloop>
+	</ul>
+Groups:
+	<cfquery name="group_member" datasource="uam_god">
+		select
+			agent_name,
+			GROUP_AGENT_ID
+		from
+			group_member, preferred_agent_name
+		where
+			group_member.GROUP_AGENT_ID=preferred_agent_name.agent_id and
+			MEMBER_AGENT_ID=#agent_id#
+		order by agent_name
+	</cfquery>
+	<ul>
+		<cfloop query="group_member">
+			<li><a href="agentActivity.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
+		</cfloop>
+	</ul>
+ Address:
+	<cfquery name="address" datasource="uam_god">
+		select * from address where agent_id=#agent_id#
+	</cfquery>
+	<ul>
+		<cfloop query="address">
+			<li>#ADDRESS_TYPE#: #ADDRESS#</li>
+		</cfloop>
+	</ul>
+Collected or Prepared specimens:
+	<cfquery name="collector" datasource="uam_god">
+		select
+			count(distinct(collector.collection_object_id)) cnt,
+			collection.guid_prefix,
+	        collection.collection_id
+		from
+			collector,
+			cataloged_item,
+			collection
+		where
+			collector.collection_object_id = cataloged_item.collection_object_id AND
+			cataloged_item.collection_id = collection.collection_id AND
+			agent_id=#agent_id#
+		group by
+			collection.guid_prefix,
+	        collection.collection_id
+	</cfquery>
+	<ul>
+		<CFLOOP query="collector">
+			<li>
+				<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#">#collector.cnt# #collector.guid_prefix#</a> specimens
+			</li>
+	  	</CFLOOP>
+	</ul>
+
+
 	Media:
 	<cfquery name="media" datasource="uam_god">
 		select
@@ -70,9 +149,8 @@ Agent Names:
 			</li>
 		</cfloop>
 		<li>
-			#collectormedia.recordcount#
 			<a href="/MediaSearch.cfm?collection_object_id=#valuelist(collectormedia.collection_object_id)#">
-				Media from collected/prepares specimens
+				Media from #collectormedia.recordcount# collected/prepared specimens
 			</a>
 		</li>
 		<li>
@@ -82,6 +160,8 @@ Agent Names:
 			Assigned #media_labels.recordcount# Media Labels.
 		</li>
 	</ul>
+
+
 	<cfquery name="project_agent" datasource="uam_god">
 			select
 				project_name,
@@ -134,83 +214,8 @@ Agent Names:
 		</cfif>
 
 
-Agent Relationships:
-	<cfquery name="agent_relations" datasource="uam_god">
-		select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
-		from agent_relations,preferred_agent_name
-		where
-		agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
-		agent_relations.agent_id=#agent_id#
-	</cfquery>
-	<ul>
-		<cfloop query="agent_relations">
-			<li>#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
-		</cfloop>
-	</ul>
-	<cfquery name="agent_relations" datasource="uam_god">
-		select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id
-		from agent_relations,preferred_agent_name
-		where
-		agent_relations.agent_id=preferred_agent_name.agent_id and
-		RELATED_AGENT_ID=#agent_id#
-	</cfquery>
-	<ul>
-		<cfloop query="agent_relations">
-			<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
-		</cfloop>
-	</ul>
-Groups:
-	<cfquery name="group_member" datasource="uam_god">
-		select
-			agent_name,
-			GROUP_AGENT_ID
-		from
-			group_member, preferred_agent_name
-		where
-			group_member.GROUP_AGENT_ID=preferred_agent_name.agent_id and
-			MEMBER_AGENT_ID=#agent_id#
-		order by agent_name
-	</cfquery>
-	<ul>
-		<cfloop query="group_member">
-			<li><a href="agentActivity.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
-		</cfloop>
-	</ul>
- Address:
-	<cfquery name="address" datasource="uam_god">
-		select * from address where agent_id=#agent_id#
-	</cfquery>
-	<ul>
-		<cfloop query="address">
-			<li>#ADDRESS_TYPE#: #ADDRESS#</li>
-		</cfloop>
-	</ul>
-Collected or Prepared:
-	<cfquery name="collector" datasource="uam_god">
-		select
-			count(distinct(collector.collection_object_id)) cnt,
-			collection.guid_prefix,
-	        collection.collection_id
-		from
-			collector,
-			cataloged_item,
-			collection
-		where
-			collector.collection_object_id = cataloged_item.collection_object_id AND
-			cataloged_item.collection_id = collection.collection_id AND
-			agent_id=#agent_id#
-		group by
-			collection.guid_prefix,
-	        collection.collection_id
-	</cfquery>
-	<ul>
-		<CFLOOP query="collector">
-			<li>
-				<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#">#collector.cnt# #collector.guid_prefix#</a> specimens
-			</li>
-	  	</CFLOOP>
-	</ul>
-Entered:
+
+Entered Specimens:
 	<cfquery name="entered" datasource="uam_god">
 		select
 			count(*) cnt,
@@ -235,7 +240,7 @@ Entered:
 			</li>
 		</cfloop>
 	</ul>
-Edited:
+Edited Specimens:
 	<cfquery name="last_edit" datasource="uam_god">
 		select
 			count(*) cnt,
@@ -260,7 +265,7 @@ Edited:
 			</li>
 		</cfloop>
 	</ul>
-Attribute Determiner:
+Specimen Attribute Determiner:
 	<cfquery name="attributes" datasource="uam_god">
 		select
 			count(attributes.collection_object_id) c,
@@ -289,7 +294,7 @@ Attribute Determiner:
 		</cfloop>
 	</ul>
 
-Encumbrances:
+Specimen Encumbrances:
 	<ul>
 		<cfquery name="encumbrance" datasource="uam_god">
 			select count(*) cnt from encumbrance where encumbering_agent_id=#agent_id#
