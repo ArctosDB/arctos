@@ -234,8 +234,14 @@ Attribute Determiner:
 	</ul>
 Media:
 	<cfquery name="media" datasource="uam_god">
-		select media_id from media_relations where media_relationship like '% agent' and
-		related_primary_key=#agent_id#
+		select
+			media_relationship,
+			count(*) c
+		from
+			media_relations
+		where
+			media_relationship like '% agent' and
+			related_primary_key=#agent_id#
 	</cfquery>
 	<cfquery name="media_assd_relations" datasource="uam_god">
 		select media_id from media_relations where CREATED_BY_AGENT_ID=#agent_id#
@@ -244,13 +250,15 @@ Media:
 		select media_id from media_labels where ASSIGNED_BY_AGENT_ID=#agent_id#
 	</cfquery>
 	<ul>
-		<li>
-			Subject of #media.recordcount# <a href="/MediaSearch.cfm?action=search&relationshiptype1=shows%20agent&relationship1=#agent.preferred_agent_name#"> Media entries.</a>
+		<cfloop query="media">
+			<li>
+				#media.c# <a href="/MediaSearch.cfm?action=search&relationshiptype1=#media.media_relationship#&relationship1=#agent.preferred_agent_name#">
+					 		#media.media_relationship#
+							</a>
+				 entries.
+			</li>
+		</cfloop>
 
-			http://arctos.database.museum/MediaSearch.cfm?action=search&=stevens
-
-
-		</li>
 		<li>
 			Assigned #media_assd_relations.recordcount# Media Relationships.
 		</li>
