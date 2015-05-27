@@ -159,8 +159,6 @@ Collected or Prepared specimens:
 			Assigned #media_labels.recordcount# Media Labels.
 		</li>
 	</ul>
-
-
 	<cfquery name="project_agent" datasource="uam_god">
 			select
 				project_name,
