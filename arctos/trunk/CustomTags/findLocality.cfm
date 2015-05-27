@@ -152,6 +152,31 @@
 	<cfset qual = "#qual# AND to_meters(locality.max_error_distance,locality.max_error_units) #max_err_m# ">
 </cfif>
 
+<cfif isdefined("coord_serv_diff") and len(coord_serv_diff) gt 0>
+	<cfif not listfind("=,<,>",left(coord_serv_diff,1)) or
+		not isnumeric(mid(coord_serv_diff,2,999))>
+		<p>
+			coord_serv_diff format is (=,<, or >) followed by an integer. Example, in a form:
+			<ul>
+				<li>=10</li>
+				<li>>10</li>
+				<li><10</li>
+			</ul>
+			Example, in a URL:
+			<ul>
+				<li>==10</li>
+				<li>=>10</li>
+				<li>=<10</li>
+			</ul>
+		</p>
+		<cfabort>
+
+	</cfif>
+	<cfset qual = "#qual# AND  checkLocalityError(locality.locality_id) #coord_serv_diff# ">
+
+
+</cfif>
+
 
 <cfif isdefined("dec_lat") and len(dec_lat) gt 0 and dec_lat is not "0" and isdefined("dec_long") and len(dec_long) gt 0 and dec_long is not "0">
 	<cfif not isdefined("search_precision")>
