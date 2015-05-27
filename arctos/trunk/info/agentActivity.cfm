@@ -245,7 +245,7 @@ Media:
 	</cfquery>
 	<ul>
 		<li>
-			Subject of #media.recordcount# <a href="/MediaSearch.cfm?action=search&relationshiptype1=shows%20agent&relationship1=#agent.preferred_agent_name"> Media entries.</a>
+			Subject of #media.recordcount# <a href="/MediaSearch.cfm?action=search&relationshiptype1=shows%20agent&relationship1=#agent.preferred_agent_name#"> Media entries.</a>
 
 			http://arctos.database.museum/MediaSearch.cfm?action=search&=stevens
 
