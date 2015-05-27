@@ -62,16 +62,17 @@ Agent Names:
 	<ul>
 		<cfloop query="media">
 			<li>
-				#media.c# <a href="/MediaSearch.cfm?action=search&relationshiptype1=#media.media_relationship#&relationship1=#agent.preferred_agent_name#">
-					 		#media.media_relationship#
-							</a>
-				 entries.
+				#media.c#
+				<a href="/MediaSearch.cfm?action=search&relationshiptype1=#media.media_relationship#&relationship1=#agent.preferred_agent_name#">
+					#media.media_relationship#
+				</a>
+				entries.
 			</li>
 		</cfloop>
 		<li>
-			#collectormedia.recordcount# collected/prepared
+			#collectormedia.recordcount#
 			<a href="/MediaSearch.cfm?collection_object_id=#valuelist(collectormedia.collection_object_id)#">
-				specimens with Media
+				Media from collected/prepares specimens
 			</a>
 		</li>
 		<li>
