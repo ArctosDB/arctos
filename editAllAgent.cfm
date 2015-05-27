@@ -62,11 +62,11 @@
 				}
 			});
 		});
-		
+
 		$(document).on("change", '[id^="agent_name_type_new"], [id^="agent_name_new"]', function(){
 			var i =  this.id;
-			i=i.replace("agent_name_type_new", ""); 
-			i=i.replace("agent_name_new", ""); 
+			i=i.replace("agent_name_type_new", "");
+			i=i.replace("agent_name_new", "");
 			if ( $("#agent_name_type_new" + i).val().length > 0 ||  $("#agent_name_new" + i).val().length > 0 ) {
 				$("#agent_name_type_new" + i).addClass('reqdClr').prop('required',true);
 				$("#agent_name_new" + i).addClass('reqdClr').prop('required',true);
@@ -78,8 +78,8 @@
 
 		$(document).on("change", '[id^="agent_status_new"], [id^="status_date_new"]', function(){
 			var i =  this.id;
-			i=i.replace("status_date_new", ""); 
-			i=i.replace("agent_status_new", ""); 
+			i=i.replace("status_date_new", "");
+			i=i.replace("agent_status_new", "");
 			if ( $("#agent_status_new" + i).val().length > 0 ||  $("#status_date_new" + i).val().length > 0 ) {
 				$("#agent_status_new" + i).addClass('reqdClr').prop('required',true);
 				$("#status_date_new" + i).addClass('reqdClr').prop('required',true);
@@ -90,8 +90,8 @@
 		});
 		$(document).on("change", '[id^="agent_relationship_new"], [id^="related_agent_new"]', function(){
 			var i =  this.id;
-			i=i.replace("related_agent_new", ""); 
-			i=i.replace("agent_relationship_new", ""); 
+			i=i.replace("related_agent_new", "");
+			i=i.replace("agent_relationship_new", "");
 			if ( $("#agent_relationship_new" + i).val().length > 0 ||  $("#related_agent_new" + i).val().length > 0 ) {
 				$("#agent_relationship_new" + i).addClass('reqdClr').prop('required',true);
 				$("#related_agent_new" + i).addClass('reqdClr').prop('required',true);
@@ -102,7 +102,7 @@
 				$("#valid_addr_fg_new" + i).removeClass('reqdClr').prop('required',false);
 			}
 		});
-		
+
 		$(document).on("change", '[id^="address_type_"]', function(){
 			var ntype,dfld;
 			dfld=this.id.replace('address_type_','address_');
@@ -124,7 +124,7 @@
 			} else {
 				ntype='text';
 			}
-			
+
 			if (ntype=='textarea'){
 				var newDataElem='<textarea class="reqdClr addresstextarea" name="' + dfld + '" id="' + dfld + '"></textarea>';
 			} else {
@@ -138,8 +138,8 @@
 			// require paired values
 			var i = this.id;
 			var ntype = 'text';
-			i=i.replace("address_type_new", ""); 
-			i=i.replace("address_new", ""); 
+			i=i.replace("address_type_new", "");
+			i=i.replace("address_new", "");
 			if ( $("#address_type_new" + i).val().length > 0 ||  $("#address_new" + i).val().length > 0 ) {
 				$("#address_type_new" + i).addClass('reqdClr').prop('required',true);
 				$("#address_new" + i).addClass('reqdClr').prop('required',true);
@@ -154,18 +154,18 @@
 <cfif not isdefined("agent_id") OR agent_id lt 0 >
 	<cfabort>
 </cfif>
-<cfoutput>	
+<cfoutput>
 	<cfquery name="agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			agent_id,
 			preferred_agent_name,
 			agent_remarks,
 			agent_type,
 			getPreferredAgentName(CREATED_BY_AGENT_ID) created_by_agent,
 			CREATED_DATE
-		from 
+		from
 			agent
-		where 
+		where
 			agent_id=#agent_id#
 	</cfquery>
 
@@ -202,11 +202,11 @@
 			ADDRESS_REMARK,
 			count(shipfrom.transaction_id) numshipfrom,
 			count(shipto.transaction_id) numshipto
-		from 
+		from
 			address,
 			shipment shipto,
-			shipment shipfrom 
-		where 
+			shipment shipfrom
+		where
 			agent_id = #agent.agent_id# and
 			address.address_id=shipto.SHIPPED_TO_ADDR_ID (+) and
 			address.address_id=shipfrom.SHIPPED_FROM_ADDR_ID (+)
@@ -216,8 +216,8 @@
 			ADDRESS,
 			VALID_ADDR_FG,
 			ADDRESS_REMARK
-		order by 
-			valid_addr_fg DESC, 
+		order by
+			valid_addr_fg DESC,
 			address_type
 	</cfquery>
 	<cfquery name="status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -229,46 +229,46 @@
 			getPreferredAgentName(STATUS_REPORTED_BY) reported_by,
 			STATUS_REPORTED_DATE
 		from agent_status
-		where 
+		where
 		agent_id = #agent.agent_id#
-	</cfquery>	
-		
+	</cfquery>
+
 	<cfquery name="agent_names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from agent_name where agent_id=#agent_id# and agent_name_type!='preferred' order by agent_name_type,agent_name
 	</cfquery>
 	<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			agent_relations_id,
-			agent_relationship, 
-			agent.preferred_agent_name agent_name, 
+			agent_relationship,
+			agent.preferred_agent_name agent_name,
 			agent_relations.related_agent_id,
 			getPreferredAgentName(agent_relations.created_by_agent_id) created_by_agent,
 			to_char(agent_relations.created_on_date,'YYYY-MM-DD') created_on_date
-		from 
-			agent_relations, 
+		from
+			agent_relations,
 			agent
-		where 
+		where
 		  agent_relations.related_agent_id = agent.agent_id and
 		  agent_relations.agent_id=#agent_id#
 	</cfquery>
-	
+
 	<cfquery name="reciprelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
-			agent_relations.agent_relationship, 
+		select
+			agent_relations.agent_relationship,
 			agent.preferred_agent_name,
 			agent_relations.agent_id
-		from 
-			agent_relations, 
+		from
+			agent_relations,
 			agent
-		where 
+		where
 		  agent_relations.agent_id = agent.agent_id and
 		  agent_relations.related_agent_id=#agent_id#
 	</cfquery>
-	
+
 	<div>
 		AgentID #agent.agent_id# created by #agent.created_by_agent# on #agent.CREATED_DATE#
 		<span class="likeLink" onClick="getDocs('agent')">Help</span>
-	</div> 
+	</div>
 	<div>
 		Collecting Summary - <a href="/info/agentActivity.cfm?agent_id=#agent.agent_id#" target="_blank">click for full Agent Activity report</a>
 	</div>
@@ -305,7 +305,7 @@
 			<input type="hidden" name="agent_id" id="agent_id" value="#agent_id#">
 			<label for="preferred_agent_name">Preferred Name</label>
 			<input type="text" value="#stripQuotes(agent.preferred_agent_name)#" name="preferred_agent_name" id="preferred_agent_name" class="reqdClr minput">
-			 
+
 			<label for="agent_type">Agent Type</label>
 			<select name="agent_type" id="agent_type" class="reqdClr">
 				<cfloop query="ctAgent_Type">
@@ -322,18 +322,18 @@
 		</fieldset>
 		<cfif agent.agent_type is "group">
 			<cfquery name="grpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select 
+				select
 					group_member_id,
 					MEMBER_AGENT_ID,
-					preferred_agent_name					
-				from 
+					preferred_agent_name
+				from
 					group_member,
 					agent
-				where 
+				where
 					group_member.MEMBER_AGENT_ID = agent.agent_id AND
 					GROUP_AGENT_ID = #agent_id#
-				order by 
-					preferred_agent_name					
+				order by
+					preferred_agent_name
 			</cfquery>
 			<fieldset>
 				<legend>Group Members</legend>
@@ -361,29 +361,29 @@
 		<fieldset>
 			<legend>Group Membership</legend>
 			<cfquery name="ingroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				  select 
+				  select
 			          GROUP_AGENT_ID,
-			          preferred_agent_name          
-			        from 
+			          preferred_agent_name
+			        from
 			          group_member,
 			          agent
-			        where 
+			        where
 			          group_member.GROUP_AGENT_ID = agent.agent_id AND
 			          MEMBER_AGENT_ID = #agent_id#
-			        order by 
+			        order by
 			          preferred_agent_name
 			</cfquery>
 			<cfif ingroup.recordcount is 0>
 				This agent is not a member of any groups
 			<cfelse>
-				<div style="max-height:6em;overflow:scroll;">
+				<div style="max-height:6em;overflow:auto;">
 					<cfloop query="ingroup">
 						<br><a href="/agents.cfm?agent_id=#GROUP_AGENT_ID#">#preferred_agent_name#</a>
 					</cfloop>
 				</div>
 			</cfif>
 		</fieldset>
-		<fieldset id="fs_fAgentName">			
+		<fieldset id="fs_fAgentName">
 			<legend>Agent Names <span class="likeLink" onclick="getCtDoc('ctagent_name_type');">code table</span></legend>
 			<cfloop query="agent_names">
 				<div>
@@ -394,7 +394,7 @@
 								value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
 						</cfloop>
 					</select>
-					
+
 					<input type="text" value="#agent_names.agent_name#" name="agent_name_#agent_name_id#" id="agent_name_#agent_name_id#" size="40" class="reqdClr minput">
 					<cfif agent_name_type is "login">
 						<a href="/AdminUsers.cfm?action=edit&username=#agent_names.agent_name#" class="infoLink">[ Arctos user ]</a>
@@ -483,14 +483,14 @@
 										>#ctRelns.AGENT_RELATIONSHIP#</option>
 								</cfloop>
 							</select>
-							
+
 						</td>
 						<td>
 							<input type="hidden" name="related_agent_id_#agent_relations_id#" id="related_agent_id_#agent_relations_id#" value="#related_agent_id#">
 							<input type="text" name="related_agent_#agent_relations_id#" id="related_agent_#agent_relations_id#" value="#agent_name#"
 								onchange="pickAgentTest('related_agent_id_#agent_relations_id#',this.id,this.value); return false;"
 								onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
-							<a href="/agents.cfm?agent_id=#related_agent_id#">[ link ]</a> 
+							<a href="/agents.cfm?agent_id=#related_agent_id#">[ link ]</a>
 						</td>
 						<td>
 							<div style="font-size:x-small">
@@ -498,7 +498,7 @@
 							</div>
 						</td>
 					</tr>
-				
+
 				</cfloop>
 				<cfloop query="reciprelns">
 					<tr>
@@ -520,7 +520,7 @@
 							<cfloop query="ctRelns">
 								<option value="#ctRelns.AGENT_RELATIONSHIP#">#ctRelns.AGENT_RELATIONSHIP#</option>
 							</cfloop>
-						</select> 
+						</select>
 					</td>
 					<td>
 						<input type="hidden" name="related_agent_id_new1" id="related_agent_id_new1">
@@ -535,7 +535,7 @@
 		</fieldset>
 		<fieldset>
 			<legend>
-				Address  
+				Address
 				<span class="likeLink" onclick="getCtDoc('ctaddress_type');">code table</span>
 				<span class="likeLink" onclick="getDocs('address');">help</span>
 				<span class="likeLink shippingAddress" onclick="getDocs('address','used');">used shipment address</span>
@@ -567,8 +567,8 @@
 					<cfelse>
 						<cfset addrClass="">
 					</cfif>
-			
-			
+
+
 					<cfif ttype is 'textarea'>
 						<textarea class="reqdClr addresstextarea #addrClass#" name="address_#address_id#" id="address_#address_id#">#ADDRESS#</textarea>
 					<cfelse>
@@ -580,11 +580,11 @@
 					</select>
 					<textarea class="smalltextarea" placeholder="remark" name="address_remark_#address_id#" id="address_remark_#address_id#">#address_remark#</textarea>
 
-						
-						
+
+
 				</div>
 			</cfloop>
-			
+
 			<input type="hidden" id="nnea" value="1">
 			<div class="newRec" id="eaddiv1">
 				<select name="address_type_new1" id="address_type_new1" size="1">
@@ -600,12 +600,12 @@
 					</select>
 					<textarea class="smalltextarea" placeholder="remark" name="address_remark_new1" id="address_remark_new1"></textarea>
 
-						
-						
-						
+
+
+
 				<input type="button" onclick="addAddress()" value="add a row">
 			</div>
-		</fieldset>			
+		</fieldset>
 		<input type="submit" value="save all changes" class="savBtn">
 	</form>
 </cfoutput>
