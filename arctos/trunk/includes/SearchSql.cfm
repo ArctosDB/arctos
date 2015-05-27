@@ -1552,7 +1552,7 @@
 
 	</cfoutput>
 	<cfif not listfind("=,<,>",left(coord_serv_diff,1)) or
-		not isnumeric(mid(coord_serv_diff,1,999))>
+		not isnumeric(mid(coord_serv_diff,2,999))>
 		<p>
 			coord_serv_diff format is (=,<, or >) followed by an integer (in KM). Example, in a form:
 			<ul>
