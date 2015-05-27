@@ -379,8 +379,14 @@
 								</tr>
 								<tr>
 									<td>
-										<label for="max_err_m">Error (m)</label>
+										<label for="max_err_m">Error (m) [format: <INT,>INT,=INT]</label>
 										<input type="text" name="max_err_m" id="max_err_m">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label for="coord_serv_diff">Coord/Service Error (km) [format: <INT,>INT,=INT]</label>
+										<input type="text" name="coord_serv_diff" id="coord_serv_diff">
 									</td>
 								</tr>
 								<tr>
