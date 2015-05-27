@@ -267,10 +267,14 @@
 
 	<div>
 		AgentID #agent.agent_id# created by #agent.created_by_agent# on #agent.CREATED_DATE#
-		<span class="likeLink" onClick="getDocs('agent')">Help</span>
+	</div>
+	<div style="border:2px dashed red;">
+		<span class="likeLink" onClick="getDocs('agent')">Read the Help page</span>
+		and <a href="/info/agentActivity.cfm?agent_id=#agent.agent_id#" target="_blank">view the Agent Activity report</a>
+		before changing anything.
 	</div>
 	<div>
-		Collecting Summary - <a href="/info/agentActivity.cfm?agent_id=#agent.agent_id#" target="_blank">click for full Agent Activity report</a>
+		Collecting Summary
 	</div>
 	<table border>
 		<tr>
