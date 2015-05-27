@@ -148,7 +148,7 @@
 		</p>
 		<cfabort>
 
-
+	</cfif>
 	<cfset qual = "#qual# AND to_meters(locality.max_error_distance,locality.max_error_units) #max_err_m# ">
 </cfif>
 
