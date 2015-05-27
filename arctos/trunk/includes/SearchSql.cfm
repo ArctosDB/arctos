@@ -1544,10 +1544,8 @@
 <cfif isdefined("coord_serv_diff") and len(coord_serv_diff) gt 0>
 	<cfset mapurl = "#mapurl#&coord_serv_diff=#coord_serv_diff#">
 
-	<cfif (left(coord_serv_diff,1) is not "=" and
-		left(coord_serv_diff,1) is not "<" and
-		left(coord_serv_diff,1) is not ">") or
-		isnumeric(mid(coord_serv_diff,1,999)) is false>
+	<cfif not listfind("=,<,>",left(coord_serv_diff,1)) or
+		not isnumeric(mid(coord_serv_diff,1,999))>
 		<p>
 			coord_serv_diff format is (=,<, or >) followed by an integer (in KM). Example, in a form:
 			<ul>
