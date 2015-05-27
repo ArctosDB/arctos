@@ -27,10 +27,10 @@ Agent Names:
 		</cfloop>
 	</ul>
 	<cfquery name="project_agent" datasource="uam_god">
-			select 
+			select
 				project_name,
 				project.project_id
-			from 
+			from
 				project_agent,
 				project
 			where
@@ -49,7 +49,7 @@ Agent Names:
 			</ul>
 		</cfif>
 		<cfquery name="publication_agent" datasource="uam_god">
-			select 
+			select
 				publication.PUBLICATION_ID,
 				full_citation
 			from
@@ -76,13 +76,13 @@ Agent Names:
 				</cfloop>
 			</ul>
 		</cfif>
-				
+
 
 Agent Relationships:
 	<cfquery name="agent_relations" datasource="uam_god">
 		select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
 		from agent_relations,preferred_agent_name
-		where 	
+		where
 		agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
 		agent_relations.agent_id=#agent_id#
 	</cfquery>
@@ -92,9 +92,9 @@ Agent Relationships:
 		</cfloop>
 	</ul>
 	<cfquery name="agent_relations" datasource="uam_god">
-		select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id 
+		select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id
 		from agent_relations,preferred_agent_name
-		where 
+		where
 		agent_relations.agent_id=preferred_agent_name.agent_id and
 		RELATED_AGENT_ID=#agent_id#
 	</cfquery>
@@ -103,9 +103,9 @@ Agent Relationships:
 			<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
 		</cfloop>
 	</ul>
-Groups:	
+Groups:
 	<cfquery name="group_member" datasource="uam_god">
-		select 
+		select
 			agent_name,
 			GROUP_AGENT_ID
 		from
@@ -119,7 +119,7 @@ Groups:
 		<cfloop query="group_member">
 			<li><a href="agentActivity.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
 		</cfloop>
-	</ul>							 
+	</ul>
  Address:
 	<cfquery name="address" datasource="uam_god">
 		select * from address where agent_id=#agent_id#
@@ -131,15 +131,15 @@ Groups:
 	</ul>
 Collected or Prepared:
 	<cfquery name="collector" datasource="uam_god">
-		select 
+		select
 			count(distinct(collector.collection_object_id)) cnt,
 			collection.guid_prefix,
 	        collection.collection_id
-		from 
+		from
 			collector,
 			cataloged_item,
 			collection
-		where 
+		where
 			collector.collection_object_id = cataloged_item.collection_object_id AND
 			cataloged_item.collection_id = collection.collection_id AND
 			agent_id=#agent_id#
@@ -156,15 +156,15 @@ Collected or Prepared:
 	</ul>
 Entered:
 	<cfquery name="entered" datasource="uam_god">
-		select 
+		select
 			count(*) cnt,
 			guid_prefix,
 			collection.collection_id
-		from 
+		from
 			coll_object,
 			cataloged_item,
 			collection
-		where 
+		where
 			coll_object.collection_object_id = cataloged_item.collection_object_id and
 			cataloged_item.collection_id=collection.collection_id and
 			ENTERED_PERSON_ID =#agent_id#
@@ -179,17 +179,17 @@ Entered:
 			</li>
 		</cfloop>
 	</ul>
-Edited:	
+Edited:
 	<cfquery name="last_edit" datasource="uam_god">
-		select 
+		select
 			count(*) cnt,
 			guid_prefix,
 			collection.collection_id
-		from 
+		from
 			coll_object,
 			cataloged_item,
 			collection
-		where 
+		where
 			coll_object.collection_object_id = cataloged_item.collection_object_id and
 			cataloged_item.collection_id=collection.collection_id and
 			LAST_EDITED_PERSON_ID=#agent_id#
@@ -206,11 +206,11 @@ Edited:
 	</ul>
 Attribute Determiner:
 	<cfquery name="attributes" datasource="uam_god">
-		select 
+		select
 			count(attributes.collection_object_id) c,
 			count(distinct(cataloged_item.collection_object_id)) s,
 			collection.collection_id,
-			guid_prefix 
+			guid_prefix
 		from
 			attributes,
 			cataloged_item,
@@ -221,7 +221,7 @@ Attribute Determiner:
 			determined_by_agent_id=#agent_id#
 		group by
 			collection.collection_id,
-			guid_prefix 
+			guid_prefix
 	</cfquery>
 	<ul>
 		<cfloop query="attributes">
@@ -245,7 +245,11 @@ Media:
 	</cfquery>
 	<ul>
 		<li>
-			Subject of #media.recordcount# <a href="/MediaSearch.cfm?action=search&related_primary_key__1=#agent_id#"> Media entries.</a>
+			Subject of #media.recordcount# <a href="/MediaSearch.cfm?action=search&relationshiptype1=shows%20agent&relationship1=#agent.preferred_agent_name"> Media entries.</a>
+
+			http://arctos.database.museum/MediaSearch.cfm?action=search&=stevens
+
+
 		</li>
 		<li>
 			Assigned #media_assd_relations.recordcount# Media Relationships.
@@ -260,11 +264,11 @@ Encumbrances:
 			select count(*) cnt from encumbrance where encumbering_agent_id=#agent_id#
 		</cfquery>
 		<cfquery name="coll_object_encumbrance" datasource="uam_god">
-			select 
+			select
 				count(distinct(coll_object_encumbrance.collection_object_id)) specs,
 				guid_prefix,
 				collection.collection_id
-			 from 
+			 from
 			 	encumbrance,
 			 	coll_object_encumbrance,
 			 	cataloged_item,
@@ -286,17 +290,17 @@ Encumbrances:
 	</ul>
 Identification:
 	<cfquery name="identification" datasource="uam_god">
-		select 
-			count(*) cnt, 
+		select
+			count(*) cnt,
 			count(distinct(identification.collection_object_id)) specs,
 			collection.collection_id,
 			collection.guid_prefix
-		from 
+		from
         	identification,
         	identification_agent,
 			cataloged_item,
 			collection
-        where 
+        where
         	cataloged_item.collection_id=collection.collection_id and
 			cataloged_item.collection_object_id=identification.collection_object_id and
 			identification.identification_id=identification_agent.identification_id and
@@ -315,21 +319,21 @@ Identification:
 	</ul>
 Coordinates:
 	<cfquery name="assigned_by_agent_id" datasource="uam_god">
-		select 
+		select
 			count(*) cnt,
 			count(distinct(collection_object_id)) specs from SPECIMEN_EVENT where assigned_by_agent_id=#agent_id#
 	</cfquery>
 	<ul>
 		<li>Assigned #assigned_by_agent_id.cnt# events for #assigned_by_agent_id.specs# specimens</li>
 	</ul>
-Permits:	
+Permits:
 	<cfquery name="permit_to" datasource="uam_god">
-		select 
+		select
 			PERMIT_NUM,
-			PERMIT_TYPE 
-		from 
-			permit 
-		where 
+			PERMIT_TYPE
+		from
+			permit
+		where
 			ISSUED_TO_AGENT_ID=#agent_id#
 	</cfquery>
 	<ul>
@@ -339,11 +343,11 @@ Permits:
 			</li>
 		</cfloop>
 		<cfquery name="permit_by" datasource="uam_god">
-			select 
+			select
 				PERMIT_NUM,
-				PERMIT_TYPE 
-			from 
-				permit 
+				PERMIT_TYPE
+			from
+				permit
 			where ISSUED_by_AGENT_ID=#agent_id#
 		</cfquery>
 		<cfloop query="permit_by">
@@ -352,11 +356,11 @@ Permits:
 			</li>
 		</cfloop>
 		<cfquery name="permit_contact" datasource="uam_god">
-			select 
+			select
 				PERMIT_NUM,
-				PERMIT_TYPE 
-			from 
-				permit 
+				PERMIT_TYPE
+			from
+				permit
 			where CONTACT_AGENT_ID=#agent_id#
 		</cfquery>
 		<cfloop query="permit_by">
@@ -368,7 +372,7 @@ Permits:
 Transactions
 	<ul>
 		<cfquery name="shipment" datasource="uam_god">
-			select 
+			select
 				LOAN_NUMBER,
 				loan.transaction_id,
 				guid_prefix
@@ -381,14 +385,14 @@ Transactions
 				shipment.transaction_id=loan.transaction_id and
 				loan.transaction_id =trans.transaction_id and
 				trans.collection_id=collection.collection_id and
-				PACKED_BY_AGENT_ID=#agent_id#		
+				PACKED_BY_AGENT_ID=#agent_id#
 		</cfquery>
 		<cfloop query="shipment">
 			<li>Packed Shipment for <a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#guid_prefix# #loan_number#</a></li>
 		</cfloop>
 		<a name="shipping"></a>
 		<cfquery name="ship_to" datasource="uam_god">
-			select 
+			select
 				LOAN_NUMBER,
 				loan.transaction_id,
 				guid_prefix
@@ -409,7 +413,7 @@ Transactions
 			<li><a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#guid_prefix# #loan_number#</a> shipped to addr</li>
 		</cfloop>
 		<cfquery name="ship_from" datasource="uam_god">
-			select 
+			select
 				LOAN_NUMBER,
 				loan.transaction_id,
 				guid_prefix
@@ -430,7 +434,7 @@ Transactions
 			<li><a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#guid_prefix# #loan_number#</a> shipped from</li>
 		</cfloop>
 		<cfquery name="trans_agent_l" datasource="uam_god">
-			select 
+			select
 				loan.transaction_id,
 				TRANS_AGENT_ROLE,
 				loan_number,
@@ -459,7 +463,7 @@ Transactions
 			<li>#TRANS_AGENT_ROLE# for Loan <a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#guid_prefix# #loan_number#</a></li>
 		</cfloop>
 		<cfquery name="trans_agent_a" datasource="uam_god">
-			select 
+			select
 				accn.transaction_id,
 				TRANS_AGENT_ROLE,
 				accn_number,
@@ -488,7 +492,7 @@ Transactions
 			<li>#TRANS_AGENT_ROLE# for Accession <a href="/editAccn.cfm?action=edit&transaction_id=#transaction_id#">#guid_prefix# #accn_number#</a></li>
 		</cfloop>
 		<cfquery name="loan_item" datasource="uam_god">
-			select 
+			select
 				trans.transaction_id,
 				loan_number,
 				count(*) cnt,
@@ -506,12 +510,12 @@ Transactions
 			group by
 				trans.transaction_id,
 				loan_number,
-				guid_prefix				
+				guid_prefix
 		</cfquery>
 		<cfloop query="loan_item">
-			<li>Reconciled #cnt# items for Loan 
+			<li>Reconciled #cnt# items for Loan
 				<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#guid_prefix# #loan_number#</a>
-			</li>		
+			</li>
 		</cfloop>
 	</ul>
 </cfoutput>
