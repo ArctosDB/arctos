@@ -379,7 +379,8 @@
 								</tr>
 								<tr>
 									<td>
-										<label for="max_err_m">Error (m) [format: &lt;INT,&gt;INT,=INT]</label>
+										<label title="max_error_distance in meters"
+											for="max_err_m">Error (m) [format: &lt;INT,&gt;INT,=INT]</label>
 										<input type="text" name="max_err_m" id="max_err_m">
 									</td>
 								</tr>
