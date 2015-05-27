@@ -385,7 +385,7 @@
 								</tr>
 								<tr>
 									<td>
-										<label for="coord_serv_diff">Coord/Service Error (km) [format: <INT,>INT,=INT]</label>
+										<label title="distance in KM between asserted and suggested coordinates" for="coord_serv_diff">Coord/Service Error (km) [format: <INT,>INT,=INT]</label>
 										<input type="text" name="coord_serv_diff" id="coord_serv_diff">
 									</td>
 								</tr>

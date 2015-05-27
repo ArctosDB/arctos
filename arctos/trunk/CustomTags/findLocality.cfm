@@ -173,8 +173,6 @@
 
 	</cfif>
 	<cfset qual = "#qual# AND  checkLocalityError(locality.locality_id) #coord_serv_diff# ">
-
-
 </cfif>
 
 
