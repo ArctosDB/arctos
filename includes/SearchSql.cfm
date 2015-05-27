@@ -1539,6 +1539,29 @@
 		</cfif>
 	</cfif>
 </cfif>
+
+
+<cfif isdefined("coord_serv_diff") and len(coord_serv_diff) gt 0>
+	<cfset mapurl = "#mapurl#&coord_serv_diff=#coord_serv_diff#">
+
+	<cfif (left(coord_serv_diff,1) is not "=" and
+		left(coord_serv_diff,1) is not "<" and
+		left(coord_serv_diff,1) is not ">") or
+		isnumeric(right(coord_serv_diff,1,999)) is false>
+		<p>
+			coord_serv_diff format is (=,<, or >) followed by an integer (in KM)
+			<br>-10
+			<br><10
+			<br>>10
+		</p>
+		<cfabort>
+	</cfif>
+
+
+	<cfset basQual = " #basQual# AND checkLocalityError(#session.flatTableName#.locality_id) #coord_serv_diff#">
+</cfif>
+
+
 <cfif isdefined("locality_remarks") and len(locality_remarks) gt 0>
 	<cfset mapurl = "#mapurl#&locality_remarks=#URLEncodedFormat(locality_remarks)#">
 	<cfif basJoin does not contain " locality ">
