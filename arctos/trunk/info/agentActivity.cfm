@@ -26,6 +26,61 @@ Agent Names:
 			</li>
 		</cfloop>
 	</ul>
+	Media:
+	<cfquery name="media" datasource="uam_god">
+		select
+			media_relationship,
+			count(*) c
+		from
+			media_relations
+		where
+			media_relationship like '% agent' and
+			related_primary_key=#agent_id#
+		group by
+			media_relationship
+		order by
+			media_relationship
+	</cfquery>
+	<cfquery name="media_assd_relations" datasource="uam_god">
+		select media_id from media_relations where CREATED_BY_AGENT_ID=#agent_id#
+	</cfquery>
+	<cfquery name="media_labels" datasource="uam_god">
+		select media_id from media_labels where ASSIGNED_BY_AGENT_ID=#agent_id#
+	</cfquery>
+
+	<cfquery name="collectormedia" datasource="uam_god">
+		select distinct
+			collector.collection_object_id
+		from
+			collector,
+			media_relations
+		where
+			collector.collection_object_id = media_relations.related_primary_key AND
+			media_relations.media_relationship='shows cataloged_item' AND
+			collector.agent_id=#agent_id#
+	</cfquery>
+	<cfdump var=#collectormedia#>
+
+
+	<ul>
+		<cfloop query="media">
+			<li>
+				#media.c# <a href="/MediaSearch.cfm?action=search&relationshiptype1=#media.media_relationship#&relationship1=#agent.preferred_agent_name#">
+					 		#media.media_relationship#
+							</a>
+				 entries.
+			</li>
+		</cfloop>
+
+		<li>
+			Assigned #media_assd_relations.recordcount# Media Relationships.
+		</li>
+		<li>
+			Assigned #media_labels.recordcount# Media Labels.
+		</li>
+	</ul>
+
+
 	<cfquery name="project_agent" datasource="uam_god">
 			select
 				project_name,
@@ -232,44 +287,7 @@ Attribute Determiner:
 			</li>
 		</cfloop>
 	</ul>
-Media:
-	<cfquery name="media" datasource="uam_god">
-		select
-			media_relationship,
-			count(*) c
-		from
-			media_relations
-		where
-			media_relationship like '% agent' and
-			related_primary_key=#agent_id#
-		group by
-			media_relationship
-		order by
-			media_relationship
-	</cfquery>
-	<cfquery name="media_assd_relations" datasource="uam_god">
-		select media_id from media_relations where CREATED_BY_AGENT_ID=#agent_id#
-	</cfquery>
-	<cfquery name="media_labels" datasource="uam_god">
-		select media_id from media_labels where ASSIGNED_BY_AGENT_ID=#agent_id#
-	</cfquery>
-	<ul>
-		<cfloop query="media">
-			<li>
-				#media.c# <a href="/MediaSearch.cfm?action=search&relationshiptype1=#media.media_relationship#&relationship1=#agent.preferred_agent_name#">
-					 		#media.media_relationship#
-							</a>
-				 entries.
-			</li>
-		</cfloop>
 
-		<li>
-			Assigned #media_assd_relations.recordcount# Media Relationships.
-		</li>
-		<li>
-			Assigned #media_labels.recordcount# Media Labels.
-		</li>
-	</ul>
 Encumbrances:
 	<ul>
 		<cfquery name="encumbrance" datasource="uam_god">
