@@ -242,6 +242,10 @@ Media:
 		where
 			media_relationship like '% agent' and
 			related_primary_key=#agent_id#
+		group by
+			media_relationship
+		order by
+			media_relationship
 	</cfquery>
 	<cfquery name="media_assd_relations" datasource="uam_god">
 		select media_id from media_relations where CREATED_BY_AGENT_ID=#agent_id#
