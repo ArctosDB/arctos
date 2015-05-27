@@ -59,9 +59,6 @@ Agent Names:
 			media_relations.media_relationship='shows cataloged_item' AND
 			collector.agent_id=#agent_id#
 	</cfquery>
-	<cfdump var=#collectormedia#>
-
-
 	<ul>
 		<cfloop query="media">
 			<li>
@@ -71,7 +68,12 @@ Agent Names:
 				 entries.
 			</li>
 		</cfloop>
-
+		<li>
+			#collectormedia.recordcount# collected/prepared
+			<a href="/MediaSearch.cfm?collection_object_id=#valuelist(collectormedia.collection_object_id)#">
+				specimens with Media
+			</a>
+		</li>
 		<li>
 			Assigned #media_assd_relations.recordcount# Media Relationships.
 		</li>
