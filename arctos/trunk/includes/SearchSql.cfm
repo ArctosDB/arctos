@@ -1547,12 +1547,20 @@
 	<cfif (left(coord_serv_diff,1) is not "=" and
 		left(coord_serv_diff,1) is not "<" and
 		left(coord_serv_diff,1) is not ">") or
-		isnumeric(right(coord_serv_diff,1,999)) is false>
+		isnumeric(mid(coord_serv_diff,1,999)) is false>
 		<p>
-			coord_serv_diff format is (=,<, or >) followed by an integer (in KM)
-			<br>-10
-			<br><10
-			<br>>10
+			coord_serv_diff format is (=,<, or >) followed by an integer (in KM). Example, in a form:
+			<ul>
+				<li>=10</li>
+				<li>>10</li>
+				<li><10</li>
+			</ul>
+			Example, in a URL:
+			<ul>
+				<li>==10</li>
+				<li>=>10</li>
+				<li>=<10</li>
+			</ul>
 		</p>
 		<cfabort>
 	</cfif>
