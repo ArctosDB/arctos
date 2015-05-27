@@ -1544,6 +1544,13 @@
 <cfif isdefined("coord_serv_diff") and len(coord_serv_diff) gt 0>
 	<cfset mapurl = "#mapurl#&coord_serv_diff=#coord_serv_diff#">
 
+	<cfoutput>
+	listfind("=,<,>",left(coord_serv_diff,1)): #listfind("=,<,>",left(coord_serv_diff,1))#
+
+	<br>
+	mid(coord_serv_diff,1,999):#mid(coord_serv_diff,1,999)#
+
+	</cfoutput>
 	<cfif not listfind("=,<,>",left(coord_serv_diff,1)) or
 		not isnumeric(mid(coord_serv_diff,1,999))>
 		<p>
