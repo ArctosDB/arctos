@@ -127,6 +127,32 @@
 <cfif isdefined("datum") and len(datum) gt 0>
 	<cfset qual = "#qual# AND locality.datum = '#datum#'">
 </cfif>
+
+
+<cfif isdefined("max_err_m") and len(max_err_m) gt 0>
+	<cfif not listfind("=,<,>",left(max_err_m,1)) or
+		not isnumeric(mid(max_err_m,2,999))>
+		<p>
+			max_err_m format is (=,<, or >) followed by an integer. Example, in a form:
+			<ul>
+				<li>=10</li>
+				<li>>10</li>
+				<li><10</li>
+			</ul>
+			Example, in a URL:
+			<ul>
+				<li>==10</li>
+				<li>=>10</li>
+				<li>=<10</li>
+			</ul>
+		</p>
+		<cfabort>
+
+
+	<cfset qual = "#qual# AND to_meters(locality.max_error_distance,locality.max_error_units) #max_err_m# ">
+</cfif>
+
+
 <cfif isdefined("dec_lat") and len(dec_lat) gt 0 and dec_lat is not "0" and isdefined("dec_long") and len(dec_long) gt 0 and dec_long is not "0">
 	<cfif not isdefined("search_precision")>
 		<cfset search_precision=2>

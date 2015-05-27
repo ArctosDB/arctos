@@ -1539,18 +1539,8 @@
 		</cfif>
 	</cfif>
 </cfif>
-
-
 <cfif isdefined("coord_serv_diff") and len(coord_serv_diff) gt 0>
 	<cfset mapurl = "#mapurl#&coord_serv_diff=#coord_serv_diff#">
-
-	<cfoutput>
-	listfind("=,<,>",left(coord_serv_diff,1)): #listfind("=,<,>",left(coord_serv_diff,1))#
-
-	<br>
-	mid(coord_serv_diff,1,999):#mid(coord_serv_diff,1,999)#
-
-	</cfoutput>
 	<cfif not listfind("=,<,>",left(coord_serv_diff,1)) or
 		not isnumeric(mid(coord_serv_diff,2,999))>
 		<p>
@@ -1568,13 +1558,11 @@
 			</ul>
 		</p>
 		<cfabort>
+	</cfif><cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (#session.flatTableName#.locality_id = locality.locality_id)">
 	</cfif>
-
-
-	<cfset basQual = " #basQual# AND checkLocalityError(#session.flatTableName#.locality_id) #coord_serv_diff#">
+	<cfset basQual = " #basQual# AND checkLocalityError(locality.locality_id) #coord_serv_diff#">
 </cfif>
-
-
 <cfif isdefined("locality_remarks") and len(locality_remarks) gt 0>
 	<cfset mapurl = "#mapurl#&locality_remarks=#URLEncodedFormat(locality_remarks)#">
 	<cfif basJoin does not contain " locality ">

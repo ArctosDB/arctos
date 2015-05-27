@@ -379,6 +379,12 @@
 								</tr>
 								<tr>
 									<td>
+										<label for="max_err_m">Error (m)</label>
+										<input type="text" name="max_err_m" id="max_err_m">
+									</td>
+								</tr>
+								<tr>
+									<td>
 										<div style="border:1px solid black;">
 											<table>
 												<tr>
