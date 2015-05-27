@@ -384,6 +384,13 @@
 			<cfset whr ="#whr# AND media_flat.media_id = mr_specimens.media_id and mr_specimens.MEDIA_RELATIONSHIP='shows cataloged_item' ">
 			<cfset srch="#srch# AND mr_specimens.related_primary_key in ( #specimen_id# ) ">
 		</cfif>
+		<cfif isdefined("collected_by_agent_id") and len(collected_by_agent_id) gt 0>
+			<cfset mapurl="#mapurl#&collected_by_agent_id=#collected_by_agent_id#">
+			<cfset tabls = "#tabls#,media_relations mr_aid_specimens,collector">
+			<cfset whr ="#whr# AND media_flat.media_id = mr_aid_specimens.media_id and mr_aid_specimens.MEDIA_RELATIONSHIP='shows cataloged_item' and
+				mr_aid_specimens.related_primary_key=collector.collection_object_id ">
+			<cfset srch="#srch# AND collector.agent_id=#collected_by_agent_id# ">
+		</cfif>
 
 		<cfif isdefined("created_by_agent") and len(created_by_agent) gt 0>
 			<cfset mapurl="#mapurl#&created_by_agent=#created_by_agent#">
