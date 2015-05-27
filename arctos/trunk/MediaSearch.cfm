@@ -2,11 +2,21 @@
 	<div id="_header">
 	    <cfinclude template="/includes/_header.cfm">
 	</div>
+	<!----
 	<cfif isdefined("url.collection_object_id")>
 	    <cfoutput>
 	    	<cflocation url="MediaSearch.cfm?action=search&relationships=shows cataloged_item&related_primary_key1=#url.collection_object_id#" addtoken="false">
 	    </cfoutput>
 	</cfif>
+	----->
+
+	<cfif isdefined("url.collection_object_id")>
+	    <cfoutput>
+	    	<cflocation url="MediaSearch.cfm?action=search&collection_object_id=#url.collection_object_id#" addtoken="false">
+	    </cfoutput>
+	</cfif>
+
+
 	<cfif action is "nothing">
 	<!----------------------------------------------------------------------------------------->
 	<!----
@@ -367,6 +377,13 @@
 				</cfif>
 			</cfif>
 		</cfif>
+		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
+			<cfset mapurl="#mapurl#&collection_object_id=#collection_object_id#">
+			<cfset tabls = "#tabls#,media_relations mr_specimens">
+			<cfset whr ="#whr# AND media_flat.media_id = mr_specimens.media_id and mr_specimens.MEDIA_RELATIONSHIP='shows cataloged_item' ">
+			<cfset srch="#srch# AND mr_specimens.related_primary_key in ( #collection_object_id# ) ">
+		</cfif>
+
 		<cfif isdefined("created_by_agent") and len(created_by_agent) gt 0>
 			<cfset mapurl="#mapurl#&created_by_agent=#created_by_agent#">
 			<cfset tabls = "#tabls#,media_relations mr_created_by_agent,agent_name an_created_by_agent">
