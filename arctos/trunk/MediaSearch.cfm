@@ -8,11 +8,11 @@
 	    	<cflocation url="MediaSearch.cfm?action=search&relationships=shows cataloged_item&related_primary_key1=#url.collection_object_id#" addtoken="false">
 	    </cfoutput>
 	</cfif>
-	----->
 
+----->
 	<cfif isdefined("url.collection_object_id")>
 	    <cfoutput>
-	    	<cflocation url="MediaSearch.cfm?action=search&collection_object_id=#url.collection_object_id#" addtoken="false">
+	    	<cflocation url="MediaSearch.cfm?action=search&specimen_id=#url.collection_object_id#" addtoken="false">
 	    </cfoutput>
 	</cfif>
 
@@ -377,11 +377,12 @@
 				</cfif>
 			</cfif>
 		</cfif>
-		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
-			<cfset mapurl="#mapurl#&collection_object_id=#collection_object_id#">
+		<!--- has to be a funky variable to preserve links to ...?collection_object_id=... ---->
+		<cfif isdefined("specimen_id") and len(specimen_id) gt 0>
+			<cfset mapurl="#mapurl#&specimen_id=#specimen_id#">
 			<cfset tabls = "#tabls#,media_relations mr_specimens">
 			<cfset whr ="#whr# AND media_flat.media_id = mr_specimens.media_id and mr_specimens.MEDIA_RELATIONSHIP='shows cataloged_item' ">
-			<cfset srch="#srch# AND mr_specimens.related_primary_key in ( #collection_object_id# ) ">
+			<cfset srch="#srch# AND mr_specimens.related_primary_key in ( #specimen_id# ) ">
 		</cfif>
 
 		<cfif isdefined("created_by_agent") and len(created_by_agent) gt 0>
