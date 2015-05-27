@@ -128,8 +128,7 @@ Collected or Prepared specimens:
 	</cfquery>
 
 	<cfquery name="collectormedia" datasource="uam_god">
-		select distinct
-			collector.collection_object_id
+		select count(*) c
 		from
 			collector,
 			media_relations
@@ -149,8 +148,8 @@ Collected or Prepared specimens:
 			</li>
 		</cfloop>
 		<li>
-			<a href="/MediaSearch.cfm?collection_object_id=#valuelist(collectormedia.collection_object_id)#">
-				Media from #collectormedia.recordcount# collected/prepared specimens
+			<a href="/MediaSearch.cfm?action=search&collected_by_agent_id=#agent_id#">
+				Media from #collectormedia.c# collected/prepared specimens
 			</a>
 		</li>
 		<li>
