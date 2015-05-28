@@ -383,16 +383,11 @@
 								<div class="taxDetDiv">
 
 
-								<!----
 									<cfif accepted_id_fg is 1>
 										<div class="taxaMeta">
 											#one.full_taxon_name#
 										</div>
 									</cfif>
-									---->
-									<div class="taxaMeta">
-											#one.full_taxon_name#
-										</div>
 
 									<cfif thisCommonName.recordcount gt 0>
 										<div class="taxaMeta">
