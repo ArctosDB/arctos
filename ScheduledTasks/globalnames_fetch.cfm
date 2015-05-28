@@ -43,6 +43,18 @@ This REFRESHES data that already exist in Arctos.
 			select scientific_name,taxon_name_id from taxon_name where taxon_name_id='#taxon_name_id#'
 		</cfquery>
 		<!--- just delete all previously-fetched globalnames data ---->
+
+
+		delete from taxon_term where taxon_name_id=#d.taxon_name_id#
+			and source not in (#listqualify(localSources,chr(39))#)
+
+
+
+			<cfabort>
+
+
+
+
 		<cfquery name="flush_old" datasource="uam_god">
 			delete from taxon_term where taxon_name_id=#d.taxon_name_id#
 			and source not in (#listqualify(localSources,chr(39))#)
