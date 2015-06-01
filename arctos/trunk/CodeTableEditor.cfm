@@ -325,7 +325,10 @@ Edit is disallowed; delete and add.
 				<cfloop query="q_noclass">
 					<input type="hidden" name="rowid_#i#" value="#i#">
 					<tr>
-						<td><input type="text" id="term_#i#"  name="term_#i#" value="#taxon_term#"></td>
+						<td>
+							<input type="hidden" id="term_#i#"  name="term_#i#" value="#taxon_term#">
+							#taxon_term#
+						</td>
 						<td><textarea name="description_#i#" rows="4" cols="40">#description#</textarea></td>
 						<td>
 							<span class="likeLink" onclick='$("##term_#i#").val("");'>delete</span>
@@ -334,7 +337,7 @@ Edit is disallowed; delete and add.
 					<cfset i=i+1>
 				</cfloop>
 			</table>
-			<input type="submit" value="save all non-classification edits">
+			<input type="submit" class="savBtn" value="save all non-classification edits">
 		</form>
 		<hr>Classification terms
 		<form name="tcncclasstbl" id="tcncclasstbl" method="post" action="CodeTableEditor.cfm">
@@ -351,9 +354,12 @@ Edit is disallowed; delete and add.
 					<input type="hidden" name="rowid_#i#" value="#i#">
 					<tr id="cell_#i#">
 						<td class="dragger">
-								(drag row here)
-							</td>
-						<td><input type="text" id="term_#i#"  name="term_#i#" value="#taxon_term#"> #i#</td>
+							(drag)
+						</td>
+						<td>
+							<input type="text" id="term_#i#"  name="term_#i#" value="#taxon_term#">
+							#taxon_term#
+						</td>
 						<td><textarea name="description_#i#" rows="4" cols="40">#description#</textarea></td>
 						<td>
 							<span class="likeLink" onclick='$("##term_#i#").val("");'>delete</span>
@@ -364,12 +370,8 @@ Edit is disallowed; delete and add.
 				</cfloop>
 				</tbody>
 			</table>
-			<input type="submit"  value="save all classification edits">
-
-						<input type="text" name="classificationRowOrder" id="classificationRowOrder">
-
-
-
+			<input type="submit" class="savBtn" value="save all classification edits">
+			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
 		</form>
 
 		<!----
@@ -1011,51 +1013,33 @@ Edit is disallowed; delete and add.
 				</cfquery>
 			</cfif>
 		</cfif>
-		<!----
 		<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
+
+		<!----
 		---->
 	</cfloop>
 <cfelseif action is "saveEditsTaxonTermWithClass">
-
-	<cfdump var=#form#>
-
 	<cftransaction>
 		<cfquery name="moveasideplease" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update cttaxon_term set relative_position=relative_position+100000000 where relative_position is not null
 		</cfquery>
 		<cfloop from="1" to="#listlen(CLASSIFICATIONROWORDER)#" index="listpos">
 			<cfset x=listgetat(CLASSIFICATIONROWORDER,listpos)>
-			<br>x: #x#
 			<cfset thisROWID=listlast(x,"_")>
-
-			<br>thisROWID: #thisROWID#
-
-
 			<cfset thisVAL=evaluate("term_" & thisROWID)>
 			<cfset thisDEF=evaluate("DESCRIPTION_" & thisROWID)>
-
-			<br>thisVAL: #thisVAL#
 			<cfif len(thisVAL) is 0>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					delete from cttaxon_term where taxon_term='#thisVAL#'
 				</cfquery>
 			<cfelse>
-
-	<br>				update cttaxon_term set description='#thisDEF#',relative_position=#listpos# where taxon_term='#thisVAL#'
-
-
 				<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update cttaxon_term set description='#thisDEF#',relative_position=#listpos# where taxon_term='#thisVAL#'
 				</cfquery>
 			</cfif>
 		</cfloop>
-
 	</cftransaction>
+	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
 </cfif>
-
-
-
-
-
 </cfoutput>
 <cfinclude template="includes/_footer.cfm">
