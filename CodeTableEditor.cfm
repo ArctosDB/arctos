@@ -936,7 +936,11 @@
 			<cfset rid=replace(i,'rowid_','')>
 
 
+			<br>rid: #rid#
+
+
 			<cfset thisROWID=evaluate("rowid_" & rid)>
+
 			<br>thisROWID: #thisROWID#
 
 
