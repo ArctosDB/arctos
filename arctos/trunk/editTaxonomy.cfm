@@ -1167,7 +1167,7 @@
 			var formatstyle = 'iczn'; // default to simple....
 			var formattedname; // with HTML
 			var lowestclassificationterm;
-			$("[name^='ncterm_type_']").each(function() {
+			$(":input[name^='ncterm_type_']").each(function() {
 				var thisval = $(this).val();
 
 				console.log('nc: ' + thisval);
