@@ -1021,7 +1021,7 @@ Edit is disallowed; delete and add.
 
 	<cftransaction>
 		<cfquery name="moveasideplease" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cttaxon_term relative_position=relative_position+100000000 where relative_position is not null
+			update cttaxon_term set relative_position=relative_position+100000000 where relative_position is not null
 		</cfquery>
 		<cfloop from="1" to="#listlen(CLASSIFICATIONROWORDER)#" index="listpos">
 			<cfset x=listgetat(CLASSIFICATIONROWORDER,listpos)>
