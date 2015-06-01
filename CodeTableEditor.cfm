@@ -343,7 +343,7 @@
 				<tbody id="sortable">
 				<cfloop query="q_isclass">
 					<input type="hidden" name="rowid_#rowid#" value="#rowid#">
-					<tr id="cell_#relative_position#">
+					<tr id="cell_#rowid#">
 						<td class="dragger">
 								(drag row here)
 							</td>
