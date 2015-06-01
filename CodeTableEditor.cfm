@@ -295,7 +295,11 @@
 							<input type="text" name="taxon_term" value="#taxon_term#" size="50">
 						</td>
 						<td>
-							<input type="text" name="relative_position" value="#relative_position#" size="50">
+							<cfif is_classification is 1>
+								<input type="text" name="relative_position" value="#relative_position#" size="50">
+							<cfelse>
+								only for classification
+							</cfif>
 						</td>
 
 
