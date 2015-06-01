@@ -290,7 +290,7 @@
 				<cfloop query="q_noclass">
 					<input type="hidden" name="orig_#rowid#" value="#taxon_term#">
 					<tr>
-						<td><input type="text" name="term_#rowid#" value="#taxon_term#"></td>
+						<td><input type="text" id="term_#rowid#"  name="term_#rowid#" value="#taxon_term#"></td>
 						<td><textarea name="description_#rowid#" rows="4" cols="40">#description#</textarea></td>
 						<td>
 							<span class="likeLink" onclick='$("##term_#rowid#").val("DELETE");'>delete</span>
@@ -919,6 +919,9 @@
 		</cfquery>
 	</cfif>
 	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl#" addtoken="false">
+<cfelse action is "saveEditsTaxonTermNoClass">
+	<cfdump var=#form#>
+
 </cfif>
 </cfoutput>
 <cfinclude template="includes/_footer.cfm">
