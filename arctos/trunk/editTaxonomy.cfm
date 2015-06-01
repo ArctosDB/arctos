@@ -1097,12 +1097,23 @@
 			++n;
 			var x='<tr id="cell_' + n + '">';
 			x+='<td class="dragger">(drag row here)</td>';
-			x+='<td><input size="60" class="ac_isclass_tt" type="text" id="term_type_' + n + '" name="term_type_' + n + '" onchange="guessAtDisplayName(this.id)"></td>';
+			//x+='<td><input size="60" class="ac_isclass_tt" type="text" id="term_type_' + n + '" name="term_type_' + n + '" onchange="guessAtDisplayName(this.id)"></td>';
+			x+='<td><select class="ac_isclass_tt" id="term_type_' + n + '" name="term_type_' + n + '" onchange="guessAtDisplayName(this.id)"></select></td>';
+
+
+
 			x+='<td><input size="60" type="text" id="term_' + n + '" name="term_' + n + '" onchange="guessAtDisplayName(this.id)"></td>';
 			x+='<td><span class="likeLink" onclick="deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
 			x+='</tr>';
 			$("#sortable").append(x);
 			$("#maxposn").val(n);
+
+
+
+			$('#term_type_1').find('option').clone().appendTo('#term_type_' + n);
+
+
+
 		}
 
 
