@@ -571,7 +571,18 @@
 					<cfloop from="1" to="10" index="i">
 
 							<td>
+
+								<select  class="ac_isclass_tt" id="term_type_#i#" name="term_type_#i#">
+									<option value=""></option>
+									<cfloop query="cttaxon_term_isclass">
+										<option value="#taxon_term#">#taxon_term#</option>
+									</cfloop>
+								</select>
+
+								<!----
+
 								<input size="60" class="ac_isclass_tt" type="text" id="term_type_#i#" name="term_type_#i#">
+								---->
 							</td>
 							<td>
 								<input size="60" type="text" id="term_#i#" name="term_#i#" >
