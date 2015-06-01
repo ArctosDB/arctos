@@ -1230,6 +1230,9 @@
 
 				console.log('oops');
 				if (genus) {
+
+					console.log('and genus');
+
 					formattedname='<i>' + genus + '</i>';
 					if (speciesauthor) {
 						formattedname += ' ' + speciesauthor;
