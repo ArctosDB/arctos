@@ -932,6 +932,10 @@
 
 		<cfif left(i,6) is "rowid_">
 
+
+
+			<br>i: #i#
+
 			<!--- because CF UPPERs "name" on form submission ---->
 			<cfset rid=replace(i,'rowid_','')>
 
