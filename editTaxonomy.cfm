@@ -1103,20 +1103,10 @@
 			x+='</tr>';
 			$("#sortable").append(x);
 			$("#maxposn").val(n);
-
-
-}
-
-
-
-
-}
-
-
-
-
-
 		}
+
+
+
 		function nc_addARow() {
 			var n=parseInt($("#numnoclassrs").val());
 			++n;
