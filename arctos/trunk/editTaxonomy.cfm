@@ -1178,7 +1178,7 @@
 				}
 			});
 			// and this point, there should be a display_name and we should know it's ID.
-			$(":input[name^='breakit_____term_type_']").each(function() {
+			$(":input[name^='term_type_']").each(function() {
 		    	var thisval = $(this).val();
 				var relatedElementID=this.id.replace("type_","");
 				var relatedElement=$("#" + relatedElementID).val();
@@ -1226,13 +1226,7 @@
 				}
 			}
 			if (! formattedname) {
-
-
-				console.log('oops');
 				if (genus) {
-
-					console.log('and genus');
-
 					formattedname='<i>' + genus + '</i>';
 					if (speciesauthor) {
 						formattedname += ' ' + speciesauthor;
