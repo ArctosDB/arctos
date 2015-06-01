@@ -244,11 +244,11 @@
 				handle: '.dragger'
 			});
 
-			$("#tcncclasstbl").submit(function(event){
+			$("##tcncclasstbl").submit(function(event){
 				event.preventDefault();
 				var linkOrderData=$("##sortable").sortable('toArray').join(',');
 				$( "##classificationRowOrder" ).val(linkOrderData);
-				$("#tcncclasstbl").submit();
+				$("##tcncclasstbl").submit();
 			});
 
 		});
