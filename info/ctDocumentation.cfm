@@ -92,6 +92,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				<th>Classification</th>
 				<th>Definition</th>
 			</tr>
+			<cfset i=1>
 			<cfloop query="cData">
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					<td>#TAXON_TERM#</td>
