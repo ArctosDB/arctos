@@ -78,7 +78,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			SELECT
 				TAXON_TERM,
 				DESCRIPTION,
-				DECODE(IS_CLASSIFICATION,0,'no','yes') IS_CLASSIFICATION,
+				DECODE(IS_CLASSIFICATION,0,'no','yes') IS_CLASSIFICATION
 			FROM
 				CTTAXON_TERM
 			order by
