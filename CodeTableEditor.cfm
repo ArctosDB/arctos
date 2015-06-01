@@ -243,18 +243,17 @@
 		<form name="newData" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="newValue">
 			<input type="hidden" name="tbl" value="cttaxon_term">
+			Note: new classification terms will insert into the bottom of the hierarchy. EDIT THEM AFTER YOU CREATE!
 			<table class="newRec">
 				<tr>
 					<th>Term</th>
 					<th>Classification?</th>
-					<th>RelativePosition</th>
 					<th>Definition</th>
 				</tr>
 				<tr>
 					<td>
 						<input type="text" name="newData" >
 					</td>
-					<input type="text" name="relative_position" >
 
 
 
