@@ -280,7 +280,8 @@
 		</form>
 		<cfset i = 1>
 		<hr>Non-classification terms
-		<form name="tcnc" method="post" action="saveEditsTaxonTermNoClass">
+		<form name="tcnc" method="post" action="CodeTableEditor.cfm">
+			<input type="hidden" name="action" value="saveEditsTaxonTermNoClass">
 			<table>
 				<tr>
 					<th>Term</th>
