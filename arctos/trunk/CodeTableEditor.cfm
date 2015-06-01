@@ -241,6 +241,12 @@
 Terms must be lower-case
 Edit is disallowed; delete and add.
 <hr>
+<style>
+		.dragger {
+			cursor:move;
+		}
+
+	</style>
 	<script>
 	$(function() {
 			$( "##sortable" ).sortable({
