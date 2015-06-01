@@ -742,7 +742,7 @@
 	<cfelseif tbl is "cttaxon_term">
 		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into cttaxon_term (
-				TERM_TYPE,
+				taxon_term,
 				DESCRIPTION,
 				IS_CLASSIFICATION
 			) values (
