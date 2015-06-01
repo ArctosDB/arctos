@@ -1273,6 +1273,11 @@
 				formattedname=formattedname.replace(/<\/i> <i>/g, ' ').trim();
 				$("#dng").val(formattedname);
 			}
+
+
+			console.log('i think ' + formattedname);
+
+
 		}
 		function useDNG(){
 			var dn=$("#dng").val();
