@@ -237,6 +237,23 @@
 			</cfloop>
 		</table>
 	<cfelseif tbl is "cttaxon_term"><!---------------------------------------------------->
+
+	<script>
+	$(function() {
+			$( "#sortable" ).sortable({
+				handle: '.dragger'
+			});
+
+				function submitForm() {
+					var linkOrderData=$("#sortable").sortable('toArray').join(',');
+					$( "#classificationRowOrder" ).val(linkOrderData);
+
+					//$( "#f1" ).submit();
+				}
+
+
+		});
+	</script>
 		<cfquery name="q_noclass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				rowid,
@@ -311,13 +328,18 @@
 			<input type="hidden" name="action" value="saveEditsTaxonTermHasClass">
 			<table>
 				<tr>
+					<th>sort</th>
 					<th>Term</th>
 					<th>Definition</th>
 					<th></th>
 				</tr>
+				<tbody id="sortable">
 				<cfloop query="q_isclass">
 					<input type="hidden" name="rowid_#rowid#" value="#rowid#">
-					<tr>
+					<tr id="cell_#relative_position#">
+						<td class="dragger">
+								(drag row here)
+							</td>
 						<td><input type="text" id="term_#rowid#"  name="term_#rowid#" value="#taxon_term#"></td>
 						<td><textarea name="description_#rowid#" rows="4" cols="40">#description#</textarea></td>
 						<td>
@@ -325,8 +347,14 @@
 						</td>
 					</tr>
 				</cfloop>
+				</tbody>
 			</table>
-			<input type="submit" value="save all non-classification edits">
+			<input type="button" onclick="submitForm()" value="save all classification edits">
+
+						<input type="text" name="classificationRowOrder" id="classificationRowOrder">
+
+
+
 		</form>
 
 		<!----
