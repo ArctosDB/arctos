@@ -1178,6 +1178,10 @@
 			var lowestclassificationterm;
 			$("input[name^='ncterm_type_']").each(function() {
 				var thisval = $(this).val();
+
+				console.log('nc: ' + thisval);
+
+
 				var relatedElementID=this.id.replace("type_","");
 				var relatedElement=$("#" + relatedElementID).val();
 
