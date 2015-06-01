@@ -1008,6 +1008,8 @@
 		---->
 	</cfloop>
 <cfelseif action is "saveEditsTaxonTermWithClass">
+
+	<cfdump var=#form#>
 	<cfloop from="1" to="#listlen(CLASSIFICATIONROWORDER)#" index="listpos">
 		<cfset x=listgetat(CLASSIFICATIONROWORDER,listpos)>
 		<br>x: #x#
