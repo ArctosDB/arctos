@@ -247,12 +247,19 @@
 				<tr>
 					<th>Term</th>
 					<th>Classification?</th>
+					<th>RelativePosition</th>
 					<th>Definition</th>
 				</tr>
 				<tr>
 					<td>
 						<input type="text" name="newData" >
 					</td>
+					<input type="text" name="relative_position" >
+
+
+
+
+
 					<td>
 						<select name="classification">
 							<option value="1">yes</option>
@@ -274,6 +281,7 @@
 		<table>
 			<tr>
 				<th>Term</th>
+				<th>RelativePosition</th>
 				<th>Classification</th>
 				<th>Definition</th>
 			</tr>
@@ -286,6 +294,11 @@
 						<td>
 							<input type="text" name="taxon_term" value="#taxon_term#" size="50">
 						</td>
+						<td>
+							<input type="text" name="relative_position" value="#relative_position#" size="50">
+						</td>
+
+
 						<td>
 							<select name="classification">
 								<option <cfif is_classification is 1> selected="selected" </cfif>value="1">yes</option>
@@ -677,6 +690,9 @@
 				taxon_term='#taxon_term#',
 				DESCRIPTION='#description#',
 				is_classification=#classification#
+				<cfif len(relative_position) gt 0>
+					relative_position=#relative_position#
+				</cfif>
 			where
 				taxon_term='#origData#'
 		</cfquery>
@@ -744,11 +760,17 @@
 			insert into cttaxon_term (
 				taxon_term,
 				DESCRIPTION,
-				IS_CLASSIFICATION
+				IS_CLASSIFICATION,
+				relative_position
 			) values (
 				'#newData#',
 				'#description#',
-				#classification#
+				#classification#,
+				<cfif len(relative_position) gt 0>
+					#relative_position#
+				<cfelse>
+					NULL
+				</cfif>
 			)
 		</cfquery>
 	<cfelseif tbl is "ctcoll_other_id_type">
