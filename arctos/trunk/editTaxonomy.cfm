@@ -1382,7 +1382,7 @@
 				Non-Classification Terms <span class="likeLink" onclick="getCtDoc('cttaxon_term');">code table</span>
 			</h3>
 			<p style="font-size:small;">
-				These are paired terms; unpaired terms will be ignored (=deleted).
+				These are paired terms; unpaired terms - those with either side blank - will be ignored (=deleted).
 			</p>
 			<table id="clastbl" border="1">
 				<thead>
