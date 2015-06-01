@@ -925,7 +925,6 @@
 	<cfloop list="#FIELDNAMES#" index="i">
 
 
-		<input type="hidden" name="rowid_#rowid#" value="#rowid#">
 
 
 
