@@ -535,13 +535,15 @@
 					<cfloop from="1" to="10" index="i">
 						<tr id="nccell_#i#">
 							<td>
-								<select id="ncterm_type_#i#" name="ncterm_type_#i#" onchange="requirePair(#i#);">
+								<select  class="ac_noclass_tt" id="ncterm_type_#i#" name="ncterm_type_#i#" onchange="requirePair(#i#);">
 									<option value=""></option>
 									<cfloop query="cttaxon_term_noclass">
 										<option value="#taxon_term#">#taxon_term#</option>
 									</cfloop>
 								</select>
+								<!----
 								<input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_#i#" name="ncterm_type_#i#" onchange="requirePair(#i#);">
+								---->
 							</td>
 							<td>
 								<input size="60" type="text" id="ncterm_#i#" name="ncterm_#i#" onchange="requirePair(#i#);">
