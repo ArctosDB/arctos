@@ -924,7 +924,7 @@
 	<cfdump var=#form#>
 	<cfloop list="#FIELDNAMES#" index="i">
 		<cfif left(i,4) is "ORIG">
-			<cfset thisROWID=listgetat(1,2,"_")>
+			<cfset thisROWID=replace(i,'ORIG_','')>
 			<br>thisROWID: #thisROWID#
 			<cfset thisORIG=evaluate("orig_" & thisROWID)>
 
