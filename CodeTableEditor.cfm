@@ -289,7 +289,7 @@
 					<th></th>
 				</tr>
 				<cfloop query="q_noclass">
-					<input type="hidden" name="orig_#rowid#" value="#taxon_term#">
+					<input type="hidden" name="rowid_#rowid#" value="#rowid#">
 					<tr>
 						<td><input type="text" id="term_#rowid#"  name="term_#rowid#" value="#taxon_term#"></td>
 						<td><textarea name="description_#rowid#" rows="4" cols="40">#description#</textarea></td>
@@ -923,8 +923,21 @@
 <cfelseif action is "saveEditsTaxonTermNoClass">
 	<cfdump var=#form#>
 	<cfloop list="#FIELDNAMES#" index="i">
-		<cfif left(i,4) is "ORIG">
-			<cfset thisROWID=replace(i,'ORIG_','')>
+
+
+		<input type="hidden" name="rowid_#rowid#" value="#rowid#">
+
+
+
+
+
+		<cfif left(i,6) is "rowid_">
+
+			<!--- because CF UPPERs "name" on form submission ---->
+			<cfset rid=replace(i,'rowid_','')>
+
+
+			<cfset thisROWID=evaluate("rowid_" & rid)>
 			<br>thisROWID: #thisROWID#
 
 
