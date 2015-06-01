@@ -299,7 +299,7 @@
 					</tr>
 				</cfloop>
 			</table>
-			<input type="submit">
+			<input type="submit" value="save all non-classification edits">
 		</form>
 		<table>
 			<tr>
@@ -922,7 +922,16 @@
 	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl#" addtoken="false">
 <cfelseif action is "saveEditsTaxonTermNoClass">
 	<cfdump var=#form#>
+	<cfloop list="#FIELDNAMES#" index="i">
+		<cfif left(i,4) is "ORIG">
+			<cfset thisROWID=listgetat(1,2,"_")>
+			<br>thisROWID: #thisROWID#
+			<cfset thisORIG=evaluate("orig_" & thisROWID)>
 
+			<br>thisORIG: #thisORIG#
+		</cfif>
+
+	</cfloop>
 </cfif>
 </cfoutput>
 <cfinclude template="includes/_footer.cfm">
