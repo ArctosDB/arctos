@@ -274,10 +274,10 @@
 				DESCRIPTION,
 				is_classification,
 				relative_position
-				 from cttaxon_term where is_classification=1order by relative_position
+			from cttaxon_term where is_classification=1
+			order by relative_position
 		</cfquery>
 
-		<cfdump var=#q_isclass#>
 		<form name="newData" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="newValue">
 			<input type="hidden" name="tbl" value="cttaxon_term">
@@ -1016,6 +1016,10 @@
 		<cfset x=listgetat(CLASSIFICATIONROWORDER,listpos)>
 		<br>x: #x#
 		<cfset thisROWID=listlast(x,"_")>
+
+		<br>thisROWID: #thisROWID#
+
+
 		<cfset thisVAL=evaluate("term_" & thisROWID)>
 		<cfset thisDEF=evaluate("DESCRIPTION_" & thisROWID)>
 
@@ -1025,6 +1029,8 @@
 				delete from cttaxon_term where rowid='#thisROWID#'
 			</cfquery>
 		<cfelse>
+
+		<br>update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#',relative_position=#listpos# where rowid='#thisROWID#'
 			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#',relative_position=#listpos# where rowid='#thisROWID#'
 			</cfquery>
