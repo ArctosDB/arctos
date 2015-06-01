@@ -245,10 +245,9 @@
 			});
 
 			$("##tcncclasstbl").submit(function(event){
-				event.preventDefault();
 				var linkOrderData=$("##sortable").sortable('toArray').join(',');
 				$( "##classificationRowOrder" ).val(linkOrderData);
-				$("##tcncclasstbl").submit();
+				return true;
 			});
 
 		});
