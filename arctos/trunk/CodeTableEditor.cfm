@@ -332,7 +332,7 @@
 		</form>
 		<hr>Classification terms
 		<form name="tcnc" method="post" action="CodeTableEditor.cfm">
-			<input type="hidden" name="action" value="saveEditsTaxonTermHasClass">
+			<input type="hidden" name="action" value="saveEditsTaxonTermWithClass">
 			<table>
 				<tr>
 					<th>sort</th>
@@ -1011,6 +1011,46 @@
 		<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
 		---->
 	</cfloop>
+<cfelseif action is "saveEditsTaxonTermWithClass">
+
+<cfdump var=#form#>
+	<cfloop from="1" to="#listlen(CLASSIFICATIONROWORDER)#" index="listpos">
+				<cfset x=listgetat(CLASSIFICATIONROWORDER,listpos)>
+				<br>x: #x#
+				<cfset i=listlast(x,"_")>
+				<cfset thisterm=evaluate("TERM_" & i)>
+				<br>i: #i#
+
+				<!----
+
+								<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
+
+				<cfquery name="insCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into taxon_term (
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM,
+						TERM_TYPE,
+						SOURCE,
+						LASTDATE,
+						POSITION_IN_CLASSIFICATION
+					) values (
+						#TAXON_NAME_ID#,
+						'#CLASSIFICATION_ID#',
+						'#thisterm#',
+						'#thistermtype#',
+						'#SOURCE#',
+						sysdate,
+						#listpos#
+					)
+				</cfquery>
+				---->
+			</cfloop>
 </cfif>
+
+
+
+
+
 </cfoutput>
 <cfinclude template="includes/_footer.cfm">
