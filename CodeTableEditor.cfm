@@ -301,6 +301,30 @@
 			</table>
 			<input type="submit" value="save all non-classification edits">
 		</form>
+		<hr>Classification terms
+		<form name="tcnc" method="post" action="CodeTableEditor.cfm">
+			<input type="hidden" name="action" value="saveEditsTaxonTermHasClass">
+			<table>
+				<tr>
+					<th>Term</th>
+					<th>Definition</th>
+					<th></th>
+				</tr>
+				<cfloop query="q_isclass">
+					<input type="hidden" name="rowid_#rowid#" value="#rowid#">
+					<tr>
+						<td><input type="text" id="term_#rowid#"  name="term_#rowid#" value="#taxon_term#"></td>
+						<td><textarea name="description_#rowid#" rows="4" cols="40">#description#</textarea></td>
+						<td>
+							<span class="likeLink" onclick='$("##term_#rowid#").val("");'>delete</span>
+						</td>
+					</tr>
+				</cfloop>
+			</table>
+			<input type="submit" value="save all non-classification edits">
+		</form>
+
+		<!----
 		<table>
 			<tr>
 				<th>Term</th>
@@ -405,6 +429,7 @@
 				<cfset i = #i#+1>
 			</cfloop>
 		</table>
+		---->
 	<cfelseif tbl is "ctcoll_other_id_type"><!--------------------------------------------------------------->
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctcoll_other_id_type order by other_id_type
