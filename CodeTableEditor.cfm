@@ -237,39 +237,26 @@
 			</cfloop>
 		</table>
 	<cfelseif tbl is "cttaxon_term"><!---------------------------------------------------->
-
-Terms must be lower-case
-Edit is disallowed; delete and add.
-<hr>
-<style>
-		.dragger {
-			cursor:move;
-		}
-
-	</style>
-	<script>
-	$(function() {
-			$( "##sortable" ).sortable({
-				handle: '.dragger'
+		Terms must be lower-case
+		Edit is disallowed; delete and add.
+		<hr>
+		<style>
+			.dragger {
+				cursor:move;
+			}
+		</style>
+		<script>
+			$(function() {
+				$( "##sortable" ).sortable({
+					handle: '.dragger'
+				});
+				$("##tcncclasstbl").submit(function(event){
+					var linkOrderData=$("##sortable").sortable('toArray').join(',');
+					$( "##classificationRowOrder" ).val(linkOrderData);
+					return true;
+				});
 			});
-
-			$("##tcncclasstbl").submit(function(event){
-				var linkOrderData=$("##sortable").sortable('toArray').join(',');
-				$( "##classificationRowOrder" ).val(linkOrderData);
-				return true;
-			});
-
-		});
-
-
-
-
-
-
-
-
-
-	</script>
+		</script>
 		<cfquery name="q_noclass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				TAXON_TERM,
@@ -1040,7 +1027,7 @@ Edit is disallowed; delete and add.
 				</cfquery>
 			<cfelse>
 				<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update cttaxon_term set description='#thisDEF#',relative_position=#listpos# where taxon_term='#thisVAL#'
+					delete from cttaxon_term where taxon_term='#thisVAL#'
 				</cfquery>
 			</cfif>
 		</cfloop>
