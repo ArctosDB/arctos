@@ -937,7 +937,7 @@
 			<br>i: #i#
 
 			<!--- because CF UPPERs "name" on form submission ---->
-			<cfset rid=replace(i,'rowid_','')>
+			<cfset rid=replace(i,'ROWID_','')>
 
 
 			<br>rid: #rid#
