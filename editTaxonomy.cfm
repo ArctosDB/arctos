@@ -1348,6 +1348,16 @@
 
 		<cfdump var=#pterms#>
 
+		<cfloop list="#pterms#" index="i">
+			<cfif listfind(usedTerms,i)>
+				<cfset usedTerms=listdeleteat(usedTerms,listfind(usedTerms,i))>
+			</cfif>
+		</cfloop>
+
+
+
+		<cfdump var=#usedTerms#>
+
 		<p>
 			Editing <strong>#thisName.source#</strong> classification for <strong>#thisName.scientific_name#</strong> (classification_id=#classification_id#)
 			<cfset title="Edit Classification: #thisName.scientific_name#">
