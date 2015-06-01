@@ -238,6 +238,9 @@
 		</table>
 	<cfelseif tbl is "cttaxon_term"><!---------------------------------------------------->
 
+Terms must be lower-case
+Edit is disallowed; delete and add.
+<hr>
 	<script>
 	$(function() {
 			$( "##sortable" ).sortable({
@@ -263,7 +266,6 @@
 	</script>
 		<cfquery name="q_noclass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
-				rowid,
 				TAXON_TERM,
 				DESCRIPTION
 			from cttaxon_term where is_classification=0 order by taxon_term
@@ -319,15 +321,17 @@
 					<th>Definition</th>
 					<th></th>
 				</tr>
+				<cfset i=1>
 				<cfloop query="q_noclass">
-					<input type="hidden" name="rowid_#rowid#" value="#rowid#">
+					<input type="hidden" name="rowid_#i#" value="#i#">
 					<tr>
-						<td><input type="text" id="term_#rowid#"  name="term_#rowid#" value="#taxon_term#"></td>
-						<td><textarea name="description_#rowid#" rows="4" cols="40">#description#</textarea></td>
+						<td><input type="text" id="term_#i#"  name="term_#i#" value="#taxon_term#"></td>
+						<td><textarea name="description_#i#" rows="4" cols="40">#description#</textarea></td>
 						<td>
-							<span class="likeLink" onclick='$("##term_#rowid#").val("");'>delete</span>
+							<span class="likeLink" onclick='$("##term_#i#").val("");'>delete</span>
 						</td>
 					</tr>
+					<cfset i=i+1>
 				</cfloop>
 			</table>
 			<input type="submit" value="save all non-classification edits">
@@ -344,15 +348,15 @@
 				</tr>
 				<tbody id="sortable">
 				<cfloop query="q_isclass">
-					<input type="hidden" name="rowid_#rowid#" value="#rowid#">
-					<tr id="cell_#rowid#">
+					<input type="hidden" name="rowid_#i#" value="#i#">
+					<tr id="cell_#i#">
 						<td class="dragger">
 								(drag row here)
 							</td>
-						<td><input type="text" id="term_#rowid#"  name="term_#rowid#" value="#taxon_term#"> #rowid#</td>
-						<td><textarea name="description_#rowid#" rows="4" cols="40">#description#</textarea></td>
+						<td><input type="text" id="term_#i#"  name="term_#i#" value="#taxon_term#"> #i#</td>
+						<td><textarea name="description_#i#" rows="4" cols="40">#description#</textarea></td>
 						<td>
-							<span class="likeLink" onclick='$("##term_#rowid#").val("");'>delete</span>
+							<span class="likeLink" onclick='$("##term_#i#").val("");'>delete</span>
 						</td>
 					</tr>
 				</cfloop>
@@ -997,11 +1001,11 @@
 			<cfset thisDEF=evaluate("DESCRIPTION_" & thisROWID)>
 			<cfif len(thisVAL) is 0>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					delete from cttaxon_term where rowid='#thisROWID#'
+					delete from cttaxon_term where term='#thisVAL#'
 				</cfquery>
 			<cfelse>
 				<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where  rowid='#thisROWID#'
+					update cttaxon_term set description='#thisDEF#' where term='#thisVAL#'
 				</cfquery>
 			</cfif>
 		</cfif>
@@ -1026,13 +1030,13 @@
 		<br>thisVAL: #thisVAL#
 		<cfif len(thisVAL) is 0>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				delete from cttaxon_term where rowid='#thisROWID#'
+				delete from cttaxon_term where term='#thisVAL#'
 			</cfquery>
 		<cfelse>
 
 		<br>update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#',relative_position=#listpos# where rowid='#thisROWID#'
 			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#',relative_position=#listpos# where rowid='#thisROWID#'
+				update cttaxon_term set description='#thisDEF#',relative_position=#listpos# where taxon_term='#thisVAL#'
 			</cfquery>
 		</cfif>
 	</cfloop>
