@@ -294,7 +294,7 @@
 						<td><input type="text" id="term_#rowid#"  name="term_#rowid#" value="#taxon_term#"></td>
 						<td><textarea name="description_#rowid#" rows="4" cols="40">#description#</textarea></td>
 						<td>
-							<span class="likeLink" onclick='$("##term_#rowid#").val("DELETE");'>delete</span>
+							<span class="likeLink" onclick='$("##term_#rowid#").val("");'>delete</span>
 						</td>
 					</tr>
 				</cfloop>
@@ -921,41 +921,13 @@
 	</cfif>
 	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl#" addtoken="false">
 <cfelseif action is "saveEditsTaxonTermNoClass">
-	<cfdump var=#form#>
 	<cfloop list="#FIELDNAMES#" index="i">
-
-
-
-
-
-
-
 		<cfif left(i,6) is "rowid_">
-
-
-
-			<br>i: #i#
-
-			<!--- because CF UPPERs "name" on form submission ---->
+			<!--- because CF UPPERs FIELDNAMES ---->
 			<cfset rid=replace(i,'ROWID_','')>
-
-
-			<br>rid: #rid#
-
-
 			<cfset thisROWID=evaluate("rowid_" & rid)>
-
-			<br>thisROWID: #thisROWID#
-
-
 			<cfset thisVAL=evaluate("term_" & thisROWID)>
-
-			<br>thisVAL: #thisVAL#
-
 			<cfset thisDEF=evaluate("DESCRIPTION_" & thisROWID)>
-
-			<br>thisDEF: #thisDEF#
-
 			<cfif len(thisVAL) is 0>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					delete from cttaxon_term where rowid='#thisROWID#'
@@ -964,11 +936,9 @@
 				<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where  rowid='#thisROWID#'
 				</cfquery>
-
-
 			</cfif>
 		</cfif>
-
+		<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
 	</cfloop>
 </cfif>
 </cfoutput>
