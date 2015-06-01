@@ -944,7 +944,7 @@
 		</cfif>
 		<!----
 		<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
-		----?
+		---->
 	</cfloop>
 </cfif>
 </cfoutput>
