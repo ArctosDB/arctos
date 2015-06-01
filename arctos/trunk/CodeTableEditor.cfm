@@ -769,8 +769,8 @@
 				'#newData#',
 				'#description#',
 				#classification#,
-				<cfif len(relative_position) gt 0>
-					#relative_position#
+				<cfif len(classification) gt 0>
+					999999999
 				<cfelse>
 					NULL
 				</cfif>
