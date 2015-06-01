@@ -993,15 +993,11 @@
 			<cfset thisROWID=evaluate("rowid_" & rid)>
 			<cfset thisVAL=evaluate("term_" & thisROWID)>
 			<cfset thisDEF=evaluate("DESCRIPTION_" & thisROWID)>
-			<br>thisVAL: #thisVAL#
 			<cfif len(thisVAL) is 0>
-				<br>delete from cttaxon_term where rowid='#thisROWID#'
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					delete from cttaxon_term where rowid='#thisROWID#'
 				</cfquery>
 			<cfelse>
-			<br>					update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where  rowid='#thisROWID#'
-
 				<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where  rowid='#thisROWID#'
 				</cfquery>
@@ -1012,40 +1008,22 @@
 		---->
 	</cfloop>
 <cfelseif action is "saveEditsTaxonTermWithClass">
-
-<cfdump var=#form#>
 	<cfloop from="1" to="#listlen(CLASSIFICATIONROWORDER)#" index="listpos">
-				<cfset x=listgetat(CLASSIFICATIONROWORDER,listpos)>
-				<br>x: #x#
-				<cfset i=listlast(x,"_")>
-				<cfset thisterm=evaluate("TERM_" & i)>
-				<br>i: #i#
-
-				<!----
-
-								<cfset thistermtype=evaluate("TERM_TYPE_" & i)>
-
-				<cfquery name="insCterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into taxon_term (
-						TAXON_NAME_ID,
-						CLASSIFICATION_ID,
-						TERM,
-						TERM_TYPE,
-						SOURCE,
-						LASTDATE,
-						POSITION_IN_CLASSIFICATION
-					) values (
-						#TAXON_NAME_ID#,
-						'#CLASSIFICATION_ID#',
-						'#thisterm#',
-						'#thistermtype#',
-						'#SOURCE#',
-						sysdate,
-						#listpos#
-					)
-				</cfquery>
-				---->
-			</cfloop>
+		<cfset x=listgetat(CLASSIFICATIONROWORDER,listpos)>
+		<br>x: #x#
+		<cfset thisROWID=listlast(x,"_")>
+		<cfset thisVAL=evaluate("term_" & thisROWID)>
+		<cfset thisDEF=evaluate("DESCRIPTION_" & thisROWID)>
+		<cfif len(thisVAL) is 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				delete from cttaxon_term where rowid='#thisROWID#'
+			</cfquery>
+		<cfelse>
+			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#',relative_position=#listpos# where rowid='#thisROWID#'
+			</cfquery>
+		</cfif>
+	</cfloop>
 </cfif>
 
 
