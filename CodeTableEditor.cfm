@@ -846,7 +846,7 @@
 				'#newData#',
 				'#description#',
 				#classification#,
-				<cfif len(classification) gt 0>
+				<cfif classification is 1>
 					999999999
 				<cfelse>
 					NULL
