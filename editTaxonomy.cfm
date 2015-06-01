@@ -1150,6 +1150,10 @@
 		}
 
 		function guessAtDisplayName(caller) {
+
+			console.log('hello');
+
+
 			// if this is being called by an element, check if that element is the value
 			// of display_name. If so, just exit. Otherwise, rock on.
 			if(caller && caller.substring(0, 2) == "nc") {
