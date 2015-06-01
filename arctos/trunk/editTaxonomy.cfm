@@ -1126,7 +1126,7 @@
 			$("#notsortable").append(x);
 			$("#numnoclassrs").val(n);
 
-			$('#ncterm_1').find('option').clone().appendTo('#ncterm_' + n);
+			$('#ncterm_type_1').find('option').clone().appendTo('#ncterm_type_' + n);
 		}
 		function deleteClassification(cid,tnid) {
 			var msg='Are you sure you want to delete this classification?\nDo NOT delete classifications because you do not agree with them or because they';
