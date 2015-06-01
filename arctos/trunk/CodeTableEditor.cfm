@@ -919,7 +919,7 @@
 		</cfquery>
 	</cfif>
 	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl#" addtoken="false">
-<cfelse action is "saveEditsTaxonTermNoClass">
+<cfelseif action is "saveEditsTaxonTermNoClass">
 	<cfdump var=#form#>
 
 </cfif>
