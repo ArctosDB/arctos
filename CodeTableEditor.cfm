@@ -981,17 +981,18 @@
 				</cfquery>
 			<cfelse>
 
-			<br>					update cttaxon_term set description='#thisDEF#' where cttaxon_term_id=#thisROWID#
+			<br>							update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where cttaxon_term_id=#thisROWID#
+
 
 				<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where cttaxon_term_id=#thisROWID#
 				</cfquery>
 			</cfif>
 		</cfif>
-				<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
 
 		<!----
 
+				<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
 
 		---->
 	</cfloop>
