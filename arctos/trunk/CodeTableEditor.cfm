@@ -248,7 +248,7 @@
 					var linkOrderData=$("##sortable").sortable('toArray').join(',');
 					$( "##classificationRowOrder" ).val(linkOrderData);
 
-					//$( "#f1" ).submit();
+					//$( "##f1" ).submit();
 				}
 
 
