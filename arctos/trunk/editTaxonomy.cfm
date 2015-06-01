@@ -1141,10 +1141,6 @@
 		}
 
 		function guessAtDisplayName(caller) {
-
-			console.log('hello');
-
-
 			// if this is being called by an element, check if that element is the value
 			// of display_name. If so, just exit. Otherwise, rock on.
 			if(caller && caller.substring(0, 2) == "nc") {
@@ -1169,21 +1165,8 @@
 			var lowestclassificationterm;
 			$(":input[name^='ncterm_type_']").each(function() {
 				var thisval = $(this).val();
-
-				console.log('nc: ' + thisval);
-
-
 				var relatedElementID=this.id.replace("type_","");
 				var relatedElement=$("#" + relatedElementID).val();
-
-				/*
-				if(thisval == "display_name") {
-					dv_value_element=relatedElementID;
-					dv_value=relatedElement;
-					dv_element=this.id;
-			    }
-
-			    */
 				if(thisval == "author_text") {
 					speciesauthor=relatedElement;
 			    }
@@ -1194,20 +1177,8 @@
 					formatstyle='icbn';
 				}
 			});
-
-			/*
-
-			if (! dv_element){
-				// add a row for display_name
-				nc_addARow();
-				var n=parseInt($("#numnoclassrs").val());
-				$('#ncterm_type_' + n).val('display_name');
-				dv_element='ncterm_type_' + n;
-			}
-
-			*/
 			// and this point, there should be a display_name and we should know it's ID.
-			$(":input[name^='term_type_']").each(function() {
+			$(":input[name^='breakit_____term_type_']").each(function() {
 		    	var thisval = $(this).val();
 				var relatedElementID=this.id.replace("type_","");
 				var relatedElement=$("#" + relatedElementID).val();
