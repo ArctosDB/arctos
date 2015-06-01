@@ -1304,6 +1304,7 @@
 				taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 				classification_id='#classification_id#'
 		</cfquery>
+
 		<cfquery name="thisname" dbtype="query">
 			select
 				source,
@@ -1338,6 +1339,14 @@
 			select taxon_term from cttaxon_term where is_classification=1 order by taxon_term
 		</cfquery>
 
+		<cfset usedTerms=valuelist(d.taxon_term)>
+		<cfset pterms=valuelist(cttaxon_term_noclass.taxon_term)>
+		<cfset pterms=listappend(pterms,valuelist(cttaxon_term_isclass.taxon_term))>
+
+
+		<cfdump var=#usedTerms#>
+
+		<cfdump var=#pterms#>
 
 		<p>
 			Editing <strong>#thisName.source#</strong> classification for <strong>#thisName.scientific_name#</strong> (classification_id=#classification_id#)
