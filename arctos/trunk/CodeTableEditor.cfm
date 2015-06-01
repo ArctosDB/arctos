@@ -695,7 +695,7 @@
 				DESCRIPTION='#description#',
 				is_classification=#classification#
 				<cfif len(relative_position) gt 0>
-					relative_position=#relative_position#
+					,relative_position=#relative_position#
 				</cfif>
 			where
 				taxon_term='#origData#'
