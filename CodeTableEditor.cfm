@@ -928,17 +928,23 @@
 			<cfset thisROWID=evaluate("rowid_" & rid)>
 			<cfset thisVAL=evaluate("term_" & thisROWID)>
 			<cfset thisDEF=evaluate("DESCRIPTION_" & thisROWID)>
+			<br>thisVAL: #thisVAL#
 			<cfif len(thisVAL) is 0>
+				<br>delete from cttaxon_term where rowid='#thisROWID#'
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					delete from cttaxon_term where rowid='#thisROWID#'
 				</cfquery>
 			<cfelse>
+			<br>					update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where  rowid='#thisROWID#'
+
 				<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where  rowid='#thisROWID#'
 				</cfquery>
 			</cfif>
 		</cfif>
+		<!----
 		<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
+		----?
 	</cfloop>
 </cfif>
 </cfoutput>
