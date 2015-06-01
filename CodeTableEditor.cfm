@@ -676,7 +676,7 @@
 			update cttaxon_term set
 				taxon_term='#taxon_term#',
 				DESCRIPTION='#description#',
-				is_classification=#is_classification#\
+				is_classification=#classification#\
 			where
 				taxon_term='#origData#'
 		</cfquery>
