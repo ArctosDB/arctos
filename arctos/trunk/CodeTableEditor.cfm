@@ -240,13 +240,13 @@
 
 	<script>
 	$(function() {
-			$( "#sortable" ).sortable({
+			$( "##sortable" ).sortable({
 				handle: '.dragger'
 			});
 
 				function submitForm() {
-					var linkOrderData=$("#sortable").sortable('toArray').join(',');
-					$( "#classificationRowOrder" ).val(linkOrderData);
+					var linkOrderData=$("##sortable").sortable('toArray').join(',');
+					$( "##classificationRowOrder" ).val(linkOrderData);
 
 					//$( "#f1" ).submit();
 				}
