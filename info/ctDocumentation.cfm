@@ -74,7 +74,33 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			</cfloop>
 		</table>
 	<cfelseif table is "CTTAXON_TERM">
-		<CFDUMP VAR=#docs#>
+		<cfquery name="cData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			SELECT
+				TAXON_TERM,
+				DESCRIPTION,
+				DECODE(IS_CLASSIFICATION,0,'no','yes') IS_CLASSIFICATION,
+			FROM
+				CTTAXON_TERM
+			order by
+				IS_CLASSIFICATION,
+				RELATIVE_POSITION,
+				TAXON_TERM
+		</cfquery>
+		<table border id="t" class="sortable">
+			<tr>
+				<th>Term</th>
+				<th>Classification</th>
+				<th>Definition</th>
+			</tr>
+			<cfloop query="cData">
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+					<td>#TAXON_TERM#</td>
+					<td>#IS_CLASSIFICATION#</td>
+					<td>#DESCRIPTION#</td>
+				</tr>
+				<cfset i=i+1>
+			</cfloop>
+		</table>
 	<cfelseif table is "CTGEOLOGY_ATTRIBUTE">
 		<cfquery name="cData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			 SELECT
