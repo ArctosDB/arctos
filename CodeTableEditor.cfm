@@ -942,7 +942,7 @@
 				</cfquery>
 			<cfelse>
 				<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					udpate cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where  rowid='#thisROWID#'
+					update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where  rowid='#thisROWID#'
 				</cfquery>
 
 
