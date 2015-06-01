@@ -237,8 +237,15 @@
 			</cfloop>
 		</table>
 	<cfelseif tbl is "cttaxon_term"><!---------------------------------------------------->
-		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cttaxon_term order by is_classification,relative_position
+		<cfquery name="q_noclass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				rowid,
+				TAXON_TERM,
+				DESCRIPTION
+			from cttaxon_term where is_classification=0 order by taxon_term
+		</cfquery>
+		<cfquery name="q_isclass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cttaxon_term where is_classification=1order by relative_position
 		</cfquery>
 		<form name="newData" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="newValue">
@@ -254,11 +261,6 @@
 					<td>
 						<input type="text" name="newData" >
 					</td>
-
-
-
-
-
 					<td>
 						<select name="classification">
 							<option value="1">yes</option>
@@ -277,6 +279,80 @@
 			</table>
 		</form>
 		<cfset i = 1>
+		<hr>Non-classification terms
+		<form name="tcnc" method="post" action="saveEditsTaxonTermNoClass">
+			<table>
+				<tr>
+					<th>Term</th>
+					<th>Definition</th>
+					<th></th>
+				</tr>
+				<cfloop query="q_noclass">
+					<input type="hidden" name="orig_#rowid#" value="#taxon_term#">
+					<tr>
+						<td><input type="text" name="term_#rowid#" value="#taxon_term#"></td>
+						<td><textarea name="description_#rowid#" rows="4" cols="40">#description#</textarea></td>
+						<td>
+							<span class="likeLine" onclick='$("##term_#rowid#").val('DELETE');'>delete</span>
+						</td>
+					</tr>
+				</cfloop>
+			</table>
+			<input type="submit">
+		</form>
+		<table>
+			<tr>
+				<th>Term</th>
+				<th>RelativePosition</th>
+				<th>Classification</th>
+				<th>Definition</th>
+			</tr>
+			<cfloop query="q">
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+					<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
+						<input type="hidden" name="action" value="">
+						<input type="hidden" name="tbl" value="cttaxon_term">
+						<input type="hidden" name="origData" value="#taxon_term#">
+						<td>
+							<input type="text" name="taxon_term" value="#taxon_term#" size="50">
+						</td>
+						<td>
+							<cfif is_classification is 1>
+								<input type="text" name="relative_position" value="#relative_position#" size="50">
+							<cfelse>
+								only for classification
+							</cfif>
+						</td>
+
+
+						<td>
+							<select name="classification">
+								<option <cfif is_classification is 1> selected="selected" </cfif>value="1">yes</option>
+								<option <cfif is_classification is 0> selected="selected" </cfif>value="0">no</option>
+							</select>
+						</td>
+
+						<td>
+							<textarea name="description" rows="4" cols="40">#description#</textarea>
+						</td>
+						<td>
+							<input type="button"
+								value="Save"
+								class="savBtn"
+							   	onclick="#tbl##i#.action.value='saveEdit';submit();">
+							<input type="button"
+								value="Delete"
+								class="delBtn"
+								onclick="#tbl##i#.action.value='deleteValue';submit();">
+
+						</td>
+					</form>
+				</tr>
+				<cfset i = #i#+1>
+			</cfloop>
+		</table>
+
+
 		<table>
 			<tr>
 				<th>Term</th>
