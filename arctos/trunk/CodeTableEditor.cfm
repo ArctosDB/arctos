@@ -238,7 +238,7 @@
 		</table>
 	<cfelseif tbl is "cttaxon_term"><!---------------------------------------------------->
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cttaxon_term order by is_classification,taxon_term
+			select * from cttaxon_term order by is_classification,relative_position
 		</cfquery>
 		<form name="newData" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="newValue">
