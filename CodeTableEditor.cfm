@@ -244,18 +244,19 @@
 				handle: '.dragger'
 			});
 
-
-
+			$("#tcncclasstbl").submit(function(event){
+				event.preventDefault();
+				var linkOrderData=$("##sortable").sortable('toArray').join(',');
+				$( "##classificationRowOrder" ).val(linkOrderData);
+				$("#tcncclasstbl").submit();
+			});
 
 		});
 
 
-		function submitForm() {
-					var linkOrderData=$("##sortable").sortable('toArray').join(',');
-					$( "##classificationRowOrder" ).val(linkOrderData);
 
-					//$( "##f1" ).submit();
-				}
+
+
 
 
 
@@ -331,7 +332,7 @@
 			<input type="submit" value="save all non-classification edits">
 		</form>
 		<hr>Classification terms
-		<form name="tcnc" method="post" action="CodeTableEditor.cfm">
+		<form name="tcncclasstbl" id="tcncclasstbl" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="saveEditsTaxonTermWithClass">
 			<table>
 				<tr>
@@ -356,7 +357,7 @@
 				</cfloop>
 				</tbody>
 			</table>
-			<input type="button" onclick="submitForm()" value="save all classification edits">
+			<input type="submit"  value="save all classification edits">
 
 						<input type="text" name="classificationRowOrder" id="classificationRowOrder">
 
