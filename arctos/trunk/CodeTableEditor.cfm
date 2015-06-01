@@ -330,7 +330,7 @@
 			</table>
 			<input type="submit" class="savBtn" value="save all non-classification edits">
 		</form>
-		<hr>Classification terms
+		<hr>Classification terms. Drag to order. NOTE: Order sets only the display oorder of code tables.
 		<form name="tcncclasstbl" id="tcncclasstbl" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="saveEditsTaxonTermWithClass">
 			<table border>
@@ -965,45 +965,29 @@
 	</cfif>
 	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl#" addtoken="false">
 <cfelseif action is "saveEditsTaxonTermNoClass">
-
 	<cftransaction>
-
-	<cfloop list="#FIELDNAMES#" index="i">
-		<cfif left(i,6) is "rowid_">
-			<!--- because CF UPPERs FIELDNAMES ---->
-			<cfset rid=replace(i,'ROWID_','')>
-			<cfset thisROWID=evaluate("rowid_" & rid)>
-			<cfset thisVAL=evaluate("term_" & thisROWID)>
-			<cfset thisDEF=evaluate("DESCRIPTION_" & thisROWID)>
-			<br>thisVAL: #thisVAL#
-			<cfif len(thisVAL) is 0>
-				<br>					delete from cttaxon_term where cttaxon_term_id=#thisROWID#
-
-				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					delete from cttaxon_term where cttaxon_term_id=#thisROWID#
-				</cfquery>
-			<cfelse>
-
-			<br>							update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where cttaxon_term_id=#thisROWID#
-
-
-				<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where cttaxon_term_id=#thisROWID#
-				</cfquery>
+		<cfloop list="#FIELDNAMES#" index="i">
+			<cfif left(i,6) is "rowid_">
+				<!--- because CF UPPERs FIELDNAMES ---->
+				<cfset rid=replace(i,'ROWID_','')>
+				<cfset thisROWID=evaluate("rowid_" & rid)>
+				<cfset thisVAL=evaluate("term_" & thisROWID)>
+				<cfset thisDEF=evaluate("DESCRIPTION_" & thisROWID)>
+				<cfif len(thisVAL) is 0>
+					<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						delete from cttaxon_term where cttaxon_term_id=#thisROWID#
+					</cfquery>
+				<cfelse>
+					<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where cttaxon_term_id=#thisROWID#
+					</cfquery>
+				</cfif>
 			</cfif>
-		</cfif>
-
-		<!----
-
-				<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
-
-		---->
-	</cfloop>
-
-		</cftransaction>
-
-
-
+			<cflocation url="CodeTableEditor.cfm?action=edit&tbl=cttaxon_term" addtoken="false">
+			<!----
+			---->
+		</cfloop>
+	</cftransaction>
 <cfelseif action is "saveEditsTaxonTermWithClass">
 	<cftransaction>
 		<cfquery name="moveasideplease" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
