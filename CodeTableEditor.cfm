@@ -281,7 +281,7 @@
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 					<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
 						<input type="hidden" name="action" value="">
-						<input type="hidden" name="tbl" value="cftaxon_term">
+						<input type="hidden" name="tbl" value="cttaxon_term">
 						<input type="hidden" name="origData" value="#taxon_term#">
 						<td>
 							<input type="text" name="taxon_term" value="#taxon_term#" size="50">
