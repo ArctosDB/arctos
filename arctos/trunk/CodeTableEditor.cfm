@@ -350,7 +350,7 @@
 							(drag)
 						</td>
 						<td>
-							<input type="text" id="term_#i#"  name="term_#i#" value="#taxon_term#">
+							<input type="hidden" id="term_#i#"  name="term_#i#" value="#taxon_term#">
 							#taxon_term#
 						</td>
 						<td><textarea name="description_#i#" rows="4" cols="40">#description#</textarea></td>
