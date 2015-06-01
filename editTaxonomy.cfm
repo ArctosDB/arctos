@@ -1242,11 +1242,6 @@
 				formattedname=formattedname.replace(/<\/i> <i>/g, ' ').trim();
 				$("#dng").val(formattedname);
 			}
-
-
-			console.log('i think ' + formattedname);
-
-
 		}
 		function useDNG(){
 			var dn=$("#dng").val();
@@ -1308,8 +1303,6 @@
 		<cfquery name="maxnoclass" dbtype="query">
 			select count(*) m from noclass
 		</cfquery>
-
-
 		<cfquery name="cttaxon_term_noclass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select taxon_term from cttaxon_term where is_classification=0 order by taxon_term
 		</cfquery>
@@ -1320,15 +1313,11 @@
 		<cfset usedTerms=valuelist(d.term_type)>
 		<cfset pterms=valuelist(cttaxon_term_noclass.taxon_term)>
 		<cfset pterms=listappend(pterms,valuelist(cttaxon_term_isclass.taxon_term))>
-
-
 		<cfloop list="#pterms#" index="i">
 			<cfif listfind(usedTerms,i)>
 				<cfset usedTerms=listdeleteat(usedTerms,listfind(usedTerms,i))>
 			</cfif>
 		</cfloop>
-
-
 		<cfif len(usedTerms) gt 0>
 			<div style="border:10px solid red; padding:2em; margin:2em;">
 				Caution: The following term(s) are used in this classification and are not
@@ -1390,7 +1379,7 @@
 			<input type="hidden" name="classificationRowOrder" id="classificationRowOrder">
 			<input type="hidden" name="noclassrows" id="noclassrows">
 			<h3>
-				Non-Classification Terms
+				Non-Classification Terms <span class="likeLink" onclick="getCtDoc('cttaxon_term');">code table</span>
 			</h3>
 			<p style="font-size:small;">
 				These are paired terms; unpaired terms will be ignored (=deleted).
@@ -1436,7 +1425,8 @@
 			</table>
 			<span class="likeLink" onclick="nc_addARow();">[ add a row ]</span>
 			<h3>
-				Classification Terms
+				Classification Terms <span class="likeLink" onclick="getCtDoc('cttaxon_term');">code table</span>
+
 			</h3>
 			<p style="font-size:small;">
 				 Order is important here - "large" (eg, kingdom) at top to "small" (eg, subspecies) at bottom. Drag rows to sort.
