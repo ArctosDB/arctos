@@ -347,7 +347,7 @@
 						<td class="dragger">
 								(drag row here)
 							</td>
-						<td><input type="text" id="term_#rowid#"  name="term_#rowid#" value="#taxon_term#"></td>
+						<td><input type="text" id="term_#rowid#"  name="term_#rowid#" value="#taxon_term#"> #rowid#</td>
 						<td><textarea name="description_#rowid#" rows="4" cols="40">#description#</textarea></td>
 						<td>
 							<span class="likeLink" onclick='$("##term_#rowid#").val("");'>delete</span>
