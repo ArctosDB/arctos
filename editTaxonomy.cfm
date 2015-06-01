@@ -1226,6 +1226,9 @@
 				}
 			}
 			if (! formattedname) {
+
+
+				console.log('oops');
 				if (genus) {
 					formattedname='<i>' + genus + '</i>';
 					if (speciesauthor) {
@@ -1234,7 +1237,10 @@
 				} else {
 					formattedname=lowestclassificationterm;
 				}
-			}
+			} else {
+								console.log('nooops');
+
+				}
 			if (formattedname) {
 				formattedname=formattedname.replace(/<\/i> <i>/g, ' ').trim();
 				$("#dng").val(formattedname);
