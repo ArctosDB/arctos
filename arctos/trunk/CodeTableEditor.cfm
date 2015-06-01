@@ -276,6 +276,8 @@
 				relative_position
 				 from cttaxon_term where is_classification=1order by relative_position
 		</cfquery>
+
+		<cfdump var=#q_isclass#>
 		<form name="newData" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="newValue">
 			<input type="hidden" name="tbl" value="cttaxon_term">
