@@ -1103,17 +1103,40 @@
 			x+='</tr>';
 			$("#sortable").append(x);
 			$("#maxposn").val(n);
+
+
+}
+
+
+
+
+}
+
+
+
+
+
 		}
 		function nc_addARow() {
 			var n=parseInt($("#numnoclassrs").val());
 			++n;
 			var x='<tr id="nccell_' + n + '">';
-			x+='<td><input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_' + n + '" name="ncterm_type_' + n + '" onchange="guessAtDisplayName(this.id)"></td>';
+
+
+
+
+			x+='<td><select class="ac_noclass_tt"  id="ncterm_type_' + n + '" name="ncterm_type_' + n + '" onchange="guessAtDisplayName(this.id)"></select></td>';
+
+
+
+			//x+='<td><input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_' + n + '" name="ncterm_type_' + n + '" onchange="guessAtDisplayName(this.id)"></td>';
 			x+='<td><input size="60" type="text" id="ncterm_' + n + '" name="ncterm_' + n + '" onchange="guessAtDisplayName(this.id)"></td>';
 			x+='<td><span class="likeLink" onclick="nc_deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
 			x+='</tr>';
 			$("#notsortable").append(x);
 			$("#numnoclassrs").val(n);
+
+			$('#ncterm_1').find('option').clone().appendTo('#ncterm_' + n);
 		}
 		function deleteClassification(cid,tnid) {
 			var msg='Are you sure you want to delete this classification?\nDo NOT delete classifications because you do not agree with them or because they';
