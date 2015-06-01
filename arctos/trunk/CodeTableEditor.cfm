@@ -245,7 +245,12 @@
 			from cttaxon_term where is_classification=0 order by taxon_term
 		</cfquery>
 		<cfquery name="q_isclass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cttaxon_term where is_classification=1order by relative_position
+			select rowid,
+				TAXON_TERM,
+				DESCRIPTION,
+				is_classification,
+				relative_position
+				 from cttaxon_term where is_classification=1order by relative_position
 		</cfquery>
 		<form name="newData" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="newValue">
