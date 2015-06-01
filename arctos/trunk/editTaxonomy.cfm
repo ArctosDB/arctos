@@ -1207,7 +1207,7 @@
 
 			*/
 			// and this point, there should be a display_name and we should know it's ID.
-			$("input[name^='term_type_']").each(function() {
+			$(":input[name^='term_type_']").each(function() {
 		    	var thisval = $(this).val();
 				var relatedElementID=this.id.replace("type_","");
 				var relatedElement=$("#" + relatedElementID).val();
