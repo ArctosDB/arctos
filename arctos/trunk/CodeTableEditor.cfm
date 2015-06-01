@@ -1014,6 +1014,8 @@
 		<cfset thisROWID=listlast(x,"_")>
 		<cfset thisVAL=evaluate("term_" & thisROWID)>
 		<cfset thisDEF=evaluate("DESCRIPTION_" & thisROWID)>
+
+		<br>thisVAL: #thisVAL#
 		<cfif len(thisVAL) is 0>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				delete from cttaxon_term where rowid='#thisROWID#'
