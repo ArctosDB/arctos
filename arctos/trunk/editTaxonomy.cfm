@@ -1122,21 +1122,12 @@
 			var n=parseInt($("#numnoclassrs").val());
 			++n;
 			var x='<tr id="nccell_' + n + '">';
-
-
-
-
 			x+='<td><select class="ac_noclass_tt"  id="ncterm_type_' + n + '" name="ncterm_type_' + n + '" onchange="guessAtDisplayName(this.id)"></select></td>';
-
-
-
-			//x+='<td><input class="ac_noclass_tt" size="60" type="text" id="ncterm_type_' + n + '" name="ncterm_type_' + n + '" onchange="guessAtDisplayName(this.id)"></td>';
 			x+='<td><input size="60" type="text" id="ncterm_' + n + '" name="ncterm_' + n + '" onchange="guessAtDisplayName(this.id)"></td>';
 			x+='<td><span class="likeLink" onclick="nc_deleteThis(\'' + n + '\');">[ Delete this row ]</span></td>';
 			x+='</tr>';
 			$("#notsortable").append(x);
 			$("#numnoclassrs").val(n);
-
 			$('#ncterm_type_1').find('option').clone().appendTo('#ncterm_type_' + n);
 		}
 		function deleteClassification(cid,tnid) {
@@ -1176,7 +1167,7 @@
 			var formatstyle = 'iczn'; // default to simple....
 			var formattedname; // with HTML
 			var lowestclassificationterm;
-			$("input[name^='ncterm_type_']").each(function() {
+			$("[name^='ncterm_type_']").each(function() {
 				var thisval = $(this).val();
 
 				console.log('nc: ' + thisval);
