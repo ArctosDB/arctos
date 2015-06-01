@@ -926,9 +926,27 @@
 		<cfif left(i,4) is "ORIG">
 			<cfset thisROWID=replace(i,'ORIG_','')>
 			<br>thisROWID: #thisROWID#
-			<cfset thisORIG=evaluate("orig_" & thisROWID)>
 
-			<br>thisORIG: #thisORIG#
+
+			<cfset thisVAL=evaluate("term_" & thisROWID)>
+
+			<br>thisVAL: #thisVAL#
+
+			<cfset thisDEF=evaluate("DESCRIPTION_" & thisROWID)>
+
+			<br>thisDEF: #thisDEF#
+
+			<cfif len(thisVAL) is 0>
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					delete from cttaxon_term where rowid='#thisROWID#'
+				</cfquery>
+			<cfelse>
+				<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					udpate cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#' where  rowid='#thisROWID#'
+				</cfquery>
+
+
+			</cfif>
 		</cfif>
 
 	</cfloop>
