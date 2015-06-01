@@ -293,7 +293,7 @@
 						<td><input type="text" name="term_#rowid#" value="#taxon_term#"></td>
 						<td><textarea name="description_#rowid#" rows="4" cols="40">#description#</textarea></td>
 						<td>
-							<span class="likeLine" onclick='$("##term_#rowid#").val('DELETE');'>delete</span>
+							<span class="likeLink" onclick='$("##term_#rowid#").val("DELETE");'>delete</span>
 						</td>
 					</tr>
 				</cfloop>
