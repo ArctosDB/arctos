@@ -315,7 +315,7 @@ Edit is disallowed; delete and add.
 		<hr>Non-classification terms
 		<form name="tcnc" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="saveEditsTaxonTermNoClass">
-			<table>
+			<table border>
 				<tr>
 					<th>Term</th>
 					<th>Definition</th>
@@ -339,7 +339,7 @@ Edit is disallowed; delete and add.
 		<hr>Classification terms
 		<form name="tcncclasstbl" id="tcncclasstbl" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="saveEditsTaxonTermWithClass">
-			<table>
+			<table border>
 				<tr>
 					<th>sort</th>
 					<th>Term</th>
@@ -359,6 +359,8 @@ Edit is disallowed; delete and add.
 							<span class="likeLink" onclick='$("##term_#i#").val("");'>delete</span>
 						</td>
 					</tr>
+
+					<cfset i=i+1>
 				</cfloop>
 				</tbody>
 			</table>
