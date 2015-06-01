@@ -6,13 +6,13 @@
 <cfparam name="coln" default="">
 <cfif not isdefined("table")>
 	<cfquery name="getCTName" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select 
-			distinct(table_name) table_name 
-		from 
-			sys.user_tables 
-		where 
+		select
+			distinct(table_name) table_name
+		from
+			sys.user_tables
+		where
 			table_name like 'CT%'
-		UNION 
+		UNION
 			select 'CTGEOLOGY_ATTRIBUTE' table_name from dual
 		 order by table_name
 	</cfquery>
@@ -28,7 +28,7 @@
 </cfif>
 <cfif len(field) gt 0>
 	<script>
-		$(document).ready(function () {		
+		$(document).ready(function () {
 			$(document).scrollTo( $('[name="#field#"]:first'), 800 );
 		});
 	</script>
@@ -73,9 +73,11 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				</tr>
 			</cfloop>
 		</table>
+	<cfelseif table is "CTTAXON_TERM">
+		<CFDUMP VAR=#docs#>
 	<cfelseif table is "CTGEOLOGY_ATTRIBUTE">
 		<cfquery name="cData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			 SELECT  
+			 SELECT
 			 	level,
 			 	geology_attribute_hierarchy_id,
 			 	parent_id,
@@ -84,7 +86,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			FROM
 				geology_attribute_hierarchy
 			start with parent_id is null
-			CONNECT BY PRIOR 
+			CONNECT BY PRIOR
 				geology_attribute_hierarchy_id = parent_id
 		</cfquery>
 		(Values in red are not "data" values but may be used in searches.)
@@ -182,7 +184,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 		</table>
 	<cfelseif table is "ctspecimen_part_name">
 		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from ctspecimen_part_name <cfif len(coln) gt 0> where collection_cde='#coln#'</cfif> order by part_name,collection_cde,is_tissue 
+			select * from ctspecimen_part_name <cfif len(coln) gt 0> where collection_cde='#coln#'</cfif> order by part_name,collection_cde,is_tissue
 		</cfquery>
 		<table border id="t" class="sortable">
 			<tr>
