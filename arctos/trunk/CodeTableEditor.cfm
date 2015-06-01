@@ -965,6 +965,9 @@
 	</cfif>
 	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl#" addtoken="false">
 <cfelseif action is "saveEditsTaxonTermNoClass">
+
+	<cftransaction>
+
 	<cfloop list="#FIELDNAMES#" index="i">
 		<cfif left(i,6) is "rowid_">
 			<!--- because CF UPPERs FIELDNAMES ---->
@@ -996,6 +999,11 @@
 
 		---->
 	</cfloop>
+
+		</cftransaction>
+
+
+
 <cfelseif action is "saveEditsTaxonTermWithClass">
 	<cftransaction>
 		<cfquery name="moveasideplease" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
