@@ -244,7 +244,13 @@
 				handle: '.dragger'
 			});
 
-				function submitForm() {
+
+
+
+		});
+
+
+		function submitForm() {
 					var linkOrderData=$("##sortable").sortable('toArray').join(',');
 					$( "##classificationRowOrder" ).val(linkOrderData);
 
@@ -252,7 +258,8 @@
 				}
 
 
-		});
+
+
 	</script>
 		<cfquery name="q_noclass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
