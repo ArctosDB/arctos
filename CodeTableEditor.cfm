@@ -1003,11 +1003,11 @@ Edit is disallowed; delete and add.
 			<cfset thisDEF=evaluate("DESCRIPTION_" & thisROWID)>
 			<cfif len(thisVAL) is 0>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					delete from cttaxon_term where term='#thisVAL#'
+					delete from cttaxon_term where taxon_term='#thisVAL#'
 				</cfquery>
 			<cfelse>
 				<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					update cttaxon_term set description='#thisDEF#' where term='#thisVAL#'
+					update cttaxon_term set description='#thisDEF#' where taxon_term='#thisVAL#'
 				</cfquery>
 			</cfif>
 		</cfif>
@@ -1032,7 +1032,7 @@ Edit is disallowed; delete and add.
 		<br>thisVAL: #thisVAL#
 		<cfif len(thisVAL) is 0>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				delete from cttaxon_term where term='#thisVAL#'
+				delete from cttaxon_term where taxon_term='#thisVAL#'
 			</cfquery>
 		<cfelse>
 
