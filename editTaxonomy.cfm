@@ -1344,10 +1344,6 @@
 		<cfset pterms=listappend(pterms,valuelist(cttaxon_term_isclass.taxon_term))>
 
 
-		<cfdump var=#usedTerms#>
-
-		<cfdump var=#pterms#>
-
 		<cfloop list="#pterms#" index="i">
 			<cfif listfind(usedTerms,i)>
 				<cfset usedTerms=listdeleteat(usedTerms,listfind(usedTerms,i))>
@@ -1355,8 +1351,15 @@
 		</cfloop>
 
 
-
-		<cfdump var=#usedTerms#>
+		<cfif len(usedTerms) gt 0>
+			<div style="border:10px solid red; padding:2em; margin:2em;">
+				Caution: The following term(s) are used in this classification and are not
+				available from the code table. Make sure you know what you're doing before saving!
+				<p>
+					#usedTerms#
+				</p>
+			</div>
+		</cfif>
 
 		<p>
 			Editing <strong>#thisName.source#</strong> classification for <strong>#thisName.scientific_name#</strong> (classification_id=#classification_id#)
