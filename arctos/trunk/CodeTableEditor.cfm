@@ -1036,7 +1036,9 @@ Edit is disallowed; delete and add.
 			</cfquery>
 		<cfelse>
 
-		<br>update cttaxon_term set taxon_term='#thisVAL#',description='#thisDEF#',relative_position=#listpos# where rowid='#thisROWID#'
+<br>				update cttaxon_term set description='#thisDEF#',relative_position=#listpos# where taxon_term='#thisVAL#'
+
+
 			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update cttaxon_term set description='#thisDEF#',relative_position=#listpos# where taxon_term='#thisVAL#'
 			</cfquery>
