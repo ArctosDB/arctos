@@ -6,13 +6,13 @@
 <cfset title = "Edit Code Tables">
 <cfif action is "nothing">
 	<cfquery name="getCTName" datasource="uam_god">
-		select 
-			distinct(table_name) table_name 
-		from 
-			sys.user_tables 
-		where 
+		select
+			distinct(table_name) table_name
+		from
+			sys.user_tables
+		where
 			table_name like 'CT%'
-		UNION 
+		UNION
 			select 'CTGEOLOGY_ATTRIBUTE' table_name from dual
 		 order by table_name
 	</cfquery>
@@ -54,11 +54,11 @@
 				<input type="hidden" name="action" value="newValue">
 				<input type="hidden" name="tbl" value="#tbl#">
 				<tr>
-					<td>				
+					<td>
 						<select name="attribute_type" size="1">
 							<option value=""></option>
 							<cfloop query="ctAttribute_type">
-							<option 
+							<option
 								value="#ctAttribute_type.attribute_type#">#ctAttribute_type.attribute_type#</option>
 							</cfloop>
 						</select>
@@ -68,25 +68,25 @@
 						<select name="value_code_table" size="1">
 							<option value="">none</option>
 							<cfloop query="allCTs">
-							<option 
+							<option
 							value="#allCTs.tablename#">#allCTs.tablename#</option>
 							</cfloop>
-						</select>			
+						</select>
 					</td>
 					<td>
 						<cfset thisUnitsTable = #thisRec.units_code_table#>
 						<select name="units_code_table" size="1">
 							<option value="">none</option>
 							<cfloop query="allCTs">
-							<option 
+							<option
 							value="#allCTs.tablename#">#allCTs.tablename#</option>
 							</cfloop>
 						</select>
 					</td>
 					<td>
-						<input type="submit" 
-							value="Create" 
-							class="insBtn">	
+						<input type="submit"
+							value="Create"
+							class="insBtn">
 					</td>
 				</tr>
 			</form>
@@ -113,7 +113,7 @@
 								<select name="attribute_type" size="1">
 									<option value=""></option>
 									<cfloop query="ctAttribute_type">
-									<option 
+									<option
 												<cfif #thisAttType# is "#ctAttribute_type.attribute_type#"> selected </cfif>value="#ctAttribute_type.attribute_type#">#ctAttribute_type.attribute_type#</option>
 									</cfloop>
 								</select>
@@ -123,7 +123,7 @@
 							<select name="value_code_table" size="1">
 								<option value="">none</option>
 								<cfloop query="allCTs">
-								<option 
+								<option
 								<cfif #thisValueTable# is "#allCTs.tablename#"> selected </cfif>value="#allCTs.tablename#">#allCTs.tablename#</option>
 								</cfloop>
 							</select>
@@ -133,20 +133,20 @@
 							<select name="units_code_table" size="1">
 								<option value="">none</option>
 								<cfloop query="allCTs">
-								<option 
+								<option
 								<cfif #thisUnitsTable# is "#allCTs.tablename#"> selected </cfif>value="#allCTs.tablename#">#allCTs.tablename#</option>
 								</cfloop>
 							</select>
 						</td>
 						<td>
-							<input type="button" 
-								value="Save" 
+							<input type="button"
+								value="Save"
 								class="savBtn"
-							 	onclick="att#i#.action.value='saveEdit';submit();">	
-							<input type="button" 
-								value="Delete" 
+							 	onclick="att#i#.action.value='saveEdit';submit();">
+							<input type="button"
+								value="Delete"
 								class="delBtn"
-							  	onclick="att#i#.action.value='deleteValue';submit();">	
+							  	onclick="att#i#.action.value='deleteValue';submit();">
 						</td>
 					</tr>
 				</form>
@@ -186,8 +186,8 @@
 						</select>
 					</td>
 					<td>
-						<input type="submit" 
-							value="Insert" 
+						<input type="submit"
+							value="Insert"
 							class="insBtn">
 					</td>
 				</tr>
@@ -219,17 +219,93 @@
 									<option <cfif q.control is allCTs.tablename> selected="selected" </cfif>value="#tablename#">#tablename#</option>
 								</cfloop>
 							</select>
-						</td>				
+						</td>
 						<td>
-							<input type="button" 
-								value="Save" 
+							<input type="button"
+								value="Save"
 								class="savBtn"
-							   	onclick="#tbl##i#.action.value='saveEdit';submit();">	
-							<input type="button" 
-								value="Delete" 
+							   	onclick="#tbl##i#.action.value='saveEdit';submit();">
+							<input type="button"
+								value="Delete"
 								class="delBtn"
-								onclick="#tbl##i#.action.value='deleteValue';submit();">	
-			
+								onclick="#tbl##i#.action.value='deleteValue';submit();">
+
+						</td>
+					</form>
+				</tr>
+				<cfset i = #i#+1>
+			</cfloop>
+		</table>
+	<cfelseif tbl is "cttaxon_term"><!---------------------------------------------------->
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cttaxon_term order by is_classification,taxon_term
+		</cfquery>
+		<form name="newData" method="post" action="CodeTableEditor.cfm">
+			<input type="hidden" name="action" value="newValue">
+			<input type="hidden" name="tbl" value="cttaxon_term">
+			<table class="newRec">
+				<tr>
+					<th>Term</th>
+					<th>Classification?</th>
+					<th>Definition</th>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" name="newData" >
+					</td>
+					<td>
+						<select name="classification">
+							<option value="1">yes</option>
+							<option value="0">no</option>
+						</select>
+					</td>
+					<td>
+						<textarea name="description" rows="4" cols="40"></textarea>
+					</td>
+					<td>
+						<input type="submit"
+							value="Insert"
+							class="insBtn">
+					</td>
+				</tr>
+			</table>
+		</form>
+		<cfset i = 1>
+		<table>
+			<tr>
+				<th>Term</th>
+				<th>Classification</th>
+				<th>Definition</th>
+			</tr>
+			<cfloop query="q">
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+					<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
+						<input type="hidden" name="action" value="">
+						<input type="hidden" name="tbl" value="cftaxon_term">
+						<input type="hidden" name="origData" value="#taxon_term#">
+						<td>
+							<input type="text" name="taxon_term" value="#taxon_term#" size="50">
+						</td>
+						<td>
+							<select name="classification">
+								<option <cfif is_classification is 1> selected="selected" </cfif>value="1">yes</option>
+								<option <cfif is_classification is 0> selected="selected" </cfif>value="0">no</option>
+							</select>
+						</td>
+
+						<td>
+							<textarea name="description" rows="4" cols="40">#description#</textarea>
+						</td>
+						<td>
+							<input type="button"
+								value="Save"
+								class="savBtn"
+							   	onclick="#tbl##i#.action.value='saveEdit';submit();">
+							<input type="button"
+								value="Delete"
+								class="delBtn"
+								onclick="#tbl##i#.action.value='deleteValue';submit();">
+
 						</td>
 					</form>
 				</tr>
@@ -239,7 +315,7 @@
 	<cfelseif tbl is "ctcoll_other_id_type"><!--------------------------------------------------------------->
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from ctcoll_other_id_type order by other_id_type
-		</cfquery>	
+		</cfquery>
 		<form name="newData" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="action" value="newValue">
 			<input type="hidden" name="tbl" value="ctcoll_other_id_type">
@@ -261,9 +337,9 @@
 						<input type="text" name="base_url" size="50">
 					</td>
 					<td>
-						<input type="submit" 
-							value="Insert" 
-							class="insBtn">					
+						<input type="submit"
+							value="Insert"
+							class="insBtn">
 					</td>
 				</tr>
 			</table>
@@ -289,16 +365,16 @@
 						</td>
 						<td>
 							<input type="text" name="base_url" size="60" value="#base_url#">
-						</td>				
+						</td>
 						<td>
-							<input type="button" 
-								value="Save" 
+							<input type="button"
+								value="Save"
 								class="savBtn"
-							   	onclick="#tbl##i#.action.value='saveEdit';submit();">	
-							<input type="button" 
-								value="Delete" 
+							   	onclick="#tbl##i#.action.value='saveEdit';submit();">
+							<input type="button"
+								value="Delete"
 								class="delBtn"
-								onclick="#tbl##i#.action.value='deleteValue';submit();">	
+								onclick="#tbl##i#.action.value='deleteValue';submit();">
 						</td>
 					</form>
 				</tr>
@@ -317,9 +393,9 @@
 			select max(list_order) +1 maxNum from thisRec
 		</cfquery>
 		<p>
-			This application sets the order part names appear in certain reports and forms. 
+			This application sets the order part names appear in certain reports and forms.
 			Nothing prevents you from making several parts the same
-			order, and doing so will just cause them to not be ordered. You don't have to order things you don't care about.	
+			order, and doing so will just cause them to not be ordered. You don't have to order things you don't care about.
 		</p>
 		Create part ordering
 		<table class="newRec" border>
@@ -336,7 +412,7 @@
 						<cfset thisPart = #thisRec.partname#>
 						<select name="partname" size="1">
 							<cfloop query="ctspecimen_part_name">
-							<option 
+							<option
 							value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname# (#ctspecimen_part_name.collection_cde#)</option>
 							</cfloop>
 						</select>
@@ -353,12 +429,12 @@
 						</select>
 					</td>
 					<td colspan="3">
-						<input type="submit" 
-							value="Create" 
-							class="insBtn">	
+						<input type="submit"
+							value="Create"
+							class="insBtn">
 					</td>
 				</tr>
-			</form>	
+			</form>
 		</table>
 		Edit part order
 		<table border>
@@ -379,7 +455,7 @@
 							<cfset thisPart = #thisRec.partname#>
 							<select name="partname" size="1">
 								<cfloop query="ctspecimen_part_name">
-								<option 
+								<option
 								<cfif #thisPart# is "#ctspecimen_part_name.partname#"> selected </cfif>value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname#</option>
 								</cfloop>
 							</select>
@@ -393,15 +469,15 @@
 							</select>
 						</td>
 						<td colspan="3">
-							<input type="button" 
-								value="Save" 
+							<input type="button"
+								value="Save"
 								class="savBtn"
-								onclick="part#i#.action.value='saveEdit';submit();">	
-							<input type="button" 
-								value="Delete" 
+								onclick="part#i#.action.value='saveEdit';submit();">
+							<input type="button"
+								value="Delete"
 								class="delBtn"
-							 	onclick="part#i#.action.value='deleteValue';submit();">	
-								
+							 	onclick="part#i#.action.value='deleteValue';submit();">
+
 						</td>
 					</tr>
 				</form>
@@ -419,7 +495,7 @@
 		</cfquery>
 		<cfset fld=f.column_name>
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select #fld# as data 
+			select #fld# as data
 			<cfif collcde gt 0>
 				,collection_cde
 			</cfif>
@@ -463,16 +539,16 @@
 					<td>
 						<input type="text" name="newData" >
 					</td>
-					
+
 					<cfif hasDescn gt 0>
 						<td>
 							<textarea name="description" id="description" rows="4" cols="40"></textarea>
 						</td>
 					</cfif>
 					<td>
-						<input type="submit" 
-							value="Insert" 
-							class="insBtn">	
+						<input type="submit"
+							value="Insert"
+							class="insBtn">
 					</td>
 				</tr>
 			</form>
@@ -504,7 +580,7 @@
 							<td>
 								<select name="collection_cde" size="1">
 									<cfloop query="ctcollcde">
-										<option 
+										<option
 											<cfif #thisColl# is "#ctcollcde.collection_cde#"> selected </cfif>value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
 									</cfloop>
 								</select>
@@ -516,18 +592,18 @@
 						<cfif hasDescn gt 0>
 							<td>
 								<textarea name="description" rows="4" cols="40">#q.description#</textarea>
-							</td>				
+							</td>
 						</cfif>
 						<td>
-							<input type="button" 
-								value="Save" 
+							<input type="button"
+								value="Save"
 								class="savBtn"
-								onclick="#tbl##i#.Action.value='saveEdit';submit();">	
-							<input type="button" 
-								value="Delete" 
+								onclick="#tbl##i#.Action.value='saveEdit';submit();">
+							<input type="button"
+								value="Delete"
 								class="delBtn"
-								onclick="#tbl##i#.Action.value='deleteValue';submit();">	
-		
+								onclick="#tbl##i#.Action.value='deleteValue';submit();">
+
 						</td>
 					</form>
 				</tr>
@@ -536,11 +612,18 @@
 		</table>
 	</cfif>
 <cfelseif action is "deleteValue">
+
 	<cfif tbl is "ctpublication_attribute">
 		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from ctpublication_attribute 
+			delete from ctpublication_attribute
 			where
 				publication_attribute='#origData#'
+		</cfquery>
+	<cfelseif tbl is "cttaxon_term">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from cttaxon_term
+			where
+				taxon_term='#origData#'
 		</cfquery>
 	<cfelseif tbl is "ctcoll_other_id_type">
 		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -552,13 +635,13 @@
 		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			DELETE FROM ctattribute_code_tables
 			WHERE
-				Attribute_type = '#oldAttribute_type#' 
+				Attribute_type = '#oldAttribute_type#'
 				<cfif len(#oldvalue_code_table#) gt 0>
 					AND	value_code_table = '#oldvalue_code_table#'
-				</cfif> 
+				</cfif>
 				<cfif len(#oldunits_code_table#) gt 0>
 					AND	units_code_table = '#oldunits_code_table#'
-				</cfif> 
+				</cfif>
 		</cfquery>
 	<cfelseif tbl is "ctspecimen_part_list_order">
 		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -569,7 +652,7 @@
 		</cfquery>
 	<cfelse>
 		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			DELETE FROM #tbl# 
+			DELETE FROM #tbl#
 			where #fld# = '#origData#'
 			<cfif isdefined("collection_cde") and len(collection_cde) gt 0>
 				 AND collection_cde='#origcollection_cde#'
@@ -580,16 +663,26 @@
 <cfelseif action is "saveEdit">
 	<cfif tbl is "ctpublication_attribute">
 		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update ctpublication_attribute set 
+			update ctpublication_attribute set
 				publication_attribute='#publication_attribute#',
 				DESCRIPTION='#description#',
 				control='#control#'
 			where
 				publication_attribute='#origData#'
 		</cfquery>
+
+	<cfelseif tbl is "cttaxon_term">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update cttaxon_term set
+				taxon_term='#taxon_term#',
+				DESCRIPTION='#description#',
+				is_classification=#is_classification#\
+			where
+				taxon_term='#origData#'
+		</cfquery>
 	<cfelseif tbl is "ctcoll_other_id_type">
 		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update ctcoll_other_id_type set 
+			update ctcoll_other_id_type set
 				OTHER_ID_TYPE='#other_id_type#',
 				DESCRIPTION='#description#',
 				base_URL='#base_url#'
@@ -645,6 +738,19 @@
 				'#control#'
 			)
 		</cfquery>
+
+	<cfelseif tbl is "cttaxon_term">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into cttaxon_term (
+				TERM_TYPE,
+				DESCRIPTION,
+				IS_CLASSIFICATION
+			) values (
+				'#newData#',
+				'#description#',
+				#classification#
+			)
+		</cfquery>
 	<cfelseif tbl is "ctcoll_other_id_type">
 		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into ctcoll_other_id_type (
@@ -691,7 +797,7 @@
 		</cfquery>
 	<cfelse>
 		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			INSERT INTO #tbl# 
+			INSERT INTO #tbl#
 				(#fld#
 				<cfif isdefined("collection_cde") and len(collection_cde) gt 0>
 					 ,collection_cde
@@ -700,7 +806,7 @@
 					 ,description
 				</cfif>
 				)
-			VALUES 
+			VALUES
 				('#newData#'
 				<cfif isdefined("collection_cde") and len(collection_cde) gt 0>
 					 ,'#collection_cde#'
