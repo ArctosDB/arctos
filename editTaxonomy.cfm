@@ -1481,10 +1481,10 @@
 					</p>
 					<label for="dng">Our guess at display_name</label>
 					<input id="dng" size="80">
-					<input type="button" onclick="useDNG();" value="Use this suggestion">
-					<input type="button" onclick="guessAtDisplayName();" value="Refresh suggestion">
+					<input type="button" class="lnkBtn" onclick="useDNG();" value="Use this suggestion">
+					<input type="button" class="lnkBtn" onclick="guessAtDisplayName();" value="Refresh suggestion">
 				</div>
-				<input type="button" onclick="submitForm();" value="Save Edits">
+				<input type="button"  class="savBtn" onclick="submitForm();" value="Save Edits">
 			</p>
 			<p>
 				If you haven't yet saved, you can <a href="/editTaxonomy.cfm?action=editClassification&classification_id=#classification_id#">refresh this page</a>
