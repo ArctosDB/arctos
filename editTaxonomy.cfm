@@ -1278,6 +1278,9 @@
 				classification_id='#classification_id#'
 		</cfquery>
 
+<cfdump var=#d#>
+
+
 		<cfquery name="thisname" dbtype="query">
 			select
 				source,
