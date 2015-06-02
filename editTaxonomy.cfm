@@ -1353,8 +1353,8 @@
 			</ul>
 		</p>
 		<form name="f1" id="f1" method="post" action="editTaxonomy.cfm">
-			<input type="button" onclick="submitForm();" value="Save Edits">
-			<input type="button" onclick="scrollDNW();" value="See display_name suggestions">
+			<input type="button" class="savBtn" onclick="submitForm();" value="Save Edits">
+			<input type="button" class="lnkBtn" onclick="scrollDNW();" value="See display_name suggestions">
 			<input type="hidden" name="action" value="saveClassEdits">
 			<input type="hidden" name="classification_id" id="classification_id" value="#classification_id#">
 			<input type="hidden" name="taxon_name_id" id="taxon_name_id" value="#thisname.taxon_name_id#">
