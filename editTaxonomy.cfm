@@ -1315,7 +1315,7 @@
 
 		<cfquery name="noct" dbtype="query">
 			select term_type from d where term_type not in
-			#QuotedValueList(PreserveSingleQuotes(pterms))#
+			#PreserveSingleQuotes(QuotedValueList(pterms))#
 		</cfquery>
 
 		<cfdump var=#noct#>
