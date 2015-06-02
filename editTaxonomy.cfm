@@ -1291,10 +1291,15 @@
 		<cfquery name="maxnoclass" dbtype="query">
 			select count(*) m from noclass
 		</cfquery>
-		<cfquery name="cttaxon_term_noclass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="cttaxon_term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select taxon_term from cttaxon_term
+		</cfquery>
+
+
+		<cfquery name="cttaxon_term_noclass" dbtype="query">
 			select taxon_term from cttaxon_term where is_classification=0 order by taxon_term
 		</cfquery>
-		<cfquery name="cttaxon_term_isclass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="cttaxon_term_isclass" dbtype="query">
 			select taxon_term from cttaxon_term where is_classification=1 order by relative_position
 		</cfquery>
 		<cfset pterms=valuelist(cttaxon_term_noclass.taxon_term)>
