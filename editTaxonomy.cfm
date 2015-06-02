@@ -1295,7 +1295,7 @@
 			select * from d where POSITION_IN_CLASSIFICATION is null order by term_type
 		</cfquery>
 		<cfquery name="hasclass" dbtype="query">
-			select * from d where POSITION_IN_CLASSIFICATION is not null order by  POSITION_IN_CLASSIFICATION
+			select * from d where POSITION_IN_CLASSIFICATION is not null order by POSITION_IN_CLASSIFICATION
 		</cfquery>
 		<cfquery name="maxclass" dbtype="query">
 			select max(POSITION_IN_CLASSIFICATION) m from hasclass
@@ -1307,11 +1307,11 @@
 			select taxon_term from cttaxon_term where is_classification=0 order by taxon_term
 		</cfquery>
 		<cfquery name="cttaxon_term_isclass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select taxon_term from cttaxon_term where is_classification=1 order by taxon_term
+			select taxon_term from cttaxon_term where is_classification=1 order by relative_position
 		</cfquery>
 		<cfset pterms=valuelist(cttaxon_term_noclass.taxon_term)>
 		<cfset pterms=listappend(pterms,valuelist(cttaxon_term_isclass.taxon_term))>
-		<cfset x=ListQualify(pterms,"'")>
+		<cfset x=ListQualify(valuelist(d.taxon_term),"'")>
 
 		<cfquery name="noct" dbtype="query">
 			select term_type from d where term_type not in
