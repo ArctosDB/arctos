@@ -1311,7 +1311,9 @@
 		<cfif len(noct.term_type) gt 0>
 			<div style="border:10px solid red; padding:2em; margin:2em;">
 				Caution: The following term(s) are used in this classification and are not
-				available from the code table. Make sure you know what you're doing before saving!
+				available from the code table. They will (not) show up as blank cells below.
+				Make sure you know what you're doing before saving!
+				Use the contact link in the footer if you need help.
 				<ul>
 					<cfloop query="noct">
 						<li>#term_type#</li>
