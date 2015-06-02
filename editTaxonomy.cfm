@@ -1312,7 +1312,7 @@
 		<cfset pterms=valuelist(cttaxon_term_noclass.taxon_term)>
 		<cfset pterms=listappend(pterms,valuelist(cttaxon_term_isclass.taxon_term))>
 
-		<cfset x=QuotedValueList(pterms)>
+		<cfset x=ListQualify(pterms,"'")>
 
 		<cfquery name="noct" dbtype="query">
 			select term_type from d where term_type not in
