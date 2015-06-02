@@ -1310,6 +1310,17 @@
 			select taxon_term from cttaxon_term where is_classification=1 order by taxon_term
 		</cfquery>
 
+
+		<cfquery name="noct" dbtype="query">
+			select term_type from d where term_type not in
+			(select taxon_term from cttaxon_term_noclass union
+			select taxon_term from cttaxon_term_isclass
+			)
+		</cfquery>
+
+		<cfdump var=#noct#>
+
+
 		<cfset usedTerms=valuelist(d.term_type)>
 		<cfset pterms=valuelist(cttaxon_term_noclass.taxon_term)>
 		<cfset pterms=listappend(pterms,valuelist(cttaxon_term_isclass.taxon_term))>
