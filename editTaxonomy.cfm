@@ -1322,9 +1322,11 @@
 			<div style="border:10px solid red; padding:2em; margin:2em;">
 				Caution: The following term(s) are used in this classification and are not
 				available from the code table. Make sure you know what you're doing before saving!
-				<p>
-					<cfdump var=#noct#>
-				</p>
+				<ul>
+					<cfloop query="noct">
+						<li>#term_type#</li>
+					</cfloop>
+				</ul>
 			</div>
 		</cfif>
 
