@@ -1292,7 +1292,7 @@
 			select count(*) m from noclass
 		</cfquery>
 		<cfquery name="cttaxon_term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select taxon_term from cttaxon_term
+			select * from cttaxon_term
 		</cfquery>
 
 
