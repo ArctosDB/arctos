@@ -1312,30 +1312,18 @@
 		<cfset pterms=valuelist(cttaxon_term_noclass.taxon_term)>
 		<cfset pterms=listappend(pterms,valuelist(cttaxon_term_isclass.taxon_term))>
 
-		<cfset x=ListQualify(pterms,"'")>
 
 		<cfquery name="noct" dbtype="query">
 			select term_type from d where term_type not in
-			(#PreserveSingleQuotes(x)#)
+			(#PreserveSingleQuotes(ListQualify(pterms,"'"))#)
 		</cfquery>
 
-		<cfdump var=#noct#>
-
-
-		<cfset usedTerms=valuelist(d.term_type)>
-		<cfset pterms=valuelist(cttaxon_term_noclass.taxon_term)>
-		<cfset pterms=listappend(pterms,valuelist(cttaxon_term_isclass.taxon_term))>
-		<cfloop list="#pterms#" index="i">
-			<cfif listfind(usedTerms,i)>
-				<cfset usedTerms=listdeleteat(usedTerms,listfind(usedTerms,i))>
-			</cfif>
-		</cfloop>
-		<cfif len(usedTerms) gt 0>
+		<cfif len(noct.term_type) gt 0>
 			<div style="border:10px solid red; padding:2em; margin:2em;">
 				Caution: The following term(s) are used in this classification and are not
 				available from the code table. Make sure you know what you're doing before saving!
 				<p>
-					#usedTerms#
+					<cfdump var=#noct#>
 				</p>
 			</div>
 		</cfif>
