@@ -1314,7 +1314,7 @@
 		</cfquery>
 		<cfset pterms=valuelist(cttaxon_term_noclass.taxon_term)>
 		<cfset pterms=listappend(pterms,valuelist(cttaxon_term_isclass.taxon_term))>
-		<cfset x=ListQualify(valuelist(d.taxon_term),"'")>
+		<cfset x=ListQualify(valuelist(d.TERM_TYPE),"'")>
 
 		<cfquery name="noct" dbtype="query">
 			select term_type from d where term_type not in
