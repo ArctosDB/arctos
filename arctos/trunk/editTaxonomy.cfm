@@ -1351,8 +1351,8 @@
 					are ranked trinomials: "Poa abbreviata subsp. jordalii," not "jordalii."
 				</li>
 				<li>
-					There is no eforced order for classification terms. subpsecies-->kingdom-->genus is possible. Do not use this
-					form if you're not sure of how to correctly order ranked terms. (Why? Animal people think "section" is somewhere
+					There is no enforced order for classification terms. subpsecies-->kingdom-->genus is possible. Do not use this
+					form if you're not sure of how to correctly order ranked terms. (Why? Usage varies. Animal people think "section" is somewhere
 					between order and family, while plant people think it's a subdivision of subgenus.)
 				</li>
 			</ul>
