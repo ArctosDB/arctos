@@ -1,3 +1,7 @@
+
+edit code to run this<cfabort>
+
+
 <!----
 	create table cf_tacc_transfer (
 		media_id number,
@@ -30,9 +34,181 @@
 <cfinclude template="/includes/_header.cfm">
 
 
-<br><a href="localToTacc.cfm?action=checkNew">checkNew</a>
-<br><a href="localToTacc.cfm?action=findCheckNewFile">findCheckNewFile</a>
+<br><a href="localToTacc.cfm?action=checkNew">checkNew</a> - do this first; it finds stuff we care about and builds checksums for "local" junk
+<br><a href="localToTacc.cfm?action=findCheckNewFile">findCheckNewFile</a> - do this second, it builds checksums for "remote" files
+
+<br><a href="localToTacc.cfm?action=checkchecksum">checkchecksum</a> - do this third, it checks that everything is happy
+
+
+<br><a href="localToTacc.cfm?action=showstatus">showstatus</a> - wut?
+<br><a href="localToTacc.cfm?action=showfail">showfail</a> - oops
+<br><a href="localToTacc.cfm?action=resetproblem">resetproblem</a> - try again
+<br><a href="localToTacc.cfm?action=show_checksummatch">show_checksummatch</a> - caution this might break your browser
+<br><a href="localToTacc.cfm?action=updateMedia">updateMedia</a> - I do hereby solemnly swear that nothing is jacked up, change real stuff
+
+
+
+
 <cfsetting requesttimeout="300" />
+
+
+
+<!---------------------------------------------------------------------------------------------------------->
+
+<cfif action is "show_checksummatch">
+	<cfquery name="d" datasource="cf_dbuser">
+		 select * from  cf_tacc_transfer where status = 'checksummatch'
+	</cfquery>
+	<cfoutput>
+	<cfloop query="d">
+		<br>LOCAL_URI:  #LOCAL_URI#
+		<br>REMOTE_URI: #REMOTE_URI#
+		<br>LOCAL_TN:  #LOCAL_TN#
+		<br>REMOTE_TN: #REMOTE_TN#
+		<hr>
+	</cfloop>
+	</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "updateMedia">
+	<cfquery name="d" datasource="uam_god">
+		select * from cf_tacc_transfer where status = 'checksummatch'
+	</cfquery>
+	<cfoutput>
+		<cfloop query="d">
+			<cftransaction>
+				<cfquery name="upm" datasource="uam_god">
+					update media set
+						media_uri='#REMOTE_URI#',
+						preview_uri='#LOCAL_TN#'
+					where
+						media_id=#media_id#
+				</cfquery>
+				<cfquery name="upc" datasource="uam_god">
+					update cf_tacc_transfer set status='media_updated' where media_id=#media_id#
+				</cfquery>
+				<br>updated for #media_id#
+			</cftransaction>
+		</cfloop>
+	</cfoutput>
+</cfif>
+<cfif action is "checkchecksum">
+
+	<!--- these claim to have everything mapped out ---->
+	<cfquery name="prep" datasource="cf_dbuser">
+		 update cf_tacc_transfer set status='preparing_checksum_check' where status = 'remotefound'
+	</cfquery>
+
+
+
+	<!---- check for
+				1) local url exists
+				2) remote url exists
+				3) local checksum exists
+				4) remote checksum exists
+				5) local checksum = remote checksum
+				IF there's a preview (local preview_url exists) THEN
+					6) local preview checksum exists
+					7) remote preview_url exists
+					8) remote preview checksum exists
+					9) local preview checksum = remote preview checksum
+
+
+	---->
+
+
+
+
+	<!--- 1 and 2---->
+	<cfquery name="nocheckfile" datasource="cf_dbuser">
+		 update cf_tacc_transfer set status='missing URL' where status = 'preparing_checksum_check' and
+		 (
+		 	LOCAL_URI is null or
+		 	REMOTE_URI is null
+		 )
+	</cfquery>
+
+	<!--- 3 ---->
+	<cfquery name="nocheckfile" datasource="cf_dbuser">
+		 update cf_tacc_transfer set status='missing checksum for local URL' where status = 'preparing_checksum_check' and
+		 LOCAL_HASH is null
+	</cfquery>
+	<!--- 4 ---->
+	<cfquery name="nocheckfile" datasource="cf_dbuser">
+		 update cf_tacc_transfer set status='missing checksum for remote URL' where status = 'preparing_checksum_check' and
+		 REMOTE_HASH is null
+	</cfquery>
+
+	<!---- 5 ---->
+	<cfquery name="d" datasource="cf_dbuser">
+		 update cf_tacc_transfer set status='checksum mismatch' where status = 'preparing_checksum_check' and
+		 LOCAL_HASH != REMOTE_HASH
+	</cfquery>
+
+	<!--- 6 ---->
+	<cfquery name="nocheckfile" datasource="cf_dbuser">
+		 update cf_tacc_transfer set status='missing checksum for local preview' where status = 'preparing_checksum_check' and
+		 LOCAL_TN is not null and
+		 LOCAL_TN_HASH is null
+	</cfquery>
+	<!--- 7 ---->
+	<cfquery name="nocheckfile" datasource="cf_dbuser">
+		 update cf_tacc_transfer set status='missing checksum for local preview' where status = 'preparing_checksum_check' and
+		 LOCAL_TN is not null and
+		 REMOTE_TN is null
+	</cfquery>
+	<!--- 8 ---->
+	<cfquery name="nocheckfile" datasource="cf_dbuser">
+		 update cf_tacc_transfer set status='missing checksum for local preview' where status = 'preparing_checksum_check' and
+		 LOCAL_TN is not null and
+		 REMOTE_TN_HASH is null
+	</cfquery>
+	<!--- 9 ---->
+	<cfquery name="nocheckfile" datasource="cf_dbuser">
+		 update cf_tacc_transfer set status='missing checksum for local preview' where status = 'preparing_checksum_check' and
+		 LOCAL_TN is not null and
+		 REMOTE_TN_HASH != LOCAL_TN_HASH
+	</cfquery>
+
+
+	<!--- anything that did NOT get caught in the above should be ready to rock ---->
+	<cfquery name="d" datasource="cf_dbuser">
+		 update cf_tacc_transfer set status='checksummatch' where status = 'preparing_checksum_check'
+	</cfquery>
+
+	<br>checkchecksum done
+</cfif>
+
+<!---------------------------------------------------------------------------------------------------------->
+
+
+<cfif action is "showstatus">
+	<cfquery name="d" datasource="cf_dbuser">
+		 select status,count(*) c from cf_tacc_transfer group by status
+	</cfquery>
+	<cfdump var=#d#>
+</cfif>
+<!---------------------------------------------------------------------------------------------------------->
+
+<cfif action is "showfail">
+	<cfquery name="d" datasource="cf_dbuser">
+		 select local_uri,remote_uri from cf_tacc_transfer where status like 'problem:%'
+	</cfquery>
+	<cfdump var=#d#>
+</cfif>
+
+<!---------------------------------------------------------------------------------------------------------->
+
+<cfif action is "resetproblem">
+	<cfquery name="d" datasource="cf_dbuser">
+		 update cf_tacc_transfer set status='new' where status like 'problem:%'
+	</cfquery>
+	<br>done
+</cfif>
+
+
+<!---------------------------------------------------------------------------------------------------------->
+
 <cfif action is "checkNew">
 	<cfquery name="new" datasource="uam_god">
 		select * from media where
@@ -47,18 +223,31 @@
 				<cfinvokeargument name="returnFormat" value="plain">
 				<cfinvokeargument name="uri" value="#media_uri#">
 			</cfinvoke>
+			<cfif len(preview_uri) gt 0>
+				<cfinvoke component="/component/functions" method="genMD5" returnVariable="pHash">
+					<cfinvokeargument name="returnFormat" value="plain">
+					<cfinvokeargument name="uri" value="#preview_uri#">
+				</cfinvoke>
+			<cfelse>
+				<cfset pHash='NOPREVIEW'>
+			</cfif>
+
 			<cfquery name="ins" datasource="cf_dbuser">
 				insert into cf_tacc_transfer (
 					media_id,
 					sdate,
 					local_uri,
 					local_hash,
+					LOCAL_TN,
+					LOCAL_TN_HASH,
 					status
 				) values (
 					#media_id#,
 					sysdate,
 					'#media_uri#',
 					'#mHash#',
+					'#preview_uri#',
+					'#pHash#',
 					'new'
 				)
 			</cfquery>
@@ -69,35 +258,86 @@
 <cfif action is "findCheckNewFile">
 	<cfquery name="f" datasource="cf_dbuser">
 		select * from cf_tacc_transfer where
-		status = 'transferred'
+		status = 'new'
 	</cfquery>
-	<cfset bURL="http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/">
+	<cfset remoteBaseURL="http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/">
+	<cfset localBaseURL="http://arctos.database.museum/mediaUploads/">
 	<cfoutput>
 	<cfloop query="f">
 		<cftransaction>
-			<cfset fileName=listlast(local_uri,"/")>
-			<cfset thisURL=bURL & '/' & remotedirectory & '/' & fileName>
-			<cfhttp url="#thisURL#" method="HEAD" />
+
+			<!--- just replace old directory structure with new ---->
+
+			<cfset remoteMediaURL=replace(local_uri,localBaseURL,remoteBaseURL)>
+			<cfset remotePreviewURL=replace(LOCAL_TN,localBaseURL,remoteBaseURL)>
+
+			<cfset remote_status="">
+			<cfset remote__previewstatus="">
+
+			<cfhttp url="#remoteMediaURL#" method="HEAD" />
+
 			<cfif left(cfhttp.statuscode,3) is "200">
 				<cfinvoke component="/component/functions" method="genMD5" returnVariable="rHash">
 					<cfinvokeargument name="returnFormat" value="plain">
-					<cfinvokeargument name="uri" value="#thisURL#">
+					<cfinvokeargument name="uri" value="#remoteMediaURL#">
 				</cfinvoke>
+
+				<cfif len(LOCAL_TN) gt 0>
+					<cfhttp url="#remotePreviewURL#" method="HEAD" />
+					<cfif left(cfhttp.statuscode,3) is "200">
+						<cfinvoke component="/component/functions" method="genMD5" returnVariable="pHash">
+							<cfinvokeargument name="returnFormat" value="plain">
+							<cfinvokeargument name="uri" value="#remotePreviewURL#">
+						</cfinvoke>
+					<cfelse>
+						<cfset remote__previewstatus=cfhttp.statuscode>
+					</cfif>
+				</cfif>
+			<cfelse>
+				<cfset remote_status=cfhttp.statuscode>
+			</cfif>
+			<cfif len(remote_status) is 0 and len(remote__previewstatus) is 0>
 				<cfquery name="fit" datasource="cf_dbuser">
 					update
 						cf_tacc_transfer
 					set
-						status='found',
-						remote_uri='#thisURL#',
-						remote_hash='#rHash#'
+						status='remotefound',
+						remote_uri='#remoteMediaURL#',
+						remote_hash='#rHash#',
+						REMOTE_TN='#remotePreviewURL#',
+						REMOTE_TN_HASH='#pHash#'
+					where
+						media_id=#media_id#
+				</cfquery>
+			<cfelse>
+				<br>FAIL
+				<br>LOCAL_URI: #LOCAL_URI#
+				<br>remoteMediaURL: #remoteMediaURL#
+				<br>LOCAL_TN: #LOCAL_TN#
+				<br>remotePreviewURL: #remotePreviewURL#
+
+				<br>remote_status: #remote_status#
+				<br>remote__previewstatus: #remote__previewstatus#
+
+				<cfquery name="fit" datasource="cf_dbuser">
+					update
+						cf_tacc_transfer
+					set
+						status='problem: remote_status=#remote_status#; remote__previewstatus=#remote__previewstatus#'
 					where
 						media_id=#media_id#
 				</cfquery>
 			</cfif>
+
+
 		</cftransaction>
 	</cfloop>
 	</cfoutput>
 </cfif>
+
+
+
+<!----
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "fixURI">
 	<cfquery name="f" datasource="cf_dbuser">
@@ -274,6 +514,9 @@
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
+
+
+---->
 <cfinclude template="/includes/_footer.cfm">
 
 
