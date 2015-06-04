@@ -48,7 +48,7 @@
 				<cfset tag_id=listgetat(tag_id,2,"=")>
 			<cfelse>
 				<cfset tag_id="">
-			</cfif>			
+			</cfif>
 		<cfelse>
 			<cfset pg=p>
 		</cfif>
@@ -84,7 +84,7 @@
 				media_labels l_page,
 				media_labels l_description
 			where
-				l_title.media_id=l_page.media_id and 
+				l_title.media_id=l_page.media_id and
 				l_title.media_id=l_description.media_id and
 				l_title.media_label='title' and
 				l_page.media_label='page' and
@@ -100,7 +100,7 @@
 				l_description.label_value,
 				l_title.label_value
 		</cfquery>
-		
+
 		<cfif d.recordcount is 0>
 			Nothing matched your query. Use your back button and try again.
 		<cfelseif d.recordcount is 1>
@@ -129,7 +129,7 @@
 			media_type='multi-page document' and
 			l_title.media_label='title'">
 	<cfset basQ="">
-	
+
 	<cfif isdefined("urltitle") and len(urltitle) gt 0>
 		<cfset basQ=basQ & " and niceURLNumbers(l_title.label_value)='#urltitle#'">
 	</cfif>
@@ -169,7 +169,7 @@
 		</cfif>
 		<cfset basQ=basQ & " and l_year.label_value <= #e_year#">
 	</cfif>
-	
+
 	<cfif isdefined("description") and len(description) gt 0>
 		<cfif basFrm does not contain "l_description">
 			<cfset basFrm=basFrm & ',media_labels l_description'>
@@ -183,14 +183,14 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		#preservesinglequotes(ssql)#
 	</cfquery>
-	
-	
-	
+
+
+
 	<cfdump var=#d#>
-	
+
 	<cfabort>
-	
-	
+
+
 	<cfif d.recordcount is 0>
 		Nothing matched your query.
 	<cfelseif d.recordcount is 1>
@@ -276,9 +276,9 @@
 	<cfquery name="mDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from media_flat where media_id=#cpg.media_id#
 	</cfquery>
-	
-	
-	
+
+
+
 
 
 
@@ -329,7 +329,7 @@
 				</cfloop>
 				<cfloop list="#attrList#" index="i" delimiters="|">
 					<br>#i#
-				</cfloop>					
+				</cfloop>
 				<cfset rattrList="">
 				<cfloop list="#mDet.RELATIONSHIPS#" index="i" delimiters="|">
 					<cfset x=replace(i,"==",chr(7),"all")>
@@ -352,7 +352,7 @@
 					<a href="/media.cfm?action=edit&media_id=#cpg.media_id#">[ edit media ]</a>
 				</cfif>
 				<cfif relMedia.recordcount is 1>
-					<a target="_blank" href="/exit.cfm?target=#relMedia.media_uri#">[ download master ]</a>
+					<a target="_blank" href="/media/#relMedia.media_uri#?show">[ download master ]</a>
 				</cfif>
 			</td>
 		</tr>
