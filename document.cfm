@@ -265,6 +265,7 @@
 	</cfquery>
 	<cfquery name="relMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
+			media.media_id,
 			media_uri,
 			media_type,
 			related_primary_key from
