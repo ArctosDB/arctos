@@ -42,6 +42,9 @@ hi!
 				media_flat.media_id=doi.media_id (+) and
 				media_flat.media_id = #media_id#
 		 </cfquery>
+
+
+		 <cfdump
 		<cfif findIDs.recordcount is 0>
 			notfound<cfabort>
 		</cfif>
@@ -51,7 +54,7 @@ hi!
 		</cfif>
 
 
-
+<cftry
 
 	  <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	  	<cfset h="/media.cfm?action=newMedia">
@@ -235,7 +238,10 @@ hi!
     </div>
 
 
-
+<cfcatch>
+<cfdump var=#cfcatch#>
+</cfcatch>
+</cftry>
 		<!---- old code
         <table>
 			<tr>
