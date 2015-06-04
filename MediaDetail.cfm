@@ -43,23 +43,8 @@
 		</cfif>
 
 		<cfif isdefined("show") and show is not false>
-			<!---
-				if possible, log and inject binary
-
-
-
-
-<cfscript>
-			getPageContext().forward("/exit.cfm?target=#findIDs.media_uri#");
-		</cfscript>
-			--->
-							<cflocation addtoken="false" url="/exit.cfm?target=#findIDs.media_uri#">
-
-
-		<cfabort>
-
-
-
+			<cflocation addtoken="false" url="/exit.cfm?target=#findIDs.media_uri#">
+			<cfabort>
 		</cfif>
 
 

@@ -215,10 +215,7 @@
 	<cfelse>
 		<cftry>
 			<cfset gPos=listfindnocase(request.rdurl,"media","/")>
-
 			<cfset temp = listgetat(request.rdurl,gPos+1,"/")>
-
-
 			<cfif listlen(temp,'?&') gt 1>
 				<cfset media_id=listgetat(temp,1,"?&")>
 				<cfset t2=listdeleteat(temp,1,"?&")>
@@ -232,18 +229,10 @@
 			<cfelse>
 				<cfset media_id=temp>
 			</cfif>
-
-
 			<cfinclude template="/MediaDetail.cfm">
 			<cfcatch>
-
-				<cfdump var=#cfcatch#>
-
-
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
-
-
 		</cftry>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'publication',"/")>
