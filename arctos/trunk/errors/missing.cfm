@@ -232,16 +232,6 @@
 			<cfelse>
 				<cfset media_id=temp>
 			</cfif>
-
-
-<cfoutput>
-			<br>
-			media_id: #media_id#
-
-			<br>"#vn#"=vv
-
-</cfoutput>
-
 			<cfif listlen(request.rdurl,"/") gt 1>
 				<cfset media_id = listgetat(request.rdurl,gPos+1,"/")>
 			</cfif>
