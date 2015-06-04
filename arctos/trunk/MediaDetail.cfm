@@ -14,6 +14,12 @@
 <cfoutput>
 
 	<br<media_id: #media_id#
+				<hr>
+
+				<cfabort>
+
+
+
 	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			media_flat.media_id,
