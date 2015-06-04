@@ -12,7 +12,9 @@
 }
 </style>
 <cfoutput>
-
+	<cfif not isdefined("media_id")>
+		Noid<cfabort>
+	</cfif>
 
 hi!
 	<br>media_id: #media_id#
@@ -22,25 +24,33 @@ hi!
 
 
 
-	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select
-			media_flat.media_id,
-			media_flat.media_uri,
-			media_flat.mime_type,
-			media_flat.media_type,
-			media_flat.preview_uri,
-			media_flat.descr,
-			media_flat.alt_text,
-			media_flat.license,
-			doi
-		from
-			media_flat,
-			ctmedia_license,
-			doi
-		where
-			media_flat.media_id=doi.media_id (+) and
-			media_flat.media_id = #media_id#
-	  </cfquery>
+		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select
+				media_flat.media_id,
+				media_flat.media_uri,
+				media_flat.mime_type,
+				media_flat.media_type,
+				media_flat.preview_uri,
+				media_flat.descr,
+				media_flat.alt_text,
+				media_flat.license,
+				doi
+			from
+				media_flat,
+				ctmedia_license,
+				doi
+			where
+				media_flat.media_id=doi.media_id (+) and
+				media_flat.media_id = #media_id#
+		 </cfquery>
+		<cfif findIDs.recordcount is 0>
+			notfound<cfabort>
+		</cfif>
+
+		<cfif isdefined("show") and show is not false>
+			here pretty picture<cfabort>
+		</cfif>
+
 	  <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	  	<cfset h="/media.cfm?action=newMedia">
         <cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
