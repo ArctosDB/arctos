@@ -44,7 +44,6 @@ hi!
 		 </cfquery>
 
 
-		 <cfdump
 		<cfif findIDs.recordcount is 0>
 			notfound<cfabort>
 		</cfif>
