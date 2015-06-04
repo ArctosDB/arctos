@@ -215,6 +215,31 @@
 	<cfelse>
 		<cftry>
 			<cfset gPos=listfindnocase(request.rdurl,"media","/")>
+
+			<cfset temp = listgetat(request.rdurl,gPos+1,"/")>
+
+
+			<cfif listlen(temp,'?&') gt 1>
+				<cfset media_id=listgetat(temp,1,"?&")>
+				<cfset t2=listdeleteat(temp,1,"?&")>
+				<cfloop list="#t2#" delimiters="?&" index="x">
+					<cfif listlen(x,"=") is 2>
+						<cfset vn=listgetat(x,1,"=")>
+						<cfset vv=listgetat(x,2,"=")>
+						<cfset "#vn#"=vv>
+					</cfif>
+				</cfloop>
+			<cfelse>
+				<cfset media_id=temp>
+			</cfif>
+
+			<br>
+			media_id: #media_id#
+
+			<br>"#vn#"=vv
+
+
+
 			<cfif listlen(request.rdurl,"/") gt 1>
 				<cfset media_id = listgetat(request.rdurl,gPos+1,"/")>
 			</cfif>
@@ -222,6 +247,8 @@
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
+
+
 		</cftry>
 	</cfif>
 <cfelseif listfindnocase(request.rdurl,'publication',"/")>
