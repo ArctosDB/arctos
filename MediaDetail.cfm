@@ -20,7 +20,6 @@ hi!
 	<br>media_id: #media_id#
 				<hr>
 
-				<cfabort>
 
 
 
@@ -50,6 +49,9 @@ hi!
 		<cfif isdefined("show") and show is not false>
 			here pretty picture<cfabort>
 		</cfif>
+
+
+
 
 	  <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	  	<cfset h="/media.cfm?action=newMedia">
