@@ -247,6 +247,10 @@
 			</cfif>
 			<cfinclude template="/MediaDetail.cfm">
 			<cfcatch>
+
+				<cfdump var=#cfcatch#>
+
+
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 
