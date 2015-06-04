@@ -15,7 +15,7 @@
 
 
 hi!
-	<br<media_id: #media_id#
+	<br>media_id: #media_id#
 				<hr>
 
 				<cfabort>
