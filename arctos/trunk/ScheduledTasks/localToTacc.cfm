@@ -1,4 +1,4 @@
-<!---
+<!----
 	create table cf_tacc_transfer (
 		media_id number,
 		sdate date,
@@ -14,14 +14,24 @@
 	create or replace public synonym cf_tacc_transfer for cf_tacc_transfer;
 	revoke all on cf_tacc_transfer from coldfusion_user;
 	grant all on cf_tacc_transfer to cf_dbuser;
-	
+
 	alter table cf_tacc_transfer add status varchar2(255);
-	
+
 	alter table cf_tacc_transfer add remotedirectory varchar2(30);
-	
+
 	create unique index idx_u_cf_tacc_transfer_mid on cf_tacc_transfer (media_id) tablespace uam_idx_1;
---->
+
+
+	UPDATE: Running this FROM TACC now, transfers are via irond/unix/whatever, just change URLs
+
+	delete from cf_tacc_transfer;
+
+	---->
 <cfinclude template="/includes/_header.cfm">
+
+
+<br><a href="localToTacc.cfm?action=checkNew">checkNew</a>
+<br><a href="localToTacc.cfm?action=findCheckNewFile">findCheckNewFile</a>
 <cfsetting requesttimeout="300" />
 <cfif action is "checkNew">
 	<cfquery name="new" datasource="uam_god">
@@ -56,67 +66,12 @@
 	</cfloop>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
-<cfif action is "transfer">
-	<cftransaction>
-		<cfquery name="theFile" datasource="cf_dbuser">
-			select * from cf_tacc_transfer where
-			status = 'new' and
-			rownum=1
-		</cfquery>
-		<cfif theFile.recordcount is not 1>
-			nothing found
-			<cfabort>
-		</cfif>
-		<cfset localFile=replace(theFile.local_uri,application.serverRootUrl,application.webDirectory)>		
-		<cfset fileName=listlast(theFile.local_uri,"/")>
-		<cfset todaysDirectory=dateformat(now(),"yyyy_mm_dd")>
-		<cfset remoteBase="/corral/tg/uaf/arctos">
-		<cfset remoteFull=remoteBase & '/' & todaysDirectory>
-		<cfset remoteFile=remoteFull & '/' & fileName>		
-		<cfftp action="open" 
-			username="dustylee" 
-			server="Garcia.corral.tacc.utexas.edu" 
-			connection="corral"
-			secure="true"
-			key="/opt/coldfusion8/runtime/bin/id_rsa"
-		    timeout="300">
-		<cfftp action="ListDir"
-			directory="#remoteBase#"
-			connection="corral"
-			name="ld">
-		<cfquery name="chk" dbtype="query">
-			select NAME from ld where ISDIRECTORY='YES' and NAME='#todaysDirectory#'
-		</cfquery>
-		<cfif len(chk.name) is 0>
-			<cfftp action="CreateDir" 
-				directory="#remoteFull#"
-				connection="corral">
-		</cfif>
-		<cfftp action="putfile" 
-		    connection="corral"
-		    transferMode = "binary"
-			localFile = "#localFile#"
-			remoteFile = "#remoteFile#">
-		<cfftp action="close" 
-			connection="corral">
-		<cfquery name="s" datasource="cf_dbuser">
-			update 
-				cf_tacc_transfer 
-			set 
-				status='transferred',
-				remotedirectory='#todaysDirectory#'
-			where 
-				media_id=#theFile.media_id#
-		</cfquery>
-	</cftransaction>
-</cfif>
-<!---------------------------------------------------------------------------------------------------------->
-<cfif action is "findIt">
+<cfif action is "findCheckNewFile">
 	<cfquery name="f" datasource="cf_dbuser">
 		select * from cf_tacc_transfer where
 		status = 'transferred'
 	</cfquery>
-	<cfset bURL="http://web.corral.tacc.utexas.edu/UAF/arctos">
+	<cfset bURL="http://web.corral.tacc.utexas.edu/UAF/arctos/mediaUploads/">
 	<cfoutput>
 	<cfloop query="f">
 		<cftransaction>
@@ -129,15 +84,15 @@
 					<cfinvokeargument name="uri" value="#thisURL#">
 				</cfinvoke>
 				<cfquery name="fit" datasource="cf_dbuser">
-					update 
-						cf_tacc_transfer 
-					set 
+					update
+						cf_tacc_transfer
+					set
 						status='found',
 						remote_uri='#thisURL#',
 						remote_hash='#rHash#'
-					where 
+					where
 						media_id=#media_id#
-				</cfquery>		
+				</cfquery>
 			</cfif>
 		</cftransaction>
 	</cfloop>
@@ -157,26 +112,26 @@
 				len(remote_hash) gt 0 and
 				local_hash is remote_hash>
 				<cfquery name="isHash" datasource="uam_god">
-					select LABEL_VALUE from media_labels where 
+					select LABEL_VALUE from media_labels where
 					media_id=#media_id# and
 					MEDIA_LABEL= 'MD5 checksum'
 				</cfquery>
 				<cfif isHash.recordcount is 1 and isHash.LABEL_VALUE is not remote_hash>
 					<cfquery name="fit" datasource="uam_god">
-						update 
-							cf_tacc_transfer 
-						set 
+						update
+							cf_tacc_transfer
+						set
 							status='hash_collision'
-						where 
+						where
 							media_id=#media_id#
 					</cfquery>
 				<cfelseif isHash.recordcount gt 1>
 					<cfquery name="fit" datasource="uam_god">
-						update 
-							cf_tacc_transfer 
-						set 
+						update
+							cf_tacc_transfer
+						set
 							status='multiple_hash_label'
-						where 
+						where
 							media_id=#media_id#
 					</cfquery>
 				<cfelseif isHash.recordcount is 1 and isHash.LABEL_VALUE is remote_hash>
@@ -184,11 +139,11 @@
 						update media set media_uri='#remote_uri#' where media_id=#media_id#
 					</cfquery>
 					<cfquery name="fit" datasource="uam_god">
-						update 
-							cf_tacc_transfer 
-						set 
+						update
+							cf_tacc_transfer
+						set
 							status='complete'
-						where 
+						where
 							media_id=#media_id#
 					</cfquery>
 				<cfelseif isHash.recordcount is 0>
@@ -209,21 +164,21 @@
 						update media set media_uri='#remote_uri#' where media_id=#media_id#
 					</cfquery>
 					<cfquery name="fit" datasource="uam_god">
-						update 
-							cf_tacc_transfer 
-						set 
+						update
+							cf_tacc_transfer
+						set
 							status='complete'
-						where 
+						where
 							media_id=#media_id#
 					</cfquery>
 				</cfif>
 			<cfelse>
 				<cfquery name="fit" datasource="uam_god">
-					update 
-						cf_tacc_transfer 
-					set 
+					update
+						cf_tacc_transfer
+					set
 						status='hash_fail'
-					where 
+					where
 						media_id=#media_id#
 				</cfquery>
 			</cfif>
@@ -232,7 +187,7 @@
 </cfif>
 <cfif action is "recoverDisk">
 <cfabort>
-<cfoutput>	
+<cfoutput>
 	<!--- local files are loaded to /SpecimenImages or mediaUploads. Find stuff there that's not in media and delete it --->
 	<cfdirectory action="LIST"
     	directory="#Application.webDirectory#/SpecimenImages"
@@ -260,13 +215,13 @@
 			<br> got a directory #directory#/#name# containing #current.recordcount# files
 			<cfif current.recordcount is 0>
 				<br>deleting it
-				<cfdirectory action="delete" directory="#directory#/#name#">	
+				<cfdirectory action="delete" directory="#directory#/#name#">
 			</cfif>
 
 
 		</cfif>
 	</cfloop>
-	
+
 	<cfdirectory action="LIST"
     	directory="#Application.webDirectory#/mediaUploads"
         name="root"
@@ -286,18 +241,18 @@
 			<br>isUsed.recordcount: #isUsed.recordcount#
 			<cfif isUsed.recordcount is 0>
 				<br>going to delete
-				<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq "."> 
+				<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq ".">
 				 	<cffile action="delete" file="#directory#/#name#">
-				 </cfif> 				
+				 </cfif>
 			</cfif>
 		<cfelse>
 			<cfdirectory action="list" directory="#directory#/#name#" name="current">
 			<br> got a directory #directory#/#name# containing #current.recordcount# files
 			<cfif current.recordcount is 0>
 				<br>deleting it
-				<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq "."> 
+				<cfif (dateCompare(dateAdd("d",7,datelastmodified),now()) LTE 0) and left(name,1) neq ".">
 				 	<cffile action="delete" file="#directory#/#name#">
-				 </cfif> 
+				 </cfif>
 			</cfif>
 		</cfif>
 	</cfloop>
@@ -320,3 +275,63 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfinclude template="/includes/_footer.cfm">
+
+
+
+
+<!----------------------------------------------------------------------------------------
+<cfif action is "transfer">
+	<cftransaction>
+		<cfquery name="theFile" datasource="cf_dbuser">
+			select * from cf_tacc_transfer where
+			status = 'new' and
+			rownum=1
+		</cfquery>
+		<cfif theFile.recordcount is not 1>
+			nothing found
+			<cfabort>
+		</cfif>
+		<cfset localFile=replace(theFile.local_uri,application.serverRootUrl,application.webDirectory)>
+		<cfset fileName=listlast(theFile.local_uri,"/")>
+		<cfset todaysDirectory=dateformat(now(),"yyyy_mm_dd")>
+		<cfset remoteBase="/corral/tg/uaf/arctos">
+		<cfset remoteFull=remoteBase & '/' & todaysDirectory>
+		<cfset remoteFile=remoteFull & '/' & fileName>
+		<cfftp action="open"
+			username="dustylee"
+			server="Garcia.corral.tacc.utexas.edu"
+			connection="corral"
+			secure="true"
+			key="/opt/coldfusion8/runtime/bin/id_rsa"
+		    timeout="300">
+		<cfftp action="ListDir"
+			directory="#remoteBase#"
+			connection="corral"
+			name="ld">
+		<cfquery name="chk" dbtype="query">
+			select NAME from ld where ISDIRECTORY='YES' and NAME='#todaysDirectory#'
+		</cfquery>
+		<cfif len(chk.name) is 0>
+			<cfftp action="CreateDir"
+				directory="#remoteFull#"
+				connection="corral">
+		</cfif>
+		<cfftp action="putfile"
+		    connection="corral"
+		    transferMode = "binary"
+			localFile = "#localFile#"
+			remoteFile = "#remoteFile#">
+		<cfftp action="close"
+			connection="corral">
+		<cfquery name="s" datasource="cf_dbuser">
+			update
+				cf_tacc_transfer
+			set
+				status='transferred',
+				remotedirectory='#todaysDirectory#'
+			where
+				media_id=#theFile.media_id#
+		</cfquery>
+	</cftransaction>
+</cfif>
+------------------>
