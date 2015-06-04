@@ -53,7 +53,7 @@ hi!
 		</cfif>
 
 
-<cftry
+<cftry>
 
 	  <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 	  	<cfset h="/media.cfm?action=newMedia">
