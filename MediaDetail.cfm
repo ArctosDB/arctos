@@ -13,6 +13,8 @@
 </style>
 <cfoutput>
 
+
+hi!
 	<br<media_id: #media_id#
 				<hr>
 
