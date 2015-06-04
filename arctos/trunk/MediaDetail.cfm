@@ -16,12 +16,6 @@
 		Noid<cfabort>
 	</cfif>
 
-hi!
-	<br>media_id: #media_id#
-				<hr>
-
-
-
 
 		<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
@@ -49,6 +43,14 @@ hi!
 		</cfif>
 
 		<cfif isdefined("show") and show is not false>
+			<!---
+				if possible, log and inject binary
+			--->
+			<cfscript>
+				getPageContext().forward("#findIDs.media_uri#");
+			</cfscript>
+
+
 			here pretty picture<cfabort>
 		</cfif>
 
