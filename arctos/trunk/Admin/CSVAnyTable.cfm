@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfsetting requestTimeOut = "600">
+<cfparam name="forcenodownload" default="false">
 <cfoutput>
 	<cfif not isdefined("tableName") or len(tableName) is 0>
 		<form method="get" action="CSVAnyTable.cfm">
@@ -18,7 +19,11 @@
 		    file = "#Application.webDirectory#/download/#tableName#.csv"
 	    	output = "#csv#"
 	    	addNewLine = "no">
-		<cflocation url="/download.cfm?file=#tableName#.csv" addtoken="false">
+	    <cfif forcenodownload is false>
+			<cflocation url="/download.cfm?file=#tableName#.csv" addtoken="false">
+		<cfelse>
+			<br>wrote to #Application.webDirectory#/download/#tableName#.csv
+		</cfif>
 	</cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
