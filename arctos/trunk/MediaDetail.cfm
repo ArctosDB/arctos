@@ -47,15 +47,15 @@
 				if possible, log and inject binary
 
 
-							<cflocation addtoken="false" url="/exit.cfm?target=#findIDs.media_uri#">
 
-
-
-			--->
 
 <cfscript>
 			getPageContext().forward("/exit.cfm?target=#findIDs.media_uri#");
 		</cfscript>
+			--->
+							<cflocation addtoken="false" url="/exit.cfm?target=#findIDs.media_uri#">
+
+
 		<cfabort>
 
 
