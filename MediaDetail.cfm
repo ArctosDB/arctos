@@ -42,7 +42,7 @@
 			notfound<cfabort>
 		</cfif>
 
-		<cfif isdefined("show") and show is not false>
+		<cfif isdefined("open") and open is not false>
 			<cflocation addtoken="false" url="/exit.cfm?target=#findIDs.media_uri#">
 			<cfabort>
 		</cfif>

@@ -194,12 +194,12 @@
 			<cfset x=x & ",char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,comment,comments,connectors,cgi,cgi-bin,cgi-sys,calendar,config,client,cube">
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp">
-			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor">
+			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla">
 			<cfset x=x & ",getmappingxpath,get_host_address">
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher">
 			<cfset x=x & ",inurl,invoker,ini">
 			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console">
-			<cfset x=x & ",lib">
+			<cfset x=x & ",lib,lightbox">
 			<cfset x=x & ",mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail">
 			<cfset x=x & ",news,nyet">
 			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol">

@@ -323,7 +323,8 @@
 					</tr>
 					<tr>
 						<td colspan="6" align="center">
-						<input type="submit" value="Save Changes" class="savBtn">
+						<input type="button" value="Save Changes" class="savBtn"
+							onClick="editAccn.action.value='saveChanges';editAccn.submit();">
 				 		<input type="button" value="Quit without saving" class="qutBtn"
 							onclick = "document.location = 'editAccn.cfm'">
 						<input type="button" value="Delete" class="delBtn" onClick="editAccn.action.value='deleteAccn';confirmDelete('editAccn');">
