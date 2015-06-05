@@ -7,13 +7,29 @@
 		});
 </script>
 <cfoutput>
+	<cfquery name="ctstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select status,count(*) c from exit_link group by status order by status
+	</cfquery>
+	Status Summary
+	<table border>
+		<tr><th>Status</th><th>Occurrences</th></tr>
+		<cfloop query="ctstatus">
+			<tr>
+				<td>#status#</td><td>#c#</td>
+			</tr>
+		</cfloop>
+	</table>
+
+
+
 	<cfparam name="fdate" type="string" default="">
 	<cfparam name="ldate" type="string" default="">
 	<cfparam name="format" type="string" default="">
+	<cfparam name="status" type="string" default="">
 	<form method="post" action="exit_links.cfm">
 		<label for="fdate">Earliest Date</label>
 		<input type="text" id="fdate" name="fdate" value="#fdate#">
-		
+
 		<label for="ldate">Latest Date</label>
 		<input type="text" id="ldate" name="ldate" value="#ldate#">
 		<label for="format">Format</label>
@@ -22,27 +38,40 @@
 			<option <cfif format is "csv"> selected="selected" </cfif>value="csv">csv</option>
 			<option <cfif format is "summary"> selected="selected" </cfif>value="summary">summary</option>
 		</select>
+		<Label for="status">Status</Label>
+		<select name="status" id="status">
+			<option value="">table</option>
+			<cfset x=status>
+			<cfloop query="ctstatus">
+				<option <cfif x is ctstatus.status> selected="selected" </cfif> value="#ctstatus.status#">#ctstatus.status#</option>
+			</cfloop>
+		</select>
+
+
 		<br><input type="submit" value="go">
 	</form>
 	<cfif isdefined("form.fieldnames") and len(form.fieldnames)>
-		<cfquery name="exit"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="exit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				<cfif format is "summary">
 					count(*) total,
 					count(distinct(IPADDRESS)) numberOfIPs,
 					count(distinct(username)) numberOfUsers,
 					count(distinct(FROM_PAGE)) numberOfRefererrs,
-					count(distinct(HTTP_TARGET)) numberOfMedia	
+					count(distinct(HTTP_TARGET)) numberOfMedia
 				<cfelse>
 					*
 				</cfif>
 			 from exit_link
-			 where 1=1 
+			 where 1=1
 			 <cfif len(fdate) gt 0>
 			 	and WHEN_DATE > '#fdate#'
 			 </cfif>
 			 <cfif len(ldate) gt 0>
 			 	and WHEN_DATE < '#ldate#'
+			 </cfif>
+			 <cfif len(status) gt 0>
+			 	and status = '#status#'
 			 </cfif>
 			 order by WHEN_DATE desc
 		</cfquery>
@@ -67,7 +96,7 @@
 						<td>#STATUS#</td>
 						<td>#USERNAME#</td>
 						<td>#IPADDRESS#</td>
-						<td>#WHEN_DATE#</td> 	 	
+						<td>#WHEN_DATE#</td>
 					</tr>
 				</cfloop>
 			</table>
@@ -84,7 +113,7 @@
 			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 			<cfscript>
 				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-				variables.joFileWriter.writeLine(ListQualify("ID,Referrer,HTTPTarget,RawTarget,Status,Username,IP,Date",'"')); 
+				variables.joFileWriter.writeLine(ListQualify("ID,Referrer,HTTPTarget,RawTarget,Status,Username,IP,Date",'"'));
 			</cfscript>
 			<cfloop query="exit">
 				<cfset oneLine = '"#EXIT_LINK_ID#","#FROM_PAGE#","#HTTP_TARGET#","#TARGET#","#STATUS#","#USERNAME#","#IPADDRESS#","#WHEN_DATE#"'>
@@ -92,7 +121,7 @@
 					variables.joFileWriter.writeLine(oneLine);
 				</cfscript>
 			</cfloop>
-			<cfscript>	
+			<cfscript>
 				variables.joFileWriter.close();
 			</cfscript>
 			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
