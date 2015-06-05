@@ -80,8 +80,8 @@
 				<tr>
 					<th>ID</th>
 					<th>Referrer</th>
-					<th>HTTPTarget</th>
-					<th>RawTarget</th>
+					<th>Target</th>
+					<th>Find</th>
 					<th>Status</th>
 					<th>Username</th>
 					<th>IP</th>
@@ -91,12 +91,14 @@
 					<tr>
 						<td>#EXIT_LINK_ID#</td>
 						<td>#FROM_PAGE#</td>
-						<td>#HTTP_TARGET#</td>
-						<td>#TARGET#</td>
+						<td><a target="_blank" href="#HTTP_TARGET#">#HTTP_TARGET#</a></td>
+						<td><a target="_blank" href="/MediaSearch.cfm?action=search&media_uri=#HTTP_TARGET#">find</a></td>
 						<td>#STATUS#</td>
 						<td>#USERNAME#</td>
 						<td>#IPADDRESS#</td>
 						<td>#WHEN_DATE#</td>
+
+						http://arctos.database.museum/MediaSearch.cfm?action=search&relationships=shows%20cataloged_item&related_primary_key1=23181858
 					</tr>
 				</cfloop>
 			</table>
