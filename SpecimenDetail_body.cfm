@@ -521,13 +521,13 @@
 
 
 
-						<cfquery name="thisPubs" dbtype="query">
+						<cfquery name="thisPubsMedia" dbtype="query">
 							select distinct preview_uri,
 						media_type,
 						media_uri from raw_citations where citation_id=#citation_id#
 						</cfquery>
 
-						<cfdump var=#thisPubs#>
+						<cfdump var=#thisPubsMedia#>
 
 
 
@@ -536,6 +536,17 @@
 							 #type_status# of #thisSciName#
 							 <cfif len(OCCURS_PAGE_NUMBER) gt 0>, page #OCCURS_PAGE_NUMBER#</cfif>
 							in <a href="http://arctos.database.museum/publication/#PUBLICATION_ID#">#short_citation#</a>
+							<cfloop query="thisPubsMedia">
+
+								 <cfif len(media_uri) gt 0>
+								 <cfset mp = obj.getMediaPreview(
+									preview_uri="#preview_uri#",
+									media_type="#media_type#")>
+									<a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#mp#" class="smallMediaPreview"></a>
+								 </cfif>
+							 </cfloop>
+
+
 							<!----
 							<cfset thisSciName="#scientific_name#">
 								<cfloop query="thisTaxLinks">
