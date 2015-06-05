@@ -509,6 +509,18 @@
 
 						<cfdump var=#thisTaxLinks#>
 
+
+
+<cfset thisSciName="#scientific_name#">
+								<cfloop query="thisTaxLinks">
+									<cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'>
+									<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
+									<cfset i=i+1>
+								</cfloop>
+								#thisSciName#
+
+
+
 						<cfquery name="thisPubs" dbtype="query">
 							select distinct preview_uri,
 						media_type,
