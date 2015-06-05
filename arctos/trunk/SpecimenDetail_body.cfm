@@ -505,7 +505,8 @@
 
 
 						<cfquery name="thisTaxLinks" dbtype="query">
-							select distinct taxsciname from raw_citations where citation_id=#citation_id#
+							select distinct taxsciname from raw_citations where citation_id=#citation_id# and
+							taxsciname is not null
 						</cfquery>
 
 						<cfdump var=#thisTaxLinks#>
@@ -525,7 +526,7 @@
 						<cfquery name="thisPubsMedia" dbtype="query">
 							select distinct preview_uri,
 						media_type,
-						media_uri,media_id from raw_citations where citation_id=#citation_id#
+						media_uri,media_id from raw_citations where media_id is not null and citation_id=#citation_id#
 						</cfquery>
 
 						<cfdump var=#thisPubsMedia#>
@@ -539,12 +540,10 @@
 							in <a href="http://arctos.database.museum/publication/#PUBLICATION_ID#">#short_citation#</a>
 							<cfloop query="thisPubsMedia">
 
-								 <cfif len(media_uri) gt 0>
 								 <cfset mp = obj.getMediaPreview(
 									preview_uri="#preview_uri#",
 									media_type="#media_type#")>
-									<a href="/media/#media_id?open" target="_blank"><img src="#mp#" class="smallMediaPreview"></a>
-								 </cfif>
+									<a href="/media/#media_id#?open" target="_blank"><img src="#mp#" class="smallMediaPreview"></a>
 							 </cfloop>
 
 
