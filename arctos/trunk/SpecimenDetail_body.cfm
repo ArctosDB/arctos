@@ -447,11 +447,6 @@
 						media_relations.media_id=media.media_id (+) and
 						citation.collection_object_id=#collection_object_id#
 				</cfquery>
-
-
-
-				<cfdump var=#raw_citations#>
-
 				<cfquery name="citations" dbtype="query">
 					select
 						PUBLICATION_ID,
@@ -470,106 +465,33 @@
 						OCCURS_PAGE_NUMBER,
 						CITATION_ID
 				</cfquery>
-
-				<!-----
-								<cfif accepted_id_fg is 1>
-						        	<div class="acceptedIdDiv">
-							    <cfelse>
-						        	<div class="unAcceptedIdDiv">
-						        </cfif>
-								<cfquery name="thisTaxLinks" dbtype="query">
-									select distinct taxsciname from raw_identification where identification_id=#identification_id#
-								</cfquery>
-								<cfquery name="thisCommonName" dbtype="query">
-									select distinct common_name from raw_identification where common_name is not null and
-									 identification_id=#identification_id#
-									order by common_name
-								</cfquery>
-								<cfset link="">
-								<cfset i=1>
-								<cfset thisSciName="#scientific_name#">
-								<cfloop query="thisTaxLinks">
-									<cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'>
-									<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
-									<cfset i=i+1>
-								</cfloop>
-								#thisSciName#
-
-
-								----->
-
-
 				<div class="detailCell">
 					<div class="detailLabel">Citations</div>
 					<cfloop query="citations">
-
-
 						<cfquery name="thisTaxLinks" dbtype="query">
 							select distinct taxsciname from raw_citations where citation_id=#citation_id# and
 							taxsciname is not null
 						</cfquery>
-
-						<cfdump var=#thisTaxLinks#>
-
-
-
-<cfset thisSciName="#idsciname#">
-								<cfloop query="thisTaxLinks">
-									<cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'>
-									<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
-									<cfset i=i+1>
-								</cfloop>
-
-
-
-
+						<cfset thisSciName="#idsciname#">
+						<cfloop query="thisTaxLinks">
+							<cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'>
+							<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
+							<cfset i=i+1>
+						</cfloop>
 						<cfquery name="thisPubsMedia" dbtype="query">
-							select distinct preview_uri,
-						media_type,
-						media_uri,media_id from raw_citations where media_id is not null and citation_id=#citation_id#
+							select distinct preview_uri,media_type,media_uri,media_id from
+								raw_citations where media_id is not null and citation_id=#citation_id#
 						</cfquery>
-
-						<cfdump var=#thisPubsMedia#>
-
-
-
 						<div class="detailBlock">
-
-							 #type_status# of #thisSciName#
-							 <cfif len(OCCURS_PAGE_NUMBER) gt 0>, page #OCCURS_PAGE_NUMBER#</cfif>
+							#type_status# of #thisSciName#
+							<cfif len(OCCURS_PAGE_NUMBER) gt 0>, page #OCCURS_PAGE_NUMBER#</cfif>
 							in <a href="http://arctos.database.museum/publication/#PUBLICATION_ID#">#short_citation#</a>
 							<cfloop query="thisPubsMedia">
-
 								 <cfset mp = obj.getMediaPreview(
 									preview_uri="#preview_uri#",
 									media_type="#media_type#")>
 									<a href="/media/#media_id#?open" target="_blank"><img src="#mp#" class="smallMediaPreview"></a>
 							 </cfloop>
-
-
-							<!----
-							<cfset thisSciName="#scientific_name#">
-								<cfloop query="thisTaxLinks">
-									<cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'>
-									<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
-									<cfset i=i+1>
-								</cfloop>
-								#thisSciName#
-
-
-							 #type_status# of <a href="http://arctos.database.museum/name/#taxsciname#">#idsciname#</a>
-
-							 <cfif len(media_uri) gt 0>
-							 <cfset mp = obj.getMediaPreview(
-								preview_uri="#preview_uri#",
-								media_type="#media_type#")>
-								<a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#mp#" class="smallMediaPreview"></a>
-							 </cfif>
-
-							---->
-
-
-
 						</div>
 					</cfloop>
 				</div>
