@@ -40,7 +40,7 @@
 		</select>
 		<Label for="status">Status</Label>
 		<select name="status" id="status">
-			<option value="">table</option>
+			<option value="">anything</option>
 			<cfset x=status>
 			<cfloop query="ctstatus">
 				<option <cfif x is ctstatus.status> selected="selected" </cfif> value="#ctstatus.status#">#ctstatus.status#</option>
