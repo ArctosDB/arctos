@@ -353,7 +353,7 @@
 					<a href="/media.cfm?action=edit&media_id=#cpg.media_id#">[ edit media ]</a>
 				</cfif>
 				<cfif relMedia.recordcount is 1>
-					<a target="_blank" href="/media/#relMedia.media_id#?show">[ download master ]</a>
+					<a target="_blank" href="/media/#relMedia.media_id#?open">[ download master ]</a>
 				</cfif>
 			</td>
 		</tr>
