@@ -417,8 +417,9 @@
 			</div>
 <!------------------------------------ citations ---------------------------------------------->
 			<cfif len(one.typestatus) gt 0>
-				<cfquery name="citations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				<cfquery name="raw_citations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
+						CITATION_ID,
 						citation.PUBLICATION_ID,
 						type_status,
 						identification.scientific_name idsciname,
@@ -446,11 +447,89 @@
 						citation.collection_object_id=#collection_object_id#
 				</cfquery>
 
-				<cfdump var=#citations#>
+
+
+				<cfdump var=#raw_citations#>
+
+				<cfquery name="citations" dbtype="query">
+					select
+						PUBLICATION_ID,
+						type_status,
+						idsciname,
+						short_citation,
+						OCCURS_PAGE_NUMBER,
+						CITATION_ID
+					from
+						raw_citations
+					group by
+						PUBLICATION_ID,
+						type_status,
+						idsciname,
+						short_citation,
+						OCCURS_PAGE_NUMBER,
+						CITATION_ID
+				</cfquery>
+
+				<!-----
+								<cfif accepted_id_fg is 1>
+						        	<div class="acceptedIdDiv">
+							    <cfelse>
+						        	<div class="unAcceptedIdDiv">
+						        </cfif>
+								<cfquery name="thisTaxLinks" dbtype="query">
+									select distinct taxsciname from raw_identification where identification_id=#identification_id#
+								</cfquery>
+								<cfquery name="thisCommonName" dbtype="query">
+									select distinct common_name from raw_identification where common_name is not null and
+									 identification_id=#identification_id#
+									order by common_name
+								</cfquery>
+								<cfset link="">
+								<cfset i=1>
+								<cfset thisSciName="#scientific_name#">
+								<cfloop query="thisTaxLinks">
+									<cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'>
+									<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
+									<cfset i=i+1>
+								</cfloop>
+								#thisSciName#
+
+
+								----->
+
+
 				<div class="detailCell">
 					<div class="detailLabel">Citations</div>
 					<cfloop query="citations">
+
+
+						<cfquery name="thisTaxLinks" dbtype="query">
+							select distinct taxsciname from raw_citations where citation_id=#citation_id#
+						</cfquery>
+
+						<cfdump var=#thisTaxLinks#>
+
+						<cfquery name="thisPubs" dbtype="query">
+							select distinct preview_uri,
+						media_type,
+						media_uri from raw_citations where citation_id=#citation_id#
+						</cfquery>
+
+						<cfdump var=#thisPubs#>
+
+
+
 						<div class="detailBlock">
+							<!----
+							<cfset thisSciName="#scientific_name#">
+								<cfloop query="thisTaxLinks">
+									<cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'>
+									<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
+									<cfset i=i+1>
+								</cfloop>
+								#thisSciName#
+
+
 							 #type_status# of <a href="http://arctos.database.museum/name/#taxsciname#">#idsciname#</a><cfif len(OCCURS_PAGE_NUMBER) gt 0>, page #OCCURS_PAGE_NUMBER#</cfif>
 							  in <a href="http://arctos.database.museum/publication/#PUBLICATION_ID#">#short_citation#</a>
 							 <cfif len(media_uri) gt 0>
@@ -459,6 +538,11 @@
 								media_type="#media_type#")>
 								<a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#mp#" class="smallMediaPreview"></a>
 							 </cfif>
+
+							---->
+
+
+
 						</div>
 					</cfloop>
 				</div>
