@@ -97,8 +97,6 @@
 						<td>#USERNAME#</td>
 						<td>#IPADDRESS#</td>
 						<td>#WHEN_DATE#</td>
-
-						http://arctos.database.museum/MediaSearch.cfm?action=search&relationships=shows%20cataloged_item&related_primary_key1=23181858
 					</tr>
 				</cfloop>
 			</table>
