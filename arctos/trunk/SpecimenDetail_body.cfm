@@ -517,7 +517,7 @@
 									<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
 									<cfset i=i+1>
 								</cfloop>
-								#thisSciName#
+
 
 
 
@@ -532,6 +532,10 @@
 
 
 						<div class="detailBlock">
+
+							 #type_status# of #thisSciName#
+							 <cfif len(OCCURS_PAGE_NUMBER) gt 0>, page #OCCURS_PAGE_NUMBER#</cfif>
+							in <a href="http://arctos.database.museum/publication/#PUBLICATION_ID#">#short_citation#</a>
 							<!----
 							<cfset thisSciName="#scientific_name#">
 								<cfloop query="thisTaxLinks">
@@ -542,8 +546,8 @@
 								#thisSciName#
 
 
-							 #type_status# of <a href="http://arctos.database.museum/name/#taxsciname#">#idsciname#</a><cfif len(OCCURS_PAGE_NUMBER) gt 0>, page #OCCURS_PAGE_NUMBER#</cfif>
-							  in <a href="http://arctos.database.museum/publication/#PUBLICATION_ID#">#short_citation#</a>
+							 #type_status# of <a href="http://arctos.database.museum/name/#taxsciname#">#idsciname#</a>
+
 							 <cfif len(media_uri) gt 0>
 							 <cfset mp = obj.getMediaPreview(
 								preview_uri="#preview_uri#",
