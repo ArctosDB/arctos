@@ -423,6 +423,7 @@
 						citation.PUBLICATION_ID,
 						type_status,
 						identification.scientific_name idsciname,
+						CITATION_REMARKS,
 						taxon_name.scientific_name taxsciname,
 						short_citation,
 						OCCURS_PAGE_NUMBER,
@@ -454,7 +455,8 @@
 						idsciname,
 						short_citation,
 						OCCURS_PAGE_NUMBER,
-						CITATION_ID
+						CITATION_ID,
+						CITATION_REMARKS
 					from
 						raw_citations
 					group by
@@ -463,7 +465,8 @@
 						idsciname,
 						short_citation,
 						OCCURS_PAGE_NUMBER,
-						CITATION_ID
+						CITATION_ID,
+						CITATION_REMARKS
 				</cfquery>
 				<div class="detailCell">
 					<div class="detailLabel">Citations</div>
@@ -492,6 +495,11 @@
 									media_type="#media_type#")>
 									<a href="/media/#media_id#?open" target="_blank"><img src="#mp#" class="smallMediaPreview"></a>
 							 </cfloop>
+							 <cfif len(CITATION_REMARKS) gt 0>
+								<div class="detailCellSmall">
+									#CITATION_REMARKS#
+								</div>
+							</cfif>
 						</div>
 					</cfloop>
 				</div>
