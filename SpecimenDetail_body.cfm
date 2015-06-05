@@ -428,7 +428,8 @@
 						OCCURS_PAGE_NUMBER,
 						preview_uri,
 						media_type,
-						media_uri
+						media_uri,
+						media.media_id
 					FROM
 						citation,
 						identification,
@@ -449,7 +450,6 @@
 
 
 
-				<cfdump var=#raw_citations#>
 
 				<cfquery name="citations" dbtype="query">
 					select
@@ -507,7 +507,6 @@
 							select distinct taxsciname from raw_citations where citation_id=#citation_id#
 						</cfquery>
 
-						<cfdump var=#thisTaxLinks#>
 
 
 
@@ -524,10 +523,9 @@
 						<cfquery name="thisPubsMedia" dbtype="query">
 							select distinct preview_uri,
 						media_type,
-						media_uri from raw_citations where citation_id=#citation_id#
+						media_uri,media_id from raw_citations where citation_id=#citation_id#
 						</cfquery>
 
-						<cfdump var=#thisPubsMedia#>
 
 
 
@@ -542,7 +540,7 @@
 								 <cfset mp = obj.getMediaPreview(
 									preview_uri="#preview_uri#",
 									media_type="#media_type#")>
-									<a href="/exit.cfm?target=#media_uri#" target="_blank"><img src="#mp#" class="smallMediaPreview"></a>
+									<a href="/media/#media_id?open" target="_blank"><img src="#mp#" class="smallMediaPreview"></a>
 								 </cfif>
 							 </cfloop>
 
