@@ -511,7 +511,7 @@
 
 
 
-<cfset thisSciName="#scientific_name#">
+<cfset thisSciName="#idsciname#">
 								<cfloop query="thisTaxLinks">
 									<cfset thisLink='<a href="/name/#taxsciname#" target="_blank">#taxsciname#</a>'>
 									<cfset thisSciName=#replace(thisSciName,taxsciname,thisLink)#>
