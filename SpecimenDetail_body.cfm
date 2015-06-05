@@ -450,6 +450,7 @@
 
 
 
+				<cfdump var=#raw_citations#>
 
 				<cfquery name="citations" dbtype="query">
 					select
@@ -507,6 +508,7 @@
 							select distinct taxsciname from raw_citations where citation_id=#citation_id#
 						</cfquery>
 
+						<cfdump var=#thisTaxLinks#>
 
 
 
@@ -526,6 +528,7 @@
 						media_uri,media_id from raw_citations where citation_id=#citation_id#
 						</cfquery>
 
+						<cfdump var=#thisPubsMedia#>
 
 
 
