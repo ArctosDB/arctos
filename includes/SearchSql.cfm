@@ -132,6 +132,7 @@
 	    upper(#session.flatTableName#.accession) LIKE '#ucase(anyid)#'
 	)">
 </cfif>
+
 <cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
 	<cfset mapurl = "#mapurl#&cataloged_item_type=#cataloged_item_type#">
 	<cfset basQual = "#basQual#  AND  #session.flatTableName#.cataloged_item_type='#cataloged_item_type#'" >
@@ -2136,3 +2137,16 @@
 </cfif>
 
 <cfinclude template="/includes/SearchSql_attributes.cfm">
+<!---------- SPECIAL NOTE: Archives may not be combined with anything else. This MUST be the last thing in the code ----->
+
+<p>
+	Important Note: Archives may not be combined with other search terms.
+</p>
+<cfif isdefined("archive_name") AND len(archive_name) gt 0>
+	<cfset mapurl = "archive_name=#archive_name#">
+	<cfset basJoin = " INNER JOIN archive_name ON
+		(#session.flatTableName#.guid = archive_name.guid)
+		INNER JOIN specimen_archive ON
+		(archive_name.archive_id = archive_id.guid)">
+	<cfset basQual = " archive_name='#lcase(archive_name)#'" >
+</cfif>
