@@ -594,6 +594,10 @@ function archiveSpecimens (){
 				queryformat : 'column'
 			},
 			function (r) {
+				
+				alert(r);
+				
+				/*
 				if(r!='success'){
 					alert(r);
 				} else {
@@ -606,6 +610,7 @@ function archiveSpecimens (){
 					
 					alert('Specimen Archive created.  \n' + url + '/archive/' + sn + '\n Find it in the My Stuff tab.');
 				}
+				*/
 			}
 		);
 }

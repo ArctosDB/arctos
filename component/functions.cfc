@@ -3655,7 +3655,6 @@
 		<cfreturn "You must create an account or log in to save searches.">
 	</cfif>
 	<cftry>
-		<cfset urlRoot=left(returnURL,find(".cfm", returnURL))>
 		<cftransaction>
 			<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select someRandomSequence.nextval nid from dual
@@ -3683,10 +3682,10 @@
 					from
 					#session.specsrchtab#
 			</cfquery>
+
 		</cftransaction>
 
 
-		<cfset msg="success">
 	<cfcatch>
 		<cfset msg="An error occured while saving your archive: ">
 		<cfif cfcatch.detail contains "IU_archive_archive_name">
