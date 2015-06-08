@@ -3683,7 +3683,7 @@
 					#session.specsrchtab#
 				)
 			</cfquery>
-			<cfset msg='spiffy'>
+			<cfset msg='success'>
 		</cftransaction>
 
 
