@@ -3681,6 +3681,7 @@
 					#id.nid#,collection_object_id,getGuidFromID(collection_object_id)
 					from
 					#session.specsrchtab#
+				)
 			</cfquery>
 
 		</cftransaction>
