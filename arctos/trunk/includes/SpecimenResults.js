@@ -204,6 +204,8 @@ function pickedTool(){
 		removeRows();
 	} else if (v=='saveSearch') {
 		saveSearch($("#ServerRootUrl").val() + '/SpecimenResults.cfm?' + $("#mapURL").val());
+	} else if (v=='archiveSpecimens') {
+		archiveSpecimens();
 	} else if (v=='download') {
 		openWindow('/SpecimenResultsDownload.cfm?tableName=' + $("#SpecSrchTab").val());
 	}
