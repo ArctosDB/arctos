@@ -585,7 +585,7 @@ function archiveSpecimens (){
 	
 	p="Archive this search results. NOTE: Archives may not be changed or deleted.";
 	p+="Type a name for the archive. Names must consist only of lower-case letters, numbers, dash (-), and underbar (_).";
-	sName=prompt(p, uniqid);
+	sName=prompt(p);
 	$.getJSON("/component/functions.cfc",
 			{
 				method : "archiveSpecimen",
