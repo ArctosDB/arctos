@@ -606,7 +606,6 @@ function archiveSpecimens (){
 					
 					alert('Specimen Archive created.  \n' + url + '/archive/' + sn + '\n Find it in the My Stuff tab.');
 				}
-				*/
 			}
 		);
 }
