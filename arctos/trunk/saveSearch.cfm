@@ -9,7 +9,7 @@
 		select user_id from cf_users where username='#session.username#'
 	</cfquery>
 	<cfif len(#me.user_id#) is 0>
-		<p>	
+		<p>
 			You must <a href="/login.cfm">log in</a> to use this feature.
 		</p>
 		<cfabort>
@@ -23,14 +23,14 @@
 		<input type="submit" value="Can It!" class="savBtn"
    					onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">
 		<input type="button" value="Nevermind...." class="qutBtn" onClick="self.close();"
-   					onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'">	
+   					onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'">
 	</form>
 	<script>
 		document.getElementById('srchName').focus();
 	</script>
 	<p>
 	<a href="saveSearch.cfm?action=manage">[ Manage ]</a>
-	
+
 </cfoutput>
 </cfif>
 <cfif #action# is "saveThis">
@@ -84,7 +84,36 @@
 <cfif hasCanned.recordcount is 0>
 	You may save searches from Specimen Results for later reference.
 <cfelse>
+<cfquery name="archive" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select * from archive_name where upper(creator)='#ucase(session.username)#'
+	order by archive_name
+</cfquery>
 
+<p>
+	Archives
+</p>
+<cfif archive.recordcount is 0>
+	<blockquote>
+		None available.
+	</blockquote>
+<cfelse>
+	<table border>
+		<tr>
+			<th>Archive Name</th>
+			<th>URL</th>
+			<th>Date</th>
+		</tr>
+		<cfloop query="archive">
+			<tr>
+				<td>#archive_name#</td>
+				<td>#application.serverRootURL#/archive/#archive_name#</td>
+				<td>#create_date#</td>
+			</tr>
+		</cfloop>
+	</table>
+</cfif>
+
+Saved Searches
 <table border>
 	<tr>
 		<td>&nbsp;</td>
