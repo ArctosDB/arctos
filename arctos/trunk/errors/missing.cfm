@@ -296,6 +296,56 @@
 			</cfcatch>
 		</cftry>
 	</cfoutput>
+<cfelseif listfindnocase(request.rdurl,'archive',"/")>
+    <cfoutput>
+		<cftry>
+		   <cfset gPos=listfindnocase(request.rdurl,"archive","/")>
+		   <cfset temp = listgetat(request.rdurl,gPos+1,"/")>
+
+		   <p>temp: #temp#</p>
+
+		   <!----
+	       <cfif listlen(request.rdurl,"/") gt 1>
+				<cfset sName = listgetat(request.rdurl,gPos+1,"/")>
+	            <cfset sName = listgetat(sName,1,"?&")>
+				<cfquery name="d" datasource="cf_dbuser">
+					select url from cf_canned_search where upper(search_name)='#ucase(sName)#'
+				</cfquery>
+               	<cfif d.recordcount is 0>
+					<cfquery name="d" datasource="cf_dbuser">
+						select url from cf_canned_search where upper(search_name)='#ucase(urldecode(sName))#'
+					</cfquery>
+				</cfif>
+				<cfif d.recordcount is 0>
+					<cfinclude template="/errors/404.cfm">
+					<cfabort>
+				</cfif>
+				<cfif d.url contains "#application.serverRootUrl#/SpecimenResults.cfm?">
+					<cfset mapurl=replace(d.url,"#application.serverRootUrl#/SpecimenResults.cfm?","","all")>
+					<cfloop list="#mapURL#" delimiters="&" index="i">
+						<cfset t=listgetat(i,1,"=")>
+						<cfset v=listgetat(i,2,"=")>
+						<cfset "#T#" = "#urldecode(v)#">
+					</cfloop>
+					<cfinclude template="/SpecimenResults.cfm">
+				<cfelseif left(d.url,7) is "http://">
+					Click to continue: <a href="#d.url#">#d.url#</a>
+				<cfelse>
+					If you are not redirected, please click this link: <a href="/#d.url#">#d.url#</a>
+					<script>
+						document.location='/#d.url#';
+					</script>
+				</cfif>
+			<cfelse>
+				<cfinclude template="/errors/404.cfm">
+			</cfif>
+			---->
+			<cfcatch>
+				<cfdump var=#cfcatch#>
+				<cfinclude template="/errors/404.cfm">
+			</cfcatch>
+		</cftry>
+	</cfoutput>
 <cfelseif cgi.SCRIPT_NAME contains "/DiGIR.php" or request.rdurl contains "/DiGIR.php" or request.rdurl contains "/digir">
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="http://129.237.201.204/arctosdigir/DiGIR.php">
