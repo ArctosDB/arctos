@@ -2144,11 +2144,8 @@
 </p>
 <cfif isdefined("archive_name") AND len(archive_name) gt 0>
 	<cfset mapurl = "archive_name=#archive_name#">
-	<cfset basJoin = " INNER JOIN archive_name ON
-		(#session.flatTableName#.guid = archive_name.guid)
-		INNER JOIN specimen_archive ON
-		(archive_name.archive_id = archive_id.guid)">
+	<cfset basJoin = " INNER JOIN specimen_archive ON (#session.flatTableName#.guid = specimen_archive.guid)
+		INNER JOIN archive_name ON 	(specimen_archive.archive_id = archive_name.archive_id)">
 	<cfset basQual = " and archive_name='#lcase(archive_name)#'" >
 </cfif>
-
 
