@@ -2139,9 +2139,9 @@
 <cfinclude template="/includes/SearchSql_attributes.cfm">
 <!---------- SPECIAL NOTE: Archives may not be combined with anything else. This MUST be the last thing in the code ----->
 
-<p>
-	Important Note: Archives may not be combined with other search terms.
-</p>
+<div class="importantNotification">
+	Important Note: Archives may not be combined with other search terms. Any additional terms will be ignored.
+</div>
 <cfif isdefined("archive_name") AND len(archive_name) gt 0>
 	<cfset mapurl = "archive_name=#archive_name#">
 	<cfset basJoin = " INNER JOIN specimen_archive ON (#session.flatTableName#.guid = specimen_archive.guid)
