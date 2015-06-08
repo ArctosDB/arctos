@@ -604,7 +604,7 @@ function archiveSpecimens (){
 					url = protocol + '//' + host;
 					
 					
-					alert('Specimen Archive created.  \n' + url + '/archive/' + sn + '\n Find it in the My Stuff tab.');
+					alert('Specimen Archive created.  \n' + url + '/archive/' + sName + '\n Find it in the My Stuff tab.');
 				}
 			}
 		);
