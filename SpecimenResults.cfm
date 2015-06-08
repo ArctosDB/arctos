@@ -413,6 +413,7 @@
 							</optgroup>
 							<optgroup label="Data Tools">
 								<option value="saveSearch">Save Search</option>
+								<option value="archiveSpecimens">Archive Results</option>
 								<option value="download">Download</option>
 							</optgroup>
 						</select>

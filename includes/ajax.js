@@ -575,6 +575,35 @@ function closeAnnotation() {
 	document.body.removeChild(theDiv);
 }
 
+function archiveSpecimens (){
+	p="Archive this search results. NOTE: Archives may not be changed or deleted.";
+	p+="Type a name for the archive. Names must consist only of lower-case letters, numbers, dash (-), and underbar (_).";
+	sName=prompt(p, uniqid);
+	$.getJSON("/component/functions.cfc",
+			{
+				method : "archiveSpecimen",
+				archive_name : sName,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				if(r!='success'){
+					alert(r);
+				} else {
+					
+					pathArray = window.location.href.split( '/' );
+					protocol = pathArray[0];
+					host = pathArray[2];
+					url = protocol + '//' + host;
+					
+					
+					alert('Specimen Archive created.  \n' + url + '/archive/' + sn + '\n Find it in the My Stuff tab.');
+				}
+			}
+		);
+}
+
+
 function saveSearch(returnURL,errm){
 	var uniqid,sName,sn,ru,p;
 	uniqid = Date.now();

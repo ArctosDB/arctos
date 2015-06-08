@@ -3647,6 +3647,62 @@
 	</cftransaction>
 	</cfoutput>
 </cffunction>
+
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="archiveSpecimen" access="remote">
+	<cfargument name="archive_name" type="string" required="yes">
+	<cfif not isdefined("session.username") or len(session.username) is 0>
+		<cfreturn "You must create an account or log in to save searches.">
+	</cfif>
+	<cftry>
+		<cfset urlRoot=left(returnURL,find(".cfm", returnURL))>
+		<cftransaction>
+			<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select someRandomSequence.nextval nid from dual
+			</cfquery>
+			<cfquery name="na" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into archive_name (
+					archive_id,
+					archive_name,
+					creator,
+					create_date
+				) values (
+					#id.nid#,
+					'#archive_name#',
+					'#session.username#',
+					sysdate
+				)
+			</cfquery>
+			<cfquery name="nas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into specimen_archive(
+					archive_id,
+					collection_object_id,
+					guid
+				)( select
+					#id.nid#,collection_object_id,getGuidFromID(collection_object_id)
+					from
+					#session.specsrchtab#
+			</cfquery>
+		</cftransaction>
+
+
+		<cfset msg="success">
+	<cfcatch>
+		<cfset msg="An error occured while saving your archive: ">
+		<cfif cfcatch.detail contains "IU_archive_archive_name">
+			<cfset msg=msg & "Archive Name '#srchName#' is already in use; please try another name.">
+		<cfelse>
+			<cfset msg=msg & "#cfcatch.message# #cfcatch.detail# ">
+			<cfif isdefined("cfcatch.sql")>
+				<cfset msg=msg & "#cfcatch.message# #cfcatch.detail# ; " & cfcatch.sql>
+			</cfif>
+		</cfif>
+		<cf_logError subject="error caught: saveSearch" attributeCollection=#cfcatch#>
+	</cfcatch>
+	</cftry>
+	<cfreturn msg>
+</cffunction>
+
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="saveSearch" access="remote">
 	<cfargument name="returnURL" type="string" required="yes">
