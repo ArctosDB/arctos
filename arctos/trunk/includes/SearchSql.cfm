@@ -2148,5 +2148,7 @@
 		(#session.flatTableName#.guid = archive_name.guid)
 		INNER JOIN specimen_archive ON
 		(archive_name.archive_id = archive_id.guid)">
-	<cfset basQual = " archive_name='#lcase(archive_name)#'" >
+	<cfset basQual = " and archive_name='#lcase(archive_name)#'" >
 </cfif>
+
+
