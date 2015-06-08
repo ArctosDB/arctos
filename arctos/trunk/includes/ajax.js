@@ -594,10 +594,6 @@ function archiveSpecimens (){
 				queryformat : 'column'
 			},
 			function (r) {
-				
-				alert(r);
-				
-				/*
 				if(r!='success'){
 					alert(r);
 				} else {
