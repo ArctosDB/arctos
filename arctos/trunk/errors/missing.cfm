@@ -300,10 +300,8 @@
     <cfoutput>
 		<cftry>
 		   <cfset gPos=listfindnocase(request.rdurl,"archive","/")>
-		   <cfset temp = listgetat(request.rdurl,gPos+1,"/")>
-
-		   <p>temp: #temp#</p>
-
+		   <cfset archive_name = listgetat(request.rdurl,gPos+1,"/")>
+			<cfinclude template="/SpecimenResults.cfm">
 		   <!----
 	       <cfif listlen(request.rdurl,"/") gt 1>
 				<cfset sName = listgetat(request.rdurl,gPos+1,"/")>
