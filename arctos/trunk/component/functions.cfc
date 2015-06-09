@@ -3660,7 +3660,7 @@
 			select count(*) c from #session.specsrchtab# where collection_object_id in (
 				select collection_object_id from coll_object_encumbrance,encumbrance where
 				coll_object_encumbrance.encumbrance_id=encumbrance.encumbrance_id and
-				encumbrance='mask record')
+				ENCUMBRANCE_ACTION='mask record')
 		</cfquery>
 
 		<cfif isenc.c gt 0>
