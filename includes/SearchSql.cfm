@@ -2165,6 +2165,7 @@
 		<cfif archive_check.is_locked eq 0>
 			Important Note: You are viewing an unlocked, or unfinished, Archive.
 			<cfif archive_check.creator is session.username and session.roles contains "manage_collection">
+				<cfoutput>
 				<p>
 					<span class="likeLink" onclick="lockArchive('#archive_name#')">Click here to lock</span>.
 					<p>
@@ -2174,6 +2175,7 @@
 						</strong>
 					</p>
 				</p>
+				</cfoutput>
 			</cfif>
 		</cfif>
 	</div>

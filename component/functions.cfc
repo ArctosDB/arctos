@@ -3660,8 +3660,6 @@
 				update archive_name set is_locked=1 where archive_name='#archive_name#'
 			</cfquery>
 			<cfoutput>
-
-				hi wtf #archive_name#
 				<cfset msg='Archive #archive_name# successfully locked.'>
 			</cfoutput>
 	<cfcatch>
