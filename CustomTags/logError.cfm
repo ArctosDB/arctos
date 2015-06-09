@@ -172,7 +172,7 @@
 	<a href="http://whatismyipaddress.com/ip/#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
 	<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
 
-	<cfif isdefined("exception.requestingsubnet") and len(exception.requestingsubnet gt 0>
+	<cfif isdefined("exception.requestingsubnet") and len(exception.requestingsubnet) gt 0>
 		<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=blockSubnet&subnet=#exception.requestingsubnet#">[ blacklist SUBNET #exception.requestingsubnet# ]</a>
 	</cfif>
 
