@@ -1,24 +1,24 @@
-<!--- 
+<!---
 	INCLUDE this form, and this form alone, to blacklist IP addresses.
-	
+
 	If ip/subnet already exists in application.blacklist/ application.subnet_blacklist, then log it, show the "justify yourself" form, and abort
-			
+
 	Never autoblacklist or re-auto-blacklist subnets, so mostly ignore that here
-	
+
 	If IP is new, add to blacklist
-	
-	If IP is a repeat customer, update and refresh	
+
+	If IP is a repeat customer, update and refresh
 
 	Possibilities:
-	
-		
+
+
 		new ip from allowed subnet
 			insert into application.blacklist
 			show the "justify yourself" form
 		existing IP from allowed subnet, expired or otherwise
 		ip
-		
-		
+
+
 ---->
 <script>
 	try{document.getElementById('loading').style.display='none';}catch(e){}
@@ -38,36 +38,19 @@
 	<cfabort>
 </cfif>
 
-<cfif 
-	isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0 and 
+<cfif
+	isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0 and
 	isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0 and
 	CGI.HTTP_X_Forwarded_For neq CGI.Remote_Addr and
 	 CGI.Remote_Addr neq "129.114.52.171">
 	 <!---- 129.114.52.171 is Arctos' IP ---->
 	<cfset pa="PROXY ALERT: ">
 <cfelse>
-	<cfset pa="">	
+	<cfset pa="">
 </cfif>
 
 
 <cfif not isdefined("bl_reason")>
-	<cfset bl_reason="">
-</cfif>
-<!--- see if we can find a country ---->
-<cftry>
-	<cfhttp url="http://api.hostip.info/get_html.php?ip=#request.ipaddress#" timeout="5"></cfhttp>
-	<cfdump var=#cfhttp#>
-	
-	<cfif cfhttp.fileContent contains
-			
-			Country: UNITED STATES (US)
-
-<cfcatch>
-		<cfset bl_reason=bl_reason & "; country lookup failure @autoblacklist">
-</cfcatch>
-</cftry>
-
-<cfif len(bl_reason) is 0>
 	<cfset bl_reason="unknown">
 </cfif>
 <!--- sometimes already-banned IPs end up here due to click-flooding etc. ---->
