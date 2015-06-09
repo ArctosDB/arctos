@@ -609,7 +609,20 @@ function archiveSpecimens (){
 			}
 		);
 }
-
+function changeCollection (lcn) {
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changeexclusive_collection_id",
+			tgt : '',
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (d) {
+  			document.location='#request.rdurl#';
+  			//console.log(lcn);
+		}
+	);
+}
 
 function saveSearch(returnURL,errm){
 	var uniqid,sName,sn,ru,p;

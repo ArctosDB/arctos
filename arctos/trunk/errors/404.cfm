@@ -59,6 +59,7 @@
 		var GOOG_FIXURL_SITE = 'http://arctos.database.museum/';
 	</script>
 	<script type="text/javascript" src="http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js"></script>
+	<!----
 	<script type="text/javascript" language="javascript">
 		function changeCollection () {
 			jQuery.getJSON("/component/functions.cfc",
@@ -75,6 +76,7 @@
 			);
 		}
 	</script>
+	---->
 	<cfset isGuid=false>
 	<cfif len(request.rdurl) gt 0 and request.rdurl contains "guid">
 		<cfset isGuid=true>
@@ -88,7 +90,7 @@
 				</cfif>
 				You are accessing Arctos through the #yourcollid.portal_name# portal, and cannot access specimen data in
 				other collections. You may
-				<span class="likeLink" onclick="changeCollection()">try again in the public portal</span>.
+				<span class="likeLink" onclick="changeCollection('/#request.rdurl#')">try again in the public portal</span>.
 			</p>
 		</cfif>
 	</cfif>
