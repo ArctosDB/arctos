@@ -174,6 +174,8 @@
 
 	<cfif isdefined("exception.requestingsubnet") and len(exception.requestingsubnet) gt 0>
 		<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=blockSubnet&subnet=#exception.requestingsubnet#">[ blacklist SUBNET #exception.requestingsubnet# ]</a>
+	<cfelse>
+		nope requestingsubnet
 	</cfif>
 
 
