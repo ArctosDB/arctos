@@ -3659,8 +3659,9 @@
 			<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update archive_name set is_locked=1 where archive_name='#archive_name#'
 			</cfquery>
-			<cfset msg='Archive #archive_name# successfully locked.'>
-
+			<cfoutput>
+				<cfset msg='Archive #archive_name# successfully locked.'>
+			</cfoutput>
 	<cfcatch>
 		<cfset msg="An error occured while locking the archive: ">
 		<cfset msg=msg & "#cfcatch.message# #cfcatch.detail# ">
