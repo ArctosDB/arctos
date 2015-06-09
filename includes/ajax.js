@@ -609,6 +609,21 @@ function archiveSpecimens (){
 			}
 		);
 }
+function lockArchive(archivename){
+	jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "lockArchive",
+				archive_name : archivename,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (d) {
+	  			alert(d);
+	  			//console.log(lcn);
+			}
+		);
+	
+}
 function changeCollection (lcn) {
 	jQuery.getJSON("/component/functions.cfc",
 		{

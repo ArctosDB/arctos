@@ -2164,15 +2164,17 @@
 		</cfif>
 		<cfif archive_check.is_locked eq 0>
 			Important Note: You are viewing an unlocked, or unfinished, Archive.
-			<cfif archive_check.creator is session.username>
+			<cfif archive_check.creator is session.username and session.roles contains "manage_collection">
 				<p>
-					Click here to lock. <strong>Locked Archives may not be modified for any purpose.</strong>
+					<span class="likeLink" onclick="lockArchive('#archive_name#')">Click here to lock</span>.
+					<p>
+						<strong>
+							Locked Archives may not be modified for any purpose.
+							<br>Specimens in locked archives may not be encumbered or deleted.
+						</strong>
+					</p>
 				</p>
 			</cfif>
-
-
-
-
 		</cfif>
 	</div>
 	<cfset mapurl = "archive_name=#archive_name#">

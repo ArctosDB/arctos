@@ -3648,6 +3648,32 @@
 	</cfoutput>
 </cffunction>
 
+function (archivename){
+
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="lockArchive" access="remote">
+	<cfargument name="archive_name" type="string" required="yes">
+	<cfif not isdefined("session.username") or len(session.username) is 0 or session.roles does not contain "manage_collection">
+		<cfreturn "You do not have permission to lock.">
+	</cfif>
+	<cftry>
+		<!--- do not insert encumbered ---->
+
+			<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update archive_name set is_locked=1 where archive_name='#archive_name#'
+			</cfquery>
+			<cfset msg='Archive #archive_name# successfully locked.'>
+
+	<cfcatch>
+		<cfset msg="An error occured while locking the archive: ">
+		<cfset msg=msg & "#cfcatch.message# #cfcatch.detail# ">
+		<cfif isdefined("cfcatch.sql")>
+			<cfset msg=msg & "#cfcatch.message# #cfcatch.detail# ; " & cfcatch.sql>
+		</cfif>
+	</cfcatch>
+	</cftry>
+	<cfreturn msg>
+</cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="archiveSpecimen" access="remote">
 	<cfargument name="archive_name" type="string" required="yes">
@@ -3656,16 +3682,6 @@
 	</cfif>
 	<cftry>
 		<!--- do not insert encumbered ---->
-		<cfquery name="isenc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) c from #session.specsrchtab# where collection_object_id in (
-				select collection_object_id from coll_object_encumbrance,encumbrance where
-				coll_object_encumbrance.encumbrance_id=encumbrance.encumbrance_id and
-				ENCUMBRANCE_ACTION='mask record')
-		</cfquery>
-
-		<cfif isenc.c gt 0>
-			<cfreturn 'encumbered specimens may not be archived'>
-		</cfif>
 
 		<cftransaction>
 			<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
