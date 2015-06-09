@@ -91,7 +91,7 @@
 	<cfif isdefined("archive_record_count") and archive_record_count is not trc.c>
 		<div class="importantNotification">
 			Caution: You are not seeing all of the Archive. You may not have access to relevant collections.
-			You may <span class="likeLink" onclick="changeCollection('/archive/#archive_name#)">try again in the public portal</span>.
+			You may <span class="likeLink" onclick="changeCollection('/archive/#archive_name#')">try again in the public portal</span>.
 			You may need to first log out if you have set collection preferences. Use the contact link in the footer for additional
 			assistance.
 		</div>
