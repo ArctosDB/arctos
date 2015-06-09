@@ -36,13 +36,6 @@
 	<cfset f = CreateObject("component","component.utilities")>
 	<!--- pass in the URL to ensure the error side of the checker fires ---->
 	<cfset x=f.checkRequest(request.rdurl)>
-
-xxxxxx
-	<cfdump var=#x#>
-
-
-
-
 	<cfset fourohthree="dll,png,crossdomain,xml">
 	<cfset browsergarbage="apple-touch-icon,browserconfig">
 	<cfloop list="#request.rdurl#" delimiters="./&+()" index="i">
