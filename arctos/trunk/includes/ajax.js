@@ -618,7 +618,7 @@ function changeCollection (lcn) {
 			queryformat : 'column'
 		},
 		function (d) {
-  			document.location='#request.rdurl#';
+  			document.location=lcn;
   			//console.log(lcn);
 		}
 	);
