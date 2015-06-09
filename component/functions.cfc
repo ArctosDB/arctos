@@ -3657,12 +3657,13 @@
 	<cftry>
 		<!--- do not insert encumbered ---->
 		<cfquery name="isenc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select count(*) from #session.specsrchtab# where collection_object_id in (
+			select count(*) c from #session.specsrchtab# where collection_object_id in (
 				select collection_object_id from coll_object_encumbrance,encumbrance where
 				coll_object_encumbrance.encumbrance_id=encumbrance.encumbrance_id and
 				encumbrance='mask record')
 		</cfquery>
-		<cfif isenc.recordcount gt 0>
+
+		<cfif isenc.c gt 0>
 			<cfreturn 'encumbered specimens may not be archived'>
 		</cfif>
 
