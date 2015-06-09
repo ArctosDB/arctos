@@ -156,10 +156,28 @@
 	<cfset logdata=logdata & "<#key#>#replace(replace(exception[key],'=','[EQUALS]','all'),'&','[AND]','all')#</#key#>">
 </cfloop>
 <cfset logdata=logdata & "</logEntry>">
+<cftry>
+	<cfhttp url="http://api.hostip.info/get_html.php?ip=#exception.ipaddress#" timeout="5"></cfhttp>
+	<cfset ipinfo=cfhttp.fileContent>
+<cfcatch><cfset ipinfo='ip info lookup failed'></cfcatch>
+</cftry>
+
+
+
 <cffile action="append" file="#Application.webDirectory#/log/#theLogFile#" output="#logdata#">
 <cfmail subject="#exception.subject#" to="#Application.LogEmail#" from="logs@#application.fromEmail#" type="html">
+	<br>
+	#ipinfo#
+	<br>
 	<a href="http://whatismyipaddress.com/ip/#exception.ipaddress#">[ lookup #exception.ipaddress# ]</a>
 	<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#exception.ipaddress#">[ blacklist #exception.ipaddress# ]</a>
+
+	<cfif isdefined("exception.requestingsubnet") and len(exception.requestingsubnet gt 0>
+		<br><a href="http://arctos.database.museum/Admin/blacklist.cfm?action=blockSubnet&subnet=#exception.requestingsubnet#">[ blacklist SUBNET #exception.requestingsubnet# ]</a>
+	</cfif>
+
+
+
 	<cfif structKeyExists(exception,"username")>
 		<br>username: #exception.username#
 	</cfif>

@@ -48,7 +48,26 @@
 <cfelse>
 	<cfset pa="">	
 </cfif>
+
+
 <cfif not isdefined("bl_reason")>
+	<cfset bl_reason="">
+</cfif>
+<!--- see if we can find a country ---->
+<cftry>
+	<cfhttp url="http://api.hostip.info/get_html.php?ip=#request.ipaddress#" timeout="5"></cfhttp>
+	<cfdump var=#cfhttp#>
+	
+	<cfif cfhttp.fileContent contains
+			
+			Country: UNITED STATES (US)
+
+<cfcatch>
+		<cfset bl_reason=bl_reason & "; country lookup failure @autoblacklist">
+</cfcatch>
+</cftry>
+
+<cfif len(bl_reason) is 0>
 	<cfset bl_reason="unknown">
 </cfif>
 <!--- sometimes already-banned IPs end up here due to click-flooding etc. ---->
