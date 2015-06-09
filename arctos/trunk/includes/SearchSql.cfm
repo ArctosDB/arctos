@@ -2153,7 +2153,7 @@
 			archive_name,
 			specimen_archive
 		where
-			archive_name.archive_id=specimen_archive.archive_id(*)
+			archive_name.archive_id=specimen_archive.archive_id (+)
 		group by is_locked,creator
 	</cfquery>
 	<cfset archive_record_count=archive_check.c>
@@ -2163,16 +2163,16 @@
 			any additional terms will be ignored.
 		</cfif>
 		<cfif archive_check.is_locked eq 0>
-			Important Note: You are viewing an unlocked, or unfinished, Archive. 
+			Important Note: You are viewing an unlocked, or unfinished, Archive.
 			<cfif archive_check.creator is session.username>
 				<p>
 					Click here to lock. <strong>Locked Archives may not be modified for any purpose.</strong>
 				</p>
 			</cfif>
-			
-			
-			
-			
+
+
+
+
 		</cfif>
 	</div>
 	<cfset mapurl = "archive_name=#archive_name#">
