@@ -2156,6 +2156,9 @@
 			archive_name.archive_id=specimen_archive.archive_id (+)
 		group by is_locked,creator
 	</cfquery>
+
+
+	<cfump var=#archive_check#>
 	<cfset archive_record_count=archive_check.c>
 	<div class="importantNotification">
 		<cfif archive_check.is_locked eq 1>
