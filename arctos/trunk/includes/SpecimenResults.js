@@ -283,7 +283,7 @@ $("#customizeButton").live('click', function(e){
     });
 });
 function closeCustom() {
-	var murl='SpecimenResults.cfm?' + $("#mapURL").val();
+	var murl='/SpecimenResults.cfm?' + $("#mapURL").val();
 	window.location=murl;
 }
 function getPostLoadJunk(){
