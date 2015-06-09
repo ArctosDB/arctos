@@ -3647,9 +3647,6 @@
 	</cftransaction>
 	</cfoutput>
 </cffunction>
-
-function (archivename){
-
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="lockArchive" access="remote">
 	<cfargument name="archive_name" type="string" required="yes">
