@@ -2153,6 +2153,7 @@
 			archive_name,
 			specimen_archive
 		where
+			archive_name='#archive_name#' and
 			archive_name.archive_id=specimen_archive.archive_id (+)
 		group by is_locked,creator
 	</cfquery>
