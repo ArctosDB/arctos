@@ -2158,7 +2158,7 @@
 	</cfquery>
 
 
-	<cfump var=#archive_check#>
+	<cfdump var=#archive_check#>
 	<cfset archive_record_count=archive_check.c>
 	<div class="importantNotification">
 		<cfif archive_check.is_locked eq 1>
