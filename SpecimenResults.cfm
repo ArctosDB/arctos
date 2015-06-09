@@ -88,6 +88,14 @@
 	<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from #session.SpecSrchTab#
 	</cfquery>
+	<cfif isdefined("archive_record_count") and archive_record_count is not trc.c>
+		<div class="importantNotification">
+			Caution: You are not seeing all of the Archive. You may not have access to relevant collections.
+			You may <span class="likeLink" onclick="changeCollection('/archive/#archive_name#)">try again in the public portal</span>.
+			You may need to first log out if you have set collection preferences. Use the contact link in the footer for additional
+			assistance.
+		</div>
+	</cfif>
 	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#mapurl#||#session.resultColumnList#||#trc.c#||#request.uuid#">
 	<cfthread name="log#request.uuid#" action="run" priority="LOW" loginfo="#loginfo#">
 		<cffile action="append" file="#Application.webDirectory#/log/querylog.txt" output="#loginfo#">

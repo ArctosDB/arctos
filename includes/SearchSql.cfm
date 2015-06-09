@@ -2137,12 +2137,44 @@
 </cfif>
 
 <cfinclude template="/includes/SearchSql_attributes.cfm">
+
+
+
 <!---------- SPECIAL NOTE: Archives may not be combined with anything else. This MUST be the last thing in the code ----->
 
-<div class="importantNotification">
-	Important Note: Archives may not be combined with other search terms. Any additional terms will be ignored.
-</div>
 <cfif isdefined("archive_name") AND len(archive_name) gt 0>
+
+	<cfquery name="archive_check" datasource="uam_god">
+		select
+			is_locked,
+			creator,
+			count(*) c
+		from
+			archive_name,
+			specimen_archive
+		where
+			archive_name.archive_id=specimen_archive.archive_id(*)
+		group by is_locked,creator
+	</cfquery>
+	<cfset archive_record_count=archive_check.c>
+	<div class="importantNotification">
+		<cfif archive_check.is_locked eq 1>
+			Important Note: You are viewing a locked Archive. Archives may not be combined with other search terms;
+			any additional terms will be ignored.
+		</cfif>
+		<cfif archive_check.is_locked eq 0>
+			Important Note: You are viewing an unlocked, or unfinished, Archive. 
+			<cfif archive_check.creator is session.username>
+				<p>
+					Click here to lock. <strong>Locked Archives may not be modified for any purpose.</strong>
+				</p>
+			</cfif>
+			
+			
+			
+			
+		</cfif>
+	</div>
 	<cfset mapurl = "archive_name=#archive_name#">
 	<cfset basJoin = " INNER JOIN specimen_archive ON (#session.flatTableName#.guid = specimen_archive.guid)
 		INNER JOIN archive_name ON 	(specimen_archive.archive_id = archive_name.archive_id)">
