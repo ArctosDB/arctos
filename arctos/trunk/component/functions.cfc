@@ -3735,6 +3735,10 @@
 
 
 	<cfcatch>
+
+		<cfdump var=#cfcatch#>
+
+
 		<cfset msg="An error occured while saving your archive: ">
 		<cfif cfcatch.detail contains "IU_archive_archive_name">
 			<cfset msg=msg & "Archive Name '#archive_name#' is already in use; please try another name.">
