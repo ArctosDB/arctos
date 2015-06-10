@@ -404,7 +404,21 @@
 					</cfloop>
 				</cfif>
 					<td>
-						
+
+
+
+<button id="opener">open the dialog</button>
+<div id="dialog" title="Dialog Title">I'm a dialog</div>
+
+<script>
+$( "##dialog" ).dialog({ autoOpen: false });
+$( "##opener" ).click(function() {
+  $( "##dialog" ).dialog( "open" );
+});
+</script>
+
+
+
 						<div id="clicktools">stuff, yo</div>
 						<select name="usertools" id="usertools" onchange="pickedTool()">
 							<option value="">Tools: Map, Customize, or Download</option>
