@@ -3695,13 +3695,6 @@
 
 				<cfelse>
 
-				<!----
-				CREATE UNIQUE INDEX IU_spec_archive_arcidcoidguid ON specimen_archive (archive_id,collection_object_id,guid) TABLESPACE UAM_IDX_1;
-
-
-
----->
-					<cfset msg="appending.....">
 					<cfquery name="nas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert /*+ IGNORE_ROW_ON_DUPKEY_INDEX(specimen_archive,IU_spec_archive_arcidcoidguid) */
 						into specimen_archive(
@@ -3714,7 +3707,8 @@
 							#session.specsrchtab#
 						)
 					</cfquery>
-
+					<cfset msg="These results have been appended onto Archive #thisName#. Find it under MyStuff/SavedSearches, or visit
+					 \n #application.serverRootURL#/archive/#thisName#">
 
 				</cfif>
 			<cfelse>
