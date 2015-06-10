@@ -283,8 +283,11 @@ $("#customizeButton").live('click', function(e){
     });
 });
 function closeCustom() {
-	var murl='/SpecimenResults.cfm?' + $("#mapURL").val();
-	window.location=murl;
+	
+	console.log('ello guvna!');
+	
+	//var murl='/SpecimenResults.cfm?' + $("#mapURL").val();
+	//window.location=murl;
 }
 function getPostLoadJunk(){
 	var coidlistAR=new Array();
