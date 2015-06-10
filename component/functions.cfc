@@ -3680,12 +3680,9 @@
 	</cfif>
 
 
-	<cfdump var=#archive_name#>
 	<cftry>
 		<cftransaction>
 			<cfif left(archive_name,1) is "+">
-
-			yep
 				<!--- append to existing ---->
 				<cfset thisName=trim(mid(archive_name,2,len(archive_name)))>
 
@@ -3698,11 +3695,31 @@
 						If you are not trying to append to an existing Archive, lose the +">
 
 				<cfelse>
+
+				<!----
+				CREATE UNIQUE INDEX IU_spec_archive_arcidcoidguid ON specimen_archive (archive_id,collection_object_id,guid) TABLESPACE UAM_IDX_1;
+
+ /*+ IGNORE_ROW_ON_DUPKEY_INDEX(specimen_archive,IU_OIDNUM_ID_TYP_DISP_REFS) */
+
+---->
 					<cfset msg="appending.....">
+					<cfquery name="nas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert
+						into specimen_archive(
+							archive_id,
+							collection_object_id,
+							guid
+						)( select
+							#id.archive_id#,collection_object_id,getGuidFromID(collection_object_id)
+						from
+							#session.specsrchtab#
+						)
+					</cfquery>
+
+
 				</cfif>
 			<cfelse>
 
-			nope
 				<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select someRandomSequence.nextval nid from dual
 				</cfquery>
@@ -3730,7 +3747,7 @@
 						#session.specsrchtab#
 					)
 				</cfquery>
-							<cfset msg='success for #archive_name# @ #id.nid#'>
+				<cfset msg='success for #archive_name# @ #id.nid#'>
 
 			</cfif>
 
@@ -3738,8 +3755,6 @@
 
 
 	<cfcatch>
-
-		<cfdump var=#cfcatch#>
 
 
 		<cfset msg="An error occured while saving your archive: ">
