@@ -3706,20 +3706,27 @@
 					ugh, whatever, do something else...
 				--->
 				<cfquery name="nas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert /*+ IGNORE_ROW_ON_DUPKEY_INDEX(specimen_archive,IU_spec_archive_arcidcoidguid) */
+					insert
 					into specimen_archive(
 						archive_id,
 						collection_object_id,
 						guid
 					)( select
-						#id.archive_id#,collection_object_id,getGuidFromID(collection_object_id)
+						#id.archive_id#,
+						collection_object_id,
+						getGuidFromID(collection_object_id)
 					from
 						#session.specsrchtab#
-					where not exists (select collection_object_id from specimen_archive where archive_id=#id.archive_id#)
+						where not exists (
+							select
+								'x'
+							from
+								specimen_archive
+							where
+								archive_id=#id.archive_id# and
+								specimen_archive.collection_object_id=#session.specsrchtab#.collection_object_id
+						)
 					)
-
-
-
 				</cfquery>
 				<cfset msg="These results have been appended onto Archive #thisName#. Find it under the MyStuff/SavedSearches tab, or visit">
 				<cfset msg=msg & chr(10) & " #application.serverRootURL#/archive/#thisName#">
