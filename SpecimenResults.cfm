@@ -403,8 +403,6 @@
 					</cfloop>
 				</cfif>
 					<td>
-
-
 						<select name="usertools" id="usertools" onchange="pickedTool()">
 							<option value="">Tools: Map, Customize, or Download</option>
 							<cfif willmap.recordcount gt 0>
@@ -428,7 +426,6 @@
 								<option value="download">Download</option>
 							</optgroup>
 						</select>
-
 					</td>
 				<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
 					<td nowrap="nowrap">
