@@ -3678,6 +3678,8 @@
 	<cfif not isdefined("session.username") or len(session.username) is 0>
 		<cfreturn "You must create an account or log in to save searches.">
 	</cfif>
+
+	<cfreturn left(archive_name,1)>
 	<cftry>
 		<!--- do not insert encumbered ---->
 
