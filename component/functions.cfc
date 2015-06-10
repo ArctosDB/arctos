@@ -3728,9 +3728,10 @@
 						#session.specsrchtab#
 					)
 				</cfquery>
+							<cfset msg='success for #archive_name# @ #id.nid#'>
+
 			</cfif>
 
-			<cfset msg='success for #archive_name# @ #id.nid#'>
 		</cftransaction>
 
 
