@@ -212,7 +212,7 @@ function pickedTool(){
 	}
 	$("#usertools").val('');
 }
-
+/*
 function openCustomize(){
 	var guts = "/info/SpecimenResultsPrefs.cfm";
     $("<div class='popupDialog'><img src='/images/indicator.gif'></div>")
@@ -237,6 +237,7 @@ function openCustomize(){
     });
 	
 }
+*/
 function resizeMap(s){
 	if (s=='nomap') {
 		$("#srmapctrls-nomap").show();
