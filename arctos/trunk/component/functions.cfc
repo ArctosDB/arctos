@@ -3727,7 +3727,7 @@
 				</cfquery>
 			</cfif>
 
-			<cfset msg='success'>
+			<cfset msg='success for #archive_name# @ #id.nid#'>
 		</cftransaction>
 
 
