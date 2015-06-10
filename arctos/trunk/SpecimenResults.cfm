@@ -407,12 +407,12 @@
 
 
 
-<button id="opener">open the dialog</button>
+<button id="o_srurstools">open the dialog</button>
 <div id="srurstools" title="Dialog Title">I'm a dialog</div>
 
 <script>
 $( "##srurstools" ).dialog({ autoOpen: false });
-$( "##opener" ).click(function() {
+$( "##o_srurstools" ).click(function() {
   $( "##srurstools" ).dialog( "open" );
 });
 </script>
