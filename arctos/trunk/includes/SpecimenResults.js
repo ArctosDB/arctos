@@ -189,6 +189,8 @@ function openWindow(t){
 	}
 	
 }
+
+
 function pickedTool(){	
 	var v;
 	v=$("#usertools").val();
@@ -203,14 +205,9 @@ function pickedTool(){
 	} else if (v=='removeRows') {
 		removeRows();
 	} else if (v=='saveSearch') {
-		//saveSearch($("#ServerRootUrl").val() + '/SpecimenResults.cfm?' + $("#mapURL").val());
-		
-		$( "#srurstools" ).dialog( "open" );
-		
-	
-	//} else if (v=='archiveSpecimens') {
-	//	console.log('going archiveSpecimens');
-	//	archiveSpecimens();
+		saveSearch($("#ServerRootUrl").val() + '/SpecimenResults.cfm?' + $("#mapURL").val());	
+	} else if (v=='archiveSpecimens') {
+		archiveSpecimens();
 	} else if (v=='download') {
 		openWindow('/SpecimenResultsDownload.cfm?tableName=' + $("#SpecSrchTab").val());
 	}
