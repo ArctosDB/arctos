@@ -3707,8 +3707,8 @@
 							#session.specsrchtab#
 						)
 					</cfquery>
-					<cfset msg="These results have been appended onto Archive #thisName#. Find it under MyStuff/SavedSearches, or visit
-					 \n #application.serverRootURL#/archive/#thisName#">
+					<cfset msg="These results have been appended onto Archive #thisName#. Find it under MyStuff/SavedSearches, or visit">
+					<cfset msg=msg & "\n #application.serverRootURL#/archive/#thisName#">
 
 				</cfif>
 			<cfelse>
