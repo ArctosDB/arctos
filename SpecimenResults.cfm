@@ -90,8 +90,8 @@
 	</cfquery>
 	<cfif isdefined("archive_record_count") and archive_record_count is not trc.c>
 		<div class="importantNotification">
-			Caution: You are not seeing all of the Archive. If the Archive is not locked, you may need to remove search terms.
-			You may not have access to relevant collections; log out, adjust your collection preferences, or
+			Caution: You are not seeing all of the Archive. If that is not intended, remove search terms, log out, adjust your
+			collection preferences, or
 			<span class="likeLink" onclick="changeCollection('/archive/#archive_name#')">try again in the public portal</span>.
 			Use the contact link in the footer for additional assistance.
 		</div>
