@@ -2157,9 +2157,6 @@
 			archive_name.archive_id=specimen_archive.archive_id (+)
 		group by is_locked,creator
 	</cfquery>
-
-
-	<cfdump var=#archive_check#>
 	<cfset archive_record_count=archive_check.c>
 	<div class="importantNotification">
 		<cfif archive_check.is_locked eq 1>
@@ -2184,7 +2181,7 @@
 					<p>
 						<strong>
 							READ THIS!
-							<br>Locked Archives may not be unlocked modified for any purpose.
+							<br>Locked Archives may not be unlocked or modified for any purpose.
 							<br>Specimens in locked archives may not be encumbered or deleted.
 							<br>Clicking the button below invokes a long-term curatorial committment.
 						</strong>

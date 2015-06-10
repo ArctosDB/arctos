@@ -519,14 +519,7 @@ function closeAnnotation() {
 }
 
 function archiveSpecimens (){
-	
-	
-	console.log('at archiveSpecimens');
-
-	
-	
-	
-	p="Archive this search results. NOTE: Archives may not be changed or deleted.";
+	p="Archive this search RESULTS. NOTE: Use Save Search to save CRITERIA.";
 	p+="Type a name for the archive. Names must consist only of lower-case letters, numbers, dash (-), and underbar (_).";
 	sName=prompt(p);
 	$.getJSON("/component/functions.cfc",
@@ -540,13 +533,10 @@ function archiveSpecimens (){
 				if(r!='success'){
 					alert(r);
 				} else {
-					
 					pathArray = window.location.href.split( '/' );
 					protocol = pathArray[0];
 					host = pathArray[2];
 					url = protocol + '//' + host;
-					
-					
 					alert('Specimen Archive created.  \n' + url + '/archive/' + sName + '\n Find it in the My Stuff tab.');
 				}
 			}
