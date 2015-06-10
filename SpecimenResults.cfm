@@ -407,7 +407,12 @@
 
 
 <button id="o_srurstools">open the dialog</button>
-<div id="srurstools" title="Dialog Title">I'm a dialog</div>
+<div id="srurstools" title="Save or Archive Search">
+	<label for="ssname">Search Name</label>
+	<input type="text" size="50" id="ssname">
+	<input type="button" value="save search">
+	<input type="button" value="archive search">
+</div>
 
 <script>
 $( "##srurstools" ).dialog({ autoOpen: false });
