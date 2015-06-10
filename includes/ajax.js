@@ -520,8 +520,8 @@ function closeAnnotation() {
 
 function archiveSpecimens (){
 	p="Archive this search RESULTS. NOTE: Use Save Search to save CRITERIA.\n";
-	p+=" Type a name for the archive. Names must consist only of lower-case letters, numbers, dash (-), and underbar (_).";
-	p+="'myarchive' will create an archive or fail; '+myarchive' will append to your existing archive or fail.";
+	p+=" Type a name for the archive. Names must consist only of lower-case letters, numbers, dash (-), and underbar (_)."\n;
+	p+="'myarchive' will create a new archive (or fail); '+myarchive' will append to _your_ existing archive (or fail).";
 	sName=prompt(p);
 	$.getJSON("/component/functions.cfc",
 			{
