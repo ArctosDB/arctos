@@ -90,10 +90,10 @@
 	</cfquery>
 	<cfif isdefined("archive_record_count") and archive_record_count is not trc.c>
 		<div class="importantNotification">
-			Caution: You are not seeing all of the Archive. You may not have access to relevant collections.
-			You may <span class="likeLink" onclick="changeCollection('/archive/#archive_name#')">try again in the public portal</span>.
-			You may need to first log out if you have set collection preferences. Use the contact link in the footer for additional
-			assistance.
+			Caution: You are not seeing all of the Archive. If the Archive is not locked, you may need to remove search terms.
+			You may not have access to relevant collections; log out, adjust your collection preferences, or
+			<span class="likeLink" onclick="changeCollection('/archive/#archive_name#')">try again in the public portal</span>.
+			Use the contact link in the footer for additional assistance.
 		</div>
 	</cfif>
 	<cfset loginfo="#dateformat(now(),'yyyy-mm-dd')#T#TimeFormat(now(), 'HH:mm:ss')#||#session.username#||#request.ipaddress#||#mapurl#||#session.resultColumnList#||#trc.c#||#request.uuid#">
@@ -404,6 +404,8 @@
 					</cfloop>
 				</cfif>
 					<td>
+						
+						<div id="clicktools">stuff, yo</div>
 						<select name="usertools" id="usertools" onchange="pickedTool()">
 							<option value="">Tools: Map, Customize, or Download</option>
 							<cfif willmap.recordcount gt 0>
@@ -421,10 +423,13 @@
 							</optgroup>
 							<optgroup label="Data Tools">
 								<option value="saveSearch">Save Search</option>
-								<option value="archiveSpecimens">Archive Results</option>
+								<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+									<option value="archiveSpecimens">Archive Results</option>
+								</cfif>
 								<option value="download">Download</option>
 							</optgroup>
 						</select>
+
 					</td>
 				<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>
 					<td nowrap="nowrap">
