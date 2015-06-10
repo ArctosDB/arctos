@@ -2158,10 +2158,12 @@
 		group by is_locked,creator
 	</cfquery>
 	<cfset archive_record_count=archive_check.c>
-	<div class="importantNotification">
+
 		<cfif archive_check.is_locked eq 1>
-			Important Note: You are viewing a locked Archive. Archives may not be combined with other search terms;
-			any additional terms will be ignored.
+			<div class="importantNotification">
+				Important Note: You are viewing a locked Archive. Archives may not be combined with other search terms;
+				any additional terms will be ignored.
+			</div>
 			<cfset mapurl = "archive_name=#archive_name#">
 			<cfset basJoin = " INNER JOIN specimen_archive ON (#session.flatTableName#.guid = specimen_archive.guid)
 				INNER JOIN archive_name ON 	(specimen_archive.archive_id = archive_name.archive_id)">
@@ -2174,21 +2176,18 @@
 			<cfset basQual = " #basQual# and archive_name='#lcase(archive_name)#'" >
 			<cfif archive_check.creator is session.username and session.roles contains "manage_collection">
 				<cfoutput>
-				<p>
-					<p>
+					<div class="importantNotification">
 						<strong>
 							READ THIS!
 							<br>Locked Archives may not be unlocked or modified for any purpose.
 							<br>Specimens in locked archives may not be encumbered or deleted.
 							<br>Clicking the button below invokes a long-term curatorial committment.
 						</strong>
-					</p>
-					<span class="likeLink" onclick="lockArchive('#archive_name#')">Click here to lock</span>.
-				</p>
+						<span class="likeLink" onclick="lockArchive('#archive_name#')">Click here to lock</span>.
+					</div>
 				</cfoutput>
 			</cfif>
 		</cfif>
-	</div>
 
 </cfif>
 
