@@ -3697,6 +3697,8 @@
 					<cfset msg="appending.....">
 				</cfif>
 			<cfelse>
+
+			nope
 				<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select someRandomSequence.nextval nid from dual
 				</cfquery>
