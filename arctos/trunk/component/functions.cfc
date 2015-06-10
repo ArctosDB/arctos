@@ -3688,6 +3688,8 @@
 			yep
 				<!--- append to existing ---->
 				<cfset thisName=trim(mid(archive_name,1,len(archive_name)))>
+
+				<cfdump var=#thisName#>
 				<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select archive_id from archive_name where archive_name='#thisName#' and creator='#session.username#'
 				</cfquery>
