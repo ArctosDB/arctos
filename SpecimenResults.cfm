@@ -309,7 +309,6 @@
 			</td>
 		</tr>
 	</table>
-	<form name="controls" action="/w/t/f">
 		<!--- keep stuff around for JS to get at --->
 		<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
 		<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
@@ -529,7 +528,6 @@ $( "##o_srurstools" ).click(function() {
 			</tr>
 		</table>
 	</div>
-	</form>
 	<div id="specresults"></div>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
