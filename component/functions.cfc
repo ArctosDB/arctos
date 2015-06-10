@@ -3679,10 +3679,7 @@
 		<cfreturn "You must create an account or log in to save searches.">
 	</cfif>
 
-	<cfreturn left(archive_name,1)>
 	<cftry>
-		<!--- do not insert encumbered ---->
-
 		<cftransaction>
 			<cfif left(archive_name,1) is "+">
 				<!--- append to existing ---->
@@ -3744,6 +3741,8 @@
 		<cf_logError subject="error caught: saveSearch" attributeCollection=#cfcatch#>
 	</cfcatch>
 	</cftry>
+
+
 	<cfreturn msg>
 </cffunction>
 
