@@ -3684,6 +3684,8 @@
 	<cftry>
 		<cftransaction>
 			<cfif left(archive_name,1) is "+">
+
+			yep
 				<!--- append to existing ---->
 				<cfset thisName=trim(mid(archive_name,1,len(archive_name)))>
 				<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
