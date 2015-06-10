@@ -3708,7 +3708,7 @@
 						)
 					</cfquery>
 					<cfset msg="These results have been appended onto Archive #thisName#. Find it under MyStuff/SavedSearches, or visit">
-					<cfset msg=msg & "\n #application.serverRootURL#/archive/#thisName#">
+					<cfset msg=msg & chr(10) & " #application.serverRootURL#/archive/#thisName#">
 
 				</cfif>
 			<cfelse>
