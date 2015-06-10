@@ -3687,30 +3687,35 @@
 				<cfset thisName=trim(mid(archive_name,2,len(archive_name)))>
 
 				<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select archive_id from archive_name where archive_name='#thisName#' and creator='#session.username#'
+					select archive_id, is_locked from archive_name where archive_name='#thisName#' and creator='#session.username#'
 				</cfquery>
 				<cfif len(id.archive_id) is 0>
-					<cfset msg="No existing archive of name #thisName# created by #session.username# could be found. Carefully check spelling.
-						If you are not trying to append to an existing Archive, lose the +">
-
-				<cfelse>
-
-					<cfquery name="nas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						insert /*+ IGNORE_ROW_ON_DUPKEY_INDEX(specimen_archive,IU_spec_archive_arcidcoidguid) */
-						into specimen_archive(
-							archive_id,
-							collection_object_id,
-							guid
-						)( select
-							#id.archive_id#,collection_object_id,getGuidFromID(collection_object_id)
-						from
-							#session.specsrchtab#
-						)
-					</cfquery>
-					<cfset msg="These results have been appended onto Archive #thisName#. Find it under MyStuff/SavedSearches, or visit">
-					<cfset msg=msg & chr(10) & " #application.serverRootURL#/archive/#thisName#">
-
+					<cfset msg="No existing archive of name #thisName# created by #session.username# could be found. Carefully check spelling.">
+					<cfset msg=msg & " If you are not trying to append to an existing Archive, lose the +">
+					<cfreturn msg>
 				</cfif>
+				<cfif id.is_locked is 1>
+					<cfset msg="Locked Archives may not be altered in any way.">
+					<cfreturn msg>
+				</cfif>
+
+
+
+				<cfquery name="nas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert /*+ IGNORE_ROW_ON_DUPKEY_INDEX(specimen_archive,IU_spec_archive_arcidcoidguid) */
+					into specimen_archive(
+						archive_id,
+						collection_object_id,
+						guid
+					)( select
+						#id.archive_id#,collection_object_id,getGuidFromID(collection_object_id)
+					from
+						#session.specsrchtab#
+					)
+				</cfquery>
+				<cfset msg="These results have been appended onto Archive #thisName#. Find it under the MyStuff/SavedSearches tab, or visit">
+				<cfset msg=msg & chr(10) & " #application.serverRootURL#/archive/#thisName#">
+
 			<cfelse>
 
 				<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
