@@ -43,11 +43,6 @@ $(document).ready(function() {
 });
 
 
-$( "#clicktools" ).dialog({
-	  position: { my: "left top", at: "left bottom", of: button }
-	});
-
-
 
 /* agent editing forms */
 function loadEditAgent(aid){
