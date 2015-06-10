@@ -165,32 +165,7 @@ function addAddress(){
 
 }
 
-/*
-function addAgentAddr(aid){
-	var guts = "includes/forms/editAgentAddr.cfm?action=newAddress&agent_id=" + aid;
-	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
-		autoOpen: true,
-		closeOnEscape: true,
-		height: 'auto',
-		modal: true,
-		position: ['center', 'center'],
-		title: 'Add Address',
-		width: 'auto',
-		close: function() {
-			$( this ).remove();
-		}
-	}).load(guts, function() {
-		$(this).dialog("option", "position", ['center', 'center'] );
-	});
-	$(window).resize(function() {
-		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-	});
-	$(".ui-widget-overlay").click(function(){
-	    $(".ui-dialog-titlebar-close").trigger('click');
-	});
-}			
-	
-*/
+
 function rankAgent(agent_id) {
 	var ptl="/includes/forms/agentrank.cfm?agent_id="+agent_id;			
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
@@ -214,6 +189,8 @@ function rankAgent(agent_id) {
 	    $(".ui-dialog-titlebar-close").trigger('click');
 	});
 }
+
+/*
 function editAgentAddress (aid){
 		var guts = "includes/forms/editAgentAddr.cfm?action=editAddress&addr_id=" + aid;
 		$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
@@ -238,7 +215,7 @@ function editAgentAddress (aid){
 		});
 	}
 
-
+*/
 /* END agent editing forms */
 
 
@@ -385,27 +362,6 @@ function changeTarget(id,tvalue) {
 	$("#SpecData").attr("action", tvalue);
 }
 
-/*
-function changeGrp(tid) {
-	var oid,mList,sList,len,i;
-	if (tid == 'groupBy') {
-		oid = 'groupBy1';
-	} else {
-		 oid = 'groupBy';
-	}
-	mList = document.getElementById(tid);
-	sList = document.getElementById(oid);
-	len = mList.length;
-	for (i = 0; i < len; i++) {
-		sList.options[i].selected = false;
-	}
-	for (i = 0; i < len; i++) {
-		if (mList.options[i].selected) {
-			sList.options[i].selected = true;
-		}
-	}
-}
-*/
 function resetSSForm(){
 	document.getElementById('SpecData').reset();
 	try {
@@ -422,18 +378,7 @@ function r_getSpecSrchPref (result){
 	}
 }
 
-/*
-function kmlSync(tid,tval) {
-	var rMostChar;
-	rMostChar=tid.substr(tid.length -1,1);
-	if (rMostChar=='1'){
-		theOtherField=tid.substr(0,tid.length -1);
-	} else {
-		theOtherField=tid + '1';
-	}
-	document.getElementById(theOtherField).value=tval;
-}
-*/
+
 /* specimen search */
 
 
@@ -1862,21 +1807,7 @@ function addLabel (n) {
 	cc=document.getElementById('number_of_labels');
 	cc.value=parseInt(cc.value)+1;
 }
-/****
-function tog_AgentRankDetail(o){
-	if(o==1){
-		document.getElementById('agentRankDetails').style.display='block';
-		$('#t_agentRankDetails').text('Hide Details').removeAttr('onclick').bind("click", function() {
-			tog_AgentRankDetail(0);
-		});
-	} else {
-		document.getElementById('agentRankDetails').style.display='none';
-		$('#t_agentRankDetails').text('Show Details').removeAttr('onclick').bind("click", function() {
-			tog_AgentRankDetail(1);
-		}); 
-	}
-}
-*/
+
 function saveAgentRank(){		
 	$.getJSON("/component/functions.cfc",
 		{
@@ -1904,44 +1835,6 @@ function saveAgentRank(){
 				
 			
 			
-			
-				/*
-				
-				
-					
-				<tr id="tablr#agent_rank_id#">
-				<td>#agent_rank#</td>
-				<td>#transaction_type#</td>
-				<td nowrap="nowrap">#dateformat(rank_date,"yyyy-mm-dd")#</td>
-				<td nowrap="nowrap">
-					#replace(ranker," ", "&nbsp;","all")#
-					<cfif ranked_by_agent_id is session.myAgentId>
-						<span class="infoLink" onclick="revokeAgentRank('#agent_rank_id#');">revoke</span>
-					</cfif>
-				</td>
-				<td>#remark#</td>
-			</tr>					 
-			
-			
-			
-				<td>#agent_rank#
-				<td>#transaction_type#</td>
-				<td nowrap="nowrap">#dateformat(rank_date,"yyyy-mm-dd")#</td>
-				<td nowrap="nowrap">
-					#replace(ranker," ", "&nbsp;","all")#
-					<cfif ranked_by_agent_id is session.myAgentId>
-						<span class="infoLink" onclick="revokeAgentRank('#agent_rank_id#');">revoke</span>
-					</cfif>
-				</td>
-				<td>#remark#</td>
-			</tr>				
-			
-				var ih = 'Thank you for adding an agent rank.';
-				ih+='<p><span class="likeLink" onclick="removePick();rankAgent(' + d + ')">Refresh</span></p>';
-				ih+='<p><span class="likeLink" onclick="removePick();">Done</span></p>';				
-				document.getElementById('pickDiv').innerHTML=ih;
-				
-				*/	 
 			}
 		}
 	); 		
@@ -1975,46 +1868,12 @@ function manyCatItemToMedia(mid){
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
-	
 	bgDiv.setAttribute('onclick',"removeMediaMultiCatItem()");
 	document.body.appendChild(bgDiv);
-	
-	
-//	var bgDiv = document.createElement('div');
-//	bgDiv.id = 'bgDiv';
-//	bgDiv.className = 'bgDiv';
-//	bgDiv.setAttribute('onclick','closeManyMedia()');
-//	document.body.appendChild(bgDiv);
 	var ptl = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
 	$('<iframe id="pickFrame" name="pickFrame" class="pickDiv" src="' + ptl + '">').appendTo('body');
-	//$('<iframe />').attr('src', ptl); 
-	
-
-	//document.body.appendChild(theiFrame);
-	//jQuery.get(ptl,function(data){
-	//	document.getElementById('theiFrame').innerHTML=data;
-	//	viewport.init("#pickDiv");
-	//document.body.appendChild(theDiv);
-	//$('#annotateDiv').append('<iframe id="commentiframe" width="100%" height="100%">');
-	//$('#commentiframe').attr('src', guts);
 }
 
-/*
-function rankAgent(agent_id) {
-	addBGDiv('removePick()');
-	var theDiv = document.createElement('div');
-	theDiv.id = 'pickDiv';
-	theDiv.className = 'pickDiv';
-	theDiv.innerHTML='<br>Loading...';
-	document.body.appendChild(theDiv);
-	var ptl="/includes/forms/agentrank.cfm";			
-	$.get(ptl,{agent_id: agent_id},function(data){
-		document.getElementById('pickDiv').innerHTML=data;
-		// viewport.init("#pickDiv");
-	});
-}
-
-*/
 function pickThis (fld,idfld,display,aid) {
 	document.getElementById(fld).value=display;
 	document.getElementById(idfld).value=aid;
@@ -2360,106 +2219,4 @@ function deleteAgent(r){
 
 /*************************************** BEGIN probably delete-worthy, but keep for now *************************************************/
 
-
-/*
-var dateFormat = function () {
-	var	token;
-	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
-		timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
-		timezoneClip = /[^-+\dA-Z]/g,
-		pad = function (val, len) {
-			val = String(val);
-			len = len || 2;
-			while (val.length < len) val = "0" + val;
-			return val;
-		};
-	return function (date, mask, utc) {
-		var dF,_;
-		dF= dateFormat;
-		if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
-			mask = date;
-			date = undefined;
-		}
-		date = date ? new Date(date) : new Date;
-		if (isNaN(date)) throw SyntaxError("invalid date");
-		mask = String(dF.masks[mask] || mask || dF.masks["default"]);
-		if (mask.slice(0, 4) == "UTC:") {
-			mask = mask.slice(4);
-			utc = true;
-		}
-		_ = utc ? "getUTC" : "get",
-			d = date[_ + "Date"](),
-			D = date[_ + "Day"](),
-			m = date[_ + "Month"](),
-			y = date[_ + "FullYear"](),
-			H = date[_ + "Hours"](),
-			M = date[_ + "Minutes"](),
-			s = date[_ + "Seconds"](),
-			L = date[_ + "Milliseconds"](),
-			o = utc ? 0 : date.getTimezoneOffset(),
-			flags = {
-				d:    d,
-				dd:   pad(d),
-				ddd:  dF.i18n.dayNames[D],
-				dddd: dF.i18n.dayNames[D + 7],
-				m:    m + 1,
-				mm:   pad(m + 1),
-				mmm:  dF.i18n.monthNames[m],
-				mmmm: dF.i18n.monthNames[m + 12],
-				yy:   String(y).slice(2),
-				yyyy: y,
-				h:    H % 12 || 12,
-				hh:   pad(H % 12 || 12),
-				H:    H,
-				HH:   pad(H),
-				M:    M,
-				MM:   pad(M),
-				s:    s,
-				ss:   pad(s),
-				l:    pad(L, 3),
-				L:    pad(L > 99 ? Math.round(L / 10) : L),
-				t:    H < 12 ? "a"  : "p",
-				tt:   H < 12 ? "am" : "pm",
-				T:    H < 12 ? "A"  : "P",
-				TT:   H < 12 ? "AM" : "PM",
-				Z:    utc ? "UTC" : (String(date).match(timezone) || [""]).pop().replace(timezoneClip, ""),
-				o:    (o > 0 ? "-" : "+") + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
-				S:    ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
-			};
-
-		return mask.replace(token, function ($0) {
-			return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
-		});
-	};
-}();
-dateFormat.masks = {
-	"default":      "ddd mmm dd yyyy HH:MM:ss",
-	shortDate:      "m/d/yy",
-	mediumDate:     "mmm d, yyyy",
-	longDate:       "mmmm d, yyyy",
-	fullDate:       "dddd, mmmm d, yyyy",
-	shortTime:      "h:MM TT",
-	mediumTime:     "h:MM:ss TT",
-	longTime:       "h:MM:ss TT Z",
-	isoDate:        "yyyy-mm-dd",
-	isoTime:        "HH:MM:ss",
-	isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
-	isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
-};
-dateFormat.i18n = {
-	dayNames: [
-		"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
-		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-	],
-	monthNames: [
-		"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-		"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
-	]
-};
-Date.prototype.format = function (mask, utc) {
-	return dateFormat(this, mask, utc);
-};
-
-
-*/
 /*************************************** END probably delete-worthy, but keep for now *************************************************/
