@@ -2168,13 +2168,10 @@
 			<cfset basQual = " and archive_name='#lcase(archive_name)#'" >
 		</cfif>
 		<cfif archive_check.is_locked eq 0>
-			Important Note: You are viewing an unlocked or unfinished Archive. If you've supplied additional
-			query terms or do not have access to all specimens, you may not be viewing the complete Archive.
 			<cfset mapurl = "#mapurl#&archive_name=#archive_name#">
 			<cfset basJoin = " #basJoin# INNER JOIN specimen_archive ON (#session.flatTableName#.guid = specimen_archive.guid)
 				INNER JOIN archive_name ON 	(specimen_archive.archive_id = archive_name.archive_id)">
 			<cfset basQual = " #basQual# and archive_name='#lcase(archive_name)#'" >
-
 			<cfif archive_check.creator is session.username and session.roles contains "manage_collection">
 				<cfoutput>
 				<p>
