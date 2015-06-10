@@ -405,44 +405,6 @@
 					<td>
 
 
-
-<button id="o_srurstools">open the dialog</button>
-<div id="srurstools" title="Save or Archive Search">
-	<cfif len(session.username) is 0>
-		You must log in to use this.
-		<cfabort>
-	</cfif>
-	Enter a search name, then click one of the buttons.
-	<ul>
-		<li>click "save search" to save the search CRITERIA</li>
-		<li>click "archive search" to save the search RESULTS</li>
-	</ul>
-
-	<label for="ssname">Search Name</label>
-	<input type="text" size="50" id="ssname">
-	<input type="button" value="save search">
-	<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
-		<input type="button" value="archive search">
-	<cfelse>
-		[ not available ]
-	</cfif>
-
-
-
-
-
-</div>
-
-<script>
-$( "##srurstools" ).dialog({ autoOpen: false });
-$( "##o_srurstools" ).click(function() {
-  $( "##srurstools" ).dialog( "open" );
-});
-</script>
-
-
-
-						<div id="clicktools">stuff, yo</div>
 						<select name="usertools" id="usertools" onchange="pickedTool()">
 							<option value="">Tools: Map, Customize, or Download</option>
 							<cfif willmap.recordcount gt 0>
@@ -460,11 +422,9 @@ $( "##o_srurstools" ).click(function() {
 							</optgroup>
 							<optgroup label="Data Tools">
 								<option value="saveSearch">Save Search</option>
-								<!----
 								<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
 									<option value="archiveSpecimens">Archive Results</option>
 								</cfif>
-								---->
 								<option value="download">Download</option>
 							</optgroup>
 						</select>
