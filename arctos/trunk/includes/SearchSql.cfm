@@ -2171,7 +2171,7 @@
 			<cfset basQual = " and archive_name='#lcase(archive_name)#'" >
 		</cfif>
 		<cfif archive_check.is_locked eq 0>
-			Important Note: You are viewing an unlocked, or unfinished, Archive. If you've supplied additional
+			Important Note: You are viewing an unlocked or unfinished Archive. If you've supplied additional
 			query terms or do not have access to all specimens, you may not be viewing the complete Archive.
 			<cfset mapurl = "#mapurl#&archive_name=#archive_name#">
 			<cfset basJoin = " #basJoin# INNER JOIN specimen_archive ON (#session.flatTableName#.guid = specimen_archive.guid)
@@ -2181,13 +2181,15 @@
 			<cfif archive_check.creator is session.username and session.roles contains "manage_collection">
 				<cfoutput>
 				<p>
-					<span class="likeLink" onclick="lockArchive('#archive_name#')">Click here to lock</span>.
 					<p>
 						<strong>
-							Locked Archives may not be modified for any purpose.
+							READ THIS!
+							<br>Locked Archives may not be unlocked modified for any purpose.
 							<br>Specimens in locked archives may not be encumbered or deleted.
+							<br>Clicking the button below invokes a long-term curatorial committment.
 						</strong>
 					</p>
+					<span class="likeLink" onclick="lockArchive('#archive_name#')">Click here to lock</span>.
 				</p>
 				</cfoutput>
 			</cfif>

@@ -42,6 +42,13 @@ $(document).ready(function() {
 	$("input[type='date'], input[type='datetime']" ).datepicker();
 });
 
+
+$( "#clicktools" ).dialog({
+	  position: { my: "left top", at: "left bottom", of: button }
+	});
+
+
+
 /* agent editing forms */
 function loadEditAgent(aid){
 	$("#agntEditCell").html('<img src="/images/indicator.gif">');
