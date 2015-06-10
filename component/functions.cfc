@@ -3679,6 +3679,8 @@
 		<cfreturn "You must create an account or log in to save searches.">
 	</cfif>
 
+
+	<cfdump var=#archive_name#>
 	<cftry>
 		<cftransaction>
 			<cfif left(archive_name,1) is "+">
