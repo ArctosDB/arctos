@@ -85,8 +85,23 @@
 	You may save searches from Specimen Results for later reference.
 <cfelse>
 <cfquery name="archive" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	select * from archive_name where upper(creator)='#ucase(session.username)#'
-	order by archive_name
+	select
+		archive_name,
+		create_date,
+		is_locked,
+		count(*) c
+	from
+		archive_name,
+		specimen_archive
+	where
+		archive_name.archive_id=specimen_archive.archive_id (+) and
+		upper(creator)='#ucase(session.username)#' and
+	group by
+		archive_name,
+		create_date,
+		is_locked
+	order by
+		archive_name
 </cfquery>
 
 <p>
@@ -102,12 +117,16 @@
 			<th>Archive Name</th>
 			<th>URL</th>
 			<th>Date</th>
+			<th>Locked?</th>
+			<th>Specimens</th>
 		</tr>
 		<cfloop query="archive">
 			<tr>
 				<td>#archive_name#</td>
 				<td>#application.serverRootURL#/archive/#archive_name#</td>
 				<td>#create_date#</td>
+				<td>#is_locked#</td>
+				<td>#c#</td>
 			</tr>
 		</cfloop>
 	</table>
