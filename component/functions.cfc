@@ -3687,7 +3687,7 @@
 
 			yep
 				<!--- append to existing ---->
-				<cfset thisName=trim(mid(archive_name,1,len(archive_name)))>
+				<cfset thisName=trim(mid(archive_name,2,len(archive_name)))>
 
 				<cfdump var=#thisName#>
 				<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
