@@ -165,7 +165,7 @@ function addAddress(){
 
 }
 
-
+/*
 function rankAgent(agent_id) {
 	var ptl="/includes/forms/agentrank.cfm?agent_id="+agent_id;			
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
@@ -189,7 +189,7 @@ function rankAgent(agent_id) {
 	    $(".ui-dialog-titlebar-close").trigger('click');
 	});
 }
-
+*/
 /*
 function editAgentAddress (aid){
 		var guts = "includes/forms/editAgentAddr.cfm?action=editAddress&addr_id=" + aid;
@@ -1260,7 +1260,7 @@ function getLoan(LoanIDFld,LoanNumberFld,loanNumber,collectionID){
 	oawin=url+"?LoanIDFld="+LoanIDFld+"&LoanNumberFld="+LoanNumberFld+"&loanNumber="+loanNumber+"&agent_name="+collectionID;
 	loanpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
 }
-
+/*
 function pickAgentTest(agentIdFld,agentNameFld,name){
 	// semi-experimental jquery modal agent pick
 	// initiated 20140916
@@ -1294,7 +1294,7 @@ function pickAgentTest(agentIdFld,agentNameFld,name){
 	    $(".ui-dialog-titlebar-close").trigger('click');
 	});
 }
-
+*/
 
 function getAgent(agentIdFld,agentNameFld,formName,agentNameString,allowCreation){
 	var url,oawin;
