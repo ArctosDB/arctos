@@ -3699,12 +3699,12 @@
 				<!----
 				CREATE UNIQUE INDEX IU_spec_archive_arcidcoidguid ON specimen_archive (archive_id,collection_object_id,guid) TABLESPACE UAM_IDX_1;
 
- /*+ IGNORE_ROW_ON_DUPKEY_INDEX(specimen_archive,IU_OIDNUM_ID_TYP_DISP_REFS) */
+
 
 ---->
 					<cfset msg="appending.....">
 					<cfquery name="nas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						insert
+						insert /*+ IGNORE_ROW_ON_DUPKEY_INDEX(specimen_archive,IU_spec_archive_arcidcoidguid) */
 						into specimen_archive(
 							archive_id,
 							collection_object_id,
