@@ -3682,33 +3682,49 @@
 		<!--- do not insert encumbered ---->
 
 		<cftransaction>
-			<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select someRandomSequence.nextval nid from dual
-			</cfquery>
-			<cfquery name="na" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into archive_name (
-					archive_id,
-					archive_name,
-					creator,
-					create_date
-				) values (
-					#id.nid#,
-					'#archive_name#',
-					'#session.username#',
-					sysdate
-				)
-			</cfquery>
-			<cfquery name="nas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into specimen_archive(
-					archive_id,
-					collection_object_id,
-					guid
-				)( select
-					#id.nid#,collection_object_id,getGuidFromID(collection_object_id)
-				from
-					#session.specsrchtab#
-				)
-			</cfquery>
+			<cfif left(archive_name,1) is "+">
+				<!--- append to existing ---->
+				<cfset thisName=trim(mid(archive_name,1,len(archive_name))>
+				<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select archive_id from archive_name where archive_name='#thisName#' and creator='#session.username#'
+				</cfquery>
+				<cfif len(id.archive_id) is 0>
+					<cfset msg="No existing archive of name #thisName# created by #session.username# could be found. Carefully check spelling.
+						If you are not trying to append to an existing Archive, lose the +">
+
+				<cfelse>
+					<cfset msg="appending.....">
+				</cfif>
+			<cfelse>
+				<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select someRandomSequence.nextval nid from dual
+				</cfquery>
+				<cfquery name="na" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into archive_name (
+						archive_id,
+						archive_name,
+						creator,
+						create_date
+					) values (
+						#id.nid#,
+						'#archive_name#',
+						'#session.username#',
+						sysdate
+					)
+				</cfquery>
+				<cfquery name="nas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into specimen_archive(
+						archive_id,
+						collection_object_id,
+						guid
+					)( select
+						#id.nid#,collection_object_id,getGuidFromID(collection_object_id)
+					from
+						#session.specsrchtab#
+					)
+				</cfquery>
+			</cfif>
+
 			<cfset msg='success'>
 		</cftransaction>
 
