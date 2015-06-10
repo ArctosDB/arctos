@@ -260,6 +260,8 @@ function resizeMap(s){
 		}
 	);
 }
+
+/*
 $("#customizeButton").live('click', function(e){
 	var guts = "/info/SpecimenResultsPrefs.cfm";
     $("<div class='popupDialog'><img src='/images/indicator.gif'></div>")
@@ -283,6 +285,8 @@ $("#customizeButton").live('click', function(e){
     	$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
     });
 });
+
+*/
 function closeCustom() {
 	
 	console.log('ello guvna!');
