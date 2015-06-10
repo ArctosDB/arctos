@@ -95,7 +95,7 @@
 		specimen_archive
 	where
 		archive_name.archive_id=specimen_archive.archive_id (+) and
-		upper(creator)='#ucase(session.username)#' and
+		upper(creator)='#ucase(session.username)#'
 	group by
 		archive_name,
 		create_date,
