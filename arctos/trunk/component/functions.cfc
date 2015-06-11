@@ -2551,6 +2551,25 @@
 	<cfreturn "nocontrol">
 </cffunction>
 <!------------------------------------------------------->
+<cffunction name="kill_archive" access="remote">
+	<cfargument name="archive_name" type="string" required="yes">
+	<cftransaction>
+		<cftry>
+			<cfquery name="res" datasource="cf_dbuser">
+				delete from specimen_archive where archive_in=(select archive_id from archive_name where archive_name='#archive_name#')
+			</cfquery>
+			<cfquery name="res" datasource="cf_dbuser">
+				delete from archive_name where archive_name='#archive_name#'
+			</cfquery>
+			<cfset result="#archive_name#">
+		<cfcatch>
+			<cfset result = "failure: #cfcatch.Message# #cfcatch.Detail#">
+		</cfcatch>
+		</cftry>
+	</cftransaction>
+		<cfreturn result>
+</cffunction>
+<!------------------------------------------------------->
 <cffunction name="kill_canned_search" access="remote">
 	<cfargument name="canned_id" type="numeric" required="yes">
 	<cftry>
