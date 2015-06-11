@@ -34,8 +34,8 @@
 		<cfset creator="">
 		<cfset title="">
 		<cfset publisher="">
-		
-		
+
+
 		<!----
 		<cfset ctinst=querynew("inst")>
 		<cfset thisRow=1>
@@ -89,12 +89,89 @@
 		<cfset queryaddrow(ctinst,1)>
 		<cfset thisRow = thisRow + 1>
 		<cfset QuerySetCell(ctinst, "inst", "",thisRow)>
-			
+
 			---->
 		<cfquery name="octinst" datasource="uam_god">
 			select institution inst from collection group by institution order by institution
-		</cfquery>	
-			
+		</cfquery>
+		<cfif isdefined("archive_id") and len(archive_id) gt 0>
+			<cfquery name="alreadyGotOne" datasource="uam_god">
+				select doi from doi where archive_id=#archive_id#
+			</cfquery>
+			<cfif len(alreadyGotOne.doi) gt 0>
+				That record already has a DOI
+				<p>
+					#alreadyGotOne.doi#
+				</p>
+				<cfabort>
+			</cfif>
+			<cfquery name="archive" datasource="uam_god">
+				select
+					archive_name,
+					create_date,
+					creator,
+					is_locked,
+					count(specimen_archive.guid) c
+				from
+					archive_name,
+					specimen_archive
+				where
+					archive_name.archive_id=specimen_archive.archive_id (+) and
+					archive_name.archive_id=#archive_id#
+			</cfquery>
+			<cfif archive.recordcount is 0>
+				<div class="error">archive not found</div>
+				<cfabort>
+			</cfif>
+			<cfif archive.is_locked is 0>
+				<div class="error">Unlocked archives cannot have DOIs</div>
+				<cfabort>
+			</cfif>
+
+
+			<cfset target="#Application.serverRootUrl#/archive/#archive.archive_name#">
+			<cfset columname="archive_id">
+			<cfset pkeyval=archive_id>
+			<cfset publicationyear=dateformat(archive.create_date,"yyyy")>
+			<cfset resourcetype="Dataset">
+
+			<cfquery name="createdby" datasource="uam_god">
+				select
+					preferred_agent_name
+				from
+					agent,
+					agent_name
+				where
+					agent.agent_id=agent_name.agent_id and
+					upper(agent_name.agent_name)='#ucase(archive.creator)#'
+			</cfquery>
+			<cfset creator=createdby.preferred_agent_name>
+			<cfset title="Archived Dataset #archive.archive_name">
+
+			</cfif>
+			<cfif isdate(pyear.publisheddateraw)>
+				<cfset publicationyear=dateformat(pyear.publisheddateraw,"yyyy")>
+			<cfelse>
+				<!---- no dates anywhere - fall back to now ---->
+				<cfset publicationyear=dateformat(now(),"yyyy")>
+			</cfif>
+			<cfif media.MEDIA_TYPE is 'image'>
+				<cfset resourcetype='Image'>
+			<cfelseif  media.MEDIA_TYPE is 'multi-page document'>
+				<cfset resourcetype='Text'>
+			<cfelseif  media.MEDIA_TYPE is 'text'>
+				<cfset resourcetype='Text'>
+			<cfelseif  media.MEDIA_TYPE is 'audio'>
+				<cfset resourcetype='Sound'>
+			<cfelseif  media.MEDIA_TYPE is 'video'>
+				<cfset resourcetype='Film'>
+			</cfif>
+			<cfset creator=createdby.agent_name>
+			<cfset title=description.LABEL_VALUE>
+		</cfif><!--- end Archive --->
+
+
+
 		<cfif isdefined("media_id") and len(media_id) gt 0>
 			<cfquery name="alreadyGotOne" datasource="uam_god">
 				select doi from doi where media_id=#media_id#
@@ -254,7 +331,7 @@
 			<cfelse>
 				<cfset resourcetype="Event">
 			</cfif>
-			
+
 			<cfset creator=listgetat(d.collectors,1)>
 			<cfset title=d.guid & ' - ' & d.scientific_name>
 		</cfif>
