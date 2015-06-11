@@ -132,6 +132,23 @@
 				<div class="error">Unlocked archives cannot have DOIs</div>
 				<cfabort>
 			</cfif>
+			<cfquery name="d" datasource="uam_god">
+				select
+					collection.institution
+				from
+					flat,
+					collection,
+					specimen_archive
+				where
+					flat.collection_id=collection.collection_id and
+					flat.guid = specimen_archive.guid and
+					specimen_archive.archive_id=#archive_id#
+				group by
+					collection.institution
+			</cfquery>
+
+
+
 
 
 			<cfset target="#Application.serverRootUrl#/archive/#archive.archive_name#">
