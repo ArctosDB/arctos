@@ -107,6 +107,13 @@
 
 
 <!--------------------------- / end old stuff --------------------------------------->
+<!--- filtered_flat isn't VPD-striped, so join up to something that is if they're coming from it ---->
+<cfif session.flatTableName is "filtered_flat">
+ <cfif basJoin does not contain "cataloged_item">
+       <cfset basJoin = " #basJoin# INNER JOIN cataloged_item ON (#session.flatTableName#.collection_object_id = cataloged_item.collection_object_id)">
+   </cfif>
+</cfif>
+
 <cfif isdefined("anyid") and len(trim(anyid)) gt 0>
 	<cfset mapurl = "#mapurl#&anyid=#anyid#">
 	 <cfif basJoin does not contain "specimen_part">
