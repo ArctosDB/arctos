@@ -2556,7 +2556,7 @@
 	<cftransaction>
 		<cftry>
 			<cfquery name="res" datasource="cf_dbuser">
-				delete from specimen_archive where archive_in=(select archive_id from archive_name where archive_name='#archive_name#')
+				delete from specimen_archive where archive_id=(select archive_id from archive_name where archive_name='#archive_name#')
 			</cfquery>
 			<cfquery name="res" datasource="cf_dbuser">
 				delete from archive_name where archive_name='#archive_name#'
