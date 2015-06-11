@@ -52,15 +52,18 @@
 <script type='text/javascript' src='/includes/_treeAjax.js'></script>
 <script type="text/javascript" language="javascript">
 	function killMe(canned_id) {
-		jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "kill_canned_search",
-				canned_id : canned_id,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			killMe_success
-		);
+		var l=confirm('Are you sure you want to delete this Saved Search?');
+		if(l===true){
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "kill_canned_search",
+					canned_id : canned_id,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				killMe_success
+			);
+		}else{return false;}
 	}
 	function killMe_success (result) {
 		if (IsNumeric(result)) {
@@ -81,8 +84,6 @@
 	and username = '#session.username#'
 	order by search_name
 </cfquery>
-
-<cfdump var=#hasCanned#>
 
 <cfquery name="archive" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
