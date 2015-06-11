@@ -2150,7 +2150,6 @@
 <!---------- SPECIAL NOTE: Archives may not be combined with anything else. This MUST be the last thing in the code ----->
 
 <cfif isdefined("archive_name") AND len(archive_name) gt 0>
-<!----
 	<cfquery name="archive_check" datasource="uam_god">
 		select
 			is_locked,
@@ -2165,7 +2164,7 @@
 		group by is_locked,creator
 	</cfquery>
 	<cfset archive_record_count=archive_check.c>
-
+	<!----
 		<cfif archive_check.is_locked eq 1>
 			<div class="importantNotification">
 				Important Note: You are viewing a locked Archive. Archives may not be combined with other search terms;
