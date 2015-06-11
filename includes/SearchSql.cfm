@@ -2150,7 +2150,7 @@
 <!---------- SPECIAL NOTE: Archives may not be combined with anything else. This MUST be the last thing in the code ----->
 
 <cfif isdefined("archive_name") AND len(archive_name) gt 0>
-
+<!----
 	<cfquery name="archive_check" datasource="uam_god">
 		select
 			is_locked,
@@ -2177,6 +2177,7 @@
 			<cfset basQual = " and archive_name='#lcase(archive_name)#'" >
 		</cfif>
 		<cfif archive_check.is_locked eq 0>
+		---->
 			<cfset mapurl = "#mapurl#&archive_name=#archive_name#">
 			<cfset basJoin = " #basJoin# INNER JOIN specimen_archive ON (#session.flatTableName#.guid = specimen_archive.guid)
 				INNER JOIN archive_name ON 	(specimen_archive.archive_id = archive_name.archive_id)">
@@ -2194,7 +2195,8 @@
 					</div>
 				</cfoutput>
 			</cfif>
+			<!----
 		</cfif>
-
+		---->
 </cfif>
 
