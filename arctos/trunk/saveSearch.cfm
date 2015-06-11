@@ -48,7 +48,7 @@
 </cfif>
 
 
-<cfif #action# is "manage">
+<cfif action is "manage">
 <script type='text/javascript' src='/includes/_treeAjax.js'></script>
 <script type="text/javascript" language="javascript">
 	function killMe(canned_id) {
@@ -81,9 +81,7 @@
 	and username = '#session.username#'
 	order by search_name
 </cfquery>
-<cfif hasCanned.recordcount is 0>
-	You may save searches from Specimen Results for later reference.
-<cfelse>
+
 <cfquery name="archive" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
 		archive_name,
@@ -103,13 +101,15 @@
 	order by
 		archive_name
 </cfquery>
-<cfdump var=#archive#>
+
+
+
 <p>
 	Archives
 </p>
 <cfif archive.recordcount is 0>
 	<blockquote>
-		None available.
+		You may create Archives from Specimen Results.
 	</blockquote>
 <cfelse>
 	<table border>
@@ -134,6 +134,11 @@
 		</cfloop>
 	</table>
 </cfif>
+
+
+<cfif hasCanned.recordcount >
+	You may save searches  from Specimen Results.
+</cfelse>
 
 Saved Searches
 <table border>
