@@ -112,24 +112,38 @@
 
 <cfquery name="archive" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
+		archive_name.archive_id,
 		archive_name,
 		create_date,
 		is_locked,
-		count(specimen_archive.guid) c
+		count(specimen_archive.guid) c,
+		doi
 	from
 		archive_name,
-		specimen_archive
+		specimen_archive,
+		doi
 	where
 		archive_name.archive_id=specimen_archive.archive_id (+) and
+		archive_name.archive_id=doi.archive_id (+) and
 		upper(creator)='#ucase(session.username)#'
 	group by
+		archive_name.archive_id,
 		archive_name,
 		create_date,
-		is_locked
+		is_locked,
+		doi
 	order by
 		archive_name
 </cfquery>
+<!----
 
+<cfif len(doi.doi) gt 0>
+									doi:#doi.doi#
+								<cfelse>
+
+
+
+									---->
 <p>
 	Archives
 </p>
@@ -154,6 +168,7 @@
 		<tr>
 			<th>Delete</th>
 			<th>Archive Name</th>
+			<th>DOI</th>
 			<th>URL</th>
 			<th>Date</th>
 			<th>Locked?</th>
@@ -167,6 +182,15 @@
 					</cfif>
 				</td>
 				<td>#archive_name#</td>
+				<td>
+					<cfif len(doi) gt 0>
+						#doi#
+					<cfelse>
+						<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
+										<a href="/tools/doi.cfm?archive_id=#archive_id#">get a DOI</a>
+									</cfif>
+					</cfif>
+					#archive_name#</td>
 				<td>
 					#application.serverRootURL#/archive/#archive_name#
 					<a href="/archive/#archive_name#">[ click ]</a>
