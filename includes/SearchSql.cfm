@@ -2154,7 +2154,7 @@
 		select
 			is_locked,
 			creator,
-			count(*) c
+			nvl(count(*),0) c
 		from
 			archive_name,
 			specimen_archive
