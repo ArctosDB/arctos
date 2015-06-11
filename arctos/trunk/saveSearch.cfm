@@ -155,7 +155,7 @@
 </cfif>
 
 
-<cfif hasCanned.recordcount >
+<cfif hasCanned.recordcount is 0>
 	You may save searches  from Specimen Results and manage them here.
 <cfelse>
 
