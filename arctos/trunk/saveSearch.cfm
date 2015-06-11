@@ -135,18 +135,9 @@
 	order by
 		archive_name
 </cfquery>
-<!----
-
-<cfif len(doi.doi) gt 0>
-									doi:#doi.doi#
-								<cfelse>
-
-
-
-									---->
-<p>
+<h2>
 	Archives
-</p>
+</h2>
 <cfif archive.recordcount is 0>
 	<blockquote>
 		You may create Archives from Specimen Results and manage them here.
@@ -212,8 +203,8 @@
 <cfif hasCanned.recordcount is 0>
 	You may save searches  from Specimen Results and manage them here.
 <cfelse>
+<h2>Saved Searches</h2>
 
-Saved Searches
 <table border>
 	<tr>
 		<td>&nbsp;</td>
