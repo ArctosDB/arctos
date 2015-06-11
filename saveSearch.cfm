@@ -109,9 +109,21 @@
 </p>
 <cfif archive.recordcount is 0>
 	<blockquote>
-		You may create Archives from Specimen Results.
+		You may create Archives from Specimen Results and manage them here.
 	</blockquote>
 <cfelse>
+	<cfif session.roles contains "manage_collection">
+		<div class="importantNotification">
+			<strong>
+				READ THIS!
+				<br>You have access to LOCK Archives.
+				<br>Locked Archives may not be unlocked or modified for any purpose.
+				<br>Specimens in locked archives may not be encumbered or deleted.
+				<br>Clicking a LOCK link below invokes a long-term curatorial committment.
+			</strong>
+		</div>
+	</cfif>
+
 	<table border>
 		<tr>
 			<th>Archive Name</th>
@@ -128,7 +140,12 @@
 					<a href="/archive/#archive_name#">[ click ]</a>
 				</td>
 				<td>#create_date#</td>
-				<td>#is_locked#</td>
+				<td>
+					<cfif is_locked is 0>no<cfelse>yes</cfif>
+					<cfif session.roles contains "manage_collection" and is_locked is 0>
+						<span class="likeLink" onclick="lockArchive('#archive_name#')">[ LOCK ]</span>
+					</cfif>
+				</td>
 				<td>#c#</td>
 			</tr>
 		</cfloop>
@@ -137,7 +154,7 @@
 
 
 <cfif hasCanned.recordcount >
-	You may save searches  from Specimen Results.
+	You may save searches  from Specimen Results and manage them here.
 <cfelse>
 
 Saved Searches
