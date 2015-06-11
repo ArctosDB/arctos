@@ -2167,6 +2167,10 @@
 	<cfset archive_record_count=archive_check.c>
 	<cfif len(archive_record_count) is 0>
 		<cfset archive_record_count=0>
+		<div class="importantNotification">
+			Caution: The Archive does not seem to exist. Contact the person who shared the link, of use the Contact link in the footer
+			at the bottom of this page.
+		</div>
 	</cfif>
 	<!----
 		<cfif archive_check.is_locked eq 1>
