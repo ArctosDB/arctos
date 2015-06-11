@@ -88,6 +88,11 @@
 	<cfquery name="trc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from #session.SpecSrchTab#
 	</cfquery>
+
+	archive_record_count: #archive_record_count#
+	<br>trc.c: #trc.c#
+
+
 	<cfif isdefined("archive_record_count") and archive_record_count is not trc.c>
 		<div class="importantNotification">
 			Caution: You are not seeing all of the Archive. If that is not intended, remove search terms, log out, adjust your
