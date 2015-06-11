@@ -88,7 +88,7 @@
 				},
 				function (result) {
 		  			if (result== archive_name) {
-		  				$("#ar_" + result.hide();
+		  				$("#ar_" + result).hide();
 					}else{
 						alert(result);
 					}
