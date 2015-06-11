@@ -118,6 +118,11 @@
 				where
 					archive_name.archive_id=specimen_archive.archive_id (+) and
 					archive_name.archive_id=#archive_id#
+				group by
+					archive_name,
+					create_date,
+					creator,
+					is_locked
 			</cfquery>
 			<cfif archive.recordcount is 0>
 				<div class="error">archive not found</div>
