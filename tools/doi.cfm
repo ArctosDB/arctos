@@ -146,9 +146,6 @@
 				group by
 					collection.institution
 			</cfquery>
-<cfdump var=#d#>
-
-
 
 
 			<cfset target="#Application.serverRootUrl#/archive/#archive.archive_name#">

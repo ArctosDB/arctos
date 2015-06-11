@@ -184,7 +184,7 @@
 				<td>#archive_name#</td>
 				<td>
 					<cfif len(doi) gt 0>
-						#doi#
+						#doi# <a href="http://dx.doi.org/#doi#">[ click ]</a>
 					<cfelse>
 						<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user") and is_locked is 1>
 							<a href="/tools/doi.cfm?archive_id=#archive_id#">get a DOI</a>
