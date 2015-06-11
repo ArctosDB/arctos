@@ -186,11 +186,11 @@
 					<cfif len(doi) gt 0>
 						#doi#
 					<cfelse>
-						<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
-										<a href="/tools/doi.cfm?archive_id=#archive_id#">get a DOI</a>
-									</cfif>
+						<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user") and is_locked is 1>
+							<a href="/tools/doi.cfm?archive_id=#archive_id#">get a DOI</a>
+						</cfif>
 					</cfif>
-					#archive_name#</td>
+				</td>
 				<td>
 					#application.serverRootURL#/archive/#archive_name#
 					<a href="/archive/#archive_name#">[ click ]</a>
