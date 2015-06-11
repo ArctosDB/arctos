@@ -123,7 +123,10 @@
 		<cfloop query="archive">
 			<tr>
 				<td>#archive_name#</td>
-				<td>#application.serverRootURL#/archive/#archive_name#</td>
+				<td>
+					#application.serverRootURL#/archive/#archive_name#
+					<a href="/archive/#archive_name#">[ click ]</a>
+				</td>
 				<td>#create_date#</td>
 				<td>#is_locked#</td>
 				<td>#c#</td>
