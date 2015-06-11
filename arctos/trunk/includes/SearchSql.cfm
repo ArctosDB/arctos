@@ -2182,6 +2182,8 @@
 			<cfset basJoin = " #basJoin# INNER JOIN specimen_archive ON (#session.flatTableName#.guid = specimen_archive.guid)
 				INNER JOIN archive_name ON 	(specimen_archive.archive_id = archive_name.archive_id)">
 			<cfset basQual = " #basQual# and archive_name='#lcase(archive_name)#'" >
+			<!----
+
 			<cfif archive_check.creator is session.username and session.roles contains "manage_collection">
 				<cfoutput>
 					<div class="importantNotification">
@@ -2195,7 +2197,7 @@
 					</div>
 				</cfoutput>
 			</cfif>
-			<!----
+
 		</cfif>
 		---->
 </cfif>
