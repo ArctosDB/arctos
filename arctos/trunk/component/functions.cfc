@@ -3730,9 +3730,7 @@
 				</cfquery>
 				<cfset msg="These results have been appended onto Archive #thisName#. Find it under the MyStuff/SavedSearches tab, or visit">
 				<cfset msg=msg & chr(10) & " #application.serverRootURL#/archive/#thisName#">
-
 			<cfelse>
-
 				<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select someRandomSequence.nextval nid from dual
 				</cfquery>
@@ -3760,16 +3758,11 @@
 						#session.specsrchtab#
 					)
 				</cfquery>
-				<cfset msg='success for #archive_name# @ #id.nid#'>
-
+				<cfset msg="Archive #archive_name# created. Find it under the MyStuff/SavedSearches tab, or visit">
+				<cfset msg=msg & chr(10) & " #application.serverRootURL#/archive/#archive_name#">
 			</cfif>
-
 		</cftransaction>
-
-
 	<cfcatch>
-
-
 		<cfset msg="An error occured while saving your archive: ">
 		<cfif cfcatch.detail contains "IU_archive_archive_name">
 			<cfset msg=msg & "Archive Name '#archive_name#' is already in use; please try another name.">
@@ -3782,8 +3775,6 @@
 		<cf_logError subject="error caught: saveSearch" attributeCollection=#cfcatch#>
 	</cfcatch>
 	</cftry>
-
-
 	<cfreturn msg>
 </cffunction>
 
