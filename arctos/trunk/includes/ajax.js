@@ -550,7 +550,7 @@ function archiveSpecimens (){
 }
 function lockArchive(archivename){
 	
-	var l=prompt('Are you sure you want to lock this Archive?');
+	var l=confirm('Are you sure you want to lock this Archive?');
 	
 	alert(l);
 	
