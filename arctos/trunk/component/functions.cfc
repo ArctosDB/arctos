@@ -3685,7 +3685,6 @@
 			<cfif left(archive_name,1) is "+">
 				<!--- append to existing ---->
 				<cfset thisName=trim(mid(archive_name,2,len(archive_name)))>
-
 				<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select archive_id, is_locked from archive_name where archive_name='#thisName#' and creator='#session.username#'
 				</cfquery>
@@ -3698,8 +3697,6 @@
 					<cfset msg="Locked Archives may not be altered in any way.">
 					<cfreturn msg>
 				</cfif>
-
-
 				<!---
 					cannot use /*+ IGNORE_ROW_ON_DUPKEY_INDEX(specimen_archive,IU_spec_archive_arcidcoidguid) */ because its buggy
 					http://guyharrison.squarespace.com/blog/2010/1/1/the-11gr2-ignore_row_on_dupkey_index-hint.html
