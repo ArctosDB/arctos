@@ -103,7 +103,7 @@
 	order by
 		archive_name
 </cfquery>
-
+<cfdump var=#archive#>
 <p>
 	Archives
 </p>
