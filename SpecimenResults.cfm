@@ -419,7 +419,7 @@
 								<option value="removeRows">Remove Checked Rows</option>
 							</optgroup>
 							<optgroup label="Data Tools">
-								<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+								<cfif len(Session.username) gt 0>
 									<option value="saveSearch">Save Search</option>
 									<option value="archiveSpecimens">Archive Results</option>
 									<option value="download">Download</option>
