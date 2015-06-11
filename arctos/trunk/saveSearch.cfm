@@ -75,6 +75,7 @@
 			return false;
 		}
 	}
+
 	function killAR(archive_name) {
 		var l=confirm('Are you sure you want to delete this Archive?');
 		if(l===true){
@@ -86,8 +87,8 @@
 					queryformat : 'column'
 				},
 				function (result) {
-		  			if (IsNumeric(result)) {
-		  				$("ar_" + result.hide();
+		  			if (result== archive_name) {
+		  				$("#ar_" + result.hide();
 					}else{
 						alert(result);
 					}
