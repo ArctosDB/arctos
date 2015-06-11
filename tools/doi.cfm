@@ -146,28 +146,8 @@
 					upper(agent_name.agent_name)='#ucase(archive.creator)#'
 			</cfquery>
 			<cfset creator=createdby.preferred_agent_name>
-			<cfset title="Archived Dataset #archive.archive_name">
+			<cfset title="Archived Dataset #archive.archive_name#">
 
-			</cfif>
-			<cfif isdate(pyear.publisheddateraw)>
-				<cfset publicationyear=dateformat(pyear.publisheddateraw,"yyyy")>
-			<cfelse>
-				<!---- no dates anywhere - fall back to now ---->
-				<cfset publicationyear=dateformat(now(),"yyyy")>
-			</cfif>
-			<cfif media.MEDIA_TYPE is 'image'>
-				<cfset resourcetype='Image'>
-			<cfelseif  media.MEDIA_TYPE is 'multi-page document'>
-				<cfset resourcetype='Text'>
-			<cfelseif  media.MEDIA_TYPE is 'text'>
-				<cfset resourcetype='Text'>
-			<cfelseif  media.MEDIA_TYPE is 'audio'>
-				<cfset resourcetype='Sound'>
-			<cfelseif  media.MEDIA_TYPE is 'video'>
-				<cfset resourcetype='Film'>
-			</cfif>
-			<cfset creator=createdby.agent_name>
-			<cfset title=description.LABEL_VALUE>
 		</cfif><!--- end Archive --->
 
 
