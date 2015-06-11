@@ -2163,6 +2163,7 @@
 			archive_name.archive_id=specimen_archive.archive_id (+)
 		group by is_locked,creator
 	</cfquery>
+	<!--- pass this on to results so we can alert people if something is wonky ---->
 	<cfset archive_record_count=archive_check.c>
 	<!----
 		<cfif archive_check.is_locked eq 1>
