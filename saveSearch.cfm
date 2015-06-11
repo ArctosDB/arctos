@@ -82,7 +82,7 @@
 	order by search_name
 </cfquery>
 
-<cfump var=#hasCanned#>
+<cfdump var=#hasCanned#>
 
 <cfquery name="archive" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select
