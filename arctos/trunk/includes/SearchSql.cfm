@@ -2154,7 +2154,7 @@
 		select
 			is_locked,
 			creator,
-			nvl(count(*),0) c
+			count(*)c
 		from
 			archive_name,
 			specimen_archive
@@ -2163,9 +2163,11 @@
 			archive_name.archive_id=specimen_archive.archive_id (+)
 		group by is_locked,creator
 	</cfquery>
-	<cfdump var=#archive_check#>
 	<!--- pass this on to results so we can alert people if something is wonky ---->
 	<cfset archive_record_count=archive_check.c>
+	<cfif len(archive_record_count) is 0>
+		<cfset archive_record_count=0>
+	</cfif>
 	<!----
 		<cfif archive_check.is_locked eq 1>
 			<div class="importantNotification">
