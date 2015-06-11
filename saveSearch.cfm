@@ -89,7 +89,7 @@
 		archive_name,
 		create_date,
 		is_locked,
-		count(*) c
+		count(specimen_archive.guid) c
 	from
 		archive_name,
 		specimen_archive
