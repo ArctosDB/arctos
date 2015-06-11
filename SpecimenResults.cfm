@@ -420,9 +420,7 @@
 							</optgroup>
 							<optgroup label="Data Tools">
 								<option value="saveSearch">Save Search</option>
-								<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
-									<option value="archiveSpecimens">Archive Results</option>
-								</cfif>
+								<option value="archiveSpecimens">Archive Results</option>
 								<option value="download">Download</option>
 							</optgroup>
 						</select>
