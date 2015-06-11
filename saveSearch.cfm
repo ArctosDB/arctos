@@ -51,7 +51,7 @@
 <cfif action is "manage">
 <script type='text/javascript' src='/includes/_treeAjax.js'></script>
 <script type="text/javascript" language="javascript">
-	function killMe(canned_id) {
+	function killSS(canned_id) {
 		var l=confirm('Are you sure you want to delete this Saved Search?');
 		if(l===true){
 			jQuery.getJSON("/component/functions.cfc",
@@ -61,19 +61,43 @@
 					returnformat : "json",
 					queryformat : 'column'
 				},
-				killMe_success
+				function (result) {
+		  			if (IsNumeric(result)) {
+						var e = "document.getElementById('tr" + result + "')";
+						var el = eval(e);
+						el.style.display='none';
+					}else{
+						alert(result);
+					}
+				}
 			);
-		}else{return false;}
-	}
-	function killMe_success (result) {
-		if (IsNumeric(result)) {
-			var e = "document.getElementById('tr" + result + "')";
-			var el = eval(e);
-			el.style.display='none';
-		}else{
-			alert(result);
+		} else {
+			return false;
 		}
 	}
+	function killAR(archive_name) {
+		var l=confirm('Are you sure you want to delete this Archive?');
+		if(l===true){
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "kill_archive",
+					archive_name : archive_name,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (result) {
+		  			if (IsNumeric(result)) {
+		  				$("ar_" + result.hide();
+					}else{
+						alert(result);
+					}
+				}
+			);
+		} else {
+			return false;
+		}
+	}
+
 </script>
 
 <cfoutput>
@@ -105,8 +129,6 @@
 		archive_name
 </cfquery>
 
-
-
 <p>
 	Archives
 </p>
@@ -129,6 +151,7 @@
 
 	<table border>
 		<tr>
+			<th>Delete</th>
 			<th>Archive Name</th>
 			<th>URL</th>
 			<th>Date</th>
@@ -136,7 +159,12 @@
 			<th>Specimens</th>
 		</tr>
 		<cfloop query="archive">
-			<tr>
+			<tr id="ar_#archive_name#">
+				<td>
+					<cfif is_locked is 0>
+						<img src="/images/del.gif" class="likeLink" onClick="killAR('#archive_name#');" border="0">
+					</cfif>
+				</td>
 				<td>#archive_name#</td>
 				<td>
 					#application.serverRootURL#/archive/#archive_name#
@@ -170,7 +198,7 @@ Saved Searches
 	</tr>
 <cfloop query="hasCanned">
 	<tr id="tr#canned_id#">
-		<td><img src="/images/del.gif" class="likeLink" onClick="killMe('#canned_id#');" border="0"></td>
+		<td><img src="/images/del.gif" class="likeLink" onClick="killSS('#canned_id#');" border="0"></td>
 		<td>#search_name#</td>
 		<td>
 			<a href="/saved/#search_name#">#Application.ServerRootUrl#/saved/#search_name#</a>
