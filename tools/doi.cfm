@@ -146,7 +146,7 @@
 				group by
 					collection.institution
 			</cfquery>
-
+<cfdump var=#d#>
 
 
 
