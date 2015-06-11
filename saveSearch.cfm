@@ -138,7 +138,7 @@
 
 <cfif hasCanned.recordcount >
 	You may save searches  from Specimen Results.
-</cfelse>
+<cfelse>
 
 Saved Searches
 <table border>
