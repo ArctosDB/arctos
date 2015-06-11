@@ -551,12 +551,9 @@ function archiveSpecimens (){
 function lockArchive(archivename){
 	
 	var l=confirm('Are you sure you want to lock this Archive?');
+	if(l===true){
 	
-	alert(l);
-	
-	return false;
-	
-	jQuery.getJSON("/component/functions.cfc",
+		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "lockArchive",
 				archive_name : archivename,
@@ -568,6 +565,10 @@ function lockArchive(archivename){
 	  			//console.log(lcn);
 			}
 		);
+	}else{
+
+		return false;
+	}
 	
 }
 function changeCollection (lcn) {
