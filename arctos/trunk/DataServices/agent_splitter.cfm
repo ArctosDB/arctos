@@ -113,6 +113,10 @@ grant all on ds_temp_split_agent to manage_agents;
 				<cfset sql=sql&" where original='#original#'">
 				<cfset sql=replace(sql,"', where ","' where ","all")>
 				#sql#
+				<cfquery name="repat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					#preservesinglequotes(sql)#
+				</cfquery>
+
 			</p>
 
 		</cfloop>
