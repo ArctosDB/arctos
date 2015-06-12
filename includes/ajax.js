@@ -519,7 +519,7 @@ function closeAnnotation() {
 }
 
 function archiveSpecimens (){
-	p="Archive this search RESULTS. Use Save Search to save CRITERIA.\n";
+	p="Archive search RESULTS. Use Save Search to save CRITERIA.\n";
 	p+=" Type a name for the archive. Names must consist only of lower-case letters, numbers, dash (-), and underbar (_).\n";
 	p+=" The process will take a few seconds; hang tight until you get a confirmation.\n";
 	p+="'myarchive' will create a new archive (or fail); '+myarchive' will append to your existing archive 'myarchive' (or fail).";
