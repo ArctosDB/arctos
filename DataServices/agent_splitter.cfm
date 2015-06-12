@@ -81,7 +81,7 @@ grant all on ds_temp_split_agent to manage_agents;
 			<br>original:#original#
 			<cfset orig=replace(original," and,",chr(7),"all")>
 			<cfset orig=replace(original," and ",chr(7),"all")>
-			<cfloop list="#orig#" index="x" delimiters=",&#chr(7)">
+			<cfloop list="#orig#" index="x" delimiters=",&#chr(7)#">
 				<br>x: #x#
 			</cfloop>
 
