@@ -521,6 +521,7 @@ function closeAnnotation() {
 function archiveSpecimens (){
 	p="Archive this search RESULTS. Use Save Search to save CRITERIA.\n";
 	p+=" Type a name for the archive. Names must consist only of lower-case letters, numbers, dash (-), and underbar (_).\n";
+	p+=" The process will take a few seconds; hang tight until you get a confirmation.\n";
 	p+="'myarchive' will create a new archive (or fail); '+myarchive' will append to your existing archive 'myarchive' (or fail).";
 	sName=prompt(p);
 	$.getJSON("/component/functions.cfc",
@@ -549,7 +550,6 @@ function archiveSpecimens (){
 		);
 }
 function lockArchive(archivename){
-	
 	var l=confirm('Are you sure you want to lock this Archive?');
 	if(l===true){
 	
@@ -569,7 +569,6 @@ function lockArchive(archivename){
 
 		return false;
 	}
-	
 }
 function changeCollection (lcn) {
 	jQuery.getJSON("/component/functions.cfc",
@@ -585,8 +584,6 @@ function changeCollection (lcn) {
 		}
 	);
 }
-
-
 
 
 function saveSearch(returnURL,errm){
