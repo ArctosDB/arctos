@@ -77,6 +77,7 @@ grant all on ds_temp_split_agent to manage_agents;
 	</cfquery>
 	<cfoutput>
 		<cfloop query="d">
+			<cfset ix=1>
 			<hr>
 			<br>original:#original#
 			<cfset orig=original>
@@ -93,6 +94,10 @@ grant all on ds_temp_split_agent to manage_agents;
 			<br>orig: #orig#
 			<cfloop list="#orig#" index="x" delimiters=",&#chr(7)#">
 				<br>x: #x#
+				<cfif len(x) gt 0>
+					<cfset "a#ix#"=x>
+					<cfset ix=ix+1>
+				</cfif>
 			</cfloop>
 
 		</cfloop>
