@@ -124,7 +124,27 @@ grant all on ds_temp_split_agent to manage_agents;
 			</p>
 
 		</cfloop>
+
+		<p>
+			Done.
+			<a href="agent_splitter.cfm?action=getCSV">csv</a>
+		</p>
 	</cfoutput>
 
 
 </cfif>
+
+<cfif action is "getCSV">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from ds_temp_split_agent
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/BulkloadSpecimenEventData.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=split_agents.csv" addtoken="false">
+</cfif>
+
+
