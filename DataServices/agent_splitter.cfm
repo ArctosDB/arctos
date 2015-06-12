@@ -13,9 +13,11 @@ create table ds_temp_split_agent (
 	agent7 varchar2(255),
 	agent8 varchar2(255),
 	agent9 varchar2(255),
-	agent10 varchar2(255),
+	agent10 varchar2(255)
 	);
 
+create or replace public synonym ds_temp_split_agent for ds_temp_split_agent;
+grant all on ds_temp_split_agent to manage_agents;
 ----->
 
 
@@ -69,4 +71,16 @@ create table ds_temp_split_agent (
 
 	<a href="agent_splitter.cfm?action=parse">parse</a>
 </cfif>
+<cfif action is "parse">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from ds_temp_split_agent
+	</cfquery>
+	<cfoutput>
+		<cfloop query="d">
+			#original#
+			<hr>
+		</cfloop>
+	</cfoutput>
 
+
+</cfif>
