@@ -79,7 +79,7 @@ grant all on ds_temp_split_agent to manage_agents;
 		<cfloop query="d">
 			<hr>
 			<br>original:#original#
-			<cfloop list="#original#" index="x" delimiters=",">
+			<cfloop list="#original#" index="x" delimiters=",&">
 				<br>x: #x#
 			</cfloop>
 
