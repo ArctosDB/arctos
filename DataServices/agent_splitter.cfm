@@ -107,11 +107,15 @@ grant all on ds_temp_split_agent to manage_agents;
 				<cfloop from ="1" to="10" index="c">
 					<cfset thisAgent=trim(evaluate("a" & c))>
 					<cfif len(thisAgent) gt 0>
-						<cfset sql=sql&" agent#c#='#thisAgent#', ">
+						<cfset sql=sql&"agent#c#='#thisAgent#',">
 					</cfif>
 				</cfloop>
 				<cfset sql=sql&" where original='#original#'">
 				<cfset sql=replace(sql,"', where ","' where ","all")>
+
+				 update ds_temp_split_agent set agent1='A. W. Evans', where original='A. W. Evans'
+
+
 				#sql#
 				<cfquery name="repat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					#preservesinglequotes(sql)#
