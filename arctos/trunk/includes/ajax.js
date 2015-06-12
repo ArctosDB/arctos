@@ -524,7 +524,8 @@ function archiveSpecimens (){
 	p+=" The process will take a few seconds; hang tight until you get a confirmation.\n";
 	p+="'myarchive' will create a new archive (or fail); '+myarchive' will append to your existing archive 'myarchive' (or fail).";
 	sName=prompt(p);
-	$.getJSON("/component/functions.cfc",
+	if (sName.length>0) {
+		$.getJSON("/component/functions.cfc",
 			{
 				method : "archiveSpecimen",
 				archive_name : sName,
@@ -548,6 +549,7 @@ function archiveSpecimens (){
 				*/
 			}
 		);
+	}
 }
 function lockArchive(archivename){
 	var l=confirm('Are you sure you want to lock this Archive?');
