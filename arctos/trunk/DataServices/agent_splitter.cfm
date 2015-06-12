@@ -78,6 +78,9 @@ grant all on ds_temp_split_agent to manage_agents;
 	<cfoutput>
 		<cfloop query="d">
 			<cfset ix=1>
+			<cfloop from ="1" to="10" index="c">
+				<cfset "a#c#"="">
+			</cfloop>
 			<hr>
 			<br>original:#original#
 			<cfset orig=original>
@@ -99,6 +102,16 @@ grant all on ds_temp_split_agent to manage_agents;
 					<cfset ix=ix+1>
 				</cfif>
 			</cfloop>
+			<p>
+				update ds_temp_split_agent set
+				<cfloop from ="1" to="10" index="c">
+					<cfset thisAgent=evaluate("a" & c)>
+					<cfif len(thisAgent) gt 0>
+						agent#c#='#thisAgent#'
+					</cfif>
+					where original='#original#'
+				</cfloop>
+			</p>
 
 		</cfloop>
 	</cfoutput>
