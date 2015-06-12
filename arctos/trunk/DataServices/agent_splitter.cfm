@@ -141,7 +141,7 @@ grant all on ds_temp_split_agent to manage_agents;
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
 	<cffile action = "write"
-	    file = "#Application.webDirectory#/download/BulkloadSpecimenEventData.csv"
+	    file = "#Application.webDirectory#/download/split_agents.csv"
     	output = "#csv#"
     	addNewLine = "no">
 	<cflocation url="/download.cfm?file=split_agents.csv" addtoken="false">
