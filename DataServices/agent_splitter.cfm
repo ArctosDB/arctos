@@ -109,8 +109,8 @@ grant all on ds_temp_split_agent to manage_agents;
 					<cfif len(thisAgent) gt 0>
 						agent#c#='#thisAgent#'
 					</cfif>
-					where original='#original#'
 				</cfloop>
+					where original='#original#'
 			</p>
 
 		</cfloop>
