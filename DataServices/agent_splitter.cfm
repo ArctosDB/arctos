@@ -105,9 +105,9 @@ grant all on ds_temp_split_agent to manage_agents;
 			<p>
 				update ds_temp_split_agent set
 				<cfloop from ="1" to="10" index="c">
-					<cfset thisAgent=evaluate("a" & c)>
+					<cfset thisAgent=trim(evaluate("a" & c))>
 					<cfif len(thisAgent) gt 0>
-						agent#c#='#thisAgent#'
+						agent#c#='#thisAgent#',
 					</cfif>
 				</cfloop>
 					where original='#original#'
