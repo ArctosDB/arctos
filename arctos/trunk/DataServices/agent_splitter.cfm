@@ -103,14 +103,16 @@ grant all on ds_temp_split_agent to manage_agents;
 				</cfif>
 			</cfloop>
 			<p>
-				update ds_temp_split_agent set
+				<cfset sql="update ds_temp_split_agent set ">
 				<cfloop from ="1" to="10" index="c">
 					<cfset thisAgent=trim(evaluate("a" & c))>
 					<cfif len(thisAgent) gt 0>
-						agent#c#='#thisAgent#',
+						<cfset sql=sql&" agent#c#='#thisAgent#', ">
 					</cfif>
 				</cfloop>
-					where original='#original#'
+				<cfset sql=sql&" where original='#original#'">
+				<cfset sql=replace(sql,"', where ","' where ","all")>
+				#sql#
 			</p>
 
 		</cfloop>
