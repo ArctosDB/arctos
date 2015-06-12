@@ -524,7 +524,7 @@ function archiveSpecimens (){
 	p+=" The process will take a few seconds; hang tight until you get a confirmation.\n";
 	p+="'myarchive' will create a new archive (or fail); '+myarchive' will append to your existing archive 'myarchive' (or fail).";
 	sName=prompt(p);
-	if (sName.length==0) {
+	if (!sName) {
 		return false;
 	}
 	$.getJSON("/component/functions.cfc",
