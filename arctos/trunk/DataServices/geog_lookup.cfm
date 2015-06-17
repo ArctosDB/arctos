@@ -1,6 +1,11 @@
+<cfinclude template="/includes/_header.cfm">
+<script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
+
+
+
 <style>
 	.possiblesTable {
-		max-height:20em;
+		max-height:10em;
 		overflow:auto;
 	}
 	.rawdata {
@@ -15,9 +20,44 @@
 		padding-left:1em;
 		font-weight:bold;
 	}
+	.onerec{
+		border:1px solid black;
+	}
+
+	.goodsave{
+		border:1px solid green;
+		background-color:#FCFFFC;
+	}
 
 </style>
 <script>
+jQuery(document).ready(function() {
+		$.each($("input[id^='geopickr']"), function() {
+
+
+
+			$("#" + this.id).autocomplete("/ajax/higher_geog.cfm", {
+				width: 600,
+				max: 50,
+				autofill: false,
+				multiple: false,
+				scroll: true,
+				scrollHeight: 300,
+				matchContains: true,
+				minChars: 1,
+				selectFirst:false
+			});
+	    });
+
+
+	});
+
+	function useThatOne(pkey,idx) {
+		var d=$("#geopickr"+idx).val();
+		useThisOne(pkey,d);
+	}
+
+
 	function useThisOne(pkey,geog) {
 		$.getJSON("/component/DSFunctions.cfc",
 			{
@@ -28,10 +68,22 @@
 				queryformat : 'column'
 			},
 			function(r) {
-				$('#chooseTab_' + r).hide();
+
+
+				$('#oadiv_' + pkey).removeClass().addClass('goodsave');
+
+
+
 			}
 		);
 	}
+
+
+
+
+
+
+
 </script>
 <!---
 drop table ds_temp_geog;
@@ -49,6 +101,7 @@ create table ds_temp_geog (
 	SEA  varchar2(255),
 	HIGHER_GEOG  varchar2(255)
 );
+alter table ds_temp_geog drop column calculated_higher_geog;
 
 alter table ds_temp_geog rename column key to pkey;
 alter table ds_temp_geog drop column HIGHER_GEOG;
@@ -123,7 +176,6 @@ from geog_auth_rec where rownum<10
 ---->
 
 
-<cfinclude template="/includes/_header.cfm">
 
 <cfif action is "nothing">
 	Load random-ish geography; we'll try to find an appropriate Arctos higher_geog entry.
@@ -213,9 +265,12 @@ from geog_auth_rec where rownum<10
 
 	<cfset result = QueryNew("method,higher_geog")>
 
+		<cfset sint=1>
 
 
 	<cfloop query="qdata">
+		<div class="onerec" id="oadiv_#pkey#">
+
 		<cfquery name="result" dbtype="query">
 			select * from result where 1=2
 		</cfquery>
@@ -543,7 +598,6 @@ from geog_auth_rec where rownum<10
 				<cfset n=n+1>
 			</cfloop>
 		</cfif>
-
 		<cfif n eq 1>
 			<cfset thisMethod="componentMatch_noCountry">
 			<cfset gotsomething=false><!---- make sure we don't just return kinda everything --->
@@ -647,6 +701,7 @@ from geog_auth_rec where rownum<10
             </cfloop>
         </cfif>
 		<!---- now try unranked junk ---->
+
 		<cfif n eq 1>
             <cfset thisMethod="componentMatch_NoRankSubstringMatch">
 			 <cfquery name="componentMatch" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -670,19 +725,21 @@ from geog_auth_rec where rownum<10
                 <cfset n=n+1>
             </cfloop>
         </cfif>
-
 		<cfif result.recordcount is 1>
 			<cfquery name="upr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update
 					ds_temp_geog
 				set
-					FOUND_HIGHER_GEOG='#result.higher_geog#',
+					HIGHER_GEOG='#result.higher_geog#',
 					status='#result.method#'
 				where
 					pkey=#qdata.pkey#
 			</cfquery>
 			<div class="r_status">
 				found one - autoupdate
+				<script>
+					$('##oadiv_#pkey#').removeClass().addClass('goodsave');
+				</script>
 			</div>
 		<cfelseif result.recordcount gt 1>
 			<cfquery name="result" dbtype="query">
@@ -699,7 +756,8 @@ from geog_auth_rec where rownum<10
 						<tr>
 							<td>#method#</td>
 							<td>#higher_geog#</td>
-							<td><span class="likeLink" onclick="useThisOne('#qdata.pkey#','#higher_geog#');">[ use this ]</span></td>
+							<td><span class="likeLink" id="ut#sint#" onclick="useThisOne('#qdata.pkey#','#higher_geog#');">[ use this ]</span></td>
+							<cfset sint=sint+1>
 						</tr>
 					</cfloop>
 
@@ -708,8 +766,13 @@ from geog_auth_rec where rownum<10
 		<cfelse>
 			<div class="r_status">
 				found nothing
+				<label for="geopickr#sint#">Type to Pick</label>
+				<input type="text" name="geopickr" id="geopickr#sint#" size="80">
+				<span class="likeLink" id="ut#sint#" onclick="useThatOne('#qdata.pkey#','#sint#');">[ save ]</span>
+				<cfset sint=sint+1>
 			</div>
 		</cfif>
+		</div>
 	</cfloop>
 </cfoutput>
 </cfif>
@@ -717,8 +780,7 @@ from geog_auth_rec where rownum<10
 	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_geog
 			order by
-			FOUND_HIGHER_GEOG,
-			calculated_higher_geog
+			HIGHER_GEOG
 	</cfquery>
 	<cfset ac = getData.columnList>
 	<!--- strip internal columns --->
