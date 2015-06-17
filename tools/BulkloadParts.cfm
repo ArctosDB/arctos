@@ -56,7 +56,7 @@ grant all on cf_temp_parts to uam_query,uam_update;
 	<cfoutput>
 		<cfset d="guid_prefix,other_id_type,other_id_number,part_name,condition,disposition,lot_count,remarks,use_existing,container_barcode">
 		<cfloop from="1" to="#numPartAttrs#" index="i">
-			<cfset d=d & ",PART_ATTRIBUTE_TYPE_#i#,PART_ATTRIBUTE_VALUE_#i#,PART_ATTRIBUTE_UNITS_#i#,PART_ATTRIBUTE_DATE_#i#,PART_ATTRIBUE_DETERMINER_#i#,PART_ATTRIBUE_REMARK_#i#">
+			<cfset d=d & ",PART_ATTRIBUTE_TYPE_#i#,PART_ATTRIBUTE_VALUE_#i#,PART_ATTRIBUTE_UNITS_#i#,PART_ATTRIBUTE_DATE_#i#,PART_ATTRIBUTE_DETERMINER_#i#,PART_ATTRIBUTE_REMARK_#i#">
 		</cfloop>
 		<cfset variables.encoding="UTF-8">
 		<cfset variables.fileName="#Application.webDirectory#/download/BulkloadParts.csv">
@@ -217,13 +217,13 @@ grant all on cf_temp_parts to uam_query,uam_update;
 			<td></td>
 		</tr>
 		<tr>
-			<td>PART_ATTRIBUE_DETERMINER_n</td>
+			<td>PART_ATTRIBUTE_DETERMINER_n</td>
 			<td>no</td>
 			<td>determiner for PART_ATTRIBUTE_TYPE_n; agent_name</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td>PART_ATTRIBUE_REMARK_m</td>
+			<td>PART_ATTRIBUTE_REMARK_m</td>
 			<td>no</td>
 			<td>remark for PART_ATTRIBUTE_TYPE_n</td>
 			<td></td>
@@ -677,7 +677,7 @@ validate
 			update
 				cf_temp_parts
 			set
-				status = status || ';PART_ATTRIBUE_DETERMINER_#i# is invalid'
+				status = status || ';PART_ATTRIBUTE_DETERMINER_#i# is invalid'
 			where
 				upper(username)='#ucase(session.username)#' and
 				PART_ATTRIBUTE_TYPE_#i# is not null and
