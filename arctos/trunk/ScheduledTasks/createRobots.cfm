@@ -58,9 +58,11 @@
 	variables.joFileWriter.writeLine('User-agent: Baiduspider');
 	variables.joFileWriter.writeLine('Disallow: /');
 	variables.joFileWriter.writeLine('');
----->
 
 	// New plan: allow only specific bots, banhammer anything that shows up without an invite
+
+---->
+
 
 
 	variables.joFileWriter.writeLine('');
