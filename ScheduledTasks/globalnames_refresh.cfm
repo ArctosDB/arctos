@@ -40,7 +40,7 @@ Make sure any useful changes end up in both places.
 
 <cfoutput>
 	<cfif not isdefined("numberOfNamesOneFetch")>
-		<cfset numberOfNamesOneFetch=2>
+		<cfset numberOfNamesOneFetch=300>
 	</cfif>
 	<cfquery name="checknew" datasource="uam_god">
 		insert into taxon_refresh_log (TAXON_NAME_ID,TAXON_NAME) (
@@ -91,13 +91,6 @@ Make sure any useful changes end up in both places.
 			delete from taxon_term where taxon_name_id=#thisTaxonNameID#
 			and source not in (#listqualify(sourcesToIgnoreComma,chr(39))#)
 		</cfquery>
-
-		<br>
-
-		delete from taxon_term where taxon_name_id=#thisTaxonNameID#
-			and source not in (#listqualify(sourcesToIgnoreComma,chr(39))#)
-
-
 		<cftry>
 			<cfif structKeyExists(x.data[thisResultIndex],"results")>
 				<cfloop from="1" to="#ArrayLen(x.data[thisResultIndex].results)#" index="i">
@@ -116,7 +109,6 @@ Make sure any useful changes end up in both places.
 							<cfset thisSource=x.data[thisResultIndex].results[i].data_source_title>
 
 
-							<br>thisSource: #thisSource#
 							<cfif not listfindnocase(sourcesToIgnore,thisSource,"|")>
 
 								<cfset thisSourceID=x.data[thisResultIndex].results[i].classification_path_ids>
