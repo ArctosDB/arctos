@@ -29,30 +29,51 @@ insert into taxon_refresh_log (
  this is copied from the single-fetch page, but MODIFIED.
 
 
-Make sure any useful changes end up in both places. 
+Make sure any useful changes end up in both places.
 
 
 
  ---->
 
+
+
+
 <cfoutput>
 	<cfif not isdefined("numberOfNamesOneFetch")>
-		<cfset numberOfNamesOneFetch=300>
+		<cfset numberOfNamesOneFetch=2>
 	</cfif>
+	<cfquery name="checknew" datasource="uam_god">
+		insert into taxon_refresh_log (TAXON_NAME_ID,TAXON_NAME) (
+			select TAXON_NAME_ID,scientific_name from taxon_name where taxon_name_id not in (
+				select TAXON_NAME_ID from taxon_refresh_log
+			)
+			and rownum<500
+		)
+	</cfquery>
 	<cfquery name="d" datasource="uam_god">
 		select * from taxon_refresh_log where lastfetch is null and rownum < #numberOfNamesOneFetch#
 	</cfquery>
 	<cfif d.recordcount is 0>
-		<br>nothing to update<cfabort>
+		<!---- start at old and work newer ---->
+		<cfquery name="d" datasource="uam_god">
+			select * from taxon_refresh_log where sysdate-lastfetch>90 and rownum < #numberOfNamesOneFetch#
+		</cfquery>
 	</cfif>
 	<cfset theseNames=valuelist(d.taxon_name,'|')>
+
+	<cfdump var=#theseNames#>
 	<cfloop condition = "len(theseNames) gt 6300">
 		<cfset theseNames=listdeleteat(theseNames,listlen(theseNames,"|"),"|")>
-	</cfloop>	
+	</cfloop>
 	<cfquery name="tti" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select source from ctTAXONOMY_SOURCE
 	</cfquery>
-	<cfset sourcesToIgnore=valuelist(tti.source,'|')>	
+	<cfset sourcesToIgnore=valuelist(tti.source,'|')>
+
+	<cfset sourcesToIgnoreComma=valuelist(tti.source)>
+
+
+
 	<cfset theseTaxonNameIds="">
 	<cfhttp url="http://resolver.globalnames.org/name_resolvers.json?names=#theseNames#"></cfhttp>
 	<cfset x=DeserializeJSON(cfhttp.filecontent)>
@@ -64,12 +85,12 @@ Make sure any useful changes end up in both places.
 		<cfquery name="dfd" dbtype="query">
 			select taxon_name_id from d where taxon_name='#thisName#'
 		</cfquery>
-		<cfset thisTaxonNameID=dfd.taxon_name_id>	
+		<cfset thisTaxonNameID=dfd.taxon_name_id>
 		<!--- just delete all previously-fetched globalnames data ---->
 		<cfquery name="flush_old" datasource="uam_god">
 			delete from taxon_term where taxon_name_id=#thisTaxonNameID#
-			and source not in (#listqualify(sourcesToIgnore,chr(39))#)
-		</cfquery>	
+			and source not in (#listqualify(sourcesToIgnoreComma,chr(39))#)
+		</cfquery>
 		<cftry>
 			<cfif structKeyExists(x.data[thisResultIndex],"results")>
 				<br>got results....
@@ -90,15 +111,15 @@ Make sure any useful changes end up in both places.
 								<cfset match_type=x.data[thisResultIndex].results[i].match_type>
 								<cfif match_type is 1>
 									<cfset thisMatchType="Exact match">
-								<cfelseif match_type is 2>						
+								<cfelseif match_type is 2>
 									<cfset thisMatchType="Exact match by canonical form of a name">
-								<cfelseif match_type is 3>						
+								<cfelseif match_type is 3>
 									<cfset thisMatchType="Fuzzy match by canonical form">
-								<cfelseif match_type is 4>						
+								<cfelseif match_type is 4>
 									<cfset thisMatchType="Partial exact match by species part of canonical form">
-								<cfelseif match_type is 5>		
+								<cfelseif match_type is 5>
 									<cfset thisMatchType="Partial fuzzy match by species part of canonical form">
-								<cfelseif match_type is 6>						
+								<cfelseif match_type is 6>
 									<cfset thisMatchType=" Exact match by genus part of a canonical form">
 								<cfelse>
 									<cfset thisMatchType="">
@@ -185,7 +206,7 @@ Make sure any useful changes end up in both places.
 											'#thisSource#',
 											'#thisSourceID#'
 										)
-									</cfquery>	
+									</cfquery>
 								</cfif>
 							</cfif><!---- end is something to ignore ---->
 						</cfif><!---- end has classification path check ---->
@@ -210,5 +231,5 @@ Make sure any useful changes end up in both places.
 		<cfquery name="gotit" datasource="uam_god">
 			update taxon_refresh_log set lastfetch=sysdate where taxon_name_id in (#theseTaxonNameIds#)
 		</cfquery>
-	</cfif>	
+	</cfif>
 </cfoutput>

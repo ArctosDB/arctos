@@ -78,6 +78,11 @@
 	variables.joFileWriter.writeLine('');
 
 	variables.joFileWriter.writeLine('');
+	variables.joFileWriter.writeLine('User-agent: Applebot');
+	variables.joFileWriter.writeLine('Disallow:');
+	variables.joFileWriter.writeLine('');
+
+	variables.joFileWriter.writeLine('');
 	variables.joFileWriter.writeLine('User-agent: *');
 	variables.joFileWriter.writeLine('Disallow: /');
 	variables.joFileWriter.writeLine('');
