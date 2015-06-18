@@ -94,6 +94,7 @@ Make sure any useful changes end up in both places.
 		<cftry>
 			<cfif structKeyExists(x.data[thisResultIndex],"results")>
 				<br>got results....
+				<cfdump var=#x#>
 				<cfloop from="1" to="#ArrayLen(x.data[thisResultIndex].results)#" index="i">
 					<cfset pos=1>
 					<!--- because lists are stupid and ignore NULLs.... ---->
