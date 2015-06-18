@@ -99,12 +99,22 @@ Make sure any useful changes end up in both places.
 					<cfset pos=1>
 					<!--- because lists are stupid and ignore NULLs.... ---->
 					<cfif structKeyExists(x.data[thisResultIndex].results[i],"classification_path") and structKeyExists(x.data[thisResultIndex].results[i],"classification_path_ranks")>
+
+						<br>ok
+
+
 						<cfset cterms=ListToArray(x.data[thisResultIndex].results[i].classification_path, "|", true)>
+
+						<br>cterms: #cterms#
 						<cfif listlen(x.data[thisResultIndex].results[i].classification_path, "|") gt 1>
+
+						<br>llOK
 							<!--- ignore the stuff with no useful classification, which includes one-term "classifications" --->
 							<cfset cranks=ListToArray(x.data[thisResultIndex].results[i].classification_path_ranks, "|", true)>
 							<cfset thisSource=x.data[thisResultIndex].results[i].data_source_title>
 							<cfif not listfindnocase(sourcesToIgnore,thisSource,"|")>
+
+							<br>notetc...
 								<cfset thisSourceID=x.data[thisResultIndex].results[i].classification_path_ids>
 								<cfif len(thisSourceID) is 0>
 									<cfset thisSourceID=CreateUUID()>
