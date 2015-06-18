@@ -91,6 +91,13 @@ Make sure any useful changes end up in both places.
 			delete from taxon_term where taxon_name_id=#thisTaxonNameID#
 			and source not in (#listqualify(sourcesToIgnoreComma,chr(39))#)
 		</cfquery>
+
+		<br>
+
+		delete from taxon_term where taxon_name_id=#thisTaxonNameID#
+			and source not in (#listqualify(sourcesToIgnoreComma,chr(39))#)
+
+
 		<cftry>
 			<cfif structKeyExists(x.data[thisResultIndex],"results")>
 				<cfloop from="1" to="#ArrayLen(x.data[thisResultIndex].results)#" index="i">
