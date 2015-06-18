@@ -61,7 +61,6 @@ Make sure any useful changes end up in both places.
 	</cfif>
 	<cfset theseNames=valuelist(d.taxon_name,'|')>
 
-	<cfdump var=#theseNames#>
 	<cfloop condition = "len(theseNames) gt 6300">
 		<cfset theseNames=listdeleteat(theseNames,listlen(theseNames,"|"),"|")>
 	</cfloop>
