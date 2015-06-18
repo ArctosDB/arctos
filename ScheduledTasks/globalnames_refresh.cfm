@@ -112,6 +112,10 @@ Make sure any useful changes end up in both places.
 							<!--- ignore the stuff with no useful classification, which includes one-term "classifications" --->
 							<cfset cranks=ListToArray(x.data[thisResultIndex].results[i].classification_path_ranks, "|", true)>
 							<cfset thisSource=x.data[thisResultIndex].results[i].data_source_title>
+
+
+							<br>thisSource: #thisSource#
+							<br>sourcesToIgnore: #sourcesToIgnore#
 							<cfif not listfindnocase(sourcesToIgnore,thisSource,"|")>
 
 							<br>notetc...
