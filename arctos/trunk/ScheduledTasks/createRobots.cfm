@@ -7,7 +7,7 @@
 	variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	variables.joFileWriter.writeLine('User-agent: *');
 	variables.joFileWriter.writeLine('crawl-delay: 10');
-</cfscript>	
+</cfscript>
 <cfset allowedDirectories="Collections">
 <cfquery name="portals" datasource="cf_dbuser">
 	select portal_name from cf_collection
@@ -18,7 +18,7 @@
 		<cfscript>
 			a='Disallow: /' & name & '/';
 			variables.joFileWriter.writeLine(a);
-		</cfscript>		
+		</cfscript>
 	</cfif>
 </cfloop>
 <!--- Bing is stupid ---->
@@ -35,12 +35,12 @@
 		<cfscript>
 			a='Disallow: /' & name;
 			variables.joFileWriter.writeLine(a);
-		</cfscript>		
+		</cfscript>
 	</cfif>
 </cfloop>
 <cfscript>
 	variables.joFileWriter.writeLine('Disallow: /digir/');
-
+<!---
 	// useless bots
 	variables.joFileWriter.writeLine('');
 	variables.joFileWriter.writeLine('User-agent: Slurp');
@@ -58,6 +58,28 @@
 	variables.joFileWriter.writeLine('User-agent: Baiduspider');
 	variables.joFileWriter.writeLine('Disallow: /');
 	variables.joFileWriter.writeLine('');
+---->
+
+	// New plan: allow only specific bots, banhammer anything that shows up without an invite
+
+
+	variables.joFileWriter.writeLine('');
+	variables.joFileWriter.writeLine('User-agent: Googlebot');
+	variables.joFileWriter.writeLine('Disallow:');
+	variables.joFileWriter.writeLine('');
+
+	variables.joFileWriter.writeLine('');
+	variables.joFileWriter.writeLine('User-agent: Bingbot');
+	variables.joFileWriter.writeLine('Disallow:');
+	variables.joFileWriter.writeLine('');
+
+	variables.joFileWriter.writeLine('');
+	variables.joFileWriter.writeLine('User-agent: *');
+	variables.joFileWriter.writeLine('Disallow: /');
+	variables.joFileWriter.writeLine('');
+
+
+
 
 
 	variables.joFileWriter.writeLine('Sitemap: ' & application.serverRootUrl & '/sitemapindex.xml.gz');
