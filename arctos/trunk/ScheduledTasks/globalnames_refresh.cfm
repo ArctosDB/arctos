@@ -183,12 +183,6 @@ Make sure any useful changes end up in both places.
 											)
 										</cfquery>
 
-										<br>updating....
-
-
-
-
-
 										<cfset pos=pos+1>
 									</cfif>
 								</cfloop>
