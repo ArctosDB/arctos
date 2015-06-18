@@ -105,7 +105,7 @@ Make sure any useful changes end up in both places.
 
 						<cfset cterms=ListToArray(x.data[thisResultIndex].results[i].classification_path, "|", true)>
 
-						<br>cterms: #cterms#
+						<br><cfdump var=#cterms#>
 						<cfif listlen(x.data[thisResultIndex].results[i].classification_path, "|") gt 1>
 
 						<br>llOK
