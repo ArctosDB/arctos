@@ -38,8 +38,7 @@
 		</cfscript>
 	</cfif>
 </cfloop>
-<cfscript>
-	variables.joFileWriter.writeLine('Disallow: /digir/');
+
 <!---
 	// useless bots
 	variables.joFileWriter.writeLine('');
@@ -62,6 +61,9 @@
 	// New plan: allow only specific bots, banhammer anything that shows up without an invite
 
 ---->
+<cfscript>
+	variables.joFileWriter.writeLine('Disallow: /digir/');
+
 
 
 
