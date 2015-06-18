@@ -168,6 +168,33 @@ Make sure any useful changes end up in both places.
 												'#thisMatchType#'
 											)
 										</cfquery>
+
+										<br>
+
+										insert into taxon_term (
+												taxon_term_id,
+												taxon_name_id,
+												term,
+												term_type,
+												source,
+												position_in_classification,
+												classification_id,
+												gn_score,
+												match_type
+											) values (
+												sq_taxon_term_id.nextval,
+												#thisTaxonNameID#,
+												'#thisTerm#',
+												'#lcase(thisRank)#',
+												'#thisSource#',
+												#pos#,
+												'#thisSourceID#',
+												#thisScore#,
+												'#thisMatchType#'
+											)
+
+
+
 										<cfset pos=pos+1>
 									</cfif>
 								</cfloop>
