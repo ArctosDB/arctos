@@ -11,19 +11,20 @@
 		<cfthrow message = "Media Exit Link: Invalid Format"
 			errorCode = "127002" extendedInfo="There may be a problem with the linked resource: the target does not seem to be a valid URL.">
 		<cfabort>
-
-
-		<!----
-		<!--- hopefully a local resource and not some garbage ---->
-		<cfif left(target,1) is "/">
-			<cfset http_target=application.serverRootURL & target>
-		<cfelse>
-			<cfset http_target=application.serverRootURL & '/' & target>
-		</cfif>
-		---->
 	<cfelse>
 		<cfset http_target=target>
 	</cfif>
+	<!---- make sure that this is us ---->
+	<cfquery name="isus"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from media where upper(trim(media_uri))='#ucase(trim(target))#'
+	</cfquery>
+	<cfif isus.c is 0>
+		<cfthrow message = "Media Exit Link: No Match"
+			errorCode = "127002" extendedInfo="There may be a problem with the linked resource: the Media does not exist.">
+		<cfabort>
+	</cfif>
+
+
 	<cfhttp url="#http_target#" method="head" timeout="3"></cfhttp>
 	<cfif isdefined("cfhttp.statuscode") and cfhttp.statuscode is "200 OK">
 		<cfset status="200">
