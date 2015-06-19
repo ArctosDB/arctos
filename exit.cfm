@@ -8,8 +8,8 @@
 	</cfif>
 	<cfif left(target,4) is not "http">
 
-		<cfthrow message = "There may be a problem with the linked resource: the target does not seem to be a valid URL."
-			errorCode = "127002" extendedInfo="#target#">
+		<cfthrow message = "Media Exit Link: Invalid Format"
+			errorCode = "127002" extendedInfo="There may be a problem with the linked resource: the target does not seem to be a valid URL.">
 		<cfabort>
 
 
