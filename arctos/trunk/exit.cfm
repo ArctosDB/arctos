@@ -7,12 +7,20 @@
         <cfabort>
 	</cfif>
 	<cfif left(target,4) is not "http">
+
+		<cfthrow message = "There may be a problem with the linked resource: the target does not seem to be a valid URL."
+			errorCode = "127002" extendedInfo="#target#">
+		<cfabort>
+
+
+		<!----
 		<!--- hopefully a local resource and not some garbage ---->
 		<cfif left(target,1) is "/">
 			<cfset http_target=application.serverRootURL & target>
 		<cfelse>
 			<cfset http_target=application.serverRootURL & '/' & target>
 		</cfif>
+		---->
 	<cfelse>
 		<cfset http_target=target>
 	</cfif>
