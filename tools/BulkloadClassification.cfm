@@ -64,7 +64,7 @@ grant all on cf_temp_classification to coldfusion_user;
 		Update, replace, or create classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
 		click any buttons unless you KNOW what they do.
 		 <p>
-			Upload a comma-delimited text file (csv). <a href="BulkloadTaxonomy.cfm?action=makeTemplate">[ Get the Template ]</a>
+			Upload a comma-delimited text file (csv). <a href="BulkloadClassification.cfm?action=makeTemplate">[ Get the Template ]</a>
 		</p>
 		<p>
 			You can (and should) also pull classification from globalnames.
