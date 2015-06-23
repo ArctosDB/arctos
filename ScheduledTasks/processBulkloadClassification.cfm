@@ -107,4 +107,15 @@ run these in order
 			status ='pass_meta' and
 			classification_id is null
 	</cfquery>
+
+	<cfquery name="pass" datasource="uam_god">
+		update
+			CF_TEMP_CLASSIFICATION
+		set
+			status=ready_to_load
+		where
+			status ='pass_meta' and
+			classification_id is not null and
+			taxon_name_id is not null
+	</cfquery>
 </cfif>
