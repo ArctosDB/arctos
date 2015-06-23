@@ -94,8 +94,9 @@ run these in order
 			scientific_name in (
 				select scientific_name from (
 					select
-			          taxon_term.taxon_name_id,
-			          taxon_term.CLASSIFICATION_ID
+						count(distinct(taxon_term.CLASSIFICATION_ID)),
+			          	taxon_term.taxon_name_id,
+			          	taxon_term.CLASSIFICATION_ID
 			        from
 			          CF_TEMP_CLASSIFICATION,
 			          taxon_term
@@ -103,7 +104,7 @@ run these in order
 			          taxon_term.taxon_name_id=CF_TEMP_CLASSIFICATION.taxon_name_id and
 			          taxon_term.source=CF_TEMP_CLASSIFICATION.source
 			        having
-			        	count(*) > 1
+			        	count(distinct(taxon_term.CLASSIFICATION_ID)) > 1
 			        group by
 			        	taxon_term.CLASSIFICATION_ID,
 			        	taxon_term.taxon_name_id
@@ -130,16 +131,46 @@ run these in order
 		where
 			status ='found_name'
 	</cfquery>
+
+	<p>
+	update
+			CF_TEMP_CLASSIFICATION
+		set
+			status='ready_to_load',
+			classification_id=(
+				select distinct
+					classification_id
+				from
+					taxon_term
+				where
+					taxon_term.taxon_name_id=CF_TEMP_CLASSIFICATION.taxon_name_id and
+					taxon_term.source=CF_TEMP_CLASSIFICATION.source
+			)
+		where
+			status ='found_name'
+	</p>
 	<cfquery name="findfail" datasource="uam_god">
 		update
 			CF_TEMP_CLASSIFICATION
 		set
-			classification_id='[NEW]',
-			status='ready_to_load',
+			classification_id='[NEW]'
+			status='ready_to_load'
 		where
 			status ='found_name' and
 			classification_id is null
 	</cfquery>
+
+	<p>
+	update
+			CF_TEMP_CLASSIFICATION
+		set
+			classification_id='[NEW]'
+			status='ready_to_load'
+		where
+			status ='found_name' and
+			classification_id is null
+
+	</p>
 
 
 </cfif>
