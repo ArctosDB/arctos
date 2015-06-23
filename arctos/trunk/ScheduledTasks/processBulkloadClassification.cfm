@@ -4,7 +4,7 @@ run these in order
 
 
 <br><a href="processBulkloadClassification.cfm?action=checkMeta">checkMeta</a>
-<br><a href="processBulkloadClassification.cfm?action=checkMeta">getTID</a>
+<br><a href="processBulkloadClassification.cfm?action=getTID">getTID</a>
 <br><a href="processBulkloadClassification.cfm?action=getClassificationID">getClassificationID</a>
 
 
@@ -30,6 +30,7 @@ run these in order
 		update
 			CF_TEMP_CLASSIFICATION
 		set
+			status='found_name',
 			taxon_name_id=(
 				select taxon_name.taxon_name_id from taxon_name where
 				taxon_name.scientific_name = CF_TEMP_CLASSIFICATION.scientific_name
@@ -45,6 +46,7 @@ run these in order
 		update
 			CF_TEMP_CLASSIFICATION
 		set
+			status='found_name',
 			taxon_name_id=(
 				select taxon_name.taxon_name_id from taxon_name where
 				taxon_name.scientific_name = CF_TEMP_CLASSIFICATION.scientific_name
@@ -88,7 +90,7 @@ run these in order
 		set
 			status='multiple classification found - update denied'
 		where
-			status ='pass_meta' and
+			status ='found_name' and
 			scientific_name in (
 				select scientific_name from (
 					select
@@ -115,6 +117,7 @@ run these in order
 		update
 			CF_TEMP_CLASSIFICATION
 		set
+			status='ready_to_load',
 			classification_id=(
 				select distinct
 					classification_id
@@ -125,27 +128,18 @@ run these in order
 					taxon_term.source=CF_TEMP_CLASSIFICATION.source
 			)
 		where
-			status ='pass_meta' and
-			taxon_name_id is not null
+			status ='found_name'
 	</cfquery>
-	<cfquery name="fail" datasource="uam_god">
+	<cfquery name="findfail" datasource="uam_god">
 		update
 			CF_TEMP_CLASSIFICATION
 		set
-			classification_id='[NEW]'
+			classification_id='[NEW]',
+			status='ready_to_load',
 		where
-			status ='pass_meta' and
+			status ='found_name' and
 			classification_id is null
 	</cfquery>
 
-	<cfquery name="pass" datasource="uam_god">
-		update
-			CF_TEMP_CLASSIFICATION
-		set
-			status='ready_to_load'
-		where
-			status ='pass_meta' and
-			classification_id is not null and
-			taxon_name_id is not null
-	</cfquery>
+
 </cfif>
