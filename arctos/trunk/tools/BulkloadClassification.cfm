@@ -93,7 +93,17 @@ grant all on cf_temp_classification to coldfusion_user;
 			lower(column_name) not in ('status','taxon_name_id')
 		ORDER BY INTERNAL_COLUMN_ID
 	</cfquery>
+
+	<cfdump var=#dbcols#>
+
+
 	<cfset thecolumns=valuelist(dbcols.column_name)>
+
+
+
+	<cfdump var=#thecolumns#>
+
+
 
 	<cfset header=thecolumns>
 	<cffile action = "write"
