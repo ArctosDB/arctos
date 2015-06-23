@@ -5,6 +5,7 @@
 
 	create table cf_temp_classification (
 		status varchar2(255),
+		classification_id varchar2(4000),
 		username varchar2(255) not null,
 		operation  varchar2(255) not null,
 		source  varchar2(255) not null,
@@ -185,7 +186,7 @@ grant all on cf_temp_classification to coldfusion_user;
 			user_tab_cols
 		where
 			upper(table_name)='CF_TEMP_CLASSIFICATION' and
-			lower(column_name) not in ('status','taxon_name_id')
+			lower(column_name) not in ('status','taxon_name_id','classification_id')
 		ORDER BY INTERNAL_COLUMN_ID
 	</cfquery>
 	<cfset thecolumns="">
