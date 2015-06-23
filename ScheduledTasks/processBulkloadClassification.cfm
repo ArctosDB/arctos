@@ -38,6 +38,21 @@ run these in order
 			status ='pass_meta' and
 			taxon_name_id is null
 	</cfquery>
+
+
+
+	<p>
+		update
+			CF_TEMP_CLASSIFICATION
+		set
+			taxon_name_id=(
+				select taxon_name.taxon_name_id from taxon_name where
+				taxon_name.scientific_name = CF_TEMP_CLASSIFICATION.scientific_name
+			)
+		where
+			status ='pass_meta' and
+			taxon_name_id is null
+	</p>
 	<cfquery name="fail" datasource="uam_god">
 		update
 			CF_TEMP_CLASSIFICATION
@@ -47,6 +62,21 @@ run these in order
 			status ='pass_meta' and
 			taxon_name_id is null
 	</cfquery>
+
+
+	<p>
+
+	update
+			CF_TEMP_CLASSIFICATION
+		set
+			status='scientific_name not found'
+		where
+			status ='pass_meta' and
+			taxon_name_id is null
+
+
+
+	</p>
 
 </cfif>
 <!---------------------------------------------------------->
