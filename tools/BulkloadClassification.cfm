@@ -89,7 +89,7 @@ grant all on cf_temp_classification to coldfusion_user;
 		from
 			user_tab_cols
 		where
-			upper(table_name)='CF_TEMP_BULKLOAD_CLASSIFICATION' and
+			upper(table_name)='CF_TEMP_CLASSIFICATION' and
 			lower(column_name) not in ('status','taxon_name_id')
 		ORDER BY INTERNAL_COLUMN_ID
 	</cfquery>
