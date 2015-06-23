@@ -112,7 +112,7 @@ run these in order
 		update
 			CF_TEMP_CLASSIFICATION
 		set
-			status=ready_to_load
+			status='ready_to_load'
 		where
 			status ='pass_meta' and
 			classification_id is not null and
