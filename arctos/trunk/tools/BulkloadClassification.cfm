@@ -104,11 +104,13 @@ grant all on cf_temp_classification to coldfusion_user;
 	<cfdump var=#thecolumns#>
 
 
-
+<!----
 	<cfset header=thecolumns>
 	<cffile action = "write"
     file = "#Application.webDirectory#/download/BulkloadClassification.csv"
     output = "#header#"
     addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkloadClassification.csv" addtoken="false">
+
+	---->
 </cfif>
