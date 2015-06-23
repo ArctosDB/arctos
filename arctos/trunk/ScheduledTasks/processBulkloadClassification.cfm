@@ -16,9 +16,11 @@ run these in order
 		update CF_TEMP_CLASSIFICATION set status='invalid source' where status is null and source not in (
 			select source from CTTAXONOMY_SOURCE
 		)
-	</cfquery><cfquery name="d" datasource="uam_god">
+	</cfquery>
+	<cfquery name="d" datasource="uam_god">
 		update CF_TEMP_CLASSIFICATION set status='pass_meta' where status is null
 	</cfquery>
+
 
 </cfif>
 <!---------------------------------------------------------->
@@ -50,6 +52,35 @@ run these in order
 <!---------------------------------------------------------->
 
 <cfif action is "getClassificationID">
+	<cfquery name="mClassificationID" datasource="uam_god">
+		update
+			CF_TEMP_CLASSIFICATION
+		set
+			status='multiple classification found - update denied'
+		where
+			status ='pass_meta' and
+			scientific_name in (
+				select scientific_name from (
+					select
+			          taxon_term.taxon_name_id,
+			          taxon_term.CLASSIFICATION_ID
+			        from
+			          CF_TEMP_CLASSIFICATION,
+			          taxon_term
+			        where
+			          taxon_term.taxon_name_id=CF_TEMP_CLASSIFICATION.taxon_name_id and
+			          taxon_term.source=CF_TEMP_CLASSIFICATION.source
+			        having
+			        	count(*) > 1
+			        group by
+			        	taxon_term.CLASSIFICATION_ID,
+			        	taxon_term.taxon_name_id
+			    )
+			)
+	</cfquery>
+
+
+
 	<cfquery name="getClassificationID" datasource="uam_god">
 		update
 			CF_TEMP_CLASSIFICATION
@@ -76,5 +107,4 @@ run these in order
 			status ='pass_meta' and
 			classification_id is null
 	</cfquery>
-
 </cfif>
