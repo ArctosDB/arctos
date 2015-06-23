@@ -24,7 +24,7 @@ run these in order
 <!---------------------------------------------------------->
 
 <cfif action is "getTID">
-	<cfquery name="d2" datasource="uam_god">
+	<cfquery name="getTID" datasource="uam_god">
 		update
 			CF_TEMP_CLASSIFICATION
 		set
@@ -36,7 +36,7 @@ run these in order
 			status ='pass_meta' and
 			taxon_name_id is null
 	</cfquery>
-	<cfquery name="d2" datasource="uam_god">
+	<cfquery name="fail" datasource="uam_god">
 		update
 			CF_TEMP_CLASSIFICATION
 		set
@@ -50,7 +50,7 @@ run these in order
 <!---------------------------------------------------------->
 
 <cfif action is "getClassificationID">
-	<cfquery name="d" datasource="uam_god">
+	<cfquery name="getClassificationID" datasource="uam_god">
 		update
 			CF_TEMP_CLASSIFICATION
 		set
