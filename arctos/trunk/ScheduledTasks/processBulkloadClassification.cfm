@@ -153,7 +153,7 @@ run these in order
 		update
 			CF_TEMP_CLASSIFICATION
 		set
-			classification_id='[NEW]'
+			classification_id='[NEW]',
 			status='ready_to_load'
 		where
 			status ='found_name' and
