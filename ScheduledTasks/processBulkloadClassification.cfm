@@ -1,7 +1,7 @@
 <cfif not isdefined("action")><cfset action="nothing"></cfif>
 
 
-<a href="checkValid">checkValid</a>
+<a href="processBulkloadClassification.cfm?action=checkValid">checkValid</a>
 
 <cfif action is "checkValid">
 	<cfquery name="d" datasource="uam_god">
