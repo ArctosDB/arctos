@@ -54,7 +54,7 @@ create or replace public synonym cf_temp_classification for cf_temp_classificati
 
 grant all on cf_temp_classification to coldfusion_user;
 
-
+create unique index iu_temp_class on cf_temp_classification(scientific_name) tablespace uam_idx_1;
 
 ---->
 <cfinclude template="/includes/_header.cfm">
@@ -64,6 +64,9 @@ grant all on cf_temp_classification to coldfusion_user;
 <!----------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfoutput>
+		<p>
+			<a href="BulkloadClassification.cfm?action=managemystuff">Manage Existing</a>
+		</p>
 		Update, replace, or create classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
 		click any buttons unless you KNOW what they do.
 		 <p>
@@ -72,6 +75,7 @@ grant all on cf_temp_classification to coldfusion_user;
 		<p>
 			You can (and should) also pull classification from globalnames.
 		</p>
+		<p>scientific_name is globally-unique; coordinate with other users if there's a conflict.</p>
 		<p>subgeneric terms are multinomial</p>
 		<p>
 			Terms are defined at is <a href="/info/ctDocumentation.cfm?table=CTTAXON_TERM">CTTAXON_TERM</a>
@@ -148,10 +152,28 @@ grant all on cf_temp_classification to coldfusion_user;
 <!----------------------------------------------------------------->
 <cfif action is "managemystuff">
 	<cfoutput>
+
+		<p>
+			<a href="BulkloadClassification.cfm?action=deletemystuff">Delete all of your data</a>
+		</p><p>
+			<a href="BulkloadClassification.cfm?action=nothing">Load from CSV</a>
+		</p>
+
+
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
 		</cfquery>
 		<cfdump var=#d#>
+	</cfoutput>
+</cfif>
+<!----------------------------------------------------------------->
+<!----------------------------------------------------------------->
+<cfif action is "deletemystuff">
+	<cfoutput>
+        <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
+		</cfquery>
+		<cflocation url="BulkloadClassification.cfm?action=managemystuff" addtoken="false">
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
