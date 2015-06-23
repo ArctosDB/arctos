@@ -97,7 +97,11 @@ grant all on cf_temp_classification to coldfusion_user;
 	<cfdump var=#dbcols#>
 
 
-	<cfset thecolumns=valuelist(dbcols.column_name)>
+	<cfset thecolumns="">
+	<cfloop query="dbcols">
+			<cfset thecolumns=listappend(thecolumns,column_name)>
+
+	</cfloop>
 
 
 
