@@ -40,6 +40,7 @@ run these in order
 		</cfquery>
 		<!---- /globals --->
 		<cfloop query="d">
+			<hr>running for #genus#
 			<cftransaction>
 			<!--- build a query object from this row of the existing data --->
 			<cfset nd=queryNew(knowncols)>
