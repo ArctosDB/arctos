@@ -68,7 +68,8 @@ run these in order
 					<cfset temp=QuerySetCell(nd, x, "")>
 				</cfloop>
 
-
+				beforeupdate
+				<cfdump var=#nd#>
 
 
 				<cfloop query="oneclass">
@@ -89,6 +90,8 @@ run these in order
 				</cfloop>
 
 
+				afterupdate
+				<cfdump var=#nd#>
 				<cfif len(nd.species) gt 0>
 					<br>inserting #nd.species#
 					<cfset temp=QuerySetCell(nd, "status", problem)>
