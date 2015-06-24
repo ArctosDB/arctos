@@ -200,7 +200,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
         <cfloop query="d">
 			<cfset problem="">
 			<!---- infraspecific crap ---->
-			<cfif len(genus) is 0>
+			<cfif len(genus) gt 0>
 				<cfset ist="">
 				<cfif len(forma) gt 0 or len(subpspecies) gt 0>
 					<cfif len(genus) is 0 or len(species) is 0>
