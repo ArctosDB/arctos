@@ -43,7 +43,7 @@ run these in order
 			<cfset nd=queryNew(knowncols)>
 
 			<cfdump var=#nd#>
-			<cfset nd=queryAddRow(1)>
+			<cfset nd=queryAddRow(nd,1)>
 
 			<cfdump var=#nd#>
 
