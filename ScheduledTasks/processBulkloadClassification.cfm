@@ -89,28 +89,29 @@ run these in order
 				</cfloop>
 
 
+				<cfif len(nd.species) gt 0>
 
+					<cfset temp=QuerySetCell(nd, "status", problem)>
+					<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
+					<cfset pos=0>
+					<cfloop list="#knowncols#" index="c">
+						<cfset thisval=evaluate("nd." & c)>
+						<cfif len(thisval) gt 0>
+							<cfset sql=sql & "'" & escapeQuotes(thisval) & "'">
+						<cfelse>
+							<cfset sql=sql & "NULL">
+						</cfif>
+						<cfset pos=pos+1>
+						<cfif pos lt numberOfColumns>
+							<cfset sql=sql & ",">
+						</cfif>
+					</cfloop>
+					<cfset sql=sql & ")">
 
-				<cfset temp=QuerySetCell(nd, "status", problem)>
-				<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
-				<cfset pos=0>
-				<cfloop list="#knowncols#" index="c">
-					<cfset thisval=evaluate("nd." & c)>
-					<cfif len(thisval) gt 0>
-						<cfset sql=sql & "'" & escapeQuotes(thisval) & "'">
-					<cfelse>
-						<cfset sql=sql & "NULL">
-					</cfif>
-					<cfset pos=pos+1>
-					<cfif pos lt numberOfColumns>
-						<cfset sql=sql & ",">
-					</cfif>
-				</cfloop>
-				<cfset sql=sql & ")">
-
-				<cfquery name="insertone" datasource="uam_god">
-					#preserveSingleQuotes(sql)#
-				</cfquery>
+					<cfquery name="insertone" datasource="uam_god">
+						#preserveSingleQuotes(sql)#
+					</cfquery>
+				</cfif>
 			</cfloop>
 			<!---- now mark the genus record as having been processed ---->
 			<cfquery name="gotit" datasource="uam_god">
