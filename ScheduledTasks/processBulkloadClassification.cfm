@@ -199,6 +199,11 @@ run these in order
 		<cfset classificationTerms=listappend(classificationTerms,TAXON_TERM)>
 	</cfloop>
 
+	<cfset classificationTerms=ListSetAt(classificationTerms,listfindnocase(classificationTerms,'order'),'phylorder')>
+
+
+
+
 	<br>classificationTerms: #classificationTerms#
 	<br>noclassterms: #noclassterms#
 
