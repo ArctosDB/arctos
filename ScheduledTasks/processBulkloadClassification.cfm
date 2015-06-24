@@ -38,13 +38,21 @@ run these in order
 			and rownum<2
 		</cfquery>
 		<cfloop query="d">
+
+			<!--- build a query object from this row of the existing data --->
+			<cfset nd=queryNew(knowncols)>
+
+			<cfdump var=#nd#>
+
+
+			<!----
 			<cfquery name="otherstuff" datasource="uam_god">
 				select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos'
 			</cfquery>
 			<cfloop query="otherstuff">
 				<br>taxon_name_id: #taxon_name_id#
 				<cfquery name="oneclass" datasource="uam_god">
-					select * from taxon_term where source='Arctos' and taxon_name_id=#taxon_name_id#
+					select CLASSIFICATION_ID,TERM_TYPE,term from taxon_term where source='Arctos' and taxon_name_id=#taxon_name_id#
 				</cfquery>
 				<cfloop query="oneclass">
 					<cfif term_type is "order">
@@ -60,9 +68,9 @@ run these in order
 					<br><br>this_TERM_TYPE: #this_TERM_TYPE#
 					<br><br>this_term: #this_term#
 				</cfloop>
-				<cfdump var=#oneclass#>
 
 			</cfloop>
+			---->
 		</cfloop>
 	</cfoutput>
 
