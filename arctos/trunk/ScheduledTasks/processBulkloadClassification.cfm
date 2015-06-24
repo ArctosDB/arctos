@@ -90,7 +90,7 @@ run these in order
 
 
 				<cfif len(nd.species) gt 0>
-
+					<br>inserting #nd.species#
 					<cfset temp=QuerySetCell(nd, "status", problem)>
 					<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
 					<cfset pos=0>
