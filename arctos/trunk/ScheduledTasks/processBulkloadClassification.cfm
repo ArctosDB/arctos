@@ -50,7 +50,7 @@ run these in order
 
 
 
-			<cfloop list="knowncols" index="c">
+			<cfloop list="#knowncols#" index="c">
 
 				<cfset thisval=evaluate(c)>
 				<cfset temp=QuerySetCell(nd, c, thisval)>
