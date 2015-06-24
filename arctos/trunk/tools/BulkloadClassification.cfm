@@ -222,6 +222,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<cfelse>
 				<!--- no genus just use scientificname --->
 				<cfset dname=scientific_name>
+
+				hi
 			</cfif>
 <br>:#scientific_name#:
 			<br>:#dname#:
