@@ -22,6 +22,9 @@ run these in order
 		)
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
+		update CF_TEMP_CLASSIFICATION set status='invalid nomenclatural_code' where status is null and nomenclatural_code not in ('ICZN','ICBN')
+	</cfquery>
+	<cfquery name="d" datasource="uam_god">
 		update CF_TEMP_CLASSIFICATION set status='pass_meta' where status is null
 	</cfquery>
 
