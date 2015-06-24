@@ -83,7 +83,6 @@ run these in order
 						<br>setting #ttt# to #this_term#
 					</cfif>
 				</cfloop>
-				<cfdump var=#nd#>
 				<br>nd.species: #nd.species#
 				<cfif len(nd.species) gt 0>
 					<cfset temp=QuerySetCell(nd, "status", "autolookup")>
