@@ -32,6 +32,7 @@ run these in order
 
 		<cfset knowncols=valuelist(dbcols.column_name)>
 
+	<br>knowncols: #knowncols#
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where species is null
 			and rownum<2
