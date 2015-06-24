@@ -46,6 +46,9 @@ run these in order
 			and rownum<2
 			and status != 'got_children_of_genus'
 		</cfquery>
+
+
+		<cfdump var=#d#>
 		<cfloop query="d">
 
 			<!--- build a query object from this row of the existing data --->
