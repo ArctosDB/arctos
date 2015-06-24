@@ -32,6 +32,11 @@ run these in order
 
 		<cfset knowncols=valuelist(dbcols.column_name)>
 
+
+		<cfset stuffToReplace="SCIENTIFIC_NAME,AUTHOR_TEXT,SOURCE_AUTHORITY,VALID_CATALOG_TERM_FG,TAXON_STATUS,REMARK,DISPLAY_NAME,SUBGENUS,SPECIES,SUBSPECIES">
+
+
+
 	<br>knowncols: #knowncols#
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where species is null
@@ -58,7 +63,6 @@ run these in order
 
 			<cfdump var=#nd#>
 
-			<!----
 			<cfquery name="otherstuff" datasource="uam_god">
 				select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos'
 			</cfquery>
@@ -80,10 +84,18 @@ run these in order
 					<cfset this_term=TERM>
 					<br><br>this_TERM_TYPE: #this_TERM_TYPE#
 					<br><br>this_term: #this_term#
+
+					<cfif listfindnocase(stuffToReplace,ttt)>
+						<cfset temp=QuerySetCell(nd, ttt, this_term)>
+					</cfif>
+
+
+
+
 				</cfloop>
+				ready for insert:<cfdump var=#nd#>
 
 			</cfloop>
-			---->
 		</cfloop>
 	</cfoutput>
 
