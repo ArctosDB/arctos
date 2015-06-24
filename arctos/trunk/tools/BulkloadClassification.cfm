@@ -74,8 +74,47 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		<p>
 			<a href="BulkloadClassification.cfm?action=managemystuff">Manage Existing</a>
 		</p>
-		Update, replace, or create classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
+		<p>
+		Update classifications. This form will happily create garbage; use the Contact link below to ask questions and do not
 		click any buttons unless you KNOW what they do.
+		<p>
+		tl;dr:
+		</p>
+		<ul>
+			<li>
+				load csv
+			</li>
+			<li>
+				<a href="BulkloadClassification.cfm?action=getDisplayName">Add display_name if you didn't have it in your data</a>
+			</li>
+			<li>
+				<a href="ScheduledTasks/processBulkloadClassification.cfm?action=checkMeta">checkMeta</a> in the scheduler (or let it run)
+			</li>
+			<li>
+				<a href="ScheduledTasks/processBulkloadClassification.cfm?action=getTID">getTID</a> in the scheduler (or let it run)
+			</li>
+			<li>
+				<a href="ScheduledTasks/processBulkloadClassification.cfm?action=getClassificationID">getClassificationID</a> in the scheduler (or let it run)
+			</li>
+			<li>
+				<a href="ScheduledTasks/processBulkloadClassification.cfm?action=getClassificationID">getClassificationID</a> in the scheduler (or let it run)
+			</li>
+			<li>
+				<a href="BulkloadClassification.cfm?action=getCSV">getCSV</a> to download CSV and check things CAREFULLY
+			</li>
+			<li>
+				<a href="BulkloadClassification.cfm?action=deletemystuff">deletemystuff</a> to delete everything if it's messed up
+			</li>
+
+
+
+
+
+		</ul>
+
+		Short version:
+
+		</p>
 		 <p>
 			Upload a comma-delimited text file (csv). <a href="BulkloadClassification.cfm?action=makeTemplate">[ Get the Template ]</a>
 		</p>
@@ -163,6 +202,22 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
+
+<cfif action is "getCSV">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/BulkloadClassificationData.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkloadClassificationData.csv" addtoken="false">
+</cfif>
+
+
+<!----------------------------------------------------------------->
 <cfif action is "managemystuff">
 	<cfoutput>
 
@@ -202,7 +257,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	<cfoutput>
 	    <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
-			--and display_name is null
+			and display_name is null
 		</cfquery>
 
         <cfloop query="d">
@@ -318,6 +373,33 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 </cfif>
 <!----------------------------------------------------------------->
 
+<!----------------------------------------------------------------->
+<cfif action is "makeTemplate">
+
+	<cfquery name="dbcols" datasource="uam_god">
+		select
+			column_name
+		from
+			user_tab_cols
+		where
+			upper(table_name)='CF_TEMP_CLASSIFICATION' and
+			lower(column_name) not in ('status','taxon_name_id','classification_id')
+		ORDER BY INTERNAL_COLUMN_ID
+	</cfquery>
+	<cfset thecolumns="">
+	<cfloop query="dbcols">
+		<cfset thecolumns=listappend(thecolumns,column_name)>
+	</cfloop>
+
+
+	<cfset header=thecolumns>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/BulkloadClassification.csv"
+	    output = "#header#"
+	    addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkloadClassification.csv" addtoken="false">
+</cfif>
+<!----------------------------------------------------------------->
 
 select
 	distinct CF_TEMP_CLASSIFICATION.scientific_name
