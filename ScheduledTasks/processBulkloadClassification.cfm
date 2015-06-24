@@ -234,6 +234,7 @@ run these in order
 				<br>thisTermVal: #thisTermVal#
 				<cfif nomenclatural_code is "ICBN" and thisTermType is "subspecies">
 					<cfset thisTermType='subsp.'>
+					<br>issubsp
 				</cfif>
 				<cfif len(thisTermVal) gt 0>
 					<br>
