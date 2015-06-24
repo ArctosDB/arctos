@@ -174,3 +174,53 @@ run these in order
 
 
 </cfif>
+
+<cfif action is "load">
+	<cfoutput>
+
+	<cfquery name="d" datasource="uam_god">
+		select * from CF_TEMP_CLASSIFICATION where rownum<10
+	</cfquery>
+	<cfquery name="CTTAXON_TERM" datasource="uam_god">
+		select * from CTTAXON_TERM
+	</cfquery>
+	<cfquery name="ncq" dbtype="query">
+		select * from CTTAXON_TERM where IS_CLASSIFICATION=0
+	</cfquery>
+	<cfset noclassterms=valuelist(ncq.TAXON_TERM)>
+
+	<cfquery name="cq" dbtype="query">
+		select * from CTTAXON_TERM where IS_CLASSIFICATION=1 order by RELATIVE_POSITION
+	</cfquery>
+	<!---- these need to be ordered ---->
+	<cfset classificationTerms="">
+	<cfloop query="cq">
+		<cfset classificationTerms=listappend(classificationTerms,TAXON_TERM)>
+	</cfloop>
+
+	<br>classificationTerms: #classificationTerms#
+	<br>noclassterms: #noclassterms#
+
+
+
+
+		<cfloop query="d">
+			<cfif d.procedure is "replace">
+				<br>replacing....
+			</cfif>
+			<br>delete from taxon_term where taxon_name_id=#taxon_name_id# and classification_id='#classification_id#'
+
+			<!----
+			<cfquery name="remold" datasource="uam_god">
+				delete from taxon_term where taxon_name_id=#taxon_name_id# and classification_id='#classification_id#'
+			</cfquery>
+
+			--->
+
+
+		</cfloop>
+	</cfoutput>
+
+
+</cfif>
+
