@@ -18,6 +18,20 @@ run these in order
 		copy genus record with additional species/subspecies
 	---->
 	<cfoutput>
+
+		<cfquery name="dbcols" datasource="uam_god">
+			select
+				column_name
+			from
+				user_tab_cols
+			where
+				upper(table_name)='CF_TEMP_CLASSIFICATION' and
+				lower(column_name) not in ('status','taxon_name_id','classification_id')
+			ORDER BY INTERNAL_COLUMN_ID
+		</cfquery>
+
+		<cfset knowncols=valuelist(dbcols.column_name)>
+
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where species is null
 			and rownum<2
@@ -31,6 +45,15 @@ run these in order
 				<cfquery name="oneclass" datasource="uam_god">
 					select * from taxon_term where source='Arctos' and taxon_name_id=#taxon_name_id#
 				</cfquery>
+				<cfloop query="oneclass">
+					<cfif len(TERM_TYPE) is 0 or not listfind(knowncols,TERM_TYPE)>
+						<hr>CUIDADO!!!! #TERM_TYPE# (#term#) is not a known column name
+					</cfif>
+					<cfset this_TERM_TYPE=TERM_TYPE>
+					<cfset this_term=TERM>
+					<br><br>this_TERM_TYPE: #this_TERM_TYPE#
+					<br><br>this_term: #this_term#
+				</cfloop>
 				<cfdump var=#oneclass#>
 
 			</cfloop>
