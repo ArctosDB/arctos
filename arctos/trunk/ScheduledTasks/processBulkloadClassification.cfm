@@ -43,7 +43,18 @@ run these in order
 			<cfset nd=queryNew(knowncols)>
 
 			<cfdump var=#nd#>
-			<cfset nd=queryAddRow(nd,1)>
+			<cfset temp=queryAddRow(nd,1)>
+
+			<cfdump var=#nd#>
+
+
+
+
+			<cfloop list="knowncols" index="c">
+
+				<cfset thisval=evaluate(c)>
+				<cfset temp=QuerySetCell(nd, c, thisval)>
+			</cfloop>
 
 			<cfdump var=#nd#>
 
