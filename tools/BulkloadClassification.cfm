@@ -197,7 +197,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	</p>
 	<cfoutput>
 	    <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#' and display_name is null
+			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
+			--and display_name is null
 		</cfquery>
 
         <cfloop query="d">
@@ -229,6 +230,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<cfset dname=rereplace(dname,'\s\s+','','All')>
 			<cfset dname=replace(dname,'<i></i>','','All')>
 			<cfset dname=trim(dname)>
+			<input type="text" value="#dname#">
 			<cfif len(problem) gt 0>
 	    		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update CF_TEMP_CLASSIFICATION set status='Autogen DisplayName: #problem#' where scientific_name='#scientific_name#'
