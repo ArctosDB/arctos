@@ -205,7 +205,7 @@ run these in order
 
 
 		<cfloop query="d">
-			<cfif d.procedure is "replace">
+			<cfif d.operation is "replace">
 				<br>replacing....
 			</cfif>
 			<br>delete from taxon_term where taxon_name_id=#taxon_name_id# and classification_id='#classification_id#'
