@@ -220,8 +220,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 						<cfif len(forma) gt 0>
 							<cfset ist=forma>
 							<cfset irnk="forma">
-						<cfelseif len(subpspecies) gt 0>
-							<cfset ist=subpspecies>
+						<cfelseif len(subspecies) gt 0>
+							<cfset ist=subspecies>
 						<cfelseif len(subsp) gt 0>
 							<cfset ist=subsp>
 							<cfset irnk="subsp.">
