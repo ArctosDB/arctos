@@ -80,7 +80,6 @@ run these in order
 
 					<cfif listfindnocase(stuffToReplace,ttt)>
 						<cfset temp=QuerySetCell(nd, ttt, this_term)>
-						<br>setting #ttt# to #this_term#
 					</cfif>
 				</cfloop>
 				<cfif len(nd.species) gt 0>
@@ -100,16 +99,12 @@ run these in order
 						</cfif>
 					</cfloop>
 					<cfset sql=sql & ")">
-					<p>
-						sql: #sql#
-					</p>
+
 					<cfquery name="insertone" datasource="uam_god">
 						#preserveSingleQuotes(sql)#
 					</cfquery>
 				<cfelse>
-					<p>
-						no species - did not insert
-					</p>
+
 				</cfif>
 			</cfloop>
 			<!---- now mark the genus record as having been processed ---->
@@ -117,10 +112,7 @@ run these in order
 				update CF_TEMP_CLASSIFICATION set status = 'got_children_of_genus'
 				where genus='#genus#' and (status is null or status != 'autolookup')
 			</cfquery>
-			<p>
-				update CF_TEMP_CLASSIFICATION set status = 'got_children_of_genus'
-				where genus='#genus#' and (status is null or status != 'autolookup')
-			</p>
+
 			</cftransaction>
 		</cfloop>
 	</cfoutput>
