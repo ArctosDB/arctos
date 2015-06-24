@@ -6,6 +6,7 @@ run these in order
 <br><a href="processBulkloadClassification.cfm?action=checkMeta">checkMeta</a>
 <br><a href="processBulkloadClassification.cfm?action=getTID">getTID</a>
 <br><a href="processBulkloadClassification.cfm?action=getClassificationID">getClassificationID</a>
+<br><a href="processBulkloadClassification.cfm?action=load">load</a>
 
 
 <cfif action is "checkMeta">

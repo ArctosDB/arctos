@@ -4,20 +4,25 @@
 
 
 	create table cf_temp_classification (
+		-- admin junk
 		status varchar2(255),
 		classification_id varchar2(4000),
 		username varchar2(255) not null,
 		operation  varchar2(255) not null,
 		source  varchar2(255) not null,
 		taxon_name_id number,
+		-- key AND lowest-ranking classification term
 		scientific_name varchar2(255) not null,
+		--non-classification terms
 		author_text varchar2(255) null,
 		infraspecific_author varchar2(255) null,
 		nomenclatural_code varchar2(255) null,
 		source_authority varchar2(255) null,
 		valid_catalog_term_fg varchar2(255) null,
 		taxon_status varchar2(255) null,
-		remark varchar2(255) null,
+		remark varchar2(255),
+		display_name varchar2(255) null,
+		--classification terms - MAKE SURE THESE STAY ORDERED
 		superkingdom varchar2(255) null,
 		kingdom varchar2(255) null,
 		subkingdom varchar2(255) null,
