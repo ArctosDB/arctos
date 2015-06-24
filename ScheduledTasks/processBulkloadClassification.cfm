@@ -18,7 +18,7 @@ run these in order
 		copy genus record with additional species/subspecies
 	---->
 	<cfoutput>
-
+		<!--- globals ---->
 		<cfquery name="dbcols" datasource="uam_god">
 			select
 				column_name
@@ -29,49 +29,27 @@ run these in order
 				lower(column_name) not in ('taxon_name_id','classification_id')
 			ORDER BY INTERNAL_COLUMN_ID
 		</cfquery>
-
 		<cfset knowncols=valuelist(dbcols.column_name)>
-
-
 		<cfset stuffToReplace="SCIENTIFIC_NAME,AUTHOR_TEXT,SOURCE_AUTHORITY,VALID_CATALOG_TERM_FG,TAXON_STATUS,REMARK,DISPLAY_NAME,SUBGENUS,SPECIES,SUBSPECIES">
-
-
-
-	<br>knowncols: #knowncols#
-
-
-	<cfset numberOfColumns=listlen(knowncols)>
+		<cfset numberOfColumns=listlen(knowncols)>
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where species is null
 			and (status is null or status != 'got_children_of_genus')
 			and rownum<2
 		</cfquery>
-
-
-		<cfdump var=#d#>
+		<!---- /globals --->
 		<cfloop query="d">
-
 			<!--- build a query object from this row of the existing data --->
 			<cfset nd=queryNew(knowncols)>
-
 			<cfset temp=queryAddRow(nd,1)>
-
-
-
-
-
 			<cfloop list="#knowncols#" index="c">
-
 				<cfset thisval=evaluate(c)>
 				<cfset temp=QuerySetCell(nd, c, thisval)>
 			</cfloop>
-
-
 			<cfquery name="otherstuff" datasource="uam_god">
 				select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos'
 			</cfquery>
 			<cfloop query="otherstuff">
-				<br>taxon_name_id: #taxon_name_id#
 				<cfquery name="oneclass" datasource="uam_god">
 					select CLASSIFICATION_ID,TERM_TYPE,term from taxon_term where source='Arctos' and taxon_name_id=#taxon_name_id#
 				</cfquery>
@@ -86,22 +64,12 @@ run these in order
 					</cfif>
 					<cfset this_TERM_TYPE=ttt>
 					<cfset this_term=TERM>
-					<br><br>this_TERM_TYPE: #this_TERM_TYPE#
-					<br><br>this_term: #this_term#
-
 					<cfif listfindnocase(stuffToReplace,ttt)>
 						<cfset temp=QuerySetCell(nd, ttt, this_term)>
 					</cfif>
-
-
-
-
 				</cfloop>
-				ready for insert:<cfdump var=#nd#>
-
 				<cfif len(nd.species) gt 0>
 					<cfset temp=QuerySetCell(nd, "status", "autolookup")>
-
 					<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
 					<cfset pos=0>
 					<cfloop list="#knowncols#" index="c">
@@ -115,7 +83,6 @@ run these in order
 						<cfif pos lt numberOfColumns>
 							<cfset sql=sql & ",">
 						</cfif>
-
 					</cfloop>
 					<cfset sql=sql & ")">
 					<p>
@@ -129,12 +96,14 @@ run these in order
 						no species - did not insert
 					</p>
 				</cfif>
-				<!---- now mark the genus record as having been processed ---->
-				<cfquery name="gotit" datasource="uam_god">
-					update CF_TEMP_CLASSIFICATION set status = 'got_children_of_genus'
-					where genus='#genus#' and status != 'autolookup'
-				</cfquery>
 			</cfloop>
+			<!---- now mark the genus record as having been processed ---->
+			<cfquery name="gotit" datasource="uam_god">
+				update CF_TEMP_CLASSIFICATION set status = 'got_children_of_genus'
+				where genus='#genus#' and status != 'autolookup'
+			</cfquery>
+			<p>update CF_TEMP_CLASSIFICATION set status = 'got_children_of_genus'
+				where genus='#genus#' and status != 'autolookup'</p>
 		</cfloop>
 	</cfoutput>
 
