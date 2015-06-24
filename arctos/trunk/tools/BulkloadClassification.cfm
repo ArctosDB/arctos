@@ -192,12 +192,16 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 <!----------------------------------------------------------------->
 
 <cfif action is "getDisplayName">
+	<p>
+		Timeout errors below? Just reload (or <a href="/contact">contact us</a> if that doesn't help).
+	</p>
 	<cfoutput>
 	    <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#' and display_name is null
 		</cfquery>
 
         <cfloop query="d">
+			<cftransaction>
 			<cfset problem="">
 			<!---- infraspecific crap ---->
 			<cfif len(genus) gt 0>
@@ -214,45 +218,32 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 					</cfif>
 				</cfif>
 				<cfif nomenclatural_code is "ICZN">
-					<cfset dname='[i]' & genus & ' ' & species & ' ' & ist & '[/i] ' & author_text>
+					<cfset dname='<i>' & genus & ' ' & species & ' ' & ist & '</i> ' & author_text>
 				<cfelse>
-					<cfset dname='[i]' & genus & ' ' & species & '[/i]' & author_text & ' [i]' & ist & '[/i] ' & infraspecific_author>
+					<cfset dname='<i>' & genus & ' ' & species & '</i>' & author_text & ' <i>' & ist & '</i> ' & infraspecific_author>
 				</cfif>
 			<cfelse>
 				<!--- no genus just use scientificname --->
 				<cfset dname=scientific_name>
-
-				hi
 			</cfif>
-
-			<br>:#dname#:
-
-
 			<cfset dname=rereplace(dname,'\s+','','All')>
-			<cfset dname=replace(dname,'[i][/i]','','All')>
-
-			<br>:#dname#:
-
+			<cfset dname=replace(dname,'<i></i>','','All')>
 			<cfset dname=trim(dname)>
-
-			<br>:#dname#:
-							<cfset dname=rereplace(dname,"\s+","X","All")>
-
-			<br>:#dname#:
-
-
-<br>:#scientific_name#:
-			<br>:#dname#:
-			<br>
-
-
-
-
-
+			<cfif len(problem) gt 0>
+	    		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update CF_TEMP_CLASSIFICATION set status='Autogen DisplayName: #problem#' where scientific_name='#scientific_name#'
+				</cfquery>
+			<cfelse>
+	    		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update CF_TEMP_CLASSIFICATION set display_name='#dname#' where scientific_name='#scientific_name#'
+				</cfquery>
+			</cfif>
+			</cftransaction>
         </cfloop>
-		<!----
-		<cflocation url="BulkloadClassification.cfm?action=managemystuff" addtoken="false">
-		---->
+		<p>
+			all done. Back to <a href="BulkloadClassification.cfm?action=managemystuff">manage</a>
+		</p>
+
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
