@@ -5,53 +5,39 @@ run these in order
 
 <br><a href="processBulkloadClassification.cfm?action=checkMeta">checkMeta</a>
 <br><a href="processBulkloadClassification.cfm?action=getTID">getTID</a>
-<br><a href="processBulkloadClassification.cfm?action=getClassificationID">fill_in_the_blanks</a>
+<br><a href="processBulkloadClassification.cfm?action=fill_in_the_blanks_from_genus">fill_in_the_blanks_from_genus</a>
 <br><a href="processBulkloadClassification.cfm?action=getClassificationID">getClassificationID</a>
 <br><a href="processBulkloadClassification.cfm?action=load">load</a>
 
+<!---------------------------------------------------------->
 
 <cfif action is "fill_in_the_blanks_from_genus">
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='invalid operation' where status is null and operation not in ('update','replace')
-	</cfquery>
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='display_name is required' where status is null and display_name is null
-	</cfquery>
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='invalid source' where status is null and source not in (
-			select source from CTTAXONOMY_SOURCE
-		)
-	</cfquery>
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='invalid nomenclatural_code' where status is null and nomenclatural_code not in ('ICZN','ICBN')
-	</cfquery>
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='subspecies is the only acceptable ICZN infraspecific data'
-		where status is null and nomenclatural_code = 'ICZN'
-		and (forma is not null or subsp is not null)
-	</cfquery>
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='subspecies is ICZN-only'
-		where status is null and nomenclatural_code != 'ICZN'
-		and subspecies is not null
-	</cfquery>
+	<!---
+		grab genus (lowest term in supplied data)
+		find everything "below" that uses the same string
+		copy genus record with additional species/subspecies
+	---->
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from CF_TEMP_CLASSIFICATION where species is null
+			and rownum<2
+		</cfquery>
+		<cfloop query="d">
+			<cfquery name="otherstuff" datasource="uam_god">
+				select * from taxon_term where term_type='genus' and term='#genus#' and source='Arctos'
+			</cfquery>
+			<cfloop query="otherstuff">
+				<br>#term_type#: #term#
+			</cfloop>
+		</cfloop>
+	</cfoutput>
 
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='only one infraspecific term may be given'
-		where status is null and
-		(
-			subspecies is not null and (forma is not null or subsp is not null) or
-			forma is not null and (subspecies is not null or subsp is not null) or
-			subsp is not null and (forma is not null or subspecies is not null)
-		)
-	</cfquery>
 
-	<cfquery name="d" datasource="uam_god">
-		update CF_TEMP_CLASSIFICATION set status='pass_meta' where status is null
-	</cfquery>
 
 
 </cfif>
+<!---------------------------------------------------------->
+
 <cfif action is "checkMeta">
 	<cfquery name="d" datasource="uam_god">
 		update CF_TEMP_CLASSIFICATION set status='invalid operation' where status is null and operation not in ('update','replace')
