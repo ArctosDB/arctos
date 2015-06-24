@@ -231,7 +231,7 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				<cfif nomenclatural_code is "ICZN">
 					<cfset dname='<i>' & genus & ' ' & species & ' ' & ist & '</i> ' & author_text>
 				<cfelse>
-					<cfset dname='<i>' & genus & ' ' & species & '</i> ' & author_text & ' <i>' & ' ' & irnk & ' ' & ist & '</i> ' & infraspecific_author>
+					<cfset dname='<i>' & genus & ' ' & species & '</i> ' & author_text & irnk & ' ' & ' <i>' & ist & '</i> ' & infraspecific_author>
 				</cfif>
 			<cfelse>
 				<!--- no genus just use scientificname --->
