@@ -43,8 +43,8 @@ run these in order
 	<cfset numberOfColumns=listlen(knowncols)>
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where species is null
+			and (status is null or status != 'got_children_of_genus')
 			and rownum<2
-			and status != 'got_children_of_genus'
 		</cfquery>
 
 
