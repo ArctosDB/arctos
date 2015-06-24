@@ -209,7 +209,7 @@ run these in order
 			<cfif d.operation is "replace">
 				<br>replacing....
 			</cfif>
-			<cfif classification_id='[NEW]'>
+			<cfif classification_id is '[NEW]'>
 				<cfset thisClassificationID=CreateUUID()>
 			<cfelse>
 				<cfset thisClassificationID=classification_id>
