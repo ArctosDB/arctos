@@ -67,8 +67,10 @@ run these in order
 					</cfif>
 					<cfset this_TERM_TYPE=ttt>
 					<cfset this_term=TERM>
+
 					<cfif listfindnocase(stuffToReplace,ttt)>
 						<cfset temp=QuerySetCell(nd, ttt, this_term)>
+						<br>setting #ttt# to #this_term#
 					</cfif>
 				</cfloop>
 				<cfdump var=#nd#>
