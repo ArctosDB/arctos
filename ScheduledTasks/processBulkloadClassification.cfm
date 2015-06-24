@@ -89,7 +89,7 @@ run these in order
 					<cfloop list="#knowncols#" index="c">
 						<cfset thisval=evaluate("nd." & c)>
 						<cfif len(thisval) gt 0>
-							<cfset sql=sql & "'" & thisval & "'">
+							<cfset sql=sql & "'" & escapeQuotes(thisval) & "'">
 						<cfelse>
 							<cfset sql=sql & "NULL">
 						</cfif>
