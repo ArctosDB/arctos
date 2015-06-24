@@ -47,7 +47,7 @@ run these in order
 					select * from taxon_term where source='Arctos' and taxon_name_id=#taxon_name_id#
 				</cfquery>
 				<cfloop query="oneclass">
-					<cfif len(TERM_TYPE) is 0 or not listfind(knowncols,TERM_TYPE)>
+					<cfif len(TERM_TYPE) is 0 or not listfindnocase(knowncols,TERM_TYPE)>
 						<hr>CUIDADO!!!! #TERM_TYPE# (#term#) is not a known column name
 					</cfif>
 					<cfset this_TERM_TYPE=TERM_TYPE>
