@@ -207,21 +207,24 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<!---- infraspecific crap ---->
 			<cfif len(genus) gt 0>
 				<cfset ist="">
+				<cfset irnk="">
 				<cfif len(forma) gt 0 or len(subpspecies) gt 0>
 					<cfif len(genus) is 0 or len(species) is 0>
 						<cfset problem="infraspecific terms must be accompanied by genus and species">
 					<cfelse>
 						<cfif len(forma) gt 0>
 							<cfset ist=forma>
+							<cfset irnk="forma">
 						<cfelseif len(subpspecies) gt 0>
 							<cfset ist=subpspecies>
+							<cfset irnk="subsp.">
 						</cfif>
 					</cfif>
 				</cfif>
 				<cfif nomenclatural_code is "ICZN">
 					<cfset dname='<i>' & genus & ' ' & species & ' ' & ist & '</i> ' & author_text>
 				<cfelse>
-					<cfset dname='<i>' & genus & ' ' & species & '</i> ' & author_text & ' <i>' & ist & '</i> ' & infraspecific_author>
+					<cfset dname='<i>' & genus & ' ' & species & '</i> ' & author_text & ' <i>' & ' ' & irnk & ' ' & ist & '</i> ' & infraspecific_author>
 				</cfif>
 			<cfelse>
 				<!--- no genus just use scientificname --->
