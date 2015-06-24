@@ -24,10 +24,10 @@ run these in order
 		</cfquery>
 		<cfloop query="d">
 			<cfquery name="otherstuff" datasource="uam_god">
-				select * from taxon_term where term_type='genus' and term='#genus#' and source='Arctos'
+				select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos'
 			</cfquery>
 			<cfloop query="otherstuff">
-				<br>#term_type#: #term#
+				<br>taxon_name_id: #taxon_name_id#
 			</cfloop>
 		</cfloop>
 	</cfoutput>
