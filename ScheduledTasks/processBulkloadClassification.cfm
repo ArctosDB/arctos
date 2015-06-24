@@ -44,6 +44,7 @@ run these in order
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where species is null
 			and rownum<2
+			and status != 'got_children_of_genus'
 		</cfquery>
 		<cfloop query="d">
 
@@ -125,6 +126,11 @@ run these in order
 						no species - did not insert
 					</p>
 				</cfif>
+				<!---- now mark the genus record as having been processed ---->
+				<cfquery name="gotit" datasource="uam_god">
+					update CF_TEMP_CLASSIFICATION set status = 'got_children_of_genus'
+					where genus='#genus#' and status != 'autolookup'
+				</cfquery>
 			</cfloop>
 		</cfloop>
 	</cfoutput>
