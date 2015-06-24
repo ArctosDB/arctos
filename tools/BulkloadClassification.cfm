@@ -236,7 +236,31 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
 		</cfquery>
-		<cfdump var=#d#>
+		<cfquery name="dbcols" datasource="uam_god">
+			select
+				column_name
+			from
+				user_tab_cols
+			where
+				upper(table_name)='CF_TEMP_CLASSIFICATION' and
+				lower(column_name) not in ('taxon_name_id','classification_id')
+			ORDER BY INTERNAL_COLUMN_ID
+		</cfquery>
+		<table border>
+			<tr>
+			<cfloop query="dbcols">
+				<th>#column_name#</th>
+			</cfloop>
+			</tr>
+			<cfloop query="d">
+				<tr>
+					<cfloop query="dbcols">
+						<td>#evaluate("d." & column_name)#</td>
+					</cfloop>
+				</tr>
+			</cfloop>
+		</table>
+
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
