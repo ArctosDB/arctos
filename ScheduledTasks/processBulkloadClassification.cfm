@@ -40,6 +40,7 @@ run these in order
 		</cfquery>
 		<!---- /globals --->
 		<cfloop query="d">
+			<cftransaction>
 			<!--- build a query object from this row of the existing data --->
 			<cfset nd=queryNew(knowncols)>
 			<cfset temp=queryAddRow(nd,1)>
@@ -109,6 +110,7 @@ run these in order
 				update CF_TEMP_CLASSIFICATION set status = 'got_children_of_genus'
 				where genus='#genus#' and (status is null or status != 'autolookup')
 			</p>
+			</cftransaction>
 		</cfloop>
 	</cfoutput>
 
