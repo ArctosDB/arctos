@@ -57,6 +57,7 @@ run these in order
 				select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos'
 			</cfquery>
 			<cfloop query="otherstuff">
+				<cfset problem="autolookup">
 				<cfquery name="oneclass" datasource="uam_god">
 					select CLASSIFICATION_ID,TERM_TYPE,term from taxon_term where source='Arctos' and taxon_name_id=#taxon_name_id#
 				</cfquery>
@@ -77,7 +78,7 @@ run these in order
 						<cfset ttt=term_type>
 					</cfif>
 					<cfif len(TERM_TYPE) is 0 or not listfindnocase(knowncols,ttt)>
-						<hr>CUIDADO!!!! #TERM_TYPE# (#term#) [#ttt#] is not a known column name
+						<cfset problem=listappend(problem,'#ttt#=#term# is not a known column name',';')>
 					</cfif>
 					<cfset this_TERM_TYPE=ttt>
 					<cfset this_term=TERM>
@@ -86,30 +87,30 @@ run these in order
 						<cfset temp=QuerySetCell(nd, ttt, this_term)>
 					</cfif>
 				</cfloop>
-				<cfif len(nd.species) gt 0>
-					<cfset temp=QuerySetCell(nd, "status", "autolookup")>
-					<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
-					<cfset pos=0>
-					<cfloop list="#knowncols#" index="c">
-						<cfset thisval=evaluate("nd." & c)>
-						<cfif len(thisval) gt 0>
-							<cfset sql=sql & "'" & escapeQuotes(thisval) & "'">
-						<cfelse>
-							<cfset sql=sql & "NULL">
-						</cfif>
-						<cfset pos=pos+1>
-						<cfif pos lt numberOfColumns>
-							<cfset sql=sql & ",">
-						</cfif>
-					</cfloop>
-					<cfset sql=sql & ")">
 
-					<cfquery name="insertone" datasource="uam_god">
-						#preserveSingleQuotes(sql)#
-					</cfquery>
-				<cfelse>
 
-				</cfif>
+
+
+				<cfset temp=QuerySetCell(nd, "status", problem)>
+				<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
+				<cfset pos=0>
+				<cfloop list="#knowncols#" index="c">
+					<cfset thisval=evaluate("nd." & c)>
+					<cfif len(thisval) gt 0>
+						<cfset sql=sql & "'" & escapeQuotes(thisval) & "'">
+					<cfelse>
+						<cfset sql=sql & "NULL">
+					</cfif>
+					<cfset pos=pos+1>
+					<cfif pos lt numberOfColumns>
+						<cfset sql=sql & ",">
+					</cfif>
+				</cfloop>
+				<cfset sql=sql & ")">
+
+				<cfquery name="insertone" datasource="uam_god">
+					#preserveSingleQuotes(sql)#
+				</cfquery>
 			</cfloop>
 			<!---- now mark the genus record as having been processed ---->
 			<cfquery name="gotit" datasource="uam_god">
