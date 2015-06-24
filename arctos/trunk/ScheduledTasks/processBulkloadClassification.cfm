@@ -56,6 +56,16 @@ run these in order
 				<cfquery name="oneclass" datasource="uam_god">
 					select CLASSIFICATION_ID,TERM_TYPE,term from taxon_term where source='Arctos' and taxon_name_id=#taxon_name_id#
 				</cfquery>
+
+				<br>resetting the stuff that we're changing in the query
+
+				<cfloop list='#stuffToReplace#' index="x">
+					<cfset temp=QuerySetCell(nd, x, "")>
+				</cfloop>
+
+
+
+
 				<cfloop query="oneclass">
 					<cfif term_type is "order">
 						<cfset ttt="phylorder">
