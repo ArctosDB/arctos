@@ -26,7 +26,7 @@ run these in order
 				user_tab_cols
 			where
 				upper(table_name)='CF_TEMP_CLASSIFICATION' and
-				lower(column_name) not in ('status','taxon_name_id','classification_id')
+				lower(column_name) not in ('taxon_name_id','classification_id')
 			ORDER BY INTERNAL_COLUMN_ID
 		</cfquery>
 
