@@ -228,7 +228,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<br>:#dname#:
 
 
-			<cfset dname=rereplace(dname,'\s+','[x]','All')>
+			<cfset dname=rereplace(dname,'\s+','','All')>
+			<cfset dname=replace(dname,'[i][/i]+','','All')>
 
 			<br>:#dname#:
 
