@@ -218,13 +218,17 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 				<cfelse>
 					<cfset dname='<i>' & genus & ' ' & species & '</i> ' & author_text & ' <i>' & ist & '</i> ' & infraspecific_author>
 				</cfif>
-				<cfset dname=trim(replace(dname,'  ',' '))>
 			<cfelse>
 				<!--- no genus just use scientificname --->
 				<cfset dname=scientific_name>
 
 				hi
 			</cfif>
+
+							<cfset dname=trim(rereplace(dname,"\s+"," ","All"))>
+
+
+
 <br>:#scientific_name#:
 			<br>:#dname#:
 			<br>
