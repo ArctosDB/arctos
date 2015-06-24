@@ -210,6 +210,13 @@ run these in order
 			</cfif>
 			<br>delete from taxon_term where taxon_name_id=#taxon_name_id# and classification_id='#classification_id#'
 
+
+			<cfloop list="#noclassterms#" index="thisTerm">
+				<cfset thisTermVal=evaluate("d." & thisTerm)>
+	<br>thisTerm: #thisTerm#
+		<br>thisTermVal: #thisTermVal#
+
+			</cfloop>
 			<!----
 			<cfquery name="remold" datasource="uam_god">
 				delete from taxon_term where taxon_name_id=#taxon_name_id# and classification_id='#classification_id#'
