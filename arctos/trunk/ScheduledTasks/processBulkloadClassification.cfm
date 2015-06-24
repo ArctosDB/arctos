@@ -14,6 +14,9 @@ run these in order
 		update CF_TEMP_CLASSIFICATION set status='invalid operation' where status is null and operation not in ('update','replace')
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
+		update CF_TEMP_CLASSIFICATION set status='display_value is required' where status is null and display_value is null
+	</cfquery>
+	<cfquery name="d" datasource="uam_god">
 		update CF_TEMP_CLASSIFICATION set status='invalid source' where status is null and source not in (
 			select source from CTTAXONOMY_SOURCE
 		)
