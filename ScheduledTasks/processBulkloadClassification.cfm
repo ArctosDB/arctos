@@ -28,6 +28,11 @@ run these in order
 			</cfquery>
 			<cfloop query="otherstuff">
 				<br>taxon_name_id: #taxon_name_id#
+				<cfquery name="oneclass" datasource="uam_god">
+					select * from taxon_term where source='Arctos' and taxon_name_id=#taxon_name_id#
+				</cfquery>
+				<cfdump var=#oneclass#>
+
 			</cfloop>
 		</cfloop>
 	</cfoutput>
