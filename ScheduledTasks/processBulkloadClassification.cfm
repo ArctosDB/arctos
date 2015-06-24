@@ -36,7 +36,7 @@ run these in order
 			select * from CF_TEMP_CLASSIFICATION where species is null
 			and genus is not null
 			and (status is null or status != 'got_children_of_genus')
-			and rownum<2
+			and rownum<200
 		</cfquery>
 		<!---- /globals --->
 		<cfloop query="d">
