@@ -209,15 +209,76 @@ run these in order
 			<cfif d.operation is "replace">
 				<br>replacing....
 			</cfif>
-			<br>delete from taxon_term where taxon_name_id=#taxon_name_id# and classification_id='#classification_id#'
+			<cfif classification_id='[NEW]'>
+				<cfset thisClassificationID=CreateUUID()>
+			<cfelse>
+				<cfset thisClassificationID=classification_id>
+			</cfif>
+			<br>delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#source#'
 
 
-			<cfloop list="#noclassterms#" index="thisTerm">
-				<cfset thisTermVal=evaluate("d." & thisTerm)>
-	<br>thisTerm: #thisTerm#
-		<br>thisTermVal: #thisTermVal#
-
+			<cfloop list="#noclassterms#" index="thisTermType">
+				<cfset thisTermVal=evaluate("d." & thisTermType)>
+				<br>thisTermType: #thisTermType#
+				<br>thisTermVal: #thisTermVal#
+				<cfif len(thisTermVal) gt 0>
+					<br>
+					insert into taxon_term (
+						TAXON_TERM_ID,
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM,
+						TERM_TYPE,
+						SOURCE,
+						LASTDATE
+					) values (
+						sq_TAXON_TERM_ID.nextval,
+						#TAXON_NAME_ID#,
+						'#thisClassificationID#',
+						'#thisTermVal#',
+						'#thisTermType#',
+						'#source#',
+						sysdate
+					)
+				</cfif>
 			</cfloop>
+			<cfset thisPosn=1>
+
+			<cfloop list="#classificationTerms#" index="thisTermType">
+				<cfset thisTermVal=evaluate("d." & thisTermType)>
+				<br>thisTermType: #thisTermType#
+				<br>thisTermVal: #thisTermVal#
+				<cfif len(thisTermVal) gt 0>
+					<br>
+					insert into taxon_term (
+						TAXON_TERM_ID,
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM,
+						TERM_TYPE,
+						SOURCE,
+						LASTDATE,
+						POSITION_IN_CLASSIFICATION
+					) values (
+						sq_TAXON_TERM_ID.nextval,
+						#TAXON_NAME_ID#,
+						'#thisClassificationID#',
+						'#thisTermVal#',
+						'#thisTermType#',
+						'#source#',
+						sysdate,
+						#thisPosn#
+					)
+					<cfset thisPosn=thisPosn+1>
+
+				</cfif>
+			</cfloop>
+
+
+
+
+
+
 			<!----
 			<cfquery name="remold" datasource="uam_god">
 				delete from taxon_term where taxon_name_id=#taxon_name_id# and classification_id='#classification_id#'
