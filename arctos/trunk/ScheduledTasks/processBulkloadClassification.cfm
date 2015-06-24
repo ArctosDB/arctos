@@ -232,9 +232,12 @@ run these in order
 				<cfset thisTermVal=evaluate("d." & thisTermType)>
 				<br>thisTermType: #thisTermType#
 				<br>thisTermVal: #thisTermVal#
+				<br>nomenclatural_code: #nomenclatural_code#
 				<cfif nomenclatural_code is "ICBN" and thisTermType is "subspecies">
 					<cfset thisTermType='subsp.'>
 					<br>issubsp
+				<cfelse>
+				<br>nope
 				</cfif>
 				<cfif len(thisTermVal) gt 0>
 					<br>
