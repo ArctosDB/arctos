@@ -12,6 +12,10 @@ run these in order
 <!---------------------------------------------------------->
 
 <cfif action is "fill_in_the_blanks_from_genus">
+
+<cfif not isdefined ("escapequotes")>
+	<cfinclude template="/includes/functionLib.cfm">
+</cfif>
 	<!---
 		grab genus (lowest term in supplied data)
 		find everything "below" that uses the same string
