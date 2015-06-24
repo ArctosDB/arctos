@@ -47,10 +47,15 @@ run these in order
 					select * from taxon_term where source='Arctos' and taxon_name_id=#taxon_name_id#
 				</cfquery>
 				<cfloop query="oneclass">
-					<cfif len(TERM_TYPE) is 0 or not listfindnocase(knowncols,TERM_TYPE)>
-						<hr>CUIDADO!!!! #TERM_TYPE# (#term#) is not a known column name
+					<cfif term_type is "order">
+						<cfset ttt="phylorder">
+					<cfelse>
+						<cfset ttt=term_type>
 					</cfif>
-					<cfset this_TERM_TYPE=TERM_TYPE>
+					<cfif len(TERM_TYPE) is 0 or not listfindnocase(knowncols,ttt)>
+						<hr>CUIDADO!!!! #TERM_TYPE# (#term#) [#ttt#] is not a known column name
+					</cfif>
+					<cfset this_TERM_TYPE=ttt>
 					<cfset this_term=TERM>
 					<br><br>this_TERM_TYPE: #this_TERM_TYPE#
 					<br><br>this_term: #this_term#
