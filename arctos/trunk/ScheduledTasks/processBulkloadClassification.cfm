@@ -62,6 +62,8 @@ run these in order
 					select CLASSIFICATION_ID,TERM_TYPE,term from taxon_term where source='Arctos' and taxon_name_id=#taxon_name_id#
 				</cfquery>
 
+				<cfdump var=#oneclass#>
+
 				<!----reset the stuff that we're changing in the query---->
 
 				<cfloop list='#stuffToReplace#' index="x">
