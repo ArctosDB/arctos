@@ -231,12 +231,14 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<cfset dname=rereplace(dname,'\s+',' ','All')>
 
 			<br>:#dname#:
+
+			<cfset dname=trim(dname)>
+
+			<br>:#dname#:
 							<cfset dname=rereplace(dname,"\s+","X","All")>
 
 			<br>:#dname#:
-<cfset dname=trim(dname)>
 
-			<br>:#dname#:
 
 <br>:#scientific_name#:
 			<br>:#dname#:
