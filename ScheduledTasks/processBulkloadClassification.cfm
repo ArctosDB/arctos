@@ -111,9 +111,14 @@ run these in order
 					</cfif>
 
 				</cfloop>
+				<cfset sql=sql & ")">
 				<p>
 					sql: #sql#
 				</p>
+				<cfquery name="insertone" datasource="uam_god">
+					#preserveSingleQuotes(sql)#
+				</cfquery>
+
 			</cfloop>
 		</cfloop>
 	</cfoutput>
