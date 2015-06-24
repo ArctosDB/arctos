@@ -94,31 +94,37 @@ run these in order
 
 				</cfloop>
 				ready for insert:<cfdump var=#nd#>
-				<cfset temp=QuerySetCell(nd, "status", "autolookup")>
 
-				<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
-				<cfset pos=0>
-				<cfloop list="#knowncols#" index="c">
-					<cfset thisval=evaluate("nd." & c)>
-					<cfif len(thisval) gt 0>
-						<cfset sql=sql & "'" & thisval & "'">
-					<cfelse>
-						<cfset sql=sql & "NULL">
-					</cfif>
-					<cfset pos=pos+1>
-					<cfif pos lt numberOfColumns>
-						<cfset sql=sql & ",">
-					</cfif>
+				<cfif len(nd.species) gt 0>
+					<cfset temp=QuerySetCell(nd, "status", "autolookup")>
 
-				</cfloop>
-				<cfset sql=sql & ")">
-				<p>
-					sql: #sql#
-				</p>
-				<cfquery name="insertone" datasource="uam_god">
-					#preserveSingleQuotes(sql)#
-				</cfquery>
+					<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
+					<cfset pos=0>
+					<cfloop list="#knowncols#" index="c">
+						<cfset thisval=evaluate("nd." & c)>
+						<cfif len(thisval) gt 0>
+							<cfset sql=sql & "'" & thisval & "'">
+						<cfelse>
+							<cfset sql=sql & "NULL">
+						</cfif>
+						<cfset pos=pos+1>
+						<cfif pos lt numberOfColumns>
+							<cfset sql=sql & ",">
+						</cfif>
 
+					</cfloop>
+					<cfset sql=sql & ")">
+					<p>
+						sql: #sql#
+					</p>
+					<cfquery name="insertone" datasource="uam_god">
+						#preserveSingleQuotes(sql)#
+					</cfquery>
+				<cfelse>
+					<p>
+						no species - did not insert
+					</p>
+				</cfif>
 			</cfloop>
 		</cfloop>
 	</cfoutput>
