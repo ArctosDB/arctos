@@ -94,7 +94,17 @@ run these in order
 
 				</cfloop>
 				ready for insert:<cfdump var=#nd#>
+				<cfset temp=QuerySetCell(nd, "status", "autolookup")>
 
+				<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
+				<cfloop list="#knowncols#" index="c">
+					<cfset thisval=evaluate("nd." & c)>
+					<cfset sql=sql & thisval & ','>
+
+				</cfloop>
+				<p>
+					sql: #sql#
+				</p>
 			</cfloop>
 		</cfloop>
 	</cfoutput>
