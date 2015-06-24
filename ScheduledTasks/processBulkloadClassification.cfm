@@ -25,6 +25,27 @@ run these in order
 		update CF_TEMP_CLASSIFICATION set status='invalid nomenclatural_code' where status is null and nomenclatural_code not in ('ICZN','ICBN')
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
+		update CF_TEMP_CLASSIFICATION set status='subspecies is the only acceptable ICZN infraspecific data'
+		where status is null and nomenclatural_code = 'ICZN'
+		and (forma is not null or subsp is not null)
+	</cfquery>
+	<cfquery name="d" datasource="uam_god">
+		update CF_TEMP_CLASSIFICATION set status='subspecies is ICZN-only'
+		where status is null and nomenclatural_code != 'ICZN'
+		and subspecies is not null
+	</cfquery>
+
+	<cfquery name="d" datasource="uam_god">
+		update CF_TEMP_CLASSIFICATION set status='only one infraspecific term may be given'
+		where status is null and
+		(
+			subspecies is not null and (forma is not null or subsp is not null) or
+			forma is not null and (subspecies is not null or subsp is not null) or
+			subsp is not null and (forma is not null or subspecies is not null)
+		)
+	</cfquery>
+
+	<cfquery name="d" datasource="uam_god">
 		update CF_TEMP_CLASSIFICATION set status='pass_meta' where status is null
 	</cfquery>
 
@@ -262,8 +283,8 @@ run these in order
 				<br>thisTermType: #thisTermType#
 				<br>thisTermVal: #thisTermVal#
 				<cfif len(thisTermVal) gt 0>
-					<cfif nomenclatural_code is "ICBN" and thisTermType is "subspecies">
-					<cfset thisTermType='subsp.'>
+					<cfif thisTermType is "subsp">
+					<cfset thisTermType= thisTermType & '.'>
 					<br>issubsp
 				<cfelse>
 				<br>nope

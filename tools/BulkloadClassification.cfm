@@ -50,7 +50,8 @@
 		genus varchar2(255) null,
 		subgenus varchar2(255) null,
 		species varchar2(255) null,
-		subpspecies varchar2(255) null,
+		subspecies varchar2(255) null,
+		subsp varchar2(255) null,
 		forma varchar2(255) null
 );
 
@@ -99,6 +100,9 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		<p>
 			If multiple classifications exist (e.g., two sets of data in the "Arctos" classification for <i>Some name</i>), an error will be thrown and no
 			updates will be performed.
+		</p>
+		<p>
+			Only one infraspecific term may be given
 		</p>
 
 
@@ -170,7 +174,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		</p>
 
 		<p>
-			<a href="BulkloadClassification.cfm?action=getDisplayName">Autogenerate Display Name</a>
+			Display_Name is required. You may <a href="BulkloadClassification.cfm?action=getDisplayName">autogenerate display_name</a>.
+			This may produce strange data; carefully verify the results of this operation.
 		</p>
 
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -179,7 +184,6 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		<cfdump var=#d#>
 	</cfoutput>
 </cfif>
-<!----------------------------------------------------------------->
 <!----------------------------------------------------------------->
 <cfif action is "deletemystuff">
 	<cfoutput>
@@ -208,7 +212,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<cfif len(genus) gt 0>
 				<cfset ist="">
 				<cfset irnk="">
-				<cfif len(forma) gt 0 or len(subpspecies) gt 0>
+				<!--- check for infraspecific data ---->
+				<cfif len(forma) gt 0 or len(subsp) gt 0 or len(subspecies) gt 0>
 					<cfif len(genus) is 0 or len(species) is 0>
 						<cfset problem="infraspecific terms must be accompanied by genus and species">
 					<cfelse>
@@ -217,6 +222,8 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 							<cfset irnk="forma">
 						<cfelseif len(subpspecies) gt 0>
 							<cfset ist=subpspecies>
+						<cfelseif len(subsp) gt 0>
+							<cfset ist=subsp>
 							<cfset irnk="subsp.">
 						</cfif>
 					</cfif>
