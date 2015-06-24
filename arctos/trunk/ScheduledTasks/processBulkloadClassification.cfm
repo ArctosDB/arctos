@@ -34,6 +34,7 @@ run these in order
 		<cfset numberOfColumns=listlen(knowncols)>
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where species is null
+			and genus is not null
 			and (status is null or status != 'got_children_of_genus')
 			and rownum<2
 		</cfquery>
@@ -100,10 +101,12 @@ run these in order
 			<!---- now mark the genus record as having been processed ---->
 			<cfquery name="gotit" datasource="uam_god">
 				update CF_TEMP_CLASSIFICATION set status = 'got_children_of_genus'
-				where genus='#genus#' and status != 'autolookup'
+				where genus='#genus#' and (status is null or status != 'autolookup')
 			</cfquery>
-			<p>update CF_TEMP_CLASSIFICATION set status = 'got_children_of_genus'
-				where genus='#genus#' and status != 'autolookup'</p>
+			<p>
+				update CF_TEMP_CLASSIFICATION set status = 'got_children_of_genus'
+				where genus='#genus#' and (status is null or status != 'autolookup')
+			</p>
 		</cfloop>
 	</cfoutput>
 
