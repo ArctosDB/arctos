@@ -232,6 +232,9 @@ run these in order
 				<cfset thisTermVal=evaluate("d." & thisTermType)>
 				<br>thisTermType: #thisTermType#
 				<br>thisTermVal: #thisTermVal#
+				<cfif nomenclatural_code is "ICBN" and thisTermType is "subspecies">
+					<cfset thisTermType='subsp.'>
+				</cfif>
 				<cfif len(thisTermVal) gt 0>
 					<br>
 					insert into taxon_term (
