@@ -38,6 +38,9 @@ run these in order
 
 
 	<br>knowncols: #knowncols#
+
+
+	<cfset numberOfColumns=listlen(knowncols)>
 		<cfquery name="d" datasource="uam_god">
 			select * from CF_TEMP_CLASSIFICATION where species is null
 			and rownum<2
@@ -47,10 +50,8 @@ run these in order
 			<!--- build a query object from this row of the existing data --->
 			<cfset nd=queryNew(knowncols)>
 
-			<cfdump var=#nd#>
 			<cfset temp=queryAddRow(nd,1)>
 
-			<cfdump var=#nd#>
 
 
 
@@ -61,7 +62,6 @@ run these in order
 				<cfset temp=QuerySetCell(nd, c, thisval)>
 			</cfloop>
 
-			<cfdump var=#nd#>
 
 			<cfquery name="otherstuff" datasource="uam_god">
 				select distinct taxon_name_id from taxon_term where term_type='genus' and term='#genus#' and source='Arctos'
@@ -97,9 +97,18 @@ run these in order
 				<cfset temp=QuerySetCell(nd, "status", "autolookup")>
 
 				<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
+				<cfset pos=0>
 				<cfloop list="#knowncols#" index="c">
 					<cfset thisval=evaluate("nd." & c)>
-					<cfset sql=sql & thisval & ','>
+					<cfif len(thisval) gt 0>
+						<cfset sql=sql & "'" & thisval & "'">
+					<cfelse>
+						<cfset sql=sql & "NULL">
+					</cfif>
+					<cfset pos=pos+1>
+					<cfif pos lt numberOfColumns>
+						<cfset sql=sql & ",">
+					</cfif>
 
 				</cfloop>
 				<p>
