@@ -16,7 +16,7 @@
 		--non-classification terms
 		author_text varchar2(255) null,
 		infraspecific_author varchar2(255) null,
-		nomenclatural_code varchar2(255) null,
+		nomenclatural_code varchar2(255) not null,
 		source_authority varchar2(255) null,
 		valid_catalog_term_fg varchar2(255) null,
 		taxon_status varchar2(255) null,
@@ -89,6 +89,9 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 		<p>username is required and must match your Arctos username</p>
 		<p>
 			Source (NOT source_authority) is required and must be from <a href="/info/ctDocumentation.cfm?table=CTTAXONOMY_SOURCE">CTTAXONOMY_SOURCE</a>
+		</p>
+		<p>
+			nomenclatural_code is required and must be one of (ICZN, ICBN)
 		</p>
 		<p>
 			"classification" is defined as the intersection of source and scientific_name.
@@ -166,6 +169,10 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 			<a href="BulkloadClassification.cfm?action=nothing">Load from CSV</a>
 		</p>
 
+		<p>
+			<a href="BulkloadClassification.cfm?action=getDisplayName">Autogenerate Display Name</a>
+		</p>
+
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
 		</cfquery>
@@ -183,6 +190,49 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
+
+<cfif action is "getDisplayName">
+	<cfoutput>
+	    <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#' and display_name is null
+		</cfquery>
+
+        <cfloop query="d">
+			<cfset problem="">
+			<!---- infraspecific crap ---->
+			<cfif len(genus) is 0>
+				<cfif len(forma) gt 0 or len(subpspecies) gt 0>
+					<cfif len(genus) is 0 or len(species) is 0)>
+						<cfset problem="infraspecific terms must be accompanied by genus and species">
+					<cfelse>
+						<cfif len(forma) gt 0>
+							<cfset ist=forma>
+						<cfelseif len(subpspecies) gt 0>
+							<cfset ist=subpspecies>
+						</cfif>
+					</cfif>
+				</cfif>
+				<cfif nomenclatural_code is "ICZN">
+					<cfset dname='<i>' & genus & ' ' & species & ' ' & ist & '</i> ' & author_text>
+				<cfelse>
+					<cfset dname='<i>' & genus & ' ' & species & '</i> ' & author_text & ' <i>' & ist & '</i> ' & infraspecific_author>
+				</cfif>
+				<cfset dname=trim(replace(dname,'  ',' ')>
+			<cfelse>
+				<!--- no genus just use scientificname --->
+				<cfset dname=scientific_name>
+			</cfif>
+
+			<br>:#dname#:
+
+        </cfloop>
+		<!----
+		<cflocation url="BulkloadClassification.cfm?action=managemystuff" addtoken="false">
+		---->
+	</cfoutput>
+</cfif>
+<!----------------------------------------------------------------->
+
 <cfif action is "getFileData">
 	<cfoutput>
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
