@@ -155,10 +155,10 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 
 		<p>
 			<a href="BulkloadClassification.cfm?action=deletemystuff">Delete all of your data</a>
-		</p><p>
+		</p>
+		<p>
 			<a href="BulkloadClassification.cfm?action=nothing">Load from CSV</a>
 		</p>
-
 
         <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
@@ -224,3 +224,20 @@ create unique index iu_temp_class on cf_temp_classification(scientific_name) tab
 	    addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkloadClassification.csv" addtoken="false">
 </cfif>
+<!----------------------------------------------------------------->
+
+
+select 
+	distinct CF_TEMP_CLASSIFICATION.scientific_name 
+from 
+	CF_TEMP_CLASSIFICATION,
+	taxon_name,
+	taxon_term
+where 
+	CF_TEMP_CLASSIFICATION.scientific_name=taxon_name.scientific_name and
+	taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+	--upper(CF_TEMP_CLASSIFICATION.username)='#ucase(session.username)#' and
+	( taxon_term.TERM_TYPE is null or 
+		 taxon_term.TERM_TYPE not in (select taxon_term from CTTAXON_TERM)
+	)
+	;
