@@ -69,6 +69,8 @@ run these in order
 						<cfset temp=QuerySetCell(nd, ttt, this_term)>
 					</cfif>
 				</cfloop>
+
+				<br>nd.species: #nd.species#
 				<cfif len(nd.species) gt 0>
 					<cfset temp=QuerySetCell(nd, "status", "autolookup")>
 					<cfset sql="insert into CF_TEMP_CLASSIFICATION (#knowncols#) values (">
